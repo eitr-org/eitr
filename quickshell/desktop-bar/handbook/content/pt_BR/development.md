@@ -86,3 +86,21 @@ assistentes após mudar a opção. A verificação de ponta a ponta com contas
 reais ainda será feita separadamente.
 
 Antigravity CLI (`agy`) está disponível para contas pessoais do Google em Instalar > CLIs de IA e pelo lançador de primeiro uso. Nunca é incluído na distribuição. Ele é instalado pelo instalador oficial do Google, que verifica o download, e você entra com sua conta Google. Ainda não é oferecido como auxiliar de assistentes trabalhando juntos. Um `agy` já instalado pode ser aberto normalmente. Gemini CLI exige uma chave da API Gemini ou conta Google Cloud/empresa. Antigravity não é auxiliar de colaboração: o modo sem interface nega até leituras. As únicas liberações ignoram permissões ou mudam regras globais. O Eitr o reavaliará quando houver permissões por execução ou modo sem interface somente de leitura.
+
+### Provedores adicionais
+
+Desenvolvimento > Nuvem também lista Cloudflare (`wrangler`), DigitalOcean (`doctl`), Hetzner Cloud (`hcloud`), Oracle Cloud (`oci`), Vercel, Netlify e IBM Cloud (`ibmcloud`). Adicione uma conta com nome em letras minúsculas, dígitos ou hífens. São espaços privados em `~/.config/eitr/cloud-accounts/<provider>/<name>`; configurações existentes dos provedores nunca são importadas. O provedor e o espaço escolhido aparecem no seletor de ferramentas e no terminal. Ao voltar do terminal, o mesmo espaço permanece selecionado; Escape volta à lista de contas. Escolher um espaço nunca altera o padrão global da CLI.
+
+Se ausentes, `wrangler`, `doctl` e `hcloud` são oferecidos pelos repositórios oficiais do Arch (`doctl` e `hcloud` em extra). Oracle Cloud e IBM Cloud usam seus instaladores oficiais de shell por HTTPS em `distro/installers.json`; Oracle recebe `--accept-all-defaults`. Vercel (`vercel`) e Netlify (`netlify-cli`, comando `netlify`) usam a receita existente de NVM/npm. A instalação exige confirmação. O login e as ações de conta executam apenas no espaço privado escolhido. DigitalOcean e Hetzner listam contextos nativos; Oracle lista perfis do `~/.oci/config` desse espaço. A seleção de contexto/perfil é salva localmente e passada por comando, sem alterar padrões globais. Vercel e Netlify oferecem sua ação nativa de troca; depois informe o rótulo da equipe/conta escolhida. Vercel também pede um escopo após o login e passa `--scope TEAM` nos comandos seguintes. IBM oferece login por SSO e chave de API, mostra `ibmcloud target` e seleciona explicitamente conta e região. O contexto/perfil/escopo/conta e a região salva continuam visíveis ao voltar ao menu. Esses rótulos são seleções locais, não identidades remotas verificadas. Credenciais e variáveis de provedor existentes não são herdadas. Os consoles no navegador têm sessões próprias; confira a conta antes de agir. Visualizações de recursos e verificação de identidade/projetos remotos continuam pendentes; nenhum login ou instalação real foi testado.
+
+| Provedor | Login | Lista / troca / contexto por comando |
+| --- | --- | --- |
+| Cloudflare | `wrangler login` | — |
+| DigitalOcean | `doctl auth init --context NAME` | `doctl auth list`; `doctl auth switch --context NAME`; `--context NAME` |
+| Hetzner Cloud | `hcloud context create NAME` | `hcloud context list`; `hcloud context use NAME`; `--context NAME` |
+| Oracle Cloud | `oci session authenticate --profile-name NAME --region REGION` | `~/.oci/config`; `--profile NAME --auth security_token` |
+| Vercel | `vercel login` | `vercel switch`; `--scope TEAM` |
+| Netlify | `netlify login` | `netlify switch` |
+| IBM Cloud | `ibmcloud login --sso`; `ibmcloud login --apikey` | `ibmcloud target`; `ibmcloud target -c ACCOUNT -r REGION` |
+
+Relatórios de recursos de nuvem usam um paginador para leitura; não escolhem recursos nem iniciam operações. Buscas em logs e eventos mantêm fzf. Escolhas que controlam a próxima ação continuam em listas Walker.

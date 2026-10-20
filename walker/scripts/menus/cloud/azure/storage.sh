@@ -15,5 +15,5 @@ echo
 
 az storage account list --subscription '$subscription' -o json \
 | jq -r '.[] | \"\u001b[36m\(.name)\u001b[0m  group=\(.resourceGroup)  location=\(.location)  sku=\(.sku.name)\"' \
-| cloud_fzf 'Storage' plain
+| cloud_report
 " close-on-success toggle

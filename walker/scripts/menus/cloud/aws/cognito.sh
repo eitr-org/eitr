@@ -39,7 +39,7 @@ echo
 
 $(aws_base) cognito-idp list-user-pools --max-results 60 \
 | jq -r '.UserPools[] | \"\u001b[36m\(.Name)\u001b[0m  id=\(.Id)  status=\(.Status // \"N/A\")  created=\(.CreationDate)\"' \
-| cloud_fzf 'User pools' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰀄  Identity pools")
@@ -50,7 +50,7 @@ echo
 
 $(aws_base) cognito-identity list-identity-pools --max-results 60 \
 | jq -r '.IdentityPools[] | \"\u001b[36m\(.IdentityPoolName)\u001b[0m  id=\(.IdentityPoolId)\"' \
-| cloud_fzf 'Identity pools' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰘦  App clients")
@@ -65,7 +65,7 @@ echo
 
 $(aws_base) cognito-idp list-user-pool-clients --user-pool-id $quoted_pool_id --max-results 60 \
 | jq -r '.UserPoolClients[] | \"\u001b[36m\(.ClientName)\u001b[0m  id=\(.ClientId)\"' \
-| cloud_fzf 'App clients' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰅟  User pool details")

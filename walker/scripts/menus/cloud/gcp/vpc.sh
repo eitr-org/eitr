@@ -15,5 +15,5 @@ echo
 
 gcloud compute networks list --project '$project' --format=json \
 | jq -r '.[] | \"\u001b[36m\(.name)\u001b[0m  mode=\(.routingConfig.routingMode // \"N/A\")  subnets=\(.subnetworks | length)  autoCreate=\(.autoCreateSubnetworks)\"' \
-| cloud_fzf 'VPC networks' plain
+| cloud_report
 " close-on-success toggle

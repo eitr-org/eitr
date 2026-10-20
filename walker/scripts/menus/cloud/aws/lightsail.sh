@@ -25,7 +25,7 @@ echo
 
 $(aws_base) lightsail get-instances \
 | jq -r '.instances[] | \"\u001b[36m\(.name)\u001b[0m  state=\(.state.name)  publicIp=\(.publicIpAddress // \"N/A\")  blueprint=\(.blueprintId)  bundle=\(.bundleId)\"' \
-| cloud_fzf 'Instances' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰩠  Static IPs")
@@ -36,7 +36,7 @@ echo
 
 $(aws_base) lightsail get-static-ips \
 | jq -r '.staticIps[] | \"\u001b[36m\(.name)\u001b[0m  ip=\(.ipAddress)  attached=\(.isAttached)  resource=\(.attachedTo // \"N/A\")\"' \
-| cloud_fzf 'Static IPs' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰖟  Distributions")
@@ -47,7 +47,7 @@ echo
 
 $(aws_base) lightsail get-distributions \
 | jq -r '.distributions[] | \"\u001b[36m\(.name)\u001b[0m  status=\(.status)  domain=\(.domainName)  enabled=\(.isEnabled)\"' \
-| cloud_fzf 'Distributions' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "  Databases")
@@ -58,7 +58,7 @@ echo
 
 $(aws_base) lightsail get-relational-databases \
 | jq -r '.relationalDatabases[] | \"\u001b[36m\(.name)\u001b[0m  engine=\(.engine)  state=\(.state)  endpoint=\(.masterEndpoint.address // \"N/A\")\"' \
-| cloud_fzf 'Databases' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "")

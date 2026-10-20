@@ -157,6 +157,12 @@ msgstr "AWS sign-in needs AWS CLI version 2"
 msgid "Access keys"
 msgstr "Access keys"
 
+msgid "Account"
+msgstr "Account"
+
+msgid "Account directories cannot be symbolic links"
+msgstr "Account directories cannot be symbolic links"
+
 msgid "Account name"
 msgstr "Account name"
 
@@ -186,6 +192,9 @@ msgstr "Add an AWS account"
 
 msgid "Add an Azure account"
 msgstr "Add an Azure account"
+
+msgid "Add {provider} Account"
+msgstr "Add {provider} Account"
 
 msgid "Address (for example netflix.com): "
 msgstr "Address (for example netflix.com): "
@@ -264,6 +273,9 @@ msgstr "CA certificate file not found"
 
 msgid "CA certificate is too large"
 msgstr "CA certificate is too large"
+
+msgid "CLI Help"
+msgstr "CLI Help"
 
 msgid "Cache Sizes"
 msgstr "Cache Sizes"
@@ -412,8 +424,14 @@ msgstr "Connection failed; verify credentials and certificate settings"
 msgid "Connection timed out; check the WiFi panel"
 msgstr "Connection timed out; check the WiFi panel"
 
+msgid "Context"
+msgstr "Context"
+
 msgid "Context changed; refresh the menu"
 msgstr "Context changed; refresh the menu"
+
+msgid "Context: {context}"
+msgstr "Context: {context}"
 
 msgid "Continue the update? [y/N] "
 msgstr "Continue the update? [y/N] "
@@ -925,6 +943,9 @@ msgstr "Let assistants work together"
 msgid "Limine shows its default menu from the next boot. Your boot entries were not changed."
 msgstr "Limine shows its default menu from the next boot. Your boot entries were not changed."
 
+msgid "List Accounts"
+msgstr "List Accounts"
+
 msgid "Loading AUR package names…"
 msgstr "Loading AUR package names…"
 
@@ -963,6 +984,9 @@ msgstr "Name (for example Netflix): "
 
 msgid "Name (for example Production): "
 msgstr "Name (for example Production): "
+
+msgid "Name it, then sign in"
+msgstr "Name it, then sign in"
 
 msgid "Name the subscriptions you want in the menu"
 msgstr "Name the subscriptions you want in the menu"
@@ -1108,6 +1132,9 @@ msgstr "Only files in the home folders have snapshots."
 msgid "Only firmware that exposes charge_control_end_threshold supports this."
 msgstr "Only firmware that exposes charge_control_end_threshold supports this."
 
+msgid "Open Console"
+msgstr "Open Console"
+
 msgid "Open {path} to read it."
 msgstr "Open {path} to read it."
 
@@ -1165,6 +1192,9 @@ msgstr "Private key for {label}"
 msgid "Privileged setup must use the package-owned script"
 msgstr "Privileged setup must use the package-owned script"
 
+msgid "Profile"
+msgstr "Profile"
+
 msgid "Profile ID"
 msgstr "Profile ID"
 
@@ -1203,6 +1233,9 @@ msgstr "Refusing a symlinked configuration path: {item}"
 
 msgid "Refusing to replace custom symlink: {path}"
 msgstr "Refusing to replace custom symlink: {path}"
+
+msgid "Region"
+msgstr "Region"
 
 msgid "Relayed"
 msgstr "Relayed"
@@ -1354,6 +1387,9 @@ msgstr "Saved profiles are kept separately; you may need to reconnect after the 
 msgid "Saved."
 msgstr "Saved."
 
+msgid "Scope"
+msgstr "Scope"
+
 msgid "Screen"
 msgstr "Screen"
 
@@ -1419,6 +1455,12 @@ msgstr "Shown in the AWS menu, for example Acme Production"
 
 msgid "Shown in the GCP menu, for example Acme Development"
 msgstr "Shown in the GCP menu, for example Acme Development"
+
+msgid "Sign In"
+msgstr "Sign In"
+
+msgid "Sign In with API Key"
+msgstr "Sign In with API Key"
 
 msgid "Sign in to an assistant before enabling collaboration."
 msgstr "Sign in to an assistant before enabling collaboration."
@@ -1515,6 +1557,9 @@ msgstr "Sunshine grants full control of your desktop. Setup grants KMS capture a
 
 msgid "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP"
 msgstr "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP"
+
+msgid "Switch Account"
+msgstr "Switch Account"
 
 msgid "Switching to the restored system"
 msgstr "Switching to the restored system"
@@ -1843,6 +1888,9 @@ msgstr "Unexpected FIDO2 registration"
 msgid "Uninstall {name}? The package may contain multiple apps."
 msgstr "Uninstall {name}? The package may contain multiple apps."
 
+msgid "Unknown account"
+msgstr "Unknown account"
+
 msgid "Unknown monitoring service"
 msgstr "Unknown monitoring service"
 
@@ -1911,6 +1959,9 @@ msgstr "Use eitr-guided-install on the live ISO, or --preview for a safe UI prev
 
 msgid "Use it in every folder without its own account?"
 msgstr "Use it in every folder without its own account?"
+
+msgid "Use letters, digits, dots, dashes, slashes or @"
+msgstr "Use letters, digits, dots, dashes, slashes or @"
 
 msgid "Use lowercase letters, digits and dashes"
 msgstr "Use lowercase letters, digits and dashes"

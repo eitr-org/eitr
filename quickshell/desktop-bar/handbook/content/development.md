@@ -139,3 +139,21 @@ Restart existing assistant sessions after changing the switch. Real-account
 hand-offs still await separate end-to-end verification.
 
 Antigravity CLI (`agy`) is available for personal Google accounts through Install > AI CLIs and the first-use launcher. It is never bundled. It installs through Google's official installer, which verifies its download, and you sign in with your Google account. It is not yet offered as an assistants-together helper. An already installed `agy` can be launched normally. Gemini CLI requires a Gemini API key or a Google Cloud/company account. Antigravity is not a collaboration helper: headless mode denies even reads. Its only unlocks bypass permissions or change global rules. Eitr will reconsider it when per-run permissions or a read-only headless mode are available.
+
+### Additional providers
+
+Development > Cloud also lists Cloudflare (`wrangler`), DigitalOcean (`doctl`), Hetzner Cloud (`hcloud`), Oracle Cloud (`oci`), Vercel, Netlify and IBM Cloud (`ibmcloud`). Add an account using a lowercase name with digits or dashes. These accounts are private workspaces under `~/.config/eitr/cloud-accounts/<provider>/<name>`; existing provider configurations are never imported. The chosen provider and workspace remain visible in the tool picker and terminal. Return from a terminal to the same workspace; Escape returns to the account list. Selecting a workspace never switches a global CLI default.
+
+Missing `wrangler`, `doctl` and `hcloud` are offered from Arch's official repositories (`doctl` and `hcloud` in extra). Oracle Cloud and IBM Cloud use their official HTTPS shell installers from `distro/installers.json`; Oracle passes `--accept-all-defaults`. Vercel (`vercel`) and Netlify (`netlify-cli`, command `netlify`) use the existing NVM/npm installation recipe. Installation requires confirmation. Sign-in and account actions run only inside the selected private workspace. DigitalOcean and Hetzner list native contexts; Oracle lists profiles from that workspace's `~/.oci/config`. Selecting their context/profile saves a local selection and uses per-command flags, without changing a global default. Vercel and Netlify expose their native switch action; enter the selected team/account label afterward. Vercel also asks for a scope after login and passes `--scope TEAM` on subsequent commands. IBM provides SSO and API-key sign-in, displays `ibmcloud target`, and targets an explicit account and region. The selected context/profile/scope/account and saved region remain visible when returning to the menu. These labels are local selections, not verified remote identities. Existing credentials and provider overrides are not inherited. Browser consoles use their own sessions; check the account before acting. Resource views and remote identity/project verification remain open; no live sign-in or installation was tested.
+
+| Provider | Sign in | List / switch / command context |
+| --- | --- | --- |
+| Cloudflare | `wrangler login` | — |
+| DigitalOcean | `doctl auth init --context NAME` | `doctl auth list`; `doctl auth switch --context NAME`; `--context NAME` |
+| Hetzner Cloud | `hcloud context create NAME` | `hcloud context list`; `hcloud context use NAME`; `--context NAME` |
+| Oracle Cloud | `oci session authenticate --profile-name NAME --region REGION` | `~/.oci/config`; `--profile NAME --auth security_token` |
+| Vercel | `vercel login` | `vercel switch`; `--scope TEAM` |
+| Netlify | `netlify login` | `netlify switch` |
+| IBM Cloud | `ibmcloud login --sso`; `ibmcloud login --apikey` | `ibmcloud target`; `ibmcloud target -c ACCOUNT -r REGION` |
+
+Cloud resource reports now use a pager for reading; they do not choose a resource or trigger an operation. Log and event searches keep fzf. Resource choices that control the next action remain Walker lists.

@@ -15,5 +15,5 @@ echo
 
 gcloud sql instances list --project '$project' --format=json \
 | jq -r '.[] | \"\u001b[36m\(.name)\u001b[0m  db=\(.databaseVersion)  region=\(.region)  tier=\(.settings.tier)  state=\(.state)\"' \
-| cloud_fzf 'Cloud SQL' plain
+| cloud_report
 " close-on-success toggle

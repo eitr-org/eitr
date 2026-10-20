@@ -157,6 +157,12 @@ msgstr "Die AWS-Anmeldung erfordert AWS CLI Version 2"
 msgid "Access keys"
 msgstr "Zugriffsschlüssel"
 
+msgid "Account"
+msgstr "Konto"
+
+msgid "Account directories cannot be symbolic links"
+msgstr "Kontoverzeichnisse dürfen keine symbolischen Links sein"
+
 msgid "Account name"
 msgstr "Kontoname"
 
@@ -186,6 +192,9 @@ msgstr "AWS-Konto hinzufügen"
 
 msgid "Add an Azure account"
 msgstr "Azure-Konto hinzufügen"
+
+msgid "Add {provider} Account"
+msgstr "{provider}-Konto hinzufügen"
 
 msgid "Address (for example netflix.com): "
 msgstr "Adresse (z. B. netflix.com): "
@@ -264,6 +273,9 @@ msgstr "CA-Zertifikatsdatei nicht gefunden"
 
 msgid "CA certificate is too large"
 msgstr "CA-Zertifikat ist zu groß"
+
+msgid "CLI Help"
+msgstr "CLI-Hilfe"
 
 msgid "Cache Sizes"
 msgstr "Cache-Größen"
@@ -412,8 +424,14 @@ msgstr "Verbindung fehlgeschlagen; Zugangsdaten und Zertifikateinstellungen prü
 msgid "Connection timed out; check the WiFi panel"
 msgstr "Zeitüberschreitung der Verbindung; WiFi-Bereich prüfen"
 
+msgid "Context"
+msgstr "Kontext"
+
 msgid "Context changed; refresh the menu"
 msgstr "Kontext geändert; aktualisieren Sie das Menü"
+
+msgid "Context: {context}"
+msgstr "Kontext: {context}"
 
 msgid "Continue the update? [y/N] "
 msgstr "Aktualisierung fortsetzen? [y/N] "
@@ -925,6 +943,9 @@ msgstr "Assistenten zusammenarbeiten lassen"
 msgid "Limine shows its default menu from the next boot. Your boot entries were not changed."
 msgstr "Limine zeigt ab dem nächsten Start sein Standardmenü. Ihre Starteinträge wurden nicht geändert."
 
+msgid "List Accounts"
+msgstr "Konten auflisten"
+
 msgid "Loading AUR package names…"
 msgstr "AUR-Paketnamen werden geladen…"
 
@@ -963,6 +984,9 @@ msgstr "Name (z. B. Netflix): "
 
 msgid "Name (for example Production): "
 msgstr "Name (zum Beispiel Produktion): "
+
+msgid "Name it, then sign in"
+msgstr "Benennen und anmelden"
 
 msgid "Name the subscriptions you want in the menu"
 msgstr "Gewünschte Abonnements für das Menü benennen"
@@ -1108,6 +1132,9 @@ msgstr "Nur Dateien in persönlichen Ordnern haben Snapshots."
 msgid "Only firmware that exposes charge_control_end_threshold supports this."
 msgstr "Dies wird nur von Firmware mit charge_control_end_threshold unterstützt."
 
+msgid "Open Console"
+msgstr "Konsole öffnen"
+
 msgid "Open {path} to read it."
 msgstr "Öffnen Sie {path}, um den Bericht zu lesen."
 
@@ -1165,6 +1192,9 @@ msgstr "Privater Schlüssel für {label}"
 msgid "Privileged setup must use the package-owned script"
 msgstr "Die privilegierte Einrichtung muss das vom Paket bereitgestellte Skript verwenden"
 
+msgid "Profile"
+msgstr "Profil"
+
 msgid "Profile ID"
 msgstr "Profil-ID"
 
@@ -1203,6 +1233,9 @@ msgstr "Konfigurationspfad mit symbolischem Link abgelehnt: {item}"
 
 msgid "Refusing to replace custom symlink: {path}"
 msgstr "Eigener symbolischer Link wird nicht ersetzt: {path}"
+
+msgid "Region"
+msgstr "Region"
 
 msgid "Relayed"
 msgstr "Weitergeleitet"
@@ -1354,6 +1387,9 @@ msgstr "Gespeicherte Profile bleiben getrennt erhalten; nach dem ersten Wechsel 
 msgid "Saved."
 msgstr "Gespeichert."
 
+msgid "Scope"
+msgstr "Geltungsbereich"
+
 msgid "Screen"
 msgstr "Bildschirm"
 
@@ -1419,6 +1455,12 @@ msgstr "Wird im AWS-Menü angezeigt, z. B. Acme Produktion"
 
 msgid "Shown in the GCP menu, for example Acme Development"
 msgstr "Wird im GCP-Menü angezeigt, z. B. Acme Entwicklung"
+
+msgid "Sign In"
+msgstr "Anmelden"
+
+msgid "Sign In with API Key"
+msgstr "Mit API-Schlüssel anmelden"
 
 msgid "Sign in to an assistant before enabling collaboration."
 msgstr "Melde dich bei einem Assistenten an, bevor du die Zusammenarbeit aktivierst."
@@ -1515,6 +1557,9 @@ msgstr "Sunshine gewährt vollständige Desktop-Kontrolle. Die Einrichtung erlau
 
 msgid "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP"
 msgstr "Unterstützte Unternehmensverfahren: PEAP/MSCHAPv2 und TTLS/PAP"
+
+msgid "Switch Account"
+msgstr "Konto wechseln"
 
 msgid "Switching to the restored system"
 msgstr "Wechsel zum wiederhergestellten System"
@@ -1843,6 +1888,9 @@ msgstr "Unexpected FIDO2 registration"
 msgid "Uninstall {name}? The package may contain multiple apps."
 msgstr "{name} deinstallieren? Das Paket kann mehrere Apps enthalten."
 
+msgid "Unknown account"
+msgstr "Unbekanntes Konto"
+
 msgid "Unknown monitoring service"
 msgstr "Unbekannter Monitoring-Dienst"
 
@@ -1911,6 +1959,9 @@ msgstr "Verwenden Sie eitr-guided-install auf dem Live-ISO oder --preview für e
 
 msgid "Use it in every folder without its own account?"
 msgstr "In jedem Ordner ohne eigenes Konto verwenden?"
+
+msgid "Use letters, digits, dots, dashes, slashes or @"
+msgstr "Buchstaben, Ziffern, Punkte, Bindestriche, Schrägstriche oder @ verwenden"
 
 msgid "Use lowercase letters, digits and dashes"
 msgstr "Verwenden Sie Kleinbuchstaben, Ziffern und Bindestriche"

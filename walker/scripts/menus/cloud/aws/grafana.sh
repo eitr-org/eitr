@@ -38,7 +38,7 @@ echo
 
 $(aws_base) grafana list-workspaces \
 | jq -r '.workspaces[] | \"\u001b[36m\(.name)\u001b[0m  id=\(.id)  status=\(.status)  endpoint=\(.endpoint // \"N/A\")\"' \
-| cloud_fzf 'Workspaces' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰈹  Open workspace")

@@ -6,5 +6,7 @@
   "deno": "https://deno.land/install.sh",
   "agy": "https://antigravity.google/cli/install.sh",
   "claude": "https://claude.ai/install.sh",
-  "grok": "https://x.ai/cli/install.sh"
+  "grok": "https://x.ai/cli/install.sh",
+  "oracle": "https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh",
+  "ibm": "https://clis.cloud.ibm.com/install/linux"
 }

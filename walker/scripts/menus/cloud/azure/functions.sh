@@ -15,5 +15,5 @@ echo
 
 az functionapp list --subscription '$subscription' -o json \
 | jq -r '.[] | \"\u001b[36m\(.name)\u001b[0m  group=\(.resourceGroup)  location=\(.location)  state=\(.state // \"N/A\")  host=\((.defaultHostName // \"N/A\"))\"' \
-| cloud_fzf 'Function Apps' plain
+| cloud_report
 " close-on-success toggle

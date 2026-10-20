@@ -103,7 +103,8 @@ def installed(item):
         return False
     if item["source"] == "managed":
         paths = item.get("installed", [])
-        return bool(paths) and all(any(Path.home().glob(path.removeprefix("~/"))) for path in paths)
+        return bool(paths) and all(Path(path).exists() if Path(path).is_absolute()
+                                   else any(Path.home().glob(path.removeprefix("~/"))) for path in paths)
     return bool(item["packages"])
 
 

@@ -1,0 +1,58 @@
+{
+  "cloudflare": {
+    "name": "Cloudflare",
+    "cli": "wrangler",
+    "console": "https://dash.cloudflare.com/",
+    "source": "pacman",
+    "package": "wrangler",
+    "install_help": "https://developers.cloudflare.com/workers/wrangler/install-and-update/"
+  },
+  "digitalocean": {
+    "name": "DigitalOcean",
+    "cli": "doctl",
+    "console": "https://cloud.digitalocean.com/",
+    "source": "pacman",
+    "package": "doctl",
+    "install_help": "https://docs.digitalocean.com/reference/doctl/how-to/install/"
+  },
+  "hetzner": {
+    "name": "Hetzner Cloud",
+    "cli": "hcloud",
+    "console": "https://console.hetzner.cloud/",
+    "source": "pacman",
+    "package": "hcloud",
+    "install_help": "https://github.com/hetznercloud/cli#installation"
+  },
+  "oracle": {
+    "name": "Oracle Cloud",
+    "cli": "oci",
+    "console": "https://cloud.oracle.com/",
+    "source": "managed",
+    "package": "oracle",
+    "install_help": "https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm"
+  },
+  "vercel": {
+    "name": "Vercel",
+    "cli": "vercel",
+    "console": "https://vercel.com/dashboard",
+    "source": "managed",
+    "package": "vercel",
+    "install_help": "https://vercel.com/docs/cli"
+  },
+  "netlify": {
+    "name": "Netlify",
+    "cli": "netlify",
+    "console": "https://app.netlify.com/",
+    "source": "managed",
+    "package": "netlify",
+    "install_help": "https://docs.netlify.com/cli/get-started/"
+  },
+  "ibm": {
+    "name": "IBM Cloud",
+    "cli": "ibmcloud",
+    "console": "https://cloud.ibm.com/",
+    "source": "managed",
+    "package": "ibm",
+    "install_help": "https://cloud.ibm.com/docs/cli?topic=cli-install-ibmcloud-cli"
+  }
+}

@@ -15,5 +15,5 @@ echo
 
 az group list --subscription '$subscription' -o json \
 | jq -r '.[] | \"\u001b[36m\(.name)\u001b[0m  location=\(.location)  state=\(.properties.provisioningState // \"N/A\")\"' \
-| cloud_fzf 'Resource groups' plain
+| cloud_report
 " close-on-success toggle

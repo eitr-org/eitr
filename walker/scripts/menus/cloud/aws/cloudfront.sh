@@ -38,7 +38,7 @@ echo
 
 $(aws_base) cloudfront list-distributions \
 | jq -r '.DistributionList.Items[]? | \"\u001b[36m\(.DomainName)\u001b[0m  id=\(.Id)  status=\(.Status)  enabled=\(.Enabled)  aliases=\([.Aliases.Items[]?] | join(\",\"))\"' \
-| cloud_fzf 'Distributions' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰅟  Distribution details")
@@ -66,7 +66,7 @@ echo
 
 $(aws_base) cloudfront list-invalidations --distribution-id $quoted_distribution_id \
 | jq -r '.InvalidationList.Items[]? | \"\u001b[36m\(.Id)\u001b[0m  status=\(.Status)  created=\(.CreateTime)\"' \
-| cloud_fzf 'Invalidations' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "")

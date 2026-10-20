@@ -35,7 +35,7 @@ az account show ${EITR_AZURE_SUBSCRIPTION:+--subscription '$EITR_AZURE_SUBSCRIPT
 cloud_header 'Azure subscriptions'
 az account list -o json \
 | jq -r '.[] | \"\u001b[36m\(.name)\u001b[0m  id=\(.id)  state=\(.state)\"' \
-| cloud_fzf 'Subscriptions' plain
+| cloud_report
 " close-on-success toggle
     exit 0
     ;;
@@ -88,7 +88,7 @@ az account show ${EITR_AZURE_SUBSCRIPTION:+--subscription '$EITR_AZURE_SUBSCRIPT
 cloud_header 'Azure subscriptions'
 az account list -o json \
 | jq -r '.[] | \"\u001b[36m\(.name)\u001b[0m  id=\(.id)  state=\(.state)\"' \
-| cloud_fzf 'Subscriptions' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰉖  Resource Groups")

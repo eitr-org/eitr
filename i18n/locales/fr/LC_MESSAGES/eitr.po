@@ -157,6 +157,12 @@ msgstr "La connexion AWS nécessite la version 2 de la AWS CLI"
 msgid "Access keys"
 msgstr "Clés d’accès"
 
+msgid "Account"
+msgstr "Compte"
+
+msgid "Account directories cannot be symbolic links"
+msgstr "Les dossiers de comptes ne peuvent pas être des liens symboliques"
+
 msgid "Account name"
 msgstr "Nom du compte"
 
@@ -186,6 +192,9 @@ msgstr "Ajouter un compte AWS"
 
 msgid "Add an Azure account"
 msgstr "Ajouter un compte Azure"
+
+msgid "Add {provider} Account"
+msgstr "Ajouter un compte {provider}"
 
 msgid "Address (for example netflix.com): "
 msgstr "Adresse (par exemple netflix.com) : "
@@ -264,6 +273,9 @@ msgstr "Fichier de certificat d’AC introuvable"
 
 msgid "CA certificate is too large"
 msgstr "Le certificat d’AC est trop volumineux"
+
+msgid "CLI Help"
+msgstr "Aide de la CLI"
 
 msgid "Cache Sizes"
 msgstr "Taille des caches"
@@ -412,8 +424,14 @@ msgstr "Échec de la connexion ; vérifiez les identifiants et les paramètres d
 msgid "Connection timed out; check the WiFi panel"
 msgstr "La connexion a expiré ; vérifiez le panneau WiFi"
 
+msgid "Context"
+msgstr "Contexte"
+
 msgid "Context changed; refresh the menu"
 msgstr "Le contexte a changé ; actualisez le menu"
+
+msgid "Context: {context}"
+msgstr "Contexte : {context}"
 
 msgid "Continue the update? [y/N] "
 msgstr "Continuer la mise à jour ? [y/N] "
@@ -925,6 +943,9 @@ msgstr "Permettre aux assistants de travailler ensemble"
 msgid "Limine shows its default menu from the next boot. Your boot entries were not changed."
 msgstr "Limine affichera son menu par défaut au prochain démarrage. Vos entrées de démarrage n’ont pas été modifiées."
 
+msgid "List Accounts"
+msgstr "Lister les comptes"
+
 msgid "Loading AUR package names…"
 msgstr "Chargement des noms de paquets AUR…"
 
@@ -963,6 +984,9 @@ msgstr "Nom (par exemple Netflix) : "
 
 msgid "Name (for example Production): "
 msgstr "Nom (par exemple Production) : "
+
+msgid "Name it, then sign in"
+msgstr "Nommez-le, puis connectez-vous"
 
 msgid "Name the subscriptions you want in the menu"
 msgstr "Nommez les abonnements que vous souhaitez dans le menu"
@@ -1108,6 +1132,9 @@ msgstr "Seuls les fichiers des dossiers personnels ont des instantanés."
 msgid "Only firmware that exposes charge_control_end_threshold supports this."
 msgstr "Seuls les micrologiciels exposant charge_control_end_threshold le permettent."
 
+msgid "Open Console"
+msgstr "Ouvrir la console"
+
 msgid "Open {path} to read it."
 msgstr "Ouvrez {path} pour lire le rapport."
 
@@ -1165,6 +1192,9 @@ msgstr "Clé privée pour {label}"
 msgid "Privileged setup must use the package-owned script"
 msgstr "La configuration privilégiée doit utiliser le script fourni par le paquet"
 
+msgid "Profile"
+msgstr "Profil"
+
 msgid "Profile ID"
 msgstr "Identifiant du profil"
 
@@ -1203,6 +1233,9 @@ msgstr "Chemin de configuration avec lien symbolique refusé : {item}"
 
 msgid "Refusing to replace custom symlink: {path}"
 msgstr "Le lien symbolique personnalisé ne sera pas remplacé : {path}"
+
+msgid "Region"
+msgstr "Région"
 
 msgid "Relayed"
 msgstr "Relayée"
@@ -1354,6 +1387,9 @@ msgstr "Les profils enregistrés sont conservés séparément ; une reconnexion 
 msgid "Saved."
 msgstr "Enregistré."
 
+msgid "Scope"
+msgstr "Périmètre"
+
 msgid "Screen"
 msgstr "Écran"
 
@@ -1419,6 +1455,12 @@ msgstr "Affiché dans le menu AWS, par exemple Acme Production"
 
 msgid "Shown in the GCP menu, for example Acme Development"
 msgstr "Affiché dans le menu GCP, par exemple Acme Développement"
+
+msgid "Sign In"
+msgstr "Se connecter"
+
+msgid "Sign In with API Key"
+msgstr "Se connecter avec une clé API"
 
 msgid "Sign in to an assistant before enabling collaboration."
 msgstr "Connectez-vous à un assistant avant d’activer la collaboration."
@@ -1515,6 +1557,9 @@ msgstr "Sunshine accorde le contrôle total du bureau. La configuration autorise
 
 msgid "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP"
 msgstr "Méthodes d’entreprise prises en charge : PEAP/MSCHAPv2 et TTLS/PAP"
+
+msgid "Switch Account"
+msgstr "Changer de compte"
 
 msgid "Switching to the restored system"
 msgstr "Basculement vers le système restauré"
@@ -1843,6 +1888,9 @@ msgstr "Unexpected FIDO2 registration"
 msgid "Uninstall {name}? The package may contain multiple apps."
 msgstr "Désinstaller {name} ? Le paquet peut contenir plusieurs applications."
 
+msgid "Unknown account"
+msgstr "Compte inconnu"
+
 msgid "Unknown monitoring service"
 msgstr "Service de supervision inconnu"
 
@@ -1911,6 +1959,9 @@ msgstr "Utilisez eitr-guided-install sur l’ISO live, ou --preview pour un aper
 
 msgid "Use it in every folder without its own account?"
 msgstr "L’utiliser dans tous les dossiers sans compte propre ?"
+
+msgid "Use letters, digits, dots, dashes, slashes or @"
+msgstr "Utilisez des lettres, chiffres, points, tirets, barres obliques ou @"
 
 msgid "Use lowercase letters, digits and dashes"
 msgstr "Utilisez des lettres minuscules, des chiffres et des tirets"

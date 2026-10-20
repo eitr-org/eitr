@@ -75,5 +75,64 @@
     "steam": {"label": "Steam", "source": "pacman", "packages": ["steam", "steam-devices", "gamemode", "lib32-gamemode", "mangohud", "lib32-mangohud"], "launch": ["steam"]},
     "retroarch": {"label": "RetroArch", "source": "pacman", "launch": ["retroarch"], "packages": ["retroarch", "retroarch-assets-ozone", "libdecor", "libretro-core-info", "libretro-nestopia", "libretro-snes9x", "libretro-gambatte", "libretro-mgba", "libretro-genesis-plus-gx", "libretro-beetle-psx-hw", "libretro-mupen64plus-next", "libretro-melonds", "libretro-ppsspp", "libretro-flycast"]},
     "geforcenow": {"label": "GeForce NOW", "source": "flatpak", "launch": ["flatpak", "run", "com.nvidia.geforcenow"], "packages": ["com.nvidia.geforcenow"], "runtime_remotes": [{"name": "flathub", "url": "https://dl.flathub.org/repo/flathub.flatpakrepo"}], "remote": "GeForceNOW", "url": "https://international.download.nvidia.com/GFNLinux/flatpak/geforcenow.flatpakrepo"}
+  },
+  "cloud": {
+    "cloudflare": {
+      "label": "Cloudflare",
+      "source": "pacman",
+      "packages": [
+        "wrangler"
+      ]
+    },
+    "digitalocean": {
+      "label": "DigitalOcean",
+      "source": "pacman",
+      "packages": [
+        "doctl"
+      ]
+    },
+    "hetzner": {
+      "label": "Hetzner Cloud",
+      "source": "pacman",
+      "packages": [
+        "hcloud"
+      ]
+    },
+    "oracle": {
+      "label": "Oracle Cloud",
+      "source": "managed",
+      "packages": [],
+      "manager": "Oracle installer",
+      "installed": [
+        "~/bin/oci"
+      ]
+    },
+    "ibm": {
+      "label": "IBM Cloud",
+      "source": "managed",
+      "packages": [],
+      "manager": "IBM installer",
+      "installed": [
+        "/usr/local/bin/ibmcloud"
+      ]
+    },
+    "vercel": {
+      "label": "Vercel",
+      "source": "managed",
+      "packages": [],
+      "manager": "NVM / npm",
+      "installed": [
+        "~/.nvm/versions/node/*/bin/vercel"
+      ]
+    },
+    "netlify": {
+      "label": "Netlify",
+      "source": "managed",
+      "packages": [],
+      "manager": "NVM / npm",
+      "installed": [
+        "~/.nvm/versions/node/*/bin/netlify"
+      ]
+    }
   }
 }

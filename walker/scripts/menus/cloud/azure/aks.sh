@@ -15,5 +15,5 @@ echo
 
 az aks list --subscription '$subscription' -o json \
 | jq -r '.[] | \"\u001b[36m\(.name)\u001b[0m  group=\(.resourceGroup)  location=\(.location)  version=\(.kubernetesVersion)  state=\(.powerState.code // \"N/A\")\"' \
-| cloud_fzf 'AKS clusters' plain
+| cloud_report
 " close-on-success toggle

@@ -49,7 +49,7 @@ echo
 
 $(aws_base) s3 ls \
 | awk '{print \"\033[90m\" \$1 \" \" \$2 \"\033[0m  \033[36m\" \$3 \"\033[0m\"}' \
-| cloud_fzf 'Buckets' plain
+| cloud_report
 " close-on-success toggle
     ;;
 
@@ -96,7 +96,7 @@ echo
 $(aws_base) s3 ls \
 | grep -i -- $quoted_word \
 | awk '{print \"\033[90m\" \$1 \" \" \$2 \"\033[0m  \033[36m\" \$3 \"\033[0m\"}' \
-| cloud_fzf 'Buckets' plain
+| cloud_report
 " close-on-success toggle
     ;;
 

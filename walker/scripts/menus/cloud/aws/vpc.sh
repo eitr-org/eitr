@@ -40,7 +40,7 @@ echo
 
 $(aws_base) ec2 describe-vpcs \
 | jq -r '.Vpcs[] | \"\u001b[36m\((.Tags // [] | map(select(.Key == \"Name\"))[0].Value) // \"<no-name>\")\u001b[0m  id=\(.VpcId)  cidr=\(.CidrBlock)  default=\(.IsDefault)  state=\(.State)\"' \
-| cloud_fzf 'VPCs' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰩠  Subnets")
@@ -55,7 +55,7 @@ echo
 
 $(aws_base) ec2 describe-subnets --filters Name=vpc-id,Values=$quoted_vpc_id \
 | jq -r '.Subnets[] | \"\u001b[36m\((.Tags // [] | map(select(.Key == \"Name\"))[0].Value) // \"<no-name>\")\u001b[0m  id=\(.SubnetId)  cidr=\(.CidrBlock)  az=\(.AvailabilityZone)  availableIps=\(.AvailableIpAddressCount)\"' \
-| cloud_fzf 'Subnets' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰑓  Route tables")
@@ -70,7 +70,7 @@ echo
 
 $(aws_base) ec2 describe-route-tables --filters Name=vpc-id,Values=$quoted_vpc_id \
 | jq -r '.RouteTables[] | \"\u001b[36m\(.RouteTableId)\u001b[0m  routes=\(.Routes | length)  associations=\(.Associations | length)\"' \
-| cloud_fzf 'Route tables' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰒋  Network ACLs")
@@ -85,7 +85,7 @@ echo
 
 $(aws_base) ec2 describe-network-acls --filters Name=vpc-id,Values=$quoted_vpc_id \
 | jq -r '.NetworkAcls[] | \"\u001b[36m\(.NetworkAclId)\u001b[0m  default=\(.IsDefault)  entries=\(.Entries | length)  associations=\(.Associations | length)\"' \
-| cloud_fzf 'Network ACLs' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰒄  VPC endpoints")
@@ -100,7 +100,7 @@ echo
 
 $(aws_base) ec2 describe-vpc-endpoints --filters Name=vpc-id,Values=$quoted_vpc_id \
 | jq -r '.VpcEndpoints[] | \"\u001b[36m\(.VpcEndpointId)\u001b[0m  service=\(.ServiceName)  type=\(.VpcEndpointType)  state=\(.State)\"' \
-| cloud_fzf 'VPC endpoints' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "")

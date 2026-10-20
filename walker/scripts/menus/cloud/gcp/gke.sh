@@ -15,5 +15,5 @@ echo
 
 gcloud container clusters list --project '$project' --format=json \
 | jq -r '.[] | \"\u001b[36m\(.name)\u001b[0m  location=\(.location)  status=\(.status)  version=\(.currentMasterVersion // \"N/A\")\"' \
-| cloud_fzf 'GKE clusters' plain
+| cloud_report
 " close-on-success toggle

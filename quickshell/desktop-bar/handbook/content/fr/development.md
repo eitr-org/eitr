@@ -87,3 +87,21 @@ d’assistants après un changement. La vérification de bout en bout avec des
 comptes réels reste à effectuer séparément.
 
 Antigravity CLI (`agy`) est disponible pour les comptes Google personnels dans Installer > CLI d’IA et via le lanceur de premier usage. Il n’est jamais inclus dans la distribution. Il s’installe avec l’installateur officiel de Google, qui vérifie le téléchargement, et vous vous connectez avec votre compte Google. Il n’est pas encore proposé comme assistant sollicité. Un `agy` déjà installé peut être lancé normalement. Gemini CLI nécessite une clé API Gemini ou un compte Google Cloud/entreprise. Antigravity n’est pas un auxiliaire de collaboration : le mode sans interface refuse même les lectures. Le débloquer exige de contourner les permissions ou de changer les règles globales. Eitr le réexaminera quand il proposera des permissions par exécution ou un mode sans interface en lecture seule.
+
+### Fournisseurs supplémentaires
+
+Développement > Cloud propose aussi Cloudflare (`wrangler`), DigitalOcean (`doctl`), Hetzner Cloud (`hcloud`), Oracle Cloud (`oci`), Vercel, Netlify et IBM Cloud (`ibmcloud`). Ajoutez un compte avec un nom en minuscules, chiffres ou tirets. Ces espaces privés résident dans `~/.config/eitr/cloud-accounts/<provider>/<name>` ; les configurations existantes des fournisseurs ne sont jamais importées. Le fournisseur et l’espace choisi restent visibles dans le sélecteur d’outils et le terminal. Le retour du terminal conserve cet espace ; Escape revient à la liste des comptes. Choisir un espace ne modifie jamais la valeur globale par défaut de la CLI.
+
+Les programmes manquants `wrangler`, `doctl` et `hcloud` sont proposés depuis les dépôts officiels Arch (`doctl` et `hcloud` dans extra). Oracle Cloud et IBM Cloud utilisent leurs scripts shell officiels par HTTPS depuis `distro/installers.json` ; Oracle reçoit `--accept-all-defaults`. Vercel (`vercel`) et Netlify (`netlify-cli`, commande `netlify`) utilisent la recette NVM/npm existante. L’installation demande confirmation. La connexion et les actions de compte s’exécutent uniquement dans l’espace privé choisi. DigitalOcean et Hetzner listent les contextes natifs ; Oracle liste les profils du fichier `~/.oci/config` de cet espace. Le contexte/profil choisi est enregistré localement et transmis par commande, sans changer les valeurs globales. Vercel et Netlify proposent leur action native de changement ; saisissez ensuite le libellé de l’équipe/du compte choisi. Vercel demande aussi un scope après la connexion et transmet `--scope TEAM` aux commandes suivantes. IBM propose la connexion SSO et par clé API, affiche `ibmcloud target` et cible explicitement un compte et une région. Le contexte/profil/scope/compte et la région enregistrée restent visibles au retour dans le menu. Ces libellés sont des sélections locales, pas des identités distantes vérifiées. Aucun identifiant secret ni variable de fournisseur existants ne sont hérités. Les consoles du navigateur ont leurs propres sessions ; vérifiez le compte avant toute action. Les vues des ressources et la vérification des identités/projets distants restent ouvertes ; aucune connexion ni installation réelle n’a été testée.
+
+| Fournisseur | Connexion | Liste / changement / contexte par commande |
+| --- | --- | --- |
+| Cloudflare | `wrangler login` | — |
+| DigitalOcean | `doctl auth init --context NAME` | `doctl auth list`; `doctl auth switch --context NAME`; `--context NAME` |
+| Hetzner Cloud | `hcloud context create NAME` | `hcloud context list`; `hcloud context use NAME`; `--context NAME` |
+| Oracle Cloud | `oci session authenticate --profile-name NAME --region REGION` | `~/.oci/config`; `--profile NAME --auth security_token` |
+| Vercel | `vercel login` | `vercel switch`; `--scope TEAM` |
+| Netlify | `netlify login` | `netlify switch` |
+| IBM Cloud | `ibmcloud login --sso`; `ibmcloud login --apikey` | `ibmcloud target`; `ibmcloud target -c ACCOUNT -r REGION` |
+
+Les rapports de ressources cloud utilisent un afficheur paginé pour la lecture ; ils ne sélectionnent pas de ressource et ne déclenchent pas d’action. Les recherches de journaux et d’événements conservent fzf. Les choix déterminant l’action suivante restent des listes Walker.

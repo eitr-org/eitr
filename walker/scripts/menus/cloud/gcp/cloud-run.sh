@@ -15,5 +15,5 @@ echo
 
 gcloud run services list --project '$project' --format=json \
 | jq -r '.[] | \"\u001b[36m\(.metadata.name)\u001b[0m  region=\(.metadata.labels[\"cloud.googleapis.com/location\"] // \"N/A\")  url=\(.status.url // \"N/A\")\"' \
-| cloud_fzf 'Cloud Run' plain
+| cloud_report
 " close-on-success toggle

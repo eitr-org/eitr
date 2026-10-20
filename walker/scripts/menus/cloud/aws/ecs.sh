@@ -263,7 +263,7 @@ cloud_header "ECS clusters"
 cloud_kv "Profile" "$AWS_PROFILE"
 echo
 
-$(aws_base) ecs list-clusters | jq -r '.clusterArns[] | "\u001b[36m\(split("/")[-1])\u001b[0m  \u001b[90m\(.)\u001b[0m"' | cloud_fzf "Clusters" plain
+$(aws_base) ecs list-clusters | jq -r '.clusterArns[] | "\u001b[36m\(split("/")[-1])\u001b[0m  \u001b[90m\(.)\u001b[0m"' | cloud_report
 EOF
 }
 
@@ -277,7 +277,7 @@ echo
 $(aws_base) ecs list-services \\
   --cluster "$ECS_CLUSTER" \\
 | jq -r '.serviceArns[] | "\u001b[36m\(split("/")[-1])\u001b[0m  \u001b[90m\(.)\u001b[0m"' \
-| cloud_fzf "Services" plain
+| cloud_report
 EOF
 }
 

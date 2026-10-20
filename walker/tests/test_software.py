@@ -72,6 +72,15 @@ class SoftwareTests(unittest.TestCase):
             software.recipe("databases", "dbeaver")
         install.assert_not_called()
 
+    def test_managed_system_binary_detection_uses_its_declared_path(self):
+        with tempfile.TemporaryDirectory() as directory:
+            executable = Path(directory) / 'bin/ibmcloud'
+            item = {"source": "managed", "packages": [], "installed": [str(executable)]}
+            self.assertFalse(software.installed(item))
+            executable.parent.mkdir()
+            executable.touch()
+            self.assertTrue(software.installed(item))
+
     def test_every_managed_tool_says_how_to_detect_it(self):
         data = json.loads((ROOT / "distro/software.json").read_text())
         for group, items in data.items():
@@ -79,7 +88,7 @@ class SoftwareTests(unittest.TestCase):
                 if isinstance(item, dict) and item.get("source") == "managed":
                     with self.subTest(item=f"{group}/{key}"):
                         self.assertTrue(item.get("installed"))
-                        self.assertTrue(all(path.startswith("~/") for path in item["installed"]))
+                        self.assertTrue(all(path.startswith("~/") or Path(path).is_absolute() for path in item["installed"]))
 
     def test_package_picker_sends_each_selection_to_its_installer(self):
         rows = ["firefox\textra\t", "chromium\textra\tinstalled", "yay-bin\taur\t"]

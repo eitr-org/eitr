@@ -15,5 +15,5 @@ echo
 
 az network vnet list --subscription '$subscription' -o json \
 | jq -r '.[] | \"\u001b[36m\(.name)\u001b[0m  group=\(.resourceGroup)  location=\(.location)  prefixes=\((.addressSpace.addressPrefixes // []) | join(\",\"))\"' \
-| cloud_fzf 'Virtual networks' plain
+| cloud_report
 " close-on-success toggle

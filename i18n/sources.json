@@ -1370,6 +1370,10 @@
     "Cloud gaming · requires account and supported hardware/network": [
       "elephant/menu-rows/gaming.json"
     ],
+    "Cloudflare": [
+      "elephant/menu-rows/cloud.json",
+      "elephant/menus/cloudflare-contexts.lua"
+    ],
     "Cmux Commands": [
       "elephant/menu-rows/learn.json"
     ],
@@ -1511,6 +1515,10 @@
     "Devices & Input": [
       "elephant/menu-rows/system.json",
       "elephant/menus/system-devices.lua"
+    ],
+    "DigitalOcean": [
+      "elephant/menu-rows/cloud.json",
+      "elephant/menus/digitalocean-contexts.lua"
     ],
     "Disabled": [
       "elephant/menus/terminal-cursor-fire.lua"
@@ -1686,6 +1694,10 @@
     "Hardware": [
       "elephant/menu-rows/system-information.json"
     ],
+    "Hetzner Cloud": [
+      "elephant/menu-rows/cloud.json",
+      "elephant/menus/hetzner-contexts.lua"
+    ],
     "Home Folder Snapshots": [
       "elephant/menu-rows/snapshots.json"
     ],
@@ -1694,6 +1706,10 @@
     ],
     "How to restore the system from a snapshot": [
       "elephant/menu-rows/snapshots.json"
+    ],
+    "IBM Cloud": [
+      "elephant/menu-rows/cloud.json",
+      "elephant/menus/ibm-contexts.lua"
     ],
     "Identities configured outside EITR": [
       "elephant/menus/git-accounts.lua"
@@ -1893,6 +1909,10 @@
     "Name, email and SSH key": [
       "elephant/menus/git-accounts.lua"
     ],
+    "Netlify": [
+      "elephant/menu-rows/cloud.json",
+      "elephant/menus/netlify-contexts.lua"
+    ],
     "Network Backend": [
       "elephant/menu-rows/system-connectivity.json",
       "elephant/menus/network-backend.lua"
@@ -1965,6 +1985,10 @@
     ],
     "Open your configuration folder in an editor": [
       "elephant/menu-rows/system.json"
+    ],
+    "Oracle Cloud": [
+      "elephant/menu-rows/cloud.json",
+      "elephant/menus/oracle-contexts.lua"
     ],
     "Output device and app volumes": [
       "elephant/menu-rows/system-devices.json"
@@ -2526,6 +2550,10 @@
     "VS Code Projects": [
       "elephant/menu-rows/development.json",
       "elephant/menus/projects-vscode.lua"
+    ],
+    "Vercel": [
+      "elephant/menu-rows/cloud.json",
+      "elephant/menus/vercel-contexts.lua"
     ],
     "Wallpaper": [
       "elephant/menu-rows/style.json",
@@ -3160,7 +3188,8 @@
     ],
     "\nPress Enter to close.": [
       "walker/scripts/actions/development/git-accounts.py",
-      "walker/scripts/menus/cloud/accounts.py"
+      "walker/scripts/menus/cloud/accounts.py",
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "\nTask failed. Press Enter to close.": [
       "walker/scripts/actions/task-terminal.py"
@@ -3279,6 +3308,12 @@
     "Access keys": [
       "walker/scripts/menus/cloud/accounts.py"
     ],
+    "Account": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Account directories cannot be symbolic links": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Account name": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
@@ -3308,6 +3343,9 @@
     ],
     "Add an Azure account": [
       "walker/scripts/menus/cloud/accounts.py"
+    ],
+    "Add {provider} Account": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Address (for example netflix.com): ": [
       "walker/scripts/actions/install/webapps.py"
@@ -3386,6 +3424,9 @@
     ],
     "CA certificate is too large": [
       "quickshell/desktop-bar/scripts/wifi-popup.py"
+    ],
+    "CLI Help": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Cache Sizes": [
       "walker/scripts/actions/system/cleanup.sh"
@@ -3534,8 +3575,14 @@
     "Connection timed out; check the WiFi panel": [
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py"
     ],
+    "Context": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Context changed; refresh the menu": [
       "walker/scripts/menus/cloud/contexts.py"
+    ],
+    "Context: {context}": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Continue the update? [y/N] ": [
       "walker/scripts/actions/system/update.sh"
@@ -3923,7 +3970,8 @@
       "distro/system/network-backend.py"
     ],
     "Install {package} now?": [
-      "walker/scripts/menus/cloud/accounts.py"
+      "walker/scripts/menus/cloud/accounts.py",
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Installer must use HTTPS": [
       "walker/scripts/actions/install/software.py"
@@ -4051,6 +4099,9 @@
     "Limine shows its default menu from the next boot. Your boot entries were not changed.": [
       "distro/system/eitr-system.py"
     ],
+    "List Accounts": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Loading AUR package names…": [
       "walker/scripts/actions/install/software.py"
     ],
@@ -4082,13 +4133,17 @@
       "distro/system/eitr-system.py"
     ],
     "Name": [
-      "walker/scripts/menus/cloud/accounts.py"
+      "walker/scripts/menus/cloud/accounts.py",
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Name (for example Netflix): ": [
       "walker/scripts/actions/install/webapps.py"
     ],
     "Name (for example Production): ": [
       "walker/scripts/actions/development/monitoring.py"
+    ],
+    "Name it, then sign in": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Name the subscriptions you want in the menu": [
       "walker/scripts/menus/cloud/accounts.py"
@@ -4237,6 +4292,9 @@
     "Only firmware that exposes charge_control_end_threshold supports this.": [
       "walker/scripts/actions/system/battery-limit.py"
     ],
+    "Open Console": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Open {path} to read it.": [
       "walker/scripts/actions/system/report-problem.py"
     ],
@@ -4294,6 +4352,9 @@
     "Privileged setup must use the package-owned script": [
       "quickshell/lockscreen/scripts/install-login.py"
     ],
+    "Profile": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Profile ID": [
       "walker/scripts/menus/cloud/accounts.py"
     ],
@@ -4332,6 +4393,9 @@
     ],
     "Refusing to replace custom symlink: {path}": [
       "distro/system/network-backend.py"
+    ],
+    "Region": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Relayed": [
       "walker/scripts/actions/system/remote-access.py"
@@ -4483,6 +4547,9 @@
     "Saved.": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Scope": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Screen": [
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
@@ -4548,6 +4615,12 @@
     ],
     "Shown in the GCP menu, for example Acme Development": [
       "walker/scripts/menus/cloud/accounts.py"
+    ],
+    "Sign In": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Sign In with API Key": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Sign in to an assistant before enabling collaboration.": [
       "walker/scripts/actions/assistant-collaboration.py"
@@ -4644,6 +4717,9 @@
     ],
     "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP": [
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py"
+    ],
+    "Switch Account": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Switching to the restored system": [
       "distro/system/factory-reset.py"
@@ -4976,6 +5052,9 @@
     "Uninstall {name}? The package may contain multiple apps.": [
       "walker/scripts/actions/install/software.py"
     ],
+    "Unknown account": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Unknown monitoring service": [
       "walker/scripts/actions/development/monitoring.py"
     ],
@@ -5045,8 +5124,12 @@
     "Use it in every folder without its own account?": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Use letters, digits, dots, dashes, slashes or @": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Use lowercase letters, digits and dashes": [
-      "walker/scripts/menus/cloud/accounts.py"
+      "walker/scripts/menus/cloud/accounts.py",
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Use sudo from your normal desktop user": [
       "distro/system/eitr-system.py"

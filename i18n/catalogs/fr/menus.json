@@ -439,5 +439,12 @@
   "Start an Antigravity CLI session in a project": "Démarrer une session Antigravity CLI dans un projet",
   "Personal Google accounts; installation source awaiting verification": "Comptes Google personnels ; source d’installation à vérifier",
   "Antigravity CLI": "Antigravity CLI",
-  "Choose a terminal assistant to install": "Choisir un assistant de terminal à installer"
+  "Choose a terminal assistant to install": "Choisir un assistant de terminal à installer",
+  "Cloudflare": "Cloudflare",
+  "DigitalOcean": "DigitalOcean",
+  "Hetzner Cloud": "Hetzner Cloud",
+  "IBM Cloud": "IBM Cloud",
+  "Netlify": "Netlify",
+  "Oracle Cloud": "Oracle Cloud",
+  "Vercel": "Vercel"
 }

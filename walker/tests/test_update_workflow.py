@@ -182,7 +182,10 @@ yay() { echo "yay $*"; }
     def test_advanced_aur_updates_only_aur_without_snapshots(self):
         source = (ROOT / "walker/scripts/actions/system/update.sh").read_text()
         mocks = 'sudo() { echo "sudo $*"; }; yay() { echo "yay $*"; }; export -f sudo yay\n'
-        result = subprocess.run(["bash", "-c", HOST_MOCKS + mocks + source, "update", "yay"],
-                                capture_output=True, text=True, env=dict(os.environ, EITR_CODE_ROOT=str(ROOT)))
-        self.assertEqual(result.returncode, 0)
+        with tempfile.TemporaryDirectory() as directory:
+            result = subprocess.run(["bash", "-c", HOST_MOCKS + mocks + source, "update", "yay"],
+                                    capture_output=True, text=True,
+                                    env=dict(os.environ, EITR_CODE_ROOT=str(ROOT), HOME=directory,
+                                             XDG_RUNTIME_DIR=directory))
+        self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(result.stdout.strip(), "yay -Sua --devel\nhook post-update yay")

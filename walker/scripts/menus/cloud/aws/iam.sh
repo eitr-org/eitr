@@ -51,7 +51,7 @@ echo
 
 $(aws_base) iam list-users \
 | jq -r '.Users[] | \"\u001b[36m\(.UserName)\u001b[0m  id=\(.UserId)  created=\(.CreateDate)  path=\(.Path)\"' \
-| cloud_fzf 'Users' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰌾  Roles")
@@ -62,7 +62,7 @@ echo
 
 $(aws_base) iam list-roles \
 | jq -r '.Roles[] | \"\u001b[36m\(.RoleName)\u001b[0m  id=\(.RoleId)  created=\(.CreateDate)  path=\(.Path)\"' \
-| cloud_fzf 'Roles' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰒃  Policies")
@@ -73,7 +73,7 @@ echo
 
 $(aws_base) iam list-policies --scope Local \
 | jq -r '.Policies[] | \"\u001b[36m\(.PolicyName)\u001b[0m  arn=\(.Arn)  attachments=\(.AttachmentCount)  updated=\(.UpdateDate)\"' \
-| cloud_fzf 'Policies' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰘦  Groups")
@@ -84,7 +84,7 @@ echo
 
 $(aws_base) iam list-groups \
 | jq -r '.Groups[] | \"\u001b[36m\(.GroupName)\u001b[0m  id=\(.GroupId)  created=\(.CreateDate)  path=\(.Path)\"' \
-| cloud_fzf 'Groups' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰌆  User access keys")
@@ -99,7 +99,7 @@ echo
 
 $(aws_base) iam list-access-keys --user-name $quoted_user \
 | jq -r '.AccessKeyMetadata[] | \"\u001b[36m\(.AccessKeyId)\u001b[0m  status=\(.Status)  created=\(.CreateDate)\"' \
-| cloud_fzf 'Access keys' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "")

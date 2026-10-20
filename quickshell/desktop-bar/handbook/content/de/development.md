@@ -86,3 +86,21 @@ Assistentensitzungen nach dem Umschalten neu. Die vollständige Prüfung mit
 echten Konten erfolgt später in einem gesonderten Durchlauf.
 
 Antigravity CLI (`agy`) ist für private Google-Konten unter Installieren > KI-CLIs und über den Starter beim ersten Aufruf verfügbar. Es wird nie mitgeliefert. Es wird über Googles offizielles Installationsprogramm installiert, das den Download prüft, und du meldest dich mit deinem Google-Konto an. Als Helfer für zusammenarbeitende Assistenten wird es noch nicht angeboten. Ein bereits installiertes `agy` kann normal gestartet werden. Gemini CLI benötigt einen Gemini-API-Schlüssel oder ein Google-Cloud-/Firmenkonto. Antigravity ist kein Zusammenarbeitshelfer: Ohne Oberfläche verweigert es selbst Lesezugriffe. Freigaben erfordern das Umgehen von Berechtigungen oder globale Regeln. Eitr prüft es erneut, sobald Berechtigungen pro Aufruf oder ein schreibgeschützter Modus ohne Oberfläche verfügbar sind.
+
+### Weitere Anbieter
+
+Entwicklung > Cloud enthält außerdem Cloudflare (`wrangler`), DigitalOcean (`doctl`), Hetzner Cloud (`hcloud`), Oracle Cloud (`oci`), Vercel, Netlify und IBM Cloud (`ibmcloud`). Füge ein Konto mit Kleinbuchstaben, Ziffern oder Bindestrichen hinzu. Diese privaten Arbeitsbereiche liegen unter `~/.config/eitr/cloud-accounts/<provider>/<name>`; bestehende Anbieter-Konfigurationen werden nie importiert. Anbieter und gewählter Arbeitsbereich bleiben in Werkzeugauswahl und Terminal sichtbar. Nach dem Terminal bleibt derselbe Arbeitsbereich gewählt; Escape führt zur Kontoliste zurück. Die Auswahl ändert keine globale CLI-Vorgabe.
+
+Fehlende Programme `wrangler`, `doctl` und `hcloud` werden aus den offiziellen Arch-Paketquellen angeboten (`doctl` und `hcloud` aus extra). Oracle Cloud und IBM Cloud verwenden ihre offiziellen HTTPS-Shell-Installer aus `distro/installers.json`; Oracle erhält `--accept-all-defaults`. Vercel (`vercel`) und Netlify (`netlify-cli`, Befehl `netlify`) nutzen das bestehende NVM/npm-Installationsrezept. Die Installation erfordert eine Bestätigung. Anmeldung und Kontoaktionen laufen ausschließlich im gewählten privaten Arbeitsbereich. DigitalOcean und Hetzner listen native Kontexte; Oracle listet Profile aus dessen `~/.oci/config`. Die Kontext-/Profilauswahl wird lokal gespeichert und pro Befehl übergeben, ohne globale Vorgaben zu ändern. Vercel und Netlify bieten ihre native Wechselaktion; danach wird die gewählte Team-/Kontobezeichnung eingegeben. Vercel fragt auch nach der Anmeldung nach einem Scope und übergibt bei weiteren Befehlen `--scope TEAM`. IBM bietet SSO- und API-Schlüssel-Anmeldung, zeigt `ibmcloud target` und wählt explizit Konto und Region. Kontext/Profil/Scope/Konto und gespeicherte Region bleiben bei der Rückkehr ins Menü sichtbar. Diese Bezeichnungen sind lokale Auswahlen, keine geprüften entfernten Identitäten. Bestehende Zugangsdaten und Anbieter-Variablen werden nicht übernommen. Browserkonsolen haben eigene Sitzungen; vor Aktionen das Konto prüfen. Ressourcenansichten und die Prüfung entfernter Identität/Projekte bleiben offen; echte Anmeldung und Installation wurden nicht getestet.
+
+| Anbieter | Anmeldung | Liste / Wechsel / Befehlskontext |
+| --- | --- | --- |
+| Cloudflare | `wrangler login` | — |
+| DigitalOcean | `doctl auth init --context NAME` | `doctl auth list`; `doctl auth switch --context NAME`; `--context NAME` |
+| Hetzner Cloud | `hcloud context create NAME` | `hcloud context list`; `hcloud context use NAME`; `--context NAME` |
+| Oracle Cloud | `oci session authenticate --profile-name NAME --region REGION` | `~/.oci/config`; `--profile NAME --auth security_token` |
+| Vercel | `vercel login` | `vercel switch`; `--scope TEAM` |
+| Netlify | `netlify login` | `netlify switch` |
+| IBM Cloud | `ibmcloud login --sso`; `ibmcloud login --apikey` | `ibmcloud target`; `ibmcloud target -c ACCOUNT -r REGION` |
+
+Cloud-Ressourcenberichte verwenden einen Pager zum Lesen; sie wählen keine Ressource aus und starten keine Aktion. Protokoll- und Ereignissuchen behalten fzf. Auswahlen für den nächsten Schritt bleiben Walker-Listen.

@@ -26,7 +26,7 @@ echo
 
 $(aws_base) ec2 describe-instances \
 | jq -r '.Reservations[].Instances[] | \"\u001b[36m\((.Tags // [] | map(select(.Key == \"Name\"))[0].Value) // \"<no-name>\")\u001b[0m  id=\(.InstanceId)  state=\(.State.Name)  type=\(.InstanceType)  private=\(.PrivateIpAddress // \"N/A\")  public=\(.PublicIpAddress // \"N/A\")\"' \
-| cloud_fzf 'Instances' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰒋  Security groups")
@@ -37,7 +37,7 @@ echo
 
 $(aws_base) ec2 describe-security-groups \
 | jq -r '.SecurityGroups[] | \"\u001b[36m\(.GroupName)\u001b[0m  id=\(.GroupId)  vpc=\(.VpcId // \"classic\")  inbound=\(.IpPermissions | length)  outbound=\(.IpPermissionsEgress | length)\"' \
-| cloud_fzf 'Security groups' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰋊  Volumes")
@@ -48,7 +48,7 @@ echo
 
 $(aws_base) ec2 describe-volumes \
 | jq -r '.Volumes[] | \"\u001b[36m\(.VolumeId)\u001b[0m  state=\(.State)  size=\(.Size)GiB  type=\(.VolumeType)  attached=\([.Attachments[].InstanceId] | join(\",\"))\"' \
-| cloud_fzf 'Volumes' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰓦  Elastic IPs")
@@ -59,7 +59,7 @@ echo
 
 $(aws_base) ec2 describe-addresses \
 | jq -r '.Addresses[] | \"\u001b[36m\(.PublicIp)\u001b[0m  allocation=\(.AllocationId // \"N/A\")  instance=\(.InstanceId // \"N/A\")  private=\(.PrivateIpAddress // \"N/A\")\"' \
-| cloud_fzf 'Elastic IPs' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰅟  Instance status checks")
@@ -70,7 +70,7 @@ echo
 
 $(aws_base) ec2 describe-instance-status --include-all-instances \
 | jq -r '.InstanceStatuses[] | \"\u001b[36m\(.InstanceId)\u001b[0m  state=\(.InstanceState.Name)  system=\(.SystemStatus.Status)  instance=\(.InstanceStatus.Status)  az=\(.AvailabilityZone)\"' \
-| cloud_fzf 'Status checks' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "")

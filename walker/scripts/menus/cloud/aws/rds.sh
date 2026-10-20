@@ -73,7 +73,7 @@ echo
 
 $(aws_base) rds describe-db-instances \
 | jq -r '.DBInstances[] | \"\u001b[36m\(.DBInstanceIdentifier)\u001b[0m  engine=\(.Engine)  status=\(.DBInstanceStatus)  class=\(.DBInstanceClass)\"' \
-| cloud_fzf 'DB instances' plain
+| cloud_report
 " close-on-success toggle
     ;;
 
@@ -85,7 +85,7 @@ echo
 
 $(aws_base) rds describe-db-clusters \
 | jq -r '.DBClusters[] | \"\u001b[36m\(.DBClusterIdentifier)\u001b[0m  engine=\(.Engine)  status=\(.Status)  endpoint=\(.Endpoint // \"N/A\")\"' \
-| cloud_fzf 'DB clusters' plain
+| cloud_report
 " close-on-success toggle
     ;;
 

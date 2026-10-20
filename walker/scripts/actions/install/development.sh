@@ -9,7 +9,7 @@ installer_url() {
   python3 "$(dirname "${BASH_SOURCE[0]}")/software.py" installer "$1"
 }
 download_run() {
-  curl --proto '=https' --tlsv1.2 -fsSL "$1" -o "$installer"
+  curl --proto '=https' --proto-redir '=https' --tlsv1.2 -fsSL "$1" -o "$installer"
   shift
   bash "$installer" "$@"
 }
@@ -57,7 +57,10 @@ case "$kind" in
   laravel) composer global require laravel/installer ;;
   # Bun's script installer always edits shell profiles; npm is an official
   # Bun install method that leaves them alone.
-  yarn|pnpm|bun) node_setup; npm install --global "$kind" ;;
+  yarn|pnpm|bun|vercel) node_setup; npm install --global "$kind" ;;
+  netlify) node_setup; npm install --global netlify-cli ;;
+  oracle) download_run "$(installer_url oracle)" --accept-all-defaults ;;
+  ibm) download_run "$(installer_url ibm)" ;;
   deno) download_run "$(installer_url deno)" -y --no-modify-path ;;
   codex|gemini|copilot)
     node_setup

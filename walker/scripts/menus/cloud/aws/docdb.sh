@@ -39,7 +39,7 @@ echo
 
 $(aws_base) docdb describe-db-clusters \
 | jq -r '.DBClusters[] | \"\u001b[36m\(.DBClusterIdentifier)\u001b[0m  status=\(.Status)  engine=\(.Engine)  endpoint=\(.Endpoint // \"N/A\")\"' \
-| cloud_fzf 'Clusters' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "  Instances")
@@ -50,7 +50,7 @@ echo
 
 $(aws_base) docdb describe-db-instances \
 | jq -r '.DBInstances[] | \"\u001b[36m\(.DBInstanceIdentifier)\u001b[0m  cluster=\(.DBClusterIdentifier // \"N/A\")  status=\(.DBInstanceStatus)  class=\(.DBInstanceClass)\"' \
-| cloud_fzf 'Instances' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰅟  Cluster details")

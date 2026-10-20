@@ -15,5 +15,5 @@ echo
 
 gcloud functions list --project '$project' --format=json \
 | jq -r '.[] | \"\u001b[36m\(.name | split(\"/\")[-1])\u001b[0m  runtime=\(.buildConfig.runtime // .runtime // \"N/A\")  state=\(.state // .status // \"N/A\")  url=\(.serviceConfig.uri // .httpsTrigger.url // \"N/A\")\"' \
-| cloud_fzf 'Functions' plain
+| cloud_report
 " close-on-success toggle

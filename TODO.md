@@ -16,24 +16,25 @@ Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 
 # 1. More cloud providers
 
-Extend the existing Cloud accounts pattern: separate accounts, visible active
-context, explicit provider context on every operation, and no global default
-switching. Preserve selections when returning from terminals.
+The seven requested providers have Cloud menu entries and isolated account
+workspaces. DigitalOcean and Hetzner use Arch extra packages; Oracle and IBM use
+reviewer-verified official HTTPS installers; Vercel and Netlify use NVM/npm.
+Native sign-in, context/profile listing, account switching and IBM account/region
+targeting are wired. Context/profile/scope selections persist visibly and use
+per-command flags where supported, without changing global defaults to navigate.
 
-First: Cloudflare (`wrangler`), DigitalOcean (`doctl`), Oracle Cloud (`oci`),
-Hetzner Cloud (`hcloud`), Vercel and Netlify.
-
-Later: Red Hat OpenShift (`oc`), Fly.io (`flyctl`), Heroku, Akamai/Linode
-(`linode-cli`), IBM Cloud (`ibmcloud`) and Alibaba Cloud (`aliyun`).
+Remaining: owner-authorized live installation/sign-in checks, remote identity and
+project verification, and common read-only resource views. Offline mock tests do
+not establish live vendor behavior. See `distro/DISPLAY-REVIEW.md`.
+Do not add more providers as part of this work.
 
 # 2. Display review
 
-Audit every place Eitr shows results in fzf or a plain terminal, including the
-AWS, Azure and Google Cloud menus, and pick the fitting view per case: fzf for
-searching long text such as logs (works well today), a Walker list for choosing
-between a few options, a native panel for status and settings, a pager for
-reading. List each case with its current and proposed view, then move the bad
-fits, starting with the ones the owner finds awkward.
+The source display review is accepted. Inventory and retained design decisions are in `distro/DISPLAY-REVIEW.md`. Passive cloud
+resource reports use the existing pager; actionable choices stay in Walker and
+log/event searches keep fzf. Future work: native status parity for security,
+snapshots, battery and remote access, cloud status presentation, and About's
+optional native redesign. Preserve typed confirmations and readable failures.
 
 # 3. Remote access: test with the owner
 

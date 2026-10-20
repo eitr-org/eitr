@@ -15,5 +15,5 @@ echo
 
 az sql server list --subscription '$subscription' -o json \
 | jq -r '.[] | \"\u001b[36m\(.name)\u001b[0m  group=\(.resourceGroup)  location=\(.location)  admin=\(.administratorLogin // \"N/A\")\"' \
-| cloud_fzf 'SQL servers' plain
+| cloud_report
 " close-on-success toggle

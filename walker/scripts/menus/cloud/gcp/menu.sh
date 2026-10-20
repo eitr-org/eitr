@@ -35,7 +35,7 @@ cloud_context_check_auth \
 cloud_header 'GCP projects'
 gcloud projects list --format=json \
 | jq -r '.[] | \"\u001b[36m\(.projectId)\u001b[0m  name=\(.name)  state=\(.lifecycleState)\"' \
-| cloud_fzf 'Projects' plain
+| cloud_report
 " close-on-success toggle
     exit 0
     ;;
@@ -88,7 +88,7 @@ cloud_context_check_auth \
 cloud_header 'GCP projects'
 gcloud projects list --format=json \
 | jq -r '.[] | \"\u001b[36m\(.projectId)\u001b[0m  name=\(.name)  state=\(.lifecycleState)\"' \
-| cloud_fzf 'Projects' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "  Compute Instances")

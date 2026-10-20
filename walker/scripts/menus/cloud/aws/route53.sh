@@ -38,7 +38,7 @@ echo
 
 $(aws_base) route53 list-hosted-zones \
 | jq -r '.HostedZones[] | \"\u001b[36m\(.Name)\u001b[0m  id=\(.Id | split(\"/\")[-1])  records=\(.ResourceRecordSetCount)  private=\(.Config.PrivateZone)\"' \
-| cloud_fzf 'Hosted zones' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰑓  Records")
@@ -53,7 +53,7 @@ echo
 
 $(aws_base) route53 list-resource-record-sets --hosted-zone-id $quoted_zone_id \
 | jq -r '.ResourceRecordSets[] | \"\u001b[36m\(.Name)\u001b[0m  type=\(.Type)  ttl=\(.TTL // \"alias\")  values=\([.ResourceRecords[]?.Value] | join(\",\")) alias=\(.AliasTarget.DNSName // \"\")\"' \
-| cloud_fzf 'Records' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰅟  Zone details")

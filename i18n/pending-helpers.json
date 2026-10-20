@@ -68,6 +68,7 @@
     "Invalid font package",
     "Invalid web app ID",
     "Name",
+    "Region",
     "Symlinks are not allowed in login designs",
     "Template partition sizes must be in MiB",
     "The payload has no pacman {version} package",
@@ -90,6 +91,7 @@
   "fr": [
     "1 GitHub · 2 GitLab",
     "AWS SSO (IAM Identity Center)",
+    "Assistant",
     "Cloud",
     "Cursor Fire preference must be true or false",
     "Duplicate login theme name",
@@ -115,7 +117,6 @@
     "pacman.conf has no [eitr] repository to add the testing channel before",
     "the theme colours must be a small regular file owned by the desktop user",
     "via {host}{key}",
-    "{label}  {text}  (id {id})",
-    "Assistant"
+    "{label}  {text}  (id {id})"
   ]
 }

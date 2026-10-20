@@ -84,7 +84,7 @@ echo
 
 $(aws_base) lambda list-functions \
 | jq -r '.Functions[] | \"\u001b[36m\(.FunctionName)\u001b[0m  runtime=\(.Runtime // \"N/A\")  memory=\(.MemorySize)MB  timeout=\(.Timeout)s  updated=\(.LastModified)\"' \
-| cloud_fzf 'Functions' plain
+| cloud_report
 " close-on-success toggle
     ;;
   "󰅟  Function config")

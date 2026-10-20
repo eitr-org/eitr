@@ -15,5 +15,5 @@ echo
 
 az vm list --subscription '$subscription' -o json \
 | jq -r '.[] | \"\u001b[36m\(.name)\u001b[0m  group=\(.resourceGroup)  location=\(.location)  size=\(.hardwareProfile.vmSize // \"N/A\")\"' \
-| cloud_fzf 'VMs' plain
+| cloud_report
 " close-on-success toggle

@@ -18,6 +18,18 @@
     "submenu": "azure-contexts"
   },
   {
+    "text": "Cloudflare",
+    "subtext": ">",
+    "icon": "",
+    "submenu": "cloudflare-contexts"
+  },
+  {
+    "text": "DigitalOcean",
+    "subtext": ">",
+    "icon": "",
+    "submenu": "digitalocean-contexts"
+  },
+  {
     "text": "Google Cloud",
     "subtext": ">",
     "keywords": [
@@ -25,5 +37,35 @@
     ],
     "icon": "",
     "submenu": "gcp-contexts"
+  },
+  {
+    "text": "Hetzner Cloud",
+    "subtext": ">",
+    "icon": "",
+    "submenu": "hetzner-contexts"
+  },
+  {
+    "text": "IBM Cloud",
+    "subtext": ">",
+    "icon": "",
+    "submenu": "ibm-contexts"
+  },
+  {
+    "text": "Netlify",
+    "subtext": ">",
+    "icon": "",
+    "submenu": "netlify-contexts"
+  },
+  {
+    "text": "Oracle Cloud",
+    "subtext": ">",
+    "icon": "",
+    "submenu": "oracle-contexts"
+  },
+  {
+    "text": "Vercel",
+    "subtext": ">",
+    "icon": "",
+    "submenu": "vercel-contexts"
   }
 ]
