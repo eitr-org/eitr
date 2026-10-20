@@ -21,6 +21,7 @@ for parent in Path(__file__).resolve().parents:
         sys.path.insert(0, str(library))
         break
 from eitr_paths import code, config as user_config  # noqa: E402
+from eitr_wizard import Step, collect as collect_setup
 from eitr_i18n import tr  # noqa: E402
 
 STORE = user_config("eitr/monitoring.json")
@@ -106,21 +107,14 @@ def remove(dashboard_id):
 
 
 def interactive():
-    print(tr('Add a monitoring dashboard: a saved address opened from Development > Monitoring.'))
-    print(tr('It stays on this computer. Never put passwords or tokens in the address.') + '\n')
-    keys = list(SERVICES)
-    for number, key in enumerate(keys, 1):
-        print(f"  {number}. {tr('Other') if key == 'other' else SERVICES[key]['label']}")
-    choice = input('\n' + tr('Service number (Enter to cancel): ')).strip()
-    if not choice:
-        return 0
-    if not choice.isdigit() or not 1 <= int(choice) <= len(keys):
-        raise ValueError(tr('Choose one of the listed numbers.'))
-    service = keys[int(choice) - 1]
-    name = input(tr('Name (for example Production): ')).strip()
-    if not name:
-        return 0
-    url = input(tr('Address (for example {example}): ', example=SERVICES[service]['example'])).strip()
+    web = web_addresses()
+    answers = collect_setup(tr('Add a monitoring dashboard: a saved address opened from Development > Monitoring.'), [
+        Step('service', tr('Service number (Enter to cancel): '), options=[
+            (tr('Other') if key == 'other' else SERVICES[key]['label'], key) for key in SERVICES]),
+        Step('name', tr('Name (for example Production): '), validator=web.clean_name),
+        Step('url', tr('Address (for example {example}): ', example='https://example.com'), validator=web.clean_url),
+    ])
+    service, name, url = (answers[key] for key in ('service', 'name', 'url'))
     name, url = add(service, name, url)
     subprocess.run(["notify-send", tr('Dashboard saved'), tr('{name} is in Development > Monitoring.', name=name)], check=False)
     return 0

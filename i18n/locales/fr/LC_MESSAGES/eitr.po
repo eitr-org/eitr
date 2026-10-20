@@ -64,9 +64,6 @@ msgstr "  Choisissez une phrase secrète. La clé n’est jamais copiée dans le
 msgid "  No Git identity configured outside EITR was found."
 msgstr "  Aucune identité Git configurée en dehors d’EITR n’a été trouvée."
 
-msgid "  Press Enter to keep a value."
-msgstr "  Appuyez sur Enter pour conserver une valeur."
-
 msgid "  Press Enter to keep the shown name."
 msgstr "  Appuyez sur Enter pour conserver le nom affiché."
 
@@ -108,9 +105,6 @@ msgstr "/home n’est pas sur Btrfs et ne peut pas avoir d’instantanés"
 
 msgid "/home is not the @home subvolume beside the root filesystem"
 msgstr "/home n’est pas le sous-volume @home à côté du système de fichiers racine"
-
-msgid "1 GitHub · 2 GitLab"
-msgstr "1 GitHub · 2 GitLab"
 
 msgid "==> Installed in {total} s; powering off"
 msgstr "==> Installation en {total} s ; extinction en cours"
@@ -226,6 +220,9 @@ msgstr "Applications"
 msgid "Arch posted news since your last update:"
 msgstr "Arch a publié des nouvelles depuis votre dernière mise à jour :"
 
+msgid "Arrows / Tab: move  Enter: answer  Esc: cancel"
+msgstr "Flèches / Tab : déplacer  Enter : répondre  Esc : annuler"
+
 msgid "Arrows: move  Enter: select  Type: search  Esc: back"
 msgstr "Flèches : déplacer  Enter : sélectionner  Saisie : rechercher  Esc : retour"
 
@@ -328,9 +325,6 @@ msgstr "Les marqueurs de chapitre nécessitent le format d’enregistrement Hybr
 msgid "Charging will stop at {value}% to reduce battery wear, also after reboot and resume."
 msgstr "La charge s’arrêtera à {value} % pour préserver la batterie, même après redémarrage ou sortie de veille."
 
-msgid "Choose GitHub or GitLab"
-msgstr "Choisissez GitHub ou GitLab"
-
 msgid "Choose Sign In to open the browser."
 msgstr "Choisissez Se connecter pour ouvrir le navigateur."
 
@@ -354,9 +348,6 @@ msgstr "Choisissez iwd ou NetworkManager"
 
 msgid "Choose iwd, networkmanager, or restore"
 msgstr "Choisissez iwd, networkmanager ou restore"
-
-msgid "Choose one of the listed numbers."
-msgstr "Choisissez l'un des numéros de la liste."
 
 msgid "Claude usage returned HTTP {code}; retry later or sign in again"
 msgstr "La consultation de l’utilisation de Claude a renvoyé HTTP {code} ; réessayez plus tard ou reconnectez-vous"
@@ -646,11 +637,11 @@ msgstr "Saisissez le mot de passe WiFi"
 msgid "Enter the authentication server domain without wildcards"
 msgstr "Saisissez le domaine du serveur d’authentification sans caractères génériques"
 
-msgid "Enter to create one later"
-msgstr "Enter pour créer la clé plus tard"
+msgid "Enter: answer  Left / Tab: back  Esc: cancel"
+msgstr "Enter : répondre  Gauche / Tab : retour  Esc : annuler"
 
-msgid "Enter to skip"
-msgstr "Enter pour ignorer"
+msgid "Enter: apply  Left: back  PgUp/PgDn: scroll  Esc: cancel"
+msgstr "Enter : appliquer  Gauche : retour  PgUp/PgDn : défiler  Esc : annuler"
 
 msgid "Enter: continue  Esc: back"
 msgstr "Enter : continuer  Esc : retour"
@@ -738,9 +729,6 @@ msgstr "Les fichiers de police ont été placés dans la corbeille et peuvent y 
 
 msgid "Fonts"
 msgstr "Polices"
-
-msgid "For example ~/Development/work"
-msgstr "Par exemple ~/Development/work"
 
 msgid "Found in your Git configuration"
 msgstr "Trouvé dans votre configuration Git"
@@ -937,9 +925,6 @@ msgstr "Invalid web app ID"
 msgid "It shows at the next boot and follows your theme from then on. Your boot entries were not changed."
 msgstr "Il apparaîtra au prochain démarrage et suivra ensuite votre thème. Vos entrées de démarrage n’ont pas été modifiées."
 
-msgid "It stays on this computer. Never put passwords or tokens in the address."
-msgstr "Elle reste sur cet ordinateur. Ne mettez jamais de mot de passe ni de jeton dans l'adresse."
-
 msgid "KEEP MY FILES returns the system, apps and settings to how they were at the first login, and keeps the files in your home folder."
 msgstr "CONSERVER MES FICHIERS remet le système, les applications et les réglages dans l’état de la première connexion et conserve les fichiers de votre dossier personnel."
 
@@ -987,9 +972,6 @@ msgstr "Langue enregistrée. Déconnectez-vous puis reconnectez-vous pour l’ap
 
 msgid "Later"
 msgstr "Plus tard"
-
-msgid "Leave the name empty to cancel.\n"
-msgstr "Laissez le nom vide pour annuler.\n"
 
 msgid "Let assistants work together"
 msgstr "Permettre aux assistants de travailler ensemble"
@@ -1059,6 +1041,9 @@ msgstr "Nouvelle clé SSH pour {label}"
 
 msgid "New name"
 msgstr "Nouveau nom"
+
+msgid "No"
+msgstr "Non"
 
 msgid "No LUKS-encrypted partition was found."
 msgstr "Aucune partition chiffrée avec LUKS n’a été trouvée."
@@ -1236,6 +1221,9 @@ msgstr "Choisissez un rappel à annuler"
 
 msgid "Please enlarge the console to at least 80 columns and 28 rows."
 msgstr "Agrandissez la console à au moins 80 colonnes et 28 lignes."
+
+msgid "Please enter a valid value."
+msgstr "Veuillez saisir une valeur valide."
 
 msgid "Preparation failed before any disk changes"
 msgstr "La préparation a échoué avant toute modification de disque"
@@ -1528,6 +1516,9 @@ msgstr "Les réglages ont changé ; l’entrée n’a pas pu être retirée sans
 msgid "Settings could not be updated safely."
 msgstr "Les réglages n’ont pas pu être mis à jour sans risque."
 
+msgid "Setup steps"
+msgstr "Étapes de configuration"
+
 msgid "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed."
 msgstr "Plusieurs chargeurs de démarrage sont configurés ({listing}). Supprimez les anciens fichiers ou configurez manuellement les entrées d’instantanés. Aucune modification."
 
@@ -1536,15 +1527,6 @@ msgstr "Le partage confie le contrôle total de ce bureau connecté. Activez-le 
 
 msgid "Sharing this network security type is not supported"
 msgstr "Le partage de ce type de sécurité réseau n’est pas pris en charge"
-
-msgid "Shown in menus, for example Personal or Work"
-msgstr "Affiché dans les menus, par exemple Personnel ou Travail"
-
-msgid "Shown in the AWS menu, for example Acme Production"
-msgstr "Affiché dans le menu AWS, par exemple Acme Production"
-
-msgid "Shown in the GCP menu, for example Acme Development"
-msgstr "Affiché dans le menu GCP, par exemple Acme Développement"
 
 msgid "Sign In"
 msgstr "Se connecter"
@@ -1720,9 +1702,6 @@ msgstr "Ce tableau de bord n'est plus enregistré."
 msgid "The AWS CLI did not create the profile {profile}"
 msgstr "La AWS CLI n’a pas créé le profil {profile}"
 
-msgid "The AWS CLI profile name"
-msgstr "Nom du profil AWS CLI"
-
 msgid "The AWS profile {profile} already exists; rename it with Ctrl+R in the AWS menu"
 msgstr "Le profil AWS {profile} existe déjà ; renommez-le avec Ctrl+R dans le menu AWS"
 
@@ -1770,9 +1749,6 @@ msgstr "Le pare-feu est désactivé : toutes les connexions entrantes atteignent
 
 msgid "The firewall is on: incoming connections are refused except replies and these sharing services: {services}."
 msgstr "Le pare-feu est activé : les connexions entrantes sont refusées, sauf les réponses et ces services de partage : {services}."
-
-msgid "The gcloud configuration name"
-msgstr "Nom de la configuration gcloud"
 
 msgid "The gcloud configuration {configuration} already exists; rename it with Ctrl+R"
 msgstr "La configuration gcloud {configuration} existe déjà ; renommez-la avec Ctrl+R"
@@ -2106,6 +2082,9 @@ msgstr "Adaptateur WiFi indisponible ; actualisez le panneau"
 
 msgid "Write the recovery key down and store it offline, then press Enter. "
 msgstr "Notez la clé de récupération et conservez-la hors ligne, puis appuyez sur Enter. "
+
+msgid "Yes"
+msgstr "Oui"
 
 msgid "You can run more commands here manually."
 msgstr "Vous pouvez exécuter d’autres commandes ici manuellement."

@@ -64,9 +64,6 @@ msgstr "  Choose a passphrase. The key is never copied into backups.\n"
 msgid "  No Git identity configured outside EITR was found."
 msgstr "  No Git identity configured outside EITR was found."
 
-msgid "  Press Enter to keep a value."
-msgstr "  Press Enter to keep a value."
-
 msgid "  Press Enter to keep the shown name."
 msgstr "  Press Enter to keep the shown name."
 
@@ -108,9 +105,6 @@ msgstr "/home is not on Btrfs, so it cannot have snapshots"
 
 msgid "/home is not the @home subvolume beside the root filesystem"
 msgstr "/home is not the @home subvolume beside the root filesystem"
-
-msgid "1 GitHub · 2 GitLab"
-msgstr "1 GitHub · 2 GitLab"
 
 msgid "==> Installed in {total} s; powering off"
 msgstr "==> Installed in {total} s; powering off"
@@ -226,6 +220,9 @@ msgstr "Apps"
 msgid "Arch posted news since your last update:"
 msgstr "Arch posted news since your last update:"
 
+msgid "Arrows / Tab: move  Enter: answer  Esc: cancel"
+msgstr "Arrows / Tab: move  Enter: answer  Esc: cancel"
+
 msgid "Arrows: move  Enter: select  Type: search  Esc: back"
 msgstr "Arrows: move  Enter: select  Type: search  Esc: back"
 
@@ -328,9 +325,6 @@ msgstr "Chapters need the Hybrid MP4 recording format (OBS Settings > Output)"
 msgid "Charging will stop at {value}% to reduce battery wear, also after reboot and resume."
 msgstr "Charging will stop at {value}% to reduce battery wear, also after reboot and resume."
 
-msgid "Choose GitHub or GitLab"
-msgstr "Choose GitHub or GitLab"
-
 msgid "Choose Sign In to open the browser."
 msgstr "Choose Sign In to open the browser."
 
@@ -354,9 +348,6 @@ msgstr "Choose iwd or NetworkManager"
 
 msgid "Choose iwd, networkmanager, or restore"
 msgstr "Choose iwd, networkmanager, or restore"
-
-msgid "Choose one of the listed numbers."
-msgstr "Choose one of the listed numbers."
 
 msgid "Claude usage returned HTTP {code}; retry later or sign in again"
 msgstr "Claude usage returned HTTP {code}; retry later or sign in again"
@@ -646,11 +637,11 @@ msgstr "Enter the WiFi password"
 msgid "Enter the authentication server domain without wildcards"
 msgstr "Enter the authentication server domain without wildcards"
 
-msgid "Enter to create one later"
-msgstr "Enter to create one later"
+msgid "Enter: answer  Left / Tab: back  Esc: cancel"
+msgstr "Enter: answer  Left / Tab: back  Esc: cancel"
 
-msgid "Enter to skip"
-msgstr "Enter to skip"
+msgid "Enter: apply  Left: back  PgUp/PgDn: scroll  Esc: cancel"
+msgstr "Enter: apply  Left: back  PgUp/PgDn: scroll  Esc: cancel"
 
 msgid "Enter: continue  Esc: back"
 msgstr "Enter: continue  Esc: back"
@@ -738,9 +729,6 @@ msgstr "Font files moved to Trash; they can be restored there."
 
 msgid "Fonts"
 msgstr "Fonts"
-
-msgid "For example ~/Development/work"
-msgstr "For example ~/Development/work"
 
 msgid "Found in your Git configuration"
 msgstr "Found in your Git configuration"
@@ -937,9 +925,6 @@ msgstr "Invalid web app ID"
 msgid "It shows at the next boot and follows your theme from then on. Your boot entries were not changed."
 msgstr "It shows at the next boot and follows your theme from then on. Your boot entries were not changed."
 
-msgid "It stays on this computer. Never put passwords or tokens in the address."
-msgstr "It stays on this computer. Never put passwords or tokens in the address."
-
 msgid "KEEP MY FILES returns the system, apps and settings to how they were at the first login, and keeps the files in your home folder."
 msgstr "KEEP MY FILES returns the system, apps and settings to how they were at the first login, and keeps the files in your home folder."
 
@@ -987,9 +972,6 @@ msgstr "Language saved. Sign out and back in to apply it."
 
 msgid "Later"
 msgstr "Later"
-
-msgid "Leave the name empty to cancel.\n"
-msgstr "Leave the name empty to cancel.\n"
 
 msgid "Let assistants work together"
 msgstr "Let assistants work together"
@@ -1059,6 +1041,9 @@ msgstr "New SSH key for {label}"
 
 msgid "New name"
 msgstr "New name"
+
+msgid "No"
+msgstr "No"
 
 msgid "No LUKS-encrypted partition was found."
 msgstr "No LUKS-encrypted partition was found."
@@ -1236,6 +1221,9 @@ msgstr "Pick a reminder to cancel"
 
 msgid "Please enlarge the console to at least 80 columns and 28 rows."
 msgstr "Please enlarge the console to at least 80 columns and 28 rows."
+
+msgid "Please enter a valid value."
+msgstr "Please enter a valid value."
 
 msgid "Preparation failed before any disk changes"
 msgstr "Preparation failed before any disk changes"
@@ -1528,6 +1516,9 @@ msgstr "Settings changed; the entry could not be removed safely."
 msgid "Settings could not be updated safely."
 msgstr "Settings could not be updated safely."
 
+msgid "Setup steps"
+msgstr "Setup steps"
+
 msgid "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed."
 msgstr "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed."
 
@@ -1536,15 +1527,6 @@ msgstr "Sharing hands over full control of this signed-in desktop. Only enable i
 
 msgid "Sharing this network security type is not supported"
 msgstr "Sharing this network security type is not supported"
-
-msgid "Shown in menus, for example Personal or Work"
-msgstr "Shown in menus, for example Personal or Work"
-
-msgid "Shown in the AWS menu, for example Acme Production"
-msgstr "Shown in the AWS menu, for example Acme Production"
-
-msgid "Shown in the GCP menu, for example Acme Development"
-msgstr "Shown in the GCP menu, for example Acme Development"
 
 msgid "Sign In"
 msgstr "Sign In"
@@ -1720,9 +1702,6 @@ msgstr "That dashboard is no longer saved."
 msgid "The AWS CLI did not create the profile {profile}"
 msgstr "The AWS CLI did not create the profile {profile}"
 
-msgid "The AWS CLI profile name"
-msgstr "The AWS CLI profile name"
-
 msgid "The AWS profile {profile} already exists; rename it with Ctrl+R in the AWS menu"
 msgstr "The AWS profile {profile} already exists; rename it with Ctrl+R in the AWS menu"
 
@@ -1770,9 +1749,6 @@ msgstr "The firewall is off: every incoming connection reaches the apps listenin
 
 msgid "The firewall is on: incoming connections are refused except replies and these sharing services: {services}."
 msgstr "The firewall is on: incoming connections are refused except replies and these sharing services: {services}."
-
-msgid "The gcloud configuration name"
-msgstr "The gcloud configuration name"
 
 msgid "The gcloud configuration {configuration} already exists; rename it with Ctrl+R"
 msgstr "The gcloud configuration {configuration} already exists; rename it with Ctrl+R"
@@ -2106,6 +2082,9 @@ msgstr "WiFi adapter is unavailable; refresh the panel"
 
 msgid "Write the recovery key down and store it offline, then press Enter. "
 msgstr "Write the recovery key down and store it offline, then press Enter. "
+
+msgid "Yes"
+msgstr "Yes"
 
 msgid "You can run more commands here manually."
 msgstr "You can run more commands here manually."

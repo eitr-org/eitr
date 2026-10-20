@@ -3215,9 +3215,6 @@
     "  No Git identity configured outside EITR was found.": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
-    "  Press Enter to keep a value.": [
-      "walker/scripts/actions/development/git-accounts.py"
-    ],
     "  Press Enter to keep the shown name.": [
       "walker/scripts/menus/cloud/accounts.py"
     ],
@@ -3259,9 +3256,6 @@
     ],
     "/home is not the @home subvolume beside the root filesystem": [
       "distro/system/factory-reset.py"
-    ],
-    "1 GitHub · 2 GitLab": [
-      "walker/scripts/actions/development/git-accounts.py"
     ],
     "==> Installed in {total} s; powering off": [
       "distro/archinstall/eitr-guided-install"
@@ -3377,8 +3371,11 @@
     "Arch posted news since your last update:": [
       "walker/scripts/actions/system/arch-news.py"
     ],
+    "Arrows / Tab: move  Enter: answer  Esc: cancel": [
+      "distro/lib/eitr_wizard.py"
+    ],
     "Arrows: move  Enter: select  Type: search  Esc: back": [
-      "distro/archinstall/installer-ui.py"
+      "distro/lib/eitr_wizard.py"
     ],
     "Ask the AI": [
       "walker/scripts/actions/system/crash-help.py"
@@ -3479,9 +3476,6 @@
     "Charging will stop at {value}% to reduce battery wear, also after reboot and resume.": [
       "walker/scripts/actions/system/battery-limit.py"
     ],
-    "Choose GitHub or GitLab": [
-      "walker/scripts/actions/development/git-accounts.py"
-    ],
     "Choose Sign In to open the browser.": [
       "walker/scripts/actions/system/remote-access.py"
     ],
@@ -3505,9 +3499,6 @@
     ],
     "Choose iwd, networkmanager, or restore": [
       "walker/scripts/actions/system/network-backend.py"
-    ],
-    "Choose one of the listed numbers.": [
-      "walker/scripts/actions/development/monitoring.py"
     ],
     "Claude usage returned HTTP {code}; retry later or sign in again": [
       "quickshell/desktop-bar/scripts/ai-usage.py"
@@ -3573,7 +3564,8 @@
       "walker/scripts/menus/cloud/accounts.py"
     ],
     "Configuration changed during preview: {path}": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git-accounts.py",
+      "walker/scripts/menus/cloud/accounts.py"
     ],
     "Configure this source in OBS first": [
       "quickshell/desktop-bar/scripts/obs-control.py"
@@ -3718,7 +3710,7 @@
       "walker/scripts/actions/system/remote-access.py"
     ],
     "Disk": [
-      "distro/archinstall/installer-ui.py"
+      "distro/lib/eitr_wizard.py"
     ],
     "Disk Usage After Cleanup": [
       "walker/scripts/actions/system/cleanup.sh"
@@ -3784,7 +3776,7 @@
       "walker/scripts/actions/system/security.py"
     ],
     "Encryption": [
-      "distro/archinstall/installer-ui.py"
+      "distro/lib/eitr_wizard.py"
     ],
     "English UTF-8 support is missing from the live image": [
       "distro/archinstall/installer-ui.py"
@@ -3800,14 +3792,14 @@
       "distro/system/network-backend.py",
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py"
     ],
-    "Enter to create one later": [
-      "walker/scripts/actions/development/git-accounts.py"
+    "Enter: answer  Left / Tab: back  Esc: cancel": [
+      "distro/lib/eitr_wizard.py"
     ],
-    "Enter to skip": [
-      "walker/scripts/actions/development/git-accounts.py"
+    "Enter: apply  Left: back  PgUp/PgDn: scroll  Esc: cancel": [
+      "distro/lib/eitr_wizard.py"
     ],
     "Enter: continue  Esc: back": [
-      "distro/archinstall/installer-ui.py"
+      "distro/lib/eitr_wizard.py"
     ],
     "Enterprise WiFi requires username, password, CA certificate and server domain": [
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py"
@@ -3893,9 +3885,6 @@
     "Fonts": [
       "walker/scripts/actions/style/fonts.py"
     ],
-    "For example ~/Development/work": [
-      "walker/scripts/actions/development/git-accounts.py"
-    ],
     "Found in your Git configuration": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
@@ -3946,13 +3935,14 @@
     ],
     "Hostname": [
       "distro/archinstall/installer-ui.py",
+      "distro/lib/eitr_wizard.py",
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "How should Eitr use {disk}?": [
       "distro/archinstall/installer-ui.py"
     ],
     "INSTALL STEPS": [
-      "distro/archinstall/installer-ui.py"
+      "distro/lib/eitr_wizard.py"
     ],
     "Icon image address (optional; press Enter to detect it): ": [
       "walker/scripts/actions/install/webapps.py"
@@ -4006,7 +3996,7 @@
       "distro/system/eitr-system.py"
     ],
     "Install type": [
-      "distro/archinstall/installer-ui.py"
+      "distro/lib/eitr_wizard.py"
     ],
     "Install type {layout} is not available on {path}": [
       "distro/archinstall/eitr-guided-install"
@@ -4093,9 +4083,6 @@
     "It shows at the next boot and follows your theme from then on. Your boot entries were not changed.": [
       "distro/system/eitr-system.py"
     ],
-    "It stays on this computer. Never put passwords or tokens in the address.": [
-      "walker/scripts/actions/development/monitoring.py"
-    ],
     "KEEP MY FILES returns the system, apps and settings to how they were at the first login, and keeps the files in your home folder.": [
       "walker/scripts/actions/system/factory-reset.py"
     ],
@@ -4118,7 +4105,7 @@
       "walker/scripts/actions/system/factory-reset.py"
     ],
     "Keyboard": [
-      "distro/archinstall/installer-ui.py"
+      "distro/lib/eitr_wizard.py"
     ],
     "Keyboard layout": [
       "distro/archinstall/installer-ui.py"
@@ -4143,9 +4130,6 @@
     ],
     "Later": [
       "walker/scripts/actions/system/restart-check.py"
-    ],
-    "Leave the name empty to cancel.\n": [
-      "walker/scripts/actions/install/webapps.py"
     ],
     "Let assistants work together": [
       "walker/scripts/actions/assistant-collaboration.py"
@@ -4217,6 +4201,9 @@
     "New name": [
       "walker/scripts/menus/cloud/accounts.py"
     ],
+    "No": [
+      "walker/scripts/actions/development/git-accounts.py"
+    ],
     "No LUKS-encrypted partition was found.": [
       "walker/scripts/actions/system/security.py"
     ],
@@ -4269,7 +4256,7 @@
       "distro/system/factory-reset.py"
     ],
     "No matches": [
-      "distro/archinstall/installer-ui.py"
+      "distro/lib/eitr_wizard.py"
     ],
     "No other display named {value}": [
       "quickshell/desktop-bar/scripts/display-settings.py"
@@ -4383,10 +4370,10 @@
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Password": [
-      "distro/archinstall/installer-ui.py"
+      "distro/lib/eitr_wizard.py"
     ],
     "Passwords did not match": [
-      "distro/archinstall/installer-ui.py"
+      "distro/lib/eitr_wizard.py"
     ],
     "Peer Tailscale address or name: ": [
       "walker/scripts/actions/system/remote-access.py"
@@ -4395,7 +4382,10 @@
       "walker/scripts/actions/tools/reminders.py"
     ],
     "Please enlarge the console to at least 80 columns and 28 rows.": [
-      "distro/archinstall/installer-ui.py"
+      "distro/lib/eitr_wizard.py"
+    ],
+    "Please enter a valid value.": [
+      "distro/lib/eitr_wizard.py"
     ],
     "Preparation failed before any disk changes": [
       "distro/archinstall/eitr-guided-install"
@@ -4533,7 +4523,7 @@
       "walker/scripts/menus/cloud/accounts.py"
     ],
     "Repeat the password.": [
-      "distro/archinstall/installer-ui.py"
+      "distro/lib/eitr_wizard.py"
     ],
     "Report a problem": [
       "walker/scripts/actions/system/crash-help.py"
@@ -4566,13 +4556,13 @@
       "distro/system/factory-reset.py"
     ],
     "Review": [
-      "distro/archinstall/installer-ui.py"
+      "distro/lib/eitr_wizard.py"
     ],
     "Review /etc/default/limine first, then run: sudo systemctl start {unit}": [
       "distro/system/eitr-system.py"
     ],
     "Review installation": [
-      "distro/archinstall/installer-ui.py"
+      "distro/lib/eitr_wizard.py"
     ],
     "Root snapshots configured. Existing Snapper policy is preserved.": [
       "distro/system/eitr-system.py"
@@ -4688,6 +4678,9 @@
     "Settings could not be updated safely.": [
       "distro/lib/eitr_collaboration.py"
     ],
+    "Setup steps": [
+      "distro/lib/eitr_wizard.py"
+    ],
     "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed.": [
       "distro/system/eitr-system.py"
     ],
@@ -4696,15 +4689,6 @@
     ],
     "Sharing this network security type is not supported": [
       "quickshell/desktop-bar/scripts/wifi-qr.py"
-    ],
-    "Shown in menus, for example Personal or Work": [
-      "walker/scripts/actions/development/git-accounts.py"
-    ],
-    "Shown in the AWS menu, for example Acme Production": [
-      "walker/scripts/menus/cloud/accounts.py"
-    ],
-    "Shown in the GCP menu, for example Acme Development": [
-      "walker/scripts/menus/cloud/accounts.py"
     ],
     "Sign In": [
       "walker/scripts/menus/cloud/providers.py"
@@ -4842,7 +4826,7 @@
       "distro/system/eitr-system.py"
     ],
     "Tab / arrows: choose  Enter: select  Esc: cancel": [
-      "distro/archinstall/installer-ui.py"
+      "distro/lib/eitr_wizard.py"
     ],
     "Tailscale setup belongs to another desktop user": [
       "distro/system/eitr_remote.py"
@@ -4878,9 +4862,6 @@
       "walker/scripts/actions/development/monitoring.py"
     ],
     "The AWS CLI did not create the profile {profile}": [
-      "walker/scripts/menus/cloud/accounts.py"
-    ],
-    "The AWS CLI profile name": [
       "walker/scripts/menus/cloud/accounts.py"
     ],
     "The AWS profile {profile} already exists; rename it with Ctrl+R in the AWS menu": [
@@ -4930,9 +4911,6 @@
     ],
     "The firewall is on: incoming connections are refused except replies and these sharing services: {services}.": [
       "distro/system/eitr-system.py"
-    ],
-    "The gcloud configuration name": [
-      "walker/scripts/menus/cloud/accounts.py"
     ],
     "The gcloud configuration {configuration} already exists; rename it with Ctrl+R": [
       "walker/scripts/menus/cloud/accounts.py"
@@ -5077,7 +5055,7 @@
       "distro/system/eitr-timezone.py"
     ],
     "Try again": [
-      "distro/archinstall/installer-ui.py"
+      "distro/lib/eitr_wizard.py"
     ],
     "Turn home snapshots off?": [
       "walker/scripts/actions/system/home-snapshots.py"
@@ -5218,7 +5196,7 @@
       "walker/scripts/actions/install/webapps.py"
     ],
     "Use at least 8 characters. Your input is hidden.": [
-      "distro/archinstall/installer-ui.py"
+      "distro/lib/eitr_wizard.py"
     ],
     "Use eitr-guided-install on the live ISO, or --preview for a safe UI preview.": [
       "distro/archinstall/installer-ui.py"
@@ -5249,7 +5227,7 @@
       "distro/archinstall/installer-ui.py"
     ],
     "Username": [
-      "distro/archinstall/installer-ui.py"
+      "distro/lib/eitr_wizard.py"
     ],
     "Using the default theme: {user}'s theme could not be read ({error}).": [
       "distro/system/eitr-system.py"
@@ -5271,6 +5249,9 @@
     ],
     "Write the recovery key down and store it offline, then press Enter. ": [
       "walker/scripts/actions/system/security.py"
+    ],
+    "Yes": [
+      "walker/scripts/actions/development/git-accounts.py"
     ],
     "You can run more commands here manually.": [
       "walker/scripts/menus/cloud/common.sh"

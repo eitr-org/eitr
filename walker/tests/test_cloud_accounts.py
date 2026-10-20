@@ -5,6 +5,7 @@ from pathlib import Path
 import tempfile
 import tomllib
 import unittest
+from home_isolation import setUpModule, tearDownModule
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -30,14 +31,51 @@ class CloudAccountTests(unittest.TestCase):
         directory = tempfile.TemporaryDirectory()
         self.addCleanup(directory.cleanup)
         self.config = Path(directory.name)
-        patcher = patch.dict(os.environ, {"XDG_CONFIG_HOME": str(self.config)})
+        patcher = patch.dict(os.environ, {"XDG_CONFIG_HOME": str(self.config),
+            "AWS_CONFIG_FILE": str(self.config / '.aws/config'),
+            "AWS_SHARED_CREDENTIALS_FILE": str(self.config / '.aws/credentials'),
+            "CLOUDSDK_CONFIG": str(self.config / 'gcloud'),
+            "AZURE_CONFIG_DIR": str(self.config / '.azure')})
         patcher.start()
         self.addCleanup(patcher.stop)
+        home_patch = patch('pathlib.Path.home', return_value=self.config)
+        home_patch.start()
+        self.addCleanup(home_patch.stop)
         self.accounts = load()
 
     def answer(self, *values):
         answers = iter(values)
         return patch("builtins.input", side_effect=lambda prompt="": next(answers))
+
+    def test_staged_signin_rolls_back_on_failure_or_interrupt(self):
+        for provider, variable, filename in (
+                ('aws', 'AWS_CONFIG_FILE', None),
+                ('gcp', 'CLOUDSDK_CONFIG', 'configurations/config_new'),
+                ('azure', 'AZURE_CONFIG_DIR', 'azureProfile.json')):
+            for failure in (KeyboardInterrupt, RuntimeError):
+                with self.subTest(provider=provider, failure=failure):
+                    before = dict(os.environ)
+                    with self.assertRaises(failure):
+                        with self.accounts.staged_provider(provider):
+                            staged = Path(os.environ[variable])
+                            staged = staged / filename if filename else staged
+                            staged.parent.mkdir(parents=True, exist_ok=True)
+                            staged.write_text('new sign-in')
+                            raise failure()
+                    self.assertEqual(dict(os.environ), before)
+                    self.assertFalse(Path(before[variable]).exists())
+
+    def test_staged_signin_publishes_only_after_success(self):
+        target = Path(os.environ['CLOUDSDK_CONFIG'])
+        target.mkdir()
+        (target / 'existing').write_text('keep')
+        with self.accounts.staged_provider('gcp'):
+            staged = Path(os.environ['CLOUDSDK_CONFIG'])
+            (staged / 'new').write_text('signed in')
+            self.assertFalse((target / 'new').exists())
+        self.assertEqual((target / 'existing').read_text(), 'keep')
+        self.assertEqual((target / 'new').read_text(), 'signed in')
+        self.assertEqual((target / 'new').stat().st_mode & 0o777, 0o600)
 
     def test_names_are_stored_per_provider_without_losing_others(self):
         self.accounts.set_name("aws", "acme-production", "Acme Production")
@@ -64,7 +102,7 @@ class CloudAccountTests(unittest.TestCase):
 
     def test_add_aws_creates_a_named_sso_profile(self):
         profiles = [["default"], ["default", "acme-development"]]
-        with self.answer("Acme Development", "", ""), \
+        with patch.object(self.accounts, "collect_setup", return_value={"label": "Acme Development", "profile": "acme-development", "method": 0}), \
                 patch.object(self.accounts, "aws_profiles", side_effect=lambda: profiles.pop(0)), \
                 patch.object(self.accounts.subprocess, "run") as run:
             self.accounts.add_aws()
@@ -73,14 +111,14 @@ class CloudAccountTests(unittest.TestCase):
 
     def test_add_aws_with_access_keys_and_a_custom_profile_id(self):
         profiles = [[], ["prod"]]
-        with self.answer("Acme Production", "prod", "2"), \
+        with patch.object(self.accounts, "collect_setup", return_value={"label": "Acme Production", "profile": "prod", "method": 1}), \
                 patch.object(self.accounts, "aws_profiles", side_effect=lambda: profiles.pop(0)), \
                 patch.object(self.accounts.subprocess, "run") as run:
             self.accounts.add_aws()
         run.assert_called_once_with(["aws", "configure", "--profile", "prod"], check=True)
 
     def test_add_aws_refuses_an_existing_profile_and_bad_ids(self):
-        with self.answer("Prod", "prod"), patch.object(self.accounts, "aws_profiles", return_value=["prod"]), \
+        with patch.object(self.accounts, "collect_setup", return_value={"label": "Prod", "profile": "prod", "method": 0}), patch.object(self.accounts, "aws_profiles", return_value=["prod"]), \
                 self.assertRaises(ValueError):
             self.accounts.add_aws()
         for value in ("Bad ID", "-x", "a/b", ""):
@@ -98,7 +136,7 @@ class CloudAccountTests(unittest.TestCase):
                 return Completed(json.dumps([{"projectId": "acme-dev-123", "name": "Dev"}]))
             return Completed()
 
-        with self.answer("Acme Development", "", ""), patch.object(self.accounts.subprocess, "run", side_effect=run):
+        with patch.object(self.accounts, "collect_setup", return_value={"label": "Acme Development", "configuration": "acme-development", "project": "acme-dev-123"}), patch.object(self.accounts.subprocess, "run", side_effect=run):
             self.accounts.add_gcp()
         commands = [command for command, _ in calls]
         self.assertIn(["gcloud", "config", "configurations", "create", "acme-development", "--no-activate"], commands)
@@ -120,7 +158,7 @@ class CloudAccountTests(unittest.TestCase):
                                              {"id": previous, "name": "Old", "state": "Disabled"}]))
             return Completed()
 
-        with self.answer("", "Acme Azure"), patch.object(self.accounts.subprocess, "run", side_effect=run):
+        with patch.object(self.accounts, "collect_setup", return_value={"tenant": "", "label": "Acme Azure"}), patch.object(self.accounts.subprocess, "run", side_effect=run):
             self.accounts.add_azure()
         self.assertIn(["az", "account", "set", "--subscription", previous], commands)
         self.assertEqual(self.accounts.names("azure"), {new: "Acme Azure"})

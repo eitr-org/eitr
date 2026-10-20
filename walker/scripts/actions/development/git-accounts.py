@@ -25,6 +25,7 @@ for parent in Path(__file__).resolve().parents:
 from eitr_paths import code, config, state, read_settings
 from eitr_i18n import mark as menu_mark, tr
 from eitr_forms import Terminal
+from eitr_wizard import Step, collect as collect_setup
 
 ui = Terminal()
 
@@ -595,44 +596,39 @@ def show_key(identifier):
 
 
 def add_form(model):
-    print(ui.title(tr('Add a Git account')))
-    provider = {'': 'github', '1': 'github', 'github': 'github', '2': 'gitlab', 'gitlab': 'gitlab'}.get(
-        ui.ask(tr('Provider'), 'GitHub', tr('1 GitHub · 2 GitLab')).casefold())
-    if not provider:
-        raise ValueError(tr('Choose GitHub or GitLab'))
-    account = {'provider': provider, 'key': '',
-               'label': clean(ui.ask(tr('Account name'), hint=tr('Shown in menus, for example Personal or Work'))),
-               'name': clean(ui.ask(tr('Commit author name'))),
-               'email': clean(ui.ask(tr('Commit author email'))),
-               'host': ui.ask(tr('Hostname'), PROVIDERS[provider][1]) or PROVIDERS[provider][1]}
-    keys = sorted(short(path.with_suffix('')) for path in (Path.home() / '.ssh').glob('*.pub')
-                  if path.with_suffix('').is_file())
-    value = ui.ask(tr('Private SSH key'), tr('Enter to create one later'),
-                   'Existing keys: ' + ', '.join(keys) if keys else 'No keys in ~/.ssh yet')
-    if value:
-        account['key'] = private_key(value)
+    answers = collect_setup(tr('Add a Git account'), [
+        Step('provider', tr('Provider'), options=[('GitHub', 'github'), ('GitLab', 'gitlab')]),
+        Step('label', tr('Account name'), validator=clean),
+        Step('name', tr('Commit author name'), validator=clean),
+        Step('email', tr('Commit author email'), validator=clean),
+        Step('host', tr('Hostname'), default=lambda values: PROVIDERS[values.get('provider', 'github')][1],
+             validator=lambda value: bool(re.fullmatch(r'[a-zA-Z0-9][a-zA-Z0-9.-]*', value))),
+        Step('key', tr('Private SSH key'), optional=True, validator=private_key),
+        Step('default', tr('Use it in every folder without its own account?'), default=not model.get('default'),
+             options=[(tr('Yes'), True), (tr('No'), False)]),
+        Step('folder', tr('Folder whose repositories use only this account'), optional=True, validator=folder),
+    ])
     identifier = uuid.uuid4().hex
-    model['accounts'][identifier] = account
-    default = ui.ask(tr('Use it in every folder without its own account?'), 'Y/n' if not model.get('default') else 'y/N')
-    if default.casefold() in ('y', 'yes') or (not default and not model.get('default')):
+    model['accounts'][identifier] = {key: answers[key] for key in ('provider', 'label', 'name', 'email', 'host', 'key')}
+    if answers['key']:
+        model['accounts'][identifier]['key'] = private_key(answers['key'])
+    if answers['default']:
         model['default'] = identifier
-    value = ui.ask(tr('Folder whose repositories use only this account'), tr('Enter to skip'),
-                   tr('For example ~/Development/work'))
-    if value:
-        path = folder(value)
+    if answers['folder']:
+        path = folder(answers['folder'])
         model['folders'] = [row for row in model['folders'] if row['path'] != path] + [{'path': path, 'account': identifier}]
-    return confirm(model)
+    apply(model)
+    return True
 
 
 def edit_form(model, identifier):
     account = model['accounts'][identifier]
-    print(ui.title(tr('Edit {label}', label=f"{account['label']}")))
-    print(ui.dim(tr('  Press Enter to keep a value.')))
-    for key, label in (('label', 'Account name'), ('name', 'Commit author name'), ('email', 'Commit author email')):
-        value = ui.ask(label, account[key])
-        if value:
-            account[key] = clean(value)
-    confirm(model)
+    answers = collect_setup(tr('Edit {label}', label=account['label']), [
+        Step(key, tr(label), default=account[key], validator=clean)
+        for key, label in (('label', 'Account name'), ('name', 'Commit author name'), ('email', 'Commit author email'))
+    ])
+    account.update(answers)
+    apply(model)
 
 
 def create_key(model, identifier):

@@ -6,7 +6,7 @@ Cada conta mostra onde o Git a usa: **Padrão**, os nomes das pastas ou **Ainda 
 
 ## Primeira configuração
 
-1. **Adicionar conta** abre um formulário com provedor, nome da conta, nome e e-mail do autor dos commits, host e uma chave SSH privada existente (lista as chaves em `~/.ssh`), ou nenhuma por enquanto. Depois pergunta se a conta será o padrão e qual pasta usa somente essa conta, mostra uma prévia e salva com Enter.
+1. **Adicionar conta** abre o formulário por etapas para provedor, nome da conta, nome e e-mail do autor dos commits, hostname, chave SSH privada existente opcional, identidade padrão e regra de pasta. Todas as respostas aparecem na revisão; volte a qualquer etapa antes de aplicar. Esc ou Ctrl+C cancela sem salvar.
 2. **Importar Configuração Existente** lê identidades configuradas manualmente: `user.name`/`user.email` padrão e regras por pasta `includeIf "gitdir:…"` em `~/.gitconfig` ou `~/.config/git/config`, incluindo alias SSH e a chave usados por um arquivo incluído (`url.<alias>.insteadOf`). Mostra o que encontrou e cria contas e regras correspondentes após confirmação. Seus arquivos permanecem intactos; padrões de pastas com curingas aparecem como ignorados.
 
 ## Padrão e pastas

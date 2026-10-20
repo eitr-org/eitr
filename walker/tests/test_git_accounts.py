@@ -178,7 +178,7 @@ class GitAccountTests(unittest.TestCase):
     def test_add_form_sets_default_and_folder_in_one_pass(self):
         projects = self.home / 'Development/personal'
         projects.mkdir(parents=True)
-        with self.answer('', 'Personal', 'Erick', 'me@example.com', '', '', '', str(projects), ''):
+        with patch.object(accounts, 'collect_setup', return_value=dict(provider='github', label='Personal', name='Erick', email='me@example.com', host='github.com', key='', default=True, folder=str(projects))):
             self.assertTrue(accounts.add_form(copy.deepcopy(accounts.load())))
         model = accounts.load()
         (identifier, account), = model['accounts'].items()
@@ -189,16 +189,17 @@ class GitAccountTests(unittest.TestCase):
     def test_add_form_keeps_an_existing_default_unless_asked(self):
         accounts.apply(self.model)
         before = accounts.load()
-        with self.answer('2', 'Lab', 'Erick', 'lab@example.com', '', '', '', '', 'y'):
+        with patch.object(accounts, 'collect_setup', return_value=dict(provider='gitlab', label='Lab', name='Erick', email='lab@example.com', host='gitlab.com', key='', default=False, folder='')):
             accounts.add_form(copy.deepcopy(before))
         after = accounts.load()
         self.assertEqual(after['default'], before['default'])
         self.assertIn('gitlab.com', [account['host'] for account in after['accounts'].values()])
 
     def test_declining_the_form_saves_nothing(self):
-        with self.answer('', 'Personal', 'Erick', 'me@example.com', '', '', '', '', 'n'), \
+        with patch.object(accounts, 'collect_setup', side_effect=KeyboardInterrupt), \
                 patch.object(accounts, 'apply') as apply:
-            self.assertFalse(accounts.add_form(copy.deepcopy(accounts.load())))
+            with self.assertRaises(KeyboardInterrupt):
+                accounts.add_form(copy.deepcopy(accounts.load()))
             apply.assert_not_called()
         self.assertFalse(accounts.settings_path().exists())
         self.assertFalse((self.home / '.gitconfig').exists())

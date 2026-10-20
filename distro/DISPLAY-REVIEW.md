@@ -285,3 +285,137 @@ including cancellation, symlink and active-action refusal, replaced-directory
 refusal, explicit context flags, Oracle tenancy/namespace scoping, Vercel without
 a selected team, and readable command failures without credential retries.
 The full repository gate and both catalog build/check pairs pass.
+
+## Shared terminal setup wizard
+
+The terminal setup forms now reuse `distro/lib/eitr_wizard.py`, extracted from
+`distro/archinstall/installer-ui.py`. The installer retains its original
+`collect()` sequence, Norse palette, renderer, filtering, validation, back/cancel
+rules, default Cancel selection and final typed disk confirmation. Setup forms
+add independent step navigation and a Review screen: arrows/Tab select a step,
+Enter edits it, Left/Tab returns from editing, and Esc/Ctrl+C cancels. Text,
+masked secrets, validated defaults, optional text and filterable choices share
+one renderer. Review masks secrets, shows every answer (PgUp/PgDn scrolls), and
+allows returning to any step before applying. Required unanswered steps and
+invalid drafts cannot be applied.
+
+Converted flows:
+
+- AWS Add Account: name, profile ID, SSO/access-key method.
+- Google Cloud Add Account: name, configuration ID, optional project ID.
+- Azure Add Account: tenant and optional subscription label; blank retains each
+  subscription's name. Subscription discovery follows vendor sign-in.
+- Cloudflare, DigitalOcean, Hetzner Cloud, Oracle Cloud, Vercel, Netlify and IBM
+  Cloud Add Account: private workspace name; Oracle also collects region and
+  Vercel scope before sign-in.
+- IBM Cloud target selection: account and region reviewed together.
+- Git Accounts Add Account: provider, label, author, email, hostname, optional
+  existing SSH key, default choice and optional folder rule.
+- Git Accounts Edit: label, author and email.
+- Development > Monitoring > Add Dashboard: service, name and URL.
+- Install > Web Apps > Create Web App: name, URL and optional icon URL.
+
+AWS, Google Cloud and Azure vendor writes are staged in private temporary
+configuration paths after review and published only after successful sign-in.
+Failure or interruption discards staging and restores environment variables.
+AWS uses a temporary HOME for SSO cache writes. Existing files are checked for
+concurrent changes before publishing; symlinked configuration trees are refused.
+The seven private-workspace providers create no folder until review succeeds;
+failed/interrupted sign-in removes the new workspace and newly created parent
+folders. Vendor-controlled browser/token prompts still run after review.
+Missing CLI installation is offered after review.
+
+Inventory: searched Walker scripts for `input(`, `read -r -p`, `read -rp`, all
+shell `read` statements, `getpass`, and Terminal `ask`/`choose`/`confirm` helpers.
+The following remain as they are:
+
+- Cloud rename and native context/profile selection: one local answer each.
+- Git folder assignment: one path plus its existing save confirmation; Git
+  import, account changes and CLI login retain their single confirmation.
+- SSH key generation: `ssh-keygen` owns the passphrase prompts.
+- Factory reset, TPM/Secure Boot/security actions, battery limit, remote access,
+  network backend/reboot, firewall, home snapshots, update/cleanup and assistant
+  collaboration: independent yes/no or typed safety confirmations.
+- Report Problem: a repeated action menu for an already generated report,
+  rather than a multi-question setup form.
+- Task failure/close pauses, cloud pagers and About: acknowledgement only.
+- Cloud resource pickers and fzf search: browsing existing resources, not setup.
+- Theme scripts' `read` statements: parsing generated data, not user questions.
+
+Packaging: the existing runtime `distro/lib/**` layout rule already installs the
+shared module under `/usr/share/eitr/lib`; an explicit rule names its owner.
+The ISO exports the repository, including `distro/lib`, and archinstall's existing
+`eitr_bootstrap.py` symlink resolves there. No extra payload copy, PKGBUILD change
+or ISO build change is necessary.
+
+Verification uses mocked screens, key sequences, subprocesses and temporary
+homes with `walker/tests/home_isolation.py`. Existing installer tests remain
+unchanged; additional tests assert the original step order, validators, review
+contents, Cancel/Continue selection and typed disk confirmation, plus setup
+navigation, filtering, defaults, validation, secret masking and cancellation.
+Provider tests cover staged publication and rollback on failure/interruption,
+and cancellation/failed sign-in for all seven private workspace providers.
+No cloud/account CLI, account configuration, terminal launcher or desktop was
+used for live verification. Handbook chapters and helper catalogs cover English,
+Brazilian Portuguese, Spanish, German and French.
+
+Files changed for the shared-wizard conversion (including generated catalogs):
+
+- `distro/DISPLAY-REVIEW.md`
+- `distro/archinstall/installer-ui.py`
+- `distro/layout-manifest.json`
+- `distro/lib/eitr_wizard.py`
+- `i18n/catalogs/de/helpers.json`
+- `i18n/catalogs/en/helpers.json`
+- `i18n/catalogs/es/helpers.json`
+- `i18n/catalogs/fr/helpers.json`
+- `i18n/catalogs/pt_BR/helpers.json`
+- `i18n/locales/de/LC_MESSAGES/eitr.mo`
+- `i18n/locales/de/LC_MESSAGES/eitr.po`
+- `i18n/locales/en/LC_MESSAGES/eitr.mo`
+- `i18n/locales/en/LC_MESSAGES/eitr.po`
+- `i18n/locales/es/LC_MESSAGES/eitr.mo`
+- `i18n/locales/es/LC_MESSAGES/eitr.po`
+- `i18n/locales/fr/LC_MESSAGES/eitr.mo`
+- `i18n/locales/fr/LC_MESSAGES/eitr.po`
+- `i18n/locales/pt_BR/LC_MESSAGES/eitr.mo`
+- `i18n/locales/pt_BR/LC_MESSAGES/eitr.po`
+- `i18n/pending-helpers.json`
+- `i18n/sources.json`
+- `quickshell/desktop-bar/handbook/catalog.json`
+- `quickshell/desktop-bar/handbook/catalogs/de.json`
+- `quickshell/desktop-bar/handbook/catalogs/es.json`
+- `quickshell/desktop-bar/handbook/catalogs/fr.json`
+- `quickshell/desktop-bar/handbook/catalogs/pt_BR.json`
+- `quickshell/desktop-bar/handbook/content/de/development.md`
+- `quickshell/desktop-bar/handbook/content/de/git-accounts.md`
+- `quickshell/desktop-bar/handbook/content/de/source-hashes.json`
+- `quickshell/desktop-bar/handbook/content/development.md`
+- `quickshell/desktop-bar/handbook/content/es/development.md`
+- `quickshell/desktop-bar/handbook/content/es/git-accounts.md`
+- `quickshell/desktop-bar/handbook/content/es/source-hashes.json`
+- `quickshell/desktop-bar/handbook/content/fr/development.md`
+- `quickshell/desktop-bar/handbook/content/fr/git-accounts.md`
+- `quickshell/desktop-bar/handbook/content/fr/source-hashes.json`
+- `quickshell/desktop-bar/handbook/content/git-accounts.md`
+- `quickshell/desktop-bar/handbook/content/pt_BR/development.md`
+- `quickshell/desktop-bar/handbook/content/pt_BR/git-accounts.md`
+- `quickshell/desktop-bar/handbook/content/pt_BR/source-hashes.json`
+- `walker/scripts/actions/development/git-accounts.py`
+- `walker/scripts/actions/development/monitoring.py`
+- `walker/scripts/actions/install/webapps.py`
+- `walker/scripts/menus/cloud/accounts.py`
+- `walker/scripts/menus/cloud/providers.py`
+- `walker/tests/test_cloud_accounts.py`
+- `walker/tests/test_extra_cloud_providers.py`
+- `walker/tests/test_git_accounts.py`
+- `walker/tests/test_setup_wizard.py`
+
+Final results for this conversion:
+
+- `bash tools/check.sh`: all seven stages passed; 1,097 Python tests across
+  eight suites, with the existing skips retained, plus the Node checks.
+- `python3 tools/i18n-build.py` and `--check`: passed.
+- `python3 quickshell/desktop-bar/scripts/handbook-build.py` and `--check`: passed.
+- Both new Python files were parsed explicitly; `git diff --check` passed.
+- No commit, staging or push was performed.

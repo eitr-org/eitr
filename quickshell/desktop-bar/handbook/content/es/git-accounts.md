@@ -6,7 +6,7 @@ Cada cuenta muestra dónde la usa Git: **Predeterminado**, sus carpetas o **Toda
 
 ## Primera configuración
 
-1. **Añadir cuenta** abre un formulario con proveedor, nombre de cuenta, nombre y correo del autor de commits, servidor y una clave SSH privada existente (lista las claves de `~/.ssh`), o ninguna por ahora. Después pregunta si será la cuenta predeterminada y qué carpeta usa solo esa cuenta, muestra el resultado y guarda con Enter.
+1. **Añadir cuenta** abre el formulario por pasos para proveedor, nombre de cuenta, nombre y correo del autor de commits, hostname, clave SSH privada existente opcional, identidad predeterminada y regla de carpeta. Todas las respuestas aparecen en la revisión; vuelve a cualquier paso antes de aplicar. Esc o Ctrl+C cancela sin guardar.
 2. **Importar configuración existente** lee identidades configuradas manualmente: `user.name`/`user.email` predeterminados y reglas por carpeta `includeIf "gitdir:…"` de `~/.gitconfig` o `~/.config/git/config`, incluidos el alias SSH y la clave usados por un archivo incluido (`url.<alias>.insteadOf`). Enumera los hallazgos y crea cuentas y reglas correspondientes tras confirmar. Tus archivos quedan intactos; los patrones de carpetas con comodines se indican como omitidos.
 
 ## Cuenta predeterminada y carpetas

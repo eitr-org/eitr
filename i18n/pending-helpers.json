@@ -1,6 +1,5 @@
 {
   "pt_BR": [
-    "1 GitHub · 2 GitLab",
     "AWS SSO (IAM Identity Center)",
     "Buckets",
     "Cursor",
@@ -38,7 +37,6 @@
     "{label}  {text}  (id {id})"
   ],
   "es": [
-    "1 GitHub · 2 GitLab",
     "AWS SSO (IAM Identity Center)",
     "Buckets",
     "Cursor",
@@ -50,6 +48,7 @@
     "Invalid font package",
     "Invalid web app ID",
     "Kubernetes",
+    "No",
     "Symlinks are not allowed in login designs",
     "Template partition sizes must be in MiB",
     "The payload has no pacman {version} package",
@@ -70,7 +69,6 @@
     "{label}  {text}  (id {id})"
   ],
   "de": [
-    "1 GitHub · 2 GitLab",
     "AWS SSO (IAM Identity Center)",
     "Apps",
     "Buckets",
@@ -112,7 +110,6 @@
     "{label}  {text}  (id {id})"
   ],
   "fr": [
-    "1 GitHub · 2 GitLab",
     "AWS SSO (IAM Identity Center)",
     "Assistant",
     "Buckets",

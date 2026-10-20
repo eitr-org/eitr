@@ -6,7 +6,7 @@ Chaque ligne indique où Git utilise le compte : **Par défaut**, ses dossiers o
 
 ## Première configuration
 
-1. **Ajouter un compte** ouvre un formulaire : fournisseur, nom du compte, nom et e-mail de l’auteur des commits, serveur et clé SSH privée existante (choisie dans `~/.ssh`), ou aucune pour l’instant. Il demande ensuite si ce compte est celui par défaut et quel dossier l’utilise seul, présente le résultat et enregistre avec Enter.
+1. **Ajouter un compte** ouvre le formulaire par étapes pour le fournisseur, le nom du compte, le nom et l’adresse e-mail de l’auteur des commits, le hostname, une clé SSH privée existante facultative, l’identité par défaut et la règle de dossier. Toutes les réponses figurent dans la révision ; chaque étape peut être rouverte avant application. Esc ou Ctrl+C annule sans enregistrer.
 2. **Importer la configuration existante** lit les identités configurées manuellement : valeurs par défaut `user.name`/`user.email` et règles par dossier `includeIf "gitdir:…"` dans `~/.gitconfig` ou `~/.config/git/config`, dont l’alias SSH et la clé employés par un fichier inclus (`url.<alias>.insteadOf`). Il montre ses résultats et crée les comptes et règles correspondants après confirmation. Vos fichiers restent intacts ; les motifs de dossiers avec jokers sont indiqués comme ignorés.
 
 ## Compte par défaut et dossiers

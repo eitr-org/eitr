@@ -82,6 +82,7 @@ class ExtraCloudProviderTests(unittest.TestCase):
         with patch.object(self.module, 'ensure_cli', return_value=True), \
                 patch.object(self.module, 'cli_path', return_value='/mock/bin/' + self.module.PROVIDERS[provider]['cli']), \
                 patch.object(self.module, 'ask_value', side_effect=answers), \
+                patch.object(self.module, 'collect_setup', return_value=dict(zip(('account', 'region'), answers))), \
                 patch.object(self.module.subprocess, 'run') as run, patch('builtins.input', return_value=''):
             self.module.run_account(provider, 'development', action)
         for call in run.call_args_list:
@@ -151,7 +152,7 @@ class ExtraCloudProviderTests(unittest.TestCase):
         self.run_action('ibm', 'switch', ('original', 'eu-de'))
         with patch.object(self.module, 'ensure_cli', return_value=True), \
                 patch.object(self.module, 'cli_path', return_value='/mock/ibmcloud'), \
-                patch.object(self.module, 'ask_value', side_effect=['replacement', 'us-south']), \
+                patch.object(self.module, 'collect_setup', return_value={'account': 'replacement', 'region': 'us-south'}), \
                 patch.object(self.module.subprocess, 'run', side_effect=subprocess.CalledProcessError(1, 'ibmcloud')):
             with self.assertRaises(subprocess.CalledProcessError):
                 self.module.run_account('ibm', 'development', 'switch')
@@ -351,3 +352,24 @@ printf 'first\\nsecond\\n' | cloud_report
                 self.assertNotRegex(path.read_text(), r'\| cloud_fzf [^\n]+ plain')
         self.assertIn('cloud_fzf', (CLOUD / 'gcp/logs.sh').read_text())
         self.assertIn('cloud_report', (CLOUD / 'gcp/compute.sh').read_text())
+
+    def test_add_cancellation_and_failed_signin_leave_no_workspace(self):
+        for provider in self.module.PROVIDERS:
+            for failure in (KeyboardInterrupt(), subprocess.CalledProcessError(1, 'mock-login')):
+                with self.subTest(provider=provider, failure=type(failure)):
+                    answers = {'name': 'cancelled', 'region': 'test-region', 'scope': 'test-scope'}
+                    with patch.object(self.module, 'collect_setup', return_value=answers), \
+                            patch.object(self.module, 'ensure_cli', return_value=True), \
+                            patch.object(self.module, 'run_account', side_effect=failure), \
+                            patch('sys.argv', ['providers.py', provider, 'add']):
+                        with self.assertRaises(type(failure)):
+                            self.module.main()
+                    self.assertFalse(self.module.account_path(provider, 'cancelled').exists())
+                    self.assertEqual(list(self.home.iterdir()), [])
+            with patch.object(self.module, 'collect_setup', side_effect=KeyboardInterrupt), \
+                    patch.object(self.module, 'ensure_cli') as install, \
+                    patch('sys.argv', ['providers.py', provider, 'add']):
+                with self.assertRaises(KeyboardInterrupt):
+                    self.module.main()
+                install.assert_not_called()
+                self.assertEqual(list(self.home.iterdir()), [])

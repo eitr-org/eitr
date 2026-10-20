@@ -6,7 +6,7 @@ Jede Kontozeile zeigt, wo Git das Konto verwendet: **Standard**, die Ordnernamen
 
 ## Erste Einrichtung
 
-1. **Konto hinzufügen** öffnet ein Formular mit Anbieter, Kontoname, Commit-Autor und E-Mail, Hostname und vorhandenem privatem SSH-Schlüssel (aus `~/.ssh`) oder zunächst ohne Schlüssel. Anschließend legst du Standardkonto und zugehörigen Ordner fest, prüfst die Vorschau und speicherst mit Enter.
+1. **Konto hinzufügen** öffnet das gemeinsame Schrittformular für Anbieter, Kontoname, Commit-Autor und E-Mail, Hostname, optionalen vorhandenen privaten SSH-Schlüssel, Standardidentität und Ordnerregel. Alle Antworten erscheinen in der Übersicht; vor dem Anwenden kann jeder Schritt erneut geöffnet werden. Esc oder Ctrl+C bricht ohne Speichern ab.
 2. **Vorhandene Einrichtung importieren** liest manuell eingerichtete Identitäten: Standardwerte `user.name`/`user.email` und ordnerbezogene Regeln `includeIf "gitdir:…"` in `~/.gitconfig` oder `~/.config/git/config`, einschließlich SSH-Alias und Schlüssel, über die eine eingebundene Datei Verbindungen leitet (`url.<alias>.insteadOf`). Nach Anzeige und Bestätigung werden passende Konten und Regeln erstellt. Deine Dateien bleiben unverändert; Ordnerregeln mit Platzhaltern werden als übersprungen angezeigt.
 
 ## Standard und Ordner

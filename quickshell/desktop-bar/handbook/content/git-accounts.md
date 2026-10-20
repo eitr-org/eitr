@@ -11,10 +11,7 @@ Shift+Backspace returns to the list.
 
 ## First setup
 
-1. **Add Account** opens a short form: provider, account name, commit author
-   name and email, hostname and an existing private SSH key (it lists the keys in
-   `~/.ssh`), or none yet. It then asks whether the account is the default and
-   which folder uses only this account, previews the result and saves on Enter.
+1. **Add Account** opens the shared step-by-step form for provider, account name, commit author name and email, hostname, an optional existing private SSH key, default identity and folder rule. Every answer appears in Review; revisit any step before applying. Esc or Ctrl+C cancels without saving.
 2. **Import Existing Setup** reads identities configured by hand instead: the
    default `user.name`/`user.email` and per-folder `includeIf "gitdir:…"` rules in
    `~/.gitconfig` or `~/.config/git/config`, including the SSH alias and key an

@@ -21,6 +21,7 @@ for parent in Path(__file__).resolve().parents:
         sys.path.insert(0, str(library))
         break
 from eitr_paths import code, config
+from eitr_wizard import Step, collect as collect_setup
 from eitr_i18n import tr
 from eitr_forms import Terminal
 
@@ -285,12 +286,13 @@ def scoped_arguments(provider, context):
     return []
 
 
-def run_account(provider, name, action):
+def run_account(provider, name, action, answers=None):
     with account_lock(account_path(provider, name)):
-        return run_account_locked(provider, name, action)
+        return run_account_locked(provider, name, action, answers)
 
 
-def run_account_locked(provider, name, action):
+def run_account_locked(provider, name, action, answers=None):
+    answers = answers or {}
     directory = account_path(provider, name)
     if not directory.is_dir():
         raise ValueError(tr('Unknown account'))
@@ -308,7 +310,7 @@ def run_account_locked(provider, name, action):
     print(tr('Context: {context}', context=PROVIDERS[provider]['name'] + ' / ' + name + ' / ' + context))
     if action == 'login':
         if provider == 'oracle':
-            region = ask_value(tr('Region'))
+            region = answers.get('region') or ask_value(tr('Region'))
             execute(['session', 'authenticate', '--profile-name', context, '--region', region])
             values['region'] = region
         else:
@@ -320,7 +322,7 @@ def run_account_locked(provider, name, action):
             }
             execute(arguments[provider])
             if provider == 'vercel':
-                values['context'] = ask_value(tr('Scope'))
+                values['context'] = answers.get('scope') or ask_value(tr('Scope'))
     elif action == 'apikey' and provider == 'ibm':
         execute(['login', '--apikey'])
     elif action == 'list':
@@ -333,8 +335,9 @@ def run_account_locked(provider, name, action):
                      'ibm': ['target']}[provider])
     elif action == 'switch':
         if provider == 'ibm':
-            account = ask_value(tr('Account'))
-            region = ask_value(tr('Region'))
+            target = collect_setup(tr('Context'), [Step('account', tr('Account'), validator=validate_value),
+                                                  Step('region', tr('Region'), validator=validate_value)])
+            account, region = target['account'], target['region']
             execute(['target', '-c', account, '-r', region])
             values.update(context=account, region=region)
         elif provider in ('vercel', 'netlify'):
@@ -402,10 +405,31 @@ def main():
         for row in entries(args.provider):
             print('\t'.join(row))
     elif args.action == 'add':
-        name = Terminal().ask(tr('Name'))
+        steps = [Step('name', tr('Name'), validator=lambda value: account_path(args.provider, value))]
+        if args.provider == 'oracle':
+            steps.append(Step('region', tr('Region'), validator=validate_value))
+        if args.provider == 'vercel':
+            steps.append(Step('scope', tr('Scope'), validator=validate_value))
+        answers = collect_setup(PROVIDERS[args.provider]['name'], steps)
+        name = answers['name']
         directory = account_path(args.provider, name)
+        if not ensure_cli(args.provider):
+            return
+        missing_parents = []
+        parent = directory.parent
+        while not parent.exists():
+            missing_parents.append(parent)
+            parent = parent.parent
         directory.mkdir(mode=0o700, parents=True, exist_ok=False)
-        run_account(args.provider, name, 'login')
+        try:
+            run_account(args.provider, name, 'login', answers)
+            if not (directory / 'selection.json').is_file():
+                raise ValueError(tr('Unknown account'))
+        except BaseException:
+            shutil.rmtree(directory)
+            for parent in missing_parents:
+                parent.rmdir()
+            raise
     elif args.action == 'delete':
         delete_account(args.provider, args.name)
     elif args.action == 'view':

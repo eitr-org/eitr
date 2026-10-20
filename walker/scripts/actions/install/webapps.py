@@ -25,6 +25,7 @@ for parent in Path(__file__).resolve().parents:
         sys.path.insert(0, str(library))
         break
 from eitr_paths import data as user_data
+from eitr_wizard import Step, collect as collect_setup
 from eitr_i18n import tr
 
 APPLICATIONS = user_data("applications")
@@ -247,13 +248,12 @@ def launch(identifier):
 
 
 def interactive():
-    print(tr('Create a web app: a launcher that opens a site in its own window.'))
-    print(tr('Leave the name empty to cancel.\n'))
-    name = input(tr('Name (for example Netflix): ')).strip()
-    if not name:
-        return 0
-    url = input(tr('Address (for example netflix.com): ')).strip()
-    icon_url = input(tr('Icon image address (optional; press Enter to detect it): ')).strip()
+    answers = collect_setup(tr('Create a web app: a launcher that opens a site in its own window.'), [
+        Step('name', tr('Name (for example Netflix): '), validator=clean_name),
+        Step('url', tr('Address (for example netflix.com): '), validator=clean_url),
+        Step('icon', tr('Icon image address (optional; press Enter to detect it): '), optional=True, validator=clean_url),
+    ])
+    name, url, icon_url = (answers[key] for key in ('name', 'url', 'icon'))
     print(tr('\nFetching the icon…'), flush=True)
     path, icon = create(name, url, icon_url)
     if not browser():
