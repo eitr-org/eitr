@@ -180,7 +180,7 @@ class ExtraCloudProviderTests(unittest.TestCase):
             if '--prompt' in arguments:
                 prompts.append(arguments[-1])
                 return subprocess.CompletedProcess(arguments, 0 if len(prompts) == 1 else 1,
-                                                    stdout='Switch Account' if len(prompts) == 1 else '')
+                                                    stdout=next(row for row in options['input'].splitlines() if '  Switch Account — ' in row) if len(prompts) == 1 else '')
             path = self.module.account_path('hetzner', 'development') / 'selection.json'
             path.write_text(json.dumps({'context': 'replacement'}))
             return subprocess.CompletedProcess(arguments, 0)
@@ -189,6 +189,73 @@ class ExtraCloudProviderTests(unittest.TestCase):
             self.module.open_account('hetzner', 'development')
         self.assertEqual(prompts, ['Hetzner Cloud / development / original',
                                    'Hetzner Cloud / development / replacement'])
+
+    def test_picker_icons_descriptions_order_and_cancellation(self):
+        for provider in self.module.PROVIDERS:
+            self.module.account_path(provider, 'menu').mkdir(parents=True)
+            with patch.object(self.module.subprocess, 'run', return_value=subprocess.CompletedProcess([], 1, stdout='')) as run:
+                self.module.open_account(provider, 'menu')
+            run.assert_called_once()
+            rows = run.call_args.kwargs['input'].splitlines()
+            labels = []
+            for row in rows:
+                icon, content = row.split('  ', 1)
+                self.assertEqual(len(icon), 1)
+                self.assertTrue(0xF0000 <= ord(icon) <= 0xF1FFF)
+                label, description = content.split(' — ', 1)
+                self.assertTrue(description)
+                self.assertNotEqual(description, 'Read-only report')
+                labels.append(label)
+            self.assertEqual(labels, sorted(labels, key=str.casefold))
+            for title, (label, description, arguments) in self.module.VIEWS[provider].items():
+                self.assertIn(self.module.VIEW_ICONS[title] + '  ' + label + ' — ' + description, rows)
+            accounts = self.module.entries(provider)
+            self.assertEqual(accounts[0][4], self.module.ACCOUNT_ICON)
+            self.assertEqual(accounts[-1][4], self.module.ADD_ICON)
+            self.assertEqual(len(accounts[-1]), 5)
+
+    def test_decorated_resources_dispatch_without_changing_commands(self):
+        for provider, views in self.module.VIEWS.items():
+            self.module.account_path(provider, 'dispatch').mkdir(parents=True)
+            for title, (label, description, arguments) in views.items():
+                row = self.module.VIEW_ICONS[title] + '  ' + label + ' — ' + description
+                with self.subTest(provider=provider, view=title), patch.object(
+                        self.module.subprocess, 'run', side_effect=[
+                            subprocess.CompletedProcess([], 0, stdout=row),
+                            subprocess.CompletedProcess([], 0),
+                            subprocess.CompletedProcess([], 1, stdout='')]) as run:
+                    self.module.open_account(provider, 'dispatch')
+                self.assertEqual(run.call_args_list[1].args[0],
+                                 shlex.split(self.module.terminal(provider, 'view', 'dispatch')) + [title])
+                self.assertEqual(len(run.call_args_list), 3)
+
+    def test_elephant_consumes_account_and_add_icons(self):
+        for provider in self.module.PROVIDERS:
+            self.module.account_path(provider, 'fixture').mkdir(parents=True)
+            rows = self.module.entries(provider)
+            fixture = '\n'.join('\t'.join(row) for row in rows)
+            script = """
+local fixture = %s
+io.popen = function(command)
+    return {
+        lines = function() return fixture:gmatch('[^\\n]+') end,
+        close = function() end
+    }
+end
+dofile(%s)
+local entries = GetEntries()
+assert(#entries == 2)
+assert(entries[1].Text == 'fixture')
+assert(entries[1].Icon == %s)
+assert(entries[1].Actions.cloud_delete)
+assert(entries[2].Icon == %s)
+assert(not entries[2].Actions.cloud_delete)
+""" % (json.dumps(fixture, ensure_ascii=False),
+       json.dumps(str(ROOT / f'elephant/menus/{provider}-contexts.lua')),
+       json.dumps(self.module.ACCOUNT_ICON, ensure_ascii=False),
+       json.dumps(self.module.ADD_ICON, ensure_ascii=False))
+            result = subprocess.run(['lua', '-'], input=script, capture_output=True, text=True, check=False)
+            self.assertEqual(result.returncode, 0, result.stderr)
 
     def test_delete_confirmation_cancellation_and_scope(self):
         for provider in self.module.PROVIDERS:
@@ -252,7 +319,8 @@ class ExtraCloudProviderTests(unittest.TestCase):
                         self.assertEqual(call.args[0][-len(flags):], flags)
                 self.assertEqual(calls[-2].args[0][1:1 + len(arguments)], arguments)
                 self.assertIn('cloud_report', calls[-1].args[0][2])
-                self.assertEqual(calls[-1].kwargs['input'], '{"data":"namespace"}')
+                self.assertTrue(calls[-1].kwargs['input'].endswith('{"data":"namespace"}'))
+                self.assertIn('Context: ' + self.module.PROVIDERS[provider]['name'] + ' / reports / selected', calls[-1].kwargs['input'])
 
     def test_oracle_uses_selected_profile_tenancy_and_namespace(self):
         directory = self.module.account_path('oracle', 'scoped')

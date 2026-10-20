@@ -103,6 +103,7 @@
     "Unsupported uninstall source",
     "VCNs",
     "Volumes",
+    "Websites",
     "archinstall did not write exactly one limine.conf",
     "limine.conf has no Arch Linux (linux) entry to rename",
     "pacman.conf has no [eitr] repository to add the testing channel before",
@@ -111,6 +112,7 @@
   ],
   "fr": [
     "AWS SSO (IAM Identity Center)",
+    "Applications",
     "Assistant",
     "Buckets",
     "Cloud",

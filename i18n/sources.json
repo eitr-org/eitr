@@ -3297,6 +3297,15 @@
     "Account": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Account and region": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Account balance": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Account details": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Account directories cannot be symbolic links": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -3352,6 +3361,15 @@
     "Answers name {disk}, not one of the eligible disks: {candidates}": [
       "distro/archinstall/eitr-guided-install"
     ],
+    "Application deployments": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Application projects": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Applications": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Apply this system change? Type yes to continue: ": [
       "distro/system/eitr_remote.py"
     ],
@@ -3387,6 +3405,9 @@
     ],
     "Author name": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Available accounts": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Backup of the current Limine menu: {backup}": [
       "distro/system/eitr-system.py"
@@ -3431,6 +3452,9 @@
       "quickshell/desktop-bar/scripts/wifi-popup.py"
     ],
     "CLI Help": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "CLI commands and options": [
       "walker/scripts/menus/cloud/providers.py"
     ],
     "CLI unavailable": [
@@ -3556,6 +3580,9 @@
     "Compartments": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Compute instances": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Configuration ID": [
       "walker/scripts/menus/cloud/accounts.py"
     ],
@@ -3673,6 +3700,9 @@
       "walker/scripts/actions/system/network-backend.py"
     ],
     "D1 Databases": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "DNS domains": [
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Dashboard saved": [
@@ -4115,6 +4145,9 @@
     "Kept: the disk encryption passphrase and each remaining account's password.": [
       "walker/scripts/actions/system/factory-reset.py"
     ],
+    "Key-value namespaces": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Keyboard": [
       "distro/archinstall/installer-ui.py"
     ],
@@ -4128,6 +4161,9 @@
       "walker/scripts/actions/style/terminal-effects.py"
     ],
     "Kubernetes": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Kubernetes clusters": [
       "walker/scripts/menus/cloud/providers.py"
     ],
     "LUKS2 disk encryption: needed at every boot": [
@@ -4152,6 +4188,9 @@
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Load Balancers": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Load balancers": [
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Loading AUR package names…": [
@@ -4181,6 +4220,12 @@
     "Malformed EITR include block; review ~/.gitconfig manually": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Managed databases": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Message queues": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Missing {missing_files}. Install the {loader} packages listed in distro/bootloader/ first. Nothing was changed.": [
       "distro/system/eitr-system.py"
     ],
@@ -4198,6 +4243,9 @@
     ],
     "Name this computer.": [
       "distro/archinstall/installer-ui.py"
+    ],
+    "Network firewalls": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Networks": [
       "walker/scripts/menus/cloud/providers.py"
@@ -4340,6 +4388,9 @@
     "OBS status unavailable": [
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
+    "Object storage buckets": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Only files in the home folders have snapshots.": [
       "walker/scripts/actions/system/restore-file.py"
     ],
@@ -4347,6 +4398,9 @@
       "walker/scripts/actions/system/battery-limit.py"
     ],
     "Open Console": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Open the web console": [
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Open {path} to read it.": [
@@ -4436,8 +4490,14 @@
     "Provider": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Provisioned services": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Prune pnpm store?": [
       "walker/scripts/actions/system/cleanup.sh"
+    ],
+    "Public IP addresses": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Queues": [
       "walker/scripts/menus/cloud/providers.py"
@@ -4447,9 +4507,6 @@
     ],
     "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": [
       "quickshell/desktop-bar/scripts/airplane.py"
-    ],
-    "Read-only report": [
-      "walker/scripts/menus/cloud/providers.py"
     ],
     "Ready. Both resets restart the computer immediately.": [
       "distro/system/factory-reset.py"
@@ -4544,6 +4601,12 @@
     "Resource Groups": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Resource compartments": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Resource groups": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Restart now": [
       "walker/scripts/actions/system/restart-check.py"
     ],
@@ -4605,6 +4668,9 @@
     "SDDM was not restarted. Log out or reboot to see the login design.": [
       "quickshell/lockscreen/scripts/install-login.py"
     ],
+    "SQL databases": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "SSH key": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
@@ -4659,11 +4725,17 @@
     "Security key enrolled. Enable FIDO2 authentication separately; keep your password available.": [
       "walker/scripts/actions/system/security.py"
     ],
+    "Select an account": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Select at least one package": [
       "walker/scripts/actions/install/software.py"
     ],
     "Select the line above to copy it.": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Server snapshots": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Servers": [
       "walker/scripts/menus/cloud/providers.py"
@@ -4713,8 +4785,17 @@
     "Sign in to an assistant before enabling collaboration.": [
       "walker/scripts/actions/assistant-collaboration.py"
     ],
+    "Sign in to this account": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Sign in with `claude` to show subscription usage": [
       "quickshell/desktop-bar/scripts/ai-usage.py"
+    ],
+    "Sign in with an API key": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Sign-in and site status": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Sign-in method": [
       "walker/scripts/menus/cloud/accounts.py"
@@ -4805,6 +4886,9 @@
     ],
     "Stop using {label} outside its folders?": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Storage volumes": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}": [
       "distro/system/eitr-system.py"
@@ -5255,6 +5339,9 @@
     "VCNs": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Virtual networks": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Volumes": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -5263,6 +5350,12 @@
     ],
     "Web app needs Chrome or Chromium": [
       "walker/scripts/actions/install/webapps.py"
+    ],
+    "Website projects": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Websites": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "WiFi adapter is unavailable; refresh the panel": [
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py"

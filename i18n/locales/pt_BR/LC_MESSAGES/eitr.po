@@ -151,6 +151,15 @@ msgstr "Chaves de acesso"
 msgid "Account"
 msgstr "Conta"
 
+msgid "Account and region"
+msgstr "Conta e região"
+
+msgid "Account balance"
+msgstr "Saldo da conta"
+
+msgid "Account details"
+msgstr "Detalhes da conta"
+
 msgid "Account directories cannot be symbolic links"
 msgstr "Os diretórios de contas não podem ser links simbólicos"
 
@@ -205,6 +214,15 @@ msgstr "Uma redefinição de fábrica interrompida precisa de revisão manual; c
 msgid "Answers name {disk}, not one of the eligible disks: {candidates}"
 msgstr "O arquivo de respostas indica {disk}, que não está entre os discos disponíveis: {candidates}"
 
+msgid "Application deployments"
+msgstr "Implantações de aplicativos"
+
+msgid "Application projects"
+msgstr "Projetos de aplicativos"
+
+msgid "Applications"
+msgstr "Aplicativos"
+
 msgid "Apply this system change? Type yes to continue: "
 msgstr "Aplicar esta alteração no sistema? Digite yes para continuar: "
 
@@ -240,6 +258,9 @@ msgstr "Email do autor"
 
 msgid "Author name"
 msgstr "Nome do autor"
+
+msgid "Available accounts"
+msgstr "Contas disponíveis"
 
 msgid "Backup of the current Limine menu: {backup}"
 msgstr "Backup do menu atual do Limine: {backup}"
@@ -285,6 +306,9 @@ msgstr "O certificado de CA é muito grande"
 
 msgid "CLI Help"
 msgstr "Ajuda da CLI"
+
+msgid "CLI commands and options"
+msgstr "Comandos e opções da CLI"
 
 msgid "CLI unavailable"
 msgstr "CLI indisponível"
@@ -409,6 +433,9 @@ msgstr "Nome do autor dos commits"
 msgid "Compartments"
 msgstr "Compartimentos"
 
+msgid "Compute instances"
+msgstr "Instâncias de computação"
+
 msgid "Configuration ID"
 msgstr "ID da configuração"
 
@@ -525,6 +552,9 @@ msgstr "Configurações personalizadas de IP estático ou VPN precisam de revis�
 
 msgid "D1 Databases"
 msgstr "Bancos de dados D1"
+
+msgid "DNS domains"
+msgstr "Domínios DNS"
 
 msgid "Dashboard saved"
 msgstr "Painel salvo"
@@ -961,6 +991,9 @@ msgstr "Substituição de layout do usuário mantida: {target}"
 msgid "Kept: the disk encryption passphrase and each remaining account's password."
 msgstr "Serão mantidas: a frase secreta de criptografia do disco e a senha de cada conta restante."
 
+msgid "Key-value namespaces"
+msgstr "Namespaces de chave-valor"
+
 msgid "Keyboard"
 msgstr "Teclado"
 
@@ -975,6 +1008,9 @@ msgstr "Configuração do Kitty ausente; execute primeiro a configuração de us
 
 msgid "Kubernetes"
 msgstr "Kubernetes"
+
+msgid "Kubernetes clusters"
+msgstr "Clusters Kubernetes"
 
 msgid "LUKS2 disk encryption: needed at every boot"
 msgstr "Criptografia de disco LUKS2: necessária em cada inicialização"
@@ -998,6 +1034,9 @@ msgid "List Accounts"
 msgstr "Listar contas"
 
 msgid "Load Balancers"
+msgstr "Balanceadores de carga"
+
+msgid "Load balancers"
 msgstr "Balanceadores de carga"
 
 msgid "Loading AUR package names…"
@@ -1027,6 +1066,12 @@ msgstr "Nome em minúsculas. Este usuário terá acesso sudo."
 msgid "Malformed EITR include block; review ~/.gitconfig manually"
 msgstr "Bloco include do EITR inválido; revise ~/.gitconfig manualmente"
 
+msgid "Managed databases"
+msgstr "Bancos de dados gerenciados"
+
+msgid "Message queues"
+msgstr "Filas de mensagens"
+
 msgid "Missing {missing_files}. Install the {loader} packages listed in distro/bootloader/ first. Nothing was changed."
 msgstr "Faltam {missing_files}. Instale primeiro os pacotes de {loader} listados em distro/bootloader/. Nada foi alterado."
 
@@ -1041,6 +1086,9 @@ msgstr "Dê um nome às assinaturas que você deseja no menu"
 
 msgid "Name this computer."
 msgstr "Dê um nome a este computador."
+
+msgid "Network firewalls"
+msgstr "Firewalls de rede"
 
 msgid "Networks"
 msgstr "Redes"
@@ -1180,6 +1228,9 @@ msgstr "Estado de pausa do OBS indisponível"
 msgid "OBS status unavailable"
 msgstr "Status do OBS indisponível"
 
+msgid "Object storage buckets"
+msgstr "Buckets de armazenamento de objetos"
+
 msgid "Only files in the home folders have snapshots."
 msgstr "Apenas arquivos das pastas pessoais têm snapshots."
 
@@ -1188,6 +1239,9 @@ msgstr "Só funciona com firmware que expõe charge_control_end_threshold."
 
 msgid "Open Console"
 msgstr "Abrir console"
+
+msgid "Open the web console"
+msgstr "Abrir o console web"
 
 msgid "Open {path} to read it."
 msgstr "Abra {path} para ler o relatório."
@@ -1276,8 +1330,14 @@ msgstr "Projetos"
 msgid "Provider"
 msgstr "Provedor"
 
+msgid "Provisioned services"
+msgstr "Serviços provisionados"
+
 msgid "Prune pnpm store?"
 msgstr "Remover itens não usados do armazenamento pnpm?"
+
+msgid "Public IP addresses"
+msgstr "Endereços IP públicos"
 
 msgid "Queues"
 msgstr "Filas"
@@ -1287,9 +1347,6 @@ msgstr "Buckets R2"
 
 msgid "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth."
 msgstr "As conexões sem fio foram bloqueadas em outro lugar; ative-as individualmente em WiFi/Bluetooth."
-
-msgid "Read-only report"
-msgstr "Relatório somente leitura"
 
 msgid "Ready. Both resets restart the computer immediately."
 msgstr "Pronto. Ambas as opções de redefinição reiniciam o computador imediatamente."
@@ -1384,6 +1441,12 @@ msgstr "Os repositórios dentro dela usam apenas esta conta"
 msgid "Resource Groups"
 msgstr "Grupos de recursos"
 
+msgid "Resource compartments"
+msgstr "Compartimentos de recursos"
+
+msgid "Resource groups"
+msgstr "Grupos de recursos"
+
 msgid "Restart now"
 msgstr "Reiniciar agora"
 
@@ -1444,6 +1507,9 @@ msgstr "Em execução agora: {backends}"
 msgid "SDDM was not restarted. Log out or reboot to see the login design."
 msgstr "O SDDM não foi reiniciado. Encerre a sessão ou reinicie para ver o tema de login."
 
+msgid "SQL databases"
+msgstr "Bancos de dados SQL"
+
 msgid "SSH key"
 msgstr "Chave SSH"
 
@@ -1498,11 +1564,17 @@ msgstr "O Secure Boot está ativo. Os arquivos de boot restaurados não estão a
 msgid "Security key enrolled. Enable FIDO2 authentication separately; keep your password available."
 msgstr "Chave de segurança cadastrada. Ative a autenticação FIDO2 separadamente; mantenha sua senha disponível."
 
+msgid "Select an account"
+msgstr "Selecionar uma conta"
+
 msgid "Select at least one package"
 msgstr "Selecione pelo menos um pacote"
 
 msgid "Select the line above to copy it."
 msgstr "Selecione a linha acima para copiá-la."
+
+msgid "Server snapshots"
+msgstr "Snapshots de servidores"
 
 msgid "Servers"
 msgstr "Servidores"
@@ -1552,8 +1624,17 @@ msgstr "Entrar com chave de API"
 msgid "Sign in to an assistant before enabling collaboration."
 msgstr "Entre na conta de um assistente antes de ativar a colaboração."
 
+msgid "Sign in to this account"
+msgstr "Entrar nesta conta"
+
 msgid "Sign in with `claude` to show subscription usage"
 msgstr "Entre com `claude` para ver o uso da assinatura"
+
+msgid "Sign in with an API key"
+msgstr "Entrar com uma chave de API"
+
+msgid "Sign-in and site status"
+msgstr "Status de login e do site"
 
 msgid "Sign-in method"
 msgstr "Método de login"
@@ -1644,6 +1725,9 @@ msgstr "Deixar de usar {label} em {picked}?"
 
 msgid "Stop using {label} outside its folders?"
 msgstr "Deixar de usar {label} fora das suas pastas?"
+
+msgid "Storage volumes"
+msgstr "Volumes de armazenamento"
 
 msgid "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}"
 msgstr "Menu de boot em {config} estilizado com as cores de {source}. Backup: {backup}"
@@ -2089,6 +2173,9 @@ msgstr "Usando o tema padrão: não foi possível ler o tema de {user} ({error})
 msgid "VCNs"
 msgstr "VCNs"
 
+msgid "Virtual networks"
+msgstr "Redes virtuais"
+
 msgid "Volumes"
 msgstr "Volumes"
 
@@ -2097,6 +2184,12 @@ msgstr "Aplicativo web criado"
 
 msgid "Web app needs Chrome or Chromium"
 msgstr "O aplicativo web exige Chrome ou Chromium"
+
+msgid "Website projects"
+msgstr "Projetos de sites"
+
+msgid "Websites"
+msgstr "Sites"
 
 msgid "WiFi adapter is unavailable; refresh the panel"
 msgstr "Adaptador WiFi indisponível; atualize o painel"

@@ -151,6 +151,15 @@ msgstr "Clés d’accès"
 msgid "Account"
 msgstr "Compte"
 
+msgid "Account and region"
+msgstr "Compte et région"
+
+msgid "Account balance"
+msgstr "Solde du compte"
+
+msgid "Account details"
+msgstr "Détails du compte"
+
 msgid "Account directories cannot be symbolic links"
 msgstr "Les dossiers de comptes ne peuvent pas être des liens symboliques"
 
@@ -205,6 +214,15 @@ msgstr "Une réinitialisation d’usine interrompue nécessite une vérification
 msgid "Answers name {disk}, not one of the eligible disks: {candidates}"
 msgstr "Le fichier de réponses indique {disk}, qui ne figure pas parmi les disques admissibles : {candidates}"
 
+msgid "Application deployments"
+msgstr "Déploiements d’applications"
+
+msgid "Application projects"
+msgstr "Projets d’applications"
+
+msgid "Applications"
+msgstr "Applications"
+
 msgid "Apply this system change? Type yes to continue: "
 msgstr "Appliquer cette modification système ? Saisissez yes pour continuer : "
 
@@ -240,6 +258,9 @@ msgstr "E-mail d’auteur"
 
 msgid "Author name"
 msgstr "Nom d’auteur"
+
+msgid "Available accounts"
+msgstr "Comptes disponibles"
 
 msgid "Backup of the current Limine menu: {backup}"
 msgstr "Sauvegarde du menu Limine actuel : {backup}"
@@ -285,6 +306,9 @@ msgstr "Le certificat d’AC est trop volumineux"
 
 msgid "CLI Help"
 msgstr "Aide de la CLI"
+
+msgid "CLI commands and options"
+msgstr "Commandes et options de la CLI"
 
 msgid "CLI unavailable"
 msgstr "CLI indisponible"
@@ -409,6 +433,9 @@ msgstr "Nom de l’auteur des commits"
 msgid "Compartments"
 msgstr "Compartiments"
 
+msgid "Compute instances"
+msgstr "Instances de calcul"
+
 msgid "Configuration ID"
 msgstr "Identifiant de configuration"
 
@@ -525,6 +552,9 @@ msgstr "Les configurations personnalisées d’IP fixe ou de VPN nécessitent un
 
 msgid "D1 Databases"
 msgstr "Bases de données D1"
+
+msgid "DNS domains"
+msgstr "Domaines DNS"
 
 msgid "Dashboard saved"
 msgstr "Tableau de bord enregistré"
@@ -961,6 +991,9 @@ msgstr "Remplacement de configuration utilisateur conservé : {target}"
 msgid "Kept: the disk encryption passphrase and each remaining account's password."
 msgstr "Seront conservés : la phrase secrète de chiffrement du disque et le mot de passe de chaque compte restant."
 
+msgid "Key-value namespaces"
+msgstr "Espaces de noms clé-valeur"
+
 msgid "Keyboard"
 msgstr "Clavier"
 
@@ -975,6 +1008,9 @@ msgstr "La configuration Kitty est absente ; effectuez d’abord la configuratio
 
 msgid "Kubernetes"
 msgstr "Kubernetes"
+
+msgid "Kubernetes clusters"
+msgstr "Clusters Kubernetes"
 
 msgid "LUKS2 disk encryption: needed at every boot"
 msgstr "Chiffrement de disque LUKS2 : nécessaire à chaque démarrage"
@@ -999,6 +1035,9 @@ msgstr "Lister les comptes"
 
 msgid "Load Balancers"
 msgstr "Répartiteurs de charge"
+
+msgid "Load balancers"
+msgstr "Équilibreurs de charge"
 
 msgid "Loading AUR package names…"
 msgstr "Chargement des noms de paquets AUR…"
@@ -1027,6 +1066,12 @@ msgstr "Nom en minuscules. Cet utilisateur aura accès à sudo."
 msgid "Malformed EITR include block; review ~/.gitconfig manually"
 msgstr "Bloc include EITR mal formé ; vérifiez ~/.gitconfig manuellement"
 
+msgid "Managed databases"
+msgstr "Bases de données gérées"
+
+msgid "Message queues"
+msgstr "Files de messages"
+
 msgid "Missing {missing_files}. Install the {loader} packages listed in distro/bootloader/ first. Nothing was changed."
 msgstr "Il manque {missing_files}. Installez d’abord les paquets {loader} indiqués dans distro/bootloader/. Aucune modification."
 
@@ -1041,6 +1086,9 @@ msgstr "Nommez les abonnements que vous souhaitez dans le menu"
 
 msgid "Name this computer."
 msgstr "Donnez un nom à cet ordinateur."
+
+msgid "Network firewalls"
+msgstr "Pare-feu réseau"
 
 msgid "Networks"
 msgstr "Réseaux"
@@ -1180,6 +1228,9 @@ msgstr "État de pause d’OBS indisponible"
 msgid "OBS status unavailable"
 msgstr "État d’OBS indisponible"
 
+msgid "Object storage buckets"
+msgstr "Buckets de stockage d’objets"
+
 msgid "Only files in the home folders have snapshots."
 msgstr "Seuls les fichiers des dossiers personnels ont des instantanés."
 
@@ -1188,6 +1239,9 @@ msgstr "Seuls les micrologiciels exposant charge_control_end_threshold le permet
 
 msgid "Open Console"
 msgstr "Ouvrir la console"
+
+msgid "Open the web console"
+msgstr "Ouvrir la console web"
 
 msgid "Open {path} to read it."
 msgstr "Ouvrez {path} pour lire le rapport."
@@ -1276,8 +1330,14 @@ msgstr "Projets"
 msgid "Provider"
 msgstr "Fournisseur"
 
+msgid "Provisioned services"
+msgstr "Services provisionnés"
+
 msgid "Prune pnpm store?"
 msgstr "Supprimer les éléments inutilisés du stockage pnpm ?"
+
+msgid "Public IP addresses"
+msgstr "Adresses IP publiques"
 
 msgid "Queues"
 msgstr "Files d’attente"
@@ -1287,9 +1347,6 @@ msgstr "Buckets R2"
 
 msgid "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth."
 msgstr "Les connexions radio ont été bloquées ailleurs ; réactivez-les séparément dans WiFi/Bluetooth."
-
-msgid "Read-only report"
-msgstr "Rapport en lecture seule"
 
 msgid "Ready. Both resets restart the computer immediately."
 msgstr "Prêt. Les deux modes de réinitialisation redémarrent immédiatement l’ordinateur."
@@ -1384,6 +1441,12 @@ msgstr "Les dépôts qu’il contient utilisent uniquement ce compte"
 msgid "Resource Groups"
 msgstr "Groupes de ressources"
 
+msgid "Resource compartments"
+msgstr "Compartiments de ressources"
+
+msgid "Resource groups"
+msgstr "Groupes de ressources"
+
 msgid "Restart now"
 msgstr "Redémarrer maintenant"
 
@@ -1444,6 +1507,9 @@ msgstr "En cours d’exécution : {backends}"
 msgid "SDDM was not restarted. Log out or reboot to see the login design."
 msgstr "SDDM n’a pas été redémarré. Déconnectez-vous ou redémarrez pour voir le thème de connexion."
 
+msgid "SQL databases"
+msgstr "Bases de données SQL"
+
 msgid "SSH key"
 msgstr "Clé SSH"
 
@@ -1498,11 +1564,17 @@ msgstr "Secure Boot est activé. Les fichiers de démarrage restaurés ne sont p
 msgid "Security key enrolled. Enable FIDO2 authentication separately; keep your password available."
 msgstr "Clé de sécurité enregistrée. Activez séparément l’authentification FIDO2 ; gardez votre mot de passe disponible."
 
+msgid "Select an account"
+msgstr "Sélectionner un compte"
+
 msgid "Select at least one package"
 msgstr "Sélectionnez au moins un paquet"
 
 msgid "Select the line above to copy it."
 msgstr "Sélectionnez la ligne ci-dessus pour la copier."
+
+msgid "Server snapshots"
+msgstr "Instantanés de serveurs"
 
 msgid "Servers"
 msgstr "Serveurs"
@@ -1552,8 +1624,17 @@ msgstr "Se connecter avec une clé API"
 msgid "Sign in to an assistant before enabling collaboration."
 msgstr "Connectez-vous à un assistant avant d’activer la collaboration."
 
+msgid "Sign in to this account"
+msgstr "Se connecter à ce compte"
+
 msgid "Sign in with `claude` to show subscription usage"
 msgstr "Connectez-vous avec `claude` pour afficher l’utilisation de l’abonnement"
+
+msgid "Sign in with an API key"
+msgstr "Se connecter avec une clé d’API"
+
+msgid "Sign-in and site status"
+msgstr "État de connexion et du site"
 
 msgid "Sign-in method"
 msgstr "Méthode de connexion"
@@ -1644,6 +1725,9 @@ msgstr "Ne plus utiliser {label} dans {picked} ?"
 
 msgid "Stop using {label} outside its folders?"
 msgstr "Ne plus utiliser {label} hors de ses dossiers ?"
+
+msgid "Storage volumes"
+msgstr "Volumes de stockage"
 
 msgid "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}"
 msgstr "Menu de démarrage dans {config} adapté aux couleurs de {source}. Sauvegarde : {backup}"
@@ -2089,6 +2173,9 @@ msgstr "Utilisation du thème par défaut : le thème de {user} est illisible ({
 msgid "VCNs"
 msgstr "VCN"
 
+msgid "Virtual networks"
+msgstr "Réseaux virtuels"
+
 msgid "Volumes"
 msgstr "Volumes"
 
@@ -2097,6 +2184,12 @@ msgstr "Application web créée"
 
 msgid "Web app needs Chrome or Chromium"
 msgstr "L’application web nécessite Chrome ou Chromium"
+
+msgid "Website projects"
+msgstr "Projets de sites web"
+
+msgid "Websites"
+msgstr "Sites web"
 
 msgid "WiFi adapter is unavailable; refresh the panel"
 msgstr "Adaptateur WiFi indisponible ; actualisez le panneau"

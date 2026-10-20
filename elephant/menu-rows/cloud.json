@@ -20,13 +20,13 @@
   {
     "text": "Cloudflare",
     "subtext": ">",
-    "icon": "",
+    "icon": "󰅟",
     "submenu": "cloudflare-contexts"
   },
   {
     "text": "DigitalOcean",
     "subtext": ">",
-    "icon": "",
+    "icon": "󰅟",
     "submenu": "digitalocean-contexts"
   },
   {
@@ -41,31 +41,31 @@
   {
     "text": "Hetzner Cloud",
     "subtext": ">",
-    "icon": "",
+    "icon": "󰅟",
     "submenu": "hetzner-contexts"
   },
   {
     "text": "IBM Cloud",
     "subtext": ">",
-    "icon": "",
+    "icon": "󰅟",
     "submenu": "ibm-contexts"
   },
   {
     "text": "Netlify",
     "subtext": ">",
-    "icon": "",
+    "icon": "󰅟",
     "submenu": "netlify-contexts"
   },
   {
     "text": "Oracle Cloud",
     "subtext": ">",
-    "icon": "",
+    "icon": "󰅟",
     "submenu": "oracle-contexts"
   },
   {
     "text": "Vercel",
     "subtext": ">",
-    "icon": "",
+    "icon": "󰅟",
     "submenu": "vercel-contexts"
   }
 ]

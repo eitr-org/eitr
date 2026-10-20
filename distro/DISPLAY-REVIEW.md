@@ -419,3 +419,101 @@ Final results for this conversion:
 - `python3 quickshell/desktop-bar/scripts/handbook-build.py` and `--check`: passed.
 - Both new Python files were parsed explicitly; `git diff --check` passed.
 - No commit, staging or push was performed.
+
+## AWS reference comparison for the seven private-workspace providers
+
+AWS was traced from its Elephant profile entries and shared row layout through
+`aws/menu.sh`, every resource script and both shared terminal-helper layers.
+The comparison below covers the existing commands only. Account entries remain
+above Add Account, ordered by name; tool rows sort by translated label before
+icons are prepended. These providers have no additional resource subfolders to
+sort. AWS's legacy service-specific menu order is not copied over the repository's
+folder-first, alphabetical convention.
+
+| Provider | Structure against AWS | Icons against AWS | Description examples |
+| --- | --- | --- | --- |
+| AWS reference | Profile list → services → existing resource views; profile in picker and terminal header | Resource-specific glyphs; plus for Add Account | Short resource titles and terminal headers, such as EC2 instances and S3 buckets |
+| Cloudflare | Private account list → six reports plus existing account actions | AWS bucket-list folder, neutral database, account, project and queue glyphs | Object storage buckets; SQL databases; Key-value namespaces |
+| DigitalOcean | Private account list → eight reports plus existing list/switch/sign-in actions | AWS EC2, volume, DNS and cluster motifs; neutral database and balance | Compute instances; Managed databases; Account balance |
+| Hetzner Cloud | Private account list → seven reports plus existing context actions | AWS EC2, VPC, security, disk and IP glyphs | Virtual networks; Network firewalls; Server snapshots |
+| Oracle Cloud | Private account list → four reports plus existing profile actions | AWS EC2, bucket-list, VPC and group glyphs | Resource compartments; Compute instances; Object storage buckets |
+| Vercel | Private account list → three reports plus existing team actions | AWS deployment, DNS and folder glyphs | Application deployments; DNS domains; Application projects |
+| Netlify | Private account list → two reports plus existing account actions | AWS status and globe glyphs | Sign-in and site status; Websites |
+| IBM Cloud | Private account list → four reports plus existing SSO/API-key/target actions | AWS account, group, instance and key glyphs; neutral target | Account details; Account and region; Provisioned services |
+
+All seven use neutral Material Design Nerd Font glyphs, including their Cloud
+parent rows. AWS's existing database glyph is from the Devicons range, so the
+new database rows use Material Design's database glyph to meet the neutral-MD
+requirement. Bucket reports reuse S3's **List buckets** glyph, rather than its
+service-level icon. Instance, network, volume, IP, domain, deployment, account,
+sign-in and Add Account glyphs reuse their matching AWS motifs.
+
+Every action has an icon and a short description. Account list rows carry the
+account glyph; Add Account carries its own plus glyph through the five-column
+Python-to-Elephant transport. Delete retains its independent action and local-only
+confirmation. The selected workspace/context/region remains in the picker prompt
+and is repeated above report output. English, pt_BR, es, de and fr cover the
+presentation and Handbook changes.
+
+Reports continue through the same `cloud_report` bat/less/fallback pager as AWS.
+Vendor stderr and nonzero exit status remain readable, with no retries under a
+different account; Oracle namespace failure still stops bucket listing. Existing
+AWS object/log fzf searches are unchanged. No new fzf views or provider commands
+were added. Cancellation and terminal return retain the selected private account.
+Validation uses synthetic accounts and mocked vendor execution, including actual
+Lua parsing of synthetic account rows; no cloud CLI or real cloud configuration
+is used.
+
+### Verified icon mapping
+
+Each codepoint below was checked using `fc-list ':charset=<hex>' family` and
+matched the exact `JetBrainsMono Nerd Font` family. All are Material Design
+symbols, with no company logos.
+
+| Row | Glyph | Codepoint |
+| --- | --- | --- |
+| Account | 󰀄 | U+F0004 |
+| R2 Buckets | 󰉋 | U+F024B |
+| D1 Databases | 󰆼 | U+F01BC |
+| KV Namespaces | 󰆼 | U+F01BC |
+| Pages Projects | 󰉋 | U+F024B |
+| Queues | 󰉹 | U+F0279 |
+| Droplets | 󰍹 | U+F0379 |
+| Apps | 󰘦 | U+F0626 |
+| Databases | 󰆼 | U+F01BC |
+| Kubernetes | 󰌗 | U+F0317 |
+| Volumes | 󰋊 | U+F02CA |
+| Domains | 󰖟 | U+F059F |
+| Load Balancers | 󰑓 | U+F0453 |
+| Balance | 󰄔 | U+F0114 |
+| Servers | 󰍹 | U+F0379 |
+| Networks | 󰩠 | U+F0A60 |
+| Firewalls | 󰒋 | U+F048B |
+| Primary IPs | 󰓦 | U+F04E6 |
+| Snapshots | 󰋊 | U+F02CA |
+| Compartments | 󰘦 | U+F0626 |
+| Instances | 󰍹 | U+F0379 |
+| Buckets | 󰉋 | U+F024B |
+| VCNs | 󰩠 | U+F0A60 |
+| Projects | 󰉋 | U+F024B |
+| Deployments | 󰐱 | U+F0431 |
+| Status | 󰅟 | U+F015F |
+| Sites | 󰖟 | U+F059F |
+| Target | 󰓾 | U+F04FE |
+| Resource Groups | 󰘦 | U+F0626 |
+| Service Instances | 󰍹 | U+F0379 |
+| Account list rows / List Accounts | 󰀄 | U+F0004 |
+| Add Account | 󰐕 | U+F0415 |
+| Sign In | 󰒋 | U+F048B |
+| Switch Account | 󰑓 | U+F0453 |
+| Delete Account | 󰆴 | U+F01B4 |
+| CLI Help | 󰋖 | U+F02D6 |
+| Open Console | 󰖟 | U+F059F |
+| Sign In with API Key | 󰌆 | U+F0306 |
+| Seven provider parent rows | 󰅟 | U+F015F |
+
+Validation for this AWS-parity pass: `bash tools/check.sh` passed all seven
+stages (1,112 Python tests, existing skips retained, plus Node, syntax,
+ShellCheck, Qt 6 QML lint, whitespace and structured data). Both i18n and
+Handbook build/check pairs passed. All 21 final glyph codepoints matched
+JetBrainsMono Nerd Font. No live account checks or commits were performed.

@@ -118,6 +118,10 @@ def report(provider, name, view):
             output = result.stdout + result.stderr
             if result.returncode:
                 output += '\n' + tr('Command failed (exit {status})', status=str(result.returncode))
+        context_label = PROVIDERS[provider]['name'] + ' / ' + name + ' / ' + context
+        if selected.get('region'):
+            context_label += ' / ' + selected['region']
+        output = VIEWS[provider][view][0] + '\n' + tr('Context: {context}', context=context_label) + '\n\n' + output
         subprocess.run(['bash', '-c', 'source "$1"; cloud_report', 'cloud-report',
                         str(code('walker/scripts/menus/cloud/terminal-helpers.sh'))],
                        input=output, text=True, check=True)
@@ -125,54 +129,90 @@ def report(provider, name, view):
 
 VIEWS = {
     'cloudflare': {
-        'Account': (tr('Account'), tr('Read-only report'), ['whoami']),
-        'R2 Buckets': (tr('R2 Buckets'), tr('Read-only report'), ['r2', 'bucket', 'list']),
-        'D1 Databases': (tr('D1 Databases'), tr('Read-only report'), ['d1', 'list']),
-        'KV Namespaces': (tr('KV Namespaces'), tr('Read-only report'), ['kv', 'namespace', 'list']),
-        'Pages Projects': (tr('Pages Projects'), tr('Read-only report'), ['pages', 'project', 'list']),
-        'Queues': (tr('Queues'), tr('Read-only report'), ['queues', 'list']),
+        'Account': (tr('Account'), tr('Account details'), ['whoami']),
+        'R2 Buckets': (tr('R2 Buckets'), tr('Object storage buckets'), ['r2', 'bucket', 'list']),
+        'D1 Databases': (tr('D1 Databases'), tr('SQL databases'), ['d1', 'list']),
+        'KV Namespaces': (tr('KV Namespaces'), tr('Key-value namespaces'), ['kv', 'namespace', 'list']),
+        'Pages Projects': (tr('Pages Projects'), tr('Website projects'), ['pages', 'project', 'list']),
+        'Queues': (tr('Queues'), tr('Message queues'), ['queues', 'list']),
     },
     'digitalocean': {
-        'Droplets': (tr('Droplets'), tr('Read-only report'), ['compute', 'droplet', 'list']),
-        'Apps': (tr('Apps'), tr('Read-only report'), ['apps', 'list']),
-        'Databases': (tr('Databases'), tr('Read-only report'), ['databases', 'list']),
-        'Kubernetes': (tr('Kubernetes'), tr('Read-only report'), ['kubernetes', 'cluster', 'list']),
-        'Volumes': (tr('Volumes'), tr('Read-only report'), ['compute', 'volume', 'list']),
-        'Domains': (tr('Domains'), tr('Read-only report'), ['compute', 'domain', 'list']),
-        'Load Balancers': (tr('Load Balancers'), tr('Read-only report'), ['compute', 'load-balancer', 'list']),
-        'Balance': (tr('Balance'), tr('Read-only report'), ['balance', 'get']),
+        'Droplets': (tr('Droplets'), tr('Compute instances'), ['compute', 'droplet', 'list']),
+        'Apps': (tr('Apps'), tr('Applications'), ['apps', 'list']),
+        'Databases': (tr('Databases'), tr('Managed databases'), ['databases', 'list']),
+        'Kubernetes': (tr('Kubernetes'), tr('Kubernetes clusters'), ['kubernetes', 'cluster', 'list']),
+        'Volumes': (tr('Volumes'), tr('Storage volumes'), ['compute', 'volume', 'list']),
+        'Domains': (tr('Domains'), tr('DNS domains'), ['compute', 'domain', 'list']),
+        'Load Balancers': (tr('Load Balancers'), tr('Load balancers'), ['compute', 'load-balancer', 'list']),
+        'Balance': (tr('Balance'), tr('Account balance'), ['balance', 'get']),
     },
     'hetzner': {
-        'Servers': (tr('Servers'), tr('Read-only report'), ['server', 'list']),
-        'Volumes': (tr('Volumes'), tr('Read-only report'), ['volume', 'list']),
-        'Networks': (tr('Networks'), tr('Read-only report'), ['network', 'list']),
-        'Firewalls': (tr('Firewalls'), tr('Read-only report'), ['firewall', 'list']),
-        'Load Balancers': (tr('Load Balancers'), tr('Read-only report'), ['load-balancer', 'list']),
-        'Primary IPs': (tr('Primary IPs'), tr('Read-only report'), ['primary-ip', 'list']),
-        'Snapshots': (tr('Snapshots'), tr('Read-only report'), ['image', 'list', '--type', 'snapshot']),
+        'Servers': (tr('Servers'), tr('Compute instances'), ['server', 'list']),
+        'Volumes': (tr('Volumes'), tr('Storage volumes'), ['volume', 'list']),
+        'Networks': (tr('Networks'), tr('Virtual networks'), ['network', 'list']),
+        'Firewalls': (tr('Firewalls'), tr('Network firewalls'), ['firewall', 'list']),
+        'Load Balancers': (tr('Load Balancers'), tr('Load balancers'), ['load-balancer', 'list']),
+        'Primary IPs': (tr('Primary IPs'), tr('Public IP addresses'), ['primary-ip', 'list']),
+        'Snapshots': (tr('Snapshots'), tr('Server snapshots'), ['image', 'list', '--type', 'snapshot']),
     },
     'oracle': {
-        'Compartments': (tr('Compartments'), tr('Read-only report'), ['iam', 'compartment', 'list', '--all']),
-        'Instances': (tr('Instances'), tr('Read-only report'), ['compute', 'instance', 'list', '--all']),
-        'Buckets': (tr('Buckets'), tr('Read-only report'), ['os', 'bucket', 'list']),
-        'VCNs': (tr('VCNs'), tr('Read-only report'), ['network', 'vcn', 'list', '--all']),
+        'Compartments': (tr('Compartments'), tr('Resource compartments'), ['iam', 'compartment', 'list', '--all']),
+        'Instances': (tr('Instances'), tr('Compute instances'), ['compute', 'instance', 'list', '--all']),
+        'Buckets': (tr('Buckets'), tr('Object storage buckets'), ['os', 'bucket', 'list']),
+        'VCNs': (tr('VCNs'), tr('Virtual networks'), ['network', 'vcn', 'list', '--all']),
     },
     'vercel': {
-        'Projects': (tr('Projects'), tr('Read-only report'), ['project', 'ls']),
-        'Deployments': (tr('Deployments'), tr('Read-only report'), ['ls']),
-        'Domains': (tr('Domains'), tr('Read-only report'), ['domains', 'ls']),
+        'Projects': (tr('Projects'), tr('Application projects'), ['project', 'ls']),
+        'Deployments': (tr('Deployments'), tr('Application deployments'), ['ls']),
+        'Domains': (tr('Domains'), tr('DNS domains'), ['domains', 'ls']),
     },
     'netlify': {
-        'Status': (tr('Status'), tr('Read-only report'), ['status']),
-        'Sites': (tr('Sites'), tr('Read-only report'), ['sites:list']),
+        'Status': (tr('Status'), tr('Sign-in and site status'), ['status']),
+        'Sites': (tr('Sites'), tr('Websites'), ['sites:list']),
     },
     'ibm': {
-        'Account': (tr('Account'), tr('Read-only report'), ['account', 'show']),
-        'Target': (tr('Target'), tr('Read-only report'), ['target']),
-        'Resource Groups': (tr('Resource Groups'), tr('Read-only report'), ['resource', 'groups']),
-        'Service Instances': (tr('Service Instances'), tr('Read-only report'), ['resource', 'service-instances']),
+        'Account': (tr('Account'), tr('Account details'), ['account', 'show']),
+        'Target': (tr('Target'), tr('Account and region'), ['target']),
+        'Resource Groups': (tr('Resource Groups'), tr('Resource groups'), ['resource', 'groups']),
+        'Service Instances': (tr('Service Instances'), tr('Provisioned services'), ['resource', 'service-instances']),
     },
 }
+
+
+VIEW_ICONS = {
+    'Account': "\U000f0004",
+    'R2 Buckets': "\U000f04df",
+    'D1 Databases': "\U000f01bc",
+    'KV Namespaces': "\U000f01bc",
+    'Pages Projects': "\U000f024b",
+    'Queues': "\U000f0279",
+    'Droplets': "\U000f0379",
+    'Apps': "\U000f0614",
+    'Databases': "\U000f01bc",
+    'Kubernetes': "\U000f0868",
+    'Volumes': "\U000f02ca",
+    'Domains': "\U000f0443",
+    'Load Balancers': "\U000f05d1",
+    'Balance': "\U000f0114",
+    'Servers': "\U000f0379",
+    'Networks': "\U000f059f",
+    'Firewalls': "\U000f0498",
+    'Primary IPs': "\U000f0a5f",
+    'Snapshots': "\U000f0100",
+    'Compartments': "\U000f0253",
+    'Instances': "\U000f0379",
+    'Buckets': "\U000f04df",
+    'VCNs': "\U000f059f",
+    'Projects': "\U000f024b",
+    'Deployments': "\U000f14de",
+    'Status': "\U000f015f",
+    'Sites': "\U000f01e7",
+    'Target': "\U000f04fe",
+    'Resource Groups': "\U000f0253",
+    'Service Instances': "\U000f0379",
+}
+ACCOUNT_ICON = "\U000f0004"
+ADD_ICON = "\U000f0415"
 
 
 def account_root(provider):
@@ -225,9 +265,9 @@ def entries(provider):
     info = PROVIDERS[provider]
     rows = []
     for name in accounts(provider):
-        rows.append((name, info['name'] + ' / ' + selection(provider, name).get('context', name), shlex.join(['python3', str(SCRIPT), provider, 'open', name]), shlex.join(['python3', str(SCRIPT), provider, 'delete', name])))
+        rows.append((name, info['name'] + ' / ' + selection(provider, name).get('context', name), shlex.join(['python3', str(SCRIPT), provider, 'open', name]), shlex.join(['python3', str(SCRIPT), provider, 'delete', name]), ACCOUNT_ICON))
     rows.append((tr('Add {provider} Account', provider=info['name']), tr('Name it, then sign in'),
-                 terminal(provider, 'add')))
+                 terminal(provider, 'add'), '', ADD_ICON))
     return rows
 
 
@@ -377,23 +417,42 @@ def open_account(provider, name):
         choices[tr('Switch Account')] = shlex.split(terminal(provider, 'switch', name))
     if provider == 'ibm':
         choices[tr('Sign In with API Key')] = shlex.split(terminal(provider, 'apikey', name))
-    choices[tr('Delete Account') + ' — ' + tr('Remove local sign-in')] = choices.pop(tr('Delete Account'))
+    presentation = {
+        tr('Open Console'): ("\U000f01e7", tr('Open the web console')),
+        tr('Sign In'): ("\U000f0342", tr('Sign in to this account')),
+        tr('CLI Help'): ("\U000f02d6", tr('CLI commands and options')),
+        tr('Delete Account'): ("\U000f01b4", tr('Remove local sign-in')),
+        tr('List Accounts'): (ACCOUNT_ICON, tr('Available accounts')),
+        tr('Switch Account'): ("\U000f0019", tr('Select an account')),
+        tr('Sign In with API Key'): ("\U000f0306", tr('Sign in with an API key')),
+    }
     for title, (label, description, arguments) in VIEWS[provider].items():
-        label = label + ' — ' + description
+        presentation[label] = (VIEW_ICONS[title], description)
         choices[label] = shlex.split(terminal(provider, 'view', name)) + [title]
+    console_label = tr('Open Console')
+    ordered = sorted(choices, key=str.casefold)
+    console_row = ''
+    decorated = {}
+    for label in ordered:
+        icon, description = presentation[label]
+        row = icon + '  ' + label + ' — ' + description
+        decorated[row] = choices[label]
+        if label == console_label:
+            console_row = row
+    choices = decorated
     while True:
         active = selection(provider, name)
         context = active.get('context', name)
         detail = context + (' / ' + active['region'] if active.get('region') else '')
         result = subprocess.run([str(code('walker/bin/walker-dmenu')), '--dmenu', '--no-sort',
                                  '--prompt', PROVIDERS[provider]['name'] + ' / ' + name + ' / ' + detail],
-                                input='\n'.join(sorted(choices, key=str.casefold)) + '\n', capture_output=True, text=True, check=False)
+                                input='\n'.join(choices) + '\n', capture_output=True, text=True, check=False)
         if result.returncode or result.stdout.strip() not in choices:
             return
         subprocess.run(choices[result.stdout.strip()], check=True)
         if not account_path(provider, name).exists():
             return
-        if result.stdout.strip() == tr('Open Console'):
+        if result.stdout.strip() == console_row:
             return
 
 

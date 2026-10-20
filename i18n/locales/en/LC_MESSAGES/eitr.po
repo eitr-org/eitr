@@ -151,6 +151,15 @@ msgstr "Access keys"
 msgid "Account"
 msgstr "Account"
 
+msgid "Account and region"
+msgstr "Account and region"
+
+msgid "Account balance"
+msgstr "Account balance"
+
+msgid "Account details"
+msgstr "Account details"
+
 msgid "Account directories cannot be symbolic links"
 msgstr "Account directories cannot be symbolic links"
 
@@ -205,6 +214,15 @@ msgstr "An interrupted factory reset needs manual review; see {MANUAL}"
 msgid "Answers name {disk}, not one of the eligible disks: {candidates}"
 msgstr "Answers name {disk}, not one of the eligible disks: {candidates}"
 
+msgid "Application deployments"
+msgstr "Application deployments"
+
+msgid "Application projects"
+msgstr "Application projects"
+
+msgid "Applications"
+msgstr "Applications"
+
 msgid "Apply this system change? Type yes to continue: "
 msgstr "Apply this system change? Type yes to continue: "
 
@@ -240,6 +258,9 @@ msgstr "Author email"
 
 msgid "Author name"
 msgstr "Author name"
+
+msgid "Available accounts"
+msgstr "Available accounts"
 
 msgid "Backup of the current Limine menu: {backup}"
 msgstr "Backup of the current Limine menu: {backup}"
@@ -285,6 +306,9 @@ msgstr "CA certificate is too large"
 
 msgid "CLI Help"
 msgstr "CLI Help"
+
+msgid "CLI commands and options"
+msgstr "CLI commands and options"
 
 msgid "CLI unavailable"
 msgstr "CLI unavailable"
@@ -409,6 +433,9 @@ msgstr "Commit author name"
 msgid "Compartments"
 msgstr "Compartments"
 
+msgid "Compute instances"
+msgstr "Compute instances"
+
 msgid "Configuration ID"
 msgstr "Configuration ID"
 
@@ -525,6 +552,9 @@ msgstr "Custom static-IP/VPN setups need manual review before switching."
 
 msgid "D1 Databases"
 msgstr "D1 Databases"
+
+msgid "DNS domains"
+msgstr "DNS domains"
 
 msgid "Dashboard saved"
 msgstr "Dashboard saved"
@@ -961,6 +991,9 @@ msgstr "Kept user layout override: {target}"
 msgid "Kept: the disk encryption passphrase and each remaining account's password."
 msgstr "Kept: the disk encryption passphrase and each remaining account's password."
 
+msgid "Key-value namespaces"
+msgstr "Key-value namespaces"
+
 msgid "Keyboard"
 msgstr "Keyboard"
 
@@ -975,6 +1008,9 @@ msgstr "Kitty configuration is missing; start Eitr's user configuration setup fi
 
 msgid "Kubernetes"
 msgstr "Kubernetes"
+
+msgid "Kubernetes clusters"
+msgstr "Kubernetes clusters"
 
 msgid "LUKS2 disk encryption: needed at every boot"
 msgstr "LUKS2 disk encryption: needed at every boot"
@@ -999,6 +1035,9 @@ msgstr "List Accounts"
 
 msgid "Load Balancers"
 msgstr "Load Balancers"
+
+msgid "Load balancers"
+msgstr "Load balancers"
 
 msgid "Loading AUR package names…"
 msgstr "Loading AUR package names…"
@@ -1027,6 +1066,12 @@ msgstr "Lowercase name. This user will have sudo access."
 msgid "Malformed EITR include block; review ~/.gitconfig manually"
 msgstr "Malformed EITR include block; review ~/.gitconfig manually"
 
+msgid "Managed databases"
+msgstr "Managed databases"
+
+msgid "Message queues"
+msgstr "Message queues"
+
 msgid "Missing {missing_files}. Install the {loader} packages listed in distro/bootloader/ first. Nothing was changed."
 msgstr "Missing {missing_files}. Install the {loader} packages listed in distro/bootloader/ first. Nothing was changed."
 
@@ -1041,6 +1086,9 @@ msgstr "Name the subscriptions you want in the menu"
 
 msgid "Name this computer."
 msgstr "Name this computer."
+
+msgid "Network firewalls"
+msgstr "Network firewalls"
 
 msgid "Networks"
 msgstr "Networks"
@@ -1180,6 +1228,9 @@ msgstr "OBS pause status unavailable"
 msgid "OBS status unavailable"
 msgstr "OBS status unavailable"
 
+msgid "Object storage buckets"
+msgstr "Object storage buckets"
+
 msgid "Only files in the home folders have snapshots."
 msgstr "Only files in the home folders have snapshots."
 
@@ -1188,6 +1239,9 @@ msgstr "Only firmware that exposes charge_control_end_threshold supports this."
 
 msgid "Open Console"
 msgstr "Open Console"
+
+msgid "Open the web console"
+msgstr "Open the web console"
 
 msgid "Open {path} to read it."
 msgstr "Open {path} to read it."
@@ -1276,8 +1330,14 @@ msgstr "Projects"
 msgid "Provider"
 msgstr "Provider"
 
+msgid "Provisioned services"
+msgstr "Provisioned services"
+
 msgid "Prune pnpm store?"
 msgstr "Prune pnpm store?"
+
+msgid "Public IP addresses"
+msgstr "Public IP addresses"
 
 msgid "Queues"
 msgstr "Queues"
@@ -1287,9 +1347,6 @@ msgstr "R2 Buckets"
 
 msgid "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth."
 msgstr "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth."
-
-msgid "Read-only report"
-msgstr "Read-only report"
 
 msgid "Ready. Both resets restart the computer immediately."
 msgstr "Ready. Both resets restart the computer immediately."
@@ -1384,6 +1441,12 @@ msgstr "Repositories inside it use only this account"
 msgid "Resource Groups"
 msgstr "Resource Groups"
 
+msgid "Resource compartments"
+msgstr "Resource compartments"
+
+msgid "Resource groups"
+msgstr "Resource groups"
+
 msgid "Restart now"
 msgstr "Restart now"
 
@@ -1444,6 +1507,9 @@ msgstr "Running now: {backends}"
 msgid "SDDM was not restarted. Log out or reboot to see the login design."
 msgstr "SDDM was not restarted. Log out or reboot to see the login design."
 
+msgid "SQL databases"
+msgstr "SQL databases"
+
 msgid "SSH key"
 msgstr "SSH key"
 
@@ -1498,11 +1564,17 @@ msgstr "Secure Boot is on. The restored boot files are not signed with your keys
 msgid "Security key enrolled. Enable FIDO2 authentication separately; keep your password available."
 msgstr "Security key enrolled. Enable FIDO2 authentication separately; keep your password available."
 
+msgid "Select an account"
+msgstr "Select an account"
+
 msgid "Select at least one package"
 msgstr "Select at least one package"
 
 msgid "Select the line above to copy it."
 msgstr "Select the line above to copy it."
+
+msgid "Server snapshots"
+msgstr "Server snapshots"
 
 msgid "Servers"
 msgstr "Servers"
@@ -1552,8 +1624,17 @@ msgstr "Sign In with API Key"
 msgid "Sign in to an assistant before enabling collaboration."
 msgstr "Sign in to an assistant before enabling collaboration."
 
+msgid "Sign in to this account"
+msgstr "Sign in to this account"
+
 msgid "Sign in with `claude` to show subscription usage"
 msgstr "Sign in with `claude` to show subscription usage"
+
+msgid "Sign in with an API key"
+msgstr "Sign in with an API key"
+
+msgid "Sign-in and site status"
+msgstr "Sign-in and site status"
 
 msgid "Sign-in method"
 msgstr "Sign-in method"
@@ -1644,6 +1725,9 @@ msgstr "Stop using {label} in {picked}?"
 
 msgid "Stop using {label} outside its folders?"
 msgstr "Stop using {label} outside its folders?"
+
+msgid "Storage volumes"
+msgstr "Storage volumes"
 
 msgid "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}"
 msgstr "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}"
@@ -2089,6 +2173,9 @@ msgstr "Using the default theme: {user}'s theme could not be read ({error})."
 msgid "VCNs"
 msgstr "VCNs"
 
+msgid "Virtual networks"
+msgstr "Virtual networks"
+
 msgid "Volumes"
 msgstr "Volumes"
 
@@ -2097,6 +2184,12 @@ msgstr "Web app created"
 
 msgid "Web app needs Chrome or Chromium"
 msgstr "Web app needs Chrome or Chromium"
+
+msgid "Website projects"
+msgstr "Website projects"
+
+msgid "Websites"
+msgstr "Websites"
 
 msgid "WiFi adapter is unavailable; refresh the panel"
 msgstr "WiFi adapter is unavailable; refresh the panel"
