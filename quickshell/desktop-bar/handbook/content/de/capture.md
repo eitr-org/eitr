@@ -25,6 +25,8 @@ Während OBS aufnimmt oder streamt, erscheint ein roter Punkt neben dem Wetter. 
 
 Das Handbuch startet niemals Aufnahmen oder Streams. Bildschirmfreigabe und Aufnahme bleiben ausdrückliche Aktionen. Transkodieren öffnet den vorhandenen Ablauf zur Bild-/Videokonvertierung; prüfe Ausgabepfade, bevor du Dateien ersetzt.
 
+OBS fragt einmal, welchen Bildschirm es aufnehmen soll. Im normalen Freigabedialog ist **Allow restore token** standardmäßig aktiviert, damit OBS sich deine Auswahl merken kann. Der gespeicherte Bildschirm folgt nicht der Einstellung für den Hauptbildschirm der Leiste. Vorhandene Dateien unter `~/.config/hypr/xdph.conf` bleiben erhalten; deine eigenen Portal-Einstellungen können dieses Verhalten daher ändern.
+
 Bei einer neuen OBS-Konfiguration erstellt Eitr die Sammlung Untitled mit einer Scene: Bildschirmaufnahme, ausgeblendete Kamera sowie Standardaudio von Desktop und Mikrofon. Beim ersten Einsatz fragt das System, welchen Bildschirm du teilen möchtest; OBS speichert die Berechtigung. Die Kamera bleibt aus, bis du sie einschaltest. Vorhandene Sammlungen werden nie verändert.
 
 ## Teilen

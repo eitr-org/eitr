@@ -7,7 +7,7 @@ Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 2. Remote access: test with the owner
 3. Organization profiles: software and policies at installation
 4. Eitr plugins
-5. Smaller items: OBS and the main display, the website update
+5. Smaller items: the website update
 6. Waiting on the owner: testing channel
 7. Later: AI multi-account
 8. Before 1.0.0: skipped-release upgrade, encrypted resets, other hardware
@@ -126,13 +126,6 @@ repository) becomes the first plugin.
 
 # 5. Smaller items
 
-- **OBS and the main display.** The screen-share permission keeps the first
-  monitor picked, so OBS does not follow the bar's main display. Ship a shared
-  `xdph.conf` default with `allow_token_by_default = true` (an existing user
-  file is kept) so the share prompt remembers its choice after the first time,
-  and say in the Handbook that OBS asks once which screen to record. Do not
-  replace the share picker: it serves every app, not only OBS. Verify with both
-  monitors.
 - **Website update** (with the owner's own changes). Add assistants working
   together (a second opinion from another subscription, each hand-off
   approved, helpers read-only) and, once tested, remote access. Retake the 8

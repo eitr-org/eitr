@@ -41,6 +41,8 @@ The handbook never starts a recording or stream. Screen sharing and capture
 remain explicit actions. Transcode offers the existing image/video conversion
 workflow; review output paths before replacing a file.
 
+OBS asks once which screen to record. In the standard share picker, **Allow restore token** is checked by default so OBS can remember your choice. The saved screen does not follow the bar’s Main display setting. Existing `~/.config/hypr/xdph.conf` files are kept, so your own portal settings may change this behavior.
+
 For a new OBS configuration, Eitr creates an Untitled collection with one Scene: screen capture, a hidden camera, and default desktop and microphone audio. The system asks which screen to share on first use; OBS saves that permission. The camera stays off until you enable it. Existing collections are never changed.
 
 ## Share

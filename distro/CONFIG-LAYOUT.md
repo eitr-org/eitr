@@ -65,6 +65,7 @@ document.
 | Walker `style.css`, `workspace-examples.css`, copied icons | G | User theme output beside links to the shipped XML |
 | `hypr/hyprland.lua`, scripts, idle/lock/paper baselines | C | `/usr/share/eitr/hypr/...`; a tiny user loader includes it |
 | `hypr/theme-env.conf` | D baseline | Shipped toolkit defaults; an existing user copy remains P |
+| `distro/defaults/hypr/xdph.conf` | P | Seeded as `~/.config/hypr/xdph.conf` when missing; existing user files win |
 | `hypr/cursor-env.conf` | G | User config; generators never write the shipped tree |
 | `hypr/{local.lua,keyboard-layouts.lua,primary-display,preferred-outputs}` | P | User config; `local.lua` still runs last and guarded |
 | `themes/<id>/` palettes, artwork, app theme definitions | D | `/usr/share/eitr/themes/<id>`; menus, generators, Neovim |
@@ -107,6 +108,24 @@ logged.
 | State `eitr/{installed-paths,user-defaults-state.json,welcome-*}` | State | Installer, `eitr-config`, welcome |
 | Cache `current-theme`, `current-wallpaper`, `current-wallpaper-image` | G | Menus, bar, wallpaper; derived from the appearance preference |
 | Runtime `eitr-search/index.json`, lock and IPC files; AI, weather, preview caches | G | Regenerated; never packaged or migrated |
+
+### Screen-share default
+
+`distro/user-defaults.json` seeds `distro/defaults/hypr` with `"update": false`;
+`distro/layout-manifest.json` classifies those defaults as P runtime files.
+This includes `xdph.conf`, enabling `screencopy { allow_token_by_default = true }`
+without changing the native share picker. The portal reads the user file at
+`~/.config/hypr/xdph.conf` (or `$XDG_CONFIG_HOME/hypr/xdph.conf`), as documented
+in the [XDPH configuration guide](https://wiki.hypr.land/hypr-ecosystem/user/xdg-desktop-portal-hyprland/#configuration).
+The setting and brace syntax were checked against installed XDPH 1.4.1-2.
+
+Fresh installs seed it normally. For existing installations, the
+`20261020120000-screen-share-default.py` login migration runs `eitr-config seed`
+after the package upgrade. It adds missing defaults only, keeps existing user
+files and symlinks untouched, and never restarts the portal. `eitr-config update`
+also seeds the file when missing; `"update": false` prevents later replacement
+or `.eitr-new` files for this preference. Portal activation follows its normal
+lifecycle; no service is restarted during an update.
 
 ### Settings versions
 

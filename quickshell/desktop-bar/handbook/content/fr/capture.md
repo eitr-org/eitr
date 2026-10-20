@@ -25,6 +25,8 @@ Pendant un enregistrement ou une diffusion OBS, un point rouge apparaît près d
 
 Le manuel ne démarre jamais d’enregistrement ni de diffusion. Partage d’écran et capture restent des actions explicites. Transcoder ouvre la conversion d’images et vidéos existante ; vérifiez les chemins de sortie avant de remplacer un fichier.
 
+OBS demande une fois quel écran enregistrer. Dans le sélecteur de partage habituel, **Allow restore token** est coché par défaut pour qu’OBS puisse mémoriser votre choix. L’écran enregistré ne suit pas le réglage d’écran principal de la barre. Les fichiers `~/.config/hypr/xdph.conf` existants sont conservés ; vos propres réglages du portail peuvent donc modifier ce comportement.
+
 Pour une nouvelle configuration OBS, Eitr crée la collection Untitled avec une Scene : capture d’écran, caméra masquée et sources audio par défaut du bureau et du microphone. À la première utilisation, le système vous demande quel écran partager ; OBS conserve cette autorisation. La caméra reste éteinte jusqu’à ce que vous l’activiez. Les collections existantes ne sont jamais modifiées.
 
 ## Partager

@@ -6,6 +6,8 @@ import json
 import os
 from pathlib import Path
 import re
+import subprocess
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -67,6 +69,54 @@ class EitrConfigTests(unittest.TestCase):
     def stage(self):
         self.assertEqual(self.run_tool("stage", str(self.share))[0], 0)
         return ["--defaults", str(self.share)]
+
+    def test_portal_default_ships_and_seeds_on_upgrade_without_replacing_users(self):
+        from layout import Layout
+        manifest = json.loads((DISTRO / 'user-defaults.json').read_text())
+        entry = next(entry for entry in manifest['entries']
+                     if entry['source'] == 'distro/defaults/hypr')
+        self.assertFalse(entry['update'])
+        source = 'distro/defaults/hypr/xdph.conf'
+        rule = Layout(ROOT).classify(source)
+        self.assertEqual(rule['class'], 'P')
+        self.assertTrue(rule['runtime'])
+        expected = 'screencopy {\n    allow_token_by_default = true\n}\n'
+        self.assertEqual((ROOT / source).read_text(), expected)
+        self.repo = self.repo / 'portal'
+        self.write(self.repo / source, expected)
+        self.write(self.repo / 'distro/user-defaults.json', json.dumps(
+            {'version': 1, 'layout_version': 2, 'entries': [entry]}))
+        for name in ('layout-manifest.json', 'legacy-layout.json'):
+            self.write(self.repo / 'distro' / name, (DISTRO / name).read_text())
+        installed = self.stage()
+        self.assertEqual((self.share / 'defaults/hypr/xdph.conf').read_text(), expected)
+        target = self.home / '.config/hypr/xdph.conf'
+        binary = self.repo / 'bin/eitr-config'
+        self.write(binary, f'#!{sys.executable}\nimport sys, runpy\n'
+                   f'sys.path.insert(0, {str(DISTRO / "lib")!r})\n'
+                   f'sys.argv = ["eitr-config", "--defaults", {str(self.share)!r}, *sys.argv[1:]]\n'
+                   f'runpy.run_path({str(DISTRO / "bin/eitr-config")!r}, run_name="__main__")\n',
+                   mode=0o755)
+        migration = DISTRO / 'migrations/20261020120000-screen-share-default.py'
+        environment = dict(os.environ, PATH=str(binary.parent) + os.pathsep + os.environ['PATH'])
+        for existing in (None, 'screencopy {\n    allow_token_by_default = false\n}\n'):
+            with self.subTest(existing=existing):
+                if existing is not None:
+                    target.write_text(existing)
+                subprocess.run([sys.executable, str(migration)], env=environment,
+                               capture_output=True, text=True, check=True)
+                self.assertEqual(target.read_text(), existing or expected)
+                self.assertEqual(self.run_tool('update', layout=installed)[0], 0)
+                self.assertEqual(target.read_text(), existing or expected)
+                self.assertFalse(target.with_name('xdph.conf.eitr-new').exists())
+        target.unlink()
+        custom = target.with_name('custom.conf')
+        custom.write_text('custom portal settings\n')
+        target.symlink_to(custom.name)
+        subprocess.run([sys.executable, str(migration)], env=environment,
+                       capture_output=True, text=True, check=True)
+        self.assertTrue(target.is_symlink())
+        self.assertEqual(custom.read_text(), 'custom portal settings\n')
 
     def test_seed_copies_missing_defaults_with_modes_and_symlinks(self):
         code, output, _ = self.run_tool("seed")

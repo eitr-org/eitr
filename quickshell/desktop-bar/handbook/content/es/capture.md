@@ -25,6 +25,8 @@ Mientras OBS graba o transmite, aparece un punto rojo junto al tiempo meteoroló
 
 El manual nunca inicia grabaciones ni transmisiones. Compartir y capturar la pantalla siguen siendo acciones explícitas. Transcodificar abre el flujo existente de conversión de imágenes y vídeos; revisa las rutas de salida antes de sustituir archivos.
 
+OBS pregunta una vez qué pantalla grabar. En el selector habitual de pantalla compartida, **Allow restore token** está marcado por defecto para que OBS pueda recordar tu elección. La pantalla guardada no sigue el ajuste de pantalla principal de la barra. Los archivos `~/.config/hypr/xdph.conf` existentes se conservan, por lo que tu configuración del portal puede cambiar este comportamiento.
+
 En una configuración nueva de OBS, Eitr crea la colección Untitled con una Scene: captura de pantalla, cámara oculta y audio predeterminado del escritorio y del micrófono. En el primer uso, el sistema te pregunta qué pantalla compartir; OBS guarda ese permiso. La cámara permanece apagada hasta que la actives. Las colecciones existentes nunca se modifican.
 
 ## Compartir

@@ -25,6 +25,8 @@ Durante uma gravação ou transmissão, aparece um ponto vermelho ao lado do cli
 
 O manual nunca inicia gravações ou transmissões. Compartilhar e capturar a tela continuam sendo ações explícitas. Transcodificar abre o fluxo existente de conversão de imagens e vídeos; revise os caminhos de saída antes de substituir arquivos.
 
+O OBS pergunta uma vez qual tela gravar. No seletor padrão de compartilhamento, **Allow restore token** vem marcado para que o OBS possa lembrar sua escolha. A tela salva não acompanha a opção Tela principal da barra. Arquivos `~/.config/hypr/xdph.conf` existentes são preservados, portanto suas próprias configurações do portal podem alterar esse comportamento.
+
 Em uma configuração nova do OBS, o Eitr cria a coleção Untitled com uma Scene: captura de tela, câmera oculta e áudio padrão do sistema e do microfone. No primeiro uso, o sistema pergunta qual tela você quer compartilhar; o OBS salva essa permissão. A câmera fica desligada até você ativá-la. Coleções existentes nunca são alteradas.
 
 ## Compartilhar
