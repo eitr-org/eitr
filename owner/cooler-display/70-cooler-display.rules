@@ -1,2 +1,0 @@
-# The cooler's temperature display (aa88:8666): let the logged-in user write to it.
-SUBSYSTEM=="hidraw", ATTRS{idVendor}=="aa88", ATTRS{idProduct}=="8666", TAG+="uaccess"

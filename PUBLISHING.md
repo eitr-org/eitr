@@ -6,19 +6,17 @@ should be rechecked before each ISO. Each item lists why it matters and the fix.
 
 ## 1. Separate the distro from the personal backup
 
-The product and the owner's machine still live in one repository.
+Done. Tools for the owner's own hardware (the cooler display) live in the
+owner's private overlay repository; nothing owner-only remains here.
 
 - `.githooks/` guard commit identities and the push remote, reading them from the
   checkout's local Git config (`eitr.guard.*`); `AGENTS.md` and the hooks name
   no identity. The owner's identity rules live in their local agent instructions.
-- Machine-specific settings (monitor layout, mouse, primary display) should
-  live only in machine-local files such as `~/.config/hypr/local.lua`.
-- Developer tooling (the Cloud accounts menu and Development > Monitoring) is
-  generic and stays in the distro.
-
-Recommended: create a clean public `eitr` repository for the distro and keep a
-private overlay repository (identity hooks, AGENTS rules, personal configs,
-`local.lua`) that is applied on top of the owner's machine.
+- Machine-specific settings (monitor layout, mouse, primary display) live only
+  in machine-local files such as `~/.config/hypr/local.lua`; personal shell
+  additions go in `~/.config/eitr/shell.local.zsh`.
+- `HOME_FILES/.zshrc` is Eitr's shared shell configuration, sourced by every
+  user's `~/.zshrc` loader, not a personal file.
 
 ## 2. Repository size and history
 
@@ -76,7 +74,7 @@ into something debuggable.
 ## Checklist
 
 - [x] Public repository with a fresh, small history (squashed 2026-10-19)
-- [ ] Personal overlay split out of the distro
+- [x] Personal overlay split out of the distro (owner tools in a private repository)
 - [x] Top-level LICENSE chosen (GPL-3.0-or-later)
 - [x] Third-party licenses and NOTICE complete
 - [x] Franchise artwork removed or renamed

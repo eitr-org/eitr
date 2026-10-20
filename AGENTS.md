@@ -96,8 +96,8 @@ existing design and workflows rather than replacing them with upstream defaults.
   `~/.config`; pass `--repo CHECKOUT` to `eitr-shell` or `eitr-run` to try a checkout.
 - Repository directories generally mirror the shipped tree. `HOME_FILES` contains
   files belonging elsewhere under `$HOME`; preserve relative symlinks and permissions.
-  `owner/` holds tools for the owner's own hardware (such as `owner/cooler-display`);
-  it is backed up here but never packaged or installed on other machines.
+  Tools for the owner's own hardware live in the owner's private overlay
+  repository, never in this public one.
 - Keep unrelated user changes. Do not commit credentials, tokens, clipboard data,
   generated QR codes, logs, caches, or Python bytecode.
 - The owner's standing preference is to sync, commit, and push completed changes.

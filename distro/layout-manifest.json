@@ -76,7 +76,6 @@
     {"pattern": "systemd/**", "class": "C", "runtime": false},
     {"pattern": "distro/**", "class": "C", "runtime": false},
     {"pattern": "tools/**", "class": "C", "runtime": false},
-    {"pattern": "owner/**", "class": "C", "runtime": false},
     {"pattern": "website/**", "class": "C", "runtime": false},
     {"pattern": "docs/**", "class": "D", "runtime": false},
     {"pattern": "branding/sources/wallpapers/batch-04/export.py", "class": "C", "runtime": false},

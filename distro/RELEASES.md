@@ -88,9 +88,9 @@ dictation. Each ships with tests and Handbook updates. Hardware fixes are writte
 from what each fix solves, not copied; code taken directly from another project
 keeps its copyright notice in a NOTICE file.
 
-Before 1.0.0: finish the editorial review of remaining menu **translations**.
-The Handbook chapters have been reviewed against English in pt_BR, es, de and fr,
-including commands, links, key names and consistent forms of address.
+The **translations** of menus and the Handbook are reviewed and accepted by the
+owner for pt_BR, es, de and fr, including commands, links, key names and
+consistent forms of address; early users' reports refine the wording.
 
 The **AI agents** feature is implemented: first-use installation for Claude Code,
 Codex, Gemini CLI, Grok Build and GitHub Copilot CLI; a machine-local default

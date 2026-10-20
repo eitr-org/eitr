@@ -6,10 +6,11 @@ Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 1. Assistants working together: Gemini, Copilot and Grok as helpers
 2. Remote access: test with the owner
 3. Organization profiles: software and policies at installation
-4. Smaller items: OBS and the main display, menu translations, AI Usage
-5. Waiting on the owner: personal overlay split, testing channel
-6. Later: AI multi-account, plugins, smaller artwork packages, screenshots
-7. Before 1.0.0: skipped-release upgrade, encrypted install, other hardware
+4. Eitr plugins
+5. Smaller items: OBS and the main display, the website update
+6. Waiting on the owner: testing channel
+7. Later: AI multi-account
+8. Before 1.0.0: skipped-release upgrade, encrypted resets, other hardware
 
 # 1. Assistants working together: more helpers
 
@@ -115,7 +116,15 @@ Steps:
 
 Out of scope: managing machines after installation (fleet management).
 
-# 4. Smaller items
+# 4. Eitr plugins
+
+A plugin is a Git repository with a manifest declaring its Walker rows,
+scripts and optional user service. Install > Plugins takes a URL, shows who
+wrote it and a trust warning before any code runs, updates with System Update
+and removes cleanly. The owner's cooler display tool (in the owner's private
+repository) becomes the first plugin.
+
+# 5. Smaller items
 
 - **OBS and the main display.** The screen-share permission keeps the first
   monitor picked, so OBS does not follow the bar's main display. Ship a shared
@@ -124,55 +133,37 @@ Out of scope: managing machines after installation (fleet management).
   and say in the Handbook that OBS asks once which screen to record. Do not
   replace the share picker: it serves every app, not only OBS. Verify with both
   monitors.
-- **Menu translations, final read.** The last 1.0 item in `distro/RELEASES.md`:
-  an editorial pass over menu wording in all four languages (whole sentences,
-  consistent terms, same register as the Handbook), then the owner uses
-  Portuguese daily and reports anything odd. Native speakers among early users
-  review Spanish, German and French.
-- **Website.** Add assistants working together (a second opinion from another
-  subscription, each hand-off approved, helpers read-only) and, once tested,
-  remote access.
-- **AI Usage for Copilot and Gemini.** Not added: Copilot's official endpoint
-  reports only requests used (no allowance, personal plans only, separate
-  token) and Gemini has no official quota source. Check again when either
-  publishes real limits.
+- **Website update** (with the owner's own changes). Add assistants working
+  together (a second opinion from another subscription, each hand-off
+  approved, helpers read-only) and, once tested, remote access. Retake the 8
+  theme previews made before the btop colour change and add shots of the
+  lockscreen, the dictation waveform and the Packages picker (owner-only
+  captures, taken when the owner says).
 
-# 5. Waiting on the owner
+# 6. Waiting on the owner
 
-- **Personal overlay split** (`PUBLISHING.md`). Once the owner creates the
-  private repository: move `HOME_FILES/.zshrc` and `owner/cooler-display` there
-  with their install notes, update `distro/layout-manifest.json` and the
-  manifests that list them, keep the distro's own `.zshrc` default, check the
-  box in `PUBLISHING.md`.
 - **Testing channel.** Built and verified. When the owner says so, publish with
   `release-desktop.py --channel testing`, try it on the owner's PC, then
   `--promote` to stable.
 
-# 6. Later
+# 7. Later
 
 - **AI multi-account.** Several accounts per assistant, manual switching only.
   Each account gets its own config folder selected through the tool's own
   variable (`CLAUDE_CONFIG_DIR`, `CODEX_HOME`); sign-in for an extra account
   uses a private browser window; never log out of an account to add another.
   AI Usage shows each account. Pairs with item 1 for teams with several seats.
-- **Eitr plugins.** A plugin is a Git repository with a manifest declaring its
-  Walker rows, scripts and optional user service. Install > Plugins takes a
-  URL, shows who wrote it and a trust warning before any code runs, updates
-  with System Update and removes cleanly. `cooler-display` becomes the first
-  plugin, in the owner's repository.
-- **Smaller artwork packages.** Only if artwork changes become frequent: split
-  `eitr-artwork` per theme so one theme's change republishes a few MB.
-- **Screenshots.** Retake the 8 theme previews made before the btop colour
-  change; add website shots of the lockscreen, the dictation waveform and the
-  Packages picker (owner-only captures, taken when the owner says).
 
-# 7. Before 1.0.0
+# 8. Before 1.0.0
 
 - **Upgrade that skips releases.** 1.0 promises supported upgrades, so test
   installing 0.6.4 and updating straight to the 1.0 candidate. The 0.6.4 ISO is
   kept locally for this test only, then deleted.
-- **Encrypted install.** Install with LUKS in a VM by hand (the passphrase is
-  typed at boot), then verify, update, both factory resets and the boot guard.
+- **Factory resets and the boot guard on an encrypted disk.** The owner's PC
+  proves an encrypted install and daily use. What has never run on LUKS is
+  destructive: both factory resets and the boot guard's rollback. Test them in
+  a VM installed with encryption by hand (the passphrase is typed at boot),
+  never on the owner's PC.
 - **Hardware we do not have** (0.7.0): laptops, AMD and Intel graphics, a real
   Windows/BitLocker dual boot. Fixes come from early users' reports and do not
   hold back other work.
