@@ -5,15 +5,16 @@ Name = "cloudflare-contexts"
 NamePretty = i18n.tr("Cloudflare")
 Parent = "cloud"
 Icon = ""
+FixedOrder = true
 function GetEntries()
     local command = "python3 " .. quote(paths.code("walker/scripts/menus/cloud/providers.py")) .. " cloudflare"
     local handle = io.popen(command .. " entries")
     if not handle then return {} end
     local entries = {}
     for line in handle:lines() do
-        local text, detail, action = line:match("^([^\t]+)\t([^\t]+)\t(.+)$")
+        local text, detail, action, remove = line:match("^([^\t]+)\t([^\t]+)\t([^\t]+)\t?(.*)$")
         if text then
-            table.insert(entries, {Text = text, Subtext = detail, Icon = Icon, Actions = {open = action}})
+            table.insert(entries, {Text = text, Subtext = detail, Icon = Icon, Actions = {open = action, cloud_delete = remove ~= "" and remove or nil}})
         end
     end
     handle:close()

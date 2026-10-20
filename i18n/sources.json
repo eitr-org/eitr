@@ -3314,6 +3314,9 @@
     "Account directories cannot be symbolic links": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Account is in use": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Account name": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
@@ -3368,6 +3371,9 @@
     "Apply this system change? Type yes to continue: ": [
       "distro/system/eitr_remote.py"
     ],
+    "Apps": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Arch posted news since your last update:": [
       "walker/scripts/actions/system/arch-news.py"
     ],
@@ -3395,6 +3401,9 @@
     "Backup {name} is incomplete: missing {missing_files}": [
       "distro/system/eitr-system.py"
     ],
+    "Balance": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Battery charge limit removed; batteries charge to 100%.": [
       "distro/system/eitr-system.py"
     ],
@@ -3416,6 +3425,9 @@
     "Both network backends are running; select one in System > Connectivity > Network Backend and reboot": [
       "quickshell/desktop-bar/scripts/wifi-popup.py"
     ],
+    "Buckets": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "C-y copy  Enter print  Esc close": [
       "walker/scripts/menus/cloud/terminal-helpers.sh"
     ],
@@ -3426,6 +3438,9 @@
       "quickshell/desktop-bar/scripts/wifi-popup.py"
     ],
     "CLI Help": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "CLI unavailable": [
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Cache Sizes": [
@@ -3542,11 +3557,17 @@
     "Collected a problem report ({line_count} lines) and saved it privately to\n{path}.": [
       "walker/scripts/actions/system/report-problem.py"
     ],
+    "Command failed (exit {status})": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Commit author email": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Commit author name": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Compartments": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Configuration ID": [
       "walker/scripts/menus/cloud/accounts.py"
@@ -3663,14 +3684,29 @@
     "Custom static-IP/VPN setups need manual review before switching.": [
       "walker/scripts/actions/system/network-backend.py"
     ],
+    "D1 Databases": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Dashboard saved": [
       "walker/scripts/actions/development/monitoring.py"
+    ],
+    "Databases": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Default": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Delete Account": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Delete {provider} account {account}? The provider’s sign-in for this account on this computer will be removed. The remote account itself is not affected.": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Deleted: every app installed since, every changed setting, accounts added later and ALL files in the home folders (documents, downloads, pictures, projects).": [
       "walker/scripts/actions/system/factory-reset.py"
+    ],
+    "Deployments": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Desktop Audio": [
       "quickshell/desktop-bar/scripts/obs-control.py"
@@ -3698,6 +3734,12 @@
     ],
     "Do not put login credentials in the address.": [
       "walker/scripts/actions/install/webapps.py"
+    ],
+    "Domains": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Droplets": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Duplicate folder or unknown account": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -3823,6 +3865,9 @@
     ],
     "Firewall: on (also open: {ports})": [
       "distro/system/eitr-system.py"
+    ],
+    "Firewalls": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Flatpak apps could not be updated; the system update itself finished.": [
       "walker/scripts/actions/system/update.sh"
@@ -3985,6 +4030,9 @@
     "Installing from the USB medium; no network is needed. Keep the computer powered on.": [
       "distro/archinstall/installer-ui.py"
     ],
+    "Instances": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Invalid FIDO2 registration": [
       "distro/system/eitr-system.py"
     ],
@@ -4051,6 +4099,9 @@
     "KEEP MY FILES returns the system, apps and settings to how they were at the first login, and keeps the files in your home folder.": [
       "walker/scripts/actions/system/factory-reset.py"
     ],
+    "KV Namespaces": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Keep at least one installed font family": [
       "walker/scripts/actions/style/fonts.py"
     ],
@@ -4078,6 +4129,9 @@
     "Kitty configuration is missing; start Eitr's user configuration setup first.": [
       "walker/scripts/actions/style/terminal-effects.py"
     ],
+    "Kubernetes": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "LUKS2 disk encryption: needed at every boot": [
       "distro/archinstall/installer-ui.py"
     ],
@@ -4100,6 +4154,9 @@
       "distro/system/eitr-system.py"
     ],
     "List Accounts": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Load Balancers": [
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Loading AUR package names…": [
@@ -4150,6 +4207,9 @@
     ],
     "Name this computer.": [
       "distro/archinstall/installer-ui.py"
+    ],
+    "Networks": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "New SSH key for {label}": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -4319,6 +4379,9 @@
     "Package picker failed": [
       "walker/scripts/actions/install/software.py"
     ],
+    "Pages Projects": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Password": [
       "distro/archinstall/installer-ui.py"
     ],
@@ -4343,6 +4406,9 @@
     "Press any key to close.": [
       "walker/scripts/menus/cloud/common.sh"
     ],
+    "Primary IPs": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Private SSH key": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
@@ -4364,14 +4430,26 @@
     "Project": [
       "walker/scripts/menus/cloud/accounts.py"
     ],
+    "Projects": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Provider": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Prune pnpm store?": [
       "walker/scripts/actions/system/cleanup.sh"
     ],
+    "Queues": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "R2 Buckets": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": [
       "quickshell/desktop-bar/scripts/airplane.py"
+    ],
+    "Read-only report": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Ready. Both resets restart the computer immediately.": [
       "distro/system/factory-reset.py"
@@ -4433,6 +4511,9 @@
     "Removal would delete every installed font": [
       "walker/scripts/actions/style/fonts.py"
     ],
+    "Remove local sign-in": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Remove the {label} web app?": [
       "walker/scripts/actions/install/software.py"
     ],
@@ -4459,6 +4540,9 @@
     ],
     "Repositories inside it use only this account": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Resource Groups": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Restart now": [
       "walker/scripts/actions/system/restart-check.py"
@@ -4577,6 +4661,12 @@
     "Select the line above to copy it.": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Servers": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Service Instances": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Service number (Enter to cancel): ": [
       "walker/scripts/actions/development/monitoring.py"
     ],
@@ -4631,6 +4721,9 @@
     "Sign-in method": [
       "walker/scripts/menus/cloud/accounts.py"
     ],
+    "Sites": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Skipped snapshot boot entries.": [
       "distro/bootloader/setup.sh"
     ],
@@ -4676,6 +4769,9 @@
     "Snapshot-protected updates require a Btrfs root. No update was started.": [
       "distro/system/eitr-system.py"
     ],
+    "Snapshots": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
     "Stable channel. Eitr packages already newer than stable stay until stable catches up.": [
       "distro/system/eitr-system.py"
     ],
@@ -4690,6 +4786,9 @@
     ],
     "Start sharing this PC?": [
       "walker/scripts/actions/system/remote-access.py"
+    ],
+    "Status": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Step {step_number} of {step_count}": [
       "distro/archinstall/installer-ui.py"
@@ -4753,6 +4852,9 @@
     ],
     "Tailscale state: {state}": [
       "walker/scripts/actions/system/remote-access.py"
+    ],
+    "Target": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Template partition sizes must be in MiB": [
       "distro/archinstall/eitr-guided-install"
@@ -5151,6 +5253,12 @@
     ],
     "Using the default theme: {user}'s theme could not be read ({error}).": [
       "distro/system/eitr-system.py"
+    ],
+    "VCNs": [
+      "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Volumes": [
+      "walker/scripts/menus/cloud/providers.py"
     ],
     "Web app created": [
       "walker/scripts/actions/install/webapps.py"

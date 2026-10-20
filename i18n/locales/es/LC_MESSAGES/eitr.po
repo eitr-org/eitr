@@ -163,6 +163,9 @@ msgstr "Cuenta"
 msgid "Account directories cannot be symbolic links"
 msgstr "Los directorios de cuentas no pueden ser enlaces simbólicos"
 
+msgid "Account is in use"
+msgstr "La cuenta está en uso"
+
 msgid "Account name"
 msgstr "Nombre de la cuenta"
 
@@ -217,6 +220,9 @@ msgstr "El archivo de respuestas indica {disk}, que no está entre los discos di
 msgid "Apply this system change? Type yes to continue: "
 msgstr "¿Aplicar este cambio del sistema? Escriba yes para continuar: "
 
+msgid "Apps"
+msgstr "Aplicaciones"
+
 msgid "Arch posted news since your last update:"
 msgstr "Arch ha publicado noticias desde tu última actualización:"
 
@@ -244,6 +250,9 @@ msgstr "Copia de seguridad del menú actual de Limine: {backup}"
 msgid "Backup {name} is incomplete: missing {missing_files}"
 msgstr "La copia {name} está incompleta: falta {missing_files}"
 
+msgid "Balance"
+msgstr "Saldo"
+
 msgid "Battery charge limit removed; batteries charge to 100%."
 msgstr "Se eliminó el límite de carga; las baterías cargan al 100 %."
 
@@ -265,6 +274,9 @@ msgstr "Las instantáneas de arranque no son compatibles con {loader}. {reason} 
 msgid "Both network backends are running; select one in System > Connectivity > Network Backend and reboot"
 msgstr "Ambos servicios de red están activos; elige uno en Sistema > Conectividad > Servicio de red y reinicia"
 
+msgid "Buckets"
+msgstr "Buckets"
+
 msgid "C-y copy  Enter print  Esc close"
 msgstr "C-y copiar  Enter mostrar  Esc cerrar"
 
@@ -276,6 +288,9 @@ msgstr "El certificado de CA es demasiado grande"
 
 msgid "CLI Help"
 msgstr "Ayuda de la CLI"
+
+msgid "CLI unavailable"
+msgstr "CLI no disponible"
 
 msgid "Cache Sizes"
 msgstr "Tamaños de las cachés"
@@ -391,11 +406,17 @@ msgstr "Uso de Codex no disponible; comprueba `codex login status`"
 msgid "Collected a problem report ({line_count} lines) and saved it privately to\n{path}."
 msgstr "Se recopiló un informe del problema ({line_count} líneas), guardado de forma privada en\n{path}."
 
+msgid "Command failed (exit {status})"
+msgstr "El comando falló (código {status})"
+
 msgid "Commit author email"
 msgstr "Correo del autor de los commits"
 
 msgid "Commit author name"
 msgstr "Nombre del autor de los commits"
+
+msgid "Compartments"
+msgstr "Compartimentos"
 
 msgid "Configuration ID"
 msgstr "ID de configuración"
@@ -511,14 +532,29 @@ msgstr "Servicio tailscaled personalizado o enmascarado: revíselo manualmente"
 msgid "Custom static-IP/VPN setups need manual review before switching."
 msgstr "Las configuraciones personalizadas de IP estática o VPN requieren revisión manual antes del cambio."
 
+msgid "D1 Databases"
+msgstr "Bases de datos D1"
+
 msgid "Dashboard saved"
 msgstr "Panel guardado"
+
+msgid "Databases"
+msgstr "Bases de datos"
 
 msgid "Default"
 msgstr "Predeterminado"
 
+msgid "Delete Account"
+msgstr "Eliminar cuenta"
+
+msgid "Delete {provider} account {account}? The provider’s sign-in for this account on this computer will be removed. The remote account itself is not affected."
+msgstr "¿Eliminar la cuenta {account} de {provider}? Se eliminará el inicio de sesión de esta cuenta del proveedor en este equipo. La cuenta remota en sí no se verá afectada."
+
 msgid "Deleted: every app installed since, every changed setting, accounts added later and ALL files in the home folders (documents, downloads, pictures, projects)."
 msgstr "Se eliminarán todas las aplicaciones instaladas después, todos los ajustes modificados, las cuentas añadidas después y TODOS los archivos de las carpetas personales (documentos, descargas, imágenes y proyectos)."
+
+msgid "Deployments"
+msgstr "Despliegues"
 
 msgid "Desktop Audio"
 msgstr "Audio del escritorio"
@@ -546,6 +582,12 @@ msgstr "No cifrar: los archivos se podrán leer sin contraseña"
 
 msgid "Do not put login credentials in the address."
 msgstr "No incluyas credenciales de acceso en la dirección."
+
+msgid "Domains"
+msgstr "Dominios"
+
+msgid "Droplets"
+msgstr "Droplets"
 
 msgid "Duplicate folder or unknown account"
 msgstr "Carpeta duplicada o cuenta desconocida"
@@ -669,6 +711,9 @@ msgstr "Cortafuegos: activado"
 
 msgid "Firewall: on (also open: {ports})"
 msgstr "Cortafuegos: activado (también abierto: {ports})"
+
+msgid "Firewalls"
+msgstr "Cortafuegos"
 
 msgid "Flatpak apps could not be updated; the system update itself finished."
 msgstr "No se pudieron actualizar las aplicaciones Flatpak; la actualización del sistema terminó."
@@ -829,6 +874,9 @@ msgstr "La instalación junto a otros sistemas conserva todas las particiones ex
 msgid "Installing from the USB medium; no network is needed. Keep the computer powered on."
 msgstr "Instalando desde la unidad USB; no se necesita conexión de red. Mantén el equipo encendido."
 
+msgid "Instances"
+msgstr "Instancias"
+
 msgid "Invalid FIDO2 registration"
 msgstr "Invalid FIDO2 registration"
 
@@ -895,6 +943,9 @@ msgstr "Se queda en este equipo. Nunca pongas contraseñas ni tokens en la direc
 msgid "KEEP MY FILES returns the system, apps and settings to how they were at the first login, and keeps the files in your home folder."
 msgstr "CONSERVAR MIS ARCHIVOS devuelve el sistema, las aplicaciones y los ajustes al estado del primer inicio de sesión y conserva los archivos de tu carpeta personal."
 
+msgid "KV Namespaces"
+msgstr "Espacios de nombres KV"
+
 msgid "Keep at least one installed font family"
 msgstr "Conserva al menos una familia de fuentes instalada"
 
@@ -922,6 +973,9 @@ msgstr "Distribución del teclado: SOLO VISTA PREVIA"
 msgid "Kitty configuration is missing; start Eitr's user configuration setup first."
 msgstr "Falta la configuración de Kitty; ejecuta primero la configuración de usuario de Eitr."
 
+msgid "Kubernetes"
+msgstr "Kubernetes"
+
 msgid "LUKS2 disk encryption: needed at every boot"
 msgstr "Cifrado de disco LUKS2: necesario en cada arranque"
 
@@ -945,6 +999,9 @@ msgstr "Limine mostrará su menú predeterminado en el próximo arranque. No se 
 
 msgid "List Accounts"
 msgstr "Listar cuentas"
+
+msgid "Load Balancers"
+msgstr "Balanceadores de carga"
 
 msgid "Loading AUR package names…"
 msgstr "Cargando nombres de paquetes de AUR…"
@@ -993,6 +1050,9 @@ msgstr "Pon nombre a las suscripciones que quieres en el menú"
 
 msgid "Name this computer."
 msgstr "Asigna un nombre a este equipo."
+
+msgid "Networks"
+msgstr "Redes"
 
 msgid "New SSH key for {label}"
 msgstr "Nueva clave SSH para {label}"
@@ -1159,6 +1219,9 @@ msgstr "Política PCR: {TPM_PCRS} (estado de Secure Boot). Los cambios de firmwa
 msgid "Package picker failed"
 msgstr "Falló el selector de paquetes"
 
+msgid "Pages Projects"
+msgstr "Proyectos Pages"
+
 msgid "Password"
 msgstr "Contraseña"
 
@@ -1183,6 +1246,9 @@ msgstr "Preparando el sistema restaurado (el sistema en ejecución aún no cambi
 msgid "Press any key to close."
 msgstr "Pulsa cualquier tecla para cerrar."
 
+msgid "Primary IPs"
+msgstr "IP primarias"
+
 msgid "Private SSH key"
 msgstr "Clave SSH privada"
 
@@ -1204,14 +1270,26 @@ msgstr "Programa: {program}\nSeñal: {signal}\n\n{backtrace}"
 msgid "Project"
 msgstr "Proyecto"
 
+msgid "Projects"
+msgstr "Proyectos"
+
 msgid "Provider"
 msgstr "Proveedor"
 
 msgid "Prune pnpm store?"
 msgstr "¿Eliminar elementos sin usar del almacén pnpm?"
 
+msgid "Queues"
+msgstr "Colas"
+
+msgid "R2 Buckets"
+msgstr "Buckets R2"
+
 msgid "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth."
 msgstr "Las conexiones inalámbricas se bloquearon en otro lugar; actívalas individualmente en WiFi/Bluetooth."
+
+msgid "Read-only report"
+msgstr "Informe de solo lectura"
 
 msgid "Ready. Both resets restart the computer immediately."
 msgstr "Listo. Ambas opciones de restablecimiento reinician el equipo inmediatamente."
@@ -1273,6 +1351,9 @@ msgstr "La eliminación afectaría a la fuente predeterminada o a los iconos del
 msgid "Removal would delete every installed font"
 msgstr "La eliminación borraría todas las fuentes instaladas"
 
+msgid "Remove local sign-in"
+msgstr "Eliminar inicio de sesión local"
+
 msgid "Remove the {label} web app?"
 msgstr "¿Eliminar la aplicación web {label}?"
 
@@ -1299,6 +1380,9 @@ msgstr "Informar de un problema"
 
 msgid "Repositories inside it use only this account"
 msgstr "Los repositorios que contiene usan solo esta cuenta"
+
+msgid "Resource Groups"
+msgstr "Grupos de recursos"
 
 msgid "Restart now"
 msgstr "Reiniciar ahora"
@@ -1417,6 +1501,12 @@ msgstr "Selecciona al menos un paquete"
 msgid "Select the line above to copy it."
 msgstr "Selecciona la línea anterior para copiarla."
 
+msgid "Servers"
+msgstr "Servidores"
+
+msgid "Service Instances"
+msgstr "Instancias de servicio"
+
 msgid "Service number (Enter to cancel): "
 msgstr "Número del servicio (Intro para cancelar): "
 
@@ -1471,6 +1561,9 @@ msgstr "Inicia sesión con `claude` para ver el uso de la suscripción"
 msgid "Sign-in method"
 msgstr "Método de acceso"
 
+msgid "Sites"
+msgstr "Sitios"
+
 msgid "Skipped snapshot boot entries."
 msgstr "Se omitieron las entradas de arranque de instantáneas."
 
@@ -1516,6 +1609,9 @@ msgstr "La instantánea {snapshot} no contiene {path}."
 msgid "Snapshot-protected updates require a Btrfs root. No update was started."
 msgstr "Las actualizaciones protegidas por instantáneas requieren una raíz Btrfs. No se inició ninguna actualización."
 
+msgid "Snapshots"
+msgstr "Instantáneas"
+
 msgid "Stable channel. Eitr packages already newer than stable stay until stable catches up."
 msgstr "Canal estable. Los paquetes de Eitr más recientes que los estables se conservarán hasta que estos los alcancen."
 
@@ -1530,6 +1626,9 @@ msgstr "¿Compartir automáticamente al acceder? Esto concede control remoto del
 
 msgid "Start sharing this PC?"
 msgstr "¿Empezar a compartir este PC?"
+
+msgid "Status"
+msgstr "Estado"
 
 msgid "Step {step_number} of {step_count}"
 msgstr "Paso {step_number} de {step_count}"
@@ -1593,6 +1692,9 @@ msgstr "Error al acceder a Tailscale. Reinténtelo en Acceder fuera de casa."
 
 msgid "Tailscale state: {state}"
 msgstr "Estado de Tailscale: {state}"
+
+msgid "Target"
+msgstr "Destino"
 
 msgid "Template partition sizes must be in MiB"
 msgstr "Template partition sizes must be in MiB"
@@ -1986,6 +2088,12 @@ msgstr "Nombre de usuario"
 
 msgid "Using the default theme: {user}'s theme could not be read ({error})."
 msgstr "Usando el tema predeterminado: no se pudo leer el tema de {user} ({error})."
+
+msgid "VCNs"
+msgstr "VCN"
+
+msgid "Volumes"
+msgstr "Volúmenes"
 
 msgid "Web app created"
 msgstr "Aplicación web creada"

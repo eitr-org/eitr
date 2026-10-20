@@ -2,6 +2,8 @@
 """Explicit vendor authentication in isolated Eitr account directories."""
 import argparse
 import configparser
+import fcntl
+from contextlib import contextmanager
 import json
 import os
 from pathlib import Path
@@ -26,7 +28,151 @@ PROVIDERS = json.loads(Path(__file__).with_name("providers.json").read_text())
 SCRIPT = code("walker/scripts/menus/cloud/providers.py")
 
 
+@contextmanager
+def account_lock(directory, exclusive=False):
+    descriptor = os.open(directory, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+    try:
+        try:
+            fcntl.flock(descriptor, (fcntl.LOCK_EX if exclusive else fcntl.LOCK_SH) | fcntl.LOCK_NB)
+        except BlockingIOError as error:
+            raise ValueError(tr('Account is in use')) from error
+        yield descriptor
+    finally:
+        os.close(descriptor)
+
+
+def delete_account(provider, name):
+    directory = account_path(provider, name)
+    with account_lock(directory, exclusive=True) as descriptor:
+        if Path.cwd().resolve().is_relative_to(directory.resolve()):
+            raise ValueError(tr('Account is in use'))
+        message = tr('Delete {provider} account {account}? The provider’s sign-in for this account on this computer will be removed. The remote account itself is not affected.',
+                     provider=PROVIDERS[provider]['name'], account=name)
+        if not Terminal().confirm(message, default=False):
+            return False
+        account_path(provider, name)
+        if any(path.is_symlink() for path in directory.rglob('*')):
+            raise ValueError(tr('Account directories cannot be symbolic links'))
+        parent_descriptor = os.open(directory.parent, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+        try:
+            current = os.stat(name, dir_fd=parent_descriptor, follow_symlinks=False)
+            locked = os.fstat(descriptor)
+            if (current.st_dev, current.st_ino) != (locked.st_dev, locked.st_ino):
+                raise ValueError(tr('Unknown account'))
+            shutil.rmtree(name, dir_fd=parent_descriptor)
+        finally:
+            os.close(parent_descriptor)
+    return True
+
+
+def report(provider, name, view):
+    directory = account_path(provider, name)
+    with account_lock(directory):
+        cli = cli_path(provider)
+        if not cli:
+            raise ValueError(tr('CLI unavailable'))
+        selected = selection(provider, name)
+        context = selected.get('context', name)
+        flags = scoped_arguments(provider, context) if provider != 'vercel' or 'context' in selected else []
+        if view not in VIEWS[provider]:
+            raise ValueError(tr('Unknown account'))
+        arguments = list(VIEWS[provider][view][2])
+        values = environment(directory)
+        values['PATH'] = str(Path(cli).parent) + os.pathsep + values.get('PATH', os.defpath)
+
+        def execute(command):
+            return subprocess.run([cli, *command, *flags], cwd=directory, env=values,
+                                  capture_output=True, text=True, check=False)
+
+        output = ''
+        failed = False
+        if provider == 'oracle' and view != 'Compartments':
+            profile = directory / '.oci/config'
+            if any(parent.is_symlink() for parent in (profile, *profile.parents)):
+                raise ValueError(tr('Account directories cannot be symbolic links'))
+            profiles = configparser.ConfigParser(interpolation=None)
+            profiles.read(profile)
+            tenancy = profiles.get(context, 'tenancy')
+            if not re.fullmatch(r'ocid1\.tenancy\.[a-zA-Z0-9._-]+', tenancy):
+                raise ValueError(tr('Unknown account'))
+            arguments += ['--compartment-id', tenancy]
+            if view == 'Buckets':
+                namespace = execute(['os', 'ns', 'get'])
+                if namespace.returncode:
+                    failed = True
+                    output = namespace.stdout + namespace.stderr
+                    output += '\n' + tr('Command failed (exit {status})', status=str(namespace.returncode))
+                else:
+                    namespace_data = json.loads(namespace.stdout)
+                    if not isinstance(namespace_data, dict) or 'data' not in namespace_data:
+                        raise ValueError(tr('Unknown account'))
+                    namespace_value = namespace_data['data']
+                    arguments += ['--namespace', validate_value(namespace_value)]
+        if not failed:
+            result = execute(arguments)
+            output = result.stdout + result.stderr
+            if result.returncode:
+                output += '\n' + tr('Command failed (exit {status})', status=str(result.returncode))
+        subprocess.run(['bash', '-c', 'source "$1"; cloud_report', 'cloud-report',
+                        str(code('walker/scripts/menus/cloud/terminal-helpers.sh'))],
+                       input=output, text=True, check=True)
+
+
+VIEWS = {
+    'cloudflare': {
+        'Account': (tr('Account'), tr('Read-only report'), ['whoami']),
+        'R2 Buckets': (tr('R2 Buckets'), tr('Read-only report'), ['r2', 'bucket', 'list']),
+        'D1 Databases': (tr('D1 Databases'), tr('Read-only report'), ['d1', 'list']),
+        'KV Namespaces': (tr('KV Namespaces'), tr('Read-only report'), ['kv', 'namespace', 'list']),
+        'Pages Projects': (tr('Pages Projects'), tr('Read-only report'), ['pages', 'project', 'list']),
+        'Queues': (tr('Queues'), tr('Read-only report'), ['queues', 'list']),
+    },
+    'digitalocean': {
+        'Droplets': (tr('Droplets'), tr('Read-only report'), ['compute', 'droplet', 'list']),
+        'Apps': (tr('Apps'), tr('Read-only report'), ['apps', 'list']),
+        'Databases': (tr('Databases'), tr('Read-only report'), ['databases', 'list']),
+        'Kubernetes': (tr('Kubernetes'), tr('Read-only report'), ['kubernetes', 'cluster', 'list']),
+        'Volumes': (tr('Volumes'), tr('Read-only report'), ['compute', 'volume', 'list']),
+        'Domains': (tr('Domains'), tr('Read-only report'), ['compute', 'domain', 'list']),
+        'Load Balancers': (tr('Load Balancers'), tr('Read-only report'), ['compute', 'load-balancer', 'list']),
+        'Balance': (tr('Balance'), tr('Read-only report'), ['balance', 'get']),
+    },
+    'hetzner': {
+        'Servers': (tr('Servers'), tr('Read-only report'), ['server', 'list']),
+        'Volumes': (tr('Volumes'), tr('Read-only report'), ['volume', 'list']),
+        'Networks': (tr('Networks'), tr('Read-only report'), ['network', 'list']),
+        'Firewalls': (tr('Firewalls'), tr('Read-only report'), ['firewall', 'list']),
+        'Load Balancers': (tr('Load Balancers'), tr('Read-only report'), ['load-balancer', 'list']),
+        'Primary IPs': (tr('Primary IPs'), tr('Read-only report'), ['primary-ip', 'list']),
+        'Snapshots': (tr('Snapshots'), tr('Read-only report'), ['image', 'list', '--type', 'snapshot']),
+    },
+    'oracle': {
+        'Compartments': (tr('Compartments'), tr('Read-only report'), ['iam', 'compartment', 'list', '--all']),
+        'Instances': (tr('Instances'), tr('Read-only report'), ['compute', 'instance', 'list', '--all']),
+        'Buckets': (tr('Buckets'), tr('Read-only report'), ['os', 'bucket', 'list']),
+        'VCNs': (tr('VCNs'), tr('Read-only report'), ['network', 'vcn', 'list', '--all']),
+    },
+    'vercel': {
+        'Projects': (tr('Projects'), tr('Read-only report'), ['project', 'ls']),
+        'Deployments': (tr('Deployments'), tr('Read-only report'), ['ls']),
+        'Domains': (tr('Domains'), tr('Read-only report'), ['domains', 'ls']),
+    },
+    'netlify': {
+        'Status': (tr('Status'), tr('Read-only report'), ['status']),
+        'Sites': (tr('Sites'), tr('Read-only report'), ['sites:list']),
+    },
+    'ibm': {
+        'Account': (tr('Account'), tr('Read-only report'), ['account', 'show']),
+        'Target': (tr('Target'), tr('Read-only report'), ['target']),
+        'Resource Groups': (tr('Resource Groups'), tr('Read-only report'), ['resource', 'groups']),
+        'Service Instances': (tr('Service Instances'), tr('Read-only report'), ['resource', 'service-instances']),
+    },
+}
+
+
 def account_root(provider):
+    if provider not in PROVIDERS:
+        raise ValueError(tr('Unknown account'))
     return config("eitr/cloud-accounts") / provider
 
 
@@ -72,10 +218,11 @@ def terminal(provider, action, name=None):
 
 def entries(provider):
     info = PROVIDERS[provider]
-    rows = [(tr('Add {provider} Account', provider=info['name']), tr('Name it, then sign in'),
-             terminal(provider, 'add'))]
+    rows = []
     for name in accounts(provider):
-        rows.append((name, info['name'] + ' / ' + selection(provider, name).get('context', name), shlex.join(['python3', str(SCRIPT), provider, 'open', name])))
+        rows.append((name, info['name'] + ' / ' + selection(provider, name).get('context', name), shlex.join(['python3', str(SCRIPT), provider, 'open', name]), terminal(provider, 'delete', name)))
+    rows.append((tr('Add {provider} Account', provider=info['name']), tr('Name it, then sign in'),
+                 terminal(provider, 'add')))
     return rows
 
 
@@ -139,6 +286,11 @@ def scoped_arguments(provider, context):
 
 
 def run_account(provider, name, action):
+    with account_lock(account_path(provider, name)):
+        return run_account_locked(provider, name, action)
+
+
+def run_account_locked(provider, name, action):
     directory = account_path(provider, name)
     if not directory.is_dir():
         raise ValueError(tr('Unknown account'))
@@ -210,6 +362,7 @@ def open_account(provider, name):
         tr('Open Console'): ['xdg-open', PROVIDERS[provider]['console']],
         tr('Sign In'): shlex.split(terminal(provider, 'login', name)),
         tr('CLI Help'): shlex.split(terminal(provider, 'help', name)),
+        tr('Delete Account'): shlex.split(terminal(provider, 'delete', name)),
     }
     if provider in ('digitalocean', 'hetzner', 'oracle', 'ibm'):
         choices[tr('List Accounts')] = shlex.split(terminal(provider, 'list', name))
@@ -217,16 +370,22 @@ def open_account(provider, name):
         choices[tr('Switch Account')] = shlex.split(terminal(provider, 'switch', name))
     if provider == 'ibm':
         choices[tr('Sign In with API Key')] = shlex.split(terminal(provider, 'apikey', name))
+    choices[tr('Delete Account') + ' — ' + tr('Remove local sign-in')] = choices.pop(tr('Delete Account'))
+    for title, (label, description, arguments) in VIEWS[provider].items():
+        label = label + ' — ' + description
+        choices[label] = shlex.split(terminal(provider, 'view', name)) + [title]
     while True:
         active = selection(provider, name)
         context = active.get('context', name)
         detail = context + (' / ' + active['region'] if active.get('region') else '')
         result = subprocess.run([str(code('walker/bin/walker-dmenu')), '--dmenu', '--no-sort',
                                  '--prompt', PROVIDERS[provider]['name'] + ' / ' + name + ' / ' + detail],
-                                input='\n'.join(sorted(choices)) + '\n', capture_output=True, text=True, check=False)
+                                input='\n'.join(sorted(choices, key=str.casefold)) + '\n', capture_output=True, text=True, check=False)
         if result.returncode or result.stdout.strip() not in choices:
             return
         subprocess.run(choices[result.stdout.strip()], check=True)
+        if not account_path(provider, name).exists():
+            return
         if result.stdout.strip() == tr('Open Console'):
             return
 
@@ -235,8 +394,9 @@ def open_account(provider, name):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('provider', choices=PROVIDERS)
-    parser.add_argument('action', choices=('entries', 'add', 'open', 'login', 'help', 'list', 'switch', 'apikey'))
+    parser.add_argument('action', choices=('entries', 'add', 'open', 'login', 'help', 'list', 'switch', 'apikey', 'delete', 'view'))
     parser.add_argument('name', nargs='?')
+    parser.add_argument('view', nargs='?')
     args = parser.parse_args()
     if args.action == 'entries':
         for row in entries(args.provider):
@@ -246,6 +406,10 @@ def main():
         directory = account_path(args.provider, name)
         directory.mkdir(mode=0o700, parents=True, exist_ok=False)
         run_account(args.provider, name, 'login')
+    elif args.action == 'delete':
+        delete_account(args.provider, args.name)
+    elif args.action == 'view':
+        report(args.provider, args.name, args.view)
     elif args.action == 'open':
         open_account(args.provider, args.name)
     else:
@@ -255,7 +419,7 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-    except (OSError, ValueError, subprocess.SubprocessError) as error:
+    except (OSError, ValueError, configparser.Error, subprocess.SubprocessError) as error:
         print(str(error), file=sys.stderr)
         sys.exit(1)
     except (EOFError, KeyboardInterrupt):

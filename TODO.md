@@ -24,7 +24,8 @@ targeting are wired. Context/profile/scope selections persist visibly and use
 per-command flags where supported, without changing global defaults to navigate.
 
 Remaining: owner-authorized live installation/sign-in checks, remote identity and
-project verification, and common read-only resource views. Offline mock tests do
+project verification. Account deletion and common read-only resource views are
+implemented for these seven providers with isolated mock tests. Offline mock tests do
 not establish live vendor behavior. See `distro/DISPLAY-REVIEW.md`.
 Do not add more providers as part of this work.
 

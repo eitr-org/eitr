@@ -65,7 +65,7 @@ login, typed forms, privileged confirmation and readable task failures.
 | `walker/scripts/menus/cloud/gcp/sql.sh` (11, 18) | fzf resource reports; Walker choices; terminals | Changed: resource reports → existing pager; keep Walker choices and log search | These fzf pipelines only printed a highlighted row; no action consumed the selection. Reports need readable output. |
 | `walker/scripts/menus/cloud/gcp/storage.sh` (11, 18) | fzf resource reports; Walker choices; terminals | Changed: resource reports → existing pager; keep Walker choices and log search | These fzf pipelines only printed a highlighted row; no action consumed the selection. Reports need readable output. |
 | `walker/scripts/menus/cloud/gcp/vpc.sh` (11, 18) | fzf resource reports; Walker choices; terminals | Changed: resource reports → existing pager; keep Walker choices and log search | These fzf pipelines only printed a highlighted row; no action consumed the selection. Reports need readable output. |
-| `walker/scripts/menus/cloud/providers.py` (66, 70, 71, 77, 122, 123) | New Walker account and tool lists; held CLI help/login terminal | Keep; open: verified provider status and common views | Selection belongs in Walker; login and vendor help need a terminal. No guessed resource commands. |
+| `walker/scripts/menus/cloud/providers.py` (66, 70, 71, 77, 122, 123) | New Walker account and tool lists; held CLI help/login terminal | Changed: confirmed local deletion and read-only views in the existing pager | Selection belongs in Walker; login, deletion confirmation and vendor help use a terminal. Resource commands are limited to the reviewer-verified list. |
 | `walker/scripts/menus/cloud/terminal-helpers.sh` (56, 57, 59, 60, 71, 74, 81, 90, 107, 113, 118, 121, 124, 133) | fzf resource reports; Walker choices; terminals | Changed: resource reports → existing pager; keep Walker choices and log search | These fzf pipelines only printed a highlighted row; no action consumed the selection. Reports need readable output. |
 | `walker/scripts/menus/shortcuts.sh` (124, 127, 166, 169) | Interactive terminal/editor or fzf file search | Keep | Terminal/editor is the requested application; fzf searches long file content rather than settings. |
 | `walker/scripts/themes/generate.sh` (10) | Terminal launch or output helper | Keep; open: inspect native parity before migration | No demonstrated equivalent native panel; preserve current interaction pending targeted review. |
@@ -133,7 +133,9 @@ their existing behavior.
   recipe (`vercel`, `netlify-cli`). Installer and command facts were supplied
   from the reviewer's official-documentation verification, not guessed offline.
 - Still untested: live installs/sign-ins, remote identity/project verification,
-  and common read-only resource views. Tests use mocks and temporary directories;
+  and remote resource verification with real accounts. Read-only resource views
+  and confirmed private-account deletion are implemented for the seven new providers.
+  Tests use mocks and temporary directories;
   no owner cloud configuration or account was accessed. The source display
   review is accepted; native presentation improvements above remain future work.
 - Private workspaces isolate HOME, XDG paths, cwd and inherited provider variables.
@@ -142,8 +144,7 @@ their existing behavior.
 
 ## Verification
 
-- `bash tools/check.sh`: all seven stages passed (1,081 Python tests;
-  existing skips retained), plus Node, syntax, ShellCheck, Qt 6 QML lint,
+- `bash tools/check.sh`: all seven stages passed (existing skips retained), plus Node, syntax, ShellCheck, Qt 6 QML lint,
   whitespace and structured-data checks.
 - `python3 tools/i18n-build.py --check`: passed for all five languages.
 - `python3 quickshell/desktop-bar/scripts/handbook-build.py --check`: passed.
@@ -261,3 +262,26 @@ commit or staging operation was performed.
 - `walker/themes/current/item_menus-netlify-contexts.xml`
 - `walker/themes/current/item_menus-oracle-contexts.xml`
 - `walker/themes/current/item_menus-vercel-contexts.xml`
+
+## Private account deletion and resource reports
+
+The seven new providers expose Delete on account rows and Delete Account inside
+an account. Confirmation names the provider and account and explains that only
+its sign-in on this computer is removed, leaving the remote account unaffected.
+Cancellation changes nothing. Deletion is limited to that private account folder;
+symlinks, paths outside the provider root, the current working folder and accounts
+locked by a running Eitr action are refused. AWS, Azure and Google Cloud are unchanged.
+
+All requested read-only views run with the existing private HOME/XDG environment
+and cwd. DigitalOcean/Hetzner use explicit contexts, Oracle uses an explicit
+profile with security-token authentication and its own profile's tenancy, and
+Vercel uses a selected team scope. Oracle buckets first resolve the namespace;
+a failed lookup never proceeds to listing. Reports and command errors use the
+existing cloud pager without credential fallback. Existing log/fzf views remain.
+Live checks with real accounts are the remaining provider work.
+
+Validation for this follow-up uses mocked CLI execution and temporary accounts,
+including cancellation, symlink and active-action refusal, replaced-directory
+refusal, explicit context flags, Oracle tenancy/namespace scoping, Vercel without
+a selected team, and readable command failures without credential retries.
+The full repository gate and both catalog build/check pairs pass.

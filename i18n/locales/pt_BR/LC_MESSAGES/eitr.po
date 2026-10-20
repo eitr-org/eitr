@@ -163,6 +163,9 @@ msgstr "Conta"
 msgid "Account directories cannot be symbolic links"
 msgstr "Os diretórios de contas não podem ser links simbólicos"
 
+msgid "Account is in use"
+msgstr "A conta está em uso"
+
 msgid "Account name"
 msgstr "Nome da conta"
 
@@ -217,6 +220,9 @@ msgstr "O arquivo de respostas indica {disk}, que não está entre os discos dis
 msgid "Apply this system change? Type yes to continue: "
 msgstr "Aplicar esta alteração no sistema? Digite yes para continuar: "
 
+msgid "Apps"
+msgstr "Aplicativos"
+
 msgid "Arch posted news since your last update:"
 msgstr "O Arch publicou notícias desde sua última atualização:"
 
@@ -244,6 +250,9 @@ msgstr "Backup do menu atual do Limine: {backup}"
 msgid "Backup {name} is incomplete: missing {missing_files}"
 msgstr "O backup {name} está incompleto: faltam {missing_files}"
 
+msgid "Balance"
+msgstr "Saldo"
+
 msgid "Battery charge limit removed; batteries charge to 100%."
 msgstr "Limite de carga removido; as baterias carregam até 100%."
 
@@ -265,6 +274,9 @@ msgstr "Snapshots inicializáveis não são compatíveis com {loader}. {reason} 
 msgid "Both network backends are running; select one in System > Connectivity > Network Backend and reboot"
 msgstr "Os dois backends de rede estão ativos; escolha um em Sistema > Conectividade > Backend de rede e reinicie"
 
+msgid "Buckets"
+msgstr "Buckets"
+
 msgid "C-y copy  Enter print  Esc close"
 msgstr "C-y copiar  Enter exibir  Esc fechar"
 
@@ -276,6 +288,9 @@ msgstr "O certificado de CA é muito grande"
 
 msgid "CLI Help"
 msgstr "Ajuda da CLI"
+
+msgid "CLI unavailable"
+msgstr "CLI indisponível"
 
 msgid "Cache Sizes"
 msgstr "Tamanhos dos caches"
@@ -391,11 +406,17 @@ msgstr "Uso do Codex indisponível; verifique `codex login status`"
 msgid "Collected a problem report ({line_count} lines) and saved it privately to\n{path}."
 msgstr "Relatório de problema coletado ({line_count} linhas) e salvo de forma privada em\n{path}."
 
+msgid "Command failed (exit {status})"
+msgstr "O comando falhou (código {status})"
+
 msgid "Commit author email"
 msgstr "Email do autor dos commits"
 
 msgid "Commit author name"
 msgstr "Nome do autor dos commits"
+
+msgid "Compartments"
+msgstr "Compartimentos"
 
 msgid "Configuration ID"
 msgstr "ID da configuração"
@@ -511,14 +532,29 @@ msgstr "Serviço tailscaled personalizado ou mascarado: revise manualmente"
 msgid "Custom static-IP/VPN setups need manual review before switching."
 msgstr "Configurações personalizadas de IP estático ou VPN precisam de revisão manual antes da troca."
 
+msgid "D1 Databases"
+msgstr "Bancos de dados D1"
+
 msgid "Dashboard saved"
 msgstr "Painel salvo"
+
+msgid "Databases"
+msgstr "Bancos de dados"
 
 msgid "Default"
 msgstr "Padrão"
 
+msgid "Delete Account"
+msgstr "Excluir conta"
+
+msgid "Delete {provider} account {account}? The provider’s sign-in for this account on this computer will be removed. The remote account itself is not affected."
+msgstr "Excluir a conta {account} de {provider}? O acesso a essa conta do provedor neste computador será removido. A conta remota em si não será afetada."
+
 msgid "Deleted: every app installed since, every changed setting, accounts added later and ALL files in the home folders (documents, downloads, pictures, projects)."
 msgstr "Serão excluídos: todos os aplicativos instalados depois, todas as configurações alteradas, contas adicionadas depois e TODOS os arquivos das pastas pessoais (documentos, downloads, imagens e projetos)."
+
+msgid "Deployments"
+msgstr "Implantações"
 
 msgid "Desktop Audio"
 msgstr "Áudio do sistema"
@@ -546,6 +582,12 @@ msgstr "Não criptografar: os arquivos poderão ser lidos sem senha"
 
 msgid "Do not put login credentials in the address."
 msgstr "Não inclua credenciais de login no endereço."
+
+msgid "Domains"
+msgstr "Domínios"
+
+msgid "Droplets"
+msgstr "Droplets"
 
 msgid "Duplicate folder or unknown account"
 msgstr "Pasta duplicada ou conta desconhecida"
@@ -669,6 +711,9 @@ msgstr "Firewall: ativado"
 
 msgid "Firewall: on (also open: {ports})"
 msgstr "Firewall: ativado (também aberto: {ports})"
+
+msgid "Firewalls"
+msgstr "Firewalls"
 
 msgid "Flatpak apps could not be updated; the system update itself finished."
 msgstr "Não foi possível atualizar os aplicativos Flatpak; a atualização do sistema foi concluída."
@@ -829,6 +874,9 @@ msgstr "A instalação ao lado de outros sistemas mantém todas as partições e
 msgid "Installing from the USB medium; no network is needed. Keep the computer powered on."
 msgstr "Instalando a partir da unidade USB; não é necessária conexão à rede. Mantenha o computador ligado."
 
+msgid "Instances"
+msgstr "Instâncias"
+
 msgid "Invalid FIDO2 registration"
 msgstr "Invalid FIDO2 registration"
 
@@ -895,6 +943,9 @@ msgstr "Ele fica só neste computador. Nunca coloque senhas ou tokens no endere�
 msgid "KEEP MY FILES returns the system, apps and settings to how they were at the first login, and keeps the files in your home folder."
 msgstr "MANTER MEUS ARQUIVOS restaura o sistema, os aplicativos e as configurações ao estado do primeiro login e mantém os arquivos da sua pasta pessoal."
 
+msgid "KV Namespaces"
+msgstr "Namespaces KV"
+
 msgid "Keep at least one installed font family"
 msgstr "Mantenha pelo menos uma família de fontes instalada"
 
@@ -922,6 +973,9 @@ msgstr "Layout do teclado: APENAS PRÉVIA"
 msgid "Kitty configuration is missing; start Eitr's user configuration setup first."
 msgstr "Configuração do Kitty ausente; execute primeiro a configuração de usuário do Eitr."
 
+msgid "Kubernetes"
+msgstr "Kubernetes"
+
 msgid "LUKS2 disk encryption: needed at every boot"
 msgstr "Criptografia de disco LUKS2: necessária em cada inicialização"
 
@@ -945,6 +999,9 @@ msgstr "O Limine mostrará o menu padrão no próximo boot. Suas entradas de boo
 
 msgid "List Accounts"
 msgstr "Listar contas"
+
+msgid "Load Balancers"
+msgstr "Balanceadores de carga"
 
 msgid "Loading AUR package names…"
 msgstr "Carregando nomes de pacotes AUR…"
@@ -993,6 +1050,9 @@ msgstr "Dê um nome às assinaturas que você deseja no menu"
 
 msgid "Name this computer."
 msgstr "Dê um nome a este computador."
+
+msgid "Networks"
+msgstr "Redes"
 
 msgid "New SSH key for {label}"
 msgstr "Nova chave SSH para {label}"
@@ -1159,6 +1219,9 @@ msgstr "Política PCR: {TPM_PCRS} (estado do Secure Boot). Mudanças no firmware
 msgid "Package picker failed"
 msgstr "O seletor de pacotes falhou"
 
+msgid "Pages Projects"
+msgstr "Projetos Pages"
+
 msgid "Password"
 msgstr "Senha"
 
@@ -1183,6 +1246,9 @@ msgstr "Preparando o sistema restaurado (o sistema em execução ainda não ser�
 msgid "Press any key to close."
 msgstr "Pressione qualquer tecla para fechar."
 
+msgid "Primary IPs"
+msgstr "IPs primários"
+
 msgid "Private SSH key"
 msgstr "Chave SSH privada"
 
@@ -1204,14 +1270,26 @@ msgstr "Programa: {program}\nSinal: {signal}\n\n{backtrace}"
 msgid "Project"
 msgstr "Projeto"
 
+msgid "Projects"
+msgstr "Projetos"
+
 msgid "Provider"
 msgstr "Provedor"
 
 msgid "Prune pnpm store?"
 msgstr "Remover itens não usados do armazenamento pnpm?"
 
+msgid "Queues"
+msgstr "Filas"
+
+msgid "R2 Buckets"
+msgstr "Buckets R2"
+
 msgid "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth."
 msgstr "As conexões sem fio foram bloqueadas em outro lugar; ative-as individualmente em WiFi/Bluetooth."
+
+msgid "Read-only report"
+msgstr "Relatório somente leitura"
 
 msgid "Ready. Both resets restart the computer immediately."
 msgstr "Pronto. Ambas as opções de redefinição reiniciam o computador imediatamente."
@@ -1273,6 +1351,9 @@ msgstr "A remoção afetaria a fonte padrão ou os ícones do sistema"
 msgid "Removal would delete every installed font"
 msgstr "A remoção excluiria todas as fontes instaladas"
 
+msgid "Remove local sign-in"
+msgstr "Remover acesso local"
+
 msgid "Remove the {label} web app?"
 msgstr "Remover o aplicativo web {label}?"
 
@@ -1299,6 +1380,9 @@ msgstr "Relatar um problema"
 
 msgid "Repositories inside it use only this account"
 msgstr "Os repositórios dentro dela usam apenas esta conta"
+
+msgid "Resource Groups"
+msgstr "Grupos de recursos"
 
 msgid "Restart now"
 msgstr "Reiniciar agora"
@@ -1417,6 +1501,12 @@ msgstr "Selecione pelo menos um pacote"
 msgid "Select the line above to copy it."
 msgstr "Selecione a linha acima para copiá-la."
 
+msgid "Servers"
+msgstr "Servidores"
+
+msgid "Service Instances"
+msgstr "Instâncias de serviço"
+
 msgid "Service number (Enter to cancel): "
 msgstr "Número do serviço (Enter para cancelar): "
 
@@ -1471,6 +1561,9 @@ msgstr "Entre com `claude` para ver o uso da assinatura"
 msgid "Sign-in method"
 msgstr "Método de login"
 
+msgid "Sites"
+msgstr "Sites"
+
 msgid "Skipped snapshot boot entries."
 msgstr "Configuração de entradas de snapshots ignorada."
 
@@ -1516,6 +1609,9 @@ msgstr "O snapshot {snapshot} não contém {path}."
 msgid "Snapshot-protected updates require a Btrfs root. No update was started."
 msgstr "Atualizações protegidas por snapshots exigem a raiz em Btrfs. Nenhuma atualização foi iniciada."
 
+msgid "Snapshots"
+msgstr "Snapshots"
+
 msgid "Stable channel. Eitr packages already newer than stable stay until stable catches up."
 msgstr "Canal estável. Pacotes do Eitr mais novos que o estável serão mantidos até ele alcançá-los."
 
@@ -1530,6 +1626,9 @@ msgstr "Iniciar o compartilhamento automaticamente ao entrar? Isso concede contr
 
 msgid "Start sharing this PC?"
 msgstr "Iniciar o compartilhamento deste PC?"
+
+msgid "Status"
+msgstr "Status"
 
 msgid "Step {step_number} of {step_count}"
 msgstr "Etapa {step_number} de {step_count}"
@@ -1593,6 +1692,9 @@ msgstr "Falha ao entrar no Tailscale. Tente novamente em Acessar fora de casa."
 
 msgid "Tailscale state: {state}"
 msgstr "Estado do Tailscale: {state}"
+
+msgid "Target"
+msgstr "Destino"
 
 msgid "Template partition sizes must be in MiB"
 msgstr "Template partition sizes must be in MiB"
@@ -1986,6 +2088,12 @@ msgstr "Nome de usuário"
 
 msgid "Using the default theme: {user}'s theme could not be read ({error})."
 msgstr "Usando o tema padrão: não foi possível ler o tema de {user} ({error})."
+
+msgid "VCNs"
+msgstr "VCNs"
+
+msgid "Volumes"
+msgstr "Volumes"
 
 msgid "Web app created"
 msgstr "Aplicativo web criado"

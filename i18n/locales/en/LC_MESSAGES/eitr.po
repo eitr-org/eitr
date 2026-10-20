@@ -163,6 +163,9 @@ msgstr "Account"
 msgid "Account directories cannot be symbolic links"
 msgstr "Account directories cannot be symbolic links"
 
+msgid "Account is in use"
+msgstr "Account is in use"
+
 msgid "Account name"
 msgstr "Account name"
 
@@ -217,6 +220,9 @@ msgstr "Answers name {disk}, not one of the eligible disks: {candidates}"
 msgid "Apply this system change? Type yes to continue: "
 msgstr "Apply this system change? Type yes to continue: "
 
+msgid "Apps"
+msgstr "Apps"
+
 msgid "Arch posted news since your last update:"
 msgstr "Arch posted news since your last update:"
 
@@ -244,6 +250,9 @@ msgstr "Backup of the current Limine menu: {backup}"
 msgid "Backup {name} is incomplete: missing {missing_files}"
 msgstr "Backup {name} is incomplete: missing {missing_files}"
 
+msgid "Balance"
+msgstr "Balance"
+
 msgid "Battery charge limit removed; batteries charge to 100%."
 msgstr "Battery charge limit removed; batteries charge to 100%."
 
@@ -265,6 +274,9 @@ msgstr "Bootable snapshots are not supported with {loader}. {reason} Nothing was
 msgid "Both network backends are running; select one in System > Connectivity > Network Backend and reboot"
 msgstr "Both network backends are running; select one in System > Connectivity > Network Backend and reboot"
 
+msgid "Buckets"
+msgstr "Buckets"
+
 msgid "C-y copy  Enter print  Esc close"
 msgstr "C-y copy  Enter print  Esc close"
 
@@ -276,6 +288,9 @@ msgstr "CA certificate is too large"
 
 msgid "CLI Help"
 msgstr "CLI Help"
+
+msgid "CLI unavailable"
+msgstr "CLI unavailable"
 
 msgid "Cache Sizes"
 msgstr "Cache Sizes"
@@ -391,11 +406,17 @@ msgstr "Codex usage unavailable; check `codex login status`"
 msgid "Collected a problem report ({line_count} lines) and saved it privately to\n{path}."
 msgstr "Collected a problem report ({line_count} lines) and saved it privately to\n{path}."
 
+msgid "Command failed (exit {status})"
+msgstr "Command failed (exit {status})"
+
 msgid "Commit author email"
 msgstr "Commit author email"
 
 msgid "Commit author name"
 msgstr "Commit author name"
+
+msgid "Compartments"
+msgstr "Compartments"
 
 msgid "Configuration ID"
 msgstr "Configuration ID"
@@ -511,14 +532,29 @@ msgstr "Custom or masked tailscaled service: review manually"
 msgid "Custom static-IP/VPN setups need manual review before switching."
 msgstr "Custom static-IP/VPN setups need manual review before switching."
 
+msgid "D1 Databases"
+msgstr "D1 Databases"
+
 msgid "Dashboard saved"
 msgstr "Dashboard saved"
+
+msgid "Databases"
+msgstr "Databases"
 
 msgid "Default"
 msgstr "Default"
 
+msgid "Delete Account"
+msgstr "Delete Account"
+
+msgid "Delete {provider} account {account}? The provider’s sign-in for this account on this computer will be removed. The remote account itself is not affected."
+msgstr "Delete {provider} account {account}? The provider’s sign-in for this account on this computer will be removed. The remote account itself is not affected."
+
 msgid "Deleted: every app installed since, every changed setting, accounts added later and ALL files in the home folders (documents, downloads, pictures, projects)."
 msgstr "Deleted: every app installed since, every changed setting, accounts added later and ALL files in the home folders (documents, downloads, pictures, projects)."
+
+msgid "Deployments"
+msgstr "Deployments"
 
 msgid "Desktop Audio"
 msgstr "Desktop Audio"
@@ -546,6 +582,12 @@ msgstr "Do not encrypt: files are readable without a password"
 
 msgid "Do not put login credentials in the address."
 msgstr "Do not put login credentials in the address."
+
+msgid "Domains"
+msgstr "Domains"
+
+msgid "Droplets"
+msgstr "Droplets"
 
 msgid "Duplicate folder or unknown account"
 msgstr "Duplicate folder or unknown account"
@@ -669,6 +711,9 @@ msgstr "Firewall: on"
 
 msgid "Firewall: on (also open: {ports})"
 msgstr "Firewall: on (also open: {ports})"
+
+msgid "Firewalls"
+msgstr "Firewalls"
 
 msgid "Flatpak apps could not be updated; the system update itself finished."
 msgstr "Flatpak apps could not be updated; the system update itself finished."
@@ -829,6 +874,9 @@ msgstr "Installing alongside keeps every existing partition."
 msgid "Installing from the USB medium; no network is needed. Keep the computer powered on."
 msgstr "Installing from the USB medium; no network is needed. Keep the computer powered on."
 
+msgid "Instances"
+msgstr "Instances"
+
 msgid "Invalid FIDO2 registration"
 msgstr "Invalid FIDO2 registration"
 
@@ -895,6 +943,9 @@ msgstr "It stays on this computer. Never put passwords or tokens in the address.
 msgid "KEEP MY FILES returns the system, apps and settings to how they were at the first login, and keeps the files in your home folder."
 msgstr "KEEP MY FILES returns the system, apps and settings to how they were at the first login, and keeps the files in your home folder."
 
+msgid "KV Namespaces"
+msgstr "KV Namespaces"
+
 msgid "Keep at least one installed font family"
 msgstr "Keep at least one installed font family"
 
@@ -922,6 +973,9 @@ msgstr "Keyboard layout: PREVIEW ONLY"
 msgid "Kitty configuration is missing; start Eitr's user configuration setup first."
 msgstr "Kitty configuration is missing; start Eitr's user configuration setup first."
 
+msgid "Kubernetes"
+msgstr "Kubernetes"
+
 msgid "LUKS2 disk encryption: needed at every boot"
 msgstr "LUKS2 disk encryption: needed at every boot"
 
@@ -945,6 +999,9 @@ msgstr "Limine shows its default menu from the next boot. Your boot entries were
 
 msgid "List Accounts"
 msgstr "List Accounts"
+
+msgid "Load Balancers"
+msgstr "Load Balancers"
 
 msgid "Loading AUR package names…"
 msgstr "Loading AUR package names…"
@@ -993,6 +1050,9 @@ msgstr "Name the subscriptions you want in the menu"
 
 msgid "Name this computer."
 msgstr "Name this computer."
+
+msgid "Networks"
+msgstr "Networks"
 
 msgid "New SSH key for {label}"
 msgstr "New SSH key for {label}"
@@ -1159,6 +1219,9 @@ msgstr "PCR policy: {TPM_PCRS} (Secure Boot state). Firmware or Secure Boot key 
 msgid "Package picker failed"
 msgstr "Package picker failed"
 
+msgid "Pages Projects"
+msgstr "Pages Projects"
+
 msgid "Password"
 msgstr "Password"
 
@@ -1183,6 +1246,9 @@ msgstr "Preparing the restored system (the running system is not changed yet)"
 msgid "Press any key to close."
 msgstr "Press any key to close."
 
+msgid "Primary IPs"
+msgstr "Primary IPs"
+
 msgid "Private SSH key"
 msgstr "Private SSH key"
 
@@ -1204,14 +1270,26 @@ msgstr "Program: {program}\nSignal: {signal}\n\n{backtrace}"
 msgid "Project"
 msgstr "Project"
 
+msgid "Projects"
+msgstr "Projects"
+
 msgid "Provider"
 msgstr "Provider"
 
 msgid "Prune pnpm store?"
 msgstr "Prune pnpm store?"
 
+msgid "Queues"
+msgstr "Queues"
+
+msgid "R2 Buckets"
+msgstr "R2 Buckets"
+
 msgid "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth."
 msgstr "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth."
+
+msgid "Read-only report"
+msgstr "Read-only report"
 
 msgid "Ready. Both resets restart the computer immediately."
 msgstr "Ready. Both resets restart the computer immediately."
@@ -1273,6 +1351,9 @@ msgstr "Removal would affect the default font or system icons"
 msgid "Removal would delete every installed font"
 msgstr "Removal would delete every installed font"
 
+msgid "Remove local sign-in"
+msgstr "Remove local sign-in"
+
 msgid "Remove the {label} web app?"
 msgstr "Remove the {label} web app?"
 
@@ -1299,6 +1380,9 @@ msgstr "Report a problem"
 
 msgid "Repositories inside it use only this account"
 msgstr "Repositories inside it use only this account"
+
+msgid "Resource Groups"
+msgstr "Resource Groups"
 
 msgid "Restart now"
 msgstr "Restart now"
@@ -1417,6 +1501,12 @@ msgstr "Select at least one package"
 msgid "Select the line above to copy it."
 msgstr "Select the line above to copy it."
 
+msgid "Servers"
+msgstr "Servers"
+
+msgid "Service Instances"
+msgstr "Service Instances"
+
 msgid "Service number (Enter to cancel): "
 msgstr "Service number (Enter to cancel): "
 
@@ -1471,6 +1561,9 @@ msgstr "Sign in with `claude` to show subscription usage"
 msgid "Sign-in method"
 msgstr "Sign-in method"
 
+msgid "Sites"
+msgstr "Sites"
+
 msgid "Skipped snapshot boot entries."
 msgstr "Skipped snapshot boot entries."
 
@@ -1516,6 +1609,9 @@ msgstr "Snapshot {snapshot} has no {path}."
 msgid "Snapshot-protected updates require a Btrfs root. No update was started."
 msgstr "Snapshot-protected updates require a Btrfs root. No update was started."
 
+msgid "Snapshots"
+msgstr "Snapshots"
+
 msgid "Stable channel. Eitr packages already newer than stable stay until stable catches up."
 msgstr "Stable channel. Eitr packages already newer than stable stay until stable catches up."
 
@@ -1530,6 +1626,9 @@ msgstr "Start sharing automatically at login? This grants remote desktop control
 
 msgid "Start sharing this PC?"
 msgstr "Start sharing this PC?"
+
+msgid "Status"
+msgstr "Status"
 
 msgid "Step {step_number} of {step_count}"
 msgstr "Step {step_number} of {step_count}"
@@ -1593,6 +1692,9 @@ msgstr "Tailscale sign-in failed. Try again from Access away from home."
 
 msgid "Tailscale state: {state}"
 msgstr "Tailscale state: {state}"
+
+msgid "Target"
+msgstr "Target"
 
 msgid "Template partition sizes must be in MiB"
 msgstr "Template partition sizes must be in MiB"
@@ -1986,6 +2088,12 @@ msgstr "Username"
 
 msgid "Using the default theme: {user}'s theme could not be read ({error})."
 msgstr "Using the default theme: {user}'s theme could not be read ({error})."
+
+msgid "VCNs"
+msgstr "VCNs"
+
+msgid "Volumes"
+msgstr "Volumes"
 
 msgid "Web app created"
 msgstr "Web app created"

@@ -41,7 +41,7 @@ class ExtraCloudProviderTests(unittest.TestCase):
                 self.assertEqual(len(self.module.entries(provider)), 1)
                 directory = self.module.account_path(provider, 'production')
                 directory.mkdir(parents=True)
-                self.assertEqual(self.module.entries(provider)[1][0], 'production')
+                self.assertEqual(self.module.entries(provider)[0][0], 'production')
 
     def test_invalid_and_symlink_accounts_are_rejected(self):
         for name in ('../owner', '/tmp/account', 'bad\tname', '-option', 'UPPER'):
@@ -123,7 +123,7 @@ class ExtraCloudProviderTests(unittest.TestCase):
             with self.subTest(provider=provider):
                 self.assertEqual(self.run_action(provider, 'switch', ('production',)), [])
                 self.assertEqual(self.run_action(provider, 'help'), [[*flags, '--help']])
-                self.assertIn('production', self.module.entries(provider)[1][1])
+                self.assertIn('production', self.module.entries(provider)[0][1])
         self.run_action('vercel', 'switch', ('selected-team',))
         self.assertEqual(self.run_action('vercel', 'help'), [['--scope', 'selected-team', '--help']])
 
@@ -174,6 +174,132 @@ class ExtraCloudProviderTests(unittest.TestCase):
             self.module.open_account('hetzner', 'development')
         self.assertEqual(prompts, ['Hetzner Cloud / development / original',
                                    'Hetzner Cloud / development / replacement'])
+
+    def test_delete_confirmation_cancellation_and_scope(self):
+        for provider in self.module.PROVIDERS:
+            directory = self.module.account_path(provider, 'delete-me')
+            directory.mkdir(parents=True)
+            (directory / 'token').write_text('fixture')
+            sibling = self.module.account_path(provider, 'keep-me')
+            sibling.mkdir()
+            with patch.object(self.module, 'Terminal') as terminal:
+                terminal.return_value.confirm.return_value = False
+                self.assertFalse(self.module.delete_account(provider, 'delete-me'))
+                self.assertEqual((directory / 'token').read_text(), 'fixture')
+                message = terminal.return_value.confirm.call_args.args[0]
+                self.assertIn(self.module.PROVIDERS[provider]['name'], message)
+                self.assertIn('delete-me', message)
+                terminal.return_value.confirm.return_value = True
+                self.assertTrue(self.module.delete_account(provider, 'delete-me'))
+            self.assertFalse(directory.exists())
+            self.assertTrue(sibling.is_dir())
+        for provider in ('aws', 'azure', 'gcp', '../cloudflare'):
+            with self.assertRaises(ValueError):
+                self.module.delete_account(provider, 'keep-me')
+
+    def test_delete_refuses_symlinks_and_active_actions(self):
+        directory = self.module.account_path('cloudflare', 'active')
+        directory.mkdir(parents=True)
+        with self.module.account_lock(directory), patch.object(self.module, 'Terminal') as terminal:
+            with self.assertRaises(ValueError):
+                self.module.delete_account('cloudflare', 'active')
+            terminal.assert_not_called()
+        with patch.object(self.module.Path, 'cwd', return_value=directory):
+            with self.assertRaises(ValueError):
+                self.module.delete_account('cloudflare', 'active')
+        (directory / 'linked').symlink_to(self.home)
+        with patch.object(self.module, 'Terminal') as terminal:
+            terminal.return_value.confirm.return_value = True
+            with self.assertRaises(ValueError):
+                self.module.delete_account('cloudflare', 'active')
+        self.assertTrue(directory.exists())
+
+    def test_all_reports_use_private_environment_and_explicit_flags(self):
+        for provider, views in self.module.VIEWS.items():
+            directory = self.module.account_path(provider, 'reports')
+            directory.mkdir(parents=True)
+            (directory / 'selection.json').write_text(json.dumps({'context': 'selected'}))
+            if provider == 'oracle':
+                (directory / '.oci').mkdir()
+                (directory / '.oci/config').write_text('[selected]\ntenancy=ocid1.tenancy.oc1.fixture\n')
+            for view, (_, _, arguments) in views.items():
+                with self.subTest(provider=provider, view=view), \
+                        patch.object(self.module, 'cli_path', return_value='/mock/cli'), \
+                        patch.object(self.module.subprocess, 'run', return_value=subprocess.CompletedProcess([], 0, stdout='{"data":"namespace"}', stderr='')) as run:
+                    self.module.report(provider, 'reports', view)
+                calls = run.call_args_list
+                for call in calls[:-1]:
+                    self.assertEqual(call.kwargs['cwd'], directory)
+                    self.assertEqual(call.kwargs['env']['HOME'], str(directory))
+                    self.assertFalse(call.kwargs['check'])
+                    flags = self.module.scoped_arguments(provider, 'selected')
+                    if flags:
+                        self.assertEqual(call.args[0][-len(flags):], flags)
+                self.assertEqual(calls[-2].args[0][1:1 + len(arguments)], arguments)
+                self.assertIn('cloud_report', calls[-1].args[0][2])
+                self.assertEqual(calls[-1].kwargs['input'], '{"data":"namespace"}')
+
+    def test_oracle_uses_selected_profile_tenancy_and_namespace(self):
+        directory = self.module.account_path('oracle', 'scoped')
+        (directory / '.oci').mkdir(parents=True)
+        (directory / '.oci/config').write_text(
+            '[DEFAULT]\ntenancy=ocid1.tenancy.oc1.wrong\n'
+            '[selected]\ntenancy=ocid1.tenancy.oc1.selected\n')
+        (directory / 'selection.json').write_text('{"context":"selected"}')
+        with patch.object(self.module, 'cli_path', return_value='/mock/oci'), \
+                patch.object(self.module.subprocess, 'run', return_value=subprocess.CompletedProcess([], 0, stdout='{"data":"private-ns"}', stderr='')) as run:
+            self.module.report('oracle', 'scoped', 'Buckets')
+        self.assertEqual(run.call_args_list[0].args[0],
+                         ['/mock/oci', 'os', 'ns', 'get', '--profile', 'selected', '--auth', 'security_token'])
+        self.assertEqual(run.call_args_list[1].args[0],
+                         ['/mock/oci', 'os', 'bucket', 'list', '--compartment-id', 'ocid1.tenancy.oc1.selected',
+                          '--namespace', 'private-ns', '--profile', 'selected', '--auth', 'security_token'])
+        (directory / '.oci/config').unlink()
+        (directory / '.oci/config').symlink_to(self.home / 'outside-profile')
+        with patch.object(self.module, 'cli_path', return_value='/mock/oci'), \
+                patch.object(self.module.subprocess, 'run') as run:
+            with self.assertRaises(ValueError):
+                self.module.report('oracle', 'scoped', 'Instances')
+            run.assert_not_called()
+
+    def test_vercel_without_selected_team_does_not_invent_scope(self):
+        self.module.account_path('vercel', 'personal').mkdir(parents=True)
+        with patch.object(self.module, 'cli_path', return_value='/mock/vercel'), \
+                patch.object(self.module.subprocess, 'run', return_value=subprocess.CompletedProcess([], 0, stdout='report', stderr='')) as run:
+            self.module.report('vercel', 'personal', 'Projects')
+        self.assertEqual(run.call_args_list[0].args[0], ['/mock/vercel', 'project', 'ls'])
+
+    def test_delete_refuses_folder_replaced_during_confirmation(self):
+        directory = self.module.account_path('cloudflare', 'replace')
+        directory.mkdir(parents=True)
+        original = directory.with_name('original')
+
+        def replace_folder(*arguments, **options):
+            directory.rename(original)
+            directory.mkdir()
+            (directory / 'keep').write_text('replacement')
+            return True
+
+        with patch.object(self.module, 'Terminal') as terminal:
+            terminal.return_value.confirm.side_effect = replace_folder
+            with self.assertRaises(ValueError):
+                self.module.delete_account('cloudflare', 'replace')
+        self.assertTrue(original.is_dir())
+        self.assertEqual((directory / 'keep').read_text(), 'replacement')
+
+    def test_report_failure_is_displayed_without_retry(self):
+        for provider, view in (('cloudflare', 'Account'), ('oracle', 'Buckets')):
+            directory = self.module.account_path(provider, 'failed')
+            directory.mkdir(parents=True)
+            if provider == 'oracle':
+                (directory / '.oci').mkdir()
+                (directory / '.oci/config').write_text('[failed]\ntenancy=ocid1.tenancy.oc1.fixture\n')
+            with patch.object(self.module, 'cli_path', return_value='/mock/cli'), \
+                    patch.object(self.module.subprocess, 'run', return_value=subprocess.CompletedProcess([], 1, stdout='', stderr='Permission denied')) as run:
+                self.module.report(provider, 'failed', view)
+            self.assertEqual(run.call_count, 2)
+            self.assertIn('Permission denied', run.call_args.kwargs['input'])
+            self.assertIn('exit 1', run.call_args.kwargs['input'])
 
     def test_install_recipes_and_https_sources(self):
         installers = json.loads((ROOT / 'distro/installers.json').read_text())
