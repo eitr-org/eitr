@@ -136,3 +136,18 @@ class ProviderDetectionTests(unittest.TestCase):
         self.assertIn("visible: menu.availableProviders.length > 1", qml)
         self.assertIn('height: visible ? 32 : 0', qml)
         self.assertNotIn('model: ["Claude", "Codex"]', qml)
+
+
+class LauncherTests(unittest.TestCase):
+    def test_first_use_launchers_do_not_count_as_installed_tools(self):
+        launchers = ROOT.parents[1] / "walker/assistants"
+        with tempfile.TemporaryDirectory() as home, \
+                mock.patch.dict("os.environ", {"PATH": str(launchers)}), \
+                mock.patch.object(Path, "home", return_value=Path(home)):
+            for name in ("claude", "codex", "grok"):
+                self.assertIsNone(USAGE.cli_binary(name), name)
+            real = Path(home) / ".local/bin/claude"
+            real.parent.mkdir(parents=True)
+            real.write_text("#!/bin/sh\n")
+            real.chmod(0o755)
+            self.assertEqual(USAGE.cli_binary("claude"), str(real))

@@ -2,15 +2,14 @@
 """Read subscription limits without starting a conversation or changing accounts."""
 import eitr_bootstrap
 from eitr_i18n import tr
+from eitr_assistants import executable
 
 import concurrent.futures
 import datetime as dt
-import glob
 import json
 import os
 from pathlib import Path
 import select
-import shutil
 import subprocess
 import time
 import sys
@@ -19,15 +18,9 @@ import urllib.request
 
 
 def cli_binary(name):
-    found = shutil.which(name)
-    if found:
-        return found
-    candidates = glob.glob(str(Path.home() / f".nvm/versions/node/*/bin/{name}"))
-    candidates += [str(Path.home() / ".local/bin" / name)]
-    candidates = [path for path in candidates if os.path.isfile(path) and os.access(path, os.X_OK)]
-    if candidates:
-        return max(candidates, key=os.path.getmtime)
-    return None
+    """The real installed tool; Eitr's first-use launchers would only ask to install it."""
+    found = executable(name)
+    return str(found) if found else None
 
 
 def codex_binary():
