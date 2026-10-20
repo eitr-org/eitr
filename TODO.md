@@ -3,7 +3,7 @@
 Open work in priority order. Each item lists what decides the next step.
 Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 
-1. Assistants working together
+1. Assistants working together: Gemini, Copilot and Grok as helpers
 2. Remote access: Moonlight, Sunshine and Tailscale
 3. Organization profiles: choose the software at installation
 4. Smaller items: OBS and the main display, menu translations, AI Usage
@@ -11,57 +11,21 @@ Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 6. Later: AI multi-account, plugins, smaller artwork packages, screenshots
 7. Before 1.0.0: skipped-release upgrade, encrypted install, other hardware
 
-# 1. Assistants working together
+# 1. Assistants working together: more helpers
 
-Any installed, signed-in assistant can hand a task to another one, for people
-or companies paying for several subscriptions.
+Claude and Codex hand questions to each other through AI > "Let assistants
+work together" (`distro/ASSISTANTS.md`). Next, each only once its headless
+mode is proven read-only, with a real hand-off test like the one in
+`distro/ASSISTANTS.md`:
 
-Design:
-
-- One Eitr MCP server ("assistants") offers `ask_claude`, `ask_codex`,
-  `ask_gemini`, `ask_copilot` and `ask_grok`, only for assistants that are
-  installed and signed in. Each tool runs that assistant's non-interactive mode
-  with a timeout and returns its answer.
-- One switch, AI > "Let assistants work together", off by default. Turning it
-  on shows a confirmation naming the connected assistants and warning that each
-  hand-off uses that assistant's subscription and counts toward its limits.
-  Turning it off removes everything it added.
-- The calling assistant asks the user before each hand-off (its normal tool
-  approval); nothing is pre-approved and no auto-approve mode is used.
-- Helpers only read: review, explain, suggest. Edits stay with the assistant
-  the user is talking to.
-- One hop: a helper cannot call another helper (a depth counter in the
-  environment).
-- A notification shows "Claude asked Codex" while a helper works.
-- Registering the server adds one entry to each assistant's own settings and
-  leaves every other setting untouched, written atomically like the theme sync.
-
-Steps:
-
-Implementation status: steps 1, 2 and 4 are implemented for Claude and Codex,
-with mocked CLI and settings tests. Step 3 (real-account hand-offs and later
-Gemini/Copilot enablement) remains pending review. See `distro/ASSISTANTS.md`
-for the local CLI evidence and limitations.
-
-1. Verify each tool's read-only non-interactive mode and MCP settings on the
-   installed version (`--help` and its docs):
-   - Codex: `codex exec --sandbox read-only`; MCP in `~/.codex/config.toml`.
-   - Claude Code: `claude -p` in plan mode or with read-only tools; MCP in
-     `~/.claude.json`.
-   - Gemini CLI: `gemini -p` with `--approval-mode plan`; MCP in
-     `~/.gemini/settings.json` (`mcpServers`). Confirm plan mode blocks writes
-     in headless runs.
-   - Copilot CLI: `copilot -p` needs tools pre-approved, so allow only read
-     tools and `--deny-tool` writes and shell; MCP in
-     `~/.copilot/mcp-config.json`.
-   - Grok Build: `grok -p` is documented; read-only and MCP support are not
-     officially documented yet. Leave Grok out until they are.
-   A tool that cannot run read-only is not offered as a helper.
-2. Build the server and the switch for Claude and Codex; unit tests with mocked
-   CLIs, settings round-trip tests, the depth limit and timeouts.
-3. Test end to end with the owner's Claude and Codex (each hand-off uses a
-   little of their limits), then add Gemini and Copilot as each one checks out.
-4. Handbook chapter (all languages), menu translations, Learn entry.
+- **Gemini CLI:** confirm `gemini -p --approval-mode plan` cannot write in a
+  headless run (try creating a file in a scratch folder), then add `ask_gemini`
+  and register through `gemini mcp add`.
+- **Copilot CLI:** install it, allow only read tools and `--deny-tool` writes
+  and shell in `copilot -p`, prove a write is refused, then add `ask_copilot`
+  (MCP in `~/.copilot/mcp-config.json`).
+- **Grok Build:** wait until xAI documents a read-only headless mode and MCP
+  support.
 
 # 2. Remote access: Moonlight, Sunshine and Tailscale
 
