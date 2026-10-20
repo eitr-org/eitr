@@ -1,3 +1,4 @@
+import json
 import contextlib
 import io
 import os
@@ -123,3 +124,24 @@ class PackagedLayoutTests(unittest.TestCase):
             (root / 'software.json').write_text((repository / 'distro/software.json').read_text())
             with patch.object(assistants, 'code', side_effect=lambda relative: root / relative):
                 self.assertIn('copilot', assistants.assistants())
+
+
+class AntigravityTests(unittest.TestCase):
+    def test_installed_agy_preserves_arguments(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            binary = Path(temporary) / 'agy'
+            binary.write_text('#!/bin/sh\nexit 0\n')
+            binary.chmod(0o755)
+            with patch.object(Path, 'home', return_value=Path(temporary)), \
+                    patch.dict(os.environ, PATH=temporary), \
+                    patch.object(assistants.os, 'execve') as execute:
+                self.assertEqual(assistants.launch('agy', ['--help']), 0)
+                self.assertEqual(execute.call_args.args[1], [str(binary), '--help'])
+
+    def test_install_uses_googles_official_installer(self):
+        repository = Path(__file__).resolve().parents[2]
+        installers = json.loads((repository / 'distro/installers.json').read_text())
+        self.assertEqual(installers['agy'], 'https://antigravity.google/cli/install.sh')
+        script = (repository / 'walker/scripts/actions/install/development.sh').read_text()
+        self.assertIn('agy) download_run "$(installer_url agy)" ;;', script)
+        self.assertIn("--proto '=https'", script)

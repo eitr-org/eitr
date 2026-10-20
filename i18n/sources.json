@@ -1231,6 +1231,10 @@
     "An earlier version from the home snapshots": [
       "elephant/menu-rows/snapshots.json"
     ],
+    "Antigravity CLI": [
+      "elephant/menu-rows/learn.json",
+      "elephant/menus/ai-agy.lua"
+    ],
     "Appearance": [
       "elephant/menu-rows/bar.json",
       "elephant/menus/bar-appearance.lua"
@@ -1327,6 +1331,9 @@
     "Choose a key from ~/.ssh": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Choose a terminal assistant to install": [
+      "elephant/menus/ai-tools.lua"
+    ],
     "Choose an earlier session to continue": [
       "elephant/menu-rows/ai-claude.json",
       "elephant/menu-rows/ai-codex.json"
@@ -1339,9 +1346,6 @@
     ],
     "Claude": [
       "elephant/menus/ai-claude.lua"
-    ],
-    "Claude Code, Codex, Gemini CLI, GitHub Copilot CLI or Grok Build": [
-      "elephant/menus/ai-tools.lua"
     ],
     "Claude and Codex usage limits": [
       "elephant/menu-rows/system-information.json"
@@ -1651,8 +1655,9 @@
     "GeForce NOW": [
       "elephant/menu-rows/gaming.json"
     ],
-    "Gemini": [
-      "elephant/menus/ai-gemini.lua"
+    "Gemini CLI (Gemini API key or Google Cloud/company account)": [
+      "elephant/menus/ai-gemini.lua",
+      "elephant/menus/ai-tools.lua"
     ],
     "Git Account": [
       "elephant/menus/git-account.lua"
@@ -1895,6 +1900,7 @@
       "elephant/menu-rows/network-backend.json"
     ],
     "New": [
+      "elephant/menu-rows/ai-agy.json",
       "elephant/menu-rows/ai-claude.json",
       "elephant/menu-rows/ai-codex.json",
       "elephant/menu-rows/ai-copilot.json",
@@ -1983,6 +1989,9 @@
     ],
     "Passphrase required at boot again": [
       "elephant/menu-rows/tpm-unlock.json"
+    ],
+    "Personal Google accounts; installation source awaiting verification": [
+      "elephant/menu-rows/learn.json"
     ],
     "Pick a color on screen and copy its code": [
       "elephant/menu-rows/capture.json"
@@ -2086,6 +2095,9 @@
     ],
     "Requires Btrfs root; never formats or repartitions": [
       "elephant/menu-rows/snapshots.json"
+    ],
+    "Requires a Gemini API key or Google Cloud/company account": [
+      "elephant/menu-rows/ai-gemini.json"
     ],
     "Requires a compatible FIDO2 key": [
       "elephant/menu-rows/fido2.json"
@@ -2344,9 +2356,6 @@
     "Start a Codex session in a project": [
       "elephant/menu-rows/ai-codex.json"
     ],
-    "Start a Gemini CLI session in a project": [
-      "elephant/menu-rows/ai-gemini.json"
-    ],
     "Start a GitHub Copilot CLI session in a project": [
       "elephant/menu-rows/ai-copilot.json"
     ],
@@ -2355,6 +2364,9 @@
     ],
     "Start a session with a name to resume later": [
       "elephant/menu-rows/ai-claude.json"
+    ],
+    "Start an Antigravity CLI session in a project": [
+      "elephant/menu-rows/ai-agy.json"
     ],
     "Start at Login": [
       "elephant/menu-rows/remote-share.json"
@@ -2404,6 +2416,9 @@
       "elephant/menu-rows/update.json"
     ],
     "System default": [
+      "elephant/menus/language.lua"
+    ],
+    "System default ({language})": [
       "elephant/menus/language.lua"
     ],
     "TPM Disk Unlock": [
@@ -5102,6 +5117,9 @@
     ],
     "eitr: {command} is not installed": [
       "distro/bin/eitr"
+    ],
+    "get and set require locale": [
+      "distro/lib/eitr_language.py"
     ],
     "hyprpaper failed on: {outputs}": [
       "walker/scripts/actions/wallpaper/transition.py"

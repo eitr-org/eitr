@@ -1,10 +1,11 @@
 """User-session message locale preference; applied by environment.d at login."""
 import argparse
 import os
+import shlex
 from pathlib import Path
 import tempfile
 
-from eitr_i18n import languages, tr
+from eitr_i18n import languages, select_locale, tr
 from eitr_paths import config
 
 LOCALES = {"en": "en_US.UTF-8", "pt_BR": "pt_BR.UTF-8", "es": "es_ES.UTF-8",
@@ -45,13 +46,35 @@ def save(locale):
         Path(temporary).unlink(missing_ok=True)
 
 
+def system_name(path=Path("/etc/locale.conf")):
+    environment = {}
+    for line in path.read_text().splitlines():
+        tokens = shlex.split(line, comments=True)
+        if not tokens:
+            continue
+        if len(tokens) != 1 or "=" not in tokens[0]:
+            raise ValueError("Invalid locale assignment")
+        key, value = tokens[0].split("=", 1)
+        if key in ("LC_ALL", "LC_MESSAGES", "LANG"):
+            environment[key] = value
+    supported = languages()
+    return supported[select_locale(environment, supported)]["nativeName"]
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("get", "set"))
-    parser.add_argument("key", choices=("locale",))
+    parser.add_argument("action", choices=("get", "set", "system-name"))
+    parser.add_argument("key", nargs="?", choices=("locale",))
     parser.add_argument("locale", nargs="?")
     arguments = parser.parse_args()
-    if arguments.action == "get":
+    if arguments.action == "system-name":
+        try:
+            print(system_name())
+        except (OSError, ValueError, KeyError, TypeError):
+            return
+    elif arguments.key is None:
+        parser.error(tr("get and set require locale"))
+    elif arguments.action == "get":
         print(selected())
     else:
         if arguments.locale is None:

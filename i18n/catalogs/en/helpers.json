@@ -661,6 +661,7 @@
   "cannot list monitors: {error}": "cannot list monitors: {error}",
   "checkupdates (pacman-contrib) is required to install safely. Run System → Maintenance → Update → System Update, then install pacman-contrib.": "checkupdates (pacman-contrib) is required to install safely. Run System → Maintenance → Update → System Update, then install pacman-contrib.",
   "eitr: {command} is not installed": "eitr: {command} is not installed",
+  "get and set require locale": "get and set require locale",
   "hyprpaper failed on: {outputs}": "hyprpaper failed on: {outputs}",
   "hyprsunset and hyprctl are required": "hyprsunset and hyprctl are required",
   "limine.conf has no Arch Linux (linux) entry to rename": "limine.conf has no Arch Linux (linux) entry to rename",

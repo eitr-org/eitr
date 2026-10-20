@@ -1,0 +1,14 @@
+[
+  {
+    "text": "New",
+    "subtext": "Start an Antigravity CLI session in a project",
+    "keywords": [
+      "agy",
+      "ai"
+    ],
+    "icon": "󰊭",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh agy-new"
+    }
+  }
+]

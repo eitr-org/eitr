@@ -7,8 +7,18 @@ Icon = "󰗊"
 FixedOrder = true
 local choices = dofile(paths.code("elephant/choice-entries.lua"))
 function GetEntries()
+    local label = i18n.tr("System default")
+    local quote = dofile(paths.code("elephant/shell-quote.lua"))
+    local reader = io.popen("python3 " .. quote((os.getenv("EITR_LIBRARY_ROOT") or "/usr/share/eitr/lib") .. "/eitr_language.py") .. " system-name 2>/dev/null")
+    if reader then
+        local name = reader:read("*l")
+        local ok = reader:close()
+        if ok and name and name:match("%S") then
+            label = i18n.tr("System default ({language})", {language = name})
+        end
+    end
     return i18n.entries(choices((os.getenv("EITR_LIBRARY_ROOT") or "/usr/share/eitr/lib") .. "/eitr_language.py", "locale", {
-        {i18n.mark("System default"), "system", "󰗊", i18n.mark("Follow the system language; sign out and back in to apply")},
+        {label, "system", "󰗊", i18n.mark("Follow the system language; sign out and back in to apply")},
         {"English", "en", "󰗊", i18n.mark("Sign out and back in to apply")},
         {"Português (Brasil)", "pt_BR", "󰗊", i18n.mark("Sign out and back in to apply")},
         {"Español", "es", "󰗊", i18n.mark("Sign out and back in to apply")},

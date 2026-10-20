@@ -23,3 +23,5 @@ Les chapitres du manuel se trouvent dans `quickshell/desktop-bar/handbook/conten
 Exécutez `python3 tools/i18n-build.py --check`, générez le manuel avec `python3 quickshell/desktop-bar/scripts/handbook-build.py`, puis exécutez son option `--check` et `bash tools/check.sh`. Les vérifications énumèrent les messages manquants et les paramètres modifiés. Vérifiez les traductions longues dans des aperçus rendus hors écran avant de proposer votre contribution.
 
 Après avoir traduit intégralement un chapitre modifié, mettez à jour son entrée dans `source-hashes.json` avec le SHA-256 de la source anglaise. La vérification signale les sources modifiées ou non enregistrées ; régénérer les catalogues ne valide jamais un changement de source.
+
+La ligne Par défaut du système affiche le nom natif résolu depuis `/etc/locale.conf` : `LC_ALL`, puis `LC_MESSAGES` et `LANG`, en ignorant les valeurs vides. Elle ignore les substitutions de la session. English impose l’anglais ; Par défaut du système suit le système. Si la configuration régionale ne peut pas être lue, la ligne conserve son libellé simple.

@@ -130,3 +130,5 @@ are recorded only on this computer in `~/.local/state/eitr/assistants.json`
 if an entry was edited afterwards, Eitr keeps it and reports the conflict.
 Restart existing assistant sessions after changing the switch. Real-account
 hand-offs still await separate end-to-end verification.
+
+Antigravity CLI (`agy`) is available for personal Google accounts through Install > AI CLIs and the first-use launcher. It is never bundled. It installs through Google's official installer, which verifies its download, and you sign in with your Google account. It is not yet offered as an assistants-together helper. An already installed `agy` can be launched normally. Gemini CLI requires a Gemini API key or a Google Cloud/company account. Antigravity is not a collaboration helper; real-account read-only and MCP tests are still required.

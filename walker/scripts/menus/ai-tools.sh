@@ -31,6 +31,9 @@ case "${1:-}" in
   copilot-new)
     chosen="GitHub Copilot CLI > New"
     ;;
+  agy-new)
+    chosen="Antigravity CLI > New"
+    ;;
   gemini-new)
     chosen="Gemini CLI > New"
     ;;
@@ -46,7 +49,7 @@ esac
 
 # Back at the top of the folder picker returns to this assistant's menu.
 case "${1:-}" in
-  claude-*|codex-*|gemini-*|grok-*|copilot-*) parent="menus:ai-${1%%-*}" ;;
+  agy-*|claude-*|codex-*|gemini-*|grok-*|copilot-*) parent="menus:ai-${1%%-*}" ;;
   *) parent="" ;;
 esac
 status=0
@@ -93,6 +96,9 @@ case "$chosen" in
     ;;
   "GitHub Copilot CLI > New")
     EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'copilot; exec zsh'
+    ;;
+  "Antigravity CLI > New")
+    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'agy; exec zsh'
     ;;
   "Gemini CLI > New")
     EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'gemini; exec zsh'

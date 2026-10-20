@@ -321,3 +321,32 @@ class BootstrapTests(unittest.TestCase):
             environment = dict(os.environ, PYTHONPATH="")
             output = subprocess.check_output(["python3", str(destination / "walker/scripts/entry.py")], env=environment, text=True)
             self.assertEqual(output, "one owner\n")
+
+
+class SystemLanguageNameTests(unittest.TestCase):
+    def test_system_file_precedence_ignores_session(self):
+        import eitr_language
+        with tempfile.TemporaryDirectory() as temporary:
+            locale_file = Path(temporary) / 'locale.conf'
+            with patch.dict(os.environ, LC_ALL='fr_FR.UTF-8', LC_MESSAGES='es_ES.UTF-8'):
+                for contents, expected in [
+                    ('LANG=en_US.UTF-8\nLC_MESSAGES="pt_BR.UTF-8" # message\nLC_ALL=de_DE.UTF-8\n', 'Deutsch'),
+                    ('LANG=en_US.UTF-8\nLC_MESSAGES="pt_BR.UTF-8"\nLC_ALL=\n', 'Português (Brasil)'),
+                    ('LANG=es_MX.UTF-8\n', 'Español'),
+                    ('LANG=unsupported\n', 'English'),
+                    ('LANG=C\n', 'English'),
+                    ('', 'English'),
+                ]:
+                    with self.subTest(contents=contents):
+                        locale_file.write_text(contents)
+                        self.assertEqual(eitr_language.system_name(locale_file), expected)
+
+    def test_unreadable_or_malformed_file_is_not_a_session_fallback(self):
+        import eitr_language
+        with tempfile.TemporaryDirectory() as temporary:
+            locale_file = Path(temporary) / 'locale.conf'
+            with self.assertRaises(OSError):
+                eitr_language.system_name(locale_file)
+            locale_file.write_text('LANG="broken')
+            with self.assertRaises(ValueError):
+                eitr_language.system_name(locale_file)

@@ -1987,6 +1987,9 @@ msgstr "checkupdates (pacman-contrib) is required to install safely. Run System 
 msgid "eitr: {command} is not installed"
 msgstr "eitr: {command} is not installed"
 
+msgid "get and set require locale"
+msgstr "get and set require locale"
+
 msgid "hyprpaper failed on: {outputs}"
 msgstr "hyprpaper failed on: {outputs}"
 

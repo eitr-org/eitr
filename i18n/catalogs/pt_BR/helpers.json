@@ -724,5 +724,6 @@
   "The question and the files a helper reads are sent to that helper’s provider.": "A pergunta e os arquivos que o auxiliar lê são enviados ao provedor dele.",
   "Turn it off again from the same row in the AI menu.": "Desative pela mesma opção no menu IA.",
   "Type yes to connect them (Enter cancels): ": "Digite yes para conectá-los (Enter cancela): ",
-  "Connected. Restart open assistant sessions to use it.": "Conectado. Reinicie as sessões de assistentes abertas para usar."
+  "Connected. Restart open assistant sessions to use it.": "Conectado. Reinicie as sessões de assistentes abertas para usar.",
+  "get and set require locale": "get e set exigem locale"
 }

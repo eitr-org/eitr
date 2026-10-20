@@ -12,10 +12,11 @@ FixedOrder = true
 local quote = dofile(paths.code("elephant/shell-quote.lua"))
 local helper = paths.code("walker/scripts/actions/install/software.py")
 local assistants = {
+    {id = "agy", text = "Antigravity CLI", icon = "󰊭", submenu = "ai-agy"},
     {id = "claude", text = "Claude", icon = "󰙴", submenu = "ai-claude"},
     {id = "codex", text = "Codex", icon = "󰆍", submenu = "ai-codex"},
     {id = "copilot", text = "GitHub Copilot CLI", icon = "󰆍", submenu = "ai-copilot"},
-    {id = "gemini", text = "Gemini", icon = "󰊭", submenu = "ai-gemini"},
+    {id = "gemini", text = i18n.mark("Gemini CLI (Gemini API key or Google Cloud/company account)"), icon = "󰊭", submenu = "ai-gemini"},
     {id = "grok", text = "Grok", icon = "󱙺", submenu = "ai-grok"},
 }
 
@@ -38,7 +39,7 @@ function GetEntries()
     end
     if next(installed) == nil then
         table.insert(entries, {Text = "Install an AI Assistant", Icon = Icon,
-            Subtext = "Claude Code, Codex, Gemini CLI, GitHub Copilot CLI or Grok Build",
+            Subtext = "Choose a terminal assistant to install",
             Actions = {open = quote(paths.code("walker/bin/walker")) .. " --provider menus:ai-install"}})
     end
     local bridge = paths.code("walker/scripts/actions/assistant-collaboration.py")

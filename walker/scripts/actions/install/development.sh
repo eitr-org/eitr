@@ -31,6 +31,7 @@ node_setup() {
   set -eu
 }
 case "$kind" in
+  agy) download_run "$(installer_url agy)" ;;
   node) node_setup ;;
   java)
     export SDKMAN_DIR="$HOME/.sdkman"

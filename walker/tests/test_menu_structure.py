@@ -121,12 +121,37 @@ class MenuStructureTests(unittest.TestCase):
         self.assertEqual(set(entries), {"Pacman", "Yay (AUR)"})
         self.assertTrue(entries["Pacman"].endswith("picker-launch pacman"))
         self.assertTrue(entries["Yay (AUR)"].endswith("picker-launch aur"))
+    def test_system_language_label_and_failure_fallback(self):
+        import os
+        import subprocess
+        for name, success, expected in [
+            ('Deutsch', 'true', 'System default (Deutsch)'),
+            ('', 'true', 'System default'),
+            ('Deutsch', 'nil', 'System default'),
+        ]:
+            harness = f"""
+                io.popen = function(command)
+                    local naming = command:find("system%-name")
+                    return {{read = function() return naming and "{name}" or "system" end,
+                        close = function() return {success} end}}
+                end
+                dofile("elephant/menus/language.lua")
+                for _, entry in ipairs(GetEntries()) do
+                    if entry.Value == "system" then print(entry.Text) end
+                    if entry.Value == "en" then assert(entry.Text == "English") end
+                end
+            """
+            environment = dict(os.environ, EITR_LIBRARY_ROOT=str(ROOT / "distro/lib"), EITR_CODE_ROOT=str(ROOT))
+            result = subprocess.run(["lua", "-e", harness], cwd=ROOT, env=environment,
+                                    capture_output=True, text=True, check=True)
+            self.assertEqual(result.stdout.strip(), expected)
+
     def ai_menu(self, installed):
         """Run elephant/menus/ai-tools.lua with software.py's answer replaced."""
         import os
         import subprocess
         rows = ", ".join(f"{{id = '{name}', installed = {'true' if name in installed else 'false'}}}"
-                         for name in ("codex", "claude", "grok", "gemini", "copilot"))
+                         for name in ("agy", "codex", "claude", "grok", "gemini", "copilot"))
         harness = f"""
             jsonDecode = function(text) return load("return " .. text)() end
             io.popen = function() return {{read = function() return "{{{rows}}}" end, close = function() end}} end
@@ -139,10 +164,11 @@ class MenuStructureTests(unittest.TestCase):
         return [line.split("|") for line in result.stdout.splitlines()]
 
     def test_ai_lists_only_installed_assistants(self):
+        self.assertIn(["Antigravity CLI", "ai-agy"], self.ai_menu({"agy"}))
         self.assertEqual(self.ai_menu({"claude", "codex"}), [["Claude", "ai-claude"], ["Codex", "ai-codex"], ["Default Assistant", "ai-default"], ["Let assistants work together", ""]])
         self.assertEqual(self.ai_menu({"grok"}), [["Default Assistant", "ai-default"], ["Grok", "ai-grok"], ["Let assistants work together", ""]])
         self.assertEqual(self.ai_menu(set()), [["Default Assistant", "ai-default"], ["Install an AI Assistant", ""], ["Let assistants work together", ""]])
-        for name in ("claude", "codex", "gemini", "grok"):
+        for name in ("agy", "claude", "codex", "gemini", "grok"):
             self.assertEqual(menu(f"ai-{name}")["parent"], "ai-tools")
         script = (ROOT / "walker/scripts/menus/ai-tools.sh").read_text()
         self.assertIn("gemini-new)", script)

@@ -15,14 +15,16 @@ Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 # 1. Google's assistant: Antigravity CLI
 
 Google no longer serves Gemini CLI for personal accounts (only paid API keys
-and company accounts); individuals moved to Antigravity CLI (`agy`).
+and company accounts); Antigravity CLI (`agy`) is in Install > AI CLIs through
+Google's official installer, and Gemini CLI is labelled for API-key and company
+users. Remaining, each only after a real read-only test like the ones in
+`distro/ASSISTANTS.md`:
 
-- Relabel Gemini CLI in Install > AI CLIs as "for Gemini API keys or Google
-  Cloud accounts", so nobody installs it expecting the Google sign-in to work.
-- Add Antigravity CLI to Install > AI CLIs and the first-use launchers, from
-  Google's official source (it is not open source; never bundled).
-- Then, as with the other helpers in `distro/ASSISTANTS.md`, prove a
-  read-only headless mode and MCP registration before offering `ask_agy`.
+- **`ask_agy`:** with the owner's personal Google account, prove a read-only
+  headless mode (no file writes, no shell) and MCP registration through `agy`'s
+  own command, then add it as a helper.
+- **`ask_gemini`:** only once someone with a paid Gemini API key or a company
+  account can run the same test.
 
 # 2. Remote access: test with the owner
 

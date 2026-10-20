@@ -1,7 +1,7 @@
 [
   {
     "text": "New",
-    "subtext": "Start a Gemini CLI session in a project",
+    "subtext": "Requires a Gemini API key or Google Cloud/company account",
     "keywords": [
       "gemini",
       "ai"

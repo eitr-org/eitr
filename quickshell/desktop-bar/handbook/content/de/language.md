@@ -23,3 +23,5 @@ Handbuchkapitel liegen unter `quickshell/desktop-bar/handbook/content/<locale>/<
 Führe `python3 tools/i18n-build.py --check` aus, erzeuge das Handbuch mit `python3 quickshell/desktop-bar/scripts/handbook-build.py` und führe anschließend dessen Option `--check` sowie `bash tools/check.sh` aus. Die Prüfungen listen fehlende Nachrichten und veränderte Platzhalter auf. Prüfe lange Übersetzungen vor dem Einreichen in einer außerhalb des Bildschirms gerenderten Vorschau.
 
 Aktualisiere nach der vollständigen Übersetzung eines geänderten Kapitels dessen Eintrag in `source-hashes.json` mit dem SHA-256 der englischen Quelle. Die Prüfung meldet geänderte oder nicht erfasste Quellen; das bloße Neugenerieren der Kataloge bestätigt keine Quelländerung.
+
+Die Zeile Systemstandard zeigt den aus `/etc/locale.conf` ermittelten nativen Namen: `LC_ALL`, dann `LC_MESSAGES` und `LANG`; leere Werte werden ignoriert. Sitzungseinstellungen werden nicht berücksichtigt. English erzwingt Englisch; Systemstandard folgt dem System. Kann die Systemkonfiguration nicht gelesen werden, bleibt die einfache Beschriftung erhalten.

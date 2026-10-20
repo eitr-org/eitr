@@ -52,3 +52,5 @@ and `bash tools/check.sh`. Catalog checks list missing messages and changed
 placeholders. Check long translations in offscreen previews before submitting.
 
 After translating a changed chapter in full, update its entry in `source-hashes.json` with the SHA-256 of the English source. The build check flags changed or unrecorded English sources; rebuilding catalogs alone never acknowledges a source change.
+
+The System default row shows the native name resolved from `/etc/locale.conf`: `LC_ALL`, then `LC_MESSAGES`, then `LANG`, ignoring empty values. It ignores session overrides. English forces English; System default follows the system. If the system locale cannot be read, the row keeps its plain label.

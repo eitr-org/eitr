@@ -1,5 +1,18 @@
 [
   {
+    "text": "Antigravity CLI",
+    "subtext": "Personal Google accounts; installation source awaiting verification",
+    "keywords": [
+      "agy",
+      "ai",
+      "google"
+    ],
+    "icon": "󱜙",
+    "actions": {
+      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/handbook.sh open development"
+    }
+  },
+  {
     "text": "Assistants Working Together",
     "subtext": "Read-only hand-offs, permissions and subscription limits",
     "keywords": [

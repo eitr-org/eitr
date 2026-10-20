@@ -133,7 +133,6 @@
   "Game Mode": "Modo de jogo",
   "Gaming": "Jogos",
   "GeForce NOW": "GeForce NOW",
-  "Gemini": "Gémeos",
   "Git Account": "Conta Git",
   "Git Accounts": "Contas Git",
   "Google Cloud": "Google Cloud",
@@ -320,7 +319,6 @@
   "Stable": "Estável",
   "Start a Claude Code session in a project": "Iniciar uma sessão Claude Code em um projeto",
   "Start a Codex session in a project": "Iniciar uma sessão Codex em um projeto",
-  "Start a Gemini CLI session in a project": "Iniciar uma sessão de CLI Gemini em um projeto",
   "Start a Grok Build session in a project": "Iniciar uma sessão de compilação Grok em um projeto",
   "Start a session with a name to resume later": "Iniciar uma sessão com um nome a ser retomado posteriormente",
   "Start the screensaver now": "Iniciar o protetor de tela agora",
@@ -384,7 +382,6 @@
   "iwd": "iwd",
   "{service} · {url}": "{service} · {url}",
   "Start a GitHub Copilot CLI session in a project": "Iniciar uma sessão do GitHub Copilot CLI em um projeto",
-  "Claude Code, Codex, Gemini CLI, GitHub Copilot CLI or Grok Build": "Claude Code, Codex, Gemini CLI, GitHub Copilot CLI ou Grok Build",
   "GitHub Copilot CLI": "GitHub Copilot CLI",
   "Default Assistant": "Assistente padrão",
   "Open with the assistant shortcut": "Abrir com o atalho do assistente",
@@ -435,5 +432,12 @@
   "Sunshine on Eitr, Moonlight on a Mac and Tailscale away from home": "Sunshine no Eitr, Moonlight no Mac e Tailscale fora de casa",
   "Connect": "Conectar",
   "Disconnect": "Desconectar",
-  "Moonlight": "Moonlight"
+  "Moonlight": "Moonlight",
+  "System default ({language})": "Padrão do sistema ({language})",
+  "Gemini CLI (Gemini API key or Google Cloud/company account)": "Gemini CLI (chave da API Gemini ou conta Google Cloud/empresa)",
+  "Requires a Gemini API key or Google Cloud/company account": "Requer uma chave da API Gemini ou conta Google Cloud/empresa",
+  "Start an Antigravity CLI session in a project": "Iniciar uma sessão do Antigravity CLI em um projeto",
+  "Personal Google accounts; installation source awaiting verification": "Contas pessoais do Google; fonte de instalação aguardando verificação",
+  "Antigravity CLI": "Antigravity CLI",
+  "Choose a terminal assistant to install": "Escolha um assistente de terminal para instalar"
 }

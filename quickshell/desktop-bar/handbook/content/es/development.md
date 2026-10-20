@@ -76,3 +76,5 @@ exactamente las entradas de Eitr; si una entrada se editó después, Eitr la
 conserva y notifica el conflicto. Reinicia las sesiones de los asistentes
 tras cambiar la opción. La verificación de extremo a extremo con cuentas
 reales queda pendiente de una comprobación separada.
+
+Antigravity CLI (`agy`) está disponible para cuentas personales de Google en Instalar > CLI de IA y mediante el lanzador de primer uso. Nunca se incluye en la distribución. Se instala con el instalador oficial de Google, que verifica la descarga, e inicias sesión con tu cuenta de Google. Todavía no se ofrece como auxiliar de asistentes trabajando juntos. Un `agy` ya instalado puede iniciarse normalmente. Gemini CLI requiere una clave de API Gemini o cuenta Google Cloud/empresa. Antigravity no es un auxiliar de colaboración; faltan pruebas de solo lectura y MCP con una cuenta real.
