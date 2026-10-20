@@ -30,6 +30,7 @@ RUNTIME = Path(os.environ.get('XDG_RUNTIME_DIR', f'/run/user/{os.getuid()}')) / 
 INDEX = RUNTIME / 'index.json'
 MAX_AGE = 60
 EXCLUDED = {'clipboard', 'search-index'}
+CLOUD_MENUS = code('walker/scripts/menus/cloud/navigation-menus.json')
 
 
 def effective_files(directory=None):
@@ -44,8 +45,11 @@ def effective_files(directory=None):
 
 
 def providers(directory=None):
+    # Resource pickers perform network requests; index only their parent actions.
+    resource_menus = {name for name, spec in json.loads(CLOUD_MENUS.read_text()).items()
+                      if spec.get('selector')}
     return ['menus:' + path.stem for path in effective_files(directory)
-            if path.suffix in {'.toml', '.lua'} and path.stem not in EXCLUDED]
+            if path.suffix in {'.toml', '.lua'} and path.stem not in EXCLUDED | resource_menus]
 
 
 def row_files(directory=None):

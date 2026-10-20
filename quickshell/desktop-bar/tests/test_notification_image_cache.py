@@ -1,4 +1,5 @@
 import os
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -10,6 +11,44 @@ ROOT = Path(__file__).resolve().parents[3]
 
 
 class NotificationImageCacheTests(unittest.TestCase):
+    def test_bulk_dismiss_publishes_one_history_update(self):
+        source = (ROOT / "quickshell/desktop-bar/NotificationService.qml").read_text()
+        state = source[source.index("    readonly property var tracked:"):source.index("    readonly property var history:")]
+        state = state.replace("readonly property var tracked: server.trackedNotifications.values", "property var tracked: []")
+        clear = re.search(r"    function clear\(\) \{.*?\n    \}", source, re.S).group()
+        fixture = """import QtQuick
+import QtTest
+TestCase {
+    id: service
+    name: "NotificationBulkDismiss"
+    when: windowShown
+    property var popupIds: []
+""" + state + clear + """
+    SignalSpy { id: changes; target: service; signalName: "allChanged" }
+    function test_clear_coalesces_cards() {
+        var notices = [];
+        for (var index = 0; index < 43; index++) {
+            notices.push({id: index, dismiss: function() { service.tracked = service.tracked.slice(1); }});
+        }
+        tracked = notices;
+        tryVerify(function() { return service.all.length === 43; });
+        changes.clear();
+        service.clear();
+        compare(tracked.length, 0);
+        compare(changes.count, 0);
+        tryVerify(function() { return service.all.length === 0; });
+        compare(changes.count, 1);
+    }
+}
+"""
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "tst_bulk.qml"
+            path.write_text(fixture)
+            result = subprocess.run(["/usr/lib/qt6/bin/qmltestrunner", "-input", str(path)],
+                                    env={**os.environ, "QT_QPA_PLATFORM": "offscreen"},
+                                    text=True, capture_output=True, timeout=15)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_thumbnail_remains_available_after_sender_deletes_file(self):
         with tempfile.TemporaryDirectory(prefix="eitr-notification-test-") as directory:
             target = Path(directory)

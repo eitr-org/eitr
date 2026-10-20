@@ -27,6 +27,16 @@ class SearchIndexTests(unittest.TestCase):
             self.assertEqual(search.providers(root), ['menus:apps', 'menus:main'])
         self.assertEqual(search.snapshot(self.output(dict(self.item, provider='menus:clipboard'))), [])
 
+    def test_background_index_never_queries_cloud_resource_pickers(self):
+        menus = json.loads(search.CLOUD_MENUS.read_text())
+        indexed = set(search.providers())
+        for name, definition in menus.items():
+            with self.subTest(menu=name):
+                if definition.get('selector'):
+                    self.assertNotIn('menus:' + name, indexed)
+                else:
+                    self.assertIn('menus:' + name, indexed)
+
     def test_snapshot_deduplicates_and_keeps_actions_without_shell_code(self):
         rows = search.snapshot(self.output(self.item, self.item),
                                {('menus:toggle', 'Idle Lock'): ['idle']})

@@ -41,6 +41,10 @@ release tag.
 
 ## Feature plan
 
+Background menu indexing skips cloud resource pickers, so opening or searching
+Walker does not query those services or flood notifications with their failures.
+Notification history coalesces bulk removals before rebuilding its cards.
+
 The translated Secure Boot, factory reset and network backend guides retain
 all source commands, paths and numbered steps. Interface terminology checks
 keep catalogued Handbook controls aligned with their panel or Walker labels.

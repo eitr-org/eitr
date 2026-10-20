@@ -15,7 +15,13 @@ Item {
     property var pausedPopupIds: []
     property var retainedImages: ({})
     signal toggleRequested()
-    readonly property var all: server.trackedNotifications.values
+    readonly property var tracked: server.trackedNotifications.values
+    property var all: []
+    function syncNotifications() {
+        all = tracked.slice();
+    }
+    // Coalesce dismiss bursts before rebuilding groups and their card delegates.
+    onTrackedChanged: Qt.callLater(syncNotifications)
     readonly property var history: all.filter(notification => !notification.transient)
     readonly property var groups: Logic.grouped(all, timestamps)
     readonly property int count: history.length

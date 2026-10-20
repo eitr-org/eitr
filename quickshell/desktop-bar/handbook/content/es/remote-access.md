@@ -49,7 +49,7 @@ use la misma red doméstica. Añada la dirección LAN de Eitr si no se descubre.
 Seleccione el PC, lea el PIN y use Emparejar un dispositivo en Eitr. Elija Desktop para
 controlar aplicaciones y juegos. Seleccione la pantalla en Sunshine y pruebe ambos
 monitores. Gaming > Moonlight y Conectar a otro PC instalan o abren el cliente
-en Eitr para conectarse en sentido inverso. La ISO no incluye estos programas.
+en Eitr para conectarse en sentido inverso. Las instalaciones nuevas incluyen estas aplicaciones; compartir permanece desactivado hasta que tú lo actives explícitamente.
 
 ## Tailscale en ambos equipos
 

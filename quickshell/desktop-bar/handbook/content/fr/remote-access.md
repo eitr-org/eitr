@@ -51,7 +51,7 @@ le même réseau domestique. Ajoutez manuellement l’adresse LAN d’Eitr au be
 Sélectionnez le PC, lisez le PIN et utilisez Associer un appareil sur Eitr. Choisissez
 Desktop pour contrôler applications et jeux. Sélectionnez l’écran dans Sunshine
 et vérifiez chaque moniteur. Gaming > Moonlight et Se connecter à un autre PC installent
-ou ouvrent le client Eitr dans le sens inverse. L’ISO ne contient pas ces applications.
+ou ouvrent le client Eitr dans le sens inverse. Les nouvelles installations incluent ces applications ; le partage reste désactivé tant que vous ne l’activez pas explicitement.
 
 ## Tailscale sur les deux ordinateurs
 

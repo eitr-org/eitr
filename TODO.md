@@ -42,8 +42,8 @@ optional native redesign. Preserve typed confirmations and readable failures.
 
 # 3. Remote access: test with the owner
 
-Moonlight, Sunshine and Tailscale are built, installed by default and inactive
-until set up (`distro/REMOTE-ACCESS.md`). Nothing about real hardware is
+Moonlight, Sunshine and Tailscale are built and inactive until set up.
+Fresh installs include them; existing machines install missing apps on demand (`distro/REMOTE-ACCESS.md`). Nothing about real hardware is
 verified yet. With the owner and a MacBook, in this order:
 
 1. Home network: Share this PC setup (permissions, Sunshine password), start

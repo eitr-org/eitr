@@ -53,7 +53,7 @@ Wählen Sie den PC, lesen Sie die PIN und öffnen Sie Gerät koppeln auf Eitr.
 Desktop ermöglicht die Steuerung von Anwendungen und Spielen. Wählen Sie den
 Bildschirm in Sunshine und prüfen Sie beide Monitore. Gaming > Moonlight und
 Mit anderem PC verbinden installieren oder öffnen den Eitr-Client für die umgekehrte
-Richtung. Die ISO enthält keine dieser Streaming-Anwendungen.
+Richtung. Neue Installationen enthalten diese Anwendungen; die Freigabe bleibt deaktiviert, bis du sie ausdrücklich aktivierst.
 
 ## Tailscale auf beiden Rechnern
 

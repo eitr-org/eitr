@@ -1,15 +1,13 @@
 # Remote access packaging and security
 
-The user guide is the Handbook's Remote Access chapter. No streaming packages
-are included in the ISO or enabled during installation.
+The user guide is the Handbook's Remote Access chapter. Fresh installs include Moonlight, Sunshine and Tailscale; hosting and away
+access remain inactive until explicitly set up.
 
 `software.json` installs official Arch `moonlight-qt` and `tailscale` packages,
-and Eitr's signed native `eitr-sunshine` package on demand. The latter belongs to
-`optional-local-packages.txt`: release-desktop builds it when its version is not
-published. It is deliberately outside `local-packages.txt`, the offline payload,
-and the guided-install transaction. Publish the optional package before exposing
-the desktop workflow. A disconnected first use reports the normal install failure;
-it cannot install optional software offline.
+and Eitr's signed native `eitr-sunshine` package on demand when missing.
+Sunshine is listed in `local-packages.txt` for fresh-install payloads and in
+`optional-local-packages.txt` so desktop publishing builds it when needed.
+Existing machines need network access to install missing packages.
 
 The Sunshine recipe builds the selected upstream release in the maintainer's
 build environment. Native capture supports KMS; Flatpak/AppImage cannot provide

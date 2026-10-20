@@ -52,7 +52,7 @@ address manually if discovery does not find it. Select the PC, read its PIN,
 then use Pair a Device on Eitr. Select Desktop to control applications and games.
 Sunshine settings select the captured display; verify each monitor separately.
 Gaming > Moonlight and Connect to another PC install or open the Eitr client for
-connecting in the opposite direction. No streaming software is bundled in the ISO.
+connecting in the opposite direction. Fresh installs include these apps; sharing stays off until explicitly enabled.
 
 ## Tailscale on both computers
 

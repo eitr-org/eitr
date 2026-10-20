@@ -33,7 +33,8 @@ def repository_catalog():
 class SoftwareTests(unittest.TestCase):
     def test_geforce_adds_runtime_remote_before_install(self):
         data = json.loads((ROOT / "distro/software.json").read_text())
-        with patch.object(software, "catalog", return_value=data), patch.object(software, "run") as run:
+        with patch.object(software, "catalog", return_value=data), \
+                patch.object(software, "installed", return_value=False), patch.object(software, "run") as run:
             software.recipe("gaming", "geforcenow")
             calls = [call.args[0] for call in run.call_args_list]
             self.assertEqual(calls[0], ["flatpak", "remote-add", "--user", "--if-not-exists",
