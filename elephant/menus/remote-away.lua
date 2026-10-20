@@ -3,6 +3,6 @@ local i18n = dofile(paths.code("elephant/i18n.lua"))
 Name = "remote-away"
 NamePretty = i18n.tr("Access away from home")
 Parent = "remote-access"
-Icon = "󰖩"
+Icon = "󰇧"
 FixedOrder = true
 GetEntries = dofile(paths.code("elephant/scoped-menu.lua"))("remote-away")

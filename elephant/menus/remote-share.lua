@@ -3,7 +3,7 @@ local i18n = dofile(paths.code("elephant/i18n.lua"))
 Name = "remote-share"
 NamePretty = i18n.tr("Share this PC")
 Parent = "remote-access"
-Icon = "󰖩"
+Icon = "󱒃"
 FixedOrder = true
 GetEntries = dofile(paths.code("elephant/scoped-menu.lua"))("remote-share")
 

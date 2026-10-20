@@ -8,14 +8,14 @@
       "wifi",
       "backend"
     ],
-    "icon": "󰖩",
+    "icon": "󰌗",
     "subtext": ">",
     "submenu": "network-backend"
   },
   {
     "text": "Remote Access",
     "subtext": ">",
-    "icon": "󰖩",
+    "icon": "󰢹",
     "submenu": "remote-access"
   },
   {

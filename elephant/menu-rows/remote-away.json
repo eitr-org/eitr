@@ -2,7 +2,7 @@
   {
     "text": "Connect",
     "subtext": "Connect this PC to Tailscale",
-    "icon": "󰖩",
+    "icon": "󰌘",
     "actions": {
       "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away connect"
     }
@@ -10,7 +10,7 @@
   {
     "text": "Connection Status",
     "subtext": "Show this PC’s address and peer connection paths",
-    "icon": "󰖩",
+    "icon": "󰋽",
     "actions": {
       "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away status"
     }
@@ -18,7 +18,7 @@
   {
     "text": "Disconnect",
     "subtext": "Disconnect this PC from Tailscale",
-    "icon": "󰖩",
+    "icon": "󰌙",
     "actions": {
       "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away disconnect"
     }
@@ -26,7 +26,7 @@
   {
     "text": "Ping a Peer",
     "subtext": "Check whether a connection is direct or relayed",
-    "icon": "󰖩",
+    "icon": "󰒢",
     "actions": {
       "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away ping"
     }
@@ -34,7 +34,7 @@
   {
     "text": "Restore Away Access Setup",
     "subtext": "Restore tailscaled startup and the previous operator",
-    "icon": "󰖩",
+    "icon": "󰦛",
     "actions": {
       "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away undo"
     }
@@ -42,7 +42,7 @@
   {
     "text": "Set Up Away Access",
     "subtext": "Install Tailscale and review the service change",
-    "icon": "󰖩",
+    "icon": "󰖷",
     "actions": {
       "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away setup"
     }
@@ -50,7 +50,7 @@
   {
     "text": "Sign In",
     "subtext": "Open Tailscale sign-in in the browser",
-    "icon": "󰖩",
+    "icon": "󰍂",
     "actions": {
       "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away login"
     }

@@ -2,19 +2,19 @@
   {
     "text": "Access away from home",
     "subtext": ">",
-    "icon": "󰖩",
+    "icon": "󰇧",
     "submenu": "remote-away"
   },
   {
     "text": "Share this PC",
     "subtext": ">",
-    "icon": "󰖩",
+    "icon": "󱒃",
     "submenu": "remote-share"
   },
   {
     "text": "Connect to another PC",
     "subtext": "Install or open Moonlight",
-    "icon": "󰖩",
+    "icon": "󰖔",
     "actions": {
       "open": "python3 /usr/share/eitr/walker/scripts/actions/install/software.py gaming moonlight"
     }
