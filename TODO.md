@@ -5,10 +5,11 @@ Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 
 1. Assistants working together
 2. Remote access: Moonlight, Sunshine and Tailscale
-3. Smaller items: OBS and the main display, menu translations, AI Usage
-4. Waiting on the owner: personal overlay split, testing channel
-5. Later: AI multi-account, plugins, smaller artwork packages, screenshots
-6. Before 1.0.0: skipped-release upgrade, encrypted install, other hardware
+3. Organization profiles: choose the software at installation
+4. Smaller items: OBS and the main display, menu translations, AI Usage
+5. Waiting on the owner: personal overlay split, testing channel
+6. Later: AI multi-account, plugins, smaller artwork packages, screenshots
+7. Before 1.0.0: skipped-release upgrade, encrypted install, other hardware
 
 # 1. Assistants working together
 
@@ -103,7 +104,60 @@ Stage 3, Tailscale (away from home):
 Afterwards, each tested separately: headless use, access before login, wake on
 LAN.
 
-# 3. Smaller items
+# 3. Organization profiles
+
+A company (or anyone setting up several machines) chooses the software at
+installation without rebuilding the ISO: the official, signed ISO stays
+untouched and machines keep receiving Eitr's normal updates. Built on the
+existing answers drive (`EITR-ANSWERS`, `distro/README.md` > Unattended install).
+
+Design:
+
+- An `eitr-profile.json` beside (or instead of) `eitr-answers.json`. With only
+  the profile, the normal wizard runs and then shows the profile's changes;
+  with both files the install is fully unattended.
+- `remove`: Eitr apps to leave out, for example Steam or RetroArch. Only apps
+  on an explicit, reviewed list of removable apps are accepted. Everything the
+  desktop needs is protected: `distro/packages.txt`, `distro/aur-packages.txt`
+  and `distro/local-packages.txt` (Hyprland, Quickshell, Walker, Elephant and
+  the rest), `eitr-desktop`, `eitr-artwork` and anything they depend on.
+  `distro/apps.txt` also holds pieces the desktop relies on (themes, menu
+  data), so it is not removable as a whole; each removable entry is reviewed.
+  A profile naming a protected package is refused as a whole with a clear
+  message, before any disk is changed. pacman confirms that no removal breaks
+  a dependency.
+- `add`: Eitr install recipes by name (`distro/software.json`), Arch packages,
+  Flathub apps (Zoom is `us.zoom.Zoom`), and package files on the stick, each
+  with its SHA-256 in the profile. No AUR builds during installation. Additions
+  that need the internet say so; package files on the stick install offline.
+- `defaults`: theme, wallpaper (an image on the stick), browser, update
+  channel, and an extra package repository with its signing key.
+- `setup`: an optional script from the stick, run once at the end of the
+  installation and shown in the summary.
+- Before anything changes, the installer lists everything it will add, remove,
+  set and run, with the answers drive's countdown when unattended.
+- The applied profile is recorded on the machine so System Update never
+  reinstalls a removed app.
+- `eitr profile check DRIVE` validates a stick before it is used.
+
+Steps:
+
+1. Review `distro/apps.txt` and `distro/aur-apps.txt` entry by entry and mark
+   the removable apps (gaming, media and other optional apps); write the
+   protected-package test first.
+2. Profile parser and validation, shared by the installer and
+   `eitr profile check`; unit tests for refusals (protected packages, bad
+   checksums, unknown recipes).
+3. Installer integration: skip removed apps in the offline payload install,
+   then additions, defaults and the setup script; record the profile.
+4. VM tests: an offline install with removals and stick packages, an online
+   install with Flathub additions, a refused profile, and System Update not
+   bringing a removed app back.
+5. Handbook and `distro/README.md` section with a complete example profile.
+
+Out of scope: managing machines after installation (fleet management).
+
+# 4. Smaller items
 
 - **OBS and the main display.** The screen-share permission keeps the first
   monitor picked, so OBS does not follow the bar's main display. Ship a shared
@@ -122,7 +176,7 @@ LAN.
   token) and Gemini has no official quota source. Check again when either
   publishes real limits.
 
-# 4. Waiting on the owner
+# 5. Waiting on the owner
 
 - **Personal overlay split** (`PUBLISHING.md`). Once the owner creates the
   private repository: move `HOME_FILES/.zshrc` and `owner/cooler-display` there
@@ -133,7 +187,7 @@ LAN.
   `release-desktop.py --channel testing`, try it on the owner's PC, then
   `--promote` to stable.
 
-# 5. Later
+# 6. Later
 
 - **AI multi-account.** Several accounts per assistant, manual switching only.
   Each account gets its own config folder selected through the tool's own
@@ -151,7 +205,7 @@ LAN.
   change; add website shots of the lockscreen, the dictation waveform and the
   Packages picker (owner-only captures, taken when the owner says).
 
-# 6. Before 1.0.0
+# 7. Before 1.0.0
 
 - **Upgrade that skips releases.** 1.0 promises supported upgrades, so test
   installing 0.6.4 and updating straight to the 1.0 candidate. The 0.6.4 ISO is
