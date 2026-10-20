@@ -8,6 +8,8 @@ Las tarjetas de notificación muestran la fecha y hora locales de llegada bajo e
 
 **Uso de IA** detecta clientes instalados o configurados. Primero aparece el uso en caché; actualizar no inicia sesiones ni conversaciones. Muestra los límites de cada cuenta; los porcentajes indican la parte del límite ya consumida.
 
+Activa o desactiva los botones de proveedores para mostrar varias cuentas juntas; al menos una permanece activa. La selección se guarda en este equipo y se eliminan los clientes que ya no se detectan.
+
 **Tiempo** usa la ubicación predeterminada y permite búsquedas temporales de ciudades. La selección temporal termina al cerrar el panel. Escape borra la búsqueda antes de cerrar; las unidades de temperatura siguen la ubicación y se muestra otra unidad al lado.
 
 ## Calendario y multimedia

@@ -13,6 +13,8 @@ that total. Missing sensor/GPU telemetry is marked unavailable.
 refresh does not launch sign-in or conversations. It shows each account's
 limits; percentages mean the part of a limit already used.
 
+Toggle provider buttons to show several accounts together; at least one stays on. Your selection is remembered on this machine, and clients no longer detected are removed.
+
 **Weather** uses the default location and supports temporary city searches.
 The override ends when the panel closes. Escape clears city search before
 closing; temperature units follow the location, with an alternate unit alongside.

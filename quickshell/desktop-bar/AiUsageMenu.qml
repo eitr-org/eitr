@@ -1,6 +1,7 @@
 import Eitr as Eitr
 import QtQuick
 import "PanelStyle.js" as PanelStyle
+import "AiSelectionModel.js" as Selection
 import Quickshell
 import Quickshell.Io
 
@@ -11,17 +12,54 @@ ThemedPopup {
     implicitHeight: Math.min(maximumHeight, Math.max(300,
         content.implicitHeight + 64 + hero.height + 10 + tabs.height + 16 + footer.implicitHeight + 16 + 2))
     property var usage: ({providers: []})
-    property string selectedProvider: ""
-    readonly property var availableProviders: (usage.providers || []).map(p => p.name)
-    onUsageChanged: {
-        if (availableProviders.indexOf(selectedProvider) === -1)
-            selectedProvider = availableProviders.length ? availableProviders[0] : "";
+    property var selectedProviders: []
+    property bool detectionReceived: false
+    onUsageChanged: { detectionReceived = true; reconcileSelection(); }
+    property bool selectionReady: false
+    property bool selectionWritable: false
+    readonly property var availableProviders: (usage.providers || []).map(providerData => providerData.name)
+    readonly property var enabledProviders: (usage.providers || []).filter(providerData => selectedProviders.indexOf(providerData.name) !== -1)
+    readonly property var provider: enabledProviders[0] || {name: "", windows: []}
+    function reconcileSelection() {
+        if (!selectionReady || !detectionReceived) return;
+        selectedProviders = Selection.reconcile(availableProviders, selectedProviders);
+        saveSelection();
     }
-    readonly property var provider: (usage.providers || []).find(p => p.name === selectedProvider) || {name: selectedProvider, windows: []}
+    function saveSelection() {
+        if (selectionWritable && detectionReceived)
+            selectionSettings.setText(JSON.stringify({version: 1, providers: selectedProviders}) + "\n");
+    }
+    function toggleProvider(name) {
+        selectedProviders = Selection.toggle(availableProviders, selectedProviders, name);
+        saveSelection();
+    }
+    onAvailableProvidersChanged: reconcileSelection()
+    FileView {
+        id: selectionSettings
+        path: Eitr.Paths.config("quickshell/desktop-bar/ai-usage-settings.json")
+        atomicWrites: true
+        printErrors: false
+        onLoaded: {
+            try {
+                var settings = Eitr.Paths.settings(text());
+                menu.selectedProviders = Array.isArray(settings.providers) ? settings.providers : [];
+                menu.selectionWritable = true;
+            } catch (error) {
+                console.warn("Invalid AI usage selection settings:", error);
+            }
+            menu.selectionReady = true;
+            menu.reconcileSelection();
+        }
+        onLoadFailed: function(error) {
+            menu.selectionWritable = error === FileViewError.FileNotFound;
+            menu.selectionReady = true;
+            menu.reconcileSelection();
+        }
+    }
     property bool freshReceived: false
     readonly property bool loading: query.running
     property string status: "Checking usage..."
-    onSelectedProviderChanged: contentViewport.contentY = 0
+    onSelectedProvidersChanged: contentViewport.contentY = 0
     function refresh() {
         if (!loading) {
             status = "Updating...";
@@ -73,8 +111,8 @@ ThemedPopup {
             PanelHeading {
                 width: parent.width - refreshButton.width - 8
                 anchors.verticalCenter: parent.verticalCenter
-                text: menu.selectedProvider === "Claude" ? Eitr.I18n.tr("Claude Code") : menu.selectedProvider || Eitr.I18n.tr("AI Usage")
-                subtitle: (menu.provider.plan || Eitr.I18n.tr("Plan unavailable")).toUpperCase()
+                text: menu.enabledProviders.length > 1 ? Eitr.I18n.tr("AI Usage") : menu.provider.name === "Claude" ? Eitr.I18n.tr("Claude Code") : menu.provider.name || Eitr.I18n.tr("AI Usage")
+                subtitle: menu.enabledProviders.length > 1 ? "" : (menu.provider.plan || Eitr.I18n.tr("Plan unavailable")).toUpperCase()
                 foreground: menu.foreground; accent: menu.accent; rune: "wisdom"
             }
             PanelButton {
@@ -106,9 +144,9 @@ ThemedPopup {
                     radius: DesktopStyle.radius(PanelStyle.controlRadius)
                     text: modelData === "Claude" ? Eitr.I18n.tr("Claude Code") : modelData
                     outlined: true
-                    selected: menu.selectedProvider === modelData
+                    selected: menu.selectedProviders.indexOf(modelData) !== -1
                     foreground: menu.foreground
-                    onClicked: menu.selectedProvider = modelData
+                    onClicked: menu.toggleProvider(modelData)
                 }
             }
         }
@@ -128,34 +166,50 @@ ThemedPopup {
                 width: parent.width
                 spacing: 14
                 PanelDivider { width: parent.width; height: 8; foreground: menu.foreground }
-                Text { text: Eitr.I18n.tr("LIMITS"); visible: menu.selectedProvider !== ""; color: menu.foreground; opacity: 0.6; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
                 Text {
-                    visible: menu.selectedProvider === ""
+                    visible: menu.enabledProviders.length === 0
                     width: parent.width; wrapMode: Text.Wrap
                     text: menu.loading || cached.running ? Eitr.I18n.tr("Detecting configured AI clients…") : Eitr.I18n.tr("No signed-in AI clients detected. Install and sign in to Claude Code, Codex, or Grok to show usage here.")
                     color: menu.foreground; opacity: 0.7
                     font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
                 }
-                Text { visible: !!menu.provider.error; width: parent.width; text: menu.provider.error || ""; wrapMode: Text.Wrap; color: menu.foreground; opacity: 0.7; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
                 Repeater {
-                    model: menu.provider.windows || []
+                    model: menu.enabledProviders
                     Column {
-                        id: limit
+                        id: section
                         required property var modelData
-                        readonly property real used: Math.max(0, Math.min(100, Number(modelData.used)))
                         width: content.width
-                        spacing: 7
-                        Item {
-                            width: parent.width; height: 17
-                            Text { text: limit.modelData.label === "5h window" ? Eitr.I18n.tr("Session") : limit.modelData.label; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
-                            Text { anchors.right: parent.right; text: Eitr.I18n.tr("{percent}% used", {percent: Math.round(limit.used)}); color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.secondarySize }
+                        spacing: 14
+                        PanelHeading {
+                            visible: menu.enabledProviders.length > 1
+                            width: parent.width
+                            text: section.modelData.name === "Claude" ? Eitr.I18n.tr("Claude Code") : section.modelData.name
+                            subtitle: (section.modelData.plan || Eitr.I18n.tr("Plan unavailable")).toUpperCase()
+                            foreground: menu.foreground; accent: menu.accent; rune: "wisdom"
                         }
-                        Rectangle {
-                            width: parent.width; height: 6; radius: 3
-                            color: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.12)
-                            Rectangle { width: parent.width * limit.used / 100; height: 6; radius: 3; color: menu.foreground }
+                        Text { text: Eitr.I18n.tr("LIMITS"); color: menu.foreground; opacity: 0.6; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                        Text { visible: !!section.modelData.error; width: parent.width; text: section.modelData.error || ""; wrapMode: Text.Wrap; color: menu.foreground; opacity: 0.7; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
+                        Repeater {
+                            model: section.modelData.windows || []
+                            Column {
+                                id: limit
+                                required property var modelData
+                                readonly property real used: Math.max(0, Math.min(100, Number(modelData.used)))
+                                width: content.width
+                                spacing: 7
+                                Item {
+                                    width: parent.width; height: 17
+                                    Text { text: limit.modelData.label === "5h window" ? Eitr.I18n.tr("Session") : limit.modelData.label; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
+                                    Text { anchors.right: parent.right; text: Eitr.I18n.tr("{percent}% used", {percent: Math.round(limit.used)}); color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.secondarySize }
+                                }
+                                Rectangle {
+                                    width: parent.width; height: 6; radius: 3
+                                    color: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.12)
+                                    Rectangle { width: parent.width * limit.used / 100; height: 6; radius: 3; color: menu.foreground }
+                                }
+                                Text { visible: !!limit.modelData.reset; width: parent.width; elide: Text.ElideRight; text: limit.modelData.reset ? menu.resetLabel(limit.modelData.reset) : ""; color: menu.foreground; opacity: 0.6; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                            }
                         }
-                        Text { visible: !!limit.modelData.reset; width: parent.width; elide: Text.ElideRight; text: limit.modelData.reset ? menu.resetLabel(limit.modelData.reset) : ""; color: menu.foreground; opacity: 0.6; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
                     }
                 }
             }

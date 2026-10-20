@@ -224,7 +224,11 @@ grid, bottom navigation, year progress, and Left/Right/Up/Down/bracket/T keys.
 AI Usage retains the existing backend/cache, refresh-on-open, manual refresh,
 and five-minute updates while open. It detects installed, configured Claude Code,
 Codex, and optional Grok clients locally on each refresh. Only detected providers
-get tabs; one provider hides the tab row, and no providers shows a setup message.
+get toggle buttons; at least one stays enabled. Enabled providers show their own
+heading, limits and errors in button order, scrolling within the screen. One
+provider hides the button row, and no providers shows a setup message. Selection
+is saved machine-locally in `~/.config/quickshell/desktop-bar/ai-usage-settings.json`;
+missing providers are removed, with the first detected provider as the default.
 Cached usage appears independently of background requests, so opening never waits
 for network access. Outages keep configured providers visible with an error.
 Codex keyring logins use the CLI's bounded, read-only login-status check.

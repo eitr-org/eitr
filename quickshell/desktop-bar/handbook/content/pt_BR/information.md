@@ -8,6 +8,8 @@ Os cartões de notificação mostram a data e a hora locais de chegada abaixo do
 
 **Uso de IA** detecta clientes instalados ou configurados. O uso em cache aparece primeiro; atualizar não inicia login nem conversas. São mostrados os limites de cada conta; os percentuais indicam a parte do limite já utilizada.
 
+Ative ou desative os botões dos provedores para mostrar várias contas juntas; pelo menos uma permanece ativa. A seleção é salva nesta máquina, e clientes não mais detectados são removidos.
+
 **Clima** usa a localização padrão e permite buscas temporárias por cidade. A escolha temporária termina ao fechar o painel. Escape limpa a busca antes de fechar; as unidades de temperatura seguem a localização, com uma unidade alternativa ao lado.
 
 ## Calendário e mídia
