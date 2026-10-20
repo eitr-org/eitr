@@ -4,7 +4,7 @@ Open work in priority order. Each item lists what decides the next step.
 Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 
 1. Assistants working together: Gemini, Copilot and Grok as helpers
-2. Remote access: Moonlight, Sunshine and Tailscale
+2. Remote access: test with the owner
 3. Organization profiles: software and policies at installation
 4. Smaller items: OBS and the main display, menu translations, AI Usage
 5. Waiting on the owner: personal overlay split, testing channel
@@ -27,54 +27,20 @@ mode is proven read-only, with a real hand-off test like the one in
 - **Grok Build:** wait until xAI documents a read-only headless mode and MCP
   support.
 
-# 2. Remote access: Moonlight, Sunshine and Tailscale
+# 2. Remote access: test with the owner
 
-First milestone: control the owner's signed-in, awake Eitr desktop (apps and
-games) from a MacBook. Install everything on first use, like GeForce NOW; the
-ISO does not grow. All three are open source from their usual sources.
+Moonlight, Sunshine and Tailscale are built, installed by default and inactive
+until set up (`distro/REMOTE-ACCESS.md`). Nothing about real hardware is
+verified yet. With the owner and a MacBook, in this order:
 
-Stages 1–3 implementation is in the working tree: menus, confirmed root-helper
-setup/undo, native Sunshine repository recipe, user service, translated Handbook
-and mocked tests. Release the optional `eitr-sunshine` package before the desktop
-package. Owner validation below is still pending; do not mark hardware behaviour
-as verified.
-
-Stage 1, Moonlight (client):
-
-- Gaming > Moonlight next to Steam and GeForce NOW: first click installs it,
-  later clicks open it. Also listed as "Connect to another PC" under
-  System > Connectivity > Remote Access.
-
-Stage 2, Sunshine on the home network (host):
-
-- System > Connectivity > Remote Access > Share this PC: set up, start or stop
-  sharing, open settings, pair a device, optionally start at login (a user
-  service). Hosting stays off until enabled; existing installations and
-  settings are kept.
-- The first enable warns that sharing hands over full control of the desktop
-  and makes the user set Sunshine's password. Its web settings listen only on
-  this PC.
-- Firewall: Eitr's firewall is on from the first boot, so sharing opens TCP
-  47984, 47989, 47990 and 48010 and UDP 47998-48000 only for the home network
-  and the Tailscale interface; stopping sharing closes them. Never suggest
-  router port forwarding.
-- Virtual keyboard, mouse and controller input (uinput) and any capture
-  permission Sunshine needs on Wayland with NVIDIA are system changes: one
-  confirmed setup step through the root helper, with an undo.
-- Test with the owner on the local network first: Hyprland capture, keyboard,
-  mouse, audio, controller, both monitors, and behaviour while locked.
-
-Stage 3, Tailscale (away from home):
-
-- Remote Access > Access away from home: install, enable the system service
-  (confirmed, like the network backend switch), set the user as operator so
-  later actions need no sudo, sign in through the browser, show status and this
-  PC's address, connect or disconnect.
-- Show whether the connection is direct or relayed (from Tailscale's own
-  status) to explain poor performance.
-- Handbook guide: Sunshine on Eitr, Moonlight on the Mac, then Tailscale on
-  both. Translate menus and messages; test installs, service controls,
-  signed-out states and failures.
+1. Home network: Share this PC setup (permissions, Sunshine password), start
+   sharing, pair Moonlight on the Mac. Check video on both monitors, keyboard,
+   mouse, audio, a controller, behaviour while locked, start at login, and that
+   Stop Sharing and Restore Sharing Setup undo everything.
+2. Away from home: Tailscale setup and sign-in on both machines, then connect
+   through it and check direct versus relayed.
+3. Fix what the tests find; only then call remote access ready in the Handbook
+   and on the website.
 
 Afterwards, each tested separately: headless use, access before login, wake on
 LAN.
@@ -163,6 +129,9 @@ Out of scope: managing machines after installation (fleet management).
   consistent terms, same register as the Handbook), then the owner uses
   Portuguese daily and reports anything odd. Native speakers among early users
   review Spanish, German and French.
+- **Website.** Add assistants working together (a second opinion from another
+  subscription, each hand-off approved, helpers read-only) and, once tested,
+  remote access.
 - **AI Usage for Copilot and Gemini.** Not added: Copilot's official endpoint
   reports only requests used (no allowance, personal plans only, separate
   token) and Gemini has no official quota source. Check again when either
