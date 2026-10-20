@@ -172,62 +172,26 @@ class ExtraCloudProviderTests(unittest.TestCase):
                 self.module.run_account('ibm', 'development', 'switch')
         self.assertEqual(self.module.selection('ibm', 'development'), {'context': 'original', 'region': 'eu-de'})
 
-    def test_tool_picker_refreshes_selected_context_after_terminal_returns(self):
+    def test_generated_account_entries_refresh_saved_context(self):
         self.run_action('hetzner', 'switch', ('original',))
-        prompts = []
+        rows = self.module.account_entries('hetzner', 'development')
+        self.assertTrue(all('original' in row['Subtext'] for row in rows))
+        self.run_action('hetzner', 'switch', ('replacement',))
+        rows = self.module.account_entries('hetzner', 'development')
+        self.assertTrue(all('replacement' in row['Subtext'] for row in rows))
 
-        def respond(arguments, **options):
-            if '--prompt' in arguments:
-                prompts.append(arguments[-1])
-                return subprocess.CompletedProcess(arguments, 0 if len(prompts) == 1 else 1,
-                                                    stdout=next(row for row in options['input'].splitlines() if '  Switch Account — ' in row) if len(prompts) == 1 else '')
-            path = self.module.account_path('hetzner', 'development') / 'selection.json'
-            path.write_text(json.dumps({'context': 'replacement'}))
-            return subprocess.CompletedProcess(arguments, 0)
-
-        with patch.object(self.module.subprocess, 'run', side_effect=respond):
-            self.module.open_account('hetzner', 'development')
-        self.assertEqual(prompts, ['Hetzner Cloud / development / original',
-                                   'Hetzner Cloud / development / replacement'])
-
-    def test_picker_icons_descriptions_order_and_cancellation(self):
+    def test_account_entries_preserve_icons_descriptions_and_commands(self):
         for provider in self.module.PROVIDERS:
             self.module.account_path(provider, 'menu').mkdir(parents=True)
-            with patch.object(self.module.subprocess, 'run', return_value=subprocess.CompletedProcess([], 1, stdout='')) as run:
-                self.module.open_account(provider, 'menu')
-            run.assert_called_once()
-            rows = run.call_args.kwargs['input'].splitlines()
-            labels = []
-            for row in rows:
-                icon, content = row.split('  ', 1)
-                self.assertEqual(len(icon), 1)
-                self.assertTrue(0xF0000 <= ord(icon) <= 0xF1FFF)
-                label, description = content.split(' — ', 1)
-                self.assertTrue(description)
-                self.assertNotEqual(description, 'Read-only report')
-                labels.append(label)
+            rows = self.module.account_entries(provider, 'menu')
+            labels = [row['Text'] for row in rows]
             self.assertEqual(labels, sorted(labels, key=str.casefold))
             for title, (label, description, arguments) in self.module.VIEWS[provider].items():
-                self.assertIn(self.module.VIEW_ICONS[title] + '  ' + label + ' — ' + description, rows)
-            accounts = self.module.entries(provider)
-            self.assertEqual(accounts[0][4], self.module.ACCOUNT_ICON)
-            self.assertEqual(accounts[-1][4], self.module.ADD_ICON)
-            self.assertEqual(len(accounts[-1]), 5)
-
-    def test_decorated_resources_dispatch_without_changing_commands(self):
-        for provider, views in self.module.VIEWS.items():
-            self.module.account_path(provider, 'dispatch').mkdir(parents=True)
-            for title, (label, description, arguments) in views.items():
-                row = self.module.VIEW_ICONS[title] + '  ' + label + ' — ' + description
-                with self.subTest(provider=provider, view=title), patch.object(
-                        self.module.subprocess, 'run', side_effect=[
-                            subprocess.CompletedProcess([], 0, stdout=row),
-                            subprocess.CompletedProcess([], 0),
-                            subprocess.CompletedProcess([], 1, stdout='')]) as run:
-                    self.module.open_account(provider, 'dispatch')
-                self.assertEqual(run.call_args_list[1].args[0],
-                                 shlex.split(self.module.terminal(provider, 'view', 'dispatch')) + [title])
-                self.assertEqual(len(run.call_args_list), 3)
+                row = next(row for row in rows if row['Text'] == label)
+                self.assertEqual(row['Icon'], self.module.VIEW_ICONS[title])
+                self.assertIn(description, row['Subtext'])
+                self.assertEqual(shlex.split(row['Actions']['open']),
+                                 shlex.split(self.module.terminal(provider, 'view', 'menu')) + [title])
 
     def test_elephant_consumes_account_and_add_icons(self):
         for provider in self.module.PROVIDERS:

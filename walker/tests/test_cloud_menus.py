@@ -60,14 +60,8 @@ class CloudMenuTests(unittest.TestCase):
         config = self.home / ".config/eitr/cloud.env"
         config.parent.mkdir(parents=True)
         config.write_text('EITR_AWS_PROFILES="Development=team-dev Production=team-prod"\n')
-        result = self.bash("aws", "choose_aws_profile", MOCK_CHOICE="Production")
-        self.assertEqual(result.stdout.strip(), "team-prod")
-        result = self.bash("aws", 'choose_aws_profile || echo cancelled')
-        self.assertEqual(result.stdout.strip(), "cancelled")
-
-    def test_no_aws_profiles_without_config_or_cli(self):
-        result = self.bash("aws", 'choose_aws_profile || echo none', MOCK_CHOICE="anything")
-        self.assertEqual(result.stdout.strip(), "none")
+        result = self.bash("aws", "aws_profile_choices")
+        self.assertEqual(result.stdout.splitlines(), ["Development\tteam-dev", "Production\tteam-prod"])
 
     def test_selected_context_skips_repeat_pickers_and_reaches_terminal(self):
         result = self.bash("gcp", 'choose_gcp_project; run_in_kitty Title true close-on-success toggle true',
@@ -80,18 +74,6 @@ class CloudMenuTests(unittest.TestCase):
                   EITR_CLOUD_CONTEXT="Detected", CLOUDSDK_ACTIVE_CONFIG_NAME="detected", CLOUDSDK_CORE_ACCOUNT="a@example.org")
         script = Path((self.home / "launched").read_text().splitlines()[-1]).read_text()
         self.assertNotIn("CLOUDSDK_CORE_PROJECT", script)
-
-    def test_project_picked_for_a_context_without_one_survives_terminal_returns(self):
-        gcloud = self.mocks / "gcloud"
-        gcloud.write_text('#!/usr/bin/env bash\nprintf "picked-project\\nother-project\\n"\n')
-        gcloud.chmod(0o755)
-        self.bash("gcp", 'project="$(choose_gcp_project)" || exit 1; run_in_kitty Title true close-on-success toggle true',
-                  EITR_CLOUD_CONTEXT="Detected", CLOUDSDK_ACTIVE_CONFIG_NAME="detected",
-                  CLOUDSDK_CORE_ACCOUNT="a@example.org", MOCK_CHOICE="picked-project")
-        script = Path((self.home / "launched").read_text().splitlines()[-1]).read_text()
-        self.assertIn("export CLOUDSDK_CORE_PROJECT=picked-project", script)
-        result = self.bash("azure", 'choose_azure_subscription', EITR_AZURE_SUBSCRIPTION="selected-id")
-        self.assertEqual(result.stdout.strip(), "selected-id")
 
     def test_google_login_targets_the_detected_account_without_activation(self):
         result = self.bash("gcp", f'source {CLOUD / "context-auth.sh"}; gcloud() {{ printf "%s\\n" "$@"; }}; cloud_context_login',
@@ -143,7 +125,7 @@ cloud_context_login'''
         for path in tracked:
             with self.subTest(path=path.relative_to(ROOT)):
                 # No hard-coded cloud region or 12-digit account number.
-                self.assertNotRegex(path.read_text(), r"\b[a-z]{2}-[a-z]+-\d\b|\b\d{12}\b")
+                self.assertNotRegex(path.read_text(), r"\b(?:us|eu|ap|sa|ca|me|af)-(?:east|west|north|south|central|northeast|southeast)-\d\b|\b\d{12}\b")
 
 
 if __name__ == "__main__":

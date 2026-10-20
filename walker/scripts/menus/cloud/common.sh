@@ -22,22 +22,6 @@ if [ -f "$CLOUD_CONFIG_FILE" ]; then
   source "$CLOUD_CONFIG_FILE"
 fi
 
-walker_menu() {
-  local prompt="$1"
-  shift
-
-  if [ "$#" -gt 0 ]; then
-    printf "%s\n" "$@"
-  else
-    cat
-  fi | "$WALKER_DMENU" \
-      --dmenu \
-      --no-sort \
-      --matching=contains \
-      --cache-file /dev/null \
-      --prompt "$prompt"
-}
-
 # Free-text prompt. Prints the entered text; returns 1 when cancelled.
 ask_search_word() {
   local prompt="${1:-Search word}"
@@ -62,7 +46,11 @@ ask_search_word() {
 choose_time_range_minutes() {
   local value
 
-  value="$(walker_menu "Minutes" "${CLOUD_TIME_RANGES[@]}")"
+  if [ -n "${EITR_PICK_choose_time_range_minutes:-}" ]; then
+    value="$EITR_PICK_choose_time_range_minutes"
+  else
+    value="$(ask_search_word 'Minutes')"
+  fi
   [ -n "$value" ] || return 1
 
   if ! [[ "$value" =~ ^[0-9]+$ ]]; then

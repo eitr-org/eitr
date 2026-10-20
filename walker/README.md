@@ -133,3 +133,12 @@ Development > Cloud lists AWS profiles from `aws configure list-profiles`. To sh
 friendly labels or pin a default region, copy
 `scripts/menus/cloud/cloud.env.example` to `~/.config/eitr/cloud.env`; that file
 is machine-local and never committed.
+
+Cloud account, service and resource navigation uses generated Elephant Lua menus
+with real `Parent` links. Shift+Backspace moves up one menu. The private
+`~/.config/eitr/cloud-navigation.json` file holds the selected provider account,
+AWS profile, Azure subscription/tenant, Google configuration/account/project and
+resource choices. It never changes provider CLI defaults. Account workspaces keep
+their own `selection.json` for native contexts, scopes and regions. Reports,
+fzf log searches, reviewed setup terminals and Walker delete confirmations keep
+their existing commands. Free-text prompts remain Walker text input.

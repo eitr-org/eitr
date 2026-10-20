@@ -517,3 +517,13 @@ stages (1,112 Python tests, existing skips retained, plus Node, syntax,
 ShellCheck, Qt 6 QML lint, whitespace and structured data). Both i18n and
 Handbook build/check pairs passed. All 21 final glyph codepoints matched
 JetBrainsMono Nerd Font. No live account checks or commits were performed.
+
+Cloud navigation uses generated Elephant Lua menus with real Parent links. Account
+selection is private machine-local state in `eitr/cloud-navigation.json`; service
+menus return to their provider account menu, and resource choices return through
+their containing service/action chain. Shift+Backspace is Walker’s menus:parent
+action. Reports retain their pager, log searches retain fzf, and free-text search
+remains text input. Menu parents and layouts are generated and checked by
+`tools/cloud-menus-build.py`; the complete chain listing is in
+[`docs/CLOUD-MENUS.md`](../docs/CLOUD-MENUS.md). No live cloud or desktop launch was
+used to validate this navigation change.

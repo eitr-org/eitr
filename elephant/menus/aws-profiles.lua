@@ -6,6 +6,6 @@ Parent = "cloud"
 Icon = ""
 FixedOrder = true
 
-GetEntries = dofile(paths.code("elephant/aws-profile-entries.lua"))("menu.sh", "", true)
+GetEntries = dofile(paths.code("elephant/aws-profile-entries.lua"))("", true)
 
 dofile(paths.code("walker/scripts/menus/alphabetical.lua"))

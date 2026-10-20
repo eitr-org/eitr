@@ -15,7 +15,7 @@ fi
 if [ -n "${1:-}" ]; then
   AWS_PROFILE="$1"
 else
-  AWS_PROFILE="$(choose_aws_profile)" || exit 0
+  exec python3 "$CLOUD_MENUS_DIR/navigation.py" show aws-profiles
 fi
 
 case "${2:-}" in
@@ -46,25 +46,11 @@ $(aws_base) sts get-caller-identity \
     ;;
 esac
 
-options="󰒋  SSO Login
-󰅟  Check Auth
-󰃷  CloudWatch
-󰡨  ECS
-󰓟  S3
-  Aurora / RDS
-  ECR
-󰨇  Grafana
-󰘦  Cognito
-  DocumentDB
-󰊕  Lambda
-󰅧  CloudFront
-󰌢  Lightsail
-󰍹  EC2
-󰑃  Route 53
-󰖟  VPC
-󰒃  IAM"
+if [ -z "${EITR_CLOUD_ACTION:-}" ]; then
+  exec python3 "$CLOUD_MENUS_DIR/navigation.py" select aws "$AWS_PROFILE"
+fi
 
-chosen="$(printf '%s\n' "$options" | walker_menu "AWS - $AWS_PROFILE")"
+chosen="${EITR_CLOUD_ACTION:-}"
 
 case "$chosen" in
 
@@ -91,66 +77,6 @@ $(aws_base) sts get-caller-identity \
   \"\u001b[34mArn:\u001b[0m     \(.Arn)\"
 '
 " close-on-key toggle
-    ;;
-
-  "󰃷  CloudWatch")
-    "$AWS_MENUS_DIR/cloudwatch.sh" "$AWS_PROFILE"
-    ;;
-
-  "󰡨  ECS")
-    "$AWS_MENUS_DIR/ecs.sh" "$AWS_PROFILE"
-    ;;
-
-  "󰓟  S3")
-    "$AWS_MENUS_DIR/s3.sh" "$AWS_PROFILE"
-    ;;
-
-  "  Aurora / RDS")
-    "$AWS_MENUS_DIR/rds.sh" "$AWS_PROFILE"
-    ;;
-
-  "  ECR")
-    "$AWS_MENUS_DIR/ecr.sh" "$AWS_PROFILE"
-    ;;
-
-  "󰨇  Grafana")
-    "$AWS_MENUS_DIR/grafana.sh" "$AWS_PROFILE"
-    ;;
-
-  "󰘦  Cognito")
-    "$AWS_MENUS_DIR/cognito.sh" "$AWS_PROFILE"
-    ;;
-
-  "  DocumentDB")
-    "$AWS_MENUS_DIR/docdb.sh" "$AWS_PROFILE"
-    ;;
-
-  "󰊕  Lambda")
-    "$AWS_MENUS_DIR/lambda.sh" "$AWS_PROFILE"
-    ;;
-
-  "󰅧  CloudFront")
-    "$AWS_MENUS_DIR/cloudfront.sh" "$AWS_PROFILE"
-    ;;
-
-  "󰌢  Lightsail")
-    "$AWS_MENUS_DIR/lightsail.sh" "$AWS_PROFILE"
-    ;;
-
-  "󰍹  EC2")
-    "$AWS_MENUS_DIR/ec2.sh" "$AWS_PROFILE"
-    ;;
-
-  "󰑃  Route 53")
-    "$AWS_MENUS_DIR/route53.sh" "$AWS_PROFILE"
-    ;;
-
-  "󰖟  VPC")
-    "$AWS_MENUS_DIR/vpc.sh" "$AWS_PROFILE"
-    ;;
-
-  "󰒃  IAM")
-    "$AWS_MENUS_DIR/iam.sh" "$AWS_PROFILE"
     ;;
 
   "")

@@ -7,28 +7,17 @@ elif [[ -f "$EITR_CODE_ROOT/distro/lib/paths.sh" ]]; then source "$EITR_CODE_ROO
 AWS_PROFILE="$1"
 source "$EITR_CODE_ROOT/walker/scripts/menus/cloud/aws/common.sh"
 
+if [ -z "${EITR_CLOUD_ACTION:-}" ]; then
+  exec python3 "$CLOUD_MENUS_DIR/navigation.py" select aws "$AWS_PROFILE" aws-docdb
+fi
+
 [ -z "$AWS_PROFILE" ] && exit 0
 
 choose_docdb_cluster() {
-  local clusters chosen
-
-  if ! clusters="$(aws_cli docdb describe-db-clusters | jq -r '.DBClusters[].DBClusterIdentifier')"; then
-    notify-send "DocumentDB" "Failed to list clusters"
-    return 1
-  fi
-
-  [ -z "$clusters" ] && notify-send "DocumentDB" "No clusters found" && return 1
-  chosen="$(printf "%s\n" "$clusters" | walker_menu "DocumentDB Cluster")"
-  [ -z "$chosen" ] && return 1
-  echo "$chosen"
+  printf '%s\n' "${EITR_PICK_choose_docdb_cluster:?Missing resource selection}"
 }
 
-options="󰘦  Clusters
-  Instances
-󰅟  Cluster details
-󰕢  Recent events"
-
-chosen="$(printf '%s\n' "$options" | walker_menu "DocumentDB - $AWS_PROFILE")"
+chosen="${EITR_CLOUD_ACTION:-}"
 
 case "$chosen" in
   "󰘦  Clusters")

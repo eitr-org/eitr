@@ -1189,6 +1189,7 @@
     ],
     "AWS": [
       "elephant/menu-rows/cloud.json",
+      "elephant/menus/aws-account.lua",
       "elephant/menus/aws-profiles.lua"
     ],
     "About": [
@@ -1197,6 +1198,9 @@
     "Access away from home": [
       "elephant/menu-rows/remote-access.json",
       "elephant/menus/remote-away.lua"
+    ],
+    "Activity Logs": [
+      "elephant/menus/azure-logs-minutes.lua"
     ],
     "Add AWS Account": [
       "elephant/aws-profile-entries.lua"
@@ -1225,12 +1229,19 @@
     "After enrollment · password fallback retained": [
       "elephant/menu-rows/fido2.json"
     ],
+    "All logs": [
+      "elephant/menus/aws-cloudwatch-all-logs-1.lua",
+      "elephant/menus/aws-cloudwatch-all-logs-2.lua"
+    ],
     "An earlier version from the home snapshots": [
       "elephant/menu-rows/snapshots.json"
     ],
     "Antigravity CLI": [
       "elephant/menu-rows/learn.json",
       "elephant/menus/ai-agy.lua"
+    ],
+    "App clients": [
+      "elephant/menus/aws-cognito-app-clients-1.lua"
     ],
     "Appearance": [
       "elephant/menu-rows/bar.json",
@@ -1246,8 +1257,12 @@
     "Audio": [
       "elephant/menu-rows/system-devices.json"
     ],
+    "Aurora / RDS": [
+      "elephant/menus/aws-rds.lua"
+    ],
     "Azure": [
       "elephant/menu-rows/cloud.json",
+      "elephant/menus/azure-account.lua",
       "elephant/menus/azure-contexts.lua"
     ],
     "Back to the first login, files too": [
@@ -1265,6 +1280,9 @@
     ],
     "Brightness, nightlight, resolution, refresh rate and scale": [
       "elephant/menu-rows/system-devices.json"
+    ],
+    "Browse bucket": [
+      "elephant/menus/aws-s3-browse-bucket-1.lua"
     ],
     "Browsers": [
       "elephant/menu-rows/install.json",
@@ -1367,15 +1385,28 @@
     "Cloud gaming · requires account and supported hardware/network": [
       "elephant/menu-rows/gaming.json"
     ],
+    "CloudFront": [
+      "elephant/menus/aws-cloudfront.lua"
+    ],
+    "CloudWatch": [
+      "elephant/menus/aws-cloudwatch.lua"
+    ],
     "Cloudflare": [
       "elephant/menu-rows/cloud.json",
+      "elephant/menus/cloudflare-account.lua",
       "elephant/menus/cloudflare-contexts.lua"
+    ],
+    "Cluster details": [
+      "elephant/menus/aws-docdb-cluster-details-1.lua"
     ],
     "Cmux Commands": [
       "elephant/menu-rows/learn.json"
     ],
     "Codex": [
       "elephant/menus/ai-codex.lua"
+    ],
+    "Cognito": [
+      "elephant/menus/aws-cognito.lua"
     ],
     "Collect a report and send it by email or GitHub": [
       "elephant/menu-rows/system-information.json"
@@ -1489,6 +1520,10 @@
     "Delete in SUPER + Ctrl + V": [
       "elephant/menu-rows/shortcuts.json"
     ],
+    "Deployments": [
+      "elephant/menus/aws-ecs-deployments-1.lua",
+      "elephant/menus/aws-ecs-deployments-2.lua"
+    ],
     "Desktop Bar": [
       "elephant/menu-rows/style.json",
       "elephant/menu-rows/toggle.json",
@@ -1515,6 +1550,7 @@
     ],
     "DigitalOcean": [
       "elephant/menu-rows/cloud.json",
+      "elephant/menus/digitalocean-account.lua",
       "elephant/menus/digitalocean-contexts.lua"
     ],
     "Disabled": [
@@ -1533,14 +1569,33 @@
       "elephant/menu-rows/bar.json",
       "elephant/menus/bar-screens.lua"
     ],
+    "Distribution details": [
+      "elephant/menus/aws-cloudfront-distribution-details-1.lua"
+    ],
     "Do Not Disturb": [
       "elephant/menu-rows/toggle.json"
+    ],
+    "DocumentDB": [
+      "elephant/menus/aws-docdb.lua"
     ],
     "Dotfiles": [
       "elephant/menu-rows/system.json"
     ],
+    "EC2": [
+      "elephant/menus/aws-ec2.lua"
+    ],
+    "ECR": [
+      "elephant/menus/aws-ecr.lua"
+    ],
+    "ECS": [
+      "elephant/menus/aws-ecs.lua"
+    ],
     "EITR Handbook": [
       "elephant/menu-rows/learn.json"
+    ],
+    "ERROR logs": [
+      "elephant/menus/aws-cloudwatch-error-logs-1.lua",
+      "elephant/menus/aws-cloudwatch-error-logs-2.lua"
     ],
     "Edit Name and Email": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -1642,6 +1697,9 @@
     "Full Screen: Save and Copy": [
       "elephant/menu-rows/screenshot.json"
     ],
+    "Function config": [
+      "elephant/menus/aws-lambda-function-config-1.lua"
+    ],
     "Fuzzy Find Files": [
       "elephant/menu-rows/shortcuts.json"
     ],
@@ -1680,7 +1738,12 @@
     ],
     "Google Cloud": [
       "elephant/menu-rows/cloud.json",
-      "elephant/menus/gcp-contexts.lua"
+      "elephant/menus/gcp-account.lua",
+      "elephant/menus/gcp-contexts.lua",
+      "elephant/menus/gcp-projects.lua"
+    ],
+    "Grafana": [
+      "elephant/menus/aws-grafana.lua"
     ],
     "Grafana, Datadog, Sentry, New Relic, Prometheus or any address": [
       "elephant/menus/monitoring.lua"
@@ -1693,6 +1756,7 @@
     ],
     "Hetzner Cloud": [
       "elephant/menu-rows/cloud.json",
+      "elephant/menus/hetzner-account.lua",
       "elephant/menus/hetzner-contexts.lua"
     ],
     "Home Folder Snapshots": [
@@ -1704,9 +1768,17 @@
     "How to restore the system from a snapshot": [
       "elephant/menu-rows/snapshots.json"
     ],
+    "IAM": [
+      "elephant/menus/aws-iam.lua"
+    ],
     "IBM Cloud": [
       "elephant/menu-rows/cloud.json",
+      "elephant/menus/ibm-account.lua",
       "elephant/menus/ibm-contexts.lua"
+    ],
+    "INFO logs": [
+      "elephant/menus/aws-cloudwatch-info-logs-1.lua",
+      "elephant/menus/aws-cloudwatch-info-logs-2.lua"
     ],
     "Identities configured outside EITR": [
       "elephant/menus/git-accounts.lua"
@@ -1753,6 +1825,12 @@
     "Install or open the remote gaming client": [
       "elephant/menu-rows/gaming.json"
     ],
+    "Instance status": [
+      "elephant/menus/aws-rds-instance-status-1.lua"
+    ],
+    "Invalidations": [
+      "elephant/menus/aws-cloudfront-invalidations-1.lua"
+    ],
     "JavaScript Tools": [
       "elephant/menu-rows/install.json",
       "elephant/menus/javascript-tools.lua"
@@ -1791,12 +1869,25 @@
     "LUKS2 · passphrase kept · PCR 7 · typed confirmation": [
       "elephant/menu-rows/tpm-unlock.json"
     ],
+    "Lambda": [
+      "elephant/menus/aws-lambda.lua"
+    ],
     "Language": [
       "elephant/menu-rows/system.json",
       "elephant/menus/language.lua"
     ],
     "Laptops only": [
       "elephant/menu-rows/battery-limit.json"
+    ],
+    "Latest deploy logs": [
+      "elephant/menus/aws-ecs-latest-deploy-logs-1.lua",
+      "elephant/menus/aws-ecs-latest-deploy-logs-2.lua"
+    ],
+    "Latest image tags": [
+      "elephant/menus/aws-ecr-latest-image-tags-1.lua"
+    ],
+    "Latest log streams": [
+      "elephant/menus/aws-cloudwatch-latest-log-streams-1.lua"
     ],
     "Layout": [
       "elephant/menu-rows/bar.json",
@@ -1830,11 +1921,22 @@
       "elephant/menu-rows/system-devices.json",
       "elephant/menus/lighting.lua"
     ],
+    "Lightsail": [
+      "elephant/menus/aws-lightsail.lua"
+    ],
     "Lightweight WiFi (default); applies after a restart": [
       "elephant/menu-rows/network-backend.json"
     ],
     "List Recovery Snapshots": [
       "elephant/menu-rows/snapshots.json"
+    ],
+    "List clusters": [
+      "elephant/menus/aws-ecs-list-clusters-1.lua",
+      "elephant/menus/aws-ecs-list-clusters-2.lua"
+    ],
+    "List services": [
+      "elephant/menus/aws-ecs-list-services-1.lua",
+      "elephant/menus/aws-ecs-list-services-2.lua"
     ],
     "Lock": [
       "elephant/menu-rows/power.json"
@@ -1860,6 +1962,9 @@
     ],
     "Logout": [
       "elephant/menu-rows/power.json"
+    ],
+    "Logs": [
+      "elephant/menus/gcp-logs-minutes.lua"
     ],
     "Longest battery lifespan · laptops only": [
       "elephant/menu-rows/battery-limit.json"
@@ -1908,7 +2013,11 @@
     ],
     "Netlify": [
       "elephant/menu-rows/cloud.json",
+      "elephant/menus/netlify-account.lua",
       "elephant/menus/netlify-contexts.lua"
+    ],
+    "Network ACLs": [
+      "elephant/menus/aws-vpc-network-acls-1.lua"
     ],
     "Network Backend": [
       "elephant/menu-rows/system-connectivity.json",
@@ -1980,11 +2089,15 @@
       "elephant/menu-rows/learn.json",
       "elephant/menus/ai-default.lua"
     ],
+    "Open workspace": [
+      "elephant/menus/aws-grafana-open-workspace-1.lua"
+    ],
     "Open your configuration folder in an editor": [
       "elephant/menu-rows/system.json"
     ],
     "Oracle Cloud": [
       "elephant/menu-rows/cloud.json",
+      "elephant/menus/oracle-account.lua",
       "elephant/menus/oracle-contexts.lua"
     ],
     "Output device and app volumes": [
@@ -2061,6 +2174,21 @@
     "Reboot BIOS": [
       "elephant/menu-rows/power.json"
     ],
+    "Recent DB events": [
+      "elephant/menus/aws-rds-recent-db-events-1.lua",
+      "elephant/menus/aws-rds-recent-db-events-2.lua"
+    ],
+    "Recent errors": [
+      "elephant/menus/aws-lambda-recent-errors-1.lua",
+      "elephant/menus/aws-lambda-recent-errors-2.lua"
+    ],
+    "Recent events": [
+      "elephant/menus/aws-docdb-recent-events-1.lua"
+    ],
+    "Recent logs": [
+      "elephant/menus/aws-lambda-recent-logs-1.lua",
+      "elephant/menus/aws-lambda-recent-logs-2.lua"
+    ],
     "Recommended when usually plugged in · laptops only": [
       "elephant/menu-rows/battery-limit.json"
     ],
@@ -2081,6 +2209,9 @@
     ],
     "Record the screen without sound": [
       "elephant/menu-rows/screenrecord.json"
+    ],
+    "Records": [
+      "elephant/menus/aws-route53-records-1.lua"
     ],
     "Recovery Instructions": [
       "elephant/menu-rows/snapshots.json"
@@ -2167,6 +2298,19 @@
     ],
     "Return to Password Authentication": [
       "elephant/menu-rows/security.json"
+    ],
+    "Route 53": [
+      "elephant/menus/aws-route53.lua"
+    ],
+    "Route tables": [
+      "elephant/menus/aws-vpc-route-tables-1.lua"
+    ],
+    "Running tasks": [
+      "elephant/menus/aws-ecs-running-tasks-1.lua",
+      "elephant/menus/aws-ecs-running-tasks-2.lua"
+    ],
+    "S3": [
+      "elephant/menus/aws-s3.lua"
     ],
     "SUPER + ,": [
       "elephant/menu-rows/shortcuts.json"
@@ -2269,6 +2413,10 @@
     "Search official Arch packages, with details and build files": [
       "elephant/menu-rows/packages.json"
     ],
+    "Search word": [
+      "elephant/menus/aws-cloudwatch-search-word-1.lua",
+      "elephant/menus/aws-cloudwatch-search-word-2.lua"
+    ],
     "Security": [
       "elephant/menu-rows/system.json",
       "elephant/menus/security.lua"
@@ -2296,6 +2444,14 @@
     ],
     "Send the clipboard to a nearby device with LocalSend": [
       "elephant/menu-rows/share.json"
+    ],
+    "Service events": [
+      "elephant/menus/aws-ecs-service-events-1.lua",
+      "elephant/menus/aws-ecs-service-events-2.lua"
+    ],
+    "Service status": [
+      "elephant/menus/aws-ecs-service-status-1.lua",
+      "elephant/menus/aws-ecs-service-status-2.lua"
     ],
     "Set Existing SSH Key": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -2418,9 +2574,16 @@
     "Stop using it in a folder": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Stopped tasks": [
+      "elephant/menus/aws-ecs-stopped-tasks-1.lua",
+      "elephant/menus/aws-ecs-stopped-tasks-2.lua"
+    ],
     "Style": [
       "elephant/menu-rows/main.json",
       "elephant/menus/style.lua"
+    ],
+    "Subnets": [
+      "elephant/menus/aws-vpc-subnets-1.lua"
     ],
     "Sunshine on Eitr, Moonlight on a Mac and Tailscale away from home": [
       "elephant/menu-rows/learn.json"
@@ -2544,13 +2707,30 @@
     "Use it in folders without their own account": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "User access keys": [
+      "elephant/menus/aws-iam-user-access-keys-1.lua"
+    ],
+    "User pool details": [
+      "elephant/menus/aws-cognito-user-pool-details-1.lua"
+    ],
+    "VPC": [
+      "elephant/menus/aws-vpc.lua"
+    ],
+    "VPC endpoints": [
+      "elephant/menus/aws-vpc-vpc-endpoints-1.lua"
+    ],
     "VS Code Projects": [
       "elephant/menu-rows/development.json",
       "elephant/menus/projects-vscode.lua"
     ],
     "Vercel": [
       "elephant/menu-rows/cloud.json",
+      "elephant/menus/vercel-account.lua",
       "elephant/menus/vercel-contexts.lua"
+    ],
+    "WARN logs": [
+      "elephant/menus/aws-cloudwatch-warn-logs-1.lua",
+      "elephant/menus/aws-cloudwatch-warn-logs-2.lua"
     ],
     "Wallpaper": [
       "elephant/menu-rows/style.json",
@@ -2596,6 +2776,9 @@
     "Workspace Overview": [
       "elephant/menus/system-shortcuts.lua"
     ],
+    "Workspace details": [
+      "elephant/menus/aws-grafana-workspace-details-1.lua"
+    ],
     "Workspaces": [
       "elephant/menu-rows/style.json",
       "elephant/menus/workspaces.lua"
@@ -2603,6 +2786,9 @@
     "Yay (AUR)": [
       "elephant/menu-rows/packages.json",
       "elephant/menu-rows/update-advanced.json"
+    ],
+    "Zone details": [
+      "elephant/menus/aws-route53-zone-details-1.lua"
     ],
     "gh or glab for this account only": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -3279,6 +3465,9 @@
     "A {service} dashboard named {name} already exists.": [
       "walker/scripts/actions/development/monitoring.py"
     ],
+    "AKS Clusters": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "AUR builds must run as a normal user": [
       "walker/scripts/actions/install/software.py"
     ],
@@ -3318,8 +3507,14 @@
     "Account password": [
       "distro/archinstall/installer-ui.py"
     ],
+    "Account summary": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Accounts changed in another window; reopen setup before saving": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Activity Logs": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Add a Git account": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -3349,6 +3544,9 @@
       "walker/scripts/actions/development/monitoring.py",
       "walker/scripts/actions/install/webapps.py"
     ],
+    "All logs": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "An assistants server already exists; settings were left unchanged.": [
       "distro/lib/eitr_collaboration.py"
     ],
@@ -3360,6 +3558,12 @@
     ],
     "Answers name {disk}, not one of the eligible disks: {candidates}": [
       "distro/archinstall/eitr-guided-install"
+    ],
+    "App Services": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "App clients": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Application deployments": [
       "walker/scripts/menus/cloud/providers.py"
@@ -3385,6 +3589,9 @@
     "Arrows: move  Enter: select  Type: search  Esc: back": [
       "distro/lib/eitr_wizard.py"
     ],
+    "Artifact Registry": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Ask the AI": [
       "walker/scripts/actions/system/crash-help.py"
     ],
@@ -3396,6 +3603,9 @@
     ],
     "Assistant collaboration: {error}": [
       "walker/scripts/actions/assistant-collaboration.py"
+    ],
+    "Aurora / RDS": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Authentication updated for {authentication_methods}. Password fallback retained. Backup: {backup}": [
       "distro/system/eitr-system.py"
@@ -3438,6 +3648,9 @@
     ],
     "Both network backends are running; select one in System > Connectivity > Network Backend and reboot": [
       "quickshell/desktop-bar/scripts/wifi-popup.py"
+    ],
+    "Browse bucket": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Buckets": [
       "walker/scripts/menus/cloud/providers.py"
@@ -3496,6 +3709,9 @@
     "Charging will stop at {value}% to reduce battery wear, also after reboot and resume.": [
       "walker/scripts/actions/system/battery-limit.py"
     ],
+    "Check Auth": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Choose Sign In to open the browser.": [
       "walker/scripts/actions/system/remote-access.py"
     ],
@@ -3553,6 +3769,27 @@
     "Cloud": [
       "walker/scripts/menus/cloud/contexts.py"
     ],
+    "Cloud Functions": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Cloud Run": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Cloud SQL": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "CloudFront": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "CloudWatch": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Cluster details": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Clusters": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Codex CLI is not installed": [
       "quickshell/desktop-bar/scripts/ai-usage.py"
     ],
@@ -3564,6 +3801,9 @@
     ],
     "Codex usage unavailable; check `codex login status`": [
       "quickshell/desktop-bar/scripts/ai-usage.py"
+    ],
+    "Cognito": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Collected a problem report ({line_count} lines) and saved it privately to\n{path}.": [
       "walker/scripts/actions/system/report-problem.py"
@@ -3579,6 +3819,9 @@
     ],
     "Compartments": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Compute Instances": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Compute instances": [
       "walker/scripts/menus/cloud/providers.py"
@@ -3611,13 +3854,18 @@
     "Connection timed out; check the WiFi panel": [
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py"
     ],
+    "Container Registries": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Context": [
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Context changed; refresh the menu": [
-      "walker/scripts/menus/cloud/contexts.py"
+      "walker/scripts/menus/cloud/contexts.py",
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Context: {context}": [
+      "walker/scripts/menus/cloud/navigation.py",
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Continue the update? [y/N] ": [
@@ -3702,6 +3950,18 @@
     "D1 Databases": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "DB cluster": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "DB clusters": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "DB instance": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "DB instances": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "DNS domains": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -3709,6 +3969,7 @@
       "walker/scripts/actions/development/monitoring.py"
     ],
     "Databases": [
+      "walker/scripts/menus/cloud/navigation.py",
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Default": [
@@ -3727,6 +3988,7 @@
       "walker/scripts/actions/system/factory-reset.py"
     ],
     "Deployments": [
+      "walker/scripts/menus/cloud/navigation.py",
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Desktop Audio": [
@@ -3750,11 +4012,20 @@
     "Display is not connected": [
       "quickshell/desktop-bar/scripts/display-primary.py"
     ],
+    "Distribution details": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Distributions": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Do not encrypt: files are readable without a password": [
       "distro/archinstall/installer-ui.py"
     ],
     "Do not put login credentials in the address.": [
       "walker/scripts/actions/install/webapps.py"
+    ],
+    "DocumentDB": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Domains": [
       "walker/scripts/menus/cloud/providers.py"
@@ -3768,11 +4039,23 @@
     "Duplicate login theme name": [
       "quickshell/lockscreen/scripts/install-login.py"
     ],
+    "EC2": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "ECR": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "ECS": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "EITR include block was edited; review it manually": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "ERASE EVERYTHING returns this computer to how it was at its first login.": [
       "walker/scripts/actions/system/factory-reset.py"
+    ],
+    "ERROR logs": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Each hand-off uses the helper’s subscription and counts toward its limits.": [
       "walker/scripts/actions/assistant-collaboration.py"
@@ -3788,6 +4071,9 @@
     ],
     "Eitr's boot guard: {FAILED_STARTS} starts after the last update failed; restoring the system from snapshot {number}.": [
       "distro/system/boot-guard.py"
+    ],
+    "Elastic IPs": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Empty values and control characters are not allowed": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -3930,6 +4216,18 @@
     "Found in your Git configuration": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Function Apps": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Function config": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Functions": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "GKE Clusters": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "GRUB now lists Snapper snapshots in its 'Arch Linux snapshots' submenu. Backup: {backup}": [
       "distro/system/eitr-system.py"
     ],
@@ -3945,11 +4243,17 @@
     "Global app search only supports launching": [
       "walker/scripts/menus/search-index.py"
     ],
+    "Grafana": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Grok subscription usage requires one personal Grok login; API/enterprise limits are not supported": [
       "quickshell/desktop-bar/scripts/ai-usage.py"
     ],
     "Grok usage returned HTTP {code}; retry later or sign in again": [
       "quickshell/desktop-bar/scripts/ai-usage.py"
+    ],
+    "Groups": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Hardware detection failed; see the log above": [
       "distro/archinstall/eitr-guided-install"
@@ -3975,6 +4279,9 @@
     "Home snapshots: on, {snapshot_count} kept{pending}": [
       "distro/system/home-snapshots.py"
     ],
+    "Hosted zones": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Hostname": [
       "distro/archinstall/installer-ui.py",
       "walker/scripts/actions/development/git-accounts.py"
@@ -3982,11 +4289,20 @@
     "How should Eitr use {disk}?": [
       "distro/archinstall/installer-ui.py"
     ],
+    "IAM": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "INFO logs": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "INSTALL STEPS": [
       "distro/archinstall/installer-ui.py"
     ],
     "Icon address": [
       "walker/scripts/actions/install/webapps.py"
+    ],
+    "Identity pools": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Idle; ping to check": [
       "walker/scripts/actions/system/remote-access.py"
@@ -4061,7 +4377,14 @@
     "Installing from the USB medium; no network is needed. Keep the computer powered on.": [
       "distro/archinstall/installer-ui.py"
     ],
+    "Instance status": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Instance status checks": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Instances": [
+      "walker/scripts/menus/cloud/navigation.py",
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Invalid FIDO2 registration": [
@@ -4107,7 +4430,8 @@
       "walker/scripts/actions/system/remote-access.py"
     ],
     "Invalid project ID": [
-      "walker/scripts/menus/cloud/contexts.py"
+      "walker/scripts/menus/cloud/contexts.py",
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Invalid subscription ID": [
       "walker/scripts/menus/cloud/contexts.py"
@@ -4120,6 +4444,9 @@
     ],
     "Invalid web app ID": [
       "walker/scripts/actions/install/webapps.py"
+    ],
+    "Invalidations": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "It shows at the next boot and follows your theme from then on. Your boot entries were not changed.": [
       "distro/system/eitr-system.py"
@@ -4169,6 +4496,9 @@
     "LUKS2 disk encryption: needed at every boot": [
       "distro/archinstall/installer-ui.py"
     ],
+    "Lambda": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Language": [
       "distro/lib/eitr_language.py"
     ],
@@ -4178,14 +4508,38 @@
     "Later": [
       "walker/scripts/actions/system/restart-check.py"
     ],
+    "Latest deploy logs": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Latest image tags": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Latest log streams": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Let assistants work together": [
       "walker/scripts/actions/assistant-collaboration.py"
+    ],
+    "Lightsail": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Limine shows its default menu from the next boot. Your boot entries were not changed.": [
       "distro/system/eitr-system.py"
     ],
     "List Accounts": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "List buckets": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "List clusters": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "List repositories": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "List services": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Load Balancers": [
       "walker/scripts/menus/cloud/providers.py"
@@ -4208,11 +4562,17 @@
     "Log {label} in to {command}": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Login": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Login design is not installed": [
       "quickshell/lockscreen/scripts/sddm-select.py"
     ],
     "Login screen could not be updated: {errors}": [
       "quickshell/lockscreen/scripts/settings.py"
+    ],
+    "Logs": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Lowercase name. This user will have sudo access.": [
       "distro/archinstall/installer-ui.py"
@@ -4243,6 +4603,9 @@
     ],
     "Name this computer.": [
       "distro/archinstall/installer-ui.py"
+    ],
+    "Network ACLs": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Network firewalls": [
       "walker/scripts/menus/cloud/providers.py"
@@ -4331,9 +4694,6 @@
     "No reminders.": [
       "walker/scripts/actions/tools/reminders.py"
     ],
-    "No signed-in accounts found. Open Cloud, choose the provider, then Set Up Account.": [
-      "walker/scripts/menus/cloud/contexts.py"
-    ],
     "No snapshot has {path}.": [
       "walker/scripts/actions/system/restore-file.py"
     ],
@@ -4403,6 +4763,9 @@
     "Open the web console": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Open workspace": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Open {path} to read it.": [
       "walker/scripts/actions/system/report-problem.py"
     ],
@@ -4451,6 +4814,9 @@
     "Please enter a valid value.": [
       "distro/lib/eitr_wizard.py"
     ],
+    "Policies": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Preparation failed before any disk changes": [
       "distro/archinstall/eitr-guided-install"
     ],
@@ -4485,6 +4851,7 @@
       "walker/scripts/menus/cloud/accounts.py"
     ],
     "Projects": [
+      "walker/scripts/menus/cloud/navigation.py",
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Provider": [
@@ -4514,11 +4881,29 @@
     "Reboot now to apply?": [
       "walker/scripts/actions/system/network-backend.py"
     ],
+    "Recent DB events": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Recent errors": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Recent events": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Recent logs": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Recording saved": [
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
+    "Records": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Recovery snapshot {identifier}{extra} created.": [
       "distro/system/eitr-system.py"
+    ],
+    "Refresh": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Refusing a symlink: {path}": [
       "distro/system/eitr_remote.py"
@@ -4599,6 +4984,7 @@
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Resource Groups": [
+      "walker/scripts/menus/cloud/navigation.py",
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Resource compartments": [
@@ -4638,8 +5024,17 @@
     "Review installation": [
       "distro/archinstall/installer-ui.py"
     ],
+    "Roles": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Root snapshots configured. Existing Snapper policy is preserved.": [
       "distro/system/eitr-system.py"
+    ],
+    "Route 53": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Route tables": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Run Sharing Setup first.": [
       "distro/system/eitr_remote.py"
@@ -4665,8 +5060,17 @@
     "Running now: {backends}": [
       "walker/scripts/actions/system/network-backend.py"
     ],
+    "Running tasks": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "S3": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "SDDM was not restarted. Log out or reboot to see the login design.": [
       "quickshell/lockscreen/scripts/install-login.py"
+    ],
+    "SQL Servers": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "SQL databases": [
       "walker/scripts/menus/cloud/providers.py"
@@ -4676,6 +5080,9 @@
     ],
     "SSH key references must be absolute paths": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "SSO Login": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Save these settings?": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -4707,11 +5114,20 @@
     "Screen": [
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
+    "Search bucket by name": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Search entry changed; reopen Main to refresh": [
       "walker/scripts/menus/search-index.py"
     ],
     "Search entry expired; reopen Main to refresh": [
       "walker/scripts/menus/search-index.py"
+    ],
+    "Search repository": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Search word": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Second warning: this resets the computer named \"{host}\".": [
       "walker/scripts/actions/system/factory-reset.py"
@@ -4721,6 +5137,9 @@
     ],
     "Secure Boot is on. The restored boot files are not signed with your keys; turn Secure Boot off in the firmware settings first": [
       "distro/system/factory-reset.py"
+    ],
+    "Security groups": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Security key enrolled. Enable FIDO2 authentication separately; keep your password available.": [
       "walker/scripts/actions/system/security.py"
@@ -4745,6 +5164,12 @@
     ],
     "Service Instances": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Service events": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Service status": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Set Sunshine’s password first. Enter the PIN shown by Moonlight only for a device you trust.": [
       "walker/scripts/actions/system/remote-access.py"
@@ -4866,6 +5291,9 @@
     "Start sharing this PC?": [
       "walker/scripts/actions/system/remote-access.py"
     ],
+    "Static IPs": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Status": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -4887,11 +5315,26 @@
     "Stop using {label} outside its folders?": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Stopped tasks": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Storage Accounts": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Storage Buckets": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Storage volumes": [
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}": [
       "distro/system/eitr-system.py"
+    ],
+    "Subnets": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Subscriptions": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Sunshine grants full control of your desktop. Setup grants KMS capture and virtual keyboard, mouse and controller access.": [
       "distro/system/eitr_remote.py"
@@ -5327,11 +5770,23 @@
     "Use {picked} for {label}?": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "User access keys": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "User account": [
       "distro/archinstall/installer-ui.py"
     ],
+    "User pool details": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "User pools": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Username": [
       "distro/archinstall/installer-ui.py"
+    ],
+    "Users": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Using the default theme: {user}'s theme could not be read ({error}).": [
       "distro/system/eitr-system.py"
@@ -5339,11 +5794,33 @@
     "VCNs": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "VPC": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "VPC Networks": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "VPC endpoints": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "VPCs": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Virtual Machines": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Virtual Networks": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
     "Virtual networks": [
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Volumes": [
+      "walker/scripts/menus/cloud/navigation.py",
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "WARN logs": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Web app created": [
       "walker/scripts/actions/install/webapps.py"
@@ -5359,6 +5836,12 @@
     ],
     "WiFi adapter is unavailable; refresh the panel": [
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py"
+    ],
+    "Workspace details": [
+      "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Workspaces": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "Write the recovery key down and store it offline, then press Enter. ": [
       "walker/scripts/actions/system/security.py"
@@ -5380,6 +5863,9 @@
     ],
     "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send.": [
       "walker/scripts/actions/system/report-problem.py"
+    ],
+    "Zone details": [
+      "walker/scripts/menus/cloud/navigation.py"
     ],
     "archinstall and arch-chroot are required (they ship on the Arch ISO)": [
       "distro/archinstall/eitr-guided-install"

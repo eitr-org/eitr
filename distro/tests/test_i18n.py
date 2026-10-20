@@ -201,9 +201,8 @@ class OutputBoundaryTests(unittest.TestCase):
         for locale in ("en", "pt_BR", "es", "de", "fr"):
             output = io.StringIO()
             with self.subTest(locale=locale), patch.dict(os.environ, LC_ALL="", LC_MESSAGES=locale), \
-                    patch("sys.argv", ["contexts.py", "gcp", "--shell", "--defer-project"]), \
+                    patch("sys.argv", ["contexts.py", "gcp", "--open", "e30=", "--shell"]), \
                     patch.object(contexts, "contexts", return_value=[{}]), \
-                    patch.object(contexts, "pick", return_value={}), \
                     patch.object(contexts, "environment", return_value={"CLOUDSDK_ACTIVE_CONFIG_NAME": "my config"}), \
                     patch("sys.stdout", output):
                 contexts.main()

@@ -84,7 +84,7 @@ account; Azure Login targets its tenant and restores the previous default
 subscription after authentication. Azure Refresh updates its subscription cache
 and displays the selected subscription.
 
-Each provider menu starts with **Add AWS Account**, **Add GCP Account** or
+Each provider menu offers **Add AWS Account**, **Add GCP Account** or
 **Add Azure Account**, so you can set up as many accounts as you need, for
 example a company's Development and Production. It asks for a name first, then
 runs the provider CLI's own setup under that name: an AWS profile through AWS SSO
@@ -142,7 +142,7 @@ Antigravity CLI (`agy`) is available for personal Google accounts through Instal
 
 ### Additional providers
 
-Development > Cloud also lists Cloudflare (`wrangler`), DigitalOcean (`doctl`), Hetzner Cloud (`hcloud`), Oracle Cloud (`oci`), Vercel, Netlify and IBM Cloud (`ibmcloud`). Add an account using a lowercase name with digits or dashes. These accounts are private workspaces under `~/.config/eitr/cloud-accounts/<provider>/<name>`; existing provider configurations are never imported. The chosen provider and workspace remain visible in the tool picker and terminal. Return from a terminal to the same workspace; Escape returns to the account list. Selecting a workspace never switches a global CLI default.
+Development > Cloud also lists Cloudflare (`wrangler`), DigitalOcean (`doctl`), Hetzner Cloud (`hcloud`), Oracle Cloud (`oci`), Vercel, Netlify and IBM Cloud (`ibmcloud`). Add an account using a lowercase name with digits or dashes. These accounts are private workspaces under `~/.config/eitr/cloud-accounts/<provider>/<name>`; existing provider configurations are never imported. The chosen provider and workspace remain visible in the tool picker and terminal. Return from a terminal to the same workspace; Shift+Backspace returns to the account list. Selecting a workspace never switches a global CLI default.
 
 Missing `wrangler`, `doctl` and `hcloud` are offered from Arch's official repositories (`doctl` and `hcloud` in extra). Oracle Cloud and IBM Cloud use their official HTTPS shell installers from `distro/installers.json`; Oracle passes `--accept-all-defaults`. Vercel (`vercel`) and Netlify (`netlify-cli`, command `netlify`) use the existing NVM/npm installation recipe. Installation requires confirmation. Sign-in and account actions run only inside the selected private workspace. DigitalOcean and Hetzner list native contexts; Oracle lists profiles from that workspace's `~/.oci/config`. Selecting their context/profile saves a local selection and uses per-command flags, without changing a global default. Vercel and Netlify expose their native switch action; enter the selected team/account label afterward. Vercel also asks for a scope before login and passes `--scope TEAM` on subsequent commands. IBM provides SSO and API-key sign-in, displays `ibmcloud target`, and targets an explicit account and region. The selected context/profile/scope/account and saved region remain visible when returning to the menu. These labels are local selections, not verified remote identities. Existing credentials and provider overrides are not inherited. Browser consoles use their own sessions; check the account before acting.
 
@@ -158,7 +158,7 @@ The seven private-workspace providers use neutral resource and action icons with
 | Netlify | `netlify login` | `netlify switch` |
 | IBM Cloud | `ibmcloud login --sso`; `ibmcloud login --apikey` | `ibmcloud target`; `ibmcloud target -c ACCOUNT -r REGION` |
 
-Cloud resource reports now use a pager for reading; they do not choose a resource or trigger an operation. Log and event searches keep fzf. Resource choices that control the next action remain Walker lists.
+Cloud navigation uses real Elephant menus. Shift+Backspace goes to the previous menu: a service or resource choice returns to its containing menu, the account menu returns to the provider’s account list, and that list returns to Cloud. The selected account and context remain visible. Eitr stores this navigation selection in `~/.config/eitr/cloud-navigation.json`; provider CLI defaults stay unchanged. Reports keep their pager, log searches keep fzf, and setup keeps its reviewed terminal forms. Free-text search prompts still accept text in Walker; they are not navigation lists.
 
 Delete an account with the Delete key on its account row or **Delete Account** inside its menu. The confirmation names the provider and account: it removes that provider’s sign-in for that account on this computer, without affecting the remote account. Cancellation changes nothing. Only the selected Eitr private account folder is removed; symbolic links, paths outside its provider root and accounts with a running Eitr action are refused. AWS, Azure and Google Cloud have no new deletion action. The confirmation opens inside Walker with Cancel and Confirm; no terminal opens.
 

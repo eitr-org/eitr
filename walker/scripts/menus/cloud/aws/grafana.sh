@@ -7,26 +7,16 @@ elif [[ -f "$EITR_CODE_ROOT/distro/lib/paths.sh" ]]; then source "$EITR_CODE_ROO
 AWS_PROFILE="$1"
 source "$EITR_CODE_ROOT/walker/scripts/menus/cloud/aws/common.sh"
 
+if [ -z "${EITR_CLOUD_ACTION:-}" ]; then
+  exec python3 "$CLOUD_MENUS_DIR/navigation.py" select aws "$AWS_PROFILE" aws-grafana
+fi
+
 [ -z "$AWS_PROFILE" ] && exit 0
 
-options="󰨇  Workspaces
-󰈹  Open workspace
-󰅟  Workspace details"
-
-chosen="$(printf '%s\n' "$options" | walker_menu "Amazon Grafana - $AWS_PROFILE")"
+chosen="${EITR_CLOUD_ACTION:-}"
 
 choose_workspace() {
-  local workspaces chosen
-
-  if ! workspaces="$(aws_cli grafana list-workspaces | jq -r '.workspaces[] | "\(.name)  \(.id)"')"; then
-    notify-send "Amazon Grafana" "Failed to list workspaces"
-    return 1
-  fi
-
-  [ -z "$workspaces" ] && notify-send "Amazon Grafana" "No workspaces found" && return 1
-  chosen="$(printf "%s\n" "$workspaces" | walker_menu "Grafana Workspace")"
-  [ -z "$chosen" ] && return 1
-  echo "$chosen" | awk '{ print $NF }'
+  printf '%s\n' "${EITR_PICK_choose_workspace:?Missing resource selection}"
 }
 
 case "$chosen" in

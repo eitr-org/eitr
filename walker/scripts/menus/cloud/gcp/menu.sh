@@ -41,22 +41,10 @@ gcloud projects list --format=json \
     ;;
 esac
 
-options="󰊭  Login
-󰑐  Refresh
-󰅟  Check Auth
-󰏗  Projects
-  Compute Instances
-󰉋  Storage Buckets
-󰠇  GKE Clusters
-󰣇  Cloud Run
-󰈳  Cloud SQL
-  Artifact Registry
-󰊕  Cloud Functions
-󰖟  VPC Networks
-󰒃  IAM
-󰢬  Logs"
-
-chosen="$(printf '%s\n' "$options" | walker_menu "GCP — ${EITR_CLOUD_CONTEXT:-Select a tool}")"
+if [ -z "${EITR_CLOUD_ACTION:-}" ]; then
+  exec python3 "$CLOUD_MENUS_DIR/navigation.py" show gcp-contexts
+fi
+chosen="$EITR_CLOUD_ACTION"
 
 case "$chosen" in
   "󰑐  Refresh")
@@ -90,36 +78,6 @@ gcloud projects list --format=json \
 | jq -r '.[] | \"\u001b[36m\(.projectId)\u001b[0m  name=\(.name)  state=\(.lifecycleState)\"' \
 | cloud_report
 " close-on-success toggle
-    ;;
-  "  Compute Instances")
-    "$GCP_MENUS_DIR/compute.sh"
-    ;;
-  "󰉋  Storage Buckets")
-    "$GCP_MENUS_DIR/storage.sh"
-    ;;
-  "󰠇  GKE Clusters")
-    "$GCP_MENUS_DIR/gke.sh"
-    ;;
-  "󰣇  Cloud Run")
-    "$GCP_MENUS_DIR/cloud-run.sh"
-    ;;
-  "󰈳  Cloud SQL")
-    "$GCP_MENUS_DIR/sql.sh"
-    ;;
-  "  Artifact Registry")
-    "$GCP_MENUS_DIR/artifact-registry.sh"
-    ;;
-  "󰊕  Cloud Functions")
-    "$GCP_MENUS_DIR/functions.sh"
-    ;;
-  "󰖟  VPC Networks")
-    "$GCP_MENUS_DIR/vpc.sh"
-    ;;
-  "󰒃  IAM")
-    "$GCP_MENUS_DIR/iam.sh"
-    ;;
-  "󰢬  Logs")
-    "$GCP_MENUS_DIR/logs.sh"
     ;;
   "")
     exit 0

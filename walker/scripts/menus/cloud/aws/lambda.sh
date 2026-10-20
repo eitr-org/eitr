@@ -7,28 +7,17 @@ elif [[ -f "$EITR_CODE_ROOT/distro/lib/paths.sh" ]]; then source "$EITR_CODE_ROO
 AWS_PROFILE="$1"
 source "$EITR_CODE_ROOT/walker/scripts/menus/cloud/aws/common.sh"
 
+if [ -z "${EITR_CLOUD_ACTION:-}" ]; then
+  exec python3 "$CLOUD_MENUS_DIR/navigation.py" select aws "$AWS_PROFILE" aws-lambda
+fi
+
 [ -z "$AWS_PROFILE" ] && exit 0
 
 choose_lambda_function() {
-  local functions chosen
-
-  if ! functions="$(aws_cli lambda list-functions | jq -r '.Functions[].FunctionName')"; then
-    notify-send "Lambda" "Failed to list functions"
-    return 1
-  fi
-
-  [ -z "$functions" ] && notify-send "Lambda" "No functions found" && return 1
-  chosen="$(printf "%s\n" "$functions" | walker_menu "Lambda Function")"
-  [ -z "$chosen" ] && return 1
-  echo "$chosen"
+  printf '%s\n' "${EITR_PICK_choose_lambda_function:?Missing resource selection}"
 }
 
-options="󰡱  Functions
-󰅟  Function config
-󰢬  Recent logs
-  Recent errors"
-
-chosen="$(printf '%s\n' "$options" | walker_menu "Lambda - $AWS_PROFILE")"
+chosen="${EITR_CLOUD_ACTION:-}"
 
 lambda_logs_command() {
   local function_name="$1"

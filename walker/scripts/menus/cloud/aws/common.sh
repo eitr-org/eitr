@@ -65,20 +65,3 @@ aws_profile_choices() {
     python3 "$CLOUD_MENUS_DIR/accounts.py" aws-choices 2>/dev/null
   fi
 }
-
-# Prints the chosen AWS profile name; returns 1 on cancel or when none exist.
-choose_aws_profile() {
-  local choices
-  local label
-
-  choices="$(aws_profile_choices)"
-  if [ -z "$choices" ]; then
-    notify-send "AWS" "No AWS accounts yet. Open Cloud > AWS > Add AWS Account."
-    return 1
-  fi
-
-  label="$(printf '%s\n' "$choices" | cut -f1 | walker_menu "AWS Profile")"
-  [ -n "$label" ] || return 1
-
-  printf '%s\n' "$choices" | awk -F '\t' -v label="$label" '$1 == label { print $2; found = 1; exit } END { if (!found) print label }'
-}

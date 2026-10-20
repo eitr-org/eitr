@@ -23,6 +23,9 @@ Native sign-in, context/profile listing, account switching and IBM account/regio
 targeting are wired. Context/profile/scope selections persist visibly and use
 per-command flags where supported, without changing global defaults to navigate.
 
+Cloud navigation now uses Elephant account, service and resource menus with real
+Parent links for Shift+Backspace and private persisted selections.
+
 Remaining: owner-authorized live installation/sign-in checks, remote identity and
 project verification. Account deletion and common read-only resource views are
 implemented for these seven providers with isolated mock tests. Offline mock tests do

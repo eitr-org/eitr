@@ -7,29 +7,17 @@ elif [[ -f "$EITR_CODE_ROOT/distro/lib/paths.sh" ]]; then source "$EITR_CODE_ROO
 AWS_PROFILE="$1"
 source "$EITR_CODE_ROOT/walker/scripts/menus/cloud/aws/common.sh"
 
+if [ -z "${EITR_CLOUD_ACTION:-}" ]; then
+  exec python3 "$CLOUD_MENUS_DIR/navigation.py" select aws "$AWS_PROFILE" aws-vpc
+fi
+
 [ -z "$AWS_PROFILE" ] && exit 0
 
 choose_vpc() {
-  local vpcs chosen
-
-  if ! vpcs="$(aws_cli ec2 describe-vpcs | jq -r '.Vpcs[] | "\((.Tags // [] | map(select(.Key == \"Name\"))[0].Value) // \"<no-name>\")  \(.VpcId)"')"; then
-    notify-send "VPC" "Failed to list VPCs"
-    return 1
-  fi
-
-  [ -z "$vpcs" ] && notify-send "VPC" "No VPCs found" && return 1
-  chosen="$(printf "%s\n" "$vpcs" | walker_menu "VPC")"
-  [ -z "$chosen" ] && return 1
-  echo "$chosen" | awk '{ print $NF }'
+  printf '%s\n' "${EITR_PICK_choose_vpc:?Missing resource selection}"
 }
 
-options="󰩠  VPCs
-󰩠  Subnets
-󰑓  Route tables
-󰒋  Network ACLs
-󰒄  VPC endpoints"
-
-chosen="$(printf '%s\n' "$options" | walker_menu "VPC - $AWS_PROFILE")"
+chosen="${EITR_CLOUD_ACTION:-}"
 
 case "$chosen" in
   "󰩠  VPCs")

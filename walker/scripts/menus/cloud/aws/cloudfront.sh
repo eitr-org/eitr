@@ -7,27 +7,17 @@ elif [[ -f "$EITR_CODE_ROOT/distro/lib/paths.sh" ]]; then source "$EITR_CODE_ROO
 AWS_PROFILE="$1"
 source "$EITR_CODE_ROOT/walker/scripts/menus/cloud/aws/common.sh"
 
+if [ -z "${EITR_CLOUD_ACTION:-}" ]; then
+  exec python3 "$CLOUD_MENUS_DIR/navigation.py" select aws "$AWS_PROFILE" aws-cloudfront
+fi
+
 [ -z "$AWS_PROFILE" ] && exit 0
 
 choose_distribution() {
-  local distributions chosen
-
-  if ! distributions="$(aws_cli cloudfront list-distributions | jq -r '.DistributionList.Items[]? | "\(.DomainName)  \(.Id)"')"; then
-    notify-send "CloudFront" "Failed to list distributions"
-    return 1
-  fi
-
-  [ -z "$distributions" ] && notify-send "CloudFront" "No distributions found" && return 1
-  chosen="$(printf "%s\n" "$distributions" | walker_menu "Distribution")"
-  [ -z "$chosen" ] && return 1
-  echo "$chosen" | awk '{ print $NF }'
+  printf '%s\n' "${EITR_PICK_choose_distribution:?Missing resource selection}"
 }
 
-options="󰖟  Distributions
-󰅟  Distribution details
-󰑓  Invalidations"
-
-chosen="$(printf '%s\n' "$options" | walker_menu "CloudFront - $AWS_PROFILE")"
+chosen="${EITR_CLOUD_ACTION:-}"
 
 case "$chosen" in
   "󰖟  Distributions")

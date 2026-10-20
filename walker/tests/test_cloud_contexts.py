@@ -16,38 +16,6 @@ spec.loader.exec_module(cloud)
 
 
 class ContextTests(unittest.TestCase):
-    def test_open_discards_inherited_project_without_changing_parent(self):
-        context = {"label": "Detected", "configuration": "detected", "account": "a@example.org", "project": ""}
-        with patch.dict(os.environ, {"CLOUDSDK_CORE_PROJECT": "unrelated-project"}), \
-                patch("sys.argv", ["contexts.py", "gcp"]), \
-                patch.object(cloud, "contexts", return_value=[context]), \
-                patch.object(cloud, "pick", return_value=context), \
-                patch.object(cloud.subprocess, "run") as run:
-            cloud.main()
-            self.assertNotIn("CLOUDSDK_CORE_PROJECT", run.call_args.kwargs["env"])
-            self.assertEqual(os.environ["CLOUDSDK_CORE_PROJECT"], "unrelated-project")
-
-    def test_shell_selection_unsets_inherited_project(self):
-        context = {"label": "Detected", "configuration": "detected", "account": "a@example.org", "project": ""}
-        output = io.StringIO()
-        with patch("sys.argv", ["contexts.py", "gcp", "--shell", "--defer-project"]), \
-                patch.object(cloud, "contexts", return_value=[context]), \
-                patch.object(cloud, "pick", return_value=context), contextlib.redirect_stdout(output):
-            cloud.main()
-        result = subprocess.run(["bash", "-c", output.getvalue() + '\n[[ ! -v CLOUDSDK_CORE_PROJECT ]]'],
-                                env={**os.environ, "CLOUDSDK_CORE_PROJECT": "unrelated-project"}, check=False)
-        self.assertEqual(result.returncode, 0)
-
-    def test_open_keeps_selected_project_instead_of_inherited_project(self):
-        context = {"label": "Detected", "configuration": "detected", "account": "a@example.org", "project": "selected-project"}
-        with patch.dict(os.environ, {"CLOUDSDK_CORE_PROJECT": "unrelated-project"}), \
-                patch("sys.argv", ["contexts.py", "gcp"]), \
-                patch.object(cloud, "contexts", return_value=[context]), \
-                patch.object(cloud, "pick", return_value=context), \
-                patch.object(cloud.subprocess, "run") as run:
-            cloud.main()
-            self.assertEqual(run.call_args.kwargs["env"]["CLOUDSDK_CORE_PROJECT"], "selected-project")
-
     def test_google_selection_is_process_local(self):
         context = {"label": "Production", "configuration": "prod", "account": "dev@example.org", "project": "prod-project"}
         before = dict(os.environ)
@@ -57,22 +25,9 @@ class ContextTests(unittest.TestCase):
         self.assertIn("dev@example.org", values["EITR_CLOUD_CONTEXT"])
         self.assertEqual(dict(os.environ), before)
 
-    def test_google_project_picker_uses_selected_account(self):
-        context = {"label": "Dev", "configuration": "dev", "account": "dev@example.org", "project": ""}
-        with patch.object(cloud, "query", return_value=[{"projectId": "dev-project"}]) as query, \
-                patch.object(cloud, "pick", return_value={"project": "dev-project"}):
-            values = cloud.environment("gcp", context)
-        self.assertIn("--configuration", query.call_args.args[0])
-        self.assertIn("dev@example.org", query.call_args.args[0])
-        self.assertEqual(values["CLOUDSDK_CORE_PROJECT"], "dev-project")
-
-    def test_cancel_does_not_launch_a_default_project(self):
-        with patch.object(cloud, "query", return_value=[]), patch.object(cloud, "pick", return_value=None):
-            self.assertIsNone(cloud.environment("gcp", {"label": "Dev", "configuration": "dev", "account": "a", "project": ""}))
-
     def test_context_menu_opens_before_login_or_project_discovery(self):
         with patch.object(cloud, "query") as query:
-            values = cloud.environment("gcp", {"label": "Detected", "configuration": "detected", "account": "a", "project": ""}, resolve_project=False)
+            values = cloud.environment("gcp", {"label": "Detected", "configuration": "detected", "account": "a", "project": ""})
         query.assert_not_called()
         self.assertEqual(values["CLOUDSDK_ACTIVE_CONFIG_NAME"], "detected")
 
@@ -100,7 +55,7 @@ class ContextTests(unittest.TestCase):
                 patch.object(cloud.CONFIG.__class__, "exists", return_value=False):
             context = cloud.contexts("gcp")[0]
         self.assertEqual(context["project"], "")
-        values = cloud.environment("gcp", context, resolve_project=False)
+        values = cloud.environment("gcp", context)
         self.assertTrue(all(isinstance(value, str) for value in values.values()))
         self.assertNotIn("CLOUDSDK_CORE_PROJECT", values)
 

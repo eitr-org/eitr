@@ -7,62 +7,23 @@ elif [[ -f "$EITR_CODE_ROOT/distro/lib/paths.sh" ]]; then source "$EITR_CODE_ROO
 AWS_PROFILE="$1"
 source "$EITR_CODE_ROOT/walker/scripts/menus/cloud/aws/common.sh"
 
+if [ -z "${EITR_CLOUD_ACTION:-}" ]; then
+  exec python3 "$CLOUD_MENUS_DIR/navigation.py" select aws "$AWS_PROFILE" aws-rds
+fi
+
 if [ -z "$AWS_PROFILE" ]; then
   exit 0
 fi
 
 choose_db_instance() {
-  local instances
-  local chosen
-
-  if ! instances="$(aws_cli rds describe-db-instances | jq -r '.DBInstances[].DBInstanceIdentifier')"; then
-    notify-send "RDS" "Failed to list DB instances for $AWS_PROFILE"
-    return 1
-  fi
-
-  if [ -z "$instances" ]; then
-    notify-send "RDS" "No DB instances found for $AWS_PROFILE"
-    return 1
-  fi
-
-  chosen="$(printf "%s\n" "$instances" | walker_menu "DB Instance")"
-
-  if [ -z "$chosen" ]; then
-    return 1
-  fi
-
-  echo "$chosen"
+  printf '%s\n' "${EITR_PICK_choose_db_instance:?Missing resource selection}"
 }
 
 choose_db_cluster() {
-  local clusters
-  local chosen
-
-  if ! clusters="$(aws_cli rds describe-db-clusters | jq -r '.DBClusters[].DBClusterIdentifier')"; then
-    notify-send "RDS" "Failed to list DB clusters for $AWS_PROFILE"
-    return 1
-  fi
-
-  if [ -z "$clusters" ]; then
-    notify-send "RDS" "No DB clusters found for $AWS_PROFILE"
-    return 1
-  fi
-
-  chosen="$(printf "%s\n" "$clusters" | walker_menu "DB Cluster")"
-
-  if [ -z "$chosen" ]; then
-    return 1
-  fi
-
-  echo "$chosen"
+  printf '%s\n' "${EITR_PICK_choose_db_cluster:?Missing resource selection}"
 }
 
-options="  DB instances
-󰘦  DB clusters
-󰅟  Instance status
-󰕢  Recent DB events"
-
-chosen="$(printf '%s\n' "$options" | walker_menu "Aurora / RDS - $AWS_PROFILE")"
+chosen="${EITR_CLOUD_ACTION:-}"
 
 case "$chosen" in
   "  DB instances")
@@ -114,7 +75,7 @@ $(aws_base) rds describe-db-instances \
     ;;
 
   "󰕢  Recent DB events")
-    source_type="$(walker_menu "Event source type" "DB instance" "DB cluster")"
+    source_type="${EITR_PICK_event_source:?Missing event source}"
 
     case "$source_type" in
       "DB instance")

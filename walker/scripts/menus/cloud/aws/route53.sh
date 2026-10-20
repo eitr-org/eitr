@@ -7,27 +7,17 @@ elif [[ -f "$EITR_CODE_ROOT/distro/lib/paths.sh" ]]; then source "$EITR_CODE_ROO
 AWS_PROFILE="$1"
 source "$EITR_CODE_ROOT/walker/scripts/menus/cloud/aws/common.sh"
 
+if [ -z "${EITR_CLOUD_ACTION:-}" ]; then
+  exec python3 "$CLOUD_MENUS_DIR/navigation.py" select aws "$AWS_PROFILE" aws-route53
+fi
+
 [ -z "$AWS_PROFILE" ] && exit 0
 
 choose_hosted_zone() {
-  local zones chosen
-
-  if ! zones="$(aws_cli route53 list-hosted-zones | jq -r '.HostedZones[] | "\(.Name)  \(.Id | split("/")[-1])"')"; then
-    notify-send "Route 53" "Failed to list hosted zones"
-    return 1
-  fi
-
-  [ -z "$zones" ] && notify-send "Route 53" "No hosted zones found" && return 1
-  chosen="$(printf "%s\n" "$zones" | walker_menu "Hosted Zone")"
-  [ -z "$chosen" ] && return 1
-  echo "$chosen" | awk '{ print $NF }'
+  printf '%s\n' "${EITR_PICK_choose_hosted_zone:?Missing resource selection}"
 }
 
-options="󰖟  Hosted zones
-󰑓  Records
-󰅟  Zone details"
-
-chosen="$(printf '%s\n' "$options" | walker_menu "Route 53 - $AWS_PROFILE")"
+chosen="${EITR_CLOUD_ACTION:-}"
 
 case "$chosen" in
   "󰖟  Hosted zones")

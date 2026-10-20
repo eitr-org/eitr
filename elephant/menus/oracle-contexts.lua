@@ -14,9 +14,12 @@ function GetEntries()
     for line in handle:lines() do
         local text, detail, action, remove, icon = line:match("^([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]*)\t([^\t]+)$")
         if text then
-            table.insert(entries, {Text = text, Subtext = detail, Icon = icon, Actions = {open = action, cloud_delete = remove ~= "" and remove or nil}})
+            table.insert(entries, {Text = text, Subtext = remove == "" and detail or nil, Icon = icon,
+                Keywords = {detail}, State = remove ~= "" and {"submenu"} or nil, Actions = {open = action, cloud_delete = remove ~= "" and remove or nil}})
         end
     end
     handle:close()
     return entries
 end
+
+dofile(paths.code("walker/scripts/menus/alphabetical.lua"))

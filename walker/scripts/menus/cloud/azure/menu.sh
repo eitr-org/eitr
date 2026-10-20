@@ -41,22 +41,10 @@ az account list -o json \
     ;;
 esac
 
-options="󰊭  Login
-󰑐  Refresh
-󰅟  Check Auth
-󰏗  Subscriptions
-󰉖  Resource Groups
-  Virtual Machines
-󰉋  Storage Accounts
-󰠇  AKS Clusters
-󰣇  App Services
-󰈳  SQL Servers
-  Container Registries
-󰊕  Function Apps
-󰖟  Virtual Networks
-󰢬  Activity Logs"
-
-chosen="$(printf '%s\n' "$options" | walker_menu "Azure — ${EITR_CLOUD_CONTEXT:-Select a tool}")"
+if [ -z "${EITR_CLOUD_ACTION:-}" ]; then
+  exec python3 "$CLOUD_MENUS_DIR/navigation.py" show azure-contexts
+fi
+chosen="$EITR_CLOUD_ACTION"
 
 case "$chosen" in
   "󰑐  Refresh")
@@ -90,36 +78,6 @@ az account list -o json \
 | jq -r '.[] | \"\u001b[36m\(.name)\u001b[0m  id=\(.id)  state=\(.state)\"' \
 | cloud_report
 " close-on-success toggle
-    ;;
-  "󰉖  Resource Groups")
-    "$AZURE_MENUS_DIR/resource-groups.sh"
-    ;;
-  "  Virtual Machines")
-    "$AZURE_MENUS_DIR/compute.sh"
-    ;;
-  "󰉋  Storage Accounts")
-    "$AZURE_MENUS_DIR/storage.sh"
-    ;;
-  "󰠇  AKS Clusters")
-    "$AZURE_MENUS_DIR/aks.sh"
-    ;;
-  "󰣇  App Services")
-    "$AZURE_MENUS_DIR/app-service.sh"
-    ;;
-  "󰈳  SQL Servers")
-    "$AZURE_MENUS_DIR/sql.sh"
-    ;;
-  "  Container Registries")
-    "$AZURE_MENUS_DIR/acr.sh"
-    ;;
-  "󰊕  Function Apps")
-    "$AZURE_MENUS_DIR/functions.sh"
-    ;;
-  "󰖟  Virtual Networks")
-    "$AZURE_MENUS_DIR/vnet.sh"
-    ;;
-  "󰢬  Activity Logs")
-    "$AZURE_MENUS_DIR/logs.sh"
     ;;
   "")
     exit 0

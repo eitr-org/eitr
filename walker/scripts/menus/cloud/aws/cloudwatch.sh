@@ -7,31 +7,16 @@ elif [[ -f "$EITR_CODE_ROOT/distro/lib/paths.sh" ]]; then source "$EITR_CODE_ROO
 AWS_PROFILE="$1"
 source "$EITR_CODE_ROOT/walker/scripts/menus/cloud/aws/common.sh"
 
+if [ -z "${EITR_CLOUD_ACTION:-}" ]; then
+  exec python3 "$CLOUD_MENUS_DIR/navigation.py" select aws "$AWS_PROFILE" aws-cloudwatch
+fi
+
 if [ -z "$AWS_PROFILE" ]; then
   exit 0
 fi
 
 choose_log_group() {
-  local log_groups
-  local chosen
-
-  if ! log_groups="$(aws_cli logs describe-log-groups | jq -r '.logGroups[].logGroupName')"; then
-    notify-send "CloudWatch" "Failed to list log groups for $AWS_PROFILE"
-    return 1
-  fi
-
-  if [ -z "$log_groups" ]; then
-    notify-send "CloudWatch" "No log groups found for $AWS_PROFILE"
-    return 1
-  fi
-
-  chosen="$(printf "%s\n" "$log_groups" | walker_menu "Log Group")"
-
-  if [ -z "$chosen" ]; then
-    return 1
-  fi
-
-  echo "$chosen"
+  printf '%s\n' "${EITR_PICK_choose_log_group:?Missing resource selection}"
 }
 
 LOG_GROUP="$(choose_log_group)" || exit 0
@@ -118,41 +103,33 @@ $(aws_base) logs describe-log-streams \\
 EOF
 }
 
-while true; do
-options="󰁫  All logs
-  ERROR logs
-  WARN logs
-  INFO logs
-  Search word
-󰁫  Latest log streams"
-
-chosen="$(printf '%s\n' "$options" | walker_menu "CloudWatch - $AWS_PROFILE")"
+chosen="${EITR_CLOUD_ACTION:-}"
 
 case "$chosen" in
   "󰁫  All logs")
-    minutes="$(choose_time_range_minutes)" || continue
+    minutes="$(choose_time_range_minutes)" || { bash -c "$CLOUD_MENU_RETURN_COMMAND"; exit 0; }
     run_in_kitty "CloudWatch Logs - $AWS_PROFILE" "$(all_logs_command "$minutes")" close-on-success toggle
     exit 0
     ;;
   "  ERROR logs")
-    minutes="$(choose_time_range_minutes)" || continue
+    minutes="$(choose_time_range_minutes)" || { bash -c "$CLOUD_MENU_RETURN_COMMAND"; exit 0; }
     run_in_kitty "CloudWatch ERROR - $AWS_PROFILE" "$(cloudwatch_logs_command "ERROR" "$minutes")" close-on-success toggle
     exit 0
     ;;
   "  WARN logs")
-    minutes="$(choose_time_range_minutes)" || continue
+    minutes="$(choose_time_range_minutes)" || { bash -c "$CLOUD_MENU_RETURN_COMMAND"; exit 0; }
     run_in_kitty "CloudWatch WARN - $AWS_PROFILE" "$(cloudwatch_logs_command "WARN" "$minutes")" close-on-success toggle
     exit 0
     ;;
   "  INFO logs")
-    minutes="$(choose_time_range_minutes)" || continue
+    minutes="$(choose_time_range_minutes)" || { bash -c "$CLOUD_MENU_RETURN_COMMAND"; exit 0; }
     run_in_kitty "CloudWatch INFO - $AWS_PROFILE" "$(cloudwatch_logs_command "INFO" "$minutes")" close-on-success toggle
     exit 0
     ;;
   "  Search word")
-    word="$(ask_search_word)" || continue
+    word="$(ask_search_word)" || { bash -c "$CLOUD_MENU_RETURN_COMMAND"; exit 0; }
 
-    minutes="$(choose_time_range_minutes)" || continue
+    minutes="$(choose_time_range_minutes)" || { bash -c "$CLOUD_MENU_RETURN_COMMAND"; exit 0; }
     run_in_kitty "CloudWatch Search - $AWS_PROFILE" "$(search_word_logs_command "$word" "$minutes")" close-on-success toggle
     exit 0
     ;;
@@ -164,4 +141,3 @@ case "$chosen" in
     exit 0
     ;;
 esac
-done

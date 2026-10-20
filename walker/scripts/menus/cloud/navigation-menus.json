@@ -1,0 +1,1266 @@
+{
+  "aws-vpc": {
+    "provider": "aws",
+    "script": "aws/vpc.sh",
+    "actions": [
+      {
+        "text": "VPCs",
+        "icon": "󰩠",
+        "value": "󰩠  VPCs"
+      },
+      {
+        "text": "Subnets",
+        "icon": "󰩠",
+        "value": "󰩠  Subnets",
+        "submenu": "aws-vpc-subnets-1"
+      },
+      {
+        "text": "Route tables",
+        "icon": "󰑓",
+        "value": "󰑓  Route tables",
+        "submenu": "aws-vpc-route-tables-1"
+      },
+      {
+        "text": "Network ACLs",
+        "icon": "󰒋",
+        "value": "󰒋  Network ACLs",
+        "submenu": "aws-vpc-network-acls-1"
+      },
+      {
+        "text": "VPC endpoints",
+        "icon": "󰒄",
+        "value": "󰒄  VPC endpoints",
+        "submenu": "aws-vpc-vpc-endpoints-1"
+      }
+    ],
+    "parent": "aws-account",
+    "title": "VPC"
+  },
+  "aws-s3": {
+    "provider": "aws",
+    "script": "aws/s3.sh",
+    "actions": [
+      {
+        "text": "List buckets",
+        "icon": "󰉋",
+        "value": "󰉋  List buckets"
+      },
+      {
+        "text": "Browse bucket",
+        "icon": "󰉋",
+        "value": "󰉋  Browse bucket",
+        "submenu": "aws-s3-browse-bucket-1"
+      },
+      {
+        "text": "Search bucket by name",
+        "icon": "",
+        "value": "  Search bucket by name"
+      }
+    ],
+    "parent": "aws-account",
+    "title": "S3"
+  },
+  "aws-route53": {
+    "provider": "aws",
+    "script": "aws/route53.sh",
+    "actions": [
+      {
+        "text": "Hosted zones",
+        "icon": "󰖟",
+        "value": "󰖟  Hosted zones"
+      },
+      {
+        "text": "Records",
+        "icon": "󰑓",
+        "value": "󰑓  Records",
+        "submenu": "aws-route53-records-1"
+      },
+      {
+        "text": "Zone details",
+        "icon": "󰅟",
+        "value": "󰅟  Zone details",
+        "submenu": "aws-route53-zone-details-1"
+      }
+    ],
+    "parent": "aws-account",
+    "title": "Route 53"
+  },
+  "aws-rds": {
+    "provider": "aws",
+    "script": "aws/rds.sh",
+    "actions": [
+      {
+        "text": "DB instances",
+        "icon": "",
+        "value": "  DB instances"
+      },
+      {
+        "text": "DB clusters",
+        "icon": "󰘦",
+        "value": "󰘦  DB clusters"
+      },
+      {
+        "text": "Instance status",
+        "icon": "󰅟",
+        "value": "󰅟  Instance status",
+        "submenu": "aws-rds-instance-status-1"
+      },
+      {
+        "text": "Recent DB events",
+        "icon": "󰕢",
+        "value": "󰕢  Recent DB events",
+        "submenu": "aws-rds-recent-db-events-1"
+      }
+    ],
+    "parent": "aws-account",
+    "title": "Aurora / RDS"
+  },
+  "aws-account": {
+    "provider": "aws",
+    "script": "aws/menu.sh",
+    "actions": [
+      {
+        "text": "SSO Login",
+        "icon": "󰒋",
+        "value": "󰒋  SSO Login"
+      },
+      {
+        "text": "Check Auth",
+        "icon": "󰅟",
+        "value": "󰅟  Check Auth"
+      },
+      {
+        "text": "CloudWatch",
+        "icon": "󰃷",
+        "value": "󰃷  CloudWatch",
+        "submenu": "aws-cloudwatch"
+      },
+      {
+        "text": "ECS",
+        "icon": "󰡨",
+        "value": "󰡨  ECS",
+        "submenu": "aws-ecs"
+      },
+      {
+        "text": "S3",
+        "icon": "󰓟",
+        "value": "󰓟  S3",
+        "submenu": "aws-s3"
+      },
+      {
+        "text": "Aurora / RDS",
+        "icon": "",
+        "value": "  Aurora / RDS",
+        "submenu": "aws-rds"
+      },
+      {
+        "text": "ECR",
+        "icon": "",
+        "value": "  ECR",
+        "submenu": "aws-ecr"
+      },
+      {
+        "text": "Grafana",
+        "icon": "󰨇",
+        "value": "󰨇  Grafana",
+        "submenu": "aws-grafana"
+      },
+      {
+        "text": "Cognito",
+        "icon": "󰘦",
+        "value": "󰘦  Cognito",
+        "submenu": "aws-cognito"
+      },
+      {
+        "text": "DocumentDB",
+        "icon": "",
+        "value": "  DocumentDB",
+        "submenu": "aws-docdb"
+      },
+      {
+        "text": "Lambda",
+        "icon": "󰊕",
+        "value": "󰊕  Lambda",
+        "submenu": "aws-lambda"
+      },
+      {
+        "text": "CloudFront",
+        "icon": "󰅧",
+        "value": "󰅧  CloudFront",
+        "submenu": "aws-cloudfront"
+      },
+      {
+        "text": "Lightsail",
+        "icon": "󰌢",
+        "value": "󰌢  Lightsail",
+        "submenu": "aws-lightsail"
+      },
+      {
+        "text": "EC2",
+        "icon": "󰍹",
+        "value": "󰍹  EC2",
+        "submenu": "aws-ec2"
+      },
+      {
+        "text": "Route 53",
+        "icon": "󰑃",
+        "value": "󰑃  Route 53",
+        "submenu": "aws-route53"
+      },
+      {
+        "text": "VPC",
+        "icon": "󰖟",
+        "value": "󰖟  VPC",
+        "submenu": "aws-vpc"
+      },
+      {
+        "text": "IAM",
+        "icon": "󰒃",
+        "value": "󰒃  IAM",
+        "submenu": "aws-iam"
+      }
+    ],
+    "parent": "aws-profiles"
+  },
+  "aws-lightsail": {
+    "provider": "aws",
+    "script": "aws/lightsail.sh",
+    "actions": [
+      {
+        "text": "Instances",
+        "icon": "󰍹",
+        "value": "󰍹  Instances"
+      },
+      {
+        "text": "Static IPs",
+        "icon": "󰩠",
+        "value": "󰩠  Static IPs"
+      },
+      {
+        "text": "Distributions",
+        "icon": "󰖟",
+        "value": "󰖟  Distributions"
+      },
+      {
+        "text": "Databases",
+        "icon": "",
+        "value": "  Databases"
+      }
+    ],
+    "parent": "aws-account",
+    "title": "Lightsail"
+  },
+  "aws-lambda": {
+    "provider": "aws",
+    "script": "aws/lambda.sh",
+    "actions": [
+      {
+        "text": "Functions",
+        "icon": "󰡱",
+        "value": "󰡱  Functions"
+      },
+      {
+        "text": "Function config",
+        "icon": "󰅟",
+        "value": "󰅟  Function config",
+        "submenu": "aws-lambda-function-config-1"
+      },
+      {
+        "text": "Recent logs",
+        "icon": "󰢬",
+        "value": "󰢬  Recent logs",
+        "submenu": "aws-lambda-recent-logs-1"
+      },
+      {
+        "text": "Recent errors",
+        "icon": "",
+        "value": "  Recent errors",
+        "submenu": "aws-lambda-recent-errors-1"
+      }
+    ],
+    "parent": "aws-account",
+    "title": "Lambda"
+  },
+  "aws-iam": {
+    "provider": "aws",
+    "script": "aws/iam.sh",
+    "actions": [
+      {
+        "text": "Account summary",
+        "icon": "󰀄",
+        "value": "󰀄  Account summary"
+      },
+      {
+        "text": "Users",
+        "icon": "󰀄",
+        "value": "󰀄  Users"
+      },
+      {
+        "text": "Roles",
+        "icon": "󰌾",
+        "value": "󰌾  Roles"
+      },
+      {
+        "text": "Policies",
+        "icon": "󰒃",
+        "value": "󰒃  Policies"
+      },
+      {
+        "text": "Groups",
+        "icon": "󰘦",
+        "value": "󰘦  Groups"
+      },
+      {
+        "text": "User access keys",
+        "icon": "󰌆",
+        "value": "󰌆  User access keys",
+        "submenu": "aws-iam-user-access-keys-1"
+      }
+    ],
+    "parent": "aws-account",
+    "title": "IAM"
+  },
+  "aws-grafana": {
+    "provider": "aws",
+    "script": "aws/grafana.sh",
+    "actions": [
+      {
+        "text": "Workspaces",
+        "icon": "󰨇",
+        "value": "󰨇  Workspaces"
+      },
+      {
+        "text": "Open workspace",
+        "icon": "󰈹",
+        "value": "󰈹  Open workspace",
+        "submenu": "aws-grafana-open-workspace-1"
+      },
+      {
+        "text": "Workspace details",
+        "icon": "󰅟",
+        "value": "󰅟  Workspace details",
+        "submenu": "aws-grafana-workspace-details-1"
+      }
+    ],
+    "parent": "aws-account",
+    "title": "Grafana"
+  },
+  "aws-ecs": {
+    "provider": "aws",
+    "script": "aws/ecs.sh",
+    "actions": [
+      {
+        "text": "Service status",
+        "icon": "󰅟",
+        "value": "󰅟  Service status",
+        "submenu": "aws-ecs-service-status-1"
+      },
+      {
+        "text": "Deployments",
+        "icon": "󰐱",
+        "value": "󰐱  Deployments",
+        "submenu": "aws-ecs-deployments-1"
+      },
+      {
+        "text": "Latest deploy logs",
+        "icon": "󰢬",
+        "value": "󰢬  Latest deploy logs",
+        "submenu": "aws-ecs-latest-deploy-logs-1"
+      },
+      {
+        "text": "Service events",
+        "icon": "󰑓",
+        "value": "󰑓  Service events",
+        "submenu": "aws-ecs-service-events-1"
+      },
+      {
+        "text": "Running tasks",
+        "icon": "󰐱",
+        "value": "󰐱  Running tasks",
+        "submenu": "aws-ecs-running-tasks-1"
+      },
+      {
+        "text": "Stopped tasks",
+        "icon": "",
+        "value": "  Stopped tasks",
+        "submenu": "aws-ecs-stopped-tasks-1"
+      },
+      {
+        "text": "List clusters",
+        "icon": "󰌗",
+        "value": "󰌗  List clusters",
+        "submenu": "aws-ecs-list-clusters-1"
+      },
+      {
+        "text": "List services",
+        "icon": "󰓾",
+        "value": "󰓾  List services",
+        "submenu": "aws-ecs-list-services-1"
+      }
+    ],
+    "parent": "aws-account",
+    "title": "ECS"
+  },
+  "aws-ecr": {
+    "provider": "aws",
+    "script": "aws/ecr.sh",
+    "actions": [
+      {
+        "text": "List repositories",
+        "icon": "",
+        "value": "  List repositories"
+      },
+      {
+        "text": "Search repository",
+        "icon": "",
+        "value": "  Search repository"
+      },
+      {
+        "text": "Latest image tags",
+        "icon": "󰁫",
+        "value": "󰁫  Latest image tags",
+        "submenu": "aws-ecr-latest-image-tags-1"
+      }
+    ],
+    "parent": "aws-account",
+    "title": "ECR"
+  },
+  "aws-ec2": {
+    "provider": "aws",
+    "script": "aws/ec2.sh",
+    "actions": [
+      {
+        "text": "Instances",
+        "icon": "󰍹",
+        "value": "󰍹  Instances"
+      },
+      {
+        "text": "Security groups",
+        "icon": "󰒋",
+        "value": "󰒋  Security groups"
+      },
+      {
+        "text": "Volumes",
+        "icon": "󰋊",
+        "value": "󰋊  Volumes"
+      },
+      {
+        "text": "Elastic IPs",
+        "icon": "󰓦",
+        "value": "󰓦  Elastic IPs"
+      },
+      {
+        "text": "Instance status checks",
+        "icon": "󰅟",
+        "value": "󰅟  Instance status checks"
+      }
+    ],
+    "parent": "aws-account",
+    "title": "EC2"
+  },
+  "aws-docdb": {
+    "provider": "aws",
+    "script": "aws/docdb.sh",
+    "actions": [
+      {
+        "text": "Clusters",
+        "icon": "󰘦",
+        "value": "󰘦  Clusters"
+      },
+      {
+        "text": "Instances",
+        "icon": "",
+        "value": "  Instances"
+      },
+      {
+        "text": "Cluster details",
+        "icon": "󰅟",
+        "value": "󰅟  Cluster details",
+        "submenu": "aws-docdb-cluster-details-1"
+      },
+      {
+        "text": "Recent events",
+        "icon": "󰕢",
+        "value": "󰕢  Recent events",
+        "submenu": "aws-docdb-recent-events-1"
+      }
+    ],
+    "parent": "aws-account",
+    "title": "DocumentDB"
+  },
+  "aws-cognito": {
+    "provider": "aws",
+    "script": "aws/cognito.sh",
+    "actions": [
+      {
+        "text": "User pools",
+        "icon": "󰟵",
+        "value": "󰟵  User pools"
+      },
+      {
+        "text": "Identity pools",
+        "icon": "󰀄",
+        "value": "󰀄  Identity pools"
+      },
+      {
+        "text": "App clients",
+        "icon": "󰘦",
+        "value": "󰘦  App clients",
+        "submenu": "aws-cognito-app-clients-1"
+      },
+      {
+        "text": "User pool details",
+        "icon": "󰅟",
+        "value": "󰅟  User pool details",
+        "submenu": "aws-cognito-user-pool-details-1"
+      }
+    ],
+    "parent": "aws-account",
+    "title": "Cognito"
+  },
+  "aws-cloudwatch": {
+    "provider": "aws",
+    "script": "aws/cloudwatch.sh",
+    "actions": [
+      {
+        "text": "All logs",
+        "icon": "󰁫",
+        "value": "󰁫  All logs",
+        "submenu": "aws-cloudwatch-all-logs-1"
+      },
+      {
+        "text": "ERROR logs",
+        "icon": "",
+        "value": "  ERROR logs",
+        "submenu": "aws-cloudwatch-error-logs-1"
+      },
+      {
+        "text": "WARN logs",
+        "icon": "",
+        "value": "  WARN logs",
+        "submenu": "aws-cloudwatch-warn-logs-1"
+      },
+      {
+        "text": "INFO logs",
+        "icon": "",
+        "value": "  INFO logs",
+        "submenu": "aws-cloudwatch-info-logs-1"
+      },
+      {
+        "text": "Search word",
+        "icon": "",
+        "value": "  Search word",
+        "submenu": "aws-cloudwatch-search-word-1"
+      },
+      {
+        "text": "Latest log streams",
+        "icon": "󰁫",
+        "value": "󰁫  Latest log streams",
+        "submenu": "aws-cloudwatch-latest-log-streams-1"
+      }
+    ],
+    "parent": "aws-account",
+    "title": "CloudWatch"
+  },
+  "aws-cloudfront": {
+    "provider": "aws",
+    "script": "aws/cloudfront.sh",
+    "actions": [
+      {
+        "text": "Distributions",
+        "icon": "󰖟",
+        "value": "󰖟  Distributions"
+      },
+      {
+        "text": "Distribution details",
+        "icon": "󰅟",
+        "value": "󰅟  Distribution details",
+        "submenu": "aws-cloudfront-distribution-details-1"
+      },
+      {
+        "text": "Invalidations",
+        "icon": "󰑓",
+        "value": "󰑓  Invalidations",
+        "submenu": "aws-cloudfront-invalidations-1"
+      }
+    ],
+    "parent": "aws-account",
+    "title": "CloudFront"
+  },
+  "aws-vpc-subnets-1": {
+    "provider": "aws",
+    "parent": "aws-vpc",
+    "selector": "choose_vpc",
+    "icon": "󰩠",
+    "owner": "aws-vpc",
+    "action": "󰩠  Subnets"
+  },
+  "aws-vpc-route-tables-1": {
+    "provider": "aws",
+    "parent": "aws-vpc",
+    "selector": "choose_vpc",
+    "icon": "󰑓",
+    "owner": "aws-vpc",
+    "action": "󰑓  Route tables"
+  },
+  "aws-vpc-network-acls-1": {
+    "provider": "aws",
+    "parent": "aws-vpc",
+    "selector": "choose_vpc",
+    "icon": "󰒋",
+    "owner": "aws-vpc",
+    "action": "󰒋  Network ACLs"
+  },
+  "aws-vpc-vpc-endpoints-1": {
+    "provider": "aws",
+    "parent": "aws-vpc",
+    "selector": "choose_vpc",
+    "icon": "󰒄",
+    "owner": "aws-vpc",
+    "action": "󰒄  VPC endpoints"
+  },
+  "aws-s3-browse-bucket-1": {
+    "provider": "aws",
+    "parent": "aws-s3",
+    "selector": "choose_s3_bucket",
+    "icon": "󰉋",
+    "owner": "aws-s3",
+    "action": "󰉋  Browse bucket"
+  },
+  "aws-route53-records-1": {
+    "provider": "aws",
+    "parent": "aws-route53",
+    "selector": "choose_hosted_zone",
+    "icon": "󰑓",
+    "owner": "aws-route53",
+    "action": "󰑓  Records"
+  },
+  "aws-route53-zone-details-1": {
+    "provider": "aws",
+    "parent": "aws-route53",
+    "selector": "choose_hosted_zone",
+    "icon": "󰅟",
+    "owner": "aws-route53",
+    "action": "󰅟  Zone details"
+  },
+  "aws-rds-instance-status-1": {
+    "provider": "aws",
+    "parent": "aws-rds",
+    "selector": "choose_db_instance",
+    "icon": "󰅟",
+    "owner": "aws-rds",
+    "action": "󰅟  Instance status"
+  },
+  "aws-rds-recent-db-events-1": {
+    "provider": "aws",
+    "parent": "aws-rds",
+    "selector": "event_source",
+    "icon": "󰕢",
+    "owner": "aws-rds",
+    "action": "󰕢  Recent DB events",
+    "next": "aws-rds-recent-db-events-2"
+  },
+  "aws-rds-recent-db-events-2": {
+    "provider": "aws",
+    "parent": "aws-rds-recent-db-events-1",
+    "selector": "event_resource",
+    "icon": "󰕢",
+    "owner": "aws-rds",
+    "action": "󰕢  Recent DB events"
+  },
+  "aws-lambda-function-config-1": {
+    "provider": "aws",
+    "parent": "aws-lambda",
+    "selector": "choose_lambda_function",
+    "icon": "󰅟",
+    "owner": "aws-lambda",
+    "action": "󰅟  Function config"
+  },
+  "aws-lambda-recent-logs-1": {
+    "provider": "aws",
+    "parent": "aws-lambda",
+    "selector": "choose_lambda_function",
+    "icon": "󰢬",
+    "owner": "aws-lambda",
+    "action": "󰢬  Recent logs",
+    "next": "aws-lambda-recent-logs-2"
+  },
+  "aws-lambda-recent-logs-2": {
+    "provider": "aws",
+    "parent": "aws-lambda-recent-logs-1",
+    "selector": "choose_time_range_minutes",
+    "icon": "󰢬",
+    "owner": "aws-lambda",
+    "action": "󰢬  Recent logs"
+  },
+  "aws-lambda-recent-errors-1": {
+    "provider": "aws",
+    "parent": "aws-lambda",
+    "selector": "choose_lambda_function",
+    "icon": "",
+    "owner": "aws-lambda",
+    "action": "  Recent errors",
+    "next": "aws-lambda-recent-errors-2"
+  },
+  "aws-lambda-recent-errors-2": {
+    "provider": "aws",
+    "parent": "aws-lambda-recent-errors-1",
+    "selector": "choose_time_range_minutes",
+    "icon": "",
+    "owner": "aws-lambda",
+    "action": "  Recent errors"
+  },
+  "aws-iam-user-access-keys-1": {
+    "provider": "aws",
+    "parent": "aws-iam",
+    "selector": "choose_iam_user",
+    "icon": "󰌆",
+    "owner": "aws-iam",
+    "action": "󰌆  User access keys"
+  },
+  "aws-grafana-open-workspace-1": {
+    "provider": "aws",
+    "parent": "aws-grafana",
+    "selector": "choose_workspace",
+    "icon": "󰈹",
+    "owner": "aws-grafana",
+    "action": "󰈹  Open workspace"
+  },
+  "aws-grafana-workspace-details-1": {
+    "provider": "aws",
+    "parent": "aws-grafana",
+    "selector": "choose_workspace",
+    "icon": "󰅟",
+    "owner": "aws-grafana",
+    "action": "󰅟  Workspace details"
+  },
+  "aws-ecr-latest-image-tags-1": {
+    "provider": "aws",
+    "parent": "aws-ecr",
+    "selector": "choose_ecr_repository",
+    "icon": "󰁫",
+    "owner": "aws-ecr",
+    "action": "󰁫  Latest image tags"
+  },
+  "aws-docdb-cluster-details-1": {
+    "provider": "aws",
+    "parent": "aws-docdb",
+    "selector": "choose_docdb_cluster",
+    "icon": "󰅟",
+    "owner": "aws-docdb",
+    "action": "󰅟  Cluster details"
+  },
+  "aws-docdb-recent-events-1": {
+    "provider": "aws",
+    "parent": "aws-docdb",
+    "selector": "choose_docdb_cluster",
+    "icon": "󰕢",
+    "owner": "aws-docdb",
+    "action": "󰕢  Recent events"
+  },
+  "aws-cognito-app-clients-1": {
+    "provider": "aws",
+    "parent": "aws-cognito",
+    "selector": "choose_user_pool",
+    "icon": "󰘦",
+    "owner": "aws-cognito",
+    "action": "󰘦  App clients"
+  },
+  "aws-cognito-user-pool-details-1": {
+    "provider": "aws",
+    "parent": "aws-cognito",
+    "selector": "choose_user_pool",
+    "icon": "󰅟",
+    "owner": "aws-cognito",
+    "action": "󰅟  User pool details"
+  },
+  "aws-cloudfront-distribution-details-1": {
+    "provider": "aws",
+    "parent": "aws-cloudfront",
+    "selector": "choose_distribution",
+    "icon": "󰅟",
+    "owner": "aws-cloudfront",
+    "action": "󰅟  Distribution details"
+  },
+  "aws-cloudfront-invalidations-1": {
+    "provider": "aws",
+    "parent": "aws-cloudfront",
+    "selector": "choose_distribution",
+    "icon": "󰑓",
+    "owner": "aws-cloudfront",
+    "action": "󰑓  Invalidations"
+  },
+  "cloudflare-account": {
+    "provider": "cloudflare",
+    "parent": "cloudflare-contexts",
+    "external": true
+  },
+  "azure-logs-minutes": {
+    "provider": "azure",
+    "parent": "azure-account",
+    "selector": "choose_time_range_minutes",
+    "icon": "󰢬",
+    "owner": "azure-account",
+    "action": "󰢬  Activity Logs"
+  },
+  "azure-account": {
+    "provider": "azure",
+    "parent": "azure-contexts",
+    "script": "azure/menu.sh",
+    "actions": [
+      {
+        "text": "Login",
+        "icon": "󰊭",
+        "value": "󰊭  Login"
+      },
+      {
+        "text": "Refresh",
+        "icon": "󰑐",
+        "value": "󰑐  Refresh"
+      },
+      {
+        "text": "Check Auth",
+        "icon": "󰅟",
+        "value": "󰅟  Check Auth"
+      },
+      {
+        "text": "Subscriptions",
+        "icon": "󰏗",
+        "value": "󰏗  Subscriptions"
+      },
+      {
+        "text": "Resource Groups",
+        "icon": "󰉖",
+        "value": "󰉖  Resource Groups",
+        "script": "azure/resource-groups.sh"
+      },
+      {
+        "text": "Virtual Machines",
+        "icon": "",
+        "value": "  Virtual Machines",
+        "script": "azure/compute.sh"
+      },
+      {
+        "text": "Storage Accounts",
+        "icon": "󰉋",
+        "value": "󰉋  Storage Accounts",
+        "script": "azure/storage.sh"
+      },
+      {
+        "text": "AKS Clusters",
+        "icon": "󰠇",
+        "value": "󰠇  AKS Clusters",
+        "script": "azure/aks.sh"
+      },
+      {
+        "text": "App Services",
+        "icon": "󰣇",
+        "value": "󰣇  App Services",
+        "script": "azure/app-service.sh"
+      },
+      {
+        "text": "SQL Servers",
+        "icon": "󰈳",
+        "value": "󰈳  SQL Servers",
+        "script": "azure/sql.sh"
+      },
+      {
+        "text": "Container Registries",
+        "icon": "",
+        "value": "  Container Registries",
+        "script": "azure/acr.sh"
+      },
+      {
+        "text": "Function Apps",
+        "icon": "󰊕",
+        "value": "󰊕  Function Apps",
+        "script": "azure/functions.sh"
+      },
+      {
+        "text": "Virtual Networks",
+        "icon": "󰖟",
+        "value": "󰖟  Virtual Networks",
+        "script": "azure/vnet.sh"
+      },
+      {
+        "text": "Activity Logs",
+        "icon": "󰢬",
+        "value": "󰢬  Activity Logs",
+        "script": "azure/logs.sh",
+        "submenu": "azure-logs-minutes"
+      }
+    ]
+  },
+  "gcp-logs-minutes": {
+    "provider": "gcp",
+    "parent": "gcp-account",
+    "selector": "choose_time_range_minutes",
+    "icon": "󰢬",
+    "owner": "gcp-account",
+    "action": "󰢬  Logs"
+  },
+  "gcp-account": {
+    "provider": "gcp",
+    "parent": "gcp-contexts",
+    "script": "gcp/menu.sh",
+    "actions": [
+      {
+        "text": "Login",
+        "icon": "󰊭",
+        "value": "󰊭  Login"
+      },
+      {
+        "text": "Refresh",
+        "icon": "󰑐",
+        "value": "󰑐  Refresh"
+      },
+      {
+        "text": "Check Auth",
+        "icon": "󰅟",
+        "value": "󰅟  Check Auth"
+      },
+      {
+        "text": "Projects",
+        "icon": "󰏗",
+        "value": "󰏗  Projects"
+      },
+      {
+        "text": "Compute Instances",
+        "icon": "",
+        "value": "  Compute Instances",
+        "script": "gcp/compute.sh",
+        "requires_project": true
+      },
+      {
+        "text": "Storage Buckets",
+        "icon": "󰉋",
+        "value": "󰉋  Storage Buckets",
+        "script": "gcp/storage.sh",
+        "requires_project": true
+      },
+      {
+        "text": "GKE Clusters",
+        "icon": "󰠇",
+        "value": "󰠇  GKE Clusters",
+        "script": "gcp/gke.sh",
+        "requires_project": true
+      },
+      {
+        "text": "Cloud Run",
+        "icon": "󰣇",
+        "value": "󰣇  Cloud Run",
+        "script": "gcp/cloud-run.sh",
+        "requires_project": true
+      },
+      {
+        "text": "Cloud SQL",
+        "icon": "󰈳",
+        "value": "󰈳  Cloud SQL",
+        "script": "gcp/sql.sh",
+        "requires_project": true
+      },
+      {
+        "text": "Artifact Registry",
+        "icon": "",
+        "value": "  Artifact Registry",
+        "script": "gcp/artifact-registry.sh",
+        "requires_project": true
+      },
+      {
+        "text": "Cloud Functions",
+        "icon": "󰊕",
+        "value": "󰊕  Cloud Functions",
+        "script": "gcp/functions.sh",
+        "requires_project": true
+      },
+      {
+        "text": "VPC Networks",
+        "icon": "󰖟",
+        "value": "󰖟  VPC Networks",
+        "script": "gcp/vpc.sh",
+        "requires_project": true
+      },
+      {
+        "text": "IAM",
+        "icon": "󰒃",
+        "value": "󰒃  IAM",
+        "script": "gcp/iam.sh",
+        "requires_project": true
+      },
+      {
+        "text": "Logs",
+        "icon": "󰢬",
+        "value": "󰢬  Logs",
+        "script": "gcp/logs.sh",
+        "submenu": "gcp-logs-minutes",
+        "requires_project": true
+      }
+    ]
+  },
+  "gcp-projects": {
+    "provider": "gcp",
+    "parent": "gcp-account",
+    "selector": "project",
+    "icon": "",
+    "return": "gcp-account"
+  },
+  "digitalocean-account": {
+    "provider": "digitalocean",
+    "parent": "digitalocean-contexts",
+    "external": true
+  },
+  "hetzner-account": {
+    "provider": "hetzner",
+    "parent": "hetzner-contexts",
+    "external": true
+  },
+  "oracle-account": {
+    "provider": "oracle",
+    "parent": "oracle-contexts",
+    "external": true
+  },
+  "vercel-account": {
+    "provider": "vercel",
+    "parent": "vercel-contexts",
+    "external": true
+  },
+  "netlify-account": {
+    "provider": "netlify",
+    "parent": "netlify-contexts",
+    "external": true
+  },
+  "ibm-account": {
+    "provider": "ibm",
+    "parent": "ibm-contexts",
+    "external": true
+  },
+  "aws-cloudwatch-all-logs-1": {
+    "provider": "aws",
+    "parent": "aws-cloudwatch",
+    "selector": "choose_log_group",
+    "icon": "󰁫",
+    "owner": "aws-cloudwatch",
+    "action": "󰁫  All logs",
+    "next": "aws-cloudwatch-all-logs-2"
+  },
+  "aws-cloudwatch-all-logs-2": {
+    "provider": "aws",
+    "parent": "aws-cloudwatch-all-logs-1",
+    "selector": "choose_time_range_minutes",
+    "icon": "󰁫",
+    "owner": "aws-cloudwatch",
+    "action": "󰁫  All logs"
+  },
+  "aws-cloudwatch-error-logs-1": {
+    "provider": "aws",
+    "parent": "aws-cloudwatch",
+    "selector": "choose_log_group",
+    "icon": "",
+    "owner": "aws-cloudwatch",
+    "action": "  ERROR logs",
+    "next": "aws-cloudwatch-error-logs-2"
+  },
+  "aws-cloudwatch-error-logs-2": {
+    "provider": "aws",
+    "parent": "aws-cloudwatch-error-logs-1",
+    "selector": "choose_time_range_minutes",
+    "icon": "",
+    "owner": "aws-cloudwatch",
+    "action": "  ERROR logs"
+  },
+  "aws-cloudwatch-warn-logs-1": {
+    "provider": "aws",
+    "parent": "aws-cloudwatch",
+    "selector": "choose_log_group",
+    "icon": "",
+    "owner": "aws-cloudwatch",
+    "action": "  WARN logs",
+    "next": "aws-cloudwatch-warn-logs-2"
+  },
+  "aws-cloudwatch-warn-logs-2": {
+    "provider": "aws",
+    "parent": "aws-cloudwatch-warn-logs-1",
+    "selector": "choose_time_range_minutes",
+    "icon": "",
+    "owner": "aws-cloudwatch",
+    "action": "  WARN logs"
+  },
+  "aws-cloudwatch-info-logs-1": {
+    "provider": "aws",
+    "parent": "aws-cloudwatch",
+    "selector": "choose_log_group",
+    "icon": "",
+    "owner": "aws-cloudwatch",
+    "action": "  INFO logs",
+    "next": "aws-cloudwatch-info-logs-2"
+  },
+  "aws-cloudwatch-info-logs-2": {
+    "provider": "aws",
+    "parent": "aws-cloudwatch-info-logs-1",
+    "selector": "choose_time_range_minutes",
+    "icon": "",
+    "owner": "aws-cloudwatch",
+    "action": "  INFO logs"
+  },
+  "aws-cloudwatch-search-word-1": {
+    "provider": "aws",
+    "parent": "aws-cloudwatch",
+    "selector": "choose_log_group",
+    "icon": "",
+    "owner": "aws-cloudwatch",
+    "action": "  Search word",
+    "next": "aws-cloudwatch-search-word-2"
+  },
+  "aws-cloudwatch-search-word-2": {
+    "provider": "aws",
+    "parent": "aws-cloudwatch-search-word-1",
+    "selector": "choose_time_range_minutes",
+    "icon": "",
+    "owner": "aws-cloudwatch",
+    "action": "  Search word"
+  },
+  "aws-cloudwatch-latest-log-streams-1": {
+    "provider": "aws",
+    "parent": "aws-cloudwatch",
+    "selector": "choose_log_group",
+    "icon": "󰁫",
+    "owner": "aws-cloudwatch",
+    "action": "󰁫  Latest log streams"
+  },
+  "aws-ecs-service-status-1": {
+    "provider": "aws",
+    "parent": "aws-ecs",
+    "selector": "choose_ecs_cluster",
+    "icon": "󰅟",
+    "owner": "aws-ecs",
+    "action": "󰅟  Service status",
+    "next": "aws-ecs-service-status-2"
+  },
+  "aws-ecs-service-status-2": {
+    "provider": "aws",
+    "parent": "aws-ecs-service-status-1",
+    "selector": "choose_ecs_service",
+    "icon": "󰅟",
+    "owner": "aws-ecs",
+    "action": "󰅟  Service status"
+  },
+  "aws-ecs-deployments-1": {
+    "provider": "aws",
+    "parent": "aws-ecs",
+    "selector": "choose_ecs_cluster",
+    "icon": "󰐱",
+    "owner": "aws-ecs",
+    "action": "󰐱  Deployments",
+    "next": "aws-ecs-deployments-2"
+  },
+  "aws-ecs-deployments-2": {
+    "provider": "aws",
+    "parent": "aws-ecs-deployments-1",
+    "selector": "choose_ecs_service",
+    "icon": "󰐱",
+    "owner": "aws-ecs",
+    "action": "󰐱  Deployments"
+  },
+  "aws-ecs-latest-deploy-logs-1": {
+    "provider": "aws",
+    "parent": "aws-ecs",
+    "selector": "choose_ecs_cluster",
+    "icon": "󰢬",
+    "owner": "aws-ecs",
+    "action": "󰢬  Latest deploy logs",
+    "next": "aws-ecs-latest-deploy-logs-2"
+  },
+  "aws-ecs-latest-deploy-logs-2": {
+    "provider": "aws",
+    "parent": "aws-ecs-latest-deploy-logs-1",
+    "selector": "choose_ecs_service",
+    "icon": "󰢬",
+    "owner": "aws-ecs",
+    "action": "󰢬  Latest deploy logs"
+  },
+  "aws-ecs-service-events-1": {
+    "provider": "aws",
+    "parent": "aws-ecs",
+    "selector": "choose_ecs_cluster",
+    "icon": "󰑓",
+    "owner": "aws-ecs",
+    "action": "󰑓  Service events",
+    "next": "aws-ecs-service-events-2"
+  },
+  "aws-ecs-service-events-2": {
+    "provider": "aws",
+    "parent": "aws-ecs-service-events-1",
+    "selector": "choose_ecs_service",
+    "icon": "󰑓",
+    "owner": "aws-ecs",
+    "action": "󰑓  Service events"
+  },
+  "aws-ecs-running-tasks-1": {
+    "provider": "aws",
+    "parent": "aws-ecs",
+    "selector": "choose_ecs_cluster",
+    "icon": "󰐱",
+    "owner": "aws-ecs",
+    "action": "󰐱  Running tasks",
+    "next": "aws-ecs-running-tasks-2"
+  },
+  "aws-ecs-running-tasks-2": {
+    "provider": "aws",
+    "parent": "aws-ecs-running-tasks-1",
+    "selector": "choose_ecs_service",
+    "icon": "󰐱",
+    "owner": "aws-ecs",
+    "action": "󰐱  Running tasks"
+  },
+  "aws-ecs-stopped-tasks-1": {
+    "provider": "aws",
+    "parent": "aws-ecs",
+    "selector": "choose_ecs_cluster",
+    "icon": "",
+    "owner": "aws-ecs",
+    "action": "  Stopped tasks",
+    "next": "aws-ecs-stopped-tasks-2"
+  },
+  "aws-ecs-stopped-tasks-2": {
+    "provider": "aws",
+    "parent": "aws-ecs-stopped-tasks-1",
+    "selector": "choose_ecs_service",
+    "icon": "",
+    "owner": "aws-ecs",
+    "action": "  Stopped tasks"
+  },
+  "aws-ecs-list-clusters-1": {
+    "provider": "aws",
+    "parent": "aws-ecs",
+    "selector": "choose_ecs_cluster",
+    "icon": "󰌗",
+    "owner": "aws-ecs",
+    "action": "󰌗  List clusters",
+    "next": "aws-ecs-list-clusters-2"
+  },
+  "aws-ecs-list-clusters-2": {
+    "provider": "aws",
+    "parent": "aws-ecs-list-clusters-1",
+    "selector": "choose_ecs_service",
+    "icon": "󰌗",
+    "owner": "aws-ecs",
+    "action": "󰌗  List clusters"
+  },
+  "aws-ecs-list-services-1": {
+    "provider": "aws",
+    "parent": "aws-ecs",
+    "selector": "choose_ecs_cluster",
+    "icon": "󰓾",
+    "owner": "aws-ecs",
+    "action": "󰓾  List services",
+    "next": "aws-ecs-list-services-2"
+  },
+  "aws-ecs-list-services-2": {
+    "provider": "aws",
+    "parent": "aws-ecs-list-services-1",
+    "selector": "choose_ecs_service",
+    "icon": "󰓾",
+    "owner": "aws-ecs",
+    "action": "󰓾  List services"
+  }
+}

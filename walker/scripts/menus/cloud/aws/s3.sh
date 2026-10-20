@@ -7,38 +7,19 @@ elif [[ -f "$EITR_CODE_ROOT/distro/lib/paths.sh" ]]; then source "$EITR_CODE_ROO
 AWS_PROFILE="$1"
 source "$EITR_CODE_ROOT/walker/scripts/menus/cloud/aws/common.sh"
 
+if [ -z "${EITR_CLOUD_ACTION:-}" ]; then
+  exec python3 "$CLOUD_MENUS_DIR/navigation.py" select aws "$AWS_PROFILE" aws-s3
+fi
+
 if [ -z "$AWS_PROFILE" ]; then
   exit 0
 fi
 
 choose_s3_bucket() {
-  local buckets
-  local chosen
-
-  if ! buckets="$(aws_cli s3api list-buckets | jq -r '.Buckets[].Name')"; then
-    notify-send "S3" "Failed to list buckets for $AWS_PROFILE"
-    return 1
-  fi
-
-  if [ -z "$buckets" ]; then
-    notify-send "S3" "No buckets found for $AWS_PROFILE"
-    return 1
-  fi
-
-  chosen="$(printf "%s\n" "$buckets" | walker_menu "S3 Bucket")"
-
-  if [ -z "$chosen" ]; then
-    return 1
-  fi
-
-  echo "$chosen"
+  printf '%s\n' "${EITR_PICK_choose_s3_bucket:?Missing resource selection}"
 }
 
-options="󰉋  List buckets
-󰉋  Browse bucket
-  Search bucket by name"
-
-chosen="$(printf '%s\n' "$options" | walker_menu "S3 - $AWS_PROFILE")"
+chosen="${EITR_CLOUD_ACTION:-}"
 
 case "$chosen" in
   "󰉋  List buckets")

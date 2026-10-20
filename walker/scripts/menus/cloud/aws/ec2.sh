@@ -7,15 +7,13 @@ elif [[ -f "$EITR_CODE_ROOT/distro/lib/paths.sh" ]]; then source "$EITR_CODE_ROO
 AWS_PROFILE="$1"
 source "$EITR_CODE_ROOT/walker/scripts/menus/cloud/aws/common.sh"
 
+if [ -z "${EITR_CLOUD_ACTION:-}" ]; then
+  exec python3 "$CLOUD_MENUS_DIR/navigation.py" select aws "$AWS_PROFILE" aws-ec2
+fi
+
 [ -z "$AWS_PROFILE" ] && exit 0
 
-options="󰍹  Instances
-󰒋  Security groups
-󰋊  Volumes
-󰓦  Elastic IPs
-󰅟  Instance status checks"
-
-chosen="$(printf '%s\n' "$options" | walker_menu "EC2 - $AWS_PROFILE")"
+chosen="${EITR_CLOUD_ACTION:-}"
 
 case "$chosen" in
   "󰍹  Instances")

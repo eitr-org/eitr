@@ -21,7 +21,6 @@ import re
 import shlex
 import subprocess
 
-ROOT = Path(__file__).resolve().parent
 CONFIG = user_config()
 
 
@@ -84,31 +83,9 @@ def title(context):
     return context["label"] + " — " + detail
 
 
-def pick(rows, prompt):
-    labels = [title(row).replace("\n", " ").replace("\t", " ") for row in rows]
-    if not labels:
-        raise RuntimeError(tr('No signed-in accounts found. Open Cloud, choose the provider, then Set Up Account.'))
-    result = subprocess.run([str(code("walker/bin/walker-dmenu")), "--dmenu", "--no-sort",
-                             "--matching=contains", "--cache-file", "/dev/null", "--prompt", prompt],
-                            input="\n".join(labels), text=True, capture_output=True, check=False)
-    selected = result.stdout.strip()
-    if result.returncode or not selected:
-        return None
-    if selected not in labels:
-        raise ValueError('Unknown context selection')
-    return rows[labels.index(selected)]
-
-
-def environment(provider, context, resolve_project=True):
+def environment(provider, context):
     values = {"EITR_CLOUD_CONTEXT": title(context)}
     if provider == "gcp":
-        if not context.get("project") and resolve_project:
-            rows = query(["gcloud", "projects", "list", "--configuration", context["configuration"],
-                          "--account", context["account"], "--format=json"])
-            chosen = pick([{"label": row["projectId"], "project": row["projectId"]} for row in rows], "GCP Project")
-            if chosen is None:
-                return None
-            context = {**context, "project": chosen["project"]}
         if context.get("project") and not re.fullmatch(r"[a-z][a-z0-9-]{4,61}[a-z0-9]", context["project"]):
             raise ValueError(tr('Invalid project ID'))
         values.update(CLOUDSDK_ACTIVE_CONFIG_NAME=context["configuration"], CLOUDSDK_CORE_ACCOUNT=context["account"])
@@ -132,7 +109,6 @@ def main():
     parser.add_argument("--list", action="store_true")
     parser.add_argument("--open")
     parser.add_argument("--shell", action="store_true")
-    parser.add_argument("--defer-project", action="store_true")
     parser.add_argument("--refresh", action="store_true")
     args = parser.parse_args()
     if args.refresh:
@@ -153,22 +129,17 @@ def main():
         if selected not in rows:
             raise ValueError(tr('Context changed; refresh the menu'))
     else:
-        selected = pick(rows, args.provider.upper() + " Context")
-    if selected is None:
-        sys.exit(1)
-    values = environment(args.provider, selected, resolve_project=args.shell and not args.defer_project)
-    if values is None:
-        sys.exit(1)
+        import navigation
+        navigation.show(args.provider + '-contexts')
+        return
     if args.shell:
-        if args.provider == "gcp" and "CLOUDSDK_CORE_PROJECT" not in values:
+        values = environment(args.provider, selected)
+        if args.provider == 'gcp' and 'CLOUDSDK_CORE_PROJECT' not in values:
             print('unset CLOUDSDK_CORE_PROJECT')
         print("\n".join("export " + key + "=" + shlex.quote(value) for key, value in values.items()))
     else:
-        launch_environment = dict(os.environ)
-        if args.provider == "gcp":
-            launch_environment.pop("CLOUDSDK_CORE_PROJECT", None)
-        launch_environment.update(values)
-        subprocess.run(["bash", str(ROOT / args.provider / "menu.sh")], env=launch_environment, check=True)
+        import navigation
+        navigation.select(args.provider, selected)
 
 
 if __name__ == "__main__":

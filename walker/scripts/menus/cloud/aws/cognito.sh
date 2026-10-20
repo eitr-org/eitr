@@ -7,28 +7,17 @@ elif [[ -f "$EITR_CODE_ROOT/distro/lib/paths.sh" ]]; then source "$EITR_CODE_ROO
 AWS_PROFILE="$1"
 source "$EITR_CODE_ROOT/walker/scripts/menus/cloud/aws/common.sh"
 
+if [ -z "${EITR_CLOUD_ACTION:-}" ]; then
+  exec python3 "$CLOUD_MENUS_DIR/navigation.py" select aws "$AWS_PROFILE" aws-cognito
+fi
+
 [ -z "$AWS_PROFILE" ] && exit 0
 
 choose_user_pool() {
-  local pools chosen
-
-  if ! pools="$(aws_cli cognito-idp list-user-pools --max-results 60 | jq -r '.UserPools[] | "\(.Name)  \(.Id)"')"; then
-    notify-send "Cognito" "Failed to list user pools"
-    return 1
-  fi
-
-  [ -z "$pools" ] && notify-send "Cognito" "No user pools found" && return 1
-  chosen="$(printf "%s\n" "$pools" | walker_menu "User Pool")"
-  [ -z "$chosen" ] && return 1
-  echo "$chosen" | awk '{ print $NF }'
+  printf '%s\n' "${EITR_PICK_choose_user_pool:?Missing resource selection}"
 }
 
-options="󰟵  User pools
-󰀄  Identity pools
-󰘦  App clients
-󰅟  User pool details"
-
-chosen="$(printf '%s\n' "$options" | walker_menu "Cognito - $AWS_PROFILE")"
+chosen="${EITR_CLOUD_ACTION:-}"
 
 case "$chosen" in
   "󰟵  User pools")

@@ -403,7 +403,7 @@ def run_account_locked(provider, name, action, answers=None):
     wait_for_escape()
 
 
-def open_account(provider, name):
+def account_entries(provider, name):
     account_path(provider, name)
     choices = {
         tr('Open Console'): ['xdg-open', PROVIDERS[provider]['console']],
@@ -429,31 +429,20 @@ def open_account(provider, name):
     for title, (label, description, arguments) in VIEWS[provider].items():
         presentation[label] = (VIEW_ICONS[title], description)
         choices[label] = shlex.split(terminal(provider, 'view', name)) + [title]
-    console_label = tr('Open Console')
-    ordered = sorted(choices, key=str.casefold)
-    console_row = ''
-    decorated = {}
-    for label in ordered:
+    active = selection(provider, name)
+    context = ' / '.join(filter(None, [name, active.get('context'), active.get('region')]))
+    rows = []
+    for label in sorted(choices, key=str.casefold):
         icon, description = presentation[label]
-        row = icon + '  ' + label + ' — ' + description
-        decorated[row] = choices[label]
-        if label == console_label:
-            console_row = row
-    choices = decorated
-    while True:
-        active = selection(provider, name)
-        context = active.get('context', name)
-        detail = context + (' / ' + active['region'] if active.get('region') else '')
-        result = subprocess.run([str(code('walker/bin/walker-dmenu')), '--dmenu', '--no-sort',
-                                 '--prompt', PROVIDERS[provider]['name'] + ' / ' + name + ' / ' + detail],
-                                input='\n'.join(choices) + '\n', capture_output=True, text=True, check=False)
-        if result.returncode or result.stdout.strip() not in choices:
-            return
-        subprocess.run(choices[result.stdout.strip()], check=True)
-        if not account_path(provider, name).exists():
-            return
-        if result.stdout.strip() == console_row:
-            return
+        rows.append({'Text': label, 'Subtext': context + ' — ' + description, 'Icon': icon,
+                     'Actions': {'open': shlex.join(choices[label])}})
+    return rows
+
+
+def open_account(provider, name):
+    account_path(provider, name)
+    import navigation
+    navigation.select(provider, name)
 
 
 

@@ -7,38 +7,19 @@ elif [[ -f "$EITR_CODE_ROOT/distro/lib/paths.sh" ]]; then source "$EITR_CODE_ROO
 AWS_PROFILE="$1"
 source "$EITR_CODE_ROOT/walker/scripts/menus/cloud/aws/common.sh"
 
+if [ -z "${EITR_CLOUD_ACTION:-}" ]; then
+  exec python3 "$CLOUD_MENUS_DIR/navigation.py" select aws "$AWS_PROFILE" aws-ecr
+fi
+
 if [ -z "$AWS_PROFILE" ]; then
   exit 0
 fi
 
 choose_ecr_repository() {
-  local repositories
-  local chosen
-
-  if ! repositories="$(aws_cli ecr describe-repositories | jq -r '.repositories[].repositoryName')"; then
-    notify-send "ECR" "Failed to list repositories for $AWS_PROFILE"
-    return 1
-  fi
-
-  if [ -z "$repositories" ]; then
-    notify-send "ECR" "No repositories found for $AWS_PROFILE"
-    return 1
-  fi
-
-  chosen="$(printf "%s\n" "$repositories" | walker_menu "ECR Repository")"
-
-  if [ -z "$chosen" ]; then
-    return 1
-  fi
-
-  echo "$chosen"
+  printf '%s\n' "${EITR_PICK_choose_ecr_repository:?Missing resource selection}"
 }
 
-options="  List repositories
-  Search repository
-󰁫  Latest image tags"
-
-chosen="$(printf '%s\n' "$options" | walker_menu "ECR - $AWS_PROFILE")"
+chosen="${EITR_CLOUD_ACTION:-}"
 
 case "$chosen" in
   "  List repositories")

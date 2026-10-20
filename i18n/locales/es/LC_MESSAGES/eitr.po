@@ -133,6 +133,9 @@ msgstr "Ya existe una aplicación web llamada {name}. Elimínala primero en Inst
 msgid "A {service} dashboard named {name} already exists."
 msgstr "Ya existe un panel de {service} llamado {name}."
 
+msgid "AKS Clusters"
+msgstr "Clústeres AKS"
+
 msgid "AUR builds must run as a normal user"
 msgstr "Los paquetes de AUR deben compilarse con un usuario normal"
 
@@ -172,8 +175,14 @@ msgstr "Nombre de la cuenta"
 msgid "Account password"
 msgstr "Contraseña de la cuenta"
 
+msgid "Account summary"
+msgstr "Resumen de la cuenta"
+
 msgid "Accounts changed in another window; reopen setup before saving"
 msgstr "Las cuentas cambiaron en otra ventana; vuelve a abrir la configuración antes de guardar"
+
+msgid "Activity Logs"
+msgstr "Registros de actividad"
 
 msgid "Add a Git account"
 msgstr "Añadir una cuenta de Git"
@@ -202,6 +211,9 @@ msgstr "Añadir cuenta {provider}"
 msgid "Address"
 msgstr "Dirección"
 
+msgid "All logs"
+msgstr "Todos los registros"
+
 msgid "An assistants server already exists; settings were left unchanged."
 msgstr "Ya existe un servidor assistants; los ajustes se dejaron sin cambios."
 
@@ -213,6 +225,12 @@ msgstr "Un restablecimiento de fábrica interrumpido requiere revisión manual; 
 
 msgid "Answers name {disk}, not one of the eligible disks: {candidates}"
 msgstr "El archivo de respuestas indica {disk}, que no está entre los discos disponibles: {candidates}"
+
+msgid "App Services"
+msgstr "Servicios de aplicaciones"
+
+msgid "App clients"
+msgstr "Clientes de aplicación"
 
 msgid "Application deployments"
 msgstr "Despliegues de aplicaciones"
@@ -238,6 +256,9 @@ msgstr "Flechas / Tab: mover  Enter: responder  Esc: cancelar"
 msgid "Arrows: move  Enter: select  Type: search  Esc: back"
 msgstr "Flechas: mover  Enter: seleccionar  Escribe para buscar  Esc: volver"
 
+msgid "Artifact Registry"
+msgstr "Artifact Registry"
+
 msgid "Ask the AI"
 msgstr "Preguntar a la IA"
 
@@ -249,6 +270,9 @@ msgstr "Asistente"
 
 msgid "Assistant collaboration: {error}"
 msgstr "Colaboración entre asistentes: {error}"
+
+msgid "Aurora / RDS"
+msgstr "Aurora / RDS"
 
 msgid "Authentication updated for {authentication_methods}. Password fallback retained. Backup: {backup}"
 msgstr "Autenticación actualizada para {authentication_methods}. Se conserva la contraseña como alternativa. Copia de seguridad: {backup}"
@@ -291,6 +315,9 @@ msgstr "Las instantáneas de arranque no son compatibles con {loader}. {reason} 
 
 msgid "Both network backends are running; select one in System > Connectivity > Network Backend and reboot"
 msgstr "Ambos servicios de red están activos; elige uno en Sistema > Conectividad > Servicio de red y reinicia"
+
+msgid "Browse bucket"
+msgstr "Explorar bucket"
 
 msgid "Buckets"
 msgstr "Buckets"
@@ -349,6 +376,9 @@ msgstr "Los marcadores de capítulo requieren el formato de grabación Hybrid MP
 msgid "Charging will stop at {value}% to reduce battery wear, also after reboot and resume."
 msgstr "La carga se detendrá al {value}% para reducir el desgaste de la batería, también después de reiniciar o reanudar."
 
+msgid "Check Auth"
+msgstr "Verificar autenticación"
+
 msgid "Choose Sign In to open the browser."
 msgstr "Elija Iniciar sesión para abrir el navegador."
 
@@ -406,6 +436,27 @@ msgstr "Cerrando el punto de recuperación de una actualización anterior interr
 msgid "Cloud"
 msgstr "Nube"
 
+msgid "Cloud Functions"
+msgstr "Funciones de nube"
+
+msgid "Cloud Run"
+msgstr "Cloud Run"
+
+msgid "Cloud SQL"
+msgstr "Cloud SQL"
+
+msgid "CloudFront"
+msgstr "CloudFront"
+
+msgid "CloudWatch"
+msgstr "CloudWatch"
+
+msgid "Cluster details"
+msgstr "Detalles del clúster"
+
+msgid "Clusters"
+msgstr "Clústeres"
+
 msgid "Codex CLI is not installed"
 msgstr "Codex CLI no está instalada"
 
@@ -417,6 +468,9 @@ msgstr "El servicio de uso de Codex se cerró"
 
 msgid "Codex usage unavailable; check `codex login status`"
 msgstr "Uso de Codex no disponible; comprueba `codex login status`"
+
+msgid "Cognito"
+msgstr "Cognito"
 
 msgid "Collected a problem report ({line_count} lines) and saved it privately to\n{path}."
 msgstr "Se recopiló un informe del problema ({line_count} líneas), guardado de forma privada en\n{path}."
@@ -432,6 +486,9 @@ msgstr "Nombre del autor de los commits"
 
 msgid "Compartments"
 msgstr "Compartimentos"
+
+msgid "Compute Instances"
+msgstr "Instancias de cómputo"
 
 msgid "Compute instances"
 msgstr "Instancias de cómputo"
@@ -462,6 +519,9 @@ msgstr "La conexión ha fallado; comprueba las credenciales y los ajustes del ce
 
 msgid "Connection timed out; check the WiFi panel"
 msgstr "La conexión ha agotado el tiempo de espera; comprueba el panel de WiFi"
+
+msgid "Container Registries"
+msgstr "Registros de contenedores"
 
 msgid "Context"
 msgstr "Contexto"
@@ -553,6 +613,18 @@ msgstr "Las configuraciones personalizadas de IP estática o VPN requieren revis
 msgid "D1 Databases"
 msgstr "Bases de datos D1"
 
+msgid "DB cluster"
+msgstr "Clúster de base de datos"
+
+msgid "DB clusters"
+msgstr "Clústeres de bases de datos"
+
+msgid "DB instance"
+msgstr "Instancia de base de datos"
+
+msgid "DB instances"
+msgstr "Instancias de bases de datos"
+
 msgid "DNS domains"
 msgstr "Dominios DNS"
 
@@ -601,11 +673,20 @@ msgstr "Cifrado del disco"
 msgid "Display is not connected"
 msgstr "La pantalla no está conectada"
 
+msgid "Distribution details"
+msgstr "Detalles de la distribución"
+
+msgid "Distributions"
+msgstr "Distribuciones"
+
 msgid "Do not encrypt: files are readable without a password"
 msgstr "No cifrar: los archivos se podrán leer sin contraseña"
 
 msgid "Do not put login credentials in the address."
 msgstr "No incluyas credenciales de acceso en la dirección."
+
+msgid "DocumentDB"
+msgstr "DocumentDB"
 
 msgid "Domains"
 msgstr "Dominios"
@@ -619,11 +700,23 @@ msgstr "Carpeta duplicada o cuenta desconocida"
 msgid "Duplicate login theme name"
 msgstr "Duplicate login theme name"
 
+msgid "EC2"
+msgstr "EC2"
+
+msgid "ECR"
+msgstr "ECR"
+
+msgid "ECS"
+msgstr "ECS"
+
 msgid "EITR include block was edited; review it manually"
 msgstr "Se editó el bloque include de EITR; revísalo manualmente"
 
 msgid "ERASE EVERYTHING returns this computer to how it was at its first login."
 msgstr "BORRAR TODO devuelve este equipo al estado de su primer inicio de sesión."
+
+msgid "ERROR logs"
+msgstr "Registros ERROR"
 
 msgid "Each hand-off uses the helper’s subscription and counts toward its limits."
 msgstr "Cada transferencia usa la suscripción del asistente auxiliar y cuenta para sus límites."
@@ -639,6 +732,9 @@ msgstr "El componente {name} de Eitr no está instalado. Instala el paquete eitr
 
 msgid "Eitr's boot guard: {FAILED_STARTS} starts after the last update failed; restoring the system from snapshot {number}."
 msgstr "Protección de arranque de Eitr: fallaron {FAILED_STARTS} inicios tras la última actualización; restaurando el sistema desde la instantánea {number}."
+
+msgid "Elastic IPs"
+msgstr "IP elásticas"
 
 msgid "Empty values and control characters are not allowed"
 msgstr "No se permiten valores vacíos ni caracteres de control"
@@ -778,6 +874,18 @@ msgstr "Por ejemplo: {example}"
 msgid "Found in your Git configuration"
 msgstr "Encontrado en tu configuración de Git"
 
+msgid "Function Apps"
+msgstr "Aplicaciones de funciones"
+
+msgid "Function config"
+msgstr "Configuración de la función"
+
+msgid "Functions"
+msgstr "Funciones"
+
+msgid "GKE Clusters"
+msgstr "Clústeres GKE"
+
 msgid "GRUB now lists Snapper snapshots in its 'Arch Linux snapshots' submenu. Backup: {backup}"
 msgstr "GRUB ahora muestra las instantáneas de Snapper en el submenú 'Arch Linux snapshots'. Copia de seguridad: {backup}"
 
@@ -793,11 +901,17 @@ msgstr "Indica la partición cifrada con una ruta /dev, por ejemplo /dev/nvme0n1
 msgid "Global app search only supports launching"
 msgstr "La búsqueda global de aplicaciones solo permite abrirlas"
 
+msgid "Grafana"
+msgstr "Grafana"
+
 msgid "Grok subscription usage requires one personal Grok login; API/enterprise limits are not supported"
 msgstr "El uso de la suscripción de Grok requiere una sesión personal de Grok; no se admiten límites de API o empresariales"
 
 msgid "Grok usage returned HTTP {code}; retry later or sign in again"
 msgstr "La consulta de uso de Grok devolvió HTTP {code}; inténtalo más tarde o vuelve a iniciar sesión"
+
+msgid "Groups"
+msgstr "Grupos"
 
 msgid "Hardware detection failed; see the log above"
 msgstr "Falló la detección de hardware; consulta el registro anterior"
@@ -823,17 +937,29 @@ msgstr "Instantáneas de las carpetas personales: desactivadas"
 msgid "Home snapshots: on, {snapshot_count} kept{pending}"
 msgstr "Instantáneas de las carpetas personales: activadas, {snapshot_count} conservadas{pending}"
 
+msgid "Hosted zones"
+msgstr "Zonas alojadas"
+
 msgid "Hostname"
 msgstr "Nombre del equipo"
 
 msgid "How should Eitr use {disk}?"
 msgstr "¿Cómo debe usar Eitr {disk}?"
 
+msgid "IAM"
+msgstr "IAM"
+
+msgid "INFO logs"
+msgstr "Registros INFO"
+
 msgid "INSTALL STEPS"
 msgstr "PASOS DE INSTALACIÓN"
 
 msgid "Icon address"
 msgstr "Dirección del icono"
+
+msgid "Identity pools"
+msgstr "Grupos de identidades"
 
 msgid "Idle; ping to check"
 msgstr "Inactiva; haga ping para comprobar"
@@ -907,6 +1033,12 @@ msgstr "La instalación junto a otros sistemas conserva todas las particiones ex
 msgid "Installing from the USB medium; no network is needed. Keep the computer powered on."
 msgstr "Instalando desde la unidad USB; no se necesita conexión de red. Mantén el equipo encendido."
 
+msgid "Instance status"
+msgstr "Estado de la instancia"
+
+msgid "Instance status checks"
+msgstr "Comprobaciones de estado de la instancia"
+
 msgid "Instances"
 msgstr "Instancias"
 
@@ -967,6 +1099,9 @@ msgstr "Nombre de usuario {username} no válido"
 msgid "Invalid web app ID"
 msgstr "Invalid web app ID"
 
+msgid "Invalidations"
+msgstr "Invalidaciones"
+
 msgid "It shows at the next boot and follows your theme from then on. Your boot entries were not changed."
 msgstr "Se mostrará en el próximo arranque y seguirá tu tema desde entonces. Tus entradas de arranque no se han modificado."
 
@@ -1015,6 +1150,9 @@ msgstr "Clústeres de Kubernetes"
 msgid "LUKS2 disk encryption: needed at every boot"
 msgstr "Cifrado de disco LUKS2: necesario en cada arranque"
 
+msgid "Lambda"
+msgstr "Lambda"
+
 msgid "Language"
 msgstr "Idioma"
 
@@ -1024,14 +1162,38 @@ msgstr "Idioma guardado. Cierra la sesión y vuelve a iniciarla para aplicarlo."
 msgid "Later"
 msgstr "Más tarde"
 
+msgid "Latest deploy logs"
+msgstr "Registros del último despliegue"
+
+msgid "Latest image tags"
+msgstr "Últimas etiquetas de imagen"
+
+msgid "Latest log streams"
+msgstr "Últimos flujos de registros"
+
 msgid "Let assistants work together"
 msgstr "Permitir que los asistentes trabajen juntos"
+
+msgid "Lightsail"
+msgstr "Lightsail"
 
 msgid "Limine shows its default menu from the next boot. Your boot entries were not changed."
 msgstr "Limine mostrará su menú predeterminado en el próximo arranque. No se modificaron las entradas de arranque."
 
 msgid "List Accounts"
 msgstr "Listar cuentas"
+
+msgid "List buckets"
+msgstr "Listar buckets"
+
+msgid "List clusters"
+msgstr "Listar clústeres"
+
+msgid "List repositories"
+msgstr "Listar repositorios"
+
+msgid "List services"
+msgstr "Listar servicios"
 
 msgid "Load Balancers"
 msgstr "Balanceadores de carga"
@@ -1054,11 +1216,17 @@ msgstr "Cierra la sesión para terminar de actualizar."
 msgid "Log {label} in to {command}"
 msgstr "Iniciar sesión con {label} en {command}"
 
+msgid "Login"
+msgstr "Iniciar sesión"
+
 msgid "Login design is not installed"
 msgstr "El diseño de acceso no está instalado"
 
 msgid "Login screen could not be updated: {errors}"
 msgstr "No se pudo actualizar la pantalla de inicio de sesión: {errors}"
+
+msgid "Logs"
+msgstr "Registros"
 
 msgid "Lowercase name. This user will have sudo access."
 msgstr "Nombre en minúsculas. Este usuario tendrá acceso a sudo."
@@ -1086,6 +1254,9 @@ msgstr "Pon nombre a las suscripciones que quieres en el menú"
 
 msgid "Name this computer."
 msgstr "Asigna un nombre a este equipo."
+
+msgid "Network ACLs"
+msgstr "ACL de red"
 
 msgid "Network firewalls"
 msgstr "Cortafuegos de red"
@@ -1174,9 +1345,6 @@ msgstr "No hay recordatorios pendientes."
 msgid "No reminders."
 msgstr "No hay recordatorios."
 
-msgid "No signed-in accounts found. Open Cloud, choose the provider, then Set Up Account."
-msgstr "No hay cuentas conectadas. Abre Nube, elige el proveedor y luego Configurar cuenta."
-
 msgid "No snapshot has {path}."
 msgstr "Ninguna instantánea contiene {path}."
 
@@ -1243,6 +1411,9 @@ msgstr "Abrir consola"
 msgid "Open the web console"
 msgstr "Abrir la consola web"
 
+msgid "Open workspace"
+msgstr "Abrir espacio de trabajo"
+
 msgid "Open {path} to read it."
 msgstr "Abre {path} para leer el informe."
 
@@ -1290,6 +1461,9 @@ msgstr "Amplía la consola al menos a 80 columnas y 24 filas."
 
 msgid "Please enter a valid value."
 msgstr "Introduce un valor válido."
+
+msgid "Policies"
+msgstr "Políticas"
 
 msgid "Preparation failed before any disk changes"
 msgstr "La preparación falló antes de modificar ningún disco"
@@ -1354,11 +1528,29 @@ msgstr "Listo. Ambas opciones de restablecimiento reinician el equipo inmediatam
 msgid "Reboot now to apply?"
 msgstr "¿Reiniciar ahora para aplicar?"
 
+msgid "Recent DB events"
+msgstr "Eventos recientes de la base de datos"
+
+msgid "Recent errors"
+msgstr "Errores recientes"
+
+msgid "Recent events"
+msgstr "Eventos recientes"
+
+msgid "Recent logs"
+msgstr "Registros recientes"
+
 msgid "Recording saved"
 msgstr "Grabación guardada"
 
+msgid "Records"
+msgstr "Registros"
+
 msgid "Recovery snapshot {identifier}{extra} created."
 msgstr "Se creó la instantánea de recuperación {identifier}{extra}."
+
+msgid "Refresh"
+msgstr "Actualizar"
 
 msgid "Refusing a symlink: {path}"
 msgstr "Enlace simbólico rechazado: {path}"
@@ -1477,8 +1669,17 @@ msgstr "Revisa primero /etc/default/limine y luego ejecuta: sudo systemctl start
 msgid "Review installation"
 msgstr "Revisar instalación"
 
+msgid "Roles"
+msgstr "Roles"
+
 msgid "Root snapshots configured. Existing Snapper policy is preserved."
 msgstr "Instantáneas de raíz configuradas. Se conserva la política actual de Snapper."
+
+msgid "Route 53"
+msgstr "Route 53"
+
+msgid "Route tables"
+msgstr "Tablas de rutas"
 
 msgid "Run Sharing Setup first."
 msgstr "Configure primero el uso compartido."
@@ -1504,8 +1705,17 @@ msgstr "Ejecuta la configuración de acceso del paquete con sudo desde tu usuari
 msgid "Running now: {backends}"
 msgstr "En ejecución: {backends}"
 
+msgid "Running tasks"
+msgstr "Tareas en ejecución"
+
+msgid "S3"
+msgstr "S3"
+
 msgid "SDDM was not restarted. Log out or reboot to see the login design."
 msgstr "SDDM no se reinició. Cierra la sesión o reinicia para ver el diseño de acceso."
+
+msgid "SQL Servers"
+msgstr "Servidores SQL"
 
 msgid "SQL databases"
 msgstr "Bases de datos SQL"
@@ -1515,6 +1725,9 @@ msgstr "Clave SSH"
 
 msgid "SSH key references must be absolute paths"
 msgstr "Las rutas de las claves SSH deben ser absolutas"
+
+msgid "SSO Login"
+msgstr "Iniciar sesión con SSO"
 
 msgid "Save these settings?"
 msgstr "¿Guardar esta configuración?"
@@ -1546,11 +1759,20 @@ msgstr "Ámbito"
 msgid "Screen"
 msgstr "Pantalla"
 
+msgid "Search bucket by name"
+msgstr "Buscar bucket por nombre"
+
 msgid "Search entry changed; reopen Main to refresh"
 msgstr "La entrada de búsqueda cambió; vuelve a abrir Principal para actualizar"
 
 msgid "Search entry expired; reopen Main to refresh"
 msgstr "La entrada de búsqueda caducó; vuelve a abrir Principal para actualizar"
+
+msgid "Search repository"
+msgstr "Buscar repositorio"
+
+msgid "Search word"
+msgstr "Palabra de búsqueda"
 
 msgid "Second warning: this resets the computer named \"{host}\"."
 msgstr "Segunda advertencia: esto restablece el equipo llamado \"{host}\"."
@@ -1560,6 +1782,9 @@ msgstr "Secure Boot está activado; modificar la configuración de Limine con un
 
 msgid "Secure Boot is on. The restored boot files are not signed with your keys; turn Secure Boot off in the firmware settings first"
 msgstr "Secure Boot está activado. Los archivos de arranque restaurados no están firmados con tus claves; desactiva primero Secure Boot en el firmware"
+
+msgid "Security groups"
+msgstr "Grupos de seguridad"
 
 msgid "Security key enrolled. Enable FIDO2 authentication separately; keep your password available."
 msgstr "Llave de seguridad registrada. Activa la autenticación FIDO2 por separado; conserva tu contraseña."
@@ -1584,6 +1809,12 @@ msgstr "Servicio"
 
 msgid "Service Instances"
 msgstr "Instancias de servicio"
+
+msgid "Service events"
+msgstr "Eventos del servicio"
+
+msgid "Service status"
+msgstr "Estado del servicio"
 
 msgid "Set Sunshine’s password first. Enter the PIN shown by Moonlight only for a device you trust."
 msgstr "Defina primero la contraseña de Sunshine. Introduzca el PIN de Moonlight solo para un dispositivo de confianza."
@@ -1705,6 +1936,9 @@ msgstr "¿Compartir automáticamente al acceder? Esto concede control remoto del
 msgid "Start sharing this PC?"
 msgstr "¿Empezar a compartir este PC?"
 
+msgid "Static IPs"
+msgstr "IP estáticas"
+
 msgid "Status"
 msgstr "Estado"
 
@@ -1726,11 +1960,26 @@ msgstr "¿Dejar de usar {label} en {picked}?"
 msgid "Stop using {label} outside its folders?"
 msgstr "¿Dejar de usar {label} fuera de sus carpetas?"
 
+msgid "Stopped tasks"
+msgstr "Tareas detenidas"
+
+msgid "Storage Accounts"
+msgstr "Cuentas de almacenamiento"
+
+msgid "Storage Buckets"
+msgstr "Buckets de almacenamiento"
+
 msgid "Storage volumes"
 msgstr "Volúmenes de almacenamiento"
 
 msgid "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}"
 msgstr "Menú de arranque en {config} adaptado a los colores de {source}. Copia de seguridad: {backup}"
+
+msgid "Subnets"
+msgstr "Subredes"
+
+msgid "Subscriptions"
+msgstr "Suscripciones"
 
 msgid "Sunshine grants full control of your desktop. Setup grants KMS capture and virtual keyboard, mouse and controller access."
 msgstr "Sunshine concede control total del escritorio. La configuración permite captura KMS y acceso virtual al teclado, ratón y mando."
@@ -2161,11 +2410,23 @@ msgstr "¿Usar {label} en todas las carpetas sin cuenta propia?"
 msgid "Use {picked} for {label}?"
 msgstr "¿Usar {picked} para {label}?"
 
+msgid "User access keys"
+msgstr "Claves de acceso del usuario"
+
 msgid "User account"
 msgstr "Cuenta de usuario"
 
+msgid "User pool details"
+msgstr "Detalles del grupo de usuarios"
+
+msgid "User pools"
+msgstr "Grupos de usuarios"
+
 msgid "Username"
 msgstr "Nombre de usuario"
+
+msgid "Users"
+msgstr "Usuarios"
 
 msgid "Using the default theme: {user}'s theme could not be read ({error})."
 msgstr "Usando el tema predeterminado: no se pudo leer el tema de {user} ({error})."
@@ -2173,11 +2434,32 @@ msgstr "Usando el tema predeterminado: no se pudo leer el tema de {user} ({error
 msgid "VCNs"
 msgstr "VCN"
 
+msgid "VPC"
+msgstr "VPC"
+
+msgid "VPC Networks"
+msgstr "Redes VPC"
+
+msgid "VPC endpoints"
+msgstr "Puntos de enlace de VPC"
+
+msgid "VPCs"
+msgstr "VPC"
+
+msgid "Virtual Machines"
+msgstr "Máquinas virtuales"
+
+msgid "Virtual Networks"
+msgstr "Redes virtuales"
+
 msgid "Virtual networks"
 msgstr "Redes virtuales"
 
 msgid "Volumes"
 msgstr "Volúmenes"
+
+msgid "WARN logs"
+msgstr "Registros WARN"
 
 msgid "Web app created"
 msgstr "Aplicación web creada"
@@ -2193,6 +2475,12 @@ msgstr "Sitios web"
 
 msgid "WiFi adapter is unavailable; refresh the panel"
 msgstr "Adaptador WiFi no disponible; actualiza el panel"
+
+msgid "Workspace details"
+msgstr "Detalles del espacio de trabajo"
+
+msgid "Workspaces"
+msgstr "Espacios de trabajo"
 
 msgid "Write the recovery key down and store it offline, then press Enter. "
 msgstr "Anota la clave de recuperación y guárdala sin conexión; después pulsa Enter. "
@@ -2214,6 +2502,9 @@ msgstr "Tus ajustes personales actuales, incluidos los archivos ocultos como ~/.
 
 msgid "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send."
 msgstr "Tu aplicación de correo abrió un mensaje para {REPORTS_EMAIL}. Adjunta {path}, describe lo ocurrido y envíalo."
+
+msgid "Zone details"
+msgstr "Detalles de la zona"
 
 msgid "archinstall and arch-chroot are required (they ship on the Arch ISO)"
 msgstr "Se necesitan archinstall y arch-chroot (incluidos en la ISO de Arch)"

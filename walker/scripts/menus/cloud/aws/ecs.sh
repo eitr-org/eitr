@@ -7,62 +7,25 @@ elif [[ -f "$EITR_CODE_ROOT/distro/lib/paths.sh" ]]; then source "$EITR_CODE_ROO
 AWS_PROFILE="${1:-}"
 source "$EITR_CODE_ROOT/walker/scripts/menus/cloud/aws/common.sh"
 
+if [ -z "${EITR_CLOUD_ACTION:-}" ]; then
+  exec python3 "$CLOUD_MENUS_DIR/navigation.py" select aws "$AWS_PROFILE" aws-ecs
+fi
+
 if [ -z "$AWS_PROFILE" ]; then
   exit 0
 fi
 
 choose_ecs_cluster() {
-  local clusters
-  local chosen
-
-  if ! clusters="$(aws_cli ecs list-clusters | jq -r '.clusterArns[] | split("/")[-1]')"; then
-    notify-send "ECS" "Failed to list clusters for $AWS_PROFILE"
-    return 1
-  fi
-
-  if [ -z "$clusters" ]; then
-    notify-send "ECS" "No clusters found for $AWS_PROFILE"
-    return 1
-  fi
-
-  chosen="$(printf "%s\n" "$clusters" | walker_menu "ECS Cluster")"
-
-  if [ -z "$chosen" ]; then
-    return 1
-  fi
-
-  echo "$chosen"
+  printf '%s\n' "${EITR_PICK_choose_ecs_cluster:?Missing resource selection}"
 }
 
 choose_ecs_service() {
-  local cluster="$1"
-  local services
-  local chosen
-
-  if ! services="$(aws_cli ecs list-services \
-    --cluster "$cluster" \
-    | jq -r '.serviceArns[] | split("/")[-1]')"; then
-    notify-send "ECS" "Failed to list services in $cluster"
-    return 1
-  fi
-
-  if [ -z "$services" ]; then
-    notify-send "ECS" "No services found in $cluster"
-    return 1
-  fi
-
-  chosen="$(printf "%s\n" "$services" | walker_menu "ECS Service")"
-
-  if [ -z "$chosen" ]; then
-    return 1
-  fi
-
-  echo "$chosen"
+  printf '%s\n' "${EITR_PICK_choose_ecs_service:?Missing resource selection}"
 }
 
 ECS_CLUSTER="$(choose_ecs_cluster)" || exit 0
 ECS_SERVICE="$(choose_ecs_service "$ECS_CLUSTER")" || exit 0
-printf -v RETURN_TO_ECS_COMMAND "%q %q" "$0" "$AWS_PROFILE"
+RETURN_TO_ECS_COMMAND="$CLOUD_MENU_RETURN_COMMAND"
 
 service_status_command() {
   cat <<EOF
@@ -281,16 +244,7 @@ $(aws_base) ecs list-services \\
 EOF
 }
 
-options="󰅟  Service status
-󰐱  Deployments
-󰢬  Latest deploy logs
-󰑓  Service events
-󰐱  Running tasks
-  Stopped tasks
-󰌗  List clusters
-󰓾  List services"
-
-chosen="$(printf '%s\n' "$options" | walker_menu "ECS - $AWS_PROFILE")"
+chosen="${EITR_CLOUD_ACTION:-}"
 
 case "$chosen" in
   "󰅟  Service status")

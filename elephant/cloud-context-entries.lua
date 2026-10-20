@@ -19,7 +19,7 @@ return function(provider, icon)
             for line in handle:lines() do
                 local label, token, key = line:match("^([^\t]+)\t([^\t]+)\t(.+)$")
                 if label then
-                    table.insert(entries, { Text = label, Icon = icon,
+                    table.insert(entries, { Text = label, Icon = icon, State = {"submenu"},
                         Actions = { open = command .. " --open " .. quote(token),
                             cloud_rename = form("rename " .. provider .. " " .. quote(key)) } })
                 end

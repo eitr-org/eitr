@@ -7,30 +7,17 @@ elif [[ -f "$EITR_CODE_ROOT/distro/lib/paths.sh" ]]; then source "$EITR_CODE_ROO
 AWS_PROFILE="$1"
 source "$EITR_CODE_ROOT/walker/scripts/menus/cloud/aws/common.sh"
 
+if [ -z "${EITR_CLOUD_ACTION:-}" ]; then
+  exec python3 "$CLOUD_MENUS_DIR/navigation.py" select aws "$AWS_PROFILE" aws-iam
+fi
+
 [ -z "$AWS_PROFILE" ] && exit 0
 
 choose_iam_user() {
-  local users chosen
-
-  if ! users="$(aws_cli iam list-users | jq -r '.Users[].UserName')"; then
-    notify-send "IAM" "Failed to list users"
-    return 1
-  fi
-
-  [ -z "$users" ] && notify-send "IAM" "No users found" && return 1
-  chosen="$(printf "%s\n" "$users" | walker_menu "IAM User")"
-  [ -z "$chosen" ] && return 1
-  echo "$chosen"
+  printf '%s\n' "${EITR_PICK_choose_iam_user:?Missing resource selection}"
 }
 
-options="󰀄  Account summary
-󰀄  Users
-󰌾  Roles
-󰒃  Policies
-󰘦  Groups
-󰌆  User access keys"
-
-chosen="$(printf '%s\n' "$options" | walker_menu "IAM - $AWS_PROFILE")"
+chosen="${EITR_CLOUD_ACTION:-}"
 
 case "$chosen" in
   "󰀄  Account summary")

@@ -6,8 +6,7 @@ GCP_MENUS_DIR="$CLOUD_MENUS_DIR/gcp"
 CLOUD_PROVIDER_HELPERS="$CLOUD_MENUS_DIR/context-auth.sh"
 
 if [[ "$(realpath -- "$0")" == "$(realpath -- "$GCP_MENUS_DIR")/"* && "${1:-}" != --setup && -z "${EITR_CLOUD_CONTEXT:-}" ]]; then
-  context_exports="$(python3 "$CLOUD_MENUS_DIR/contexts.py" gcp --shell --defer-project)" || exit 0
-  eval "$context_exports"
+  exec python3 "$CLOUD_MENUS_DIR/navigation.py" show gcp-contexts
 fi
 
 cloud_terminal_env() {
@@ -34,31 +33,9 @@ require_gcloud() {
   fi
 }
 
-# Prints the chosen project ID; returns 1 on cancel or failure.
 choose_gcp_project() {
-  if [ -n "${CLOUDSDK_CORE_PROJECT:-}" ] && [ -n "${EITR_CLOUD_CONTEXT:-}" ]; then
-    printf '%s\n' "$CLOUDSDK_CORE_PROJECT"
-    return
-  fi
-  local projects
-  local chosen
-
-  require_gcloud || return 1
-
-  if ! projects="$(gcloud projects list --format='value(projectId)' 2>/dev/null)"; then
-    notify-send "GCP" "Failed to list projects. Login or configure gcloud first."
-    return 1
-  fi
-
-  if [ -z "$projects" ]; then
-    notify-send "GCP" "No projects found"
-    return 1
-  fi
-
-  chosen="$(printf "%s\n" "$projects" | walker_menu "GCP Project")"
-  [ -n "$chosen" ] || return 1
-
-  printf '%s\n' "$chosen"
+  [ -n "${CLOUDSDK_CORE_PROJECT:-}" ] || return 1
+  printf '%s\n' "$CLOUDSDK_CORE_PROJECT"
 }
 
 back_to_gcp_menu() {
