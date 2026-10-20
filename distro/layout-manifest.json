@@ -2,6 +2,7 @@
   "version": 1,
   "layout_version": 2,
   "rules": [
+    {"pattern": "distro/system/eitr_remote.py", "class": "C", "runtime": false},
     {"pattern": "i18n/README.md", "class": "D", "runtime": false},
     {"pattern": "i18n/pending-helpers.json", "class": "D", "runtime": false},
     {"pattern": "i18n/sources.json", "class": "D", "runtime": false},

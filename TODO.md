@@ -33,6 +33,12 @@ First milestone: control the owner's signed-in, awake Eitr desktop (apps and
 games) from a MacBook. Install everything on first use, like GeForce NOW; the
 ISO does not grow. All three are open source from their usual sources.
 
+Stages 1–3 implementation is in the working tree: menus, confirmed root-helper
+setup/undo, native Sunshine repository recipe, user service, translated Handbook
+and mocked tests. Release the optional `eitr-sunshine` package before the desktop
+package. Owner validation below is still pending; do not mark hardware behaviour
+as verified.
+
 Stage 1, Moonlight (client):
 
 - Gaming > Moonlight next to Steam and GeForce NOW: first click installs it,

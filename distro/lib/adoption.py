@@ -13,7 +13,7 @@ from layout import Layout
 from migrations import mark_all as mark_all_migrations
 
 # Units eitr-desktop installs in /usr/lib/systemd/user; tests keep this in sync.
-PACKAGED_UNITS = ('eitr-crash-help.service', 'elephant.service', 'nightlight-auto.service', 'nightlight-auto.timer')
+PACKAGED_UNITS = ('eitr-crash-help.service', 'eitr-sunshine.service', 'elephant.service', 'nightlight-auto.service', 'nightlight-auto.timer')
 SYSTEM_UNITS = Path('/usr/lib/systemd/user')
 
 PREFERENCES = [

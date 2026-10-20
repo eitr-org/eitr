@@ -300,7 +300,7 @@ class GamingTests(unittest.TestCase):
         self.addCleanup(catalog.stop)
 
     def test_installed_gaming_apps_open_without_installing(self):
-        launches = {"steam": ["steam"], "retroarch": ["retroarch"], "geforcenow": ["flatpak", "run", "com.nvidia.geforcenow"]}
+        launches = {"moonlight": ["moonlight"], "steam": ["steam"], "retroarch": ["retroarch"], "geforcenow": ["flatpak", "run", "com.nvidia.geforcenow"]}
         for identifier, command in launches.items():
             with self.subTest(identifier=identifier), patch.object(software, "installed", return_value=True), \
                     patch.object(software.subprocess, "Popen") as launch, patch.object(software, "terminal") as terminal:
@@ -309,7 +309,7 @@ class GamingTests(unittest.TestCase):
                 terminal.assert_not_called()
 
     def test_missing_gaming_apps_open_install_terminal(self):
-        for identifier in ("steam", "retroarch", "geforcenow"):
+        for identifier in ("steam", "retroarch", "geforcenow", "moonlight"):
             with self.subTest(identifier=identifier), patch.object(software, "installed", return_value=False), \
                     patch.object(software.subprocess, "Popen") as launch, patch.object(software, "terminal") as terminal:
                 software.gaming(identifier)

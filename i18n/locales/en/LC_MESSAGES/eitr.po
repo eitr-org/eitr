@@ -130,6 +130,9 @@ msgstr "A network service is masked; review your custom configuration before swi
 msgid "A program crashed"
 msgstr "A program crashed"
 
+msgid "A regular desktop user is required"
+msgstr "A regular desktop user is required"
+
 msgid "A selection is required"
 msgstr "A selection is required"
 
@@ -201,6 +204,9 @@ msgstr "An interrupted factory reset needs manual review; see {MANUAL}"
 
 msgid "Answers name {disk}, not one of the eligible disks: {candidates}"
 msgstr "Answers name {disk}, not one of the eligible disks: {candidates}"
+
+msgid "Apply this system change? Type yes to continue: "
+msgstr "Apply this system change? Type yes to continue: "
 
 msgid "Arch posted news since your last update:"
 msgstr "Arch posted news since your last update:"
@@ -286,6 +292,9 @@ msgstr "Cancelled; nothing was changed"
 msgid "Cancelled; nothing was changed."
 msgstr "Cancelled; nothing was changed."
 
+msgid "Cannot change another user"
+msgstr "Cannot change another user"
+
 msgid "Chapters need the Hybrid MP4 recording format (OBS Settings > Output)"
 msgstr "Chapters need the Hybrid MP4 recording format (OBS Settings > Output)"
 
@@ -294,6 +303,9 @@ msgstr "Charging will stop at {value}% to reduce battery wear, also after reboot
 
 msgid "Choose GitHub or GitLab"
 msgstr "Choose GitHub or GitLab"
+
+msgid "Choose Sign In to open the browser."
+msgstr "Choose Sign In to open the browser."
 
 msgid "Choose a number from 1 to {option_count}"
 msgstr "Choose a number from 1 to {option_count}"
@@ -475,6 +487,9 @@ msgstr "Cursor preference saved; refresh failed: {error}"
 msgid "Cursor theme {theme} is not installed. Install the corresponding cursor package first."
 msgstr "Cursor theme {theme} is not installed. Install the corresponding cursor package first."
 
+msgid "Custom or masked tailscaled service: review manually"
+msgstr "Custom or masked tailscaled service: review manually"
+
 msgid "Custom static-IP/VPN setups need manual review before switching."
 msgstr "Custom static-IP/VPN setups need manual review before switching."
 
@@ -492,6 +507,9 @@ msgstr "Desktop Audio"
 
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
+
+msgid "Direct"
+msgstr "Direct"
 
 msgid "Disk"
 msgstr "Disk"
@@ -537,6 +555,9 @@ msgstr "Eitr's boot guard: {FAILED_STARTS} starts after the last update failed; 
 
 msgid "Empty values and control characters are not allowed"
 msgstr "Empty values and control characters are not allowed"
+
+msgid "Enable remote control after setting Sunshine’s password?"
+msgstr "Enable remote control after setting Sunshine’s password?"
 
 msgid "Encrypt with LUKS2: boot passphrase required (recommended)"
 msgstr "Encrypt with LUKS2: boot passphrase required (recommended)"
@@ -682,6 +703,9 @@ msgstr "Grok usage returned HTTP {code}; retry later or sign in again"
 msgid "Hardware detection failed; see the log above"
 msgstr "Hardware detection failed; see the log above"
 
+msgid "Have you set Sunshine’s username and password in the browser?"
+msgstr "Have you set Sunshine’s username and password in the browser?"
+
 msgid "Home snapshots are off, and the existing ones were deleted. The excluded folders stay as they are."
 msgstr "Home snapshots are off, and the existing ones were deleted. The excluded folders stay as they are."
 
@@ -708,6 +732,9 @@ msgstr "INSTALL STEPS"
 
 msgid "Icon image address (optional; press Enter to detect it): "
 msgstr "Icon image address (optional; press Enter to detect it): "
+
+msgid "Idle; ping to check"
+msgstr "Idle; ping to check"
 
 msgid "Ignore"
 msgstr "Ignore"
@@ -744,6 +771,9 @@ msgstr "Install one from Walker > Install > Browsers; Firefox cannot open app wi
 
 msgid "Install the Eitr network helper first; see distro/NETWORKING.md"
 msgstr "Install the Eitr network helper first; see distro/NETWORKING.md"
+
+msgid "Install the native Sunshine package first."
+msgstr "Install the native Sunshine package first."
 
 msgid "Install the root-owned Eitr network helper first. See distro/NETWORKING.md."
 msgstr "Install the root-owned Eitr network helper first. See distro/NETWORKING.md."
@@ -813,6 +843,9 @@ msgstr "Invalid hostname {hostname}"
 
 msgid "Invalid package name"
 msgstr "Invalid package name"
+
+msgid "Invalid peer address."
+msgstr "Invalid peer address."
 
 msgid "Invalid project ID"
 msgstr "Invalid project ID"
@@ -942,6 +975,9 @@ msgstr "No PAM backup named {name} in {root}"
 
 msgid "No TPM2 device found. Nothing was changed."
 msgstr "No TPM2 device found. Nothing was changed."
+
+msgid "No Tailscale address"
+msgstr "No Tailscale address"
 
 msgid "No WiFi backend is running"
 msgstr "No WiFi backend is running"
@@ -1093,6 +1129,9 @@ msgstr "Password"
 msgid "Passwords did not match"
 msgstr "Passwords did not match"
 
+msgid "Peer Tailscale address or name: "
+msgstr "Peer Tailscale address or name: "
+
 msgid "Pick a reminder to cancel"
 msgstr "Pick a reminder to cancel"
 
@@ -1147,11 +1186,17 @@ msgstr "Recording saved"
 msgid "Recovery snapshot {identifier}{extra} created."
 msgstr "Recovery snapshot {identifier}{extra} created."
 
+msgid "Refusing a symlink: {path}"
+msgstr "Refusing a symlink: {path}"
+
 msgid "Refusing a symlinked configuration path: {item}"
 msgstr "Refusing a symlinked configuration path: {item}"
 
 msgid "Refusing to replace custom symlink: {path}"
 msgstr "Refusing to replace custom symlink: {path}"
+
+msgid "Relayed"
+msgstr "Relayed"
 
 msgid "Remind me about…"
 msgstr "Remind me about…"
@@ -1173,6 +1218,12 @@ msgstr "Reminder set for {label}: {text}"
 
 msgid "Reminders"
 msgstr "Reminders"
+
+msgid "Remote Access"
+msgstr "Remote Access"
+
+msgid "Remote access belongs to another desktop user"
+msgstr "Remote access belongs to another desktop user"
 
 msgid "Removal would affect the default font or system icons"
 msgstr "Removal would affect the default font or system icons"
@@ -1239,6 +1290,9 @@ msgstr "Review installation"
 
 msgid "Root snapshots configured. Existing Snapper policy is preserved."
 msgstr "Root snapshots configured. Existing Snapper policy is preserved."
+
+msgid "Run Sharing Setup first."
+msgstr "Run Sharing Setup first."
 
 msgid "Run as your desktop user without GIT_CONFIG_GLOBAL"
 msgstr "Run as your desktop user without GIT_CONFIG_GLOBAL"
@@ -1321,6 +1375,12 @@ msgstr "Select the line above to copy it."
 msgid "Service number (Enter to cancel): "
 msgstr "Service number (Enter to cancel): "
 
+msgid "Set Sunshine’s password first. Enter the PIN shown by Moonlight only for a device you trust."
+msgstr "Set Sunshine’s password first. Enter the PIN shown by Moonlight only for a device you trust."
+
+msgid "Set a Sunshine username and password in the local settings page before pairing any device."
+msgstr "Set a Sunshine username and password in the local settings page before pairing any device."
+
 msgid "Set up full-screen monitor capture in OBS first"
 msgstr "Set up full-screen monitor capture in OBS first"
 
@@ -1335,6 +1395,9 @@ msgstr "Settings could not be updated safely."
 
 msgid "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed."
 msgstr "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed."
+
+msgid "Sharing hands over full control of this signed-in desktop. Only enable it on a trusted home network."
+msgstr "Sharing hands over full control of this signed-in desktop. Only enable it on a trusted home network."
 
 msgid "Sharing this network security type is not supported"
 msgstr "Sharing this network security type is not supported"
@@ -1411,11 +1474,23 @@ msgstr "Staging destination already exists: {destination}"
 msgid "Start and end times must differ"
 msgstr "Start and end times must differ"
 
+msgid "Start sharing automatically at login? This grants remote desktop control whenever you sign in."
+msgstr "Start sharing automatically at login? This grants remote desktop control whenever you sign in."
+
+msgid "Start sharing this PC?"
+msgstr "Start sharing this PC?"
+
 msgid "Step {step_number} of {step_count}"
 msgstr "Step {step_number} of {step_count}"
 
+msgid "Stop and disable the existing Sunshine user service before using Eitr sharing. Its settings will be kept."
+msgstr "Stop and disable the existing Sunshine user service before using Eitr sharing. Its settings will be kept."
+
 msgid "Stop notifications for this program"
 msgstr "Stop notifications for this program"
+
+msgid "Stop sharing and restore the original system permissions?"
+msgstr "Stop sharing and restore the original system permissions?"
 
 msgid "Stop using {label} in {picked}?"
 msgstr "Stop using {label} in {picked}?"
@@ -1425,6 +1500,9 @@ msgstr "Stop using {label} outside its folders?"
 
 msgid "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}"
 msgstr "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}"
+
+msgid "Sunshine grants full control of your desktop. Setup grants KMS capture and virtual keyboard, mouse and controller access."
+msgstr "Sunshine grants full control of your desktop. Setup grants KMS capture and virtual keyboard, mouse and controller access."
 
 msgid "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP"
 msgstr "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP"
@@ -1452,6 +1530,15 @@ msgstr "TPM2 unlock removed from {device}; the passphrase is required at boot ag
 
 msgid "Tab / arrows: choose  Enter: select  Esc: cancel"
 msgstr "Tab / arrows: choose  Enter: select  Esc: cancel"
+
+msgid "Tailscale setup belongs to another desktop user"
+msgstr "Tailscale setup belongs to another desktop user"
+
+msgid "Tailscale sign-in failed. Try again from Access away from home."
+msgstr "Tailscale sign-in failed. Try again from Access away from home."
+
+msgid "Tailscale state: {state}"
+msgstr "Tailscale state: {state}"
 
 msgid "Template partition sizes must be in MiB"
 msgstr "Template partition sizes must be in MiB"
@@ -1594,6 +1681,9 @@ msgstr "The testing repository cannot be reached right now, so nothing was chang
 msgid "This ISO has no complete offline payload ({amount} is missing)"
 msgstr "This ISO has no complete offline payload ({amount} is missing)"
 
+msgid "This PC: {addresses}"
+msgstr "This PC: {addresses}"
+
 msgid "This WiFi security type requires advanced network configuration"
 msgstr "This WiFi security type requires advanced network configuration"
 
@@ -1605,6 +1695,9 @@ msgstr "This assistant is unavailable."
 
 msgid "This changes login, lockscreen and sudo authentication. Password fallback is retained."
 msgstr "This changes login, lockscreen and sudo authentication. Password fallback is retained."
+
+msgid "This changes tailscaled startup and delegates Tailscale control to your user. Restore Away Access Setup undoes these changes."
+msgstr "This changes tailscaled startup and delegates Tailscale control to your user. Restore Away Access Setup undoes these changes."
 
 msgid "This changes the network backend only after rebooting."
 msgstr "This changes the network backend only after rebooting."
@@ -1666,6 +1759,9 @@ msgstr "Turn home snapshots off?"
 msgid "Turn home snapshots on?"
 msgstr "Turn home snapshots on?"
 
+msgid "Turn on Eitr’s firewall before sharing."
+msgstr "Turn on Eitr’s firewall before sharing."
+
 msgid "Turn the firewall off?"
 msgstr "Turn the firewall off?"
 
@@ -1708,6 +1804,9 @@ msgstr "Type {confirmation} to enroll TPM unlock (anything else cancels): "
 msgid "Type {path} exactly to start installation."
 msgstr "Type {path} exactly to start installation."
 
+msgid "Undo with Restore Sharing Setup. Existing Sunshine settings are kept."
+msgstr "Undo with Restore Sharing Setup. Existing Sunshine settings are kept."
+
 msgid "Undo with: sudo {INSTALLED_HELPER} battery-limit off"
 msgstr "Undo with: sudo {INSTALLED_HELPER} battery-limit off"
 
@@ -1731,6 +1830,9 @@ msgstr "Unknown position {value}"
 
 msgid "Unknown setting {key}"
 msgstr "Unknown setting {key}"
+
+msgid "Unmanaged remote-access rules exist"
+msgstr "Unmanaged remote-access rules exist"
 
 msgid "Unreadable answers file {path}: {error}"
 msgstr "Unreadable answers file {path}: {error}"

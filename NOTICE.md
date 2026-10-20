@@ -39,6 +39,7 @@ packaged by EITR. Their licenses travel inside each package under
 | obs-cmd | https://github.com/grigio/obs-cmd | MIT |
 | kvantum-theme-catppuccin-git | https://github.com/catppuccin/Kvantum | MIT |
 | eitr-cmux-tui-bin | https://cmux.com/tui | GPL-3.0-or-later |
+| eitr-sunshine (Sunshine, upstream's prebuilt release) | https://github.com/LizardByte/Sunshine | GPL-3.0-only |
 
 The ISO also contains official Arch Linux packages, unmodified. Each keeps its
 own license under `/usr/share/licenses/`.

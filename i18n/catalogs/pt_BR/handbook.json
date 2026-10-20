@@ -172,5 +172,7 @@
   "Workspace: right-click": "Espaço de trabalho: clique com o botão direito",
   "Workspaces": "Espaços de trabalho",
   "iwd, NetworkManager, reboot-only switching and enterprise configuration": "iwd, NetworkManager, comutação só de reinicialização e configuração empresarial",
-  "Open default AI assistant": "Abrir assistente de IA padrão"
+  "Open default AI assistant": "Abrir assistente de IA padrão",
+  "Remote Access": "Acesso remoto",
+  "Sunshine on Eitr, Moonlight on a Mac and Tailscale away from home": "Sunshine no Eitr, Moonlight no Mac e Tailscale fora de casa"
 }

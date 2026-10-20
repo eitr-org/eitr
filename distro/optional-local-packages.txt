@@ -1,0 +1,3 @@
+# Also published by release-desktop.py, so machines installed before they joined
+# local-packages.txt can install them on first use.
+eitr-sunshine

@@ -1,5 +1,8 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3 -I
 """Root-owned, narrow Eitr snapshot/authentication operations; never run at login."""
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 import eitr_bootstrap
 from eitr_i18n import tr
 import argparse
@@ -987,7 +990,9 @@ if __name__ == "__main__":
                                            "auth-enable", "auth-restore", "boot-menu-style",
                                            "boot-menu-style-remove", "boot-menu-refresh",
                                            "firewall-on", "firewall-off", "firewall-status", "firewall-allow-ssh",
-                                           "snapshot-changes", "channel-status", "channel-set"])
+                                           "snapshot-changes", "channel-status", "channel-set",
+                                           "remote-setup", "remote-arm", "remote-undo", "remote-open", "remote-close",
+                                           "remote-tailscale", "remote-tailscale-undo"])
     parser.add_argument("argument", nargs="?",
                         help='auth-enable: fingerprint|fido2|password; auth-restore: backup name; snapshot-post: success|failed; boot-menu-style: desktop user; battery-limit: 60-100|off; luks-*: /dev path')
     args = parser.parse_args()
@@ -996,7 +1001,10 @@ if __name__ == "__main__":
     if args.action not in READ_ONLY_ACTIONS and os.geteuid() != 0:
         parser.error('This root-owned helper must run through sudo or a pacman hook')
     try:
-        if args.action == "snapshots-check":
+        if args.action.startswith("remote-"):
+            import eitr_remote
+            eitr_remote.dispatch(args.action.removeprefix("remote-"), args.argument)
+        elif args.action == "snapshots-check":
             snapshot_supported()
         elif args.action == "snapshots-setup":
             setup_snapshots()

@@ -8,6 +8,14 @@
     }
   },
   {
+    "text": "Moonlight",
+    "subtext": "Install or open the remote gaming client",
+    "icon": "󰊴",
+    "actions": {
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/install/software.py gaming moonlight"
+    }
+  },
+  {
     "text": "RetroArch",
     "subtext": "Classic consoles · NES to Dreamcast, PS1, N64, DS and PSP",
     "icon": "󰺵",

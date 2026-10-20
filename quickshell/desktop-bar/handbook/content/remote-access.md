@@ -1,0 +1,84 @@
+# Remote access
+
+Use System > Connectivity > Remote Access. Hosting is off until you enable it.
+This milestone controls your signed-in, awake Eitr desktop. Headless use, access
+before login and wake on LAN are separate future work. Locked-session behaviour
+has not been validated: stop sharing before locking when privacy matters.
+
+## Sunshine on Eitr
+
+Choose Share this PC > Set Up Sharing. Installation uses Eitr's signed native
+Sunshine package, built from upstream sources by the release maintainer. There
+is no AUR build on first click. Flatpak and AppImage lack KMS capture. Existing
+Sunshine configuration and paired devices are kept; do not run another Sunshine
+instance at the same time.
+
+Read the full-control warning and type `yes` only if you accept KMS screen
+capture and virtual keyboard, mouse and controller input. Setup saves the
+original permissions privately in `/var/lib/eitr/remote-access`. It adds a uinput
+udev rule, loads uinput at boot, grants the desktop user device access and gives
+Sunshine `cap_sys_admin+p`. These are powerful permissions. Restore Sharing Setup
+stops sharing and restores the saved files, capability and device ACL. If setup loaded uinput, undo unloads it too. If another application still uses it,
+undo reports the failure and keeps the journal so you can close that application
+and retry.
+
+Start Sharing asks before giving remote devices control. The local web settings
+open at `https://localhost:47990`. On first use, streaming stays blocked while you
+set the password. Return to the terminal, confirm that it is set, then type `yes`
+at the root helper’s confirmation to enable remote control. Accept the local self-signed certificate only
+at that address. Set Sunshine's username and a strong password before pairing.
+Open Settings returns here; Pair a Device opens the PIN page. Enter only the PIN
+shown on your own Moonlight device. Keep automatic router configuration off;
+Eitr enforces `upnp=off`. Do not configure router port forwarding.
+
+TCP 47984, 47989 and 48010 and UDP 47998-48000 are permitted only from directly
+connected private LAN subnets and `tailscale0`. TCP 47990 is restricted to this PC,
+even when another firewall rule would permit it. LAN scopes are captured at each
+start; stop and start sharing after changing networks. Use only trusted home
+networks. Stop Sharing also disables start at login and closes streaming ports,
+including established streams. Service failure closes them too; runtime openings
+do not survive a reboot. Start at Login is optional and separately confirmed;
+Turn Off Start at Login keeps manual sharing. Sharing Status shows service errors.
+
+A Sunshine package update clears the executable’s capture capability. If sharing
+then refuses to start, run Set Up Sharing again and confirm the capture grant;
+the original undo record is retained.
+
+## Moonlight on a Mac
+
+Install Moonlight from [the Moonlight project](https://moonlight-stream.org/).
+Keep Eitr and the Mac on the same home network for the first test. Add Eitr's LAN
+address manually if discovery does not find it. Select the PC, read its PIN,
+then use Pair a Device on Eitr. Select Desktop to control applications and games.
+Sunshine settings select the captured display; verify each monitor separately.
+Gaming > Moonlight and Connect to another PC install or open the Eitr client for
+connecting in the opposite direction. No streaming software is bundled in the ISO.
+
+## Tailscale on both computers
+
+Choose Access away from home > Set Up Away Access. After installing Tailscale,
+the confirmed root helper enables and starts `tailscaled.service`, then makes
+your desktop user its operator. Later Tailscale actions need no sudo. Sign In
+opens the URL printed by `tailscale login` in your browser. Connect brings the
+PC online; Disconnect takes it offline without deleting sign-in credentials.
+Connection Status shows this PC's Tailscale address, signed-out states and whether
+active peers are Direct, Relayed or idle. Ping a Peer uses `tailscale ping` to
+check a specific connection. Relay paths can increase latency and reduce quality.
+
+Install [Tailscale on the Mac](https://tailscale.com/download/mac), sign in to the
+same tailnet, and connect both computers. Add Eitr's Tailscale address in Moonlight;
+use the same Sunshine pairing procedure. Tailnet access policy must allow the
+streaming ports. The Sunshine web settings remain local to Eitr.
+
+Restore Away Access Setup restores the previous operator and original service
+startup/running state; it retains Tailscale account state and installed packages.
+If the service was already active it stays active. Disconnect first if you want
+to stop a connection. Failed installs or commands stay visible in the task terminal;
+retry the failed step after resolving its error. No package removal is implicit.
+
+## Validation still needed
+
+Automated tests use mocks. With the owner, verify local Hyprland/NVIDIA capture,
+keyboard, mouse, audio, controller, both monitors, lock behaviour, login startup,
+then MacBook pairing and Tailscale direct/relay paths. Do not assume these hardware
+behaviours have been verified by a green test suite.

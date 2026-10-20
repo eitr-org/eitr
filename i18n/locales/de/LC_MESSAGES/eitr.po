@@ -130,6 +130,9 @@ msgstr "Ein Netzwerkdienst ist maskiert; prüfen Sie vor dem Wechsel Ihre eigene
 msgid "A program crashed"
 msgstr "Ein Programm ist abgestürzt"
 
+msgid "A regular desktop user is required"
+msgstr "Ein normaler Desktop-Benutzer ist erforderlich"
+
 msgid "A selection is required"
 msgstr "Eine Auswahl ist erforderlich"
 
@@ -201,6 +204,9 @@ msgstr "Ein unterbrochenes Zurücksetzen auf den Werkszustand muss manuell gepr�
 
 msgid "Answers name {disk}, not one of the eligible disks: {candidates}"
 msgstr "Die Antwortdatei nennt {disk}, aber nur diese Laufwerke sind zulässig: {candidates}"
+
+msgid "Apply this system change? Type yes to continue: "
+msgstr "Diese Systemänderung anwenden? Zum Fortfahren yes eingeben: "
 
 msgid "Arch posted news since your last update:"
 msgstr "Arch hat seit Ihrer letzten Aktualisierung Neuigkeiten veröffentlicht:"
@@ -286,6 +292,9 @@ msgstr "Abgebrochen; nichts wurde geändert"
 msgid "Cancelled; nothing was changed."
 msgstr "Abgebrochen; nichts wurde geändert."
 
+msgid "Cannot change another user"
+msgstr "Ein anderer Benutzer darf nicht geändert werden"
+
 msgid "Chapters need the Hybrid MP4 recording format (OBS Settings > Output)"
 msgstr "Kapitelmarken erfordern das Aufnahmeformat Hybrid MP4 (OBS-Einstellungen > Ausgabe)"
 
@@ -294,6 +303,9 @@ msgstr "Der Ladevorgang endet bei {value} %, auch nach Neustart und Aufwachen, u
 
 msgid "Choose GitHub or GitLab"
 msgstr "Wählen Sie GitHub oder GitLab"
+
+msgid "Choose Sign In to open the browser."
+msgstr "Wählen Sie Anmelden, um den Browser zu öffnen."
 
 msgid "Choose a number from 1 to {option_count}"
 msgstr "Wählen Sie eine Zahl von 1 bis {option_count}"
@@ -475,6 +487,9 @@ msgstr "Mauszeiger-Einstellung gespeichert; Aktualisierung fehlgeschlagen: {erro
 msgid "Cursor theme {theme} is not installed. Install the corresponding cursor package first."
 msgstr "Mauszeiger-Thema {theme} ist nicht installiert. Installieren Sie zuerst das zugehörige Paket."
 
+msgid "Custom or masked tailscaled service: review manually"
+msgstr "Angepasster oder maskierter tailscaled-Dienst: manuell prüfen"
+
 msgid "Custom static-IP/VPN setups need manual review before switching."
 msgstr "Eigene Konfigurationen für statische IP-Adressen oder VPN müssen vor dem Wechsel manuell geprüft werden."
 
@@ -492,6 +507,9 @@ msgstr "Desktop-Audio"
 
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "Ausführliche Protokolle: /var/log/archinstall. Nach dem fehlgeschlagenen Schritt wurde nichts geändert."
+
+msgid "Direct"
+msgstr "Direkt"
 
 msgid "Disk"
 msgstr "Laufwerk"
@@ -537,6 +555,9 @@ msgstr "Eitr-Startschutz: {FAILED_STARTS} Starts seit der letzten Aktualisierung
 
 msgid "Empty values and control characters are not allowed"
 msgstr "Leere Werte und Steuerzeichen sind nicht erlaubt"
+
+msgid "Enable remote control after setting Sunshine’s password?"
+msgstr "Fernkontrolle nach dem Festlegen des Sunshine-Passworts aktivieren?"
 
 msgid "Encrypt with LUKS2: boot passphrase required (recommended)"
 msgstr "Mit LUKS2 verschlüsseln: Passphrase beim Start erforderlich (empfohlen)"
@@ -682,6 +703,9 @@ msgstr "Grok-Nutzungsabfrage meldet HTTP {code}; versuchen Sie es später oder m
 msgid "Hardware detection failed; see the log above"
 msgstr "Hardwareerkennung fehlgeschlagen; siehe Protokoll oben"
 
+msgid "Have you set Sunshine’s username and password in the browser?"
+msgstr "Haben Sie Sunshine-Benutzernamen und Passwort im Browser festgelegt?"
+
 msgid "Home snapshots are off, and the existing ones were deleted. The excluded folders stay as they are."
 msgstr "Schnappschüsse der persönlichen Ordner sind ausgeschaltet und vorhandene wurden gelöscht. Die ausgeschlossenen Ordner bleiben unverändert."
 
@@ -708,6 +732,9 @@ msgstr "INSTALLATIONSSCHRITTE"
 
 msgid "Icon image address (optional; press Enter to detect it): "
 msgstr "Adresse des Symbolbilds (optional; Enter zur Erkennung): "
+
+msgid "Idle; ping to check"
+msgstr "Inaktiv; mit Ping prüfen"
 
 msgid "Ignore"
 msgstr "Ignorieren"
@@ -744,6 +771,9 @@ msgstr "Installieren Sie einen über Walker > Installieren > Browser; Firefox ka
 
 msgid "Install the Eitr network helper first; see distro/NETWORKING.md"
 msgstr "Installieren Sie zuerst den Eitr-Netzwerkhelfer; siehe distro/NETWORKING.md"
+
+msgid "Install the native Sunshine package first."
+msgstr "Installieren Sie zuerst das native Sunshine-Paket."
 
 msgid "Install the root-owned Eitr network helper first. See distro/NETWORKING.md."
 msgstr "Installieren Sie zuerst den root-eigenen Eitr-Netzwerkhelfer. Siehe distro/NETWORKING.md."
@@ -813,6 +843,9 @@ msgstr "Ungültiger Hostname {hostname}"
 
 msgid "Invalid package name"
 msgstr "Ungültiger Paketname"
+
+msgid "Invalid peer address."
+msgstr "Ungültige Gegenstellenadresse."
 
 msgid "Invalid project ID"
 msgstr "Ungültige Projekt-ID"
@@ -942,6 +975,9 @@ msgstr "Keine PAM-Sicherung namens {name} in {root}"
 
 msgid "No TPM2 device found. Nothing was changed."
 msgstr "Kein TPM2-Gerät gefunden. Nichts wurde geändert."
+
+msgid "No Tailscale address"
+msgstr "Keine Tailscale-Adresse"
 
 msgid "No WiFi backend is running"
 msgstr "Kein WiFi-Backend läuft"
@@ -1093,6 +1129,9 @@ msgstr "Passwort"
 msgid "Passwords did not match"
 msgstr "Passwörter stimmen nicht überein"
 
+msgid "Peer Tailscale address or name: "
+msgstr "Tailscale-Adresse oder Name der Gegenstelle: "
+
 msgid "Pick a reminder to cancel"
 msgstr "Erinnerung zum Abbrechen auswählen"
 
@@ -1147,11 +1186,17 @@ msgstr "Aufnahme gespeichert"
 msgid "Recovery snapshot {identifier}{extra} created."
 msgstr "Wiederherstellungs-Snapshot {identifier}{extra} erstellt."
 
+msgid "Refusing a symlink: {path}"
+msgstr "Symbolischer Link abgelehnt: {path}"
+
 msgid "Refusing a symlinked configuration path: {item}"
 msgstr "Konfigurationspfad mit symbolischem Link abgelehnt: {item}"
 
 msgid "Refusing to replace custom symlink: {path}"
 msgstr "Eigener symbolischer Link wird nicht ersetzt: {path}"
+
+msgid "Relayed"
+msgstr "Weitergeleitet"
 
 msgid "Remind me about…"
 msgstr "Erinnere mich an…"
@@ -1173,6 +1218,12 @@ msgstr "Erinnerung für {label} eingerichtet: {text}"
 
 msgid "Reminders"
 msgstr "Erinnerungen"
+
+msgid "Remote Access"
+msgstr "Fernzugriff"
+
+msgid "Remote access belongs to another desktop user"
+msgstr "Der Fernzugriff gehört einem anderen Desktop-Benutzer"
 
 msgid "Removal would affect the default font or system icons"
 msgstr "Das Entfernen würde die Standardschrift oder Systemsymbole betreffen"
@@ -1239,6 +1290,9 @@ msgstr "Installation prüfen"
 
 msgid "Root snapshots configured. Existing Snapper policy is preserved."
 msgstr "Root-Snapshots eingerichtet. Die bisherige Snapper-Richtlinie bleibt erhalten."
+
+msgid "Run Sharing Setup first."
+msgstr "Richten Sie zuerst die Freigabe ein."
 
 msgid "Run as your desktop user without GIT_CONFIG_GLOBAL"
 msgstr "Als Desktop-Benutzer ohne GIT_CONFIG_GLOBAL ausführen"
@@ -1321,6 +1375,12 @@ msgstr "Wählen Sie die Zeile oben aus, um sie zu kopieren."
 msgid "Service number (Enter to cancel): "
 msgstr "Nummer des Dienstes (Eingabe zum Abbrechen): "
 
+msgid "Set Sunshine’s password first. Enter the PIN shown by Moonlight only for a device you trust."
+msgstr "Legen Sie zuerst das Sunshine-Passwort fest. Geben Sie die Moonlight-PIN nur für ein vertrautes Gerät ein."
+
+msgid "Set a Sunshine username and password in the local settings page before pairing any device."
+msgstr "Legen Sie vor jeder Kopplung einen Sunshine-Benutzernamen und ein Passwort in den lokalen Einstellungen fest."
+
 msgid "Set up full-screen monitor capture in OBS first"
 msgstr "Richten Sie zuerst die Vollbild-Monitoraufnahme in OBS ein"
 
@@ -1335,6 +1395,9 @@ msgstr "Die Einstellungen konnten nicht sicher aktualisiert werden."
 
 msgid "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed."
 msgstr "Mehrere Bootloader sind eingerichtet ({listing}). Entfernen Sie veraltete Loader-Dateien oder richten Sie Snapshot-Starteinträge manuell ein. Nichts wurde geändert."
+
+msgid "Sharing hands over full control of this signed-in desktop. Only enable it on a trusted home network."
+msgstr "Die Freigabe gewährt vollständige Kontrolle über diesen angemeldeten Desktop. Aktivieren Sie sie nur in einem vertrauten Heimnetz."
 
 msgid "Sharing this network security type is not supported"
 msgstr "Die Freigabe dieses Netzwerksicherheitstyps wird nicht unterstützt"
@@ -1411,11 +1474,23 @@ msgstr "Vorbereitungsziel existiert bereits: {destination}"
 msgid "Start and end times must differ"
 msgstr "Start- und Endzeit müssen unterschiedlich sein"
 
+msgid "Start sharing automatically at login? This grants remote desktop control whenever you sign in."
+msgstr "Freigabe bei Anmeldung automatisch starten? Dies gewährt bei jeder Anmeldung Fernkontrolle über den Desktop."
+
+msgid "Start sharing this PC?"
+msgstr "Diesen PC freigeben?"
+
 msgid "Step {step_number} of {step_count}"
 msgstr "Schritt {step_number} von {step_count}"
 
+msgid "Stop and disable the existing Sunshine user service before using Eitr sharing. Its settings will be kept."
+msgstr "Beenden und deaktivieren Sie den vorhandenen Sunshine-Benutzerdienst vor der Eitr-Freigabe. Seine Einstellungen bleiben erhalten."
+
 msgid "Stop notifications for this program"
 msgstr "Benachrichtigungen für dieses Programm abstellen"
+
+msgid "Stop sharing and restore the original system permissions?"
+msgstr "Freigabe beenden und ursprüngliche Systemrechte wiederherstellen?"
 
 msgid "Stop using {label} in {picked}?"
 msgstr "{label} nicht mehr in {picked} verwenden?"
@@ -1425,6 +1500,9 @@ msgstr "{label} außerhalb der zugehörigen Ordner nicht mehr verwenden?"
 
 msgid "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}"
 msgstr "Bootmenü in {config} mit den Farben von {source} gestaltet. Sicherung: {backup}"
+
+msgid "Sunshine grants full control of your desktop. Setup grants KMS capture and virtual keyboard, mouse and controller access."
+msgstr "Sunshine gewährt vollständige Desktop-Kontrolle. Die Einrichtung erlaubt KMS-Aufnahme sowie virtuelle Tastatur-, Maus- und Controller-Eingaben."
 
 msgid "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP"
 msgstr "Unterstützte Unternehmensverfahren: PEAP/MSCHAPv2 und TTLS/PAP"
@@ -1452,6 +1530,15 @@ msgstr "TPM2-Entsperrung von {device} entfernt; beim Start ist wieder die Passph
 
 msgid "Tab / arrows: choose  Enter: select  Esc: cancel"
 msgstr "Tab / Pfeile: wählen  Enter: auswählen  Esc: abbrechen"
+
+msgid "Tailscale setup belongs to another desktop user"
+msgstr "Die Tailscale-Einrichtung gehört einem anderen Benutzer"
+
+msgid "Tailscale sign-in failed. Try again from Access away from home."
+msgstr "Tailscale-Anmeldung fehlgeschlagen. Versuchen Sie es unter Zugriff von unterwegs erneut."
+
+msgid "Tailscale state: {state}"
+msgstr "Tailscale-Zustand: {state}"
 
 msgid "Template partition sizes must be in MiB"
 msgstr "Template partition sizes must be in MiB"
@@ -1594,6 +1681,9 @@ msgstr "Das Test-Repository ist derzeit nicht erreichbar; nichts wurde geändert
 msgid "This ISO has no complete offline payload ({amount} is missing)"
 msgstr "Dieses ISO enthält keinen vollständigen Offline-Paketbestand ({amount} fehlt)"
 
+msgid "This PC: {addresses}"
+msgstr "Dieser PC: {addresses}"
+
 msgid "This WiFi security type requires advanced network configuration"
 msgstr "Dieser WiFi-Sicherheitstyp erfordert erweiterte Netzwerkeinstellungen"
 
@@ -1605,6 +1695,9 @@ msgstr "Dieser Assistent ist nicht verfügbar."
 
 msgid "This changes login, lockscreen and sudo authentication. Password fallback is retained."
 msgstr "Dies ändert die Authentifizierung für Anmeldung, Sperrbildschirm und sudo. Das Passwort bleibt als Alternative erhalten."
+
+msgid "This changes tailscaled startup and delegates Tailscale control to your user. Restore Away Access Setup undoes these changes."
+msgstr "Dies ändert den tailscaled-Start und überträgt Ihrem Benutzer die Tailscale-Verwaltung. Einrichtung für unterwegs zurücksetzen macht dies rückgängig."
 
 msgid "This changes the network backend only after rebooting."
 msgstr "Das Netzwerk-Backend ändert sich erst nach einem Neustart."
@@ -1666,6 +1759,9 @@ msgstr "Schnappschüsse der persönlichen Ordner ausschalten?"
 msgid "Turn home snapshots on?"
 msgstr "Schnappschüsse der persönlichen Ordner einschalten?"
 
+msgid "Turn on Eitr’s firewall before sharing."
+msgstr "Aktivieren Sie vor der Freigabe die Eitr-Firewall."
+
 msgid "Turn the firewall off?"
 msgstr "Firewall ausschalten?"
 
@@ -1708,6 +1804,9 @@ msgstr "Zum Einrichten der TPM-Entsperrung {confirmation} eingeben (jede andere 
 msgid "Type {path} exactly to start installation."
 msgstr "Zum Starten der Installation genau {path} eingeben."
 
+msgid "Undo with Restore Sharing Setup. Existing Sunshine settings are kept."
+msgstr "Rückgängig über Freigabeeinrichtung zurücksetzen. Vorhandene Sunshine-Einstellungen bleiben erhalten."
+
 msgid "Undo with: sudo {INSTALLED_HELPER} battery-limit off"
 msgstr "Rückgängig machen mit: sudo {INSTALLED_HELPER} battery-limit off"
 
@@ -1731,6 +1830,9 @@ msgstr "Unknown position {value}"
 
 msgid "Unknown setting {key}"
 msgstr "Unknown setting {key}"
+
+msgid "Unmanaged remote-access rules exist"
+msgstr "Es bestehen unverwaltete Fernzugriffsregeln"
 
 msgid "Unreadable answers file {path}: {error}"
 msgstr "Antwortdatei {path} nicht lesbar: {error}"

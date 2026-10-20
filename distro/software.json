@@ -65,7 +65,12 @@
     "prometheus": {"label": "Prometheus (promtool)", "source": "pacman", "packages": ["prometheus"]},
     "sentry-cli": {"label": "Sentry CLI", "source": "pacman", "packages": ["sentry-cli"]}
   },
+  "remote-access": {
+    "sunshine": {"label": "Sunshine", "source": "pacman", "packages": ["eitr-sunshine"]},
+    "tailscale": {"label": "Tailscale", "source": "pacman", "packages": ["tailscale"]}
+  },
   "gaming": {
+    "moonlight": {"label": "Moonlight", "source": "pacman", "packages": ["moonlight-qt"], "launch": ["moonlight"]},
     "steam": {"label": "Steam", "source": "pacman", "packages": ["steam", "steam-devices", "gamemode", "lib32-gamemode", "mangohud", "lib32-mangohud"], "launch": ["steam"]},
     "retroarch": {"label": "RetroArch", "source": "pacman", "launch": ["retroarch"], "packages": ["retroarch", "retroarch-assets-ozone", "libdecor", "libretro-core-info", "libretro-nestopia", "libretro-snes9x", "libretro-gambatte", "libretro-mgba", "libretro-genesis-plus-gx", "libretro-beetle-psx-hw", "libretro-mupen64plus-next", "libretro-melonds", "libretro-ppsspp", "libretro-flycast"]},
     "geforcenow": {"label": "GeForce NOW", "source": "flatpak", "launch": ["flatpak", "run", "com.nvidia.geforcenow"], "packages": ["com.nvidia.geforcenow"], "runtime_remotes": [{"name": "flathub", "url": "https://dl.flathub.org/repo/flathub.flatpakrepo"}], "remote": "GeForceNOW", "url": "https://international.download.nvidia.com/GFNLinux/flatpak/geforcenow.flatpakrepo"}

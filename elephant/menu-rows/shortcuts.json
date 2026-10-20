@@ -16,6 +16,12 @@
     "submenu": "main"
   },
   {
+    "text": "Remote Access",
+    "subtext": ">",
+    "icon": "󰖩",
+    "submenu": "remote-access"
+  },
+  {
     "text": "Clipboard History",
     "subtext": "SUPER + Ctrl + V",
     "icon": "",

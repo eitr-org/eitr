@@ -75,6 +75,13 @@
     "source": "quickshell/desktop-bar/handbook/content/connectivity.md"
   },
   {
+    "id": "remote-access",
+    "title": "Remote Access",
+    "icon": "󰖩",
+    "summary": "Sunshine on Eitr, Moonlight on a Mac and Tailscale away from home",
+    "source": "quickshell/desktop-bar/handbook/content/remote-access.md"
+  },
+  {
     "id": "network-backends",
     "title": "Network Backends",
     "icon": "󰖩",

@@ -38,6 +38,8 @@ pacman-contrib
 pipewire-jack
 steam
 steam-devices
+moonlight-qt
+tailscale
 mangohud
 smartmontools
 terraform

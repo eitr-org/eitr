@@ -1,0 +1,14 @@
+[Unit]
+Description=Eitr desktop sharing with Sunshine
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+ExecStartPre=/usr/bin/sudo -n /usr/lib/eitr/eitr-system remote-open %u
+ExecStart=/usr/bin/python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py serve
+ExecStopPost=/usr/bin/sudo -n /usr/lib/eitr/eitr-system remote-close %u
+TimeoutStopSec=15
+KillMode=control-group
+
+[Install]
+WantedBy=graphical-session.target

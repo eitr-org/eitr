@@ -15,7 +15,7 @@ spec.loader.exec_module(payload)
 class PayloadDefinitionTests(unittest.TestCase):
     def test_local_packages_are_built_and_installed_on_both_paths(self):
         # The committed signing key adds the keyring that trusts the [eitr] repository.
-        self.assertEqual(payload.desktop_local(), ["eitr-artwork", "eitr-cmux-tui-bin", "eitr-keyring"])
+        self.assertEqual(payload.desktop_local(), ["eitr-artwork", "eitr-cmux-tui-bin", "eitr-sunshine", "eitr-keyring"])
         builder = (DISTRO / "payload/build-payload.py").read_text()
         self.assertIn("builder.build_local_packages()", builder)
         self.assertIn("payload.desktop_local(SOURCE)", (DISTRO / "archinstall/eitr-guided-install").read_text())
@@ -113,7 +113,7 @@ class LocalPackageBuildTests(unittest.TestCase):
                 builder.build_local_packages()
                 self.assertNotIn("BUILDDIR", os.environ)
                 self.assertNotIn("SRCDEST", os.environ)
-            self.assertEqual(sorted(seen), payload.desktop_local())
+            self.assertEqual(sorted(seen), sorted(payload.desktop_local()))
             self.assertEqual(seen["eitr-cmux-tui-bin"]["build"], str(work / "eitr-cmux-tui-bin"))
             self.assertEqual(seen["eitr-cmux-tui-bin"]["sources"], str(work / "sources/eitr-cmux-tui-bin"))
             self.assertTrue((work / "sources/eitr-cmux-tui-bin").is_dir())

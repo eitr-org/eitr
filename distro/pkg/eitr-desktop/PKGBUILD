@@ -76,6 +76,7 @@ package() {
     distro/system-update-policy.conf
   install -dm755 "$pkgdir/usr/lib/eitr"
   ln -s /usr/share/eitr/lib/eitr_bootstrap.py "$pkgdir/usr/lib/eitr/eitr_bootstrap.py"
+  install -Dm644 distro/system/eitr_remote.py "$pkgdir/usr/lib/eitr/eitr_remote.py"
   install -Dm755 distro/system/eitr-system.py "$pkgdir/usr/lib/eitr/eitr-system"
   # sudo's first-use lecture would greet every new user in the System Update terminal.
   install -dm750 "$pkgdir/etc/sudoers.d"

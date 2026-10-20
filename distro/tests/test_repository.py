@@ -137,7 +137,7 @@ class ReleaseDesktopTests(unittest.TestCase):
 
     def test_artwork_is_rebuilt_only_when_its_version_is_not_published(self):
         release = self.load()
-        for published, expected in ((True, ["eitr-desktop"]), (False, ["eitr-desktop", "eitr-artwork"])):
+        for published, expected in ((True, ["eitr-desktop", "eitr-sunshine"]), (False, ["eitr-desktop", "eitr-artwork", "eitr-sunshine"])):
             artwork = "eitr-artwork-20261014.211144.gea4111e-1-any.pkg.tar.zst"
             assets = ["eitr.db", "linux-1-1-x86_64.pkg.tar.zst", "eitr-desktop-1.0.3.0-1-any.pkg.tar.zst",
                       *([artwork] if published else ["eitr-artwork-20261001.000000.g1111111-1-any.pkg.tar.zst"])]
@@ -152,7 +152,7 @@ class ReleaseDesktopTests(unittest.TestCase):
             with self.subTest(published=published), \
                     patch.object(release, "require_pushed_head", return_value="abc1234"), \
                     patch.object(release, "published_assets", return_value=assets), \
-                    patch.object(release, "package_file", return_value=artwork), \
+                    patch.object(release, "package_file", side_effect=lambda name: artwork if name == "eitr-artwork" else "eitr-sunshine-9-1-any.pkg.tar.zst"), \
                     patch.object(release, "build", side_effect=build), \
                     patch.object(release, "reuse_published_packages",
                                  side_effect=lambda names, repo, work, **options: reused.extend(names)), \

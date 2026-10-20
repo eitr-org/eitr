@@ -1,0 +1,28 @@
+# shellcheck shell=bash disable=SC2034,SC2154
+# Upstream's own prebuilt Arch package (LizardByte release asset), pinned by its
+# published SHA-256 and republished in Eitr's signed repository, so the first
+# click installs it without compiling. Only the executable and its assets are
+# kept: upstream's udev rule, user service, module loading and post-install
+# capability grant are left out, because those permissions belong to Eitr's
+# confirmed, undoable sharing setup (distro/REMOTE-ACCESS.md).
+pkgname=eitr-sunshine
+pkgver=2026.914.233613
+pkgrel=1
+pkgdesc='Native Sunshine desktop sharing, with explicit Eitr permission setup'
+arch=(x86_64)
+url='https://github.com/LizardByte/Sunshine'
+license=('GPL-3.0-only')
+provides=(sunshine)
+conflicts=(sunshine sunshine-bin sunshine-git)
+depends=(avahi curl gcc-libs gtk3 libayatana-appindicator libcap libdrm libevdev libmfx libpipewire libpulse libva libx11 libxcb libxfixes libxrandr libxtst miniupnpc numactl openssl opus qt6-base qt6-svg vulkan-icd-loader)
+options=(!strip !debug)
+source=("sunshine-${pkgver}-x86_64.pkg.tar.zst::https://github.com/LizardByte/Sunshine/releases/download/v${pkgver}/sunshine-${pkgver}-1-x86_64.pkg.tar.zst")
+noextract=("sunshine-${pkgver}-x86_64.pkg.tar.zst")
+sha256sums=('17eb8c4d823a2693038f40aeeab56943ef0d5d6ace8ac90b3693905b0acbba87')
+
+package() {
+  bsdtar -xf "$srcdir/sunshine-${pkgver}-x86_64.pkg.tar.zst" -C "$srcdir" usr/bin/sunshine usr/share/sunshine
+  install -Dm755 "$srcdir/usr/bin/sunshine" "$pkgdir/usr/bin/sunshine"
+  install -dm755 "$pkgdir/usr/share/sunshine"
+  cp -a "$srcdir/usr/share/sunshine/." "$pkgdir/usr/share/sunshine/"
+}

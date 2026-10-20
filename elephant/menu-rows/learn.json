@@ -80,6 +80,20 @@
     }
   },
   {
+    "text": "Remote Access",
+    "subtext": "Sunshine on Eitr, Moonlight on a Mac and Tailscale away from home",
+    "icon": "󰖩",
+    "keywords": [
+      "sunshine",
+      "moonlight",
+      "tailscale",
+      "remote"
+    ],
+    "actions": {
+      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/handbook.sh open remote-access"
+    }
+  },
+  {
     "text": "Shortcuts",
     "subtext": "Every keyboard shortcut, and run one from the list",
     "keywords": [

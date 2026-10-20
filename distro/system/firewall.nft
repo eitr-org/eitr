@@ -39,3 +39,6 @@ table inet eitr_firewall {
 }
 
 include "/etc/eitr/firewall.d/*.nft"
+
+include "/run/eitr/firewall.d/*.nft"
+include "/etc/eitr/remote-access*.nft"

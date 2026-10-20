@@ -13,6 +13,12 @@
     "submenu": "network-backend"
   },
   {
+    "text": "Remote Access",
+    "subtext": ">",
+    "icon": "󰖩",
+    "submenu": "remote-access"
+  },
+  {
     "text": "Bluetooth",
     "subtext": "Pair and connect devices",
     "icon": "",

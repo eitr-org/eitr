@@ -152,7 +152,7 @@ class MenuStructureTests(unittest.TestCase):
         self.assertIn("ai-install", [entry.get("submenu") for entry in menu("install")["entries"]])
 
     def test_gaming_has_only_app_entries(self):
-        self.assertEqual([entry["text"] for entry in menu("gaming")["entries"]], ["GeForce NOW", "RetroArch", "Steam"])
+        self.assertEqual([entry["text"] for entry in menu("gaming")["entries"]], ["GeForce NOW", "Moonlight", "RetroArch", "Steam"])
     def test_install_and_gaming_follow_learn(self):
         names = [entry["text"] for entry in menu("main")["entries"]]
         start = names.index("Learn")
