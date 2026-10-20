@@ -231,31 +231,34 @@ class CollaborationTests(unittest.TestCase):
             bridge.atomic(path, b'old', b'overwrite')
         self.assertEqual(path.read_bytes(), b'newer')
 
-    def test_confirmation_names_assistants_warns_of_limits_and_cancel_keeps_settings(self):
+    def test_turning_on_explains_in_a_terminal_and_needs_yes(self):
         self.sign_in('claude')
         self.sign_in('codex')
         script = Path(__file__).resolve().parents[1] / 'scripts/actions/assistant-collaboration.py'
         specification = importlib.util.spec_from_file_location('collaboration_action', script)
         action = importlib.util.module_from_spec(specification)
         specification.loader.exec_module(action)
-        real_run = subprocess.run
-        for choice in ('Cancel', 'Confirm'):
-            def walker_answers(command, *arguments, **options):
-                if command[0].endswith('/walker'):
-                    return Mock(returncode=0, stdout=choice)
-                return real_run(command, *arguments, **options)
-            with patch.object(action.subprocess, 'run', side_effect=walker_answers) as prompt:
-                self.assertEqual(action.toggle(), 0)
-                question = next(call.args[0][3] for call in prompt.call_args_list if call.args[0][0].endswith('/walker'))
-                self.assertIn('Claude, Codex', question)
-                self.assertIn('subscription', question)
-                self.assertIn('limits', question)
-                self.assertEqual(bridge.enabled(), choice == 'Confirm')
-        with patch.object(action.subprocess, 'run', side_effect=real_run) as prompt:
+        with patch.object(action.subprocess, 'Popen') as terminal:
             self.assertEqual(action.toggle(), 0)
-            self.assertFalse(any(call.args[0][0].endswith('/walker') for call in prompt.call_args_list),
-                             'turning it off asks nothing')
-        self.assertFalse(bridge.enabled())
+        command = terminal.call_args.args[0]
+        self.assertEqual(command[0], 'kitty')
+        self.assertTrue(command[3].endswith('task-terminal.py'))
+        self.assertEqual(command[-1], 'enable')
+        self.assertFalse(bridge.enabled(), 'opening the explanation changes nothing')
+        for answer, connected in (('', False), ('y', False), ('YES', False), ('yes', True)):
+            with self.subTest(answer=answer), patch('builtins.input', return_value=answer), \
+                    patch('sys.stdout', new_callable=io.StringIO) as screen:
+                self.assertEqual(action.enable_interactively(), 0)
+                text = screen.getvalue()
+                self.assertIn('Claude, Codex', text)
+                self.assertIn('subscription', text)
+                self.assertIn('cannot change files', text)
+                self.assertEqual(bridge.enabled(), connected)
+        real_popen = subprocess.Popen
+        with patch.object(action.subprocess, 'Popen', side_effect=real_popen) as launched:
+            self.assertEqual(action.toggle(), 0)
+        self.assertFalse(any(call.args[0][0] == 'kitty' for call in launched.call_args_list), 'turning it off asks nothing')
+        self.assertFalse(bridge.enabled(), 'turning it off is immediate')
 
     def test_invalid_state_is_refused(self):
         record = bridge.record_path()

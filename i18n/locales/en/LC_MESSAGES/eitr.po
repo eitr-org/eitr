@@ -403,8 +403,8 @@ msgstr "Confirm"
 msgid "Conflicting iwd backend setting in {path}; review it before switching."
 msgstr "Conflicting iwd backend setting in {path}; review it before switching."
 
-msgid "Connect {assistants}? Each hand-off uses that assistant’s subscription and counts toward its limits. Ask before every hand-off."
-msgstr "Connect {assistants}? Each hand-off uses that assistant’s subscription and counts toward its limits. Ask before every hand-off."
+msgid "Connected. Restart open assistant sessions to use it."
+msgstr "Connected. Restart open assistant sessions to use it."
 
 msgid "Connection failed; verify credentials and certificate settings"
 msgstr "Connection failed; verify credentials and certificate settings"
@@ -540,6 +540,9 @@ msgstr "EITR include block was edited; review it manually"
 
 msgid "ERASE EVERYTHING returns this computer to how it was at its first login."
 msgstr "ERASE EVERYTHING returns this computer to how it was at its first login."
+
+msgid "Each hand-off uses the helper’s subscription and counts toward its limits."
+msgstr "Each hand-off uses the helper’s subscription and counts toward its limits."
 
 msgid "Edit {label}"
 msgstr "Edit {label}"
@@ -705,6 +708,9 @@ msgstr "Hardware detection failed; see the log above"
 
 msgid "Have you set Sunshine’s username and password in the browser?"
 msgstr "Have you set Sunshine’s username and password in the browser?"
+
+msgid "Helpers only read: they cannot change files or run commands."
+msgstr "Helpers only read: they cannot change files or run commands."
 
 msgid "Home snapshots are off, and the existing ones were deleted. The excluded folders stay as they are."
 msgstr "Home snapshots are off, and the existing ones were deleted. The excluded folders stay as they are."
@@ -912,6 +918,9 @@ msgstr "Later"
 
 msgid "Leave the name empty to cancel.\n"
 msgstr "Leave the name empty to cancel.\n"
+
+msgid "Let assistants work together"
+msgstr "Let assistants work together"
 
 msgid "Limine shows its default menu from the next boot. Your boot entries were not changed."
 msgstr "Limine shows its default menu from the next boot. Your boot entries were not changed."
@@ -1648,6 +1657,9 @@ msgstr "The payload has no pacman {version} package"
 msgid "The previous system is still running; see {MANUAL}"
 msgstr "The previous system is still running; see {MANUAL}"
 
+msgid "The question and the files a helper reads are sent to that helper’s provider."
+msgstr "The question and the files a helper reads are sent to that helper’s provider."
+
 msgid "The report opened in your text editor."
 msgstr "The report opened in your text editor."
 
@@ -1705,6 +1717,9 @@ msgstr "This changes the network backend only after rebooting."
 msgid "This computer has no factory reset point. Only computers installed with the Eitr ISO have one."
 msgstr "This computer has no factory reset point. Only computers installed with the Eitr ISO have one."
 
+msgid "This connects {assistants}. Each of them can then ask another one for a review, an explanation or a suggestion."
+msgstr "This connects {assistants}. Each of them can then ask another one for a review, an explanation or a suggestion."
+
 msgid "This family spans multiple packages; remove it with the package manager"
 msgstr "This family spans multiple packages; remove it with the package manager"
 
@@ -1759,6 +1774,9 @@ msgstr "Turn home snapshots off?"
 msgid "Turn home snapshots on?"
 msgstr "Turn home snapshots on?"
 
+msgid "Turn it off again from the same row in the AI menu."
+msgstr "Turn it off again from the same row in the AI menu."
+
 msgid "Turn on Eitr’s firewall before sharing."
 msgstr "Turn on Eitr’s firewall before sharing."
 
@@ -1782,6 +1800,9 @@ msgstr "Turning them on keeps a snapshot of the home folders every hour for a da
 
 msgid "Type 1, 2, 3 or 4, or press Enter."
 msgstr "Type 1, 2, 3 or 4, or press Enter."
+
+msgid "Type yes to connect them (Enter cancels): "
+msgstr "Type yes to connect them (Enter cancels): "
 
 msgid "Type yes to continue (anything else skips): "
 msgstr "Type yes to continue (anything else skips): "
@@ -1929,6 +1950,9 @@ msgstr "Write the recovery key down and store it offline, then press Enter. "
 
 msgid "You can run more commands here manually."
 msgstr "You can run more commands here manually."
+
+msgid "Your assistant asks you before every hand-off; nothing is sent on its own."
+msgstr "Your assistant asks you before every hand-off; nothing is sent on its own."
 
 msgid "Your current boot entries stay; the boot menu file is backed up first. See distro/RECOVERY.md."
 msgstr "Your current boot entries stay; the boot menu file is backed up first. See distro/RECOVERY.md."

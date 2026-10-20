@@ -403,8 +403,8 @@ msgstr "Confirmer"
 msgid "Conflicting iwd backend setting in {path}; review it before switching."
 msgstr "Paramètre du service iwd contradictoire dans {path} ; vérifiez-le avant de changer."
 
-msgid "Connect {assistants}? Each hand-off uses that assistant’s subscription and counts toward its limits. Ask before every hand-off."
-msgstr "Connecter {assistants} ? Chaque transfert utilise l’abonnement de l’assistant sollicité et compte dans ses limites. Demandez l’accord avant chaque transfert."
+msgid "Connected. Restart open assistant sessions to use it."
+msgstr "Connecté. Redémarrez les sessions d’assistants ouvertes pour l’utiliser."
 
 msgid "Connection failed; verify credentials and certificate settings"
 msgstr "Échec de la connexion ; vérifiez les identifiants et les paramètres du certificat"
@@ -540,6 +540,9 @@ msgstr "Le bloc include EITR a été modifié ; vérifiez-le manuellement"
 
 msgid "ERASE EVERYTHING returns this computer to how it was at its first login."
 msgstr "TOUT EFFACER remet cet ordinateur dans l’état de sa première connexion."
+
+msgid "Each hand-off uses the helper’s subscription and counts toward its limits."
+msgstr "Chaque transfert utilise l’abonnement de l’assistant sollicité et compte dans ses limites."
 
 msgid "Edit {label}"
 msgstr "Modifier {label}"
@@ -705,6 +708,9 @@ msgstr "La détection du matériel a échoué ; consultez le journal ci-dessus"
 
 msgid "Have you set Sunshine’s username and password in the browser?"
 msgstr "Avez-vous défini l’identifiant et le mot de passe Sunshine dans le navigateur ?"
+
+msgid "Helpers only read: they cannot change files or run commands."
+msgstr "Les assistants sollicités lisent seulement : ils ne peuvent ni modifier des fichiers ni exécuter des commandes."
 
 msgid "Home snapshots are off, and the existing ones were deleted. The excluded folders stay as they are."
 msgstr "Les instantanés des dossiers personnels sont désactivés et les instantanés existants ont été supprimés. Les dossiers exclus restent inchangés."
@@ -912,6 +918,9 @@ msgstr "Plus tard"
 
 msgid "Leave the name empty to cancel.\n"
 msgstr "Laissez le nom vide pour annuler.\n"
+
+msgid "Let assistants work together"
+msgstr "Permettre aux assistants de travailler ensemble"
 
 msgid "Limine shows its default menu from the next boot. Your boot entries were not changed."
 msgstr "Limine affichera son menu par défaut au prochain démarrage. Vos entrées de démarrage n’ont pas été modifiées."
@@ -1648,6 +1657,9 @@ msgstr "The payload has no pacman {version} package"
 msgid "The previous system is still running; see {MANUAL}"
 msgstr "Le système précédent fonctionne toujours ; consultez {MANUAL}"
 
+msgid "The question and the files a helper reads are sent to that helper’s provider."
+msgstr "La question et les fichiers lus par l’assistant sollicité sont envoyés à son fournisseur."
+
 msgid "The report opened in your text editor."
 msgstr "Le rapport s’est ouvert dans votre éditeur de texte."
 
@@ -1705,6 +1717,9 @@ msgstr "Le service réseau ne change qu’après redémarrage."
 msgid "This computer has no factory reset point. Only computers installed with the Eitr ISO have one."
 msgstr "Cet ordinateur n’a pas de point de réinitialisation d’usine. Seuls les ordinateurs installés depuis l’ISO Eitr en possèdent un."
 
+msgid "This connects {assistants}. Each of them can then ask another one for a review, an explanation or a suggestion."
+msgstr "Cela connecte {assistants}. Chacun pourra demander à un autre une relecture, une explication ou une suggestion."
+
 msgid "This family spans multiple packages; remove it with the package manager"
 msgstr "Cette famille est répartie sur plusieurs paquets ; supprimez-la avec le gestionnaire de paquets"
 
@@ -1759,6 +1774,9 @@ msgstr "Désactiver les instantanés des dossiers personnels ?"
 msgid "Turn home snapshots on?"
 msgstr "Activer les instantanés des dossiers personnels ?"
 
+msgid "Turn it off again from the same row in the AI menu."
+msgstr "Désactivez-le depuis la même ligne du menu IA."
+
 msgid "Turn on Eitr’s firewall before sharing."
 msgstr "Activez le pare-feu Eitr avant de partager."
 
@@ -1782,6 +1800,9 @@ msgstr "Les activer conserve un instantané des dossiers personnels par heure pe
 
 msgid "Type 1, 2, 3 or 4, or press Enter."
 msgstr "Saisissez 1, 2, 3 ou 4, ou appuyez sur Enter."
+
+msgid "Type yes to connect them (Enter cancels): "
+msgstr "Saisissez yes pour les connecter (Entrée annule) : "
 
 msgid "Type yes to continue (anything else skips): "
 msgstr "Saisissez yes pour continuer (toute autre réponse ignore cette étape) : "
@@ -1929,6 +1950,9 @@ msgstr "Notez la clé de récupération et conservez-la hors ligne, puis appuyez
 
 msgid "You can run more commands here manually."
 msgstr "Vous pouvez exécuter d’autres commandes ici manuellement."
+
+msgid "Your assistant asks you before every hand-off; nothing is sent on its own."
+msgstr "Votre assistant vous demande avant chaque transfert ; rien n’est envoyé de lui-même."
 
 msgid "Your current boot entries stay; the boot menu file is backed up first. See distro/RECOVERY.md."
 msgstr "Vos entrées actuelles restent ; le fichier du menu est d’abord sauvegardé. Voir distro/RECOVERY.md."

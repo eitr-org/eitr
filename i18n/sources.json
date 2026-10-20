@@ -3377,7 +3377,6 @@
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
     "Cancel": [
-      "walker/scripts/actions/assistant-collaboration.py",
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Cancel '{text}'?": [
@@ -3504,13 +3503,12 @@
       "quickshell/lockscreen/scripts/install-login.py"
     ],
     "Confirm": [
-      "walker/scripts/actions/assistant-collaboration.py",
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Conflicting iwd backend setting in {path}; review it before switching.": [
       "distro/system/network-backend.py"
     ],
-    "Connect {assistants}? Each hand-off uses that assistant’s subscription and counts toward its limits. Ask before every hand-off.": [
+    "Connected. Restart open assistant sessions to use it.": [
       "walker/scripts/actions/assistant-collaboration.py"
     ],
     "Connection failed; verify credentials and certificate settings": [
@@ -3648,6 +3646,9 @@
     ],
     "ERASE EVERYTHING returns this computer to how it was at its first login.": [
       "walker/scripts/actions/system/factory-reset.py"
+    ],
+    "Each hand-off uses the helper’s subscription and counts toward its limits.": [
+      "walker/scripts/actions/assistant-collaboration.py"
     ],
     "Edit {label}": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -3815,6 +3816,9 @@
     ],
     "Have you set Sunshine’s username and password in the browser?": [
       "walker/scripts/actions/system/remote-access.py"
+    ],
+    "Helpers only read: they cannot change files or run commands.": [
+      "walker/scripts/actions/assistant-collaboration.py"
     ],
     "Home snapshots are off, and the existing ones were deleted. The excluded folders stay as they are.": [
       "distro/system/home-snapshots.py"
@@ -4024,6 +4028,9 @@
     "Leave the name empty to cancel.\n": [
       "walker/scripts/actions/install/webapps.py"
     ],
+    "Let assistants work together": [
+      "walker/scripts/actions/assistant-collaboration.py"
+    ],
     "Limine shows its default menu from the next boot. Your boot entries were not changed.": [
       "distro/system/eitr-system.py"
     ],
@@ -4182,6 +4189,7 @@
     ],
     "Nothing was changed.": [
       "distro/system/eitr_remote.py",
+      "walker/scripts/actions/assistant-collaboration.py",
       "walker/scripts/actions/system/firewall.py",
       "walker/scripts/actions/system/home-snapshots.py"
     ],
@@ -4761,6 +4769,9 @@
     "The previous system is still running; see {MANUAL}": [
       "distro/system/factory-reset.py"
     ],
+    "The question and the files a helper reads are sent to that helper’s provider.": [
+      "walker/scripts/actions/assistant-collaboration.py"
+    ],
     "The report opened in your text editor.": [
       "walker/scripts/actions/system/report-problem.py"
     ],
@@ -4822,6 +4833,9 @@
     "This computer has no factory reset point. Only computers installed with the Eitr ISO have one.": [
       "distro/system/factory-reset.py"
     ],
+    "This connects {assistants}. Each of them can then ask another one for a review, an explanation or a suggestion.": [
+      "walker/scripts/actions/assistant-collaboration.py"
+    ],
     "This family spans multiple packages; remove it with the package manager": [
       "walker/scripts/actions/style/fonts.py"
     ],
@@ -4876,6 +4890,9 @@
     "Turn home snapshots on?": [
       "walker/scripts/actions/system/home-snapshots.py"
     ],
+    "Turn it off again from the same row in the AI menu.": [
+      "walker/scripts/actions/assistant-collaboration.py"
+    ],
     "Turn on Eitr’s firewall before sharing.": [
       "distro/system/eitr_remote.py"
     ],
@@ -4899,6 +4916,9 @@
     ],
     "Type 1, 2, 3 or 4, or press Enter.": [
       "walker/scripts/actions/system/report-problem.py"
+    ],
+    "Type yes to connect them (Enter cancels): ": [
+      "walker/scripts/actions/assistant-collaboration.py"
     ],
     "Type yes to continue (anything else skips): ": [
       "distro/bootloader/setup.sh"
@@ -5046,6 +5066,9 @@
     ],
     "You can run more commands here manually.": [
       "walker/scripts/menus/cloud/common.sh"
+    ],
+    "Your assistant asks you before every hand-off; nothing is sent on its own.": [
+      "walker/scripts/actions/assistant-collaboration.py"
     ],
     "Your current boot entries stay; the boot menu file is backed up first. See distro/RECOVERY.md.": [
       "distro/bootloader/setup.sh"

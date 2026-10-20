@@ -670,7 +670,6 @@
   "Ask {assistant} to review, explain or suggest without editing files. Ask the user before every hand-off.": "Demandez à {assistant} une relecture, une explication ou une suggestion sans modifier les fichiers. Demandez l’accord de l’utilisateur avant chaque transfert.",
   "Assistant": "Assistant",
   "Assistant collaboration: {error}": "Collaboration entre assistants : {error}",
-  "Connect {assistants}? Each hand-off uses that assistant’s subscription and counts toward its limits. Ask before every hand-off.": "Connecter {assistants} ? Chaque transfert utilise l’abonnement de l’assistant sollicité et compte dans ses limites. Demandez l’accord avant chaque transfert.",
   "Settings changed during the update; try again.": "Les réglages ont changé pendant la mise à jour ; réessayez.",
   "Settings changed; the entry could not be removed safely.": "Les réglages ont changé ; l’entrée n’a pas pu être retirée sans risque.",
   "Symlinked settings are left unchanged.": "Les réglages liés symboliquement restent inchangés.",
@@ -716,5 +715,14 @@
   "Enable remote control after setting Sunshine’s password?": "Activer le contrôle à distance après avoir défini le mot de passe Sunshine ?",
   "Turn on Eitr’s firewall before sharing.": "Activez le pare-feu Eitr avant de partager.",
   "Have you set Sunshine’s username and password in the browser?": "Avez-vous défini l’identifiant et le mot de passe Sunshine dans le navigateur ?",
-  "Sign in to an assistant before enabling collaboration.": "Connectez-vous à un assistant avant d’activer la collaboration."
+  "Sign in to an assistant before enabling collaboration.": "Connectez-vous à un assistant avant d’activer la collaboration.",
+  "Let assistants work together": "Permettre aux assistants de travailler ensemble",
+  "This connects {assistants}. Each of them can then ask another one for a review, an explanation or a suggestion.": "Cela connecte {assistants}. Chacun pourra demander à un autre une relecture, une explication ou une suggestion.",
+  "Each hand-off uses the helper’s subscription and counts toward its limits.": "Chaque transfert utilise l’abonnement de l’assistant sollicité et compte dans ses limites.",
+  "Your assistant asks you before every hand-off; nothing is sent on its own.": "Votre assistant vous demande avant chaque transfert ; rien n’est envoyé de lui-même.",
+  "Helpers only read: they cannot change files or run commands.": "Les assistants sollicités lisent seulement : ils ne peuvent ni modifier des fichiers ni exécuter des commandes.",
+  "The question and the files a helper reads are sent to that helper’s provider.": "La question et les fichiers lus par l’assistant sollicité sont envoyés à son fournisseur.",
+  "Turn it off again from the same row in the AI menu.": "Désactivez-le depuis la même ligne du menu IA.",
+  "Type yes to connect them (Enter cancels): ": "Saisissez yes pour les connecter (Entrée annule) : ",
+  "Connected. Restart open assistant sessions to use it.": "Connecté. Redémarrez les sessions d’assistants ouvertes pour l’utiliser."
 }

@@ -670,7 +670,6 @@
   "Ask {assistant} to review, explain or suggest without editing files. Ask the user before every hand-off.": "Bitte {assistant} um eine Prüfung, Erklärung oder einen Vorschlag ohne Dateiänderungen. Frage den Benutzer vor jeder Übergabe.",
   "Assistant": "Assistent",
   "Assistant collaboration: {error}": "Zusammenarbeit der Assistenten: {error}",
-  "Connect {assistants}? Each hand-off uses that assistant’s subscription and counts toward its limits. Ask before every hand-off.": "{assistants} verbinden? Jede Übergabe nutzt das Abonnement des helfenden Assistenten und wird auf dessen Limits angerechnet. Frage vor jeder Übergabe.",
   "Settings changed during the update; try again.": "Die Einstellungen wurden während der Aktualisierung geändert; versuche es erneut.",
   "Settings changed; the entry could not be removed safely.": "Die Einstellungen wurden geändert; der Eintrag konnte nicht sicher entfernt werden.",
   "Symlinked settings are left unchanged.": "Einstellungen mit symbolischen Links bleiben unverändert.",
@@ -716,5 +715,14 @@
   "Enable remote control after setting Sunshine’s password?": "Fernkontrolle nach dem Festlegen des Sunshine-Passworts aktivieren?",
   "Turn on Eitr’s firewall before sharing.": "Aktivieren Sie vor der Freigabe die Eitr-Firewall.",
   "Have you set Sunshine’s username and password in the browser?": "Haben Sie Sunshine-Benutzernamen und Passwort im Browser festgelegt?",
-  "Sign in to an assistant before enabling collaboration.": "Melde dich bei einem Assistenten an, bevor du die Zusammenarbeit aktivierst."
+  "Sign in to an assistant before enabling collaboration.": "Melde dich bei einem Assistenten an, bevor du die Zusammenarbeit aktivierst.",
+  "Let assistants work together": "Assistenten zusammenarbeiten lassen",
+  "This connects {assistants}. Each of them can then ask another one for a review, an explanation or a suggestion.": "Damit werden {assistants} verbunden. Jeder kann dann einen anderen um eine Prüfung, eine Erklärung oder einen Vorschlag bitten.",
+  "Each hand-off uses the helper’s subscription and counts toward its limits.": "Jede Übergabe nutzt das Abonnement des helfenden Assistenten und zählt zu dessen Limits.",
+  "Your assistant asks you before every hand-off; nothing is sent on its own.": "Dein Assistent fragt vor jeder Übergabe nach; nichts wird von selbst gesendet.",
+  "Helpers only read: they cannot change files or run commands.": "Helfer lesen nur: Sie können keine Dateien ändern und keine Befehle ausführen.",
+  "The question and the files a helper reads are sent to that helper’s provider.": "Die Frage und die Dateien, die ein Helfer liest, werden an dessen Anbieter gesendet.",
+  "Turn it off again from the same row in the AI menu.": "Schalte es über dieselbe Zeile im KI-Menü wieder aus.",
+  "Type yes to connect them (Enter cancels): ": "Gib yes ein, um sie zu verbinden (Enter bricht ab): ",
+  "Connected. Restart open assistant sessions to use it.": "Verbunden. Starte offene Assistenten-Sitzungen neu, um es zu nutzen."
 }
