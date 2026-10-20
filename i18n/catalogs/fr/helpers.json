@@ -673,7 +673,6 @@
   "Connect {assistants}? Each hand-off uses that assistant’s subscription and counts toward its limits. Ask before every hand-off.": "Connecter {assistants} ? Chaque transfert utilise l’abonnement de l’assistant sollicité et compte dans ses limites. Demandez l’accord avant chaque transfert.",
   "Settings changed during the update; try again.": "Les réglages ont changé pendant la mise à jour ; réessayez.",
   "Settings changed; the entry could not be removed safely.": "Les réglages ont changé ; l’entrée n’a pas pu être retirée sans risque.",
-  "Sign in to Claude or Codex before enabling collaboration.": "Connectez-vous à Claude ou Codex avant d’activer la collaboration.",
   "Symlinked settings are left unchanged.": "Les réglages liés symboliquement restent inchangés.",
   "The assistant could not complete the request.": "L’assistant n’a pas pu terminer la demande.",
   "The assistant returned no answer.": "L’assistant n’a renvoyé aucune réponse.",
@@ -716,5 +715,6 @@
   "Stop and disable the existing Sunshine user service before using Eitr sharing. Its settings will be kept.": "Arrêtez et désactivez le service utilisateur Sunshine existant avant le partage Eitr. Ses réglages seront conservés.",
   "Enable remote control after setting Sunshine’s password?": "Activer le contrôle à distance après avoir défini le mot de passe Sunshine ?",
   "Turn on Eitr’s firewall before sharing.": "Activez le pare-feu Eitr avant de partager.",
-  "Have you set Sunshine’s username and password in the browser?": "Avez-vous défini l’identifiant et le mot de passe Sunshine dans le navigateur ?"
+  "Have you set Sunshine’s username and password in the browser?": "Avez-vous défini l’identifiant et le mot de passe Sunshine dans le navigateur ?",
+  "Sign in to an assistant before enabling collaboration.": "Connectez-vous à un assistant avant d’activer la collaboration."
 }

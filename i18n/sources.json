@@ -4524,7 +4524,7 @@
     "Shown in the GCP menu, for example Acme Development": [
       "walker/scripts/menus/cloud/accounts.py"
     ],
-    "Sign in to Claude or Codex before enabling collaboration.": [
+    "Sign in to an assistant before enabling collaboration.": [
       "walker/scripts/actions/assistant-collaboration.py"
     ],
     "Sign in with `claude` to show subscription usage": [

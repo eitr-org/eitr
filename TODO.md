@@ -3,7 +3,7 @@
 Open work in priority order. Each item lists what decides the next step.
 Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 
-1. Assistants working together: Gemini, Copilot and Grok as helpers
+1. Google's assistant: Antigravity CLI instead of Gemini CLI
 2. Remote access: test with the owner
 3. Organization profiles: software and policies at installation
 4. Eitr plugins
@@ -12,21 +12,17 @@ Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 7. Later: AI multi-account
 8. Before 1.0.0: skipped-release upgrade, encrypted resets, other hardware
 
-# 1. Assistants working together: more helpers
+# 1. Google's assistant: Antigravity CLI
 
-Claude and Codex hand questions to each other through AI > "Let assistants
-work together" (`distro/ASSISTANTS.md`). Next, each only once its headless
-mode is proven read-only, with a real hand-off test like the one in
-`distro/ASSISTANTS.md`:
+Google no longer serves Gemini CLI for personal accounts (only paid API keys
+and company accounts); individuals moved to Antigravity CLI (`agy`).
 
-- **Gemini CLI:** confirm `gemini -p --approval-mode plan` cannot write in a
-  headless run (try creating a file in a scratch folder), then add `ask_gemini`
-  and register through `gemini mcp add`.
-- **Copilot CLI:** install it, allow only read tools and `--deny-tool` writes
-  and shell in `copilot -p`, prove a write is refused, then add `ask_copilot`
-  (MCP in `~/.copilot/mcp-config.json`).
-- **Grok Build:** wait until xAI documents a read-only headless mode and MCP
-  support.
+- Relabel Gemini CLI in Install > AI CLIs as "for Gemini API keys or Google
+  Cloud accounts", so nobody installs it expecting the Google sign-in to work.
+- Add Antigravity CLI to Install > AI CLIs and the first-use launchers, from
+  Google's official source (it is not open source; never bundled).
+- Then, as with the other helpers in `distro/ASSISTANTS.md`, prove a
+  read-only headless mode and MCP registration before offering `ask_agy`.
 
 # 2. Remote access: test with the owner
 

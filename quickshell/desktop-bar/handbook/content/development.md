@@ -105,11 +105,12 @@ rewriting your profiles. Learn retains dedicated LazyVim, tmux and cmux referenc
 ## Assistants working together
 
 Development > AI > Let assistants work together is off by default. Enable it
-to connect installed Claude and Codex clients that appear signed in. The
+to connect installed Claude Code, Codex, Copilot and Grok clients that appear
+signed in. The
 confirmation names the assistants and explains that each hand-off uses the
 helper’s subscription and counts toward its limits. API-key-only and
-keyring-only sign-ins are not detected. Gemini, Copilot and Grok are not
-available as helpers yet.
+keyring-only sign-ins are not detected. Gemini is not offered: Google no
+longer serves Gemini CLI for personal accounts.
 
 Ask your assistant to consult the other one for a review, explanation or
 suggestion. Approve each hand-off through the calling assistant’s normal tool
@@ -121,8 +122,8 @@ the caller’s current working directory; its question and context may be sent
 to that assistant’s provider.
 
 The switch registers one `assistants` MCP server through each assistant's own
-command (`claude mcp add` and `codex mcp add`), so Claude Code and Codex write
-their own settings. An existing server with the same name is left unchanged
+command (`claude mcp add`, `codex mcp add`, `copilot mcp add` and
+`grok mcp add`), so each assistant writes its own settings. An existing server with the same name is left unchanged
 and reported. Changes
 are recorded only on this computer in `~/.local/state/eitr/assistants.json`
 (or `XDG_STATE_HOME`). Turning the switch off removes exactly Eitr’s entries;

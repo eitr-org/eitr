@@ -469,7 +469,7 @@
   "Shown in menus, for example Personal or Work": "Shown in menus, for example Personal or Work",
   "Shown in the AWS menu, for example Acme Production": "Shown in the AWS menu, for example Acme Production",
   "Shown in the GCP menu, for example Acme Development": "Shown in the GCP menu, for example Acme Development",
-  "Sign in to Claude or Codex before enabling collaboration.": "Sign in to Claude or Codex before enabling collaboration.",
+  "Sign in to an assistant before enabling collaboration.": "Sign in to an assistant before enabling collaboration.",
   "Sign in with `claude` to show subscription usage": "Sign in with `claude` to show subscription usage",
   "Sign-in method": "Sign-in method",
   "Skipped snapshot boot entries.": "Skipped snapshot boot entries.",

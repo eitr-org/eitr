@@ -25,6 +25,9 @@ arguments = sys.argv[1:]
 if arguments[:1] != ['mcp']:
     sys.exit(98)
 action, rest = arguments[1], arguments[2:]
+if action == 'list':
+    name = None
+    rest = []
 positional, skip = [], False
 for argument in rest:
     if argument == '--':
@@ -35,18 +38,24 @@ for argument in rest:
         skip = True
     elif not argument.startswith('-'):
         positional.append(argument)
-name = positional[0]
+name = positional[0] if positional else name
 if action == 'get':
     if name not in servers:
         sys.exit(1)
-    print(json.dumps({'transport': servers[name]}))
+    print(json.dumps({name: servers[name]} if identifier == 'copilot' else {'transport': servers[name]}))
+elif action == 'list':
+    print(json.dumps([dict(entry, name=key, scope='user') for key, entry in servers.items()]))
 elif action == 'add':
     if name in servers or os.environ.get('FAKE_MCP_FAIL'):
         sys.exit(1)
     separator = arguments.index('--')
-    flag = '-e' if identifier == 'claude' else '--env'
+    flag = '-e' if identifier in ('claude', 'grok') else '--env'
     variable = arguments[arguments.index(flag) + 1].split('=', 1)
-    servers[name] = {'command': arguments[separator + 1], 'args': arguments[separator + 2:], 'env': {variable[0]: variable[1]}}
+    if identifier == 'grok':
+        command, rest = arguments[separator - 1], arguments[separator + 1:]
+    else:
+        command, rest = arguments[separator + 1], arguments[separator + 2:]
+    servers[name] = {'command': command, 'args': rest, 'env': {variable[0]: variable[1]}}
 elif action == 'remove':
     if name not in servers:
         sys.exit(1)
@@ -65,19 +74,28 @@ class CollaborationTests(unittest.TestCase):
         self.home = Path(self.temporary.name)
         self.addCleanup(patch.stopall)
         patch.object(Path, 'home', return_value=self.home).start()
-        patch.dict(os.environ, {'CODEX_HOME': str(self.home / '.codex'), 'HOME': str(self.home),
+        patch.dict(os.environ, {'CODEX_HOME': str(self.home / '.codex'), 'HOME': str(self.home), 'COPILOT_HOME': '', 'GROK_HOME': '',
                               'CLAUDE_CONFIG_DIR': '', bridge.DEPTH: '', 'FAKE_MCP_STORE': str(self.home),
                               'FAKE_MCP_FAIL': '', 'PATH': str(self.home / 'bin')}).start()
 
     def sign_in(self, identifier):
-        if identifier == 'claude':
+        if identifier == 'grok':
+            path = self.home / '.grok/auth.json'
+            payload = {'session': {'key': 'fixture'}}
+        elif identifier == 'copilot':
+            path = self.home / '.copilot/config.json'
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text('// managed automatically\n' + json.dumps({'loggedInUsers': [{'login': 'fixture'}]}))
+            payload = None
+        elif identifier == 'claude':
             path = self.home / '.claude/.credentials.json'
             payload = {'claudeAiOauth': {'accessToken': 'fixture'}}
         else:
             path = self.home / '.codex/auth.json'
             payload = {'tokens': {'access_token': 'fixture'}}
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(payload))
+        if payload is not None:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(json.dumps(payload))
         binary = self.home / 'bin' / identifier
         binary.parent.mkdir(exist_ok=True)
         binary.write_text(FAKE_CLI)
@@ -116,7 +134,7 @@ class CollaborationTests(unittest.TestCase):
         for identifier in bridge.LABELS:
             binary = self.sign_in(identifier)
             process = Mock(returncode=0)
-            process.communicate.return_value = ('answer' if identifier == 'claude' else '\n'.join([
+            process.communicate.return_value = ('answer' if identifier != 'codex' else '\n'.join([
                 json.dumps({'type':'item.completed', 'item':{'type':'reasoning', 'text':'private'}}),
                 json.dumps({'type':'item.completed', 'item':{'type':'agent_message', 'text':'answer'}})]), '')
             with patch.object(bridge.subprocess, 'run') as notify, patch.object(bridge.subprocess, 'Popen', return_value=process) as launch:
@@ -128,6 +146,14 @@ class CollaborationTests(unittest.TestCase):
                     self.assertIn('plan', arguments)
                     self.assertIn('--strict-mcp-config', arguments)
                     self.assertEqual(arguments[-2:], ['--', '--dangerously-do-something'])
+                elif identifier == 'grok':
+                    self.assertIn('--single=--dangerously-do-something', arguments)
+                    self.assertEqual(arguments[arguments.index('--sandbox') + 1], 'read-only')
+                    self.assertEqual(arguments[arguments.index('--permission-mode') + 1], 'plan')
+                    self.assertNotIn('--always-approve', arguments)
+                elif identifier == 'copilot':
+                    self.assertIn('--prompt=--dangerously-do-something', arguments)
+                    self.assertNotIn('--dangerously-do-something', arguments)
                 else:
                     self.assertIn('read-only', arguments)
                     self.assertIn('approval_policy="never"', arguments)
@@ -155,7 +181,7 @@ class CollaborationTests(unittest.TestCase):
         for identifier in bridge.LABELS:
             self.sign_in(identifier)
             (self.home / (identifier + '.json')).write_text(json.dumps({'other': {'command': 'mine'}}))
-        self.assertEqual(bridge.enable(['claude', 'codex']), [])
+        self.assertEqual(bridge.enable(list(bridge.LABELS)), [])
         self.assertTrue(bridge.enabled())
         for identifier in bridge.LABELS:
             with self.subTest(identifier=identifier):
@@ -163,7 +189,7 @@ class CollaborationTests(unittest.TestCase):
                 self.assertEqual(self.servers(identifier)['other'], {'command': 'mine'})
                 self.assertEqual(bridge.registered(identifier, bridge.executable(identifier)),
                                  bridge.registration(identifier))
-        self.assertEqual(bridge.enable(['claude', 'codex']), [], 'enabling twice changes nothing')
+        self.assertEqual(bridge.enable(list(bridge.LABELS)), [], 'enabling twice changes nothing')
         self.assertEqual(bridge.disable(), [])
         self.assertFalse(bridge.enabled())
         for identifier in bridge.LABELS:
@@ -258,3 +284,19 @@ class CollaborationTests(unittest.TestCase):
                                 text=True, capture_output=True, env=environment, timeout=10)
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(json.loads(result.stdout)['result']['serverInfo']['name'], 'assistants')
+
+    def test_copilot_is_offered_when_signed_in_and_runs_read_only(self):
+        self.assertNotIn('copilot', bridge.connected())
+        binary = self.sign_in('copilot')
+        self.assertEqual(bridge.connected()['copilot'], binary)
+        arguments = bridge.command('copilot', binary, 'Explain this')
+        self.assertEqual(arguments[1], '--prompt=Explain this')
+        for denied in ('shell', 'write', 'url', bridge.SERVER):
+            self.assertIn(denied, arguments[arguments.index('--deny-tool', arguments.index(denied) - 1)
+                                            + 1:arguments.index(denied) + 1], denied)
+        self.assertIn('--disable-builtin-mcps', arguments)
+        self.assertNotIn('--yolo', arguments)
+        self.assertNotIn('--allow-all', arguments)
+        broken = self.home / '.copilot/config.json'
+        broken.write_text('{"loggedInUsers": []}')
+        self.assertNotIn('copilot', bridge.connected())

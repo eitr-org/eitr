@@ -1411,8 +1411,8 @@ msgstr "Shown in the AWS menu, for example Acme Production"
 msgid "Shown in the GCP menu, for example Acme Development"
 msgstr "Shown in the GCP menu, for example Acme Development"
 
-msgid "Sign in to Claude or Codex before enabling collaboration."
-msgstr "Sign in to Claude or Codex before enabling collaboration."
+msgid "Sign in to an assistant before enabling collaboration."
+msgstr "Sign in to an assistant before enabling collaboration."
 
 msgid "Sign in with `claude` to show subscription usage"
 msgstr "Sign in with `claude` to show subscription usage"

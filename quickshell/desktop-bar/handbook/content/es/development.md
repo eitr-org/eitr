@@ -51,11 +51,11 @@ Mantén tokens, secretos `.env` y credenciales fuera de dotfiles compartidos y c
 ## Asistentes trabajando juntos
 
 Desarrollo > IA > Permitir que los asistentes trabajen juntos está desactivado
-por defecto. Actívalo para conectar Claude y Codex instalados que parezcan
+por defecto. Actívalo para conectar Claude, Codex, Copilot y Grok instalados que parezcan
 tener sesión iniciada. La confirmación identifica los asistentes y explica
 que cada transferencia usa la suscripción del asistente auxiliar y cuenta
 para sus límites. No se detectan sesiones solo con clave de API o llavero.
-Gemini, Copilot y Grok aún no están disponibles como auxiliares.
+Gemini no se ofrece: Google ya no atiende Gemini CLI en cuentas personales.
 
 Pide a tu asistente que consulte al otro para una revisión, explicación o
 sugerencia. Aprueba cada transferencia mediante la solicitud normal del
@@ -68,8 +68,8 @@ auxiliar lee el directorio de trabajo actual de quien llama; la pregunta y
 el contexto pueden enviarse al proveedor de ese asistente.
 
 La opción registra un servidor MCP `assistants` con el comando de cada
-asistente (`claude mcp add` y `codex mcp add`), así que Claude Code y Codex
-escriben sus propios ajustes. Un servidor existente con el mismo nombre se
+asistente (`claude mcp add`, `codex mcp add`, `copilot mcp add` y `grok mcp add`), así
+que cada asistente escribe sus propios ajustes. Un servidor existente con el mismo nombre se
 conserva y se notifica. Los cambios se registran solo en este equipo, en
 `~/.local/state/eitr/assistants.json` (o `XDG_STATE_HOME`). Desactivar elimina
 exactamente las entradas de Eitr; si una entrada se editó después, Eitr la

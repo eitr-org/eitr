@@ -30,7 +30,7 @@ def toggle():
         else:
             identifiers = list(connected())
             if not identifiers:
-                raise ValueError(tr('Sign in to Claude or Codex before enabling collaboration.'))
+                raise ValueError(tr('Sign in to an assistant before enabling collaboration.'))
             question = tr('Connect {assistants}? Each hand-off uses that assistant’s subscription and counts toward its limits. Ask before every hand-off.',
                           assistants=', '.join(LABELS[identifier] for identifier in identifiers))
             confirmation = tr('Confirm')

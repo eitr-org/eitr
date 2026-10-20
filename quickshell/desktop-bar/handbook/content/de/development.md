@@ -51,12 +51,12 @@ Halte Token, `.env`-Geheimnisse und Zugangsdaten aus geteilten Dotfiles und Scre
 ## Assistenten arbeiten zusammen
 
 Entwicklung > KI > Assistenten zusammenarbeiten lassen ist standardmäßig
-ausgeschaltet. Aktiviere es, um installierte Claude- und Codex-Programme zu
+ausgeschaltet. Aktiviere es, um installierte Claude-, Codex-, Copilot- und Grok-Programme zu
 verbinden, die angemeldet erscheinen. Die Bestätigung nennt die Assistenten
 und erklärt, dass jede Übergabe das Abonnement des helfenden Assistenten nutzt
 und auf dessen Limits angerechnet wird. Anmeldungen nur mit API-Schlüssel
-oder Schlüsselbund werden nicht erkannt. Gemini, Copilot und Grok stehen noch
-nicht als Helfer zur Verfügung.
+oder Schlüsselbund werden nicht erkannt. Gemini wird nicht angeboten: Google
+bedient Gemini CLI für private Konten nicht mehr.
 
 Bitte deinen Assistenten, den anderen für eine Prüfung, Erklärung oder einen
 Vorschlag zu befragen. Bestätige jede Übergabe über die übliche Werkzeugabfrage
@@ -69,8 +69,8 @@ liest das aktuelle Arbeitsverzeichnis des Aufrufers; Frage und Kontext können
 an den Anbieter dieses Assistenten gesendet werden.
 
 Der Schalter registriert einen MCP-Server `assistants` über den eigenen Befehl
-des jeweiligen Assistenten (`claude mcp add` und `codex mcp add`), sodass Claude
-Code und Codex ihre Einstellungen selbst schreiben. Ein vorhandener
+des jeweiligen Assistenten (`claude mcp add`, `codex mcp add`, `copilot mcp add` und `grok mcp add`),
+sodass jeder Assistent seine Einstellungen selbst schreibt. Ein vorhandener
 gleichnamiger Server bleibt unverändert und wird gemeldet. Die Änderungen werden nur auf diesem
 Computer unter `~/.local/state/eitr/assistants.json` (oder `XDG_STATE_HOME`)
 vermerkt. Ausschalten entfernt genau Eitrs Einträge; wurde ein Eintrag danach

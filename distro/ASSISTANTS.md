@@ -78,7 +78,7 @@ conservatively excluded. Expired credentials can appear signed in; failure is
 returned without exposing CLI stderr or refreshing credentials ourselves.
 
 Registration goes through each tool's own command (`claude mcp add -s user`,
-`codex mcp add`), never a direct edit of their settings: Claude Code rewrites
+`codex mcp add`, `copilot mcp add`, `grok mcp add -s user`), never a direct edit of their settings: Claude Code rewrites
 `~/.claude.json` while it runs. An existing `assistants` server is never
 replaced. A private state file records which tools Eitr registered and the
 exact entry, with no settings or tokens. Disable removes only a still-matching managed entry and retains conflicts for
@@ -89,9 +89,13 @@ live at `/usr/share/eitr/software.json`. The entrypoint finds `lib` in the
 installed tree as well as `distro/lib` in a checkout, including isolated Python
 runs with no `PYTHONPATH`. Tests exercise that packaged layout and recipe lookup.
 
-Verified with real accounts (Claude Code 2.1.304, Codex 0.163.0): both helpers
-answered from the caller's folder, neither could create a file, a helper saw
-no tools of its own, and `claude mcp add/remove` and `codex mcp add/remove`
-registered and removed exactly Eitr's entry, keeping other servers. Gemini,
-Copilot and Grok are not offered until their read-only headless modes are
-confirmed.
+Verified with real accounts (Claude Code 2.1.304, Codex 0.163.0, Copilot CLI
+1.0.100, Grok 1.0.62): every helper answered from the caller's folder, none
+could create a file or run a shell command, a helper saw no tools of its own,
+and each tool's own `mcp add/remove` registered and removed exactly Eitr's
+entry, keeping other servers. Copilot runs headless with `--allow-all-tools`
+but denies `shell`, `write`, `url` and the assistants server, which always win.
+Grok runs in plan mode inside its kernel-enforced `read-only` sandbox, which
+still allows writes to `~/.grok` and temporary folders. Grok's `mcp add`
+replaces an existing server of the same name, so Eitr checks first. Gemini is
+not offered: Google no longer serves Gemini CLI for personal accounts.
