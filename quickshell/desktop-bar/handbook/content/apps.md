@@ -38,6 +38,8 @@ Installation/update/setup terminals show the themed EITR banner. Successful
 tasks normally close; failures stay visible. Reports such as Cleanup stay open
 so you can read them. Ordinary terminals and About do not show the task banner.
 
+Press **Esc** to close waiting task, account, report and About terminals. Enter remains for answers and confirmations, including acknowledging a recovery key and powering off the installer.
+
 ## Tools
 
 **Calculator** in Apps (or the keyboard's calculator key) opens Eitr's

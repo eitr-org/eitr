@@ -159,9 +159,8 @@ if [ "$close_mode" = "close-on-key" ]; then
   echo
   echo "────────────────────────────────────────"
   echo "Exit code: \$status"
-  eitr_gettext 'Press any key to close.'; printf '\\n'
   echo "────────────────────────────────────────"
-  IFS= read -rsn1
+  cloud_wait_for_key
   exit "\$status"
 fi
 

@@ -37,12 +37,6 @@ msgstr "\nNo se cambió ningún paquete."
 msgid "\nOfficial prebuilt package metadata; there is no local AUR build to execute."
 msgstr "\nMetadatos del paquete oficial precompilado; no hay ninguna compilación local de AUR que ejecutar."
 
-msgid "\nPress Enter to close."
-msgstr "\nPulsa Enter para cerrar."
-
-msgid "\nTask failed. Press Enter to close."
-msgstr "\nLa tarea falló. Pulsa Enter para cerrar."
-
 msgid "\nUnattended installation from the answers drive will {action}:\n  {disk_label}\nfor user {username}, {state}."
 msgstr "\nLa instalación automática desde la unidad de respuestas va a {action}:\n  {disk_label}\npara el usuario {username}, {state}."
 
@@ -1231,8 +1225,8 @@ msgstr "La preparación falló antes de modificar ningún disco"
 msgid "Preparing the restored system (the running system is not changed yet)"
 msgstr "Preparando el sistema restaurado (el sistema en ejecución aún no cambia)"
 
-msgid "Press any key to close."
-msgstr "Pulsa cualquier tecla para cerrar."
+msgid "Press Esc to close."
+msgstr "Pulsa Esc para cerrar."
 
 msgid "Primary IPs"
 msgstr "IP primarias"
@@ -1677,6 +1671,9 @@ msgstr "Estado de Tailscale: {state}"
 
 msgid "Target"
 msgstr "Destino"
+
+msgid "Task failed."
+msgstr "La tarea falló."
 
 msgid "Template partition sizes must be in MiB"
 msgstr "Template partition sizes must be in MiB"

@@ -20,6 +20,7 @@ for parent in Path(__file__).resolve().parents:
     if (library / "eitr_paths.py").is_file():
         sys.path.insert(0, str(library))
         break
+from eitr_terminal import wait_for_escape
 from eitr_paths import code, config
 from eitr_wizard import Step, collect as collect_setup
 from eitr_i18n import tr
@@ -356,7 +357,7 @@ def run_account_locked(provider, name, action, answers=None):
             os.chmod(path, 0o600)
             json.dump(values, handle)
     print(tr('Context: {context}', context=values.get('context', context) + ' / ' + values.get('region', '')))
-    input(tr('\nPress Enter to close.'))
+    wait_for_escape()
 
 
 def open_account(provider, name):

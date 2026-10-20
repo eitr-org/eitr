@@ -3,7 +3,9 @@
 set -euo pipefail
 
 CLASS="about-terminal"
-ABOUT_COMMAND='eitr-run fastfetch/eitr.py; read -n 1 -s -r'
+terminal_library="${EITR_LIBRARY_ROOT:-${EITR_CODE_ROOT:-/usr/share/eitr}/lib}"
+[[ -f "$terminal_library/eitr_terminal.py" ]] || terminal_library="${EITR_CODE_ROOT:-/usr/share/eitr}/distro/lib"
+printf -v ABOUT_COMMAND 'eitr-run fastfetch/eitr.py; python3 %q' "$terminal_library/eitr_terminal.py"
 
 if command -v hyprctl >/dev/null 2>&1 && command -v jq >/dev/null 2>&1; then
   if clients_json="$(hyprctl clients -j 2>/dev/null)"; then

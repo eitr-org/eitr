@@ -27,6 +27,7 @@ for _eitr_parent in Path(__file__).resolve().parents:
         sys.path.insert(0, str(_eitr_lib))
         break
 from eitr_forms import Terminal
+from eitr_terminal import wait_for_escape
 from eitr_paths import code, config, read_settings, write_settings
 from eitr_wizard import Step, collect as collect_setup
 from eitr_i18n import tr
@@ -355,7 +356,7 @@ def main(arguments):
     elif args.action == "rename":
         rename(args.provider, args.context)
     # Task terminals close after success; keep the outcome readable first.
-    input(ui.dim(tr('\nPress Enter to close.')))
+    wait_for_escape()
     return 0
 
 

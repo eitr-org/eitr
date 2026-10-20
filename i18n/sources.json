@@ -3186,14 +3186,6 @@
     "\nOfficial prebuilt package metadata; there is no local AUR build to execute.": [
       "walker/scripts/actions/install/software.py"
     ],
-    "\nPress Enter to close.": [
-      "walker/scripts/actions/development/git-accounts.py",
-      "walker/scripts/menus/cloud/accounts.py",
-      "walker/scripts/menus/cloud/providers.py"
-    ],
-    "\nTask failed. Press Enter to close.": [
-      "walker/scripts/actions/task-terminal.py"
-    ],
     "\nUnattended installation from the answers drive will {action}:\n  {disk_label}\nfor user {username}, {state}.": [
       "distro/archinstall/eitr-guided-install"
     ],
@@ -3710,7 +3702,7 @@
       "walker/scripts/actions/system/remote-access.py"
     ],
     "Disk": [
-      "distro/lib/eitr_wizard.py"
+      "distro/archinstall/installer-ui.py"
     ],
     "Disk Usage After Cleanup": [
       "walker/scripts/actions/system/cleanup.sh"
@@ -3776,7 +3768,7 @@
       "walker/scripts/actions/system/security.py"
     ],
     "Encryption": [
-      "distro/lib/eitr_wizard.py"
+      "distro/archinstall/installer-ui.py"
     ],
     "English UTF-8 support is missing from the live image": [
       "distro/archinstall/installer-ui.py"
@@ -3935,14 +3927,13 @@
     ],
     "Hostname": [
       "distro/archinstall/installer-ui.py",
-      "distro/lib/eitr_wizard.py",
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "How should Eitr use {disk}?": [
       "distro/archinstall/installer-ui.py"
     ],
     "INSTALL STEPS": [
-      "distro/lib/eitr_wizard.py"
+      "distro/archinstall/installer-ui.py"
     ],
     "Icon image address (optional; press Enter to detect it): ": [
       "walker/scripts/actions/install/webapps.py"
@@ -3996,7 +3987,7 @@
       "distro/system/eitr-system.py"
     ],
     "Install type": [
-      "distro/lib/eitr_wizard.py"
+      "distro/archinstall/installer-ui.py"
     ],
     "Install type {layout} is not available on {path}": [
       "distro/archinstall/eitr-guided-install"
@@ -4105,7 +4096,7 @@
       "walker/scripts/actions/system/factory-reset.py"
     ],
     "Keyboard": [
-      "distro/lib/eitr_wizard.py"
+      "distro/archinstall/installer-ui.py"
     ],
     "Keyboard layout": [
       "distro/archinstall/installer-ui.py"
@@ -4370,7 +4361,7 @@
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Password": [
-      "distro/lib/eitr_wizard.py"
+      "distro/archinstall/installer-ui.py"
     ],
     "Passwords did not match": [
       "distro/lib/eitr_wizard.py"
@@ -4393,8 +4384,8 @@
     "Preparing the restored system (the running system is not changed yet)": [
       "distro/system/factory-reset.py"
     ],
-    "Press any key to close.": [
-      "walker/scripts/menus/cloud/common.sh"
+    "Press Esc to close.": [
+      "distro/lib/eitr_terminal.py"
     ],
     "Primary IPs": [
       "walker/scripts/menus/cloud/providers.py"
@@ -4556,13 +4547,14 @@
       "distro/system/factory-reset.py"
     ],
     "Review": [
+      "distro/archinstall/installer-ui.py",
       "distro/lib/eitr_wizard.py"
     ],
     "Review /etc/default/limine first, then run: sudo systemctl start {unit}": [
       "distro/system/eitr-system.py"
     ],
     "Review installation": [
-      "distro/lib/eitr_wizard.py"
+      "distro/archinstall/installer-ui.py"
     ],
     "Root snapshots configured. Existing Snapper policy is preserved.": [
       "distro/system/eitr-system.py"
@@ -4826,7 +4818,7 @@
       "distro/system/eitr-system.py"
     ],
     "Tab / arrows: choose  Enter: select  Esc: cancel": [
-      "distro/lib/eitr_wizard.py"
+      "distro/archinstall/installer-ui.py"
     ],
     "Tailscale setup belongs to another desktop user": [
       "distro/system/eitr_remote.py"
@@ -4839,6 +4831,9 @@
     ],
     "Target": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Task failed.": [
+      "walker/scripts/actions/task-terminal.py"
     ],
     "Template partition sizes must be in MiB": [
       "distro/archinstall/eitr-guided-install"
@@ -5227,7 +5222,7 @@
       "distro/archinstall/installer-ui.py"
     ],
     "Username": [
-      "distro/lib/eitr_wizard.py"
+      "distro/archinstall/installer-ui.py"
     ],
     "Using the default theme: {user}'s theme could not be read ({error}).": [
       "distro/system/eitr-system.py"

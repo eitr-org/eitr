@@ -17,6 +17,8 @@ Aplicativos presentes no sistema mostram **Instalado** abaixo do nome; escolhê-
 
 Os terminais de instalação, atualização e configuração mostram o banner do EITR no tema atual. Tarefas bem-sucedidas normalmente fecham; falhas permanecem visíveis. Relatórios como Limpeza ficam abertos para leitura. Terminais comuns e Sobre não exibem o banner de tarefas.
 
+Pressione **Esc** para fechar terminais de tarefas, contas, relatórios e Sobre que aguardam uma tecla. Enter continua sendo usado para respostas e confirmações, incluindo confirmar que a chave de recuperação foi anotada e desligar o instalador.
+
 ## Ferramentas
 
 **Calculadora** em Aplicativos, ou a tecla de calculadora do teclado, abre a calculadora do Eitr com as cores do tema atual. Digite ou clique: `+ − × ÷`, `^` para potências, `%` para porcentagem (`200×15%`), `√` e parênteses. Um número antes de um parêntese multiplica (`2(3+4)`). Enter mostra o resultado, Backspace remove um caractere, Escape limpa (duas vezes fecha) e Ctrl+C ou **Copiar** copia o resultado. A expressão é calculada diretamente, sem executá-la como código.

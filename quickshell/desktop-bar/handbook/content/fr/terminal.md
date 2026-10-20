@@ -73,6 +73,8 @@ Pour continuer sans interface, lancez `cmux --headless --session work`, puis `cm
 
 Les terminaux ouverts par les menus et notifications de mise à jour ou de rapport flottent au centre, au-dessus de vos fenêtres, avec le fond opaque du thème. Les sessions d’assistants IA et projets LazyVim de Développement s’ouvrent en fenêtres ordinaires en mosaïque avec fond translucide, comme vos terminaux personnels. Les terminaux ordinaires sont interactifs et sans bannière. Installation, mise à jour et configuration affichent la bannière runique d’EITR. Les tâches réussies se ferment normalement ; les échecs restent jusqu’à fermeture. Les rapports informatifs peuvent rester ouverts. Redémarrer Elephant ne doit pas fermer les applications lancées : son service systemd arrête seulement le processus, pas tout le cgroup.
 
+Appuyez sur **Échap** pour fermer les terminaux de tâches, de comptes, de rapports et À propos qui attendent une touche. Entrée reste utilisée pour les réponses et confirmations, notamment après avoir noté la clé de récupération et pour éteindre le programme d’installation.
+
 ## Historique du shell
 
 `history` liste les commandes récentes. Dans zsh, vérifiez le vrai chemin avec :

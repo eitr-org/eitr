@@ -116,6 +116,8 @@ close, and failures stay open until dismissed. Informational reports may stay
 open intentionally. Restarting Elephant is not supposed to close launched apps:
 its systemd service uses process-only stopping, not whole-cgroup termination.
 
+Press **Esc** to close waiting task, account, report and About terminals. Enter remains for answers and confirmations, including acknowledging a recovery key and powering off the installer.
+
 ## Shell history
 
 `history` lists recent commands. In zsh, inspect the actual history path with:

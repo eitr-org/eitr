@@ -6,7 +6,7 @@ import unittest
 from unittest.mock import Mock, patch
 
 from home_isolation import setUpModule, tearDownModule
-from eitr_wizard import Cancelled, SetupWizard, Step, Wizard, STEPS
+from eitr_wizard import Cancelled, SetupWizard, Step
 
 
 class SetupWizardTests(unittest.TestCase):
@@ -65,14 +65,14 @@ class SetupWizardTests(unittest.TestCase):
         spec = importlib.util.spec_from_file_location('wizard_installer', root / 'distro/archinstall/installer-ui.py')
         installer = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(installer)
-        self.assertIs(installer.Wizard, Wizard)
-        self.assertEqual(installer.STEPS, STEPS)
+        Wizard = installer.Wizard
+        STEPS = installer.STEPS
         self.assertEqual(STEPS, ('Keyboard', 'Disk', 'Install type', 'Hostname', 'Username', 'Password', 'Encryption', 'Review'))
         wizard = self.wizard([], ['\n', '\x7f', 'e', '\n'])
         self.assertEqual(Wizard.field(wizard, 'Hostname', '', '-', validator=installer.valid_hostname), 'e')
         wizard.screen.get_wch.side_effect = ['\n', '\t', '\n']
-        self.assertEqual(wizard.review(['User: alex'], 'Warning'), 'cancel')
-        self.assertEqual(wizard.review(['User: alex'], 'Warning'), 'install')
+        self.assertEqual(Wizard.review(wizard, ['User: alex'], 'Warning'), 'cancel')
+        self.assertEqual(Wizard.review(wizard, ['User: alex'], 'Warning'), 'install')
 
     def test_installer_collect_keeps_original_sequence_and_review(self):
         root = Path(__file__).resolve().parents[2]

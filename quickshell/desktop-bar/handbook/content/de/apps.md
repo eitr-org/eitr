@@ -17,6 +17,8 @@ Vorhandene Apps zeigen **Installiert** unter ihrem Namen; die Auswahl meldet die
 
 Installations-, Aktualisierungs- und Einrichtungsterminals zeigen das EITR-Banner im aktuellen Design. Erfolgreiche Aufgaben schließen normalerweise; Fehler bleiben sichtbar. Berichte wie Bereinigung bleiben zum Lesen offen. Normale Terminals und Über zeigen kein Aufgabenbanner.
 
+Drücke **Esc**, um wartende Aufgaben-, Konto-, Berichts- und Über-Terminals zu schließen. Enter bleibt für Antworten und Bestätigungen vorgesehen, etwa zum Bestätigen der notierten Wiederherstellungsschlüssel und zum Ausschalten im Installationsprogramm.
+
 ## Werkzeuge
 
 **Rechner** in Apps oder die Rechnertaste öffnet Eitrs Rechner in den Designfarben. Tippe oder klicke: `+ − × ÷`, `^` für Potenzen, `%` für Prozent (`200×15%`), `√` und Klammern. Eine Zahl vor einer Klammer multipliziert (`2(3+4)`). Enter zeigt das Ergebnis, Backspace entfernt ein Zeichen, Escape leert (zweimal schließt), Ctrl+C oder **Kopieren** kopiert das Ergebnis. Ausdrücke werden berechnet, nicht als Code ausgeführt.

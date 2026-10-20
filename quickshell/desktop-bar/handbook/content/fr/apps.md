@@ -17,6 +17,8 @@ Les applications présentes affichent **Installé** sous leur nom ; les choisir 
 
 Les terminaux d’installation, mise à jour et configuration affichent le bandeau EITR aux couleurs du thème. Les tâches réussies se ferment normalement ; les échecs restent visibles. Les rapports comme Nettoyage restent ouverts pour lecture. Les terminaux ordinaires et À propos n’affichent pas ce bandeau.
 
+Appuyez sur **Échap** pour fermer les terminaux de tâches, de comptes, de rapports et À propos qui attendent une touche. Entrée reste utilisée pour les réponses et confirmations, notamment après avoir noté la clé de récupération et pour éteindre le programme d’installation.
+
 ## Outils
 
 **Calculatrice** dans Applications, ou la touche calculatrice, ouvre celle d’Eitr aux couleurs du thème. Saisissez ou cliquez : `+ − × ÷`, `^` pour les puissances, `%` pour les pourcentages (`200×15%`), `√` et parenthèses. Un nombre avant une parenthèse multiplie (`2(3+4)`). Enter affiche le résultat, Backspace supprime un caractère, Escape efface (deux fois ferme), Ctrl+C ou **Copier** copie le résultat. L’expression est calculée sans être exécutée comme du code.

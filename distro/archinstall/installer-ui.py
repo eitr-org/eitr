@@ -1,7 +1,7 @@
 """Eitr's console wizard; collect choices before any installation writes."""
 import eitr_bootstrap
-from eitr_i18n import tr
-from eitr_wizard import STEPS, Wizard, Cancelled, filtered
+from eitr_i18n import mark, tr
+from eitr_wizard import Wizard as BaseWizard, Cancelled, filtered
 import curses
 from pathlib import Path
 import re
@@ -12,6 +12,49 @@ import time
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 ROOT = Path(__file__).resolve().parents[2]
+
+STEPS = (mark("Keyboard"), mark("Disk"), mark("Install type"), mark("Hostname"),
+         mark("Username"), mark("Password"), mark("Encryption"), mark("Review"))
+
+
+class Wizard(BaseWizard):
+    def __init__(self, screen, steps=STEPS, root=ROOT):
+        super().__init__(screen, steps, root)
+        self.heading = tr("INSTALL STEPS")
+
+    def review(self, details, warning):
+        selected = 0
+        while True:
+            y, x = self.frame(tr('Review installation'), tr('Tab / arrows: choose  Enter: select  Esc: cancel'))
+            bottom = getattr(self, "panel_bottom", self.screen.getmaxyx()[0] - 3)
+            for offset, line in enumerate(details[:max(0, bottom - y - 5)]):
+                self.text(y + offset, x, line[:self.body_width])
+            self.text(bottom - 3, x, warning, 2)
+            labels = (" Cancel ", " Continue ")
+            for index, label in enumerate(labels):
+                self.text(bottom - 1, x + index * 14, label, 3 if index == selected else 2)
+            self.screen.refresh()
+            key = self.screen.get_wch()
+            if key in getattr(self, "cancel_keys", ("\x1b",)):
+                raise Cancelled
+            if key in ("\t", curses.KEY_LEFT, curses.KEY_RIGHT, curses.KEY_UP, curses.KEY_DOWN):
+                selected = 1 - selected
+            elif key in ("\n", "\r", curses.KEY_ENTER):
+                return ("cancel", "install")[selected]
+
+    def preparation(self, checks):
+        for index, (label, check) in enumerate(checks):
+            self.screen.erase()
+            height, width = self.screen.getmaxyx()
+            y = max(1, height // 2 - len(self.logo) // 2 - 3)
+            for row in self.logo:
+                self.text(y, max(0, (width - len(row)) // 2), row, 2)
+                y += 1
+            self.text(y + 2, max(1, (width - 32) // 2), "═" * round(32 * index / len(checks)), 2)
+            self.text(y + 4, max(1, (width - len(label)) // 2), label)
+            self.screen.refresh()
+            check()
+
 
 def locale_options(text):
     locales = set()

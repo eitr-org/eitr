@@ -73,6 +73,8 @@ Für eine Sitzung ohne Oberfläche startest du `cmux --headless --session work` 
 
 Terminals aus Menüs sowie Aktualisierungs- und Problembericht-Benachrichtigungen schweben mittig über deinen Fenstern mit deckendem Designhintergrund. KI-Sitzungen und LazyVim-Projekte aus Entwicklung öffnen sich als normale gekachelte Fenster mit durchsichtigem Hintergrund, ebenso wie selbst geöffnete Terminals. Gewöhnliche Terminals sind interaktiv und ohne Banner. Installation, Aktualisierung und Einrichtung zeigen das runenartige EITR-Banner. Erfolgreiche Aufgaben schließen normalerweise; Fehler bleiben bis zum Schließen sichtbar. Informationsberichte können absichtlich offen bleiben. Elephant neu zu starten soll gestartete Anwendungen nicht schließen: Sein systemd-Dienst beendet nur den Prozess, nicht die gesamte cgroup.
 
+Drücke **Esc**, um wartende Aufgaben-, Konto-, Berichts- und Über-Terminals zu schließen. Enter bleibt für Antworten und Bestätigungen vorgesehen, etwa zum Bestätigen der notierten Wiederherstellungsschlüssel und zum Ausschalten im Installationsprogramm.
+
 ## Shell-Verlauf
 
 `history` zeigt letzte Befehle. Prüfe in zsh den tatsächlichen Verlaufspfad mit:

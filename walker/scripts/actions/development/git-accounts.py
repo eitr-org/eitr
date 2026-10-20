@@ -22,6 +22,7 @@ for parent in Path(__file__).resolve().parents:
     if (library / 'eitr_paths.py').is_file():
         sys.path.insert(0, str(library))
         break
+from eitr_terminal import wait_for_escape
 from eitr_paths import code, config, state, read_settings
 from eitr_i18n import mark as menu_mark, tr
 from eitr_forms import Terminal
@@ -709,7 +710,7 @@ def main():
     elif args.action == 'add-folder':
         folder_form(model, identifier)
     # Task terminals close after success; keep the outcome readable first.
-    input(ui.dim(tr('\nPress Enter to close.')))
+    wait_for_escape()
     return 0
 
 

@@ -5,6 +5,11 @@ existing design and workflows rather than replacing them with upstream defaults.
 
 ## Engineering Practices
 
+- Setup flows asking more than one question use `distro/lib/eitr_wizard.py`
+  with a review step and apply nothing before confirmation. Single confirmations,
+  system updates and vendor-driven prompts stay as they are. Terminals close
+  with Esc through `distro/lib/eitr_terminal.py`.
+
 - New wallpapers and website illustrations follow `branding/ART-DIRECTION.md`:
   clearly drawn Norse fantasy, bold ink contours, flat limited colors, black
   negative space and varied compositions. Crowns and knotwork are optional,

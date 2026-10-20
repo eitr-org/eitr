@@ -73,6 +73,8 @@ Para que una sesión continúe sin interfaz, ejecuta `cmux --headless --session 
 
 Los terminales abiertos por menús y notificaciones de actualización o informes flotan centrados sobre tus ventanas, con fondo sólido del tema. Las sesiones de asistentes de IA y proyectos LazyVim de Desarrollo se abren como ventanas normales en mosaico, con fondo translúcido, igual que tus terminales. Los terminales normales son interactivos y no llevan marca. Instalación, actualización y configuración muestran el banner rúnico de EITR; las tareas correctas suelen cerrarse y los fallos permanecen visibles hasta cerrarlos. Los informes informativos pueden quedar abiertos. Reiniciar Elephant no debe cerrar aplicaciones lanzadas: su servicio systemd termina solo el proceso, no todo el cgroup.
 
+Pulsa **Esc** para cerrar los terminales de tareas, cuentas, informes y Acerca de que esperan una tecla. Enter sigue sirviendo para respuestas y confirmaciones, como confirmar que has anotado la clave de recuperación y apagar el instalador.
+
 ## Historial del shell
 
 `history` lista comandos recientes. En zsh, comprueba la ruta real con:

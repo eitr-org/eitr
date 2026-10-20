@@ -2,15 +2,11 @@
 import curses
 from dataclasses import dataclass
 import importlib.util
-from pathlib import Path
 import textwrap
 import tomllib
 
 from eitr_i18n import mark, tr
 from eitr_paths import ROOT
-
-STEPS = (mark("Keyboard"), mark("Disk"), mark("Install type"), mark("Hostname"),
-         mark("Username"), mark("Password"), mark("Encryption"), mark("Review"))
 
 
 class Cancelled(Exception):
@@ -26,7 +22,8 @@ def filtered(options, query):
 
 
 class Wizard:
-    def __init__(self, screen, steps=STEPS, root=ROOT):
+    def __init__(self, screen, steps, root=ROOT):
+        self.heading = tr('Setup steps')
         self.steps = steps
         self.root = root
         self.screen = screen
@@ -34,7 +31,7 @@ class Wizard:
         self.body_width = max(1, screen.getmaxyx()[1] - 26)
         curses.curs_set(0)
         curses.start_color()
-        # The installer wears Norse, the EITR identity theme, like the boot splash.
+        # Use the EITR identity theme, like the boot splash.
         palette = tomllib.loads((self.root / "themes/norse/colors.toml").read_text())
         for index, role in enumerate(("background", "foreground", "accent"), 1):
             rgb = [int(palette[role][offset:offset + 2], 16) for offset in (1, 3, 5)]
@@ -85,47 +82,14 @@ class Wizard:
         self.box(start_y - 1, start_x - 1, len(self.steps) + 5, 21)
         self.box(start_y - 1, start_x + 22, min(24, height - start_y - 2), min(78, width - start_x - 24))
         self.panel_bottom = start_y - 2 + min(24, height - start_y - 2)
-        self.text(start_y, start_x + 1, getattr(self, 'heading', tr('INSTALL STEPS')), 2)
+        self.text(start_y, start_x + 1, self.heading, 2)
         for index, name in enumerate(self.steps):
-            self.text(start_y + 2 + index, start_x, f"{'>' if index == self.step else ' '} {tr(name)[:17] if hasattr(self, 'heading') else tr(name)}",
+            self.text(start_y + 2 + index, start_x, f"{'>' if index == self.step else ' '} {tr(name)[:17] if getattr(self, 'truncate_steps', False) else tr(name)}",
                       2 if index == self.step else 1)
         self.text(start_y, start_x + 24, title, 2)
         self.body_width = min(74, width - start_x - 28)
         self.text(height - 2, max(1, (width - len(help_text)) // 2), help_text)
         return start_y + 2, start_x + 24
-
-    def review(self, details, warning):
-        selected = 0
-        while True:
-            y, x = self.frame(tr('Review installation'), tr('Tab / arrows: choose  Enter: select  Esc: cancel'))
-            bottom = getattr(self, "panel_bottom", self.screen.getmaxyx()[0] - 3)
-            for offset, line in enumerate(details[:max(0, bottom - y - 5)]):
-                self.text(y + offset, x, line[:self.body_width])
-            self.text(bottom - 3, x, warning, 2)
-            labels = (" Cancel ", " Continue ")
-            for index, label in enumerate(labels):
-                self.text(bottom - 1, x + index * 14, label, 3 if index == selected else 2)
-            self.screen.refresh()
-            key = self.screen.get_wch()
-            if key in getattr(self, "cancel_keys", ("\x1b",)):
-                raise Cancelled
-            if key in ("\t", curses.KEY_LEFT, curses.KEY_RIGHT, curses.KEY_UP, curses.KEY_DOWN):
-                selected = 1 - selected
-            elif key in ("\n", "\r", curses.KEY_ENTER):
-                return ("cancel", "install")[selected]
-
-    def preparation(self, checks):
-        for index, (label, check) in enumerate(checks):
-            self.screen.erase()
-            height, width = self.screen.getmaxyx()
-            y = max(1, height // 2 - len(self.logo) // 2 - 3)
-            for row in self.logo:
-                self.text(y, max(0, (width - len(row)) // 2), row, 2)
-                y += 1
-            self.text(y + 2, max(1, (width - 32) // 2), "═" * round(32 * index / len(checks)), 2)
-            self.text(y + 4, max(1, (width - len(label)) // 2), label)
-            self.screen.refresh()
-            check()
 
     def choose(self, title, options, note="", details=None):
         """Pick one option; details(value) lists lines about the highlighted one."""
@@ -155,7 +119,7 @@ class Wizard:
             key = self.screen.get_wch()
             if key in getattr(self, "cancel_keys", ("\x1b",)):
                 raise Cancelled
-            if hasattr(self, 'heading') and key in (curses.KEY_LEFT, '\t', curses.KEY_BTAB):
+            if getattr(self, 'allow_back', False) and key in (curses.KEY_LEFT, '\t', curses.KEY_BTAB):
                 raise Back
             if key in (curses.KEY_UP, curses.KEY_DOWN):
                 selected = max(0, selected + (1 if key == curses.KEY_DOWN else -1))
@@ -214,7 +178,8 @@ class SetupWizard(Wizard):
 
     def __init__(self, screen, title, steps):
         super().__init__(screen, tuple(step.label for step in steps) + (tr('Review'),))
-        self.heading = tr('Setup steps')
+        self.allow_back = True
+        self.truncate_steps = True
         self.cancel_keys = ('\x1b', '\x03')
         self.title = title
         self.fields = steps

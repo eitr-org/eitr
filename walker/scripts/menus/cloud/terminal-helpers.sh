@@ -48,9 +48,11 @@ cloud_json() {
 }
 
 cloud_wait_for_key() {
-  printf '\nPress any key to close.' > /dev/tty
-  IFS= read -rsn1 < /dev/tty
-  printf '\n' > /dev/tty
+  if [[ -t 1 && -r /dev/tty ]]; then
+    python3 "${i18n_library%/*}/eitr_terminal.py" < /dev/tty
+  else
+    python3 "${i18n_library%/*}/eitr_terminal.py"
+  fi
 }
 
 cloud_report() {

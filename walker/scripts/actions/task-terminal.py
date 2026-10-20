@@ -13,6 +13,7 @@ for _eitr_parent in Path(__file__).resolve().parents:
     if (_eitr_lib / "eitr_paths.py").is_file():
         sys.path.insert(0, str(_eitr_lib))
         break
+from eitr_terminal import wait_for_escape
 from eitr_paths import code, config as user_config
 from eitr_i18n import tr
 import re
@@ -120,7 +121,8 @@ def main(args):
         result = 130
     if result and result != 130 and sys.stdin.isatty():
         try:
-            input(tr('\nTask failed. Press Enter to close.'))
+            print(tr('Task failed.'))
+            wait_for_escape()
         except (EOFError, KeyboardInterrupt):
             pass
     return result
