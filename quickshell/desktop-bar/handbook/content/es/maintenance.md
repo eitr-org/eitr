@@ -1,5 +1,7 @@
 # Actualizaciones, limpieza y recuperación
 
+El terminal muestra cada etapa de comprobación y creación de instantáneas mientras se ejecuta. Si todo está actualizado, el mensaje permanece visible durante tres segundos antes de que se cierre el terminal.
+
 Abre **Sistema > Mantenimiento**. Revisa la salida del terminal y conserva copias de seguridad independientes antes de cambiar el sistema. Las instantáneas no son copias de seguridad en otro disco.
 
 La actualización del sistema comprueba primero los paquetes oficiales con checkupdates en una base temporal separada, los paquetes AUR (incluidos los de desarrollo) y los Flatpaks del usuario. Si todas las comprobaciones confirman que no hay actualizaciones, termina sin instantáneas, actualización ni aviso de reinicio. Si falla una comprobación o falta una herramienta, continúa el proceso normal.

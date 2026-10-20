@@ -1,5 +1,7 @@
 # Aplicativos e instalação
 
+Antes de instalar pacotes oficiais, o terminal informa que está verificando atualizações pendentes do sistema. Essa verificação pode demorar um pouco antes de pedir a senha de administrador. Instalações via Flatpak também indicam a etapa de preparação.
+
 **SUPER + Space** e Principal > Aplicativos abrem a mesma lista. Enter inicia o aplicativo. Delete fica disponível em Aplicativos e pede confirmação para desinstalar. A busca global de **SUPER + F** abre aplicativos, mas não oferece desinstalação. Não há um menu separado baseado em aplicativos fixados.
 
 Digitar no menu principal busca aplicativos instalados e ações de todos os submenus. Dentro de um submenu, como Sistema ou Instalar, a busca abrange esse submenu e seus descendentes. As linhas de submenu terminam em **>**; **Shift + Backspace** volta ao menu anterior.

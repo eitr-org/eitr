@@ -98,7 +98,7 @@ class RestartCheckTests(unittest.TestCase):
         self.assertIn('python3 "$restart_check" snapshot', update)
         self.assertEqual(update.count("offer_restart"), 5)
         system = update[update.index("  system)"):update.index("  pacman)")]
-        self.assertLess(system.index('snapshot-post "$outcome"\n    else'), system.index("offer_restart\n"))
+        self.assertLess(system.index('finish_snapshot\n    else'), system.index("offer_restart\n"))
 
 
 if __name__ == "__main__":

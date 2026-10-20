@@ -1,5 +1,7 @@
 # Updates, cleanup and recovery
 
+The terminal names each update check and snapshot stage while it runs. If everything is up to date, the message stays visible for three seconds before the terminal closes.
+
 Open **System > Maintenance**. Review terminal output and keep independent
 backups before system changes. Snapshot protection is not an off-disk backup.
 

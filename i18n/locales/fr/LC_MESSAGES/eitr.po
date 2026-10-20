@@ -379,6 +379,21 @@ msgstr "La charge s’arrêtera à {value} % pour préserver la batterie, même 
 msgid "Check Auth"
 msgstr "Vérifier l’authentification"
 
+msgid "Checking AUR updates…"
+msgstr "Recherche des mises à jour AUR…"
+
+msgid "Checking Arch Linux news…"
+msgstr "Consultation des actualités Arch Linux…"
+
+msgid "Checking Flatpak updates…"
+msgstr "Recherche des mises à jour Flatpak…"
+
+msgid "Checking for system updates before installation…"
+msgstr "Recherche des mises à jour du système avant l’installation…"
+
+msgid "Checking official package updates…"
+msgstr "Recherche des mises à jour des paquets officiels…"
+
 msgid "Choose Sign In to open the browser."
 msgstr "Choisissez Se connecter pour ouvrir le navigateur."
 
@@ -582,6 +597,12 @@ msgstr "Créer d’abord une clé de récupération ? Fortement recommandé."
 
 msgid "Create a web app: a launcher that opens a site in its own window."
 msgstr "Créez une application web : un lanceur qui ouvre un site dans sa propre fenêtre."
+
+msgid "Creating the after-update snapshot…"
+msgstr "Création de l’instantané après la mise à jour…"
+
+msgid "Creating the before-update snapshot…"
+msgstr "Création de l’instantané avant la mise à jour…"
 
 msgid "Current Disk Usage"
 msgstr "Utilisation actuelle du disque"
@@ -1477,8 +1498,20 @@ msgstr "Politiques"
 msgid "Preparation failed before any disk changes"
 msgstr "La préparation a échoué avant toute modification de disque"
 
+msgid "Preparing Flatpak installation…"
+msgstr "Préparation de l’installation avec Flatpak…"
+
+msgid "Preparing Flatpak updates…"
+msgstr "Préparation des mises à jour Flatpak…"
+
+msgid "Preparing package installation…"
+msgstr "Préparation de l’installation des paquets…"
+
 msgid "Preparing the restored system (the running system is not changed yet)"
 msgstr "Préparation du système restauré (le système en cours n’est pas encore modifié)"
+
+msgid "Preparing the update…"
+msgstr "Préparation de la mise à jour…"
 
 msgid "Press Esc to close."
 msgstr "Appuyez sur Échap pour fermer."

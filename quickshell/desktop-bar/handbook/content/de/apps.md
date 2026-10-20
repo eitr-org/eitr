@@ -1,5 +1,7 @@
 # Apps und Installation
 
+Vor der Installation offizieller Pakete zeigt dir das Terminal an, dass es nach ausstehenden Systemaktualisierungen sucht. Diese Prüfung kann etwas dauern, bevor du nach deinem Administratorpasswort gefragt wirst. Auch Flatpak-Installationen zeigen ihre Vorbereitungsphase an.
+
 **SUPER + Space** und Hauptmenü > Apps öffnen dieselbe Anwendungsliste. Enter startet eine App. Delete bietet in Apps eine bestätigte Deinstallation an. Die globale Suche über **SUPER + F** startet Apps, bietet aber keine Deinstallation. Es gibt kein separates Menü mit angehefteten Apps.
 
 Eingaben im Hauptmenü suchen installierte Apps und Aktionen aus allen Untermenüs. In einem Untermenü wie System oder Installieren umfasst die Suche dieses und alle darunterliegenden Menüs. Untermenüzeilen enden mit **>**; **Shift + Backspace** führt zum übergeordneten Menü.

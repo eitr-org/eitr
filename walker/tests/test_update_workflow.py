@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[2]
 FLOCK_MOCK = "flock() { return 0; }\n"
 # Tests never reach the host: its Flatpak installation, the restart check (which
 # reads the running kernel's modules, absent in CI containers), the bar or systemd.
-HOST_MOCKS = "pacman() { :; }; checkupdates() { return 1; }; flatpak() { :; }; python3() { :; }; eitr-shell() { :; }; systemctl() { :; }\n"
+HOST_MOCKS = "sleep() { :; }; pacman() { :; }; checkupdates() { return 1; }; flatpak() { :; }; python3() { :; }; eitr-shell() { :; }; systemctl() { :; }\n"
 
 
 # The update calls the user's post-update hook; tests use a stand-in runner so
@@ -56,6 +56,16 @@ class UpdateWorkflowTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(result.stdout.strip(), "Everything is up to date.")
 
+    def test_up_to_date_message_stays_visible_for_three_seconds(self):
+        result = run_protected_update('checkupdates() { return 2; }; yay() { :; }; flatpak() { :; }; '
+                                      'sleep() { echo "hold $*" >&2; };\n')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("Everything is up to date.", result.stdout)
+        self.assertIn("hold 3", result.stderr)
+        self.assertIn("Checking official package updates…", result.stderr)
+        self.assertIn("Checking AUR updates…", result.stderr)
+        self.assertIn("Checking Flatpak updates…", result.stderr)
+
     def test_yay_silent_exit_one_means_no_aur_updates(self):
         result = run_protected_update('checkupdates() { return 2; }; yay() { return 1; }; flatpak() { :; };\n')
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -77,6 +87,12 @@ class UpdateWorkflowTests(unittest.TestCase):
                 self.assertIn("snapshot-pre", result.stdout)
                 self.assertIn("snapshot-post", result.stdout)
                 self.assertNotIn("Everything is up to date.", result.stdout)
+
+    def test_snapshot_stages_are_visible_on_success_and_failure(self):
+        for mocks in (self.UPDATING, 'sudo() { echo "sudo $*"; [[ "$*" != *snapshot-pre* ]]; }; yay() { :; };\n'):
+            result = run_protected_update(mocks)
+            self.assertIn("Creating the before-update snapshot…", result.stderr)
+            self.assertEqual("Creating the after-update snapshot…" in result.stderr, result.returncode == 0)
 
     def test_translated_news_prompts_accept_literal_english_answers(self):
         for locale in ("pt_BR", "es", "de", "fr"):

@@ -379,6 +379,21 @@ msgstr "A carga vai parar em {value}% para reduzir o desgaste da bateria, inclus
 msgid "Check Auth"
 msgstr "Verificar autenticação"
 
+msgid "Checking AUR updates…"
+msgstr "Verificando atualizações do AUR…"
+
+msgid "Checking Arch Linux news…"
+msgstr "Verificando notícias do Arch Linux…"
+
+msgid "Checking Flatpak updates…"
+msgstr "Verificando atualizações do Flatpak…"
+
+msgid "Checking for system updates before installation…"
+msgstr "Verificando atualizações do sistema antes da instalação…"
+
+msgid "Checking official package updates…"
+msgstr "Verificando atualizações dos pacotes oficiais…"
+
 msgid "Choose Sign In to open the browser."
 msgstr "Escolha Entrar para abrir o navegador."
 
@@ -582,6 +597,12 @@ msgstr "Criar uma chave de recuperação primeiro? É altamente recomendado."
 
 msgid "Create a web app: a launcher that opens a site in its own window."
 msgstr "Crie um aplicativo web: um atalho que abre um site em sua própria janela."
+
+msgid "Creating the after-update snapshot…"
+msgstr "Criando o snapshot posterior à atualização…"
+
+msgid "Creating the before-update snapshot…"
+msgstr "Criando o snapshot anterior à atualização…"
 
 msgid "Current Disk Usage"
 msgstr "Uso atual do disco"
@@ -1477,8 +1498,20 @@ msgstr "Políticas"
 msgid "Preparation failed before any disk changes"
 msgstr "A preparação falhou antes de alterar qualquer disco"
 
+msgid "Preparing Flatpak installation…"
+msgstr "Preparando a instalação via Flatpak…"
+
+msgid "Preparing Flatpak updates…"
+msgstr "Preparando atualizações do Flatpak…"
+
+msgid "Preparing package installation…"
+msgstr "Preparando a instalação dos pacotes…"
+
 msgid "Preparing the restored system (the running system is not changed yet)"
 msgstr "Preparando o sistema restaurado (o sistema em execução ainda não será alterado)"
+
+msgid "Preparing the update…"
+msgstr "Preparando a atualização…"
 
 msgid "Press Esc to close."
 msgstr "Pressione Esc para fechar."

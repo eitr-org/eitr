@@ -1,5 +1,7 @@
 # Atualizações, limpeza e recuperação
 
+O terminal mostra cada etapa de verificação e criação de snapshots enquanto ela é executada. Se tudo estiver atualizado, a mensagem permanece visível por três segundos antes de o terminal fechar.
+
 Abra **Sistema > Manutenção**. Revise a saída do terminal e mantenha backups independentes antes de alterar o sistema. Snapshots não são backups em outro disco.
 
 A atualização do sistema verifica primeiro os pacotes oficiais com checkupdates em um banco temporário separado, os pacotes AUR (incluindo os de desenvolvimento) e os Flatpaks do usuário. Se todas as verificações confirmarem que não há atualizações, termina sem snapshots, atualização ou pedido de reinicialização. Se uma verificação falhar ou faltar uma ferramenta, o fluxo normal continua.

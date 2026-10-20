@@ -1,4 +1,6 @@
 import importlib.util
+import contextlib
+import io
 import json
 import os
 from pathlib import Path
@@ -156,6 +158,20 @@ class SoftwareTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "2 system update.*System Update"):
                 software.install("pacman", ["firefox"])
             run.assert_not_called()
+
+    def test_install_announces_check_before_waiting_and_before_sudo(self):
+        output = io.StringIO()
+        def check(arguments, **options):
+            self.assertIn("Checking for system updates before installation…", output.getvalue())
+            return SimpleNamespace(returncode=2, stdout="", stderr="")
+        def install(arguments, **options):
+            self.assertIn("Preparing package installation…", output.getvalue())
+            self.assertEqual(arguments[:2], ["sudo", "pacman"])
+        with contextlib.redirect_stderr(output), \
+                patch.object(software.shutil, "which", return_value="/usr/bin/checkupdates"), \
+                patch.object(software.subprocess, "run", side_effect=check), \
+                patch.object(software, "run", side_effect=install):
+            software.install("pacman", ["steam"])
 
     def test_install_proceeds_only_when_no_updates_are_pending(self):
         with patch.object(software.shutil, "which", return_value="/usr/bin/checkupdates"), \

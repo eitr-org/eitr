@@ -121,6 +121,7 @@ def require_no_pending_updates():
     if not shutil.which("checkupdates"):
         raise RuntimeError(tr('checkupdates (pacman-contrib) is required to install safely. Run System → Maintenance → Update → System Update, then install pacman-contrib.'))
     # checkupdates syncs a private database copy: 0 = updates, 2 = none, 1 = error.
+    print(tr('Checking for system updates before installation…'), file=sys.stderr, flush=True)
     result = subprocess.run(["checkupdates"], capture_output=True, text=True, timeout=120)
     if result.returncode == 0:
         count = len(result.stdout.splitlines())
@@ -137,6 +138,7 @@ def install(source, packages):
         require_no_pending_updates()
         # Nothing is pending, so -u only refreshes the databases; pacman still
         # lists every transaction before asking for confirmation.
+        print(tr('Preparing package installation…'), file=sys.stderr, flush=True)
         run(["sudo", "pacman", "-Syu", "--needed", "--", *packages])
     elif source == "aur":
         # Never execute AUR builds as root or suppress yay's review prompts.
@@ -243,6 +245,7 @@ def recipe(group, identifier):
         print(tr('{label} is already installed. System Update keeps packages current; tools from their own installers update through them.', label=f"{item['label']}"))
         return
     if item["source"] == "flatpak":
+        print(tr('Preparing Flatpak installation…'), file=sys.stderr, flush=True)
         for remote in item.get("runtime_remotes", []):
             run(["flatpak", "remote-add", "--user", "--if-not-exists", remote["name"], remote["url"]])
         run(["flatpak", "remote-add", "--user", "--if-not-exists", item["remote"], item["url"]])

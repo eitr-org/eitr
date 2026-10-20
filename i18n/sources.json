@@ -3712,6 +3712,21 @@
     "Check Auth": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
+    "Checking AUR updates…": [
+      "walker/scripts/actions/system/update.sh"
+    ],
+    "Checking Arch Linux news…": [
+      "walker/scripts/actions/system/update.sh"
+    ],
+    "Checking Flatpak updates…": [
+      "walker/scripts/actions/system/update.sh"
+    ],
+    "Checking for system updates before installation…": [
+      "walker/scripts/actions/install/software.py"
+    ],
+    "Checking official package updates…": [
+      "walker/scripts/actions/system/update.sh"
+    ],
     "Choose Sign In to open the browser.": [
       "walker/scripts/actions/system/remote-access.py"
     ],
@@ -3919,6 +3934,12 @@
     ],
     "Create a web app: a launcher that opens a site in its own window.": [
       "walker/scripts/actions/install/webapps.py"
+    ],
+    "Creating the after-update snapshot…": [
+      "walker/scripts/actions/system/update.sh"
+    ],
+    "Creating the before-update snapshot…": [
+      "walker/scripts/actions/system/update.sh"
     ],
     "Current Disk Usage": [
       "walker/scripts/actions/system/cleanup.sh"
@@ -4829,8 +4850,20 @@
     "Preparation failed before any disk changes": [
       "distro/archinstall/eitr-guided-install"
     ],
+    "Preparing Flatpak installation…": [
+      "walker/scripts/actions/install/software.py"
+    ],
+    "Preparing Flatpak updates…": [
+      "walker/scripts/actions/system/update.sh"
+    ],
+    "Preparing package installation…": [
+      "walker/scripts/actions/install/software.py"
+    ],
     "Preparing the restored system (the running system is not changed yet)": [
       "distro/system/factory-reset.py"
+    ],
+    "Preparing the update…": [
+      "walker/scripts/actions/system/update.sh"
     ],
     "Press Esc to close.": [
       "distro/lib/eitr_terminal.py"

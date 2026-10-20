@@ -41,6 +41,10 @@ release tag.
 
 ## Feature plan
 
+Update terminals show the active package check and snapshot stage; an up-to-date
+result stays visible for three seconds. Package installations announce their
+safety check before the administrator password, and Flatpak preparation is visible.
+
 Background menu indexing skips cloud resource pickers, so opening or searching
 Walker does not query those services or flood notifications with their failures.
 Notification history coalesces bulk removals before rebuilding its cards.

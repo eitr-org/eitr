@@ -1,5 +1,7 @@
 # Applications et installation
 
+Avant l’installation des paquets officiels, le terminal indique qu’il recherche les mises à jour du système en attente. Cette vérification peut prendre un moment avant de vous demander le mot de passe administrateur. Les installations avec Flatpak indiquent également leur étape de préparation.
+
 **SUPER + Space** et Principal > Applications ouvrent la même liste. Enter lance une application. Delete permet de la désinstaller dans Applications après confirmation. La recherche globale par **SUPER + F** lance les applications sans proposer leur désinstallation. Il n’existe pas de menu distinct fondé sur des applications épinglées.
 
 Saisir dans le menu principal recherche les applications installées et les actions de tous les sous-menus. Dans un sous-menu comme Système ou Installer, la recherche couvre celui-ci et ses descendants. Les lignes de sous-menu se terminent par **>** ; **Shift + Backspace** revient au parent.
