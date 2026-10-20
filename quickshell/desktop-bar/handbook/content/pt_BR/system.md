@@ -32,4 +32,4 @@ Os próximos capítulos detalham os fluxos e limites de segurança.
 
 ## Idioma
 
-**Walker > Sistema > Idioma** mostra o idioma atual e informa que segue a localidade do sistema. Abre o seletor de idioma; veja o [Guia de idioma](handbook:language). A busca aceita nomes em inglês e traduzidos. Submenus aparecem primeiro, seguidos de ações, ordenados pelos títulos traduzidos. Principal e Aplicativos mantêm a ordem existente.
+**Walker > Sistema > Idioma** lista os idiomas, com o atual marcado; veja o [Guia de idioma](handbook:language). A busca aceita nomes em inglês e traduzidos. Submenus aparecem primeiro, seguidos de ações, ordenados pelos títulos traduzidos. Principal e Aplicativos mantêm a ordem existente.

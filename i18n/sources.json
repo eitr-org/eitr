@@ -1585,9 +1585,6 @@
     "Follow the system language; sign out and back in to apply": [
       "elephant/menus/language.lua"
     ],
-    "Follows the system locale (LC_MESSAGES / LANG)": [
-      "elephant/menu-rows/system.json"
-    ],
     "Fonts": [
       "elephant/menu-rows/style.json",
       "elephant/menus/fonts.lua"
@@ -1725,11 +1722,7 @@
     ],
     "Language": [
       "elephant/menu-rows/system.json",
-      "elephant/menus/language.lua",
-      "elephant/scoped-menu.lua"
-    ],
-    "Language · {language}": [
-      "elephant/scoped-menu.lua"
+      "elephant/menus/language.lua"
     ],
     "Laptops only": [
       "elephant/menu-rows/battery-limit.json"

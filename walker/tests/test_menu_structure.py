@@ -192,7 +192,9 @@ class MenuStructureTests(unittest.TestCase):
 
     def test_system_groups_have_matching_layouts_and_back_navigation(self):
         self.assertEqual([entry["text"] for entry in menu("system")["entries"]],
-                         ["Connectivity", "Devices & Input", "Information", "Maintenance", "Security", "Dotfiles", "Language"])
+                         ["Connectivity", "Devices & Input", "Information", "Language", "Maintenance", "Security", "Dotfiles"])
+        language = next(entry for entry in menu("system")["entries"] if entry["text"] == "Language")
+        self.assertEqual((language.get("subtext"), language.get("submenu")), (">", "language"), "Language is a folder")
         layout = ROOT / "walker/themes/current"
         for group in ("system-connectivity", "system-devices", "system-information", "system-maintenance"):
             self.assertEqual(menu(group)["parent"], "system")

@@ -18,6 +18,17 @@
     "submenu": "system-information"
   },
   {
+    "text": "Language",
+    "icon": "󰗊",
+    "subtext": ">",
+    "submenu": "language",
+    "keywords": [
+      "language",
+      "locale",
+      "translation"
+    ]
+  },
+  {
     "text": "Maintenance",
     "icon": "󰃢",
     "subtext": ">",
@@ -38,19 +49,6 @@
     "icon": "",
     "actions": {
       "open": "/usr/share/eitr/walker/scripts/actions/system/dotfiles.sh"
-    }
-  },
-  {
-    "text": "Language",
-    "subtext": "Follows the system locale (LC_MESSAGES / LANG)",
-    "icon": "󰗊",
-    "keywords": [
-      "language",
-      "locale",
-      "translation"
-    ],
-    "actions": {
-      "open": "eitr-run walker/bin/walker --provider menus:language"
     }
   }
 ]

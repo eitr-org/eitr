@@ -25,13 +25,7 @@ return function(name)
                 State = submenu and {"submenu"} or nil, Keywords = row.keywords,
                 Icon = row.icon, SubMenu = row.submenu, Actions = row.actions})
         end
-        entries = i18n.entries(entries, name == "main")
-        for _, entry in ipairs(entries) do
-            if entry.SubMenu == nil and entry.Text == i18n.tr("Language") then
-                entry.Text = i18n.tr("Language · {language}", {language = i18n.language()})
-            end
-        end
-        return entries
+        return i18n.entries(entries, name == "main")
     end
 
     return function(query)

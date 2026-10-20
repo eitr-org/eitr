@@ -51,8 +51,8 @@ Use the chapters that follow for the detailed workflows and safety limits.
 
 ## Language
 
-**Walker > System > Language** shows the current language and explains that it
-follows the system locale. It opens the language picker; see the [Language guide](handbook:language).
+**Walker > System > Language** lists the languages, with the current one
+checked; see the [Language guide](handbook:language).
 English menu names remain searchable alongside translated names. Submenus sort
 first, then actions, by their translated titles. Main and Apps retain their
 existing order.

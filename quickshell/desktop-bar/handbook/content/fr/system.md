@@ -32,4 +32,4 @@ Les chapitres suivants détaillent les procédures et limites de sécurité.
 
 ## Langue
 
-**Walker > Système > Langue** indique la langue actuelle et explique qu’elle suit les paramètres régionaux du système. Cette entrée ouvre le sélecteur de langue ; voir le [Guide de langue](handbook:language). Les noms anglais et traduits restent recherchables. Les sous-menus précèdent les actions, chacun trié par titre traduit. Le menu principal et Applications conservent leur ordre.
+**Walker > Système > Langue** liste les langues, la langue actuelle étant cochée ; voir le [Guide de langue](handbook:language). Les noms anglais et traduits restent recherchables. Les sous-menus précèdent les actions, chacun trié par titre traduit. Le menu principal et Applications conservent leur ordre.

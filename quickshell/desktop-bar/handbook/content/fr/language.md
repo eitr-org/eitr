@@ -1,6 +1,6 @@
 # Langue
 
-Eitr suit la langue des messages du système. **Centre de contrôle > Système > Langue** et **Walker > Système > Langue** indiquent la langue disponible pour les paramètres régionaux actuels. Ces entrées ouvrent un sélecteur de langue. Choisissez une langue ou **Valeur par défaut du système**, puis déconnectez-vous et reconnectez-vous. Eitr ne vous déconnecte jamais automatiquement.
+Eitr suit la langue des messages du système. **Centre de contrôle > Système > Langue** indique la langue utilisée pour les paramètres régionaux actuels et ouvre un sélecteur de langue ; **Walker > Système > Langue** liste les mêmes choix, le choix actuel étant coché. Choisissez une langue ou **Valeur par défaut du système**, puis déconnectez-vous et reconnectez-vous. Eitr ne vous déconnecte jamais automatiquement.
 
 Eitr vérifie d’abord **LC_ALL**, puis **LC_MESSAGES**, et enfin **LANG**. Les variables vides sont ignorées. `LC_MESSAGES` change les messages sans modifier les formats de date, de nombres ou de monnaie. `LC_ALL` remplace toutes les catégories régionales et reste généralement non définie. Avec `C`, `POSIX` ou une langue non prise en charge, Eitr utilise l’anglais. Un message sans traduction s’affiche en anglais ; pour un chapitre absent, le chapitre anglais entier est utilisé.
 

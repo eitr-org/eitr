@@ -1,6 +1,6 @@
 # Idioma
 
-Eitr sigue el idioma de los mensajes del sistema. **Centro de control > Sistema > Idioma** y **Walker > Sistema > Idioma** muestran el idioma disponible para la configuración regional actual. Estas opciones abren un selector de idioma. Elige un idioma o **Predeterminado del sistema** y cierra la sesión y vuelve a iniciarla. Eitr nunca cierra tu sesión automáticamente.
+Eitr sigue el idioma de los mensajes del sistema. **Centro de control > Sistema > Idioma** muestra el idioma que se usa para la configuración regional actual y abre un selector de idioma; **Walker > Sistema > Idioma** enumera las mismas opciones, con la actual marcada. Elige un idioma o **Predeterminado del sistema** y cierra la sesión y vuelve a iniciarla. Eitr nunca cierra tu sesión automáticamente.
 
 Eitr comprueba **LC_ALL**, después **LC_MESSAGES** y, por último, **LANG**. Las variables vacías se ignoran. `LC_MESSAGES` cambia los mensajes sin modificar los formatos de fecha, números o moneda; `LC_ALL` reemplaza todas las categorías regionales y normalmente se deja sin definir. `C`, `POSIX` y los idiomas no disponibles usan inglés. Los mensajes sin traducción aparecen en inglés; los capítulos que faltan utilizan el capítulo completo en inglés.
 

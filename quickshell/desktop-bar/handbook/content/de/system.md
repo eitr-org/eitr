@@ -32,4 +32,4 @@ Die folgenden Kapitel erklären Abläufe und Sicherheitsgrenzen genauer.
 
 ## Sprache
 
-**Walker > System > Sprache** zeigt die aktuelle Sprache und erklärt, dass sie dem Systemgebietsschema folgt. Es öffnet die Sprachauswahl; siehe [Sprachanleitung](handbook:language). Englische und übersetzte Namen bleiben suchbar. Untermenüs stehen vor Aktionen; beide werden nach übersetzten Titeln sortiert. Hauptmenü und Anwendungen behalten ihre Reihenfolge.
+**Walker > System > Sprache** listet die Sprachen auf, die aktuelle ist markiert; siehe [Sprachanleitung](handbook:language). Englische und übersetzte Namen bleiben suchbar. Untermenüs stehen vor Aktionen; beide werden nach übersetzten Titeln sortiert. Hauptmenü und Anwendungen behalten ihre Reihenfolge.

@@ -32,4 +32,4 @@ Los capítulos siguientes detallan los procesos y límites de seguridad.
 
 ## Idioma
 
-**Walker > Sistema > Idioma** muestra el idioma actual y explica que sigue la configuración regional del sistema. Abre el selector de idioma; consulta la [Guía de idioma](handbook:language). Puedes buscar los nombres ingleses y traducidos. Primero aparecen los submenús y después las acciones, ordenados por sus títulos traducidos. Principal y Aplicaciones conservan su orden.
+**Walker > Sistema > Idioma** enumera los idiomas, con el actual marcado; consulta la [Guía de idioma](handbook:language). Puedes buscar los nombres ingleses y traducidos. Primero aparecen los submenús y después las acciones, ordenados por sus títulos traducidos. Principal y Aplicaciones conservan su orden.
