@@ -2254,6 +2254,9 @@ msgstr "Diese Schrift gehört nicht zu einem einzelnen entfernbaren Paket"
 msgid "This host uses an SSH proxy; retain a repository-local core.sshCommand for that advanced setup"
 msgstr "Dieser Host verwendet einen SSH-Proxy; behalten Sie für diese erweiterte Einrichtung core.sshCommand im Repository bei"
 
+msgid "This installation uses an unsupported location; remove it with its own manager."
+msgstr "Diese Installation verwendet einen nicht unterstützten Speicherort. Entferne sie mit ihrem eigenen Paketmanager."
+
 msgid "This keyboard layout could not be loaded"
 msgstr "Diese Tastaturbelegung konnte nicht geladen werden"
 
@@ -2277,6 +2280,9 @@ msgstr "Für diese Anmeldung sind keine Abonnements aktiviert"
 
 msgid "This switch requires systemd-resolved DNS. Review /etc/resolv.conf first; no changes made."
 msgstr "Dieser Wechsel erfordert DNS über systemd-resolved. Prüfen Sie zuerst /etc/resolv.conf; nichts wurde geändert."
+
+msgid "This tool must be removed through its installation manager."
+msgstr "Entferne dieses Werkzeug mit dem Paketmanager, der es installiert hat."
 
 msgid "Time must use HH:MM (00:00-23:59)"
 msgstr "Zeit im Format HH:MM (00:00-23:59) angeben"
@@ -2361,6 +2367,27 @@ msgstr "Rückgängig machen mit: sudo {helper} auth-restore {name}"
 
 msgid "Unexpected FIDO2 registration"
 msgstr "Unexpected FIDO2 registration"
+
+msgid "Uninstall {label}?"
+msgstr "{label} deinstallieren?"
+
+msgid "Uninstall {label}? This removes Rails from the current mise Ruby. Ruby, shared libraries, projects and settings will be kept."
+msgstr "{label} deinstallieren? Dadurch wird Rails aus der aktuellen mise-Ruby-Version entfernt. Ruby, gemeinsam genutzte Bibliotheken, Projekte und Einstellungen bleiben erhalten."
+
+msgid "Uninstall {label}? This removes every NVM-managed Node.js version and its global npm tools. Projects and settings will be kept."
+msgstr "{label} deinstallieren? Dadurch werden alle von NVM verwalteten Node.js-Versionen und ihre globalen npm-Werkzeuge entfernt. Projekte und Einstellungen bleiben erhalten."
+
+msgid "Uninstall {label}? This removes the current SDKMAN Java and Maven versions. Other versions, projects and settings will be kept."
+msgstr "{label} deinstallieren? Dadurch werden die aktuellen SDKMAN-Versionen von Java und Maven entfernt. Andere Versionen, Projekte und Einstellungen bleiben erhalten."
+
+msgid "Uninstall {label}? This removes the global Laravel installer. PHP, Composer, projects and settings will be kept."
+msgstr "{label} deinstallieren? Dadurch wird das globale Laravel-Installationswerkzeug entfernt. PHP, Composer, Projekte und Einstellungen bleiben erhalten."
+
+msgid "Uninstall {label}? This removes the stable Rust toolchain. rustup, other toolchains, projects and settings will be kept."
+msgstr "{label} deinstallieren? Dadurch wird die stabile Rust-Toolchain entfernt. rustup, andere Toolchains, Projekte und Einstellungen bleiben erhalten."
+
+msgid "Uninstall {label}? This removes uv-managed Python versions and the uv executables. Environments may stop working; system Python, projects and settings will be kept."
+msgstr "{label} deinstallieren? Dadurch werden die von uv verwalteten Python-Versionen und die uv-Programme entfernt. Umgebungen funktionieren danach möglicherweise nicht mehr. System-Python, Projekte und Einstellungen bleiben erhalten."
 
 msgid "Uninstall {name}? The package may contain multiple apps."
 msgstr "{name} deinstallieren? Das Paket kann mehrere Apps enthalten."

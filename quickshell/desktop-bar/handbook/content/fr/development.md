@@ -6,7 +6,7 @@ Principal > Développement regroupe **IA**, **Cloud**, **Comptes Git**, **Superv
 
 ## Outils facultatifs
 
-Installer > Langages de développement et Outils JavaScript installe les outils choisis. Java, Flutter et les clients de bases de données ne sont pas nécessaires à la barre, au lanceur ou aux thèmes EITR. Installer > Bases de données propose des outils facultatifs. Installer > Applications de développement propose Bruno, GitHub Desktop, Insomnia, JetBrains Toolbox, Meld, Postman, VS Code et Zed ; Installer > Productivité propose 1Password, Bitwarden, Discord, LibreOffice, Obsidian, Slack et Thunderbird. Les paquets AUR sont téléchargés et compilés sur votre ordinateur ; certaines licences interdisent leur distribution par EITR.
+Installer > Langages de développement et Outils JavaScript installe les outils choisis. Java, Flutter et les clients de bases de données ne sont pas nécessaires à la barre, au lanceur ou aux thèmes EITR. Installer > Bases de données propose des outils facultatifs. Installer > Applications de développement propose Bruno, Cursor, GitHub Desktop, Insomnia, JetBrains Toolbox, Meld, Postman, VS Code et Zed ; Installer > Productivité propose 1Password, Bitwarden, Discord, LibreOffice, Obsidian, Slack et Thunderbird. Les paquets AUR sont téléchargés et compilés sur votre ordinateur ; certaines licences interdisent leur distribution par EITR.
 
 ## Applications web
 

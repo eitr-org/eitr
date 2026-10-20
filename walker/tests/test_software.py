@@ -319,6 +319,197 @@ class SoftwareTests(unittest.TestCase):
         self.assertIn("yay) yay -Sua --devel", script)
 
 
+class SoftwareRemovalTests(unittest.TestCase):
+    def setUp(self):
+        catalog = repository_catalog()
+        catalog.start()
+        self.addCleanup(catalog.stop)
+
+    def test_cursor_is_optional_aur_recipe(self):
+        item = software.catalog()["developer-apps"]["cursor"]
+        self.assertEqual(item["packages"], ["cursor-bin"])
+        self.assertEqual(item["source"], "aur")
+        self.assertNotIn("cursor-bin", (ROOT / "distro/apps.txt").read_text())
+
+    def test_all_install_recipes_have_a_supported_removal_path(self):
+        for group in ("browsers", "databases", "developer-apps", "languages", "javascript", "ai", "productivity"):
+            with self.subTest(group=group), patch.object(software, "installed", return_value=True):
+                self.assertTrue(all(row["removable"] for row in software.recipes(group)))
+
+    def test_cancel_never_removes_packages_or_tools(self):
+        for group in ("developer-apps", "javascript", "ai"):
+            for identifier in software.catalog()[group]:
+                with self.subTest(group=group, identifier=identifier), \
+                        patch.object(software, "installation_present", return_value=True), \
+                        patch.object(software, "confirm", return_value=False), \
+                        patch.object(software, "terminal") as terminal, patch.object(software, "run") as run:
+                    software.recipe_uninstall(group, identifier)
+                    terminal.assert_not_called()
+                    run.assert_not_called()
+
+    def test_language_review_cancellation_never_removes_anything(self):
+        for identifier, item in software.catalog()["languages"].items():
+            if item["source"] != "managed":
+                continue
+            with self.subTest(identifier=identifier), patch.object(software.Terminal, "confirm", return_value=False), \
+                    patch.object(software, "recipe_remove") as remove, patch("builtins.print"):
+                software.recipe_review("languages", identifier)
+                remove.assert_not_called()
+        with patch.object(software.Terminal, "confirm", return_value=True), \
+                patch.object(software, "recipe_remove") as remove, patch("builtins.print"):
+            software.recipe_review("languages", "node")
+            remove.assert_called_once_with("languages", "node")
+
+    def test_localized_confirmation_accepts_and_cancels(self):
+        for locale in ("pt_BR", "es", "de", "fr"):
+            catalog = json.loads((ROOT / "i18n/catalogs" / locale / "helpers.json").read_text())
+            for accepted in (True, False):
+                answer = catalog["Confirm"] if accepted else catalog["Cancel"]
+                with self.subTest(locale=locale, accepted=accepted), \
+                        patch.object(software, "tr", side_effect=lambda message: catalog.get(message, message)), \
+                        patch.object(software.subprocess, "run", return_value=SimpleNamespace(returncode=0, stdout=answer)) as run:
+                    self.assertEqual(software.confirm("Review"), accepted)
+                    self.assertIn(catalog["Confirm"], run.call_args.kwargs["input"])
+            for answer, accepted in (("yes", True), ("y", True), ("n", False), ("", False)):
+                with self.subTest(locale=locale, answer=answer), \
+                        patch("eitr_forms.tr", side_effect=lambda message: catalog.get(message, message)), \
+                        patch("builtins.input", return_value=answer), patch("builtins.print"), \
+                        patch.object(software, "recipe_remove") as remove:
+                    software.recipe_review("languages", "node")
+                    self.assertEqual(remove.called, accepted)
+
+    def test_confirmation_opens_the_existing_task_terminal(self):
+        with patch.object(software, "installation_present", return_value=True), \
+                patch.object(software, "confirm", return_value=True), patch.object(software, "terminal") as terminal:
+            software.recipe_uninstall("developer-apps", "cursor")
+        terminal.assert_called_once_with("python3", str(software.SCRIPT), "recipe-remove", "developer-apps", "cursor")
+
+    def test_packaged_bundle_removes_only_installed_packages_without_recursion(self):
+        with patch.object(software, "installed", side_effect=lambda item: item["packages"] == ["php"]), \
+                patch.object(software, "run") as run:
+            software.recipe_remove("languages", "php")
+        run.assert_called_once_with(["sudo", "pacman", "-R", "--", "php"])
+
+    def test_direct_remove_keeps_eitr_protected(self):
+        with patch.object(software, "run") as run:
+            with self.assertRaises(ValueError):
+                software.remove("pacman", "firefox", "eitr-desktop")
+            run.assert_not_called()
+
+    def test_native_removal_keeps_settings_and_cached_versions(self):
+        with tempfile.TemporaryDirectory() as temporary, patch.object(software.Path, "home", return_value=Path(temporary)):
+            home = Path(temporary)
+            executable = home / ".local/bin/claude"
+            executable.parent.mkdir(parents=True)
+            cached = home / ".local/share/claude/versions/test"
+            cached.parent.mkdir(parents=True)
+            cached.write_text("cached executable")
+            executable.symlink_to(cached)
+            credentials = home / ".claude.json"
+            credentials.write_text("keep settings")
+            software.recipe_remove("ai", "claude")
+            self.assertFalse(executable.is_symlink())
+            self.assertEqual(credentials.read_text(), "keep settings")
+            self.assertTrue(cached.exists())
+
+    def test_native_removal_refuses_a_redirected_parent(self):
+        with tempfile.TemporaryDirectory() as temporary, tempfile.TemporaryDirectory() as external, \
+                patch.object(software.Path, "home", return_value=Path(temporary)):
+            (Path(temporary) / ".local").symlink_to(external, target_is_directory=True)
+            with self.assertRaises(ValueError):
+                software.recipe_remove("ai", "claude")
+
+    def test_npm_removal_uses_each_existing_node_without_installing_anything(self):
+        with tempfile.TemporaryDirectory() as temporary, patch.object(software.Path, "home", return_value=Path(temporary)), \
+                patch.object(software, "run") as run:
+            for version in ("v22.0.0", "v24.0.0"):
+                (Path(temporary) / ".nvm/versions/node" / version / "lib/node_modules/@openai/codex").mkdir(parents=True)
+            software.recipe_remove("ai", "codex")
+            self.assertEqual(run.call_count, 2)
+            for call in run.call_args_list:
+                self.assertIn("uninstall", call.args[0])
+                self.assertEqual(call.args[0][-1], "@openai/codex")
+                self.assertNotIn("install", call.args[0])
+
+    def test_sdkman_removal_targets_only_current_versions(self):
+        with tempfile.TemporaryDirectory() as temporary, patch.object(software.Path, "home", return_value=Path(temporary)), \
+                patch.object(software, "run") as run:
+            for candidate, version in (("java", "25-oracle"), ("maven", "3.9.9")):
+                folder = Path(temporary) / ".sdkman/candidates" / candidate
+                (folder / version).mkdir(parents=True)
+                (folder / "current").symlink_to(version)
+                (folder / "older").mkdir()
+            software.recipe_remove("languages", "java")
+            self.assertEqual([call.args[0][-2:] for call in run.call_args_list], [["java", "25-oracle"], ["maven", "3.9.9"]])
+            self.assertTrue((Path(temporary) / ".sdkman/candidates/java/older").is_dir())
+
+    def test_python_removal_never_touches_system_python(self):
+        with tempfile.TemporaryDirectory() as temporary, patch.object(software.Path, "home", return_value=Path(temporary)), \
+                patch.object(software, "run") as run:
+            directory = Path(temporary) / ".local/bin"
+            directory.mkdir(parents=True)
+            for binary in ("uv", "uvx", "python"):
+                (directory / binary).write_text("keep system Python")
+            software.recipe_remove("languages", "python")
+            self.assertEqual(run.call_args.args[0][1:], ["python", "uninstall", "--all"])
+            self.assertEqual(run.call_args.kwargs["env"]["UV_PYTHON_INSTALL_DIR"], str(Path(temporary) / ".local/share/uv/python"))
+            self.assertFalse((directory / "uv").exists())
+            self.assertTrue((directory / "python").exists())
+
+    def test_unsupported_sdk_location_fails_before_any_removal(self):
+        with tempfile.TemporaryDirectory() as temporary, tempfile.TemporaryDirectory() as external, \
+                patch.object(software.Path, "home", return_value=Path(temporary)), patch.object(software, "run") as run:
+            root = Path(temporary) / ".sdkman/candidates"
+            for candidate in ("java", "maven"):
+                folder = root / candidate
+                (folder / "version").mkdir(parents=True)
+                (folder / "current").symlink_to(folder / "version" if candidate == "java" else external)
+            with self.assertRaises(ValueError):
+                software.recipe_remove("languages", "java")
+            run.assert_not_called()
+
+    def test_runtime_removal_preserves_prerequisite_system_packages(self):
+        with tempfile.TemporaryDirectory() as temporary, patch.object(software.Path, "home", return_value=Path(temporary)), \
+                patch.object(software, "run") as run:
+            software.recipe_remove("languages", "rust")
+            self.assertEqual(run.call_args.args[0], ["rustup", "toolchain", "uninstall", "stable"])
+            self.assertEqual(run.call_args.kwargs["env"]["RUSTUP_HOME"], str(Path(temporary) / ".rustup"))
+            run.reset_mock()
+            software.recipe_remove("languages", "laravel")
+            self.assertEqual(run.call_args.args[0], ["composer", "global", "remove", "laravel/installer"])
+
+    def test_packages_picker_keeps_install_only_keys(self):
+        source = (ROOT / "walker/scripts/actions/install/software.py").read_text()
+        picker = source[source.index("def package_picker("):source.index("def gaming_item(")]
+        self.assertNotIn("delete", picker.lower())
+        import tomllib
+        actions = tomllib.loads((ROOT / "walker/config.toml").read_text())["providers"]["actions"]
+        self.assertNotIn("menus:packages", actions)
+        for menu in ("install", "browsers", "databases", "developer-apps", "languages", "javascript-tools", "ai-install", "productivity"):
+            self.assertTrue(any(action["action"] == "app_uninstall" and action["bind"] == "Delete"
+                                for action in actions["menus:" + menu]))
+
+    def test_menu_only_exposes_delete_for_removable_entries(self):
+        import json
+        script = r"""
+io.popen = function() return {read=function() return 'fixture' end, close=function() end} end
+jsonDecode = function() return {
+    {id='cursor', label='Cursor', source='aur', installed=true, removable=true},
+    {id='zed', label='Zed', source='pacman', installed=false, removable=false}
+} end
+SoftwareGroup = 'developer-apps'
+Icon = 'app'
+dofile('walker/scripts/menus/software-menu.lua')
+local rows = GetEntries()
+assert(rows[1].Actions.app_uninstall:find('recipe%-uninstall'))
+assert(rows[1].State[1] == 'current')
+assert(rows[2].Actions.app_uninstall == nil)
+"""
+        result = subprocess.run(["lua", "-"], input=script, text=True, capture_output=True,
+                                env={**os.environ, "EITR_CODE_ROOT": str(ROOT), "EITR_LIBRARY_ROOT": str(ROOT / "distro/lib")}, cwd=ROOT)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+
 class GamingTests(unittest.TestCase):
     def setUp(self):
         catalog = repository_catalog()

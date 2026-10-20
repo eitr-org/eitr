@@ -14,7 +14,7 @@ accounts. See [Git Accounts](handbook:git-accounts).
 Install > Development Languages and JavaScript Tools install the tools you
 choose. Java, Flutter and database clients are not required just to run EITR's
 bar, launcher or themes. Install > Databases offers optional database tools.
-Install > Developer Apps offers Bruno, GitHub Desktop, Insomnia, JetBrains
+Install > Developer Apps offers Bruno, Cursor, GitHub Desktop, Insomnia, JetBrains
 Toolbox, Meld, Postman, VS Code and Zed; Install > Productivity offers
 1Password, Bitwarden, Discord, LibreOffice, Obsidian, Slack and Thunderbird.
 AUR entries download and build on your machine; some licenses do not allow

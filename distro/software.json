@@ -15,29 +15,29 @@
     "sqlite": {"label": "SQLite", "source": "pacman", "packages": ["sqlite"]}
   },
   "languages": {
-    "java": {"label": "Java LTS + Maven", "source": "managed", "packages": [], "manager": "SDKMAN", "installed": ["~/.sdkman/candidates/java/current/bin/java", "~/.sdkman/candidates/maven/current/bin/mvn"]},
-    "python": {"label": "Python + uv", "source": "managed", "packages": [], "manager": "uv", "installed": ["~/.local/bin/uv", "~/.local/share/uv/python/*"]},
-    "rust": {"label": "Rust + Cargo", "source": "managed", "packages": ["rustup"], "manager": "rustup", "installed": ["~/.rustup/toolchains/stable-*"]},
-    "rails": {"label": "Ruby + Rails", "source": "managed", "packages": ["mise", "libyaml", "openssl", "readline", "zlib", "gmp"], "manager": "mise", "installed": ["~/.local/share/mise/installs/ruby/*/bin/rails"]},
-    "node": {"label": "Node.js LTS + npm", "source": "managed", "packages": [], "manager": "NVM", "installed": ["~/.nvm/versions/node/*/bin/node"]},
+    "java": {"label": "Java LTS + Maven", "source": "managed", "packages": [], "manager": "SDKMAN", "installed": ["~/.sdkman/candidates/java/current/bin/java", "~/.sdkman/candidates/maven/current/bin/mvn"], "uninstall": {"kind": "sdkman"}},
+    "python": {"label": "Python + uv", "source": "managed", "packages": [], "manager": "uv", "installed": ["~/.local/bin/uv", "~/.local/share/uv/python/*"], "uninstall": {"kind": "python"}},
+    "rust": {"label": "Rust + Cargo", "source": "managed", "packages": ["rustup"], "manager": "rustup", "installed": ["~/.rustup/toolchains/stable-*"], "uninstall": {"kind": "rust"}},
+    "rails": {"label": "Ruby + Rails", "source": "managed", "packages": ["mise", "libyaml", "openssl", "readline", "zlib", "gmp"], "manager": "mise", "installed": ["~/.local/share/mise/installs/ruby/*/bin/rails"], "uninstall": {"kind": "rails"}},
+    "node": {"label": "Node.js LTS + npm", "source": "managed", "packages": [], "manager": "NVM", "installed": ["~/.nvm/versions/node/*/bin/node"], "uninstall": {"kind": "node"}},
     "php": {"label": "PHP + Composer", "source": "pacman", "packages": ["php", "composer"]},
     "elixir": {"label": "Elixir + Erlang", "source": "pacman", "packages": ["elixir"]},
     "dotnet": {"label": ".NET SDK", "source": "pacman", "packages": ["dotnet-sdk"]},
-    "laravel": {"label": "Laravel + PHP + Composer", "source": "managed", "packages": ["php", "composer"], "installed": ["~/.config/composer/vendor/bin/laravel"]}
+    "laravel": {"label": "Laravel + PHP + Composer", "source": "managed", "packages": ["php", "composer"], "installed": ["~/.config/composer/vendor/bin/laravel"], "uninstall": {"kind": "composer"}}
   },
   "javascript": {
-    "yarn": {"label": "Yarn", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/yarn"]},
-    "pnpm": {"label": "pnpm", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/pnpm"]},
-    "bun": {"label": "Bun", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/bun"]},
-    "deno": {"label": "Deno", "source": "managed", "packages": [], "manager": "Deno installer", "installed": ["~/.deno/bin/deno"]}
+    "yarn": {"label": "Yarn", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/yarn"], "uninstall": {"kind": "npm", "package": "yarn"}},
+    "pnpm": {"label": "pnpm", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/pnpm"], "uninstall": {"kind": "npm", "package": "pnpm"}},
+    "bun": {"label": "Bun", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/bun"], "uninstall": {"kind": "npm", "package": "bun"}},
+    "deno": {"label": "Deno", "source": "managed", "packages": [], "manager": "Deno installer", "installed": ["~/.deno/bin/deno"], "uninstall": {"kind": "binary", "path": "~/.deno/bin/deno"}}
   },
   "ai": {
-    "copilot": {"label": "GitHub Copilot CLI", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/copilot"]},
-    "codex": {"label": "Codex", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/codex"]},
-    "claude": {"label": "Claude Code", "source": "managed", "packages": [], "manager": "Anthropic installer", "installed": ["~/.local/bin/claude"]},
-    "grok": {"label": "Grok Build", "source": "managed", "packages": [], "manager": "xAI installer", "installed": ["~/.grok/bin/grok"]},
-    "agy": {"label": "Antigravity CLI", "source": "managed", "packages": [], "manager": "Google installer", "installed": ["~/.local/bin/agy"]},
-    "gemini": {"label": "Gemini CLI (Gemini API key or Google Cloud/company account)", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/gemini"]}
+    "copilot": {"label": "GitHub Copilot CLI", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/copilot"], "uninstall": {"kind": "npm", "package": "@github/copilot"}},
+    "codex": {"label": "Codex", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/codex"], "uninstall": {"kind": "npm", "package": "@openai/codex"}},
+    "claude": {"label": "Claude Code", "source": "managed", "packages": [], "manager": "Anthropic installer", "installed": ["~/.local/bin/claude"], "uninstall": {"kind": "binary", "path": "~/.local/bin/claude"}},
+    "grok": {"label": "Grok Build", "source": "managed", "packages": [], "manager": "xAI installer", "installed": ["~/.grok/bin/grok"], "uninstall": {"kind": "binary", "path": "~/.grok/bin/grok"}},
+    "agy": {"label": "Antigravity CLI", "source": "managed", "packages": [], "manager": "Google installer", "installed": ["~/.local/bin/agy"], "uninstall": {"kind": "binary", "path": "~/.local/bin/agy"}},
+    "gemini": {"label": "Gemini CLI (Gemini API key or Google Cloud/company account)", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/gemini"], "uninstall": {"kind": "npm", "package": "@google/gemini-cli"}}
   },
   "productivity": {
     "1password": {"label": "1Password", "source": "aur", "packages": ["1password"]},
@@ -50,6 +50,7 @@
   },
   "developer-apps": {
     "bruno": {"label": "Bruno", "source": "aur", "packages": ["bruno-bin"]},
+    "cursor": {"label": "Cursor", "source": "aur", "packages": ["cursor-bin"]},
     "github-desktop": {"label": "GitHub Desktop", "source": "aur", "packages": ["github-desktop-bin"]},
     "insomnia": {"label": "Insomnia", "source": "aur", "packages": ["insomnia-bin"]},
     "jetbrains-toolbox": {"label": "JetBrains Toolbox", "source": "aur", "packages": ["jetbrains-toolbox"]},

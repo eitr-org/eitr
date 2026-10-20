@@ -41,6 +41,11 @@ release tag.
 
 ## Feature plan
 
+Cursor is an optional Developer Apps install. Installed entries in the named
+Install lists support Delete with confirmation and preserve settings; managed
+language bundles show a full terminal warning. The Pacman/Yay package pickers
+remain install-only.
+
 Update terminals show the active package check and snapshot stage; an up-to-date
 result stays visible for three seconds. Package installations announce their
 safety check before the administrator password, and Flatpak preparation is visible.

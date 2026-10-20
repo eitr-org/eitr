@@ -8,6 +8,11 @@ Digitar no menu principal busca aplicativos instalados e ações de todos os sub
 
 ## Instalar
 
+Pressione Delete em uma entrada instalada nas listas de aplicativos e ferramentas de Instalar para desinstalá-la após a confirmação. Aplicativos Web mantêm sua ação de remoção. Pacotes (Pacman e Yay) continuam apenas com instalação, sem ação Delete. Dependências necessárias ao sistema nunca são removidas recursivamente; o pacman recusa remoções que quebrariam outro pacote.
+
+Pacotes de linguagens gerenciadas mostram o aviso completo de remoção em um terminal antes de pedir confirmação com [y/N]; Enter cancela. Remover Node inclui todas as versões gerenciadas pelo NVM e suas ferramentas npm globais. A remoção de Python afeta as versões gerenciadas pelo uv e o próprio uv, não o Python do sistema. Java remove as versões atuais do Java e do Maven no SDKMAN; Rust remove apenas sua versão estável. Rails e Laravel removem suas ferramentas de framework, mantendo Ruby, PHP e Composer. Projetos, configurações e credenciais são mantidos, mas ferramentas e ambientes dependentes podem deixar de funcionar. A remoção de assistentes nativos mantém versões em cache e configurações.
+
+
 Aplicativos presentes no sistema mostram **Instalado** abaixo do nome; escolhê-los informa isso em vez de reinstalar. Também são reconhecidas ferramentas instaladas por seus próprios gerenciadores, como Java pelo SDKMAN ou Node.js pelo NVM. Pacotes que exigem um ambiente de execução, como o Java do DBeaver, só adicionam um ambiente pequeno quando nenhum pacote já o fornece.
 
 - **CLIs de IA:** clientes opcionais de IA por linha de comando.

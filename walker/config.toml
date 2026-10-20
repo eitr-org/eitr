@@ -27,6 +27,51 @@ quick_activate = []
   { action = "app_uninstall", label = "Uninstall", bind = "Delete", after = "Close" },
   { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
 ]
+"menus:install" = [
+  { action = "open", label = "Install", bind = "Return", default = true, after = "Close" },
+  { action = "app_uninstall", label = "Uninstall", bind = "Delete", after = "Close" },
+  { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
+]
+"menus:browsers" = [
+  { action = "open", label = "Install", bind = "Return", default = true, after = "Close" },
+  { action = "app_uninstall", label = "Uninstall", bind = "Delete", after = "Close" },
+  { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
+]
+"menus:databases" = [
+  { action = "open", label = "Install", bind = "Return", default = true, after = "Close" },
+  { action = "app_uninstall", label = "Uninstall", bind = "Delete", after = "Close" },
+  { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
+]
+"menus:developer-apps" = [
+  { action = "open", label = "Install", bind = "Return", default = true, after = "Close" },
+  { action = "app_uninstall", label = "Uninstall", bind = "Delete", after = "Close" },
+  { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
+]
+"menus:languages" = [
+  { action = "open", label = "Install", bind = "Return", default = true, after = "Close" },
+  { action = "app_uninstall", label = "Uninstall", bind = "Delete", after = "Close" },
+  { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
+]
+"menus:javascript-tools" = [
+  { action = "open", label = "Install", bind = "Return", default = true, after = "Close" },
+  { action = "app_uninstall", label = "Uninstall", bind = "Delete", after = "Close" },
+  { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
+]
+"menus:ai-install" = [
+  { action = "open", label = "Install", bind = "Return", default = true, after = "Close" },
+  { action = "app_uninstall", label = "Uninstall", bind = "Delete", after = "Close" },
+  { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
+]
+"menus:productivity" = [
+  { action = "open", label = "Install", bind = "Return", default = true, after = "Close" },
+  { action = "app_uninstall", label = "Uninstall", bind = "Delete", after = "Close" },
+  { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
+]
+"menus:monitoring-tools" = [
+  { action = "open", label = "Install", bind = "Return", default = true, after = "Close" },
+  { action = "app_uninstall", label = "Uninstall", bind = "Delete", after = "Close" },
+  { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
+]
 "menus:webapps" = [
   { action = "open", label = "Open", bind = "Return", default = true, after = "Close" },
   { action = "app_uninstall", label = "Remove", bind = "Delete", after = "Close" },

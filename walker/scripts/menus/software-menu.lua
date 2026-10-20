@@ -11,12 +11,17 @@ function GetEntries()
             -- Show why the catalog is unavailable instead of an empty menu.
             table.insert(entries, {Text = row.label, Subtext = "", Icon = Icon})
         elseif row.id then
+            local actions = {open = "python3 " .. quote(helper) .. " recipe-launch " ..
+                quote(SoftwareGroup) .. " " .. quote(row.id)}
+            if row.removable then
+                actions.app_uninstall = "python3 " .. quote(helper) .. " recipe-uninstall " ..
+                    quote(SoftwareGroup) .. " " .. quote(row.id)
+            end
             local origin = row.manager or (row.source == "aur" and "AUR · review before installing" or row.source)
             table.insert(entries, {Text = row.label, Value = row.id,
                 Subtext = row.installed and ("Installed · " .. (row.manager or row.source)) or origin,
                 State = row.installed and {"current"} or {},
-                Icon = row.installed and "\239\128\140" --[[U+F00C]] or Icon, Actions = {open = "python3 " .. quote(helper) .. " recipe-launch " ..
-                    quote(SoftwareGroup) .. " " .. quote(row.id)}})
+                Icon = row.installed and "\239\128\140" --[[U+F00C]] or Icon, Actions = actions})
         end
     end
     return entries

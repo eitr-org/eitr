@@ -16,6 +16,7 @@ for _eitr_parent in Path(__file__).resolve().parents:
         break
 from eitr_paths import code, config as user_config, data as user_data
 from eitr_i18n import tr
+from eitr_forms import Terminal
 import re
 import shlex
 import shutil
@@ -49,10 +50,11 @@ def terminal(*args):
 
 
 def confirm(label):
+    cancel, accept = tr("Cancel"), tr("Confirm")
     answer = subprocess.run([str(WALKER), "--dmenu", "--placeholder", label,
                              "--width", "600", "--minheight", "100"],
-                            input="Cancel\nConfirm\n", text=True, capture_output=True)
-    return answer.returncode == 0 and answer.stdout.strip() == "Confirm"
+                            input=f"{cancel}\n{accept}\n", text=True, capture_output=True)
+    return answer.returncode == 0 and answer.stdout.strip() == accept
 
 
 def data_dirs():
@@ -108,9 +110,21 @@ def installed(item):
     return bool(item["packages"])
 
 
-def recipes(group):
-    return [{"id": key, **value, "installed": installed(value)} for key, value in catalog()[group].items()]
+def installation_present(item):
+    if item["source"] == "managed":
+        return any(Path(path).exists() if Path(path).is_absolute()
+                   else any(Path.home().glob(path.removeprefix("~/"))) for path in item.get("installed", []))
+    return any(installed({**item, "packages": [package]}) for package in item["packages"])
 
+
+def recipes(group):
+    rows = []
+    for key, value in catalog()[group].items():
+        complete = installed(value)
+        supported = value["source"] in ("pacman", "aur", "flatpak") or bool(value.get("uninstall"))
+        rows.append({"id": key, **value, "installed": complete,
+                     "removable": supported and (complete or installation_present(value))})
+    return rows
 
 def require_no_pending_updates():
     """Refuse installs that would also perform an unsnapshotted system upgrade.
@@ -216,16 +230,137 @@ def uninstall(path):
     terminal("python3", str(SCRIPT), "remove", source, name)
 
 
-def remove(source, name):
+def remove(source, *names):
     if source == "pacman":
+        packages = [package_name(name) for name in names]
+        if not packages or EITR_PACKAGES.intersection(packages):
+            raise ValueError(tr('This app is part of Eitr and stays installed.'))
         # Plain -R preserves backup configs; never recursively remove dependents.
-        run(["sudo", "pacman", "-R", "--", package_name(name)])
+        run(["sudo", "pacman", "-R", "--", *packages])
     elif source == "flatpak":
+        name, = names
         if not re.fullmatch(r"[A-Za-z0-9_.-]+", name):
             raise ValueError(tr('Invalid Flatpak ID'))
         run(["flatpak", "uninstall", "--", name])
     else:
         raise ValueError(tr('Unsupported uninstall source'))
+
+
+def recipe_uninstall(group, identifier):
+    item = catalog()[group][identifier]
+    if not installation_present(item):
+        return
+    if item["source"] not in ("pacman", "aur", "flatpak") and not item.get("uninstall"):
+        raise ValueError(tr('This tool must be removed through its installation manager.'))
+    if group == "languages" and item["source"] == "managed":
+        terminal("python3", str(SCRIPT), "recipe-review", group, identifier)
+        return
+    if confirm(tr('Uninstall {label}?', label=item['label'])):
+        terminal("python3", str(SCRIPT), "recipe-remove", group, identifier)
+
+
+def recipe_review(group, identifier):
+    item = catalog()[group][identifier]
+    if group == "languages" and item["source"] == "managed":
+        warnings = {
+            "node": tr('Uninstall {label}? This removes every NVM-managed Node.js version and its global npm tools. Projects and settings will be kept.', label=item['label']),
+            "python": tr('Uninstall {label}? This removes uv-managed Python versions and the uv executables. Environments may stop working; system Python, projects and settings will be kept.', label=item['label']),
+            "java": tr('Uninstall {label}? This removes the current SDKMAN Java and Maven versions. Other versions, projects and settings will be kept.', label=item['label']),
+            "rust": tr('Uninstall {label}? This removes the stable Rust toolchain. rustup, other toolchains, projects and settings will be kept.', label=item['label']),
+            "rails": tr('Uninstall {label}? This removes Rails from the current mise Ruby. Ruby, shared libraries, projects and settings will be kept.', label=item['label']),
+            "laravel": tr('Uninstall {label}? This removes the global Laravel installer. PHP, Composer, projects and settings will be kept.', label=item['label']),
+        }
+        print(warnings[identifier], flush=True)
+    else:
+        raise ValueError('Unsupported removal review')
+    try:
+        accepted = Terminal().confirm(tr('Continue?'), default=False)
+    except (EOFError, KeyboardInterrupt):
+        return
+    if accepted:
+        recipe_remove(group, identifier)
+
+
+def recipe_remove(group, identifier):
+    item = catalog()[group][identifier]
+    if item["source"] in ("pacman", "aur"):
+        packages = [package for package in item["packages"] if installed({**item, "packages": [package]})]
+        if packages:
+            remove("pacman", *packages)
+    elif item["source"] == "flatpak":
+        run(["flatpak", "uninstall", "--user", "--", *item["packages"]])
+    elif item.get("uninstall"):
+        managed_remove(item["uninstall"])
+    else:
+        raise ValueError(tr('This tool must be removed through its installation manager.'))
+
+
+def managed_remove(specification):
+    home = Path.home().resolve()
+    def location(relative):
+        path = home / relative
+        if not path.resolve().is_relative_to(home):
+            raise ValueError(tr('This installation uses an unsupported location; remove it with its own manager.'))
+        return path
+    if specification["kind"] == "binary":
+        path = home / specification["path"].removeprefix("~/")
+        if not path.parent.resolve().is_relative_to(home) or path.is_dir():
+            raise ValueError(tr('This installation uses an unsupported location; remove it with its own manager.'))
+        path.unlink(missing_ok=True)
+    elif specification["kind"] == "npm":
+        commands = []
+        # Remove only this package in each existing NVM installation; never
+        # install/select a Node version or remove its other global tools.
+        for directory in sorted(location(".nvm/versions/node").glob("*")):
+            if not directory.resolve().is_relative_to(home):
+                raise ValueError(tr('This installation uses an unsupported location; remove it with its own manager.'))
+            package = directory / "lib/node_modules" / specification["package"]
+            if package.exists():
+                commands.append([str(directory / "bin/node"), str(directory / "lib/node_modules/npm/bin/npm-cli.js"),
+                                 "uninstall", "--global", "--prefix", str(directory), "--", specification["package"]])
+        for command in commands:
+            run(command)
+    elif specification["kind"] == "sdkman":
+        commands = []
+        initializer = location(".sdkman/bin/sdkman-init.sh")
+        for candidate in ("java", "maven"):
+            current = location(".sdkman/candidates") / candidate / "current"
+            if not current.exists():
+                continue
+            target = current.resolve()
+            if not current.is_symlink() or not target.is_relative_to(home) or target.parent != current.parent.resolve():
+                raise ValueError(tr('This installation uses an unsupported location; remove it with its own manager.'))
+            commands.append(["bash", "-c", 'source "$1" && sdk uninstall "$2" "$3"',
+                             "eitr-uninstall", str(initializer), candidate, target.name])
+        for command in commands:
+            run(command, env=dict(os.environ, SDKMAN_DIR=str(home / ".sdkman")))
+    elif specification["kind"] == "node":
+        commands = []
+        directory = location(".nvm")
+        for version in sorted((directory / "versions/node").glob("*")):
+            if not re.fullmatch(r"v[0-9]+\.[0-9]+\.[0-9]+", version.name) or not version.resolve().is_relative_to(directory.resolve()):
+                raise ValueError(tr('This installation uses an unsupported location; remove it with its own manager.'))
+            commands.append(["bash", "-c", 'source "$1" && nvm deactivate && nvm uninstall "$2"',
+                             "eitr-uninstall", str(directory / "nvm.sh"), version.name])
+        for command in commands:
+            run(command, env=dict(os.environ, NVM_DIR=str(directory)))
+    elif specification["kind"] == "python":
+        location(".local/bin")
+        run([str(home / ".local/bin/uv"), "python", "uninstall", "--all"],
+            env=dict(os.environ, UV_PYTHON_INSTALL_DIR=str(location(".local/share/uv/python"))))
+        for name in ("uv", "uvx"):
+            managed_remove({"kind": "binary", "path": "~/.local/bin/" + name})
+    elif specification["kind"] == "rust":
+        run(["rustup", "toolchain", "uninstall", "stable"],
+            env=dict(os.environ, RUSTUP_HOME=str(location(".rustup"))))
+    elif specification["kind"] == "rails":
+        run(["mise", "exec", "ruby", "--", "gem", "uninstall", "rails", "--all", "--executables"],
+            cwd=home, env=dict(os.environ, MISE_DATA_DIR=str(location(".local/share/mise"))))
+    elif specification["kind"] == "composer":
+        run(["composer", "global", "remove", "laravel/installer"],
+            env=dict(os.environ, COMPOSER_HOME=str(location(".config/composer"))))
+    else:
+        raise ValueError('Unsupported removal manager')
 
 
 def missing_providers(defaults):
@@ -426,7 +561,7 @@ PREVIEW_ACTIONS = {"details", "build-file"}
 
 def parse_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument("action", choices=["recipes", "installer", "install", "launch", "review", "details", "build-file", "uninstall", "remove", "recipe", "recipe-launch", "gaming", "gaming-install", "picker", "picker-launch"])
+    parser.add_argument("action", choices=["recipes", "installer", "install", "launch", "review", "details", "build-file", "uninstall", "remove", "recipe", "recipe-launch", "recipe-uninstall", "recipe-remove", "recipe-review", "gaming", "gaming-install", "picker", "picker-launch"])
     parser.add_argument("args", nargs="*")
     return parser.parse_args()
 
@@ -451,6 +586,13 @@ def main(options):
         uninstall(args[0])
     elif options.action == "remove":
         remove(*args)
+    elif options.action == "recipe-uninstall":
+        time.sleep(0.15)
+        recipe_uninstall(*args)
+    elif options.action == "recipe-review":
+        recipe_review(*args)
+    elif options.action == "recipe-remove":
+        recipe_remove(*args)
     elif options.action == "recipe":
         recipe(*args)
     elif options.action == "recipe-launch":

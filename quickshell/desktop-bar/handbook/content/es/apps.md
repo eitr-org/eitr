@@ -8,6 +8,11 @@ Escribir en el menú principal busca aplicaciones instaladas y acciones de todos
 
 ## Instalar
 
+Pulsa Delete en una entrada instalada de las listas de aplicaciones y herramientas de Instalar para desinstalarla tras confirmar. Aplicaciones web conserva su acción de eliminación. Paquetes (Pacman y Yay) sigue siendo solo para instalar, sin acción Delete. Nunca se eliminan dependencias necesarias del sistema de forma recursiva; pacman rechaza las eliminaciones que romperían otro paquete.
+
+Los paquetes de lenguajes gestionados muestran el aviso completo de eliminación en un terminal antes de pedir confirmación con [y/N]; Enter cancela. Eliminar Node incluye todas las versiones gestionadas por NVM y sus herramientas npm globales. Eliminar Python afecta a las versiones gestionadas por uv y al propio uv, no a Python del sistema. Java elimina las versiones actuales de Java y Maven en SDKMAN; Rust elimina solo su cadena de herramientas estable. Rails y Laravel eliminan sus herramientas de framework y conservan Ruby, PHP y Composer. Se conservan tus proyectos, la configuración y las credenciales, pero algunas herramientas y entornos dependientes podrían dejar de funcionar. La eliminación de asistentes nativos conserva las versiones en caché y la configuración.
+
+
 Las aplicaciones presentes muestran **Instalado** bajo el nombre; elegirlas lo indica en vez de reinstalarlas. También se reconocen herramientas instaladas por sus propios gestores, como Java mediante SDKMAN o Node.js mediante NVM. Los paquetes que necesitan un entorno de ejecución, como Java para DBeaver, añaden uno pequeño solo si ningún paquete lo proporciona aún.
 
 - **CLI de IA:** clientes opcionales de IA por línea de comandos.

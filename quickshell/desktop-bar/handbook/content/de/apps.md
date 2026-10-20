@@ -8,6 +8,11 @@ Eingaben im Hauptmenü suchen installierte Apps und Aktionen aus allen Untermen�
 
 ## Installieren
 
+Drücke Delete bei einem installierten Eintrag in den Anwendungs- und Werkzeuglisten unter Installieren, um ihn nach einer Bestätigung zu deinstallieren. Web-Apps behalten ihre Aktion zum Entfernen. Pakete (Pacman und Yay) dienen weiterhin nur zur Installation und haben keine Delete-Aktion. Erforderliche Systemabhängigkeiten werden nie rekursiv entfernt. pacman verweigert das Entfernen, wenn dadurch ein anderes Paket beschädigt würde.
+
+Bei verwalteten Sprachpaketen siehst du zunächst die vollständige Warnung im Terminal. Danach bestätigst du mit [y/N]; Enter bricht ab. Bei Node werden alle von NVM verwalteten Versionen und ihre globalen npm-Werkzeuge entfernt. Bei Python betrifft dies die von uv verwalteten Versionen und uv selbst, nicht System-Python. Bei Java werden die aktuellen SDKMAN-Versionen von Java und Maven entfernt, bei Rust nur die stabile Toolchain. Rails und Laravel entfernen ihre Framework-Werkzeuge; Ruby, PHP und Composer bleiben erhalten. Projekte, Einstellungen und Zugangsdaten bleiben erhalten, aber abhängige Werkzeuge und Umgebungen funktionieren danach möglicherweise nicht mehr. Beim Entfernen nativer Assistenten bleiben zwischengespeicherte Versionen und Einstellungen erhalten.
+
+
 Vorhandene Apps zeigen **Installiert** unter ihrem Namen; die Auswahl meldet dies, statt erneut zu installieren. Auch über eigene Manager installierte Werkzeuge werden erkannt, etwa Java aus SDKMAN oder Node.js aus NVM. Pakete mit Laufzeitbedarf, beispielsweise DBeavers Java, bringen eine kleine Laufzeit nur mit, wenn noch kein Paket sie bereitstellt.
 
 - **KI-CLIs:** optionale KI-Kommandozeilenprogramme.

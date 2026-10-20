@@ -6,7 +6,7 @@ Hauptmenü > Entwicklung enthält **KI**, **Cloud**, **Git-Konten**, **Monitorin
 
 ## Optionale Werkzeuge
 
-Installieren > Entwicklungssprachen und JavaScript-Werkzeuge installiert deine Auswahl. Java, Flutter und Datenbankclients sind für EITRs Leiste, Starter oder Themen nicht erforderlich. Installieren > Datenbanken bietet optionale Datenbankwerkzeuge. Installieren > Entwicklungsanwendungen bietet Bruno, GitHub Desktop, Insomnia, JetBrains Toolbox, Meld, Postman, VS Code und Zed; Installieren > Produktivität bietet 1Password, Bitwarden, Discord, LibreOffice, Obsidian, Slack und Thunderbird. AUR-Pakete werden auf deinem Rechner heruntergeladen und gebaut; manche Lizenzen erlauben EITR keine Weitergabe.
+Installieren > Entwicklungssprachen und JavaScript-Werkzeuge installiert deine Auswahl. Java, Flutter und Datenbankclients sind für EITRs Leiste, Starter oder Themen nicht erforderlich. Installieren > Datenbanken bietet optionale Datenbankwerkzeuge. Installieren > Entwicklungsanwendungen bietet Bruno, Cursor, GitHub Desktop, Insomnia, JetBrains Toolbox, Meld, Postman, VS Code und Zed; Installieren > Produktivität bietet 1Password, Bitwarden, Discord, LibreOffice, Obsidian, Slack und Thunderbird. AUR-Pakete werden auf deinem Rechner heruntergeladen und gebaut; manche Lizenzen erlauben EITR keine Weitergabe.
 
 ## Web-Apps
 

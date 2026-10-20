@@ -14,6 +14,11 @@ to the parent.
 
 ## Install
 
+Press Delete on an installed entry in the named Install lists to uninstall it after confirmation. Web Apps retain their removal action. Packages (Pacman and Yay) remain install-only and have no Delete action. Required system dependencies are never removed recursively; pacman refuses removals that would break another package.
+
+Managed language bundles show their full removal warning in a terminal before asking for confirmation with [y/N]; Enter cancels. Node removal includes all NVM-managed versions and their global npm tools. Python removal affects uv-managed versions and uv, not system Python. Java removes the current SDKMAN Java and Maven versions; Rust removes only its stable toolchain. Rails and Laravel remove their framework tools while retaining Ruby, PHP and Composer. Projects, settings and credentials are kept, but dependent tools and environments may stop working. Native assistant removal keeps cached versions and settings.
+
+
 Apps already on the system show **Installed** under their name; choosing one
 says so instead of installing it again. This also recognizes tools installed by
 their own managers, such as Java from SDKMAN or Node.js from NVM. Packages that
