@@ -47,3 +47,33 @@ Chaque menu commence par **Ajouter un compte AWS**, **Ajouter un compte GCP** ou
 Les noms sont dans `~/.config/eitr/cloud-contexts.json`, associés au profil AWS, à la configuration gcloud ou à l’identifiant d’abonnement. EITR ne déduit pas les environnements et n’y stocke aucun identifiant secret ; Ajouter ne change jamais un compte CLI global par défaut. Grafana et les opérations cloud nécessitent les comptes et permissions correspondants. Certaines actions consultent seulement des données ; d’autres modifient des ressources distantes : vérifiez l’opération et le compte avant de confirmer.
 
 Gardez jetons, secrets `.env` et identifiants hors des dotfiles partagés et captures d’écran. La configuration du shell charge les gestionnaires compatibles sans que les installateurs réécrivent vos profils. Apprendre conserve des références dédiées à LazyVim, tmux et cmux.
+
+## Les assistants travaillent ensemble
+
+Développement > IA > Permettre aux assistants de travailler ensemble est
+désactivé par défaut. Activez cette option pour relier les programmes Claude
+et Codex installés qui semblent connectés à leur compte. La confirmation
+nomme les assistants et explique que chaque transfert utilise l’abonnement
+de l’assistant sollicité et compte dans ses limites. Les connexions uniquement
+par clé API ou trousseau ne sont pas détectées. Gemini, Copilot et Grok ne
+sont pas encore disponibles comme assistants auxiliaires.
+
+Demandez à votre assistant de consulter l’autre pour une relecture, une
+explication ou une suggestion. Approuvez chaque transfert dans la demande
+normale de l’assistant appelant ; Eitr n’autorise jamais ces outils à l’avance.
+N’activez pas l’approbation automatique des outils du serveur assistants. Les
+auxiliaires ne font que lire ; les modifications restent à votre assistant
+principal. Un auxiliaire ne peut pas en appeler un autre. Une notification
+indique qui a consulté qui, et chaque demande est limitée à trois minutes.
+L’auxiliaire lit le répertoire de travail courant de l’appelant ; la question
+et le contexte peuvent être envoyés au fournisseur de cet assistant.
+
+L’option enregistre un serveur MCP `assistants` avec la commande de chaque
+assistant (`claude mcp add` et `codex mcp add`) : Claude Code et Codex écrivent
+eux-mêmes leurs réglages. Un serveur existant du même nom reste intact et est
+signalé. Les changements sont enregistrés seulement
+sur cet ordinateur dans `~/.local/state/eitr/assistants.json` (ou `XDG_STATE_HOME`).
+Désactiver l’option retire exactement les entrées d’Eitr ; si une entrée a été
+modifiée ensuite, Eitr la conserve et signale le conflit. Redémarrez les sessions
+d’assistants après un changement. La vérification de bout en bout avec des
+comptes réels reste à effectuer séparément.

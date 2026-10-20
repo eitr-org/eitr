@@ -41,6 +41,15 @@ function GetEntries()
             Subtext = "Claude Code, Codex, Gemini CLI, GitHub Copilot CLI or Grok Build",
             Actions = {open = quote(paths.code("walker/bin/walker")) .. " --provider menus:ai-install"}})
     end
+    local bridge = paths.code("walker/scripts/actions/assistant-collaboration.py")
+    local status = io.popen("python3 " .. quote(bridge) .. " get")
+    local collaborating = false
+    if status then collaborating = status:read("*l") == "on"; status:close() end
+    table.insert(entries, {Text = "Let assistants work together",
+        Subtext = "Read-only help from your connected assistants",
+        Icon = collaborating and "\239\128\140" or Icon,
+        State = collaborating and {"current"} or {},
+        Actions = {open = "python3 " .. quote(bridge) .. " toggle"}})
     return entries
 end
 

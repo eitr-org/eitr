@@ -47,3 +47,33 @@ Jedes Anbietermenü beginnt mit **AWS-Konto hinzufügen**, **GCP-Konto hinzufüg
 Die Namen stehen in `~/.config/eitr/cloud-contexts.json`, zugeordnet zu AWS-Profil, gcloud-Konfiguration oder Abonnement-ID. EITR leitet keine Umgebungen ab und speichert dort keine Zugangsdaten; Hinzufügen wechselt keine globale CLI-Vorgabe. Grafana und Cloud-Operationen benötigen passende Konten und Berechtigungen. Manche Aktionen lesen nur, andere verändern entfernte Ressourcen: Prüfe Vorgang und Konto vor der Bestätigung.
 
 Halte Token, `.env`-Geheimnisse und Zugangsdaten aus geteilten Dotfiles und Screenshots heraus. Die Shell-Konfiguration lädt unterstützte Manager, ohne dass Installationsprogramme deine Profile umschreiben. Lernen enthält eigene Referenzen für LazyVim, tmux und cmux.
+
+## Assistenten arbeiten zusammen
+
+Entwicklung > KI > Assistenten zusammenarbeiten lassen ist standardmäßig
+ausgeschaltet. Aktiviere es, um installierte Claude- und Codex-Programme zu
+verbinden, die angemeldet erscheinen. Die Bestätigung nennt die Assistenten
+und erklärt, dass jede Übergabe das Abonnement des helfenden Assistenten nutzt
+und auf dessen Limits angerechnet wird. Anmeldungen nur mit API-Schlüssel
+oder Schlüsselbund werden nicht erkannt. Gemini, Copilot und Grok stehen noch
+nicht als Helfer zur Verfügung.
+
+Bitte deinen Assistenten, den anderen für eine Prüfung, Erklärung oder einen
+Vorschlag zu befragen. Bestätige jede Übergabe über die übliche Werkzeugabfrage
+des aufrufenden Assistenten; Eitr genehmigt diese Werkzeuge niemals vorab.
+Aktiviere keine automatische Werkzeugfreigabe für den Server assistants.
+Helfer lesen nur; Änderungen übernimmt dein Hauptassistent. Ein Helfer kann
+keinen weiteren Helfer aufrufen. Eine Benachrichtigung nennt die beteiligten
+Assistenten, und jede Anfrage hat ein Zeitlimit von drei Minuten. Der Helfer
+liest das aktuelle Arbeitsverzeichnis des Aufrufers; Frage und Kontext können
+an den Anbieter dieses Assistenten gesendet werden.
+
+Der Schalter registriert einen MCP-Server `assistants` über den eigenen Befehl
+des jeweiligen Assistenten (`claude mcp add` und `codex mcp add`), sodass Claude
+Code und Codex ihre Einstellungen selbst schreiben. Ein vorhandener
+gleichnamiger Server bleibt unverändert und wird gemeldet. Die Änderungen werden nur auf diesem
+Computer unter `~/.local/state/eitr/assistants.json` (oder `XDG_STATE_HOME`)
+vermerkt. Ausschalten entfernt genau Eitrs Einträge; wurde ein Eintrag danach
+bearbeitet, bleibt er erhalten und Eitr meldet den Konflikt. Starte bestehende
+Assistentensitzungen nach dem Umschalten neu. Die vollständige Prüfung mit
+echten Konten erfolgt später in einem gesonderten Durchlauf.

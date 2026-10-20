@@ -142,8 +142,11 @@ def sync_themes(light):
     import stat
     import tempfile
     mode = 'light' if light else 'dark'
-    # Only documented theme settings; Grok's is changed only where the user already set one.
-    targets = [('claude', Path.home() / '.claude.json', ['theme'], mode),
+    # Only documented theme settings. Claude's is followed only while the user keeps a
+    # fixed light or dark theme ("auto" already follows the terminal); Grok's only
+    # where the user already set one.
+    claude = Path(os.environ.get('CLAUDE_CONFIG_DIR') or Path.home() / '.claude')
+    targets = [('claude', claude / 'settings.json', ['theme'], mode),
                ('gemini', Path.home() / '.gemini/settings.json', ['ui', 'theme'], 'Default Light' if light else 'Default'),
                ('grok', Path(os.environ.get('GROK_HOME', str(Path.home() / '.grok'))) / 'config.toml', ['ui', 'theme'], mode)]
     for identifier, path, keys, value in targets:
@@ -153,6 +156,8 @@ def sync_themes(light):
         try:
             original = path.read_bytes()
             decoded = original.decode('utf-8')
+            if identifier == 'claude' and json.loads(decoded).get('theme') not in ('light', 'dark'):
+                continue
             updated = (replace_toml_theme(decoded, mode) if path.suffix == '.toml'
                        else replace_json_setting(decoded, keys, value)).encode('utf-8')
             if original == updated:

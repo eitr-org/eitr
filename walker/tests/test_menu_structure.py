@@ -139,9 +139,9 @@ class MenuStructureTests(unittest.TestCase):
         return [line.split("|") for line in result.stdout.splitlines()]
 
     def test_ai_lists_only_installed_assistants(self):
-        self.assertEqual(self.ai_menu({"claude", "codex"}), [["Claude", "ai-claude"], ["Codex", "ai-codex"], ["Default Assistant", "ai-default"]])
-        self.assertEqual(self.ai_menu({"grok"}), [["Default Assistant", "ai-default"], ["Grok", "ai-grok"]])
-        self.assertEqual(self.ai_menu(set()), [["Default Assistant", "ai-default"], ["Install an AI Assistant", ""]])
+        self.assertEqual(self.ai_menu({"claude", "codex"}), [["Claude", "ai-claude"], ["Codex", "ai-codex"], ["Default Assistant", "ai-default"], ["Let assistants work together", ""]])
+        self.assertEqual(self.ai_menu({"grok"}), [["Default Assistant", "ai-default"], ["Grok", "ai-grok"], ["Let assistants work together", ""]])
+        self.assertEqual(self.ai_menu(set()), [["Default Assistant", "ai-default"], ["Install an AI Assistant", ""], ["Let assistants work together", ""]])
         for name in ("claude", "codex", "gemini", "grok"):
             self.assertEqual(menu(f"ai-{name}")["parent"], "ai-tools")
         script = (ROOT / "walker/scripts/menus/ai-tools.sh").read_text()

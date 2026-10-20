@@ -101,3 +101,31 @@ operation and account before confirming.
 Keep tokens, `.env` secrets and credentials outside shared dotfiles and
 screenshots. Shell configuration loads supported managers without installers
 rewriting your profiles. Learn retains dedicated LazyVim, tmux and cmux references.
+
+## Assistants working together
+
+Development > AI > Let assistants work together is off by default. Enable it
+to connect installed Claude and Codex clients that appear signed in. The
+confirmation names the assistants and explains that each hand-off uses the
+helper’s subscription and counts toward its limits. API-key-only and
+keyring-only sign-ins are not detected. Gemini, Copilot and Grok are not
+available as helpers yet.
+
+Ask your assistant to consult the other one for a review, explanation or
+suggestion. Approve each hand-off through the calling assistant’s normal tool
+prompt; Eitr never pre-approves these tools. Do not enable automatic tool
+approval for the assistants server. Helpers only read; edits stay with your
+main assistant. A helper cannot ask another helper. A notification identifies
+who asked whom, and each request has a three-minute timeout. The helper reads
+the caller’s current working directory; its question and context may be sent
+to that assistant’s provider.
+
+The switch registers one `assistants` MCP server through each assistant's own
+command (`claude mcp add` and `codex mcp add`), so Claude Code and Codex write
+their own settings. An existing server with the same name is left unchanged
+and reported. Changes
+are recorded only on this computer in `~/.local/state/eitr/assistants.json`
+(or `XDG_STATE_HOME`). Turning the switch off removes exactly Eitr’s entries;
+if an entry was edited afterwards, Eitr keeps it and reports the conflict.
+Restart existing assistant sessions after changing the switch. Real-account
+hand-offs still await separate end-to-end verification.

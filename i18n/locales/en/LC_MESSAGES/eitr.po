@@ -190,6 +190,9 @@ msgstr "Address (for example netflix.com): "
 msgid "Address (for example {example}): "
 msgstr "Address (for example {example}): "
 
+msgid "An assistants server already exists; settings were left unchanged."
+msgstr "An assistants server already exists; settings were left unchanged."
+
 msgid "An earlier factory reset has not finished. Restart the computer first; if this persists, see {MANUAL}"
 msgstr "An earlier factory reset has not finished. Restart the computer first; if this persists, see {MANUAL}"
 
@@ -207,6 +210,15 @@ msgstr "Arrows: move  Enter: select  Type: search  Esc: back"
 
 msgid "Ask the AI"
 msgstr "Ask the AI"
+
+msgid "Ask {assistant} to review, explain or suggest without editing files. Ask the user before every hand-off."
+msgstr "Ask {assistant} to review, explain or suggest without editing files. Ask the user before every hand-off."
+
+msgid "Assistant"
+msgstr "Assistant"
+
+msgid "Assistant collaboration: {error}"
+msgstr "Assistant collaboration: {error}"
 
 msgid "Authentication updated for {authentication_methods}. Password fallback retained. Backup: {backup}"
 msgstr "Authentication updated for {authentication_methods}. Password fallback retained. Backup: {backup}"
@@ -378,6 +390,9 @@ msgstr "Confirm"
 
 msgid "Conflicting iwd backend setting in {path}; review it before switching."
 msgstr "Conflicting iwd backend setting in {path}; review it before switching."
+
+msgid "Connect {assistants}? Each hand-off uses that assistant’s subscription and counts toward its limits. Ask before every hand-off."
+msgstr "Connect {assistants}? Each hand-off uses that assistant’s subscription and counts toward its limits. Ask before every hand-off."
 
 msgid "Connection failed; verify credentials and certificate settings"
 msgstr "Connection failed; verify credentials and certificate settings"
@@ -1309,6 +1324,15 @@ msgstr "Service number (Enter to cancel): "
 msgid "Set up full-screen monitor capture in OBS first"
 msgstr "Set up full-screen monitor capture in OBS first"
 
+msgid "Settings changed during the update; try again."
+msgstr "Settings changed during the update; try again."
+
+msgid "Settings changed; the entry could not be removed safely."
+msgstr "Settings changed; the entry could not be removed safely."
+
+msgid "Settings could not be updated safely."
+msgstr "Settings could not be updated safely."
+
 msgid "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed."
 msgstr "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed."
 
@@ -1323,6 +1347,9 @@ msgstr "Shown in the AWS menu, for example Acme Production"
 
 msgid "Shown in the GCP menu, for example Acme Development"
 msgstr "Shown in the GCP menu, for example Acme Development"
+
+msgid "Sign in to Claude or Codex before enabling collaboration."
+msgstr "Sign in to Claude or Codex before enabling collaboration."
 
 msgid "Sign in with `claude` to show subscription usage"
 msgstr "Sign in with `claude` to show subscription usage"
@@ -1408,6 +1435,9 @@ msgstr "Switching to the restored system"
 msgid "Switching to the {channel} channel.\n\n{explanation}\n"
 msgstr "Switching to the {channel} channel.\n\n{explanation}\n"
 
+msgid "Symlinked settings are left unchanged."
+msgstr "Symlinked settings are left unchanged."
+
 msgid "Symlinks are not allowed in login designs"
 msgstr "Symlinks are not allowed in login designs"
 
@@ -1462,8 +1492,20 @@ msgstr "The URL must not contain spaces, control characters or backslashes."
 msgid "The answers need a password"
 msgstr "The answers need a password"
 
+msgid "The assistant could not complete the request."
+msgstr "The assistant could not complete the request."
+
 msgid "The assistant executable was not found after installation."
 msgstr "The assistant executable was not found after installation."
+
+msgid "The assistant returned no answer."
+msgstr "The assistant returned no answer."
+
+msgid "The assistant timed out."
+msgstr "The assistant timed out."
+
+msgid "The assistants entry changed; it was left unchanged."
+msgstr "The assistants entry changed; it was left unchanged."
 
 msgid "The boot menu style needs Limine; this system uses {loader}. Nothing was changed."
 msgstr "The boot menu style needs Limine; this system uses {loader}. Nothing was changed."
@@ -1473,6 +1515,9 @@ msgstr "The browser opened a new GitHub issue. Describe what happened and attach
 
 msgid "The channel is stable or testing"
 msgstr "The channel is stable or testing"
+
+msgid "The collaboration state is invalid; settings were left unchanged."
+msgstr "The collaboration state is invalid; settings were left unchanged."
 
 msgid "The factory reset helper is missing beside the boot guard"
 msgstr "The factory reset helper is missing beside the boot guard"
@@ -1554,6 +1599,9 @@ msgstr "This WiFi security type requires advanced network configuration"
 
 msgid "This app is part of Eitr and stays installed."
 msgstr "This app is part of Eitr and stays installed."
+
+msgid "This assistant is unavailable."
+msgstr "This assistant is unavailable."
 
 msgid "This changes login, lockscreen and sudo authentication. Password fallback is retained."
 msgstr "This changes login, lockscreen and sudo authentication. Password fallback is retained."
@@ -1863,6 +1911,9 @@ msgstr "{TARGET} is already mounted; unmount it before installing"
 
 msgid "{assistant} is an AI assistant for your terminal."
 msgstr "{assistant} is an AI assistant for your terminal."
+
+msgid "{caller} asked {helper}"
+msgstr "{caller} asked {helper}"
 
 msgid "{choice} is not available for {label}"
 msgstr "{choice} is not available for {label}"

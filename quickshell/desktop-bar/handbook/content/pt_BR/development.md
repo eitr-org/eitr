@@ -47,3 +47,32 @@ Cada menu começa com **Adicionar conta AWS**, **Adicionar conta GCP** ou **Adic
 Os nomes ficam em `~/.config/eitr/cloud-contexts.json`, associados ao perfil AWS, configuração gcloud ou ID de assinatura. O EITR não deduz ambientes nem armazena credenciais ali; Adicionar nunca muda o padrão global de uma CLI. Grafana e operações de nuvem exigem as contas e permissões correspondentes. Algumas ações só consultam dados; outras alteram recursos remotos: revise a operação e a conta antes de confirmar.
 
 Mantenha tokens, segredos `.env` e credenciais fora de dotfiles compartilhados e capturas de tela. A configuração do shell carrega os gerenciadores compatíveis sem que os instaladores reescrevam seus perfis. Aprender mantém referências próprias de LazyVim, tmux e cmux.
+
+## Assistentes trabalhando juntos
+
+Desenvolvimento > IA > Permitir que assistentes trabalhem juntos vem desativado.
+Ative para conectar Claude e Codex instalados que aparentem estar conectados
+às respectivas contas. A confirmação identifica os assistentes e explica que
+cada transferência usa a assinatura do assistente auxiliar e conta para seus
+limites. Conexões somente por chave de API ou chaveiro não são detectadas.
+Gemini, Copilot e Grok ainda não estão disponíveis como auxiliares.
+
+Peça ao assistente para consultar o outro em uma revisão, explicação ou
+sugestão. Aprove cada transferência na solicitação normal do assistente que
+faz a chamada; o Eitr nunca autoriza essas ferramentas antecipadamente. Não
+ative aprovação automática de ferramentas para o servidor assistants. Os
+auxiliares apenas leem; as edições ficam com o assistente principal. Um
+auxiliar não pode chamar outro. Uma notificação identifica quem consultou
+quem, e cada solicitação tem um prazo de três minutos. O auxiliar lê o
+diretório de trabalho atual de quem chama; a pergunta e o contexto podem ser
+enviados ao provedor desse assistente.
+
+A opção registra um servidor MCP `assistants` pelo comando de cada assistente
+(`claude mcp add` e `codex mcp add`), então o Claude Code e o Codex gravam as
+próprias configurações. Um servidor existente com o mesmo nome é mantido e
+informado. As alterações ficam registradas somente neste
+computador em `~/.local/state/eitr/assistants.json` (ou `XDG_STATE_HOME`).
+Desativar remove exatamente as entradas do Eitr; se uma entrada foi editada
+depois, o Eitr a mantém e informa o conflito. Reinicie as sessões dos
+assistentes após mudar a opção. A verificação de ponta a ponta com contas
+reais ainda será feita separadamente.

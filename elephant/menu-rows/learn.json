@@ -1,5 +1,20 @@
 [
   {
+    "text": "Assistants Working Together",
+    "subtext": "Read-only hand-offs, permissions and subscription limits",
+    "keywords": [
+      "ai",
+      "claude",
+      "codex",
+      "assistants",
+      "mcp"
+    ],
+    "icon": "󱜙",
+    "actions": {
+      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/handbook.sh open development"
+    }
+  },
+  {
     "text": "Cmux Commands",
     "subtext": "Keys for the cmux terminal multiplexer",
     "keywords": [

@@ -115,6 +115,7 @@
     "pacman.conf has no [eitr] repository to add the testing channel before",
     "the theme colours must be a small regular file owned by the desktop user",
     "via {host}{key}",
-    "{label}  {text}  (id {id})"
+    "{label}  {text}  (id {id})",
+    "Assistant"
   ]
 }

@@ -1235,6 +1235,9 @@
       "elephant/menu-rows/main.json",
       "elephant/menus/apps.lua"
     ],
+    "Assistants Working Together": [
+      "elephant/menu-rows/learn.json"
+    ],
     "Audio": [
       "elephant/menu-rows/system-devices.json"
     ],
@@ -1748,6 +1751,9 @@
     "Leave As Is": [
       "elephant/menus/lighting.lua"
     ],
+    "Let assistants work together": [
+      "elephant/menus/ai-tools.lua"
+    ],
     "Light": [
       "elephant/menu-rows/theme.json",
       "elephant/menus/theme-light.lua"
@@ -1946,6 +1952,12 @@
     ],
     "Read a QR code in a selected area and copy it": [
       "elephant/menu-rows/capture.json"
+    ],
+    "Read-only hand-offs, permissions and subscription limits": [
+      "elephant/menu-rows/learn.json"
+    ],
+    "Read-only help from your connected assistants": [
+      "elephant/menus/ai-tools.lua"
     ],
     "Reboot": [
       "elephant/menu-rows/power.json"
@@ -3152,6 +3164,9 @@
     "Address (for example {example}): ": [
       "walker/scripts/actions/development/monitoring.py"
     ],
+    "An assistants server already exists; settings were left unchanged.": [
+      "distro/lib/eitr_collaboration.py"
+    ],
     "An earlier factory reset has not finished. Restart the computer first; if this persists, see {MANUAL}": [
       "distro/system/factory-reset.py"
     ],
@@ -3169,6 +3184,15 @@
     ],
     "Ask the AI": [
       "walker/scripts/actions/system/crash-help.py"
+    ],
+    "Ask {assistant} to review, explain or suggest without editing files. Ask the user before every hand-off.": [
+      "distro/lib/eitr_collaboration.py"
+    ],
+    "Assistant": [
+      "distro/lib/eitr_collaboration.py"
+    ],
+    "Assistant collaboration: {error}": [
+      "walker/scripts/actions/assistant-collaboration.py"
     ],
     "Authentication updated for {authentication_methods}. Password fallback retained. Backup: {backup}": [
       "distro/system/eitr-system.py"
@@ -3216,6 +3240,7 @@
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
     "Cancel": [
+      "walker/scripts/actions/assistant-collaboration.py",
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Cancel '{text}'?": [
@@ -3336,10 +3361,14 @@
       "quickshell/lockscreen/scripts/install-login.py"
     ],
     "Confirm": [
+      "walker/scripts/actions/assistant-collaboration.py",
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Conflicting iwd backend setting in {path}; review it before switching.": [
       "distro/system/network-backend.py"
+    ],
+    "Connect {assistants}? Each hand-off uses that assistant’s subscription and counts toward its limits. Ask before every hand-off.": [
+      "walker/scripts/actions/assistant-collaboration.py"
     ],
     "Connection failed; verify credentials and certificate settings": [
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py"
@@ -4276,6 +4305,15 @@
     "Set up full-screen monitor capture in OBS first": [
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
+    "Settings changed during the update; try again.": [
+      "distro/lib/eitr_collaboration.py"
+    ],
+    "Settings changed; the entry could not be removed safely.": [
+      "distro/lib/eitr_collaboration.py"
+    ],
+    "Settings could not be updated safely.": [
+      "distro/lib/eitr_collaboration.py"
+    ],
     "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed.": [
       "distro/system/eitr-system.py"
     ],
@@ -4290,6 +4328,9 @@
     ],
     "Shown in the GCP menu, for example Acme Development": [
       "walker/scripts/menus/cloud/accounts.py"
+    ],
+    "Sign in to Claude or Codex before enabling collaboration.": [
+      "walker/scripts/actions/assistant-collaboration.py"
     ],
     "Sign in with `claude` to show subscription usage": [
       "quickshell/desktop-bar/scripts/ai-usage.py"
@@ -4375,6 +4416,9 @@
     "Switching to the {channel} channel.\n\n{explanation}\n": [
       "walker/scripts/actions/system/update-channel.py"
     ],
+    "Symlinked settings are left unchanged.": [
+      "distro/lib/eitr_collaboration.py"
+    ],
     "Symlinks are not allowed in login designs": [
       "quickshell/lockscreen/scripts/install-login.py"
     ],
@@ -4429,8 +4473,20 @@
     "The answers need a password": [
       "distro/archinstall/eitr-guided-install"
     ],
+    "The assistant could not complete the request.": [
+      "distro/lib/eitr_collaboration.py"
+    ],
     "The assistant executable was not found after installation.": [
       "distro/lib/eitr_assistants.py"
+    ],
+    "The assistant returned no answer.": [
+      "distro/lib/eitr_collaboration.py"
+    ],
+    "The assistant timed out.": [
+      "distro/lib/eitr_collaboration.py"
+    ],
+    "The assistants entry changed; it was left unchanged.": [
+      "distro/lib/eitr_collaboration.py"
     ],
     "The boot menu style needs Limine; this system uses {loader}. Nothing was changed.": [
       "distro/system/eitr-system.py"
@@ -4440,6 +4496,9 @@
     ],
     "The channel is stable or testing": [
       "distro/system/eitr-system.py"
+    ],
+    "The collaboration state is invalid; settings were left unchanged.": [
+      "distro/lib/eitr_collaboration.py"
     ],
     "The factory reset helper is missing beside the boot guard": [
       "distro/system/boot-guard.py"
@@ -4524,6 +4583,9 @@
     ],
     "This app is part of Eitr and stays installed.": [
       "walker/scripts/actions/install/software.py"
+    ],
+    "This assistant is unavailable.": [
+      "distro/lib/eitr_collaboration.py"
     ],
     "This changes login, lockscreen and sudo authentication. Password fallback is retained.": [
       "walker/scripts/actions/system/security.py"
@@ -4833,6 +4895,9 @@
     ],
     "{assistant} is an AI assistant for your terminal.": [
       "distro/lib/eitr_assistants.py"
+    ],
+    "{caller} asked {helper}": [
+      "distro/lib/eitr_collaboration.py"
     ],
     "{choice} is not available for {label}": [
       "walker/scripts/actions/development/git-accounts.py"

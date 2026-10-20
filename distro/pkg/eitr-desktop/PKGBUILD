@@ -53,6 +53,7 @@ check() {
   python3 tools/i18n-build.py --check
   python3 quickshell/desktop-bar/scripts/handbook-build.py --check
   python3 -m json.tool distro/user-defaults.json >/dev/null
+  python3 -m py_compile distro/lib/eitr_collaboration.py walker/scripts/actions/assistant-collaboration.py
   python3 -m py_compile distro/bin/eitr-config distro/system/eitr-system.py distro/system/factory-reset.py
   find . -name __pycache__ -type d -prune -exec rm -r -- {} +
 }

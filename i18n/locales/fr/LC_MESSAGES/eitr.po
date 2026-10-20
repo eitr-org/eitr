@@ -190,6 +190,9 @@ msgstr "Adresse (par exemple netflix.com) : "
 msgid "Address (for example {example}): "
 msgstr "Adresse (par exemple {example}) : "
 
+msgid "An assistants server already exists; settings were left unchanged."
+msgstr "Un serveur assistants existe déjà ; les réglages restent inchangés."
+
 msgid "An earlier factory reset has not finished. Restart the computer first; if this persists, see {MANUAL}"
 msgstr "Une précédente réinitialisation d’usine n’est pas terminée. Redémarrez l’ordinateur ; si le problème persiste, consultez {MANUAL}"
 
@@ -207,6 +210,15 @@ msgstr "Flèches : déplacer  Enter : sélectionner  Saisie : rechercher  Esc : 
 
 msgid "Ask the AI"
 msgstr "Demander à l’IA"
+
+msgid "Ask {assistant} to review, explain or suggest without editing files. Ask the user before every hand-off."
+msgstr "Demandez à {assistant} une relecture, une explication ou une suggestion sans modifier les fichiers. Demandez l’accord de l’utilisateur avant chaque transfert."
+
+msgid "Assistant"
+msgstr "Assistant"
+
+msgid "Assistant collaboration: {error}"
+msgstr "Collaboration entre assistants : {error}"
 
 msgid "Authentication updated for {authentication_methods}. Password fallback retained. Backup: {backup}"
 msgstr "Authentification mise à jour pour {authentication_methods}. Le mot de passe reste utilisable. Sauvegarde : {backup}"
@@ -378,6 +390,9 @@ msgstr "Confirmer"
 
 msgid "Conflicting iwd backend setting in {path}; review it before switching."
 msgstr "Paramètre du service iwd contradictoire dans {path} ; vérifiez-le avant de changer."
+
+msgid "Connect {assistants}? Each hand-off uses that assistant’s subscription and counts toward its limits. Ask before every hand-off."
+msgstr "Connecter {assistants} ? Chaque transfert utilise l’abonnement de l’assistant sollicité et compte dans ses limites. Demandez l’accord avant chaque transfert."
 
 msgid "Connection failed; verify credentials and certificate settings"
 msgstr "Échec de la connexion ; vérifiez les identifiants et les paramètres du certificat"
@@ -1309,6 +1324,15 @@ msgstr "Numéro du service (Entrée pour annuler) : "
 msgid "Set up full-screen monitor capture in OBS first"
 msgstr "Configurez d’abord la capture d’un écran entier dans OBS"
 
+msgid "Settings changed during the update; try again."
+msgstr "Les réglages ont changé pendant la mise à jour ; réessayez."
+
+msgid "Settings changed; the entry could not be removed safely."
+msgstr "Les réglages ont changé ; l’entrée n’a pas pu être retirée sans risque."
+
+msgid "Settings could not be updated safely."
+msgstr "Les réglages n’ont pas pu être mis à jour sans risque."
+
 msgid "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed."
 msgstr "Plusieurs chargeurs de démarrage sont configurés ({listing}). Supprimez les anciens fichiers ou configurez manuellement les entrées d’instantanés. Aucune modification."
 
@@ -1323,6 +1347,9 @@ msgstr "Affiché dans le menu AWS, par exemple Acme Production"
 
 msgid "Shown in the GCP menu, for example Acme Development"
 msgstr "Affiché dans le menu GCP, par exemple Acme Développement"
+
+msgid "Sign in to Claude or Codex before enabling collaboration."
+msgstr "Connectez-vous à Claude ou Codex avant d’activer la collaboration."
 
 msgid "Sign in with `claude` to show subscription usage"
 msgstr "Connectez-vous avec `claude` pour afficher l’utilisation de l’abonnement"
@@ -1408,6 +1435,9 @@ msgstr "Basculement vers le système restauré"
 msgid "Switching to the {channel} channel.\n\n{explanation}\n"
 msgstr "Passage au canal {channel}.\n\n{explanation}\n"
 
+msgid "Symlinked settings are left unchanged."
+msgstr "Les réglages liés symboliquement restent inchangés."
+
 msgid "Symlinks are not allowed in login designs"
 msgstr "Symlinks are not allowed in login designs"
 
@@ -1462,8 +1492,20 @@ msgstr "L’URL ne doit contenir ni espaces, ni caractères de contrôle, ni bar
 msgid "The answers need a password"
 msgstr "Les réponses doivent inclure un mot de passe"
 
+msgid "The assistant could not complete the request."
+msgstr "L’assistant n’a pas pu terminer la demande."
+
 msgid "The assistant executable was not found after installation."
 msgstr "L’exécutable de l’assistant est introuvable après l’installation."
+
+msgid "The assistant returned no answer."
+msgstr "L’assistant n’a renvoyé aucune réponse."
+
+msgid "The assistant timed out."
+msgstr "Le délai de l’assistant a expiré."
+
+msgid "The assistants entry changed; it was left unchanged."
+msgstr "L’entrée assistants a changé ; elle reste inchangée."
 
 msgid "The boot menu style needs Limine; this system uses {loader}. Nothing was changed."
 msgstr "Le style du menu de démarrage nécessite Limine ; ce système utilise {loader}. Aucune modification."
@@ -1473,6 +1515,9 @@ msgstr "Le navigateur a ouvert un nouveau ticket GitHub. Décrivez le problème 
 
 msgid "The channel is stable or testing"
 msgstr "Le canal doit être stable ou testing"
+
+msgid "The collaboration state is invalid; settings were left unchanged."
+msgstr "L’état de collaboration est invalide ; les réglages restent inchangés."
 
 msgid "The factory reset helper is missing beside the boot guard"
 msgstr "L’utilitaire de réinitialisation d’usine est absent à côté de la protection de démarrage"
@@ -1554,6 +1599,9 @@ msgstr "Ce type de sécurité WiFi nécessite une configuration réseau avancée
 
 msgid "This app is part of Eitr and stays installed."
 msgstr "Cette application fait partie d’Eitr et reste installée."
+
+msgid "This assistant is unavailable."
+msgstr "Cet assistant est indisponible."
 
 msgid "This changes login, lockscreen and sudo authentication. Password fallback is retained."
 msgstr "Ceci modifie l’authentification de connexion, de l’écran verrouillé et de sudo. Le mot de passe reste utilisable."
@@ -1863,6 +1911,9 @@ msgstr "{TARGET} est déjà monté ; démontez-le avant l’installation"
 
 msgid "{assistant} is an AI assistant for your terminal."
 msgstr "{assistant} est un assistant IA pour votre terminal."
+
+msgid "{caller} asked {helper}"
+msgstr "{caller} a consulté {helper}"
 
 msgid "{choice} is not available for {label}"
 msgstr "{choice} n’est pas disponible pour {label}"

@@ -38,6 +38,11 @@ Design:
 
 Steps:
 
+Implementation status: steps 1, 2 and 4 are implemented for Claude and Codex,
+with mocked CLI and settings tests. Step 3 (real-account hand-offs and later
+Gemini/Copilot enablement) remains pending review. See `distro/ASSISTANTS.md`
+for the local CLI evidence and limitations.
+
 1. Verify each tool's read-only non-interactive mode and MCP settings on the
    installed version (`--help` and its docs):
    - Codex: `codex exec --sandbox read-only`; MCP in `~/.codex/config.toml`.

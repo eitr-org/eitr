@@ -190,6 +190,9 @@ msgstr "Dirección (por ejemplo, netflix.com): "
 msgid "Address (for example {example}): "
 msgstr "Dirección (por ejemplo {example}): "
 
+msgid "An assistants server already exists; settings were left unchanged."
+msgstr "Ya existe un servidor assistants; los ajustes se dejaron sin cambios."
+
 msgid "An earlier factory reset has not finished. Restart the computer first; if this persists, see {MANUAL}"
 msgstr "Un restablecimiento de fábrica anterior no terminó. Reinicia el equipo; si persiste, consulta {MANUAL}"
 
@@ -207,6 +210,15 @@ msgstr "Flechas: mover  Enter: seleccionar  Escribe para buscar  Esc: volver"
 
 msgid "Ask the AI"
 msgstr "Preguntar a la IA"
+
+msgid "Ask {assistant} to review, explain or suggest without editing files. Ask the user before every hand-off."
+msgstr "Pide a {assistant} una revisión, explicación o sugerencia sin editar archivos. Pide permiso al usuario antes de cada transferencia."
+
+msgid "Assistant"
+msgstr "Asistente"
+
+msgid "Assistant collaboration: {error}"
+msgstr "Colaboración entre asistentes: {error}"
 
 msgid "Authentication updated for {authentication_methods}. Password fallback retained. Backup: {backup}"
 msgstr "Autenticación actualizada para {authentication_methods}. Se conserva la contraseña como alternativa. Copia de seguridad: {backup}"
@@ -378,6 +390,9 @@ msgstr "Confirmar"
 
 msgid "Conflicting iwd backend setting in {path}; review it before switching."
 msgstr "Configuración incompatible del servicio iwd en {path}; revísala antes de cambiar."
+
+msgid "Connect {assistants}? Each hand-off uses that assistant’s subscription and counts toward its limits. Ask before every hand-off."
+msgstr "¿Conectar {assistants}? Cada transferencia usa la suscripción del asistente auxiliar y cuenta para sus límites. Pide permiso antes de cada transferencia."
 
 msgid "Connection failed; verify credentials and certificate settings"
 msgstr "La conexión ha fallado; comprueba las credenciales y los ajustes del certificado"
@@ -1309,6 +1324,15 @@ msgstr "Número del servicio (Intro para cancelar): "
 msgid "Set up full-screen monitor capture in OBS first"
 msgstr "Configura primero la captura de pantalla completa en OBS"
 
+msgid "Settings changed during the update; try again."
+msgstr "Los ajustes cambiaron durante la actualización; inténtalo de nuevo."
+
+msgid "Settings changed; the entry could not be removed safely."
+msgstr "Los ajustes cambiaron; no se pudo eliminar la entrada de forma segura."
+
+msgid "Settings could not be updated safely."
+msgstr "No se pudieron actualizar los ajustes de forma segura."
+
 msgid "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed."
 msgstr "Hay varios gestores de arranque configurados ({listing}). Elimina los archivos obsoletos o configura manualmente las entradas de instantáneas. No se cambió nada."
 
@@ -1323,6 +1347,9 @@ msgstr "Se muestra en el menú AWS, por ejemplo Acme Producción"
 
 msgid "Shown in the GCP menu, for example Acme Development"
 msgstr "Se muestra en el menú GCP, por ejemplo Acme Desarrollo"
+
+msgid "Sign in to Claude or Codex before enabling collaboration."
+msgstr "Inicia sesión en Claude o Codex antes de activar la colaboración."
 
 msgid "Sign in with `claude` to show subscription usage"
 msgstr "Inicia sesión con `claude` para ver el uso de la suscripción"
@@ -1408,6 +1435,9 @@ msgstr "Activando el sistema restaurado"
 msgid "Switching to the {channel} channel.\n\n{explanation}\n"
 msgstr "Cambiando al canal {channel}.\n\n{explanation}\n"
 
+msgid "Symlinked settings are left unchanged."
+msgstr "Los ajustes con enlaces simbólicos se dejan sin cambios."
+
 msgid "Symlinks are not allowed in login designs"
 msgstr "Symlinks are not allowed in login designs"
 
@@ -1462,8 +1492,20 @@ msgstr "La URL no puede contener espacios, caracteres de control ni barras inver
 msgid "The answers need a password"
 msgstr "Las respuestas deben incluir una contraseña"
 
+msgid "The assistant could not complete the request."
+msgstr "El asistente no pudo completar la solicitud."
+
 msgid "The assistant executable was not found after installation."
 msgstr "No se encontró el ejecutable del asistente tras la instalación."
+
+msgid "The assistant returned no answer."
+msgstr "El asistente no devolvió ninguna respuesta."
+
+msgid "The assistant timed out."
+msgstr "El asistente superó el tiempo límite."
+
+msgid "The assistants entry changed; it was left unchanged."
+msgstr "La entrada assistants cambió; se dejó sin cambios."
 
 msgid "The boot menu style needs Limine; this system uses {loader}. Nothing was changed."
 msgstr "El estilo del menú de arranque requiere Limine; este sistema usa {loader}. No se cambió nada."
@@ -1473,6 +1515,9 @@ msgstr "El navegador abrió una nueva incidencia de GitHub. Describe lo ocurrido
 
 msgid "The channel is stable or testing"
 msgstr "El canal debe ser stable o testing"
+
+msgid "The collaboration state is invalid; settings were left unchanged."
+msgstr "El estado de colaboración no es válido; los ajustes se dejaron sin cambios."
 
 msgid "The factory reset helper is missing beside the boot guard"
 msgstr "Falta el asistente de restablecimiento de fábrica junto a la protección de arranque"
@@ -1554,6 +1599,9 @@ msgstr "Este tipo de seguridad WiFi requiere configuración avanzada de red"
 
 msgid "This app is part of Eitr and stays installed."
 msgstr "Esta aplicación forma parte de Eitr y permanece instalada."
+
+msgid "This assistant is unavailable."
+msgstr "Este asistente no está disponible."
 
 msgid "This changes login, lockscreen and sudo authentication. Password fallback is retained."
 msgstr "Esto cambia la autenticación del acceso, la pantalla de bloqueo y sudo. Se conserva el acceso por contraseña."
@@ -1863,6 +1911,9 @@ msgstr "{TARGET} ya está montado; desmóntalo antes de instalar"
 
 msgid "{assistant} is an AI assistant for your terminal."
 msgstr "{assistant} es un asistente de IA para tu terminal."
+
+msgid "{caller} asked {helper}"
+msgstr "{caller} consultó a {helper}"
 
 msgid "{choice} is not available for {label}"
 msgstr "{choice} no está disponible para {label}"

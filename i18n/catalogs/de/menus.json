@@ -391,5 +391,9 @@
   "Install an assistant before choosing a default": "Installiere einen Assistenten, bevor du den Standard auswählst",
   "SUPER + Alt + A": "SUPER + Alt + A",
   "Crash Notifications": "Absturzbenachrichtigungen",
-  "Turn crash help notifications on or off": "Benachrichtigungen zur Absturzhilfe ein- oder ausschalten"
+  "Turn crash help notifications on or off": "Benachrichtigungen zur Absturzhilfe ein- oder ausschalten",
+  "Assistants Working Together": "Assistenten arbeiten zusammen",
+  "Let assistants work together": "Assistenten zusammenarbeiten lassen",
+  "Read-only hand-offs, permissions and subscription limits": "Nur lesende Übergaben, Berechtigungen und Abonnementlimits",
+  "Read-only help from your connected assistants": "Nur lesende Hilfe von deinen verbundenen Assistenten"
 }

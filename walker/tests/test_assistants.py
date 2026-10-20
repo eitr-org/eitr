@@ -85,7 +85,8 @@ class AssistantTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory, patch.object(Path, 'home', return_value=Path(directory)), \
                 patch.dict(os.environ, {'CLAUDE_CONFIG_DIR': str(Path(directory) / '.claude')}), \
                 patch.object(assistants, 'executable', return_value=Path('/bin/tool')):
-            claude = Path(directory) / '.claude.json'
+            claude = Path(directory) / '.claude/settings.json'
+            claude.parent.mkdir()
             claude.write_bytes(b'{ "theme" : "dark", "key":"secret", "model":"user-choice" }\r\n')
             gemini = Path(directory) / '.gemini/settings.json'
             gemini.parent.mkdir()
@@ -93,10 +94,13 @@ class AssistantTests(unittest.TestCase):
             assistants.sync_themes(True)
             self.assertEqual(claude.read_bytes(), b'{ "theme" : "light", "key":"secret", "model":"user-choice" }\r\n')
             self.assertEqual(gemini.read_text(), '{broken')
-            self.assertFalse((Path(directory) / '.claude').exists())
             with patch.object(assistants, 'executable', return_value=None):
                 assistants.sync_themes(False)
             self.assertIn(b'"light"', claude.read_bytes())
+            for kept in (b'{"theme": "auto"}', b'{"model": "mine"}'):
+                claude.write_bytes(kept)
+                assistants.sync_themes(False)
+                self.assertEqual(claude.read_bytes(), kept, 'auto or no theme is the user\'s choice')
 
     def test_grok_theme_preserves_every_other_byte(self):
         for original in ('[ui]\r\ntheme = "auto" # preference\r\ncompact_mode = true\r\n[models]\r\ndefault = "my-model"\r\n',
