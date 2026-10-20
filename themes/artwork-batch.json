@@ -1,0 +1,265 @@
+{
+  "batch": "2026-10-ultrawide-01",
+  "resolution": [
+    3440,
+    1440
+  ],
+  "processing": "Lanczos upscale, centered minimal aspect-ratio crop; not native 3440x1440 generation",
+  "future": "Add two more original images per theme; references/originals retains previous collection.",
+  "images": [
+    {
+      "theme": "afterglow",
+      "name": "02-orbital-tides",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. An enormous softly luminous ringed planet above a sweeping dark alien tidal shore, tiny observatory far right, shallow tide pools reflecting last light. Sophisticated painterly science-fiction environment. Charcoal #0c0b0c, dusty rose #b59790, subdued teal #87a9b0 and peach sunset.",
+      "status": "removed",
+      "note": "Not in the owner-curated wallpaper collection; prompt retained for provenance."
+    },
+    {
+      "theme": "afterglow",
+      "name": "03-last-light",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. A deserted coastal funicular winding down terraced cliffs toward a distant lighthouse at the end of sunset. Soft dusty rose sky, pale ash rock, charcoal sea, a few warm lights. Hand-painted animation background, quiet nostalgic mood. Palette #0c0b0c #b59790 #87a9b0 #e2dddc.",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "catppuccin-latte",
+      "name": "02-cloud-orchard",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. An airy orchard of small rounded flowering trees on pastel terraces floating above a sea of clouds, gentle sunrise, tiny curved footpaths. Elegant gouache illustration with matte texture and precise shapes. Bright Catppuccin Latte palette #eff1f5, muted rose #dc8a78, lavender, soft teal #179299, blue #1e66f5 accents; predominantly light.",
+      "status": "installed"
+    },
+    {
+      "theme": "catppuccin-latte",
+      "name": "03-porcelain-coast",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. Sunlit white limestone coastal village with rounded terracotta roofs, delicate pink flowering vines, blue inlet and a distant sailboat, broad open sky. Refined hand-painted travel illustration, original architecture, pale airy mood. Latte #eff1f5, blue #1e66f5, rose #dc8a78, restrained green #40a02b.",
+      "status": "installed"
+    },
+    {
+      "theme": "daylight",
+      "name": "02-paper-valley",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. White-on-white sculptural folded-paper mountain valley, sweeping asymmetric ridges, a tiny pale-gray stream, subtle soft shadows that define crisp tactile paper edges. Minimal grayscale studio-lit landscape. Palette white #ffffff, pearl #eeeeee, gray #c0c0c0, very small dark #6e6e6e accents, luminous not dark.",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "daylight",
+      "name": "01-salt-horizon",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. Photorealistic luminous salt flat after rain with isolated white mineral formations on right third, exceptionally clear pale gray sky, mirrorlike shallow water, distant horizon. Minimal bright monochrome photographic landscape, visible natural detail, no intense glare. White #ffffff and soft neutral grays.",
+      "status": "installed"
+    },
+    {
+      "theme": "everforest",
+      "name": "01-cedar-mist",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. A winding wooden footpath through ancient cedars above a fern ravine, layers of treetops disappearing into soft morning mist, a small distant shelter. Cinematic realistic landscape, natural forest detail. Everforest #2d353b shadows, sage #a7c080, teal #7fbbb3, muted straw #dbbc7f sunlight.",
+      "status": "removed",
+      "note": "Theme removed from the shipped collection at the owner’s request; prompt retained for provenance."
+    },
+    {
+      "theme": "everforest",
+      "name": "03-fern-library",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. An original tiny stone reading pavilion reclaimed by ferns on a wooded hillside, softly lit empty windows, moss-covered steps and a quiet creek. Detailed hand-painted storybook environment, restrained texture, no people. Everforest sage and dark green, muted teal, warm straw light #dbbc7f.",
+      "status": "removed",
+      "note": "Theme removed from the shipped collection at the owner’s request; prompt retained for provenance."
+    },
+    {
+      "theme": "flexoki-light",
+      "name": "02-ink-islands",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. A minimal archipelago drawn in delicate black ink and sparse blue, olive and ochre risograph layers on light paper; irregular low islands, flowing tidal lines, tiny sun off-center. Elegant tactile print illustration with abundant negative space. Flexoki light #FFFCF0 paper #100F0F ink #205EA6 blue #879A39 olive #D0A215 ochre.",
+      "status": "removed",
+      "note": "Theme removed from the shipped collection at the owner’s request; prompt retained for provenance."
+    },
+    {
+      "theme": "flexoki-light",
+      "name": "03-studio-garden",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. Sunlit modern courtyard with a sculptural blue ceramic vessel, sparse olive branches, white plaster walls casting graphic angular shadows, a small rust-red door far right. Refined painted architectural illustration, light warm paper texture. Palette #FFFCF0 #205EA6 #879A39 #D14D41 #100F0F.",
+      "status": "removed",
+      "note": "Theme removed from the shipped collection at the owner’s request; prompt retained for provenance."
+    },
+    {
+      "theme": "graphite",
+      "name": "02-ember-harbor",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. A tiny unmarked sailboat crossing a charcoal harbor below immense layered storm clouds, narrow amber light through cloud break, intricate black engraved wave lines. Original woodcut-inspired illustration, dark restrained composition. Graphite #121212 #bebebe with sparing #e68e0d amber.",
+      "status": "installed"
+    },
+    {
+      "theme": "graphite",
+      "name": "03-basalt-station",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. A secluded concrete research station embedded in black basalt cliffs at dusk, long reflective dark shoreline, tiny amber window strips, subtle volcanic mist. Photorealistic cinematic architecture, original design, readable details. Graphite black #121212 gray #bebebe, amber #e68e0d accents only.",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "gruvbox",
+      "name": "02-river-workshop",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. An old wooden boatbuilding workshop beside a meandering slow river, reeds and willows, an empty skiff tethered to a jetty, autumn light. Original hand-painted oil-like landscape with visible delicate brushwork. Gruvbox #282828 deep shadows, #d4be98 straw, #a9b665 olive, #d8a657 ochre, #7daea3 water, tiny coral #ea6962.",
+      "status": "installed"
+    },
+    {
+      "theme": "gruvbox",
+      "name": "03-copper-hills",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. Layered rolling hills with terraced fields, a small weathered windmill left of center, ochre grass, olive trees and muted blue lake under a dramatic evening sky. Sophisticated textured gouache landscape, large calm shapes. Gruvbox charcoal #282828, muted amber #d8a657, olive #a9b665, desaturated aqua #7daea3.",
+      "status": "installed"
+    },
+    {
+      "theme": "kanagawa",
+      "name": "01-reed-estuary",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. Original Japanese-inspired woodblock landscape of a broad quiet reed estuary, winding indigo tidal channels, low fishing huts far right, graceful herons near shore, mountains faint in distance. NOT the Great Wave, no giant breaking wave. Fine woodcut grain. Palette ink #1f1f28 #090618, indigo #7e9cd8 sea #2d4f67 cream #dcd7ba, tiny red #c34043.",
+      "status": "installed"
+    },
+    {
+      "theme": "kanagawa",
+      "name": "02-rain-pass",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. A narrow mountain pass through dark cedar woods, an empty small wooden pavilion, layered indigo cliffs, diagonal rain strokes and low river mist. Detailed original ink wash and woodblock illustration, dark quiet atmosphere. #1f1f28 #7e9cd8 #2d4f67 #dcd7ba muted sage #76946a, no recognizable landmarks.",
+      "status": "installed",
+      "editPrompt": "Remove only the tiny white lettering / signature-like marks in the extreme upper-left corner. Replace those marks with the matching dark tree foliage texture. Preserve the entire landscape, composition, palette, rain, pavilion, all other detail and ultrawide aspect ratio exactly. No text, symbols, watermark or signature anywhere."
+    },
+    {
+      "theme": "moonveil",
+      "name": "01-starlit-meadow",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. A meadow of silver grasses and tiny pale flowers under deep celestial twilight, distant floating cloud ribbons and a subtle moon, lone branching tree at far left. Beautiful hand-painted fantastical landscape, soft atmospheric depth. Moonveil midnight #060B1E periwinkle #7d82d9 peach #ffcead sage #92a593 ice #a3bfd1.",
+      "status": "removed",
+      "note": "Theme removed at the owner’s request; generation prompt retained as history."
+    },
+    {
+      "theme": "moonveil",
+      "name": "02-cloud-viaduct",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. An elegant abandoned stone viaduct spanning a moonlit sea of clouds, distant islands, silver ferns at foreground edge, soft peach horizon and periwinkle night sky. Original illustrated fantasy environment with clear forms and intricate stone texture. Dark #060B1E #7d82d9 mauve #c89dc1 ice #a3bfd1, restrained luminosity.",
+      "status": "removed",
+      "note": "Theme removed at the owner’s request; generation prompt retained as history."
+    },
+    {
+      "theme": "moss",
+      "name": "02-root-sanctuary",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. A monumental weathered stone face carved into a fallen forest ruin, roots and moss wrapping it, shafts of muted golden light, shallow still pool, no horror or existing characters. Detailed painterly ancient forest environment, dark olive #78824b #5f875f, charcoal #222222 bark #685742 rust #b36d43 straw #d7c483.",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "moss",
+      "name": "03-copper-marsh",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. An expansive reed marsh at late autumn dusk, leaning birch trunks, distant crumbling brick watchtower, quiet amber mist reflected in dark water. Realistic atmospheric landscape with subtle textures and open center. Moss olive #78824b forest #5f875f bark #685742 rust #b36d43 charcoal #222222.",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "nord",
+      "name": "02-frost-window",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. View from a quiet empty attic reading nook across an original snowy coastal town at blue hour, broad window frame, folded wool blanket and small cup at far left, softly lit rooftops. Detailed hand-drawn animation environment, no people. Nord #2e3440 #81a1c1 #88c0d0 #eceff4, tiny muted red #bf616a accent.",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "nord",
+      "name": "02-glacier-inlet",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. A remote arctic fjord with pale sculptural icebergs, snow-covered dark granite shoreline, a tiny weather station on far right, soft blue twilight. Beautiful realistic landscape photograph, high clarity and calm open water. Nord dark #2e3440 blue #81a1c1 ice #88c0d0 snow #eceff4.",
+      "status": "installed"
+    },
+    {
+      "theme": "obsidian",
+      "name": "02-shadow-vault",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. An immense original matte black architectural vault, staggered curved fins and precise sculptural shadows, a thin white skylight tracing the structure, softly reflective black stone floor. Minimal refined architectural photography. Strict neutral grayscale: #000000 #404040 #8d8d8d, no color; dark but visible forms, asymmetric wide framing.",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "obsidian",
+      "name": "02-black-dunes",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. Sweeping black volcanic sand dunes with fine wind-carved ridges, softly backlit horizon, isolated dark stone on right third, subtle silver edge highlights. Minimal monochrome realistic landscape, strictly neutral grayscale #000000 #404040 #8d8d8d, no stars, no colored tint.",
+      "status": "removed",
+      "note": "Theme removed at the owner’s request; generation prompt retained as history."
+    },
+    {
+      "theme": "one-dark-pro",
+      "name": "02-skyfoundry",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. An original fantastical cliffside workshop with tall curved chimneys and suspended walkways above dark clouds, delicate blue crystalline lamps and copper windows, quiet evening sky. Detailed hand-painted adventure environment, no existing castle or franchise. One Dark #282c34 #61afef #c678dd #98c379 #e5c07b #e06c75 accents.",
+      "status": "archived",
+      "file": "one-dark-pro/references/previous-generated/02-skyfoundry.png"
+    },
+    {
+      "theme": "one-dark-pro",
+      "name": "03-orbital-greenhouse",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. An elegant curved greenhouse on a dark rocky extraterrestrial coast, green plants inside, small cyan utility lights and a violet nebula reflected in tidal pools, broad spacious sky. Cinematic science-fiction landscape, realistic materials, original design. #282c34 charcoal, #61afef blue #c678dd violet #98c379 green #e5c07b warm light.",
+      "status": "archived",
+      "file": "one-dark-pro/references/previous-generated/03-orbital-greenhouse.png"
+    },
+    {
+      "theme": "rose-pine",
+      "name": "02-petal-terraces",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. Abstract but recognizable terraced botanical garden formed from sculptural pale pink clay, rounded mauve paths, sparse teal leaves and a still pale water channel. Elegant tactile 3D-like painted landscape with matte paper textures, airy light mood. Rose Pine Dawn #faf4ed #b4637a #56949f #907aa9 #d7827e.",
+      "status": "installed"
+    },
+    {
+      "theme": "rose-pine",
+      "name": "03-rose-courtyard",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. A tranquil pale stone courtyard with a flowering rose tree, shallow reflection pool, softly curved archways and distant low mauve hills under a bright morning sky. Original refined watercolor and gouache architectural illustration, luminous not dark. Dawn #faf4ed mutedrose #b4637a teal #56949f mauve #907aa9 peach #d7827e.",
+      "status": "installed"
+    },
+    {
+      "theme": "stillwater",
+      "name": "03-summit-shelter",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. A small mountaineering refuge perched above a wide alpine glacial lake, jagged distant ridges, tiny empty trail and quiet low clouds. Original finely hatched ink and graphite landscape illustration, sparse near-monochrome cool tones with tiny ember window accent. #101315 #798186 #cacccc #a5aeb4 tiny #de6145.",
+      "status": "installed"
+    },
+    {
+      "theme": "stillwater",
+      "name": "03-silent-reservoir",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. A calm dark reservoir nestled between distant slate mountains, isolated weathered concrete spillway far left, subtle ripples and soft silver fog, cool early morning. Cinematic realistic monochrome-leaning landscape, detailed textures, quiet horizon. Stillwater #101315 steel #798186 silver #cacccc #a5aeb4.",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "tokyo-night",
+      "name": "01-neon-ferry",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. An empty little ferry crossing a broad lake at violet dusk, distant original lakeside city lights, pink cloud bands and dark pine silhouettes at edges. Detailed hand-painted animation background, restrained city neon, peaceful rather than busy. Tokyo Night #1a1b26 #7aa2f7 #ad8ee6 #f7768e #0db9d7 #e0af68.",
+      "status": "removed",
+      "note": "Theme removed from the shipped collection at the owner’s request; prompt retained for provenance."
+    },
+    {
+      "theme": "tokyo-night",
+      "name": "02-rooftop-rain",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. An original quiet rooftop greenhouse overlooking a sprawling nighttime city after rain, dark reflective floor, blue and violet windows, a narrow pink horizon, tiny paper lantern under awning. Sophisticated illustrated urban environment, no text on buildings. #1a1b26 #7aa2f7 #ad8ee6 #f7768e cyan #0db9d7.",
+      "status": "removed",
+      "note": "Theme removed from the shipped collection at the owner’s request; prompt retained for provenance."
+    },
+    {
+      "theme": "wisteria",
+      "name": "02-cloud-bloom",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. Luminous towers of soft lavender and pale peach clouds above distant blue hills, fine wisteria flowers lightly framing far right edge, vast open bright sky. Refined hand-painted dream landscape with delicate brushwork, not photorealistic. Light #fafafa blue #3264eb lavender #8a4ad7 paleviolet #9f85e0, very restrained magenta #c900c4.",
+      "status": "installed"
+    },
+    {
+      "theme": "wisteria",
+      "name": "03-violet-pavilion",
+      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. An airy white garden pavilion with lavender flowering vines beside a quiet blue pond, soft bright clouds, gentle stone paths and low purple hills. Original gouache architectural landscape, delicate clean detail, pale light overall. Wisteria #fafafa #3264eb #8a4ad7 #9f85e0, tiny magenta flower accents.",
+      "status": "installed"
+    },
+    {
+      "theme": "catppuccin",
+      "name": "02-lunar-conservatory",
+      "prompt": "Original desktop wallpaper, stylized-concept illustration. Ultrawide 21:9 landscape composition. A small abandoned glass botanical observatory on a rocky moon plateau, luminous pastel plants inside, immense quiet starry sky, distant thin planetary rings low on the horizon. No astronaut, no existing fictional characters. Elegant hand-painted animation background with crisp silhouettes and subtle grain. Catppuccin Mocha palette: dark base #1e1e2e, dusty lavender, #89b4fa blue, #f5c2e7 pink, small mint #94e2d5 highlights. Observatory on right third, expansive calm space left and center, subdued top strip for desktop bar. No text, logo, watermark, border, collage. Entire output one wide wallpaper, not a mockup.",
+      "status": "installed"
+    },
+    {
+      "theme": "catppuccin",
+      "name": "03-midnight-tram",
+      "prompt": "Original desktop wallpaper, stylized-concept illustration. Ultrawide 21:9. A tiny empty elevated tram station above a tranquil futuristic coastal town at blue hour, a single lavender tram crossing a curved bridge, geometric rooftops and ocean reflecting pink cloud bands. Distinct original world, not an existing film or artist copy. Detailed but calm painterly animation background, sophisticated muted Catppuccin Mocha colors #1e1e2e dark ink, #89b4fa blue, soft lilac, #f5c2e7 dusty pink, #f9e2af pale window lights. Broad horizontal framing, architecture in lower half, spacious sky and subdued top edge. No text, signage lettering, logos, watermarks, border. One full-bleed wide wallpaper.",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "jade",
+      "name": "02-lantern-waterway",
+      "prompt": "Original desktop wallpaper, stylized-concept illustration. Ultrawide 21:9. A secluded canal through an original hillside town, weathered stone footbridge at left, tiny warm lanterns under wooden balconies, deep green water reflecting architecture, distant terraced roofs fading into green mist. Calm refined painterly animation background, detailed foreground but quiet center, no recognizable existing location or franchise. Jade palette #111c18 background, #23372b shadows, #509475 jade, #2dd5b7 restrained turquoise reflections, muted #c1c497 light, a few #d7c995 amber lanterns. Nighttime but architecture legible, spacious framing, subdued top strip. No lettering, logos, watermark, border. Single full-bleed ultrawide artwork.",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "jade",
+      "name": "02-rain-garden",
+      "prompt": "Original desktop wallpaper, stylized-concept illustration. Ultrawide 21:9. A low viewpoint across wet stepping stones in an expansive fern and bamboo garden, an original small circular-roof shelter in the far left distance, gentle rain ripples in a foreground pool, translucent leaves edged by soft dawn light. Hand-painted atmospheric environment with sophisticated layered depth, botanical details, restrained grain. Jade theme colors #111c18 deep forest, #23372b, #509475 greens, muted #c1c497 pale light, #2dd5b7 subtle water accents. Avoid copying existing mountain-moon wallpaper: no moon, no mountain silhouettes. Wide calm negative space and subdued upper edge for desktop bar. No text, brand, characters, watermark, border. One 21:9 wallpaper.",
+      "status": "installed"
+    }
+  ],
+  "status": "complete",
+  "totalThemes": 19,
+  "totalImages": 38
+}

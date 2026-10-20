@@ -1,0 +1,17 @@
+[
+  {
+    "text": "Color",
+    "subtext": ">",
+    "submenu": "cursor-color"
+  },
+  {
+    "text": "Family",
+    "subtext": ">",
+    "submenu": "cursor-family"
+  },
+  {
+    "text": "Size",
+    "subtext": ">",
+    "submenu": "cursor-size"
+  }
+]

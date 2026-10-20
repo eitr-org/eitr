@@ -1,0 +1,109 @@
+[
+  {
+    "text": "Corners",
+    "subtext": ">",
+    "keywords": [
+      "square",
+      "rounded",
+      "apple",
+      "radius",
+      "style"
+    ],
+    "icon": "󰕰",
+    "submenu": "corners"
+  },
+  {
+    "text": "Cursor",
+    "subtext": ">",
+    "keywords": [
+      "mouse",
+      "pointer",
+      "bibata",
+      "breeze",
+      "dmz",
+      "cursor"
+    ],
+    "icon": "󰇀",
+    "submenu": "cursor"
+  },
+  {
+    "text": "Desktop Bar",
+    "subtext": ">",
+    "keywords": [
+      "quickshell",
+      "bar",
+      "transparent",
+      "centered",
+      "position"
+    ],
+    "icon": "󰍜",
+    "submenu": "bar"
+  },
+  {
+    "text": "Fonts",
+    "subtext": ">",
+    "keywords": [
+      "font",
+      "typeface",
+      "ligatures",
+      "default"
+    ],
+    "icon": "󰛖",
+    "submenu": "fonts"
+  },
+  {
+    "text": "Lockscreen",
+    "subtext": ">",
+    "keywords": [
+      "lock",
+      "screen",
+      "security"
+    ],
+    "icon": "󰌾",
+    "submenu": "lockscreen"
+  },
+  {
+    "text": "Terminal",
+    "subtext": ">",
+    "keywords": [
+      "kitty",
+      "typing",
+      "fire",
+      "cursor",
+      "trail"
+    ],
+    "icon": "󰆍",
+    "submenu": "terminal"
+  },
+  {
+    "text": "Theme",
+    "subtext": ">",
+    "keywords": [
+      "colors",
+      "appearance"
+    ],
+    "icon": "󰸌",
+    "submenu": "theme"
+  },
+  {
+    "text": "Wallpaper",
+    "subtext": ">",
+    "keywords": [
+      "background"
+    ],
+    "icon": "🖻",
+    "submenu": "wallpaper"
+  },
+  {
+    "text": "Workspaces",
+    "subtext": ">",
+    "keywords": [
+      "numbers",
+      "glyph",
+      "dots",
+      "bar"
+    ],
+    "icon": "󰍹",
+    "submenu": "workspaces"
+  }
+]

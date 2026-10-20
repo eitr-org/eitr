@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+
+EITR_CODE_ROOT="${EITR_CODE_ROOT:-/usr/share/eitr}"
+if [[ -f "$EITR_CODE_ROOT/lib/paths.sh" ]]; then source "$EITR_CODE_ROOT/lib/paths.sh";
+elif [[ -f "$EITR_CODE_ROOT/distro/lib/paths.sh" ]]; then source "$EITR_CODE_ROOT/distro/lib/paths.sh"; fi
+
+set -euo pipefail
+
+args=()
+dmenu=false
+input_only=false
+provider=""
+
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    --dmenu|-d)
+      dmenu=true
+      args+=(--dmenu)
+      ;;
+    --show|-S)
+      shift
+      case "${1:-}" in
+        drun)
+          provider="menus:apps"
+          ;;
+      esac
+      ;;
+    --prompt=*)
+      args+=(--placeholder "${1#--prompt=}")
+      ;;
+    --prompt|-p)
+      shift
+      args+=(--placeholder "${1:-}")
+      ;;
+    --width=*)
+      args+=(--width "${1#--width=}")
+      ;;
+    --width|-W)
+      shift
+      args+=(--width "${1:-}")
+      ;;
+    --height=*)
+      args+=(--height "${1#--height=}")
+      ;;
+    --height|-H)
+      shift
+      args+=(--height "${1:-}")
+      ;;
+    --exec-search|-e)
+      input_only=true
+      ;;
+    --password|-P)
+      args+=(--password)
+      ;;
+    --no-sort|--matching=*|--matching|-M|--cache-file|--hide-scroll|-b|--insensitive|-i|--allow-markup|-m|--parse-search|-q|--no-custom-entry|-E)
+      case "$1" in
+        --matching|--cache-file)
+          shift
+          ;;
+      esac
+      ;;
+    --search=*|--search|-Q)
+      case "$1" in
+        --search|-Q)
+          shift
+          ;;
+      esac
+      ;;
+    *)
+      args+=("$1")
+      ;;
+  esac
+
+  shift || true
+done
+
+if [ "$input_only" = true ]; then
+  args+=(--inputonly)
+fi
+
+if [ "$dmenu" = false ] && [ -n "$provider" ]; then
+  exec "$EITR_CODE_ROOT/walker/bin/walker" --provider "$provider" "${args[@]}"
+fi
+
+exec "$EITR_CODE_ROOT/walker/bin/walker" "${args[@]}"

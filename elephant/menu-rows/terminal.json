@@ -1,0 +1,9 @@
+[
+  {
+    "text": "Cursor Fire",
+    "subtext": ">",
+    "keywords": ["kitty", "cursor", "fire", "flame", "trail"],
+    "icon": "󰈸",
+    "submenu": "terminal-cursor-fire"
+  }
+]

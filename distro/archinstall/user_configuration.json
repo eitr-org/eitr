@@ -1,0 +1,72 @@
+{
+  "eitr_comment": "archinstall 4.x template used by eitr-guided-install. Eitr's wizard collects the disk, account, keyboard, locale, hostname and timezone. Credentials are handed to archinstall through an inherited pipe, never written to the configuration file or command line. Btrfs snapshots are left to Eitr's snapshots-setup, so archinstall's own Snapper option stays off. archinstall adds Plymouth with its script theme; the installer then selects the Eitr theme.",
+  "bootloader_config": {
+    "bootloader": "Limine",
+    "uki": false,
+    "removable": true,
+    "plymouth": "script"
+  },
+  "kernels": ["linux"],
+  "ntp": true,
+  "swap": {"enabled": true, "algorithm": "zstd"},
+  "app_config": {
+    "audio_config": {"audio": "pipewire"},
+    "bluetooth_config": {"enabled": true}
+  },
+  "profile_config": {"profile": {"main": "Minimal"}},
+  "mirror_config": {
+    "mirror_regions": {},
+    "custom_servers": [],
+    "optional_repositories": ["multilib"],
+    "custom_repositories": []
+  },
+  "packages": ["git", "iwd", "pciutils", "python", "sudo"],
+  "services": ["iwd", "systemd-networkd", "systemd-resolved"],
+  "disk_config": {
+    "config_type": "default_layout",
+    "device_modifications": [
+      {
+        "device": null,
+        "wipe": true,
+        "partitions": [
+          {
+            "obj_id": "eitr-esp",
+            "status": "create",
+            "type": "primary",
+            "start": {"value": 1, "unit": "MiB", "sector_size": {"value": 512, "unit": "B"}},
+            "size": {"value": 2048, "unit": "MiB", "sector_size": {"value": 512, "unit": "B"}},
+            "fs_type": "fat32",
+            "mountpoint": "/boot",
+            "mount_options": [],
+            "flags": ["boot", "esp"],
+            "dev_path": null,
+            "btrfs": []
+          },
+          {
+            "obj_id": "eitr-root",
+            "status": "create",
+            "type": "primary",
+            "start": {"value": 2049, "unit": "MiB", "sector_size": {"value": 512, "unit": "B"}},
+            "size": {"value": 0, "unit": "MiB", "sector_size": {"value": 512, "unit": "B"}},
+            "fs_type": "btrfs",
+            "mountpoint": null,
+            "mount_options": ["compress=zstd"],
+            "flags": [],
+            "dev_path": null,
+            "btrfs": [
+              {"name": "@", "mountpoint": "/"},
+              {"name": "@home", "mountpoint": "/home"},
+              {"name": "@log", "mountpoint": "/var/log"},
+              {"name": "@pkg", "mountpoint": "/var/cache/pacman/pkg"}
+            ]
+          }
+        ]
+      }
+    ],
+    "disk_encryption": {
+      "encryption_type": "luks",
+      "partitions": ["eitr-root"],
+      "lvm_volumes": []
+    }
+  }
+}

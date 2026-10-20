@@ -1,0 +1,311 @@
+{
+  "batch": "2026-10-ultrawide-03",
+  "resolution": [
+    3440,
+    1440
+  ],
+  "processing": "Lanczos upscale, minimal centered crop; not native 3440x1440 generation",
+  "direction": "Two additional reference-led artworks per theme, continuing Batch 02's visual language",
+  "status": "complete",
+  "images": [
+    {
+      "theme": "stillwater",
+      "name": "01-weightless",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Black-and-white manga drawing, coarse halftone, crosshatching, aged gray paper #cacccc and ink #101315; surreal existential mood. New artwork: A solitary young adult in a loose dark coat floating sideways in a vast blank paper void, thin headphone cable curving in a loose arc, hair drifting, small ink fragments dissolving from the coat hem, no starscape or landscape; clearly hand-drawn, calm horizontal negative space.",
+      "reference": "stillwater/references/originals/",
+      "status": "removed",
+      "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
+      "replacement": "01-ashen-stag"
+    },
+    {
+      "theme": "stillwater",
+      "name": "04-the-observer",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Black-and-white manga drawing, coarse halftone, crosshatching, aged gray paper #cacccc and ink #101315; surreal existential mood. New artwork: Close profile of a young adult looking into an oval hand mirror whose reflection is an impossible black circular void, cropped shoulder and hand on right, scratched gray blank paper extending left; dense ink hatching and surreal graphic simplicity.",
+      "reference": "stillwater/references/originals/",
+      "status": "removed",
+      "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
+      "replacement": "04-silent-wings"
+    },
+    {
+      "theme": "catppuccin",
+      "name": "03-orbital-dreamer",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Stylized conceptual illustration, matte midnight #1e1e2e, lavender #cba6f7, blue #89b4fa, pale pink #f5c2e7 and mint #a6e3a1; sparse balanced composition. New artwork: An original small astronaut with rounded helmet sitting on a suspended ivory crescent-shaped sculptural seat in a dark studio-like void, trailing pale pastel ribbons and tiny geometric fragments; polished hand-painted 2D drawing, not realistic space photography.",
+      "reference": "catppuccin/references/originals/",
+      "status": "removed",
+      "note": "Not in the owner-curated wallpaper collection; prompt retained for provenance."
+    },
+    {
+      "theme": "catppuccin",
+      "name": "05-velvet-machines",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Stylized conceptual illustration, matte midnight #1e1e2e, lavender #cba6f7, blue #89b4fa, pale pink #f5c2e7 and mint #a6e3a1; sparse balanced composition. New artwork: A single unusual translucent faceted toroidal sculpture floating over a matte midnight surface, inner lavender and mint facets, pink refracted edges, small crisp shadow and spacious black surroundings, refined prismatic abstract 3D still life.",
+      "reference": "catppuccin/references/originals/",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "afterglow",
+      "name": "02-amber-gaze",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Expressive close-up character illustration, charcoal #0c0b0c, dusty rose #b59790, subdued teal #87a9b0 and warm peach; detailed painterly brushwork. New artwork: Extreme close-up of an original young adult face with luminous amber iris reflected in a curved glass shard held near one eye, flowing dark hair, diagonal warm side light, asymmetrical face cropping and calm shadowed left space; portrait not scenery.",
+      "reference": "afterglow/references/originals/",
+      "status": "removed",
+      "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
+      "replacement": "02-ember-vigil"
+    },
+    {
+      "theme": "afterglow",
+      "name": "03-quiet-signal",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Expressive close-up character illustration, charcoal #0c0b0c, dusty rose #b59790, subdued teal #87a9b0 and warm peach; detailed painterly brushwork. New artwork: An original young adult wearing a large vintage headset, eyes closed, shoulders and head drawn in textured gouache, loose rose light strokes circling the ear cup against a dark plain background; no music notes, no text, no scenery.",
+      "reference": "afterglow/references/originals/",
+      "status": "removed",
+      "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
+      "replacement": "03-bronze-and-embers"
+    },
+    {
+      "theme": "one-dark-pro",
+      "name": "04-golden-oath",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Original fantasy character concept illustration, ink #282c34, steel gray #abb2bf, blue #61afef, gold #e5c07b and restrained crimson #e06c75; dramatic crisp silhouettes. New artwork: A solitary masked traveler in a weathered cloak holding a small glowing gold geometric relic in gloved hands, waist-up on right side, cloak edges caught by fine blue rim light, empty charcoal studio void left, fine etched armor details, no franchise character or landscape.",
+      "reference": "one-dark-pro/references/originals/",
+      "status": "archived",
+      "file": "one-dark-pro/references/previous-generated/04-golden-oath.png"
+    },
+    {
+      "theme": "one-dark-pro",
+      "name": "05-ashes-and-steel",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Original fantasy character concept illustration, ink #282c34, steel gray #abb2bf, blue #61afef, gold #e5c07b and restrained crimson #e06c75; dramatic crisp silhouettes. New artwork: An original elegant mechanical raven perched on a broken brass circular device over a slate pedestal, feathers made of brushed dark metal, small crimson eye, gold dust flecks, refined illustrated object study in large dark negative space; not a landscape.",
+      "reference": "one-dark-pro/references/originals/",
+      "status": "archived",
+      "file": "one-dark-pro/references/previous-generated/05-ashes-and-steel.png"
+    },
+    {
+      "theme": "tokyo-night",
+      "name": "04-neon-origami",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Pure flowing abstract art, midnight #1a1b26, cyan #7dcfff, indigo #7aa2f7, pink #bb9af7 and tiny amber #e0af68; sophisticated finely detailed filament textures. New artwork: Broad folded translucent polymer forms twisting through dark negative space, sharp folded edges catching cyan and magenta light, luminous fine ribs across the material, asymmetric full-width macro abstract composition; no buildings or mountains.",
+      "reference": "tokyo-night/references/originals/",
+      "status": "removed",
+      "note": "Theme removed from the shipped collection at the owner’s request; prompt retained for provenance."
+    },
+    {
+      "theme": "tokyo-night",
+      "name": "03-electric-silk",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Pure flowing abstract art, midnight #1a1b26, cyan #7dcfff, indigo #7aa2f7, pink #bb9af7 and tiny amber #e0af68; sophisticated finely detailed filament textures. New artwork: A delicate knot of thousands of thin flowing luminous blue and lilac silk filaments sweeping horizontally, two intertwined folds with subtle pink interference light and large dark upper area, no literal objects, celestial scenery or lettering.",
+      "reference": "tokyo-night/references/originals/",
+      "status": "removed",
+      "note": "Theme removed from the shipped collection at the owner’s request; prompt retained for provenance."
+    },
+    {
+      "theme": "rose-pine",
+      "name": "04-cut-paper-rhythm",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Minimal playful 2D graphic print, Rose Pine Dawn pale #faf4ed, dusty rose #b4637a, teal #56949f, mauve #907aa9 and coral #d7827e; tactile paper grain. New artwork: Asymmetric oversized curved cut-paper fragments and open semicircles arranged in a spacious horizontal rhythm, sparse hand-drawn dashed lines, thin teal looping strokes and mauve solid shapes, original flat graphic composition.",
+      "reference": "rose-pine/references/originals/",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "rose-pine",
+      "name": "05-floating-notions",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Minimal playful 2D graphic print, Rose Pine Dawn pale #faf4ed, dusty rose #b4637a, teal #56949f, mauve #907aa9 and coral #d7827e; tactile paper grain. New artwork: An airy abstract print of irregular pebble-like pastel forms linked by delicate crooked contour lines, coral elongated oval, rose block, teal arcs and sparse tiny dash clusters; thoughtful playful balance, not representational objects.",
+      "reference": "rose-pine/references/originals/",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "graphite",
+      "name": "03-suspended-form",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Monochrome stipple and engraving illustration; black #121212, silver-gray #bebebe, highly refined dot shading and tactile etched details; large negative space. New artwork: An asymmetrical broken stone sphere with a wide hollow inner chamber suspended on right third, edges dissolving into crisp sparse silver particles, rendered entirely in meticulous stipple ink against a charcoal blank void, no stars or scenery.",
+      "reference": "graphite/references/originals/",
+      "status": "removed",
+      "note": "Not in the owner-curated wallpaper collection; prompt retained for provenance."
+    },
+    {
+      "theme": "graphite",
+      "name": "03-thread-and-shadow",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Monochrome stipple and engraving illustration; black #121212, silver-gray #bebebe, highly refined dot shading and tactile etched details; large negative space. New artwork: A sculptural silver-gray strip twisting into an open irregular loop, one end unraveling into fine dotted threads, horizontal arrangement and dark void, precise pointillist illustration, no text or ASCII glyphs.",
+      "reference": "graphite/references/originals/",
+      "status": "installed"
+    },
+    {
+      "theme": "moss",
+      "name": "02-the-keeper",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Classical figurative oil painting with aged canvas and strong chiaroscuro; charcoal #222222, olive #78824b, bark #685742, straw #d7c483 and restrained rust #b36d43. New artwork: A fully clothed enigmatic figure in a heavy olive hood, face mostly obscured by shadow, hands cradling a weathered hourglass with pale sand, portrait on right and empty dark canvas on left, solemn museum oil painting, no forest or landscape.",
+      "reference": "moss/references/originals/",
+      "status": "removed",
+      "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
+      "replacement": "02-silent-oath"
+    },
+    {
+      "theme": "moss",
+      "name": "03-stone-and-linen",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Classical figurative oil painting with aged canvas and strong chiaroscuro; charcoal #222222, olive #78824b, bark #685742, straw #d7c483 and restrained rust #b36d43. New artwork: Still life of an original timeworn stone face sculpture partly wrapped in olive linen, small dark earthenware cup nearby, detailed heavy folds and cracked surface, aged painterly canvas with soft side light and large quiet shadowed space.",
+      "reference": "moss/references/originals/",
+      "status": "removed",
+      "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
+      "replacement": "03-candlelit-relics"
+    },
+    {
+      "theme": "obsidian",
+      "name": "03-black-vortex",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Strict neutral monochrome abstract macro art; #000000 #202020 #404040 #8d8d8d, fine ribbed textures, matte surfaces, restrained silver edge lighting. New artwork: A sculptural asymmetric spiral of layered black paper blades seen obliquely, wide open center off right, fine gray edges and deep velvety shadows, macro studio render filling frame, not stairs or a landscape.",
+      "reference": "obsidian/references/originals/",
+      "status": "removed",
+      "note": "Theme removed at the owner’s request; generation prompt retained as history."
+    },
+    {
+      "theme": "obsidian",
+      "name": "05-satin-fault",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Strict neutral monochrome abstract macro art; #000000 #202020 #404040 #8d8d8d, fine ribbed textures, matte surfaces, restrained silver edge lighting. New artwork: Overlapping broad sheets of matte black satin bent into angular parallel folds, a narrow silver-lit seam runs diagonally through the layers, intimate macro abstract surface, no dunes or mountains, large calm black upper region.",
+      "reference": "obsidian/references/originals/",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "daylight",
+      "name": "02-paper-orbit",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Bright white-on-white sculptural abstract art, white #ffffff pearl #eeeeee gray #c0c0c0; subtle fine paper texture and soft precise shadows. New artwork: Overlapping white curved paper rings suspended above a white plane, off-center broad composition with partially cropped rings, subtle soft gray depth, abstract sculptural relief, no scene or literal architecture.",
+      "reference": "daylight/references/originals/",
+      "status": "installed"
+    },
+    {
+      "theme": "daylight",
+      "name": "03-quiet-pleats",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Bright white-on-white sculptural abstract art, white #ffffff pearl #eeeeee gray #c0c0c0; subtle fine paper texture and soft precise shadows. New artwork: An elegant asymmetric fan of broad folded ivory paper strips intersecting two flat white sheets, shallow sculptural relief with precise soft shadows and luminous white empty areas; no mountains or landscape.",
+      "reference": "daylight/references/originals/",
+      "status": "installed"
+    },
+    {
+      "theme": "wisteria",
+      "name": "04-lucent-folds",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: High-key airy abstract macro art, luminous #fafafa, translucent pale blue, lavender #9f85e0 and delicate #3264eb accents, refined layering. New artwork: A wide flowing translucent glass sheet folding back on itself in loose angular waves, frosted blue highlights and thin lavender refractions, hovering over a pure white plane with subtle gray shadow, no horizon or nature.",
+      "reference": "wisteria/references/originals/",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "wisteria",
+      "name": "05-blue-porcelain",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: High-key airy abstract macro art, luminous #fafafa, translucent pale blue, lavender #9f85e0 and delicate #3264eb accents, refined layering. New artwork: Several oversized asymmetric pale-blue glossy porcelain loops intertwining into a graceful abstract horizontal sculpture, soft lavender reflections, spacious white background and refined tactile surface, no flower or scenery.",
+      "reference": "wisteria/references/originals/",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "jade",
+      "name": "03-tea-and-static",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Hand-painted cel animation intimate interior/object illustration, Jade #111c18 #23372b #509475 muted #c1c497 and restrained turquoise #2dd5b7, fine outlines and subtle grain. New artwork: Close still life of a dark jade ceramic teapot, small porcelain cup and an unmarked vintage cassette player on a wooden shelf, warm lantern side-light, shadowed green wall with spacious blank left half, quiet nighttime drawing, no window vista or text.",
+      "reference": "jade/references/originals/",
+      "status": "installed"
+    },
+    {
+      "theme": "jade",
+      "name": "04-night-shift",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Hand-painted cel animation intimate interior/object illustration, Jade #111c18 #23372b #509475 muted #c1c497 and restrained turquoise #2dd5b7, fine outlines and subtle grain. New artwork: A solitary original young adult seated at a small worktable, green cardigan, headphones around neck, studying an unmarked folded paper model under a round warm lamp; close interior character vignette, deep jade wall and empty horizontal space, no exterior landscape.",
+      "reference": "jade/references/originals/",
+      "status": "installed"
+    },
+    {
+      "theme": "catppuccin-latte",
+      "name": "04-pastel-orbits",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: High-key minimalist pastel abstract matte paper art; #eff1f5, rose #dc8a78, soft lavender, mint #179299 and diluted blue #1e66f5; gentle shadows. New artwork: Wide softly overlapping elliptical paper rings, each partially cropped and gently tilted, pale peach, pink, mint and lilac on white, original airy abstract arrangement with large breathing spaces, no representational scene.",
+      "reference": "catppuccin-latte/references/originals/",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "catppuccin-latte",
+      "name": "05-porcelain-waves",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: High-key minimalist pastel abstract matte paper art; #eff1f5, rose #dc8a78, soft lavender, mint #179299 and diluted blue #1e66f5; gentle shadows. New artwork: Broad horizontal gently undulating matte pastel planes with a few irregular cutouts revealing lower color layers, soft rounded edges and subtle paper grain, predominantly white and restrained pale colors, pure abstraction.",
+      "reference": "catppuccin-latte/references/originals/",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "everforest",
+      "name": "02-seed-library",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Restrained botanical specimen illustration, deep paper #2d353b, sage #a7c080 teal #7fbbb3 straw #dbbc7f, fine veins and detailed muted textures; not nature scenery. New artwork: A sparse carefully composed flat-lay of dried seed pods, ginkgo leaves and curled fern shoots on dark textured paper, precise natural-history illustration without labels, specimens form a loose horizontal arc with quiet center.",
+      "reference": "everforest/references/originals/",
+      "status": "removed",
+      "note": "Theme removed from the shipped collection at the owner’s request; prompt retained for provenance."
+    },
+    {
+      "theme": "everforest",
+      "name": "03-copper-and-sage",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Restrained botanical specimen illustration, deep paper #2d353b, sage #a7c080 teal #7fbbb3 straw #dbbc7f, fine veins and detailed muted textures; not nature scenery. New artwork: An intimate botanical still life of a small patinated copper bowl with sage leaves and a few dried stems on a dark slate tabletop, subtle painterly grain and soft side light, restrained foliage as objects, no forest or vista.",
+      "reference": "everforest/references/originals/",
+      "status": "removed",
+      "note": "Theme removed from the shipped collection at the owner’s request; prompt retained for provenance."
+    },
+    {
+      "theme": "flexoki-light",
+      "name": "04-impossible-fold",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Minimal risograph black halftone stipple art on warm white #FFFCF0; ink #100F0F, tiny blue #205EA6 and ochre #D0A215 accents, huge blank paper space. New artwork: One small abstract folded ribbon shaped into an asymmetrical open geometric knot, rendered entirely with crisp black stipple dots and a tiny ochre inner edge, slightly off-center on wide cream paper, no other objects.",
+      "reference": "flexoki-light/references/originals/",
+      "status": "removed",
+      "note": "Theme removed from the shipped collection at the owner’s request; prompt retained for provenance."
+    },
+    {
+      "theme": "flexoki-light",
+      "name": "03-dot-crescent",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Minimal risograph black halftone stipple art on warm white #FFFCF0; ink #100F0F, tiny blue #205EA6 and ochre #D0A215 accents, huge blank paper space. New artwork: A small thick irregular crescent sculpture and a detached angular chip beside it, meticulous black halftone shadow density with a whisper of blue ink, enormous white negative space, original abstract graphic, not a moon scene.",
+      "reference": "flexoki-light/references/originals/",
+      "status": "removed",
+      "note": "Theme removed from the shipped collection at the owner’s request; prompt retained for provenance."
+    },
+    {
+      "theme": "gruvbox",
+      "name": "01-violin-and-pear",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Old-master-style oil painted still life, real brushwork and canvas texture, charcoal #282828, straw #d4be98, olive #a9b665 brass #d8a657 teal #7daea3 tiny red #ea6962. New artwork: An original warm still life of a weathered violin resting diagonally beside two pears and a folded muted teal cloth on a dark table, rich oil paint, quiet large left negative space and soft side lighting, no writing or existing painting reproduction.",
+      "reference": "gruvbox/references/originals/",
+      "status": "installed"
+    },
+    {
+      "theme": "gruvbox",
+      "name": "05-candle-and-ceramic",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Old-master-style oil painted still life, real brushwork and canvas texture, charcoal #282828, straw #d4be98, olive #a9b665 brass #d8a657 teal #7daea3 tiny red #ea6962. New artwork: An original aged ochre ceramic jug with a sprig of olive leaves, a short unlit beeswax candle and cracked brass dish on dark tabletop, carefully balanced painterly objects and deep charcoal negative space, classical oil painting texture.",
+      "reference": "gruvbox/references/originals/",
+      "status": "installed"
+    },
+    {
+      "theme": "kanagawa",
+      "name": "03-crane-and-ribbon",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Original traditional Japanese woodblock-style graphic illustration, finely carved contours, tactile cream #dcd7ba paper, indigo #7e9cd8 dark #1f1f28 sea #2d4f67 and small red #c34043 accent. New artwork: Two elegant cranes with elongated feathers shown in opposing flowing flight arcs through decorative indigo wind strokes, cream negative space, asymmetric horizontal ornament composition, not a landscape, no calligraphy, seal or Great Wave reproduction.",
+      "reference": "kanagawa/references/originals/",
+      "status": "installed"
+    },
+    {
+      "theme": "kanagawa",
+      "name": "04-indigo-fan",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Original traditional Japanese woodblock-style graphic illustration, finely carved contours, tactile cream #dcd7ba paper, indigo #7e9cd8 dark #1f1f28 sea #2d4f67 and small red #c34043 accent. New artwork: An original ornamental still life of an open folding fan decorated with graphic abstract water curls, a closed indigo umbrella and one red cord, arranged on cream paper, finely carved woodblock strokes, no writing, labels, seals or nature panorama.",
+      "reference": "kanagawa/references/originals/",
+      "status": "installed"
+    },
+    {
+      "theme": "moonveil",
+      "name": "04-violet-drift",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Pure cosmic abstraction, painterly astronomical detail, deep #060B1E, periwinkle #7d82d9 ice #a3bfd1 peach #ffcead mauve #c89dc1, dark spacious corners. New artwork: An irregular ribbon of mauve dust and pale blue gas folding around a deep indigo hollow, delicate peach illuminated rims and sparse tiny stars, pure cosmic close-up across ultrawide canvas, no planets or earth landscape.",
+      "reference": "moonveil/references/originals/",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "moonveil",
+      "name": "03-astral-bloom",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Pure cosmic abstraction, painterly astronomical detail, deep #060B1E, periwinkle #7d82d9 ice #a3bfd1 peach #ffcead mauve #c89dc1, dark spacious corners. New artwork: Asymmetric wisps of translucent ice-blue nebula gas radiating from a tiny peach light point, fine webbed dark dust silhouettes and muted periwinkle filaments, enormous dark upper regions, painterly space abstraction, no foreground ground or planets.",
+      "reference": "moonveil/references/originals/",
+      "status": "removed",
+      "note": "Theme removed at the owner’s request; generation prompt retained as history."
+    },
+    {
+      "theme": "nord",
+      "name": "03-last-track",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Original hand-drawn animation illustration, fine penciled outlines and blue-gray cel shading, print grain, Nord #2e3440 #4c566a #81a1c1 #88c0d0 #eceff4 tiny red #bf616a. New artwork: An original young adult in a blue knit sweater listening to headphones while seated beside an unmarked turntable at a small desk, thoughtful profile and warm pale lamp glow, quiet dark blue interior and large empty left wall, no city window or logos.",
+      "reference": "nord/references/originals/",
+      "status": "installed"
+    },
+    {
+      "theme": "nord",
+      "name": "04-window-seat",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Original hand-drawn animation illustration, fine penciled outlines and blue-gray cel shading, print grain, Nord #2e3440 #4c566a #81a1c1 #88c0d0 #eceff4 tiny red #bf616a. New artwork: A young adult curled up on a padded bench holding a pale ceramic cup, frosted pale-blue window behind with no visible exterior, soft folded blanket, intimate quiet character illustration, spacious calm left side, no scenery or existing character.",
+      "reference": "nord/references/originals/",
+      "status": "installed"
+    }
+  ]
+}

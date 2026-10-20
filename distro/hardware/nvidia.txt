@@ -1,0 +1,4 @@
+nvidia-open
+lib32-nvidia-utils
+libva-nvidia-driver
+nvidia-settings

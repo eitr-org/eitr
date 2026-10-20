@@ -1,0 +1,109 @@
+[
+  {
+    "text": "Development",
+    "subtext": ">",
+    "keywords": [
+      "dev",
+      "projects",
+      "code"
+    ],
+    "icon": "󰅩",
+    "submenu": "development"
+  },
+  {
+    "text": "Apps",
+    "subtext": ">",
+    "keywords": [
+      "applications",
+      "launcher",
+      "desktop"
+    ],
+    "icon": "󰣇",
+    "submenu": "apps"
+  },
+  {
+    "text": "Style",
+    "subtext": ">",
+    "keywords": [
+      "theme",
+      "wallpaper",
+      "appearance"
+    ],
+    "icon": "",
+    "submenu": "style"
+  },
+  {
+    "text": "Toggle",
+    "subtext": ">",
+    "keywords": [
+      "switch",
+      "enable",
+      "disable"
+    ],
+    "icon": "󰔎",
+    "submenu": "toggle"
+  },
+  {
+    "text": "Tools",
+    "subtext": ">",
+    "keywords": [
+      "reminder",
+      "screenshot",
+      "screenrecord",
+      "record",
+      "share",
+      "localsend",
+      "send",
+      "utilities"
+    ],
+    "icon": "󱁤",
+    "submenu": "tools"
+  },
+  {
+    "text": "Learn",
+    "subtext": ">",
+    "keywords": [
+      "shortcuts",
+      "keybinds",
+      "vim",
+      "commands",
+      "help"
+    ],
+    "icon": "󰧑",
+    "submenu": "learn"
+  },
+  {
+    "text": "Install",
+    "subtext": ">",
+    "icon": "󰏖",
+    "submenu": "install"
+  },
+  {
+    "text": "Gaming",
+    "subtext": ">",
+    "icon": "󰊴",
+    "submenu": "gaming"
+  },
+  {
+    "text": "System",
+    "subtext": ">",
+    "keywords": [
+      "settings",
+      "tools"
+    ],
+    "icon": "",
+    "submenu": "system"
+  },
+  {
+    "text": "Power",
+    "subtext": ">",
+    "keywords": [
+      "shutdown",
+      "reboot",
+      "logout",
+      "lock"
+    ],
+    "icon": "⏻",
+    "submenu": "power"
+  }
+]

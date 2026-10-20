@@ -1,0 +1,8 @@
+# Eitr machine-local bar screen preference: the owner's machine.
+#
+# Install as ~/.config/hypr/preferred-outputs (ignored by Git). Each line names
+# a Hyprland output; the bar uses the first connected one until a primary
+# display is chosen in the Display panel. Without this file the bar defaults to
+# the largest active display. Blank lines and text after # are ignored.
+HDMI-A-1
+DP-3

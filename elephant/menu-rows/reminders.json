@@ -1,0 +1,31 @@
+[
+  {
+    "text": "New Reminder",
+    "subtext": "A notification at a time or after a delay you choose",
+    "keywords": [
+      "remind",
+      "reminder",
+      "timer",
+      "alarm",
+      "notify"
+    ],
+    "icon": "󰀠",
+    "actions": {
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/tools/reminders.py new"
+    }
+  },
+  {
+    "text": "Upcoming Reminders",
+    "subtext": "See or cancel the reminders still to come",
+    "keywords": [
+      "remind",
+      "reminders",
+      "cancel",
+      "timer"
+    ],
+    "icon": "󰂚",
+    "actions": {
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/tools/reminders.py manage"
+    }
+  }
+]

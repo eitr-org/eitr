@@ -1,0 +1,215 @@
+[
+  {
+    "text": "Install Packages",
+    "subtext": ">",
+    "icon": "󰏖",
+    "submenu": "install"
+  },
+  {
+    "text": "Main Menu",
+    "subtext": ">",
+    "keywords": [
+      "SUPER",
+      "F"
+    ],
+    "icon": "󰣇",
+    "submenu": "main"
+  },
+  {
+    "text": "Clipboard History",
+    "subtext": "SUPER + Ctrl + V",
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/bin/walker --provider menus:clipboard --width 850"
+    }
+  },
+  {
+    "text": "Close Window",
+    "subtext": "SUPER + W",
+    "icon": "󰖭",
+    "actions": {
+      "open": "hyprctl dispatch killactive"
+    }
+  },
+  {
+    "text": "Color Picker",
+    "subtext": "SUPER + =",
+    "icon": "󰈊",
+    "actions": {
+      "open": "hyprpicker -a"
+    }
+  },
+  {
+    "text": "Default Assistant",
+    "subtext": "SUPER + Alt + A",
+    "icon": "󱜙",
+    "actions": {
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/ai-assistant.py open"
+    }
+  },
+  {
+    "text": "Delete Clipboard Entry",
+    "subtext": "Delete in SUPER + Ctrl + V",
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/bin/walker --provider menus:clipboard --width 850"
+    }
+  },
+  {
+    "text": "Desktop Control Center",
+    "subtext": "SUPER + ,",
+    "icon": "󰕮",
+    "actions": {
+      "open": "eitr-shell desktop-bar ipc call -- controlCenter toggle"
+    }
+  },
+  {
+    "text": "Emojis",
+    "subtext": "SUPER + ;",
+    "icon": "󰊄",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/emoji-picker.sh"
+    }
+  },
+  {
+    "text": "File Manager",
+    "subtext": "SUPER + E",
+    "icon": "",
+    "actions": {
+      "open": "dolphin --new-window"
+    }
+  },
+  {
+    "text": "Fuzzy Find Files",
+    "subtext": "SUPER + P",
+    "icon": "󰈞",
+    "actions": {
+      "open": "kitty --class fif-terminal -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py zsh -c 'source ~/.zshrc; fif'"
+    }
+  },
+  {
+    "text": "Fuzzy Find Text",
+    "subtext": "SUPER + Ctrl + P",
+    "icon": "󰈞",
+    "actions": {
+      "open": "kitty --class fifs-terminal -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py zsh -c 'source ~/.zshrc; fifs; exit 0'"
+    }
+  },
+  {
+    "text": "Lock Screen",
+    "subtext": "SUPER + M",
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/hypr/scripts/manual-lock.sh"
+    }
+  },
+  {
+    "text": "Next Wallpaper",
+    "subtext": "SUPER + Shift + N",
+    "icon": "🖻",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/wallpaper/next.sh"
+    }
+  },
+  {
+    "text": "Notification Center",
+    "subtext": "SUPER + N",
+    "icon": "󰂛",
+    "actions": {
+      "open": "eitr-shell desktop-bar ipc call -- notifications toggle"
+    }
+  },
+  {
+    "text": "Open Terminal",
+    "subtext": "SUPER + Enter",
+    "icon": "",
+    "actions": {
+      "open": "kitty"
+    }
+  },
+  {
+    "text": "Screenshot Full",
+    "subtext": "Print",
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/capture/screenshot-full.sh"
+    }
+  },
+  {
+    "text": "Screenshot Selection",
+    "subtext": "SUPER + Print",
+    "icon": "󰄀",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/capture/screenshot-selection.sh"
+    }
+  },
+  {
+    "text": "Search Apps",
+    "subtext": "SUPER + Space",
+    "icon": "󰍉",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/search.sh"
+    }
+  },
+  {
+    "text": "Search Google",
+    "subtext": "SUPER + G",
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/search/google.sh"
+    }
+  },
+  {
+    "text": "Theme Picker",
+    "subtext": "SUPER + Ctrl + Shift + N",
+    "icon": "󰏘",
+    "actions": {
+      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/appearance-picker.sh theme"
+    }
+  },
+  {
+    "text": "Toggle Desktop Bar",
+    "subtext": "SUPER + Shift + Space",
+    "icon": "󰍜",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/toggle/desktop-bar.sh"
+    }
+  },
+  {
+    "text": "Toggle Floating And Pin",
+    "subtext": "SUPER + T",
+    "icon": "󰖲",
+    "actions": {
+      "open": "hyprctl --batch 'dispatch togglefloating; dispatch pin'"
+    }
+  },
+  {
+    "text": "Toggle Fullscreen",
+    "subtext": "SUPER + Ctrl + F",
+    "icon": "󰊓",
+    "actions": {
+      "open": "hyprctl dispatch 'hl.dsp.window.fullscreen()'"
+    }
+  },
+  {
+    "text": "Uninstall Selected App",
+    "subtext": "Delete in Apps / SUPER + Space · confirmation required",
+    "icon": "󰆴",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/search.sh"
+    }
+  },
+  {
+    "text": "Wallpaper Picker",
+    "subtext": "SUPER + Ctrl + N",
+    "keywords": [
+      "SUPER",
+      "Ctrl",
+      "N"
+    ],
+    "icon": "🖻",
+    "actions": {
+      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/appearance-picker.sh wallpaper"
+    }
+  }
+]

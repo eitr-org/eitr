@@ -1,0 +1,12 @@
+# Packages used by the desktop but not in the official Arch repositories.
+walker
+yay
+elephant-bin
+elephant-desktopapplications-bin
+elephant-menus-bin
+elephant-providerlist-bin
+elephant-websearch-bin
+bibata-cursor-theme
+yaru-icon-theme
+obs-cmd
+kvantum-theme-catppuccin-git

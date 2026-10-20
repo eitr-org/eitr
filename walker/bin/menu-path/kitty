@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Terminals that Walker menus open: the theme's solid background instead of the
+# translucent one, and a centered floating window (hypr/hyprland.lua) instead of
+# tiling beside other windows, unless EITR_TERMINAL_STYLE=window. Elephant puts this directory first on its PATH
+# (systemd/user/elephant.service); the shim removes it again, so programs started
+# inside the terminal, including another kitty, see the normal PATH.
+here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PATH="$(printf '%s' "$PATH" | tr ':' '\n' | grep -vxF "$here" | paste -sd: -)"
+export PATH
+
+# Work sessions (AI assistants, LazyVim projects) ask for an ordinary window:
+# tiled, with the usual translucent background.
+if [[ "${EITR_TERMINAL_STYLE:-}" == window ]]; then
+  unset EITR_TERMINAL_STYLE
+  exec kitty "$@"
+fi
+
+options=(-o background_opacity=1)
+class_given=false
+for argument in "$@"; do
+  [[ "$argument" == "-e" ]] && break
+  [[ "$argument" == --class || "$argument" == --class=* ]] && class_given=true
+done
+"$class_given" || options+=(--class eitr-menu-terminal)
+exec kitty "${options[@]}" "$@"

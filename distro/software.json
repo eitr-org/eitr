@@ -1,0 +1,73 @@
+{
+  "browsers": {
+    "firefox": {"label": "Firefox", "source": "pacman", "packages": ["firefox"]},
+    "tor": {"label": "Tor Browser", "source": "pacman", "packages": ["torbrowser-launcher"]},
+    "edge": {"label": "Microsoft Edge", "source": "aur", "packages": ["microsoft-edge-stable-bin"]},
+    "chromium": {"label": "Chromium", "source": "pacman", "packages": ["chromium"]},
+    "chrome": {"label": "Google Chrome", "source": "aur", "packages": ["google-chrome"]}
+  },
+  "databases": {
+    "dbeaver": {"label": "DBeaver", "source": "pacman", "packages": ["dbeaver"], "provider_defaults": {"java-runtime>=21": "jre-openjdk"}},
+    "mariadb": {"label": "MariaDB Client", "source": "pacman", "packages": ["mariadb-clients"]},
+    "mongosh": {"label": "MongoDB Shell (Mongosh)", "source": "aur", "packages": ["mongosh-bin"]},
+    "pgcli": {"label": "PostgreSQL CLI (pgcli)", "source": "pacman", "packages": ["pgcli"]},
+    "valkey": {"label": "Valkey (Redis)", "source": "pacman", "packages": ["valkey"]},
+    "sqlite": {"label": "SQLite", "source": "pacman", "packages": ["sqlite"]}
+  },
+  "languages": {
+    "java": {"label": "Java LTS + Maven", "source": "managed", "packages": [], "manager": "SDKMAN", "installed": ["~/.sdkman/candidates/java/current/bin/java", "~/.sdkman/candidates/maven/current/bin/mvn"]},
+    "python": {"label": "Python + uv", "source": "managed", "packages": [], "manager": "uv", "installed": ["~/.local/bin/uv", "~/.local/share/uv/python/*"]},
+    "rust": {"label": "Rust + Cargo", "source": "managed", "packages": ["rustup"], "manager": "rustup", "installed": ["~/.rustup/toolchains/stable-*"]},
+    "rails": {"label": "Ruby + Rails", "source": "managed", "packages": ["mise", "libyaml", "openssl", "readline", "zlib", "gmp"], "manager": "mise", "installed": ["~/.local/share/mise/installs/ruby/*/bin/rails"]},
+    "node": {"label": "Node.js LTS + npm", "source": "managed", "packages": [], "manager": "NVM", "installed": ["~/.nvm/versions/node/*/bin/node"]},
+    "php": {"label": "PHP + Composer", "source": "pacman", "packages": ["php", "composer"]},
+    "elixir": {"label": "Elixir + Erlang", "source": "pacman", "packages": ["elixir"]},
+    "dotnet": {"label": ".NET SDK", "source": "pacman", "packages": ["dotnet-sdk"]},
+    "laravel": {"label": "Laravel + PHP + Composer", "source": "managed", "packages": ["php", "composer"], "installed": ["~/.config/composer/vendor/bin/laravel"]}
+  },
+  "javascript": {
+    "yarn": {"label": "Yarn", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/yarn"]},
+    "pnpm": {"label": "pnpm", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/pnpm"]},
+    "bun": {"label": "Bun", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/bun"]},
+    "deno": {"label": "Deno", "source": "managed", "packages": [], "manager": "Deno installer", "installed": ["~/.deno/bin/deno"]}
+  },
+  "ai": {
+    "copilot": {"label": "GitHub Copilot CLI", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/copilot"]},
+    "codex": {"label": "Codex", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/codex"]},
+    "claude": {"label": "Claude Code", "source": "managed", "packages": [], "manager": "Anthropic installer", "installed": ["~/.local/bin/claude"]},
+    "grok": {"label": "Grok Build", "source": "managed", "packages": [], "manager": "xAI installer", "installed": ["~/.grok/bin/grok"]},
+    "gemini": {"label": "Gemini CLI", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/gemini"]}
+  },
+  "productivity": {
+    "1password": {"label": "1Password", "source": "aur", "packages": ["1password"]},
+    "bitwarden": {"label": "Bitwarden", "source": "pacman", "packages": ["bitwarden"]},
+    "discord": {"label": "Discord", "source": "pacman", "packages": ["discord"]},
+    "libreoffice": {"label": "LibreOffice", "source": "pacman", "packages": ["libreoffice-fresh"]},
+    "obsidian": {"label": "Obsidian", "source": "pacman", "packages": ["obsidian"]},
+    "slack": {"label": "Slack", "source": "aur", "packages": ["slack-desktop"]},
+    "thunderbird": {"label": "Thunderbird", "source": "pacman", "packages": ["thunderbird"]}
+  },
+  "developer-apps": {
+    "bruno": {"label": "Bruno", "source": "aur", "packages": ["bruno-bin"]},
+    "github-desktop": {"label": "GitHub Desktop", "source": "aur", "packages": ["github-desktop-bin"]},
+    "insomnia": {"label": "Insomnia", "source": "aur", "packages": ["insomnia-bin"]},
+    "jetbrains-toolbox": {"label": "JetBrains Toolbox", "source": "aur", "packages": ["jetbrains-toolbox"]},
+    "meld": {"label": "Meld", "source": "pacman", "packages": ["meld"]},
+    "postman": {"label": "Postman", "source": "aur", "packages": ["postman-bin"]},
+    "vscode": {"label": "Visual Studio Code", "source": "aur", "packages": ["visual-studio-code-bin"]},
+    "zed": {"label": "Zed", "source": "pacman", "packages": ["zed"], "provider_defaults": {"netcat": "openbsd-netcat"}}
+  },
+  "tools": {
+    "lazygit": {"label": "Lazygit", "source": "pacman", "packages": ["lazygit"]},
+    "lazydocker": {"label": "Lazydocker", "source": "pacman", "packages": ["lazydocker"]}
+  },
+  "monitoring": {
+    "prometheus": {"label": "Prometheus (promtool)", "source": "pacman", "packages": ["prometheus"]},
+    "sentry-cli": {"label": "Sentry CLI", "source": "pacman", "packages": ["sentry-cli"]}
+  },
+  "gaming": {
+    "steam": {"label": "Steam", "source": "pacman", "packages": ["steam", "steam-devices", "gamemode", "lib32-gamemode", "mangohud", "lib32-mangohud"], "launch": ["steam"]},
+    "retroarch": {"label": "RetroArch", "source": "pacman", "launch": ["retroarch"], "packages": ["retroarch", "retroarch-assets-ozone", "libdecor", "libretro-core-info", "libretro-nestopia", "libretro-snes9x", "libretro-gambatte", "libretro-mgba", "libretro-genesis-plus-gx", "libretro-beetle-psx-hw", "libretro-mupen64plus-next", "libretro-melonds", "libretro-ppsspp", "libretro-flycast"]},
+    "geforcenow": {"label": "GeForce NOW", "source": "flatpak", "launch": ["flatpak", "run", "com.nvidia.geforcenow"], "packages": ["com.nvidia.geforcenow"], "runtime_remotes": [{"name": "flathub", "url": "https://dl.flathub.org/repo/flathub.flatpakrepo"}], "remote": "GeForceNOW", "url": "https://international.download.nvidia.com/GFNLinux/flatpak/geforcenow.flatpakrepo"}
+  }
+}

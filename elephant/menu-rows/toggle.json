@@ -1,0 +1,68 @@
+[
+  {
+    "text": "Crash Notifications",
+    "subtext": "Turn crash help notifications on or off",
+    "icon": "󰅚",
+    "actions": {
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/system/crash-help.py toggle"
+    }
+  },
+  {
+    "text": "Desktop Bar",
+    "subtext": "Show or hide the desktop bar",
+    "keywords": [
+      "quickshell",
+      "bar"
+    ],
+    "icon": "󰍜",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/toggle/desktop-bar.sh"
+    }
+  },
+  {
+    "text": "Do Not Disturb",
+    "subtext": "Silence notification popups or allow them again",
+    "icon": "󰂛",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/toggle/notification-silencing.sh"
+    }
+  },
+  {
+    "text": "Game Mode",
+    "subtext": "Effects, blur and popups off; performance profile on",
+    "keywords": [
+      "gaming",
+      "performance",
+      "steam",
+      "animations"
+    ],
+    "icon": "󰊴",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/toggle/game-mode.sh"
+    }
+  },
+  {
+    "text": "Idle Lock",
+    "subtext": "Lock the screen automatically when away; on or off",
+    "icon": "󱫖",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/toggle/idle-lock.sh"
+    }
+  },
+  {
+    "text": "Nightlight",
+    "subtext": "Warmer screen colors for the evening; on or off",
+    "icon": "󰔎",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/toggle/nightlight.sh"
+    }
+  },
+  {
+    "text": "Screensaver",
+    "subtext": "Start the screensaver now",
+    "icon": "󱄄",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/toggle/screensaver.sh"
+    }
+  }
+]

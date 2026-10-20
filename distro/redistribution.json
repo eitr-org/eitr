@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "comment": "Packages whose licenses do not allow EITR to redistribute their binaries. They stay out of the public package repository and public ISOs; users build them from the AUR on their own machine.",
+  "personal_only": {
+    "visual-studio-code-bin": "Microsoft Visual Studio Code license",
+    "1password": "1Password proprietary license",
+    "google-chrome": "Google Chrome terms of service",
+    "postman-bin": "Postman proprietary license",
+    "slack-desktop": "Slack proprietary license"
+  }
+}

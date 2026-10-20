@@ -1,0 +1,69 @@
+[
+  {
+    "text": "Screen Recording",
+    "subtext": ">",
+    "keywords": [
+      "record",
+      "video"
+    ],
+    "icon": "",
+    "submenu": "screenrecord"
+  },
+  {
+    "text": "Screenshot",
+    "subtext": ">",
+    "icon": "󰄀",
+    "submenu": "screenshot"
+  },
+  {
+    "text": "Color",
+    "subtext": "Pick a color on screen and copy its code",
+    "keywords": [
+      "picker",
+      "hyprpicker"
+    ],
+    "icon": "󰈊",
+    "actions": {
+      "open": "sh -c 'sleep 0.2 && hyprpicker -a'"
+    }
+  },
+  {
+    "text": "OCR Text",
+    "subtext": "Copy the text inside a selected area",
+    "keywords": [
+      "text",
+      "ocr",
+      "tesseract"
+    ],
+    "icon": "󰴑",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/capture/text.sh"
+    }
+  },
+  {
+    "text": "QR Code",
+    "subtext": "Read a QR code in a selected area and copy it",
+    "keywords": [
+      "qr",
+      "barcode"
+    ],
+    "icon": "󰐲",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/capture/qr.sh"
+    }
+  },
+  {
+    "text": "Transcode",
+    "subtext": "Convert an image or video to another format",
+    "keywords": [
+      "convert",
+      "compress",
+      "image",
+      "video"
+    ],
+    "icon": "󰑕",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/capture/transcode.sh"
+    }
+  }
+]

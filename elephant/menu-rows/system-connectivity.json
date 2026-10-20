@@ -1,0 +1,35 @@
+[
+  {
+    "text": "Network Backend",
+    "keywords": [
+      "iwd",
+      "networkmanager",
+      "network",
+      "wifi",
+      "backend"
+    ],
+    "icon": "󰖩",
+    "subtext": ">",
+    "submenu": "network-backend"
+  },
+  {
+    "text": "Bluetooth",
+    "subtext": "Pair and connect devices",
+    "icon": "",
+    "actions": {
+      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh bluetooth"
+    }
+  },
+  {
+    "text": "WiFi",
+    "subtext": "Choose and join networks",
+    "keywords": [
+      "network",
+      "impala"
+    ],
+    "icon": "",
+    "actions": {
+      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh wifi"
+    }
+  }
+]

@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Repository checks (Arch Linux)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    container: archlinux:latest
+    steps:
+      - name: Compute pacman cache key
+        id: cache-key
+        run: echo "week=$(date -u +%G-%V)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pacman packages
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/pacman/pkg
+          key: pacman-${{ steps.cache-key.outputs.week }}
+          restore-keys: pacman-
+
+      - name: Install check dependencies
+        run: |
+          # Containers may lack the kernel features pacman's download sandbox
+          # needs; disabling it is harmless on a throwaway CI image.
+          grep -q '^DisableSandbox' /etc/pacman.conf ||
+            sed -i '/^\[options\]/a DisableSandbox' /etc/pacman.conf
+          pacman -Syu --noconfirm --needed \
+            bash git python python-pillow python-gobject python-markdown nodejs shellcheck \
+            lua qt6-declarative jq util-linux xkeyboard-config
+          # Keep the cache small: drop packages that are no longer installed.
+          pacman -Sc --noconfirm
+
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Create unprivileged user
+        run: |
+          # Installer tests intentionally refuse to run as root.
+          useradd --create-home tester
+          chown -R tester: "$GITHUB_WORKSPACE"
+          git config --system --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Run tools/check.sh
+        run: su tester -c "cd '$GITHUB_WORKSPACE' && GITHUB_REF_TYPE='$GITHUB_REF_TYPE' bash tools/check.sh"

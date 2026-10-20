@@ -1,0 +1,103 @@
+-- Eitr machine-local Hyprland overrides: the owner's desktop and laptop layout.
+--
+-- hypr/hyprland.lua is generic: every display uses its preferred mode and an
+-- automatic position. To restore this machine's layout, install this file as
+-- ~/.config/hypr/local.lua (it is ignored by Git, so it never ships to other
+-- machines):
+--
+--   cp hypr/local.lua.example ~/.config/hypr/local.lua
+--   cp hypr/preferred-outputs.example ~/.config/hypr/preferred-outputs
+--   hyprctl reload
+--
+-- API: this file is a plain Lua chunk that runs after the shared config. Call
+-- the same hl.* functions used in hyprland.lua (hl.monitor, hl.workspace_rule,
+-- hl.device, hl.env, hl.config, hl.bind, ...); later settings override the
+-- generic defaults. The calls are applied only if the whole file runs without
+-- error. Otherwise the generic layout stays active and the error is logged and
+-- shown as a notification. The return value is ignored.
+--
+-- The bar's default screen is configured separately in
+-- ~/.config/hypr/preferred-outputs (see preferred-outputs.example).
+
+-- Detect whether this session is running on the laptop panel or the desktop monitors.
+-- DRM status files contain "connected" or "disconnected"; match whole lines only.
+local function drm_output_connected(output_glob)
+	local handle = io.popen("cat /sys/class/drm/card*-" .. output_glob .. "/status 2>/dev/null")
+	if not handle then
+		return false
+	end
+
+	local status = handle:read("*a") or ""
+	handle:close()
+
+	return ("\n" .. status):match("\nconnected") ~= nil
+end
+
+local is_laptop = drm_output_connected("eDP-*")
+local has_hdmi = drm_output_connected("HDMI-A-1")
+
+--------------
+-- Monitors --
+--------------
+
+if is_laptop then
+	hl.monitor({
+		output = "eDP-1",
+		mode = "1920x1080@60",
+		position = "0x0",
+		scale = 1,
+	})
+else
+	hl.monitor({
+		output = "DP-3",
+		mode = "2560x1080@144",
+		position = "0x0",
+		scale = 1,
+		bitdepth = 10,
+		supports_wide_color = 1,
+		supports_hdr = 1,
+	})
+
+	if has_hdmi then
+		hl.monitor({
+			output = "HDMI-A-1",
+			mode = "1920x1080@144",
+			position = "320x1080",
+			scale = 1,
+			bitdepth = 10,
+			supports_wide_color = 1,
+			supports_hdr = 1,
+		})
+	end
+end
+
+-----------
+-- Input --
+-----------
+
+hl.device({
+	name = "epic-mouse-v1",
+	sensitivity = -0.5,
+})
+
+----------------
+-- Workspaces --
+----------------
+
+if is_laptop then
+	for i = 1, 4 do
+		hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1" })
+	end
+elseif has_hdmi then
+	-- Main monitor
+	hl.workspace_rule({ workspace = "1", monitor = "DP-3" })
+	hl.workspace_rule({ workspace = "2", monitor = "DP-3" })
+
+	-- Secondary monitor
+	hl.workspace_rule({ workspace = "3", monitor = "HDMI-A-1" })
+	hl.workspace_rule({ workspace = "4", monitor = "HDMI-A-1" })
+else
+	for i = 1, 4 do
+		hl.workspace_rule({ workspace = tostring(i), monitor = "DP-3" })
+	end
+end

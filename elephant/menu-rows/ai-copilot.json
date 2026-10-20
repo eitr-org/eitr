@@ -1,0 +1,14 @@
+[
+  {
+    "text": "New",
+    "subtext": "Start a GitHub Copilot CLI session in a project",
+    "keywords": [
+      "copilot",
+      "ai"
+    ],
+    "icon": "󰊭",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh copilot-new"
+    }
+  }
+]

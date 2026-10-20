@@ -1,0 +1,32 @@
+post_install() {
+  echo ':: Eitr code is in /usr/share/eitr. As each new desktop user, run:'
+  echo '     eitr-config seed     # seeds missing preferences and native loaders'
+  echo ':: Existing desktops: review eitr-config adopt-layout --dry-run first.'
+  echo ':: To enable snapshot-protected System Update, see /usr/share/eitr/RECOVERY.md.'
+}
+
+post_upgrade() {
+  # Renamed lockscreen designs; each user's own selection migrates at login.
+  local sddm_config=/etc/sddm.conf.d/90-desktop-lockscreen.conf
+  if [[ -f $sddm_config ]]; then
+    sed -i -e 's/^Current=desktop-lockscreen-last-of-us$/Current=desktop-lockscreen-ivy-window/' \
+      -e 's/^Current=desktop-lockscreen-nier-automata$/Current=desktop-lockscreen-sandstone/' "$sddm_config"
+    # A login design the package no longer ships falls back to the default one.
+    local login_theme
+    login_theme=$(sed -n 's/^Current=//p' "$sddm_config")
+    if [[ $login_theme == desktop-lockscreen-* && ! -d /usr/share/sddm/themes/$login_theme ]]; then
+      sed -i 's/^Current=.*/Current=desktop-lockscreen-clockwork-tape/' "$sddm_config"
+    fi
+  fi
+  # Ethernet counts for network-online again (the wait-online drop-in waits for
+  # any one link); only an unchanged copy of the earlier file is replaced.
+  local ethernet=/etc/systemd/network/20-ethernet.network
+  if [[ -f $ethernet && $(grep -v '^#' "$ethernet") == $'[Match]\nType=ether\n\n[Network]\nDHCP=yes\n\n[Link]\nRequiredForOnline=no' ]]; then
+    printf '[Match]\nType=ether\n\n[Network]\nDHCP=yes\n' > "$ethernet"
+  fi
+  # The boot guard only acts on Eitr's own layout after a System Update arms it.
+  systemctl enable eitr-boot-guard.service eitr-boot-guard-healthy.service >/dev/null 2>&1 || true
+  echo ':: Eitr desktop code was updated; user preferences were not changed.'
+  echo ':: Activate the new code at the next desktop session.'
+  echo ':: eitr-config status reports deliberate overrides and unadopted desktops.'
+}

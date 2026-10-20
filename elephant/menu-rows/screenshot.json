@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Full Screen",
+    "subtext": "Capture the whole screen and edit it",
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/capture/screenshot-full.sh"
+    }
+  },
+  {
+    "text": "Full Screen: Save and Copy",
+    "subtext": "Capture the whole screen to Pictures and the clipboard",
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/capture/screenshot.sh full both"
+    }
+  },
+  {
+    "text": "Selection",
+    "subtext": "Capture an area and edit it",
+    "icon": "󰄀",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/capture/screenshot-selection.sh"
+    }
+  },
+  {
+    "text": "Selection: Copy",
+    "subtext": "Capture an area to the clipboard",
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/capture/screenshot.sh selection copy"
+    }
+  },
+  {
+    "text": "Selection: Save and Copy",
+    "subtext": "Capture an area to Pictures and the clipboard",
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/capture/screenshot.sh selection both"
+    }
+  },
+  {
+    "text": "Window",
+    "subtext": "Capture a window and edit it",
+    "icon": "󰖯",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/capture/screenshot.sh window edit"
+    }
+  },
+  {
+    "text": "Window: Copy",
+    "subtext": "Capture a window to the clipboard",
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/capture/screenshot.sh window copy"
+    }
+  }
+]

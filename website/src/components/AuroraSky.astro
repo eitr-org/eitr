@@ -1,0 +1,146 @@
+---
+// Northern lights behind the hero, coloured like the runestone wallpaper: a lime
+// fringe and green at each curtain's foot, magenta as it rises, violet at the
+// top, with patches of sky leaning green or magenta. They drift on their own;
+// the pointer does not move them. WebGL at half resolution; nothing is drawn when
+// the hero is off screen, the tab is hidden or motion is reduced.
+---
+<canvas class="aurora-sky" aria-hidden="true"></canvas>
+<style>
+.aurora-sky{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0;transition:opacity 2.4s ease}
+.aurora-sky[data-running="true"]{opacity:.75}
+@media(prefers-reduced-motion:reduce){.aurora-sky{display:none}}
+</style>
+<script>
+import { motionAllowed, onMotionChange } from '../scripts/realm/motion';
+import { PALETTE } from '../scripts/realm/mimir-well';
+
+const canvas = document.querySelector<HTMLCanvasElement>('.aurora-sky');
+const gl = canvas?.getContext('webgl', { premultipliedAlpha: true, antialias: false });
+// Real GPUs often run mediump at 16 bits; the noise then collapses beyond a
+// slanted line once its inputs grow, so ask for highp and use a hash without sin().
+const fragment = `
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+#else
+precision mediump float;
+#endif
+uniform vec2 size; uniform float time, daylight; uniform vec3 lime, green, magenta, violet;
+float hash(vec2 p) {
+  vec3 q = fract(vec3(p.xyx) * 0.1031);
+  q += dot(q, q.yzx + 33.33);
+  return fract((q.x + q.y) * q.z);
+}
+float noise(vec2 p) {
+  vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
+  return mix(mix(hash(i), hash(i + vec2(1, 0)), f.x), mix(hash(i + vec2(0, 1)), hash(i + vec2(1, 1)), f.x), f.y);
+}
+float fbm(vec2 p) { float value = 0.0, amplitude = 0.5; for (int i = 0; i < 4; i++) { value += amplitude * noise(p); p *= 2.0; amplitude *= 0.5; } return value; }
+void main() {
+  vec2 uv = gl_FragCoord.xy / size;
+  float aspect = size.x / size.y;
+  vec3 color = vec3(0.0);
+  for (int i = 0; i < 3; i++) {
+    float layer = float(i);
+    float x = uv.x * aspect + layer * 0.9;
+    float curve = 0.56 + layer * 0.07 + 0.11 * sin(x * 1.2 + time * 0.045 * (1.0 + layer * 0.35)) + 0.08 * fbm(vec2(x * 1.4, time * 0.03 + layer));
+    float rise = uv.y - curve;
+    float curtain = exp(-max(-rise, 0.0) * mix(18.0, 34.0, daylight)) * exp(-max(rise, 0.0) * mix(3.4, 9.0, daylight));
+    float rays = 0.45 + 0.55 * fbm(vec2(x * 7.0, time * 0.06 + layer * 3.0));
+    float height = clamp(rise / 0.18, 0.0, 1.0);
+    float pink = mix(0.55, 1.0, smoothstep(0.3, 0.6, fbm(vec2(x * 0.9 + layer * 2.0, time * 0.012))));
+    vec3 foot = mix(lime, green, smoothstep(0.0, 0.08, height));
+    vec3 greenish = mix(foot, violet * 0.8, smoothstep(0.45, 1.0, height));
+    vec3 pinkish = mix(mix(green, magenta, smoothstep(0.0, 0.3, height)), violet, smoothstep(0.55, 1.0, height));
+    vec3 tint = mix(greenish, pinkish, pink);
+    color += tint * curtain * rays * (0.6 - layer * 0.12);
+  }
+  float fade = smoothstep(0.0, 0.35, uv.y) * smoothstep(1.0, 0.75, uv.y);
+  color *= fade;
+  float intensity = max(color.r, max(color.g, color.b));
+  if (daylight > 0.5) {
+    // Dark, premultiplied pigments retain visible curtains on pale parchment.
+    float purple = smoothstep(0.55, 1.3, color.r / max(color.g, 0.001));
+    vec3 ink = mix(vec3(0.0, 0.38, 0.24), vec3(0.35, 0.04, 0.50), purple);
+    float alpha = min(0.72, intensity * 1.1);
+    gl_FragColor = vec4(ink * alpha, alpha);
+  } else {
+    gl_FragColor = vec4(color, intensity);
+  }
+}`;
+const vertex = 'attribute vec2 position; void main() { gl_Position = vec4(position, 0.0, 1.0); }';
+
+if (canvas && gl) {
+  const compile = (type: number, source: string) => {
+    const shader = gl.createShader(type)!;
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    return shader;
+  };
+  const program = gl.createProgram()!;
+  gl.attachShader(program, compile(gl.VERTEX_SHADER, vertex));
+  gl.attachShader(program, compile(gl.FRAGMENT_SHADER, fragment));
+  gl.linkProgram(program);
+  gl.useProgram(program);
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+  const position = gl.getAttribLocation(program, 'position');
+  gl.enableVertexAttribArray(position);
+  gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+  const uniform = (name: string) => gl.getUniformLocation(program, name);
+  const [size, time, lime, green, magenta, violet, daylight] = ['size', 'time', 'lime', 'green', 'magenta', 'violet', 'daylight'].map(uniform);
+
+  const rgb = (variable: string) => {
+    const hex = getComputedStyle(document.documentElement).getPropertyValue(variable).trim().replace('#', '');
+    const value = parseInt(hex.length === 3 ? [...hex].map((digit) => digit + digit).join('') : hex.slice(0, 6), 16);
+    return Number.isNaN(value) ? [0.3, 0.8, 0.75] : [(value >> 16) / 255, ((value >> 8) & 255) / 255, (value & 255) / 255];
+  };
+  const recolor = () => {
+    gl.uniform1f(daylight, document.documentElement.dataset.appearance === 'light' ? 1 : 0);
+    gl.uniform3fv(lime, rgb('--sky-lime'));
+    gl.uniform3fv(green, rgb('--sky-green'));
+    gl.uniform3fv(magenta, rgb('--sky-magenta'));
+    gl.uniform3fv(violet, rgb('--sky-violet'));
+  };
+  recolor();
+  document.addEventListener('eitr:appearance', recolor);
+  document.addEventListener(PALETTE, () => setTimeout(recolor, 50));
+
+  // The canvas can change size without a window resize event (another workspace,
+  // a hidden or briefly shrunken window), so every frame checks its own box.
+  const resize = () => {
+    const width = Math.max(1, Math.round(canvas.clientWidth / 2));
+    const height = Math.max(1, Math.round(canvas.clientHeight / 2));
+    if (width === canvas.width && height === canvas.height) return;
+    canvas.width = width;
+    canvas.height = height;
+    gl.viewport(0, 0, width, height);
+    gl.uniform2f(size, width, height);
+  };
+  canvas.width = canvas.height = 0;
+  resize();
+  new ResizeObserver(resize).observe(canvas);
+
+
+  let visible = false;
+  let frame = 0;
+  const start = performance.now();
+  const draw = (now: number) => {
+    resize();
+    // Seconds since start, wrapped so the noise inputs stay small on long visits.
+    gl.uniform1f(time, ((now - start) / 1000) % 3600);
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    frame = requestAnimationFrame(draw);
+  };
+  const update = () => {
+    const run = visible && motionAllowed();
+    canvas.dataset.running = String(run);
+    if (run && !frame) frame = requestAnimationFrame(draw);
+    if (!run && frame) { cancelAnimationFrame(frame); frame = 0; }
+  };
+  new IntersectionObserver((entries) => { visible = entries[0].isIntersecting; update(); }).observe(canvas);
+  onMotionChange(update);
+}
+</script>

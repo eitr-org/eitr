@@ -1,0 +1,19 @@
+[Unit]
+Description=Eitr firewall (refuse unexpected incoming connections)
+Documentation=file:///usr/share/eitr/firewall.nft
+Wants=network-pre.target
+Before=network-pre.target
+DefaultDependencies=no
+After=local-fs.target
+Before=shutdown.target
+Conflicts=shutdown.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/nft -f /usr/share/eitr/firewall.nft
+ExecReload=/usr/bin/nft -f /usr/share/eitr/firewall.nft
+ExecStop=/usr/bin/nft delete table inet eitr_firewall
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,3 @@
+# Packages built from reviewed recipes in distro/pkg, not from the AUR.
+eitr-artwork
+eitr-cmux-tui-bin

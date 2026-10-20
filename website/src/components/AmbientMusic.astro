@@ -1,0 +1,47 @@
+<div class="ambient-music">
+  <button class="music-toggle" type="button" aria-pressed="false" aria-controls="norse-audio">♫ Music <span class="music-state" aria-hidden="true">off</span></button>
+  <details>
+    <summary>Music credits</summary>
+    <p><a href="https://creatorchords.com/music/wild-west-vikings/" target="_blank" rel="noopener noreferrer">Wild West Vikings</a>
+      by Alexander Nakarada · <a href="https://creatorchords.com" target="_blank" rel="noopener noreferrer">CreatorChords</a> ·
+      <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.
+      Re-encoded at 128 kbps and repeated for playback.</p>
+    <p>Theme-switch howl: <a href="https://freesound.org/people/NaturesTemper/sounds/398430/" target="_blank" rel="noopener noreferrer">Wolf howl</a> by NaturesTemper, CC0.</p>
+    <p>Charged lightning: <a href="https://freesound.org/people/TRP/sounds/616992/" target="_blank" rel="noopener noreferrer">Thunder, crack, pretty close</a> by TRP, CC0.</p>
+  </details>
+  <p class="music-status" role="status"></p>
+  <audio id="norse-audio" preload="none" loop src="/audio/wild-west-vikings.mp3"></audio>
+</div>
+<style>
+.ambient-music{margin-top:26px;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:11px}
+.music-toggle{border:1px solid #b08d5740;border-radius:4px;background:transparent;color:#d6ccc0;padding:8px 12px;font:inherit;cursor:pointer}
+.music-toggle:hover,.music-toggle[aria-pressed="true"]{border-color:#e4dcd2;color:#fff}
+.music-toggle:focus-visible,summary:focus-visible{outline:2px solid #e4dcd2;outline-offset:4px}
+details{max-width:310px}summary{cursor:pointer}details p{margin-top:10px;line-height:1.7}details a{text-decoration:underline}
+.music-status{flex-basis:100%;margin:0}.music-status:empty{display:none}
+</style>
+<script>
+const audio=document.querySelector<HTMLAudioElement>('#norse-audio');
+const toggle=document.querySelector<HTMLButtonElement>('.music-toggle');
+const status=document.querySelector<HTMLElement>('.music-status');
+if(audio && toggle && status) {
+ audio.volume=.2;
+ const update=()=>{
+  const playing=!audio.paused;
+  toggle.setAttribute('aria-pressed',String(playing));
+  toggle.querySelector('.music-state')!.textContent=playing ? 'on' : 'off';
+ };
+ audio.addEventListener('play',update);
+ audio.addEventListener('pause',update);
+ toggle.addEventListener('click',async()=>{
+  status.textContent='';
+  if(!audio.paused) {audio.pause();return;}
+  toggle.disabled=true;
+  try {await audio.play();}
+  catch {status.textContent='Music could not play. Please try again.';}
+  finally {toggle.disabled=false;update();}
+ });
+ audio.addEventListener('error',()=>{status.textContent='Music is unavailable. Please try again later.';update();});
+ document.addEventListener('visibilitychange',()=>{if(document.hidden) audio.pause();});
+}
+</script>

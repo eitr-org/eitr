@@ -1,0 +1,15 @@
+{
+  "generator": "built-in image generation",
+  "source": "references/spirit-station-ultrawide-source.png",
+  "file": "backgrounds-ultrawide/01-spirit-station.jpg",
+  "output_size": [
+    3440,
+    1440
+  ],
+  "processing": "Generated panoramic expansion of the 4K artwork; Lanczos-resampled for exact export dimensions.",
+  "prompt": "Edit this exact Spirit Station wallpaper into a panoramic ultrawide composition, requested3440x1440 (aspect ratio43:18, about2.39:1), highest available size. Preserve the same hand-painted anime art, dark Catppuccin Mocha indigo/lavender palette, soft gouache texture, warm amber lights, original spirits, train design, wooden station and distant walking cottage. This is an OUTPAINT/REFRAME of the provided artwork, not a different scene. Preserve all important subjects intact on the right half, including the whole station roof, its red lantern, all three little spirits and the whole train front; keep warm reflections below. Widen the canvas mainly to the LEFT with natural continuation of the same still dark lake, distant misty islands, mauve clouds and starry sky. Reduce the original scene uniformly if needed to fit full-height without clipping the cottage on top or platform below; do not stretch or squash subjects and do not simply crop the16:9 image. Very calm negative space on left for desktop windows. Match source time of night, brushwork and colors exactly, seamless composition edge to edge. One full-bleed ultrawide artwork, no borders, letterboxing, words, lettering, signs, watermark, logos or UI.",
+  "native_size": [
+    1937,
+    812
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "nvm": "https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh",
+  "sdkman": "https://get.sdkman.io?ci=true&rcupdate=false",
+  "java-releases": "https://api.adoptium.net/v3/info/available_releases",
+  "uv": "https://astral.sh/uv/install.sh",
+  "deno": "https://deno.land/install.sh",
+  "claude": "https://claude.ai/install.sh",
+  "grok": "https://x.ai/cli/install.sh"
+}

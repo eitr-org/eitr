@@ -1,0 +1,653 @@
+#!/usr/bin/env python3
+"""Guided Eitr installation from the live ISO, entirely before the first reboot.
+
+Collects the installation choices, then installs offline from the package
+payload on the ISO medium (distro/payload): archinstall lays out the disk (the
+whole disk, or the largest free region next to existing partitions) and base
+system from Eitr's template (distro/archinstall/user_configuration.json), then
+the desktop packages are installed and set up for the new user, Windows joins
+the boot menu, the boot splash is selected, the installed system's package
+sources are switched to the online Arch mirrors, and the factory reset point
+is saved. The first boot reaches Eitr's graphical login.
+"""
+import eitr_bootstrap
+from eitr_i18n import tr
+import copy
+import importlib.util
+import json
+import os
+from pathlib import Path
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+import time
+
+SOURCE = Path(__file__).resolve().parents[2]
+TEMPLATE = SOURCE / "distro/archinstall/user_configuration.json"
+PAYLOAD = Path("/run/archiso/bootmnt/eitr")
+TARGET = Path("/mnt")
+# Removed again before the first boot; holds the desktop setup scripts.
+SETUP = "/var/tmp/eitr-setup"
+MIB = 1024 ** 2
+GIB = 1024 ** 3
+# The desktop tree, its package, seeded configs and packages need room to grow.
+MINIMUM_DISK = 64 * GIB
+MINIMUM_ROOT_MIB = 32 * 1024
+# The template's EFI system partition, which also holds the kernels.
+ESP_MIB = 2048
+ALONGSIDE_MINIMUM_MIB = ESP_MIB + MINIMUM_ROOT_MIB
+ESP_TYPE = "c12a7328-f81f-11d2-ba4b-00a0c93ec93b"
+WINDOWS_LOADER = "EFI/Microsoft/Boot/bootmgfw.efi"
+NOLOGIN_SHELLS = {"/usr/bin/nologin", "/sbin/nologin", "/bin/false", "/usr/bin/false"}
+
+
+class GuidedInstallError(RuntimeError):
+    pass
+
+
+def load(name, path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+payload = load("eitr_payload", SOURCE / "distro/payload/payload.py")
+
+
+def human_size(size):
+    return f"{size / GIB:.1f} GiB"
+
+
+TRANSPORTS = {"nvme": "NVMe", "sata": "SATA", "ata": "SATA", "usb": "USB", "scsi": "SCSI",
+              "virtio": "Virtual", "mmc": "SD/eMMC"}
+FILESYSTEMS = {"ntfs": "Windows (NTFS)", "crypto_LUKS": "encrypted (LUKS)", "BitLocker": "Windows (BitLocker)",
+               "btrfs": "Linux (Btrfs)", "ext4": "Linux (ext4)", "ext3": "Linux (ext3)", "xfs": "Linux (XFS)",
+               "swap": "swap", "apfs": "macOS (APFS)", "hfsplus": "macOS (HFS+)", "exfat": "exFAT", "vfat": "FAT"}
+
+
+def disk_contents(device):
+    """What a disk holds, in a few words, from its lsblk children."""
+    partitions = [child for child in device.get("children") or [] if child.get("type") == "part"]
+    if not partitions and not device.get("fstype"):
+        return "empty"
+    kinds = []
+    for item in partitions or [device]:
+        kind = FILESYSTEMS.get(item.get("fstype") or "", item.get("fstype") or "unformatted")
+        if kind not in kinds:
+            kinds.append(kind)
+    count = f"{len(partitions)} partition{'s' if len(partitions) != 1 else ''}: " if partitions else ""
+    return count + ", ".join(kinds)
+
+
+def disk_label(disk):
+    transport = TRANSPORTS.get(disk["transport"], disk["transport"].upper() or "disk")
+    return "  ".join((disk["path"], human_size(disk["size"]), transport, disk["model"]))
+
+
+def disk_details(disk):
+    """Lines shown under the disk list for the highlighted disk."""
+    free = (f"Unallocated: {human_size(disk['free'])}, enough to install alongside" if disk["alongside"]
+            else f"Unallocated: {human_size(disk['free'])}")
+    return [f"Contents: {disk['contents']}", free]
+
+
+def free_region(table, sector_size):
+    """The largest unallocated gap of an `sfdisk --json` partition table, as
+    (start MiB, size MiB) shrunk to whole MiB, or (0, 0) without one."""
+    used = sorted((int(part["start"]), int(part["start"]) + int(part["size"]))
+                  for part in table.get("partitions", []))
+    gaps, cursor = [], int(table["firstlba"])
+    for start, end in [*used, (int(table["lastlba"]) + 1, None)]:
+        if start > cursor:
+            first_mib = -(-cursor * sector_size // MIB)
+            end_mib = start * sector_size // MIB
+            if end_mib > first_mib:
+                gaps.append((end_mib - first_mib, first_mib))
+        cursor = max(cursor, end or 0)
+    if not gaps:
+        return 0, 0
+    size, start = max(gaps)
+    return start, size
+
+
+def alongside_status(table, region):
+    """Whether Eitr can be installed next to the existing partitions, and why not."""
+    if table is None:
+        return False, "the disk has no partition table. Choose Erase instead."
+    if table.get("label") != "gpt":
+        return False, "only GPT disks are supported, and this disk uses MBR."
+    if region[1] < ALONGSIDE_MINIMUM_MIB:
+        return False, (f"it needs {ALONGSIDE_MINIMUM_MIB // 1024} GiB of unallocated space and the largest gap "
+                       f"is {region[1] / 1024:.1f} GiB. Shrink a partition from its own system first, "
+                       "for example with Windows Disk Management, then restart this installer.")
+    return True, ""
+
+
+def candidate_disks(lsblk, excluded, tables):
+    """Whole, writable disks large enough for Eitr, from `lsblk --json --bytes`
+    and each disk's `sfdisk --json` partition table (None without one)."""
+    disks = []
+    for device in lsblk.get("blockdevices", []):
+        if device.get("type") != "disk" or device.get("ro") or device.get("path") in excluded:
+            continue
+        if int(device.get("size") or 0) < MINIMUM_DISK:
+            continue
+        sector_size = int(device.get("log-sec") or 512)
+        table = tables.get(device["path"])
+        region = free_region(table, sector_size) if table else (0, 0)
+        alongside, reason = alongside_status(table, region)
+        disks.append({
+            "path": device["path"],
+            "size": int(device["size"]),
+            "sector_size": sector_size,
+            "model": (device.get("model") or "").strip() or "unknown model",
+            "transport": device.get("tran") or "",
+            "contents": disk_contents(device),
+            "free_region": list(region),
+            "free": region[1] * MIB,
+            "alongside": alongside,
+            "alongside_reason": reason,
+        })
+        disks[-1]["details"] = disk_details(disks[-1])
+    return disks
+
+
+def build_config(template, disk, encrypted=True, layout="erase"):
+    """Fill the template's single device entry for the selected disk: erase it,
+    or add the partitions in its largest free region and keep the others."""
+    config = copy.deepcopy(template)
+    config.pop("eitr_comment", None)
+    (device,) = config["disk_config"]["device_modifications"]
+    if device.get("device") is not None:
+        raise GuidedInstallError(tr('The template must not name a disk'))
+    device["device"] = disk["path"]
+    esp, root = device["partitions"]
+    for partition in (esp, root):
+        for field in ("start", "size"):
+            if partition[field]["unit"] != "MiB":
+                raise GuidedInstallError(tr('Template partition sizes must be in MiB'))
+            partition[field]["sector_size"] = {"value": disk["sector_size"], "unit": "B"}
+    if esp["size"]["value"] != ESP_MIB:
+        raise GuidedInstallError(tr("The template's EFI partition size changed; update ESP_MIB"))
+    if layout == "alongside":
+        if not disk["alongside"]:
+            raise GuidedInstallError(tr('{path} has no usable free space', path=f"{disk['path']}"))
+        region_start, region_size = disk["free_region"]
+        device["wipe"] = False
+        config["disk_config"]["config_type"] = "manual_partitioning"
+        # Firmware boots Eitr through its own boot entry, not the removable
+        # fallback path that another system may own.
+        config["bootloader_config"]["removable"] = False
+        esp["start"]["value"] = region_start
+        root_start = region_start + ESP_MIB
+        root_size = region_size - ESP_MIB
+    elif layout == "erase":
+        root_start = esp["start"]["value"] + esp["size"]["value"]
+        # Leave the last MiB free for the backup GPT header, aligned like archinstall.
+        root_size = disk["size"] // MIB - 1 - root_start
+    else:
+        raise GuidedInstallError('Unknown install type {layout}'.format(layout=f'{layout}'))
+    if root_size < MINIMUM_ROOT_MIB:
+        raise GuidedInstallError(tr('{path} is too small for Eitr', path=f"{disk['path']}"))
+    root["start"]["value"] = root_start
+    root["size"]["value"] = root_size
+    if not encrypted:
+        config["disk_config"].pop("disk_encryption", None)
+    return config
+
+
+def desktop_users(passwd):
+    """Login users archinstall created, from the target's /etc/passwd."""
+    users = []
+    for line in passwd.splitlines():
+        fields = line.split(":")
+        if len(fields) != 7 or not fields[2].isdigit() or not fields[3].isdigit():
+            continue
+        name, _, uid, gid, _, home, shell = fields
+        if 1000 <= int(uid) < 60000 and home.startswith("/home/") and shell not in NOLOGIN_SHELLS:
+            users.append({"name": name, "uid": int(uid), "gid": int(gid), "home": home})
+    return users
+
+
+def output(args, **kwargs):
+    return subprocess.check_output(args, text=True, **kwargs).strip()
+
+
+def live_media_disks():
+    """Disks backing the booted ISO, so they are never offered for erasing."""
+    disks = set()
+    for mountpoint in ("/run/archiso/bootmnt", "/run/archiso/cowspace"):
+        source = subprocess.run(["findmnt", "-n", "-o", "SOURCE", mountpoint],
+                                capture_output=True, text=True).stdout.strip()
+        if source.startswith("/dev/"):
+            parents = subprocess.run(["lsblk", "-n", "-p", "-s", "-o", "PATH,TYPE", source],
+                                     capture_output=True, text=True).stdout.splitlines()
+            disks.update(line.split()[0] for line in parents if line.split()[-1:] == ["disk"])
+    return disks
+
+
+def partition_tables(lsblk):
+    """`sfdisk --json` for each disk, or None when it has no partition table."""
+    tables = {}
+    for device in lsblk.get("blockdevices", []):
+        if device.get("type") == "disk":
+            result = subprocess.run(["sfdisk", "--json", device["path"]], capture_output=True, text=True)
+            tables[device["path"]] = json.loads(result.stdout)["partitiontable"] if result.returncode == 0 else None
+    return tables
+
+
+def stream(command, log, **kwargs):
+    """Run a command, passing each output line to the progress log."""
+    with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
+                          **kwargs) as process:
+        for line in process.stdout:
+            log(line)
+        status = process.wait()
+    if status:
+        raise GuidedInstallError(tr('{command} exited with status {status}; see the log above', command=f'{command[0]}', status=f'{status}'))
+
+
+def check_payload():
+    """The ISO's package payload, readable and complete enough to start."""
+    for path in ("manifest.json", "pool/core.db", "pool/extra.db", "pool/multilib.db",
+                 f"repo/{payload.LOCAL_REPO}.db", "assets"):
+        if not (PAYLOAD / path).exists():
+            raise GuidedInstallError(tr('This ISO has no complete offline payload ({amount} is missing)', amount=f'{PAYLOAD / path}'))
+    return json.loads((PAYLOAD / "manifest.json").read_text())["source_commit"]
+
+
+def use_payload():
+    """Point the live system's pacman, which archinstall and pacstrap use, at the payload.
+    The mirrorlist is what pacstrap copies to the installed system."""
+    Path("/etc/pacman.conf").write_text(payload.pacman_conf(PAYLOAD / "pool", PAYLOAD / "repo"))
+    shutil.copyfile(SOURCE / "distro/payload/mirrorlist", "/etc/pacman.d/mirrorlist")
+    # pacman verifies the payload with the live keyring. Archiso's pacman-init.service
+    # waits for time synchronization, which never happens offline, so initialize
+    # the keyring here unless that service already did.
+    if subprocess.run(["systemctl", "is-active", "--quiet", "pacman-init.service"]).returncode:
+        subprocess.run(["systemctl", "stop", "pacman-init.service"], check=False)
+        subprocess.run(["pacman-key", "--init"], check=True, stdout=subprocess.DEVNULL)
+        subprocess.run(["pacman-key", "--populate"], check=True, stdout=subprocess.DEVNULL)
+
+
+def run_archinstall(config, credentials, work, log=None):
+    config_path = work / "user_configuration.json"
+    config_path.write_text(json.dumps(config, indent=2) + "\n")
+    # archinstall offers to reboot when it finishes; the desktop setup runs first.
+    shim = work / "bin"
+    shim.mkdir()
+    (shim / "reboot").write_text("#!/bin/sh\necho 'Eitr finishes its setup first and then offers to reboot.'\n")
+    (shim / "reboot").chmod(0o755)
+    environment = dict(os.environ, PATH=f"{shim}{os.pathsep}{os.environ.get('PATH', '')}")
+    reader, writer = os.pipe()
+    try:
+        os.write(writer, json.dumps(credentials).encode())
+        os.close(writer)
+        writer = None
+        command = ["archinstall", "--silent", "--offline", "--skip-ntp", "--skip-wkd",
+                   "--config", str(config_path), "--creds", f"/dev/fd/{reader}", "--mountpoint", str(TARGET)]
+        if log is None:
+            result = subprocess.run(command, pass_fds=(reader,), env=environment)
+        else:
+            with subprocess.Popen(command, pass_fds=(reader,), env=environment,
+                                  stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True) as process:
+                for line in process.stdout:
+                    log(line)
+                result = subprocess.CompletedProcess(command, process.wait())
+    finally:
+        os.close(reader)
+        if writer is not None:
+            os.close(writer)
+    if result.returncode != 0:
+        raise GuidedInstallError(tr('archinstall exited with status {returncode}', returncode=f'{result.returncode}'))
+    if not (TARGET / "etc/fstab").is_file() or subprocess.run(["findmnt", "-M", str(TARGET)],
+                                                             stdout=subprocess.DEVNULL).returncode:
+        raise GuidedInstallError(tr('archinstall did not complete an installation; Eitr setup stopped'))
+
+
+def installed_user(name):
+    for user in desktop_users((TARGET / "etc/passwd").read_text()):
+        if user["name"] == name:
+            return user
+    raise GuidedInstallError(tr('archinstall did not create the user {name}', name=f'{name}'))
+
+
+def desktop_packages(log):
+    """Hardware packages for this computer plus the desktop and AUR manifests."""
+    environment = dict(os.environ, HARDWARE_MODULES_ROOT=str(TARGET / "usr/lib/modules"),
+                       DISTRO_NVIDIA_DRIVER=os.environ.get("DISTRO_NVIDIA_DRIVER", "open"))
+    result = subprocess.run(["bash", str(SOURCE / "distro/hardware/detect.sh")], env=environment,
+                            capture_output=True, text=True)
+    for line in result.stderr.splitlines():
+        log(line)
+    if result.returncode:
+        raise GuidedInstallError(tr('Hardware detection failed; see the log above'))
+    hardware = result.stdout.split()
+    return [*dict.fromkeys(payload.desktop_official(SOURCE) + hardware + payload.desktop_aur(SOURCE)
+                           + payload.desktop_local(SOURCE) + ["eitr-desktop"])]
+
+
+def install_desktop(log):
+    packages = desktop_packages(log)
+    log(f"Installing {len(packages)} desktop packages and their dependencies")
+    # -G: keep the keyring archinstall initialized; -M: keep the copied mirrorlist.
+    stream(["pacstrap", "-C", "/etc/pacman.conf", "-G", "-M", str(TARGET),
+            "--noconfirm", "--needed", *packages], log)
+
+
+def chroot(command, log, user=None, environment=None):
+    if user is None:
+        stream(["arch-chroot", str(TARGET), *command], log)
+        return
+    variables = {"HOME": user["home"], "USER": user["name"], "LOGNAME": user["name"],
+                 "PATH": "/usr/local/sbin:/usr/local/bin:/usr/bin", "LANG": "en_US.UTF-8",
+                 **(environment or {})}
+    stream(["arch-chroot", str(TARGET), "runuser", "-u", user["name"], "--", "env", "-i",
+            *(f"{key}={value}" for key, value in variables.items()), *command], log)
+
+
+def set_up_desktop(user, log):
+    """The user's configs, shell and theme, then the system side, offline."""
+    setup = TARGET / SETUP.lstrip("/")
+    if setup.exists():
+        raise GuidedInstallError(tr('{setup} already exists', setup=f'{setup}'))
+    log("Copying the Eitr setup scripts")
+    shutil.copytree(SOURCE, setup, symlinks=True)
+    shutil.copytree(PAYLOAD / "assets", setup / "assets")
+    subprocess.run(["chmod", "-R", "a+rX", str(setup)], check=True)
+    # arch-chroot bind-mounts the live resolv.conf, so link the resolved stub from outside.
+    resolv = TARGET / "etc/resolv.conf"
+    if not resolv.is_symlink():
+        resolv.unlink(missing_ok=True)
+        resolv.symlink_to("/run/systemd/resolve/stub-resolv.conf")
+    chroot(["bash", f"{SETUP}/distro/install.sh", "--seed-user"], log, user,
+           {"EITR_SHELL_ASSETS": f"{SETUP}/assets"})
+    chroot(["bash", f"{SETUP}/distro/system/configure-desktop.sh", user["name"]], log)
+    chroot(["/usr/lib/eitr/eitr-system", "snapshots-setup"], log)
+    chroot(["install", "-Dm644", "/usr/share/eitr/system-update-policy.conf",
+            "/etc/eitr/system-update-policy.conf"], log)
+
+
+def windows_entries(partitions, esp_uuid, has_windows_loader):
+    """Limine menu entries chainloading Windows Boot Manager from every other EFI
+    system partition that has one; `partitions` comes from `lsblk --json`."""
+    entries = []
+    for partition in partitions:
+        uuid = (partition.get("partuuid") or "").lower()
+        if (partition.get("parttype") or "").lower() != ESP_TYPE or not uuid or uuid == esp_uuid.lower():
+            continue
+        if has_windows_loader(partition["path"]):
+            name = "Windows" if not entries else f"Windows ({partition['path']})"
+            entries.append(f"\n/{name}\n    protocol: efi\n    path: guid({uuid}):/{WINDOWS_LOADER}\n")
+    return entries
+
+
+def boot_menu(config, windows):
+    """archinstall's limine.conf with Eitr's entry title and the Windows entries."""
+    renamed = re.sub(r"^/Arch Linux \(linux\)$", "/Eitr", config, count=1, flags=re.MULTILINE)
+    if renamed == config:
+        raise GuidedInstallError(tr('limine.conf has no Arch Linux (linux) entry to rename'))
+    return renamed + "".join(windows)
+
+
+def has_windows_loader(device):
+    with tempfile.TemporaryDirectory(prefix="eitr-esp-", dir="/run") as mountpoint:
+        if subprocess.run(["mount", "-o", "ro", device, mountpoint], stdout=subprocess.DEVNULL,
+                          stderr=subprocess.DEVNULL).returncode:
+            return False
+        try:
+            # FAT names are case-insensitive, but the mount may not fold case.
+            path = Path(mountpoint)
+            for name in WINDOWS_LOADER.split("/"):
+                if not path.is_dir():
+                    return False
+                path = next((child for child in path.iterdir() if child.name.lower() == name.lower()), None)
+                if path is None:
+                    return False
+            return path.is_file()
+        finally:
+            subprocess.run(["umount", mountpoint], check=False)
+
+
+def set_up_boot(username, log):
+    """Add Windows to the Limine menu, style it in the user's theme, then select the Eitr boot splash."""
+    configs = [path for path in (TARGET / "boot/EFI/BOOT/limine.conf", TARGET / "boot/EFI/arch-limine/limine.conf")
+               if path.is_file()]
+    if len(configs) != 1:
+        raise GuidedInstallError(tr('archinstall did not write exactly one limine.conf'))
+    esp_uuid = output(["findmnt", "-n", "-o", "PARTUUID", str(TARGET / "boot")])
+    data = json.loads(output(["lsblk", "--json", "--paths", "--list", "-o", "PATH,PARTTYPE,PARTUUID"]))
+    entries = windows_entries(data.get("blockdevices", []), esp_uuid, has_windows_loader)
+    configs[0].write_text(boot_menu(configs[0].read_text(), entries))
+    if entries:
+        log(f"Added {len(entries)} Windows entr{'y' if len(entries) == 1 else 'ies'} to the boot menu")
+    try:
+        chroot(["/usr/lib/eitr/eitr-system", "boot-menu-style", username], log)
+    except GuidedInstallError as error:
+        # The style is cosmetic; the installation goes on without it.
+        log(f"Kept Limine's default boot menu look: {error}")
+    # archinstall added the plymouth hook and the quiet splash kernel options.
+    chroot(["plymouth-set-default-theme", "-R", "eitr"], log)
+
+
+def schedule_timezone_detection(log):
+    """An offline installation fell back to UTC; detect the zone once the system is online."""
+    marker = TARGET / "var/lib/eitr/timezone-automatic"
+    marker.parent.mkdir(parents=True, exist_ok=True)
+    marker.touch()
+    chroot(["systemctl", "enable", "eitr-timezone.service"], log)
+
+
+def save_factory_reset_point(log):
+    """The read-only first-login state that Walker's Factory Reset restores."""
+    chroot(["/usr/lib/eitr/eitr-factory-reset", "capture"], log)
+
+
+def restore_online_sources(log):
+    """The installed system updates from Arch mirrors, never from the ISO payload."""
+    version = output(["pacman", "--root", str(TARGET), "-Q", "pacman"]).split()[1]
+    package = next((path for path in (PAYLOAD / "pool").glob(f"pacman-{version}-*.pkg.tar.*")
+                    if path.suffix != ".sig"), None)
+    if package is None:
+        raise GuidedInstallError(tr('The payload has no pacman {version} package', version=f'{version}'))
+    default = output(["bsdtar", "-xOf", str(package), "etc/pacman.conf"])
+    online = payload.online_pacman_conf(default + "\n")
+    if payload.signing_key(SOURCE):
+        # EITR updates come from the signed [eitr] repository once the key exists.
+        online += payload.eitr_repository()
+    (TARGET / "etc/pacman.conf").write_text(online)
+    shutil.copyfile(SOURCE / "distro/payload/mirrorlist", TARGET / "etc/pacman.d/mirrorlist")
+    for suffix in ("db", "files"):
+        (TARGET / f"var/lib/pacman/sync/{payload.LOCAL_REPO}.{suffix}").unlink(missing_ok=True)
+    shutil.rmtree(TARGET / SETUP.lstrip("/"))
+    for path in (TARGET / "etc/pacman.conf", TARGET / "etc/pacman.d/mirrorlist"):
+        if any("file://" in line for line in path.read_text().splitlines() if not line.lstrip().startswith("#")):
+            raise GuidedInstallError(tr('{path} still refers to the installation medium', path=f'{path}'))
+    log("The installed system now updates from the Arch Linux mirrors")
+
+
+def install_log(durations, total):
+    """Step timings kept on the installed system, for comparing hardware."""
+    lines = [f"{seconds:7.1f} s  {title}" for title, seconds in durations]
+    return "Eitr installation step times\n" + "\n".join(lines) + f"\n{total:7.1f} s  total\n"
+
+
+# QEMU's firmware config, where only the automated VM tests put answers.
+TEST_ANSWERS = "/sys/firmware/qemu_fw_cfg/"
+COUNTDOWN_SECONDS = 15
+
+
+def confirm_unattended(choices, seconds=COUNTDOWN_SECONDS, sleep=None):
+    """An answers drive left plugged in must never install unseen: say what will
+    happen and wait, so Ctrl+C can cancel before any disk changes."""
+    sleep = sleep or time.sleep
+    disk = choices["disk"]
+    action = {"erase": "ERASE the whole disk", "alongside": "install beside the existing systems on"}.get(
+        choices["layout"], choices["layout"])
+    print(tr('\nUnattended installation from the answers drive will {action}:\n  {disk_label}\nfor user {username}, {state}.', action=f'{action}', disk_label=f'{disk_label(disk)}', username=f"{choices['username']}", state=f"{('encrypted' if choices['encrypted'] else 'not encrypted')}"))
+    try:
+        for remaining in range(seconds, 0, -1):
+            print(tr('\rStarting in {remaining} s. Press Ctrl+C to cancel.', remaining=f'{remaining:>2}'), end="", flush=True)
+            sleep(1)
+    except KeyboardInterrupt:
+        raise GuidedInstallError(tr("Cancelled before any disk was changed; remove the answers drive to use the installer's questions")) from None
+    print()
+
+
+def answered_choices(path, ui, checks, disks):
+    """The wizard's choices from a JSON answers file, for automated VM tests.
+
+    The same validation applies as in the wizard, and the disk must be one the
+    wizard would offer. Nothing is asked; preparation checks still run.
+    """
+    try:
+        answers = json.loads(Path(path).read_text())
+    except (OSError, ValueError) as error:
+        raise GuidedInstallError(tr('Unreadable answers file {path}: {error}', path=f'{path}', error=f'{error}')) from None
+    for title, check in checks:
+        print(f"==> {title}", flush=True)
+        check()
+    candidates = {disk["path"]: disk for _, disk in disks()}
+    disk = candidates.get(answers.get("disk"))
+    if disk is None:
+        raise GuidedInstallError(tr('Answers name {disk}, not one of the eligible disks: {candidates}',
+                                    disk=repr(answers.get('disk')), candidates=", ".join(candidates)))
+    layout = answers.get("layout", "erase")
+    if layout not in [value for _, value in ui.layout_options(disk)[0]]:
+        raise GuidedInstallError(tr('Install type {layout} is not available on {path}', layout=f'{layout!r}', path=f"{disk['path']}"))
+    choices = {"disk": disk, "layout": layout, "encrypted": bool(answers.get("encrypted", False)),
+               "hostname": answers.get("hostname", "eitr"), "username": answers.get("username", ""),
+               "password": answers.get("password", ""), "keyboard": answers.get("keyboard", "us"),
+               "language": answers.get("language", "en_US.UTF-8"), "timezone": answers.get("timezone", "UTC"),
+               "timezone_detected": "timezone" in answers,
+               "ssh_authorized_key": answers.get("ssh_authorized_key", "")}
+    if not str(path).startswith(TEST_ANSWERS):
+        confirm_unattended(choices)
+    if not ui.valid_hostname(choices["hostname"]):
+        raise GuidedInstallError(tr('Invalid hostname {hostname}', hostname=f"{choices['hostname']!r}"))
+    if not ui.valid_username(choices["username"]):
+        raise GuidedInstallError(tr('Invalid username {username}', username=f"{choices['username']!r}"))
+    if not choices["password"]:
+        raise GuidedInstallError(tr('The answers need a password'))
+    if choices["encrypted"]:
+        choices["passphrase"] = answers.get("passphrase", "")
+        if not choices["passphrase"]:
+            raise GuidedInstallError(tr('Encrypted installs need a passphrase in the answers'))
+    return choices
+
+
+def plain_installation(stages):
+    """Run the stages printing their output, for answered installs without a screen."""
+    durations = []
+    for title, operation in stages:
+        print(f"==> {title}", flush=True)
+        started = time.monotonic()
+        operation(lambda line: print(line, flush=True))
+        durations.append((title, time.monotonic() - started))
+    return durations
+
+
+def enable_test_ssh(username, key, log):
+    """Automated tests log in to verify the installed system: authorize their key
+    for the user and enable sshd. Only an answers file that names a key does this."""
+    user = installed_user(username)
+    ssh = TARGET / user["home"].lstrip("/") / ".ssh"
+    ssh.mkdir(mode=0o700, exist_ok=True)
+    (ssh / "authorized_keys").write_text(key.strip() + "\n")
+    os.chmod(ssh / "authorized_keys", 0o600)
+    subprocess.run(["chown", "-R", f"{user['uid']}:{user['gid']}", str(ssh)], check=True)
+    chroot(["systemctl", "enable", "sshd.service"], log)
+    chroot(["/usr/lib/eitr/eitr-system", "firewall-allow-ssh"], log)
+
+
+def main():
+    if os.geteuid() != 0:
+        raise GuidedInstallError(tr('Run eitr-guided-install as root from the Eitr live ISO'))
+    if not Path("/sys/firmware/efi").is_dir():
+        raise GuidedInstallError(tr('The guided install supports UEFI boot only; boot the ISO in UEFI mode'))
+    if not Path("/run/archiso/bootmnt").is_mount():
+        raise GuidedInstallError(tr('Run only from the booted Eitr live ISO, never an installed host'))
+    if not shutil.which("archinstall") or not shutil.which("arch-chroot"):
+        raise GuidedInstallError(tr('archinstall and arch-chroot are required (they ship on the Arch ISO)'))
+    if subprocess.run(["findmnt", "-M", str(TARGET)], stdout=subprocess.DEVNULL).returncode == 0:
+        raise GuidedInstallError(tr('{TARGET} is already mounted; unmount it before installing', TARGET=f'{TARGET}'))
+    ui = load("eitr_installer_ui", SOURCE / "distro/archinstall/installer-ui.py")
+
+    def disks():
+        # lsblk nests partitions under their disk only when NAME is a column.
+        data = json.loads(output(["lsblk", "--json", "--bytes", "--paths",
+                                  "-o", "NAME,PATH,SIZE,TYPE,RO,MODEL,TRAN,LOG-SEC,FSTYPE"]))
+        candidates = candidate_disks(data, live_media_disks(), partition_tables(data))
+        if not candidates:
+            raise GuidedInstallError(tr('No eligible writable disk of at least 64 GiB was found'))
+        return [(disk_label(disk), disk) for disk in candidates]
+
+    checks = [("Detecting eligible installation disks", disks),
+              ("Checking the installation template", lambda: json.loads(TEMPLATE.read_text())),
+              ("Checking the Archinstall backend", lambda: output(["archinstall", "--version"])),
+              ("Checking the offline package payload", check_payload)]
+    if ANSWERS:
+        choices = answered_choices(ANSWERS, ui, checks, disks)
+    else:
+        try:
+            choices = ui.run(checks, disks)
+        except ui.Cancelled:
+            raise GuidedInstallError(tr('Cancelled; nothing was changed')) from None
+        except subprocess.SubprocessError:
+            raise GuidedInstallError(tr('Preparation failed before any disk changes')) from None
+    config = build_config(json.loads(TEMPLATE.read_text()), choices["disk"], choices["encrypted"], choices["layout"])
+    config.update(hostname=choices["hostname"], timezone=choices["timezone"],
+                  locale_config={"kb_layout": choices["keyboard"], "sys_lang": choices["language"], "sys_enc": "UTF-8"})
+    credentials = {"users": [{"username": choices["username"], "!password": choices.pop("password"), "sudo": True}]}
+    if choices["encrypted"]:
+        credentials["encryption_password"] = choices.pop("passphrase")
+    use_payload()
+    with tempfile.TemporaryDirectory(prefix="eitr-guided-", dir="/run") as directory:
+        try:
+            stages = [
+                ("Installing the base system", lambda log: run_archinstall(config, credentials, Path(directory), log)),
+                ("Installing the Eitr desktop", install_desktop),
+                ("Setting up the desktop for " + choices["username"],
+                 lambda log: set_up_desktop(installed_user(choices["username"]), log)),
+                ("Setting up the boot menu and splash", lambda log: set_up_boot(choices["username"], log)),
+                *([] if choices["timezone_detected"] else
+                  [("Scheduling timezone detection", schedule_timezone_detection)]),
+                ("Switching to online package updates", restore_online_sources),
+                *([("Enabling SSH for automated testing",
+                    lambda log: enable_test_ssh(choices["username"], choices["ssh_authorized_key"], log))]
+                  if choices.get("ssh_authorized_key") else []),
+                ("Saving the factory reset point", save_factory_reset_point)]
+            durations = plain_installation(stages) if ANSWERS else ui.installation(stages)
+        finally:
+            del credentials
+    total = sum(seconds for _, seconds in durations)
+    (TARGET / "var/log/eitr-install.log").write_text(install_log(durations, total))
+    if ANSWERS:
+        print(tr('==> Installed in {total} s; powering off', total=f'{total:.0f}'), flush=True)
+    if ANSWERS or ui.finished(total):
+        subprocess.run(["umount", "-R", str(TARGET)], check=False)
+        subprocess.run(["systemctl", "poweroff"], check=False)
+
+
+# --answers FILE replaces the wizard's questions (automated VM tests).
+ANSWERS = None
+
+
+if __name__ == "__main__":
+    if sys.argv[1:2] == ["--answers"] and len(sys.argv) == 3:
+        ANSWERS = sys.argv[2]
+    elif sys.argv[1:]:
+        print('Usage: eitr-guided-install [--answers FILE]', file=sys.stderr)
+        sys.exit(2)
+    try:
+        main()
+    except (GuidedInstallError, subprocess.CalledProcessError, OSError) as error:
+        print('\neitr-guided-install: {error}'.format(error=f'{error}'), file=sys.stderr)
+        print(tr('Detailed logs: /var/log/archinstall. Nothing after the failed step was changed.'), file=sys.stderr)
+        sys.exit(1)
+    except KeyboardInterrupt:
+        print(tr('\nInterrupted.'), file=sys.stderr)
+        sys.exit(130)

@@ -1,0 +1,36 @@
+[
+  {
+    "text": "Capture",
+    "subtext": ">",
+    "keywords": [
+      "screenshot",
+      "screenrecord",
+      "record"
+    ],
+    "icon": "",
+    "submenu": "capture"
+  },
+  {
+    "text": "Reminders",
+    "subtext": ">",
+    "keywords": [
+      "remind",
+      "reminder",
+      "timer",
+      "alarm",
+      "notify"
+    ],
+    "icon": "󰀠",
+    "submenu": "reminders"
+  },
+  {
+    "text": "Share",
+    "subtext": ">",
+    "keywords": [
+      "localsend",
+      "send"
+    ],
+    "icon": "",
+    "submenu": "share"
+  }
+]

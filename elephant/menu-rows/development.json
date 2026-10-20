@@ -1,0 +1,81 @@
+[
+  {
+    "text": "AI",
+    "subtext": ">",
+    "keywords": [
+      "codex",
+      "claude"
+    ],
+    "icon": "󱜙",
+    "submenu": "ai-tools"
+  },
+  {
+    "text": "Cloud",
+    "subtext": ">",
+    "keywords": [
+      "aws",
+      "gcp",
+      "azure"
+    ],
+    "icon": "",
+    "submenu": "cloud"
+  },
+  {
+    "text": "Git Accounts",
+    "subtext": ">",
+    "keywords": [
+      "github",
+      "gitlab",
+      "personal",
+      "work",
+      "identity",
+      "ssh"
+    ],
+    "icon": "󰊢",
+    "submenu": "git-accounts"
+  },
+  {
+    "text": "LazyVim Projects",
+    "subtext": ">",
+    "keywords": [
+      "lazyvim",
+      "nvim",
+      "vim",
+      "project"
+    ],
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/development/open-project.sh nvim"
+    }
+  },
+  {
+    "text": "Monitoring",
+    "subtext": ">",
+    "keywords": [
+      "grafana",
+      "datadog",
+      "sentry",
+      "new relic",
+      "prometheus",
+      "dashboards",
+      "logs",
+      "observability",
+      "metrics"
+    ],
+    "icon": "󰨇",
+    "submenu": "monitoring"
+  },
+  {
+    "text": "VS Code Projects",
+    "subtext": ">",
+    "keywords": [
+      "code",
+      "vscode",
+      "project"
+    ],
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/development/open-project.sh vscode"
+    }
+  }
+]

@@ -1,0 +1,71 @@
+force_keyboard_focus = true
+selection_wrap = true
+theme = "current"
+minwidth = 700
+hide_action_hints = false
+hide_action_hints_dmenu = false
+hide_return_action = false
+keybind_symbols = false
+hide_quick_activation = true
+
+[placeholders]
+"default" = { input = "Search...", list = "No Results" }
+"menus:apps" = { input = "Search apps...", list = "No Apps" }
+"menus:main" = { input = "Find...", list = "No Menu Items" }
+
+[providers]
+max_results = 256
+default = [ "menus:apps" ]
+
+[keybinds]
+close = ["Escape"]
+quick_activate = []
+
+[providers.actions]
+"menus:apps" = [
+  { action = "open", label = "Open", bind = "Return", default = true, after = "Close" },
+  { action = "app_uninstall", label = "Uninstall", bind = "Delete", after = "Close" },
+  { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
+]
+"menus:webapps" = [
+  { action = "open", label = "Open", bind = "Return", default = true, after = "Close" },
+  { action = "app_uninstall", label = "Remove", bind = "Delete", after = "Close" },
+  { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
+]
+"menus:monitoring" = [
+  { action = "open", label = "Open", bind = "Return", default = true, after = "Close" },
+  { action = "dashboard_remove", label = "Remove", bind = "Delete", after = "AsyncReload" },
+  { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
+]
+"menus:aws-profiles" = [
+  { action = "open", label = "Open", bind = "Return", default = true, after = "Close" },
+  { action = "cloud_rename", label = "Rename", bind = "ctrl r", after = "Close" },
+  { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
+]
+"menus:azure-contexts" = [
+  { action = "open", label = "Open", bind = "Return", default = true, after = "Close" },
+  { action = "cloud_rename", label = "Rename", bind = "ctrl r", after = "Close" },
+  { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
+]
+"menus:gcp-contexts" = [
+  { action = "open", label = "Open", bind = "Return", default = true, after = "Close" },
+  { action = "cloud_rename", label = "Rename", bind = "ctrl r", after = "Close" },
+  { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
+]
+fallback = [
+  { action = "app_launch", label = "Open", bind = "Return", default = true, after = "Close" },
+  { action = "font_select", label = "Select", bind = "Return", default = true, after = "Close" },
+  { action = "font_delete", label = "Remove Font", bind = "Delete", after = "Close" },
+  { action = "keyboard_delete", label = "Remove Layout", bind = "Delete", after = "Reload" },
+  { action = "clipboard_delete", label = "Delete", bind = "Delete", after = "AsyncReload" },
+  { action = "clipboard_paste", label = "Paste", bind = "Return", default = true, after = "Close" },
+  { action = "lockscreen_apply", label = "Select", bind = "Return", default = true, after = "Close" },
+  { action = "lockscreen_preview", label = "Preview", bind = "ctrl p", after = "Close" },
+  { action = "theme_apply", label = "Apply", bind = "Return", default = true, after = "Close" },
+  { action = "theme_preview", label = "Preview", bind = "ctrl p", after = "Close" },
+  { action = "wallpaper_preview", label = "Preview", bind = "ctrl p", after = "Close" },
+  { action = "menus:open", label = "open", bind = "Return", default = true, after = "Nothing" },
+  { action = "menus:default", label = "run", bind = "Return", default = true, after = "Close" },
+  { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
+  { action = "erase_history", label = "clear hist", bind = "ctrl h", after = "AsyncReload" },
+]

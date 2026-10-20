@@ -1,0 +1,54 @@
+[
+  {
+    "text": "Lock",
+    "subtext": "Lock the screen",
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/hypr/scripts/manual-lock.sh"
+    }
+  },
+  {
+    "text": "Logout",
+    "subtext": "End the session",
+    "icon": "",
+    "actions": {
+      "open": "uwsm stop"
+    }
+  },
+  {
+    "text": "Reboot",
+    "subtext": "Restart the computer",
+    "icon": "",
+    "actions": {
+      "open": "systemctl reboot"
+    }
+  },
+  {
+    "text": "Reboot BIOS",
+    "subtext": "Restart into the firmware settings",
+    "keywords": [
+      "firmware",
+      "uefi"
+    ],
+    "icon": "",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py systemctl reboot --firmware-setup"
+    }
+  },
+  {
+    "text": "Shutdown",
+    "subtext": "Turn the computer off",
+    "icon": "",
+    "actions": {
+      "open": "systemctl poweroff"
+    }
+  },
+  {
+    "text": "Suspend",
+    "subtext": "Lock and sleep",
+    "icon": "",
+    "actions": {
+      "open": "sh -c 'loginctl lock-session && sleep 1 && systemctl suspend'"
+    }
+  }
+]

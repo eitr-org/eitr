@@ -1,0 +1,10 @@
+[Unit]
+Description=Finish an Eitr factory reset
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/eitr/eitr-factory-reset finish
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=Show the CPU temperature on the cooler's display
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/cooler-display run
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=graphical-session.target

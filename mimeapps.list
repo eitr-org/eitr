@@ -1,0 +1,37 @@
+[Added Associations]
+application/pdf=org.gnome.Evince.desktop;
+image/gif=org.gnome.eog.desktop;
+image/png=org.gnome.eog.desktop;
+image/webp=org.gnome.eog.desktop;
+text/plain=nvim.desktop;
+video/mp4=org.gnome.Totem.desktop;
+
+[Default Applications]
+application/pdf=org.gnome.Evince.desktop;
+application/x-directory=org.kde.dolphin.desktop
+application/x-gnome-saved-search=org.kde.dolphin.desktop
+image/gif=org.gnome.eog.desktop;
+image/jpeg=org.gnome.eog.desktop
+image/jpg=org.gnome.eog.desktop
+image/png=org.gnome.eog.desktop;
+image/webp=org.gnome.eog.desktop;
+inode/directory=org.kde.dolphin.desktop
+text/html=firefox.desktop
+text/plain=nvim.desktop
+video/mp4=org.gnome.Totem.desktop
+video/x-matroska=org.gnome.Totem.desktop
+video/webm=org.gnome.Totem.desktop
+video/quicktime=org.gnome.Totem.desktop
+video/x-msvideo=org.gnome.Totem.desktop
+video/mpeg=org.gnome.Totem.desktop
+video/ogg=org.gnome.Totem.desktop
+video/x-m4v=org.gnome.Totem.desktop
+x-scheme-handler/about=firefox.desktop
+x-scheme-handler/bruno=bruno.desktop
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
+x-scheme-handler/mailto=firefox.desktop
+x-scheme-handler/postman=Postman.desktop
+x-scheme-handler/slack=slack.desktop
+x-scheme-handler/unknown=firefox.desktop

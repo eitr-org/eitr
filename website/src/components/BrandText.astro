@@ -1,0 +1,7 @@
+---
+const { text, wordmark = false } = Astro.props;
+const parts = String(text).split(/(\beitr\b)/gi);
+---
+{parts.map(part => /^eitr$/i.test(part) ? (wordmark
+  ? <span class="wordmark inline-wordmark" role="img" aria-label={part}></span>
+  : <span class="bifrost-brand">{part}</span>) : part)}

@@ -1,0 +1,6 @@
+# Arch Linux mirrors for an Eitr system installed from the ISO. The ISO
+# installs offline from its own payload; these serve updates afterwards.
+# Rank local mirrors later with reflector if downloads are slow.
+Server = https://geo.mirror.pkgbuild.com/$repo/os/$arch
+Server = https://mirrors.kernel.org/archlinux/$repo/os/$arch
+Server = https://mirror.rackspace.com/archlinux/$repo/os/$arch

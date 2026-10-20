@@ -1,0 +1,26 @@
+[
+  {
+    "text": "Enroll TPM Unlock",
+    "subtext": "LUKS2 · passphrase kept · PCR 7 · typed confirmation",
+    "icon": "󰌾",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/security.py tpm-enroll"
+    }
+  },
+  {
+    "text": "Remove TPM Unlock",
+    "subtext": "Passphrase required at boot again",
+    "icon": "󰌾",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/security.py tpm-remove"
+    }
+  },
+  {
+    "text": "Show Disk Unlock Methods",
+    "subtext": "Which ways can unlock the encrypted disk",
+    "icon": "󰋼",
+    "actions": {
+      "open": "kitty --hold -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/security.py tpm-status"
+    }
+  }
+]

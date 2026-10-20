@@ -1,0 +1,110 @@
+[
+  {
+    "text": "Cmux Commands",
+    "subtext": "Keys for the cmux terminal multiplexer",
+    "keywords": [
+      "cmux",
+      "terminal",
+      "multiplexer",
+      "session",
+      "workspace",
+      "panes"
+    ],
+    "icon": "",
+    "actions": {
+      "open": "bash /usr/share/eitr/walker/scripts/menus/cmux.sh"
+    }
+  },
+  {
+    "text": "EITR Handbook",
+    "subtext": "The full guide to Eitr, offline",
+    "keywords": [
+      "help",
+      "manual",
+      "docs",
+      "documentation",
+      "guide",
+      "system",
+      "learn"
+    ],
+    "icon": "󰧑",
+    "actions": {
+      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/handbook.sh toggle"
+    }
+  },
+  {
+    "text": "LazyVim Commands",
+    "subtext": "Keys for the LazyVim editor",
+    "keywords": [
+      "lazyvim",
+      "vim",
+      "nvim",
+      "neovim",
+      "commands"
+    ],
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/vim.sh"
+    }
+  },
+  {
+    "text": "Mouse Gestures",
+    "subtext": "What each mouse gesture does",
+    "keywords": [
+      "mouse",
+      "click",
+      "double",
+      "drag",
+      "wallpaper",
+      "theme",
+      "bar"
+    ],
+    "icon": "󰍽",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/mouse-gestures.sh"
+    }
+  },
+  {
+    "text": "Shortcuts",
+    "subtext": "Every keyboard shortcut, and run one from the list",
+    "keywords": [
+      "keybinds",
+      "keys",
+      "hotkeys"
+    ],
+    "icon": "󰌌",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/shortcuts.sh"
+    }
+  },
+  {
+    "text": "Tmux Commands",
+    "subtext": "Keys for the tmux terminal multiplexer",
+    "keywords": [
+      "tmux",
+      "terminal",
+      "multiplexer",
+      "session",
+      "panes"
+    ],
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/tmux.sh"
+    }
+  },
+  {
+    "text": "Welcome",
+    "subtext": "The first-login guide and setup steps",
+    "keywords": [
+      "setup",
+      "first",
+      "start",
+      "guide",
+      "onboarding"
+    ],
+    "icon": "󰋜",
+    "actions": {
+      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/handbook.sh open getting-started"
+    }
+  }
+]

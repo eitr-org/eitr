@@ -1,0 +1,52 @@
+[
+  {
+    "text": "Appearance",
+    "subtext": ">",
+    "icon": "󰏘",
+    "keywords": [
+      "transparent",
+      "theme",
+      "solid",
+      "color"
+    ],
+    "submenu": "bar-appearance"
+  },
+  {
+    "text": "Displays",
+    "subtext": ">",
+    "icon": "󰍹",
+    "keywords": [
+      "monitors",
+      "screens",
+      "all displays",
+      "main display",
+      "multi-monitor"
+    ],
+    "submenu": "bar-screens"
+  },
+  {
+    "text": "Layout",
+    "subtext": ">",
+    "icon": "󰕰",
+    "keywords": [
+      "unified",
+      "centered",
+      "hover",
+      "pin"
+    ],
+    "submenu": "bar-layout"
+  },
+  {
+    "text": "Position",
+    "subtext": ">",
+    "icon": "󰆾",
+    "keywords": [
+      "top",
+      "bottom",
+      "left",
+      "right",
+      "edge"
+    ],
+    "submenu": "bar-position"
+  }
+]

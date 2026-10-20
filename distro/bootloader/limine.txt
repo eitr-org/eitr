@@ -1,0 +1,2 @@
+# Official packages for Limine snapshot boot entries.
+inotify-tools

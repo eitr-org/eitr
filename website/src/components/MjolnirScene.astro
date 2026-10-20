@@ -1,0 +1,190 @@
+---
+import logoMarkup from '../data/eitr-logo.svg?raw';
+const { embedded = false } = Astro.props;
+// Mjölnir carries the EITR logo inlaid in gold on its head.
+const logoPath = logoMarkup.match(/<path[^>]*\sd="([^"]+)"/)?.[1] ?? '';
+const logoSize = Number(logoMarkup.match(/viewBox="0 0 (\d+)/)?.[1] ?? 1370);
+const maskId = embedded ? "logo-exclusion-hero" : "logo-exclusion-study";
+const lightningEffects = [
+  'M500 300 440 230 467 226 350 130M500 300l90-45-18-25 165-70M500 300l30 100-28-8 55 145',
+  'M500 300 365 315 397 280 190 215M500 300l142 35-25-40 180 45M500 300l-35-125 28 16-20-150',
+  'M500 300 450 170 414 205 345 65M500 300l110-140 8 44 88-120M500 300l-100 115 52-8-78 135M500 300l125 75-16 30 110 85',
+  'M500 300 390 235 410 200 270 180 300 145 150 100M500 300l100 20-20 40 145 0-32 40 150 60',
+  'M500 300 425 275 455 245 350 250 365 205 230 210M500 300l42-85-35 0 45-95-35 6 28-100M500 300l70 40-4 35 80-5-20 60 105 10M500 300l-55 80 35-4-50 110',
+  'M500 300 405 210 435 185 310 95 340 70 235 10M405 210 310 230 335 195 200 170M500 300 610 390 580 415 705 500 680 525 785 590M610 390 705 365 680 405 820 420',
+  'M500 300 485 180 520 195 490 75 535 95 510-35M490 75 405 25 425 0 355-40M500 300 380 370 405 395 270 460 300 480 170 550M380 370 340 470 365 455 315 590M500 300 635 265 610 235 770 195 745 160 890 125',
+];
+const runeEmbers = Array.from({ length: 64 }, (_, index) => {
+  const angle = (index / 64) * Math.PI * 2;
+  const radius = 37 + (index % 4) * 3.2;
+  return `left:${50 + Math.sin(angle) * radius}%;top:${50 - Math.cos(angle) * radius}%;--ignite:${(index / 64) * 1.5}s;--drift:${Math.sin(index * 2.4) * 22}px;--fall:${18 + (index % 5) * 8}px;--ember-size:${index % 3 === 0 ? 3 : 2}px`;
+});
+const pieces = Array.from({ length: 16 }, (_, i) => ({
+  x: Math.round(Math.cos(i * 2.4) * (130 + i * 13)),
+  y: Math.round(Math.sin(i * 2.4) * (90 + i * 9)),
+  rotate: i * 47,
+}));
+---
+    <div class:list={["impact-stage", "playing", { embedded }]} id="impact-stage" role="group" aria-label="Lightning strikes the darkness and the Eitr emblem rises from the crack">
+      <svg class="hammer" viewBox="0 0 200 300" aria-hidden="true">
+        <defs>
+          <linearGradient id="mjolnir-steel" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#eef2f5" /><stop offset=".18" stop-color="#b9c3ca" />
+            <stop offset=".55" stop-color="#6e7a83" /><stop offset="1" stop-color="#2b3238" />
+          </linearGradient>
+          <linearGradient id="mjolnir-face" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#8f9aa2" /><stop offset=".5" stop-color="#e3e9ed" /><stop offset="1" stop-color="#7d8890" />
+          </linearGradient>
+          <linearGradient id="mjolnir-leather" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#2a1a10" /><stop offset=".45" stop-color="#6b4429" /><stop offset="1" stop-color="#24160d" />
+          </linearGradient>
+          <linearGradient id="mjolnir-gold" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f6dd9c" /><stop offset=".5" stop-color="#d3ac65" /><stop offset="1" stop-color="#8a6a33" />
+          </linearGradient>
+        </defs>
+        <path class="mjolnir-strap" d="M100 26c-14-4-22-14-18-22 4-7 18-6 22 2" fill="none" stroke="#5b3a22" stroke-width="4" stroke-linecap="round" />
+        <path d="M86 14h28l3 14H83z" fill="url(#mjolnir-steel)" stroke="#1d2328" stroke-width="1.5" />
+        <rect data-hammer-part="handle" x="87" y="28" width="26" height="160" rx="4" fill="url(#mjolnir-leather)" stroke="#140c07" stroke-width="1.5" />
+        <path d="M87 40l26-8M87 56l26-8M87 72l26-8M87 88l26-8M87 104l26-8M87 120l26-8M87 136l26-8M87 152l26-8M87 168l26-8M87 184l26-8" stroke="#2a1a10" stroke-width="2.4" opacity=".75" />
+        <path d="M88 43l24-7M88 59l24-7M88 75l24-7M88 91l24-7M88 107l24-7M88 123l24-7M88 139l24-7M88 155l24-7M88 171l24-7" stroke="#8a5d3b" stroke-width="1" opacity=".55" />
+        <path d="M80 184h40l4 14H76z" fill="url(#mjolnir-steel)" stroke="#1d2328" stroke-width="1.5" />
+        <path data-hammer-part="head" d="M24 198h152l16 16v60l-16 16H24L8 274v-60z" fill="url(#mjolnir-steel)" stroke="#161b1f" stroke-width="2" />
+        <path d="M8 214l16-16v92l-16-16z" fill="url(#mjolnir-face)" stroke="#161b1f" stroke-width="1.5" />
+        <path d="M192 214l-16-16v92l16-16z" fill="url(#mjolnir-face)" stroke="#161b1f" stroke-width="1.5" />
+        <path d="M26 203h148" stroke="#ffffff" stroke-width="1.5" opacity=".7" />
+        <rect x="58" y="210" width="84" height="68" rx="5" fill="#1d2329" stroke="#0e1114" stroke-width="1.5" />
+        <rect x="61" y="213" width="78" height="62" rx="4" fill="none" stroke="#d3ac65" stroke-width="1" opacity=".55" />
+        <g transform={`translate(73 217) scale(${54 / logoSize})`}><path d={logoPath} fill="url(#mjolnir-gold)" fill-rule="evenodd" stroke="#4d3a17" stroke-width={logoSize / 90} /></g>
+        <g fill="#c9d2d8" stroke="#2b3238" stroke-width="1"><circle cx="38" cy="214" r="3" /><circle cx="162" cy="214" r="3" /><circle cx="38" cy="274" r="3" /><circle cx="162" cy="274" r="3" /></g>
+        <g class="mjolnir-arcs" fill="none" stroke="#dff0ff" stroke-width="2" stroke-linejoin="bevel">
+          <path d="M10 220l-14 6 8 6-16 8" /><path d="M190 260l14-4-6 8 16 4" /><path d="M60 292l-6 12 8-2-4 12" /><path d="M150 292l8 10-8 0 6 12" />
+        </g>
+      </svg>
+      <div class="debris" aria-hidden="true">{pieces.map(p=><i style={`--dx:${p.x}px;--dy:${p.y}px;--spin:${p.rotate}deg`}></i>)}</div>
+      <button class="emergent-logo" type="button" aria-label="Spark lightning from the Eitr logo"><span class="emblem-depth" aria-hidden="true"><span class="rune-ring"><span class="rune-ring-art"></span><span class="rune-ring-spark"></span><span class="rune-ring-embers">{runeEmbers.map(style => <i style={style}></i>)}</span></span><span class="impact-emblem"></span><svg class="emblem-hit" aria-hidden="true"><path /></svg><svg class="emblem-shimmer" fill="none"><path pathLength="1000" /></svg></span></button>
+      <svg class="click-lightning" viewBox="0 0 1000 600" fill="none" aria-hidden="true"><defs><mask id={maskId} maskUnits="userSpaceOnUse" x="-2000" y="-2000" width="5000" height="5000"><rect x="-2000" y="-2000" width="5000" height="5000" fill="white"/><path data-logo-exclusion fill="black" stroke="black" stroke-width="5"/></mask></defs><g mask={`url(#${maskId})`}>{lightningEffects.map((d,index)=><g data-lightning-effect={index}><path d={d}/></g>)}</g></svg>
+    </div>
+<style>/* The stage keeps the Mjölnir drawing only for wield-mjolnir.ts to copy. It stays rendered but
+   invisible: copies take their gradients from its defs, and display:none would blank them. */
+.impact-stage{height: min(620px,65vh);min-height:320px;position:relative;overflow:hidden;container-type:size;background:#000;border:1px solid #ffffff12;border-radius:4px;isolation:isolate}.hammer{position:absolute;width:1px;height:1px;overflow:hidden;visibility:hidden;pointer-events:none}.emergent-logo{position:absolute;inset:0;margin:auto;width:max-content;height:max-content;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;opacity:1;transform-origin:50% 50%}.emblem-depth{width:340px;height:350px;position:relative;display:block}.impact-emblem{position:absolute;inset:0;background:#fff;mask:url('/branding/eitr-logo.svg') center/contain no-repeat}.debris i{position:absolute;left:50%;top:50%;width:18px;height:12px;background:#788588;clip-path:polygon(0 12%,75% 0,100% 70%,20% 100%);opacity:0}.playing .emergent-logo{animation:emerge 2.6s both}
+@keyframes fragments{0%{opacity:0;transform:translate(0,0)}8%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--spin))}}@keyframes emerge{0%,35%{opacity:0;transform:scale(.15);filter:blur(8px)}65%{opacity:1;filter:blur(0)}100%{opacity:1;transform:scale(1)}}@media(prefers-reduced-motion:reduce){.playing .emergent-logo{animation:none;opacity:1}}@media(max-width:600px){.emblem-depth{width:220px;height:230px}}.impact-stage.embedded{background:transparent;border:0;height:min(720px,80vh);min-height:480px}@media(max-width:960px){.impact-stage.embedded{height:clamp(320px,48vh,460px);min-height:0}}.emergent-logo{border:0;padding:0;background:transparent;color:inherit;pointer-events:none}.hammer,.debris{pointer-events:none}.click-lightning{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;stroke:#fff;stroke-width:3;stroke-linejoin:bevel}.click-lightning [data-lightning-effect]{opacity:0;filter:drop-shadow(0 0 8px #fff)}.emblem-hit{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+/* The runestone wallpaper's ring (branding/svg/eitr-rune-ring.svg, from its generator) around the emblem,
+   at the wallpaper's proportions where the stage allows and never wider than the stage. */
+@property --rune-sweep{syntax:"<angle>";inherits:false;initial-value:0deg}
+.rune-ring{--ring-delay:2.6s;position:absolute;left:50%;top:50%;width:min(205%,96cqw,96cqh);aspect-ratio:1;translate:-50% -50%;pointer-events:none}
+.rune-ring-art{position:absolute;inset:0;opacity:.9;filter:drop-shadow(0 0 5px color-mix(in srgb,var(--bronze) 55%,transparent));mask:conic-gradient(from 0deg,#000 0deg var(--rune-sweep),transparent var(--rune-sweep) 360deg)}
+.rune-ring-art::before{content:"";position:absolute;inset:0;background:var(--bronze);mask:url('/branding/eitr-rune-ring.svg') center/contain no-repeat}
+.rune-ring-spark{position:absolute;inset:0;opacity:0}
+.rune-ring-spark::before{content:"";position:absolute;left:50%;top:2.92%;width:5px;height:5px;translate:-50% -50%;border-radius:50%;background:#fff1c9;box-shadow:0 0 6px 2px #e4b66b,0 0 16px 4px color-mix(in srgb,var(--bronze) 65%,transparent)}
+.rune-ring-spark::after{content:"";position:absolute;left:50%;top:5%;width:2px;height:9%;translate:-50% 0;background:linear-gradient(transparent,#fff1c9 45%,var(--bronze),transparent);filter:drop-shadow(0 0 5px #e4b66b)}
+.rune-ring-embers{position:absolute;inset:0}
+.rune-ring-embers i{position:absolute;width:var(--ember-size);height:var(--ember-size);border-radius:50%;background:#fff1c9;box-shadow:0 0 4px #e4b66b,0 0 9px var(--bronze);opacity:0;pointer-events:none}
+.playing .rune-ring-embers i{animation:rune-ember .75s calc(var(--ring-delay) + var(--ignite)) ease-out both}
+.restrike .rune-ring{--ring-delay:1.6s}
+.wielding .rune-ring-embers i{animation:none}
+@keyframes rune-ember{0%{opacity:0;transform:translate(0,0) scale(.5)}12%{opacity:1;transform:translate(0,-3px) scale(1.2)}38%{opacity:.85}65%{opacity:.35}100%{opacity:0;transform:translate(var(--drift),var(--fall)) scale(.2)}}
+.playing .rune-ring-art{animation:rune-draw 1.5s var(--ring-delay) linear both}
+.playing .rune-ring-spark{animation:rune-spark 1.5s var(--ring-delay) linear both}
+.wielding .rune-ring-art,.wielding .rune-ring-spark{animation:none}
+@keyframes rune-draw{from{--rune-sweep:0deg}to{--rune-sweep:360deg}}
+@keyframes rune-spark{0%{opacity:0;transform:rotate(0deg)}5%,92%{opacity:1}100%{opacity:0;transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.impact-stage .rune-ring-art{animation:none;mask:none}.impact-stage .rune-ring-spark,.impact-stage .rune-ring-embers{display:none}.impact-stage .rune-ring-embers i{animation:none}}
+.emblem-hit path{fill:transparent;pointer-events:fill;cursor:pointer}.impact-emblem{pointer-events:none}.emergent-logo:focus-visible{outline:2px solid #c6d7e9;outline-offset:10px;border-radius:4px}.emblem-shimmer{position:absolute;inset:0;width:100%;height:100%;overflow:visible;stroke:#ecf4ff;stroke-width:6;stroke-linecap:round;stroke-dasharray:32 968;filter:drop-shadow(0 0 4px #b6cef7);opacity:0;pointer-events:none}.emblem-shimmer path{animation:edge-shimmer 14s linear infinite;animation-play-state:paused}.impact-stage[data-ambient="true"] .emblem-shimmer{opacity:.65}.impact-stage[data-ambient="true"] .emblem-shimmer path{animation-play-state:running}
+@keyframes edge-shimmer{from{stroke-dashoffset:1000}to{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){.emblem-shimmer{display:none}}/* Dragged into Mjölnir and struck again (src/scripts/realm/wield-mjolnir.ts). */
+.wielding .emergent-logo{animation:none;opacity:0;scale:.5;transition:opacity .2s,scale .2s}.wielding .debris i{animation:none;opacity:0}.restrike .debris i{animation:fragments 1.1s .05s ease-out both}.restrike .emergent-logo{animation:emerge 1.6s both}
+</style>
+<script>
+import logoMarkup from '../data/eitr-logo.svg?raw';
+import { announceStrike, motionAllowed } from '../scripts/realm/motion';
+import { strikeGround } from '../scripts/realm/mjolnir-charge';
+const logoDocument=new DOMParser().parseFromString(logoMarkup,'image/svg+xml');
+const logoPath=logoDocument.querySelector('path')?.getAttribute('d') || '';
+// The first closed contour is the liquid boundary; exclude its whole interior,
+// including the transparent E counter, from both bolts and their glow.
+const boundary=logoPath.match(/M[^M]+/)?.[0];
+const viewBox=(logoDocument.documentElement.getAttribute('viewBox') || '').split(/\s+/).map(Number);
+if(!boundary || viewBox.length!==4) throw new Error('Eitr logo boundary is unavailable.');
+for(const stage of document.querySelectorAll<HTMLElement>('.impact-stage')) {
+ const button=stage.querySelector<HTMLButtonElement>('.emergent-logo');
+ const overlay=stage.querySelector<SVGSVGElement>('.click-lightning');
+ const hero=stage.closest<HTMLElement>('.hero');
+ if(hero && overlay) {
+  hero.append(overlay);
+  overlay.classList.add('hero-lightning');
+  overlay.style.zIndex='5';
+ }
+ const effects=Array.from(overlay?.querySelectorAll<SVGGElement>('[data-lightning-effect]') || []);
+ let flash=document.querySelector<HTMLElement>('[data-logo-flash]');
+ if(!flash) {
+  flash=document.createElement('div');
+  flash.dataset.logoFlash='';
+  flash.setAttribute('aria-hidden','true');
+  flash.style.cssText='position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:100';
+  document.body.append(flash);
+ }
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ // The entrance is lightning alone: 0.7 s in it strikes where the emblem then
+ // rises. Mjölnir appears only when the logo is dragged (wield-mjolnir.ts).
+ const arrive=()=>setTimeout(()=>{
+  const emblem=stage.querySelector<HTMLElement>('.impact-emblem');
+  const bounds=emblem?.getBoundingClientRect();
+  if(!bounds || !motionAllowed()) return;
+  strikeGround(bounds.left+bounds.width/2,bounds.top+bounds.height/2,1,emblem);
+ },700);
+ if(stage.classList.contains('playing')) arrive();
+ stage.addEventListener('replay',arrive);
+ const hit=stage.querySelector<SVGSVGElement>('.emblem-hit');
+ hit?.setAttribute('viewBox',viewBox.join(' '));
+ hit?.querySelector('path')?.setAttribute('d',boundary);
+ const shimmer=stage.querySelector<SVGSVGElement>('.emblem-shimmer');
+ shimmer?.setAttribute('viewBox',viewBox.join(' '));
+ shimmer?.querySelector('path')?.setAttribute('d',boundary);
+ let visible=false;
+ const updateAmbient=()=>{stage.dataset.ambient=String(visible && !document.hidden && !reduced.matches);};
+ const visibility=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;updateAmbient();});
+ visibility.observe(stage);
+ document.addEventListener('visibilitychange',updateAmbient);
+ let previous=-1;
+ let busy=false;
+ button?.addEventListener('click',()=>{
+  if(reduced.matches || busy) return;
+  const center=button.getBoundingClientRect();
+  announceStrike({x:center.left+center.width/2,y:center.top+center.height/2,strength:.6});
+  const index=previous<0 ? Math.floor(Math.random()*effects.length) : (previous+1+Math.floor(Math.random()*(effects.length-1)))%effects.length;
+  const emblem=stage.querySelector<HTMLElement>('.impact-emblem');
+  const matrix=overlay?.getScreenCTM();
+  if(overlay && emblem && matrix) {
+   const bounds=emblem.getBoundingClientRect();
+   const point=overlay.createSVGPoint();
+   point.x=bounds.left+bounds.width/2;
+   point.y=bounds.top+bounds.height/2;
+   const origin=point.matrixTransform(matrix.inverse());
+   const side=Math.min(bounds.width,bounds.height);
+   const corner=overlay.createSVGPoint();
+   corner.x=bounds.left+(bounds.width-side)/2;
+   corner.y=bounds.top+(bounds.height-side)/2;
+   const start=corner.matrixTransform(matrix.inverse());
+   const end=overlay.createSVGPoint();end.x=corner.x+side;end.y=corner.y+side;
+   const finish=end.matrixTransform(matrix.inverse());
+   const exclusion=overlay.querySelector('[data-logo-exclusion]');
+   exclusion?.setAttribute('d',boundary);
+   exclusion?.setAttribute('transform',`translate(${start.x} ${start.y}) scale(${(finish.x-start.x)/viewBox[2]} ${(finish.y-start.y)/viewBox[3]}) translate(${-viewBox[0]} ${-viewBox[1]})`);
+   effects[index].setAttribute('transform',`translate(${origin.x} ${origin.y}) scale(1.5) translate(-500 -300)`);
+  }
+  previous=index;
+  stage.dataset.lastEffect=String(index);
+  busy=true;
+  flash.animate([{opacity:0},{opacity:.10,offset:.18},{opacity:0}],{duration:180,easing:'ease-out'});
+  const animation=effects[index].animate([{opacity:0},{opacity:.95,offset:.16},{opacity:.5,offset:.4},{opacity:0}],{duration:440,easing:'ease-out'});
+  animation.finished.then(()=>{busy=false;},()=>{busy=false;});
+ });
+ reduced.addEventListener('change',()=>{
+  updateAmbient();
+  if(reduced.matches) {
+   const layers=[...effects,flash,stage.querySelector('.impact-emblem')];
+   for(const layer of layers) for(const animation of layer?.getAnimations() || []) animation.cancel();
+  }
+ });
+}
+</script>

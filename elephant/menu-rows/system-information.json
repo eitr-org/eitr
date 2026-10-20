@@ -1,0 +1,63 @@
+[
+  {
+    "text": "About",
+    "subtext": "Eitr version, hardware and system details",
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/about.sh"
+    }
+  },
+  {
+    "text": "AI Usage",
+    "subtext": "Claude and Codex usage limits",
+    "keywords": [
+      "claude",
+      "codex",
+      "limits",
+      "tokens"
+    ],
+    "icon": "󱜙",
+    "actions": {
+      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh ai"
+    }
+  },
+  {
+    "text": "Hardware",
+    "subtext": "CPU, GPU, memory and storage use",
+    "keywords": [
+      "gpu",
+      "cpu",
+      "ram",
+      "memory",
+      "monitor"
+    ],
+    "icon": "󰍛",
+    "actions": {
+      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh hardware"
+    }
+  },
+  {
+    "text": "Report a Problem",
+    "subtext": "Collect a report and send it by email or GitHub",
+    "keywords": [
+      "bug",
+      "issue",
+      "diagnostics",
+      "logs",
+      "support",
+      "crash"
+    ],
+    "icon": "󰃤",
+    "actions": {
+      "open": "kitty --hold -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/report-problem.py"
+    }
+  },
+  {
+    "text": "Weather",
+    "subtext": "Forecast for your location",
+    "icon": "󰖐",
+    "actions": {
+      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh weather"
+    }
+  }
+]

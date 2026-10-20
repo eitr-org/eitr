@@ -1,0 +1,142 @@
+---
+// Huginn and Muninn now and then fly in, land beside a heading in view, and fly
+// off again. Clicking a perched raven shares a short tip about EITR.
+const ravens = [["huginn", "Huginn"], ["muninn", "Muninn"]];
+---
+{ravens.map(([id, name]) => (
+  <button class="raven" type="button" data-raven={id} aria-label={`${name}, Odin's raven, has a tip`} hidden>
+    <svg class="raven-fly" viewBox="0 0 100 60" aria-hidden="true">
+      <path class="raven-wing far" d="M54 31C58 22 64 14 74 7l-1 6 7-4-3 6 7-2-5 6 6 0-11 6c-7 3-13 5-18 8z" />
+      <path class="raven-body" d="M26 36 8 30l3 6-5 5 6 1-3 5 18-7c9 5 25 6 37 2 6-2 10-3 14-3l2 2 1-3 3 0 13-4-13-4c-2-4-10-4-13-1-5 3-13 2-21 1-10 0-18 3-24 6z" />
+      <path class="raven-wing near" d="M44 31C40 22 34 13 22 6l3 7-8-5 4 7-8-3 5 7-8-2 7 7-7 1 12 5c8 2 16 3 24 4z" />
+      <circle class="raven-eye" cx="78" cy="31" r="1.3" />
+    </svg>
+    <svg class="raven-perch" viewBox="0 0 60 80" aria-hidden="true">
+      <path class="raven-body" d="M33 9c5-4 12-3 15 2l12 4-12 3-2 3 1 3-4-1 1 4-4-1c1 8 1 16-2 24l-3 8 1 10-3 0-1-9c-5-3-9-9-10-16-2-11 2-22 8-29 1-2 2-4 3-5z" />
+      <path class="raven-body" d="M27 50 16 72l5-1 2 4 7-17z" />
+      <path class="raven-legs" d="M30 59l-1 12-4 2M30 71l3 2M35 58l1 13-3 2M36 71l4 2" />
+      <path class="raven-fold" d="M27 27c3 10 4 21 1 33" />
+      <circle class="raven-eye" cx="42" cy="12" r="1.1" />
+    </svg>
+  </button>
+))}
+<p class="raven-tip" role="status" hidden></p>
+<style>
+.raven{position:absolute;left:0;top:0;will-change:transform;z-index:40;width:74px;height:46px;padding:0;border:0;background:transparent;cursor:pointer;pointer-events:none}
+.raven[data-state="perched"]{pointer-events:auto}
+.raven svg{position:absolute;overflow:visible;filter:drop-shadow(0 0 1px #d9cfc2) drop-shadow(0 0 6px #8a3a3faa)}
+.raven-fly{inset:0;width:100%;height:100%}
+.raven-perch{display:none;left:22px;bottom:0;width:36px;height:48px}
+.raven[data-state="perched"] .raven-fly{display:none}
+.raven[data-state="perched"] .raven-perch{display:block;animation:perch-bob 2.4s ease-in-out infinite}
+.raven .raven-body,.raven .raven-wing{fill:#161212;stroke:#a39a90;stroke-width:1.1;stroke-linejoin:round}
+.raven-legs{fill:none;stroke:#a39a90;stroke-width:1.4;stroke-linecap:round}
+.raven-fold{fill:none;stroke:#6e5f58;stroke-width:1.2;stroke-linecap:round}
+.raven-eye{fill:#c8424b}
+.raven-wing{transform-box:fill-box;transform-origin:50% 100%}
+.raven[data-state="flying"] .raven-wing{animation:flap .3s ease-in-out infinite alternate}
+.raven[data-facing="left"] svg{scale:-1 1}
+.raven:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:6px}
+@keyframes flap{from{transform:scaleY(1)}to{transform:scaleY(-.45)}}
+@keyframes perch-bob{0%,100%{translate:0 0}50%{translate:0 -1.5px}}
+.raven-tip{position:absolute;z-index:41;max-width:260px;padding:10px 14px;border:1px solid var(--line-strong);border-radius:4px;background:var(--surface);color:var(--fg);font-size:12px;line-height:1.6;box-shadow:0 10px 30px #000a}
+.raven-tip::before{content:"ᚺ";font-family:var(--runic);color:var(--bronze);margin-right:8px}
+@media(max-width:900px),(pointer:coarse){.raven svg{filter:drop-shadow(0 0 1px #d9cfc2)}}
+@media(prefers-reduced-motion:reduce){.raven,.raven-tip{display:none}}
+</style>
+<script>
+import { motionAllowed } from '../scripts/realm/motion';
+
+const tips = [
+  'SUPER + Space opens your apps. SUPER + F opens everything else.',
+  'SUPER + Tab shows every workspace at once.',
+  'Typing inside any Walker menu searches everything below it.',
+  'System Update takes a snapshot before it upgrades, so a bad update can be undone.',
+  'Every theme recolors the bar, terminal, launcher and lockscreen together.',
+  'SUPER + F1 opens the Handbook. It works offline, inside the desktop.',
+  'The bar tells you when updates are waiting. Right-click its icon to check again.',
+  'Press Print and lightning strikes whatever you capture.',
+  'Type "ragnarok" in Walker. If you dare.',
+  'Git Accounts keeps work and personal identities apart, folder by folder.',
+];
+const birds = [...document.querySelectorAll<HTMLButtonElement>('.raven')];
+const tip = document.querySelector<HTMLElement>('.raven-tip');
+// Page coordinates: the birds and their tip live directly in <body>.
+if (tip) document.body.append(...birds, tip);
+let busy = false;
+let tipIndex = Math.floor(Math.random() * tips.length);
+let leaveTimer = 0;
+
+const pageX = (x: number) => x + scrollX;
+const pageY = (y: number) => y + scrollY;
+
+function perchSpot() {
+  const headings = [...document.querySelectorAll<HTMLElement>('main h2')].filter((heading) => {
+    const bounds = heading.getBoundingClientRect();
+    return bounds.top > 90 && bounds.bottom < innerHeight * 0.85;
+  });
+  if (!headings.length) return null;
+  const range = document.createRange();
+  range.selectNodeContents(headings[0]);
+  const line = range.getClientRects()[0] ?? headings[0].getBoundingClientRect();
+  // Beside the first line of the heading, clear of the label above it.
+  return { x: pageX(Math.min(line.right + 18, innerWidth - 170)), y: pageY(line.top + line.height * 0.2) };
+}
+
+function fly(bird: HTMLButtonElement, from: [number, number], to: [number, number], duration: number) {
+  bird.hidden = false;
+  bird.dataset.state = 'flying';
+  bird.dataset.facing = to[0] < from[0] ? 'left' : 'right';
+  const lift = Math.min(from[1], to[1]) - 120;
+  // Transforms move on the compositor; animating left/top would lay out the page every frame.
+  const at = (x: number, y: number) => `translate(${x}px, ${y}px)`;
+  return bird.animate([
+    { transform: at(from[0], from[1]) },
+    { transform: at((from[0] + to[0]) / 2, lift), offset: 0.55 },
+    { transform: at(to[0], to[1]) },
+  ], { duration, easing: 'cubic-bezier(.35,.1,.3,1)', fill: 'forwards' }).finished;
+}
+
+async function leave() {
+  clearTimeout(leaveTimer);
+  if (tip) tip.hidden = true;
+  const exit = Math.random() < 0.5 ? -120 : innerWidth + 60;
+  await Promise.all(birds.map((bird, index) => {
+    const bounds = bird.getBoundingClientRect();
+    return fly(bird, [pageX(bounds.left), pageY(bounds.top)], [pageX(exit), pageY(-80) + index * 30], 2600 + index * 300);
+  }));
+  birds.forEach((bird) => { bird.hidden = true; bird.getAnimations().forEach((animation) => animation.cancel()); });
+  busy = false;
+}
+
+async function visit() {
+  if (busy || !motionAllowed()) return false;
+  const spot = perchSpot();
+  if (!spot) return false;
+  busy = true;
+  const side = Math.random() < 0.5 ? -120 : innerWidth + 60;
+  await Promise.all(birds.map((bird, index) =>
+    fly(bird, [pageX(side), pageY(40) + index * 50], [spot.x + index * 60, spot.y + (index ? 6 : 0)], 3000 + index * 400)));
+  birds.forEach((bird) => { bird.dataset.state = 'perched'; });
+  leaveTimer = window.setTimeout(leave, 9000);
+  return true;
+}
+
+birds.forEach((bird) => bird.addEventListener('click', () => {
+  if (!tip || bird.dataset.state !== 'perched') return;
+  clearTimeout(leaveTimer);
+  tip.hidden = false;
+  tip.textContent = tips[tipIndex++ % tips.length];
+  const bounds = bird.getBoundingClientRect();
+  tip.style.left = `${pageX(Math.max(16, Math.min(bounds.left - 100, innerWidth - 290)))}px`;
+  // Above the birds, so the heading they sit beside stays readable.
+  tip.style.top = `${pageY(bounds.top - tip.offsetHeight - 12)}px`;
+  leaveTimer = window.setTimeout(leave, 6500);
+}));
+
+// Nowhere to land (no heading in view, hidden tab): look again soon.
+const schedule = (delay: number) => setTimeout(async () => {
+  schedule(await visit() ? 45000 + Math.random() * 30000 : 8000);
+}, delay);
+schedule(15000);
+</script>

@@ -1,0 +1,11 @@
+---
+// Elder Futhark text whose runes reveal their Latin letters under the cursor
+// (src/scripts/realm/rune-decoder.ts). Decorative: callers hide it from assistive tech.
+const latin: Record<string, string> = {
+  "ᚠ": "f", "ᚢ": "u", "ᚦ": "th", "ᚨ": "a", "ᚱ": "r", "ᚲ": "k", "ᚷ": "g", "ᚹ": "w",
+  "ᚺ": "h", "ᚾ": "n", "ᛁ": "i", "ᛃ": "j", "ᛇ": "ï", "ᛈ": "p", "ᛉ": "z", "ᛊ": "s",
+  "ᛏ": "t", "ᛒ": "b", "ᛖ": "e", "ᛗ": "m", "ᛚ": "l", "ᛜ": "ng", "ᛞ": "d", "ᛟ": "o",
+};
+const { text } = Astro.props as { text: string };
+---
+{[...text].map((character) => latin[character] ? <span class="rune-glyph" data-latin={latin[character]}>{character}</span> : character)}

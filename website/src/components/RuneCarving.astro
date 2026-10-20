@@ -1,0 +1,57 @@
+---
+// A section's rune, carved as it scrolls into view: a glowing chisel cuts each
+// stroke in turn and a few embers fall. Reduced motion shows the finished rune.
+const strokes = {
+  ansuz: ['30,10 30,150', '30,26 76,56', '30,62 76,92'],
+  dagaz: ['16,18 16,142', '84,18 84,142', '16,18 84,142', '84,18 16,142'],
+  sowilo: ['70,10 26,66 74,96 30,150'],
+  fehu: ['30,10 30,150', '30,36 76,8', '30,76 76,46'],
+  raidho: ['26,10 26,150', '26,10 74,42 26,76 74,150'],
+  isaz: ['50,10 50,150'],
+  kenaz: ['72,26 28,80 72,134'],
+  wunjo: ['30,10 30,150', '30,14 72,44 30,74'],
+  tiwaz: ['50,10 50,150', '50,10 16,50', '50,10 84,50'],
+  laguz: ['34,10 34,150', '34,10 76,48'],
+} as const;
+type Rune = keyof typeof strokes;
+const { rune } = Astro.props as { rune: Rune };
+---
+<div class="rune-carving" data-rune={rune} aria-hidden="true">
+  <svg viewBox="0 0 100 160">
+    {strokes[rune].map((points, index) => (
+      <g style={`--stroke:${index}`}>
+        <polyline class="cut" points={points} pathLength="1" />
+        <polyline class="chisel" points={points} pathLength="1" />
+      </g>
+    ))}
+  </svg>
+  <span class="embers">{Array.from({ length: 9 }, (_, index) => <i style={`--ember:${index}`}></i>)}</span>
+</div>
+<style>
+.rune-carving{position:absolute;right:0;top:-6px;width:74px;height:118px;pointer-events:none;color:var(--bronze)}
+.rune-carving svg{width:100%;height:100%;overflow:visible}
+.rune-carving polyline{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.cut{stroke:currentColor;stroke-width:7;opacity:.5;stroke-dasharray:1 1;stroke-dashoffset:0}
+.chisel{stroke:#fff3d6;stroke-width:4;stroke-dasharray:.07 1;stroke-dashoffset:1.07;opacity:0;filter:drop-shadow(0 0 6px #ffb860)}
+.js .rune-carving:not(.carved) .cut{stroke-dashoffset:1}
+.rune-carving.carved .cut{animation:carve .8s calc(var(--stroke) * .55s) cubic-bezier(.5,0,.3,1) both}
+.rune-carving.carved .chisel{animation:chisel .8s calc(var(--stroke) * .55s) cubic-bezier(.5,0,.3,1) both}
+.embers{position:absolute;inset:0}
+.embers i{position:absolute;left:calc(30% + var(--ember) * 5%);top:45%;width:3px;height:3px;border-radius:50%;background:#ffc278;box-shadow:0 0 6px #ff9a3c;opacity:0}
+.rune-carving.carved .embers i{animation:ember 1.6s calc(.3s + var(--ember) * .17s) ease-in both}
+@keyframes carve{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes chisel{0%{opacity:1;stroke-dashoffset:1.07}90%{opacity:1}100%{opacity:0;stroke-dashoffset:0}}
+@keyframes ember{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}100%{opacity:0;transform:translate(calc((var(--ember) - 4) * 4px),70px)}}
+@media(max-width:600px){.rune-carving{width:48px;height:78px}}
+@media(prefers-reduced-motion:reduce){.js .rune-carving .cut{stroke-dashoffset:0;animation:none}.chisel,.embers{display:none}}
+</style>
+<script>
+const carvings = new IntersectionObserver((entries) => {
+  for (const entry of entries) {
+    if (!entry.isIntersecting) continue;
+    entry.target.classList.add('carved');
+    carvings.unobserve(entry.target);
+  }
+}, { threshold: 0.8 });
+document.querySelectorAll('.rune-carving').forEach((carving) => carvings.observe(carving));
+</script>

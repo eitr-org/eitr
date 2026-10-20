@@ -1,0 +1,107 @@
+<button class="sky-toggle" type="button" role="switch" aria-label="Light theme" aria-checked="false">
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 1v3m0 16v3M1 12h3m16 0h3M4 4l2 2m12 12 2 2M4 20l2-2M18 6l2-2"/></svg>
+  <span data-sky-label>Night</span>
+</button>
+<div class="sky-change" data-sky-change data-to="light" data-active="false" aria-hidden="true">
+  <canvas class="sky-flight" aria-hidden="true"></canvas>
+</div>
+<span class="sky-status" role="status" aria-live="polite"></span>
+<script>
+import { motionAllowed, onMotionChange } from '../scripts/realm/motion';
+import { wolfHowl } from '../scripts/realm/sound';
+import { celestialChase, chaseRevealFrames, CHASE_DURATION } from '../scripts/realm/celestial-chase';
+const root=document.documentElement;
+const toggle=document.querySelector<HTMLButtonElement>('.sky-toggle');
+const scene=document.querySelector<HTMLElement>('[data-sky-change]');
+if(toggle && scene) {
+ document.body.append(scene);
+ const label=toggle.querySelector('[data-sky-label]');
+ const canvas=scene.querySelector<HTMLCanvasElement>('.sky-flight')!;
+ const status=document.querySelector('.sky-status');
+ let stopFlight=()=>{};
+ let transition:ViewTransition | undefined;
+ let revealAnimation:Animation | undefined;
+ let next:'light'|'dark'='dark';
+ let busy=false;
+ let savedScroll:{x:number;y:number} | undefined;
+ const holdViewport=()=>{
+  savedScroll={x:scrollX,y:scrollY};
+  root.style.setProperty('--sky-scroll-top',`${-scrollY}px`);
+  root.style.setProperty('--sky-scroll-left',`${-scrollX}px`);
+  root.style.setProperty('--sky-view-width',`${root.clientWidth}px`);
+  root.dataset.skyCapture='true';
+ };
+ const releaseViewport=()=>{
+  if(!savedScroll) return;
+  const position=savedScroll;savedScroll=undefined;
+  delete root.dataset.skyCapture;
+  root.style.removeProperty('--sky-scroll-top');
+  root.style.removeProperty('--sky-scroll-left');
+  root.style.removeProperty('--sky-view-width');
+  scrollTo({left:position.x,top:position.y,behavior:'instant'});
+ };
+ let howlAbort:AbortController | undefined;
+ const sync=()=>{
+  const light=root.dataset.appearance==='light';
+  toggle.setAttribute('aria-checked',String(light));
+  if(label) label.textContent=light ? 'Day' : 'Night';
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content',light?'#f2ecdf':'#0a0707');
+ };
+ const apply=()=>{
+  root.dataset.appearance=next;
+  try {localStorage.setItem('eitr-appearance',next);} catch {}
+  sync();
+  if(status) status.textContent=next==='light'?'Daylight theme enabled.':'Night theme enabled.';
+  document.dispatchEvent(new CustomEvent('eitr:appearance'));
+ };
+ const finish=()=>{
+  stopFlight();
+  transition?.skipTransition();transition=undefined;
+  revealAnimation?.cancel();revealAnimation=undefined;
+  releaseViewport();
+  delete scene.dataset.revealing;
+  if(busy && root.dataset.appearance!==next) apply();
+  scene.dataset.active='false';
+  busy=false;
+  toggle.disabled=false;
+  toggle.removeAttribute('aria-disabled');
+ };
+ const reveal=()=>{
+  scene.dataset.revealing='true';
+  if(!document.startViewTransition) {apply();stopFlight=celestialChase(canvas,next==='dark',finish);return;}
+  // Bound the page capture to the viewport, even deep into a long Retina page.
+  holdViewport();
+  const view=document.startViewTransition(apply);
+  transition=view;
+  view.ready.then(()=>{
+   if(transition!==view || !busy || !motionAllowed()) {view.skipTransition();return;}
+   revealAnimation=root.animate(
+    chaseRevealFrames(),
+    {duration:CHASE_DURATION,easing:'linear',pseudoElement:'::view-transition-new(site-page)',fill:'both'}
+   );
+   stopFlight=celestialChase(canvas,next==='dark',finish);
+  }).catch(()=>{if(transition===view && busy) {apply();stopFlight=celestialChase(canvas,next==='dark',finish);}});
+ };
+ toggle.addEventListener('click',()=>{
+  if(busy) return;
+  next=root.dataset.appearance==='light'?'dark':'light';
+  if(!motionAllowed()) {apply();return;}
+  busy=true;
+  toggle.disabled=true;
+  toggle.setAttribute('aria-disabled','true');
+  scene.dataset.to=next;
+  scene.dataset.active='true';
+  howlAbort?.abort();
+  howlAbort=new AbortController();
+  void wolfHowl(howlAbort.signal);
+  reveal();
+ });
+ onMotionChange(()=>{if(!motionAllowed()) {howlAbort?.abort();if(busy) finish();}});
+ addEventListener('resize',()=>{if(busy) finish();});
+ document.addEventListener('click',event=>{
+  if(busy && event.target instanceof Element && event.target.closest('a[href]')) finish();
+ },{capture:true});
+ addEventListener('pagehide',()=>{howlAbort?.abort();finish();});
+ sync();
+}
+</script>

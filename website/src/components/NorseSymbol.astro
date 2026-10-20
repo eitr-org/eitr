@@ -1,0 +1,13 @@
+---
+const { name = 'raven', class: className = '' } = Astro.props;
+const paths: Record<string, string[]> = {
+  hammer: ['M25 8h14v9l15 7-5 14-13-5v23h-8V33l-13 5-5-14 15-7Z','M28 13h8M31 39h2M31 47h2'],
+  tree: ['M32 55V29M32 38 20 29 13 16M32 32l13-9 7-12M32 29l-3-15 4-8M32 37l15 1 10-7M32 44l-16-2-9-9M32 49 18 57M32 49l13 9','M13 16l11 2M45 23l-2-10M16 42l-5 8M32 55l1 6'],
+  raven: ['M12 43 4 30l18 5-8-19 18 12 6-14 9 7 12 2-11 6-3 16-15 11-6-11-12 9 4-12Z','M24 36 38 36 30 46M40 24h1M21 32l5 7'],
+  spear: ['M32 3 22 23l10 9 10-9Z','M32 12v46M25 25l14-8M28 41h8M28 48h8M28 55h8'],
+  serpent: ['M44 13c-27-14-49 27-25 39 14 8 31-8 23-20-7-11-22 0-12 8','M44 13l10 3-6 9-9-4 5-8ZM46 18h1M21 22l5 4M14 34l6 1M20 45l3-4'],
+  ship: ['M5 43c14 3 36 3 52-2-5 17-42 22-52 2Z','M33 7v36M30 10 13 33h17M36 11l15 21H36M8 43l-3-8 7-2M16 48v5M27 48v7M39 47v7M49 45v6'],
+};
+if (!paths[name]) throw new Error(`Unknown Norse symbol: ${name}`);
+---
+<svg class:list={['norse-symbol',className]} viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">{paths[name].map(d=><path d={d}/>)}</svg>

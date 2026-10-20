@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+# The required identity is local Git config, so no address is published here:
+#   git config eitr.guard.identity 'Name <email>'
+expected="$(git config --get eitr.guard.identity || true)"
+if [[ -z "$expected" ]]; then
+  printf 'These hooks guard commit identities. Set the required one first:\n  git config eitr.guard.identity "Name <email>"\n' >&2
+  exit 1
+fi
+for role in AUTHOR COMMITTER; do
+  identity="$(git var "GIT_${role}_IDENT")"
+  actual="${identity%%>*}>"
+  if [[ "$actual" != "$expected" ]]; then
+    printf 'Refusing %s identity: %s\nThis checkout commits only as %s.\n' "$role" "$actual" "$expected" >&2
+    exit 1
+  fi
+done

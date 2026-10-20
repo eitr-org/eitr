@@ -1,0 +1,21 @@
+# shellcheck shell=bash disable=SC2034,SC2154
+pkgname=eitr-cmux-tui-bin
+pkgver=20261012.5a4095a8
+pkgrel=1
+pkgdesc='Official cmux TUI terminal multiplexer, pinned for EITR'
+arch=(x86_64)
+url='https://cmux.com/tui'
+license=('GPL-3.0-or-later')
+depends=(bash)
+provides=(cmux)
+options=(!strip !debug)
+_commit=5a4095a8f6806ca59227077bc2e4ab58771bd076
+source=("cmux-${_commit}::https://files.cmux.com/cmux-tui/${_commit}/cmux-tui-x86_64-unknown-linux-gnu"
+        "LICENSE-${_commit}::https://raw.githubusercontent.com/manaflow-ai/cmux/${_commit}/LICENSE")
+sha256sums=('cea713d38acb477e11ff98959d80e9d1d32b3deadac8afb746674b41a597981d'
+            'ad00ebb34f48e86a71b087584ffa6540d58f6468eeccf85c113d7b6d580a7bb9')
+
+package() {
+  install -Dm755 "$srcdir/cmux-${_commit}" "$pkgdir/usr/bin/cmux"
+  install -Dm644 "$srcdir/LICENSE-${_commit}" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

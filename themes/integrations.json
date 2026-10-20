@@ -1,0 +1,282 @@
+{
+  "afterglow": {
+    "icons": "Yaru-purple",
+    "vscode": {
+      "name": "Ship at Sea",
+      "extension": "rikkarth.ship-at-sea"
+    },
+    "neovim": {
+      "colorscheme": "aether",
+      "plugins": [
+        {
+          "branch": "v3",
+          "name": "aether",
+          "priority": 1000,
+          "repo": "omacom/aether.nvim",
+          "palette": true
+        }
+      ]
+    }
+  },
+  "catppuccin": {
+    "icons": "Yaru-blue",
+    "vscode": {
+      "name": "Catppuccin Mocha",
+      "extension": "catppuccin.catppuccin-vsc"
+    },
+    "neovim": {
+      "colorscheme": "catppuccin",
+      "plugins": [
+        {
+          "name": "catppuccin",
+          "priority": 1000,
+          "repo": "catppuccin/nvim"
+        }
+      ]
+    }
+  },
+  "catppuccin-latte": {
+    "icons": "Yaru-blue",
+    "vscode": {
+      "name": "Catppuccin Latte",
+      "extension": "catppuccin.catppuccin-vsc"
+    },
+    "neovim": {
+      "colorscheme": "catppuccin-latte",
+      "plugins": [
+        {
+          "name": "catppuccin",
+          "opts": {
+            "flavour": "latte"
+          },
+          "priority": 1000,
+          "repo": "catppuccin/nvim"
+        }
+      ]
+    }
+  },
+  "daylight": {
+    "icons": "Yaru-grey",
+    "vscode": {
+      "name": "White",
+      "extension": "Bjarne.white-theme"
+    },
+    "neovim": {
+      "colorscheme": "white",
+      "plugins": [
+        {
+          "priority": 1000,
+          "repo": "bjarneo/white.nvim"
+        }
+      ]
+    }
+  },
+  "graphite": {
+    "icons": "Yaru",
+    "vscode": {
+      "name": "Matte Black",
+      "extension": "TahaYVR.matteblack"
+    },
+    "neovim": {
+      "colorscheme": "matteblack",
+      "plugins": [
+        {
+          "lazy": false,
+          "priority": 1000,
+          "repo": "tahayvr/matteblack.nvim"
+        }
+      ]
+    }
+  },
+  "gruvbox": {
+    "icons": "Yaru-olive",
+    "vscode": {
+      "name": "Gruvbox Dark Medium",
+      "extension": "jdinhlife.gruvbox"
+    },
+    "neovim": {
+      "colorscheme": "gruvbox",
+      "plugins": [
+        {
+          "repo": "ellisonleao/gruvbox.nvim"
+        }
+      ]
+    }
+  },
+  "jade": {
+    "icons": "Yaru-prussiangreen",
+    "vscode": {
+      "name": "Ocean Green: Dark",
+      "extension": "jovejonovski.ocean-green"
+    },
+    "neovim": {
+      "colorscheme": "bamboo",
+      "plugins": [
+        {
+          "priority": 1000,
+          "repo": "ribru17/bamboo.nvim"
+        }
+      ]
+    }
+  },
+  "kanagawa": {
+    "icons": "Yaru-blue",
+    "vscode": {
+      "name": "Kanagawa",
+      "extension": "qufiwefefwoyn.kanagawa"
+    },
+    "neovim": {
+      "colorscheme": "kanagawa",
+      "plugins": [
+        {
+          "repo": "rebelot/kanagawa.nvim"
+        }
+      ]
+    }
+  },
+  "moss": {
+    "icons": "Yaru-wartybrown",
+    "vscode": {
+      "name": "Miasma",
+      "extension": "oldjobobo.miasma-theme"
+    },
+    "neovim": {
+      "colorscheme": "miasma",
+      "plugins": [
+        {
+          "priority": 1000,
+          "repo": "OldJobobo/miasma.nvim"
+        }
+      ]
+    }
+  },
+  "nord": {
+    "icons": "Yaru-gray",
+    "vscode": {
+      "name": "Nord",
+      "extension": "arcticicestudio.nord-visual-studio-code"
+    },
+    "neovim": {
+      "colorscheme": "nordfox",
+      "plugins": [
+        {
+          "repo": "EdenEast/nightfox.nvim"
+        }
+      ]
+    }
+  },
+  "norse": {
+    "icons": "Yaru-prussiangreen",
+    "vscode": {
+      "name": "Norse",
+      "extension": "local.norse-theme",
+      "vsix": "vscode.vsix"
+    },
+    "neovim": {
+      "colorscheme": "carbonfox",
+      "plugins": [
+        {
+          "opts": {
+            "palettes": {
+              "carbonfox": {
+                "bg0": "#06070c",
+                "bg1": "#0a0b12",
+                "bg2": "#13141e",
+                "bg3": "#1a1b28",
+                "bg4": "#2e3046",
+                "blue": "#8a8cf5",
+                "comment": "#666c85",
+                "cyan": "#4fd2c0",
+                "fg0": "#f4f6fa",
+                "fg1": "#e8ecf2",
+                "fg2": "#c9cfdb",
+                "fg3": "#454a63",
+                "green": "#3fe39a",
+                "magenta": "#e04fc3",
+                "orange": "#c2ee5a",
+                "pink": "#f08bd8",
+                "red": "#ff6b7a",
+                "sel0": "#1e3a32",
+                "sel1": "#2a4a3e",
+                "yellow": "#c2ee5a"
+              }
+            }
+          },
+          "repo": "EdenEast/nightfox.nvim"
+        }
+      ]
+    }
+  },
+  "one-dark-pro": {
+    "icons": "Yaru-blue",
+    "vscode": {
+      "name": "One Dark Pro",
+      "extension": "zhuangtongfa.material-theme"
+    },
+    "neovim": {
+      "colorscheme": "onedark",
+      "plugins": [
+        {
+          "opts": {
+            "colors": {
+              "bg": "#282c34",
+              "fg": "#abb2bf"
+            }
+          },
+          "priority": 1000,
+          "repo": "olimorris/onedarkpro.nvim"
+        }
+      ]
+    }
+  },
+  "rose-pine": {
+    "icons": "Yaru-magenta",
+    "vscode": {
+      "name": "Rosé Pine Dawn",
+      "extension": "mvllow.rose-pine"
+    },
+    "neovim": {
+      "colorscheme": "rose-pine-dawn",
+      "plugins": [
+        {
+          "name": "rose-pine",
+          "repo": "rose-pine/neovim"
+        }
+      ]
+    }
+  },
+  "stillwater": {
+    "icons": "Yaru-sage-dark",
+    "vscode": {
+      "name": "Noctokai",
+      "extension": "farigab.noctokai-theme"
+    },
+    "neovim": {
+      "colorscheme": "ashen",
+      "plugins": [
+        {
+          "repo": "ficcdaf/ashen.nvim"
+        }
+      ]
+    }
+  },
+  "wisteria": {
+    "icons": "Yaru-purple",
+    "vscode": {
+      "name": "Quiet Light",
+      "extension": ""
+    },
+    "neovim": {
+      "colorscheme": "aether",
+      "plugins": [
+        {
+          "branch": "v3",
+          "name": "aether",
+          "priority": 1000,
+          "repo": "omacom/aether.nvim",
+          "palette": true
+        }
+      ]
+    }
+  }
+}

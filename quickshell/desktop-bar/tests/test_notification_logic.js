@@ -1,0 +1,44 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const vm = require('node:vm');
+const path = require('node:path');
+const logic = {};
+vm.createContext(logic);
+vm.runInContext(fs.readFileSync(path.join(__dirname, '../NotificationLogic.js'), 'utf8').replace(/^\.pragma library\s*/, ''), logic);
+assert.equal(logic.ignored('Kitty'), true);
+assert.equal(logic.ignored('Terminal'), true);
+assert.equal(logic.ignored('Slack'), false);
+assert.equal(logic.imageSource(null), '');
+assert.equal(logic.imageSource({image: 'image://icon/temp', hints: {'image-path': '/tmp/a #?.png'}}), 'file:///tmp/a%20%23%3F.png');
+assert.equal(logic.imageSource({image: 'image://icon/temp', hints: {image_path: 'file:///tmp/a.png'}}), 'file:///tmp/a.png');
+assert.equal(logic.imageSource({image: 'data:image/png;base64,test'}), 'data:image/png;base64,test');
+assert.equal(logic.imageIsPreview({appName: 'Satty'}, 100, 100), true);
+assert.equal(logic.imageIsPreview({desktopEntry: 'org.kde.spectacle'}, 100, 100), true);
+assert.equal(logic.imageIsPreview({appName: 'Google Chrome'}, 80, 120), false);
+assert.equal(logic.imageIsPreview({appName: 'Slack'}, 1920, 1080), false);
+assert.equal(logic.imageIsPreview({appName: 'Other', hints: {category: 'im.received'}}, 80, 120), false);
+assert.equal(logic.imageIsPreview({appName: 'Other'}, 1920, 1080), true);
+assert.equal(logic.imageIsPreview({appName: 'Other'}, 64, 64), false);
+assert.equal(logic.imageIsPreview(null, 0, 0), false);
+assert.equal(logic.popupDuration({urgency: 2, expireTimeout: 5}), 0);
+assert.equal(logic.popupDuration({urgency: 1, expireTimeout: 0}), 0);
+assert.equal(logic.popupDuration({urgency: 1, expireTimeout: 2000}), 2000);
+assert.equal(logic.popupDuration({urgency: 1, expireTimeout: -1}), 6500);
+const notices = [
+    {id: 1, appName: 'Mail'}, {id: 2, appName: 'Chat'},
+    {id: 3, appName: 'Mail'}, {id: 4, appName: 'Chat', transient: true},
+];
+const groups = JSON.parse(JSON.stringify(logic.grouped(notices, {1: 100, 2: 300, 3: 200, 4: 400})));
+assert.deepEqual(groups.map(g => g.name), ['Chat', 'Mail']);
+assert.deepEqual(groups[1].notifications.map(n => n.id), [3, 1]);
+assert.equal(groups.flatMap(g => g.notifications).length, 3);
+assert.equal(notices[0].id, 1);
+const popupGroups = JSON.parse(JSON.stringify(logic.grouped(notices, {1: 100, 2: 300, 3: 200, 4: 400}, true)));
+assert.deepEqual(popupGroups.map(g => g.name), ['Chat', 'Mail']);
+assert.deepEqual(popupGroups[0].notifications.map(n => n.id), [4, 2]);
+const burst = Array.from({length: 30}, (_, i) => ({id: i + 1, appName: 'Meet'}));
+const stacked = JSON.parse(JSON.stringify(logic.grouped(burst, {}, true)));
+assert.equal(stacked.length, 1);
+assert.equal(stacked[0].notifications[0].id, 30);
+assert.equal(stacked[0].notifications.length, 30);
+console.log('Notification policy checks passed');

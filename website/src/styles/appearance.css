@@ -1,0 +1,54 @@
+/* The sky switch reuses the approved drawn wolves; the scene never intercepts clicks. */
+.sky-toggle{display:flex;align-items:center;gap:7px;flex:none;padding:8px 10px;border:1px solid var(--line-strong);border-radius:999px;background:transparent;color:var(--fg);font:11px var(--mono);cursor:pointer}
+.sky-toggle:hover{border-color:var(--bronze)}
+.sky-toggle[aria-disabled="true"]{cursor:wait}
+.sky-status{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.sky-change{position:fixed;inset:0;z-index:150;pointer-events:none;visibility:hidden;overflow:hidden;background:transparent;view-transition-name:sky-flight}
+.sky-change[data-active="true"]{visibility:visible}
+.sky-flight{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+/* Keep both snapshots viewport-sized rather than rasterizing the long page. */
+html[data-sky-capture]{height:100%;overflow:clip}
+html[data-sky-capture] .site-page{position:fixed;inset:0;overflow:clip;background:var(--bg);view-transition-name:site-page}
+html[data-sky-capture] .site-page-content{position:relative;top:var(--sky-scroll-top);left:var(--sky-scroll-left);width:var(--sky-view-width)}
+::view-transition{pointer-events:none}
+html[data-sky-capture] .site-header{view-transition-name:sky-header}
+::view-transition-group(root){z-index:0}
+::view-transition-old(root),::view-transition-new(root){animation:none}
+::view-transition-group(sky-header){z-index:3;animation:none}
+::view-transition-old(sky-header){display:none}
+::view-transition-new(sky-header){animation:none}
+::view-transition-group(site-page){z-index:1}
+::view-transition-image-pair(site-page){isolation:auto}
+::view-transition-old(site-page),::view-transition-new(site-page){animation:none;mix-blend-mode:normal}
+::view-transition-new(site-page){z-index:1;clip-path:polygon(50% 0%,50% 0%,50% 0%)}
+::view-transition-group(sky-flight){z-index:4;animation:none}
+::view-transition-old(sky-flight){display:none}
+::view-transition-new(sky-flight){animation:none;mix-blend-mode:normal}
+@media(prefers-reduced-motion:reduce){.sky-change{display:none}}
+
+/* Daylight: warm parchment, ink and bronze; illustration panels keep their black negative space. */
+:root[data-appearance="light"]{color-scheme:light;--bg:#f2ecdf;--night:#e8e0d2;--surface:#fbf6ed;--raised:#e5daca;--fg:#292521;--muted:#625b53;--accent:#9c303b;--aurora:#356d68;--violet:#75425e;--bronze:#795823;--line:#31271b25;--line-strong:#31271b45;--glow:#9c303b20;--bifrost-spectrum:linear-gradient(100deg,#982b39,#9b4520,#795823,#5b4930,#795823,#9b4520,#982b39)}
+html[data-appearance="light"] .site-header.scrolled{background:#f2ecdfed;border-color:var(--line)}
+html[data-appearance="light"] .hero h1,html[data-appearance="light"] .hero h1 em{color:var(--fg)}
+html[data-appearance="light"] .hero-copy .lead{color:var(--muted)}
+html[data-appearance="light"] .hero .aurora-sky[data-running="true"]{opacity:1}
+html[data-appearance="light"] .impact-emblem{background:var(--fg)}
+html[data-appearance="light"] .what,html[data-appearance="light"] .themes-section,html[data-appearance="light"] .stone,html[data-appearance="light"] .install-card,html[data-appearance="light"] .install-card.status,html[data-appearance="light"] .support-card{background:var(--surface);border-color:var(--line-strong)}
+html[data-appearance="light"] .button.ghost{background:#fff6;color:var(--fg)}
+html[data-appearance="light"] .button.primary{color:#fff3e7;background:#91313b;border-color:#91313b;box-shadow:0 8px 30px #91313b1a}
+html[data-appearance="light"] .pillar-copy,html[data-appearance="light"] .pillar-copy h3{color:#f4eadc}
+html[data-appearance="light"] .pillar-copy p:last-child{color:#dbd0c1}
+html[data-appearance="light"] .pillar::after{background:linear-gradient(0deg,#070606 0%,#070606cc 40%,transparent 85%)}
+html[data-appearance="light"] .realm-dialog{background:var(--surface);color:var(--fg);border-color:var(--bronze)}
+html[data-appearance="light"] .realm-dialog li,html[data-appearance="light"] .realm-dialog .eyebrow,html[data-appearance="light"] .realm-close{color:var(--fg)}
+html[data-appearance="light"] .realm-dialog-symbol{color:var(--bronze)}
+html[data-appearance="light"] .install-card pre{background:var(--night);color:var(--accent)}
+html[data-appearance="light"] .sky-toggle{background:#fff4}
+html[data-appearance="light"] .ambient-music,html[data-appearance="light"] .music-toggle{color:var(--muted);border-color:var(--line-strong)}
+html[data-appearance="light"] .theme-viewer-step{background:#f2ecdfe6}
+html[data-appearance="light"] .section h2 em,html[data-appearance="light"] .what h2 em,html[data-appearance="light"] .world-tree h2 em,html[data-appearance="light"] .themes-section h2 em,html[data-appearance="light"] .install h2 em{color:var(--accent)}
+html[data-appearance="light"] .tour-panel,html[data-appearance="light"] .tour-list p{color:var(--muted)}
+html[data-appearance="light"] #road h2 em{background:none;color:var(--accent)}
+html[data-appearance="light"] #faq h2 em{color:var(--accent)}
+
+html[data-appearance="light"] .theme-tag,html[data-appearance="light"] .tour-shot-hint{background:var(--surface);color:var(--fg);border:1px solid var(--line-strong)}

@@ -1,0 +1,26 @@
+[
+  {
+    "text": "GeForce NOW",
+    "subtext": "Cloud gaming · requires account and supported hardware/network",
+    "icon": "󰊴",
+    "actions": {
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/install/software.py gaming geforcenow"
+    }
+  },
+  {
+    "text": "RetroArch",
+    "subtext": "Classic consoles · NES to Dreamcast, PS1, N64, DS and PSP",
+    "icon": "󰺵",
+    "actions": {
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/install/software.py gaming retroarch"
+    }
+  },
+  {
+    "text": "Steam",
+    "subtext": "Install or open Steam, with GameMode and MangoHud",
+    "icon": "",
+    "actions": {
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/install/software.py gaming steam"
+    }
+  }
+]

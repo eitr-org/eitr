@@ -1,0 +1,17 @@
+# Package transactions of an offline ISO installation, one per line, in the
+# order they run. The payload holds each transaction's complete dependency
+# closure as resolved from an empty system, so every transaction succeeds
+# whatever ran before it. @desktop expands to the desktop manifests, the AUR
+# manifests and eitr-desktop, once without hardware packages and once with
+# each distro/hardware manifest.
+# Archinstall: base system, Btrfs and LUKS tools, CPU microcode.
+base sudo linux-firmware mkinitcpio linux btrfs-progs cryptsetup amd-ucode intel-ucode
+# Archinstall: Limine boot loader, zram swap, boot splash, audio, Bluetooth.
+limine efibootmgr
+zram-generator
+plymouth
+pipewire pipewire-alsa pipewire-jack pipewire-pulse gst-plugin-pipewire libpulse wireplumber
+bluez bluez-utils
+# The packages list in distro/archinstall/user_configuration.json.
+git iwd pciutils python sudo
+@desktop

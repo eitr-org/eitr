@@ -1,0 +1,462 @@
+---
+import Layout from "../layouts/Layout.astro";
+import NorseSymbol from "../components/NorseSymbol.astro";
+import MjolnirScene from "../components/MjolnirScene.astro";
+import AmbientMusic from "../components/AmbientMusic.astro";
+import BrandText from "../components/BrandText.astro";
+import SerpentPassage from "../components/SerpentPassage.astro";
+import WorldTree from "../components/WorldTree.astro";
+import AuroraSky from "../components/AuroraSky.astro";
+import RuneCarving from "../components/RuneCarving.astro";
+import RuneText from "../components/RuneText.astro";
+import Ravens from "../components/Ravens.astro";
+import themes from "../data/themes.json";
+import release from "../data/release.json";
+import download from "../data/download.json";
+import roadmap from "../data/roadmap.json";
+
+const futhark = "ᚠᚢᚦᚨᚱᚲᚷᚹ ᚺᚾᛁᛃᛇᛈᛉᛊ ᛏᛒᛖᛗᛚᛜᛞᛟ";
+
+const dossier = [
+  ["Base", "Arch Linux, x86_64"],
+  ["Compositor", "Hyprland"],
+  ["Shell", "Quickshell bar and native panels"],
+  ["Launcher", "Walker with Elephant menus"],
+  ["Install", "Guided and fully offline from the ISO"],
+  ["Updates", "Signed [eitr] repository"],
+  ["Recovery", "Btrfs snapshots and factory reset"],
+];
+
+const features = [
+  ["ᚱ", "Raidho", "the journey", "Find it. Open it. Keep moving.",
+    "Walker brings apps, settings and actions into one keyboard-first flow, leading to the same native panels as the bar."],
+  ["ᛗ", "Mannaz", "the self", "Make the whole desktop yours.",
+    "Pick a theme and the bar, terminal, launcher, lockscreen and apps follow. Your bar, corners, cursor and fonts stay put."],
+  ["ᛉ", "Algiz", "protection", "Update without fear.",
+    "The bar tells you when updates are waiting. System Update snapshots first, installs from a signed repository, and asks to restart only when it matters."],
+  ["ᚨ", "Ansuz", "wisdom", "The knowledge stays close.",
+    "An offline Handbook covers shortcuts, appearance, networking, recovery and Secure Boot, inside the desktop."],
+  ["ᛟ", "Othala", "home", "Your accounts, kept apart.",
+    "Git Accounts and the cloud menus keep personal and work identities, keys and cloud accounts separate, folder by folder."],
+  ["ᛖ", "Ehwaz", "trust", "One shell, one rhythm.",
+    "Bar, notifications, panels and the workspace Overview share one visual language, from login to desktop."],
+];
+
+// Versions, stages and milestones come from distro/RELEASES.md; the site adds
+// only the myth behind each codename.
+const myths: Record<string, string> = {
+  "Ymir": "The first being, born of eitr.",
+  "Audhumla": "The cow whose milk fed Ymir.",
+  "Yggdrasil": "The world tree that holds the realms.",
+  "Mimir": "The well of wisdom.",
+  "Huginn": "Odin's raven of thought.",
+  "Bifröst": "The burning bridge between worlds.",
+};
+
+// The tour: one screenshot per area of the desktop (public/shots/, captured on the
+// developer's own ultrawide desktop with the Afterglow theme) and what that area offers.
+const tour = [
+  {id: "desktop", tab: "Desktop", alt: "The control center beside the bar on the EITR desktop",
+    shots: [
+      {file: "control-center", caption: "The control center"},
+      {file: "desktop", caption: "The desktop on an ultrawide monitor"},
+      {file: "center-style", caption: "Style: bar, workspaces, corners, themes, cursor and fonts"},
+      {file: "display", caption: "Display: brightness, nightlight and each monitor's resolution, refresh rate and scale"},
+      {file: "audio", caption: "Volume, output devices and per-app volume"},
+      {file: "hardware", caption: "Hardware: CPU, GPU, memory and storage"},
+      {file: "calendar", caption: "Calendar"},
+      {file: "keyboard", caption: "Keyboard layouts"},
+      {file: "workspace-style", caption: "Workspace styles, runes included"},
+      {file: "themes", caption: "Choosing a theme"},
+    ],
+    items: [
+      ["A bar with native panels", "WiFi, Bluetooth, audio with per-app volume, display brightness, resolution, refresh rate and scale, calendar, weather and hardware, each marked with its own rune."],
+      ["Control center", "SUPER + , opens everything outside the launcher: quick toggles for WiFi, Bluetooth, airplane mode, idle lock, do not disturb and game mode, sound and display, the whole look of the desktop, capture tools, devices, updates and snapshots."],
+      ["Multiple monitors", "Place each screen beside the main one and align it the way it sits on your desk. Pick the main display, and show the bar on it or on every screen."],
+      ["Workspace Overview", "Every open workspace at a glance with live previews."],
+      ["Themes that reach everything", `${themes.length} themes recolor the bar, terminal, launcher, editors and apps, with 4K wallpapers and panoramic versions that ultrawide monitors pick on their own.`],
+      ["Lockscreen and login", "Matching designs for the lockscreen and the login screen, including one that shows your own wallpaper."],
+    ]},
+  {id: "tools", tab: "Tools", alt: "The Capture menu under Tools, each action with its description",
+    shots: [
+      {file: "capture", caption: "Capture: screenshots, recording, text, QR codes and colors"},
+      {file: "walker", caption: "Walker, the main menu"},
+      {file: "tools", caption: "Tools: Capture, Reminders and Share"},
+      {file: "obs", caption: "Recording and streaming with OBS"},
+    ],
+    items: [
+      ["One launcher for everything", "Apps, settings, actions and tools in Walker; typing searches every menu at once."],
+      ["Capture", "Screenshots with an editor, text from the screen (OCR), QR codes and a color picker."],
+      ["Record and stream", "OBS from the bar. While it runs, a red dot shows the time and file size and holds pause, chapter markers, the microphone, the camera and the scene. Stop, and the file is one click away."],
+      ["Offline dictation", "Hold SUPER + D and speak: the dot becomes a waveform that moves with your voice, then your words are typed, transcribed on your own computer."],
+      ["Reminders and Share", "A notification at the time you choose, and files, folders or the clipboard sent to nearby devices with LocalSend."],
+    ]},
+  {id: "install", tab: "Install", alt: "The Install menu with its categories",
+    shots: [
+      {file: "install", caption: "Install"},
+      {file: "browsers", caption: "Browsers"},
+      {file: "ai-install", caption: "AI assistants"},
+      {file: "databases", caption: "Databases"},
+      {file: "languages", caption: "Development languages"},
+    ],
+    items: [
+      ["Packages", "Search official and AUR packages with their details and build file side by side, then install several at once."],
+      ["Curated installs", "Browsers, databases, development languages, developer apps, productivity apps and web apps, one click each, with what you already have marked."],
+      ["Web apps", "Any site as an app in its own window, with its own icon in the launcher."],
+      ["Fonts and cursors", "Pick a desktop font and a cursor that every app follows, and keeps across theme changes."],
+    ]},
+  {id: "safety", tab: "Safety", alt: "The Snapshots menu with its recovery actions",
+    shots: [
+      {file: "snapshots", caption: "Snapshots"},
+      {file: "maintenance", caption: "Maintenance"},
+      {file: "update", caption: "Update"},
+      {file: "update-channel", caption: "Update channel"},
+      {file: "factory-reset", caption: "Factory reset"},
+      {file: "security", caption: "Security: security keys, fingerprint, TPM and the firewall"},
+    ],
+    items: [
+      ["Updates you can undo", "System Update shows Arch news first and takes a snapshot before every upgrade."],
+      ["Boot guard", "If an update leaves the computer unable to start, the next boot rolls it back on its own."],
+      ["Home folder snapshots", "Hourly and daily snapshots of your files, and a restore for a single file or folder."],
+      ["Factory reset", "Back to the first login, keeping your files or erasing everything."],
+      ["Secure by default", "A firewall from the first boot, packages from a signed repository, and a stable or testing update channel."],
+    ]},
+  {id: "help", tab: "Help", alt: "The EITR Handbook open on the desktop",
+    shots: [
+      {file: "handbook", caption: "The EITR Handbook's welcome"},
+      {file: "handbook-shortcuts", caption: "Shortcuts in the Handbook"},
+      {file: "learn", caption: "Learn"},
+      {file: "information", caption: "System information"},
+    ],
+    items: [
+      ["The EITR Handbook", "A complete guide inside the desktop, offline, opened with SUPER + F1."],
+      ["Report a Problem", "Collects a private report you read first, then send by email or GitHub. Nothing is sent on its own."],
+      ["The eitr command", "Updates, themes, snapshots, the firewall and reminders from a terminal."],
+      ["Your own hooks", "Scripts that run after updates, theme changes, low battery or boot."],
+    ]},
+];
+
+// Two closer looks, laid out like a tour panel: who EITR is built for after hours and at work.
+const developers = {
+  area: "Developers", alt: "The Development menu: AI, Cloud, Git Accounts, Monitoring and projects",
+  shots: [
+    {file: "development", caption: "Development"},
+    {file: "languages", caption: "Languages, one click each"},
+    {file: "databases", caption: "Database clients"},
+    {file: "ai-install", caption: "AI assistants"},
+  ],
+  items: [
+    ["Editors ready on day one", "Neovim with LazyVim, set up and themed; VS Code, Zed and JetBrains Toolbox one click away. Open a project straight from the Development menu."],
+    ["Languages in one click", "Node.js, Python with uv, Java, Rust, Ruby on Rails, PHP and Laravel, Elixir and .NET, each through its usual version manager."],
+    ["Databases and API tools", "DBeaver, PostgreSQL, MariaDB, MongoDB, SQLite and Valkey clients, with Postman, Bruno and Insomnia for APIs."],
+    ["AI assistants", "Claude Code, Codex, Gemini CLI and Grok Build. Pick the folder, and the session opens there."],
+    ["Your accounts, kept apart", "Git identities and SSH keys per folder, and AWS, Google Cloud and Azure contexts, so work and personal never cross."],
+    ["Monitoring", "Your Grafana, Datadog, Sentry, New Relic and Prometheus dashboards one search away, with promtool and the Sentry CLI a click from install."],
+    ["A terminal worth living in", "Kitty, Zsh, tmux, Lazygit, Lazydocker and Docker installed, with the tmux and LazyVim keys in Learn."],
+  ],
+};
+const gaming = {
+  area: "Gaming", alt: "The Gaming menu: GeForce NOW, RetroArch and Steam",
+  shots: [
+    {file: "gaming", caption: "Gaming"},
+    {file: "control-center", caption: "Game Mode in the control center"},
+  ],
+  items: [
+    ["Steam, tuned", "Steam with GameMode and MangoHud, ready for Proton and your library."],
+    ["The classics", "RetroArch for consoles from the NES to the Dreamcast, PS1, N64, DS and PSP."],
+    ["Cloud gaming", "GeForce NOW in its own window when your hardware would rather not."],
+    ["Game Mode", "One toggle in the control center turns off animations, blur and notification popups while you play."],
+  ],
+};
+
+const faq = [
+  ["Is EITR a distribution?", "EITR is an Arch Linux desktop: Arch underneath, with EITR's shell, menus, themes and tools on top, installed by its own guided installer and updated through its own signed repository alongside Arch's."],
+  ["Do I need internet to install?", "No. The ISO carries every package, so the guided install runs fully offline. Updates afterwards come from Arch and the [eitr] repository."],
+  ["Can I break it with an update?", "System Update takes a Btrfs snapshot before every upgrade, so a bad update can be rolled back, and a factory reset returns to the first login."],
+  ["Is it ready for daily use?", `Yes. EITR runs every day on the desktop it is built on, and System Update takes a snapshot before every upgrade, so a bad one can be rolled back. ${release.version} ${release.codename} is ${release.stage === "alpha" ? "an" : "a"} ${release.stage}: laptops and other graphics cards are still being validated, so keep a backup of what matters and use Report a Problem when something breaks.`],
+  ["Does it phone home?", "No accounts, no telemetry. Features that need the network, like weather and updates, talk directly to their own services."],
+];
+---
+
+<Layout>
+  <SerpentPassage />
+  <section class="hero">
+    <AuroraSky />
+    <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow reveal"><NorseSymbol name="raven" class="heading-symbol"/> An Arch-based desktop from the far north</p>
+      <h1 class="reveal">From eitr,<br /><em>a world<br />takes shape.</em></h1>
+      <p class="lead reveal">
+        An Arch foundation. Hyprland, Quickshell and Walker,
+        forged into one calm, theme-aware desktop. Yours to shape.
+      </p>
+      <div class="actions reveal">
+        <a class="button primary" href="#install">Begin <span>ᚠ</span></a>
+        <a class="button ghost" href="#what">Explore the desktop</a>
+      </div>
+      <AmbientMusic />
+    </div>
+    <div class="hero-scene"><MjolnirScene embedded /></div>
+    </div>
+    <div class="scroll-cue" aria-hidden="true"><span></span></div>
+  </section>
+
+  <div class="rune-band" aria-hidden="true"><div><span><RuneText text={`${futhark} ${futhark} ${futhark} ${futhark}`} /></span></div></div>
+
+  <section id="what" class="wrap what">
+    <figure class="what-art reveal" aria-hidden="true">
+      <img src="/art/mimir.webp" alt="" loading="lazy" />
+    </figure>
+    <div class="what-copy">
+      <RuneCarving rune="ansuz" />
+      <p class="eyebrow reveal"><NorseSymbol name="spear" class="heading-symbol"/> Ansuz / What it is</p>
+      <h2 class="reveal">Old wisdom,<br /><em>a modern shell.</em></h2>
+      <p class="reveal">
+        Like Mímir's well, <BrandText text="EITR" wordmark /> keeps what matters close: thoughtful defaults, a
+        coherent look across every panel, and the knowledge to recover when
+        things go wrong. Arch underneath, nothing hidden, everything yours.
+      </p>
+      <div class="dossier reveal" role="group" aria-labelledby="dossier-title">
+        <p class="label" id="dossier-title">System dossier</p>
+        <dl>{dossier.map(([term, value]) => (<div><dt>{term}</dt><dd><BrandText text={value} /></dd></div>))}</dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap pillars">
+    <article class="pillar glowable reveal">
+      <img src="/art/valkyrie.webp" alt="" loading="lazy" />
+      <div class="pillar-copy">
+        <p class="label">I · Power · ᚦ Thurisaz</p>
+        <h3>Strike fast.</h3>
+        <p>Everything is a keystroke away. Walker finds apps, settings and actions; Hyprland tiles your windows the moment they open.</p>
+      </div>
+    </article>
+    <article class="pillar glowable reveal">
+      <img src="/art/jormungandr.webp" alt="" loading="lazy" />
+      <div class="pillar-copy">
+        <p class="label">II · Endurance · ᛇ Eihwaz</p>
+        <h3>Hold the world.</h3>
+        <p>Snapshots before every update, a signed repository, and a factory reset that brings back the first login. Built to outlast mistakes.</p>
+      </div>
+    </article>
+  </section>
+
+  <WorldTree />
+  <Ravens />
+
+  <section class="wrap section">
+    <div class="section-heading">
+      <RuneCarving rune="dagaz" />
+      <p class="eyebrow reveal"><NorseSymbol name="hammer" class="heading-symbol"/> Dagaz / The everyday desktop</p>
+      <h2 class="reveal">Six symbols,<br /><em>six promises.</em></h2>
+    </div>
+    <div class="stones">
+      {features.map(([rune, name, meaning, title, body], index) => (
+        <article class="stone glowable reveal">
+          <NorseSymbol name={["ship", "tree", "hammer", "spear", "serpent", "raven"][index]} class="stone-symbol"/>
+          <p class="label">{name} · {meaning}</p>
+          <h3>{title}</h3>
+          <p>{body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="tour" class="wrap section tour-section">
+    <div class="section-heading">
+      <RuneCarving rune="kenaz" />
+      <p class="eyebrow reveal"><NorseSymbol name="spear" class="heading-symbol"/> Kenaz / Inside the desktop</p>
+      <h2 class="reveal">Everything at hand,<br /><em>nothing in the way.</em></h2>
+      <p class="reveal">A tour of what comes with <BrandText text="EITR" wordmark />, from the first boot. Every screenshot is the real desktop it is built on.</p>
+    </div>
+    <div class="tour" data-tour>
+      <div class="tour-tabs reveal" role="tablist" aria-label="Areas of the desktop">
+        {tour.map(({ id, tab }, index) => (
+          <button type="button" role="tab" id={`tour-tab-${id}`} aria-controls={`tour-${id}`}
+            aria-selected={index === 0 ? "true" : "false"} tabindex={index === 0 ? 0 : -1}>{tab}</button>
+        ))}
+      </div>
+      {tour.map(({ id, tab, alt, shots, items }, index) => (
+        <div class="tour-panel" role="tabpanel" id={`tour-${id}`} aria-labelledby={`tour-tab-${id}`} hidden={index !== 0}>
+          <button type="button" class="tour-shot glowable" data-area={tab} data-shots={JSON.stringify(shots)}
+            aria-label={`Open the ${shots.length} ${tab} screenshots`}>
+            <img src={`/shots/${shots[0].file}.webp`} alt={alt} width="1920" height="1080" loading="lazy" />
+            <span class="tour-shot-hint">{shots.length} screenshots ⤢</span>
+          </button>
+          <ul class="tour-list">
+            {items.map(([title, body]) => (<li><h3><BrandText text={title} /></h3><p><BrandText text={body} /></p></li>))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section id="developers" class="wrap section showcase">
+    <div class="section-heading">
+      <RuneCarving rune="tiwaz" />
+      <p class="eyebrow reveal"><NorseSymbol name="spear" class="heading-symbol"/> Tiwaz / For developers</p>
+      <h2 class="reveal">Forged<br /><em>for the work.</em></h2>
+      <p class="reveal">Editors, languages, databases, AI assistants and your accounts, ready from the menu instead of an afternoon of setup.</p>
+    </div>
+    <div class="tour-panel">
+      <button type="button" class="tour-shot glowable reveal" data-area={developers.area} data-shots={JSON.stringify(developers.shots)}
+        aria-label={`Open the ${developers.shots.length} ${developers.area} screenshots`}>
+        <img src={`/shots/${developers.shots[0].file}.webp`} alt={developers.alt} width="1280" height="720" loading="lazy" />
+        <span class="tour-shot-hint">{developers.shots.length} screenshots ⤢</span>
+      </button>
+      <ul class="tour-list">
+        {developers.items.map(([title, body]) => (<li class="reveal"><h3><BrandText text={title} /></h3><p><BrandText text={body} /></p></li>))}
+      </ul>
+    </div>
+  </section>
+
+  <section id="gaming" class="wrap section showcase">
+    <div class="section-heading">
+      <RuneCarving rune="laguz" />
+      <p class="eyebrow reveal"><NorseSymbol name="ship" class="heading-symbol"/> Laguz / Gaming</p>
+      <h2 class="reveal">When the work<br /><em>is done.</em></h2>
+      <p class="reveal">The same desktop plays well too: Steam, the classics and cloud gaming, one menu away.</p>
+    </div>
+    <div class="tour-panel reverse">
+      <button type="button" class="tour-shot glowable reveal" data-area={gaming.area} data-shots={JSON.stringify(gaming.shots)}
+        aria-label={`Open the ${gaming.shots.length} ${gaming.area} screenshots`}>
+        <img src={`/shots/${gaming.shots[0].file}.webp`} alt={gaming.alt} width="1280" height="720" loading="lazy" />
+        <span class="tour-shot-hint">{gaming.shots.length} screenshots ⤢</span>
+      </button>
+      <ul class="tour-list">
+        {gaming.items.map(([title, body]) => (<li class="reveal"><h3><BrandText text={title} /></h3><p><BrandText text={body} /></p></li>))}
+      </ul>
+    </div>
+  </section>
+
+  <dialog class="shot-viewer" aria-labelledby="shot-viewer-caption">
+    <div class="theme-viewer-stage">
+      <img alt="" />
+      <button class="theme-viewer-step" type="button" data-step="-1" aria-label="Previous screenshot">‹</button>
+      <button class="theme-viewer-step" type="button" data-step="1" aria-label="Next screenshot">›</button>
+    </div>
+    <div class="theme-viewer-bar">
+      <p class="theme-name" id="shot-viewer-caption"></p>
+      <span class="theme-count" aria-live="polite"></span>
+      <button class="theme-viewer-close" type="button" aria-label="Close">✕</button>
+    </div>
+  </dialog>
+
+  <section id="themes" class="themes-section">
+    <div class="wrap">
+      <div class="section-heading">
+        <RuneCarving rune="sowilo" />
+        <p class="eyebrow reveal"><NorseSymbol name="tree" class="heading-symbol"/> Sowilo / Themes</p>
+        <h2 class="reveal">{themes.length} worlds,<br /><em>one desktop.</em></h2>
+        <p class="reveal">Every theme recolors the bar, terminal, launcher, lockscreen, editors and apps at once. Each comes with its own wallpapers.</p>
+      </div>
+      <svg class="well-filter" aria-hidden="true" focusable="false"><filter id="well-ripple"><feTurbulence type="fractalNoise" baseFrequency="0.011 0.028" numOctaves="2" seed="7"><animate attributeName="baseFrequency" dur="5s" values="0.011 0.028;0.015 0.036;0.011 0.028" repeatCount="indefinite" /></feTurbulence><feDisplacementMap in="SourceGraphic" scale="12" /></filter></svg>
+      <div class="theme-grid">
+        {themes.map((theme) => (
+          <figure class="theme-card glowable reveal" tabindex="0" role="button" aria-label={`View the ${theme.name} wallpaper`} data-name={theme.name} data-theme={theme.id} data-accent={theme.swatches[6]} data-aurora={theme.swatches[4]} data-violet={theme.swatches[5]} data-bronze={theme.swatches[3]}>
+            <img src={`/art/themes/${theme.id}.webp`} alt={`${theme.name} theme wallpaper`} loading="lazy" />
+            <figcaption>
+              <span class="theme-name">{theme.name}</span>
+              <span class="swatches">{theme.swatches.map((color) => (<i style={`background:${color}`}></i>))}</span>
+            </figcaption>
+            {theme.light && <span class="theme-tag">light</span>}
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <dialog class="theme-viewer" aria-labelledby="theme-viewer-name">
+    <div class="theme-viewer-stage">
+      <img alt="" />
+      <button class="theme-viewer-step" type="button" data-step="-1" aria-label="Previous theme">‹</button>
+      <button class="theme-viewer-step" type="button" data-step="1" aria-label="Next theme">›</button>
+    </div>
+    <div class="theme-viewer-bar">
+      <p class="theme-name" id="theme-viewer-name"></p>
+      <span class="theme-count" aria-live="polite"></span>
+      <span class="swatches"></span>
+      <button class="theme-viewer-close" type="button" aria-label="Close">✕</button>
+    </div>
+  </dialog>
+
+  <section id="install" class="wrap install">
+    <div class="install-art reveal" style="background-image: url('/art/yggdrasil.webp')" aria-hidden="true"></div>
+    <div class="section-heading">
+      <RuneCarving rune="fehu" />
+      <p class="eyebrow reveal"><NorseSymbol name="ship" class="heading-symbol"/> Fehu / Begin</p>
+      <h2 class="reveal">Your first winter<br />with <BrandText text="EITR" wordmark />.</h2>
+    </div>
+    <div class="install-grid">
+      <article class="install-card glowable reveal">
+        <p class="label">Install</p>
+        <h3>On your machine</h3>
+        <p>Download the ISO, check it, write it to a USB stick, boot it and follow the installer. It can erase a disk or install beside Windows (installing beside Windows is so far tested only in a VM). Everything on <code>/dev/sdX</code> is erased.</p>
+        <a class="button primary download-button" href={download.url} download={download.file}>Download {download.version}</a>
+        <p class="download-checksum">SHA-256 <a class="text-link" href={download.checksum_url} download={`${download.file}.sha256`}>checksum file</a>: <code>{download.sha256}</code></p>
+        <pre tabindex="0" aria-label="Commands to check and write the ISO"><code>{`sha256sum -c ${download.file}.sha256
+sudo dd if=${download.file} of=/dev/sdX bs=4M status=progress oflag=sync`}</code></pre>
+      </article>
+      <article class="install-card status glowable reveal">
+        <p class="label"><span class="status-dot"></span> Honest status</p>
+        <h3>{release.version} {release.codename} · {release.stage}</h3>
+        <p>A preview for early users. The installer, updates and recovery pass automated VM tests and run on the first real machine; other hardware is what we learn from you. Something broke? System &gt; Information &gt; Report a Problem.</p>
+        <a class="text-link" href="https://github.com/eitr-org/eitr" target="_blank" rel="noopener noreferrer">Follow the source ↗</a>
+      </article>
+    </div>
+  </section>
+
+  <section id="road" class="wrap section">
+    <div class="section-heading">
+      <RuneCarving rune="raidho" />
+      <p class="eyebrow reveal"><NorseSymbol name="serpent" class="heading-symbol"/> Raidho / The road ahead</p>
+      <h2 class="reveal">The road<br /><em>to Bifröst.</em></h2>
+      <p class="reveal">Each release takes its name from the old stories, from the first being to the bridge between worlds.</p>
+    </div>
+    <ol class="road">
+      {roadmap.map(({ version, codename, stage, milestone }) => { const current = version === release.version; return (
+        <li class:list={["reveal", { current }]}>
+          <span class="road-version">{version.replace(/\.0$/, "")}</span>
+          <div>
+            <h3>{codename} <span class="stage">{current ? "now · " : ""}{stage}</span></h3>
+            {myths[codename] && <p class="myth"><BrandText text={myths[codename]} /></p>}
+            <p>{milestone}.</p>
+          </div>
+        </li>
+      ); })}
+    </ol>
+  </section>
+
+  <section id="faq" class="wrap section faq">
+    <div class="section-heading">
+      <RuneCarving rune="isaz" />
+      <p class="eyebrow reveal"><NorseSymbol name="raven" class="heading-symbol"/> Isaz / Questions</p>
+      <h2 class="reveal">Asked at<br /><em>the fire.</em></h2>
+    </div>
+    <div class="faq-list">
+      {faq.map(([question, answer]) => (
+        <details class="reveal">
+          <summary><span><BrandText text={question} wordmark /></span></summary>
+          <p><BrandText text={answer} /></p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section id="support" class="wrap section support">
+    <div class="section-heading">
+      <RuneCarving rune="wunjo" />
+      <p class="eyebrow reveal"><NorseSymbol name="hammer" class="heading-symbol"/> Wunjo / Support</p>
+      <h2 class="reveal">Keep the fire<br /><em>burning.</em></h2>
+    </div>
+    <article class="support-card glowable reveal">
+      <div>
+        <p class="label">GitHub Sponsors</p>
+        <h3>Support <BrandText text="EITR" wordmark /></h3>
+        <p><BrandText text="EITR is free and open source, made in the open and tested on every release. If it makes your days at the computer better, you can support its development with a one-time or monthly sponsorship." /></p>
+      </div>
+      <a class="button primary" href="https://github.com/sponsors/erickbatistaprado" target="_blank" rel="noopener noreferrer">Sponsor <span>ᚹ</span></a>
+    </article>
+  </section>
+</Layout>

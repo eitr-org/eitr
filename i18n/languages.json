@@ -1,0 +1,25 @@
+{
+  "source": "en",
+  "languages": {
+    "en": {
+      "name": "English",
+      "nativeName": "English"
+    },
+    "pt_BR": {
+      "name": "Brazilian Portuguese",
+      "nativeName": "Português (Brasil)"
+    },
+    "es": {
+      "name": "Spanish",
+      "nativeName": "Español"
+    },
+    "de": {
+      "name": "German",
+      "nativeName": "Deutsch"
+    },
+    "fr": {
+      "name": "French",
+      "nativeName": "Français"
+    }
+  }
+}

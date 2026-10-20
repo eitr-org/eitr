@@ -1,0 +1,86 @@
+#!/usr/bin/env python3
+"""Launch EITR package components with separate code and preference roots."""
+import os
+from pathlib import Path
+import sys
+
+source_lib = Path(__file__).resolve().parents[1] / 'lib'
+if not (source_lib / 'eitr_paths.py').is_file():
+    source_lib = Path('/usr/share/eitr/lib')
+if (source_lib / 'eitr_paths.py').is_file():
+    sys.path.insert(0, str(source_lib))
+from eitr_paths import ROOT, cache, code, code_root, config, data, shell_path, state, theme_paths
+
+
+def main(argv=None, executable=None):
+    executable = executable or Path(sys.argv[0]).name
+    values = list(sys.argv[1:] if argv is None else argv)
+    # Only a leading --repo belongs to the launcher; every other argument, options
+    # included (walker --gapplication-service), passes through unchanged.
+    repo = None
+    if values[:1] == ['--repo']:
+        if len(values) < 2:
+            raise ValueError('--repo needs a checkout path')
+        repo = Path(values[1]).resolve()
+        values = values[2:]
+    elif values and values[0].startswith('--repo='):
+        repo = Path(values[0].split('=', 1)[1]).resolve()
+        values = values[1:]
+    if repo and os.geteuid() == 0:
+        raise ValueError('Root cannot execute a developer checkout')
+    # Without --repo, a checkout's own children (EITR_CODE_ROOT) stay on that checkout.
+    root = repo or code_root()
+    environment = dict(os.environ, EITR_CODE_ROOT=str(root), EITR_CONFIG_ROOT=str(config()),
+                       EITR_STATE_ROOT=str(state()), EITR_CACHE_ROOT=str(cache()), EITR_DATA_ROOT=str(data()))
+    library = root / 'lib' if (root / 'lib').is_dir() else root / 'distro/lib'
+    environment['EITR_LIBRARY_ROOT'] = str(library)
+    environment['PYTHONPATH'] = str(library) + os.pathsep + environment.get('PYTHONPATH', '')
+    environment['QML_IMPORT_PATH'] = str(root / 'quickshell') + os.pathsep + environment.get('QML_IMPORT_PATH', '')
+    if repo:
+        environment['PYTHONPATH'] = str(root / 'distro/lib') + os.pathsep + environment.get('PYTHONPATH', '')
+    if executable == 'eitr-paths':
+        if values == ['themes']:
+            for name, directory in theme_paths(root).items():
+                print(name + '\t' + str(directory))
+            return 0
+        if len(values) != 2 or values[0] not in {'code', 'config', 'shell'}:
+            raise ValueError('Usage: eitr-paths code|config|shell RELATIVE_PATH')
+        print({'code': lambda: code(values[1], root), 'config': lambda: config(values[1]),
+               'shell': lambda: shell_path(values[1], root)}[values[0]]())
+        return 0
+    if executable == 'eitr-shell':
+        if not values:
+            raise ValueError('Usage: eitr-shell COMPONENT [ipc|kill|list] [ARGUMENTS]')
+        component, *rest = values
+        selected = str(shell_path(component, root))
+        # Package upgrades replace files under the code root mid-transaction; a live
+        # reload then fails. Only checkouts and personal overrides reload live; the
+        # packaged desktop picks up an upgrade at the next login.
+        environment['EITR_LIVE_RELOAD'] = '1' if repo or not Path(selected).is_relative_to(ROOT) else '0'
+        if rest and rest[0] in {'ipc', 'kill', 'list'}:
+            command = ['quickshell', rest[0], '-p', selected, *rest[1:]]
+        else:
+            command = ['quickshell', '-n', '-p', selected, *rest]
+    elif executable in {'eitr-hypridle', 'eitr-hyprpaper', 'eitr-hyprlock'}:
+        tool = executable.removeprefix('eitr-')
+        preference = config(f'hypr/{tool}.conf')
+        selected = preference if preference.is_file() else code(f'hypr/{tool}.conf', root)
+        command = [tool, '-c', str(selected), *values]
+    else:
+        if executable == 'eitr-walker':
+            values.insert(0, 'walker/bin/walker')
+        if not values:
+            raise ValueError('Usage: eitr-run RELATIVE_SCRIPT [ARGUMENTS]')
+        script = code(values[0], root)
+        if not script.is_file():
+            raise ValueError(f'EITR code not installed: {script}')
+        interpreter = {'.py': ['python3'], '.sh': ['bash']}.get(script.suffix, [])
+        command = [*interpreter, str(script), *values[1:]]
+    os.execvpe(command[0], command, environment)
+
+
+if __name__ == '__main__':
+    try:
+        sys.exit(main())
+    except (ValueError, OSError) as error:
+        raise SystemExit(str(error))

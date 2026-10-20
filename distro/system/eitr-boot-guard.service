@@ -1,0 +1,12 @@
+[Unit]
+Description=Eitr boot guard (count starts after an update; restore after two failed ones)
+Documentation=file:///usr/share/eitr/RECOVERY.md
+After=local-fs.target boot.mount
+Before=display-manager.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/eitr/eitr-boot-guard boot
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,3 @@
+# Official packages for GRUB snapshot boot entries (grub-btrfsd needs inotifywait).
+grub-btrfs
+inotify-tools

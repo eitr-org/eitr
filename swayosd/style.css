@@ -1,0 +1,34 @@
+/* Generated from the active desktop theme. */
+@define-color osd_bg #111c18;
+@define-color osd_fg #C1C497;
+@define-color osd_accent #509475;
+
+window#osd {
+  font-family: "JetBrainsMono Nerd Font", "JetBrainsMono Nerd Font";
+  border-radius: 6px;
+  border: 1px solid alpha(@osd_fg, 0.18);
+  background: @osd_bg;
+}
+window#osd #container { margin: 14px; }
+window#osd image, window#osd label { color: @osd_fg; }
+window#osd progressbar:disabled, window#osd image:disabled { opacity: 0.5; }
+window#osd progressbar, window#osd segmentedprogress {
+  min-height: 6px;
+  border-radius: 3px;
+  background: transparent;
+  border: none;
+}
+window#osd trough, window#osd segment {
+  min-height: inherit;
+  border-radius: inherit;
+  border: none;
+  background: alpha(@osd_fg, 0.16);
+}
+window#osd progress, window#osd segment.active {
+  min-height: inherit;
+  border-radius: inherit;
+  border: none;
+  background: @osd_accent;
+}
+window#osd segment { margin-left: 8px; }
+window#osd segment:first-child { margin-left: 0; }

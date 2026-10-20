@@ -1,0 +1,15 @@
+{
+  "generator": "built-in image generation",
+  "file": "backgrounds/04-wandering-greenhouse.jpg",
+  "native_source": "references/wandering-greenhouse-source.png",
+  "native_size": [
+    1672,
+    941
+  ],
+  "export_size": [
+    3840,
+    2160
+  ],
+  "processing": "Lanczos upscale with minimal 16:9 crop; not native 4K generation",
+  "prompt": "Create one original full-bleed 16:9 desktop wallpaper requested3840x2160 orhighestavailable, Catppuccin Latte light palette. Hand-painted Japanese animation background inspired by the cozy magic, quiet adventure and emotional warmth of Howl's Moving Castle and Spirited Away, without copying a movie frame. An original charming wandering greenhouse-cottage on four slender brass bird-like legs, traveling slowly along a soft grassy meadow on the RIGHT half. An asymmetrical small cream plaster house, faded blue roof, compact glass conservatory full of pastel flowers, laundry fluttering and gently puffing crooked chimney, softly weathered whimsical mechanical details, modest scale, entirely new silhouette. A young adult traveler in simple cream coat and straw hat, small and seen from behind, walking alongside with a little suitcase; a tiny round original spirit peeking from a basket. Broad calm pale morning sky on left and top, a few soft clouds and distant soft blue hills, no busy scenery. Soft drawn ink outlines, delicate watercolor/gouache texture, painterly flat cel shading, expressive charming shapes, gentle sunlight. Strong Catppuccin Latte colors: warm pale #eff1f5 and cream sky, slate #4c4f69 outlines, cornflower #1e66f5 roof accents softened with sky blue, soft mauve #8839ef, muted pink #ea76cb flowers, sage #40a02b grass and ochre #df8e1d brass. Pastel and airy, never harsh saturated, preserve calm desktop negative space on the left, entire cottage and legs fully inside frame. No photorealism, no3D, no menacing monster machinery, no recognizable movie characters or exact film castle design. No lettering, signs, words, logos, watermark, signature, clock, UI or borders. One cohesive original illustrated wallpaper."
+}

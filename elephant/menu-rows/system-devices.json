@@ -1,0 +1,82 @@
+[
+  {
+    "text": "Battery Charge Limit",
+    "keywords": [
+      "battery",
+      "charge",
+      "threshold",
+      "laptop"
+    ],
+    "subtext": ">",
+    "icon": "󰂄",
+    "submenu": "battery-limit"
+  },
+  {
+    "text": "Lighting",
+    "keywords": [
+      "rgb",
+      "openrgb",
+      "fans",
+      "keyboard",
+      "leds",
+      "theme colour"
+    ],
+    "subtext": ">",
+    "icon": "󰌵",
+    "submenu": "lighting"
+  },
+  {
+    "text": "Audio",
+    "subtext": "Output device and app volumes",
+    "icon": "",
+    "actions": {
+      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh volume"
+    }
+  },
+  {
+    "text": "Display",
+    "subtext": "Brightness, nightlight, resolution, refresh rate and scale",
+    "keywords": [
+      "brightness",
+      "nightlight",
+      "monitor",
+      "resolution",
+      "refresh rate",
+      "power profile",
+      "battery",
+      "performance",
+      "scale",
+      "scaling",
+      "refresh",
+      "position",
+      "arrangement",
+      "mirror"
+    ],
+    "icon": "󰍹",
+    "actions": {
+      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh display"
+    }
+  },
+  {
+    "text": "Keyboard",
+    "subtext": "Layouts and switching between them",
+    "keywords": [
+      "layout",
+      "language",
+      "input",
+      "alt shift"
+    ],
+    "icon": "󰌌",
+    "actions": {
+      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh keyboard"
+    }
+  },
+  {
+    "text": "Microphone",
+    "subtext": "Input device and level",
+    "icon": "󰍬",
+    "actions": {
+      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh mic"
+    }
+  }
+]

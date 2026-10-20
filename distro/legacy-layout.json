@@ -1,0 +1,4726 @@
+{
+  "version": 1,
+  "revision": "445c80f",
+  "files": {
+    "HOME_FILES/.bashrc": {
+      "class": "P",
+      "digest": "file:3b868a9d1a925014e71b50433c9a3f41c2fcdfa53c43565be16eda8c62b7d608",
+      "mode": 420
+    },
+    "HOME_FILES/.config/lockscreen/selected": {
+      "class": "P",
+      "digest": "file:108e1194b092ef602185fbeab5229697e4d816fe4ac81b2bd73ae9af93ffa65d",
+      "mode": 420
+    },
+    "HOME_FILES/.local/bin/crunchyroll": {
+      "class": "C",
+      "digest": "file:d671d89e4bcbec689af8782355111a027ca94f18df62c5f725e1e1a0574a2a1d",
+      "mode": 493
+    },
+    "HOME_FILES/.local/bin/netflix": {
+      "class": "C",
+      "digest": "file:55ebe250ef593e01eb76d6324e0bd1b9d8204135f5193d7207bc1eee8f7b6617",
+      "mode": 493
+    },
+    "HOME_FILES/.local/bin/streaming-app": {
+      "class": "C",
+      "digest": "file:b85eb244d7826459143cd89013de05c57cea7e73d2ee48369bddd82e24fc0b4d",
+      "mode": 493
+    },
+    "HOME_FILES/.local/bin/walker": {
+      "class": "C",
+      "digest": "link:8a6b9f22a45c19387e1c35ae50ce0e9e0e2a8691cdc5a65f57a6a27fdd1a9cad",
+      "mode": 511
+    },
+    "HOME_FILES/.local/share/applications/crunchyroll.desktop": {
+      "class": "D",
+      "digest": "file:f496e4d1b949a23f850c122d4105457ac666459c30c8eb1e4fb20d435b32ef5a",
+      "mode": 420
+    },
+    "HOME_FILES/.local/share/applications/netflix.desktop": {
+      "class": "D",
+      "digest": "file:1ce18c723706a6d758d59717c0c6705771c4fe82340682794fa86e0aff44693b",
+      "mode": 420
+    },
+    "HOME_FILES/.local/share/applications/org.gnome.Totem.desktop": {
+      "class": "D",
+      "digest": "file:52f0058d5dc55511df7bcba8f4108d4eb6ad282c4bbf07a0e773b5d25da41051",
+      "mode": 420
+    },
+    "HOME_FILES/.local/share/icons/hicolor/64x64/apps/netflix.png": {
+      "class": "D",
+      "digest": "file:7341f7b8b0ae3c0da4aea559efc31f0b53d9db9dd291664fdcf7d618fd95ed8a",
+      "mode": 420
+    },
+    "HOME_FILES/.local/share/icons/hicolor/scalable/apps/claude-brand.svg": {
+      "class": "D",
+      "digest": "link:b0cfe1f18ea186ef21dbb772a635b6e272047b3b955cb3f3ab771955e94bc019",
+      "mode": 511
+    },
+    "HOME_FILES/.local/share/icons/hicolor/scalable/apps/codex-brand.svg": {
+      "class": "D",
+      "digest": "link:27742fa53629df429f82acf276fd225992d77121f3fec9998d322b921f15f7e2",
+      "mode": 511
+    },
+    "HOME_FILES/.local/share/icons/hicolor/scalable/apps/crunchyroll.svg": {
+      "class": "D",
+      "digest": "file:258fa11513ec984d67ae4a9b8011d9af490ec359df955dca0666772bce12f98a",
+      "mode": 420
+    },
+    "HOME_FILES/.ls_colors": {
+      "class": "P",
+      "digest": "file:edd0cc1f8b26cef1130715feee6480ca859669b68ae76036c20c49857893ac90",
+      "mode": 420
+    },
+    "HOME_FILES/.p10k.zsh": {
+      "class": "P",
+      "digest": "file:381729614ad81c6ae0e4f10349d538def7b0ea799cd12a5feccdbee91ae7105b",
+      "mode": 420
+    },
+    "HOME_FILES/.zshrc": {
+      "class": "C",
+      "digest": "file:cc058432efaf6e28ce8492950145516ee4e2e527a754243a9bc48d3f8c6b6f3a",
+      "mode": 420
+    },
+    "Kvantum/README.md": {
+      "class": "G",
+      "digest": "file:ca915770aa36ecd5c3bbfa60b77393c01404ebf619d64c1ae1ebdcfd44791d99",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-frappe-blue#/catppuccin-frappe-blue#.kvconfig": {
+      "class": "G",
+      "digest": "file:d5434062a8f49d14348a967fbc138505e31104c03b453d0a3fb79d8ab52a39da",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-frappe-blue#/catppuccin-frappe-blue#.svg": {
+      "class": "G",
+      "digest": "file:f3b35379687a83c97701e710f310454ea75c89b48238fcc59c4d3549c50620e3",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-latte-blue#/catppuccin-latte-blue#.kvconfig": {
+      "class": "G",
+      "digest": "file:520719c215616940cff42424a18eef5d6aa70c90e386b38f2e907507d999a8d8",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-latte-blue#/catppuccin-latte-blue#.svg": {
+      "class": "G",
+      "digest": "file:8f3200e6b088c2966a7c0fbe4a6a878e4f21134f59f1aa05acbd8a6ec71c547b",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-latte-peach#/catppuccin-latte-peach#.kvconfig": {
+      "class": "G",
+      "digest": "file:9c3f160f323972632d61d281549721eaf836224170c9238b6287be022605d4d6",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-latte-peach#/catppuccin-latte-peach#.svg": {
+      "class": "G",
+      "digest": "file:f3fac17da51450240f7f83274d791d8a213d1d21ac0d8b211c8f8942646f8309",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-latte-rosewater#/catppuccin-latte-rosewater#.kvconfig": {
+      "class": "G",
+      "digest": "file:9dbdae8f282150de33e56eb71d9a6525fce29772762151f14827d2eb0db345d5",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-latte-rosewater#/catppuccin-latte-rosewater#.svg": {
+      "class": "G",
+      "digest": "file:f0b931df728a159a122b0da72fa35b2894573956b7cccb541340a2a43ee6f76f",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-macchiato-peach#/catppuccin-macchiato-peach#.kvconfig": {
+      "class": "G",
+      "digest": "file:7b158a5e3f6eaa8a464aa5ea0c543fcf2f4b33025dabf3cc9f62380e16996d39",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-macchiato-peach#/catppuccin-macchiato-peach#.svg": {
+      "class": "G",
+      "digest": "file:865ab8c5ff0e9fdf55c1227438c0b50615b8e5b94f7af092308889f8085c2b65",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-mocha-blue#/catppuccin-mocha-blue#.kvconfig": {
+      "class": "G",
+      "digest": "file:14a2ea5b5617878d95cf77fcbba1b3cadc67e8be52f663c7ff92715379743ae3",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-mocha-blue#/catppuccin-mocha-blue#.svg": {
+      "class": "G",
+      "digest": "file:7668d717e0ab1b295b8ba8a8a5730077b17ae13eada9d0aa369b7698e2f5ee47",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-mocha-green#/catppuccin-mocha-green#.kvconfig": {
+      "class": "G",
+      "digest": "file:2dcc5c6820b601f584e108fcf53a44b8c12d8ebbfb86858ddb2866fe0427659a",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-mocha-green#/catppuccin-mocha-green#.svg": {
+      "class": "G",
+      "digest": "file:ab77bb39d1300aa53cfed5dddc3685692e52282e0d5ae45365e978c4a6f056ef",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-mocha-maroon#/catppuccin-mocha-maroon#.kvconfig": {
+      "class": "G",
+      "digest": "file:51aece84ce8ebf65e65fc0956c627adf99c4e6161d5ae779358a5d0b6d506970",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-mocha-maroon#/catppuccin-mocha-maroon#.svg": {
+      "class": "G",
+      "digest": "file:80d74b7cf2ece820753bd3431935b03283cf6c85ff55e40db2a7a6266b666565",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-mocha-mauve#/catppuccin-mocha-mauve#.kvconfig": {
+      "class": "G",
+      "digest": "file:b694572746da12e68f9271cbedc7cbb162f8383bd6fed9d73250e2e2e05cf2ce",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-mocha-mauve#/catppuccin-mocha-mauve#.svg": {
+      "class": "G",
+      "digest": "file:d9eabcdf2764d114faa5bb74fdaa0a3617184191741a7526d3ebfbd30606c3f8",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-mocha-sky#/catppuccin-mocha-sky#.kvconfig": {
+      "class": "G",
+      "digest": "file:2f2187cc3efb6574bc0dfc89766eb0e0f9b30a01cd1bec4f6ad44933404898d5",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-mocha-sky#/catppuccin-mocha-sky#.svg": {
+      "class": "G",
+      "digest": "file:b4a5fac7d328569fc01c25c47d5c9651495ca7a626de5f70ab434557ecdc171d",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-mocha-teal#/catppuccin-mocha-teal#.kvconfig": {
+      "class": "G",
+      "digest": "file:294827d963627c0b4af58bd0d13d00ac919b8aa14f3e1780636f826c22198dfd",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-mocha-teal#/catppuccin-mocha-teal#.svg": {
+      "class": "G",
+      "digest": "file:f508406e4a8ae30f66e175ccc4921a3f3a4e4f0884f6f5616ecadd3a340fe7ab",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-mocha-yellow#/catppuccin-mocha-yellow#.kvconfig": {
+      "class": "G",
+      "digest": "file:2e515f93594893c9e030be0155edb8bff11df7a8f540867136fbfa2aacd2e8cc",
+      "mode": 420
+    },
+    "Kvantum/catppuccin-mocha-yellow#/catppuccin-mocha-yellow#.svg": {
+      "class": "G",
+      "digest": "file:4f44d7547d76294f2d02ba24c564c74d8b9f8ff78778a0ee25f5d1eae0fd4452",
+      "mode": 420
+    },
+    "Kvantum/kvantum.kvconfig": {
+      "class": "G",
+      "digest": "file:53b4bb8bee1d8483c2ddff63b1ce86e8afbec328e1ba4692c358dc8f3c5341f2",
+      "mode": 420
+    },
+    "dolphinrc": {
+      "class": "P",
+      "digest": "file:27282e2f89a1260ce78addbbcec73fb87359c9270e904484f6fb4d096593d664",
+      "mode": 420
+    },
+    "elephant/aws-profile-entries.lua": {
+      "class": "C",
+      "digest": "file:e1dc5e55aec197ced339c4929021777526b330c4c6bc4f1653cb39957dfb480d",
+      "mode": 420
+    },
+    "elephant/bar-settings-entries.lua": {
+      "class": "C",
+      "digest": "file:b4b0fd92567ec073ddd5f73eb1e1afc3fbb891e41f99550b3fbe002c4fe4bfe9",
+      "mode": 420
+    },
+    "elephant/cloud-context-entries.lua": {
+      "class": "C",
+      "digest": "file:de205367aaf9d88c0a1d0cef89ba0927d65b67a2d6ce85a8b5d6036318cc1a12",
+      "mode": 420
+    },
+    "elephant/menus/ai-claude.toml": {
+      "class": "C",
+      "digest": "file:f5656c655eb773b05f5fc5b76e1dd3f97f906591ecc2b2de39f24cbe89bac7be",
+      "mode": 420
+    },
+    "elephant/menus/ai-codex.toml": {
+      "class": "C",
+      "digest": "file:32761f31ae5bb86a1e6c6aefd349d1a3cfad13ac389d8484ce0223aae67dee0b",
+      "mode": 420
+    },
+    "elephant/menus/ai-install.lua": {
+      "class": "C",
+      "digest": "file:e565260e43e01f67bf5fa1f8f226fff8d35234ad1274f980f3c2823df7a50dd6",
+      "mode": 420
+    },
+    "elephant/menus/ai-tools.toml": {
+      "class": "C",
+      "digest": "file:9aa337a73e0833661622c24a037d56a72ef235b6f000c7fc57bb0f7ca9a0c398",
+      "mode": 420
+    },
+    "elephant/menus/apps.lua": {
+      "class": "C",
+      "digest": "file:3ecf7f4e3a7987aa9115e9505bdaecf0b212db3c7ae93f254463bd6552eaf130",
+      "mode": 420
+    },
+    "elephant/menus/aws-profiles.lua": {
+      "class": "C",
+      "digest": "file:5c10e8d001639d23cdc98af6a91c600f4bbd7e12363832a6ea47693529b0db1d",
+      "mode": 420
+    },
+    "elephant/menus/azure-contexts.lua": {
+      "class": "C",
+      "digest": "file:bc2a37f7305e1b29b5be5a486356ff435c444b7878a9da809d8ba5d16a966a2b",
+      "mode": 420
+    },
+    "elephant/menus/bar-appearance.lua": {
+      "class": "C",
+      "digest": "file:f0675a75802cd40413084e3cab13873f1a11b371fe2ff508f1f4b63cec60aef1",
+      "mode": 420
+    },
+    "elephant/menus/bar-layout.lua": {
+      "class": "C",
+      "digest": "file:f4f9f12d51a18b172560a308e3649c86030db9fc486b2f3569e74d3922828bd6",
+      "mode": 420
+    },
+    "elephant/menus/bar-position.lua": {
+      "class": "C",
+      "digest": "file:c921a86cdb2b42db21efd717e33f7f48661b79d04bf02b359e8379d74803c5cf",
+      "mode": 420
+    },
+    "elephant/menus/bar.toml": {
+      "class": "C",
+      "digest": "file:097e3309a9d0172c8db46c2a3e580929482733b3b5673cb6c4001abe74ac5017",
+      "mode": 420
+    },
+    "elephant/menus/battery-limit.toml": {
+      "class": "C",
+      "digest": "file:16996f74903155586ee13c9f415cfd850cd10781abcf483b6fabb9b662fffb60",
+      "mode": 420
+    },
+    "elephant/menus/browsers.lua": {
+      "class": "C",
+      "digest": "file:e4397b312a6c9becca5dec022ecc4755421428f747c0f69a6b9659d66fb26779",
+      "mode": 420
+    },
+    "elephant/menus/capture.toml": {
+      "class": "C",
+      "digest": "file:2b3d454a8478ee282c1b7c0ac63c502c0d1ab697c4e25ecde053cb06ac4b0903",
+      "mode": 420
+    },
+    "elephant/menus/clipboard.lua": {
+      "class": "C",
+      "digest": "file:2d66b975a00418c33277d174e983be3c31467b86b7e85ee0696e83a24a855534",
+      "mode": 420
+    },
+    "elephant/menus/cloud.toml": {
+      "class": "C",
+      "digest": "file:fb0d6a37c13839feb49d8fae9b577dde8305db459a36b3b8c6566d150514ef5b",
+      "mode": 420
+    },
+    "elephant/menus/corners.toml": {
+      "class": "C",
+      "digest": "file:f6bee8f55f4ffade46864a28fe7667d1cb253013fdfaa9e3f0566081a224c895",
+      "mode": 420
+    },
+    "elephant/menus/cursor-color.lua": {
+      "class": "C",
+      "digest": "file:f341e229a2f7505dc0787c326f76eeee2f5017128f6a5c0ce578fffc13848f6c",
+      "mode": 420
+    },
+    "elephant/menus/cursor-family.lua": {
+      "class": "C",
+      "digest": "file:207261ea478cb5b9cf728dd6b90dd581f75968fb1bd0bcbd2e401cd9948d89f1",
+      "mode": 420
+    },
+    "elephant/menus/cursor-size.lua": {
+      "class": "C",
+      "digest": "file:196137b431bbd71797ead3f07ed0d90d3693d0142c0a8753306d5ce5196994b6",
+      "mode": 420
+    },
+    "elephant/menus/cursor.toml": {
+      "class": "C",
+      "digest": "file:55fa616f84bd0cf58e24d5d30b699e5929fe4271441832a112cb0dc315de2125",
+      "mode": 420
+    },
+    "elephant/menus/databases.lua": {
+      "class": "C",
+      "digest": "file:71e46cee29ba28b6867c65530804ff33dc5c58c8a98c123bebdc43cb1e11740a",
+      "mode": 420
+    },
+    "elephant/menus/development.toml": {
+      "class": "C",
+      "digest": "file:778e6d644add451f80cce2b452c7ee79764bcfbd6403ce1c8cf3ea42fc6b7761",
+      "mode": 420
+    },
+    "elephant/menus/factory-reset.toml": {
+      "class": "C",
+      "digest": "file:5801ce6dd9f5c0950fce863d23de59c311b363f47d11ab018e4044291ff6df01",
+      "mode": 420
+    },
+    "elephant/menus/fido2.toml": {
+      "class": "C",
+      "digest": "file:1a928c652e4fe4e0cca85bcf8a7715b3db26dd5958712befcff0dbd185ed56ad",
+      "mode": 420
+    },
+    "elephant/menus/fingerprint.toml": {
+      "class": "C",
+      "digest": "file:3ef3b2cdbe092e90a48cc293482343906e7df1f9d6e4198e001b2bb2fa966331",
+      "mode": 420
+    },
+    "elephant/menus/fonts.lua": {
+      "class": "C",
+      "digest": "file:3c9bae4ed19f0f7fa2ebde1673db1314e2339e843d2e60c097fb5a9528273a63",
+      "mode": 420
+    },
+    "elephant/menus/gaming.toml": {
+      "class": "C",
+      "digest": "file:2fed62eb6601ceb835ed991b49d11f254621160703896371a629b26a048dc46c",
+      "mode": 420
+    },
+    "elephant/menus/gcp-contexts.lua": {
+      "class": "C",
+      "digest": "file:756a65eb9ea1afa2a9087f408a5258006fdfc1ee06aa25f2cf939c19a2973221",
+      "mode": 420
+    },
+    "elephant/menus/grafana-logs.lua": {
+      "class": "C",
+      "digest": "file:3607252e391b67ebfd34df4188e190db4d1c9c3a38b1881e253f6d45498c6fad",
+      "mode": 420
+    },
+    "elephant/menus/install.toml": {
+      "class": "C",
+      "digest": "file:fb24b8b89773da132e58368fd730bee747fa1b51295897423f976e04041369d4",
+      "mode": 420
+    },
+    "elephant/menus/javascript-tools.lua": {
+      "class": "C",
+      "digest": "file:d435d99ac392e9fd50a2927f5277e3576ab768ba455680e08679f93c8bf9e507",
+      "mode": 420
+    },
+    "elephant/menus/keyboard.lua": {
+      "class": "C",
+      "digest": "file:32a59acf383b223d6d0a3647699bdcc2163a3a81baf66f5a8a488a07482ee199",
+      "mode": 420
+    },
+    "elephant/menus/languages.lua": {
+      "class": "C",
+      "digest": "file:4e7688aa92721f108a36b2f4341aa457d951610f3b8e92bc1ad308c0e598bd5c",
+      "mode": 420
+    },
+    "elephant/menus/learn.toml": {
+      "class": "C",
+      "digest": "file:d88d3376a6bd97c695a08bd713d6d08d5455e73d9956bc31b2d5244a87b74f3a",
+      "mode": 420
+    },
+    "elephant/menus/lockscreen.lua": {
+      "class": "C",
+      "digest": "file:b5547d57e48334638cf6b1292ff252ac2232ef66474dff800108789f4ae92567",
+      "mode": 420
+    },
+    "elephant/menus/main.toml": {
+      "class": "C",
+      "digest": "file:10bcb4de6eb7d1558b9056058774e91a561332b6bb0f8947c8712ada083563c0",
+      "mode": 420
+    },
+    "elephant/menus/network-backend.toml": {
+      "class": "C",
+      "digest": "file:f916ed02aed7d0f1c054e0d9b3fbda79700ec24955478dfdc9c03f25c84ab839",
+      "mode": 420
+    },
+    "elephant/menus/power.toml": {
+      "class": "C",
+      "digest": "file:82c20a7179790fdd582213961d000d1d452cc8fb4eb1056da8ad60190a9f5b4d",
+      "mode": 420
+    },
+    "elephant/menus/projects-nvim.lua": {
+      "class": "C",
+      "digest": "file:9844cda4f6c0177b0cfd4f0e5ebe19555416cded6c1327a9d00c126f7da54e46",
+      "mode": 420
+    },
+    "elephant/menus/projects-vscode.lua": {
+      "class": "C",
+      "digest": "file:e88eb2ed65da0a71f4cb1f0fdbeaf254175e110e41ed13c21205739a74e7b766",
+      "mode": 420
+    },
+    "elephant/menus/screenrecord.toml": {
+      "class": "C",
+      "digest": "file:dde43aed58868a6468805f81397c09f511cb385bca20cf2dd6159dc7e7b36813",
+      "mode": 420
+    },
+    "elephant/menus/screenshot.toml": {
+      "class": "C",
+      "digest": "file:c05e2c6885e56eb5d1dc9540cf466bd27ffae9eb739e3b99d1aeabcc2b977949",
+      "mode": 420
+    },
+    "elephant/menus/search-index.lua": {
+      "class": "C",
+      "digest": "file:5652cf4a3c63180e4e140e0a776a55f35fe160dd3ef50e5d07896f364c97dd4f",
+      "mode": 420
+    },
+    "elephant/menus/security.toml": {
+      "class": "C",
+      "digest": "file:02abe16acfbb99751fc06295904c7062c259924ed6808f628a2c9f5183eae629",
+      "mode": 420
+    },
+    "elephant/menus/share.toml": {
+      "class": "C",
+      "digest": "file:1994e322487895775b51b8d0be9c6965f726639a85208311d94f0ebddcfc38b6",
+      "mode": 420
+    },
+    "elephant/menus/shortcuts.toml": {
+      "class": "C",
+      "digest": "file:a0e3d6431e77108ce7173ad11fe925bcb0c911093745de0c2878699535254784",
+      "mode": 420
+    },
+    "elephant/menus/snapshots.toml": {
+      "class": "C",
+      "digest": "file:390049ff3a6b388370204435579ee15a56993315c083771460d90573b0becadf",
+      "mode": 420
+    },
+    "elephant/menus/style.toml": {
+      "class": "C",
+      "digest": "file:661c416b90ebee4dda317c7a4df2b119b02beba738e19c0c5daa08a1eae73a82",
+      "mode": 420
+    },
+    "elephant/menus/system-connectivity.toml": {
+      "class": "C",
+      "digest": "file:59dee0542e762f1c8ba58763c8f3f0a42035cc056c82ce4a9b814c50f82228f9",
+      "mode": 420
+    },
+    "elephant/menus/system-devices.toml": {
+      "class": "C",
+      "digest": "file:e30e8d4e510307980867a2e333a8dea92249aae8a45b35e05a8ed466e59e31b0",
+      "mode": 420
+    },
+    "elephant/menus/system-information.toml": {
+      "class": "C",
+      "digest": "file:ba09bfc99294db5c7d04b26c4dc2e89aca4eae71f71dc8836ab76e72c5ca112f",
+      "mode": 420
+    },
+    "elephant/menus/system-maintenance.toml": {
+      "class": "C",
+      "digest": "file:726f39d338b2a3a0eece78bc3c689c51481eef1b8aa853c5d7c97883465d2ca3",
+      "mode": 420
+    },
+    "elephant/menus/system-shortcuts.lua": {
+      "class": "C",
+      "digest": "file:d9ea539ebb57c5440d4c667ef71a19f1f561aa2d10ff6ba58fdc2e1c91db39dc",
+      "mode": 420
+    },
+    "elephant/menus/system.toml": {
+      "class": "C",
+      "digest": "file:ba92ee8559d425c2bde39a6b355497533ccd15341e79d15e4ca43846617aa7e5",
+      "mode": 420
+    },
+    "elephant/menus/theme-dark.lua": {
+      "class": "C",
+      "digest": "file:667465b1b8a755aebb962edb27fb98e34fa0996e85a9a215d78981d9e0e696c0",
+      "mode": 420
+    },
+    "elephant/menus/theme-light.lua": {
+      "class": "C",
+      "digest": "file:93690f98dec1aec8c9de2a868713ccc2741abe194ad4004e3c2b769ab36c90cd",
+      "mode": 420
+    },
+    "elephant/menus/theme.toml": {
+      "class": "C",
+      "digest": "file:de90184da89413d614c879475d05d8d22219504e4f9939cac763fb0bd34897e9",
+      "mode": 420
+    },
+    "elephant/menus/toggle.toml": {
+      "class": "C",
+      "digest": "file:d6ade7c93d38702491ccf7f6d7ccb0db5392cc93e36f08301388e03b58129838",
+      "mode": 420
+    },
+    "elephant/menus/tpm-unlock.toml": {
+      "class": "C",
+      "digest": "file:d8de4cf43ae6b4dcbac6f51305453d12f8486f4b10c0a1da5f8864dceab9cf2b",
+      "mode": 420
+    },
+    "elephant/menus/update-advanced.toml": {
+      "class": "C",
+      "digest": "file:60e3434e369d7d064a78b9903bedadff88a4e714ffb7d8003382c90bb170c95d",
+      "mode": 420
+    },
+    "elephant/menus/update.toml": {
+      "class": "C",
+      "digest": "file:bc1ec06e23d33dcf14370f7d73d8e0c8e6ea5681a6ffcb713c2c04fa0d1cc8cd",
+      "mode": 420
+    },
+    "elephant/menus/wallpaper.lua": {
+      "class": "C",
+      "digest": "file:701e9583cb86199ad98f85c0ae186921448f47506877ddddbf5c173f769c0c53",
+      "mode": 420
+    },
+    "elephant/menus/workspaces.lua": {
+      "class": "C",
+      "digest": "file:79dc7cb8df4db04a9ead8a518da20bebad196c77dcc163bd212276be556c33a1",
+      "mode": 420
+    },
+    "elephant/project-entries.lua": {
+      "class": "C",
+      "digest": "file:f67b89ce7a741d67c6157673ea6838f562fe7fd44584884df487d19721d88559",
+      "mode": 420
+    },
+    "elephant/shell-quote.lua": {
+      "class": "C",
+      "digest": "file:f372db974a1c142a83ecaaa8ca3679391194626a37471365c379717192a9255b",
+      "mode": 420
+    },
+    "elephant/theme-entries.lua": {
+      "class": "C",
+      "digest": "file:4473ac364d0a365d80a5570c068b2e51aefef39109b7b8070539e92186112475",
+      "mode": 420
+    },
+    "fastfetch/README.md": {
+      "class": "D",
+      "digest": "file:07b079d38e9a4c4e728c46e3bef69b751f310946d662692cc705d0c5cc92742a",
+      "mode": 420
+    },
+    "fastfetch/assets/eitr-logo.png": {
+      "class": "D",
+      "digest": "file:b3bab2dd5328d67cde37f6298d7838b4f5307152c70cf78e72cdfafc874d92f4",
+      "mode": 420
+    },
+    "fastfetch/assets/eitr-wordmark.png": {
+      "class": "D",
+      "digest": "file:6c455bf3ffc779109219494fc1fb51c6207f3475db59cc2fdf4369c9aacc30cb",
+      "mode": 420
+    },
+    "fastfetch/eitr.py": {
+      "class": "C",
+      "digest": "file:cdadbcc2485d058821d4473100a5e063c198a21a5b47e7fffc34e136b8cc9dc0",
+      "mode": 420
+    },
+    "fastfetch/tests/test_eitr.py": {
+      "class": "C",
+      "digest": "file:592effac1752759fe5c8e7de467c6112e1488930889f0c6d441fc94d777cb869",
+      "mode": 420
+    },
+    "filetypesrc": {
+      "class": "P",
+      "digest": "file:c0e8e2bcf321b31fa7c339fde17eb4c935a5309f35d5e52855dcdf763507e902",
+      "mode": 420
+    },
+    "hypr/hypridle.conf": {
+      "class": "C",
+      "digest": "file:dd7833d5538e0f5513dce7a5cae6fc7023aee2d1611c9bf17fc2c56337fce666",
+      "mode": 420
+    },
+    "hypr/hyprland.lua": {
+      "class": "C",
+      "digest": "file:f9876b3388c4ff4597c44949396f6f9eddf6d21055d3f680c14beb6ba2757308",
+      "mode": 420
+    },
+    "hypr/hyprlock.conf": {
+      "class": "C",
+      "digest": "file:385d1f8ed11cc12ea1af27ef6a520e1ab086f27aa03c0d86e7f7330ec27630fa",
+      "mode": 420
+    },
+    "hypr/hyprpaper.conf": {
+      "class": "C",
+      "digest": "file:77776025446f4d9cf92778c7eaef08cdf37791dfe2a5a52b4e63c69e6f1baa48",
+      "mode": 420
+    },
+    "hypr/local.lua.example": {
+      "class": "D",
+      "digest": "file:2a782b48496283f8fe89f4376e4e1ffe49c19b1afa2385932ee11c09ce26275f",
+      "mode": 420
+    },
+    "hypr/preferred-outputs.example": {
+      "class": "D",
+      "digest": "file:a92ab0a83720f321aac88303395a3b01857f8c54e2d2b101ccd24ea3fa7494bd",
+      "mode": 420
+    },
+    "hypr/scripts/manual-lock.sh": {
+      "class": "C",
+      "digest": "file:09fb2d5eeac010f78e40f4009bdedd4d038d4aa1831e345506d2a7caaa0532f8",
+      "mode": 493
+    },
+    "hypr/scripts/notify-config-error.sh": {
+      "class": "C",
+      "digest": "file:2f4154c382a3d27a272fbae56aba6fba15248f1d06da3f21b41f1f379b59721e",
+      "mode": 493
+    },
+    "hypr/scripts/window-quarter-size.sh": {
+      "class": "C",
+      "digest": "file:485bc54467be6810c5054c0b5cf48efe78a252b9cc8c29be45aea1c80404dc84",
+      "mode": 493
+    },
+    "hypr/theme-env.conf": {
+      "class": "D",
+      "digest": "file:9212e673983abc6815d08be75a74d7274ab63f12e18898b947beaba41592999d",
+      "mode": 420
+    },
+    "kitty/kitty.conf": {
+      "class": "C",
+      "digest": "file:4a8bda336e6a89e193ac8e0a42c2db9ac3388eb6d826460851ff804e1cc9583e",
+      "mode": 420
+    },
+    "kitty/theme.conf": {
+      "class": "G",
+      "digest": "file:f6eb9b79edb1c977b1bc5fb5fdd3da86c8b94e18bc2c0924978fa53770d5a822",
+      "mode": 420
+    },
+    "mimeapps.list": {
+      "class": "P",
+      "digest": "file:94e5962c3dacfb144bc8af002c9b0ba5916e320f4405a94fd288873b6fcb1ce8",
+      "mode": 420
+    },
+    "nvim/.gitignore": {
+      "class": "D",
+      "digest": "file:f284e46933d658c493bafc852fe1bb46f54e5dbe479c251a739139517d4683ec",
+      "mode": 420
+    },
+    "nvim/.neoconf.json": {
+      "class": "P",
+      "digest": "file:1819a5b64b71521f214b374bdb3b4dd7531a2b91b881c0803e0029811da7f3e4",
+      "mode": 420
+    },
+    "nvim/LICENSE": {
+      "class": "P",
+      "digest": "file:c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "mode": 420
+    },
+    "nvim/README.md": {
+      "class": "P",
+      "digest": "file:5f6de2b9ab8648dfe1181224e991615aca124aa149b604378d3c14ae03b01689",
+      "mode": 420
+    },
+    "nvim/init.lua": {
+      "class": "P",
+      "digest": "file:3b2d6e9976a515b7c8df08ed7c7f61a5751e9c08a6ff5579d621b87312c9e2c6",
+      "mode": 420
+    },
+    "nvim/lazy-lock.json": {
+      "class": "P",
+      "digest": "file:123ab34a6948a8f7a08a676d0bc074acb82333503629a3562857cd7b59ee9769",
+      "mode": 420
+    },
+    "nvim/lazyvim.json": {
+      "class": "P",
+      "digest": "file:fa9c0af2029f1d83b18c5dec189ea1ac52485ceb40470482c4e8eb176db85fb3",
+      "mode": 420
+    },
+    "nvim/lua/config/autocmds.lua": {
+      "class": "P",
+      "digest": "file:7a4210e47f77e22553e5b50db465c73b6c46febbf1b74eb9f646c6ebe9e63afc",
+      "mode": 420
+    },
+    "nvim/lua/config/desktop_theme.lua": {
+      "class": "P",
+      "digest": "file:880c98b1a03d4c015331579931101a92df5c27b8fc0050818e33dc22126a6fd5",
+      "mode": 420
+    },
+    "nvim/lua/config/keymaps.lua": {
+      "class": "P",
+      "digest": "file:660a7d9a603a1b20b9ac13384ee21093f648646d8f4d575c52c5e5d9847f6764",
+      "mode": 420
+    },
+    "nvim/lua/config/lazy.lua": {
+      "class": "P",
+      "digest": "file:3d16dc980d911c17a0f0e210a6cd14a7f6c4fdb8bb72a341146de2e29f76ac91",
+      "mode": 420
+    },
+    "nvim/lua/config/options.lua": {
+      "class": "P",
+      "digest": "file:30d51b75969f1f8c16964e4495c6477234bc031a713ffd24ffdf6e5a33cd1ef9",
+      "mode": 420
+    },
+    "nvim/lua/plugins/css.lua": {
+      "class": "P",
+      "digest": "file:9c9ac0381f59b7d6ee6143594fcebc180aef986c7fcce4ec3c22f721aaac1cff",
+      "mode": 420
+    },
+    "nvim/lua/plugins/example.lua": {
+      "class": "P",
+      "digest": "file:63cab8b37a319da640b073b6d654b11952776eac8cb55d8a6ac00e5f171366ba",
+      "mode": 420
+    },
+    "nvim/lua/plugins/icons.lua": {
+      "class": "P",
+      "digest": "file:6b3aaa2708728f55a7aa3fec64ce8e62bd73816f42c238172bb70bfe4487a66f",
+      "mode": 420
+    },
+    "nvim/lua/plugins/rainbow-delimiters.lua": {
+      "class": "P",
+      "digest": "file:077723901b6abfbb949eb6b89da5dbd58f89b060555949dde54a0dcc018eabad",
+      "mode": 420
+    },
+    "nvim/stylua.toml": {
+      "class": "P",
+      "digest": "file:59841fbcee7b707144c6a470e96e96e96062d7a59d2e45bac445984d863e1af2",
+      "mode": 420
+    },
+    "nvim/tests/desktop_theme.lua": {
+      "class": "C",
+      "digest": "file:3fd7e12bba9c76428cdfee59f0c42ea2463a466a255cf9633f26d9d0bfec8bdc",
+      "mode": 420
+    },
+    "nvim/tests/test_desktop_theme.py": {
+      "class": "C",
+      "digest": "file:28923145aec352e0cf5a83e052b65304dba1a8df20f2c728d56a1aeee45d8c2e",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/AiUsageMenu.qml": {
+      "class": "C",
+      "digest": "file:dd682c16903e7f53bf5bf27c89c137ba9271437f4d4d2672679cb1cea3ffa339",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/AppearancePicker.qml": {
+      "class": "C",
+      "digest": "file:766a9bc9b54f0459978dc502890aeda1ea19f3fd224bd7c6cdd6fc04b6d77723",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/AudioLevelControl.qml": {
+      "class": "C",
+      "digest": "file:7bbcdfb51b1352b9cb22edc20998df9b337acc28457d4b278c86a3104fa89873",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/AudioMenu.qml": {
+      "class": "C",
+      "digest": "file:822911e4a4802f28d3754dfc7c3372b52934acc471d53ad886e410855dceaab5",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/BarGeometry.js": {
+      "class": "C",
+      "digest": "file:30faa68466e2c5b311e028037f9375d8b597da2d05b71bfb288b00fa1751b3d7",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/BarGestureArea.qml": {
+      "class": "C",
+      "digest": "file:222a1ec1bca668bb0aa27f510316d623cebadc77bf157af6f323fdc10f5a1d84",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/BarSection.qml": {
+      "class": "C",
+      "digest": "file:d3e604ff5b5a0f52a909ca1548d5cdd25c03aab40440a581340413ff78234796",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/BarTooltip.qml": {
+      "class": "C",
+      "digest": "file:45815bda2865d6d3f0f2139121955d03265a83ac6e2470e6851c91ba68c3d3c7",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/BatteryMenu.qml": {
+      "class": "C",
+      "digest": "file:037a1cac981db9a8abddf153c3f88f59a2f1f92c0707eb6fdfbe89582f835f53",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/BluetoothMenu.qml": {
+      "class": "C",
+      "digest": "file:16141035cd7766388ceaeda6ca90be87902ca6d1a33a111a811d649da709ce0e",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/BrightnessMenu.qml": {
+      "class": "C",
+      "digest": "file:76b35d57c86d2d6ddc4439e41b7bf8c0ece5cfcb3a999c25a192c1709c10f7f9",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/CalendarMenu.qml": {
+      "class": "C",
+      "digest": "file:a361ac71dc349eb2163d01faae58b1685701b9832d9f81445912fdeab3810207",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/ControlCenter.qml": {
+      "class": "C",
+      "digest": "file:d4ba553d9c5121e4ac4db70742b98d45647906e376cf871d13d9af059dbf021d",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/DesktopFonts.qml": {
+      "class": "C",
+      "digest": "file:3adb212756ac18553c0bccf7197c3aa1679e0d49ba9918622b880a5fb0e3f758",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/DesktopStyle.qml": {
+      "class": "C",
+      "digest": "file:87abd25970cd9c0ed54f0f43ae2fe495d828b509bc79520d11cd3b1b1ae533a7",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/DockPanel.qml": {
+      "class": "C",
+      "digest": "file:8ff3177f3c593703dd7fc13a934fec9050cdd97fbe95acc415802ced21f8fa01",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/Handbook.qml": {
+      "class": "C",
+      "digest": "file:8284cef459e397b2302375d7583ebbd7a10d64220037176c2257417425c32047",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/HandbookModel.js": {
+      "class": "C",
+      "digest": "file:f18dcba546a066e79d0c50015e84a1cf28bf09c52a1d92b9eb539d3c53de0dcd",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/IdleLockControls.qml": {
+      "class": "C",
+      "digest": "file:6ec3b4d88f6092692b26a01ea699bd0e7b5d56d7994c876a90dc1d7a78395c74",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/IdleLockMenu.qml": {
+      "class": "C",
+      "digest": "file:96e215a4a82a16c8c8ac1d45d7a2f6c1e9cb80093e3064b23c7cdb7d97f42fa1",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/KeyboardLayoutMenu.qml": {
+      "class": "C",
+      "digest": "file:be8a371140a0d08424217ab791a589e0b38ef78853af4b9fe754ad253bd54447",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/KeyboardLayoutRow.qml": {
+      "class": "C",
+      "digest": "file:4c4912d870b84df4e592e05f770d096a0a0604e001a346b2e6048d3f4e5c47be",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/MediaCard.qml": {
+      "class": "C",
+      "digest": "file:c30e958ed6c1be6848f66300973ee8f609be5e9da57d351db7791e4051ea9664",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/MediaMenu.qml": {
+      "class": "C",
+      "digest": "file:238cf49573032ad67b5d8d069ac88b16877ac01bcdf82b175ee44de72f73c065",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/MediaModel.js": {
+      "class": "C",
+      "digest": "file:af1971bf7399d4bf1711ba007915477cf6f4a105d4bae143961bff99fda6b6e7",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/MediaStrip.qml": {
+      "class": "C",
+      "digest": "file:daba72969ea641c7ea53b00939b0c0045616a314589288d91b43d238fd116fb5",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/MicrophoneMeter.qml": {
+      "class": "C",
+      "digest": "file:46787e982e7f88b5953ba165171a267daf7ca88c0cdb8a4f9652cf10a97f1069",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/NotificationCard.qml": {
+      "class": "C",
+      "digest": "file:65f64d2e7e35f89bddc5cea8be90d12371c460ee3e1b32d1a7e7646786efa6ce",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/NotificationCenter.qml": {
+      "class": "C",
+      "digest": "file:b02d2f8c757a93a29c499e67a41c4d41142cd82a2a4c43946bc2d80394ceed98",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/NotificationGroup.qml": {
+      "class": "C",
+      "digest": "file:06a39d606ac154a3e05f3319807e23b06b5dab49dcfb28d54e9e435e2b310020",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/NotificationList.qml": {
+      "class": "C",
+      "digest": "file:0e954a93007116c890f28c9ab97d3b77df1294bdf33f289f5c9e9e0e9f7add58",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/NotificationLogic.js": {
+      "class": "C",
+      "digest": "file:c07299cc651b823185546df503c62d92b6499b2bf0c293aaa65b9f6462c02e86",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/NotificationPopups.qml": {
+      "class": "C",
+      "digest": "file:031b9615aefef83c4503c4d19a29cb9a4be1a804cfdf0001f9eef19871395788",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/NotificationPriorityGlow.qml": {
+      "class": "C",
+      "digest": "file:2ba8dfa351b214d85135cd2ebb8a967b06adf0b8bb5050b5613b9e1f63ab9365",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/NotificationService.qml": {
+      "class": "C",
+      "digest": "file:1fcdd9faa6e5144a077ef90de6add989d053cddca41ee251a470fedabc33913d",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/ObsActionButton.qml": {
+      "class": "C",
+      "digest": "file:44b8494dc4b73a090a8af9eb714f2ba97b8462b39ddedfd7a51abb93a24518a3",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/ObsMenu.qml": {
+      "class": "C",
+      "digest": "file:408d2988b56e9e77743ca72bc807a4a03e632dbbdacae9db3d47a211ba04ae7d",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/ObsQueue.js": {
+      "class": "C",
+      "digest": "file:b39c39c17987c7990a223d1f6959484b79ba0f44d4e257ba3cd284a869f92c29",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/OverviewTileReveal.qml": {
+      "class": "C",
+      "digest": "file:6ebb6b6c28e97f95a65b13e7979d2660288c922ee72ba5196ec45b2f18d57b27",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/PanelButton.qml": {
+      "class": "C",
+      "digest": "file:5bb4281c48369269b7c9fedc73914b713076989fa72f48018902133973668734",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/PanelSizeBehavior.qml": {
+      "class": "C",
+      "digest": "file:7b24bb276788b69f2a0e499f4456bd7fee8439e0db386c893b3f31ca01ecbbb6",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/PanelSlider.qml": {
+      "class": "C",
+      "digest": "file:56e7d5d1e8ef0b2d6501cc13038a448f7ecd570f279614acf5f1b7cdf424af31",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/PanelStyle.js": {
+      "class": "C",
+      "digest": "file:fe93d5a7b676fd00e3a5e5fc16877713a86eb31c858d93912774c78c0b3bbd2e",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/PanelSurface.qml": {
+      "class": "C",
+      "digest": "file:a4fbbd4af6999efe0420d920c73f5ede1112bdf5599c20b77781c4276b57c095",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/PanelSwitch.qml": {
+      "class": "C",
+      "digest": "file:2b118d358219e6b1fe435e11438f707f7882e2dc89777c9c752a9946afae2e19",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/PowerControls.qml": {
+      "class": "C",
+      "digest": "file:c7c9b5c537f92e4b61b16363d00d9175fa4ac3aa5e13ab3d4c484663776b0b78",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/README.md": {
+      "class": "D",
+      "digest": "file:f961b6e12a89b0bbb900edc7f7296930dd89bbf59615a9cb5dfe31f6bfbf140d",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/RecordingMenu.qml": {
+      "class": "C",
+      "digest": "file:0df0df76456a116a98f5c2490d296d8efdf831a640531a30925d696b771c981a",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/ReloadErrorPopup.qml": {
+      "class": "C",
+      "digest": "file:b0d58e9f4c8e245145f14a97afa9e7b16186c7b787c68bd68574d11ae1f70d4f",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/ReloadPopupSmokeTest.qml": {
+      "class": "C",
+      "digest": "file:f5739f75e4e0c1531074fc40fe3e69dbb73acc1454d44e49396eb8d6cc37bd01",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/SystemMonitorMenu.qml": {
+      "class": "C",
+      "digest": "file:0e4af46930ea2ac5dc403842c479e1935a53ba018a88dc0c402db2031d290d80",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/ThemedPopup.qml": {
+      "class": "C",
+      "digest": "file:67abfabcd79190a640d437243b03380b91acea10b5c12eba42781d00b93748ab",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/WeatherIcons.js": {
+      "class": "C",
+      "digest": "file:186efca5a8e28be50b104072bf2af0c0fa41e1230fef62d6680c0adcb813de69",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/WeatherMenu.qml": {
+      "class": "C",
+      "digest": "file:0da1228924194d45c8823e2d47f1970f7262291e1678d2a71a9ed890c705e1ee",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/WelcomeMenu.qml": {
+      "class": "C",
+      "digest": "file:46393a4ef11751f9b0d5dd562c562ca937ec02f9efc02bf80c2e7af541bc4d46",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/WifiMenu.qml": {
+      "class": "C",
+      "digest": "file:13afa415d8d95e736efaa2b8c426f101a585032e4c872c3317ab321069513ff4",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/WorkspaceMarker.qml": {
+      "class": "C",
+      "digest": "file:f59b0d7456b0219bc8cd2030feaaf5f4bc842d48b34672cc0a003211c4d8122c",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/WorkspaceModel.js": {
+      "class": "C",
+      "digest": "file:d228146ccce2eec083601ff2c1032b0f401e2a7e7cbdcdb841d68c1ce31207a4",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/WorkspaceOverview.qml": {
+      "class": "C",
+      "digest": "file:5e4d0b892615205be63b24aa3fa0642c9e76af7815f37c91d1780935d5b701b5",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/WorkspaceOverviewTile.qml": {
+      "class": "C",
+      "digest": "file:1e237dc1f33ea19b0dfe5941aefc45607afcbbbb77fb360eae209d74b025483d",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/WorkspaceStyleMenu.qml": {
+      "class": "C",
+      "digest": "file:35a08e05135e15a253a6c9a48ff0be559892acb7f02ada0947e0d83704f78d2d",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/assets/ai/OpenAI-black-monoblossom.svg": {
+      "class": "D",
+      "digest": "file:7be72f1fea831d3ba81a545cee79b7e0ae69449d5d7837c9571ccbfb4aa1e00b",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/assets/ai/OpenAI-white-monoblossom.svg": {
+      "class": "D",
+      "digest": "file:b94ea61d860fae6f82f43571f36f17111fcf5d348e8e9cc22ae4b441c7560011",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/assets/ai/README.md": {
+      "class": "D",
+      "digest": "file:cd10c86b4ebf13f613c84284637b881951721c2fc642d8c4aa7ffa34ae617708",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/assets/ai/claude.svg": {
+      "class": "D",
+      "digest": "file:b150888bc7257af83e3b85d3c2be4294f88986026f8168f6c12fc1fde6697350",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/assets/appearance/README.md": {
+      "class": "D",
+      "digest": "file:e214db4bec3ee1f6a0d9b9e4600c9038be0bbbb170fac4431633ff43834233c3",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/assets/appearance/dark.jpg": {
+      "class": "D",
+      "digest": "file:fac958219c5e33d9dcd1bcff0f3e8edfe2abf70f64b55a5409f9d1d8b1ac34af",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/assets/appearance/dark.png": {
+      "class": "D",
+      "digest": "file:3545323558aefc656b6a3e7e6747faefae192150dad18a22ec605831238ceb88",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/assets/appearance/light.jpg": {
+      "class": "D",
+      "digest": "file:885ac224997fbd7a270874fc6aebe6c7da5972d97be686e2a09ddd1ac787deb4",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/assets/appearance/light.png": {
+      "class": "D",
+      "digest": "file:57c1b154108c78b421b60385f2214fdbc486a2eeb7e0094eb90c6e0fd715dcdd",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/assets/eitr-logo-white.svg": {
+      "class": "D",
+      "digest": "file:6fce1325e247fe555a0a0015d1a192eab599c859f2441690b2bb88a9e45aa5b7",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/control-center-preview.qml": {
+      "class": "C",
+      "digest": "file:4c26388eb2c9b2c6dbc58a3606bc140e356a1dc901d2849c2c2e4cd237dc74d0",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/corner-styles.json": {
+      "class": "D",
+      "digest": "file:4ca0e892a3d81c440df77b35e80a7b1b1c3ee4e5feb4a6d00a03613306e3f372",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook-controls-preview.qml": {
+      "class": "C",
+      "digest": "file:b355edbcf7d4386bd70b4b21a2949b205b254435652c455f76e8ac24d9966bd5",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook-preview.qml": {
+      "class": "C",
+      "digest": "file:02aec087598824479079edb14861433731e2d7088ea3722b47eb24c04e231de6",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook/assets/controls.png": {
+      "class": "D",
+      "digest": "file:cad37bdf08ee08180d94318d1df764260431506e9a6d9254984110c96a000a7c",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook/assets/reader.png": {
+      "class": "D",
+      "digest": "file:59e4371a75ffb096d8076ef35bfb2065880bc466b2b1cc871a10620791e083d3",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook/catalog.json": {
+      "class": "D",
+      "digest": "file:3f45fceda1267388be3eec838ab435c8d9fe7e82d2d962ef965635e3515ae33b",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook/chapters.json": {
+      "class": "D",
+      "digest": "file:1fc1bfeb45ec87753ce70bbccef11d663ff419b96f7b6a1f1da24b876ebf0e2b",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook/content/appearance.md": {
+      "class": "D",
+      "digest": "file:6918722781a076375ba613f8246fe5291c8c0584db2389a69cfb00901ef206d0",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook/content/apps.md": {
+      "class": "D",
+      "digest": "file:218d4fa4c4e2256681aaddf144c4363a3b7cd31074cdfb5823ad0b36b8472d57",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook/content/capture.md": {
+      "class": "D",
+      "digest": "file:93f6030c17f047f595ced6bca99a66c393a995eaef01116423e250aafd4dcab7",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook/content/connectivity.md": {
+      "class": "D",
+      "digest": "file:83786655db117b1f71c22ead0a807ea47ecbcc7b7313d49a98edf971af47d85e",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook/content/control-center.md": {
+      "class": "D",
+      "digest": "file:4deab4f4aef548a610d419cc41eb58d69581bb8bb22142fb5a1e6e90795c4efb",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook/content/desktop-bar.md": {
+      "class": "D",
+      "digest": "file:6ca30222fb39fd7c6362184e8297702651eb4f0cec92999c71f340d7e09051ed",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook/content/development.md": {
+      "class": "D",
+      "digest": "file:2ac48cf21ab309c13b118b658c56e491ee8acd80565f15ab81e6c89dd6f77096",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook/content/devices.md": {
+      "class": "D",
+      "digest": "file:93e276ae93840d1b9ae86b5d4738ba05bee378e42cbf264e3a8ea7e05d73c24c",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook/content/getting-started.md": {
+      "class": "D",
+      "digest": "file:22119c420b582f84a07eb7c2ed5e2a11b32330ba8edba06008e0a9348c1627bf",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook/content/information.md": {
+      "class": "D",
+      "digest": "file:a81f54cdec963cbf073be570205b794c9eb44d861a7cf609afbba82a3851b0f8",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook/content/maintenance.md": {
+      "class": "D",
+      "digest": "file:5483caa9862f1e6dbde4b366a68741475675cd6524f17b0f5a108d4cdfdd2f1d",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook/content/security.md": {
+      "class": "D",
+      "digest": "file:6c1543e2be3d9f6abf7919cd73ccd61ef497fc0c2af0e2e18c0fa6fb5075108d",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook/content/system.md": {
+      "class": "D",
+      "digest": "file:4e1cb7cca76f793049e544e30f9e96e99f1400d554e092aaaaced9ad195bf283",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook/content/terminal.md": {
+      "class": "D",
+      "digest": "file:0211300fe56cfd7b746c76459d47387b6667fea3997a6b634afd467394d1e4e9",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/handbook/content/troubleshooting.md": {
+      "class": "D",
+      "digest": "file:2b3d4a0b4c56d979a43e766181c80883c84ba075b9221c7f8c1b77ea9eaf4633",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/qmldir": {
+      "class": "D",
+      "digest": "file:0a8836831aeb98ea5656c36e5c0582b77b4471b0dc417a249ff28b14fd780a00",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/LICENSE.token-records": {
+      "class": "D",
+      "digest": "file:717ba1949502290f8e47688ae2e323acd06c8ca47aec9f7596b15f678c1af4a2",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/ai-local-stats.py": {
+      "class": "C",
+      "digest": "file:e46f213793087b2556147bf83c1bc8d963088cb2f8f2076343a8a9f2af7b90c9",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/ai-popup.py": {
+      "class": "C",
+      "digest": "file:67bceb881c9af08b9c62b876722786a3846baca1e6d21189767b6c3713c3d883",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/ai-usage.py": {
+      "class": "C",
+      "digest": "file:1bc4c654488118c0dc8dc7490a7b3cf641484cb564e7b1d53643a9c8379d3342",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/airplane.py": {
+      "class": "C",
+      "digest": "file:1a8fcf43fb57eb4862d9efc9ff7785250309e2b8c5f618ae0e8df4cee1b0baae",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/appearance-items.py": {
+      "class": "C",
+      "digest": "file:f0e4026092224293547a6eef80399caf428f8cc1964f6bbb5fb82e1ebf77cb53",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/appearance-picker.sh": {
+      "class": "C",
+      "digest": "file:ca09728ffed88df8dc3563144f00f9840a2adeb283b73851b6161a0f3eed1b43",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/bar-settings.py": {
+      "class": "C",
+      "digest": "file:b727a2506e7348781f7115e2d4e9a64130062eeab25cca9de400f8b192c10a47",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/battery.py": {
+      "class": "C",
+      "digest": "file:7e5f6d5d15897111cad01d0d2558e674ebb65398dd0465720dc78af4ca78e741",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/brightness.py": {
+      "class": "C",
+      "digest": "file:26a606a1c84416f3ea2d49aa4fe4594014355ca97be832289193eacf45c583ee",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/desktop-style.py": {
+      "class": "C",
+      "digest": "file:34dcf39a7860b2e45a8c02b807b4e7484422ccf5fe4af8d03a179e727653bb1b",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/display-primary.py": {
+      "class": "C",
+      "digest": "file:bae97893c1acab061a2b459a5ca72b4d9d34cf3df490c2b6a4f1a1f4a19acd74",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/handbook-build.py": {
+      "class": "C",
+      "digest": "file:3377113bf11feb46c5138c925c0e5e571afd9c7ffb5c12bbac679228c95e532a",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/handbook.sh": {
+      "class": "C",
+      "digest": "file:9ce2c5b72773e6ce6ed371b958f113d416f9bb92a396932b0000e681b6ff5616",
+      "mode": 493
+    },
+    "quickshell/desktop-bar/scripts/keyboard-layout.py": {
+      "class": "C",
+      "digest": "file:75dc17b24a1b5688627d668ee6ccc167ecc203320dfd1ab3f8aec8b208dde253",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/obs-control.py": {
+      "class": "C",
+      "digest": "file:854a83da4facde86887478c4bc1393bb512b633e2b733b5628958ddf8a5e3cbe",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/power-profile.py": {
+      "class": "C",
+      "digest": "file:b1420bee842825bfa72d7bc1d4f5f977f0ac328f0ceb9753e926dc146b84d42f",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/show-panel.sh": {
+      "class": "C",
+      "digest": "file:b5436e4996d7ecff83f34191396c852196d86db42257f1ba65f08a4e19fd8ee2",
+      "mode": 493
+    },
+    "quickshell/desktop-bar/scripts/system-details.py": {
+      "class": "C",
+      "digest": "file:96c7077c8801b107265d1c35b364752684a93bf0f02b8bbb8dbc7b8ef8912379",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/weather-popup.py": {
+      "class": "C",
+      "digest": "file:a7c8035f38677896faa7c055c5033a303e55433f6593e344c9a7a91621d91ef8",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/weather-status.sh": {
+      "class": "C",
+      "digest": "file:d94dfe78977e81c29167b065a23544a6eb4ddf69b5c01645b0872f529b3882e8",
+      "mode": 493
+    },
+    "quickshell/desktop-bar/scripts/welcome-state.py": {
+      "class": "C",
+      "digest": "file:b02de2460f4f6caa40bda7cc5cedabd76614ef8b36301b084552fa6647167cec",
+      "mode": 493
+    },
+    "quickshell/desktop-bar/scripts/wifi-networkmanager.py": {
+      "class": "C",
+      "digest": "file:e42fd5d7a2da38fc40aa6c42ddec52fe6dbb292dd1193d402514a55eeeef14d2",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/wifi-popup.py": {
+      "class": "C",
+      "digest": "file:93e7a0c91f91fc9965092a7878fe2850d5ca974d5b2c69d92b0f0d87f5000e8d",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/wifi-qr.py": {
+      "class": "C",
+      "digest": "file:1ae7461faa0592e59cb42df81cacbd17a1ff1a93c3ff46774492a6f301fc9d5f",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/wifi-status.sh": {
+      "class": "C",
+      "digest": "file:88e552c4aab67e5791d0da0800d63daca7c32d59dac6a3fa6532fa8f344ea56a",
+      "mode": 493
+    },
+    "quickshell/desktop-bar/scripts/workspace-color.py": {
+      "class": "C",
+      "digest": "file:b00c4542d4f57fa8d48aa0e77a5adafd4d42747e0e1506fd43c09072b40ddf09",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/scripts/workspace-style.py": {
+      "class": "C",
+      "digest": "file:16af430854aa1d1e1c9719d313911b7795dc0797fb7d78ab65fc80d0166ddeea",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/shell.qml": {
+      "class": "C",
+      "digest": "file:7c2faf9676516cf05f10615966344d67611e560d06a6e3d407b9616794edcd86",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_ai_local_stats.py": {
+      "class": "C",
+      "digest": "file:51a35d3fdffe42971aba5ae9dd0b42a42441c1d423d10b8c840f86b342ee86e5",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_ai_usage.py": {
+      "class": "C",
+      "digest": "file:b0c797d1f2ea4266200e7c177c64eed8cbc48c12354b186ca578a1745d5eb812",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_appearance_categories.py": {
+      "class": "C",
+      "digest": "file:6c1e83829f095cc6ce8ed4db7b57d64bb06db094f28d231d5f8b70e66d0bfa82",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_bar_geometry.js": {
+      "class": "C",
+      "digest": "file:121c0c8abf1269a79a419cad962a0adb33a93eb6137ba9f6edbb846b3ea0a0e3",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_bar_settings.py": {
+      "class": "C",
+      "digest": "file:35be01089c3cb066827524bb30034d936a7e4122fed4f20b8bda61ada8d030b5",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_brightness.py": {
+      "class": "C",
+      "digest": "file:85e4f6041cbcc2d0be0561661a7c7952e5b101ee4c923b6b12b3e86cca27d15c",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_centered_bar.js": {
+      "class": "C",
+      "digest": "file:fde36b667cbe0ed047cad6d3ce4221aa474a3e41d478487172016166844209d8",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_content_gaps.js": {
+      "class": "C",
+      "digest": "file:0caad50965db0b2e9eff45b69e74ab627bf2010fb26c2209c194aed82f86c57c",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_control_center_gap.js": {
+      "class": "C",
+      "digest": "file:a3e0f652d606bd798001fce46f0635f2059bbdd8d4cb03bde64e5af7c8a08758",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_control_center_hardware.py": {
+      "class": "C",
+      "digest": "file:e8a7b635f45bdd6a622b3e89f08cc992dedc9e9159b16be0c9e95fcbeb31c515",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_desktop_style.py": {
+      "class": "C",
+      "digest": "file:6fdc722eb0e8d0573c958c7303ef99513ec58a426aa4ef7ec25fc6b7d63802e0",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_display_primary.py": {
+      "class": "C",
+      "digest": "file:c259981eeec3a61d49f339da9416004f28e480cae05f4ac6db4d446d45a8e6b1",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_dock_position.js": {
+      "class": "C",
+      "digest": "file:56180a4d2fb209415217d37a4eaf8e0057b265e35d08ab347f8262f3820116e5",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_handbook.py": {
+      "class": "C",
+      "digest": "file:9bd07877b80174657b3cc615c920810946112b86e37a2976162b04500d082afe",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_handbook_model.js": {
+      "class": "C",
+      "digest": "file:351a711d0f4dfbbc63ffb5cae64ab92791edfc5fa4ca30bd7517f53101022bdc",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_idle_lock_bindings.py": {
+      "class": "C",
+      "digest": "file:5b4c40ea30a57d480698fc227c8cffe0755966f136910b9e545b7b9ef3905803",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_keyboard_layout.py": {
+      "class": "C",
+      "digest": "file:02542cf307b82f0feb41aa5fcc64da0ccfc1e5d9e818e28d28f800b2deede8de",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_media_model.js": {
+      "class": "C",
+      "digest": "file:2570f3dfeeb12c6cf0845bf8ce07936b3a68fda94b5c81da4f5f2194a691569e",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_nightlight.py": {
+      "class": "C",
+      "digest": "file:591cfacac2e62111db4dd06cc20cace8f0c24496b6ace59eae3ff3f3a4ea26be",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_notification_image_cache.py": {
+      "class": "C",
+      "digest": "file:082fadcec9195ca63373bdc9bfe22b0d13b584bc5cd5ff67f78a54ec0e8b22c8",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_notification_logic.js": {
+      "class": "C",
+      "digest": "file:164ad19f303ea7c58672f17a3747b1c609819d62adbd224facd686700750cb2b",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_obs_control.py": {
+      "class": "C",
+      "digest": "file:615208ee4f86afe9d3186e2e35a0330c46a3516d509404a4641806b5ba8270fc",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_obs_option_queue.js": {
+      "class": "C",
+      "digest": "file:bb5f192bbc8dbb71dba3b41cebc28ad27163c855e58afe37f80bcf5db6e2918c",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_panel_layering.py": {
+      "class": "C",
+      "digest": "file:e110e6089c88c10d9951215e3ba7bcfba374323e3123e41f8c964f8528496fc2",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_panel_surface.py": {
+      "class": "C",
+      "digest": "file:7e9502ce26958d2f78f36c63f550b5f7404a240ebfc45f6359fc8386643fba53",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_panel_switch.js": {
+      "class": "C",
+      "digest": "file:6003bdaab4af2fdd96b9f29bdc2f65c41d1c0dc98d97b75b73ef8f108e4ec2d2",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_power_profile.py": {
+      "class": "C",
+      "digest": "file:c74b6c325c8c4bb75e66c052841535f8e99db3f4aa35aeefd6516a0fb2e6df62",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_qml_registry.py": {
+      "class": "C",
+      "digest": "file:432d28c066cbd143a8ced0942e71783f331f91bdb7fa95015c7b1bddf2a218a7",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_selection_rows.py": {
+      "class": "C",
+      "digest": "file:c65eef9efd54fc9030fd82577b776588ec6d6f076d13573f3e49f9105a1a86c8",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_show_panel_kinds.py": {
+      "class": "C",
+      "digest": "file:5510ef2ef29d5d48e1a1909220418f5d56157b0161ab862a33cae9e4b8782f58",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_storage.py": {
+      "class": "C",
+      "digest": "file:f3d4ce5698f6d899f0b5fe6897182f1a4f82aef5e4d21a4aab8e21bdfab3b6ac",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_theme_search.js": {
+      "class": "C",
+      "digest": "file:091c1fd6437cf27af49ed7c20213533c644ac976c6008ead96ef30d268c91daa",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_weather_icons.js": {
+      "class": "C",
+      "digest": "file:8e3aa6a4b02c737ed370d7c8aa13af93a1c7e311b8ea9d5dfd353809e92a985e",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_weather_popup.py": {
+      "class": "C",
+      "digest": "file:375e3d90c9d48823b6defd91dbb5696dd56d85fe714aa3d0014100092ef34e8b",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_welcome.py": {
+      "class": "C",
+      "digest": "file:875e44ef72f189bb09e73263a02aa3e51202018ca75e1f953b0dc000b8c6951b",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_wifi_networkmanager.py": {
+      "class": "C",
+      "digest": "file:47ee4db84b7a020d44571af754045af8e1c6c8131b8c0968613c40ef2a86899d",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_wifi_networks.py": {
+      "class": "C",
+      "digest": "file:279376ff810baed2d0bbdb04bd31e8b14e811a61ea5db8408ce508716ca30645",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_wifi_qr.py": {
+      "class": "C",
+      "digest": "file:606071b75950c7a49b3e6295c73d3221aaf700e0d2fafaf0e9fe6d31700765ce",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_workspace_model.js": {
+      "class": "C",
+      "digest": "file:40b0c5416450789ad548fd675fbe9a1d5b444939e32290a7294650b9c38fa34c",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/test_workspace_style_spacing.js": {
+      "class": "C",
+      "digest": "file:80545281fc1fd270c5d0b6f4dc133973be72b1e651996b8018c747a8d83f20a5",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/tst_bar_drag.qml": {
+      "class": "C",
+      "digest": "file:edc15117df02ca322aeaab6ef6881d6fc87f4d28c05973a6c8cad8b1a23f984c",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/tst_bar_gestures.qml": {
+      "class": "C",
+      "digest": "file:af3f46700b7bc9b235ad73a237ae3cd309da1f10142b1ccce7f0e29b37e62e3e",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/tst_idle_lock_controls.qml": {
+      "class": "C",
+      "digest": "file:b4a53c820c89d9e40751bba3bd28200fd48f39eff0388dbaf2e4e6a25440930e",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/tst_notification_card.qml": {
+      "class": "C",
+      "digest": "file:22520c0b51504d40f2ee52359024929e114b5b408638e89fcb8f91deb088e15c",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/tst_notification_group.qml": {
+      "class": "C",
+      "digest": "file:5b79e1073913a3eb12e5e0c27cade3d67d9ba8326d3ebb154d26678b00e9182c",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/tst_notification_image_cache.qml": {
+      "class": "C",
+      "digest": "file:5c74653c60767fac36cf3d86bc13b1e210a759ebbb8510cd21e6b795b1721419",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/tst_obs_buttons.qml": {
+      "class": "C",
+      "digest": "file:93c6add2acce8a2bb9cee9c128c0aa91891a2044b063f73a2e20c2114cfaf570",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/tst_overview_reveal.qml": {
+      "class": "C",
+      "digest": "file:b9315765b4a84587055b17ed6070d5243ec5937cfaf822098e8249f237dd768e",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/tst_panel_padding.qml": {
+      "class": "C",
+      "digest": "file:c246322d7dccedca74d545e0cad11046039647c2ae483f41e8eaa185fd6594a6",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/tst_panel_resize.qml": {
+      "class": "C",
+      "digest": "file:5fbed5286a2435747dee27d3b7da9104b7338de3422afbf9b91b758f923e3a00",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/verify_notification_images.py": {
+      "class": "C",
+      "digest": "file:6f528ba985672d0cde11239f3b026f15ed079b5a25adce7bc1f58aa9b87e5fb9",
+      "mode": 420
+    },
+    "quickshell/desktop-bar/tests/verify_notification_server.py": {
+      "class": "C",
+      "digest": "file:38d49e21c02b0f841cd982e73a1dc43566f815e273123abe9644e8aab451c1e8",
+      "mode": 420
+    },
+    "quickshell/emoji-picker/LICENSE": {
+      "class": "D",
+      "digest": "file:717ba1949502290f8e47688ae2e323acd06c8ca47aec9f7596b15f678c1af4a2",
+      "mode": 420
+    },
+    "quickshell/emoji-picker/data.py": {
+      "class": "C",
+      "digest": "file:2cb4f3476a0ef217afdb6841d535619784d83145990401b40d8757993978e19c",
+      "mode": 420
+    },
+    "quickshell/emoji-picker/emojis.json": {
+      "class": "D",
+      "digest": "file:48c9e885e2c1b948170d0508e34433fb5d15ad1946d171a12f746005c6f8664f",
+      "mode": 420
+    },
+    "quickshell/emoji-picker/insert.sh": {
+      "class": "C",
+      "digest": "file:4c264f550fae02ff78b5c040acb0b0c19beafc8bdcfa629884f7f0f64c4c61e3",
+      "mode": 493
+    },
+    "quickshell/emoji-picker/shell.qml": {
+      "class": "C",
+      "digest": "file:76a697fe1ddedcfc5efaaad36004975f360dec739a0d863dc74bf5a0e1d0b497",
+      "mode": 420
+    },
+    "quickshell/lockscreen/ARTWORK.md": {
+      "class": "D",
+      "digest": "file:ab9dc7b4416c785746a3cef0e532c1e2321e8b7b608d0c81d4852444d3b13668",
+      "mode": 420
+    },
+    "quickshell/lockscreen/AuthAdapter.qml": {
+      "class": "C",
+      "digest": "file:5e30bec8046e2f0371ac472d0e6b807ac4a7b3fb70d7ff92dcc165d9174348c1",
+      "mode": 420
+    },
+    "quickshell/lockscreen/LICENSE": {
+      "class": "D",
+      "digest": "file:3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "mode": 420
+    },
+    "quickshell/lockscreen/README.md": {
+      "class": "D",
+      "digest": "file:f7c11e9b7a766323a3f259e49b102fc8ab0f5b4c5289abea20b44e1e13eb9bef",
+      "mode": 420
+    },
+    "quickshell/lockscreen/design-gallery.qml": {
+      "class": "C",
+      "digest": "file:e775d108b0a88613bba7c687f4d989a83f351d884dca82fed7477bc46e2f864b",
+      "mode": 420
+    },
+    "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml": {
+      "class": "C",
+      "digest": "file:88f17da3888fdc62cb98ec6326fa66150e434f43caf6e49198dc43e71c4c9ee1",
+      "mode": 420
+    },
+    "quickshell/lockscreen/imports/LockscreenComponents/EitrDotTime.qml": {
+      "class": "C",
+      "digest": "file:f3798acb38db46fcf0b8c6626264321effcd6f082da17df7d0bb4beac44378e4",
+      "mode": 420
+    },
+    "quickshell/lockscreen/imports/LockscreenComponents/LoginController.qml": {
+      "class": "C",
+      "digest": "file:59024757b1d894e48d8fe3256fbfa99d9ddfd14f5afa2b60d20fedeeeaf7a580",
+      "mode": 420
+    },
+    "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml": {
+      "class": "C",
+      "digest": "file:5f5b170a3e3b322d654082ece3316c5b37918d38e20857c0c50577e918d68d47",
+      "mode": 420
+    },
+    "quickshell/lockscreen/imports/LockscreenComponents/qmldir": {
+      "class": "D",
+      "digest": "file:1e6ee90d3c299d5b8c0cbe624ed982f11a3e4434b550c280fbbfc8437e6af997",
+      "mode": 420
+    },
+    "quickshell/lockscreen/imports/SddmComponents/TextConstants.qml": {
+      "class": "C",
+      "digest": "file:c58efb47360af286ca30b81ffac6029928ff52c7f2f07b35dd3951e75ee607f3",
+      "mode": 420
+    },
+    "quickshell/lockscreen/imports/SddmComponents/qmldir": {
+      "class": "D",
+      "digest": "file:580e51c0ca297aaa6b693f6d90d91dbece5506efefdca726ca287754be0784f3",
+      "mode": 420
+    },
+    "quickshell/lockscreen/preview.qml": {
+      "class": "C",
+      "digest": "file:b2c48142ec2649131fb2a482274e6e411e0d3a7cb28888c18904b197d39a864a",
+      "mode": 420
+    },
+    "quickshell/lockscreen/scripts/gallery.sh": {
+      "class": "C",
+      "digest": "file:c445c03fb45fc41bd38aa25193d82bda4f13edcc6ca945397d3a571270d3d17b",
+      "mode": 420
+    },
+    "quickshell/lockscreen/scripts/install-login.py": {
+      "class": "C",
+      "digest": "file:58208e7cd316a639313800f9e01412804159193d2fed6c9497bcb91067c9a205",
+      "mode": 420
+    },
+    "quickshell/lockscreen/scripts/launch.sh": {
+      "class": "C",
+      "digest": "file:f3fcb24747452e1236231edb471631b0530146e9644f22619b5bf904ea757e4b",
+      "mode": 420
+    },
+    "quickshell/lockscreen/scripts/preview.sh": {
+      "class": "C",
+      "digest": "file:98b1d2c2777416658097d5a23399e60fb030869b0d302ad60125ab48d30147a1",
+      "mode": 420
+    },
+    "quickshell/lockscreen/scripts/sddm-select.py": {
+      "class": "C",
+      "digest": "file:af2c576b53868e6a779f63c62f2fe0b3d4eda28d3645c42a75486bcd8b4055f0",
+      "mode": 420
+    },
+    "quickshell/lockscreen/scripts/settings.py": {
+      "class": "C",
+      "digest": "file:8d253a86ac0a84fed79bfd82d815fe47500f68d75cc1f9ad8931236a0170797f",
+      "mode": 420
+    },
+    "quickshell/lockscreen/shell.qml": {
+      "class": "C",
+      "digest": "file:324654fd1adf5468561a82eca102181cd1d36f93f751a9cf2d7397633a6cfe25",
+      "mode": 420
+    },
+    "quickshell/lockscreen/tests/test_artwork.py": {
+      "class": "C",
+      "digest": "file:b9d0a901972af9ef349c83253e3eb4802110de74a7cd6e3e6ea3c01572df2510",
+      "mode": 420
+    },
+    "quickshell/lockscreen/tests/test_lockscreen.py": {
+      "class": "C",
+      "digest": "file:4678e77179b13bc164fcfe672890abd2461dad6bfbc024e58ea86bb7ccee7594",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/clockwork/neo-orbital/Main.qml": {
+      "class": "C",
+      "digest": "file:72564a49f68b7cdc7e2f0e87ec8854dd4ccce9ecbea92175c3d18aefdfb9bd10",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/clockwork/neo-orbital/metadata.desktop": {
+      "class": "D",
+      "digest": "file:0dd283c8bf003a9e1be1e020a074e0d9412e4f1847937ce0074253ea3cda304d",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/clockwork/neo-orbital/preview.png": {
+      "class": "D",
+      "digest": "file:892a934d37b0770d5983df09b4722937a1be75a07e7d1a68f5303ad45c6f6e5b",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/clockwork/neo-orbital/theme.conf": {
+      "class": "D",
+      "digest": "file:1663abc2e6d58e6a9c1c80014d9d983406c6be8290c070e07f59008962cf5a96",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/clockwork/orbital/Main.qml": {
+      "class": "C",
+      "digest": "file:4b92987e46359a025f4a73869b4129095483d4bf07047017fa8a068a01da5293",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/clockwork/orbital/metadata.desktop": {
+      "class": "D",
+      "digest": "file:37e236049cd02ef69fb350de0d06ac114d7c579fbf98506c3214752865235851",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/clockwork/orbital/preview.png": {
+      "class": "D",
+      "digest": "file:cbb195adff5a39067fea1de8fd1d535e5ba93e54fe4adb33f6325a8493283859",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/clockwork/orbital/theme.conf": {
+      "class": "D",
+      "digest": "file:1663abc2e6d58e6a9c1c80014d9d983406c6be8290c070e07f59008962cf5a96",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/clockwork/tape/Main.qml": {
+      "class": "C",
+      "digest": "file:bdae3986ea83bd0ecfec63b82c0a1c7b051806a22a052d40c621d942c72f79c6",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/clockwork/tape/metadata.desktop": {
+      "class": "D",
+      "digest": "file:dcccbbe6a335b79308a04589d1e35cd0bbf19f2adc0bda49a161503136b4db48",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/clockwork/tape/preview.png": {
+      "class": "D",
+      "digest": "file:f363ffcae3305d03c3f5120b9213dd194fb5d24f7480ebe72bf209f5164491b9",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/clockwork/tape/theme.conf": {
+      "class": "D",
+      "digest": "file:1663abc2e6d58e6a9c1c80014d9d983406c6be8290c070e07f59008962cf5a96",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/field/Main.qml": {
+      "class": "C",
+      "digest": "file:0aad24543533b5a6d84dfbb7c72cf223dd9b716adc5d3db17eb24ffb5151afba",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/field/background.png": {
+      "class": "D",
+      "digest": "file:9dfabd09c2906f05398d06f2fa5cb762f94df9674cf49a36c075948e2a8e47c5",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/field/metadata.desktop": {
+      "class": "D",
+      "digest": "file:27aa48e5afa6507c434eb169436abfb21a6d98d98d3207dcda7cc22ba694e7bc",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/field/preview.png": {
+      "class": "D",
+      "digest": "file:6f9aef43979e25f2541efff22550f4ddaf79c745cc1aef2d2d1d4b9aa23ca430",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/field/theme.conf": {
+      "class": "D",
+      "digest": "file:4ddf925b92e7104908a18193b72e2e729d6ad4ba34521f7682e9ad3cdaa3c496",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/girl-coffee/Main.qml": {
+      "class": "C",
+      "digest": "file:59f9a77b8e45fbc4bfebce4754bcb5dc6e5de5727bf535a9213ac9727fd2e873",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/girl-coffee/background.png": {
+      "class": "D",
+      "digest": "file:fea690fc14d733d8e514b6c9594aa1afeaad5b355774baed4513f3ee483cfd02",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/girl-coffee/metadata.desktop": {
+      "class": "D",
+      "digest": "file:d1b1ab1a1553d048378d5084baeeb9f61792b90eb5867464cba10eab72bd40db",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/girl-coffee/preview.png": {
+      "class": "D",
+      "digest": "file:45c3c4801bfebcd11313c8ebaf1ceb5b00919838b44edeec3c4c607ee82284ed",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/girl-coffee/theme.conf": {
+      "class": "D",
+      "digest": "file:2bec3dc35d4eb69192249bd1f5468e388c7b4da2811edcd8ea6129dd4ab74289",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/girl-pillow/Main.qml": {
+      "class": "C",
+      "digest": "file:2d262a7809837d5892295ff0a9c6e6788ba991c3ae1e7e829ae8c001d38a23be",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/girl-pillow/background.png": {
+      "class": "D",
+      "digest": "file:b74d7c67ebcf7670d176b008497f9fa4d8f371697358b93316af80fba4df9d03",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/girl-pillow/metadata.desktop": {
+      "class": "D",
+      "digest": "file:92bc4fd437b20b4db1df02b819b449805963a2812f9b71285af9ebabdf39ef82",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/girl-pillow/preview.png": {
+      "class": "D",
+      "digest": "file:096870914f5f312033ce278648639cde994d76298377f9ee2ec078a01d281c7c",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/girl-pillow/theme.conf": {
+      "class": "D",
+      "digest": "file:78083b979735ca18b5fe977703c8a00fc8227142c9f14c957325c2cb0431df2d",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/last-of-us/Main.qml": {
+      "class": "C",
+      "digest": "file:760ac3a65e28067f301320b1a6bd46aa2503d683bae32925ad6ecb6468b5be94",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/last-of-us/background.png": {
+      "class": "D",
+      "digest": "file:501018616a1da099f37d9832457d2ef6f990325f6120eee314b58c4053ad36bf",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/last-of-us/metadata.desktop": {
+      "class": "D",
+      "digest": "file:1f088ba5b28c9f33833fff9b15d0b898a6973e55557845dab73c86b9d909562f",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/last-of-us/preview.png": {
+      "class": "D",
+      "digest": "file:ef03733b1795dfeb782a386de9aa2b26c0dabc9a1339e5377a8caa7fd8a10e67",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/last-of-us/theme.conf": {
+      "class": "D",
+      "digest": "file:438abaaf757cc9f357a3790c4c50b9f67077f624d763d449998c916547076ad2",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/material-you-dark/Main.qml": {
+      "class": "C",
+      "digest": "file:c94bafefe0cb6080a5d3d3d385de4972e93c65ade7f39e17643f661b65f7f704",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/material-you-dark/background.svg": {
+      "class": "D",
+      "digest": "file:dadd1b221d6bad512bc09ba33024050301997fab2eb352d7f858bd04862b3ddc",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/material-you-dark/metadata.desktop": {
+      "class": "D",
+      "digest": "file:ef9a1829022b70df3210343e6ba1009d7569fc0227d8f685fc21fed0924bc2a6",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/material-you-dark/preview.png": {
+      "class": "D",
+      "digest": "file:d18b81a209a7581c2b8ab02569fda4e6ccb7dca19a38f57504c4f7883ae49741",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/material-you-dark/theme.conf": {
+      "class": "D",
+      "digest": "file:6e40af87b8284cc4981471be7f16e324a0fafe71ef678aa58a69507ae1485a96",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/material-you/Main.qml": {
+      "class": "C",
+      "digest": "file:c94bafefe0cb6080a5d3d3d385de4972e93c65ade7f39e17643f661b65f7f704",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/material-you/background.svg": {
+      "class": "D",
+      "digest": "file:776da58c05083bf689eb96aac2e57dca9575b78b462268548abb84f2f8363fb8",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/material-you/metadata.desktop": {
+      "class": "D",
+      "digest": "file:067eda24e277d26168bf7f462c3e04243b40102be261024e6fa8f8946ea45b74",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/material-you/preview.png": {
+      "class": "D",
+      "digest": "file:9ff347f352e5dccd29c8725c06e297790643d17ec4a9301500d5a1a6fe6059dc",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/material-you/theme.conf": {
+      "class": "D",
+      "digest": "file:6ed2199c3735501d942551125ee9b3a2f52d76a0e6bb2a86239742abc6e0c3e0",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/nier-automata/Main.qml": {
+      "class": "C",
+      "digest": "file:3d94a7db519303a1c5f2e04a91c1c78d22d25fb1c31c7febdd09ab852fe846fb",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/nier-automata/metadata.desktop": {
+      "class": "D",
+      "digest": "file:b72d1af5ac4869daeb2b08393bc38daa5154b0f14c7493de72a561070d15e512",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/nier-automata/preview.png": {
+      "class": "D",
+      "digest": "file:1f6ad97e2c217be90282fc638b7884cb9bbb7d9fd7f02102ed69bf803bbf8c6a",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/nier-automata/theme.conf": {
+      "class": "D",
+      "digest": "file:fc8cc3f791e8fdf0cdf23e3d4aaaa354c2135f79d839892a93a56117eb232857",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/nothing/Main.qml": {
+      "class": "C",
+      "digest": "file:8116938af5b8c50866436b1f6e8186fe32881d849cb1e2d8aac11557940a356c",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/nothing/metadata.desktop": {
+      "class": "D",
+      "digest": "file:74ff4b70d6920bc1136f9fe8f42d196dbcc9c7ef1bd737e0e68053b3f40f0a4b",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/nothing/preview.png": {
+      "class": "D",
+      "digest": "file:659bd533a3d9e55f0b357a19229fd25c43f094eb17e844f26f9d3e22fbf47c6f",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/nothing/theme.conf": {
+      "class": "D",
+      "digest": "file:8ae57ba2867282c00bc9588a6e2b5d3e78ee9f34e27284140e053f5bb9ca1b7e",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/pixel-dusk-city/Main.qml": {
+      "class": "C",
+      "digest": "file:34c0deb29200f2c03da4b69ec85cb45d53d5bd8549fa089740aa48376dfafed4",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/pixel-dusk-city/background.png": {
+      "class": "D",
+      "digest": "file:ffda77fcbe4f2db2c55431c55ab7d1f237f943a750959d97608a02aae919a883",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/pixel-dusk-city/metadata.desktop": {
+      "class": "D",
+      "digest": "file:b4d0b7a10979bd4b56d4df496901cc99bf6ea087a57e0244366bcea42fca4f1b",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/pixel-dusk-city/preview.png": {
+      "class": "D",
+      "digest": "file:689a52ac5578c4bd7e6d47a8781c552a53cb8e30c862ea0b82e089ac5ea6b15b",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/pixel-dusk-city/theme.conf": {
+      "class": "D",
+      "digest": "file:8c0ce32371d63fe1ff422b1e0f9e38c58f670776a628e125dd43add2a8cce85c",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/pixel-night-city/Main.qml": {
+      "class": "C",
+      "digest": "file:c11e760c1cf46d4ba23193cb7901964a8fa6cefcfef1176aa5112e44022092fd",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/pixel-night-city/background.png": {
+      "class": "D",
+      "digest": "file:f9cc00bbe14a8c6f2ecceaa0081a14460bfdc244eed92882939a692406461385",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/pixel-night-city/metadata.desktop": {
+      "class": "D",
+      "digest": "file:b18d3d232860bdd2df9a588b247d1bcc645e7fb60a4b36904a9e711966f9a2d8",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/pixel-night-city/preview.png": {
+      "class": "D",
+      "digest": "file:65c2ab8d917596b2292fd6dc5ee011abf43d28daa0acf9670921e55d1ee4bd47",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/pixel-night-city/theme.conf": {
+      "class": "D",
+      "digest": "file:637797c68533069734d5d4494be691aa063880b47e6a2c256e0b784a0698d5c0",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/sword/Main.qml": {
+      "class": "C",
+      "digest": "file:055b22d5f5125d8653d236cfa74a77b0d2aa8978aa5a774a5cc57a2808b44757",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/sword/background.png": {
+      "class": "D",
+      "digest": "file:6b1b32f93cc5568de09aae55303ab1e23516ef12877cecfb5e690b8a72f34f1c",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/sword/metadata.desktop": {
+      "class": "D",
+      "digest": "file:2f15a5ae20d065afb0b3c31496ecb0c372ec64f2d2a036592016310098c7e16a",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/sword/preview.png": {
+      "class": "D",
+      "digest": "file:84eaccdcce679e4ca225bf2a4f8367eb401eff658592e16d1a09d691a0d6b8cc",
+      "mode": 420
+    },
+    "quickshell/lockscreen/themes/sword/theme.conf": {
+      "class": "D",
+      "digest": "file:e0f854e2450daffaf03bc526275893e05a443b332196d19d4372da44636d2651",
+      "mode": 420
+    },
+    "quickshell/wallpaper-transition/shell.qml": {
+      "class": "C",
+      "digest": "file:26b440c856e4e4f62c2298d6da709485b6546112604de58c2d9de403d3c56874",
+      "mode": 420
+    },
+    "swayosd/config.toml": {
+      "class": "P",
+      "digest": "file:af907ec3fdc88b2601c3f28ffd0d09d5e5dfabd205f7bbd8f78dbc1c0923f5f2",
+      "mode": 420
+    },
+    "swayosd/style.css": {
+      "class": "G",
+      "digest": "file:bcac4458daa1bb4bafa28cc9a86dd102ef1e503920c92a47880f19aff834973a",
+      "mode": 420
+    },
+    "themes/ARTWORK.md": {
+      "class": "D",
+      "digest": "file:8cad71c13037d993713028ac19eecf702942d981b0df10b32418a942fd934b23",
+      "mode": 420
+    },
+    "themes/IMPORT-LICENSE": {
+      "class": "D",
+      "digest": "file:717ba1949502290f8e47688ae2e323acd06c8ca47aec9f7596b15f678c1af4a2",
+      "mode": 420
+    },
+    "themes/afterglow/artwork.md": {
+      "class": "D",
+      "digest": "file:347b32a54cabc69185256cd92ba97044d21a46cb487f3ee48a13b45e6bd24c19",
+      "mode": 420
+    },
+    "themes/afterglow/backgrounds/01-inner-light.png": {
+      "class": "D",
+      "digest": "file:683289b1ead1b0cc9b39e5dbe3316a62dc11ec5f9dc7d4d79760ed3a04b10b44",
+      "mode": 420
+    },
+    "themes/afterglow/backgrounds/02-orbital-tides.png": {
+      "class": "D",
+      "digest": "file:7293219af4e456d70987392740c02f8078406b7feae2b175d957774c140b8d38",
+      "mode": 420
+    },
+    "themes/afterglow/backgrounds/03-amber-gaze.png": {
+      "class": "D",
+      "digest": "file:c8266533b55c259d035bc8eba8747f4589211e8cbc73cf0b1850bb9fd0b3c7b3",
+      "mode": 420
+    },
+    "themes/afterglow/backgrounds/04-quiet-signal.png": {
+      "class": "D",
+      "digest": "file:7a2a1e8625a84f87f49d972fac39c8184360b8977e50f6be1339fc08f3a003c0",
+      "mode": 420
+    },
+    "themes/afterglow/btop.theme": {
+      "class": "D",
+      "digest": "file:b1396a01fc50eae877365cbefe941c542942ac64044adccfcc362777bb4621f3",
+      "mode": 420
+    },
+    "themes/afterglow/colors.toml": {
+      "class": "D",
+      "digest": "file:6b8fad6f1bb6e225a81baa6301c2c7f306ab9f6aaa71cc11c491132cadba09c3",
+      "mode": 420
+    },
+    "themes/afterglow/display-name": {
+      "class": "D",
+      "digest": "file:1acc9541fb408914928542200ec1ffaa8e4486bc45883e79e5c1c4718ba6fc12",
+      "mode": 420
+    },
+    "themes/afterglow/dolphin.theme": {
+      "class": "D",
+      "digest": "file:0ae8b4b0d8fd1808d5dced6cca6fb32e256cd82061b95b94aeadea67a7cafb0c",
+      "mode": 420
+    },
+    "themes/afterglow/icons.theme": {
+      "class": "D",
+      "digest": "file:fabce71aa1d6dff7a151d3ac1ce842c22ee11399e0279b311f97cfcfca30f7ad",
+      "mode": 420
+    },
+    "themes/afterglow/neovim.lua": {
+      "class": "D",
+      "digest": "file:7107293a2e3b5c7eaf1ce3ced9e9c40e63b2ca9ef9d5cc34e4c15b478a4e5f6f",
+      "mode": 420
+    },
+    "themes/afterglow/preview.png": {
+      "class": "D",
+      "digest": "file:387b9c6ca03801051d332721b09e57657c6f4bddd23d2ae8776230fe9eb394bf",
+      "mode": 420
+    },
+    "themes/afterglow/references/originals/1-eyes-wide.png": {
+      "class": "D",
+      "digest": "file:53cc2eea25bd75435d77d2b3cc9339841dfdcd5a52c51a1e02dda14a3e527bd4",
+      "mode": 420
+    },
+    "themes/afterglow/references/originals/2-blink.png": {
+      "class": "D",
+      "digest": "file:eaec03ab843739754979987944064bb46d283e47e36aa5d8d8f9d75cd9997155",
+      "mode": 420
+    },
+    "themes/afterglow/references/originals/3-bokeh.png": {
+      "class": "D",
+      "digest": "file:f91b253da6bb173d6cccf41a165e683d5d656bbf5d9169493831f96422781c30",
+      "mode": 420
+    },
+    "themes/afterglow/references/originals/4-new-horizons.jpg": {
+      "class": "D",
+      "digest": "file:6b13ec842e3617d7c9c113612664f56b8ffec5fb76d0613bb1c84914f12feb5f",
+      "mode": 420
+    },
+    "themes/afterglow/rgb.color": {
+      "class": "D",
+      "digest": "file:d07250c2c35c4231964d7b644eb838a03530e58d70f90b9150eb4072c48e6246",
+      "mode": 420
+    },
+    "themes/afterglow/vscode.json": {
+      "class": "D",
+      "digest": "file:5a9a97fc3e18317e886dbe94269a1c958ff3413fa7373902a15d6344eeb17f1e",
+      "mode": 420
+    },
+    "themes/artwork-batch-02.json": {
+      "class": "D",
+      "digest": "file:2a6b474f151eb93c6a160cc3f0b06f5f94a44f6af9fbac8f47a12afa1693450b",
+      "mode": 420
+    },
+    "themes/artwork-batch-03.json": {
+      "class": "D",
+      "digest": "file:11227745b8f9a308257685e3bf90adaa0725effa1ff1e0fa2e59d4086bb38e53",
+      "mode": 420
+    },
+    "themes/artwork-batch.json": {
+      "class": "D",
+      "digest": "file:64a6f813ac24b6289980b4c859d4b3af77c526328e9fbcb3df5aa06d8f613609",
+      "mode": 420
+    },
+    "themes/artwork-witcher.json": {
+      "class": "D",
+      "digest": "file:bc1a62e4ae61514c612a01cc7a784288d1eabed6153409b244402fe6358862d3",
+      "mode": 420
+    },
+    "themes/catppuccin-latte/artwork.md": {
+      "class": "D",
+      "digest": "file:6e143600243e9b98e942d4f349cf326ffb03679113d40d0e4ac6aa321786d8b5",
+      "mode": 420
+    },
+    "themes/catppuccin-latte/backgrounds/01-soft-contours.png": {
+      "class": "D",
+      "digest": "file:f7caa81c0c8267c32abdfcc2ca3c85109bc2a2bdf85f81dee1a43df26dc3fe08",
+      "mode": 420
+    },
+    "themes/catppuccin-latte/backgrounds/02-cloud-orchard.png": {
+      "class": "D",
+      "digest": "file:ca65edd29833f864124cdc1c932e44b1c6db9c129bca4c3e66ce5467f0018e57",
+      "mode": 420
+    },
+    "themes/catppuccin-latte/backgrounds/03-porcelain-coast.png": {
+      "class": "D",
+      "digest": "file:f0cda78d2cbcd43278cb8f6a51090e457b261b520fa5480ad66cb2f1152a15e3",
+      "mode": 420
+    },
+    "themes/catppuccin-latte/btop.theme": {
+      "class": "D",
+      "digest": "file:86330725175ff07295039fe020ccb524edaf8430b698c9a66e05b076a81a9953",
+      "mode": 420
+    },
+    "themes/catppuccin-latte/colors.toml": {
+      "class": "D",
+      "digest": "file:30b184bfab2630fe6f9a34aa4760e53794c196bad7ab984a8040c39d9a90833e",
+      "mode": 420
+    },
+    "themes/catppuccin-latte/display-name": {
+      "class": "D",
+      "digest": "file:79ee9f253eb8dcc6bd95f6d216edbb576b887db1956a2c7e6c57cb0513bf92e5",
+      "mode": 420
+    },
+    "themes/catppuccin-latte/dolphin.theme": {
+      "class": "D",
+      "digest": "file:683f02451ceb309bd76ea542f75b8d49f96aff2a0517939ad9fa5b70c3fd3642",
+      "mode": 420
+    },
+    "themes/catppuccin-latte/icons.theme": {
+      "class": "D",
+      "digest": "file:75be55b00f24a3cfc708db729e9bca23765e8ef0991d6889fbb2fd4d29581209",
+      "mode": 420
+    },
+    "themes/catppuccin-latte/light.mode": {
+      "class": "D",
+      "digest": "file:bb4c7dcf8e568c5fc722a376f30aea06afca3bbebdce64d2b6fc9904c3c16d67",
+      "mode": 420
+    },
+    "themes/catppuccin-latte/neovim.lua": {
+      "class": "D",
+      "digest": "file:5f2c59a34e3219aecf7a164be47a2095f234d678198f6b68d9dc56a8f62d6feb",
+      "mode": 420
+    },
+    "themes/catppuccin-latte/preview.png": {
+      "class": "D",
+      "digest": "file:cf600dcf6ab5280c94b846cfc766dcc11a46992f90b8d766f1beef462a11de44",
+      "mode": 420
+    },
+    "themes/catppuccin-latte/references/originals/1-color-fade.png": {
+      "class": "D",
+      "digest": "file:7f0ea4054c817e6535cfd1a01133bc9e414cc11459bb9ced2ce37aa03b0dcab7",
+      "mode": 420
+    },
+    "themes/catppuccin-latte/rgb.color": {
+      "class": "D",
+      "digest": "file:7c102abc825ec9f0935078c2c60fc7610abbe2e4aaf4cca19c17348545a40061",
+      "mode": 420
+    },
+    "themes/catppuccin-latte/vscode.json": {
+      "class": "D",
+      "digest": "file:da729941402bd5373758031444373c9470e34e1ee5acac4228de40e33eb430bf",
+      "mode": 420
+    },
+    "themes/catppuccin/artwork.md": {
+      "class": "D",
+      "digest": "file:1753c3b2c36926e2deafc2ef76aea71349e96a82cb08d053142af06dc884af94",
+      "mode": 420
+    },
+    "themes/catppuccin/backgrounds/01-prismatic-heart.png": {
+      "class": "D",
+      "digest": "file:c739c735dd31febe3bc8c63369476fdf27a2ca24d1d070572433654f4ab87266",
+      "mode": 420
+    },
+    "themes/catppuccin/backgrounds/02-lunar-conservatory.png": {
+      "class": "D",
+      "digest": "file:8108d9d5355f7fbc814fbc198d1b2b82253bfd971d8a37c53e6507d6e6121811",
+      "mode": 420
+    },
+    "themes/catppuccin/backgrounds/03-orbital-dreamer.png": {
+      "class": "D",
+      "digest": "file:52eb9d2abb40556084b1384375c94a583f97a385d676e90c5cefab738c013da6",
+      "mode": 420
+    },
+    "themes/catppuccin/btop.theme": {
+      "class": "D",
+      "digest": "file:19dc3669e81d5857c5cbe7b3a884b1004e7c069ce2b8261f3bcd03bacb3dea54",
+      "mode": 420
+    },
+    "themes/catppuccin/colors.toml": {
+      "class": "D",
+      "digest": "file:bc36364a691198d7912dee2b3645c694b98ef868e57791bf8bcc9a03fbe80a34",
+      "mode": 420
+    },
+    "themes/catppuccin/display-name": {
+      "class": "D",
+      "digest": "file:503ec45073b080aee500a009d7b452cf07f1bb0950dc2433d9c5ff6fb904bd2f",
+      "mode": 420
+    },
+    "themes/catppuccin/dolphin.theme": {
+      "class": "D",
+      "digest": "file:0ae8b4b0d8fd1808d5dced6cca6fb32e256cd82061b95b94aeadea67a7cafb0c",
+      "mode": 420
+    },
+    "themes/catppuccin/icons.theme": {
+      "class": "D",
+      "digest": "file:75be55b00f24a3cfc708db729e9bca23765e8ef0991d6889fbb2fd4d29581209",
+      "mode": 420
+    },
+    "themes/catppuccin/neovim.lua": {
+      "class": "D",
+      "digest": "file:feea06001ea5858cab54eaac8fa111bf1ee53e9cdb9b61a7d8e1039c961aff82",
+      "mode": 420
+    },
+    "themes/catppuccin/preview.png": {
+      "class": "D",
+      "digest": "file:03af76476e201b2494f09fcd46e9f01cb67be571743fd06667bac01ed68ecf78",
+      "mode": 420
+    },
+    "themes/catppuccin/references/originals/1-totoro.png": {
+      "class": "D",
+      "digest": "file:3bcfab14e8e7b041307cb77d700c6959160fe7f6d5de631b15bd02de0cf8d9ff",
+      "mode": 420
+    },
+    "themes/catppuccin/references/originals/2-astronaut.png": {
+      "class": "D",
+      "digest": "file:7ec13fb43ce5b7580fee6bb7b9e254ec80e1c4e6510d80d57b31ef8819332a59",
+      "mode": 420
+    },
+    "themes/catppuccin/references/originals/3-basement.jpg": {
+      "class": "D",
+      "digest": "file:ad71f688eb4956b7850d44072e4fff8a8e84cdfc22cb30d6f24eba12ca4855db",
+      "mode": 420
+    },
+    "themes/catppuccin/references/originals/4-dark-star.jpg": {
+      "class": "D",
+      "digest": "file:09e4a285589eb2cdc82f23888ce9819ad0965ded10228f64192a42a87870c562",
+      "mode": 420
+    },
+    "themes/catppuccin/references/originals/5-dominik-mayer-10.jpg": {
+      "class": "D",
+      "digest": "file:c4abcbfbcddf451ef4313ecab99be9dea5fc672c8039016691c84acedf9dfa70",
+      "mode": 420
+    },
+    "themes/catppuccin/rgb.color": {
+      "class": "D",
+      "digest": "file:6cd695c84a7583a5edd22937d6432477cecf6d77eb9fa1080631b27a5dd27b94",
+      "mode": 420
+    },
+    "themes/catppuccin/vscode.json": {
+      "class": "D",
+      "digest": "file:7618ba0f071991effc4a2a923e4e241e661821968fc078d4fe188b9fa18e82fc",
+      "mode": 420
+    },
+    "themes/daylight/artwork.md": {
+      "class": "D",
+      "digest": "file:dd96bff7fd145268ea0f62880ba50a548372a91cdf7fd88dd30224f84531670d",
+      "mode": 420
+    },
+    "themes/daylight/backgrounds/01-salt-horizon.png": {
+      "class": "D",
+      "digest": "file:a1497dbc798d1df998cc14eb1c726a28c11fdb77c3fdbe4f561c68fe38e4ccab",
+      "mode": 420
+    },
+    "themes/daylight/backgrounds/02-paper-orbit.png": {
+      "class": "D",
+      "digest": "file:bd0546ed8ed8ece5a7ad1a0287659021f4078486484cc481ba89409f7a1af2c6",
+      "mode": 420
+    },
+    "themes/daylight/backgrounds/03-quiet-pleats.png": {
+      "class": "D",
+      "digest": "file:46edc12a3fe0671b6b5367dd09d3b6e8b8d3d54946e46e181387577d167371aa",
+      "mode": 420
+    },
+    "themes/daylight/btop.theme": {
+      "class": "D",
+      "digest": "file:472aa87dd515c5f575fba8a8d8283bdae00a1f75c606f392c079cc7f61be8bfd",
+      "mode": 420
+    },
+    "themes/daylight/colors.toml": {
+      "class": "D",
+      "digest": "file:e17625164213d21a1ada6da37fa35e1356c2a85564e194c5989dd0fbd15aba4d",
+      "mode": 420
+    },
+    "themes/daylight/display-name": {
+      "class": "D",
+      "digest": "file:db97f01613ac98757083b9e44c0625ead0e165a0414720ad662bbb4a8ba4f455",
+      "mode": 420
+    },
+    "themes/daylight/dolphin.theme": {
+      "class": "D",
+      "digest": "file:8425c3310d1089f5e262bfa82317cc521010aaf7922cd7acb540137f5fff8397",
+      "mode": 420
+    },
+    "themes/daylight/icons.theme": {
+      "class": "D",
+      "digest": "file:b1e0fdba853ab5a04976e69fa0c2332ab590772ebaa73ca2034cdf352499035b",
+      "mode": 420
+    },
+    "themes/daylight/light.mode": {
+      "class": "D",
+      "digest": "file:bb4c7dcf8e568c5fc722a376f30aea06afca3bbebdce64d2b6fc9904c3c16d67",
+      "mode": 420
+    },
+    "themes/daylight/neovim.lua": {
+      "class": "D",
+      "digest": "file:df25fb8eb95c680d78283eb577260495577f96d898ce15dfed93a253ec133e90",
+      "mode": 420
+    },
+    "themes/daylight/preview.png": {
+      "class": "D",
+      "digest": "file:473929ee498de0cd6d714c811fdf33fb3d5d54d73d9eeae2e7370410852b912d",
+      "mode": 420
+    },
+    "themes/daylight/references/originals/1-white.jpg": {
+      "class": "D",
+      "digest": "file:2d854b0138b63373b37925f5ded8494bc819f123965b18825fb87b2153ffb23a",
+      "mode": 420
+    },
+    "themes/daylight/references/originals/2-white.jpg": {
+      "class": "D",
+      "digest": "file:a261b0adb32e200534b581a3db4264ea8241365a786dce3946e2006dceed4eff",
+      "mode": 420
+    },
+    "themes/daylight/references/originals/3-white.jpg": {
+      "class": "D",
+      "digest": "file:6c4825e415ffa5c8eea96d186a9478bd2105b647679e9c75c2ae7953b0db9d89",
+      "mode": 420
+    },
+    "themes/daylight/rgb.color": {
+      "class": "D",
+      "digest": "file:bd5d4f2815d18cdae324a2ae0f1ed0ad6562c307617928e1586ed7cc1f2bfb14",
+      "mode": 420
+    },
+    "themes/daylight/vscode.json": {
+      "class": "D",
+      "digest": "file:426445fc513e0045ff465159d47926a8be21b62c43cac8c4260a3975b3f2ba53",
+      "mode": 420
+    },
+    "themes/everforest/artwork.md": {
+      "class": "D",
+      "digest": "file:bffb8aee30577715c05c0fdaab0adef12b36cbf31174cda7856926d625bd92ea",
+      "mode": 420
+    },
+    "themes/everforest/backgrounds/01-cedar-mist.png": {
+      "class": "D",
+      "digest": "file:d7d8fe251bdc3a0c04884e386ea6892d9efd16c40fe4e6e69335fb03a5868227",
+      "mode": 420
+    },
+    "themes/everforest/backgrounds/02-seed-library.png": {
+      "class": "D",
+      "digest": "file:662994f9b441bb1b58e8b2df87e13083c192ec4222e09b2f022bddb9c7515e8a",
+      "mode": 420
+    },
+    "themes/everforest/backgrounds/03-copper-and-sage.png": {
+      "class": "D",
+      "digest": "file:930d50243a4c6997bc4830ac30be897ac2a1f1c49a1c8fac54ac9da42cdae70e",
+      "mode": 420
+    },
+    "themes/everforest/btop.theme": {
+      "class": "D",
+      "digest": "file:6067fdd9521f00621044cfc4bbc27ce1d3744170120e88ceff4555a69a1b5482",
+      "mode": 420
+    },
+    "themes/everforest/colors.toml": {
+      "class": "D",
+      "digest": "file:258892d2ebba9a8c2f2d586e9cf7db07656a6f42be1ec0069d5f951bdffad53d",
+      "mode": 420
+    },
+    "themes/everforest/display-name": {
+      "class": "D",
+      "digest": "file:86d9bab1ca39830af35a77806adf81ccec4c3f883d9d6cd9d1c77c545c5d30bc",
+      "mode": 420
+    },
+    "themes/everforest/dolphin.theme": {
+      "class": "D",
+      "digest": "file:b263bafa7fce2b88dda51159e62135c0402d27a2da619ba663292e6b4b684b3e",
+      "mode": 420
+    },
+    "themes/everforest/icons.theme": {
+      "class": "D",
+      "digest": "file:db03d23dd42fcc39900733c4324f884ec731ab6de6d0fdb85496a62c230a2554",
+      "mode": 420
+    },
+    "themes/everforest/neovim.lua": {
+      "class": "D",
+      "digest": "file:ec8605e04ae83d307cc5c41f754f1c809adf46c93bead2fdc08b0c14154fb83b",
+      "mode": 420
+    },
+    "themes/everforest/preview.png": {
+      "class": "D",
+      "digest": "file:c2901a3dba7faa27cc81abd4feb3129bffc1ed5d6db6234c71a47f77c00d2bf9",
+      "mode": 420
+    },
+    "themes/everforest/references/originals/1-tree-tops.jpg": {
+      "class": "D",
+      "digest": "file:0f00a5e2d0f78d5e75c7a2f48101f6dee69179c6d94e9f4ebc6fb7c0f39462bf",
+      "mode": 420
+    },
+    "themes/everforest/references/originals/2-dark-tree-tops.jpg": {
+      "class": "D",
+      "digest": "file:f881fef98ccda1def3fa09da685e4d155575abc93c7c626131a885ab333a6cdd",
+      "mode": 420
+    },
+    "themes/everforest/references/originals/3-trees.jpg": {
+      "class": "D",
+      "digest": "file:317d598ee3e1f712194ec51c8e3310a71627d150c1a59e8e07a8053e42ed401a",
+      "mode": 420
+    },
+    "themes/everforest/references/originals/4-road-forest-mountain.jpg": {
+      "class": "D",
+      "digest": "file:f46fa4a9b52393e5fa0e117bfa006839ceb5f4b1449cf5eef881125fa20b4422",
+      "mode": 420
+    },
+    "themes/everforest/rgb.color": {
+      "class": "D",
+      "digest": "file:a5ed86ccadbae8196ed7a35dd92967f94ad6f81d110833982f3fa3cdc18c2425",
+      "mode": 420
+    },
+    "themes/everforest/vscode.json": {
+      "class": "D",
+      "digest": "file:8a2922ac09e58124e29b1b14a36351f3f9ef5b78405366ba7dc46c7788a1de73",
+      "mode": 420
+    },
+    "themes/flexoki-light/artwork.md": {
+      "class": "D",
+      "digest": "file:6fd7ecb37308ba7e0a6cac758f51c6a59cb510e1e5aa4db30c2d35260bf5eeda",
+      "mode": 420
+    },
+    "themes/flexoki-light/backgrounds/01-halftone-knot.png": {
+      "class": "D",
+      "digest": "file:c40b596364ecafcd112e4e1cbb239fd9a1102751c35aa195a5e2fafd7634a7de",
+      "mode": 420
+    },
+    "themes/flexoki-light/backgrounds/02-ink-islands.png": {
+      "class": "D",
+      "digest": "file:75fa3d0362d9a4c08a4b59fa4ef565bfd871a88fcb21daaf38ae7d7669e935b7",
+      "mode": 420
+    },
+    "themes/flexoki-light/backgrounds/03-dot-crescent.png": {
+      "class": "D",
+      "digest": "file:e524f4b5e0cb6f929ac1e36a9a7649df9bb4f081f90d229d0d294ecf880aab64",
+      "mode": 420
+    },
+    "themes/flexoki-light/btop.theme": {
+      "class": "D",
+      "digest": "file:0f204f5fe8dd6f13ed263fed8a95f8e0f0ca2d053a0f208c44f108b6b4a1b772",
+      "mode": 420
+    },
+    "themes/flexoki-light/colors.toml": {
+      "class": "D",
+      "digest": "file:af71fedc5e62b84a97e6d88bb8584917601286b22f2dfb25439ee4d86518d363",
+      "mode": 420
+    },
+    "themes/flexoki-light/display-name": {
+      "class": "D",
+      "digest": "file:11365a192561c834e22b24e19edb483e75fba5ce0ed880460d12e05c1fc4d134",
+      "mode": 420
+    },
+    "themes/flexoki-light/dolphin.theme": {
+      "class": "D",
+      "digest": "file:db1937f3f0d36bc0c0d1c33107372d257902eb940b35beaccd1642e37dfba82c",
+      "mode": 420
+    },
+    "themes/flexoki-light/icons.theme": {
+      "class": "D",
+      "digest": "file:75be55b00f24a3cfc708db729e9bca23765e8ef0991d6889fbb2fd4d29581209",
+      "mode": 420
+    },
+    "themes/flexoki-light/light.mode": {
+      "class": "D",
+      "digest": "file:9fa548e3be92cff64e3f0ef40ccc3f8063ca33095838ba8f63314a4639c55b8f",
+      "mode": 420
+    },
+    "themes/flexoki-light/neovim.lua": {
+      "class": "D",
+      "digest": "file:460b997c62f626c1ae24003403eb88e8ef198e84c5078490c6df0fc7a71311a6",
+      "mode": 420
+    },
+    "themes/flexoki-light/preview.png": {
+      "class": "D",
+      "digest": "file:0309e1ba07831e9262eafff112085548231d739fee60d63fac28286e0c2454a0",
+      "mode": 420
+    },
+    "themes/flexoki-light/references/originals/1-orb.png": {
+      "class": "D",
+      "digest": "file:5fec32ec9b7270c4afe5f36ac2885a8f37bff1a5a8ae4edb3b01b7d262628456",
+      "mode": 420
+    },
+    "themes/flexoki-light/rgb.color": {
+      "class": "D",
+      "digest": "file:053e145244f492dee91cc6305002c99bafa5578ff02d36ef0e59bf0c3b2f099f",
+      "mode": 420
+    },
+    "themes/flexoki-light/vscode.json": {
+      "class": "D",
+      "digest": "file:f2ef3755d867f90281236d2a1e15cc0a9e27602b5c703e5a3b6609da38f39357",
+      "mode": 420
+    },
+    "themes/graphite/artwork.md": {
+      "class": "D",
+      "digest": "file:adb843e3978324ca54d1e9f1515bfff388a6ed6b2bc3ae4d6d462fed80839028",
+      "mode": 420
+    },
+    "themes/graphite/backgrounds/01-fragments-of-touch.png": {
+      "class": "D",
+      "digest": "file:80ea20ec0506514156bd6e65ed03b767ea0664a3fb10e6edab53a78e5a7816b2",
+      "mode": 420
+    },
+    "themes/graphite/backgrounds/02-ember-harbor.png": {
+      "class": "D",
+      "digest": "file:71d0adb841ad75458b880a5fa6999b2fec99a50b0721e7773646ddcb1e19b521",
+      "mode": 420
+    },
+    "themes/graphite/backgrounds/03-suspended-form.png": {
+      "class": "D",
+      "digest": "file:d97c7bbfab7b53fc0f03f182e6ff523b6b4830328168f86ec92671e69d79a111",
+      "mode": 420
+    },
+    "themes/graphite/backgrounds/04-thread-and-shadow.png": {
+      "class": "D",
+      "digest": "file:a86c5a937edca086c6764375a7551d125d5501f7766b443fec9c2b86cb2e2186",
+      "mode": 420
+    },
+    "themes/graphite/btop.theme": {
+      "class": "D",
+      "digest": "file:4c2d7f9f217c17b935071fc1898f43b62b778e7413f737e4a33965b86306f7c9",
+      "mode": 420
+    },
+    "themes/graphite/colors.toml": {
+      "class": "D",
+      "digest": "file:59c83f3e87d31bf6c49d21918fde0f25ede79673b78f4cf0e1ff3a456a52014e",
+      "mode": 420
+    },
+    "themes/graphite/display-name": {
+      "class": "D",
+      "digest": "file:9bc1b3957a59a5195ba03a83d9d3a722bc00cad57624282ab1c786dfbacef88c",
+      "mode": 420
+    },
+    "themes/graphite/dolphin.theme": {
+      "class": "D",
+      "digest": "file:0ae8b4b0d8fd1808d5dced6cca6fb32e256cd82061b95b94aeadea67a7cafb0c",
+      "mode": 420
+    },
+    "themes/graphite/icons.theme": {
+      "class": "D",
+      "digest": "file:72adc8a0a17d587a9b588efd4c6fe669d566e72db6fe212384712f9a870a6a15",
+      "mode": 420
+    },
+    "themes/graphite/neovim.lua": {
+      "class": "D",
+      "digest": "file:ec7df5fb1d3b7fc644fa0f69cd959ebc43fad8ebdb4aedfd01a5b1e387cd9778",
+      "mode": 420
+    },
+    "themes/graphite/preview.png": {
+      "class": "D",
+      "digest": "file:999a81917cf18cb0fd33ba45784766716f7fbfb6ee87ae21524a6cbe76e618d1",
+      "mode": 420
+    },
+    "themes/graphite/references/originals/0-ship-at-sea.jpg": {
+      "class": "D",
+      "digest": "file:55fa691adfd3fb8a9102b826a28d8de679938f04879799da499b8ace2fe039ac",
+      "mode": 420
+    },
+    "themes/graphite/references/originals/1-dark-waters.jpg": {
+      "class": "D",
+      "digest": "file:98f0c2b65a2587d114949e8125c22f891c993e0305ca36537bd9b7a9869e8a93",
+      "mode": 420
+    },
+    "themes/graphite/references/originals/2-dot-hands.jpg": {
+      "class": "D",
+      "digest": "file:e8d73aa65be29bf9d0bec62f64add450485ca52367701ff683e0f2bd66f0791a",
+      "mode": 420
+    },
+    "themes/graphite/rgb.color": {
+      "class": "D",
+      "digest": "file:bd5d4f2815d18cdae324a2ae0f1ed0ad6562c307617928e1586ed7cc1f2bfb14",
+      "mode": 420
+    },
+    "themes/graphite/vscode.json": {
+      "class": "D",
+      "digest": "file:18171ea89a57d4639b935d80a6b271c19a23e4ebe682cc0703144bb77474b83c",
+      "mode": 420
+    },
+    "themes/gruvbox/artwork.md": {
+      "class": "D",
+      "digest": "file:bb6ce61e38b9e3d585046c014fc2fbe69b912830d8a76c9262e2a00f4d5f5bde",
+      "mode": 420
+    },
+    "themes/gruvbox/backgrounds/01-violin-and-pear.png": {
+      "class": "D",
+      "digest": "file:dd544f35b299fb80b724f3605026aeb5f2814069c67a1e1ccabb6982ad41bb86",
+      "mode": 420
+    },
+    "themes/gruvbox/backgrounds/02-river-workshop.png": {
+      "class": "D",
+      "digest": "file:48819917ad73fce646cacaca1698fa98246c3ae46c4b75f91a8abfd365d11ec9",
+      "mode": 420
+    },
+    "themes/gruvbox/backgrounds/03-copper-hills.png": {
+      "class": "D",
+      "digest": "file:d9cb4e999fe1d3a35079315fe1f8996eaad061464c05b80f3425468c05c47c7a",
+      "mode": 420
+    },
+    "themes/gruvbox/backgrounds/04-brass-and-petals.png": {
+      "class": "D",
+      "digest": "file:0c5180702eb95774534f89802f2f58338a04ac560f663676cf53bf67fa3faa80",
+      "mode": 420
+    },
+    "themes/gruvbox/backgrounds/05-candle-and-ceramic.png": {
+      "class": "D",
+      "digest": "file:c15413de9c8fc340315df134f35df7324f99f86daeda88801aa38b8929a4dd8f",
+      "mode": 420
+    },
+    "themes/gruvbox/btop.theme": {
+      "class": "D",
+      "digest": "file:99114e42f0860ce7911a9c84b3a8cc887478d8675cf8c27742eeabeeed35c136",
+      "mode": 420
+    },
+    "themes/gruvbox/colors.toml": {
+      "class": "D",
+      "digest": "file:3555fb26fba119af8341ddea8f6baa834869136e2f4bdb7d9c192b4b1545e68f",
+      "mode": 420
+    },
+    "themes/gruvbox/display-name": {
+      "class": "D",
+      "digest": "file:9e5a3e46a748ec6ebbdf324d4a63e19c57cd2f701b8271c3b903362d8baae910",
+      "mode": 420
+    },
+    "themes/gruvbox/dolphin.theme": {
+      "class": "D",
+      "digest": "file:de1bb26d03f6df115be26ea3e47e7b5862c6e8437bcd0cce05f17d87c6929a5f",
+      "mode": 420
+    },
+    "themes/gruvbox/icons.theme": {
+      "class": "D",
+      "digest": "file:db03d23dd42fcc39900733c4324f884ec731ab6de6d0fdb85496a62c230a2554",
+      "mode": 420
+    },
+    "themes/gruvbox/neovim.lua": {
+      "class": "D",
+      "digest": "file:61054eec415fd0de8633dd30d7d6d583aa5be5f68f1ed341f5d3a57d677a9140",
+      "mode": 420
+    },
+    "themes/gruvbox/preview.png": {
+      "class": "D",
+      "digest": "file:859da9b6de1c8ec3027e48dfc1fea6bceb918a2c850d920691da9f1506610e1f",
+      "mode": 420
+    },
+    "themes/gruvbox/references/originals/1-the-backwater.jpg": {
+      "class": "D",
+      "digest": "file:13cfc6ae370af984c08a820ff81b56a0febb0fbfe9712a6db128b94d14ecaac6",
+      "mode": 420
+    },
+    "themes/gruvbox/references/originals/2-flower-basket.jpg": {
+      "class": "D",
+      "digest": "file:e6188fc509b3336f1f22e097328c29bde604e76c965092de69a5861fa3587598",
+      "mode": 420
+    },
+    "themes/gruvbox/references/originals/3-village-square.jpg": {
+      "class": "D",
+      "digest": "file:9ac4d52dbef06876a838e9cf9f97813dd86e99d2b977d9d11c5f389be6451cdc",
+      "mode": 420
+    },
+    "themes/gruvbox/references/originals/4-idyllic-procession.jpg": {
+      "class": "D",
+      "digest": "file:be0ae73263a5eb69416fb13547826a60806859aa31bb031053afc73de60a55c5",
+      "mode": 420
+    },
+    "themes/gruvbox/references/originals/5-leaves.jpg": {
+      "class": "D",
+      "digest": "file:cdbd3cd7b34a2c8e7e74818af5101a8531786878b0a3afcb8f6985b27394f66d",
+      "mode": 420
+    },
+    "themes/gruvbox/rgb.color": {
+      "class": "D",
+      "digest": "file:55b36aab089f9b3a455cfd3e8b474c0ba32a9632bbe61f35ebae0d7db379f02b",
+      "mode": 420
+    },
+    "themes/gruvbox/vscode.json": {
+      "class": "D",
+      "digest": "file:7efb92b5319cbb1e2933b58a64eb784eeb4014a8a5b6b113d05cbf4700d0bd5a",
+      "mode": 420
+    },
+    "themes/jade/artwork.md": {
+      "class": "D",
+      "digest": "file:d8c530d089cee3eeae97502895b4017757d4fc537fb931af11f6578db0417704",
+      "mode": 420
+    },
+    "themes/jade/backgrounds/01-midnight-study.png": {
+      "class": "D",
+      "digest": "file:a2f9ab4cf8ae189cc8c8db0bc43aa3b6bb71f6a4bde70ecac64d1bf7dd848f6a",
+      "mode": 420
+    },
+    "themes/jade/backgrounds/02-rain-garden.png": {
+      "class": "D",
+      "digest": "file:2cdcde2c590bf52a7beb2f1862c0adaa4084ef8c54087680bbff3b67d93bd2af",
+      "mode": 420
+    },
+    "themes/jade/backgrounds/03-tea-and-static.png": {
+      "class": "D",
+      "digest": "file:89d655d0400a30384198c103077a61afb664a88e23a8cd361769936f3c6d9ba6",
+      "mode": 420
+    },
+    "themes/jade/backgrounds/04-night-shift.png": {
+      "class": "D",
+      "digest": "file:8d0b09b11837c09973fcfba757bd37b02da0d92cc56c6ab49770c4d12506b9a7",
+      "mode": 420
+    },
+    "themes/jade/btop.theme": {
+      "class": "D",
+      "digest": "file:00ae9d0960ee3d17797eef1d3f29d2b04b9d8b4a5d8ceaa612f02afe1922327a",
+      "mode": 420
+    },
+    "themes/jade/colors.toml": {
+      "class": "D",
+      "digest": "file:1df70784ccce3048c26d4178b378ed2485854b6cde278be732ae9d1942c7ecd0",
+      "mode": 420
+    },
+    "themes/jade/display-name": {
+      "class": "D",
+      "digest": "file:a089b132fba6718f9423f90ba9ae6bb2acd4c889ea9f025d1497937310cc9bca",
+      "mode": 420
+    },
+    "themes/jade/dolphin.theme": {
+      "class": "D",
+      "digest": "file:3b08544bc9255dea1f59c96d1625554bcd1f20418cbc63ee9f821f7dd58e9074",
+      "mode": 420
+    },
+    "themes/jade/icons.theme": {
+      "class": "D",
+      "digest": "file:96d20b1fd1db2dfba81d9a03eccafe3d6ec9dae123bb4476f48b3ed4914003d8",
+      "mode": 420
+    },
+    "themes/jade/neovim.lua": {
+      "class": "D",
+      "digest": "file:5bf7b6559105ee92603dd3db7d48bbf9e442f61667fefbe247d7924564f56bed",
+      "mode": 420
+    },
+    "themes/jade/preview.png": {
+      "class": "D",
+      "digest": "file:7bbc915541acacdcc15fd196694020b373b17d5a9c972be4244760866444b987",
+      "mode": 420
+    },
+    "themes/jade/references/originals/1-glowing-city.jpg": {
+      "class": "D",
+      "digest": "file:1a4ed77cdcd943833027e2caf805819773bbadcabe868b58ea2ee67c6016d8a8",
+      "mode": 420
+    },
+    "themes/jade/references/originals/2-shaded-entrance.jpg": {
+      "class": "D",
+      "digest": "file:5b1053819b9f62c6b54e81443a40245f426e256cd4831b795ae41fc595c26c52",
+      "mode": 420
+    },
+    "themes/jade/references/originals/3-mountain-moon.jpg": {
+      "class": "D",
+      "digest": "file:145adf0ba2ebd42dabaf89f12709a7321674f627668e4e2c33fc8f8a192914c7",
+      "mode": 420
+    },
+    "themes/jade/rgb.color": {
+      "class": "D",
+      "digest": "file:da65fd2104e516f1d7787a9f405c96233fde51d8441353ce599d8c92fedf5ff3",
+      "mode": 420
+    },
+    "themes/jade/vscode.json": {
+      "class": "D",
+      "digest": "file:c919b6d27e278fedebaf2028e9a199b191734dc8ceb650bec02519bffe086309",
+      "mode": 420
+    },
+    "themes/kanagawa/artwork.md": {
+      "class": "D",
+      "digest": "file:3c1c44874a7862b48c3cc06c65f6997059593e4d8ed4bfef5c065cf4288062c9",
+      "mode": 420
+    },
+    "themes/kanagawa/backgrounds/01-reed-estuary.png": {
+      "class": "D",
+      "digest": "file:91c33870a83ba6269007718a2a8f8c42438fc24ce495c56b68f799c8f5aaffa9",
+      "mode": 420
+    },
+    "themes/kanagawa/backgrounds/02-rain-pass.png": {
+      "class": "D",
+      "digest": "file:41f610e7672a56eb23acc969625de125e09b1fa17c7cc4dafe0c6a1b0ecd268d",
+      "mode": 420
+    },
+    "themes/kanagawa/backgrounds/03-crane-and-ribbon.png": {
+      "class": "D",
+      "digest": "file:4aea25926071083e1417111ccffeb645365967e50e8065b421cd3a2cf538d971",
+      "mode": 420
+    },
+    "themes/kanagawa/backgrounds/04-indigo-fan.png": {
+      "class": "D",
+      "digest": "file:928f14abb3865c512ca510485fc3e46434fda6114d0a1de38b4a67d68b274e66",
+      "mode": 420
+    },
+    "themes/kanagawa/btop.theme": {
+      "class": "D",
+      "digest": "file:5e13d1706e72c7697ec17a0e2c64abace93b711065689120ebde03489b4d2061",
+      "mode": 420
+    },
+    "themes/kanagawa/colors.toml": {
+      "class": "D",
+      "digest": "file:7f7d629bbb96b41cc973e840fc5cfa655ff390273409ded02eed2c30219003ac",
+      "mode": 420
+    },
+    "themes/kanagawa/display-name": {
+      "class": "D",
+      "digest": "file:d66baf4e1c17774f5c49801c8ade9cad516b6e6dfb5133ccc458251c94a97e29",
+      "mode": 420
+    },
+    "themes/kanagawa/dolphin.theme": {
+      "class": "D",
+      "digest": "file:8696876a4f3d615452a021566fe969d92b634e3f7767e75790485d85cf677c51",
+      "mode": 420
+    },
+    "themes/kanagawa/icons.theme": {
+      "class": "D",
+      "digest": "file:75be55b00f24a3cfc708db729e9bca23765e8ef0991d6889fbb2fd4d29581209",
+      "mode": 420
+    },
+    "themes/kanagawa/neovim.lua": {
+      "class": "D",
+      "digest": "file:cd080c5d06bbd1748efbcfc34936f0ec34d4f14eed98cbb8b9a7449d20951ea4",
+      "mode": 420
+    },
+    "themes/kanagawa/preview.png": {
+      "class": "D",
+      "digest": "file:79b14c4aba457b3667a0811096f1de6d02404ba9f19da8330deaa2fd80569437",
+      "mode": 420
+    },
+    "themes/kanagawa/references/originals/1-kanagawa.jpg": {
+      "class": "D",
+      "digest": "file:9b817d717688539f0db87603b661992839c3cbb5d4918a02a4efc05c9f88b27d",
+      "mode": 420
+    },
+    "themes/kanagawa/rgb.color": {
+      "class": "D",
+      "digest": "file:5e9db3b6c0d15e97adfcc40615930a66c95accaca203fd739cf99989cbbdd4b4",
+      "mode": 420
+    },
+    "themes/kanagawa/vscode.json": {
+      "class": "D",
+      "digest": "file:0b0b83e9f794660d1b5bc9a4b20096211a124e3d2b0246589d9fc83d223b8bd5",
+      "mode": 420
+    },
+    "themes/moonveil/artwork.md": {
+      "class": "D",
+      "digest": "file:32af113cbc91ee4216ea5f8e9635a4008ea913d490527b3c5585a3006c3af3f0",
+      "mode": 420
+    },
+    "themes/moonveil/backgrounds/01-starlit-meadow.png": {
+      "class": "D",
+      "digest": "file:163c85eeda8081f204fd916789e7fc8727496914cd96e5e0c514ee9dce053ecc",
+      "mode": 420
+    },
+    "themes/moonveil/backgrounds/02-cloud-viaduct.png": {
+      "class": "D",
+      "digest": "file:4ee8035d3b0ed29a2ab8d29b27354e9c8cffbada659f21b5d9b5b5f9605e8d2a",
+      "mode": 420
+    },
+    "themes/moonveil/backgrounds/03-astral-bloom.png": {
+      "class": "D",
+      "digest": "file:ab01a50c3226530f68ad065951b287d25a37f3f29d75da0cfb6c7bb686d21891",
+      "mode": 420
+    },
+    "themes/moonveil/btop.theme": {
+      "class": "D",
+      "digest": "file:40a0c87c51e7f5cde088742f24c7d21429c9d6d6b20a65bae7bad7dcab16da11",
+      "mode": 420
+    },
+    "themes/moonveil/colors.toml": {
+      "class": "D",
+      "digest": "file:3113ea5e9bd6f462a1d5ef30f87b2c837dbd0e960329f81cc8c6d50f08986c31",
+      "mode": 420
+    },
+    "themes/moonveil/display-name": {
+      "class": "D",
+      "digest": "file:dfdcba9d74d128a32b5420164d266dff9efc2daac02e0907cb571309dd172bd5",
+      "mode": 420
+    },
+    "themes/moonveil/dolphin.theme": {
+      "class": "D",
+      "digest": "file:73c4732286b1d2d6e505ff6c56626b421ae7eaea91d58c2b3a13147203e3f66e",
+      "mode": 420
+    },
+    "themes/moonveil/icons.theme": {
+      "class": "D",
+      "digest": "file:75be55b00f24a3cfc708db729e9bca23765e8ef0991d6889fbb2fd4d29581209",
+      "mode": 420
+    },
+    "themes/moonveil/neovim.lua": {
+      "class": "D",
+      "digest": "file:9dfb02d4f704355c07d88550915aa1746eeae1aba70ff34def86729ea89d06c3",
+      "mode": 420
+    },
+    "themes/moonveil/preview.png": {
+      "class": "D",
+      "digest": "file:9af8504df735ef577d03a8302b624ddb10fa1e20be4573c5fdc3b859e3f07951",
+      "mode": 420
+    },
+    "themes/moonveil/references/originals/1-cosmic.jpg": {
+      "class": "D",
+      "digest": "file:0db02097c8ddd3a8c029d18b18e4594ad28928b2fa64ebde7934997ad77f9bd0",
+      "mode": 420
+    },
+    "themes/moonveil/references/originals/2-meadow.jpg": {
+      "class": "D",
+      "digest": "file:16a74c7d60dc878c629f5565efc9b890b859c3c1e23966d915a678c7a5287a73",
+      "mode": 420
+    },
+    "themes/moonveil/rgb.color": {
+      "class": "D",
+      "digest": "file:6c2420887c6ff5c7b650e31177da223af90027e4ac6415c4cd31c429a34382c8",
+      "mode": 420
+    },
+    "themes/moonveil/vscode.json": {
+      "class": "D",
+      "digest": "file:f3842ef38ff5482a88b6193480404728fa14be8eb367c5bd20ccc1f631f6c06f",
+      "mode": 420
+    },
+    "themes/moss/artwork.md": {
+      "class": "D",
+      "digest": "file:0276e1137dabdc8de2661c41c3c6f59801627fa9863f6cd297c653efa60ac2b0",
+      "mode": 420
+    },
+    "themes/moss/backgrounds/01-the-veil.png": {
+      "class": "D",
+      "digest": "file:6dc4fe0f6cd0d18392a58b06519606ff819535ef48547d2f6eb6dc0cb51e392c",
+      "mode": 420
+    },
+    "themes/moss/backgrounds/02-the-keeper.png": {
+      "class": "D",
+      "digest": "file:e15cd737c62fd7c06ee265ba333dff31eeb964466076e5815b21aae01387ef4b",
+      "mode": 420
+    },
+    "themes/moss/backgrounds/03-stone-and-linen.png": {
+      "class": "D",
+      "digest": "file:a494dae145d4d4363e6cec158945fe6e820c01ea605979081327a7a753689c0a",
+      "mode": 420
+    },
+    "themes/moss/btop.theme": {
+      "class": "D",
+      "digest": "file:a0c738b9c9e2126be3de7da621c6a4644cd31cf99efd91d68d079137bad9eac1",
+      "mode": 420
+    },
+    "themes/moss/colors.toml": {
+      "class": "D",
+      "digest": "file:0a06ad9363406b7f6550c406cc52e682ef1eac3f1ae174de241fb066d40b16da",
+      "mode": 420
+    },
+    "themes/moss/display-name": {
+      "class": "D",
+      "digest": "file:48d97828e8e9b778514aac098202d4987250553bb2a6175c31f1916e1a7180dd",
+      "mode": 420
+    },
+    "themes/moss/dolphin.theme": {
+      "class": "D",
+      "digest": "file:b263bafa7fce2b88dda51159e62135c0402d27a2da619ba663292e6b4b684b3e",
+      "mode": 420
+    },
+    "themes/moss/icons.theme": {
+      "class": "D",
+      "digest": "file:cf151cd8d81ccf125f78423c9339be3e0824863e1472d03747e84db17999c98c",
+      "mode": 420
+    },
+    "themes/moss/neovim.lua": {
+      "class": "D",
+      "digest": "file:62da4ae3d789600a1d9bfa6ab0e1415566dd3fafea035299afb146d901bf4a4d",
+      "mode": 420
+    },
+    "themes/moss/preview.png": {
+      "class": "D",
+      "digest": "file:d7acfa46530566834c201eecf1111ec99d80d565b108585e5b383b8919e2e6f5",
+      "mode": 420
+    },
+    "themes/moss/references/originals/01-nature-of-fear.jpg": {
+      "class": "D",
+      "digest": "file:f89242eded77e3e3994680d73dd273945056b50c758cc1e828981f58d20dbce1",
+      "mode": 420
+    },
+    "themes/moss/references/originals/02-crowned.jpg": {
+      "class": "D",
+      "digest": "file:39847a832c747bbd5b6b2cf561cf808a6dcee0fb4b468f1f0095ca9900c4b50f",
+      "mode": 420
+    },
+    "themes/moss/rgb.color": {
+      "class": "D",
+      "digest": "file:61282dd7555a31554850569be47135c25f859ff33d440843ae506a1a9cf5a561",
+      "mode": 420
+    },
+    "themes/moss/vscode.json": {
+      "class": "D",
+      "digest": "file:de794c61b67b26531b57a7eab072b45c8300e1888439970407a9fd6da315eba5",
+      "mode": 420
+    },
+    "themes/nord/artwork.md": {
+      "class": "D",
+      "digest": "file:5c4b0990092fa5fca6820a6787e7a8ca6ba048c9c836d021915035e4e52ae71e",
+      "mode": 420
+    },
+    "themes/nord/backgrounds/01-blue-hour-reader.png": {
+      "class": "D",
+      "digest": "file:75f0cb0d33ef5998aa2e59b16e90f8fbfc4487d5ae068180635e7cfdb10f1470",
+      "mode": 420
+    },
+    "themes/nord/backgrounds/02-glacier-inlet.png": {
+      "class": "D",
+      "digest": "file:e3c141780d0bf5089cf3ae12e165dca1736aad21e4cd6cb667da4dd1c6b78998",
+      "mode": 420
+    },
+    "themes/nord/backgrounds/03-last-track.png": {
+      "class": "D",
+      "digest": "file:bf0657b2ace468a6976026c17e388a5dfee76cd97db04717b4a120f2b2a5d59c",
+      "mode": 420
+    },
+    "themes/nord/backgrounds/04-window-seat.png": {
+      "class": "D",
+      "digest": "file:4d86a0334233878ee2701d06943e0aee0c21d2f35596021938e051c8dad794f4",
+      "mode": 420
+    },
+    "themes/nord/btop.theme": {
+      "class": "D",
+      "digest": "file:d4b43128675e091c5e191df246552e06dcaa738f38d80b8246e971e929241cbb",
+      "mode": 420
+    },
+    "themes/nord/colors.toml": {
+      "class": "D",
+      "digest": "file:9a09792bd3292f81fef68b233cc7838b26dc8643d5411bf9a1ca06b92c1eb8d7",
+      "mode": 420
+    },
+    "themes/nord/display-name": {
+      "class": "D",
+      "digest": "file:df110b448de958cc753aa1ad8cffeae42627e628bc0f04fe3174b8dab9e32447",
+      "mode": 420
+    },
+    "themes/nord/dolphin.theme": {
+      "class": "D",
+      "digest": "file:504f6c98a790679b73eebe4c34653c56b4eb6a4261a0a7ae443ea7f7b14ece16",
+      "mode": 420
+    },
+    "themes/nord/icons.theme": {
+      "class": "D",
+      "digest": "file:78b00b2193cd39f00a54ebbffc86afa4cbd548c2c9c69d30b33ad666b108c002",
+      "mode": 420
+    },
+    "themes/nord/neovim.lua": {
+      "class": "D",
+      "digest": "file:deecc99cbb8d4401e20f914a2154e913127644d36e9f20b2fba51fd099d937c6",
+      "mode": 420
+    },
+    "themes/nord/preview.png": {
+      "class": "D",
+      "digest": "file:4defa4eaf93e608d83a8b96776d4eacb4b4de7d5492ca2abca7065ae3fd7fbff",
+      "mode": 420
+    },
+    "themes/nord/references/originals/0-city-view.png": {
+      "class": "D",
+      "digest": "file:b1186fa7ee4e9d90087b86934c4de31a867daa4a23c401885181b07ba12fff75",
+      "mode": 420
+    },
+    "themes/nord/references/originals/1-black-moon.jpg": {
+      "class": "D",
+      "digest": "file:6873fbf7d4cbb9a39604094dd8d804eb6d231e63ecf56e5c297aae90358eff81",
+      "mode": 420
+    },
+    "themes/nord/references/originals/2-night-hawks.png": {
+      "class": "D",
+      "digest": "file:61a4bc49c13711121de87f5f7f2407ff8235051cd17f9cded7e20e15b19d5692",
+      "mode": 420
+    },
+    "themes/nord/rgb.color": {
+      "class": "D",
+      "digest": "file:85f587b23a2fa30a70137062295a458d9ca012d8cc3d1ee2d01cdd70348b5b94",
+      "mode": 420
+    },
+    "themes/nord/vscode.json": {
+      "class": "D",
+      "digest": "file:f43ac216ea4bfbb673231b0d4251c70d452af504f402359e7c445eb15d041c8f",
+      "mode": 420
+    },
+    "themes/obsidian/artwork.md": {
+      "class": "D",
+      "digest": "file:27e33f50ec7e5d3afb8e27437b57471829aafe710abe83eddc7227b9de7d6fec",
+      "mode": 420
+    },
+    "themes/obsidian/backgrounds/01-folded-silence.png": {
+      "class": "D",
+      "digest": "file:b64a527a95dff6a77178d006761d2b53f250f71dee1937f1ca97c8b69ea79189",
+      "mode": 420
+    },
+    "themes/obsidian/backgrounds/02-black-dunes.png": {
+      "class": "D",
+      "digest": "file:4a6182296c0c02857c0095175127dae95de6f2a7269713df35dc613a6ef909ef",
+      "mode": 420
+    },
+    "themes/obsidian/backgrounds/03-black-vortex.png": {
+      "class": "D",
+      "digest": "file:458862b15dec55731c5b92696db7028bd6f087912a8969c0be8074156e4159c7",
+      "mode": 420
+    },
+    "themes/obsidian/btop.theme": {
+      "class": "D",
+      "digest": "file:e47d2a8e6027cf70829835124fdd60a039e6692fa6120bc0af0297634986eefc",
+      "mode": 420
+    },
+    "themes/obsidian/colors.toml": {
+      "class": "D",
+      "digest": "file:42ff4478c5fb1db800bcba2ef4ba43eeb4432794ef71d61c569d5f956ead61e6",
+      "mode": 420
+    },
+    "themes/obsidian/display-name": {
+      "class": "D",
+      "digest": "file:ce09a8385e23f753c6c70fe35f87f19d71b67f2382d64c00a72d930646dc2355",
+      "mode": 420
+    },
+    "themes/obsidian/dolphin.theme": {
+      "class": "D",
+      "digest": "file:0ae8b4b0d8fd1808d5dced6cca6fb32e256cd82061b95b94aeadea67a7cafb0c",
+      "mode": 420
+    },
+    "themes/obsidian/icons.theme": {
+      "class": "D",
+      "digest": "file:78b00b2193cd39f00a54ebbffc86afa4cbd548c2c9c69d30b33ad666b108c002",
+      "mode": 420
+    },
+    "themes/obsidian/neovim.lua": {
+      "class": "D",
+      "digest": "file:eb104441029155ff63c10c0cf62c1e9a231239defc68ce4733bc4060b4cab25e",
+      "mode": 420
+    },
+    "themes/obsidian/preview.png": {
+      "class": "D",
+      "digest": "file:b8e2da0797d6951ed42a16f74aad7f01a57c786964664d32573b945e677426c1",
+      "mode": 420
+    },
+    "themes/obsidian/references/originals/0-dot-hands.jpg": {
+      "class": "D",
+      "digest": "file:e8d73aa65be29bf9d0bec62f64add450485ca52367701ff683e0f2bd66f0791a",
+      "mode": 420
+    },
+    "themes/obsidian/references/originals/1-twisted-stairs.jpg": {
+      "class": "D",
+      "digest": "file:03eaacfb2c4970ec47514c7d25960840a0b765bea79f0a3900f5045dd550a108",
+      "mode": 420
+    },
+    "themes/obsidian/references/originals/2-layers-deep.jpg": {
+      "class": "D",
+      "digest": "file:dca7a284b93e7221216bcb01452114bfd80591a606a00cf885ab7cc3c86f6fa6",
+      "mode": 420
+    },
+    "themes/obsidian/references/originals/3-layers-stacked.jpg": {
+      "class": "D",
+      "digest": "file:7e30d584ba2a2dd810b94fce78a5115c36727f8c2015d8e11504ab1d355deea0",
+      "mode": 420
+    },
+    "themes/obsidian/rgb.color": {
+      "class": "D",
+      "digest": "file:aec575d1b2182968bbb92fc4dc82653245f0cb6f835377e8342d470471ad05c0",
+      "mode": 420
+    },
+    "themes/obsidian/vscode.json": {
+      "class": "D",
+      "digest": "file:d90e96f2fdacaea0f0963c4ee68b9a2bb426d9636327541b7daae0b500637b82",
+      "mode": 420
+    },
+    "themes/one-dark-pro/artwork.md": {
+      "class": "D",
+      "digest": "file:013d82306323927f278829f7f6f4a035cc47dc6ebcb2819ffce1101149158eb9",
+      "mode": 420
+    },
+    "themes/one-dark-pro/backgrounds/01-neon-summit.jpg": {
+      "class": "D",
+      "digest": "file:d0f395e9c78af3cae079333ed286e840985255298fe4f0792226b7c08c32e348",
+      "mode": 420
+    },
+    "themes/one-dark-pro/backgrounds/02-moonlit-keep.jpg": {
+      "class": "D",
+      "digest": "file:d509298c4695c103337c51f5a9096eded45425854352e5e55bd8b7733a234341",
+      "mode": 420
+    },
+    "themes/one-dark-pro/backgrounds/03-the-long-road.jpg": {
+      "class": "D",
+      "digest": "file:2f2360c42eca3580d4c8239a6de71331accf0d6539b51bab0454604eaac36b6f",
+      "mode": 420
+    },
+    "themes/one-dark-pro/backgrounds/04-school-of-the-wolf.png": {
+      "class": "D",
+      "digest": "file:781b6f8735318f53dbc5946296f8bfd70c28d02e25c2483c1ce89580f2b32efe",
+      "mode": 420
+    },
+    "themes/one-dark-pro/btop.theme": {
+      "class": "D",
+      "digest": "file:bce3d3c0e5840a555f864cc1b8a9a031fed21a07cdaf8b9e38edb1b66fbd4721",
+      "mode": 420
+    },
+    "themes/one-dark-pro/colors.toml": {
+      "class": "D",
+      "digest": "file:cc4876e3553d74bae09211b155a6ec4ce03a128228cb172a98760e314dff8c73",
+      "mode": 420
+    },
+    "themes/one-dark-pro/display-name": {
+      "class": "D",
+      "digest": "file:431e382b16081472197560f82b5e22a1eac338b741dd26fae6daf9bb6cee3454",
+      "mode": 420
+    },
+    "themes/one-dark-pro/dolphin.theme": {
+      "class": "D",
+      "digest": "file:8696876a4f3d615452a021566fe969d92b634e3f7767e75790485d85cf677c51",
+      "mode": 420
+    },
+    "themes/one-dark-pro/icons.theme": {
+      "class": "D",
+      "digest": "file:75be55b00f24a3cfc708db729e9bca23765e8ef0991d6889fbb2fd4d29581209",
+      "mode": 420
+    },
+    "themes/one-dark-pro/neovim.lua": {
+      "class": "D",
+      "digest": "file:ac79cd20c6a1634c5b8f5a73b32679e5c1b8e235aad2b58a78cae27ea9f75721",
+      "mode": 420
+    },
+    "themes/one-dark-pro/preview.png": {
+      "class": "D",
+      "digest": "file:19f695edd1dd1422261d629937342e522e311ee96e69664eb30b5eedaf931741",
+      "mode": 420
+    },
+    "themes/one-dark-pro/references/originals/1-red-eclipse-coast.jpg": {
+      "class": "D",
+      "digest": "file:fff0b9fb128d37475c73e90ffb67ae0f1f9cb2e977de204725caf2d795cf9498",
+      "mode": 420
+    },
+    "themes/one-dark-pro/references/originals/2-neon-rain-street.jpg": {
+      "class": "D",
+      "digest": "file:c4a16062e2fbd2902af65b3fb60f5e2ec6d00fc34efd1718057068c6039ce964",
+      "mode": 420
+    },
+    "themes/one-dark-pro/references/originals/3-golden-sigil.jpg": {
+      "class": "D",
+      "digest": "file:5e2200654042b79687457cd911b70c8d503df73021cbe6b172f8066427380155",
+      "mode": 420
+    },
+    "themes/one-dark-pro/references/originals/4-white-wolf.jpg": {
+      "class": "D",
+      "digest": "file:261b2c0c4a9b27ed2cb737d8083952c285e44b50d004ea6669da0eb474d8ba5a",
+      "mode": 420
+    },
+    "themes/one-dark-pro/references/originals/5-mist-castle.jpg": {
+      "class": "D",
+      "digest": "file:ab4ad2d6293ebc11a2fec6183581d55738c38d5cd06efe70f28bade319ef50b8",
+      "mode": 420
+    },
+    "themes/one-dark-pro/references/originals/6-red-dead-sunset.jpg": {
+      "class": "D",
+      "digest": "file:217a2fa29b1136fcb0fff22087fb8dc4fe9adc005e1d620608e4cc5c17fe27f8",
+      "mode": 420
+    },
+    "themes/one-dark-pro/references/originals/7-ember-tree.jpg": {
+      "class": "D",
+      "digest": "file:379c63b3646df5c6818af77fc24eb91eeb78a94288ad788e62c90ad6385d3d4d",
+      "mode": 420
+    },
+    "themes/one-dark-pro/references/originals/8-onedark-logo-grid.png": {
+      "class": "D",
+      "digest": "file:f56ec1b7f85f8bbcd8b2596d400727ae7c75836624f110ba41b54385b00e5705",
+      "mode": 420
+    },
+    "themes/one-dark-pro/references/originals/9-onedark-gtk-mark.webp": {
+      "class": "D",
+      "digest": "file:aa6454cd5843ed2cf9070931ea0ea7b7ff344cf2daa5c062e159cd1bc0c71494",
+      "mode": 420
+    },
+    "themes/one-dark-pro/references/previous-generated/02-skyfoundry.png": {
+      "class": "D",
+      "digest": "file:0f2e2762076d6901c719397d21120bb3958c44b6774e8c936dc1e10131bf08b0",
+      "mode": 420
+    },
+    "themes/one-dark-pro/references/previous-generated/03-orbital-greenhouse.png": {
+      "class": "D",
+      "digest": "file:f83a34301cbef07e4b7310a3726379b1168869e11d4d278d30381dea1ad737ed",
+      "mode": 420
+    },
+    "themes/one-dark-pro/references/previous-generated/04-golden-oath.png": {
+      "class": "D",
+      "digest": "file:abe6680118764dfef356e35c1ef2a09f1440025102c232d2d5a8b536fc79957c",
+      "mode": 420
+    },
+    "themes/one-dark-pro/references/previous-generated/05-ashes-and-steel.png": {
+      "class": "D",
+      "digest": "file:4a73215a7113db46deb5a14c92f72b0af01a0bea619c91e1351c8f2420df5b08",
+      "mode": 420
+    },
+    "themes/one-dark-pro/references/previous-generated/artwork.md": {
+      "class": "D",
+      "digest": "file:036d76544328cfc7def4a9a4fa8bb0fb6b59bcc891afd11c741698c8a684474f",
+      "mode": 420
+    },
+    "themes/one-dark-pro/rgb.color": {
+      "class": "D",
+      "digest": "file:0436e0caef7e9cdb3bdd8daa7389e193fa3b20c6b4b69166237cb12e724e396d",
+      "mode": 420
+    },
+    "themes/one-dark-pro/vscode.json": {
+      "class": "D",
+      "digest": "file:e61891da5d59c6360e3b1578c3e579a25a6663bd30208ccb3364cebb1ec63f96",
+      "mode": 420
+    },
+    "themes/rose-pine/artwork.md": {
+      "class": "D",
+      "digest": "file:5a60335b054efc9a836e032b02ae1ddd89118c8662d3426162000bce25ff4f2b",
+      "mode": 420
+    },
+    "themes/rose-pine/backgrounds/01-paper-play.png": {
+      "class": "D",
+      "digest": "file:4e8d025960ff6edc7421d19bf86b36df2406a10cc0797acd30de1741f8c035c7",
+      "mode": 420
+    },
+    "themes/rose-pine/backgrounds/02-petal-terraces.png": {
+      "class": "D",
+      "digest": "file:2d09f9b580f64a4a03a1aa8400702674a5a57f03ed8a1d2ba3ef641dbeed515f",
+      "mode": 420
+    },
+    "themes/rose-pine/backgrounds/03-rose-courtyard.png": {
+      "class": "D",
+      "digest": "file:d869fa7a10060a7d09f2c4780657aea50dfb9fa3513b37d693f468f083357349",
+      "mode": 420
+    },
+    "themes/rose-pine/btop.theme": {
+      "class": "D",
+      "digest": "file:a0db380482534b32cbe52ed0831dab8e31e477b37eb76d8446cae1b047908250",
+      "mode": 420
+    },
+    "themes/rose-pine/colors.toml": {
+      "class": "D",
+      "digest": "file:dcebf5ff66e2503d9ab7d818f7de923c704898539e9c3659ba4223bbffe35dba",
+      "mode": 420
+    },
+    "themes/rose-pine/display-name": {
+      "class": "D",
+      "digest": "file:28e4522919883f5b1e7ad6d94fdbb26e50606e1a98b0a8ca27d775866cedd2d0",
+      "mode": 420
+    },
+    "themes/rose-pine/dolphin.theme": {
+      "class": "D",
+      "digest": "file:70f0018a2de28c89a09ccba1aa5b74fb85eb513f214a75557e51f6b14137df08",
+      "mode": 420
+    },
+    "themes/rose-pine/icons.theme": {
+      "class": "D",
+      "digest": "file:328fd2519268a09cbcb45b3e8393f6abcc1739b9816bdc87bd4761d9d240f026",
+      "mode": 420
+    },
+    "themes/rose-pine/light.mode": {
+      "class": "D",
+      "digest": "file:bb4c7dcf8e568c5fc722a376f30aea06afca3bbebdce64d2b6fc9904c3c16d67",
+      "mode": 420
+    },
+    "themes/rose-pine/neovim.lua": {
+      "class": "D",
+      "digest": "file:d91a78465cfc7304bf9e833243dfbe7445e07f289e2af30dfcfb41f76e5c934b",
+      "mode": 420
+    },
+    "themes/rose-pine/preview.png": {
+      "class": "D",
+      "digest": "file:4f20132ffc5fd3041e497eb6c26c98066c9536fc1b26171ddbc86cad023a5182",
+      "mode": 420
+    },
+    "themes/rose-pine/references/originals/1-funky-shapes.jpg": {
+      "class": "D",
+      "digest": "file:6f5a9ea3dc223fbe910467cc73967ba6dd9f7e80a7d806bc15e985563d15fe03",
+      "mode": 420
+    },
+    "themes/rose-pine/references/originals/2-dot-map.png": {
+      "class": "D",
+      "digest": "file:5677cd61e3472270bbdac862df5574e47e8109a0e47e4d78c0dcb386165bd7f6",
+      "mode": 420
+    },
+    "themes/rose-pine/rgb.color": {
+      "class": "D",
+      "digest": "file:ed5f1e2455c56b11e98c7eb4bc2545fc0ae60be060dd27fd2d12e0d54c784819",
+      "mode": 420
+    },
+    "themes/rose-pine/vscode.json": {
+      "class": "D",
+      "digest": "file:e9a94ed7e24c51adf5e84e13d855615c067647a1107ed5d21460e5ead906d915",
+      "mode": 420
+    },
+    "themes/stillwater/artwork.md": {
+      "class": "D",
+      "digest": "file:842b7fb696d89d2decc578b00651e55f7a39ac4fc6bb13906361d607059b7ffa",
+      "mode": 420
+    },
+    "themes/stillwater/backgrounds/01-weightless.png": {
+      "class": "D",
+      "digest": "file:6339ad6a4119bc46de0d953b81f344572faca744c778fbd53e8e39e888e0b197",
+      "mode": 420
+    },
+    "themes/stillwater/backgrounds/02-the-listener.png": {
+      "class": "D",
+      "digest": "file:c2cc07c12fabffcbb7890b0cbce1d391f71c50da6745fa028a9e3a6032e5e2cd",
+      "mode": 420
+    },
+    "themes/stillwater/backgrounds/03-summit-shelter.png": {
+      "class": "D",
+      "digest": "file:fe89b4b6bf9cb67670bee7d468ddc4159eefe09465f4eac1f3d68996ed62526e",
+      "mode": 420
+    },
+    "themes/stillwater/backgrounds/04-the-observer.png": {
+      "class": "D",
+      "digest": "file:3184c71a88f8658c00a57ae6ed9f4675c4ee70b03f6be449de313c88adfb1a82",
+      "mode": 420
+    },
+    "themes/stillwater/btop.theme": {
+      "class": "D",
+      "digest": "file:dae5fb3c8dd9d030e38882c3f330b4f5900409ca7981eacc0b38069087e93fee",
+      "mode": 420
+    },
+    "themes/stillwater/colors.toml": {
+      "class": "D",
+      "digest": "file:cd90cd35a8368e6f1e58025b1078560843847300378762f3b8c61b1441587f16",
+      "mode": 420
+    },
+    "themes/stillwater/display-name": {
+      "class": "D",
+      "digest": "file:4012d151793443b35434b7f04358b661ba7ee5de3836201dd71cefeb666fe9ec",
+      "mode": 420
+    },
+    "themes/stillwater/dolphin.theme": {
+      "class": "D",
+      "digest": "file:0ae8b4b0d8fd1808d5dced6cca6fb32e256cd82061b95b94aeadea67a7cafb0c",
+      "mode": 420
+    },
+    "themes/stillwater/icons.theme": {
+      "class": "D",
+      "digest": "file:84d781a14b502a6430500d7c137db6a96663f2b4e772d4777243ed46bf15b87c",
+      "mode": 420
+    },
+    "themes/stillwater/neovim.lua": {
+      "class": "D",
+      "digest": "file:a9af4931afe5cd95719b4a34caa8605aec9ac02dcc9b87712965b04e5f7212d4",
+      "mode": 420
+    },
+    "themes/stillwater/preview.png": {
+      "class": "D",
+      "digest": "file:42b34c114f26dbfb485114ad64b235ba40ef89ae996a562b8b1ef264cc58fdaf",
+      "mode": 420
+    },
+    "themes/stillwater/references/originals/1-on-pole.png": {
+      "class": "D",
+      "digest": "file:09c685ceed958826924f258a3f19d63c1e546b85200e725f0f7b478b458eee71",
+      "mode": 420
+    },
+    "themes/stillwater/references/originals/2-wreakage.png": {
+      "class": "D",
+      "digest": "file:a73f0bdedef731b3aec8654cc3f9d71a02093cf2c43f1f023623602908013cac",
+      "mode": 420
+    },
+    "themes/stillwater/references/originals/3-climb.jpg": {
+      "class": "D",
+      "digest": "file:aa7a31ba7f87b6b0a88ff3c9e57241672a71f862251e9ba5659ffa004cda66b7",
+      "mode": 420
+    },
+    "themes/stillwater/references/originals/4-ether.png": {
+      "class": "D",
+      "digest": "file:a2f4e10bcb17b8ecec151c37f1335f7b365111619525d597c8f3852c2db53e97",
+      "mode": 420
+    },
+    "themes/stillwater/references/originals/5-eyed.jpg": {
+      "class": "D",
+      "digest": "file:eb88ed0233f58f4427ea96879469393751126ac115ed06f2bc1aaa1f9b6f22c6",
+      "mode": 420
+    },
+    "themes/stillwater/rgb.color": {
+      "class": "D",
+      "digest": "file:019a68d1f378180910d939d0af6ad88627b2961ac9d4ae2ff630068566387853",
+      "mode": 420
+    },
+    "themes/stillwater/vscode.json": {
+      "class": "D",
+      "digest": "file:585337841a232da95ea22dd7652c2c12cfcf4bdf34637e37ea192d16a49ab07c",
+      "mode": 420
+    },
+    "themes/tokyo-night/artwork.md": {
+      "class": "D",
+      "digest": "file:e3aa1b3f0b211d64c45d5470a9d97fe7971a4eeee6b2f7cba9067d657c69f52c",
+      "mode": 420
+    },
+    "themes/tokyo-night/backgrounds/01-neon-ferry.png": {
+      "class": "D",
+      "digest": "file:29f07be8658d8a3a6d440d33920c1f24e73992aae4d74e0655c741c593f26b0d",
+      "mode": 420
+    },
+    "themes/tokyo-night/backgrounds/02-rooftop-rain.png": {
+      "class": "D",
+      "digest": "file:148c986a32ebed7091d16278ad479da5126ff1da6d26b94cf8b9815952fd060b",
+      "mode": 420
+    },
+    "themes/tokyo-night/backgrounds/03-electric-silk.png": {
+      "class": "D",
+      "digest": "file:9f24e30276a1ef45181a40072c85a1e18f0133013397d3d49b09dfeec08707c7",
+      "mode": 420
+    },
+    "themes/tokyo-night/btop.theme": {
+      "class": "D",
+      "digest": "file:313c2186d059f2b1b17a658e52f0e4e1d28ffd74e702a71f7a80bd1ed5ddcb11",
+      "mode": 420
+    },
+    "themes/tokyo-night/colors.toml": {
+      "class": "D",
+      "digest": "file:1551ea824b04fd77bdb999937e5367c10ded69b3ac027a82bfd926e8a77d2539",
+      "mode": 420
+    },
+    "themes/tokyo-night/display-name": {
+      "class": "D",
+      "digest": "file:a8c6487bf8b81e0a69cc26099b55a430c10a66150e0971ba8c8e3d1c6488ed70",
+      "mode": 420
+    },
+    "themes/tokyo-night/dolphin.theme": {
+      "class": "D",
+      "digest": "file:8696876a4f3d615452a021566fe969d92b634e3f7767e75790485d85cf677c51",
+      "mode": 420
+    },
+    "themes/tokyo-night/icons.theme": {
+      "class": "D",
+      "digest": "file:75be55b00f24a3cfc708db729e9bca23765e8ef0991d6889fbb2fd4d29581209",
+      "mode": 420
+    },
+    "themes/tokyo-night/neovim.lua": {
+      "class": "D",
+      "digest": "file:4df3e20a042bb05ff3d9ed86ae9cac1ea8b068a0dd6922898c831f7d099315c0",
+      "mode": 420
+    },
+    "themes/tokyo-night/preview.png": {
+      "class": "D",
+      "digest": "file:8498490f7e169a93198e9e54077b9e5fcf36cd30f3fb67a5ea71fbf17e2fb7d4",
+      "mode": 420
+    },
+    "themes/tokyo-night/references/originals/0-winding-road.png": {
+      "class": "D",
+      "digest": "file:b149c3e1c8ce383812e7bc3170c2cf8b160ca583d72d59173cd42efdb79ced2b",
+      "mode": 420
+    },
+    "themes/tokyo-night/references/originals/1-sunset-lake.png": {
+      "class": "D",
+      "digest": "file:06dfb9fce029ec35adb40ea3939296777c2b140d1232b5a1697b15052d575362",
+      "mode": 420
+    },
+    "themes/tokyo-night/references/originals/2-quattro.png": {
+      "class": "D",
+      "digest": "file:c9b96c106d2758113986a8ddb621f3867edf65e09a89dad51abb9fc5f3447146",
+      "mode": 420
+    },
+    "themes/tokyo-night/references/originals/3-swirl-buck.jpg": {
+      "class": "D",
+      "digest": "file:4a4ce5ba6c228771c89439710bfa81005791d3c4f76a62481e4d00939b702e3c",
+      "mode": 420
+    },
+    "themes/tokyo-night/references/originals/4-pawel-czerwinski.jpg": {
+      "class": "D",
+      "digest": "file:69cc4dd4a407c07f554600f9e3d04fec0293b8c885ddd851fe583efc2eadcb52",
+      "mode": 420
+    },
+    "themes/tokyo-night/references/originals/5-milad-fakurian.jpg": {
+      "class": "D",
+      "digest": "file:2868c67434bce109a4863a47f37f302596fe36df33430b508b74c800c368f25a",
+      "mode": 420
+    },
+    "themes/tokyo-night/rgb.color": {
+      "class": "D",
+      "digest": "file:7e2e3848f31e81b809c714ea31b0ab74d1ad33e13715af89b62ca6ac71290fac",
+      "mode": 420
+    },
+    "themes/tokyo-night/vscode.json": {
+      "class": "D",
+      "digest": "file:94a75f315b092f72ac684647ad20b72789b5d25a9f14885be7b87b374fb4160a",
+      "mode": 420
+    },
+    "themes/wisteria/artwork.md": {
+      "class": "D",
+      "digest": "file:6851d3fdc687cd5c93b25ff7050c5da1e899a84611a1f21a78830c3b20bd5a28",
+      "mode": 420
+    },
+    "themes/wisteria/backgrounds/01-glass-ribbon.png": {
+      "class": "D",
+      "digest": "file:95d489473a4c751c7a8a23a22fc106de646d4e8f5e21811f020dc409c75a2402",
+      "mode": 420
+    },
+    "themes/wisteria/backgrounds/02-cloud-bloom.png": {
+      "class": "D",
+      "digest": "file:e0b0ac42c42f6f1d2fe1d7ae34658bd9d386f57bf7d4c35b7c37a3de0d66c7e2",
+      "mode": 420
+    },
+    "themes/wisteria/backgrounds/03-violet-pavilion.png": {
+      "class": "D",
+      "digest": "file:40fb33393cf81a0ca84881769a8fadb8ff3a72ba6ea151cbe9b4e6b0b233da4e",
+      "mode": 420
+    },
+    "themes/wisteria/btop.theme": {
+      "class": "D",
+      "digest": "file:14a09c9b379eaedf428d4a183543165436c16d87e0e6443504d1c15f10ea490a",
+      "mode": 420
+    },
+    "themes/wisteria/colors.toml": {
+      "class": "D",
+      "digest": "file:9ae53ad963f0ca8416f4ee7299f0110a4e5c7ab45868b920f0b61b546ab1b4b6",
+      "mode": 420
+    },
+    "themes/wisteria/display-name": {
+      "class": "D",
+      "digest": "file:77a9daba959f40148b6093fa551237ad4797a76cd672c5492c0889cd4700fa86",
+      "mode": 420
+    },
+    "themes/wisteria/dolphin.theme": {
+      "class": "D",
+      "digest": "file:8425c3310d1089f5e262bfa82317cc521010aaf7922cd7acb540137f5fff8397",
+      "mode": 420
+    },
+    "themes/wisteria/icons.theme": {
+      "class": "D",
+      "digest": "file:728576827a78988f65fa0505a6cee59efe8382123e79879f0f78a604c97343b8",
+      "mode": 420
+    },
+    "themes/wisteria/light.mode": {
+      "class": "D",
+      "digest": "file:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    "themes/wisteria/neovim.lua": {
+      "class": "D",
+      "digest": "file:12ad8bdb414b6b4e21c02cecd960b9ecfe42906815c9e46dd08f0f7ef1a7296b",
+      "mode": 420
+    },
+    "themes/wisteria/preview.png": {
+      "class": "D",
+      "digest": "file:426d9af263e89c0b5ac4da412d1aa82dc36f41d73182cd1d561d3af152d50d68",
+      "mode": 420
+    },
+    "themes/wisteria/references/originals/01-cherry-blossom-bokeh.png": {
+      "class": "D",
+      "digest": "file:99ad4abf2685fab5aab31ebcea09988ca1f689c80b1e2f1c50f6e3d6e7c9296a",
+      "mode": 420
+    },
+    "themes/wisteria/references/originals/02-cherry-blossom-white.png": {
+      "class": "D",
+      "digest": "file:175cf3ad34a1d5fcec8fbec12c7c700a23fbb1fd800e5e4a0e1f766e05a04e24",
+      "mode": 420
+    },
+    "themes/wisteria/references/originals/03-pastel-clouds.png": {
+      "class": "D",
+      "digest": "file:134bb172af81e60457f90bc8142e06dd43db27cbb1eb15ddb57d3b8fcce8698f",
+      "mode": 420
+    },
+    "themes/wisteria/references/originals/04-elegant-blue-wave.png": {
+      "class": "D",
+      "digest": "file:0fb09c0d2dd456cfe31980ed102b8cac91a08d9ceda342780d11778b9423356c",
+      "mode": 420
+    },
+    "themes/wisteria/references/originals/05-abstract-wave.png": {
+      "class": "D",
+      "digest": "file:f7ed1e829d3a53a9451c91b7f59cde257bffe6901c8810f352dd944e2f65d67f",
+      "mode": 420
+    },
+    "themes/wisteria/rgb.color": {
+      "class": "D",
+      "digest": "file:3da354c3232d212369d13c17215ecd673161e7c966f456cca3f334eafe2ee424",
+      "mode": 420
+    },
+    "themes/wisteria/vscode.json": {
+      "class": "D",
+      "digest": "file:a69571f8da5550ce64f3e5d1ff634ce883cee9eb16eb3e886570c1de394b9a18",
+      "mode": 420
+    },
+    "themes/wisteria/vscode.vsix": {
+      "class": "D",
+      "digest": "file:c7b1a42789fd3582dd5aa6ea61f03b19ee0a2e538c60b0198a47bdf117d6476e",
+      "mode": 420
+    },
+    "walker/README.md": {
+      "class": "D",
+      "digest": "file:e269b18c3b58279104be4285814b31d639a8414592085e516d68baec09e0788b",
+      "mode": 420
+    },
+    "walker/bin/walker": {
+      "class": "C",
+      "digest": "file:890de7f78feea45dd927e2146b21bc9ee000f409b19ad885c5551b284202be0d",
+      "mode": 493
+    },
+    "walker/bin/walker-dmenu": {
+      "class": "C",
+      "digest": "file:ef5ea882143d4cbbce9871965b540f6a52362ab6e980c942bc8cb4d78e1eb3f1",
+      "mode": 493
+    },
+    "walker/config.toml": {
+      "class": "D",
+      "digest": "file:5e0cfd5714a8f19b50a9b18be19a39069b572b551cda63f5daf3c272739ab6b0",
+      "mode": 420
+    },
+    "walker/scripts/actions/about.sh": {
+      "class": "C",
+      "digest": "file:745e9feb1613ce98e15e5257f112ef46ec4587c0675b8742aedb3bf45ba36a1a",
+      "mode": 493
+    },
+    "walker/scripts/actions/capture/qr.sh": {
+      "class": "C",
+      "digest": "file:dc54d1b62c41c9b5ff63d0f4d56036eb51126739a24b86935d0f3a9f3f637365",
+      "mode": 493
+    },
+    "walker/scripts/actions/capture/screenshot-full.sh": {
+      "class": "C",
+      "digest": "file:b79ba92d3a5caba1e7ec479e78f05cb0da1b081574530a51bf224b095394bea8",
+      "mode": 493
+    },
+    "walker/scripts/actions/capture/screenshot-selection.sh": {
+      "class": "C",
+      "digest": "file:248ccd0f354fa31a3ec67ba779074d53e5bcce78d5966ec87e5ff10be9c91f8a",
+      "mode": 493
+    },
+    "walker/scripts/actions/capture/screenshot.sh": {
+      "class": "C",
+      "digest": "file:b38215570df1443e57e13e84a9a3e35db57a17713b1124ac6f6470b1c548d0a1",
+      "mode": 493
+    },
+    "walker/scripts/actions/capture/text.sh": {
+      "class": "C",
+      "digest": "file:c8041dbd3ed7233a01fd0622a61b94277d1019c700d2336e424753837b338d52",
+      "mode": 493
+    },
+    "walker/scripts/actions/capture/transcode.sh": {
+      "class": "C",
+      "digest": "file:cc522095a823eca8fe5d697a044252ab641037d369f6131b77a8c25a13c744e4",
+      "mode": 493
+    },
+    "walker/scripts/actions/development/open-project.sh": {
+      "class": "C",
+      "digest": "file:edf38d13754d32eb42e0621196c8a38cd9ec2030e527e65475ed64accdaf19c4",
+      "mode": 493
+    },
+    "walker/scripts/actions/emoji-picker.sh": {
+      "class": "C",
+      "digest": "file:9fe8b4540f1dead77de82e991aba6b63b3dc240da3c28d282fe39c084ee54da1",
+      "mode": 493
+    },
+    "walker/scripts/actions/install/development.sh": {
+      "class": "C",
+      "digest": "file:4445993bcc8c63d68a19971705233ed2dd6a665ff9f0fbb2da2b6469fee6b5be",
+      "mode": 420
+    },
+    "walker/scripts/actions/install/software.py": {
+      "class": "C",
+      "digest": "file:9f96d0a527b1dcfc4db2dbc4de8743016ca207f233e1c7c88305e6e62a3d1f80",
+      "mode": 420
+    },
+    "walker/scripts/actions/search/google.sh": {
+      "class": "C",
+      "digest": "file:b03ae1cf10d4ccb20029629779ce8249b4074a556fd4dcee412ecb830549bad2",
+      "mode": 493
+    },
+    "walker/scripts/actions/share/localsend-share.sh": {
+      "class": "C",
+      "digest": "file:071e6360fe6e26a77bcbfbad9831393695e79c49601c2a455541b1b59104eebe",
+      "mode": 493
+    },
+    "walker/scripts/actions/style/apply.sh": {
+      "class": "C",
+      "digest": "file:b853fc6fedfd2700f49f1002860c45774c22f68c64c809c786c6c95a0f8b4a76",
+      "mode": 493
+    },
+    "walker/scripts/actions/style/cursor.py": {
+      "class": "C",
+      "digest": "file:eca4579a2df799ce74d054e3903424b38708cd5e5f4cea7d4e38027feaf4ff38",
+      "mode": 420
+    },
+    "walker/scripts/actions/style/fonts.py": {
+      "class": "C",
+      "digest": "file:d2a93e724e32eb1f437b083f9a38b6039fdff7ec3690a0a9447f339760ae1e19",
+      "mode": 420
+    },
+    "walker/scripts/actions/style/preview.sh": {
+      "class": "C",
+      "digest": "file:429462313b1d57bab9b59f574fbe1ce60d12c4d7fa386d14812cda44f17b8510",
+      "mode": 493
+    },
+    "walker/scripts/actions/system/battery-limit.py": {
+      "class": "C",
+      "digest": "file:211d1cbf35c7d8f5517f0ee6ddcee64f3e7fe353eb58f35ae0ff127f099ec5e2",
+      "mode": 420
+    },
+    "walker/scripts/actions/system/cleanup.sh": {
+      "class": "C",
+      "digest": "file:a11e4238e4cb7577e88c94b463769ff5e8bca0d12470d20e07e9e4531534aa4b",
+      "mode": 493
+    },
+    "walker/scripts/actions/system/factory-reset.py": {
+      "class": "C",
+      "digest": "file:89c1db4b6e758356bae891832f01c52b1db822430338fd0525bbbfc95cee40a9",
+      "mode": 420
+    },
+    "walker/scripts/actions/system/network-backend.py": {
+      "class": "C",
+      "digest": "file:c0fa47ba85cc63f5952bd3e00045e088937043875e065fac20f15cba43879e2b",
+      "mode": 420
+    },
+    "walker/scripts/actions/system/security.py": {
+      "class": "C",
+      "digest": "file:974bd51da17bd07bbbd4e7c7c99ffe3429fa9e57108964258cf298ef284e69e6",
+      "mode": 420
+    },
+    "walker/scripts/actions/system/update.sh": {
+      "class": "C",
+      "digest": "file:f861be823efa1f9860556bd0ad50e86b26bc83baf55a27b6ed6160742427f63d",
+      "mode": 420
+    },
+    "walker/scripts/actions/task-terminal.py": {
+      "class": "C",
+      "digest": "file:06023007705874849450e36891c6f7298a4116ac724cd3ff6ef70beb374be9ef",
+      "mode": 420
+    },
+    "walker/scripts/actions/toggle/desktop-bar.sh": {
+      "class": "C",
+      "digest": "file:a9e8dc47e653b173eef54447e104732812b3c8ec94c902c3bb2a30e0cd155a83",
+      "mode": 493
+    },
+    "walker/scripts/actions/toggle/idle-lock.sh": {
+      "class": "C",
+      "digest": "file:142df165c94dcdd1f94dbf4327dc7e947a48d94e67fcb019b275551f7b141630",
+      "mode": 493
+    },
+    "walker/scripts/actions/toggle/nightlight-auto.sh": {
+      "class": "C",
+      "digest": "file:0ad9c344b00681d1038cf709cbf9b47b0d363c54055f9fc7e607c150f9d757df",
+      "mode": 493
+    },
+    "walker/scripts/actions/toggle/nightlight.py": {
+      "class": "C",
+      "digest": "file:f1b0fc8d85731f704e659991e16063e5a58398819c3aa8973ac61e5544210dfa",
+      "mode": 420
+    },
+    "walker/scripts/actions/toggle/nightlight.sh": {
+      "class": "C",
+      "digest": "file:df1e9c1270a75340eab40d77c305dcc941861fcf808508c2ebea33ede2195a44",
+      "mode": 493
+    },
+    "walker/scripts/actions/toggle/notification-silencing.sh": {
+      "class": "C",
+      "digest": "file:461f8d21532f261bd19f953a3990bc39000c817c6f04b756af1f0360db278a61",
+      "mode": 493
+    },
+    "walker/scripts/actions/toggle/screensaver.sh": {
+      "class": "C",
+      "digest": "file:69f9cf01a43e0f576d67924ddda207692a4868b4ab9e711dbc20129166d7b7df",
+      "mode": 493
+    },
+    "walker/scripts/actions/wallpaper/apply.sh": {
+      "class": "C",
+      "digest": "file:a625de73b6d188bfb300df7db04b3ffdfc2a4a37b1cb4d3c74937c8ff423c0f8",
+      "mode": 493
+    },
+    "walker/scripts/actions/wallpaper/next.sh": {
+      "class": "C",
+      "digest": "file:05629621fab11d199848e0bad90039bb1602bfc4ed51e1ee1d83c7d541777dc8",
+      "mode": 493
+    },
+    "walker/scripts/actions/wallpaper/transition.py": {
+      "class": "C",
+      "digest": "file:73e4248928f7466e60b71cd3dbc0602c1a36b9f68b8d286ef6fa0e8e60f1a438",
+      "mode": 420
+    },
+    "walker/scripts/menus/ai-tools.sh": {
+      "class": "C",
+      "digest": "file:4058481650643a081e60266f3fba6c099fb4e3bae8d84b3e61ecea628f234cbf",
+      "mode": 493
+    },
+    "walker/scripts/menus/alphabetical.lua": {
+      "class": "C",
+      "digest": "file:3a83f27a97eb52b09cf5b8c9f185a687406098150260f28fcbf9b66f708ae75a",
+      "mode": 420
+    },
+    "walker/scripts/menus/capture/screenrecord.sh": {
+      "class": "C",
+      "digest": "file:ac0df839e2ce1d14b1f1efae2fb5e3909c385fb031d84d0b6371aabbcf070f28",
+      "mode": 493
+    },
+    "walker/scripts/menus/clipboard.py": {
+      "class": "C",
+      "digest": "file:791786b83f5dbb9073f3988155d8b5881663e4906f5068cd543209aa21f8727a",
+      "mode": 420
+    },
+    "walker/scripts/menus/cloud/aws/cloudfront.sh": {
+      "class": "C",
+      "digest": "file:b6ed6cae00fc3cbf5d0c78b4787457ecc9e5e715dc7b014694ad5f07a190ad45",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/aws/cloudwatch-search.sh": {
+      "class": "C",
+      "digest": "file:2f2c459ef5bde8a05b142428b4cba769ca69a96698f9470c8ff481782ec0040b",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/aws/cloudwatch.sh": {
+      "class": "C",
+      "digest": "file:c8474e77a996d121fd84220f5d95d2f80fd14778f297005cda529113eea4a766",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/aws/cognito.sh": {
+      "class": "C",
+      "digest": "file:65c62ab197980b8c667712f7e1371487ae8692f97d7a8cc17b0542f9d3a4265d",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/aws/common.sh": {
+      "class": "C",
+      "digest": "file:97a06a940a01ee784c0c4cf4b197eda603d65806ceb6144225bc4e0c347f542e",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/aws/docdb.sh": {
+      "class": "C",
+      "digest": "file:3c1a72468894d67f47285244d4c273b3ce8d5de8d93993c92f39ef77f21f2386",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/aws/ec2.sh": {
+      "class": "C",
+      "digest": "file:dcb1be78986698b7649aec1247c3d3a99ca5625c89a6c315f0f99b8ab057859d",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/aws/ecr.sh": {
+      "class": "C",
+      "digest": "file:4ec7df5d1a51209042328d96ba4873fa328e820dfde059f62723d30b3f5d6c85",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/aws/ecs.sh": {
+      "class": "C",
+      "digest": "file:ed75babf18c3dead3e8520c8ca7ccab331a44cf2b1b0a5eeb865f179c13637a5",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/aws/grafana.sh": {
+      "class": "C",
+      "digest": "file:3a2350f19df50f7f6375d6e6ec0aaa3c44844dd4579526deec7171620294c336",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/aws/iam.sh": {
+      "class": "C",
+      "digest": "file:b96a1aeebf32be4aee0c136283000b6aa9e4ab910473551079e2c1bcb7c7a80e",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/aws/lambda.sh": {
+      "class": "C",
+      "digest": "file:1fa700b6dee4c25cb9bc818718438422bcdb6c27f47d3f0b743530fedaf2e349",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/aws/lightsail.sh": {
+      "class": "C",
+      "digest": "file:90b69e7709157f0535315a694efc81a5cbf5842ffff6bd48df49c42790b3f72b",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/aws/menu.sh": {
+      "class": "C",
+      "digest": "file:771d3b9d2a2a8dcbdf088ad44bb3f1e1f9c222273436b9fab1235c838dc9e92c",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/aws/rds.sh": {
+      "class": "C",
+      "digest": "file:5543750e026cca5bf998d4a19b72ef055d78facebd429703f6f7417236a49b3e",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/aws/route53.sh": {
+      "class": "C",
+      "digest": "file:32d91d18f2564a730c73f2ebf6cf27413668454fe417341c5854ed97f568e122",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/aws/s3.sh": {
+      "class": "C",
+      "digest": "file:9bd36e3bc0046af58d172387869c0da5917f2c1ff4a1b32243a8eed07bc41b73",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/aws/terminal-helpers.sh": {
+      "class": "C",
+      "digest": "file:3b0b7fde12a1d0b37c1cd273975e18ad0e4be817c027c5793ef226a13097a27e",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/aws/vpc.sh": {
+      "class": "C",
+      "digest": "file:42d469ea361456c351d86e6772e64f506411c419f8ecd19bf78cf20cf61d53a6",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/azure/acr.sh": {
+      "class": "C",
+      "digest": "file:81054895b49bdf81c9696c3f3684b88351f3e19ca286d6332da0f1961764f6d0",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/azure/aks.sh": {
+      "class": "C",
+      "digest": "file:2ddfbf4677c8bed99fcc614eae0d789d622c9e20c6adaeab72dc396fbcb99fee",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/azure/app-service.sh": {
+      "class": "C",
+      "digest": "file:b410077d7ad6d45d86354f921c4dcd0106bcb3e0aa556f9aab2729f118366158",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/azure/common.sh": {
+      "class": "C",
+      "digest": "file:4fa14c4478231efc8f9defb8fe1c3f76b4703e79edd5cab6fffaeb81fe90c80e",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/azure/compute.sh": {
+      "class": "C",
+      "digest": "file:711cdc91d77bd2dea3b983a7a78ed743e3145aee008a7cfeb4ca6fa02711b81c",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/azure/functions.sh": {
+      "class": "C",
+      "digest": "file:3fdc112af2eb011ca7d532fdd8f45c316557ba96e8527cd5b0298a6b9c45bea9",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/azure/logs.sh": {
+      "class": "C",
+      "digest": "file:787340c57c838f8f261af799fb6f0672f053cf88ae118cca81d9b9e9e380e7f5",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/azure/menu.sh": {
+      "class": "C",
+      "digest": "file:ed55484dbb47ef5a9c23c1a9b0111f3eed3bc7e4e059e00e206c784706912c66",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/azure/resource-groups.sh": {
+      "class": "C",
+      "digest": "file:37f44dfbd59a0248b91168dc969cc7ade14e44c865c62d35e57444bc6ebffaaa",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/azure/sql.sh": {
+      "class": "C",
+      "digest": "file:8535b3716aee0fd12d98c8b8606560d3b440398651c5b39a8fd60f4672ddacfb",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/azure/storage.sh": {
+      "class": "C",
+      "digest": "file:75be554b15fe552366ab5ba1134202f970f38cf369bce38747e506d9de6f73f8",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/azure/vnet.sh": {
+      "class": "C",
+      "digest": "file:0c09aaf0311212dc8e6426aa5ced13632818d7a32d3a3b16ef6357ef91013ca0",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/cloud-contexts.json.example": {
+      "class": "D",
+      "digest": "file:bbb4ebb58d96f293c3ccd92e53adbab3f2735b69ef388104f4c3a1f85ea2c146",
+      "mode": 420
+    },
+    "walker/scripts/menus/cloud/cloud.env.example": {
+      "class": "D",
+      "digest": "file:286874f5dc2a74578d6b733fb5b18bbf9fdd95b8d628c16fe64e7baba26f3299",
+      "mode": 420
+    },
+    "walker/scripts/menus/cloud/common.sh": {
+      "class": "C",
+      "digest": "file:d8d9cfe188b2905a7569c93d3020f45807bbce3d4706b442aea986bd4a97ac4b",
+      "mode": 420
+    },
+    "walker/scripts/menus/cloud/context-auth.sh": {
+      "class": "C",
+      "digest": "file:10f6f456ae2e9d63327486c3348535a44dfd88f942b7f4e6a69011e9cb954e4d",
+      "mode": 420
+    },
+    "walker/scripts/menus/cloud/contexts.py": {
+      "class": "C",
+      "digest": "file:c0bb418ced91bde62fc4b6b2d757618eb4108c4b4eff522b5c4bb8dfdf1fc79b",
+      "mode": 420
+    },
+    "walker/scripts/menus/cloud/fzf-preview.sh": {
+      "class": "C",
+      "digest": "file:bd2dd6a738c66922a9922dc24145b76be01d35ed3b5fb1f924bea1928a5a9605",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/gcp/artifact-registry.sh": {
+      "class": "C",
+      "digest": "file:9242ff48ae67497d5b419102bb6be51c32011c18daa22b12183b0f6955f22560",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/gcp/cloud-run.sh": {
+      "class": "C",
+      "digest": "file:ea1540936d19dc0760ba9b99a4a28d071d2ff254e0fcbdf7001a79333b563732",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/gcp/common.sh": {
+      "class": "C",
+      "digest": "file:5d5e4669cbda9c49075e83530156c1a1b562053a02cda7c50dc4431a303da7e4",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/gcp/compute.sh": {
+      "class": "C",
+      "digest": "file:db321737853a6102543548a055faba393773a1a41e12ddd667924b0c85654982",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/gcp/functions.sh": {
+      "class": "C",
+      "digest": "file:475471abf2bc3aede21923f781ac0741c6d9200380764e5bd63c8680700a6bf4",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/gcp/gke.sh": {
+      "class": "C",
+      "digest": "file:38f3941ad37ff2567b752410d879534535a3f5af9a8b415d647bd9d34e4278e5",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/gcp/iam.sh": {
+      "class": "C",
+      "digest": "file:becd4bdd1d125cd104c07079d8e81241b6beb1d0961e621fa0233f6e22be958c",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/gcp/logs.sh": {
+      "class": "C",
+      "digest": "file:de7e3752c4f42b378309fd5bda7407ebd9fa39eb17691a3cfba5ed9ed584b7f5",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/gcp/menu.sh": {
+      "class": "C",
+      "digest": "file:79f4984ee3262b20e6f84094b7bec9073760a54c82e1db9bea87d78f8716c72e",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/gcp/sql.sh": {
+      "class": "C",
+      "digest": "file:352113eb0e89df4c4c93b9f3bb3b51d3aa73c8a140126a580367d335e4eb0bc4",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/gcp/storage.sh": {
+      "class": "C",
+      "digest": "file:3da853ba6b9bde5a8551115df85a6d70e57efe3899e58c0194bada53f38c98c8",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/gcp/vpc.sh": {
+      "class": "C",
+      "digest": "file:146b57cb71aa52a6dd3e79e0dc354840f65bac52cdd970915ecac56276a370cb",
+      "mode": 493
+    },
+    "walker/scripts/menus/cloud/terminal-helpers.sh": {
+      "class": "C",
+      "digest": "file:1c79957cb10f0bd69f8df832bccab056cbde8cc06c4649ab5f2230ffad6b82f9",
+      "mode": 493
+    },
+    "walker/scripts/menus/cmux.sh": {
+      "class": "C",
+      "digest": "file:a039149e0662a55d1017ff471a844dc962adee9a41249b24dda7519d059020b2",
+      "mode": 420
+    },
+    "walker/scripts/menus/cursor-menu.lua": {
+      "class": "C",
+      "digest": "file:b97c2281f49d4c3d4439d5f6ac48bab8cb28a015a1265a77be82e1eaf45ceac8",
+      "mode": 420
+    },
+    "walker/scripts/menus/mouse-gestures.sh": {
+      "class": "C",
+      "digest": "file:737c6b5824cc6c61548b5159e553158d6365d2ea3ecd0fb2bf5b9db50cdf2dbc",
+      "mode": 493
+    },
+    "walker/scripts/menus/search-index.py": {
+      "class": "C",
+      "digest": "file:1f3e9e070e675354763b7b4e1c393225d945ac8c8560157fa8c29a3ffa8dfc6d",
+      "mode": 420
+    },
+    "walker/scripts/menus/search.sh": {
+      "class": "C",
+      "digest": "file:76867586956a970744efb717480788a32d4f040601114a7903c18ec0971412c1",
+      "mode": 493
+    },
+    "walker/scripts/menus/shortcuts.sh": {
+      "class": "C",
+      "digest": "file:5d61a8a6147f21369d21b72eedb8a33197911255e2a53ad0516ae8adecb5b671",
+      "mode": 493
+    },
+    "walker/scripts/menus/software-menu.lua": {
+      "class": "C",
+      "digest": "file:0c812295e3e5a808b459f5ee673ceee93a359e6b558df0797d4ef1f112a84f4f",
+      "mode": 420
+    },
+    "walker/scripts/menus/tmux.sh": {
+      "class": "C",
+      "digest": "file:5577981df4f3bbc5cf183cafe0df969551a63ef07903e2abb7c23dc26e07ead5",
+      "mode": 493
+    },
+    "walker/scripts/menus/vim.sh": {
+      "class": "C",
+      "digest": "file:bea79cf7bde10bf420cd2134e7253563abe2d299ce89c8841c4271740640b244",
+      "mode": 493
+    },
+    "walker/scripts/themes/btop.sh": {
+      "class": "C",
+      "digest": "file:36203b447be9f99f8dbb4daff647f7b9a34c6d404d1db6a25bfb04cd4cb4b123",
+      "mode": 493
+    },
+    "walker/scripts/themes/generate.sh": {
+      "class": "C",
+      "digest": "file:c84b2dfa5228cd3211a3e10cadbbbdf625dc15766718919841136aceb5409a1a",
+      "mode": 493
+    },
+    "walker/scripts/themes/kitty.sh": {
+      "class": "C",
+      "digest": "file:2708125fca6858128d42fec4953beddfd8c28910c88c84e9e50b9024d930091c",
+      "mode": 493
+    },
+    "walker/scripts/themes/palette.py": {
+      "class": "C",
+      "digest": "file:ae1fac00b346f16726b9149aab5fdb5d1bb60d7e807bdbe2094a5a44a1e0675e",
+      "mode": 493
+    },
+    "walker/scripts/themes/rgb.sh": {
+      "class": "C",
+      "digest": "file:d02ec9aa3ff5afbd2c70dad55dd749bcf87f733f49f2db840b13c2adbd565cfb",
+      "mode": 493
+    },
+    "walker/scripts/themes/selection-colors.py": {
+      "class": "C",
+      "digest": "file:c9f3a9f634d71454263b59f697497cc8bb7b7f11918f1e17fbeaa113ec480f49",
+      "mode": 420
+    },
+    "walker/scripts/themes/swayosd.sh": {
+      "class": "C",
+      "digest": "file:a6a837c835898ffcb5760f45a39eaac904404234f0e16d5581a26cd30d0b056b",
+      "mode": 493
+    },
+    "walker/scripts/themes/system.sh": {
+      "class": "C",
+      "digest": "file:ff98514d603c60b7a59947cc2445870fc628440f582e46e3af45f25509bec588",
+      "mode": 493
+    },
+    "walker/scripts/themes/vscode-theme.py": {
+      "class": "C",
+      "digest": "file:c2fddb00e01a4c11a408c14aa21fa308c3443efdd5676de407891d9a84dc0109",
+      "mode": 493
+    },
+    "walker/scripts/themes/vscode.sh": {
+      "class": "C",
+      "digest": "file:9c38a222fb4a53b29a25e9d308f9000430d1b64585f4d294a00ebac15af76735",
+      "mode": 493
+    },
+    "walker/scripts/themes/walker.sh": {
+      "class": "C",
+      "digest": "file:b7f7f29fe843debe621d935c9e0b48247ab85097e5ddb6e0d71bb6ea1ad10b5a",
+      "mode": 493
+    },
+    "walker/tests/test_about.py": {
+      "class": "C",
+      "digest": "file:f0ed47fe0b26ae5592e090f7e5ff98b905ac7d797d9c7b88cccc2a9d14133660",
+      "mode": 420
+    },
+    "walker/tests/test_battery_limit.py": {
+      "class": "C",
+      "digest": "file:ab60d619f4ba6dfa2bd593944e426a39e1256a3a5093c992aba33dfa4c7ecdb0",
+      "mode": 420
+    },
+    "walker/tests/test_clipboard.py": {
+      "class": "C",
+      "digest": "file:6f2c43266b2a1ee437190696a6e1f0690e8d729b6f049f09189eedddebd646dc",
+      "mode": 420
+    },
+    "walker/tests/test_cloud_contexts.py": {
+      "class": "C",
+      "digest": "file:11a1eebf9de077c8bb11078124d16bb1fe89fccc016f8733e667d43c682c9bb1",
+      "mode": 420
+    },
+    "walker/tests/test_cloud_menus.py": {
+      "class": "C",
+      "digest": "file:5ec553892fd8782fec58bb16b5c3b5408e5bac8a619184645513aad17350cba2",
+      "mode": 420
+    },
+    "walker/tests/test_cmux_menu.py": {
+      "class": "C",
+      "digest": "file:33aaad9c908ddc47b9cab4ac4a1b427ae29b2a939d6629a99fc8efecefca1023",
+      "mode": 420
+    },
+    "walker/tests/test_cursor.py": {
+      "class": "C",
+      "digest": "file:9b4ce1b2e392d547e91f6556541a08abf8719d836fb8bd90d32656680cfa22d4",
+      "mode": 420
+    },
+    "walker/tests/test_elephant_service.py": {
+      "class": "C",
+      "digest": "file:e0988c7106c0c35007dd6bb9bb58a3ef53784ccaaa989c4291cbc8f3c822e664",
+      "mode": 420
+    },
+    "walker/tests/test_factory_reset.py": {
+      "class": "C",
+      "digest": "file:459c7df4a907184a9d90efab8b6119f15de2e9d36dbd8535214e94e57e561deb",
+      "mode": 420
+    },
+    "walker/tests/test_fonts.py": {
+      "class": "C",
+      "digest": "file:7ef8e14fa06e96f31e0c40a9d68dfec8dbb1d90f3fcdeb57420159afd7a9ae82",
+      "mode": 420
+    },
+    "walker/tests/test_idle_lock_toggle.py": {
+      "class": "C",
+      "digest": "file:5a0279b91cb0bc7f78660e30cc8697c7ef13941be281c5b1a9fb93340d1f68f4",
+      "mode": 420
+    },
+    "walker/tests/test_launcher_layout.py": {
+      "class": "C",
+      "digest": "file:07ae506462c5481bc11851f7ab294a78e266d7aa5273b05252c8c07dbe1e82fe",
+      "mode": 420
+    },
+    "walker/tests/test_menu_structure.py": {
+      "class": "C",
+      "digest": "file:bf417f41b982b2d8d8988b91969d77457f9e6b0dc53abdf4c470218cad6f3c18",
+      "mode": 420
+    },
+    "walker/tests/test_network_backend.py": {
+      "class": "C",
+      "digest": "file:0cba682808d9cc81dbe49ab8ac7da2f7b4e7e755e39b2fd20642b5913403c8be",
+      "mode": 420
+    },
+    "walker/tests/test_palette.py": {
+      "class": "C",
+      "digest": "file:23db8a4ee352fe9148ae39d5b18b6ceb00ea6b70cba982e5b556b638b35a1cc0",
+      "mode": 420
+    },
+    "walker/tests/test_screenshot.py": {
+      "class": "C",
+      "digest": "file:1258f1dbf5d69a0614440bba0c700a004cc7a44c90a5b7b81943c214cc60ae57",
+      "mode": 420
+    },
+    "walker/tests/test_search_index.py": {
+      "class": "C",
+      "digest": "file:ed7f6f4a78eb6a0f9e13861371c149d7fae61de960afd6ca6826a1073ac23b68",
+      "mode": 420
+    },
+    "walker/tests/test_security.py": {
+      "class": "C",
+      "digest": "file:cf66ee894a6502fedb056df16e5edb00832dcfe70135902ffb9985647664826f",
+      "mode": 420
+    },
+    "walker/tests/test_selection_colors.py": {
+      "class": "C",
+      "digest": "file:9ad313532d210886f2f850f13968ab6922e85654ee908b8a1390331e58cb41ed",
+      "mode": 420
+    },
+    "walker/tests/test_shortcuts_menu.py": {
+      "class": "C",
+      "digest": "file:b65249621da48513ab6d247bacb92c1dfe3c3c3f8ccec494f6c8cb64fd7ef9e6",
+      "mode": 420
+    },
+    "walker/tests/test_software.py": {
+      "class": "C",
+      "digest": "file:2ae0257d444fe034112c24b34a083055a7d583cfae0e97cbe55ffebe1218ce0b",
+      "mode": 420
+    },
+    "walker/tests/test_task_terminal.py": {
+      "class": "C",
+      "digest": "file:85e74e1ff97cbd4ac3efcfda583854f94b9810bc9647c5bfb63e86c2f1b9d891",
+      "mode": 420
+    },
+    "walker/tests/test_theme_schema.py": {
+      "class": "C",
+      "digest": "file:e9f7feff99d4614706add101d4508454506e40d87617d238644c0f71fe6f9891",
+      "mode": 420
+    },
+    "walker/tests/test_update_workflow.py": {
+      "class": "C",
+      "digest": "file:8061d81bf4073dce88964a981c6337d311e79997facecb637d32474467a83af8",
+      "mode": 420
+    },
+    "walker/tests/test_vscode_theme.py": {
+      "class": "C",
+      "digest": "file:1346a512881e69065456ac4d510fe06a39f7d640cb769cf18a7f8ea0b2e46412",
+      "mode": 420
+    },
+    "walker/tests/test_wallpaper_transition.py": {
+      "class": "C",
+      "digest": "file:9112cc406965284bb23cc016f9592225e65c39494d71566c1cc96a6b7ae8284a",
+      "mode": 420
+    },
+    "walker/themes/current/codex.svg": {
+      "class": "G",
+      "digest": "file:b94ea61d860fae6f82f43571f36f17111fcf5d348e8e9cc22ae4b441c7560011",
+      "mode": 420
+    },
+    "walker/themes/current/item.xml": {
+      "class": "C",
+      "digest": "file:062bc4e4f6389c63ce5cd16824459fa1fb181dfffae5858e977c12c516546086",
+      "mode": 420
+    },
+    "walker/themes/current/item_desktopapplications.xml": {
+      "class": "C",
+      "digest": "file:062bc4e4f6389c63ce5cd16824459fa1fb181dfffae5858e977c12c516546086",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-ai-tools.xml": {
+      "class": "C",
+      "digest": "file:2eb86ebdfd3707c0319d2fb8da46d26ba37fa29d5ac68d886b083c5ee5d3a9a2",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-apps.xml": {
+      "class": "C",
+      "digest": "file:062bc4e4f6389c63ce5cd16824459fa1fb181dfffae5858e977c12c516546086",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-aws-development.xml": {
+      "class": "C",
+      "digest": "file:062bc4e4f6389c63ce5cd16824459fa1fb181dfffae5858e977c12c516546086",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-aws-production.xml": {
+      "class": "C",
+      "digest": "file:062bc4e4f6389c63ce5cd16824459fa1fb181dfffae5858e977c12c516546086",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-aws-profiles.xml": {
+      "class": "C",
+      "digest": "file:2eb86ebdfd3707c0319d2fb8da46d26ba37fa29d5ac68d886b083c5ee5d3a9a2",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-bar.xml": {
+      "class": "C",
+      "digest": "file:2eb86ebdfd3707c0319d2fb8da46d26ba37fa29d5ac68d886b083c5ee5d3a9a2",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-capture.xml": {
+      "class": "C",
+      "digest": "file:2eb86ebdfd3707c0319d2fb8da46d26ba37fa29d5ac68d886b083c5ee5d3a9a2",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-cloud.xml": {
+      "class": "C",
+      "digest": "file:2eb86ebdfd3707c0319d2fb8da46d26ba37fa29d5ac68d886b083c5ee5d3a9a2",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-cursor.xml": {
+      "class": "C",
+      "digest": "file:2eb86ebdfd3707c0319d2fb8da46d26ba37fa29d5ac68d886b083c5ee5d3a9a2",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-development.xml": {
+      "class": "C",
+      "digest": "file:2eb86ebdfd3707c0319d2fb8da46d26ba37fa29d5ac68d886b083c5ee5d3a9a2",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-grafana-logs.xml": {
+      "class": "C",
+      "digest": "file:062bc4e4f6389c63ce5cd16824459fa1fb181dfffae5858e977c12c516546086",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-install.xml": {
+      "class": "C",
+      "digest": "file:2eb86ebdfd3707c0319d2fb8da46d26ba37fa29d5ac68d886b083c5ee5d3a9a2",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-keyboard.xml": {
+      "class": "C",
+      "digest": "file:2eb86ebdfd3707c0319d2fb8da46d26ba37fa29d5ac68d886b083c5ee5d3a9a2",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-learn.xml": {
+      "class": "C",
+      "digest": "file:062bc4e4f6389c63ce5cd16824459fa1fb181dfffae5858e977c12c516546086",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-main.xml": {
+      "class": "C",
+      "digest": "file:2eb86ebdfd3707c0319d2fb8da46d26ba37fa29d5ac68d886b083c5ee5d3a9a2",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-power.xml": {
+      "class": "C",
+      "digest": "file:062bc4e4f6389c63ce5cd16824459fa1fb181dfffae5858e977c12c516546086",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-projects-nvim.xml": {
+      "class": "C",
+      "digest": "file:062bc4e4f6389c63ce5cd16824459fa1fb181dfffae5858e977c12c516546086",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-projects-vscode.xml": {
+      "class": "C",
+      "digest": "file:062bc4e4f6389c63ce5cd16824459fa1fb181dfffae5858e977c12c516546086",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-screenrecord.xml": {
+      "class": "C",
+      "digest": "file:062bc4e4f6389c63ce5cd16824459fa1fb181dfffae5858e977c12c516546086",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-screenshot.xml": {
+      "class": "C",
+      "digest": "file:062bc4e4f6389c63ce5cd16824459fa1fb181dfffae5858e977c12c516546086",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-security.xml": {
+      "class": "C",
+      "digest": "file:2eb86ebdfd3707c0319d2fb8da46d26ba37fa29d5ac68d886b083c5ee5d3a9a2",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-share.xml": {
+      "class": "C",
+      "digest": "file:062bc4e4f6389c63ce5cd16824459fa1fb181dfffae5858e977c12c516546086",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-shortcuts.xml": {
+      "class": "C",
+      "digest": "file:2eb86ebdfd3707c0319d2fb8da46d26ba37fa29d5ac68d886b083c5ee5d3a9a2",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-style.xml": {
+      "class": "C",
+      "digest": "file:2eb86ebdfd3707c0319d2fb8da46d26ba37fa29d5ac68d886b083c5ee5d3a9a2",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-system-connectivity.xml": {
+      "class": "C",
+      "digest": "file:2eb86ebdfd3707c0319d2fb8da46d26ba37fa29d5ac68d886b083c5ee5d3a9a2",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-system-devices.xml": {
+      "class": "C",
+      "digest": "file:2eb86ebdfd3707c0319d2fb8da46d26ba37fa29d5ac68d886b083c5ee5d3a9a2",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-system-information.xml": {
+      "class": "C",
+      "digest": "file:2eb86ebdfd3707c0319d2fb8da46d26ba37fa29d5ac68d886b083c5ee5d3a9a2",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-system-maintenance.xml": {
+      "class": "C",
+      "digest": "file:2eb86ebdfd3707c0319d2fb8da46d26ba37fa29d5ac68d886b083c5ee5d3a9a2",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-system.xml": {
+      "class": "C",
+      "digest": "file:2eb86ebdfd3707c0319d2fb8da46d26ba37fa29d5ac68d886b083c5ee5d3a9a2",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-theme.xml": {
+      "class": "C",
+      "digest": "file:2eb86ebdfd3707c0319d2fb8da46d26ba37fa29d5ac68d886b083c5ee5d3a9a2",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-toggle.xml": {
+      "class": "C",
+      "digest": "file:062bc4e4f6389c63ce5cd16824459fa1fb181dfffae5858e977c12c516546086",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-update.xml": {
+      "class": "C",
+      "digest": "file:2eb86ebdfd3707c0319d2fb8da46d26ba37fa29d5ac68d886b083c5ee5d3a9a2",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-wallpaper.xml": {
+      "class": "C",
+      "digest": "file:062bc4e4f6389c63ce5cd16824459fa1fb181dfffae5858e977c12c516546086",
+      "mode": 420
+    },
+    "walker/themes/current/item_menus-workspaces.xml": {
+      "class": "C",
+      "digest": "file:a3d3c336e1aac68c7e9f2bffc1e835ccf32eb69422a0afaea45c6ae7c16db7ac",
+      "mode": 420
+    },
+    "walker/themes/current/item_providerlist.xml": {
+      "class": "C",
+      "digest": "file:062bc4e4f6389c63ce5cd16824459fa1fb181dfffae5858e977c12c516546086",
+      "mode": 420
+    },
+    "walker/themes/current/item_websearch.xml": {
+      "class": "C",
+      "digest": "file:062bc4e4f6389c63ce5cd16824459fa1fb181dfffae5858e977c12c516546086",
+      "mode": 420
+    },
+    "walker/themes/current/layout.xml": {
+      "class": "C",
+      "digest": "file:72d5440be47137618ce5332b34f3ddb85baaf9115db0dc8268279d0b67283468",
+      "mode": 420
+    },
+    "walker/themes/current/style.css": {
+      "class": "G",
+      "digest": "file:ad3d57d1ed7b28e99018d478a6f1f363ea50281e1d9f25d54a4650d26e97665d",
+      "mode": 420
+    },
+    "walker/themes/current/workspace-examples.css": {
+      "class": "G",
+      "digest": "file:12c4aa360b93b32b13f15cceb4748f82b66b29393a0075b783ceca9acac5c551",
+      "mode": 420
+    },
+    "xdg-desktop-portal/hyprland-portals.conf": {
+      "class": "D",
+      "digest": "file:d651f15fe60edab2fd05c49433ae20651560387bf877f806ff3c5bc64047472e",
+      "mode": 420
+    }
+  }
+}

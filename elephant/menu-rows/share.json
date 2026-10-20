@@ -1,0 +1,36 @@
+[
+  {
+    "text": "Clipboard",
+    "subtext": "Send the clipboard to a nearby device with LocalSend",
+    "keywords": [
+      "localsend"
+    ],
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/share/localsend-share.sh clipboard"
+    }
+  },
+  {
+    "text": "File",
+    "subtext": "Send files to a nearby device with LocalSend",
+    "keywords": [
+      "localsend"
+    ],
+    "icon": "",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py /usr/share/eitr/walker/scripts/actions/share/localsend-share.sh file"
+    }
+  },
+  {
+    "text": "Folder",
+    "subtext": "Send a folder to a nearby device with LocalSend",
+    "keywords": [
+      "localsend",
+      "directory"
+    ],
+    "icon": "",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py /usr/share/eitr/walker/scripts/actions/share/localsend-share.sh folder"
+    }
+  }
+]

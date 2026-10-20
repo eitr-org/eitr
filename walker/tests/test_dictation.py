@@ -1,0 +1,123 @@
+import os
+from pathlib import Path
+import shutil
+import stat
+import subprocess
+import tempfile
+import unittest
+
+ROOT = Path(__file__).resolve().parents[2]
+SCRIPT = ROOT / "walker/scripts/actions/tools/dictate.sh"
+
+
+class DictationTests(unittest.TestCase):
+    def setUp(self):
+        directory = tempfile.TemporaryDirectory()
+        self.addCleanup(directory.cleanup)
+        self.base = Path(directory.name)
+        self.bin = self.base / "bin"
+        self.bin.mkdir()
+        self.log = self.base / "log"
+        (self.base / "runtime").mkdir()
+        # Only the stand-ins below and basic tools: a real whisper-cli or wtype must not be found.
+        tools = self.base / "tools"
+        tools.mkdir()
+        for name in ("bash", "cat", "cut", "mkdir", "mv", "rm", "sed", "sha256sum", "sleep", "tr"):
+            (tools / name).symlink_to(shutil.which(name))
+        self.env = {"PATH": f"{self.bin}:{tools}", "HOME": str(self.base / "home"),
+                    "XDG_DATA_HOME": str(self.base / "data"), "XDG_RUNTIME_DIR": str(self.base / "runtime"),
+                    "EITR_CODE_ROOT": str(ROOT)}
+        self.fake("notify-send", 'echo "notify $*" >> "$LOG"')
+        self.fake("wtype", 'echo "typed $*" >> "$LOG"')
+        # Records until stopped, but never outlives the test: a stray copy ends by itself.
+        self.fake("pw-record", 'echo audio > "${@: -1}"; exec /usr/bin/sleep 5')
+        self.addCleanup(self.stop_recorder)
+        self.fake("whisper-cli", 'echo "model $2" >> "$LOG"; printf " Hello there.\\n"')
+        self.fake("curl", 'echo "download" >> "$LOG"; exit 22')
+        self.fake("eitr-shell", 'echo "bar $*" >> "$LOG"')
+
+    def stop_recorder(self):
+        pidfile = self.base / "runtime/eitr-dictation.pid"
+        if pidfile.exists():
+            subprocess.run(["kill", pidfile.read_text().strip()], capture_output=True)
+
+    def fake(self, name, body):
+        path = self.bin / name
+        path.write_text(f'#!/usr/bin/env bash\nLOG="{self.log}"\n{body}\n')
+        path.chmod(path.stat().st_mode | stat.S_IXUSR)
+
+    def run_script(self, action):
+        return subprocess.run(["bash", str(SCRIPT), action], env=self.env, capture_output=True, text=True,
+                              timeout=20)
+
+    def logged(self):
+        return self.log.read_text() if self.log.exists() else ""
+
+    def test_hold_and_release_types_the_words(self):
+        model = self.base / "data/eitr/whisper/ggml-base.bin"
+        model.parent.mkdir(parents=True)
+        model.write_text("model")
+        self.assertEqual(self.run_script("start").returncode, 0)
+        self.assertEqual(self.run_script("stop").returncode, 0)
+        self.assertIn(f"model {model}", self.logged())
+        self.assertIn("typed -- Hello there.", self.logged())
+        self.assertNotIn("notify", self.logged(), "a successful dictation shows no notification")
+        bar = [line for line in self.logged().splitlines() if line.startswith("bar ")]
+        self.assertEqual(bar, ["bar desktop-bar ipc call dictation start", "bar desktop-bar ipc call dictation transcribe",
+                               "bar desktop-bar ipc call dictation stop"],
+                         "a waveform while listening, a pulse while transcribing")
+        lines = self.logged().splitlines()
+        self.assertLess(lines.index("typed -- Hello there."), lines.index("bar desktop-bar ipc call dictation stop"),
+                        "the indicator stays until the words are typed")
+        self.assertFalse(any((self.base / "runtime").iterdir()), "the recording is deleted")
+
+    def test_nothing_heard_still_ends_the_indicator(self):
+        model = self.base / "data/eitr/whisper/ggml-base.bin"
+        model.parent.mkdir(parents=True)
+        model.write_text("model")
+        self.fake("whisper-cli", 'printf "[BLANK_AUDIO]\\n"')
+        self.run_script("start")
+        self.assertEqual(self.run_script("stop").returncode, 0)
+        self.assertIn("Nothing heard", self.logged())
+        bar = [line for line in self.logged().splitlines() if line.startswith("bar ")]
+        self.assertEqual(bar[-1], "bar desktop-bar ipc call dictation stop")
+
+    def test_a_failed_download_explains_and_records_nothing(self):
+        self.assertEqual(self.run_script("start").returncode, 0)
+        self.assertIn("download", self.logged())
+        self.assertIn("could not be downloaded", self.logged())
+        self.assertFalse((self.base / "data/eitr/whisper/ggml-base.bin").exists())
+        self.assertFalse((self.base / "runtime/eitr-dictation.pid").exists())
+
+    def test_missing_packages_point_to_the_install_menu(self):
+        (self.bin / "whisper-cli").unlink()
+        self.run_script("start")
+        self.assertIn("System Update", self.logged())
+
+    def test_release_without_a_recording_does_nothing(self):
+        self.assertEqual(self.run_script("stop").returncode, 0)
+        self.assertEqual(self.logged(), "")
+
+    def test_the_bar_shows_the_recording_dot_while_listening(self):
+        shell = (ROOT / "quickshell/desktop-bar/shell.qml").read_text()
+        self.assertIn('target: "dictation"', shell)
+        for binding in ("dictating: shell.dictating", "transcribing: shell.transcribing", "dictationLevels: shell.dictationLevels"):
+            self.assertEqual(shell.count(binding), 2, "horizontal and vertical bars: " + binding)
+        self.assertIn('text: weather.dictating ? Eitr.I18n.tr("Dictating") : weather.transcribing ? Eitr.I18n.tr("Transcribing")', shell)
+        self.assertIn("node: Pipewire.defaultAudioSource", shell, "the waveform follows the microphone dictation records")
+        self.assertIn("enabled: shell.dictating && node !== null", shell, "the microphone is only metered while listening")
+        self.assertIn("Behavior on height { enabled: !weather.transcribing;", shell,
+                      "a per-frame pulse under a restarting Behavior stays flat")
+
+    def test_the_model_is_pinned_and_the_key_installed(self):
+        source = SCRIPT.read_text()
+        self.assertIn('model_sha256="60ed5bc3dd14eea856493d334349b405782ddcaf0028d4b5df4088345fba2efe"', source)
+        hypr = (ROOT / "hypr/hyprland.lua").read_text()
+        self.assertIn('dictate.sh") .. " stop"), { release = true })', hypr)
+        packages = (ROOT / "distro/packages.txt").read_text().split()
+        self.assertTrue({"whisper-cpp", "wtype"} <= set(packages), "dictation is part of every installation")
+        self.assertIn("SUPER + D (hold)", (ROOT / "walker/scripts/menus/shortcuts.sh").read_text())
+
+
+if __name__ == "__main__":
+    unittest.main()

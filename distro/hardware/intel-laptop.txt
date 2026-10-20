@@ -1,0 +1,2 @@
+# Intel laptops only: thermald keeps the CPU out of thermal throttling.
+thermald

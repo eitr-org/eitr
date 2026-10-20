@@ -1,0 +1,10 @@
+[Unit]
+Description=Eitr boot guard (this start reached the login screen)
+After=display-manager.service
+
+[Service]
+Type=simple
+ExecStart=/usr/lib/eitr/eitr-boot-guard healthy
+
+[Install]
+WantedBy=graphical.target

@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Eitr
+Description=EITR rune wordmark inside a ring of Elder Futhark runes
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/eitr
+ScriptFile=/usr/share/plymouth/themes/eitr/eitr.script

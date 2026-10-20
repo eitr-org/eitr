@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+EITR_CODE_ROOT="${EITR_CODE_ROOT:-/usr/share/eitr}"
+if [[ -f "$EITR_CODE_ROOT/lib/paths.sh" ]]; then source "$EITR_CODE_ROOT/lib/paths.sh";
+elif [[ -f "$EITR_CODE_ROOT/distro/lib/paths.sh" ]]; then source "$EITR_CODE_ROOT/distro/lib/paths.sh"; fi
+set -euo pipefail
+
+# The EITR Walker config is found before the walker package's own /etc/xdg copy;
+# a user walker/config.toml still wins, as Walker reads the first config it finds.
+export XDG_CONFIG_DIRS="$EITR_CODE_ROOT/xdg:${XDG_CONFIG_DIRS:-/etc/xdg}"
+# GTK's empty background-effect region otherwise overrides compositor blur.
+export GDK_WAYLAND_DISABLE="${GDK_WAYLAND_DISABLE:+$GDK_WAYLAND_DISABLE,}ext_background_effect_manager_v1"
+# Menus list their own rows when empty and, while typing, search the menus below
+# them (Main: every Elephant menu, Apps included) from the index prepared here.
+# Apps and Clipboard search only themselves, so opening them skips the preparation.
+# Main and SUPER+Space share the custom Apps menu and its uninstall confirmation.
+for argument in "$@"; do
+  if [[ "$argument" == menus:* && "$argument" != menus:apps && "$argument" != menus:clipboard ]]; then
+    python3 "$EITR_CODE_ROOT/walker/scripts/menus/search-index.py" prepare || true
+    break
+  fi
+done
+exec /usr/bin/walker --minheight 1 --maxheight 520 "$@"

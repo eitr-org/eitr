@@ -1,0 +1,15 @@
+{
+  "generator": "built-in image generation",
+  "source": "references/wandering-greenhouse-ultrawide-source.png",
+  "file": "backgrounds-ultrawide/04-wandering-greenhouse.jpg",
+  "output_size": [
+    3440,
+    1440
+  ],
+  "processing": "Generated panoramic expansion of the 4K artwork; Lanczos-resampled for exact export dimensions.",
+  "prompt": "Edit this exact Wandering Greenhouse wallpaper into a panoramic ULTRAWIDE composition, requested3440x1440, aspect43:18 about2.39:1, highest available resolution. This is an outpaint/reframe of the supplied image, not a new castle or a new scene. Preserve its gentle hand-painted Japanese animation background style, Catppuccin Latte pastel palette, cream cottage with faded blue roof and glass flower conservatory, crooked brass chimneys, laundry, brass walking legs, the SAME small cream-clothed traveler with straw hat, suitcase and tiny white spirit in her basket. Keep the entire cottage roof, all legs and the whole traveler with feet intact, comfortably framed on the RIGHT half. Expand mainly to the LEFT with seamless continuation of the bright blue sky, cream clouds, distant pale blue hills, valley and flower meadow. Uniformly reduce the original scene if necessary so all its important subjects fit the panoramic frame; do not stretch or squash the cottage and do not crop away its roof, chimneys, legs or traveler. Keep quiet airy space on the left for desktop windows. Preserve original morning light, soft pink/lavender flowers, sage grass, slate linework and watercolor/gouache brushwork, no realism or3D. One full-bleed ultrawide illustration, no letterboxing, border, text, signs with lettering, logo, watermark or UI.",
+  "native_size": [
+    1938,
+    811
+  ]
+}

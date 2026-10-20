@@ -1,0 +1,873 @@
+{
+  "resolution": [
+    3840,
+    2160
+  ],
+  "processing": "Crop to fill 16:9, then Lanczos resample; painted wallpapers saved as JPEG quality 92 without chroma subsampling. Not native 4K generation. Norse subjects use right-biased framing.",
+  "images": [
+    {
+      "file": "themes/afterglow/backgrounds/01-emberward-gaze.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "a01f1d5a83ff61748316ca635700696c5b2d35c9ecc379a60194e24ccc2f249c",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-04/afterglow-01-emberward-gaze.png"
+    },
+    {
+      "file": "themes/afterglow/backgrounds/02-ember-vigil.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "0ee5aa5fbcf82c59f44691079c9c800e92b207745fd51030888b811cecf0129c",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-04/afterglow-02-ember-vigil.png"
+    },
+    {
+      "file": "themes/afterglow/backgrounds/03-bronze-and-embers.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "8eb8ed0397ce795d82e65b1ea5d88724eaf9d8e26ae44259c81f6dad6c3cadfc",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-04/afterglow-03-bronze-and-embers.png"
+    },
+    {
+      "file": "themes/catppuccin-latte/backgrounds/01-ribbon-hare.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "250b72e1eb86d28da37cf3efd958ae830a90664ccfe1ffd3b04e3f0113a50846",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-04/catppuccin-latte-01-ribbon-hare.png"
+    },
+    {
+      "file": "themes/catppuccin-latte/backgrounds/02-cloud-orchard.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "ca65edd29833f864124cdc1c932e44b1c6db9c129bca4c3e66ce5467f0018e57",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/catppuccin-latte/backgrounds/03-porcelain-coast.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "f0cda78d2cbcd43278cb8f6a51090e457b261b520fa5480ad66cb2f1152a15e3",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/catppuccin-latte/backgrounds/04-wandering-greenhouse.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "dd40cc9d052c5b1f42aec95bc6f85b2e0af92b56a00a52ac2807208f9234882a",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/catppuccin/backgrounds/01-spirit-station.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "d8f5268404a865c44674c370c5d5266071deaf3a41a3ac0cc34ea281daff718b",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/catppuccin/backgrounds/02-lunar-conservatory.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "8108d9d5355f7fbc814fbc198d1b2b82253bfd971d8a37c53e6507d6e6121811",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/daylight/backgrounds/01-salt-horizon.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "a1497dbc798d1df998cc14eb1c726a28c11fdb77c3fdbe4f561c68fe38e4ccab",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/daylight/backgrounds/02-paper-orbit.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "bd0546ed8ed8ece5a7ad1a0287659021f4078486484cc481ba89409f7a1af2c6",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/daylight/backgrounds/03-quiet-pleats.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "46edc12a3fe0671b6b5367dd09d3b6e8b8d3d54946e46e181387577d167371aa",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/graphite/backgrounds/01-fragments-of-touch.jpg",
+      "source_size": [
+        1938,
+        811
+      ],
+      "source_sha256": "39f9eb249f0cb7d6448258ef2309ec5978a071488e3830a8b4d025a9b0bc2a42",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-04/graphite-01-fragments-of-touch.png"
+    },
+    {
+      "file": "themes/graphite/backgrounds/02-ember-harbor.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "71d0adb841ad75458b880a5fa6999b2fec99a50b0721e7773646ddcb1e19b521",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/graphite/backgrounds/03-thread-and-shadow.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "a86c5a937edca086c6764375a7551d125d5501f7766b443fec9c2b86cb2e2186",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/gruvbox/backgrounds/01-violin-and-pear.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "dd544f35b299fb80b724f3605026aeb5f2814069c67a1e1ccabb6982ad41bb86",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/gruvbox/backgrounds/02-river-workshop.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "48819917ad73fce646cacaca1698fa98246c3ae46c4b75f91a8abfd365d11ec9",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/gruvbox/backgrounds/03-copper-hills.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "d9cb4e999fe1d3a35079315fe1f8996eaad061464c05b80f3425468c05c47c7a",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/gruvbox/backgrounds/04-brass-and-petals.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "0c5180702eb95774534f89802f2f58338a04ac560f663676cf53bf67fa3faa80",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/gruvbox/backgrounds/05-candle-and-ceramic.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "c15413de9c8fc340315df134f35df7324f99f86daeda88801aa38b8929a4dd8f",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/jade/backgrounds/01-midnight-study.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "a2f9ab4cf8ae189cc8c8db0bc43aa3b6bb71f6a4bde70ecac64d1bf7dd848f6a",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/jade/backgrounds/02-rain-garden.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "2cdcde2c590bf52a7beb2f1862c0adaa4084ef8c54087680bbff3b67d93bd2af",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/jade/backgrounds/03-tea-and-static.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "89d655d0400a30384198c103077a61afb664a88e23a8cd361769936f3c6d9ba6",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/jade/backgrounds/04-night-shift.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "8d0b09b11837c09973fcfba757bd37b02da0d92cc56c6ab49770c4d12506b9a7",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/kanagawa/backgrounds/01-reed-estuary.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "91c33870a83ba6269007718a2a8f8c42438fc24ce495c56b68f799c8f5aaffa9",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/kanagawa/backgrounds/02-rain-pass.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "41f610e7672a56eb23acc969625de125e09b1fa17c7cc4dafe0c6a1b0ecd268d",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/kanagawa/backgrounds/03-crane-and-ribbon.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "4aea25926071083e1417111ccffeb645365967e50e8065b421cd3a2cf538d971",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/kanagawa/backgrounds/04-indigo-fan.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "928f14abb3865c512ca510485fc3e46434fda6114d0a1de38b4a67d68b274e66",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/moss/backgrounds/01-smokehole-seeress.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "f15037dfd56003727e5d9d702d5787133ba1871939df00b580ec8987ac74bdbb",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-04/moss-01-smokehole-seeress.png"
+    },
+    {
+      "file": "themes/moss/backgrounds/02-silent-oath.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "cbba96e6bb1ec3569bbf58900bbc76068d085b2d4b04c399c792ea6b638e0bd8",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-04/moss-02-silent-oath.png"
+    },
+    {
+      "file": "themes/moss/backgrounds/03-candlelit-relics.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "4c0d37f49d5fb8301889b23587723fd23fa1f469dbaacc68910fd322028c2595",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-04/moss-03-candlelit-relics.png"
+    },
+    {
+      "file": "themes/nord/backgrounds/01-blue-hour-reader.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "75f0cb0d33ef5998aa2e59b16e90f8fbfc4487d5ae068180635e7cfdb10f1470",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/nord/backgrounds/02-glacier-inlet.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "e3c141780d0bf5089cf3ae12e165dca1736aad21e4cd6cb667da4dd1c6b78998",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/nord/backgrounds/03-last-track.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "bf0657b2ace468a6976026c17e388a5dfee76cd97db04717b4a120f2b2a5d59c",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/nord/backgrounds/04-window-seat.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "4d86a0334233878ee2701d06943e0aee0c21d2f35596021938e051c8dad794f4",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/norse/backgrounds/02-odin-allfather.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "82b309ebb512ffc733bda3454dc757e14914a939786fca2e8c68ec4b49a7ae02",
+      "centering": [
+        0.85,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/norse/backgrounds/03-mimir-well-of-wisdom.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "7f8e00e857c369a2ac39b57ded18e0823b6c4955dd5df335999ee4735bbcb84c",
+      "centering": [
+        0.85,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/norse/backgrounds/04-huginn-muninn.jpg",
+      "source_size": [
+        1931,
+        814
+      ],
+      "source_sha256": "167197c1918214ef1d96a9230346b332ffe5e6977c1dc993cacfe41ac50fccaf",
+      "centering": [
+        0.85,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/norse/backgrounds/05-valkyrie.jpg",
+      "source_size": [
+        1931,
+        814
+      ],
+      "source_sha256": "e81ea6cf3e97579ef66e131f2bb0c11965582ad55b443f833e232ea9cb4b4b41",
+      "centering": [
+        0.85,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/norse/backgrounds/06-odin.jpg",
+      "source_size": [
+        1931,
+        814
+      ],
+      "source_sha256": "6bef3c3f5cb92f337f5994cfb54c7f3f5fc560c0f34e7db6011a9c8a256e9cd7",
+      "centering": [
+        0.85,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/norse/backgrounds/07-fenrir.jpg",
+      "source_size": [
+        1931,
+        814
+      ],
+      "source_sha256": "65c14585238ed57872de1e8bfdcdadbf718aeddb73a63df4c3a0e16e9e3dc8f9",
+      "centering": [
+        0.85,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/norse/backgrounds/08-jormungandr.jpg",
+      "source_size": [
+        1931,
+        814
+      ],
+      "source_sha256": "2bb322eca76a60ab0115e2ea410f92e0fac0e479f25cd000a658c44bf2660316",
+      "centering": [
+        0.85,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/one-dark-pro/backgrounds/01-neon-summit.jpg",
+      "source_size": [
+        5032,
+        3160
+      ],
+      "source_sha256": "d0f395e9c78af3cae079333ed286e840985255298fe4f0792226b7c08c32e348",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/rose-pine/backgrounds/01-heron-and-thread.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "d4e128fd5a8742cc38c21bdc1a24b62cff637b198fbf64b130eedfc38384ec36",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-04/rose-pine-01-heron-and-thread.png"
+    },
+    {
+      "file": "themes/rose-pine/backgrounds/02-petal-terraces.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "2d09f9b580f64a4a03a1aa8400702674a5a57f03ed8a1d2ba3ef641dbeed515f",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/rose-pine/backgrounds/03-rose-courtyard.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "d869fa7a10060a7d09f2c4780657aea50dfb9fa3513b37d693f468f083357349",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/stillwater/backgrounds/01-ashen-stag.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "e4bdcd9ecf6db2bf723fb2c4737457f904b1e86f6380dd7368de0781c0d33232",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-04/stillwater-01-ashen-stag.png"
+    },
+    {
+      "file": "themes/stillwater/backgrounds/02-the-iron-key.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "d2093491d7bcbf430dc02861d9f641e2ee5ca93475676d9c8b738cec70fd5b41",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-04/stillwater-02-the-iron-key.png"
+    },
+    {
+      "file": "themes/stillwater/backgrounds/03-summit-shelter.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "fe89b4b6bf9cb67670bee7d468ddc4159eefe09465f4eac1f3d68996ed62526e",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/stillwater/backgrounds/04-silent-wings.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "1caf622b7b585733993f96ec9710763c3221fa240cb8bda62841865e5c3b4bfc",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-04/stillwater-04-silent-wings.png"
+    },
+    {
+      "file": "themes/wisteria/backgrounds/01-indigo-bellflowers.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "95fb37db2c8bbaae13368e2acc039a4cf9c499d624f15302cf4893615003b2cb",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-04/wisteria-01-indigo-bellflowers.png"
+    },
+    {
+      "file": "themes/wisteria/backgrounds/02-cloud-bloom.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "e0b0ac42c42f6f1d2fe1d7ae34658bd9d386f57bf7d4c35b7c37a3de0d66c7e2",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/wisteria/backgrounds/03-violet-pavilion.jpg",
+      "source_size": [
+        3440,
+        1440
+      ],
+      "source_sha256": "40fb33393cf81a0ca84881769a8fadb8ff3a72ba6ea151cbe9b4e6b0b233da4e",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    }
+  ],
+  "procedural": {
+    "themes/norse/backgrounds/01-eitr-runestone.png": "Native 3840×2160; generated with themes/norse/references/generate-wallpapers.py, including its motion layers."
+  }
+}

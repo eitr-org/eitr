@@ -1,0 +1,166 @@
+{
+  "batch": "2026-10-ultrawide-02",
+  "resolution": [
+    3440,
+    1440
+  ],
+  "processing": "Lanczos upscale, minimal centered crop; not native 3440x1440 generation",
+  "direction": "Reference-led character, abstract, graphic, object and still-life artwork; avoid generic city/nature vistas",
+  "images": [
+    {
+      "theme": "stillwater",
+      "name": "02-the-listener",
+      "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. Original monochrome manga-like illustration: a solitary young adult with loose jacket and headphones, seated sideways on a battered train seat in the right third, thoughtful profile looking toward an impossible dark circular void beyond a wide window. Outside is abstract scratched graphite and stardust, NOT a city or landscape. Strong hand-drawn contour lines, densely crosshatched folds, coarse vintage halftone grain, flat aged gray paper #cacccc and near-black ink #101315, subdued steel gray #798186. Figure is clearly the subject, mostly empty left half; moody existential surrealism. Clearly a drawing, no photorealism. Echo the archived Stillwater character-focused manga mood.",
+      "reference": "stillwater/references/originals/",
+      "status": "removed",
+      "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
+      "replacement": "02-the-iron-key"
+    },
+    {
+      "theme": "catppuccin",
+      "name": "01-prismatic-heart",
+      "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. Minimal sculptural abstract object: an irregular floating assembly of razor-edged faceted crystal shards, offset slightly right of center, coherent interlocking form with tiny detached shards. Near-black matte void #1e1e2e with huge negative space, crisp lilac #cba6f7, pale blue #89b4fa, dusty pink #f5c2e7 and small mint reflections. Elegant angular 3D illustration with graphic edges, not flowers, not landscape. Inspired by the geometric dark-star reference rather than scenery.",
+      "reference": "catppuccin/references/originals/",
+      "status": "removed",
+      "note": "Not in the owner-curated wallpaper collection; prompt retained for provenance."
+    },
+    {
+      "theme": "afterglow",
+      "name": "01-inner-light",
+      "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. Expressive painterly close-up portrait of an original androgynous young adult, face across right two thirds, freckles, intense pale teal eyes looking slightly upward, one hand resting against cheek, charcoal hair blending into near-black negative space on left. Detailed brush strokes and subtle canvas grain, dramatic soft edge lighting, muted dusty rose #b59790, pale #e2dddc, teal #87a9b0, charcoal #0c0b0c. Psychological intimate portrait, not photorealistic, not a recreation of the attached face.",
+      "reference": "afterglow/references/originals/",
+      "status": "removed",
+      "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
+      "replacement": "01-emberward-gaze"
+    },
+    {
+      "theme": "one-dark-pro",
+      "name": "01-iron-vow",
+      "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. Original fantasy character portrait: a weary dark-haired female armored sentinel with a short silver hair streak, weathered asymmetric plate armor, an unusual broad spear held horizontally in lower foreground. Waist-up figure right of center, dark painterly background with faint drifting embers, no landscape, no existing game character. Rich detailed concept painting with visible brushwork, charcoal #282c34, blue #61afef steel edges, muted violet #c678dd cloth, restrained #e5c07b gold and #e06c75 ember accents. Bold silhouette and calm left space.",
+      "reference": "one-dark-pro/references/originals/",
+      "status": "removed",
+      "note": "Removed from the live collection before the Witcher rename; original generation prompt retained as history."
+    },
+    {
+      "theme": "tokyo-night",
+      "name": "01-chromatic-current",
+      "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. Pure nonrepresentational abstract flowing surface: countless finely spaced dark violet and cobalt filaments turning through an elegant diagonal S-curve, magenta edge illumination, deep shadow pockets, one luminous pink fold, tactile fine striations. No horizon, no scenery, no animals, no objects or circles. Sophisticated macro 3D abstract artwork with restrained neon, ink #1a1b26, blue #7aa2f7, violet #ad8ee6, pink #f7768e, tiny cyan #0db9d7. Inspired by the original flowing-line and folded-light wallpapers.",
+      "reference": "tokyo-night/references/originals/",
+      "status": "removed",
+      "note": "Theme removed from the shipped collection at the owner’s request; prompt retained for provenance."
+    },
+    {
+      "theme": "rose-pine",
+      "name": "01-paper-play",
+      "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. Light abstract graphic composition made of asymmetrically arranged irregular dusty-rose, muted teal and mauve paper shapes, thin wandering hand-drawn contour lines, sparse short dash patterns and delicate concentric arcs. Full-width balanced original composition, NOT centered logo. Flat 2D screenprint with slight paper texture, Rose Pine Dawn #faf4ed #b4637a #56949f #907aa9 #d7827e, large breathing spaces. Playful refined graphic design, no representational landscape, plants or architecture. Echo the funky-shapes reference.",
+      "reference": "rose-pine/references/originals/",
+      "status": "removed",
+      "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
+      "replacement": "01-heron-and-thread"
+    },
+    {
+      "theme": "graphite",
+      "name": "01-fragments-of-touch",
+      "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. Two original monochrome sculptural hands reaching toward each other across horizontal negative space, left hand emerging from low-left and right from upper-right, not touching, fingertips breaking into sparse crisp stippled particles. Black #121212 void, silver-gray #bebebe dot shading, subtle etched texture, no writing or ASCII characters. Refined abstract pointillist digital illustration, different gesture and placement from reference; not the Creation of Adam composition. Minimal, balanced, no landscapes.",
+      "reference": "graphite/references/originals/",
+      "status": "installed"
+    },
+    {
+      "theme": "moss",
+      "name": "01-the-veil",
+      "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. An original mysterious draped human-like sculpture, fully clothed in heavy olive fabric, face completely covered by flowing folds, one hand holding a small cracked ceramic mask near chest. Figure on right third in a near-black studio void, softly directional museum lighting. Classical oil-paint-like portrait with aged canvas texture and sculptural chiaroscuro, solemn not horror. Charcoal #222222, olive #78824b, bark #685742, rust #b36d43 and pale straw #d7c483. No foliage, ruins or landscapes, preserve the original figurative-art identity.",
+      "reference": "moss/references/originals/",
+      "status": "removed",
+      "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
+      "replacement": "01-smokehole-seeress"
+    },
+    {
+      "theme": "obsidian",
+      "name": "01-folded-silence",
+      "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. Pure abstract matte-black folded material: an asymmetric curving stack of fine ribbed sculptural layers sweeping from lower left across center and tapering into upper right, deep soft shadows, thin silver edge highlights, subtle natural texture. Strict neutral grayscale #000000 #202020 #404040 #8d8d8d. No architectural room, no dunes, no scenery; close-up abstract surface filling canvas with a calm black upper edge. Sophisticated crisp macro render inspired by layered original references.",
+      "reference": "obsidian/references/originals/",
+      "status": "removed",
+      "note": "Theme removed at the owner’s request; generation prompt retained as history."
+    },
+    {
+      "theme": "daylight",
+      "name": "01-white-intersections",
+      "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. Pure abstract white-on-white geometric relief: multiple broad overlapping folded sheets with offset angular cutouts and a single sweeping curved edge, softly directional gray shadows, subtle fine paper texture. Bright neutral white #ffffff with pearl and gray #c0c0c0. Asymmetric full-width modern sculptural composition, no landscape or identifiable architecture, no objects or lettering. Clean detailed paper relief inspired by original white geometry, not mountains.",
+      "reference": "daylight/references/originals/",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "wisteria",
+      "name": "01-glass-ribbon",
+      "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. A pure airy abstract composition of long translucent pale-blue glass ribbons curling across a luminous white canvas, hints of lavender refraction at edges, precise gentle layering and soft gray shadows. Large sweeping asymmetric forms from lower left to upper right, no flowers or sky, no landscape. Refined high-key 3D macro artwork, white #fafafa, pale blue, tiny #3264eb and #9f85e0 accents, restrained delicate contrast. Inspired by the original abstract blue-wave images.",
+      "reference": "wisteria/references/originals/",
+      "status": "removed",
+      "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
+      "replacement": "01-indigo-bellflowers"
+    },
+    {
+      "theme": "jade",
+      "name": "01-midnight-study",
+      "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. Original hand-drawn intimate interior still life: a worn wooden desk at right with a small unmarked analog radio, porcelain tea cup and blank notebook, translucent green paper lantern hanging above; heavy curtains and dark wall extending into spacious empty left side. Cel-painted animation background with clear stylized contours and subtle grain, no view of city or nature, no lettering on objects. Deep Jade #111c18 #23372b, jade #509475, muted #c1c497 warm lantern light and tiny #2dd5b7 reflections. Quiet nighttime warmth inspired by the original shaded-entrance lighting rather than scenery.",
+      "reference": "jade/references/originals/",
+      "status": "installed"
+    },
+    {
+      "theme": "catppuccin-latte",
+      "name": "03-soft-contours",
+      "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. Pure minimalist abstract layered flowing bands, sweeping horizontal asymmetric curves with gentle thickness and tactile matte paper grain. High-key Catppuccin Latte white #eff1f5, pale peach, dusty pink #dc8a78, diluted lavender, muted mint and pale blue. No landscape, objects, architecture, hard shadows or dramatic saturated colors. Graceful original curve arrangement, spacious upper half, subtle delicate soft shading. Closely reflect the calm pastel abstraction category of original color-fade.",
+      "reference": "catppuccin-latte/references/originals/",
+      "status": "removed",
+      "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
+      "replacement": "01-ribbon-hare"
+    },
+    {
+      "theme": "everforest",
+      "name": "01-herbarium",
+      "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. A carefully arranged flat-lay herbarium of pressed fern fronds, cedar sprigs and a few dried straw-colored leaves on dark textured slate paper, botanical specimens spread sparsely across horizontal canvas with empty central breathing space. Not a forest view or scenery; individual plants as graphic objects. Detailed restrained botanical illustration with visible fine veins, sage #a7c080 teal #7fbbb3 straw #dbbc7f deep paper #2d353b. Preserve original cool muted forest atmosphere without another landscape.",
+      "reference": "everforest/references/originals/",
+      "status": "removed",
+      "note": "Theme removed from the shipped collection at the owner’s request; prompt retained for provenance."
+    },
+    {
+      "theme": "flexoki-light",
+      "name": "01-halftone-knot",
+      "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. One small asymmetric interlocking tubular paper sculpture built from two open loops, slightly right of center on huge warm white blank paper space. Render the object only using crisp black ink halftone dots with dense-to-sparse shading; tiny subdued blue #205EA6 and ochre #D0A215 ink accents optional. Background #FFFCF0, ink #100F0F. Minimal tasteful risograph/stipple graphic wallpaper. No scenery, horizon or other objects. Inspired by the original stippled-orb simplicity, use a genuinely new looped form rather than same orb.",
+      "reference": "flexoki-light/references/originals/",
+      "status": "removed",
+      "note": "Theme removed from the shipped collection at the owner’s request; prompt retained for provenance."
+    },
+    {
+      "theme": "gruvbox",
+      "name": "04-brass-and-petals",
+      "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. An original old-master-style oil painted still life on a broad dark tabletop: a weathered brass pitcher, small ochre ceramic bowl, scattered pale flowers and a folded muted teal cloth, grouped toward right third with large charcoal negative space left. Rich real painted brushwork and canvas grain, dramatic soft side lighting. Gruvbox #282828 shadows #d4be98 straw #a9b665 olive #d8a657 brass #7daea3 cloth tiny #ea6962 petals. Reflect classical flower-basket artwork category, not another rustic landscape, no reproduction of its basket arrangement.",
+      "reference": "gruvbox/references/originals/",
+      "status": "installed"
+    },
+    {
+      "theme": "kanagawa",
+      "name": "01-ink-and-scales",
+      "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. Original ornamental woodblock-style illustration of two elegantly curved koi fish moving in opposing arcs through a broad flowing indigo water pattern, seen directly from above, asymmetric placement and cream negative space, no boats or mountain scenery. Finely carved contour strokes, cream foam motifs and tactile traditional paper grain, indigo #7e9cd8 dark #1f1f28 sea #2d4f67 cream #dcd7ba one restrained red #c34043 koi accent. Preserve the reference's woodblock linework and graphic wave rhythm without recreating the Great Wave. No seal, stamp, signature or calligraphy.",
+      "reference": "kanagawa/references/originals/",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "moonveil",
+      "name": "01-celestial-thread",
+      "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. A detailed close view of a vast irregular cosmic nebula made of deep indigo gas, electric blue filaments, pale peach light and small mauve dust clouds, scattered tiny stars. Pure astronomical abstraction across ultrawide frame; no foreground land, buildings, moon disk, planet or landscape. Sophisticated painterly space illustration, deep #060B1E, periwinkle #7d82d9, ice #a3bfd1, peach #ffcead mauve #c89dc1, bright wisps only in small areas, dark calm corners. Inspired by the original cosmic reference.",
+      "reference": "moonveil/references/originals/",
+      "status": "removed",
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+    },
+    {
+      "theme": "nord",
+      "name": "01-blue-hour-reader",
+      "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. Original 2D hand-drawn animation illustration of a solitary young adult reading a blank-covered book at an empty late-night diner booth, profile on right third, large pale blue frosted window behind with no visible city, geometric table edge and small cup, quiet empty left side. Flat blue-gray cel shading, fine penciled outlines, subtle print grain, restrained Nord #2e3440 #4c566a #81a1c1 #88c0d0 #eceff4, tiny red #bf616a accent. Character-focused quiet interior recalling the original reading silhouette and night diner, not scenery, no writing, no existing painting reproduction.",
+      "reference": "nord/references/originals/",
+      "status": "installed"
+    }
+  ],
+  "status": "complete"
+}

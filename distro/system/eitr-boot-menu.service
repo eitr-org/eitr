@@ -1,0 +1,13 @@
+[Unit]
+Description=Keep the EITR boot menu in the desktop theme's colours
+ConditionPathExists=/var/lib/eitr/boot-menu-style.json
+RequiresMountsFor=/boot /home
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/true
+ExecStop=/usr/lib/eitr/eitr-system boot-menu-refresh
+
+[Install]
+WantedBy=multi-user.target

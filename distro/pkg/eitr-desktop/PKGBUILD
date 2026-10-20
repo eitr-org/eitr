@@ -1,0 +1,124 @@
+# shellcheck shell=bash disable=SC2034,SC2154 # makepkg reads the metadata and sets startdir/srcdir/pkgdir.
+# Eitr desktop package, built from the Eitr tree that contains this file.
+# A Git checkout contributes its committed HEAD only (git archive), so
+# uncommitted and ignored machine-local files never enter the package. An
+# exported tree must carry the source-version stamp that build-iso.sh writes.
+# Run makepkg from this directory; see distro/README.md.
+_repo="$(cd -- "$startdir/../../.." && pwd -P)"
+_manifest() { sed '/^[[:space:]]*#/d; /^[[:space:]]*$/d; s/[[:space:]]*$//' "$_repo/distro/$1"; }
+_is_checkout() { [[ "$(git -C "$_repo" rev-parse --show-toplevel 2>/dev/null)" == "$_repo" ]]; }
+
+pkgname=eitr-desktop
+# Computed here rather than in pkgver(), which makepkg would write back into
+# this tracked file.
+pkgver="$(bash "$_repo/distro/pkg/eitr-desktop/source-version.sh" "$_repo")"
+pkgrel=1
+# Release versions (distro/RELEASES.md) replaced date-only versions such as
+# 0.20261014..., which would otherwise sort above 0.3.0.
+epoch=1
+pkgdesc='Eitr Hyprland desktop: default user configs, helpers and data files'
+arch=(any)
+url='https://github.com/eitr-org/eitr'
+# EITR code is GPL-3.0-or-later; lockscreen layouts are GPL-3.0-only, imported
+# theme definitions MIT and artwork CC BY 4.0 (distro/ARTWORK-LICENSING.md).
+license=('GPL-3.0-or-later' 'GPL-3.0-only' 'MIT' 'CC-BY-4.0')
+makedepends=(git python python-markdown gettext)
+options=(!debug !strip)
+# Official desktop packages come from packages.txt. The kernel, firmware and
+# build tools stay system choices, so linux-lts/zen-only installs remain valid.
+# Hardware drivers (distro/hardware) and apps.txt are never hard dependencies.
+_system_choices=(base base-devel linux linux-firmware)
+mapfile -t depends < <(_manifest packages.txt | grep -vxF -f <(printf '%s\n' "${_system_choices[@]}"))
+# Theme wallpapers and previews ship separately and change far less often.
+depends+=(eitr-artwork)
+# AUR packages cannot be pacman dependencies; install.sh installs them with yay.
+mapfile -t optdepends < <(_manifest aur-packages.txt | sed 's/$/: Eitr desktop component from the AUR/')
+install=eitr-desktop.install
+
+prepare() {
+  rm -rf -- "$srcdir/eitr"
+  mkdir -- "$srcdir/eitr"
+  if _is_checkout; then
+    git -C "$_repo" archive --format=tar HEAD | tar -x -C "$srcdir/eitr"
+  else
+    # pkgver above already required the export's version stamp.
+    tar -C "$_repo" --exclude=./distro/build --exclude=./distro/out \
+      --exclude=./distro/pkg/eitr-desktop/src --exclude=./distro/pkg/eitr-desktop/pkg \
+      --exclude='./distro/pkg/eitr-desktop/*.pkg.tar*' -cf - . | tar -x -C "$srcdir/eitr"
+  fi
+}
+
+check() {
+  cd "$srcdir/eitr" || return
+  python3 tools/i18n-build.py --check
+  python3 quickshell/desktop-bar/scripts/handbook-build.py --check
+  python3 -m json.tool distro/user-defaults.json >/dev/null
+  python3 -m py_compile distro/bin/eitr-config distro/system/eitr-system.py distro/system/factory-reset.py
+  find . -name __pycache__ -type d -prune -exec rm -r -- {} +
+}
+
+package() {
+  cd "$srcdir/eitr" || return
+  python3 distro/bin/eitr-config --repo . stage "$pkgdir/usr/share/eitr"
+  # eitr-artwork owns these.
+  rm -rf -- "$pkgdir"/usr/share/eitr/themes/*/backgrounds "$pkgdir"/usr/share/eitr/themes/*/backgrounds-ultrawide \
+    "$pkgdir"/usr/share/eitr/themes/*/motion \
+    "$pkgdir"/usr/share/eitr/themes/*/preview.png
+  # Lets each session regenerate theme output once after an upgrade.
+  printf '%s\n' "$pkgver" > "$pkgdir/usr/share/eitr/version"
+  install -Dm644 distro/release.json "$pkgdir/usr/share/eitr/release.json"
+  install -Dm644 quickshell/lockscreen/scripts/install-login.py \
+    "$pkgdir/usr/share/eitr/quickshell/lockscreen/scripts/install-login.py"
+  python3 quickshell/lockscreen/scripts/install-login.py --stage "$pkgdir"
+  install -Dm644 -t "$pkgdir/usr/share/eitr" \
+    distro/software.json distro/installers.json distro/RECOVERY.md distro/SECURE-BOOT.md distro/FACTORY-RESET.md \
+    distro/system-update-policy.conf
+  install -dm755 "$pkgdir/usr/lib/eitr"
+  ln -s /usr/share/eitr/lib/eitr_bootstrap.py "$pkgdir/usr/lib/eitr/eitr_bootstrap.py"
+  install -Dm755 distro/system/eitr-system.py "$pkgdir/usr/lib/eitr/eitr-system"
+  # sudo's first-use lecture would greet every new user in the System Update terminal.
+  install -dm750 "$pkgdir/etc/sudoers.d"
+  install -m440 distro/system/sudoers-eitr "$pkgdir/etc/sudoers.d/eitr"
+  install -Dm755 distro/system/network-backend.py "$pkgdir/usr/lib/eitr/eitr-network"
+  install -Dm755 distro/system/factory-reset.py "$pkgdir/usr/lib/eitr/eitr-factory-reset"
+  install -Dm755 distro/system/eitr-timezone.py "$pkgdir/usr/lib/eitr/eitr-timezone"
+  # Enabled only inside a system restored by factory reset, which then disables it.
+  install -Dm644 -t "$pkgdir/usr/lib/systemd/system" distro/system/eitr-factory-reset-finish.service
+  # Enabled only by an offline installation that could not detect the timezone.
+  install -Dm644 -t "$pkgdir/usr/lib/systemd/system" distro/system/eitr-timezone.service
+  # Enabled by the installer: refreshes the boot menu colours at shutdown.
+  install -Dm644 -t "$pkgdir/usr/lib/systemd/system" distro/system/eitr-boot-menu.service
+  install -Dm644 -t "$pkgdir/usr/lib/systemd/system" distro/system/eitr-firewall.service
+  install -Dm755 distro/system/boot-guard.py "$pkgdir/usr/lib/eitr/eitr-boot-guard"
+  install -Dm755 distro/system/home-snapshots.py "$pkgdir/usr/lib/eitr/eitr-home-snapshots"
+  install -Dm644 -t "$pkgdir/usr/lib/systemd/system" distro/system/eitr-home-exclusions.service
+  install -Dm644 -t "$pkgdir/usr/lib/systemd/system" \
+    distro/system/eitr-boot-guard.service distro/system/eitr-boot-guard-healthy.service
+  install -Dm644 distro/system/firewall.nft "$pkgdir/usr/share/eitr/firewall.nft"
+  install -Dm644 distro/system/networkd-wait-online-any.conf \
+    "$pkgdir/usr/lib/systemd/system/systemd-networkd-wait-online.service.d/eitr.conf"
+  install -Dm644 -t "$pkgdir/usr/share/applications" distro/applications/eitr-calculator.desktop
+  install -Dm755 distro/bin/eitr "$pkgdir/usr/bin/eitr"
+  install -Dm755 distro/bin/eitr-config "$pkgdir/usr/bin/eitr-config"
+  install -Dm755 distro/bin/eitr-launch "$pkgdir/usr/bin/eitr-launch"
+  install -Dm644 distro/assistant-path.sh "$pkgdir/etc/profile.d/eitr-assistants.sh"
+  install -Dm755 distro/bin/eitr-session "$pkgdir/usr/bin/eitr-session"
+  install -Dm755 distro/bin/eitr-git "$pkgdir/usr/bin/eitr-git"
+  for launcher in eitr-shell eitr-run eitr-paths eitr-walker eitr-hypridle eitr-hyprpaper eitr-hyprlock; do
+    ln -s eitr-launch "$pkgdir/usr/bin/$launcher"
+  done
+  # The walker package owns /etc/xdg/walker; the EITR wrapper puts this first.
+  install -Dm644 walker/config.toml "$pkgdir/usr/share/eitr/xdg/walker/config.toml"
+  install -Dm644 elephant/menus.toml "$pkgdir/etc/xdg/elephant/menus.toml"
+  install -Dm644 xdg-desktop-portal/hyprland-portals.conf \
+    "$pkgdir/etc/xdg/xdg-desktop-portal/hyprland-portals.conf"
+  install -Dm644 -t "$pkgdir/usr/lib/systemd/user" systemd/user/*.service systemd/user/*.timer
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 distro/ARTWORK-LICENSING.md "$pkgdir/usr/share/licenses/$pkgname/ARTWORK-LICENSING.md"
+  # Inactive until selected: the ISO installer enables it for new systems only.
+  install -Dm644 -t "$pkgdir/usr/share/plymouth/themes/eitr" \
+    distro/plymouth/eitr/eitr.plymouth distro/plymouth/eitr/eitr.script distro/plymouth/eitr/*.png
+  # A changed splash shows at boot only after the initramfs is rebuilt.
+  install -Dm755 distro/system/eitr-plymouth-refresh.sh "$pkgdir/usr/lib/eitr/eitr-plymouth-refresh"
+  install -Dm644 distro/system/91-eitr-plymouth.hook "$pkgdir/usr/share/libalpm/hooks/91-eitr-plymouth.hook"
+}

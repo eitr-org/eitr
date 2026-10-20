@@ -1,0 +1,168 @@
+[
+  {
+    "id": "getting-started",
+    "title": "Getting Started",
+    "icon": "󰋜",
+    "summary": "First login, desktop essentials, where to find help",
+    "source": "quickshell/desktop-bar/handbook/content/getting-started.md",
+    "figures": [
+      {
+        "src": "assets/reader.png",
+        "caption": "The native EITR Handbook overlay, shown with an example dark palette."
+      }
+    ]
+  },
+  {
+    "id": "git-accounts",
+    "title": "Git Accounts",
+    "icon": "󰊢",
+    "summary": "GitHub/GitLab default identity, folder overrides, SSH keys and separate CLI logins",
+    "source": "quickshell/desktop-bar/handbook/content/git-accounts.md"
+  },
+  {
+    "id": "shortcuts",
+    "title": "Shortcuts",
+    "icon": "󰌌",
+    "summary": "Keyboard and mouse: windows, workspaces, launchers, capture and bar gestures",
+    "generated": "shortcuts"
+  },
+  {
+    "id": "desktop-bar",
+    "title": "Desktop Bar",
+    "icon": "󰍜",
+    "summary": "Icons, positioning, centered layout, pin and mouse gestures",
+    "source": "quickshell/desktop-bar/handbook/content/desktop-bar.md",
+    "figures": [
+      {
+        "src": "assets/controls.png",
+        "caption": "Numbers, Glyph and Dots workspace markers, plus media controls. Read-only example data rendered with the actual EITR components."
+      }
+    ]
+  },
+  {
+    "id": "control-center",
+    "title": "Control Center",
+    "icon": "󰒓",
+    "summary": "General, Style, Settings, Capture and OCR",
+    "source": "quickshell/desktop-bar/handbook/content/control-center.md"
+  },
+  {
+    "id": "appearance",
+    "title": "Themes & Style",
+    "icon": "󰸌",
+    "summary": "Theme carousel, wallpapers, fonts, cursors, corners and lockscreen",
+    "source": "quickshell/desktop-bar/handbook/content/appearance.md"
+  },
+  {
+    "id": "apps",
+    "title": "Apps & Installation",
+    "icon": "󰏖",
+    "summary": "Walker, global search, uninstall, pacman, AUR and optional tools",
+    "source": "quickshell/desktop-bar/handbook/content/apps.md"
+  },
+  {
+    "id": "system",
+    "title": "System Menu",
+    "icon": "",
+    "summary": "Connectivity, Devices & Input, Information, Maintenance, Security and Dotfiles",
+    "source": "quickshell/desktop-bar/handbook/content/system.md"
+  },
+  {
+    "id": "connectivity",
+    "title": "WiFi & Bluetooth",
+    "icon": "󰖩",
+    "summary": "Connecting, known networks, enterprise credentials, pairing and airplane mode",
+    "source": "quickshell/desktop-bar/handbook/content/connectivity.md"
+  },
+  {
+    "id": "network-backends",
+    "title": "Network Backends",
+    "icon": "󰖩",
+    "summary": "iwd, NetworkManager, reboot-only switching and enterprise configuration",
+    "source": "distro/NETWORKING.md"
+  },
+  {
+    "id": "devices",
+    "title": "Devices & Input",
+    "icon": "󰍹",
+    "summary": "Audio, microphone, brightness, displays, keyboard, battery and power profiles",
+    "source": "quickshell/desktop-bar/handbook/content/devices.md"
+  },
+  {
+    "id": "information",
+    "title": "Information & Media",
+    "icon": "",
+    "summary": "About, hardware, AI usage, weather, calendar, media and notifications",
+    "source": "quickshell/desktop-bar/handbook/content/information.md"
+  },
+  {
+    "id": "security",
+    "title": "Security & Locking",
+    "icon": "󰒃",
+    "summary": "Password, fingerprint, FIDO2, idle lock, TPM and encryption",
+    "source": "quickshell/desktop-bar/handbook/content/security.md"
+  },
+  {
+    "id": "maintenance",
+    "title": "Updates & Cleanup",
+    "icon": "󰃢",
+    "summary": "System Update versus advanced pacman/yay updates, cleanup and snapshots",
+    "source": "quickshell/desktop-bar/handbook/content/maintenance.md"
+  },
+  {
+    "id": "recovery",
+    "title": "Recovery & Snapshots",
+    "icon": "󰋊",
+    "summary": "Btrfs, Snapper, boot backups, authentication recovery and TPM",
+    "source": "distro/RECOVERY.md"
+  },
+  {
+    "id": "factory-reset",
+    "title": "Factory Reset",
+    "icon": "󰑓",
+    "summary": "First-login baseline, Keep My Files, Erase Everything and warnings",
+    "source": "distro/FACTORY-RESET.md"
+  },
+  {
+    "id": "secure-boot",
+    "title": "Secure Boot",
+    "icon": "󰧑",
+    "summary": "Manual sbctl workflow, firmware keys, bootloader risks and undo",
+    "source": "distro/SECURE-BOOT.md"
+  },
+  {
+    "id": "capture",
+    "title": "Capture & Sharing",
+    "icon": "",
+    "summary": "Screenshots, OCR, QR codes, color picker, OBS recording and LocalSend",
+    "source": "quickshell/desktop-bar/handbook/content/capture.md"
+  },
+  {
+    "id": "development",
+    "title": "Development Tools",
+    "icon": "󰅩",
+    "summary": "Projects, AI CLIs, Cloud, Grafana, optional languages and databases",
+    "source": "quickshell/desktop-bar/handbook/content/development.md"
+  },
+  {
+    "id": "terminal",
+    "title": "Terminal & Editors",
+    "icon": "",
+    "summary": "Kitty, tmux, cmux TUI, LazyVim, VS Code, task banners and shell history",
+    "source": "quickshell/desktop-bar/handbook/content/terminal.md"
+  },
+  {
+    "id": "troubleshooting",
+    "title": "Troubleshooting",
+    "icon": "󰋗",
+    "summary": "Missing helpers, service restarts, dependencies, installation checks and backups",
+    "source": "quickshell/desktop-bar/handbook/content/troubleshooting.md"
+  },
+  {
+    "id": "language",
+    "title": "Language",
+    "icon": "󰗊",
+    "summary": "System locale, English fallback and contributing translations",
+    "source": "quickshell/desktop-bar/handbook/content/language.md"
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "name": "eitr-website",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npm run sync-assets && astro dev --host 127.0.0.1",
+    "build": "npm run sync-assets && astro build",
+    "preview": "astro preview --host 127.0.0.1",
+    "sync-assets": "node scripts/sync-branding.mjs && node scripts/sync-art.mjs",
+    "stop": "astro dev stop",
+    "test:browser": "node tests/chase.browser.mjs",
+    "test:a11y": "node tests/accessibility.browser.mjs",
+    "test:ragnarok": "node tests/ragnarok.browser.mjs",
+    "test": "npm run test:browser && npm run test:a11y && npm run test:ragnarok && npm run test:mjolnir && npm run test:root && npm run test:viewer && npm run test:tour && npm run test:sky",
+    "test:mjolnir": "node tests/wield.browser.mjs",
+    "test:root": "node tests/world-root.browser.mjs",
+    "test:viewer": "node tests/theme-viewer.browser.mjs",
+    "test:tour": "node tests/tour.browser.mjs",
+    "test:sky": "node tests/sky-switch.browser.mjs"
+  },
+  "dependencies": {
+    "@fontsource/cinzel": "5.3.0",
+    "@fontsource/cormorant-garamond": "5.3.0",
+    "@fontsource/noto-sans-runic": "5.3.0",
+    "astro": "7.3.8",
+    "sharp": "0.35.5"
+  },
+  "devDependencies": {
+    "axe-core": "4.13.0",
+    "playwright-core": "^1.64.1"
+  }
+}

@@ -1,0 +1,85 @@
+[
+  {
+    "text": "Bootable Snapshot Status",
+    "subtext": "GRUB or Limine snapshot boot entries",
+    "keywords": [
+      "boot",
+      "grub",
+      "limine",
+      "rollback"
+    ],
+    "icon": "󰑓",
+    "actions": {
+      "open": "kitty --hold -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py sh -c 'for helper in /usr/lib/eitr/eitr-system /usr/local/lib/eitr/eitr-system; do if [ -x \"$helper\" ]; then exec sudo \"$helper\" snapshots-boot-status; fi; done; echo \"The root-owned Eitr helper is not installed. Install the eitr-desktop package (see distro/README.md).\"'"
+    }
+  },
+  {
+    "text": "Configure Snapshot Protection",
+    "subtext": "Requires Btrfs root; never formats or repartitions",
+    "icon": "󰒃",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py sh -c 'for helper in /usr/lib/eitr/eitr-system /usr/local/lib/eitr/eitr-system; do if [ -x \"$helper\" ]; then exec sudo \"$helper\" snapshots-setup; fi; done; echo \"The root-owned Eitr helper is not installed. Install the eitr-desktop package (see distro/README.md).\"; exit 1'"
+    }
+  },
+  {
+    "text": "Home Folder Snapshots",
+    "subtext": "Hourly and daily snapshots of your files; off by default",
+    "keywords": [
+      "home",
+      "files",
+      "backup",
+      "restore",
+      "time machine",
+      "versions"
+    ],
+    "icon": "󰋜",
+    "actions": {
+      "open": "kitty --hold -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/home-snapshots.py"
+    }
+  },
+  {
+    "text": "List Recovery Snapshots",
+    "subtext": "The system snapshots you can roll back to",
+    "icon": "󰋊",
+    "actions": {
+      "open": "kitty --hold -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py sudo snapper -c root list"
+    }
+  },
+  {
+    "text": "Recovery Instructions",
+    "subtext": "How to restore the system from a snapshot",
+    "icon": "󰧑",
+    "actions": {
+      "open": "kitty --hold -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py sh -c 'for f in \"${XDG_DATA_HOME:-$HOME/.local/share}/eitr/RECOVERY.md\" /usr/share/eitr/RECOVERY.md; do if [ -r \"$f\" ]; then exec less \"$f\"; fi; done; echo \"Recovery instructions are not installed. Read distro/RECOVERY.md in the Eitr repository, or install the eitr-desktop package (see distro/README.md).\"'"
+    }
+  },
+  {
+    "text": "Restore a File or Folder",
+    "subtext": "An earlier version from the home snapshots",
+    "keywords": [
+      "restore",
+      "undelete",
+      "recover",
+      "previous version",
+      "files"
+    ],
+    "icon": "󰁯",
+    "actions": {
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/system/restore-file.py"
+    }
+  },
+  {
+    "text": "What Each Update Changed",
+    "subtext": "Packages upgraded, installed or removed per update",
+    "keywords": [
+      "packages",
+      "diff",
+      "rollback",
+      "changes"
+    ],
+    "icon": "󰦒",
+    "actions": {
+      "open": "kitty --hold -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py sh -c 'for helper in /usr/lib/eitr/eitr-system /usr/local/lib/eitr/eitr-system; do if [ -x \"$helper\" ]; then sudo \"$helper\" snapshot-changes; printf \"\\nFor one update in full: eitr snapshots changes <before number>\\n\"; exit; fi; done; echo \"The root-owned Eitr helper is not installed. Install the eitr-desktop package (see distro/README.md).\"'"
+    }
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "text": "Dark",
+    "subtext": ">",
+    "icon": "󰖔",
+    "submenu": "theme-dark"
+  },
+  {
+    "text": "Light",
+    "subtext": ">",
+    "icon": "󰖙",
+    "submenu": "theme-light"
+  }
+]

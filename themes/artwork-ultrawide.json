@@ -1,0 +1,461 @@
+{
+  "resolution": [
+    3440,
+    1440
+  ],
+  "processing": "Crop to fill 21:9, then Lanczos resample; JPEG quality 90. Git sources are the 21:9 originals the 4K files were cropped from.",
+  "images": [
+    {
+      "file": "themes/afterglow/backgrounds-ultrawide/01-emberward-gaze.jpg",
+      "wallpaper": "themes/afterglow/backgrounds/01-emberward-gaze.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-04/afterglow-01-emberward-gaze.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "file": "themes/afterglow/backgrounds-ultrawide/02-ember-vigil.jpg",
+      "wallpaper": "themes/afterglow/backgrounds/02-ember-vigil.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-04/afterglow-02-ember-vigil-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "file": "themes/afterglow/backgrounds-ultrawide/03-bronze-and-embers.jpg",
+      "wallpaper": "themes/afterglow/backgrounds/03-bronze-and-embers.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-04/afterglow-03-bronze-and-embers-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "file": "themes/catppuccin-latte/backgrounds-ultrawide/01-ribbon-hare.jpg",
+      "wallpaper": "themes/catppuccin-latte/backgrounds/01-ribbon-hare.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-04/catppuccin-latte-01-ribbon-hare-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "file": "themes/catppuccin-latte/backgrounds-ultrawide/02-cloud-orchard.jpg",
+      "wallpaper": "themes/catppuccin-latte/backgrounds/02-cloud-orchard.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/catppuccin-latte/backgrounds-ultrawide/03-porcelain-coast.jpg",
+      "wallpaper": "themes/catppuccin-latte/backgrounds/03-porcelain-coast.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/catppuccin-latte/backgrounds-ultrawide/04-wandering-greenhouse.jpg",
+      "wallpaper": "themes/catppuccin-latte/backgrounds/04-wandering-greenhouse.jpg",
+      "source": {
+        "file": "themes/catppuccin-latte/references/wandering-greenhouse-ultrawide-source.png"
+      },
+      "note": "Generated panoramic expansion of the 4K version; exact prompt in themes/catppuccin-latte/references/wandering-greenhouse-ultrawide.json"
+    },
+    {
+      "file": "themes/catppuccin/backgrounds-ultrawide/01-spirit-station.jpg",
+      "wallpaper": "themes/catppuccin/backgrounds/01-spirit-station.jpg",
+      "source": {
+        "file": "themes/catppuccin/references/spirit-station-ultrawide-source.png"
+      },
+      "note": "Generated panoramic expansion of the 4K version; exact prompt in themes/catppuccin/references/spirit-station-ultrawide.json"
+    },
+    {
+      "file": "themes/catppuccin/backgrounds-ultrawide/02-lunar-conservatory.jpg",
+      "wallpaper": "themes/catppuccin/backgrounds/02-lunar-conservatory.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/daylight/backgrounds-ultrawide/01-salt-horizon.jpg",
+      "wallpaper": "themes/daylight/backgrounds/01-salt-horizon.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/daylight/backgrounds-ultrawide/02-paper-orbit.jpg",
+      "wallpaper": "themes/daylight/backgrounds/02-paper-orbit.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/daylight/backgrounds-ultrawide/03-quiet-pleats.jpg",
+      "wallpaper": "themes/daylight/backgrounds/03-quiet-pleats.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/graphite/backgrounds-ultrawide/01-fragments-of-touch.jpg",
+      "wallpaper": "themes/graphite/backgrounds/01-fragments-of-touch.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-04/graphite-01-fragments-of-touch.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "file": "themes/graphite/backgrounds-ultrawide/02-ember-harbor.jpg",
+      "wallpaper": "themes/graphite/backgrounds/02-ember-harbor.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/graphite/backgrounds-ultrawide/03-thread-and-shadow.jpg",
+      "wallpaper": "themes/graphite/backgrounds/03-thread-and-shadow.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/gruvbox/backgrounds-ultrawide/01-violin-and-pear.jpg",
+      "wallpaper": "themes/gruvbox/backgrounds/01-violin-and-pear.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/gruvbox/backgrounds-ultrawide/02-river-workshop.jpg",
+      "wallpaper": "themes/gruvbox/backgrounds/02-river-workshop.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/gruvbox/backgrounds-ultrawide/03-copper-hills.jpg",
+      "wallpaper": "themes/gruvbox/backgrounds/03-copper-hills.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/gruvbox/backgrounds-ultrawide/04-brass-and-petals.jpg",
+      "wallpaper": "themes/gruvbox/backgrounds/04-brass-and-petals.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/gruvbox/backgrounds-ultrawide/05-candle-and-ceramic.jpg",
+      "wallpaper": "themes/gruvbox/backgrounds/05-candle-and-ceramic.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/jade/backgrounds-ultrawide/01-midnight-study.jpg",
+      "wallpaper": "themes/jade/backgrounds/01-midnight-study.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/jade/backgrounds-ultrawide/02-rain-garden.jpg",
+      "wallpaper": "themes/jade/backgrounds/02-rain-garden.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/jade/backgrounds-ultrawide/03-tea-and-static.jpg",
+      "wallpaper": "themes/jade/backgrounds/03-tea-and-static.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/jade/backgrounds-ultrawide/04-night-shift.jpg",
+      "wallpaper": "themes/jade/backgrounds/04-night-shift.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/kanagawa/backgrounds-ultrawide/01-reed-estuary.jpg",
+      "wallpaper": "themes/kanagawa/backgrounds/01-reed-estuary.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/kanagawa/backgrounds-ultrawide/02-rain-pass.jpg",
+      "wallpaper": "themes/kanagawa/backgrounds/02-rain-pass.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/kanagawa/backgrounds-ultrawide/03-crane-and-ribbon.jpg",
+      "wallpaper": "themes/kanagawa/backgrounds/03-crane-and-ribbon.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/kanagawa/backgrounds-ultrawide/04-indigo-fan.jpg",
+      "wallpaper": "themes/kanagawa/backgrounds/04-indigo-fan.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/moss/backgrounds-ultrawide/01-smokehole-seeress.jpg",
+      "wallpaper": "themes/moss/backgrounds/01-smokehole-seeress.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-04/moss-01-smokehole-seeress-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "file": "themes/moss/backgrounds-ultrawide/02-silent-oath.jpg",
+      "wallpaper": "themes/moss/backgrounds/02-silent-oath.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-04/moss-02-silent-oath-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "file": "themes/moss/backgrounds-ultrawide/03-candlelit-relics.jpg",
+      "wallpaper": "themes/moss/backgrounds/03-candlelit-relics.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-04/moss-03-candlelit-relics-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "file": "themes/nord/backgrounds-ultrawide/01-blue-hour-reader.jpg",
+      "wallpaper": "themes/nord/backgrounds/01-blue-hour-reader.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/nord/backgrounds-ultrawide/02-glacier-inlet.jpg",
+      "wallpaper": "themes/nord/backgrounds/02-glacier-inlet.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/nord/backgrounds-ultrawide/03-last-track.jpg",
+      "wallpaper": "themes/nord/backgrounds/03-last-track.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/nord/backgrounds-ultrawide/04-window-seat.jpg",
+      "wallpaper": "themes/nord/backgrounds/04-window-seat.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/norse/backgrounds-ultrawide/01-eitr-runestone.jpg",
+      "wallpaper": "themes/norse/backgrounds/01-eitr-runestone.png",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/norse/backgrounds-ultrawide/02-odin-allfather.jpg",
+      "wallpaper": "themes/norse/backgrounds/02-odin-allfather.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/norse/backgrounds-ultrawide/03-mimir-well-of-wisdom.jpg",
+      "wallpaper": "themes/norse/backgrounds/03-mimir-well-of-wisdom.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/norse/backgrounds-ultrawide/04-huginn-muninn.jpg",
+      "wallpaper": "themes/norse/backgrounds/04-huginn-muninn.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/norse/backgrounds-ultrawide/05-valkyrie.jpg",
+      "wallpaper": "themes/norse/backgrounds/05-valkyrie.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/norse/backgrounds-ultrawide/06-odin.jpg",
+      "wallpaper": "themes/norse/backgrounds/06-odin.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/norse/backgrounds-ultrawide/07-fenrir.jpg",
+      "wallpaper": "themes/norse/backgrounds/07-fenrir.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/norse/backgrounds-ultrawide/08-jormungandr.jpg",
+      "wallpaper": "themes/norse/backgrounds/08-jormungandr.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/one-dark-pro/backgrounds-ultrawide/01-neon-summit.jpg",
+      "wallpaper": "themes/one-dark-pro/backgrounds/01-neon-summit.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/one-dark-pro/backgrounds-ultrawide/02-moonlit-keep.jpg",
+      "wallpaper": "themes/one-dark-pro/backgrounds/02-moonlit-keep.jpg",
+      "source": {
+        "file": "themes/one-dark-pro/backgrounds/02-moonlit-keep.jpg"
+      }
+    },
+    {
+      "file": "themes/rose-pine/backgrounds-ultrawide/01-heron-and-thread.jpg",
+      "wallpaper": "themes/rose-pine/backgrounds/01-heron-and-thread.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-04/rose-pine-01-heron-and-thread-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "file": "themes/rose-pine/backgrounds-ultrawide/02-petal-terraces.jpg",
+      "wallpaper": "themes/rose-pine/backgrounds/02-petal-terraces.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/rose-pine/backgrounds-ultrawide/03-rose-courtyard.jpg",
+      "wallpaper": "themes/rose-pine/backgrounds/03-rose-courtyard.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/stillwater/backgrounds-ultrawide/01-ashen-stag.jpg",
+      "wallpaper": "themes/stillwater/backgrounds/01-ashen-stag.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-04/stillwater-01-ashen-stag-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "file": "themes/stillwater/backgrounds-ultrawide/02-the-iron-key.jpg",
+      "wallpaper": "themes/stillwater/backgrounds/02-the-iron-key.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-04/stillwater-02-the-iron-key-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "file": "themes/stillwater/backgrounds-ultrawide/03-summit-shelter.jpg",
+      "wallpaper": "themes/stillwater/backgrounds/03-summit-shelter.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/stillwater/backgrounds-ultrawide/04-silent-wings.jpg",
+      "wallpaper": "themes/stillwater/backgrounds/04-silent-wings.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-04/stillwater-04-silent-wings-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "file": "themes/wisteria/backgrounds-ultrawide/01-indigo-bellflowers.jpg",
+      "wallpaper": "themes/wisteria/backgrounds/01-indigo-bellflowers.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-04/wisteria-01-indigo-bellflowers-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "file": "themes/wisteria/backgrounds-ultrawide/02-cloud-bloom.jpg",
+      "wallpaper": "themes/wisteria/backgrounds/02-cloud-bloom.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    },
+    {
+      "file": "themes/wisteria/backgrounds-ultrawide/03-violet-pavilion.jpg",
+      "wallpaper": "themes/wisteria/backgrounds/03-violet-pavilion.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
+    }
+  ]
+}

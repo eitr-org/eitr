@@ -1,0 +1,8 @@
+{
+  "default": "rounded",
+  "styles": {
+    "square": {"label": "Square", "scale": 0, "windowRounding": 0},
+    "rounded": {"label": "Rounded", "scale": 1, "windowRounding": 4},
+    "extra-rounded": {"label": "Extra Rounded", "scale": 3, "windowRounding": 18}
+  }
+}

@@ -1,0 +1,7 @@
+# Additional AUR applications currently used; review before a wider release.
+catppuccin-plasma-colorscheme-frappe
+catppuccin-plasma-colorscheme-latte
+catppuccin-plasma-colorscheme-macchiato
+catppuccin-plasma-colorscheme-mocha
+localsend-bin
+watchman-bin

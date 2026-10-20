@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Open OBS",
+    "subtext": "Open OBS Studio for advanced recording",
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/capture/screenrecord.sh open"
+    }
+  },
+  {
+    "text": "Record",
+    "subtext": "Record the screen without sound",
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/capture/screenrecord.sh record"
+    }
+  },
+  {
+    "text": "Record + Audio",
+    "subtext": "Record the screen with desktop sound and the microphone",
+    "icon": "󰕾",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/capture/screenrecord.sh audio"
+    }
+  },
+  {
+    "text": "Record + Audio + Webcam",
+    "subtext": "Screen, sound and your OBS webcam source",
+    "icon": "󰖠",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/capture/screenrecord.sh audio-webcam"
+    }
+  },
+  {
+    "text": "Record + Webcam",
+    "subtext": "Screen with your OBS webcam source, no sound",
+    "icon": "󰖠",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/capture/screenrecord.sh webcam"
+    }
+  },
+  {
+    "text": "Stop Recording",
+    "subtext": "Stop and save the recording",
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/capture/screenrecord.sh stop"
+    }
+  }
+]

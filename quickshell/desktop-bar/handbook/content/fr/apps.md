@@ -1,0 +1,36 @@
+# Applications et installation
+
+**SUPER + Space** et Principal > Applications ouvrent la même liste. Enter lance une application. Delete permet de la désinstaller dans Applications après confirmation. La recherche globale par **SUPER + F** lance les applications sans proposer leur désinstallation. Il n’existe pas de menu distinct fondé sur des applications épinglées.
+
+Saisir dans le menu principal recherche les applications installées et les actions de tous les sous-menus. Dans un sous-menu comme Système ou Installer, la recherche couvre celui-ci et ses descendants. Les lignes de sous-menu se terminent par **>** ; **Shift + Backspace** revient au parent.
+
+## Installer
+
+Les applications présentes affichent **Installé** sous leur nom ; les choisir l’indique au lieu de réinstaller. Cela reconnaît aussi les outils installés par leur gestionnaire, comme Java avec SDKMAN ou Node.js avec NVM. Un paquet nécessitant un environnement d’exécution, tel Java pour DBeaver, n’en ajoute un petit que si aucun paquet ne le fournit déjà.
+
+- **CLI d’IA:** clients IA facultatifs en ligne de commande.
+- **Navigateurs:** choix de navigateurs compatibles.
+- **Bases de données:** outils facultatifs comme DBeaver, clients de bases et Valkey, le serveur compatible Redis distribué par Arch à la place de Redis.
+- **Langages de développement:** outils facultatifs ; Java/Flutter ne sont pas des dépendances obligatoires du bureau.
+- **Outils JavaScript:** environnements d’exécution et outils JavaScript facultatifs.
+- **Paquets > Pacman** et **Paquets > Yay (AUR):** recherche de paquets officiels Arch ou communautaires AUR, avec origine et état d’installation. La recherche est en haut, les paquets dessous et les détails de la sélection en bas. **Ctrl+B** alterne avec les instructions de compilation (PKGBUILD), **Ctrl+O** ouvre la page web, **Tab** sélectionne plusieurs paquets et **Enter** les installe. Les paquets AUR sont compilés ici à partir de ces instructions : lisez-les d’abord. Ce ne sont pas des paquets officiels Arch.
+
+Les terminaux d’installation, mise à jour et configuration affichent le bandeau EITR aux couleurs du thème. Les tâches réussies se ferment normalement ; les échecs restent visibles. Les rapports comme Nettoyage restent ouverts pour lecture. Les terminaux ordinaires et À propos n’affichent pas ce bandeau.
+
+## Outils
+
+**Calculatrice** dans Applications, ou la touche calculatrice, ouvre celle d’Eitr aux couleurs du thème. Saisissez ou cliquez : `+ − × ÷`, `^` pour les puissances, `%` pour les pourcentages (`200×15%`), `√` et parenthèses. Un nombre avant une parenthèse multiplie (`2(3+4)`). Enter affiche le résultat, Backspace supprime un caractère, Escape efface (deux fois ferme), Ctrl+C ou **Copier** copie le résultat. L’expression est calculée sans être exécutée comme du code.
+
+**Dictée hors ligne** transforme la parole en texte sans l’envoyer hors de l’ordinateur. Maintenez **SUPER + D**, parlez et relâchez : les mots sont saisis au curseur dans la langue parlée. Pendant l’écoute, le point rouge près de la météo devient une petite onde suivant votre voix, pour confirmer sa réception ; après relâchement, elle pulse jusqu’à la saisie du texte. Le premier usage télécharge une fois le modèle vocal (148 Mo, vérifié avec sa somme de contrôle publiée) dans `~/.local/share/eitr/whisper/` ; ensuite, tout fonctionne hors ligne. La transcription prend un moment après relâchement, davantage sur les anciens processeurs.
+
+**Principal > Outils > Rappels > Nouveau rappel** demande quand (durée comme `10m` ou `1h30m`, heure comme `18:30`) et quoi, puis affiche à cet instant une notification restant jusqu’à fermeture. **Rappels à venir** liste ceux en attente ; choisissez-en un pour l’annuler. Ils survivent au redémarrage ; ceux échus pendant l’arrêt apparaissent à la prochaine connexion. Dans un terminal : `eitr remind 25m Take the tea out` ; `eitr remind` seul les liste.
+
+## Jeux
+
+Principal > Jeux liste **GeForce NOW**, **RetroArch** et **Steam**. Choisir l’un l’ouvre s’il est installé, sinon l’installe. RetroArch provient des paquets officiels Arch avec des cœurs pour NES, SNES, Game Boy et Game Boy Advance, Mega Drive/Genesis, PlayStation, Nintendo 64, Nintendo DS, PSP et Dreamcast. Ajoutez vos jeux et les fichiers BIOS nécessaires aux consoles ; Eitr ne fournit ni les uns ni les autres. GeForce NOW s’installe par Flatpak.
+
+**Basculer > Mode jeu** limite les interventions du bureau : animations, flou et ombres désactivés, notifications contextuelles différées (Ne pas déranger), profil de performances activé si disponible. Le désactiver restaure exactement ses changements. Steam inclut **GameMode** et **MangoHud** : ajoutez `gamemoderun mangohud %command%` aux options de lancement du jeu dans Steam pour optimiser le processeur et afficher les FPS.
+
+Le paquet LocalSend inclut ses besoins d’exécution : le Flutter SDK n’est pas nécessaire pour l’utiliser. Les outils de développement restent facultatifs.
+
+Pour mettre à jour, consultez [Mises à jour et nettoyage](handbook:maintenance) ; installer un seul paquet n’équivaut pas à la Mise à jour du système protégée par instantanés.

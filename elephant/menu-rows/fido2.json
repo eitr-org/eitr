@@ -1,0 +1,18 @@
+[
+  {
+    "text": "Enable FIDO2 Authentication",
+    "subtext": "After enrollment · password fallback retained",
+    "icon": "󰌆",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/security.py enable-fido2"
+    }
+  },
+  {
+    "text": "Enroll Security Key",
+    "subtext": "Requires a compatible FIDO2 key",
+    "icon": "󰌆",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/security.py fido2"
+    }
+  }
+]

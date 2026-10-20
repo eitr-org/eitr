@@ -1,0 +1,37 @@
+[
+  {
+    "text": "New",
+    "subtext": "Start a Codex session in a project",
+    "keywords": [
+      "codex"
+    ],
+    "icon": "󰆍",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh codex-new"
+    }
+  },
+  {
+    "text": "Resume by Name or ID",
+    "subtext": "Continue a session by its name or ID",
+    "keywords": [
+      "codex",
+      "resume"
+    ],
+    "icon": "󰆍",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh codex-resume-name"
+    }
+  },
+  {
+    "text": "Resume Picker",
+    "subtext": "Choose an earlier session to continue",
+    "keywords": [
+      "codex",
+      "resume"
+    ],
+    "icon": "󰆍",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh codex-resume-picker"
+    }
+  }
+]

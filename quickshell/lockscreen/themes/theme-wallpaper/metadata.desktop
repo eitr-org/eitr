@@ -1,0 +1,7 @@
+[SddmGreeterTheme]
+Name=Theme Wallpaper
+Description=Current desktop wallpaper with a minimal clock and password layout
+Type=sddm-theme
+MainScript=Main.qml
+ConfigFile=theme.conf
+QtVersion=6

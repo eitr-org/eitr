@@ -1,0 +1,18 @@
+[
+  {
+    "text": "Enable Fingerprint Authentication",
+    "subtext": "After enrollment · login / lockscreen / sudo · password fallback retained",
+    "icon": "󰈷",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/security.py enable-fingerprint"
+    }
+  },
+  {
+    "text": "Enroll Fingerprint",
+    "subtext": "Requires a supported fingerprint reader",
+    "icon": "󰈷",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/security.py fingerprint"
+    }
+  }
+]

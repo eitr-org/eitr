@@ -1,0 +1,22 @@
+# shellcheck shell=bash disable=SC2034,SC2154 # makepkg reads the metadata and sets startdir/srcdir/pkgdir.
+# The EITR package-signing key for pacman, like archlinux-keyring. Built only
+# once distro/keys/eitr.asc and eitr.fingerprint exist; see distro/REPOSITORY.md.
+_keys="$(cd -- "$startdir/../../keys" && pwd -P)"
+pkgname=eitr-keyring
+pkgver=1
+pkgrel=1
+pkgdesc='EITR package signing key for pacman'
+arch=(any)
+url='https://github.com/eitr-org/eitr'
+license=('CC0-1.0')
+install=eitr-keyring.install
+
+package() {
+  local fingerprint
+  fingerprint="$(tr -d '[:space:]' < "$_keys/eitr.fingerprint")"
+  [[ "$fingerprint" =~ ^[0-9A-F]{40}$ ]] || { printf 'Invalid fingerprint in eitr.fingerprint\n' >&2; return 1; }
+  install -Dm644 "$_keys/eitr.asc" "$pkgdir/usr/share/pacman/keyrings/eitr.gpg"
+  printf '%s:4:\n' "$fingerprint" > "$pkgdir/usr/share/pacman/keyrings/eitr-trusted"
+  : > "$pkgdir/usr/share/pacman/keyrings/eitr-revoked"
+  chmod 644 "$pkgdir/usr/share/pacman/keyrings/eitr-trusted" "$pkgdir/usr/share/pacman/keyrings/eitr-revoked"
+}

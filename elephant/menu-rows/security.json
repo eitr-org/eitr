@@ -1,0 +1,57 @@
+[
+  {
+    "text": "FIDO2 Security Key",
+    "subtext": ">",
+    "icon": "󰌆",
+    "submenu": "fido2"
+  },
+  {
+    "text": "Fingerprint",
+    "subtext": ">",
+    "icon": "󰈷",
+    "submenu": "fingerprint"
+  },
+  {
+    "text": "TPM Disk Unlock",
+    "keywords": [
+      "luks",
+      "encryption",
+      "tpm2",
+      "cryptenroll"
+    ],
+    "subtext": ">",
+    "icon": "󰌾",
+    "submenu": "tpm-unlock"
+  },
+  {
+    "text": "Firewall",
+    "subtext": "Turn the firewall on or off and see its status",
+    "keywords": [
+      "firewall",
+      "nftables",
+      "ports",
+      "incoming",
+      "network"
+    ],
+    "icon": "󰕥",
+    "actions": {
+      "open": "kitty --hold -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/firewall.py"
+    }
+  },
+  {
+    "text": "Return to Password Authentication",
+    "subtext": "Turn off fingerprint and security key sign-in",
+    "icon": "󰌾",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/security.py password-only"
+    }
+  },
+  {
+    "text": "Update Password",
+    "subtext": "Change your account's password",
+    "icon": "󰌾",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/security.py password"
+    }
+  }
+]

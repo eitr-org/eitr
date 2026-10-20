@@ -1,0 +1,34 @@
+# shellcheck shell=bash disable=SC2034,SC2154 # makepkg reads the metadata and sets startdir/srcdir/pkgdir.
+# EITR theme wallpapers and previews, split from eitr-desktop so that code
+# updates do not download them again. The version is the last commit that
+# changed them, so it moves only when the artwork does. Built from a Git
+# checkout's committed HEAD; see distro/README.md.
+_repo="$(cd -- "$startdir/../../.." && pwd -P)"
+_artwork=(':(glob)themes/*/backgrounds/**' ':(glob)themes/*/backgrounds-ultrawide/**' ':(glob)themes/*/motion/**'
+  ':(glob)themes/*/preview.png')
+
+pkgname=eitr-artwork
+pkgver="$(TZ=UTC git -C "$_repo" log -1 --format='%cd.g%h' --abbrev=7 \
+  --date=format-local:%Y%m%d.%H%M%S HEAD -- "${_artwork[@]}")"
+pkgrel=1
+pkgdesc='Eitr theme wallpapers and previews'
+arch=(any)
+url='https://github.com/eitr-org/eitr'
+# Artwork terms per file are in ARTWORK-LICENSING.md.
+license=('CC-BY-4.0' 'MIT' 'GPL-3.0-or-later')
+makedepends=(git)
+options=(!debug !strip)
+
+prepare() {
+  [[ -n "$pkgver" ]] || { printf 'eitr-artwork builds from a Git checkout of Eitr.\n' >&2; return 1; }
+  rm -rf -- "$srcdir/eitr"
+  mkdir -- "$srcdir/eitr"
+  git -C "$_repo" archive --format=tar HEAD -- "${_artwork[@]}" distro/ARTWORK-LICENSING.md | tar -x -C "$srcdir/eitr"
+}
+
+package() {
+  cd "$srcdir/eitr" || return
+  find themes -type d -exec install -dm755 "$pkgdir/usr/share/eitr/{}" \;
+  find themes -type f -exec install -m644 "{}" "$pkgdir/usr/share/eitr/{}" \;
+  install -Dm644 distro/ARTWORK-LICENSING.md "$pkgdir/usr/share/licenses/$pkgname/ARTWORK-LICENSING.md"
+}

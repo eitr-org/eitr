@@ -1,0 +1,16 @@
+[Unit]
+Description=Eitr crash help for this user
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/python3 /usr/share/eitr/walker/scripts/actions/system/crash-help.py watch
+Environment=EITR_CODE_ROOT=/usr/share/eitr
+KillMode=process
+Restart=on-failure
+RestartSec=10
+NoNewPrivileges=yes
+UMask=0077
+
+[Install]
+WantedBy=graphical-session.target

@@ -1,0 +1,81 @@
+# Themes, wallpapers and style
+
+## Themes and wallpapers
+
+Open **Style > Theme** or **SUPER + Ctrl + Shift + N**. Pick Dark/Light, then a
+theme. Start typing inside the theme carousel to filter; arrows/Tab move and
+Enter applies. Backspace edits search first; Escape clears search before closing.
+The category picker and wallpaper carousel do not have theme search.
+
+**SUPER + Ctrl + N** opens wallpapers, and **SUPER + Shift + N** advances to
+the next one. A checkmark marks the active choice in Walker. Theme/wallpaper
+changes stay quiet: they do not send success notifications. Ultrawide monitors
+(at least twice as wide as tall) show each wallpaper's 21:9 version, so less of
+the picture is cut away; other monitors show the 4K 16:9 one.
+
+The Norse theme includes drawn raven, Valkyrie, Odin, Fenrir and Jörmungandr
+wallpapers on black backgrounds. Select them through these same wallpaper
+controls; the additional artwork does not change the palette. Its first
+wallpaper, the runestone, is live: the northern lights drift slowly behind the
+rune ring. They pause behind fullscreen apps, and the lockscreen shows the still
+image.
+
+## Bar and corners
+
+**Style > Desktop Bar** selects Blur/Theme Color, full/centered layout and edge.
+Walker follows that appearance. **Style > Corners** selects Square, Rounded or
+Extra Rounded for EITR surfaces and compositor decorations. Third-party apps
+may retain their own internal widget style; circular status dots remain circular.
+
+## Fonts
+
+**Style > Fonts** lists usable installed font families, not every bold/italic
+variant. Document/fallback families stay hidden. JetBrainsMono Nerd Font is
+the default. Selection updates supported desktop apps; ligatures are enabled
+where supported. Removing a family removes its supported installed variants;
+the last usable choice cannot be deleted. Package ownership may require review.
+
+## Cursor
+
+**Style > Cursor** offers Bibata Modern, Breeze and Vanilla DMZ; Color offers
+Auto, Dark and Light; Size chooses the pointer size. Auto follows the theme's
+light/dark category without changing your selected family. Explicit color
+overrides persist. The selected row uses a left-side checkmark; other family
+choices show previews. Missing assets produce an error rather than saving a
+broken selection.
+
+The Limine boot menu shown at power-on uses the current theme's colours, an
+EITR title and a larger font. Fresh installations set this up; after a theme
+change the menu follows at the next shutdown, and the default theme's colours
+are used if yours cannot be read. Boot entries are never changed, and
+`limine.conf` is backed up before each change. The style is skipped while
+Secure Boot is enabled, because an enrolled Limine config hash would stop the
+system booting after an edit.
+
+**Style > Lockscreen** sets the design of both the lockscreen and the login
+screen. Existing preferences survive theme changes.
+
+Available designs are Clockwork Neo Orbital, Clockwork Tape, Girl Coffee,
+Girl Pillow, Material Dark, Material Light, Nothing and Theme Wallpaper. Only shipped designs
+appear in the picker; previews do not lock the session. A selection of a design
+that is no longer shipped moves to Clockwork Tape, the default for fresh
+installations.
+
+The artwork targets 4K (3840×2160, 16:9). Coffee and Pillow keep their
+relaxed anime style with Norse clothing; Material and Clockwork use subtle rune
+ornaments. Nothing keeps its existing design. QML and SVG remain scalable.
+
+Compare the eight shipped EITR designs using
+`bash quickshell/lockscreen/scripts/gallery.sh`. This does not change the selected
+lockscreen; authentication and power actions are disabled in the gallery.
+Clockwork uses procedural QML; Coffee, Pillow, Material and Nothing retain the
+licensed layouts with new artwork and installed JetBrainsMono Nerd Font. No
+bundled fonts or videos are required.
+
+**Theme Wallpaper** uses the selected desktop wallpaper with a clock at the top
+left and password controls at the bottom right. Its Walker preview shows the
+current wallpaper. It follows later wallpaper changes at the next lock or
+preview; Ctrl+P previews the full layout without locking. The login screen cannot
+read your home folder, so it shows a copy of the wallpaper that Eitr stores when
+you choose this design and again whenever you change wallpaper. If the saved image
+is unavailable it uses another current-theme wallpaper or the Norse default.

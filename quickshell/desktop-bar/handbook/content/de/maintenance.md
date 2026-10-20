@@ -1,0 +1,33 @@
+# Aktualisierungen, Bereinigung und Wiederherstellung
+
+Öffne **System > Instandhaltung**. Prüfe Terminalausgaben und halte vor Systemänderungen unabhängige Sicherungen bereit. Snapshots sind keine Sicherungen auf einem anderen Laufwerk.
+
+## Aktualisierung
+
+**Aktualisierung > Systemaktualisierung** ist der normale Ablauf für vollständige Paketaktualisierungen. Eine konfigurierte neue EITR-Installation prüft die Snapshot-Unterstützung und erstellt Vorher-/Nachher-Snapshots mit Startdateiarchiven. Scheitert der Schutz, beginnt keine Aktualisierung. Ein vorhandener Arch-Desktop ohne Distributionsrichtlinie benötigt diese Einrichtung nicht allein zum Aktualisieren. Die Systemaktualisierung aktualisiert auch Flatpak-Anwendungen wie GeForce NOW. Ein Flatpak-Fehler wird gemeldet, ohne die Systemaktualisierung zurückzunehmen.
+
+Vor der Aktualisierung prüfen die Systemaktualisierung und die Pacman-Aktualisierungen unter Erweitert die Arch-Linux-Nachrichten seit der letzten Aktualisierung. Dort kündigt Arch Änderungen mit manuellen Schritten an. Gibt es Nachrichten, erscheinen Titel, Links und **Aktualisierung fortsetzen? [y/N]**. Enter bricht vor jeder Änderung ab, damit du zuerst den Beitrag lesen kannst. Ohne Nachrichten oder Internet wird fortgefahren.
+
+**Aktualisierung > Update-Kanal** zeigt beide Kanäle und markiert den aktuellen. Ein anderer Kanal wird nach Passwortabfrage im Terminal ausgewählt; er bestimmt die Herkunft von Eitrs eigenen Aktualisierungen. Stable ist der Standard und erhält erprobte Versionen. Testing erhält neue Builds sofort nach Veröffentlichung, um Änderungen früh auszuprobieren. Alles andere kommt weiterhin von Arch. Beim Wechsel zurück zu Stable bleibt eine neuere Eitr-Version erhalten, bis Stable aufholt. Im Terminal zeigt `eitr channel` den Kanal; `eitr channel testing` oder `eitr channel stable` wechselt ihn.
+
+Verhindert eine Aktualisierung den Systemstart, nimmt der **Startschutz** sie zurück. Erreichen zwei aufeinanderfolgende Starts den Anmeldebildschirm nicht, stellt der nächste das System samt Startdateien von vor der Aktualisierung wieder her und startet neu. Dein persönlicher Ordner bleibt unverändert; bei der nächsten Anmeldung erfährst du, was geschehen ist. Das gilt für Rechner mit Eitr-Installation über den Installer. Einzelheiten unter [Wiederherstellung und Snapshots](handbook:recovery).
+
+**Snapshots des persönlichen Ordners** behalten ältere Dateiversionen. Aktiviere sie unter **System > Instandhaltung > Momentaufnahmen > Snapshots des persönlichen Ordners**. Sie werden stündlich für einen Tag und täglich für eine Woche erstellt; bei Platzmangel werden die ältesten entfernt. Caches, Downloads, VM-Laufwerke und Spiele sind ausgeschlossen. Wähle **Wiederherstellen einer Datei oder eines Ordners**, gib den Pfad ein und wähle einen Zeitpunkt. Die alte Version erscheint neben der aktuellen; nichts wird ersetzt.
+
+**Aktualisierung > Erweitert** bietet **Pacman + Yay**, **Pacman** und **Yay (AUR)**. Diese erstellen absichtlich keine automatischen Snapshots. Direkte pacman/yay-Befehle umgehen den geschützten Ablauf ebenfalls. Flatpaks, Entwicklungslaufzeitumgebungen und getrennte persönliche Daten sind nicht durch Root-Snapshots geschützt.
+
+Vermeide Teilaktualisierungen von Arch. Lies Paketabfragen, statt eine unerwartete Entfernung ungeprüft zu bestätigen. Erfolgreiche Aufgaben schließen sich; Fehlerausgaben bleiben zur Untersuchung sichtbar.
+
+Nach erfolgreicher Aktualisierung fordert bei Bedarf eine Benachrichtigung zum Abschluss auf: **Jetzt neu starten** nach Kernel-, Firmware-, Mikrocode-, systemd-, glibc-, Grafiktreiber- oder Laufwerksverschlüsselungs-Aktualisierungen. **Jetzt abmelden** gilt nach Desktop-Aktualisierungen wie EITR, Hyprland, Quickshell, Walker oder PipeWire. Mit **Später** arbeitest du weiter; die neuen Versionen werden beim nächsten Neustart oder Anmelden verwendet.
+
+## Bereinigung und Snapshots
+
+Die Bereinigung führt die Wartung aus und lässt den Bericht zum Lesen offen. Prüfe die Vorschläge; nicht jedes verwaiste Paket ist ungenutzt. Snapshots bietet die vorhandenen Snapper-Status- und Einrichtungsabläufe. Unterstützte Anordnungen und Bootloader-Grenzen stehen unter [Wiederherstellung und Snapshots](handbook:recovery).
+
+## Werkseinstellungen
+
+Nur eine unterstützte Distributionsinstallation mit Wiederherstellungspunkt der ersten Anmeldung kann zurückgesetzt werden. Diese vertrauliche Ausgangskopie liegt getrennt von gewöhnlichen Snapper-Listen und der Bereinigung. Root kann sie löschen und ein Laufwerksausfall kann sie zerstören. Zwei getrennte Warnungen und eine eingetippte Bestätigung sind erforderlich. [Werkseinstellungen](handbook:factory-reset) erklärt genau, was Alles löschen und Eigene Dateien behalten erhalten.
+
+## Energie
+
+Hauptmenü > Energie und Kontrollzentrum > Allgemein bieten Sperren, Abmelden, Bereitschaft, Neustart und Ausschalten. Speichere vorher deine Arbeit. Die Aktionen werden tatsächlich ausgeführt; sie sind keine Vorführungen.

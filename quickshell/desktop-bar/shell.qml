@@ -1,0 +1,2060 @@
+import QtQuick
+import Eitr as Eitr
+import QtQuick.Layouts
+import Quickshell
+import Quickshell.Hyprland
+import Quickshell.Io
+import Quickshell.Services.Pipewire
+import Quickshell.Wayland
+import "PanelStyle.js" as PanelStyle
+import "WorkspaceModel.js" as WorkspaceModel
+
+ShellRoot {
+    Component.onCompleted: Quickshell.watchFiles = Quickshell.env("EITR_LIVE_RELOAD") === "1"
+    id: shell
+    signal handbookOpened()
+    NotificationService { id: notificationsService }
+    Handbook {
+        id: handbook
+        foreground: shell.fg
+        background: shell.barBackground()
+        accent: shell.activeBg
+        screen: shell.targetScreens()[0] || null
+        onOpenedChanged: if (opened) shell.handbookOpened()
+        onSetupRequested: function(kind) {
+            var script = kind === "theme" || kind === "wallpaper" ? "appearance-picker.sh" : "show-panel.sh";
+            Quickshell.execDetached(["bash", Quickshell.shellDir + "/scripts/" + script, kind]);
+        }
+        onWelcomeChoice: function(action) { Quickshell.execDetached(shell.welcomeCommand(action)); }
+        onProblemReportsChoice: function(offer) {
+            Quickshell.execDetached(shell.problemReportsCommand(["set", offer ? "on" : "off"]));
+        }
+    }
+    function problemReportsCommand(args) {
+        return ["python3", Quickshell.shellDir + "/scripts/problem-reports.py"].concat(args);
+    }
+    // Once after the boot guard restored the system, a login hears about it.
+    Timer {
+        interval: 8000
+        running: true
+        onTriggered: Quickshell.execDetached(["bash", Quickshell.shellDir + "/scripts/boot-guard-notice.sh"])
+    }
+    // The welcome's "offer to report problems" switch starts from the saved choice.
+    Process {
+        command: shell.problemReportsCommand(["status"])
+        running: true
+        stdout: StdioCollector { id: problemStatusOutput }
+        onExited: function(code) {
+            if (code !== 0) return;
+            try { handbook.offerProblemReports = JSON.parse(problemStatusOutput.text).offer; } catch (error) {}
+        }
+    }
+    function welcomeCommand(action) {
+        return ["python3", Quickshell.shellDir + "/scripts/welcome-state.py", action];
+    }
+    // The first-login welcome opens at most once per Quickshell session; configuration reloads keep this flag.
+    PersistentProperties {
+        id: welcomeSession
+        reloadableId: "handbookWelcomeSession"
+        property bool checked: false
+    }
+    Timer {
+        // Let the bar and the startup wallpaper reveal settle first.
+        interval: 2000
+        running: !welcomeSession.checked
+        onTriggered: welcomeStatus.running = true
+    }
+    Process {
+        id: welcomeStatus
+        command: shell.welcomeCommand("status")
+        stdout: StdioCollector { id: welcomeOutput }
+        onExited: function(code) {
+            welcomeSession.checked = true;
+            if (code !== 0) return;
+            try {
+                var state = JSON.parse(welcomeOutput.text);
+                if (state.show) handbook.showWelcome(state.pending);
+            } catch (error) {}
+        }
+    }
+    LiveWallpaper {}
+    RealmEffects {
+        accent: shell.activeBg
+        defaultScreen: shell.targetScreens()[0] || null
+    }
+    ReloadErrorPopup {
+        foreground: shell.fg
+        background: shell.barBackground()
+        targetScreen: shell.targetScreens()[0] || null
+        barEdge: shell.barEdge
+    }
+
+    property bool statusOpen: false
+    property bool barVisible: true
+    property int barHeight: 30
+    property color bg: Qt.rgba(24 / 255, 24 / 255, 36 / 255, 0.38)
+    property color fg: "#cdd6f4"
+    property color activeFg: "#11111b"
+    property color activeBg: "#cdd6f4"
+    property color hoverBg: Qt.rgba(180 / 255, 190 / 255, 254 / 255, 0.15)
+    property bool idleLockEnabled: false
+    property var battery: ({available: false, percent: 0, status: "", health: 0, hours: 0})
+    readonly property string batteryIcon: battery.status === "Charging" ? "󰂄" : battery.percent < 20 ? "󰁻" : battery.percent < 60 ? "󰁾" : "󰁹"
+    property string primaryDisplay: ""
+    property var preferredOutputs: []
+    property string workspaceStyle: "Runes"
+    readonly property int workspaceCount: WorkspaceModel.ceiling(WorkspaceModel.occupied(Hyprland.toplevels.values),
+        Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.id : 0)
+    readonly property int workspaceItemSize: 24
+    readonly property int workspaceItemSpacing: 4
+    property color workspaceMenuBg: "#181824"
+    property color workspaceMenuFg: "#cdd6f4"
+    property string barAppearance: "solid"
+    property string barLayout: "unified"
+    property bool barPinned: false
+    // "all" puts a bar on every display; the main one keeps notifications.
+    property string barScreens: "main"
+    property var windowGaps: [6, 6, 6, 6]
+    property var screenGaps: [12, 12, 12, 12]
+    readonly property bool centeredLayout: barLayout === "centered"
+    readonly property bool iconsOpen: centeredLayout || statusOpen
+    Process {
+        id: windowGapQuery
+        command: ["hyprctl", "-j", "getoption", "general:gaps_in"]
+        running: true
+        stdout: StdioCollector {
+            onStreamFinished: {
+                try {
+                    var gaps = JSON.parse(text).css.trim().split(/\s+/).map(Number);
+                    if (gaps.length === 4 && gaps.every(value => isFinite(value) && value >= 0)) shell.windowGaps = gaps;
+                } catch (e) {}
+            }
+        }
+    }
+    Process {
+        id: screenGapQuery
+        command: ["hyprctl", "-j", "getoption", "general:gaps_out"]
+        running: true
+        stdout: StdioCollector {
+            onStreamFinished: {
+                try {
+                    var gaps = JSON.parse(text).css.trim().split(/\s+/).map(Number);
+                    if (gaps.length === 4 && gaps.every(value => isFinite(value) && value >= 0)) shell.screenGaps = gaps;
+                } catch (e) {}
+            }
+        }
+    }
+    Timer {
+        interval: 5000; running: true; repeat: true
+        onTriggered: {
+            if (!windowGapQuery.running) windowGapQuery.running = true;
+            if (!screenGapQuery.running) screenGapQuery.running = true;
+        }
+    }
+    property string barEdge: "top"
+    property bool settingsDirty: false
+    property string dragCandidate: ""
+    property bool barPointerHeld: false
+    readonly property bool verticalBar: barEdge === "left" || barEdge === "right"
+    readonly property var desktopApplications: DesktopEntries.applications.values
+
+    function barBackground() {
+        return barAppearance === "solid" ? workspaceMenuBg : bg;
+    }
+
+    function barDoubleClick(button) {
+        if (button === Qt.LeftButton) updateBarSetting("appearance", barAppearance === "solid" ? "transparent" : "solid");
+        else if (button === Qt.RightButton) updateBarSetting("layout", centeredLayout ? "unified" : "centered");
+    }
+
+    function updateBarSetting(key, value) {
+        var choices = {appearance: ["transparent", "solid"], layout: ["unified", "centered"], edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"]};
+        if (!choices[key] || choices[key].indexOf(value) === -1) return;
+        if (key === "appearance") barAppearance = value;
+        else if (key === "layout") barLayout = value;
+        else if (key === "pinned") barPinned = value === "yes";
+        else if (key === "screens") barScreens = value;
+        else barEdge = value;
+        settingsDirty = true;
+        settingsSaveDelay.restart();
+    }
+
+    IpcHandler {
+        target: "bar"
+        function workspaces(): string { return JSON.stringify({count: shell.workspaceCount, limit: 10}); }
+        function visibility(): void { shell.barVisible = !shell.barVisible; }
+        function update(key: string, value: string): void { shell.updateBarSetting(key, value) }
+        function toggle(kind: string): void {
+            if (kind === "appearance") shell.updateBarSetting(kind, shell.barAppearance === "solid" ? "transparent" : "solid");
+            else if (kind === "layout") shell.updateBarSetting(kind, shell.centeredLayout ? "unified" : "centered");
+        }
+    }
+
+    Process {
+        id: barSettingsQuery
+        command: ["python3", Quickshell.shellDir + "/scripts/bar-settings.py", "status"]
+        running: true
+        stdout: StdioCollector { id: barSettingsOutput }
+        onExited: function(code) {
+            if (code !== 0 || shell.settingsDirty || saveBarSettings.running) return;
+            try {
+                var settings = JSON.parse(barSettingsOutput.text);
+                shell.barAppearance = settings.appearance;
+                shell.barLayout = settings.layout;
+                shell.barEdge = settings.edge;
+                shell.barPinned = settings.pinned === "yes";
+                shell.barScreens = settings.screens || "main";
+            } catch (e) {}
+        }
+    }
+
+    Timer {
+        interval: 2000
+        running: true
+        repeat: true
+        onTriggered: if (!barSettingsQuery.running && !saveBarSettings.running) barSettingsQuery.running = true
+    }
+
+    Timer {
+        id: settingsSaveDelay
+        interval: 100
+        onTriggered: shell.persistBarSettings()
+    }
+
+    function persistBarSettings() {
+        if (saveBarSettings.running) return;
+        settingsDirty = false;
+        saveBarSettings.command = ["python3", Quickshell.shellDir + "/scripts/bar-settings.py",
+            "set-all", barAppearance, barLayout, barEdge, barPinned ? "yes" : "no", barScreens];
+        saveBarSettings.running = true;
+    }
+
+    Process {
+        id: saveBarSettings
+        onExited: {
+            if (shell.settingsDirty) shell.persistBarSettings();
+            else if (!barSettingsQuery.running) barSettingsQuery.running = true;
+        }
+    }
+
+    function setWorkspaceStyle(style) {
+        shell.workspaceStyle = style;
+        saveWorkspaceStyle.command = ["python3", Quickshell.shellDir + "/scripts/workspace-style.py", style];
+        saveWorkspaceStyle.running = true;
+    }
+
+    Process {
+        id: saveWorkspaceStyle
+        onExited: if (!workspacePalette.running) workspacePalette.running = true
+    }
+
+    Process {
+        id: workspacePalette
+        command: ["python3", Quickshell.shellDir + "/scripts/workspace-color.py"]
+        running: true
+        stdout: StdioCollector {
+            onStreamFinished: {
+                try {
+                    var palette = JSON.parse(text);
+                    shell.activeBg = palette.background;
+                    shell.activeFg = palette.foreground;
+                    if (!saveWorkspaceStyle.running) shell.workspaceStyle = palette.style;
+                    shell.workspaceMenuBg = palette.menuBackground;
+                    shell.workspaceMenuFg = palette.menuForeground;
+                    shell.fg = palette.menuForeground;
+                    DesktopStyle.criticalColor = palette.critical;
+                    var background = shell.workspaceMenuBg;
+                    shell.bg = Qt.rgba(background.r, background.g, background.b, 0.38);
+                    shell.hoverBg = Qt.rgba(shell.fg.r, shell.fg.g, shell.fg.b, 0.15);
+                } catch (e) {}
+            }
+        }
+    }
+
+    Timer {
+        interval: 2000
+        running: true
+        repeat: true
+        onTriggered: if (!workspacePalette.running) workspacePalette.running = true
+    }
+
+    Process {
+        id: primaryDisplayQuery
+        command: ["python3", Quickshell.shellDir + "/scripts/display-primary.py", "status"]
+        running: true
+        stdout: StdioCollector { id: primaryDisplayOutput }
+        onExited: function(code) {
+            if (code !== 0) return;
+            try {
+                var result = JSON.parse(primaryDisplayOutput.text);
+                shell.primaryDisplay = result.primary || "";
+                var preferred = result.preferred || [];
+                if (JSON.stringify(preferred) !== JSON.stringify(shell.preferredOutputs))
+                    shell.preferredOutputs = preferred;
+            } catch (e) {}
+        }
+    }
+
+    Timer {
+        interval: 5000
+        running: true
+        repeat: true
+        onTriggered: if (!primaryDisplayQuery.running) primaryDisplayQuery.running = true
+    }
+
+    Process {
+        id: idleLockStatus
+        command: ["pgrep", "-x", "hypridle"]
+        running: true
+        onExited: function(code) { shell.idleLockEnabled = code === 0; }
+    }
+
+    Timer {
+        interval: 1500
+        running: true
+        repeat: true
+        onTriggered: if (!idleLockStatus.running && !toggleIdleLock.running) idleLockStatus.running = true
+    }
+
+    Process {
+        id: toggleIdleLock
+        command: ["bash", Eitr.Paths.code("walker/scripts/actions/toggle/idle-lock.sh")]
+        onExited: if (!idleLockStatus.running) idleLockStatus.running = true
+    }
+    Process {
+        id: manualLock
+        command: ["bash", Eitr.Paths.code("hypr/scripts/manual-lock.sh")]
+    }
+
+    Process {
+        id: batteryQuery
+        command: ["python3", Quickshell.shellDir + "/scripts/battery.py"]
+        running: true
+        stdout: StdioCollector { id: batteryOutput }
+        onExited: {
+            try { shell.battery = JSON.parse(batteryOutput.text); }
+            catch (e) { shell.battery = {available: false, percent: 0}; }
+            shell.checkBatteryLow();
+        }
+    }
+    Timer { interval: 30000; repeat: true; running: true; onTriggered: if (!batteryQuery.running) batteryQuery.running = true }
+    // The user's hooks (distro/lib/run-hook.sh): battery-low once per drop to 15%,
+    // post-boot at start (the runner keeps it to once per boot).
+    property bool batteryLowHookRan: false
+    function runHook(args) {
+        var library = Quickshell.env("EITR_LIBRARY_ROOT") || (Eitr.Paths.codeRoot + "/lib");
+        Quickshell.execDetached(["bash", library + "/run-hook.sh"].concat(args));
+    }
+    // The lowest battery warning already given during this discharge (0 = none).
+    property int batteryWarned: 0
+    function checkBatteryLow() {
+        var discharging = shell.battery.available && shell.battery.status === "Discharging";
+        var low = discharging && shell.battery.percent <= 15;
+        if (low && !batteryLowHookRan) runHook(["battery-low", String(shell.battery.percent)]);
+        batteryLowHookRan = low;
+        if (!discharging) { batteryWarned = 0; return; }
+        var level = shell.battery.percent <= 5 ? 5 : shell.battery.percent <= 10 ? 10 : 0;
+        if (level === 0 || (batteryWarned !== 0 && batteryWarned <= level)) return;
+        batteryWarned = level;
+        Quickshell.execDetached(["notify-send", "--app-name=Battery", "--urgency=" + (level === 5 ? "critical" : "normal"),
+            "--icon=battery-caution-symbolic", level === 5 ? "Battery almost empty" : "Battery low",
+            shell.battery.percent + "% left. " + (level === 5 ? "Plug in now to avoid losing work." : "Plug in soon.")]);
+    }
+    Timer { interval: 5000; running: true; onTriggered: shell.runHook(["post-boot"]) }
+    // Reminders survive restarts: reschedule them, and show ones that came due while off.
+    Timer {
+        interval: 6000
+        running: true
+        onTriggered: Quickshell.execDetached(["python3", Eitr.Paths.codeRoot + "/walker/scripts/actions/tools/reminders.py", "restore"])
+    }
+
+    // Checked shortly after login, every six hours, and again after System Update.
+    property var updates: ({checking: true, count: 0, repository: 0, aur: 0, downloadBytes: 0})
+    // A notification goes out only when more updates are pending than were last announced.
+    property int announcedUpdates: 0
+    readonly property string updatesIcon: updates.checking ? "󰁪" : updates.count > 0 ? "󰚰" : "󰗡"
+    readonly property string updatesSize: updates.downloadBytes <= 0 ? ""
+        : updates.downloadBytes >= 1073741824 ? (updates.downloadBytes / 1073741824).toFixed(1) + " GB"
+        : Math.max(1, Math.round(updates.downloadBytes / 1048576)) + " MB"
+    readonly property string updatesTooltip: {
+        if (updates.checking) return "Checking for updates";
+        if (updates.count === 0) return "Up to date · right-click to check again";
+        return updates.count + (updates.count === 1 ? " update" : " updates") + (updatesSize ? " · " + updatesSize : "");
+    }
+    function announceUpdates() {
+        if (updates.count <= announcedUpdates) {
+            announcedUpdates = updates.count;
+            return;
+        }
+        announcedUpdates = updates.count;
+        Quickshell.execDetached(["bash", Quickshell.shellDir + "/scripts/updates-notify.sh", String(updates.count), updatesSize]);
+    }
+    function checkUpdates() {
+        if (updatesQuery.running) return;
+        shell.updates = Object.assign({}, shell.updates, {checking: true});
+        updatesQuery.running = true;
+    }
+    function openSystemUpdate() {
+        var root = Quickshell.env("EITR_CODE_ROOT") || Quickshell.shellDir + "/../..";
+        // Floating, with the theme's solid background, like terminals that menus open.
+        Quickshell.execDetached([root + "/walker/bin/menu-path/kitty", "-e", "python3", root + "/walker/scripts/actions/task-terminal.py",
+            "bash", root + "/walker/scripts/actions/system/update.sh", "system"]);
+    }
+    Process {
+        id: updatesQuery
+        command: ["python3", Quickshell.shellDir + "/scripts/updates.py"]
+        stdout: StdioCollector { id: updatesOutput }
+        onExited: {
+            try { shell.updates = Object.assign({checking: false}, JSON.parse(updatesOutput.text)); }
+            catch (e) { shell.updates = {checking: false, count: 0, repository: 0, aur: 0, downloadBytes: 0}; }
+            shell.announceUpdates();
+        }
+    }
+    Timer { interval: 15000; running: true; onTriggered: shell.checkUpdates() }
+    Timer { interval: 6 * 60 * 60 * 1000; repeat: true; running: true; onTriggered: shell.checkUpdates() }
+    IpcHandler {
+        target: "updates"
+        function refresh(): void { shell.checkUpdates(); }
+    }
+    // Hold-to-talk dictation (walker/scripts/actions/tools/dictate.sh) turns the
+    // recording dot into a live waveform while the microphone listens, then a
+    // slow pulse while the speech is transcribed.
+    property bool dictating: false
+    property bool transcribing: false
+    // Microphone levels for the waveform, newest first (drawn at the centre).
+    property var dictationLevels: [0, 0, 0, 0]
+    IpcHandler {
+        target: "dictation"
+        function start(): void { shell.transcribing = false; shell.dictating = true; dictationSafety.restart(); }
+        function transcribe(): void { shell.dictating = false; shell.transcribing = true; dictationSafety.restart(); }
+        function stop(): void { shell.dictating = false; shell.transcribing = false; dictationSafety.stop(); }
+    }
+    // A lost stop must not leave the dot on.
+    Timer { id: dictationSafety; interval: 300000; onTriggered: { shell.dictating = false; shell.transcribing = false; } }
+    PwNodePeakMonitor {
+        id: dictationPeak
+        node: Pipewire.defaultAudioSource
+        enabled: shell.dictating && node !== null
+    }
+    Timer {
+        interval: 70; repeat: true; running: shell.dictating
+        // Speech peaks sit low on a linear scale; the square root lifts them.
+        onTriggered: shell.dictationLevels = [Math.min(1, Math.sqrt(dictationPeak.peak) * 1.4)].concat(shell.dictationLevels.slice(0, 3))
+    }
+    onDictatingChanged: if (!dictating) dictationLevels = [0, 0, 0, 0]
+
+    AppearancePicker { defaultScreen: shell.targetScreens()[0] || null }
+
+    function focusWorkspace(id) {
+        var command = WorkspaceModel.focusCommand(id);
+        if (command.length) Quickshell.execDetached(command);
+    }
+
+    // With a bar on every display, each bar marks the workspace shown on its own display.
+    function workspaceActive(index, screen) {
+        if (barScreens === "all" && screen) {
+            var monitor = Hyprland.monitorFor(screen);
+            return !!(monitor && monitor.activeWorkspace && monitor.activeWorkspace.id === index);
+        }
+        return Hyprland.focusedWorkspace && Hyprland.focusedWorkspace.id === index;
+    }
+
+    function workspaceLabel(index, screen) {
+        if (workspaceStyle === "Glyph") return workspaceActive(index + 1, screen) ? "✦" : "✧";
+        return String(index + 1);
+    }
+
+    function workspaceApps(workspaceId) {
+        var names = [];
+        for (var window of Hyprland.toplevels.values) {
+            if (!window.workspace || window.workspace.id !== workspaceId) continue;
+            var info = window.lastIpcObject;
+            if (info.mapped === false) continue;
+            var appId = (window.wayland && window.wayland.appId) || info.class || info.initialClass || "";
+            var entry = desktopApplications.find(app => app.id === appId || app.startupClass === appId)
+                || DesktopEntries.heuristicLookup(appId);
+            var name = entry ? entry.name : appId;
+            if (name && names.indexOf(name) === -1) names.push(name);
+        }
+        return names.join("\n");
+    }
+
+    // display-primary.py owns the choice and reports it as primaryDisplay.
+    // This fallback mirrors its choose_primary() order (saved/reported name,
+    // first connected machine-local preferred output, else the largest screen)
+    // so startup and unmatched names pick the same screen without a bar jump.
+    function mainScreen() {
+        var screens = Quickshell.screens || [];
+        var byName = {};
+        var largest = null;
+        for (var i = 0; i < screens.length; i++) {
+            if (!screens[i])
+                continue;
+            byName[screens[i].name] = screens[i];
+            if (!largest || screens[i].width * screens[i].height > largest.width * largest.height)
+                largest = screens[i];
+        }
+        if (primaryDisplay && byName[primaryDisplay])
+            return byName[primaryDisplay];
+        for (var j = 0; j < preferredOutputs.length; j++) {
+            if (byName[preferredOutputs[j]])
+                return byName[preferredOutputs[j]];
+        }
+        return largest;
+    }
+
+    // Bars by screen name, so shortcuts reach the bar of the display in use.
+    property var barsByScreen: ({})
+    function registerBar(bar) {
+        var bars = Object.assign({}, barsByScreen);
+        bars[bar.modelData.name] = bar;
+        barsByScreen = bars;
+    }
+    function unregisterBar(bar) {
+        var bars = Object.assign({}, barsByScreen);
+        if (bars[bar.modelData.name] === bar) delete bars[bar.modelData.name];
+        barsByScreen = bars;
+    }
+    function activeBar(fallback) {
+        var focused = Hyprland.focusedMonitor;
+        return (focused && barsByScreen[focused.name]) || fallback;
+    }
+    function isActiveBar(bar) {
+        var active = activeBar(null);
+        return active ? active === bar : bar.isMainBar;
+    }
+
+    // The main display first, then, when the bar is shown on every display, the others.
+    function targetScreens() {
+        var main = mainScreen();
+        if (!main)
+            return [];
+        if (barScreens !== "all")
+            return [main];
+        return [main].concat((Quickshell.screens || []).filter(screen => screen && screen !== main));
+    }
+
+    Variants {
+        model: shell.targetScreens()
+
+        delegate: Component {
+            PanelWindow {
+                id: bar
+
+                required property var modelData
+                readonly property bool isMainBar: modelData === shell.mainScreen()
+                readonly property Item stripItem: barContents
+                readonly property var outerGaps: shell.screenGaps
+                readonly property bool centeredLayout: shell.centeredLayout
+                readonly property real panelGap: shell.verticalBar ? shell.windowGaps[1] + shell.windowGaps[3] : shell.windowGaps[0] + shell.windowGaps[2]
+                property bool hoverExpanded: false
+                readonly property bool expanded: !centeredLayout || shell.barPinned || hoverExpanded || panelOpen || pendingPanel !== null || shell.barPointerHeld
+                readonly property real sideExtent: shell.verticalBar
+                    ? Math.max(verticalStart.height + (mediaStrip.player ? 110 : 0), verticalEnd.height + 50) + 14
+                    : Math.max(workspaces.width + hardwareStatus.width + 32 + (mediaStrip.player ? 120 : 0), rightSide.width + notificationIcon.width + barWeather.width + 32)
+                readonly property real centerExtent: shell.verticalBar ? 56 : centerInfo.width + 24
+                Timer {
+                    id: collapseDelay
+                    interval: 350
+                    onTriggered: bar.hoverExpanded = false
+                }
+                readonly property var dockPanels: [wifiMenu, bluetoothMenu, brightnessMenu, volumeMenu, micMenu,
+                    keyboardMenu, idleLockMenu, calendarMenu, weatherMenu, hardwareMenu, aiMenu, obsMenu, recordingMenu, workspaceMenu, notificationCenter, controlCenter, mediaMenu, batteryMenu]
+                readonly property bool panelOpen: dockPanels.some(panel => panel.visible)
+                readonly property var panelFocusWindows: notificationPopups.visible ? [bar, notificationPopups] : [bar]
+                property var pendingPanel: null
+                property bool pendingOverview: false
+
+                function closePanels() {
+                    pendingPanel = null;
+                    pendingOverview = false;
+                    overview.opened = false;
+                    dockPanels.forEach(panel => panel.opened = false);
+                }
+                Connections {
+                    target: shell
+                    function onHandbookOpened() { bar.closePanels(); }
+                }
+                function showPanel(panel) {
+                    pendingOverview = false;
+                    overview.opened = false;
+                    pendingPanel = panel;
+                    dockPanels.forEach(other => other.opened = false);
+                    finishPanelSwitch();
+                }
+                function togglePanel(panel) {
+                    if (panel.opened || pendingPanel === panel) closePanels();
+                    else showPanel(panel);
+                }
+                function toggleOverview() {
+                    if (overview.opened || pendingOverview) { closePanels(); return; }
+                    pendingPanel = null;
+                    pendingOverview = true;
+                    dockPanels.forEach(panel => panel.opened = false);
+                    finishPanelSwitch();
+                }
+                WorkspaceOverview {
+                    id: overview
+                    ipcEnabled: bar.isMainBar
+                    screen: bar.screen
+                    foreground: shell.fg
+                    background: shell.bg
+                    accent: shell.activeBg
+                }
+                function finishPanelSwitch() {
+                    if (dockPanels.some(panel => panel.visible) || overview.visible) return;
+                    if (pendingOverview) {
+                        pendingOverview = false;
+                        overview.opened = true;
+                        return;
+                    }
+                    if (!pendingPanel) return;
+                    var next = pendingPanel;
+                    pendingPanel = null;
+                    next.opened = true;
+                }
+                Timer {
+                    interval: 16
+                    repeat: true
+                    running: bar.pendingPanel !== null || bar.pendingOverview
+                    onTriggered: bar.finishPanelSwitch()
+                }
+
+                screen: modelData
+                visible: shell.barVisible || panelOpen
+                implicitWidth: modelData.width
+                implicitHeight: modelData.height
+                color: "transparent"
+                exclusionMode: ExclusionMode.Normal
+                exclusiveZone: shell.barVisible ? (shell.verticalBar ? barContents.width : shell.barHeight) : 0
+                WlrLayershell.namespace: "desktop-bar"
+                // Notification popups must have a strictly higher layer than
+                // panels, rather than depending on same-layer mapping order.
+                WlrLayershell.layer: panelOpen && !notificationPopups.visible ? WlrLayer.Overlay : WlrLayer.Top
+                mask: dockInput
+                WlrLayershell.keyboardFocus: panelOpen ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
+
+                Region {
+                    id: dockInput
+                    width: 0; height: 0
+                    Region { item: shell.barPointerHeld ? bar.contentItem : null }
+                    Region { item: barContents }
+                    Region { item: wifiMenu.opened ? wifiMenu : null }
+                    Region { item: bluetoothMenu.opened ? bluetoothMenu : null }
+                    Region { item: brightnessMenu.opened ? brightnessMenu : null }
+                    Region { item: volumeMenu.opened ? volumeMenu : null }
+                    Region { item: micMenu.opened ? micMenu : null }
+                    Region { item: keyboardMenu.opened ? keyboardMenu : null }
+                    Region { item: idleLockMenu.opened ? idleLockMenu : null }
+                    Region { item: calendarMenu.opened ? calendarMenu : null }
+                    Region { item: weatherMenu.opened ? weatherMenu : null }
+                    Region { item: hardwareMenu.opened ? hardwareMenu : null }
+                    Region { item: aiMenu.opened ? aiMenu : null }
+                    Region { item: obsMenu.opened ? obsMenu : null }
+                    Region { item: recordingMenu.opened ? recordingMenu : null }
+                    Region { item: workspaceMenu.opened ? workspaceMenu : null }
+                    Region { item: notificationCenter.opened ? notificationCenter : null }
+                    Region { item: controlCenter.opened ? controlCenter : null }
+                    Region { item: mediaMenu.opened ? mediaMenu : null }
+                    Region { item: batteryMenu.opened ? batteryMenu : null }
+                }
+
+                Connections {
+                    target: notificationsService
+                    function onToggleRequested() {
+                        // With a bar on every display, only the one in use opens the center.
+                        if (shell.isActiveBar(bar)) bar.togglePanel(notificationCenter);
+                    }
+                }
+                Connections {
+                    target: shell
+                    function onBarVisibleChanged() {
+                        if (!shell.barVisible) bar.closePanels();
+                    }
+                }
+
+                NotificationPopups {
+                    id: notificationPopups
+                    screen: bar.screen
+                    shown: bar.isMainBar
+                    service: notificationsService
+                    foreground: shell.fg
+                    background: shell.barBackground()
+                    accent: shell.activeBg
+                    barEdge: shell.barEdge
+                }
+
+                NotificationCenter {
+                    id: notificationCenter
+                    service: notificationsService
+                    maximumHeight: bar.screen.height - 70
+                    target: shell.verticalBar ? verticalNotificationIcon : notificationIcon
+                    barEdge: shell.barEdge
+                    surfaceColor: shell.barBackground()
+                    foreground: shell.fg
+                    background: shell.workspaceMenuBg
+                    accent: shell.activeBg
+                }
+
+                ControlCenter {
+                    id: controlCenter
+                    screenMargins: shell.screenGaps
+                    target: barContents
+                    surfaceColor: shell.barBackground()
+                    foreground: shell.fg; background: shell.workspaceMenuBg; accent: shell.activeBg
+                    service: notificationsService
+                    wifiControl: wifiMenu; bluetoothControl: bluetoothMenu; displayControl: brightnessMenu
+                    keyboardControl: keyboardMenu
+                    wifiGlyph: shell.verticalBar ? verticalWifiIcon.text : wifiIcon.text
+                    battery: shell.battery; mediaPlayer: mediaStrip.player
+                    idleEnabled: shell.idleLockEnabled; idleBusy: toggleIdleLock.running
+                    barPosition: shell.barEdge; appearance: shell.barAppearance; layout: shell.barLayout; barScreens: shell.barScreens; workspaceStyle: shell.workspaceStyle
+                    onIdleToggleRequested: if (!toggleIdleLock.running) toggleIdleLock.running = true
+                    onLockRequested: runAfterClose(["bash", Eitr.Paths.code("hypr/scripts/manual-lock.sh")])
+                    onSettingRequested: function(key, value) { shell.updateBarSetting(key, value); }
+                    onWorkspaceStyleRequested: function(value) { shell.setWorkspaceStyle(value); }
+                    onPanelRequested: function(kind) { panelIpc.show(kind); }
+                    onPickerRequested: function(kind) { runAfterClose(["bash", Quickshell.shellDir + "/scripts/appearance-picker.sh", kind]); }
+                }
+                MediaMenu {
+                    id: mediaMenu
+                    target: shell.verticalBar ? verticalCalendarIcon : mediaStrip
+                    barEdge: shell.barEdge; surfaceColor: shell.barBackground()
+                    foreground: shell.fg; background: shell.workspaceMenuBg; accent: shell.activeBg
+                    player: mediaStrip.player
+                }
+                BatteryMenu {
+                    id: batteryMenu
+                    target: shell.verticalBar ? verticalBatteryIcon : batteryBarIcon
+                    barEdge: shell.barEdge; surfaceColor: shell.barBackground()
+                    foreground: shell.fg; background: shell.workspaceMenuBg; accent: shell.activeBg
+                    battery: shell.battery; displayControl: brightnessMenu
+                }
+                function showControlCenter(page) {
+                    // Older callers name the pages that became System and Tools.
+                    page = ({settings: "system", capture: "tools"})[page] || page;
+                    if (["general", "style", "tools", "system"].indexOf(page) === -1) return;
+                    controlCenter.page = page;
+                    showPanel(controlCenter);
+                }
+                function toggleControlCenter() { togglePanel(controlCenter); }
+                function showKind(kind) {
+                    var panels = {wifi: wifiMenu, bluetooth: bluetoothMenu, brightness: brightnessMenu, display: brightnessMenu, volume: volumeMenu,
+                        mic: micMenu, keyboard: keyboardMenu, idle: idleLockMenu, calendar: calendarMenu,
+                        weather: weatherMenu, hardware: hardwareMenu, ai: aiMenu, obs: obsMenu,
+                        workspace: workspaceMenu, recording: recordingMenu, notifications: notificationCenter,
+                        center: controlCenter, media: mediaMenu, battery: batteryMenu};
+                    if (kind === "overview") { toggleOverview(); return; }
+                    if (!panels[kind]) return;
+                    showPanel(panels[kind]);
+                }
+                function inspectPanels() {
+                    return JSON.stringify(dockPanels.map(panel => ({name: panel.toString(), visible: panel.visible,
+                        x: panel.x, y: panel.y, width: panel.width, height: panel.height,
+                        progress: panel.revealProgress, opened: panel.opened, screen: bar.modelData.name,
+                        parent: String(panel.parent), host: String(panel.hostWindow)})));
+                }
+                Component.onCompleted: shell.registerBar(bar)
+                Component.onDestruction: shell.unregisterBar(bar)
+
+                // The main bar receives shortcuts and forwards them to the bar of the display in use.
+                IpcHandler {
+                    enabled: bar.isMainBar
+                    target: "controlCenter"
+                    function toggle(): void { shell.activeBar(bar).toggleControlCenter(); }
+                    function show(page: string): void { shell.activeBar(bar).showControlCenter(page); }
+                }
+
+                IpcHandler {
+                    id: panelIpc
+                    enabled: bar.isMainBar
+                    target: "panels"
+                    function inspect(): string { return shell.activeBar(bar).inspectPanels(); }
+                    function close(): void { shell.activeBar(bar).closePanels(); }
+                    function show(kind: string): void { shell.activeBar(bar).showKind(kind); }
+                }
+
+                anchors {
+                    top: shell.barEdge === "top" || shell.verticalBar
+                    bottom: shell.barEdge === "bottom" || shell.verticalBar
+                    left: shell.barEdge === "top" || shell.barEdge === "bottom" || shell.barEdge === "left"
+                    right: shell.barEdge === "top" || shell.barEdge === "bottom" || shell.barEdge === "right"
+                }
+
+                Item {
+                    id: barContents
+                    width: shell.verticalBar ? Math.ceil(Math.max(60, barWeather.width + 8)) : (bar.centeredLayout ? Math.min(bar.width, bar.centerExtent + (bar.expanded ? bar.sideExtent * 2 : 0)) : bar.width)
+                    height: shell.verticalBar ? (bar.centeredLayout ? Math.min(bar.height, bar.centerExtent + (bar.expanded ? bar.sideExtent * 2 : 0)) : bar.height) : shell.barHeight
+                    x: shell.verticalBar ? (shell.barEdge === "right" ? bar.width - width : 0) : (bar.width - width) / 2
+                    y: shell.verticalBar ? (bar.height - height) / 2 : (shell.barEdge === "bottom" ? bar.height - height : 0)
+                    clip: bar.centeredLayout
+                    Behavior on width { NumberAnimation { duration: 320; easing.type: Easing.OutCubic } }
+                    Behavior on height { NumberAnimation { duration: 320; easing.type: Easing.OutCubic } }
+                    HoverHandler {
+                        onHoveredChanged: {
+                            if (hovered) { collapseDelay.stop(); bar.hoverExpanded = true; }
+                            else collapseDelay.restart();
+                        }
+                    }
+
+                PanelWindow {
+                    screen: bar.screen
+                    visible: shell.dragCandidate !== ""
+                    color: "transparent"
+                    exclusionMode: ExclusionMode.Ignore
+                    WlrLayershell.namespace: "desktop-bar-edge-preview"
+                    WlrLayershell.layer: WlrLayer.Overlay
+                    mask: Region {}
+                    anchors { top: true; bottom: true; left: true; right: true }
+                    Rectangle {
+                        readonly property bool vertical: shell.dragCandidate === "left" || shell.dragCandidate === "right"
+                        x: shell.dragCandidate === "right" ? parent.width - width : 0
+                        y: shell.dragCandidate === "bottom" ? parent.height - height : 0
+                        width: vertical ? 60 : parent.width
+                        height: vertical ? parent.height : shell.barHeight
+                        radius: DesktopStyle.radius(6)
+                        color: Qt.alpha(shell.workspaceMenuBg, 0.65)
+                        border.width: 1
+                        border.color: shell.activeBg
+                    }
+                }
+
+                BarSection {
+                    id: verticalSurface
+                    anchors.fill: parent
+                    visible: shell.verticalBar
+                    edge: shell.barEdge
+                    background: shell.barBackground()
+                    radius: bar.centeredLayout ? DesktopStyle.radius(6) : 0
+
+                    BarGestureArea {
+                        anchors.fill: parent
+                        hostWindow: bar
+                        edge: shell.barEdge
+                        onCandidateChanged: shell.dragCandidate = candidate
+                        onPointerHeld: function(held) { shell.barPointerHeld = held }
+                        onDoubleTapped: function(button) { shell.barDoubleClick(button) }
+                        onDropped: function(edge) { shell.updateBarSetting("edge", edge) }
+                    }
+
+                    Column {
+                        id: verticalStart
+                        opacity: bar.expanded ? 1 : 0
+                        enabled: bar.expanded
+                        Behavior on opacity { NumberAnimation { duration: 180 } }
+                        y: 8
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        spacing: shell.workspaceItemSpacing
+                        Column {
+                            id: verticalWorkspaces
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            spacing: shell.workspaceItemSpacing
+                            VerticalBarIcon { icon: "󰕮"; tooltip: Eitr.I18n.tr("Overview"); open: true; clickable: true; onClicked: bar.toggleOverview() }
+                            Repeater {
+                                model: shell.workspaceCount
+                                BarButton {
+                                    text: shell.workspaceLabel(index, bar.screen)
+                                    tooltip: active ? "" : shell.workspaceApps(index + 1)
+                                    visualStyle: shell.workspaceStyle
+                                    active: shell.workspaceActive(index + 1, bar.screen)
+                                    width: shell.workspaceItemSize; buttonHeight: shell.workspaceItemSize; fontSize: 14; cornerRadius: 6; textOffsetY: 0
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    onClicked: shell.focusWorkspace(index + 1)
+                                    onRightClicked: bar.togglePanel(workspaceMenu)
+                                }
+                            }
+                        }
+                        Column {
+                            id: verticalHardware
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            spacing: shell.workspaceItemSpacing
+                            VerticalBarIcon { id: verticalHardwareIcon; icon: "󰍛"; iconSize: 18; tooltip: Eitr.I18n.tr("Hardware"); open: true; clickable: true; onClicked: bar.togglePanel(hardwareMenu) }
+                            VerticalBarIcon { id: verticalAiIcon; icon: "󱜙"; iconSize: 18; tooltip: Eitr.I18n.tr("AI Usage"); open: true; clickable: true; onClicked: bar.togglePanel(aiMenu) }
+                        }
+                    }
+
+                    Item {
+                        id: verticalMiddle
+                        anchors.centerIn: parent
+                        width: parent.width
+                        height: 40
+                        Column {
+                            anchors.bottom: bar.centeredLayout ? verticalPin.top : verticalCalendarIcon.top
+                            anchors.bottomMargin: 3
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            spacing: 2
+                            visible: mediaStrip.player !== null && bar.expanded
+                            VerticalBarIcon {
+                                icon: "󰒮"; tooltip: Eitr.I18n.tr("Previous"); open: true
+                                clickable: !!mediaStrip.player && mediaStrip.player.canGoPrevious
+                                onClicked: mediaStrip.player.previous()
+                            }
+                            VerticalBarIcon {
+                                icon: mediaStrip.playing ? "󰏤" : "󰐊"; tooltip: mediaStrip.title; open: true
+                                clickable: !!mediaStrip.player && mediaStrip.player.canTogglePlaying
+                                onClicked: mediaStrip.player.togglePlaying()
+                            }
+                            VerticalBarIcon {
+                                icon: "󰒭"; tooltip: Eitr.I18n.tr("Next"); open: true
+                                clickable: !!mediaStrip.player && mediaStrip.player.canGoNext
+                                onClicked: mediaStrip.player.next()
+                            }
+                            VerticalBarIcon {
+                                icon: "󰝚"; tooltip: Eitr.I18n.tr("Media"); open: true; clickable: true
+                                onClicked: bar.togglePanel(mediaMenu)
+                            }
+                        }
+                        VerticalBarIcon {
+                            id: verticalPin
+                            anchors.bottom: verticalCalendarIcon.top
+                            anchors.bottomMargin: 3
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            icon: shell.barPinned ? "󰐃" : "󰐄"
+                            tooltip: shell.barPinned ? Eitr.I18n.tr("Unpin bar") : Eitr.I18n.tr("Pin bar open")
+                            visible: bar.centeredLayout && bar.expanded
+                            open: true; clickable: true
+                            onClicked: shell.updateBarSetting("pinned", shell.barPinned ? "no" : "yes")
+                        }
+                        ClockButton {
+                            id: verticalCalendarIcon
+                            anchors.centerIn: parent
+                            compact: true
+                            onClicked: bar.togglePanel(calendarMenu)
+                        }
+                        WeatherWidget {
+                            id: verticalWeatherIcon
+                            visible: bar.expanded
+                            anchors.top: verticalCalendarIcon.bottom
+                            anchors.topMargin: 3
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            autoRefresh: false
+                            compact: true
+                            text: barWeather.text
+                            temp: barWeather.temp
+                            recording: obsMenu.obsState.recording || obsMenu.obsState.streaming
+                            recordingPaused: obsMenu.obsState.paused && !obsMenu.obsState.streaming
+                            streaming: obsMenu.obsState.streaming
+                            dictating: shell.dictating
+                            transcribing: shell.transcribing
+                            dictationLevels: shell.dictationLevels
+                            onRecordingClicked: bar.togglePanel(recordingMenu)
+                            onClicked: bar.togglePanel(weatherMenu)
+                        }
+                    }
+
+                    Column {
+                        id: verticalEnd
+                        opacity: bar.expanded ? 1 : 0
+                        enabled: bar.expanded
+                        Behavior on opacity { NumberAnimation { duration: 180 } }
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: 8
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        spacing: shell.workspaceItemSpacing
+                        VerticalBarIcon {
+                            icon: shell.statusOpen ? "⌄" : "⌃"
+                            visible: !bar.centeredLayout
+                            tooltip: shell.statusOpen ? Eitr.I18n.tr("Hide icons") : Eitr.I18n.tr("Show icons")
+                            open: true; clickable: true
+                            onClicked: shell.statusOpen = !shell.statusOpen
+                        }
+                        StatusCommand {
+                            id: verticalWifiIcon
+                            script: Quickshell.shellDir + "/scripts/wifi-status.sh"
+                            hoverLabel: "WiFi"; fontSize: 16; interval: 3000
+                            open: shell.iconsOpen; height: open ? 24 : 0; fixedWidth: 56; clickable: true
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            onClicked: bar.togglePanel(wifiMenu)
+                            onOpenChanged: if (!open) wifiMenu.opened = false
+                        }
+                        VerticalBarIcon { id: verticalBluetoothIcon; icon: "󰂯"; tooltip: Eitr.I18n.tr("Bluetooth"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(bluetoothMenu); onOpenChanged: if (!open) bluetoothMenu.opened = false }
+                        VerticalBarIcon { id: verticalDisplayIcon; icon: "󰍹"; tooltip: Eitr.I18n.tr("Display"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(brightnessMenu); onOpenChanged: if (!open) brightnessMenu.opened = false }
+                        VerticalBarIcon { id: verticalVolumeIcon; icon: ""; tooltip: Eitr.I18n.tr("Volume"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(volumeMenu); onOpenChanged: if (!open) volumeMenu.opened = false }
+                        VerticalBarIcon { id: verticalMicIcon; icon: "󰍬"; tooltip: Eitr.I18n.tr("Mic"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(micMenu); onOpenChanged: if (!open) micMenu.opened = false }
+                        VerticalBarIcon { id: verticalKeyboardIcon; icon: "󰌌"; tooltip: Eitr.I18n.tr("Keyboard"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(keyboardMenu); onOpenChanged: if (!open) keyboardMenu.opened = false }
+                        VerticalBarIcon {
+                            id: verticalIdleLockIcon
+                            icon: shell.idleLockEnabled ? "󱫗" : "󱫖"
+                            tooltip: Eitr.I18n.tr("Idle Lock")
+                            open: shell.iconsOpen; clickable: true; rightClickable: true
+                            onClicked: function(button) {
+                                if (button === Qt.RightButton) {
+                                    if (!toggleIdleLock.running) toggleIdleLock.running = true;
+                                } else bar.togglePanel(idleLockMenu);
+                            }
+                            onOpenChanged: if (!open) idleLockMenu.opened = false
+                        }
+                        VerticalBarIcon { id: verticalObsIcon; icon: obsMenu.obsState.recording ? (obsMenu.obsState.paused ? "󰏤" : "󰑋") : "󰻂"; iconSize: obsMenu.obsState.recording && !obsMenu.obsState.paused ? 22 : 16; tooltip: obsMenu.obsState.recording ? (obsMenu.obsState.paused ? Eitr.I18n.tr("Recording paused") : Eitr.I18n.tr("Recording")) : Eitr.I18n.tr("OBS Studio"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(obsMenu); onOpenChanged: if (!open) obsMenu.opened = false }
+                        VerticalBarIcon {
+                            id: verticalUpdatesIcon
+                            icon: shell.updatesIcon; iconSize: 17; spinning: shell.updates.checking
+                            tooltip: shell.updatesTooltip; open: shell.iconsOpen
+                            clickable: true; rightClickable: true
+                            onClicked: function(button) { if (button === Qt.RightButton) shell.checkUpdates(); else shell.openSystemUpdate(); }
+                        }
+                        VerticalBarIcon { id: verticalBatteryIcon; icon: shell.batteryIcon; tooltip: Math.round(shell.battery.percent) + "% · " + shell.battery.status; open: shell.battery.available; visible: shell.battery.available; clickable: true; onClicked: bar.togglePanel(batteryMenu) }
+                        VerticalBarIcon {
+                            id: verticalNotificationIcon
+                            icon: notificationIcon.text; tooltip: Eitr.I18n.tr("Notifications"); open: true; clickable: true
+                            onClicked: bar.togglePanel(notificationCenter)
+                        }
+                    }
+                }
+
+                BarSection {
+                    id: surface
+                    anchors.fill: parent
+                    visible: !shell.verticalBar
+                    edge: shell.barEdge
+                    background: shell.barBackground()
+                    radius: bar.centeredLayout ? DesktopStyle.radius(6) : 0
+
+
+                    BarGestureArea {
+                        id: barGestures
+                        anchors.fill: parent
+                        hostWindow: bar
+                        edge: shell.barEdge
+                        onCandidateChanged: shell.dragCandidate = candidate
+                        onPointerHeld: function(held) { shell.barPointerHeld = held }
+                        onDoubleTapped: function(button) { shell.barDoubleClick(button) }
+                        onDropped: function(edge) { shell.updateBarSetting("edge", edge) }
+                    }
+
+                    RowLayout {
+                        anchors.fill: parent
+                        anchors.leftMargin: 12
+                        anchors.rightMargin: 9
+                        spacing: 0
+
+                        Row {
+                            id: workspaces
+                            opacity: bar.expanded ? 1 : 0
+                            enabled: bar.expanded
+                            Behavior on opacity { NumberAnimation { duration: 180 } }
+
+                            spacing: shell.workspaceItemSpacing
+                            Layout.alignment: Qt.AlignVCenter
+
+                            StatusIcon {
+                                icon: "󰕮"; tooltip: Eitr.I18n.tr("Overview"); open: true; clickable: true
+                                slotWidth: shell.workspaceItemSize
+                                anchors.verticalCenter: parent.verticalCenter
+                                onClicked: bar.toggleOverview()
+                            }
+                            Repeater {
+                                model: shell.workspaceCount
+
+                                BarButton {
+                                    text: shell.workspaceLabel(index, bar.screen)
+                                    tooltip: active ? "" : shell.workspaceApps(index + 1)
+                                    visualStyle: shell.workspaceStyle
+                                    active: shell.workspaceActive(index + 1, bar.screen)
+                                    width: shell.workspaceItemSize
+                                    buttonHeight: shell.workspaceItemSize
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    fontSize: 14
+                                    cornerRadius: 6
+                                    textOffsetY: 0
+                                    onClicked: shell.focusWorkspace(index + 1)
+                                    onRightClicked: bar.togglePanel(workspaceMenu)
+                                }
+
+                            }
+
+                            WorkspaceStyleMenu {
+                                id: workspaceMenu
+                                surfaceColor: shell.barBackground()
+                                target: shell.verticalBar ? verticalWorkspaces : workspaces
+                                barEdge: shell.barEdge
+                                currentStyle: shell.workspaceStyle
+                                accent: shell.activeBg
+                                foreground: shell.workspaceMenuFg
+                                background: shell.workspaceMenuBg
+                                selectedForeground: shell.activeFg
+                                onSelected: function(style) {
+                                    shell.setWorkspaceStyle(style);
+                                }
+                            }
+
+                        }
+
+                        Row {
+                            id: hardwareStatus
+                            opacity: bar.expanded ? 1 : 0
+                            enabled: bar.expanded
+                            Behavior on opacity { NumberAnimation { duration: 180 } }
+                            Layout.alignment: Qt.AlignVCenter
+                            Layout.leftMargin: shell.workspaceItemSpacing
+                            spacing: shell.workspaceItemSpacing
+
+                            StatusIcon {
+                                id: hardwareIcon
+                                slotWidth: shell.workspaceItemSize
+                                icon: "󰍛"
+                                iconSize: 18
+                                tooltip: Eitr.I18n.tr("Hardware")
+                                open: true
+                                clickable: true
+                                onClicked: bar.togglePanel(hardwareMenu)
+                            }
+
+                            StatusIcon {
+                                id: aiIcon
+                                slotWidth: shell.workspaceItemSize
+                                icon: "󱜙"
+                                iconSize: 18
+                                tooltip: Eitr.I18n.tr("AI Usage")
+                                open: true
+                                clickable: true
+                                onClicked: bar.togglePanel(aiMenu)
+                            }
+                        }
+
+                        SystemMonitorMenu {
+                            id: hardwareMenu
+                            surfaceColor: shell.barBackground()
+                            maximumHeight: bar.screen.height - 70
+                            target: shell.verticalBar ? verticalHardwareIcon : hardwareIcon
+                            barEdge: shell.barEdge
+                            accent: shell.activeBg
+                            foreground: shell.fg
+                            background: shell.workspaceMenuBg
+                        }
+
+                        AiUsageMenu {
+                            id: aiMenu
+                            surfaceColor: shell.barBackground()
+                            maximumHeight: bar.screen.height - 70
+                            leftAligned: true
+                            target: shell.verticalBar ? verticalAiIcon : aiIcon
+                            barEdge: shell.barEdge
+                            accent: shell.activeBg
+                            foreground: shell.fg
+                            background: shell.workspaceMenuBg
+                        }
+
+                        Item {
+                            Layout.fillWidth: true
+                        }
+
+                    }
+
+                        Row {
+                            id: rightSide
+                            opacity: bar.expanded ? 1 : 0
+                            enabled: bar.expanded
+                            Behavior on opacity { NumberAnimation { duration: 180 } }
+
+                            spacing: shell.workspaceItemSpacing
+                            anchors.right: notificationIcon.left
+                            anchors.rightMargin: shell.workspaceItemSpacing
+                            anchors.verticalCenter: parent.verticalCenter
+
+                            StatusIcon {
+                                id: statusToggle
+                                visible: !bar.centeredLayout
+                                tooltip: shell.statusOpen ? Eitr.I18n.tr("Hide icons") : Eitr.I18n.tr("Show icons")
+
+                                icon: shell.statusOpen ? "›" : "‹"
+                                open: true
+                                clickable: true
+                                iconSize: 21
+                                glyphOffsetY: -1
+                                onClicked: shell.statusOpen = !shell.statusOpen
+                            }
+
+                            StatusCommand {
+                                id: wifiIcon
+                                script: Quickshell.shellDir + "/scripts/wifi-status.sh"
+                                hoverLabel: "WiFi"
+                                fontSize: 16
+                                interval: 3000
+                                open: shell.iconsOpen
+                                slotWidth: shell.workspaceItemSize
+                                fixedWidth: shell.workspaceItemSize
+                                clickable: true
+                                onClicked: bar.togglePanel(wifiMenu)
+                                onOpenChanged: if (!open) wifiMenu.opened = false
+                            }
+
+                            WifiMenu {
+                                id: wifiMenu
+                                surfaceColor: shell.barBackground()
+                                target: shell.verticalBar ? verticalWifiIcon : (shell.iconsOpen ? wifiIcon : notificationIcon)
+                                barEdge: shell.barEdge
+                                accent: shell.activeBg
+                                foreground: shell.fg
+                                background: shell.workspaceMenuBg
+                            }
+
+                            StatusIcon {
+                                id: bluetoothIcon
+                                icon: "󰂯"
+                                tooltip: Eitr.I18n.tr("Bluetooth")
+                                open: shell.iconsOpen
+                                clickable: true
+                                onClicked: bar.togglePanel(bluetoothMenu)
+                                onOpenChanged: if (!open) bluetoothMenu.opened = false
+                            }
+
+                            BluetoothMenu {
+                                id: bluetoothMenu
+                                surfaceColor: shell.barBackground()
+                                target: shell.verticalBar ? verticalBluetoothIcon : (shell.iconsOpen ? bluetoothIcon : notificationIcon)
+                                barEdge: shell.barEdge
+                                accent: shell.activeBg
+                                foreground: shell.fg
+                                background: shell.workspaceMenuBg
+                            }
+
+                            StatusIcon {
+                                id: brightnessIcon
+                                icon: "󰍹"
+                                tooltip: Eitr.I18n.tr("Display")
+                                open: shell.iconsOpen
+                                clickable: true
+                                onClicked: bar.togglePanel(brightnessMenu)
+                                onOpenChanged: if (!open) brightnessMenu.opened = false
+                            }
+
+                            BrightnessMenu {
+                                id: brightnessMenu
+                                maximumHeight: bar.screen.height - 70
+                                surfaceColor: shell.barBackground()
+                                target: shell.verticalBar ? verticalDisplayIcon : (shell.iconsOpen ? brightnessIcon : notificationIcon)
+                                barEdge: shell.barEdge
+                                accent: shell.activeBg
+                                foreground: shell.fg
+                                background: shell.workspaceMenuBg
+                                onPrimarySelected: function(name) { shell.primaryDisplay = name }
+                            }
+
+                            StatusIcon {
+                                id: volumeIcon
+                                icon: ""
+                                tooltip: Eitr.I18n.tr("Volume")
+                                open: shell.iconsOpen
+                                clickable: true
+                                onClicked: bar.togglePanel(volumeMenu)
+                                onOpenChanged: if (!open) volumeMenu.opened = false
+                            }
+
+                            AudioMenu {
+                                id: volumeMenu
+                                surfaceColor: shell.barBackground()
+                                maximumHeight: bar.screen.height - 70
+                                target: shell.verticalBar ? verticalVolumeIcon : (shell.iconsOpen ? volumeIcon : notificationIcon)
+                                barEdge: shell.barEdge
+                                accent: shell.activeBg
+                                foreground: shell.fg
+                                background: shell.workspaceMenuBg
+                            }
+
+                            StatusIcon {
+                                id: micIcon
+                                icon: "󰍬"
+                                iconSize: 18
+                                tooltip: Eitr.I18n.tr("Mic")
+                                open: shell.iconsOpen
+                                clickable: true
+                                onClicked: bar.togglePanel(micMenu)
+                                onOpenChanged: if (!open) micMenu.opened = false
+                            }
+
+                            AudioMenu {
+                                id: micMenu
+                                surfaceColor: shell.barBackground()
+                                maximumHeight: bar.screen.height - 70
+                                target: shell.verticalBar ? verticalMicIcon : (shell.iconsOpen ? micIcon : notificationIcon)
+                                barEdge: shell.barEdge
+                                microphone: true
+                                accent: shell.activeBg
+                                foreground: shell.fg
+                                background: shell.workspaceMenuBg
+                            }
+
+                            StatusIcon {
+                                id: keyboardIcon
+                                icon: "󰌌"
+                                iconSize: 18
+                                tooltip: Eitr.I18n.tr("Keyboard")
+                                open: shell.iconsOpen
+                                clickable: true
+                                onClicked: bar.togglePanel(keyboardMenu)
+                                onOpenChanged: if (!open) keyboardMenu.opened = false
+                            }
+
+                            KeyboardLayoutMenu {
+                                id: keyboardMenu
+                                surfaceColor: shell.barBackground()
+                                target: shell.verticalBar ? verticalKeyboardIcon : (shell.iconsOpen ? keyboardIcon : notificationIcon)
+                                barEdge: shell.barEdge
+                                accent: shell.activeBg
+                                foreground: shell.fg
+                                background: shell.workspaceMenuBg
+                            }
+
+                            StatusIcon {
+                                id: idleLockIcon
+                                icon: shell.idleLockEnabled ? "󱫗" : "󱫖"
+                                iconSize: 17
+                                tooltip: shell.idleLockEnabled ? Eitr.I18n.tr("Idle Lock: On") : Eitr.I18n.tr("Idle Lock: Off")
+                                open: shell.iconsOpen
+                                clickable: true
+                                rightClickable: true
+                                onClicked: function(button) {
+                                    if (button === Qt.RightButton) {
+                                        if (!toggleIdleLock.running) toggleIdleLock.running = true;
+                                    } else bar.togglePanel(idleLockMenu);
+                                }
+                                onOpenChanged: if (!open) idleLockMenu.opened = false
+                            }
+
+                            IdleLockMenu {
+                                id: idleLockMenu
+                                target: shell.verticalBar ? verticalIdleLockIcon : (shell.iconsOpen ? idleLockIcon : notificationIcon)
+                                barEdge: shell.barEdge
+                                surfaceColor: shell.barBackground()
+                                foreground: shell.fg
+                                background: shell.workspaceMenuBg
+                                accent: shell.activeBg
+                                idleEnabled: shell.idleLockEnabled
+                                busy: toggleIdleLock.running || manualLock.running
+                                onToggleRequested: if (!toggleIdleLock.running) toggleIdleLock.running = true
+                                onLockRequested: if (!manualLock.running) manualLock.running = true
+                            }
+
+                            StatusIcon {
+                                id: obsIcon
+                                icon: obsMenu.obsState.recording ? (obsMenu.obsState.paused ? "󰏤" : "󰑋") : "󰻂"
+                                iconSize: obsMenu.obsState.recording && !obsMenu.obsState.paused ? 22 : 16
+                                tooltip: obsMenu.obsState.recording ? (obsMenu.obsState.paused ? Eitr.I18n.tr("Recording paused") : Eitr.I18n.tr("Recording")) : Eitr.I18n.tr("OBS Studio")
+                                open: shell.iconsOpen
+                                clickable: true
+                                onClicked: bar.togglePanel(obsMenu)
+                                onOpenChanged: if (!open) obsMenu.opened = false
+                            }
+
+                            StatusIcon {
+                                id: updatesIcon
+                                icon: shell.updatesIcon
+                                iconSize: 17
+                                spinning: shell.updates.checking
+                                tooltip: shell.updatesTooltip
+                                open: shell.iconsOpen
+                                clickable: true
+                                rightClickable: true
+                                onClicked: function(button) {
+                                    if (button === Qt.RightButton) shell.checkUpdates();
+                                    else shell.openSystemUpdate();
+                                }
+                            }
+
+                            StatusIcon {
+                                id: batteryBarIcon
+                                icon: shell.batteryIcon
+                                tooltip: Math.round(shell.battery.percent) + "% · " + shell.battery.status
+                                open: shell.battery.available; visible: shell.battery.available
+                                clickable: true; onClicked: bar.togglePanel(batteryMenu)
+                            }
+
+                            ObsMenu {
+                                id: obsMenu
+                                surfaceColor: shell.barBackground()
+                                onCaptureStarting: recordingMenu.opened = false
+                                target: shell.verticalBar ? verticalObsIcon : obsIcon
+                                barEdge: shell.barEdge
+                                accent: shell.activeBg
+                                foreground: shell.fg
+                                background: shell.workspaceMenuBg
+                            }
+
+                            RecordingMenu {
+                                id: recordingMenu
+                                surfaceColor: shell.barBackground()
+                                controller: obsMenu
+                                target: shell.verticalBar ? verticalWeatherIcon.recordingTarget : barWeather.recordingTarget
+                                barEdge: shell.barEdge
+                                centered: true
+                                accent: shell.activeBg
+                                foreground: shell.fg
+                                background: shell.workspaceMenuBg
+                            }
+
+                        }
+
+                    NotificationWidget {
+                        id: notificationIcon
+                        onOpenRequested: bar.togglePanel(notificationCenter)
+                        opacity: bar.expanded ? 1 : 0
+                        enabled: bar.expanded
+                        visible: !shell.verticalBar
+                        anchors.right: parent.right
+                        anchors.rightMargin: 13
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+
+                    ClockButton {
+                        id: centerInfo
+                        anchors.centerIn: parent
+                        onClicked: bar.togglePanel(calendarMenu)
+                    }
+
+                    StatusIcon {
+                        id: barPin
+                        visible: bar.centeredLayout && bar.expanded
+                        anchors.right: centerInfo.left
+                        anchors.rightMargin: 6
+                        anchors.verticalCenter: parent.verticalCenter
+                        icon: shell.barPinned ? "󰐃" : "󰐄"
+                        tooltip: shell.barPinned ? Eitr.I18n.tr("Unpin bar") : Eitr.I18n.tr("Pin bar open")
+                        open: true; clickable: true
+                        onClicked: shell.updateBarSetting("pinned", shell.barPinned ? "no" : "yes")
+                    }
+
+                    MediaStrip {
+                        id: mediaStrip
+                        opacity: bar.expanded ? 1 : 0
+                        enabled: bar.expanded
+                        anchors.right: bar.centeredLayout ? barPin.left : centerInfo.left
+                        anchors.rightMargin: 12
+                        anchors.verticalCenter: parent.verticalCenter
+                        availableWidth: Math.max(0, centerInfo.x - hardwareStatus.mapToItem(centerInfo.parent, hardwareStatus.width, 0).x - 24)
+                        foreground: shell.fg
+                        background: shell.workspaceMenuBg
+                        onDetailsRequested: bar.togglePanel(mediaMenu)
+                    }
+
+                    WeatherWidget {
+                        id: barWeather
+                        opacity: bar.expanded ? 1 : 0
+                        enabled: bar.expanded
+                        recording: obsMenu.obsState.recording || obsMenu.obsState.streaming
+                        recordingPaused: obsMenu.obsState.paused && !obsMenu.obsState.streaming
+                        streaming: obsMenu.obsState.streaming
+                        dictating: shell.dictating
+                        transcribing: shell.transcribing
+                        dictationLevels: shell.dictationLevels
+                        onRecordingClicked: bar.togglePanel(recordingMenu)
+                        anchors.left: centerInfo.right
+                        anchors.leftMargin: 6
+                        anchors.verticalCenter: parent.verticalCenter
+                        onClicked: bar.togglePanel(weatherMenu)
+                    }
+
+                    CalendarMenu {
+                        id: calendarMenu
+                        surfaceColor: shell.barBackground()
+                        target: shell.verticalBar ? verticalCalendarIcon : centerInfo
+                        barEdge: shell.barEdge
+                        centered: true
+                        accent: shell.activeBg
+                        foreground: shell.fg
+                        background: shell.workspaceMenuBg
+                    }
+
+                    WeatherMenu {
+                        id: weatherMenu
+                        surfaceColor: shell.barBackground()
+                        defaultWeatherData: barWeather.latestData
+                        target: shell.verticalBar ? verticalWeatherIcon : centerInfo
+                        barEdge: shell.barEdge
+                        centered: true
+                        accent: shell.activeBg
+                        foreground: shell.fg
+                        background: shell.workspaceMenuBg
+                        onDefaultWeatherUpdated: function(data) { barWeather.updateData(data); }
+                    }
+
+                }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    component BarButton: Rectangle {
+        id: button
+
+        property string text: ""
+        property string tooltip: ""
+        property bool active: false
+        property int fontSize: 15
+        property int buttonHeight: 24
+        property int cornerRadius: 7
+        property int textOffsetY: 0
+        property string visualStyle: "Runes"
+
+        signal clicked()
+        signal rightClicked()
+
+        width: 24
+        height: buttonHeight
+        radius: DesktopStyle.radius(cornerRadius)
+        color: visualStyle === "Numbers" || visualStyle === "Runes" ? (active ? shell.activeBg : (mouse.containsMouse ? shell.hoverBg : "transparent")) : "transparent"
+
+        WorkspaceMarker {
+            anchors.fill: parent
+            style: button.visualStyle
+            label: button.text
+            active: button.active
+            accent: shell.activeBg
+            foreground: shell.fg
+            selectedForeground: shell.activeFg
+            fontSize: button.fontSize
+            textOffsetY: button.textOffsetY
+        }
+
+
+        MouseArea {
+            id: mouse
+
+            anchors.fill: parent
+            hoverEnabled: true
+            acceptedButtons: Qt.LeftButton | Qt.RightButton
+            cursorShape: Qt.PointingHandCursor
+            onEntered: Hyprland.refreshToplevels()
+            onClicked: function(event) {
+                if (event.button === Qt.RightButton) button.rightClicked();
+                else button.clicked();
+            }
+        }
+
+        BarTooltip {
+            target: button
+            hovered: mouse.containsMouse && !button.active
+            text: button.tooltip
+            foreground: shell.fg
+            background: shell.workspaceMenuBg
+        }
+
+        Behavior on color {
+            ColorAnimation {
+                duration: 120
+            }
+
+        }
+
+    }
+
+    component StatusIcon: Item {
+        id: item
+
+        property string icon: ""
+        property string tooltip: ""
+        property bool open: true
+        property bool clickable: false
+        property bool rightClickable: false
+        property int iconSize: 15
+        property int glyphOffsetY: 0
+        property int slotWidth: shell.workspaceItemSize
+        property bool spinning: false
+
+        signal clicked(int button)
+
+        width: open ? slotWidth : 0
+        height: 24
+        opacity: open ? 1 : 0
+        clip: true
+
+        Row {
+            id: content
+
+            anchors.centerIn: parent
+            spacing: 3
+            leftPadding: 4
+            rightPadding: 4
+
+            Text {
+                id: glyph
+                text: item.icon
+                y: item.glyphOffsetY
+                color: shell.fg
+                font.family: DesktopFonts.family
+                font.pixelSize: item.iconSize
+                font.bold: true
+
+                // Spin around the glyph's drawn centre; the text box centre sits above it.
+                transform: Rotation {
+                    id: spin
+                    origin.x: glyphInk.tightBoundingRect.x + glyphInk.tightBoundingRect.width / 2
+                    origin.y: glyph.baselineOffset + glyphInk.tightBoundingRect.y + glyphInk.tightBoundingRect.height / 2
+
+                    NumberAnimation on angle {
+                        running: item.spinning
+                        from: 0; to: 360
+                        duration: 1200
+                        loops: Animation.Infinite
+                        onStopped: spin.angle = 0
+                    }
+                }
+
+                TextMetrics {
+                    id: glyphInk
+                    font: glyph.font
+                    text: glyph.text
+                }
+            }
+
+        }
+
+        MouseArea {
+            id: iconMouse
+            anchors.fill: parent
+            enabled: item.open && item.clickable
+            acceptedButtons: item.rightClickable ? Qt.LeftButton | Qt.RightButton : Qt.LeftButton
+            hoverEnabled: true
+            cursorShape: enabled ? Qt.PointingHandCursor : Qt.ArrowCursor
+            onClicked: function(event) { item.clicked(event.button); }
+        }
+
+        BarTooltip {
+            background: shell.workspaceMenuBg
+            foreground: shell.fg
+            target: item
+            hovered: iconMouse.containsMouse && item.open
+            text: item.tooltip
+        }
+
+        Behavior on width {
+            NumberAnimation {
+                duration: 180
+                easing.type: Easing.InOutCubic
+            }
+
+        }
+
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 120
+                easing.type: Easing.InOutCubic
+            }
+
+        }
+
+    }
+
+    component VerticalBarIcon: StatusIcon {
+        anchors.horizontalCenter: parent.horizontalCenter
+        height: open ? 24 : 0
+    }
+
+    component StatusCommand: Item {
+        id: item
+
+        // Script path run with bash; it prints {"text": ...} or plain text.
+        property string script: ""
+        property string hoverLabel: ""
+        property bool clickable: false
+        signal clicked()
+        property bool open: true
+        property int interval: 5000
+        property string text: ""
+        property int slotWidth: 44
+        property int fixedWidth: 0
+        property int fontSize: 13
+
+        function refresh() {
+            if (process.running)
+                return ;
+
+            process.command = ["bash", item.script];
+            process.running = true;
+        }
+
+        function parse(raw) {
+            var value = String(raw || "").trim();
+            if (value === "")
+                return ;
+
+            try {
+                var parsed = JSON.parse(value.split("\n").pop());
+                item.text = String(parsed.text || "");
+            } catch (e) {
+                item.text = value;
+            }
+        }
+
+        width: open ? (fixedWidth > 0 ? fixedWidth : Math.max(slotWidth, label.implicitWidth + 8)) : 0
+        height: 24
+        opacity: open ? 1 : 0
+        clip: true
+
+        Text {
+            id: label
+
+            anchors.centerIn: parent
+            text: item.text
+            textFormat: Text.RichText
+            color: shell.fg
+            font.family: DesktopFonts.family
+            font.pixelSize: item.fontSize
+            font.bold: true
+        }
+
+        MouseArea {
+            id: commandMouse
+            anchors.fill: parent
+            enabled: item.open && item.clickable
+            hoverEnabled: true
+            cursorShape: enabled ? Qt.PointingHandCursor : Qt.ArrowCursor
+            onClicked: item.clicked()
+        }
+
+        BarTooltip {
+            background: shell.workspaceMenuBg
+            foreground: shell.fg
+            target: item
+            hovered: commandMouse.containsMouse && item.open
+            text: item.hoverLabel
+        }
+
+        // Both bar orientations exist; only the visible one polls.
+        Timer {
+            interval: item.interval
+            running: item.visible
+            repeat: true
+            triggeredOnStart: true
+            onTriggered: item.refresh()
+        }
+
+        Process {
+            id: process
+
+            running: false
+            command: []
+            onExited: item.parse(output.text)
+
+            stdout: StdioCollector {
+                id: output
+
+                waitForEnd: true
+            }
+
+        }
+
+        Behavior on width {
+            NumberAnimation {
+                duration: 180
+                easing.type: Easing.InOutCubic
+            }
+
+        }
+
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 120
+                easing.type: Easing.InOutCubic
+            }
+
+        }
+
+    }
+
+    component WeatherWidget: Item {
+        id: weather
+        signal clicked()
+        signal recordingClicked()
+        property alias recordingTarget: recordingDot
+        property bool autoRefresh: true
+        property bool compact: false
+        property bool recording: false
+        property bool recordingPaused: false
+        property bool streaming: false
+        property bool dictating: false
+        property bool transcribing: false
+        property var dictationLevels: [0, 0, 0, 0]
+        readonly property bool listening: dictating || transcribing
+        readonly property bool dotShown: recording || listening
+        property real transcribePhase: 0
+        NumberAnimation on transcribePhase {
+            running: weather.transcribing
+            from: 0; to: 1; duration: 900; loops: Animation.Infinite
+        }
+
+        property string text: "󰖐"
+        property string location: ""
+        property string condition: ""
+        property string temp: ""
+        property string feels: ""
+        property string wind: ""
+        property string humidity: ""
+        property string forecast: ""
+        property var latestData: ({})
+        property int dataRevision: 0
+        property int requestedRevision: 0
+
+        function refresh() {
+            if (process.running)
+                return ;
+
+            process.command = ["bash", Quickshell.shellDir + "/scripts/weather-status.sh"];
+            requestedRevision = dataRevision;
+            process.running = true;
+        }
+
+        function updateData(data) {
+            dataRevision++;
+            latestData = data;
+            weather.text = String(data.text || weather.text);
+            weather.location = String(data.location || "");
+            weather.condition = String(data.condition || "");
+            weather.temp = String(data.temp || "");
+            weather.feels = String(data.feels || "");
+            weather.wind = String(data.wind || "");
+            weather.humidity = String(data.humidity || "");
+            weather.forecast = String(data.forecast || "");
+        }
+
+        function parse(raw) {
+            // A panel refresh may have supplied newer data during this request.
+            if (requestedRevision !== dataRevision) return;
+            var value = String(raw || "").trim();
+            if (value === "")
+                return ;
+
+            try {
+                var data = JSON.parse(value.split("\n").pop());
+                weather.updateData(data);
+            } catch (e) {
+                weather.text = "󰖐";
+                weather.condition = "Weather unavailable";
+            }
+        }
+
+        width: Math.max(26, label.implicitWidth + 8)
+        height: 24
+        Component.onCompleted: if (autoRefresh) refresh()
+
+        Row {
+            id: label
+            anchors.centerIn: parent
+            spacing: 3
+            Text {
+                text: weather.text.split(" ")[0]
+                color: shell.fg
+                font.family: DesktopFonts.family
+                font.pixelSize: weather.compact ? 12 : 14
+                font.bold: true
+            }
+            Text {
+                text: weather.temp || (weather.text.indexOf(" ") >= 0 ? weather.text.slice(weather.text.indexOf(" ") + 1).trim() : "")
+                color: shell.fg
+                font.family: DesktopFonts.family
+                font.pixelSize: weather.compact ? 12 : 14
+                font.bold: true
+            }
+            Item {
+                id: recordingDot
+                visible: weather.dotShown
+                width: 22
+                height: label.height
+                Rectangle {
+                    visible: !weather.listening
+                    anchors.right: parent.right
+                    anchors.rightMargin: 2
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: 6
+                    height: 6
+                    radius: 3
+                    color: weather.recordingPaused ? shell.fg : "#e05c68"
+                }
+                // Dictation: seven bars mirrored around the centre line, fed by the
+                // microphone while listening and pulsing while transcribing.
+                Row {
+                    visible: weather.listening
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    spacing: 1
+                    Repeater {
+                        model: 7
+                        Rectangle {
+                            required property int index
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: 2
+                            radius: 1
+                            color: "#e05c68"
+                            height: weather.transcribing
+                                ? 3 + 9 * (0.5 + 0.5 * Math.sin((weather.transcribePhase - index / 7) * 2 * Math.PI))
+                                : 3 + 11 * (weather.dictationLevels[Math.abs(index - 3)] || 0)
+                            // Smooths the 70 ms microphone samples only: the pulse changes every
+                            // frame, and a Behavior restarted each frame never leaves its start.
+                            Behavior on height { enabled: !weather.transcribing; NumberAnimation { duration: 70 } }
+                        }
+                    }
+                }
+                MouseArea {
+                    id: recordingMouse
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: weather.recording ? Qt.PointingHandCursor : Qt.ArrowCursor
+                    onClicked: if (weather.recording) weather.recordingClicked()
+                }
+                BarTooltip {
+                    target: recordingDot
+                    hovered: recordingMouse.containsMouse
+                    text: weather.dictating ? Eitr.I18n.tr("Dictating") : weather.transcribing ? Eitr.I18n.tr("Transcribing")
+                        : weather.recordingPaused ? "Recording paused" : weather.streaming ? "Live" : "Recording"
+                    foreground: shell.fg
+                    background: shell.workspaceMenuBg
+                }
+            }
+        }
+
+        MouseArea {
+            id: weatherMouse
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            width: weather.dotShown ? label.x + recordingDot.x - label.spacing : parent.width
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
+            onClicked: weather.clicked()
+        }
+
+        BarTooltip {
+            background: shell.workspaceMenuBg
+            foreground: shell.fg
+            target: weather
+            hovered: weatherMouse.containsMouse
+            text: Eitr.I18n.tr("Weather")
+        }
+
+        Timer {
+            interval: 900000
+            running: weather.autoRefresh
+            repeat: true
+            onTriggered: weather.refresh()
+        }
+
+        Process {
+            id: process
+
+            running: false
+            command: []
+            onExited: weather.parse(weatherOutput.text)
+
+            stdout: StdioCollector {
+                id: weatherOutput
+
+                waitForEnd: true
+            }
+
+        }
+
+    }
+
+    component NotificationWidget: Rectangle {
+        id: notifications
+        // A click opens the center on the bar that was clicked, not on the focused display.
+        signal openRequested()
+
+        readonly property bool hasNotifications: notificationsService.count > 0
+        readonly property string text: notificationsService.doNotDisturb ? (hasNotifications ? "󰂠" : "󰪓") : (hasNotifications ? "󱅫" : "󰂜")
+        readonly property string tooltip: notificationsService.doNotDisturb ? Eitr.I18n.tr("Do Not Disturb") : (hasNotifications ? (notificationsService.count === 1 ? Eitr.I18n.tr("{count} notification", {count: notificationsService.count}) : Eitr.I18n.tr("{count} notifications", {count: notificationsService.count})) : Eitr.I18n.tr("No notifications"))
+
+        width: shell.workspaceItemSize
+        height: 24
+        radius: DesktopStyle.radius(7)
+        color: "transparent"
+
+        Text {
+            anchors.fill: parent
+            text: notifications.text
+            color: shell.fg
+            font.family: DesktopFonts.family
+            font.pixelSize: 18
+            font.bold: true
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+
+        MouseArea {
+            id: mouse
+
+            anchors.fill: parent
+            acceptedButtons: Qt.LeftButton | Qt.RightButton
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
+            onClicked: function(event) {
+                if (event.button === Qt.RightButton)
+                    notificationsService.toggleDnd();
+                else
+                    notifications.openRequested();
+            }
+        }
+
+        BarTooltip {
+            background: shell.workspaceMenuBg
+            foreground: shell.fg
+            target: notifications
+            hovered: mouse.containsMouse
+            text: notifications.tooltip
+        }
+
+        Behavior on color {
+            ColorAnimation {
+                duration: 120
+            }
+
+        }
+
+    }
+
+    component ClockButton: Rectangle {
+        id: clock
+
+        property date now: new Date()
+        property bool compact: false
+
+        signal clicked()
+
+        width: compact ? 54 : label.implicitWidth + 17
+        height: compact ? 40 : 24
+        radius: DesktopStyle.radius(7)
+        color: "transparent"
+
+        Timer {
+            interval: 1000
+            running: clock.visible
+            repeat: true
+            triggeredOnStart: true
+            onTriggered: clock.now = new Date()
+        }
+
+        Text {
+            id: label
+
+            anchors.centerIn: parent
+            text: Qt.formatDateTime(clock.now, clock.compact ? Eitr.I18n.tr("hh:mm\nMMM dd") : Eitr.I18n.tr("ddd MMM dd hh:mm AP"))
+            horizontalAlignment: Text.AlignHCenter
+            color: shell.fg
+            font.family: DesktopFonts.family
+            font.pixelSize: clock.compact ? 12 : 14
+            font.bold: true
+        }
+
+        MouseArea {
+            id: mouse
+
+            anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
+            onClicked: clock.clicked()
+        }
+
+        BarTooltip {
+            background: shell.workspaceMenuBg
+            foreground: shell.fg
+            target: clock
+            hovered: mouse.containsMouse
+            text: Eitr.I18n.tr("Calendar")
+        }
+
+    }
+
+}

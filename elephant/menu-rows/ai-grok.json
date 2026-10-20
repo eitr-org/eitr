@@ -1,0 +1,14 @@
+[
+  {
+    "text": "New",
+    "subtext": "Start a Grok Build session in a project",
+    "keywords": [
+      "grok",
+      "ai"
+    ],
+    "icon": "󱙺",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh grok-new"
+    }
+  }
+]

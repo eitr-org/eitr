@@ -1,0 +1,55 @@
+---
+import BrandText from "../components/BrandText.astro";
+import Layout from "../layouts/Layout.astro";
+const sections = [
+  [
+    "Nothing is collected by itself",
+    "Eitr has no telemetry and no server of its own. It never sends anything without you. If you allow it in the welcome, it only offers to prepare a report when part of the desktop crashes.",
+  ],
+  [
+    "What a problem report holds",
+    "Versions of Eitr and its main packages, graphics hardware, desktop errors and warnings, recent crashes, the installation log and recent package changes. Your user name, computer name, home folder, email, IP and MAC addresses are removed before you see it. You read the whole report before sending it.",
+  ],
+  [
+    "How a report reaches us",
+    "Only if you send it: by email to reports@eitr.info, or as a public GitHub issue. An email shares your email address with us; a GitHub issue is visible to everyone.",
+  ],
+  [
+    "What we do with it",
+    "A report is used only to find and fix the problem it describes. It is not sold, shared or used for anything else, and it is deleted once the problem is fixed.",
+  ],
+  [
+    "Your choices",
+    "Reply to your report email, or write to contact@eitr.info, to have your report deleted at any time. You can turn crash offers off again in the welcome chapter of the handbook.",
+  ],
+  [
+    "This website",
+    "The site sets no cookies and runs no analytics. Your day/night preference is saved only in this browser’s local storage. It is served by Cloudflare, which processes visitors' network addresses to deliver and protect it.",
+  ],
+];
+---
+
+<Layout title="Privacy · EITR" description="How Eitr handles problem reports and what this website collects.">
+  <section class="wrap guide-intro">
+    <p class="eyebrow">Privacy</p>
+    <h1>
+      Your machine.
+      <br />
+      <em>Your choice.</em>
+    </h1>
+    <p class="lead">
+      <BrandText text="Eitr" /> sends nothing on its own. A problem report leaves your computer only when you send it.
+    </p>
+  </section>
+  <section class="wrap guide-links" aria-label="How problem reports are handled">
+    {sections.map(([title, body], i) => (
+      <div class="guide-link">
+        <span class="feature-number">0{i + 1}</span>
+        <div>
+          <h2>{title}</h2>
+          <p>{body}</p>
+        </div>
+      </div>
+    ))}
+  </section>
+</Layout>

@@ -1,0 +1,383 @@
+#!/usr/bin/env python3
+"""Install, verify and update Eitr in a throwaway QEMU virtual machine.
+
+  eitr-vm-test install --iso ISO --work DIR   offline install from the ISO
+  eitr-vm-test verify --work DIR              boot the installed disk and check it
+  eitr-vm-test update --work DIR              run System Update online, then verify
+  eitr-vm-test reset --work DIR --mode MODE   Factory Reset from Walker's script, then verify
+  eitr-vm-test boot-guard --work DIR          break an updated system, watch the guard undo it
+  eitr-vm-test ssh --work DIR [COMMAND...]    shell on a running verify/update boot
+
+The install VM has no network device, so it proves the offline payload. The
+installer reads its answers from QEMU's firmware config (see build-iso.sh) and
+authorizes a key generated for this work directory; verification boots use a
+network that reaches only the host. Everything stays inside the work directory,
+and nothing touches existing virtual machines.
+"""
+import argparse
+import json
+from pathlib import Path
+import secrets
+import shutil
+import socket
+import subprocess
+import sys
+import time
+
+FIRMWARE = Path("/usr/share/edk2/x64/OVMF_CODE.4m.fd")
+FIRMWARE_VARS = Path("/usr/share/edk2/x64/OVMF_VARS.4m.fd")
+USER = "tester"
+SSH_PORT = 2230
+
+
+class VmTestError(RuntimeError):
+    pass
+
+
+def ssh_options(work):
+    return ["-i", str(work / "key"), "-p", str(SSH_PORT), "-o", "StrictHostKeyChecking=no",
+            "-o", f"UserKnownHostsFile={work / 'known_hosts'}", "-o", "ConnectTimeout=5", "-o", "BatchMode=yes"]
+
+
+def ssh(work, command, tty=False, check=True, capture=True):
+    result = subprocess.run(["ssh", *(["-tt"] if tty else []), *ssh_options(work), f"{USER}@127.0.0.1", command],
+                            capture_output=capture, text=True)
+    if check and result.returncode != 0:
+        raise VmTestError(f"In the VM, {command!r} failed ({result.returncode}): {result.stderr.strip()}")
+    return result
+
+
+def qemu(work, name, extra):
+    """Start QEMU in the background with the VM's disk, firmware and a control socket."""
+    command = ["qemu-system-x86_64", "-name", name, "-machine", "q35,accel=kvm", "-cpu", "host", "-smp", "4",
+               "-m", "8192", "-drive", f"if=pflash,format=raw,readonly=on,file={FIRMWARE}",
+               "-drive", f"if=pflash,format=raw,file={work / 'vars.fd'}",
+               "-drive", f"file={work / 'disk.qcow2'},if=virtio,format=qcow2",
+               "-vga", "virtio", "-display", "none", "-qmp", f"unix:{work / 'qmp.sock'},server,nowait", *extra]
+    (work / "qmp.sock").unlink(missing_ok=True)
+    return subprocess.Popen(command, stdout=subprocess.DEVNULL, stderr=open(work / f"{name}.qemu.log", "w"))
+
+
+def qmp(work, command, arguments=None):
+    with socket.socket(socket.AF_UNIX) as connection:
+        connection.connect(str(work / "qmp.sock"))
+        stream = connection.makefile("rw")
+        stream.readline()
+        for message in ({"execute": "qmp_capabilities"}, {"execute": command, "arguments": arguments or {}}):
+            stream.write(json.dumps(message) + "\n")
+            stream.flush()
+            while "return" not in (reply := json.loads(stream.readline())) and "error" not in reply:
+                continue
+            if "error" in reply:
+                raise VmTestError(f"QMP {command}: {reply['error']}")
+        return reply["return"]
+
+
+def screenshot(work, name):
+    path = work / f"{name}.png"
+    qmp(work, "screendump", {"filename": str(path), "format": "png"})
+    return path
+
+
+def wait_exit(process, timeout, what):
+    try:
+        return process.wait(timeout=timeout)
+    except subprocess.TimeoutExpired:
+        process.kill()
+        raise VmTestError(f"{what} did not finish within {timeout} s") from None
+
+
+def power_off(work, process):
+    qmp(work, "system_powerdown")
+    wait_exit(process, 180, "Shutting down the VM")
+
+
+def install(arguments):
+    work = Path(arguments.work).resolve()
+    if work.exists() and any(work.iterdir()):
+        raise VmTestError(f"{work} is not empty; give each run its own work directory")
+    work.mkdir(parents=True, exist_ok=True)
+    subprocess.run(["qemu-img", "create", "-q", "-f", "qcow2", str(work / "disk.qcow2"), "80G"], check=True)
+    shutil.copyfile(FIRMWARE_VARS, work / "vars.fd")
+    subprocess.run(["ssh-keygen", "-q", "-t", "ed25519", "-N", "", "-C", "eitr-vm-test", "-f", str(work / "key")],
+                   check=True)
+    password = secrets.token_urlsafe(12)
+    (work / "password").write_text(password + "\n")
+    answers = {"disk": "/dev/vda", "layout": "erase", "encrypted": False, "hostname": "eitr-vm",
+               "username": USER, "password": password, "keyboard": "us",
+               "ssh_authorized_key": (work / "key.pub").read_text().strip()}
+    (work / "answers.json").write_text(json.dumps(answers, indent=2) + "\n")
+    serial = work / "install.serial.log"
+    started = time.monotonic()
+    process = qemu(work, "install", ["-cdrom", str(Path(arguments.iso).resolve()), "-nic", "none", "-no-reboot",
+                                     "-fw_cfg", f"name=opt/eitr/answers,file={work / 'answers.json'}",
+                                     "-serial", f"file:{serial}"])
+    wait_exit(process, arguments.timeout, "The offline installation")
+    log = serial.read_text(errors="replace") if serial.exists() else ""
+    if "==> Installed in" not in log:
+        raise VmTestError(f"The installer stopped without finishing; see {serial}:\n" + "\n".join(log.splitlines()[-25:]))
+    print(f"Installed offline in {time.monotonic() - started:.0f} s (VM wall time); log: {serial}")
+
+
+def boot(work, network, forwards=()):
+    """Boot the installed disk; 'host' reaches only the host, 'internet' also the internet.
+    ``forwards`` adds (host port, guest port) TCP forwards, for testing the firewall from outside."""
+    restrict = "on" if network == "host" else "off"
+    extra = "".join(f",hostfwd=tcp:127.0.0.1:{host}-:{guest}" for host, guest in forwards)
+    process = qemu(work, "boot", ["-nic", f"user,model=virtio-net-pci,restrict={restrict},"
+                                          f"hostfwd=tcp:127.0.0.1:{SSH_PORT}-:22{extra}",
+                                  "-serial", f"file:{work / 'boot.serial.log'}"])
+    deadline = time.monotonic() + 300
+    while time.monotonic() < deadline:
+        if process.poll() is not None:
+            raise VmTestError("The VM exited while booting")
+        if ssh(work, "true", check=False).returncode == 0:
+            return process
+        time.sleep(3)
+    process.kill()
+    raise VmTestError("The installed system did not accept SSH within 300 s")
+
+
+CHECKS = [
+    ("system reaches a running state", "systemctl is-system-running --wait", "running"),
+    ("no failed system units", "systemctl --failed --plain --no-legend | wc -l", "0"),
+    ("graphical login is up", "systemctl is-active sddm.service", "active"),
+    ("Eitr packages are installed", "pacman -Q eitr-desktop eitr-artwork >/dev/null && echo yes", "yes"),
+    ("the installer kept its log", "test -s /var/log/eitr-install.log && echo yes", "yes"),
+    ("pacman uses online mirrors only", "grep -c '^[^#].*file://' /etc/pacman.conf /etc/pacman.d/mirrorlist "
+                                        "| awk -F: '{s+=$2} END {print s}'", "0"),
+    ("Eitr updates from download.eitr.info", "pacman-conf --repo eitr Server", "https://download.eitr.info/repo"),
+    ("Hyprland session is offered", "test -e /usr/share/wayland-sessions/hyprland-uwsm.desktop && echo yes", "yes"),
+    # New installations enable the firewall; older ones keep it off until turned on.
+    # SSH answering at all shows its SSH opening works.
+    ("firewall runs exactly when enabled",
+     "e=$(systemctl is-enabled eitr-firewall.service 2>/dev/null); a=$(systemctl is-active eitr-firewall.service); "
+     "{ [ \"$e\" = enabled ] && [ \"$a\" = active ]; } || { [ \"$e\" != enabled ] && [ \"$a\" != active ]; } "
+     "&& echo yes", "yes"),
+]
+
+
+def run_checks(work):
+    failures = []
+    for title, command, expected in CHECKS:
+        result = ssh(work, command, check=False)
+        value = result.stdout.strip()
+        passed = value == expected
+        print(f"  {'PASS' if passed else 'FAIL'}  {title}" + ("" if passed else f" (got {value!r}, expected {expected!r})"))
+        if not passed:
+            failures.append(title)
+    if failures:
+        print(ssh(work, "systemctl --failed --plain --no-legend; journalctl -b -p err --no-pager | tail -20",
+                  check=False).stdout.rstrip())
+    print(ssh(work, "cat /var/log/eitr-install.log", check=False).stdout.rstrip())
+    return failures
+
+
+def verify(arguments):
+    work = Path(arguments.work).resolve()
+    process = boot(work, "host")
+    try:
+        failures = run_checks(work)
+        time.sleep(5)
+        print(f"Login screen: {screenshot(work, 'login')}")
+    finally:
+        power_off(work, process)
+    if failures:
+        raise VmTestError("Failed: " + ", ".join(failures))
+
+
+def update(arguments):
+    """System Update exactly as the menu runs it, answering pacman's defaults."""
+    work = Path(arguments.work).resolve()
+    process = boot(work, "internet")
+    try:
+        before = ssh(work, "pacman -Q eitr-desktop").stdout.strip()
+        password = (work / "password").read_text().strip()
+        command = (f"printf '%s\\n' '{password}' | sudo -S -v && yes '' | "
+                   "EITR_SKIP_ARCH_NEWS=1 bash /usr/share/eitr/walker/scripts/actions/system/update.sh system")
+        result = ssh(work, command, tty=True, check=False, capture=False)
+        if result.returncode != 0:
+            raise VmTestError(f"System Update failed with {result.returncode}")
+        after = ssh(work, "pacman -Q eitr-desktop").stdout.strip()
+        print(f"eitr-desktop: {before} -> {after}")
+        snapshots = ssh(work, f"printf '%s\\n' '{password}' | sudo -S snapper -c root list --columns description",
+                        check=False).stdout
+        if "Eitr before package upgrade" not in snapshots or "Eitr after package upgrade" not in snapshots:
+            print(snapshots)
+            raise VmTestError("System Update left no successful pre/post snapshot pair")
+    finally:
+        power_off(work, process)
+    verify(arguments)
+
+
+RESET_SCRIPT = "/usr/share/eitr/walker/scripts/actions/system/factory-reset.py"
+# Files and accounts made after installation, and where each reset mode leaves them.
+RESET_SETUP = ("mkdir -p ~/Documents && echo kept > ~/Documents/eitr-test-file && echo old > ~/.eitr-test-setting"
+               " && sudo touch /etc/eitr-test-system-file && sudo useradd -m eitr-later")
+RESET_EXPECTED = {
+    "everything": [
+        ("home folder files are erased", "test -e ~/Documents/eitr-test-file || echo gone", "gone"),
+        ("the later account's home folder is gone", "test -e /home/eitr-later || echo gone", "gone"),
+    ],
+    "keep-files": [
+        ("home folder files are kept", "cat ~/Documents/eitr-test-file", "kept"),
+        ("old settings moved aside", "cat ~/'Settings before reset '*/.eitr-test-setting", "old"),
+        ("the later account's home folder stays", "test -d /home/eitr-later && echo yes", "yes"),
+    ],
+}
+RESET_COMMON = [
+    ("old settings left the home folder", "test -e ~/.eitr-test-setting || echo gone", "gone"),
+    ("the system file is gone", "test -e /etc/eitr-test-system-file || echo gone", "gone"),
+    ("the later account is gone", "getent passwd eitr-later || echo gone", "gone"),
+    ("the previous system was deleted", "sudo btrfs subvolume list / | grep -c eitr-reset-previous", "0"),
+]
+
+
+def sudo(work, command, **kwargs):
+    """Run a command that calls sudo; sudo reuses the password only within one terminal."""
+    password = (work / "password").read_text().strip()
+    return ssh(work, f"printf '%s\\n' '{password}' | sudo -S -v 2>/dev/null && {command}", tty=True, **kwargs)
+
+
+def wait_reboot(work, process, timeout=600):
+    deadline = time.monotonic() + timeout
+    while ssh(work, "true", check=False).returncode == 0:
+        if time.monotonic() > deadline:
+            raise VmTestError("The VM did not restart")
+        time.sleep(2)
+    # The restored system generates new SSH host keys at its first boot.
+    (work / "known_hosts").unlink(missing_ok=True)
+    while ssh(work, "true", check=False).returncode != 0:
+        if process.poll() is not None:
+            raise VmTestError("The VM exited while restarting")
+        if time.monotonic() > deadline:
+            raise VmTestError("The restarted system did not accept SSH")
+        time.sleep(3)
+
+
+def factory_reset(arguments):
+    """Both warnings answered through Walker's script: a mistyped phrase first,
+    which must change nothing, then the real reset; the password changed after
+    installation must survive it."""
+    work = Path(arguments.work).resolve()
+    process = boot(work, "host")
+    try:
+        sudo(work, RESET_SETUP)
+        password = secrets.token_urlsafe(12)
+        sudo(work, f"echo '{USER}:{password}' | sudo chpasswd")
+        (work / "password").write_text(password + "\n")
+        sudo(work, f"printf 'y\\nreset my computer\\n' | python3 {RESET_SCRIPT} {arguments.mode}")
+        if ssh(work, "test -e /etc/eitr-test-system-file && echo yes", check=False).stdout.strip() != "yes":
+            raise VmTestError("A mistyped confirmation changed the system")
+        print("  PASS  a mistyped confirmation changes nothing")
+        sudo(work, f"printf 'y\\nRESET MY COMPUTER\\n' | python3 {RESET_SCRIPT} {arguments.mode}",
+             check=False, capture=False)
+        wait_reboot(work, process)
+        failures = []
+        for title, command, expected in [*RESET_EXPECTED[arguments.mode], *RESET_COMMON]:
+            value = sudo(work, command, check=False).stdout.strip()
+            passed = value == expected
+            print(f"  {'PASS' if passed else 'FAIL'}  {title}" + ("" if passed else f" (got {value!r})"))
+            if not passed:
+                failures.append(title)
+        failures += run_checks(work)
+        time.sleep(5)
+        print(f"Login screen: {screenshot(work, 'reset-login')}")
+    finally:
+        power_off(work, process)
+    if failures:
+        raise VmTestError("Failed: " + ", ".join(failures))
+
+
+def guard_record(work):
+    """The armed boot guard's record, or {} when it is not armed."""
+    text = sudo(work, "sudo cat /var/lib/eitr/boot-guard.json 2>/dev/null || echo '{}'", check=False).stdout
+    return json.loads(text[text.find("{"):text.rfind("}") + 1] or "{}")
+
+
+def boot_guard(arguments):
+    """After an update, make the login screen fail to start: two counted failed
+    starts, then the guard restores the update's before snapshot by itself."""
+    work = Path(arguments.work).resolve()
+    process = boot(work, "host")
+    failures = []
+
+    def check(title, passed, detail=""):
+        print(f"  {'PASS' if passed else 'FAIL'}  {title}" + ("" if passed else f" ({detail})"), flush=True)
+        if not passed:
+            failures.append(title)
+
+    def restart():
+        sudo(work, "sudo systemctl reboot", check=False, capture=False)
+        wait_reboot(work, process, timeout=900)
+
+    try:
+        enabled = ssh(work, "systemctl is-enabled eitr-boot-guard.service eitr-boot-guard-healthy.service | sort -u",
+                      check=False).stdout.strip()
+        check("the guard's services are enabled", enabled == "enabled", enabled)
+        # An update whose before snapshot already has the guard installed.
+        sudo(work, "sudo /usr/lib/eitr/eitr-system snapshot-pre && sudo /usr/lib/eitr/eitr-system snapshot-post success")
+        record = guard_record(work)
+        check("a successful update arms it", record.get("starts") == 0 and str(record.get("snapshot", "")).isdigit(),
+              record)
+        sudo(work, "echo broken | sudo tee /etc/eitr-guard-marker >/dev/null && sudo systemctl mask sddm.service")
+        for start in (1, 2):
+            restart()
+            record = guard_record(work)
+            check(f"failed start {start} is counted", record.get("starts") == start, record)
+        print("  ...the third start restores the system and restarts by itself", flush=True)
+        sudo(work, "sudo systemctl reboot", check=False, capture=False)
+        deadline = time.monotonic() + 900
+        while time.monotonic() < deadline:
+            if process.poll() is not None:
+                raise VmTestError("The VM exited during the restore")
+            if ssh(work, "systemctl is-active display-manager.service", check=False).stdout.strip() == "active":
+                break
+            (work / "known_hosts").unlink(missing_ok=True)
+            time.sleep(5)
+        check("the login screen is back", ssh(work, "systemctl is-active sddm.service", check=False).stdout.strip()
+              == "active")
+        check("the broken change is gone", ssh(work, "test -e /etc/eitr-guard-marker || echo gone",
+                                               check=False).stdout.strip() == "gone")
+        time.sleep(70)
+        notice = ssh(work, "/usr/lib/eitr/eitr-boot-guard notice", check=False).stdout
+        check("the next login will be told", '"restored"' in notice and '"cleaned": true' in notice, notice)
+        check("the guard is disarmed", guard_record(work) == {}, guard_record(work))
+        left = sudo(work, "sudo btrfs subvolume list / | grep -c eitr-guard-failed", check=False).stdout.strip()
+        check("the failed system was deleted", left.endswith("0"), left)
+        failures += run_checks(work)
+    finally:
+        power_off(work, process)
+    if failures:
+        raise VmTestError("Failed: " + ", ".join(failures))
+
+
+def shell(arguments):
+    work = Path(arguments.work).resolve()
+    command = " ".join(arguments.command) if arguments.command else ""
+    sys.exit(subprocess.run(["ssh", *ssh_options(work), f"{USER}@127.0.0.1", *([command] if command else [])]).returncode)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    commands = parser.add_subparsers(dest="action", required=True)
+    install_parser = commands.add_parser("install")
+    install_parser.add_argument("--iso", required=True)
+    install_parser.add_argument("--timeout", type=int, default=3600)
+    for name in ("install", "verify", "update", "reset", "boot-guard", "ssh"):
+        sub = install_parser if name == "install" else commands.add_parser(name)
+        sub.add_argument("--work", required=True)
+        if name == "reset":
+            sub.add_argument("--mode", required=True, choices=sorted(RESET_EXPECTED))
+        if name == "ssh":
+            sub.add_argument("command", nargs="*")
+    arguments = parser.parse_args()
+    try:
+        {"install": install, "verify": verify, "update": update, "reset": factory_reset,
+         "boot-guard": boot_guard, "ssh": shell}[arguments.action](arguments)
+    except (VmTestError, subprocess.CalledProcessError, OSError) as error:
+        sys.exit(f"eitr-vm-test: {error}")
+
+
+if __name__ == "__main__":
+    main()

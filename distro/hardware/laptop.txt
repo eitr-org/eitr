@@ -1,0 +1,4 @@
+# Laptops only (battery or portable chassis detected): power profile switching,
+# and the Sound Open Firmware most recent laptops' audio needs.
+power-profiles-daemon
+sof-firmware

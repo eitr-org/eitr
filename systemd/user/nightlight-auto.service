@@ -1,0 +1,6 @@
+[Unit]
+Description=Apply automatic nightlight state
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/eitr-run walker/scripts/actions/toggle/nightlight-auto.sh

@@ -1,0 +1,506 @@
+#!/usr/bin/env python3
+"""Seed and update Eitr's default user files without overwriting user changes.
+
+Defaults come from the eitr-desktop package (/usr/share/eitr) or, with --repo,
+from an Eitr checkout. Each seeded file's checksum is recorded, so `update`
+can replace files the user never edited and write `<file>.eitr-new` (like
+pacman's .pacnew) next to files the user changed.
+"""
+import argparse
+from dataclasses import dataclass
+import hashlib
+import json
+import os
+from pathlib import Path, PurePosixPath
+import re
+import shutil
+import stat
+import sys
+
+source_lib = Path(__file__).resolve().parents[1] / 'lib'
+if not (source_lib / 'layout.py').is_file():
+    source_lib = Path('/usr/share/eitr/lib')
+if (source_lib / 'layout.py').is_file():
+    sys.path.insert(0, str(source_lib))
+
+SHARE_DIR = Path("/usr/share/eitr")
+MANIFEST = "user-defaults.json"
+STATE_FILE = "user-defaults-state.json"
+NEW_SUFFIX = ".eitr-new"
+VARIABLE = re.compile(r"\$\{([A-Za-z_]+)\}")
+IGNORED_DIRECTORIES = {"__pycache__"}
+IGNORED_SUFFIXES = (".pyc", ".pyo")
+ENTRY_KEYS = {"source", "target", "update", "requires", "whole"}
+
+# Status words, in the order status prints them.
+NEW, WAITING, CURRENT, OUTDATED, MODIFIED, CONFLICT, UNMANAGED, REMOVED, BLOCKED, SEED_ONLY = (
+    "new", "waiting", "current", "outdated", "modified", "conflict", "unmanaged", "removed",
+    "blocked", "seed-only")
+DESCRIPTIONS = {
+    NEW: "shipped default not in your home yet; seed adds it",
+    WAITING: "new default waiting for a prerequisite",
+    OUTDATED: "unchanged by you; update installs the new default",
+    MODIFIED: "changed by you; default unchanged, kept as is",
+    CONFLICT: f"changed by you and upstream; update writes {NEW_SUFFIX}",
+    UNMANAGED: f"differs and was never seeded; update writes {NEW_SUFFIX}",
+    REMOVED: "seeded earlier and deleted by you; left deleted",
+    BLOCKED: "a directory or special file is in the way; never touched",
+}
+
+
+class ManifestError(ValueError):
+    pass
+
+
+@dataclass(frozen=True)
+class Entry:
+    source: str
+    target: Path
+    update: bool
+    requires: Path | None
+    # Seeded only as a whole: skipped once the target exists (theme/current holds
+    # the selected theme, so default files must not be added to another theme).
+    whole: bool = False
+
+
+@dataclass(frozen=True)
+class DefaultFile:
+    source: Path
+    target: Path
+    entry: Entry
+
+
+def xdg_dir(variable, fallback):
+    # The XDG spec ignores relative values.
+    value = os.environ.get(variable, "")
+    return Path(value) if os.path.isabs(value) else fallback
+
+
+def environment():
+    home = Path.home()
+    return {"HOME": home, "XDG_CONFIG_HOME": xdg_dir("XDG_CONFIG_HOME", home / ".config")}
+
+
+def expand(template, variables):
+    def replace(match):
+        if match.group(1) not in variables:
+            raise ManifestError(f"Unsupported variable ${{{match.group(1)}}} in {template!r}")
+        return str(variables[match.group(1)])
+
+    if not template.startswith("${"):
+        raise ManifestError(f"Target must start with ${{HOME}} or ${{XDG_CONFIG_HOME}}: {template!r}")
+    path = Path(VARIABLE.sub(replace, template))
+    if ".." in path.parts or not path.is_absolute():
+        raise ManifestError(f"Unsafe target path: {template!r}")
+    return path
+
+
+def share_path(source):
+    """Map a repository-relative source to its path under /usr/share/eitr."""
+    parts = PurePosixPath(source).parts
+    if not parts or source.startswith("/") or ".." in parts or parts == ("HOME_FILES",):
+        raise ManifestError(f"Unsafe source path: {source!r}")
+    if parts[0] == "HOME_FILES":
+        return PurePosixPath("home", *parts[1:])
+    return PurePosixPath("config", *parts)
+
+
+def load_manifest(path, variables):
+    try:
+        data = json.loads(path.read_text())
+    except FileNotFoundError:
+        raise ManifestError(f"Eitr defaults are not installed: {path} is missing") from None
+    except json.JSONDecodeError as error:
+        raise ManifestError(f"Invalid {path}: {error}") from None
+    if not isinstance(data, dict) or data.get("version") != 1 or not isinstance(data.get("entries"), list):
+        raise ManifestError(f"{path} must be a version 1 manifest with an entries list")
+    entries = []
+    for item in data["entries"]:
+        if not isinstance(item, dict) or set(item) - ENTRY_KEYS or not {"source", "target"} <= set(item):
+            raise ManifestError(f"Invalid manifest entry: {item!r}")
+        if not isinstance(item.get("update", True), bool) or not isinstance(item.get("whole", False), bool):
+            raise ManifestError(f"update and whole must be true or false: {item!r}")
+        share_path(item["source"])
+        requires = item.get("requires")
+        entries.append(Entry(item["source"], expand(item["target"], variables), item.get("update", True),
+                             expand(requires, variables) if requires else None, item.get("whole", False)))
+    targets = [entry.target for entry in entries]
+    if len(set(targets)) != len(targets):
+        raise ManifestError(f"{path} lists the same target twice")
+    return entries
+
+
+def ignored(name):
+    return name in IGNORED_DIRECTORIES or name.endswith(IGNORED_SUFFIXES)
+
+
+def walk_files(root):
+    """Yield files and symlinks below root without following directory links."""
+    if root.is_symlink() or root.is_file():
+        yield PurePosixPath()
+        return
+    if not root.is_dir():
+        raise ManifestError(f"Default source is missing: {root}")
+    for directory, subdirectories, files in os.walk(root):
+        base = Path(directory)
+        links = [name for name in subdirectories if (base / name).is_symlink()]
+        subdirectories[:] = sorted(name for name in subdirectories
+                                   if name not in links and not ignored(name))
+        for name in sorted(files + links):
+            if not ignored(name):
+                yield PurePosixPath((base / name).relative_to(root).as_posix())
+
+
+class Defaults:
+    """Shipped defaults in either the installed or the repository layout."""
+
+    def __init__(self, share=None, repo=None):
+        self.share, self.repo = share, repo
+        manifest = repo / "distro" / MANIFEST if repo else share / MANIFEST
+        self.variables = environment()
+        self.entries = load_manifest(manifest, self.variables)
+        self.manifest = manifest
+        self.layout_version = json.loads(manifest.read_text()).get('layout_version', 1)
+
+    def source_root(self, entry):
+        if self.repo:
+            return self.repo / entry.source
+        if self.layout_version == 2:
+            relative = entry.source.removeprefix('distro/') if entry.source.startswith('distro/defaults/') else entry.source
+            if relative.startswith('HOME_FILES/'):
+                relative = 'home/' + relative.removeprefix('HOME_FILES/')
+            return self.share / relative
+        return self.share / share_path(entry.source)
+
+    def files(self):
+        for entry in self.entries:
+            if entry.whole and (entry.target.exists() or entry.target.is_symlink()):
+                continue
+            root = self.source_root(entry)
+            for relative in walk_files(root):
+                source = root / relative if relative.parts else root
+                target = entry.target / relative if relative.parts else entry.target
+                if self.layout_version == 2 and any(part in {'tests', 'references'} for part in relative.parts):
+                    continue
+                yield DefaultFile(source, target, entry)
+
+
+def digest(path):
+    """Content identity of a file or symlink; None if missing, BLOCKED otherwise."""
+    try:
+        metadata = path.lstat()
+    except FileNotFoundError:
+        return None
+    except NotADirectoryError:
+        return BLOCKED
+    if stat.S_ISLNK(metadata.st_mode):
+        return "link:" + hashlib.sha256(os.readlink(path).encode()).hexdigest()
+    if not stat.S_ISREG(metadata.st_mode):
+        return BLOCKED
+    hasher = hashlib.sha256()
+    with path.open("rb") as file:
+        for chunk in iter(lambda: file.read(1 << 20), b""):
+            hasher.update(chunk)
+    return "file:" + hasher.hexdigest()
+
+
+def classify(default, current, recorded, updatable):
+    if current is None:
+        return NEW if recorded is None else REMOVED
+    if current == BLOCKED:
+        return BLOCKED
+    if current == default:
+        return CURRENT
+    if not updatable:
+        return SEED_ONLY
+    if recorded is None:
+        return UNMANAGED
+    if current == recorded:
+        return OUTDATED
+    return MODIFIED if default == recorded else CONFLICT
+
+
+class State:
+    def __init__(self, home):
+        self.home = home
+        self.path = xdg_dir("XDG_STATE_HOME", home / ".local/state") / "eitr" / STATE_FILE
+        self.files = {}
+        if self.path.exists():
+            try:
+                data = json.loads(self.path.read_text())
+            except json.JSONDecodeError as error:
+                raise ManifestError(f"Invalid state file {self.path}: {error}") from None
+            if not isinstance(data, dict) or data.get("version") != 1 or not isinstance(data.get("files"), dict):
+                raise ManifestError(f"Unsupported state file {self.path}")
+            self.files = data["files"]
+
+    def key(self, target):
+        try:
+            return target.relative_to(self.home).as_posix()
+        except ValueError:
+            return str(target)
+
+    def get(self, target):
+        return self.files.get(self.key(target))
+
+    def set(self, target, value):
+        self.files[self.key(target)] = value
+
+    def save(self):
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        temporary = self.path.with_name(f".{self.path.name}.tmp")
+        temporary.write_text(json.dumps({"version": 1, "files": dict(sorted(self.files.items()))}, indent=1) + "\n")
+        os.replace(temporary, self.path)
+
+
+def copy_default(source, target):
+    """Atomically place source at target (preserving symlinks and mode bits)."""
+    target.parent.mkdir(parents=True, exist_ok=True)
+    temporary = target.with_name(f".{target.name}.eitr-tmp-{os.getpid()}")
+    try:
+        if source.is_symlink():
+            os.symlink(os.readlink(source), temporary)
+        else:
+            shutil.copyfile(source, temporary)
+            os.chmod(temporary, stat.S_IMODE(source.stat().st_mode) & 0o777)
+        os.replace(temporary, target)
+    finally:
+        if temporary.is_symlink() or temporary.exists():
+            temporary.unlink()
+
+
+class Report:
+    def __init__(self, home):
+        self.home = home
+        self.failures = 0
+
+    def show(self, path):
+        try:
+            return "~/" + path.relative_to(self.home).as_posix()
+        except ValueError:
+            return str(path)
+
+    def line(self, word, path, note=""):
+        print(f"{word:<10} {self.show(path)}{'  (' + note + ')' if note else ''}")
+
+    def fail(self, path, reason):
+        self.failures += 1
+        print(f"{'error':<10} {self.show(path)}  ({reason})", file=sys.stderr)
+
+
+def inspect(defaults, state):
+    for item in defaults.files():
+        default = digest(item.source)
+        current = digest(item.target)
+        status = classify(default, current, state.get(item.target), item.entry.update)
+        if status == NEW and item.entry.requires and not item.entry.requires.exists():
+            status = WAITING
+        yield item, status, default
+
+
+def command_status(defaults, state, report, show_all):
+    if defaults.layout_version == 2:
+        from eitr_paths import config, shell_path
+        print(f'Shipped code: {defaults.repo or defaults.share}')
+        print(f'User settings: {config()}')
+        for component in ('desktop-bar', 'lockscreen', 'emoji-picker', 'wallpaper-transition'):
+            print(f'{component}: {shell_path(component, defaults.repo or defaults.share)}')
+        overrides = config('eitr/overrides')
+        if overrides.exists():
+            for path in sorted(overrides.rglob('*')):
+                if path.is_file() or path.is_symlink():
+                    report.line('override', path, 'package fixes do not replace this file')
+        for relative in ('walker/config.toml', 'hypr/local.lua', 'kitty/local.conf'):
+            path = config(relative)
+            if path.exists():
+                report.line('override', path, 'deliberate native user configuration')
+        for path in sorted(config('elephant/menus').glob('*.toml')):
+            report.line('override', path, 'same-name user menu takes precedence')
+    counts = {}
+    shipped = set()
+    for item, status, _ in inspect(defaults, state):
+        shipped.add(state.key(item.target))
+        counts[status] = counts.get(status, 0) + 1
+        if show_all or status not in (CURRENT, MODIFIED, SEED_ONLY):
+            note = f"needs {report.show(item.entry.requires)}" if status == WAITING else ""
+            report.line(status, item.target, note)
+    for key in sorted(set(state.files) - shipped):
+        report.line("obsolete", state.home / key, "no longer shipped; left in place")
+    print()
+    for status in (NEW, WAITING, CURRENT, OUTDATED, MODIFIED, CONFLICT, UNMANAGED, REMOVED, BLOCKED):
+        if counts.get(status):
+            description = DESCRIPTIONS.get(status, "matches the shipped default")
+            print(f"{counts[status]:>6} {status:<10} {description}")
+    return 0
+
+
+def command_apply(defaults, state, report, update, dry_run):
+    changes = 0
+    try:
+        for item, status, default in inspect(defaults, state):
+            action = None
+            if status == NEW:
+                action, destination, record = "added", item.target, True
+            elif status == CURRENT:
+                if state.get(item.target) != default and not dry_run:
+                    state.set(item.target, default)
+                continue
+            elif update and status == OUTDATED:
+                action, destination, record = "updated", item.target, True
+            elif update and status in (CONFLICT, UNMANAGED):
+                destination = item.target.with_name(item.target.name + NEW_SUFFIX)
+                if digest(destination) == default:
+                    continue
+                action, record = "pending", False
+            elif status == WAITING:
+                report.line("waiting", item.target, f"needs {report.show(item.entry.requires)}")
+                continue
+            elif status == BLOCKED:
+                report.fail(item.target, "a directory or special file is in the way")
+                continue
+            if action is None:
+                continue
+            note = f"review {report.show(destination)}" if action == "pending" else ""
+            report.line(action, item.target, note)
+            changes += 1
+            if dry_run:
+                continue
+            try:
+                copy_default(item.source, destination)
+            except OSError as error:
+                report.fail(item.target, error.strerror or str(error))
+                continue
+            if record:
+                state.set(item.target, default)
+    finally:
+        if not dry_run:
+            state.save()
+    verb = "Would change" if dry_run else "Changed"
+    print(f"{verb} {changes} file(s).")
+    return 1 if report.failures else 0
+
+
+def command_resolve(defaults, state, report, paths):
+    """Accept the current files as merged with the shipped defaults."""
+    known = {item.target: item for item in defaults.files()}
+    for raw in paths:
+        target = Path(os.path.abspath(raw))
+        if target.name.endswith(NEW_SUFFIX):
+            target = target.with_name(target.name[:-len(NEW_SUFFIX)])
+        item = known.get(target)
+        if item is None:
+            report.fail(target, "not a shipped default")
+            continue
+        pending = target.with_name(target.name + NEW_SUFFIX)
+        if pending.is_symlink() or pending.is_file():
+            pending.unlink()
+        state.set(target, digest(item.source))
+        report.line("resolved", target)
+    state.save()
+    return 1 if report.failures else 0
+
+
+def command_stage(defaults, destination):
+    """Copy repository defaults into the installed layout (used by the PKGBUILD)."""
+    if not defaults.repo:
+        raise ManifestError("stage requires --repo")
+    if defaults.layout_version == 2:
+        from layout import Layout
+        Layout(defaults.repo).stage(destination)
+        shutil.copy2(defaults.manifest, destination / MANIFEST)
+        return 0
+    staged = []
+    # Parents first, so nested theme entries are covered by their parent.
+    for entry in sorted(defaults.entries, key=lambda entry: len(share_path(entry.source).parts)):
+        relative = share_path(entry.source)
+        if any(relative.is_relative_to(parent) for parent in staged):
+            continue
+        source = defaults.source_root(entry)
+        target = destination / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if source.is_dir() and not source.is_symlink():
+            shutil.copytree(source, target, symlinks=True,
+                            ignore=shutil.ignore_patterns(*IGNORED_DIRECTORIES, *(f"*{s}" for s in IGNORED_SUFFIXES)))
+        else:
+            shutil.copy2(source, target, follow_symlinks=False)
+        staged.append(relative)
+    shutil.copy2(defaults.manifest, destination / MANIFEST)
+    return 0
+
+
+def seed_adopted_loaders(defaults):
+    """Retired code entries are not intentionally deleted preference files."""
+    state = State(Path.home())
+    for item in defaults.files():
+        if item.entry.source.startswith('distro/defaults/') and item.source.name in {'hyprland.lua', 'kitty.conf', '.zshrc', 'walker'}:
+            if not item.target.exists() and not item.target.is_symlink():
+                state.files.pop(state.key(item.target), None)
+    return command_apply(defaults, state, Report(Path.home()), False, False)
+
+
+def parser():
+    result = argparse.ArgumentParser(prog="eitr-config", description=__doc__.splitlines()[0])
+    layout = result.add_mutually_exclusive_group()
+    layout.add_argument("--defaults", type=Path, default=SHARE_DIR, metavar="DIR",
+                        help=f"installed defaults directory (default: {SHARE_DIR})")
+    layout.add_argument("--repo", type=Path, metavar="DIR", help="use an Eitr checkout instead")
+    commands = result.add_subparsers(dest="command", required=True)
+    status = commands.add_parser("status", help="show which files differ from the shipped defaults")
+    status.add_argument("--all", action="store_true", help="also list current and modified files")
+    for name, text in (("seed", "copy missing defaults; never overwrites"),
+                       ("update", f"seed, replace unedited files, write {NEW_SUFFIX} for edited ones")):
+        command = commands.add_parser(name, help=text)
+        command.add_argument("--dry-run", action="store_true", help="only print the planned changes")
+    resolve = commands.add_parser("resolve", help=f"mark files as merged and remove their {NEW_SUFFIX}")
+    resolve.add_argument("paths", nargs="+")
+    stage = commands.add_parser("stage", help="packaging: copy --repo defaults into DEST")
+    stage.add_argument("destination", type=Path)
+    commands.add_parser('targets', help='print installer source/target pairs without writing')
+    adoption = commands.add_parser('adopt-layout', help='adopt package code with a private backup and explicit override decisions')
+    operation = adoption.add_mutually_exclusive_group()
+    operation.add_argument('--dry-run', action='store_true')
+    operation.add_argument('--apply', action='store_true')
+    adoption.add_argument('--archive-component', action='append', default=[])
+    adoption.add_argument('--keep-component', action='append', default=[])
+    undo = commands.add_parser('undo-layout', help='restore a layout adoption transaction without restarting services')
+    undo.add_argument('transaction')
+    return result
+
+
+def main(argv=None):
+    arguments = parser().parse_args(argv)
+    writes_home = arguments.command in ("seed", "update", "resolve", 'adopt-layout', 'undo-layout')
+    if writes_home and os.geteuid() == 0:
+        print("eitr-config manages your own home; run it as your desktop user, not root.", file=sys.stderr)
+        return 2
+    try:
+        defaults = Defaults(share=arguments.defaults, repo=arguments.repo)
+        if arguments.command == 'adopt-layout':
+            from adoption import adopt
+            return adopt(defaults, not arguments.apply, arguments.archive_component,
+                         arguments.keep_component,
+                         seed=lambda: seed_adopted_loaders(defaults))
+        if arguments.command == 'undo-layout':
+            from adoption import undo
+            return undo(arguments.transaction)
+        if arguments.command == 'targets':
+            for item in defaults.files():
+                print(str(item.source) + '\t' + str(item.target))
+            return 0
+        if arguments.command == "stage":
+            return command_stage(defaults, arguments.destination)
+        home = defaults.variables["HOME"]
+        state = State(home)
+        report = Report(home)
+        if arguments.command == "status":
+            return command_status(defaults, state, report, arguments.all)
+        if arguments.command == "resolve":
+            return command_resolve(defaults, state, report, arguments.paths)
+        return command_apply(defaults, state, report, arguments.command == "update", arguments.dry_run)
+    except (ManifestError, ValueError, OSError) as error:
+        print(f"eitr-config: {error}", file=sys.stderr)
+        return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

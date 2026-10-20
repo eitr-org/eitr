@@ -1,0 +1,14 @@
+[
+  {
+    "text": "New",
+    "subtext": "Start a Gemini CLI session in a project",
+    "keywords": [
+      "gemini",
+      "ai"
+    ],
+    "icon": "󰊭",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh gemini-new"
+    }
+  }
+]

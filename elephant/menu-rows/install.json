@@ -1,0 +1,65 @@
+[
+  {
+    "text": "AI CLIs",
+    "subtext": ">",
+    "icon": "󱜙",
+    "submenu": "ai-install"
+  },
+  {
+    "text": "Browsers",
+    "subtext": ">",
+    "icon": "󰖟",
+    "submenu": "browsers"
+  },
+  {
+    "text": "Databases",
+    "subtext": ">",
+    "icon": "󰆼",
+    "submenu": "databases"
+  },
+  {
+    "text": "Developer Apps",
+    "subtext": ">",
+    "icon": "󱌢",
+    "submenu": "developer-apps"
+  },
+  {
+    "text": "Development Languages",
+    "subtext": ">",
+    "icon": "󰅩",
+    "submenu": "languages"
+  },
+  {
+    "text": "JavaScript Tools",
+    "subtext": ">",
+    "icon": "󰛦",
+    "submenu": "javascript-tools"
+  },
+  {
+    "text": "Packages",
+    "subtext": ">",
+    "keywords": [
+      "pacman",
+      "yay",
+      "aur",
+      "package",
+      "search",
+      "install",
+      "pkgbuild"
+    ],
+    "icon": "󰏖",
+    "submenu": "packages"
+  },
+  {
+    "text": "Productivity",
+    "subtext": ">",
+    "icon": "󰃖",
+    "submenu": "productivity"
+  },
+  {
+    "text": "Web Apps",
+    "subtext": ">",
+    "icon": "󰘔",
+    "submenu": "webapps"
+  }
+]

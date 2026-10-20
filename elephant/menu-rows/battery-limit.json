@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Charge Limit 60%",
+    "subtext": "Longest battery lifespan · laptops only",
+    "icon": "󰁿",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/battery-limit.py set 60"
+    }
+  },
+  {
+    "text": "Charge Limit 80%",
+    "subtext": "Recommended when usually plugged in · laptops only",
+    "icon": "󰂁",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/battery-limit.py set 80"
+    }
+  },
+  {
+    "text": "Charge Limit 90%",
+    "subtext": "Laptops only",
+    "icon": "󰂂",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/battery-limit.py set 90"
+    }
+  },
+  {
+    "text": "Current Limit",
+    "subtext": "Show the charge limit in use",
+    "icon": "󰂄",
+    "actions": {
+      "open": "kitty --hold -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/battery-limit.py status"
+    }
+  },
+  {
+    "text": "Remove Limit",
+    "subtext": "Charge to 100%",
+    "icon": "󰁹",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/battery-limit.py set off"
+    }
+  }
+]

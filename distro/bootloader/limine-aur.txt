@@ -1,0 +1,4 @@
+# AUR packages for Limine snapshot boot entries. limine-mkinitcpio-hook
+# provides limine-entry-tool/limine-update and the btrfs-overlayfs hook.
+limine-snapper-sync
+limine-mkinitcpio-hook

@@ -1,0 +1,239 @@
+@define-color window_bg_color rgba(12, 11, 12, 0.88);
+@define-color base_bg_color #0c0b0c;
+@define-color input_bg_color rgba(12, 11, 12, 0.58);
+@define-color accent_bg_color #b59790;
+@define-color theme_fg_color #FAFCFB;
+@define-color selected_bg_color #201c1e;
+@define-color selected_fg_color #e2dddc;
+@define-color current_selected_fg_color #b59790;
+@define-color error_bg_color #c38b7b;
+@define-color error_fg_color #e2dddc;
+@define-color workspace_selected_fg_color #000000;
+@import url("workspace-examples.css");
+
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", "JetBrainsMono Nerd Font", monospace;
+  font-feature-settings: "liga" 1, "calt" 1;
+  font-size: 12px;
+}
+
+popover {
+  background: @window_bg_color;
+  border: 1px solid rgba(181, 151, 144, 0.72);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.normal-icons {
+  -gtk-icon-size: 13px;
+}
+
+.large-icons {
+  -gtk-icon-size: 24px;
+}
+
+scrollbar {
+  opacity: 0;
+}
+
+.box-wrapper {
+  background: @window_bg_color;
+  padding: 18px;
+  border-radius: 8px;
+  border: 1px solid alpha(@accent_bg_color, 0.72);
+}
+
+.search-container,
+.results-box {
+  background: transparent;
+  border-radius: 8px;
+  border: none;
+}
+
+.results-box {
+  padding: 0;
+}
+
+.search-container {
+  background: @input_bg_color;
+  padding: 6px 12px;
+}
+
+.search-icon {
+  color: @theme_fg_color;
+  font-size: 18px;
+  margin-right: 8px;
+}
+
+.preview-box,
+.elephant-hint,
+.placeholder,
+.list,
+.preview {
+  color: @theme_fg_color;
+}
+
+.search-container {
+  border-radius: 6px;
+}
+
+.input placeholder {
+  opacity: 0.5;
+}
+
+.input selection {
+  background: @selected_bg_color;
+  color: @selected_fg_color;
+}
+
+.input {
+  caret-color: @theme_fg_color;
+  background: transparent;
+  padding: 10px;
+  color: @theme_fg_color;
+  border-radius: 6px;
+  border: none;
+}
+
+.item-box {
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.item-quick-activation {
+  background: rgba(181, 151, 144, 0.20);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+child:hover .item-box,
+child:selected .item-box,
+row:selected .item-box {
+  background: @selected_bg_color;
+}
+
+child:selected .item-text,
+row:selected .item-text,
+child:selected .item-image-text,
+row:selected .item-image-text,
+child:selected .item-image,
+row:selected .item-image {
+  color: @selected_fg_color;
+}
+
+.item-subtext {
+  font-size: 12px;
+  opacity: 0.62;
+}
+
+/* Rows that open a submenu carry the "submenu" state (elephant/scoped-menu.lua). */
+.submenu-marker {
+  font-size: 12px;
+  opacity: 0;
+}
+
+.submenu .submenu-marker {
+  opacity: 0.62;
+}
+
+.providerlist .item-subtext {
+  font-size: unset;
+  opacity: 0.75;
+}
+
+.item-image-text {
+  font-size: 18px;
+}
+
+.preview {
+  border: 1px solid rgba(181, 151, 144, 0.25);
+  border-radius: 8px;
+}
+
+.calc .item-text {
+  font-size: 24px;
+}
+
+.symbols .item-image {
+  font-size: 24px;
+}
+
+.todo.done .item-text-box {
+  opacity: 0.25;
+}
+
+.todo.urgent {
+  font-size: 24px;
+}
+
+.todo.active {
+  font-weight: bold;
+}
+
+.bluetooth.disconnected {
+  opacity: 0.5;
+}
+
+.preview .large-icons {
+  -gtk-icon-size: 48px;
+}
+
+.keybinds {
+  padding-top: 10px;
+  border-top: 1px solid rgba(181, 151, 144, 0.24);
+  font-size: 12px;
+  color: @theme_fg_color;
+}
+
+.keybind-button {
+  opacity: 0.55;
+}
+
+.keybind-button:hover {
+  opacity: 0.75;
+}
+
+.keybind-bind {
+  text-transform: lowercase;
+  opacity: 0.45;
+}
+
+.keybind-label {
+  padding: 2px 4px;
+  border-radius: 4px;
+  border: 1px solid @theme_fg_color;
+}
+
+.error {
+  padding: 10px;
+  background: @error_bg_color;
+  color: @error_fg_color;
+  border-radius: 6px;
+}
+
+:not(.calc).current {
+  font-style: italic;
+}
+
+.current:not(.calc) .item-text {
+  color: @accent_bg_color;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.current:not(.calc) .item-image-text {
+  color: @accent_bg_color;
+}
+
+child:selected .current:not(.calc) .item-text,
+row:selected .current:not(.calc) .item-text,
+child:selected .current:not(.calc) .item-image-text,
+row:selected .current:not(.calc) .item-image-text {
+  color: @current_selected_fg_color;
+}
+
+.preview-content.archlinuxpkgs,
+.preview-content.dnfpackages {
+  font-family: monospace;
+}

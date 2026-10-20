@@ -1,0 +1,369 @@
+{
+  "batch": "2026-10-original-04",
+  "generator": "built-in image generation",
+  "generation": "Original masters from written briefs only. Recorded anatomy corrections and panoramic expansions use Eitr’s own generated masters, with no third-party image inputs.",
+  "status": "owner-approved selected replacements",
+  "scope": "Stillwater, Catppuccin Latte, Rose Pine, Wisteria, Afterglow and Moss. All selected reference-led images that were too close are replaced. Moonveil was removed separately. Graphite01 has an anatomy correction of its existing generated artwork.",
+  "resolution": [
+    3840,
+    2160
+  ],
+  "ultrawide_resolution": [
+    3440,
+    1440
+  ],
+  "processing": "4K exports use the retained original sources. Ultrawide exports use separately generated panoramic expansions where needed, otherwise subject-centered crops; no stretched pixels or edge padding. Exact native sizes and prompts are recorded per image.",
+  "images": [
+    {
+      "theme": "stillwater",
+      "name": "01-ashen-stag",
+      "file": "themes/stillwater/backgrounds/01-ashen-stag.jpg",
+      "ultrawide_file": "themes/stillwater/backgrounds-ultrawide/01-ashen-stag.jpg",
+      "native_source": "branding/sources/wallpapers/batch-04/stillwater-01-ashen-stag.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_sha256": "e4bdcd9ecf6db2bf723fb2c4737457f904b1e86f6380dd7368de0781c0d33232",
+      "status": "installed",
+      "replaces": "themes/stillwater/backgrounds/01-weightless.jpg",
+      "prompt": "Use case: stylized-concept.\nAsset type: original Stillwater-theme desktop wallpaper review draft, landscape 16:9, request 3840x2160 native output if supported.\nTitle for tracking only, DO NOT render title: Ashen Stag.\nCreate from this written brief alone. No input images or visual references. Original Norse-fantasy hand-inked screenprint illustration: a peaceful adult stag resting with its legs tucked beneath its body, head lifted watchfully and turned toward the left. Its expressive branching antlers sweep in irregular asymmetric arcs; they are natural antlers, not a crown. Make the complete animal and antlers clearly visible within the middle vertical band of the image, roughly x=52–83%, y=24–76%, so the composition survives both 16:9 and centered 21:9 cropping. The left half is generous calm empty near-black. Along the top and bottom retain dark breathing room.\nMedium: visibly drawn bold black pen contours, rhythmic flowing strokes, simplified sculptural anatomy, flat spot-color shapes, two-tone cel shading, very restrained dry-ink flecks close to the animal. Emphasize elegant silhouette and quiet mythic presence rather than realistic fur. No enclosing ornamental ring, no decorative frame.\nStrict Stillwater palette: near-black #080a0b and charcoal #101315 dominate; slate #343d41, muted steel #798186, soft silver #cacccc, pale cool highlight #d9dbdc, tiny warm gray #cbc2be accents. No green or golden color cast. Matte flat ink, no photographic lighting, gradients, 3D or metallic rendering.\nNo landscape, forest, trees, mountains, lakes, horizon, architectural backdrop or scenery. No people or recognizable fictional characters. No words, letters, rune lettering, logos, signatures, watermarks, UI or borders. One full-bleed artwork, not a collage or mockup. Entirely new subject and composition created solely from this brief.",
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-04/stillwater-01-ashen-stag-ultrawide.png",
+      "ultrawide_native_sha256": "d240ca9e8e0a20bd7dadc00c50cb332459db451a8d00aae280edd811c33091e3",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ],
+      "ultrawide_prompt": "Expand and recompose this Eitr original artwork into a true ULTRAWIDE43:18 landscape wallpaper, requested3440x1440 or largest supported2.39:1 canvas. Preserve its SAME subject, character identity, anatomy, pose, colors, medium, lighting and original artwork style. Keep all important subject parts completely visible, including head/helmet, antlers, wings, ears, flowers, hands and objects. Uniformly reduce the subject within the frame if needed, never stretch it. Add natural seamless new painted/drawn background space mainly to the sides, continuing the existing background style, texture and light. Large calm breathing room for desktop windows. No repeated edge columns, smeared bands, mirroring, letterboxing, borders or abrupt seams. Preserve the existing subject composition as far as the new panoramic framing permits; do not add extra subjects, text, logos, signatures, UI or watermarks. This is an expansion of the supplied original, not a different artwork."
+    },
+    {
+      "theme": "stillwater",
+      "name": "02-the-iron-key",
+      "file": "themes/stillwater/backgrounds/02-the-iron-key.jpg",
+      "ultrawide_file": "themes/stillwater/backgrounds-ultrawide/02-the-iron-key.jpg",
+      "native_source": "branding/sources/wallpapers/batch-04/stillwater-02-the-iron-key.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_sha256": "d2093491d7bcbf430dc02861d9f641e2ee5ca93475676d9c8b738cec70fd5b41",
+      "status": "installed",
+      "replaces": "themes/stillwater/backgrounds/02-the-listener.jpg",
+      "prompt": "Use case: stylized-concept. Create an entirely original Norse-fantasy desktop wallpaper from this written brief ONLY. No reference images, no image inputs, no borrowed character designs. Request native 3840x2160 landscape 16:9 if supported. Clearly hand-drawn screenprint illustration: bold expressive black pen contours, simplified anatomy and shapes, flat limited spot colors, two-tone cel shading, rhythmic confident brush strokes, restrained dry-ink flecks. Not photographic, realistic, 3D, metallic engraving or cinematic painting. One full-bleed composition, no collage, no UI, no border, no text, no letters or legible runes, no logos, signatures or watermark. No forest, mountains, landscape, horizon or scenic backdrop. Keep the entire important subject comfortably inside x=15–85%, y=23–77%, including all extremities, so it survives a centered ultrawide crop. Do not fill the whole frame: retain generous calm empty areas and quiet top/bottom edges. Varied original compositions, no mandatory crown, circular ornament or knotwork frame. A solitary ancient hand-forged iron key lies diagonally from lower left toward upper center, loosely tied to a small folded strip of linen. The key has an irregular openwork diamond-shaped bow, a sturdy crooked shaft and two blunt asymmetrical teeth; a tactile practical object, no symbolic lettering. The linen trails in two short angular folds, not a long ribbon. Oversized but contained in the left-center third, about x=22–49%, y=34–68%; most of the right is empty charcoal. Quiet, austere, contemplative, soft steel on near-black. Palette ONLY #080a0b, #101315, #343d41, #798186, #cacccc, #d9dbdc, tiny #cbc2be. Flat ink and cloth planes, no realistic metal shine.",
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-04/stillwater-02-the-iron-key-ultrawide.png",
+      "ultrawide_native_sha256": "7490ca00013bbfd9f7f14155f4892a08de2bc189dbc583dbda4efafb9d994f30",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ],
+      "ultrawide_prompt": "Expand and recompose this Eitr original artwork into a true ULTRAWIDE43:18 landscape wallpaper, requested3440x1440 or largest supported2.39:1 canvas. Preserve its SAME subject, character identity, anatomy, pose, colors, medium, lighting and original artwork style. Keep all important subject parts completely visible, including head/helmet, antlers, wings, ears, flowers, hands and objects. Uniformly reduce the subject within the frame if needed, never stretch it. Add natural seamless new painted/drawn background space mainly to the sides, continuing the existing background style, texture and light. Large calm breathing room for desktop windows. No repeated edge columns, smeared bands, mirroring, letterboxing, borders or abrupt seams. Preserve the existing subject composition as far as the new panoramic framing permits; do not add extra subjects, text, logos, signatures, UI or watermarks. This is an expansion of the supplied original, not a different artwork."
+    },
+    {
+      "theme": "stillwater",
+      "name": "04-silent-wings",
+      "file": "themes/stillwater/backgrounds/04-silent-wings.jpg",
+      "ultrawide_file": "themes/stillwater/backgrounds-ultrawide/04-silent-wings.jpg",
+      "native_source": "branding/sources/wallpapers/batch-04/stillwater-04-silent-wings.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_sha256": "1caf622b7b585733993f96ec9710763c3221fa240cb8bda62841865e5c3b4bfc",
+      "status": "installed",
+      "replaces": "themes/stillwater/backgrounds/04-the-observer.jpg",
+      "prompt": "Use case: stylized-concept. Create an entirely original Norse-fantasy desktop wallpaper from this written brief ONLY. No reference images, no image inputs, no borrowed character designs. Request native 3840x2160 landscape 16:9 if supported. Clearly hand-drawn screenprint illustration: bold expressive black pen contours, simplified anatomy and shapes, flat limited spot colors, two-tone cel shading, rhythmic confident brush strokes, restrained dry-ink flecks. Not photographic, realistic, 3D, metallic engraving or cinematic painting. One full-bleed composition, no collage, no UI, no border, no text, no letters or legible runes, no logos, signatures or watermark. No forest, mountains, landscape, horizon or scenic backdrop. Keep the entire important subject comfortably inside x=15–85%, y=23–77%, including all extremities, so it survives a centered ultrawide crop. Do not fill the whole frame: retain generous calm empty areas and quiet top/bottom edges. Varied original compositions, no mandatory crown, circular ornament or knotwork frame. Two Arctic terns in flight, clearly drawn graceful angular birds rather than realistic feather studies. One tern banks with wings gently open in the upper center, the other glides lower right in the opposite direction, forming a loose offset diagonal, not a ring and not mirror symmetry. The complete two-bird group occupies x=43–79%, y=28–70%, leaving a wide empty left half. Cool silver feathers, ink-black wing tips, muted slate shadows, no colored beaks. Calm and weightless against a blank near-black field. Palette ONLY #080a0b, #101315, #343d41, #798186, #cacccc, #d9dbdc.",
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-04/stillwater-04-silent-wings-ultrawide.png",
+      "ultrawide_native_sha256": "060399b7402aff808f057af7e6b81c22c79d37078a3622abf747c76fabd520f9",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ],
+      "ultrawide_prompt": "Expand and recompose this Eitr original artwork into a true ULTRAWIDE43:18 landscape wallpaper, requested3440x1440 or largest supported2.39:1 canvas. Preserve its SAME subject, character identity, anatomy, pose, colors, medium, lighting and original artwork style. Keep all important subject parts completely visible, including head/helmet, antlers, wings, ears, flowers, hands and objects. Uniformly reduce the subject within the frame if needed, never stretch it. Add natural seamless new painted/drawn background space mainly to the sides, continuing the existing background style, texture and light. Large calm breathing room for desktop windows. No repeated edge columns, smeared bands, mirroring, letterboxing, borders or abrupt seams. Preserve the existing subject composition as far as the new panoramic framing permits; do not add extra subjects, text, logos, signatures, UI or watermarks. This is an expansion of the supplied original, not a different artwork."
+    },
+    {
+      "theme": "catppuccin-latte",
+      "name": "01-ribbon-hare",
+      "file": "themes/catppuccin-latte/backgrounds/01-ribbon-hare.jpg",
+      "ultrawide_file": "themes/catppuccin-latte/backgrounds-ultrawide/01-ribbon-hare.jpg",
+      "native_source": "branding/sources/wallpapers/batch-04/catppuccin-latte-01-ribbon-hare.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_sha256": "250b72e1eb86d28da37cf3efd958ae830a90664ccfe1ffd3b04e3f0113a50846",
+      "status": "installed",
+      "replaces": "themes/catppuccin-latte/backgrounds/03-soft-contours.jpg",
+      "prompt": "Use case: stylized-concept. Create an entirely original Norse-fantasy desktop wallpaper from this written brief ONLY. No reference images, no image inputs, no borrowed character designs. Request native 3840x2160 landscape 16:9 if supported. Clearly hand-drawn screenprint illustration: bold expressive black pen contours, simplified anatomy and shapes, flat limited spot colors, two-tone cel shading, rhythmic confident brush strokes, restrained dry-ink flecks. Not photographic, realistic, 3D, metallic engraving or cinematic painting. One full-bleed composition, no collage, no UI, no border, no text, no letters or legible runes, no logos, signatures or watermark. No forest, mountains, landscape, horizon or scenic backdrop. Keep the entire important subject comfortably inside x=15–85%, y=23–77%, including all extremities, so it survives a centered ultrawide crop. Do not fill the whole frame: retain generous calm empty areas and quiet top/bottom edges. Varied original compositions, no mandatory crown, circular ornament or knotwork frame. A graceful white hare suspended in a small diagonal leap above a loose spool of blue wool thread. Oversized expressive ears, long tucked hind legs, black ink linework, a few spare angular thread loops rather than a ribbon backdrop. Both hare and spool fully contained in x=49–78%, y=31–73%, generous empty left. Light-theme treatment: a calm pale paper field #eff1f5 with substantial dark ink accents #4c4f69 and #5c5f77; gentle sky-blue #1e66f5, rose #ea76cb and teal #179299, tiny warm gold #df8e1d. Preserve this light theme's airy mood and pale ground, while retaining bold black hand-inked contours, flat spot colors and Norse folk-print character. No landscape, cinematic sky or recognizable animated-film character. Not cute merchandise art or photorealism.",
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-04/catppuccin-latte-01-ribbon-hare-ultrawide.png",
+      "ultrawide_native_sha256": "33c9119594c5efddf862e994a6930d21454a39ac3387fe287d116e40546c78e2",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ],
+      "ultrawide_prompt": "Expand and recompose this Eitr original artwork into a true ULTRAWIDE43:18 landscape wallpaper, requested3440x1440 or largest supported2.39:1 canvas. Preserve its SAME subject, character identity, anatomy, pose, colors, medium, lighting and original artwork style. Keep all important subject parts completely visible, including head/helmet, antlers, wings, ears, flowers, hands and objects. Uniformly reduce the subject within the frame if needed, never stretch it. Add natural seamless new painted/drawn background space mainly to the sides, continuing the existing background style, texture and light. Large calm breathing room for desktop windows. No repeated edge columns, smeared bands, mirroring, letterboxing, borders or abrupt seams. Preserve the existing subject composition as far as the new panoramic framing permits; do not add extra subjects, text, logos, signatures, UI or watermarks. This is an expansion of the supplied original, not a different artwork."
+    },
+    {
+      "theme": "rose-pine",
+      "name": "01-heron-and-thread",
+      "file": "themes/rose-pine/backgrounds/01-heron-and-thread.jpg",
+      "ultrawide_file": "themes/rose-pine/backgrounds-ultrawide/01-heron-and-thread.jpg",
+      "native_source": "branding/sources/wallpapers/batch-04/rose-pine-01-heron-and-thread.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_sha256": "d4e128fd5a8742cc38c21bdc1a24b62cff637b198fbf64b130eedfc38384ec36",
+      "status": "installed",
+      "replaces": "themes/rose-pine/backgrounds/01-paper-play.jpg",
+      "prompt": "Use case: stylized-concept. Create an entirely original Norse-fantasy desktop wallpaper from this written brief ONLY. No reference images, no image inputs, no borrowed character designs. Request native 3840x2160 landscape 16:9 if supported. Clearly hand-drawn screenprint illustration: bold expressive black pen contours, simplified anatomy and shapes, flat limited spot colors, two-tone cel shading, rhythmic confident brush strokes, restrained dry-ink flecks. Not photographic, realistic, 3D, metallic engraving or cinematic painting. One full-bleed composition, no collage, no UI, no border, no text, no letters or legible runes, no logos, signatures or watermark. No forest, mountains, landscape, horizon or scenic backdrop. Keep the entire important subject comfortably inside x=15–85%, y=23–77%, including all extremities, so it survives a centered ultrawide crop. Do not fill the whole frame: retain generous calm empty areas and quiet top/bottom edges. Varied original compositions, no mandatory crown, circular ornament or knotwork frame. A single elegant stylized heron stands on one leg, its neck folded into an angular S, holding a very short piece of knotted coral-colored weaving thread in the tip of its beak. Slightly tousled feathers and expressive small eye, entire body, raised foot, beak and thread visible. Slender vertical subject in the left-middle x=26–47%, y=25–76%; right half remains quiet. Original peaceful Norse folk screenprint, sophisticated and light. Light-theme paper background #faf4ed, warm pale areas #f2e9e1, bold deep-plum/black ink contours #575279, teal #56949f and #286983, dusty rose #b4637a, coral #d7827e, very small ochre #ea9d34. Flat colors, sparse generous shapes. No marsh, reeds, water, landscape, halo or frame.",
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-04/rose-pine-01-heron-and-thread-ultrawide.png",
+      "ultrawide_native_sha256": "dc56651a96c2f1ce5c12510ab519f2c197e30070f4217981ff12e33400d44e98",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ],
+      "ultrawide_prompt": "Expand and recompose this Eitr original artwork into a true ULTRAWIDE43:18 landscape wallpaper, requested3440x1440 or largest supported2.39:1 canvas. Preserve its SAME subject, character identity, anatomy, pose, colors, medium, lighting and original artwork style. Keep all important subject parts completely visible, including head/helmet, antlers, wings, ears, flowers, hands and objects. Uniformly reduce the subject within the frame if needed, never stretch it. Add natural seamless new painted/drawn background space mainly to the sides, continuing the existing background style, texture and light. Large calm breathing room for desktop windows. No repeated edge columns, smeared bands, mirroring, letterboxing, borders or abrupt seams. Preserve the existing subject composition as far as the new panoramic framing permits; do not add extra subjects, text, logos, signatures, UI or watermarks. This is an expansion of the supplied original, not a different artwork."
+    },
+    {
+      "theme": "wisteria",
+      "name": "01-indigo-bellflowers",
+      "file": "themes/wisteria/backgrounds/01-indigo-bellflowers.jpg",
+      "ultrawide_file": "themes/wisteria/backgrounds-ultrawide/01-indigo-bellflowers.jpg",
+      "native_source": "branding/sources/wallpapers/batch-04/wisteria-01-indigo-bellflowers.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_sha256": "95fb37db2c8bbaae13368e2acc039a4cf9c499d624f15302cf4893615003b2cb",
+      "status": "installed",
+      "replaces": "themes/wisteria/backgrounds/01-glass-ribbon.jpg",
+      "prompt": "Generate a fresh original illustration solely from this written brief. No input images, no visual references and no recognizable fictional characters. Landscape 16:9, request native 3840x2160 if supported. Clearly drawn artwork with confident hand-inked contours, flat limited spot colors and simple two-tone cel shading. No photorealism, 3D, cinematic lighting, words, lettering, logos, signature, watermark, borders or UI. A simple airy botanical artwork: one slender gently bent stem bearing three small blue-violet bellflowers and two narrow leaves, plus one detached tiny petal. Delicate but visible near-black hand-drawn ink contours, just a few angular flat color planes and subtle dry-ink variation, no dense texture. Not a bouquet, garden, landscape, vase or ornate frame. Put the entire modest flower sprig in the right-middle, x=60–77%, y=32–69%, leaving generous uninterrupted paper-white negative space across the left half and along top and bottom. The mood is quiet, minimal and graceful, with a subtle Nordic folk-print character. Strict Wisteria palette: matte warm white #fafafa background, near-black #212121 ink, royal blue #3264eb, violet #8a4ad7, indigo #4a2fd0, tiny lavender #9f85e0 accents. No realistic green leaves; the leaves use muted indigo and lavender. Keep it SIMPLE: a small asymmetrical flower study with lots of space, not an elaborate floral pattern. Entire subject remains inside the central vertical band so a 21:9 crop retains all flowers.",
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-04/wisteria-01-indigo-bellflowers-ultrawide.png",
+      "ultrawide_native_sha256": "ba2d0756c22c4efa44a1b5b3fb0c442c09c1661dc5f2afb9eb5b841f5bb5d1b3",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ],
+      "ultrawide_prompt": "Expand and recompose this Eitr original artwork into a true ULTRAWIDE43:18 landscape wallpaper, requested3440x1440 or largest supported2.39:1 canvas. Preserve its SAME subject, character identity, anatomy, pose, colors, medium, lighting and original artwork style. Keep all important subject parts completely visible, including head/helmet, antlers, wings, ears, flowers, hands and objects. Uniformly reduce the subject within the frame if needed, never stretch it. Add natural seamless new painted/drawn background space mainly to the sides, continuing the existing background style, texture and light. Large calm breathing room for desktop windows. No repeated edge columns, smeared bands, mirroring, letterboxing, borders or abrupt seams. Preserve the existing subject composition as far as the new panoramic framing permits; do not add extra subjects, text, logos, signatures, UI or watermarks. This is an expansion of the supplied original, not a different artwork."
+    },
+    {
+      "theme": "afterglow",
+      "name": "01-emberward-gaze",
+      "file": "themes/afterglow/backgrounds/01-emberward-gaze.jpg",
+      "ultrawide_file": "themes/afterglow/backgrounds-ultrawide/01-emberward-gaze.jpg",
+      "native_source": "branding/sources/wallpapers/batch-04/afterglow-01-emberward-gaze.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_sha256": "a01f1d5a83ff61748316ca635700696c5b2d35c9ecc379a60194e24ccc2f249c",
+      "status": "installed",
+      "replaces": "themes/afterglow/backgrounds/01-inner-light.jpg",
+      "prompt": "Use case: stylized-concept. Create ONE original full-bleed landscape 16:9 desktop wallpaper, request 3840x2160 if supported. Generate exclusively from this written brief, no input or reference pictures. Extreme close-up intimate portrait of an original adult Norse shieldmaiden around 25, pale skin, a few freckles, clear blue eyes, blonde braided hair. Her chin is subtly raised and BOTH eyes visibly gaze upward, toward a warm light above and to the left, expression quietly hopeful and absorbed. Her face fills the right two thirds from brow to chin, a deliberate very tight portrait crop, not a shoulders-and-torso scene. Keep both eyes, nose and lips beautifully formed and visible. Blonde wisps and the start of a braid fade into darkness; a small glimpse of fur-trimmed wool at the lower edge provides Norse identity. No helmet needed in this tight crop. Soft, painterly richly lit digital painting, fine skin texture integrated with expressive visible brush strokes, not a photograph, flat ink art, 3D or plastic skin. Afterglow palette: near-black #0c0b0c and #090809 ground and quiet dark left space; dusty rose #b59790, warm peach/ember #c38b7b and amber highlight on cheeks and nose, pale #e2dddc, restrained cool blue #87a9b0 and #c4d8e2 in her eyes. Warm amber and rose light, a few out-of-focus glowing embers dissolving into the dark background, atmospheric and intimate. No landscape, hearth props, torso, hands, scenery, collage, text, logos, signatures, watermarks, borders or recognizable movie/game/celebrity likeness. New original composition; do not imitate any existing artwork. Keep eyes below the top 6 percent for a desktop bar.",
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "theme": "afterglow",
+      "name": "02-ember-vigil",
+      "file": "themes/afterglow/backgrounds/02-ember-vigil.jpg",
+      "ultrawide_file": "themes/afterglow/backgrounds-ultrawide/02-ember-vigil.jpg",
+      "native_source": "branding/sources/wallpapers/batch-04/afterglow-02-ember-vigil.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_sha256": "0ee5aa5fbcf82c59f44691079c9c800e92b207745fd51030888b811cecf0129c",
+      "status": "installed",
+      "replaces": "themes/afterglow/backgrounds/02-amber-gaze.jpg",
+      "prompt": "Use case: stylized-concept.\nAsset: one original desktop wallpaper, full-bleed landscape 16:9, request 3840x2160 if supported.\nGenerate from this written brief alone; no input or reference images.\nSubject and composition: Three-quarter intimate portrait of a young adult Norse shieldmaiden wearing a round iron spangenhelm helmet with nose guard, blonde braids falling over a fur-trimmed wool cloak, lit from below by a fire's warm glow. Calm and steady clear-blue-eyed gaze past the viewer, a few freckles and fine softly painted skin texture, embers drifting in the near-black darkness. Head and shoulders slightly right of center; complete helmet visible.\nStyle and palette: Soft, painterly, richly lit digital painting, intimate and atmospheric; visible delicate brushwork, fine skin texture and a few freckles, never a photograph or flat ink graphic. Palette: near-black #0c0b0c and #090809 dominate; dusty rose #b59790, warm peach/ember #c38b7b, pale #e2dddc, restrained cool eye tones #87a9b0 and #c4d8e2. Amber and rose firelight with soft bokeh embers. Recurring character design across this series, specified entirely in words: adult woman around 25, pale skin, oval face, straight nose, blonde hair in two loose braids, clear blue eyes, light freckles, plain wool tunic and fur-trimmed cloak. No celebrity or franchise likeness.\nConstraints: historically grounded Norse clothing, natural wool/linen, simple period bronze ornament and round iron helmets; no horned or winged helmets, no fantasy crown. Keep important features away from top 6% and outer edges, with calm dark breathing room suitable for desktop windows. One single painting, no collage, borders, text, letters, logos, signatures, watermarks, UI, recognizable characters, game/movie likenesses, landscapes or scenic vistas. Small runes carved into the requested objects are permitted; no floating writing.",
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-04/afterglow-02-ember-vigil-ultrawide.png",
+      "ultrawide_native_sha256": "fe0dbbbd648e8506ed043ca6b1947a71f622c7944a5a336ea67dff275d5e5b8f",
+      "ultrawide_native_size": [
+        1938,
+        812
+      ],
+      "ultrawide_prompt": "Expand and recompose this Eitr original artwork into a true ULTRAWIDE43:18 landscape wallpaper, requested3440x1440 or largest supported2.39:1 canvas. Preserve its SAME subject, character identity, anatomy, pose, colors, medium, lighting and original artwork style. Keep all important subject parts completely visible, including head/helmet, antlers, wings, ears, flowers, hands and objects. Uniformly reduce the subject within the frame if needed, never stretch it. Add natural seamless new painted/drawn background space mainly to the sides, continuing the existing background style, texture and light. Large calm breathing room for desktop windows. No repeated edge columns, smeared bands, mirroring, letterboxing, borders or abrupt seams. Preserve the existing subject composition as far as the new panoramic framing permits; do not add extra subjects, text, logos, signatures, UI or watermarks. This is an expansion of the supplied original, not a different artwork."
+    },
+    {
+      "theme": "afterglow",
+      "name": "03-bronze-and-embers",
+      "file": "themes/afterglow/backgrounds/03-bronze-and-embers.jpg",
+      "ultrawide_file": "themes/afterglow/backgrounds-ultrawide/03-bronze-and-embers.jpg",
+      "native_source": "branding/sources/wallpapers/batch-04/afterglow-03-bronze-and-embers.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_sha256": "8eb8ed0397ce795d82e65b1ea5d88724eaf9d8e26ae44259c81f6dad6c3cadfc",
+      "status": "installed",
+      "replaces": "themes/afterglow/backgrounds/03-quiet-signal.jpg",
+      "prompt": "Use case: stylized-concept.\nAsset: one original desktop wallpaper, full-bleed landscape 16:9, request 3840x2160 if supported.\nGenerate from this written brief alone; no input or reference images.\nSubject and composition: Close profile of a young adult Norse shieldmaiden, eyes closed in peaceful reflection, blonde braided hair. Helmet held under her arm, visible near the bottom of the composition; carved bronze brooch at her shoulder. Warm rim light grazing her face and hair, dark smoky background, soft bokeh embers. Profile faces left, figure on the right, framing includes her arm and the held helmet.\nStyle and palette: Soft, painterly, richly lit digital painting, intimate and atmospheric; visible delicate brushwork, fine skin texture and a few freckles, never a photograph or flat ink graphic. Palette: near-black #0c0b0c and #090809 dominate; dusty rose #b59790, warm peach/ember #c38b7b, pale #e2dddc, restrained cool eye tones #87a9b0 and #c4d8e2. Amber and rose firelight with soft bokeh embers. Recurring character design across this series, specified entirely in words: adult woman around 25, pale skin, oval face, straight nose, blonde hair in two loose braids, clear blue eyes, light freckles, plain wool tunic and fur-trimmed cloak. No celebrity or franchise likeness.\nConstraints: historically grounded Norse clothing, natural wool/linen, simple period bronze ornament and round iron helmets; no horned or winged helmets, no fantasy crown. Keep important features away from top 6% and outer edges, with calm dark breathing room suitable for desktop windows. One single painting, no collage, borders, text, letters, logos, signatures, watermarks, UI, recognizable characters, game/movie likenesses, landscapes or scenic vistas. Small runes carved into the requested objects are permitted; no floating writing.",
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-04/afterglow-03-bronze-and-embers-ultrawide.png",
+      "ultrawide_native_sha256": "2a1af8606d437a7400756439d91280d7f18558905d74de74d2730ad552f6eef6",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ],
+      "ultrawide_prompt": "Expand and recompose this Eitr original artwork into a true ULTRAWIDE43:18 landscape wallpaper, requested3440x1440 or largest supported2.39:1 canvas. Preserve its SAME subject, character identity, anatomy, pose, colors, medium, lighting and original artwork style. Keep all important subject parts completely visible, including head/helmet, antlers, wings, ears, flowers, hands and objects. Uniformly reduce the subject within the frame if needed, never stretch it. Add natural seamless new painted/drawn background space mainly to the sides, continuing the existing background style, texture and light. Large calm breathing room for desktop windows. No repeated edge columns, smeared bands, mirroring, letterboxing, borders or abrupt seams. Preserve the existing subject composition as far as the new panoramic framing permits; do not add extra subjects, text, logos, signatures, UI or watermarks. This is an expansion of the supplied original, not a different artwork."
+    },
+    {
+      "theme": "moss",
+      "name": "01-smokehole-seeress",
+      "file": "themes/moss/backgrounds/01-smokehole-seeress.jpg",
+      "ultrawide_file": "themes/moss/backgrounds-ultrawide/01-smokehole-seeress.jpg",
+      "native_source": "branding/sources/wallpapers/batch-04/moss-01-smokehole-seeress.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_sha256": "f15037dfd56003727e5d9d702d5787133ba1871939df00b580ec8987ac74bdbb",
+      "status": "installed",
+      "replaces": "themes/moss/backgrounds/01-the-veil.jpg",
+      "prompt": "Use case: stylized-concept.\nAsset: one original desktop wallpaper, full-bleed landscape 16:9, request 3840x2160 if supported.\nGenerate from this written brief alone; no input or reference images.\nSubject and composition: A völva, an adult Norse seeress in a heavy moss-green hooded wool cloak, face mostly in shadow, holding a carved wooden staff with small incised runes. Seated in a dim longhouse, one soft beam of light from a smoke hole. Three-quarter seated figure toward the right, staff fully legible as a wooden object, quiet darkness on the left. Interior only suggested by a few dark timber forms.\nStyle and palette: Dark chiaroscuro oil painting, richly lit but restrained, visible oil brushwork and subtle canvas texture, quiet solemn mood. Palette locked to charcoal #222222 and near-black, moss/olive #78824b and #5f875f, umber #685742, bone #c2c2b0 and pale straw #d7c483, restrained rust #b36d43. One soft shaft or pool of light only. Never flat ink graphic, glossy 3D, or photograph.\nConstraints: historically grounded Norse clothing, natural wool/linen, simple period bronze ornament and round iron helmets; no horned or winged helmets, no fantasy crown. Keep important features away from top 6% and outer edges, with calm dark breathing room suitable for desktop windows. One single painting, no collage, borders, text, letters, logos, signatures, watermarks, UI, recognizable characters, game/movie likenesses, landscapes or scenic vistas. Small runes carved into the requested objects are permitted; no floating writing.",
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-04/moss-01-smokehole-seeress-ultrawide.png",
+      "ultrawide_native_sha256": "cc1bc4d2e786c6ca2d767262e1f0a1cb9c1d1f97852d1d3fe35f008886aa02a3",
+      "ultrawide_native_size": [
+        1937,
+        812
+      ],
+      "ultrawide_prompt": "Expand and recompose this Eitr original artwork into a true ULTRAWIDE43:18 landscape wallpaper, requested3440x1440 or largest supported2.39:1 canvas. Preserve its SAME subject, character identity, anatomy, pose, colors, medium, lighting and original artwork style. Keep all important subject parts completely visible, including head/helmet, antlers, wings, ears, flowers, hands and objects. Uniformly reduce the subject within the frame if needed, never stretch it. Add natural seamless new painted/drawn background space mainly to the sides, continuing the existing background style, texture and light. Large calm breathing room for desktop windows. No repeated edge columns, smeared bands, mirroring, letterboxing, borders or abrupt seams. Preserve the existing subject composition as far as the new panoramic framing permits; do not add extra subjects, text, logos, signatures, UI or watermarks. This is an expansion of the supplied original, not a different artwork."
+    },
+    {
+      "theme": "moss",
+      "name": "02-silent-oath",
+      "file": "themes/moss/backgrounds/02-silent-oath.jpg",
+      "ultrawide_file": "themes/moss/backgrounds-ultrawide/02-silent-oath.jpg",
+      "native_source": "branding/sources/wallpapers/batch-04/moss-02-silent-oath.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_sha256": "cbba96e6bb1ec3569bbf58900bbc76068d085b2d4b04c399c792ea6b638e0bd8",
+      "status": "installed",
+      "replaces": "themes/moss/backgrounds/02-the-keeper.jpg",
+      "prompt": "Use case: stylized-concept.\nAsset: one original desktop wallpaper, full-bleed landscape 16:9, request 3840x2160 if supported.\nGenerate from this written brief alone; no input or reference images.\nSubject and composition: A cloaked adult Norse warrior kneeling in prayer-like stillness, a round iron spangenhelm helmet with nose guard and a plain early-medieval sword resting on the stone floor beside him. Heavy moss-green wool cloak pooled around him, candlelight from the side. Wider low framing showing his whole kneeling silhouette, hands still, face downcast and shadowed, all objects complete. Solemn and contemplative.\nStyle and palette: Dark chiaroscuro oil painting, richly lit but restrained, visible oil brushwork and subtle canvas texture, quiet solemn mood. Palette locked to charcoal #222222 and near-black, moss/olive #78824b and #5f875f, umber #685742, bone #c2c2b0 and pale straw #d7c483, restrained rust #b36d43. One soft shaft or pool of light only. Never flat ink graphic, glossy 3D, or photograph.\nConstraints: historically grounded Norse clothing, natural wool/linen, simple period bronze ornament and round iron helmets; no horned or winged helmets, no fantasy crown. Keep important features away from top 6% and outer edges, with calm dark breathing room suitable for desktop windows. One single painting, no collage, borders, text, letters, logos, signatures, watermarks, UI, recognizable characters, game/movie likenesses, landscapes or scenic vistas. Small runes carved into the requested objects are permitted; no floating writing.",
+      "corrections": [
+        {
+          "prompt": "Edit this original Moss Norse oil painting. Correct ONLY the warrior's hands and the immediate wrist transitions: replace the tangled interlaced fingers with two anatomically correct relaxed hands, one loosely resting over the back of the other on his lap. Plausible five-finger anatomy per hand, natural knuckles, thumbs, finger lengths and contact shadows, with some fingers naturally occluded; no fused or extra digits. Keep EXACTLY the same bowed kneeling warrior, helmet, cloak, sword, camera, composition, candlelit chiaroscuro oil-paint texture, muted olive/moss/bone/umber palette and background. Keep the rest of the picture unchanged. Single full-bleed 16:9 image, largest supported resolution. No words, logos, watermark or border.",
+          "input_sha256": "1df91f73d06301d0d21e04a56383aa81ee881203dc62a24c4954862f017dbce6",
+          "origin": "Edit of Eitr’s own generated native master; no third-party input."
+        }
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-04/moss-02-silent-oath-ultrawide.png",
+      "ultrawide_native_sha256": "1252c25a24fa3395f36a0fb78dae36e7854a4d04fd7e0d0a264fc189ef13ce8a",
+      "ultrawide_native_size": [
+        1938,
+        812
+      ],
+      "ultrawide_prompt": "Expand and recompose this Eitr original artwork into a true ULTRAWIDE43:18 landscape wallpaper, requested3440x1440 or largest supported2.39:1 canvas. Preserve its SAME subject, character identity, anatomy, pose, colors, medium, lighting and original artwork style. Keep all important subject parts completely visible, including head/helmet, antlers, wings, ears, flowers, hands and objects. Uniformly reduce the subject within the frame if needed, never stretch it. Add natural seamless new painted/drawn background space mainly to the sides, continuing the existing background style, texture and light. Large calm breathing room for desktop windows. No repeated edge columns, smeared bands, mirroring, letterboxing, borders or abrupt seams. Preserve the existing subject composition as far as the new panoramic framing permits; do not add extra subjects, text, logos, signatures, UI or watermarks. This is an expansion of the supplied original, not a different artwork."
+    },
+    {
+      "theme": "moss",
+      "name": "03-candlelit-relics",
+      "file": "themes/moss/backgrounds/03-candlelit-relics.jpg",
+      "ultrawide_file": "themes/moss/backgrounds-ultrawide/03-candlelit-relics.jpg",
+      "native_source": "branding/sources/wallpapers/batch-04/moss-03-candlelit-relics.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_sha256": "4c0d37f49d5fb8301889b23587723fd23fa1f469dbaacc68910fd322028c2595",
+      "status": "installed",
+      "replaces": "themes/moss/backgrounds/03-stone-and-linen.jpg",
+      "prompt": "Use case: stylized-concept.\nAsset: one original desktop wallpaper, full-bleed landscape 16:9, request 3840x2160 if supported.\nGenerate from this written brief alone; no input or reference images.\nSubject and composition: Still life on a stone ledge: an old round iron spangenhelm helmet with nose guard, a drinking horn, a folded bone-colored linen cloth and a small moss-covered rune stone with a few small carved runes, lit by a single candle against deep shadow. Low horizontal arrangement with full objects visible, simple pool of candlelight and ample negative space. No people.\nStyle and palette: Dark chiaroscuro oil painting, richly lit but restrained, visible oil brushwork and subtle canvas texture, quiet solemn mood. Palette locked to charcoal #222222 and near-black, moss/olive #78824b and #5f875f, umber #685742, bone #c2c2b0 and pale straw #d7c483, restrained rust #b36d43. One soft shaft or pool of light only. Never flat ink graphic, glossy 3D, or photograph.\nConstraints: historically grounded Norse clothing, natural wool/linen, simple period bronze ornament and round iron helmets; no horned or winged helmets, no fantasy crown. Keep important features away from top 6% and outer edges, with calm dark breathing room suitable for desktop windows. One single painting, no collage, borders, text, letters, logos, signatures, watermarks, UI, recognizable characters, game/movie likenesses, landscapes or scenic vistas. Small runes carved into the requested objects are permitted; no floating writing.",
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-04/moss-03-candlelit-relics-ultrawide.png",
+      "ultrawide_native_sha256": "cda1479034c9c9dac125145a3500b5b5bdc43f7206c46e2c20b26c9cdab4148f",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ],
+      "ultrawide_prompt": "Expand and recompose this Eitr original artwork into a true ULTRAWIDE43:18 landscape wallpaper, requested3440x1440 or largest supported2.39:1 canvas. Preserve its SAME subject, character identity, anatomy, pose, colors, medium, lighting and original artwork style. Keep all important subject parts completely visible, including head/helmet, antlers, wings, ears, flowers, hands and objects. Uniformly reduce the subject within the frame if needed, never stretch it. Add natural seamless new painted/drawn background space mainly to the sides, continuing the existing background style, texture and light. Large calm breathing room for desktop windows. No repeated edge columns, smeared bands, mirroring, letterboxing, borders or abrupt seams. Preserve the existing subject composition as far as the new panoramic framing permits; do not add extra subjects, text, logos, signatures, UI or watermarks. This is an expansion of the supplied original, not a different artwork."
+    },
+    {
+      "theme": "graphite",
+      "name": "01-fragments-of-touch",
+      "file": "themes/graphite/backgrounds/01-fragments-of-touch.jpg",
+      "ultrawide_file": "themes/graphite/backgrounds-ultrawide/01-fragments-of-touch.jpg",
+      "native_source": "branding/sources/wallpapers/batch-04/graphite-01-fragments-of-touch.png",
+      "status": "installed",
+      "prompt": "Replace the entire LOWER LEFT HAND with a completely NEW and much SIMPLER anatomically correct hand. Remove the current layered cupped fingers entirely. Draw a single hand reaching diagonally up-right, palm facing the viewer almost flat, fingers gently spread in ONE SINGLE PLANE with NO OVERLAP. EXACTLY FIVE visible digits in total, each one clean silhouette with a black gap from the next: thumb at upper-left of palm, index at upper-right, middle longest to the right, ring below middle, little shortest at lower-right. One thumb plus four fingers, five fingertips total, one palm, one wrist. Do not draw two rows of fingers or stacked fingertips; no extra small finger tucked underneath. The palm should be broad and fingers simple smooth shapes, realistic human proportions in the existing monochrome graphite drawing. Preserve the right-side reaching hand, black background, particle-dissolving wrists, original composition and ultrawide aspect43:18. Focus exclusively on believable five-digit anatomy. No text, numbers, labels, watermark, color or border. The old left-hand pose is explicitly discarded: create the new open flat hand rather than modifying existing fingers.",
+      "origin": "Owner-approved recreation of the left hand in Eitr’s generated Graphite wallpaper; initial generation prompt remains in batch02.",
+      "native_size": [
+        1938,
+        811
+      ],
+      "native_sha256": "39f9eb249f0cb7d6448258ef2309ec5978a071488e3830a8b4d025a9b0bc2a42",
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "superseded_edits": [
+        {
+          "prompt": "Precisely edit this original monochrome graphite/chalk particle wallpaper. Correct the anatomy of BOTH reaching hands so EACH has exactly FIVE digits: one thumb and four distinct fingers, plausible joints and lengths, natural graceful reaching gesture, no missing, fused or extra fingers. In particular restore the missing digit of the open lower-left hand with clear natural spacing. Preserve both hands' original positions (lower left palm facing up and upper right reaching down), the gap between them, the charcoal-black empty backdrop and delicate white stipple/graphite particles dissolving at the wrists. Preserve the original monochrome drawing medium, lighting and sweeping composition. No new objects, text, watermark, border or color. Full-bleed ultrawide aspect ratio43:18 approximately2.39:1, request3440x1440 or largest supported ultrawide canvas; do not crop either hand.",
+          "native_sha256": "2d5830572710e197ca439513f1b8f886e9fb6be7feb07f5c28c732c63e8ee7ec",
+          "status": "superseded by owner-approved five-digit left-hand recreation"
+        }
+      ]
+    }
+  ],
+  "previews": {
+    "stillwater": "themes/stillwater/backgrounds/01-ashen-stag.jpg",
+    "catppuccin-latte": "themes/catppuccin-latte/backgrounds/01-ribbon-hare.jpg",
+    "rose-pine": "themes/rose-pine/backgrounds/01-heron-and-thread.jpg",
+    "wisteria": "themes/wisteria/backgrounds/01-indigo-bellflowers.jpg",
+    "afterglow": "themes/afterglow/backgrounds/01-emberward-gaze.jpg",
+    "moss": "themes/moss/backgrounds/01-smokehole-seeress.jpg",
+    "graphite": "themes/graphite/backgrounds/01-fragments-of-touch.jpg"
+  },
+  "style_overrides": {
+    "afterglow": "Owner-requested soft painterly intimate Norse portraits with amber, ember and rose light; not flat ink.",
+    "moss": "Owner-requested dark chiaroscuro Norse oil paintings in moss, olive, bone and umber; not flat ink."
+  }
+}

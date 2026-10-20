@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "aws": {"my-dev-profile": "Development", "my-prod-profile": "Production"},
+  "gcp": {"my-development-config": "Development", "my-production-config": "Production"},
+  "azure": {"00000000-0000-0000-0000-000000000001": "Development"}
+}

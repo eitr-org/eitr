@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+public/art/
+src/data/themes.json
+src/data/release.json
+src/data/roadmap.json
+src/data/eitr-logo.svg
+public/branding/

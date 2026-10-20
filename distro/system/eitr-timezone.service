@@ -1,0 +1,15 @@
+[Unit]
+Description=Detect the timezone after an offline EITR installation
+ConditionPathExists=/var/lib/eitr/timezone-automatic
+Wants=network-online.target
+After=network-online.target time-sync.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/eitr/eitr-timezone
+Restart=on-failure
+RestartSec=2min
+
+[Install]
+WantedBy=multi-user.target

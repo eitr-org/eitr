@@ -1,0 +1,80 @@
+---
+// Jörmungandr glides past behind the page now and then, everywhere except the
+// opening screen: it waits until the hero has scrolled (mostly) out of view.
+const body = 'M-500 145C-340 20-180 25-20 118S220 222 375 115 620 25 780 120 1040 218 1200 105';
+---
+<div class="serpent-passage" data-serpent data-location="0" aria-hidden="true">
+  <svg viewBox="0 0 600 240" fill="none">
+    <defs>
+      <pattern id="serpent-scales" width="24" height="20" patternUnits="userSpaceOnUse">
+        <rect width="24" height="20" fill="#3a2a26" />
+        <path d="M-12 0Q0 20 12 0M12 0Q24 20 36 0M0 10Q12 30 24 10M0-10Q12 10 24-10" stroke="#89958a" stroke-width="1" />
+      </pattern>
+    </defs>
+    <g class="serpent-body">
+      <path d={body} stroke="#788478" stroke-width="35" />
+      <path d={body} stroke="url(#serpent-scales)" stroke-width="32" />
+      <path d={body} stroke="#a0aa8e" stroke-width="1" stroke-dasharray="2 19" />
+    </g>
+  </svg>
+</div>
+<style>
+.serpent-passage{position:fixed;width:40%;height:230px;pointer-events:none;opacity:0;z-index:0;mask-image:radial-gradient(ellipse,#000 15%,transparent 70%)}
+.serpent-passage svg{width:100%;height:100%;overflow:hidden}
+.serpent-passage[data-location="0"]{left:3%;top:12%;rotate:-16deg}
+.serpent-passage[data-location="1"]{right:0;top:9%;rotate:24deg}
+.serpent-passage[data-location="2"]{left:23%;bottom:9%;rotate:-10deg}
+.serpent-passage[data-location="3"]{left:-7%;top:49%;rotate:42deg}
+.serpent-passage[data-location="4"]{right:-4%;bottom:12%;rotate:-32deg}
+@media(max-width:600px){.serpent-passage{width:65%;height:150px}}
+@media(prefers-reduced-motion:reduce){.serpent-passage{display:none}}
+</style>
+<script>
+const serpent=document.querySelector<HTMLElement>('[data-serpent]');
+const hero=document.querySelector<HTMLElement>('.hero');
+if(serpent && hero) {
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ const body=serpent.querySelector('.serpent-body');
+ let visible=false;
+ let timer: ReturnType<typeof setTimeout> | undefined;
+ let animations: Animation[]=[];
+ let previous=-1;
+ // visible: the opening screen is on screen, so the serpent stays away.
+ const eligible=()=>!visible && !document.hidden && !reduced.matches;
+ const cancel=()=>{
+  clearTimeout(timer);timer=undefined;
+  for(const animation of animations) animation.cancel();
+  animations=[];
+  serpent.dataset.passing='false';
+ };
+ serpent.dataset.active='false';
+ const schedule=(delay:number)=>{
+  if(!eligible()) return;
+  timer=setTimeout(pass,delay);
+ };
+ const pass=()=>{
+  timer=undefined;
+  if(!eligible() || !body) return;
+  const location=previous<0 ? Math.floor(Math.random()*5) : (previous+1+Math.floor(Math.random()*4))%5;
+  previous=location;
+  serpent.dataset.location=String(location);
+  serpent.dataset.passing='true';
+  const duration=8500;
+  const fade=serpent.animate([{opacity:0},{opacity:.28,offset:.3},{opacity:.22,offset:.65},{opacity:0}],{duration,easing:'ease-in-out'});
+  const drift=body.animate([{transform:'translate(-90px, 8px)'},{transform:'translate(90px, -8px)'}],{duration,easing:'ease-in-out'});
+  animations=[fade,drift];
+  fade.finished.then(()=>{
+   cancel();
+   schedule(5000);
+  },()=>{});
+ };
+ const update=()=>{
+  serpent.dataset.active=String(eligible());
+  if(!eligible()) cancel();
+  else if(timer===undefined && animations.length===0) schedule(1500);
+ };
+ new IntersectionObserver(entries=>{visible=entries[0].intersectionRatio>=.2;update();},{threshold:[0,.2]}).observe(hero);
+ reduced.addEventListener('change',update);
+ document.addEventListener('visibilitychange',update);
+}
+</script>

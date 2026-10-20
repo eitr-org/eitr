@@ -1,0 +1,29 @@
+[
+  {
+    "text": "AWS",
+    "subtext": ">",
+    "keywords": [
+      "amazon"
+    ],
+    "icon": "",
+    "submenu": "aws-profiles"
+  },
+  {
+    "text": "Azure",
+    "subtext": ">",
+    "keywords": [
+      "microsoft cloud"
+    ],
+    "icon": "󰠅",
+    "submenu": "azure-contexts"
+  },
+  {
+    "text": "Google Cloud",
+    "subtext": ">",
+    "keywords": [
+      "google cloud"
+    ],
+    "icon": "",
+    "submenu": "gcp-contexts"
+  }
+]

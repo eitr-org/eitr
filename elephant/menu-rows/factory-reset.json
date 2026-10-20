@@ -1,0 +1,43 @@
+[
+  {
+    "text": "Erase Everything",
+    "subtext": "Back to the first login, files too",
+    "keywords": [
+      "factory",
+      "reset",
+      "restore",
+      "wipe"
+    ],
+    "icon": "󰆴",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/factory-reset.py everything"
+    }
+  },
+  {
+    "text": "Keep My Files",
+    "subtext": "Keep files; reset apps and settings",
+    "keywords": [
+      "factory",
+      "reset",
+      "restore",
+      "refresh"
+    ],
+    "icon": "󰉋",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/factory-reset.py keep-files"
+    }
+  },
+  {
+    "text": "Reset Status",
+    "subtext": "Check the restore point; changes nothing",
+    "keywords": [
+      "factory",
+      "reset",
+      "restore point"
+    ],
+    "icon": "󰋼",
+    "actions": {
+      "open": "kitty --hold -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/factory-reset.py status"
+    }
+  }
+]

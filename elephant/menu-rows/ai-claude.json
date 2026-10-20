@@ -1,0 +1,48 @@
+[
+  {
+    "text": "New",
+    "subtext": "Start a Claude Code session in a project",
+    "keywords": [
+      "claude"
+    ],
+    "icon": "󰙴",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh claude-new"
+    }
+  },
+  {
+    "text": "New Named",
+    "subtext": "Start a session with a name to resume later",
+    "keywords": [
+      "claude"
+    ],
+    "icon": "󰙴",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh claude-new-named"
+    }
+  },
+  {
+    "text": "Resume by Name",
+    "subtext": "Continue a named session",
+    "keywords": [
+      "claude",
+      "resume"
+    ],
+    "icon": "󰙴",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh claude-resume-name"
+    }
+  },
+  {
+    "text": "Resume Picker",
+    "subtext": "Choose an earlier session to continue",
+    "keywords": [
+      "claude",
+      "resume"
+    ],
+    "icon": "󰙴",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh claude-resume-picker"
+    }
+  }
+]

@@ -1,0 +1,107 @@
+# Eitr boot splash: the rune wordmark inside a ring of the 24 Elder Futhark runes.
+# A bright glow circles the ring while booting; once Plymouth knows the boot's
+# progress (from earlier boots), the runes it has passed stay lit.
+# Press Escape to see the boot messages.
+
+# Functions assign locals by default; sprites kept across calls live in global.
+Window.SetBackgroundTopColor(0.039, 0.043, 0.071);
+Window.SetBackgroundBottomColor(0.039, 0.043, 0.071);
+
+center_x = Window.GetX() + Window.GetWidth() / 2;
+center_y = Window.GetY() + Window.GetHeight() / 2;
+
+wordmark.image = Image("wordmark.png");
+wordmark.sprite = Sprite(wordmark.image);
+wordmark.y = center_y - wordmark.image.GetHeight() / 2 - 40;
+wordmark.sprite.SetPosition(center_x - wordmark.image.GetWidth() / 2, wordmark.y, 10);
+
+below_wordmark = wordmark.y + wordmark.image.GetHeight() + 48;
+
+ring.count = 24;
+ring.center_y = wordmark.y + wordmark.image.GetHeight() / 2;
+ring.radius_x = wordmark.image.GetWidth() / 2 + 90;
+ring.radius_y = wordmark.image.GetHeight() / 2 + 90;
+ring.visible = 1;
+ring.progress = 0;
+for (index = 0; index < ring.count; index++)
+{
+  if (index < 10) name = "rune-0" + index + ".png"; else name = "rune-" + index + ".png";
+  rune.image = Image(name);
+  angle = index / ring.count * 2 * Math.Pi - Math.Pi / 2;
+  global.runes[index] = Sprite(rune.image);
+  global.runes[index].SetPosition(center_x + Math.Cos(angle) * ring.radius_x - rune.image.GetWidth() / 2,
+                                  ring.center_y + Math.Sin(angle) * ring.radius_y - rune.image.GetHeight() / 2, 10);
+  global.runes[index].SetOpacity(0.18);
+}
+
+prompt.image = Image("passphrase.png");
+prompt.sprite = Sprite(prompt.image);
+prompt.sprite.SetPosition(center_x - prompt.image.GetWidth() / 2, below_wordmark - 8, 20);
+prompt.sprite.SetOpacity(0);
+
+field.image = Image("field.png");
+field.sprite = Sprite(field.image);
+field.x = center_x - field.image.GetWidth() / 2;
+field.y = below_wordmark + prompt.image.GetHeight() + 4;
+field.sprite.SetPosition(field.x, field.y, 20);
+field.sprite.SetOpacity(0);
+
+bullet.image = Image("bullet.png");
+bullet.spacing = bullet.image.GetWidth() + 6;
+bullet.limit = Math.Int((field.image.GetWidth() - 32) / bullet.spacing);
+
+tick = 0;
+fun refresh_callback ()
+{
+  global.tick++;
+  # The glow travels around the ring once every four seconds (50 refreshes a second).
+  head = (global.tick / 200 - Math.Int(global.tick / 200)) * ring.count;
+  for (index = 0; index < ring.count; index++)
+  {
+    distance = Math.Abs(index - head);
+    if (distance > ring.count / 2) distance = ring.count - distance;
+    light = 0.18;
+    # Only runes the progress has fully passed stay lit, so the first one waits its turn too.
+    if (index + 1 <= ring.progress * ring.count) light = 0.75;
+    if (distance < 3) light = Math.Max(light, 1 - distance * 0.27);
+    global.runes[index].SetOpacity(light * ring.visible);
+  }
+}
+Plymouth.SetRefreshFunction(refresh_callback);
+
+fun boot_progress_callback (duration, progress)
+{
+  global.ring.progress = progress;
+}
+Plymouth.SetBootProgressFunction(boot_progress_callback);
+
+fun show_progress (visible)
+{
+  global.ring.visible = visible;
+  prompt.sprite.SetOpacity(1 - visible);
+  field.sprite.SetOpacity(1 - visible);
+}
+
+fun display_password_callback (text, count)
+{
+  show_progress(0);
+  shown = Math.Min(count, bullet.limit);
+  first_x = center_x - (shown * bullet.spacing - 6) / 2;
+  for (index = 0; index < shown || global.bullets[index]; index++)
+  {
+    if (!global.bullets[index])
+      global.bullets[index] = Sprite(bullet.image);
+    global.bullets[index].SetPosition(first_x + index * bullet.spacing,
+                                      field.y + (field.image.GetHeight() - bullet.image.GetHeight()) / 2, 21);
+    global.bullets[index].SetOpacity(index < shown);
+  }
+}
+Plymouth.SetDisplayPasswordFunction(display_password_callback);
+
+fun display_normal_callback ()
+{
+  show_progress(1);
+  for (index = 0; global.bullets[index]; index++)
+    global.bullets[index].SetOpacity(0);
+}
+Plymouth.SetDisplayNormalFunction(display_normal_callback);

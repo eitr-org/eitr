@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MjolnirScene from '../components/MjolnirScene.astro';
+---
+<Layout title="Lightning entrance study · EITR">
+  <section class="wrap intro-study">
+    <p class="eyebrow">Motion study / Lightning</p>
+    <MjolnirScene />
+    <div class="intro-controls"><button class="button primary" id="replay">Replay the strike ↻</button><a class="text-link" href="/">Back to the website ↗</a></div>
+    <p class="fine">Quick motion prototype · original SVG and CSS · reduced motion shows the finished logo.</p>
+  </section>
+</Layout>
+<style>
+.intro-study{padding-top:135px;padding-bottom:55px}
+.intro-controls{display:flex;align-items:center;gap:30px;margin:25px 0 15px;flex-wrap:wrap}
+</style>
+<script>
+const stage=document.querySelector('#impact-stage');
+document.querySelector('#replay')?.addEventListener('click',()=>{
+ stage?.classList.remove('playing');
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{
+  stage?.classList.add('playing');
+  stage?.dispatchEvent(new Event('replay'));
+ }));
+});
+</script>

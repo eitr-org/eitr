@@ -1,0 +1,252 @@
+#!/usr/bin/env python3
+"""eitr: one command for Eitr's tools.
+
+Each subcommand hands off to the tool that already does the job (the same ones
+Walker's menus run), so the command line and the menus never disagree.
+"""
+import argparse
+import json
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+
+# Installed in /usr/bin, beside no library link: find the library like eitr-launch does.
+source_lib = Path(__file__).resolve().parents[1] / 'lib'
+if not (source_lib / 'eitr_i18n.py').is_file():
+    source_lib = Path('/usr/share/eitr/lib')
+if (source_lib / 'eitr_i18n.py').is_file():
+    sys.path.insert(0, str(source_lib))
+from eitr_i18n import tr  # noqa: E402
+
+
+def code_root():
+    """The installed code, or this checkout when run from a repository."""
+    if os.environ.get("EITR_CODE_ROOT"):
+        return Path(os.environ["EITR_CODE_ROOT"])
+    checkout = Path(__file__).resolve().parents[2]
+    if (checkout / "walker/scripts/actions").is_dir() and (checkout / "distro/bin/eitr").is_file():
+        return checkout
+    return Path("/usr/share/eitr")
+
+
+def config_root():
+    value = os.environ.get("XDG_CONFIG_HOME", "")
+    return Path(value) if value.startswith("/") else Path.home() / ".config"
+
+
+ROOT_HELPER = "/usr/lib/eitr/eitr-system"
+UPDATES = {"system": "system", "pacman": "pacman", "aur": "yay", "full": "full"}
+HOOKS = {
+    "post-update": "after System Update or a pacman/AUR update (argument: system, pacman, yay or full)",
+    "theme-set": "after switching theme (argument: the theme's folder name)",
+    "battery-low": "once each time the battery drops to 15% (argument: the percentage)",
+    "post-boot": "at the first login after each start",
+}
+
+GROUPS = [
+    ("Everyday", [
+        ("update", "update the system (with a snapshot) or only pacman/AUR packages"),
+        ("theme", "list themes, show the current one, or switch"),
+        ("handbook", "open the Handbook, optionally at a chapter"),
+        ("remind", "a reminder later or at a time (eitr remind 25m Tea), or the list"),
+        ("version", "show the installed Eitr version"),
+        ("channel", "the update channel: stable, or testing for new builds first"),
+    ]),
+    ("Safety", [
+        ("firewall", "show, turn on or turn off the firewall"),
+        ("snapshots", "list the recovery snapshots, or what each update changed"),
+        ("restore", "an earlier version of a file or folder from the home snapshots"),
+        ("reset", "factory reset, with the same warnings as the menu"),
+        ("report", "prepare a problem report to read and send"),
+    ]),
+    ("Setup", [
+        ("hook", "list your hooks, or run one to try it"),
+        ("config", "your settings files compared with Eitr's defaults (eitr-config)"),
+        ("git", "Git accounts and folder identities (eitr-git)"),
+    ]),
+]
+
+
+def overview():
+    lines = ["usage: eitr <command> [arguments]", "", "One command for Eitr's tools.", ""]
+    for title, commands in GROUPS:
+        lines.append(f"{title}:")
+        lines += [f"  {name:<10} {summary}" for name, summary in commands]
+        lines.append("")
+    lines.append("Run 'eitr <command> --help' for a command's options.")
+    return "\n".join(lines)
+
+
+def themes(code, config):
+    """Theme folder name -> display name; your own themes override Eitr's."""
+    found = {}
+    for directory in (code / "themes", config / "themes"):
+        if not directory.is_dir():
+            continue
+        for theme in sorted(directory.iterdir()):
+            if (theme / "colors.toml").is_file():
+                label = theme / "display-name"
+                found[theme.name] = label.read_text().strip() if label.is_file() else theme.name
+    return dict(sorted(found.items(), key=lambda item: item[1].casefold()))
+
+
+def current_theme(config):
+    label = config / "theme/current/display-name"
+    return label.read_text().strip() if label.is_file() else ""
+
+
+def version(code):
+    stamp = code / "version"
+    build = stamp.read_text().strip() if stamp.is_file() else "unknown build"
+    release = code / "release.json"
+    if not release.is_file():
+        release = code / "distro/release.json"
+    try:
+        data = json.loads(release.read_text())
+        return f"Eitr {data['version']} {data['codename']} ({data['stage']}), build {build}"
+    except (OSError, ValueError, KeyError):
+        return f"Eitr, build {build}"
+
+
+def parser():
+    top = argparse.ArgumentParser(prog="eitr", add_help=False)
+    top.add_argument("-h", "--help", action="store_true")
+    commands = top.add_subparsers(dest="command")
+
+    update = commands.add_parser("update", help='update the system')
+    update.add_argument("kind", nargs="?", default="system", choices=sorted(UPDATES),
+                        help='system (default: snapshot, packages, AUR and Flatpak), pacman, aur or full')
+
+    theme = commands.add_parser("theme", help="themes")
+    theme_actions = theme.add_subparsers(dest="action")
+    theme_actions.add_parser("list", help='list the installed themes')
+    theme_actions.add_parser("current", help='show the current theme')
+    theme_set = theme_actions.add_parser("set", help='switch to a theme')
+    theme_set.add_argument("name", help="a name from 'eitr theme list', such as norse or 'Rose Pine'")
+
+    handbook = commands.add_parser("handbook", help='open the Handbook')
+    handbook.add_argument("chapter", nargs="?", help='a chapter id, such as troubleshooting')
+
+    commands.add_parser("version", help='show the installed Eitr version')
+
+    channel = commands.add_parser("channel", help='the update channel')
+    channel.add_argument("name", nargs="?", choices=["stable", "testing"], help='switch to this channel')
+
+    remind = commands.add_parser("remind", help="reminders")
+    remind.add_argument("when", nargs="?", help='10m, 1h30m or 18:30; leave out to list reminders')
+    remind.add_argument("text", nargs="*", help='what to be reminded about')
+
+    firewall = commands.add_parser("firewall", help='the firewall')
+    firewall.add_argument("action", nargs="?", default="status", choices=["status", "on", "off"])
+
+    snapshots = commands.add_parser("snapshots", help='recovery snapshots')
+    snapshot_actions = snapshots.add_subparsers(dest="action")
+    snapshot_actions.add_parser("list", help='list the recovery snapshots (default)')
+    snapshot_changes = snapshot_actions.add_parser("changes", help='what each update changed')
+    snapshot_changes.add_argument("number", nargs="?", help="an update's 'before' snapshot, for every package")
+
+    reset = commands.add_parser("reset", help='factory reset')
+    reset.add_argument("mode", nargs="?", default="status", choices=["status", "keep-files", "everything"],
+                       help='status (default) shows the restore point; the others ask twice before resetting')
+
+    commands.add_parser("report", help='prepare a problem report')
+
+    restore = commands.add_parser("restore", help='restore from the home snapshots')
+    restore.add_argument("path", nargs="?", help='the file or folder; leave out to type it in Walker')
+
+    hook = commands.add_parser("hook", help='your hooks in ~/.config/eitr/hooks')
+    hook_actions = hook.add_subparsers(dest="action")
+    hook_actions.add_parser("list", help='show the events and which hooks exist')
+    hook_run = hook_actions.add_parser("run", help='run a hook now, to try it')
+    hook_run.add_argument("event", choices=sorted(HOOKS))
+    hook_run.add_argument("arguments", nargs="*")
+
+    for name, tool in (("config", "eitr-config"), ("git", "eitr-git")):
+        passthrough = commands.add_parser(name, help='run {tool}'.format(tool=f'{tool}'), add_help=False)
+        passthrough.add_argument("arguments", nargs=argparse.REMAINDER)
+    return top
+
+
+def plan(arguments, code=None, config=None):
+    """The command to run for these arguments, or a text to print."""
+    code, config = code or code_root(), config or config_root()
+    actions = code / "walker/scripts/actions"
+    command = arguments.command
+    if command == "update":
+        return ["bash", str(actions / "system/update.sh"), UPDATES[arguments.kind]]
+    if command == "theme":
+        if arguments.action == "set":
+            return ["bash", str(actions / "style/apply.sh"), arguments.name]
+        if arguments.action == "current":
+            return current_theme(config) or "No theme is applied yet."
+        found = themes(code, config)
+        active = current_theme(config)
+        return "\n".join(f"{'*' if label == active else ' '} {label:<20} {name}" for name, label in found.items())
+    if command == "handbook":
+        script = str(code / "quickshell/desktop-bar/scripts/handbook.sh")
+        return ["bash", script, "open", arguments.chapter] if arguments.chapter else ["bash", script, "toggle"]
+    if command == "version":
+        return version(code)
+    if command == "channel":
+        if arguments.name:
+            return ["sudo", ROOT_HELPER, "channel-set", arguments.name]
+        return [ROOT_HELPER, "channel-status"]
+    if command == "remind":
+        script = str(actions / "tools/reminders.py")
+        return ["python3", script, "new", arguments.when, *arguments.text] if arguments.when else ["python3", script, "list"]
+    if command == "firewall":
+        if arguments.action == "status":
+            return [ROOT_HELPER, "firewall-status"]
+        return ["sudo", ROOT_HELPER, f"firewall-{arguments.action}"]
+    if command == "snapshots":
+        if arguments.action == "changes":
+            return ["sudo", ROOT_HELPER, "snapshot-changes", *([arguments.number] if arguments.number else [])]
+        return ["sudo", "snapper", "-c", "root", "list"]
+    if command == "reset":
+        return ["python3", str(actions / "system/factory-reset.py"), arguments.mode]
+    if command == "restore":
+        return ["python3", str(actions / "system/restore-file.py"), *([arguments.path] if arguments.path else [])]
+    if command == "report":
+        return ["python3", str(actions / "system/report-problem.py")]
+    if command == "hook":
+        if arguments.action == "run":
+            runner = code / "lib/run-hook.sh"
+            if not runner.is_file():
+                runner = code / "distro/lib/run-hook.sh"
+            return ["bash", str(runner), arguments.event, *arguments.arguments]
+        folder = config / "eitr/hooks"
+        lines = [f"Hooks live in {folder}; each is an executable file named after its event.", ""]
+        for event, when in HOOKS.items():
+            path = folder / event
+            state = "ready" if os.access(path, os.X_OK) else "not executable" if path.exists() else "-"
+            lines.append(f"  {event:<12} {state:<15} {when}")
+        lines += ["", "Output and failures are logged to ~/.local/state/eitr/hooks.log."]
+        return "\n".join(lines)
+    if command in ("config", "git"):
+        return [f"eitr-{command}", *arguments.arguments]
+    return overview()
+
+
+def main(argv=None):
+    argv = sys.argv[1:] if argv is None else argv
+    if not argv or argv[0] in ("-h", "--help", "help"):
+        print(overview())
+        return 0
+    arguments = parser().parse_args(argv)
+    result = plan(arguments)
+    if isinstance(result, str):
+        print(result)
+        return 0
+    if not shutil.which(result[0]) and not Path(result[0]).is_file():
+        print(tr('eitr: {command} is not installed', command=f'{result[0]}'), file=sys.stderr)
+        return 127
+    return subprocess.run(result).returncode
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except KeyboardInterrupt:
+        sys.exit(130)

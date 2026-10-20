@@ -1,0 +1,56 @@
+[
+  {
+    "text": "Connectivity",
+    "icon": "󰖩",
+    "subtext": ">",
+    "submenu": "system-connectivity"
+  },
+  {
+    "text": "Devices & Input",
+    "icon": "󰍹",
+    "subtext": ">",
+    "submenu": "system-devices"
+  },
+  {
+    "text": "Information",
+    "icon": "",
+    "subtext": ">",
+    "submenu": "system-information"
+  },
+  {
+    "text": "Maintenance",
+    "icon": "󰃢",
+    "subtext": ">",
+    "submenu": "system-maintenance"
+  },
+  {
+    "text": "Security",
+    "subtext": ">",
+    "icon": "󰒃",
+    "submenu": "security"
+  },
+  {
+    "text": "Dotfiles",
+    "subtext": "Open your configuration folder in an editor",
+    "keywords": [
+      "config"
+    ],
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/system/dotfiles.sh"
+    }
+  },
+  {
+    "text": "Language",
+    "subtext": "Follows the system locale (LC_MESSAGES / LANG)",
+    "icon": "󰗊",
+    "keywords": [
+      "language",
+      "locale",
+      "translation"
+    ],
+    "actions": {
+      "open": "eitr-run walker/bin/walker --provider menus:language"
+    }
+  }
+]

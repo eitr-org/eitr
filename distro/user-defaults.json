@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "layout_version": 2,
+  "comment": "Seed preferences and minimal native loaders only. Package code is never copied into user config.",
+  "entries": [
+    {"source": "distro/defaults/hypr", "target": "${XDG_CONFIG_HOME}/hypr", "update": false},
+    {"source": "distro/defaults/kitty", "target": "${XDG_CONFIG_HOME}/kitty", "update": false},
+    {"source": "distro/defaults/quickshell", "target": "${XDG_CONFIG_HOME}/quickshell", "update": false},
+    {"source": "distro/defaults/eitr", "target": "${XDG_CONFIG_HOME}/eitr", "update": false},
+    {"source": "nvim", "target": "${XDG_CONFIG_HOME}/nvim", "update": false},
+    {"source": "swayosd/config.toml", "target": "${XDG_CONFIG_HOME}/swayosd/config.toml", "update": false},
+    {"source": "dolphinrc", "target": "${XDG_CONFIG_HOME}/dolphinrc", "update": false},
+    {"source": "filetypesrc", "target": "${XDG_CONFIG_HOME}/filetypesrc", "update": false},
+    {"source": "mimeapps.list", "target": "${XDG_CONFIG_HOME}/mimeapps.list", "update": false},
+    {"source": "themes/afterglow", "target": "${XDG_CONFIG_HOME}/theme/current", "update": false, "whole": true},
+    {"source": "HOME_FILES/.config/lockscreen/selected", "target": "${XDG_CONFIG_HOME}/lockscreen/selected", "update": false},
+    {"source": "distro/defaults/home/.local", "target": "${HOME}/.local", "update": false},
+    {"source": "distro/defaults/home/.zshrc", "target": "${HOME}/.zshrc", "update": false, "requires": "${HOME}/.oh-my-zsh/oh-my-zsh.sh"},
+    {"source": "HOME_FILES/.p10k.zsh", "target": "${HOME}/.p10k.zsh", "update": false},
+    {"source": "HOME_FILES/.ls_colors", "target": "${HOME}/.ls_colors", "update": false}
+  ]
+}

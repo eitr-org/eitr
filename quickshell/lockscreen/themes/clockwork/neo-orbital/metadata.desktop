@@ -1,0 +1,9 @@
+[SddmGreeterTheme]
+Name=EITR Clockwork Neo Orbital
+Description=Original procedural EITR Clockwork Neo Orbital design
+Author=EITR
+License=GPL-3.0
+Type=sddm-theme
+MainScript=Main.qml
+ConfigFile=theme.conf
+QtVersion=6

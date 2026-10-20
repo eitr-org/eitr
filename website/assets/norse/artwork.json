@@ -1,0 +1,16 @@
+{
+  "generator": "built-in image generation",
+  "license": "CC-BY-4.0",
+  "reference": "themes/norse/backgrounds/04-huginn-muninn.jpg",
+  "entries": [
+    {
+      "file": "yggdrasil.png",
+      "prompt": "Original Yggdrasil world tree for EITR's Norse website. Landscape 3:2 composition. Complete ancient tree, fully visible from crown to pointed tapering roots, centered with organically asymmetric branching. Thick twisting trunk, organic branching roots and nine distinct miniature mythic realms integrated into branches and roots: ivory/ochre divine halls near the crown, pale elf sanctuary, green inhabited earth at the middle, shadowy dwarf cavern, blue-white frost realm, lush sacred grove, cold mist beneath the trunk, burnt-orange ember realm near a lower root, dark underworld grotto. One slender muted rainbow Bifrost bridge connects upper halls and middle realm. Clearly drawn dark Norse fantasy book illustration and hand-inked screenprint; bold black contours, flowing ink strokes, graphic shapes, limited spot colors, two-tone cel shading, restrained paper-grain texture. Pure black background, negative space, sparse ivory stars. Predominantly black, slate blue, aged ochre and ivory with localized emerald, teal and burnt orange. Inspired by owner-supplied tree-and-realms references, without copying their compositions. No photorealism, realistic matte painting, 3D, surrounding landscape, text, labels, runic writing, borders, logos or watermarks.",
+      "nativeSize": [
+        1536,
+        1024
+      ],
+      "reference": "Owner-supplied Yggdrasil tree-and-realms images; composition inspiration only, not distributed assets."
+    }
+  ]
+}

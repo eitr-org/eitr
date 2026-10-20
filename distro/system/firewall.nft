@@ -1,0 +1,41 @@
+#!/usr/sbin/nft -f
+# Eitr's firewall: incoming connections are refused unless they answer
+# something this computer started, or reach a feature Eitr ships that needs
+# them. Outgoing traffic is not filtered. eitr-firewall.service loads this file;
+# `eitr-system firewall-on|off|status` manages it.
+#
+# Local openings (for example SSH, written when sshd is enabled) live in
+# /etc/eitr/firewall.d/*.nft as `add rule inet eitr_firewall input ...` lines.
+
+table inet eitr_firewall
+delete table inet eitr_firewall
+
+table inet eitr_firewall {
+	chain input {
+		type filter hook input priority filter; policy drop;
+
+		ct state established,related accept
+		ct state invalid drop
+		iif lo accept
+
+		# Virtual machines and containers on this computer reach it through
+		# their bridges (DHCP and DNS for libvirt guests, for example).
+		iifname { "virbr*", "docker*", "br-*" } accept
+
+		# ICMP and ICMPv6: ping, path MTU discovery and IPv6 neighbour discovery.
+		meta l4proto { icmp, ipv6-icmp } accept
+
+		# DHCPv6 replies and local name discovery (mDNS: printers, KDE Connect).
+		ip6 saddr fe80::/10 udp dport 546 accept
+		udp dport 5353 ip daddr 224.0.0.251 accept
+		udp dport 5353 ip6 daddr ff02::fb accept
+
+		# KDE Connect and LocalSend, which Eitr installs for sharing with phones.
+		tcp dport 1714-1764 accept
+		udp dport 1714-1764 accept
+		tcp dport 53317 accept
+		udp dport 53317 accept
+	}
+}
+
+include "/etc/eitr/firewall.d/*.nft"

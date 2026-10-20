@@ -1,0 +1,26 @@
+[
+  {
+    "text": "iwd",
+    "subtext": "Lightweight WiFi (default); applies after a restart",
+    "icon": "󰖩",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/network-backend.py iwd"
+    }
+  },
+  {
+    "text": "NetworkManager",
+    "subtext": "WiFi and VPN tools; applies after a restart",
+    "icon": "󰖩",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/network-backend.py networkmanager"
+    }
+  },
+  {
+    "text": "Restore Original Network Configuration",
+    "subtext": "Undo the backend choice; applies after a restart",
+    "icon": "󰑓",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/network-backend.py restore"
+    }
+  }
+]

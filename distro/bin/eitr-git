@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Explicit account-aware Git setup and provider CLI; ordinary git/gh/glab stay unchanged.
+exec eitr-run walker/scripts/actions/development/git-accounts.py "$@"

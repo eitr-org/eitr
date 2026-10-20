@@ -1,0 +1,12 @@
+[Unit]
+Description=Eitr home snapshots (move caches, Downloads, VM disks and games out of them)
+Documentation=file:///usr/share/eitr/RECOVERY.md
+After=local-fs.target home.mount
+Before=display-manager.service systemd-user-sessions.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/eitr/eitr-home-snapshots exclude
+
+[Install]
+WantedBy=multi-user.target

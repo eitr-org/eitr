@@ -1,0 +1,8 @@
+# Repository-wide ShellCheck settings, used by tools/check.sh and editors.
+# CI gates on severity "warning" and above; info/style findings are advisory.
+
+# SC2034 (variable appears unused): Walker menus share a header of path
+# constants, cloud `common.sh` files are sourced and set variables for their
+# callers, and some variables configure sourced tools (for example SDKMAN's
+# `sdkman_auto_answer`). ShellCheck cannot see those uses across files.
+disable=SC2034

@@ -1,0 +1,31 @@
+[
+  {
+    "text": "Pacman",
+    "subtext": "Search official Arch packages, with details and build files",
+    "keywords": [
+      "pacman",
+      "official",
+      "package",
+      "install"
+    ],
+    "icon": "󰏖",
+    "actions": {
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/install/software.py picker-launch pacman"
+    }
+  },
+  {
+    "text": "Yay (AUR)",
+    "subtext": "Search community AUR packages; read the build file before installing",
+    "keywords": [
+      "yay",
+      "aur",
+      "package",
+      "install",
+      "pkgbuild"
+    ],
+    "icon": "󰀦",
+    "actions": {
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/install/software.py picker-launch aur"
+    }
+  }
+]

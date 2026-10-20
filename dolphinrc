@@ -1,0 +1,33 @@
+[CompactMode]
+Sorting=type
+
+[DetailsMode]
+RightPadding=0
+Sorting=type
+
+[General]
+ColorScheme=CatppuccinMochaGreen
+Version=202
+ViewPropsTimestamp=2026,5,4,21,11,55.694
+
+[Icons]
+Theme=Yaru-olive
+
+[IconsMode]
+PreviewSize=48
+Sorting=type
+UseSystemFont=false
+ViewFont=JetBrainsMono Nerd Font,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=22
+
+[MainWindow]
+MenuBar=Disabled
+
+[PreviewSettings]
+Plugins=appimagethumbnail,audiothumbnail,glycin-heif,evince,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,fontthumbnail,imagethumbnail,glycin-image-rs,jpegthumbnail,glycin-jxl,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,opendocumentthumbnail,glycin-svg,svgthumbnail,textthumbnail
+
+[UiSettings]
+ColorScheme=CatppuccinMochaGreen

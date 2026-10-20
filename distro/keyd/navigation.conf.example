@@ -1,0 +1,11 @@
+[ids]
+*
+
+[main]
+capslock = overload(navigation, esc)
+
+[navigation]
+h = left
+j = down
+k = up
+l = right

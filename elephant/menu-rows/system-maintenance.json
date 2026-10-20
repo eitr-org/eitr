@@ -1,0 +1,41 @@
+[
+  {
+    "text": "Factory Reset",
+    "keywords": [
+      "restore",
+      "reinstall",
+      "wipe",
+      "refresh"
+    ],
+    "subtext": ">",
+    "icon": "󰑓",
+    "submenu": "factory-reset"
+  },
+  {
+    "text": "Snapshots",
+    "subtext": ">",
+    "icon": "󰋊",
+    "submenu": "snapshots"
+  },
+  {
+    "text": "Update",
+    "subtext": ">",
+    "icon": "",
+    "submenu": "update"
+  },
+  {
+    "text": "Cleanup",
+    "subtext": "See what takes space and clear caches, one question at a time",
+    "keywords": [
+      "clean",
+      "cache",
+      "disk",
+      "storage",
+      "ssd"
+    ],
+    "icon": "󰃢",
+    "actions": {
+      "open": "kitty --hold --class system-cleanup -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py /usr/share/eitr/walker/scripts/actions/system/cleanup.sh"
+    }
+  }
+]

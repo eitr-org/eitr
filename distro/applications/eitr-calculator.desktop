@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Calculator
+GenericName=Calculator
+Comment=Eitr's calculator in the current theme
+Icon=accessories-calculator
+Exec=bash /usr/share/eitr/walker/scripts/actions/tools/calculator.sh
+Keywords=calc;math;reikna;arithmetic;
+Categories=Utility;Calculator;
+Terminal=false
+StartupNotify=false
