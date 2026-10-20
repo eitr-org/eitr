@@ -48,10 +48,12 @@ elif action == 'list':
 elif action == 'add':
     if name in servers or os.environ.get('FAKE_MCP_FAIL'):
         sys.exit(1)
-    separator = arguments.index('--')
-    flag = '-e' if identifier in ('claude', 'grok') else '--env'
+    separator = arguments.index('--') if '--' in arguments else arguments.index(name) + 2
+    flag = '-e' if identifier in ('claude', 'grok', 'gemini') else '--env'
     variable = arguments[arguments.index(flag) + 1].split('=', 1)
-    if identifier == 'grok':
+    if identifier == 'gemini':
+        command, rest = arguments[separator - 1], arguments[separator:]
+    elif identifier == 'grok':
         command, rest = arguments[separator - 1], arguments[separator + 1:]
     else:
         command, rest = arguments[separator + 1], arguments[separator + 2:]
@@ -61,8 +63,8 @@ elif action == 'remove':
         sys.exit(1)
     del servers[name]
 store.write_text(json.dumps(servers))
-if identifier == 'claude':
-    settings = Path(os.environ['HOME']) / '.claude.json'
+if identifier in ('claude', 'gemini'):
+    settings = Path(os.environ['HOME']) / ('.claude.json' if identifier == 'claude' else '.gemini/settings.json')
     settings.write_text(json.dumps({'theme': 'dark', 'mcpServers': servers}))
 """
 
@@ -76,10 +78,13 @@ class CollaborationTests(unittest.TestCase):
         patch.object(Path, 'home', return_value=self.home).start()
         patch.dict(os.environ, {'CODEX_HOME': str(self.home / '.codex'), 'HOME': str(self.home), 'COPILOT_HOME': '', 'GROK_HOME': '',
                               'CLAUDE_CONFIG_DIR': '', bridge.DEPTH: '', 'FAKE_MCP_STORE': str(self.home),
-                              'FAKE_MCP_FAIL': '', 'PATH': str(self.home / 'bin')}).start()
+                              'GEMINI_API_KEY': '', 'GOOGLE_API_KEY': '', 'FAKE_MCP_FAIL': '', 'PATH': str(self.home / 'bin')}).start()
 
     def sign_in(self, identifier):
-        if identifier == 'grok':
+        if identifier == 'gemini':
+            path = self.home / '.gemini/settings.json'
+            payload = {'security': {'auth': {'selectedType': 'vertex-ai'}}}
+        elif identifier == 'grok':
             path = self.home / '.grok/auth.json'
             payload = {'session': {'key': 'fixture'}}
         elif identifier == 'copilot':
@@ -118,6 +123,39 @@ class CollaborationTests(unittest.TestCase):
             self.assertTrue(self.request('tools/call', name='ask_codex', arguments={'question':'review'})['result']['isError'])
             launch.assert_not_called()
 
+    def test_gemini_auth_hints_exclude_personal_google_and_bad_settings(self):
+        self.sign_in('gemini')
+        settings = self.home / '.gemini/settings.json'
+        for content in ('{broken', '[]', '{"security":null}', '{}',
+                        '{"security":{"auth":{"selectedType":"oauth-personal"}}}'):
+            settings.write_text(content)
+            self.assertNotIn('gemini', bridge.connected())
+        for auth_type in ('gemini-api-key', 'vertex-ai'):
+            settings.write_text(json.dumps({'security': {'auth': {'selectedType': auth_type}}}))
+            self.assertIn('gemini', bridge.connected())
+        settings.unlink()
+        for variable in ('GEMINI_API_KEY', 'GOOGLE_API_KEY'):
+            with patch.dict(os.environ, {variable: 'fixture'}):
+                self.assertIn('gemini', bridge.connected())
+        self.assertNotIn('gemini', bridge.connected())
+        self.assertNotIn('agy', bridge.LABELS)
+
+    def test_gemini_registration_preserves_existing_and_changed_entries(self):
+        binary = self.sign_in('gemini')
+        settings = self.home / '.gemini/settings.json'
+        original = {'mcpServers': {'assistants': {'command': 'mine'}}}
+        settings.write_text(json.dumps(original))
+        self.assertTrue(bridge.enable(['gemini']))
+        self.assertEqual(json.loads(settings.read_text()), original)
+        settings.write_text('{}')
+        self.assertEqual(bridge.enable(['gemini']), [])
+        changed = dict(bridge.registration('gemini'), args=['custom'])
+        settings.write_text(json.dumps({'mcpServers': {'assistants': changed}}))
+        self.assertTrue(bridge.disable())
+        self.assertEqual(bridge.registered('gemini', binary), changed)
+        self.assertEqual(bridge.add_command('gemini')[:5], ['mcp', 'add', '-s', 'user', '-e'])
+        self.assertEqual(bridge.remove_command('gemini'), ['mcp', 'remove', '-s', 'user', 'assistants'])
+
     def test_protocol_and_invalid_arguments(self):
         self.assertIsNone(bridge.dispatch({'jsonrpc':'2.0', 'method':'notifications/initialized'}))
         self.assertEqual(self.request('initialize', protocolVersion='2025-03-26')['result']['protocolVersion'], '2025-03-26')
@@ -151,6 +189,12 @@ class CollaborationTests(unittest.TestCase):
                     self.assertEqual(arguments[arguments.index('--sandbox') + 1], 'read-only')
                     self.assertEqual(arguments[arguments.index('--permission-mode') + 1], 'plan')
                     self.assertNotIn('--always-approve', arguments)
+                elif identifier == 'gemini':
+                    self.assertEqual(arguments, [str(binary), '--prompt=--dangerously-do-something',
+                        '--approval-mode', 'plan', '--allowed-mcp-server-names',
+                        'eitr-no-mcp-7b7478c7-67be-4dcb-9666-7bd9c36a54ed',
+                        '--extensions', 'none', '--output-format', 'text'])
+                    self.assertEqual(process.communicate.call_args.args[0], '')
                 elif identifier == 'copilot':
                     self.assertIn('--prompt=--dangerously-do-something', arguments)
                     self.assertNotIn('--dangerously-do-something', arguments)

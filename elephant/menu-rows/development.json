@@ -21,6 +21,16 @@
     "submenu": "cloud"
   },
   {
+    "text": "Default Assistant",
+    "subtext": ">",
+    "keywords": [
+      "assistant",
+      "default"
+    ],
+    "icon": "󱜙",
+    "submenu": "ai-default"
+  },
+  {
     "text": "Git Accounts",
     "subtext": ">",
     "keywords": [

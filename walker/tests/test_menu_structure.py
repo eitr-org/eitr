@@ -163,11 +163,18 @@ class MenuStructureTests(unittest.TestCase):
                                 check=True)
         return [line.split("|") for line in result.stdout.splitlines()]
 
+    def test_default_assistant_is_directly_under_development(self):
+        rows = json.loads((ROOT / 'elephant/menu-rows/development.json').read_text())
+        default = next(row for row in rows if row['text'] == 'Default Assistant')
+        self.assertEqual(default['submenu'], 'ai-default')
+        self.assertEqual(default['subtext'], '>')
+        self.assertIn('Parent = "development"', (ROOT / 'elephant/menus/ai-default.lua').read_text())
+
     def test_ai_lists_only_installed_assistants(self):
         self.assertIn(["Antigravity CLI", "ai-agy"], self.ai_menu({"agy"}))
-        self.assertEqual(self.ai_menu({"claude", "codex"}), [["Claude", "ai-claude"], ["Codex", "ai-codex"], ["Default Assistant", "ai-default"], ["Let assistants work together", ""]])
-        self.assertEqual(self.ai_menu({"grok"}), [["Default Assistant", "ai-default"], ["Grok", "ai-grok"], ["Let assistants work together", ""]])
-        self.assertEqual(self.ai_menu(set()), [["Default Assistant", "ai-default"], ["Install an AI Assistant", ""], ["Let assistants work together", ""]])
+        self.assertEqual(self.ai_menu({"claude", "codex"}), [["Claude", "ai-claude"], ["Codex", "ai-codex"], ["Let assistants work together", ""]])
+        self.assertEqual(self.ai_menu({"grok"}), [["Grok", "ai-grok"], ["Let assistants work together", ""]])
+        self.assertEqual(self.ai_menu(set()), [["Install an AI Assistant", ""], ["Let assistants work together", ""]])
         for name in ("agy", "claude", "codex", "gemini", "grok"):
             self.assertEqual(menu(f"ai-{name}")["parent"], "ai-tools")
         script = (ROOT / "walker/scripts/menus/ai-tools.sh").read_text()

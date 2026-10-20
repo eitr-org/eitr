@@ -16,13 +16,13 @@ Aplicativos web precisam de Chrome ou Chromium (Instalar > Navegadores); serviç
 
 ## Assistentes de IA
 
-Desenvolvimento > IA oferece Assistente padrão e um menu para cada assistente instalado: Claude Code, Codex, Gemini CLI, Grok Build e GitHub Copilot CLI. Instale em Instalar > CLIs de IA; sem assistentes instalados, Desenvolvimento > IA aponta para lá.
+Desenvolvimento > IA oferece um menu para cada assistente instalado: Claude Code, Codex, Gemini CLI, Grok Build e GitHub Copilot CLI. Instale em Instalar > CLIs de IA; sem assistentes instalados, Desenvolvimento > IA aponta para lá.
 
 Ao iniciar uma sessão ou abrir um projeto no LazyVim ou VS Code, primeiro escolha uma pasta em `~/Development`: entre nas pastas para avançar, use Abrir para escolher a atual e Voltar para subir um nível ou retornar ao menu quando estiver no topo.
 
 Você também pode iniciar Claude Code, Codex, Gemini CLI, Grok Build e GitHub Copilot CLI (`copilot`) por comando. Se a ferramenta não estiver instalada, o Eitr explica sua função e oferece a mesma instalação de Instalar > CLIs de IA. Digite `yes` para instalar; Enter cancela. Sem terminal interativo, o comando encerra com instruções de instalação. Binários instalados têm preferência sobre esses lançadores. Entre pela própria ferramenta; nenhum binário de assistente ou credencial acompanha o Eitr.
 
-Desenvolvimento > IA > Assistente padrão seleciona um assistente instalado neste computador. **SUPER + Alt + A** abre esse assistente em um terminal; sem padrão, abre o seletor. O Eitr mantém as confirmações normais de permissão de cada assistente.
+Desenvolvimento > Assistente padrão seleciona um assistente instalado neste computador. **SUPER + Alt + A** abre esse assistente em um terminal; sem padrão, abre o seletor. O Eitr mantém as confirmações normais de permissão de cada assistente.
 
 Ao trocar o tema, o Eitr atualiza apenas a opção de tema claro/escuro nas configurações existentes e legíveis do Claude Code, Gemini CLI e Grok Build. As demais opções e a formatação são preservadas. Clientes ausentes, não instalados ou com arquivos inválidos são ignorados; assistentes sem opção claro/escuro compatível seguem as cores do terminal.
 
@@ -51,12 +51,19 @@ Mantenha tokens, segredos `.env` e credenciais fora de dotfiles compartilhados e
 ## Assistentes trabalhando juntos
 
 Desenvolvimento > IA > Permitir que assistentes trabalhem juntos vem desativado.
-Ative para conectar Claude, Codex, Copilot e Grok instalados que aparentem estar conectados
-às respectivas contas. A confirmação identifica os assistentes e explica que
-cada transferência usa a assinatura do assistente auxiliar e conta para seus
-limites. Conexões somente por chave de API ou chaveiro não são detectadas.
-O Gemini não é oferecido: o Google não atende mais o Gemini CLI em contas
-pessoais.
+Ative para conectar Claude, Codex, Copilot, Grok e Gemini CLI instalados que
+aparentem estar conectados. Cada transferência usa a assinatura ou cobrança
+por API do auxiliar e conta para seus limites. Nos outros clientes, conexões
+somente por chave de API ou chaveiro não são detectadas.
+
+O Gemini só é detectado com `GEMINI_API_KEY` ou `GOOGLE_API_KEY` não vazia,
+ou `security.auth.selectedType` igual a `gemini-api-key` ou `vertex-ai` em
+`~/.gemini/settings.json`. Login pessoal do Google não conta: o Google não o
+atende mais. O Gemini roda sem interface no modo plan, sem servidores MCP nem
+extensões. Ainda não foi testado pelo Eitr; relate problemas com Relatar um
+Problema. Falta um teste real com chave paga ou conta empresarial. O modo plan
+é documentado como somente leitura; o Eitr ainda não verificou seu comportamento
+com arquivos, shell ou arquivos de plano.
 
 Peça ao assistente para consultar o outro em uma revisão, explicação ou
 sugestão. Aprove cada transferência na solicitação normal do assistente que
@@ -69,7 +76,7 @@ diretório de trabalho atual de quem chama; a pergunta e o contexto podem ser
 enviados ao provedor desse assistente.
 
 A opção registra um servidor MCP `assistants` pelo comando de cada assistente
-(`claude mcp add`, `codex mcp add`, `copilot mcp add` e `grok mcp add`), então
+(`claude mcp add`, `codex mcp add`, `copilot mcp add` e `grok mcp add`, `gemini mcp add -s user`), então
 cada assistente grava as próprias configurações. Um servidor existente com o mesmo nome é mantido e
 informado. As alterações ficam registradas somente neste
 computador em `~/.local/state/eitr/assistants.json` (ou `XDG_STATE_HOME`).
@@ -78,4 +85,4 @@ depois, o Eitr a mantém e informa o conflito. Reinicie as sessões dos
 assistentes após mudar a opção. A verificação de ponta a ponta com contas
 reais ainda será feita separadamente.
 
-Antigravity CLI (`agy`) está disponível para contas pessoais do Google em Instalar > CLIs de IA e pelo lançador de primeiro uso. Nunca é incluído na distribuição. Ele é instalado pelo instalador oficial do Google, que verifica o download, e você entra com sua conta Google. Ainda não é oferecido como auxiliar de assistentes trabalhando juntos. Um `agy` já instalado pode ser aberto normalmente. Gemini CLI exige uma chave da API Gemini ou conta Google Cloud/empresa. Antigravity não é auxiliar de colaboração; ainda faltam testes somente de leitura e MCP com conta real.
+Antigravity CLI (`agy`) está disponível para contas pessoais do Google em Instalar > CLIs de IA e pelo lançador de primeiro uso. Nunca é incluído na distribuição. Ele é instalado pelo instalador oficial do Google, que verifica o download, e você entra com sua conta Google. Ainda não é oferecido como auxiliar de assistentes trabalhando juntos. Um `agy` já instalado pode ser aberto normalmente. Gemini CLI exige uma chave da API Gemini ou conta Google Cloud/empresa. Antigravity não é auxiliar de colaboração: o modo sem interface nega até leituras. As únicas liberações ignoram permissões ou mudam regras globais. O Eitr o reavaliará quando houver permissões por execução ou modo sem interface somente de leitura.

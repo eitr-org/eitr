@@ -16,13 +16,13 @@ Web-Apps brauchen Chrome oder Chromium (Installieren > Browser); DRM-Streamingdi
 
 ## KI-Assistenten
 
-Entwicklung > KI bietet Standardassistent und ein Menü für jeden installierten Assistenten: Claude Code, Codex, Gemini CLI, Grok Build und GitHub Copilot CLI. Installiere sie unter Installieren > KI-CLIs; ohne installierte Assistenten verweist Entwicklung > KI dorthin.
+Entwicklung > KI bietet ein Menü für jeden installierten Assistenten: Claude Code, Codex, Gemini CLI, Grok Build und GitHub Copilot CLI. Installiere sie unter Installieren > KI-CLIs; ohne installierte Assistenten verweist Entwicklung > KI dorthin.
 
 Beim Sitzungsstart oder Öffnen eines LazyVim- oder VS Code-Projekts wähle zuerst einen Ordner unter `~/Development`: Ordner öffnen vertieft die Auswahl, Öffnen verwendet den aktuellen Ordner und Zurück führt eine Ebene höher beziehungsweise oben zurück zum Menü.
 
 Du kannst Claude Code, Codex, Gemini CLI, Grok Build und GitHub Copilot CLI (`copilot`) auch per Befehl starten. Fehlt ein Werkzeug, erklärt Eitr seine Funktion und bietet dieselbe Installation wie Installieren > KI-CLIs an. Gib `yes` zum Installieren ein; die Eingabetaste bricht ab. Ohne interaktives Terminal endet der Befehl mit Installationshinweisen. Installierte Programme haben Vorrang vor diesen Startern. Melde dich über das jeweilige Werkzeug an; Eitr enthält weder Assistenten-Binärdateien noch Zugangsdaten.
 
-Entwicklung > KI > Standardassistent wählt einen installierten Assistenten für diesen Computer. **SUPER + Alt + A** öffnet ihn im Terminal; ohne Auswahl öffnet sich die Auswahlliste. Eitr verwendet die üblichen Berechtigungsabfragen des jeweiligen Assistenten.
+Entwicklung > Standardassistent wählt einen installierten Assistenten für diesen Computer. **SUPER + Alt + A** öffnet ihn im Terminal; ohne Auswahl öffnet sich die Auswahlliste. Eitr verwendet die üblichen Berechtigungsabfragen des jeweiligen Assistenten.
 
 Beim Themewechsel aktualisiert Eitr nur die Hell-/Dunkel-Einstellung in vorhandenen, lesbaren Einstellungen von Claude Code, Gemini CLI und Grok Build. Alle anderen Einstellungen und die Formatierung bleiben erhalten. Nicht installierte Programme sowie fehlende oder beschädigte Dateien werden übersprungen; Assistenten ohne unterstützte Hell-/Dunkel-Einstellung verwenden die Terminalfarben.
 
@@ -50,13 +50,20 @@ Halte Token, `.env`-Geheimnisse und Zugangsdaten aus geteilten Dotfiles und Scre
 
 ## Assistenten arbeiten zusammen
 
-Entwicklung > KI > Assistenten zusammenarbeiten lassen ist standardmäßig
-ausgeschaltet. Aktiviere es, um installierte Claude-, Codex-, Copilot- und Grok-Programme zu
-verbinden, die angemeldet erscheinen. Die Bestätigung nennt die Assistenten
-und erklärt, dass jede Übergabe das Abonnement des helfenden Assistenten nutzt
-und auf dessen Limits angerechnet wird. Anmeldungen nur mit API-Schlüssel
-oder Schlüsselbund werden nicht erkannt. Gemini wird nicht angeboten: Google
-bedient Gemini CLI für private Konten nicht mehr.
+Entwicklung > KI > Assistenten zusammenarbeiten lassen ist standardmäßig aus.
+Verbinde installierte Claude-, Codex-, Copilot-, Grok- und Gemini-CLI-Programme,
+die angemeldet erscheinen. Jede Übergabe nutzt das Abonnement oder die
+API-Abrechnung des Helfers und zählt zu dessen Limits. Bei anderen Clients
+werden reine API-Schlüssel- oder Schlüsselbund-Anmeldungen nicht erkannt.
+
+Gemini wird nur bei nicht leerem `GEMINI_API_KEY` oder `GOOGLE_API_KEY` erkannt,
+oder wenn `security.auth.selectedType` in `~/.gemini/settings.json` auf
+`gemini-api-key` oder `vertex-ai` steht. Private Google-Anmeldung zählt nicht:
+Google bedient sie nicht mehr. Gemini läuft ohne Oberfläche im Planmodus,
+ohne MCP-Server und Erweiterungen. Noch nicht von Eitr getestet; melde Probleme
+über Problem melden. Ein echter Test mit bezahltem Schlüssel oder Firmenkonto
+steht aus. Der Planmodus ist als schreibgeschützt dokumentiert; Eitr hat sein
+Datei-, Shell- und Plandateiverhalten noch nicht unabhängig geprüft.
 
 Bitte deinen Assistenten, den anderen für eine Prüfung, Erklärung oder einen
 Vorschlag zu befragen. Bestätige jede Übergabe über die übliche Werkzeugabfrage
@@ -69,7 +76,7 @@ liest das aktuelle Arbeitsverzeichnis des Aufrufers; Frage und Kontext können
 an den Anbieter dieses Assistenten gesendet werden.
 
 Der Schalter registriert einen MCP-Server `assistants` über den eigenen Befehl
-des jeweiligen Assistenten (`claude mcp add`, `codex mcp add`, `copilot mcp add` und `grok mcp add`),
+des jeweiligen Assistenten (`claude mcp add`, `codex mcp add`, `copilot mcp add` und `grok mcp add`, `gemini mcp add -s user`),
 sodass jeder Assistent seine Einstellungen selbst schreibt. Ein vorhandener
 gleichnamiger Server bleibt unverändert und wird gemeldet. Die Änderungen werden nur auf diesem
 Computer unter `~/.local/state/eitr/assistants.json` (oder `XDG_STATE_HOME`)
@@ -78,4 +85,4 @@ bearbeitet, bleibt er erhalten und Eitr meldet den Konflikt. Starte bestehende
 Assistentensitzungen nach dem Umschalten neu. Die vollständige Prüfung mit
 echten Konten erfolgt später in einem gesonderten Durchlauf.
 
-Antigravity CLI (`agy`) ist für private Google-Konten unter Installieren > KI-CLIs und über den Starter beim ersten Aufruf verfügbar. Es wird nie mitgeliefert. Es wird über Googles offizielles Installationsprogramm installiert, das den Download prüft, und du meldest dich mit deinem Google-Konto an. Als Helfer für zusammenarbeitende Assistenten wird es noch nicht angeboten. Ein bereits installiertes `agy` kann normal gestartet werden. Gemini CLI benötigt einen Gemini-API-Schlüssel oder ein Google-Cloud-/Firmenkonto. Antigravity ist kein Zusammenarbeitshelfer; Nur-Lese- und MCP-Tests mit einem echten Konto stehen noch aus.
+Antigravity CLI (`agy`) ist für private Google-Konten unter Installieren > KI-CLIs und über den Starter beim ersten Aufruf verfügbar. Es wird nie mitgeliefert. Es wird über Googles offizielles Installationsprogramm installiert, das den Download prüft, und du meldest dich mit deinem Google-Konto an. Als Helfer für zusammenarbeitende Assistenten wird es noch nicht angeboten. Ein bereits installiertes `agy` kann normal gestartet werden. Gemini CLI benötigt einen Gemini-API-Schlüssel oder ein Google-Cloud-/Firmenkonto. Antigravity ist kein Zusammenarbeitshelfer: Ohne Oberfläche verweigert es selbst Lesezugriffe. Freigaben erfordern das Umgehen von Berechtigungen oder globale Regeln. Eitr prüft es erneut, sobald Berechtigungen pro Aufruf oder ein schreibgeschützter Modus ohne Oberfläche verfügbar sind.

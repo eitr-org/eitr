@@ -30,7 +30,7 @@ function GetEntries()
             if row.installed then installed[row.id] = true end
         end
     end
-    local entries = {{Text = "Default Assistant", Icon = Icon, State = {"submenu"}, SubMenu = "ai-default"}}
+    local entries = {}
     for _, assistant in ipairs(assistants) do
         if installed[assistant.id] then
             table.insert(entries, {Text = assistant.text, Icon = assistant.icon, State = {"submenu"},

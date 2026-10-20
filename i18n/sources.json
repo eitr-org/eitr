@@ -1471,9 +1471,10 @@
       "elephant/menus/git-accounts.lua"
     ],
     "Default Assistant": [
+      "elephant/menu-rows/development.json",
+      "elephant/menu-rows/learn.json",
       "elephant/menu-rows/shortcuts.json",
-      "elephant/menus/ai-default.lua",
-      "elephant/menus/ai-tools.lua"
+      "elephant/menus/ai-default.lua"
     ],
     "Default · {folders}": [
       "elephant/menus/git-accounts.lua"
@@ -1959,6 +1960,7 @@
       "elephant/menu-rows/shortcuts.json"
     ],
     "Open with the assistant shortcut": [
+      "elephant/menu-rows/learn.json",
       "elephant/menus/ai-default.lua"
     ],
     "Open your configuration folder in an editor": [
@@ -2897,7 +2899,7 @@
     "OCR text from selection": [
       "quickshell/desktop-bar/scripts/handbook-build.py"
     ],
-    "Open default AI assistant": [
+    "Open default AI assistant (Development)": [
       "quickshell/desktop-bar/scripts/handbook-build.py"
     ],
     "Open file manager": [

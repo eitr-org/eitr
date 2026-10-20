@@ -1,7 +1,6 @@
 # Assistant bridge: implementation and review
 
-The AI menu switch registers a stdio MCP server named `assistants` for Claude
-and Codex. It is off until explicitly confirmed. The server implements newline
+The AI menu switch registers a stdio MCP server named `assistants` for connected supported clients. It is off until explicitly confirmed. The server implements newline
 JSON-RPC 2.0 `initialize`, `ping`, `tools/list` and `tools/call`; notifications
 receive no response. Each tool has exactly one required string, `question`.
 Tool errors use MCP text content with `isError`; protocol errors use JSON-RPC
@@ -50,13 +49,39 @@ text, excluding reasoning and tool output. `codex mcp --help` documents external
 MCP management; user configuration is `~/.codex/config.toml` (or `CODEX_HOME`),
 with a `mcp_servers.assistants` table.
 
-### Deferred helpers
+### Gemini CLI
 
-- Gemini: `gemini --help` labels `--approval-mode plan` read-only and `-p`
-  headless. Installed `bundle/docs/cli/headless.md` describes headless output;
-  `bundle/docs/cli/plan-mode.md` describes planning and its dedicated plan-file
-  writes. This inspection does not establish write prevention in headless runs.
-  It remains excluded until step 3 independently verifies it.
+```
+BINARY --prompt=QUESTION --approval-mode plan --allowed-mcp-server-names eitr-no-mcp-7b7478c7-67be-4dcb-9666-7bd9c36a54ed --extensions none --output-format text
+```
+
+The equals form keeps leading `--` in the question as text. Installed help
+labels plan mode read-only and prompt mode headless. The MCP array requires
+one argument, and the installed implementation treats an empty allowlist as
+unrestricted. Eitr therefore restricts it to a reserved, deliberately nonexistent
+server name instead of omitting the restriction. Never configure that name.
+`--extensions none` disables extensions; no yolo or automatic approval is used.
+Plan mode is a documented policy, not an independently verified OS sandbox;
+upstream describes dedicated plan-file writes. No real-account test was run.
+
+Offline detection accepts non-empty `GEMINI_API_KEY` or `GOOGLE_API_KEY`, or
+`security.auth.selectedType` equal to `gemini-api-key` or `vertex-ai` in
+`~/.gemini/settings.json`. Personal Google OAuth does not qualify. These are
+availability hints, not credential validation; no auth command is run.
+
+Installed `gemini mcp add --help` documents `-s user`, `-e KEY=value` and stdio
+command arguments; `gemini mcp remove --help` documents user scope. Registration
+therefore uses Gemini's own add/remove commands, without `--trust`, and reads
+only its user `mcpServers` entry for exact-match ownership checks. It never
+replaces an existing `assistants` entry or removes an edited one.
+
+Sources: [headless mode](https://geminicli.com/docs/cli/headless/),
+[MCP servers](https://geminicli.com/docs/tools/mcp-server/), installed CLI help
+and bundled CLI argument/extension handling. Eitr has not yet tested Gemini
+with a paid key or company account; report problems with Report a Problem.
+
+### Other helpers
+
 - Copilot: not installed; no installed help/docs could be verified. TODO's
   documented approach requires restricting allowed read tools and denying
   writes/shell. No unverified command or MCP registration is shipped.
@@ -73,12 +98,12 @@ normal tool approval remains the approval boundary; users must not enable
 server/tool auto-approval. Actual approval prompts require step 3 verification.
 
 Offline sign-in hints read only the supported OAuth credential fields. No
-credential is copied to Eitr state. API-key-only and keyring-only sign-ins are
-conservatively excluded. Expired credentials can appear signed in; failure is
+credential is copied to Eitr state. Other clients’ API-key-only and keyring-only sign-ins are
+conservatively excluded; Gemini uses the explicit rules above. Expired credentials can appear signed in; failure is
 returned without exposing CLI stderr or refreshing credentials ourselves.
 
 Registration goes through each tool's own command (`claude mcp add -s user`,
-`codex mcp add`, `copilot mcp add`, `grok mcp add -s user`), never a direct edit of their settings: Claude Code rewrites
+`codex mcp add`, `copilot mcp add`, `grok mcp add -s user`, `gemini mcp add -s user`), never a direct edit of their settings: Claude Code rewrites
 `~/.claude.json` while it runs. An existing `assistants` server is never
 replaced. A private state file records which tools Eitr registered and the
 exact entry, with no settings or tokens. Disable removes only a still-matching managed entry and retains conflicts for
@@ -97,5 +122,7 @@ entry, keeping other servers. Copilot runs headless with `--allow-all-tools`
 but denies `shell`, `write`, `url` and the assistants server, which always win.
 Grok runs in plan mode inside its kernel-enforced `read-only` sandbox, which
 still allows writes to `~/.grok` and temporary folders. Grok's `mcp add`
-replaces an existing server of the same name, so Eitr checks first. Gemini is
-not offered: Google no longer serves Gemini CLI for personal accounts.
+replaces an existing server of the same name, so Eitr checks first. Gemini ships from documentation, with a real-account test still open.
+Antigravity (`agy`) is never a helper: headless runs deny even reads, and its
+only unlocks bypass permissions or change global settings. Re-check when it
+supports per-run permissions or a read-only headless mode.

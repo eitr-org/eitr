@@ -51,7 +51,12 @@
     "icon": "󱜙",
     "actions": {
       "open": "python3 /usr/share/eitr/walker/scripts/actions/ai-assistant.py open"
-    }
+    },
+    "keywords": [
+      "development",
+      "assistant",
+      "default"
+    ]
   },
   {
     "text": "Delete Clipboard Entry",

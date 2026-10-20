@@ -3,30 +3,39 @@
 Open work in priority order. Each item lists what decides the next step.
 Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 
-1. Google's assistant: Antigravity CLI instead of Gemini CLI
-2. Remote access: test with the owner
-3. Organization profiles: software and policies at installation
-4. Eitr plugins
-5. Smaller items: the website update
-6. Waiting on the owner: testing channel
-7. Later: AI multi-account
-8. Before 1.0.0: skipped-release upgrade, encrypted resets, other hardware
+1. More cloud providers
+2. Display review
+3. Remote access: test with the owner
+4. Organization profiles
+5. Eitr plugins
+6. Smaller items
+7. Google's assistants: remaining verification
+8. Waiting on the owner
+9. Later
+10. Before 1.0.0
 
-# 1. Google's assistant: Antigravity CLI
+# 1. More cloud providers
 
-Google no longer serves Gemini CLI for personal accounts (only paid API keys
-and company accounts); Antigravity CLI (`agy`) is in Install > AI CLIs through
-Google's official installer, and Gemini CLI is labelled for API-key and company
-users. Remaining, each only after a real read-only test like the ones in
-`distro/ASSISTANTS.md`:
+Extend the existing Cloud accounts pattern: separate accounts, visible active
+context, explicit provider context on every operation, and no global default
+switching. Preserve selections when returning from terminals.
 
-- **`ask_agy`:** with the owner's personal Google account, prove a read-only
-  headless mode (no file writes, no shell) and MCP registration through `agy`'s
-  own command, then add it as a helper.
-- **`ask_gemini`:** only once someone with a paid Gemini API key or a company
-  account can run the same test.
+First: Cloudflare (`wrangler`), DigitalOcean (`doctl`), Oracle Cloud (`oci`),
+Hetzner Cloud (`hcloud`), Vercel and Netlify.
 
-# 2. Remote access: test with the owner
+Later: Red Hat OpenShift (`oc`), Fly.io (`flyctl`), Heroku, Akamai/Linode
+(`linode-cli`), IBM Cloud (`ibmcloud`) and Alibaba Cloud (`aliyun`).
+
+# 2. Display review
+
+Audit every place Eitr shows results in fzf or a plain terminal, including the
+AWS, Azure and Google Cloud menus, and pick the fitting view per case: fzf for
+searching long text such as logs (works well today), a Walker list for choosing
+between a few options, a native panel for status and settings, a pager for
+reading. List each case with its current and proposed view, then move the bad
+fits, starting with the ones the owner finds awkward.
+
+# 3. Remote access: test with the owner
 
 Moonlight, Sunshine and Tailscale are built, installed by default and inactive
 until set up (`distro/REMOTE-ACCESS.md`). Nothing about real hardware is
@@ -44,7 +53,7 @@ verified yet. With the owner and a MacBook, in this order:
 Afterwards, each tested separately: headless use, access before login, wake on
 LAN.
 
-# 3. Organization profiles
+# 4. Organization profiles
 
 A company (or anyone setting up several machines) chooses the software at
 installation without rebuilding the ISO: the official, signed ISO stays
@@ -114,7 +123,7 @@ Steps:
 
 Out of scope: managing machines after installation (fleet management).
 
-# 4. Eitr plugins
+# 5. Eitr plugins
 
 A plugin is a Git repository with a manifest declaring its Walker rows,
 scripts and optional user service. Install > Plugins takes a URL, shows who
@@ -122,7 +131,7 @@ wrote it and a trust warning before any code runs, updates with System Update
 and removes cleanly. The owner's cooler display tool (in the owner's private
 repository) becomes the first plugin.
 
-# 5. Smaller items
+# 6. Smaller items
 
 - **Website update** (with the owner's own changes). Add assistants working
   together (a second opinion from another subscription, each hand-off
@@ -131,13 +140,24 @@ repository) becomes the first plugin.
   lockscreen, the dictation waveform and the Packages picker (owner-only
   captures, taken when the owner says).
 
-# 6. Waiting on the owner
+# 7. Google's assistants: remaining verification
+
+Gemini CLI ships as an assistants-together helper from documentation. A real
+read-only and MCP test remains open for someone with a paid API key or company
+account; no personal Google sign-in test is applicable.
+
+Antigravity (`agy`) stays out as a helper: headless runs auto-deny even reading.
+The only unlocks are `--dangerously-skip-permissions` or global permission rules
+in `~/.gemini/antigravity-cli/settings.json`. Re-check when it gains per-run
+permissions or a read-only headless mode. Do not weaken global permissions.
+
+# 8. Waiting on the owner
 
 - **Testing channel.** Built and verified. When the owner says so, publish with
   `release-desktop.py --channel testing`, try it on the owner's PC, then
   `--promote` to stable.
 
-# 7. Later
+# 9. Later
 
 - **AI multi-account.** Several accounts per assistant, manual switching only.
   Each account gets its own config folder selected through the tool's own
@@ -145,7 +165,7 @@ repository) becomes the first plugin.
   uses a private browser window; never log out of an account to add another.
   AI Usage shows each account. Pairs with item 1 for teams with several seats.
 
-# 8. Before 1.0.0
+# 10. Before 1.0.0
 
 - **Upgrade that skips releases.** 1.0 promises supported upgrades, so test
   installing 0.6.4 and updating straight to the 1.0 candidate. The 0.6.4 ISO is

@@ -34,7 +34,7 @@ in Install > Web Apps or in the Apps menu.
 
 ## AI assistants
 
-Development > AI offers Default Assistant and a menu for each installed assistant: Claude Code, Codex, Gemini CLI, Grok Build and GitHub Copilot CLI. Install them from Install > AI CLIs; with none installed, Development > AI links there.
+Development > AI offers a menu for each installed assistant: Claude Code, Codex, Gemini CLI, Grok Build and GitHub Copilot CLI. Install them from Install > AI CLIs; with none installed, Development > AI links there.
 
 Starting a session, or opening a LazyVim or VS Code project, first asks for a
 folder under `~/Development`: pick folders to go deeper, Open to use the one
@@ -42,7 +42,7 @@ you are in, and Back to go up a level or, at the top, return to the menu.
 
 Claude Code, Codex, Gemini CLI, Grok Build and GitHub Copilot CLI (`copilot`) can also be started by command. If a tool is missing, Eitr explains it and offers the same installation as Install > AI CLIs. Type `yes` to install; Enter cancels. Without an interactive terminal, the command exits with installation instructions. Installed binaries take precedence over these launchers. Sign in through each tool’s own workflow; no assistant binaries or credentials are bundled.
 
-Development > AI > Default Assistant selects one installed assistant for this computer. **SUPER + Alt + A** opens it in a terminal; without a default, it opens the chooser. Eitr uses each assistant’s normal permission prompts.
+Development > Default Assistant selects one installed assistant for this computer. **SUPER + Alt + A** opens it in a terminal; without a default, it opens the chooser. Eitr uses each assistant’s normal permission prompts.
 
 Theme changes update only the light/dark theme setting in existing, readable Claude Code, Gemini CLI and Grok Build settings. Other settings and formatting stay intact. Missing, broken or uninstalled clients are skipped; assistants without a supported light/dark setting follow their terminal’s colors.
 
@@ -105,12 +105,19 @@ rewriting your profiles. Learn retains dedicated LazyVim, tmux and cmux referenc
 ## Assistants working together
 
 Development > AI > Let assistants work together is off by default. Enable it
-to connect installed Claude Code, Codex, Copilot and Grok clients that appear
-signed in. The
-confirmation names the assistants and explains that each hand-off uses the
-helper’s subscription and counts toward its limits. API-key-only and
-keyring-only sign-ins are not detected. Gemini is not offered: Google no
-longer serves Gemini CLI for personal accounts.
+to connect installed Claude Code, Codex, Copilot, Grok and Gemini CLI clients
+that appear signed in. Each hand-off uses the helper's subscription or API
+billing and counts toward its limits. Other clients' API-key-only and
+keyring-only sign-ins are not detected.
+
+Gemini is detected only with a non-empty `GEMINI_API_KEY` or `GOOGLE_API_KEY`,
+or `security.auth.selectedType` set to `gemini-api-key` or `vertex-ai` in
+`~/.gemini/settings.json`. Personal Google sign-in does not count: Google no
+longer serves it. Gemini runs headlessly in plan mode, with MCP servers and
+extensions excluded. It is not yet tested by Eitr; report problems with
+Report a Problem. A real-account test remains open for a paid key or company
+account. Plan mode is documented as read-only; Eitr has not independently
+verified its file, shell or plan-file behavior.
 
 Ask your assistant to consult the other one for a review, explanation or
 suggestion. Approve each hand-off through the calling assistant’s normal tool
@@ -123,7 +130,7 @@ to that assistant’s provider.
 
 The switch registers one `assistants` MCP server through each assistant's own
 command (`claude mcp add`, `codex mcp add`, `copilot mcp add` and
-`grok mcp add`), so each assistant writes its own settings. An existing server with the same name is left unchanged
+`grok mcp add`, `gemini mcp add -s user`), so each assistant writes its own settings. An existing server with the same name is left unchanged
 and reported. Changes
 are recorded only on this computer in `~/.local/state/eitr/assistants.json`
 (or `XDG_STATE_HOME`). Turning the switch off removes exactly Eitr’s entries;
@@ -131,4 +138,4 @@ if an entry was edited afterwards, Eitr keeps it and reports the conflict.
 Restart existing assistant sessions after changing the switch. Real-account
 hand-offs still await separate end-to-end verification.
 
-Antigravity CLI (`agy`) is available for personal Google accounts through Install > AI CLIs and the first-use launcher. It is never bundled. It installs through Google's official installer, which verifies its download, and you sign in with your Google account. It is not yet offered as an assistants-together helper. An already installed `agy` can be launched normally. Gemini CLI requires a Gemini API key or a Google Cloud/company account. Antigravity is not a collaboration helper; real-account read-only and MCP tests are still required.
+Antigravity CLI (`agy`) is available for personal Google accounts through Install > AI CLIs and the first-use launcher. It is never bundled. It installs through Google's official installer, which verifies its download, and you sign in with your Google account. It is not yet offered as an assistants-together helper. An already installed `agy` can be launched normally. Gemini CLI requires a Gemini API key or a Google Cloud/company account. Antigravity is not a collaboration helper: headless mode denies even reads. Its only unlocks bypass permissions or change global rules. Eitr will reconsider it when per-run permissions or a read-only headless mode are available.

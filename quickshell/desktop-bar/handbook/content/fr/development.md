@@ -16,13 +16,13 @@ Les applications web nécessitent Chrome ou Chromium (Installer > Navigateurs) ;
 
 ## Assistants IA
 
-Développement > IA propose Assistant par défaut et un menu pour chaque assistant installé : Claude Code, Codex, Gemini CLI, Grok Build et GitHub Copilot CLI. Installez-les depuis Installer > CLI d’IA ; en leur absence, Développement > IA y renvoie.
+Développement > IA propose un menu pour chaque assistant installé : Claude Code, Codex, Gemini CLI, Grok Build et GitHub Copilot CLI. Installez-les depuis Installer > CLI d’IA ; en leur absence, Développement > IA y renvoie.
 
 Démarrer une session ou ouvrir un projet LazyVim ou VS Code demande d’abord un dossier sous `~/Development` : entrez dans les dossiers pour descendre, utilisez Ouvrir pour choisir le dossier courant et Retour pour remonter ou revenir au menu depuis le niveau supérieur.
 
 Vous pouvez aussi lancer Claude Code, Codex, Gemini CLI, Grok Build et GitHub Copilot CLI (`copilot`) par commande. Si l’outil manque, Eitr présente son rôle et propose la même installation que Installer > CLI IA. Saisissez `yes` pour installer ; Entrée annule. Sans terminal interactif, la commande se termine avec des instructions d’installation. Les exécutables installés ont priorité sur ces lanceurs. Connectez-vous depuis chaque outil ; Eitr ne fournit ni exécutables d’assistants ni identifiants.
 
-Développement > IA > Assistant par défaut sélectionne un assistant installé sur cet ordinateur. **SUPER + Alt + A** l’ouvre dans un terminal ; sans choix par défaut, le sélecteur s’ouvre. Eitr conserve les demandes d’autorisation normales de chaque assistant.
+Développement > Assistant par défaut sélectionne un assistant installé sur cet ordinateur. **SUPER + Alt + A** l’ouvre dans un terminal ; sans choix par défaut, le sélecteur s’ouvre. Eitr conserve les demandes d’autorisation normales de chaque assistant.
 
 Lors d’un changement de thème, Eitr modifie uniquement le réglage clair/sombre dans les fichiers existants et lisibles de Claude Code, Gemini CLI et Grok Build. Les autres réglages et la mise en forme sont conservés. Les clients non installés et les fichiers absents ou invalides sont ignorés ; les assistants sans réglage clair/sombre pris en charge utilisent les couleurs du terminal.
 
@@ -51,12 +51,20 @@ Gardez jetons, secrets `.env` et identifiants hors des dotfiles partagés et cap
 ## Les assistants travaillent ensemble
 
 Développement > IA > Permettre aux assistants de travailler ensemble est
-désactivé par défaut. Activez cette option pour relier les programmes Claude,
-Codex, Copilot et Grok installés qui semblent connectés à leur compte. La confirmation
-nomme les assistants et explique que chaque transfert utilise l’abonnement
-de l’assistant sollicité et compte dans ses limites. Les connexions uniquement
-par clé API ou trousseau ne sont pas détectées. Gemini n’est pas proposé : Google
-ne sert plus Gemini CLI pour les comptes personnels.
+désactivé par défaut. Reliez les clients Claude, Codex, Copilot, Grok et Gemini
+CLI installés qui semblent connectés. Chaque transfert utilise l’abonnement
+ou la facturation API de l’auxiliaire et compte dans ses limites. Pour les autres
+clients, les connexions par clé API seule ou trousseau ne sont pas détectées.
+
+Gemini est détecté uniquement avec `GEMINI_API_KEY` ou `GOOGLE_API_KEY` non vide,
+ou `security.auth.selectedType` égal à `gemini-api-key` ou `vertex-ai` dans
+`~/.gemini/settings.json`. La connexion Google personnelle ne compte pas :
+Google ne la sert plus. Gemini tourne sans interface en mode plan, sans serveur
+MCP ni extension. Pas encore testé par Eitr ; signalez les problèmes avec
+Signaler un problème. Un test réel avec clé payante ou compte professionnel
+reste à faire. Le mode plan est documenté comme accessible en lecture seule ;
+Eitr n’a pas vérifié son comportement avec les fichiers, le shell ou les fichiers
+de plan.
 
 Demandez à votre assistant de consulter l’autre pour une relecture, une
 explication ou une suggestion. Approuvez chaque transfert dans la demande
@@ -69,7 +77,7 @@ L’auxiliaire lit le répertoire de travail courant de l’appelant ; la questi
 et le contexte peuvent être envoyés au fournisseur de cet assistant.
 
 L’option enregistre un serveur MCP `assistants` avec la commande de chaque
-assistant (`claude mcp add`, `codex mcp add`, `copilot mcp add` et `grok mcp add`) :
+assistant (`claude mcp add`, `codex mcp add`, `copilot mcp add` et `grok mcp add`, `gemini mcp add -s user`) :
 chaque assistant écrit lui-même ses réglages. Un serveur existant du même nom reste intact et est
 signalé. Les changements sont enregistrés seulement
 sur cet ordinateur dans `~/.local/state/eitr/assistants.json` (ou `XDG_STATE_HOME`).
@@ -78,4 +86,4 @@ modifiée ensuite, Eitr la conserve et signale le conflit. Redémarrez les sessi
 d’assistants après un changement. La vérification de bout en bout avec des
 comptes réels reste à effectuer séparément.
 
-Antigravity CLI (`agy`) est disponible pour les comptes Google personnels dans Installer > CLI d’IA et via le lanceur de premier usage. Il n’est jamais inclus dans la distribution. Il s’installe avec l’installateur officiel de Google, qui vérifie le téléchargement, et vous vous connectez avec votre compte Google. Il n’est pas encore proposé comme assistant sollicité. Un `agy` déjà installé peut être lancé normalement. Gemini CLI nécessite une clé API Gemini ou un compte Google Cloud/entreprise. Antigravity n’est pas un auxiliaire de collaboration ; les tests en lecture seule et MCP avec un compte réel restent à effectuer.
+Antigravity CLI (`agy`) est disponible pour les comptes Google personnels dans Installer > CLI d’IA et via le lanceur de premier usage. Il n’est jamais inclus dans la distribution. Il s’installe avec l’installateur officiel de Google, qui vérifie le téléchargement, et vous vous connectez avec votre compte Google. Il n’est pas encore proposé comme assistant sollicité. Un `agy` déjà installé peut être lancé normalement. Gemini CLI nécessite une clé API Gemini ou un compte Google Cloud/entreprise. Antigravity n’est pas un auxiliaire de collaboration : le mode sans interface refuse même les lectures. Le débloquer exige de contourner les permissions ou de changer les règles globales. Eitr le réexaminera quand il proposera des permissions par exécution ou un mode sans interface en lecture seule.

@@ -12,7 +12,7 @@ from eitr_assistants import executable
 from eitr_i18n import tr
 from eitr_paths import code, state
 
-LABELS = {'claude': 'Claude', 'codex': 'Codex', 'copilot': 'Copilot', 'grok': 'Grok'}
+LABELS = {'claude': 'Claude', 'codex': 'Codex', 'copilot': 'Copilot', 'grok': 'Grok', 'gemini': 'Gemini CLI'}
 DEPTH = 'EITR_ASSISTANTS_DEPTH'
 SERVER = 'assistants'
 TIMEOUT = 180
@@ -46,6 +46,16 @@ def grok_signed_in(path):
         return False
 
 
+def gemini_signed_in():
+    if os.environ.get('GEMINI_API_KEY') or os.environ.get('GOOGLE_API_KEY'):
+        return True
+    try:
+        settings = json.loads((Path.home() / '.gemini/settings.json').read_bytes())
+        return settings.get('security', {}).get('auth', {}).get('selectedType') in ('gemini-api-key', 'vertex-ai')
+    except (OSError, ValueError, AttributeError):
+        return False
+
+
 def connected():
     """Offline hints only; never refresh credentials or start a CLI to check auth."""
     homes = {'claude': Path(os.environ.get('CLAUDE_CONFIG_DIR') or Path.home() / '.claude'),
@@ -55,7 +65,8 @@ def connected():
     signed = {'claude': credential(homes['claude'] / '.credentials.json', 'claudeAiOauth', 'accessToken'),
               'codex': credential(homes['codex'] / 'auth.json', 'tokens', 'access_token'),
               'copilot': copilot_signed_in(homes['copilot'] / 'config.json'),
-              'grok': grok_signed_in(homes['grok'] / 'auth.json')}
+              'grok': grok_signed_in(homes['grok'] / 'auth.json'),
+              'gemini': gemini_signed_in()}
     return {identifier: binary for identifier in LABELS
             if signed[identifier] and (binary := executable(identifier))}
 
@@ -70,6 +81,10 @@ def command(identifier, binary, question):
         return [str(binary), 'exec', '--ignore-user-config', '--ignore-rules',
                 '--sandbox', 'read-only', '-c', 'approval_policy="never"',
                 '--ephemeral', '--skip-git-repo-check', '--json', '-']
+    if identifier == 'gemini':
+        return [str(binary), '--prompt=' + question, '--approval-mode', 'plan',
+                '--allowed-mcp-server-names', 'eitr-no-mcp-7b7478c7-67be-4dcb-9666-7bd9c36a54ed',
+                '--extensions', 'none', '--output-format', 'text']
     if identifier == 'copilot':
         # Headless mode needs --allow-all-tools; Copilot's denials always win over it,
         # so shell, file writes, web access and Eitr's own server stay off.
@@ -232,8 +247,8 @@ def registered(identifier, binary):
     Never starts the server: Claude's `mcp get` would health-check it, so its
     settings file is read instead; Codex's `mcp get --json` only prints config.
     """
-    if identifier == 'claude':
-        path = settings_path()
+    if identifier in ('claude', 'gemini'):
+        path = settings_path() if identifier == 'claude' else Path.home() / '.gemini/settings.json'
         if not path.exists():
             return None
         servers = json.loads(path.read_bytes()).get('mcpServers', {})
@@ -263,13 +278,15 @@ def add_command(identifier):
     variable = 'EITR_ASSISTANTS_CALLER=' + identifier
     if identifier == 'claude':
         return ['mcp', 'add', '-s', 'user', SERVER, '-e', variable, '--', entry['command'], *entry['args']]
+    if identifier == 'gemini':
+        return ['mcp', 'add', '-s', 'user', '-e', variable, SERVER, entry['command'], *entry['args']]
     if identifier == 'grok':
         return ['mcp', 'add', '-s', 'user', SERVER, '-e', variable, entry['command'], '--', *entry['args']]
     return ['mcp', 'add', SERVER, '--env', variable, '--', entry['command'], *entry['args']]
 
 
 def remove_command(identifier):
-    return ['mcp', 'remove', '-s', 'user', SERVER] if identifier in ('claude', 'grok') else ['mcp', 'remove', SERVER]
+    return ['mcp', 'remove', '-s', 'user', SERVER] if identifier in ('claude', 'grok', 'gemini') else ['mcp', 'remove', SERVER]
 
 
 def record_path():

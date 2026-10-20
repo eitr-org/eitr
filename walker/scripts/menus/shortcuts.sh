@@ -31,7 +31,7 @@ options="󰌌  Launchers
   SUPER + Ctrl + F          Toggle fullscreen
   SUPER + Shift + P         Toggle pseudo tiling
   SUPER + A                 Toggle split direction
-  SUPER + Alt + A           Open default AI assistant
+  SUPER + Alt + A           Open default AI assistant (Development)
   SUPER + Shift + A         Rotate split direction
 󰆾  Focus
   SUPER + H                 Focus left

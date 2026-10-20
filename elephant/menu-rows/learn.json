@@ -44,6 +44,20 @@
     }
   },
   {
+    "text": "Default Assistant",
+    "subtext": "Open with the assistant shortcut",
+    "keywords": [
+      "development",
+      "assistant",
+      "default",
+      "SUPER Alt A"
+    ],
+    "icon": "󱜙",
+    "actions": {
+      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/handbook.sh open development"
+    }
+  },
+  {
     "text": "EITR Handbook",
     "subtext": "The full guide to Eitr, offline",
     "keywords": [
