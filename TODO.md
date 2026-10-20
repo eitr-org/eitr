@@ -5,7 +5,7 @@ Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 
 1. Assistants working together: Gemini, Copilot and Grok as helpers
 2. Remote access: Moonlight, Sunshine and Tailscale
-3. Organization profiles: choose the software at installation
+3. Organization profiles: software and policies at installation
 4. Smaller items: OBS and the main display, menu translations, AI Usage
 5. Waiting on the owner: personal overlay split, testing channel
 6. Later: AI multi-account, plugins, smaller artwork packages, screenshots
@@ -91,11 +91,13 @@ Design:
 - An `eitr-profile.json` beside (or instead of) `eitr-answers.json`. With only
   the profile, the normal wizard runs and then shows the profile's changes;
   with both files the install is fully unattended.
-- `remove`: Eitr apps to leave out, for example Steam or RetroArch. Only apps
-  on an explicit, reviewed list of removable apps are accepted. Everything the
-  desktop needs is protected: `distro/packages.txt`, `distro/aur-packages.txt`
-  and `distro/local-packages.txt` (Hyprland, Quickshell, Walker, Elephant and
-  the rest), `eitr-desktop`, `eitr-artwork` and anything they depend on.
+- `remove`: Eitr apps to leave out, for example Steam, RetroArch or the remote
+  access apps (`moonlight-qt`, `eitr-sunshine`, `tailscale`). Only apps on an
+  explicit, reviewed list of removable apps are accepted. Everything the
+  desktop needs is protected: `distro/packages.txt`, `distro/aur-packages.txt`,
+  the desktop's own entries in `distro/local-packages.txt` (Hyprland,
+  Quickshell, Walker, Elephant and the rest; `eitr-sunshine` there is
+  removable), `eitr-desktop`, `eitr-artwork` and anything they depend on.
   `distro/apps.txt` also holds pieces the desktop relies on (themes, menu
   data), so it is not removable as a whole; each removable entry is reviewed.
   A profile naming a protected package is refused as a whole with a clear
@@ -109,11 +111,23 @@ Design:
   channel, and an extra package repository with its signing key.
 - `setup`: an optional script from the stick, run once at the end of the
   installation and shown in the summary.
+- `policies`: features the organization turns off, written to a root-owned
+  `/etc/eitr/policies.json` that users cannot change. Each policy hides the
+  feature's menus and makes Eitr's own tools refuse it: `remote_access`
+  (Remote Access menus, and the sharing and Tailscale setup in `eitr-system`),
+  `assistants_together` (the "Let assistants work together" switch),
+  `update_channel` (pin stable), and the removable app groups such as gaming.
+  Eitr can only enforce this in its own tools: an employee with root could
+  still set things up by hand, so the Handbook says that real lockdown also
+  means not granting root.
 - Before anything changes, the installer lists everything it will add, remove,
   set and run, with the answers drive's countdown when unattended.
 - The applied profile is recorded on the machine so System Update never
   reinstalls a removed app.
-- `eitr profile check DRIVE` validates a stick before it is used.
+- `eitr profile check DRIVE` validates a stick before it is used, and
+  `eitr profile apply DRIVE` brings an already installed machine in line:
+  removes the listed apps, writes the policies and records the profile, after
+  the same summary and confirmation.
 
 Steps:
 
@@ -124,10 +138,13 @@ Steps:
    `eitr profile check`; unit tests for refusals (protected packages, bad
    checksums, unknown recipes).
 3. Installer integration: skip removed apps in the offline payload install,
-   then additions, defaults and the setup script; record the profile.
+   then additions, defaults, policies and the setup script; record the profile.
+   Policy checks in the menus and in `eitr-system`, with tests that a refused
+   feature stays refused from both.
 4. VM tests: an offline install with removals and stick packages, an online
-   install with Flathub additions, a refused profile, and System Update not
-   bringing a removed app back.
+   install with Flathub additions, a refused profile, System Update not
+   bringing a removed app back, a policy hiding Remote Access, and
+   `eitr profile apply` on an installed machine.
 5. Handbook and `distro/README.md` section with a complete example profile.
 
 Out of scope: managing machines after installation (fleet management).
