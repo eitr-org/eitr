@@ -787,6 +787,9 @@ msgstr "Un profil d’entreprise existe ; oubliez le réseau dans le panneau ava
 msgid "Erase the whole disk ({size_text}) and install Eitr"
 msgstr "Effacer tout le disque ({size_text}) et installer Eitr"
 
+msgid "Everything is up to date."
+msgstr "Tout est à jour."
+
 msgid "Existing FIDO2 registration needs manual review"
 msgstr "L’enregistrement FIDO2 existant nécessite une vérification manuelle"
 
@@ -1408,6 +1411,12 @@ msgstr "Seuls les micrologiciels exposant charge_control_end_threshold le permet
 msgid "Open Console"
 msgstr "Ouvrir la console"
 
+msgid "Open folder"
+msgstr "Ouvrir le dossier"
+
+msgid "Open image"
+msgstr "Ouvrir l’image"
+
 msgid "Open the web console"
 msgstr "Ouvrir la console web"
 
@@ -1545,9 +1554,6 @@ msgstr "Enregistrement sauvegardé"
 
 msgid "Records"
 msgstr "Enregistrements"
-
-msgid "Recovery snapshot {identifier}{extra} created."
-msgstr "Instantané de récupération {identifier}{extra} créé."
 
 msgid "Refresh"
 msgstr "Actualiser"
@@ -1758,6 +1764,12 @@ msgstr "Périmètre"
 
 msgid "Screen"
 msgstr "Écran"
+
+msgid "Screenshot saved"
+msgstr "Capture d’écran enregistrée"
+
+msgid "Screenshot saved and copied"
+msgstr "Capture d’écran enregistrée et copiée"
 
 msgid "Search bucket by name"
 msgstr "Rechercher un bucket par nom"

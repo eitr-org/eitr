@@ -3,6 +3,8 @@
 Open **System > Maintenance**. Review terminal output and keep independent
 backups before system changes. Snapshot protection is not an off-disk backup.
 
+System Update first checks official packages with checkupdates in a separate temporary database, AUR packages (including development packages), and user Flatpaks. When all checks confirm no updates, it exits without snapshots, upgrades or a restart prompt. If a check fails or a tool is missing, the normal update workflow continues.
+
 ## Update
 
 **Update > System Update** is the normal complete package-update workflow.

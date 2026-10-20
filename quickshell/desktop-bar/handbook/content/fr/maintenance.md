@@ -2,6 +2,8 @@
 
 Ouvrez **Système > Entretien**. Lisez les sorties du terminal et gardez des sauvegardes indépendantes avant de modifier le système. Les instantanés ne sont pas des sauvegardes sur un autre disque.
 
+La mise à jour du système vérifie d’abord les paquets officiels avec checkupdates dans une base temporaire distincte, les paquets AUR (y compris ceux de développement) et les Flatpaks utilisateur. Si toutes les vérifications confirment l’absence de mises à jour, elle se termine sans instantanés, mise à niveau ni proposition de redémarrage. Si une vérification échoue ou qu’un outil manque, le processus normal continue.
+
 ## Mise à jour
 
 **Mise à jour > Mise à jour du système** est la procédure normale de mise à jour complète des paquets. Sur une nouvelle installation EITR configurée, elle vérifie la prise en charge des instantanés et crée les instantanés avant/après avec les archives de démarrage. Si la protection échoue, aucune mise à jour ne commence. Un bureau Arch existant sans la politique de la distribution n’a pas besoin de cette configuration pour être mis à jour. La mise à jour du système actualise aussi les applications Flatpak, comme GeForce NOW ; un échec de Flatpak est signalé sans annuler la mise à jour du système.

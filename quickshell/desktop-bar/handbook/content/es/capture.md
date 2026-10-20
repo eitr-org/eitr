@@ -15,6 +15,8 @@ Tras una captura, un breve relámpago ilumina la región capturada. Empieza desp
 
 Revisa el contenido antes de guardar o compartir. El OCR puede equivocarse; los códigos QR pueden contener credenciales privadas o URL no fiables. Usar un editor no garantiza que se haya eliminado el texto sensible del fondo.
 
+Las capturas guardadas ofrecen acciones en la notificación para abrir la imagen o su carpeta de capturas.
+
 ## Grabación y transmisión
 
 Grabación de pantalla abre los controles de OBS. Usan tu escena configurada y el permiso de captura de Wayland guardado; la escena debe incluir una fuente de monitor visible. Iniciar la captura prepara OBS y cierra el panel antes de empezar. Los controles usan WebSocket de OBS, desactivado por defecto: Eitr lo activa con contraseña la primera vez que OBS está cerrado. Si está abierto en ese momento, ciérralo una vez y vuelve a intentarlo.

@@ -787,6 +787,9 @@ msgstr "Enterprise profile exists; forget it in the panel before replacing crede
 msgid "Erase the whole disk ({size_text}) and install Eitr"
 msgstr "Erase the whole disk ({size_text}) and install Eitr"
 
+msgid "Everything is up to date."
+msgstr "Everything is up to date."
+
 msgid "Existing FIDO2 registration needs manual review"
 msgstr "Existing FIDO2 registration needs manual review"
 
@@ -1408,6 +1411,12 @@ msgstr "Only firmware that exposes charge_control_end_threshold supports this."
 msgid "Open Console"
 msgstr "Open Console"
 
+msgid "Open folder"
+msgstr "Open folder"
+
+msgid "Open image"
+msgstr "Open image"
+
 msgid "Open the web console"
 msgstr "Open the web console"
 
@@ -1545,9 +1554,6 @@ msgstr "Recording saved"
 
 msgid "Records"
 msgstr "Records"
-
-msgid "Recovery snapshot {identifier}{extra} created."
-msgstr "Recovery snapshot {identifier}{extra} created."
 
 msgid "Refresh"
 msgstr "Refresh"
@@ -1758,6 +1764,12 @@ msgstr "Scope"
 
 msgid "Screen"
 msgstr "Screen"
+
+msgid "Screenshot saved"
+msgstr "Screenshot saved"
+
+msgid "Screenshot saved and copied"
+msgstr "Screenshot saved and copied"
 
 msgid "Search bucket by name"
 msgstr "Search bucket by name"

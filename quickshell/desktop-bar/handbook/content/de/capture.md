@@ -15,6 +15,8 @@ Nach einem Screenshot trifft ein kurzer Blitz die erfasste Fläche. Der Effekt b
 
 Prüfe den Inhalt vor dem Speichern oder Teilen. OCR kann Fehler machen; QR-Codes können private Zugangsdaten oder nicht vertrauenswürdige URLs enthalten. Ein Bildeditor garantiert nicht, dass vertraulicher Hintergrundtext entfernt wurde.
 
+Gespeicherte Bildschirmfotos bieten Benachrichtigungsaktionen zum Öffnen des Bildes oder des Bildschirmfotoordners.
+
 ## Aufnahme und Streaming
 
 Bildschirmaufnahme öffnet die OBS-Steuerung. Sie verwendet deine eingerichtete Szene und gespeicherte Wayland-Aufnahmeberechtigung; die Szene muss eine sichtbare Monitorquelle enthalten. Der Aufnahmestart bereitet OBS vor und schließt das Panel, bevor die Erfassung beginnt. Die Steuerung nutzt OBS-WebSocket, das standardmäßig ausgeschaltet ist: Eitr aktiviert es mit Passwort, wenn OBS erstmals geschlossen ist. Ist OBS dabei geöffnet, schließe es einmal und versuche es erneut.

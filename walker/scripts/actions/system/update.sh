@@ -26,6 +26,34 @@ arch_news_ok() {
 cancel() { rm -f "$packages"; eitr_gettext 'Update cancelled; nothing was changed.'; printf '\n'; exit 0; }
 # Only the distro's System Update path creates snapshots.
 full_update() { sudo pacman -Syu; yay -Sua --devel; update_flatpaks; }
+# Only a complete, successful check may skip the update. checkupdates keeps its
+# sync database separate from the system database (exit 2 means no updates).
+no_updates() {
+  local official aur flatpaks aur_errors status=0
+  official="$(checkupdates)" || status=$?
+  [[ "$status" == 0 || "$status" == 2 ]] || return 1
+  [[ -z "$official" ]] || return 1
+  # yay uses exit 1 for an empty update list as well as errors. Only its
+  # silent empty result is a no-update result; diagnostics keep the update path.
+  aur_errors="$(mktemp "${XDG_RUNTIME_DIR:-/tmp}/eitr-update-check.XXXXXX")" || return 1
+  status=0
+  aur="$(yay -Qua --devel 2>"$aur_errors")" || status=$?
+  if [[ -s "$aur_errors" ]]; then
+    cat "$aur_errors" >&2
+    rm -f "$aur_errors"
+    return 1
+  fi
+  rm -f "$aur_errors"
+  [[ "$status" == 0 || "$status" == 1 ]] || return 1
+  [[ -z "$aur" ]] || return 1
+  flatpaks="$(flatpak remote-ls --user --updates --columns=application)" || return 1
+  [[ -z "$flatpaks" ]]
+}
+if [[ "${1:-}" == system ]] && no_updates; then
+  eitr_gettext 'Everything is up to date.'
+  printf '\n'
+  exit 0
+fi
 # After a successful update, offer a restart or log-out when changed packages need one.
 packages="$(mktemp "${XDG_RUNTIME_DIR:-/tmp}/eitr-update-packages.XXXXXX")"
 # A broken check must never block the update that would fix it; only the restart

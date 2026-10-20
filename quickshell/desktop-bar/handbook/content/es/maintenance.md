@@ -2,6 +2,8 @@
 
 Abre **Sistema > Mantenimiento**. Revisa la salida del terminal y conserva copias de seguridad independientes antes de cambiar el sistema. Las instantáneas no son copias de seguridad en otro disco.
 
+La actualización del sistema comprueba primero los paquetes oficiales con checkupdates en una base temporal separada, los paquetes AUR (incluidos los de desarrollo) y los Flatpaks del usuario. Si todas las comprobaciones confirman que no hay actualizaciones, termina sin instantáneas, actualización ni aviso de reinicio. Si falla una comprobación o falta una herramienta, continúa el proceso normal.
+
 ## Actualización
 
 **Actualización > Actualización del sistema** es el proceso normal de actualización completa de paquetes. En una instalación nueva configurada de EITR, comprueba la compatibilidad con instantáneas y crea instantáneas anteriores y posteriores con archivos de arranque. Si falla la protección, la actualización no comienza. Un escritorio Arch existente sin la política de la distribución no necesita esta configuración solo para actualizar. La actualización del sistema también actualiza aplicaciones Flatpak, como GeForce NOW; los fallos de Flatpak se notifican sin deshacer la actualización del sistema.

@@ -247,6 +247,16 @@ class ObsControlTests(unittest.TestCase):
                 obs.notify_saved(str(video))
             self.assertEqual(run.call_args_list[-1].args[0], ["wl-copy", "--", str(video)])
 
+    def test_saved_screenshot_actions_open_image_and_folder(self):
+        for action, destination in (("open", "/images/test.png"), ("folder", "/images")):
+            with self.subTest(action=action), \
+                    patch.object(obs.subprocess, "run", return_value=SimpleNamespace(stdout=action)) as run, \
+                    patch.object(obs.subprocess, "Popen") as launch:
+                obs.notify_saved("/images/test.png", screenshot=True)
+                self.assertIn("--action=open=Open image", run.call_args.args[0])
+                self.assertIn("--action=folder=Open folder", run.call_args.args[0])
+                self.assertEqual(launch.call_args.args[0], ["xdg-open", destination])
+
     def test_failed_stop_does_not_exit(self):
         with patch.object(obs.subprocess, "run", side_effect=[SimpleNamespace(returncode=0), SimpleNamespace(returncode=1)]), \
                 patch.object(obs, "websocket_command", return_value=["obs-cmd"]), \

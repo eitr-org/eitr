@@ -145,8 +145,6 @@ def snapshot_pre():
     finally:
         shutil.rmtree(staging, ignore_errors=True)
     prune_boot_archives()
-    extra = " and boot archives" if mounts else ""
-    print(tr('Recovery snapshot {identifier}{extra} created.', identifier=f'{identifier}', extra=f'{extra}'))
 
 
 POST_DESCRIPTIONS = {
@@ -165,7 +163,7 @@ def snapshot_post(outcome="success"):
     if not identifier.isdigit():
         raise RuntimeError('Invalid pending snapshot')
     run(["snapper", "-c", "root", "create", "--type", "post", "--pre-number", identifier,
-         "--description", POST_DESCRIPTIONS[outcome], "--cleanup-algorithm", "number"])
+         "--description", POST_DESCRIPTIONS[outcome], "--cleanup-algorithm", "number"], stdout=subprocess.DEVNULL)
     path.unlink()
     # A successful update arms the boot guard with its "before" snapshot and boot files.
     if outcome == "success" and BOOT_GUARD.is_file():

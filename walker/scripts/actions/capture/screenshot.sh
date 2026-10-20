@@ -53,7 +53,10 @@ if [[ "$action" == edit ]]; then
     satty -f "$temp" -o "$file" --copy-command "wl-copy --type image/png" \
         --early-exit --actions-on-escape exit \
         --app-id dev.local.ScreenshotEditor --title "Screenshot" \
-        --notification-thumbnail screenshot
+        --notification-thumbnail screenshot --disable-notifications
+    if [[ -f "$file" ]]; then
+        python3 "${EITR_CODE_ROOT:-/usr/share/eitr}/quickshell/desktop-bar/scripts/obs-control.py" notify-screenshot "$file" &
+    fi
 else
     if [[ "$action" == save || "$action" == both ]]; then
         mkdir -p "$directory"
@@ -64,7 +67,6 @@ else
     fi
     case "$action" in
         copy) notify-send "Screenshot copied" "Ready to paste" ;;
-        save) notify-send -i "$file" "Screenshot saved" "$file" ;;
-        both) notify-send -i "$file" "Screenshot saved and copied" "$file" ;;
+        save|both) python3 "${EITR_CODE_ROOT:-/usr/share/eitr}/quickshell/desktop-bar/scripts/obs-control.py" notify-screenshot "$file" "$action" & ;;
     esac
 fi

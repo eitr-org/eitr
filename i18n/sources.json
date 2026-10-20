@@ -4128,6 +4128,9 @@
     "Erase the whole disk ({size_text}) and install Eitr": [
       "distro/archinstall/installer-ui.py"
     ],
+    "Everything is up to date.": [
+      "walker/scripts/actions/system/update.sh"
+    ],
     "Existing FIDO2 registration needs manual review": [
       "walker/scripts/actions/system/security.py"
     ],
@@ -4760,6 +4763,12 @@
     "Open Console": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Open folder": [
+      "quickshell/desktop-bar/scripts/obs-control.py"
+    ],
+    "Open image": [
+      "quickshell/desktop-bar/scripts/obs-control.py"
+    ],
     "Open the web console": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -4898,9 +4907,6 @@
     ],
     "Records": [
       "walker/scripts/menus/cloud/navigation.py"
-    ],
-    "Recovery snapshot {identifier}{extra} created.": [
-      "distro/system/eitr-system.py"
     ],
     "Refresh": [
       "walker/scripts/menus/cloud/navigation.py"
@@ -5112,6 +5118,12 @@
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Screen": [
+      "quickshell/desktop-bar/scripts/obs-control.py"
+    ],
+    "Screenshot saved": [
+      "quickshell/desktop-bar/scripts/obs-control.py"
+    ],
+    "Screenshot saved and copied": [
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
     "Search bucket by name": [

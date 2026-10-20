@@ -787,6 +787,9 @@ msgstr "Ein Unternehmensprofil ist vorhanden; vergessen Sie das Netzwerk im Pane
 msgid "Erase the whole disk ({size_text}) and install Eitr"
 msgstr "Das gesamte Laufwerk ({size_text}) löschen und Eitr installieren"
 
+msgid "Everything is up to date."
+msgstr "Alles ist auf dem neuesten Stand."
+
 msgid "Existing FIDO2 registration needs manual review"
 msgstr "Die vorhandene FIDO2-Registrierung muss manuell geprüft werden"
 
@@ -1408,6 +1411,12 @@ msgstr "Dies wird nur von Firmware mit charge_control_end_threshold unterstützt
 msgid "Open Console"
 msgstr "Konsole öffnen"
 
+msgid "Open folder"
+msgstr "Ordner öffnen"
+
+msgid "Open image"
+msgstr "Bild öffnen"
+
 msgid "Open the web console"
 msgstr "Webkonsole öffnen"
 
@@ -1545,9 +1554,6 @@ msgstr "Aufnahme gespeichert"
 
 msgid "Records"
 msgstr "Einträge"
-
-msgid "Recovery snapshot {identifier}{extra} created."
-msgstr "Wiederherstellungs-Snapshot {identifier}{extra} erstellt."
 
 msgid "Refresh"
 msgstr "Aktualisieren"
@@ -1758,6 +1764,12 @@ msgstr "Geltungsbereich"
 
 msgid "Screen"
 msgstr "Bildschirm"
+
+msgid "Screenshot saved"
+msgstr "Bildschirmfoto gespeichert"
+
+msgid "Screenshot saved and copied"
+msgstr "Bildschirmfoto gespeichert und kopiert"
 
 msgid "Search bucket by name"
 msgstr "Bucket nach Namen suchen"

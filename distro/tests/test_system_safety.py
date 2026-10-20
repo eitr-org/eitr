@@ -80,6 +80,7 @@ class SnapshotRecordTests(unittest.TestCase):
         command = run.call_args.args[0]
         self.assertEqual(command[command.index("--pre-number") + 1], "7")
         self.assertIn("Eitr after failed package upgrade", command)
+        self.assertEqual(run.call_args.kwargs, {"stdout": system.subprocess.DEVNULL})
         self.assertFalse((self.state / "pending-upgrade.json").exists())
 
     def test_post_without_pending_record_does_nothing(self):

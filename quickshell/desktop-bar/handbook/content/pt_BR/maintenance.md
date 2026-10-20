@@ -2,6 +2,8 @@
 
 Abra **Sistema > Manutenção**. Revise a saída do terminal e mantenha backups independentes antes de alterar o sistema. Snapshots não são backups em outro disco.
 
+A atualização do sistema verifica primeiro os pacotes oficiais com checkupdates em um banco temporário separado, os pacotes AUR (incluindo os de desenvolvimento) e os Flatpaks do usuário. Se todas as verificações confirmarem que não há atualizações, termina sem snapshots, atualização ou pedido de reinicialização. Se uma verificação falhar ou faltar uma ferramenta, o fluxo normal continua.
+
 ## Atualização
 
 **Atualizar > Atualização do sistema** é o fluxo normal de atualização completa de pacotes. Em uma nova instalação configurada do EITR, verifica o suporte a snapshots e cria snapshots anteriores e posteriores com arquivos de inicialização. Se a proteção falhar, a atualização não começa. Um desktop Arch existente sem a política da distribuição não precisa dessa configuração apenas para atualizar. A Atualização do sistema também atualiza aplicativos Flatpak, como GeForce NOW; falhas do Flatpak são informadas sem desfazer a atualização do sistema.

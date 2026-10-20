@@ -15,6 +15,8 @@ Após a captura, um breve relâmpago atinge a região capturada. O efeito começ
 
 Revise o conteúdo antes de salvar ou compartilhar. O OCR pode errar; códigos QR podem conter credenciais privadas ou URLs não confiáveis. Usar um editor não garante que textos sensíveis ao fundo tenham sido removidos.
 
+As capturas salvas oferecem ações na notificação para abrir a imagem ou a pasta de capturas.
+
 ## Gravação e transmissão
 
 Gravação de tela abre os controles do OBS. Eles usam sua cena configurada e a permissão de captura do Wayland já salva; a cena deve incluir uma fonte de monitor visível. Iniciar a captura prepara o OBS e fecha o painel antes de gravar. Os controles usam o WebSocket do OBS, desativado por padrão: o Eitr o ativa com senha na primeira vez em que o OBS está fechado. Se estiver aberto nesse momento, feche-o uma vez e tente novamente.

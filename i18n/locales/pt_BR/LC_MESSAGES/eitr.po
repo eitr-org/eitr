@@ -787,6 +787,9 @@ msgstr "Já existe um perfil corporativo; esqueça a rede no painel antes de tro
 msgid "Erase the whole disk ({size_text}) and install Eitr"
 msgstr "Apagar o disco inteiro ({size_text}) e instalar o Eitr"
 
+msgid "Everything is up to date."
+msgstr "Tudo está atualizado."
+
 msgid "Existing FIDO2 registration needs manual review"
 msgstr "O registro FIDO2 existente precisa de revisão manual"
 
@@ -1408,6 +1411,12 @@ msgstr "Só funciona com firmware que expõe charge_control_end_threshold."
 msgid "Open Console"
 msgstr "Abrir console"
 
+msgid "Open folder"
+msgstr "Abrir pasta"
+
+msgid "Open image"
+msgstr "Abrir imagem"
+
 msgid "Open the web console"
 msgstr "Abrir o console web"
 
@@ -1545,9 +1554,6 @@ msgstr "Gravação salva"
 
 msgid "Records"
 msgstr "Registros"
-
-msgid "Recovery snapshot {identifier}{extra} created."
-msgstr "Snapshot de recuperação {identifier}{extra} criado."
 
 msgid "Refresh"
 msgstr "Atualizar"
@@ -1758,6 +1764,12 @@ msgstr "Escopo"
 
 msgid "Screen"
 msgstr "Tela"
+
+msgid "Screenshot saved"
+msgstr "Captura de tela salva"
+
+msgid "Screenshot saved and copied"
+msgstr "Captura de tela salva e copiada"
 
 msgid "Search bucket by name"
 msgstr "Buscar bucket pelo nome"

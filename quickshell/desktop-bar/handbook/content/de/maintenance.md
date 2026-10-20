@@ -2,6 +2,8 @@
 
 Öffne **System > Instandhaltung**. Prüfe Terminalausgaben und halte vor Systemänderungen unabhängige Sicherungen bereit. Snapshots sind keine Sicherungen auf einem anderen Laufwerk.
 
+Die Systemaktualisierung prüft zuerst offizielle Pakete mit checkupdates in einer separaten temporären Datenbank, AUR-Pakete (einschließlich Entwicklungspaketen) und Benutzer-Flatpaks. Bestätigen alle Prüfungen, dass keine Updates vorliegen, endet sie ohne Schnappschüsse, Upgrades oder Neustartabfrage. Scheitert eine Prüfung oder fehlt ein Werkzeug, läuft der normale Aktualisierungsvorgang weiter.
+
 ## Aktualisierung
 
 **Aktualisierung > Systemaktualisierung** ist der normale Ablauf für vollständige Paketaktualisierungen. Eine konfigurierte neue EITR-Installation prüft die Snapshot-Unterstützung und erstellt Vorher-/Nachher-Snapshots mit Startdateiarchiven. Scheitert der Schutz, beginnt keine Aktualisierung. Ein vorhandener Arch-Desktop ohne Distributionsrichtlinie benötigt diese Einrichtung nicht allein zum Aktualisieren. Die Systemaktualisierung aktualisiert auch Flatpak-Anwendungen wie GeForce NOW. Ein Flatpak-Fehler wird gemeldet, ohne die Systemaktualisierung zurückzunehmen.

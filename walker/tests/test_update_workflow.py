@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[2]
 FLOCK_MOCK = "flock() { return 0; }\n"
 # Tests never reach the host: its Flatpak installation, the restart check (which
 # reads the running kernel's modules, absent in CI containers), the bar or systemd.
-HOST_MOCKS = "flatpak() { :; }; python3() { :; }; eitr-shell() { :; }; systemctl() { :; }\n"
+HOST_MOCKS = "pacman() { :; }; checkupdates() { return 1; }; flatpak() { :; }; python3() { :; }; eitr-shell() { :; }; systemctl() { :; }\n"
 
 
 # The update calls the user's post-update hook; tests use a stand-in runner so
@@ -49,6 +49,34 @@ class UpdateWorkflowTests(unittest.TestCase):
     # A stand-in for arch-news.py that reports news (exit 10).
     NEWS = 'python3() { if [[ "$1" == *arch-news.py ]]; then echo "Arch posted news"; return 10; fi; }\n'
     UPDATING = 'sudo() { echo "sudo $*"; }\nyay() { echo "yay $*"; }\n'
+
+    def test_no_updates_skips_all_work(self):
+        result = run_protected_update('checkupdates() { return 2; }; yay() { :; }; flatpak() { :; }; '
+                                      'sudo() { echo unexpected; }; python3() { echo unexpected; };\n')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout.strip(), "Everything is up to date.")
+
+    def test_yay_silent_exit_one_means_no_aur_updates(self):
+        result = run_protected_update('checkupdates() { return 2; }; yay() { return 1; }; flatpak() { :; };\n')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout.strip(), "Everything is up to date.")
+
+    def test_updates_or_failed_checks_keep_snapshot_pair(self):
+        for checks in (
+            'checkupdates() { echo official; };',
+            'checkupdates() { return 2; }; yay() { if [[ "$1" == -Qua ]]; then echo aur; fi; };',
+            'checkupdates() { return 2; }; yay() { :; }; flatpak() { echo app; };',
+            'checkupdates() { return 1; };',
+            'checkupdates() { return 127; };',
+            'checkupdates() { return 2; }; yay() { echo offline >&2; return 1; };',
+            'checkupdates() { return 2; }; yay() { return 127; };',
+            'checkupdates() { return 2; }; yay() { :; }; flatpak() { return 1; };',
+        ):
+            with self.subTest(checks=checks):
+                result = run_protected_update(self.UPDATING + checks + "\n")
+                self.assertIn("snapshot-pre", result.stdout)
+                self.assertIn("snapshot-post", result.stdout)
+                self.assertNotIn("Everything is up to date.", result.stdout)
 
     def test_translated_news_prompts_accept_literal_english_answers(self):
         for locale in ("pt_BR", "es", "de", "fr"):
@@ -120,7 +148,7 @@ yay() { echo "yay $*"; }
             source = source.replace("/usr/lib/eitr/eitr-system /usr/local/lib/eitr/eitr-system",
                                     f"{directory}/missing-a {directory}/missing-b")
             mocks = 'sudo() { echo "sudo $*"; }; yay() { echo "yay $*"; }\n'
-            result = subprocess.run(["bash", "-c", FLOCK_MOCK + mocks + source, "update", "system"],
+            result = subprocess.run(["bash", "-c", FLOCK_MOCK + HOST_MOCKS + mocks + source, "update", "system"],
                                     capture_output=True, text=True,
                                     env=dict(os.environ, XDG_RUNTIME_DIR=directory, EITR_CODE_ROOT=str(ROOT)))
         self.assertNotEqual(result.returncode, 0)

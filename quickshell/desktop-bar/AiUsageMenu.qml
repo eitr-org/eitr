@@ -138,7 +138,6 @@ ThemedPopup {
                 id: content
                 width: parent.width
                 spacing: 14
-                PanelDivider { width: parent.width; height: 8; foreground: menu.foreground }
                 Text {
                     visible: menu.availableProviders.length === 0
                     width: parent.width; wrapMode: Text.Wrap
@@ -155,11 +154,6 @@ ThemedPopup {
                         spacing: 14
                         required property int index
                         readonly property bool folded: menu.foldedProviders.indexOf(modelData.name) !== -1
-                        PanelDivider {
-                            visible: section.index > 0
-                            width: parent.width
-                            foreground: menu.foreground
-                        }
                         PanelButton {
                             id: sectionHeading
                             width: parent.width

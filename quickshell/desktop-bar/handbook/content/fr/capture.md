@@ -15,6 +15,8 @@ Après une capture, un bref éclair frappe la zone capturée. L’effet commence
 
 Vérifiez le contenu avant d’enregistrer ou de partager. L’OCR peut se tromper ; les QR codes peuvent contenir des identifiants privés ou des URL non fiables. Un éditeur d’images ne garantit pas la suppression du texte sensible en arrière-plan.
 
+Les captures enregistrées proposent des actions de notification pour ouvrir l’image ou son dossier de captures.
+
 ## Enregistrement et diffusion
 
 Enregistrement d’écran ouvre les commandes OBS. Elles utilisent votre scène configurée et l’autorisation de capture Wayland enregistrée ; la scène doit inclure une source d’écran visible. Démarrer la capture prépare OBS et ferme le panneau avant l’acquisition. Les commandes utilisent WebSocket d’OBS, désactivé par défaut : Eitr l’active avec un mot de passe la première fois qu’OBS est fermé. Si OBS est alors ouvert, fermez-le une fois et réessayez.

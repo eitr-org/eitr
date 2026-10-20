@@ -18,6 +18,8 @@ Review the selected content before saving or sharing. OCR results may be wrong;
 QR codes can contain private credentials or untrusted URLs. A screenshot editor
 is not a guarantee that sensitive background text has been removed.
 
+Saved screenshots offer notification actions to open the image or its screenshots folder.
+
 ## Recording and streaming
 
 Screen Recording opens OBS controls. They use your configured OBS scene and saved

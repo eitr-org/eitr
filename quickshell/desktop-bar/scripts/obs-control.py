@@ -445,14 +445,18 @@ def announce_saved(command, stopped_at):
                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
 
 
-def notify_saved(path):
+def notify_saved(path, screenshot=False, copied=False):
     path = Path(path)
-    chosen = subprocess.run(["notify-send", "--app-name=OBS Studio", "--icon=com.obsproject.Studio", "--wait",
-                             "--action=folder=Open folder", "--action=copy=Copy path",
-                             tr('Recording saved'), path.name], capture_output=True, text=True).stdout.strip()
-    if chosen == "folder":
-        subprocess.Popen(["xdg-open", str(path.parent)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-                         start_new_session=True)
+    title = tr('Screenshot saved and copied') if copied else tr('Screenshot saved')
+    actions = (["--action=open=" + tr('Open image'), "--action=folder=" + tr('Open folder')]
+               if screenshot else ["--action=folder=Open folder", "--action=copy=Copy path"])
+    chosen = subprocess.run(["notify-send", "--app-name=" + ("Screenshot" if screenshot else "OBS Studio"),
+                             "--icon=" + (str(path) if screenshot else "com.obsproject.Studio"), "--wait",
+                             *actions, title if screenshot else tr('Recording saved'), path.name],
+                            capture_output=True, text=True).stdout.strip()
+    if chosen in {"folder", "open"}:
+        subprocess.Popen(["xdg-open", str(path.parent if chosen == "folder" else path)],
+                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
     elif chosen == "copy":
         subprocess.run(["wl-copy", "--", str(path)], check=False)
 
@@ -590,6 +594,8 @@ if __name__ == "__main__":
             print(json.dumps(save_capture_option(sys.argv[2], sys.argv[3])))
         elif action == "notify-saved":
             notify_saved(sys.argv[2])
+        elif action == "notify-screenshot":
+            notify_saved(sys.argv[2], screenshot=True, copied=len(sys.argv) > 3 and sys.argv[3] == "both")
         elif action == "default-folder":
             if not obs_running():
                 default_scene_collection()
