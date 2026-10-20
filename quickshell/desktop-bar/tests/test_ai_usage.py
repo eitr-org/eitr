@@ -35,7 +35,6 @@ class ClaudeLimitsTests(unittest.TestCase):
 
     def test_the_panel_shows_only_limits(self):
         qml = (ROOT / "AiUsageMenu.qml").read_text()
-        self.assertIn('text: Eitr.I18n.tr("LIMITS")', qml)
         for removed in ("TOKEN", "ai-local-stats", "detailsExpanded"):
             self.assertNotIn(removed, qml)
         self.assertFalse((ROOT / "scripts/ai-local-stats.py").exists())
@@ -130,12 +129,13 @@ class ProviderDetectionTests(unittest.TestCase):
         self.assertEqual(request.full_url, "https://cli-chat-proxy.grok.com/v1/billing?format=credits")
         self.assertEqual(data["windows"][0]["used"], 15)
 
-    def test_tabs_use_detected_names_and_hide_for_one_provider(self):
+    def test_all_detected_providers_have_foldable_sections(self):
         qml = (ROOT / "AiUsageMenu.qml").read_text()
-        self.assertIn("model: menu.availableProviders", qml)
-        self.assertIn("visible: menu.availableProviders.length > 1", qml)
-        self.assertIn('height: visible ? 32 : 0', qml)
-        self.assertNotIn('model: ["Claude", "Codex"]', qml)
+        self.assertIn("model: menu.usage.providers || []", qml)
+        self.assertIn("visible: !section.folded", qml)
+        self.assertIn("onClicked: menu.toggleProvider(section.modelData.name)", qml)
+        self.assertNotIn("id: tabs", qml)
+        self.assertIn('text: Eitr.I18n.tr("AI Usage")', qml)
 
 
 class LauncherTests(unittest.TestCase):

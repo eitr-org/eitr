@@ -8,7 +8,7 @@ Les cartes de notification affichent la date et l’heure locales d’arrivée s
 
 **Utilisation de l’IA** détecte les clients installés ou configurés. L’usage en cache apparaît d’abord ; actualiser ne lance ni connexion ni conversation. Les limites de chaque compte sont affichées ; les pourcentages indiquent la part d’une limite déjà utilisée.
 
-Activez ou désactivez les boutons des fournisseurs pour afficher plusieurs comptes ensemble ; au moins un reste actif. La sélection est enregistrée sur cet ordinateur et les clients qui ne sont plus détectés sont retirés.
+Chaque fournisseur détecté possède sa propre section avec son forfait, ses limites et ses erreurs. Cliquez sur un titre pour replier ou déplier cette seule section. Toutes sont dépliées au départ ; cet état est mémorisé sur cet ordinateur. Les longues listes défilent dans les limites de l’écran.
 
 **Météo** utilise l’emplacement par défaut et permet des recherches temporaires de villes. La sélection temporaire prend fin à la fermeture du panneau. Escape efface d’abord la recherche avant de fermer ; les unités de température suivent l’emplacement, avec une unité alternative à côté.
 

@@ -25,3 +25,5 @@ Führe `python3 tools/i18n-build.py --check` aus, erzeuge das Handbuch mit `pyth
 Aktualisiere nach der vollständigen Übersetzung eines geänderten Kapitels dessen Eintrag in `source-hashes.json` mit dem SHA-256 der englischen Quelle. Die Prüfung meldet geänderte oder nicht erfasste Quellen; das bloße Neugenerieren der Kataloge bestätigt keine Quelländerung.
 
 Die Zeile Systemstandard zeigt den aus `/etc/locale.conf` ermittelten nativen Namen: `LC_ALL`, dann `LC_MESSAGES` und `LANG`; leere Werte werden ignoriert. Sitzungseinstellungen werden nicht berücksichtigt. English erzwingt Englisch; Systemstandard folgt dem System. Kann die Systemkonfiguration nicht gelesen werden, bleibt die einfache Beschriftung erhalten.
+
+Die feste Sprache, die der Systemvorgabe entspricht, wird ausgeblendet, außer sie ist deine gespeicherte ausdrückliche Auswahl. So bleibt die aktuelle Auswahl sichtbar. Lässt sich die Systemvorgabe nicht ermitteln, werden alle Sprachen angezeigt.

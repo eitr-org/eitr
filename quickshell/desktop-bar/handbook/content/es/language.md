@@ -25,3 +25,5 @@ Ejecuta `python3 tools/i18n-build.py --check`, genera el manual con `python3 qui
 Después de traducir por completo un capítulo modificado, actualiza su entrada en `source-hashes.json` con el SHA-256 de la fuente inglesa. La comprobación detecta fuentes modificadas o sin registrar; regenerar los catálogos no confirma los cambios de la fuente.
 
 La fila Predeterminado del sistema muestra el nombre nativo resuelto desde `/etc/locale.conf`: `LC_ALL`, después `LC_MESSAGES` y `LANG`, ignorando valores vacíos. Ignora las sustituciones de la sesión. English fuerza el inglés; Predeterminado del sistema sigue al sistema. Si no se puede leer la configuración regional, conserva la etiqueta simple.
+
+El idioma fijo que coincide con el predeterminado del sistema se oculta, salvo si es tu elección explícita guardada, para mantener visible la opción actual. Si no se puede determinar el idioma del sistema, se muestran todos los idiomas.

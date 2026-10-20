@@ -8,7 +8,7 @@ Benachrichtigungskarten zeigen unter dem Titel das lokale Eingangsdatum und die 
 
 **KI-Nutzung** erkennt installierte oder konfigurierte Clients. Zuerst erscheint die zwischengespeicherte Nutzung; Aktualisieren startet weder Anmeldung noch Gespräche. Die Grenzen jedes Kontos werden angezeigt. Prozentwerte geben den bereits verbrauchten Anteil eines Limits an.
 
-Schalte die Anbieter über ihre Schaltflächen ein oder aus, um mehrere Konten zusammen anzuzeigen; mindestens eines bleibt aktiv. Die Auswahl wird auf diesem Rechner gespeichert. Nicht mehr erkannte Clients werden entfernt.
+Jeder erkannte Anbieter hat einen eigenen Abschnitt mit Tarif, Limits und Fehlern. Klicke auf eine Überschrift, um nur diesen Abschnitt ein- oder auszuklappen. Anfangs sind alle ausgeklappt; der Zustand wird auf diesem Rechner gespeichert. Lange Listen lassen sich innerhalb des Bildschirms scrollen.
 
 **Wetter** verwendet den Standardstandort und erlaubt vorübergehende Stadtsuchen. Die temporäre Auswahl endet beim Schließen des Panels. Escape leert zuerst die Stadtsuche und schließt erst danach. Temperatureinheiten richten sich nach dem Standort; daneben steht eine alternative Einheit.
 

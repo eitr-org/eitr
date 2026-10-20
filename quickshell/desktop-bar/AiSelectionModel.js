@@ -1,14 +1,19 @@
 .pragma library
 
-function reconcile(available, selected) {
-    var enabled = Array.isArray(selected) ? selected : [];
-    var result = available.filter(function(name) { return enabled.indexOf(name) !== -1; });
-    return result.length || !available.length ? result : [available[0]];
+function restore(settings) {
+    return settings && settings.version === 2 && Array.isArray(settings.foldedProviders)
+        ? settings.foldedProviders : [];
 }
 
-function toggle(available, selected, name) {
-    var current = reconcile(available, selected);
+function reconcile(available, folded) {
+    var collapsed = Array.isArray(folded) ? folded : [];
+    return available.filter(function(name) { return collapsed.indexOf(name) !== -1; });
+}
+
+function toggle(available, folded, name) {
+    var current = reconcile(available, folded);
     if (available.indexOf(name) === -1) return current;
-    if (current.indexOf(name) === -1) return reconcile(available, current.concat([name]));
-    return current.length === 1 ? current : current.filter(function(providerName) { return providerName !== name; });
+    return current.indexOf(name) === -1
+        ? reconcile(available, current.concat([name]))
+        : current.filter(function(providerName) { return providerName !== name; });
 }

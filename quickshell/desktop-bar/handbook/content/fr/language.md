@@ -25,3 +25,5 @@ Exécutez `python3 tools/i18n-build.py --check`, générez le manuel avec `pytho
 Après avoir traduit intégralement un chapitre modifié, mettez à jour son entrée dans `source-hashes.json` avec le SHA-256 de la source anglaise. La vérification signale les sources modifiées ou non enregistrées ; régénérer les catalogues ne valide jamais un changement de source.
 
 La ligne Par défaut du système affiche le nom natif résolu depuis `/etc/locale.conf` : `LC_ALL`, puis `LC_MESSAGES` et `LANG`, en ignorant les valeurs vides. Elle ignore les substitutions de la session. English impose l’anglais ; Par défaut du système suit le système. Si la configuration régionale ne peut pas être lue, la ligne conserve son libellé simple.
+
+La langue fixe correspondant au choix par défaut du système est masquée, sauf si elle est votre choix explicite enregistré, afin que le choix actuel reste visible. Si la langue du système ne peut pas être déterminée, toutes les langues restent affichées.

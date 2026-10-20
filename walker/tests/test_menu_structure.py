@@ -146,6 +146,37 @@ class MenuStructureTests(unittest.TestCase):
                                     capture_output=True, text=True, check=True)
             self.assertEqual(result.stdout.strip(), expected)
 
+    def test_language_duplicate_hidden_except_saved_choice(self):
+        import os
+        import subprocess
+        for system_name, saved, hidden in [
+            ("English", "system", "en"),
+            ("Português (Brasil)", "system", "pt_BR"),
+            ("English", "en", ""),
+            ("Português (Brasil)", "pt_BR", ""),
+            ("", "system", ""),
+        ]:
+            with self.subTest(system_name=system_name, saved=saved):
+                harness = f"""
+                    io.popen = function(command)
+                        return {{read = function()
+                            if command:find("system%-name") then return "{system_name}" end
+                            return "{saved}"
+                        end, close = function() return true end}}
+                    end
+                    dofile("elephant/menus/language.lua")
+                    local count = 0
+                    for _, entry in ipairs(GetEntries()) do
+                        assert(entry.Value ~= "{hidden}")
+                        count = count + 1
+                        if entry.Value == "{saved}" then assert(entry.State[1] == "current") end
+                    end
+                    assert(count == {5 if hidden else 6})
+                """
+                environment = dict(os.environ, EITR_LIBRARY_ROOT=str(ROOT / "distro/lib"), EITR_CODE_ROOT=str(ROOT))
+                subprocess.run(["lua", "-e", harness], cwd=ROOT, env=environment,
+                               capture_output=True, text=True, check=True)
+
     def ai_menu(self, installed):
         """Run elephant/menus/ai-tools.lua with software.py's answer replaced."""
         import os

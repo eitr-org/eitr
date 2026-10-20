@@ -402,9 +402,6 @@
     "Keyboard Layout": [
       "quickshell/desktop-bar/KeyboardLayoutMenu.qml"
     ],
-    "LIMITS": [
-      "quickshell/desktop-bar/AiUsageMenu.qml"
-    ],
     "LIVE": [
       "quickshell/desktop-bar/RecordingMenu.qml"
     ],
