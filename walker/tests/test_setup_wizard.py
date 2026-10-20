@@ -1,11 +1,14 @@
 """Drive the shared wizard without curses initialization or a terminal."""
 import curses
+import io
+import sys
 import importlib.util
 from pathlib import Path
 import unittest
 from unittest.mock import Mock, patch
 
 from home_isolation import setUpModule, tearDownModule
+import eitr_wizard
 from eitr_wizard import Cancelled, SetupWizard, Step
 
 
@@ -25,6 +28,38 @@ class SetupWizardTests(unittest.TestCase):
         wizard.body_width = 70
         wizard.panel_bottom = 33
         return wizard
+
+    def test_blank_text_is_not_translated_or_drawn(self):
+        wizard = object.__new__(SetupWizard)
+        wizard.screen = Mock()
+        with patch.object(eitr_wizard, 'tr') as translate:
+            wizard.text(1, 1, '')
+        translate.assert_not_called()
+        wizard.screen.addnstr.assert_not_called()
+
+    def test_output_is_flushed_before_curses_and_replayed_only_after_teardown(self):
+        output, errors = io.StringIO(), io.StringIO()
+
+        def wrapper(callback):
+            result = callback(object())
+            self.assertEqual(output.getvalue(), 'before')
+            self.assertEqual(errors.getvalue(), '')
+            return result
+
+        def run():
+            print('during')
+            print('diagnostic', file=sys.stderr)
+            return {'name': 'example'}
+
+        with patch.object(eitr_wizard.sys, 'stdout', output), \
+                patch.object(eitr_wizard.sys, 'stderr', errors), \
+                patch.object(eitr_wizard.curses, 'wrapper', side_effect=wrapper), \
+                patch.object(eitr_wizard, 'SetupWizard') as constructor:
+            output.write('before')
+            constructor.return_value.run.side_effect = run
+            self.assertEqual(eitr_wizard.collect('Setup', []), {'name': 'example'})
+        self.assertEqual(output.getvalue(), 'beforeduring\n')
+        self.assertEqual(errors.getvalue(), 'diagnostic\n')
 
     def test_review_requires_all_answers_and_can_revisit_any_step(self):
         wizard = self.wizard([Step('name', 'Name'), Step('scope', 'Scope')], [
@@ -49,6 +84,40 @@ class SetupWizardTests(unittest.TestCase):
                                Step('choice', 'Choice', options=[('Alpha', 1), ('Beta', 2)])],
                               ['\n', '\n', '\n', 'b', '\n', '\n'])
         self.assertEqual(wizard.run(), {'optional': '', 'choice': 2})
+
+    def test_review_uses_short_names_and_explicit_empty_value(self):
+        wizard = self.wizard([Step('icon', 'Icon address', optional=True,
+                                   question='Where is the icon?', description='Optional example')],
+                             ['\n', '\n', '\n'])
+        self.assertEqual(wizard.run(), {'icon': ''})
+        rendered = [str(call.args[2]) for call in wizard.text.call_args_list]
+        self.assertIn('Icon address: (none)', rendered)
+        self.assertNotIn('Where is the icon?: ', rendered)
+
+    def test_layout_bounds_for_every_language_and_terminal_size(self):
+        root = Path(__file__).resolve().parents[2]
+        for locale in ('en', 'pt_BR', 'es', 'de', 'fr'):
+            for height, width in ((35, 110), (24, 80)):
+                with self.subTest(locale=locale, size=(width, height)), \
+                        patch.dict('os.environ', {'LC_ALL': '', 'LC_MESSAGES': locale}), \
+                        patch.object(eitr_wizard, 'curses') as terminal:
+                    terminal.color_pair.return_value = 0
+                    terminal.can_change_color.return_value = False
+                    screen = Mock()
+                    screen.getmaxyx.return_value = (height, width)
+                    wizard = SetupWizard(screen, 'A very long dashboard title ' * 8,
+                                         [Step(str(index), 'Author name') for index in range(8)])
+                    wizard.frame(wizard.title)
+                    wizard.text(15, wizard.body_x, 'Long content ' * 40)
+                    for call in screen.addnstr.call_args_list:
+                        row, column, value, limit, _ = call.args
+                        self.assertLess(row, height - 1)
+                        self.assertLessEqual(column + len(value), width - 1)
+                        self.assertLessEqual(len(value), limit)
+                        if column == wizard.body_x and row >= 8:
+                            self.assertLessEqual(column + len(value), wizard.body_x + wizard.body_width)
+                    self.assertGreaterEqual(wizard.body_width, 30)
+                    self.assertTrue(any('…' in call.args[2] for call in screen.addnstr.call_args_list))
 
     def test_cancel_at_navigation_field_choice_and_review(self):
         for keys in (['\x1b'], ['\n', '\x1b'], ['\n', 'a', '\n', '\x1b'], ['\x03']):

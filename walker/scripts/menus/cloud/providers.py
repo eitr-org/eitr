@@ -26,6 +26,9 @@ from eitr_wizard import Step, collect as collect_setup
 from eitr_i18n import tr
 from eitr_forms import Terminal
 
+sys.path.insert(0, str(code("walker/scripts/actions/install")))
+from software import confirm
+
 PROVIDERS = json.loads(Path(__file__).with_name("providers.json").read_text())
 SCRIPT = code("walker/scripts/menus/cloud/providers.py")
 
@@ -50,7 +53,7 @@ def delete_account(provider, name):
             raise ValueError(tr('Account is in use'))
         message = tr('Delete {provider} account {account}? The provider’s sign-in for this account on this computer will be removed. The remote account itself is not affected.',
                      provider=PROVIDERS[provider]['name'], account=name)
-        if not Terminal().confirm(message, default=False):
+        if not confirm(message):
             return False
         account_path(provider, name)
         if any(path.is_symlink() for path in directory.rglob('*')):
@@ -222,7 +225,7 @@ def entries(provider):
     info = PROVIDERS[provider]
     rows = []
     for name in accounts(provider):
-        rows.append((name, info['name'] + ' / ' + selection(provider, name).get('context', name), shlex.join(['python3', str(SCRIPT), provider, 'open', name]), terminal(provider, 'delete', name)))
+        rows.append((name, info['name'] + ' / ' + selection(provider, name).get('context', name), shlex.join(['python3', str(SCRIPT), provider, 'open', name]), shlex.join(['python3', str(SCRIPT), provider, 'delete', name])))
     rows.append((tr('Add {provider} Account', provider=info['name']), tr('Name it, then sign in'),
                  terminal(provider, 'add')))
     return rows
@@ -366,7 +369,7 @@ def open_account(provider, name):
         tr('Open Console'): ['xdg-open', PROVIDERS[provider]['console']],
         tr('Sign In'): shlex.split(terminal(provider, 'login', name)),
         tr('CLI Help'): shlex.split(terminal(provider, 'help', name)),
-        tr('Delete Account'): shlex.split(terminal(provider, 'delete', name)),
+        tr('Delete Account'): ['python3', str(SCRIPT), provider, 'delete', name],
     }
     if provider in ('digitalocean', 'hetzner', 'oracle', 'ibm'):
         choices[tr('List Accounts')] = shlex.split(terminal(provider, 'list', name))

@@ -73,6 +73,8 @@ def translator(locale=None, root=None):
 
 
 def tr(message, **values):
+    if not message:
+        return ""
     translated = translator().gettext(message)
     return translated.format(**values) if values else translated
 
@@ -117,6 +119,8 @@ def rendered(message):
 
 
 def ntr(singular, plural, count, **values):
+    if not (singular if count == 1 else plural):
+        return ""
     return translator().ngettext(singular, plural, count).format(count=count, **values)
 
 
@@ -165,7 +169,7 @@ def main(argv=None):
         if values:
             print(tr(arguments.message, **values), end="")
             return
-        print(translator().ngettext(arguments.message, arguments.plural, arguments.count)
+        print(ntr(arguments.message, arguments.plural, arguments.count)
               if arguments.plural is not None else rendered(arguments.message), end="")
     else:
         parser.error("Supply a message, --info or --table")

@@ -109,10 +109,10 @@ def remove(dashboard_id):
 def interactive():
     web = web_addresses()
     answers = collect_setup(tr('Add a monitoring dashboard: a saved address opened from Development > Monitoring.'), [
-        Step('service', tr('Service number (Enter to cancel): '), options=[
+        Step('service', tr('Service'), options=[
             (tr('Other') if key == 'other' else SERVICES[key]['label'], key) for key in SERVICES]),
-        Step('name', tr('Name (for example Production): '), validator=web.clean_name),
-        Step('url', tr('Address (for example {example}): ', example='https://example.com'), validator=web.clean_url),
+        Step('name', tr('Name'), description=tr('For example: Production'), validator=web.clean_name),
+        Step('url', tr('Address'), description=tr('For example: {example}', example='https://example.com'), validator=web.clean_url),
     ])
     service, name, url = (answers[key] for key in ('service', 'name', 'url'))
     name, url = add(service, name, url)

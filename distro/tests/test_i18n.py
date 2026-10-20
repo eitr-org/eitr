@@ -20,6 +20,14 @@ spec.loader.exec_module(builder)
 
 
 class LocaleTests(unittest.TestCase):
+    def test_empty_messages_never_return_catalog_metadata(self):
+        for locale in ("en", "pt_BR", "es", "de", "fr"):
+            with patch.dict(os.environ, LC_ALL=locale):
+                self.assertEqual(eitr_i18n.tr(""), "")
+                self.assertEqual(eitr_i18n.rendered(""), "")
+                self.assertEqual(eitr_i18n.ntr("", "plural", 1), "")
+                self.assertEqual(eitr_i18n.ntr("singular", "", 2), "")
+
     def test_all_registered_interface_messages_have_complete_catalogs(self):
         sources = builder.extract()
         for locale in ("pt_BR", "es", "de", "fr"):

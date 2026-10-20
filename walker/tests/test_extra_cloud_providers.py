@@ -3,6 +3,8 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import shlex
+import tomllib
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -42,6 +44,18 @@ class ExtraCloudProviderTests(unittest.TestCase):
                 directory = self.module.account_path(provider, 'production')
                 directory.mkdir(parents=True)
                 self.assertEqual(self.module.entries(provider)[0][0], 'production')
+
+    def test_delete_actions_run_directly_and_close_walker(self):
+        settings = tomllib.loads((ROOT / 'walker/config.toml').read_text())
+        actions = settings['providers']['actions']
+        for provider in self.module.PROVIDERS:
+            directory = self.module.account_path(provider, 'review')
+            directory.mkdir(parents=True)
+            command = shlex.split(self.module.entries(provider)[0][3])
+            self.assertEqual(command, ['python3', str(self.module.SCRIPT), provider, 'delete', 'review'])
+            rows = actions['menus:' + provider + '-contexts']
+            deletion = next(row for row in rows if row['action'] == 'cloud_delete')
+            self.assertEqual(deletion['after'], 'Close')
 
     def test_invalid_and_symlink_accounts_are_rejected(self):
         for name in ('../owner', '/tmp/account', 'bad\tname', '-option', 'UPPER'):
@@ -183,14 +197,14 @@ class ExtraCloudProviderTests(unittest.TestCase):
             (directory / 'token').write_text('fixture')
             sibling = self.module.account_path(provider, 'keep-me')
             sibling.mkdir()
-            with patch.object(self.module, 'Terminal') as terminal:
-                terminal.return_value.confirm.return_value = False
+            with patch.object(self.module, 'confirm') as confirmation:
+                confirmation.return_value = False
                 self.assertFalse(self.module.delete_account(provider, 'delete-me'))
                 self.assertEqual((directory / 'token').read_text(), 'fixture')
-                message = terminal.return_value.confirm.call_args.args[0]
+                message = confirmation.call_args.args[0]
                 self.assertIn(self.module.PROVIDERS[provider]['name'], message)
                 self.assertIn('delete-me', message)
-                terminal.return_value.confirm.return_value = True
+                confirmation.return_value = True
                 self.assertTrue(self.module.delete_account(provider, 'delete-me'))
             self.assertFalse(directory.exists())
             self.assertTrue(sibling.is_dir())
@@ -201,16 +215,16 @@ class ExtraCloudProviderTests(unittest.TestCase):
     def test_delete_refuses_symlinks_and_active_actions(self):
         directory = self.module.account_path('cloudflare', 'active')
         directory.mkdir(parents=True)
-        with self.module.account_lock(directory), patch.object(self.module, 'Terminal') as terminal:
+        with self.module.account_lock(directory), patch.object(self.module, 'confirm') as confirmation:
             with self.assertRaises(ValueError):
                 self.module.delete_account('cloudflare', 'active')
-            terminal.assert_not_called()
+            confirmation.assert_not_called()
         with patch.object(self.module.Path, 'cwd', return_value=directory):
             with self.assertRaises(ValueError):
                 self.module.delete_account('cloudflare', 'active')
         (directory / 'linked').symlink_to(self.home)
-        with patch.object(self.module, 'Terminal') as terminal:
-            terminal.return_value.confirm.return_value = True
+        with patch.object(self.module, 'confirm') as confirmation:
+            confirmation.return_value = True
             with self.assertRaises(ValueError):
                 self.module.delete_account('cloudflare', 'active')
         self.assertTrue(directory.exists())
@@ -281,8 +295,8 @@ class ExtraCloudProviderTests(unittest.TestCase):
             (directory / 'keep').write_text('replacement')
             return True
 
-        with patch.object(self.module, 'Terminal') as terminal:
-            terminal.return_value.confirm.side_effect = replace_folder
+        with patch.object(self.module, 'confirm') as confirmation:
+            confirmation.side_effect = replace_folder
             with self.assertRaises(ValueError):
                 self.module.delete_account('cloudflare', 'replace')
         self.assertTrue(original.is_dir())

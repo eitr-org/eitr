@@ -88,6 +88,9 @@ msgstr "  Host teilen sich daher keinen Schlüsselbundeintrag. Geben Sie dieses 
 msgid "'{spoken}' is not a time: try 10m, 1h30m or 18:30."
 msgstr "'{spoken}' ist keine gültige Zeitangabe: Versuchen Sie 10m, 1h30m oder 18:30."
 
+msgid "(none)"
+msgstr "(keine)"
+
 msgid "/boot is a separate partition: snapshot entries boot the current kernel. After a kernel update, restore the matching boot archive as RECOVERY.md describes."
 msgstr "/boot ist eine eigene Partition: Snapshot-Einträge starten den aktuellen Kernel. Stellen Sie nach einem Kernel-Update das passende Boot-Archiv gemäß RECOVERY.md wieder her."
 
@@ -187,11 +190,8 @@ msgstr "Azure-Konto hinzufügen"
 msgid "Add {provider} Account"
 msgstr "{provider}-Konto hinzufügen"
 
-msgid "Address (for example netflix.com): "
-msgstr "Adresse (z. B. netflix.com): "
-
-msgid "Address (for example {example}): "
-msgstr "Adresse (zum Beispiel {example}): "
+msgid "Address"
+msgstr "Adresse"
 
 msgid "An assistants server already exists; settings were left unchanged."
 msgstr "Ein Server assistants ist bereits vorhanden; die Einstellungen bleiben unverändert."
@@ -234,6 +234,12 @@ msgstr "Zusammenarbeit der Assistenten: {error}"
 
 msgid "Authentication updated for {authentication_methods}. Password fallback retained. Backup: {backup}"
 msgstr "Authentifizierung für {authentication_methods} aktualisiert. Die Passwortanmeldung bleibt erhalten. Sicherung: {backup}"
+
+msgid "Author email"
+msgstr "Autoren-E-Mail"
+
+msgid "Author name"
+msgstr "Autorenname"
 
 msgid "Backup of the current Limine menu: {backup}"
 msgstr "Sicherung des aktuellen Limine-Menüs: {backup}"
@@ -529,6 +535,9 @@ msgstr "Datenbanken"
 msgid "Default"
 msgstr "Standard"
 
+msgid "Default account"
+msgstr "Standardkonto"
+
 msgid "Delete Account"
 msgstr "Konto löschen"
 
@@ -703,6 +712,9 @@ msgstr "Firewalls"
 msgid "Flatpak apps could not be updated; the system update itself finished."
 msgstr "Flatpak-Anwendungen konnten nicht aktualisiert werden; die Systemaktualisierung wurde abgeschlossen."
 
+msgid "Folder"
+msgstr "Ordner"
+
 msgid "Folder for {label}"
 msgstr "Ordner für {label}"
 
@@ -723,6 +735,15 @@ msgstr "Schriftdateien in den Papierkorb verschoben; sie können dort wiederherg
 
 msgid "Fonts"
 msgstr "Schriftarten"
+
+msgid "For example: Netflix"
+msgstr "Zum Beispiel: Netflix"
+
+msgid "For example: Production"
+msgstr "Zum Beispiel: Produktion"
+
+msgid "For example: {example}"
+msgstr "Zum Beispiel: {example}"
 
 msgid "Found in your Git configuration"
 msgstr "In Ihrer Git-Konfiguration gefunden"
@@ -781,8 +802,8 @@ msgstr "Wie soll Eitr {disk} verwenden?"
 msgid "INSTALL STEPS"
 msgstr "INSTALLATIONSSCHRITTE"
 
-msgid "Icon image address (optional; press Enter to detect it): "
-msgstr "Adresse des Symbolbilds (optional; Enter zur Erkennung): "
+msgid "Icon address"
+msgstr "Symboladresse"
 
 msgid "Idle; ping to check"
 msgstr "Inaktiv; mit Ping prüfen"
@@ -1012,12 +1033,6 @@ msgstr "{missing_files} fehlt. Installieren Sie zuerst die unter distro/bootload
 msgid "Name"
 msgstr "Name"
 
-msgid "Name (for example Netflix): "
-msgstr "Name (z. B. Netflix): "
-
-msgid "Name (for example Production): "
-msgstr "Name (zum Beispiel Produktion): "
-
 msgid "Name it, then sign in"
 msgstr "Benennen und anmelden"
 
@@ -1180,6 +1195,9 @@ msgstr "Öffnen Sie {path}, um den Bericht zu lesen."
 msgid "Opened the complete build repository: review PKGBUILD, .install files and patches."
 msgstr "Vollständiges Build-Repository geöffnet: Prüfen Sie PKGBUILD, .install-Dateien und Patches."
 
+msgid "Optional; press Enter to detect it."
+msgstr "Optional; zur Erkennung Enter drücken."
+
 msgid "Original configuration restored for the next boot; current networking is unchanged."
 msgstr "Ursprüngliche Konfiguration für den nächsten Start wiederhergestellt; das aktuelle Netzwerk bleibt unverändert."
 
@@ -1213,8 +1231,8 @@ msgstr "Tailscale-Adresse oder Name der Gegenstelle: "
 msgid "Pick a reminder to cancel"
 msgstr "Erinnerung zum Abbrechen auswählen"
 
-msgid "Please enlarge the console to at least 80 columns and 28 rows."
-msgstr "Vergrößern Sie die Konsole auf mindestens 80 Spalten und 28 Zeilen."
+msgid "Please enlarge the console to at least 80 columns and 24 rows."
+msgstr "Bitte die Konsole auf mindestens 80 Spalten und 24 Zeilen vergrößern."
 
 msgid "Please enter a valid value."
 msgstr "Bitte einen gültigen Wert eingeben."
@@ -1426,6 +1444,9 @@ msgstr "Derzeit aktiv: {backends}"
 msgid "SDDM was not restarted. Log out or reboot to see the login design."
 msgstr "SDDM wurde nicht neu gestartet. Melden Sie sich ab oder starten Sie neu, um das Anmeldedesign zu sehen."
 
+msgid "SSH key"
+msgstr "SSH-Schlüssel"
+
 msgid "SSH key references must be absolute paths"
 msgstr "SSH-Schlüssel müssen mit absoluten Pfaden angegeben werden"
 
@@ -1486,11 +1507,11 @@ msgstr "Wählen Sie die Zeile oben aus, um sie zu kopieren."
 msgid "Servers"
 msgstr "Server"
 
+msgid "Service"
+msgstr "Dienst"
+
 msgid "Service Instances"
 msgstr "Dienstinstanzen"
-
-msgid "Service number (Enter to cancel): "
-msgstr "Nummer des Dienstes (Eingabe zum Abbrechen): "
 
 msgid "Set Sunshine’s password first. Enter the PIN shown by Moonlight only for a device you trust."
 msgstr "Legen Sie zuerst das Sunshine-Passwort fest. Geben Sie die Moonlight-PIN nur für ein vertrautes Gerät ein."
@@ -1677,6 +1698,9 @@ msgstr "Aufgabe fehlgeschlagen."
 
 msgid "Template partition sizes must be in MiB"
 msgstr "Template partition sizes must be in MiB"
+
+msgid "Tenant"
+msgstr "Mandant"
 
 msgid "Tenant ID or domain"
 msgstr "Mandanten-ID oder Domäne"

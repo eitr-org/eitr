@@ -1,4 +1,7 @@
 """Shared console rendering and side-effect-free setup forms."""
+from contextlib import redirect_stdout, redirect_stderr
+import io
+import sys
 import curses
 from dataclasses import dataclass
 import importlib.util
@@ -30,6 +33,8 @@ class Wizard:
         self.step = 0
         self.body_width = max(1, screen.getmaxyx()[1] - 26)
         curses.curs_set(0)
+        # Esc cancels at once; curses otherwise waits a second to tell it from arrow keys.
+        curses.set_escdelay(25)
         curses.start_color()
         # Use the EITR identity theme, like the boot splash.
         palette = tomllib.loads((self.root / "themes/norse/colors.toml").read_text())
@@ -53,9 +58,19 @@ class Wizard:
             pass
 
     def text(self, y, x, value, style=1):
+        if not value:
+            return
         height, width = self.screen.getmaxyx()
         if 0 <= y < height - 1 and 0 <= x < width - 1:
-            self.screen.addnstr(y, x, tr(str(value)), width - x - 1, curses.color_pair(style))
+            limit = width - x - 1
+            if getattr(self, 'body_x', None) is not None and x >= self.body_x:
+                if y >= self.panel_bottom:
+                    return
+                limit = min(limit, self.body_x + self.body_width - x)
+            value = tr(str(value))
+            value = value if len(value) <= limit else value[:max(0, limit - 1)] + '…'
+            if limit > 0:
+                self.screen.addnstr(y, x, value, limit, curses.color_pair(style))
 
     def box(self, y, x, height, width):
         self.text(y, x, "┌" + "─" * (width - 2) + "┐", 2)
@@ -67,29 +82,46 @@ class Wizard:
     def frame(self, title, help_text=mark("Arrows: move  Enter: select  Type: search  Esc: back")):
         self.screen.erase()
         height, width = self.screen.getmaxyx()
-        if height < 28 or width < 80:
-            self.text(1, 1, tr('Please enlarge the console to at least 80 columns and 28 rows.'))
+        self.body_x = None
+        if height < 24 or width < 80:
+            self.text(1, 1, tr('Please enlarge the console to at least 80 columns and 24 rows.'))
             self.screen.refresh()
-            return 7, 24
-        for y, row in enumerate(self.logo, 1):
+            self.panel_bottom = height - 3
+            self.body_width = max(1, width - 4)
+            return 3, 2
+        compact = height < 30
+        for y, row in enumerate(self.logo[:3] if compact else self.logo[:7], 1):
             self.text(y, max(0, (width - len(row)) // 2), row, 2)
         bar_width = 28
         progress = round(bar_width * self.step / len(self.steps))
-        self.text(9, (width - bar_width) // 2, "═" * progress, 2)
-        self.text(9, (width - bar_width) // 2 + progress, "─" * (bar_width - progress))
-        start_y = 12
-        start_x = max(2, (width - 90) // 2)
-        self.box(start_y - 1, start_x - 1, len(self.steps) + 5, 21)
-        self.box(start_y - 1, start_x + 22, min(24, height - start_y - 2), min(78, width - start_x - 24))
-        self.panel_bottom = start_y - 2 + min(24, height - start_y - 2)
+        progress_y = 5 if compact else 9
+        self.text(progress_y, (width - bar_width) // 2, "═" * progress, 2)
+        self.text(progress_y, (width - bar_width) // 2 + progress, "─" * (bar_width - progress))
+        start_y = 8 if compact else 12
+        start_x = 2
+        left_width = min(max(len(tr(self.heading)) + 4,
+                             max(len(tr(name)) + 5 for name in self.steps)), width // 2 - 4)
+        panel_height = height - start_y - 2
+        right_x = start_x + left_width + 1
+        right_width = width - right_x - 2
+        self.box(start_y - 1, start_x - 1, panel_height, left_width)
+        self.box(start_y - 1, right_x, panel_height, right_width)
+        self.panel_bottom = start_y + panel_height - 2
         self.text(start_y, start_x + 1, self.heading, 2)
         for index, name in enumerate(self.steps):
-            self.text(start_y + 2 + index, start_x, f"{'>' if index == self.step else ' '} {tr(name)[:17] if getattr(self, 'truncate_steps', False) else tr(name)}",
+            label = tr(name)
+            available = left_width - 5
+            label = label if len(label) <= available else label[:available - 1] + '…'
+            self.text(start_y + 2 + index, start_x, f"{'>' if index == self.step else ' '} {label}",
                       2 if index == self.step else 1)
-        self.text(start_y, start_x + 24, title, 2)
-        self.body_width = min(74, width - start_x - 28)
-        self.text(height - 2, max(1, (width - len(help_text)) // 2), help_text)
-        return start_y + 2, start_x + 24
+        self.body_x = right_x + 2
+        self.body_width = right_width - 4
+        self.text(start_y, self.body_x, title, 2)
+        # Footer belongs to the screen, outside the content clipping rectangle.
+        self.body_x = None
+        self.text(height - 2, 2, help_text)
+        self.body_x = right_x + 2
+        return start_y + 2, self.body_x
 
     def choose(self, title, options, note="", details=None):
         """Pick one option; details(value) lists lines about the highlighted one."""
@@ -171,6 +203,7 @@ class Step:
     secret: bool = False
     optional: bool = False
     description: str = ''
+    question: str = ''
 
 
 class SetupWizard(Wizard):
@@ -179,7 +212,6 @@ class SetupWizard(Wizard):
     def __init__(self, screen, title, steps):
         super().__init__(screen, tuple(step.label for step in steps) + (tr('Review'),))
         self.allow_back = True
-        self.truncate_steps = True
         self.cancel_keys = ('\x1b', '\x03')
         self.title = title
         self.fields = steps
@@ -196,12 +228,13 @@ class SetupWizard(Wizard):
             options = step.options(self.values) if callable(step.options) else step.options
             current = self.values.get(step.key, self.default(step))
             self.choice_index = next((index for index, (_, value) in enumerate(options) if value == current), 0)
-            return self.choose(step.label, options, step.description)
+            return self.choose(step.question or step.label, options, step.description)
         value = self.values.get(step.key, self.default(step))
         error = ''
         while True:
-            y, x = self.frame(step.label)
-            self.text(y, x, step.description)
+            y, x = self.frame(step.question or step.label)
+            for offset, line in enumerate(textwrap.wrap(step.description, self.body_width)):
+                self.text(y + offset, x, line)
             self.text(y + 4, x, ('*' * len(value) if step.secret else value) + '_', 2)
             self.text(y + 6, x, error, 2)
             self.screen.refresh()
@@ -238,9 +271,10 @@ class SetupWizard(Wizard):
                 if step.options is not None:
                     options = step.options(self.values) if callable(step.options) else step.options
                     value = next((label for label, choice in options if choice == value), value)
-                self.text(y, x, step.label, 2)
-                self.text(y + 2, x, '*' * len(str(value)) if step.secret else str(value))
-                self.text(y + 4, x, step.description)
+                self.text(y, x, step.question or step.label, 2)
+                self.text(y + 4, x, '*' * len(str(value)) if step.secret else str(value))
+                for offset, line in enumerate(textwrap.wrap(step.description, self.body_width)):
+                    self.text(y + 1 + offset, x, line)
             else:
                 bottom = getattr(self, 'panel_bottom', self.screen.getmaxyx()[0] - 3)
                 count = max(1, bottom - y - 4)
@@ -252,6 +286,7 @@ class SetupWizard(Wizard):
                         value = next((label for label, choice in options if choice == value), value)
                     if step.secret:
                         value = '*' * len(str(value))
+                    value = str(value) if value != '' else tr('(none)')
                     review_lines.extend(textwrap.wrap(f'{tr(step.label)}: {value}', self.body_width))
                 review_offset = min(review_offset, max(0, len(review_lines) - count))
                 for offset, line in enumerate(review_lines[review_offset:review_offset + count]):
@@ -304,7 +339,21 @@ class SetupWizard(Wizard):
 
 def collect(title, steps):
     """No filesystem, provider, or subprocess work happens during collection."""
+    sys.stdout.flush()
+    sys.stderr.flush()
+
+    output, errors = io.StringIO(), io.StringIO()
+
+    def run(screen):
+        with redirect_stdout(output), redirect_stderr(errors):
+            return SetupWizard(screen, title, steps).run()
+
     try:
-        return curses.wrapper(lambda screen: SetupWizard(screen, title, steps).run())
+        return curses.wrapper(run)
     except (Cancelled, KeyboardInterrupt):
         raise KeyboardInterrupt from None
+    finally:
+        sys.stdout.write(output.getvalue())
+        sys.stderr.write(errors.getvalue())
+        sys.stdout.flush()
+        sys.stderr.flush()

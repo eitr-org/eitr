@@ -3237,6 +3237,9 @@
     "'{spoken}' is not a time: try 10m, 1h30m or 18:30.": [
       "walker/scripts/actions/tools/reminders.py"
     ],
+    "(none)": [
+      "distro/lib/eitr_wizard.py"
+    ],
     "/boot is a separate partition: snapshot entries boot the current kernel. After a kernel update, restore the matching boot archive as RECOVERY.md describes.": [
       "distro/system/eitr-system.py"
     ],
@@ -3336,11 +3339,9 @@
     "Add {provider} Account": [
       "walker/scripts/menus/cloud/providers.py"
     ],
-    "Address (for example netflix.com): ": [
+    "Address": [
+      "walker/scripts/actions/development/monitoring.py",
       "walker/scripts/actions/install/webapps.py"
-    ],
-    "Address (for example {example}): ": [
-      "walker/scripts/actions/development/monitoring.py"
     ],
     "An assistants server already exists; settings were left unchanged.": [
       "distro/lib/eitr_collaboration.py"
@@ -3383,6 +3384,12 @@
     ],
     "Authentication updated for {authentication_methods}. Password fallback retained. Backup: {backup}": [
       "distro/system/eitr-system.py"
+    ],
+    "Author email": [
+      "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Author name": [
+      "walker/scripts/actions/development/git-accounts.py"
     ],
     "Backup of the current Limine menu: {backup}": [
       "distro/system/eitr-system.py"
@@ -3680,6 +3687,9 @@
     "Default": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Default account": [
+      "walker/scripts/actions/development/git-accounts.py"
+    ],
     "Delete Account": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -3856,6 +3866,9 @@
     "Flatpak apps could not be updated; the system update itself finished.": [
       "walker/scripts/actions/system/update.sh"
     ],
+    "Folder": [
+      "walker/scripts/actions/development/git-accounts.py"
+    ],
     "Folder for {label}": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
@@ -3876,6 +3889,16 @@
     ],
     "Fonts": [
       "walker/scripts/actions/style/fonts.py"
+    ],
+    "For example: Netflix": [
+      "walker/scripts/actions/install/webapps.py"
+    ],
+    "For example: Production": [
+      "walker/scripts/actions/development/monitoring.py"
+    ],
+    "For example: {example}": [
+      "walker/scripts/actions/development/monitoring.py",
+      "walker/scripts/actions/install/webapps.py"
     ],
     "Found in your Git configuration": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -3935,7 +3958,7 @@
     "INSTALL STEPS": [
       "distro/archinstall/installer-ui.py"
     ],
-    "Icon image address (optional; press Enter to detect it): ": [
+    "Icon address": [
       "walker/scripts/actions/install/webapps.py"
     ],
     "Idle; ping to check": [
@@ -4165,14 +4188,10 @@
       "distro/system/eitr-system.py"
     ],
     "Name": [
+      "walker/scripts/actions/development/monitoring.py",
+      "walker/scripts/actions/install/webapps.py",
       "walker/scripts/menus/cloud/accounts.py",
       "walker/scripts/menus/cloud/providers.py"
-    ],
-    "Name (for example Netflix): ": [
-      "walker/scripts/actions/install/webapps.py"
-    ],
-    "Name (for example Production): ": [
-      "walker/scripts/actions/development/monitoring.py"
     ],
     "Name it, then sign in": [
       "walker/scripts/menus/cloud/providers.py"
@@ -4339,6 +4358,9 @@
     "Opened the complete build repository: review PKGBUILD, .install files and patches.": [
       "walker/scripts/actions/install/software.py"
     ],
+    "Optional; press Enter to detect it.": [
+      "walker/scripts/actions/install/webapps.py"
+    ],
     "Original configuration restored for the next boot; current networking is unchanged.": [
       "distro/system/network-backend.py"
     ],
@@ -4372,7 +4394,7 @@
     "Pick a reminder to cancel": [
       "walker/scripts/actions/tools/reminders.py"
     ],
-    "Please enlarge the console to at least 80 columns and 28 rows.": [
+    "Please enlarge the console to at least 80 columns and 24 rows.": [
       "distro/lib/eitr_wizard.py"
     ],
     "Please enter a valid value.": [
@@ -4586,6 +4608,9 @@
     "SDDM was not restarted. Log out or reboot to see the login design.": [
       "quickshell/lockscreen/scripts/install-login.py"
     ],
+    "SSH key": [
+      "walker/scripts/actions/development/git-accounts.py"
+    ],
     "SSH key references must be absolute paths": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
@@ -4646,11 +4671,11 @@
     "Servers": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Service": [
+      "walker/scripts/actions/development/monitoring.py"
+    ],
     "Service Instances": [
       "walker/scripts/menus/cloud/providers.py"
-    ],
-    "Service number (Enter to cancel): ": [
-      "walker/scripts/actions/development/monitoring.py"
     ],
     "Set Sunshine’s password first. Enter the PIN shown by Moonlight only for a device you trust.": [
       "walker/scripts/actions/system/remote-access.py"
@@ -4837,6 +4862,9 @@
     ],
     "Template partition sizes must be in MiB": [
       "distro/archinstall/eitr-guided-install"
+    ],
+    "Tenant": [
+      "walker/scripts/menus/cloud/accounts.py"
     ],
     "Tenant ID or domain": [
       "walker/scripts/menus/cloud/accounts.py"

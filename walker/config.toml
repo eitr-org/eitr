@@ -54,37 +54,37 @@ quick_activate = []
 ]
 "menus:cloudflare-contexts" = [
   { action = "open", label = "Open", bind = "Return", default = true, after = "Close" },
-  { action = "cloud_delete", label = "Delete", bind = "Delete", after = "AsyncReload" },
+  { action = "cloud_delete", label = "Delete", bind = "Delete", after = "Close" },
   { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
 ]
 "menus:digitalocean-contexts" = [
   { action = "open", label = "Open", bind = "Return", default = true, after = "Close" },
-  { action = "cloud_delete", label = "Delete", bind = "Delete", after = "AsyncReload" },
+  { action = "cloud_delete", label = "Delete", bind = "Delete", after = "Close" },
   { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
 ]
 "menus:hetzner-contexts" = [
   { action = "open", label = "Open", bind = "Return", default = true, after = "Close" },
-  { action = "cloud_delete", label = "Delete", bind = "Delete", after = "AsyncReload" },
+  { action = "cloud_delete", label = "Delete", bind = "Delete", after = "Close" },
   { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
 ]
 "menus:oracle-contexts" = [
   { action = "open", label = "Open", bind = "Return", default = true, after = "Close" },
-  { action = "cloud_delete", label = "Delete", bind = "Delete", after = "AsyncReload" },
+  { action = "cloud_delete", label = "Delete", bind = "Delete", after = "Close" },
   { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
 ]
 "menus:vercel-contexts" = [
   { action = "open", label = "Open", bind = "Return", default = true, after = "Close" },
-  { action = "cloud_delete", label = "Delete", bind = "Delete", after = "AsyncReload" },
+  { action = "cloud_delete", label = "Delete", bind = "Delete", after = "Close" },
   { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
 ]
 "menus:netlify-contexts" = [
   { action = "open", label = "Open", bind = "Return", default = true, after = "Close" },
-  { action = "cloud_delete", label = "Delete", bind = "Delete", after = "AsyncReload" },
+  { action = "cloud_delete", label = "Delete", bind = "Delete", after = "Close" },
   { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
 ]
 "menus:ibm-contexts" = [
   { action = "open", label = "Open", bind = "Return", default = true, after = "Close" },
-  { action = "cloud_delete", label = "Delete", bind = "Delete", after = "AsyncReload" },
+  { action = "cloud_delete", label = "Delete", bind = "Delete", after = "Close" },
   { action = "menus:parent", label = "back", bind = "shift BackSpace", after = "Nothing" },
 ]
 fallback = [

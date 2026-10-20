@@ -88,6 +88,9 @@ msgstr "  same host never share a keyring entry. Never share that directory."
 msgid "'{spoken}' is not a time: try 10m, 1h30m or 18:30."
 msgstr "'{spoken}' is not a time: try 10m, 1h30m or 18:30."
 
+msgid "(none)"
+msgstr "(none)"
+
 msgid "/boot is a separate partition: snapshot entries boot the current kernel. After a kernel update, restore the matching boot archive as RECOVERY.md describes."
 msgstr "/boot is a separate partition: snapshot entries boot the current kernel. After a kernel update, restore the matching boot archive as RECOVERY.md describes."
 
@@ -187,11 +190,8 @@ msgstr "Add an Azure account"
 msgid "Add {provider} Account"
 msgstr "Add {provider} Account"
 
-msgid "Address (for example netflix.com): "
-msgstr "Address (for example netflix.com): "
-
-msgid "Address (for example {example}): "
-msgstr "Address (for example {example}): "
+msgid "Address"
+msgstr "Address"
 
 msgid "An assistants server already exists; settings were left unchanged."
 msgstr "An assistants server already exists; settings were left unchanged."
@@ -234,6 +234,12 @@ msgstr "Assistant collaboration: {error}"
 
 msgid "Authentication updated for {authentication_methods}. Password fallback retained. Backup: {backup}"
 msgstr "Authentication updated for {authentication_methods}. Password fallback retained. Backup: {backup}"
+
+msgid "Author email"
+msgstr "Author email"
+
+msgid "Author name"
+msgstr "Author name"
 
 msgid "Backup of the current Limine menu: {backup}"
 msgstr "Backup of the current Limine menu: {backup}"
@@ -529,6 +535,9 @@ msgstr "Databases"
 msgid "Default"
 msgstr "Default"
 
+msgid "Default account"
+msgstr "Default account"
+
 msgid "Delete Account"
 msgstr "Delete Account"
 
@@ -703,6 +712,9 @@ msgstr "Firewalls"
 msgid "Flatpak apps could not be updated; the system update itself finished."
 msgstr "Flatpak apps could not be updated; the system update itself finished."
 
+msgid "Folder"
+msgstr "Folder"
+
 msgid "Folder for {label}"
 msgstr "Folder for {label}"
 
@@ -723,6 +735,15 @@ msgstr "Font files moved to Trash; they can be restored there."
 
 msgid "Fonts"
 msgstr "Fonts"
+
+msgid "For example: Netflix"
+msgstr "For example: Netflix"
+
+msgid "For example: Production"
+msgstr "For example: Production"
+
+msgid "For example: {example}"
+msgstr "For example: {example}"
 
 msgid "Found in your Git configuration"
 msgstr "Found in your Git configuration"
@@ -781,8 +802,8 @@ msgstr "How should Eitr use {disk}?"
 msgid "INSTALL STEPS"
 msgstr "INSTALL STEPS"
 
-msgid "Icon image address (optional; press Enter to detect it): "
-msgstr "Icon image address (optional; press Enter to detect it): "
+msgid "Icon address"
+msgstr "Icon address"
 
 msgid "Idle; ping to check"
 msgstr "Idle; ping to check"
@@ -1012,12 +1033,6 @@ msgstr "Missing {missing_files}. Install the {loader} packages listed in distro/
 msgid "Name"
 msgstr "Name"
 
-msgid "Name (for example Netflix): "
-msgstr "Name (for example Netflix): "
-
-msgid "Name (for example Production): "
-msgstr "Name (for example Production): "
-
 msgid "Name it, then sign in"
 msgstr "Name it, then sign in"
 
@@ -1180,6 +1195,9 @@ msgstr "Open {path} to read it."
 msgid "Opened the complete build repository: review PKGBUILD, .install files and patches."
 msgstr "Opened the complete build repository: review PKGBUILD, .install files and patches."
 
+msgid "Optional; press Enter to detect it."
+msgstr "Optional; press Enter to detect it."
+
 msgid "Original configuration restored for the next boot; current networking is unchanged."
 msgstr "Original configuration restored for the next boot; current networking is unchanged."
 
@@ -1213,8 +1231,8 @@ msgstr "Peer Tailscale address or name: "
 msgid "Pick a reminder to cancel"
 msgstr "Pick a reminder to cancel"
 
-msgid "Please enlarge the console to at least 80 columns and 28 rows."
-msgstr "Please enlarge the console to at least 80 columns and 28 rows."
+msgid "Please enlarge the console to at least 80 columns and 24 rows."
+msgstr "Please enlarge the console to at least 80 columns and 24 rows."
 
 msgid "Please enter a valid value."
 msgstr "Please enter a valid value."
@@ -1426,6 +1444,9 @@ msgstr "Running now: {backends}"
 msgid "SDDM was not restarted. Log out or reboot to see the login design."
 msgstr "SDDM was not restarted. Log out or reboot to see the login design."
 
+msgid "SSH key"
+msgstr "SSH key"
+
 msgid "SSH key references must be absolute paths"
 msgstr "SSH key references must be absolute paths"
 
@@ -1486,11 +1507,11 @@ msgstr "Select the line above to copy it."
 msgid "Servers"
 msgstr "Servers"
 
+msgid "Service"
+msgstr "Service"
+
 msgid "Service Instances"
 msgstr "Service Instances"
-
-msgid "Service number (Enter to cancel): "
-msgstr "Service number (Enter to cancel): "
 
 msgid "Set Sunshine’s password first. Enter the PIN shown by Moonlight only for a device you trust."
 msgstr "Set Sunshine’s password first. Enter the PIN shown by Moonlight only for a device you trust."
@@ -1677,6 +1698,9 @@ msgstr "Task failed."
 
 msgid "Template partition sizes must be in MiB"
 msgstr "Template partition sizes must be in MiB"
+
+msgid "Tenant"
+msgstr "Tenant"
 
 msgid "Tenant ID or domain"
 msgstr "Tenant ID or domain"

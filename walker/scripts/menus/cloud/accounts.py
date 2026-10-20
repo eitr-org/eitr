@@ -299,9 +299,8 @@ def az(*arguments):
 
 
 def add_azure(check_cli=False):
-    print(ui.title(tr('Add an Azure account')))
     answers = collect_setup(tr('Add an Azure account'), [
-        Step('tenant', tr('Tenant ID or domain'), optional=True),
+        Step('tenant', tr('Tenant'), question=tr('Tenant ID or domain'), optional=True),
         Step('label', tr('Name'), optional=True, validator=clean_label),
     ])
     if check_cli and not ensure_cli('azure'):

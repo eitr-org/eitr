@@ -123,6 +123,7 @@
     "Invalid font package",
     "Invalid web app ID",
     "Kubernetes",
+    "Service",
     "Sites",
     "Symlinks are not allowed in login designs",
     "Template partition sizes must be in MiB",

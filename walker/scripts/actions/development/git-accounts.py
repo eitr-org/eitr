@@ -600,14 +600,14 @@ def add_form(model):
     answers = collect_setup(tr('Add a Git account'), [
         Step('provider', tr('Provider'), options=[('GitHub', 'github'), ('GitLab', 'gitlab')]),
         Step('label', tr('Account name'), validator=clean),
-        Step('name', tr('Commit author name'), validator=clean),
-        Step('email', tr('Commit author email'), validator=clean),
+        Step('name', tr('Author name'), question=tr('Commit author name'), validator=clean),
+        Step('email', tr('Author email'), question=tr('Commit author email'), validator=clean),
         Step('host', tr('Hostname'), default=lambda values: PROVIDERS[values.get('provider', 'github')][1],
              validator=lambda value: bool(re.fullmatch(r'[a-zA-Z0-9][a-zA-Z0-9.-]*', value))),
-        Step('key', tr('Private SSH key'), optional=True, validator=private_key),
-        Step('default', tr('Use it in every folder without its own account?'), default=not model.get('default'),
+        Step('key', tr('SSH key'), question=tr('Private SSH key'), optional=True, validator=private_key),
+        Step('default', tr('Default account'), question=tr('Use it in every folder without its own account?'), default=not model.get('default'),
              options=[(tr('Yes'), True), (tr('No'), False)]),
-        Step('folder', tr('Folder whose repositories use only this account'), optional=True, validator=folder),
+        Step('folder', tr('Folder'), question=tr('Folder whose repositories use only this account'), optional=True, validator=folder),
     ])
     identifier = uuid.uuid4().hex
     model['accounts'][identifier] = {key: answers[key] for key in ('provider', 'label', 'name', 'email', 'host', 'key')}
@@ -625,8 +625,8 @@ def add_form(model):
 def edit_form(model, identifier):
     account = model['accounts'][identifier]
     answers = collect_setup(tr('Edit {label}', label=account['label']), [
-        Step(key, tr(label), default=account[key], validator=clean)
-        for key, label in (('label', 'Account name'), ('name', 'Commit author name'), ('email', 'Commit author email'))
+        Step(key, tr(short), question=tr(label), default=account[key], validator=clean)
+        for key, short, label in (('label', 'Account name', 'Account name'), ('name', 'Author name', 'Commit author name'), ('email', 'Author email', 'Commit author email'))
     ])
     account.update(answers)
     apply(model)

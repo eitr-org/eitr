@@ -249,9 +249,9 @@ def launch(identifier):
 
 def interactive():
     answers = collect_setup(tr('Create a web app: a launcher that opens a site in its own window.'), [
-        Step('name', tr('Name (for example Netflix): '), validator=clean_name),
-        Step('url', tr('Address (for example netflix.com): '), validator=clean_url),
-        Step('icon', tr('Icon image address (optional; press Enter to detect it): '), optional=True, validator=clean_url),
+        Step('name', tr('Name'), description=tr('For example: Netflix'), validator=clean_name),
+        Step('url', tr('Address'), description=tr('For example: {example}', example='netflix.com'), validator=clean_url),
+        Step('icon', tr('Icon address'), description=tr('Optional; press Enter to detect it.'), optional=True, validator=clean_url),
     ])
     name, url, icon_url = (answers[key] for key in ('name', 'url', 'icon'))
     print(tr('\nFetching the icon…'), flush=True)
