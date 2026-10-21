@@ -963,5 +963,21 @@
   "warming the mead": "den Met wärmen",
   "greeting the Valkyries": "die Walküren grüßen",
   "finding the hidden fjord": "den verborgenen Fjord finden",
-  "listening at Mímir's well": "an Mímirs Brunnen lauschen"
+  "listening at Mímir's well": "an Mímirs Brunnen lauschen",
+  "Choose a default assistant in Development first.": "Wähle zuerst einen Standardassistenten unter Entwicklung.",
+  "Invalid assistant answer.": "Ungültige Antwort des Assistenten.",
+  "Invalid reminder alerts.": "Ungültige Erinnerungsalarme.",
+  "Invalid reminder time.": "Ungültige Erinnerungszeit.",
+  "Invalid reminder.": "Ungültige Erinnerung.",
+  "Nothing changed.": "Nichts geändert.",
+  "Nothing changed: {reason}": "Nichts geändert: {reason}",
+  "Number (Esc to cancel): ": "Nummer (Esc zum Abbrechen): ",
+  "Reminder": "Erinnerung",
+  "Reminder (while the computer was off)": "Erinnerung (während der Computer aus war)",
+  "Reminder set: {title} · {time} · alerts {alerts}": "Erinnerung gesetzt: {title} · {time} · Alarme {alerts}",
+  "Reminder times must be in the future.": "Erinnerungszeiten müssen in der Zukunft liegen.",
+  "Reminders cancelled: {count}": "Erinnerungen gelöscht: {count}",
+  "Tell the assistant…": "Dem Assistenten etwas sagen…",
+  "Too many questions; nothing changed.": "Zu viele Fragen; nichts geändert.",
+  "The speech model could not transcribe this recording.": "Das Sprachmodell konnte diese Aufnahme nicht transkribieren."
 }

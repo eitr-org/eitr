@@ -73,6 +73,12 @@ process while visible and playing, with a gentle animation fallback. Theme switc
 regenerate its colour gradient while keeping
 settings outside the colour section. Existing desktops install cava on first use.
 
+Voice reminders: hold SUPER+SHIFT+D and speak, or use Tools > Reminders > Tell the
+assistant…. The default assistant only returns a validated instruction (create,
+cancel, list or a numbered question in a terminal); Eitr carries it out, and audio
+stays local. Reminders take dates ("tomorrow 15:00", "Friday"), appointments alert
+an hour before and at the time, and the bar's calendar marks and lists them.
+
 Background menu indexing skips cloud resource pickers, so opening or searching
 Walker does not query those services or flood notifications with their failures.
 Notification history coalesces bulk removals before rebuilding its cards.

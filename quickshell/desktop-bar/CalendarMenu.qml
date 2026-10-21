@@ -1,13 +1,32 @@
 import Eitr as Eitr
 import QtQuick
+import QtQuick.Controls
+import Quickshell
+import Quickshell.Io
+import "ReminderModel.js" as ReminderModel
 import "PanelStyle.js" as PanelStyle
 
 ThemedPopup {
     id: menu
     implicitWidth: grid.implicitWidth + (contentGaps[1] + contentGaps[3]) * PanelStyle.contentGapMultiplier
         + (!detached && (barEdge === "top" || barEdge === "bottom") ? PanelStyle.surfaceInset * 2 : 0)
-    implicitHeight: navigation.y + navigation.height + 22 + 28 + verticalContentInset
+    implicitHeight: navigation.y + navigation.height + 22 + 28 + reminderSection.height + 12 + verticalContentInset
     keyTarget: calendarContent
+    property date selectedDay: new Date()
+    property var reminders: []
+    readonly property var selectedReminders: ReminderModel.forDay(reminders, selectedDay)
+    FileView {
+        id: reminderFile
+        path: {
+            const state = Quickshell.env("XDG_STATE_HOME");
+            return (state && state.startsWith("/") ? state : Quickshell.env("HOME") + "/.local/state") + "/eitr/reminders.json";
+        }
+        watchChanges: true
+        printErrors: false
+        onFileChanged: reload()
+        onLoaded: menu.reminders = ReminderModel.parse(text())
+        onLoadFailed: menu.reminders = []
+    }
     property date today: new Date()
     property int viewYear: today.getFullYear()
     property int viewMonth: today.getMonth()
@@ -27,6 +46,7 @@ ThemedPopup {
     }
     function goToday() {
         today = new Date();
+        selectedDay = today;
         viewYear = today.getFullYear();
         viewMonth = today.getMonth();
     }
@@ -92,6 +112,21 @@ ThemedPopup {
                     height: row === 0 ? 24 : 38
                     radius: DesktopStyle.radius(7)
                     color: isToday ? menu.foreground : "transparent"
+                    readonly property bool hasReminders: row > 0 && column > 0 && ReminderModel.forDay(menu.reminders, day).length > 0
+                    border.width: row > 0 && column > 0 && day.toDateString() === menu.selectedDay.toDateString() ? 1 : 0
+                    border.color: menu.foreground
+                    MouseArea {
+                        anchors.fill: parent
+                        enabled: parent.row > 0 && parent.column > 0
+                        onClicked: menu.selectedDay = parent.day
+                    }
+                    Rectangle {
+                        width: 4; height: 4; radius: 2
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.bottom: parent.bottom; anchors.bottomMargin: 2
+                        visible: parent.hasReminders
+                        color: parent.isToday ? menu.background : menu.foreground
+                    }
                     Text {
                         anchors.centerIn: parent
                         text: parent.row === 0 ? ["W", "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"][parent.column] : parent.column === 0 ? String(menu.isoWeek(parent.day)).padStart(2, "0") : parent.day.getDate()
@@ -112,6 +147,56 @@ ThemedPopup {
             PanelButton { foreground: menu.foreground; text: "‹"; onClicked: menu.moveMonth(-1) }
             PanelButton { foreground: menu.foreground; text: Eitr.I18n.tr("Today"); onClicked: menu.goToday() }
             PanelButton { foreground: menu.foreground; text: "›"; onClicked: menu.moveMonth(1) }
+        }
+        Column {
+            id: reminderSection
+            x: grid.x
+            y: navigation.y + navigation.height + 12
+            width: grid.width
+            spacing: 6
+            Text {
+                text: Qt.formatDate(menu.selectedDay, "ddd d MMM")
+                color: menu.foreground
+                font.family: DesktopFonts.family
+                font.pixelSize: PanelStyle.captionSize
+            }
+            // Fixed, so the calendar keeps its height from day to day.
+            Item {
+                width: parent.width
+                height: 60
+                Text {
+                    visible: menu.selectedReminders.length === 0
+                    text: Eitr.I18n.tr("No reminders")
+                    color: menu.foreground
+                    opacity: PanelStyle.secondaryTextOpacity
+                    font.family: DesktopFonts.family
+                    font.pixelSize: PanelStyle.bodySize
+                }
+                ScrollView {
+                    anchors.fill: parent
+                    visible: menu.selectedReminders.length > 0
+                    clip: true
+                    contentWidth: availableWidth
+                    Column {
+                        id: reminderRows
+                        width: parent.width
+                        spacing: 6
+                        Repeater {
+                            model: menu.selectedReminders
+                            Text {
+                                required property var modelData
+                                width: reminderSection.width
+                                text: Qt.formatTime(new Date(modelData.due * 1000), "HH:mm") + " · " + modelData.text
+                                textFormat: Text.PlainText
+                                wrapMode: Text.Wrap
+                                color: menu.foreground
+                                font.family: DesktopFonts.family
+                                font.pixelSize: PanelStyle.bodySize
+                            }
+                        }
+                    }
+                }
+            }
         }
         Item {
             id: yearFooter

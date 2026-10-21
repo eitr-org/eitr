@@ -96,3 +96,11 @@ Use [Updates & Cleanup](handbook:maintenance) for upgrading; installing one
 package is not the same as the snapshot-protected System Update workflow.
 
 **Music Visualizer** in **Main > Tools** opens cava with theme colours. Right-click the media equalizer to open the same visualizer; left-click still opens media details. Press **q** or **Esc** to close it. On existing desktops, a missing cava package is installed first.
+
+## Voice reminders
+
+Hold **SUPER + Shift + D**, speak and release, or open Main > Tools > Reminders > Tell the assistant… to type. Eitr transcribes locally using the same offline model as dictation, then asks your Development > Default Assistant to interpret the request. Only the transcript and reminder context go to that assistant's provider; audio stays local and is deleted after transcription. The assistant runs headless through Eitr's read-only path; Eitr validates its JSON and executes reminder actions itself, without giving the assistant tools to change anything.
+
+Say “Remind me tomorrow at 15:00 to call” or “Dentist on October 30 at 15:00, alert 30 minutes before”. Appointments alert one hour before by default (or your chosen lead) and at the event; plain reminders alert at their time. Missing details or ambiguity open a terminal with full numbered choices. Type a number or dictate it with SUPER + D; Esc cancels. A notification reports the result. Ask to list or cancel reminders as well.
+
+New Reminder also accepts `tomorrow 15:00`, weekday names (09:00 if no time), `2026-10-30 09:00` and `Oct 30 15:00`. Quote multiword dates in the CLI. Each alert has its own timer; cancelling removes all alerts. Missed alerts appear at the next login. The calendar marks event days; click a day to see its reminder times and titles, updated immediately. Repeating reminders and external calendar synchronization are not supported yet.

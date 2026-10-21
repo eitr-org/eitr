@@ -2,6 +2,8 @@
   "version": 1,
   "layout_version": 2,
   "rules": [
+    {"pattern": "walker/scripts/actions/tools/voice-command.py", "class": "C", "runtime": true},
+    {"pattern": "quickshell/desktop-bar/ReminderModel.js", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/AudioLevels.js", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/scripts/cava-bar.py", "class": "C", "runtime": true},
     {"pattern": "cava/config", "class": "P", "runtime": true},

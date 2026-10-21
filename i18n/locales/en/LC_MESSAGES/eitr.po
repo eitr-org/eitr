@@ -400,6 +400,9 @@ msgstr "Checking official package updates…"
 msgid "Choose Sign In to open the browser."
 msgstr "Choose Sign In to open the browser."
 
+msgid "Choose a default assistant in Development first."
+msgstr "Choose a default assistant in Development first."
+
 msgid "Choose a number from 1 to {option_count}"
 msgstr "Choose a number from 1 to {option_count}"
 
@@ -1105,6 +1108,9 @@ msgstr "Invalid account or provider"
 msgid "Invalid anonymous identity"
 msgstr "Invalid anonymous identity"
 
+msgid "Invalid assistant answer."
+msgstr "Invalid assistant answer."
+
 msgid "Invalid cursor choice"
 msgstr "Invalid cursor choice"
 
@@ -1128,6 +1134,15 @@ msgstr "Invalid peer address."
 
 msgid "Invalid project ID"
 msgstr "Invalid project ID"
+
+msgid "Invalid reminder alerts."
+msgstr "Invalid reminder alerts."
+
+msgid "Invalid reminder time."
+msgstr "Invalid reminder time."
+
+msgid "Invalid reminder."
+msgstr "Invalid reminder."
 
 msgid "Invalid subscription ID"
 msgstr "Invalid subscription ID"
@@ -1411,6 +1426,12 @@ msgstr "Not an EITR web app"
 msgid "Not available: {error}"
 msgstr "Not available: {error}"
 
+msgid "Nothing changed."
+msgstr "Nothing changed."
+
+msgid "Nothing changed: {reason}"
+msgstr "Nothing changed: {reason}"
+
 msgid "Nothing restored"
 msgstr "Nothing restored"
 
@@ -1425,6 +1446,9 @@ msgstr "Nothing was changed."
 
 msgid "Nothing was sent. Read it and remove anything you do not want to share."
 msgstr "Nothing was sent. Read it and remove anything you do not want to share."
+
+msgid "Number (Esc to cancel): "
+msgstr "Number (Esc to cancel): "
 
 msgid "OBS WebSocket settings are unreadable"
 msgstr "OBS WebSocket settings are unreadable"
@@ -1636,6 +1660,12 @@ msgstr "Remind me about…"
 msgid "Remind me in or at… (10m, 1h30m, 18:30)"
 msgstr "Remind me in or at… (10m, 1h30m, 18:30)"
 
+msgid "Reminder"
+msgstr "Reminder"
+
+msgid "Reminder (while the computer was off)"
+msgstr "Reminder (while the computer was off)"
+
 msgid "Reminder cancelled"
 msgstr "Reminder cancelled"
 
@@ -1648,8 +1678,17 @@ msgstr "Reminder set"
 msgid "Reminder set for {label}: {text}"
 msgstr "Reminder set for {label}: {text}"
 
+msgid "Reminder set: {title} · {time} · alerts {alerts}"
+msgstr "Reminder set: {title} · {time} · alerts {alerts}"
+
+msgid "Reminder times must be in the future."
+msgstr "Reminder times must be in the future."
+
 msgid "Reminders"
 msgstr "Reminders"
+
+msgid "Reminders cancelled: {count}"
+msgstr "Reminders cancelled: {count}"
 
 msgid "Remote Access"
 msgstr "Remote Access"
@@ -2122,6 +2161,9 @@ msgstr "Target"
 msgid "Task failed."
 msgstr "Task failed."
 
+msgid "Tell the assistant…"
+msgstr "Tell the assistant…"
+
 msgid "Template partition sizes must be in MiB"
 msgstr "Template partition sizes must be in MiB"
 
@@ -2251,6 +2293,9 @@ msgstr "The root-owned Eitr helper is not installed. See distro/README.md; never
 msgid "The root-owned Eitr helper is not installed; update the eitr-desktop package."
 msgstr "The root-owned Eitr helper is not installed; update the eitr-desktop package."
 
+msgid "The speech model could not transcribe this recording."
+msgstr "The speech model could not transcribe this recording."
+
 msgid "The template must not name a disk"
 msgstr "The template must not name a disk"
 
@@ -2340,6 +2385,9 @@ msgstr "Timezone not detected yet: {error}"
 
 msgid "Timezone set to {zone}"
 msgstr "Timezone set to {zone}"
+
+msgid "Too many questions; nothing changed."
+msgstr "Too many questions; nothing changed."
 
 msgid "Try again"
 msgstr "Try again"

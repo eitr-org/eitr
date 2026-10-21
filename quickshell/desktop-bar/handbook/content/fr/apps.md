@@ -45,3 +45,11 @@ Le paquet LocalSend inclut ses besoins d’exécution : le Flutter SDK n’est p
 Pour mettre à jour, consultez [Mises à jour et nettoyage](handbook:maintenance) ; installer un seul paquet n’équivaut pas à la Mise à jour du système protégée par instantanés.
 
 **Visualiseur de musique** dans **Principal > Outils** ouvre cava avec les couleurs du thème. Un clic droit sur l’égaliseur multimédia ouvre ce visualiseur ; le clic gauche ouvre toujours les détails multimédias. Appuyez sur **q** ou **Échap** pour le fermer. Si cava manque, il est installé au préalable.
+
+## Rappels vocaux
+
+Maintenez **SUPER + Shift + D**, parlez puis relâchez, ou saisissez du texte dans Principal > Outils > Rappels > Parler à l’assistant…. Eitr transcrit localement avec le modèle hors ligne de la dictée, puis consulte l’assistant choisi dans Développement > Assistant par défaut. Seuls la transcription et le contexte des rappels vont à son fournisseur ; l’audio reste local et est supprimé après transcription. L’assistant fonctionne sans fenêtre par la voie en lecture seule d’Eitr. Eitr valide son JSON et exécute les actions ; l’assistant ne reçoit aucun outil permettant des modifications.
+
+Dites « Rappelle-moi d’appeler demain à 15 h » ou « Dentiste le 30 octobre à 15 h, prévenir 30 minutes avant ». Les rendez-vous déclenchent un avis une heure avant par défaut (ou selon le délai demandé), puis à l’heure prévue ; les rappels simples seulement à leur heure. En cas d’ambiguïté ou de détails manquants, un terminal affiche les choix numérotés en entier. Saisissez le numéro ou dictez-le avec SUPER + D ; Esc annule. Une notification indique le résultat. Vous pouvez aussi demander de lister ou d’annuler les rappels.
+
+Nouveau rappel accepte `tomorrow 15:00`, les jours anglais (09:00 sans heure), `2026-10-30 09:00` et `Oct 30 15:00`. Mettez les dates contenant des espaces entre guillemets dans la CLI. Chaque avis possède son minuteur ; l’annulation les supprime tous. Les avis manqués apparaissent à la prochaine connexion. Le calendrier marque les jours concernés ; cliquez pour voir les heures et titres immédiatement actualisés. Les répétitions et la synchronisation externe ne sont pas encore prises en charge.

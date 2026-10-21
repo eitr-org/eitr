@@ -45,3 +45,11 @@ El paquete de LocalSend incluye sus requisitos de ejecución; no necesitas Flutt
 Consulta [Actualizaciones y limpieza](handbook:maintenance) para actualizar; instalar un paquete no equivale a la Actualización del sistema protegida por instantáneas.
 
 **Visualizador de música** en **Principal > Herramientas** abre cava con los colores del tema. Haz clic derecho en el ecualizador multimedia para abrirlo; el clic izquierdo sigue abriendo los detalles multimedia. Pulsa **q** o **Esc** para cerrarlo. Si falta cava, se instala primero.
+
+## Recordatorios por voz
+
+Mantén **SUPER + Shift + D**, habla y suelta, o escribe en Principal > Herramientas > Recordatorios > Dile al asistente…. Eitr transcribe localmente con el modelo sin conexión del dictado y consulta al asistente elegido en Desarrollo > Asistente predeterminado. Solo la transcripción y el contexto de los recordatorios van a su proveedor; el audio queda local y se elimina tras transcribirlo. El asistente funciona sin ventana por la vía de solo lectura de Eitr. Eitr valida su JSON y ejecuta las acciones; el asistente no recibe herramientas para cambiar nada.
+
+Di «Recuérdame llamar mañana a las 15:00» o «Dentista el 30 de octubre a las 15:00, avisa 30 minutos antes». Las citas avisan una hora antes por defecto (o con el margen indicado) y a la hora del evento; los recordatorios simples solo a su hora. Si faltan datos o hay ambigüedad, se abre un terminal con opciones numeradas completas. Escribe el número o díctalo con SUPER + D; Esc cancela. Una notificación muestra el resultado. También puedes pedir listar o cancelar recordatorios.
+
+Nuevo recordatorio acepta `tomorrow 15:00`, días de la semana en inglés (09:00 sin hora), `2026-10-30 09:00` y `Oct 30 15:00`. Pon entre comillas las fechas con espacios en la CLI. Cada aviso tiene su temporizador; cancelar los elimina todos. Los avisos perdidos aparecen al iniciar sesión. El calendario marca los días con eventos; pulsa un día para ver horas y títulos, actualizados al instante. Aún no hay repetición ni sincronización con calendarios externos.

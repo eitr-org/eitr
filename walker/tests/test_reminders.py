@@ -1,3 +1,4 @@
+from home_isolation import setUpModule, tearDownModule
 from menu_data import load as load_menu
 from datetime import datetime
 import importlib.util
@@ -100,13 +101,13 @@ class ReminderCommandTests(unittest.TestCase):
         self.run_script("new", "1h", "Call")
         identifier = json.loads(self.state.read_text())[0]["id"]
         self.assertEqual(self.run_script("cancel", identifier).returncode, 0)
-        self.assertIn(f"systemctl --user stop eitr-reminder-{identifier}.timer", self.calls_made())
+        self.assertIn(f"systemctl --user stop eitr-reminder-{identifier}-", self.calls_made())
         self.assertEqual(json.loads(self.state.read_text()), [])
         self.assertIn("No reminders.", self.run_script("list").stdout)
 
     def test_menus_and_command_offer_it(self):
         reminders = load_menu("reminders")
-        self.assertEqual([entry["text"] for entry in reminders["entries"]], ["New Reminder", "Upcoming Reminders"])
+        self.assertEqual([entry["text"] for entry in reminders["entries"]], ["New Reminder", "Tell the assistant…", "Upcoming Reminders"])
         self.assertEqual(reminders["parent"], "tools")
         tools = json.loads((ROOT / "elephant/menu-rows/tools.json").read_text())
         self.assertEqual([row["text"] for row in tools], ["Capture", "Reminders", "Share", "Music Visualizer"])

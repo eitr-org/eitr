@@ -963,5 +963,21 @@
   "warming the mead": "réchauffant l’hydromel",
   "greeting the Valkyries": "saluant les Valkyries",
   "finding the hidden fjord": "cherchant le fjord caché",
-  "listening at Mímir's well": "écoutant au puits de Mímir"
+  "listening at Mímir's well": "écoutant au puits de Mímir",
+  "Choose a default assistant in Development first.": "Choisissez d’abord un assistant par défaut dans Développement.",
+  "Invalid assistant answer.": "Réponse de l’assistant invalide.",
+  "Invalid reminder alerts.": "Alertes de rappel invalides.",
+  "Invalid reminder time.": "Heure de rappel invalide.",
+  "Invalid reminder.": "Rappel invalide.",
+  "Nothing changed.": "Aucune modification.",
+  "Nothing changed: {reason}": "Aucune modification : {reason}",
+  "Number (Esc to cancel): ": "Numéro (Esc pour annuler) : ",
+  "Reminder": "Rappel",
+  "Reminder (while the computer was off)": "Rappel (pendant l’arrêt de l’ordinateur)",
+  "Reminder set: {title} · {time} · alerts {alerts}": "Rappel créé : {title} · {time} · alertes {alerts}",
+  "Reminder times must be in the future.": "Les heures doivent être dans le futur.",
+  "Reminders cancelled: {count}": "Rappels annulés : {count}",
+  "Tell the assistant…": "Parler à l’assistant…",
+  "Too many questions; nothing changed.": "Trop de questions ; aucune modification.",
+  "The speech model could not transcribe this recording.": "Le modèle vocal n’a pas pu transcrire cet enregistrement."
 }

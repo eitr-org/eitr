@@ -5,15 +5,18 @@
 #
 #   dictate.sh start|stop     (the key binding runs these on press and release)
 set -euo pipefail
+umask 077
 
 data="${XDG_DATA_HOME:-$HOME/.local/share}"
 [[ "$data" == /* ]] || data="$HOME/.local/share"
 model="$data/eitr/whisper/ggml-base.bin"
 model_url="https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin"
 model_sha256="60ed5bc3dd14eea856493d334349b405782ddcaf0028d4b5df4088345fba2efe"
+mode="${2:-dictation}"
+[[ "$mode" == dictation || "$mode" == voice ]] || exit 2
 runtime="${XDG_RUNTIME_DIR:-/tmp}"
-audio="$runtime/eitr-dictation.wav"
-pidfile="$runtime/eitr-dictation.pid"
+audio="$runtime/eitr-$mode.wav"
+pidfile="$runtime/eitr-$mode.pid"
 root="${EITR_CODE_ROOT:-/usr/share/eitr}"
 
 notify() {
@@ -63,18 +66,33 @@ stop() {
   [[ -f "$pidfile" ]] || exit 0
   bar_dot transcribe
   # Whatever happens next (nothing heard, an error, typing), the indicator ends.
-  trap 'bar_dot stop' EXIT
+  trap 'bar_dot stop; rm -f "$audio"' EXIT
   kill -INT "$(cat "$pidfile")" 2>/dev/null || true
   rm -f "$pidfile"
   sleep 0.2
   [[ -s "$audio" ]] || exit 0
-  text="$("$(transcriber)" -m "$model" -f "$audio" -l auto -nt -np 2>/dev/null | tr '\n' ' ' | sed -E 's/^ +| +$//g; s/  +/ /g')"
+  if ! text="$("$(transcriber)" -m "$model" -f "$audio" -l auto -nt -np 2>/dev/null | tr '\n' ' ' | sed -E 's/^ +| +$//g; s/  +/ /g')"; then
+    if [[ "$mode" == voice ]]; then
+      python3 "$root/walker/scripts/actions/tools/voice-command.py" transcription-error
+    else
+      notify "Nothing heard" "Hold SUPER + D while you speak."
+    fi
+    return 1
+  fi
   rm -f "$audio"
   if [[ -z "$text" || "$text" == "[BLANK_AUDIO]" ]]; then
-    notify "Nothing heard" "Hold SUPER + D while you speak."
+    if [[ "$mode" == voice ]]; then
+      notify "Nothing heard" "Hold SUPER + SHIFT + D while you speak."
+    else
+      notify "Nothing heard" "Hold SUPER + D while you speak."
+    fi
     exit 0
   fi
-  wtype -- "$text"
+  if [[ "$mode" == voice ]]; then
+    printf '%s' "$text" | python3 "$root/walker/scripts/actions/tools/voice-command.py" stdin
+  else
+    wtype -- "$text"
+  fi
 }
 
 case "${1:-}" in

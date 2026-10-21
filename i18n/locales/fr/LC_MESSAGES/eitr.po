@@ -400,6 +400,9 @@ msgstr "Recherche des mises à jour des paquets officiels…"
 msgid "Choose Sign In to open the browser."
 msgstr "Choisissez Se connecter pour ouvrir le navigateur."
 
+msgid "Choose a default assistant in Development first."
+msgstr "Choisissez d’abord un assistant par défaut dans Développement."
+
 msgid "Choose a number from 1 to {option_count}"
 msgstr "Choisissez un nombre de 1 à {option_count}"
 
@@ -1105,6 +1108,9 @@ msgstr "Compte ou fournisseur invalide"
 msgid "Invalid anonymous identity"
 msgstr "Identité anonyme invalide"
 
+msgid "Invalid assistant answer."
+msgstr "Réponse de l’assistant invalide."
+
 msgid "Invalid cursor choice"
 msgstr "Choix de curseur invalide"
 
@@ -1128,6 +1134,15 @@ msgstr "Adresse d’appareil distant invalide."
 
 msgid "Invalid project ID"
 msgstr "Identifiant de projet invalide"
+
+msgid "Invalid reminder alerts."
+msgstr "Alertes de rappel invalides."
+
+msgid "Invalid reminder time."
+msgstr "Heure de rappel invalide."
+
+msgid "Invalid reminder."
+msgstr "Rappel invalide."
 
 msgid "Invalid subscription ID"
 msgstr "Identifiant d’abonnement invalide"
@@ -1411,6 +1426,12 @@ msgstr "Ce n’est pas une application web EITR"
 msgid "Not available: {error}"
 msgstr "Indisponible : {error}"
 
+msgid "Nothing changed."
+msgstr "Aucune modification."
+
+msgid "Nothing changed: {reason}"
+msgstr "Aucune modification : {reason}"
+
 msgid "Nothing restored"
 msgstr "Aucune restauration"
 
@@ -1425,6 +1446,9 @@ msgstr "Rien n’a été modifié."
 
 msgid "Nothing was sent. Read it and remove anything you do not want to share."
 msgstr "Rien n’a été envoyé. Lisez le contenu et retirez ce que vous ne souhaitez pas partager."
+
+msgid "Number (Esc to cancel): "
+msgstr "Numéro (Esc pour annuler) : "
 
 msgid "OBS WebSocket settings are unreadable"
 msgstr "Impossible de lire les paramètres WebSocket d’OBS"
@@ -1636,6 +1660,12 @@ msgstr "Me rappeler de…"
 msgid "Remind me in or at… (10m, 1h30m, 18:30)"
 msgstr "Me rappeler dans ou à… (10m, 1h30m, 18:30)"
 
+msgid "Reminder"
+msgstr "Rappel"
+
+msgid "Reminder (while the computer was off)"
+msgstr "Rappel (pendant l’arrêt de l’ordinateur)"
+
 msgid "Reminder cancelled"
 msgstr "Rappel annulé"
 
@@ -1648,8 +1678,17 @@ msgstr "Rappel programmé"
 msgid "Reminder set for {label}: {text}"
 msgstr "Rappel programmé pour {label} : {text}"
 
+msgid "Reminder set: {title} · {time} · alerts {alerts}"
+msgstr "Rappel créé : {title} · {time} · alertes {alerts}"
+
+msgid "Reminder times must be in the future."
+msgstr "Les heures doivent être dans le futur."
+
 msgid "Reminders"
 msgstr "Rappels"
+
+msgid "Reminders cancelled: {count}"
+msgstr "Rappels annulés : {count}"
 
 msgid "Remote Access"
 msgstr "Accès à distance"
@@ -2122,6 +2161,9 @@ msgstr "Cible"
 msgid "Task failed."
 msgstr "La tâche a échoué."
 
+msgid "Tell the assistant…"
+msgstr "Parler à l’assistant…"
+
 msgid "Template partition sizes must be in MiB"
 msgstr "Template partition sizes must be in MiB"
 
@@ -2251,6 +2293,9 @@ msgstr "L’utilitaire Eitr appartenant à root n’est pas installé. Voir dist
 msgid "The root-owned Eitr helper is not installed; update the eitr-desktop package."
 msgstr "L’utilitaire Eitr appartenant à root n’est pas installé ; mettez à jour le paquet eitr-desktop."
 
+msgid "The speech model could not transcribe this recording."
+msgstr "Le modèle vocal n’a pas pu transcrire cet enregistrement."
+
 msgid "The template must not name a disk"
 msgstr "The template must not name a disk"
 
@@ -2340,6 +2385,9 @@ msgstr "Fuseau horaire pas encore détecté : {error}"
 
 msgid "Timezone set to {zone}"
 msgstr "Fuseau horaire défini sur {zone}"
+
+msgid "Too many questions; nothing changed."
+msgstr "Trop de questions ; aucune modification."
 
 msgid "Try again"
 msgstr "Réessayer"

@@ -572,6 +572,9 @@
     "No playback applications": [
       "quickshell/desktop-bar/AudioMenu.qml"
     ],
+    "No reminders": [
+      "quickshell/desktop-bar/CalendarMenu.qml"
+    ],
     "No signed-in AI clients detected. Install and sign in to Claude Code, Codex, or Grok to show usage here.": [
       "quickshell/desktop-bar/AiUsageMenu.qml"
     ],
@@ -1484,6 +1487,9 @@
     ],
     "Create Web App": [
       "elephant/menus/webapps.lua"
+    ],
+    "Create, find or cancel reminders with your default assistant": [
+      "elephant/menu-rows/reminders.json"
     ],
     "Current Limit": [
       "elephant/menu-rows/battery-limit.json"
@@ -2657,6 +2663,9 @@
       "elephant/menu-rows/security.json",
       "elephant/menus/tpm-unlock.lua"
     ],
+    "Tell the assistant…": [
+      "elephant/menu-rows/reminders.json"
+    ],
     "Terminal": [
       "elephant/menu-rows/style.json",
       "elephant/menus/terminal.lua"
@@ -3343,6 +3352,9 @@
     "Use empty desktop or bar space for desktop/bar gestures, not an application's content.": [
       "quickshell/desktop-bar/scripts/handbook-build.py"
     ],
+    "Voice reminders, release to send": [
+      "quickshell/desktop-bar/scripts/handbook-build.py"
+    ],
     "Volume Down": [
       "quickshell/desktop-bar/scripts/handbook-build.py"
     ],
@@ -3785,6 +3797,9 @@
     ],
     "Choose Sign In to open the browser.": [
       "walker/scripts/actions/system/remote-access.py"
+    ],
+    "Choose a default assistant in Development first.": [
+      "walker/scripts/actions/tools/voice-command.py"
     ],
     "Choose a number from 1 to {option_count}": [
       "distro/lib/eitr_forms.py"
@@ -4507,6 +4522,9 @@
     "Invalid anonymous identity": [
       "distro/system/network-backend.py"
     ],
+    "Invalid assistant answer.": [
+      "walker/scripts/actions/tools/voice-command.py"
+    ],
     "Invalid cursor choice": [
       "walker/scripts/actions/style/cursor.py"
     ],
@@ -4531,6 +4549,17 @@
     "Invalid project ID": [
       "walker/scripts/menus/cloud/contexts.py",
       "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Invalid reminder alerts.": [
+      "walker/scripts/actions/tools/reminders.py",
+      "walker/scripts/actions/tools/voice-command.py"
+    ],
+    "Invalid reminder time.": [
+      "walker/scripts/actions/tools/reminders.py",
+      "walker/scripts/actions/tools/voice-command.py"
+    ],
+    "Invalid reminder.": [
+      "walker/scripts/actions/tools/reminders.py"
     ],
     "Invalid subscription ID": [
       "walker/scripts/menus/cloud/contexts.py"
@@ -4799,13 +4828,15 @@
       "walker/scripts/actions/tools/reminders.py"
     ],
     "No reminders.": [
-      "walker/scripts/actions/tools/reminders.py"
+      "walker/scripts/actions/tools/reminders.py",
+      "walker/scripts/actions/tools/voice-command.py"
     ],
     "No snapshot has {path}.": [
       "walker/scripts/actions/system/restore-file.py"
     ],
     "No such reminder.": [
-      "walker/scripts/actions/tools/reminders.py"
+      "walker/scripts/actions/tools/reminders.py",
+      "walker/scripts/actions/tools/voice-command.py"
     ],
     "No update snapshots yet.": [
       "distro/system/eitr-system.py"
@@ -4818,6 +4849,12 @@
     ],
     "Not available: {error}": [
       "walker/scripts/actions/install/software.py"
+    ],
+    "Nothing changed.": [
+      "walker/scripts/actions/tools/voice-command.py"
+    ],
+    "Nothing changed: {reason}": [
+      "walker/scripts/actions/tools/voice-command.py"
     ],
     "Nothing restored": [
       "walker/scripts/actions/system/restore-file.py"
@@ -4836,6 +4873,9 @@
     ],
     "Nothing was sent. Read it and remove anything you do not want to share.": [
       "walker/scripts/actions/system/report-problem.py"
+    ],
+    "Number (Esc to cancel): ": [
+      "walker/scripts/actions/tools/voice-command.py"
     ],
     "OBS WebSocket settings are unreadable": [
       "quickshell/desktop-bar/scripts/obs-control.py"
@@ -5049,6 +5089,12 @@
     "Remind me in or at… (10m, 1h30m, 18:30)": [
       "walker/scripts/actions/tools/reminders.py"
     ],
+    "Reminder": [
+      "walker/scripts/actions/tools/reminders.py"
+    ],
+    "Reminder (while the computer was off)": [
+      "walker/scripts/actions/tools/reminders.py"
+    ],
     "Reminder cancelled": [
       "walker/scripts/actions/tools/reminders.py"
     ],
@@ -5061,8 +5107,18 @@
     "Reminder set for {label}: {text}": [
       "walker/scripts/actions/tools/reminders.py"
     ],
+    "Reminder set: {title} · {time} · alerts {alerts}": [
+      "walker/scripts/actions/tools/voice-command.py"
+    ],
+    "Reminder times must be in the future.": [
+      "walker/scripts/actions/tools/voice-command.py"
+    ],
     "Reminders": [
-      "walker/scripts/actions/tools/reminders.py"
+      "walker/scripts/actions/tools/reminders.py",
+      "walker/scripts/actions/tools/voice-command.py"
+    ],
+    "Reminders cancelled: {count}": [
+      "walker/scripts/actions/tools/voice-command.py"
     ],
     "Remote Access": [
       "walker/scripts/actions/system/remote-access.py"
@@ -5537,6 +5593,9 @@
     "Task failed.": [
       "walker/scripts/actions/task-terminal.py"
     ],
+    "Tell the assistant…": [
+      "walker/scripts/actions/tools/voice-command.py"
+    ],
     "Template partition sizes must be in MiB": [
       "distro/archinstall/eitr-guided-install"
     ],
@@ -5670,6 +5729,9 @@
       "walker/scripts/actions/system/remote-access.py",
       "walker/scripts/actions/system/update-channel.py"
     ],
+    "The speech model could not transcribe this recording.": [
+      "walker/scripts/actions/tools/voice-command.py"
+    ],
     "The template must not name a disk": [
       "distro/archinstall/eitr-guided-install"
     ],
@@ -5759,6 +5821,9 @@
     ],
     "Timezone set to {zone}": [
       "distro/system/eitr-timezone.py"
+    ],
+    "Too many questions; nothing changed.": [
+      "walker/scripts/actions/tools/voice-command.py"
     ],
     "Try again": [
       "distro/lib/eitr_wizard.py"

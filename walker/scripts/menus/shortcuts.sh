@@ -25,6 +25,7 @@ options="󰌌  Launchers
   SUPER + P                 Fuzzy-find files
   SUPER + Ctrl + P          Fuzzy-find text
   SUPER + D (hold)          Dictate, release to type
+  SUPER + Shift + D (hold)  Voice reminders, release to send
 󰖲  Windows
   SUPER + W                 Close active window
   SUPER + T                 Toggle floating and pin
@@ -170,6 +171,9 @@ case "$chosen" in
     ;;
   "  SUPER + D (hold) "*)
     notify-send --app-name=Dictation "Offline dictation" "Hold SUPER + D in a text field, speak, then release."
+    ;;
+  "  SUPER + Shift + D (hold) "*)
+    python3 "$ACTIONS_DIR/tools/voice-command.py" typed
     ;;
   "  SUPER + W "*)
     hyprctl dispatch killactive

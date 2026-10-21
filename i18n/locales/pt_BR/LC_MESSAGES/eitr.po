@@ -400,6 +400,9 @@ msgstr "Verificando atualizações dos pacotes oficiais…"
 msgid "Choose Sign In to open the browser."
 msgstr "Escolha Entrar para abrir o navegador."
 
+msgid "Choose a default assistant in Development first."
+msgstr "Escolha primeiro um assistente padrão em Desenvolvimento."
+
 msgid "Choose a number from 1 to {option_count}"
 msgstr "Escolha um número de 1 a {option_count}"
 
@@ -1105,6 +1108,9 @@ msgstr "Conta ou provedor inválido"
 msgid "Invalid anonymous identity"
 msgstr "Identidade anônima inválida"
 
+msgid "Invalid assistant answer."
+msgstr "Resposta inválida do assistente."
+
 msgid "Invalid cursor choice"
 msgstr "Opção de cursor inválida"
 
@@ -1128,6 +1134,15 @@ msgstr "Endereço de dispositivo inválido."
 
 msgid "Invalid project ID"
 msgstr "ID de projeto inválido"
+
+msgid "Invalid reminder alerts."
+msgstr "Alertas inválidos para o lembrete."
+
+msgid "Invalid reminder time."
+msgstr "Horário inválido para o lembrete."
+
+msgid "Invalid reminder."
+msgstr "Lembrete inválido."
 
 msgid "Invalid subscription ID"
 msgstr "ID de assinatura inválido"
@@ -1411,6 +1426,12 @@ msgstr "Não é um aplicativo web do EITR"
 msgid "Not available: {error}"
 msgstr "Indisponível: {error}"
 
+msgid "Nothing changed."
+msgstr "Nada foi alterado."
+
+msgid "Nothing changed: {reason}"
+msgstr "Nada foi alterado: {reason}"
+
 msgid "Nothing restored"
 msgstr "Nada foi restaurado"
 
@@ -1425,6 +1446,9 @@ msgstr "Nada foi alterado."
 
 msgid "Nothing was sent. Read it and remove anything you do not want to share."
 msgstr "Nada foi enviado. Leia e remova o que você não quiser compartilhar."
+
+msgid "Number (Esc to cancel): "
+msgstr "Número (Esc para cancelar): "
 
 msgid "OBS WebSocket settings are unreadable"
 msgstr "Não foi possível ler as configurações do WebSocket do OBS"
@@ -1636,6 +1660,12 @@ msgstr "Lembre-me de…"
 msgid "Remind me in or at… (10m, 1h30m, 18:30)"
 msgstr "Lembre-me daqui a ou às… (10m, 1h30m, 18:30)"
 
+msgid "Reminder"
+msgstr "Lembrete"
+
+msgid "Reminder (while the computer was off)"
+msgstr "Lembrete (enquanto o computador estava desligado)"
+
 msgid "Reminder cancelled"
 msgstr "Lembrete cancelado"
 
@@ -1648,8 +1678,17 @@ msgstr "Lembrete definido"
 msgid "Reminder set for {label}: {text}"
 msgstr "Lembrete definido para {label}: {text}"
 
+msgid "Reminder set: {title} · {time} · alerts {alerts}"
+msgstr "Lembrete criado: {title} · {time} · alertas {alerts}"
+
+msgid "Reminder times must be in the future."
+msgstr "Os horários devem estar no futuro."
+
 msgid "Reminders"
 msgstr "Lembretes"
+
+msgid "Reminders cancelled: {count}"
+msgstr "Lembretes cancelados: {count}"
 
 msgid "Remote Access"
 msgstr "Acesso remoto"
@@ -2122,6 +2161,9 @@ msgstr "Destino"
 msgid "Task failed."
 msgstr "A tarefa falhou."
 
+msgid "Tell the assistant…"
+msgstr "Fale com o assistente…"
+
 msgid "Template partition sizes must be in MiB"
 msgstr "Template partition sizes must be in MiB"
 
@@ -2251,6 +2293,9 @@ msgstr "O auxiliar do Eitr pertencente ao root não está instalado. Consulte di
 msgid "The root-owned Eitr helper is not installed; update the eitr-desktop package."
 msgstr "O auxiliar do Eitr pertencente ao root não está instalado; atualize o pacote eitr-desktop."
 
+msgid "The speech model could not transcribe this recording."
+msgstr "O modelo de fala não conseguiu transcrever esta gravação."
+
 msgid "The template must not name a disk"
 msgstr "The template must not name a disk"
 
@@ -2340,6 +2385,9 @@ msgstr "Fuso horário ainda não detectado: {error}"
 
 msgid "Timezone set to {zone}"
 msgstr "Fuso horário definido para {zone}"
+
+msgid "Too many questions; nothing changed."
+msgstr "Perguntas demais; nada foi alterado."
 
 msgid "Try again"
 msgstr "Tentar novamente"

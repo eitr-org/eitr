@@ -206,6 +206,7 @@ var qml = {
     "No notifications": "No notifications",
     "No occupied workspaces": "No occupied workspaces",
     "No playback applications": "No playback applications",
+    "No reminders": "No reminders",
     "No signed-in AI clients detected. Install and sign in to Claude Code, Codex, or Grok to show usage here.": "No signed-in AI clients detected. Install and sign in to Claude Code, Codex, or Grok to show usage here.",
     "Nothing": "Nothing",
     "Nothing is sent automatically. You read each report first and choose whether to email it or open a GitHub issue; your name, computer name and network addresses are removed.": "Nothing is sent automatically. You read each report first and choose whether to email it or open a GitHub issue; your name, computer name and network addresses are removed.",
@@ -771,7 +772,8 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  agora",
     "󰂚  No notifications": "󰂚  Nenhuma notificação",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Não perturbe\n\nNenhuma notificação"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Não perturbe\n\nNenhuma notificação",
+    "No reminders": "Nenhum lembrete"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1146,7 +1148,8 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  ahora",
     "󰂚  No notifications": "󰂚  No hay notificaciones",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones",
+    "No reminders": "Sin recordatorios"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1521,7 +1524,8 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  jetzt",
     "󰂚  No notifications": "󰂚  Keine Benachrichtigungen",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen",
+    "No reminders": "Keine Erinnerungen"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -1896,6 +1900,7 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  maintenant",
     "󰂚  No notifications": "󰂚  Aucune notification",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification",
+    "No reminders": "Aucun rappel"
   }
 };

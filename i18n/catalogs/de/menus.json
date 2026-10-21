@@ -511,5 +511,7 @@
   "iwd": "iwd",
   "{service} · {url}": "{service} · {url}",
   "Music Visualizer": "Musikvisualisierer",
-  "Watch music dance in a theme-coloured terminal": "Musik in einem Terminal mit Theme-Farben ansehen"
+  "Watch music dance in a theme-coloured terminal": "Musik in einem Terminal mit Theme-Farben ansehen",
+  "Create, find or cancel reminders with your default assistant": "Erinnerungen mit dem Standardassistenten erstellen, finden oder löschen",
+  "Tell the assistant…": "Dem Assistenten etwas sagen…"
 }

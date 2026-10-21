@@ -45,3 +45,11 @@ LocalSends Paket enthält seine Laufzeitvoraussetzungen; zum Ausführen ist kein
 Für Aktualisierungen siehe [Updates und Bereinigung](handbook:maintenance); ein einzelnes Paket zu installieren ist nicht dasselbe wie die Snapshot-geschützte Systemaktualisierung.
 
 **Musikvisualisierer** unter **Hauptmenü > Werkzeuge** öffnet cava in den Theme-Farben. Ein Rechtsklick auf den Medien-Equalizer öffnet denselben Visualisierer; ein Linksklick öffnet weiterhin die Mediendetails. **q** oder **Esc** schließt ihn. Auf bestehenden Desktops wird cava bei Bedarf zuerst installiert.
+
+## Erinnerungen per Sprache
+
+Halte **SUPER + Shift + D**, sprich und lasse los, oder tippe unter Hauptmenü > Werkzeuge > Erinnerungen > Dem Assistenten etwas sagen…. Eitr transkribiert lokal mit dem Offline-Modell der Diktierfunktion und fragt den unter Entwicklung > Standardassistent gewählten Assistenten. Nur Transkript und Erinnerungskontext gehen an dessen Anbieter; Audio bleibt lokal und wird nach der Transkription gelöscht. Der Assistent läuft ohne Fenster über Eitrs schreibgeschützten Aufruf. Eitr prüft dessen JSON und führt Erinnerungsaktionen selbst aus; der Assistent erhält keine Werkzeuge zum Ändern von Daten.
+
+Sage etwa „Erinnere mich morgen um 15 Uhr an einen Anruf“ oder „Zahnarzt am 30. Oktober um 15 Uhr, 30 Minuten vorher erinnern“. Termine melden sich standardmäßig eine Stunde vorher (oder mit dem gewünschten Vorlauf) und zur Terminzeit; einfache Erinnerungen nur zur angegebenen Zeit. Bei fehlenden Angaben oder Mehrdeutigkeit erscheint ein Terminal mit vollständig ausgeschriebenen nummerierten Optionen. Tippe die Nummer oder diktiere sie mit SUPER + D; Esc bricht ab. Eine Benachrichtigung meldet das Ergebnis. Auch Auflisten und Löschen sind möglich.
+
+Neue Erinnerung akzeptiert außerdem `tomorrow 15:00`, englische Wochentage (ohne Uhrzeit 09:00), `2026-10-30 09:00` und `Oct 30 15:00`. Mehrteilige Datumsangaben in der CLI in Anführungszeichen setzen. Jeder Alarm hat einen eigenen Timer; Abbrechen entfernt alle. Verpasste Alarme erscheinen bei der nächsten Anmeldung. Der Kalender markiert Termintage; ein Klick zeigt sofort aktualisierte Zeiten und Titel. Wiederholungen und externe Kalendersynchronisierung werden noch nicht unterstützt.

@@ -45,3 +45,11 @@ O pacote do LocalSend inclui seus requisitos de execução: não é preciso inst
 Consulte [Atualizações e limpeza](handbook:maintenance) para atualizar; instalar um pacote não equivale ao fluxo de Atualização do sistema protegido por snapshots.
 
 **Visualizador de música** em **Principal > Ferramentas** abre o cava com as cores do tema. Clique com o botão direito no equalizador de mídia para abrir o mesmo visualizador; o botão esquerdo continua abrindo os detalhes da mídia. Pressione **q** ou **Esc** para fechar. Se o cava não estiver instalado, ele será instalado primeiro.
+
+## Lembretes por voz
+
+Segure **SUPER + Shift + D**, fale e solte, ou digite em Principal > Ferramentas > Lembretes > Fale com o assistente…. O Eitr transcreve localmente com o mesmo modelo offline do ditado e consulta o assistente escolhido em Desenvolvimento > Assistente padrão. Só a transcrição e o contexto dos lembretes vão ao provedor; o áudio fica local e é apagado após a transcrição. O assistente roda sem janela pelo caminho somente leitura do Eitr. O Eitr valida o JSON e executa as ações; o assistente não recebe ferramentas para alterar nada.
+
+Diga “Me lembre de ligar amanhã às 15h” ou “Dentista em 30 de outubro às 15h, avise 30 minutos antes”. Compromissos avisam uma hora antes por padrão (ou com a antecedência pedida) e no horário; lembretes simples só no horário. Dados ausentes ou ambiguidade abrem um terminal com opções numeradas completas. Digite o número ou dite com SUPER + D; Esc cancela. Uma notificação informa o resultado. Você também pode pedir para listar ou cancelar lembretes.
+
+Novo lembrete aceita `tomorrow 15:00`, dias da semana em inglês (09:00 sem horário), `2026-10-30 09:00` e `Oct 30 15:00`. Use aspas nas datas com espaços na CLI. Cada alerta tem seu timer; cancelar remove todos. Alertas perdidos aparecem no próximo login. O calendário marca os dias dos eventos; clique para ver horários e títulos atualizados imediatamente. Repetição e sincronização com calendários externos ainda não são suportadas.

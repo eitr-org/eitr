@@ -15,6 +15,19 @@
     }
   },
   {
+    "text": "Tell the assistant…",
+    "subtext": "Create, find or cancel reminders with your default assistant",
+    "keywords": [
+      "voice",
+      "assistant",
+      "reminders"
+    ],
+    "icon": "󰍬",
+    "actions": {
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/tools/voice-command.py typed"
+    }
+  },
+  {
     "text": "Upcoming Reminders",
     "subtext": "See or cancel the reminders still to come",
     "keywords": [

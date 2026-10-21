@@ -98,6 +98,31 @@ class DictationTests(unittest.TestCase):
         self.assertEqual(self.run_script("stop").returncode, 0)
         self.assertEqual(self.logged(), "")
 
+    def test_voice_mode_uses_the_same_model_without_typing(self):
+        model = self.base / "data/eitr/whisper/ggml-base.bin"
+        model.parent.mkdir(parents=True)
+        model.write_text("model")
+        self.fake("python3", 'echo "voice $*" >> "$LOG"; cat >> "$LOG"')
+        for action in ("start", "stop"):
+            result = subprocess.run(["bash", str(SCRIPT), action, "voice"], env=self.env,
+                                    capture_output=True, text=True, timeout=20)
+            self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn(f"model {model}", self.logged())
+        self.assertIn("voice-command.py stdin", self.logged())
+        self.assertIn("Hello there.", self.logged())
+        self.assertNotIn("typed --", self.logged())
+        self.assertFalse(any((self.base / "runtime").iterdir()))
+
+    def test_transcription_failure_cleans_audio_and_indicator(self):
+        model = self.base / "data/eitr/whisper/ggml-base.bin"
+        model.parent.mkdir(parents=True)
+        model.write_text("model")
+        self.fake("whisper-cli", 'exit 1')
+        self.run_script("start")
+        self.assertEqual(self.run_script("stop").returncode, 1)
+        self.assertIn("dictation stop", self.logged())
+        self.assertFalse(any((self.base / "runtime").iterdir()))
+
     def test_the_bar_shows_the_recording_dot_while_listening(self):
         shell = (ROOT / "quickshell/desktop-bar/shell.qml").read_text()
         self.assertIn('target: "dictation"', shell)

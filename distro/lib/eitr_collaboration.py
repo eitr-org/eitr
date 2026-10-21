@@ -99,7 +99,7 @@ def command(identifier, binary, question):
     raise ValueError('Unsupported assistant')
 
 
-def ask(identifier, question):
+def ask(identifier, question, *, announce=True):
     binary = connected().get(identifier) if not os.environ.get(DEPTH) else None
     if not binary:
         raise ValueError(tr('This assistant is unavailable.'))
@@ -107,9 +107,10 @@ def ask(identifier, question):
     environment['PATH'] = str(binary.parent) + os.pathsep + environment.get('PATH', '')
     caller = LABELS.get(os.environ.get('EITR_ASSISTANTS_CALLER'), tr('Assistant'))
     try:
-        subprocess.run(['notify-send', '--app-name=Eitr',
-                        tr('{caller} asked {helper}', caller=caller, helper=LABELS[identifier])],
-                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=3, check=False)
+        if announce:
+            subprocess.run(['notify-send', '--app-name=Eitr',
+                            tr('{caller} asked {helper}', caller=caller, helper=LABELS[identifier])],
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=3, check=False)
     except (OSError, subprocess.TimeoutExpired):
         pass
     process = subprocess.Popen(command(identifier, binary, question), stdin=subprocess.PIPE,

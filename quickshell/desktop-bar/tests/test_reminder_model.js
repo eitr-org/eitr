@@ -1,0 +1,18 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const vm = require('node:vm');
+const path = require('node:path');
+const context = vm.createContext({});
+vm.runInContext(fs.readFileSync(path.join(__dirname, '../ReminderModel.js'), 'utf8').replace('.pragma library', ''), context);
+assert.equal(context.parse('bad').length, 0);
+assert.equal(context.parse('{}').length, 0);
+const day = new Date(2026, 9, 30, 9);
+const text = JSON.stringify([{id:'1', text:'Dentist', due:day.getTime()/1000}, {id:'2', text:'Other', due:day.getTime()/1000+86400}, {id:'3', text:'invalid', due:'bad'}]);
+assert.equal(context.parse(text).length, 2);
+assert.equal(context.forDay(context.parse(text), day)[0].text, 'Dentist');
+assert.equal(context.forDay(context.parse('[]'), day).length, 0);
+const qml = fs.readFileSync(path.join(__dirname, '../CalendarMenu.qml'), 'utf8');
+assert.match(qml, /watchChanges: true/);
+assert.match(qml, /onFileChanged: reload\(\)/);
+assert.match(qml, /onLoaded: menu.reminders = ReminderModel.parse\(text\(\)\)/);
+console.log('Reminder model passed');

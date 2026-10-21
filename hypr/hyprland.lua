@@ -387,6 +387,8 @@ hl.bind("XF86Calculator", hl.dsp.exec_cmd(paths.code("walker/scripts/actions/too
 -- Offline dictation: hold to speak, release to type (whisper-cpp ships with every installation).
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(paths.code("walker/scripts/actions/tools/dictate.sh") .. " start"))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(paths.code("walker/scripts/actions/tools/dictate.sh") .. " stop"), { release = true })
+hl.bind(mainMod .. " + SHIFT + D", hl.dsp.exec_cmd("python3 " .. paths.code("walker/scripts/actions/tools/voice-command.py") .. " start"))
+hl.bind(mainMod .. " + SHIFT + D", hl.dsp.exec_cmd("python3 " .. paths.code("walker/scripts/actions/tools/voice-command.py") .. " stop"), { release = true })
 -- Keyboard backlight keys do nothing on keyboards without a light.
 hl.bind("XF86KbdBrightnessUp", hl.dsp.exec_cmd("brightnessctl --device='*::kbd_backlight' set +33%"), { locked = true })
 hl.bind("XF86KbdBrightnessDown", hl.dsp.exec_cmd("brightnessctl --device='*::kbd_backlight' set 33%-"), { locked = true })
