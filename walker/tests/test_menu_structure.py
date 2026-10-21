@@ -25,9 +25,9 @@ class MenuStructureTests(unittest.TestCase):
                         self.assertTrue(entry.get("subtext"), "add a description")
 
     def test_descriptions_fit_on_one_row_in_every_language(self):
-        # The launcher's 580 px results list (walker/themes/current/layout.xml) leaves
-        # about 528 px for a description after padding and the icon: 73 characters
-        # of the 12 px monospaced theme font. Longer text ellipsizes.
+        # The launcher's 350 px results list (walker/themes/current/layout.xml) shows
+        # about 40 characters of a description before it ellipsizes; the 72-character
+        # cap keeps descriptions short in every language.
         limit = 72
         descriptions = {entry["subtext"]
                         for data in menu_data.static_menus().values()

@@ -162,10 +162,10 @@ scrollbar {
   border: 1px solid $(rgba "$accent" "$border_alpha");
 }
 
-/* The results list is 580 px wide (layout.xml); keep that width when it is
+/* The results list is 350 px wide (layout.xml); keep that width when it is
    hidden, so a search without results does not narrow the launcher. */
 .box {
-  min-width: 580px;
+  min-width: 350px;
 }
 
 .search-container,
