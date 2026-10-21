@@ -121,7 +121,8 @@ daemon on laptops; no desktop power service is added.
 OBS controls share compact icon backgrounds and show loading until actions and
 the resulting status refresh finish. Starting capture first prepares OBS in
 the background, then closes the panel before recording or streaming starts.
-The recording dot (shown while OBS records or streams) opens RecordingMenu: elapsed
+The recording dot (just left of the clock while OBS records or streams, where dictation
+also shows its level bars) opens RecordingMenu: elapsed
 time and size from `obs-control.py details`, Pause/Resume, Chapter and Stop, a LIVE
 row with Stop for streams, OBS microphone and camera toggles and the scene list.
 Stopping a recording sends an Open folder / Copy path notification. During

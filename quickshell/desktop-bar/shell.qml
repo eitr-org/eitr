@@ -886,7 +886,7 @@ ShellRoot {
                         width: parent.width
                         height: 40
                         Column {
-                            anchors.bottom: bar.centeredLayout ? verticalPin.top : verticalCalendarIcon.top
+                            anchors.bottom: bar.centeredLayout ? verticalPin.top : verticalCapture.top
                             anchors.bottomMargin: 3
                             anchors.horizontalCenter: parent.horizontalCenter
                             spacing: 2
@@ -911,9 +911,23 @@ ShellRoot {
                                 onClicked: bar.togglePanel(mediaMenu)
                             }
                         }
+                        CaptureIndicator {
+                            id: verticalCapture
+                            anchors.bottom: verticalCalendarIcon.top
+                            anchors.bottomMargin: shown ? 3 : 0
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            height: shown ? 24 : 0
+                            recording: obsMenu.obsState.recording || obsMenu.obsState.streaming
+                            recordingPaused: obsMenu.obsState.paused && !obsMenu.obsState.streaming
+                            streaming: obsMenu.obsState.streaming
+                            dictating: shell.dictating
+                            transcribing: shell.transcribing
+                            dictationLevels: shell.dictationLevels
+                            onRecordingClicked: bar.togglePanel(recordingMenu)
+                        }
                         VerticalBarIcon {
                             id: verticalPin
-                            anchors.bottom: verticalCalendarIcon.top
+                            anchors.bottom: verticalCapture.top
                             anchors.bottomMargin: 3
                             anchors.horizontalCenter: parent.horizontalCenter
                             icon: shell.barPinned ? "󰐃" : "󰐄"
@@ -938,13 +952,6 @@ ShellRoot {
                             compact: true
                             text: barWeather.text
                             temp: barWeather.temp
-                            recording: obsMenu.obsState.recording || obsMenu.obsState.streaming
-                            recordingPaused: obsMenu.obsState.paused && !obsMenu.obsState.streaming
-                            streaming: obsMenu.obsState.streaming
-                            dictating: shell.dictating
-                            transcribing: shell.transcribing
-                            dictationLevels: shell.dictationLevels
-                            onRecordingClicked: bar.togglePanel(recordingMenu)
                             onClicked: bar.togglePanel(weatherMenu)
                         }
                     }
@@ -1374,7 +1381,7 @@ ShellRoot {
                                 id: recordingMenu
                                 surfaceColor: shell.barBackground()
                                 controller: obsMenu
-                                target: shell.verticalBar ? verticalWeatherIcon.recordingTarget : barWeather.recordingTarget
+                                target: shell.verticalBar ? verticalCapture : barCapture
                                 barEdge: shell.barEdge
                                 centered: true
                                 accent: shell.activeBg
@@ -1401,10 +1408,24 @@ ShellRoot {
                         onClicked: bar.togglePanel(calendarMenu)
                     }
 
+                    CaptureIndicator {
+                        id: barCapture
+                        anchors.right: centerInfo.left
+                        anchors.rightMargin: shown ? 6 : 0
+                        anchors.verticalCenter: parent.verticalCenter
+                        recording: obsMenu.obsState.recording || obsMenu.obsState.streaming
+                        recordingPaused: obsMenu.obsState.paused && !obsMenu.obsState.streaming
+                        streaming: obsMenu.obsState.streaming
+                        dictating: shell.dictating
+                        transcribing: shell.transcribing
+                        dictationLevels: shell.dictationLevels
+                        onRecordingClicked: bar.togglePanel(recordingMenu)
+                    }
+
                     StatusIcon {
                         id: barPin
                         visible: bar.centeredLayout && bar.expanded
-                        anchors.right: centerInfo.left
+                        anchors.right: barCapture.left
                         anchors.rightMargin: 6
                         anchors.verticalCenter: parent.verticalCenter
                         icon: shell.barPinned ? "󰐃" : "󰐄"
@@ -1417,7 +1438,7 @@ ShellRoot {
                         id: mediaStrip
                         opacity: bar.expanded ? 1 : 0
                         enabled: bar.expanded
-                        anchors.right: bar.centeredLayout ? barPin.left : centerInfo.left
+                        anchors.right: bar.centeredLayout ? barPin.left : barCapture.left
                         anchors.rightMargin: 12
                         anchors.verticalCenter: parent.verticalCenter
                         availableWidth: Math.max(0, centerInfo.x - hardwareStatus.mapToItem(centerInfo.parent, hardwareStatus.width, 0).x - 24)
@@ -1430,13 +1451,6 @@ ShellRoot {
                         id: barWeather
                         opacity: bar.expanded ? 1 : 0
                         enabled: bar.expanded
-                        recording: obsMenu.obsState.recording || obsMenu.obsState.streaming
-                        recordingPaused: obsMenu.obsState.paused && !obsMenu.obsState.streaming
-                        streaming: obsMenu.obsState.streaming
-                        dictating: shell.dictating
-                        transcribing: shell.transcribing
-                        dictationLevels: shell.dictationLevels
-                        onRecordingClicked: bar.togglePanel(recordingMenu)
                         anchors.left: centerInfo.right
                         anchors.leftMargin: 6
                         anchors.verticalCenter: parent.verticalCenter
@@ -1755,13 +1769,11 @@ ShellRoot {
 
     }
 
-    component WeatherWidget: Item {
-        id: weather
-        signal clicked()
+    // OBS recording or streaming, and dictation (SUPER+D): a red dot or the
+    // microphone's level bars just before the clock. Hidden, it takes no space.
+    component CaptureIndicator: Item {
+        id: capture
         signal recordingClicked()
-        property alias recordingTarget: recordingDot
-        property bool autoRefresh: true
-        property bool compact: false
         property bool recording: false
         property bool recordingPaused: false
         property bool streaming: false
@@ -1769,13 +1781,76 @@ ShellRoot {
         property bool transcribing: false
         property var dictationLevels: [0, 0, 0, 0]
         readonly property bool listening: dictating || transcribing
-        readonly property bool dotShown: recording || listening
+        readonly property bool shown: recording || listening
         property real transcribePhase: 0
         NumberAnimation on transcribePhase {
-            running: weather.transcribing
+            running: capture.transcribing
             from: 0; to: 1; duration: 900; loops: Animation.Infinite
         }
+        width: shown ? recordingDot.width : 0
+        height: 24
+        Item {
+            id: recordingDot
+            visible: capture.shown
+            width: 22
+            height: 24
+            Rectangle {
+                visible: !capture.listening
+                anchors.right: parent.right
+                anchors.rightMargin: 2
+                anchors.verticalCenter: parent.verticalCenter
+                width: 6
+                height: 6
+                radius: 3
+                color: capture.recordingPaused ? shell.fg : "#e05c68"
+            }
+            // Dictation: seven bars mirrored around the centre line, fed by the
+            // microphone while listening and pulsing while transcribing.
+            Row {
+                visible: capture.listening
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+                spacing: 1
+                Repeater {
+                    model: 7
+                    Rectangle {
+                        required property int index
+                        anchors.verticalCenter: parent.verticalCenter
+                        width: 2
+                        radius: 1
+                        color: "#e05c68"
+                        height: capture.transcribing
+                            ? 3 + 9 * (0.5 + 0.5 * Math.sin((capture.transcribePhase - index / 7) * 2 * Math.PI))
+                            : 3 + 11 * (capture.dictationLevels[Math.abs(index - 3)] || 0)
+                        // Smooths the 70 ms microphone samples only: the pulse changes every
+                        // frame, and a Behavior restarted each frame never leaves its start.
+                        Behavior on height { enabled: !capture.transcribing; NumberAnimation { duration: 70 } }
+                    }
+                }
+            }
+            MouseArea {
+                id: recordingMouse
+                anchors.fill: parent
+                hoverEnabled: true
+                cursorShape: capture.recording ? Qt.PointingHandCursor : Qt.ArrowCursor
+                onClicked: if (capture.recording) capture.recordingClicked()
+            }
+            BarTooltip {
+                target: recordingDot
+                hovered: recordingMouse.containsMouse
+                text: capture.dictating ? Eitr.I18n.tr("Dictating") : capture.transcribing ? Eitr.I18n.tr("Transcribing")
+                    : capture.recordingPaused ? "Recording paused" : capture.streaming ? "Live" : "Recording"
+                foreground: shell.fg
+                background: shell.workspaceMenuBg
+            }
+        }
+    }
 
+    component WeatherWidget: Item {
+        id: weather
+        signal clicked()
+        property bool autoRefresh: true
+        property bool compact: false
         property string text: "󰖐"
         property string location: ""
         property string condition: ""
@@ -1848,61 +1923,6 @@ ShellRoot {
                 font.pixelSize: weather.compact ? 12 : 14
                 font.bold: true
             }
-            Item {
-                id: recordingDot
-                visible: weather.dotShown
-                width: 22
-                height: label.height
-                Rectangle {
-                    visible: !weather.listening
-                    anchors.right: parent.right
-                    anchors.rightMargin: 2
-                    anchors.verticalCenter: parent.verticalCenter
-                    width: 6
-                    height: 6
-                    radius: 3
-                    color: weather.recordingPaused ? shell.fg : "#e05c68"
-                }
-                // Dictation: seven bars mirrored around the centre line, fed by the
-                // microphone while listening and pulsing while transcribing.
-                Row {
-                    visible: weather.listening
-                    anchors.right: parent.right
-                    anchors.verticalCenter: parent.verticalCenter
-                    spacing: 1
-                    Repeater {
-                        model: 7
-                        Rectangle {
-                            required property int index
-                            anchors.verticalCenter: parent.verticalCenter
-                            width: 2
-                            radius: 1
-                            color: "#e05c68"
-                            height: weather.transcribing
-                                ? 3 + 9 * (0.5 + 0.5 * Math.sin((weather.transcribePhase - index / 7) * 2 * Math.PI))
-                                : 3 + 11 * (weather.dictationLevels[Math.abs(index - 3)] || 0)
-                            // Smooths the 70 ms microphone samples only: the pulse changes every
-                            // frame, and a Behavior restarted each frame never leaves its start.
-                            Behavior on height { enabled: !weather.transcribing; NumberAnimation { duration: 70 } }
-                        }
-                    }
-                }
-                MouseArea {
-                    id: recordingMouse
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: weather.recording ? Qt.PointingHandCursor : Qt.ArrowCursor
-                    onClicked: if (weather.recording) weather.recordingClicked()
-                }
-                BarTooltip {
-                    target: recordingDot
-                    hovered: recordingMouse.containsMouse
-                    text: weather.dictating ? Eitr.I18n.tr("Dictating") : weather.transcribing ? Eitr.I18n.tr("Transcribing")
-                        : weather.recordingPaused ? "Recording paused" : weather.streaming ? "Live" : "Recording"
-                    foreground: shell.fg
-                    background: shell.workspaceMenuBg
-                }
-            }
         }
 
         MouseArea {
@@ -1910,7 +1930,7 @@ ShellRoot {
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            width: weather.dotShown ? label.x + recordingDot.x - label.spacing : parent.width
+            width: parent.width
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
             onClicked: weather.clicked()

@@ -23,7 +23,7 @@ Bildschirmaufnahme öffnet die OBS-Steuerung. Sie verwendet deine eingerichtete 
 
 Aufnahmen werden unter **Videos/Records** im persönlichen Ordner gespeichert. OBS verwendet standardmäßig den persönlichen Ordner selbst; Eitr ändert nur diesen Standard. Ein unter OBS > Einstellungen > Ausgabe selbst gewählter Ordner bleibt erhalten.
 
-Während OBS aufnimmt oder streamt, erscheint ein roter Punkt neben dem Wetter. Klicke für Laufzeit, Dateigröße, Pause/Fortsetzen, Stopp, Kapitelmarken (erfordern OBS-Format Hybrid MP4), OBS-Mikrofon und -Kamera sowie Szenenauswahl. Ein Stream zeigt einen LIVE-Zähler mit eigenem Stopp. Nach Aufnahmeende bietet eine Benachrichtigung Ordner öffnen und Pfad kopieren an. Prüfe Audio-/Mikrofonauswahl und Monitor vor dem Start. Die Webcam benötigt eine OBS-Kameraquelle. Aufnahmeschalter für Audio betreffen OBS-Eingänge, nicht die Systemlautstärke.
+Während OBS aufnimmt oder streamt, erscheint ein roter Punkt links neben der Uhr. Klicke für Laufzeit, Dateigröße, Pause/Fortsetzen, Stopp, Kapitelmarken (erfordern OBS-Format Hybrid MP4), OBS-Mikrofon und -Kamera sowie Szenenauswahl. Ein Stream zeigt einen LIVE-Zähler mit eigenem Stopp. Nach Aufnahmeende bietet eine Benachrichtigung Ordner öffnen und Pfad kopieren an. Prüfe Audio-/Mikrofonauswahl und Monitor vor dem Start. Die Webcam benötigt eine OBS-Kameraquelle. Aufnahmeschalter für Audio betreffen OBS-Eingänge, nicht die Systemlautstärke.
 
 Das Handbuch startet niemals Aufnahmen oder Streams. Bildschirmfreigabe und Aufnahme bleiben ausdrückliche Aktionen. Transkodieren öffnet den vorhandenen Ablauf zur Bild-/Videokonvertierung; prüfe Ausgabepfade, bevor du Dateien ersetzt.
 

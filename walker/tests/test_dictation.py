@@ -103,10 +103,14 @@ class DictationTests(unittest.TestCase):
         self.assertIn('target: "dictation"', shell)
         for binding in ("dictating: shell.dictating", "transcribing: shell.transcribing", "dictationLevels: shell.dictationLevels"):
             self.assertEqual(shell.count(binding), 2, "horizontal and vertical bars: " + binding)
-        self.assertIn('text: weather.dictating ? Eitr.I18n.tr("Dictating") : weather.transcribing ? Eitr.I18n.tr("Transcribing")', shell)
+        self.assertIn('text: capture.dictating ? Eitr.I18n.tr("Dictating") : capture.transcribing ? Eitr.I18n.tr("Transcribing")', shell)
+        # The indicator sits just before the clock on both bar orientations.
+        self.assertIn("component CaptureIndicator: Item", shell)
+        self.assertIn("id: barCapture\n                        anchors.right: centerInfo.left", shell)
+        self.assertIn("id: verticalCapture\n                            anchors.bottom: verticalCalendarIcon.top", shell)
         self.assertIn("node: Pipewire.defaultAudioSource", shell, "the waveform follows the microphone dictation records")
         self.assertIn("enabled: shell.dictating && node !== null", shell, "the microphone is only metered while listening")
-        self.assertIn("Behavior on height { enabled: !weather.transcribing;", shell,
+        self.assertIn("Behavior on height { enabled: !capture.transcribing;", shell,
                       "a per-frame pulse under a restarting Behavior stays flat")
 
     def test_the_model_is_pinned_and_the_key_installed(self):

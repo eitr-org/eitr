@@ -20,7 +20,10 @@ for (const reason of ['barPinned', 'barPointerHeld']) {
 context.centeredLayout = false;
 assert.equal(expanded(), true);
 assert.ok(source.includes('interval: 350'));
-assert.ok(source.includes('anchors.right: bar.centeredLayout ? barPin.left : centerInfo.left'));
+assert.ok(source.includes('anchors.right: bar.centeredLayout ? barPin.left : barCapture.left'));
+// The recording/dictation indicator sits between the pin (or media) and the clock.
+assert.ok(source.includes('id: barCapture\n                        anchors.right: centerInfo.left'));
+assert.ok(source.includes('id: barPin\n                        visible: bar.centeredLayout && bar.expanded\n                        anchors.right: barCapture.left'));
 assert.ok(source.includes('id: barPin'));
 assert.equal((source.match(/BarSection \{/g) || []).length, 2);
 const corners = fs.readFileSync(`${__dirname}/../BarSection.qml`, 'utf8');

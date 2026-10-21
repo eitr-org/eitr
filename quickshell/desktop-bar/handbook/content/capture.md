@@ -31,7 +31,7 @@ it once and try again.
 Recordings go to **Videos/Records** in your home folder. OBS's own default is
 the home folder itself; Eitr changes only that default, so a folder you pick in
 OBS > Settings > Output stays.
-While OBS records or streams, a red dot sits beside the weather. Click it for the
+While OBS records or streams, a red dot sits just left of the clock. Click it for the
 elapsed time and file size, pause/resume, stop, a chapter marker (needs OBS's
 Hybrid MP4 format), the OBS microphone and camera, and the scene; a stream shows
 a LIVE timer with its own stop. When a recording stops, a notification offers
