@@ -91,8 +91,10 @@ distro/vm-tests/eitr-vm-test boot-guard --work "$RUN"                 # after an
   packages, the install log, online-only package sources and the Hyprland
   session. It saves `login.png` from the VM's screen.
 - **update** runs Walker's System Update script with pacman's default answers,
-  requires a changed `eitr-desktop` and a pre/post snapshot pair, then verifies.
-  Publish a newer `eitr-desktop` than the ISO's payload first.
+  then verifies. When packages were upgraded it requires a pre/post snapshot
+  pair; on an image that is already current it requires that no upgrade
+  snapshot was taken. To exercise a real upgrade, install the previous ISO (or
+  publish a newer `eitr-desktop` than the ISO's payload) first.
 - **reset** adds a file, a hidden setting, a system file, an account and a new
   password, answers Walker's Factory Reset warnings (first with a mistyped
   phrase, which must change nothing), waits for the restart, checks what the

@@ -192,6 +192,7 @@ def update(arguments):
     process = boot(work, "internet")
     try:
         before = ssh(work, "pacman -Q eitr-desktop").stdout.strip()
+        packages_before = ssh(work, "pacman -Q").stdout
         password = (work / "password").read_text().strip()
         command = (f"printf '%s\\n' '{password}' | sudo -S -v && yes '' | "
                    "EITR_SKIP_ARCH_NEWS=1 bash /usr/share/eitr/walker/scripts/actions/system/update.sh system")
@@ -202,7 +203,14 @@ def update(arguments):
         print(f"eitr-desktop: {before} -> {after}")
         snapshots = ssh(work, f"printf '%s\\n' '{password}' | sudo -S snapper -c root list --columns description",
                         check=False).stdout
-        if "Eitr before package upgrade" not in snapshots or "Eitr after package upgrade" not in snapshots:
+        # System Update snapshots only when it upgrades something: an image that is
+        # already current must leave no upgrade snapshots behind.
+        if ssh(work, "pacman -Q").stdout == packages_before:
+            if "Eitr before package upgrade" in snapshots or "Eitr after package upgrade" in snapshots:
+                print(snapshots)
+                raise VmTestError("System Update snapshotted although nothing was upgraded")
+            print("Nothing to upgrade: no snapshots taken, as intended")
+        elif "Eitr before package upgrade" not in snapshots or "Eitr after package upgrade" not in snapshots:
             print(snapshots)
             raise VmTestError("System Update left no successful pre/post snapshot pair")
     finally:
