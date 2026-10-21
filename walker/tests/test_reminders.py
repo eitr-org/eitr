@@ -109,7 +109,7 @@ class ReminderCommandTests(unittest.TestCase):
         self.assertEqual([entry["text"] for entry in reminders["entries"]], ["New Reminder", "Upcoming Reminders"])
         self.assertEqual(reminders["parent"], "tools")
         tools = json.loads((ROOT / "elephant/menu-rows/tools.json").read_text())
-        self.assertEqual([row["text"] for row in tools], ["Capture", "Reminders", "Share"])
+        self.assertEqual([row["text"] for row in tools], ["Capture", "Reminders", "Share", "Music Visualizer"])
         main = json.loads((ROOT / "elephant/menu-rows/main.json").read_text())
         tools_row = next(row for row in main if row["text"] == "Tools")
         self.assertEqual(tools_row["submenu"], "tools")

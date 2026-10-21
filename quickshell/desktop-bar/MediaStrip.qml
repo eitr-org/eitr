@@ -1,4 +1,5 @@
 import Eitr as Eitr
+import Quickshell
 import QtQuick
 import "PanelStyle.js" as PanelStyle
 import Quickshell.Services.Mpris
@@ -54,7 +55,13 @@ Item {
             anchors.fill: parent
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
-            onClicked: media.detailsRequested()
+            acceptedButtons: Qt.LeftButton | Qt.RightButton
+            onClicked: function(mouse) {
+                if (mouse.button === Qt.RightButton)
+                    Quickshell.execDetached(["bash", Eitr.Paths.code("walker/scripts/actions/tools/music-visualizer.sh")]);
+                else
+                    media.detailsRequested();
+            }
         }
         BarTooltip {
             target: playbackIndicator

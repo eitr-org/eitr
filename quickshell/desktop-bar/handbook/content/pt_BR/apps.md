@@ -43,3 +43,5 @@ Principal > Jogos lista **GeForce NOW**, **RetroArch** e **Steam**. Escolher um 
 O pacote do LocalSend inclui seus requisitos de execução: não é preciso instalar o Flutter SDK só para usá-lo. As ferramentas de desenvolvimento continuam opcionais.
 
 Consulte [Atualizações e limpeza](handbook:maintenance) para atualizar; instalar um pacote não equivale ao fluxo de Atualização do sistema protegido por snapshots.
+
+**Visualizador de música** em **Principal > Ferramentas** abre o cava com as cores do tema. Clique com o botão direito no equalizador de mídia para abrir o mesmo visualizador; o botão esquerdo continua abrindo os detalhes da mídia. Pressione **q** ou **Esc** para fechar. Se o cava não estiver instalado, ele será instalado primeiro.

@@ -43,3 +43,5 @@ Hauptmenü > Spielen listet **GeForce NOW**, **RetroArch** und **Steam**. Die Au
 LocalSends Paket enthält seine Laufzeitvoraussetzungen; zum Ausführen ist kein Flutter SDK nötig. Entwicklungswerkzeuge bleiben optional.
 
 Für Aktualisierungen siehe [Updates und Bereinigung](handbook:maintenance); ein einzelnes Paket zu installieren ist nicht dasselbe wie die Snapshot-geschützte Systemaktualisierung.
+
+**Musikvisualisierer** unter **Hauptmenü > Werkzeuge** öffnet cava in den Theme-Farben. Ein Rechtsklick auf den Medien-Equalizer öffnet denselben Visualisierer; ein Linksklick öffnet weiterhin die Mediendetails. **q** oder **Esc** schließt ihn. Auf bestehenden Desktops wird cava bei Bedarf zuerst installiert.

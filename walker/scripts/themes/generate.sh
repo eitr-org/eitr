@@ -7,7 +7,7 @@ set -uo pipefail
 
 THEME_SCRIPTS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 failed_modules=()
-for module in system walker btop kitty vscode swayosd; do
+for module in system walker btop cava kitty vscode swayosd; do
   if ! "$THEME_SCRIPTS_DIR/$module.sh"; then
     failed_modules+=("$module")
     printf 'Theme module failed: %s\n' "$module" >&2

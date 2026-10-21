@@ -1,0 +1,21 @@
+[general]
+bars = 0
+framerate = 60
+
+[input]
+method = pipewire
+source = auto
+
+[output]
+method = ncurses
+
+[color]
+background = default
+foreground = default
+gradient = 1
+gradient_color_1 = '#b59790'
+gradient_color_2 = '#a5a0b6'
+gradient_color_3 = '#b59790'
+gradient_color_4 = '#87a9b0'
+gradient_color_5 = '#6B5E73'
+gradient_color_6 = '#c38b7b'

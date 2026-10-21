@@ -2644,17 +2644,44 @@ msgstr "archinstall did not write exactly one limine.conf"
 msgid "archinstall exited with status {returncode}"
 msgstr "archinstall exited with status {returncode}"
 
+msgid "asking Huginn and Muninn"
+msgstr "asking Huginn and Muninn"
+
 msgid "cannot list monitors: {error}"
 msgstr "cannot list monitors: {error}"
+
+msgid "checking the longships"
+msgstr "checking the longships"
 
 msgid "checkupdates (pacman-contrib) is required to install safely. Run System → Maintenance → Update → System Update, then install pacman-contrib."
 msgstr "checkupdates (pacman-contrib) is required to install safely. Run System → Maintenance → Update → System Update, then install pacman-contrib."
 
+msgid "consulting the Norns"
+msgstr "consulting the Norns"
+
+msgid "counting the einherjar"
+msgstr "counting the einherjar"
+
+msgid "crossing Bifröst"
+msgstr "crossing Bifröst"
+
 msgid "eitr: {command} is not installed"
 msgstr "eitr: {command} is not installed"
 
+msgid "feeding the ravens"
+msgstr "feeding the ravens"
+
+msgid "finding the hidden fjord"
+msgstr "finding the hidden fjord"
+
+msgid "following the northern star"
+msgstr "following the northern star"
+
 msgid "get and set require locale"
 msgstr "get and set require locale"
+
+msgid "greeting the Valkyries"
+msgstr "greeting the Valkyries"
 
 msgid "hyprpaper failed on: {outputs}"
 msgstr "hyprpaper failed on: {outputs}"
@@ -2665,6 +2692,9 @@ msgstr "hyprsunset and hyprctl are required"
 msgid "limine.conf has no Arch Linux (linux) entry to rename"
 msgstr "limine.conf has no Arch Linux (linux) entry to rename"
 
+msgid "listening at Mímir's well"
+msgstr "listening at Mímir's well"
+
 msgid "localectl is required on the live ISO"
 msgstr "localectl is required on the live ISO"
 
@@ -2673,6 +2703,15 @@ msgstr "no WiFi backend"
 
 msgid "pacman.conf has no [eitr] repository to add the testing channel before"
 msgstr "pacman.conf has no [eitr] repository to add the testing channel before"
+
+msgid "polishing Mjölnir"
+msgstr "polishing Mjölnir"
+
+msgid "reading the runes"
+msgstr "reading the runes"
+
+msgid "sharpening the axes"
+msgstr "sharpening the axes"
 
 msgid "the kernel"
 msgstr "the kernel"
@@ -2686,11 +2725,20 @@ msgstr "theme colours missing: {colors}"
 msgid "too large"
 msgstr "too large"
 
+msgid "untangling fate"
+msgstr "untangling fate"
+
 msgid "unusable answer {zone}"
 msgstr "unusable answer {zone}"
 
 msgid "via {host}{key}"
 msgstr "via {host}{key}"
+
+msgid "waking Yggdrasil"
+msgstr "waking Yggdrasil"
+
+msgid "warming the mead"
+msgstr "warming the mead"
 
 msgid "{FAILED} already exists from an earlier restore; nothing was changed"
 msgstr "{FAILED} already exists from an earlier restore; nothing was changed"

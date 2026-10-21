@@ -2644,17 +2644,44 @@ msgstr "archinstall did not write exactly one limine.conf"
 msgid "archinstall exited with status {returncode}"
 msgstr "O archinstall encerrou com código {returncode}"
 
+msgid "asking Huginn and Muninn"
+msgstr "perguntando a Huginn e Muninn"
+
 msgid "cannot list monitors: {error}"
 msgstr "não foi possível listar os monitores: {error}"
+
+msgid "checking the longships"
+msgstr "verificando os dracares"
 
 msgid "checkupdates (pacman-contrib) is required to install safely. Run System → Maintenance → Update → System Update, then install pacman-contrib."
 msgstr "checkupdates (pacman-contrib) é necessário para instalar com segurança. Execute Sistema → Manutenção → Atualização → Atualização do sistema e depois instale pacman-contrib."
 
+msgid "consulting the Norns"
+msgstr "consultando as Nornas"
+
+msgid "counting the einherjar"
+msgstr "contando os einherjar"
+
+msgid "crossing Bifröst"
+msgstr "cruzando Bifröst"
+
 msgid "eitr: {command} is not installed"
 msgstr "eitr: {command} não está instalado"
 
+msgid "feeding the ravens"
+msgstr "alimentando os corvos"
+
+msgid "finding the hidden fjord"
+msgstr "encontrando o fiorde oculto"
+
+msgid "following the northern star"
+msgstr "seguindo a estrela do norte"
+
 msgid "get and set require locale"
 msgstr "get e set exigem locale"
+
+msgid "greeting the Valkyries"
+msgstr "cumprimentando as valquírias"
 
 msgid "hyprpaper failed on: {outputs}"
 msgstr "hyprpaper falhou nas saídas: {outputs}"
@@ -2665,6 +2692,9 @@ msgstr "hyprsunset e hyprctl são necessários"
 msgid "limine.conf has no Arch Linux (linux) entry to rename"
 msgstr "limine.conf has no Arch Linux (linux) entry to rename"
 
+msgid "listening at Mímir's well"
+msgstr "ouvindo junto ao poço de Mímir"
+
 msgid "localectl is required on the live ISO"
 msgstr "localectl é necessário na ISO live"
 
@@ -2673,6 +2703,15 @@ msgstr "nenhum serviço de WiFi"
 
 msgid "pacman.conf has no [eitr] repository to add the testing channel before"
 msgstr "pacman.conf has no [eitr] repository to add the testing channel before"
+
+msgid "polishing Mjölnir"
+msgstr "polindo Mjölnir"
+
+msgid "reading the runes"
+msgstr "lendo as runas"
+
+msgid "sharpening the axes"
+msgstr "afiando os machados"
 
 msgid "the kernel"
 msgstr "o kernel"
@@ -2686,11 +2725,20 @@ msgstr "cores do tema ausentes: {colors}"
 msgid "too large"
 msgstr "muito grande"
 
+msgid "untangling fate"
+msgstr "desembaraçando o destino"
+
 msgid "unusable answer {zone}"
 msgstr "resposta inutilizável {zone}"
 
 msgid "via {host}{key}"
 msgstr "por {host}{key}"
+
+msgid "waking Yggdrasil"
+msgstr "acordando Yggdrasil"
+
+msgid "warming the mead"
+msgstr "aquecendo o hidromel"
 
 msgid "{FAILED} already exists from an earlier restore; nothing was changed"
 msgstr "{FAILED} já existe de uma restauração anterior; nada foi alterado"

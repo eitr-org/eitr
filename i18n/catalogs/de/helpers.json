@@ -947,5 +947,21 @@
   "{status_label}: flagged {flagged_date}": "{status_label}: markiert am {flagged_date}",
   "{subscription_count} subscription(s) are ready in the Azure menu.": "{subscription_count} Abonnement(s) sind im Azure-Menü bereit.",
   "{unit} is enabled; snapshot entries are written to {entries_path} from the next boot.": "{unit} ist aktiviert; Snapshot-Einträge werden ab dem nächsten Start nach {entries_path} geschrieben.",
-  "{unit} manages networking; review that custom setup first.": "{unit} verwaltet das Netzwerk; prüfen Sie zuerst diese eigene Konfiguration."
+  "{unit} manages networking; review that custom setup first.": "{unit} verwaltet das Netzwerk; prüfen Sie zuerst diese eigene Konfiguration.",
+  "consulting the Norns": "die Nornen befragen",
+  "asking Huginn and Muninn": "Huginn und Muninn fragen",
+  "reading the runes": "die Runen lesen",
+  "crossing Bifröst": "Bifröst überqueren",
+  "waking Yggdrasil": "Yggdrasil wecken",
+  "feeding the ravens": "die Raben füttern",
+  "sharpening the axes": "die Äxte schärfen",
+  "counting the einherjar": "die Einherjer zählen",
+  "polishing Mjölnir": "Mjölnir polieren",
+  "checking the longships": "die Langschiffe prüfen",
+  "untangling fate": "das Schicksal entwirren",
+  "following the northern star": "dem Nordstern folgen",
+  "warming the mead": "den Met wärmen",
+  "greeting the Valkyries": "die Walküren grüßen",
+  "finding the hidden fjord": "den verborgenen Fjord finden",
+  "listening at Mímir's well": "an Mímirs Brunnen lauschen"
 }

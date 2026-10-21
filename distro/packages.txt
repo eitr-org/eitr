@@ -39,6 +39,7 @@ wtype
 whisper-cpp
 libnotify
 playerctl
+cava
 hyprland
 hypridle
 hyprlock

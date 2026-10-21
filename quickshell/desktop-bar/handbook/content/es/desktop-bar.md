@@ -27,3 +27,5 @@ La barra empieza en 1–5 y crece hasta el espacio actual o el mayor ocupado, co
 Los gestos de ratón para fondo y tema en el escritorio vacío están en **Aprender > Gestos del ratón**. Si tienes dudas, usa los atajos de teclado de los carruseles.
 
 El control Audio/Mic abre un panel con secciones separadas para la salida de audio y el micrófono. Tailscale y Streaming están justo antes de OBS. Un interruptor en su cabecera conecta Tailscale o inicia el uso compartido, debajo siguen detalles y dispositivos, y las acciones de configuración o diagnóstico están en el menú «…». El fondo de los botones de icono aparece al pasar el puntero; los paneles se actualizan solos al abrirse, un icono de actualización gira solo mientras cargan y las ayudas aparecen cerca del puntero. Los interruptores y los botones de acción internos tienen tamaños compactos comunes.
+
+**Visualizador de música** en **Principal > Herramientas** abre cava con los colores del tema. Haz clic derecho en el ecualizador multimedia para abrirlo; el clic izquierdo sigue abriendo los detalles multimedia. Pulsa **q** o **Esc** para cerrarlo. Si falta cava, se instala primero.

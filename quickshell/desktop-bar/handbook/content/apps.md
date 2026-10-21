@@ -94,3 +94,5 @@ the Flutter SDK just to run it. Developer tools remain optional.
 
 Use [Updates & Cleanup](handbook:maintenance) for upgrading; installing one
 package is not the same as the snapshot-protected System Update workflow.
+
+**Music Visualizer** in **Main > Tools** opens cava with theme colours. Right-click the media equalizer to open the same visualizer; left-click still opens media details. Press **q** or **Esc** to close it. On existing desktops, a missing cava package is installed first.

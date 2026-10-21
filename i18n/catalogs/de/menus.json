@@ -509,5 +509,7 @@
   "Zone details": "Zonendetails",
   "gh or glab for this account only": "gh oder glab nur für dieses Konto",
   "iwd": "iwd",
-  "{service} · {url}": "{service} · {url}"
+  "{service} · {url}": "{service} · {url}",
+  "Music Visualizer": "Musikvisualisierer",
+  "Watch music dance in a theme-coloured terminal": "Musik in einem Terminal mit Theme-Farben ansehen"
 }

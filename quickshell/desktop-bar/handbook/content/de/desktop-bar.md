@@ -27,3 +27,5 @@ Die Leiste beginnt mit 1–5 und wächst bis zur aktuellen beziehungsweise höch
 Mausgesten für Hintergrundbilder und Themen auf leerem Desktop stehen unter **Lernen > Mausgesten**. Verwende im Zweifel die Tastenkürzel der Karussells.
 
 Audio/Mikro öffnet ein gemeinsames Panel mit getrennten Bereichen für Audioausgabe und Mikrofon. Tailscale und Streaming stehen direkt vor OBS. Ein Schalter im Kopfbereich verbindet Tailscale oder startet die Freigabe, darunter folgen Details und Geräte, und Einrichtungs- oder Diagnoseaktionen liegen im Menü „…“. Symbolschaltflächen zeigen ihren Hintergrund beim Darüberfahren; Panels aktualisieren sich beim Öffnen selbst, ein Aktualisierungssymbol dreht sich nur während des Ladens, und Tooltips erscheinen am Mauszeiger. Schalter und eingebettete Aktionsschaltflächen verwenden gemeinsame kompakte Größen.
+
+**Musikvisualisierer** unter **Haupt > Werkzeuge** öffnet cava in den Theme-Farben. Ein Rechtsklick auf den Medien-Equalizer öffnet denselben Visualisierer; ein Linksklick öffnet weiterhin die Mediendetails. **q** oder **Esc** schließt ihn. Auf bestehenden Desktops wird cava bei Bedarf zuerst installiert.

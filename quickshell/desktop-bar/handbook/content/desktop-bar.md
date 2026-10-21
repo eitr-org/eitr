@@ -55,3 +55,5 @@ On empty desktop space, the wallpaper/theme mouse gestures are listed under
 **Learn > Mouse Gestures**. Use the keyboard carousel shortcuts when in doubt.
 
 The Audio/Mic control opens one panel with separate output and microphone sections. Tailscale and Streaming sit immediately before OBS. A switch in their header connects Tailscale or starts sharing, details and devices follow, and setup or diagnostic actions are in the "…" menu. Icon buttons show their background on hover; panels refresh by themselves when they open, a refresh icon spins only while they load, and tooltips appear near the pointer. Switches and inset action buttons use compact shared sizes.
+
+**Music Visualizer** in **Main > Tools** opens cava with theme colours. Right-click the media equalizer to open the same visualizer; left-click still opens media details. Press **q** or **Esc** to close it. On existing desktops, a missing cava package is installed first.

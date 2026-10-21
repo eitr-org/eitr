@@ -63,6 +63,12 @@ remain install-only.
 Update terminals show the active package check and snapshot stage; an up-to-date
 result stays visible for three seconds. Package installations announce their
 safety check before the administrator password, and Flatpak preparation is visible.
+Noninteractive waiting steps animate runes and translated Norse phrases, then settle
+with a check mark; redirected output and terminal opt-outs keep plain progress lines.
+
+The desktop includes cava under Tools > Music Visualizer and on right-click of
+the media equalizer. Theme switches regenerate its colour gradient while keeping
+settings outside the colour section. Existing desktops install cava on first use.
 
 Background menu indexing skips cloud resource pickers, so opening or searching
 Walker does not query those services or flood notifications with their failures.

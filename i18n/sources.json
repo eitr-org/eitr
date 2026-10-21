@@ -2017,6 +2017,9 @@
     "Mouse Gestures": [
       "elephant/menu-rows/learn.json"
     ],
+    "Music Visualizer": [
+      "elephant/menu-rows/tools.json"
+    ],
     "Name a site and its address": [
       "elephant/menus/webapps.lua"
     ],
@@ -2784,6 +2787,9 @@
     ],
     "Warmer screen colors for the evening; on or off": [
       "elephant/menu-rows/toggle.json"
+    ],
+    "Watch music dance in a theme-coloured terminal": [
+      "elephant/menu-rows/tools.json"
     ],
     "Weather": [
       "elephant/menu-rows/system-information.json"
@@ -6059,17 +6065,44 @@
     "archinstall exited with status {returncode}": [
       "distro/archinstall/eitr-guided-install"
     ],
+    "asking Huginn and Muninn": [
+      "distro/lib/spinner.sh"
+    ],
     "cannot list monitors: {error}": [
       "walker/scripts/actions/wallpaper/transition.py"
+    ],
+    "checking the longships": [
+      "distro/lib/spinner.sh"
     ],
     "checkupdates (pacman-contrib) is required to install safely. Run System → Maintenance → Update → System Update, then install pacman-contrib.": [
       "walker/scripts/actions/install/software.py"
     ],
+    "consulting the Norns": [
+      "distro/lib/spinner.sh"
+    ],
+    "counting the einherjar": [
+      "distro/lib/spinner.sh"
+    ],
+    "crossing Bifröst": [
+      "distro/lib/spinner.sh"
+    ],
     "eitr: {command} is not installed": [
       "distro/bin/eitr"
     ],
+    "feeding the ravens": [
+      "distro/lib/spinner.sh"
+    ],
+    "finding the hidden fjord": [
+      "distro/lib/spinner.sh"
+    ],
+    "following the northern star": [
+      "distro/lib/spinner.sh"
+    ],
     "get and set require locale": [
       "distro/lib/eitr_language.py"
+    ],
+    "greeting the Valkyries": [
+      "distro/lib/spinner.sh"
     ],
     "hyprpaper failed on: {outputs}": [
       "walker/scripts/actions/wallpaper/transition.py"
@@ -6080,6 +6113,9 @@
     "limine.conf has no Arch Linux (linux) entry to rename": [
       "distro/archinstall/eitr-guided-install"
     ],
+    "listening at Mímir's well": [
+      "distro/lib/spinner.sh"
+    ],
     "localectl is required on the live ISO": [
       "distro/archinstall/installer-ui.py"
     ],
@@ -6088,6 +6124,15 @@
     ],
     "pacman.conf has no [eitr] repository to add the testing channel before": [
       "distro/system/eitr-system.py"
+    ],
+    "polishing Mjölnir": [
+      "distro/lib/spinner.sh"
+    ],
+    "reading the runes": [
+      "distro/lib/spinner.sh"
+    ],
+    "sharpening the axes": [
+      "distro/lib/spinner.sh"
     ],
     "the kernel": [
       "walker/scripts/actions/system/restart-check.py"
@@ -6101,11 +6146,20 @@
     "too large": [
       "walker/scripts/actions/install/webapps.py"
     ],
+    "untangling fate": [
+      "distro/lib/spinner.sh"
+    ],
     "unusable answer {zone}": [
       "distro/system/eitr-timezone.py"
     ],
     "via {host}{key}": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "waking Yggdrasil": [
+      "distro/lib/spinner.sh"
+    ],
+    "warming the mead": [
+      "distro/lib/spinner.sh"
     ],
     "{FAILED} already exists from an earlier restore; nothing was changed": [
       "distro/system/boot-guard.py"

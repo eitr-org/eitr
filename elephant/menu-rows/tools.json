@@ -32,5 +32,18 @@
     ],
     "icon": "",
     "submenu": "share"
+  },
+  {
+    "text": "Music Visualizer",
+    "subtext": "Watch music dance in a theme-coloured terminal",
+    "keywords": [
+      "cava",
+      "audio",
+      "music"
+    ],
+    "icon": "󰎆",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/tools/music-visualizer.sh"
+    }
   }
 ]
