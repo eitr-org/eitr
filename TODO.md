@@ -3,18 +3,43 @@
 Open work in priority order. Each item lists what decides the next step.
 Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 
-1. More cloud providers
-2. Display review
-3. Remote access: test with the owner
-4. Organization profiles
-5. Eitr plugins
-6. Smaller items
-7. Google's assistants: remaining verification
-8. Waiting on the owner
-9. Later
-10. Before 1.0.0
+1. Voice reminders
+2. More cloud providers
+3. Display review
+4. Remote access: test with the owner
+5. Organization profiles
+6. Eitr plugins
+7. Smaller items
+8. Google's assistants: remaining verification
+9. Waiting on the owner
+10. Later
+11. Before 1.0.0
 
-# 1. More cloud providers
+# 1. Voice reminders
+
+Agreed with the owner on 2026-10-21; build when the owner says go.
+
+- **Trigger.** Hold SUPER+SHIFT+D, speak, release (offline whisper, like SUPER+D),
+  or type into a Walker row "Tell the assistant…".
+- **Assistant.** The default assistant runs headless and returns only a small,
+  validated instruction (create, delete, list, ask); Eitr executes it. The
+  assistant never runs commands, so any supported assistant works the same.
+- **Reminders.** Eitr's own reminders (`reminders.py`) gain real dates
+  ("tomorrow 15:00", "Friday", "October 30"). Appointments alert 1 hour before
+  (or as said, "30 minutes before") and again at the event time; plain reminders
+  fire at their time. Reminders due while the computer was off or asleep show at
+  the next login, as today.
+- **Questions.** Ambiguity ("which reminder?") or missing details open a
+  terminal with the full text of numbered choices; answer by typing or SUPER+D.
+- **Feedback.** One notification says what was done ("Reminder set: Dentist,
+  tomorrow 15:00 · alert 14:00") or why nothing changed.
+- **Calendar.** The bar's calendar marks days with reminders and lists a day's
+  reminders when clicked, updated as soon as one is added or removed.
+- **Privacy.** Only the transcript goes to the assistant's provider; audio stays
+  local. The Handbook says so.
+- Handbook, translations and tests as usual.
+
+# 2. More cloud providers
 
 The seven requested providers have Cloud menu entries and isolated account
 workspaces. DigitalOcean and Hetzner use Arch extra packages; Oracle and IBM use
@@ -32,7 +57,7 @@ implemented for these seven providers with isolated mock tests. Offline mock tes
 not establish live vendor behavior. See `distro/DISPLAY-REVIEW.md`.
 Do not add more providers as part of this work.
 
-# 2. Display review
+# 3. Display review
 
 The source display review is accepted. Inventory and retained design decisions are in `distro/DISPLAY-REVIEW.md`. Passive cloud
 resource reports use the existing pager; actionable choices stay in Walker and
@@ -40,7 +65,7 @@ log/event searches keep fzf. Future work: native status parity for security,
 snapshots, battery and remote access, cloud status presentation, and About's
 optional native redesign. Preserve typed confirmations and readable failures.
 
-# 3. Remote access: test with the owner
+# 4. Remote access: test with the owner
 
 Moonlight, Sunshine and Tailscale are built and inactive until set up.
 Fresh installs include them; existing machines install missing apps on demand (`distro/REMOTE-ACCESS.md`). Nothing about real hardware is
@@ -58,7 +83,7 @@ verified yet. With the owner and a MacBook, in this order:
 Afterwards, each tested separately: headless use, access before login, wake on
 LAN.
 
-# 4. Organization profiles
+# 5. Organization profiles
 
 A company (or anyone setting up several machines) chooses the software at
 installation without rebuilding the ISO: the official, signed ISO stays
@@ -128,7 +153,7 @@ Steps:
 
 Out of scope: managing machines after installation (fleet management).
 
-# 5. Eitr plugins
+# 6. Eitr plugins
 
 A plugin is a Git repository with a manifest declaring its Walker rows,
 scripts and optional user service. Install > Plugins takes a URL, shows who
@@ -136,8 +161,12 @@ wrote it and a trust warning before any code runs, updates with System Update
 and removes cleanly. The owner's cooler display tool (in the owner's private
 repository) becomes the first plugin.
 
-# 6. Smaller items
+# 7. Smaller items
 
+- **ISO download counter.** Cloudflare's R2 analytics only keep a few weeks and
+  cannot tell our own checks from real downloads. Put a small Worker in front of
+  the ISO link that counts new downloads (not resumed ranges) in D1 without
+  storing IPs, and show the total on the website.
 - **Website translations.** Offer the site in the desktop's languages
   (Portuguese (Brazil), Spanish, German, French) with a language switch, reusing
   the reviewed Handbook translations where chapters overlap. Decide the URL scheme
@@ -170,7 +199,7 @@ repository) becomes the first plugin.
   consistent Eitr Linux positioning. Consider a dated, source-checked Omarchy
   comparison page separately; do not imply shared features are exclusive.
 
-# 7. Google's assistants: remaining verification
+# 8. Google's assistants: remaining verification
 
 Gemini CLI ships as an assistants-together helper from documentation. A real
 read-only and MCP test remains open for someone with a paid API key or company
@@ -181,21 +210,23 @@ The only unlocks are `--dangerously-skip-permissions` or global permission rules
 in `~/.gemini/antigravity-cli/settings.json`. Re-check when it gains per-run
 permissions or a read-only headless mode. Do not weaken global permissions.
 
-# 8. Waiting on the owner
+# 9. Waiting on the owner
 
 - **Testing channel.** Built and verified. When the owner says so, publish with
   `release-desktop.py --channel testing`, try it on the owner's PC, then
   `--promote` to stable.
 
-# 9. Later
+# 10. Later
 
+- **Voice reminders, next steps.** Repeating reminders ("every Monday") and
+  syncing with Google or Outlook Calendar (needs account sign-in).
 - **AI multi-account.** Several accounts per assistant, manual switching only.
   Each account gets its own config folder selected through the tool's own
   variable (`CLAUDE_CONFIG_DIR`, `CODEX_HOME`); sign-in for an extra account
   uses a private browser window; never log out of an account to add another.
-  AI Usage shows each account. Pairs with item 1 for teams with several seats.
+  AI Usage shows each account. Pairs with item 2 (cloud providers) for teams with several seats.
 
-# 10. Before 1.0.0
+# 11. Before 1.0.0
 
 - **Upgrade that skips releases.** 1.0 promises supported upgrades, so test
   installing 0.6.4 and updating straight to the 1.0 candidate. The 0.6.4 ISO is
