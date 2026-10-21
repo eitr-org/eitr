@@ -162,6 +162,12 @@ scrollbar {
   border: 1px solid $(rgba "$accent" "$border_alpha");
 }
 
+/* The results list is 350 px wide (layout.xml); keep that width when it is
+   hidden, so a search without results does not narrow the launcher. */
+.box {
+  min-width: 350px;
+}
+
 .search-container,
 .results-box {
   background: transparent;

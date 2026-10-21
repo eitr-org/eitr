@@ -9,6 +9,25 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 class LauncherLayoutTests(unittest.TestCase):
+    def test_shared_box_keeps_runtime_results_width_when_scroll_is_hidden(self):
+        layout = ET.parse(ROOT / 'walker/themes/current/layout.xml')
+        box = layout.find('.//object[@id="Box"]')
+        list_width = int(layout.find('.//object[@id="Scroll"]/property[@name="min-content-width"]').text)
+        self.assertIsNotNone(box.find('style/class[@name="box"]'))
+        for widget in ('Scroll', 'Placeholder', 'ElephantHint', 'Error'):
+            self.assertIsNotNone(box.find(f'.//object[@id="{widget}"]'))
+
+        script = (ROOT / 'walker/scripts/themes/walker.sh').read_text()
+        generated_css = script.split('cat > "$CURRENT_FILE" <<EOF\n', 1)[1].split('\nEOF', 1)[0]
+        static_css = (ROOT / 'walker/themes/current/style.css').read_text()
+        for source, css in (('static', static_css), ('generated', generated_css)):
+            with self.subTest(source=source):
+                declarations = re.search(r'(?m)^\.box\s*\{([^}]+)\}', css).group(1)
+                width = re.search(r'\bmin-width:\s*(\d+)px;', declarations)
+                self.assertIsNotNone(width)
+                # The box keeps the results list's width when the list is hidden.
+                self.assertEqual(int(width.group(1)), list_width)
+
     def test_apps_and_main_share_configured_width(self):
         wrapper = (ROOT / 'walker/bin/walker').read_text()
         self.assertNotIn('apps_width', wrapper)
