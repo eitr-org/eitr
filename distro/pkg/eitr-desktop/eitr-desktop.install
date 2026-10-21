@@ -24,6 +24,19 @@ post_upgrade() {
   if [[ -f $ethernet && $(grep -v '^#' "$ethernet") == $'[Match]\nType=ether\n\n[Network]\nDHCP=yes\n\n[Link]\nRequiredForOnline=no' ]]; then
     printf '[Match]\nType=ether\n\n[Network]\nDHCP=yes\n' > "$ethernet"
   fi
+  # Colour and the Pac-Man progress bar, once: a later removal by hand is kept.
+  local pacman_conf=/etc/pacman.conf candy_marker=/var/lib/eitr/pacman-candy
+  if [[ -f $pacman_conf && ! -e $candy_marker ]] && grep -q '^\[options\]' "$pacman_conf"; then
+    if ! grep -q '^Color[[:space:]]*$' "$pacman_conf"; then
+      if grep -q '^#[[:space:]]*Color[[:space:]]*$' "$pacman_conf"; then
+        sed -i '0,/^#[[:space:]]*Color[[:space:]]*$/s//Color/' "$pacman_conf"
+      else
+        sed -i '0,/^\[options\]/s//[options]\nColor/' "$pacman_conf"
+      fi
+    fi
+    grep -q '^ILoveCandy[[:space:]]*$' "$pacman_conf" || sed -i '0,/^Color[[:space:]]*$/s//Color\nILoveCandy/' "$pacman_conf"
+    mkdir -p "${candy_marker%/*}" && touch "$candy_marker"
+  fi
   # The boot guard only acts on Eitr's own layout after a System Update arms it.
   systemctl enable eitr-boot-guard.service eitr-boot-guard-healthy.service >/dev/null 2>&1 || true
   echo ':: Eitr desktop code was updated; user preferences were not changed.'

@@ -83,6 +83,14 @@ class PayloadDefinitionTests(unittest.TestCase):
         conf = payload.online_pacman_conf(default)
         self.assertIn("[multilib]\nInclude = /etc/pacman.d/mirrorlist\n", conf)
         self.assertNotIn("file://", conf)
+        self.assertIn("[options]\nColor\nILoveCandy\nArchitecture = auto\n", conf)
+
+    def test_online_config_turns_on_colour_and_the_pacman_progress_bar(self):
+        default = ("[options]\n# Misc options\n#UseSyslog\n#Color\n#NoProgressBar\n\n"
+                   "#[multilib]\n#Include = /etc/pacman.d/mirrorlist\n")
+        conf = payload.online_pacman_conf(default)
+        self.assertIn("#UseSyslog\nColor\nILoveCandy\n#NoProgressBar\n", conf)
+        self.assertEqual(payload.online_pacman_conf(conf), conf)
         with self.assertRaises(ValueError):
             payload.online_pacman_conf("[options]\n")
 

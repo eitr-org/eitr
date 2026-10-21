@@ -145,7 +145,8 @@ def pacman_conf(pool, repo):
 
 
 def online_pacman_conf(default):
-    """The pacman package's default pacman.conf with [multilib] enabled."""
+    """The pacman package's default pacman.conf with [multilib], colour and the
+    Pac-Man progress bar (ILoveCandy) enabled."""
     lines = default.splitlines(keepends=True)
     for index, line in enumerate(lines):
         if re.fullmatch(r"#\s*\[multilib\]\s*", line):
@@ -155,4 +156,10 @@ def online_pacman_conf(default):
     result = "".join(lines)
     if not re.search(r"^\[multilib\]$", result, re.M):
         raise ValueError("The default pacman.conf has no [multilib] section to enable")
+    if not re.search(r"^Color\s*$", result, re.M):
+        result, found = re.subn(r"^#\s*Color\s*$", "Color", result, count=1, flags=re.M)
+        if not found:
+            result = re.sub(r"^\[options\]\s*$", "[options]\nColor", result, count=1, flags=re.M)
+    if not re.search(r"^ILoveCandy\s*$", result, re.M):
+        result = re.sub(r"^Color\s*$", "Color\nILoveCandy", result, count=1, flags=re.M)
     return result

@@ -73,6 +73,10 @@ process while visible and playing, with a gentle animation fallback. Theme switc
 regenerate its colour gradient while keeping
 settings outside the colour section. Existing desktops install cava on first use.
 
+pacman shows colour and the Pac-Man progress bar (`Color` and `ILoveCandy`):
+new installs write both, and existing desktops get them once with the next
+update; removing them by hand afterwards is kept.
+
 Voice reminders: hold SUPER+SHIFT+D and speak, or use Tools > Reminders > Tell the
 assistant…. The default assistant only returns a validated instruction (create,
 cancel, list or a numbered question in a terminal); Eitr carries it out, and audio
