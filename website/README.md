@@ -42,7 +42,12 @@ npm run preview   # serves the production build locally
 ## Your first Astro project
 
 - `src/pages/index.astro`: the homepage. Files in `pages/` become routes.
+- `src/pages/about.astro`: `/about/`, the distribution's identity, audience and beta scope.
+- `src/pages/features.astro`: `/features/`, current desktop, development and recovery capabilities.
+- `src/pages/installation.astro`: `/installation/`, target requirements and hardware evidence.
 - `src/pages/guide.astro`: `/guide/`, linking to canonical installation/Handbook docs.
+- `src/data/site-pages.ts`: public page names, metadata and sitemap entries.
+- `src/pages/sitemap.xml.ts` and `robots.txt.ts`: static discovery endpoints.
 - `src/layouts/Layout.astro`: shared HTML, navigation, footer, and bundled fonts.
 - `src/scripts/effects.ts`: scroll reveals, parallax, and cursor lighting.
 - `src/components/SkySwitch.astro`: the day/night switch and Sköll/Hati sky transition.
@@ -266,3 +271,22 @@ and lightning anywhere announces an `eitr:strike` event.
 - **Thunder** (`thunder.ts`): logo clicks and partial charges use a synthesized rumble; a fully
   charged hold-and-release uses TRP’s CC0 close-thunder recording. Both play
   independently of the music toggle and follow its volume.
+
+## Public identity and discovery
+
+Public descriptions use **Eitr Linux**, an **Arch-based Linux distribution**;
+logos keep EITR and the Norse visual identity. The homepage and shared footer
+link to About, Features, Installation & Hardware, and the canonical guides.
+Information pages separate available workflows, real-hardware evidence and
+pending checks. The website does not claim unverified remote-access or hardware
+support. A Releases page and external discovery work remain in `../TODO.md`.
+
+`site-pages.ts` owns titles, descriptions and public sitemap paths. Layout emits
+canonical and Open Graph metadata. `/sitemap.xml` is built from that catalog;
+`/robots.txt` permits search access and advertises it. The `/intro/` motion study
+is excluded from the sitemap and uses `noindex, follow`.
+
+These files do not override Cloudflare's crawler/WAF policy or establish search
+indexing. The owner still needs to verify crawler access, configure Search
+Console/Bing Webmaster Tools and submit the sitemap. This change adds no site
+analytics and no training-specific crawler directives.

@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { sitePages } from '../data/site-pages';
+import themes from '../data/themes.json';
+---
+<Layout {...sitePages.features}>
+  <section class="wrap guide-intro">
+    <p class="eyebrow">Features / Eitr Linux</p>
+    <h1>One desktop.<br /><em>Many ways to use it.</em></h1>
+    <p class="lead">Eitr Linux brings an Arch-based system, a native Hyprland desktop and everyday tools into one distribution. Here is what is available, what is optional, and what still needs testing.</p>
+    <nav class="info-links" aria-label="Feature sections">
+      <a class="text-link" href="#desktop">Desktop</a><a class="text-link" href="#development">Development &amp; AI</a><a class="text-link" href="#accounts">Accounts</a><a class="text-link" href="#recovery">Recovery</a>
+    </nav>
+  </section>
+  <div class="wrap info-body">
+    <section class="info-section" id="desktop" aria-labelledby="features-desktop">
+      <p class="eyebrow">Desktop &amp; appearance</p>
+      <h2 id="features-desktop">Keyboard-first.<br /><em>Graphical when you need it.</em></h2>
+      <p>The custom Quickshell desktop includes native notifications, a workspace Overview with live previews, and panels for audio, WiFi, Bluetooth, displays, calendar, weather and hardware. The Control Center opens with Super + comma. Walker searches applications, menus, settings and actions.</p>
+      <ul>
+        <li>Place monitors beside one another, choose a main display, and show the bar on one or all screens.</li>
+        <li>Adjust per-application audio and microphone controls in one panel.</li>
+        <li>Choose from {themes.length} themes, with matching application colors, lockscreens, 4K wallpapers and ultrawide artwork.</li>
+        <li>Keep your preferred bar position, corners, cursor and fonts when switching themes.</li>
+      </ul>
+      <a class="text-link" href="/#tour">See the real desktop →</a>
+    </section>
+    <section class="info-section" id="development" aria-labelledby="features-development">
+      <p class="eyebrow">Development &amp; AI</p>
+      <h2 id="features-development">Tools for the work.<br /><em>Assistance by choice.</em></h2>
+      <p>Kitty, Zsh, tmux, Neovim with LazyVim, Docker, Lazygit and Lazydocker form the development workspace. Menus offer additional editors, language environments, database clients, API tools and monitoring dashboards.</p>
+      <p>Claude Code, Codex, GitHub Copilot CLI, Grok and Gemini CLI are available through first-use installation. Antigravity is also available as a standalone assistant. Choose a default assistant, open it with Super + Alt + A, and see supported assistants’ usage limits in the bar.</p>
+      <p>The optional “Let assistants work together” feature connects supported clients through a local bridge. Another signed-in assistant can give a read-only second opinion from the same working folder. Hand-offs retain the caller’s tool-approval boundary; helpers cannot delegate onward. Claude, Codex, Copilot and Grok have real-account verification. Gemini’s paid-key or company-account verification remains open; Antigravity is not a collaboration helper.</p>
+      <p>Crash notifications can offer assistant help or a problem report with crash details. These are opt-in workflows; Eitr does not silently send every crash to an AI service. Provider accounts, subscriptions and network access are separate from the distribution.</p>
+    </section>
+    <section class="info-section" id="accounts" aria-labelledby="features-accounts">
+      <p class="eyebrow">Cloud &amp; Git</p>
+      <h2 id="features-accounts">Know the account.<br /><em>Keep the context visible.</em></h2>
+      <p>Git Accounts manages folder-specific identities and SSH keys. Cloud menus make provider accounts and project, subscription, region or scope selections explicit, with navigation back through account, service and resource menus.</p>
+      <p>Provider menus cover AWS, Azure, Google Cloud, Cloudflare, DigitalOcean, Hetzner Cloud, IBM Cloud, Netlify, Oracle Cloud and Vercel. The newer provider workflows have isolated account workspaces and mock-tested resource views; live installation, sign-in and remote context checks remain open where documented. Menu availability is not a claim that every vendor workflow has passed real-account testing.</p>
+    </section>
+    <section class="info-section" aria-labelledby="features-everyday">
+      <p class="eyebrow">Everyday tools &amp; gaming</p>
+      <h2 id="features-everyday">Capture an idea.<br /><em>Make room to play.</em></h2>
+      <p>Take screenshots, record with OBS, read text or QR codes from the screen, pick a color, set reminders and share nearby through LocalSend. Hold Super + D for dictation transcribed on your own computer. The offline Handbook opens with Super + F1.</p>
+      <p>Steam with Proton, GameMode and MangoHud, RetroArch, and GeForce NOW provide local, classic and cloud gaming choices. Game Mode can disable animations, blur and notification popups. Individual games, controllers and cloud services have their own compatibility and account requirements.</p>
+    </section>
+    <section class="info-section" id="recovery" aria-labelledby="features-recovery">
+      <p class="eyebrow">Maintenance &amp; recovery</p>
+      <h2 id="features-recovery">A way forward.<br /><em>A way back.</em></h2>
+      <p>System Update checks Arch news and available changes, creates a Btrfs snapshot when an upgrade is needed, and updates from Arch and Eitr’s signed repository. Advanced Pacman/AUR updates are separate workflows and do not create automatic snapshots.</p>
+      <p>Recovery includes system snapshots, a boot guard, optional home-folder snapshots and factory-reset procedures. The Handbook describes supported layouts, destructive confirmations and limitations. Snapshots are not a substitute for an independent backup; encrypted-disk reset and boot-guard rollback testing still has open work.</p>
+      <a class="text-link" href="/guide/">Read the recovery guides →</a>
+    </section>
+    <section class="info-section" aria-labelledby="features-remote">
+      <p class="eyebrow">Implemented / Awaiting real-device testing</p>
+      <h2 id="features-remote">Remote access.<br /><em>Testing comes first.</em></h2>
+      <p>Moonlight, Sunshine sharing and Tailscale away access have setup workflows and native status panels. Sharing remains inactive until explicitly configured. Real-device checks for video, input, audio, locking and access over Tailscale are still pending; Eitr does not yet describe remote access as verified for everyday use.</p>
+      <a class="text-link" href="https://github.com/eitr-org/eitr/blob/main/distro/REMOTE-ACCESS.md" target="_blank" rel="noopener noreferrer">Read the setup and security boundaries ↗</a>
+    </section>
+  </div>
+</Layout>

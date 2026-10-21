@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { sitePages } from '../data/site-pages';
+import release from '../data/release.json';
+---
+<Layout {...sitePages.about}>
+  <section class="wrap guide-intro">
+    <p class="eyebrow">About / Eitr Linux</p>
+    <h1>Arch underneath.<br /><em>Eitr throughout.</em></h1>
+    <p class="lead">Eitr Linux is an Arch-based Linux distribution built around Hyprland and a custom Quickshell desktop. Its own ISO and guided installer bring you to a complete graphical desktop, with Eitr packages delivered through a signed repository alongside Arch’s.</p>
+    <nav class="info-links" aria-label="Explore Eitr Linux">
+      <a class="text-link" href="/features/">Explore the features →</a>
+      <a class="text-link" href="/installation/">Installation &amp; hardware →</a>
+    </nav>
+  </section>
+  <div class="wrap info-body">
+    <section class="info-section" aria-labelledby="about-desktop">
+      <p class="eyebrow">One desktop</p>
+      <h2 id="about-desktop">A tiling workflow.<br /><em>Controls within reach.</em></h2>
+      <p>Hyprland arranges windows and workspaces. Eitr’s Quickshell bar, notifications, native panels and Control Center share the same visual language. Walker and Elephant bring applications, settings and actions into one searchable menu system.</p>
+      <p>Use shortcuts when you want to move quickly, or open graphical controls for sound, networking, displays and appearance. A theme reaches the bar, launcher, terminal, lockscreen and supported applications, rather than stopping at the wallpaper.</p>
+    </section>
+    <section class="info-section" aria-labelledby="about-audience">
+      <p class="eyebrow">Who it is for</p>
+      <h2 id="about-audience">Build, work,<br /><em>and make it yours.</em></h2>
+      <p>Eitr is for people who want Arch’s packages and a keyboard-first desktop without assembling every panel and everyday workflow themselves. Developer environments, cloud accounts, Git identities and coding assistants are available through its menus. Gaming, capture tools and offline dictation are part of the same desktop.</p>
+      <p>You can inspect the configuration and source, choose your tools and change the defaults. Optional assistants keep their own sign-in and permission boundaries; using Eitr does not require an AI subscription.</p>
+    </section>
+    <section class="info-section" aria-labelledby="about-foundation">
+      <p class="eyebrow">The foundation</p>
+      <h2 id="about-foundation">Built on Arch.<br /><em>Maintained as Eitr.</em></h2>
+      <p>Eitr uses Arch Linux and pacman, with its own desktop packages, installer, artwork and integration. System Update combines Arch updates with the signed [eitr] repository and checks for changes before creating a Btrfs snapshot. The offline Handbook documents the desktop and its recovery procedures.</p>
+      <p>Eitr’s code is free and open source under GPL-3.0-or-later. Its artwork is CC BY 4.0; third-party components retain their own licenses.</p>
+      <div class="info-links">
+        <a class="text-link" href="https://github.com/eitr-org/eitr" target="_blank" rel="noopener noreferrer">Read the source ↗</a>
+        <a class="text-link" href="https://github.com/eitr-org/eitr/blob/main/NOTICE.md" target="_blank" rel="noopener noreferrer">Licenses &amp; notices ↗</a>
+      </div>
+    </section>
+    <section class="info-section" aria-labelledby="about-status">
+      <p class="eyebrow">Current status / {release.version} {release.codename}</p>
+      <h2 id="about-status">A public beta.<br /><em>With a clear scope.</em></h2>
+      <p>Eitr runs daily on its developer’s Intel/NVIDIA desktop with two monitors. Released ISOs pass automated VM checks for offline installation, updates and factory resets. That is evidence for those configurations, not a promise that every laptop, graphics card or recovery scenario has been tested.</p>
+      <p>If you need broad hardware validation or an established support ecosystem, read the current limitations before choosing this beta. Independent testing and useful problem reports help expand what Eitr can verify.</p>
+      <a class="button" href="/installation/">Check installation &amp; hardware →</a>
+    </section>
+  </div>
+</Layout>

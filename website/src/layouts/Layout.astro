@@ -9,9 +9,11 @@ import "../styles/appearance.css";
 import SkySwitch from "../components/SkySwitch.astro";
 import RuneText from "../components/RuneText.astro";
 import release from "../data/release.json";
+import { sitePages } from "../data/site-pages";
 const {
-  title = "EITR · A desktop from the far north",
-  description = "EITR is an Arch-based desktop with Hyprland, Quickshell and Walker, shaped into one calm, theme-aware shell.",
+  title = sitePages.home.title,
+  description = sitePages.home.description,
+  noindex = false,
 } = Astro.props;
 const futhark = "ᚠᚢᚦᚨᚱᚲᚷᚹ ᚺᚾᛁᛃᛇᛈᛉᛊ ᛏᛒᛖᛗᛚᛜᛞᛟ";
 ---
@@ -27,6 +29,15 @@ const futhark = "ᚠᚢᚦᚨᚱᚲᚷᚹ ᚺᚾᛁᛃᛇᛈᛉᛊ ᛏᛒᛖᛗ�
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Eitr Linux" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
+    <meta property="og:image" content={new URL('/art/themes/norse-full.webp', Astro.site)} />
+    <meta property="og:image:alt" content="Eitr Linux Norse theme artwork" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#0a0707" />
     <link rel="icon" href="/branding/eitr-favicon.svg" type="image/svg+xml" />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
@@ -40,13 +51,13 @@ const futhark = "ᚠᚢᚦᚨᚱᚲᚷᚹ ᚺᚾᛁᛃᛇᛈᛉᛊ ᛏᛒᛖᛗ�
     <div class="ambient-sparks" data-ambient="false" aria-hidden="true">{Array.from({length:24},(_,i)=><i style={`--left:${3+(i*37)%94}%;--top:${5+(i*23)%90}%;--drift:${i%2 ? 22 : -18}px;--duration:${9+i%7}s;--wait:${-i*1.7}s`}></i>)}</div>
     <header class="site-header">
       <div class="wrap header-inner">
-        <a class="brand" href="/" aria-label="EITR home"><span class="wordmark" aria-hidden="true"></span></a>
+        <a class="brand" href="/" aria-label="Eitr Linux home"><span class="wordmark" aria-hidden="true"></span></a>
         <nav aria-label="Main navigation">
+          <a href={sitePages.about.path}>About</a>
+          <a href={sitePages.features.path}>Features</a>
           <a href="/#what">Desktop</a>
-          <a href="/#developers">Developers</a>
-          <a href="/#gaming">Gaming</a>
           <a href="/#themes">Themes</a>
-          <a href="/#install">Install</a>
+          <a href={sitePages.installation.path}>Installation</a>
           <a href="/#road">Roadmap</a>
           <a href="/#faq">FAQ</a>
           <a href="/#support">Support</a>
@@ -70,7 +81,10 @@ const futhark = "ᚠᚢᚦᚨᚱᚲᚷᚹ ᚺᚾᛁᛃᛇᛈᛉᛊ ᛏᛒᛖᛗ�
           <p>From eitr, a world takes shape.</p>
         </div>
         <div class="footer-links">
-          <a href="/guide/">Installation &amp; handbook</a>
+          <a href={sitePages.about.path}>{sitePages.about.label}</a>
+          <a href={sitePages.features.path}>{sitePages.features.label}</a>
+          <a href={sitePages.installation.path}>{sitePages.installation.label}</a>
+          <a href={sitePages.guide.path}>{sitePages.guide.label}</a>
           <a href="https://github.com/eitr-org/eitr" target="_blank" rel="noopener noreferrer">Source code ↗</a>
           <a href="https://github.com/eitr-org/eitr/blob/main/distro/RELEASES.md" target="_blank" rel="noopener noreferrer">Releases ↗</a>
           <a href="https://github.com/sponsors/erickbatistaprado" target="_blank" rel="noopener noreferrer">Sponsor ↗</a>
@@ -78,7 +92,7 @@ const futhark = "ᚠᚢᚦᚨᚱᚲᚷᚹ ᚺᚾᛁᛃᛇᛈᛉᛊ ᛏᛒᛖᛗ�
           <a href="mailto:contact@eitr.info">contact@eitr.info</a>
         </div>
         <p class="fine">
-          Independent Arch-based project. GPL-3.0 code, CC BY 4.0 artwork.
+          Eitr Linux · An independent Arch-based Linux distribution. GPL-3.0 code, CC BY 4.0 artwork.
           <br />
           {release.version} {release.codename} is {release.stage === "alpha" ? "an" : "a"} {release.stage} preview for early users.
         </p>

@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { sitePages } from '../data/site-pages';
+import download from '../data/download.json';
+import release from '../data/release.json';
+---
+<Layout {...sitePages.installation}>
+  <section class="wrap guide-intro">
+    <p class="eyebrow">Installation &amp; hardware / Eitr Linux</p>
+    <h1>A place to begin.<br /><em>Know the ground first.</em></h1>
+    <p class="lead">The Eitr Linux ISO includes the packages for an offline guided installation. The current download is {download.version}; the project is a {release.stage} for early users, with specific tested configurations and work still open.</p>
+    <nav class="info-links" aria-label="Installation resources">
+      <a class="button primary" href="/#install">Download &amp; SHA-256 →</a>
+      <a class="text-link" href="/guide/">VM testing &amp; canonical guides →</a>
+    </nav>
+  </section>
+  <div class="wrap info-body">
+    <section class="info-section" aria-labelledby="installation-target">
+      <p class="eyebrow">Target system</p>
+      <h2 id="installation-target">x86_64.<br /><em>UEFI. Arch underneath.</em></h2>
+      <ul>
+        <li>An x86_64 PC or VM booted in UEFI mode. Apple Silicon testing uses x86_64 emulation; it is not a native ARM port.</li>
+        <li>The guided installer lists writable disks of at least 64 GiB. Erase mode removes the selected disk’s contents after confirmation.</li>
+        <li>Install-alongside mode requires a GPT disk with at least 34 GiB unallocated in one gap. Prepare that space first; the installer does not resize existing partitions.</li>
+        <li>The supported fresh-install layout uses Btrfs for Eitr’s snapshot and recovery workflows.</li>
+        <li>No network is required for the guided installation. Later updates, optional downloads and online services need a connection.</li>
+      </ul>
+      <p>Back up your files before changing a disk. Verify the ISO with its published SHA-256 checksum and read the canonical guide for the complete installation and recovery requirements.</p>
+      <a class="text-link" href="https://github.com/eitr-org/eitr/blob/main/distro/README.md" target="_blank" rel="noopener noreferrer">Read the complete installation guide ↗</a>
+    </section>
+    <section class="info-section" aria-labelledby="installation-evidence">
+      <p class="eyebrow">Evidence, not a blanket compatibility claim</p>
+      <h2 id="installation-evidence">What has<br /><em>actually been tested.</em></h2>
+      <div class="info-table-scroll">
+        <table class="info-table">
+          <caption>Eitr’s current validation scope</caption>
+          <thead><tr><th scope="col">Configuration</th><th scope="col">Current evidence</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Released ISOs in virtual machines</th><td>Automated offline installation, update and factory-reset checks.</td></tr>
+            <tr><th scope="row">Developer’s Intel/NVIDIA desktop, two monitors</th><td>Installed from Eitr’s ISO and used daily, with updates through [eitr]. One real configuration does not establish support for every NVIDIA card.</td></tr>
+            <tr><th scope="row">Installing beside Windows</th><td>Verified in a VM with a simulated Windows disk. Real Windows and BitLocker configurations remain to be validated.</td></tr>
+            <tr><th scope="row">Other graphics cards and laptops</th><td>Driver handling exists, but broader real-hardware validation remains open. Laptop power and battery features need testing on actual laptops.</td></tr>
+            <tr><th scope="row">Encrypted-system recovery</th><td>Encrypted installation and daily use have real-machine evidence. Destructive resets and boot-guard rollback on encrypted disks still need isolated tests.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="info-section" aria-labelledby="installation-graphics">
+      <p class="eyebrow">Graphics &amp; firmware</p>
+      <h2 id="installation-graphics">Driver handling.<br /><em>Explicit choices.</em></h2>
+      <p>Eitr detects graphics hardware and has driver handling for AMD, Intel and NVIDIA. NVIDIA requires a reviewed driver choice because older cards need a different driver; supported Turing-or-newer systems can use the open driver. Read the guide for hybrid graphics and non-default kernels.</p>
+      <p>Secure Boot setup is documented in the Handbook and is not automatically enrolled by installation. Hardware-specific boot, encryption and recovery steps deserve their own review; a successful VM installation does not verify them on your machine.</p>
+    </section>
+    <section class="info-section" aria-labelledby="installation-try">
+      <p class="eyebrow">Try it &amp; report back</p>
+      <h2 id="installation-try">Start with a VM.<br /><em>Help expand the evidence.</em></h2>
+      <p>A clean x86_64 VM on Linux/KVM is the preferred first test. A Mac testing guide is also available, with the limits of emulation explained. Move to real hardware only after reviewing the guide and keeping an independent backup.</p>
+      <p>On the desktop, System → Information → Report a Problem prepares a report for you to inspect and send. For hardware feedback, include the Eitr version, CPU/GPU, firmware mode and the exact steps and result. Remove private information before posting a public issue.</p>
+      <div class="info-links"><a class="text-link" href="/guide/">Choose a testing guide →</a><a class="text-link" href="https://github.com/eitr-org/eitr/issues" target="_blank" rel="noopener noreferrer">Report an issue ↗</a><a class="text-link" href="/privacy/">How reports are handled →</a></div>
+    </section>
+  </div>
+</Layout>

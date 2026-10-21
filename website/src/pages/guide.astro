@@ -1,6 +1,7 @@
 ---
 import BrandText from "../components/BrandText.astro";
 import Layout from "../layouts/Layout.astro";
+import { sitePages } from "../data/site-pages";
 const repo = "https://github.com/eitr-org/eitr/blob/main/";
 const guides = [
   [
@@ -26,7 +27,7 @@ const guides = [
 ];
 ---
 
-<Layout title="Getting started · EITR">
+<Layout {...sitePages.guide}>
   <section class="wrap guide-intro">
     <p class="eyebrow">Get started / Development preview</p>
     <h1>
@@ -37,8 +38,9 @@ const guides = [
     <p class="lead">
       Start in a VM with a clean virtual disk.
       <br />
-      Read the current guide before installing.
+      Read the current guide before installing Eitr Linux.
     </p>
+    <p class="info-links"><a class="text-link" href="/installation/">Installation requirements &amp; tested hardware →</a></p>
     <div class="guide-notice">
       <span class="status-dot"></span>
       <p>

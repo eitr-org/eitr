@@ -2,9 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import MjolnirScene from '../components/MjolnirScene.astro';
 ---
-<Layout title="Lightning entrance study · EITR">
+<Layout title="Lightning entrance study · Eitr Linux" noindex>
   <section class="wrap intro-study">
-    <p class="eyebrow">Motion study / Lightning</p>
+    <h1 class="eyebrow">Motion study / Lightning</h1>
     <MjolnirScene />
     <div class="intro-controls"><button class="button primary" id="replay">Replay the strike ↻</button><a class="text-link" href="/">Back to the website ↗</a></div>
     <p class="fine">Quick motion prototype · original SVG and CSS · reduced motion shows the finished logo.</p>
@@ -12,6 +12,7 @@ import MjolnirScene from '../components/MjolnirScene.astro';
 </Layout>
 <style>
 .intro-study{padding-top:135px;padding-bottom:55px}
+.intro-study>h1{line-height:1.7}
 .intro-controls{display:flex;align-items:center;gap:30px;margin:25px 0 15px;flex-wrap:wrap}
 </style>
 <script>

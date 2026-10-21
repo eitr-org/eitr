@@ -13,7 +13,7 @@ const executablePath = process.env.EITR_BROWSER_EXECUTABLE || [
 if (!executablePath) throw new Error('Set EITR_BROWSER_EXECUTABLE to a Chrome/Chromium executable.');
 const axeSource = readFileSync(createRequire(import.meta.url).resolve('axe-core/axe.min.js'), 'utf8');
 const site = process.env.EITR_SITE_URL || 'http://127.0.0.1:4321/';
-const pages = ['/', '/guide/', '/intro/', '/privacy/'];
+const pages = ['/', '/about/', '/features/', '/installation/', '/guide/', '/intro/', '/privacy/'];
 const views = [
   { name: 'desktop', viewport: { width: 1440, height: 900 }, reducedMotion: 'no-preference' },
   { name: 'phone', viewport: { width: 390, height: 844 }, reducedMotion: 'no-preference' },

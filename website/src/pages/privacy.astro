@@ -1,6 +1,7 @@
 ---
 import BrandText from "../components/BrandText.astro";
 import Layout from "../layouts/Layout.astro";
+import { sitePages } from "../data/site-pages";
 const sections = [
   [
     "Nothing is collected by itself",
@@ -29,7 +30,7 @@ const sections = [
 ];
 ---
 
-<Layout title="Privacy · EITR" description="How Eitr handles problem reports and what this website collects.">
+<Layout {...sitePages.privacy}>
   <section class="wrap guide-intro">
     <p class="eyebrow">Privacy</p>
     <h1>

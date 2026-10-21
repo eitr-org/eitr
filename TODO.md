@@ -138,12 +138,32 @@ repository) becomes the first plugin.
 
 # 6. Smaller items
 
-- **Website update** (with the owner's own changes). Add assistants working
-  together (a second opinion from another subscription, each hand-off
-  approved, helpers read-only) and, once tested, remote access. Retake the 8
-  theme previews made before the btop colour change and add shots of the
-  lockscreen, the dictation waveform and the Packages picker (owner-only
-  captures, taken when the owner says).
+- **Website evidence and screenshots.** Keep the new public information pages in
+  step with verified desktop behavior. Retake the 8 theme previews made before
+  the btop colour change and add lockscreen, dictation waveform and Packages
+  picker shots (owner-only captures, taken when the owner says). Describe remote
+  access as verified only after the real-device tests above pass.
+- **Crawler access.** Inspect Cloudflare's bot/WAF settings and logs with the
+  owner: automated fetches returned 403 while a normal browser loaded the site.
+  Verify access for Googlebot, Bingbot, OAI-SearchBot, Claude-SearchBot and
+  Claude-User, including robots.txt and the sitemap. Do not weaken unrelated
+  security rules or change model-training permissions as part of search setup.
+- **Search indexing and measurement.** The owner verifies eitr.info in Google
+  Search Console and Bing Webmaster Tools, submits the sitemap and inspects
+  public-page indexing. Track impressions, queries and clicks there without
+  adding site analytics. Periodically spot-check whether search/AI answers
+  identify Eitr accurately; inclusion and recommendations are not guaranteed.
+- **Releases and public evidence.** Add a website Releases page and prepare
+  consistent GitHub Release notes with version, date, changes, checksums,
+  tested configurations and known limitations. Publish installation walkthroughs
+  and a video, a hardware test matrix, and suitable GitHub feedback templates.
+  Keep beta and untested-hardware limits explicit.
+- **Public discovery.** With owner approval, prepare release announcements for
+  appropriate Linux communities, invite independent testers/reviewers and check
+  distro-directory submission requirements. Share reproducible evidence rather
+  than promotional claims. Update the public repository description/README with
+  consistent Eitr Linux positioning. Consider a dated, source-checked Omarchy
+  comparison page separately; do not imply shared features are exclusive.
 
 # 7. Google's assistants: remaining verification
 
