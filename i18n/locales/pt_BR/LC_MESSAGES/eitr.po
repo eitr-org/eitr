@@ -1018,8 +1018,8 @@ msgstr "Initramfs: o hook systemd sd-encrypt está presente e tenta usar o token
 msgid "Initramfs: the busybox 'encrypt' hook cannot use TPM2 tokens. Switch to the systemd and sd-encrypt hooks first (see RECOVERY.md, TPM disk unlock)."
 msgstr "Initramfs: o hook 'encrypt' do busybox não usa tokens TPM2. Troque primeiro para os hooks systemd e sd-encrypt (consulte RECOVERY.md, TPM disk unlock)."
 
-msgid "Install Chrome or Chromium from Walker > Install > Browsers to open it."
-msgstr "Instale Chrome ou Chromium em Walker > Instalar > Navegadores para abrir."
+msgid "Install Chrome, Chromium, Edge or Brave from Install > Browsers to open it."
+msgstr "Instale Chrome, Chromium, Edge ou Brave em Instalar > Navegadores para abrir."
 
 msgid "Install alongside the existing systems in {size_text} of free space"
 msgstr "Instalar ao lado dos sistemas existentes em {size_text} de espaço livre"
@@ -2587,8 +2587,8 @@ msgstr "Logs de WARN"
 msgid "Web app created"
 msgstr "Aplicativo web criado"
 
-msgid "Web app needs Chrome or Chromium"
-msgstr "O aplicativo web exige Chrome ou Chromium"
+msgid "Web app needs a Chromium-based browser"
+msgstr "O app web precisa de um navegador baseado no Chromium"
 
 msgid "Website projects"
 msgstr "Projetos de sites"

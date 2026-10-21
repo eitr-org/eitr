@@ -1843,6 +1843,9 @@
     "Install or open Steam, with GameMode and MangoHud": [
       "elephant/menu-rows/gaming.json"
     ],
+    "Installed · web app": [
+      "walker/scripts/menus/software-menu.lua"
+    ],
     "Instance status": [
       "elephant/menus/aws-rds-instance-status-1.lua"
     ],
@@ -2788,6 +2791,9 @@
     "Web Apps": [
       "elephant/menu-rows/install.json",
       "elephant/menus/webapps.lua"
+    ],
+    "Web app · opens in your browser": [
+      "walker/scripts/menus/software-menu.lua"
     ],
     "Welcome": [
       "elephant/menu-rows/learn.json"
@@ -4406,7 +4412,7 @@
     "Initramfs: the busybox 'encrypt' hook cannot use TPM2 tokens. Switch to the systemd and sd-encrypt hooks first (see RECOVERY.md, TPM disk unlock).": [
       "distro/system/eitr-system.py"
     ],
-    "Install Chrome or Chromium from Walker > Install > Browsers to open it.": [
+    "Install Chrome, Chromium, Edge or Brave from Install > Browsers to open it.": [
       "walker/scripts/actions/install/webapps.py"
     ],
     "Install alongside the existing systems in {size_text} of free space": [
@@ -5996,7 +6002,7 @@
     "Web app created": [
       "walker/scripts/actions/install/webapps.py"
     ],
-    "Web app needs Chrome or Chromium": [
+    "Web app needs a Chromium-based browser": [
       "walker/scripts/actions/install/webapps.py"
     ],
     "Website projects": [

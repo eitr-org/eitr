@@ -3,6 +3,7 @@
     "firefox": {"label": "Firefox", "source": "pacman", "packages": ["firefox"]},
     "tor": {"label": "Tor Browser", "source": "pacman", "packages": ["torbrowser-launcher"]},
     "edge": {"label": "Microsoft Edge", "source": "aur", "packages": ["microsoft-edge-stable-bin"]},
+    "brave": {"label": "Brave", "source": "aur", "packages": ["brave-bin"]},
     "chromium": {"label": "Chromium", "source": "pacman", "packages": ["chromium"]},
     "chrome": {"label": "Google Chrome", "source": "aur", "packages": ["google-chrome"]}
   },
@@ -41,9 +42,11 @@
   },
   "productivity": {
     "1password": {"label": "1Password", "source": "aur", "packages": ["1password"]},
+    "basecamp": {"label": "Basecamp", "source": "webapp", "packages": [], "url": "https://launchpad.37signals.com/"},
     "bitwarden": {"label": "Bitwarden", "source": "pacman", "packages": ["bitwarden"]},
     "discord": {"label": "Discord", "source": "pacman", "packages": ["discord"]},
     "libreoffice": {"label": "LibreOffice", "source": "pacman", "packages": ["libreoffice-fresh"]},
+    "notion": {"label": "Notion", "source": "webapp", "packages": [], "url": "https://www.notion.so/"},
     "obsidian": {"label": "Obsidian", "source": "pacman", "packages": ["obsidian"]},
     "slack": {"label": "Slack", "source": "aur", "packages": ["slack-desktop"]},
     "thunderbird": {"label": "Thunderbird", "source": "pacman", "packages": ["thunderbird"]}

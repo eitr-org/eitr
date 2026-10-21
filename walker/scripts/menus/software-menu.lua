@@ -1,4 +1,5 @@
 local paths = dofile((os.getenv("EITR_LIBRARY_ROOT") or "/usr/share/eitr/lib") .. "/paths.lua")
+local i18n = dofile(paths.code("elephant/i18n.lua"))
 local helper = paths.code("walker/scripts/actions/install/software.py")
 local quote = dofile(paths.code("elephant/shell-quote.lua"))
 function GetEntries()
@@ -18,8 +19,13 @@ function GetEntries()
                     quote(SoftwareGroup) .. " " .. quote(row.id)
             end
             local origin = row.manager or (row.source == "aur" and "AUR · review before installing" or row.source)
+            local description = row.installed and ("Installed · " .. (row.manager or row.source)) or origin
+            if row.source == "webapp" then
+                description = row.installed and i18n.tr("Installed · web app") or
+                    i18n.tr("Web app · opens in your browser")
+            end
             table.insert(entries, {Text = row.label, Value = row.id,
-                Subtext = row.installed and ("Installed · " .. (row.manager or row.source)) or origin,
+                Subtext = description,
                 State = row.installed and {"current"} or {},
                 Icon = row.installed and "\239\128\140" --[[U+F00C]] or Icon, Actions = actions})
         end

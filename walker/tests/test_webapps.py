@@ -33,6 +33,55 @@ class WebAppTests(unittest.TestCase):
         self.addCleanup(patcher.stop)
         self.webapps = load()
 
+    def test_noninteractive_create_uses_validation_and_icon_fetch(self):
+        with patch.object(self.webapps, "create", wraps=self.webapps.create) as create, \
+                patch.object(self.webapps, "browser", return_value="brave"), \
+                patch.object(self.webapps, "fetch", side_effect=OSError("offline")):
+            self.assertEqual(self.webapps.main(["create", "Notion", "https://www.notion.so/"]), 0)
+            create.assert_called_once_with("Notion", "https://www.notion.so/")
+        self.assertEqual(self.webapps.apps()[0]["id"], "notion")
+        with patch.object(self.webapps, "browser", return_value="brave"), self.assertRaises(ValueError):
+            self.webapps.main(["create", "Bad", "file:///tmp/bad"])
+        with patch.object(self.webapps, "browser", return_value=None), \
+                patch.object(self.webapps, "create") as create, \
+                self.assertRaisesRegex(ValueError, "Install Chrome, Chromium, Edge or Brave"):
+            self.webapps.main(["create", "Basecamp", "https://launchpad.37signals.com/"])
+        create.assert_not_called()
+
+    def test_webapp_recipe_lifecycle_uses_own_listing(self):
+        specification = importlib.util.spec_from_file_location("recipe_software", SCRIPT.with_name("software.py"))
+        software = importlib.util.module_from_spec(specification)
+        specification.loader.exec_module(software)
+        item = {"label": "Notion", "source": "webapp", "packages": [], "url": "https://www.notion.so/"}
+        with patch.object(software, "catalog", return_value={"productivity": {"notion": item}}), \
+                patch.object(software, "text", side_effect=lambda arguments: json.dumps(self.webapps.apps())), \
+                patch.object(software, "run") as run:
+            self.assertFalse(software.recipes("productivity")[0]["installed"])
+            software.recipe("productivity", "notion")
+            run.assert_called_with(["python3", str(SCRIPT), "create", "Notion", item["url"]])
+            self.webapps.create("My Notion", item["url"], icon_fetch=lambda *arguments: None)
+            row = software.recipes("productivity")[0]
+            self.assertTrue(row["installed"])
+            self.assertTrue(row["removable"])
+            software.recipe("productivity", "notion")
+            run.assert_called_with(["python3", str(SCRIPT), "launch", "my-notion"])
+            with patch.object(software.subprocess, "Popen") as launch, patch.object(software, "terminal") as terminal:
+                software.recipe_launch("productivity", "notion")
+                launch.assert_called_once_with(["python3", str(SCRIPT), "launch", "my-notion"], start_new_session=True)
+                terminal.assert_not_called()
+            with patch.object(software, "confirm", return_value=False):
+                run.reset_mock()
+                software.recipe_uninstall("productivity", "notion")
+                run.assert_not_called()
+            with patch.object(software, "confirm", return_value=True) as confirm:
+                software.recipe_uninstall("productivity", "notion")
+                confirm.assert_called_once_with("Remove the My Notion web app?")
+                run.assert_called_with(["python3", str(SCRIPT), "remove", "my-notion"])
+            software.recipe_remove("productivity", "notion")
+            run.assert_called_with(["python3", str(SCRIPT), "remove", "my-notion"])
+            self.webapps.remove("my-notion")
+            self.assertFalse(software.installed(item))
+
     def test_create_lists_and_removes_a_launcher(self):
         def fetched_icon(url, identifier, icon_url):
             icon = self.webapps.ICONS / f"{identifier}.png"

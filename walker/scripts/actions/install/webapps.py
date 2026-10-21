@@ -240,7 +240,7 @@ def launch(identifier):
     url = clean_url(entry["X-Eitr-WebApp-URL"])
     command = browser()
     if not command:
-        subprocess.run(["notify-send", tr('Web app needs Chrome or Chromium'),
+        subprocess.run(["notify-send", tr('Web app needs a Chromium-based browser'),
                         tr('Install one from Walker > Install > Browsers; Firefox cannot open app windows.')],
                        check=False)
         return 1
@@ -257,7 +257,7 @@ def interactive():
     print(tr('\nFetching the icon…'), flush=True)
     path, icon = create(name, url, icon_url)
     if not browser():
-        print(tr('Install Chrome or Chromium from Walker > Install > Browsers to open it.'))
+        print(tr('Install Chrome, Chromium, Edge or Brave from Install > Browsers to open it.'))
     message = f"{clean_name(name)} is in your apps." + ("" if icon else " The site has no usable icon; a generic one is used.")
     subprocess.run(["notify-send", tr('Web app created'), message], check=False)
     return 0
@@ -267,6 +267,13 @@ def main(arguments):
     command = arguments[0] if arguments else ""
     if command == "create" and len(arguments) == 1:
         return interactive()
+    if command == "create" and len(arguments) == 3:
+        if not browser():
+            raise ValueError(tr('Install Chrome, Chromium, Edge or Brave from Install > Browsers to open it.'))
+        _, icon = create(arguments[1], arguments[2])
+        message = f"{clean_name(arguments[1])} is in your apps." + ("" if icon else " The site has no usable icon; a generic one is used.")
+        subprocess.run(["notify-send", tr('Web app created'), message], check=False)
+        return 0
     if command == "list" and len(arguments) == 1:
         print(json.dumps(apps()))
         return 0
@@ -275,7 +282,7 @@ def main(arguments):
     if command == "remove" and len(arguments) == 2:
         remove(arguments[1])
         return 0
-    print('Usage: webapps.py create | list | launch ID | remove ID', file=sys.stderr)
+    print('Usage: webapps.py create [NAME URL] | list | launch ID | remove ID', file=sys.stderr)
     return 2
 
 

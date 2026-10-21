@@ -55,7 +55,8 @@ def extract(root=ROOT):
         for row in data.get("entries", []):
             for field in ("text", "subtext"):
                 add("menus", row.get(field), path)
-    for path in sorted((root / "elephant").rglob("*.lua")):
+    for path in sorted([*(root / "elephant").rglob("*.lua"),
+                        *(root / "walker/scripts/menus").glob("*.lua")]):
         for match in re.finditer(r"\b(?:Text\s*=|Subtext\s*=|NamePretty\s*=|i18n\.(?:tr|mark)\()\s*(" + LITERAL + ")", path.read_text()):
             # Lua byte escapes belong to glyphs, never to translatable labels.
             if not re.search(r"\\[0-9]", match[1]):

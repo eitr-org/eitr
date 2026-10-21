@@ -88,6 +88,12 @@ def installer_url(name):
     return url
 
 
+def webapp(item):
+    """Resolve recipes through the same catalog as Install > Web Apps."""
+    rows = json.loads(text(["python3", str(SCRIPT.with_name("webapps.py")), "list"]))
+    return next((app for app in rows if app["url"] == item["url"]), None)
+
+
 def installed(item):
     """Whether everything the item installs is already present.
 
@@ -96,6 +102,8 @@ def installed(item):
     invisible to pacman; their catalog entries list the paths they create, each
     of which must exist (globs match any version).
     """
+    if item["source"] == "webapp":
+        return webapp(item) is not None
     if item["source"] == "flatpak":
         return bool(shutil.which("flatpak")) and all(
             subprocess.run(["flatpak", "info", package], capture_output=True).returncode == 0
@@ -111,6 +119,8 @@ def installed(item):
 
 
 def installation_present(item):
+    if item["source"] == "webapp":
+        return installed(item)
     if item["source"] == "managed":
         return any(Path(path).exists() if Path(path).is_absolute()
                    else any(Path.home().glob(path.removeprefix("~/"))) for path in item.get("installed", []))
@@ -121,7 +131,7 @@ def recipes(group):
     rows = []
     for key, value in catalog()[group].items():
         complete = installed(value)
-        supported = value["source"] in ("pacman", "aur", "flatpak") or bool(value.get("uninstall"))
+        supported = value["source"] in ("pacman", "aur", "flatpak", "webapp") or bool(value.get("uninstall"))
         rows.append({"id": key, **value, "installed": complete,
                      "removable": supported and (complete or installation_present(value))})
     return rows
@@ -248,6 +258,11 @@ def remove(source, *names):
 
 def recipe_uninstall(group, identifier):
     item = catalog()[group][identifier]
+    if item["source"] == "webapp":
+        app = webapp(item)
+        if app:
+            uninstall(app["path"])
+        return
     if not installation_present(item):
         return
     if item["source"] not in ("pacman", "aur", "flatpak") and not item.get("uninstall"):
@@ -283,6 +298,11 @@ def recipe_review(group, identifier):
 
 def recipe_remove(group, identifier):
     item = catalog()[group][identifier]
+    if item["source"] == "webapp":
+        app = webapp(item)
+        if app:
+            run(["python3", str(SCRIPT.with_name("webapps.py")), "remove", app["id"]])
+        return
     if item["source"] in ("pacman", "aur"):
         packages = [package for package in item["packages"] if installed({**item, "packages": [package]})]
         if packages:
@@ -376,6 +396,11 @@ def missing_providers(defaults):
 
 def recipe(group, identifier):
     item = catalog()[group][identifier]
+    if item["source"] == "webapp":
+        app = webapp(item)
+        arguments = ["launch", app["id"]] if app else ["create", item["label"], item["url"]]
+        run(["python3", str(SCRIPT.with_name("webapps.py")), *arguments])
+        return
     if installed(item):
         print(tr('{label} is already installed. System Update keeps packages current; tools from their own installers update through them.', label=f"{item['label']}"))
         return
@@ -391,6 +416,17 @@ def recipe(group, identifier):
                     item["packages"] + missing_providers(item.get("provider_defaults", {})))
         if item["source"] == "managed":
             run(["bash", str(SCRIPT.with_name("development.sh")), identifier])
+
+
+def recipe_launch(group, identifier):
+    item = catalog()[group][identifier]
+    if item["source"] == "webapp":
+        app = webapp(item)
+        if app:
+            subprocess.Popen(["python3", str(SCRIPT.with_name("webapps.py")), "launch", app["id"]],
+                             start_new_session=True)
+            return
+    terminal("python3", str(SCRIPT), "recipe", group, identifier)
 
 
 def cached(key, fetch):
@@ -596,7 +632,7 @@ def main(options):
     elif options.action == "recipe":
         recipe(*args)
     elif options.action == "recipe-launch":
-        terminal("python3", str(SCRIPT), "recipe", *args)
+        recipe_launch(*args)
     elif options.action == "gaming":
         gaming(*args)
     elif options.action == "gaming-install":

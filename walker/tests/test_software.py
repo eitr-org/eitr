@@ -269,6 +269,19 @@ class SoftwareTests(unittest.TestCase):
             software.remove("pacman", "firefox")
             run.assert_called_once_with(["sudo", "pacman", "-R", "--", "firefox"])
 
+    def test_optional_browser_and_webapp_recipes(self):
+        data = json.loads((ROOT / "distro/software.json").read_text())
+        self.assertEqual(data["browsers"]["brave"],
+                         {"label": "Brave", "source": "aur", "packages": ["brave-bin"]})
+        for identifier, url in (("basecamp", "https://launchpad.37signals.com/"),
+                                ("notion", "https://www.notion.so/")):
+            self.assertEqual(data["productivity"][identifier],
+                             {"label": identifier.title(), "source": "webapp", "packages": [], "url": url})
+        for locale in ("en", "de", "es", "fr", "pt_BR"):
+            translations = json.loads((ROOT / "i18n/catalogs" / locale / "menus.json").read_text())
+            for description in ("Installed · web app", "Web app · opens in your browser"):
+                self.assertLessEqual(len(translations[description]), 72)
+
     def test_catalog_names_and_no_default_grok(self):
         data = json.loads((ROOT / "distro/software.json").read_text())
         for entries in data.values():
@@ -495,7 +508,9 @@ class SoftwareRemovalTests(unittest.TestCase):
 io.popen = function() return {read=function() return 'fixture' end, close=function() end} end
 jsonDecode = function() return {
     {id='cursor', label='Cursor', source='aur', installed=true, removable=true},
-    {id='zed', label='Zed', source='pacman', installed=false, removable=false}
+    {id='zed', label='Zed', source='pacman', installed=false, removable=false},
+    {id='notion', label='Notion', source='webapp', installed=true, removable=true},
+    {id='basecamp', label='Basecamp', source='webapp', installed=false, removable=false}
 } end
 SoftwareGroup = 'developer-apps'
 Icon = 'app'
@@ -504,6 +519,9 @@ local rows = GetEntries()
 assert(rows[1].Actions.app_uninstall:find('recipe%-uninstall'))
 assert(rows[1].State[1] == 'current')
 assert(rows[2].Actions.app_uninstall == nil)
+assert(rows[3].Subtext == 'Installed · web app')
+assert(rows[3].State[1] == 'current')
+assert(rows[4].Subtext == 'Web app · opens in your browser')
 """
         result = subprocess.run(["lua", "-"], input=script, text=True, capture_output=True,
                                 env={**os.environ, "EITR_CODE_ROOT": str(ROOT), "EITR_LIBRARY_ROOT": str(ROOT / "distro/lib")}, cwd=ROOT)
