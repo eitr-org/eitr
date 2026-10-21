@@ -138,6 +138,11 @@ repository) becomes the first plugin.
 
 # 6. Smaller items
 
+- **Website translations.** Offer the site in the desktop's languages
+  (Portuguese (Brazil), Spanish, German, French) with a language switch, reusing
+  the reviewed Handbook translations where chapters overlap. Decide the URL scheme
+  (`/pt-br/...`), `hreflang` and sitemap entries first; keep English the default
+  and keep untranslated pages falling back to English.
 - **Website evidence and screenshots.** Keep the new public information pages in
   step with verified desktop behavior. Retake the 8 theme previews made before
   the btop colour change and add lockscreen, dictation waveform and Packages

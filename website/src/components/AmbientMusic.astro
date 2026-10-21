@@ -1,5 +1,5 @@
 <div class="ambient-music">
-  <button class="music-toggle" type="button" aria-pressed="false" aria-controls="norse-audio">♫ Music <span class="music-state" aria-hidden="true">off</span></button>
+  <button class="music-toggle" type="button" aria-pressed="false" aria-controls="norse-audio" aria-label="Music off"><span aria-hidden="true">♫</span><span class="music-state" hidden>off</span></button>
   <details>
     <summary>Music credits</summary>
     <p><a href="https://creatorchords.com/music/wild-west-vikings/" target="_blank" rel="noopener noreferrer">Wild West Vikings</a>
@@ -13,12 +13,14 @@
   <audio id="norse-audio" preload="none" loop src="/audio/wild-west-vikings.mp3"></audio>
 </div>
 <style>
-.ambient-music{margin-top:26px;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:12px}
-.music-toggle{border:1px solid #b08d5740;border-radius:4px;background:transparent;color:#d6ccc0;padding:8px 12px;font:inherit;cursor:pointer}
-.music-toggle:hover,.music-toggle[aria-pressed="true"]{border-color:#e4dcd2;color:#fff}
-.music-toggle:focus-visible,summary:focus-visible{outline:2px solid #e4dcd2;outline-offset:4px}
-details{max-width:310px}summary{cursor:pointer}details p{margin-top:10px;line-height:1.7}details a{text-decoration:underline}
-.music-status{flex-basis:100%;margin:0}.music-status:empty{display:none}
+.ambient-music{position:absolute;z-index:2;right:max(20px,calc((100% - 1280px)/2));bottom:12px;display:flex;align-items:center;gap:12px;color:var(--muted);font-size:12px}
+.music-toggle{display:grid;place-items:center;width:40px;height:40px;border:1px solid var(--line-strong);border-radius:4px;background:var(--bg);color:var(--muted);font:inherit;font-size:20px;cursor:pointer}
+.music-toggle:hover,.music-toggle[aria-pressed="true"]{border-color:var(--fg);color:var(--fg)}
+.music-toggle:focus-visible,summary:focus-visible{outline:2px solid var(--fg);outline-offset:4px}
+summary{cursor:pointer;min-height:40px;display:flex;align-items:center}
+details[open]{position:absolute;bottom:48px;right:0;width:min(310px,calc(100vw - 40px));padding:16px;background:var(--bg);border:1px solid var(--line-strong);border-radius:4px}
+details p{margin-top:10px;line-height:1.7}details a{text-decoration:underline}
+.music-status{position:absolute;right:0;bottom:48px;width:240px;padding:12px;background:var(--bg);margin:0}.music-status:empty{display:none}
 </style>
 <script>
 const audio=document.querySelector<HTMLAudioElement>('#norse-audio');
@@ -29,6 +31,7 @@ if(audio && toggle && status) {
  const update=()=>{
   const playing=!audio.paused;
   toggle.setAttribute('aria-pressed',String(playing));
+  toggle.setAttribute('aria-label',playing ? 'Music on' : 'Music off');
   toggle.querySelector('.music-state')!.textContent=playing ? 'on' : 'off';
  };
  audio.addEventListener('play',update);

@@ -94,29 +94,39 @@ const futhark = "ᚠᚢᚦᚨᚱᚲᚷᚹ ᚺᚾᛁᛃᛇᛈᛉᛊ ᛏᛒᛖᛗ�
     <footer class="footer">
       <div class="marquee" aria-hidden="true"><span><RuneText text={`${futhark} · ${futhark} · ${futhark} · ${futhark} · `} /></span></div>
       <div class="wrap footer-grid">
-        <div>
+        <div class="footer-brand">
           <span class="wordmark" aria-hidden="true"></span>
-          <p>From eitr, a world takes shape.</p>
+          <p class="footer-motto">From eitr,<br />a world takes shape.</p>
+          <p class="footer-runes" aria-hidden="true"><RuneText text="ᚠᚱᛟᛗ ᛖᛁᛏᚱ ᛫ ᚨ ᚹᛟᚱᛚᛞ ᛏᚨᚲᛖᛊ ᛊᚺᚨᛈᛖ" /></p>
+          <a class="footer-release" href="/installation/"><span class="dot" aria-hidden="true"></span>{release.version} {release.codename} · {release.stage}</a>
         </div>
-        <div class="footer-links">
-          <a href={sitePages.about.path} aria-current={Astro.url.pathname === sitePages.about.path ? "page" : undefined}>{sitePages.about.label}</a>
-          <a href={sitePages.features.path} aria-current={Astro.url.pathname === sitePages.features.path ? "page" : undefined}>{sitePages.features.label}</a>
-          <a href={sitePages.development.path} aria-current={Astro.url.pathname === sitePages.development.path ? "page" : undefined}>{sitePages.development.label}</a>
-          <a href="/#road">Roadmap</a>
-          <a href="/#support">Support</a>
-          <a href={sitePages.installation.path} aria-current={Astro.url.pathname === sitePages.installation.path ? "page" : undefined}>{sitePages.installation.label}</a>
-          <a href={sitePages.guide.path} aria-current={Astro.url.pathname === sitePages.guide.path ? "page" : undefined}>{sitePages.guide.label}</a>
-          <a href="https://github.com/eitr-org/eitr" target="_blank" rel="noopener noreferrer">Source code ↗</a>
-          <a href="https://github.com/eitr-org/eitr/blob/main/distro/RELEASES.md" target="_blank" rel="noopener noreferrer">Releases ↗</a>
-          <a href="https://github.com/sponsors/erickbatistaprado" target="_blank" rel="noopener noreferrer">Sponsor ↗</a>
-          <a href="/privacy/">Privacy</a>
-          <a href="mailto:contact@eitr.info">contact@eitr.info</a>
-        </div>
-        <p class="fine">
-          Eitr Linux · An independent Arch-based Linux distribution. GPL-3.0 code, CC BY 4.0 artwork.
-          <br />
-          <a href="/installation/">{release.version} {release.codename} · {release.stage} · installation &amp; hardware notes</a>
-        </p>
+        <nav class="footer-links" aria-label="Footer">
+          <div>
+            <p class="label">Explore</p>
+            <a href={sitePages.about.path} aria-current={Astro.url.pathname === sitePages.about.path ? "page" : undefined}>{sitePages.about.label}</a>
+            <a href={sitePages.features.path} aria-current={Astro.url.pathname === sitePages.features.path ? "page" : undefined}>{sitePages.features.label}</a>
+            <a href={sitePages.development.path} aria-current={Astro.url.pathname === sitePages.development.path ? "page" : undefined}>{sitePages.development.label}</a>
+            <a href="/#road">Roadmap</a>
+          </div>
+          <div>
+            <p class="label">Learn</p>
+            <a href={sitePages.guide.path} aria-current={Astro.url.pathname === sitePages.guide.path ? "page" : undefined}>{sitePages.guide.label}</a>
+            <a href={sitePages.installation.path} aria-current={Astro.url.pathname === sitePages.installation.path ? "page" : undefined}>{sitePages.installation.label}</a>
+            <a href="/privacy/" aria-current={Astro.url.pathname === "/privacy/" ? "page" : undefined}>Privacy</a>
+          </div>
+          <div>
+            <p class="label">Project</p>
+            <a href="https://github.com/eitr-org/eitr" target="_blank" rel="noopener noreferrer">Source code ↗</a>
+            <a href="https://github.com/eitr-org/eitr/blob/main/distro/RELEASES.md" target="_blank" rel="noopener noreferrer">Releases ↗</a>
+            <a href="https://github.com/sponsors/erickbatistaprado" target="_blank" rel="noopener noreferrer">Sponsor ↗</a>
+            <a href="mailto:contact@eitr.info">Contact</a>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-carving" aria-hidden="true"><span class="carving-mark"></span></div>
+      <div class="wrap footer-base fine">
+        <p>Eitr Linux · GPL-3.0 code · CC BY 4.0 artwork</p>
+        <p>An independent Arch-based distribution from the far north.</p>
       </div>
     </footer>
     </div></div>

@@ -180,7 +180,7 @@ em { font-style: italic; color: var(--accent); }
 .stone:hover { border-color: #a8323a44; transform: translateY(-4px); }
 .stone .label { color: var(--bronze); margin-bottom: 14px; }
 .stone h3 { margin-bottom: 12px; }
-.stone p:last-child { font-size: 13px; }
+.stone > p:not(.label) { font-size: 13px; }
 
 /* Tour: one area of the desktop at a time, a screenshot beside what it offers. */
 .tour-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
@@ -502,7 +502,9 @@ html.wielding-mjolnir, html.wielding-mjolnir * { cursor: grabbing !important; us
 
 /* Public information pages share the site's ink, surfaces and typography. */
 .info-links{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;margin-top:26px;font-size:13px}
-.hero-details{gap:10px 20px;font-size:12px;margin-top:24px}
+.hero-details{flex-wrap:nowrap;gap:10px 20px;font-size:12px;margin-top:24px}
+.hero-details a{white-space:nowrap}
+@media(max-width:760px){.hero-details{flex-wrap:wrap}}
 .info-body{max-width:1000px}
 .info-section{padding:52px 0;border-top:1px solid var(--line)}
 .info-section h2{font-size:clamp(36px,4vw,58px);margin-bottom:24px}
@@ -521,17 +523,10 @@ html.wielding-mjolnir, html.wielding-mjolnir * { cursor: grabbing !important; us
 .info-table tbody th{width:34%}
 @media(max-width:600px){.info-section{padding:36px 0}.info-section p,.info-section ul{font-size:13px}.info-table th,.info-table td{padding:12px}.info-table{font-size:12px}.info-table tbody th{width:38%}}
 
-/* Workflow summaries use the same surfaces and type as the existing dossier. */
-.workflow-overview{padding-block:48px;border-top:1px solid var(--line)}
-.workflow-overview h2{font-size:clamp(36px,4vw,58px);margin-bottom:28px}
-.workflow-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
-.workflow-grid article{border-top:1px solid var(--line-strong);padding-top:20px;min-width:0}
-.workflow-grid h3{font-size:26px;margin-bottom:12px}
-.workflow-grid p{font-size:13px;line-height:1.85;margin-bottom:18px}
-.workflow-grid .text-link{font-size:12px}
+.stone > .text-link{display:inline-block;margin-top:18px;font-size:12px}
 kbd{font:inherit;color:var(--fg)}
 .info-section pre{max-width:100%;overflow-x:auto;padding:18px;background:var(--surface);border:1px solid var(--line);font-size:13px}
-@media(max-width:760px){.workflow-grid{grid-template-columns:1fr;gap:24px}}
+
 
 .handbook-page{max-width:1000px;padding-bottom:70px}
 .doc-context{max-width:780px;margin:24px 0;font-size:12px;line-height:1.85;color:var(--muted)}
@@ -626,3 +621,40 @@ body.menu-open { overflow: hidden; }
 @media (min-width: 1100px) {
   .inner-hero-art { object-fit: cover; background: none; }
 }
+
+.road-patches{list-style:none;padding:0;margin-top:12px}
+.road .road-patch{display:grid;grid-template-columns:50px minmax(0,1fr) auto;gap:12px;padding:6px 0;font-size:13px}
+.road .road-patch::before{content:none}
+.road .patch-current{color:var(--fg)}
+.road .patch-current .stage{color:var(--fg);border-bottom:1px solid var(--accent);align-self:center}
+@media (max-width: 600px) {
+  .road .road-patch { grid-template-columns: auto 1fr; row-gap: 2px; padding: 8px 0; }
+  .road .road-patch > span:nth-child(2) { grid-column: 1 / -1; grid-row: 2; }
+  .road .road-patch > .stage { justify-self: start; }
+}
+
+/* Footer: brand and motto (with the same line carved in runes), three short link
+   columns, a faint carved wordmark and one fine line. */
+.footer-grid { grid-template-columns: minmax(0, 1fr) auto; gap: 48px 64px; align-items: start; padding: 64px 0 40px; }
+.footer-motto { margin-top: 18px; font-family: var(--serif); font-size: 26px; line-height: 1.15; color: var(--fg); }
+.footer-runes { margin-top: 12px; font-family: var(--runic); font-size: 18px; letter-spacing: .38em; color: var(--bronze); text-shadow: 0 0 14px #b08d5766; }
+.footer-release { display: inline-flex; align-items: center; gap: 10px; margin-top: 26px; font-size: 12px; color: var(--secondary); }
+.footer-release .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+.footer-release:hover { color: var(--fg); }
+.footer-links { display: grid; grid-template-columns: repeat(3, auto); gap: 0 56px; }
+.footer-links > div { display: flex; flex-direction: column; gap: 12px; }
+.footer-links .label { margin-bottom: 6px; font-family: var(--carved); letter-spacing: .2em; text-transform: uppercase; }
+.footer-links a[aria-current="page"] { color: var(--fg); }
+.footer-carving { overflow: hidden; display: flex; justify-content: center; padding: 8px 0 0; pointer-events: none; }
+.carving-mark { display: block; width: min(760px, 80vw); aspect-ratio: 74 / 28; background: var(--fg); opacity: .05;
+  -webkit-mask: url("/branding/eitr-wordmark.svg") center/contain no-repeat; mask: url("/branding/eitr-wordmark.svg") center/contain no-repeat; }
+.footer-base { display: flex; justify-content: space-between; gap: 12px 32px; flex-wrap: wrap; padding: 20px 0 32px; border-top: 1px solid var(--line); }
+@media (max-width: 860px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-links { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 24px; }
+}
+@media (max-width: 600px) {
+  .footer-links > div { gap: 0; }
+  .footer-base { flex-direction: column; }
+}
+.footer-links a { color: var(--secondary); }

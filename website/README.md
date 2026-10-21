@@ -148,7 +148,9 @@ suite fails on serious or critical violations.
 The version badge, status texts and roadmap come from `distro/release.json` and
 the release table in `distro/RELEASES.md`, copied into `src/data/` by
 `npm run sync-assets` (part of `dev` and `build`). The site adds only each
-codename's myth line, in `src/pages/index.astro`.
+codename's myth line, in `src/pages/index.astro`. Consecutive releases with the
+same codename share one entry and a compact milestone list, with the current
+release marked on its own row.
 
 ## Mjölnir entrance study
 
@@ -190,7 +192,8 @@ Decorative Norse symbols briefly illuminate once when they enter the viewport.
 The homepage sound control starts off on every load and fetches audio only after
 activation. It plays the unedited, locally hosted “Wild West Vikings” by Alexander
 Nakarada at 20% volume, repeating during playback. Hidden tabs pause playback;
-returning requires another click. Credits and CC BY 4.0 links are beside the
+returning requires another click. The icon toggle sits in the hero’s bottom-right corner; its accessible name states
+whether music is on or off. Credits and CC BY 4.0 links open beside the
 control and in `public/audio/CREDITS.md`. The track is free with attribution;
 no paid license is used. The recording retains its separate CC BY 4.0 license.
 

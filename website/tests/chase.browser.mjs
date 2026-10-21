@@ -48,10 +48,10 @@ try {
   });
   assert.ok(colors && colors.before!==colors.after,`Missing cycling rainbow on ${selector}`);
  }
- await page.getByRole('button',{name:'♫ Music',exact:true,pressed:false}).click();
+ await page.getByRole('button',{name:'Music off',exact:true,pressed:false}).click();
  await page.waitForFunction(()=>!document.querySelector('#norse-audio').paused && document.querySelector('#norse-audio').currentTime>0);
  assert.equal(await page.locator('.music-toggle').getAttribute('aria-pressed'),'true');
- await page.getByRole('button',{name:'♫ Music',exact:true,pressed:true}).click();
+ await page.getByRole('button',{name:'Music on',exact:true,pressed:true}).click();
  assert.equal(await page.locator('#norse-audio').evaluate(audio=>audio.paused),true);
 
  assert.equal(await page.locator('.hero-art').count(),0);

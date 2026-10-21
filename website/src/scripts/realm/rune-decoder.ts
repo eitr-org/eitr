@@ -1,9 +1,9 @@
-// Runes in the scrolling bands show their Latin letters while the cursor
+// Runes in the scrolling bands and the footer motto show their Latin letters while the cursor
 // passes over them, then fade back to runes.
 import { finePointer } from './motion';
 
 const RADIUS = 70;
-for (const band of document.querySelectorAll<HTMLElement>('.rune-band, .marquee')) {
+for (const band of document.querySelectorAll<HTMLElement>('.rune-band, .marquee, .footer-runes')) {
   const glyphs = [...band.querySelectorAll<HTMLElement>('.rune-glyph')];
   let frame = 0;
   let x = 0;
