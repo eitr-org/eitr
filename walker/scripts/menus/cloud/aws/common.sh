@@ -46,22 +46,7 @@ back_to_aws_menu() {
   "$AWS_MENUS_DIR/menu.sh" "$AWS_PROFILE"
 }
 
-# Profile choices as "Label<TAB>profile" lines. EITR_AWS_PROFILES in cloud.env
-# maps friendly labels ("Development=my-dev Production=my-prod"); otherwise
-# every AWS CLI profile is listed under its name from Cloud > AWS > Add AWS
-# Account or Ctrl+R, else its profile name.
+# Friendly mappings restrict and label the config-backed AWS account list.
 aws_profile_choices() {
-  local entry
-
-  if [ -n "${EITR_AWS_PROFILES:-}" ]; then
-    for entry in $EITR_AWS_PROFILES; do
-      if [[ "$entry" == *=* ]]; then
-        printf '%s\t%s\n' "${entry%%=*}" "${entry#*=}"
-      else
-        printf '%s\t%s\n' "$entry" "$entry"
-      fi
-    done
-  elif command -v aws >/dev/null 2>&1; then
-    python3 "$CLOUD_MENUS_DIR/accounts.py" aws-choices 2>/dev/null
-  fi
+  EITR_AWS_PROFILES="${EITR_AWS_PROFILES:-}" python3 "$CLOUD_MENUS_DIR/accounts.py" aws-choices 2>/dev/null
 }

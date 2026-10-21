@@ -41,6 +41,10 @@ release tag.
 
 ## Feature plan
 
+AWS account discovery excludes credentials-only profiles and config profiles with
+custom endpoints, including S3-compatible storage. Remote diagnostic terminals
+remain open until Esc, and failed local status commands show unavailable status.
+
 The website presents keyboard-first desktop, development and system workflows
 together. Development has a dedicated hub, and the English offline Handbook is
 also available as static, linkable web chapters. Included tools, optional installs

@@ -76,38 +76,63 @@ def identifier(value):
 
 
 def aws_profiles():
-    """Profile names from the AWS config and credentials files, as the AWS CLI reads them.
+    """List config-backed AWS profiles, excluding custom service endpoints.
 
-    Read directly: `aws configure list-profiles` takes about two seconds to start,
-    which would stall the AWS menu on every open.
+    A profile that exists only in the credentials file is listed when its access key
+    ID has the AWS form (AKIA/ASIA prefix); S3-compatible providers such as
+    Cloudflare R2 use other key formats. Secrets are never read, and no provider
+    CLI is started.
     """
-    home = Path.home()
-    sources = ((Path(os.environ.get("AWS_CONFIG_FILE") or home / ".aws/config"), True),
-               (Path(os.environ.get("AWS_SHARED_CREDENTIALS_FILE") or home / ".aws/credentials"), False))
+    path = Path(os.environ.get("AWS_CONFIG_FILE") or Path.home() / ".aws/config")
+    parser = configparser.ConfigParser(interpolation=None, strict=False)
+    try:
+        parser.read(path)
+    except (configparser.Error, OSError, UnicodeError):
+        return []
+    def custom_endpoint(section):
+        if not parser.has_section(section):
+            return False
+        return any(key == "endpoint_url" or any(
+            line.partition("=")[0].strip().casefold() == "endpoint_url" for line in value.splitlines())
+            for key, value in parser.items(section))
+
     profiles = []
-    for path, prefixed in sources:
-        parser = configparser.ConfigParser(interpolation=None, strict=False)
-        try:
-            parser.read(path)
-        except configparser.Error:
+    for section in parser.sections():
+        if section != "default" and not section.startswith("profile "):
             continue
-        for section in parser.sections():
-            # The config file names profiles "profile NAME" (except default) and also
-            # holds "sso-session NAME" and "services NAME" sections, which are not profiles.
-            if prefixed and section != "default":
-                if not section.startswith("profile "):
-                    continue
-                section = section[len("profile "):]
-            name = section.strip()
-            if name and name not in profiles:
-                profiles.append(name)
+        services = parser.get(section, "services", fallback="").strip()
+        if custom_endpoint(section) or (services and custom_endpoint("services " + services)):
+            continue
+        name = section.removeprefix("profile ").strip()
+        if name and name not in profiles:
+            profiles.append(name)
+    credentials = configparser.ConfigParser(interpolation=None, strict=False)
+    try:
+        credentials.read(Path(os.environ.get("AWS_SHARED_CREDENTIALS_FILE") or Path.home() / ".aws/credentials"))
+    except (configparser.Error, OSError, UnicodeError):
+        return profiles
+    for section in credentials.sections():
+        key_id = credentials.get(section, "aws_access_key_id", fallback="").strip()
+        if (section not in profiles and not parser.has_section("profile " + section)
+                and re.fullmatch(r"(AKIA|ASIA)[A-Z0-9]{16}", key_id)):
+            profiles.append(section)
     return profiles
 
 
 def aws_choices():
     """'Label<TAB>profile' lines for the AWS menus."""
     labels = names("aws")
-    return [f"{labels.get(profile, profile)}\t{profile}" for profile in aws_profiles()]
+    profiles = aws_profiles()
+    mapping = os.environ.get("EITR_AWS_PROFILES", "").split()
+    if mapping:
+        choices = []
+        for entry in mapping:
+            label, separator, profile = entry.partition("=")
+            profile = profile if separator else label
+            if profile in profiles:
+                choices.append(f"{label}\t{profile}")
+        return choices
+    return [f"{labels.get(profile, profile)}\t{profile}" for profile in profiles]
 
 
 def aws_cli_v1():

@@ -31,6 +31,7 @@ class RemoteStatusTests(unittest.TestCase):
         with patch.object(status.shutil, 'which', return_value='/usr/bin/tailscale'):
             for response, expected in ((subprocess.TimeoutExpired('tailscale', 3), 'Tailscale status unavailable.'),
                                        (subprocess.CompletedProcess([], 1, '{}'), 'Tailscale status unavailable.'),
+                                       (subprocess.CompletedProcess([], 1, '{"BackendState":"Running"}'), 'Tailscale status unavailable.'),
                                        (subprocess.CompletedProcess([], 0, '{"BackendState":"NeedsLogin"}'), 'Signed out')):
                 with self.subTest(expected=expected), patch.object(status, 'query') as query:
                     if isinstance(response, Exception):

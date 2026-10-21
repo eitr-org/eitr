@@ -1,5 +1,7 @@
 # Acceso remoto
 
+Estado detallado abre un terminal de diagnóstico que permanece abierto hasta que pulses Esc.
+
 Abra System > Connectivity > Acceso remoto. Compartir permanece desactivado hasta
 que lo active. Se controla la sesión de Eitr iniciada y despierta. El uso sin
 monitor, antes del inicio de sesión y wake on LAN quedan para después. El bloqueo

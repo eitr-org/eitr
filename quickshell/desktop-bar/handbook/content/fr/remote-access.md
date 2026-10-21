@@ -1,5 +1,7 @@
 # Accès à distance
 
+État détaillé ouvre un terminal de diagnostic qui reste ouvert jusqu’à un appui sur Esc.
+
 Ouvrez System > Connectivity > Accès à distance. Le partage reste désactivé jusqu’à
 son activation. Cette étape contrôle le bureau Eitr connecté et éveillé.
 Le fonctionnement sans écran, avant connexion et wake on LAN viendront plus tard.

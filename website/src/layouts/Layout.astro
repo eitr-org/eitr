@@ -58,7 +58,7 @@ const futhark = "ᚠᚢᚦᚨᚱᚲᚷᚹ ᚺᚾᛁᛃᛇᛈᛉᛊ ᛏᛒᛖᛗ�
     <a class="skip" href="#main">Skip to content</a>
     <div class="grain" aria-hidden="true"></div>
     <div class="bifrost-crossing" data-active="false" aria-hidden="true"></div>
-    <div class="ambient-sparks" data-ambient="false" aria-hidden="true">{Array.from({length:24},(_,i)=><i style={`--left:${3+(i*37)%94}%;--top:${5+(i*23)%90}%;--drift:${i%2 ? 22 : -18}px;--duration:${9+i%7}s;--wait:${-i*1.7}s`}></i>)}</div>
+    <div class="ambient-sparks" data-ambient="false" aria-hidden="true">{Array.from({length:24},(_spark, index)=><i style={`--left:${3+(index*37)%94}%;--top:${5+(index*23)%90}%;--drift:${index%2 ? 22 : -18}px;--duration:${9+index%7}s;--wait:${-index*1.7}s`}></i>)}</div>
     <header class="site-header">
       <div class="wrap header-inner">
         <a class="brand" href="/" aria-label="Eitr Linux home"><span class="wordmark" aria-hidden="true"></span></a>

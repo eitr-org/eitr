@@ -1,5 +1,7 @@
 # Remote access
 
+Detailed Status opens a diagnostic terminal that stays open until you press Esc.
+
 Use System > Connectivity > Remote Access. Hosting is off until you enable it.
 This milestone controls your signed-in, awake Eitr desktop. Headless use, access
 before login and wake on LAN are separate future work. Locked-session behaviour

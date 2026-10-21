@@ -1,6 +1,6 @@
 # Desktop Bar
 
-The microphone panel includes a live PipeWire input-level meter. Monitoring runs
+The shared Audio/Mic panel includes a live PipeWire input-level meter. Monitoring runs
 only while that panel is open; no audio is written to disk. The meter follows the
 shared panel theme and shows zero when the selected microphone is muted.
 

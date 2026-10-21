@@ -31,6 +31,8 @@ def tailscale_status():
         return {**state, 'status': tr('Tailscale is not installed.')}
     try:
         response = query(['tailscale', 'status', '--json'])
+        if response.returncode:
+            raise ValueError('Status unavailable')
         data = json.loads(response.stdout)
         backend = data.get('BackendState')
         state['status'] = (tr('Connected') if backend == 'Running' else tr('Signed out') if backend == 'NeedsLogin'

@@ -1,6 +1,6 @@
 local paths = dofile((os.getenv("EITR_LIBRARY_ROOT") or "/usr/share/eitr/lib") .. "/paths.lua")
--- One entry per AWS profile, as listed by the cloud menus' shared helper
--- (EITR_AWS_PROFILES in ~/.config/eitr/cloud.env, else `aws configure list-profiles`).
+-- Config-backed AWS profiles without custom endpoints, optionally labeled and
+-- restricted by EITR_AWS_PROFILES in ~/.config/eitr/cloud.env.
 local shell_quote = dofile(paths.code("elephant/shell-quote.lua"))
 local aws_dir = paths.code("walker/scripts/menus/cloud/aws")
 local navigation = paths.code("walker/scripts/menus/cloud/navigation.py")

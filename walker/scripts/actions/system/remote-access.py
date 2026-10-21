@@ -2,6 +2,7 @@
 """Remote access terminal workflows; system mutations belong to eitr-system."""
 import eitr_bootstrap
 from eitr_i18n import tr
+from eitr_terminal import wait_for_escape
 from eitr_paths import code, config
 import importlib.util
 import json
@@ -167,6 +168,8 @@ def main(arguments):
         away(arguments[1])
     else:
         raise ValueError('Expected host or away and an action')
+    if len(arguments) == 2 and arguments[1] == 'status':
+        wait_for_escape()
 
 
 if __name__ == '__main__':

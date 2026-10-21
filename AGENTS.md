@@ -213,9 +213,9 @@ existing design and workflows rather than replacing them with upstream defaults.
   have a foreground-tinted fill without an outline; inactive rows have a subtle
   foreground border and hover fill. Keep action buttons inside their row,
   vertically centered, without changing the behavior of unrelated action buttons.
-  Use the shared WiFi row metrics: 44 px height, 6 px row gap, 10 px leading
-  inset, 36 px text inset, 2 px title/detail gap, and 32×30 px action buttons
-  with 8 px inset/spacing. Keep two-line labels vertically centered.
+  Use the shared WiFi row metrics: 36 px height, 6 px row gap, 10 px leading
+  inset, 36 px text inset, 2 px title/detail gap, and 24×24 px action buttons
+  with 4 px inset and 6 px spacing. Keep two-line labels vertically centered.
 - Use subtle foreground-colored dividers and existing `PanelButton`,
   `PanelSwitch`, `BarTooltip`, and `ThemedPopup` components where appropriate.
   Keep hover tooltips short and theme-aware; do not introduce bar hover fills.

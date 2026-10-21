@@ -84,6 +84,8 @@ account; Azure Login targets its tenant and restores the previous default
 subscription after authentication. Azure Refresh updates its subscription cache
 and displays the selected subscription.
 
+AWS accounts must have a matching `[default]` or `[profile NAME]` section in the AWS config file (`~/.aws/config`, or `AWS_CONFIG_FILE` when set). Profiles found only in the credentials file are excluded, as are config profiles that set `endpoint_url` (even an empty value), including nested service settings and referenced `[services NAME]` groups, because they may target S3-compatible services such as Cloudflare R2. `EITR_AWS_PROFILES` can label or restrict eligible profiles, but cannot include excluded ones. EITR does not edit either AWS file.
+
 Each provider menu offers **Add AWS Account**, **Add GCP Account** or
 **Add Azure Account**, so you can set up as many accounts as you need, for
 example a company's Development and Production. It asks for a name first, then

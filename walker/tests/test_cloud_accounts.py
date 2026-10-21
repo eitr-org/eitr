@@ -91,8 +91,30 @@ class CloudAccountTests(unittest.TestCase):
         credentials.write_text("[default]\naws_access_key_id = x\n[legacy]\naws_access_key_id = y\n")
         with patch.dict(os.environ, {"AWS_CONFIG_FILE": str(config), "AWS_SHARED_CREDENTIALS_FILE": str(credentials)}), \
                 patch.object(self.accounts.subprocess, "run") as run:
-            self.assertEqual(self.accounts.aws_profiles(), ["default", "acme-dev", "legacy"])
+            self.assertEqual(self.accounts.aws_profiles(), ["default", "acme-dev"])
         run.assert_not_called()
+
+    def test_aws_accounts_exclude_credentials_only_and_custom_endpoints(self):
+        config = Path(os.environ['AWS_CONFIG_FILE'])
+        credentials = Path(os.environ['AWS_SHARED_CREDENTIALS_FILE'])
+        config.parent.mkdir(parents=True)
+        config.write_text('[default]\nendpoint_url = https://storage.example\n'
+                          '[profile aws-work]\nregion = eu-west-1\n'
+                          '[profile r2]\nendpoint_url = https://r2.example\n'
+                          '[profile empty-endpoint]\nendpoint_url =\n'
+                          '[profile nested]\ns3 =\n  endpoint_url = https://storage.example\n'
+                          '[profile linked]\nservices = storage\n'
+                          '[services storage]\ns3 =\n  endpoint_url = https://storage.example\n'
+                          '[sso-session company]\nsso_region = eu-west-1\n')
+        credentials.write_text('[eitr-r2]\naws_access_key_id = fixture\n'
+                               '[aws-work]\naws_access_key_id = fixture\n')
+        before = (config.read_bytes(), credentials.read_bytes())
+        with patch.object(self.accounts.subprocess, 'run') as run:
+            self.assertEqual(self.accounts.aws_profiles(), ['aws-work'])
+            with patch.dict(os.environ, EITR_AWS_PROFILES='Storage=eitr-r2 R2=r2 Work=aws-work'):
+                self.assertEqual(self.accounts.aws_choices(), ['Work\taws-work'])
+        run.assert_not_called()
+        self.assertEqual((config.read_bytes(), credentials.read_bytes()), before)
 
     def test_aws_menu_lists_named_and_unnamed_profiles(self):
         self.accounts.set_name("aws", "acme-production", "Acme Production")
@@ -205,3 +227,19 @@ class CloudAccountTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class CredentialsOnlyProfileTests(unittest.TestCase):
+    def test_aws_keys_are_listed_and_other_providers_are_not(self):
+        with tempfile.TemporaryDirectory() as directory:
+            config = Path(directory) / "config"
+            credentials = Path(directory) / "credentials"
+            config.write_text("[profile work]\nregion = us-east-1\n[profile r2-config]\nendpoint_url = https://example.r2.cloudflarestorage.com\n")
+            credentials.write_text("[keys-only]\naws_access_key_id = AKIAABCDEFGHIJKLMNOP\naws_secret_access_key = secret\n"
+                                   "[eitr-r2]\naws_access_key_id = 0123456789abcdef0123456789abcdef\naws_secret_access_key = secret\n")
+            with patch.dict(os.environ, {"AWS_CONFIG_FILE": str(config), "AWS_SHARED_CREDENTIALS_FILE": str(credentials)}):
+                profiles = load().aws_profiles()
+        self.assertIn("work", profiles)
+        self.assertIn("keys-only", profiles)
+        self.assertNotIn("eitr-r2", profiles)
+        self.assertNotIn("r2-config", profiles)

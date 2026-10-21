@@ -35,6 +35,17 @@ class RemoteAccessTests(unittest.TestCase):
         self.assertEqual(software.recipe.call_args_list[1].args, ('remote-access', 'tailscale'))
         self.assertEqual([call.args for call in root.call_args_list], [('setup',), ('tailscale',)])
 
+    def test_diagnostic_reports_wait_for_escape_but_actions_close(self):
+        for provider, handler in (('host', 'host'), ('away', 'away')):
+            with self.subTest(provider=provider), patch.object(remote, handler) as action, \
+                    patch.object(remote, 'wait_for_escape') as wait:
+                remote.main([provider, 'status'])
+                action.assert_called_once_with('status')
+                wait.assert_called_once_with()
+            with patch.object(remote, handler), patch.object(remote, 'wait_for_escape') as wait:
+                remote.main([provider, 'stop' if provider == 'host' else 'disconnect'])
+                wait.assert_not_called()
+
     def test_signed_out_status_and_direct_relay_paths(self):
         data = {'BackendState': 'NeedsLogin', 'TailscaleIPs': [], 'Peer': {
             'one': {'Online': True, 'Active': True, 'HostName': 'direct', 'CurAddr': '192.168.0.1:123', 'Relay': 'fra'},

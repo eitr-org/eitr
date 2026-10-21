@@ -59,8 +59,12 @@ class CloudMenuTests(unittest.TestCase):
     def test_aws_profiles_come_from_local_config(self):
         config = self.home / ".config/eitr/cloud.env"
         config.parent.mkdir(parents=True)
-        config.write_text('EITR_AWS_PROFILES="Development=team-dev Production=team-prod"\n')
-        result = self.bash("aws", "aws_profile_choices")
+        config.write_text('EITR_AWS_PROFILES="Development=team-dev Production=team-prod Storage=storage Orphan=eitr-r2"\n')
+        aws_config = self.home / ".aws/config"
+        aws_config.parent.mkdir(parents=True)
+        aws_config.write_text('[profile team-dev]\nregion = us-east-1\n[profile team-prod]\nregion = us-east-1\n'
+                              '[profile storage]\nendpoint_url = https://storage.example\n')
+        result = self.bash("aws", "aws_profile_choices", AWS_CONFIG_FILE=str(aws_config))
         self.assertEqual(result.stdout.splitlines(), ["Development\tteam-dev", "Production\tteam-prod"])
 
     def test_selected_context_skips_repeat_pickers_and_reaches_terminal(self):

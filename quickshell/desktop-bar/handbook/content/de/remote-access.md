@@ -1,5 +1,7 @@
 # Fernzugriff
 
+Detaillierter Status öffnet ein Diagnoseterminal, das bis zum Drücken von Esc geöffnet bleibt.
+
 Öffnen Sie System > Connectivity > Fernzugriff. Die Freigabe bleibt bis zur
 Aktivierung ausgeschaltet. Unterstützt wird der angemeldete, wache Eitr-Desktop.
 Betrieb ohne Monitor, Zugriff vor der Anmeldung und wake on LAN folgen später.
