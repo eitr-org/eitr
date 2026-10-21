@@ -148,12 +148,9 @@ repository) becomes the first plugin.
   (`/pt-br/...`), `hreflang` and sitemap entries first; keep English the default
   and keep untranslated pages falling back to English.
 - **Website evidence and screenshots.** Keep the new public information pages in
-  step with verified desktop behavior. Retake all 15 `themes/*/preview.png` on a
-  staged demo (sample project in nvim, btop without user names or addresses,
-  Dolphin on a demo folder): the current ones show real home folders, the user
-  name and a LAN address. Add lockscreen, dictation waveform and Packages picker
-  shots. Captures switch the live theme, so take them when the owner says. Describe remote
-  access as verified only after the real-device tests above pass.
+  step with verified desktop behavior. Add lockscreen, dictation waveform and
+  Packages picker shots, taken when the owner says. Describe remote access as
+  verified only after the real-device tests above pass.
 - **Search indexing and measurement.** The owner verifies eitr.info in Google
   Search Console and Bing Webmaster Tools, submits the sitemap and inspects
   public-page indexing. Track impressions, queries and clicks there without
