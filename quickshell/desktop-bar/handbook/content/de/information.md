@@ -16,7 +16,7 @@ Jeder erkannte Anbieter hat einen eigenen Abschnitt mit Tarif, Limits und Fehler
 
 Klicke für den Kalender auf Uhr oder Datum. Er zeigt sechs Wochenzeilen und darunter den Jahresfortschritt. Navigiere mit Zurück/Weiter, Heute, Pfeiltasten oder T. Bei versteckter Leiste suche in Walker nach Kalender.
 
-Klicke auf den animierten Equalizer für Cover, Titel und Künstler, Zurück/Wiedergabe/Weiter sowie das Springen innerhalb des Titels, falls unterstützt. Ohne geeigneten Player wird er ausgeblendet; erkannte Besprechungen werden ausgeschlossen. Die Balken zeigen Wiedergabe, keine Audioaufnahme.
+Klicke auf den animierten Equalizer für Cover, Titel und Künstler, Zurück/Wiedergabe/Weiter sowie das Springen innerhalb des Titels, falls unterstützt. Ohne geeigneten Player wird er ausgeblendet; erkannte Besprechungen werden ausgeschlossen. Die vier Balken folgen dem aktuellen Systemaudio über einen eigenen cava-Prozess, nur solange die Wiedergabe läuft und die Anzeige sichtbar ist. Ist cava nicht verfügbar, zeigen sie eine sanfte Wiedergabeanimation.
 
 ## Benachrichtigungen
 

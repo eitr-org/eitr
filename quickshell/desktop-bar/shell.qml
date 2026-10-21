@@ -1436,6 +1436,7 @@ ShellRoot {
 
                     MediaStrip {
                         id: mediaStrip
+                        audioEnabled: shell.barVisible && !shell.verticalBar && bar.expanded
                         opacity: bar.expanded ? 1 : 0
                         enabled: bar.expanded
                         anchors.right: bar.centeredLayout ? barPin.left : barCapture.left

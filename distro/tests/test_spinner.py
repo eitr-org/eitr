@@ -13,7 +13,7 @@ HELPER = ROOT / 'distro/lib/spinner.sh'
 class SpinnerTests(unittest.TestCase):
     def run_helper(self, command, terminal=False, input_text="", **environment):
         script = f'source "{HELPER}"; eitr_gettext() {{ printf "%s" "$1"; }}; {command}'
-        env = {**os.environ, 'TERM': 'xterm-256color', **environment}
+        env = {**os.environ, 'TERM': 'xterm-256color', 'COLORTERM': '', **environment}
         if 'NO_COLOR' not in environment:
             env.pop('NO_COLOR', None)
         if not terminal:
@@ -92,3 +92,24 @@ class SpinnerTests(unittest.TestCase):
         result = self.run_helper('run_with_spinner Waiting sleep 0.2', terminal=True,
                                  EITR_TERMINAL_ACCENT='#123456')
         self.assertIn('\x1b[38;2;18;52;86m', result.stdout)
+
+    def test_rainbow_unicode_and_normal_settlement(self):
+        import re
+        result = self.run_helper('run_with_spinner "Atualização…" sleep 0.35', terminal=True,
+                                 COLORTERM='truecolor', LC_ALL='C.UTF-8')
+        self.assertEqual(result.returncode, 0)
+        colors = re.findall(r'\x1b\[38;2;\d+;\d+;\d+m', result.stdout)
+        self.assertGreater(len(set(colors)), 10)
+        plain = re.sub(r'\x1b\[[0-9;?]*[A-Za-z]', '', result.stdout)
+        self.assertIn('Atualização… · ', plain)
+        self.assertIn('✓ Atualização…', plain)
+        self.assertNotRegex(result.stdout, '[ᚠᚢᚦᚨᚱᚲᚷᚹ]')
+        self.assertTrue(result.stdout.endswith('✓ Atualização…\r\n'))
+
+    def test_color_capability(self):
+        for mode in ('', '256color', '24bit'):
+            with self.subTest(mode=mode):
+                result = self.run_helper('run_with_spinner Waiting sleep 0.2', terminal=True,
+                                         COLORTERM=mode)
+                self.assertEqual('\x1b[38;2;' in result.stdout, mode == '24bit')
+                self.assertNotRegex(result.stdout, '[ᚠᚢᚦᚨᚱᚲᚷᚹ]')

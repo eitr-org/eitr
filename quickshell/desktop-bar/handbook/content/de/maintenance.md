@@ -2,6 +2,8 @@
 
 Das Terminal zeigt dir während der Ausführung die jeweilige Prüfung und Schnappschusserstellung an. Wenn alles aktuell ist, bleibt die Meldung drei Sekunden sichtbar, bevor sich das Terminal schließt.
 
+Warteschritte bei Systemaktualisierungen zeigen fließenden Bifröst-Regenbogentext auf Truecolor-Terminals, sonst die Design-Akzentfarbe, gefolgt von übersetzten nordischen Sprüchen und der Laufzeit. Erfolgreiche Schritte enden mit einem schlichten Häkchen und dem Schritttext.
+
 Öffne **System > Instandhaltung**. Prüfe Terminalausgaben und halte vor Systemänderungen unabhängige Sicherungen bereit. Snapshots sind keine Sicherungen auf einem anderen Laufwerk.
 
 Die Systemaktualisierung prüft zuerst offizielle Pakete mit checkupdates in einer separaten temporären Datenbank, AUR-Pakete (einschließlich Entwicklungspaketen) und Benutzer-Flatpaks. Bestätigen alle Prüfungen, dass keine Updates vorliegen, endet sie ohne Schnappschüsse, Upgrades oder Neustartabfrage. Scheitert eine Prüfung oder fehlt ein Werkzeug, läuft der normale Aktualisierungsvorgang weiter.

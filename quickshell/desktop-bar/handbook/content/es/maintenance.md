@@ -2,6 +2,8 @@
 
 El terminal muestra cada etapa de comprobación y creación de instantáneas mientras se ejecuta. Si todo está actualizado, el mensaje permanece visible durante tres segundos antes de que se cierre el terminal.
 
+Los pasos de espera de Actualizar sistema muestran un arcoíris Bifröst fluido en terminales de color verdadero, o el acento del tema en otros casos, seguido de frases nórdicas traducidas y el tiempo transcurrido. Al terminar correctamente, quedan una marca y el texto sin color.
+
 Abre **Sistema > Mantenimiento**. Revisa la salida del terminal y conserva copias de seguridad independientes antes de cambiar el sistema. Las instantáneas no son copias de seguridad en otro disco.
 
 La actualización del sistema comprueba primero los paquetes oficiales con checkupdates en una base temporal separada, los paquetes AUR (incluidos los de desarrollo) y los Flatpaks del usuario. Si todas las comprobaciones confirman que no hay actualizaciones, termina sin instantáneas, actualización ni aviso de reinicio. Si falla una comprobación o falta una herramienta, continúa el proceso normal.

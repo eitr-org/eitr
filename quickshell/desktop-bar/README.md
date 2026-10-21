@@ -109,7 +109,10 @@ Media shows cover art, title/artist, previous/play/next, and elapsed/total time.
 Seeking is enabled only when the player supports it. Clicking the bar's animated
 equalizer (or Media icon on vertical bars) opens a single-background media popup;
 the card background is retained only inside the control center. Player selection retains the bar's
-existing meeting exclusions and playing-player preference.
+existing meeting exclusions and playing-player preference. Four equalizer bars follow
+live system audio through a private raw-output cava process while visible and playing;
+a gentle playback animation is used if cava is unavailable. Its runtime config is
+independent of the interactive visualizer configuration.
 
 The battery icon and Power section appear only with a present system battery,
 never for wireless mice/headsets. Battery displays charge/state, an estimated

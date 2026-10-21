@@ -2,6 +2,8 @@
 
 The terminal names each update check and snapshot stage while it runs. If everything is up to date, the message stays visible for three seconds before the terminal closes.
 
+Waiting steps in System Update flow with Bifröst rainbow text on truecolour terminals, or the theme accent otherwise, followed by translated Norse phrases and elapsed time. Successful steps settle as a plain check mark and step text.
+
 Open **System > Maintenance**. Review terminal output and keep independent
 backups before system changes. Snapshot protection is not an off-disk backup.
 

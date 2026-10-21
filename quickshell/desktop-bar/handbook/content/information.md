@@ -27,7 +27,7 @@ keys or T. Search Calendar from Walker if the bar is hidden.
 
 Click the animated equalizer for cover/title/artist, previous/play/next and
 seeking when supported. It hides without an eligible player and excludes
-recognized meetings. The bars indicate playback, not captured audio.
+recognized meetings. The four bars follow live system audio through a private cava process only while playback and the strip are visible. If cava is unavailable, they use a gentle playback animation.
 
 ## Notifications
 

@@ -2,6 +2,8 @@
 
 Le terminal indique chaque étape de vérification et de création des instantanés pendant son exécution. Si tout est à jour, le message reste visible pendant trois secondes avant la fermeture du terminal.
 
+Les étapes d’attente de la mise à jour système affichent un arc-en-ciel Bifröst fluide dans les terminaux truecolor, sinon l’accent du thème, suivi de phrases nordiques traduites et du temps écoulé. Une étape réussie laisse une coche et son texte sans couleur.
+
 Ouvrez **Système > Entretien**. Lisez les sorties du terminal et gardez des sauvegardes indépendantes avant de modifier le système. Les instantanés ne sont pas des sauvegardes sur un autre disque.
 
 La mise à jour du système vérifie d’abord les paquets officiels avec checkupdates dans une base temporaire distincte, les paquets AUR (y compris ceux de développement) et les Flatpaks utilisateur. Si toutes les vérifications confirment l’absence de mises à jour, elle se termine sans instantanés, mise à niveau ni proposition de redémarrage. Si une vérification échoue ou qu’un outil manque, le processus normal continue.

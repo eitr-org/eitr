@@ -1,5 +1,7 @@
 import Eitr as Eitr
 import Quickshell
+import Quickshell.Io
+import "AudioLevels.js" as AudioLevels
 import QtQuick
 import "PanelStyle.js" as PanelStyle
 import Quickshell.Services.Mpris
@@ -16,6 +18,41 @@ Item {
     readonly property bool playing: !!player && player.isPlaying
     readonly property string title: player ? [player.trackArtist, player.trackTitle].filter(Boolean).join(" - ") || player.identity : ""
     property real pulse: 0
+    property bool audioEnabled: true
+    readonly property bool audioActive: audioEnabled && visible && enabled && opacity > 0 && playing
+    property bool cavaFailed: false
+    property bool hasAudioFrame: false
+    property var levels: [0, 0, 0, 0]
+    onAudioActiveChanged: {
+        if (!audioActive) {
+            hasAudioFrame = false;
+            levels = [0, 0, 0, 0];
+        }
+    }
+    Process {
+        id: cava
+        command: ["python3", Eitr.Paths.code("quickshell/desktop-bar/scripts/cava-bar.py")]
+        running: media.audioActive && !media.cavaFailed
+        stdout: SplitParser {
+            onRead: data => {
+                var frame = AudioLevels.parseFrame(data);
+                if (frame) {
+                    media.levels = frame;
+                    media.hasAudioFrame = true;
+                    audioTimeout.restart();
+                }
+            }
+        }
+        onExited: {
+            if (media.audioActive) media.cavaFailed = true;
+            media.hasAudioFrame = false;
+        }
+    }
+    Timer {
+        id: audioTimeout
+        interval: 1500
+        onTriggered: media.hasAudioFrame = false
+    }
     signal detailsRequested()
 
     visible: player !== null && availableWidth >= controls.width + 20
@@ -73,14 +110,15 @@ Item {
         Row {
             anchors.centerIn: parent
             height: 14
-            spacing: 2
+            spacing: 1
             Repeater {
-                model: 3
+                model: 4
                 Rectangle {
                     required property int index
                     anchors.verticalCenter: parent.verticalCenter
-                    width: 3
-                    height: media.playing ? 4 + (Math.sin(media.pulse + index * 1.7) + 1) * 4 : 3
+                    width: 2.75
+                    height: !media.playing ? 3 : media.hasAudioFrame ? AudioLevels.height(media.levels[index]) : 4 + (Math.sin(media.pulse + index * 1.7) + 1) * 4
+                    Behavior on height { NumberAnimation { duration: 70 } }
                     radius: 1
                     color: media.foreground
                     opacity: media.playing ? 1 : 0.55
@@ -88,7 +126,7 @@ Item {
             }
         }
     }
-    NumberAnimation on pulse { from: 0; to: Math.PI * 2; duration: 1500; loops: Animation.Infinite; running: media.visible && media.playing }
+    NumberAnimation on pulse { from: 0; to: Math.PI * 2; duration: 1500; loops: Animation.Infinite; running: media.audioActive && !media.hasAudioFrame }
 
     component MediaControl: Item {
         id: control
