@@ -177,7 +177,7 @@ ThemedPopup {
                             radius: DesktopStyle.radius(PanelStyle.controlRadius)
                             color: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.08)
                             border.color: cityInput.activeFocus ? menu.accent : Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.12)
-                            Text { x: 10; anchors.verticalCenter: parent.verticalCenter; text: Eitr.I18n.tr("Search city"); visible: cityInput.text === ""; color: menu.foreground; opacity: 0.58; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
+                            Text { x: 10; anchors.verticalCenter: parent.verticalCenter; text: Eitr.I18n.tr("Search city"); visible: cityInput.text === ""; color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
                             TextInput {
                                 id: cityInput
                                 HoverHandler { cursorShape: Qt.IBeamCursor }
@@ -199,17 +199,10 @@ ThemedPopup {
                             id: cityControls
                             anchors.right: parent.right
                             spacing: 6
-                            PanelButton {
-                                id: refreshButton
-                                width: 30
-                                height: 30
-                                icon: true
-                                text: "\uF021"
-                                foreground: menu.foreground
-                                loading: menu.loading
-                                onClicked: menu.refresh()
-                                HoverHandler { id: refreshHover }
-                                BarTooltip { target: refreshButton; hovered: refreshHover.hovered; text: menu.loading ? Eitr.I18n.tr("Updating") : Eitr.I18n.tr("Refresh"); foreground: menu.foreground; background: menu.background }
+                            PanelLoadingIndicator {
+                                width: 30; height: 30
+                                busy: menu.loading
+                                foreground: menu.foreground; background: menu.background
                             }
                             PanelButton { visible: menu.searching || menu.city !== null; width: 30; height: 30; icon: true; text: "\uF00D"; foreground: menu.foreground; onClicked: menu.restoreDefault() }
                         }
@@ -222,7 +215,7 @@ ThemedPopup {
                             Column {
                                 required property var modelData
                                 spacing: 5
-                                Text { text: Eitr.I18n.tr(parent.modelData.label); color: menu.foreground; opacity: 0.58; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize; font.bold: true }
+                                Text { text: Eitr.I18n.tr(parent.modelData.label); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize; font.bold: true }
                                 Text { text: menu.weatherData[parent.modelData.key] || "--"; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize; font.bold: true }
                             }
                         }
@@ -263,7 +256,7 @@ ThemedPopup {
                             Text { anchors.verticalCenter: parent.verticalCenter; text: menu.forecastIcon(String(parent.parent.day.icon || "")); color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: 28 }
                             Column {
                                 spacing: 2
-                                Text { text: parent.parent.parent.day.day || ""; color: menu.foreground; opacity: 0.58; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize; font.bold: true }
+                                Text { text: parent.parent.parent.day.day || ""; color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize; font.bold: true }
                                 Text { text: (parent.parent.parent.day.high || "--") + "°  " + (parent.parent.parent.day.low || "--") + "°"; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize; font.bold: true }
                             }
                         }

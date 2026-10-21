@@ -1,6 +1,6 @@
 # Leiste und Arbeitsflächen
 
-Die Leiste hält Datum und Uhrzeit mittig. Links liegen Übersicht, Arbeitsflächenmarkierungen, Hardware und KI-Nutzung; rechts Geräte- und Statussteuerung. **Symbole anzeigen** blendet diese rechte Gruppe ein oder aus.
+Die Leiste hält Datum und Uhrzeit mittig. Links liegen Übersicht, Arbeitsflächenmarkierungen, Hardware, KI-Nutzung und automatische Sperre; rechts Geräte- und Statussteuerung. **Symbole anzeigen** blendet diese rechte Gruppe ein oder aus.
 
 ## Aktualisierungen
 
@@ -26,4 +26,4 @@ Die Leiste beginnt mit 1–5 und wächst bis zur aktuellen beziehungsweise höch
 
 Mausgesten für Hintergrundbilder und Themen auf leerem Desktop stehen unter **Lernen > Mausgesten**. Verwende im Zweifel die Tastenkürzel der Karussells.
 
-Audio/Mikro öffnet ein gemeinsames Panel mit getrennten Bereichen für Audioausgabe und Mikrofon. Tailscale und Streaming stehen direkt vor OBS und zeigen den lokalen Status, Verbindungsdetails und Aktionsschaltflächen in zwei Spalten. Die Kontoanmeldung bleibt in Walker. Symbolschaltflächen zeigen ihren Hintergrund beim Darüberfahren; Aktualisierungssymbole drehen sich während der Abfrage und Tooltips erscheinen am Mauszeiger. Schalter und eingebettete Aktionsschaltflächen verwenden gemeinsame kompakte Größen.
+Audio/Mikro öffnet ein gemeinsames Panel mit getrennten Bereichen für Audioausgabe und Mikrofon. Tailscale und Streaming stehen direkt vor OBS. Ein Schalter im Kopfbereich verbindet Tailscale oder startet die Freigabe, darunter folgen Details und Geräte, und Einrichtungs- oder Diagnoseaktionen liegen im Menü „…“. Symbolschaltflächen zeigen ihren Hintergrund beim Darüberfahren; Panels aktualisieren sich beim Öffnen selbst, ein Aktualisierungssymbol dreht sich nur während des Ladens, und Tooltips erscheinen am Mauszeiger. Schalter und eingebettete Aktionsschaltflächen verwenden gemeinsame kompakte Größen.

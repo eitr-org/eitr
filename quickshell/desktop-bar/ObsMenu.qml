@@ -151,7 +151,7 @@ ThemedPopup {
             width: parent.width
             spacing: 4
             PanelHeading {
-                width: parent.width - (editButton.visible ? 114 : 76)
+                width: parent.width - (editButton.visible ? 76 : 38)
                 height: 34
                 text: Eitr.I18n.tr("OBS Studio")
                 foreground: menu.foreground; accent: menu.accent; rune: "capture"
@@ -169,8 +169,14 @@ ThemedPopup {
                 HoverHandler { id: editHover }
                 BarTooltip { target: editButton; hovered: editHover.hovered; text: Eitr.I18n.tr("Recording options"); foreground: menu.foreground; background: menu.background }
             }
-            ObsActionButton { controller: menu; action: "folder"; description: Eitr.I18n.tr("Open recordings"); glyph: "󰉋"; available: !menu.busy }
-            ObsActionButton { controller: menu; action: "open"; description: Eitr.I18n.tr("Open OBS"); glyph: "󰻂"; available: !menu.busy }
+            PanelMoreButton {
+                height: 34
+                foreground: menu.foreground; background: menu.background
+                actions: [
+                    {title: Eitr.I18n.tr("Open recordings"), glyph: "󰉋", available: menu.controlsReady && !menu.busy, run: () => menu.run("folder")},
+                    {title: Eitr.I18n.tr("Open OBS"), glyph: "󰻂", available: menu.controlsReady && !menu.busy, run: () => menu.run("open")}
+                ]
+            }
         }
         Column {
             width: content.width
@@ -193,6 +199,7 @@ ThemedPopup {
                         font.pixelSize: PanelStyle.controlSize
                     }
                     PanelSwitch {
+                        anchors.verticalCenter: parent.verticalCenter
                         checked: optionRow.option.enabled
                         enabled: optionRow.option.available && !menu.busy
                         foreground: menu.foreground

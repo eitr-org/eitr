@@ -3,6 +3,10 @@
 The shared Audio/Mic panel includes a live PipeWire input-level meter. Monitoring runs
 only while that panel is open; no audio is written to disk. The meter follows the
 shared panel theme and shows zero when the selected microphone is muted.
+Devices show readable names (`AudioNames.js` turns "GA104 High Definition Audio
+Controller Digital Stereo (HDMI) [34GL750]" into "34GL750") with a type glyph. The
+current device is a compact picker that unfolds the list; a device's pencil button
+renames it, saved by PipeWire node name in the machine-local `eitr/audio-names.json`.
 
 The desktop bar and its native popups follow the current theme. Shared selectable
 rows are 36 px tall with 24 px inset action buttons and 4 px edge insets. WiFi
@@ -10,9 +14,13 @@ shows connection status beside the network name. Icon buttons have hover-only
 backgrounds and spin their glyph while loading. Shared switches use a compact
 36 px track.
 
-Tailscale and Streaming panels show local connection and service details above
-their actions. Action descriptions appear as tooltips; account sign-in stays
-in Walker’s setup workflow. Streaming uses the Moonlight controller glyph.
+Tailscale and Streaming panels put the main state in a header switch (connected,
+sharing) that runs Walker's Connect/Disconnect or Start/Stop Sharing rows; before
+that is possible the header shows the first step instead (Set Up, Sign In). Details
+follow, then Tailscale's devices with direct or relayed paths, or Streaming's Start
+at login switch and its everyday actions (Pair a Device, Connect to another PC).
+Setup and diagnostic rows sit in the "…" menu, and a footer opens Walker's Remote
+Access menu. Every control runs the same Walker row through menu-action.py. Streaming uses the Moonlight controller glyph.
 
 Configuration reload errors use a native, padded popup with the bar's live
 Theme Color or Blur appearance. Error details are selectable and scroll within
@@ -151,19 +159,16 @@ display's workspace, and only the main bar shows notification popups.
 Learn > Mouse Gestures also lists these gestures and
 the desktop wallpaper/theme double clicks. Left/right bars use upright compact
 controls, with the time/date centered and popups opening inward.
-Hardware and AI Usage sit together after the workspaces; right-hand controls
+Hardware, AI Usage and Idle Lock sit together after the workspaces; right-hand controls
 retain their manual show/hide toggle. Both side groups share 24 px icon slots
 and 4 px spacing, with centered alignment on every bar edge.
 Horizontal bars inset the left icon group by 12 px and the right group by
 13 px; the clock remains exactly screen-centered.
-The Idle Lock icon opens a compact themed panel with an automatic idle-lock
-switch and an icon-only Lock now button at the header's top-right corner.
-Left-click opens the panel; right-click directly toggles automatic idle lock on
-every bar edge without opening the panel.
-Lock now waits for the panel to close, then uses the existing
-manual-lock flow; idle/display-off/suspend timings are unchanged. The panel is
-available on all bar edges and via `panels show idle`. Walker's existing Toggle
-> Idle Lock action remains a direct toggle.
+The Idle Lock icon follows AI Usage and is a plain switch: a click turns
+automatic idle locking on or off, with no panel; its tooltip shows the state.
+When on, `hypridle` locks after 15 minutes, turns screens off after 30 and
+suspends after 60. Locking now stays in the Control Center, Main > Power and
+SUPER+M. Walker's Toggle > Idle Lock and the Control Center tile are the same toggle.
 
 The Overview icon precedes the workspace markers on every bar edge. It opens a
 screen-centered overview of occupied workspaces only, across monitors, numbered
@@ -229,8 +234,8 @@ Their surface follows the bar's current appearance, including live changes
 between the solid theme color and transparency with blur.
 Calendar retains its fixed six-row
 grid, bottom navigation, year progress, and Left/Right/Up/Down/bracket/T keys.
-AI Usage retains the existing backend/cache, refresh-on-open, manual refresh,
-and five-minute updates while open. It detects installed, configured Claude Code,
+AI Usage retains the existing backend/cache, refresh-on-open and five-minute
+updates while open. It detects installed, configured Claude Code,
 Codex, and optional Grok clients locally on each refresh. Only detected providers
 appear as stacked sections in detection order, each with its plan, limits and errors.
 Click a section heading to fold or unfold it; all sections start expanded.
@@ -307,8 +312,10 @@ Walker System entries use show-panel.sh to open these same bar popups, including
 audio, microphone, keyboard, display, calendar, weather, hardware, and AI usage.
 Its allowlist accepts exactly the `panels show` kinds; a test keeps them in sync. Hidden
 status icons remain hidden; their popups anchor beside the notification icon.
-Keyboard's Add Layout searches the installed XKB languages and variants. Added
-layouts persist in hypr/keyboard-layouts.lua and retain Alt+Shift switching.
+Walker's System > Devices & Input > Keyboard menu is the only place to add or
+remove layouts: Add Layout lists the installed XKB languages and variants, and
+Delete removes the selected layout. Added layouts persist in
+hypr/keyboard-layouts.lua and retain Alt+Shift switching.
 Up to four layouts can be configured; duplicate and unknown layouts are rejected.
 WiFi defaults to iwd and supports NetworkManager through System > Connectivity > Network Backend.
 Selection applies after reboot; the panel uses the running backend's D-Bus API for adapter power,
@@ -435,8 +442,11 @@ away does not dismiss either popup; outside clicks, Escape, or hiding the status
 icons do. Long lists scroll within the available screen height. No settings
 application is launched, and opening Mic does not start audio capture.
 
-The keyboard icon and Walker's System > Devices & Input > Keyboard menu share the configured
-layout selector and follow changes made with Alt+Shift. Weather keeps the city's local temperature unit
+The keyboard icon sits between OBS and Updates. It appears only with two or more layouts
+and shows the active one's short code ("US", "BR"; the variant, such as "INT", when two
+share a base), with "Keyboard · <layout name>" on hover. Its panel and
+the Control Center switch layouts and link to Walker to add or remove them. They follow
+Alt+Shift through Hyprland's activelayout event and reload after config reloads. Weather keeps the city's local temperature unit
 as the main reading, with a smaller equivalent in the other unit alongside it.
 
 Install Quickshell:
@@ -485,7 +495,7 @@ not add a second outer margin. Bottom bars mirror the same content inset without
 detaching the panel from the bar.
 
 `PanelStyle.js` defines the shared font family, utility heading (16 px),
-body/control text (13 px), captions (11-12 px), padding, corner radii
+body/control text (13 px), secondary text and captions (12 px), padding, corner radii
 (`controlRadius` for rows, inputs, and buttons), the divider alpha
 (`dividerAlpha`), and `surfaceInset`: the 14 px geometry inset of the fluid
 bar joins. Content padding follows the live outer gaps; content-sized panels
@@ -494,3 +504,36 @@ Bar glyphs and the appearance picker use the same font family.
 Calendar dates, weather temperatures, and glyphs retain purpose-specific sizes.
 Compact selectors retain their smaller padding; full panels use 18 px.
 Notification CSS uses the same font family, with larger text for message content.
+
+## Panel guideline
+
+Every panel follows the same rules, so a new one feels like the others:
+
+- **One number first.** A panel that reports values leads with the one that
+  matters, as a large figure (`figureSize`); details unfold on click
+  (Hardware shows each component's usage and opens its rows).
+- **Readable names.** Show what people recognise, not driver strings, and let
+  them rename what they own (audio devices).
+- **State by colour.** An on/off tile fills with the theme accent when on
+  (`ControlCenterTile` `toggle`); its ink is whichever of foreground or
+  background reads better on the accent (`readableInk`). No "On"/"Off" subtitles.
+  One-shot actions are compact buttons, not tiles.
+- **One primary header control.** Rarer actions go in the `PanelMoreButton`
+  "…" menu with their names; session-ending power actions sit behind one
+  labelled Power button, with Lock kept one click away.
+- **A footer to go further.** When a panel has a fuller place (Walker settings,
+  a monitor app), it ends with a `PanelFooterLink` row such as "Network Settings…".
+- **Three text sizes.** 16 px headings, 13 px body, 12 px secondary text and
+  captions. Dimmed text uses `secondaryTextOpacity` (0.72), which stays above a
+  4.5:1 contrast ratio on light themes too. Numbers that change in place use
+  `tabularFigures`.
+- **Comfortable targets.** Drawn controls may be compact, but every button
+  takes clicks over at least `minimumHitTarget` (28 px), and keyboard focus
+  shows the same fill as hover.
+- **Refresh on open.** Panels load fresh data when they open and on their own
+  timers; there are no refresh buttons. `PanelLoadingIndicator` spins in the
+  header only while loading (or scanning) and disappears when done.
+- **Dividers between groups.** A subtle `PanelDivider` separates a panel's
+  groups (devices, sections, options); Control Center sections carry a label.
+- **Walker descriptions fit.** Row descriptions stay within 72 characters in
+  every language; `walker/tests/test_menu_structure.py` enforces it.

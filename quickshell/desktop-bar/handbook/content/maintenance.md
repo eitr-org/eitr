@@ -78,5 +78,5 @@ for exactly what Erase Everything and Keep My Files preserve.
 
 ## Power
 
-Main > Power and Control Center > General expose Lock, Logout, Suspend, Reboot
-and Shutdown. Save work first. These are actions, not simulated demonstrations.
+Main > Power and Control Center > General (behind **Power…**) expose Lock,
+Logout, Suspend, Reboot and Shutdown. Save work first. These are actions, not simulated demonstrations.

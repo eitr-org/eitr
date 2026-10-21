@@ -49,7 +49,7 @@
   },
   {
     "text": "Set Up Away Access",
-    "subtext": "Install Tailscale and review the service change",
+    "subtext": "Review and turn on the Tailscale service",
     "icon": "󰖷",
     "actions": {
       "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away setup"

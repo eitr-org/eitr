@@ -10,7 +10,7 @@ ThemedPopup {
     implicitWidth: 468
     property int maximumHeight: 1000
     implicitHeight: Math.min(maximumHeight, Math.max(300,
-        content.implicitHeight + 64 + hero.height + 10 + 16 + footer.implicitHeight + 16 + 2))
+        content.implicitHeight + 64 + hero.height + 10 + 16 + aiFooter.height + 8 + footer.implicitHeight + 16 + 2))
     property var usage: ({providers: []})
     property var foldedProviders: []
     property bool detectionReceived: false
@@ -106,28 +106,23 @@ ThemedPopup {
             width: parent.width
             height: 40
             PanelHeading {
-                width: parent.width - refreshButton.width - 8
+                width: parent.width - 42
                 anchors.verticalCenter: parent.verticalCenter
                 text: Eitr.I18n.tr("AI Usage")
                 foreground: menu.foreground; accent: menu.accent; rune: "wisdom"
             }
-            PanelButton {
-                id: refreshButton
+            PanelLoadingIndicator {
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
-                text: "\uF021"; icon: true; height: 32
-                loading: menu.loading
-                foreground: menu.foreground
-                onClicked: menu.refresh()
-                HoverHandler { id: refreshHover }
-                BarTooltip { target: refreshButton; hovered: refreshHover.hovered; text: menu.loading ? Eitr.I18n.tr("Updating") : Eitr.I18n.tr("Refresh"); foreground: menu.foreground; background: menu.background }
+                busy: menu.loading
+                foreground: menu.foreground; background: menu.background
             }
         }
         Flickable {
             id: contentViewport
             anchors.top: hero.bottom
             anchors.topMargin: 16
-            anchors.bottom: footer.top
+            anchors.bottom: aiFooter.top
             anchors.bottomMargin: 16
             width: parent.width
             contentHeight: content.height
@@ -181,7 +176,7 @@ ThemedPopup {
                                 elide: Text.ElideRight
                                 text: (section.modelData.plan || Eitr.I18n.tr("Plan unavailable")).toUpperCase()
                                 color: menu.foreground
-                                opacity: 0.6
+                                opacity: PanelStyle.secondaryTextOpacity
                                 font.family: DesktopFonts.family
                                 font.pixelSize: PanelStyle.captionSize
                             }
@@ -212,14 +207,14 @@ ThemedPopup {
                                     Item {
                                         width: parent.width; height: 17
                                         Text { text: limit.modelData.label === "5h window" ? Eitr.I18n.tr("Session") : limit.modelData.label; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
-                                        Text { anchors.right: parent.right; text: Eitr.I18n.tr("{percent}% used", {percent: Math.round(limit.used)}); color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.secondarySize }
+                                        Text { anchors.right: parent.right; text: Eitr.I18n.tr("{percent}% used", {percent: Math.round(limit.used)}); color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.secondarySize; font.features: PanelStyle.tabularFigures }
                                     }
                                     Rectangle {
                                         width: parent.width; height: 6; radius: 3
                                         color: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.12)
                                         Rectangle { width: parent.width * limit.used / 100; height: 6; radius: 3; color: menu.foreground }
                                     }
-                                    Text { visible: !!limit.modelData.reset; width: parent.width; elide: Text.ElideRight; text: limit.modelData.reset ? menu.resetLabel(limit.modelData.reset) : ""; color: menu.foreground; opacity: 0.6; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                                    Text { visible: !!limit.modelData.reset; width: parent.width; elide: Text.ElideRight; text: limit.modelData.reset ? menu.resetLabel(limit.modelData.reset) : ""; color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
                                 }
                             }
                         }
@@ -227,6 +222,14 @@ ThemedPopup {
                 }
             }
         }
-        Text { id: footer; anchors.bottom: parent.bottom; width: parent.width; elide: Text.ElideRight; text: menu.status; color: menu.foreground; opacity: 0.6; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+        PanelFooterLink {
+            id: aiFooter
+            anchors.bottom: footer.top
+            anchors.bottomMargin: 8
+            text: Eitr.I18n.tr("AI Assistants…")
+            foreground: menu.foreground
+            onClicked: { menu.opened = false; Quickshell.execDetached([Eitr.Paths.code("walker/bin/walker"), "--provider", "menus:ai-tools"]); }
+        }
+        Text { id: footer; anchors.bottom: parent.bottom; width: parent.width; elide: Text.ElideRight; text: menu.status; color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
     }
 }

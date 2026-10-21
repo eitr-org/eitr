@@ -13,10 +13,12 @@ Rectangle {
     property bool compactIconBackground: false
     property real iconOffsetX: 0
     property bool outlined: false
+    // No resting fill, as in a menu: the row only shows itself on hover.
+    property bool flat: false
     property bool selected: false
     property string leadingIcon: ""
     property int textAlignment: Text.AlignHCenter
-    readonly property color fillColor: Qt.rgba(foreground.r, foreground.g, foreground.b, selected ? 0.18 : mouse.containsMouse ? 0.16 : icon || outlined ? 0 : 0.08)
+    readonly property color fillColor: Qt.rgba(foreground.r, foreground.g, foreground.b, selected ? 0.18 : mouse.containsMouse || activeFocus ? 0.16 : icon || outlined || flat ? 0 : 0.08)
     signal clicked()
     activeFocusOnTab: true
     enabled: available && !loading
@@ -97,6 +99,8 @@ Rectangle {
     MouseArea {
         id: mouse
         anchors.fill: parent
+        // Compact buttons keep their look but still take a comfortable click.
+        anchors.margins: -Math.max(0, (PanelStyle.minimumHitTarget - Math.min(button.width, button.height)) / 2)
         hoverEnabled: true
         enabled: button.available && !button.loading
         cursorShape: Qt.PointingHandCursor

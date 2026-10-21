@@ -4,7 +4,7 @@ Diese Bedienelemente findest du unter **System > Geräte und Eingabe** oder übe
 
 ## Audio und Mikrofon
 
-Lautstärke wählt den Standardausgang und regelt die Gesamtlautstärke sowie laufende Wiedergabeanwendungen. Mikrofon wählt den Standardeingang, die Verstärkung und die Stummschaltung. Die Live-Pegelanzeige läuft nur bei geöffnetem Mikrofonpanel und schreibt kein Audio auf die Festplatte. Andere Einstellungen zu öffnen startet keine Mikrofonüberwachung.
+Lautstärke wählt den Standardausgang und regelt die Gesamtlautstärke sowie laufende Wiedergabeanwendungen. Geräte erscheinen mit lesbarem Namen und Typsymbol; klicke auf das aktuelle Gerät, um ein anderes zu wählen, und benenne ein Gerät mit seinem Stift-Knopf auf diesem Computer um. Mikrofon wählt den Standardeingang, die Verstärkung und die Stummschaltung. Die Live-Pegelanzeige läuft nur bei geöffnetem Mikrofonpanel und schreibt kein Audio auf die Festplatte. Andere Einstellungen zu öffnen startet keine Mikrofonüberwachung.
 
 Die Regler reichen bis 100 %; ein bereits höherer Wert bleibt bis zum Bewegen erhalten. Ein Wechsel des Standard-Audiogeräts kann ein Gespräch beeinflussen: Nimm ihn bewusst vor. Wiedergabesteuerung und Standardgeräteauswahl sind getrennt.
 
@@ -24,7 +24,7 @@ Die Helligkeit nutzt bevorzugt eine geeignete native Hintergrundbeleuchtung, son
 
 ## Tastatur
 
-Wähle eine installierte XKB-Belegung oder Belegung hinzufügen, um Sprachen und Varianten zu suchen. **Alt + Shift** wechselt durch die eingerichteten Belegungen. Bis zu vier sind erlaubt; Duplikate werden abgelehnt. Löschen erfolgt über die Schaltfläche der Zeile; mindestens eine Belegung muss bleiben. Tastaturbelegung und Systemsprache beziehungsweise Gebietsschema sind unabhängig.
+Belegungen fügst du in Walker unter System > Geräte und Eingabe > Tastatur hinzu oder entfernst sie dort. Tastaturbelegung hinzufügen listet alle Sprachen und Varianten (tippen zum Suchen); wähle eine Belegung und drücke Entf, um sie zu entfernen. Bis zu vier sind erlaubt, Duplikate werden abgelehnt, und mindestens eine muss bleiben. **Alt + Shift** wechselt zwischen ihnen. Ab zwei Belegungen zeigt die Leiste das Kürzel der aktiven (etwa US oder BR); ein Klick darauf oder das Kontrollzentrum wechselt sie. Tastaturbelegung und Systemsprache beziehungsweise Gebietsschema sind unabhängig.
 
 Der Desktop startet mit der im Installationsprogramm gewählten Tastatur. US richtet US und US International ein; Akzente sind damit über Alt + Shift erreichbar.
 

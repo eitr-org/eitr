@@ -1,6 +1,6 @@
 # Segurança e bloqueio
 
-**SUPER + M** bloqueia a tela imediatamente. O painel de Bloqueio automático da barra ativa ou desativa o bloqueio por inatividade; clicar com o botão direito no ícone alterna a preferência diretamente. A Central de controle também oferece Bloqueio automático e uma ação de Bloquear representada apenas por um ícone.
+**SUPER + M** bloqueia a tela imediatamente. Clique no ícone de Bloqueio automático à esquerda da barra (depois de Uso de IA) para ligar ou desligar o bloqueio por inatividade; a dica mostra o estado. Ligado, a tela bloqueia após 15 minutos de inatividade, desliga após 30 e o computador suspende após 60. A Central de controle oferece o mesmo controle e um botão Bloquear.
 
 ## Senha e autenticação alternativa
 

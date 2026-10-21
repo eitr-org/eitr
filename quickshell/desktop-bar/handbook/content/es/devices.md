@@ -4,7 +4,7 @@ Estos controles están en **Sistema > Dispositivos y entrada** o en los iconos c
 
 ## Audio y micrófono
 
-Volumen selecciona la salida predeterminada y controla el volumen general y el de las aplicaciones en reproducción. Micrófono selecciona la entrada predeterminada, la ganancia y el silencio. Su medidor de nivel solo funciona mientras el panel está abierto; no guarda audio en disco. Abrir otros ajustes no inicia la monitorización del micrófono.
+Volumen selecciona la salida predeterminada y controla el volumen general y el de las aplicaciones en reproducción. Los dispositivos aparecen con un nombre legible y un icono de tipo; haz clic en el dispositivo actual para elegir otro y usa el botón de lápiz de un dispositivo para renombrarlo en este equipo. Micrófono selecciona la entrada predeterminada, la ganancia y el silencio. Su medidor de nivel solo funciona mientras el panel está abierto; no guarda audio en disco. Abrir otros ajustes no inicia la monitorización del micrófono.
 
 Los deslizadores llegan al 100 %; un valor superior ya existente no cambia hasta moverlos. Cambiar el dispositivo de audio predeterminado puede afectar a una llamada: hazlo conscientemente. Los controles de reproducción son independientes de la selección del dispositivo.
 
@@ -24,7 +24,7 @@ El brillo prefiere un control nativo de retroiluminación utilizable; en su defe
 
 ## Teclado
 
-Selecciona una distribución XKB instalada o usa Añadir distribución para buscar idiomas y variantes. **Alt + Shift** recorre las distribuciones configuradas. Se admiten hasta cuatro, sin duplicados. Elimina una con el botón de su fila; debe quedar al menos una. La distribución del teclado es independiente del idioma y la configuración regional del sistema.
+Añade y quita distribuciones en Walker: Sistema > Dispositivos y entrada > Teclado. Añadir distribución lista todos los idiomas y variantes (escribe para buscar); selecciona una distribución y pulsa Supr para quitarla. Se admiten hasta cuatro, sin duplicados, y debe quedar al menos una. **Alt + Shift** las recorre. Con dos o más, la barra muestra el código de la activa (como US o BR); haz clic en él, o usa el Centro de control, para cambiarla. La distribución del teclado es independiente del idioma y la configuración regional del sistema.
 
 El escritorio comienza con el teclado elegido en el instalador. Elegir US incluye US y US International: basta Alt + Shift para acceder a los acentos.
 

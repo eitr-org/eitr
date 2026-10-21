@@ -132,7 +132,7 @@ ThemedPopup {
                 width: parent.width
                 height: 42
                 PanelHeading {
-                    width: parent.width - 166
+                    width: parent.width - 156
                     anchors.verticalCenter: parent.verticalCenter
                     text: menu.connected ? menu.connected.name : Eitr.I18n.tr("WiFi")
                     subtitle: menu.busy ? Eitr.I18n.tr("UPDATING...") : menu.device ? String(menu.device.state).toUpperCase() : Eitr.I18n.tr("NO ADAPTER")
@@ -142,22 +142,18 @@ ThemedPopup {
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: 12
-                    PanelButton {
-                        id: qrButton
-                        text: "󰐲"; icon: true; compactIconBackground: true; height: 32; foreground: menu.foreground
-                        available: !!menu.connected && ["open", "psk"].indexOf(menu.connected.type) >= 0 && !qrQuery.running
-                        onClicked: menu.openShare()
-                        HoverHandler { id: qrHover }
-                        BarTooltip { target: qrButton; hovered: qrHover.hovered; text: Eitr.I18n.tr("Share WiFi"); foreground: menu.foreground; background: menu.background }
+                    // While a scan runs, its own icon spins here; the "…" button stays still.
+                    PanelLoadingIndicator {
+                        busy: (operation.running && operation.command[2] === "scan") || (!!menu.device && menu.device.scanning)
+                        label: Eitr.I18n.tr("Scanning")
+                        foreground: menu.foreground; background: menu.background
                     }
-                    PanelButton {
-                        id: scanButton
-                        text: "\uF021"; icon: true; compactIconBackground: true; height: 32; foreground: menu.foreground
-                        loading: (operation.running && operation.command[2] === "scan") || (!!menu.device && menu.device.scanning)
-                        available: !!menu.device && menu.device.powered && !menu.busy && !menu.device.scanning
-                        onClicked: menu.act("scan", menu.device.path)
-                        HoverHandler { id: scanHover }
-                        BarTooltip { target: scanButton; hovered: scanHover.hovered; text: Eitr.I18n.tr("Scan"); foreground: menu.foreground; background: menu.background }
+                    PanelMoreButton {
+                        foreground: menu.foreground; background: menu.background
+                        actions: [
+                            {title: Eitr.I18n.tr("Scan"), glyph: "\uF021", available: !!menu.device && menu.device.powered && !menu.busy && !menu.device.scanning, run: () => menu.act("scan", menu.device.path)},
+                            {title: Eitr.I18n.tr("Share WiFi"), glyph: "󰐲", available: !!menu.connected && ["open", "psk"].indexOf(menu.connected.type) >= 0 && !qrQuery.running, run: () => menu.openShare()}
+                        ]
                     }
                     PanelSwitch { checked: !!menu.device && menu.device.powered; enabled: !!menu.device && !menu.busy; foreground: menu.foreground; accent: menu.accent; onClicked: menu.act("power", menu.device.path, checked ? "true" : "false") }
                 }
@@ -173,10 +169,10 @@ ThemedPopup {
                     Item {
                         required property var modelData
                         width: wifiHeaderContent.width; height: 16
-                        Text { text: parent.modelData[0]; color: menu.foreground; opacity: 0.6; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
-                        Text { x: 70; width: 125; horizontalAlignment: Text.AlignRight; text: parent.modelData[1]; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
-                        Text { x: 210; text: parent.modelData[2]; color: menu.foreground; opacity: 0.6; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
-                        Text { anchors.right: parent.right; text: parent.modelData[3]; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                        Text { text: parent.modelData[0]; color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                        Text { x: 70; width: 125; horizontalAlignment: Text.AlignRight; text: parent.modelData[1]; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize; font.features: PanelStyle.tabularFigures }
+                        Text { x: 210; text: parent.modelData[2]; color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                        Text { anchors.right: parent.right; text: parent.modelData[3]; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize; font.features: PanelStyle.tabularFigures }
                     }
                 }
             }
@@ -199,11 +195,20 @@ ThemedPopup {
             Text { visible: menu.message !== ""; width: parent.width; text: menu.message; wrapMode: Text.Wrap; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.secondarySize }
             PanelDivider { width: parent.width; height: 8; foreground: menu.foreground }
         }
+        PanelFooterLink {
+            id: wifiFooter
+            visible: !menu.sharing && !menu.enterprise
+            anchors.bottom: parent.bottom
+            text: Eitr.I18n.tr("Network Settings…")
+            foreground: menu.foreground
+            onClicked: { menu.opened = false; Quickshell.execDetached([Eitr.Paths.code("walker/bin/walker"), "--provider", "menus:system-connectivity"]); }
+        }
         Flickable {
             visible: !menu.sharing && !menu.enterprise
             anchors.top: wifiHeaderContent.bottom
             anchors.topMargin: 14
-            anchors.bottom: parent.bottom
+            anchors.bottom: wifiFooter.top
+            anchors.bottomMargin: 8
             width: parent.width
             contentHeight: networks.height
             clip: true
@@ -217,15 +222,15 @@ ThemedPopup {
                     Column {
                         required property var modelData
                         width: networks.width; spacing: PanelStyle.selectionRowGap
-                        Text { text: parent.modelData.title; color: menu.foreground; opacity: 0.6; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
-                        Text { visible: parent.modelData.networks.length === 0; text: menu.device && menu.device.scanning ? Eitr.I18n.tr("Scanning...") : Eitr.I18n.tr("No networks"); color: menu.foreground; opacity: 0.5; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.secondarySize }
+                        Text { text: parent.modelData.title; color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                        Text { visible: parent.modelData.networks.length === 0; text: menu.device && menu.device.scanning ? Eitr.I18n.tr("Scanning...") : Eitr.I18n.tr("No networks"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.secondarySize }
                         Repeater {
                             model: parent.modelData.networks
                             Rectangle {
                                 id: network
                                 required property var modelData
                                 width: networks.width; height: PanelStyle.selectionRowHeight; radius: DesktopStyle.radius(PanelStyle.controlRadius)
-                                color: Qt.alpha(menu.foreground, PanelStyle.selectionAlpha(modelData.connected, networkMouse.containsMouse))
+                                color: Qt.alpha(menu.foreground, PanelStyle.selectionAlpha(modelData.connected, networkMouse.containsMouse || network.activeFocus))
                                 border.width: PanelStyle.selectionBorderWidth(modelData.connected)
                                 border.color: Qt.alpha(menu.foreground, PanelStyle.selectionBorderAlpha)
                                 activeFocusOnTab: true
@@ -263,7 +268,7 @@ ThemedPopup {
                                         Text {
                                             text: network.modelData.connected ? Eitr.I18n.tr("Connected") : Eitr.I18n.tr("Offline")
                                             color: menu.foreground
-                                            opacity: 0.6
+                                            opacity: PanelStyle.secondaryTextOpacity
                                             font.family: DesktopFonts.family
                                             font.pixelSize: PanelStyle.captionSize
                                         }
@@ -321,7 +326,7 @@ ThemedPopup {
                 width: parent.width
                 spacing: PanelStyle.selectionRowGap
                 PanelHeading { width: parent.width; text: menu.selectedNetwork ? menu.selectedNetwork.name : ""; elide: Text.ElideRight; foreground: menu.foreground; accent: menu.accent; rune: "connectivity"; }
-                Text { width: parent.width; text: Eitr.I18n.tr("ENTERPRISE WI-FI"); color: menu.foreground; opacity: 0.6; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                Text { width: parent.width; text: Eitr.I18n.tr("ENTERPRISE WI-FI"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
                 Row {
                     spacing: 8
                     PanelButton { width: 190; text: Eitr.I18n.tr("PEAP / MSCHAPv2"); selected: menu.eapMethod === "peap"; foreground: menu.foreground; onClicked: menu.eapMethod = "peap" }

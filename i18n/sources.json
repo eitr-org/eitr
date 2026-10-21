@@ -10,6 +10,9 @@
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml",
       "quickshell/lockscreen/themes/nothing/Main.qml"
     ],
+    "AI Assistants…": [
+      "quickshell/desktop-bar/AiUsageMenu.qml"
+    ],
     "AI Usage": [
       "quickshell/desktop-bar/AiUsageMenu.qml",
       "quickshell/desktop-bar/ControlCenter.qml",
@@ -27,15 +30,15 @@
     "Above": [
       "quickshell/desktop-bar/DisplaySettingsEditor.qml"
     ],
-    "Add Layout": [
-      "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/KeyboardLayoutMenu.qml"
-    ],
     "Add a chapter marker": [
       "quickshell/desktop-bar/RecordingMenu.qml"
     ],
     "Add keyboard layouts": [
       "quickshell/desktop-bar/Handbook.qml"
+    ],
+    "Add or Remove Layouts…": [
+      "quickshell/desktop-bar/ControlCenter.qml",
+      "quickshell/desktop-bar/KeyboardLayoutMenu.qml"
     ],
     "Airplane": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -70,14 +73,8 @@
     "Auto": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
     ],
-    "Automatic idle lock": [
-      "quickshell/desktop-bar/IdleLockControls.qml"
-    ],
     "Automatic · {start} - {end}": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
-    ],
-    "Back": [
-      "quickshell/desktop-bar/KeyboardLayoutMenu.qml"
     ],
     "Bar": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -131,7 +128,6 @@
       "quickshell/desktop-bar/shell.qml"
     ],
     "Cancel": [
-      "quickshell/desktop-bar/ControlCenter.qml",
       "quickshell/desktop-bar/WifiMenu.qml"
     ],
     "Center": [
@@ -249,6 +245,9 @@
     "Cursor Fire: a blazing trail behind Kitty's cursor": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
+    "DEVICES": [
+      "quickshell/desktop-bar/RemoteAccessContent.qml"
+    ],
     "Dark": [
       "quickshell/lockscreen/design-gallery.qml"
     ],
@@ -305,7 +304,7 @@
     "ENTERPRISE WI-FI": [
       "quickshell/desktop-bar/WifiMenu.qml"
     ],
-    "Edit layout by hand": [
+    "Edit layout by hand…": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
     ],
     "Edit schedule": [
@@ -361,9 +360,7 @@
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Idle Lock": [
-      "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/IdleLockControls.qml",
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Idle Lock: Off": [
       "quickshell/desktop-bar/shell.qml"
@@ -408,6 +405,9 @@
     "Keyboard Layout": [
       "quickshell/desktop-bar/KeyboardLayoutMenu.qml"
     ],
+    "Keyboard · {layout}": [
+      "quickshell/desktop-bar/shell.qml"
+    ],
     "LIVE": [
       "quickshell/desktop-bar/RecordingMenu.qml"
     ],
@@ -448,9 +448,6 @@
     ],
     "Lock": [
       "quickshell/desktop-bar/ControlCenter.qml"
-    ],
-    "Lock now": [
-      "quickshell/desktop-bar/IdleLockMenu.qml"
     ],
     "Lockscreen": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -496,6 +493,9 @@
     "Mirror": [
       "quickshell/desktop-bar/DisplaySettingsEditor.qml"
     ],
+    "More actions": [
+      "quickshell/desktop-bar/PanelMoreButton.qml"
+    ],
     "Mute": [
       "quickshell/desktop-bar/AudioLevelControl.qml"
     ],
@@ -503,6 +503,9 @@
       "quickshell/desktop-bar/RecordingMenu.qml"
     ],
     "NO ADAPTER": [
+      "quickshell/desktop-bar/WifiMenu.qml"
+    ],
+    "Network Settings…": [
       "quickshell/desktop-bar/WifiMenu.qml"
     ],
     "New Reminder": [
@@ -533,6 +536,7 @@
       "quickshell/desktop-bar/BrightnessMenu.qml"
     ],
     "No device available": [
+      "quickshell/desktop-bar/AudioLevelControl.qml",
       "quickshell/desktop-bar/AudioMenu.qml"
     ],
     "No devices": [
@@ -543,9 +547,6 @@
     ],
     "No images found": [
       "quickshell/desktop-bar/AppearancePicker.qml"
-    ],
-    "No layouts found": [
-      "quickshell/desktop-bar/KeyboardLayoutMenu.qml"
     ],
     "No matches": [
       "quickshell/emoji-picker/shell.qml"
@@ -607,9 +608,7 @@
       "quickshell/desktop-bar/WifiMenu.qml"
     ],
     "Off": [
-      "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml",
-      "quickshell/desktop-bar/RemoteAccessContent.qml"
+      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
     ],
     "Offer to report problems when something breaks": [
       "quickshell/desktop-bar/Handbook.qml"
@@ -617,12 +616,11 @@
     "Offline": [
       "quickshell/desktop-bar/WifiMenu.qml"
     ],
-    "On": [
-      "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/RemoteAccessContent.qml"
-    ],
     "Open OBS": [
       "quickshell/desktop-bar/ObsMenu.qml"
+    ],
+    "Open System Monitor": [
+      "quickshell/desktop-bar/SystemMonitorMenu.qml"
     ],
     "Open recordings": [
       "quickshell/desktop-bar/ObsMenu.qml"
@@ -699,6 +697,9 @@
     "Power profiles unavailable on this hardware": [
       "quickshell/desktop-bar/PowerControls.qml"
     ],
+    "Power…": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
     "Previous": [
       "quickshell/desktop-bar/Handbook.qml",
       "quickshell/desktop-bar/MediaStrip.qml",
@@ -752,16 +753,14 @@
     "Recovery Snapshots": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
-    "Refresh": [
-      "quickshell/desktop-bar/AiUsageMenu.qml",
-      "quickshell/desktop-bar/RemoteAccessContent.qml",
-      "quickshell/desktop-bar/WeatherMenu.qml"
-    ],
     "Refresh rate": [
       "quickshell/desktop-bar/DisplaySettingsEditor.qml"
     ],
     "Reminders & Sharing": [
       "quickshell/desktop-bar/ControlCenter.qml"
+    ],
+    "Remote Access Settings…": [
+      "quickshell/desktop-bar/RemoteAccessContent.qml"
     ],
     "Remove": [
       "quickshell/desktop-bar/BluetoothMenu.qml",
@@ -769,6 +768,9 @@
     ],
     "Remove layout": [
       "quickshell/desktop-bar/KeyboardLayoutRow.qml"
+    ],
+    "Rename": [
+      "quickshell/desktop-bar/AudioMenu.qml"
     ],
     "Reply…": [
       "quickshell/desktop-bar/NotificationCard.qml"
@@ -821,9 +823,6 @@
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml",
       "quickshell/lockscreen/themes/nothing/Main.qml"
     ],
-    "SUPER+Shift+Space brings it back": [
-      "quickshell/desktop-bar/ControlCenter.qml"
-    ],
     "SUSPEND": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml"
     ],
@@ -833,6 +832,9 @@
     "SYSTEM UI": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml"
     ],
+    "Save": [
+      "quickshell/desktop-bar/AudioMenu.qml"
+    ],
     "Scale": [
       "quickshell/desktop-bar/DisplaySettingsEditor.qml"
     ],
@@ -841,7 +843,7 @@
       "quickshell/desktop-bar/WifiMenu.qml"
     ],
     "Scanning": [
-      "quickshell/desktop-bar/BluetoothMenu.qml"
+      "quickshell/desktop-bar/WifiMenu.qml"
     ],
     "Scanning...": [
       "quickshell/desktop-bar/BluetoothMenu.qml",
@@ -861,12 +863,6 @@
     ],
     "Search emojis": [
       "quickshell/emoji-picker/shell.qml"
-    ],
-    "Search layouts...": [
-      "quickshell/desktop-bar/KeyboardLayoutMenu.qml"
-    ],
-    "Search layouts…": [
-      "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Search the handbook…": [
       "quickshell/desktop-bar/Handbook.qml"
@@ -932,11 +928,8 @@
     "Start": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
     ],
-    "Start at Login: {state}": [
+    "Start at login": [
       "quickshell/desktop-bar/RemoteAccessContent.qml"
-    ],
-    "Start it now": [
-      "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Start recording": [
       "quickshell/desktop-bar/ObsMenu.qml"
@@ -1060,8 +1053,7 @@
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Updating": [
-      "quickshell/desktop-bar/AiUsageMenu.qml",
-      "quickshell/desktop-bar/WeatherMenu.qml"
+      "quickshell/desktop-bar/PanelLoadingIndicator.qml"
     ],
     "Use the certificate and server domain supplied by your network administrator. Certificate validation is required.": [
       "quickshell/desktop-bar/WifiMenu.qml"
@@ -1151,6 +1143,9 @@
     "wrong password": [
       "quickshell/lockscreen/themes/girl-coffee/Main.qml"
     ],
+    "{count} devices": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
     "{count} notification": [
       "quickshell/desktop-bar/NotificationGroup.qml",
       "quickshell/desktop-bar/shell.qml"
@@ -1232,6 +1227,13 @@
     "Add Folder": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Add Layout": [
+      "elephant/menus/keyboard-add.lua",
+      "elephant/menus/keyboard.lua"
+    ],
+    "Add this layout; Alt + Shift switches layouts": [
+      "elephant/menus/keyboard-add.lua"
+    ],
     "Add {provider} Account": [
       "elephant/cloud-context-entries.lua"
     ],
@@ -1241,15 +1243,15 @@
     "Advanced Updates": [
       "elephant/menus/update-advanced.lua"
     ],
-    "After enrollment · login / lockscreen / sudo · password fallback retained": [
-      "elephant/menu-rows/fingerprint.json"
-    ],
     "After enrollment · password fallback retained": [
       "elephant/menu-rows/fido2.json"
     ],
     "All logs": [
       "elephant/menus/aws-cloudwatch-all-logs-1.lua",
       "elephant/menus/aws-cloudwatch-all-logs-2.lua"
+    ],
+    "Already added": [
+      "elephant/menus/keyboard-add.lua"
     ],
     "An earlier version from the home snapshots": [
       "elephant/menu-rows/snapshots.json"
@@ -1491,6 +1493,12 @@
     ],
     "Current channel · Testing builds, less tested; snapshots protect updates": [
       "elephant/menus/update-channel.lua"
+    ],
+    "Current layout": [
+      "elephant/menus/keyboard.lua"
+    ],
+    "Current layout · Delete removes it": [
+      "elephant/menus/keyboard.lua"
     ],
     "Cursor": [
       "elephant/menu-rows/style.json",
@@ -1825,12 +1833,6 @@
     "Install Packages": [
       "elephant/menu-rows/shortcuts.json"
     ],
-    "Install Sunshine and review system permissions": [
-      "elephant/menu-rows/remote-share.json"
-    ],
-    "Install Tailscale and review the service change": [
-      "elephant/menu-rows/remote-away.json"
-    ],
     "Install an AI Assistant": [
       "elephant/menus/ai-default.lua",
       "elephant/menus/ai-tools.lua"
@@ -1838,13 +1840,7 @@
     "Install an assistant before choosing a default": [
       "elephant/menus/ai-default.lua"
     ],
-    "Install or open Moonlight": [
-      "elephant/menu-rows/remote-access.json"
-    ],
     "Install or open Steam, with GameMode and MangoHud": [
-      "elephant/menu-rows/gaming.json"
-    ],
-    "Install or open the remote gaming client": [
       "elephant/menu-rows/gaming.json"
     ],
     "Instance status": [
@@ -1914,9 +1910,6 @@
     "Layout": [
       "elephant/menu-rows/bar.json",
       "elephant/menus/bar-layout.lua"
-    ],
-    "Layouts and switching between them": [
-      "elephant/menu-rows/system-devices.json"
     ],
     "LazyVim Commands": [
       "elephant/menu-rows/learn.json"
@@ -2091,6 +2084,9 @@
     ],
     "Open Development": [
       "elephant/project-entries.lua"
+    ],
+    "Open Moonlight to stream another PC": [
+      "elephant/menu-rows/remote-access.json"
     ],
     "Open OBS": [
       "elephant/menu-rows/screenrecord.json"
@@ -2325,6 +2321,12 @@
     "Return to Password Authentication": [
       "elephant/menu-rows/security.json"
     ],
+    "Review and turn on the Tailscale service": [
+      "elephant/menu-rows/remote-away.json"
+    ],
+    "Review screen capture and input permissions": [
+      "elephant/menu-rows/remote-share.json"
+    ],
     "Route 53": [
       "elephant/menus/aws-route53.lua"
     ],
@@ -2530,6 +2532,9 @@
     "Sign In": [
       "elephant/menu-rows/remote-away.json"
     ],
+    "Sign in, unlock and sudo by finger; your password still works": [
+      "elephant/menu-rows/fingerprint.json"
+    ],
     "Sign out and back in to apply": [
       "elephant/menus/language.lua"
     ],
@@ -2604,6 +2609,9 @@
       "elephant/menus/aws-ecs-stopped-tasks-1.lua",
       "elephant/menus/aws-ecs-stopped-tasks-2.lua"
     ],
+    "Stream games and desktops from another PC": [
+      "elephant/menu-rows/gaming.json"
+    ],
     "Style": [
       "elephant/menu-rows/main.json",
       "elephant/menus/style.lua"
@@ -2616,6 +2624,12 @@
     ],
     "Suspend": [
       "elephant/menu-rows/power.json"
+    ],
+    "Switch to this layout": [
+      "elephant/menus/keyboard.lua"
+    ],
+    "Switch to this layout · Delete removes it": [
+      "elephant/menus/keyboard.lua"
     ],
     "System": [
       "elephant/menu-rows/main.json",
@@ -4549,10 +4563,12 @@
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Keyboard": [
-      "distro/archinstall/installer-ui.py"
+      "distro/archinstall/installer-ui.py",
+      "quickshell/desktop-bar/scripts/keyboard-layout.py"
     ],
     "Keyboard layout": [
-      "distro/archinstall/installer-ui.py"
+      "distro/archinstall/installer-ui.py",
+      "quickshell/desktop-bar/scripts/keyboard-layout.py"
     ],
     "Keyboard layout: PREVIEW ONLY": [
       "distro/archinstall/installer-ui.py"

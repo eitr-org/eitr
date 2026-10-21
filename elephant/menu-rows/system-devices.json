@@ -12,6 +12,18 @@
     "submenu": "battery-limit"
   },
   {
+    "text": "Keyboard",
+    "subtext": ">",
+    "keywords": [
+      "layout",
+      "language",
+      "input",
+      "alt shift"
+    ],
+    "icon": "󰌌",
+    "submenu": "keyboard"
+  },
+  {
     "text": "Lighting",
     "keywords": [
       "rgb",
@@ -55,20 +67,6 @@
     "icon": "󰍹",
     "actions": {
       "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh display"
-    }
-  },
-  {
-    "text": "Keyboard",
-    "subtext": "Layouts and switching between them",
-    "keywords": [
-      "layout",
-      "language",
-      "input",
-      "alt shift"
-    ],
-    "icon": "󰌌",
-    "actions": {
-      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh keyboard"
     }
   },
   {

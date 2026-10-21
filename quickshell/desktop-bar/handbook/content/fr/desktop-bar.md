@@ -1,6 +1,6 @@
 # Barre et espaces de travail
 
-La barre garde la date et l’heure centrées. À gauche figurent Vue d’ensemble, marqueurs d’espaces de travail, Matériel et Utilisation IA ; à droite, les commandes de périphériques et d’état. Cliquez sur **Afficher les icônes** pour afficher ou masquer ce groupe droit.
+La barre garde la date et l’heure centrées. À gauche figurent Vue d’ensemble, marqueurs d’espaces de travail, Matériel, Utilisation IA et Verrouillage automatique ; à droite, les commandes de périphériques et d’état. Cliquez sur **Afficher les icônes** pour afficher ou masquer ce groupe droit.
 
 ## Mises à jour
 
@@ -26,4 +26,4 @@ La barre commence à 1–5 et s’étend jusqu’à l’espace courant ou au plu
 
 Les gestes de souris pour fond d’écran et thème sur le bureau vide figurent dans **Apprendre > Gestes de la souris**. En cas de doute, utilisez les raccourcis des carrousels.
 
-Le contrôle Audio/Micro ouvre un panneau avec des sections distinctes pour la sortie audio et le microphone. Tailscale et Streaming se trouvent juste avant OBS et affichent l’état local, les détails de connexion et les boutons d’action sur deux colonnes. La connexion au compte reste dans Walker. Le fond des boutons d’icône apparaît au survol ; les icônes d’actualisation tournent pendant l’opération et les infobulles apparaissent près du pointeur. Les interrupteurs et les boutons d’action intégrés utilisent des dimensions compactes communes.
+Le contrôle Audio/Micro ouvre un panneau avec des sections distinctes pour la sortie audio et le microphone. Tailscale et Streaming se trouvent juste avant OBS. Un interrupteur dans leur en-tête connecte Tailscale ou lance le partage, les détails et les appareils suivent, et les actions de configuration ou de diagnostic sont dans le menu « … ». Le fond des boutons d’icône apparaît au survol ; les panneaux s’actualisent d’eux-mêmes à l’ouverture, une icône d’actualisation tourne seulement pendant le chargement et les infobulles apparaissent près du pointeur. Les interrupteurs et les boutons d’action intégrés utilisent des dimensions compactes communes.

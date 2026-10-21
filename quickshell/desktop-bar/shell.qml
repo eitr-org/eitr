@@ -23,6 +23,11 @@ ShellRoot {
         screen: shell.targetScreens()[0] || null
         onOpenedChanged: if (opened) shell.handbookOpened()
         onSetupRequested: function(kind) {
+            // Layouts are added in Walker's Keyboard menu; the bar panel only switches them.
+            if (kind === "keyboard") {
+                Quickshell.execDetached([Eitr.Paths.code("walker/bin/walker"), "--provider", "menus:keyboard"]);
+                return;
+            }
             var script = kind === "theme" || kind === "wallpaper" ? "appearance-picker.sh" : "show-panel.sh";
             Quickshell.execDetached(["bash", Quickshell.shellDir + "/scripts/" + script, kind]);
         }
@@ -99,6 +104,9 @@ ShellRoot {
     property color activeBg: "#cdd6f4"
     property color hoverBg: Qt.rgba(180 / 255, 190 / 255, 254 / 255, 0.15)
     property bool idleLockEnabled: false
+    readonly property string idleLockGlyph: idleLockEnabled ? "󱫗" : "󱫖"
+    readonly property string idleLockTooltip: idleLockEnabled ? Eitr.I18n.tr("Idle Lock: On") : Eitr.I18n.tr("Idle Lock: Off")
+    function switchIdleLock() { if (!toggleIdleLock.running) toggleIdleLock.running = true; }
     property var battery: ({available: false, percent: 0, status: "", health: 0, hours: 0})
     readonly property string batteryIcon: battery.status === "Charging" ? "󰂄" : battery.percent < 20 ? "󰁻" : battery.percent < 60 ? "󰁾" : "󰁹"
     property string primaryDisplay: ""
@@ -321,10 +329,6 @@ ShellRoot {
         id: toggleIdleLock
         command: ["bash", Eitr.Paths.code("walker/scripts/actions/toggle/idle-lock.sh")]
         onExited: if (!idleLockStatus.running) idleLockStatus.running = true
-    }
-    Process {
-        id: manualLock
-        command: ["bash", Eitr.Paths.code("hypr/scripts/manual-lock.sh")]
     }
 
     Process {
@@ -560,7 +564,7 @@ ShellRoot {
                     onTriggered: bar.hoverExpanded = false
                 }
                 readonly property var dockPanels: [wifiMenu, bluetoothMenu, brightnessMenu, volumeMenu, tailscaleMenu, streamingMenu,
-                    keyboardMenu, idleLockMenu, calendarMenu, weatherMenu, hardwareMenu, aiMenu, obsMenu, recordingMenu, workspaceMenu, notificationCenter, controlCenter, mediaMenu, batteryMenu]
+                    keyboardMenu, calendarMenu, weatherMenu, hardwareMenu, aiMenu, obsMenu, recordingMenu, workspaceMenu, notificationCenter, controlCenter, mediaMenu, batteryMenu]
                 readonly property bool panelOpen: dockPanels.some(panel => panel.visible)
                 readonly property var panelFocusWindows: notificationPopups.visible ? [bar, notificationPopups] : [bar]
                 property var pendingPanel: null
@@ -647,7 +651,6 @@ ShellRoot {
                     Region { item: tailscaleMenu.opened ? tailscaleMenu : null }
                     Region { item: streamingMenu.opened ? streamingMenu : null }
                     Region { item: keyboardMenu.opened ? keyboardMenu : null }
-                    Region { item: idleLockMenu.opened ? idleLockMenu : null }
                     Region { item: calendarMenu.opened ? calendarMenu : null }
                     Region { item: weatherMenu.opened ? weatherMenu : null }
                     Region { item: hardwareMenu.opened ? hardwareMenu : null }
@@ -742,7 +745,7 @@ ShellRoot {
                 function toggleControlCenter() { togglePanel(controlCenter); }
                 function showKind(kind) {
                     var panels = {wifi: wifiMenu, bluetooth: bluetoothMenu, brightness: brightnessMenu, display: brightnessMenu, volume: volumeMenu,
-                        mic: volumeMenu, tailscale: tailscaleMenu, streaming: streamingMenu, keyboard: keyboardMenu, idle: idleLockMenu, calendar: calendarMenu,
+                        mic: volumeMenu, tailscale: tailscaleMenu, streaming: streamingMenu, keyboard: keyboardMenu, calendar: calendarMenu,
                         weather: weatherMenu, hardware: hardwareMenu, ai: aiMenu, obs: obsMenu,
                         workspace: workspaceMenu, recording: recordingMenu, notifications: notificationCenter,
                         center: controlCenter, media: mediaMenu, battery: batteryMenu};
@@ -873,6 +876,7 @@ ShellRoot {
                             spacing: shell.workspaceItemSpacing
                             VerticalBarIcon { id: verticalHardwareIcon; icon: "󰍛"; iconSize: 18; tooltip: Eitr.I18n.tr("Hardware"); open: true; clickable: true; onClicked: bar.togglePanel(hardwareMenu) }
                             VerticalBarIcon { id: verticalAiIcon; icon: "󱜙"; iconSize: 18; tooltip: Eitr.I18n.tr("AI Usage"); open: true; clickable: true; onClicked: bar.togglePanel(aiMenu) }
+                            VerticalBarIcon { id: verticalIdleLockIcon; icon: shell.idleLockGlyph; iconSize: 17; tooltip: shell.idleLockTooltip; open: true; clickable: true; onClicked: shell.switchIdleLock() }
                         }
                     }
 
@@ -973,22 +977,10 @@ ShellRoot {
                         VerticalBarIcon { id: verticalBluetoothIcon; icon: "󰂯"; tooltip: Eitr.I18n.tr("Bluetooth"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(bluetoothMenu); onOpenChanged: if (!open) bluetoothMenu.opened = false }
                         VerticalBarIcon { id: verticalDisplayIcon; icon: "󰍹"; tooltip: Eitr.I18n.tr("Display"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(brightnessMenu); onOpenChanged: if (!open) brightnessMenu.opened = false }
                         VerticalBarIcon { id: verticalVolumeIcon; icon: "\u{F02CE}"; tooltip: Eitr.I18n.tr("Audio/Mic"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(volumeMenu); onOpenChanged: if (!open) volumeMenu.opened = false }
-                        VerticalBarIcon { id: verticalKeyboardIcon; icon: "󰌌"; tooltip: Eitr.I18n.tr("Keyboard"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(keyboardMenu); onOpenChanged: if (!open) keyboardMenu.opened = false }
-                        VerticalBarIcon {
-                            id: verticalIdleLockIcon
-                            icon: shell.idleLockEnabled ? "󱫗" : "󱫖"
-                            tooltip: Eitr.I18n.tr("Idle Lock")
-                            open: shell.iconsOpen; clickable: true; rightClickable: true
-                            onClicked: function(button) {
-                                if (button === Qt.RightButton) {
-                                    if (!toggleIdleLock.running) toggleIdleLock.running = true;
-                                } else bar.togglePanel(idleLockMenu);
-                            }
-                            onOpenChanged: if (!open) idleLockMenu.opened = false
-                        }
                         VerticalBarIcon { id: verticalTailscaleIcon; icon: "󰌘"; tooltip: "Tailscale"; open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(tailscaleMenu); onOpenChanged: if (!open) tailscaleMenu.opened = false }
                         VerticalBarIcon { id: verticalStreamingIcon; icon: "󰢹"; tooltip: Eitr.I18n.tr("Streaming"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(streamingMenu); onOpenChanged: if (!open) streamingMenu.opened = false }
                         VerticalBarIcon { id: verticalObsIcon; icon: obsMenu.obsState.recording ? (obsMenu.obsState.paused ? "󰏤" : "󰑋") : "󰻂"; iconSize: obsMenu.obsState.recording && !obsMenu.obsState.paused ? 22 : 16; tooltip: obsMenu.obsState.recording ? (obsMenu.obsState.paused ? Eitr.I18n.tr("Recording paused") : Eitr.I18n.tr("Recording")) : Eitr.I18n.tr("OBS Studio"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(obsMenu); onOpenChanged: if (!open) obsMenu.opened = false }
+                        VerticalBarIcon { id: verticalKeyboardIcon; icon: keyboardMenu.activeCode || "󰌌"; iconSize: 11; tooltip: keyboardMenu.activeLabel ? Eitr.I18n.tr("Keyboard · {layout}", {layout: keyboardMenu.activeLabel}) : Eitr.I18n.tr("Keyboard"); open: shell.iconsOpen && keyboardMenu.layouts.length > 1; clickable: true; onClicked: bar.togglePanel(keyboardMenu); onOpenChanged: if (!open) keyboardMenu.opened = false }
                         VerticalBarIcon {
                             id: verticalUpdatesIcon
                             icon: shell.updatesIcon; iconSize: 17; spinning: shell.updates.checking
@@ -1112,6 +1104,18 @@ ShellRoot {
                                 open: true
                                 clickable: true
                                 onClicked: bar.togglePanel(aiMenu)
+                            }
+
+                            // A plain switch: a click turns automatic idle locking on or off.
+                            StatusIcon {
+                                id: idleLockIcon
+                                slotWidth: shell.workspaceItemSize
+                                icon: shell.idleLockGlyph
+                                iconSize: 17
+                                tooltip: shell.idleLockTooltip
+                                open: true
+                                clickable: true
+                                onClicked: shell.switchIdleLock()
                             }
                         }
 
@@ -1256,57 +1260,6 @@ ShellRoot {
                             }
 
                             StatusIcon {
-                                id: keyboardIcon
-                                icon: "󰌌"
-                                iconSize: 18
-                                tooltip: Eitr.I18n.tr("Keyboard")
-                                open: shell.iconsOpen
-                                clickable: true
-                                onClicked: bar.togglePanel(keyboardMenu)
-                                onOpenChanged: if (!open) keyboardMenu.opened = false
-                            }
-
-                            KeyboardLayoutMenu {
-                                id: keyboardMenu
-                                surfaceColor: shell.barBackground()
-                                target: shell.verticalBar ? verticalKeyboardIcon : (shell.iconsOpen ? keyboardIcon : notificationIcon)
-                                barEdge: shell.barEdge
-                                accent: shell.activeBg
-                                foreground: shell.fg
-                                background: shell.workspaceMenuBg
-                            }
-
-                            StatusIcon {
-                                id: idleLockIcon
-                                icon: shell.idleLockEnabled ? "󱫗" : "󱫖"
-                                iconSize: 17
-                                tooltip: shell.idleLockEnabled ? Eitr.I18n.tr("Idle Lock: On") : Eitr.I18n.tr("Idle Lock: Off")
-                                open: shell.iconsOpen
-                                clickable: true
-                                rightClickable: true
-                                onClicked: function(button) {
-                                    if (button === Qt.RightButton) {
-                                        if (!toggleIdleLock.running) toggleIdleLock.running = true;
-                                    } else bar.togglePanel(idleLockMenu);
-                                }
-                                onOpenChanged: if (!open) idleLockMenu.opened = false
-                            }
-
-                            IdleLockMenu {
-                                id: idleLockMenu
-                                target: shell.verticalBar ? verticalIdleLockIcon : (shell.iconsOpen ? idleLockIcon : notificationIcon)
-                                barEdge: shell.barEdge
-                                surfaceColor: shell.barBackground()
-                                foreground: shell.fg
-                                background: shell.workspaceMenuBg
-                                accent: shell.activeBg
-                                idleEnabled: shell.idleLockEnabled
-                                busy: toggleIdleLock.running || manualLock.running
-                                onToggleRequested: if (!toggleIdleLock.running) toggleIdleLock.running = true
-                                onLockRequested: if (!manualLock.running) manualLock.running = true
-                            }
-
-                            StatusIcon {
                                 id: tailscaleIcon
                                 icon: "󰌘"
                                 tooltip: "Tailscale"
@@ -1358,6 +1311,29 @@ ShellRoot {
                                 clickable: true
                                 onClicked: bar.togglePanel(obsMenu)
                                 onOpenChanged: if (!open) obsMenu.opened = false
+                            }
+
+                            StatusIcon {
+                                id: keyboardIcon
+                                // Like macOS's input menu: the active layout's code, shown
+                                // only when there is more than one layout to switch between.
+                                icon: keyboardMenu.activeCode || "󰌌"
+                                iconSize: 11
+                                tooltip: keyboardMenu.activeLabel ? Eitr.I18n.tr("Keyboard · {layout}", {layout: keyboardMenu.activeLabel}) : Eitr.I18n.tr("Keyboard")
+                                open: shell.iconsOpen && keyboardMenu.layouts.length > 1
+                                clickable: true
+                                onClicked: bar.togglePanel(keyboardMenu)
+                                onOpenChanged: if (!open) keyboardMenu.opened = false
+                            }
+
+                            KeyboardLayoutMenu {
+                                id: keyboardMenu
+                                surfaceColor: shell.barBackground()
+                                target: shell.verticalBar ? verticalKeyboardIcon : (shell.iconsOpen ? keyboardIcon : notificationIcon)
+                                barEdge: shell.barEdge
+                                accent: shell.activeBg
+                                foreground: shell.fg
+                                background: shell.workspaceMenuBg
                             }
 
                             StatusIcon {

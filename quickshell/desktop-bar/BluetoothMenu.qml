@@ -43,22 +43,14 @@ ThemedPopup {
                 spacing: 8
                 PanelButton {
                     id: scanButton
-                    text: "\uF021"; icon: true; compactIconBackground: true
-                    loading: !!menu.scanningAdapter
+                    width: 34; height: 32
+                    text: menu.scanningAdapter ? "\uF04D" : "\uF021"; icon: true; compactIconBackground: true
                     foreground: menu.foreground
                     available: !!menu.adapter && menu.adapter.enabled
+                    Accessible.name: menu.scanningAdapter ? Eitr.I18n.tr("Stop scan") : Eitr.I18n.tr("Scan")
                     onClicked: menu.scan()
                     HoverHandler { id: scanHover }
-                    BarTooltip { target: scanButton; hovered: scanHover.hovered; text: scanButton.loading ? Eitr.I18n.tr("Scanning") : Eitr.I18n.tr("Scan"); foreground: menu.foreground; background: menu.background }
-                }
-                PanelButton {
-                    id: stopScanButton
-                    visible: !!menu.scanningAdapter
-                    text: "\uF04D"; icon: true; compactIconBackground: true
-                    foreground: menu.foreground
-                    onClicked: menu.scan()
-                    HoverHandler { id: stopScanHover }
-                    BarTooltip { target: stopScanButton; hovered: stopScanHover.hovered; text: Eitr.I18n.tr("Stop scan"); foreground: menu.foreground; background: menu.background }
+                    BarTooltip { target: scanButton; hovered: scanHover.hovered; text: scanButton.Accessible.name; foreground: menu.foreground; background: menu.background }
                 }
                 PanelSwitch { checked: !!menu.adapter && menu.adapter.enabled; enabled: !!menu.adapter; foreground: menu.foreground; accent: menu.accent; onClicked: menu.adapter.enabled = checked }
             }
@@ -83,8 +75,8 @@ ThemedPopup {
                         width: groups.width
                         spacing: PanelStyle.selectionRowGap
                         PanelDivider { width: parent.width; height: 8; foreground: menu.foreground }
-                        Text { text: parent.modelData.title; color: menu.foreground; opacity: 0.6; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
-                        Text { visible: parent.modelData.devices.length === 0; text: parent.modelData.title === "SCANNED DEVICES" && menu.scanningAdapter ? Eitr.I18n.tr("Scanning...") : Eitr.I18n.tr("No devices"); color: menu.foreground; opacity: 0.55; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.secondarySize }
+                        Text { text: parent.modelData.title; color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                        Text { visible: parent.modelData.devices.length === 0; text: parent.modelData.title === "SCANNED DEVICES" && menu.scanningAdapter ? Eitr.I18n.tr("Scanning...") : Eitr.I18n.tr("No devices"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.secondarySize }
                         Repeater {
                             model: parent.modelData.devices
                             Item {
@@ -107,7 +99,7 @@ ThemedPopup {
                                     anchors.verticalCenter: parent.verticalCenter
                                     spacing: PanelStyle.selectionDetailGap
                                     Text { width: parent.width; elide: Text.ElideRight; textFormat: Text.PlainText; text: device.modelData.name; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
-                                    Text { width: parent.width; elide: Text.ElideRight; text: BluetoothDeviceState.toString(device.modelData.state) + (device.modelData.batteryAvailable ? " · " + Math.round(device.modelData.battery * 100) + "%" : ""); color: menu.foreground; opacity: 0.65; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                                    Text { width: parent.width; elide: Text.ElideRight; text: BluetoothDeviceState.toString(device.modelData.state) + (device.modelData.batteryAvailable ? " · " + Math.round(device.modelData.battery * 100) + "%" : ""); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
                                 }
                                 Row {
                                     id: actions

@@ -180,7 +180,7 @@ ThemedPopup {
             visible: menu.scenes.length > 1
             text: Eitr.I18n.tr("SCENE")
             color: menu.foreground
-            opacity: 0.6
+            opacity: PanelStyle.secondaryTextOpacity
             font.family: DesktopFonts.family
             font.pixelSize: PanelStyle.captionSize
         }

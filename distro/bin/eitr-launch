@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Launch EITR package components with separate code and preference roots."""
+import json
 import os
 from pathlib import Path
+import subprocess
 import sys
 
 source_lib = Path(__file__).resolve().parents[1] / 'lib'
@@ -10,6 +12,22 @@ if not (source_lib / 'eitr_paths.py').is_file():
 if (source_lib / 'eitr_paths.py').is_file():
     sys.path.insert(0, str(source_lib))
 from eitr_paths import ROOT, cache, code, code_root, config, data, shell_path, state, theme_paths
+
+
+def running_instance(component, selected):
+    """Where IPC should go: the selected config when it runs, else the one running
+    copy of the component (a checkout started with --repo), so shortcuts keep
+    reaching the bar while a checkout is being tried."""
+    try:
+        result = subprocess.run(['quickshell', 'list', '--all', '--json'], capture_output=True,
+                                text=True, timeout=3, check=True)
+        configs = [Path(entry['config_path']).parent for entry in json.loads(result.stdout or '[]')]
+    except (OSError, ValueError, KeyError, subprocess.SubprocessError):
+        return selected
+    if Path(selected) in configs:
+        return selected
+    matches = {config for config in configs if config.parts[-2:] == ('quickshell', component)}
+    return str(matches.pop()) if len(matches) == 1 else selected
 
 
 def main(argv=None, executable=None):
@@ -57,6 +75,8 @@ def main(argv=None, executable=None):
         # reload then fails. Only checkouts and personal overrides reload live; the
         # packaged desktop picks up an upgrade at the next login.
         environment['EITR_LIVE_RELOAD'] = '1' if repo or not Path(selected).is_relative_to(ROOT) else '0'
+        if rest and rest[0] in {'ipc', 'kill'} and not repo:
+            selected = running_instance(component, selected)
         if rest and rest[0] in {'ipc', 'kill', 'list'}:
             command = ['quickshell', rest[0], '-p', selected, *rest[1:]]
         else:

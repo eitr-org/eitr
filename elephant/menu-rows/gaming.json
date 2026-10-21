@@ -9,7 +9,7 @@
   },
   {
     "text": "Moonlight",
-    "subtext": "Install or open the remote gaming client",
+    "subtext": "Stream games and desktops from another PC",
     "icon": "󰊴",
     "actions": {
       "open": "python3 /usr/share/eitr/walker/scripts/actions/install/software.py gaming moonlight"

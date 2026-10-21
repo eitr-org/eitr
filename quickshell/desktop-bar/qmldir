@@ -1,5 +1,6 @@
 singleton DesktopFonts 1.0 DesktopFonts.qml
 singleton DesktopStyle 1.0 DesktopStyle.qml
+singleton AudioDevices 1.0 AudioDevices.qml
 AiUsageMenu AiUsageMenu.qml
 AppearancePicker AppearancePicker.qml
 AudioLevelControl AudioLevelControl.qml
@@ -15,8 +16,6 @@ ControlCenter ControlCenter.qml
 ControlCenterTile ControlCenterTile.qml
 DisplaySettingsEditor DisplaySettingsEditor.qml
 DockPanel DockPanel.qml
-IdleLockControls IdleLockControls.qml
-IdleLockMenu IdleLockMenu.qml
 Handbook Handbook.qml
 KeyboardLayoutMenu KeyboardLayoutMenu.qml
 KeyboardLayoutRow KeyboardLayoutRow.qml
@@ -37,6 +36,9 @@ ObsActionButton ObsActionButton.qml
 ObsMenu ObsMenu.qml
 OverviewTileReveal OverviewTileReveal.qml
 PanelButton PanelButton.qml
+PanelFooterLink PanelFooterLink.qml
+PanelLoadingIndicator PanelLoadingIndicator.qml
+PanelMoreButton PanelMoreButton.qml
 PanelDivider PanelDivider.qml
 PanelHeading PanelHeading.qml
 PanelSizeBehavior PanelSizeBehavior.qml

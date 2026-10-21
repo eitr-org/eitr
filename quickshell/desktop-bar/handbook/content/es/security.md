@@ -1,6 +1,6 @@
 # Seguridad y bloqueo
 
-**SUPER + M** bloquea la pantalla inmediatamente. El panel de bloqueo automático de la barra activa o desactiva el bloqueo por inactividad; hacer clic derecho en su icono cambia esa preferencia directamente. El Centro de control también ofrece ese ajuste y una acción de bloqueo representada solo por un icono.
+**SUPER + M** bloquea la pantalla inmediatamente. Haz clic en el icono de Bloqueo automático a la izquierda de la barra (tras Uso de IA) para activar o desactivar el bloqueo por inactividad; su descripción muestra el estado. Activado, la pantalla se bloquea tras 15 minutos de inactividad, se apaga a los 30 y el equipo se suspende a los 60. El Centro de control ofrece el mismo ajuste y un botón Bloquear.
 
 ## Contraseña y autenticación alternativa
 

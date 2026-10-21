@@ -34,4 +34,4 @@ Somente uma instalação compatível da distribuição com o ponto de restauraç
 
 ## Energia
 
-Principal > Energia e Central de controle > Geral oferecem bloqueio, encerramento de sessão, suspensão, reinicialização e desligamento. Salve seu trabalho primeiro. Essas ações realmente são executadas; não são demonstrações.
+Principal > Energia e Central de controle > Geral (em **Energia…**) oferecem bloqueio, encerramento de sessão, suspensão, reinicialização e desligamento. Salve seu trabalho primeiro. Essas ações realmente são executadas; não são demonstrações.

@@ -22,11 +22,12 @@ def menu_actions(menu):
     return [{'menu': menu, 'source': row['text'], 'title': messages.get(row['text'], row['text']),
              'description': messages.get(row.get('subtext', ''), row.get('subtext', '')),
              'icon': row.get('icon', '')}
-            for row in module.rows(menu) if row.get('actions') and row['text'] not in ('Sharing Status', 'Connection Status', 'Sign In', 'Log In')]
+            for row in module.rows(menu) if row.get('actions') and row['text'] not in ('Sharing Status', 'Connection Status', 'Log In')]
 
 
 def tailscale_status():
-    state = {'installed': bool(shutil.which('tailscale')), 'addresses': [], 'peers': [], 'facts': []}
+    state = {'installed': bool(shutil.which('tailscale')), 'connected': False, 'signedOut': False,
+             'addresses': [], 'peers': [], 'facts': []}
     if not state['installed']:
         return {**state, 'status': tr('Tailscale is not installed.')}
     try:
@@ -35,6 +36,8 @@ def tailscale_status():
             raise ValueError('Status unavailable')
         data = json.loads(response.stdout)
         backend = data.get('BackendState')
+        state['connected'] = backend == 'Running'
+        state['signedOut'] = backend == 'NeedsLogin'
         state['status'] = (tr('Connected') if backend == 'Running' else tr('Signed out') if backend == 'NeedsLogin'
                            else tr('Disconnected') if backend == 'Stopped' else tr('Tailscale status unavailable.'))
         state['addresses'] = data.get('TailscaleIPs') or []

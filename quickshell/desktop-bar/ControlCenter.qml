@@ -44,7 +44,6 @@ ThemedPopup {
     readonly property string cursorScript: Eitr.Paths.code("walker/scripts/actions/style/cursor.py")
     readonly property string lockscreenScript: Eitr.Paths.code("quickshell/lockscreen/scripts/settings.py")
     readonly property string effectsScript: Eitr.Paths.code("walker/scripts/actions/style/terminal-effects.py")
-    property bool addingLayout: false
     property var screenMargins: [12, 12, 12, 12]
     readonly property real edgeClearance: barPosition === "top" ? screenMargins[2] : barPosition === "bottom" ? screenMargins[0] : screenMargins[0] + screenMargins[2]
     signal idleToggleRequested()
@@ -64,6 +63,9 @@ ThemedPopup {
         if (!crashQuery.running && !crashOperation.running) crashQuery.running = true;
         if (!gameModeQuery.running && !gameModeOperation.running) gameModeQuery.running = true;
     }
+    property bool powerOpen: false
+    readonly property var bluetoothDevices: bluetoothControl.adapter && bluetoothControl.adapter.enabled
+        ? bluetoothControl.adapter.devices.values.filter(device => device.connected) : []
     function runAfterClose(command) { pendingCommand = command; opened = false; }
     // The same command as that Walker menu row (scripts/menu-action.py), after closing.
     function menuAction(menu, row) { runAfterClose(["python3", Quickshell.shellDir + "/scripts/menu-action.py", menu, row]); }
@@ -85,8 +87,8 @@ ThemedPopup {
         if (page === "system" && !channelQuery.running) channelQuery.running = true;
     }
     onVisibleChanged: if (!visible) {
+        powerOpen = false;
         page = "general";
-        addingLayout = false;
         scroll.contentY = 0;
         if (pendingCommand.length) {
             let command = pendingCommand; pendingCommand = [];
@@ -232,21 +234,23 @@ ThemedPopup {
                         Section { text: Eitr.I18n.tr("Connectivity"); width: parent.width }
                         GridLayout {
                             width: parent.width; columns: 2; columnSpacing: PanelStyle.selectionActionGap; rowSpacing: PanelStyle.selectionRowGap
-                            Tile {
+                            ToggleTile {
                                 title: Eitr.I18n.tr("WiFi"); glyph: center.wifiGlyph
-                                subtitle: center.wifiControl.connected ? center.wifiControl.connected.name : center.wifiControl.device && center.wifiControl.device.powered ? Eitr.I18n.tr("On") : Eitr.I18n.tr("Off")
+                                detail: center.wifiControl.connected ? center.wifiControl.connected.name : ""
                                 selected: !!center.wifiControl.device && center.wifiControl.device.powered
                                 available: !!center.wifiControl.device && !center.wifiControl.busy && !center.airplane.enabled
                                 onClicked: center.wifiControl.act("power", center.wifiControl.device.path, center.wifiControl.device.powered ? "false" : "true")
                             }
-                            Tile {
-                                title: Eitr.I18n.tr("Bluetooth"); glyph: "󰂯"; subtitle: center.bluetoothControl.adapter && center.bluetoothControl.adapter.enabled ? Eitr.I18n.tr("On") : Eitr.I18n.tr("Off")
+                            ToggleTile {
+                                title: Eitr.I18n.tr("Bluetooth"); glyph: "󰂯"
+                                detail: center.bluetoothDevices.length === 1 ? center.bluetoothDevices[0].name
+                                    : center.bluetoothDevices.length > 1 ? Eitr.I18n.tr("{count} devices", {count: center.bluetoothDevices.length}) : ""
                                 selected: !!center.bluetoothControl.adapter && center.bluetoothControl.adapter.enabled
                                 available: !!center.bluetoothControl.adapter && !center.airplane.enabled
                                 onClicked: center.bluetoothControl.adapter.enabled = !center.bluetoothControl.adapter.enabled
                             }
-                            Tile {
-                                title: Eitr.I18n.tr("Airplane"); glyph: "󰀝"; subtitle: center.airplane.enabled ? Eitr.I18n.tr("On") : Eitr.I18n.tr("Off"); selected: !!center.airplane.enabled
+                            ToggleTile {
+                                title: Eitr.I18n.tr("Airplane"); glyph: "󰀝"; selected: !!center.airplane.enabled
                                 available: !!center.airplane.available && !airplaneOperation.running
                                 onClicked: { center.actionError = ""; airplaneOperation.command = ["python3", Quickshell.shellDir + "/scripts/airplane.py", "set", center.airplane.enabled ? "false" : "true"]; airplaneOperation.running = true; }
                             }
@@ -255,23 +259,26 @@ ThemedPopup {
                         Section { text: Eitr.I18n.tr("Quick Toggles"); width: parent.width }
                         GridLayout {
                             width: parent.width; columns: 2; columnSpacing: PanelStyle.selectionActionGap; rowSpacing: PanelStyle.selectionRowGap
-                            Tile { title: Eitr.I18n.tr("Idle Lock"); glyph: "󱫖"; subtitle: center.idleEnabled ? Eitr.I18n.tr("On") : Eitr.I18n.tr("Off"); selected: center.idleEnabled; available: !center.idleBusy; onClicked: center.idleToggleRequested() }
-                            Tile { title: Eitr.I18n.tr("Crash Notifications"); glyph: "󰅚"; subtitle: center.crashNotifications ? Eitr.I18n.tr("On") : Eitr.I18n.tr("Off"); selected: center.crashNotifications; available: !crashOperation.running; onClicked: { center.actionError = ""; crashOperation.running = true; } }
-                            Tile { title: Eitr.I18n.tr("Do Not Disturb"); glyph: "󰂛"; subtitle: center.service.doNotDisturb ? Eitr.I18n.tr("On") : Eitr.I18n.tr("Off"); selected: center.service.doNotDisturb; onClicked: center.service.toggleDnd() }
-                            Tile {
-                                title: Eitr.I18n.tr("Game Mode"); glyph: "󰊴"; subtitle: center.gameMode ? Eitr.I18n.tr("On") : Eitr.I18n.tr("Off"); selected: center.gameMode
+                            ToggleTile { title: Eitr.I18n.tr("Idle Lock"); glyph: "󱫖"; selected: center.idleEnabled; available: !center.idleBusy; onClicked: center.idleToggleRequested() }
+                            ToggleTile { title: Eitr.I18n.tr("Crash Notifications"); glyph: "󰅚"; selected: center.crashNotifications; available: !crashOperation.running; onClicked: { center.actionError = ""; crashOperation.running = true; } }
+                            ToggleTile { title: Eitr.I18n.tr("Do Not Disturb"); glyph: "󰂛"; selected: center.service.doNotDisturb; onClicked: center.service.toggleDnd() }
+                            ToggleTile {
+                                title: Eitr.I18n.tr("Game Mode"); glyph: "󰊴"; selected: center.gameMode
                                 available: !gameModeOperation.running
                                 onClicked: { center.actionError = ""; gameModeOperation.running = true; }
                             }
-                            Tile {
+                            ToggleTile {
                                 title: Eitr.I18n.tr("Night Light"); glyph: "󰖔"
-                                subtitle: center.displayControl.nightlight.mode === "auto" ? Eitr.I18n.tr("Scheduled") : center.displayControl.nightlight.mode === "on" ? Eitr.I18n.tr("On") : Eitr.I18n.tr("Off")
+                                detail: center.displayControl.nightlight.mode === "auto" ? Eitr.I18n.tr("Scheduled") : ""
                                 selected: center.displayControl.nightlight.mode === "on" || !!center.displayControl.nightlight.active
                                 available: !!center.displayControl.nightlight.available
                                 onClicked: center.displayControl.setNightlight(center.displayControl.nightlight.mode === "on" ? "off" : "on")
                             }
-                            Tile { title: Eitr.I18n.tr("Hide Bar"); glyph: "󰍜"; subtitle: Eitr.I18n.tr("SUPER+Shift+Space brings it back"); onClicked: center.menuAction("toggle", "Desktop Bar") }
-                            Tile { title: Eitr.I18n.tr("Screensaver"); glyph: "󱄄"; subtitle: Eitr.I18n.tr("Start it now"); onClicked: center.menuAction("toggle", "Screensaver") }
+                        }
+                        GridLayout {
+                            width: parent.width; columns: 2; columnSpacing: PanelStyle.selectionActionGap; rowSpacing: PanelStyle.selectionRowGap
+                            GridAction { title: Eitr.I18n.tr("Hide Bar"); glyph: "󰍜"; onClicked: center.menuAction("toggle", "Desktop Bar") }
+                            GridAction { title: Eitr.I18n.tr("Screensaver"); glyph: "󱄄"; onClicked: center.menuAction("toggle", "Screensaver") }
                         }
                     }
                     Column {
@@ -293,7 +300,7 @@ ThemedPopup {
                                 onMoved: brightnessSettle.restart()
                                 Timer { id: brightnessSettle; interval: 120; onTriggered: center.displayControl.applyValue(Math.round(brightnessSlider.value)) }
                             }
-                            Text { width: 50; height: 30; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignRight; text: center.displayControl.state.available ? center.displayControl.state.value + "%" : "--"; color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: 12 }
+                            Text { width: 50; height: 30; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignRight; text: center.displayControl.state.available ? center.displayControl.state.value + "%" : "--"; color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.secondarySize; font.features: PanelStyle.tabularFigures }
                         }
                         Section { visible: !!center.mediaPlayer; text: Eitr.I18n.tr("Media"); width: parent.width }
                         MediaCard { compact: true; visible: !!center.mediaPlayer; width: parent.width; player: center.mediaPlayer; active: center.opened && center.page === "general"; foreground: center.foreground; accent: center.accent }
@@ -451,27 +458,13 @@ ThemedPopup {
                                 width: parent.width; label: modelData.label
                                 foreground: center.foreground; tooltipBackground: center.background
                                 selected: modelData.index === center.keyboardControl.activeLayout
-                                removable: center.keyboardControl.layouts.length > 1
+                                showRemove: false
                                 onActivated: center.keyboardControl.perform(["select", String(modelData.index)])
-                                onRemoveRequested: center.keyboardControl.perform(["remove", String(modelData.index)])
                             }
                         }
                         }
-                        PanelButton { textSize: 12; iconSize: 16; width: parent.width; text: center.addingLayout ? Eitr.I18n.tr("Cancel") : Eitr.I18n.tr("Add Layout"); foreground: center.foreground; onClicked: { center.addingLayout = !center.addingLayout; if (center.addingLayout) center.keyboardControl.loadCatalog(); } }
-                        TextField {
-                            id: layoutSearch
-                            visible: center.addingLayout; width: parent.width; height: 36
-                            placeholderText: Eitr.I18n.tr("Search layouts…"); color: center.foreground
-                            font.family: DesktopFonts.family; font.pixelSize: 12
-                            background: Rectangle { radius: DesktopStyle.radius(PanelStyle.controlRadius); color: Qt.alpha(center.foreground, 0.08) }
-                        }
-                        Column {
-                            visible: center.addingLayout; width: parent.width; spacing: 4
-                            Repeater {
-                                model: center.addingLayout && layoutSearch.text.trim() ? center.keyboardControl.availableLayouts.filter(entry => entry.label.toLowerCase().includes(layoutSearch.text.toLowerCase())).slice(0, 12) : []
-                                PanelButton { textSize: 12; iconSize: 16; required property var modelData; width: parent.width; text: Eitr.I18n.tr(modelData.label); foreground: center.foreground; onClicked: { center.keyboardControl.perform(["add", modelData.layout, modelData.variant]); center.addingLayout = false; } }
-                            }
-                        }
+                        // Adding and removing layouts happens in Walker's Keyboard menu.
+                        PanelFooterLink { text: Eitr.I18n.tr("Add or Remove Layouts…"); foreground: center.foreground; onClicked: center.walkerMenu("keyboard") }
                         Label { visible: center.keyboardControl.error !== ""; width: parent.width; wrapMode: Text.WordWrap; text: center.keyboardControl.error }
                         }
                         Fold {
@@ -587,25 +580,22 @@ ThemedPopup {
                         visible: center.page === "general"; width: parent.width; spacing: 12
                         Section { text: Eitr.I18n.tr("Power"); width: parent.width }
                         PowerControls { visible: center.battery.available; width: parent.width; battery: center.battery; displayControl: center.displayControl; foreground: center.foreground }
-                        Row {
-                            width: parent.width; spacing: 8
+                        // Lock is the everyday action; the session-ending ones sit behind one labelled button.
+                        GridLayout {
+                            width: parent.width; columns: 2; columnSpacing: PanelStyle.selectionActionGap; rowSpacing: PanelStyle.selectionRowGap
+                            GridAction { title: Eitr.I18n.tr("Lock"); glyph: ""; onClicked: center.runAfterClose(["bash", Eitr.Paths.code("hypr/scripts/manual-lock.sh")]) }
+                            GridAction { title: Eitr.I18n.tr("Power…"); glyph: ""; selected: center.powerOpen; onClicked: center.powerOpen = !center.powerOpen }
                             Repeater {
-                                model: [
-                                    {title: Eitr.I18n.tr("Lock"), icon: "", command: ["bash", Eitr.Paths.code("hypr/scripts/manual-lock.sh")]},
+                                model: center.powerOpen ? [
                                     {title: Eitr.I18n.tr("Logout"), icon: "", command: ["uwsm", "stop"]},
                                     {title: Eitr.I18n.tr("Suspend"), icon: "", command: ["sh", "-c", "loginctl lock-session && sleep 1 && systemctl suspend"]},
                                     {title: Eitr.I18n.tr("Reboot"), icon: "", command: ["systemctl", "reboot"]},
                                     {title: Eitr.I18n.tr("Shutdown"), icon: "", command: ["systemctl", "poweroff"]}
-                                ]
-                                PanelButton {
-                                    textSize: 12; iconSize: 16
-                                    id: powerAction
+                                ] : []
+                                GridAction {
                                     required property var modelData
-                                    width: (content.width - 32) / 5; height: 40
-                                    icon: true; text: modelData.icon; foreground: center.foreground
+                                    title: modelData.title; glyph: modelData.icon
                                     onClicked: center.runAfterClose(modelData.command)
-                                    HoverHandler { id: powerHover }
-                                    BarTooltip { target: powerAction; hovered: powerHover.hovered; text: powerAction.modelData.title; foreground: center.foreground; background: center.background }
                                 }
                             }
                         }
@@ -656,7 +646,11 @@ ThemedPopup {
         color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: 12
     }
     component Tile: ControlCenterTile {
-        foreground: center.foreground
+        foreground: center.foreground; accent: center.accent; accentInk: PanelStyle.readableInk(center.accent, center.foreground, center.background)
+    }
+    // On/off switches: the accent fill shows the state, so no On/Off subtitle is needed.
+    component ToggleTile: Tile {
+        toggle: true
     }
     component Action: PanelButton {
         textSize: 12; iconSize: 16

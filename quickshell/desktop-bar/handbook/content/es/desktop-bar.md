@@ -1,6 +1,6 @@
 # Barra y espacios de trabajo
 
-La barra mantiene fecha y hora centradas. A la izquierda están Vista general, marcadores de espacios de trabajo, Hardware y Uso de IA; a la derecha, controles de dispositivos y estado. Pulsa **Mostrar iconos** para mostrar u ocultar ese grupo derecho.
+La barra mantiene fecha y hora centradas. A la izquierda están Vista general, marcadores de espacios de trabajo, Hardware, Uso de IA y Bloqueo automático; a la derecha, controles de dispositivos y estado. Pulsa **Mostrar iconos** para mostrar u ocultar ese grupo derecho.
 
 ## Actualizaciones
 
@@ -26,4 +26,4 @@ La barra empieza en 1–5 y crece hasta el espacio actual o el mayor ocupado, co
 
 Los gestos de ratón para fondo y tema en el escritorio vacío están en **Aprender > Gestos del ratón**. Si tienes dudas, usa los atajos de teclado de los carruseles.
 
-El control Audio/Mic abre un panel con secciones separadas para la salida de audio y el micrófono. Tailscale y Streaming están justo antes de OBS y muestran el estado local, detalles de conexión y botones de acción en dos columnas. El inicio de sesión sigue en Walker. El fondo de los botones de icono aparece al pasar el puntero; los iconos de actualización giran mientras trabajan y las ayudas aparecen cerca del puntero. Los interruptores y los botones de acción internos tienen tamaños compactos comunes.
+El control Audio/Mic abre un panel con secciones separadas para la salida de audio y el micrófono. Tailscale y Streaming están justo antes de OBS. Un interruptor en su cabecera conecta Tailscale o inicia el uso compartido, debajo siguen detalles y dispositivos, y las acciones de configuración o diagnóstico están en el menú «…». El fondo de los botones de icono aparece al pasar el puntero; los paneles se actualizan solos al abrirse, un icono de actualización gira solo mientras cargan y las ayudas aparecen cerca del puntero. Los interruptores y los botones de acción internos tienen tamaños compactos comunes.

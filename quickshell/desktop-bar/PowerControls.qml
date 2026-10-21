@@ -29,6 +29,6 @@ Column {
             }
         }
     }
-    Text { visible: !controls.displayControl.power.available; width: parent.width; wrapMode: Text.WordWrap; text: Eitr.I18n.tr("Power profiles unavailable on this hardware"); color: controls.foreground; opacity: 0.6; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+    Text { visible: !controls.displayControl.power.available; width: parent.width; wrapMode: Text.WordWrap; text: Eitr.I18n.tr("Power profiles unavailable on this hardware"); color: controls.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
     Text { visible: text !== ""; width: parent.width; wrapMode: Text.WordWrap; text: controls.displayControl.powerError; color: controls.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
 }

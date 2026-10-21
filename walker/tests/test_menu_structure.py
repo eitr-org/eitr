@@ -24,6 +24,24 @@ class MenuStructureTests(unittest.TestCase):
                     else:
                         self.assertTrue(entry.get("subtext"), "add a description")
 
+    def test_descriptions_fit_on_one_row_in_every_language(self):
+        # Walker's 700 px launcher leaves about 84 characters of the 12 px monospaced
+        # theme font for a description, which then ellipsizes; 72 keeps a margin for
+        # wider theme fonts.
+        limit = 72
+        descriptions = {entry["subtext"]
+                        for data in menu_data.static_menus().values()
+                        for entry in data.get("entries", [])
+                        if entry.get("subtext") and entry.get("subtext") != ">"}
+        catalogs = {path.parent.name: json.loads(path.read_text())
+                    for path in (ROOT / "i18n/catalogs").glob("*/menus.json")}
+        self.assertIn("de", catalogs)
+        for language, catalog in catalogs.items():
+            for description in descriptions:
+                text = catalog.get(description, description)
+                with self.subTest(language=language, description=description):
+                    self.assertLessEqual(len(text), limit, f"shorten: {text}")
+
     def test_submenus_are_alphabetical(self):
         for name, data in menu_data.static_menus().items():
             if name == "main":
@@ -63,7 +81,7 @@ class MenuStructureTests(unittest.TestCase):
             with self.subTest(menu=name):
                 self.assertEqual((layout / f"item_menus-{name}.xml").read_text(), shared)
         for name in ("aws-profiles", "gcp-contexts", "azure-contexts", "git-account", "git-accounts", "productivity",
-                     "developer-apps", "browsers", "lighting", "keyboard", "tools", "reminders"):
+                     "developer-apps", "browsers", "lighting", "keyboard", "keyboard-add", "tools", "reminders"):
             with self.subTest(menu=name):
                 self.assertEqual((layout / f"item_menus-{name}.xml").read_text(), shared)
         for source in ("walker/themes/current/style.css", "walker/scripts/themes/walker.sh"):

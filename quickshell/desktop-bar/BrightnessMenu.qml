@@ -354,7 +354,7 @@ ThemedPopup {
                             else settle.restart();
                         }
                     }
-                    Text { width: 50; height: 30; text: Math.round(slider.value) + "%"; horizontalAlignment: Text.AlignRight; verticalAlignment: Text.AlignVCenter; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
+                    Text { width: 50; height: 30; text: Math.round(slider.value) + "%"; horizontalAlignment: Text.AlignRight; verticalAlignment: Text.AlignVCenter; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize; font.features: PanelStyle.tabularFigures }
                 }
                 Column {
                     visible: menu.power.available
@@ -384,7 +384,7 @@ ThemedPopup {
                         visible: menu.powerError !== ""
                         text: menu.powerError
                         color: menu.foreground
-                        opacity: 0.7
+                        opacity: PanelStyle.secondaryTextOpacity
                         font.family: DesktopFonts.family
                         font.pixelSize: PanelStyle.captionSize
                     }
@@ -398,7 +398,7 @@ ThemedPopup {
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: 2
                         Text { text: Eitr.I18n.tr("Nightlight"); color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
-                        Text { width: parent.width; elide: Text.ElideRight; text: menu.nightlight.mode === "auto" ? Eitr.I18n.tr("Automatic · {start} - {end}", {start: menu.displayTime(menu.nightlight.start || "18:00"), end: menu.displayTime(menu.nightlight.end || "09:00")}) : Eitr.I18n.tr("Manual"); color: menu.foreground; opacity: 0.65; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                        Text { width: parent.width; elide: Text.ElideRight; text: menu.nightlight.mode === "auto" ? Eitr.I18n.tr("Automatic · {start} - {end}", {start: menu.displayTime(menu.nightlight.start || "18:00"), end: menu.displayTime(menu.nightlight.end || "09:00")}) : Eitr.I18n.tr("Manual"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
                     }
                     PanelButton {
                         id: editButton
@@ -420,6 +420,7 @@ ThemedPopup {
                     }
                     Item { width: 8; height: 1 }
                     PanelSwitch {
+                        anchors.verticalCenter: parent.verticalCenter
                         checked: menu.nightlight.enabled
                         enabled: menu.nightlight.available && !nightOperation.running
                         foreground: menu.foreground
@@ -436,9 +437,9 @@ ThemedPopup {
                         width: parent.width
                         height: 16
                         spacing: 8
-                        Text { width: (parent.width - 68) / 2; height: parent.height; text: Eitr.I18n.tr("Start"); color: menu.foreground; opacity: 0.65; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
-                        Text { width: (parent.width - 68) / 2; height: parent.height; text: Eitr.I18n.tr("End"); color: menu.foreground; opacity: 0.65; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
-                        Text { width: 52; height: parent.height; text: Eitr.I18n.tr("Auto"); color: menu.foreground; opacity: 0.65; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                        Text { width: (parent.width - 68) / 2; height: parent.height; text: Eitr.I18n.tr("Start"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                        Text { width: (parent.width - 68) / 2; height: parent.height; text: Eitr.I18n.tr("End"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                        Text { width: 52; height: parent.height; text: Eitr.I18n.tr("Auto"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
                     }
                     Row {
                         width: parent.width
@@ -469,6 +470,7 @@ ThemedPopup {
                             background: Rectangle { radius: DesktopStyle.radius(PanelStyle.controlRadius); color: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.08); border.width: 1; border.color: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.2) }
                         }
                         PanelSwitch {
+                            anchors.verticalCenter: parent.verticalCenter
                             checked: menu.nightlight.mode === "auto"
                             enabled: menu.nightlight.available && !nightOperation.running
                             foreground: menu.foreground
@@ -484,7 +486,7 @@ ThemedPopup {
                     visible: menu.nightlightError !== ""
                     text: menu.nightlightError
                     color: menu.foreground
-                    opacity: 0.7
+                    opacity: PanelStyle.secondaryTextOpacity
                     font.family: DesktopFonts.family
                     font.pixelSize: PanelStyle.captionSize
                 }
@@ -492,7 +494,7 @@ ThemedPopup {
                 Item {
                     width: content.width
                     height: 28
-                    Text { anchors.verticalCenter: parent.verticalCenter; text: Eitr.I18n.tr("Displays"); color: menu.foreground; opacity: 0.65; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                    Text { anchors.verticalCenter: parent.verticalCenter; text: Eitr.I18n.tr("Displays"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
                 }
                 Text { visible: menu.displayError !== ""; text: menu.displayError; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
                 Text {
@@ -500,7 +502,7 @@ ThemedPopup {
                     height: visible ? 36 : 0
                     text: Eitr.I18n.tr("No active displays")
                     color: menu.foreground
-                    opacity: 0.65
+                    opacity: PanelStyle.secondaryTextOpacity
                     font.family: DesktopFonts.family
                     font.pixelSize: PanelStyle.bodySize
                 }
@@ -568,11 +570,10 @@ ThemedPopup {
                     }
                 }
                 }
-                PanelButton {
+                PanelFooterLink {
                     id: handEditButton
-                    width: content.width; height: 30
-                    text: Eitr.I18n.tr("Edit layout by hand")
-                    outlined: true
+                    width: content.width
+                    text: Eitr.I18n.tr("Edit layout by hand…")
                     foreground: menu.foreground
                     onClicked: Quickshell.execDetached(["python3", menu.settingsHelper, "edit"])
                     HoverHandler { id: handEditHover }

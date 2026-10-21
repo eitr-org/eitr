@@ -12,12 +12,13 @@ Bluetooth, Audio, Display, Hardware, AI Usage, Weather), the Control Center open
 
 - **Connectivity:** WiFi and Bluetooth power toggles, plus Airplane mode.
 - **Quick Toggles:** automatic Idle Lock, Crash Notifications, Do Not Disturb, Game Mode (effects, blur
-  and popups off and the performance profile on, until you turn it off), Night
-  Light, Hide Bar (SUPER+Shift+Space brings it back) and Screensaver.
+  and popups off and the performance profile on, until you turn it off) and Night
+  Light. A toggle that is on fills with the theme accent. Below them, Hide Bar
+  (SUPER+Shift+Space brings it back) and Screensaver run once.
 - **Sound:** volume and microphone gain/mute.
 - **Display:** brightness.
 - **Media:** cover, artist, playback controls and seeking when supported.
-- **Power:** Lock, Logout, Suspend, Reboot and Shutdown. Hover for tooltips.
+- **Power:** Lock, plus **Power…**, which unfolds Logout, Suspend, Reboot and Shutdown.
 
 Airplane mode remembers which radios it blocked and restores only those.
 Do Not Disturb suppresses popups without clearing notification history.

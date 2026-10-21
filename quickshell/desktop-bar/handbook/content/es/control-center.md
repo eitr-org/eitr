@@ -7,11 +7,11 @@ Sus cuatro páginas reúnen todo lo que queda fuera de Desarrollo, Aplicaciones,
 ## General
 
 - **Conectividad:** interruptores de WiFi y Bluetooth y Modo avión.
-- **Controles rápidos:** Bloqueo automático, Notificaciones de fallos, No molestar, Modo juego (desactiva efectos, desenfoque y ventanas emergentes y activa el perfil de rendimiento hasta apagarlo), Luz nocturna, Ocultar barra (SUPER+Shift+Space la recupera) y Salvapantallas.
+- **Controles rápidos:** Bloqueo automático, Notificaciones de fallos, No molestar, Modo juego (desactiva efectos, desenfoque y ventanas emergentes y activa el perfil de rendimiento hasta apagarlo) y Luz nocturna. Un control activado se rellena con el color de acento del tema. Debajo, Ocultar barra (SUPER+Shift+Space la recupera) y Salvapantallas se ejecutan una vez.
 - **Sonido:** volumen y ganancia/silencio del micrófono.
 - **Pantalla:** brillo.
 - **Multimedia:** portada, artista, reproducción y desplazamiento por la pista cuando se admite.
-- **Energía:** Bloquear, Cerrar sesión, Suspender, Reiniciar y Apagar. Pasa el puntero para ver las descripciones.
+- **Energía:** Bloquear y **Energía…**, que despliega Cerrar sesión, Suspender, Reiniciar y Apagar.
 
 El Modo avión recuerda qué conexiones bloqueó y restaura solo esas. No molestar suprime ventanas emergentes sin borrar el historial. Bloqueo automático no equivale a impedir la suspensión; cuida la privacidad de la pantalla.
 

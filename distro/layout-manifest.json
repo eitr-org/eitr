@@ -32,6 +32,7 @@
     {"pattern": "quickshell/desktop-bar/obs-recording.json", "class": "P", "runtime": false},
     {"pattern": "eitr/crash-help.json", "class": "P", "runtime": false},
     {"pattern": "eitr/ai.json", "class": "P", "runtime": false},
+    {"pattern": "eitr/audio-names.json", "class": "P", "runtime": false},
     {"pattern": "hypr/local.lua", "class": "P", "runtime": false},
     {"pattern": "hypr/keyboard-layouts.lua", "class": "P", "runtime": false},
     {"pattern": "hypr/primary-display", "class": "P", "runtime": false},

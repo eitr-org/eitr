@@ -1,6 +1,6 @@
 # Barra e espaços de trabalho
 
-A barra mantém data e hora centralizadas. À esquerda ficam Visão geral, marcadores de espaços de trabalho, Hardware e Uso de IA; à direita, os controles de dispositivos e status. Clique em **Mostrar ícones** para exibir ou ocultar esse grupo da direita.
+A barra mantém data e hora centralizadas. À esquerda ficam Visão geral, marcadores de espaços de trabalho, Hardware, Uso de IA e Bloqueio automático; à direita, os controles de dispositivos e status. Clique em **Mostrar ícones** para exibir ou ocultar esse grupo da direita.
 
 ## Atualizações
 
@@ -26,4 +26,4 @@ A barra começa em 1–5 e cresce até o espaço atual ou o maior ocupado, com l
 
 Os gestos de mouse para papéis de parede e temas no espaço vazio da área de trabalho estão em **Aprender > Gestos do mouse**. Em caso de dúvida, use os atalhos de teclado dos carrosséis.
 
-O controle Áudio/Mic abre um painel com seções separadas para saída de áudio e microfone. Tailscale e Streaming ficam imediatamente antes do OBS e mostram o status local, detalhes da conexão e botões de ação em duas colunas. A entrada na conta continua no Walker. O fundo dos botões de ícone aparece quando você passa o ponteiro sobre eles; os ícones de atualização giram durante a operação, e as dicas aparecem perto do ponteiro. Os interruptores e botões de ação internos usam tamanhos compactos compartilhados.
+O controle Áudio/Mic abre um painel com seções separadas para saída de áudio e microfone. Tailscale e Streaming ficam imediatamente antes do OBS. Um interruptor no cabeçalho conecta o Tailscale ou inicia o compartilhamento, depois vêm detalhes e dispositivos, e as ações de configuração ou diagnóstico ficam no menu “…”. O fundo dos botões de ícone aparece quando você passa o ponteiro sobre eles; os painéis se atualizam sozinhos ao abrir, um ícone de atualização gira só enquanto carregam, e as dicas aparecem perto do ponteiro. Os interruptores e botões de ação internos usam tamanhos compactos compartilhados.

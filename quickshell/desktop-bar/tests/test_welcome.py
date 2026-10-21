@@ -97,8 +97,10 @@ class HandbookWelcomeTests(unittest.TestCase):
         self.assertIn('if (kind === "learn") { choose("shortcuts"); return; }', self.source)
         allowlist = re.search(r'case "\$\{1:-\}" in\s*\n\s*([a-z|]+)\)',
                               (ROOT / "scripts/show-panel.sh").read_text()).group(1).split("|")
-        for kind in set(kinds) - {"theme", "wallpaper", "learn"}:
+        for kind in set(kinds) - {"theme", "wallpaper", "learn", "keyboard"}:
             self.assertIn(kind, allowlist)
+        self.assertIn('if (kind === "keyboard") {', shell)
+        self.assertIn('"--provider", "menus:keyboard"', shell)
 
     def test_welcome_is_the_first_chapter_and_opens_once_per_session(self):
         chapters = json.loads((ROOT / "handbook/chapters.json").read_text())

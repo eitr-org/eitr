@@ -34,4 +34,4 @@ Solo se puede restablecer una instalación compatible de la distribución con su
 
 ## Energía
 
-Principal > Energía y Centro de control > General permiten bloquear, cerrar sesión, suspender, reiniciar y apagar. Guarda tu trabajo primero. Estas acciones se ejecutan de verdad; no son demostraciones.
+Principal > Energía y Centro de control > General (tras **Energía…**) permiten bloquear, cerrar sesión, suspender, reiniciar y apagar. Guarda tu trabajo primero. Estas acciones se ejecutan de verdad; no son demostraciones.

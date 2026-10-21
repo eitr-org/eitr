@@ -70,7 +70,7 @@ Item {
             textFormat: Text.PlainText
             text: heading.subtitle
             color: heading.foreground
-            opacity: 0.6
+            opacity: PanelStyle.secondaryTextOpacity
             font.family: DesktopFonts.family
             font.pixelSize: PanelStyle.captionSize
         }

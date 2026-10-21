@@ -34,4 +34,4 @@ Nur eine unterstützte Distributionsinstallation mit Wiederherstellungspunkt der
 
 ## Energie
 
-Hauptmenü > Energie und Kontrollzentrum > Allgemein bieten Sperren, Abmelden, Bereitschaft, Neustart und Ausschalten. Speichere vorher deine Arbeit. Die Aktionen werden tatsächlich ausgeführt; sie sind keine Vorführungen.
+Hauptmenü > Energie und Kontrollzentrum > Allgemein (hinter **Ein/Aus…**) bieten Sperren, Abmelden, Bereitschaft, Neustart und Ausschalten. Speichere vorher deine Arbeit. Die Aktionen werden tatsächlich ausgeführt; sie sind keine Vorführungen.

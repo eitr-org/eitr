@@ -26,14 +26,12 @@ TestCase {
         compare(label.text, "");
     }
     Component {
-        id: idleControlsComponent
-        IdleLockControls {
-            width: 400
-            idleEnabled: true
-            busy: false
+        id: underlyingButtonComponent
+        PanelButton {
+            width: 80; height: 40
+            text: "Lock"
             foreground: "white"
-            accent: "cyan"
-            onLockRequested: test.lockCalls++
+            onClicked: test.lockCalls++
         }
     }
     Component {
@@ -57,14 +55,13 @@ TestCase {
         actionCalls = 0; dismissCalls = 0; replyText = ""; activatedId = 0; lockCalls = 0;
     }
     function test_popup_dismiss_does_not_activate_underlying_lock() {
-        var controls = createTemporaryObject(idleControlsComponent, test);
+        var underlying = createTemporaryObject(underlyingButtonComponent, test);
         var card = createTemporaryObject(cardComponent, test, {notification: notice(), compact: true, z: 1});
         wait(20);
         var closeButton = findChild(card, "dismissNotification");
         var closePosition = closeButton.mapToItem(test, 0, 0);
-        var lockPosition = controls.lockTarget.mapToItem(controls, 0, 0);
-        controls.x = closePosition.x - lockPosition.x;
-        controls.y = closePosition.y - lockPosition.y;
+        underlying.x = closePosition.x - (underlying.width - closeButton.width) / 2;
+        underlying.y = closePosition.y - (underlying.height - closeButton.height) / 2;
         mouseClick(closeButton);
         compare(dismissCalls, 1);
         compare(lockCalls, 0);

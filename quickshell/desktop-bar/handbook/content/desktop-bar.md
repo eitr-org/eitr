@@ -1,7 +1,7 @@
 # Desktop bar and workspaces
 
 The bar keeps the date and time centered. Its left side contains Overview,
-workspace markers, Hardware and AI Usage; its right side contains device/status
+workspace markers, Hardware, AI Usage and Idle Lock; its right side contains device/status
 controls. Click **Show Icons** to reveal or hide that right-side group.
 
 ## Updates
@@ -54,4 +54,4 @@ previews stay in memory. Escape/outside click closes Overview.
 On empty desktop space, the wallpaper/theme mouse gestures are listed under
 **Learn > Mouse Gestures**. Use the keyboard carousel shortcuts when in doubt.
 
-The Audio/Mic control opens one panel with separate output and microphone sections. Tailscale and Streaming sit immediately before OBS and show local status, connection details and two-column action buttons. Account sign-in remains in Walker. Icon buttons show their background on hover; refresh icons spin while working, and tooltips appear near the pointer. Switches and inset action buttons use compact shared sizes.
+The Audio/Mic control opens one panel with separate output and microphone sections. Tailscale and Streaming sit immediately before OBS. A switch in their header connects Tailscale or starts sharing, details and devices follow, and setup or diagnostic actions are in the "…" menu. Icon buttons show their background on hover; panels refresh by themselves when they open, a refresh icon spins only while they load, and tooltips appear near the pointer. Switches and inset action buttons use compact shared sizes.

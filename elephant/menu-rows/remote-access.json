@@ -13,7 +13,7 @@
   },
   {
     "text": "Connect to another PC",
-    "subtext": "Install or open Moonlight",
+    "subtext": "Open Moonlight to stream another PC",
     "icon": "󰖔",
     "actions": {
       "open": "python3 /usr/share/eitr/walker/scripts/actions/install/software.py gaming moonlight"

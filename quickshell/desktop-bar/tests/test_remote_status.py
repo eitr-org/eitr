@@ -38,7 +38,10 @@ class RemoteStatusTests(unittest.TestCase):
                         query.side_effect = response
                     else:
                         query.return_value = response
-                    self.assertEqual(status.tailscale_status()['status'], expected)
+                    result = status.tailscale_status()
+                    self.assertEqual(result['status'], expected)
+                    self.assertFalse(result['connected'])
+                    self.assertEqual(result['signedOut'], expected == 'Signed out')
 
     def test_sharing_status_does_not_start_service(self):
         with patch.object(status.shutil, 'which', return_value='/usr/bin/sunshine'), \
@@ -54,5 +57,5 @@ class RemoteStatusTests(unittest.TestCase):
         titles = [row['source'] for row in rows]
         self.assertIn('Connect', titles)
         self.assertIn('Detailed Status', titles)
-        self.assertNotIn('Sign In', titles)
+        self.assertIn('Sign In', titles)
         self.assertNotIn('Connection Status', titles)

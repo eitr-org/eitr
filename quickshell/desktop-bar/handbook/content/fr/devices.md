@@ -4,7 +4,7 @@ Ces commandes se trouvent dans **Système > Périphériques et saisie** ou via l
 
 ## Audio et microphone
 
-Volume sélectionne la sortie par défaut et règle le volume général ainsi que celui des applications en lecture. Microphone sélectionne l’entrée par défaut, le gain et la mise en sourdine. Son indicateur de niveau ne fonctionne que lorsque le panneau est ouvert ; aucun son n’est enregistré sur disque. Ouvrir d’autres réglages ne démarre pas la surveillance du microphone.
+Volume sélectionne la sortie par défaut et règle le volume général ainsi que celui des applications en lecture. Les périphériques apparaissent avec un nom lisible et une icône de type ; cliquez sur le périphérique actuel pour en choisir un autre et utilisez le bouton crayon d’un périphérique pour le renommer sur cet ordinateur. Microphone sélectionne l’entrée par défaut, le gain et la mise en sourdine. Son indicateur de niveau ne fonctionne que lorsque le panneau est ouvert ; aucun son n’est enregistré sur disque. Ouvrir d’autres réglages ne démarre pas la surveillance du microphone.
 
 Les curseurs vont jusqu’à 100 % ; une valeur supérieure déjà présente reste inchangée tant que vous ne déplacez pas le curseur. Changer le périphérique audio par défaut peut affecter un appel : faites-le délibérément. Les commandes de lecture sont distinctes du choix du périphérique par défaut.
 
@@ -24,7 +24,7 @@ La luminosité utilise de préférence un rétroéclairage natif disponible, sin
 
 ## Clavier
 
-Sélectionnez une disposition XKB installée ou Ajouter une disposition pour chercher langues et variantes. **Alt + Shift** parcourt les dispositions configurées. Jusqu’à quatre sont prises en charge, sans doublons. Supprimez-en une avec le bouton de sa ligne ; au moins une doit rester. La disposition du clavier est indépendante de la langue et des paramètres régionaux du système.
+Ajoutez et retirez des dispositions dans Walker : Système > Périphériques et saisie > Clavier. Ajouter une disposition liste toutes les langues et variantes (tapez pour chercher) ; sélectionnez une disposition et appuyez sur Suppr pour la retirer. Jusqu’à quatre sont prises en charge, sans doublons, et au moins une doit rester. **Alt + Shift** les parcourt. À partir de deux, la barre affiche le code de la disposition active (comme US ou BR) ; cliquez dessus, ou utilisez le Centre de contrôle, pour en changer. La disposition du clavier est indépendante de la langue et des paramètres régionaux du système.
 
 Le bureau démarre avec le clavier choisi dans l’installateur. Le choix US inclut US et US International ; Alt + Shift suffit pour accéder aux accents.
 

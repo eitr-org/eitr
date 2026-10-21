@@ -1,6 +1,6 @@
 # Sicherheit und Sperren
 
-**SUPER + M** sperrt den Bildschirm sofort. Das Panel für automatische Sperre in der Leiste aktiviert oder deaktiviert die Sperre bei Inaktivität. Ein Rechtsklick auf das Symbol schaltet diese Einstellung direkt um. Das Kontrollzentrum bietet ebenfalls die automatische Sperre und eine Sperraktion als Symbol.
+**SUPER + M** sperrt den Bildschirm sofort. Ein Klick auf das Symbol der automatischen Sperre links in der Leiste (nach KI-Nutzung) schaltet die Sperre bei Inaktivität ein oder aus; der Tooltip zeigt den Zustand. Ist sie an, sperrt der Bildschirm nach 15 Minuten Inaktivität, schaltet sich nach 30 ab, und der Computer geht nach 60 in Bereitschaft. Das Kontrollzentrum bietet denselben Schalter und eine Sperren-Schaltfläche.
 
 ## Passwort und alternative Authentifizierung
 

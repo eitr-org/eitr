@@ -34,4 +34,4 @@ Seule une installation compatible de la distribution disposant de son point de r
 
 ## Alimentation
 
-Menu principal > Alimentation et Centre de contrôle > Général proposent verrouillage, déconnexion, veille, redémarrage et arrêt. Enregistrez votre travail avant. Ces actions sont réellement exécutées ; ce ne sont pas des démonstrations.
+Menu principal > Alimentation et Centre de contrôle > Général (derrière **Alimentation…**) proposent verrouillage, déconnexion, veille, redémarrage et arrêt. Enregistrez votre travail avant. Ces actions sont réellement exécutées ; ce ne sont pas des démonstrations.

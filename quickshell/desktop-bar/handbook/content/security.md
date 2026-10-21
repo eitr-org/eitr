@@ -1,8 +1,10 @@
 # Security and locking
 
-**SUPER + M** locks now. The bar's Idle Lock panel enables/disables automatic
-idle locking; right-clicking its icon toggles that preference directly.
-The Control Center also has Idle Lock and an icon-only Lock action.
+**SUPER + M** locks now. Click the Idle Lock icon on the left of the bar (after
+AI Usage) to turn automatic idle locking on or off; its tooltip shows which.
+When on, the screen locks after 15 minutes idle, turns off after 30 and the
+computer sleeps after 60. The Control Center has the same Idle Lock toggle and
+a Lock button.
 
 ## Password and alternative authentication
 

@@ -52,7 +52,7 @@ Item {
             visible: center.service.count === 0
             text: center.service.doNotDisturb ? Eitr.I18n.tr("󰂛  Do Not Disturb\n\nNo notifications") : Eitr.I18n.tr("󰂚  No notifications")
             horizontalAlignment: Text.AlignHCenter
-            color: center.foreground; opacity: 0.65
+            color: center.foreground; opacity: PanelStyle.secondaryTextOpacity
             font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
         }
         Flickable {

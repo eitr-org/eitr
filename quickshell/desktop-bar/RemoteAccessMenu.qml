@@ -1,4 +1,5 @@
 import QtQuick
+import Eitr as Eitr
 import Quickshell
 
 ThemedPopup {
@@ -23,7 +24,10 @@ ThemedPopup {
             foreground: menu.foreground
             accent: menu.accent
             background: menu.background
-            onRefreshRequested: menu.service.refresh()
+            onSettingsRequested: {
+                menu.opened = false;
+                Quickshell.execDetached([Eitr.Paths.code("walker/bin/walker"), "--provider", "menus:remote-access"]);
+            }
             onActionRequested: function(sourceMenu, source) {
                 menu.opened = false;
                 Quickshell.execDetached(["python3", Quickshell.shellDir + "/scripts/menu-action.py", sourceMenu, source]);

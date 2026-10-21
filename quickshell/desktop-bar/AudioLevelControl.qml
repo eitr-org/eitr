@@ -14,7 +14,7 @@ Column {
     property bool showName: true
     property int textSize: PanelStyle.bodySize
     property int iconSize: 18
-    property string name: node ? (node.properties["application.name"] || node.description || node.nickname || node.name) : "No device available"
+    property string name: node ? (node.properties["application.name"] || AudioDevices.label(node)) : Eitr.I18n.tr("No device available")
     spacing: 6
     PwObjectTracker { objects: [control.node] }
     Process { id: volumeOsd; command: ["swayosd-client", "--custom-icon", "audio-volume-high-symbolic", "--custom-progress", "0"] }
@@ -95,6 +95,7 @@ Column {
             color: control.foreground
             font.family: DesktopFonts.family
             font.pixelSize: control.textSize
+            font.features: PanelStyle.tabularFigures
         }
     }
 }

@@ -206,7 +206,7 @@ PanelWindow {
                         Text { x: 36; width: parent.width - 46; anchors.verticalCenter: parent.verticalCenter; text: parent.modelData.title; elide: Text.ElideRight; color: book.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
                         MouseArea { id: chapterMouse; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: { chapterList.currentIndex = parent.index; book.choose(parent.modelData.id); } }
                     }
-                    Text { visible: book.filtered.length === 0; width: parent.width; text: Eitr.I18n.tr("No matching chapters"); wrapMode: Text.Wrap; color: book.foreground; opacity: 0.6; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
+                    Text { visible: book.filtered.length === 0; width: parent.width; text: Eitr.I18n.tr("No matching chapters"); wrapMode: Text.Wrap; color: book.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
                 }
             }
             Rectangle { x: sidebar.x + sidebar.width + 12; y: sidebar.y; width: 1; height: sidebar.height; color: Qt.alpha(book.foreground, PanelStyle.dividerAlpha) }
@@ -343,7 +343,7 @@ PanelWindow {
                                 source: Qt.resolvedUrl("handbook/" + parent.modelData.src)
                                 asynchronous: true
                             }
-                            Text { width: parent.width; text: parent.modelData.caption; wrapMode: Text.Wrap; color: book.foreground; opacity: 0.6; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                            Text { width: parent.width; text: parent.modelData.caption; wrapMode: Text.Wrap; color: book.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
                         }
                     }
                 }
@@ -353,7 +353,7 @@ PanelWindow {
                 spacing: 8
                 PanelButton { width: 100; height: 32; text: Eitr.I18n.tr("Previous"); foreground: book.foreground; available: book.selectedIndex > 0; onClicked: book.choose(book.chapters[book.selectedIndex - 1].id) }
                 PanelButton { width: 100; height: 32; text: Eitr.I18n.tr("Next"); foreground: book.foreground; available: book.selectedIndex >= 0 && book.selectedIndex + 1 < book.chapters.length; onClicked: book.choose(book.chapters[book.selectedIndex + 1].id) }
-                Text { visible: articleScroll.width > 400; height: 32; verticalAlignment: Text.AlignVCenter; text: Eitr.I18n.tr("PgUp/PgDn to scroll · Escape or × to close"); color: book.foreground; opacity: 0.5; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                Text { visible: articleScroll.width > 400; height: 32; verticalAlignment: Text.AlignVCenter; text: Eitr.I18n.tr("PgUp/PgDn to scroll · Escape or × to close"); color: book.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
             }
         }
     }

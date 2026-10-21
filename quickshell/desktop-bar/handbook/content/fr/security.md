@@ -1,6 +1,6 @@
 # Sécurité et verrouillage
 
-**SUPER + M** verrouille immédiatement l’écran. Le panneau de verrouillage automatique de la barre active ou désactive le verrouillage après inactivité ; un clic droit sur son icône change directement cette préférence. Le Centre de contrôle propose aussi ce réglage et une action de verrouillage représentée par une icône.
+**SUPER + M** verrouille immédiatement l’écran. Cliquez sur l’icône Verrouillage automatique à gauche de la barre (après Utilisation IA) pour activer ou désactiver le verrouillage après inactivité ; son infobulle indique l’état. Activé, l’écran se verrouille après 15 minutes d’inactivité, s’éteint après 30 et l’ordinateur se met en veille après 60. Le Centre de contrôle propose le même réglage et un bouton Verrouiller.
 
 ## Mot de passe et authentification alternative
 

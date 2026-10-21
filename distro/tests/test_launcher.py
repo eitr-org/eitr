@@ -2,6 +2,7 @@ import importlib.machinery
 import importlib.util
 from pathlib import Path
 import unittest
+import unittest.mock
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -31,6 +32,26 @@ class LauncherTests(unittest.TestCase):
         command, _ = self.run_launcher('eitr-shell', ['desktop-bar', 'ipc', 'call', '--', 'panels', 'show', 'wifi'])
         self.assertEqual(command[:3], ['quickshell', 'ipc', '-p'])
         self.assertEqual(command[-5:], ['call', '--', 'panels', 'show', 'wifi'])
+
+    def test_ipc_reaches_a_running_checkout_when_the_package_is_not_running(self):
+        packaged = Path('/usr/share/eitr/quickshell/desktop-bar')
+        checkout = '/home/me/eitr/quickshell/desktop-bar'
+        def listing(*instances):
+            entries = [{'config_path': path + '/shell.qml'} for path in instances]
+            return unittest.mock.Mock(stdout=__import__('json').dumps(entries))
+        with patch.object(launch, 'shell_path', return_value=packaged):
+            with patch.object(launch.subprocess, 'run', return_value=listing(checkout)):
+                command, _ = self.run_launcher('eitr-shell', ['desktop-bar', 'ipc', 'call', '--', 'controlCenter', 'toggle'])
+            self.assertEqual(command[:4], ['quickshell', 'ipc', '-p', checkout])
+            with patch.object(launch.subprocess, 'run', return_value=listing(str(packaged), checkout)):
+                command, _ = self.run_launcher('eitr-shell', ['desktop-bar', 'ipc', 'call', '--', 'controlCenter', 'toggle'])
+            self.assertEqual(command[3], str(packaged))
+            with patch.object(launch.subprocess, 'run', side_effect=OSError):
+                command, _ = self.run_launcher('eitr-shell', ['desktop-bar', 'ipc', 'call', '--', 'controlCenter', 'toggle'])
+            self.assertEqual(command[3], str(packaged))
+            with patch.object(launch.subprocess, 'run', return_value=listing(checkout)):
+                command, _ = self.run_launcher('eitr-shell', ['desktop-bar'])
+            self.assertEqual(command[:4], ['quickshell', '-n', '-p', str(packaged)])
 
     def test_only_checkouts_and_overrides_reload_quickshell_live(self):
         with patch.object(launch, 'ROOT', Path('/usr/share/eitr')), \

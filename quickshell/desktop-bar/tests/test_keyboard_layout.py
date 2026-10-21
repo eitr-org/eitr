@@ -19,6 +19,31 @@ class KeyboardLayoutTests(unittest.TestCase):
                     module.remove_layout(keyboard, index)
             apply.assert_not_called()
 
+    def test_short_codes_tell_layouts_apart_in_the_bar(self):
+        self.assertEqual(module.short_code('us', '', ['us', 'br']), 'US')
+        self.assertEqual(module.short_code('br', '', ['us', 'br']), 'BR')
+        self.assertEqual(module.short_code('us', 'intl', ['us', 'us']), 'INT')
+        self.assertEqual(module.short_code('us', '', ['us', 'us']), 'US')
+        self.assertEqual(module.short_code('de', 'nodeadkeys', ['de', 'us']), 'DE')
+
+    def test_layouts_are_added_and_removed_only_in_walker(self):
+        root = Path(__file__).parents[1]
+        repo = root.parents[1]
+        panel = (root / 'KeyboardLayoutMenu.qml').read_text()
+        center = (root / 'ControlCenter.qml').read_text()
+        for name, source in (('panel', panel), ('control center', center)):
+            with self.subTest(source=name):
+                self.assertNotIn('"add"', source)
+                self.assertNotIn('"remove"', source)
+                self.assertIn('Add or Remove Layouts', source)
+        menu = (repo / 'elephant/menus/keyboard.lua').read_text()
+        self.assertIn('SubMenu = "keyboard-add"', menu)
+        self.assertIn('if #layouts > 1 then', menu)
+        self.assertIn('--notify remove', menu)
+        self.assertIn('--notify add', (repo / 'elephant/menus/keyboard-add.lua').read_text())
+        shell = (root / 'shell.qml').read_text()
+        self.assertEqual(shell.count('keyboardMenu.layouts.length > 1'), 2)
+
     def test_removal_keeps_variant_alignment(self):
         with patch.object(module, 'apply_pairs') as apply:
             module.remove_layout(self.keyboard, 0)

@@ -24,7 +24,8 @@ class SelectionRows(unittest.TestCase):
         for name in ("KeyboardLayoutMenu", "ControlCenter"):
             source = (ROOT / (name + ".qml")).read_text()
             self.assertIn("KeyboardLayoutRow {", source)
-            self.assertIn("layouts.length > 1", source)
+            # Layouts are removed only in Walker's Keyboard menu.
+            self.assertIn("showRemove: false", source)
         row = (ROOT / "KeyboardLayoutRow.qml").read_text()
         self.assertIn("anchors.verticalCenter: parent.verticalCenter", row)
         self.assertIn("anchors.rightMargin: PanelStyle.selectionActionInset", row)

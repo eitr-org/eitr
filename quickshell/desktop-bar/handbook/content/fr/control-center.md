@@ -7,11 +7,11 @@ Ses quatre pages regroupent tout ce qui est hors Développement, Applications, I
 ## Général
 
 - **Connectivité:** interrupteurs WiFi et Bluetooth, et Mode avion.
-- **Commandes rapides:** Verrouillage automatique, Notifications de plantage, Ne pas déranger, Mode jeu (effets, flou et notifications contextuelles désactivés, profil de performances activé jusqu’à désactivation), Éclairage nocturne, Masquer la barre (SUPER+Shift+Space la réaffiche) et Économiseur d’écran.
+- **Commandes rapides:** Verrouillage automatique, Notifications de plantage, Ne pas déranger, Mode jeu (effets, flou et notifications contextuelles désactivés, profil de performances activé jusqu’à désactivation) et Éclairage nocturne. Une commande activée se remplit de la couleur d’accent du thème. En dessous, Masquer la barre (SUPER+Shift+Space la réaffiche) et Économiseur d’écran s’exécutent une fois.
 - **Son:** volume et gain/sourdine du microphone.
 - **Écran:** luminosité.
 - **Média:** pochette, artiste, lecture et déplacement dans la piste si disponible.
-- **Alimentation:** Verrouiller, Déconnexion, Veille, Redémarrer et Éteindre. Survolez pour les infobulles.
+- **Alimentation:** Verrouiller, et **Alimentation…**, qui déplie Déconnexion, Veille, Redémarrer et Éteindre.
 
 Le Mode avion mémorise les radios bloquées et ne restaure que celles-ci. Ne pas déranger masque les notifications contextuelles sans vider l’historique. Verrouillage automatique ne signifie pas empêcher la veille ; veillez à la confidentialité de l’écran.
 

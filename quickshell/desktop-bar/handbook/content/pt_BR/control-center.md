@@ -7,11 +7,11 @@ Suas quatro páginas reúnem tudo que fica fora de Desenvolvimento, Aplicativos,
 ## Geral
 
 - **Conectividade:** ligar/desligar WiFi e Bluetooth, além do Modo avião.
-- **Atalhos rápidos:** Bloqueio automático, Notificações de falhas, Não perturbe, Modo jogo (desativa efeitos, desfoque e pop-ups e ativa o perfil de desempenho até você desligá-lo), Luz noturna, Ocultar barra (SUPER+Shift+Space a traz de volta) e Protetor de tela.
+- **Atalhos rápidos:** Bloqueio automático, Notificações de falhas, Não perturbe, Modo jogo (desativa efeitos, desfoque e pop-ups e ativa o perfil de desempenho até você desligá-lo) e Luz noturna. Um controle ligado fica preenchido com a cor de destaque do tema. Abaixo, Ocultar barra (SUPER+Shift+Space a traz de volta) e Protetor de tela executam uma vez.
 - **Som:** volume e ganho/mudo do microfone.
 - **Tela:** brilho.
 - **Mídia:** capa, artista, reprodução e avanço na faixa quando compatível.
-- **Energia:** Bloquear, Sair, Suspender, Reiniciar e Desligar. Passe o ponteiro para ver as dicas.
+- **Energia:** Bloquear e **Energia…**, que abre Sair, Suspender, Reiniciar e Desligar.
 
 O Modo avião lembra quais conexões bloqueou e restaura apenas essas. Não perturbe suprime pop-ups sem limpar o histórico de notificações. Bloqueio automático não é o mesmo que impedir suspensão; cuide da privacidade da tela.
 

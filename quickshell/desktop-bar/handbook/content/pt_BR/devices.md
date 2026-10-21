@@ -4,7 +4,7 @@ Encontre estes controles em **Sistema > Dispositivos e entrada** ou nos ícones 
 
 ## Áudio e microfone
 
-Volume seleciona a saída padrão e controla o volume geral e dos aplicativos em reprodução. Microfone seleciona a entrada padrão, o ganho e o mudo. O medidor de nível do microfone funciona somente enquanto o painel está aberto e não grava áudio em disco. Abrir outras configurações não inicia o monitoramento do microfone.
+Volume seleciona a saída padrão e controla o volume geral e dos aplicativos em reprodução. Os dispositivos aparecem com nome legível e ícone do tipo; clique no dispositivo atual para escolher outro e use o botão de lápis de um dispositivo para renomeá-lo neste computador. Microfone seleciona a entrada padrão, o ganho e o mudo. O medidor de nível do microfone funciona somente enquanto o painel está aberto e não grava áudio em disco. Abrir outras configurações não inicia o monitoramento do microfone.
 
 Os controles deslizantes chegam a 100%; um valor maior já existente só muda quando você move o controle. Trocar o dispositivo de áudio padrão pode afetar uma chamada: faça isso conscientemente. Os controles de reprodução são separados da seleção do dispositivo padrão.
 
@@ -24,7 +24,7 @@ O brilho prioriza um controle nativo de iluminação disponível; caso contrári
 
 ## Teclado
 
-Selecione um layout XKB instalado ou use Adicionar layout para buscar idiomas e variantes. **Alt + Shift** alterna entre os layouts configurados. São permitidos até quatro, sem duplicatas. Remova pelo botão de exclusão da linha; pelo menos um deve permanecer. O layout do teclado é independente do idioma e da localidade do sistema.
+Adicione e remova layouts no Walker: Sistema > Dispositivos e entrada > Teclado. Adicionar layout lista todos os idiomas e variantes (digite para buscar); selecione um layout e pressione Delete para removê-lo. São permitidos até quatro, sem duplicatas, e pelo menos um deve permanecer. **Alt + Shift** alterna entre eles. Com dois ou mais, a barra mostra o código do layout ativo (como US ou BR); clique nele, ou use a Central de controle, para trocar. O layout do teclado é independente do idioma e da localidade do sistema.
 
 A área de trabalho começa com o teclado escolhido no instalador. A opção US inclui US e US International; basta Alt + Shift para acessar os acentos.
 

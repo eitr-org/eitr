@@ -169,13 +169,30 @@ def options(keyboard):
                         label = item.findtext('configItem/description') or label
         if (layout, variant) == ('us', 'intl'):
             label = 'English (US International)'
-        entries.append({'index': index, 'label': label})
+        entries.append({'index': index, 'label': label, 'code': short_code(layout, variant, layouts)})
     return entries
+
+
+def short_code(layout, variant, layouts):
+    """The bar's three-letter name for a layout: "US", or "INT" when two share a base."""
+    if variant and layouts.count(layout) > 1:
+        return variant[:3].upper()
+    return layout[:3].upper()
 
 
 def main():
     if sys.argv[1:] == ['catalog']:
         print(json.dumps({'layouts': catalog()}))
+        return
+    if sys.argv[1:] == ['catalog-rows']:
+        devices = keyboards()
+        keyboard = next((entry for entry in devices if entry.get('main')), devices[0] if devices else {})
+        added = set(layout_pairs(keyboard))
+        for entry in catalog():
+            if entry['layout'] == 'custom':  # XKB's placeholder for a hand-written layout
+                continue
+            pair = (entry['layout'], entry['variant'])
+            print(f"{entry['layout']}\t{entry['variant']}\t{entry['label']}\t{int(pair in added)}")
         return
     if sys.argv[1:] == ['seed-from-system']:
         print(json.dumps({'seeded': seed_from_system(catalog())}))
@@ -207,12 +224,18 @@ def main():
     elif len(sys.argv) == 1:
         print(json.dumps({'layouts': entries, 'active': keyboard.get('active_layout_index', 0)}))
     else:
-        raise ValueError('Usage: keyboard-layout.py [list | catalog | seed-from-system | select INDEX | remove INDEX | add LAYOUT VARIANT]')
+        raise ValueError('Usage: keyboard-layout.py [--notify] [list | catalog | catalog-rows | seed-from-system | select INDEX | remove INDEX | add LAYOUT VARIANT]')
 
 
 if __name__ == '__main__':
+    # Walker rows pass --notify: they have no panel to show an error in.
+    notify = '--notify' in sys.argv[1:2]
+    if notify:
+        del sys.argv[1]
     try:
         main()
     except (OSError, ValueError, ET.ParseError, subprocess.SubprocessError) as error:
         print(json.dumps({'error': str(error)}))
+        if notify and shutil.which('notify-send'):
+            subprocess.run(['notify-send', '-a', tr('Keyboard'), tr('Keyboard layout'), str(error)], check=False)
         sys.exit(1)

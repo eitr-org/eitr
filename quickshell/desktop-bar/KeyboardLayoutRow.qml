@@ -15,7 +15,7 @@ Rectangle {
     signal removeRequested()
     height: PanelStyle.selectionRowHeight
     radius: DesktopStyle.radius(PanelStyle.controlRadius)
-    color: Qt.alpha(foreground, PanelStyle.selectionAlpha(selected, mouse.containsMouse))
+    color: Qt.alpha(foreground, PanelStyle.selectionAlpha(selected, mouse.containsMouse || activeFocus))
     border.width: PanelStyle.selectionBorderWidth(selected)
     border.color: Qt.alpha(foreground, PanelStyle.selectionBorderAlpha)
     activeFocusOnTab: true
