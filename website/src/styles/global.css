@@ -634,7 +634,7 @@ body.menu-open { overflow: hidden; }
 }
 
 /* Footer: brand and motto (with the same line carved in runes), three short link
-   columns, a faint carved wordmark and one fine line. */
+   columns and one fine line. */
 .footer-grid { grid-template-columns: minmax(0, 1fr) auto; gap: 48px 64px; align-items: start; padding: 64px 0 40px; }
 .footer-motto { margin-top: 18px; font-family: var(--serif); font-size: 26px; line-height: 1.15; color: var(--fg); }
 .footer-runes { margin-top: 12px; font-family: var(--runic); font-size: 18px; letter-spacing: .38em; color: var(--bronze); text-shadow: 0 0 14px #b08d5766; }
@@ -645,9 +645,6 @@ body.menu-open { overflow: hidden; }
 .footer-links > div { display: flex; flex-direction: column; gap: 12px; }
 .footer-links .label { margin-bottom: 6px; font-family: var(--carved); letter-spacing: .2em; text-transform: uppercase; }
 .footer-links a[aria-current="page"] { color: var(--fg); }
-.footer-carving { overflow: hidden; display: flex; justify-content: center; padding: 8px 0 0; pointer-events: none; }
-.carving-mark { display: block; width: min(760px, 80vw); aspect-ratio: 74 / 28; background: var(--fg); opacity: .05;
-  -webkit-mask: url("/branding/eitr-wordmark.svg") center/contain no-repeat; mask: url("/branding/eitr-wordmark.svg") center/contain no-repeat; }
 .footer-base { display: flex; justify-content: space-between; gap: 12px 32px; flex-wrap: wrap; padding: 20px 0 32px; border-top: 1px solid var(--line); }
 @media (max-width: 860px) {
   .footer-grid { grid-template-columns: 1fr; }
