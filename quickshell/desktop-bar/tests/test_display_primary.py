@@ -14,6 +14,9 @@ spec.loader.exec_module(display_primary)
 
 class DisplayPrimaryTests(unittest.TestCase):
     def setUp(self):
+        refresh = patch.object(display_primary, "refresh_walker")
+        self.refresh_walker = refresh.start()
+        self.addCleanup(refresh.stop)
         self.monitors = [
             {"name": "DP-3", "width": 2560, "height": 1080, "refreshRate": 144},
             {"name": "HDMI-A-1", "width": 1920, "height": 1080, "refreshRate": 144},
@@ -104,6 +107,7 @@ class DisplayPrimaryTests(unittest.TestCase):
             self.assertFalse(display_primary.PREFERENCE.exists())
             result = display_primary.set_primary("DP-3")
             self.assertEqual(result["primary"], "DP-3")
+            self.refresh_walker.assert_called_once()
             self.assertEqual(display_primary.PREFERENCE.read_text(), "DP-3\n")
 
 

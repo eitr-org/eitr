@@ -237,3 +237,5 @@ row:selected .current:not(.calc) .item-image-text {
 .preview-content.dnfpackages {
   font-family: monospace;
 }
+
+.box-wrapper { margin-top: 212px; }

@@ -185,8 +185,10 @@ class DisplaySettingsTests(unittest.TestCase):
         self.assertIn("--on-active=15s", timer)
         self.assertEqual(timer[-1], "revert")
         self.assertFalse((self.base / "config/hypr/displays.json").exists(), "nothing is saved while trying")
+        self.assertEqual(sum(command[-1] == "refresh-walker" for command in self.commands), 1)
         evaluated = len(self.evaluated())
         display.revert()
+        self.assertEqual(sum(command[-1] == "refresh-walker" for command in self.commands), 2)
         self.assertIn('hl.monitor({ output = "DP-3", mode = "2560x1080@144.00", position = "0x0", scale = 1 })',
                       self.evaluated()[evaluated:])
         self.assertFalse(display.trial_file().exists())
@@ -196,6 +198,7 @@ class DisplaySettingsTests(unittest.TestCase):
 
     def test_scale_applies_and_is_saved_at_once(self):
         self.assertNotIn("trial", display.set_setting("DP-3", "scale", "1.25"))
+        self.assertEqual(self.commands[-1][-1], "refresh-walker")
         self.assertFalse(any(command[0] == "systemd-run" for command in self.commands))
         self.assertEqual(json.loads((self.base / "config/hypr/displays.json").read_text())["DP-3"]["scale"], "1.25")
 

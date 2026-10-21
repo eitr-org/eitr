@@ -142,3 +142,11 @@ resource choices. It never changes provider CLI defaults. Account workspaces kee
 their own `selection.json` for native contexts, scopes and regions. Reports,
 fzf log searches, reviewed setup terminals and Walker delete confirmations keep
 their existing commands. Free-text prompts remain Walker text input.
+
+The search box stays at a fixed top position while filtered results shrink below
+it. The theme generator centres a full 656 px menu against the main display's
+logical height (physical height divided by scale, accounting for rotation), with
+a minimum offset of zero and a 212 px fallback when display data is unavailable.
+This reference height includes the 520 px list, search, padding and hints; font
+metrics can vary slightly. Display panel changes and mode-trial reverts refresh
+the same generated style used by menus and dmenu lists.

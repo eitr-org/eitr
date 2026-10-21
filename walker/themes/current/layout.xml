@@ -15,7 +15,7 @@
         <property name="overflow">hidden</property>
         <property name="orientation">horizontal</property>
         <property name="width-request">350</property>
-        <property name="valign">center</property>
+        <property name="valign">start</property>
         <property name="halign">center</property>
         <child>
           <object class="GtkBox" id="Box">

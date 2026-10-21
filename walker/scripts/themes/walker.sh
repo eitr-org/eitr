@@ -15,6 +15,9 @@ mkdir -p "$WALKER_THEME_DIR"
 # A user's walker/style.override.css is appended to every generated style, so
 # personal launcher tweaks survive theme switches and package updates.
 append_style_override() {
+  local top_offset
+  top_offset="$(python3 "$EITR_CODE_ROOT/quickshell/desktop-bar/scripts/display-primary.py" walker-offset)"
+  printf '\n.box-wrapper { margin-top: %spx; }\n' "$top_offset" >> "$CURRENT_FILE"
   local override="${EITR_CONFIG_ROOT:-${XDG_CONFIG_HOME:-$HOME/.config}}/walker/style.override.css"
   if [[ -f "$override" && -f "$CURRENT_FILE" ]]; then
     printf '\n/* walker/style.override.css */\n' >> "$CURRENT_FILE"

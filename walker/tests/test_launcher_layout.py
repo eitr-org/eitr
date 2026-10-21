@@ -52,7 +52,7 @@ class LauncherLayoutTests(unittest.TestCase):
         self.assertEqual(scroll.find('property[@name="propagate-natural-height"]').text, 'true')
         self.assertEqual(scroll.find('property[@name="vexpand"]').text, 'false')
         script = (ROOT / 'walker/scripts/themes/walker.sh').read_text()
-        wrapper = script.split('.box-wrapper {', 1)[1].split('}', 1)[0]
+        wrapper = script.rsplit('.box-wrapper {', 1)[1].split('}', 1)[0]
         self.assertIn('background: @window_bg_color;', wrapper)
         self.assertIn('border: 1px solid', wrapper)
         surfaces = script.split('.search-container,\n.results-box {', 1)[1].split('}', 1)[0]

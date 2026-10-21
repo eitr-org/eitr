@@ -192,6 +192,8 @@ def apply_all(settings, previous=None):
             apply(name, dict(settings[name], position=f"{parking + index * PARKING_GAP}x0"))
     for name in sorted(settings, key=lambda display: settings[display] != previous.get(display)):
         apply(name, settings[name])
+    subprocess.run(["python3", str(Path(__file__).with_name("display-primary.py")), "refresh-walker"],
+                   check=True)
 
 
 def saved():

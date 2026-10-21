@@ -2,6 +2,7 @@
 """Select the screen that hosts the desktop bar."""
 
 import json
+import math
 import os
 from pathlib import Path
 
@@ -75,6 +76,34 @@ def status():
     return {"monitors": monitors, "primary": primary, "preferred": preferred}
 
 
+# Full menu: 520px results, 38px wrapper padding/border, 48px search,
+# 10px box spacing and 40px hints (margin, border, padding and label).
+WALKER_MENU_HEIGHT = 656
+WALKER_FALLBACK_OFFSET = 212
+
+
+def walker_offset(display_status):
+    try:
+        monitor = next(monitor for monitor in display_status["monitors"]
+                       if monitor["name"] == display_status["primary"])
+        scale = float(monitor.get("scale", 1))
+        dimension = "width" if int(monitor.get("transform", 0)) % 2 else "height"
+        height = float(monitor[dimension]) / scale
+        if scale <= 0 or not math.isfinite(height) or height <= 0:
+            return WALKER_FALLBACK_OFFSET
+        return max(0, int((height - WALKER_MENU_HEIGHT) / 2))
+    except (KeyError, StopIteration, ValueError, TypeError, ZeroDivisionError):
+        return WALKER_FALLBACK_OFFSET
+
+
+def refresh_walker():
+    try:
+        subprocess.run(["bash", str(code("walker/scripts/themes/walker.sh"))],
+                       check=True, timeout=20, stdout=subprocess.DEVNULL)
+    except (OSError, subprocess.SubprocessError) as error:
+        print(f"Walker position refresh failed: {error}", file=sys.stderr)
+
+
 def set_primary(name):
     if name not in {monitor["name"] for monitor in active_monitors()}:
         raise ValueError(tr('Display is not connected'))
@@ -87,12 +116,21 @@ def set_primary(name):
     finally:
         if os.path.exists(temp_name):
             os.unlink(temp_name)
+    refresh_walker()
     return status()
 
 
 def main():
     try:
-        if sys.argv[1:] == ["status"]:
+        if sys.argv[1:] == ["walker-offset"]:
+            try:
+                result = walker_offset(status())
+            except (OSError, subprocess.SubprocessError, ValueError):
+                result = WALKER_FALLBACK_OFFSET
+        elif sys.argv[1:] == ["refresh-walker"]:
+            refresh_walker()
+            return 0
+        elif sys.argv[1:] == ["status"]:
             result = status()
         elif len(sys.argv) == 3 and sys.argv[1] == "set":
             result = set_primary(sys.argv[2])
