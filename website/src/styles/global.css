@@ -33,7 +33,7 @@ body {
   font-size: 14px; line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden;
 }
 a { color: inherit; text-decoration: none; }
-a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible, pre:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
 p, h1, h2, h3, figure, dl, dd, ol { margin: 0; }
 p { color: var(--muted); }
 img { display: block; max-width: 100%; }
@@ -520,3 +520,46 @@ html.wielding-mjolnir, html.wielding-mjolnir * { cursor: grabbing !important; us
 .info-table td{color:var(--muted)}
 .info-table tbody th{width:34%}
 @media(max-width:600px){.info-section{padding:36px 0}.info-section p,.info-section ul{font-size:13px}.info-table th,.info-table td{padding:12px}.info-table{font-size:12px}.info-table tbody th{width:38%}}
+
+/* Workflow summaries use the same surfaces and type as the existing dossier. */
+.workflow-overview{padding-block:48px;border-top:1px solid var(--line)}
+.workflow-overview h2{font-size:clamp(36px,4vw,58px);margin-bottom:28px}
+.workflow-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.workflow-grid article{border-top:1px solid var(--line-strong);padding-top:20px;min-width:0}
+.workflow-grid h3{font-size:26px;margin-bottom:12px}
+.workflow-grid p{font-size:13px;line-height:1.85;margin-bottom:18px}
+.workflow-grid .text-link{font-size:12px}
+kbd{font:inherit;color:var(--fg)}
+.info-section pre{max-width:100%;overflow-x:auto;padding:18px;background:var(--surface);border:1px solid var(--line);font-size:13px}
+@media(max-width:760px){.workflow-grid{grid-template-columns:1fr;gap:24px}}
+
+.handbook-page{max-width:1000px;padding-bottom:70px}
+.doc-context{max-width:780px;margin:24px 0;font-size:12px;line-height:1.85;color:var(--muted)}
+.doc-copy{border-top:1px solid var(--line);padding-top:24px;line-height:1.9;overflow-wrap:anywhere}
+.doc-copy h2{font-size:clamp(30px,4vw,42px);margin:36px 0 18px}
+.doc-copy h3{font-size:28px;margin:28px 0 14px}
+.doc-copy h4{font-size:22px;margin:24px 0 12px}
+.doc-copy p,.doc-copy ul,.doc-copy ol{margin:16px 0;color:var(--muted)}
+.doc-copy ul,.doc-copy ol{padding-left:26px}
+.doc-copy li+li{margin-top:8px}
+.doc-copy strong{color:var(--fg)}
+.doc-copy a{text-decoration:underline;text-underline-offset:3px;color:var(--fg)}
+.doc-copy pre{overflow-x:auto;padding:18px;background:var(--surface);border:1px solid var(--line);font-size:12px;white-space:pre;overflow-wrap:normal}
+.doc-copy code{font:inherit;background:var(--surface)}
+.doc-copy table{display:block;overflow-x:auto;border-collapse:collapse;font-size:12px;margin:24px 0;max-width:100%}
+.doc-copy th,.doc-copy td{border:1px solid var(--line-strong);padding:10px 14px;text-align:left;min-width:120px}
+.doc-copy th{color:var(--fg);font-weight:500}
+.doc-copy blockquote{margin:24px 0;padding-left:18px;border-left:2px solid var(--bronze)}
+.doc-source{margin-top:40px;padding-top:24px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+.doc-pagination{justify-content:space-between}
+.handbook-search{max-width:680px;margin-top:30px}
+.handbook-search label{display:block;margin-bottom:10px;font-size:13px}
+.handbook-search input{width:100%;padding:12px 14px;font:inherit;color:var(--fg);background:var(--surface);border:1px solid var(--line-strong);border-radius:4px}
+.handbook-search input::placeholder{color:var(--muted);opacity:1}
+.handbook-search p{font-size:12px;margin-top:8px;min-height:1.7em}
+[hidden]{display:none!important}
+@media(max-width:600px){.doc-copy{font-size:13px}.doc-copy pre{font-size:11px}.doc-copy th,.doc-copy td{padding:8px;min-width:90px}.doc-pagination{flex-direction:column;align-items:flex-start}}
+.site-header nav a[aria-current="page"]{color:var(--fg)}
+
+.doc-outline{margin-bottom:24px;font-size:12px}
+.doc-copy :is(h2,h3,h4,h5,h6){scroll-margin-top:140px}

@@ -40,7 +40,7 @@ html[data-appearance="light"] .pillar-copy,html[data-appearance="light"] .pillar
 html[data-appearance="light"] .pillar-copy p:last-child{color:#dbd0c1}
 html[data-appearance="light"] .pillar::after{background:linear-gradient(0deg,#070606 0%,#070606cc 40%,transparent 85%)}
 html[data-appearance="light"] .realm-dialog{background:var(--surface);color:var(--fg);border-color:var(--bronze)}
-html[data-appearance="light"] .realm-dialog li,html[data-appearance="light"] .realm-dialog .eyebrow,html[data-appearance="light"] .realm-close{color:var(--fg)}
+html[data-appearance="light"] .realm-dialog li,html[data-appearance="light"] .world-tree .realm-dialog .realm-dialog-content .eyebrow,html[data-appearance="light"] .realm-close{color:var(--fg)}
 html[data-appearance="light"] .realm-dialog-symbol{color:var(--bronze)}
 html[data-appearance="light"] .install-card pre{background:var(--night);color:var(--accent)}
 html[data-appearance="light"] .sky-toggle{background:#fff4}

@@ -41,6 +41,11 @@ release tag.
 
 ## Feature plan
 
+The website presents keyboard-first desktop, development and system workflows
+together. Development has a dedicated hub, and the English offline Handbook is
+also available as static, linkable web chapters. Included tools, optional installs
+and current hardware/remote-service validation remain separate claims.
+
 Audio and microphone controls share one panel. Tailscale and Streaming panels
 show local status beside existing remote-access workflows. Shared controls use
 compact sizing, hover-only icon backgrounds, centered loading glyphs and pointer

@@ -1,0 +1,31 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { handbookChapters } from '../../data/handbook';
+export function getStaticPaths() {
+  return handbookChapters.map(chapter => ({ params: { chapter: chapter.id }, props: { chapter } }));
+}
+const { chapter } = Astro.props;
+const index = handbookChapters.findIndex(entry => entry.id === chapter.id);
+const previous = handbookChapters[index - 1];
+const next = handbookChapters[index + 1];
+---
+<Layout title={`${chapter.title} — Eitr Linux Handbook`} description={chapter.summary + '. Read the Eitr Linux Handbook online, from the same sources as the offline desktop reader.'}>
+  <article class="wrap guide-intro handbook-page">
+    <nav class="info-links" aria-label="Breadcrumb"><a class="text-link" href="/">Eitr Linux</a><span aria-hidden="true">/</span><a class="text-link" href="/guide/">Handbook</a></nav>
+    <p class="eyebrow">Handbook / Current desktop documentation</p>
+    <h1>{chapter.title}</h1>
+    <p class="lead">{chapter.summary}.</p>
+    <p class="doc-context">This is the English desktop Handbook, published online from the same generated catalog. References to buttons, panels and menus describe the installed desktop. Package updates can be newer than the downloadable ISO. <a class="text-link" href="/installation/">Check installation &amp; validation scope.</a></p>
+    {chapter.sections.length > 0 && <nav class="doc-outline info-links" aria-label="On this page">{chapter.sections.map(section => <a class="text-link" href={`#${section.id}`} set:html={section.title} />)}</nav>}
+    <div class="doc-copy" set:html={chapter.html} />
+    <footer class="doc-source">
+      <p>{chapter.generated ? 'Keyboard and mouse tables are generated from Learn’s shortcut and gesture sources.' : 'This chapter is shared with the offline Handbook; it is not a second copy maintained for the website.'}</p>
+      <a class="text-link" href={chapter.source} target="_blank" rel="noopener noreferrer">Read or propose a correction to the source ↗</a>
+    </footer>
+    <nav class="doc-pagination info-links" aria-label="Handbook chapters">
+      {previous && <a class="text-link" href={previous.path}>← {previous.title}</a>}
+      <a class="text-link" href="/guide/">All chapters</a>
+      {next && <a class="text-link" href={next.path}>{next.title} →</a>}
+    </nav>
+  </article>
+</Layout>

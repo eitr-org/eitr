@@ -33,8 +33,8 @@ const features = [
     "Walker brings apps, settings and actions into one keyboard-first flow, leading to the same native panels as the bar."],
   ["ᛗ", "Mannaz", "the self", "Make the whole desktop yours.",
     "Pick a theme and the bar, terminal, launcher, lockscreen and apps follow. Your bar, corners, cursor and fonts stay put."],
-  ["ᛉ", "Algiz", "protection", "Update without fear.",
-    "The bar tells you when updates are waiting. System Update snapshots first, installs from a signed repository, and asks to restart only when it matters."],
+  ["ᛉ", "Algiz", "protection", "Keep a way back.",
+    "The bar tells you when updates are waiting. On supported snapshot setups, System Update snapshots before an upgrade and installs from signed repositories, and asks to restart only when it matters."],
   ["ᚨ", "Ansuz", "wisdom", "The knowledge stays close.",
     "An offline Handbook covers shortcuts, appearance, networking, recovery and Secure Boot, inside the desktop."],
   ["ᛟ", "Othala", "home", "Your accounts, kept apart.",
@@ -102,7 +102,7 @@ const tour = [
     ],
     items: [
       ["Packages", "Search official and AUR packages with their details and build file side by side, then install several at once."],
-      ["Curated installs", "Browsers, databases, development languages, developer apps, productivity apps and web apps, one click each, with what you already have marked."],
+      ["Curated installs", "Browsers, databases, development languages, developer apps, productivity apps and web apps through curated menus, with what you already have marked."],
       ["Web apps", "Any site as an app in its own window, with its own icon in the launcher."],
       ["Fonts and cursors", "Pick a desktop font and a cursor that every app follows, and keeps across theme changes."],
     ]},
@@ -116,10 +116,10 @@ const tour = [
       {file: "security", caption: "Security: security keys, fingerprint, TPM and the firewall"},
     ],
     items: [
-      ["Updates you can undo", "System Update shows Arch news first and takes a snapshot before every upgrade."],
-      ["Boot guard", "If an update leaves the computer unable to start, the next boot rolls it back on its own."],
-      ["Home folder snapshots", "Hourly and daily snapshots of your files, and a restore for a single file or folder."],
-      ["Factory reset", "Back to the first login, keeping your files or erasing everything."],
+      ["Update with a recovery point", "On supported snapshot setups, System Update checks Arch news and takes a Btrfs snapshot when an upgrade is needed. Advanced Pacman/AUR updates are separate."],
+      ["Boot guard", "Automatic boot recovery is implemented for supported layouts. Read the recovery guide for prerequisites and the encrypted-disk scenarios still awaiting validation."],
+      ["Optional home snapshots", "Enable scheduled snapshots of your files and restore a chosen file or folder. Keep an independent backup too."],
+      ["Factory reset", "Documented reset modes restore the first-login baseline, keeping your files or erasing everything, with explicit confirmations and layout requirements."],
       ["Secure by default", "A firewall from the first boot, packages from a signed repository, and a stable or testing update channel."],
     ]},
   {id: "help", tab: "Help", alt: "The EITR Handbook open on the desktop",
@@ -143,17 +143,17 @@ const developers = {
   area: "Developers", alt: "The Development menu: AI, Cloud, Git Accounts, Monitoring and projects",
   shots: [
     {file: "development", caption: "Development"},
-    {file: "languages", caption: "Languages, one click each"},
+    {file: "languages", caption: "Optional language toolchains"},
     {file: "databases", caption: "Database clients"},
     {file: "ai-install", caption: "AI assistants"},
     {file: "ai-default", caption: "Default Assistant"},
   ],
   items: [
-    ["Editors ready on day one", "Neovim with LazyVim, set up and themed; VS Code, Zed and JetBrains Toolbox one click away. Open a project straight from the Development menu."],
-    ["Languages in one click", "Node.js, Python with uv, Java, Rust, Ruby on Rails, PHP and Laravel, Elixir and .NET, each through its usual version manager."],
-    ["Databases and API tools", "DBeaver, PostgreSQL, MariaDB, MongoDB, SQLite and Valkey clients, with Postman, Bruno and Insomnia for APIs."],
+    ["Editors ready on day one", "Neovim with LazyVim, set up and themed; Cursor, VS Code, Zed and JetBrains Toolbox available through Install. Open a project straight from the Development menu."],
+    ["Choose your toolchains", "Node.js, Python with uv, Java, Rust, Ruby on Rails, PHP and Laravel, Elixir and .NET, through the curated package or version-manager recipes."],
+    ["Databases and API tools", "Optional DBeaver and database clients, SQLite and Valkey, with Postman, Bruno and Insomnia for APIs."],
     ["AI assistants", "Claude Code, Codex, Gemini CLI, Grok Build and GitHub Copilot CLI install the first time you type their name. Pick a default and SUPER + Alt + A opens it; the bar shows your Claude, Codex and Grok limits."],
-    ["Assistants working together", "Opt in to read-only second opinions from another connected assistant. Hand-offs keep their approval boundary, and helpers cannot delegate onward. Gemini’s real-account verification remains open; no AI subscription is required to use Eitr."],
+    ["Assistants working together", "Opt in to read-only second opinions from another connected assistant. Hand-offs keep their approval boundary, and helpers cannot delegate onward. Real-account validation varies by assistant; no AI subscription is required to use Eitr."],
     ["Your accounts, kept apart", "Folder-specific Git identities and SSH keys, plus explicit account and project contexts in cloud menus. AWS, Azure, Google Cloud and additional providers are available; live verification of newer provider workflows is still in progress."],
     ["Monitoring", "Your Grafana, Datadog, Sentry, New Relic and Prometheus dashboards one search away, with promtool and the Sentry CLI a click from install."],
     ["A terminal worth living in", "Kitty, Zsh, tmux, Lazygit, Lazydocker and Docker installed, with the tmux and LazyVim keys in Learn."],
@@ -166,19 +166,19 @@ const gaming = {
     {file: "control-center", caption: "Game Mode in the control center"},
   ],
   items: [
-    ["Steam, tuned", "Steam with GameMode and MangoHud, ready for Proton and your library."],
-    ["The classics", "RetroArch for consoles from the NES to the Dreamcast, PS1, N64, DS and PSP."],
-    ["Cloud gaming", "GeForce NOW in its own window when your hardware would rather not."],
+    ["Steam, by choice", "Install Steam from Gaming when you want it; GameMode and MangoHud are included to support your games."],
+    ["The classics", "Optional RetroArch installation for consoles from the NES to the Dreamcast, PS1, N64, DS and PSP."],
+    ["Cloud gaming", "GeForce NOW opens through its optional Flatpak installation; the service has its own account and plan requirements."],
     ["Game Mode", "One toggle in the control center turns off animations, blur and notification popups while you play."],
   ],
 };
 
 const faq = [
   ["Is EITR a distribution?", "Yes. Eitr Linux is an Arch-based Linux distribution with its own ISO, guided offline installer, desktop packages and signed repository. Arch supplies the underlying system; Eitr maintains the integrated desktop and workflows on top."],
-  ["Do I need internet to install?", "No. The ISO carries every package, so the guided install runs fully offline. Updates afterwards come from Arch and the [eitr] repository."],
-  ["Can I break it with an update?", "System Update takes a Btrfs snapshot before every upgrade, so a bad update can be rolled back, and a factory reset returns to the first login."],
-  ["Is it ready for daily use?", `Yes. EITR runs every day on the desktop it is built on, and System Update takes a snapshot before every upgrade, so a bad one can be rolled back. ${release.version} ${release.codename} is ${release.stage === "alpha" ? "an" : "a"} ${release.stage}: laptops and other graphics cards are still being validated, so keep a backup of what matters and use Report a Problem when something breaks.`],
-  ["Does it phone home?", "No accounts, no telemetry. Features that need the network, like weather and updates, talk directly to their own services."],
+  ["Do I need internet to install?", "No. The ISO carries the packages needed for guided offline installation. Later updates and optional tool downloads need a connection; optional services also keep their own account requirements."],
+  ["Can I break it with an update?", "On supported layouts, System Update takes a Btrfs snapshot before an upgrade. Recovery has documented layout and boot requirements, and snapshots do not replace an independent backup. Read the recovery Handbook chapter before relying on a rollback."],
+  ["What does beta mean here?", `${release.version} ${release.codename} already includes the integrated desktop, developer menus and recovery workflows. Beta describes the validation scope: Eitr runs daily on its developer’s desktop and released ISOs pass automated VM checks, while broader hardware and some recovery scenarios still need testing. Read Installation & hardware before installing, and keep independent backups.`],
+  ["Does it phone home?", "Eitr does not require an Eitr online account or collect usage telemetry. Weather, updates and optional connected tools talk to their own services. Problem reports are prepared for your review and sent only when you choose."],
 ];
 ---
 
@@ -191,8 +191,8 @@ const faq = [
       <p class="eyebrow reveal"><NorseSymbol name="raven" class="heading-symbol"/> An Arch-based Linux distribution from the far north</p>
       <h1 class="reveal">From eitr,<br /><em>a world<br />takes shape.</em></h1>
       <p class="lead reveal">
-        Eitr Linux brings Hyprland, a custom Quickshell desktop, graphical controls,
-        developer tools, offline installation and recovery into one Arch-based distribution.
+        A keyboard-first Arch Linux environment built around Hyprland and Quickshell.
+        Your desktop, development tools, cloud accounts and system management, brought together.
       </p>
       <div class="actions reveal">
         <a class="button primary" href="#install">Begin <span>ᚠ</span></a>
@@ -200,7 +200,8 @@ const faq = [
       </div>
       <nav class="info-links hero-details" aria-label="Learn about Eitr Linux">
         <a class="text-link" href="/about/">About Eitr Linux</a>
-        <a class="text-link" href="/features/">Features</a>
+        <a class="text-link" href="/development/">Development workflows</a>
+        <a class="text-link" href="/guide/">Read the Handbook</a>
         <a class="text-link" href="/installation/">Installation &amp; hardware</a>
       </nav>
       <AmbientMusic />
@@ -224,13 +225,24 @@ const faq = [
         Eitr Linux is a distribution with its own ISO, guided offline installer and signed
         package repository alongside Arch’s. Its Quickshell desktop brings panels,
         notifications and settings into one coherent system. Keep Arch’s packages,
-        choose your tools, and use the graphical controls or the keyboard to make it yours.
+        choose your tools, and work from the keyboard. Graphical controls are another way
+        into the same workflows, not a requirement to use them.
       </p>
       <p class="reveal"><a class="text-link" href="/about/">What is Eitr Linux? →</a></p>
       <div class="dossier reveal" role="group" aria-labelledby="dossier-title">
         <p class="label" id="dossier-title">System dossier</p>
         <dl>{dossier.map(([term, value]) => (<div><dt>{term}</dt><dd><BrandText text={value} /></dd></div>))}</dl>
       </div>
+    </div>
+  </section>
+
+  <section class="wrap workflow-overview" aria-labelledby="workflow-title">
+    <p class="eyebrow">One environment / Many kinds of work</p>
+    <h2 id="workflow-title">Follow your work.<br /><em>Keep the pieces together.</em></h2>
+    <div class="workflow-grid">
+      <article><h3>Move from the keyboard.</h3><p>Hyprland tiles your windows. Walker searches apps, settings and actions. Shortcuts and native panels lead into the same desktop.</p><a class="text-link" href="/guide/shortcuts/">Explore the shortcuts →</a></article>
+      <article><h3>Build with your own tools.</h3><p>LazyVim, tmux and Docker are included. Curated installs add editors, toolchains and AI coding agents; Git identities and cloud contexts keep the account explicit.</p><a class="text-link" href="/development/">See the development workflows →</a></article>
+      <article><h3>Maintain what you make yours.</h3><p>Themes reach supported applications. System Update, Btrfs snapshots and the offline Handbook bring maintenance and recovery into the same environment.</p><a class="text-link" href="/features/#recovery">Explore maintenance &amp; recovery →</a></article>
     </div>
   </section>
 
@@ -248,7 +260,7 @@ const faq = [
       <div class="pillar-copy">
         <p class="label">II · Endurance · ᛇ Eihwaz</p>
         <h3>Hold the world.</h3>
-        <p>Snapshots before every update, a signed repository, and a factory reset that brings back the first login. Built to outlast mistakes.</p>
+        <p>System Update takes a snapshot before an upgrade. A signed repository and documented recovery procedures help you maintain the system; independent backups still matter.</p>
       </div>
     </article>
   </section>
@@ -354,6 +366,8 @@ const faq = [
     </div>
   </dialog>
 
+  <div class="wrap info-links"><a class="text-link" href="/development/">Development: defaults, optional tools and workflows →</a></div>
+
   <section id="themes" class="themes-section">
     <div class="wrap">
       <div class="section-heading">
@@ -413,7 +427,7 @@ sudo dd if=${download.file} of=/dev/sdX bs=4M status=progress oflag=sync`}</code
         <p class="label"><span class="status-dot"></span> Honest status</p>
         <h3>{release.version} {release.codename} · {release.stage}</h3>
         <p>A preview for early users. The installer, updates and recovery pass automated VM tests and run on the first real machine; other hardware is what we learn from you. Something broke? System &gt; Information &gt; Report a Problem.</p>
-        <a class="text-link" href="https://github.com/eitr-org/eitr" target="_blank" rel="noopener noreferrer">Follow the source ↗</a>
+        <a class="text-link" href="/installation/">Tested hardware &amp; known limitations →</a>
       </article>
     </div>
   </section>

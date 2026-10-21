@@ -1,13 +1,14 @@
 import assert from 'node:assert/strict';
-import { existsSync, readdirSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { chromium } from 'playwright-core';
 
-const executablePath=process.env.EITR_BROWSER_EXECUTABLE || ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','/usr/bin/chromium','/usr/bin/google-chrome'].find(existsSync);
+const executablePath=process.env.EITR_BROWSER_EXECUTABLE || ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','/usr/bin/chromium','/usr/bin/google-chrome','/opt/google/chrome/chrome'].find(existsSync);
 if(!executablePath) throw new Error('Set EITR_BROWSER_EXECUTABLE to Chrome/Chromium.');
 const site=process.env.EITR_SITE_URL || 'http://127.0.0.1:4321/';
-const publicPaths=readdirSync(new URL('../src/pages/',import.meta.url))
+const handbook=JSON.parse(readFileSync(new URL('../../quickshell/desktop-bar/handbook/catalog.json',import.meta.url),'utf8')).chapters;
+const publicPaths=[...readdirSync(new URL('../src/pages/',import.meta.url))
  .filter(name=>name.endsWith('.astro') && name!=='intro.astro')
- .map(name=>name==='index.astro'?'/':`/${name.slice(0,-6)}/`).sort();
+ .map(name=>name==='index.astro'?'/':`/${name.slice(0,-6)}/`), ...handbook.map(chapter=>`/guide/${chapter.id}/`)].sort();
 const browser=await chromium.launch({executablePath,headless:true});
 try {
  const context=await browser.newContext({javaScriptEnabled:false});
@@ -47,8 +48,23 @@ try {
   const noindex=await page.locator('meta[name="robots"]').count();
   assert.equal(noindex,path==='/intro/'?1:0);
   if(noindex) assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'),'noindex, follow');
-  for(const route of ['/about/','/features/','/installation/']) {
+  for(const route of ['/about/','/features/','/development/','/guide/','/installation/']) {
    assert.equal(await page.locator(`header nav a[href="${route}"]`).count(),1);
+  }
+  if(path!=='/intro/') {
+   const data=JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
+   assert.equal(data['@context'],'https://schema.org');
+   assert.ok(data['@graph'].some(item=>item['@type']==='WebPage' && item.url===`https://eitr.info${path}`));
+  }
+  const chapter=handbook.find(chapter=>path===`/guide/${chapter.id}/`);
+  if(chapter) {
+   const expected=await parser.evaluate(blocks=>{
+    const document=new DOMParser().parseFromString(blocks.filter(block=>!block.startsWith('<h1>')).join('\n'),'text/html');
+    return document.body.textContent.replace(/\s+/g,' ').trim();
+   },chapter.blocks);
+   const actual=(await page.locator('.doc-copy').textContent()).replace(/\s+/g,' ').trim();
+   assert.equal(actual,expected,`${path} must preserve the complete canonical chapter`);
+   assert.equal(await page.locator('a[href^="handbook:"]').count(),0);
   }
   for(const width of [390,768,1024,1440]) {
    await page.setViewportSize({width,height:900});
@@ -73,6 +89,11 @@ try {
    if(url.hash) assert.ok(await parser.evaluate(({html,id})=>new DOMParser().parseFromString(html,'text/html').getElementById(id)!==null,{html:documents.get(url.pathname),id:decodeURIComponent(url.hash.slice(1))}),url.href);
   }
  }
+ const llms=await page.request.get(new URL('/llms.txt',site).href);
+ assert.equal(llms.status(),200);
+ const text=await llms.text();
+ assert.ok(text.includes('https://eitr.info/development/'));
+ assert.ok(text.includes('https://eitr.info/guide/git-accounts/'));
  await context.close();
  console.log(`Passed: sitemap, crawler rules, static metadata, ${links} internal links, external-link behavior and ${publicPaths.length+1} pages without JavaScript.`);
 } finally {await browser.close();}
