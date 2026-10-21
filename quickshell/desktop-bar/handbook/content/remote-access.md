@@ -58,7 +58,7 @@ connecting in the opposite direction. Fresh installs include these apps; sharing
 
 Choose Access away from home > Set Up Away Access. After installing Tailscale,
 the confirmed root helper enables and starts `tailscaled.service`, then makes
-your desktop user its operator. Later Tailscale actions need no sudo. Sign In
+your desktop user its operator. Sign-in, Connect and Disconnect request administrator authorization so they also work when the operator has not been configured. Sign In
 opens the URL printed by `tailscale login` in your browser. Connect brings the
 PC online; Disconnect takes it offline without deleting sign-in credentials.
 Connection Status shows this PC's Tailscale address, signed-out states and whether

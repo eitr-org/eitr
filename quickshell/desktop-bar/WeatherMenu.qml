@@ -204,14 +204,14 @@ ThemedPopup {
                                 width: 30
                                 height: 30
                                 icon: true
-                                text: "󰑐"
+                                text: "\uF021"
                                 foreground: menu.foreground
                                 loading: menu.loading
                                 onClicked: menu.refresh()
                                 HoverHandler { id: refreshHover }
                                 BarTooltip { target: refreshButton; hovered: refreshHover.hovered; text: menu.loading ? Eitr.I18n.tr("Updating") : Eitr.I18n.tr("Refresh"); foreground: menu.foreground; background: menu.background }
                             }
-                            PanelButton { visible: menu.searching || menu.city !== null; width: 30; height: 30; text: "×"; foreground: menu.foreground; onClicked: menu.restoreDefault() }
+                            PanelButton { visible: menu.searching || menu.city !== null; width: 30; height: 30; icon: true; text: "\uF00D"; foreground: menu.foreground; onClicked: menu.restoreDefault() }
                         }
                     }
                     Text { text: menu.weatherData.condition || ""; color: menu.foreground; opacity: 0.72; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize; font.bold: true }

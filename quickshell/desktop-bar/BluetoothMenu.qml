@@ -39,10 +39,11 @@ ThemedPopup {
             PanelHeading { anchors.verticalCenter: parent.verticalCenter; text: Eitr.I18n.tr("Bluetooth"); foreground: menu.foreground; accent: menu.accent; rune: "connectivity" }
             Row {
                 anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
                 spacing: 8
                 PanelButton {
                     id: scanButton
-                    text: "󰑓"; icon: true; compactIconBackground: true
+                    text: "\uF021"; icon: true; compactIconBackground: true
                     loading: !!menu.scanningAdapter
                     foreground: menu.foreground
                     available: !!menu.adapter && menu.adapter.enabled
@@ -53,7 +54,7 @@ ThemedPopup {
                 PanelButton {
                     id: stopScanButton
                     visible: !!menu.scanningAdapter
-                    text: "󰓛"; icon: true; compactIconBackground: true
+                    text: "\uF04D"; icon: true; compactIconBackground: true
                     foreground: menu.foreground
                     onClicked: menu.scan()
                     HoverHandler { id: stopScanHover }

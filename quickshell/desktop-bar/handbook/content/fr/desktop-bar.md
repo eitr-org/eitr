@@ -25,3 +25,5 @@ La barre commence à 1–5 et s’étend jusqu’à l’espace courant ou au plu
 **SUPER + S** bascule l’espace spécial, distinct de la Vue d’ensemble. **SUPER + Shift + Space** masque/affiche la barre, pas le service de notifications.
 
 Les gestes de souris pour fond d’écran et thème sur le bureau vide figurent dans **Apprendre > Gestes de la souris**. En cas de doute, utilisez les raccourcis des carrousels.
+
+Le contrôle Audio/Micro ouvre un panneau avec des sections distinctes pour la sortie audio et le microphone. Tailscale et Streaming se trouvent juste avant OBS et affichent l’état local, les détails de connexion et les boutons d’action sur deux colonnes. La connexion au compte reste dans Walker. Le fond des boutons d’icône apparaît au survol ; les icônes d’actualisation tournent pendant l’opération et les infobulles apparaissent près du pointeur. Les interrupteurs et les boutons d’action intégrés utilisent des dimensions compactes communes.

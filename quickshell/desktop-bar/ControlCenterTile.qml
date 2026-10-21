@@ -25,7 +25,7 @@ Rectangle {
     Text { x: PanelStyle.selectionInset; width: 18; horizontalAlignment: Text.AlignHCenter; anchors.verticalCenter: parent.verticalCenter; text: tile.glyph; color: tile.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.selectionIconSize }
     Column { x: PanelStyle.selectionTextInset; width: parent.width - (tile.details ? 82 : 56); anchors.verticalCenter: parent.verticalCenter; spacing: PanelStyle.selectionDetailGap
         Text { width: parent.width; text: tile.title; elide: Text.ElideRight; color: tile.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize; font.bold: true }
-        Text { width: parent.width; text: tile.subtitle; elide: Text.ElideRight; color: tile.foreground; opacity: 0.65; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+        Text { width: parent.width; text: tile.subtitle; visible: tile.subtitle !== ""; elide: Text.ElideRight; color: tile.foreground; opacity: 0.65; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
     }
     MouseArea { id: tileMouse; anchors.fill: parent; enabled: tile.available; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: { tile.forceActiveFocus(); tile.clicked(); } }
     PanelButton {

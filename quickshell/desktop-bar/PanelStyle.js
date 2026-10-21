@@ -24,13 +24,13 @@ function selectionBorderWidth(selected) {
 }
 
 var selectionBorderAlpha = 0.15;
-var selectionRowHeight = 44;
+var selectionRowHeight = 36;
 var selectionRowGap = 6;
 var selectionInset = 10;
 var selectionTextInset = 36;
 var selectionIconSize = 18;
 var selectionDetailGap = 2;
-var selectionActionInset = 8;
-var selectionActionGap = 8;
-var selectionActionWidth = 32;
-var selectionActionHeight = 30;
+var selectionActionInset = 4;
+var selectionActionGap = 6;
+var selectionActionWidth = 24;
+var selectionActionHeight = 24;

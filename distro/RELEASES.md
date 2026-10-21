@@ -41,6 +41,11 @@ release tag.
 
 ## Feature plan
 
+Audio and microphone controls share one panel. Tailscale and Streaming panels
+show local status beside existing remote-access workflows. Shared controls use
+compact sizing, hover-only icon backgrounds, centered loading glyphs and pointer
+tooltips. Tailscale account actions request administrator authorization.
+
 Cursor is an optional Developer Apps install. Installed entries in the named
 Install lists support Delete with confirmation and preserve settings; managed
 language bundles show a full terminal warning. The Pacman/Yay package pickers

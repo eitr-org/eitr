@@ -12,6 +12,14 @@
     "subtext": "Show this PC’s address and peer connection paths",
     "icon": "󰋽",
     "actions": {
+      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh tailscale"
+    }
+  },
+  {
+    "text": "Detailed Status",
+    "subtext": "Open the diagnostic report in a terminal",
+    "icon": "󰋽",
+    "actions": {
       "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away status"
     }
   },

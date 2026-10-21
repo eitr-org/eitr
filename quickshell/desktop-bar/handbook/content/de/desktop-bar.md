@@ -25,3 +25,5 @@ Die Leiste beginnt mit 1–5 und wächst bis zur aktuellen beziehungsweise höch
 **SUPER + S** schaltet die spezielle Arbeitsfläche um, unabhängig von der Übersicht. **SUPER + Shift + Space** blendet die Leiste ein/aus, nicht den Benachrichtigungsdienst.
 
 Mausgesten für Hintergrundbilder und Themen auf leerem Desktop stehen unter **Lernen > Mausgesten**. Verwende im Zweifel die Tastenkürzel der Karussells.
+
+Audio/Mikro öffnet ein gemeinsames Panel mit getrennten Bereichen für Audioausgabe und Mikrofon. Tailscale und Streaming stehen direkt vor OBS und zeigen den lokalen Status, Verbindungsdetails und Aktionsschaltflächen in zwei Spalten. Die Kontoanmeldung bleibt in Walker. Symbolschaltflächen zeigen ihren Hintergrund beim Darüberfahren; Aktualisierungssymbole drehen sich während der Abfrage und Tooltips erscheinen am Mauszeiger. Schalter und eingebettete Aktionsschaltflächen verwenden gemeinsame kompakte Größen.

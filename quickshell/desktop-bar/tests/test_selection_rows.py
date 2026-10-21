@@ -36,6 +36,6 @@ class SelectionRows(unittest.TestCase):
             with self.subTest(panel=name):
                 self.assertIn("PanelStyle.selectionRowHeight", (ROOT / (name + ".qml")).read_text())
         style = (ROOT / "PanelStyle.js").read_text()
-        for constant, value in (("selectionRowHeight", 44), ("selectionRowGap", 6),
-                                ("selectionActionWidth", 32), ("selectionActionHeight", 30)):
+        for constant, value in (("selectionRowHeight", 36), ("selectionRowGap", 6),
+                                ("selectionActionWidth", 24), ("selectionActionHeight", 24)):
             self.assertIn(f"var {constant} = {value};", style)

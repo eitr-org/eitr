@@ -4,7 +4,15 @@ The microphone panel includes a live PipeWire input-level meter. Monitoring runs
 only while that panel is open; no audio is written to disk. The meter follows the
 shared panel theme and shows zero when the selected microphone is muted.
 
-The desktop bar and its native popups follow the current theme.
+The desktop bar and its native popups follow the current theme. Shared selectable
+rows are 36 px tall with 24 px inset action buttons and 4 px edge insets. WiFi
+shows connection status beside the network name. Icon buttons have hover-only
+backgrounds and spin their glyph while loading. Shared switches use a compact
+36 px track.
+
+Tailscale and Streaming panels show local connection and service details above
+their actions. Action descriptions appear as tooltips; account sign-in stays
+in Walker’s setup workflow. Streaming uses the Moonlight controller glyph.
 
 Configuration reload errors use a native, padded popup with the bar's live
 Theme Color or Blur appearance. Error details are selectable and scroll within

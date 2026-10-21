@@ -27,7 +27,7 @@ Rectangle {
         color: row.foreground; font.family: PanelStyle.fontFamily; font.pixelSize: PanelStyle.selectionIconSize
     }
     Text {
-        x: PanelStyle.selectionTextInset; width: parent.width - x - (row.showRemove ? 48 : 10)
+        x: PanelStyle.selectionTextInset; width: parent.width - x - (row.showRemove ? PanelStyle.selectionActionWidth + 2 * PanelStyle.selectionActionInset : 10)
         anchors.verticalCenter: parent.verticalCenter
         text: row.label; textFormat: Text.PlainText; elide: Text.ElideRight
         color: row.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize

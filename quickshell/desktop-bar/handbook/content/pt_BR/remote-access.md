@@ -57,7 +57,7 @@ desativado até você ativá-lo explicitamente.
 
 Em Acessar fora de casa, escolha Configurar acesso fora de casa. Após instalar, o assistente
 root confirmado ativa e inicia `tailscaled.service` e define seu usuário como
-operador. As ações seguintes dispensam sudo. Entrar abre no navegador a URL de
+operador. Entrar, conectar e desconectar pedem autorização de administrador, mesmo sem um operador configurado. Entrar abre no navegador a URL de
 `tailscale login`. Connect conecta; Disconnect desconecta sem apagar credenciais.
 Estado da conexão mostra o endereço deste PC, sessão desconectada e conexões
 diretas, retransmitidas ou ociosas. Testar conexão com outro dispositivo executa `tailscale ping` para um

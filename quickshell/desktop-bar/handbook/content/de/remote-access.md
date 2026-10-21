@@ -59,7 +59,7 @@ Richtung. Neue Installationen enthalten diese Anwendungen; die Freigabe bleibt d
 
 Wählen Sie unter Zugriff von unterwegs den Eintrag Zugriff für unterwegs einrichten. Nach der
 Installation aktiviert und startet der bestätigte Root-Helfer `tailscaled.service`
-und setzt Ihren Benutzer als Operator. Weitere Aktionen benötigen kein sudo.
+und setzt Ihren Benutzer als Operator. Anmelden, Verbinden und Trennen erfordern Administratorrechte und funktionieren auch ohne eingerichteten Operator.
 Anmelden öffnet die URL von `tailscale login` im Browser. Connect verbindet;
 Disconnect trennt, ohne Anmeldedaten zu löschen. Verbindungsstatus zeigt die Adresse
 dieses PCs, fehlende Anmeldung sowie direkte, weitergeleitete oder ruhende

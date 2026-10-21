@@ -55,7 +55,7 @@ en Eitr para conectarse en sentido inverso. Las instalaciones nuevas incluyen es
 
 En Acceder fuera de casa elija Configurar acceso externo. Tras instalar, el asistente
 root confirmado activa e inicia `tailscaled.service` y nombra operador a su usuario.
-Las acciones posteriores no necesitan sudo. Iniciar sesión abre la URL de
+Iniciar sesión, conectar y desconectar piden autorización de administrador, incluso sin un operador configurado. Iniciar sesión abre la URL de
 `tailscale login` en el navegador. Connect conecta; Disconnect desconecta sin
 borrar credenciales. Estado de conexión muestra la dirección del PC, la falta de
 sesión y conexiones directas, retransmitidas o inactivas. Comprobar conexión con otro equipo usa

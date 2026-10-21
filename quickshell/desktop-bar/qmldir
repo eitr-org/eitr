@@ -56,3 +56,6 @@ WorkspaceMarker WorkspaceMarker.qml
 WorkspaceOverview WorkspaceOverview.qml
 WorkspaceOverviewTile WorkspaceOverviewTile.qml
 WorkspaceStyleMenu WorkspaceStyleMenu.qml
+RemoteAccessService RemoteAccessService.qml
+RemoteAccessContent RemoteAccessContent.qml
+RemoteAccessMenu RemoteAccessMenu.qml

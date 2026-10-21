@@ -370,6 +370,9 @@ msgstr "Cancelado; nada foi alterado."
 msgid "Cannot change another user"
 msgstr "Não é possível alterar outro usuário"
 
+msgid "Capture"
+msgstr "Captura"
+
 msgid "Chapters need the Hybrid MP4 recording format (OBS Settings > Output)"
 msgstr "Os marcadores de capítulo exigem o formato de gravação Hybrid MP4 (Configurações do OBS > Saída)"
 
@@ -441,6 +444,9 @@ msgstr "Limpeza"
 
 msgid "Cleanup complete."
 msgstr "Limpeza concluída."
+
+msgid "Client"
+msgstr "Cliente"
 
 msgid "Close OBS once so Eitr can turn on its WebSocket, then try again"
 msgstr "Feche o OBS uma vez para o Eitr ativar o WebSocket e tente novamente"
@@ -525,6 +531,9 @@ msgstr "Confirmar"
 
 msgid "Conflicting iwd backend setting in {path}; review it before switching."
 msgstr "Configuração conflitante do backend iwd em {path}; revise antes de trocar."
+
+msgid "Connected"
+msgstr "Conectado"
 
 msgid "Connected. Restart open assistant sessions to use it."
 msgstr "Conectado. Reinicie as sessões de assistentes abertas para usar."
@@ -679,8 +688,14 @@ msgstr "Áudio do sistema"
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "Logs detalhados: /var/log/archinstall. Nada após a etapa que falhou foi alterado."
 
+msgid "Device"
+msgstr "Dispositivo"
+
 msgid "Direct"
 msgstr "Direta"
+
+msgid "Disconnected"
+msgstr "Desconectado"
 
 msgid "Disk"
 msgstr "Disco"
@@ -960,6 +975,9 @@ msgstr "Snapshots da pasta pessoal: desativados"
 
 msgid "Home snapshots: on, {snapshot_count} kept{pending}"
 msgstr "Snapshots da pasta pessoal: ativados, {snapshot_count} mantidos{pending}"
+
+msgid "Host"
+msgstr "Servidor"
 
 msgid "Hosted zones"
 msgstr "Zonas hospedadas"
@@ -1278,6 +1296,9 @@ msgstr "Dê um nome às assinaturas que você deseja no menu"
 
 msgid "Name this computer."
 msgstr "Dê um nome a este computador."
+
+msgid "Network"
+msgstr "Rede"
 
 msgid "Network ACLs"
 msgstr "ACLs de rede"
@@ -1870,6 +1891,9 @@ msgstr "Defina usuário e senha do Sunshine nas configurações locais antes de 
 msgid "Set up full-screen monitor capture in OBS first"
 msgstr "Configure primeiro a captura de monitor inteiro no OBS"
 
+msgid "Settings"
+msgstr "Configurações"
+
 msgid "Settings changed during the update; try again."
 msgstr "As configurações mudaram durante a atualização; tente novamente."
 
@@ -1887,6 +1911,15 @@ msgstr "Vários carregadores de boot estão configurados ({listing}). Remova arq
 
 msgid "Sharing hands over full control of this signed-in desktop. Only enable it on a trusted home network."
 msgstr "Compartilhar dá controle total desta sessão do desktop. Ative apenas em uma rede doméstica confiável."
+
+msgid "Sharing status unavailable."
+msgstr "Status do compartilhamento indisponível."
+
+msgid "Sharing stopped"
+msgstr "Compartilhamento parado"
+
+msgid "Sharing this desktop"
+msgstr "Compartilhando esta área de trabalho"
 
 msgid "Sharing this network security type is not supported"
 msgstr "O compartilhamento deste tipo de segurança de rede não é compatível"
@@ -1914,6 +1947,9 @@ msgstr "Status de login e do site"
 
 msgid "Sign-in method"
 msgstr "Método de login"
+
+msgid "Signed out"
+msgstr "Sessão não iniciada"
 
 msgid "Sites"
 msgstr "Sites"
@@ -2029,6 +2065,9 @@ msgstr "Assinaturas"
 msgid "Sunshine grants full control of your desktop. Setup grants KMS capture and virtual keyboard, mouse and controller access."
 msgstr "O Sunshine concede controle total do seu desktop. A configuração permite captura KMS e acesso virtual ao teclado, mouse e controle."
 
+msgid "Sunshine is not installed."
+msgstr "Sunshine não está instalado."
+
 msgid "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP"
 msgstr "Métodos corporativos compatíveis: PEAP/MSCHAPv2 e TTLS/PAP"
 
@@ -2059,6 +2098,12 @@ msgstr "Desbloqueio por TPM2 removido de {device}; a senha volta a ser exigida n
 msgid "Tab / arrows: choose  Enter: select  Esc: cancel"
 msgstr "Tab / setas: escolher  Enter: selecionar  Esc: cancelar"
 
+msgid "Tailscale IP"
+msgstr "IP do Tailscale"
+
+msgid "Tailscale is not installed."
+msgstr "Tailscale não está instalado."
+
 msgid "Tailscale setup belongs to another desktop user"
 msgstr "A configuração do Tailscale pertence a outro usuário"
 
@@ -2067,6 +2112,9 @@ msgstr "Falha ao entrar no Tailscale. Tente novamente em Acessar fora de casa."
 
 msgid "Tailscale state: {state}"
 msgstr "Estado do Tailscale: {state}"
+
+msgid "Tailscale status unavailable."
+msgstr "Status do Tailscale indisponível."
 
 msgid "Target"
 msgstr "Destino"
@@ -2352,6 +2400,9 @@ msgstr "Digite {confirmation} para cadastrar o desbloqueio por TPM (qualquer out
 
 msgid "Type {path} exactly to start installation."
 msgstr "Digite exatamente {path} para iniciar a instalação."
+
+msgid "Unavailable"
+msgstr "Indisponível"
 
 msgid "Undo with Restore Sharing Setup. Existing Sunshine settings are kept."
 msgstr "Desfaça com Restaurar configuração de compartilhamento. As configurações existentes do Sunshine são mantidas."

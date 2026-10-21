@@ -57,7 +57,7 @@ ou ouvrent le client Eitr dans le sens inverse. Les nouvelles installations incl
 
 Dans Accès hors du domicile, choisissez Configurer l’accès extérieur. Après installation,
 l’assistant root confirmé active et démarre `tailscaled.service`, puis définit
-votre utilisateur comme opérateur. Les actions suivantes n’exigent pas sudo.
+votre utilisateur comme opérateur. La connexion au compte, la connexion au réseau et la déconnexion demandent une autorisation administrateur, même sans opérateur configuré.
 Se connecter ouvre l’URL de `tailscale login` dans le navigateur. Connect connecte ;
 Disconnect déconnecte sans effacer les identifiants. État de la connexion indique
 l’adresse de ce PC, l’absence de connexion au compte et les connexions directes,

@@ -61,6 +61,9 @@
     "Audio": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
+    "Audio/Mic": [
+      "quickshell/desktop-bar/shell.qml"
+    ],
     "Authentication server domain": [
       "quickshell/desktop-bar/WifiMenu.qml"
     ],
@@ -148,6 +151,9 @@
     ],
     "Channel: unknown": [
       "quickshell/desktop-bar/ControlCenter.qml"
+    ],
+    "Checking status…": [
+      "quickshell/desktop-bar/RemoteAccessContent.qml"
     ],
     "Choose a theme": [
       "quickshell/desktop-bar/Handbook.qml"
@@ -479,9 +485,6 @@
       "quickshell/desktop-bar/MediaMenu.qml",
       "quickshell/desktop-bar/shell.qml"
     ],
-    "Mic": [
-      "quickshell/desktop-bar/shell.qml"
-    ],
     "Microphone": [
       "quickshell/desktop-bar/AudioMenu.qml",
       "quickshell/desktop-bar/ControlCenter.qml",
@@ -528,6 +531,9 @@
     ],
     "No active displays": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
+    ],
+    "No device available": [
+      "quickshell/desktop-bar/AudioMenu.qml"
     ],
     "No devices": [
       "quickshell/desktop-bar/BluetoothMenu.qml"
@@ -602,7 +608,8 @@
     ],
     "Off": [
       "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/DisplaySettingsEditor.qml",
+      "quickshell/desktop-bar/RemoteAccessContent.qml"
     ],
     "Offer to report problems when something breaks": [
       "quickshell/desktop-bar/Handbook.qml"
@@ -611,7 +618,8 @@
       "quickshell/desktop-bar/WifiMenu.qml"
     ],
     "On": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/ControlCenter.qml",
+      "quickshell/desktop-bar/RemoteAccessContent.qml"
     ],
     "Open OBS": [
       "quickshell/desktop-bar/ObsMenu.qml"
@@ -746,6 +754,7 @@
     ],
     "Refresh": [
       "quickshell/desktop-bar/AiUsageMenu.qml",
+      "quickshell/desktop-bar/RemoteAccessContent.qml",
       "quickshell/desktop-bar/WeatherMenu.qml"
     ],
     "Refresh rate": [
@@ -923,6 +932,9 @@
     "Start": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
     ],
+    "Start at Login: {state}": [
+      "quickshell/desktop-bar/RemoteAccessContent.qml"
+    ],
     "Start it now": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
@@ -931,6 +943,9 @@
     ],
     "Start streaming": [
       "quickshell/desktop-bar/ObsMenu.qml"
+    ],
+    "Status unavailable": [
+      "quickshell/desktop-bar/RemoteAccessContent.qml"
     ],
     "Stop Recording": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -945,6 +960,10 @@
     "Stop streaming": [
       "quickshell/desktop-bar/ObsMenu.qml",
       "quickshell/desktop-bar/RecordingMenu.qml"
+    ],
+    "Streaming": [
+      "quickshell/desktop-bar/RemoteAccessContent.qml",
+      "quickshell/desktop-bar/shell.qml"
     ],
     "Style": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -1054,8 +1073,7 @@
       "quickshell/desktop-bar/WifiMenu.qml"
     ],
     "Volume": [
-      "quickshell/desktop-bar/AudioMenu.qml",
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/AudioMenu.qml"
     ],
     "WELCOME BACK": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
@@ -1531,6 +1549,10 @@
     ],
     "Desktop Control Center": [
       "elephant/menu-rows/shortcuts.json"
+    ],
+    "Detailed Status": [
+      "elephant/menu-rows/remote-away.json",
+      "elephant/menu-rows/remote-share.json"
     ],
     "Developer Apps": [
       "elephant/menu-rows/install.json",
@@ -2084,6 +2106,10 @@
     ],
     "Open Terminal": [
       "elephant/menu-rows/shortcuts.json"
+    ],
+    "Open the diagnostic report in a terminal": [
+      "elephant/menu-rows/remote-away.json",
+      "elephant/menu-rows/remote-share.json"
     ],
     "Open with the assistant shortcut": [
       "elephant/menu-rows/learn.json",
@@ -3704,6 +3730,9 @@
     "Cannot change another user": [
       "distro/system/eitr_remote.py"
     ],
+    "Capture": [
+      "quickshell/desktop-bar/scripts/remote-status.py"
+    ],
     "Chapters need the Hybrid MP4 recording format (OBS Settings > Output)": [
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
@@ -3775,6 +3804,9 @@
     ],
     "Cleanup complete.": [
       "walker/scripts/actions/system/cleanup.sh"
+    ],
+    "Client": [
+      "quickshell/desktop-bar/scripts/remote-status.py"
     ],
     "Close OBS once so Eitr can turn on its WebSocket, then try again": [
       "quickshell/desktop-bar/scripts/obs-control.py"
@@ -3861,6 +3893,9 @@
     ],
     "Conflicting iwd backend setting in {path}; review it before switching.": [
       "distro/system/network-backend.py"
+    ],
+    "Connected": [
+      "quickshell/desktop-bar/scripts/remote-status.py"
     ],
     "Connected. Restart open assistant sessions to use it.": [
       "walker/scripts/actions/assistant-collaboration.py"
@@ -4021,8 +4056,15 @@
     "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed.": [
       "distro/archinstall/eitr-guided-install"
     ],
+    "Device": [
+      "quickshell/desktop-bar/scripts/remote-status.py"
+    ],
     "Direct": [
+      "quickshell/desktop-bar/scripts/remote-status.py",
       "walker/scripts/actions/system/remote-access.py"
+    ],
+    "Disconnected": [
+      "quickshell/desktop-bar/scripts/remote-status.py"
     ],
     "Disk": [
       "distro/archinstall/installer-ui.py"
@@ -4306,6 +4348,9 @@
     "Home snapshots: on, {snapshot_count} kept{pending}": [
       "distro/system/home-snapshots.py"
     ],
+    "Host": [
+      "quickshell/desktop-bar/scripts/remote-status.py"
+    ],
     "Hosted zones": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
@@ -4332,6 +4377,7 @@
       "walker/scripts/menus/cloud/navigation.py"
     ],
     "Idle; ping to check": [
+      "quickshell/desktop-bar/scripts/remote-status.py",
       "walker/scripts/actions/system/remote-access.py"
     ],
     "Ignore": [
@@ -4630,6 +4676,9 @@
     ],
     "Name this computer.": [
       "distro/archinstall/installer-ui.py"
+    ],
+    "Network": [
+      "quickshell/desktop-bar/scripts/remote-status.py"
     ],
     "Network ACLs": [
       "walker/scripts/menus/cloud/navigation.py"
@@ -4960,6 +5009,7 @@
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Relayed": [
+      "quickshell/desktop-bar/scripts/remote-status.py",
       "walker/scripts/actions/system/remote-access.py"
     ],
     "Remind me about…": [
@@ -5228,6 +5278,9 @@
     "Set up full-screen monitor capture in OBS first": [
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
+    "Settings": [
+      "quickshell/desktop-bar/scripts/remote-status.py"
+    ],
     "Settings changed during the update; try again.": [
       "distro/lib/eitr_collaboration.py"
     ],
@@ -5245,6 +5298,15 @@
     ],
     "Sharing hands over full control of this signed-in desktop. Only enable it on a trusted home network.": [
       "walker/scripts/actions/system/remote-access.py"
+    ],
+    "Sharing status unavailable.": [
+      "quickshell/desktop-bar/scripts/remote-status.py"
+    ],
+    "Sharing stopped": [
+      "quickshell/desktop-bar/scripts/remote-status.py"
+    ],
+    "Sharing this desktop": [
+      "quickshell/desktop-bar/scripts/remote-status.py"
     ],
     "Sharing this network security type is not supported": [
       "quickshell/desktop-bar/scripts/wifi-qr.py"
@@ -5272,6 +5334,9 @@
     ],
     "Sign-in method": [
       "walker/scripts/menus/cloud/accounts.py"
+    ],
+    "Signed out": [
+      "quickshell/desktop-bar/scripts/remote-status.py"
     ],
     "Sites": [
       "walker/scripts/menus/cloud/providers.py"
@@ -5387,6 +5452,9 @@
     "Sunshine grants full control of your desktop. Setup grants KMS capture and virtual keyboard, mouse and controller access.": [
       "distro/system/eitr_remote.py"
     ],
+    "Sunshine is not installed.": [
+      "quickshell/desktop-bar/scripts/remote-status.py"
+    ],
     "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP": [
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py"
     ],
@@ -5417,6 +5485,12 @@
     "Tab / arrows: choose  Enter: select  Esc: cancel": [
       "distro/archinstall/installer-ui.py"
     ],
+    "Tailscale IP": [
+      "quickshell/desktop-bar/scripts/remote-status.py"
+    ],
+    "Tailscale is not installed.": [
+      "quickshell/desktop-bar/scripts/remote-status.py"
+    ],
     "Tailscale setup belongs to another desktop user": [
       "distro/system/eitr_remote.py"
     ],
@@ -5425,6 +5499,9 @@
     ],
     "Tailscale state: {state}": [
       "walker/scripts/actions/system/remote-access.py"
+    ],
+    "Tailscale status unavailable.": [
+      "quickshell/desktop-bar/scripts/remote-status.py"
     ],
     "Target": [
       "walker/scripts/menus/cloud/providers.py"
@@ -5714,6 +5791,9 @@
     ],
     "Type {path} exactly to start installation.": [
       "distro/archinstall/installer-ui.py"
+    ],
+    "Unavailable": [
+      "quickshell/desktop-bar/scripts/remote-status.py"
     ],
     "Undo with Restore Sharing Setup. Existing Sunshine settings are kept.": [
       "distro/system/eitr_remote.py"

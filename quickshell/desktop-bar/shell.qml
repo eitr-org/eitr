@@ -14,6 +14,7 @@ ShellRoot {
     id: shell
     signal handbookOpened()
     NotificationService { id: notificationsService }
+    RemoteAccessService { id: remoteAccessService; observing: shell.iconsOpen }
     Handbook {
         id: handbook
         foreground: shell.fg
@@ -558,7 +559,7 @@ ShellRoot {
                     interval: 350
                     onTriggered: bar.hoverExpanded = false
                 }
-                readonly property var dockPanels: [wifiMenu, bluetoothMenu, brightnessMenu, volumeMenu, micMenu,
+                readonly property var dockPanels: [wifiMenu, bluetoothMenu, brightnessMenu, volumeMenu, tailscaleMenu, streamingMenu,
                     keyboardMenu, idleLockMenu, calendarMenu, weatherMenu, hardwareMenu, aiMenu, obsMenu, recordingMenu, workspaceMenu, notificationCenter, controlCenter, mediaMenu, batteryMenu]
                 readonly property bool panelOpen: dockPanels.some(panel => panel.visible)
                 readonly property var panelFocusWindows: notificationPopups.visible ? [bar, notificationPopups] : [bar]
@@ -643,7 +644,8 @@ ShellRoot {
                     Region { item: bluetoothMenu.opened ? bluetoothMenu : null }
                     Region { item: brightnessMenu.opened ? brightnessMenu : null }
                     Region { item: volumeMenu.opened ? volumeMenu : null }
-                    Region { item: micMenu.opened ? micMenu : null }
+                    Region { item: tailscaleMenu.opened ? tailscaleMenu : null }
+                    Region { item: streamingMenu.opened ? streamingMenu : null }
                     Region { item: keyboardMenu.opened ? keyboardMenu : null }
                     Region { item: idleLockMenu.opened ? idleLockMenu : null }
                     Region { item: calendarMenu.opened ? calendarMenu : null }
@@ -740,12 +742,13 @@ ShellRoot {
                 function toggleControlCenter() { togglePanel(controlCenter); }
                 function showKind(kind) {
                     var panels = {wifi: wifiMenu, bluetooth: bluetoothMenu, brightness: brightnessMenu, display: brightnessMenu, volume: volumeMenu,
-                        mic: micMenu, keyboard: keyboardMenu, idle: idleLockMenu, calendar: calendarMenu,
+                        mic: volumeMenu, tailscale: tailscaleMenu, streaming: streamingMenu, keyboard: keyboardMenu, idle: idleLockMenu, calendar: calendarMenu,
                         weather: weatherMenu, hardware: hardwareMenu, ai: aiMenu, obs: obsMenu,
                         workspace: workspaceMenu, recording: recordingMenu, notifications: notificationCenter,
                         center: controlCenter, media: mediaMenu, battery: batteryMenu};
                     if (kind === "overview") { toggleOverview(); return; }
                     if (!panels[kind]) return;
+                    if (kind === "mic" || kind === "volume") volumeMenu.microphone = kind === "mic";
                     showPanel(panels[kind]);
                 }
                 function inspectPanels() {
@@ -969,8 +972,7 @@ ShellRoot {
                         }
                         VerticalBarIcon { id: verticalBluetoothIcon; icon: "󰂯"; tooltip: Eitr.I18n.tr("Bluetooth"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(bluetoothMenu); onOpenChanged: if (!open) bluetoothMenu.opened = false }
                         VerticalBarIcon { id: verticalDisplayIcon; icon: "󰍹"; tooltip: Eitr.I18n.tr("Display"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(brightnessMenu); onOpenChanged: if (!open) brightnessMenu.opened = false }
-                        VerticalBarIcon { id: verticalVolumeIcon; icon: ""; tooltip: Eitr.I18n.tr("Volume"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(volumeMenu); onOpenChanged: if (!open) volumeMenu.opened = false }
-                        VerticalBarIcon { id: verticalMicIcon; icon: "󰍬"; tooltip: Eitr.I18n.tr("Mic"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(micMenu); onOpenChanged: if (!open) micMenu.opened = false }
+                        VerticalBarIcon { id: verticalVolumeIcon; icon: "\u{F02CE}"; tooltip: Eitr.I18n.tr("Audio/Mic"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(volumeMenu); onOpenChanged: if (!open) volumeMenu.opened = false }
                         VerticalBarIcon { id: verticalKeyboardIcon; icon: "󰌌"; tooltip: Eitr.I18n.tr("Keyboard"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(keyboardMenu); onOpenChanged: if (!open) keyboardMenu.opened = false }
                         VerticalBarIcon {
                             id: verticalIdleLockIcon
@@ -984,6 +986,8 @@ ShellRoot {
                             }
                             onOpenChanged: if (!open) idleLockMenu.opened = false
                         }
+                        VerticalBarIcon { id: verticalTailscaleIcon; icon: "󰌘"; tooltip: "Tailscale"; open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(tailscaleMenu); onOpenChanged: if (!open) tailscaleMenu.opened = false }
+                        VerticalBarIcon { id: verticalStreamingIcon; icon: "󰢹"; tooltip: Eitr.I18n.tr("Streaming"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(streamingMenu); onOpenChanged: if (!open) streamingMenu.opened = false }
                         VerticalBarIcon { id: verticalObsIcon; icon: obsMenu.obsState.recording ? (obsMenu.obsState.paused ? "󰏤" : "󰑋") : "󰻂"; iconSize: obsMenu.obsState.recording && !obsMenu.obsState.paused ? 22 : 16; tooltip: obsMenu.obsState.recording ? (obsMenu.obsState.paused ? Eitr.I18n.tr("Recording paused") : Eitr.I18n.tr("Recording")) : Eitr.I18n.tr("OBS Studio"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(obsMenu); onOpenChanged: if (!open) obsMenu.opened = false }
                         VerticalBarIcon {
                             id: verticalUpdatesIcon
@@ -1232,8 +1236,8 @@ ShellRoot {
 
                             StatusIcon {
                                 id: volumeIcon
-                                icon: ""
-                                tooltip: Eitr.I18n.tr("Volume")
+                                icon: "\u{F02CE}"
+                                tooltip: Eitr.I18n.tr("Audio/Mic")
                                 open: shell.iconsOpen
                                 clickable: true
                                 onClicked: bar.togglePanel(volumeMenu)
@@ -1246,29 +1250,6 @@ ShellRoot {
                                 maximumHeight: bar.screen.height - 70
                                 target: shell.verticalBar ? verticalVolumeIcon : (shell.iconsOpen ? volumeIcon : notificationIcon)
                                 barEdge: shell.barEdge
-                                accent: shell.activeBg
-                                foreground: shell.fg
-                                background: shell.workspaceMenuBg
-                            }
-
-                            StatusIcon {
-                                id: micIcon
-                                icon: "󰍬"
-                                iconSize: 18
-                                tooltip: Eitr.I18n.tr("Mic")
-                                open: shell.iconsOpen
-                                clickable: true
-                                onClicked: bar.togglePanel(micMenu)
-                                onOpenChanged: if (!open) micMenu.opened = false
-                            }
-
-                            AudioMenu {
-                                id: micMenu
-                                surfaceColor: shell.barBackground()
-                                maximumHeight: bar.screen.height - 70
-                                target: shell.verticalBar ? verticalMicIcon : (shell.iconsOpen ? micIcon : notificationIcon)
-                                barEdge: shell.barEdge
-                                microphone: true
                                 accent: shell.activeBg
                                 foreground: shell.fg
                                 background: shell.workspaceMenuBg
@@ -1323,6 +1304,49 @@ ShellRoot {
                                 busy: toggleIdleLock.running || manualLock.running
                                 onToggleRequested: if (!toggleIdleLock.running) toggleIdleLock.running = true
                                 onLockRequested: if (!manualLock.running) manualLock.running = true
+                            }
+
+                            StatusIcon {
+                                id: tailscaleIcon
+                                icon: "󰌘"
+                                tooltip: "Tailscale"
+                                open: shell.iconsOpen
+                                clickable: true
+                                onClicked: bar.togglePanel(tailscaleMenu)
+                                onOpenChanged: if (!open) tailscaleMenu.opened = false
+                            }
+                            RemoteAccessMenu {
+                                id: tailscaleMenu
+                                kind: "tailscale"
+                                service: remoteAccessService
+                                maximumHeight: bar.screen.height - 70
+                                surfaceColor: shell.barBackground()
+                                target: shell.verticalBar ? verticalTailscaleIcon : tailscaleIcon
+                                barEdge: shell.barEdge
+                                accent: shell.activeBg
+                                foreground: shell.fg
+                                background: shell.workspaceMenuBg
+                            }
+                            StatusIcon {
+                                id: streamingIcon
+                                icon: "󰢹"
+                                tooltip: Eitr.I18n.tr("Streaming")
+                                open: shell.iconsOpen
+                                clickable: true
+                                onClicked: bar.togglePanel(streamingMenu)
+                                onOpenChanged: if (!open) streamingMenu.opened = false
+                            }
+                            RemoteAccessMenu {
+                                id: streamingMenu
+                                kind: "streaming"
+                                service: remoteAccessService
+                                maximumHeight: bar.screen.height - 70
+                                surfaceColor: shell.barBackground()
+                                target: shell.verticalBar ? verticalStreamingIcon : streamingIcon
+                                barEdge: shell.barEdge
+                                accent: shell.activeBg
+                                foreground: shell.fg
+                                background: shell.workspaceMenuBg
                             }
 
                             StatusIcon {

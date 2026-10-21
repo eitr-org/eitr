@@ -102,7 +102,7 @@ def auth_url(line):
 
 def login():
     # Tailscale can wait for browser authentication: stream its URL immediately.
-    with subprocess.Popen(['tailscale', 'login'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+    with subprocess.Popen(['sudo', 'tailscale', 'login'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                           text=True, bufsize=1) as process:
         opened = set()
         for line in process.stdout:
@@ -142,9 +142,9 @@ def away(action, peer=None):
         data = json.loads(run(['tailscale', 'status', '--json'], capture_output=True, text=True).stdout)
         if data.get('BackendState') == 'NeedsLogin':
             login()
-        run(['tailscale', 'up'])
+        run(['sudo', 'tailscale', 'up'])
     elif action == 'disconnect':
-        run(['tailscale', 'down'])
+        run(['sudo', 'tailscale', 'down'])
     elif action == 'status':
         status()
     elif action == 'ping':

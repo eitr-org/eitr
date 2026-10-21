@@ -1,5 +1,13 @@
 [
   {
+    "text": "Detailed Status",
+    "subtext": "Open the diagnostic report in a terminal",
+    "icon": "󰋽",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host status"
+    }
+  },
+  {
     "text": "Open Settings",
     "subtext": "Set the Sunshine password and configure streaming",
     "icon": "󰒓",
@@ -36,7 +44,7 @@
     "subtext": "Show whether Sunshine is running",
     "icon": "󰋽",
     "actions": {
-      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host status"
+      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh streaming"
     }
   },
   {

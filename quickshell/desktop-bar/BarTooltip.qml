@@ -16,11 +16,16 @@ PopupWindow {
     implicitWidth: Math.min(360, label.implicitWidth + 18)
     implicitHeight: label.implicitHeight + 12
     anchor.item: target
-    anchor.rect.x: (target.width - implicitWidth) / 2
-    anchor.rect.y: target.height + 6
+    anchor.rect.x: pointer.hovered ? pointer.point.position.x + 12 : (target.width - implicitWidth) / 2
+    anchor.rect.y: pointer.hovered ? pointer.point.position.y + 18 : target.height + 6
     anchor.edges: Edges.Top | Edges.Left
     anchor.gravity: Edges.Bottom | Edges.Right
     anchor.adjustment: PopupAdjustment.Slide
+
+    HoverHandler {
+        id: pointer
+        parent: tip.target
+    }
 
     onHoveredChanged: {
         ready = false;

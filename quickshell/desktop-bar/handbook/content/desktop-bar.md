@@ -53,3 +53,5 @@ previews stay in memory. Escape/outside click closes Overview.
 
 On empty desktop space, the wallpaper/theme mouse gestures are listed under
 **Learn > Mouse Gestures**. Use the keyboard carousel shortcuts when in doubt.
+
+The Audio/Mic control opens one panel with separate output and microphone sections. Tailscale and Streaming sit immediately before OBS and show local status, connection details and two-column action buttons. Account sign-in remains in Walker. Icon buttons show their background on hover; refresh icons spin while working, and tooltips appear near the pointer. Switches and inset action buttons use compact shared sizes.

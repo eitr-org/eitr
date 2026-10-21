@@ -370,6 +370,9 @@ msgstr "Cancelled; nothing was changed."
 msgid "Cannot change another user"
 msgstr "Cannot change another user"
 
+msgid "Capture"
+msgstr "Capture"
+
 msgid "Chapters need the Hybrid MP4 recording format (OBS Settings > Output)"
 msgstr "Chapters need the Hybrid MP4 recording format (OBS Settings > Output)"
 
@@ -441,6 +444,9 @@ msgstr "Cleanup"
 
 msgid "Cleanup complete."
 msgstr "Cleanup complete."
+
+msgid "Client"
+msgstr "Client"
 
 msgid "Close OBS once so Eitr can turn on its WebSocket, then try again"
 msgstr "Close OBS once so Eitr can turn on its WebSocket, then try again"
@@ -525,6 +531,9 @@ msgstr "Confirm"
 
 msgid "Conflicting iwd backend setting in {path}; review it before switching."
 msgstr "Conflicting iwd backend setting in {path}; review it before switching."
+
+msgid "Connected"
+msgstr "Connected"
 
 msgid "Connected. Restart open assistant sessions to use it."
 msgstr "Connected. Restart open assistant sessions to use it."
@@ -679,8 +688,14 @@ msgstr "Desktop Audio"
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 
+msgid "Device"
+msgstr "Device"
+
 msgid "Direct"
 msgstr "Direct"
+
+msgid "Disconnected"
+msgstr "Disconnected"
 
 msgid "Disk"
 msgstr "Disk"
@@ -960,6 +975,9 @@ msgstr "Home snapshots: off"
 
 msgid "Home snapshots: on, {snapshot_count} kept{pending}"
 msgstr "Home snapshots: on, {snapshot_count} kept{pending}"
+
+msgid "Host"
+msgstr "Host"
 
 msgid "Hosted zones"
 msgstr "Hosted zones"
@@ -1278,6 +1296,9 @@ msgstr "Name the subscriptions you want in the menu"
 
 msgid "Name this computer."
 msgstr "Name this computer."
+
+msgid "Network"
+msgstr "Network"
 
 msgid "Network ACLs"
 msgstr "Network ACLs"
@@ -1870,6 +1891,9 @@ msgstr "Set a Sunshine username and password in the local settings page before p
 msgid "Set up full-screen monitor capture in OBS first"
 msgstr "Set up full-screen monitor capture in OBS first"
 
+msgid "Settings"
+msgstr "Settings"
+
 msgid "Settings changed during the update; try again."
 msgstr "Settings changed during the update; try again."
 
@@ -1887,6 +1911,15 @@ msgstr "Several boot loaders are configured ({listing}). Remove stale loader fil
 
 msgid "Sharing hands over full control of this signed-in desktop. Only enable it on a trusted home network."
 msgstr "Sharing hands over full control of this signed-in desktop. Only enable it on a trusted home network."
+
+msgid "Sharing status unavailable."
+msgstr "Sharing status unavailable."
+
+msgid "Sharing stopped"
+msgstr "Sharing stopped"
+
+msgid "Sharing this desktop"
+msgstr "Sharing this desktop"
 
 msgid "Sharing this network security type is not supported"
 msgstr "Sharing this network security type is not supported"
@@ -1914,6 +1947,9 @@ msgstr "Sign-in and site status"
 
 msgid "Sign-in method"
 msgstr "Sign-in method"
+
+msgid "Signed out"
+msgstr "Signed out"
 
 msgid "Sites"
 msgstr "Sites"
@@ -2029,6 +2065,9 @@ msgstr "Subscriptions"
 msgid "Sunshine grants full control of your desktop. Setup grants KMS capture and virtual keyboard, mouse and controller access."
 msgstr "Sunshine grants full control of your desktop. Setup grants KMS capture and virtual keyboard, mouse and controller access."
 
+msgid "Sunshine is not installed."
+msgstr "Sunshine is not installed."
+
 msgid "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP"
 msgstr "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP"
 
@@ -2059,6 +2098,12 @@ msgstr "TPM2 unlock removed from {device}; the passphrase is required at boot ag
 msgid "Tab / arrows: choose  Enter: select  Esc: cancel"
 msgstr "Tab / arrows: choose  Enter: select  Esc: cancel"
 
+msgid "Tailscale IP"
+msgstr "Tailscale IP"
+
+msgid "Tailscale is not installed."
+msgstr "Tailscale is not installed."
+
 msgid "Tailscale setup belongs to another desktop user"
 msgstr "Tailscale setup belongs to another desktop user"
 
@@ -2067,6 +2112,9 @@ msgstr "Tailscale sign-in failed. Try again from Access away from home."
 
 msgid "Tailscale state: {state}"
 msgstr "Tailscale state: {state}"
+
+msgid "Tailscale status unavailable."
+msgstr "Tailscale status unavailable."
 
 msgid "Target"
 msgstr "Target"
@@ -2352,6 +2400,9 @@ msgstr "Type {confirmation} to enroll TPM unlock (anything else cancels): "
 
 msgid "Type {path} exactly to start installation."
 msgstr "Type {path} exactly to start installation."
+
+msgid "Unavailable"
+msgstr "Unavailable"
 
 msgid "Undo with Restore Sharing Setup. Existing Sunshine settings are kept."
 msgstr "Undo with Restore Sharing Setup. Existing Sunshine settings are kept."

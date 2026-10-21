@@ -5,19 +5,19 @@ Switch {
     id: control
     required property color foreground
     required property color accent
-    width: 52
-    height: 40
+    width: 42
+    height: 32
     padding: 0
     indicator: Rectangle {
         x: 2
         y: (control.height - height) / 2
-        width: 46
+        width: 36
         height: 22
         radius: 11
         color: control.checked ? control.accent : Qt.rgba(control.foreground.r, control.foreground.g, control.foreground.b, 0.2)
         opacity: control.enabled ? 1 : 0.45
         Rectangle {
-            x: control.checked ? 26 : 2
+            x: control.checked ? 16 : 2
             y: 2
             width: 18
             height: 18

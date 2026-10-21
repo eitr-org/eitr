@@ -25,3 +25,5 @@ La barra empieza en 1–5 y crece hasta el espacio actual o el mayor ocupado, co
 **SUPER + S** alterna el espacio especial, independiente de Vista general. **SUPER + Shift + Space** oculta/muestra la barra, sin detener el servicio de notificaciones.
 
 Los gestos de ratón para fondo y tema en el escritorio vacío están en **Aprender > Gestos del ratón**. Si tienes dudas, usa los atajos de teclado de los carruseles.
+
+El control Audio/Mic abre un panel con secciones separadas para la salida de audio y el micrófono. Tailscale y Streaming están justo antes de OBS y muestran el estado local, detalles de conexión y botones de acción en dos columnas. El inicio de sesión sigue en Walker. El fondo de los botones de icono aparece al pasar el puntero; los iconos de actualización giran mientras trabajan y las ayudas aparecen cerca del puntero. Los interruptores y los botones de acción internos tienen tamaños compactos comunes.

@@ -115,7 +115,7 @@ ThemedPopup {
                 id: refreshButton
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
-                text: "󰑓"; icon: true; height: 32
+                text: "\uF021"; icon: true; height: 32
                 loading: menu.loading
                 foreground: menu.foreground
                 onClicked: menu.refresh()

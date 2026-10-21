@@ -55,7 +55,12 @@ class RemoteAccessTests(unittest.TestCase):
         with patch.object(remote, 'run', return_value=result) as run, patch.object(remote, 'login') as login:
             remote.away('connect')
         login.assert_called_once()
-        self.assertEqual(run.call_args.args[0], ['tailscale', 'up'])
+        self.assertEqual(run.call_args.args[0], ['sudo', 'tailscale', 'up'])
+
+    def test_disconnect_requests_administrator_permission(self):
+        with patch.object(remote, 'run') as run:
+            remote.away('disconnect')
+        run.assert_called_once_with(['sudo', 'tailscale', 'down'])
 
     def test_failed_install_does_not_enable_service(self):
         software = Mock()
@@ -79,9 +84,10 @@ class RemoteAccessTests(unittest.TestCase):
         context = Mock()
         context.__enter__ = Mock(return_value=process)
         context.__exit__ = Mock(return_value=False)
-        with patch.object(remote.subprocess, 'Popen', return_value=context), patch.object(remote, 'run') as run:
+        with patch.object(remote.subprocess, 'Popen', return_value=context) as popen, patch.object(remote, 'run') as run:
             with self.assertRaisesRegex(RuntimeError, 'sign-in failed'):
                 remote.login()
+        self.assertEqual(popen.call_args.args[0], ['sudo', 'tailscale', 'login'])
         run.assert_called_once_with(['xdg-open', 'https://login.tailscale.com/a/test'])
 
     def test_idle_peer_is_not_reported_as_relayed(self):

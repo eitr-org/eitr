@@ -370,6 +370,9 @@ msgstr "Annulé ; rien n’a été modifié."
 msgid "Cannot change another user"
 msgstr "Impossible de modifier un autre utilisateur"
 
+msgid "Capture"
+msgstr "Capture"
+
 msgid "Chapters need the Hybrid MP4 recording format (OBS Settings > Output)"
 msgstr "Les marqueurs de chapitre nécessitent le format d’enregistrement Hybrid MP4 (Paramètres OBS > Sortie)"
 
@@ -441,6 +444,9 @@ msgstr "Nettoyage"
 
 msgid "Cleanup complete."
 msgstr "Nettoyage terminé."
+
+msgid "Client"
+msgstr "Client"
 
 msgid "Close OBS once so Eitr can turn on its WebSocket, then try again"
 msgstr "Fermez OBS une fois pour qu’Eitr active WebSocket, puis réessayez"
@@ -525,6 +531,9 @@ msgstr "Confirmer"
 
 msgid "Conflicting iwd backend setting in {path}; review it before switching."
 msgstr "Paramètre du service iwd contradictoire dans {path} ; vérifiez-le avant de changer."
+
+msgid "Connected"
+msgstr "Connecté"
 
 msgid "Connected. Restart open assistant sessions to use it."
 msgstr "Connecté. Redémarrez les sessions d’assistants ouvertes pour l’utiliser."
@@ -679,8 +688,14 @@ msgstr "Audio du bureau"
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "Journaux détaillés : /var/log/archinstall. Aucune modification après l’étape ayant échoué."
 
+msgid "Device"
+msgstr "Appareil"
+
 msgid "Direct"
 msgstr "Directe"
+
+msgid "Disconnected"
+msgstr "Déconnecté"
 
 msgid "Disk"
 msgstr "Disque"
@@ -960,6 +975,9 @@ msgstr "Instantanés des dossiers personnels : désactivés"
 
 msgid "Home snapshots: on, {snapshot_count} kept{pending}"
 msgstr "Instantanés des dossiers personnels : activés, {snapshot_count} conservés{pending}"
+
+msgid "Host"
+msgstr "Hôte"
 
 msgid "Hosted zones"
 msgstr "Zones hébergées"
@@ -1278,6 +1296,9 @@ msgstr "Nommez les abonnements que vous souhaitez dans le menu"
 
 msgid "Name this computer."
 msgstr "Donnez un nom à cet ordinateur."
+
+msgid "Network"
+msgstr "Réseau"
 
 msgid "Network ACLs"
 msgstr "ACL réseau"
@@ -1870,6 +1891,9 @@ msgstr "Définissez un identifiant et un mot de passe Sunshine dans les réglage
 msgid "Set up full-screen monitor capture in OBS first"
 msgstr "Configurez d’abord la capture d’un écran entier dans OBS"
 
+msgid "Settings"
+msgstr "Paramètres"
+
 msgid "Settings changed during the update; try again."
 msgstr "Les réglages ont changé pendant la mise à jour ; réessayez."
 
@@ -1887,6 +1911,15 @@ msgstr "Plusieurs chargeurs de démarrage sont configurés ({listing}). Supprime
 
 msgid "Sharing hands over full control of this signed-in desktop. Only enable it on a trusted home network."
 msgstr "Le partage confie le contrôle total de ce bureau connecté. Activez-le uniquement sur un réseau domestique de confiance."
+
+msgid "Sharing status unavailable."
+msgstr "État du partage indisponible."
+
+msgid "Sharing stopped"
+msgstr "Partage arrêté"
+
+msgid "Sharing this desktop"
+msgstr "Partage de ce bureau en cours"
 
 msgid "Sharing this network security type is not supported"
 msgstr "Le partage de ce type de sécurité réseau n’est pas pris en charge"
@@ -1914,6 +1947,9 @@ msgstr "État de connexion et du site"
 
 msgid "Sign-in method"
 msgstr "Méthode de connexion"
+
+msgid "Signed out"
+msgstr "Déconnecté du compte"
 
 msgid "Sites"
 msgstr "Sites"
@@ -2029,6 +2065,9 @@ msgstr "Abonnements"
 msgid "Sunshine grants full control of your desktop. Setup grants KMS capture and virtual keyboard, mouse and controller access."
 msgstr "Sunshine accorde le contrôle total du bureau. La configuration autorise la capture KMS et les entrées virtuelles du clavier, de la souris et de la manette."
 
+msgid "Sunshine is not installed."
+msgstr "Sunshine n’est pas installé."
+
 msgid "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP"
 msgstr "Méthodes d’entreprise prises en charge : PEAP/MSCHAPv2 et TTLS/PAP"
 
@@ -2059,6 +2098,12 @@ msgstr "Déverrouillage TPM2 supprimé de {device} ; la phrase secrète est à n
 msgid "Tab / arrows: choose  Enter: select  Esc: cancel"
 msgstr "Tab / flèches : choisir  Enter : sélectionner  Esc : annuler"
 
+msgid "Tailscale IP"
+msgstr "IP Tailscale"
+
+msgid "Tailscale is not installed."
+msgstr "Tailscale n’est pas installé."
+
 msgid "Tailscale setup belongs to another desktop user"
 msgstr "La configuration Tailscale appartient à un autre utilisateur"
 
@@ -2067,6 +2112,9 @@ msgstr "Échec de connexion à Tailscale. Réessayez depuis Accès hors du domic
 
 msgid "Tailscale state: {state}"
 msgstr "État de Tailscale : {state}"
+
+msgid "Tailscale status unavailable."
+msgstr "État de Tailscale indisponible."
 
 msgid "Target"
 msgstr "Cible"
@@ -2352,6 +2400,9 @@ msgstr "Saisissez {confirmation} pour configurer le déverrouillage TPM (toute a
 
 msgid "Type {path} exactly to start installation."
 msgstr "Saisissez exactement {path} pour lancer l’installation."
+
+msgid "Unavailable"
+msgstr "Indisponible"
 
 msgid "Undo with Restore Sharing Setup. Existing Sunshine settings are kept."
 msgstr "Annulez avec Rétablir la configuration du partage. Les réglages Sunshine existants sont conservés."

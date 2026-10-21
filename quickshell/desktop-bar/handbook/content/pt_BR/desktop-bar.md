@@ -25,3 +25,5 @@ A barra começa em 1–5 e cresce até o espaço atual ou o maior ocupado, com l
 **SUPER + S** alterna o espaço especial, separado da Visão geral. **SUPER + Shift + Space** oculta/exibe a barra, sem interromper o serviço de notificações.
 
 Os gestos de mouse para papéis de parede e temas no espaço vazio da área de trabalho estão em **Aprender > Gestos do mouse**. Em caso de dúvida, use os atalhos de teclado dos carrosséis.
+
+O controle Áudio/Mic abre um painel com seções separadas para saída de áudio e microfone. Tailscale e Streaming ficam imediatamente antes do OBS e mostram o status local, detalhes da conexão e botões de ação em duas colunas. A entrada na conta continua no Walker. O fundo dos botões de ícone aparece quando você passa o ponteiro sobre eles; os ícones de atualização giram durante a operação, e as dicas aparecem perto do ponteiro. Os interruptores e botões de ação internos usam tamanhos compactos compartilhados.

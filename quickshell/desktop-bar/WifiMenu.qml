@@ -152,8 +152,8 @@ ThemedPopup {
                     }
                     PanelButton {
                         id: scanButton
-                        text: "󰑓"; icon: true; compactIconBackground: true; height: 32; foreground: menu.foreground
-                        loading: operation.running && operation.command[2] === "scan"
+                        text: "\uF021"; icon: true; compactIconBackground: true; height: 32; foreground: menu.foreground
+                        loading: (operation.running && operation.command[2] === "scan") || (!!menu.device && menu.device.scanning)
                         available: !!menu.device && menu.device.powered && !menu.busy && !menu.device.scanning
                         onClicked: menu.act("scan", menu.device.path)
                         HoverHandler { id: scanHover }
@@ -231,10 +231,43 @@ ThemedPopup {
                                 activeFocusOnTab: true
                                 Keys.onReturnPressed: if (!menu.busy) menu.choose(modelData)
                                 Text { x: PanelStyle.selectionInset; anchors.verticalCenter: parent.verticalCenter; text: "󰤨"; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.headingSize }
-                                Column {
-                                    x: PanelStyle.selectionTextInset; width: parent.width - networkActions.width - 52; anchors.verticalCenter: parent.verticalCenter; spacing: PanelStyle.selectionDetailGap
-                                    Text { width: parent.width; elide: Text.ElideRight; textFormat: Text.PlainText; text: network.modelData.name; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
-                                    Text { visible: network.modelData.connected || network.modelData.available === false; text: network.modelData.connected ? Eitr.I18n.tr("Connected") : Eitr.I18n.tr("Offline"); color: menu.foreground; opacity: 0.6; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                                Item {
+                                    x: PanelStyle.selectionTextInset
+                                    width: parent.width - networkActions.width - 52
+                                    height: 20
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    Text {
+                                        id: networkName
+                                        width: Math.min(implicitWidth, Math.max(0, parent.width - networkStatus.width - (networkStatus.visible ? 8 : 0)))
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        elide: Text.ElideRight
+                                        textFormat: Text.PlainText
+                                        text: network.modelData.name
+                                        color: menu.foreground
+                                        font.family: DesktopFonts.family
+                                        font.pixelSize: PanelStyle.bodySize
+                                    }
+                                    Row {
+                                        id: networkStatus
+                                        x: networkName.width + 8
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        spacing: 6
+                                        visible: network.modelData.connected || network.modelData.available === false
+                                        width: visible ? implicitWidth : 0
+                                        Rectangle {
+                                            width: 4; height: 4; radius: 2
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            color: menu.foreground
+                                            opacity: 0.6
+                                        }
+                                        Text {
+                                            text: network.modelData.connected ? Eitr.I18n.tr("Connected") : Eitr.I18n.tr("Offline")
+                                            color: menu.foreground
+                                            opacity: 0.6
+                                            font.family: DesktopFonts.family
+                                            font.pixelSize: PanelStyle.captionSize
+                                        }
+                                    }
                                 }
                                 MouseArea { id: networkMouse; anchors.fill: parent; hoverEnabled: true; enabled: !menu.busy && !network.modelData.connected && network.modelData.available !== false; cursorShape: Qt.PointingHandCursor; onClicked: menu.choose(network.modelData) }
                                 Row {
