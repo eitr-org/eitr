@@ -85,7 +85,10 @@ distro/vm-tests/eitr-vm-test boot-guard --work "$RUN"                 # after an
 - **install** passes the answers through QEMU's firmware config: the ISO's
   login sees them and runs `eitr-guided-install --answers` instead of the
   wizard (erase install on `/dev/vda`, user `tester`, the run's SSH key). The
-  installer logs to the serial port and powers off when done.
+  installer logs to the serial port and powers off when done. With
+  `--encrypted` it installs on LUKS2 with a random passphrase saved as
+  `passphrase` in the run folder; every later boot and restart types it at
+  the unlock prompt through QEMU's monitor.
 - **verify** boots the disk with a network that reaches only the host and
   checks over SSH: a running system with no failed units, SDDM up, the Eitr
   packages, the install log, online-only package sources and the Hyprland

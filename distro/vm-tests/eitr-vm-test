@@ -2,6 +2,7 @@
 """Install, verify and update Eitr in a throwaway QEMU virtual machine.
 
   eitr-vm-test install --iso ISO --work DIR   offline install from the ISO
+                       [--encrypted]          LUKS2 install; boots type its passphrase
   eitr-vm-test verify --work DIR              boot the installed disk and check it
   eitr-vm-test update --work DIR              run System Update online, then verify
   eitr-vm-test reset --work DIR --mode MODE   Factory Reset from Walker's script, then verify
@@ -28,6 +29,7 @@ FIRMWARE = Path("/usr/share/edk2/x64/OVMF_CODE.4m.fd")
 FIRMWARE_VARS = Path("/usr/share/edk2/x64/OVMF_VARS.4m.fd")
 USER = "tester"
 SSH_PORT = 2230
+PASSPHRASE_CHARACTERS = "abcdefghjkmnpqrstuvwxyz23456789"
 
 
 class VmTestError(RuntimeError):
@@ -106,6 +108,12 @@ def install(arguments):
     answers = {"disk": "/dev/vda", "layout": "erase", "encrypted": False, "hostname": "eitr-vm",
                "username": USER, "password": password, "keyboard": "us",
                "ssh_authorized_key": (work / "key.pub").read_text().strip()}
+    if arguments.encrypted:
+        # Lowercase letters and digits type as plain keys; distinct from the user password,
+        # so a passphrase typed at the login screen by mistake signs nobody in.
+        passphrase = "".join(secrets.choice(PASSPHRASE_CHARACTERS) for _ in range(20))
+        (work / "passphrase").write_text(passphrase + "\n")
+        answers.update(encrypted=True, passphrase=passphrase)
     (work / "answers.json").write_text(json.dumps(answers, indent=2) + "\n")
     serial = work / "install.serial.log"
     started = time.monotonic()
@@ -119,6 +127,13 @@ def install(arguments):
     print(f"Installed offline in {time.monotonic() - started:.0f} s (VM wall time); log: {serial}")
 
 
+def type_text(work, text):
+    """Type into the VM's console, then press Enter (only characters that map to plain keys)."""
+    for character in text:
+        qmp(work, "send-key", {"keys": [{"type": "qcode", "data": character}]})
+    qmp(work, "send-key", {"keys": [{"type": "qcode", "data": "ret"}]})
+
+
 def boot(work, network, forwards=()):
     """Boot the installed disk; 'host' reaches only the host, 'internet' also the internet.
     ``forwards`` adds (host port, guest port) TCP forwards, for testing the firewall from outside."""
@@ -127,15 +142,34 @@ def boot(work, network, forwards=()):
     process = qemu(work, "boot", ["-nic", f"user,model=virtio-net-pci,restrict={restrict},"
                                           f"hostfwd=tcp:127.0.0.1:{SSH_PORT}-:22{extra}",
                                   "-serial", f"file:{work / 'boot.serial.log'}"])
-    deadline = time.monotonic() + 300
+    if not wait_ssh(work, process, time.monotonic() + 300, "booting"):
+        process.kill()
+        raise VmTestError("The installed system did not accept SSH within 300 s")
+    return process
+
+
+def wait_ssh(work, process, deadline, what):
+    """Wait until SSH answers; True when it did before the deadline. An encrypted disk
+    waits at its unlock prompt, so the run's passphrase is typed there, again every
+    20 s in case the prompt was not up yet."""
+    passphrase_file = work / "passphrase"
+    passphrase = passphrase_file.read_text().strip() if passphrase_file.exists() else ""
+    started = time.monotonic()
+    typed_at = None
     while time.monotonic() < deadline:
         if process.poll() is not None:
-            raise VmTestError("The VM exited while booting")
+            raise VmTestError(f"The VM exited while {what}")
         if ssh(work, "true", check=False).returncode == 0:
-            return process
+            return True
+        now = time.monotonic()
+        if passphrase and now - started > 8 and (typed_at is None or now - typed_at > 20):
+            try:
+                type_text(work, passphrase)
+            except (OSError, VmTestError):
+                pass
+            typed_at = now
         time.sleep(3)
-    process.kill()
-    raise VmTestError("The installed system did not accept SSH within 300 s")
+    return False
 
 
 CHECKS = [
@@ -255,12 +289,8 @@ def wait_reboot(work, process, timeout=600):
         time.sleep(2)
     # The restored system generates new SSH host keys at its first boot.
     (work / "known_hosts").unlink(missing_ok=True)
-    while ssh(work, "true", check=False).returncode != 0:
-        if process.poll() is not None:
-            raise VmTestError("The VM exited while restarting")
-        if time.monotonic() > deadline:
-            raise VmTestError("The restarted system did not accept SSH")
-        time.sleep(3)
+    if not wait_ssh(work, process, deadline, "restarting"):
+        raise VmTestError("The restarted system did not accept SSH")
 
 
 def factory_reset(arguments):
@@ -372,6 +402,7 @@ def main():
     install_parser = commands.add_parser("install")
     install_parser.add_argument("--iso", required=True)
     install_parser.add_argument("--timeout", type=int, default=3600)
+    install_parser.add_argument("--encrypted", action="store_true", help="install on LUKS2; boots type the passphrase")
     for name in ("install", "verify", "update", "reset", "boot-guard", "ssh"):
         sub = install_parser if name == "install" else commands.add_parser(name)
         sub.add_argument("--work", required=True)
