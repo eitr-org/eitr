@@ -1285,6 +1285,9 @@ msgstr "Nachrichtenwarteschlangen"
 msgid "Missing {missing_files}. Install the {loader} packages listed in distro/bootloader/ first. Nothing was changed."
 msgstr "{missing_files} fehlt. Installieren Sie zuerst die unter distro/bootloader/ aufgeführten Pakete für {loader}. Nichts wurde geändert."
 
+msgid "Mute this program"
+msgstr "Dieses Programm stummschalten"
+
 msgid "Name"
 msgstr "Name"
 
@@ -2028,9 +2031,6 @@ msgstr "Schritt {step_number} von {step_count}"
 
 msgid "Stop and disable the existing Sunshine user service before using Eitr sharing. Its settings will be kept."
 msgstr "Beenden und deaktivieren Sie den vorhandenen Sunshine-Benutzerdienst vor der Eitr-Freigabe. Seine Einstellungen bleiben erhalten."
-
-msgid "Stop notifications for this program"
-msgstr "Benachrichtigungen für dieses Programm abstellen"
 
 msgid "Stop sharing and restore the original system permissions?"
 msgstr "Freigabe beenden und ursprüngliche Systemrechte wiederherstellen?"

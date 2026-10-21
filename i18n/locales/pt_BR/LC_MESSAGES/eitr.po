@@ -1285,6 +1285,9 @@ msgstr "Filas de mensagens"
 msgid "Missing {missing_files}. Install the {loader} packages listed in distro/bootloader/ first. Nothing was changed."
 msgstr "Faltam {missing_files}. Instale primeiro os pacotes de {loader} listados em distro/bootloader/. Nada foi alterado."
 
+msgid "Mute this program"
+msgstr "Silenciar este programa"
+
 msgid "Name"
 msgstr "Nome"
 
@@ -2028,9 +2031,6 @@ msgstr "Etapa {step_number} de {step_count}"
 
 msgid "Stop and disable the existing Sunshine user service before using Eitr sharing. Its settings will be kept."
 msgstr "Pare e desative o serviço de usuário existente do Sunshine antes de compartilhar pelo Eitr. Suas configurações serão mantidas."
-
-msgid "Stop notifications for this program"
-msgstr "Parar notificações deste programa"
 
 msgid "Stop sharing and restore the original system permissions?"
 msgstr "Parar o compartilhamento e restaurar as permissões originais do sistema?"

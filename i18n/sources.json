@@ -4678,6 +4678,9 @@
     "Missing {missing_files}. Install the {loader} packages listed in distro/bootloader/ first. Nothing was changed.": [
       "distro/system/eitr-system.py"
     ],
+    "Mute this program": [
+      "walker/scripts/actions/system/crash-help.py"
+    ],
     "Name": [
       "walker/scripts/actions/development/monitoring.py",
       "walker/scripts/actions/install/webapps.py",
@@ -5431,9 +5434,6 @@
     ],
     "Stop and disable the existing Sunshine user service before using Eitr sharing. Its settings will be kept.": [
       "walker/scripts/actions/system/remote-access.py"
-    ],
-    "Stop notifications for this program": [
-      "walker/scripts/actions/system/crash-help.py"
     ],
     "Stop sharing and restore the original system permissions?": [
       "walker/scripts/actions/system/remote-access.py"

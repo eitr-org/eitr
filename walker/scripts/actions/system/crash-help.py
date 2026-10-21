@@ -64,7 +64,7 @@ def notify(event):
     if summary is None or not preferences().get('enabled'):
         return
     actions = ['--action=report=' + tr('Report a problem'), '--action=ignore=' + tr('Ignore'),
-               '--action=mute=' + tr('Stop notifications for this program')]
+               '--action=mute=' + tr('Mute this program')]
     if default_assistant():
         actions.insert(0, '--action=ai=' + tr('Ask the AI'))
     result = subprocess.run(['notify-send', '--app-name=Eitr', '--icon=dialog-warning', '--wait',

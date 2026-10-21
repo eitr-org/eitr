@@ -68,7 +68,7 @@ deleted at any time.
 
 ### When something crashes
 
-Crash Notifications are on by default. A user service watches new, readable systemd-coredump records for your own programs. Each crash offers Report a problem, Ignore, and Stop notifications for this program; Ask the AI appears when a default assistant is installed and selected. Repeated crashes of one program are limited to one notification every five minutes. Toggle Crash Notifications under Main > Toggle or Control Center > Quick Toggles. Preferences and muted program paths stay in `~/.config/eitr/crash-help.json`; remove a path from `ignored` to allow it again.
+Crash Notifications are on by default. A user service watches new, readable systemd-coredump records for your own programs. Each crash offers Report a problem, Ignore, and Mute this program; Ask the AI appears when a default assistant is installed and selected. Repeated crashes of one program are limited to one notification every five minutes. Toggle Crash Notifications under Main > Toggle or Control Center > Quick Toggles. Preferences and muted program paths stay in `~/.config/eitr/crash-help.json`; remove a path from `ignored` to allow it again.
 
 Ask the AI opens your default assistant with only the program, signal and backtrace from `coredumpctl info`, asking for an explanation and a proposed fix without changing the system unless you agree. No core dump is passed. Your assistant may send that summary to its provider when you choose this action. Report a problem attaches the same summary to the existing report workflow: review it before sharing; nothing is sent automatically.
 

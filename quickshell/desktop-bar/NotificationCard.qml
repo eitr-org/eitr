@@ -164,16 +164,22 @@ Rectangle {
             fillMode: Image.PreserveAspectFit
             asynchronous: true
         }
+        // Actions sit in an even grid: one fills the row, the rest pair up in two
+        // equal columns, and an odd last action spans the row.
         Flow {
+            id: actionGrid
+            readonly property var actions: card.notification ? card.notification.actions.filter(a => a.identifier !== "default" && a.identifier !== "inline-reply") : []
             width: parent.width
             spacing: 6
             Repeater {
-                model: card.notification ? card.notification.actions.filter(a => a.identifier !== "default" && a.identifier !== "inline-reply") : []
+                model: actionGrid.actions
                 PanelButton {
                     required property var modelData
+                    required property int index
+                    readonly property bool fullRow: actionGrid.actions.length === 1 || (index === actionGrid.actions.length - 1 && index % 2 === 0)
                     objectName: "notificationAction_" + modelData.identifier
                     text: modelData.text
-                    width: Math.min(content.width, Math.max(90, text.length * 9 + 24))
+                    width: fullRow ? actionGrid.width : (actionGrid.width - actionGrid.spacing) / 2
                     height: 32
                     foreground: card.foreground
                     onClicked: card.invokeAction(modelData)
