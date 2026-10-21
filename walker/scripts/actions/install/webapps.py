@@ -272,7 +272,8 @@ def main(arguments):
             raise ValueError(tr('Install Chrome, Chromium, Edge or Brave from Install > Browsers to open it.'))
         _, icon = create(arguments[1], arguments[2])
         message = f"{clean_name(arguments[1])} is in your apps." + ("" if icon else " The site has no usable icon; a generic one is used.")
-        subprocess.run(["notify-send", tr('Web app created'), message], check=False)
+        if shutil.which("notify-send"):
+            subprocess.run(["notify-send", tr('Web app created'), message], check=False)
         return 0
     if command == "list" and len(arguments) == 1:
         print(json.dumps(apps()))
