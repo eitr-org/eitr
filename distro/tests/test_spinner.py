@@ -103,7 +103,13 @@ class SpinnerTests(unittest.TestCase):
         plain = re.sub(r'\x1b\[[0-9;?]*[A-Za-z]', '', result.stdout)
         self.assertIn('Atualização… · ', plain)
         self.assertIn('✓ Atualização…', plain)
-        self.assertNotRegex(result.stdout, '[ᚠᚢᚦᚨᚱᚲᚷᚹ]')
+        self.assertRegex(plain, '[ᚠᚢᚦᚨᚱᚲᚷᚹ] Atualização… · ')
+        # Frames overwrite the line; a full-line clear per frame flickers.
+        self.assertLessEqual(result.stdout.count('\x1b[2K'), 1)
+        # The colours flow: the first letter's colour changes between frames.
+        firsts = re.findall(r'\r\x1b\[38;2;(\d+;\d+;\d+)m[ᚠᚢᚦᚨᚱᚲᚷᚹ]', result.stdout)
+        self.assertGreater(len(set(firsts)), 1)
+        self.assertNotIn('\x1b[38;2;', result.stdout.split('✓')[-1])
         self.assertTrue(result.stdout.endswith('✓ Atualização…\r\n'))
 
     def test_color_capability(self):
@@ -112,4 +118,4 @@ class SpinnerTests(unittest.TestCase):
                 result = self.run_helper('run_with_spinner Waiting sleep 0.2', terminal=True,
                                          COLORTERM=mode)
                 self.assertEqual('\x1b[38;2;' in result.stdout, mode == '24bit')
-                self.assertNotRegex(result.stdout, '[ᚠᚢᚦᚨᚱᚲᚷᚹ]')
+                self.assertRegex(result.stdout, '[ᚠᚢᚦᚨᚱᚲᚷᚹ]')

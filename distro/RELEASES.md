@@ -63,7 +63,7 @@ remain install-only.
 Update terminals show the active package check and snapshot stage; an up-to-date
 result stays visible for three seconds. Package installations announce their
 safety check before the administrator password, and Flatpak preparation is visible.
-Noninteractive waiting steps flow with Bifröst rainbow text (theme accent without
+Noninteractive waiting steps show a spinning rune and flow with Bifröst rainbow text (theme accent without
 truecolour support) and translated Norse phrases, then settle
 with a check mark; redirected output and terminal opt-outs keep plain progress lines.
 

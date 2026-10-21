@@ -54,9 +54,10 @@ run_with_spinner() (
     }
     (
         trap 'exit 0' TERM INT
-        local frame=0 started=$SECONDS phrase='' elapsed suffix line position stop next mix character channel value
+        local frame=0 started=$SECONDS phrase='' elapsed suffix line position stop next mix character frame_text colour lead truecolor=0
+        local -a runes=(ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ)
         local -a red=(224 232 230 127 111 169) green=(92 147 195 201 168 139) blue=(104 90 106 143 220 214)
-        local -a channels=()
+        [[ ${COLORTERM:-} == truecolor || ${COLORTERM:-} == 24bit ]] && truecolor=1
         printf '\033[?25l' >&2
         while :; do
             (( frame % 30 != 0 )) || phrase="$(spinner_phrase $((RANDOM % 16)))"
@@ -64,24 +65,27 @@ run_with_spinner() (
             suffix=''
             (( elapsed < 5 )) || suffix=" · ${elapsed}s"
             line="$text · $phrase"
-            line="${line:0:columns-1-${#suffix}}"
-            printf '\r\033[2K' >&2
+            line="${line:0:columns-3-${#suffix}}"
+            # Each frame is built in memory and written once, overwriting the old
+            # line: clearing first and printing letter by letter flickers.
+            frame_text=''
+            lead="$tint"
             for ((character=0; character<${#line} && character<${#text}; character++)); do
-                if [[ ${COLORTERM:-} == truecolor || ${COLORTERM:-} == 24bit ]]; then
-                    position=$(((character * 24 + frame * 4) % 1536))
+                if (( truecolor )); then
+                    # The Bifröst rainbow flows along the text, about 7 letters a second.
+                    position=$((((character - frame * 2 / 3) * 24 % 1536 + 1536) % 1536))
                     stop=$((position / 256)) next=$(((stop + 1) % 6)) mix=$((position % 256))
-                    channels=()
-                    for channel in red green blue; do
-                        local -n stops=$channel
-                        value=$((stops[stop] + (stops[next] - stops[stop]) * mix / 256))
-                        channels+=("$value")
-                    done
-                    printf '\033[38;2;%d;%d;%dm%s' "${channels[@]}" "${line:character:1}" >&2
+                    printf -v colour '\033[38;2;%d;%d;%dm' \
+                        "$((red[stop] + (red[next] - red[stop]) * mix / 256))" \
+                        "$((green[stop] + (green[next] - green[stop]) * mix / 256))" \
+                        "$((blue[stop] + (blue[next] - blue[stop]) * mix / 256))"
+                    (( character )) || lead="$colour"
+                    frame_text+="$colour${line:character:1}"
                 else
-                    printf '%s%s' "$tint" "${line:character:1}" >&2
+                    frame_text+="$tint${line:character:1}"
                 fi
             done
-            printf '\033[0m\033[2m%s%s\033[0m' "${line:character}" "$suffix" >&2
+            printf '\r%s%s \033[0m%s\033[2m%s%s\033[0m\033[K' "$lead" "${runes[frame % ${#runes[@]}]}" "$frame_text" "${line:character}" "$suffix" >&2
             frame=$((frame + 1))
             read -r -t 0.1 -u "$tick" _ || true
         done

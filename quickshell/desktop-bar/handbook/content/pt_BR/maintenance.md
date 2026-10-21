@@ -2,7 +2,7 @@
 
 O terminal mostra cada etapa de verificação e criação de snapshots enquanto ela é executada. Se tudo estiver atualizado, a mensagem permanece visível por três segundos antes de o terminal fechar.
 
-As etapas de espera da Atualização do sistema exibem um arco-íris Bifröst fluido em terminais truecolor, ou a cor de destaque do tema nos demais, seguido de frases nórdicas traduzidas e do tempo decorrido. Etapas concluídas deixam uma marca e o texto sem cor.
+As etapas de espera da Atualização do sistema exibem uma runa girando e um arco-íris Bifröst fluido em terminais truecolor, ou a cor de destaque do tema nos demais, seguido de frases nórdicas traduzidas e do tempo decorrido. Etapas concluídas deixam uma marca e o texto sem cor.
 
 Abra **Sistema > Manutenção**. Revise a saída do terminal e mantenha backups independentes antes de alterar o sistema. Snapshots não são backups em outro disco.
 

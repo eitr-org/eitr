@@ -2,7 +2,7 @@
 
 Le terminal indique chaque étape de vérification et de création des instantanés pendant son exécution. Si tout est à jour, le message reste visible pendant trois secondes avant la fermeture du terminal.
 
-Les étapes d’attente de la mise à jour système affichent un arc-en-ciel Bifröst fluide dans les terminaux truecolor, sinon l’accent du thème, suivi de phrases nordiques traduites et du temps écoulé. Une étape réussie laisse une coche et son texte sans couleur.
+Les étapes d’attente de la mise à jour système affichent une rune tournante et un arc-en-ciel Bifröst fluide dans les terminaux truecolor, sinon l’accent du thème, suivi de phrases nordiques traduites et du temps écoulé. Une étape réussie laisse une coche et son texte sans couleur.
 
 Ouvrez **Système > Entretien**. Lisez les sorties du terminal et gardez des sauvegardes indépendantes avant de modifier le système. Les instantanés ne sont pas des sauvegardes sur un autre disque.
 
