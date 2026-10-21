@@ -76,6 +76,7 @@ def banner():
             accent = value
     except (OSError, tomllib.TOMLDecodeError):
         pass
+    os.environ["EITR_TERMINAL_ACCENT"] = accent
     rgb = [int(accent[i:i + 2], 16) for i in (1, 3, 5)]
     columns = shutil.get_terminal_size().columns
     logo = centered(wordmark(), columns)

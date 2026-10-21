@@ -150,7 +150,9 @@ yay() { echo "yay $*"; }
 """)
         self.assertEqual(result.returncode, 0, result.stderr)
         lines = result.stdout.splitlines()
-        self.assertEqual(lines[0].split()[-1], "snapshot-pre")
+        self.assertEqual(lines[0], "sudo -v")
+        self.assertEqual(lines[1].split()[-1], "snapshot-pre")
+        self.assertTrue(lines[1].startswith("sudo -n "))
         self.assertEqual(lines[-2].split()[-2:], ["snapshot-post", "success"])
         self.assertEqual(lines[-1], "hook post-update system", "the user's hook runs after the update")
 

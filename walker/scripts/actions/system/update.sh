@@ -4,6 +4,8 @@ i18n_library="${EITR_LIBRARY_ROOT:-${EITR_CODE_ROOT:-/usr/share/eitr}/lib}/i18n.
 [[ -f "$i18n_library" ]] || i18n_library="${EITR_CODE_ROOT:-/usr/share/eitr}/distro/lib/i18n.sh"
 # shellcheck source=distro/lib/i18n.sh
 source "$i18n_library"
+# shellcheck source=distro/lib/spinner.sh
+source "${i18n_library%/*}/spinner.sh"
 restart_check="${EITR_CODE_ROOT:-/usr/share/eitr}/walker/scripts/actions/system/restart-check.py"
 # Apps Eitr installs from Flatpak (such as GeForce NOW) live in the user's
 # installation. A Flatpak failure is reported but does not undo the system update.
@@ -19,8 +21,7 @@ update_flatpaks() {
 arch_news_ok() {
   [[ "${EITR_SKIP_ARCH_NEWS:-}" == 1 ]] && return 0
   local status=0 answer=''
-  eitr_gettext 'Checking Arch Linux news…' >&2; printf '\n' >&2
-  python3 "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/scripts/actions/system/arch-news.py" || status=$?
+  run_with_spinner "$(eitr_gettext 'Checking Arch Linux news…')" python3 "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/scripts/actions/system/arch-news.py" || status=$?
   (( status == 10 )) || return 0
   read -r -p "$(eitr_gettext 'Continue the update? [y/N] ')" answer || true
   [[ "$answer" =~ ^[Yy]([Ee][Ss])?$ ]]
@@ -30,18 +31,23 @@ cancel() { rm -f "$packages"; eitr_gettext 'Update cancelled; nothing was change
 full_update() { sudo pacman -Syu; yay -Sua --devel; update_flatpaks; }
 # Only a complete, successful check may skip the update. checkupdates keeps its
 # sync database separate from the system database (exit 2 means no updates).
-no_updates() {
+no_updates() (
   local official aur flatpaks aur_errors status=0
-  eitr_gettext 'Checking official package updates…' >&2; printf '\n' >&2
-  official="$(checkupdates)" || status=$?
+  local check_output
+  check_output="$(mktemp)" || return 1
+  trap 'rm -f "$check_output"' EXIT
+  capture_check() { "$@" >"$check_output"; }
+  run_with_spinner "$(eitr_gettext 'Checking official package updates…')" capture_check checkupdates || status=$?
+  official="$(cat "$check_output")"
   [[ "$status" == 0 || "$status" == 2 ]] || return 1
   [[ -z "$official" ]] || return 1
   # yay uses exit 1 for an empty update list as well as errors. Only its
   # silent empty result is a no-update result; diagnostics keep the update path.
   aur_errors="$(mktemp "${XDG_RUNTIME_DIR:-/tmp}/eitr-update-check.XXXXXX")" || return 1
   status=0
-  eitr_gettext 'Checking AUR updates…' >&2; printf '\n' >&2
-  aur="$(yay -Qua --devel 2>"$aur_errors")" || status=$?
+  capture_aur() { yay -Qua --devel >"$check_output" 2>"$aur_errors"; }
+  run_with_spinner "$(eitr_gettext 'Checking AUR updates…')" capture_aur || status=$?
+  aur="$(cat "$check_output")"
   if [[ -s "$aur_errors" ]]; then
     cat "$aur_errors" >&2
     rm -f "$aur_errors"
@@ -50,10 +56,10 @@ no_updates() {
   rm -f "$aur_errors"
   [[ "$status" == 0 || "$status" == 1 ]] || return 1
   [[ -z "$aur" ]] || return 1
-  eitr_gettext 'Checking Flatpak updates…' >&2; printf '\n' >&2
-  flatpaks="$(flatpak remote-ls --user --updates --columns=application)" || return 1
+  run_with_spinner "$(eitr_gettext 'Checking Flatpak updates…')" capture_check flatpak remote-ls --user --updates --columns=application || return 1
+  flatpaks="$(cat "$check_output")"
   [[ -z "$flatpaks" ]]
-}
+)
 if [[ "${1:-}" == system ]] && no_updates; then
   eitr_gettext 'Everything is up to date.'
   printf '\n'
@@ -64,8 +70,7 @@ fi
 packages="$(mktemp "${XDG_RUNTIME_DIR:-/tmp}/eitr-update-packages.XXXXXX")"
 # A broken check must never block the update that would fix it; only the restart
 # hint is lost then.
-eitr_gettext 'Preparing the update…' >&2; printf '\n' >&2
-python3 "$restart_check" snapshot "$packages" || eitr_gettext 'Could not record running packages; the update continues without a restart hint.' >&2
+run_with_spinner "$(eitr_gettext 'Preparing the update…')" python3 "$restart_check" snapshot "$packages" || eitr_gettext 'Could not record running packages; the update continues without a restart hint.' >&2
 desktop_before="$(pacman -Q eitr-desktop 2>/dev/null || true)"
 # The bar's updates icon re-checks once the update has finished; no bar running is fine.
 # Elephant loads menu files only at start, so a new eitr-desktop restarts it; its
@@ -96,13 +101,13 @@ case "${1:-}" in
       [[ -n "$helper" ]] || { echo 'Distro snapshot helper is missing; update aborted.' >&2; exit 1; }
       exec 9>"${XDG_RUNTIME_DIR:-/tmp}/eitr-system-update-$UID.lock"
       flock -n 9 || { echo 'Another System Update is running.' >&2; exit 1; }
-      eitr_gettext 'Creating the before-update snapshot…' >&2; printf '\n' >&2
-      sudo "$helper" snapshot-pre
+      sudo -v
+      run_with_spinner "$(eitr_gettext 'Creating the before-update snapshot…')" sudo -n "$helper" snapshot-pre
       # Always pair the pre snapshot, even when the upgrade fails or is declined.
       outcome=failed
       finish_snapshot() {
-        eitr_gettext 'Creating the after-update snapshot…' >&2; printf '\n' >&2
-        sudo "$helper" snapshot-post "$outcome"
+        sudo -v
+        run_with_spinner "$(eitr_gettext 'Creating the after-update snapshot…')" sudo -n "$helper" snapshot-post "$outcome"
       }
       trap finish_snapshot EXIT
       full_update
