@@ -170,6 +170,13 @@ Later the same day, with the ISO that adds install types and factory reset:
   the previous system and disabled itself, and no system or user unit failed.
   Declining the first warning or mistyping the phrase changed nothing.
 
+October 21, 2026, with the rebuilt 0.6.4 ISO and `install --encrypted` (LUKS2
+erase install, passphrase typed through QEMU's monitor at every start): verify
+and System Update passed; the boot guard counted two failed starts and its
+third start restored the update's before snapshot, brought the login back,
+told the next login and deleted the failed system; Keep My Files and Erase
+Everything each passed all checks and came back through the unlock prompt.
+
 Earlier record:
 
 

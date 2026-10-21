@@ -367,11 +367,11 @@ def boot_guard(arguments):
         sudo(work, "sudo systemctl reboot", check=False, capture=False)
         deadline = time.monotonic() + 900
         while time.monotonic() < deadline:
-            if process.poll() is not None:
-                raise VmTestError("The VM exited during the restore")
-            if ssh(work, "systemctl is-active display-manager.service", check=False).stdout.strip() == "active":
-                break
+            # The restored system has new host keys; an encrypted disk is unlocked on each start.
             (work / "known_hosts").unlink(missing_ok=True)
+            if (wait_ssh(work, process, deadline, "restoring")
+                    and ssh(work, "systemctl is-active display-manager.service", check=False).stdout.strip() == "active"):
+                break
             time.sleep(5)
         check("the login screen is back", ssh(work, "systemctl is-active sddm.service", check=False).stdout.strip()
               == "active")

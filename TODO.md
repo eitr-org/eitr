@@ -196,11 +196,6 @@ permissions or a read-only headless mode. Do not weaken global permissions.
 - **Upgrade that skips releases.** 1.0 promises supported upgrades, so test
   installing 0.6.4 and updating straight to the 1.0 candidate. The 0.6.4 ISO is
   kept locally for this test only, then deleted.
-- **Factory resets and the boot guard on an encrypted disk.** The owner's PC
-  proves an encrypted install and daily use. What has never run on LUKS is
-  destructive: both factory resets and the boot guard's rollback. Test them in
-  a VM installed with encryption by hand (the passphrase is typed at boot),
-  never on the owner's PC.
 - **Hardware we do not have** (0.7.0): laptops, AMD and Intel graphics, a real
   Windows/BitLocker dual boot. Fixes come from early users' reports and do not
   hold back other work.
