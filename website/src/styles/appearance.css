@@ -52,3 +52,5 @@ html[data-appearance="light"] #road h2 em{background:none;color:var(--accent)}
 html[data-appearance="light"] #faq h2 em{color:var(--accent)}
 
 html[data-appearance="light"] .theme-tag,html[data-appearance="light"] .tour-shot-hint{background:var(--surface);color:var(--fg);border:1px solid var(--line-strong)}
+
+html[data-appearance="light"] { --secondary: #574f47; }

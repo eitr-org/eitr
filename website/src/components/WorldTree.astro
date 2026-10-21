@@ -57,15 +57,15 @@ const realms = [
 .realm-node{position:absolute;left:var(--realm-x);top:var(--realm-y);translate:-50% -50%;width:178px;min-height:76px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:12px 10px 10px;color:#efe7dc;border:1px solid color-mix(in srgb,var(--realm-color) 35%,transparent);border-radius:6px;background:#0a0707ef;cursor:pointer;box-shadow:0 8px 24px #0008;transition:border-color .2s,background .2s,box-shadow .2s}
 .realm-orb{width:7px;height:7px;position:absolute;top:-4px;border-radius:50%;background:var(--realm-color);box-shadow:0 0 12px var(--realm-color)}
 .realm-name{font:500 16px var(--carved);letter-spacing:.05em;color:var(--realm-color)}
-.realm-topic{font:11px var(--mono);color:#b5aba0}
+.realm-topic{font:12px var(--mono);color:#b5aba0}
 .realm-node:hover,.realm-node:focus-visible{border-color:var(--realm-color);background:#161111;box-shadow:0 0 24px color-mix(in srgb,var(--realm-color) 15%,transparent)}
-.realm-hint{text-align:center;margin-top:18px;font-size:11px;letter-spacing:.08em}
+.realm-hint{text-align:center;margin-top:18px;font-size:12px;letter-spacing:.08em}
 .realm-dialog{box-sizing:border-box;width:min(580px,calc(100vw - 36px));max-height:calc(100dvh - 48px);padding:0;margin:auto;overflow:auto;border:1px solid var(--realm-color);border-radius:8px;background:#0d0a0a;color:var(--fg);box-shadow:0 30px 100px #000b}
 .realm-dialog::backdrop{background:#000b;backdrop-filter:blur(7px)}
 .realm-dialog[open]{animation:realm-arrive .2s ease-out}
 .realm-dialog-content{padding:42px}
 .realm-dialog :global(.realm-dialog-symbol){width:48px;height:48px;color:var(--realm-color);margin-bottom:20px}
-.realm-dialog .eyebrow{color:var(--realm-color);font-size:11px;padding-right:18px}
+.realm-dialog .eyebrow{color:var(--realm-color);font-size:12px;padding-right:18px}
 .realm-dialog h2{font-size:42px;line-height:1.1;margin:18px 0 24px}
 .realm-description{font-size:14px}
 .realm-dialog ul{padding-left:18px;margin:24px 0 28px;color:#c2b8ad;line-height:1.7;font-size:13px}
@@ -73,7 +73,7 @@ const realms = [
 .realm-close{position:absolute;right:12px;top:12px;width:36px;height:36px;background:transparent;border:1px solid #ffffff29;border-radius:50%;color:#e4dcd2;font-size:24px;line-height:1;cursor:pointer}
 .realm-close:hover{border-color:var(--realm-color)}
 @keyframes realm-arrive{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:960px){.realm-map{min-height:590px}.realm-node{width:145px}.realm-name{font-size:14px}.realm-topic{font-size:11px}}
+@media(max-width:960px){.realm-map{min-height:590px}.realm-node{width:145px}.realm-name{font-size:14px}.realm-topic{font-size:12px}}
 @media(max-width:600px){.realm-map{min-height:0;padding:24px 16px}.world-tree-art{object-fit:contain;opacity:.32}.realm-nodes{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:18px 12px}.realm-node{position:relative;left:auto;top:auto;translate:none;width:100%;min-height:82px;padding-inline:5px}.realm-node:last-child{grid-column:1/-1;width:50%;justify-self:center}.realm-dialog-content{padding:34px 24px}.realm-dialog h2{font-size:34px}}
 </style>
 <script>

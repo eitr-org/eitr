@@ -21,6 +21,19 @@ try {
       await page.goto(site, { waitUntil: 'networkidle' });
       assert.match(await page.locator('.hero .lead').innerText(), /keyboard-first Arch Linux.*Hyprland and Quickshell/s);
       assert.match(await page.locator('.workflow-overview').innerText(), /LazyVim, tmux and Docker.*Git identities and cloud contexts/s);
+      if (width < 1201) {
+        await page.getByRole('button', { name: 'Menu', exact: true }).click();
+        const menu = page.getByRole('dialog', { name: 'Main menu' });
+        assert.ok(await menu.isVisible());
+        assert.equal(await menu.locator('nav a').count(), 8);
+        assert.equal(await page.evaluate(() => getComputedStyle(document.body).overflow), 'hidden');
+        assert.ok(await menu.getByRole('button', { name: 'Close', exact: true }).evaluate(button => button === document.activeElement));
+        assert.ok(await menu.locator('nav a').evaluateAll(links => links.every(link => link.getBoundingClientRect().height >= 44)));
+        await page.keyboard.press('Escape');
+        await menu.waitFor({ state: 'hidden' });
+        assert.ok(await page.getByRole('button', { name: 'Menu', exact: true }).evaluate(button => button === document.activeElement));
+        await page.keyboard.press('Enter');
+      }
       const development = page.locator('header nav a[href="/development/"]');
       await development.focus();
       assert.ok(await development.evaluate(element => {
@@ -32,6 +45,15 @@ try {
       assert.match(await page.locator('h1').innerText(), /From a keystroke/);
       assert.match(await page.locator('#environment').innerText(), /Included.*Curated optional installs.*Cursor/s);
       assert.match(await page.locator('#agents').innerText(), /off by default/);
+      if (width >= 1100) {
+        const outline = page.getByRole('navigation', { name: 'On this page', exact: true });
+        assert.ok(await outline.isVisible());
+        assert.equal(await outline.locator('a').count(), await page.locator('.inner-content h2').count());
+        await outline.locator('a[href="#agents-title"]').click();
+        await page.waitForFunction(() => document.querySelector('.page-outline a[aria-current="location"]')?.getAttribute('href') === '#agents-title');
+      } else {
+        assert.equal(await page.locator('.page-rail').isVisible(), false);
+      }
       await page.goto(new URL('/guide/', site).href, { waitUntil: 'networkidle' });
       const search = page.getByLabel('Find a Handbook chapter');
       await search.fill('git');

@@ -56,6 +56,8 @@ npm run preview   # serves the production build locally
 - `tests/product.browser.mjs`: keyboard/mobile discovery, package evidence, Handbook search and release messaging.
 - `tests/discovery.browser.mjs`: every public route without JavaScript, metadata, links and canonical chapter-text parity.
 - `src/layouts/Layout.astro`: shared HTML, navigation, footer, and bundled fonts.
+- `src/components/InnerPage.astro`: wide-screen illustrations and section contents, with missing heading anchors generated from their text.
+- `src/scripts/page-navigation.ts`: mobile menu focus/scroll handling and the current section in the contents list.
 - `src/scripts/effects.ts`: scroll reveals, parallax, and cursor lighting.
 - `src/components/SkySwitch.astro`: the day/night switch and Sköll/Hati sky transition.
 - `src/styles/global.css`: the visual system, responsive layout, and reduced motion.
@@ -92,6 +94,12 @@ consistent with the canonical distro guides; the download button reads
 `src/data/download.json`.
 
 The layout, copy, illustrations, colors, and assets here are Eitr's own.
+
+Above 1100 px, information pages and Handbook chapters pair their reading column
+with existing artwork and a sticky section list. Below the 1200 px navigation
+breakpoint, Menu opens the full-screen navigation with the release badge (the Day/Night
+switch stays in the header); Escape, Close or a link dismisses it and restores focus. Without
+JavaScript, the existing scrollable navigation remains available.
 
 ## Day and night
 

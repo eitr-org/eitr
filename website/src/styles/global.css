@@ -88,7 +88,7 @@ em { font-style: italic; color: var(--accent); }
   display: inline-block; width: 74px; height: 28px; background: var(--fg);
   -webkit-mask: url("/branding/eitr-wordmark.svg") center/contain no-repeat; mask: url("/branding/eitr-wordmark.svg") center/contain no-repeat;
 }
-.site-header nav { display: flex; gap: 18px; margin-left: auto; font-family: var(--carved); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; }
+.site-header nav { display: flex; gap: 18px; margin-left: auto; font-family: var(--carved); font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; }
 .site-header nav a { color: var(--muted); position: relative; transition: color 0.25s; }
 .site-header nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 1px; background: var(--accent); transform: scaleX(0); transition: transform 0.3s; }
 .site-header nav a:hover { color: var(--fg); }
@@ -274,7 +274,7 @@ em { font-style: italic; color: var(--accent); }
 .myth { font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--fg); opacity: 0.85; margin: 4px 0 6px; }
 
 /* FAQ */
-.faq-list { display: grid; gap: 10px; max-width: 860px; }
+.faq-list { display: grid; gap: 10px; width: 100%; }
 .faq details { border: 1px solid var(--line); border-radius: 4px; background: var(--surface); padding: 0 24px; transition: border-color 0.3s; }
 .faq details[open] { border-color: #a8323a44; }
 .faq summary { cursor: pointer; list-style: none; padding: 20px 0; font-family: var(--serif); font-size: 22px; display: flex; justify-content: space-between; gap: 20px; }
@@ -563,3 +563,66 @@ kbd{font:inherit;color:var(--fg)}
 
 .doc-outline{margin-bottom:24px;font-size:12px}
 .doc-copy :is(h2,h3,h4,h5,h6){scroll-margin-top:140px}
+
+/* Reading and navigation retain the same ink and carved type at every width. */
+:root { --secondary: #b5aaa0; }
+.eyebrow, .label, .fine, .hero-copy .eyebrow, .info-section .eyebrow { font-size: 12px; color: var(--secondary); }
+.site-header nav a { color: var(--secondary); }
+.menu-toggle { display: none; }
+.mobile-menu { border: 1px solid var(--line-strong); }
+body.menu-open { overflow: hidden; }
+.page-rail { display: none; }
+.install-grid { align-items: stretch; }
+.install-card.status { display: flex; flex-direction: column; gap: 14px; }
+.install-card.status > .text-link { margin-top: auto; align-self: flex-start; }
+.pillar-copy::before { content: ""; position: absolute; z-index: -1; inset: -44px -30px -28px; pointer-events: none; background: linear-gradient(0deg, #070606fa 0%, #070606ed 72%, transparent 100%); }
+.pillar-copy .label { color: #d6b681; }
+@media (min-width: 961px) {
+  .tour-panel > .tour-shot { position: sticky; top: 110px; }
+}
+@media (min-width: 1100px) {
+  .inner-page { display: grid; grid-template-columns: minmax(0, 780px) minmax(230px, 1fr); gap: 64px; width: min(1200px, calc(100% - 48px)); margin: 0 auto; }
+  .inner-content { min-width: 0; }
+  .inner-content > .wrap { width: 100%; }
+  .inner-content h1 { font-size: clamp(58px, 6vw, 86px); }
+  .page-rail { display: block; min-width: 0; padding-top: 150px; }
+  .inner-hero-art { width: 100%; height: 280px; object-fit: contain; margin-bottom: 48px; border-radius: 4px; background: #000; }
+  .page-outline { position: sticky; top: 110px; max-height: calc(100dvh - 138px); overflow-y: auto; scrollbar-width: thin; padding: 4px 8px 12px 18px; border-left: 1px solid var(--line-strong); }
+  .page-outline .label { margin-bottom: 16px; }
+  .page-outline ol { list-style: none; padding: 0; }
+  .page-outline a { display: block; padding: 8px 0; font-size: 12px; line-height: 1.6; color: var(--secondary); }
+  .page-outline a:hover, .page-outline a[aria-current] { color: var(--accent); }
+  .page-outline a[aria-current] { text-decoration: underline; text-underline-offset: 4px; }
+  .inner-content .doc-outline { display: none; }
+}
+@media (max-width: 1200px) {
+  .js .header-inner { flex-wrap: nowrap; padding: 14px 0; gap: 16px; }
+  .js .header-inner > nav, .js .header-inner > .version-badge { display: none; }
+  .js .menu-toggle { display: block; margin-left: auto; min-height: 44px; padding: 10px 16px; border: 1px solid var(--line-strong); border-radius: 4px; background: var(--surface); color: var(--fg); font: 12px var(--carved); letter-spacing: .12em; cursor: pointer; }
+  .mobile-menu { position: fixed; inset: 0; width: 100%; max-width: none; height: 100%; height: 100dvh; max-height: none; margin: 0; padding: 24px; background: #0a0909; color: #e4dcd2; overflow-y: auto; }
+  .mobile-menu::backdrop { background: #0a0909; }
+  .menu-close { display: block; margin-left: auto; min-height: 44px; padding: 10px 20px; color: inherit; border: 1px solid #ffffff40; border-radius: 4px; background: transparent; font: 12px var(--carved); cursor: pointer; }
+  .site-header .mobile-menu nav { display: flex; flex-direction: column; width: 100%; gap: 0; padding: 24px 0; overflow: visible; mask-image: none; -webkit-mask-image: none; font-size: 16px; }
+  .site-header .mobile-menu nav a { min-height: 48px; padding: 12px 4px; border-bottom: 1px solid #ffffff26; color: #b5aaa0; }
+  .site-header .mobile-menu nav a::after { display: none; }
+  .mobile-menu .version-badge { display: inline-flex; margin-top: 24px; color: #e4dcd2; border-color: #ffffff40; }
+}
+@media (max-width: 600px) {
+  .footer-links a, .footer .fine a, .hero-details a { display: flex; align-items: center; min-height: 40px; padding-block: 10px; }
+  .footer-links { gap: 0; }
+  .hero-details { align-items: stretch; gap: 0 20px; }
+  .what { padding: 0 0 32px; gap: 32px; overflow: hidden; }
+  .what-art { width: 100%; aspect-ratio: 16 / 10; border-radius: 0; box-shadow: none; }
+  .what-copy { padding-inline: 20px; }
+}
+/* Small carved labels share the same 12 px floor as the eyebrows. */
+.stage, .tour-shot-hint, .realm-topic, .tour-tabs button { font-size: 12px; }
+@media (max-width: 600px) {
+  .theme-name { font-size: 12px; }
+  .text-link { display: inline-flex; align-items: center; min-height: 40px; padding-block: 8px 6px; }
+  .info-links { row-gap: 4px; }
+}
+.version-badge { white-space: nowrap; }
+@media (min-width: 1100px) {
+  .inner-hero-art { object-fit: cover; background: none; }
+}
