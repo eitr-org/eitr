@@ -41,6 +41,10 @@ release tag.
 
 ## Feature plan
 
+Update now offers only System Update and Update Channel. The redundant Advanced
+submenu is removed; `eitr update pacman`, `eitr update aur` and `eitr update full`
+remain available in a terminal without automatic snapshots.
+
 AWS account discovery excludes credentials-only profiles and config profiles with
 custom endpoints, including S3-compatible storage. Remote diagnostic terminals
 remain open until Esc, and failed local status commands show unavailable status.

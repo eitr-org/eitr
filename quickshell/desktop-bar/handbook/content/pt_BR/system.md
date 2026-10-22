@@ -18,7 +18,7 @@ Abra **SUPER + F > Sistema**. As ações são agrupadas em ordem alfabética; a 
 
 ## Manutenção
 
-**Limpeza**, **Redefinição de fábrica**, **Instantâneos**, **Atualizar**. Atualizar separa a atualização completa das opções avançadas de pacotes. A redefinição de fábrica é destrutiva e exige dois avisos: leia [Redefinição de fábrica](handbook:factory-reset) antes.
+**Limpeza**, **Redefinição de fábrica**, **Instantâneos**, **Atualizar**. Atualizar oferece Atualização do sistema e Canal de atualização. A redefinição de fábrica é destrutiva e exige dois avisos: leia [Redefinição de fábrica](handbook:factory-reset) antes.
 
 ## Segurança
 

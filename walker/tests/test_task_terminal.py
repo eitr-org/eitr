@@ -96,7 +96,7 @@ class TaskTerminalTests(unittest.TestCase):
                         self.assertIn("ItemSubtext", layout.read_text())
 
     def test_update_terminals_use_presenter_without_hold(self):
-        for name in ("update", "update-advanced"):
+        for name in ("update",):
             data = menu_data.load(name)
             for entry in data["entries"]:
                 if "actions" in entry:

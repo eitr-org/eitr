@@ -52,6 +52,13 @@ class MenuStructureTests(unittest.TestCase):
             expected = [entry["text"] for entry in sorted(
                 entries, key=lambda entry: (entry.get("subtext") != ">", entry["text"].lower()))]
             self.assertEqual(names, expected, name)
+    def test_update_offers_only_system_update_and_channel(self):
+        entries = menu("update")["entries"]
+        self.assertEqual([entry["text"] for entry in entries],
+                         ["Update Channel", "System Update"])
+        self.assertEqual(entries[0]["submenu"], "update-channel")
+        self.assertTrue(entries[1]["actions"]["open"].endswith("update.sh system"))
+
     def test_security_groups_authentication_methods(self):
         entries = menu("security")["entries"]
         for name in ("fingerprint", "fido2"):

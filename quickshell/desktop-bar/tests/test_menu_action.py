@@ -21,7 +21,7 @@ class MenuActionTests(unittest.TestCase):
 
     def test_submenus_and_unknown_rows_are_refused(self):
         with self.assertRaisesRegex(ValueError, "submenu"):
-            action.command("update", "Advanced")
+            action.command("update", "Update Channel")
         with self.assertRaisesRegex(ValueError, "No row"):
             action.command("toggle", "Nothing")
         with self.assertRaisesRegex(ValueError, "Invalid menu"):

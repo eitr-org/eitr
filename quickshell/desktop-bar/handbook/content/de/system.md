@@ -18,7 +18,7 @@
 
 ## Instandhaltung
 
-**Bereinigung**, **Werkseinstellungen**, **Momentaufnahmen**, **Aktualisierung**. Aktualisieren trennt Systemaktualisierung und erweiterte Paketaktualisierungen. Zurücksetzen auf Werkseinstellungen ist destruktiv und verlangt zwei Warnungen. Lies vorher [Werkseinstellungen](handbook:factory-reset).
+**Bereinigung**, **Werkseinstellungen**, **Momentaufnahmen**, **Aktualisierung**. Aktualisierung bietet Systemaktualisierung und Update-Kanal. Zurücksetzen auf Werkseinstellungen ist destruktiv und verlangt zwei Warnungen. Lies vorher [Werkseinstellungen](handbook:factory-reset).
 
 ## Sicherheit
 

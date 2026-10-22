@@ -110,8 +110,9 @@ Touch ID on the host Mac is not passed through as a normal Linux fingerprint rea
 System → Maintenance → Snapshots requires the reviewed privileged integration described
 in [the distro guide](../distro/README.md). Update works normally on existing
 desktops. System Update upgrades official and AUR packages, with pre/post
-snapshots enabled only on distro installs. Advanced offers Pacman, Pacman + Yay,
-and Yay (AUR-only), without automatic snapshots.
+snapshots enabled only on distro installs. Update also offers Update Channel.
+Terminal commands `eitr update pacman`, `eitr update aur` and `eitr update full`
+remain available without automatic snapshots.
 No PAM or snapshot setup runs at login.
 System → Devices & Input → Battery Charge Limit sets 60/80/90% or removes the limit after a typed
 `yes`, through `eitr-system battery-limit`. It needs a laptop battery whose

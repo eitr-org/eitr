@@ -18,7 +18,7 @@ Ouvrez **SUPER + F > Système**. Les actions sont regroupées par ordre alphabé
 
 ## Maintenance
 
-**Nettoyage**, **Réinitialisation d’usine**, **Instantanés**, **Mise à jour**. La mise à jour complète et les mises à jour avancées de paquets sont séparées. La réinitialisation d’usine est destructive et impose deux avertissements. Lisez d’abord [Réinitialisation d’usine](handbook:factory-reset).
+**Nettoyage**, **Réinitialisation d’usine**, **Instantanés**, **Mise à jour**. Mise à jour propose la mise à jour du système et le canal de mise à jour. La réinitialisation d’usine est destructive et impose deux avertissements. Lisez d’abord [Réinitialisation d’usine](handbook:factory-reset).
 
 ## Sécurité
 

@@ -30,8 +30,8 @@ for **Ragnarök** to let Fenrir bite the screen; click or Escape ends it early.
 
 ## Maintenance
 
-**Cleanup**, **Factory Reset**, **Snapshots**, **Update**. Update separates
-System Update from Advanced package updates. Factory Reset is destructive and
+**Cleanup**, **Factory Reset**, **Snapshots**, **Update**. Update offers
+System Update and Update Channel. Factory Reset is destructive and
 requires two warnings; read [Factory Reset](handbook:factory-reset) first.
 
 ## Security

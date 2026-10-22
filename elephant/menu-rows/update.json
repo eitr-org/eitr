@@ -1,11 +1,5 @@
 [
   {
-    "text": "Advanced",
-    "subtext": ">",
-    "icon": "󰒓",
-    "submenu": "update-advanced"
-  },
-  {
     "text": "Update Channel",
     "subtext": ">",
     "keywords": [

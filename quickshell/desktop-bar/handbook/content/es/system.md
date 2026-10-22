@@ -18,7 +18,7 @@ Abre **SUPER + F > Sistema**. Las acciones se agrupan alfabéticamente; la búsq
 
 ## Mantenimiento
 
-**Limpieza**, **Restablecimiento de fábrica**, **Instantáneas**, **Actualización**. Actualizar separa la actualización completa de las opciones avanzadas de paquetes. El restablecimiento de fábrica es destructivo y exige dos advertencias: lee antes [Restablecimiento de fábrica](handbook:factory-reset).
+**Limpieza**, **Restablecimiento de fábrica**, **Instantáneas**, **Actualización**. Actualizar ofrece la actualización del sistema y el canal de actualización. El restablecimiento de fábrica es destructivo y exige dos advertencias: lee antes [Restablecimiento de fábrica](handbook:factory-reset).
 
 ## Seguridad
 

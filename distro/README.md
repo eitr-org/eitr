@@ -72,7 +72,7 @@ existing Arch system instead. The live ISO is not a preinstalled graphical sessi
   from NVIDIA's signed remote. It requires a separate account and compatible
   hardware/network; it does not install NVIDIA GPU drivers on AMD/Intel systems.
 - Snapper creates recovery points only through System Update on distro installs.
-  Advanced Pacman/AUR updates intentionally do not request snapshots. Supported fresh installs require Btrfs
+  Terminal commands `eitr update pacman|aur|full` intentionally do not request snapshots. Supported fresh installs require Btrfs
   root with `/usr`, `/etc`, and `/var/lib/pacman` inside that root subvolume.
   Boot/EFI archives are separate; see [recovery instructions](RECOVERY.md).
 - `bootloader/`: optional Snapper snapshot boot entries. `setup.sh` detects
@@ -489,7 +489,7 @@ an old `/usr/local/lib/eitr/eitr-system` once the packaged helper is installed.
 Run from this repo, as the normal desktop user. If setup rejects the layout,
 stop; do not bypass its protection. The initial dependency bootstrap above is
 not protected before that policy is enabled. Thereafter, System Update requires
-successful snapshot creation before upgrading. Advanced updates are unprotected.
+successful snapshot creation before upgrading. Terminal commands `eitr update pacman|aur|full` are unprotected.
 Existing desktops without the policy still update normally.
 If you installed the old Eitr hooks manually, remove only
 `/etc/pacman.d/hooks/05-eitr-snapshot-pre.hook` and

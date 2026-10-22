@@ -520,8 +520,6 @@ ThemedPopup {
                         GridLayout { width: parent.width; columns: 2; columnSpacing: 8; rowSpacing: 8
                             GridAction { title: Eitr.I18n.tr("System Update"); glyph: "󰚰"; onClicked: center.menuAction("update", "System Update") }
                             GridAction { title: Eitr.I18n.tr("What Changed"); glyph: "󰋚"; onClicked: center.menuAction("snapshots", "What Each Update Changed") }
-                            GridAction { title: Eitr.I18n.tr("Pacman Only"); glyph: "󰏖"; onClicked: center.menuAction("update-advanced", "Pacman") }
-                            GridAction { title: Eitr.I18n.tr("AUR (Yay)"); glyph: "󰏖"; onClicked: center.menuAction("update-advanced", "Yay (AUR)") }
                         }
                         }
                         Fold {

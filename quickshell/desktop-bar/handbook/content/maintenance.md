@@ -18,7 +18,7 @@ An existing Arch desktop without the distro policy does not require this setup
 just to update. System Update also updates apps installed from Flatpak, such as
 GeForce NOW; a Flatpak failure is reported without undoing the system update.
 
-Before upgrading, System Update (and the Pacman updates under Advanced) checks
+Before upgrading, System Update and terminal updates of official packages check
 Arch Linux's news for posts since your last upgrade. Arch uses them to announce
 upgrades that need a manual step. When there is news, it shows the titles and
 links and asks **Continue the update? [y/N]**: Enter cancels before anything
@@ -48,10 +48,7 @@ gets full; caches, Downloads, VM disks and games are left out. To get a file
 back, choose **Restore a File or Folder**, type its path and pick a time. The
 old version appears next to the current one, so nothing is replaced.
 
-**Update > Advanced** offers **Pacman + Yay**, **Pacman**, and **Yay (AUR)**.
-These intentionally do not create automatic snapshots. Direct pacman/yay
-commands also bypass the protected workflow. Flatpaks, development runtimes and
-separate home data are not covered by root snapshots.
+System Update covers official, AUR and Flatpak packages with snapshots on supported distro installs. For rare cases such as updating only official packages when an AUR build fails, or skipping the snapshot, use a terminal: `eitr update pacman`, `eitr update aur` or `eitr update full` (no automatic snapshots), or plain `sudo pacman -Syu` / `yay -Sua`. Flatpaks, development runtimes and separate home data are not covered by root snapshots.
 
 Avoid partial Arch upgrades. Read package prompts rather than accepting an
 unexpected removal blindly. Successful update tasks close; failures remain

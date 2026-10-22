@@ -129,7 +129,7 @@ existing design and workflows rather than replacing them with upstream defaults.
   The owner retired the separate native Apps/pin workflow. Global search launches
   apps without uninstall actions; keep uninstall scoped to the Apps menu.
   Existing desktops must not require distro snapshot setup just to update;
-  fresh distro installs snapshot only the System Update workflow. Advanced
+  fresh distro installs snapshot only the System Update workflow. Terminal-only
   Pacman/AUR updates intentionally do not create automatic snapshots.
 - Keep Walker menus organized: group related setup/actions into named submenus.
   List submenus first, like folders, then the rows that open something, each

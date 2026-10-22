@@ -18,9 +18,6 @@
       "quickshell/desktop-bar/ControlCenter.qml",
       "quickshell/desktop-bar/shell.qml"
     ],
-    "AUR (Yay)": [
-      "quickshell/desktop-bar/ControlCenter.qml"
-    ],
     "AUTHENTICATE": [
       "quickshell/lockscreen/themes/nothing/Main.qml"
     ],
@@ -655,9 +652,6 @@
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml",
       "quickshell/lockscreen/themes/nothing/Main.qml"
     ],
-    "Pacman Only": [
-      "quickshell/desktop-bar/ControlCenter.qml"
-    ],
     "Pair Bluetooth devices": [
       "quickshell/desktop-bar/Handbook.qml"
     ],
@@ -1200,9 +1194,6 @@
     "AI Usage": [
       "elephant/menu-rows/system-information.json"
     ],
-    "AUR packages only · no automatic snapshot": [
-      "elephant/menu-rows/update-advanced.json"
-    ],
     "AWS": [
       "elephant/menu-rows/cloud.json",
       "elephant/menus/aws-account.lua",
@@ -1247,12 +1238,6 @@
     ],
     "Add {provider} Account": [
       "elephant/cloud-context-entries.lua"
-    ],
-    "Advanced": [
-      "elephant/menu-rows/update.json"
-    ],
-    "Advanced Updates": [
-      "elephant/menus/update-advanced.lua"
     ],
     "After enrollment · password fallback retained": [
       "elephant/menu-rows/fido2.json"
@@ -2100,12 +2085,6 @@
     "OCR Text": [
       "elephant/menu-rows/capture.json"
     ],
-    "Official and AUR packages · no automatic snapshot": [
-      "elephant/menu-rows/update-advanced.json"
-    ],
-    "Official packages · no automatic snapshot": [
-      "elephant/menu-rows/update-advanced.json"
-    ],
     "Open Development": [
       "elephant/project-entries.lua"
     ],
@@ -2157,11 +2136,7 @@
       "elephant/menu-rows/snapshots.json"
     ],
     "Pacman": [
-      "elephant/menu-rows/packages.json",
-      "elephant/menu-rows/update-advanced.json"
-    ],
-    "Pacman + Yay": [
-      "elephant/menu-rows/update-advanced.json"
+      "elephant/menu-rows/packages.json"
     ],
     "Pair a Device": [
       "elephant/menu-rows/remote-share.json"
@@ -2883,8 +2858,7 @@
       "elephant/menus/workspaces.lua"
     ],
     "Yay (AUR)": [
-      "elephant/menu-rows/packages.json",
-      "elephant/menu-rows/update-advanced.json"
+      "elephant/menu-rows/packages.json"
     ],
     "Zone details": [
       "elephant/menus/aws-route53-zone-details-1.lua"

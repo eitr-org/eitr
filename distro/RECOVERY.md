@@ -30,7 +30,7 @@ before that, the next System Update first closes the leftover pre snapshot
 with an "after interrupted package upgrade" post snapshot. A failed upgrade
 retains its pre snapshot and boot archives either way.
 Updates to Flatpaks, SDKMAN/NVM runtimes and files on separate home subvolumes are
-not protected by these snapshots. Advanced updates and direct pacman/yay commands
+not protected by these snapshots. Terminal commands `eitr update pacman|aur|full` and direct pacman/yay commands
 intentionally do not create automatic snapshots. Older Eitr snapshot hooks, if
 manually installed, must be removed to adopt this policy.
 
