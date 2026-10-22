@@ -25,7 +25,7 @@ class DictationTests(unittest.TestCase):
         # Only the stand-ins below and basic tools: a real whisper-cli or wtype must not be found.
         tools = self.base / "tools"
         tools.mkdir()
-        for name in ("flock", "timeout", "bash", "cat", "cut", "mkdir", "mv", "rm", "sed", "sha256sum", "sleep", "tr"):
+        for name in ("flock", "timeout", "bash", "cat", "cp", "cut", "date", "mkdir", "mv", "rm", "sed", "sha256sum", "sleep", "tr"):
             (tools / name).symlink_to(shutil.which(name))
         self.env = {"PATH": f"{self.bin}:{tools}", "HOME": str(self.base / "home"),
                     "XDG_DATA_HOME": str(self.base / "data"), "XDG_RUNTIME_DIR": str(self.base / "runtime"),
@@ -65,6 +65,23 @@ class DictationTests(unittest.TestCase):
         path = self.bin / name
         path.write_text(f'#!/usr/bin/env bash\nLOG="{self.log}"\n{body}\n')
         path.chmod(path.stat().st_mode | stat.S_IXUSR)
+
+    def run_start_without_new_press(self):
+        """start rewrites the press stamp; keep the test's stamp to model the race."""
+        stamp = (self.base / "runtime/eitr-dictation.pressed").read_text()
+        source = SCRIPT.read_text().replace('[[ "${1:-}" == start ]] && date +%s%N > "$pressed"', ': "${stamp:=}"')
+        script = self.base / "dictate-no-stamp.sh"
+        script.write_text(source)
+        result = self.run_script_path(script, "start")
+        (self.base / "runtime/eitr-dictation.pressed").write_text(stamp)
+        return result
+
+    def run_script_path(self, path, *arguments):
+        process = subprocess.Popen(["bash", str(path), *arguments], env=self.env, stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE, text=True, start_new_session=True)
+        self.groups.append(process.pid)
+        stdout, stderr = process.communicate(timeout=20)
+        return subprocess.CompletedProcess(process.args, process.returncode, stdout, stderr)
 
     def run_script(self, *arguments):
         process = subprocess.Popen(["bash", str(SCRIPT), *arguments], env=self.env, stdout=subprocess.PIPE,
@@ -116,6 +133,31 @@ class DictationTests(unittest.TestCase):
         states = [line.rsplit(" ", 1)[-1] for line in self.logged().splitlines() if line.startswith("bar ")]
         self.assertEqual(states, ["start", "transcribe", "stop"])
         self.assertIn("typed -- Hello there.", self.logged())
+
+    def test_quick_tap_whose_release_wins_the_lock_records_nothing(self):
+        self.ready_model()
+        # The release took the lock first: its press is fresh, so it leaves "tapped".
+        (self.base / "runtime/eitr-dictation.pressed").write_text(str(time.time_ns()))
+        self.assertEqual(self.run_script("stop").returncode, 0)
+        self.assertTrue((self.base / "runtime/eitr-dictation.tapped").exists())
+        # The press's own start then sees it and records nothing.
+        (self.base / "runtime/eitr-dictation.pressed").write_text(
+            (self.base / "runtime/eitr-dictation.tapped").read_text())
+        # Run start without its own press stamp being rewritten: call the start step directly.
+        start = self.run_start_without_new_press()
+        self.assertEqual(start.returncode, 0, start.stderr)
+        self.assertFalse((self.base / "runtime/eitr-dictation.pid").exists())
+        self.assertFalse((self.base / "runtime/eitr-dictation.tapped").exists())
+        self.assertNotIn("dictation start", self.logged())
+
+    def test_typing_d_or_an_old_press_never_swallows_the_next_dictation(self):
+        self.ready_model()
+        # Every D release runs stop; with no recent press it leaves nothing behind.
+        self.assertEqual(self.run_script("stop").returncode, 0)
+        self.assertFalse((self.base / "runtime/eitr-dictation.tapped").exists())
+        (self.base / "runtime/eitr-dictation.pressed").write_text(str(time.time_ns() - 5_000_000_000))
+        self.assertEqual(self.run_script("stop").returncode, 0)
+        self.assertFalse((self.base / "runtime/eitr-dictation.tapped").exists())
 
     def test_release_waits_for_pid_publication(self):
         self.ready_model()

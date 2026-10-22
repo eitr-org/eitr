@@ -18,6 +18,13 @@ mode="${2:-dictation}"
 runtime="${XDG_RUNTIME_DIR:-/tmp}"
 audio="$runtime/eitr-$mode.wav"
 pidfile="$runtime/eitr-$mode.pid"
+# A quick tap sends press and release together, and the release can take the lock
+# first. The press records when it happened (before waiting for the lock); a stop
+# that finds nothing to stop shortly after a press leaves "tapped", and that start
+# then records nothing. Plain typing of "d" (the release binding sees every D) has
+# no recent press, so it never leaves the marker.
+pressed="$runtime/eitr-$mode.pressed"
+tapped="$runtime/eitr-$mode.tapped"
 root="${EITR_CODE_ROOT:-/usr/share/eitr}"
 
 notify() {
@@ -56,6 +63,11 @@ ensure_ready() {
 }
 
 start() {
+  if [[ -f "$tapped" && "$(cat "$tapped")" == "$(cat "$pressed" 2>/dev/null)" ]]; then
+    rm -f "$tapped"
+    return 0
+  fi
+  rm -f "$tapped"
   ensure_ready || exit 0
   if [[ -f "$pidfile" ]] && kill -0 "$(cat "$pidfile")" 2>/dev/null; then
     return 0
@@ -77,12 +89,17 @@ start() {
 }
 
 stop() {
-  [[ -f "$pidfile" ]] || exit 0
+  if [[ ! -f "$pidfile" ]]; then
+    if [[ -z "${1:-}" && -f "$pressed" ]] && (( $(date +%s%N) - $(cat "$pressed") < 1500000000 )); then
+      cp "$pressed" "$tapped"
+    fi
+    exit 0
+  fi
   if [[ "${1:-}" != "" && "$(cat "$pidfile")" != "$1" ]]; then
     return 0
   fi
   # Install cleanup before IPC or recorder shutdown can fail.
-  trap 'bar_dot stop; rm -f "$audio" "$pidfile"' EXIT
+  trap 'bar_dot stop; rm -f "$audio" "$pidfile" "$pressed"' EXIT
   bar_dot transcribe
   # Whatever happens next (nothing heard, an error, typing), the indicator ends.
   kill -TERM "$(cat "$pidfile")" 2>/dev/null || true
@@ -113,6 +130,7 @@ stop() {
   fi
 }
 
+[[ "${1:-}" == start ]] && date +%s%N > "$pressed"
 # Keep the lock inode: unlinking it would let concurrent callers lock different files.
 exec 9>"$runtime/eitr-$mode.lock"
 flock 9
