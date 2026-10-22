@@ -118,9 +118,8 @@ Gemini is detected only with a non-empty `GEMINI_API_KEY` or `GOOGLE_API_KEY`,
 or `security.auth.selectedType` set to `gemini-api-key` or `vertex-ai` in
 `~/.gemini/settings.json`. Personal Google sign-in does not count: Google no
 longer serves it. Gemini runs headlessly in plan mode, with MCP servers and
-extensions excluded. It is not yet tested by Eitr; report problems with
-Report a Problem. A real-account test remains open for a paid key or company
-account. Plan mode is documented as read-only; Eitr has not independently
+extensions excluded. Eitr has tested it with a free API key: a read-only question
+and a question passed through the bridge both answered. Plan mode is documented as read-only; Eitr has not independently
 verified its file, shell or plan-file behavior.
 
 Ask your assistant to consult the other one for a review, explanation or

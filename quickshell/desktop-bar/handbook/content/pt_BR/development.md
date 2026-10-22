@@ -64,8 +64,8 @@ O Gemini só é detectado com `GEMINI_API_KEY` ou `GOOGLE_API_KEY` não vazia,
 ou `security.auth.selectedType` igual a `gemini-api-key` ou `vertex-ai` em
 `~/.gemini/settings.json`. Login pessoal do Google não conta: o Google não o
 atende mais. O Gemini roda sem interface no modo plan, sem servidores MCP nem
-extensões. Ainda não foi testado pelo Eitr; relate problemas com Relatar um
-Problema. Falta um teste real com chave paga ou conta empresarial. O modo plan
+extensões. O Eitr o testou com uma chave de API gratuita: ele respondeu a uma
+pergunta somente leitura e a outra feita pela ponte. O modo plan
 é documentado como somente leitura; o Eitr ainda não verificou seu comportamento
 com arquivos, shell ou arquivos de plano.
 

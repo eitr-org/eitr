@@ -64,9 +64,9 @@ Gemini wird nur bei nicht leerem `GEMINI_API_KEY` oder `GOOGLE_API_KEY` erkannt,
 oder wenn `security.auth.selectedType` in `~/.gemini/settings.json` auf
 `gemini-api-key` oder `vertex-ai` steht. Private Google-Anmeldung zählt nicht:
 Google bedient sie nicht mehr. Gemini läuft ohne Oberfläche im Planmodus,
-ohne MCP-Server und Erweiterungen. Noch nicht von Eitr getestet; melde Probleme
-über Problem melden. Ein echter Test mit bezahltem Schlüssel oder Firmenkonto
-steht aus. Der Planmodus ist als schreibgeschützt dokumentiert; Eitr hat sein
+ohne MCP-Server und Erweiterungen. Eitr hat es mit einem kostenlosen API-Schlüssel
+getestet: Eine schreibgeschützte Frage und eine Frage über die Brücke wurden
+beantwortet. Der Planmodus ist als schreibgeschützt dokumentiert; Eitr hat sein
 Datei-, Shell- und Plandateiverhalten noch nicht unabhängig geprüft.
 
 Bitte deinen Assistenten, den anderen für eine Prüfung, Erklärung oder einen
