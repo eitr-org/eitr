@@ -369,7 +369,9 @@ class AnsweredInstallTests(unittest.TestCase):
         self.assertIn('TEST_ANSWERS = "/sys/firmware/qemu_fw_cfg/"', source)
         self.assertIn("if not str(path).startswith(TEST_ANSWERS):\n        confirm_unattended(choices)", source)
         build = (GUIDED.parent / "build-iso.sh").read_text()
-        self.assertIn("/dev/disk/by-label/EITR-ANSWERS", build)
+        # FAT labels hold 11 characters: EITRANSWERS fits, EITR-ANSWERS only on other filesystems.
+        self.assertIn("for label in EITRANSWERS EITR-ANSWERS", build)
+        self.assertLessEqual(len("EITRANSWERS"), 11)
         self.assertIn("eitr-guided-install --answers /run/eitr-answers/eitr-answers.json", build)
 
     def test_answers_fill_the_wizard_choices(self):

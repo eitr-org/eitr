@@ -113,15 +113,19 @@ mkdir -p "$profile/airootfs/usr/local/bin"
 ln -s /opt/desktop-config/distro/archinstall/eitr-guided-install "$profile/airootfs/usr/local/bin/eitr-guided-install"
 # A test VM hands the installer its answers through QEMU's firmware config and
 # reads the progress from the first serial port. A real machine installs
-# unattended from eitr-answers.json on a drive labelled EITR-ANSWERS (after a
-# countdown that Ctrl+C cancels); otherwise it gets the wizard.
+# unattended from eitr-answers.json on a drive labelled EITRANSWERS (FAT allows
+# 11 characters) or EITR-ANSWERS (after a countdown that Ctrl+C cancels);
+# otherwise it gets the wizard. An eitr-profile.json there applies either way.
 cat >> "$profile/airootfs/root/.zlogin" <<'ZLOGIN'
 
 if [[ $(tty) == /dev/tty1 ]]; then
-  if [[ -e /dev/disk/by-label/EITR-ANSWERS ]]; then
-    mkdir -p /run/eitr-answers
-    mount -o ro,nosuid,nodev,noexec /dev/disk/by-label/EITR-ANSWERS /run/eitr-answers || return
-  fi
+  for label in EITRANSWERS EITR-ANSWERS; do
+    if [[ -e /dev/disk/by-label/$label ]]; then
+      mkdir -p /run/eitr-answers
+      mount -o ro,nosuid,nodev,noexec "/dev/disk/by-label/$label" /run/eitr-answers || return
+      break
+    fi
+  done
   answers=/sys/firmware/qemu_fw_cfg/by_name/opt/eitr/answers/raw
   if [[ -r $answers ]]; then
     eitr-guided-install --answers "$answers" 2>&1 | tee /dev/ttyS0

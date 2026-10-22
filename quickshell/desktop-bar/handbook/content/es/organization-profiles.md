@@ -1,6 +1,6 @@
 # Perfiles de organización
 
-Use la ISO oficial sin modificarla. En una memoria FAT32 llamada `EITR-ANSWERS`, coloque `eitr-profile.json` junto a `eitr-answers.json` o en su lugar. Solo el perfil conserva el asistente normal y muestra sus cambios en la revisión. Con ambos archivos, se muestran la operación del disco y todos los cambios antes de la cuenta de 15 segundos. Ctrl+C cancela antes de modificar discos. Mantenga la memoria conectada hasta el apagado.
+Use la ISO oficial sin modificarla. En una memoria FAT32 llamada `EITRANSWERS`, coloque `eitr-profile.json` junto a `eitr-answers.json` o en su lugar. Solo el perfil conserva el asistente normal y muestra sus cambios en la revisión. Con ambos archivos, se muestran la operación del disco y todos los cambios antes de la cuenta de 15 segundos. Ctrl+C cancela antes de modificar discos. Mantenga la memoria conectada hasta el apagado.
 
 Ejemplo completo: sustituya los hashes de ejemplo por los valores reales de `sha256sum` y copie los archivos indicados.
 
@@ -40,8 +40,8 @@ Las recetas usan `group/name` de `distro/software.json`. Solo se aceptan recetas
 Navegadores: Firefox y Chromium; añada Chromium explícitamente. Tema y fondo se guardan para el próximo inicio del usuario elegido, sin reiniciar el escritorio. Canal y repositorio son globales. `setup` se ejecuta como root al final, desde la copia privada de la memoria, tras registrar el perfil. Un marcador SHA-256 registra el intento antes de empezar: fallos e interrupciones no lo repiten silenciosamente. Cambie el script y su hash para autorizar otro intento. Los errores quedan visibles; las transacciones terminadas no se revierten.
 
 ```sh
-eitr profile check /run/media/alex/EITR-ANSWERS
-eitr profile apply /run/media/alex/EITR-ANSWERS
+eitr profile check /run/media/alex/EITRANSWERS
+eitr profile apply /run/media/alex/EITRANSWERS
 ```
 
 `check` lee archivos y metadatos, con directorios temporales, sin cambiar la configuración. `apply` usa `eitr-system profile-apply` como root, copia y vuelve a validar, muestra el resumen y exige escribir `APPLY PROFILE`. Cancelar no cambia nada. Elimina mediante pacman, instala adiciones, guarda valores y escribe `/etc/eitr/policies.json` (0644, root:root) y `/etc/eitr/profile.json`. Otro perfil sustituye las decisiones registradas, sin reinstalar automáticamente eliminaciones anteriores ni restablecer preferencias omitidas. Los marcadores de setup permanecen.

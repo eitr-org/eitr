@@ -430,7 +430,7 @@ def make_stick(arguments):
     image = Path(arguments.output).resolve()
     with image.open('xb') as stream:
         stream.truncate(arguments.size * 1024 * 1024)
-    subprocess.run(['mkfs.vfat', '-n', 'EITR-ANSWERS', str(image)], check=True)
+    subprocess.run(['mkfs.vfat', '-n', 'EITRANSWERS', str(image)], check=True)
     subprocess.run(['mcopy', '-s', '-i', str(image), *(str(path) for path in source.iterdir()), '::/'], check=True)
     print(image)
 
@@ -494,7 +494,7 @@ def main():
     commands = parser.add_subparsers(dest="action", required=True)
     install_parser = commands.add_parser("install")
     install_parser.add_argument("--iso", required=True)
-    install_parser.add_argument('--stick', help='FAT stick image labelled EITR-ANSWERS')
+    install_parser.add_argument('--stick', help='FAT stick image labelled EITRANSWERS')
     install_parser.add_argument('--online', action='store_true')
     install_parser.add_argument('--expect-refusal', action='store_true')
     stick_parser = commands.add_parser('stick')

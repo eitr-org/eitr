@@ -1,6 +1,6 @@
 # Profils d’organisation
 
-Utilisez l’ISO officielle sans la modifier. Sur une clé FAT32 nommée `EITR-ANSWERS`, placez `eitr-profile.json` à côté de `eitr-answers.json` ou à sa place. Avec le profil seul, l’assistant normal affiche tous ses changements dans la révision. Avec les deux fichiers, l’opération sur le disque et tous les changements précèdent le compte à rebours de 15 secondes. Ctrl+C annule avant toute modification du disque. Gardez la clé branchée jusqu’à l’arrêt.
+Utilisez l’ISO officielle sans la modifier. Sur une clé FAT32 nommée `EITRANSWERS`, placez `eitr-profile.json` à côté de `eitr-answers.json` ou à sa place. Avec le profil seul, l’assistant normal affiche tous ses changements dans la révision. Avec les deux fichiers, l’opération sur le disque et tous les changements précèdent le compte à rebours de 15 secondes. Ctrl+C annule avant toute modification du disque. Gardez la clé branchée jusqu’à l’arrêt.
 
 Exemple complet : remplacez les empreintes d’exemple par les valeurs réelles en minuscules de `sha256sum` et copiez les fichiers indiqués.
 
@@ -40,8 +40,8 @@ Les recettes utilisent `group/name` de `distro/software.json`. Seules les recett
 Navigateurs : Firefox et Chromium ; ajoutez Chromium explicitement. Thème et fond sont enregistrés pour la prochaine connexion de l’utilisateur choisi, sans redémarrer le bureau. Canal et dépôt sont globaux. `setup` s’exécute comme root à la fin, depuis la copie privée de la clé, après enregistrement du profil. Un marqueur SHA-256 enregistre la tentative avant le lancement : un échec ou une interruption ne provoque pas de répétition silencieuse. Modifiez le script et son empreinte pour autoriser une nouvelle tentative. Les erreurs restent visibles ; les transactions terminées ne sont pas annulées.
 
 ```sh
-eitr profile check /run/media/alex/EITR-ANSWERS
-eitr profile apply /run/media/alex/EITR-ANSWERS
+eitr profile check /run/media/alex/EITRANSWERS
+eitr profile apply /run/media/alex/EITRANSWERS
 ```
 
 `check` lit fichiers et métadonnées avec des répertoires temporaires, sans modifier la configuration. `apply` utilise l’action root explicite `eitr-system profile-apply`, copie et revalide, affiche le résumé et exige de saisir `APPLY PROFILE`. Annuler ne change rien. Il supprime avec pacman, installe les ajouts, enregistre les valeurs, puis `/etc/eitr/policies.json` (0644, root:root) et `/etc/eitr/profile.json`. Un autre profil remplace les choix enregistrés, sans réinstaller automatiquement les anciennes suppressions ni réinitialiser les préférences omises. Les marqueurs de setup sont conservés.

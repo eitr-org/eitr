@@ -401,7 +401,8 @@ To install without answering questions (several machines, or one you are setting
 up for someone else), give the ISO an answers drive:
 
 1. Format a small USB stick (or a spare partition) as FAT32 with the label
-   `EITR-ANSWERS`.
+   `EITRANSWERS` (FAT labels hold 11 characters; on a filesystem that allows
+   longer labels, `EITR-ANSWERS` works too).
 2. Put a file named `eitr-answers.json` on it:
 
    ```json
@@ -433,7 +434,7 @@ installs are done. Without the stick, the ISO starts the normal wizard.
 
 ### Organization profiles
 
-Put `eitr-profile.json` on the same `EITR-ANSWERS` stick, with or without answers.
+Put `eitr-profile.json` on the same `EITRANSWERS` stick, with or without answers.
 The wizard Review (or unattended 15-second countdown) lists every removal,
 addition, default, policy and setup script before any disk changes. Example:
 

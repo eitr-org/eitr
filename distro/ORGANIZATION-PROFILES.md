@@ -1,6 +1,6 @@
 # Organization profiles
 
-Use the official ISO unchanged. On a FAT32 stick labelled `EITR-ANSWERS`, put
+Use the official ISO unchanged. On a FAT32 stick labelled `EITRANSWERS`, put
 `eitr-profile.json` beside or instead of `eitr-answers.json`. With only a profile,
 the normal wizard includes its changes in Review. With both files, the installer
 lists the disk operation and every profile change before its 15-second countdown;
@@ -77,8 +77,8 @@ completed package transactions.
 On an installed machine:
 
 ```sh
-eitr profile check /run/media/alex/EITR-ANSWERS
-eitr profile apply /run/media/alex/EITR-ANSWERS
+eitr profile check /run/media/alex/EITRANSWERS
+eitr profile apply /run/media/alex/EITRANSWERS
 ```
 
 `check` reads files and package metadata and uses temporary validation directories;

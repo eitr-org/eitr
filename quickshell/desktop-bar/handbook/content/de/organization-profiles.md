@@ -1,6 +1,6 @@
 # Organisationsprofile
 
-Verwenden Sie die offizielle ISO unverändert. Legen Sie `eitr-profile.json` neben oder statt `eitr-answers.json` auf einen FAT32-Stick mit der Bezeichnung `EITR-ANSWERS`. Nur mit Profil läuft der normale Assistent mit allen Profiländerungen in der Prüfung. Mit beiden Dateien erscheinen Datenträgeraktion und sämtliche Änderungen vor dem 15-Sekunden-Countdown. Strg+C bricht vor Datenträgeränderungen ab. Lassen Sie den Stick bis zum Ausschalten angeschlossen.
+Verwenden Sie die offizielle ISO unverändert. Legen Sie `eitr-profile.json` neben oder statt `eitr-answers.json` auf einen FAT32-Stick mit der Bezeichnung `EITRANSWERS`. Nur mit Profil läuft der normale Assistent mit allen Profiländerungen in der Prüfung. Mit beiden Dateien erscheinen Datenträgeraktion und sämtliche Änderungen vor dem 15-Sekunden-Countdown. Strg+C bricht vor Datenträgeränderungen ab. Lassen Sie den Stick bis zum Ausschalten angeschlossen.
 
 Vollständiges Beispiel: Ersetzen Sie die Beispielprüfsummen durch die tatsächlichen Kleinbuchstabenwerte von `sha256sum` und kopieren Sie alle genannten Dateien auf den Stick.
 
@@ -40,8 +40,8 @@ Rezepte verwenden `group/name` aus `distro/software.json`. Nur vorgefertigte pac
 Browser: Firefox und Chromium; Chromium muss zusätzlich installiert werden. Thema und Hintergrund werden für die nächste Anmeldung des gewählten Benutzers gespeichert, ohne Desktopneustart. Kanal und Repository gelten systemweit. `setup` läuft abschließend als root im privaten kopierten Stickverzeichnis, nachdem das Profil gespeichert wurde. Ein SHA-256-Marker erfasst den Versuch vor dem Start: Fehler und Unterbrechungen führen nicht zu stiller Wiederholung. Ändern Sie Skript und Prüfsumme für einen weiteren Versuch. Fehler bleiben sichtbar; abgeschlossene Pakettransaktionen werden nicht zurückgerollt.
 
 ```sh
-eitr profile check /run/media/alex/EITR-ANSWERS
-eitr profile apply /run/media/alex/EITR-ANSWERS
+eitr profile check /run/media/alex/EITRANSWERS
+eitr profile apply /run/media/alex/EITRANSWERS
 ```
 
 `check` liest Dateien und Metadaten mit temporären Verzeichnissen, ohne Systemeinstellungen zu ändern. `apply` nutzt die explizite Rootaktion `eitr-system profile-apply`, kopiert und prüft erneut, zeigt die Zusammenfassung und verlangt `APPLY PROFILE`. Abbrechen ändert nichts. Es entfernt mit pacman, installiert Ergänzungen, speichert Vorgaben sowie `/etc/eitr/policies.json` (0644, root:root) und `/etc/eitr/profile.json`. Ein anderes Profil ersetzt gespeicherte Entscheidungen, installiert aber frühere Entfernungen nicht automatisch neu und setzt ausgelassene Einstellungen nicht zurück. Setup-Marker bleiben erhalten.
