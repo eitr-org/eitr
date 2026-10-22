@@ -3,44 +3,15 @@
 Open work in priority order. Each item lists what decides the next step.
 Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 
-1. More cloud providers
-2. Display review
-3. Remote access: test with the owner
-4. Organization profiles
-5. Eitr plugins
-6. Smaller items
-7. Google's assistants: Antigravity
-8. Later
-9. Before 1.0.0
+1. Remote access: test with the owner
+2. Organization profiles
+3. Eitr plugins
+4. Smaller items
+5. Google's assistants: Antigravity
+6. Later
+7. Before 1.0.0
 
-# 1. More cloud providers
-
-The seven requested providers have Cloud menu entries and isolated account
-workspaces. DigitalOcean and Hetzner use Arch extra packages; Oracle and IBM use
-reviewer-verified official HTTPS installers; Vercel and Netlify use NVM/npm.
-Native sign-in, context/profile listing, account switching and IBM account/region
-targeting are wired. Context/profile/scope selections persist visibly and use
-per-command flags where supported, without changing global defaults to navigate.
-
-Cloud navigation now uses Elephant account, service and resource menus with real
-Parent links for Shift+Backspace and private persisted selections.
-
-Account deletion and common read-only resource views are implemented for these
-seven providers with isolated mock tests, which do not establish live vendor
-behavior. Live installation, sign-in and project checks happen on demand, when
-someone uses a provider and reports a problem. See `distro/DISPLAY-REVIEW.md`.
-Do not add more providers as part of this work.
-
-# 2. Display review
-
-The source display review is accepted. Inventory and retained design decisions are in `distro/DISPLAY-REVIEW.md`. Passive cloud
-resource reports use the existing pager; actionable choices stay in Walker and
-log/event searches keep fzf. Future work: native status parity for security,
-snapshots, battery and remote access, cloud status presentation, and About's
-optional native redesign. Preserve typed confirmations and readable failures.
-New status views go in the Control Center, not as new bar icons (owner, 2026-10-21).
-
-# 3. Remote access: test with the owner
+# 1. Remote access: test with the owner
 
 Moonlight, Sunshine and Tailscale are built and inactive until set up.
 Fresh installs include them; existing machines install missing apps on demand (`distro/REMOTE-ACCESS.md`). Nothing about real hardware is
@@ -58,7 +29,7 @@ verified yet. With the owner and a MacBook, in this order:
 Afterwards, each tested separately: headless use, access before login, wake on
 LAN.
 
-# 4. Organization profiles
+# 2. Organization profiles
 
 A company (or anyone setting up several machines) chooses the software at
 installation without rebuilding the ISO: the official, signed ISO stays
@@ -128,7 +99,7 @@ Steps:
 
 Out of scope: managing machines after installation (fleet management).
 
-# 5. Eitr plugins
+# 3. Eitr plugins
 
 A plugin is a Git repository with a manifest declaring its Walker rows,
 scripts and optional user service. Install > Plugins takes a URL, shows who
@@ -136,7 +107,7 @@ wrote it and a trust warning before any code runs, updates with System Update
 and removes cleanly. The owner's cooler display tool (in the owner's private
 repository) becomes the first plugin.
 
-# 6. Smaller items
+# 4. Smaller items
 
 - **ISO download counter.** Cloudflare's R2 analytics only keep a few weeks and
   cannot tell our own checks from real downloads. Put a small Worker in front of
@@ -168,7 +139,7 @@ repository) becomes the first plugin.
   consistent Eitr Linux positioning. Consider a dated, source-checked Omarchy
   comparison page separately; do not imply shared features are exclusive.
 
-# 7. Google's assistants: Antigravity
+# 5. Google's assistants: Antigravity
 
 Gemini CLI is verified as an assistants-together helper with a free API key:
 a direct read-only question and an MCP `ask_gemini` call both answered.
@@ -178,7 +149,7 @@ The only unlocks are `--dangerously-skip-permissions` or global permission rules
 in `~/.gemini/antigravity-cli/settings.json`. Re-check when it gains per-run
 permissions or a read-only headless mode. Do not weaken global permissions.
 
-# 8. Later
+# 6. Later
 
 - **Voice reminders, next steps.** Repeating reminders ("every Monday") and
   syncing with Google or Outlook Calendar (needs account sign-in).
@@ -186,9 +157,13 @@ permissions or a read-only headless mode. Do not weaken global permissions.
   Each account gets its own config folder selected through the tool's own
   variable (`CLAUDE_CONFIG_DIR`, `CODEX_HOME`); sign-in for an extra account
   uses a private browser window; never log out of an account to add another.
-  AI Usage shows each account. Pairs with item 1 (cloud providers) for teams with several seats.
+  AI Usage shows each account. Useful for teams with several seats.
+- **Local assistant for voice reminders.** An optional offline model through
+  Ollama (a 3B model such as Qwen 2.5 or Llama 3.2, 2-3 GB once) offered next to
+  the other assistants, with its answer constrained to the reminder JSON format and
+  checked by the same validator. Nothing leaves the PC; weaker on unusual phrasing.
 
-# 9. Before 1.0.0
+# 7. Before 1.0.0
 
 - **Upgrade that skips releases.** 1.0 promises supported upgrades, so test
   installing 0.6.4 and updating straight to the 1.0 candidate. The 0.6.4 ISO is
