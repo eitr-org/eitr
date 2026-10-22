@@ -495,9 +495,14 @@ def confirm_unattended(choices, seconds=COUNTDOWN_SECONDS, sleep=None):
     happen and wait, so Ctrl+C can cancel before any disk changes."""
     sleep = sleep or time.sleep
     disk = choices["disk"]
-    action = {"erase": "ERASE the whole disk", "alongside": "install beside the existing systems on"}.get(
-        choices["layout"], choices["layout"])
-    print(tr('\nUnattended installation from the answers drive will {action}:\n  {disk_label}\nfor user {username}, {state}.', action=f'{action}', disk_label=f'{disk_label(disk)}', username=f"{choices['username']}", state=f"{('encrypted' if choices['encrypted'] else 'not encrypted')}"))
+    details = {"disk_label": disk_label(disk), "username": choices["username"],
+               "state": tr('encrypted') if choices["encrypted"] else tr('not encrypted')}
+    if choices["layout"] == "alongside":
+        print(tr('\nUnattended installation from the answers drive will install beside the existing systems on:\n'
+                 '  {disk_label}\nfor user {username}, {state}.', **details))
+    else:
+        print(tr('\nUnattended installation from the answers drive will ERASE the whole disk:\n'
+                 '  {disk_label}\nfor user {username}, {state}.', **details))
     if PROFILE:
         print(eitr_profile.summary(PROFILE, installer=True), flush=True)
     try:

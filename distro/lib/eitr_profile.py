@@ -233,6 +233,14 @@ def describe(value):
     return str(value)
 
 
+def queues_flatpaks(profile):
+    """Whether installation leaves Flatpak apps for the first start: Flathub additions or Flatpak recipes."""
+    additions = profile.get('add', {})
+    catalog = recipes() if additions.get('recipes') else {}
+    return bool(additions.get('flathub')) or any(catalog[name]['source'] == 'flatpak'
+                                                 for name in additions.get('recipes', []))
+
+
 def summary(profile, installer=False):
     lines = [tr('Organization profile: {name}', name=profile['name'])]
     for package in sorted(removals(profile)):
@@ -242,7 +250,7 @@ def summary(profile, installer=False):
             lines.append(tr('Add: {kind}: {value} ({connection})', kind=kind,
                             value=describe(value),
                             connection=tr('offline stick file') if kind == 'files' else tr('internet required')))
-    if installer:
+    if installer and queues_flatpaks(profile):
         lines.append(tr('Flathub apps install at the first start with a network connection.'))
     for key, value in profile.get('defaults', {}).items():
         lines.append(tr('Default: {key}: {value}', key=key, value=describe(value)))
@@ -250,7 +258,9 @@ def summary(profile, installer=False):
         if key == 'plugins' and isinstance(value, dict):
             lines.append(tr('Policy: plugins only from: {value}', value=', '.join(value['allow'])))
         else:
-            lines.append(tr('Policy: {key}: {value}', key=key, value=str(value)))
+            # true/false as written in the profile, not Python's True/False.
+            lines.append(tr('Policy: {key}: {value}', key=key, value=json.dumps(value)
+                            if isinstance(value, bool) else str(value)))
     if 'setup' in profile:
         lines.append(tr('Run once as root: {value}', value=describe(profile['setup'])))
     lines.append(tr('Policies restrict Eitr tools. A user with root can override them.'))

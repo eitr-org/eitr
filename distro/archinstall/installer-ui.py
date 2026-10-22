@@ -35,9 +35,11 @@ class Wizard(BaseWizard):
             for offset, line in enumerate(lines[scroll:scroll + count]):
                 self.text(y + offset, x, line)
             self.text(bottom - 3, x, warning, 2)
-            labels = (" Cancel ", " Continue ")
+            labels = (f" {tr('Cancel')} ", f" {tr('Continue')} ")
+            column = x
             for index, label in enumerate(labels):
-                self.text(bottom - 1, x + index * 14, label, 3 if index == selected else 2)
+                self.text(bottom - 1, column, label, 3 if index == selected else 2)
+                column += max(14, len(label) + 4)
             self.screen.refresh()
             key = self.screen.get_wch()
             if key in getattr(self, "cancel_keys", ("\x1b",)):
@@ -164,23 +166,26 @@ def collect(screen, checks, disks):
                 alongside = values["layout"] == "alongside"
                 contents = output(["lsblk", "-o", "NAME,SIZE,FSTYPE,LABEL", disk["path"]]).splitlines()
                 choice = ui.review([
-                    (f"KEEP the partitions on {disk['path']}; use {size_text(disk['free'])} of free space"
-                     if alongside else f"ERASE {disk['path']}: {disk['model']}"),
-                    f"Language: {values['language']} / Keyboard: {values['keyboard']}",
-                    f"Timezone: {values['timezone']} / Hostname: {values['hostname']}",
-                    f"User: {values['username']} / Btrfs / Limine UEFI",
-                    "Encryption: " + ("LUKS2, passphrase at boot" if values["encrypted"] else "DISABLED"),
-                    "Desktop: Afterglow / Clockwork Tape, installed offline before reboot",
+                    (tr('KEEP the partitions on {path}; use {size} of free space', path=disk['path'],
+                        size=size_text(disk['free']))
+                     if alongside else tr('ERASE {path}: {model}', path=disk['path'], model=disk['model'])),
+                    tr('Language: {language} / Keyboard: {keyboard}', language=values['language'],
+                       keyboard=values['keyboard']),
+                    tr('Timezone: {timezone} / Hostname: {hostname}', timezone=values['timezone'],
+                       hostname=values['hostname']),
+                    tr('User: {username} / Btrfs / Limine UEFI', username=values['username']),
+                    tr('Encryption: LUKS2, passphrase at boot') if values["encrypted"] else tr('Encryption: DISABLED'),
+                    tr('Desktop: Afterglow / Clockwork Tape, installed offline before reboot'),
                     *(alongside_notes(disk) if alongside else ()),
                     *PROFILE_REVIEW,
                     *contents],
-                    "Existing partitions are kept. Back up important files first." if alongside
-                    else "All partitions and files on this disk will be erased.")
+                    tr('Existing partitions are kept. Back up important files first.') if alongside
+                    else tr('All partitions and files on this disk will be erased.'))
                 if choice == "cancel":
                     raise Cancelled
-                warning = (f"New partitions are added in the free space of {disk['path']}.\n"
-                           "Existing partitions are kept, but back up important files first.\n"
-                           if alongside else f"ALL partitions and files on {disk['path']} will be destroyed.\n")
+                warning = (tr('New partitions are added in the free space of {path}.\n'
+                              'Existing partitions are kept, but back up important files first.\n', path=disk['path'])
+                           if alongside else tr('ALL partitions and files on {path} will be destroyed.\n', path=disk['path']))
                 ui.field(tr('Final confirmation'), warning + tr('Type {path} exactly to start installation.', path=f"{disk['path']}"),
                          validator=lambda value: value == disk["path"])
             ui.step += 1

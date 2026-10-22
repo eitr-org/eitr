@@ -223,6 +223,9 @@ def execute(profile, drive, username, channel_set, runner=run, root=Path('/'), i
             marker.write_text('started\n')
             runner(['/bin/bash', str(profiles.stick_file(drive, setup['file']))], cwd=str(drive))
             marker.write_text('completed\n')
+        elif marker.read_text().strip() != 'completed':
+            print(tr('The setup script {value} did not finish when it last ran; it is not run again. '
+                     'Change the script to allow another attempt.', value=setup['file']), file=sys.stderr)
 
 
 def apply(drive, channel_set, installer=False, username=None, root=Path('/')):

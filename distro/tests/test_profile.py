@@ -62,8 +62,12 @@ class ProfileFormat(unittest.TestCase):
     def test_minimal_and_summary(self):
         selected = self.validate()
         self.assertIn('Office', profile.summary(selected))
-        self.assertIn('first start with a network connection', profile.summary(selected, installer=True))
         self.assertNotIn('first start', profile.summary(selected))
+        # Only a profile that queues Flatpaks mentions the first start.
+        self.assertNotIn('first start', profile.summary(selected, installer=True))
+        flathub = {**selected, 'add': {'flathub': ['us.zoom.Zoom']}}
+        self.assertIn('first start with a network connection', profile.summary(flathub, installer=True))
+        self.assertIn('Policy: remote_access: false', profile.summary({**selected, 'policies': {'remote_access': False}}))
 
     def test_unknown_and_duplicate_keys_refused(self):
         with self.assertRaisesRegex(profile.ProfileError, 'unknown keys'):
@@ -107,7 +111,7 @@ class ProfileFormat(unittest.TestCase):
         allow = ['https://git.example.org/team/tools.git', 'git@github.com:team/plugin.git']
         result = self.validate(policies={'plugins': {'allow': allow}})
         self.assertIn('Policy: plugins only from: ' + ', '.join(allow), profile.summary(result))
-        self.assertIn('Policy: plugins: False', profile.summary(self.validate(policies={'plugins': False})))
+        self.assertIn('Policy: plugins: false', profile.summary(self.validate(policies={'plugins': False})))
         for value in ('false', {'allow': []}, {'allow': ['http://example.org/a.git']}, {'allow': ['ext::sh -c evil']},
                       {'allow': ['file:///srv/plugin']}, {'allow': [allow[0], allow[0]]}, {'allow': allow, 'deny': []},
                       {'allow': 'https://example.org/a.git'}, {'allow': [7]}):
@@ -274,7 +278,8 @@ assert(#policies.filter({{Text='Plugins', SubMenu='plugins'}}, 'tools') == 0)
 
 class ProfileApplication(unittest.TestCase):
     def test_apply_records_exclusions_and_runs_setup_only_once(self):
-        import eitr_profile_apply
+        # Loaded from this checkout: another test may have put an installed copy on sys.path.
+        eitr_profile_apply = module('profile_apply_setup', 'distro/lib/eitr_profile_apply.py')
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             (root / 'etc').mkdir()
@@ -301,6 +306,35 @@ class ProfileApplication(unittest.TestCase):
             self.assertIn(['pacman', '-R', '--noconfirm', '--', 'steam'], commands)
             self.assertEqual((root/'etc/eitr/profile-pacman.conf').read_text(), 'IgnorePkg = eitr-sunshine moonlight-qt steam tailscale\n')
             self.assertEqual((root/'etc/pacman.conf').read_text().count('Include = /etc/eitr/profile-pacman.conf'), 1)
+
+    def test_unfinished_setup_is_not_rerun_and_says_so(self):
+        import contextlib
+        import io
+        import subprocess as process
+        eitr_profile_apply = module('profile_apply_unfinished', 'distro/lib/eitr_profile_apply.py')
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / 'etc').mkdir()
+            (root / 'etc/pacman.conf').write_text('[options]\n[core]\nServer = https://example.org\n')
+            drive = root / 'stick'
+            drive.mkdir()
+            (drive / 'setup.sh').write_text('exit 3\n')
+            selected = {'version': 1, 'name': 'Office', 'setup': {'file': 'setup.sh', 'sha256': 'b' * 64}}
+
+            def runner(command, **options):
+                if command[0] == '/bin/bash':
+                    raise process.CalledProcessError(3, command)
+            account = Mock(pw_uid=1000, pw_dir=str(root / 'home'))
+            with patch.object(eitr_profile_apply.pwd, 'getpwnam', return_value=account), \
+                 patch.object(eitr_profile_apply.subprocess, 'run', return_value=Mock(stdout='firefox\n')), \
+                 patch.object(eitr_profile_apply.os, 'fchown'):
+                with self.assertRaises(process.CalledProcessError):
+                    eitr_profile_apply.execute(selected, drive, 'tester', Mock(), runner=runner, root=root)
+                errors = io.StringIO()
+                with contextlib.redirect_stderr(errors):
+                    eitr_profile_apply.execute(selected, drive, 'tester', Mock(), runner=runner, root=root)
+            self.assertEqual((root / 'var/lib/eitr/profile-setup' / ('b' * 64)).read_text(), 'started\n')
+            self.assertIn('setup.sh did not finish', errors.getvalue())
 
     def test_plugin_policy_stops_plugins_through_the_users_own_tool(self):
         eitr_profile_apply = module('profile_apply_plugins', 'distro/lib/eitr_profile_apply.py')
