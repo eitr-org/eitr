@@ -88,6 +88,7 @@ package() {
   install -Dm644 -t "$pkgdir/usr/lib/systemd/system" distro/system/eitr-factory-reset-finish.service
   # Enabled only by an offline installation that could not detect the timezone.
   install -Dm644 -t "$pkgdir/usr/lib/systemd/system" distro/system/eitr-timezone.service
+  install -Dm644 -t "$pkgdir/usr/lib/systemd/system" distro/system/eitr-profile-flatpaks.service
   # Enabled by the installer: refreshes the boot menu colours at shutdown.
   install -Dm644 -t "$pkgdir/usr/lib/systemd/system" distro/system/eitr-boot-menu.service
   install -Dm644 -t "$pkgdir/usr/lib/systemd/system" distro/system/eitr-firewall.service

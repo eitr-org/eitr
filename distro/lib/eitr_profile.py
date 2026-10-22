@@ -216,7 +216,7 @@ def describe(value):
     return str(value)
 
 
-def summary(profile):
+def summary(profile, installer=False):
     lines = [tr('Organization profile: {name}', name=profile['name'])]
     for package in sorted(removals(profile)):
         lines.append(tr('Remove: {value}', value=package))
@@ -225,6 +225,8 @@ def summary(profile):
             lines.append(tr('Add: {kind}: {value} ({connection})', kind=kind,
                             value=describe(value),
                             connection=tr('offline stick file') if kind == 'files' else tr('internet required')))
+    if installer:
+        lines.append(tr('Flathub apps install at the first start with a network connection.'))
     for key, value in profile.get('defaults', {}).items():
         lines.append(tr('Default: {key}: {value}', key=key, value=describe(value)))
     for key, value in profile.get('policies', {}).items():

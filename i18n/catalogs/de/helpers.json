@@ -1085,5 +1085,6 @@
   "Friday": "Freitag",
   "Saturday": "Samstag",
   "Sunday": "Sonntag",
-  "When? (10m, 18:30, every day 08:00)": "Wann? (10m, 18:30, every day 08:00)"
+  "When? (10m, 18:30, every day 08:00)": "Wann? (10m, 18:30, every day 08:00)",
+  "Flathub apps install at the first start with a network connection.": "Flathub-Apps werden beim ersten Start mit Internetverbindung installiert."
 }

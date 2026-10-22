@@ -499,7 +499,7 @@ def confirm_unattended(choices, seconds=COUNTDOWN_SECONDS, sleep=None):
         choices["layout"], choices["layout"])
     print(tr('\nUnattended installation from the answers drive will {action}:\n  {disk_label}\nfor user {username}, {state}.', action=f'{action}', disk_label=f'{disk_label(disk)}', username=f"{choices['username']}", state=f"{('encrypted' if choices['encrypted'] else 'not encrypted')}"))
     if PROFILE:
-        print(eitr_profile.summary(PROFILE), flush=True)
+        print(eitr_profile.summary(PROFILE, installer=True), flush=True)
     try:
         for remaining in range(seconds, 0, -1):
             print(tr('\rStarting in {remaining} s. Press Ctrl+C to cancel.', remaining=f'{remaining:>2}'), end="", flush=True)
@@ -594,7 +594,7 @@ def main():
         eitr_profile.preflight_packages(PROFILE, PROFILE_STAGE.name, databases=[*Path("/var/lib/pacman/sync").glob("*.db"), *PAYLOAD.rglob("*.db")])
         eitr_profile.preflight_flatpaks(PROFILE)
     ui = load("eitr_installer_ui", SOURCE / "distro/archinstall/installer-ui.py")
-    ui.PROFILE_REVIEW = eitr_profile.summary(PROFILE).splitlines() if PROFILE else []
+    ui.PROFILE_REVIEW = eitr_profile.summary(PROFILE, installer=True).splitlines() if PROFILE else []
 
     def disks():
         # lsblk nests partitions under their disk only when NAME is a column.

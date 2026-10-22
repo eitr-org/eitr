@@ -37,6 +37,8 @@ Solo `version` y `name` son obligatorios. Se rechazan claves desconocidas y dupl
 
 Las recetas usan `group/name` de `distro/software.json`. Solo se aceptan recetas pacman y Flatpak precompiladas. AUR, instaladores interactivos y aplicaciones web se rechazan; suministre paquetes precompilados en la memoria. Repositorios, recetas y Flathub requieren internet. Los archivos de paquetes funcionan sin conexión si sus dependencias están en la ISO o la memoria. Los nombres deben existir en las bases actuales de pacman; actualice por el proceso normal antes de comprobar adiciones online. No se compila AUR. Las adiciones pacman online realizan una actualización completa. El repositorio adicional sirve para actualizaciones futuras; suministre sus paquetes exclusivos como archivos.
 
+Durante la instalación, las aplicaciones de Flathub y las recetas Flatpak quedan en cola para el usuario del escritorio y se instalan en el primer arranque con conexión a internet. Las instalaciones fallidas se reintentan en el siguiente arranque. Al aplicar un perfil en una máquina ya instalada, se instalan directamente.
+
 Navegadores: Firefox y Chromium; añada Chromium explícitamente. Tema y fondo se guardan para el próximo inicio del usuario elegido, sin reiniciar el escritorio. Canal y repositorio son globales. `setup` se ejecuta como root al final, desde la copia privada de la memoria, tras registrar el perfil. Un marcador SHA-256 registra el intento antes de empezar: fallos e interrupciones no lo repiten silenciosamente. Cambie el script y su hash para autorizar otro intento. Los errores quedan visibles; las transacciones terminadas no se revierten.
 
 ```sh

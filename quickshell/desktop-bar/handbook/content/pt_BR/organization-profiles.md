@@ -37,6 +37,8 @@ Somente `version` e `name` são obrigatórios. Chaves desconhecidas ou duplicada
 
 Receitas usam `group/name` de `distro/software.json`. Só receitas pacman e Flatpak pré-compiladas são aceitas. AUR, instaladores interativos e aplicações web são recusados; forneça pacotes pré-compilados no pendrive. Pacotes de repositório, receitas e Flathub precisam de internet. Arquivos de pacote funcionam offline se as dependências estiverem na ISO ou no pendrive. Os nomes precisam existir nos bancos atuais do pacman; atualize pelo processo normal antes de validar adições online. Não há compilação AUR. Adições pacman online fazem atualização completa. O repositório extra serve às próximas atualizações; forneça no pendrive os pacotes exclusivos dele.
 
+Durante a instalação, os aplicativos Flathub e as receitas Flatpak ficam na fila para o usuário do desktop e são instalados na primeira inicialização com conexão à internet. Instalações que falham são tentadas novamente na próxima inicialização. Aplicar um perfil em uma máquina já instalada instala esses aplicativos diretamente.
+
 Navegadores: Firefox e Chromium; adicione Chromium explicitamente. Tema e papel de parede são salvos para o próximo login do usuário selecionado, sem reiniciar a sessão. Canal e repositório são globais. `setup` roda como root ao final, no diretório privado do pendrive copiado, depois de registrar o perfil. Um marcador SHA-256 registra a tentativa antes de iniciar: falhas ou interrupções não provocam repetição silenciosa. Altere o script e o hash para autorizar outra tentativa. Falhas permanecem visíveis; transações concluídas não são revertidas.
 
 ```sh

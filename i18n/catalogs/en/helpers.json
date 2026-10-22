@@ -308,6 +308,7 @@
   "Firewall: on": "Firewall: on",
   "Firewall: on (also open: {ports})": "Firewall: on (also open: {ports})",
   "Firewalls": "Firewalls",
+  "Flathub apps install at the first start with a network connection.": "Flathub apps install at the first start with a network connection.",
   "Flatpak apps could not be updated; the system update itself finished.": "Flatpak apps could not be updated; the system update itself finished.",
   "Folder": "Folder",
   "Folder for {label}": "Folder for {label}",

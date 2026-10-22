@@ -441,9 +441,9 @@ def profile_checks(work):
         return []
     encoded = base64.b64encode(expected.read_bytes()).decode()
     script = f"""
-import base64, json, os, subprocess, sys
+import base64, json, os, subprocess, sys, time
 sys.path.insert(0, '/usr/share/eitr/lib')
-from eitr_profile import removals
+from eitr_profile import removals, recipes
 from eitr_policy import row_allowed
 profile = json.loads(base64.b64decode('{encoded}'))
 assert json.load(open('/etc/eitr/profile.json')) == profile
@@ -453,7 +453,26 @@ assert os.stat(policies).st_uid == 0 and os.stat(policies).st_gid == 0
 assert os.stat(policies).st_mode & 0o777 == 0o644
 installed = subprocess.check_output(['pacman', '-Qq'], text=True).split()
 assert not removals(profile).intersection(installed)
-for app in profile.get('add', {{}}).get('flathub', []):
+apps = list(profile.get('add', {{}}).get('flathub', []))
+for name in profile.get('add', {{}}).get('recipes', []):
+    recipe = recipes()[name]
+    if recipe['source'] == 'flatpak':
+        apps.extend(recipe['packages'])
+if apps:
+    deadline = time.monotonic() + 900
+    pending = '/var/lib/eitr/profile-flatpaks.json'
+    while os.path.exists(pending) and time.monotonic() < deadline:
+        status = subprocess.run(['systemctl', 'is-failed', '--quiet', 'eitr-profile-flatpaks.service'])
+        if status.returncode == 0:
+            subprocess.run(['journalctl', '-u', 'eitr-profile-flatpaks.service', '--no-pager'])
+            raise AssertionError('First-boot Flatpak installation failed')
+        time.sleep(5)
+    assert not os.path.exists(pending), 'First-boot Flatpak installation timed out'
+    while subprocess.check_output(['systemctl', 'show', '-p', 'ActiveState', '--value',
+                                   'eitr-profile-flatpaks.service'], text=True).strip() in ('activating', 'active', 'deactivating'):
+        assert time.monotonic() < deadline, 'First-boot Flatpak unit did not finish'
+        time.sleep(1)
+for app in apps:
     subprocess.run(['flatpak', 'info', '--user', app], check=True)
 if profile.get('policies', {{}}).get('remote_access') is False:
     rows = json.load(open('/usr/share/eitr/elephant/menu-rows/system-connectivity.json'))

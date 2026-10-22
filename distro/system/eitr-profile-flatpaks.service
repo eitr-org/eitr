@@ -1,0 +1,13 @@
+[Unit]
+Description=Install organization profile Flatpaks after installation
+Wants=network-online.target
+After=network-online.target
+ConditionPathExists=/var/lib/eitr/profile-flatpaks.json
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/eitr/eitr-system profile-flatpaks
+TimeoutStartSec=infinity
+
+[Install]
+WantedBy=multi-user.target

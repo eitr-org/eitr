@@ -2,6 +2,7 @@
   "version": 1,
   "layout_version": 2,
   "rules": [
+    {"pattern": "distro/system/eitr-profile-flatpaks.service", "class": "C", "runtime": false},
     {"pattern": "distro/packages.txt", "class": "D", "runtime": true},
     {"pattern": "distro/aur-packages.txt", "class": "D", "runtime": true},
     {"pattern": "distro/local-packages.txt", "class": "D", "runtime": true},

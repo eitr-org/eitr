@@ -64,6 +64,11 @@ No AUR builds run during installation. Online pacman additions use a full upgrad
 never a partial upgrade. Extra repositories are configured for future updates;
 packages available only there should be supplied as stick files for installation.
 
+During installation, Flathub apps and Flatpak recipes are queued for the desktop
+user and install at the first start with a network connection. Failed installs
+retry at the next boot. Applying a profile on an installed machine installs them
+directly.
+
 Browser defaults support Firefox and Chromium. Chromium must also be added.
 Theme and wallpaper defaults are saved for the selected desktop user's next login;
 profile application does not restart their desktop. The extra repository and

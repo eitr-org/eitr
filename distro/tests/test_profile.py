@@ -59,7 +59,10 @@ class ProfileFormat(unittest.TestCase):
         return {'file': name, 'sha256': hashlib.sha256(content).hexdigest()}
 
     def test_minimal_and_summary(self):
-        self.assertIn('Office', profile.summary(self.validate()))
+        selected = self.validate()
+        self.assertIn('Office', profile.summary(selected))
+        self.assertIn('first start with a network connection', profile.summary(selected, installer=True))
+        self.assertNotIn('first start', profile.summary(selected))
 
     def test_unknown_and_duplicate_keys_refused(self):
         with self.assertRaisesRegex(profile.ProfileError, 'unknown keys'):
@@ -297,6 +300,133 @@ class ProfileApplication(unittest.TestCase):
                 with self.assertRaisesRegex(profile.ProfileError, 'Protected'):
                     eitr_profile_apply.apply(drive, Mock(), username='tester')
                 execute.assert_not_called()
+
+
+class DeferredFlatpaks(unittest.TestCase):
+    def setUp(self):
+        import eitr_profile_apply
+        self.apply = eitr_profile_apply
+        self.temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary.cleanup)
+        self.root = Path(self.temporary.name)
+        (self.root / 'etc').mkdir()
+        (self.root / 'etc/pacman.conf').write_text('[options]\n')
+        self.account = Mock(pw_uid=1000, pw_dir=str(self.root / 'home'), pw_shell='/bin/bash')
+        self.pending = self.root / self.apply.PENDING
+        self.work = [{'name': 'flathub', 'url': 'https://dl.flathub.org/repo/flathub.flatpakrepo',
+                      'apps': ['us.zoom.Zoom']}]
+
+    def queue(self):
+        self.pending.parent.mkdir(parents=True, exist_ok=True)
+        self.pending.write_text(json.dumps({'user': 'tester', 'remotes': self.work}))
+        self.pending.chmod(0o600)
+
+    def finish(self, runner):
+        actual_fstat = self.apply.os.fstat
+        def root_metadata(descriptor):
+            metadata = actual_fstat(descriptor)
+            return Mock(st_mode=metadata.st_mode, st_uid=0, st_gid=0,
+                        st_nlink=metadata.st_nlink, st_size=metadata.st_size)
+        with patch.object(self.apply.pwd, 'getpwnam', return_value=self.account), \
+             patch.object(self.apply.os, 'fstat', side_effect=root_metadata):
+            self.apply.finish_flatpaks(root=self.root, runner=runner)
+
+    def test_installer_queues_both_sources_but_installed_machine_runs_directly(self):
+        selected = {'version': 1, 'name': 'Office',
+                    'add': {'flathub': ['us.zoom.Zoom'], 'recipes': ['example']}}
+        recipe = {'source': 'flatpak', 'remote': 'vendor', 'url': 'https://example.org/repo',
+                  'packages': ['org.example.App'],
+                  'runtime_remotes': [{'name': 'runtime', 'url': 'https://example.org/runtime'}]}
+        with patch.object(self.apply.pwd, 'getpwnam', return_value=self.account), \
+             patch.object(self.apply.profiles, 'recipes', return_value={'example': recipe}), \
+             patch.object(self.apply.subprocess, 'run', return_value=Mock(stdout='')), \
+             patch.object(self.apply.os, 'fchown'):
+            runner = Mock()
+            self.apply.execute(selected, self.root, 'tester', Mock(), runner=runner,
+                               root=self.root, installer=True)
+            commands = [call.args[0] for call in runner.call_args_list]
+            self.assertFalse(any('flatpak' in command for command in commands))
+            self.assertIn(['systemctl', 'enable', 'eitr-profile-flatpaks.service'], commands)
+            queued = json.loads(self.pending.read_text())
+            self.assertEqual(queued['user'], 'tester')
+            self.assertEqual([remote['name'] for remote in queued['remotes']], ['flathub', 'runtime', 'vendor'])
+            self.assertEqual(queued['remotes'][2]['apps'], ['org.example.App'])
+            self.assertEqual(self.pending.stat().st_mode & 0o777, 0o600)
+            runner.reset_mock()
+            self.apply.execute(selected, self.root, 'tester', Mock(), runner=runner, root=self.root)
+            commands = [call.args[0] for call in runner.call_args_list]
+            self.assertEqual(sum('install' in command and 'flatpak' in command for command in commands), 2)
+            self.assertFalse(any(command[0] == 'systemctl' for command in commands))
+
+    def test_installer_without_flatpaks_does_not_enable_unit(self):
+        runner = Mock()
+        with patch.object(self.apply.pwd, 'getpwnam', return_value=self.account), \
+             patch.object(self.apply.subprocess, 'run', return_value=Mock(stdout='')), \
+             patch.object(self.apply.os, 'fchown'):
+            self.apply.execute({'version': 1, 'name': 'Office'}, self.root, 'tester', Mock(),
+                               runner=runner, root=self.root, installer=True)
+        self.assertFalse(self.pending.exists())
+        runner.assert_not_called()
+
+    def test_malformed_records_and_duplicate_keys_are_refused(self):
+        for content in ('[]', '{', '{"user":"tester","remotes":[]}',
+                        '{"user":"tester","user":"root","remotes":[]}'):
+            self.queue()
+            self.pending.write_text(content)
+            runner = Mock()
+            with self.assertRaises(ValueError):
+                self.finish(runner)
+            runner.assert_not_called()
+            self.assertTrue(self.pending.exists())
+
+    def test_success_removes_queue_and_uses_clean_user_environment(self):
+        self.queue()
+        runner = Mock()
+        self.finish(runner)
+        self.assertFalse(self.pending.exists())
+        command = runner.call_args.args[0]
+        self.assertEqual(command[:7], ['runuser', '-u', 'tester', '--', 'env', '-i', f'HOME={self.account.pw_dir}'])
+        self.assertEqual(command[-6:], ['flatpak', 'install', '--user', '-y', 'flathub', 'us.zoom.Zoom'])
+
+    def test_failure_retains_queue(self):
+        self.queue()
+        with self.assertRaises(RuntimeError):
+            self.finish(Mock(side_effect=[None, RuntimeError('download failed')]))
+        self.assertTrue(self.pending.exists())
+
+    def test_invalid_data_is_rejected_before_any_command(self):
+        for field, value in [('url', 'http://example.org'), ('name', '--evil'),
+                             ('apps', ['--command=evil']), ('apps', 'us.zoom.Zoom')]:
+            with self.subTest(field=field, value=value):
+                self.queue()
+                pending = json.loads(self.pending.read_text())
+                pending['remotes'].append(dict(self.work[0], **{field: value}))
+                self.pending.write_text(json.dumps(pending))
+                runner = Mock()
+                with self.assertRaises(ValueError):
+                    self.finish(runner)
+                runner.assert_not_called()
+                self.assertTrue(self.pending.exists())
+        self.queue()
+        self.account.pw_uid = 0
+        with self.assertRaises(ValueError):
+            self.finish(Mock())
+
+    def test_tampered_permissions_owner_and_symlink_refused(self):
+        self.queue()
+        self.pending.chmod(0o644)
+        with self.assertRaises(ValueError):
+            self.finish(Mock())
+        self.queue()
+        with patch.object(self.apply.os, 'fstat', return_value=Mock(
+                st_mode=0o100600, st_uid=1000, st_gid=1000, st_size=100, st_nlink=1)):
+            with self.assertRaises(ValueError):
+                self.apply.finish_flatpaks(root=self.root, runner=Mock())
+        target = self.pending.with_suffix('.target')
+        self.pending.rename(target)
+        self.pending.symlink_to(target)
+        with self.assertRaises(OSError):
+            self.apply.finish_flatpaks(root=self.root, runner=Mock())
 
 
 if __name__ == '__main__':

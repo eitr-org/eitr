@@ -993,7 +993,7 @@ if __name__ == "__main__":
                                            "firewall-on", "firewall-off", "firewall-status", "firewall-allow-ssh",
                                            "snapshot-changes", "channel-status", "channel-set",
                                            "remote-setup", "remote-arm", "remote-undo", "remote-open", "remote-close",
-                                           "remote-tailscale", "remote-tailscale-undo", "profile-apply", "profile-install"])
+                                           "remote-tailscale", "remote-tailscale-undo", "profile-apply", "profile-install", "profile-flatpaks"])
     parser.add_argument("argument", nargs="?",
                         help='auth-enable: fingerprint|fido2|password; auth-restore: backup name; snapshot-post: success|failed; boot-menu-style: desktop user; battery-limit: 60-100|off; luks-*: /dev path')
     parser.add_argument("profile_user", nargs="?")
@@ -1012,6 +1012,11 @@ if __name__ == "__main__":
             if args.action == "profile-install" and not in_chroot():
                 raise ValueError("profile-install is only available inside the installer chroot")
             apply(args.argument, channel_set, installer=args.action == "profile-install", username=args.profile_user)
+        elif args.action == "profile-flatpaks":
+            if args.argument:
+                raise ValueError("Unexpected argument")
+            from eitr_profile_apply import finish_flatpaks
+            finish_flatpaks()
         elif args.action.startswith("remote-"):
             import eitr_remote
             eitr_remote.dispatch(args.action.removeprefix("remote-"), args.argument)

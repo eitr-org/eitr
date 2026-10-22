@@ -37,6 +37,8 @@ Nur `version` und `name` sind Pflicht. Unbekannte und doppelte JSON-Schlüssel w
 
 Rezepte verwenden `group/name` aus `distro/software.json`. Nur vorgefertigte pacman- und Flatpak-Rezepte sind erlaubt. AUR, interaktive Installer und Webapps werden abgelehnt; liefern Sie geprüfte vorgefertigte Paketdateien. Repositorypakete, Rezepte und Flathub benötigen Internet. Paketdateien funktionieren offline, wenn ihre Abhängigkeiten auf ISO oder Stick liegen. Paketnamen müssen in den aktuellen pacman-Datenbanken existieren; aktualisieren Sie vor Onlineprüfungen über den normalen Ablauf. Es gibt keine AUR-Builds. Online-pacman-Ergänzungen führen ein vollständiges Upgrade aus. Das zusätzliche Repository dient späteren Updates; liefern Sie nur dort verfügbare Pakete als Dateien.
 
+Während der Installation werden Flathub-Apps und Flatpak-Rezepte für den Desktopbenutzer vorgemerkt und beim ersten Start mit Internetverbindung installiert. Fehlgeschlagene Installationen werden beim nächsten Start erneut versucht. Beim Anwenden eines Profils auf einem bereits installierten Rechner werden sie direkt installiert.
+
 Browser: Firefox und Chromium; Chromium muss zusätzlich installiert werden. Thema und Hintergrund werden für die nächste Anmeldung des gewählten Benutzers gespeichert, ohne Desktopneustart. Kanal und Repository gelten systemweit. `setup` läuft abschließend als root im privaten kopierten Stickverzeichnis, nachdem das Profil gespeichert wurde. Ein SHA-256-Marker erfasst den Versuch vor dem Start: Fehler und Unterbrechungen führen nicht zu stiller Wiederholung. Ändern Sie Skript und Prüfsumme für einen weiteren Versuch. Fehler bleiben sichtbar; abgeschlossene Pakettransaktionen werden nicht zurückgerollt.
 
 ```sh

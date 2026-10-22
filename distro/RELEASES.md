@@ -1,5 +1,9 @@
 # Releases
 
+Organization profile Flatpaks now install for the desktop user at the first boot
+with a network connection, avoiding extra-data sandbox failures in the installer
+chroot. Failed installations remain queued for the next boot.
+
 EITR releases use semantic versions with a Norse codename per minor release.
 `distro/release.json` is the single source: the package version, About, the
 problem report and the ISO name and boot menu all read it.

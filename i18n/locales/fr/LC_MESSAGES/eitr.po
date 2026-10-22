@@ -928,6 +928,9 @@ msgstr "Pare-feu : activé (également ouvert : {ports})"
 msgid "Firewalls"
 msgstr "Pare-feu"
 
+msgid "Flathub apps install at the first start with a network connection."
+msgstr "Les applications Flathub sont installées au premier démarrage avec une connexion Internet."
+
 msgid "Flatpak apps could not be updated; the system update itself finished."
 msgstr "Les applications Flatpak n’ont pas pu être mises à jour ; la mise à jour du système est terminée."
 

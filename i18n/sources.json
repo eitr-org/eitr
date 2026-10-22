@@ -4358,6 +4358,9 @@
     "Firewalls": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Flathub apps install at the first start with a network connection.": [
+      "distro/lib/eitr_profile.py"
+    ],
     "Flatpak apps could not be updated; the system update itself finished.": [
       "walker/scripts/actions/system/update.sh"
     ],

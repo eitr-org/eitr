@@ -928,6 +928,9 @@ msgstr "Firewall: an (zusätzlich offen: {ports})"
 msgid "Firewalls"
 msgstr "Firewalls"
 
+msgid "Flathub apps install at the first start with a network connection."
+msgstr "Flathub-Apps werden beim ersten Start mit Internetverbindung installiert."
+
 msgid "Flatpak apps could not be updated; the system update itself finished."
 msgstr "Flatpak-Anwendungen konnten nicht aktualisiert werden; die Systemaktualisierung wurde abgeschlossen."
 

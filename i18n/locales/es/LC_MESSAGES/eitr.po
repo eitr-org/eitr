@@ -928,6 +928,9 @@ msgstr "Cortafuegos: activado (también abierto: {ports})"
 msgid "Firewalls"
 msgstr "Cortafuegos"
 
+msgid "Flathub apps install at the first start with a network connection."
+msgstr "Las aplicaciones de Flathub se instalan en el primer arranque con conexión a internet."
+
 msgid "Flatpak apps could not be updated; the system update itself finished."
 msgstr "No se pudieron actualizar las aplicaciones Flatpak; la actualización del sistema terminó."
 

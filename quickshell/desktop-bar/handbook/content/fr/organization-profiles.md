@@ -37,6 +37,8 @@ Seuls `version` et `name` sont obligatoires. Les clés JSON inconnues ou dupliqu
 
 Les recettes utilisent `group/name` de `distro/software.json`. Seules les recettes pacman et Flatpak précompilées sont acceptées. AUR, installateurs interactifs et applications web sont refusés ; fournissez des paquets précompilés sur la clé. Dépôts, recettes et Flathub nécessitent Internet. Les fichiers de paquets fonctionnent hors ligne si leurs dépendances sont sur l’ISO ou la clé. Les noms doivent exister dans les bases actuelles de pacman ; actualisez par le processus normal avant les vérifications en ligne. Aucune compilation AUR. Les ajouts pacman en ligne effectuent une mise à niveau complète. Le dépôt supplémentaire sert aux mises à jour futures ; fournissez ses paquets exclusifs comme fichiers.
 
+Pendant l’installation, les applications Flathub et les recettes Flatpak sont mises en attente pour l’utilisateur du bureau et installées au premier démarrage avec une connexion Internet. Les installations échouées sont réessayées au démarrage suivant. L’application d’un profil sur une machine déjà installée les installe directement.
+
 Navigateurs : Firefox et Chromium ; ajoutez Chromium explicitement. Thème et fond sont enregistrés pour la prochaine connexion de l’utilisateur choisi, sans redémarrer le bureau. Canal et dépôt sont globaux. `setup` s’exécute comme root à la fin, depuis la copie privée de la clé, après enregistrement du profil. Un marqueur SHA-256 enregistre la tentative avant le lancement : un échec ou une interruption ne provoque pas de répétition silencieuse. Modifiez le script et son empreinte pour autoriser une nouvelle tentative. Les erreurs restent visibles ; les transactions terminées ne sont pas annulées.
 
 ```sh
