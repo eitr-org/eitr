@@ -43,7 +43,9 @@ class FirewallRulesTests(unittest.TestCase):
             openings.mkdir()
             (openings / "ssh.nft").write_text(system.SSH_OPENING)
             rules = Path(directory) / "firewall.nft"
-            rules.write_text(RULES.read_text().replace("/etc/eitr/firewall.d", str(openings)))
+            # Never the machine's own files: the sharing guard comes from the temporary folder too.
+            rules.write_text(RULES.read_text().replace("/etc/eitr/firewall.d", str(openings))
+                             .replace("/etc/eitr/remote-access", str(Path(directory) / "remote-access")))
             result = in_network_namespace(f"nft -f {rules} && nft -f {rules} && nft list ruleset")
             if result is None:
                 self.skipTest("unprivileged network namespaces are unavailable")

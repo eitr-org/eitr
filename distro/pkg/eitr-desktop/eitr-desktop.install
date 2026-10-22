@@ -37,6 +37,12 @@ post_upgrade() {
     grep -q '^ILoveCandy[[:space:]]*$' "$pacman_conf" || sed -i '0,/^Color[[:space:]]*$/s//Color\nILoveCandy/' "$pacman_conf"
     mkdir -p "${candy_marker%/*}" && touch "$candy_marker"
   fi
+  # Desktop sharing once wrote its firewall guard with both closing braces on
+  # one line, which nft rejects; the firewall includes the file at every load.
+  local sharing_guard=/etc/eitr/remote-access.nft
+  if [[ -f $sharing_guard ]] && [[ $(tail -n 1 "$sharing_guard") == '} }' ]]; then
+    sed -i '$ s/^} }$/}\n}/' "$sharing_guard"
+  fi
   # The boot guard only acts on Eitr's own layout after a System Update arms it.
   systemctl enable eitr-boot-guard.service eitr-boot-guard-healthy.service >/dev/null 2>&1 || true
   echo ':: Eitr desktop code was updated; user preferences were not changed.'

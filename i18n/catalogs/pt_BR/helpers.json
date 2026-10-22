@@ -979,5 +979,6 @@
   "Reminders cancelled: {count}": "Lembretes cancelados: {count}",
   "Tell the assistant…": "Fale com o assistente…",
   "Too many questions; nothing changed.": "Perguntas demais; nada foi alterado.",
-  "The speech model could not transcribe this recording.": "O modelo de fala não conseguiu transcrever esta gravação."
+  "The speech model could not transcribe this recording.": "O modelo de fala não conseguiu transcrever esta gravação.",
+  "Sharing could not start; the reason is above.": "Não foi possível iniciar o compartilhamento; o motivo está acima."
 }

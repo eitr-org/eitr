@@ -131,7 +131,8 @@ def scopes(routes, interfaces=None):
     result = []
     for route in routes:
         device = route.get('dev', '')
-        if route.get('gateway') or route.get('scope') != 'link' or not re.fullmatch(r'[A-Za-z0-9_.:-]{1,15}', device):
+        # `ip -j route show scope link` leaves the scope out of each route it lists.
+        if route.get('gateway') or route.get('scope', 'link') != 'link' or not re.fullmatch(r'[A-Za-z0-9_.:-]{1,15}', device):
             continue
         if interfaces is not None and device not in interfaces:
             continue
@@ -156,7 +157,7 @@ def firewall_text(allowed):
     for source in sources:
         for ports in (PORTS, UDP):
             guard += f'{source} {ports} return\n'
-    guard += f'iifname != "lo" {PORTS} drop\niifname != "lo" {UDP} drop\n}} }}\n'
+    guard += f'iifname != "lo" {PORTS} drop\niifname != "lo" {UDP} drop\n}}\n}}\n'
     return openings, guard
 
 

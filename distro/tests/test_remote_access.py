@@ -67,6 +67,26 @@ class RemoteSystemTests(unittest.TestCase):
         self.assertEqual(remote.scopes(routes), ['iifname "enp1s0" ip saddr 192.168.1.0/24',
                                                 'iifname "enp1s0" ip6 saddr fd00::/64'])
 
+    def test_scopes_accept_routes_as_ip_lists_them(self):
+        # `ip -j route show scope link` omits the scope of the routes it shows.
+        routes = [dict(dst='192.168.31.0/24', dev='wlan0', protocol='kernel', metric=1024, flags=[])]
+        self.assertEqual(remote.scopes(routes, {'wlan0'}), ['iifname "wlan0" ip saddr 192.168.31.0/24'])
+
+    @unittest.skipUnless(shutil.which('nft') and shutil.which('unshare'), 'nft and unshare required')
+    def test_firewall_files_parse_with_nft(self):
+        _, opened = remote.firewall_text(['iifname "wlan0" ip saddr 192.168.31.0/24'])
+        _, closed = remote.firewall_text([])
+        for text in (opened, closed):
+            with tempfile.NamedTemporaryFile('w', suffix='.nft') as rules:
+                rules.write(text)
+                rules.flush()
+                # A private network namespace lets nft check the syntax without root.
+                check = subprocess.run(['unshare', '-rn', 'nft', '-c', '-f', rules.name],
+                                       capture_output=True, text=True)
+                if 'Operation not permitted' in check.stderr:
+                    self.skipTest('user namespaces are unavailable')
+                self.assertEqual(check.returncode, 0, check.stderr)
+
     def test_no_remote_web_opening_and_guard_precedes_connection_tracking(self):
         openings, guard = remote.firewall_text(['iifname "enp1s0" ip saddr 192.168.1.0/24'])
         self.assertNotIn('47990', openings)

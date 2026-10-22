@@ -22,6 +22,16 @@ def run(command, **options):
     return subprocess.run(command, check=True, **options)
 
 
+def start_service(verb):
+    """Start or restart sharing; on failure show the service's own log, which holds the reason."""
+    try:
+        run(['systemctl', '--user', verb, SERVICE])
+    except subprocess.CalledProcessError:
+        subprocess.run(['journalctl', '--user', '-u', SERVICE, '--since', '-1min', '-n', '15',
+                        '--no-pager', '-o', 'cat'], check=False)
+        raise RuntimeError(tr('Sharing could not start; the reason is above.')) from None
+
+
 def software():
     spec = importlib.util.spec_from_file_location('remote_software', code('walker/scripts/actions/install/software.py'))
     module = importlib.util.module_from_spec(spec)
@@ -58,13 +68,13 @@ def host(action):
         print(tr('Set a Sunshine username and password in the local settings page before pairing any device.'))
         if not confirm(tr('Start sharing this PC?')):
             return
-        run(['systemctl', '--user', 'start', SERVICE])
+        start_service('start')
         settings()
         if not confirm(tr('Have you set Sunshine’s username and password in the browser?')):
             run(['systemctl', '--user', 'stop', SERVICE])
             return
         root('arm')
-        run(['systemctl', '--user', 'restart', SERVICE])
+        start_service('restart')
     elif action == 'stop':
         run(['systemctl', '--user', 'disable', '--now', SERVICE])
         root('close')

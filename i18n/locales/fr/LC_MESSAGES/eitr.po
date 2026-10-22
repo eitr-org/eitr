@@ -1951,6 +1951,9 @@ msgstr "Étapes de configuration"
 msgid "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed."
 msgstr "Plusieurs chargeurs de démarrage sont configurés ({listing}). Supprimez les anciens fichiers ou configurez manuellement les entrées d’instantanés. Aucune modification."
 
+msgid "Sharing could not start; the reason is above."
+msgstr "Le partage n’a pas pu démarrer ; la raison est indiquée ci-dessus."
+
 msgid "Sharing hands over full control of this signed-in desktop. Only enable it on a trusted home network."
 msgstr "Le partage confie le contrôle total de ce bureau connecté. Activez-le uniquement sur un réseau domestique de confiance."
 

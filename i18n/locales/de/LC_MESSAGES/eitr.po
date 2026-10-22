@@ -1951,6 +1951,9 @@ msgstr "Einrichtungsschritte"
 msgid "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed."
 msgstr "Mehrere Bootloader sind eingerichtet ({listing}). Entfernen Sie veraltete Loader-Dateien oder richten Sie Snapshot-Starteinträge manuell ein. Nichts wurde geändert."
 
+msgid "Sharing could not start; the reason is above."
+msgstr "Die Freigabe konnte nicht starten; der Grund steht oben."
+
 msgid "Sharing hands over full control of this signed-in desktop. Only enable it on a trusted home network."
 msgstr "Die Freigabe gewährt vollständige Kontrolle über diesen angemeldeten Desktop. Aktivieren Sie sie nur in einem vertrauten Heimnetz."
 

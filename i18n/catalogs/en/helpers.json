@@ -649,6 +649,7 @@
   "Settings could not be updated safely.": "Settings could not be updated safely.",
   "Setup steps": "Setup steps",
   "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed.": "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed.",
+  "Sharing could not start; the reason is above.": "Sharing could not start; the reason is above.",
   "Sharing hands over full control of this signed-in desktop. Only enable it on a trusted home network.": "Sharing hands over full control of this signed-in desktop. Only enable it on a trusted home network.",
   "Sharing status unavailable.": "Sharing status unavailable.",
   "Sharing stopped": "Sharing stopped",
