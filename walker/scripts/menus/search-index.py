@@ -194,6 +194,7 @@ def prepare():
 
 
 def activate(key, action):
+    from eitr_policy import row_allowed
     row = next((row for row in read_index().get('rows', []) if row['key'] == key), None)
     if not row or action not in row['actions']:
         raise ValueError(tr('Search entry expired; reopen Main to refresh'))
@@ -209,6 +210,8 @@ def activate(key, action):
     fields = [row['provider'], row['identifier'], action, '', '']
     if any(';' in field for field in fields):
         raise ValueError(tr('Unsupported action identifier'))
+    if not row_allowed(row):
+        raise ValueError("Disabled by organization policy")
     # Elephant owns the commands and submenu routing; the index stores no shell code.
     subprocess.run(['elephant', 'activate', ';'.join(fields)], check=True, timeout=5)
 

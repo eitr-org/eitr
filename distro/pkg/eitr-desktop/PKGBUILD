@@ -72,7 +72,7 @@ package() {
     "$pkgdir/usr/share/eitr/quickshell/lockscreen/scripts/install-login.py"
   python3 quickshell/lockscreen/scripts/install-login.py --stage "$pkgdir"
   install -Dm644 -t "$pkgdir/usr/share/eitr" \
-    distro/software.json distro/installers.json distro/RECOVERY.md distro/SECURE-BOOT.md distro/FACTORY-RESET.md \
+    distro/software.json distro/removable-apps.json distro/packages.txt distro/aur-packages.txt distro/local-packages.txt distro/installers.json distro/RECOVERY.md distro/SECURE-BOOT.md distro/FACTORY-RESET.md \
     distro/system-update-policy.conf
   install -dm755 "$pkgdir/usr/lib/eitr"
   ln -s /usr/share/eitr/lib/eitr_bootstrap.py "$pkgdir/usr/lib/eitr/eitr_bootstrap.py"

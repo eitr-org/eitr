@@ -129,7 +129,14 @@ def installation_present(item):
 
 def recipes(group):
     rows = []
+    from eitr_policy import allowed, require_packages
+    if not allowed(group.replace('-', '_')):
+        return []
     for key, value in catalog()[group].items():
+        try:
+            require_packages(value.get('packages', []))
+        except ValueError:
+            continue
         complete = installed(value)
         supported = value["source"] in ("pacman", "aur", "flatpak", "webapp") or bool(value.get("uninstall"))
         rows.append({"id": key, **value, "installed": complete,
@@ -156,6 +163,8 @@ def require_no_pending_updates():
 
 def install(source, packages):
     packages = list(dict.fromkeys(package_name(name) for name in packages))
+    from eitr_policy import require_packages
+    require_packages(packages)
     if not packages:
         raise ValueError(tr('Select at least one package'))
     if source == "pacman":
@@ -257,7 +266,10 @@ def remove(source, *names):
 
 
 def recipe_uninstall(group, identifier):
+    from eitr_policy import require, require_packages
+    require(group.replace('-', '_'))
     item = catalog()[group][identifier]
+    require_packages(item.get('packages', []))
     if item["source"] == "webapp":
         app = webapp(item)
         if app:
@@ -275,7 +287,10 @@ def recipe_uninstall(group, identifier):
 
 
 def recipe_review(group, identifier):
+    from eitr_policy import require, require_packages
+    require(group.replace('-', '_'))
     item = catalog()[group][identifier]
+    require_packages(item.get('packages', []))
     if group == "languages" and item["source"] == "managed":
         warnings = {
             "node": tr('Uninstall {label}? This removes every NVM-managed Node.js version and its global npm tools. Projects and settings will be kept.', label=item['label']),
@@ -297,7 +312,10 @@ def recipe_review(group, identifier):
 
 
 def recipe_remove(group, identifier):
+    from eitr_policy import require, require_packages
+    require(group.replace('-', '_'))
     item = catalog()[group][identifier]
+    require_packages(item.get('packages', []))
     if item["source"] == "webapp":
         app = webapp(item)
         if app:
@@ -395,7 +413,10 @@ def missing_providers(defaults):
 
 
 def recipe(group, identifier):
+    from eitr_policy import require, require_packages
+    require(group.replace('-', '_'))
     item = catalog()[group][identifier]
+    require_packages(item.get('packages', []))
     if item["source"] == "webapp":
         app = webapp(item)
         arguments = ["launch", app["id"]] if app else ["create", item["label"], item["url"]]
@@ -419,7 +440,10 @@ def recipe(group, identifier):
 
 
 def recipe_launch(group, identifier):
+    from eitr_policy import require, require_packages
+    require(group.replace('-', '_'))
     item = catalog()[group][identifier]
+    require_packages(item.get('packages', []))
     if item["source"] == "webapp":
         app = webapp(item)
         if app:
@@ -568,7 +592,11 @@ def package_picker(source):
 
 
 def gaming_item(identifier):
+    from eitr_policy import require, require_packages
+    require('gaming')
     item = catalog()["gaming"].get(identifier)
+    if item:
+        require_packages(item.get('packages', []))
     if item is None or not item.get("launch"):
         raise ValueError('Unknown gaming app')
     return item

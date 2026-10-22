@@ -1,0 +1,74 @@
+{
+  "apache": {
+    "group": "development",
+    "reason": "Optional web server."
+  },
+  "eitr-sunshine": {
+    "group": "remote_access",
+    "reason": "Optional streaming host, inactive until explicitly configured."
+  },
+  "eog": {
+    "group": "media",
+    "reason": "Optional image viewer; desktop uses imv."
+  },
+  "evince": {
+    "group": "media",
+    "reason": "Optional document viewer."
+  },
+  "gamemode": {
+    "group": "gaming",
+    "reason": "Optional game performance daemon; desktop does not invoke it."
+  },
+  "gamescope": {
+    "group": "gaming",
+    "reason": "Optional nested game compositor."
+  },
+  "git-filter-repo": {
+    "group": "development",
+    "reason": "Optional Git history tool."
+  },
+  "kdeconnect": {
+    "group": "sharing",
+    "reason": "Optional phone integration."
+  },
+  "lib32-gamemode": {
+    "group": "gaming",
+    "reason": "Optional 32-bit game performance library."
+  },
+  "localsend-bin": {
+    "group": "sharing",
+    "reason": "Optional local file sharing application."
+  },
+  "mangohud": {
+    "group": "gaming",
+    "reason": "Optional game performance overlay."
+  },
+  "moonlight-qt": {
+    "group": "remote_access",
+    "reason": "Optional streaming client, installed on demand by Remote Access."
+  },
+  "steam": {
+    "group": "gaming",
+    "reason": "Optional game client."
+  },
+  "steam-devices": {
+    "group": "gaming",
+    "reason": "Optional game controller rules."
+  },
+  "tailscale": {
+    "group": "remote_access",
+    "reason": "Optional private remote network, inactive until explicitly configured."
+  },
+  "terraform": {
+    "group": "development",
+    "reason": "Optional infrastructure tool."
+  },
+  "totem": {
+    "group": "media",
+    "reason": "Optional video player."
+  },
+  "watchman-bin": {
+    "group": "development",
+    "reason": "Optional development file watcher."
+  }
+}

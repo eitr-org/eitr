@@ -118,12 +118,14 @@ ln -s /opt/desktop-config/distro/archinstall/eitr-guided-install "$profile/airoo
 cat >> "$profile/airootfs/root/.zlogin" <<'ZLOGIN'
 
 if [[ $(tty) == /dev/tty1 ]]; then
+  if [[ -e /dev/disk/by-label/EITR-ANSWERS ]]; then
+    mkdir -p /run/eitr-answers
+    mount -o ro,nosuid,nodev,noexec /dev/disk/by-label/EITR-ANSWERS /run/eitr-answers || return
+  fi
   answers=/sys/firmware/qemu_fw_cfg/by_name/opt/eitr/answers/raw
   if [[ -r $answers ]]; then
     eitr-guided-install --answers "$answers" 2>&1 | tee /dev/ttyS0
-  elif [[ -e /dev/disk/by-label/EITR-ANSWERS ]] && mkdir -p /run/eitr-answers \
-      && mount -o ro /dev/disk/by-label/EITR-ANSWERS /run/eitr-answers \
-      && [[ -r /run/eitr-answers/eitr-answers.json ]]; then
+  elif [[ -r /run/eitr-answers/eitr-answers.json ]]; then
     eitr-guided-install --answers /run/eitr-answers/eitr-answers.json
   else
     eitr-guided-install
@@ -137,7 +139,7 @@ printf '\nairootfs_image_tool_options=("-comp" "zstd" "-Xcompression-level" "6" 
 printf '\nTo install Eitr (erases the disk you select), run: eitr-guided-install\n' >> "$profile/airootfs/etc/motd"
 # The live environment needs the installer and splash, not the desktop packages,
 # which the installer reads from the payload on the medium.
-printf '\ncurl\ngit\nplymouth\npython-pillow\n' >> "$profile/packages.x86_64"
+printf '\ncurl\ngit\nplymouth\npython-pillow\nflatpak\n' >> "$profile/packages.x86_64"
 sort -u -o "$profile/packages.x86_64" "$profile/packages.x86_64"
 sudo mkarchiso -v -w "$build_root/work" -o "$build_root/base" "$profile"
 

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -euo pipefail
+python3 "${EITR_LIBRARY_ROOT:-/usr/share/eitr/lib}/eitr_policy.py" require sharing
 
 if (($# == 0)); then
   echo "Usage: localsend-share.sh clipboard|file|folder [PATH...]" >&2

@@ -146,6 +146,8 @@ def ask(identifier, question, *, announce=True):
 
 
 def dispatch(request):
+    from eitr_policy import require
+    require('assistants_together')
     if not isinstance(request, dict) or request.get('jsonrpc') != '2.0' or not isinstance(request.get('method'), str):
         return {'jsonrpc': '2.0', 'id': None, 'error': {'code': -32600, 'message': 'Invalid Request'}}
     if 'id' not in request:
@@ -311,11 +313,14 @@ def save_record(record):
 
 
 def enabled():
-    return bool(load_record()['entries'])
+    from eitr_policy import allowed
+    return allowed('assistants_together') and bool(load_record()['entries'])
 
 
 def enable(identifiers):
     """Register the server through each tool's own `mcp add`, never over an existing entry."""
+    from eitr_policy import require
+    require('assistants_together')
     record = load_record()
     errors = []
     if record['entries']:
@@ -339,6 +344,8 @@ def enable(identifiers):
 
 def disable():
     """Remove only entries that are still exactly what Eitr registered."""
+    from eitr_policy import require
+    require('assistants_together')
     record = load_record()
     errors = []
     for edit in list(record['entries']):

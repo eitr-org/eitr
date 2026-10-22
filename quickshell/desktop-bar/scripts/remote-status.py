@@ -84,7 +84,10 @@ def streaming_status():
 
 
 def status():
-    return {'tailscale': {**tailscale_status(), 'actions': menu_actions('remote-away')},
+    from eitr_policy import allowed
+    if not allowed('remote_access'):
+        return {'allowed': False, 'tailscale': {}, 'streaming': {}}
+    return {'allowed': True, 'tailscale': {**tailscale_status(), 'actions': menu_actions('remote-away')},
             'streaming': {**streaming_status(), 'actions': menu_actions('remote-share')
                           + [row for row in menu_actions('remote-access') if row['source'] == 'Connect to another PC']}}
 

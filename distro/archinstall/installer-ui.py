@@ -9,6 +9,7 @@ import shutil
 import subprocess
 import sys
 import time
+import textwrap
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -24,11 +25,15 @@ class Wizard(BaseWizard):
 
     def review(self, details, warning):
         selected = 0
+        scroll = 0
         while True:
-            y, x = self.frame(tr('Review installation'), tr('Tab / arrows: choose  Enter: select  Esc: cancel'))
+            y, x = self.frame(tr('Review installation'), tr('Tab / arrows: choose  Enter: select  PgUp/PgDn: scroll  Esc: cancel'))
             bottom = getattr(self, "panel_bottom", self.screen.getmaxyx()[0] - 3)
-            for offset, line in enumerate(details[:max(0, bottom - y - 5)]):
-                self.text(y + offset, x, line[:self.body_width])
+            count = max(1, bottom - y - 5)
+            lines = [wrapped for line in details for wrapped in (textwrap.wrap(line, self.body_width) or [''])]
+            scroll = min(scroll, max(0, len(lines) - count))
+            for offset, line in enumerate(lines[scroll:scroll + count]):
+                self.text(y + offset, x, line)
             self.text(bottom - 3, x, warning, 2)
             labels = (" Cancel ", " Continue ")
             for index, label in enumerate(labels):
@@ -37,7 +42,9 @@ class Wizard(BaseWizard):
             key = self.screen.get_wch()
             if key in getattr(self, "cancel_keys", ("\x1b",)):
                 raise Cancelled
-            if key in ("\t", curses.KEY_LEFT, curses.KEY_RIGHT, curses.KEY_UP, curses.KEY_DOWN):
+            if key in (curses.KEY_NPAGE, curses.KEY_PPAGE):
+                scroll = max(0, scroll + (count if key == curses.KEY_NPAGE else -count))
+            elif key in ("\t", curses.KEY_LEFT, curses.KEY_RIGHT, curses.KEY_UP, curses.KEY_DOWN):
                 selected = 1 - selected
             elif key in ("\n", "\r", curses.KEY_ENTER):
                 return ("cancel", "install")[selected]
@@ -112,6 +119,9 @@ def output(command):
 
 
 
+PROFILE_REVIEW = []
+
+
 def collect(screen, checks, disks):
     ui = Wizard(screen)
     ui.preparation(checks)
@@ -162,6 +172,7 @@ def collect(screen, checks, disks):
                     "Encryption: " + ("LUKS2, passphrase at boot" if values["encrypted"] else "DISABLED"),
                     "Desktop: Afterglow / Clockwork Tape, installed offline before reboot",
                     *(alongside_notes(disk) if alongside else ()),
+                    *PROFILE_REVIEW,
                     *contents],
                     "Existing partitions are kept. Back up important files first." if alongside
                     else "All partitions and files on this disk will be erased.")
@@ -263,7 +274,7 @@ def installation(stages):
             ui.text(18, x + 3, progress_bar(panel_width - 6, index, len(stages), state["progress"].fraction), 2)
             for offset, message in enumerate(lines[-max(1, min(6, height - 24)):]):
                 ui.text(20 + offset, x + 3, message[:panel_width - 6])
-            ui.text(height - 2, 2, tr('Installing from the USB medium; no network is needed. Keep the computer powered on.'))
+            ui.text(height - 2, 2, tr('Installing the selected software. Profile additions may need the internet. Keep the computer powered on.'))
             screen.refresh()
 
         for index, (title, operation) in enumerate(stages):

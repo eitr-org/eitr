@@ -431,6 +431,51 @@ up for someone else), give the ISO an answers drive:
 The file holds passwords in plain text: keep the stick safe and wipe it when the
 installs are done. Without the stick, the ISO starts the normal wizard.
 
+### Organization profiles
+
+Put `eitr-profile.json` on the same `EITR-ANSWERS` stick, with or without answers.
+The wizard Review (or unattended 15-second countdown) lists every removal,
+addition, default, policy and setup script before any disk changes. Example:
+
+```json
+{
+  "version": 1,
+  "name": "Example office",
+  "remove": ["steam", "moonlight-qt", "eitr-sunshine", "tailscale"],
+  "add": {
+    "recipes": ["productivity/libreoffice"],
+    "packages": ["chromium"],
+    "flathub": ["us.zoom.Zoom"],
+    "files": [{"file": "packages/office-tools-1-1-any.pkg.tar.zst", "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"}]
+  },
+  "defaults": {
+    "theme": "norse",
+    "wallpaper": {"file": "office.png", "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"},
+    "browser": "chromium",
+    "update_channel": "stable",
+    "repository": {
+      "name": "office",
+      "server": "https://packages.example.org/$arch",
+      "key": {"file": "office-key.asc", "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"}
+    }
+  },
+  "setup": {"file": "setup.sh", "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"},
+  "policies": {"remote_access": false, "assistants_together": false, "update_channel": "stable", "gaming": false}
+}
+```
+
+Replace example digests with `sha256sum` output and copy every named file to the
+stick. Only version and name are required. Repository/recipe/Flathub additions
+need internet; stick packages and their supplied dependencies work offline.
+No AUR builds run. Only reviewed optional apps may be removed; desktop packages
+are protected. Use `eitr profile check DRIVE` to validate, and `eitr profile apply
+DRIVE` to review and type `APPLY PROFILE` on an installed system. The recorded
+profile prevents System Update from reinstalling excluded apps. Policies govern
+Eitr tools and menus; they are not a lockdown against root. See
+[Organization profiles](ORGANIZATION-PROFILES.md) for the schema, supported recipes,
+setup retry semantics, signing keys and limitations, and
+[VM verification](PROFILE-VM-TESTING.md) for pending VM commands.
+
 ## Before calling it a distro
 
 - Test the ISO boot and post-install flow on real AMD, Intel and NVIDIA systems

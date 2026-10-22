@@ -62,6 +62,7 @@ GROUPS = [
         ("report", "prepare a problem report to read and send"),
     ]),
     ("Setup", [
+        ("profile", "check or apply an organization profile from a mounted stick"),
         ("hook", "list your hooks, or run one to try it"),
         ("plugin", "list, add, update or remove per-user plugins"),
         ("config", "your settings files compared with Eitr's defaults (eitr-config)"),
@@ -119,6 +120,10 @@ def parser():
     update = commands.add_parser("update", help='update the system')
     update.add_argument("kind", nargs="?", default="system", choices=sorted(UPDATES),
                         help='system (default: snapshot, packages, AUR and Flatpak), pacman, aur or full')
+
+    profile = commands.add_parser("profile", help="validate or apply an organization profile")
+    profile.add_argument("action", choices=["check", "apply"])
+    profile.add_argument("drive", help="mounted directory containing eitr-profile.json")
 
     plugin = commands.add_parser("plugin", help="per-user plugins")
     plugin_actions = plugin.add_subparsers(dest="action")
@@ -186,6 +191,11 @@ def plan(arguments, code=None, config=None):
     code, config = code or code_root(), config or config_root()
     actions = code / "walker/scripts/actions"
     command = arguments.command
+    if command == "profile":
+        if arguments.action == "check":
+            from eitr_profile import check, summary
+            return summary(check(arguments.drive))
+        return ["sudo", ROOT_HELPER, "profile-apply", str(Path(arguments.drive).resolve())]
     if command == "plugin":
         value = getattr(arguments, "url", None) or getattr(arguments, "id", None)
         return ["python3", str(actions / "install/plugins.py"), arguments.action, *([value] if value else [])]
@@ -263,5 +273,8 @@ def main(argv=None):
 if __name__ == "__main__":
     try:
         sys.exit(main())
+    except (OSError, ValueError) as error:
+        print(str(error), file=sys.stderr)
+        sys.exit(1)
     except KeyboardInterrupt:
         sys.exit(130)

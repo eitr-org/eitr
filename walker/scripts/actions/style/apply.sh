@@ -39,7 +39,10 @@ if [[ ! -d "$THEME_DIR" ]]; then
   exit 1
 fi
 
-previous_wallpaper="$(python3 "$WALLPAPER_HELPER" snapshot)"
+previous_wallpaper=""
+if [[ "${EITR_NO_SESSION:-}" != 1 ]]; then
+  previous_wallpaper="$(python3 "$WALLPAPER_HELPER" snapshot)"
+fi
 
 # Build the new current theme beside the old one, then swap it in so readers
 # never observe a half-copied directory.
@@ -60,13 +63,16 @@ echo "$THEME_NAME" > "$HOME/.cache/current-theme"
 python3 "$EITR_CODE_ROOT/quickshell/desktop-bar/scripts/appearance-state.py" theme "$THEME_NAME"
 
 # RGB in background; it logs instead of notifying.
-nohup "$THEME_SCRIPTS_DIR/rgb.sh" >"$LOG_DIR/eitr-rgb.log" 2>&1 &
+if [[ "${EITR_NO_SESSION:-}" != 1 ]]; then
+  nohup "$THEME_SCRIPTS_DIR/rgb.sh" >"$LOG_DIR/eitr-rgb.log" 2>&1 &
+fi
 
 failed_modules=()
 if ! failed="$("$THEME_SCRIPTS_DIR/generate.sh")"; then
   read -r -a failed_modules <<< "$failed"
 fi
 
+if [[ "${EITR_NO_SESSION:-}" != 1 ]]; then
 # hyprland.lua reads the active palette for borders and other colors.
 hyprctl reload || true
 
@@ -81,11 +87,18 @@ if command -v kbuildsycoca6 >/dev/null 2>&1; then
   kbuildsycoca6 >/dev/null 2>&1 || true
 fi
 
+fi
+
 mapfile -t wallpapers < <(python3 "$WALLPAPER_HELPER" list "$CURRENT_DIR/backgrounds")
 FIRST_WALLPAPER="${wallpapers[0]:-}"
 
 if [[ -n "$FIRST_WALLPAPER" ]]; then
   python3 "$WALLPAPER_HELPER" apply "$FIRST_WALLPAPER" --previous "$previous_wallpaper"
+fi
+
+if [[ "${EITR_NO_SESSION:-}" == 1 ]]; then
+  (( ${#failed_modules[@]} == 0 ))
+  exit
 fi
 
 if (( ${#failed_modules[@]} )); then

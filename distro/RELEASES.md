@@ -25,6 +25,14 @@ GPUs or a real Windows/BitLocker disk, waits for the public preview and lands in
 Later codenames are planned, not promised: a release may move to the next row
 when its milestone changes. Patch releases (0.3.1) keep their minor's codename.
 
+## Organization profiles (unreleased)
+
+Reviewed optional-app exclusions, strict checksum-checked stick profiles, installer
+review/countdown, `eitr profile check/apply`, root-owned policies and persistent
+update exclusions. The Handbook covers the format and root limitation in every
+supported language. VM install/update/apply verification is still pending; see
+`PROFILE-VM-TESTING.md`. No release or installation claim is made by local checks.
+
 ## Versions
 
 The package version is `<version>.<UTC commit date>.<time>.g<commit>`, for

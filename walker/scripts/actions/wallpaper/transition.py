@@ -133,6 +133,8 @@ def commit(path):
     listing.write_text(path + "\n")
     listing.replace(cache / "current-wallpaper")
     write_settings(user_config('eitr/appearance.json'), {'wallpaper': path})
+    if os.environ.get("EITR_NO_SESSION") == "1":
+        return
     # The Theme Wallpaper login design shows a copy of the wallpaper; keep it current.
     login = code("quickshell/lockscreen/scripts/settings.py")
     if login.is_file():
@@ -216,6 +218,9 @@ def as_uris(images):
 
 
 def apply(path, previous=None):
+    if os.environ.get("EITR_NO_SESSION") == "1":
+        commit(path)
+        return
     path = str(Path(path).resolve(strict=True))
     with (runtime() / "transition.lock").open("w") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)

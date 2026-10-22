@@ -20,6 +20,7 @@ dnd_on() {
 }
 
 turn_on() {
+  python3 "${EITR_LIBRARY_ROOT:-$root/lib}/eitr_policy.py" require gaming
   local changed_dnd=false previous_profile=''
   hyprctl eval 'hl.config({ animations = { enabled = false }, decoration = { blur = { enabled = false }, shadow = { enabled = false } } })' >/dev/null
   if [[ "$(dnd_on)" == False ]]; then

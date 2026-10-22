@@ -3204,6 +3204,9 @@
     "Open/toggle its panel; outside click or Escape dismisses it.": [
       "quickshell/desktop-bar/scripts/handbook-build.py"
     ],
+    "Organization Profiles": [
+      "quickshell/desktop-bar/handbook/chapters.json"
+    ],
     "Password, fingerprint, FIDO2, idle lock, TPM and encryption": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
@@ -3257,6 +3260,9 @@
     ],
     "Resize wider": [
       "quickshell/desktop-bar/scripts/handbook-build.py"
+    ],
+    "Reviewed installation software, defaults and organization policies": [
+      "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Right-click Idle Lock": [
       "quickshell/desktop-bar/scripts/handbook-build.py"
@@ -3530,6 +3536,7 @@
       "walker/scripts/actions/system/crash-help.py"
     ],
     "A regular desktop user is required": [
+      "distro/lib/eitr_profile_apply.py",
       "distro/system/eitr_remote.py"
     ],
     "A selection is required": [
@@ -3615,6 +3622,12 @@
     ],
     "Add {provider} Account": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Add: {kind}: {value} ({connection})": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "Added packages are also removed: {packages}": [
+      "distro/lib/eitr_profile.py"
     ],
     "Address": [
       "walker/scripts/actions/development/monitoring.py",
@@ -3734,6 +3747,9 @@
     "Browse bucket": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
+    "Browser must be firefox or chromium (install it with add.packages)": [
+      "distro/lib/eitr_profile.py"
+    ],
     "Buckets": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -3778,13 +3794,23 @@
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Cancelled; nothing was changed": [
-      "distro/archinstall/eitr-guided-install"
+      "distro/archinstall/eitr-guided-install",
+      "distro/lib/eitr_profile_apply.py"
     ],
     "Cancelled; nothing was changed.": [
       "walker/scripts/actions/system/factory-reset.py"
     ],
     "Cannot change another user": [
       "distro/system/eitr_remote.py"
+    ],
+    "Cannot inspect package dependency database {database}: {error}": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "Cannot validate Flatpak additions (internet and flatpak required): {error}": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "Cannot validate Flatpak remote {remote}: {reason}": [
+      "distro/lib/eitr_profile.py"
     ],
     "Capture": [
       "quickshell/desktop-bar/scripts/remote-status.py"
@@ -3839,6 +3865,9 @@
     ],
     "Choose iwd, networkmanager, or restore": [
       "walker/scripts/actions/system/network-backend.py"
+    ],
+    "Chromium default requires add.packages chromium or its recipe": [
+      "distro/lib/eitr_profile.py"
     ],
     "Claude usage returned HTTP {code}; retry later or sign in again": [
       "quickshell/desktop-bar/scripts/ai-usage.py"
@@ -4099,6 +4128,12 @@
     "Default account": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Default browser is removed": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "Default: {key}: {value}": [
+      "distro/lib/eitr_profile.py"
+    ],
     "Delete Account": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -4124,6 +4159,10 @@
     "Direct": [
       "quickshell/desktop-bar/scripts/remote-status.py",
       "walker/scripts/actions/system/remote-access.py"
+    ],
+    "Disabled by organization policy: {feature}": [
+      "distro/lib/eitr_policy.py",
+      "quickshell/desktop-bar/scripts/menu-action.py"
     ],
     "Disconnected": [
       "quickshell/desktop-bar/scripts/remote-status.py"
@@ -4160,6 +4199,9 @@
     ],
     "Droplets": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Duplicate JSON key: {key}": [
+      "distro/lib/eitr_profile.py"
     ],
     "Duplicate folder or unknown account": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -4515,7 +4557,7 @@
     "Installing alongside keeps every existing partition.": [
       "distro/archinstall/installer-ui.py"
     ],
-    "Installing from the USB medium; no network is needed. Keep the computer powered on.": [
+    "Installing the selected software. Profile additions may need the internet. Keep the computer powered on.": [
       "distro/archinstall/installer-ui.py"
     ],
     "Instance status": [
@@ -4539,6 +4581,9 @@
     ],
     "Invalid Git accounts settings": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Invalid JSON constant: {value}": [
+      "distro/lib/eitr_profile.py"
     ],
     "Invalid WiFi name": [
       "distro/system/network-backend.py"
@@ -4567,6 +4612,12 @@
     "Invalid hostname {hostname}": [
       "distro/archinstall/eitr-guided-install"
     ],
+    "Invalid or reserved repository name": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "Invalid package archive: {value}": [
+      "distro/lib/eitr_profile.py"
+    ],
     "Invalid package name": [
       "walker/scripts/actions/install/software.py"
     ],
@@ -4588,6 +4639,12 @@
     "Invalid reminder.": [
       "walker/scripts/actions/tools/reminders.py"
     ],
+    "Invalid repository server URL": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "Invalid stick file path": [
+      "distro/lib/eitr_profile.py"
+    ],
     "Invalid subscription ID": [
       "walker/scripts/menus/cloud/contexts.py"
     ],
@@ -4596,6 +4653,9 @@
     ],
     "Invalid username {username}": [
       "distro/archinstall/eitr-guided-install"
+    ],
+    "Invalid wallpaper: {error}": [
+      "distro/lib/eitr_profile.py"
     ],
     "Invalid web app ID": [
       "walker/scripts/actions/install/webapps.py"
@@ -4746,6 +4806,9 @@
     "Message queues": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Missing stick file: {name}": [
+      "distro/lib/eitr_profile.py"
+    ],
     "Missing {missing_files}. Install the {loader} packages listed in distro/bootloader/ first. Nothing was changed.": [
       "distro/system/eitr-system.py"
     ],
@@ -4878,6 +4941,9 @@
     "Not a user-owned regular file: {path}": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Not an Arch package file: {filename}": [
+      "distro/lib/eitr_profile.py"
+    ],
     "Not an EITR web app": [
       "walker/scripts/actions/install/webapps.py"
     ],
@@ -4965,6 +5031,12 @@
     "Optional; press Enter to detect it.": [
       "walker/scripts/actions/install/webapps.py"
     ],
+    "Organization policies could not be read; refusing the action.": [
+      "distro/lib/eitr_policy.py"
+    ],
+    "Organization profile: {name}": [
+      "distro/lib/eitr_profile.py"
+    ],
     "Original configuration restored for the next boot; current networking is unchanged.": [
       "distro/system/network-backend.py"
     ],
@@ -5031,6 +5103,12 @@
     "Policies": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
+    "Policies restrict Eitr tools. A user with root can override them.": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "Policy: {key}: {value}": [
+      "distro/lib/eitr_profile.py"
+    ],
     "Preparation failed before any disk changes": [
       "distro/archinstall/eitr-guided-install"
     ],
@@ -5073,6 +5151,15 @@
     "Profile ID": [
       "walker/scripts/menus/cloud/accounts.py"
     ],
+    "Profile application requires eitr-system as root": [
+      "distro/lib/eitr_profile_apply.py"
+    ],
+    "Profile name must be 1–100 printable characters": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "Profile version must be 1": [
+      "distro/lib/eitr_profile.py"
+    ],
     "Program: {program}\nSignal: {signal}\n\n{backtrace}": [
       "walker/scripts/actions/system/crash-help.py"
     ],
@@ -5082,6 +5169,12 @@
     "Projects": [
       "walker/scripts/menus/cloud/navigation.py",
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Protected dependency cannot be removed: {packages}": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "Protected or unknown package cannot be removed: {package}": [
+      "distro/lib/eitr_profile.py"
     ],
     "Provider": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -5121,6 +5214,12 @@
     ],
     "Recent logs": [
       "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Recipe disabled by policy: {name}": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "Recipe {name} requires an AUR build or an interactive per-user installer; use a stick package instead": [
+      "distro/lib/eitr_profile.py"
     ],
     "Recording saved": [
       "quickshell/desktop-bar/scripts/obs-control.py"
@@ -5208,6 +5307,9 @@
     "Remove {label} and its folder rules? Keys stay on disk.": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Remove: {value}": [
+      "distro/lib/eitr_profile.py"
+    ],
     "Removed the EITR boot menu style from {config}. Backup: {backup}": [
       "distro/system/eitr-system.py"
     ],
@@ -5231,6 +5333,15 @@
     ],
     "Repository URL": [
       "walker/scripts/actions/install/plugins.py"
+    ],
+    "Repository key must contain exactly one OpenPGP public key": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "Repository name already exists with different settings": [
+      "distro/lib/eitr_profile_apply.py"
+    ],
+    "Repository server must use HTTPS without credentials, query or fragment": [
+      "distro/lib/eitr_profile.py"
     ],
     "Repository: {url}": [
       "walker/scripts/actions/install/plugins.py"
@@ -5307,8 +5418,14 @@
     "Run factory reset on the installed system, not from a chroot": [
       "distro/system/factory-reset.py"
     ],
+    "Run once as root: {value}": [
+      "distro/lib/eitr_profile.py"
+    ],
     "Run only from the booted Eitr live ISO, never an installed host": [
       "distro/archinstall/eitr-guided-install"
+    ],
+    "Run profile apply as the desktop user through sudo": [
+      "distro/lib/eitr_profile_apply.py"
     ],
     "Run the packaged login setup with sudo as the desktop user": [
       "quickshell/lockscreen/scripts/install-login.py"
@@ -5583,6 +5700,12 @@
     "Step {step_number} of {step_count}": [
       "distro/archinstall/installer-ui.py"
     ],
+    "Stick package is also removed: {package}": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "Stick symlinks are refused: {name}": [
+      "distro/lib/eitr_profile.py"
+    ],
     "Stop and disable the existing Sunshine user service before using Eitr sharing. Its settings will be kept.": [
       "walker/scripts/actions/system/remote-access.py"
     ],
@@ -5649,7 +5772,7 @@
     "TPM2 unlock removed from {device}; the passphrase is required at boot again.": [
       "distro/system/eitr-system.py"
     ],
-    "Tab / arrows: choose  Enter: select  Esc: cancel": [
+    "Tab / arrows: choose  Enter: select  PgUp/PgDn: scroll  Esc: cancel": [
       "distro/archinstall/installer-ui.py"
     ],
     "Tailscale IP": [
@@ -5792,6 +5915,9 @@
     ],
     "The question and the files a helper reads are sent to that helper’s provider.": [
       "walker/scripts/actions/assistant-collaboration.py"
+    ],
+    "The recorded organization profile is invalid.": [
+      "distro/lib/eitr_policy.py"
     ],
     "The report opened in your text editor.": [
       "walker/scripts/actions/system/report-problem.py"
@@ -5950,6 +6076,9 @@
     "Type 1, 2, 3 or 4, or press Enter.": [
       "walker/scripts/actions/system/report-problem.py"
     ],
+    "Type APPLY PROFILE to make these system changes: ": [
+      "distro/lib/eitr_profile_apply.py"
+    ],
     "Type yes to connect them (Enter cancels): ": [
       "walker/scripts/actions/assistant-collaboration.py"
     ],
@@ -6022,17 +6151,32 @@
     "Unknown monitoring service": [
       "walker/scripts/actions/development/monitoring.py"
     ],
+    "Unknown or unavailable Flatpak app {app}: {reason}": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "Unknown or unavailable repository package: {reason}": [
+      "distro/lib/eitr_profile.py"
+    ],
     "Unknown position {value}": [
       "quickshell/desktop-bar/scripts/display-settings.py"
     ],
+    "Unknown recipe: {name}": [
+      "distro/lib/eitr_profile.py"
+    ],
     "Unknown setting {key}": [
       "quickshell/desktop-bar/scripts/display-settings.py"
+    ],
+    "Unknown theme: {theme}": [
+      "distro/lib/eitr_profile.py"
     ],
     "Unmanaged remote-access rules exist": [
       "distro/system/eitr_remote.py"
     ],
     "Unreadable answers file {path}: {error}": [
       "distro/archinstall/eitr-guided-install"
+    ],
+    "Unsafe stick path: {name}": [
+      "distro/lib/eitr_profile.py"
     ],
     "Unsupported PAM file: {path}": [
       "distro/system/eitr-system.py"
@@ -6057,6 +6201,12 @@
     ],
     "Update cancelled; nothing was changed.": [
       "walker/scripts/actions/system/update.sh"
+    ],
+    "Update channel conflicts with stable policy": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "Update channel must be stable or testing": [
+      "distro/lib/eitr_profile.py"
     ],
     "Update of {update_date} (snapshot {pre} -> {state}, {outcome}):": [
       "distro/system/eitr-system.py"
@@ -6162,6 +6312,9 @@
     "WARN logs": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
+    "Wallpaper must be PNG, JPEG or WebP": [
+      "distro/lib/eitr_profile.py"
+    ],
     "Web app created": [
       "walker/scripts/actions/install/webapps.py"
     ],
@@ -6207,6 +6360,9 @@
     ],
     "Zone details": [
       "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "add.files must be a list": [
+      "distro/lib/eitr_profile.py"
     ],
     "archinstall and arch-chroot are required (they ship on the Arch ISO)": [
       "distro/archinstall/eitr-guided-install"
@@ -6268,6 +6424,9 @@
     "hyprsunset and hyprctl are required": [
       "walker/scripts/actions/toggle/nightlight.py"
     ],
+    "internet required": [
+      "distro/lib/eitr_profile.py"
+    ],
     "limine.conf has no Arch Linux (linux) entry to rename": [
       "distro/archinstall/eitr-guided-install"
     ],
@@ -6280,8 +6439,20 @@
     "no WiFi backend": [
       "walker/scripts/actions/system/network-backend.py"
     ],
+    "offline stick file": [
+      "distro/lib/eitr_profile.py"
+    ],
     "pacman.conf has no [eitr] repository to add the testing channel before": [
       "distro/system/eitr-system.py"
+    ],
+    "pacman.conf has no options section": [
+      "distro/lib/eitr_profile_apply.py"
+    ],
+    "policies.update_channel may only pin stable": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "policies.{key}: expected true or false": [
+      "distro/lib/eitr_profile.py"
     ],
     "polishing Mjölnir": [
       "distro/lib/spinner.sh"
@@ -6408,6 +6579,24 @@
     ],
     "{label} was removed": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "{location}: SHA-256 mismatch for {filename}": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "{location}: duplicate entry": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "{location}: expected a lowercase SHA-256": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "{location}: expected an object": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "{location}: invalid list": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "{location}: unknown keys: {packages}": [
+      "distro/lib/eitr_profile.py"
     ],
     "{menu} > {text} opens a submenu, not a command": [
       "quickshell/desktop-bar/scripts/menu-action.py"

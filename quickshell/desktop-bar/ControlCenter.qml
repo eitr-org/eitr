@@ -41,6 +41,7 @@ ThemedPopup {
     property string lockscreen: ""
     property bool cursorFire: false
     property string updateChannel: ""
+    property var organizationPolicy: ({})
     readonly property string cursorScript: Eitr.Paths.code("walker/scripts/actions/style/cursor.py")
     readonly property string lockscreenScript: Eitr.Paths.code("quickshell/lockscreen/scripts/settings.py")
     readonly property string effectsScript: Eitr.Paths.code("walker/scripts/actions/style/terminal-effects.py")
@@ -80,6 +81,7 @@ ThemedPopup {
     onOpenedChanged: {
         if (opened) refresh();
         if (opened && page === "style") loadStyle();
+        if (opened && !organizationQuery.running) organizationQuery.running = true;
         if (opened && page === "system" && !channelQuery.running) channelQuery.running = true;
     }
     onPageChanged: {
@@ -159,6 +161,16 @@ ThemedPopup {
         onExited: center.cursorFire = fireOutput.text.trim() === "on"
     }
     Process { id: fireWrite; onExited: function(code) { if (code !== 0) center.actionError = Eitr.I18n.tr("Could not change Cursor Fire"); fireQuery.running = true; } }
+    Process {
+        id: organizationQuery
+        running: true
+        command: ["python3", (Quickshell.env("EITR_LIBRARY_ROOT") || "/usr/share/eitr/lib") + "/eitr_policy.py", "status"]
+        stdout: StdioCollector { id: organizationOutput }
+        onExited: {
+            try { center.organizationPolicy = JSON.parse(organizationOutput.text); }
+            catch (error) { center.organizationPolicy = ({}); }
+        }
+    }
     Process {
         id: channelQuery
         command: ["/usr/lib/eitr/eitr-system", "channel-status"]
@@ -263,6 +275,7 @@ ThemedPopup {
                             ToggleTile { title: Eitr.I18n.tr("Crash Notifications"); glyph: "󰅚"; selected: center.crashNotifications; available: !crashOperation.running; onClicked: { center.actionError = ""; crashOperation.running = true; } }
                             ToggleTile { title: Eitr.I18n.tr("Do Not Disturb"); glyph: "󰂛"; selected: center.service.doNotDisturb; onClicked: center.service.toggleDnd() }
                             ToggleTile {
+                                visible: center.organizationPolicy.gaming === true
                                 title: Eitr.I18n.tr("Game Mode"); glyph: "󰊴"; selected: center.gameMode
                                 available: !gameModeOperation.running
                                 onClicked: { center.actionError = ""; gameModeOperation.running = true; }
@@ -515,7 +528,7 @@ ThemedPopup {
                         title: Eitr.I18n.tr("Updates")
                         Item { width: parent.width; height: 32
                             Label { anchors.verticalCenter: parent.verticalCenter; text: center.updateChannel === "testing" ? Eitr.I18n.tr("Channel: Testing") : center.updateChannel === "stable" ? Eitr.I18n.tr("Channel: Stable") : Eitr.I18n.tr("Channel: unknown") }
-                            PanelButton { anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter; width: 110; height: 30; textSize: 12; text: Eitr.I18n.tr("Change"); foreground: center.foreground; onClicked: center.walkerMenu("update-channel") }
+                            PanelButton { anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter; width: 110; height: 30; textSize: 12; text: Eitr.I18n.tr("Change"); visible: center.organizationPolicy.update_channel === true; foreground: center.foreground; onClicked: center.walkerMenu("update-channel") }
                         }
                         GridLayout { width: parent.width; columns: 2; columnSpacing: 8; rowSpacing: 8
                             GridAction { title: Eitr.I18n.tr("System Update"); glyph: "󰚰"; onClicked: center.menuAction("update", "System Update") }

@@ -16,6 +16,8 @@ network that reaches only the host. Everything stays inside the work directory,
 and nothing touches existing virtual machines.
 """
 import argparse
+import base64
+import shlex
 import json
 from pathlib import Path
 import secrets
@@ -56,6 +58,9 @@ def qemu(work, name, extra):
                "-drive", f"if=pflash,format=raw,file={work / 'vars.fd'}",
                "-drive", f"file={work / 'disk.qcow2'},if=virtio,format=qcow2",
                "-vga", "virtio", "-display", "none", "-qmp", f"unix:{work / 'qmp.sock'},server,nowait", *extra]
+    stick = work / 'stick.img'
+    if stick.exists():
+        command += ['-drive', f'file={stick},if=virtio,format=raw,readonly=on']
     (work / "qmp.sock").unlink(missing_ok=True)
     return subprocess.Popen(command, stdout=subprocess.DEVNULL, stderr=open(work / f"{name}.qemu.log", "w"))
 
@@ -115,12 +120,33 @@ def install(arguments):
         (work / "passphrase").write_text(passphrase + "\n")
         answers.update(encrypted=True, passphrase=passphrase)
     (work / "answers.json").write_text(json.dumps(answers, indent=2) + "\n")
+    if arguments.stick:
+        attach_stick(work, arguments.stick)
+    if arguments.expect_refusal:
+        subprocess.run(['qemu-img', 'create', '-q', '-f', 'qcow2', str(work / 'empty.qcow2'), '80G'], check=True)
     serial = work / "install.serial.log"
     started = time.monotonic()
-    process = qemu(work, "install", ["-cdrom", str(Path(arguments.iso).resolve()), "-nic", "none", "-no-reboot",
+    process = qemu(work, "install", ["-cdrom", str(Path(arguments.iso).resolve()), "-nic",
+                                     "user,model=virtio-net-pci" if arguments.online else "none", "-no-reboot",
                                      "-fw_cfg", f"name=opt/eitr/answers,file={work / 'answers.json'}",
                                      "-serial", f"file:{serial}"])
-    wait_exit(process, arguments.timeout, "The offline installation")
+    if arguments.expect_refusal:
+        deadline = time.monotonic() + min(arguments.timeout, 300)
+        try:
+            while time.monotonic() < deadline:
+                if serial.exists() and 'eitr-guided-install:' in serial.read_text(errors='replace'):
+                    qmp(work, 'quit')
+                    wait_exit(process, 30, 'Stopping refused install')
+                    subprocess.run(['qemu-img', 'compare', str(work / 'disk.qcow2'), str(work / 'empty.qcow2')], check=True)
+                    print('PASS refused profile left the target disk unchanged')
+                    return
+                time.sleep(1)
+            raise VmTestError('Profile was not refused; inspect install.serial.log')
+        finally:
+            if process.poll() is None:
+                process.kill()
+                process.wait()
+    wait_exit(process, arguments.timeout, "The installation")
     log = serial.read_text(errors="replace") if serial.exists() else ""
     if "==> Installed in" not in log:
         raise VmTestError(f"The installer stopped without finishing; see {serial}:\n" + "\n".join(log.splitlines()[-25:]))
@@ -204,6 +230,7 @@ def run_checks(work):
         print(ssh(work, "systemctl --failed --plain --no-legend; journalctl -b -p err --no-pager | tail -20",
                   check=False).stdout.rstrip())
     print(ssh(work, "cat /var/log/eitr-install.log", check=False).stdout.rstrip())
+    failures += profile_checks(work)
     return failures
 
 
@@ -390,6 +417,72 @@ def boot_guard(arguments):
         raise VmTestError("Failed: " + ", ".join(failures))
 
 
+def attach_stick(work, image):
+    shutil.copyfile(Path(image).resolve(), work / 'stick.img')
+    subprocess.run(['mcopy', '-o', '-i', str(work / 'stick.img'), '::eitr-profile.json',
+                    str(work / 'expected-profile.json')], check=True)
+
+
+def make_stick(arguments):
+    source = Path(arguments.source).resolve()
+    if not (source / 'eitr-profile.json').is_file():
+        raise VmTestError('Source must contain eitr-profile.json')
+    image = Path(arguments.output).resolve()
+    with image.open('xb') as stream:
+        stream.truncate(arguments.size * 1024 * 1024)
+    subprocess.run(['mkfs.vfat', '-n', 'EITR-ANSWERS', str(image)], check=True)
+    subprocess.run(['mcopy', '-s', '-i', str(image), *(str(path) for path in source.iterdir()), '::/'], check=True)
+    print(image)
+
+
+def profile_checks(work):
+    expected = work / 'expected-profile.json'
+    if not expected.exists():
+        return []
+    encoded = base64.b64encode(expected.read_bytes()).decode()
+    script = f"""
+import base64, json, os, subprocess, sys
+sys.path.insert(0, '/usr/share/eitr/lib')
+from eitr_profile import removals
+from eitr_policy import row_allowed
+profile = json.loads(base64.b64decode('{encoded}'))
+assert json.load(open('/etc/eitr/profile.json')) == profile
+policies = '/etc/eitr/policies.json'
+assert json.load(open(policies)) == profile.get('policies', {{}})
+assert os.stat(policies).st_uid == 0 and os.stat(policies).st_gid == 0
+assert os.stat(policies).st_mode & 0o777 == 0o644
+installed = subprocess.check_output(['pacman', '-Qq'], text=True).split()
+assert not removals(profile).intersection(installed)
+for app in profile.get('add', {{}}).get('flathub', []):
+    subprocess.run(['flatpak', 'info', '--user', app], check=True)
+if profile.get('policies', {{}}).get('remote_access') is False:
+    rows = json.load(open('/usr/share/eitr/elephant/menu-rows/system-connectivity.json'))
+    assert all(not row_allowed(row) for row in rows if row.get('submenu') == 'remote-access')
+    result = subprocess.run(['python3', '/usr/share/eitr/walker/scripts/actions/system/remote-access.py', 'host', 'start'], capture_output=True, text=True)
+    assert result.returncode != 0 and 'policy' in result.stderr
+print('PASS profile record, exclusions, policies and additions')
+"""
+    result = ssh(work, 'python3 -c ' + shlex.quote(script), check=False)
+    print(result.stdout, end='')
+    if result.returncode:
+        print(result.stderr)
+        return ['organization profile']
+    return []
+
+
+def profile_apply(arguments):
+    work = Path(arguments.work).resolve()
+    attach_stick(work, arguments.stick)
+    process = boot(work, 'internet' if arguments.online else 'host')
+    try:
+        sudo(work, 'sudo mkdir -p /mnt/eitr-profile && sudo mount -o ro,nosuid,nodev,noexec /dev/vdb /mnt/eitr-profile')
+        sudo(work, "printf 'APPLY PROFILE\\n' | sudo /usr/lib/eitr/eitr-system profile-apply /mnt/eitr-profile", capture=False)
+        if profile_checks(work):
+            raise VmTestError('Applied profile checks failed')
+    finally:
+        power_off(work, process)
+
+
 def shell(arguments):
     work = Path(arguments.work).resolve()
     command = " ".join(arguments.command) if arguments.command else ""
@@ -401,11 +494,21 @@ def main():
     commands = parser.add_subparsers(dest="action", required=True)
     install_parser = commands.add_parser("install")
     install_parser.add_argument("--iso", required=True)
+    install_parser.add_argument('--stick', help='FAT stick image labelled EITR-ANSWERS')
+    install_parser.add_argument('--online', action='store_true')
+    install_parser.add_argument('--expect-refusal', action='store_true')
+    stick_parser = commands.add_parser('stick')
+    stick_parser.add_argument('--source', required=True)
+    stick_parser.add_argument('--output', required=True)
+    stick_parser.add_argument('--size', type=int, default=512, help='MiB')
     install_parser.add_argument("--timeout", type=int, default=3600)
     install_parser.add_argument("--encrypted", action="store_true", help="install on LUKS2; boots type the passphrase")
-    for name in ("install", "verify", "update", "reset", "boot-guard", "ssh"):
+    for name in ("install", "verify", "update", "reset", "boot-guard", "ssh", "profile-apply"):
         sub = install_parser if name == "install" else commands.add_parser(name)
         sub.add_argument("--work", required=True)
+        if name == 'profile-apply':
+            sub.add_argument('--stick', required=True)
+            sub.add_argument('--online', action='store_true')
         if name == "reset":
             sub.add_argument("--mode", required=True, choices=sorted(RESET_EXPECTED))
         if name == "ssh":
@@ -413,7 +516,7 @@ def main():
     arguments = parser.parse_args()
     try:
         {"install": install, "verify": verify, "update": update, "reset": factory_reset,
-         "boot-guard": boot_guard, "ssh": shell}[arguments.action](arguments)
+         "boot-guard": boot_guard, "ssh": shell, "stick": make_stick, "profile-apply": profile_apply}[arguments.action](arguments)
     except (VmTestError, subprocess.CalledProcessError, OSError) as error:
         sys.exit(f"eitr-vm-test: {error}")
 

@@ -984,8 +984,8 @@ ShellRoot {
                         VerticalBarIcon { id: verticalBluetoothIcon; icon: "󰂯"; tooltip: Eitr.I18n.tr("Bluetooth"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(bluetoothMenu); onOpenChanged: if (!open) bluetoothMenu.opened = false }
                         VerticalBarIcon { id: verticalDisplayIcon; icon: "󰍹"; tooltip: Eitr.I18n.tr("Display"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(brightnessMenu); onOpenChanged: if (!open) brightnessMenu.opened = false }
                         VerticalBarIcon { id: verticalVolumeIcon; icon: "\u{F02CE}"; tooltip: Eitr.I18n.tr("Audio/Mic"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(volumeMenu); onOpenChanged: if (!open) volumeMenu.opened = false }
-                        VerticalBarIcon { id: verticalTailscaleIcon; icon: "󰌘"; tooltip: "Tailscale"; open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(tailscaleMenu); onOpenChanged: if (!open) tailscaleMenu.opened = false }
-                        VerticalBarIcon { id: verticalStreamingIcon; icon: "󰢹"; tooltip: Eitr.I18n.tr("Streaming"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(streamingMenu); onOpenChanged: if (!open) streamingMenu.opened = false }
+                        VerticalBarIcon { id: verticalTailscaleIcon; visible: remoteAccessService.allowed; icon: "󰌘"; tooltip: "Tailscale"; open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(tailscaleMenu); onOpenChanged: if (!open) tailscaleMenu.opened = false }
+                        VerticalBarIcon { id: verticalStreamingIcon; visible: remoteAccessService.allowed; icon: "󰢹"; tooltip: Eitr.I18n.tr("Streaming"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(streamingMenu); onOpenChanged: if (!open) streamingMenu.opened = false }
                         VerticalBarIcon { id: verticalObsIcon; icon: obsMenu.obsState.recording ? (obsMenu.obsState.paused ? "󰏤" : "󰑋") : "󰻂"; iconSize: obsMenu.obsState.recording && !obsMenu.obsState.paused ? 22 : 16; tooltip: obsMenu.obsState.recording ? (obsMenu.obsState.paused ? Eitr.I18n.tr("Recording paused") : Eitr.I18n.tr("Recording")) : Eitr.I18n.tr("OBS Studio"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(obsMenu); onOpenChanged: if (!open) obsMenu.opened = false }
                         VerticalBarIcon { id: verticalKeyboardIcon; icon: keyboardMenu.activeCode || "󰌌"; iconSize: 11; tooltip: keyboardMenu.activeLabel ? Eitr.I18n.tr("Keyboard · {layout}", {layout: keyboardMenu.activeLabel}) : Eitr.I18n.tr("Keyboard"); open: shell.iconsOpen && keyboardMenu.layouts.length > 1; clickable: true; onClicked: bar.togglePanel(keyboardMenu); onOpenChanged: if (!open) keyboardMenu.opened = false }
                         VerticalBarIcon {
@@ -1268,6 +1268,7 @@ ShellRoot {
 
                             StatusIcon {
                                 id: tailscaleIcon
+                                visible: remoteAccessService.allowed
                                 icon: "󰌘"
                                 tooltip: "Tailscale"
                                 open: shell.iconsOpen
@@ -1289,6 +1290,7 @@ ShellRoot {
                             }
                             StatusIcon {
                                 id: streamingIcon
+                                visible: remoteAccessService.allowed
                                 icon: "󰢹"
                                 tooltip: Eitr.I18n.tr("Streaming")
                                 open: shell.iconsOpen

@@ -122,7 +122,7 @@ msgid "A program crashed"
 msgstr "Ein Programm ist abgestürzt"
 
 msgid "A regular desktop user is required"
-msgstr "Ein normaler Desktop-Benutzer ist erforderlich"
+msgstr "Ein regulärer Desktopbenutzer ist erforderlich"
 
 msgid "A selection is required"
 msgstr "Eine Auswahl ist erforderlich"
@@ -207,6 +207,12 @@ msgstr "Azure-Konto hinzufügen"
 
 msgid "Add {provider} Account"
 msgstr "{provider}-Konto hinzufügen"
+
+msgid "Add: {kind}: {value} ({connection})"
+msgstr "Hinzufügen: {kind}: {value} ({connection})"
+
+msgid "Added packages are also removed: {packages}"
+msgstr "Hinzugefügte Pakete werden auch entfernt: {packages}"
 
 msgid "Address"
 msgstr "Adresse"
@@ -325,6 +331,9 @@ msgstr "Beide Netzwerk-Backends laufen; wählen Sie eines unter System > Konnekt
 msgid "Browse bucket"
 msgstr "Bucket durchsuchen"
 
+msgid "Browser must be firefox or chromium (install it with add.packages)"
+msgstr "Browser muss firefox oder chromium sein (mit add.packages installieren)"
+
 msgid "Buckets"
 msgstr "Buckets"
 
@@ -375,6 +384,15 @@ msgstr "Abgebrochen; nichts wurde geändert."
 
 msgid "Cannot change another user"
 msgstr "Ein anderer Benutzer darf nicht geändert werden"
+
+msgid "Cannot inspect package dependency database {database}: {error}"
+msgstr "Abhängigkeitsdatenbank {database} kann nicht geprüft werden: {error}"
+
+msgid "Cannot validate Flatpak additions (internet and flatpak required): {error}"
+msgstr "Flatpak-Ergänzungen können nicht geprüft werden (Internet und flatpak erforderlich): {error}"
+
+msgid "Cannot validate Flatpak remote {remote}: {reason}"
+msgstr "Flatpak-Quelle {remote} kann nicht geprüft werden: {reason}"
 
 msgid "Capture"
 msgstr "Aufnahme"
@@ -429,6 +447,9 @@ msgstr "Wählen Sie iwd oder NetworkManager"
 
 msgid "Choose iwd, networkmanager, or restore"
 msgstr "Wählen Sie iwd, networkmanager oder restore"
+
+msgid "Chromium default requires add.packages chromium or its recipe"
+msgstr "Chromium als Vorgabe erfordert add.packages chromium oder sein Rezept"
 
 msgid "Claude usage returned HTTP {code}; retry later or sign in again"
 msgstr "Claude-Nutzungsabfrage meldet HTTP {code}; versuchen Sie es später oder melden Sie sich erneut an"
@@ -682,6 +703,12 @@ msgstr "Standard"
 msgid "Default account"
 msgstr "Standardkonto"
 
+msgid "Default browser is removed"
+msgstr "Der Standardbrowser wird entfernt"
+
+msgid "Default: {key}: {value}"
+msgstr "Vorgabe: {key}: {value}"
+
 msgid "Delete Account"
 msgstr "Konto löschen"
 
@@ -705,6 +732,9 @@ msgstr "Gerät"
 
 msgid "Direct"
 msgstr "Direkt"
+
+msgid "Disabled by organization policy: {feature}"
+msgstr "Durch Organisationsrichtlinie deaktiviert: {feature}"
 
 msgid "Disconnected"
 msgstr "Getrennt"
@@ -741,6 +771,9 @@ msgstr "Domains"
 
 msgid "Droplets"
 msgstr "Droplets"
+
+msgid "Duplicate JSON key: {key}"
+msgstr "Doppelter JSON-Schlüssel: {key}"
 
 msgid "Duplicate folder or unknown account"
 msgstr "Doppelter Ordner oder unbekanntes Konto"
@@ -1090,8 +1123,8 @@ msgstr "Die Installation neben bestehenden Systemen ist nicht verfügbar: {reaso
 msgid "Installing alongside keeps every existing partition."
 msgstr "Die Installation neben bestehenden Systemen behält alle vorhandenen Partitionen."
 
-msgid "Installing from the USB medium; no network is needed. Keep the computer powered on."
-msgstr "Installation vom USB-Medium; keine Netzwerkverbindung erforderlich. Computer eingeschaltet lassen."
+msgid "Installing the selected software. Profile additions may need the internet. Keep the computer powered on."
+msgstr "Ausgewählte Software wird installiert. Profilergänzungen benötigen eventuell Internet. Lassen Sie den Computer eingeschaltet."
 
 msgid "Instance status"
 msgstr "Instanzstatus"
@@ -1113,6 +1146,9 @@ msgstr "Ungültige Flatpak-Anwendungs-ID"
 
 msgid "Invalid Git accounts settings"
 msgstr "Ungültige Git-Kontoeinstellungen"
+
+msgid "Invalid JSON constant: {value}"
+msgstr "Ungültige JSON-Konstante: {value}"
 
 msgid "Invalid WiFi name"
 msgstr "Ungültiger WiFi-Name"
@@ -1141,6 +1177,12 @@ msgstr "Invalid font package"
 msgid "Invalid hostname {hostname}"
 msgstr "Ungültiger Hostname {hostname}"
 
+msgid "Invalid or reserved repository name"
+msgstr "Ungültiger oder reservierter Repositoryname"
+
+msgid "Invalid package archive: {value}"
+msgstr "Ungültiges Paketarchiv: {value}"
+
 msgid "Invalid package name"
 msgstr "Ungültiger Paketname"
 
@@ -1159,6 +1201,12 @@ msgstr "Ungültige Erinnerungszeit."
 msgid "Invalid reminder."
 msgstr "Ungültige Erinnerung."
 
+msgid "Invalid repository server URL"
+msgstr "Ungültige Repository-Serveradresse"
+
+msgid "Invalid stick file path"
+msgstr "Ungültiger Dateipfad auf dem Stick"
+
 msgid "Invalid subscription ID"
 msgstr "Ungültige Abonnement-ID"
 
@@ -1167,6 +1215,9 @@ msgstr "Ungültige Mandanten-ID"
 
 msgid "Invalid username {username}"
 msgstr "Ungültiger Benutzername {username}"
+
+msgid "Invalid wallpaper: {error}"
+msgstr "Ungültiges Hintergrundbild: {error}"
 
 msgid "Invalid web app ID"
 msgstr "Invalid web app ID"
@@ -1315,6 +1366,9 @@ msgstr "Manifest-Autor: {author}"
 msgid "Message queues"
 msgstr "Nachrichtenwarteschlangen"
 
+msgid "Missing stick file: {name}"
+msgstr "Fehlende Datei auf dem Stick: {name}"
+
 msgid "Missing {missing_files}. Install the {loader} packages listed in distro/bootloader/ first. Nothing was changed."
 msgstr "{missing_files} fehlt. Installieren Sie zuerst die unter distro/bootloader/ aufgeführten Pakete für {loader}. Nichts wurde geändert."
 
@@ -1441,6 +1495,9 @@ msgstr "Noch keine Update-Snapshots vorhanden."
 msgid "Not a user-owned regular file: {path}"
 msgstr "Keine reguläre Datei im Besitz des Benutzers: {path}"
 
+msgid "Not an Arch package file: {filename}"
+msgstr "Keine Arch-Paketdatei: {filename}"
+
 msgid "Not an EITR web app"
 msgstr "Keine EITR-Webanwendung"
 
@@ -1525,6 +1582,12 @@ msgstr "Vollständiges Build-Repository geöffnet: Prüfen Sie PKGBUILD, .instal
 msgid "Optional; press Enter to detect it."
 msgstr "Optional; zur Erkennung Enter drücken."
 
+msgid "Organization policies could not be read; refusing the action."
+msgstr "Organisationsrichtlinien konnten nicht gelesen werden; Aktion abgelehnt."
+
+msgid "Organization profile: {name}"
+msgstr "Organisationsprofil: {name}"
+
 msgid "Original configuration restored for the next boot; current networking is unchanged."
 msgstr "Ursprüngliche Konfiguration für den nächsten Start wiederhergestellt; das aktuelle Netzwerk bleibt unverändert."
 
@@ -1591,6 +1654,12 @@ msgstr "Plugins: nicht interaktive Aktualisierung übersprungen; eitr plugin upd
 msgid "Policies"
 msgstr "Richtlinien"
 
+msgid "Policies restrict Eitr tools. A user with root can override them."
+msgstr "Richtlinien beschränken Eitr-Werkzeuge. Benutzer mit root können sie umgehen."
+
+msgid "Policy: {key}: {value}"
+msgstr "Richtlinie: {key}: {value}"
+
 msgid "Preparation failed before any disk changes"
 msgstr "Vorbereitung vor Datenträgeränderungen fehlgeschlagen"
 
@@ -1633,6 +1702,15 @@ msgstr "Profil"
 msgid "Profile ID"
 msgstr "Profil-ID"
 
+msgid "Profile application requires eitr-system as root"
+msgstr "Profilanwendung erfordert eitr-system als root"
+
+msgid "Profile name must be 1–100 printable characters"
+msgstr "Der Profilname muss 1–100 druckbare Zeichen enthalten"
+
+msgid "Profile version must be 1"
+msgstr "Die Profilversion muss 1 sein"
+
 msgid "Program: {program}\nSignal: {signal}\n\n{backtrace}"
 msgstr "Programm: {program}\nSignal: {signal}\n\n{backtrace}"
 
@@ -1641,6 +1719,12 @@ msgstr "Projekt"
 
 msgid "Projects"
 msgstr "Projekte"
+
+msgid "Protected dependency cannot be removed: {packages}"
+msgstr "Geschützte Abhängigkeit kann nicht entfernt werden: {packages}"
+
+msgid "Protected or unknown package cannot be removed: {package}"
+msgstr "Geschütztes oder unbekanntes Paket kann nicht entfernt werden: {package}"
 
 msgid "Provider"
 msgstr "Anbieter"
@@ -1680,6 +1764,12 @@ msgstr "Aktuelle Ereignisse"
 
 msgid "Recent logs"
 msgstr "Aktuelle Protokolle"
+
+msgid "Recipe disabled by policy: {name}"
+msgstr "Rezept durch Richtlinie deaktiviert: {name}"
+
+msgid "Recipe {name} requires an AUR build or an interactive per-user installer; use a stick package instead"
+msgstr "Rezept {name} erfordert einen AUR-Build oder interaktiven Benutzerinstaller; verwenden Sie eine Paketdatei auf dem Stick"
 
 msgid "Recording saved"
 msgstr "Aufnahme gespeichert"
@@ -1765,6 +1855,9 @@ msgstr "Web-App {label} entfernen?"
 msgid "Remove {label} and its folder rules? Keys stay on disk."
 msgstr "{label} und die zugehörigen Ordnerregeln entfernen? Schlüssel bleiben auf dem Laufwerk."
 
+msgid "Remove: {value}"
+msgstr "Entfernen: {value}"
+
 msgid "Removed the EITR boot menu style from {config}. Backup: {backup}"
 msgstr "EITR-Bootmenüstil aus {config} entfernt. Sicherung: {backup}"
 
@@ -1788,6 +1881,15 @@ msgstr "Repositories darin verwenden nur dieses Konto"
 
 msgid "Repository URL"
 msgstr "Repository-URL"
+
+msgid "Repository key must contain exactly one OpenPGP public key"
+msgstr "Der Repositoryschlüssel muss genau einen öffentlichen OpenPGP-Schlüssel enthalten"
+
+msgid "Repository name already exists with different settings"
+msgstr "Der Repositoryname existiert bereits mit anderen Einstellungen"
+
+msgid "Repository server must use HTTPS without credentials, query or fragment"
+msgstr "Der Repositoryserver muss HTTPS ohne Zugangsdaten, Abfrage oder Fragment verwenden"
 
 msgid "Repository: {url}"
 msgstr "Repository: {url}"
@@ -1861,8 +1963,14 @@ msgstr "eitr-guided-install als root vom Eitr-Live-ISO ausführen"
 msgid "Run factory reset on the installed system, not from a chroot"
 msgstr "Das Zurücksetzen auf den Werkszustand im installierten System ausführen, nicht in einem chroot"
 
+msgid "Run once as root: {value}"
+msgstr "Einmal als root ausführen: {value}"
+
 msgid "Run only from the booted Eitr live ISO, never an installed host"
 msgstr "Nur vom gestarteten Eitr-Live-ISO ausführen, niemals auf einem installierten System"
+
+msgid "Run profile apply as the desktop user through sudo"
+msgstr "Führen Sie profile apply als Desktopbenutzer über sudo aus"
 
 msgid "Run the packaged login setup with sudo as the desktop user"
 msgstr "Die Anmeldeeinrichtung des Pakets als Desktop-Benutzer mit sudo ausführen"
@@ -2137,6 +2245,12 @@ msgstr "Status"
 msgid "Step {step_number} of {step_count}"
 msgstr "Schritt {step_number} von {step_count}"
 
+msgid "Stick package is also removed: {package}"
+msgstr "Das Paket auf dem Stick wird auch entfernt: {package}"
+
+msgid "Stick symlinks are refused: {name}"
+msgstr "Symbolische Links auf dem Stick werden abgelehnt: {name}"
+
 msgid "Stop and disable the existing Sunshine user service before using Eitr sharing. Its settings will be kept."
 msgstr "Beenden und deaktivieren Sie den vorhandenen Sunshine-Benutzerdienst vor der Eitr-Freigabe. Seine Einstellungen bleiben erhalten."
 
@@ -2203,8 +2317,8 @@ msgstr "TPM2-Entsperrung für {device} mit PCR {TPM_PCRS} registriert. Ihre Pass
 msgid "TPM2 unlock removed from {device}; the passphrase is required at boot again."
 msgstr "TPM2-Entsperrung von {device} entfernt; beim Start ist wieder die Passphrase erforderlich."
 
-msgid "Tab / arrows: choose  Enter: select  Esc: cancel"
-msgstr "Tab / Pfeile: wählen  Enter: auswählen  Esc: abbrechen"
+msgid "Tab / arrows: choose  Enter: select  PgUp/PgDn: scroll  Esc: cancel"
+msgstr "Tab / Pfeile: wählen  Enter: auswählen  BildAuf/BildAb: scrollen  Esc: abbrechen"
 
 msgid "Tailscale IP"
 msgstr "Tailscale-IP"
@@ -2346,6 +2460,9 @@ msgstr "Das vorherige System läuft noch; siehe {MANUAL}"
 
 msgid "The question and the files a helper reads are sent to that helper’s provider."
 msgstr "Die Frage und die Dateien, die ein Helfer liest, werden an dessen Anbieter gesendet."
+
+msgid "The recorded organization profile is invalid."
+msgstr "Das gespeicherte Organisationsprofil ist ungültig."
 
 msgid "The report opened in your text editor."
 msgstr "Der Bericht wurde in Ihrem Texteditor geöffnet."
@@ -2500,6 +2617,9 @@ msgstr "Beim Einschalten wird stündlich für einen Tag und täglich für eine W
 msgid "Type 1, 2, 3 or 4, or press Enter."
 msgstr "1, 2, 3 oder 4 eingeben oder Enter drücken."
 
+msgid "Type APPLY PROFILE to make these system changes: "
+msgstr "Geben Sie APPLY PROFILE ein, um diese Systemänderungen vorzunehmen: "
+
 msgid "Type yes to connect them (Enter cancels): "
 msgstr "Gib yes ein, um sie zu verbinden (Enter bricht ab): "
 
@@ -2572,17 +2692,32 @@ msgstr "Unbekanntes Konto"
 msgid "Unknown monitoring service"
 msgstr "Unbekannter Monitoring-Dienst"
 
+msgid "Unknown or unavailable Flatpak app {app}: {reason}"
+msgstr "Unbekannte oder nicht verfügbare Flatpak-App {app}: {reason}"
+
+msgid "Unknown or unavailable repository package: {reason}"
+msgstr "Unbekanntes oder nicht verfügbares Repositorypaket: {reason}"
+
 msgid "Unknown position {value}"
 msgstr "Unknown position {value}"
 
+msgid "Unknown recipe: {name}"
+msgstr "Unbekanntes Rezept: {name}"
+
 msgid "Unknown setting {key}"
 msgstr "Unknown setting {key}"
+
+msgid "Unknown theme: {theme}"
+msgstr "Unbekanntes Thema: {theme}"
 
 msgid "Unmanaged remote-access rules exist"
 msgstr "Es bestehen unverwaltete Fernzugriffsregeln"
 
 msgid "Unreadable answers file {path}: {error}"
 msgstr "Antwortdatei {path} nicht lesbar: {error}"
+
+msgid "Unsafe stick path: {name}"
+msgstr "Unsicherer Pfad auf dem Stick: {name}"
 
 msgid "Unsupported PAM file: {path}"
 msgstr "Unsupported PAM file: {path}"
@@ -2607,6 +2742,12 @@ msgstr "Unsupported uninstall source"
 
 msgid "Update cancelled; nothing was changed."
 msgstr "Aktualisierung abgebrochen; nichts wurde geändert."
+
+msgid "Update channel conflicts with stable policy"
+msgstr "Der Updatekanal widerspricht der stable-Richtlinie"
+
+msgid "Update channel must be stable or testing"
+msgstr "Der Updatekanal muss stable oder testing sein"
 
 msgid "Update of {update_date} (snapshot {pre} -> {state}, {outcome}):"
 msgstr "Aktualisierung vom {update_date} (Snapshot {pre} -> {state}, {outcome}):"
@@ -2710,6 +2851,9 @@ msgstr "Volumes"
 msgid "WARN logs"
 msgstr "WARN-Protokolle"
 
+msgid "Wallpaper must be PNG, JPEG or WebP"
+msgstr "Das Hintergrundbild muss PNG, JPEG oder WebP sein"
+
 msgid "Web app created"
 msgstr "Web-App erstellt"
 
@@ -2754,6 +2898,9 @@ msgstr "Ihr E-Mail-Programm hat eine Nachricht an {REPORTS_EMAIL} geöffnet. Hä
 
 msgid "Zone details"
 msgstr "Zonendetails"
+
+msgid "add.files must be a list"
+msgstr "add.files muss eine Liste sein"
 
 msgid "archinstall and arch-chroot are required (they ship on the Arch ISO)"
 msgstr "archinstall und arch-chroot sind erforderlich (im Arch-ISO enthalten)"
@@ -2815,6 +2962,9 @@ msgstr "hyprpaper fehlgeschlagen auf: {outputs}"
 msgid "hyprsunset and hyprctl are required"
 msgstr "hyprsunset und hyprctl sind erforderlich"
 
+msgid "internet required"
+msgstr "Internet erforderlich"
+
 msgid "limine.conf has no Arch Linux (linux) entry to rename"
 msgstr "limine.conf has no Arch Linux (linux) entry to rename"
 
@@ -2827,8 +2977,20 @@ msgstr "localectl ist auf dem Live-ISO erforderlich"
 msgid "no WiFi backend"
 msgstr "kein WiFi-Dienst"
 
+msgid "offline stick file"
+msgstr "Offline-Datei vom Stick"
+
 msgid "pacman.conf has no [eitr] repository to add the testing channel before"
 msgstr "pacman.conf has no [eitr] repository to add the testing channel before"
+
+msgid "pacman.conf has no options section"
+msgstr "pacman.conf enthält keinen options-Abschnitt"
+
+msgid "policies.update_channel may only pin stable"
+msgstr "policies.update_channel kann nur stable festlegen"
+
+msgid "policies.{key}: expected true or false"
+msgstr "policies.{key}: true oder false erwartet"
 
 msgid "polishing Mjölnir"
 msgstr "Mjölnir polieren"
@@ -2955,6 +3117,24 @@ msgstr "Öffentlicher Schlüssel von {label}"
 
 msgid "{label} was removed"
 msgstr "{label} wurde entfernt"
+
+msgid "{location}: SHA-256 mismatch for {filename}"
+msgstr "{location}: SHA-256 stimmt für {filename} nicht überein"
+
+msgid "{location}: duplicate entry"
+msgstr "{location}: doppelter Eintrag"
+
+msgid "{location}: expected a lowercase SHA-256"
+msgstr "{location}: SHA-256 in Kleinbuchstaben erwartet"
+
+msgid "{location}: expected an object"
+msgstr "{location}: Objekt erwartet"
+
+msgid "{location}: invalid list"
+msgstr "{location}: ungültige Liste"
+
+msgid "{location}: unknown keys: {packages}"
+msgstr "{location}: unbekannte Schlüssel: {packages}"
 
 msgid "{menu} > {text} opens a submenu, not a command"
 msgstr "{menu} > {text} öffnet ein Untermenü, keinen Befehl"

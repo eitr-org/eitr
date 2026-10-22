@@ -37,8 +37,11 @@ def rows(menu):
 
 
 def command(menu, text):
+    from eitr_policy import row_allowed
     for row in rows(menu):
         if row.get("text") == text:
+            if not row_allowed({**row, "provider": "menus:" + menu}):
+                raise ValueError(tr("Disabled by organization policy: {feature}", feature=menu))
             action = row.get("actions", {}).get("open")
             if not action:
                 raise ValueError(tr('{menu} > {text} opens a submenu, not a command', menu=f'{menu}', text=f'{text}'))

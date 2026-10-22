@@ -47,7 +47,7 @@ class EitrCommandTests(unittest.TestCase):
 
     def test_every_listed_command_is_accepted(self):
         for name in [command for _, commands in eitr.GROUPS for command, _ in commands]:
-            self.assertEqual(eitr.parser().parse_args([name]).command, name)
+            self.assertEqual(eitr.parser().parse_args([name, "check", "/tmp/stick"] if name == "profile" else [name]).command, name)
 
     def test_update_runs_the_menus_update_script(self):
         actions = self.code / "walker/scripts/actions/system/update.sh"

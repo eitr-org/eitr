@@ -57,6 +57,7 @@ function module.tr(source, values)
 end
 
 function module.entries(entries, preserve_order)
+    entries = dofile(paths.code("elephant/policies.lua")).filter(entries, rawget(_G, "Name"))
     for _, entry in ipairs(entries) do
         local english = entry.Text or ""
         local description = entry.Subtext or ""

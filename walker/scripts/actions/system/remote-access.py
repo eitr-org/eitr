@@ -242,7 +242,14 @@ def away(action, peer=None):
         run(['tailscale', 'ping', '--c', '3', '--', peer])
 
 
+# Turning remote access off always works, even when a policy disables it.
+STOPPING = {('host', 'stop'), ('host', 'no-login'), ('host', 'undo'), ('away', 'disconnect'), ('away', 'undo')}
+
+
 def main(arguments):
+    if tuple(arguments[:2]) not in STOPPING:
+        from eitr_policy import require
+        require('remote_access')
     if arguments == ['serve']:
         launch_host()
     elif len(arguments) == 2 and arguments[0] == 'host':

@@ -26,6 +26,20 @@ class InstallerUiTests(unittest.TestCase):
         wizard.text.assert_any_call(32, 40, " Continue ", 3)
         wizard.text.assert_any_call(30, 26, "Erased.", 2)
 
+    def test_profile_review_wraps_and_scrolls_to_last_change(self):
+        wizard = object.__new__(ui.Wizard)
+        wizard.screen = Mock()
+        wizard.screen.getmaxyx.return_value = (40, 100)
+        wizard.screen.get_wch.side_effect = [ui.curses.KEY_NPAGE] * 20 + ['\n']
+        wizard.frame = Mock(return_value=(14, 26))
+        wizard.text = Mock()
+        wizard.panel_bottom = 33
+        wizard.body_width = 70
+        details = ['Add: ' + 'package ' * 30 for number in range(30)] + ['Run once as root: setup.sh']
+        self.assertEqual(wizard.review(details, 'Review every profile change.'), 'cancel')
+        self.assertTrue(any(call.args[2] == 'Run once as root: setup.sh' for call in wizard.text.call_args_list))
+        self.assertTrue(all(len(call.args[2]) <= 70 for call in wizard.text.call_args_list))
+
     def test_console_text_uses_only_glyphs_of_the_default_console_font(self):
         # The live ISO's Linux console font covers code page 437; anything else
         # renders as a placeholder (rounded corners became "+").

@@ -208,6 +208,12 @@ msgstr "Ajouter un compte Azure"
 msgid "Add {provider} Account"
 msgstr "Ajouter un compte {provider}"
 
+msgid "Add: {kind}: {value} ({connection})"
+msgstr "Ajouter : {kind} : {value} ({connection})"
+
+msgid "Added packages are also removed: {packages}"
+msgstr "Des paquets ajoutés sont aussi supprimés : {packages}"
+
 msgid "Address"
 msgstr "Adresse"
 
@@ -325,6 +331,9 @@ msgstr "Les deux services réseau fonctionnent ; choisissez-en un dans Système 
 msgid "Browse bucket"
 msgstr "Parcourir le bucket"
 
+msgid "Browser must be firefox or chromium (install it with add.packages)"
+msgstr "Le navigateur doit être firefox ou chromium (installer avec add.packages)"
+
 msgid "Buckets"
 msgstr "Buckets"
 
@@ -375,6 +384,15 @@ msgstr "Annulé ; rien n’a été modifié."
 
 msgid "Cannot change another user"
 msgstr "Impossible de modifier un autre utilisateur"
+
+msgid "Cannot inspect package dependency database {database}: {error}"
+msgstr "Impossible d’examiner la base de dépendances {database} : {error}"
+
+msgid "Cannot validate Flatpak additions (internet and flatpak required): {error}"
+msgstr "Impossible de valider les ajouts Flatpak (Internet et flatpak requis) : {error}"
+
+msgid "Cannot validate Flatpak remote {remote}: {reason}"
+msgstr "Impossible de valider le dépôt Flatpak {remote} : {reason}"
 
 msgid "Capture"
 msgstr "Capture"
@@ -429,6 +447,9 @@ msgstr "Choisissez iwd ou NetworkManager"
 
 msgid "Choose iwd, networkmanager, or restore"
 msgstr "Choisissez iwd, networkmanager ou restore"
+
+msgid "Chromium default requires add.packages chromium or its recipe"
+msgstr "Chromium par défaut exige add.packages chromium ou sa recette"
 
 msgid "Claude usage returned HTTP {code}; retry later or sign in again"
 msgstr "La consultation de l’utilisation de Claude a renvoyé HTTP {code} ; réessayez plus tard ou reconnectez-vous"
@@ -682,6 +703,12 @@ msgstr "Valeur par défaut"
 msgid "Default account"
 msgstr "Compte par défaut"
 
+msgid "Default browser is removed"
+msgstr "Le navigateur par défaut est supprimé"
+
+msgid "Default: {key}: {value}"
+msgstr "Valeur par défaut : {key} : {value}"
+
 msgid "Delete Account"
 msgstr "Supprimer le compte"
 
@@ -705,6 +732,9 @@ msgstr "Appareil"
 
 msgid "Direct"
 msgstr "Directe"
+
+msgid "Disabled by organization policy: {feature}"
+msgstr "Désactivé par la politique de l’organisation : {feature}"
 
 msgid "Disconnected"
 msgstr "Déconnecté"
@@ -741,6 +771,9 @@ msgstr "Domaines"
 
 msgid "Droplets"
 msgstr "Droplets"
+
+msgid "Duplicate JSON key: {key}"
+msgstr "Clé JSON dupliquée : {key}"
 
 msgid "Duplicate folder or unknown account"
 msgstr "Dossier en double ou compte inconnu"
@@ -1090,8 +1123,8 @@ msgstr "L’installation à côté des systèmes existants est indisponible : {r
 msgid "Installing alongside keeps every existing partition."
 msgstr "L’installation à côté des systèmes existants conserve toutes les partitions existantes."
 
-msgid "Installing from the USB medium; no network is needed. Keep the computer powered on."
-msgstr "Installation depuis le support USB ; aucune connexion réseau n’est nécessaire. Gardez l’ordinateur allumé."
+msgid "Installing the selected software. Profile additions may need the internet. Keep the computer powered on."
+msgstr "Installation des logiciels sélectionnés. Les ajouts du profil peuvent nécessiter Internet. Gardez l’ordinateur allumé."
 
 msgid "Instance status"
 msgstr "État de l’instance"
@@ -1113,6 +1146,9 @@ msgstr "Identifiant d’application Flatpak invalide"
 
 msgid "Invalid Git accounts settings"
 msgstr "Paramètres des comptes Git invalides"
+
+msgid "Invalid JSON constant: {value}"
+msgstr "Constante JSON invalide : {value}"
 
 msgid "Invalid WiFi name"
 msgstr "Nom WiFi invalide"
@@ -1141,6 +1177,12 @@ msgstr "Invalid font package"
 msgid "Invalid hostname {hostname}"
 msgstr "Nom d’hôte {hostname} invalide"
 
+msgid "Invalid or reserved repository name"
+msgstr "Nom de dépôt invalide ou réservé"
+
+msgid "Invalid package archive: {value}"
+msgstr "Archive de paquet invalide : {value}"
+
 msgid "Invalid package name"
 msgstr "Nom de paquet invalide"
 
@@ -1159,6 +1201,12 @@ msgstr "Heure de rappel invalide."
 msgid "Invalid reminder."
 msgstr "Rappel invalide."
 
+msgid "Invalid repository server URL"
+msgstr "URL du serveur du dépôt invalide"
+
+msgid "Invalid stick file path"
+msgstr "Chemin de fichier sur la clé invalide"
+
 msgid "Invalid subscription ID"
 msgstr "Identifiant d’abonnement invalide"
 
@@ -1167,6 +1215,9 @@ msgstr "Identifiant de locataire invalide"
 
 msgid "Invalid username {username}"
 msgstr "Nom d’utilisateur {username} invalide"
+
+msgid "Invalid wallpaper: {error}"
+msgstr "Fond d’écran invalide : {error}"
 
 msgid "Invalid web app ID"
 msgstr "Invalid web app ID"
@@ -1315,6 +1366,9 @@ msgstr "Auteur du manifeste : {author}"
 msgid "Message queues"
 msgstr "Files de messages"
 
+msgid "Missing stick file: {name}"
+msgstr "Fichier manquant sur la clé : {name}"
+
 msgid "Missing {missing_files}. Install the {loader} packages listed in distro/bootloader/ first. Nothing was changed."
 msgstr "Il manque {missing_files}. Installez d’abord les paquets {loader} indiqués dans distro/bootloader/. Aucune modification."
 
@@ -1441,6 +1495,9 @@ msgstr "Aucun instantané de mise à jour pour le moment."
 msgid "Not a user-owned regular file: {path}"
 msgstr "Ce n’est pas un fichier ordinaire appartenant à l’utilisateur : {path}"
 
+msgid "Not an Arch package file: {filename}"
+msgstr "Ce n’est pas un fichier de paquet Arch : {filename}"
+
 msgid "Not an EITR web app"
 msgstr "Ce n’est pas une application web EITR"
 
@@ -1525,6 +1582,12 @@ msgstr "Dépôt de compilation complet ouvert : vérifiez PKGBUILD, les fichiers
 msgid "Optional; press Enter to detect it."
 msgstr "Facultatif ; appuyez sur Entrée pour détecter."
 
+msgid "Organization policies could not be read; refusing the action."
+msgstr "Lecture des politiques de l’organisation impossible ; action refusée."
+
+msgid "Organization profile: {name}"
+msgstr "Profil d’organisation : {name}"
+
 msgid "Original configuration restored for the next boot; current networking is unchanged."
 msgstr "Configuration d’origine restaurée pour le prochain démarrage ; le réseau actuel reste inchangé."
 
@@ -1591,6 +1654,12 @@ msgstr "Plugins : mise à jour non interactive ignorée ; lancez eitr plugin upd
 msgid "Policies"
 msgstr "Politiques"
 
+msgid "Policies restrict Eitr tools. A user with root can override them."
+msgstr "Les politiques restreignent les outils Eitr. Un utilisateur ayant root peut les contourner."
+
+msgid "Policy: {key}: {value}"
+msgstr "Politique : {key} : {value}"
+
 msgid "Preparation failed before any disk changes"
 msgstr "La préparation a échoué avant toute modification de disque"
 
@@ -1633,6 +1702,15 @@ msgstr "Profil"
 msgid "Profile ID"
 msgstr "Identifiant du profil"
 
+msgid "Profile application requires eitr-system as root"
+msgstr "L’application du profil exige eitr-system comme root"
+
+msgid "Profile name must be 1–100 printable characters"
+msgstr "Le nom du profil doit contenir 1 à 100 caractères imprimables"
+
+msgid "Profile version must be 1"
+msgstr "La version du profil doit être 1"
+
 msgid "Program: {program}\nSignal: {signal}\n\n{backtrace}"
 msgstr "Programme : {program}\nSignal : {signal}\n\n{backtrace}"
 
@@ -1641,6 +1719,12 @@ msgstr "Projet"
 
 msgid "Projects"
 msgstr "Projets"
+
+msgid "Protected dependency cannot be removed: {packages}"
+msgstr "Impossible de supprimer une dépendance protégée : {packages}"
+
+msgid "Protected or unknown package cannot be removed: {package}"
+msgstr "Impossible de supprimer un paquet protégé ou inconnu : {package}"
 
 msgid "Provider"
 msgstr "Fournisseur"
@@ -1680,6 +1764,12 @@ msgstr "Événements récents"
 
 msgid "Recent logs"
 msgstr "Journaux récents"
+
+msgid "Recipe disabled by policy: {name}"
+msgstr "Recette désactivée par la politique : {name}"
+
+msgid "Recipe {name} requires an AUR build or an interactive per-user installer; use a stick package instead"
+msgstr "La recette {name} exige une compilation AUR ou un installateur utilisateur interactif ; utilisez un paquet sur la clé"
 
 msgid "Recording saved"
 msgstr "Enregistrement sauvegardé"
@@ -1765,6 +1855,9 @@ msgstr "Supprimer l’application web {label} ?"
 msgid "Remove {label} and its folder rules? Keys stay on disk."
 msgstr "Supprimer {label} et ses règles de dossiers ? Les clés restent sur le disque."
 
+msgid "Remove: {value}"
+msgstr "Supprimer : {value}"
+
 msgid "Removed the EITR boot menu style from {config}. Backup: {backup}"
 msgstr "Style du menu de démarrage EITR supprimé de {config}. Sauvegarde : {backup}"
 
@@ -1788,6 +1881,15 @@ msgstr "Les dépôts qu’il contient utilisent uniquement ce compte"
 
 msgid "Repository URL"
 msgstr "URL du dépôt"
+
+msgid "Repository key must contain exactly one OpenPGP public key"
+msgstr "La clé du dépôt doit contenir exactement une clé publique OpenPGP"
+
+msgid "Repository name already exists with different settings"
+msgstr "Le nom du dépôt existe déjà avec des paramètres différents"
+
+msgid "Repository server must use HTTPS without credentials, query or fragment"
+msgstr "Le serveur du dépôt doit utiliser HTTPS sans identifiants, requête ni fragment"
 
 msgid "Repository: {url}"
 msgstr "Dépôt : {url}"
@@ -1861,8 +1963,14 @@ msgstr "Exécutez eitr-guided-install en tant que root depuis l’ISO live Eitr"
 msgid "Run factory reset on the installed system, not from a chroot"
 msgstr "Effectuez la réinitialisation d’usine sur le système installé, pas dans un chroot"
 
+msgid "Run once as root: {value}"
+msgstr "Exécuter une fois comme root : {value}"
+
 msgid "Run only from the booted Eitr live ISO, never an installed host"
 msgstr "Exécutez uniquement depuis l’ISO live Eitr démarrée, jamais sur un système installé"
+
+msgid "Run profile apply as the desktop user through sudo"
+msgstr "Exécutez profile apply comme utilisateur du bureau via sudo"
 
 msgid "Run the packaged login setup with sudo as the desktop user"
 msgstr "Exécutez la configuration de connexion du paquet avec sudo depuis votre compte de bureau"
@@ -2137,6 +2245,12 @@ msgstr "État"
 msgid "Step {step_number} of {step_count}"
 msgstr "Étape {step_number} sur {step_count}"
 
+msgid "Stick package is also removed: {package}"
+msgstr "Le paquet sur la clé est aussi supprimé : {package}"
+
+msgid "Stick symlinks are refused: {name}"
+msgstr "Les liens symboliques sur la clé sont refusés : {name}"
+
 msgid "Stop and disable the existing Sunshine user service before using Eitr sharing. Its settings will be kept."
 msgstr "Arrêtez et désactivez le service utilisateur Sunshine existant avant le partage Eitr. Ses réglages seront conservés."
 
@@ -2203,8 +2317,8 @@ msgstr "Déverrouillage TPM2 enregistré pour {device} avec PCR {TPM_PCRS}. Votr
 msgid "TPM2 unlock removed from {device}; the passphrase is required at boot again."
 msgstr "Déverrouillage TPM2 supprimé de {device} ; la phrase secrète est à nouveau requise au démarrage."
 
-msgid "Tab / arrows: choose  Enter: select  Esc: cancel"
-msgstr "Tab / flèches : choisir  Enter : sélectionner  Esc : annuler"
+msgid "Tab / arrows: choose  Enter: select  PgUp/PgDn: scroll  Esc: cancel"
+msgstr "Tab / flèches : choisir  Entrée : sélectionner  PgUp/PgDn : défiler  Échap : annuler"
 
 msgid "Tailscale IP"
 msgstr "IP Tailscale"
@@ -2346,6 +2460,9 @@ msgstr "Le système précédent fonctionne toujours ; consultez {MANUAL}"
 
 msgid "The question and the files a helper reads are sent to that helper’s provider."
 msgstr "La question et les fichiers lus par l’assistant sollicité sont envoyés à son fournisseur."
+
+msgid "The recorded organization profile is invalid."
+msgstr "Le profil d’organisation enregistré est invalide."
 
 msgid "The report opened in your text editor."
 msgstr "Le rapport s’est ouvert dans votre éditeur de texte."
@@ -2500,6 +2617,9 @@ msgstr "Les activer conserve un instantané des dossiers personnels par heure pe
 msgid "Type 1, 2, 3 or 4, or press Enter."
 msgstr "Saisissez 1, 2, 3 ou 4, ou appuyez sur Enter."
 
+msgid "Type APPLY PROFILE to make these system changes: "
+msgstr "Saisissez APPLY PROFILE pour effectuer ces modifications système : "
+
 msgid "Type yes to connect them (Enter cancels): "
 msgstr "Saisissez yes pour les connecter (Entrée annule) : "
 
@@ -2572,17 +2692,32 @@ msgstr "Compte inconnu"
 msgid "Unknown monitoring service"
 msgstr "Service de supervision inconnu"
 
+msgid "Unknown or unavailable Flatpak app {app}: {reason}"
+msgstr "Application Flatpak inconnue ou indisponible {app} : {reason}"
+
+msgid "Unknown or unavailable repository package: {reason}"
+msgstr "Paquet de dépôt inconnu ou indisponible : {reason}"
+
 msgid "Unknown position {value}"
 msgstr "Unknown position {value}"
 
+msgid "Unknown recipe: {name}"
+msgstr "Recette inconnue : {name}"
+
 msgid "Unknown setting {key}"
 msgstr "Unknown setting {key}"
+
+msgid "Unknown theme: {theme}"
+msgstr "Thème inconnu : {theme}"
 
 msgid "Unmanaged remote-access rules exist"
 msgstr "Des règles d’accès à distance non gérées existent"
 
 msgid "Unreadable answers file {path}: {error}"
 msgstr "Fichier de réponses {path} illisible : {error}"
+
+msgid "Unsafe stick path: {name}"
+msgstr "Chemin dangereux sur la clé : {name}"
 
 msgid "Unsupported PAM file: {path}"
 msgstr "Unsupported PAM file: {path}"
@@ -2607,6 +2742,12 @@ msgstr "Unsupported uninstall source"
 
 msgid "Update cancelled; nothing was changed."
 msgstr "Mise à jour annulée ; rien n’a été modifié."
+
+msgid "Update channel conflicts with stable policy"
+msgstr "Le canal de mise à jour contredit la politique stable"
+
+msgid "Update channel must be stable or testing"
+msgstr "Le canal de mise à jour doit être stable ou testing"
 
 msgid "Update of {update_date} (snapshot {pre} -> {state}, {outcome}):"
 msgstr "Mise à jour du {update_date} (instantané {pre} -> {state}, {outcome}) :"
@@ -2710,6 +2851,9 @@ msgstr "Volumes"
 msgid "WARN logs"
 msgstr "Journaux WARN"
 
+msgid "Wallpaper must be PNG, JPEG or WebP"
+msgstr "Le fond d’écran doit être PNG, JPEG ou WebP"
+
 msgid "Web app created"
 msgstr "Application web créée"
 
@@ -2754,6 +2898,9 @@ msgstr "Votre messagerie a ouvert un message à {REPORTS_EMAIL}. Joignez {path},
 
 msgid "Zone details"
 msgstr "Détails de la zone"
+
+msgid "add.files must be a list"
+msgstr "add.files doit être une liste"
 
 msgid "archinstall and arch-chroot are required (they ship on the Arch ISO)"
 msgstr "archinstall et arch-chroot sont requis (inclus dans l’ISO Arch)"
@@ -2815,6 +2962,9 @@ msgstr "hyprpaper a échoué sur les sorties : {outputs}"
 msgid "hyprsunset and hyprctl are required"
 msgstr "hyprsunset et hyprctl sont requis"
 
+msgid "internet required"
+msgstr "Internet nécessaire"
+
 msgid "limine.conf has no Arch Linux (linux) entry to rename"
 msgstr "limine.conf has no Arch Linux (linux) entry to rename"
 
@@ -2827,8 +2977,20 @@ msgstr "localectl est requis sur l’ISO live"
 msgid "no WiFi backend"
 msgstr "aucun service WiFi"
 
+msgid "offline stick file"
+msgstr "fichier hors ligne de la clé"
+
 msgid "pacman.conf has no [eitr] repository to add the testing channel before"
 msgstr "pacman.conf has no [eitr] repository to add the testing channel before"
+
+msgid "pacman.conf has no options section"
+msgstr "pacman.conf ne contient aucune section options"
+
+msgid "policies.update_channel may only pin stable"
+msgstr "policies.update_channel peut uniquement imposer stable"
+
+msgid "policies.{key}: expected true or false"
+msgstr "policies.{key} : true ou false attendu"
 
 msgid "polishing Mjölnir"
 msgstr "polissant Mjölnir"
@@ -2955,6 +3117,24 @@ msgstr "Clé publique de {label}"
 
 msgid "{label} was removed"
 msgstr "{label} a été supprimé"
+
+msgid "{location}: SHA-256 mismatch for {filename}"
+msgstr "{location} : SHA-256 incorrect pour {filename}"
+
+msgid "{location}: duplicate entry"
+msgstr "{location} : entrée dupliquée"
+
+msgid "{location}: expected a lowercase SHA-256"
+msgstr "{location} : SHA-256 en minuscules attendu"
+
+msgid "{location}: expected an object"
+msgstr "{location} : objet attendu"
+
+msgid "{location}: invalid list"
+msgstr "{location} : liste invalide"
+
+msgid "{location}: unknown keys: {packages}"
+msgstr "{location} : clés inconnues : {packages}"
 
 msgid "{menu} > {text} opens a submenu, not a command"
 msgstr "{menu} > {text} ouvre un sous-menu, pas une commande"

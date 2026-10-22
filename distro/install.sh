@@ -17,7 +17,19 @@ cleanup() {
 trap cleanup EXIT
 
 die() { printf '%s\n' "$*" >&2; exit 1; }
-manifest() { sed '/^[[:space:]]*#/d; /^[[:space:]]*$/d' "$1"; }
+manifest() {
+  python3 - "$repo_root/distro/lib" "$1" <<'PYPROFILE'
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+from eitr_policy import excluded
+blocked = excluded()
+for line in Path(sys.argv[2]).read_text().splitlines():
+    package = line.split('#')[0].strip()
+    if package and package not in blocked:
+        print(package)
+PYPROFILE
+}
 
 is_recorded() { [[ -f "$install_record" ]] && grep -Fxq -- "$1" "$install_record"; }
 record() {

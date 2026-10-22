@@ -289,7 +289,15 @@ def tailscale(name, undo=False):
         (STATE / 'tailscale.json').unlink()
 
 
+# Closing ports and undoing setup always work, so a policy added after sharing
+# was set up can still shut it down.
+STOPPING = {'close', 'undo', 'tailscale-undo'}
+
+
 def dispatch(action, name):
+    if action not in STOPPING:
+        from eitr_policy import require
+        require('remote_access')
     operations = {'setup': setup, 'undo': undo_sunshine, 'arm': arm,
                   'open': lambda user: sharing(user, True), 'close': lambda user: sharing(user, False),
                   'tailscale': tailscale, 'tailscale-undo': lambda user: tailscale(user, True)}

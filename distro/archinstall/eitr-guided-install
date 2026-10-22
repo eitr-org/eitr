@@ -12,6 +12,7 @@ is saved. The first boot reaches Eitr's graphical login.
 """
 import eitr_bootstrap
 from eitr_i18n import tr
+import eitr_profile
 import copy
 import importlib.util
 import json
@@ -331,7 +332,7 @@ def desktop_packages(log):
 
 
 def install_desktop(log):
-    packages = desktop_packages(log)
+    packages = [package for package in desktop_packages(log) if package not in eitr_profile.removals(PROFILE or {})]
     log(f"Installing {len(packages)} desktop packages and their dependencies")
     # -G: keep the keyring archinstall initialized; -M: keep the copied mirrorlist.
     stream(["pacstrap", "-C", "/etc/pacman.conf", "-G", "-M", str(TARGET),
@@ -369,6 +370,15 @@ def set_up_desktop(user, log):
     chroot(["/usr/lib/eitr/eitr-system", "snapshots-setup"], log)
     chroot(["install", "-Dm644", "/usr/share/eitr/system-update-policy.conf",
             "/etc/eitr/system-update-policy.conf"], log)
+
+
+def apply_profile(username, log):
+    destination = TARGET / 'var/tmp/eitr-profile'
+    shutil.copytree(PROFILE_STAGE.name, destination)
+    try:
+        chroot(['/usr/lib/eitr/eitr-system', 'profile-install', '/var/tmp/eitr-profile', username], log)
+    finally:
+        shutil.rmtree(destination)
 
 
 def windows_entries(partitions, esp_uuid, has_windows_loader):
@@ -488,6 +498,8 @@ def confirm_unattended(choices, seconds=COUNTDOWN_SECONDS, sleep=None):
     action = {"erase": "ERASE the whole disk", "alongside": "install beside the existing systems on"}.get(
         choices["layout"], choices["layout"])
     print(tr('\nUnattended installation from the answers drive will {action}:\n  {disk_label}\nfor user {username}, {state}.', action=f'{action}', disk_label=f'{disk_label(disk)}', username=f"{choices['username']}", state=f"{('encrypted' if choices['encrypted'] else 'not encrypted')}"))
+    if PROFILE:
+        print(eitr_profile.summary(PROFILE), flush=True)
     try:
         for remaining in range(seconds, 0, -1):
             print(tr('\rStarting in {remaining} s. Press Ctrl+C to cancel.', remaining=f'{remaining:>2}'), end="", flush=True)
@@ -574,7 +586,15 @@ def main():
         raise GuidedInstallError(tr('archinstall and arch-chroot are required (they ship on the Arch ISO)'))
     if subprocess.run(["findmnt", "-M", str(TARGET)], stdout=subprocess.DEVNULL).returncode == 0:
         raise GuidedInstallError(tr('{TARGET} is already mounted; unmount it before installing', TARGET=f'{TARGET}'))
+    global PROFILE, PROFILE_STAGE
+    drive = Path(PROFILE_DRIVE or (Path(ANSWERS).parent if ANSWERS and not str(ANSWERS).startswith(TEST_ANSWERS) else '/run/eitr-answers'))
+    if PROFILE_DRIVE or (drive / 'eitr-profile.json').exists():
+        PROFILE_STAGE = tempfile.TemporaryDirectory(prefix='eitr-profile-', dir='/run')
+        PROFILE = eitr_profile.snapshot(drive, PROFILE_STAGE.name)
+        eitr_profile.preflight_packages(PROFILE, PROFILE_STAGE.name, databases=[*Path("/var/lib/pacman/sync").glob("*.db"), *PAYLOAD.rglob("*.db")])
+        eitr_profile.preflight_flatpaks(PROFILE)
     ui = load("eitr_installer_ui", SOURCE / "distro/archinstall/installer-ui.py")
+    ui.PROFILE_REVIEW = eitr_profile.summary(PROFILE).splitlines() if PROFILE else []
 
     def disks():
         # lsblk nests partitions under their disk only when NAME is a column.
@@ -619,6 +639,7 @@ def main():
                 *([("Enabling SSH for automated testing",
                     lambda log: enable_test_ssh(choices["username"], choices["ssh_authorized_key"], log))]
                   if choices.get("ssh_authorized_key") else []),
+                *([("Applying the organization profile", lambda log: apply_profile(choices["username"], log))] if PROFILE else []),
                 ("Saving the factory reset point", save_factory_reset_point)]
             durations = plain_installation(stages) if ANSWERS else ui.installation(stages)
         finally:
@@ -634,20 +655,28 @@ def main():
 
 # --answers FILE replaces the wizard's questions (automated VM tests).
 ANSWERS = None
+PROFILE = None
+PROFILE_DRIVE = None
+PROFILE_STAGE = None
 
 
 if __name__ == "__main__":
-    if sys.argv[1:2] == ["--answers"] and len(sys.argv) == 3:
-        ANSWERS = sys.argv[2]
-    elif sys.argv[1:]:
-        print('Usage: eitr-guided-install [--answers FILE]', file=sys.stderr)
-        sys.exit(2)
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--answers')
+    parser.add_argument('--profile', help='mounted profile drive directory')
+    arguments = parser.parse_args()
+    ANSWERS, PROFILE_DRIVE = arguments.answers, arguments.profile
     try:
         main()
-    except (GuidedInstallError, subprocess.CalledProcessError, OSError) as error:
+    except (GuidedInstallError, eitr_profile.ProfileError, subprocess.CalledProcessError, OSError) as error:
         print('\neitr-guided-install: {error}'.format(error=f'{error}'), file=sys.stderr)
         print(tr('Detailed logs: /var/log/archinstall. Nothing after the failed step was changed.'), file=sys.stderr)
         sys.exit(1)
     except KeyboardInterrupt:
         print(tr('\nInterrupted.'), file=sys.stderr)
         sys.exit(130)
+
+    finally:
+        if PROFILE_STAGE:
+            PROFILE_STAGE.cleanup()

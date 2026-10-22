@@ -6,6 +6,7 @@ Item {
     id: service
     property bool observing: false
     property var state: ({})
+    readonly property bool allowed: state.allowed === true
     readonly property bool busy: query.running
     function refresh() {
         if (!query.running) query.running = true;

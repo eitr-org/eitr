@@ -171,5 +171,12 @@
     "icon": "󰗊",
     "summary": "System locale, English fallback and contributing translations",
     "source": "quickshell/desktop-bar/handbook/content/language.md"
+  },
+  {
+    "id": "organization-profiles",
+    "title": "Organization Profiles",
+    "icon": "󰒓",
+    "summary": "Reviewed installation software, defaults and organization policies",
+    "source": "distro/ORGANIZATION-PROFILES.md"
   }
 ]

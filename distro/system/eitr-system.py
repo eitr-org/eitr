@@ -927,6 +927,9 @@ def testing_reachable(url=TESTING_DATABASE):
 
 
 def channel_set(channel, conf=None, reachable=testing_reachable):
+    if channel != "stable":
+        from eitr_policy import require
+        require("update_channel")
     conf = conf or PACMAN_CONF
     if channel not in ("stable", "testing"):
         raise ValueError(tr('The channel is stable or testing'))
@@ -990,16 +993,26 @@ if __name__ == "__main__":
                                            "firewall-on", "firewall-off", "firewall-status", "firewall-allow-ssh",
                                            "snapshot-changes", "channel-status", "channel-set",
                                            "remote-setup", "remote-arm", "remote-undo", "remote-open", "remote-close",
-                                           "remote-tailscale", "remote-tailscale-undo"])
+                                           "remote-tailscale", "remote-tailscale-undo", "profile-apply", "profile-install"])
     parser.add_argument("argument", nargs="?",
                         help='auth-enable: fingerprint|fido2|password; auth-restore: backup name; snapshot-post: success|failed; boot-menu-style: desktop user; battery-limit: 60-100|off; luks-*: /dev path')
+    parser.add_argument("profile_user", nargs="?")
     args = parser.parse_args()
     # Read-only checks may run unprivileged (an unreadable EFI partition then
     # reports "unknown"), so the installer's --check can use them.
     if args.action not in READ_ONLY_ACTIONS and os.geteuid() != 0:
         parser.error('This root-owned helper must run through sudo or a pacman hook')
     try:
-        if args.action.startswith("remote-"):
+        if args.profile_user and args.action != "profile-install":
+            raise ValueError("Unexpected desktop user argument")
+        if args.action in ("profile-apply", "profile-install"):
+            if not args.argument:
+                raise ValueError("A mounted profile drive directory is required")
+            from eitr_profile_apply import apply
+            if args.action == "profile-install" and not in_chroot():
+                raise ValueError("profile-install is only available inside the installer chroot")
+            apply(args.argument, channel_set, installer=args.action == "profile-install", username=args.profile_user)
+        elif args.action.startswith("remote-"):
             import eitr_remote
             eitr_remote.dispatch(args.action.removeprefix("remote-"), args.argument)
         elif args.action == "snapshots-check":

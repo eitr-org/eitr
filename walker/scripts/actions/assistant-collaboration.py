@@ -74,6 +74,9 @@ def enable_interactively():
 
 
 def main(arguments):
+    from eitr_policy import require
+    if arguments != ['get']:
+        require('assistants_together')
     if arguments == ['serve']:
         serve(sys.stdin, sys.stdout)
         return 0

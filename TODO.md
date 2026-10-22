@@ -29,75 +29,21 @@ Fresh installs include them; existing machines install missing apps on demand
 Afterwards, each tested separately: headless use, access before login, wake on
 LAN.
 
-# 2. Organization profiles
+# 2. Organization profiles — VM verification pending
 
-A company (or anyone setting up several machines) chooses the software at
-installation without rebuilding the ISO: the official, signed ISO stays
-untouched and machines keep receiving Eitr's normal updates. Built on the
-existing answers drive (`EITR-ANSWERS`, `distro/README.md` > Unattended install).
+Parser, reviewed allowlist, installer/CLI integration, policies, update exclusions,
+VM harness and translated documentation are implemented in the working tree.
+Do not call this shipped until the maintainer runs the VM checks in
+`distro/PROFILE-VM-TESTING.md`:
 
-Design:
-
-- An `eitr-profile.json` beside (or instead of) `eitr-answers.json`. With only
-  the profile, the normal wizard runs and then shows the profile's changes;
-  with both files the install is fully unattended.
-- `remove`: Eitr apps to leave out, for example Steam, RetroArch or the remote
-  access apps (`moonlight-qt`, `eitr-sunshine`, `tailscale`). Only apps on an
-  explicit, reviewed list of removable apps are accepted. Everything the
-  desktop needs is protected: `distro/packages.txt`, `distro/aur-packages.txt`,
-  the desktop's own entries in `distro/local-packages.txt` (Hyprland,
-  Quickshell, Walker, Elephant and the rest; `eitr-sunshine` there is
-  removable), `eitr-desktop`, `eitr-artwork` and anything they depend on.
-  `distro/apps.txt` also holds pieces the desktop relies on (themes, menu
-  data), so it is not removable as a whole; each removable entry is reviewed.
-  A profile naming a protected package is refused as a whole with a clear
-  message, before any disk is changed. pacman confirms that no removal breaks
-  a dependency.
-- `add`: Eitr install recipes by name (`distro/software.json`), Arch packages,
-  Flathub apps (Zoom is `us.zoom.Zoom`), and package files on the stick, each
-  with its SHA-256 in the profile. No AUR builds during installation. Additions
-  that need the internet say so; package files on the stick install offline.
-- `defaults`: theme, wallpaper (an image on the stick), browser, update
-  channel, and an extra package repository with its signing key.
-- `setup`: an optional script from the stick, run once at the end of the
-  installation and shown in the summary.
-- `policies`: features the organization turns off, written to a root-owned
-  `/etc/eitr/policies.json` that users cannot change. Each policy hides the
-  feature's menus and makes Eitr's own tools refuse it: `remote_access`
-  (Remote Access menus, and the sharing and Tailscale setup in `eitr-system`),
-  `assistants_together` (the "Let assistants work together" switch),
-  `update_channel` (pin stable), and the removable app groups such as gaming.
-  Eitr can only enforce this in its own tools: an employee with root could
-  still set things up by hand, so the Handbook says that real lockdown also
-  means not granting root.
-- Before anything changes, the installer lists everything it will add, remove,
-  set and run, with the answers drive's countdown when unattended.
-- The applied profile is recorded on the machine so System Update never
-  reinstalls a removed app.
-- `eitr profile check DRIVE` validates a stick before it is used, and
-  `eitr profile apply DRIVE` brings an already installed machine in line:
-  removes the listed apps, writes the policies and records the profile, after
-  the same summary and confirmation.
-
-Steps:
-
-1. Review `distro/apps.txt` and `distro/aur-apps.txt` entry by entry and mark
-   the removable apps (gaming, media and other optional apps); write the
-   protected-package test first.
-2. Profile parser and validation, shared by the installer and
-   `eitr profile check`; unit tests for refusals (protected packages, bad
-   checksums, unknown recipes).
-3. Installer integration: skip removed apps in the offline payload install,
-   then additions, defaults, policies and the setup script; record the profile.
-   Policy checks in the menus and in `eitr-system`, with tests that a refused
-   feature stays refused from both.
-4. VM tests: an offline install with removals and stick packages, an online
-   install with Flathub additions, a refused profile, System Update not
-   bringing a removed app back, a policy hiding Remote Access, and
-   `eitr profile apply` on an installed machine.
-5. Handbook and `distro/README.md` section with a complete example profile.
-
-Out of scope: managing machines after installation (fleet management).
+1. Offline install with removals and checksum-verified stick package files.
+2. Online install with Flathub additions.
+3. Refused profile leaves the target disk unchanged.
+4. System Update does not bring excluded apps back.
+5. Remote Access policy hides menus and bar entries and refuses direct tools.
+6. Applying a profile to an installed machine, including typed cancellation,
+   successful application, defaults, root-owned policy files and setup run-once.
+7. Profile-only wizard Review and all online additions/default repository paths.
 
 # 3. Smaller items
 

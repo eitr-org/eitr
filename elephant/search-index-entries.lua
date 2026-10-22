@@ -30,7 +30,7 @@ return function(scope)
             local submenu = row.subtext == ">"
             local entry = {Text = row.text, Subtext = not submenu and row.subtext or nil,
                 State = submenu and {"submenu"} or nil, Icon = row.icon, Value = row.key,
-                Keywords = row.keywords}
+                Keywords = row.keywords, Provider = row.provider}
             if row.submenu then
                 -- Walker opens it like any submenu row, so Shift+Backspace leads to its parent.
                 entry.SubMenu = row.submenu
@@ -44,7 +44,9 @@ return function(scope)
                 end
                 entry.Actions = actions
             end
-            table.insert(entries, entry)
+            if dofile(paths.code("elephant/policies.lua")).row(entry, row.provider:gsub("^menus:", "")) then
+                table.insert(entries, entry)
+            end
         end
     end
     return entries
