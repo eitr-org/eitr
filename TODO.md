@@ -29,21 +29,21 @@ Fresh installs include them; existing machines install missing apps on demand
 Afterwards, each tested separately: headless use, access before login, wake on
 LAN.
 
-# 2. Organization profiles — VM verification pending
+# 2. Organization profiles: remaining checks
 
-Parser, reviewed allowlist, installer/CLI integration, policies, update exclusions,
-VM harness and translated documentation are implemented in the working tree.
-Do not call this shipped until the maintainer runs the VM checks in
-`distro/PROFILE-VM-TESTING.md`:
+Built and VM-tested on 2026-10-22 (`distro/LINUX-VM-TESTING.md`): offline install
+with removals, a checksummed stick package and policies; online install with a
+Flathub app (installed at first boot); a refused profile leaving the disk
+untouched; `eitr profile apply` on an installed machine; System Update keeping
+the profile. Still to check, in a VM or with the owner:
 
-1. Offline install with removals and checksum-verified stick package files.
-2. Online install with Flathub additions.
-3. Refused profile leaves the target disk unchanged.
-4. System Update does not bring excluded apps back.
-5. Remote Access policy hides menus and bar entries and refuses direct tools.
-6. Applying a profile to an installed machine, including typed cancellation,
-   successful application, defaults, root-owned policy files and setup run-once.
-7. Profile-only wizard Review and all online additions/default repository paths.
+1. An update that really upgrades packages does not bring an excluded app back.
+2. Remote Access, assistants and update-channel controls hidden on screen (bar
+   in both orientations, menus, search) with the policies on.
+3. `eitr profile apply`: a mistyped confirmation changes nothing; defaults
+   (theme, wallpaper, browser, extra signed repository) after the next login;
+   a setup script runs once.
+4. The profile-only wizard Review and the unattended countdown, in each language.
 
 # 3. Smaller items
 

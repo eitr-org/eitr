@@ -177,6 +177,16 @@ third start restored the update's before snapshot, brought the login back,
 told the next login and deleted the failed system; Keep My Files and Erase
 Everything each passed all checks and came back through the unlock prompt.
 
+October 22, 2026, organization profiles (`distro/PROFILE-VM-TESTING.md`) with an
+ISO built from the commit under test: an offline install from a stick labelled
+EITRANSWERS removed Steam, the remote-access and gaming apps, installed a
+checksummed package from the stick and wrote root-owned policies; a profile
+removing Hyprland was refused before the disk changed; `eitr profile apply` brought
+an installed machine to the same state; an online install queued Zoom from Flathub
+and the first-boot timer installed it; System Update (nothing to upgrade) kept
+the profile. The runs found and fixed: stick packages refused by a wrong pacman
+option, the 12-character FAT label, and Flatpak extra data failing in the chroot.
+
 Earlier record:
 
 

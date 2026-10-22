@@ -1,7 +1,7 @@
 # Organization profiles: maintainer VM verification
 
-These commands have not been run for this change. Run only against throwaway VM
-work directories with the candidate ISO containing the working-tree changes.
+Results are recorded in `distro/LINUX-VM-TESTING.md`. Run only against throwaway
+VM work directories with a candidate ISO built from the commit under test.
 Required host tools: existing QEMU/OVMF setup, dosfstools and mtools. Nothing here
 requires mounting a filesystem or running the host commands as root. The harness
 uses sudo only inside its throwaway guest.
