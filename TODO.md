@@ -46,11 +46,6 @@ the profile. Still to check, in a VM or with the owner:
 
 # 3. Smaller items
 
-- **The first real plugin: switch over with the owner.** The private
-  `eitr-personal` repository is now a plugin (`personal-tools`: the cooler display's
-  service and a Cooler Display Status row), fetched and validated over SSH. With
-  the owner: add the udev rule once, install it from Install > Plugins, retire the
-  `install.sh` copy (its README lists the commands) and check the display.
 - **ISO download counter.** Cloudflare's R2 analytics only keep a few weeks and
   cannot tell our own checks from real downloads. Put a small Worker in front of
   the ISO link that counts new downloads (not resumed ranges) in D1 without
@@ -65,9 +60,9 @@ the profile. Still to check, in a VM or with the owner:
   for (a panel, menu or wizard) shown on the website or in the Handbook;
   background behavior gets none. Missing: the lockscreen and the Packages picker.
   Describe remote access as verified only after the real-device tests above pass.
-- **Search indexing and measurement.** The owner verifies eitr.info in Google
-  Search Console and Bing Webmaster Tools, submits the sitemap and inspects
-  public-page indexing. Track impressions, queries and clicks there without
+- **Search indexing and measurement.** eitr.info is verified in Google Search
+  Console and Bing Webmaster Tools with the sitemap submitted (2026-10-22). Check
+  that both read it, then track impressions, queries and clicks there without
   adding site analytics. Periodically spot-check whether search/AI answers
   identify Eitr accurately; inclusion and recommendations are not guaranteed.
 - **Releases and public evidence.** After the owner records the video, add a website Releases page and prepare
