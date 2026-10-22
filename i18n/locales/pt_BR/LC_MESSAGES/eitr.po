@@ -673,6 +673,9 @@ msgstr "Não foi possível registrar os pacotes atuais; a atualização continua
 msgid "Could not refresh or activate menu search; existing menus remain available."
 msgstr "Não foi possível atualizar ou ativar a busca dos menus; os menus existentes continuam disponíveis."
 
+msgid "Could not understand when: {when}"
+msgstr "Não entendi quando: {when}"
+
 msgid "Crash summary"
 msgstr "Resumo da falha"
 

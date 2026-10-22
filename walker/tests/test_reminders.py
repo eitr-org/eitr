@@ -25,6 +25,14 @@ class ReminderTimeTests(unittest.TestCase):
         value = reminders.when(text, now=self.now)
         return None if value is None else datetime.fromtimestamp(value)
 
+    def test_this_and_next_weekday(self):
+        now = datetime(2026, 10, 22, 11, 0)  # a Thursday
+        stamp = lambda phrase: datetime.fromtimestamp(reminders.when(phrase, now)).strftime('%a %d %H:%M')
+        self.assertEqual(stamp('friday 10:30'), 'Fri 23 10:30')
+        self.assertEqual(stamp('this friday 10:30'), 'Fri 23 10:30')
+        self.assertEqual(stamp('next friday 10:30'), 'Fri 30 10:30')
+        self.assertEqual(stamp('next monday 09:00'), 'Mon 26 09:00')
+
     def test_delays(self):
         self.assertEqual(self.due("10m"), datetime(2026, 10, 16, 14, 10))
         self.assertEqual(self.due("1h30m"), datetime(2026, 10, 16, 15, 30))

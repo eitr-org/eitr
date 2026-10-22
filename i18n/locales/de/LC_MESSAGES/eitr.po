@@ -673,6 +673,9 @@ msgstr "Die aktuellen Pakete konnten nicht erfasst werden; die Aktualisierung l�
 msgid "Could not refresh or activate menu search; existing menus remain available."
 msgstr "Menüsuche konnte nicht aktualisiert oder aktiviert werden; vorhandene Menüs bleiben verfügbar."
 
+msgid "Could not understand when: {when}"
+msgstr "Zeitpunkt nicht verstanden: {when}"
+
 msgid "Crash summary"
 msgstr "Absturzzusammenfassung"
 

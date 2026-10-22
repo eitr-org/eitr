@@ -144,11 +144,24 @@ class VoiceProtocolTests(unittest.TestCase):
                 patch.object(voice, 'default_assistant', return_value='local'), \
                 patch.object(eitr_local_assistant, 'installed', return_value=True), \
                 patch.object(eitr_local_assistant, 'ensure_running'):
-            with patch.object(eitr_local_assistant, 'opener', return_value=answer(json.dumps(self.payload))):
-                self.assertIn('Dentist', voice.process('Dentist tomorrow'))
-            self.assertEqual([item['text'] for item in reminders.load()], ['Dentist'])
+            short = {'action': 'create', 'title': 'Dentist', 'when': 'tomorrow 15:00', 'appointment': True}
+            with patch.object(eitr_local_assistant, 'opener', return_value=answer(json.dumps(short))):
+                self.assertIn('Dentist', voice.process('Dentist tomorrow at 3 pm'))
+            created = reminders.load()[0]
+            self.assertEqual(created['text'], 'Dentist')
+            due = datetime.fromtimestamp(created['due'])
+            self.assertEqual((due.date(), due.hour, due.minute), ((datetime.now() + timedelta(days=1)).date(), 15, 0))
+            self.assertEqual(reminders.alerts(created), [created['due'] - 3600, created['due']])
             self.assertEqual((sent[-1]['model'], sent[-1]['format']), ('qwen3:4b', 'json'))
-            self.assertIn('Dentist tomorrow', sent[-1]['prompt'])
+            self.assertIn('Dentist tomorrow at 3 pm', sent[-1]['prompt'])
+            # A second request sees the first reminder by name only: no time it could copy.
+            with patch.object(eitr_local_assistant, 'opener', return_value=answer(json.dumps({**short, 'title': 'Lunch', 'when': 'today 23:59'}))):
+                voice.process('Lunch today')
+            listed = sent[-1]['prompt'].split('Existing reminders (only for delete):\n')[1].split('\nThe request')[0]
+            self.assertEqual(listed, f'- id {created["id"]}: "Dentist"')
+            with patch.object(eitr_local_assistant, 'opener', return_value=answer(json.dumps({**short, 'when': 'next tuesday-ish'}))):
+                with self.assertRaisesRegex(ValueError, 'Could not understand when'):
+                    voice.process('Something sometime')
             with patch.object(eitr_local_assistant, 'opener', return_value=answer('{"action":"shell","command":"touch /tmp/no"}')), \
                     patch.object(voice, 'execute') as execute:
                 with self.assertRaises(ValueError):

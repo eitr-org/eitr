@@ -223,6 +223,7 @@
   "Could not read the current OBS scene": "Could not read the current OBS scene",
   "Could not record running packages; the update continues without a restart hint.": "Could not record running packages; the update continues without a restart hint.",
   "Could not refresh or activate menu search; existing menus remain available.": "Could not refresh or activate menu search; existing menus remain available.",
+  "Could not understand when: {when}": "Could not understand when: {when}",
   "Crash summary": "Crash summary",
   "Create a recovery key first? Strongly recommended.": "Create a recovery key first? Strongly recommended.",
   "Create a web app: a launcher that opens a site in its own window.": "Create a web app: a launcher that opens a site in its own window.",

@@ -673,6 +673,9 @@ msgstr "Could not record running packages; the update continues without a restar
 msgid "Could not refresh or activate menu search; existing menus remain available."
 msgstr "Could not refresh or activate menu search; existing menus remain available."
 
+msgid "Could not understand when: {when}"
+msgstr "Could not understand when: {when}"
+
 msgid "Crash summary"
 msgstr "Crash summary"
 

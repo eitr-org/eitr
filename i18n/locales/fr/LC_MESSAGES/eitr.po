@@ -673,6 +673,9 @@ msgstr "Impossible de relever les paquets actuels ; la mise à jour continue san
 msgid "Could not refresh or activate menu search; existing menus remain available."
 msgstr "Impossible d’actualiser ou d’activer la recherche ; les menus existants restent disponibles."
 
+msgid "Could not understand when: {when}"
+msgstr "Moment non compris : {when}"
+
 msgid "Crash summary"
 msgstr "Résumé du plantage"
 

@@ -1161,5 +1161,6 @@
   "PgUp/PgDn: scroll  Enter: install  Esc: cancel": "PgUp/PgDn: rolar  Enter: instalar  Esc: cancelar",
   "PgUp/PgDn: scroll  Enter: download for review  Esc: cancel": "PgUp/PgDn: rolar  Enter: baixar para revisão  Esc: cancelar",
   "d: full diff  Enter: update  Esc: keep the current version": "d: diff completo  Enter: atualizar  Esc: manter a versão atual",
-  "Enter: continue  Esc: cancel": "Enter: continuar  Esc: cancelar"
+  "Enter: continue  Esc: cancel": "Enter: continuar  Esc: cancelar",
+  "Could not understand when: {when}": "Não entendi quando: {when}"
 }

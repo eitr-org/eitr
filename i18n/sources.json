@@ -4148,6 +4148,9 @@
     "Could not refresh or activate menu search; existing menus remain available.": [
       "walker/scripts/menus/search-index.py"
     ],
+    "Could not understand when: {when}": [
+      "walker/scripts/actions/tools/voice-command.py"
+    ],
     "Crash summary": [
       "walker/scripts/actions/system/report-problem.py"
     ],

@@ -1161,5 +1161,6 @@
   "PgUp/PgDn: scroll  Enter: install  Esc: cancel": "Bild↑/Bild↓: blättern  Enter: installieren  Esc: abbrechen",
   "PgUp/PgDn: scroll  Enter: download for review  Esc: cancel": "Bild↑/Bild↓: blättern  Enter: zur Prüfung laden  Esc: abbrechen",
   "d: full diff  Enter: update  Esc: keep the current version": "d: ganzer Diff  Enter: aktualisieren  Esc: aktuelle Version behalten",
-  "Enter: continue  Esc: cancel": "Enter: fortfahren  Esc: abbrechen"
+  "Enter: continue  Esc: cancel": "Enter: fortfahren  Esc: abbrechen",
+  "Could not understand when: {when}": "Zeitpunkt nicht verstanden: {when}"
 }

@@ -10,7 +10,7 @@
 
 WHEN is a delay (10m, 1h30m, 45s, or a number of minutes), a time of day
 (18:30, tomorrow when that has passed), or a date such as "tomorrow 15:00",
-"Friday", "2026-10-30 09:00" or "Oct 30 15:00" (09:00 without a clock).
+"Friday" (or "this friday"), "next friday" (next week), "2026-10-30 09:00" or "Oct 30 15:00" (09:00 without a clock).
 Repeats: "every day 08:00", "every Monday 09:30", "weekdays 07:00",
 "every month on the 15th", "every week", "every year".
 Machine commands: list --json; add-json reads {title,event,alerts,repeat?} from stdin.
@@ -85,7 +85,12 @@ def when(text, now=None):
         hour, minute = map(int, clock_text.split(":"))
         if day_text in ("today", "tomorrow"):
             day = now + timedelta(days=day_text == "tomorrow")
-        elif day_text in WEEKDAYS:
+        elif day_text.startswith("next ") and day_text[5:] in WEEKDAYS:
+            # "next friday" is that day of next week (Monday to Sunday after this one).
+            next_monday = now + timedelta(days=7 - now.weekday())
+            day = next_monday + timedelta(days=WEEKDAYS.index(day_text[5:]))
+        elif day_text in WEEKDAYS or (day_text.startswith("this ") and day_text[5:] in WEEKDAYS):
+            day_text = day_text.removeprefix("this ")
             weekday = WEEKDAYS.index(day_text)
             day = now + timedelta(days=(weekday - now.weekday()) % 7)
             if day.replace(hour=hour, minute=minute, second=0, microsecond=0) <= now:
