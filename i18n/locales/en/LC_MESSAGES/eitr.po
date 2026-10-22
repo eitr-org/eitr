@@ -787,9 +787,6 @@ msgstr "Elastic IPs"
 msgid "Empty values and control characters are not allowed"
 msgstr "Empty values and control characters are not allowed"
 
-msgid "Enable remote control after setting Sunshine’s password?"
-msgstr "Enable remote control after setting Sunshine’s password?"
-
 msgid "Encrypt with LUKS2: boot passphrase required (recommended)"
 msgstr "Encrypt with LUKS2: boot passphrase required (recommended)"
 
@@ -2125,9 +2122,6 @@ msgstr "Staging destination already exists: {destination}"
 msgid "Start and end times must differ"
 msgstr "Start and end times must differ"
 
-msgid "Start sharing automatically at login? This grants remote desktop control whenever you sign in."
-msgstr "Start sharing automatically at login? This grants remote desktop control whenever you sign in."
-
 msgid "Start sharing this PC?"
 msgstr "Start sharing this PC?"
 
@@ -2211,6 +2205,9 @@ msgstr "Tab / arrows: choose  Enter: select  Esc: cancel"
 
 msgid "Tailscale IP"
 msgstr "Tailscale IP"
+
+msgid "Tailscale could not change state."
+msgstr "Tailscale could not change state."
 
 msgid "Tailscale is not installed."
 msgstr "Tailscale is not installed."

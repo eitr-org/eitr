@@ -36,10 +36,10 @@ mesmo se outra regra permitir acesso. As redes são identificadas a cada início
 pare e inicie novamente ao trocar de rede. Use apenas sua rede doméstica confiável.
 Parar compartilhamento desativa também o início automático e fecha as portas, inclusive
 conexões existentes. Falhas do serviço também fecham as portas; as aberturas não
-sobrevivem à reinicialização. Iniciar ao entrar é opcional e pede confirmação separada;
+sobrevivem à reinicialização. Iniciar ao entrar é opcional e muda na hora pelo painel Streaming ou pelo menu;
 Desativar início ao entrar mantém o início manual. Estado do compartilhamento mostra erros.
 
-Na primeira vez, a transmissão fica bloqueada enquanto você define a senha. Volte ao terminal, confirme a definição e digite `yes` na confirmação do assistente root para liberar o controle remoto.
+Na primeira vez, a transmissão fica bloqueada enquanto você define a senha. Volte ao terminal e confirme a definição; sua senha de administrador então libera o controle remoto.
 
 Uma atualização do pacote Sunshine remove a capacidade de captura do executável.
 Se o compartilhamento não iniciar depois, use Configurar compartilhamento novamente
@@ -59,7 +59,7 @@ desativado até você ativá-lo explicitamente.
 
 Em Acessar fora de casa, escolha Configurar acesso fora de casa. Após instalar, o assistente
 root confirmado ativa e inicia `tailscaled.service` e define seu usuário como
-operador. Entrar, conectar e desconectar pedem autorização de administrador, mesmo sem um operador configurado. Entrar abre no navegador a URL de
+operador. Por isso entrar, conectar e desconectar não pedem senha. Um Tailscale configurado de outra forma pede a senha de administrador. Entrar abre no navegador a URL de
 `tailscale login`. Connect conecta; Disconnect desconecta sem apagar credenciais.
 Estado da conexão mostra o endereço deste PC, sessão desconectada e conexões
 diretas, retransmitidas ou ociosas. Testar conexão com outro dispositivo executa `tailscale ping` para um

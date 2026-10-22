@@ -35,10 +35,10 @@ aunque otra regla lo permitiese. Las redes se identifican en cada inicio; deteng
 y vuelva a iniciar al cambiar de red. Use solo una red doméstica de confianza.
 Detener uso compartido también desactiva el inicio automático y cierra los puertos, incluso
 las conexiones existentes. Los fallos del servicio los cierran; las aperturas no
-sobreviven al reinicio. Iniciar al acceder es opcional y requiere otra confirmación;
+sobreviven al reinicio. Iniciar al acceder es opcional y cambia al instante desde el panel Streaming o el menú;
 Desactivar inicio al acceder mantiene el inicio manual. Estado del uso compartido muestra errores.
 
-La primera vez, la transmisión permanece bloqueada mientras define la contraseña. Vuelva al terminal, confirme que la ha definido y escriba `yes` en la confirmación del asistente root para activar el control remoto.
+La primera vez, la transmisión permanece bloqueada mientras define la contraseña. Vuelva al terminal y confirme que la ha definido; su contraseña de administrador activa entonces el control remoto.
 
 Una actualización del paquete Sunshine borra la capacidad de captura del ejecutable.
 Si después no se inicia, use Configurar uso compartido de nuevo y confirme el permiso;
@@ -57,7 +57,7 @@ en Eitr para conectarse en sentido inverso. Las instalaciones nuevas incluyen es
 
 En Acceder fuera de casa elija Configurar acceso externo. Tras instalar, el asistente
 root confirmado activa e inicia `tailscaled.service` y nombra operador a su usuario.
-Iniciar sesión, conectar y desconectar piden autorización de administrador, incluso sin un operador configurado. Iniciar sesión abre la URL de
+Por eso iniciar sesión, conectar y desconectar no piden contraseña. Un Tailscale configurado de otra forma pide la contraseña de administrador. Iniciar sesión abre la URL de
 `tailscale login` en el navegador. Connect conecta; Disconnect desconecta sin
 borrar credenciales. Estado de conexión muestra la dirección del PC, la falta de
 sesión y conexiones directas, retransmitidas o inactivas. Comprobar conexión con otro equipo usa

@@ -21,8 +21,9 @@ environment before publishing; mocked workflow tests do not establish that.
 capability and uinput access. Its scoped sudoers rule permits only `remote-open
 USER` and `remote-close USER`, used by eitr-sunshine.service. These fixed actions
 cannot run arbitrary commands or grant new permission types. The first service
-start is local-only. After the browser password step, `remote-arm USER` asks for
-confirmation before allowing stream ports. Later starts reuse that decision.
+start is local-only. After the browser password step, which Start Sharing asks
+about, `remote-arm USER` (authorized by sudo) allows stream ports. Later starts
+reuse that decision.
 
 The priority -10 nftables guard rejects remote TCP 47990 before connection tracking
 or broad rules in the base firewall. It rejects streaming outside connected private

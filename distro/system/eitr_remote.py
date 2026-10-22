@@ -168,8 +168,8 @@ def arm(name):
         raise RuntimeError(tr('Run Sharing Setup first.'))
     if previous.get('armed'):
         return
-    print(tr('Enable remote control after setting Sunshine’s password?'))
-    confirmed()
+    # Start Sharing has already asked whether Sunshine's password is set, and
+    # sudo's password authorizes this; a second typed confirmation adds nothing.
     previous['armed'] = True
     save('sunshine', previous)
 

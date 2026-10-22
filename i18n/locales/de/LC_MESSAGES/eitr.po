@@ -787,9 +787,6 @@ msgstr "Elastische IPs"
 msgid "Empty values and control characters are not allowed"
 msgstr "Leere Werte und Steuerzeichen sind nicht erlaubt"
 
-msgid "Enable remote control after setting Sunshine’s password?"
-msgstr "Fernkontrolle nach dem Festlegen des Sunshine-Passworts aktivieren?"
-
 msgid "Encrypt with LUKS2: boot passphrase required (recommended)"
 msgstr "Mit LUKS2 verschlüsseln: Passphrase beim Start erforderlich (empfohlen)"
 
@@ -2125,9 +2122,6 @@ msgstr "Vorbereitungsziel existiert bereits: {destination}"
 msgid "Start and end times must differ"
 msgstr "Start- und Endzeit müssen unterschiedlich sein"
 
-msgid "Start sharing automatically at login? This grants remote desktop control whenever you sign in."
-msgstr "Freigabe bei Anmeldung automatisch starten? Dies gewährt bei jeder Anmeldung Fernkontrolle über den Desktop."
-
 msgid "Start sharing this PC?"
 msgstr "Diesen PC freigeben?"
 
@@ -2211,6 +2205,9 @@ msgstr "Tab / Pfeile: wählen  Enter: auswählen  Esc: abbrechen"
 
 msgid "Tailscale IP"
 msgstr "Tailscale-IP"
+
+msgid "Tailscale could not change state."
+msgstr "Tailscale konnte den Zustand nicht ändern."
 
 msgid "Tailscale is not installed."
 msgstr "Tailscale ist nicht installiert."

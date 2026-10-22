@@ -257,7 +257,6 @@
   "Eitr's boot guard: {FAILED_STARTS} starts after the last update failed; restoring the system from snapshot {number}.": "Protección de arranque de Eitr: fallaron {FAILED_STARTS} inicios tras la última actualización; restaurando el sistema desde la instantánea {number}.",
   "Elastic IPs": "IP elásticas",
   "Empty values and control characters are not allowed": "No se permiten valores vacíos ni caracteres de control",
-  "Enable remote control after setting Sunshine’s password?": "¿Activar el control remoto tras definir la contraseña de Sunshine?",
   "Encrypt with LUKS2: boot passphrase required (recommended)": "Cifrar con LUKS2: contraseña necesaria al arrancar (recomendado)",
   "Encrypted installs need a passphrase in the answers": "La instalación cifrada requiere una contraseña en las respuestas",
   "Encrypted partition number: ": "Número de partición cifrada: ",
@@ -670,7 +669,6 @@
   "Stable channel. Eitr packages already newer than stable stay until stable catches up.": "Canal estable. Los paquetes de Eitr más recientes que los estables se conservarán hasta que estos los alcancen.",
   "Staging destination already exists: {destination}": "El destino de preparación ya existe: {destination}",
   "Start and end times must differ": "Las horas de inicio y fin deben ser distintas",
-  "Start sharing automatically at login? This grants remote desktop control whenever you sign in.": "¿Compartir automáticamente al acceder? Esto concede control remoto del escritorio cada vez que accede.",
   "Start sharing this PC?": "¿Empezar a compartir este PC?",
   "Static IPs": "IP estáticas",
   "Status": "Estado",
@@ -1004,5 +1002,6 @@
   "Some plugins could not be updated; their previous approved commits were kept.": "No se pudieron actualizar algunos plugins; se conservaron sus commits aprobados anteriores.",
   "Version: {version}": "Versión: {version}",
   "Plugin installed": "Plugin instalado",
-  "Open it from Tools > Plugins.": "Ábrelo en Herramientas > Plugins."
+  "Open it from Tools > Plugins.": "Ábrelo en Herramientas > Plugins.",
+  "Tailscale could not change state.": "Tailscale no pudo cambiar de estado."
 }

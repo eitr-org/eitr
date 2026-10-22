@@ -7,6 +7,7 @@ MENU is a static Elephant menu (elephant/menus/MENU.toml) or a scoped menu's row
 (elephant/menu-rows/MENU.json). The command starts detached and the helper exits.
 """
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -48,8 +49,11 @@ def command(menu, text):
 def main(args):
     if len(args) != 2:
         raise ValueError('Usage: menu-action.py MENU "Row text"')
-    subprocess.Popen(["sh", "-c", command(*args)], stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
-                     stderr=subprocess.DEVNULL, start_new_session=True)
+    # Elephant runs menu rows with walker/bin/menu-path first (elephant.service), so
+    # their terminals float with a solid background; panels must open them the same way.
+    environment = dict(os.environ, PATH=f"{code('walker/bin/menu-path')}:{os.environ.get('PATH', '')}")
+    subprocess.Popen(["sh", "-c", command(*args)], env=environment, stdin=subprocess.DEVNULL,
+                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
 
 
 if __name__ == "__main__":

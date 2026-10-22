@@ -52,7 +52,7 @@
     "subtext": "Enable sharing when you sign in",
     "icon": "󰍂",
     "actions": {
-      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host login"
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host login"
     }
   },
   {
@@ -76,7 +76,7 @@
     "subtext": "Keep sharing manual",
     "icon": "󰍃",
     "actions": {
-      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host no-login"
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host no-login"
     }
   }
 ]

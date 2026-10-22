@@ -37,11 +37,11 @@ PC beschränkt, auch wenn andere Regeln Zugriff erlauben. LAN-Bereiche werden be
 jedem Start ermittelt; starten Sie die Freigabe nach einem Netzwechsel neu.
 Verwenden Sie nur ein vertrautes Heimnetz. Freigabe beenden deaktiviert den Autostart
 und schließt die Ports samt bestehenden Streams. Auch Dienstfehler schließen sie;
-die Öffnungen überstehen keinen Neustart. Bei Anmeldung starten ist optional und separat
-zu bestätigen. Anmeldestart deaktivieren behält manuelles Starten bei.
+die Öffnungen überstehen keinen Neustart. Bei Anmeldung starten ist optional und schaltet sofort
+im Streaming-Panel oder im Menü um. Anmeldestart deaktivieren behält manuelles Starten bei.
 Freigabestatus zeigt Dienstfehler.
 
-Beim ersten Mal bleibt Streaming während der Passwortvergabe gesperrt. Kehren Sie zum Terminal zurück, bestätigen Sie die Vergabe und geben Sie bei der Root-Bestätigung `yes` ein, um die Fernkontrolle zu erlauben.
+Beim ersten Mal bleibt Streaming während der Passwortvergabe gesperrt. Kehren Sie zum Terminal zurück und bestätigen Sie die Vergabe; Ihr Administratorpasswort erlaubt dann die Fernkontrolle.
 
 Ein Sunshine-Paketupdate entfernt die Aufnahme-Capability der ausführbaren Datei.
 Falls die Freigabe danach nicht startet, wählen Sie erneut Freigabe einrichten
@@ -61,7 +61,7 @@ Richtung. Neue Installationen enthalten diese Anwendungen; die Freigabe bleibt d
 
 Wählen Sie unter Zugriff von unterwegs den Eintrag Zugriff für unterwegs einrichten. Nach der
 Installation aktiviert und startet der bestätigte Root-Helfer `tailscaled.service`
-und setzt Ihren Benutzer als Operator. Anmelden, Verbinden und Trennen erfordern Administratorrechte und funktionieren auch ohne eingerichteten Operator.
+und setzt Ihren Benutzer als Operator. Daher brauchen Anmelden, Verbinden und Trennen kein Passwort. Ein anders eingerichtetes Tailscale fragt stattdessen nach dem Administratorpasswort.
 Anmelden öffnet die URL von `tailscale login` im Browser. Connect verbindet;
 Disconnect trennt, ohne Anmeldedaten zu löschen. Verbindungsstatus zeigt die Adresse
 dieses PCs, fehlende Anmeldung sowie direkte, weitergeleitete oder ruhende

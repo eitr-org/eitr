@@ -4206,9 +4206,6 @@
     "Empty values and control characters are not allowed": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
-    "Enable remote control after setting Sunshine’s password?": [
-      "distro/system/eitr_remote.py"
-    ],
     "Encrypt with LUKS2: boot passphrase required (recommended)": [
       "distro/archinstall/installer-ui.py"
     ],
@@ -5571,9 +5568,6 @@
     "Start and end times must differ": [
       "walker/scripts/actions/toggle/nightlight.py"
     ],
-    "Start sharing automatically at login? This grants remote desktop control whenever you sign in.": [
-      "walker/scripts/actions/system/remote-access.py"
-    ],
     "Start sharing this PC?": [
       "walker/scripts/actions/system/remote-access.py"
     ],
@@ -5657,6 +5651,9 @@
     ],
     "Tailscale IP": [
       "quickshell/desktop-bar/scripts/remote-status.py"
+    ],
+    "Tailscale could not change state.": [
+      "walker/scripts/actions/system/remote-access.py"
     ],
     "Tailscale is not installed.": [
       "quickshell/desktop-bar/scripts/remote-status.py"

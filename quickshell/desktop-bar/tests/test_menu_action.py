@@ -18,6 +18,9 @@ class MenuActionTests(unittest.TestCase):
         self.assertEqual(command[:2], ["sh", "-c"])
         self.assertTrue(command[2].endswith("toggle/screensaver.sh"))
         self.assertTrue(start.call_args.kwargs["start_new_session"])
+        # Like Elephant, so a row's terminal floats instead of tiling beside other windows.
+        first = start.call_args.kwargs["env"]["PATH"].split(":")[0]
+        self.assertTrue(first.endswith("walker/bin/menu-path"), first)
 
     def test_submenus_and_unknown_rows_are_refused(self):
         with self.assertRaisesRegex(ValueError, "submenu"):

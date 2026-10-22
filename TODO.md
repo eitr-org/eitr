@@ -20,8 +20,7 @@ Fresh installs include them; existing machines install missing apps on demand
    on a MacBook: setup, start sharing, pairing by IP, video with no noticeable
    delay, keyboard, mouse, audio, the lockscreen (unlocked from the Mac) and Stop
    Sharing all work. Still to check: two monitors, start at login, Restore
-   Sharing Setup. Controllers are not needed. Fix found: Start Sharing asks
-   twice (`y`, then the helper's `yes`); ask once.
+   Sharing Setup. Controllers are not needed.
 2. Away from home: Tailscale setup and sign-in on both machines, then connect
    through it and check direct versus relayed.
 3. Fix what the tests find; only then call remote access ready in the Handbook

@@ -26,8 +26,8 @@ and retry.
 
 Start Sharing asks before giving remote devices control. The local web settings
 open at `https://localhost:47990`. On first use, streaming stays blocked while you
-set the password. Return to the terminal, confirm that it is set, then type `yes`
-at the root helper’s confirmation to enable remote control. Accept the local self-signed certificate only
+set the password. Return to the terminal and confirm that it is set; your
+administrator password then enables remote control. Accept the local self-signed certificate only
 at that address. Set Sunshine's username and a strong password before pairing.
 Open Settings returns here; Pair a Device opens the PIN page. Enter only the PIN
 shown on your own Moonlight device. Keep automatic router configuration off;
@@ -39,8 +39,8 @@ even when another firewall rule would permit it. LAN scopes are captured at each
 start; stop and start sharing after changing networks. Use only trusted home
 networks. Stop Sharing also disables start at login and closes streaming ports,
 including established streams. Service failure closes them too; runtime openings
-do not survive a reboot. Start at Login is optional and separately confirmed;
-Turn Off Start at Login keeps manual sharing. Sharing Status shows service errors.
+do not survive a reboot. Start at Login is optional and switches at once from the
+Streaming panel or the menu; Turn Off Start at Login keeps manual sharing. Sharing Status shows service errors.
 
 A Sunshine package update clears the executable’s capture capability. If sharing
 then refuses to start, run Set Up Sharing again and confirm the capture grant;
@@ -60,7 +60,9 @@ connecting in the opposite direction. Fresh installs include these apps; sharing
 
 Choose Access away from home > Set Up Away Access. After installing Tailscale,
 the confirmed root helper enables and starts `tailscaled.service`, then makes
-your desktop user its operator. Sign-in, Connect and Disconnect request administrator authorization so they also work when the operator has not been configured. Sign In
+your desktop user its operator, so Sign In, Connect and Disconnect need no
+password. A Tailscale set up some other way asks for the administrator password
+instead. Sign In
 opens the URL printed by `tailscale login` in your browser. Connect brings the
 PC online; Disconnect takes it offline without deleting sign-in credentials.
 Connection Status shows this PC's Tailscale address, signed-out states and whether

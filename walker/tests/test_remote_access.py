@@ -63,15 +63,27 @@ class RemoteAccessTests(unittest.TestCase):
 
     def test_connect_signed_out_uses_browser_flow(self):
         result = subprocess.CompletedProcess([], 0, '{"BackendState":"NeedsLogin"}')
-        with patch.object(remote, 'run', return_value=result) as run, patch.object(remote, 'login') as login:
+        with patch.object(remote, 'run', return_value=result), patch.object(remote, 'login') as login, \
+                patch.object(remote, 'tailscale_control') as control:
             remote.away('connect')
         login.assert_called_once()
-        self.assertEqual(run.call_args.args[0], ['sudo', 'tailscale', 'up'])
+        control.assert_called_once_with('up')
 
-    def test_disconnect_requests_administrator_permission(self):
-        with patch.object(remote, 'run') as run:
+    def test_operator_switches_without_password_and_others_fall_back_to_sudo(self):
+        allowed = subprocess.CompletedProcess([], 0, '', '')
+        with patch.object(remote.subprocess, 'run', return_value=allowed) as plain, patch.object(remote, 'run') as run:
+            remote.away('disconnect')
+        self.assertEqual(plain.call_args.args[0], ['tailscale', 'down'])
+        run.assert_not_called()
+        denied = subprocess.CompletedProcess([], 1, '', 'Access denied: prefs write access denied\n')
+        with patch.object(remote.subprocess, 'run', return_value=denied), patch.object(remote, 'run') as run:
             remote.away('disconnect')
         run.assert_called_once_with(['sudo', 'tailscale', 'down'])
+        failed = subprocess.CompletedProcess([], 1, '', 'backend error\n')
+        with patch.object(remote.subprocess, 'run', return_value=failed), patch.object(remote, 'run') as run:
+            with self.assertRaisesRegex(RuntimeError, 'backend error'):
+                remote.away('disconnect')
+        run.assert_not_called()
 
     def test_failed_install_does_not_enable_service(self):
         software = Mock()
@@ -95,11 +107,13 @@ class RemoteAccessTests(unittest.TestCase):
         context = Mock()
         context.__enter__ = Mock(return_value=process)
         context.__exit__ = Mock(return_value=False)
-        with patch.object(remote.subprocess, 'Popen', return_value=context) as popen, patch.object(remote, 'run') as run:
+        with patch.object(remote.subprocess, 'Popen', return_value=context) as popen, patch.object(remote, 'open_page') as page:
             with self.assertRaisesRegex(RuntimeError, 'sign-in failed'):
                 remote.login()
-        self.assertEqual(popen.call_args.args[0], ['sudo', 'tailscale', 'login'])
-        run.assert_called_once_with(['xdg-open', 'https://login.tailscale.com/a/test'])
+        # The user is Tailscale's operator after Away Access Setup: no sudo, no password.
+        self.assertEqual(popen.call_args.args[0], ['tailscale', 'login'])
+        page.assert_called_once_with('https://login.tailscale.com/a/test')
+
 
     def test_idle_peer_is_not_reported_as_relayed(self):
         data = {'Peer': {'idle': {'HostName': 'idle', 'Online': True, 'Active': False, 'Relay': 'fra'}}}

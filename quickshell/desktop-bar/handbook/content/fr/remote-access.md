@@ -37,10 +37,10 @@ Les réseaux sont déterminés à chaque démarrage du partage ; relancez-le apr
 changement de réseau. Utilisez uniquement un réseau domestique de confiance.
 Arrêter le partage désactive aussi le démarrage automatique et ferme les ports, y compris
 les flux existants. Une défaillance du service les ferme aussi ; les ouvertures ne
-survivent pas au redémarrage. Démarrer à la connexion est facultatif et confirmé séparément ;
+survivent pas au redémarrage. Démarrer à la connexion est facultatif et bascule aussitôt depuis le panneau Streaming ou le menu ;
 Désactiver le démarrage à la connexion conserve le démarrage manuel. État du partage affiche les erreurs.
 
-Au premier démarrage, la diffusion reste bloquée pendant la définition du mot de passe. Revenez au terminal, confirmez sa définition puis saisissez `yes` à la confirmation root pour autoriser le contrôle à distance.
+Au premier démarrage, la diffusion reste bloquée pendant la définition du mot de passe. Revenez au terminal et confirmez sa définition ; votre mot de passe administrateur autorise alors le contrôle à distance.
 
 Une mise à jour du paquet Sunshine retire la capacité de capture de l’exécutable.
 Si le partage refuse ensuite de démarrer, utilisez à nouveau Configurer le partage
@@ -59,7 +59,7 @@ ou ouvrent le client Eitr dans le sens inverse. Les nouvelles installations incl
 
 Dans Accès hors du domicile, choisissez Configurer l’accès extérieur. Après installation,
 l’assistant root confirmé active et démarre `tailscaled.service`, puis définit
-votre utilisateur comme opérateur. La connexion au compte, la connexion au réseau et la déconnexion demandent une autorisation administrateur, même sans opérateur configuré.
+votre utilisateur comme opérateur. La connexion au compte, la connexion au réseau et la déconnexion ne demandent donc aucun mot de passe. Un Tailscale configuré autrement demande le mot de passe administrateur.
 Se connecter ouvre l’URL de `tailscale login` dans le navigateur. Connect connecte ;
 Disconnect déconnecte sans effacer les identifiants. État de la connexion indique
 l’adresse de ce PC, l’absence de connexion au compte et les connexions directes,

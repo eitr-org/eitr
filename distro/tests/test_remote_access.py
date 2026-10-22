@@ -159,13 +159,11 @@ class RemoteSystemTests(unittest.TestCase):
         self.assertFalse(remote.RULES.exists())
         self.assertNotIn(' return', remote.GUARD.read_text())
 
-    def test_arm_needs_its_own_confirmation(self):
+    def test_arm_follows_start_sharing_without_another_question(self):
+        with self.assertRaisesRegex(RuntimeError, 'Sharing Setup'):
+            remote.arm('tester')
         self.setup_sharing()
-        with patch('builtins.input', return_value='no'):
-            with self.assertRaisesRegex(RuntimeError, 'Nothing'):
-                remote.arm('tester')
-        self.assertFalse(remote.journal('sunshine').get('armed'))
-        with patch('builtins.input', return_value='yes'):
+        with patch('builtins.input', side_effect=AssertionError('arm must not ask again')):
             remote.arm('tester')
         self.assertTrue(remote.journal('sunshine')['armed'])
 

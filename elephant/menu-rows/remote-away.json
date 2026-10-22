@@ -28,7 +28,7 @@
     "subtext": "Disconnect this PC from Tailscale",
     "icon": "󰌙",
     "actions": {
-      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away disconnect"
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away disconnect"
     }
   },
   {

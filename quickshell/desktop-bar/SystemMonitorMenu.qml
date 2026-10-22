@@ -198,7 +198,7 @@ ThemedPopup {
                 visible: menu.sections.length > 0
                 text: Eitr.I18n.tr("Open System Monitor")
                 foreground: menu.foreground
-                onClicked: { menu.opened = false; Quickshell.execDetached(["kitty", "-e", "btop"]); }
+                onClicked: { menu.opened = false; Quickshell.execDetached([Eitr.Paths.code("walker/bin/menu-path/kitty"), "-e", "btop"]); }
             }
         }
     }

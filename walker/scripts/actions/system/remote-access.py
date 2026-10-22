@@ -50,11 +50,14 @@ def confirm(message):
     return input(message + ' [y/N] ').strip().lower() in ('y', 'yes')
 
 
-def settings(pair=False):
+def open_page(url):
     # Detached and silent: the browser's own log would bury this terminal's questions.
-    subprocess.Popen(['xdg-open', 'https://localhost:47990' + ('/pin' if pair else '')],
-                     stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-                     start_new_session=True)
+    subprocess.Popen(['xdg-open', url], stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                     stderr=subprocess.DEVNULL, start_new_session=True)
+
+
+def settings(pair=False):
+    open_page('https://localhost:47990' + ('/pin' if pair else ''))
 
 
 def host(action):
@@ -82,8 +85,8 @@ def host(action):
         run(['systemctl', '--user', 'disable', '--now', SERVICE])
         root('close')
     elif action == 'login':
-        if confirm(tr('Start sharing automatically at login? This grants remote desktop control whenever you sign in.')):
-            run(['systemctl', '--user', 'enable', SERVICE])
+        # The toggle or menu row is the confirmation.
+        run(['systemctl', '--user', 'enable', SERVICE])
     elif action == 'no-login':
         run(['systemctl', '--user', 'disable', SERVICE])
     elif action == 'undo':
@@ -116,14 +119,15 @@ def auth_url(line):
 
 def login():
     # Tailscale can wait for browser authentication: stream its URL immediately.
-    with subprocess.Popen(['sudo', 'tailscale', 'login'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+    # Away Access Setup makes this user Tailscale's operator, so no sudo is needed.
+    with subprocess.Popen(['tailscale', 'login'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                           text=True, bufsize=1) as process:
         opened = set()
         for line in process.stdout:
             print(line, end='', flush=True)
             url = auth_url(line)
             if url and url not in opened:
-                run(['xdg-open', url])
+                open_page(url)
                 opened.add(url)
         if process.wait():
             raise RuntimeError(tr('Tailscale sign-in failed. Try again from Access away from home.'))
@@ -144,6 +148,18 @@ def status():
         print(tr('Choose Sign In to open the browser.'))
 
 
+def tailscale_control(action):
+    """Away Access Setup makes this user Tailscale's operator, so no password is needed;
+    a Tailscale set up some other way may still refuse, and then sudo asks."""
+    result = subprocess.run(['tailscale', action], capture_output=True, text=True)
+    if result.returncode == 0:
+        return
+    if 'access denied' in (result.stdout + result.stderr).lower():
+        run(['sudo', 'tailscale', action])
+        return
+    raise RuntimeError((result.stderr or result.stdout).strip() or tr('Tailscale could not change state.'))
+
+
 def away(action, peer=None):
     if action == 'setup':
         software().recipe('remote-access', 'tailscale')
@@ -156,9 +172,9 @@ def away(action, peer=None):
         data = json.loads(run(['tailscale', 'status', '--json'], capture_output=True, text=True).stdout)
         if data.get('BackendState') == 'NeedsLogin':
             login()
-        run(['sudo', 'tailscale', 'up'])
+        tailscale_control('up')
     elif action == 'disconnect':
-        run(['sudo', 'tailscale', 'down'])
+        tailscale_control('down')
     elif action == 'status':
         status()
     elif action == 'ping':
