@@ -101,9 +101,11 @@ Out of scope: managing machines after installation (fleet management).
 
 # 3. Smaller items
 
-- **The first real plugin.** Turn the owner's cooler display tool (in the owner's
-  private repository) into a plugin with the owner, using `distro/plugins/example/`
-  as the template, and check rows, its service, update and removal on real use.
+- **The first real plugin: switch over with the owner.** The private
+  `eitr-personal` repository is now a plugin (`personal-tools`: the cooler display's
+  service and a Cooler Display Status row), fetched and validated over SSH. With
+  the owner: add the udev rule once, install it from Install > Plugins, retire the
+  `install.sh` copy (its README lists the commands) and check the display.
 - **ISO download counter.** Cloudflare's R2 analytics only keep a few weeks and
   cannot tell our own checks from real downloads. Put a small Worker in front of
   the ISO link that counts new downloads (not resumed ranges) in D1 without
