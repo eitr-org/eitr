@@ -118,6 +118,7 @@ ThemedPopup {
                     MouseArea {
                         anchors.fill: parent
                         enabled: parent.row > 0 && parent.column > 0
+                        cursorShape: Qt.PointingHandCursor
                         onClicked: menu.selectedDay = parent.day
                     }
                     Rectangle {
