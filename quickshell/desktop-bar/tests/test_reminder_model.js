@@ -33,3 +33,18 @@ assert.equal(context.forDay([{id:'o', text:'Once', due:day.getTime()/1000}], day
 assert.match(qml, /Qt\.Key_Escape && menu\.pendingKey !== ""\) menu\.cancelDelete\(\)/);
 assert.match(qml, /\["python3", reminderHelper, "cancel", identifier, scope\]/);
 assert.match(qml, /Eitr\.Paths\.code\("walker\/scripts\/actions\/tools\/reminders\.py"\)/);
+// Subscribed calendar events: all-day ones cover [date, endDate); timed ones every day they overlap.
+const at = (date, hour, minute) => new Date(2026, 9, date, hour, minute || 0).getTime() / 1000;
+const events = context.parseEvents(JSON.stringify({events: [
+    {key:'night', calendar:'Work', title:'Night shift', start:at(29, 22), end:at(30, 6)},
+    {key:'trip', calendar:'Home', title:'Trip', allDay:true, date:'2026-10-30', endDate:'2026-11-01'},
+    {key:'bad', calendar:'Work', title:'No times'}, {key:'bad-day', calendar:'Work', title:'x', allDay:true, date:'soon', endDate:'later'}]}));
+assert.deepEqual(Array.from(events, (item) => item.key), ['night', 'trip']);
+assert.equal(context.parseEvents('nonsense').length, 0);
+assert.deepEqual(Array.from(context.eventsForDay(events, new Date(2026, 9, 31)), (item) => item.key), ['trip']);
+assert.deepEqual(Array.from(context.eventsForDay(events, new Date(2026, 10, 1)), (item) => item.key), []);
+const items = context.dayItems([{id:'r', text:'Dentist', due:at(30, 5)}], events, new Date(2026, 9, 30));
+assert.deepEqual(Array.from(items, (item) => [item.kind, item.id, !!item.continued]),
+    [['event', 'trip', false], ['event', 'night', true], ['reminder', 'r', false]]);
+assert.match(qml, /onLoaded: menu.events = ReminderModel.parseEvents\(text\(\)\)/);
+assert.match(qml, /"\/eitr\/calendar-events.json"/);

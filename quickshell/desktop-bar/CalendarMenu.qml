@@ -14,7 +14,21 @@ ThemedPopup {
     keyTarget: calendarContent
     property date selectedDay: new Date()
     property var reminders: []
-    readonly property var selectedReminders: ReminderModel.forDay(reminders, selectedDay)
+    // Read-only calendar subscriptions, cached by calendars.py; they have no trash button.
+    property var events: []
+    readonly property var selectedReminders: ReminderModel.dayItems(reminders, events, selectedDay)
+    FileView {
+        id: calendarEventsFile
+        path: {
+            const cache = Quickshell.env("XDG_CACHE_HOME");
+            return (cache && cache.startsWith("/") ? cache : Quickshell.env("HOME") + "/.cache") + "/eitr/calendar-events.json";
+        }
+        watchChanges: true
+        printErrors: false
+        onFileChanged: reload()
+        onLoaded: menu.events = ReminderModel.parseEvents(text())
+        onLoadFailed: menu.events = []
+    }
     FileView {
         id: reminderFile
         path: {
@@ -164,7 +178,8 @@ ThemedPopup {
                     height: row === 0 ? 24 : 38
                     radius: DesktopStyle.radius(7)
                     color: isToday ? menu.foreground : "transparent"
-                    readonly property bool hasReminders: row > 0 && column > 0 && ReminderModel.forDay(menu.reminders, day).length > 0
+                    readonly property bool hasReminders: row > 0 && column > 0 && (ReminderModel.forDay(menu.reminders, day).length > 0
+                        || ReminderModel.eventsForDay(menu.events, day).length > 0)
                     border.width: row > 0 && column > 0 && day.toDateString() === menu.selectedDay.toDateString() ? 1 : 0
                     border.color: menu.foreground
                     MouseArea {
@@ -261,6 +276,10 @@ ThemedPopup {
                                 readonly property string key: modelData.id + ":" + modelData.due
                                 readonly property bool confirming: menu.pendingKey === key
                                 readonly property bool repeating: !!modelData.repeat
+                                // A subscribed calendar's event belongs to its provider: no trash button.
+                                readonly property bool external: modelData.kind === "event"
+                                readonly property string timeLabel: external && modelData.allDay ? Eitr.I18n.tr("All day")
+                                    : external && modelData.continued ? "…" : Qt.formatTime(new Date(modelData.due * 1000), "HH:mm")
                                 // The backend skips the pending occurrence, so a later one can only end the series.
                                 readonly property bool nextOccurrence: !repeating || modelData.occurrence === (modelData.repeat_index || 0)
                                 readonly property bool hovered: actionsHover.hovered
@@ -272,9 +291,11 @@ ThemedPopup {
                                 height: Math.max(reminderText.implicitHeight, PanelStyle.selectionActionHeight)
                                 Text {
                                     id: reminderText
-                                    width: parent.width - actions.width - PanelStyle.selectionActionInset - PanelStyle.selectionActionGap
+                                    width: parent.width - (reminderRow.external ? 0 : actions.width + PanelStyle.selectionActionInset + PanelStyle.selectionActionGap)
                                     anchors.verticalCenter: parent.verticalCenter
-                                    text: Qt.formatTime(new Date(reminderRow.modelData.due * 1000), "HH:mm") + " · " + (reminderRow.repeating ? String.fromCodePoint(0xF0456) + " " : "") + reminderRow.modelData.text
+                                    text: reminderRow.timeLabel + " · "
+                                        + (reminderRow.external ? String.fromCodePoint(0xF00ED) + " " : reminderRow.repeating ? String.fromCodePoint(0xF0456) + " " : "")
+                                        + reminderRow.modelData.text + (reminderRow.external ? " · " + reminderRow.modelData.calendar : "")
                                     textFormat: Text.PlainText
                                     wrapMode: Text.Wrap
                                     color: menu.foreground
@@ -284,6 +305,7 @@ ThemedPopup {
                                 }
                                 Row {
                                     id: actions
+                                    visible: !reminderRow.external
                                     anchors.right: parent.right
                                     anchors.rightMargin: PanelStyle.selectionActionInset
                                     anchors.verticalCenter: parent.verticalCenter

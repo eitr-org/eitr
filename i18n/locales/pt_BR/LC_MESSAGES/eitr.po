@@ -361,6 +361,9 @@ msgstr "O navegador deve ser firefox ou chromium (instale com add.packages)"
 msgid "Buckets"
 msgstr "Buckets"
 
+msgid "Busy"
+msgstr "Ocupado"
+
 msgid "C-y copy  Enter print  Esc close"
 msgstr "C-y copiar  Enter exibir  Esc fechar"
 
@@ -381,6 +384,18 @@ msgstr "CLI indisponível"
 
 msgid "Cache Sizes"
 msgstr "Tamanhos dos caches"
+
+msgid "Calendar added"
+msgstr "Calendário adicionado"
+
+msgid "Calendar not added"
+msgstr "Calendário não adicionado"
+
+msgid "Calendar removed"
+msgstr "Calendário removido"
+
+msgid "Calendars"
+msgstr "Calendários"
 
 msgid "Camera"
 msgstr "Câmera"
@@ -646,6 +661,9 @@ msgstr "Relatório copiado."
 msgid "Copied to the clipboard."
 msgstr "Copiado para a área de transferência."
 
+msgid "Copy the calendar's \"Secret address in iCal format\" from its settings."
+msgstr "Copie o “Endereço secreto no formato iCal” nas configurações da agenda."
+
 msgid "Copying needs wl-copy; open the saved file instead."
 msgstr "Para copiar, é necessário wl-copy; abra o arquivo salvo."
 
@@ -904,6 +922,9 @@ msgstr "A imagem live não inclui suporte a inglês UTF-8"
 msgid "Enter a hostname, not a URL, port or shell option"
 msgstr "Digite um nome de host, sem URL, porta ou opção de shell"
 
+msgid "Enter removes the calendar; Esc keeps it"
+msgstr "Enter remove o calendário; Esc o mantém"
+
 msgid "Enter the WiFi password"
 msgstr "Digite a senha do WiFi"
 
@@ -1065,6 +1086,9 @@ msgstr "Informe a partição criptografada como um caminho /dev, por exemplo /de
 
 msgid "Global app search only supports launching"
 msgstr "A busca global de aplicativos permite apenas abrir aplicativos"
+
+msgid "Google Calendar"
+msgstr "Google Agenda"
 
 msgid "Grafana"
 msgstr "Grafana"
@@ -1507,6 +1531,9 @@ msgstr "Dê um nome e entre"
 msgid "Name the subscriptions you want in the menu"
 msgstr "Dê um nome às assinaturas que você deseja no menu"
 
+msgid "Name this calendar (Enter keeps {name})"
+msgstr "Nome do calendário (Enter mantém {name})"
+
 msgid "Name this computer."
 msgstr "Dê um nome a este computador."
 
@@ -1524,6 +1551,9 @@ msgstr "Redes"
 
 msgid "New SSH key for {label}"
 msgstr "Nova chave SSH para {label}"
+
+msgid "New calendar"
+msgstr "Novo calendário"
 
 msgid "New executable file: {path}"
 msgstr "Novo arquivo executável: {path}"
@@ -1732,8 +1762,14 @@ msgstr "Configuração original restaurada para o próximo boot; a rede atual n�
 msgid "Other"
 msgstr "Outro"
 
+msgid "Other (any iCal address)"
+msgstr "Outro (qualquer endereço iCal)"
+
 msgid "Other folder…"
 msgstr "Outra pasta…"
+
+msgid "Outlook"
+msgstr "Outlook"
 
 msgid "Outside folder rules: your existing Git configuration"
 msgstr "Fora das regras de pasta: sua configuração atual do Git"
@@ -1752,6 +1788,12 @@ msgstr "Senha"
 
 msgid "Passwords did not match"
 msgstr "As senhas não coincidem"
+
+msgid "Paste an https:// or webcal:// iCal address."
+msgstr "Cole um endereço iCal https:// ou webcal://."
+
+msgid "Paste the secret iCal address (https://…)"
+msgstr "Cole o endereço iCal secreto (https://…)"
 
 msgid "Peer Tailscale address or name: "
 msgstr "Endereço ou nome Tailscale do dispositivo: "
@@ -1900,6 +1942,9 @@ msgstr "Remover itens não usados do armazenamento pnpm?"
 msgid "Public IP addresses"
 msgstr "Endereços IP públicos"
 
+msgid "Publish a calendar under Shared calendars and copy its ICS link."
+msgstr "Publique um calendário em “Calendários compartilhados” e copie o link ICS."
+
 msgid "Queues"
 msgstr "Filas"
 
@@ -2007,6 +2052,9 @@ msgstr "A remoção excluiria todas as fontes instaladas"
 
 msgid "Remove"
 msgstr "Remover"
+
+msgid "Remove '{name}'"
+msgstr "Remover “{name}”"
 
 msgid "Remove local sign-in"
 msgstr "Remover acesso local"
@@ -2605,6 +2653,9 @@ msgstr "O estilo do menu de boot exige Limine; este sistema usa {loader}. Nada f
 msgid "The browser opened a new GitHub issue. Describe what happened and attach {path}."
 msgstr "O navegador abriu uma nova issue no GitHub. Descreva o ocorrido e anexe {path}."
 
+msgid "The calendar server redirected to an insecure address."
+msgstr "O servidor do calendário redirecionou para um endereço inseguro."
+
 msgid "The channel is stable or testing"
 msgstr "O canal deve ser stable ou testing"
 
@@ -2737,11 +2788,17 @@ msgstr "Este PC: {addresses}"
 msgid "This WiFi security type requires advanced network configuration"
 msgstr "Este tipo de segurança WiFi exige configuração avançada de rede"
 
+msgid "This address did not return an iCal calendar."
+msgstr "Este endereço não retornou um calendário iCal."
+
 msgid "This app is part of Eitr and stays installed."
 msgstr "Este aplicativo faz parte do Eitr e permanece instalado."
 
 msgid "This assistant is unavailable."
 msgstr "Este assistente está indisponível."
+
+msgid "This calendar is already added."
+msgstr "Este calendário já foi adicionado."
 
 msgid "This changes login, lockscreen and sudo authentication. Password fallback is retained."
 msgstr "Isto altera a autenticação do login, da tela de bloqueio e do sudo. O acesso por senha continua disponível."
@@ -3130,6 +3187,9 @@ msgstr "Semanalmente"
 msgid "When? (10m, 18:30, every day 08:00)"
 msgstr "Quando? (10m, 18:30, every day 08:00)"
 
+msgid "Which calendar?"
+msgstr "Qual calendário?"
+
 msgid "WiFi adapter is unavailable; refresh the panel"
 msgstr "Adaptador WiFi indisponível; atualize o painel"
 
@@ -3331,6 +3391,15 @@ msgstr "{TARGET} já está montado; desmonte antes de instalar"
 msgid "{assistant} is an AI assistant for your terminal."
 msgstr "{assistant} é um assistente de IA para o seu terminal."
 
+msgid "{calendar}: could not connect."
+msgstr "{calendar}: não foi possível conectar."
+
+msgid "{calendar}: the calendar is larger than 5 MB."
+msgstr "{calendar}: o calendário tem mais de 5 MB."
+
+msgid "{calendar}: the server answered HTTP {status}."
+msgstr "{calendar}: o servidor respondeu HTTP {status}."
+
 msgid "{caller} asked {helper}"
 msgstr "{caller} consultou {helper}"
 
@@ -3444,6 +3513,9 @@ msgstr "{name}: a carga começa em {charge_percent}%; escolha um limite maior. N
 
 msgid "{name}: stops charging at {charge_percent}%"
 msgstr "{name}: para de carregar em {charge_percent}%"
+
+msgid "{name}: {count} events from the last week to the next 60 days."
+msgstr "{name}: {count} eventos da última semana até os próximos 60 dias."
 
 msgid "{path} has no usable free space"
 msgstr "{path} não tem espaço livre utilizável"

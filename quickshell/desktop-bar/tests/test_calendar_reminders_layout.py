@@ -142,6 +142,62 @@ ShellRoot {
                 self.assertTrue(capture.exists())
                 keep_renders([capture])
 
+    def test_subscribed_events_are_listed_without_a_trash_button(self):
+        for theme, (background, foreground) in THEMES.items():
+            with self.subTest(theme=theme), tempfile.TemporaryDirectory(dir=ROOT) as directory:
+                folder = Path(directory)
+                copy_bar(folder)
+                (folder/'eitr').mkdir()
+                (folder/'eitr/reminders.json').write_text(json.dumps([
+                    {'id': 'once', 'text': 'Dentist', 'due': int(datetime(2026, 10, 30, 9).timestamp())}]))
+                (folder/'eitr/calendar-events.json').write_text(json.dumps({'updated': 0, 'events': [
+                    {'key': 'meet', 'calendarId': 'c', 'calendar': 'Work', 'title': 'Planning',
+                     'start': int(datetime(2026, 10, 30, 10).timestamp()), 'end': int(datetime(2026, 10, 30, 11).timestamp())},
+                    {'key': 'trip', 'calendarId': 'c', 'calendar': 'Family', 'title': 'Trip', 'allDay': True,
+                     'date': '2026-10-29', 'endDate': '2026-10-31'},
+                    {'key': 'bad', 'calendar': 'Work', 'title': 'Missing times'}]}))
+                capture = folder/f'{theme}-events.png'
+                run_fixture(self, folder, '''import QtQuick
+import Quickshell
+import "." as Bar
+ShellRoot {
+    FloatingWindow {
+        visible: true
+        implicitWidth: 560; implicitHeight: 700
+        Rectangle {
+            id: sample
+            anchors.fill: parent; color: "BACKGROUND"
+            Bar.CalendarMenu {
+                id: panel
+                x: 12; y: 12
+                foreground: "FOREGROUND"; background: "BACKGROUND"; accent: "#509475"
+                Component.onCompleted: { selectedDay = new Date(2026, 9, 30, 15); viewYear = 2026; viewMonth = 9; }
+            }
+FIND
+            Timer {
+                interval: 300; running: true
+                onTriggered: {
+                    try {
+                        sample.check(sample.rows().length === 3, "expected a reminder and two events, got " + sample.rows().length);
+                        sample.check(sample.rows()[0].modelData.id === "trip" && sample.rows()[1].modelData.id === "once" && sample.rows()[2].modelData.id === "meet", "wrong order");
+                        sample.check(!sample.child(sample.row("trip"), "reminderDelete").visible && !sample.child(sample.row("meet"), "reminderDelete").visible, "an event has a trash button");
+                        sample.check(sample.child(sample.row("once"), "reminderDelete").visible, "the reminder lost its trash button");
+                        sample.check(sample.row("meet").external && sample.row("trip").timeLabel === "All day", "event labels");
+                        const emptyDay = panel.height;
+                        panel.selectedDay = new Date(2026, 9, 29, 15);
+                        sample.check(sample.rows().length === 1 && panel.height === emptyDay, "the two-day event or the height is wrong");
+                        panel.selectedDay = new Date(2026, 9, 30, 15);
+                    } catch (error) { console.log("CALENDAR_FAIL " + error.message); Qt.exit(1); return; }
+                    sample.grabToImage(function(result) { result.saveToFile("CAPTURE"); console.log("CALENDAR_OK"); Qt.quit(); });
+                }
+            }
+        }
+    }
+}'''.replace('FIND', FIND).replace('BACKGROUND', background).replace('FOREGROUND', foreground)
+                    .replace('CAPTURE', str(capture)))
+                self.assertTrue(capture.exists())
+                keep_renders([capture])
+
     def test_delete_buttons_confirm_and_run_the_backend_in_both_themes(self):
         for theme, (background, foreground) in THEMES.items():
             with self.subTest(theme=theme), tempfile.TemporaryDirectory(dir=ROOT) as directory:

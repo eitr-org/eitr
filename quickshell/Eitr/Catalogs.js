@@ -39,6 +39,7 @@ var qml = {
     "Align with %1": "Align with %1",
     "All": "All",
     "All Displays": "All Displays",
+    "All day": "All day",
     "Anonymous identity (optional)": "Anonymous identity (optional)",
     "Appearance": "Appearance",
     "Applications": "Applications",
@@ -787,7 +788,8 @@ var qml = {
     "Keep reminder": "Manter lembrete",
     "Only the next occurrence can be skipped": "Só a próxima ocorrência pode ser pulada",
     "Skip this occurrence": "Pular esta ocorrência",
-    "This one": "Esta"
+    "This one": "Esta",
+    "All day": "Dia inteiro"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1170,7 +1172,8 @@ var qml = {
     "Keep reminder": "Conservar recordatorio",
     "Only the next occurrence can be skipped": "Solo se puede omitir la próxima ocurrencia",
     "Skip this occurrence": "Omitir esta ocurrencia",
-    "This one": "Esta"
+    "This one": "Esta",
+    "All day": "Todo el día"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1553,7 +1556,8 @@ var qml = {
     "Keep reminder": "Erinnerung behalten",
     "Only the next occurrence can be skipped": "Nur der nächste Termin kann übersprungen werden",
     "Skip this occurrence": "Diesen Termin überspringen",
-    "This one": "Diesen"
+    "This one": "Diesen",
+    "All day": "Ganztägig"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -1936,6 +1940,7 @@ var qml = {
     "Keep reminder": "Conserver le rappel",
     "Only the next occurrence can be skipped": "Seule la prochaine occurrence peut être ignorée",
     "Skip this occurrence": "Ignorer cette occurrence",
-    "This one": "Celle-ci"
+    "This one": "Celle-ci",
+    "All day": "Toute la journée"
   }
 };

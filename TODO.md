@@ -92,7 +92,10 @@ the profile. Still to check, in a VM or with the owner:
   their own picture, colors and text. Stored under the user's config, listed
   beside the shipped ones and removable; updates never overwrite them. Decide the
   creation flow (Walker wizard with a live preview) with the owner first.
-- **Voice reminders, next steps.** Syncing with Google or Outlook Calendar (needs account sign-in).
+- **Voice reminders, next steps.** Read-only Google/Outlook/iCal subscriptions
+  through a secret iCal address are done (Reminders > Calendars). Two-way sync
+  (creating or editing provider events) needs account sign-in (OAuth, with
+  Google's app verification) and remains later.
 - **Antigravity as a helper.** Recheck when its command-line tool gains per-run
   permissions or a read-only headless mode; until then it stays a standalone
   assistant. Nothing to do before that.

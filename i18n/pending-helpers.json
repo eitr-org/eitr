@@ -60,7 +60,8 @@
     "Plugin: {name}",
     "Plugins",
     "Commit: {old} → {new}",
-    "Commits:"
+    "Commits:",
+    "Outlook"
   ],
   "es": [
     "AWS SSO (IAM Identity Center)",
@@ -116,7 +117,9 @@
     "Plugin: {name}",
     "Plugins",
     "Commit: {old} → {new}",
-    "Commits:"
+    "Commits:",
+    "Google Calendar",
+    "Outlook"
   ],
   "de": [
     "AWS SSO (IAM Identity Center)",
@@ -186,7 +189,8 @@
     "Repository: {url}",
     "Version: {version}",
     "Commit: {old} → {new}",
-    "Commits:"
+    "Commits:",
+    "Outlook"
   ],
   "fr": [
     "AWS SSO (IAM Identity Center)",
@@ -249,6 +253,7 @@
     "via {host}{key}",
     "{label}  {text}  (id {id})",
     "Plugins",
-    "{count} occurrences"
+    "{count} occurrences",
+    "Outlook"
   ]
 }

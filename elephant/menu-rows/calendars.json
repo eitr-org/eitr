@@ -1,0 +1,19 @@
+[
+  {
+    "text": "Add Calendar…",
+    "subtext": "Show a Google, Outlook or iCal calendar beside your reminders",
+    "keywords": [
+      "google",
+      "outlook",
+      "ical",
+      "ics",
+      "webcal",
+      "subscribe",
+      "calendar"
+    ],
+    "icon": "󰃭",
+    "actions": {
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/tools/calendars.py add"
+    }
+  }
+]

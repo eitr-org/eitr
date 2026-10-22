@@ -66,3 +66,46 @@ function forMonth(items, year, month) {
     });
     return result.sort(function(first, second) { return first.due - second.due; });
 }
+
+// Events cached by calendars.py from read-only calendar subscriptions.
+function parseEvents(text) {
+    const isoDate = /^\d{4}-\d{2}-\d{2}$/;
+    try {
+        const data = JSON.parse(text);
+        const values = data && Array.isArray(data.events) ? data.events : [];
+        return values.filter(function(item) {
+            if (!item || typeof item.key !== "string" || typeof item.title !== "string" || typeof item.calendar !== "string")
+                return false;
+            if (item.allDay === true) return isoDate.test(item.date) && isoDate.test(item.endDate);
+            return typeof item.start === "number" && Number.isFinite(item.start)
+                && typeof item.end === "number" && Number.isFinite(item.end);
+        });
+    } catch (error) { return []; }
+}
+
+function isoDay(day) {
+    return day.getFullYear() + "-" + String(day.getMonth() + 1).padStart(2, "0") + "-" + String(day.getDate()).padStart(2, "0");
+}
+
+// All-day events cover [date, endDate); timed ones every day they overlap.
+function eventsForDay(events, day) {
+    const start = new Date(day.getFullYear(), day.getMonth(), day.getDate()).getTime() / 1000;
+    const end = new Date(day.getFullYear(), day.getMonth(), day.getDate() + 1).getTime() / 1000;
+    const iso = isoDay(day);
+    return events.filter(function(event) {
+        if (event.allDay) return event.date <= iso && iso < event.endDate;
+        return event.start < end && (event.end > start || event.start >= start);
+    });
+}
+
+// The calendar's list for one day: reminders and events by time, all-day events first.
+function dayItems(reminders, events, day) {
+    const dayStart = new Date(day.getFullYear(), day.getMonth(), day.getDate()).getTime() / 1000;
+    const items = forDay(reminders, day).map(function(item) { return Object.assign({kind: "reminder"}, item); });
+    eventsForDay(events, day).forEach(function(event) {
+        items.push({kind: "event", id: event.key, text: event.title, calendar: event.calendar, allDay: !!event.allDay,
+                    continued: !event.allDay && event.start < dayStart,
+                    due: event.allDay ? dayStart - 1 : Math.max(event.start, dayStart)});
+    });
+    return items.sort(function(first, second) { return first.due - second.due; });
+}

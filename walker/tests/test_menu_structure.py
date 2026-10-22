@@ -88,7 +88,7 @@ class MenuStructureTests(unittest.TestCase):
             with self.subTest(menu=name):
                 self.assertEqual((layout / f"item_menus-{name}.xml").read_text(), shared)
         for name in ("aws-profiles", "gcp-contexts", "azure-contexts", "git-account", "git-accounts", "productivity",
-                     "developer-apps", "browsers", "lighting", "keyboard", "keyboard-add", "tools", "reminders"):
+                     "developer-apps", "browsers", "lighting", "keyboard", "keyboard-add", "tools", "reminders", "calendars"):
             with self.subTest(menu=name):
                 self.assertEqual((layout / f"item_menus-{name}.xml").read_text(), shared)
         for source in ("walker/themes/current/style.css", "walker/scripts/themes/walker.sh"):

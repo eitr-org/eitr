@@ -1,0 +1,10 @@
+[Unit]
+Description=Refresh Eitr's calendar subscriptions at login and every 15 minutes
+
+[Timer]
+OnStartupSec=1min
+OnUnitActiveSec=15min
+AccuracySec=1min
+
+[Install]
+WantedBy=timers.target

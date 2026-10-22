@@ -517,5 +517,9 @@
   "Set up an assistant that runs only on this PC": "Configurar um assistente que roda só neste PC",
   "Blocked by Eitr for your safety · select to remove": "Bloqueado pelo Eitr para sua segurança · selecione para remover",
   "Not allowed by your organization · select to remove": "Não permitido pela sua organização · selecione para remover",
-  "Plugin by {author} · not reviewed by Eitr": "Plugin de {author} · não revisado pelo Eitr"
+  "Plugin by {author} · not reviewed by Eitr": "Plugin de {author} · não revisado pelo Eitr",
+  "Add Calendar…": "Adicionar calendário…",
+  "Calendars": "Calendários",
+  "Read-only from {host} · select to remove": "Somente leitura de {host} · selecione para remover",
+  "Show a Google, Outlook or iCal calendar beside your reminders": "Mostra um calendário do Google, Outlook ou iCal ao lado dos lembretes"
 }

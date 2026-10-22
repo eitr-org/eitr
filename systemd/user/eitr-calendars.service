@@ -1,0 +1,9 @@
+[Unit]
+Description=Refresh Eitr's read-only calendar subscriptions
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /usr/share/eitr/walker/scripts/actions/tools/calendars.py refresh
+Environment=EITR_CODE_ROOT=/usr/share/eitr
+NoNewPrivileges=yes
+UMask=0077

@@ -49,6 +49,9 @@
     "All Displays": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
+    "All day": [
+      "quickshell/desktop-bar/CalendarMenu.qml"
+    ],
     "Anonymous identity (optional)": [
       "quickshell/desktop-bar/WifiMenu.qml"
     ],
@@ -1242,6 +1245,9 @@
     "Add Account": [
       "elephant/menus/git-accounts.lua"
     ],
+    "Add Calendar…": [
+      "elephant/menu-rows/calendars.json"
+    ],
     "Add Dashboard": [
       "elephant/menus/monitoring.lua"
     ],
@@ -1335,6 +1341,10 @@
     ],
     "Calendar": [
       "elephant/menus/system-shortcuts.lua"
+    ],
+    "Calendars": [
+      "elephant/menu-rows/reminders.json",
+      "elephant/menus/calendars.lua"
     ],
     "Capture": [
       "elephant/menu-rows/tools.json",
@@ -2224,6 +2234,9 @@
     "Read a QR code in a selected area and copy it": [
       "elephant/menu-rows/capture.json"
     ],
+    "Read-only from {host} · select to remove": [
+      "elephant/menus/calendars.lua"
+    ],
     "Read-only help from your connected assistants": [
       "elephant/menus/ai-tools.lua"
     ],
@@ -2574,6 +2587,9 @@
     ],
     "Show Public Key": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Show a Google, Outlook or iCal calendar beside your reminders": [
+      "elephant/menu-rows/calendars.json"
     ],
     "Show or hide the desktop bar": [
       "elephant/menu-rows/toggle.json"
@@ -3806,6 +3822,9 @@
     "Buckets": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Busy": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
     "C-y copy  Enter print  Esc close": [
       "walker/scripts/menus/cloud/terminal-helpers.sh"
     ],
@@ -3826,6 +3845,18 @@
     ],
     "Cache Sizes": [
       "walker/scripts/actions/system/cleanup.sh"
+    ],
+    "Calendar added": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
+    "Calendar not added": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
+    "Calendar removed": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
+    "Calendars": [
+      "walker/scripts/actions/tools/calendars.py"
     ],
     "Camera": [
       "quickshell/desktop-bar/scripts/obs-control.py"
@@ -4099,6 +4130,9 @@
     "Copied to the clipboard.": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Copy the calendar's \"Secret address in iCal format\" from its settings.": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
     "Copying needs wl-copy; open the saved file instead.": [
       "walker/scripts/actions/system/report-problem.py"
     ],
@@ -4361,6 +4395,9 @@
     "Enter a hostname, not a URL, port or shell option": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Enter removes the calendar; Esc keeps it": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
     "Enter the WiFi password": [
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py",
       "quickshell/desktop-bar/scripts/wifi-qr.py"
@@ -4525,6 +4562,9 @@
     ],
     "Global app search only supports launching": [
       "walker/scripts/menus/search-index.py"
+    ],
+    "Google Calendar": [
+      "walker/scripts/actions/tools/calendars.py"
     ],
     "Grafana": [
       "walker/scripts/menus/cloud/navigation.py"
@@ -4980,6 +5020,9 @@
     "Name the subscriptions you want in the menu": [
       "walker/scripts/menus/cloud/accounts.py"
     ],
+    "Name this calendar (Enter keeps {name})": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
     "Name this computer.": [
       "distro/archinstall/installer-ui.py"
     ],
@@ -4997,6 +5040,9 @@
     ],
     "New SSH key for {label}": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "New calendar": [
+      "walker/scripts/actions/tools/calendars.py"
     ],
     "New executable file: {path}": [
       "distro/lib/eitr_plugins.py"
@@ -5212,8 +5258,14 @@
     "Other": [
       "walker/scripts/actions/development/monitoring.py"
     ],
+    "Other (any iCal address)": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
     "Other folder…": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Outlook": [
+      "walker/scripts/actions/tools/calendars.py"
     ],
     "Outside folder rules: your existing Git configuration": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -5232,6 +5284,12 @@
     ],
     "Passwords did not match": [
       "distro/lib/eitr_wizard.py"
+    ],
+    "Paste an https:// or webcal:// iCal address.": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
+    "Paste the secret iCal address (https://…)": [
+      "walker/scripts/actions/tools/calendars.py"
     ],
     "Peer Tailscale address or name: ": [
       "walker/scripts/actions/system/remote-access.py"
@@ -5382,6 +5440,9 @@
     "Public IP addresses": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Publish a calendar under Shared calendars and copy its ICS link.": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
     "Queues": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -5491,6 +5552,9 @@
     ],
     "Remove": [
       "walker/scripts/actions/install/plugins.py"
+    ],
+    "Remove '{name}'": [
+      "walker/scripts/actions/tools/calendars.py"
     ],
     "Remove local sign-in": [
       "walker/scripts/menus/cloud/providers.py"
@@ -6093,6 +6157,9 @@
     "The browser opened a new GitHub issue. Describe what happened and attach {path}.": [
       "walker/scripts/actions/system/report-problem.py"
     ],
+    "The calendar server redirected to an insecure address.": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
     "The channel is stable or testing": [
       "distro/system/eitr-system.py"
     ],
@@ -6229,11 +6296,17 @@
     "This WiFi security type requires advanced network configuration": [
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py"
     ],
+    "This address did not return an iCal calendar.": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
     "This app is part of Eitr and stays installed.": [
       "walker/scripts/actions/install/software.py"
     ],
     "This assistant is unavailable.": [
       "distro/lib/eitr_collaboration.py"
+    ],
+    "This calendar is already added.": [
+      "walker/scripts/actions/tools/calendars.py"
     ],
     "This changes login, lockscreen and sudo authentication. Password fallback is retained.": [
       "walker/scripts/actions/system/security.py"
@@ -6624,6 +6697,9 @@
     "When? (10m, 18:30, every day 08:00)": [
       "walker/scripts/actions/tools/reminders.py"
     ],
+    "Which calendar?": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
     "WiFi adapter is unavailable; refresh the panel": [
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py"
     ],
@@ -6826,6 +6902,15 @@
     "{assistant} is an AI assistant for your terminal.": [
       "distro/lib/eitr_assistants.py"
     ],
+    "{calendar}: could not connect.": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
+    "{calendar}: the calendar is larger than 5 MB.": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
+    "{calendar}: the server answered HTTP {status}.": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
     "{caller} asked {helper}": [
       "distro/lib/eitr_collaboration.py"
     ],
@@ -6939,6 +7024,9 @@
     ],
     "{name}: stops charging at {charge_percent}%": [
       "distro/system/eitr-system.py"
+    ],
+    "{name}: {count} events from the last week to the next 60 days.": [
+      "walker/scripts/actions/tools/calendars.py"
     ],
     "{path} has no usable free space": [
       "distro/archinstall/eitr-guided-install"

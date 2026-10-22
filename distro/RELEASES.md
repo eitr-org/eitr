@@ -45,7 +45,15 @@ end by date or count, and skip elapsed occurrences after one missed notification
 Calendar dots include future occurrences; cancellation can skip one or end a series.
 The calendar panel's reminder rows have a trash button with an inline confirmation
 (This one or All for a repeating reminder) that runs the same cancel command.
-Google/Outlook synchronization still requires account sign-in and remains planned.
+
+## Calendar subscriptions (unreleased)
+
+Reminders > Calendars adds a Google, Outlook or any calendar by its secret iCal
+address, without OAuth. The address stays in a private file and never reaches a
+command line, notification or log. `eitr-calendars.timer` (enabled with the first
+calendar) refreshes at login and every 15 minutes; the calendar panel lists the
+events read-only beside reminders, and timed events alert once at their start.
+Two-way sync remains planned.
 
 ## Organization profiles (unreleased)
 

@@ -361,6 +361,9 @@ msgstr "Browser must be firefox or chromium (install it with add.packages)"
 msgid "Buckets"
 msgstr "Buckets"
 
+msgid "Busy"
+msgstr "Busy"
+
 msgid "C-y copy  Enter print  Esc close"
 msgstr "C-y copy  Enter print  Esc close"
 
@@ -381,6 +384,18 @@ msgstr "CLI unavailable"
 
 msgid "Cache Sizes"
 msgstr "Cache Sizes"
+
+msgid "Calendar added"
+msgstr "Calendar added"
+
+msgid "Calendar not added"
+msgstr "Calendar not added"
+
+msgid "Calendar removed"
+msgstr "Calendar removed"
+
+msgid "Calendars"
+msgstr "Calendars"
 
 msgid "Camera"
 msgstr "Camera"
@@ -646,6 +661,9 @@ msgstr "Copied the report."
 msgid "Copied to the clipboard."
 msgstr "Copied to the clipboard."
 
+msgid "Copy the calendar's \"Secret address in iCal format\" from its settings."
+msgstr "Copy the calendar's \"Secret address in iCal format\" from its settings."
+
 msgid "Copying needs wl-copy; open the saved file instead."
 msgstr "Copying needs wl-copy; open the saved file instead."
 
@@ -904,6 +922,9 @@ msgstr "English UTF-8 support is missing from the live image"
 msgid "Enter a hostname, not a URL, port or shell option"
 msgstr "Enter a hostname, not a URL, port or shell option"
 
+msgid "Enter removes the calendar; Esc keeps it"
+msgstr "Enter removes the calendar; Esc keeps it"
+
 msgid "Enter the WiFi password"
 msgstr "Enter the WiFi password"
 
@@ -1065,6 +1086,9 @@ msgstr "Give the encrypted partition as a /dev path, for example /dev/nvme0n1p2"
 
 msgid "Global app search only supports launching"
 msgstr "Global app search only supports launching"
+
+msgid "Google Calendar"
+msgstr "Google Calendar"
 
 msgid "Grafana"
 msgstr "Grafana"
@@ -1507,6 +1531,9 @@ msgstr "Name it, then sign in"
 msgid "Name the subscriptions you want in the menu"
 msgstr "Name the subscriptions you want in the menu"
 
+msgid "Name this calendar (Enter keeps {name})"
+msgstr "Name this calendar (Enter keeps {name})"
+
 msgid "Name this computer."
 msgstr "Name this computer."
 
@@ -1524,6 +1551,9 @@ msgstr "Networks"
 
 msgid "New SSH key for {label}"
 msgstr "New SSH key for {label}"
+
+msgid "New calendar"
+msgstr "New calendar"
 
 msgid "New executable file: {path}"
 msgstr "New executable file: {path}"
@@ -1732,8 +1762,14 @@ msgstr "Original configuration restored for the next boot; current networking is
 msgid "Other"
 msgstr "Other"
 
+msgid "Other (any iCal address)"
+msgstr "Other (any iCal address)"
+
 msgid "Other folder…"
 msgstr "Other folder…"
+
+msgid "Outlook"
+msgstr "Outlook"
 
 msgid "Outside folder rules: your existing Git configuration"
 msgstr "Outside folder rules: your existing Git configuration"
@@ -1752,6 +1788,12 @@ msgstr "Password"
 
 msgid "Passwords did not match"
 msgstr "Passwords did not match"
+
+msgid "Paste an https:// or webcal:// iCal address."
+msgstr "Paste an https:// or webcal:// iCal address."
+
+msgid "Paste the secret iCal address (https://…)"
+msgstr "Paste the secret iCal address (https://…)"
 
 msgid "Peer Tailscale address or name: "
 msgstr "Peer Tailscale address or name: "
@@ -1900,6 +1942,9 @@ msgstr "Prune pnpm store?"
 msgid "Public IP addresses"
 msgstr "Public IP addresses"
 
+msgid "Publish a calendar under Shared calendars and copy its ICS link."
+msgstr "Publish a calendar under Shared calendars and copy its ICS link."
+
 msgid "Queues"
 msgstr "Queues"
 
@@ -2007,6 +2052,9 @@ msgstr "Removal would delete every installed font"
 
 msgid "Remove"
 msgstr "Remove"
+
+msgid "Remove '{name}'"
+msgstr "Remove '{name}'"
 
 msgid "Remove local sign-in"
 msgstr "Remove local sign-in"
@@ -2605,6 +2653,9 @@ msgstr "The boot menu style needs Limine; this system uses {loader}. Nothing was
 msgid "The browser opened a new GitHub issue. Describe what happened and attach {path}."
 msgstr "The browser opened a new GitHub issue. Describe what happened and attach {path}."
 
+msgid "The calendar server redirected to an insecure address."
+msgstr "The calendar server redirected to an insecure address."
+
 msgid "The channel is stable or testing"
 msgstr "The channel is stable or testing"
 
@@ -2737,11 +2788,17 @@ msgstr "This PC: {addresses}"
 msgid "This WiFi security type requires advanced network configuration"
 msgstr "This WiFi security type requires advanced network configuration"
 
+msgid "This address did not return an iCal calendar."
+msgstr "This address did not return an iCal calendar."
+
 msgid "This app is part of Eitr and stays installed."
 msgstr "This app is part of Eitr and stays installed."
 
 msgid "This assistant is unavailable."
 msgstr "This assistant is unavailable."
+
+msgid "This calendar is already added."
+msgstr "This calendar is already added."
 
 msgid "This changes login, lockscreen and sudo authentication. Password fallback is retained."
 msgstr "This changes login, lockscreen and sudo authentication. Password fallback is retained."
@@ -3130,6 +3187,9 @@ msgstr "Weekly"
 msgid "When? (10m, 18:30, every day 08:00)"
 msgstr "When? (10m, 18:30, every day 08:00)"
 
+msgid "Which calendar?"
+msgstr "Which calendar?"
+
 msgid "WiFi adapter is unavailable; refresh the panel"
 msgstr "WiFi adapter is unavailable; refresh the panel"
 
@@ -3331,6 +3391,15 @@ msgstr "{TARGET} is already mounted; unmount it before installing"
 msgid "{assistant} is an AI assistant for your terminal."
 msgstr "{assistant} is an AI assistant for your terminal."
 
+msgid "{calendar}: could not connect."
+msgstr "{calendar}: could not connect."
+
+msgid "{calendar}: the calendar is larger than 5 MB."
+msgstr "{calendar}: the calendar is larger than 5 MB."
+
+msgid "{calendar}: the server answered HTTP {status}."
+msgstr "{calendar}: the server answered HTTP {status}."
+
 msgid "{caller} asked {helper}"
 msgstr "{caller} asked {helper}"
 
@@ -3444,6 +3513,9 @@ msgstr "{name} starts charging at {charge_percent}%; choose a limit above that. 
 
 msgid "{name}: stops charging at {charge_percent}%"
 msgstr "{name}: stops charging at {charge_percent}%"
+
+msgid "{name}: {count} events from the last week to the next 60 days."
+msgstr "{name}: {count} events from the last week to the next 60 days."
 
 msgid "{path} has no usable free space"
 msgstr "{path} has no usable free space"
