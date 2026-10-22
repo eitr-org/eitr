@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# Offline dictation: hold SUPER + D and speak, release to type the words where
-# the cursor is. Recording also ends after 120 seconds. Speech stays on this
+# Offline dictation: tap SUPER + D, speak and tap it again, or hold it while you
+# speak; the words are typed where the cursor is. Recording also ends after 120
+# seconds. Speech stays on this
 # computer (whisper.cpp). The speech model downloads once on first use and is
 # checked against its published checksum.
 #
@@ -18,13 +19,11 @@ mode="${2:-dictation}"
 runtime="${XDG_RUNTIME_DIR:-/tmp}"
 audio="$runtime/eitr-$mode.wav"
 pidfile="$runtime/eitr-$mode.pid"
-# A quick tap sends press and release together, and the release can take the lock
-# first. The press records when it happened (before waiting for the lock); a stop
-# that finds nothing to stop shortly after a press leaves "tapped", and that start
-# then records nothing. Plain typing of "d" (the release binding sees every D) has
-# no recent press, so it never leaves the marker.
+# Tap to start and press again to stop, or hold and release. The press records when
+# it happened; a release shortly after it is a tap and leaves the recording running,
+# so a quick tap never depends on the order in which press and release arrive.
 pressed="$runtime/eitr-$mode.pressed"
-tapped="$runtime/eitr-$mode.tapped"
+TAP_NANOSECONDS=400000000
 root="${EITR_CODE_ROOT:-/usr/share/eitr}"
 
 notify() {
@@ -63,15 +62,11 @@ ensure_ready() {
 }
 
 start() {
-  if [[ -f "$tapped" && "$(cat "$tapped")" == "$(cat "$pressed" 2>/dev/null)" ]]; then
-    rm -f "$tapped"
-    return 0
-  fi
-  rm -f "$tapped"
-  ensure_ready || exit 0
+  # A press while recording (started by a tap) is the second press: stop.
   if [[ -f "$pidfile" ]] && kill -0 "$(cat "$pidfile")" 2>/dev/null; then
-    return 0
+    stop toggle
   fi
+  ensure_ready || exit 0
   # The supervisor inherits the lock until the pid and indicator are published.
   # Neither the recorder nor later transcription may keep that lock open.
   (
@@ -89,13 +84,12 @@ start() {
 }
 
 stop() {
-  if [[ ! -f "$pidfile" ]]; then
-    if [[ -z "${1:-}" && -f "$pressed" ]] && (( $(date +%s%N) - $(cat "$pressed") < 1500000000 )); then
-      cp "$pressed" "$tapped"
-    fi
+  [[ -f "$pidfile" ]] || exit 0
+  # The key's release: right after the press it was a tap, so keep recording.
+  if [[ -z "${1:-}" && -f "$pressed" ]] && (( $(date +%s%N) - $(cat "$pressed") < TAP_NANOSECONDS )); then
     exit 0
   fi
-  if [[ "${1:-}" != "" && "$(cat "$pidfile")" != "$1" ]]; then
+  if [[ "${1:-}" != "" && "${1:-}" != toggle && "$(cat "$pidfile")" != "$1" ]]; then
     return 0
   fi
   # Install cleanup before IPC or recorder shutdown can fail.

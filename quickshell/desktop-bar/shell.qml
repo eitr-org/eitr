@@ -436,6 +436,17 @@ ShellRoot {
     }
     // A lost stop must not leave the dot on.
     Timer { id: dictationSafety; interval: 300000; onTriggered: { shell.dictating = false; shell.transcribing = false; } }
+    // The waveform never outlives the recording: while it shows, check every few
+    // seconds that a recorder still exists (dictate.sh keeps its pid in these files).
+    Timer {
+        interval: 3000; repeat: true; running: shell.dictating
+        onTriggered: dictationAlive.running = true
+    }
+    Process {
+        id: dictationAlive
+        command: ["sh", "-c", "for mode in dictation voice; do f=\"${XDG_RUNTIME_DIR:-/tmp}/eitr-$mode.pid\"; [ -f \"$f\" ] && kill -0 \"$(cat \"$f\")\" 2>/dev/null && exit 0; done; exit 1"]
+        onExited: (code) => { if (code !== 0 && shell.dictating) shell.dictating = false; }
+    }
     PwNodePeakMonitor {
         id: dictationPeak
         node: Pipewire.defaultAudioSource

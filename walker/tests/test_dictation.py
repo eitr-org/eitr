@@ -66,24 +66,21 @@ class DictationTests(unittest.TestCase):
         path.write_text(f'#!/usr/bin/env bash\nLOG="{self.log}"\n{body}\n')
         path.chmod(path.stat().st_mode | stat.S_IXUSR)
 
-    def run_start_without_new_press(self):
-        """start rewrites the press stamp; keep the test's stamp to model the race."""
-        stamp = (self.base / "runtime/eitr-dictation.pressed").read_text()
-        source = SCRIPT.read_text().replace('[[ "${1:-}" == start ]] && date +%s%N > "$pressed"', ': "${stamp:=}"')
-        script = self.base / "dictate-no-stamp.sh"
-        script.write_text(source)
-        result = self.run_script_path(script, "start")
-        (self.base / "runtime/eitr-dictation.pressed").write_text(stamp)
-        return result
+    def wait_for_recording(self):
+        """start returns while its supervisor publishes the recorder's pid."""
+        pid = self.base / "runtime/eitr-dictation.pid"
+        deadline = time.monotonic() + 2
+        while not pid.exists() and time.monotonic() < deadline:
+            time.sleep(0.02)
+        return pid.exists()
 
-    def run_script_path(self, path, *arguments):
-        process = subprocess.Popen(["bash", str(path), *arguments], env=self.env, stdout=subprocess.PIPE,
-                                   stderr=subprocess.PIPE, text=True, start_new_session=True)
-        self.groups.append(process.pid)
-        stdout, stderr = process.communicate(timeout=20)
-        return subprocess.CompletedProcess(process.args, process.returncode, stdout, stderr)
-
-    def run_script(self, *arguments):
+    def run_script(self, *arguments, tap=False):
+        # A release ends a hold unless the test asks for a tap (released at once).
+        if arguments[:1] == ("stop",) and not tap:
+            mode = arguments[1] if len(arguments) > 1 else "dictation"
+            press = self.base / f"runtime/eitr-{mode}.pressed"
+            if press.exists():
+                press.write_text(str(time.time_ns() - 2_000_000_000))
         process = subprocess.Popen(["bash", str(SCRIPT), *arguments], env=self.env, stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE, text=True, start_new_session=True)
         self.groups.append(process.pid)
@@ -134,30 +131,30 @@ class DictationTests(unittest.TestCase):
         self.assertEqual(states, ["start", "transcribe", "stop"])
         self.assertIn("typed -- Hello there.", self.logged())
 
-    def test_quick_tap_whose_release_wins_the_lock_records_nothing(self):
+    def test_a_tap_keeps_recording_and_the_next_press_stops_and_types(self):
         self.ready_model()
-        # The release took the lock first: its press is fresh, so it leaves "tapped".
-        (self.base / "runtime/eitr-dictation.pressed").write_text(str(time.time_ns()))
-        self.assertEqual(self.run_script("stop").returncode, 0)
-        self.assertTrue((self.base / "runtime/eitr-dictation.tapped").exists())
-        # The press's own start then sees it and records nothing.
-        (self.base / "runtime/eitr-dictation.pressed").write_text(
-            (self.base / "runtime/eitr-dictation.tapped").read_text())
-        # Run start without its own press stamp being rewritten: call the start step directly.
-        start = self.run_start_without_new_press()
-        self.assertEqual(start.returncode, 0, start.stderr)
+        self.assertEqual(self.run_script("start").returncode, 0)
+        self.assertTrue(self.wait_for_recording())
+        # Released right after the press: a tap, so the recording goes on.
+        self.assertEqual(self.run_script("stop", tap=True).returncode, 0)
+        self.assertTrue((self.base / "runtime/eitr-dictation.pid").exists())
+        self.assertNotIn("typed", self.logged())
+        # The next press stops it and types; that press's own release does nothing.
+        self.assertEqual(self.run_script("start").returncode, 0)
+        self.assertIn("typed -- Hello there.", self.logged())
         self.assertFalse((self.base / "runtime/eitr-dictation.pid").exists())
-        self.assertFalse((self.base / "runtime/eitr-dictation.tapped").exists())
-        self.assertNotIn("dictation start", self.logged())
+        self.assertEqual(self.run_script("stop", tap=True).returncode, 0)
+        self.assertEqual(self.logged().count("typed --"), 1)
 
-    def test_typing_d_or_an_old_press_never_swallows_the_next_dictation(self):
+    def test_a_release_that_wins_the_race_is_a_tap_not_a_stuck_recording(self):
         self.ready_model()
-        # Every D release runs stop; with no recent press it leaves nothing behind.
-        self.assertEqual(self.run_script("stop").returncode, 0)
-        self.assertFalse((self.base / "runtime/eitr-dictation.tapped").exists())
-        (self.base / "runtime/eitr-dictation.pressed").write_text(str(time.time_ns() - 5_000_000_000))
-        self.assertEqual(self.run_script("stop").returncode, 0)
-        self.assertFalse((self.base / "runtime/eitr-dictation.tapped").exists())
+        # Release first (nothing recording yet), then the press: it simply records,
+        # and a second press stops it.
+        self.assertEqual(self.run_script("stop", tap=True).returncode, 0)
+        self.assertEqual(self.run_script("start").returncode, 0)
+        self.assertTrue(self.wait_for_recording())
+        self.assertEqual(self.run_script("start").returncode, 0)
+        self.assertFalse((self.base / "runtime/eitr-dictation.pid").exists())
 
     def test_release_waits_for_pid_publication(self):
         self.ready_model()
