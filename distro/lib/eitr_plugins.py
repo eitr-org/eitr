@@ -83,19 +83,32 @@ def manifest(root):
     return value
 
 
+# Private repositories use the person's own SSH keys and ~/.ssh/config aliases:
+# git@host:owner/repo.git or ssh://git@host/owner/repo.git.
+SSH_SHORT = re.compile(r'[A-Za-z0-9_][A-Za-z0-9_.-]*@[A-Za-z0-9][A-Za-z0-9.-]*:[A-Za-z0-9_][A-Za-z0-9_./-]*\Z')
+
+
 def repository_url(value, *, allow_file=False):
     string(value, 4096)
     parsed = urlsplit(value)
     if parsed.scheme == 'https' and parsed.hostname and not parsed.username and not parsed.password and not parsed.fragment and not parsed.query:
         return value
+    if (parsed.scheme == 'ssh' and parsed.hostname and not parsed.password and not parsed.fragment and not parsed.query
+            and not parsed.hostname.startswith('-') and parsed.path.startswith('/') and '..' not in parsed.path.split('/')):
+        return value
+    if '://' not in value and SSH_SHORT.fullmatch(value) and '..' not in value.split(':', 1)[1].split('/'):
+        return value
     if allow_file and parsed.scheme == 'file' and not parsed.netloc and parsed.path.startswith('/'):
         return value
-    raise ValueError('Plugin repository must be an HTTPS URL without credentials')
+    raise ValueError('Plugin repository must be an HTTPS or SSH Git URL without credentials')
 
 
 def git(root, *arguments, allow_file=False):
     environment = {key: value for key, value in os.environ.items() if not key.startswith('GIT_')}
-    environment.update(GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL='/dev/null', GIT_TERMINAL_PROMPT='0', GIT_ALLOW_PROTOCOL='https:file' if allow_file else 'https')
+    environment.update(GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL='/dev/null', GIT_TERMINAL_PROMPT='0',
+                       GIT_ALLOW_PROTOCOL='https:ssh:file' if allow_file else 'https:ssh',
+                       # A passphrase prompt would break the install screen; keys come from the agent.
+                       GIT_SSH_COMMAND='ssh -o BatchMode=yes')
     return subprocess.check_output(['git', '-c', 'core.hooksPath=/dev/null', '-c', 'core.fsmonitor=false',
                                     '-c', 'submodule.recurse=false', '-c', 'credential.helper=',
                                     *arguments], cwd=root, env=environment, text=True, stderr=subprocess.PIPE, timeout=120).strip()

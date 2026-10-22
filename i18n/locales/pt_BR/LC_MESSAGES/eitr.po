@@ -964,8 +964,8 @@ msgstr "A consulta de uso do Grok retornou HTTP {code}; tente mais tarde ou entr
 msgid "Groups"
 msgstr "Grupos"
 
-msgid "HTTPS Git repository URL"
-msgstr "URL HTTPS do repositório Git"
+msgid "HTTPS or SSH Git repository URL"
+msgstr "URL HTTPS ou SSH do repositório Git"
 
 msgid "Hardware detection failed; see the log above"
 msgstr "A detecção de hardware falhou; consulte o log acima"

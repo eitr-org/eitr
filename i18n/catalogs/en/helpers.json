@@ -320,7 +320,7 @@
   "Grok subscription usage requires one personal Grok login; API/enterprise limits are not supported": "Grok subscription usage requires one personal Grok login; API/enterprise limits are not supported",
   "Grok usage returned HTTP {code}; retry later or sign in again": "Grok usage returned HTTP {code}; retry later or sign in again",
   "Groups": "Groups",
-  "HTTPS Git repository URL": "HTTPS Git repository URL",
+  "HTTPS or SSH Git repository URL": "HTTPS or SSH Git repository URL",
   "Hardware detection failed; see the log above": "Hardware detection failed; see the log above",
   "Have you set Sunshine’s username and password in the browser?": "Have you set Sunshine’s username and password in the browser?",
   "Helpers only read: they cannot change files or run commands.": "Helpers only read: they cannot change files or run commands.",

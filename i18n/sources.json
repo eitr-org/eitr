@@ -4386,7 +4386,7 @@
     "Groups": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
-    "HTTPS Git repository URL": [
+    "HTTPS or SSH Git repository URL": [
       "walker/scripts/actions/install/plugins.py"
     ],
     "Hardware detection failed; see the log above": [

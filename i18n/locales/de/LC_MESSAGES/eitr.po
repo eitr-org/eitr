@@ -964,8 +964,8 @@ msgstr "Grok-Nutzungsabfrage meldet HTTP {code}; versuchen Sie es später oder m
 msgid "Groups"
 msgstr "Gruppen"
 
-msgid "HTTPS Git repository URL"
-msgstr "HTTPS-URL des Git-Repositorys"
+msgid "HTTPS or SSH Git repository URL"
+msgstr "HTTPS- oder SSH-URL des Git-Repositorys"
 
 msgid "Hardware detection failed; see the log above"
 msgstr "Hardwareerkennung fehlgeschlagen; siehe Protokoll oben"

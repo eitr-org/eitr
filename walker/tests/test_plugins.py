@@ -102,10 +102,14 @@ class PluginTests(unittest.TestCase):
             plugins.manifest(self.source)
 
     def test_url_validation(self):
-        for url in ('file:///tmp/plugin', 'http://example.com/repo', 'https://user:password@example.com/repo', '-upload-pack=evil', 'ssh://example.com/repo'):
+        for url in ('file:///tmp/plugin', 'http://example.com/repo', 'https://user:password@example.com/repo', '-upload-pack=evil',
+                    'ssh://-oProxyCommand=evil/repo', 'git@-oProxyCommand=evil:repo', 'git@example.com:../repo',
+                    'ssh://git@example.com/../repo', 'ext::sh -c evil', 'git@example.com:-repo'):
             with self.subTest(url=url), self.assertRaises(ValueError):
                 plugins.repository_url(url)
-        self.assertEqual(plugins.repository_url('https://example.com/repo.git'), 'https://example.com/repo.git')
+        for url in ('https://example.com/repo.git', 'git@github-personal:owner/repo.git', 'ssh://git@example.com/owner/repo.git'):
+            with self.subTest(url=url):
+                self.assertEqual(plugins.repository_url(url), url)
 
     def test_install_approval_hooks_rows_and_removal(self):
         marker = self.home / 'executed'

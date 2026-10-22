@@ -80,7 +80,7 @@ def add(manager, url=None):
         raise ValueError('Install requires an interactive terminal')
     def flow(screen):
         wizard = PluginWizard(screen)
-        value = url or wizard.field(tr('Repository URL'), tr('HTTPS Git repository URL'), validator=repository_url)
+        value = url or wizard.field(tr('Repository URL'), tr('HTTPS or SSH Git repository URL'), validator=repository_url)
         repository_url(value)
         return manager.add(value, lambda root, spec, source: wizard.review(review_lines(root, spec, source)))
     try:

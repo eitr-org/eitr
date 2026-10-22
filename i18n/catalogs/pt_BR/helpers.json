@@ -983,7 +983,6 @@
   "Background service: {service}": "Serviço em segundo plano: {service}",
   "Commit: {commit}": "Commit: {commit}",
   "Git author and date: {author}": "Autor e data do Git: {author}",
-  "HTTPS Git repository URL": "URL HTTPS do repositório Git",
   "Install plugin?": "Instalar plugin?",
   "Manifest author: {author}": "Autor do manifesto: {author}",
   "New commit: {commit}": "Novo commit: {commit}",
@@ -1005,5 +1004,6 @@
   "Open it from Tools > Plugins.": "Abra em Ferramentas > Plugins.",
   "Tailscale could not change state.": "O Tailscale não conseguiu mudar de estado.",
   "Tailscale needs your administrator password once to let this account switch it.": "O Tailscale precisa da sua senha de administrador uma vez para que esta conta possa ligá-lo e desligá-lo.",
-  "Sharing could not start: {reason}": "Não foi possível iniciar o compartilhamento: {reason}"
+  "Sharing could not start: {reason}": "Não foi possível iniciar o compartilhamento: {reason}",
+  "HTTPS or SSH Git repository URL": "URL HTTPS ou SSH do repositório Git"
 }
