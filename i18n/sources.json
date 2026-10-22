@@ -1210,8 +1210,14 @@
     ]
   },
   "menus": {
+    "A design with your own picture, color and greeting": [
+      "elephant/menus/lockscreen.lua"
+    ],
     "A one-time or repeating notification": [
       "elephant/menu-rows/reminders.json"
+    ],
+    "A picture file or an https address, kept on this computer": [
+      "elephant/menus/wallpaper.lua"
     ],
     "AI": [
       "elephant/menu-rows/development.json",
@@ -1257,6 +1263,9 @@
     "Add Layout": [
       "elephant/menus/keyboard-add.lua",
       "elephant/menus/keyboard.lua"
+    ],
+    "Add My Own Wallpaper": [
+      "elephant/menus/wallpaper.lua"
     ],
     "Add Plugin…": [
       "elephant/plugin-entries.lua",
@@ -1511,8 +1520,14 @@
     "Crash Notifications": [
       "elephant/menu-rows/toggle.json"
     ],
+    "Create Lockscreen": [
+      "elephant/menus/lockscreen.lua"
+    ],
     "Create SSH Key": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Create Theme": [
+      "elephant/menu-rows/theme.json"
     ],
     "Create Web App": [
       "elephant/menus/webapps.lua"
@@ -1757,6 +1772,9 @@
     ],
     "Forecast for your location": [
       "elephant/menu-rows/system-information.json"
+    ],
+    "From a picture, with colors you can adjust; kept on this computer": [
+      "elephant/menu-rows/theme.json"
     ],
     "Full Screen": [
       "elephant/menu-rows/screenshot.json"
@@ -2905,6 +2923,11 @@
     "Yay (AUR)": [
       "elephant/menu-rows/packages.json"
     ],
+    "Yours": [
+      "elephant/menus/lockscreen.lua",
+      "elephant/menus/wallpaper.lua",
+      "elephant/theme-entries.lua"
+    ],
     "Zone details": [
       "elephant/menus/aws-route53-zone-details-1.lua"
     ],
@@ -3476,6 +3499,7 @@
     ],
     "\nCancelled.": [
       "walker/scripts/actions/development/git-accounts.py",
+      "walker/scripts/actions/style/own.py",
       "walker/scripts/menus/cloud/accounts.py"
     ],
     "\nFetching the icon…": [
@@ -3571,6 +3595,13 @@
     "A factory reset point already exists; it is never replaced": [
       "distro/system/factory-reset.py"
     ],
+    "A file such as ~/Pictures/lake.jpg, or an https address. Eitr downloads it (up to 50 MB) and checks that it is a picture.": [
+      "walker/scripts/actions/style/own.py"
+    ],
+    "A lockscreen named {name} already exists.": [
+      "distro/lib/eitr_own_style.py",
+      "walker/scripts/actions/style/own.py"
+    ],
     "A maximum of four layouts can be active at once": [
       "quickshell/desktop-bar/scripts/keyboard-layout.py"
     ],
@@ -3589,6 +3620,9 @@
     ],
     "A selection is required": [
       "quickshell/desktop-bar/scripts/appearance-state.py"
+    ],
+    "A theme named {name} already exists.": [
+      "distro/lib/eitr_own_style.py"
     ],
     "A web app named {name} already exists. Remove it first from Install > Web Apps.": [
       "walker/scripts/actions/install/webapps.py"
@@ -3610,6 +3644,12 @@
     ],
     "AWS sign-in needs AWS CLI version 2": [
       "walker/scripts/menus/cloud/accounts.py"
+    ],
+    "Accent": [
+      "walker/scripts/actions/style/own.py"
+    ],
+    "Accent color": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Access keys": [
       "walker/scripts/menus/cloud/accounts.py"
@@ -3668,6 +3708,9 @@
     "Add an Azure account": [
       "walker/scripts/menus/cloud/accounts.py"
     ],
+    "Add your own wallpaper. Eitr keeps a copy only on this computer.": [
+      "walker/scripts/actions/style/own.py"
+    ],
     "Add {provider} Account": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -3676,6 +3719,9 @@
     ],
     "Added packages are also removed: {packages}": [
       "distro/lib/eitr_profile.py"
+    ],
+    "Adding the picture…": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Address": [
       "walker/scripts/actions/development/monitoring.py",
@@ -3699,6 +3745,9 @@
     "Another Ollama server is already using {host}. Stop it, then try again.": [
       "distro/lib/eitr_local_assistant.py"
     ],
+    "Another picture: a file or an https address": [
+      "walker/scripts/actions/style/own.py"
+    ],
     "Answers name {disk}, not one of the eligible disks: {candidates}": [
       "distro/archinstall/eitr-guided-install"
     ],
@@ -3717,8 +3766,17 @@
     "Applications": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Applied.": [
+      "walker/scripts/actions/style/own.py"
+    ],
     "Apply this system change? Type yes to continue: ": [
       "distro/system/eitr_remote.py"
+    ],
+    "Applying it…": [
+      "walker/scripts/actions/style/own.py"
+    ],
+    "Applying…": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Apps": [
       "walker/scripts/menus/cloud/providers.py"
@@ -3728,6 +3786,9 @@
     ],
     "Arrows / Tab: move  Enter: answer  Esc: cancel": [
       "distro/lib/eitr_wizard.py"
+    ],
+    "Arrows: move  Enter: change  Esc: done": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Arrows: move  Enter: select  Type: search  Esc: back": [
       "distro/lib/eitr_wizard.py"
@@ -3762,8 +3823,17 @@
     "Author name": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Automatic picks light for a bright picture and dark otherwise.": [
+      "walker/scripts/actions/style/own.py"
+    ],
+    "Automatic: from the picture's brightness": [
+      "walker/scripts/actions/style/own.py"
+    ],
     "Available accounts": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Background": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Background service added: {command}": [
       "distro/lib/eitr_plugins.py"
@@ -3800,6 +3870,9 @@
     ],
     "BitLocker: keep the Windows recovery key at hand": [
       "distro/archinstall/installer-ui.py"
+    ],
+    "Blue": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Boot loader: {loader}": [
       "distro/system/eitr-system.py"
@@ -3962,6 +4035,9 @@
     "Choose occurrence or series.": [
       "walker/scripts/actions/tools/reminders.py"
     ],
+    "Choose one of the listed designs.": [
+      "distro/lib/eitr_own_style.py"
+    ],
     "Chromium default requires add.packages chromium or its recipe": [
       "distro/lib/eitr_profile.py"
     ],
@@ -4039,6 +4115,12 @@
     ],
     "Collected a problem report ({line_count} lines) and saved it privately to\n{path}.": [
       "walker/scripts/actions/system/report-problem.py"
+    ],
+    "Colors": [
+      "walker/scripts/actions/style/own.py"
+    ],
+    "Colors of {name}": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Command failed (exit {status})": [
       "walker/scripts/menus/cloud/providers.py"
@@ -4148,6 +4230,12 @@
     "Could not check for pending updates: {error}": [
       "walker/scripts/actions/install/software.py"
     ],
+    "Could not complete that": [
+      "walker/scripts/actions/style/own.py"
+    ],
+    "Could not download the picture: {error}": [
+      "distro/lib/eitr_own_style.py"
+    ],
     "Could not launch OBS in the background": [
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
@@ -4169,8 +4257,14 @@
     "Crash summary": [
       "walker/scripts/actions/system/report-problem.py"
     ],
+    "Create a lockscreen with your own picture. It stays on this computer.": [
+      "walker/scripts/actions/style/own.py"
+    ],
     "Create a recovery key first? Strongly recommended.": [
       "walker/scripts/actions/system/security.py"
+    ],
+    "Create a theme from a picture. It stays on this computer.": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Create a web app: a launcher that opens a site in its own window.": [
       "walker/scripts/actions/install/webapps.py"
@@ -4181,8 +4275,17 @@
     "Creating the before-update snapshot…": [
       "walker/scripts/actions/system/update.sh"
     ],
+    "Creating the lockscreen…": [
+      "walker/scripts/actions/style/own.py"
+    ],
+    "Creating the theme…": [
+      "walker/scripts/actions/style/own.py"
+    ],
     "Current Disk Usage": [
       "walker/scripts/actions/system/cleanup.sh"
+    ],
+    "Current wallpaper": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Cursor": [
       "walker/scripts/actions/style/cursor.py"
@@ -4208,6 +4311,9 @@
     "Custom static-IP/VPN setups need manual review before switching.": [
       "walker/scripts/actions/system/network-backend.py"
     ],
+    "Cyan": [
+      "walker/scripts/actions/style/own.py"
+    ],
     "D1 Databases": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -4228,6 +4334,9 @@
     ],
     "Daily": [
       "walker/scripts/actions/tools/reminders.py"
+    ],
+    "Dark": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Dashboard saved": [
       "walker/scripts/actions/development/monitoring.py"
@@ -4251,6 +4360,18 @@
     "Delete Account": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Delete this lockscreen? Enter deletes, Esc keeps it.": [
+      "walker/scripts/actions/style/own.py"
+    ],
+    "Delete this theme? Enter deletes, Esc keeps it.": [
+      "walker/scripts/actions/style/own.py"
+    ],
+    "Delete this wallpaper? Enter deletes, Esc keeps it.": [
+      "walker/scripts/actions/style/own.py"
+    ],
+    "Delete {name}": [
+      "walker/scripts/actions/style/own.py"
+    ],
     "Delete {provider} account {account}? The provider’s sign-in for this account on this computer will be removed. The remote account itself is not affected.": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -4263,6 +4384,9 @@
     "Deployments": [
       "walker/scripts/menus/cloud/navigation.py",
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Design": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Desktop Audio": [
       "quickshell/desktop-bar/scripts/obs-control.py"
@@ -4306,6 +4430,7 @@
       "distro/archinstall/installer-ui.py"
     ],
     "Do not put login credentials in the address.": [
+      "distro/lib/eitr_own_style.py",
       "walker/scripts/actions/install/webapps.py"
     ],
     "DocumentDB": [
@@ -4350,6 +4475,9 @@
     "ERROR logs": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
+    "Each change applies at once. Text must stay readable on the background.": [
+      "walker/scripts/actions/style/own.py"
+    ],
     "Each hand-off uses the helper’s subscription and counts toward its limits.": [
       "walker/scripts/actions/assistant-collaboration.py"
     ],
@@ -4392,8 +4520,14 @@
     "English UTF-8 support is missing from the live image": [
       "distro/archinstall/installer-ui.py"
     ],
+    "Enter a color as six hex digits, for example #2bb87a.": [
+      "distro/lib/eitr_own_style.py"
+    ],
     "Enter a hostname, not a URL, port or shell option": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Enter on the review creates the lockscreen and shows a preview.": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Enter removes the calendar; Esc keeps it": [
       "walker/scripts/actions/tools/calendars.py"
@@ -4405,6 +4539,9 @@
     "Enter the authentication server domain without wildcards": [
       "distro/system/network-backend.py",
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py"
+    ],
+    "Enter the other picture's file or https address.": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Enter: answer  Left / Tab: back  Esc: cancel": [
       "distro/lib/eitr_wizard.py"
@@ -4517,6 +4654,9 @@
     "Fonts": [
       "walker/scripts/actions/style/fonts.py"
     ],
+    "For example: Lake at Dawn. Enter on the review creates the theme and applies it.": [
+      "walker/scripts/actions/style/own.py"
+    ],
     "For example: Netflix": [
       "walker/scripts/actions/install/webapps.py"
     ],
@@ -4568,6 +4708,12 @@
     ],
     "Grafana": [
       "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Green": [
+      "walker/scripts/actions/style/own.py"
+    ],
+    "Greeting": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Grok subscription usage requires one personal Grok login; API/enterprise limits are not supported": [
       "quickshell/desktop-bar/scripts/ai-usage.py"
@@ -4853,6 +4999,9 @@
     "Keep it": [
       "walker/scripts/actions/tools/reminders.py"
     ],
+    "Keep the greeting under 80 characters.": [
+      "distro/lib/eitr_own_style.py"
+    ],
     "Kept user layout link override: {target}": [
       "distro/lib/generated.py"
     ],
@@ -4912,6 +5061,12 @@
     "Let assistants work together": [
       "walker/scripts/actions/assistant-collaboration.py"
     ],
+    "Light": [
+      "walker/scripts/actions/style/own.py"
+    ],
+    "Light or dark": [
+      "walker/scripts/actions/style/own.py"
+    ],
     "Lightsail": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
@@ -4948,6 +5103,9 @@
     "Local assistant ({model}) runs only on this PC. Type /bye to close.": [
       "distro/lib/eitr_local_assistant.py"
     ],
+    "Lockscreen created": [
+      "walker/scripts/actions/style/own.py"
+    ],
     "Log out now": [
       "walker/scripts/actions/system/restart-check.py"
     ],
@@ -4977,6 +5135,9 @@
     ],
     "Lowercase name. This user will have sudo access.": [
       "distro/archinstall/installer-ui.py"
+    ],
+    "Magenta": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Malformed EITR include block; review ~/.gitconfig manually": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -5011,6 +5172,7 @@
     "Name": [
       "walker/scripts/actions/development/monitoring.py",
       "walker/scripts/actions/install/webapps.py",
+      "walker/scripts/actions/style/own.py",
       "walker/scripts/menus/cloud/accounts.py",
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -5117,11 +5279,17 @@
     "No package names available; check your package databases/network": [
       "walker/scripts/actions/install/software.py"
     ],
+    "No palette-driven theme integration is installed.": [
+      "distro/lib/eitr_own_style.py"
+    ],
     "No passphrase or recovery key slot found; refusing to rely on the TPM alone.": [
       "distro/system/eitr-system.py"
     ],
     "No passphrase or recovery key slot remains; add one before removing TPM2 unlock.": [
       "distro/system/eitr-system.py"
+    ],
+    "No picture file at {path}.": [
+      "distro/lib/eitr_own_style.py"
     ],
     "No reminders are waiting.": [
       "walker/scripts/actions/tools/reminders.py"
@@ -5154,6 +5322,15 @@
     ],
     "Not available: {error}": [
       "walker/scripts/actions/install/software.py"
+    ],
+    "Not one of your lockscreens": [
+      "distro/lib/eitr_own_style.py"
+    ],
+    "Not one of your themes": [
+      "distro/lib/eitr_own_style.py"
+    ],
+    "Not one of your wallpapers": [
+      "distro/lib/eitr_own_style.py"
     ],
     "Nothing changed.": [
       "distro/lib/eitr_local_assistant.py",
@@ -5219,6 +5396,9 @@
     "Only firmware that exposes charge_control_end_threshold supports this.": [
       "walker/scripts/actions/system/battery-limit.py"
     ],
+    "Only for Another picture: a file such as ~/Pictures/lake.jpg or an https address. Eitr downloads it and keeps a copy on this computer.": [
+      "walker/scripts/actions/style/own.py"
+    ],
     "Open Console": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -5243,6 +5423,12 @@
     "Opened the complete build repository: review PKGBUILD, .install files and patches.": [
       "walker/scripts/actions/install/software.py"
     ],
+    "Optional text under the clock, up to 80 characters.": [
+      "walker/scripts/actions/style/own.py"
+    ],
+    "Optional: six hex digits such as #2bb87a. Empty keeps the design's color.": [
+      "walker/scripts/actions/style/own.py"
+    ],
     "Optional; press Enter to detect it.": [
       "walker/scripts/actions/install/webapps.py"
     ],
@@ -5263,6 +5449,9 @@
     ],
     "Other folder…": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Other picture": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Outlook": [
       "walker/scripts/actions/tools/calendars.py"
@@ -5302,6 +5491,9 @@
     ],
     "Pick a reminder to cancel": [
       "walker/scripts/actions/tools/reminders.py"
+    ],
+    "Picture": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Please enlarge the console to at least 80 columns and 24 rows.": [
       "distro/lib/eitr_wizard.py"
@@ -5484,6 +5676,9 @@
     ],
     "Records": [
       "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Red": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Refresh": [
       "walker/scripts/menus/cloud/navigation.py"
@@ -5802,6 +5997,9 @@
     "Select at least one package": [
       "walker/scripts/actions/install/software.py"
     ],
+    "Select it in Style > Lockscreen; Ctrl+P previews it.": [
+      "walker/scripts/actions/style/own.py"
+    ],
     "Select the line above to copy it.": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
@@ -5903,6 +6101,9 @@
     ],
     "Sites": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Six hex digits, for example #2bb87a. Esc keeps the color.": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Skipped snapshot boot entries.": [
       "distro/bootloader/setup.sh"
@@ -6111,6 +6312,12 @@
     "Testing channel: System Update now installs new Eitr builds as soon as they are published, before everyone else. Everything else still comes from the stable repositories.": [
       "distro/system/eitr-system.py"
     ],
+    "Text": [
+      "walker/scripts/actions/style/own.py"
+    ],
+    "Text would be hard to read: foreground and background need more contrast.": [
+      "distro/lib/eitr_own_style.py"
+    ],
     "That OBS scene no longer exists": [
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
@@ -6131,6 +6338,9 @@
     ],
     "The URL must not contain spaces, control characters or backslashes.": [
       "walker/scripts/actions/install/webapps.py"
+    ],
+    "The address redirected away from https.": [
+      "distro/lib/eitr_own_style.py"
     ],
     "The answers need a password": [
       "distro/archinstall/eitr-guided-install"
@@ -6187,6 +6397,9 @@
     "The initramfs cannot use TPM2 unlock yet. Nothing was changed.": [
       "distro/system/eitr-system.py"
     ],
+    "The layout your picture, color and greeting go into.": [
+      "walker/scripts/actions/style/own.py"
+    ],
     "The local assistant could not answer: {reason}": [
       "distro/lib/eitr_local_assistant.py"
     ],
@@ -6230,10 +6443,20 @@
       "walker/scripts/menus/cloud/accounts.py"
     ],
     "The name needs at least one letter or digit.": [
+      "distro/lib/eitr_own_style.py",
       "walker/scripts/actions/install/webapps.py"
     ],
     "The payload has no pacman {version} package": [
       "distro/archinstall/eitr-guided-install"
+    ],
+    "The picture has too many pixels.": [
+      "distro/lib/eitr_own_style.py"
+    ],
+    "The picture is larger than 50 MB.": [
+      "distro/lib/eitr_own_style.py"
+    ],
+    "The picture is too small.": [
+      "distro/lib/eitr_own_style.py"
     ],
     "The plugin blocklist could not be read; plugins are refused until it is fixed.": [
       "distro/lib/eitr_plugins.py"
@@ -6284,6 +6507,9 @@
     "The testing repository cannot be reached right now, so nothing was changed. Check the connection and try again.": [
       "distro/system/eitr-system.py"
     ],
+    "The theme could not be applied.": [
+      "walker/scripts/actions/style/own.py"
+    ],
     "The user service could not be loaded.": [
       "distro/lib/eitr_local_assistant.py"
     ],
@@ -6317,6 +6543,9 @@
     "This changes the network backend only after rebooting.": [
       "walker/scripts/actions/system/network-backend.py"
     ],
+    "This color cannot be changed here.": [
+      "distro/lib/eitr_own_style.py"
+    ],
     "This computer has no factory reset point. Only computers installed with the Eitr ISO have one.": [
       "distro/system/factory-reset.py"
     ],
@@ -6337,6 +6566,9 @@
     ],
     "This installation uses an unsupported location; remove it with its own manager.": [
       "walker/scripts/actions/install/software.py"
+    ],
+    "This is not a picture Eitr can read.": [
+      "distro/lib/eitr_own_style.py"
     ],
     "This keyboard layout could not be loaded": [
       "quickshell/desktop-bar/scripts/keyboard-layout.py"
@@ -6578,6 +6810,12 @@
     "Updates with snapshots (pass a 'before' number to see every package):\n": [
       "distro/system/eitr-system.py"
     ],
+    "Use a JPEG, PNG or WebP picture.": [
+      "distro/lib/eitr_own_style.py"
+    ],
+    "Use a name of 1 to 40 characters.": [
+      "distro/lib/eitr_own_style.py"
+    ],
     "Use a name of 1 to 60 characters": [
       "walker/scripts/menus/cloud/accounts.py"
     ],
@@ -6586,6 +6824,9 @@
     ],
     "Use an http or https address.": [
       "walker/scripts/actions/install/webapps.py"
+    ],
+    "Use an https address or a file on this computer.": [
+      "distro/lib/eitr_own_style.py"
     ],
     "Use at least 8 characters. Your input is hidden.": [
       "distro/lib/eitr_wizard.py"
@@ -6670,6 +6911,9 @@
     "WARN logs": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
+    "Wallpaper added": [
+      "walker/scripts/actions/style/own.py"
+    ],
     "Wallpaper must be PNG, JPEG or WebP": [
       "distro/lib/eitr_profile.py"
     ],
@@ -6715,6 +6959,9 @@
     "Yearly": [
       "walker/scripts/actions/tools/reminders.py"
     ],
+    "Yellow": [
+      "walker/scripts/actions/style/own.py"
+    ],
     "Yes": [
       "walker/scripts/actions/development/git-accounts.py",
       "walker/scripts/actions/install/plugins.py"
@@ -6742,6 +6989,9 @@
     ],
     "Your organization allows plugins only from its approved repositories.": [
       "distro/lib/eitr_plugins.py"
+    ],
+    "Your wallpapers, the current theme's wallpapers, or another picture.": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Zone details": [
       "walker/scripts/menus/cloud/navigation.py"
@@ -7013,11 +7263,18 @@
     "{names} now stop charging at {limit}%. The limit is restored at boot and after resume.": [
       "distro/system/eitr-system.py"
     ],
+    "{name} (yours)": [
+      "quickshell/desktop-bar/scripts/appearance-items.py",
+      "walker/scripts/actions/style/own.py"
+    ],
     "{name} from {snapshot_date} is at {target}": [
       "walker/scripts/actions/system/restore-file.py"
     ],
     "{name} is in Development > Monitoring.": [
       "walker/scripts/actions/development/monitoring.py"
+    ],
+    "{name} is in Style > Wallpaper and the wallpaper carousel.": [
+      "walker/scripts/actions/style/own.py"
     ],
     "{name} starts charging at {charge_percent}%; choose a limit above that. Nothing was changed.": [
       "distro/system/eitr-system.py"

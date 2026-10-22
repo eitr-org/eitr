@@ -84,14 +84,6 @@ the profile. Still to check, in a VM or with the owner:
 
 # 4. Later
 
-- **Your own theme, lockscreen and wallpaper.** Let a person create and use their
-  own, kept only on their machine (never uploaded or shared by Eitr): a theme
-  from a picked wallpaper or chosen colors (bar, terminal, launcher, apps and
-  icons follow, like the shipped themes), their own images as wallpapers in the
-  Walker picker and carousel, and a lockscreen based on an existing design with
-  their own picture, colors and text. Stored under the user's config, listed
-  beside the shipped ones and removable; updates never overwrite them. Decide the
-  creation flow (Walker wizard with a live preview) with the owner first.
 - **Voice reminders, next steps.** Read-only Google/Outlook/iCal subscriptions
   through a secret iCal address are done (Reminders > Calendars). Two-way sync
   (creating or editing provider events) needs account sign-in (OAuth, with

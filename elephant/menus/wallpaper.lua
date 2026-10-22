@@ -8,39 +8,56 @@ FixedOrder = true
 
 local home = os.getenv("HOME")
 local background_dir = home .. "/.config/theme/current/backgrounds"
+local own_dir = paths.own("wallpapers")
 
 local shell_quote = dofile(paths.code("elephant/shell-quote.lua"))
+local own = paths.code("walker/scripts/actions/style/own.py")
+local presenter = paths.code("walker/scripts/actions/task-terminal.py")
+local yours = i18n.mark("Yours")
+
+local function pictures(directory)
+    local cmd = "find " .. shell_quote(directory) .. " -maxdepth 1 -type f \\( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \\) -printf '%f\\n' 2>/dev/null | sort -V"
+    local files = {}
+    local handle = io.popen(cmd)
+    if handle then
+        for file in handle:lines() do table.insert(files, file) end
+        handle:close()
+    end
+    return files
+end
 
 function GetEntries()
-    local entries = {}
+    local entries = {{
+        Text = "Add My Own Wallpaper",
+        Subtext = "A picture file or an https address, kept on this computer",
+        Icon = "󰐕",
+        Actions = {open = "kitty --class eitr-menu-terminal -e python3 " .. shell_quote(presenter) .. " python3 " .. shell_quote(own) .. " wallpaper add"},
+    }}
     local current = ""
     local current_file = io.open(home .. "/.cache/current-wallpaper", "r")
     if current_file then
         current = current_file:read("*a"):match("^%s*(.-)%s*$")
         current_file:close()
     end
-    local cmd = "find '" .. background_dir .. "' -maxdepth 1 -type f \\( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \\) -printf '%f\\n' 2>/dev/null | sort -V"
-    local handle = io.popen(cmd)
-
-    if handle then
-        for file in handle:lines() do
-            local path = background_dir .. "/" .. file
-            table.insert(entries, {
-                Text = file,
-                Value = path,
-                Icon = path == current and "" or path,
-                State = path == current and { "current" } or {},
-                Preview = path,
-                PreviewType = "file",
-                Actions = {
-                    open = paths.code("walker/scripts/actions/wallpaper/apply.sh ") .. shell_quote(path),
-                    wallpaper_preview = "bash " .. shell_quote(paths.code("quickshell/desktop-bar/scripts/appearance-picker.sh")) .. " wallpaper",
-                },
-            })
-        end
-        handle:close()
+    local function add(directory, file, mine)
+        local path = directory .. "/" .. file
+        table.insert(entries, {
+            Text = file,
+            Subtext = mine and yours or nil,
+            Value = path,
+            Icon = path == current and "\239\128\140" or path,
+            State = path == current and { "current" } or {},
+            Preview = path,
+            PreviewType = "file",
+            Actions = {
+                open = paths.code("walker/scripts/actions/wallpaper/apply.sh ") .. shell_quote(path),
+                wallpaper_preview = "bash " .. shell_quote(paths.code("quickshell/desktop-bar/scripts/appearance-picker.sh")) .. " wallpaper",
+                wallpaper_delete = mine and ("python3 " .. shell_quote(own) .. " wallpaper delete " .. shell_quote(path)) or nil,
+            },
+        })
     end
-
+    for _, file in ipairs(pictures(background_dir)) do add(background_dir, file, false) end
+    for _, file in ipairs(pictures(own_dir)) do add(own_dir, file, true) end
     return entries
 end
 

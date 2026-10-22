@@ -18,3 +18,16 @@ for name in EITR_CONFIG_ROOT EITR_STATE_ROOT EITR_CACHE_ROOT EITR_DATA_ROOT; do
 done
 export EITR_CODE_ROOT EITR_LIBRARY_ROOT EITR_CONFIG_ROOT EITR_STATE_ROOT EITR_CACHE_ROOT EITR_DATA_ROOT
 export PYTHONPATH="$EITR_LIBRARY_ROOT${PYTHONPATH:+:$PYTHONPATH}"
+
+# A theme ID's directory, resolved like eitr_paths.theme_paths: a whole-theme
+# override first, then the user's own themes, then the shipped catalog.
+eitr_theme_dir() {
+    local directory
+    for directory in "$EITR_CONFIG_ROOT/themes/$1" "$EITR_DATA_ROOT/eitr/themes/$1" "$EITR_CODE_ROOT/themes/$1"; do
+        if [[ -d "$directory" ]]; then
+            printf '%s\n' "$directory"
+            return 0
+        fi
+    done
+    return 1
+}

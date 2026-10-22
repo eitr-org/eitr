@@ -22,7 +22,11 @@ Rectangle {
     property url fontSource
 
     readonly property bool dark: String(settings && settings.themeMode || "light") === "dark"
-    readonly property var colors: dark ? darkColors : lightColors
+    // A lockscreen of the user's own may set an accent for focus and icons, and a greeting.
+    readonly property string accent: /^#[0-9A-Fa-f]{6}$/.test(String(settings && settings.accent || "")) ? settings.accent : ""
+    readonly property string greeting: String(settings && settings.greeting || "")
+    readonly property var colors: accent ? Object.assign({}, dark ? darkColors : lightColors, { focus: accent, fieldIcon: accent })
+                                         : (dark ? darkColors : lightColors)
     readonly property var lightColors: ({
         accentContainer: "#BEE8C7",
         background: "#ffffff",
@@ -221,6 +225,17 @@ Rectangle {
                     font.letterSpacing: 1 * s
                     color: root.colors.primaryText
                 }
+            }
+
+            Text {
+                visible: root.greeting !== ""
+                width: 360 * s
+                wrapMode: Text.WordWrap
+                text: root.greeting
+                font.family: root.sansFont
+                font.pixelSize: 16 * s
+                font.bold: true
+                color: root.accent || root.colors.secondaryText
             }
         }
 

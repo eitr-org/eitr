@@ -12,6 +12,11 @@ Imported from upstream revision `f6561e2ceae33f26e5e660742a5df2f725cbe514`.
 - Ctrl+P previews without locking; Escape returns to the selector.
 - Super+M locks with the selected design. Hyprlock remains the safety fallback.
 - Preferences: `~/.config/lockscreen/selected` (machine-local; Hyprlock when absent).
+- Create Lockscreen (same menu) stores a user's own lockscreen in
+  `~/.local/share/eitr/lockscreens/<id>/` as `lockscreen.json` and a picture. It
+  is selected as `user:<id>` and drawn by its shipped design (Theme Wallpaper or
+  Material) with `background`, `accent` and `greeting` added to the config; no
+  user QML is ever loaded. The login screen shows that design.
 
 Idle locking uses the same launcher through `hypr/hypridle.conf`: lock after
 15 minutes, screen off after 30 minutes, and suspend after 60 minutes. Hypridle

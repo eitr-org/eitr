@@ -17,6 +17,9 @@ Rectangle {
     width: Screen.width; height: Screen.height
     color: "#050810"
     readonly property real s: height / 768
+    // A lockscreen of the user's own may set its accent and a greeting.
+    readonly property color accent: /^#[0-9A-Fa-f]{6}$/.test(String(config.accent || "")) ? config.accent : "#6090b8"
+    readonly property string greeting: String(config.greeting || "")
 
     // Quickshell
     property bool isQuickshell: typeof sddm === "undefined" || sddm.hostName === undefined
@@ -92,8 +95,12 @@ Rectangle {
         }
         Row {
             spacing: 10 * s
-            Rectangle { width: 22 * s; height: 1 * s; color: "#6090b8"; anchors.verticalCenter: parent.verticalCenter }
-            Text { text: Qt.formatDate(new Date(), "dddd · MMMM d").toUpperCase(); color: "#6090b8"; font.family: bodyFont.name; font.pixelSize: 13 * s; font.letterSpacing: 3 * s }
+            Rectangle { width: 22 * s; height: 1 * s; color: root.accent; anchors.verticalCenter: parent.verticalCenter }
+            Text { text: Qt.formatDate(new Date(), "dddd · MMMM d").toUpperCase(); color: root.accent; font.family: bodyFont.name; font.pixelSize: 13 * s; font.letterSpacing: 3 * s }
+        }
+        Text {
+            visible: root.greeting !== ""; width: 520 * s; wrapMode: Text.WordWrap; topPadding: 10 * s
+            text: root.greeting; color: "white"; font.family: bodyFont.name; font.pixelSize: 20 * s; font.letterSpacing: 1 * s
         }
     }
 
@@ -131,7 +138,7 @@ Rectangle {
             TextInput {
                 id: passwordField; anchors.left: parent.left; anchors.right: arrowHint.left; anchors.rightMargin: 12 * s; anchors.verticalCenter: parent.verticalCenter
                 color: "transparent"; font.family: bodyFont.name; font.pixelSize: 14 * s; echoMode: TextInput.NoEcho; focus: true; clip: true; cursorVisible: false; cursorDelegate: Item { width: 0; height: 0 }
-                selectionColor: "#6090b8"; property bool wasClicked: false; onTextEdited: errorMessage.text = ""
+                selectionColor: root.accent; property bool wasClicked: false; onTextEdited: errorMessage.text = ""
                 Keys.onReturnPressed: doLogin(); Keys.onEnterPressed: doLogin()
                 Row {
                     anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter; spacing: 8 * s
@@ -151,13 +158,13 @@ Rectangle {
                 MouseArea { anchors.fill: parent; cursorShape: Qt.IBeamCursor; onClicked: { passwordField.forceActiveFocus(); passwordField.wasClicked = true } }
             }
             Text {
-                id: arrowHint; anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter; text: "→"; color: "#6090b8"; font.pixelSize: 16 * s; opacity: passwordField.text.length > 0 ? 1.0 : 0.3
+                id: arrowHint; anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter; text: "→"; color: root.accent; font.pixelSize: 16 * s; opacity: passwordField.text.length > 0 ? 1.0 : 0.3
                 Behavior on opacity { NumberAnimation { duration: 200 } }
                 MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: doLogin() }
             }
         }
 
-        Rectangle { width: parent.width; height: 1 * s; color: passwordField.activeFocus ? "#80b0d8" : "#28607888"; Behavior on color { ColorAnimation { duration: 300 } } }
+        Rectangle { width: parent.width; height: 1 * s; color: passwordField.activeFocus ? Qt.lighter(root.accent, 1.25) : "#28607888"; Behavior on color { ColorAnimation { duration: 300 } } }
 
         Item { width: 1 * s; height: 10 * s }
 

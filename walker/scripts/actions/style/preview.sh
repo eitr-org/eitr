@@ -8,7 +8,8 @@ set -euo pipefail
 sleep 0.2
 category="theme"
 if [[ -n "${1:-}" ]]; then
-  if [[ -f "$EITR_CONFIG_ROOT/themes/$1/light.mode" || ( ! -d "$EITR_CONFIG_ROOT/themes/$1" && -f "$EITR_CODE_ROOT/themes/$1/light.mode" ) ]]; then
+  theme_dir="$(eitr_theme_dir "$1" || true)"
+  if [[ -n "$theme_dir" && -f "$theme_dir/light.mode" ]]; then
     category="theme-light"
   else
     category="theme-dark"

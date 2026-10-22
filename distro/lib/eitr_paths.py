@@ -58,10 +58,17 @@ def shell_path(component, root=None):
     return override if (override / 'shell.qml').is_file() and os.geteuid() != 0 else code_root(root) / 'quickshell' / component
 
 
+def own(kind):
+    """The user's own themes, wallpapers or lockscreens: local data that updates never touch."""
+    if kind not in ('themes', 'wallpapers', 'lockscreens'):
+        raise ValueError('Unknown kind of own item')
+    return data('eitr') / kind
+
+
 def theme_paths(root=None):
-    """One whole-directory override per theme ID, user first."""
+    """One directory per theme ID: shipped, then the user's own, then a whole-theme override."""
     merged = {}
-    for directory in (code_root(root) / 'themes', config('themes')):
+    for directory in (code_root(root) / 'themes', own('themes'), config('themes')):
         if directory.is_dir():
             for entry in directory.iterdir():
                 if entry.is_dir() and (entry / 'colors.toml').is_file():

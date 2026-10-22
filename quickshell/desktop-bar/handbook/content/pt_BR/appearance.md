@@ -8,6 +8,14 @@ Abra **Estilo > Tema** ou **SUPER + Ctrl + Shift + N**. Escolha escuro ou claro 
 
 O tema Norse inclui desenhos de corvo, Valquíria, Odin, Fenrir e Jörmungandr sobre fundo preto. Escolha-os pelos mesmos controles; a arte adicional não altera a paleta. O primeiro papel de parede, a pedra rúnica, é animado: auroras se movem lentamente atrás do anel de runas. Elas pausam atrás de aplicativos em tela cheia; a tela de bloqueio usa a imagem estática.
 
+## Seus próprios papéis de parede, temas e telas de bloqueio
+
+Suas imagens, temas e telas de bloqueio ficam neste computador, em `~/.local/share/eitr/` (`wallpapers`, `themes` e `lockscreens`). O Eitr nunca os envia nem compartilha, e as atualizações nunca os alteram. Eles aparecem ao lado dos distribuídos, marcados como **Seu**, e só eles podem ser excluídos: selecione um, pressione **Delete** e depois Enter para confirmar ou Esc para mantê-lo.
+
+- **Estilo > Papel de parede > Adicionar meu papel de parede** aceita um arquivo de imagem ou um endereço https. Downloads param em 50 MB, e o Eitr só guarda uma cópia depois de verificar que o arquivo é uma imagem JPEG, PNG ou WebP. A imagem então aparece na lista de papéis de parede, no carrossel e com SUPER + Shift + N. Excluir o papel de parede em uso muda antes para o primeiro papel de parede do tema.
+- **Estilo > Tema > Criar tema** pede uma imagem (o papel de parede atual, um seu, um do tema ou outro arquivo ou endereço https), claro ou escuro (Automático segue o brilho da imagem) e um nome. Depois da revisão, o Eitr cria uma paleta completa a partir da imagem, mantendo o texto bem legível sobre o fundo, e aplica o tema à barra, ao terminal, ao lançador, aos apps e aos ícones. Em seguida vem uma lista de cores: escolha Destaque, Fundo, Texto ou uma das seis cores do terminal, digite seis dígitos hexadecimais e a alteração é aplicada na hora; Esc conclui. **Ctrl + E** em um dos seus temas abre a lista de novo. Excluir o tema em uso volta antes ao tema usado antes de criá-lo.
+- **Estilo > Tela de bloqueio > Criar tela de bloqueio** usa o desenho Theme Wallpaper ou Material com sua imagem, uma cor de destaque opcional e uma saudação opcional abaixo do relógio, e depois mostra uma prévia. Ela é selecionada como qualquer desenho. A tela de login não consegue ler sua pasta pessoal: mostra o mesmo desenho, com sua imagem no Theme Wallpaper e a imagem do próprio desenho no Material. Excluir a tela de bloqueio em uso seleciona antes o desenho dela.
+
 ## Barra e cantos
 
 **Estilo > Barra da área de trabalho** escolhe desfoque ou cor do tema, layout completo ou centralizado e borda. O Walker acompanha essa aparência. **Estilo > Cantos** escolhe cantos quadrados, arredondados ou muito arredondados para as superfícies do EITR e decorações do compositor. Aplicativos de terceiros podem manter seus controles próprios; pontos de estado circulares continuam circulares.
@@ -24,7 +32,7 @@ O menu de inicialização do Limine usa as cores do tema atual, o título EITR e
 
 **Estilo > Tela de bloqueio** define o desenho da tela de bloqueio e da tela de login. As preferências existentes são mantidas nas trocas de tema.
 
-Os desenhos disponíveis são Clockwork Neo Orbital, Clockwork Tape, Girl Coffee, Girl Pillow, Material Dark, Material Light, Nothing e Theme Wallpaper. O seletor mostra apenas os desenhos distribuídos; prévias não bloqueiam a sessão. Uma escolha removida da distribuição passa para Clockwork Tape, o padrão de novas instalações.
+Os desenhos disponíveis são Clockwork Neo Orbital, Clockwork Tape, Girl Coffee, Girl Pillow, Material Dark, Material Light, Nothing e Theme Wallpaper. Depois vêm as suas próprias telas de bloqueio; prévias não bloqueiam a sessão. Uma escolha removida da distribuição passa para Clockwork Tape, o padrão de novas instalações.
 
 A arte tem resolução alvo de 4K (3840×2160, 16:9). Coffee e Pillow mantêm o estilo anime tranquilo com roupas nórdicas; Material e Clockwork usam ornamentos rúnicos discretos. Nothing mantém seu desenho. QML e SVG continuam escaláveis.
 

@@ -48,10 +48,10 @@ if [[ "$mode" == lock ]]; then
   pgrep -x hyprlock >/dev/null && exit 0
   # Any failure while resolving the design must still leave the session locked.
   choice="${2:-$(python3 "$root/scripts/settings.py" current 2>/dev/null || echo hyprlock)}"
-  if [[ "$choice" == hyprlock || ! -f "$root/themes/$choice/Main.qml" ]]; then
-    exec eitr-hyprlock
-  fi
-  # Validate before resolving the theme path; no arbitrary QML paths are accepted.
+  [[ "$choice" != hyprlock ]] || exec eitr-hyprlock
+  # Only shipped designs draw a lock (own lockscreens name one); no arbitrary QML paths.
+  design="$(python3 "$root/scripts/settings.py" design "$choice")" || exec eitr-hyprlock
+  [[ -f "$root/themes/$design/Main.qml" ]] || exec eitr-hyprlock
   config="$(python3 "$root/scripts/settings.py" config "$choice")" || exec eitr-hyprlock
 else
   choice="${2:-$(python3 "$root/scripts/settings.py" current)}"
@@ -59,11 +59,12 @@ else
     notify-send -u low "Hyprlock preview" "Use the lock shortcut to view your existing Hyprlock."
     exit 0
   fi
+  design="$(python3 "$root/scripts/settings.py" design "$choice")"
   config="$(python3 "$root/scripts/settings.py" config "$choice")"
 fi
 
 export DESKTOP_LOCK_CONFIG="$config"
-export DESKTOP_LOCK_THEME="$root/themes/$choice"
+export DESKTOP_LOCK_THEME="$root/themes/$design"
 export QML_IMPORT_PATH="$root/imports:$EITR_CODE_ROOT/quickshell${QML_IMPORT_PATH:+:$QML_IMPORT_PATH}"
 export QML2_IMPORT_PATH="$QML_IMPORT_PATH"
 if [[ "$mode" == preview ]]; then

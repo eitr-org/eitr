@@ -8,6 +8,14 @@ Ouvrez **Style > Thème** ou **SUPER + Ctrl + Shift + N**. Choisissez sombre ou 
 
 Norse comprend des dessins de corbeau, Valkyrie, Odin, Fenrir et Jörmungandr sur fond noir. Utilisez les mêmes commandes de sélection ; ces images supplémentaires ne changent pas la palette. Le premier fond, la pierre runique, est animé : des aurores se déplacent lentement derrière l’anneau de runes. Elles s’arrêtent derrière les applications plein écran ; le verrouillage montre l’image fixe.
 
+## Vos propres fonds d’écran, thèmes et écrans de verrouillage
+
+Vos images, thèmes et écrans de verrouillage restent sur cet ordinateur, dans `~/.local/share/eitr/` (`wallpapers`, `themes` et `lockscreens`). Eitr ne les envoie ni ne les partage jamais, et les mises à jour ne les modifient jamais. Ils apparaissent à côté de ceux distribués, marqués **Le vôtre**, et eux seuls peuvent être supprimés : sélectionnez-en un, appuyez sur **Suppr**, puis Entrée pour confirmer ou Échap pour le garder.
+
+- **Style > Fond d’écran > Ajouter mon fond d’écran** accepte un fichier image ou une adresse https. Les téléchargements s’arrêtent à 50 Mo, et Eitr n’en garde une copie qu’après avoir vérifié qu’il s’agit d’une image JPEG, PNG ou WebP. L’image apparaît ensuite dans la liste des fonds d’écran, le carrousel et avec SUPER + Maj + N. Supprimer le fond d’écran utilisé passe d’abord au premier fond d’écran du thème.
+- **Style > Thème > Créer un thème** demande une image (le fond d’écran actuel, l’un des vôtres, l’un du thème, ou un autre fichier ou une adresse https), clair ou sombre (Automatique suit la luminosité de l’image) et un nom. Après le récapitulatif, Eitr crée une palette complète à partir de l’image, en gardant le texte bien lisible sur l’arrière-plan, et applique le thème à la barre, au terminal, au lanceur, aux applications et aux icônes. Une liste de couleurs suit : choisissez Accent, Arrière-plan, Texte ou l’une des six couleurs du terminal, saisissez six chiffres hexadécimaux, et la modification s’applique aussitôt ; Échap termine. **Ctrl + E** sur l’un de vos thèmes rouvre la liste. Supprimer le thème utilisé revient d’abord au thème utilisé avant sa création.
+- **Style > Écran de verrouillage > Créer un écran de verrouillage** utilise le modèle Theme Wallpaper ou Material avec votre image, une couleur d’accent facultative et un message facultatif sous l’horloge, puis affiche un aperçu. Il se choisit comme n’importe quel modèle. L’écran de connexion ne peut pas lire votre dossier personnel : il affiche le même modèle, avec votre image pour Theme Wallpaper et l’image du modèle pour Material. Supprimer l’écran de verrouillage utilisé choisit d’abord son modèle.
+
 ## Barre et coins
 
 **Style > Barre de bureau** choisit flou ou couleur du thème, disposition complète ou centrée et bord d’écran. Walker suit cette apparence. **Style > Coins** choisit des coins carrés, arrondis ou très arrondis pour les surfaces EITR et les décorations du compositeur. Les applications tierces peuvent garder leurs propres contrôles ; les points d’état circulaires restent ronds.
@@ -24,7 +32,7 @@ Le menu de démarrage Limine utilise les couleurs du thème actuel, un titre EIT
 
 **Style > Écran de verrouillage** définit le verrouillage et l’écran de connexion. Les changements de thème conservent vos préférences.
 
-Les modèles disponibles sont Clockwork Neo Orbital, Clockwork Tape, Girl Coffee, Girl Pillow, Material Dark, Material Light, Nothing et Theme Wallpaper. Seuls ceux distribués apparaissent ; les aperçus ne verrouillent pas la session. Un modèle retiré est remplacé par Clockwork Tape, le choix par défaut des nouvelles installations.
+Les modèles disponibles sont Clockwork Neo Orbital, Clockwork Tape, Girl Coffee, Girl Pillow, Material Dark, Material Light, Nothing et Theme Wallpaper. Vos propres écrans de verrouillage suivent ; les aperçus ne verrouillent pas la session. Un modèle retiré est remplacé par Clockwork Tape, le choix par défaut des nouvelles installations.
 
 Les images visent 4K (3840×2160, 16:9). Coffee et Pillow gardent leur style anime paisible avec des vêtements nordiques ; Material et Clockwork utilisent des ornements runiques discrets. Nothing garde son modèle. QML et SVG restent redimensionnables.
 

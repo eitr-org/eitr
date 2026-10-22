@@ -13,6 +13,7 @@ for _eitr_parent in Path(__file__).resolve().parents:
         break
 from eitr_paths import cache, code, config as user_config
 from eitr_i18n import tr
+import eitr_own_style
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -36,12 +37,26 @@ def designs():
         for path in sorted((ROOT / "themes").rglob("Main.qml"))}
 
 
+def own_designs():
+    """The user's own lockscreens: a shipped design with their picture, accent and greeting."""
+    return eitr_own_style.own_lockscreens()
+
+
+def known(value):
+    return value in designs() or value in own_designs()
+
+
+def base_design(value):
+    """The shipped design that draws a selection; own lockscreens reuse one."""
+    return own_designs()[value]['design'] if value in own_designs() else value
+
+
 def selected():
     try:
         value = STATE.read_text().strip()
     except OSError:
         value = "hyprlock"
-    return value if value in designs() else "hyprlock"
+    return value if known(value) else "hyprlock"
 
 
 def theme_wallpaper():
@@ -66,19 +81,23 @@ def theme_wallpaper():
 def design_config(value):
     parser = configparser.ConfigParser(interpolation=None, strict=False)
     parser.optionxform = str
-    parser.read(ROOT / "themes" / value / "theme.conf")
+    parser.read(ROOT / "themes" / base_design(value) / "theme.conf")
     settings = dict(parser["General"]) if parser.has_section("General") else {}
-    if value == 'theme-wallpaper':
+    if value in own_designs():
+        mine = own_designs()[value]
+        settings.update(background=Path(mine['picture']).as_uri(), accent=mine.get('accent', ''),
+                        greeting=mine.get('greeting', ''))
+    elif value == 'theme-wallpaper':
         wallpaper = theme_wallpaper()
         settings['background'] = wallpaper.as_uri() if wallpaper else ''
     return settings
 
 
-def login_wallpaper_jpeg(limit=(3840, 2160)):
-    """The current wallpaper as a JPEG for the login screen, which cannot read the home folder."""
+def login_wallpaper_jpeg(limit=(3840, 2160), source=None):
+    """The current wallpaper (or another picture) as a JPEG for the login screen, which cannot read the home folder."""
     import io
     from PIL import Image
-    source = theme_wallpaper()
+    source = source or theme_wallpaper()
     if source is None:
         return None
     with Image.open(source) as image:
@@ -89,9 +108,9 @@ def login_wallpaper_jpeg(limit=(3840, 2160)):
     return output.getvalue()
 
 
-def give_login_wallpaper(helper):
-    """Hand the current wallpaper to the root-owned login helper (Theme Wallpaper design)."""
-    data = login_wallpaper_jpeg()
+def give_login_wallpaper(helper, source=None):
+    """Hand the current wallpaper (or an own lockscreen's picture) to the root-owned login helper (Theme Wallpaper design)."""
+    data = login_wallpaper_jpeg(source=source)
     if data is None:
         return True
     result = subprocess.run(['sudo', '-n', str(helper), '--wallpaper'], input=data, capture_output=True)
@@ -115,27 +134,34 @@ def main():
     if command == "list":
         for value, label in designs().items():
             print(f"{value}\t{label}")
+        for value, mine in own_designs().items():
+            print(f"{value}\t{mine['name']}")
         return
     if command == "refresh-login":
         refresh_login_wallpaper()
         return
-    if command not in ("select", "config", "preview"):
+    if command not in ("select", "config", "preview", "design"):
         raise SystemExit('Unknown command')
     if len(sys.argv) < 3:
         raise SystemExit('Usage: settings.py {command} DESIGN'.format(command=f'{command}'))
     value = sys.argv[2]
-    if value not in designs():
+    if not known(value):
         raise SystemExit('Unknown lockscreen')
-    if command == "select":
+    if command == "design":
+        print(base_design(value))
+    elif command == "select":
         # The packaged helper first; an older installation's sudo rule may still
         # allow only the previous /usr/local helper until its login setup reruns.
+        # The login screen shows an own lockscreen's design; Theme Wallpaper gets its picture.
         helpers = [path for path in LOGIN_HELPERS if path.is_file()]
         errors = []
+        design = base_design(value)
+        picture = Path(own_designs()[value]['picture']) if value in own_designs() else None
         for helper in helpers:
-            if value == 'theme-wallpaper' and not give_login_wallpaper(helper):
+            if design == 'theme-wallpaper' and not give_login_wallpaper(helper, picture):
                 errors.append(f'{helper} could not store the login wallpaper')
                 continue
-            result = subprocess.run(['sudo', '-n', str(helper), value], capture_output=True, text=True)
+            result = subprocess.run(['sudo', '-n', str(helper), design], capture_output=True, text=True)
             if result.returncode == 0:
                 break
             errors.append(result.stderr.strip())
@@ -149,6 +175,9 @@ def main():
     elif command == "config":
         print(json.dumps(design_config(value)))
     elif command == "preview":
+        if value in own_designs():
+            print(own_designs()[value]['picture'])
+            return
         wallpaper = theme_wallpaper() if value == 'theme-wallpaper' else None
         print(wallpaper or ROOT / 'themes' / value / 'preview.png')
     else:

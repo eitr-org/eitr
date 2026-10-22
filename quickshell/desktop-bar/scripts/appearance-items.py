@@ -11,7 +11,8 @@ for _eitr_parent in Path(__file__).resolve().parents:
     if (_eitr_lib / "eitr_paths.py").is_file():
         sys.path.insert(0, str(_eitr_lib))
         break
-from eitr_paths import code, config as user_config, theme_paths
+from eitr_paths import code, config as user_config, own, theme_paths
+from eitr_i18n import tr
 import tomllib
 import hashlib
 from PIL import Image
@@ -84,7 +85,8 @@ if mode.startswith("theme"):
         light = mode == "theme-light"
         for directory in directories:
             if is_light(directory) == light:
-                entries.append({"name": display_name(directory),
+                mine = directory.parent == own("themes")
+                entries.append({"name": tr('{name} (yours)', name=display_name(directory)) if mine else display_name(directory),
                                 "value": directory.name,
                                 "image": (directory / "preview.png").as_uri(),
                                 "current": directory.name == current})
@@ -95,7 +97,9 @@ else:
     def natural(path):
         return [int(part) if part.isdigit() else part.lower()
                 for part in re.split(r"(\d+)", path.name)]
-    for image in sorted(directory.rglob("*"), key=natural):
+    # The theme's wallpapers, then the user's own (eitr_own_style).
+    images = sorted(directory.rglob("*"), key=natural) + sorted(own("wallpapers").glob("*"), key=natural)
+    for image in images:
         if image.is_file() and image.suffix.lower() in {".png", ".jpg", ".jpeg", ".webp"}:
             entries.append({"name": image.name, "value": str(image),
                             "image": preview_url(image), "current": str(image) == current})

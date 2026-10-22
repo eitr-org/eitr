@@ -10,5 +10,20 @@
     "subtext": ">",
     "icon": "󰖙",
     "submenu": "theme-light"
+  },
+  {
+    "text": "Create Theme",
+    "subtext": "From a picture, with colors you can adjust; kept on this computer",
+    "keywords": [
+      "own",
+      "custom",
+      "palette",
+      "colors",
+      "wallpaper"
+    ],
+    "icon": "󰐕",
+    "actions": {
+      "open": "kitty --class eitr-menu-terminal -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/style/own.py theme create"
+    }
   }
 ]

@@ -11,7 +11,6 @@ if [[ -z "${1:-}" ]]; then
   exit 1
 fi
 
-THEMES_DIR="$EITR_CONFIG_ROOT/themes"
 THEME_ROOT="$EITR_CONFIG_ROOT/theme"
 CURRENT_DIR="$THEME_ROOT/current"
 THEME_SCRIPTS_DIR="$EITR_CODE_ROOT/walker/scripts/themes"
@@ -31,10 +30,7 @@ if [[ ! "$THEME_NAME" =~ ^[a-z0-9-]+$ ]]; then
   exit 1
 fi
 
-THEME_DIR="$THEMES_DIR/$THEME_NAME"
-if [[ ! -d "$THEME_DIR" ]]; then THEME_DIR="$EITR_CODE_ROOT/themes/$THEME_NAME"; fi
-
-if [[ ! -d "$THEME_DIR" ]]; then
+if ! THEME_DIR="$(eitr_theme_dir "$THEME_NAME")"; then
   notify-send "Theme" "Theme '$THEME_NAME' does not exist"
   exit 1
 fi

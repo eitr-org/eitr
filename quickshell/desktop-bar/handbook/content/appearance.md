@@ -20,6 +20,35 @@ wallpaper, the runestone, is live: the northern lights drift slowly behind the
 rune ring. They pause behind fullscreen apps, and the lockscreen shows the still
 image.
 
+## Your own wallpapers, themes and lockscreens
+
+Your own pictures, themes and lockscreens stay on this computer, in
+`~/.local/share/eitr/` (`wallpapers`, `themes` and `lockscreens`). Eitr never
+uploads or shares them, and updates never change them. They appear beside the
+shipped ones, marked **Yours**, and only they can be deleted: select one and
+press **Delete**, then Enter to confirm or Escape to keep it.
+
+- **Style > Wallpaper > Add My Own Wallpaper** takes a picture file or an https
+  address. Downloads stop at 50 MB, and Eitr keeps a copy only after checking
+  that the file is a JPEG, PNG or WebP picture. The picture then appears in the
+  wallpaper list, the carousel and SUPER + Shift + N. Deleting the wallpaper in
+  use first switches to the theme's first wallpaper.
+- **Style > Theme > Create Theme** asks for a picture (the current wallpaper,
+  one of yours, the theme's, or another file or https address), light or dark
+  (Automatic follows the picture's brightness), and a name. After the review,
+  Eitr builds a full palette from the picture, keeping text clearly readable on
+  the background, and applies the theme to the bar, terminal, launcher, apps and
+  icons. A color list follows: choose Accent, Background, Text or one of the six
+  terminal colors, type six hex digits, and the change applies at once; Escape
+  finishes. **Ctrl + E** on one of your themes opens the list again. Deleting the
+  theme in use first returns to the theme you used before creating it.
+- **Style > Lockscreen > Create Lockscreen** uses the Theme Wallpaper or
+  Material design with your picture, an optional accent color and an optional
+  greeting under the clock, then shows a preview. Select it like any design.
+  The login screen cannot read your home folder: it shows the same design, with
+  your picture for Theme Wallpaper and the design's own picture for Material.
+  Deleting the lockscreen in use first selects its design.
+
 ## Bar and corners
 
 **Style > Desktop Bar** selects Blur/Theme Color, full/centered layout and edge.
@@ -56,8 +85,8 @@ system booting after an edit.
 screen. Existing preferences survive theme changes.
 
 Available designs are Clockwork Neo Orbital, Clockwork Tape, Girl Coffee,
-Girl Pillow, Material Dark, Material Light, Nothing and Theme Wallpaper. Only shipped designs
-appear in the picker; previews do not lock the session. A selection of a design
+Girl Pillow, Material Dark, Material Light, Nothing and Theme Wallpaper, followed
+by any lockscreens of your own; previews do not lock the session. A selection of a design
 that is no longer shipped moves to Clockwork Tape, the default for fresh
 installations.
 

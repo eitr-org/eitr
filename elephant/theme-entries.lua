@@ -2,6 +2,11 @@ local paths = dofile((os.getenv("EITR_LIBRARY_ROOT") or "/usr/share/eitr/lib") .
 local home = os.getenv("HOME")
 
 local shell_quote = dofile(paths.code("elephant/shell-quote.lua"))
+local i18n = dofile(paths.code("elephant/i18n.lua"))
+local own = paths.code("walker/scripts/actions/style/own.py")
+local own_dir = paths.own("themes") .. "/"
+local presenter = paths.code("walker/scripts/actions/task-terminal.py")
+local yours = i18n.mark("Yours")
 
 local function current_theme()
     local file = io.open(home .. "/.cache/current-theme", "r")
@@ -37,8 +42,10 @@ return function(category)
             local is_light = marker ~= nil
             if marker then marker:close() end
             if (category == "light") == is_light then
+                local mine = theme_dir:sub(1, #own_dir) == own_dir
                 table.insert(entries, {
                     Text = display_name(theme, theme_dir),
+                    Subtext = mine and yours or nil,
                     Value = theme,
                     Icon = theme == current and "" or "󰸌",
                     State = theme == current and { "current" } or {},
@@ -47,6 +54,9 @@ return function(category)
                     Actions = {
                         theme_apply = paths.code("walker/scripts/actions/style/apply.sh ") .. shell_quote(theme),
                         theme_preview = paths.code("walker/scripts/actions/style/preview.sh ") .. shell_quote(theme),
+                        theme_colors = mine and ("kitty --class eitr-menu-terminal -e python3 " .. shell_quote(presenter)
+                            .. " python3 " .. shell_quote(own) .. " theme colors " .. shell_quote(theme)) or nil,
+                        theme_delete = mine and ("python3 " .. shell_quote(own) .. " theme delete " .. shell_quote(theme)) or nil,
                     },
                 })
             end

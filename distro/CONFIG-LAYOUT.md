@@ -99,6 +99,7 @@ logged.
 | `eitr/git-accounts/{active.gitconfig,generations/**}` | G | Git Accounts generates native includes from preferences |
 | `eitr/git-accounts/cli/**`, `~/.ssh/eitr-*` | Private account data | Provider CLI tokens and SSH keys; never packaged or backed up by Git Accounts |
 | `lockscreen/selected` | P | Lockscreen settings, launcher and SDDM selection |
+| Data `eitr/{wallpapers,themes,lockscreens}/**` | User data | The user's own items (`eitr_own_style.py`); never packaged, adopted, regenerated or overwritten |
 | `hypr/{primary-display,preferred-outputs,local.lua,keyboard-layouts.lua}` | P | Display helper, bar, Hyprland |
 | `theme/current/**`, `walker/themes/current/**`, `kitty/{theme,fonts,cursor-fire}.conf`, `swayosd/style.css` | G | Theme switch and generators |
 | `btop/themes/current.theme` plus three owned `btop.conf` keys | G/P | `btop.sh`; other btop settings untouched |
@@ -254,9 +255,11 @@ generated styles append an optional `walker/style.override.css` last.
 
 ### Theme catalog and generators
 
-Theme IDs resolve in user `themes/<id>` first, then `/usr/share/eitr/themes/<id>`;
+Theme IDs resolve in user `themes/<id>` first, then the user's own themes in
+`$XDG_DATA_HOME/eitr/themes/<id>`, then `/usr/share/eitr/themes/<id>`;
 a user theme directory is a deliberate whole-theme override, not a copied
-catalog. The same resolver serves Elephant, appearance items, wallpaper
+catalog. Own themes are created by Style > Theme > Create Theme and cannot reuse
+a shipped ID. The same resolver serves Elephant, appearance items, wallpaper
 next/apply/transition, Neovim theme discovery and Learn previews. Shipped theme
 code is never run as root.
 

@@ -521,5 +521,12 @@
   "Add Calendar…": "Añadir calendario…",
   "Calendars": "Calendarios",
   "Read-only from {host} · select to remove": "Solo lectura desde {host} · selecciona para quitarlo",
-  "Show a Google, Outlook or iCal calendar beside your reminders": "Muestra un calendario de Google, Outlook o iCal junto a recordatorios"
+  "Show a Google, Outlook or iCal calendar beside your reminders": "Muestra un calendario de Google, Outlook o iCal junto a recordatorios",
+  "A design with your own picture, color and greeting": "Un diseño con tu imagen, color y saludo",
+  "A picture file or an https address, kept on this computer": "Archivo de imagen o dirección https, guardado en este equipo",
+  "Add My Own Wallpaper": "Añadir mi fondo de pantalla",
+  "Create Lockscreen": "Crear pantalla de bloqueo",
+  "Create Theme": "Crear tema",
+  "From a picture, with colors you can adjust; kept on this computer": "Desde una imagen, con colores ajustables; en este equipo",
+  "Yours": "Tuyo"
 }

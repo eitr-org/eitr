@@ -29,6 +29,16 @@ GPUs or a real Windows/BitLocker disk, waits for the public preview and lands in
 Later codenames are planned, not promised: a release may move to the next row
 when its milestone changes. Patch releases (0.3.1) keep their minor's codename.
 
+## Your own wallpapers, themes and lockscreens (unreleased)
+
+Style > Wallpaper adds a picture from a file or an https address (50 MB at most,
+decoded before a copy is kept). Style > Theme > Create Theme builds a complete
+palette from a picture, light or dark, with readable text, applies it and then
+lets each main color change live. Style > Lockscreen > Create Lockscreen puts a
+picture, accent and greeting into the Theme Wallpaper or Material design. All
+three stay in `~/.local/share/eitr/`, are listed as Yours and can be deleted.
+Not yet tried on the owner's live desktop.
+
 ## Local assistant (unreleased)
 
 Development > Default Assistant always offers an offline, experimental assistant:

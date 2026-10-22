@@ -112,6 +112,12 @@ msgstr "É necessário um certificado de CA em formato PEM"
 msgid "A factory reset point already exists; it is never replaced"
 msgstr "Já existe um ponto de redefinição de fábrica; ele nunca é substituído"
 
+msgid "A file such as ~/Pictures/lake.jpg, or an https address. Eitr downloads it (up to 50 MB) and checks that it is a picture."
+msgstr "Um arquivo como ~/Pictures/lake.jpg ou um endereço https. O Eitr baixa (até 50 MB) e verifica se é uma imagem."
+
+msgid "A lockscreen named {name} already exists."
+msgstr "Já existe uma tela de bloqueio chamada {name}."
+
 msgid "A maximum of four layouts can be active at once"
 msgstr "No máximo quatro layouts podem ficar ativos ao mesmo tempo"
 
@@ -129,6 +135,9 @@ msgstr "É necessário um usuário normal do desktop"
 
 msgid "A selection is required"
 msgstr "É necessário fazer uma seleção"
+
+msgid "A theme named {name} already exists."
+msgstr "Já existe um tema chamado {name}."
 
 msgid "A web app named {name} already exists. Remove it first from Install > Web Apps."
 msgstr "Já existe um aplicativo web chamado {name}. Remova-o primeiro em Instalar > Aplicativos web."
@@ -150,6 +159,12 @@ msgstr "AWS SSO (IAM Identity Center)"
 
 msgid "AWS sign-in needs AWS CLI version 2"
 msgstr "O login na AWS exige a versão 2 da AWS CLI"
+
+msgid "Accent"
+msgstr "Destaque"
+
+msgid "Accent color"
+msgstr "Cor de destaque"
 
 msgid "Access keys"
 msgstr "Chaves de acesso"
@@ -208,6 +223,9 @@ msgstr "Adicionar uma conta AWS"
 msgid "Add an Azure account"
 msgstr "Adicionar uma conta Azure"
 
+msgid "Add your own wallpaper. Eitr keeps a copy only on this computer."
+msgstr "Adicione seu papel de parede. O Eitr guarda uma cópia só neste computador."
+
 msgid "Add {provider} Account"
 msgstr "Adicionar conta {provider}"
 
@@ -216,6 +234,9 @@ msgstr "Adicionar: {kind}: {value} ({connection})"
 
 msgid "Added packages are also removed: {packages}"
 msgstr "Pacotes adicionados também são removidos: {packages}"
+
+msgid "Adding the picture…"
+msgstr "Adicionando a imagem…"
 
 msgid "Address"
 msgstr "Endereço"
@@ -238,6 +259,9 @@ msgstr "Uma redefinição de fábrica interrompida precisa de revisão manual; c
 msgid "Another Ollama server is already using {host}. Stop it, then try again."
 msgstr "Outro servidor Ollama já está usando {host}. Pare-o e tente novamente."
 
+msgid "Another picture: a file or an https address"
+msgstr "Outra imagem: um arquivo ou endereço https"
+
 msgid "Answers name {disk}, not one of the eligible disks: {candidates}"
 msgstr "O arquivo de respostas indica {disk}, que não está entre os discos disponíveis: {candidates}"
 
@@ -256,8 +280,17 @@ msgstr "Projetos de aplicativos"
 msgid "Applications"
 msgstr "Aplicativos"
 
+msgid "Applied."
+msgstr "Aplicado."
+
 msgid "Apply this system change? Type yes to continue: "
 msgstr "Aplicar esta alteração no sistema? Digite yes para continuar: "
+
+msgid "Applying it…"
+msgstr "Aplicando…"
+
+msgid "Applying…"
+msgstr "Aplicando…"
 
 msgid "Apps"
 msgstr "Aplicativos"
@@ -267,6 +300,9 @@ msgstr "O Arch publicou notícias desde sua última atualização:"
 
 msgid "Arrows / Tab: move  Enter: answer  Esc: cancel"
 msgstr "Setas / Tab: mover  Enter: responder  Esc: cancelar"
+
+msgid "Arrows: move  Enter: change  Esc: done"
+msgstr "Setas: mover  Enter: alterar  Esc: concluir"
 
 msgid "Arrows: move  Enter: select  Type: search  Esc: back"
 msgstr "Setas: mover  Enter: selecionar  Digite para buscar  Esc: voltar"
@@ -301,8 +337,17 @@ msgstr "Email do autor"
 msgid "Author name"
 msgstr "Nome do autor"
 
+msgid "Automatic picks light for a bright picture and dark otherwise."
+msgstr "Automático escolhe claro para uma imagem clara e escuro caso contrário."
+
+msgid "Automatic: from the picture's brightness"
+msgstr "Automático: pelo brilho da imagem"
+
 msgid "Available accounts"
 msgstr "Contas disponíveis"
+
+msgid "Background"
+msgstr "Fundo"
 
 msgid "Background service added: {command}"
 msgstr "Serviço em segundo plano adicionado: {command}"
@@ -339,6 +384,9 @@ msgstr "Arquivo binário: {path}"
 
 msgid "BitLocker: keep the Windows recovery key at hand"
 msgstr "BitLocker: tenha a chave de recuperação do Windows em mãos"
+
+msgid "Blue"
+msgstr "Azul"
 
 msgid "Boot loader: {loader}"
 msgstr "Carregador de boot: {loader}"
@@ -499,6 +547,9 @@ msgstr "Escolha iwd, networkmanager ou restore"
 msgid "Choose occurrence or series."
 msgstr "Escolha occurrence ou series."
 
+msgid "Choose one of the listed designs."
+msgstr "Escolha um dos desenhos listados."
+
 msgid "Chromium default requires add.packages chromium or its recipe"
 msgstr "Chromium como padrão exige add.packages chromium ou sua receita"
 
@@ -576,6 +627,12 @@ msgstr "Cognito"
 
 msgid "Collected a problem report ({line_count} lines) and saved it privately to\n{path}."
 msgstr "Relatório de problema coletado ({line_count} linhas) e salvo de forma privada em\n{path}."
+
+msgid "Colors"
+msgstr "Cores"
+
+msgid "Colors of {name}"
+msgstr "Cores de {name}"
 
 msgid "Command failed (exit {status})"
 msgstr "O comando falhou (código {status})"
@@ -679,6 +736,12 @@ msgstr "Não foi possível transferir {problem}; a pasta pessoal anterior foi ma
 msgid "Could not check for pending updates: {error}"
 msgstr "Não foi possível verificar as atualizações pendentes: {error}"
 
+msgid "Could not complete that"
+msgstr "Não foi possível concluir"
+
+msgid "Could not download the picture: {error}"
+msgstr "Não foi possível baixar a imagem: {error}"
+
 msgid "Could not launch OBS in the background"
 msgstr "Não foi possível iniciar o OBS em segundo plano"
 
@@ -700,8 +763,14 @@ msgstr "Não entendi quando: {when}"
 msgid "Crash summary"
 msgstr "Resumo da falha"
 
+msgid "Create a lockscreen with your own picture. It stays on this computer."
+msgstr "Crie uma tela de bloqueio com sua imagem. Ela fica neste computador."
+
 msgid "Create a recovery key first? Strongly recommended."
 msgstr "Criar uma chave de recuperação primeiro? É altamente recomendado."
+
+msgid "Create a theme from a picture. It stays on this computer."
+msgstr "Crie um tema a partir de uma imagem. Ele fica neste computador."
 
 msgid "Create a web app: a launcher that opens a site in its own window."
 msgstr "Crie um aplicativo web: um atalho que abre um site em sua própria janela."
@@ -712,8 +781,17 @@ msgstr "Criando o snapshot posterior à atualização…"
 msgid "Creating the before-update snapshot…"
 msgstr "Criando o snapshot anterior à atualização…"
 
+msgid "Creating the lockscreen…"
+msgstr "Criando a tela de bloqueio…"
+
+msgid "Creating the theme…"
+msgstr "Criando o tema…"
+
 msgid "Current Disk Usage"
 msgstr "Uso atual do disco"
+
+msgid "Current wallpaper"
+msgstr "Papel de parede atual"
 
 msgid "Cursor"
 msgstr "Cursor"
@@ -739,6 +817,9 @@ msgstr "Serviço tailscaled personalizado ou mascarado: revise manualmente"
 msgid "Custom static-IP/VPN setups need manual review before switching."
 msgstr "Configurações personalizadas de IP estático ou VPN precisam de revisão manual antes da troca."
 
+msgid "Cyan"
+msgstr "Ciano"
+
 msgid "D1 Databases"
 msgstr "Bancos de dados D1"
 
@@ -759,6 +840,9 @@ msgstr "Domínios DNS"
 
 msgid "Daily"
 msgstr "Diariamente"
+
+msgid "Dark"
+msgstr "Escuro"
 
 msgid "Dashboard saved"
 msgstr "Painel salvo"
@@ -781,6 +865,18 @@ msgstr "Padrão: {key}: {value}"
 msgid "Delete Account"
 msgstr "Excluir conta"
 
+msgid "Delete this lockscreen? Enter deletes, Esc keeps it."
+msgstr "Excluir esta tela de bloqueio? Enter exclui, Esc mantém."
+
+msgid "Delete this theme? Enter deletes, Esc keeps it."
+msgstr "Excluir este tema? Enter exclui, Esc mantém."
+
+msgid "Delete this wallpaper? Enter deletes, Esc keeps it."
+msgstr "Excluir este papel de parede? Enter exclui, Esc mantém."
+
+msgid "Delete {name}"
+msgstr "Excluir {name}"
+
 msgid "Delete {provider} account {account}? The provider’s sign-in for this account on this computer will be removed. The remote account itself is not affected."
 msgstr "Excluir a conta {account} de {provider}? O acesso a essa conta do provedor neste computador será removido. A conta remota em si não será afetada."
 
@@ -792,6 +888,9 @@ msgstr "Exclui os modelos baixados ({size} GB) em {folder}."
 
 msgid "Deployments"
 msgstr "Implantações"
+
+msgid "Design"
+msgstr "Desenho"
 
 msgid "Desktop Audio"
 msgstr "Áudio do sistema"
@@ -877,6 +976,9 @@ msgstr "APAGAR TUDO restaura este computador ao estado do primeiro login."
 msgid "ERROR logs"
 msgstr "Logs de ERROR"
 
+msgid "Each change applies at once. Text must stay readable on the background."
+msgstr "Cada alteração é aplicada na hora. O texto precisa continuar legível sobre o fundo."
+
 msgid "Each hand-off uses the helper’s subscription and counts toward its limits."
 msgstr "Cada transferência usa a assinatura do assistente auxiliar e conta para os limites dele."
 
@@ -919,8 +1021,14 @@ msgstr "Criptografia"
 msgid "English UTF-8 support is missing from the live image"
 msgstr "A imagem live não inclui suporte a inglês UTF-8"
 
+msgid "Enter a color as six hex digits, for example #2bb87a."
+msgstr "Digite uma cor com seis dígitos hexadecimais, por exemplo #2bb87a."
+
 msgid "Enter a hostname, not a URL, port or shell option"
 msgstr "Digite um nome de host, sem URL, porta ou opção de shell"
+
+msgid "Enter on the review creates the lockscreen and shows a preview."
+msgstr "Enter na revisão cria a tela de bloqueio e mostra uma prévia."
 
 msgid "Enter removes the calendar; Esc keeps it"
 msgstr "Enter remove o calendário; Esc o mantém"
@@ -930,6 +1038,9 @@ msgstr "Digite a senha do WiFi"
 
 msgid "Enter the authentication server domain without wildcards"
 msgstr "Digite o domínio do servidor de autenticação sem curingas"
+
+msgid "Enter the other picture's file or https address."
+msgstr "Digite o arquivo ou endereço https da outra imagem."
 
 msgid "Enter: answer  Left / Tab: back  Esc: cancel"
 msgstr "Enter: responder  Esquerda / Tab: voltar  Esc: cancelar"
@@ -1042,6 +1153,9 @@ msgstr "Os arquivos de fonte foram para a Lixeira e podem ser restaurados por l�
 msgid "Fonts"
 msgstr "Fontes"
 
+msgid "For example: Lake at Dawn. Enter on the review creates the theme and applies it."
+msgstr "Por exemplo: Lake at Dawn. Enter na revisão cria o tema e o aplica."
+
 msgid "For example: Netflix"
 msgstr "Por exemplo: Netflix"
 
@@ -1092,6 +1206,12 @@ msgstr "Google Agenda"
 
 msgid "Grafana"
 msgstr "Grafana"
+
+msgid "Green"
+msgstr "Verde"
+
+msgid "Greeting"
+msgstr "Saudação"
 
 msgid "Grok subscription usage requires one personal Grok login; API/enterprise limits are not supported"
 msgstr "O uso da assinatura Grok exige um login pessoal do Grok; limites de API ou corporativos não são compatíveis"
@@ -1369,6 +1489,9 @@ msgstr "Mantenha pelo menos um layout de teclado"
 msgid "Keep it"
 msgstr "Manter"
 
+msgid "Keep the greeting under 80 characters."
+msgstr "A saudação deve ter menos de 80 caracteres."
+
 msgid "Kept user layout link override: {target}"
 msgstr "Substituição de link do layout do usuário mantida: {target}"
 
@@ -1426,6 +1549,12 @@ msgstr "Fluxos de logs mais recentes"
 msgid "Let assistants work together"
 msgstr "Permitir que assistentes trabalhem juntos"
 
+msgid "Light"
+msgstr "Claro"
+
+msgid "Light or dark"
+msgstr "Claro ou escuro"
+
 msgid "Lightsail"
 msgstr "Lightsail"
 
@@ -1462,6 +1591,9 @@ msgstr "Assistente local (offline, experimental)"
 msgid "Local assistant ({model}) runs only on this PC. Type /bye to close."
 msgstr "O assistente local ({model}) roda só neste PC. Digite /bye para fechar."
 
+msgid "Lockscreen created"
+msgstr "Tela de bloqueio criada"
+
 msgid "Log out now"
 msgstr "Sair agora"
 
@@ -1491,6 +1623,9 @@ msgstr "Observe com atenção:"
 
 msgid "Lowercase name. This user will have sudo access."
 msgstr "Nome em minúsculas. Este usuário terá acesso sudo."
+
+msgid "Magenta"
+msgstr "Magenta"
 
 msgid "Malformed EITR include block; review ~/.gitconfig manually"
 msgstr "Bloco include do EITR inválido; revise ~/.gitconfig manualmente"
@@ -1627,11 +1762,17 @@ msgstr "Nenhum outro monitor chamado {value}"
 msgid "No package names available; check your package databases/network"
 msgstr "Nenhum nome de pacote disponível; verifique os bancos de pacotes e a rede"
 
+msgid "No palette-driven theme integration is installed."
+msgstr "Nenhuma integração de tema baseada em paleta está instalada."
+
 msgid "No passphrase or recovery key slot found; refusing to rely on the TPM alone."
 msgstr "Nenhuma senha ou chave de recuperação encontrada; não é seguro depender apenas do TPM."
 
 msgid "No passphrase or recovery key slot remains; add one before removing TPM2 unlock."
 msgstr "Não resta nenhuma senha ou chave de recuperação; adicione uma antes de remover o desbloqueio por TPM2."
+
+msgid "No picture file at {path}."
+msgstr "Nenhum arquivo de imagem em {path}."
 
 msgid "No reminders are waiting."
 msgstr "Não há lembretes pendentes."
@@ -1662,6 +1803,15 @@ msgstr "Não é um aplicativo web do EITR"
 
 msgid "Not available: {error}"
 msgstr "Indisponível: {error}"
+
+msgid "Not one of your lockscreens"
+msgstr "Não é uma das suas telas de bloqueio"
+
+msgid "Not one of your themes"
+msgstr "Não é um dos seus temas"
+
+msgid "Not one of your wallpapers"
+msgstr "Não é um dos seus papéis de parede"
 
 msgid "Nothing changed."
 msgstr "Nada foi alterado."
@@ -1723,6 +1873,9 @@ msgstr "Apenas arquivos das pastas pessoais têm snapshots."
 msgid "Only firmware that exposes charge_control_end_threshold supports this."
 msgstr "Só funciona com firmware que expõe charge_control_end_threshold."
 
+msgid "Only for Another picture: a file such as ~/Pictures/lake.jpg or an https address. Eitr downloads it and keeps a copy on this computer."
+msgstr "Só para Outra imagem: um arquivo como ~/Pictures/lake.jpg ou um endereço https. O Eitr baixa e guarda uma cópia neste computador."
+
 msgid "Open Console"
 msgstr "Abrir console"
 
@@ -1747,6 +1900,12 @@ msgstr "Abra {path} para ler o relatório."
 msgid "Opened the complete build repository: review PKGBUILD, .install files and patches."
 msgstr "Repositório completo de compilação aberto: revise PKGBUILD, arquivos .install e patches."
 
+msgid "Optional text under the clock, up to 80 characters."
+msgstr "Texto opcional abaixo do relógio, até 80 caracteres."
+
+msgid "Optional: six hex digits such as #2bb87a. Empty keeps the design's color."
+msgstr "Opcional: seis dígitos hexadecimais como #2bb87a. Vazio mantém a cor do desenho."
+
 msgid "Optional; press Enter to detect it."
 msgstr "Opcional; pressione Enter para detectar."
 
@@ -1767,6 +1926,9 @@ msgstr "Outro (qualquer endereço iCal)"
 
 msgid "Other folder…"
 msgstr "Outra pasta…"
+
+msgid "Other picture"
+msgstr "Outra imagem"
 
 msgid "Outlook"
 msgstr "Outlook"
@@ -1806,6 +1968,9 @@ msgstr "PgUp/PgDn: rolar  Enter: instalar  Esc: cancelar"
 
 msgid "Pick a reminder to cancel"
 msgstr "Escolha um lembrete para cancelar"
+
+msgid "Picture"
+msgstr "Imagem"
 
 msgid "Please enlarge the console to at least 80 columns and 24 rows."
 msgstr "Amplie o console para pelo menos 80 colunas e 24 linhas."
@@ -1986,6 +2151,9 @@ msgstr "Gravação salva"
 
 msgid "Records"
 msgstr "Registros"
+
+msgid "Red"
+msgstr "Vermelho"
 
 msgid "Refresh"
 msgstr "Atualizar"
@@ -2299,6 +2467,9 @@ msgstr "Selecionar uma conta"
 msgid "Select at least one package"
 msgstr "Selecione pelo menos um pacote"
 
+msgid "Select it in Style > Lockscreen; Ctrl+P previews it."
+msgstr "Selecione em Estilo > Tela de bloqueio; Ctrl+P mostra uma prévia."
+
 msgid "Select the line above to copy it."
 msgstr "Selecione a linha acima para copiá-la."
 
@@ -2400,6 +2571,9 @@ msgstr "Sessão não iniciada"
 
 msgid "Sites"
 msgstr "Sites"
+
+msgid "Six hex digits, for example #2bb87a. Esc keeps the color."
+msgstr "Seis dígitos hexadecimais, por exemplo #2bb87a. Esc mantém a cor."
 
 msgid "Skipped snapshot boot entries."
 msgstr "Configuração de entradas de snapshots ignorada."
@@ -2608,6 +2782,12 @@ msgstr "O terminal continuará aberto."
 msgid "Testing channel: System Update now installs new Eitr builds as soon as they are published, before everyone else. Everything else still comes from the stable repositories."
 msgstr "Canal de testes: a Atualização do sistema instala novas versões do Eitr assim que publicadas, antes dos demais usuários. O restante continua vindo dos repositórios estáveis."
 
+msgid "Text"
+msgstr "Texto"
+
+msgid "Text would be hard to read: foreground and background need more contrast."
+msgstr "O texto ficaria difícil de ler: primeiro plano e fundo precisam de mais contraste."
+
 msgid "That OBS scene no longer exists"
 msgstr "Esta cena do OBS não existe mais"
 
@@ -2628,6 +2808,9 @@ msgstr "O pacote do Ollama continua instalado; remova-o com: sudo pacman -R olla
 
 msgid "The URL must not contain spaces, control characters or backslashes."
 msgstr "A URL não pode conter espaços, caracteres de controle ou barras invertidas."
+
+msgid "The address redirected away from https."
+msgstr "O endereço redirecionou para fora do https."
 
 msgid "The answers need a password"
 msgstr "As respostas precisam incluir uma senha"
@@ -2683,6 +2866,9 @@ msgstr "O histórico de {id} foi reescrito: o commit aprovado {commit} não faz 
 msgid "The initramfs cannot use TPM2 unlock yet. Nothing was changed."
 msgstr "O initramfs ainda não permite desbloqueio por TPM2. Nada foi alterado."
 
+msgid "The layout your picture, color and greeting go into."
+msgstr "O layout que recebe sua imagem, cor e saudação."
+
 msgid "The local assistant could not answer: {reason}"
 msgstr "O assistente local não conseguiu responder: {reason}"
 
@@ -2731,6 +2917,15 @@ msgstr "O nome precisa de pelo menos uma letra ou número."
 msgid "The payload has no pacman {version} package"
 msgstr "The payload has no pacman {version} package"
 
+msgid "The picture has too many pixels."
+msgstr "A imagem tem pixels demais."
+
+msgid "The picture is larger than 50 MB."
+msgstr "A imagem tem mais de 50 MB."
+
+msgid "The picture is too small."
+msgstr "A imagem é pequena demais."
+
 msgid "The plugin blocklist could not be read; plugins are refused until it is fixed."
 msgstr "Não foi possível ler a lista de bloqueio de plugins; plugins são recusados até que ela seja corrigida."
 
@@ -2776,6 +2971,9 @@ msgstr "The template's EFI partition size changed; update ESP_MIB"
 msgid "The testing repository cannot be reached right now, so nothing was changed. Check the connection and try again."
 msgstr "O repositório de testes está inacessível no momento; nada foi alterado. Verifique a conexão e tente novamente."
 
+msgid "The theme could not be applied."
+msgstr "Não foi possível aplicar o tema."
+
 msgid "The user service could not be loaded."
 msgstr "Não foi possível carregar o serviço do usuário."
 
@@ -2809,6 +3007,9 @@ msgstr "Isso altera a inicialização do tailscaled e delega o controle do Tails
 msgid "This changes the network backend only after rebooting."
 msgstr "O backend de rede só muda após reiniciar."
 
+msgid "This color cannot be changed here."
+msgstr "Esta cor não pode ser alterada aqui."
+
 msgid "This computer has no factory reset point. Only computers installed with the Eitr ISO have one."
 msgstr "Este computador não tem ponto de redefinição de fábrica. Ele só existe em computadores instalados pela ISO do Eitr."
 
@@ -2829,6 +3030,9 @@ msgstr "Este host usa um proxy SSH; mantenha core.sshCommand local ao repositór
 
 msgid "This installation uses an unsupported location; remove it with its own manager."
 msgstr "Esta instalação usa um local não compatível; remova-a pelo próprio gerenciador."
+
+msgid "This is not a picture Eitr can read."
+msgstr "Não é uma imagem que o Eitr consiga ler."
 
 msgid "This keyboard layout could not be loaded"
 msgstr "Não foi possível carregar este layout de teclado"
@@ -3070,6 +3274,12 @@ msgstr "Pacotes atualizados: {packages}. O desktop usará as novas versões apó
 msgid "Updates with snapshots (pass a 'before' number to see every package):\n"
 msgstr "Atualizações com snapshots (informe um número 'before' para ver todos os pacotes):\n"
 
+msgid "Use a JPEG, PNG or WebP picture."
+msgstr "Use uma imagem JPEG, PNG ou WebP."
+
+msgid "Use a name of 1 to 40 characters."
+msgstr "Use um nome de 1 a 40 caracteres."
+
 msgid "Use a name of 1 to 60 characters"
 msgstr "Use um nome de 1 a 60 caracteres"
 
@@ -3078,6 +3288,9 @@ msgstr "Use um nome de 1 a 60 caracteres."
 
 msgid "Use an http or https address."
 msgstr "Use um endereço http ou https."
+
+msgid "Use an https address or a file on this computer."
+msgstr "Use um endereço https ou um arquivo deste computador."
 
 msgid "Use at least 8 characters. Your input is hidden."
 msgstr "Use pelo menos 8 caracteres. A entrada fica oculta."
@@ -3160,6 +3373,9 @@ msgstr "Volumes"
 msgid "WARN logs"
 msgstr "Logs de WARN"
 
+msgid "Wallpaper added"
+msgstr "Papel de parede adicionado"
+
 msgid "Wallpaper must be PNG, JPEG or WebP"
 msgstr "O papel de parede deve ser PNG, JPEG ou WebP"
 
@@ -3205,6 +3421,9 @@ msgstr "Anote a chave de recuperação e guarde-a offline; depois pressione Ente
 msgid "Yearly"
 msgstr "Anualmente"
 
+msgid "Yellow"
+msgstr "Amarelo"
+
 msgid "Yes"
 msgstr "Sim"
 
@@ -3231,6 +3450,9 @@ msgstr "Seu aplicativo de e-mail abriu uma mensagem para {REPORTS_EMAIL}. Anexe 
 
 msgid "Your organization allows plugins only from its approved repositories."
 msgstr "Sua organização só permite plugins dos repositórios aprovados por ela."
+
+msgid "Your wallpapers, the current theme's wallpapers, or another picture."
+msgstr "Seus papéis de parede, os do tema atual ou outra imagem."
 
 msgid "Zone details"
 msgstr "Detalhes da zona"
@@ -3502,11 +3724,17 @@ msgstr "{menu} > {text} abre um submenu, não um comando"
 msgid "{names} now stop charging at {limit}%. The limit is restored at boot and after resume."
 msgstr "{names} agora param de carregar em {limit}%. O limite é restaurado no boot e após retomar."
 
+msgid "{name} (yours)"
+msgstr "{name} (seu)"
+
 msgid "{name} from {snapshot_date} is at {target}"
 msgstr "{name} de {snapshot_date} está em {target}"
 
 msgid "{name} is in Development > Monitoring."
 msgstr "{name} está em Desenvolvimento > Monitoramento."
+
+msgid "{name} is in Style > Wallpaper and the wallpaper carousel."
+msgstr "{name} está em Estilo > Papel de parede e no carrossel de papéis de parede."
 
 msgid "{name} starts charging at {charge_percent}%; choose a limit above that. Nothing was changed."
 msgstr "{name}: a carga começa em {charge_percent}%; escolha um limite maior. Nada foi alterado."
