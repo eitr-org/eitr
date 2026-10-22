@@ -51,7 +51,10 @@ def confirm(message):
 
 
 def settings(pair=False):
-    run(['xdg-open', 'https://localhost:47990' + ('/pin' if pair else '')])
+    # Detached and silent: the browser's own log would bury this terminal's questions.
+    subprocess.Popen(['xdg-open', 'https://localhost:47990' + ('/pin' if pair else '')],
+                     stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                     start_new_session=True)
 
 
 def host(action):
