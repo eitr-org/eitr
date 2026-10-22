@@ -1162,5 +1162,8 @@
   "PgUp/PgDn: scroll  Enter: download for review  Esc: cancel": "PgUp/PgDn: rolar  Enter: baixar para revisão  Esc: cancelar",
   "d: full diff  Enter: update  Esc: keep the current version": "d: diff completo  Enter: atualizar  Esc: manter a versão atual",
   "Enter: continue  Esc: cancel": "Enter: continuar  Esc: cancelar",
-  "Could not understand when: {when}": "Não entendi quando: {when}"
+  "Could not understand when: {when}": "Não entendi quando: {when}",
+  "At what time? (for example 09:00)": "A que horas? (por exemplo 09:00)",
+  "Nothing was downloaded.": "Nada foi baixado.",
+  "Nothing was installed; the downloaded copy was deleted.": "Nada foi instalado; a cópia baixada foi apagada."
 }

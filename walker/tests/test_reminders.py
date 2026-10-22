@@ -10,6 +10,7 @@ import tempfile
 import time
 import tomllib
 import unittest
+import unittest.mock
 
 ROOT = Path(__file__).resolve().parents[2]
 SCRIPT = ROOT / "walker/scripts/actions/tools/reminders.py"
@@ -33,6 +34,20 @@ class ReminderTimeTests(unittest.TestCase):
         self.assertEqual(stamp('next friday 10:30'), 'Fri 30 10:30')
         self.assertEqual(stamp('next monday 09:00'), 'Mon 26 09:00')
 
+    def test_a_date_without_a_time_asks_for_one(self):
+        for phrase in ("every month on the 29th", "friday", "tomorrow", "weekdays"):
+            self.assertFalse(reminders.has_time(phrase), phrase)
+        for phrase in ("today 13:00", "every monday 09:00", "20m", "90", "2026-10-30 09:00"):
+            self.assertTrue(reminders.has_time(phrase), phrase)
+        with unittest.mock.patch.object(reminders, "ask", return_value="10:00") as ask:
+            self.assertEqual(reminders.with_time("every month on the 29th"), "every month on the 29th 10:00")
+            self.assertEqual(reminders.with_time("18:30"), "18:30")
+            self.assertEqual(reminders.with_time("whenever"), "whenever", "not a date: the parser refuses it")
+            self.assertEqual(ask.call_count, 1)
+        for answer in (None, "soon"):
+            with unittest.mock.patch.object(reminders, "ask", return_value=answer):
+                self.assertIsNone(reminders.with_time("friday"))
+
     def test_delays(self):
         self.assertEqual(self.due("10m"), datetime(2026, 10, 16, 14, 10))
         self.assertEqual(self.due("1h30m"), datetime(2026, 10, 16, 15, 30))
@@ -55,7 +70,7 @@ class ReminderCommandTests(unittest.TestCase):
         self.addCleanup(directory.cleanup)
         self.folder = Path(directory.name)
         self.calls = self.folder / "calls"
-        for name in ("systemd-run", "systemctl", "notify-send"):
+        for name in ("systemd-run", "systemctl", "notify-send", "eitr-shell", "pw-play"):
             tool = self.folder / name
             tool.write_text(f'#!/bin/sh\necho "{name} $*" >> "{self.calls}"\nexit 1\n' if name == "systemctl" else
                             f'#!/bin/sh\necho "{name} $*" >> "{self.calls}"\n')
@@ -80,6 +95,23 @@ class ReminderCommandTests(unittest.TestCase):
         self.assertIn(f"--unit=eitr-reminder-{saved[0]['id']}", calls)
         self.assertIn("--on-active=", calls)
         self.assertIn("Reminder set", calls)
+
+    def test_a_repeat_is_named_in_the_confirmation(self):
+        result = self.run_script("new", "every day 08:00", "Stretch")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("↻ Daily", result.stdout)
+
+    def test_alerts_chime_unless_do_not_disturb(self):
+        self.run_script("new", "5m", "Stretch")
+        self.run_script("fire", json.loads(self.state.read_text())[0]["id"])
+        self.assertIn("pw-play --volume=0.7", self.calls_made())
+        quiet = self.folder / "eitr-shell"
+        quiet.write_text(f'#!/bin/sh\necho "eitr-shell $*" >> "{self.calls}"\necho \'{{"doNotDisturb":true}}\'\n')
+        self.calls.unlink()
+        self.run_script("new", "5m", "Water")
+        self.run_script("fire", json.loads(self.state.read_text())[0]["id"])
+        self.assertIn("notifications status", self.calls_made())
+        self.assertNotIn("pw-play", self.calls_made())
 
     def test_a_bad_time_sets_nothing(self):
         self.assertEqual(self.run_script("new", "whenever", "x").returncode, 1)
@@ -132,6 +164,11 @@ if __name__ == "__main__":
 
 
 class RepeatTests(unittest.TestCase):
+    def setUp(self):
+        quiet = unittest.mock.patch.object(reminders, "chime")
+        quiet.start()
+        self.addCleanup(quiet.stop)
+
     def test_common_phrases(self):
         now = datetime(2026, 10, 16, 14)
         for phrase, expected, frequency in [

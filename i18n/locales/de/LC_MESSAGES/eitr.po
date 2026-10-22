@@ -286,6 +286,9 @@ msgstr "Assistent"
 msgid "Assistant collaboration: {error}"
 msgstr "Zusammenarbeit der Assistenten: {error}"
 
+msgid "At what time? (for example 09:00)"
+msgstr "Um wie viel Uhr? (zum Beispiel 09:00)"
+
 msgid "Aurora / RDS"
 msgstr "Aurora / RDS"
 
@@ -1647,6 +1650,12 @@ msgstr "Nichts wiederherzustellen: Das Netzwerk-Backend wurde nie gewechselt."
 
 msgid "Nothing was changed."
 msgstr "Nichts wurde geändert."
+
+msgid "Nothing was downloaded."
+msgstr "Es wurde nichts heruntergeladen."
+
+msgid "Nothing was installed; the downloaded copy was deleted."
+msgstr "Es wurde nichts installiert; die heruntergeladene Kopie wurde gelöscht."
 
 msgid "Nothing was sent. Read it and remove anything you do not want to share."
 msgstr "Nichts wurde gesendet. Lies den Inhalt und entferne alles, was du nicht teilen möchtest."

@@ -3731,6 +3731,9 @@
     "Assistant collaboration: {error}": [
       "walker/scripts/actions/assistant-collaboration.py"
     ],
+    "At what time? (for example 09:00)": [
+      "walker/scripts/actions/tools/reminders.py"
+    ],
     "Aurora / RDS": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
@@ -5127,6 +5130,12 @@
       "walker/scripts/actions/assistant-collaboration.py",
       "walker/scripts/actions/system/firewall.py",
       "walker/scripts/actions/system/home-snapshots.py"
+    ],
+    "Nothing was downloaded.": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Nothing was installed; the downloaded copy was deleted.": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Nothing was sent. Read it and remove anything you do not want to share.": [
       "walker/scripts/actions/system/report-problem.py"

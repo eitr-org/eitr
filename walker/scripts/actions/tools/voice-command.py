@@ -136,7 +136,9 @@ LOCAL_PROTOCOL = """Return ONLY one JSON object, one of:
 Time phrases (24-hour clock): "today 13:00", "tomorrow 09:30", "friday 15:00" (the coming one),
 "next friday 15:00" (Friday of next week),
 "2026-10-30 09:00", "30m" or "2h" (from now), "every day 08:00", "every monday 09:00",
-"weekdays 07:00", "every month on the 15th 10:00". appointment is true for meetings,
+"weekdays 07:00", "every month on the 15th 10:00". If the user gives no time of day,
+leave it out (for example "every month on the 29th") and never invent 00:00:
+Eitr asks for it. appointment is true for meetings,
 calls and appointments (they also alert an hour before).
 Examples:
 "remind me to call mom tomorrow at 3 pm" -> {"action": "create", "title": "Call mom", "when": "tomorrow 15:00", "appointment": false}
@@ -159,13 +161,19 @@ def local_prompt(transcript, existing):
             '\nAnswer with the JSON object only.')
 
 
-def expand_local(payload, now=None):
+def expand_local(payload, now=None, transcript=''):
     """The local assistant's short answer, expanded into the full protocol."""
     if not isinstance(payload, dict) or payload.get('action') != 'create':
         return payload
     if not set(payload) <= {'action', 'title', 'when', 'appointment'} or not {'title', 'when'} <= set(payload):
         raise ValueError(tr('Invalid assistant answer.'))
     phrase = text_value(payload['when'], 100)
+    # A small model fills a missing time with 00:00; unless midnight was said, ask.
+    if phrase.strip().endswith('00:00') and not re.search(r'midnight|meia-noite|medianoche|minuit|mitternacht|00:00|\b0?0h|12 ?am', transcript, re.I):
+        phrase = phrase.strip()[:-5].strip()
+    phrase = reminders.with_time(phrase)
+    if not phrase:
+        raise ValueError(tr('Nothing changed.'))
     now = now or datetime.now().astimezone()
     try:
         due, rule = reminders.parse_when(phrase, now.replace(tzinfo=None))
@@ -206,7 +214,8 @@ def execute(payload):
             times = [timestamp(value, now) for value in payload['alerts']]
             reminder = reminders.create(payload['title'], event, times, repeat=payload.get('repeat'))
             return tr('Reminder set: {title} · {time} · alerts {alerts}', title=reminder['text'],
-                      time=reminders.label(event), alerts=', '.join(reminders.label(moment) for moment in times))
+                      time=reminders.label(event) + reminders.repeat_label(reminder),
+                      alerts=', '.join(reminders.label(moment) for moment in times))
         if action == 'delete':
             for identifier in payload['ids']:
                 reminders.cancel(identifier, payload.get('scope', 'series'))
@@ -224,7 +233,7 @@ def process(transcript):
         raise ValueError(tr('Choose a default assistant in Development first.'))
     if identifier == 'local':
         answer = assistant_ask(identifier, local_prompt(transcript, reminders.load()), announce=False, response_format='json')
-        return execute(validate(expand_local(extract(answer)), reminders.load()))
+        return execute(validate(expand_local(extract(answer), transcript=transcript), reminders.load()))
     history = []
     for turn in range(5):
         payload = validate(extract(assistant_ask(identifier, prompt(transcript, reminders.load(), history), announce=False, response_format='json')), reminders.load())

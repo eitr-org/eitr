@@ -388,6 +388,7 @@ class PluginTests(unittest.TestCase):
             self.assertIn('SSH keys and browser data', text)
             self.assertIn('never in a pop-up window', text)
             self.assertIn('exact author and commit', text)
+            self.assertIn('Nothing was downloaded.', text)
 
     def test_terminal_add_needs_both_confirmations_and_noninteractive_add_is_refused(self):
         cli = self.cli()
@@ -399,6 +400,7 @@ class PluginTests(unittest.TestCase):
         self.assertLess(review.index('Eitr has not reviewed this code'), review.index('Plugin: Example plugin'))
         self.assertIn('Plugin by Eitr contributors · not reviewed by Eitr', review)
         self.assertIn('Executable files: 1', review)
+        self.assertIn('Nothing was installed; the downloaded copy was deleted.', review)
         # Other keys do nothing; Enter confirms both steps.
         with patch.object(cli, 'read_key', side_effect=['y', '\r', 'n', '\r']), redirect_stdout(io.StringIO()):
             self.assertTrue(cli.add_in_terminal(self.manager, self.url))

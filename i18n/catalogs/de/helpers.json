@@ -1162,5 +1162,8 @@
   "PgUp/PgDn: scroll  Enter: download for review  Esc: cancel": "Bild↑/Bild↓: blättern  Enter: zur Prüfung laden  Esc: abbrechen",
   "d: full diff  Enter: update  Esc: keep the current version": "d: ganzer Diff  Enter: aktualisieren  Esc: aktuelle Version behalten",
   "Enter: continue  Esc: cancel": "Enter: fortfahren  Esc: abbrechen",
-  "Could not understand when: {when}": "Zeitpunkt nicht verstanden: {when}"
+  "Could not understand when: {when}": "Zeitpunkt nicht verstanden: {when}",
+  "At what time? (for example 09:00)": "Um wie viel Uhr? (zum Beispiel 09:00)",
+  "Nothing was downloaded.": "Es wurde nichts heruntergeladen.",
+  "Nothing was installed; the downloaded copy was deleted.": "Es wurde nichts installiert; die heruntergeladene Kopie wurde gelöscht."
 }

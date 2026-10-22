@@ -10,7 +10,7 @@
 
 WHEN is a delay (10m, 1h30m, 45s, or a number of minutes), a time of day
 (18:30, tomorrow when that has passed), or a date such as "tomorrow 15:00",
-"Friday" (or "this friday"), "next friday" (next week), "2026-10-30 09:00" or "Oct 30 15:00" (09:00 without a clock).
+"Friday" (or "this friday"), "next friday" (next week), "2026-10-30 09:00" or "Oct 30 15:00"; a date without a clock asks for the time.
 Repeats: "every day 08:00", "every Monday 09:30", "weekdays 07:00",
 "every month on the 15th", "every week", "every year".
 Machine commands: list --json; add-json reads {title,event,alerts,repeat?} from stdin.
@@ -312,10 +312,47 @@ def stop_timers(reminder):
                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
+ALERT_SOUND = Path("/usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga")
+
+
+def chime():
+    """Reminder alerts (only they) play a short sound, unless Do Not Disturb is on."""
+    try:
+        status = subprocess.run(["eitr-shell", "desktop-bar", "ipc", "call", "notifications", "status"],
+                                capture_output=True, text=True, timeout=3).stdout
+        if json.loads(status or "{}").get("doNotDisturb") or not ALERT_SOUND.is_file():
+            return
+        subprocess.Popen(["pw-play", "--volume=0.7", str(ALERT_SOUND)], stdout=subprocess.DEVNULL,
+                         stderr=subprocess.DEVNULL, start_new_session=True)
+    except (OSError, ValueError, subprocess.SubprocessError):
+        pass
+
+
 def notify(title, body, urgency="normal"):
     root = os.environ.get("EITR_CODE_ROOT", "/usr/share/eitr")
     subprocess.run(["notify-send", "--app-name=Reminders", f"--urgency={urgency}",
                     f"--icon={root}/fastfetch/assets/eitr-logo.png", title, body], check=False)
+
+
+def has_time(phrase):
+    """True when the phrase says when in the day (18:30) or is relative (10m, 90);
+    a date alone ("every month on the 29th", "friday") needs a time first."""
+    text = phrase.strip().lower()
+    return bool(CLOCK.search(text.split()[-1]) if text.split() else False) or text.isdigit() or bool(
+        DELAY.match(text) and any(DELAY.match(text).groups()))
+
+
+def with_time(phrase):
+    """The phrase, with a time asked for when it is a date without one; None when dismissed.
+    Anything else is returned as it is, for the parser to accept or refuse."""
+    try:
+        needs_time = not has_time(phrase) and parse_when(f"{phrase} 09:00")[0] is not None
+    except ValueError:
+        needs_time = False
+    if not needs_time:
+        return phrase
+    clock = ask(tr('At what time? (for example 09:00)'))
+    return f"{phrase} {clock.strip()}" if clock and CLOCK.fullmatch(clock.strip()) else None
 
 
 def ask(placeholder, choices=None):
@@ -331,6 +368,9 @@ def new(arguments):
     spoken = arguments[0] if arguments else ask(tr('When? (10m, 18:30, every day 08:00)'))
     if not spoken:
         return 1
+    spoken = with_time(spoken)
+    if not spoken:
+        return 1
     try:
         due, rule = parse_when(spoken)
     except ValueError:
@@ -342,9 +382,10 @@ def new(arguments):
     if not text:
         return 1
     with locked():
-        create(text, due, repeat=rule)
-    notify(tr('Reminder set'), f"{label(due)}: {text}")
-    print(tr('Reminder set for {label}: {text}', label=f'{label(due)}', text=f'{text}'))
+        reminder = create(text, due, repeat=rule)
+    repeats = repeat_label(reminder)
+    notify(tr('Reminder set'), f"{label(due)}{repeats}: {text}")
+    print(tr('Reminder set for {label}: {text}', label=f'{label(due)}{repeats}', text=f'{text}'))
     return 0
 
 
@@ -368,6 +409,7 @@ def fire(identifier, missed=False, moment=None):
             reminders.remove(reminder)
         save(reminders)
         notify(tr('Reminder (while the computer was off)') if missed else tr('Reminder'), reminder['text'], urgency='critical')
+        chime()
         return 0
     if remaining:
         reminder["alerts"] = remaining
@@ -376,6 +418,7 @@ def fire(identifier, missed=False, moment=None):
     save(reminders)
     title = tr('Reminder (while the computer was off)') if missed else tr('Reminder')
     notify(title, reminder["text"], urgency="critical")
+    chime()
     return 0
 
 

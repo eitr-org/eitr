@@ -145,13 +145,19 @@ def add_in_terminal(manager, url):
         print(Terminal().title(tr('Before you download a plugin')))
         show(safety_lines(source))
         print()
-        return confirm(tr('Download this plugin for review?'))
+        if confirm(tr('Download this plugin for review?')):
+            return True
+        print(tr('Nothing was downloaded.'))
+        return False
 
     def approve(root, spec, source):
         print(Terminal().title(tr('Install plugin?')))
         show(review_lines(root, spec, source))
         print()
-        return confirm(tr('Install this plugin?'))
+        if confirm(tr('Install this plugin?')):
+            return True
+        print(tr('Nothing was installed; the downloaded copy was deleted.'))
+        return False
     return manager.add(url, consent, approve)
 
 

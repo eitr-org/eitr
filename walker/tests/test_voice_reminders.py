@@ -39,6 +39,7 @@ class DatedReminderTests(unittest.TestCase):
         patch.dict(os.environ, {'XDG_STATE_HOME': temporary.name}).start()
         self.run = patch.object(reminders.subprocess, 'run').start()
         self.notify = patch.object(reminders, 'notify').start()
+        patch.object(reminders, 'chime').start()
 
     def test_appointment_timers_fire_independently(self):
         event = int((datetime.now() + timedelta(days=1)).timestamp())
@@ -159,6 +160,22 @@ class VoiceProtocolTests(unittest.TestCase):
                 voice.process('Lunch today')
             listed = sent[-1]['prompt'].split('Existing reminders (only for delete):\n')[1].split('\nThe request')[0]
             self.assertEqual(listed, f'- id {created["id"]}: "Dentist"')
+            # A date without a time asks for one; an invented 00:00 counts as none unless midnight was said.
+            monthly = {**short, 'title': 'Pay taxes', 'when': 'every month on the 29th 00:00', 'appointment': False}
+            with patch.object(eitr_local_assistant, 'opener', return_value=answer(json.dumps(monthly))), \
+                    patch.object(reminders, 'ask', return_value='10:00') as ask:
+                self.assertIn('↻ Monthly · 29', voice.process('Remind me every 29th to pay taxes'))
+                ask.assert_called_once()
+            taxes = next(item for item in reminders.load() if item['text'] == 'Pay taxes')
+            self.assertEqual((datetime.fromtimestamp(taxes['due']).day, datetime.fromtimestamp(taxes['due']).hour), (29, 10))
+            with patch.object(eitr_local_assistant, 'opener', return_value=answer(json.dumps(monthly))), \
+                    patch.object(reminders, 'ask', return_value=None):
+                with self.assertRaisesRegex(ValueError, 'Nothing changed'):
+                    voice.process('Remind me every 29th to pay taxes')
+            with patch.object(eitr_local_assistant, 'opener', return_value=answer(json.dumps(monthly))), \
+                    patch.object(reminders, 'ask') as ask:
+                voice.process('Remind me every 29th at midnight to pay taxes')
+                ask.assert_not_called()
             with patch.object(eitr_local_assistant, 'opener', return_value=answer(json.dumps({**short, 'when': 'next tuesday-ish'}))):
                 with self.assertRaisesRegex(ValueError, 'Could not understand when'):
                     voice.process('Something sometime')
