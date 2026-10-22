@@ -50,4 +50,4 @@ eitr profile apply /run/media/alex/EITRANSWERS
 
 As exclusões filtram os manifestos do instalador e um `IgnorePkg` nas opções do pacman impede reinstalação por dependência durante System Update; um conflito deve interromper a atualização. A criação das configurações do usuário não instala aplicativos. Políticas escondem menus e busca do Elephant, controles de Acesso Remoto na barra, colaboração de assistentes e troca de canal. As ferramentas também recusam chamadas diretas. Menus e painéis podem precisar de atualização para refletir novas políticas.
 
-**Isto não bloqueia um usuário com root.** Root pode editar políticas e usar outras ferramentas. Um bloqueio real também exige não conceder root. Não é gerenciamento de frota. A verificação em VM está pendente; comandos exatos em `distro/PROFILE-VM-TESTING.md`.
+**Isto não bloqueia um usuário com root.** Root pode editar políticas e usar outras ferramentas. Um bloqueio real também exige não conceder root. Não é gerenciamento de frota. Instalações com e sem rede, um perfil recusado e a aplicação em uma máquina instalada passaram em uma VM; as verificações restantes estão em `distro/PROFILE-VM-TESTING.md`.

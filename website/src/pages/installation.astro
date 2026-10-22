@@ -28,6 +28,13 @@ import release from '../data/release.json';
       <p>Back up your files before changing a disk. Verify the ISO with its published SHA-256 checksum and read the canonical guide for the complete installation and recovery requirements.</p>
       <a class="text-link" href="https://github.com/eitr-org/eitr/blob/main/distro/README.md" target="_blank" rel="noopener noreferrer">Read the complete installation guide ↗</a>
     </section>
+    <section class="info-section" id="unattended" aria-labelledby="installation-unattended">
+      <p class="eyebrow">Several machines / Answers stick &amp; organization profiles</p>
+      <h2 id="installation-unattended">No questions asked.<br /><em>The same setup each time.</em></h2>
+      <p>To install without the wizard, format a USB stick as FAT32 with the label <code>EITRANSWERS</code> (FAT labels hold 11 characters) and put <code>eitr-answers.json</code> on it with the disk, layout, encryption, user, keyboard and language. The installer validates the answers like the wizard, shows what it will do and counts down 15 seconds: Ctrl+C cancels before any disk is changed. The file holds passwords in plain text; keep the stick safe and wipe it afterwards.</p>
+      <p>Add <code>eitr-profile.json</code> to the same stick, with or without answers, for an organization profile: removed optional apps, added software, defaults and policies, all listed in Review or the countdown before the disk changes. Every referenced file must match its SHA-256 checksum first. Policies govern Eitr’s own tools; a user with root can override them. Installs with and without a network and applying a profile afterwards have passed in a virtual machine; some checks remain open.</p>
+      <div class="info-links"><a class="text-link" href="https://github.com/eitr-org/eitr/blob/main/distro/README.md#unattended-install" target="_blank" rel="noopener noreferrer">Unattended install ↗</a><a class="text-link" href="https://github.com/eitr-org/eitr/blob/main/distro/ORGANIZATION-PROFILES.md" target="_blank" rel="noopener noreferrer">Organization profiles ↗</a></div>
+    </section>
     <section class="info-section" id="compatibility" aria-labelledby="installation-evidence">
       <p class="eyebrow">Evidence, not a blanket compatibility claim</p>
       <h2 id="installation-evidence">What has<br /><em>actually been tested.</em></h2>

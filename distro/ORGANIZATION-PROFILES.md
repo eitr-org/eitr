@@ -108,4 +108,4 @@ next menu/panel refresh to reflect a newly applied policy.
 run other tools. Real lockdown also means not granting root. Policies govern Eitr
 workflows, not arbitrary third-party software or fleet management.
 
-VM verification is pending. See `distro/PROFILE-VM-TESTING.md` for exact commands.
+Installs with and without a network, a refused profile and applying a profile to an installed machine passed in a VM; the remaining checks are in `distro/PROFILE-VM-TESTING.md`.
