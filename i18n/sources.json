@@ -43,6 +43,9 @@
     "Align with %1": [
       "quickshell/desktop-bar/DisplaySettingsEditor.qml"
     ],
+    "All": [
+      "quickshell/desktop-bar/CalendarMenu.qml"
+    ],
     "All Displays": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
@@ -227,6 +230,9 @@
     "Could not change the lockscreen": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
+    "Could not delete the reminder": [
+      "quickshell/desktop-bar/CalendarMenu.qml"
+    ],
     "Could not save recording settings": [
       "quickshell/desktop-bar/ObsMenu.qml"
     ],
@@ -251,6 +257,15 @@
     "Default Font": [
       "quickshell/desktop-bar/AppearancePicker.qml",
       "quickshell/desktop-bar/ControlCenter.qml"
+    ],
+    "Delete every occurrence": [
+      "quickshell/desktop-bar/CalendarMenu.qml"
+    ],
+    "Delete reminder": [
+      "quickshell/desktop-bar/CalendarMenu.qml"
+    ],
+    "Delete?": [
+      "quickshell/desktop-bar/CalendarMenu.qml"
     ],
     "Desktop audio": [
       "quickshell/desktop-bar/ObsMenu.qml"
@@ -388,6 +403,9 @@
     ],
     "Keep": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
+    ],
+    "Keep reminder": [
+      "quickshell/desktop-bar/CalendarMenu.qml"
     ],
     "Keep these settings? Reverting in {seconds} second": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
@@ -615,6 +633,9 @@
     ],
     "Offline": [
       "quickshell/desktop-bar/WifiMenu.qml"
+    ],
+    "Only the next occurrence can be skipped": [
+      "quickshell/desktop-bar/CalendarMenu.qml"
     ],
     "Open OBS": [
       "quickshell/desktop-bar/ObsMenu.qml"
@@ -916,6 +937,9 @@
     "Size": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
+    "Skip this occurrence": [
+      "quickshell/desktop-bar/CalendarMenu.qml"
+    ],
     "Snapshots & Cleanup": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
@@ -997,6 +1021,9 @@
     ],
     "Theme Wallpaper": [
       "quickshell/lockscreen/design-gallery.qml"
+    ],
+    "This one": [
+      "quickshell/desktop-bar/CalendarMenu.qml"
     ],
     "Today": [
       "quickshell/desktop-bar/CalendarMenu.qml"

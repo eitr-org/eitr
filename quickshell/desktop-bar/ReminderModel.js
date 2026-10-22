@@ -61,7 +61,7 @@ function forMonth(items, year, month) {
             if (!Number.isFinite(date.getTime()) || date >= end) break;
             const until = rule.until ? new Date(rule.until + "T23:59:59") : null;
             if (until && date > until) break;
-            if (date >= start) result.push(Object.assign({}, item, {due: date.getTime() / 1000}));
+            if (date >= start) result.push(Object.assign({}, item, {due: date.getTime() / 1000, occurrence: index}));
         }
     });
     return result.sort(function(first, second) { return first.due - second.due; });

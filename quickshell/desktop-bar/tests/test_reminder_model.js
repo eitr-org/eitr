@@ -26,3 +26,10 @@ series.repeat_anchor = '2028-01-31T08:00:00';
 assert.equal(context.forMonth([series], 2028, 1).length, 3);
 series.repeat_index = 3;
 assert.equal(context.forMonth([series], 2028, 1).length, 1);
+// Expanded occurrences carry their index, so the calendar can tell the pending one apart.
+const weekly = {id:'w', text:'Weekly', due:new Date(2028, 0, 3, 9).getTime()/1000, repeat_anchor:'2028-01-03T09:00:00', repeat_index:0, repeat:{frequency:'weekly'}};
+assert.deepEqual(Array.from(context.forMonth([weekly], 2028, 0), (item) => item.occurrence), [0, 1, 2, 3, 4]);
+assert.equal(context.forDay([{id:'o', text:'Once', due:day.getTime()/1000}], day)[0].occurrence, undefined);
+assert.match(qml, /Qt\.Key_Escape && menu\.pendingKey !== ""\) menu\.cancelDelete\(\)/);
+assert.match(qml, /\["python3", reminderHelper, "cancel", identifier, scope\]/);
+assert.match(qml, /Eitr\.Paths\.code\("walker\/scripts\/actions\/tools\/reminders\.py"\)/);

@@ -370,5 +370,14 @@
   "•  now": "•  ahora",
   "󰂚  No notifications": "󰂚  No hay notificaciones",
   "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones",
-  "No reminders": "Sin recordatorios"
+  "No reminders": "Sin recordatorios",
+  "All": "Todas",
+  "Could not delete the reminder": "No se pudo eliminar el recordatorio",
+  "Delete every occurrence": "Eliminar todas las ocurrencias",
+  "Delete reminder": "Eliminar recordatorio",
+  "Delete?": "¿Eliminar?",
+  "Keep reminder": "Conservar recordatorio",
+  "Only the next occurrence can be skipped": "Solo se puede omitir la próxima ocurrencia",
+  "Skip this occurrence": "Omitir esta ocurrencia",
+  "This one": "Esta"
 }

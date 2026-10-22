@@ -370,5 +370,14 @@
   "•  now": "•  jetzt",
   "󰂚  No notifications": "󰂚  Keine Benachrichtigungen",
   "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen",
-  "No reminders": "Keine Erinnerungen"
+  "No reminders": "Keine Erinnerungen",
+  "All": "Alle",
+  "Could not delete the reminder": "Erinnerung konnte nicht gelöscht werden",
+  "Delete every occurrence": "Alle Termine löschen",
+  "Delete reminder": "Erinnerung löschen",
+  "Delete?": "Löschen?",
+  "Keep reminder": "Erinnerung behalten",
+  "Only the next occurrence can be skipped": "Nur der nächste Termin kann übersprungen werden",
+  "Skip this occurrence": "Diesen Termin überspringen",
+  "This one": "Diesen"
 }

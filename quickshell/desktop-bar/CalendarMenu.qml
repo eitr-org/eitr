@@ -27,6 +27,53 @@ ThemedPopup {
         onLoaded: menu.reminders = ReminderModel.parse(text())
         onLoadFailed: menu.reminders = []
     }
+    // One reminder row at a time asks before deleting; the list follows the file watch.
+    property string pendingKey: ""
+    property Item pendingRow: null
+    property string deleteError: ""
+    property int confirmationTimeout: 5000
+    readonly property string reminderHelper: Eitr.Paths.code("walker/scripts/actions/tools/reminders.py")
+    function requestDelete(row) {
+        deleteError = "";
+        if (pendingKey === row.key) {
+            cancelDelete();
+            return;
+        }
+        pendingRow = row;
+        pendingKey = row.key;
+    }
+    function cancelDelete() {
+        if (pendingRow && pendingRow.choicesFocused()) pendingRow.restoreFocus();
+        pendingKey = "";
+        pendingRow = null;
+    }
+    function deleteReminder(identifier, scope) {
+        if (reminderCancel.running) return;
+        deleteError = "";
+        reminderCancel.command = ["python3", reminderHelper, "cancel", identifier, scope];
+        reminderCancel.running = true;
+    }
+    Process {
+        id: reminderCancel
+        stderr: StdioCollector { id: reminderCancelErrors }
+        onExited: function(code) {
+            menu.pendingKey = "";
+            menu.pendingRow = null;
+            calendarContent.forceActiveFocus();
+            if (code !== 0)
+                menu.deleteError = reminderCancelErrors.text.trim().split("\n")[0] || Eitr.I18n.tr("Could not delete the reminder");
+        }
+    }
+    Timer {
+        id: pendingTimeout
+        interval: menu.confirmationTimeout
+        running: menu.pendingKey !== "" && !reminderCancel.running && !(menu.pendingRow && menu.pendingRow.hovered)
+        onTriggered: menu.cancelDelete()
+    }
+    onSelectedDayChanged: {
+        cancelDelete();
+        deleteError = "";
+    }
     property date today: new Date()
     property int viewYear: today.getFullYear()
     property int viewMonth: today.getMonth()
@@ -50,7 +97,11 @@ ThemedPopup {
         viewYear = today.getFullYear();
         viewMonth = today.getMonth();
     }
-    onOpenedChanged: if (opened) goToday()
+    onOpenedChanged: {
+        cancelDelete();
+        deleteError = "";
+        if (opened) goToday();
+    }
 
     Item {
         id: calendarContent
@@ -61,6 +112,7 @@ ThemedPopup {
             else if (event.key === Qt.Key_Right || event.key === Qt.Key_BracketRight) moveMonth(1);
             else if (event.key === Qt.Key_Up) moveMonth(-12);
             else if (event.key === Qt.Key_Down) moveMonth(12);
+            else if (event.key === Qt.Key_Escape && menu.pendingKey !== "") menu.cancelDelete();
             else if (event.key === Qt.Key_T) goToday();
             else return;
             event.accepted = true;
@@ -155,11 +207,30 @@ ThemedPopup {
             y: navigation.y + navigation.height + 12
             width: grid.width
             spacing: 6
-            Text {
-                text: Qt.formatDate(menu.selectedDay, "ddd d MMM")
-                color: menu.foreground
-                font.family: DesktopFonts.family
-                font.pixelSize: PanelStyle.captionSize
+            Item {
+                width: parent.width
+                height: dayCaption.implicitHeight
+                Text {
+                    id: dayCaption
+                    text: Qt.formatDate(menu.selectedDay, "ddd d MMM")
+                    color: menu.foreground
+                    font.family: DesktopFonts.family
+                    font.pixelSize: PanelStyle.captionSize
+                }
+                Text {
+                    objectName: "reminderDeleteError"
+                    anchors.right: parent.right
+                    anchors.rightMargin: PanelStyle.selectionActionInset
+                    width: Math.min(implicitWidth, parent.width - dayCaption.implicitWidth - 12 - PanelStyle.selectionActionInset)
+                    visible: menu.deleteError !== ""
+                    text: "󰀦 " + menu.deleteError
+                    textFormat: Text.PlainText
+                    elide: Text.ElideRight
+                    color: menu.foreground
+                    font.family: DesktopFonts.family
+                    font.pixelSize: PanelStyle.captionSize
+                    font.bold: true
+                }
             }
             // Fixed, so the calendar keeps its height from day to day.
             Item {
@@ -184,15 +255,110 @@ ThemedPopup {
                         spacing: 6
                         Repeater {
                             model: menu.selectedReminders
-                            Text {
+                            Item {
+                                id: reminderRow
                                 required property var modelData
+                                readonly property string key: modelData.id + ":" + modelData.due
+                                readonly property bool confirming: menu.pendingKey === key
+                                readonly property bool repeating: !!modelData.repeat
+                                // The backend skips the pending occurrence, so a later one can only end the series.
+                                readonly property bool nextOccurrence: !repeating || modelData.occurrence === (modelData.repeat_index || 0)
+                                readonly property bool hovered: actionsHover.hovered
+                                readonly property Item actionsItem: actions
+                                function choicesFocused() { return thisOneButton.activeFocus || allButton.activeFocus; }
+                                function restoreFocus() { trashButton.forceActiveFocus(); }
+                                objectName: "reminderRow"
                                 width: reminderSection.width
-                                text: Qt.formatTime(new Date(modelData.due * 1000), "HH:mm") + " · " + (modelData.repeat ? String.fromCodePoint(0xF0456) + " " : "") + modelData.text
-                                textFormat: Text.PlainText
-                                wrapMode: Text.Wrap
-                                color: menu.foreground
-                                font.family: DesktopFonts.family
-                                font.pixelSize: PanelStyle.bodySize
+                                height: Math.max(reminderText.implicitHeight, PanelStyle.selectionActionHeight)
+                                Text {
+                                    id: reminderText
+                                    width: parent.width - actions.width - PanelStyle.selectionActionInset - PanelStyle.selectionActionGap
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    text: Qt.formatTime(new Date(reminderRow.modelData.due * 1000), "HH:mm") + " · " + (reminderRow.repeating ? String.fromCodePoint(0xF0456) + " " : "") + reminderRow.modelData.text
+                                    textFormat: Text.PlainText
+                                    wrapMode: Text.Wrap
+                                    color: menu.foreground
+                                    opacity: reminderRow.confirming ? PanelStyle.secondaryTextOpacity : 1
+                                    font.family: DesktopFonts.family
+                                    font.pixelSize: PanelStyle.bodySize
+                                }
+                                Row {
+                                    id: actions
+                                    anchors.right: parent.right
+                                    anchors.rightMargin: PanelStyle.selectionActionInset
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    spacing: PanelStyle.selectionActionGap
+                                    HoverHandler { id: actionsHover }
+                                    Text {
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        visible: reminderRow.confirming && !reminderRow.repeating
+                                        text: Eitr.I18n.tr("Delete?")
+                                        color: menu.foreground
+                                        font.family: DesktopFonts.family
+                                        font.pixelSize: PanelStyle.captionSize
+                                        font.bold: true
+                                    }
+                                    Item {
+                                        id: thisOneSlot
+                                        visible: reminderRow.confirming && reminderRow.repeating
+                                        width: thisOneButton.width
+                                        height: thisOneButton.height
+                                        HoverHandler { id: thisOneHover }
+                                        PanelButton {
+                                            id: thisOneButton
+                                            objectName: "reminderDeleteOccurrence"
+                                            foreground: menu.foreground
+                                            text: Eitr.I18n.tr("This one")
+                                            textSize: PanelStyle.captionSize
+                                            width: thisOneMetrics.advanceWidth + 16
+                                            height: PanelStyle.selectionActionHeight
+                                            outlined: true
+                                            available: reminderRow.nextOccurrence && !reminderCancel.running
+                                            Accessible.name: Eitr.I18n.tr("Skip this occurrence")
+                                            onClicked: menu.deleteReminder(reminderRow.modelData.id, "occurrence")
+                                            TextMetrics { id: thisOneMetrics; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize; text: thisOneButton.text }
+                                        }
+                                        BarTooltip { target: thisOneSlot; hovered: thisOneHover.hovered; text: reminderRow.nextOccurrence ? Eitr.I18n.tr("Skip this occurrence") : Eitr.I18n.tr("Only the next occurrence can be skipped"); foreground: menu.foreground; background: menu.background }
+                                    }
+                                    PanelButton {
+                                        id: allButton
+                                        objectName: "reminderDeleteSeries"
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        visible: reminderRow.confirming && reminderRow.repeating
+                                        foreground: menu.foreground
+                                        text: Eitr.I18n.tr("All")
+                                        textSize: PanelStyle.captionSize
+                                        width: allMetrics.advanceWidth + 16
+                                        height: PanelStyle.selectionActionHeight
+                                        outlined: true
+                                        available: !reminderCancel.running
+                                        Accessible.name: Eitr.I18n.tr("Delete every occurrence")
+                                        onClicked: menu.deleteReminder(reminderRow.modelData.id, "series")
+                                        HoverHandler { id: allHover }
+                                        TextMetrics { id: allMetrics; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize; text: allButton.text }
+                                        BarTooltip { target: allButton; hovered: allHover.hovered; text: Eitr.I18n.tr("Delete every occurrence"); foreground: menu.foreground; background: menu.background }
+                                    }
+                                    PanelButton {
+                                        id: trashButton
+                                        objectName: "reminderDelete"
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        width: PanelStyle.selectionActionWidth
+                                        height: PanelStyle.selectionActionHeight
+                                        icon: true
+                                        text: "󰆴"
+                                        foreground: menu.foreground
+                                        selected: reminderRow.confirming
+                                        outlined: reminderRow.confirming
+                                        available: !reminderCancel.running
+                                        Accessible.name: trashTip.text
+                                        onClicked: {
+                                            if (reminderRow.confirming && !reminderRow.repeating) menu.deleteReminder(reminderRow.modelData.id, "series");
+                                            else menu.requestDelete(reminderRow);
+                                        }
+                                        HoverHandler { id: trashHover }
+                                        BarTooltip { id: trashTip; target: trashButton; hovered: trashHover.hovered; text: reminderRow.confirming && reminderRow.repeating ? Eitr.I18n.tr("Keep reminder") : Eitr.I18n.tr("Delete reminder"); foreground: menu.foreground; background: menu.background }
+                                    }
+                                }
                             }
                         }
                     }
@@ -215,6 +381,19 @@ ThemedPopup {
                 radius: 3
                 color: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.12)
                 Rectangle { width: parent.width * menu.yearProgress; height: 6; radius: 3; color: menu.foreground }
+            }
+        }
+        // While a row asks for confirmation, a press anywhere but its buttons cancels it and still reaches its target.
+        MouseArea {
+            anchors.fill: parent
+            z: 10
+            enabled: menu.pendingKey !== ""
+            onPressed: function(mouse) {
+                const row = menu.pendingRow;
+                const point = row ? mapToItem(row.actionsItem, mouse.x, mouse.y) : null;
+                if (!point || point.x < 0 || point.y < 0 || point.x > row.actionsItem.width || point.y > row.actionsItem.height)
+                    menu.cancelDelete();
+                mouse.accepted = false;
             }
         }
     }

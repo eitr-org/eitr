@@ -43,6 +43,8 @@ and a package setup installed. Not yet tried on real hardware.
 Local daily, weekday, weekly, monthly and yearly reminders retain alert offsets,
 end by date or count, and skip elapsed occurrences after one missed notification.
 Calendar dots include future occurrences; cancellation can skip one or end a series.
+The calendar panel's reminder rows have a trash button with an inline confirmation
+(This one or All for a repeating reminder) that runs the same cancel command.
 Google/Outlook synchronization still requires account sign-in and remains planned.
 
 ## Organization profiles (unreleased)
