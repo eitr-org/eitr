@@ -21,8 +21,9 @@ Fresh installs include them; existing machines install missing apps on demand
    delay, keyboard, mouse, audio, the lockscreen (unlocked from the Mac) and Stop
    Sharing all work. Still to check: two monitors, start at login, Restore
    Sharing Setup. Controllers are not needed.
-2. Away from home: Tailscale setup and sign-in on both machines, then connect
-   through it and check direct versus relayed.
+2. Away from home: Tailscale setup, sign-in and connect work on the owner's PC
+   (2026-10-21; the Mac found the PC and pinged it). Still to check: a stream
+   over Tailscale from another network, direct versus relayed.
 3. Fix what the tests find; only then call remote access ready in the Handbook
    and on the website.
 

@@ -13,6 +13,13 @@ SPEC.loader.exec_module(remote)
 
 
 class RemoteAccessTests(unittest.TestCase):
+    def setUp(self):
+        # Never the real browser: a test that opens Sunshine's or Tailscale's page
+        # would show it on the desktop of whoever runs the tests.
+        page = patch.object(remote, 'open_page')
+        self.opened = page.start()
+        self.addCleanup(page.stop)
+
     def test_cancel_never_starts_sharing(self):
         with patch('builtins.input', return_value='no'), patch.object(remote, 'run') as run:
             remote.host('start')

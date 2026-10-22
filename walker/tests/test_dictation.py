@@ -1,6 +1,8 @@
+import contextlib
 import os
 from pathlib import Path
 import shutil
+import signal
 import stat
 import subprocess
 import tempfile
@@ -33,6 +35,10 @@ class DictationTests(unittest.TestCase):
         # Records until stopped, but never outlives the test: a stray copy ends by itself.
         self.fake("pw-record", 'echo audio > "${@: -1}"; exec /usr/bin/sleep 5')
         self.addCleanup(self.stop_recorder)
+        # Runs before the folder is removed: start leaves a supervisor behind that
+        # still writes into the runtime folder after the test's last assertion.
+        self.groups = []
+        self.addCleanup(self.end_background_work)
         self.fake("whisper-cli", 'echo "model $2" >> "$LOG"; printf " Hello there.\\n"')
         self.fake("curl", 'echo "download" >> "$LOG"; exit 22')
         self.fake("eitr-shell", 'echo "bar $*" >> "$LOG"')
@@ -42,14 +48,30 @@ class DictationTests(unittest.TestCase):
         if pidfile.exists():
             subprocess.run(["kill", pidfile.read_text().strip()], capture_output=True)
 
+    def end_background_work(self):
+        for group in self.groups:
+            deadline = time.monotonic() + 3
+            while time.monotonic() < deadline:
+                try:
+                    os.killpg(group, 0)
+                except ProcessLookupError:
+                    break
+                time.sleep(0.05)
+            else:
+                with contextlib.suppress(ProcessLookupError):
+                    os.killpg(group, signal.SIGKILL)
+
     def fake(self, name, body):
         path = self.bin / name
         path.write_text(f'#!/usr/bin/env bash\nLOG="{self.log}"\n{body}\n')
         path.chmod(path.stat().st_mode | stat.S_IXUSR)
 
-    def run_script(self, action):
-        return subprocess.run(["bash", str(SCRIPT), action], env=self.env, capture_output=True, text=True,
-                              timeout=20)
+    def run_script(self, *arguments):
+        process = subprocess.Popen(["bash", str(SCRIPT), *arguments], env=self.env, stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE, text=True, start_new_session=True)
+        self.groups.append(process.pid)
+        stdout, stderr = process.communicate(timeout=20)
+        return subprocess.CompletedProcess(process.args, process.returncode, stdout, stderr)
 
     def logged(self):
         return self.log.read_text() if self.log.exists() else ""
@@ -99,7 +121,8 @@ class DictationTests(unittest.TestCase):
         self.ready_model()
         self.fake("flock", '/usr/bin/flock "$@"; if [[ "$*" == 9 ]] && mkdir "$XDG_RUNTIME_DIR/gate" 2>/dev/null; then echo locked >> "$LOG"; sleep 0.3; fi')
         start = subprocess.Popen(["bash", str(SCRIPT), "start"], env=self.env,
-                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, start_new_session=True)
+        self.groups.append(start.pid)
         self.addCleanup(start.wait)
         self.wait_for_log("locked")
         self.assertFalse((self.base / "runtime/eitr-dictation.pid").exists())
@@ -161,8 +184,7 @@ class DictationTests(unittest.TestCase):
         model.write_text("model")
         self.fake("python3", 'echo "voice $*" >> "$LOG"; cat >> "$LOG"')
         for action in ("start", "stop"):
-            result = subprocess.run(["bash", str(SCRIPT), action, "voice"], env=self.env,
-                                    capture_output=True, text=True, timeout=20)
+            result = self.run_script(action, "voice")
             self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn(f"model {model}", self.logged())
         self.assertIn("voice-command.py stdin", self.logged())
