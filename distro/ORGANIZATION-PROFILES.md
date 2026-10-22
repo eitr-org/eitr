@@ -53,6 +53,14 @@ allowlisted package in that group: `gaming`, `media`, `development`, `sharing`,
 and `remote_access`. `true` permits a feature; `false` disables it. The `update_channel`
 policy accepts only `"stable"`. Omitted policies are unrestricted.
 
+`plugins` accepts `false`, which hides Install > Plugins and Tools > Plugins and
+refuses adding, updating and launching plugins, or `{"allow": ["https://git.example.org/team/tools.git", "git@github.com:team/plugin.git"]}`,
+which permits only those repositories. Allowlist entries are HTTPS or SSH URLs and
+match regardless of scheme, user, port, `.git` suffix, trailing slash and letter
+case; an SSH host alias from `~/.ssh/config` must be listed as written. Applying
+such a policy on an installed machine stops and disables the services of plugins
+it no longer allows and keeps their files.
+
 Recipes use `group/name` from `distro/software.json`. Only prebuilt pacman and
 Flatpak recipes are accepted. AUR and interactive managed/webapp recipes are
 refused; provide reviewed prebuilt package files instead. Repository packages,

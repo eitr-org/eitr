@@ -118,6 +118,9 @@ msgstr "No máximo quatro layouts podem ficar ativos ao mesmo tempo"
 msgid "A network service is masked; review your custom configuration before switching."
 msgstr "Um serviço de rede está mascarado; revise sua configuração personalizada antes de trocar."
 
+msgid "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background."
+msgstr "Um plugin é executado como você, com todas as permissões da sua conta. Ele pode ler seus arquivos, chaves SSH e dados do navegador, enviá-los para qualquer lugar e continuar rodando em segundo plano."
+
 msgid "A program crashed"
 msgstr "Um programa falhou"
 
@@ -253,9 +256,6 @@ msgstr "Projetos de aplicativos"
 msgid "Applications"
 msgstr "Aplicativos"
 
-msgid "Apply this plugin update?"
-msgstr "Aplicar esta atualização do plugin?"
-
 msgid "Apply this system change? Type yes to continue: "
 msgstr "Aplicar esta alteração no sistema? Digite yes para continuar: "
 
@@ -301,6 +301,15 @@ msgstr "Nome do autor"
 msgid "Available accounts"
 msgstr "Contas disponíveis"
 
+msgid "Background service added: {command}"
+msgstr "Serviço em segundo plano adicionado: {command}"
+
+msgid "Background service changed: {command}"
+msgstr "Serviço em segundo plano alterado: {command}"
+
+msgid "Background service removed"
+msgstr "Serviço em segundo plano removido"
+
 msgid "Background service: {service}"
 msgstr "Serviço em segundo plano: {service}"
 
@@ -318,6 +327,12 @@ msgstr "Limite de carga removido; as baterias carregam até 100%."
 
 msgid "Battery limit must be a whole number from 60 to 100, or off"
 msgstr "O limite deve ser um número inteiro de 60 a 100, ou off"
+
+msgid "Before you download a plugin"
+msgstr "Antes de baixar um plugin"
+
+msgid "Binary file: {path}"
+msgstr "Arquivo binário: {path}"
 
 msgid "BitLocker: keep the Windows recovery key at hand"
 msgstr "BitLocker: tenha a chave de recuperação do Windows em mãos"
@@ -405,6 +420,12 @@ msgstr "Não foi possível validar o repositório Flatpak {remote}: {reason}"
 
 msgid "Capture"
 msgstr "Captura"
+
+msgid "Changed executable file: {path}"
+msgstr "Arquivo executável alterado: {path}"
+
+msgid "Changed files:"
+msgstr "Arquivos alterados:"
 
 msgid "Chapters need the Hybrid MP4 recording format (OBS Settings > Output)"
 msgstr "Os marcadores de capítulo exigem o formato de gravação Hybrid MP4 (Configurações do OBS > Saída)"
@@ -547,8 +568,17 @@ msgstr "Email do autor dos commits"
 msgid "Commit author name"
 msgstr "Nome do autor dos commits"
 
+msgid "Commit by a different author than the approved one: {author}"
+msgstr "Commit de um autor diferente do aprovado: {author}"
+
 msgid "Commit: {commit}"
 msgstr "Commit: {commit}"
+
+msgid "Commit: {old} → {new}"
+msgstr "Commit: {old} → {new}"
+
+msgid "Commits:"
+msgstr "Commits:"
 
 msgid "Compartments"
 msgstr "Compartimentos"
@@ -787,6 +817,9 @@ msgstr "DocumentDB"
 msgid "Domains"
 msgstr "Domínios"
 
+msgid "Download this plugin for review?"
+msgstr "Baixar este plugin para revisão?"
+
 msgid "Downloading {model}…"
 msgstr "Baixando {model}…"
 
@@ -825,6 +858,12 @@ msgstr "Cada transferência usa a assinatura do assistente auxiliar e conta para
 
 msgid "Edit {label}"
 msgstr "Editar {label}"
+
+msgid "Eitr asks for your password only in a terminal it opened for a step you started, such as System Update, never in a pop-up window. If a plugin asks for your password, it is not Eitr: do not type it."
+msgstr "O Eitr pede sua senha apenas em um terminal que ele abriu para uma etapa que você iniciou, como a Atualização do sistema, nunca em uma janela pop-up. Se um plugin pedir sua senha, não é o Eitr: não a digite."
+
+msgid "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust."
+msgstr "O Eitr não o revisou. O código é do autor, não do Eitr. Adicione apenas plugins de pessoas e repositórios em que você confia."
 
 msgid "Eitr software"
 msgstr "Software do Eitr"
@@ -889,6 +928,9 @@ msgstr "Apagar o disco inteiro ({size_text}) e instalar o Eitr"
 msgid "Everything is up to date."
 msgstr "Tudo está atualizado."
 
+msgid "Executable files: {count}"
+msgstr "Arquivos executáveis: {count}"
+
 msgid "Existing FIDO2 registration needs manual review"
 msgstr "O registro FIDO2 existente precisa de revisão manual"
 
@@ -909,6 +951,9 @@ msgstr "Ponto de redefinição de fábrica salvo para {usernames}."
 
 msgid "Factory reset point: {created} (accounts: {names})"
 msgstr "Ponto de redefinição de fábrica: {created} (contas: {names})"
+
+msgid "File became executable: {path}"
+msgstr "Arquivo se tornou executável: {path}"
 
 msgid "File or folder to restore (for example ~/Documents/report.odt)"
 msgstr "Arquivo ou pasta a restaurar (por exemplo, ~/Documents/report.odt)"
@@ -1129,6 +1174,9 @@ msgstr "Instale primeiro o auxiliar de rede do Eitr pertencente ao root. Consult
 msgid "Install them and enable snapshot entries with: bash distro/bootloader/setup.sh"
 msgstr "Instale-os e ative as entradas de snapshots com: bash distro/bootloader/setup.sh"
 
+msgid "Install this plugin?"
+msgstr "Instalar este plugin?"
+
 msgid "Install type"
 msgstr "Tipo de instalação"
 
@@ -1140,6 +1188,9 @@ msgstr "Instale {package} primeiro: sudo pacman -Syu --needed {package_2}"
 
 msgid "Install {package} now?"
 msgstr "Instalar {package} agora?"
+
+msgid "Installed plugins could not be checked against the new policy: {error}"
+msgstr "Não foi possível verificar os plugins instalados com a nova política: {error}"
 
 msgid "Installer must use HTTPS"
 msgstr "O instalador deve usar HTTPS"
@@ -1402,6 +1453,9 @@ msgstr "Não foi possível atualizar a tela de login: {errors}"
 msgid "Logs"
 msgstr "Logs"
 
+msgid "Look closely at:"
+msgstr "Observe com atenção:"
+
 msgid "Lowercase name. This user will have sudo access."
 msgstr "Nome em minúsculas. Este usuário terá acesso sudo."
 
@@ -1413,6 +1467,9 @@ msgstr "Bancos de dados gerenciados"
 
 msgid "Manifest author: {author}"
 msgstr "Autor do manifesto: {author}"
+
+msgid "Manifest changed: {path}"
+msgstr "Manifesto alterado: {path}"
 
 msgid "Message queues"
 msgstr "Filas de mensagens"
@@ -1459,11 +1516,14 @@ msgstr "Redes"
 msgid "New SSH key for {label}"
 msgstr "Nova chave SSH para {label}"
 
-msgid "New commit: {commit}"
-msgstr "Novo commit: {commit}"
+msgid "New executable file: {path}"
+msgstr "Novo arquivo executável: {path}"
 
 msgid "New name"
 msgstr "Novo nome"
+
+msgid "Next, Eitr downloads the plugin without running it and shows its exact author and commit."
+msgstr "Em seguida, o Eitr baixa o plugin sem executá-lo e mostra o autor e o commit exatos."
 
 msgid "No"
 msgstr "Não"
@@ -1539,6 +1599,9 @@ msgstr "Não há lembretes pendentes."
 
 msgid "No reminders."
 msgstr "Nenhum lembrete."
+
+msgid "No risk flags. Read the changes anyway before you trust them."
+msgstr "Nenhum sinal de risco. Leia as mudanças mesmo assim antes de confiar nelas."
 
 msgid "No snapshot has {path}."
 msgstr "Nenhum snapshot contém {path}."
@@ -1678,6 +1741,9 @@ msgstr "As senhas não coincidem"
 msgid "Peer Tailscale address or name: "
 msgstr "Endereço ou nome Tailscale do dispositivo: "
 
+msgid "PgUp/PgDn: scroll  y: download for review  Enter / Esc: cancel"
+msgstr "PgUp/PgDn: rolar  y: baixar para revisão  Enter / Esc: cancelar"
+
 msgid "PgUp/PgDn: scroll  y: install  Enter / Esc: cancel"
 msgstr "PgUp/PgDn: rolar  y: instalar  Enter / Esc: cancelar"
 
@@ -1690,8 +1756,17 @@ msgstr "Amplie o console para pelo menos 80 colunas e 24 linhas."
 msgid "Please enter a valid value."
 msgstr "Digite um valor válido."
 
+msgid "Plugin blocked: {name}"
+msgstr "Plugin bloqueado: {name}"
+
+msgid "Plugin by {author} · not reviewed by Eitr"
+msgstr "Plugin de {author} · não revisado pelo Eitr"
+
 msgid "Plugin installed"
 msgstr "Plugin instalado"
+
+msgid "Plugin turned off: {name}"
+msgstr "Plugin desativado: {name}"
 
 msgid "Plugin update: {name}"
 msgstr "Atualização do plugin: {name}"
@@ -1699,11 +1774,23 @@ msgstr "Atualização do plugin: {name}"
 msgid "Plugin {id} could not be updated: {error}"
 msgstr "Não foi possível atualizar o plugin {id}: {error}"
 
+msgid "Plugin {id} was not updated: {reason}"
+msgstr "O plugin {id} não foi atualizado: {reason}"
+
+msgid "Plugin {id}: kept the current version."
+msgstr "Plugin {id}: versão atual mantida."
+
 msgid "Plugin: {name}"
 msgstr "Plugin: {name}"
 
 msgid "Plugins"
 msgstr "Plugins"
+
+msgid "Plugins are turned off by your organization."
+msgstr "Os plugins foram desativados pela sua organização."
+
+msgid "Plugins may not contain symlinks: {path}"
+msgstr "Plugins não podem conter links simbólicos: {path}"
 
 msgid "Plugins run with your account’s full permissions. Eitr has not reviewed this code. Install only if you trust its author and repository."
 msgstr "Plugins executam com todas as permissões da sua conta. O Eitr não revisou este código. Instale apenas se confiar no autor e no repositório."
@@ -1716,6 +1803,9 @@ msgstr "Políticas"
 
 msgid "Policies restrict Eitr tools. A user with root can override them."
 msgstr "Políticas restringem as ferramentas Eitr. Um usuário com root pode alterá-las."
+
+msgid "Policy: plugins only from: {value}"
+msgstr "Política: plugins somente de: {value}"
 
 msgid "Policy: {key}: {value}"
 msgstr "Política: {key}: {value}"
@@ -1740,9 +1830,6 @@ msgstr "Preparando a atualização…"
 
 msgid "Press Esc to close."
 msgstr "Pressione Esc para fechar."
-
-msgid "Previous commit: {commit}"
-msgstr "Commit anterior: {commit}"
 
 msgid "Primary IPs"
 msgstr "IPs primários"
@@ -1803,6 +1890,9 @@ msgstr "Filas"
 
 msgid "R2 Buckets"
 msgstr "Buckets R2"
+
+msgid "RISK: {flag}"
+msgstr "RISCO: {flag}"
 
 msgid "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth."
 msgstr "As conexões sem fio foram bloqueadas em outro lugar; ative-as individualmente em WiFi/Bluetooth."
@@ -1899,6 +1989,9 @@ msgstr "A remoção afetaria a fonte padrão ou os ícones do sistema"
 
 msgid "Removal would delete every installed font"
 msgstr "A remoção excluiria todas as fontes instaladas"
+
+msgid "Remove"
+msgstr "Remover"
 
 msgid "Remove local sign-in"
 msgstr "Remover acesso local"
@@ -2064,6 +2157,9 @@ msgstr "Os caminhos das chaves SSH devem ser absolutos"
 
 msgid "SSO Login"
 msgstr "Entrar com SSO"
+
+msgid "Safety"
+msgstr "Segurança"
 
 msgid "Saturday"
 msgstr "Sábado"
@@ -2305,6 +2401,9 @@ msgstr "Os horários de início e fim devem ser diferentes"
 msgid "Start sharing this PC?"
 msgstr "Iniciar o compartilhamento deste PC?"
 
+msgid "Starts a background service at every login: {command}"
+msgstr "Inicia um serviço em segundo plano a cada login: {command}"
+
 msgid "Static IPs"
 msgstr "IPs estáticos"
 
@@ -2512,6 +2611,9 @@ msgstr "A configuração gcloud {configuration} já existe; renomeie com Ctrl+R"
 msgid "The guided install supports UEFI boot only; boot the ISO in UEFI mode"
 msgstr "A instalação guiada só oferece boot UEFI; inicie a ISO em modo UEFI"
 
+msgid "The history of {id} was rewritten: the approved commit {commit} is not part of the new one. Eitr does not update it automatically. If you still trust its author, remove the plugin and add it again."
+msgstr "O histórico de {id} foi reescrito: o commit aprovado {commit} não faz parte do novo. O Eitr não o atualiza automaticamente. Se você ainda confia no autor, remova o plugin e adicione-o novamente."
+
 msgid "The initramfs cannot use TPM2 unlock yet. Nothing was changed."
 msgstr "O initramfs ainda não permite desbloqueio por TPM2. Nada foi alterado."
 
@@ -2562,6 +2664,9 @@ msgstr "O nome precisa de pelo menos uma letra ou número."
 
 msgid "The payload has no pacman {version} package"
 msgstr "The payload has no pacman {version} package"
+
+msgid "The plugin blocklist could not be read; plugins are refused until it is fixed."
+msgstr "Não foi possível ler a lista de bloqueio de plugins; plugins são recusados até que ela seja corrigida."
 
 msgid "The previous system is still running; see {MANUAL}"
 msgstr "O sistema anterior continua em execução; consulte {MANUAL}"
@@ -2664,6 +2769,12 @@ msgstr "Este layout já foi adicionado"
 
 msgid "This occurrence"
 msgstr "Esta ocorrência"
+
+msgid "This plugin is blocked: {reason}"
+msgstr "Este plugin está bloqueado: {reason}"
+
+msgid "This plugin is on the Eitr blocklist: {reason}"
+msgstr "Este plugin está na lista de bloqueio do Eitr: {reason}"
 
 msgid "This removes TPM unlock from {device}; the passphrase is required at every boot again."
 msgstr "Isto remove o desbloqueio por TPM de {device}; a senha volta a ser exigida em todo boot."
@@ -2980,6 +3091,9 @@ msgstr "Logs de WARN"
 msgid "Wallpaper must be PNG, JPEG or WebP"
 msgstr "O papel de parede deve ser PNG, JPEG ou WebP"
 
+msgid "Warnings:"
+msgstr "Avisos:"
+
 msgid "Web app created"
 msgstr "Aplicativo web criado"
 
@@ -3040,6 +3154,9 @@ msgstr "Seu assistente padrão não foi alterado."
 msgid "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send."
 msgstr "Seu aplicativo de e-mail abriu uma mensagem para {REPORTS_EMAIL}. Anexe {path}, descreva o ocorrido e envie."
 
+msgid "Your organization allows plugins only from its approved repositories."
+msgstr "Sua organização só permite plugins dos repositórios aprovados por ela."
+
 msgid "Zone details"
 msgstr "Detalhes da zona"
 
@@ -3064,6 +3181,9 @@ msgstr "O archinstall encerrou com código {returncode}"
 msgid "asking Huginn and Muninn"
 msgstr "perguntando a Huginn e Muninn"
 
+msgid "binary"
+msgstr "binário"
+
 msgid "cannot list monitors: {error}"
 msgstr "não foi possível listar os monitores: {error}"
 
@@ -3081,6 +3201,9 @@ msgstr "contando os einherjar"
 
 msgid "crossing Bifröst"
 msgstr "cruzando Bifröst"
+
+msgid "d: full diff  y: update  Enter / n / Esc: keep the current version"
+msgstr "d: diff completo  y: atualizar  Enter / n / Esc: manter a versão atual"
 
 msgid "eitr: {command} is not installed"
 msgstr "eitr: {command} não está instalado"
@@ -3129,6 +3252,12 @@ msgstr "pacman.conf has no [eitr] repository to add the testing channel before"
 
 msgid "pacman.conf has no options section"
 msgstr "pacman.conf não tem uma seção options"
+
+msgid "policies.plugins.allow must list repository URLs without duplicates"
+msgstr "policies.plugins.allow deve listar URLs de repositórios sem duplicatas"
+
+msgid "policies.plugins.allow: not an HTTPS or SSH repository URL: {value}"
+msgstr "policies.plugins.allow: não é uma URL de repositório HTTPS ou SSH: {value}"
 
 msgid "policies.update_channel may only pin stable"
 msgstr "policies.update_channel só pode fixar stable"
@@ -3325,6 +3454,12 @@ msgstr "{path} ainda aponta para a mídia de instalação"
 msgid "{provider_name} needs the {command} command"
 msgstr "{provider_name} exige o comando {command}"
 
+msgid "{reason} Its service was stopped and its files were kept. Remove it from Install > Plugins."
+msgstr "{reason} O serviço foi parado e os arquivos foram mantidos. Remova-o em Instalar > Plugins."
+
+msgid "{reason} Its service was stopped and its files were kept. Remove it from Install > Plugins. Report a plugin: {url}"
+msgstr "{reason} O serviço foi parado e os arquivos foram mantidos. Remova-o em Instalar > Plugins. Denunciar um plugin: {url}"
+
 msgid "{relative_path} is no longer read-only; the restore point is not trusted"
 msgstr "{relative_path} não está mais em modo somente leitura; o ponto de restauração não é confiável"
 
@@ -3348,3 +3483,6 @@ msgstr "{unit} está ativo; as entradas de snapshots serão gravadas em {entries
 
 msgid "{unit} manages networking; review that custom setup first."
 msgstr "{unit} gerencia a rede; revise essa configuração personalizada primeiro."
+
+msgid "… and {count} more"
+msgstr "… e mais {count}"

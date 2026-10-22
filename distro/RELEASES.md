@@ -119,6 +119,18 @@ plugins stay per-user, pinned to the approved commit, and System Update shows ea
 plugin's changes and asks before updating it. `eitr plugin` does the same from a
 terminal; `distro/plugins/example/` is a starting point.
 
+Safer plugins: adding one now takes two confirmations that default to No, a plain
+safety page before anything is downloaded and the review after it, which lists
+warnings such as a background service or binary files. Every plugin row says whose
+code it is and that Eitr has not reviewed it. Updates open with a summary (commits,
+changed files with line counts, RISK flags for service and manifest changes,
+executables, binaries and new authors); `d` shows the full diff, and a rewritten
+history is refused. A blocklist shipped in the signed `eitr-desktop` package stops
+known-bad plugins (rows hidden, service disabled, one notification with Remove),
+organization profiles can turn plugins off or allow listed repositories, symlinks
+are refused anywhere in a plugin, and plugin services get `NoNewPrivileges=yes`.
+Report a harmful plugin with the Report a plugin issue form.
+
 pacman shows colour and the Pac-Man progress bar (`Color` and `ILoveCandy`):
 new installs write both, and existing desktops get them once with the next
 update; removing them by hand afterwards is kept.

@@ -21,7 +21,9 @@ return function(kind)
     local entries = {}
     if kind == "plugins" then
         for _, row in ipairs(read("rows")) do
-            table.insert(entries, {Text = row.title, Subtext = row.description, Icon = row.icon,
+            -- The code is its author's: every row says whose it is and that Eitr did not review it.
+            table.insert(entries, {Text = row.title, Subtext = i18n.tr("Plugin by {author} · not reviewed by Eitr", {author = row.author}),
+                Keywords = {row.description}, Icon = row.icon,
                 Value = row.id .. ":" .. row.index,
                 Actions = {open = "python3 " .. quote(helper) .. " launch " .. quote(row.id) .. " " .. row.index}})
         end
@@ -30,8 +32,17 @@ return function(kind)
         end
     elseif kind == "plugins-install" then
         for _, row in ipairs(read("installed")) do
-            table.insert(entries, {Text = row.name, State = {"submenu"}, Value = row.id,
-                Icon = "󰏖", SubMenu = "plugin-actions"})
+            if row.blocked == "policy" or row.blocked == "blocklist" then
+                -- Blocked plugins keep their files; the only action left is removing them.
+                table.insert(entries, {Text = row.name, Icon = "󰀦", Value = row.id,
+                    Subtext = row.blocked == "policy" and i18n.tr("Not allowed by your organization · select to remove")
+                        or i18n.tr("Blocked by Eitr for your safety · select to remove"),
+                    Actions = {open = task("remove", row.id)}})
+            else
+                table.insert(entries, {Text = row.name, State = {"submenu"}, Value = row.id, Icon = "󰏖",
+                    Subtext = i18n.tr("Plugin by {author} · not reviewed by Eitr", {author = row.author}),
+                    SubMenu = "plugin-actions"})
+            end
         end
         table.insert(entries, {Text = i18n.tr("Add Plugin…"), Subtext = i18n.tr("Review a Git repository before installing"), Icon = "󰐕",
             Actions = {open = task("add")}})

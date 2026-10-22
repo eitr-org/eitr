@@ -7,6 +7,7 @@ from eitr_i18n import tr
 
 POLICIES = Path('/etc/eitr/policies.json')
 PROFILE = Path('/etc/eitr/profile.json')
+PLUGIN_MENUS = {'plugins', 'plugins-install', 'plugin-actions'}
 
 
 def load(path=POLICIES):
@@ -68,6 +69,8 @@ def row_allowed(row, policies=None):
         return False
     if not allowed('update_channel', policies) and ('update-channel' in scope or 'channel-set' in scope):
         return False
+    if not allowed('plugins', policies) and (submenu in PLUGIN_MENUS or provider in PLUGIN_MENUS or 'install/plugins.py' in commands):
+        return False
     for group in ('gaming', 'media', 'development', 'sharing', 'accessories'):
         if not allowed(group, policies):
             if submenu == group or provider == group or re.search(r'\bsoftware\.py\s+(?:recipe(?:-launch)?\s+)?' + group + r'\b', commands):
@@ -89,7 +92,7 @@ def main():
     elif sys.argv[1:] == ['status']:
         policies = load()
         print(json.dumps({feature: allowed(feature, policies) for feature in
-                          {'remote_access', 'assistants_together', 'update_channel',
+                          {'remote_access', 'assistants_together', 'update_channel', 'plugins',
                            *(entry['group'] for entry in removable().values())}}))
     else:
         raise SystemExit('Usage: eitr_policy.py status|packages')

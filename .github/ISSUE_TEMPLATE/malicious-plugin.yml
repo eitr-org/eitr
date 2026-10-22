@@ -1,0 +1,45 @@
+name: Report a plugin
+description: Report an Eitr plugin that steals data, damages systems or impersonates Eitr, so it can be added to the blocklist.
+title: "Plugin report: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting. Do not paste passwords, tokens, private keys, cookies or other secrets, even ones the plugin stole: describe them instead. If your account may be compromised, remove the plugin and change those credentials first.
+  - type: input
+    id: repository
+    attributes:
+      label: Repository URL
+      description: The HTTPS or SSH address the plugin was added from.
+      placeholder: https://example.com/owner/plugin.git
+    validations:
+      required: true
+  - type: input
+    id: commit
+    attributes:
+      label: Commit
+      description: The full commit hash shown by `eitr plugin list` or the review page.
+      placeholder: 0123456789abcdef0123456789abcdef01234567
+    validations:
+      required: false
+  - type: input
+    id: plugin-id
+    attributes:
+      label: Plugin id
+      description: The `id` from its eitr-plugin.json.
+    validations:
+      required: false
+  - type: textarea
+    id: behaviour
+    attributes:
+      label: What it does
+      description: What the plugin does that is harmful or misleading, and how you noticed.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: File paths and line numbers, commit links, or log excerpts with secrets removed.
+    validations:
+      required: true

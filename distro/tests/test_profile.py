@@ -102,6 +102,18 @@ class ProfileFormat(unittest.TestCase):
         with self.assertRaisesRegex(profile.ProfileError, 'also removed'):
             self.validate(remove=['steam'], add={'packages': ['steam']})
 
+    def test_plugin_policy_off_or_allowlist(self):
+        self.assertIs(self.validate(policies={'plugins': False})['policies']['plugins'], False)
+        allow = ['https://git.example.org/team/tools.git', 'git@github.com:team/plugin.git']
+        result = self.validate(policies={'plugins': {'allow': allow}})
+        self.assertIn('Policy: plugins only from: ' + ', '.join(allow), profile.summary(result))
+        self.assertIn('Policy: plugins: False', profile.summary(self.validate(policies={'plugins': False})))
+        for value in ('false', {'allow': []}, {'allow': ['http://example.org/a.git']}, {'allow': ['ext::sh -c evil']},
+                      {'allow': ['file:///srv/plugin']}, {'allow': [allow[0], allow[0]]}, {'allow': allow, 'deny': []},
+                      {'allow': 'https://example.org/a.git'}, {'allow': [7]}):
+            with self.subTest(value=value), self.assertRaises(profile.ProfileError):
+                self.validate(policies={'plugins': value})
+
     def test_group_policy_excludes_all_group_packages(self):
         result = self.validate(policies={'remote_access': False, 'gaming': False})
         self.assertTrue({'eitr-sunshine', 'moonlight-qt', 'tailscale', 'steam'} <= profile.removals(result))
@@ -236,6 +248,26 @@ for _, menu in ipairs({'remote-access', 'remote-away', 'remote-share', 'gaming',
 end
 assert(#policies.filter({{Text='Let assistants work together'}}, 'ai-tools') == 0)
 assert(#policies.filter({{Text='Example', SubMenu='remote-access'}}, 'shortcuts') == 0)
+for _, menu in ipairs({'plugins', 'plugins-install', 'plugin-actions'}) do
+    assert(#policies.filter({{Text='Example', Actions={open='command'}}}, menu) == 0, menu)
+    assert(#policies.filter({{Text='Plugins', SubMenu=menu}}, 'tools') == 0, menu)
+end
+assert(#policies.filter({{Text='Row', Actions={open='python3 /usr/share/eitr/walker/scripts/actions/install/plugins.py launch a 0'}}}, 'search') == 0)
+'''
+        subprocess.run(['lua', '-'], input=script, text=True, check=True, cwd=ROOT)
+
+    def test_plugin_menus_follow_the_policy(self):
+        for value, shown in ((False, False), ({'allow': ['https://example.org/a.git']}, True), (True, True)):
+            with self.subTest(value=value), patch.object(policy, 'load', return_value={'plugins': value}):
+                for menu in ('plugins', 'plugins-install'):
+                    self.assertEqual(policy.row_allowed({'submenu': menu}), shown)
+        script = '''
+local policies = dofile('elephant/policies.lua')
+io.open = function() return {read = function() return '' end, close = function() end} end
+jsonDecode = function() return {plugins = {allow = {'https://example.org/a.git'}}} end
+assert(#policies.filter({{Text='Plugins', SubMenu='plugins'}}, 'tools') == 1)
+jsonDecode = function() return {plugins = false} end
+assert(#policies.filter({{Text='Plugins', SubMenu='plugins'}}, 'tools') == 0)
 '''
         subprocess.run(['lua', '-'], input=script, text=True, check=True, cwd=ROOT)
 
@@ -269,6 +301,30 @@ class ProfileApplication(unittest.TestCase):
             self.assertIn(['pacman', '-R', '--noconfirm', '--', 'steam'], commands)
             self.assertEqual((root/'etc/eitr/profile-pacman.conf').read_text(), 'IgnorePkg = eitr-sunshine moonlight-qt steam tailscale\n')
             self.assertEqual((root/'etc/pacman.conf').read_text().count('Include = /etc/eitr/profile-pacman.conf'), 1)
+
+    def test_plugin_policy_stops_plugins_through_the_users_own_tool(self):
+        eitr_profile_apply = module('profile_apply_plugins', 'distro/lib/eitr_profile_apply.py')
+        for value, expected in ((False, True), ({'allow': ['https://example.org/a.git']}, True), (True, False)):
+            with self.subTest(value=value), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                (root / 'etc').mkdir()
+                (root / 'etc/pacman.conf').write_text('[options]\n')
+                (root / 'run/user/1000').mkdir(parents=True)
+                (root / 'run/user/1000/bus').touch()
+                selected = {'version': 1, 'name': 'Office', 'policies': {'plugins': value}}
+                runner = Mock()
+                account = Mock(pw_uid=1000, pw_dir=str(root / 'home'))
+                with patch.object(eitr_profile_apply.pwd, 'getpwnam', return_value=account), \
+                     patch.object(eitr_profile_apply.subprocess, 'run', return_value=Mock(stdout='')), \
+                     patch.object(eitr_profile_apply.os, 'fchown'):
+                    eitr_profile_apply.execute(selected, root, 'tester', Mock(), runner=runner, root=root)
+                    eitr_profile_apply.execute(selected, root, 'tester', Mock(), runner=Mock(side_effect=AssertionError), root=root, installer=True)
+                commands = [call.args[0] for call in runner.call_args_list if call.args[0][-1:] == ['enforce']]
+                self.assertEqual(len(commands), int(expected))
+                if expected:
+                    self.assertEqual(commands[0][:4], ['runuser', '-u', 'tester', '--'])
+                    self.assertIn('DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus', commands[0])
+                    self.assertTrue(commands[0][-2].endswith('walker/scripts/actions/install/plugins.py'))
 
     def test_cancellation_never_reaches_executor(self):
         import eitr_profile_apply

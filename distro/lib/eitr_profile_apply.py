@@ -108,6 +108,19 @@ def finish_flatpaks(root=Path('/'), runner=run):
     return True
 
 
+def stop_plugins(username, account, code, runner, root):
+    """The user's own plugin tool stops what the new policy no longer allows; files are kept."""
+    runtime = f'/run/user/{account.pw_uid}'
+    session = ([f'XDG_RUNTIME_DIR={runtime}', f'DBUS_SESSION_BUS_ADDRESS=unix:path={runtime}/bus']
+               if (root / runtime.lstrip('/') / 'bus').exists() else [])
+    try:
+        runner(['runuser', '-u', username, '--', 'env', '-i', f'HOME={account.pw_dir}', f'USER={username}',
+                'PATH=/usr/local/bin:/usr/bin', *session, 'python3',
+                str(code / 'walker/scripts/actions/install/plugins.py'), 'enforce'])
+    except subprocess.CalledProcessError as error:
+        print(tr('Installed plugins could not be checked against the new policy: {error}', error=error), file=sys.stderr)
+
+
 def execute(profile, drive, username, channel_set, runner=run, root=Path('/'), installer=False):
     """Called only after root-owned staging, complete validation and review."""
     account = pwd.getpwnam(username)
@@ -138,6 +151,8 @@ def execute(profile, drive, username, channel_set, runner=run, root=Path('/'), i
     policies = profile.get('policies', {})
     write((root / 'etc/eitr/policies.json'), policies)
     write((root / 'etc/eitr/profile.json'), profile)
+    if policies.get('plugins', True) is not True and not installer:
+        stop_plugins(username, account, code, runner, root)
     # Pacman's dependency resolver must fail rather than silently reintroduce an excluded app.
     conf = (root / 'etc/pacman.conf')
     content = conf.read_text()

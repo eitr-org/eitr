@@ -520,5 +520,8 @@
   "Local (offline, experimental)": "Lokal (offline, experimentell)",
   "Remove Local Assistant": "Lokalen Assistenten entfernen",
   "Runs only on this PC; less reliable than cloud assistants": "Läuft nur auf diesem PC; weniger zuverlässig als Cloud-Assistenten",
-  "Set up an assistant that runs only on this PC": "Einen Assistenten einrichten, der nur auf diesem PC läuft"
+  "Set up an assistant that runs only on this PC": "Einen Assistenten einrichten, der nur auf diesem PC läuft",
+  "Blocked by Eitr for your safety · select to remove": "Von Eitr zu deiner Sicherheit gesperrt · zum Entfernen wählen",
+  "Not allowed by your organization · select to remove": "Von deiner Organisation nicht erlaubt · zum Entfernen wählen",
+  "Plugin by {author} · not reviewed by Eitr": "Plugin von {author} · nicht von Eitr geprüft"
 }

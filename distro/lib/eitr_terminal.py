@@ -53,5 +53,21 @@ def read_line_or_escape(prompt):
         print()
 
 
+def read_key():
+    """One key press without Enter. An escape sequence, such as an arrow key, reads as Escape."""
+    if not sys.stdin.isatty():
+        return sys.stdin.readline()[:1] or '\x1b'
+    descriptor = sys.stdin.fileno()
+    previous = termios.tcgetattr(descriptor)
+    try:
+        tty.setraw(descriptor)
+        key = os.read(descriptor, 1)
+        termios.tcflush(descriptor, termios.TCIFLUSH)
+    finally:
+        termios.tcsetattr(descriptor, termios.TCSADRAIN, previous)
+        print()
+    return key.decode('utf-8', errors='replace') or '\x1b'
+
+
 if __name__ == '__main__':
     wait_for_escape()

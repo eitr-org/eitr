@@ -107,6 +107,21 @@ def removals(profile):
     return excluded
 
 
+def plugin_allowlist(value):
+    """policies.plugins as {"allow": [repository URLs]}: only these repositories may be added."""
+    from eitr_plugins import repository_url
+    object_keys(value, ('allow',), 'policies.plugins')
+    allow = value.get('allow')
+    if not isinstance(allow, list) or not allow or len(set(map(str, allow))) != len(allow):
+        fail(tr('policies.plugins.allow must list repository URLs without duplicates'))
+    for url in allow:
+        try:
+            repository_url(url)
+        except ValueError:
+            fail(tr('policies.plugins.allow: not an HTTPS or SSH repository URL: {value}', value=str(url)))
+    return allow
+
+
 def validate(drive):
     drive = Path(drive).resolve()
     profile = read_json(stick_file(drive, 'eitr-profile.json'))
@@ -121,12 +136,14 @@ def validate(drive):
         if package not in reviewed:
             fail(tr('Protected or unknown package cannot be removed: {package}', package=package))
     policies = profile.get('policies', {})
-    object_keys(policies, {'remote_access', 'assistants_together', 'update_channel',
+    object_keys(policies, {'remote_access', 'assistants_together', 'update_channel', 'plugins',
                            *(review['group'] for review in reviewed.values())}, 'policies')
     for key, value in policies.items():
         if key == 'update_channel':
             if value != 'stable':
                 fail(tr('policies.update_channel may only pin stable'))
+        elif key == 'plugins' and isinstance(value, dict):
+            plugin_allowlist(value)
         elif type(value) is not bool:
             fail(tr('policies.{key}: expected true or false', key=key))
     additions = profile.get('add', {})
@@ -230,7 +247,10 @@ def summary(profile, installer=False):
     for key, value in profile.get('defaults', {}).items():
         lines.append(tr('Default: {key}: {value}', key=key, value=describe(value)))
     for key, value in profile.get('policies', {}).items():
-        lines.append(tr('Policy: {key}: {value}', key=key, value=str(value)))
+        if key == 'plugins' and isinstance(value, dict):
+            lines.append(tr('Policy: plugins only from: {value}', value=', '.join(value['allow'])))
+        else:
+            lines.append(tr('Policy: {key}: {value}', key=key, value=str(value)))
     if 'setup' in profile:
         lines.append(tr('Run once as root: {value}', value=describe(profile['setup'])))
     lines.append(tr('Policies restrict Eitr tools. A user with root can override them.'))

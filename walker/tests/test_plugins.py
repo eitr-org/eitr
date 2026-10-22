@@ -1,5 +1,7 @@
 """Plugin fixtures never run plugin code or reach the real user service manager."""
+from contextlib import redirect_stderr, redirect_stdout
 import copy
+import io
 import json
 import os
 from pathlib import Path
@@ -8,6 +10,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import unittest.mock
 from unittest.mock import patch
 
 from home_isolation import setUpModule, tearDownModule
@@ -38,7 +41,17 @@ class PluginTests(unittest.TestCase):
         self.bare = self.home / 'remote.git'
         self.git(None, 'clone', '--bare', str(self.source), str(self.bare))
         self.url = self.bare.as_uri()
-        self.manager = plugins.Plugins(allow_file=True)
+        self.policies = {}
+        policy = patch('eitr_policy.load', side_effect=lambda: self.policies)
+        policy.start()
+        self.addCleanup(policy.stop)
+        self.blocklist = self.home / 'plugin-blocklist.json'
+        self.block()
+        blocklist = patch.object(plugins, 'BLOCKLIST', self.blocklist)
+        blocklist.start()
+        self.addCleanup(blocklist.stop)
+        self.notices = []
+        self.manager = plugins.Plugins(allow_file=True, notify=lambda *notice: self.notices.append(notice) or True)
         self.systemctl = patch.object(self.manager, 'systemctl')
         self.commands = self.systemctl.start()
         self.addCleanup(self.systemctl.stop)
@@ -48,6 +61,22 @@ class PluginTests(unittest.TestCase):
 
     def spec(self):
         return json.loads((self.source / 'eitr-plugin.json').read_text())
+
+    def block(self, **entry):
+        entries = [dict(entry, reason='Test entry: sends SSH keys away', date='2026-10-22')] if entry else []
+        self.blocklist.write_text(json.dumps({'version': 1, 'entries': entries}))
+
+    def cli(self):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location('plugin_cli_test', ROOT / 'walker/scripts/actions/install/plugins.py')
+        cli = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cli)
+        return cli
+
+    def commit_as(self, name, message='Updated plugin'):
+        self.git(self.source, 'add', '.')
+        self.git(self.source, '-c', 'user.name=' + name, '-c', f'user.email={name.lower()}@example.invalid', 'commit', '-m', message)
+        self.git(self.source, 'push', str(self.bare), 'main')
 
     def write_spec(self, spec):
         (self.source / 'eitr-plugin.json').write_text(json.dumps(spec))
@@ -62,7 +91,7 @@ class PluginTests(unittest.TestCase):
         self.git(self.source, 'push', str(self.bare), 'main')
 
     def install(self):
-        self.assertTrue(self.manager.add(self.url, lambda *details: True))
+        self.assertTrue(self.manager.add(self.url, lambda url: True, lambda *details: True))
         return self.manager.records()['example']['commit']
 
     def test_manifest_refusals(self):
@@ -128,7 +157,7 @@ class PluginTests(unittest.TestCase):
                 self.assertFalse(marker.exists())
                 self.commands.assert_not_called()
                 return False
-            self.assertFalse(self.manager.add(self.url, refuse))
+            self.assertFalse(self.manager.add(self.url, lambda url: True, refuse))
             approved = self.install()
         self.assertFalse(marker.exists())
         self.assertEqual(approved, plugins.commit(self.source))
@@ -144,10 +173,11 @@ class PluginTests(unittest.TestCase):
         self.publish()
         self.assertFalse(self.manager.update('example', lambda *details: False))
         self.assertEqual(plugins.commit(self.manager.folder / 'example'), old)
-        def approve(spec, previous, current, subjects, changed):
-            self.assertEqual(previous, old)
-            self.assertIn('Updated plugin', subjects)
-            self.assertIn('revision', changed)
+        def approve(changes):
+            self.assertEqual(changes['old'], old)
+            self.assertTrue(any('Updated plugin' in subject for subject in changes['subjects']))
+            self.assertEqual([(change['status'], change['path'], change['added']) for change in changes['files']], [('A', 'revision', '1')])
+            self.assertEqual(changes['flags'], [])
             return True
         self.assertTrue(self.manager.update('example', approve))
         approved = self.manager.records()['example']['commit']
@@ -169,6 +199,8 @@ class PluginTests(unittest.TestCase):
         content = unit.read_text()
         self.assertIn('ExecStart="' + str(self.manager.folder / 'example/notify.sh') + '"', content)
         self.assertIn('Restart=on-failure', content)
+        self.assertIn('\nNoNewPrivileges=yes\n', content)
+        self.assertIn('RestartSec=5', content)
         self.assertIn('"a space" "%%specifier" "$$variable" "\\"quoted\\""', content)
         self.commands.assert_any_call('enable', '--now', unit.name)
         self.publish()
@@ -197,7 +229,7 @@ class PluginTests(unittest.TestCase):
 
     def test_root_mutations_refused(self):
         with patch('eitr_plugins.os.geteuid', return_value=0), self.assertRaises(ValueError):
-            self.manager.add(self.url, lambda *details: True)
+            self.manager.add(self.url, lambda url: True, lambda *details: True)
 
     def test_menu_parents_and_scoped_search(self):
         for name, parent in [('plugins', 'tools'), ('plugins-install', 'install'), ('plugin-actions', 'plugins-install')]:
@@ -219,7 +251,7 @@ class PluginTests(unittest.TestCase):
             self.assertFalse(self.manager.unit('example').exists())
             self.commands.assert_not_called()
             return False
-        self.assertFalse(self.manager.add(self.url, refuse))
+        self.assertFalse(self.manager.add(self.url, lambda url: True, refuse))
         self.assertFalse(marker.exists())
         self.assertFalse(self.manager.state.exists())
 
@@ -267,7 +299,8 @@ class PluginTests(unittest.TestCase):
             return '{' + ','.join('{' + ','.join(key + '=' + json.dumps(value, ensure_ascii=False)
                 for key, value in row.items()) + '}' for row in values) + '}'
         harness = '''
-            local fixtures = {rows = %s, installed = {{id="example", name="Example plugin"}}}
+            local fixtures = {rows = %s, installed = {{id="example", name="Example plugin", author="Eitr contributors", blocked=""},
+                {id="bad", name="Bad plugin", author="Someone", blocked="blocklist"}}}
             io.popen = function(command)
                 local action = command:match(" ([a-z]+)$")
                 return {read = function() return action end, close = function() end}
@@ -278,18 +311,19 @@ class PluginTests(unittest.TestCase):
                 dofile("elephant/menus/" .. name .. ".lua")
                 for _, entry in ipairs(GetEntries()) do
                     if entry.SubMenu then
-                        assert(entry.State[1] == "submenu" and entry.Subtext == nil)
+                        assert(entry.State[1] == "submenu")
                     else
                         assert(entry.Subtext and entry.Subtext ~= "")
                     end
-                    print(name .. " | " .. entry.Text .. " | " .. (entry.SubMenu or entry.Subtext))
+                    print(name .. " | " .. entry.Text .. " | " .. (entry.SubMenu or "-") .. " | " .. (entry.Subtext or ""))
                 end
             end
         ''' % lua_rows(rows)
         environment = dict(os.environ, EITR_LIBRARY_ROOT=str(ROOT / 'distro/lib'), EITR_CODE_ROOT=str(ROOT))
         result = subprocess.run(['lua', '-e', harness], cwd=ROOT, env=environment, capture_output=True, text=True, check=True)
-        self.assertIn('plugins | Example notification | Show a greeting', result.stdout)
-        self.assertIn('plugins-install | Example plugin | plugin-actions', result.stdout)
+        self.assertIn('plugins | Example notification | - | Plugin by Eitr contributors · not reviewed by Eitr', result.stdout)
+        self.assertIn('plugins-install | Bad plugin | - | Blocked by Eitr for your safety · select to remove', result.stdout)
+        self.assertIn('plugins-install | Example plugin | plugin-actions | Plugin by Eitr contributors · not reviewed by Eitr', result.stdout)
         self.assertIn('plugin-actions | Remove |', result.stdout)
         self.assertIn('plugin-actions | Update |', result.stdout)
         print(result.stdout.strip())
@@ -310,7 +344,7 @@ class PluginTests(unittest.TestCase):
             raise OSError('disk full')
         with patch('eitr_plugins.shutil.copytree', side_effect=partial_copy):
             with self.assertRaises(OSError):
-                self.manager.add(self.url, lambda *details: True)
+                self.manager.add(self.url, lambda url: True, lambda *details: True)
         self.assertFalse((self.manager.folder / 'example').exists())
         self.assertFalse(self.manager.state.exists())
 
@@ -330,10 +364,257 @@ class PluginTests(unittest.TestCase):
     def test_postapproval_manifest_change_is_refused(self):
         old = self.install()
         self.publish()
-        def approve(spec, *details):
-            spec['name'] = 'not the reviewed manifest'
+        def approve(changes):
+            changes['spec']['name'] = 'not the reviewed manifest'
             return True
         with self.assertRaises(ValueError):
             self.manager.update('example', approve)
         self.assertEqual(plugins.commit(self.manager.folder / 'example'), old)
+        self.assertEqual(self.manager.records()['example']['commit'], old)
+
+    def test_nothing_is_cloned_before_the_safety_confirmation(self):
+        with patch('eitr_plugins.clone') as clone:
+            self.assertFalse(self.manager.add(self.url, lambda url: False, lambda *details: self.fail('reviewed')))
+        clone.assert_not_called()
+        self.assertFalse(self.manager.folder.exists())
+        cli = self.cli()
+        for answer in ('', None, 'n', 'no'):
+            with self.subTest(answer=answer), patch('eitr_plugins.clone') as clone, \
+                    patch.object(cli, 'read_line_or_escape', return_value=answer), redirect_stdout(io.StringIO()) as output:
+                self.assertFalse(cli.add_in_terminal(self.manager, self.url))
+            clone.assert_not_called()
+            text = ' '.join(output.getvalue().split())
+            self.assertIn('SSH keys and browser data', text)
+            self.assertIn('never in a pop-up window', text)
+            self.assertIn('exact author and commit', text)
+
+    def test_terminal_add_needs_both_confirmations_and_noninteractive_add_is_refused(self):
+        cli = self.cli()
+        with patch.object(cli, 'read_line_or_escape', side_effect=['y', '']), redirect_stdout(io.StringIO()) as output:
+            self.assertFalse(cli.add_in_terminal(self.manager, self.url))
+        self.assertFalse(self.manager.state.exists())
+        review = ' '.join(output.getvalue().split())
+        self.assertLess(review.index('Eitr has not reviewed this code'), review.index('Plugin: Example plugin'))
+        self.assertIn('Plugin by Eitr contributors · not reviewed by Eitr', review)
+        self.assertIn('Executable files: 1', review)
+        with patch.object(cli, 'read_line_or_escape', side_effect=['y', 'y']), redirect_stdout(io.StringIO()):
+            self.assertTrue(cli.add_in_terminal(self.manager, self.url))
+        with patch.object(cli.sys.stdin, 'isatty', return_value=False), patch('eitr_plugins.clone') as clone:
+            with self.assertRaises(ValueError):
+                cli.add(self.manager, self.url)
+        clone.assert_not_called()
+
+    def test_review_lines_show_service_executables_and_binary_warnings(self):
+        spec = self.spec()
+        spec['service'] = {'run': 'notify.sh'}
+        (self.source / 'blob.bin').write_bytes(b'\0\1\2')
+        self.write_spec(spec)
+        lines = self.cli().review_lines(self.source, plugins.manifest(self.source), self.url)
+        self.assertTrue(lines[0].startswith('Plugins run with your account'))
+        self.assertIn('Background service: Yes', lines)
+        self.assertIn('⚠ Starts a background service at every login: notify.sh', lines)
+        self.assertIn('⚠ Binary file: blob.bin', lines)
+
+    def test_update_risk_flags_from_real_history(self):
+        old = self.install()
+        spec = self.spec()
+        spec['service'] = {'run': 'notify.sh', 'arguments': ['--watch']}
+        self.write_spec(spec)
+        (self.source / 'helper.sh').write_text('#!/bin/sh\n')
+        (self.source / 'helper.sh').chmod(0o755)
+        (self.source / 'notify.sh').write_text('#!/usr/bin/env bash\necho changed\n')
+        (self.source / 'blob.bin').write_bytes(b'\0binary')
+        self.commit_as('Mallory', 'Add a helper')
+        seen = {}
+        def approve(changes):
+            seen.update(changes)
+            return False
+        self.assertFalse(self.manager.update('example', approve))
+        flags = seen['flags']
+        self.assertIn('Background service added: notify.sh --watch', flags)
+        self.assertIn('Manifest changed: eitr-plugin.json', flags)
+        self.assertIn('New executable file: helper.sh', flags)
+        self.assertIn('Changed executable file: notify.sh', flags)
+        self.assertIn('Binary file: blob.bin', flags)
+        self.assertIn('Commit by a different author than the approved one: Mallory <mallory@example.invalid>', flags)
+        files = {change['path']: change for change in seen['files']}
+        self.assertTrue(files['blob.bin']['binary'])
+        self.assertEqual((files['notify.sh']['added'], files['notify.sh']['removed']), ('1', '2'))
+        self.assertEqual(self.manager.records()['example']['commit'], old)
+        self.assertTrue(self.manager.update('example', lambda changes: True))
+        del spec['service']
+        self.write_spec(spec)
+        self.commit_as('Mallory')
+        self.manager.update('example', approve)
+        self.assertEqual(seen['flags'], ['Background service removed', 'Manifest changed: eitr-plugin.json'])
+
+    def test_rewritten_history_is_refused_before_review(self):
+        old = self.install()
+        (self.source / 'revision').write_text('rewritten')
+        self.git(self.source, 'add', '.')
+        self.git(self.source, '-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '--amend', '-m', 'Rewritten')
+        self.git(self.source, 'push', '--force', str(self.bare), 'main')
+        with self.assertRaisesRegex(ValueError, 'rewritten'):
+            self.manager.update('example', lambda changes: self.fail('Rewritten history reached review'))
+        self.assertEqual(self.manager.records()['example']['commit'], old)
+
+    def test_update_keys_pager_and_default(self):
+        cli = self.cli()
+        old = self.install()
+        self.publish()
+        which = {'less': '/usr/bin/less'}
+        with patch.object(cli.sys.stdin, 'isatty', return_value=True), patch.object(cli, 'read_key', side_effect=['\r']), \
+                redirect_stdout(io.StringIO()) as output:
+            cli.update(self.manager)
+        self.assertIn('Plugin by Eitr contributors · not reviewed by Eitr', output.getvalue())
+        self.assertIn('A  revision  +1 −0', output.getvalue())
+        self.assertIn('kept the current version', output.getvalue())
+        self.assertEqual(self.manager.records()['example']['commit'], old)
+        for key in ('\x1b', 'n'):
+            with patch.object(cli.sys.stdin, 'isatty', return_value=True), patch.object(cli, 'read_key', side_effect=[key]), \
+                    redirect_stdout(io.StringIO()):
+                cli.update(self.manager)
+            self.assertEqual(self.manager.records()['example']['commit'], old)
+        with patch.object(cli.sys.stdin, 'isatty', return_value=True), patch.object(cli, 'read_key', side_effect=['d', 'y']), \
+                patch.object(cli.shutil, 'which', side_effect=which.get), patch.object(cli, 'run_pager') as pager, \
+                redirect_stdout(io.StringIO()):
+            cli.update(self.manager)
+        command, text, environment = pager.call_args.args
+        self.assertEqual(command, ['less', '-R'])
+        self.assertEqual(environment['LESSSECURE'], '1')
+        self.assertIn('new revision', text)
+        self.assertNotEqual(self.manager.records()['example']['commit'], old)
+        with patch.object(cli.shutil, 'which', side_effect={'delta': '/usr/bin/delta', 'less': '/usr/bin/less'}.get):
+            self.assertEqual(cli.pager_command(), (['delta', '--paging=always'], False))
+
+    def test_blocklist_parser_is_strict(self):
+        valid = {'url': 'https://example.com/a/b.git', 'reason': 'Steals keys', 'date': '2026-10-22'}
+        for entry in (dict(valid, extra=True), {**valid, 'id': 'b'}, dict(valid, date='22.10.2026'), dict(valid, date='2026-02-30'),
+                      {'commit': 'ABC', 'reason': 'x', 'date': '2026-10-22'}, {'id': '../x', 'reason': 'x', 'date': '2026-10-22'},
+                      {'url': 'ext::sh -c evil', 'reason': 'x', 'date': '2026-10-22'}, {'reason': 'x', 'date': '2026-10-22'}):
+            with self.subTest(entry=entry):
+                self.blocklist.write_text(json.dumps({'version': 1, 'entries': [entry]}))
+                with self.assertRaisesRegex(ValueError, 'blocklist could not be read'):
+                    plugins.blocklist()
+        for text in ('', '[]', '{"version": 2, "entries": []}', '{"version": 1, "entries": [], "entries": []}'):
+            self.blocklist.write_text(text)
+            with self.assertRaises(ValueError):
+                plugins.blocklist()
+        self.assertEqual(plugins.blocklist(ROOT / 'distro/plugin-blocklist.json'), [])
+        self.assertEqual(plugins.normalized_url('git@GitHub.com:Owner/Repo.git'), plugins.normalized_url('https://github.com/owner/repo/'))
+        self.assertEqual(plugins.normalized_url('ssh://git@github.com:22/owner/repo.git'), 'github.com/owner/repo')
+
+    def test_blocklist_refuses_add_by_url_commit_and_id(self):
+        commit = plugins.commit(self.source)
+        consent = unittest.mock.Mock(return_value=True)
+        for entry in (dict(id='example'), dict(commit=commit)):
+            with self.subTest(entry=entry):
+                self.block(**entry)
+                with self.assertRaisesRegex(ValueError, 'blocklist: Test entry'):
+                    self.manager.add(self.url, consent, lambda *details: self.fail('Blocked plugin reached review'))
+        with patch.object(plugins, 'normalized_url', side_effect=lambda value: 'blocked/repo'):
+            self.block(url='https://blocked.example/repo')
+            consent.reset_mock()
+            with self.assertRaisesRegex(ValueError, 'blocklist'):
+                self.manager.add(self.url, consent, lambda *details: True)
+            consent.assert_not_called()
+        self.assertFalse(self.manager.state.exists())
+
+    def test_blocklist_refuses_update_to_a_blocked_commit(self):
+        old = self.install()
+        self.publish()
+        self.block(commit=plugins.commit(self.source))
+        with self.assertRaisesRegex(ValueError, 'blocklist'):
+            self.manager.update('example', lambda changes: self.fail('Blocked commit reached review'))
+        self.assertEqual(self.manager.records()['example']['commit'], old)
+
+    def test_blocked_installed_plugin_is_hidden_stopped_refused_and_notified_once(self):
+        spec = self.spec()
+        spec['service'] = {'run': 'notify.sh'}
+        self.publish(spec)
+        self.install()
+        unit = self.manager.unit('example')
+        self.commands.reset_mock()
+        self.block(id='example')
+        self.assertEqual(self.manager.rows(), [])
+        self.commands.assert_called_once_with('disable', '--now', unit.name)
+        self.assertTrue(unit.exists())
+        self.assertTrue((self.manager.folder / 'example/notify.sh').exists())
+        self.assertEqual(self.notices, [('example', 'Example plugin', 'blocklist', 'Test entry: sends SSH keys away')])
+        self.assertEqual(self.manager.rows(), [])
+        with patch('eitr_plugins.subprocess.Popen') as popen, self.assertRaisesRegex(ValueError, 'blocklist'):
+            self.manager.launch('example', 0)
+        popen.assert_not_called()
+        self.assertEqual(len(self.notices), 1)
+        self.commands.assert_called_once()
+        self.assertEqual(self.manager.installed()[0]['blocked'], 'blocklist')
+        cli = self.cli()
+        with patch.object(cli.sys.stdin, 'isatty', return_value=True), patch.object(self.manager, 'update') as update, \
+                redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()) as errors:
+            cli.update(self.manager)
+        update.assert_not_called()
+        self.assertIn('Test entry', errors.getvalue())
+        title, body = cli.notice_text('Example plugin', 'blocklist', 'Test entry.')
+        self.assertIn('Example plugin', title)
+        self.assertIn(plugins.REPORT_URL, body)
+        self.block()
+        self.assertEqual(len(self.manager.rows()), 1)
+
+    def test_notification_waits_for_remove_in_a_detached_helper(self):
+        cli = self.cli()
+        self.install()
+        self.block(id='example')
+        self.manager.notify = None
+        self.manager.enforce()
+        with patch.object(cli.subprocess, 'run', return_value=subprocess.CompletedProcess([], 0, 'remove\n')) as run, \
+                patch.object(cli.subprocess, 'Popen') as popen:
+            cli.notice(self.manager, 'example')
+        self.assertIn('--action=remove=Remove', run.call_args.args[0])
+        self.assertEqual(popen.call_args.args[0][-2:], ['remove', 'example'])
+        with patch.dict(os.environ, {'DBUS_SESSION_BUS_ADDRESS': ''}), patch.object(cli.subprocess, 'Popen') as popen:
+            self.assertFalse(cli.notify_blocked('example', 'Example plugin', 'blocklist', 'reason'))
+        popen.assert_not_called()
+
+    def test_organization_policy_off_and_allowlist(self):
+        self.install()
+        self.policies = {'plugins': False}
+        consent = unittest.mock.Mock(return_value=True)
+        with self.assertRaisesRegex(ValueError, 'turned off by your organization'):
+            self.manager.add(self.url, consent, lambda *details: True)
+        consent.assert_not_called()
+        self.assertEqual(self.manager.rows(), [])
+        self.assertEqual(self.notices[-1][2], 'policy')
+        with self.assertRaisesRegex(ValueError, 'organization'):
+            self.manager.update('example', lambda changes: True)
+        with patch('eitr_plugins.subprocess.Popen'), self.assertRaisesRegex(ValueError, 'organization'):
+            self.manager.launch('example', 0)
+        cli = self.cli()
+        with patch.object(cli.sys.stdin, 'isatty', return_value=True), self.assertRaisesRegex(ValueError, 'organization'):
+            cli.add(self.manager)
+        import eitr_policy
+        for menu in ('plugins', 'plugins-install', 'plugin-actions'):
+            self.assertFalse(eitr_policy.row_allowed({'submenu': menu}, self.policies))
+        self.assertTrue(eitr_policy.row_allowed({'submenu': 'plugins'}, {'plugins': {'allow': [self.url]}}))
+        self.policies = {'plugins': {'allow': ['https://example.com/approved/plugin.git']}}
+        self.assertEqual(self.manager.rows(), [])
+        self.assertEqual(self.manager.installed()[0]['blocked'], 'policy')
+        self.manager.remove('example', lambda record: True)
+        with self.assertRaisesRegex(ValueError, 'approved repositories'):
+            self.manager.add(self.url, consent, lambda *details: True)
+        self.policies = {'plugins': {'allow': [self.url + '/']}}
+        self.assertTrue(self.manager.add(self.url, lambda url: True, lambda *details: True))
+
+    def test_symlinks_anywhere_are_refused_at_add_and_update(self):
+        (self.source / 'docs').mkdir()
+        (self.source / 'docs/link').symlink_to('../notify.sh')
+        self.commit_as('Fixture')
+        with self.assertRaisesRegex(ValueError, 'symlinks: docs/link'):
+            self.manager.add(self.url, lambda url: True, lambda *details: self.fail('Symlink reached review'))
+        self.git(self.source, 'rm', '-q', 'docs/link')
+        self.commit_as('Fixture')
+        old = self.install()
+        (self.source / 'folder-link').symlink_to('docs')
+        self.commit_as('Fixture')
+        with self.assertRaisesRegex(ValueError, 'symlinks: folder-link'):
+            self.manager.update('example', lambda changes: self.fail('Symlink reached review'))
         self.assertEqual(self.manager.records()['example']['commit'], old)

@@ -58,7 +58,9 @@
     "{label}  {text}  (id {id})",
     "Commit: {commit}",
     "Plugin: {name}",
-    "Plugins"
+    "Plugins",
+    "Commit: {old} → {new}",
+    "Commits:"
   ],
   "es": [
     "AWS SSO (IAM Identity Center)",
@@ -112,7 +114,9 @@
     "{label}  {text}  (id {id})",
     "Commit: {commit}",
     "Plugin: {name}",
-    "Plugins"
+    "Plugins",
+    "Commit: {old} → {new}",
+    "Commits:"
   ],
   "de": [
     "AWS SSO (IAM Identity Center)",
@@ -180,7 +184,9 @@
     "Plugin: {name}",
     "Plugins",
     "Repository: {url}",
-    "Version: {version}"
+    "Version: {version}",
+    "Commit: {old} → {new}",
+    "Commits:"
   ],
   "fr": [
     "AWS SSO (IAM Identity Center)",

@@ -3,6 +3,7 @@
 import argparse
 import curses
 import json
+import os
 import shutil
 from pathlib import Path
 import subprocess
@@ -17,13 +18,18 @@ for parent in Path(__file__).resolve().parents:
         sys.path.insert(0, str(library))
         break
 
+import eitr_policy
 from eitr_forms import Terminal
 from eitr_i18n import tr, mark
 from eitr_i18n import mark as menu_mark
-from eitr_plugins import Plugins, commit, git, manifest, repository_url
-from eitr_terminal import read_line_or_escape, wait_for_escape
+from eitr_plugins import (REPORT_URL, Plugins, add_flags, commit, executable_files, git, printable,
+                          repository_url, short_author)
+from eitr_terminal import read_key, read_line_or_escape, wait_for_escape
 from eitr_wizard import Cancelled, Wizard
 
+HELPER = Path(__file__).resolve()
+PRESENTER = HELPER.parents[1] / 'task-terminal.py'
+WARNING = '⚠ '
 TRUST = mark('Plugins run with your account’s full permissions. Eitr has not reviewed this code. Install only if you trust its author and repository.')
 menu_mark('Plugins')
 menu_mark('Add Plugin…')
@@ -36,36 +42,56 @@ menu_mark('Remove')
 menu_mark('Remove this plugin and its service')
 
 
+def safety_lines(url):
+    """The plain-language risk, read before anything is downloaded."""
+    return [tr('Repository: {url}', url=printable(url)), '',
+            tr('A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background.'),
+            '',
+            tr('Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust.'),
+            '',
+            tr('Eitr asks for your password only in a terminal it opened for a step you started, such as System Update, never in a pop-up window. If a plugin asks for your password, it is not Eitr: do not type it.'),
+            '',
+            tr('Next, Eitr downloads the plugin without running it and shows its exact author and commit.')]
+
+
 def review_lines(root, spec, url):
-    author = git(root, 'show', '-s', '--format=%an <%ae> · %aI', 'HEAD')
-    author = ''.join(character if character.isprintable() else '?' for character in author)
-    # The trust warning comes first, so it is read before any detail.
-    return [tr(TRUST), '', tr('Plugin: {name}', name=spec['name']), spec['description'],
-            tr('Manifest author: {author}', author=spec['author']),
-            tr('Repository: {url}', url=url), tr('Commit: {commit}', commit=commit(root)),
-            tr('Git author and date: {author}', author=author),
-            tr('Version: {version}', version=spec['version']),
-            tr('Background service: {service}', service=tr('Yes') if 'service' in spec else tr('No')),
-            tr('Rows:')] + [row['title'] + ' — ' + row['description'] for row in spec['rows']]
+    author = printable(git(root, 'show', '-s', '--format=%an <%ae> · %aI', 'HEAD'))
+    flags = add_flags(root, spec)
+    # The trust warning comes first, then the warnings, so both are read before any detail.
+    lines = [tr(TRUST), '', tr('Plugin: {name}', name=printable(spec['name'])),
+             tr('Plugin by {author} · not reviewed by Eitr', author=short_author(spec)), '']
+    if flags:
+        lines += [tr('Warnings:')] + [WARNING + flag for flag in flags] + ['']
+    lines += [printable(spec['description']),
+             tr('Manifest author: {author}', author=printable(spec['author'])),
+             tr('Repository: {url}', url=printable(url)), tr('Commit: {commit}', commit=commit(root)),
+             tr('Git author and date: {author}', author=author),
+             tr('Version: {version}', version=printable(spec['version'])),
+             tr('Background service: {service}', service=tr('Yes') if 'service' in spec else tr('No')),
+             tr('Executable files: {count}', count=len(executable_files(root))),
+             tr('Rows:')] + [printable(row['title'] + ' — ' + row['description']) for row in spec['rows']]
+    return lines
 
 
 class PluginWizard(Wizard):
     def __init__(self, screen):
-        super().__init__(screen, (tr('Repository URL'), tr('Review')))
+        super().__init__(screen, (tr('Repository URL'), tr('Safety'), tr('Review')))
 
-    def review(self, lines):
-        self.step = 1
+    def review(self, lines, step=2, title=None, keys=None):
+        """A scrolling page; only y accepts, every other way out declines."""
+        self.step = step
         offset = 0
         while True:
-            y, x = self.frame(tr('Install plugin?'), tr('PgUp/PgDn: scroll  y: install  Enter / Esc: cancel'))
-            wrapped = [line for paragraph in lines for line in (textwrap.wrap(paragraph, self.body_width) or [''])]
+            y, x = self.frame(title or tr('Install plugin?'), keys or tr('PgUp/PgDn: scroll  y: install  Enter / Esc: cancel'))
+            wrapped = [(line, paragraph.startswith(WARNING)) for paragraph in lines
+                       for line in (textwrap.wrap(paragraph, self.body_width, subsequent_indent='  ' if paragraph.startswith(WARNING) else '') or [''])]
             count = max(1, self.panel_bottom - y)
             offset = max(0, min(offset, len(wrapped) - count))
-            for index, line in enumerate(wrapped[offset:offset + count]):
-                self.text(y + index, x, line)
+            for index, (line, warning) in enumerate(wrapped[offset:offset + count]):
+                self.text(y + index, x, line, 2 if warning else 1)
             self.screen.refresh()
             key = self.screen.get_wch()
-            if key in ('\x1b', '\n', '\r', '\x03'):
+            if key in ('\x1b', '\n', '\r', '\x03', 'n', 'N'):
                 return False
             if key in ('y', 'Y'):
                 return True
@@ -74,23 +100,59 @@ class PluginWizard(Wizard):
             if key in (curses.KEY_PPAGE, curses.KEY_UP):
                 offset -= count if key == curses.KEY_PPAGE else 1
 
+    def safety(self, url):
+        return self.review(safety_lines(url), step=1, title=tr('Before you download a plugin'),
+                           keys=tr('PgUp/PgDn: scroll  y: download for review  Enter / Esc: cancel'))
+
+
+def require_plugins():
+    if eitr_policy.load().get('plugins', True) is False:
+        raise ValueError(tr('Plugins are turned off by your organization.'))
+
 
 def add(manager, url=None):
     if not sys.stdin.isatty():
         raise ValueError('Install requires an interactive terminal')
-    def flow(screen):
-        wizard = PluginWizard(screen)
-        value = url or wizard.field(tr('Repository URL'), tr('HTTPS or SSH Git repository URL'), validator=repository_url)
-        repository_url(value)
-        return manager.add(value, lambda root, spec, source: wizard.review(review_lines(root, spec, source)))
-    try:
-        installed = curses.wrapper(flow)
-    except Cancelled:
-        return False
+    require_plugins()
+    if url:
+        installed = add_in_terminal(manager, url)
+    else:
+        def flow(screen):
+            wizard = PluginWizard(screen)
+            value = wizard.field(tr('Repository URL'), tr('HTTPS or SSH Git repository URL'), validator=repository_url)
+            repository_url(value)
+            return manager.add(value, wizard.safety, lambda root, spec, source: wizard.review(review_lines(root, spec, source)))
+        try:
+            installed = curses.wrapper(flow)
+        except Cancelled:
+            return False
     if installed and shutil.which('notify-send'):
         subprocess.run(['notify-send', '--app-name=Eitr', tr('Plugin installed'), tr('Open it from Tools > Plugins.')],
                        check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     return installed
+
+
+def show(lines):
+    width = max(40, shutil.get_terminal_size().columns - 1)
+    for line in lines:
+        warning = line.startswith(WARNING)
+        for part in textwrap.wrap(line, width, subsequent_indent='  ' if warning or line.startswith('  ') else '') or ['']:
+            print(f'\033[1;31m{part}\033[0m' if warning else part)
+
+
+def add_in_terminal(manager, url):
+    def consent(source):
+        print(Terminal().title(tr('Before you download a plugin')))
+        show(safety_lines(source))
+        print()
+        return confirm(tr('Download this plugin for review?'))
+
+    def approve(root, spec, source):
+        print(Terminal().title(tr('Install plugin?')))
+        show(review_lines(root, spec, source))
+        print()
+        return confirm(tr('Install this plugin?'))
+    return manager.add(url, consent, approve)
 
 
 def confirm(question):
@@ -98,22 +160,80 @@ def confirm(question):
     return answer is not None and answer.strip().casefold() in ('y', 'yes')
 
 
+def count_text(change):
+    if change['binary']:
+        return tr('binary')
+    return f"+{change['added']} −{change['removed']}"
+
+
+def summary_lines(changes, limit=20):
+    spec = changes['spec']
+    lines = [tr('Plugin by {author} · not reviewed by Eitr', author=short_author(spec)),
+             tr('Commit: {old} → {new}', old=changes['old'][:12], new=changes['new'][:12]), '',
+             tr('Commits:')]
+    lines += ['  ' + subject for subject in changes['subjects'][:limit]]
+    if len(changes['subjects']) > limit:
+        lines.append('  ' + tr('… and {count} more', count=len(changes['subjects']) - limit))
+    lines += ['', tr('Changed files:')]
+    width = max((len(change['path']) for change in changes['files'][:limit]), default=0)
+    lines += [f"  {change['status']}  {change['path'].ljust(width)}  {count_text(change)}" for change in changes['files'][:limit]]
+    if len(changes['files']) > limit:
+        lines.append('  ' + tr('… and {count} more', count=len(changes['files']) - limit))
+    if changes['flags']:
+        lines += ['', tr('Look closely at:')] + [WARNING + tr('RISK: {flag}', flag=flag) for flag in changes['flags']]
+    else:
+        lines += ['', tr('No risk flags. Read the changes anyway before you trust them.')]
+    return lines + ['', tr(TRUST)]
+
+
+def pager_command():
+    if shutil.which('delta'):
+        return ['delta', '--paging=always'], False
+    if shutil.which('less'):
+        return ['less', '-R'], True
+    return None, True
+
+
+def show_diff(changes):
+    command, colour = pager_command()
+    diff = git(changes['root'], 'diff', '--no-ext-diff', '--no-textconv', '--color=always' if colour else '--color=never',
+               changes['old'], changes['new'])
+    # LESSSECURE turns off less's shell, editor and file commands while reading untrusted text.
+    environment = dict(os.environ, LESSSECURE='1', LESS='-R', DELTA_PAGER='less -R', PAGER='less -R')
+    if command is None:
+        print(diff)
+        return
+    run_pager(command, diff + '\n', environment)
+
+
+def run_pager(command, text, environment):
+    subprocess.run(command, input=text, text=True, env=environment, check=False)
+
+
 def update(manager, plugin_id=None):
+    blocked = manager.enforce()
     if not sys.stdin.isatty():
         print(tr('Plugins: non-interactive update skipped; run eitr plugin update in a terminal.'))
         return
-    def approve(spec, old, new, subjects, changed):
-        print(Terminal().title(tr('Plugin update: {name}', name=spec['name'])))
-        # Git's quoted paths and sanitized metadata cannot inject terminal escapes.
-        for line in [tr('Previous commit: {commit}', commit=old), tr('New commit: {commit}', commit=new),
-                     subjects, changed, tr('Background service: {service}', service=tr('Yes') if 'service' in spec else tr('No')),
-                     tr(TRUST)]:
-            print(''.join(character if character.isprintable() or character in '\n\t' else '?' for character in line))
-        return confirm(tr('Apply this plugin update?'))
+
+    def approve(changes):
+        print(Terminal().title(tr('Plugin update: {name}', name=printable(changes['spec']['name']))))
+        show(summary_lines(changes))
+        while True:
+            print(f"{Terminal().accent}›\033[0m {tr('d: full diff  y: update  Enter / n / Esc: keep the current version')} ", end='', flush=True)
+            key = read_key()
+            if key in ('d', 'D'):
+                show_diff(changes)
+            else:
+                return key in ('y', 'Y')
     failed = False
     for current in ([plugin_id] if plugin_id else manager.records()):
+        if current in blocked:
+            print(tr('Plugin {id} was not updated: {reason}', id=current, reason=blocked[current][1]), file=sys.stderr)
+            continue
         try:
-            manager.update(current, approve)
+            if manager.update(current, approve) is False:
+                print(tr('Plugin {id}: kept the current version.', id=current))
         except (OSError, ValueError, KeyError, subprocess.SubprocessError) as failure:
             print(tr('Plugin {id} could not be updated: {error}', id=current, error=str(failure)), file=sys.stderr)
             failed = True
@@ -121,13 +241,52 @@ def update(manager, plugin_id=None):
         raise ValueError('One or more plugins could not be updated')
 
 
+def notify_blocked(plugin_id, name, kind, reason):
+    """Hand the notice to a detached helper; it waits for the Remove choice."""
+    runtime = os.environ.get('XDG_RUNTIME_DIR', '')
+    if not shutil.which('notify-send') or not (os.environ.get('DBUS_SESSION_BUS_ADDRESS') or (runtime and Path(runtime, 'bus').exists())):
+        return False
+    subprocess.Popen([sys.executable, str(HELPER), 'notice', plugin_id], start_new_session=True,
+                     stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    return True
+
+
+def notice_text(name, kind, reason):
+    if kind == 'policy':
+        return (tr('Plugin turned off: {name}', name=name),
+                tr('{reason} Its service was stopped and its files were kept. Remove it from Install > Plugins.', reason=reason))
+    return (tr('Plugin blocked: {name}', name=name),
+            tr('{reason} Its service was stopped and its files were kept. Remove it from Install > Plugins. Report a plugin: {url}',
+               reason=reason, url=REPORT_URL))
+
+
+def notice(manager, plugin_id):
+    record = json.loads(manager.notices.read_text())[plugin_id]
+    spec = manager.spec(plugin_id)
+    title, body = notice_text(printable(spec['name']) if spec else plugin_id, record['kind'], record['reason'])
+    result = subprocess.run(['notify-send', '--app-name=Eitr', '--urgency=critical', '--wait',
+                             '--action=remove=' + tr('Remove'), title, body], capture_output=True, text=True, check=False)
+    if result.stdout.strip() == 'remove':
+        subprocess.Popen(['kitty', '--class', 'eitr-plugins', '-e', 'python3', str(PRESENTER), 'python3', str(HELPER),
+                          'remove', plugin_id], start_new_session=True)
+
+
+def remove(manager, plugin_id):
+    if not sys.stdin.isatty():
+        raise ValueError('Remove requires an interactive terminal')
+    blocked = manager.blocked().get(plugin_id)
+    if blocked:
+        print(tr('This plugin is blocked: {reason}', reason=blocked[1]))
+    return manager.remove(plugin_id, lambda record: confirm(tr('Remove plugin {id} and its service?', id=record['id'])))
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['list', 'add', 'update', 'remove', 'rows', 'installed', 'launch'])
+    parser.add_argument('action', choices=['list', 'add', 'update', 'remove', 'rows', 'installed', 'launch', 'enforce', 'notice'])
     parser.add_argument('value', nargs='?')
     parser.add_argument('index', nargs='?', type=int)
     arguments = parser.parse_args(argv)
-    manager = Plugins()
+    manager = Plugins(notify=notify_blocked)
     if arguments.action == 'list':
         for plugin_id, record in manager.records().items():
             print(plugin_id, record['commit'], record['url'])
@@ -136,14 +295,11 @@ def main(argv=None):
     elif arguments.action == 'rows':
         print(json.dumps(manager.rows()))
     elif arguments.action == 'installed':
-        rows = []
-        for plugin_id in manager.records():
-            try:
-                name = manifest(manager.folder / plugin_id)['name']
-            except (OSError, ValueError):
-                name = plugin_id
-            rows.append(dict(id=plugin_id, name=name))
-        print(json.dumps(sorted(rows, key=lambda row: row['name'].casefold())))
+        print(json.dumps(manager.installed()))
+    elif arguments.action == 'enforce':
+        manager.enforce()
+    elif arguments.action == 'notice':
+        notice(manager, arguments.value)
     elif arguments.action == 'add':
         add(manager, arguments.value)
     elif arguments.action == 'update':
@@ -151,10 +307,7 @@ def main(argv=None):
     elif arguments.action == 'remove':
         if not arguments.value:
             parser.error('remove requires ID')
-        if not sys.stdin.isatty():
-            raise ValueError('Remove requires an interactive terminal')
-        manager.remove(arguments.value, lambda record: confirm(
-            tr('Remove plugin {id} and its service?', id=record['id'])))
+        remove(manager, arguments.value)
     elif arguments.action == 'launch':
         if not arguments.value or arguments.index is None or arguments.index < 0:
             parser.error('launch requires ID and row index')

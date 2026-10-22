@@ -1288,6 +1288,9 @@
       "elephant/menu-rows/system-devices.json",
       "elephant/menus/battery-limit.lua"
     ],
+    "Blocked by Eitr for your safety · select to remove": [
+      "elephant/plugin-entries.lua"
+    ],
     "Bluetooth": [
       "elephant/menu-rows/system-connectivity.json"
     ],
@@ -2082,6 +2085,9 @@
       "elephant/plugin-entries.lua",
       "walker/scripts/actions/install/plugins.py"
     ],
+    "Not allowed by your organization · select to remove": [
+      "elephant/plugin-entries.lua"
+    ],
     "Not used yet": [
       "elephant/menus/git-accounts.lua"
     ],
@@ -2161,6 +2167,9 @@
     ],
     "Ping a Peer": [
       "elephant/menu-rows/remote-away.json"
+    ],
+    "Plugin by {author} · not reviewed by Eitr": [
+      "elephant/plugin-entries.lua"
     ],
     "Plugins": [
       "elephant/menu-rows/install.json",
@@ -3547,6 +3556,9 @@
     "A network service is masked; review your custom configuration before switching.": [
       "distro/system/network-backend.py"
     ],
+    "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background.": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "A program crashed": [
       "walker/scripts/actions/system/crash-help.py"
     ],
@@ -3684,9 +3696,6 @@
     "Applications": [
       "walker/scripts/menus/cloud/providers.py"
     ],
-    "Apply this plugin update?": [
-      "walker/scripts/actions/install/plugins.py"
-    ],
     "Apply this system change? Type yes to continue: ": [
       "distro/system/eitr_remote.py"
     ],
@@ -3732,6 +3741,15 @@
     "Available accounts": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Background service added: {command}": [
+      "distro/lib/eitr_plugins.py"
+    ],
+    "Background service changed: {command}": [
+      "distro/lib/eitr_plugins.py"
+    ],
+    "Background service removed": [
+      "distro/lib/eitr_plugins.py"
+    ],
     "Background service: {service}": [
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -3749,6 +3767,12 @@
     ],
     "Battery limit must be a whole number from 60 to 100, or off": [
       "distro/system/eitr-system.py"
+    ],
+    "Before you download a plugin": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Binary file: {path}": [
+      "distro/lib/eitr_plugins.py"
     ],
     "BitLocker: keep the Windows recovery key at hand": [
       "distro/archinstall/installer-ui.py"
@@ -3838,6 +3862,12 @@
     ],
     "Capture": [
       "quickshell/desktop-bar/scripts/remote-status.py"
+    ],
+    "Changed executable file: {path}": [
+      "distro/lib/eitr_plugins.py"
+    ],
+    "Changed files:": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Chapters need the Hybrid MP4 recording format (OBS Settings > Output)": [
       "quickshell/desktop-bar/scripts/obs-control.py"
@@ -3980,7 +4010,16 @@
     "Commit author name": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Commit by a different author than the approved one: {author}": [
+      "distro/lib/eitr_plugins.py"
+    ],
     "Commit: {commit}": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Commit: {old} → {new}": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Commits:": [
       "walker/scripts/actions/install/plugins.py"
     ],
     "Compartments": [
@@ -4230,6 +4269,9 @@
     "Domains": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Download this plugin for review?": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Downloading {model}…": [
       "distro/lib/eitr_local_assistant.py"
     ],
@@ -4268,6 +4310,12 @@
     ],
     "Edit {label}": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Eitr asks for your password only in a terminal it opened for a step you started, such as System Update, never in a pop-up window. If a plugin asks for your password, it is not Eitr: do not type it.": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust.": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Eitr software": [
       "walker/scripts/actions/install/software.py"
@@ -4334,6 +4382,9 @@
     "Everything is up to date.": [
       "walker/scripts/actions/system/update.sh"
     ],
+    "Executable files: {count}": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Existing FIDO2 registration needs manual review": [
       "walker/scripts/actions/system/security.py"
     ],
@@ -4354,6 +4405,9 @@
     ],
     "Factory reset point: {created} (accounts: {names})": [
       "distro/system/factory-reset.py"
+    ],
+    "File became executable: {path}": [
+      "distro/lib/eitr_plugins.py"
     ],
     "File or folder to restore (for example ~/Documents/report.odt)": [
       "walker/scripts/actions/system/restore-file.py"
@@ -4577,6 +4631,9 @@
     "Install them and enable snapshot entries with: bash distro/bootloader/setup.sh": [
       "distro/system/eitr-system.py"
     ],
+    "Install this plugin?": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Install type": [
       "distro/archinstall/installer-ui.py"
     ],
@@ -4589,6 +4646,9 @@
     "Install {package} now?": [
       "walker/scripts/menus/cloud/accounts.py",
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Installed plugins could not be checked against the new policy: {error}": [
+      "distro/lib/eitr_profile_apply.py"
     ],
     "Installer must use HTTPS": [
       "walker/scripts/actions/install/software.py"
@@ -4858,6 +4918,9 @@
     "Logs": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
+    "Look closely at:": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Lowercase name. This user will have sudo access.": [
       "distro/archinstall/installer-ui.py"
     ],
@@ -4869,6 +4932,9 @@
     ],
     "Manifest author: {author}": [
       "walker/scripts/actions/install/plugins.py"
+    ],
+    "Manifest changed: {path}": [
+      "distro/lib/eitr_plugins.py"
     ],
     "Message queues": [
       "walker/scripts/menus/cloud/providers.py"
@@ -4918,11 +4984,14 @@
     "New SSH key for {label}": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
-    "New commit: {commit}": [
-      "walker/scripts/actions/install/plugins.py"
+    "New executable file: {path}": [
+      "distro/lib/eitr_plugins.py"
     ],
     "New name": [
       "walker/scripts/menus/cloud/accounts.py"
+    ],
+    "Next, Eitr downloads the plugin without running it and shows its exact author and commit.": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "No": [
       "walker/scripts/actions/development/git-accounts.py",
@@ -5000,6 +5069,9 @@
     "No reminders.": [
       "walker/scripts/actions/tools/reminders.py",
       "walker/scripts/actions/tools/voice-command.py"
+    ],
+    "No risk flags. Read the changes anyway before you trust them.": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "No snapshot has {path}.": [
       "walker/scripts/actions/system/restore-file.py"
@@ -5144,6 +5216,9 @@
     "Peer Tailscale address or name: ": [
       "walker/scripts/actions/system/remote-access.py"
     ],
+    "PgUp/PgDn: scroll  y: download for review  Enter / Esc: cancel": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "PgUp/PgDn: scroll  y: install  Enter / Esc: cancel": [
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -5156,7 +5231,16 @@
     "Please enter a valid value.": [
       "distro/lib/eitr_wizard.py"
     ],
+    "Plugin blocked: {name}": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Plugin by {author} · not reviewed by Eitr": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Plugin installed": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Plugin turned off: {name}": [
       "walker/scripts/actions/install/plugins.py"
     ],
     "Plugin update: {name}": [
@@ -5165,11 +5249,24 @@
     "Plugin {id} could not be updated: {error}": [
       "walker/scripts/actions/install/plugins.py"
     ],
+    "Plugin {id} was not updated: {reason}": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Plugin {id}: kept the current version.": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Plugin: {name}": [
       "walker/scripts/actions/install/plugins.py"
     ],
     "Plugins": [
       "walker/scripts/actions/system/update.sh"
+    ],
+    "Plugins are turned off by your organization.": [
+      "distro/lib/eitr_plugins.py",
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Plugins may not contain symlinks: {path}": [
+      "distro/lib/eitr_plugins.py"
     ],
     "Plugins run with your account’s full permissions. Eitr has not reviewed this code. Install only if you trust its author and repository.": [
       "walker/scripts/actions/install/plugins.py"
@@ -5181,6 +5278,9 @@
       "walker/scripts/menus/cloud/navigation.py"
     ],
     "Policies restrict Eitr tools. A user with root can override them.": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "Policy: plugins only from: {value}": [
       "distro/lib/eitr_profile.py"
     ],
     "Policy: {key}: {value}": [
@@ -5206,9 +5306,6 @@
     ],
     "Press Esc to close.": [
       "distro/lib/eitr_terminal.py"
-    ],
-    "Previous commit: {commit}": [
-      "walker/scripts/actions/install/plugins.py"
     ],
     "Primary IPs": [
       "walker/scripts/menus/cloud/providers.py"
@@ -5270,6 +5367,9 @@
     ],
     "R2 Buckets": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "RISK: {flag}": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": [
       "quickshell/desktop-bar/scripts/airplane.py"
@@ -5368,6 +5468,9 @@
     ],
     "Removal would delete every installed font": [
       "walker/scripts/actions/style/fonts.py"
+    ],
+    "Remove": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Remove local sign-in": [
       "walker/scripts/menus/cloud/providers.py"
@@ -5536,6 +5639,9 @@
     ],
     "SSO Login": [
       "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Safety": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Saturday": [
       "walker/scripts/actions/tools/reminders.py"
@@ -5777,6 +5883,9 @@
     "Start sharing this PC?": [
       "walker/scripts/actions/system/remote-access.py"
     ],
+    "Starts a background service at every login: {command}": [
+      "distro/lib/eitr_plugins.py"
+    ],
     "Static IPs": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
@@ -5985,6 +6094,9 @@
     "The guided install supports UEFI boot only; boot the ISO in UEFI mode": [
       "distro/archinstall/eitr-guided-install"
     ],
+    "The history of {id} was rewritten: the approved commit {commit} is not part of the new one. Eitr does not update it automatically. If you still trust its author, remove the plugin and add it again.": [
+      "distro/lib/eitr_plugins.py"
+    ],
     "The initramfs cannot use TPM2 unlock yet. Nothing was changed.": [
       "distro/system/eitr-system.py"
     ],
@@ -6035,6 +6147,9 @@
     ],
     "The payload has no pacman {version} package": [
       "distro/archinstall/eitr-guided-install"
+    ],
+    "The plugin blocklist could not be read; plugins are refused until it is fixed.": [
+      "distro/lib/eitr_plugins.py"
     ],
     "The previous system is still running; see {MANUAL}": [
       "distro/system/factory-reset.py"
@@ -6141,6 +6256,12 @@
     ],
     "This occurrence": [
       "walker/scripts/actions/tools/reminders.py"
+    ],
+    "This plugin is blocked: {reason}": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "This plugin is on the Eitr blocklist: {reason}": [
+      "distro/lib/eitr_plugins.py"
     ],
     "This removes TPM unlock from {device}; the passphrase is required at every boot again.": [
       "walker/scripts/actions/system/security.py"
@@ -6459,6 +6580,9 @@
     "Wallpaper must be PNG, JPEG or WebP": [
       "distro/lib/eitr_profile.py"
     ],
+    "Warnings:": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Web app created": [
       "walker/scripts/actions/install/webapps.py"
     ],
@@ -6520,6 +6644,9 @@
     "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send.": [
       "walker/scripts/actions/system/report-problem.py"
     ],
+    "Your organization allows plugins only from its approved repositories.": [
+      "distro/lib/eitr_plugins.py"
+    ],
     "Zone details": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
@@ -6544,6 +6671,9 @@
     "asking Huginn and Muninn": [
       "distro/lib/spinner.sh"
     ],
+    "binary": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "cannot list monitors: {error}": [
       "walker/scripts/actions/wallpaper/transition.py"
     ],
@@ -6561,6 +6691,9 @@
     ],
     "crossing Bifröst": [
       "distro/lib/spinner.sh"
+    ],
+    "d: full diff  y: update  Enter / n / Esc: keep the current version": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "eitr: {command} is not installed": [
       "distro/bin/eitr"
@@ -6609,6 +6742,12 @@
     ],
     "pacman.conf has no options section": [
       "distro/lib/eitr_profile_apply.py"
+    ],
+    "policies.plugins.allow must list repository URLs without duplicates": [
+      "distro/lib/eitr_profile.py"
+    ],
+    "policies.plugins.allow: not an HTTPS or SSH repository URL: {value}": [
+      "distro/lib/eitr_profile.py"
     ],
     "policies.update_channel may only pin stable": [
       "distro/lib/eitr_profile.py"
@@ -6805,6 +6944,12 @@
     "{provider_name} needs the {command} command": [
       "walker/scripts/menus/cloud/accounts.py"
     ],
+    "{reason} Its service was stopped and its files were kept. Remove it from Install > Plugins.": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "{reason} Its service was stopped and its files were kept. Remove it from Install > Plugins. Report a plugin: {url}": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "{relative_path} is no longer read-only; the restore point is not trusted": [
       "distro/system/factory-reset.py"
     ],
@@ -6828,6 +6973,9 @@
     ],
     "{unit} manages networking; review that custom setup first.": [
       "distro/system/network-backend.py"
+    ],
+    "… and {count} more": [
+      "walker/scripts/actions/install/plugins.py"
     ]
   }
 }
