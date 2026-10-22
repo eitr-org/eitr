@@ -4367,6 +4367,9 @@
     "Enter: continue  Esc: back": [
       "distro/lib/eitr_wizard.py"
     ],
+    "Enter: continue  Esc: cancel": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Enterprise WiFi requires username, password, CA certificate and server domain": [
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py"
     ],
@@ -5216,10 +5219,10 @@
     "Peer Tailscale address or name: ": [
       "walker/scripts/actions/system/remote-access.py"
     ],
-    "PgUp/PgDn: scroll  y: download for review  Enter / Esc: cancel": [
+    "PgUp/PgDn: scroll  Enter: download for review  Esc: cancel": [
       "walker/scripts/actions/install/plugins.py"
     ],
-    "PgUp/PgDn: scroll  y: install  Enter / Esc: cancel": [
+    "PgUp/PgDn: scroll  Enter: install  Esc: cancel": [
       "walker/scripts/actions/install/plugins.py"
     ],
     "Pick a reminder to cancel": [
@@ -6692,7 +6695,7 @@
     "crossing Bifröst": [
       "distro/lib/spinner.sh"
     ],
-    "d: full diff  y: update  Enter / n / Esc: keep the current version": [
+    "d: full diff  Enter: update  Esc: keep the current version": [
       "walker/scripts/actions/install/plugins.py"
     ],
     "eitr: {command} is not installed": [

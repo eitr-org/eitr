@@ -913,6 +913,9 @@ msgstr "Enter: apply  Left: back  PgUp/PgDn: scroll  Esc: cancel"
 msgid "Enter: continue  Esc: back"
 msgstr "Enter: continue  Esc: back"
 
+msgid "Enter: continue  Esc: cancel"
+msgstr "Enter: continue  Esc: cancel"
+
 msgid "Enterprise WiFi requires username, password, CA certificate and server domain"
 msgstr "Enterprise WiFi requires username, password, CA certificate and server domain"
 
@@ -1741,11 +1744,11 @@ msgstr "Passwords did not match"
 msgid "Peer Tailscale address or name: "
 msgstr "Peer Tailscale address or name: "
 
-msgid "PgUp/PgDn: scroll  y: download for review  Enter / Esc: cancel"
-msgstr "PgUp/PgDn: scroll  y: download for review  Enter / Esc: cancel"
+msgid "PgUp/PgDn: scroll  Enter: download for review  Esc: cancel"
+msgstr "PgUp/PgDn: scroll  Enter: download for review  Esc: cancel"
 
-msgid "PgUp/PgDn: scroll  y: install  Enter / Esc: cancel"
-msgstr "PgUp/PgDn: scroll  y: install  Enter / Esc: cancel"
+msgid "PgUp/PgDn: scroll  Enter: install  Esc: cancel"
+msgstr "PgUp/PgDn: scroll  Enter: install  Esc: cancel"
 
 msgid "Pick a reminder to cancel"
 msgstr "Pick a reminder to cancel"
@@ -3202,8 +3205,8 @@ msgstr "counting the einherjar"
 msgid "crossing Bifröst"
 msgstr "crossing Bifröst"
 
-msgid "d: full diff  y: update  Enter / n / Esc: keep the current version"
-msgstr "d: full diff  y: update  Enter / n / Esc: keep the current version"
+msgid "d: full diff  Enter: update  Esc: keep the current version"
+msgstr "d: full diff  Enter: update  Esc: keep the current version"
 
 msgid "eitr: {command} is not installed"
 msgstr "eitr: {command} is not installed"

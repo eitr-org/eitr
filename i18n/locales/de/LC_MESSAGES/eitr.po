@@ -913,6 +913,9 @@ msgstr "Enter: anwenden  Links: zurück  PgUp/PgDn: blättern  Esc: abbrechen"
 msgid "Enter: continue  Esc: back"
 msgstr "Enter: weiter  Esc: zurück"
 
+msgid "Enter: continue  Esc: cancel"
+msgstr "Enter: fortfahren  Esc: abbrechen"
+
 msgid "Enterprise WiFi requires username, password, CA certificate and server domain"
 msgstr "Unternehmens-WiFi erfordert Benutzername, Passwort, CA-Zertifikat und Serverdomäne"
 
@@ -1741,11 +1744,11 @@ msgstr "Passwörter stimmen nicht überein"
 msgid "Peer Tailscale address or name: "
 msgstr "Tailscale-Adresse oder Name der Gegenstelle: "
 
-msgid "PgUp/PgDn: scroll  y: download for review  Enter / Esc: cancel"
-msgstr "Bild↑/Bild↓: blättern  y: zur Prüfung laden  Enter / Esc: abbrechen"
+msgid "PgUp/PgDn: scroll  Enter: download for review  Esc: cancel"
+msgstr "Bild↑/Bild↓: blättern  Enter: zur Prüfung laden  Esc: abbrechen"
 
-msgid "PgUp/PgDn: scroll  y: install  Enter / Esc: cancel"
-msgstr "PgUp/PgDn: scrollen  y: installieren  Enter / Esc: abbrechen"
+msgid "PgUp/PgDn: scroll  Enter: install  Esc: cancel"
+msgstr "Bild↑/Bild↓: blättern  Enter: installieren  Esc: abbrechen"
 
 msgid "Pick a reminder to cancel"
 msgstr "Erinnerung zum Abbrechen auswählen"
@@ -3202,8 +3205,8 @@ msgstr "die Einherjer zählen"
 msgid "crossing Bifröst"
 msgstr "Bifröst überqueren"
 
-msgid "d: full diff  y: update  Enter / n / Esc: keep the current version"
-msgstr "d: ganzer Diff  y: aktualisieren  Enter / n / Esc: aktuelle Version behalten"
+msgid "d: full diff  Enter: update  Esc: keep the current version"
+msgstr "d: ganzer Diff  Enter: aktualisieren  Esc: aktuelle Version behalten"
 
 msgid "eitr: {command} is not installed"
 msgstr "eitr: {command} ist nicht installiert"

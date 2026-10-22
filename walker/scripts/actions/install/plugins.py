@@ -78,11 +78,11 @@ class PluginWizard(Wizard):
         super().__init__(screen, (tr('Repository URL'), tr('Safety'), tr('Review')))
 
     def review(self, lines, step=2, title=None, keys=None):
-        """A scrolling page; only y accepts, every other way out declines."""
+        """A scrolling page: Enter accepts, Escape (or Ctrl+C) declines; other keys do nothing."""
         self.step = step
         offset = 0
         while True:
-            y, x = self.frame(title or tr('Install plugin?'), keys or tr('PgUp/PgDn: scroll  y: install  Enter / Esc: cancel'))
+            y, x = self.frame(title or tr('Install plugin?'), keys or tr('PgUp/PgDn: scroll  Enter: install  Esc: cancel'))
             wrapped = [(line, paragraph.startswith(WARNING)) for paragraph in lines
                        for line in (textwrap.wrap(paragraph, self.body_width, subsequent_indent='  ' if paragraph.startswith(WARNING) else '') or [''])]
             count = max(1, self.panel_bottom - y)
@@ -91,9 +91,9 @@ class PluginWizard(Wizard):
                 self.text(y + index, x, line, 2 if warning else 1)
             self.screen.refresh()
             key = self.screen.get_wch()
-            if key in ('\x1b', '\n', '\r', '\x03', 'n', 'N'):
+            if key in ('\x1b', '\x03'):
                 return False
-            if key in ('y', 'Y'):
+            if key in ('\n', '\r', curses.KEY_ENTER):
                 return True
             if key in (curses.KEY_NPAGE, curses.KEY_DOWN):
                 offset += count if key == curses.KEY_NPAGE else 1
@@ -102,7 +102,7 @@ class PluginWizard(Wizard):
 
     def safety(self, url):
         return self.review(safety_lines(url), step=1, title=tr('Before you download a plugin'),
-                           keys=tr('PgUp/PgDn: scroll  y: download for review  Enter / Esc: cancel'))
+                           keys=tr('PgUp/PgDn: scroll  Enter: download for review  Esc: cancel'))
 
 
 def require_plugins():
@@ -156,8 +156,16 @@ def add_in_terminal(manager, url):
 
 
 def confirm(question):
-    answer = read_line_or_escape(f'{Terminal().accent}›\033[0m {question} [y/N] ')
-    return answer is not None and answer.strip().casefold() in ('y', 'yes')
+    """Enter confirms, Escape (or Ctrl+C) cancels; other keys do nothing."""
+    print(f"{Terminal().accent}›\033[0m {question} {tr('Enter: continue  Esc: cancel')} ", end='', flush=True)
+    while True:
+        key = read_key()
+        if key in ('\r', '\n'):
+            print()
+            return True
+        if key in ('\x1b', '\x03', ''):
+            print()
+            return False
 
 
 def count_text(change):
@@ -220,12 +228,16 @@ def update(manager, plugin_id=None):
         print(Terminal().title(tr('Plugin update: {name}', name=printable(changes['spec']['name']))))
         show(summary_lines(changes))
         while True:
-            print(f"{Terminal().accent}›\033[0m {tr('d: full diff  y: update  Enter / n / Esc: keep the current version')} ", end='', flush=True)
+            print(f"{Terminal().accent}›\033[0m {tr('d: full diff  Enter: update  Esc: keep the current version')} ", end='', flush=True)
             key = read_key()
             if key in ('d', 'D'):
                 show_diff(changes)
-            else:
-                return key in ('y', 'Y')
+            elif key in ('\r', '\n'):
+                print()
+                return True
+            elif key in ('\x1b', '\x03', ''):
+                print()
+                return False
     failed = False
     for current in ([plugin_id] if plugin_id else manager.records()):
         if current in blocked:

@@ -913,6 +913,9 @@ msgstr "Enter: aplicar  Izquierda: volver  PgUp/PgDn: desplazar  Esc: cancelar"
 msgid "Enter: continue  Esc: back"
 msgstr "Enter: continuar  Esc: volver"
 
+msgid "Enter: continue  Esc: cancel"
+msgstr "Enter: continuar  Esc: cancelar"
+
 msgid "Enterprise WiFi requires username, password, CA certificate and server domain"
 msgstr "El WiFi empresarial requiere usuario, contraseña, certificado de CA y dominio del servidor"
 
@@ -1741,11 +1744,11 @@ msgstr "Las contraseñas no coinciden"
 msgid "Peer Tailscale address or name: "
 msgstr "Dirección o nombre Tailscale del equipo: "
 
-msgid "PgUp/PgDn: scroll  y: download for review  Enter / Esc: cancel"
-msgstr "RePág/AvPág: desplazar  y: descargar para revisar  Enter / Esc: cancelar"
+msgid "PgUp/PgDn: scroll  Enter: download for review  Esc: cancel"
+msgstr "RePág/AvPág: desplazar  Enter: descargar para revisar  Esc: cancelar"
 
-msgid "PgUp/PgDn: scroll  y: install  Enter / Esc: cancel"
-msgstr "PgUp/PgDn: desplazar  y: instalar  Enter / Esc: cancelar"
+msgid "PgUp/PgDn: scroll  Enter: install  Esc: cancel"
+msgstr "RePág/AvPág: desplazar  Enter: instalar  Esc: cancelar"
 
 msgid "Pick a reminder to cancel"
 msgstr "Elige un recordatorio para cancelar"
@@ -3202,8 +3205,8 @@ msgstr "contando a los einherjar"
 msgid "crossing Bifröst"
 msgstr "cruzando Bifröst"
 
-msgid "d: full diff  y: update  Enter / n / Esc: keep the current version"
-msgstr "d: diff completo  y: actualizar  Enter / n / Esc: mantener la versión actual"
+msgid "d: full diff  Enter: update  Esc: keep the current version"
+msgstr "d: diff completo  Enter: actualizar  Esc: mantener la versión actual"
 
 msgid "eitr: {command} is not installed"
 msgstr "eitr: {command} no está instalado"

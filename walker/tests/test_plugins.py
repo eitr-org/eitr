@@ -378,9 +378,10 @@ class PluginTests(unittest.TestCase):
         clone.assert_not_called()
         self.assertFalse(self.manager.folder.exists())
         cli = self.cli()
-        for answer in ('', None, 'n', 'no'):
-            with self.subTest(answer=answer), patch('eitr_plugins.clone') as clone, \
-                    patch.object(cli, 'read_line_or_escape', return_value=answer), redirect_stdout(io.StringIO()) as output:
+        # Escape or Ctrl+C declines; other keys (y, n) do nothing until one of them.
+        for keys in (['\x1b'], ['\x03'], ['y', 'n', '\x1b']):
+            with self.subTest(keys=keys), patch('eitr_plugins.clone') as clone, \
+                    patch.object(cli, 'read_key', side_effect=keys), redirect_stdout(io.StringIO()) as output:
                 self.assertFalse(cli.add_in_terminal(self.manager, self.url))
             clone.assert_not_called()
             text = ' '.join(output.getvalue().split())
@@ -390,14 +391,16 @@ class PluginTests(unittest.TestCase):
 
     def test_terminal_add_needs_both_confirmations_and_noninteractive_add_is_refused(self):
         cli = self.cli()
-        with patch.object(cli, 'read_line_or_escape', side_effect=['y', '']), redirect_stdout(io.StringIO()) as output:
+        # Enter confirms the safety screen; Escape declines the review.
+        with patch.object(cli, 'read_key', side_effect=['\r', '\x1b']), redirect_stdout(io.StringIO()) as output:
             self.assertFalse(cli.add_in_terminal(self.manager, self.url))
         self.assertFalse(self.manager.state.exists())
         review = ' '.join(output.getvalue().split())
         self.assertLess(review.index('Eitr has not reviewed this code'), review.index('Plugin: Example plugin'))
         self.assertIn('Plugin by Eitr contributors · not reviewed by Eitr', review)
         self.assertIn('Executable files: 1', review)
-        with patch.object(cli, 'read_line_or_escape', side_effect=['y', 'y']), redirect_stdout(io.StringIO()):
+        # Other keys do nothing; Enter confirms both steps.
+        with patch.object(cli, 'read_key', side_effect=['y', '\r', 'n', '\r']), redirect_stdout(io.StringIO()):
             self.assertTrue(cli.add_in_terminal(self.manager, self.url))
         with patch.object(cli.sys.stdin, 'isatty', return_value=False), patch('eitr_plugins.clone') as clone:
             with self.assertRaises(ValueError):
@@ -463,19 +466,19 @@ class PluginTests(unittest.TestCase):
         old = self.install()
         self.publish()
         which = {'less': '/usr/bin/less'}
-        with patch.object(cli.sys.stdin, 'isatty', return_value=True), patch.object(cli, 'read_key', side_effect=['\r']), \
+        with patch.object(cli.sys.stdin, 'isatty', return_value=True), patch.object(cli, 'read_key', side_effect=['\x1b']), \
                 redirect_stdout(io.StringIO()) as output:
             cli.update(self.manager)
         self.assertIn('Plugin by Eitr contributors · not reviewed by Eitr', output.getvalue())
         self.assertIn('A  revision  +1 −0', output.getvalue())
         self.assertIn('kept the current version', output.getvalue())
         self.assertEqual(self.manager.records()['example']['commit'], old)
-        for key in ('\x1b', 'n'):
+        for key in ('\x1b', '\x03'):
             with patch.object(cli.sys.stdin, 'isatty', return_value=True), patch.object(cli, 'read_key', side_effect=[key]), \
                     redirect_stdout(io.StringIO()):
                 cli.update(self.manager)
             self.assertEqual(self.manager.records()['example']['commit'], old)
-        with patch.object(cli.sys.stdin, 'isatty', return_value=True), patch.object(cli, 'read_key', side_effect=['d', 'y']), \
+        with patch.object(cli.sys.stdin, 'isatty', return_value=True), patch.object(cli, 'read_key', side_effect=['d', '\r']), \
                 patch.object(cli.shutil, 'which', side_effect=which.get), patch.object(cli, 'run_pager') as pager, \
                 redirect_stdout(io.StringIO()):
             cli.update(self.manager)

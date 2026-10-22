@@ -981,7 +981,6 @@
   "Git author and date: {author}": "Git-Autor und Datum: {author}",
   "Install plugin?": "Plugin installieren?",
   "Manifest author: {author}": "Manifest-Autor: {author}",
-  "PgUp/PgDn: scroll  y: install  Enter / Esc: cancel": "PgUp/PgDn: scrollen  y: installieren  Enter / Esc: abbrechen",
   "Plugin update: {name}": "Plugin-Aktualisierung: {name}",
   "Plugin {id} could not be updated: {error}": "Plugin {id} konnte nicht aktualisiert werden: {error}",
   "Plugin: {name}": "Plugin: {name}",
@@ -1135,7 +1134,6 @@
   "New executable file: {path}": "Neue ausführbare Datei: {path}",
   "Next, Eitr downloads the plugin without running it and shows its exact author and commit.": "Danach lädt Eitr das Plugin herunter, ohne es auszuführen, und zeigt seinen genauen Autor und Commit.",
   "No risk flags. Read the changes anyway before you trust them.": "Keine Risikohinweise. Lies die Änderungen trotzdem, bevor du ihnen vertraust.",
-  "PgUp/PgDn: scroll  y: download for review  Enter / Esc: cancel": "Bild↑/Bild↓: blättern  y: zur Prüfung laden  Enter / Esc: abbrechen",
   "Plugin blocked: {name}": "Plugin gesperrt: {name}",
   "Plugin by {author} · not reviewed by Eitr": "Plugin von {author} · nicht von Eitr geprüft",
   "Plugin turned off: {name}": "Plugin ausgeschaltet: {name}",
@@ -1155,10 +1153,13 @@
   "Warnings:": "Warnungen:",
   "Your organization allows plugins only from its approved repositories.": "Deine Organisation erlaubt Plugins nur aus ihren freigegebenen Repositorys.",
   "binary": "binär",
-  "d: full diff  y: update  Enter / n / Esc: keep the current version": "d: ganzer Diff  y: aktualisieren  Enter / n / Esc: aktuelle Version behalten",
   "policies.plugins.allow must list repository URLs without duplicates": "policies.plugins.allow muss Repository-URLs ohne Duplikate auflisten",
   "policies.plugins.allow: not an HTTPS or SSH repository URL: {value}": "policies.plugins.allow: keine HTTPS- oder SSH-Repository-URL: {value}",
   "{reason} Its service was stopped and its files were kept. Remove it from Install > Plugins.": "{reason} Sein Dienst wurde gestoppt, seine Dateien wurden behalten. Entferne es unter Installieren > Plugins.",
   "{reason} Its service was stopped and its files were kept. Remove it from Install > Plugins. Report a plugin: {url}": "{reason} Sein Dienst wurde gestoppt, seine Dateien wurden behalten. Entferne es unter Installieren > Plugins. Plugin melden: {url}",
-  "… and {count} more": "… und {count} weitere"
+  "… and {count} more": "… und {count} weitere",
+  "PgUp/PgDn: scroll  Enter: install  Esc: cancel": "Bild↑/Bild↓: blättern  Enter: installieren  Esc: abbrechen",
+  "PgUp/PgDn: scroll  Enter: download for review  Esc: cancel": "Bild↑/Bild↓: blättern  Enter: zur Prüfung laden  Esc: abbrechen",
+  "d: full diff  Enter: update  Esc: keep the current version": "d: ganzer Diff  Enter: aktualisieren  Esc: aktuelle Version behalten",
+  "Enter: continue  Esc: cancel": "Enter: fortfahren  Esc: abbrechen"
 }
