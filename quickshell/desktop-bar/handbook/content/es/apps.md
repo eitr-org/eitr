@@ -53,3 +53,19 @@ Mantén **SUPER + Shift + D**, habla y suelta, o escribe en Principal > Herramie
 Di «Recuérdame llamar mañana a las 15:00» o «Dentista el 30 de octubre a las 15:00, avisa 30 minutos antes». Las citas avisan una hora antes por defecto (o con el margen indicado) y a la hora del evento; los recordatorios simples solo a su hora. Si faltan datos o hay ambigüedad, se abre un terminal con opciones numeradas completas. Escribe el número o díctalo con SUPER + D; Esc cancela. Una notificación muestra el resultado. También puedes pedir listar o cancelar recordatorios.
 
 Nuevo recordatorio acepta `tomorrow 15:00`, días de la semana en inglés (09:00 sin hora), `2026-10-30 09:00` y `Oct 30 15:00`. Pon entre comillas las fechas con espacios en la CLI. Cada aviso tiene su temporizador; cancelar los elimina todos. Los avisos perdidos aparecen al iniciar sesión. El calendario marca los días con eventos; pulsa un día para ver horas y títulos, actualizados al instante. Aún no hay repetición ni sincronización con calendarios externos.
+
+## Plugins
+
+Un plugin es un repositorio Git con scripts, entradas de Walker y, opcionalmente, un servicio de usuario. Los plugins se ejecutan con todos los permisos de tu cuenta. Eitr no ha revisado su código: confía en el autor y el repositorio antes de aprobar una instalación o actualización.
+
+Principal > Instalar > Plugins > Añadir plugin… pide una URL Git HTTPS. La revisión muestra el autor del manifiesto, repositorio, commit exacto, autor y fecha de Git, entradas y servicio en segundo plano. Recorre la revisión y pulsa `y` para instalar; Enter o Esc cancela. No se ejecuta código del plugin antes de aprobarlo. Principal > Herramientas > Plugins muestra sus acciones; escribir en Herramientas también las busca. El menú vacío muestra No hay plugins instalados.
+
+Actualización del sistema comprueba plugins incluso sin actualizaciones de paquetes. Cada actualización muestra los commits anterior y nuevo, sus asuntos y los archivos modificados, y pregunta con `[y/N]`; Enter rechaza. Las actualizaciones no interactivas omiten plugins. Instalar > Plugins > el plugin ofrece Actualización y Eliminar; eliminar pide confirmación y borra archivos, entradas y servicio. Los mismos flujos están en `eitr plugin list`, `eitr plugin add URL`, `eitr plugin update [ID]` y `eitr plugin remove ID`.
+
+Los plugins residen solo en `$XDG_DATA_HOME/eitr/plugins/<id>/` (por defecto `~/.local/share/eitr/plugins/`); las aprobaciones en `$XDG_STATE_HOME/eitr/plugins.json`. Los servicios usan `$XDG_CONFIG_HOME/systemd/user/eitr-plugin-<id>.service`. Nunca uses sudo. Las actualizaciones validan un candidato separado y conservan el commit aprobado si se rechazan o fallan. Un plugin puede modificar tus archivos; eliminarlo no deshace esos cambios.
+
+### Referencia del manifiesto
+
+La raíz contiene `eitr-plugin.json`. Solo se aceptan estas claves: `id` (letras minúsculas y dígitos separados por guiones simples), `name`, `description` (hasta 72 caracteres), `author`, `version`, `rows` (1–20) y `service` opcional. Cada entrada requiere `title`, `description` (ambos hasta 72 caracteres) y `run`; admite `icon` y `arguments` (lista de cadenas fijas) opcionales. Un servicio solo acepta `run` y `arguments` opcional. Los comandos usan argv, nunca cadenas de shell. `run` debe indicar un ejecutable dentro del repositorio: se rechazan rutas absolutas, `..` y enlaces simbólicos externos. Se rechazan claves JSON desconocidas o duplicadas. No se inicializan submódulos.
+
+El ejemplo en `distro/plugins/example/` contiene manifiesto y `notify.sh`, una acción de notificación y ningún servicio. Cópialo a tu repositorio Git, crea un commit y publica una URL Git HTTPS para probar la instalación completa. Se distribuye como documentación; no se instala automáticamente.

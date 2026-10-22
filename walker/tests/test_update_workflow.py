@@ -50,11 +50,22 @@ class UpdateWorkflowTests(unittest.TestCase):
     NEWS = 'python3() { if [[ "$1" == *arch-news.py ]]; then echo "Arch posted news"; return 10; fi; }\n'
     UPDATING = 'sudo() { echo "sudo $*"; }\nyay() { echo "yay $*"; }\n'
 
-    def test_no_updates_skips_all_work(self):
-        result = run_protected_update('checkupdates() { return 2; }; yay() { :; }; flatpak() { :; }; '
-                                      'sudo() { echo unexpected; }; python3() { echo unexpected; };\n')
+    def test_no_package_updates_still_checks_plugins(self):
+        mocks = ('checkupdates() { return 2; }; yay() { :; }; flatpak() { :; }; '
+                 'sudo() { echo unexpected; }; python3() { [[ "$1" == *install/plugins.py ]] && echo "plugins checked" >&2; };\n')
+        with tempfile.TemporaryDirectory() as state:
+            (Path(state) / "eitr").mkdir()
+            (Path(state) / "eitr/plugins.json").write_text('{"example": {"commit": "0"}}')
+            result = run_protected_update(mocks, environment_extra={"XDG_STATE_HOME": state})
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(result.stdout.strip(), "Everything is up to date.")
+        self.assertIn("Plugins", result.stderr)
+        self.assertIn("plugins checked", result.stderr)
+        # Without an installed plugin, System Update shows no Plugins step at all.
+        with tempfile.TemporaryDirectory() as state:
+            result = run_protected_update(mocks, environment_extra={"XDG_STATE_HOME": state})
+        self.assertNotIn("Plugins", result.stderr)
+        self.assertNotIn("plugins checked", result.stderr)
 
     def test_up_to_date_message_stays_visible_for_three_seconds(self):
         result = run_protected_update('checkupdates() { return 2; }; yay() { :; }; flatpak() { :; }; '

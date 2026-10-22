@@ -104,3 +104,19 @@ Hold **SUPER + Shift + D**, speak and release, or open Main > Tools > Reminders 
 Say “Remind me tomorrow at 15:00 to call” or “Dentist on October 30 at 15:00, alert 30 minutes before”. Appointments alert one hour before by default (or your chosen lead) and at the event; plain reminders alert at their time. Missing details or ambiguity open a terminal with full numbered choices. Type a number or dictate it with SUPER + D; Esc cancels. A notification reports the result. Ask to list or cancel reminders as well.
 
 New Reminder also accepts `tomorrow 15:00`, weekday names (09:00 if no time), `2026-10-30 09:00` and `Oct 30 15:00`. Quote multiword dates in the CLI. Each alert has its own timer; cancelling removes all alerts. Missed alerts appear at the next login. The calendar marks event days; click a day to see its reminder times and titles, updated immediately. Repeating reminders and external calendar synchronization are not supported yet.
+
+## Plugins
+
+A plugin is a Git repository containing scripts, Walker rows and optionally one user service. Plugins run with your account’s full permissions. Eitr has not reviewed their code: trust the author and repository before approving installation or an update.
+
+Main > Install > Plugins > Add Plugin… asks for an HTTPS Git URL. The review shows the manifest author, repository, exact commit, Git author and date, added rows and background service. Scroll through the review and press `y` to install; Enter or Esc cancels. Nothing from the plugin runs before approval. Main > Tools > Plugins lists its actions; typing in Tools searches them too. The empty menu shows No plugins installed.
+
+System Update checks plugins even when system packages are current. Each update shows old/new commits, commit subjects and changed files, and asks with `[y/N]`; Enter declines. Non-interactive updates skip plugins. Install > Plugins > the plugin offers Update and Remove; removal asks for confirmation and removes its files, rows and service. The same flows are available through `eitr plugin list`, `eitr plugin add URL`, `eitr plugin update [ID]` and `eitr plugin remove ID`.
+
+Plugins live only in `$XDG_DATA_HOME/eitr/plugins/<id>/` (default `~/.local/share/eitr/plugins/`); approvals are in `$XDG_STATE_HOME/eitr/plugins.json`. Services use `$XDG_CONFIG_HOME/systemd/user/eitr-plugin-<id>.service`. Never use sudo. Updates validate a separate candidate and retain the previous approved commit on refusal or failure. A plugin can modify your files while running; removing it cannot undo those changes.
+
+### Manifest reference
+
+The repository root contains `eitr-plugin.json`. Only these keys are accepted: `id` (lowercase letters/digits separated by single hyphens), `name`, `description` (up to 72 characters), `author`, `version`, `rows` (1–20), and optional `service`. Each row requires `title`, `description` (both up to 72 characters) and `run`; optional keys are `icon` and `arguments` (an array of fixed strings). A service accepts only `run` and optional `arguments`. Commands use argv, never shell strings. `run` must name an executable inside the repository: absolute paths, `..`, and symlinks escaping the folder are refused. Unknown or duplicate JSON keys are refused. Submodules are not initialized.
+
+The tiny example in `distro/plugins/example/` contains a manifest and `notify.sh`, one notification action and no service. Copy it into your own Git repository, commit it and publish an HTTPS Git URL to try the complete installation flow. The example is shipped as documentation; it is not installed automatically.

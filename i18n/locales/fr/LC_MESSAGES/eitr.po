@@ -241,6 +241,9 @@ msgstr "Projets d’applications"
 msgid "Applications"
 msgstr "Applications"
 
+msgid "Apply this plugin update?"
+msgstr "Appliquer cette mise à jour du plugin ?"
+
 msgid "Apply this system change? Type yes to continue: "
 msgstr "Appliquer cette modification système ? Saisissez yes pour continuer : "
 
@@ -285,6 +288,9 @@ msgstr "Nom d’auteur"
 
 msgid "Available accounts"
 msgstr "Comptes disponibles"
+
+msgid "Background service: {service}"
+msgstr "Service en arrière-plan : {service}"
 
 msgid "Backup of the current Limine menu: {backup}"
 msgstr "Sauvegarde du menu Limine actuel : {backup}"
@@ -507,6 +513,9 @@ msgstr "Adresse e-mail de l’auteur des commits"
 
 msgid "Commit author name"
 msgstr "Nom de l’auteur des commits"
+
+msgid "Commit: {commit}"
+msgstr "Commit : {commit}"
 
 msgid "Compartments"
 msgstr "Compartiments"
@@ -934,6 +943,9 @@ msgstr "GRUB affiche désormais les instantanés Snapper dans le sous-menu 'Arch
 msgid "Git Accounts"
 msgstr "Comptes Git"
 
+msgid "Git author and date: {author}"
+msgstr "Auteur Git et date : {author}"
+
 msgid "Git will use"
 msgstr "Git utilisera"
 
@@ -954,6 +966,9 @@ msgstr "La consultation de l’utilisation de Grok a renvoyé HTTP {code} ; rée
 
 msgid "Groups"
 msgstr "Groupes"
+
+msgid "HTTPS Git repository URL"
+msgstr "URL HTTPS du dépôt Git"
 
 msgid "Hardware detection failed; see the log above"
 msgstr "La détection du matériel a échoué ; consultez le journal ci-dessus"
@@ -1041,6 +1056,9 @@ msgstr "Sur quel disque installer ?"
 
 msgid "Install one from Walker > Install > Browsers; Firefox cannot open app windows."
 msgstr "Installez-en un dans Walker > Installer > Navigateurs ; Firefox ne peut pas ouvrir de fenêtres d’application."
+
+msgid "Install plugin?"
+msgstr "Installer le plugin ?"
 
 msgid "Install the Eitr network helper first; see distro/NETWORKING.md"
 msgstr "Installez d’abord l’utilitaire réseau Eitr ; voir distro/NETWORKING.md"
@@ -1294,6 +1312,9 @@ msgstr "Bloc include EITR mal formé ; vérifiez ~/.gitconfig manuellement"
 msgid "Managed databases"
 msgstr "Bases de données gérées"
 
+msgid "Manifest author: {author}"
+msgstr "Auteur du manifeste : {author}"
+
 msgid "Message queues"
 msgstr "Files de messages"
 
@@ -1329,6 +1350,9 @@ msgstr "Réseaux"
 
 msgid "New SSH key for {label}"
 msgstr "Nouvelle clé SSH pour {label}"
+
+msgid "New commit: {commit}"
+msgstr "Nouveau commit : {commit}"
 
 msgid "New name"
 msgstr "Nouveau nom"
@@ -1486,6 +1510,9 @@ msgstr "Ouvrir le dossier"
 msgid "Open image"
 msgstr "Ouvrir l’image"
 
+msgid "Open it from Tools > Plugins."
+msgstr "Ouvrez-le depuis Outils > Plugins."
+
 msgid "Open the web console"
 msgstr "Ouvrir la console web"
 
@@ -1531,6 +1558,9 @@ msgstr "Les mots de passe ne correspondent pas"
 msgid "Peer Tailscale address or name: "
 msgstr "Adresse ou nom Tailscale de l’appareil distant : "
 
+msgid "PgUp/PgDn: scroll  y: install  Enter / Esc: cancel"
+msgstr "PgUp/PgDn : défiler  y : installer  Enter / Esc : annuler"
+
 msgid "Pick a reminder to cancel"
 msgstr "Choisissez un rappel à annuler"
 
@@ -1539,6 +1569,27 @@ msgstr "Agrandissez la console à au moins 80 colonnes et 24 lignes."
 
 msgid "Please enter a valid value."
 msgstr "Veuillez saisir une valeur valide."
+
+msgid "Plugin installed"
+msgstr "Plugin installé"
+
+msgid "Plugin update: {name}"
+msgstr "Mise à jour du plugin : {name}"
+
+msgid "Plugin {id} could not be updated: {error}"
+msgstr "Impossible de mettre à jour le plugin {id} : {error}"
+
+msgid "Plugin: {name}"
+msgstr "Plugin : {name}"
+
+msgid "Plugins"
+msgstr "Plugins"
+
+msgid "Plugins run with your account’s full permissions. Eitr has not reviewed this code. Install only if you trust its author and repository."
+msgstr "Les plugins disposent de toutes les permissions de votre compte. Eitr n’a pas vérifié ce code. Installez uniquement si vous faites confiance à son auteur et à son dépôt."
+
+msgid "Plugins: non-interactive update skipped; run eitr plugin update in a terminal."
+msgstr "Plugins : mise à jour non interactive ignorée ; lancez eitr plugin update dans un terminal."
 
 msgid "Policies"
 msgstr "Politiques"
@@ -1563,6 +1614,9 @@ msgstr "Préparation de la mise à jour…"
 
 msgid "Press Esc to close."
 msgstr "Appuyez sur Échap pour fermer."
+
+msgid "Previous commit: {commit}"
+msgstr "Commit précédent : {commit}"
 
 msgid "Primary IPs"
 msgstr "IP principales"
@@ -1705,6 +1759,9 @@ msgstr "La suppression effacerait toutes les polices installées"
 msgid "Remove local sign-in"
 msgstr "Supprimer la connexion locale"
 
+msgid "Remove plugin {id} and its service?"
+msgstr "Supprimer le plugin {id} et son service ?"
+
 msgid "Remove the {label} web app?"
 msgstr "Supprimer l’application web {label} ?"
 
@@ -1731,6 +1788,12 @@ msgstr "Signaler un problème"
 
 msgid "Repositories inside it use only this account"
 msgstr "Les dépôts qu’il contient utilisent uniquement ce compte"
+
+msgid "Repository URL"
+msgstr "URL du dépôt"
+
+msgid "Repository: {url}"
+msgstr "Dépôt : {url}"
 
 msgid "Resource Groups"
 msgstr "Groupes de ressources"
@@ -1782,6 +1845,9 @@ msgstr "Route 53"
 
 msgid "Route tables"
 msgstr "Tables de routage"
+
+msgid "Rows:"
+msgstr "Entrées :"
 
 msgid "Run Sharing Setup first."
 msgstr "Configurez d’abord le partage."
@@ -2046,6 +2112,9 @@ msgstr "Les mises à jour protégées par instantanés nécessitent une racine B
 
 msgid "Snapshots"
 msgstr "Instantanés"
+
+msgid "Some plugins could not be updated; their previous approved commits were kept."
+msgstr "Certains plugins n’ont pas pu être mis à jour ; leurs commits précédemment approuvés ont été conservés."
 
 msgid "Stable channel. Eitr packages already newer than stable stay until stable catches up."
 msgstr "Canal stable. Les paquets Eitr plus récents restent en place jusqu’à ce que le canal stable les rattrape."
@@ -2619,6 +2688,9 @@ msgstr "Points de terminaison VPC"
 
 msgid "VPCs"
 msgstr "VPC"
+
+msgid "Version: {version}"
+msgstr "Version : {version}"
 
 msgid "Virtual Machines"
 msgstr "Machines virtuelles"

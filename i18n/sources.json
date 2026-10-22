@@ -1234,6 +1234,14 @@
       "elephant/menus/keyboard-add.lua",
       "elephant/menus/keyboard.lua"
     ],
+    "Add Plugin…": [
+      "elephant/plugin-entries.lua",
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Add a plugin from Install > Plugins": [
+      "elephant/plugin-entries.lua",
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Add this layout; Alt + Shift switches layouts": [
       "elephant/menus/keyboard-add.lua"
     ],
@@ -2079,6 +2087,10 @@
     "Nightlight": [
       "elephant/menu-rows/toggle.json"
     ],
+    "No plugins installed": [
+      "elephant/plugin-entries.lua",
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Not used yet": [
       "elephant/menus/git-accounts.lua"
     ],
@@ -2168,6 +2180,14 @@
     ],
     "Ping a Peer": [
       "elephant/menu-rows/remote-away.json"
+    ],
+    "Plugins": [
+      "elephant/menu-rows/install.json",
+      "elephant/menu-rows/tools.json",
+      "elephant/menus/plugin-actions.lua",
+      "elephant/menus/plugins-install.lua",
+      "elephant/menus/plugins.lua",
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Position": [
       "elephant/menu-rows/bar.json",
@@ -2263,6 +2283,10 @@
       "elephant/menu-rows/system-connectivity.json",
       "elephant/menus/remote-access.lua"
     ],
+    "Remove": [
+      "elephant/plugin-entries.lua",
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Remove Account": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
@@ -2274,6 +2298,10 @@
     ],
     "Remove TPM Unlock": [
       "elephant/menu-rows/tpm-unlock.json"
+    ],
+    "Remove this plugin and its service": [
+      "elephant/plugin-entries.lua",
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Report a Problem": [
       "elephant/menu-rows/system-information.json"
@@ -2332,6 +2360,14 @@
     ],
     "Return to Password Authentication": [
       "elephant/menu-rows/security.json"
+    ],
+    "Review a Git repository before installing": [
+      "elephant/plugin-entries.lua",
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Review a new plugin commit": [
+      "elephant/plugin-entries.lua",
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Review and turn on the Tailscale service": [
       "elephant/menu-rows/remote-away.json"
@@ -2747,7 +2783,9 @@
     ],
     "Update": [
       "elephant/menu-rows/system-maintenance.json",
-      "elephant/menus/update.lua"
+      "elephant/menus/update.lua",
+      "elephant/plugin-entries.lua",
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Update Channel": [
       "elephant/menu-rows/update.json",
@@ -3638,6 +3676,9 @@
     "Applications": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Apply this plugin update?": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Apply this system change? Type yes to continue: ": [
       "distro/system/eitr_remote.py"
     ],
@@ -3682,6 +3723,9 @@
     ],
     "Available accounts": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Background service: {service}": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Backup of the current Limine menu: {backup}": [
       "distro/system/eitr-system.py"
@@ -3905,6 +3949,9 @@
     ],
     "Commit author name": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Commit: {commit}": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Compartments": [
       "walker/scripts/menus/cloud/providers.py"
@@ -4344,6 +4391,9 @@
     "Git Accounts": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Git author and date: {author}": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Git will use": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
@@ -4364,6 +4414,9 @@
     ],
     "Groups": [
       "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "HTTPS Git repository URL": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Hardware detection failed; see the log above": [
       "distro/archinstall/eitr-guided-install"
@@ -4453,6 +4506,9 @@
     ],
     "Install one from Walker > Install > Browsers; Firefox cannot open app windows.": [
       "walker/scripts/actions/install/webapps.py"
+    ],
+    "Install plugin?": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Install the Eitr network helper first; see distro/NETWORKING.md": [
       "quickshell/desktop-bar/scripts/wifi-popup.py"
@@ -4713,6 +4769,9 @@
     "Managed databases": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Manifest author: {author}": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Message queues": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -4752,11 +4811,15 @@
     "New SSH key for {label}": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "New commit: {commit}": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "New name": [
       "walker/scripts/menus/cloud/accounts.py"
     ],
     "No": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git-accounts.py",
+      "walker/scripts/actions/install/plugins.py"
     ],
     "No LUKS-encrypted partition was found.": [
       "walker/scripts/actions/system/security.py"
@@ -4913,6 +4976,9 @@
     "Open image": [
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
+    "Open it from Tools > Plugins.": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Open the web console": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -4958,6 +5024,9 @@
     "Peer Tailscale address or name: ": [
       "walker/scripts/actions/system/remote-access.py"
     ],
+    "PgUp/PgDn: scroll  y: install  Enter / Esc: cancel": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Pick a reminder to cancel": [
       "walker/scripts/actions/tools/reminders.py"
     ],
@@ -4966,6 +5035,27 @@
     ],
     "Please enter a valid value.": [
       "distro/lib/eitr_wizard.py"
+    ],
+    "Plugin installed": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Plugin update: {name}": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Plugin {id} could not be updated: {error}": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Plugin: {name}": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Plugins": [
+      "walker/scripts/actions/system/update.sh"
+    ],
+    "Plugins run with your account’s full permissions. Eitr has not reviewed this code. Install only if you trust its author and repository.": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Plugins: non-interactive update skipped; run eitr plugin update in a terminal.": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Policies": [
       "walker/scripts/menus/cloud/navigation.py"
@@ -4990,6 +5080,9 @@
     ],
     "Press Esc to close.": [
       "distro/lib/eitr_terminal.py"
+    ],
+    "Previous commit: {commit}": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Primary IPs": [
       "walker/scripts/menus/cloud/providers.py"
@@ -5135,6 +5228,9 @@
     "Remove local sign-in": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Remove plugin {id} and its service?": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Remove the {label} web app?": [
       "walker/scripts/actions/install/software.py"
     ],
@@ -5161,6 +5257,12 @@
     ],
     "Repositories inside it use only this account": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Repository URL": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Repository: {url}": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Resource Groups": [
       "walker/scripts/menus/cloud/navigation.py",
@@ -5195,7 +5297,8 @@
     ],
     "Review": [
       "distro/archinstall/installer-ui.py",
-      "distro/lib/eitr_wizard.py"
+      "distro/lib/eitr_wizard.py",
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Review /etc/default/limine first, then run: sudo systemctl start {unit}": [
       "distro/system/eitr-system.py"
@@ -5214,6 +5317,9 @@
     ],
     "Route tables": [
       "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Rows:": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Run Sharing Setup first.": [
       "distro/system/eitr_remote.py"
@@ -5478,6 +5584,9 @@
     ],
     "Snapshots": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Some plugins could not be updated; their previous approved commits were kept.": [
+      "walker/scripts/actions/system/update.sh"
     ],
     "Stable channel. Eitr packages already newer than stable stay until stable catches up.": [
       "distro/system/eitr-system.py"
@@ -6057,6 +6166,9 @@
     "VPCs": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
+    "Version: {version}": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Virtual Machines": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
@@ -6098,7 +6210,8 @@
       "walker/scripts/actions/system/security.py"
     ],
     "Yes": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git-accounts.py",
+      "walker/scripts/actions/install/plugins.py"
     ],
     "You can run more commands here manually.": [
       "walker/scripts/menus/cloud/common.sh"

@@ -513,5 +513,13 @@
   "Music Visualizer": "Musikvisualisierer",
   "Watch music dance in a theme-coloured terminal": "Musik in einem Terminal mit Theme-Farben ansehen",
   "Create, find or cancel reminders with your default assistant": "Erinnerungen mit dem Standardassistenten erstellen, finden oder löschen",
-  "Tell the assistant…": "Dem Assistenten etwas sagen…"
+  "Tell the assistant…": "Dem Assistenten etwas sagen…",
+  "Add Plugin…": "Plugin hinzufügen…",
+  "Add a plugin from Install > Plugins": "Plugin über Installieren > Plugins hinzufügen",
+  "No plugins installed": "Keine Plugins installiert",
+  "Plugins": "Plugins",
+  "Remove": "Entfernen",
+  "Remove this plugin and its service": "Dieses Plugin und seinen Dienst entfernen",
+  "Review a Git repository before installing": "Git-Repository vor der Installation prüfen",
+  "Review a new plugin commit": "Neuen Plugin-Commit prüfen"
 }

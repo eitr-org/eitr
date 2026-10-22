@@ -60,7 +60,14 @@ no_updates() (
   flatpaks="$(cat "$check_output")"
   [[ -z "$flatpaks" ]]
 )
+update_plugins() {
+  # Only when a plugin is installed; most desktops have none.
+  grep -q '"commit"' "${XDG_STATE_HOME:-$HOME/.local/state}/eitr/plugins.json" 2>/dev/null || return 0
+  eitr_gettext 'Plugins' >&2; printf '\n' >&2
+  python3 "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/scripts/actions/install/plugins.py" update || eitr_gettext 'Some plugins could not be updated; their previous approved commits were kept.' >&2
+}
 if [[ "${1:-}" == system ]] && no_updates; then
+  update_plugins
   eitr_gettext 'Everything is up to date.'
   printf '\n'
   sleep 3
@@ -118,6 +125,7 @@ case "${1:-}" in
     else
       full_update
     fi
+    update_plugins
     offer_restart
     ;;
   pacman) sudo pacman -Syu; offer_restart ;;

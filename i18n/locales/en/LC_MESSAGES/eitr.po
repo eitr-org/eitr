@@ -241,6 +241,9 @@ msgstr "Application projects"
 msgid "Applications"
 msgstr "Applications"
 
+msgid "Apply this plugin update?"
+msgstr "Apply this plugin update?"
+
 msgid "Apply this system change? Type yes to continue: "
 msgstr "Apply this system change? Type yes to continue: "
 
@@ -285,6 +288,9 @@ msgstr "Author name"
 
 msgid "Available accounts"
 msgstr "Available accounts"
+
+msgid "Background service: {service}"
+msgstr "Background service: {service}"
 
 msgid "Backup of the current Limine menu: {backup}"
 msgstr "Backup of the current Limine menu: {backup}"
@@ -507,6 +513,9 @@ msgstr "Commit author email"
 
 msgid "Commit author name"
 msgstr "Commit author name"
+
+msgid "Commit: {commit}"
+msgstr "Commit: {commit}"
 
 msgid "Compartments"
 msgstr "Compartments"
@@ -934,6 +943,9 @@ msgstr "GRUB now lists Snapper snapshots in its 'Arch Linux snapshots' submenu. 
 msgid "Git Accounts"
 msgstr "Git Accounts"
 
+msgid "Git author and date: {author}"
+msgstr "Git author and date: {author}"
+
 msgid "Git will use"
 msgstr "Git will use"
 
@@ -954,6 +966,9 @@ msgstr "Grok usage returned HTTP {code}; retry later or sign in again"
 
 msgid "Groups"
 msgstr "Groups"
+
+msgid "HTTPS Git repository URL"
+msgstr "HTTPS Git repository URL"
 
 msgid "Hardware detection failed; see the log above"
 msgstr "Hardware detection failed; see the log above"
@@ -1041,6 +1056,9 @@ msgstr "Install on which disk?"
 
 msgid "Install one from Walker > Install > Browsers; Firefox cannot open app windows."
 msgstr "Install one from Walker > Install > Browsers; Firefox cannot open app windows."
+
+msgid "Install plugin?"
+msgstr "Install plugin?"
 
 msgid "Install the Eitr network helper first; see distro/NETWORKING.md"
 msgstr "Install the Eitr network helper first; see distro/NETWORKING.md"
@@ -1294,6 +1312,9 @@ msgstr "Malformed EITR include block; review ~/.gitconfig manually"
 msgid "Managed databases"
 msgstr "Managed databases"
 
+msgid "Manifest author: {author}"
+msgstr "Manifest author: {author}"
+
 msgid "Message queues"
 msgstr "Message queues"
 
@@ -1329,6 +1350,9 @@ msgstr "Networks"
 
 msgid "New SSH key for {label}"
 msgstr "New SSH key for {label}"
+
+msgid "New commit: {commit}"
+msgstr "New commit: {commit}"
 
 msgid "New name"
 msgstr "New name"
@@ -1486,6 +1510,9 @@ msgstr "Open folder"
 msgid "Open image"
 msgstr "Open image"
 
+msgid "Open it from Tools > Plugins."
+msgstr "Open it from Tools > Plugins."
+
 msgid "Open the web console"
 msgstr "Open the web console"
 
@@ -1531,6 +1558,9 @@ msgstr "Passwords did not match"
 msgid "Peer Tailscale address or name: "
 msgstr "Peer Tailscale address or name: "
 
+msgid "PgUp/PgDn: scroll  y: install  Enter / Esc: cancel"
+msgstr "PgUp/PgDn: scroll  y: install  Enter / Esc: cancel"
+
 msgid "Pick a reminder to cancel"
 msgstr "Pick a reminder to cancel"
 
@@ -1539,6 +1569,27 @@ msgstr "Please enlarge the console to at least 80 columns and 24 rows."
 
 msgid "Please enter a valid value."
 msgstr "Please enter a valid value."
+
+msgid "Plugin installed"
+msgstr "Plugin installed"
+
+msgid "Plugin update: {name}"
+msgstr "Plugin update: {name}"
+
+msgid "Plugin {id} could not be updated: {error}"
+msgstr "Plugin {id} could not be updated: {error}"
+
+msgid "Plugin: {name}"
+msgstr "Plugin: {name}"
+
+msgid "Plugins"
+msgstr "Plugins"
+
+msgid "Plugins run with your account’s full permissions. Eitr has not reviewed this code. Install only if you trust its author and repository."
+msgstr "Plugins run with your account’s full permissions. Eitr has not reviewed this code. Install only if you trust its author and repository."
+
+msgid "Plugins: non-interactive update skipped; run eitr plugin update in a terminal."
+msgstr "Plugins: non-interactive update skipped; run eitr plugin update in a terminal."
 
 msgid "Policies"
 msgstr "Policies"
@@ -1563,6 +1614,9 @@ msgstr "Preparing the update…"
 
 msgid "Press Esc to close."
 msgstr "Press Esc to close."
+
+msgid "Previous commit: {commit}"
+msgstr "Previous commit: {commit}"
 
 msgid "Primary IPs"
 msgstr "Primary IPs"
@@ -1705,6 +1759,9 @@ msgstr "Removal would delete every installed font"
 msgid "Remove local sign-in"
 msgstr "Remove local sign-in"
 
+msgid "Remove plugin {id} and its service?"
+msgstr "Remove plugin {id} and its service?"
+
 msgid "Remove the {label} web app?"
 msgstr "Remove the {label} web app?"
 
@@ -1731,6 +1788,12 @@ msgstr "Report a problem"
 
 msgid "Repositories inside it use only this account"
 msgstr "Repositories inside it use only this account"
+
+msgid "Repository URL"
+msgstr "Repository URL"
+
+msgid "Repository: {url}"
+msgstr "Repository: {url}"
 
 msgid "Resource Groups"
 msgstr "Resource Groups"
@@ -1782,6 +1845,9 @@ msgstr "Route 53"
 
 msgid "Route tables"
 msgstr "Route tables"
+
+msgid "Rows:"
+msgstr "Rows:"
 
 msgid "Run Sharing Setup first."
 msgstr "Run Sharing Setup first."
@@ -2046,6 +2112,9 @@ msgstr "Snapshot-protected updates require a Btrfs root. No update was started."
 
 msgid "Snapshots"
 msgstr "Snapshots"
+
+msgid "Some plugins could not be updated; their previous approved commits were kept."
+msgstr "Some plugins could not be updated; their previous approved commits were kept."
 
 msgid "Stable channel. Eitr packages already newer than stable stay until stable catches up."
 msgstr "Stable channel. Eitr packages already newer than stable stay until stable catches up."
@@ -2619,6 +2688,9 @@ msgstr "VPC endpoints"
 
 msgid "VPCs"
 msgstr "VPCs"
+
+msgid "Version: {version}"
+msgstr "Version: {version}"
 
 msgid "Virtual Machines"
 msgstr "Virtual Machines"

@@ -5,11 +5,10 @@ Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 
 1. Remote access: test with the owner
 2. Organization profiles
-3. Eitr plugins
-4. Smaller items
-5. Google's assistants: Antigravity
-6. Later
-7. Before 1.0.0
+3. Smaller items
+4. Google's assistants: Antigravity
+5. Later
+6. Before 1.0.0
 
 # 1. Remote access: test with the owner
 
@@ -99,16 +98,11 @@ Steps:
 
 Out of scope: managing machines after installation (fleet management).
 
-# 3. Eitr plugins
+# 3. Smaller items
 
-A plugin is a Git repository with a manifest declaring its Walker rows,
-scripts and optional user service. Install > Plugins takes a URL, shows who
-wrote it and a trust warning before any code runs, updates with System Update
-and removes cleanly. The owner's cooler display tool (in the owner's private
-repository) becomes the first plugin.
-
-# 4. Smaller items
-
+- **The first real plugin.** Turn the owner's cooler display tool (in the owner's
+  private repository) into a plugin with the owner, using `distro/plugins/example/`
+  as the template, and check rows, its service, update and removal on real use.
 - **ISO download counter.** Cloudflare's R2 analytics only keep a few weeks and
   cannot tell our own checks from real downloads. Put a small Worker in front of
   the ISO link that counts new downloads (not resumed ranges) in D1 without
@@ -139,7 +133,7 @@ repository) becomes the first plugin.
   consistent Eitr Linux positioning. Consider a dated, source-checked Omarchy
   comparison page separately; do not imply shared features are exclusive.
 
-# 5. Google's assistants: Antigravity
+# 4. Google's assistants: Antigravity
 
 Gemini CLI is verified as an assistants-together helper with a free API key:
 a direct read-only question and an MCP `ask_gemini` call both answered.
@@ -149,7 +143,7 @@ The only unlocks are `--dangerously-skip-permissions` or global permission rules
 in `~/.gemini/antigravity-cli/settings.json`. Re-check when it gains per-run
 permissions or a read-only headless mode. Do not weaken global permissions.
 
-# 6. Later
+# 5. Later
 
 - **Voice reminders, next steps.** Repeating reminders ("every Monday") and
   syncing with Google or Outlook Calendar (needs account sign-in).
@@ -163,7 +157,7 @@ permissions or a read-only headless mode. Do not weaken global permissions.
   the other assistants, with its answer constrained to the reminder JSON format and
   checked by the same validator. Nothing leaves the PC; weaker on unusual phrasing.
 
-# 7. Before 1.0.0
+# 6. Before 1.0.0
 
 - **Upgrade that skips releases.** 1.0 promises supported upgrades, so test
   installing 0.6.4 and updating straight to the 1.0 candidate. The 0.6.4 ISO is

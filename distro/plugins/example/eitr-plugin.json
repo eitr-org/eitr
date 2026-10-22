@@ -1,0 +1,16 @@
+{
+  "id": "example",
+  "name": "Example plugin",
+  "description": "A tiny notification example",
+  "author": "Eitr contributors",
+  "version": "1.0.0",
+  "rows": [
+    {
+      "title": "Example notification",
+      "description": "Show a greeting from the example plugin",
+      "icon": "󰂚",
+      "run": "notify.sh",
+      "arguments": ["Hello from an Eitr plugin"]
+    }
+  ]
+}

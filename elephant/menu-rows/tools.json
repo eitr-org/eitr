@@ -11,6 +11,12 @@
     "submenu": "capture"
   },
   {
+    "text": "Plugins",
+    "subtext": ">",
+    "icon": "󰏖",
+    "submenu": "plugins"
+  },
+  {
     "text": "Reminders",
     "subtext": ">",
     "keywords": [

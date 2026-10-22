@@ -63,6 +63,7 @@ GROUPS = [
     ]),
     ("Setup", [
         ("hook", "list your hooks, or run one to try it"),
+        ("plugin", "list, add, update or remove per-user plugins"),
         ("config", "your settings files compared with Eitr's defaults (eitr-config)"),
         ("git", "Git accounts and folder identities (eitr-git)"),
     ]),
@@ -119,6 +120,17 @@ def parser():
     update.add_argument("kind", nargs="?", default="system", choices=sorted(UPDATES),
                         help='system (default: snapshot, packages, AUR and Flatpak), pacman, aur or full')
 
+    plugin = commands.add_parser("plugin", help="per-user plugins")
+    plugin_actions = plugin.add_subparsers(dest="action")
+    plugin.set_defaults(action="list")
+    plugin_actions.add_parser("list")
+    plugin_add = plugin_actions.add_parser("add")
+    plugin_add.add_argument("url")
+    plugin_update = plugin_actions.add_parser("update")
+    plugin_update.add_argument("id", nargs="?")
+    plugin_remove = plugin_actions.add_parser("remove")
+    plugin_remove.add_argument("id")
+
     theme = commands.add_parser("theme", help="themes")
     theme_actions = theme.add_subparsers(dest="action")
     theme_actions.add_parser("list", help='list the installed themes')
@@ -174,6 +186,9 @@ def plan(arguments, code=None, config=None):
     code, config = code or code_root(), config or config_root()
     actions = code / "walker/scripts/actions"
     command = arguments.command
+    if command == "plugin":
+        value = getattr(arguments, "url", None) or getattr(arguments, "id", None)
+        return ["python3", str(actions / "install/plugins.py"), arguments.action, *([value] if value else [])]
     if command == "update":
         return ["bash", str(actions / "system/update.sh"), UPDATES[arguments.kind]]
     if command == "theme":

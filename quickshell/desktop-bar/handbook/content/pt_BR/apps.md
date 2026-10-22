@@ -53,3 +53,19 @@ Segure **SUPER + Shift + D**, fale e solte, ou digite em Principal > Ferramentas
 Diga “Me lembre de ligar amanhã às 15h” ou “Dentista em 30 de outubro às 15h, avise 30 minutos antes”. Compromissos avisam uma hora antes por padrão (ou com a antecedência pedida) e no horário; lembretes simples só no horário. Dados ausentes ou ambiguidade abrem um terminal com opções numeradas completas. Digite o número ou dite com SUPER + D; Esc cancela. Uma notificação informa o resultado. Você também pode pedir para listar ou cancelar lembretes.
 
 Novo lembrete aceita `tomorrow 15:00`, dias da semana em inglês (09:00 sem horário), `2026-10-30 09:00` e `Oct 30 15:00`. Use aspas nas datas com espaços na CLI. Cada alerta tem seu timer; cancelar remove todos. Alertas perdidos aparecem no próximo login. O calendário marca os dias dos eventos; clique para ver horários e títulos atualizados imediatamente. Repetição e sincronização com calendários externos ainda não são suportadas.
+
+## Plugins
+
+Um plugin é um repositório Git com scripts, itens do Walker e, opcionalmente, um serviço do usuário. Plugins executam com todas as permissões da sua conta. O Eitr não revisou seu código: confie no autor e no repositório antes de aprovar uma instalação ou atualização.
+
+Principal > Instalar > Plugins > Adicionar plugin… pede uma URL Git HTTPS. A revisão mostra autor do manifesto, repositório, commit exato, autor e data do Git, itens e serviço em segundo plano. Percorra a revisão e pressione `y` para instalar; Enter ou Esc cancela. Nenhum código do plugin roda antes da aprovação. Principal > Ferramentas > Plugins lista as ações; digitar em Ferramentas também as pesquisa. O menu vazio mostra Nenhum plugin instalado.
+
+Atualização do sistema verifica plugins mesmo sem atualizações de pacotes. Cada atualização mostra os commits anterior e novo, seus assuntos e os arquivos alterados, e pergunta com `[y/N]`; Enter recusa. Atualizações não interativas ignoram plugins. Instalar > Plugins > o plugin oferece Atualizar e Remover; a remoção pede confirmação e apaga arquivos, itens e serviço. Os mesmos fluxos estão em `eitr plugin list`, `eitr plugin add URL`, `eitr plugin update [ID]` e `eitr plugin remove ID`.
+
+Plugins ficam apenas em `$XDG_DATA_HOME/eitr/plugins/<id>/` (padrão `~/.local/share/eitr/plugins/`); aprovações em `$XDG_STATE_HOME/eitr/plugins.json`. Serviços usam `$XDG_CONFIG_HOME/systemd/user/eitr-plugin-<id>.service`. Nunca use sudo. Atualizações validam um candidato separado e preservam o commit aprovado em caso de recusa ou falha. Um plugin pode modificar seus arquivos; removê-lo não desfaz essas alterações.
+
+### Referência do manifesto
+
+A raiz contém `eitr-plugin.json`. Somente estas chaves são aceitas: `id` (letras minúsculas e dígitos separados por hífens simples), `name`, `description` (até 72 caracteres), `author`, `version`, `rows` (1–20) e `service` opcional. Cada item exige `title`, `description` (ambos até 72 caracteres) e `run`; aceita `icon` e `arguments` (lista de strings fixas) opcionais. Um serviço aceita apenas `run` e `arguments` opcional. Comandos usam argv, nunca strings de shell. `run` deve apontar para um executável dentro do repositório: caminhos absolutos, `..` e links simbólicos externos são recusados. Chaves JSON desconhecidas ou duplicadas são recusadas. Submódulos não são inicializados.
+
+O exemplo em `distro/plugins/example/` contém manifesto e `notify.sh`, uma ação de notificação e nenhum serviço. Copie-o para seu repositório Git, faça commit e publique uma URL Git HTTPS para testar a instalação completa. É documentação; não é instalado automaticamente.

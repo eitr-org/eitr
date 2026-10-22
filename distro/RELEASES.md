@@ -73,6 +73,13 @@ process while visible and playing, with a gentle animation fallback. Theme switc
 regenerate its colour gradient while keeping
 settings outside the colour section. Existing desktops install cava on first use.
 
+Plugins: Main > Install > Plugins adds a Git repository whose `eitr-plugin.json`
+declares Walker rows (shown under Tools > Plugins) and optionally a user service.
+Installation shows the author, commit and a trust warning before anything runs;
+plugins stay per-user, pinned to the approved commit, and System Update shows each
+plugin's changes and asks before updating it. `eitr plugin` does the same from a
+terminal; `distro/plugins/example/` is a starting point.
+
 pacman shows colour and the Pac-Man progress bar (`Color` and `ILoveCandy`):
 new installs write both, and existing desktops get them once with the next
 update; removing them by hand afterwards is kept.

@@ -55,7 +55,10 @@
     "limine.conf has no Arch Linux (linux) entry to rename",
     "pacman.conf has no [eitr] repository to add the testing channel before",
     "the theme colours must be a small regular file owned by the desktop user",
-    "{label}  {text}  (id {id})"
+    "{label}  {text}  (id {id})",
+    "Commit: {commit}",
+    "Plugin: {name}",
+    "Plugins"
   ],
   "es": [
     "AWS SSO (IAM Identity Center)",
@@ -106,7 +109,10 @@
     "limine.conf has no Arch Linux (linux) entry to rename",
     "pacman.conf has no [eitr] repository to add the testing channel before",
     "the theme colours must be a small regular file owned by the desktop user",
-    "{label}  {text}  (id {id})"
+    "{label}  {text}  (id {id})",
+    "Commit: {commit}",
+    "Plugin: {name}",
+    "Plugins"
   ],
   "de": [
     "AWS SSO (IAM Identity Center)",
@@ -169,7 +175,12 @@
     "limine.conf has no Arch Linux (linux) entry to rename",
     "pacman.conf has no [eitr] repository to add the testing channel before",
     "the theme colours must be a small regular file owned by the desktop user",
-    "{label}  {text}  (id {id})"
+    "{label}  {text}  (id {id})",
+    "Commit: {commit}",
+    "Plugin: {name}",
+    "Plugins",
+    "Repository: {url}",
+    "Version: {version}"
   ],
   "fr": [
     "AWS SSO (IAM Identity Center)",
@@ -230,6 +241,7 @@
     "pacman.conf has no [eitr] repository to add the testing channel before",
     "the theme colours must be a small regular file owned by the desktop user",
     "via {host}{key}",
-    "{label}  {text}  (id {id})"
+    "{label}  {text}  (id {id})",
+    "Plugins"
   ]
 }
