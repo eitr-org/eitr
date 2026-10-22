@@ -8,6 +8,3 @@ ConditionPathExists=/var/lib/eitr/profile-flatpaks.json
 Type=oneshot
 ExecStart=/usr/lib/eitr/eitr-system profile-flatpaks
 TimeoutStartSec=infinity
-
-[Install]
-WantedBy=multi-user.target

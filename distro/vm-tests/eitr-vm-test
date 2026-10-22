@@ -236,7 +236,10 @@ def run_checks(work):
 
 def verify(arguments):
     work = Path(arguments.work).resolve()
-    process = boot(work, "host")
+    # A profile's Flathub apps install after the first boot and need the internet.
+    expected = work / 'expected-profile.json'
+    wants_flathub = expected.exists() and bool(json.loads(expected.read_text()).get('add', {}).get('flathub'))
+    process = boot(work, "internet" if wants_flathub else "host")
     try:
         failures = run_checks(work)
         time.sleep(5)

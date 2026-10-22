@@ -1,0 +1,10 @@
+[Unit]
+Description=Retry organization profile Flatpaks until they are installed
+ConditionPathExists=/var/lib/eitr/profile-flatpaks.json
+
+[Timer]
+OnBootSec=1min
+OnUnitInactiveSec=5min
+
+[Install]
+WantedBy=timers.target

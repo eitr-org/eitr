@@ -6,6 +6,7 @@ import pwd
 import shutil
 import stat
 import subprocess
+import sys
 import tempfile
 from urllib.parse import urlsplit
 
@@ -97,8 +98,14 @@ def finish_flatpaks(root=Path('/'), runner=run):
             raise ValueError('Invalid Flatpak application ID')
     def user(command):
         run_as_user(username, account.pw_dir, command, runner)
-    install_flatpaks(remotes, user)
+    try:
+        install_flatpaks(remotes, user)
+    except subprocess.CalledProcessError as error:
+        # Usually no network yet (WiFi connects after login): the timer tries again.
+        print(f'Organization profile Flatpaks not installed yet; will retry: {error}', file=sys.stderr)
+        return False
     path.unlink()
+    return True
 
 
 def execute(profile, drive, username, channel_set, runner=run, root=Path('/'), installer=False):
@@ -175,7 +182,7 @@ def execute(profile, drive, username, channel_set, runner=run, root=Path('/'), i
     work = flatpak_work(profile, catalog)
     if installer and work:
         write(root / PENDING, {'user': username, 'remotes': work}, mode=0o600)
-        runner(['systemctl', 'enable', 'eitr-profile-flatpaks.service'])
+        runner(['systemctl', 'enable', 'eitr-profile-flatpaks.timer'])
     elif work:
         install_flatpaks(work, user)
     if 'theme' in defaults:

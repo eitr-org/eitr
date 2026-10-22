@@ -29,6 +29,7 @@ class RemovablePackages(unittest.TestCase):
 
 import hashlib
 import importlib.util
+import subprocess
 import tempfile
 from unittest.mock import patch, Mock
 import eitr_profile as profile
@@ -346,7 +347,7 @@ class DeferredFlatpaks(unittest.TestCase):
                                root=self.root, installer=True)
             commands = [call.args[0] for call in runner.call_args_list]
             self.assertFalse(any('flatpak' in command for command in commands))
-            self.assertIn(['systemctl', 'enable', 'eitr-profile-flatpaks.service'], commands)
+            self.assertIn(['systemctl', 'enable', 'eitr-profile-flatpaks.timer'], commands)
             queued = json.loads(self.pending.read_text())
             self.assertEqual(queued['user'], 'tester')
             self.assertEqual([remote['name'] for remote in queued['remotes']], ['flathub', 'runtime', 'vendor'])
@@ -393,6 +394,20 @@ class DeferredFlatpaks(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             self.finish(Mock(side_effect=[None, RuntimeError('download failed')]))
         self.assertTrue(self.pending.exists())
+
+    def test_offline_is_a_quiet_retry(self):
+        # No network yet must not fail the unit (a degraded system); the timer retries.
+        self.queue()
+        failing = Mock(side_effect=subprocess.CalledProcessError(1, 'flatpak'))
+        with patch('builtins.print'):
+            self.finish(failing)
+        self.assertTrue(self.pending.exists())
+
+    def test_the_timer_retries_until_the_queue_is_gone(self):
+        timer = (ROOT / 'distro/system/eitr-profile-flatpaks.timer').read_text()
+        self.assertIn('OnBootSec=1min', timer)
+        self.assertIn('OnUnitInactiveSec=5min', timer)
+        self.assertIn('ConditionPathExists=/var/lib/eitr/profile-flatpaks.json', timer)
 
     def test_invalid_data_is_rejected_before_any_command(self):
         for field, value in [('url', 'http://example.org'), ('name', '--evil'),
