@@ -102,16 +102,16 @@ class ReminderCommandTests(unittest.TestCase):
         self.assertIn("↻ Daily", result.stdout)
 
     def test_alerts_chime_unless_do_not_disturb(self):
-        self.run_script("new", "5m", "Stretch")
-        self.run_script("fire", json.loads(self.state.read_text())[0]["id"])
-        self.assertIn("pw-play --volume=0.7", self.calls_made())
-        quiet = self.folder / "eitr-shell"
-        quiet.write_text(f'#!/bin/sh\necho "eitr-shell $*" >> "{self.calls}"\necho \'{{"doNotDisturb":true}}\'\n')
-        self.calls.unlink()
-        self.run_script("new", "5m", "Water")
-        self.run_script("fire", json.loads(self.state.read_text())[0]["id"])
-        self.assertIn("notifications status", self.calls_made())
-        self.assertNotIn("pw-play", self.calls_made())
+        sound = self.folder / "alarm.oga"
+        sound.write_bytes(b"")
+        for status, plays in (('{"doNotDisturb":false}', True), ('{"doNotDisturb":true}', False), ("", True)):
+            with self.subTest(status=status), unittest.mock.patch.object(reminders, "ALERT_SOUND", sound), \
+                    unittest.mock.patch.object(reminders.subprocess, "run", return_value=subprocess.CompletedProcess([], 0, status)), \
+                    unittest.mock.patch.object(reminders.subprocess, "Popen") as play:
+                reminders.chime()
+            self.assertEqual(play.called, plays)
+            if plays:
+                self.assertEqual(play.call_args.args[0], ["pw-play", "--volume=0.7", str(sound)])
 
     def test_a_bad_time_sets_nothing(self):
         self.assertEqual(self.run_script("new", "whenever", "x").returncode, 1)
