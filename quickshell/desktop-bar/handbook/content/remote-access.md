@@ -39,7 +39,8 @@ even when another firewall rule would permit it. LAN scopes are captured at each
 start; stop and start sharing after changing networks. Use only trusted home
 networks. Stop Sharing also disables start at login and closes streaming ports,
 including established streams. Service failure closes them too; runtime openings
-do not survive a reboot. Start at Login is optional and switches at once from the
+do not survive a reboot. After the first start, Start Sharing and Stop Sharing switch at once, without
+questions or a password. Start at Login is optional and switches at once from the
 Streaming panel or the menu; Turn Off Start at Login keeps manual sharing. Sharing Status shows service errors.
 
 A Sunshine package update clears the executable’s capture capability. If sharing

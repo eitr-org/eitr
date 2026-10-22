@@ -2014,6 +2014,9 @@ msgstr "Einrichtungsschritte"
 msgid "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed."
 msgstr "Mehrere Bootloader sind eingerichtet ({listing}). Entfernen Sie veraltete Loader-Dateien oder richten Sie Snapshot-Starteinträge manuell ein. Nichts wurde geändert."
 
+msgid "Sharing could not start: {reason}"
+msgstr "Die Freigabe konnte nicht starten: {reason}"
+
 msgid "Sharing could not start; the reason is above."
 msgstr "Die Freigabe konnte nicht starten; der Grund steht oben."
 
@@ -2211,6 +2214,9 @@ msgstr "Tailscale konnte den Zustand nicht ändern."
 
 msgid "Tailscale is not installed."
 msgstr "Tailscale ist nicht installiert."
+
+msgid "Tailscale needs your administrator password once to let this account switch it."
+msgstr "Tailscale braucht einmal dein Administratorpasswort, damit dieses Konto es ein- und ausschalten kann."
 
 msgid "Tailscale setup belongs to another desktop user"
 msgstr "Die Tailscale-Einrichtung gehört einem anderen Benutzer"

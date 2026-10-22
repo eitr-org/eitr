@@ -5460,6 +5460,9 @@
     "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed.": [
       "distro/system/eitr-system.py"
     ],
+    "Sharing could not start: {reason}": [
+      "walker/scripts/actions/system/remote-access.py"
+    ],
     "Sharing could not start; the reason is above.": [
       "walker/scripts/actions/system/remote-access.py"
     ],
@@ -5657,6 +5660,9 @@
     ],
     "Tailscale is not installed.": [
       "quickshell/desktop-bar/scripts/remote-status.py"
+    ],
+    "Tailscale needs your administrator password once to let this account switch it.": [
+      "walker/scripts/actions/system/remote-access.py"
     ],
     "Tailscale setup belongs to another desktop user": [
       "distro/system/eitr_remote.py"

@@ -35,7 +35,7 @@ aunque otra regla lo permitiese. Las redes se identifican en cada inicio; deteng
 y vuelva a iniciar al cambiar de red. Use solo una red doméstica de confianza.
 Detener uso compartido también desactiva el inicio automático y cierra los puertos, incluso
 las conexiones existentes. Los fallos del servicio los cierran; las aperturas no
-sobreviven al reinicio. Iniciar al acceder es opcional y cambia al instante desde el panel Streaming o el menú;
+sobreviven al reinicio. Tras el primer inicio, Iniciar y Detener uso compartido cambian al instante, sin preguntas ni contraseña. Iniciar al acceder es opcional y cambia al instante desde el panel Streaming o el menú;
 Desactivar inicio al acceder mantiene el inicio manual. Estado del uso compartido muestra errores.
 
 La primera vez, la transmisión permanece bloqueada mientras define la contraseña. Vuelva al terminal y confirme que la ha definido; su contraseña de administrador activa entonces el control remoto.

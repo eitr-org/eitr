@@ -1003,5 +1003,7 @@
   "Version: {version}": "Versión: {version}",
   "Plugin installed": "Plugin instalado",
   "Open it from Tools > Plugins.": "Ábrelo en Herramientas > Plugins.",
-  "Tailscale could not change state.": "Tailscale no pudo cambiar de estado."
+  "Tailscale could not change state.": "Tailscale no pudo cambiar de estado.",
+  "Tailscale needs your administrator password once to let this account switch it.": "Tailscale necesita tu contraseña de administrador una vez para que esta cuenta pueda activarlo y desactivarlo.",
+  "Sharing could not start: {reason}": "No se pudo iniciar el uso compartido: {reason}"
 }

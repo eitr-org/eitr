@@ -252,6 +252,8 @@ def tailscale(name, undo=False):
     if undo and not previous:
         return
     if not undo and previous:
+        # Already set up: running it again repairs a cleared operator.
+        run(['tailscale', 'set', '--operator=' + name])
         return
     print(tr('This changes tailscaled startup and delegates Tailscale control to your user. Restore Away Access Setup undoes these changes.'))
     confirmed()

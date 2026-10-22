@@ -36,7 +36,7 @@ mesmo se outra regra permitir acesso. As redes são identificadas a cada início
 pare e inicie novamente ao trocar de rede. Use apenas sua rede doméstica confiável.
 Parar compartilhamento desativa também o início automático e fecha as portas, inclusive
 conexões existentes. Falhas do serviço também fecham as portas; as aberturas não
-sobrevivem à reinicialização. Iniciar ao entrar é opcional e muda na hora pelo painel Streaming ou pelo menu;
+sobrevivem à reinicialização. Depois do primeiro início, Iniciar e Parar compartilhamento mudam na hora, sem perguntas nem senha. Iniciar ao entrar é opcional e muda na hora pelo painel Streaming ou pelo menu;
 Desativar início ao entrar mantém o início manual. Estado do compartilhamento mostra erros.
 
 Na primeira vez, a transmissão fica bloqueada enquanto você define a senha. Volte ao terminal e confirme a definição; sua senha de administrador então libera o controle remoto.

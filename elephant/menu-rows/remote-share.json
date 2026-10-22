@@ -60,7 +60,7 @@
     "subtext": "Give trusted devices control of this desktop",
     "icon": "󰐊",
     "actions": {
-      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host start"
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host start"
     }
   },
   {
@@ -68,7 +68,7 @@
     "subtext": "Stop Sunshine and close its streaming ports",
     "icon": "󰓛",
     "actions": {
-      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host stop"
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host stop"
     }
   },
   {

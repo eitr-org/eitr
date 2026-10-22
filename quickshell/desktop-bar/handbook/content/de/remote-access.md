@@ -37,7 +37,8 @@ PC beschränkt, auch wenn andere Regeln Zugriff erlauben. LAN-Bereiche werden be
 jedem Start ermittelt; starten Sie die Freigabe nach einem Netzwechsel neu.
 Verwenden Sie nur ein vertrautes Heimnetz. Freigabe beenden deaktiviert den Autostart
 und schließt die Ports samt bestehenden Streams. Auch Dienstfehler schließen sie;
-die Öffnungen überstehen keinen Neustart. Bei Anmeldung starten ist optional und schaltet sofort
+die Öffnungen überstehen keinen Neustart. Nach dem ersten Start schalten Freigabe starten und Freigabe beenden sofort, ohne Fragen
+oder Passwort. Bei Anmeldung starten ist optional und schaltet sofort
 im Streaming-Panel oder im Menü um. Anmeldestart deaktivieren behält manuelles Starten bei.
 Freigabestatus zeigt Dienstfehler.
 

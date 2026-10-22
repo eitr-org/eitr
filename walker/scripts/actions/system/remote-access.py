@@ -3,7 +3,7 @@
 import eitr_bootstrap
 from eitr_i18n import tr
 from eitr_terminal import wait_for_escape
-from eitr_paths import code, config
+from eitr_paths import code, config, state
 import importlib.util
 import json
 import os
@@ -16,6 +16,9 @@ import urllib.parse
 
 HELPER = '/usr/lib/eitr/eitr-system'
 SERVICE = 'eitr-sunshine.service'
+# Written once remote control is granted. The grant itself lives in root's state,
+# which this user cannot read; a stale note only starts sharing with closed ports.
+GRANTED = state('eitr/remote-sharing-granted')
 
 
 def run(command, **options):
@@ -27,9 +30,14 @@ def start_service(verb):
     try:
         run(['systemctl', '--user', verb, SERVICE])
     except subprocess.CalledProcessError:
-        subprocess.run(['journalctl', '--user', '-u', SERVICE, '--since', '-1min', '-n', '15',
-                        '--no-pager', '-o', 'cat'], check=False)
-        raise RuntimeError(tr('Sharing could not start; the reason is above.')) from None
+        log = subprocess.run(['journalctl', '--user', '-u', SERVICE, '--since', '-1min', '-n', '15',
+                              '--no-pager', '-o', 'cat'], capture_output=True, text=True, check=False).stdout
+        if sys.stdin.isatty():
+            print(log, end='')
+            raise RuntimeError(tr('Sharing could not start; the reason is above.')) from None
+        # A toggle has no terminal: the notification carries the last line of the log.
+        reason = next((line for line in reversed(log.splitlines()) if line.strip()), '')
+        raise RuntimeError(tr('Sharing could not start: {reason}', reason=reason)) from None
 
 
 def software():
@@ -70,6 +78,14 @@ def host(action):
             software().recipe('remote-access', 'sunshine')
         root('setup')
     elif action == 'start':
+        # After the first start, the toggle just starts the service: its firewall
+        # steps use the narrow no-password sudo rule, and the grant is remembered.
+        if GRANTED.exists():
+            start_service('start')
+            return
+        if not sys.stdin.isatty():
+            reopen_in_terminal()
+            return
         print(tr('Sharing hands over full control of this signed-in desktop. Only enable it on a trusted home network.'))
         print(tr('Set a Sunshine username and password in the local settings page before pairing any device.'))
         if not confirm(tr('Start sharing this PC?')):
@@ -80,6 +96,8 @@ def host(action):
             run(['systemctl', '--user', 'stop', SERVICE])
             return
         root('arm')
+        GRANTED.parent.mkdir(parents=True, exist_ok=True)
+        GRANTED.touch()
         start_service('restart')
     elif action == 'stop':
         run(['systemctl', '--user', 'disable', '--now', SERVICE])
@@ -93,6 +111,7 @@ def host(action):
         if confirm(tr('Stop sharing and restore the original system permissions?')):
             run(['systemctl', '--user', 'disable', '--now', SERVICE])
             root('undo')
+            GRANTED.unlink(missing_ok=True)
     elif action in ('settings', 'pair'):
         if action == 'pair':
             if not confirm(tr('Have you set Sunshine’s username and password in the browser?')):
@@ -117,10 +136,45 @@ def auth_url(line):
     return None
 
 
+def user():
+    return pwd.getpwuid(os.getuid()).pw_name
+
+
+def is_operator():
+    """Away Access Setup makes this user Tailscale's operator, so it switches without sudo."""
+    result = subprocess.run(['tailscale', 'debug', 'prefs'], capture_output=True, text=True)
+    try:
+        return result.returncode == 0 and json.loads(result.stdout).get('OperatorUser') == user()
+    except ValueError:
+        return False
+
+
+def reopen_in_terminal():
+    """Toggles run without a terminal; a step that needs one (a password, a sign-in)
+    starts this same action again in a task terminal."""
+    subprocess.Popen([str(code('walker/bin/menu-path/kitty')), '-e', 'python3',
+                      str(code('walker/scripts/actions/task-terminal.py')), 'python3',
+                      str(Path(__file__).resolve()), *sys.argv[1:]], start_new_session=True,
+                     stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+
+def ensure_operator():
+    """Make this user the operator once, with the administrator password; True when it already is.
+    Without a terminal for that password, the step opens in one."""
+    if is_operator():
+        return True
+    if not sys.stdin.isatty():
+        reopen_in_terminal()
+        return False
+    print(tr('Tailscale needs your administrator password once to let this account switch it.'))
+    run(['sudo', 'tailscale', 'set', '--operator=' + user()])
+    return True
+
+
 def login():
     # Tailscale can wait for browser authentication: stream its URL immediately.
-    # Away Access Setup makes this user Tailscale's operator, so no sudo is needed.
-    with subprocess.Popen(['tailscale', 'login'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+    # login resets every setting it is not given, so the operator is passed along.
+    with subprocess.Popen(['tailscale', 'login', '--operator=' + user()], stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                           text=True, bufsize=1) as process:
         opened = set()
         for line in process.stdout:
@@ -149,15 +203,13 @@ def status():
 
 
 def tailscale_control(action):
-    """Away Access Setup makes this user Tailscale's operator, so no password is needed;
-    a Tailscale set up some other way may still refuse, and then sudo asks."""
-    result = subprocess.run(['tailscale', action], capture_output=True, text=True)
-    if result.returncode == 0:
+    if not ensure_operator():
         return
-    if 'access denied' in (result.stdout + result.stderr).lower():
-        run(['sudo', 'tailscale', action])
-        return
-    raise RuntimeError((result.stderr or result.stdout).strip() or tr('Tailscale could not change state.'))
+    # up also needs the operator named, or it refuses to drop the non-default setting.
+    flags = ['--operator=' + user()] if action == 'up' else []
+    result = subprocess.run(['tailscale', action, *flags], capture_output=True, text=True)
+    if result.returncode:
+        raise RuntimeError((result.stderr or result.stdout).strip() or tr('Tailscale could not change state.'))
 
 
 def away(action, peer=None):
@@ -167,10 +219,16 @@ def away(action, peer=None):
     elif action == 'undo':
         root('tailscale-undo')
     elif action == 'login':
-        login()
+        if ensure_operator():
+            login()
     elif action == 'connect':
         data = json.loads(run(['tailscale', 'status', '--json'], capture_output=True, text=True).stdout)
         if data.get('BackendState') == 'NeedsLogin':
+            if not sys.stdin.isatty():
+                reopen_in_terminal()
+                return
+            if not ensure_operator():
+                return
             login()
         tailscale_control('up')
     elif action == 'disconnect':

@@ -37,7 +37,7 @@ Les réseaux sont déterminés à chaque démarrage du partage ; relancez-le apr
 changement de réseau. Utilisez uniquement un réseau domestique de confiance.
 Arrêter le partage désactive aussi le démarrage automatique et ferme les ports, y compris
 les flux existants. Une défaillance du service les ferme aussi ; les ouvertures ne
-survivent pas au redémarrage. Démarrer à la connexion est facultatif et bascule aussitôt depuis le panneau Streaming ou le menu ;
+survivent pas au redémarrage. Après le premier démarrage, Démarrer et Arrêter le partage basculent aussitôt, sans question ni mot de passe. Démarrer à la connexion est facultatif et bascule aussitôt depuis le panneau Streaming ou le menu ;
 Désactiver le démarrage à la connexion conserve le démarrage manuel. État du partage affiche les erreurs.
 
 Au premier démarrage, la diffusion reste bloquée pendant la définition du mot de passe. Revenez au terminal et confirmez sa définition ; votre mot de passe administrateur autorise alors le contrôle à distance.

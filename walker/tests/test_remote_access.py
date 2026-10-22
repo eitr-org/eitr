@@ -2,6 +2,7 @@ import importlib.util
 import json
 from pathlib import Path
 import subprocess
+import tempfile
 import unittest
 from unittest.mock import Mock, patch
 from home_isolation import setUpModule, tearDownModule
@@ -13,17 +14,62 @@ SPEC.loader.exec_module(remote)
 
 
 class RemoteAccessTests(unittest.TestCase):
+    # The real one, before setUp replaces it with a stand-in.
+    real_reopen = staticmethod(remote.reopen_in_terminal)
+
     def setUp(self):
         # Never the real browser: a test that opens Sunshine's or Tailscale's page
         # would show it on the desktop of whoever runs the tests.
         page = patch.object(remote, 'open_page')
         self.opened = page.start()
         self.addCleanup(page.stop)
+        # Nor the real home or a real terminal window: the grant note lives in a temporary
+        # folder, and tests behave as if run from a terminal unless they say otherwise.
+        folder = tempfile.TemporaryDirectory()
+        self.addCleanup(folder.cleanup)
+        granted = patch.object(remote, 'GRANTED', Path(folder.name) / 'remote-sharing-granted')
+        granted.start()
+        self.addCleanup(granted.stop)
+        terminal = patch.object(remote, 'reopen_in_terminal')
+        self.reopened = terminal.start()
+        self.addCleanup(terminal.stop)
+        stdin = Mock()
+        stdin.isatty.return_value = True
+        tty = patch.object(remote.sys, 'stdin', stdin)
+        self.stdin = tty.start()
+        self.addCleanup(tty.stop)
 
     def test_cancel_never_starts_sharing(self):
         with patch('builtins.input', return_value='no'), patch.object(remote, 'run') as run:
             remote.host('start')
         run.assert_not_called()
+
+    def test_after_the_grant_start_is_a_plain_toggle(self):
+        remote.GRANTED.touch()
+        self.stdin.isatty.return_value = False
+        with patch('builtins.input', side_effect=AssertionError('no questions')), \
+                patch.object(remote, 'run') as run, patch.object(remote, 'root') as root:
+            remote.host('start')
+        run.assert_called_once_with(['systemctl', '--user', 'start', remote.SERVICE])
+        root.assert_not_called()
+        self.reopened.assert_not_called()
+
+    def test_first_start_from_a_toggle_opens_the_setup_terminal(self):
+        self.stdin.isatty.return_value = False
+        with patch.object(remote, 'run') as run:
+            remote.host('start')
+        self.reopened.assert_called_once()
+        run.assert_not_called()
+
+    def test_granting_remote_control_is_remembered(self):
+        with patch('builtins.input', return_value='y'), patch.object(remote, 'run'), \
+                patch.object(remote, 'root') as root, patch.object(remote, 'settings'):
+            remote.host('start')
+        root.assert_called_once_with('arm')
+        self.assertTrue(remote.GRANTED.exists())
+        with patch('builtins.input', return_value='y'), patch.object(remote, 'run'), patch.object(remote, 'root'):
+            remote.host('undo')
+        self.assertFalse(remote.GRANTED.exists())
 
     def test_stop_disables_login_and_closes_ports(self):
         with patch.object(remote, 'run') as run, patch.object(remote, 'root') as root:
@@ -70,27 +116,64 @@ class RemoteAccessTests(unittest.TestCase):
 
     def test_connect_signed_out_uses_browser_flow(self):
         result = subprocess.CompletedProcess([], 0, '{"BackendState":"NeedsLogin"}')
+        stdin = Mock()
+        stdin.isatty.return_value = True
         with patch.object(remote, 'run', return_value=result), patch.object(remote, 'login') as login, \
-                patch.object(remote, 'tailscale_control') as control:
+                patch.object(remote, 'tailscale_control') as control, patch.object(remote, 'ensure_operator', return_value=True), \
+                patch.object(remote.sys, 'stdin', stdin):
             remote.away('connect')
         login.assert_called_once()
         control.assert_called_once_with('up')
+        # From the panel toggle (no terminal), only a needed sign-in opens one.
+        stdin.isatty.return_value = False
+        with patch.object(remote, 'run', return_value=result), patch.object(remote, 'login') as login, \
+                patch.object(remote, 'reopen_in_terminal') as terminal, patch.object(remote.sys, 'stdin', stdin):
+            remote.away('connect')
+        terminal.assert_called_once()
+        login.assert_not_called()
 
-    def test_operator_switches_without_password_and_others_fall_back_to_sudo(self):
-        allowed = subprocess.CompletedProcess([], 0, '', '')
-        with patch.object(remote.subprocess, 'run', return_value=allowed) as plain, patch.object(remote, 'run') as run:
+    def test_operator_switches_without_password(self):
+        done = subprocess.CompletedProcess([], 0, '', '')
+        with patch.object(remote, 'is_operator', return_value=True), patch.object(remote, 'user', return_value='tester'), \
+                patch.object(remote.subprocess, 'run', return_value=done) as plain, patch.object(remote, 'run') as run:
             remote.away('disconnect')
-        self.assertEqual(plain.call_args.args[0], ['tailscale', 'down'])
+            self.assertEqual(plain.call_args.args[0], ['tailscale', 'down'])
+            remote.tailscale_control('up')
+            # up must name the operator, or Tailscale refuses to drop that setting.
+            self.assertEqual(plain.call_args.args[0], ['tailscale', 'up', '--operator=tester'])
         run.assert_not_called()
-        denied = subprocess.CompletedProcess([], 1, '', 'Access denied: prefs write access denied\n')
-        with patch.object(remote.subprocess, 'run', return_value=denied), patch.object(remote, 'run') as run:
-            remote.away('disconnect')
-        run.assert_called_once_with(['sudo', 'tailscale', 'down'])
         failed = subprocess.CompletedProcess([], 1, '', 'backend error\n')
-        with patch.object(remote.subprocess, 'run', return_value=failed), patch.object(remote, 'run') as run:
+        with patch.object(remote, 'is_operator', return_value=True), patch.object(remote.subprocess, 'run', return_value=failed):
             with self.assertRaisesRegex(RuntimeError, 'backend error'):
                 remote.away('disconnect')
+
+    def test_missing_operator_is_repaired_once_with_the_password(self):
+        stdin = Mock()
+        stdin.isatty.return_value = True
+        done = subprocess.CompletedProcess([], 0, '', '')
+        with patch.object(remote, 'is_operator', return_value=False), patch.object(remote, 'user', return_value='tester'), \
+                patch.object(remote.sys, 'stdin', stdin), patch.object(remote, 'run') as run, \
+                patch.object(remote.subprocess, 'run', return_value=done) as plain, patch('builtins.print'):
+            remote.away('disconnect')
+        run.assert_called_once_with(['sudo', 'tailscale', 'set', '--operator=tester'])
+        self.assertEqual(plain.call_args.args[0], ['tailscale', 'down'])
+
+    def test_missing_operator_without_terminal_opens_one_for_the_password(self):
+        self.stdin.isatty.return_value = False
+        with patch.object(remote, 'is_operator', return_value=False), patch.object(remote, 'run') as run, \
+                patch.object(remote.subprocess, 'run') as plain:
+            remote.away('disconnect')
+        self.reopened.assert_called_once()
         run.assert_not_called()
+        plain.assert_not_called()
+
+    def test_reopened_terminal_runs_the_same_action_floating(self):
+        with patch.object(remote.sys, 'argv', ['remote-access.py', 'away', 'disconnect']), \
+                patch.object(remote.subprocess, 'Popen') as terminal:
+            self.real_reopen()
+        command = terminal.call_args.args[0]
+        self.assertTrue(command[0].endswith('walker/bin/menu-path/kitty'))
+        self.assertEqual(command[-2:], ['away', 'disconnect'])
 
     def test_failed_install_does_not_enable_service(self):
         software = Mock()
@@ -114,11 +197,12 @@ class RemoteAccessTests(unittest.TestCase):
         context = Mock()
         context.__enter__ = Mock(return_value=process)
         context.__exit__ = Mock(return_value=False)
-        with patch.object(remote.subprocess, 'Popen', return_value=context) as popen, patch.object(remote, 'open_page') as page:
+        with patch.object(remote.subprocess, 'Popen', return_value=context) as popen, patch.object(remote, 'open_page') as page, \
+                patch.object(remote, 'user', return_value='tester'):
             with self.assertRaisesRegex(RuntimeError, 'sign-in failed'):
                 remote.login()
-        # The user is Tailscale's operator after Away Access Setup: no sudo, no password.
-        self.assertEqual(popen.call_args.args[0], ['tailscale', 'login'])
+        # login resets every setting it is not given: the operator must survive sign-in.
+        self.assertEqual(popen.call_args.args[0], ['tailscale', 'login', '--operator=tester'])
         page.assert_called_once_with('https://login.tailscale.com/a/test')
 
 

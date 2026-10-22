@@ -4,7 +4,7 @@
     "subtext": "Connect this PC to Tailscale",
     "icon": "󰌘",
     "actions": {
-      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away connect"
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away connect"
     }
   },
   {
