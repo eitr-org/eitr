@@ -1,8 +1,10 @@
 import QtQuick
 
 // The layers of a live wallpaper at a given moment (see LiveWallpaper.qml):
-// the sky, the website's northern lights (shaders/aurora.frag) and the ring,
-// fitted like Hyprpaper's cover.
+// the sky, the website's northern lights (shaders/aurora.frag) and the ring.
+// The sky and lights cover the screen like Hyprpaper; on screens wider than
+// 16:9 the ring fits the height instead and keeps its place 70% across, as the
+// theme's backgrounds-ultrawide pictures do, so it is never cut off.
 Item {
     id: scene
     property string motion: ""
@@ -35,6 +37,17 @@ Item {
             property color magenta: "#e04fc3"
             property color violet: "#9b5ce6"
         }
-        Image { id: ring; anchors.fill: parent; source: scene.motion ? scene.motion + "ring.png" : ""; smooth: true }
+    }
+    Image {
+        id: ring
+        readonly property bool wide: scene.width * 9 > scene.height * 16
+        // The ring's centre in its layer (themes/norse/references/generate-wallpapers.py).
+        readonly property real across: 0.7
+        width: wide ? height * 16 / 9 : stage.width
+        height: wide ? scene.height : stage.height
+        x: wide ? scene.width * across - width * across : stage.x
+        y: wide ? 0 : stage.y
+        source: scene.motion ? scene.motion + "ring.png" : ""
+        smooth: true
     }
 }

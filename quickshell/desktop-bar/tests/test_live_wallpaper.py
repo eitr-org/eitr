@@ -1,4 +1,8 @@
+import os
 from pathlib import Path
+import shutil
+import subprocess
+import tempfile
 import unittest
 
 
@@ -22,6 +26,43 @@ class LiveWallpaperTests(unittest.TestCase):
                 width, height = image.size
             self.assertIn(f"Math.max(scene.width / {width}, scene.height / {height})", scene, layer)
             self.assertIn(f"width: {width} * fit", scene)
+
+    @unittest.skipUnless(shutil.which("quickshell"), "Quickshell required")
+    def test_the_whole_ring_shows_on_ultrawide_and_16_9_is_unchanged(self):
+        # On 16:9 the ring fills the screen like the sky; wider screens fit it to
+        # the height, 70% across, so its top and bottom are never cut off.
+        expected = {(2560, 1080): (448, 0, 1920, 1080), (3440, 1440): (616, 0, 2560, 1440),
+                    (1920, 1080): (0, 0, 1920, 1080), (1920, 1200): (-107, 0, 2133, 1200)}
+        for (width, height), geometry in expected.items():
+            with self.subTest(size=(width, height)), tempfile.TemporaryDirectory() as directory:
+                fixture = Path(directory) / "fixture.qml"
+                fixture.write_text(f"""import QtQuick
+import Quickshell
+import "file:{BAR}" as Bar
+ShellRoot {{
+    FloatingWindow {{
+        implicitWidth: {width}; implicitHeight: {height}
+        Bar.LiveWallpaperScene {{ id: scene; anchors.fill: parent; motion: "file://{MOTION}/" }}
+        Timer {{
+            interval: 300; running: true
+            onTriggered: {{
+                var ring = scene.children[1];
+                console.log("RING " + [ring.x, ring.y, ring.width, ring.height].map(Math.round).join(" "));
+                Qt.quit();
+            }}
+        }}
+    }}
+}}""")
+                environment = dict(os.environ, QT_QPA_PLATFORM="offscreen", QT_QUICK_BACKEND="software",
+                                   QML_IMPORT_PATH=str(ROOT / "quickshell"),
+                                   XDG_CONFIG_HOME=directory, XDG_STATE_HOME=directory, XDG_CACHE_HOME=directory,
+                                   XDG_RUNTIME_DIR=directory, DBUS_SESSION_BUS_ADDRESS="unix:path=/nonexistent",
+                                   HYPRLAND_INSTANCE_SIGNATURE="")
+                result = subprocess.run(["quickshell", "-p", str(fixture)], env=environment,
+                                        capture_output=True, text=True, timeout=20)
+                line = next((text for text in (result.stdout + result.stderr).splitlines() if "RING " in text), "")
+                self.assertTrue(line, result.stdout + result.stderr)
+                self.assertEqual(tuple(int(value) for value in line.split("RING ")[1].split()), geometry)
 
     def test_aurora_shader_is_compiled_from_its_source(self):
         import hashlib, shutil, subprocess, tempfile
