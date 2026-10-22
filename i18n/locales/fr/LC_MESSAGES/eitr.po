@@ -331,8 +331,8 @@ msgstr "Assistant"
 msgid "Assistant collaboration: {error}"
 msgstr "Collaboration entre assistants : {error}"
 
-msgid "At what time? (for example 09:00)"
-msgstr "À quelle heure ? (par exemple 09:00)"
+msgid "At what time?"
+msgstr "À quelle heure ?"
 
 msgid "Aurora / RDS"
 msgstr "Aurora / RDS"

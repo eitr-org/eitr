@@ -61,3 +61,5 @@ WorkspaceStyleMenu WorkspaceStyleMenu.qml
 RemoteAccessService RemoteAccessService.qml
 RemoteAccessContent RemoteAccessContent.qml
 RemoteAccessMenu RemoteAccessMenu.qml
+
+TimePicker 1.0 TimePicker.qml

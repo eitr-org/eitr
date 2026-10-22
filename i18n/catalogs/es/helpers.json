@@ -1162,7 +1162,6 @@
   "d: full diff  Enter: update  Esc: keep the current version": "d: diff completo  Enter: actualizar  Esc: mantener la versión actual",
   "Enter: continue  Esc: cancel": "Enter: continuar  Esc: cancelar",
   "Could not understand when: {when}": "No se entendió cuándo: {when}",
-  "At what time? (for example 09:00)": "¿A qué hora? (por ejemplo 09:00)",
   "Nothing was downloaded.": "No se descargó nada.",
   "Nothing was installed; the downloaded copy was deleted.": "No se instaló nada; la copia descargada se eliminó.",
   "Busy": "Ocupado",
@@ -1285,5 +1284,6 @@
   "The setup script {value} did not finish when it last ran; it is not run again. Change the script to allow another attempt.": "El script de configuración {value} no terminó la última vez que se ejecutó; no se vuelve a ejecutar. Cambia el script para permitir otro intento.",
   "The site refused the download (HTTP {code}). {hint}": "El sitio rechazó la descarga (HTTP {code}). {hint}",
   "Open the picture itself, right-click it, choose Copy image address and paste that.": "Abre la imagen en sí, haz clic derecho, elige Copiar dirección de imagen y pégala.",
-  "That address is a web page, not a picture. {hint}": "Esa dirección es una página web, no una imagen. {hint}"
+  "That address is a web page, not a picture. {hint}": "Esa dirección es una página web, no una imagen. {hint}",
+  "At what time?": "¿A qué hora?"
 }

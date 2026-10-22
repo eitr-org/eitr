@@ -109,7 +109,7 @@
   "Ask {assistant} to review, explain or suggest without editing files. Ask the user before every hand-off.": "Ask {assistant} to review, explain or suggest without editing files. Ask the user before every hand-off.",
   "Assistant": "Assistant",
   "Assistant collaboration: {error}": "Assistant collaboration: {error}",
-  "At what time? (for example 09:00)": "At what time? (for example 09:00)",
+  "At what time?": "At what time?",
   "Aurora / RDS": "Aurora / RDS",
   "Authentication updated for {authentication_methods}. Password fallback retained. Backup: {backup}": "Authentication updated for {authentication_methods}. Password fallback retained. Backup: {backup}",
   "Author email": "Author email",

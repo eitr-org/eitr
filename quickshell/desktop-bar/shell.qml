@@ -459,6 +459,7 @@ ShellRoot {
     }
     onDictatingChanged: if (!dictating) dictationLevels = [0, 0, 0, 0]
 
+    TimePicker { defaultScreen: shell.targetScreens()[0] || null; foreground: shell.fg; background: shell.barBackground() }
     AppearancePicker { defaultScreen: shell.targetScreens()[0] || null }
 
     function focusWorkspace(id) {

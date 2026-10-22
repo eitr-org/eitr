@@ -131,6 +131,7 @@
       "quickshell/desktop-bar/shell.qml"
     ],
     "Cancel": [
+      "quickshell/desktop-bar/TimePicker.qml",
       "quickshell/desktop-bar/WifiMenu.qml"
     ],
     "Center": [
@@ -900,6 +901,9 @@
     "Session": [
       "quickshell/desktop-bar/AiUsageMenu.qml",
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
+    ],
+    "Set": [
+      "quickshell/desktop-bar/TimePicker.qml"
     ],
     "Set the main display": [
       "quickshell/desktop-bar/Handbook.qml"
@@ -3817,7 +3821,7 @@
     "Assistant collaboration: {error}": [
       "walker/scripts/actions/assistant-collaboration.py"
     ],
-    "At what time? (for example 09:00)": [
+    "At what time?": [
       "walker/scripts/actions/tools/reminders.py"
     ],
     "Aurora / RDS": [

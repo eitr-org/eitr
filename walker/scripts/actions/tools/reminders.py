@@ -28,6 +28,7 @@ from contextlib import contextmanager
 import os
 from pathlib import Path
 import re
+import secrets
 import subprocess
 import sys
 import time
@@ -370,7 +371,39 @@ def has_time(phrase):
         DELAY.match(text) and any(DELAY.match(text).groups()))
 
 
-def with_time(phrase):
+def ask_time(question, subtitle=''):
+    """Ask the native clock, falling back to Walker when the bar is unavailable."""
+    runtime = os.environ.get('XDG_RUNTIME_DIR', '')
+    request = secrets.token_hex(16)
+    if not runtime.startswith('/') or not re.fullmatch(r'[A-Za-z0-9_-]{1,64}', request):
+        return ask(question)
+    try:
+        directory = Path(runtime) / 'eitr-time-picker'
+        directory.mkdir(mode=0o700, exist_ok=True)
+        directory.chmod(0o700)
+        answer = directory / request
+        initial = (datetime.now() + timedelta(hours=1)).strftime('%H:00')
+        result = subprocess.run(['eitr-shell', 'desktop-bar', 'ipc', 'call', 'timepicker', 'open',
+                                 request, question, subtitle, initial],
+                                capture_output=True, text=True, timeout=5)
+        if result.returncode:
+            return ask(question)
+    except (OSError, subprocess.SubprocessError):
+        return ask(question)
+    try:
+        deadline = time.monotonic() + 600
+        while time.monotonic() < deadline:
+            try:
+                value = answer.read_text().strip()
+                return value if re.fullmatch(r'(?:[01][0-9]|2[0-3]):[0-5][0-9]', value) else None
+            except FileNotFoundError:
+                time.sleep(0.1)
+        return None
+    finally:
+        answer.unlink(missing_ok=True)
+
+
+def with_time(phrase, subtitle=""):
     """The phrase, with a time asked for when it is a date without one; None when dismissed.
     Anything else is returned as it is, for the parser to accept or refuse."""
     try:
@@ -379,7 +412,7 @@ def with_time(phrase):
         needs_time = False
     if not needs_time:
         return phrase
-    clock = normalize(ask(tr('At what time? (for example 09:00)')) or '')
+    clock = normalize(ask_time(tr('At what time?'), subtitle) or '')
     return f"{phrase} {clock}" if CLOCK.fullmatch(clock) else None
 
 
@@ -396,7 +429,7 @@ def new(arguments):
     spoken = arguments[0] if arguments else ask(tr('When? (10m, 18:30, every day 08:00)'))
     if not spoken:
         return 1
-    spoken = with_time(spoken)
+    spoken = with_time(spoken, " ".join(arguments[1:]))
     if not spoken:
         return 1
     try:

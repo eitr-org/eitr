@@ -163,17 +163,17 @@ class VoiceProtocolTests(unittest.TestCase):
             # A date without a time asks for one; an invented 00:00 counts as none unless midnight was said.
             monthly = {**short, 'title': 'Pay taxes', 'when': 'every month on the 29th 00:00', 'appointment': False}
             with patch.object(eitr_local_assistant, 'opener', return_value=answer(json.dumps(monthly))), \
-                    patch.object(reminders, 'ask', return_value='10:00') as ask:
+                    patch.object(reminders, 'ask_time', return_value='10:00') as ask:
                 self.assertIn('↻ Monthly · 29', voice.process('Remind me every 29th to pay taxes'))
                 ask.assert_called_once()
             taxes = next(item for item in reminders.load() if item['text'] == 'Pay taxes')
             self.assertEqual((datetime.fromtimestamp(taxes['due']).day, datetime.fromtimestamp(taxes['due']).hour), (29, 10))
             with patch.object(eitr_local_assistant, 'opener', return_value=answer(json.dumps(monthly))), \
-                    patch.object(reminders, 'ask', return_value=None):
+                    patch.object(reminders, 'ask_time', return_value=None):
                 with self.assertRaisesRegex(ValueError, 'Nothing changed'):
                     voice.process('Remind me every 29th to pay taxes')
             with patch.object(eitr_local_assistant, 'opener', return_value=answer(json.dumps(monthly))), \
-                    patch.object(reminders, 'ask') as ask:
+                    patch.object(reminders, 'ask_time') as ask:
                 voice.process('Remind me every 29th at midnight to pay taxes')
                 ask.assert_not_called()
             with patch.object(eitr_local_assistant, 'opener', return_value=answer(json.dumps({**short, 'when': 'next tuesday-ish'}))):

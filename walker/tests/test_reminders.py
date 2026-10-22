@@ -39,13 +39,13 @@ class ReminderTimeTests(unittest.TestCase):
             self.assertFalse(reminders.has_time(phrase), phrase)
         for phrase in ("today 13:00", "every monday 09:00", "20m", "90", "2026-10-30 09:00"):
             self.assertTrue(reminders.has_time(phrase), phrase)
-        with unittest.mock.patch.object(reminders, "ask", return_value="10:00") as ask:
+        with unittest.mock.patch.object(reminders, "ask_time", return_value="10:00") as ask:
             self.assertEqual(reminders.with_time("every month on the 29th"), "every month on the 29th 10:00")
             self.assertEqual(reminders.with_time("18:30"), "18:30")
             self.assertEqual(reminders.with_time("whenever"), "whenever", "not a date: the parser refuses it")
             self.assertEqual(ask.call_count, 1)
         for answer in (None, "soon"):
-            with unittest.mock.patch.object(reminders, "ask", return_value=answer):
+            with unittest.mock.patch.object(reminders, "ask_time", return_value=answer):
                 self.assertIsNone(reminders.with_time("friday"))
 
     def test_everyday_phrasing(self):
@@ -59,7 +59,7 @@ class ReminderTimeTests(unittest.TestCase):
         self.assertEqual(reminders.parse_when('every 29th', now)[1], {'frequency': 'monthly', 'day_of_month': 29})
         self.assertFalse(reminders.has_time('every 29th'))
         self.assertIsNone(reminders.parse_when('13pm', now)[0])
-        with unittest.mock.patch.object(reminders, "ask", return_value="9 am"):
+        with unittest.mock.patch.object(reminders, "ask_time", return_value="9 am"):
             self.assertEqual(reminders.with_time("every 29th"), "every 29th 09:00")
 
     def test_delays(self):
@@ -274,3 +274,44 @@ class RepeatTests(unittest.TestCase):
                 reminders.fire(item['id'], moment=next_item['due'])
                 self.assertEqual(reminders.load(), [])
                 self.assertEqual(schedule.call_count, 2)
+
+
+class NativeTimePickerTests(unittest.TestCase):
+    def test_set_and_cancel_use_private_runtime_and_remove_answer(self):
+        for value in ('09:30\n', ''):
+            with self.subTest(value=value), tempfile.TemporaryDirectory() as directory:
+                def ipc(command, **options):
+                    self.assertEqual(command[:7], ['eitr-shell', 'desktop-bar', 'ipc', 'call', 'timepicker', 'open', 'request_1'])
+                    (Path(directory) / 'eitr-time-picker/request_1').write_text(value)
+                    return subprocess.CompletedProcess(command, 0)
+                with unittest.mock.patch.dict(os.environ, XDG_RUNTIME_DIR=directory), \
+                     unittest.mock.patch.object(reminders.secrets, 'token_hex', return_value='request_1'), \
+                     unittest.mock.patch.object(reminders.subprocess, 'run', side_effect=ipc):
+                    self.assertEqual(reminders.ask_time('Question', 'Dentist'), value.strip() or None)
+                folder = Path(directory) / 'eitr-time-picker'
+                self.assertEqual(folder.stat().st_mode & 0o777, 0o700)
+                self.assertEqual(list(folder.iterdir()), [])
+
+    def test_ipc_failure_falls_back_to_walker(self):
+        with tempfile.TemporaryDirectory() as directory, \
+             unittest.mock.patch.dict(os.environ, XDG_RUNTIME_DIR=directory), \
+             unittest.mock.patch.object(reminders.subprocess, 'run', return_value=subprocess.CompletedProcess([], 1)), \
+             unittest.mock.patch.object(reminders, 'ask', return_value='9:30') as ask:
+            self.assertEqual(reminders.ask_time('Question'), '9:30')
+            ask.assert_called_once_with('Question')
+
+    def test_invalid_request_ids_never_reach_paths_or_ipc(self):
+        for request in ('../escape', '', 'a' * 65, 'a/b', 'request\n'):
+            with self.subTest(request=request), tempfile.TemporaryDirectory() as directory, \
+                 unittest.mock.patch.dict(os.environ, XDG_RUNTIME_DIR=directory), \
+                 unittest.mock.patch.object(reminders.secrets, 'token_hex', return_value=request), \
+                 unittest.mock.patch.object(reminders.subprocess, 'run') as ipc, \
+                 unittest.mock.patch.object(reminders, 'ask', return_value=None):
+                self.assertIsNone(reminders.ask_time('Question'))
+                ipc.assert_not_called()
+                self.assertEqual(list(Path(directory).iterdir()), [])
+
+    def test_with_time_passes_subtitle(self):
+        with unittest.mock.patch.object(reminders, 'ask_time', return_value='09:30') as ask:
+            self.assertEqual(reminders.with_time('tomorrow', 'Dentist'), 'tomorrow 09:30')
+            ask.assert_called_once_with('At what time?', 'Dentist')

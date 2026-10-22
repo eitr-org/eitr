@@ -172,7 +172,7 @@ def expand_local(payload, now=None, transcript=''):
     # A small model fills a missing time with 00:00; unless midnight was said, ask.
     if phrase.strip().endswith('00:00') and not re.search(r'midnight|meia-noite|medianoche|minuit|mitternacht|00:00|\b0?0h|12 ?am', transcript, re.I):
         phrase = phrase.strip()[:-5].strip()
-    phrase = reminders.with_time(phrase)
+    phrase = reminders.with_time(phrase, text_value(payload['title'], 240))
     if not phrase:
         raise ValueError(tr('Nothing changed.'))
     now = now or datetime.now().astimezone()

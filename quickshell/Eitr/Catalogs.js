@@ -309,6 +309,7 @@ var qml = {
     "Selection: Copy": "Selection: Copy",
     "Send": "Send",
     "Session": "Session",
+    "Set": "Set",
     "Set the main display": "Set the main display",
     "Share Clipboard": "Share Clipboard",
     "Share File": "Share File",
@@ -789,7 +790,8 @@ var qml = {
     "Only the next occurrence can be skipped": "Só a próxima ocorrência pode ser pulada",
     "Skip this occurrence": "Pular esta ocorrência",
     "This one": "Esta",
-    "All day": "Dia inteiro"
+    "All day": "Dia inteiro",
+    "Set": "Definir"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1173,7 +1175,8 @@ var qml = {
     "Only the next occurrence can be skipped": "Solo se puede omitir la próxima ocurrencia",
     "Skip this occurrence": "Omitir esta ocurrencia",
     "This one": "Esta",
-    "All day": "Todo el día"
+    "All day": "Todo el día",
+    "Set": "Establecer"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1557,7 +1560,8 @@ var qml = {
     "Only the next occurrence can be skipped": "Nur der nächste Termin kann übersprungen werden",
     "Skip this occurrence": "Diesen Termin überspringen",
     "This one": "Diesen",
-    "All day": "Ganztägig"
+    "All day": "Ganztägig",
+    "Set": "Festlegen"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -1941,6 +1945,7 @@ var qml = {
     "Only the next occurrence can be skipped": "Seule la prochaine occurrence peut être ignorée",
     "Skip this occurrence": "Ignorer cette occurrence",
     "This one": "Celle-ci",
-    "All day": "Toute la journée"
+    "All day": "Toute la journée",
+    "Set": "Définir"
   }
 };
