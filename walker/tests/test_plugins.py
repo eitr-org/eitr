@@ -168,6 +168,7 @@ class PluginTests(unittest.TestCase):
         unit = self.manager.unit('example')
         content = unit.read_text()
         self.assertIn('ExecStart="' + str(self.manager.folder / 'example/notify.sh') + '"', content)
+        self.assertIn('Restart=on-failure', content)
         self.assertIn('"a space" "%%specifier" "$$variable" "\\"quoted\\""', content)
         self.commands.assert_any_call('enable', '--now', unit.name)
         self.publish()

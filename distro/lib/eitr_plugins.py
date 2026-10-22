@@ -127,7 +127,10 @@ def unit_content(root, spec):
     def quote(value):
         return '"' + value.replace('\\', '\\\\').replace('"', '\\"').replace('%', '%%').replace('$', '$$') + '"'
     argv = command(root, spec['service'])
-    return '[Unit]\nDescription=Eitr plugin ' + spec['id'] + '\n\n[Service]\nType=simple\nExecStart=' + ' '.join(quote(argument) for argument in argv) + '\n\n[Install]\nWantedBy=default.target\n'
+    return ('[Unit]\nDescription=Eitr plugin ' + spec['id'] + '\n\n[Service]\nType=simple\nExecStart='
+            + ' '.join(quote(argument) for argument in argv)
+            # A device or network the service needs may not be ready yet when it starts.
+            + '\nRestart=on-failure\nRestartSec=5\n\n[Install]\nWantedBy=default.target\n')
 
 
 class Plugins:
