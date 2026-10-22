@@ -6,9 +6,8 @@ Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 1. Remote access: test with the owner
 2. Organization profiles
 3. Smaller items
-4. Google's assistants: Antigravity
-5. Later
-6. Before 1.0.0
+4. Later
+5. Before 1.0.0
 
 # 1. Remote access: test with the owner
 
@@ -61,10 +60,11 @@ the profile. Still to check, in a VM or with the owner:
   the reviewed Handbook translations where chapters overlap. Decide the URL scheme
   (`/pt-br/...`), `hreflang` and sitemap entries first; keep English the default
   and keep untranslated pages falling back to English.
-- **Website evidence and screenshots.** Keep the new public information pages in
-  step with verified desktop behavior. Add lockscreen, dictation waveform and
-  Packages picker shots, taken when the owner says. Describe remote access as
-  verified only after the real-device tests above pass.
+- **Website evidence and screenshots.** Keep the public pages in step with verified
+  desktop behavior. A feature gets a screenshot when it has a screen people look
+  for (a panel, menu or wizard) shown on the website or in the Handbook;
+  background behavior gets none. Missing: the lockscreen and the Packages picker.
+  Describe remote access as verified only after the real-device tests above pass.
 - **Search indexing and measurement.** The owner verifies eitr.info in Google
   Search Console and Bing Webmaster Tools, submits the sitemap and inspects
   public-page indexing. Track impressions, queries and clicks there without
@@ -82,19 +82,12 @@ the profile. Still to check, in a VM or with the owner:
   consistent Eitr Linux positioning. Consider a dated, source-checked Omarchy
   comparison page separately; do not imply shared features are exclusive.
 
-# 4. Google's assistants: Antigravity
-
-Gemini CLI is verified as an assistants-together helper with a free API key:
-a direct read-only question and an MCP `ask_gemini` call both answered.
-
-Antigravity (`agy`) stays out as a helper: headless runs auto-deny even reading.
-The only unlocks are `--dangerously-skip-permissions` or global permission rules
-in `~/.gemini/antigravity-cli/settings.json`. Re-check when it gains per-run
-permissions or a read-only headless mode. Do not weaken global permissions.
-
-# 5. Later
+# 4. Later
 
 - **Voice reminders, next steps.** Syncing with Google or Outlook Calendar (needs account sign-in).
+- **Antigravity as a helper.** Recheck when its command-line tool gains per-run
+  permissions or a read-only headless mode; until then it stays a standalone
+  assistant. Nothing to do before that.
 - **AI multi-account.** Several accounts per assistant, manual switching only.
   Each account gets its own config folder selected through the tool's own
   variable (`CLAUDE_CONFIG_DIR`, `CODEX_HOME`); sign-in for an extra account
@@ -105,7 +98,7 @@ permissions or a read-only headless mode. Do not weaken global permissions.
   the other assistants, with its answer constrained to the reminder JSON format and
   checked by the same validator. Nothing leaves the PC; weaker on unusual phrasing.
 
-# 6. Before 1.0.0
+# 5. Before 1.0.0
 
 - **Upgrade that skips releases.** 1.0 promises supported upgrades, so test
   installing 0.6.4 and updating straight to the 1.0 candidate. The 0.6.4 ISO is
