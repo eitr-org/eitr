@@ -42,6 +42,27 @@ else
   ICON_THEME="Yaru-blue"
 fi
 
+# Apps get the theme's icons, then Breeze for the names it lacks: Yaru has no
+# play, grid view or back icons, which KDE-style apps (and many Qt apps) ask for,
+# and its own fallback (Humanity) is not installed, so those buttons drew empty.
+# A tiny per-user theme that only inherits keeps the choice in one place.
+if [[ -f "$CURRENT_DIR/light.mode" ]]; then
+  FALLBACK_ICONS="breeze"
+else
+  FALLBACK_ICONS="breeze-dark,breeze"
+fi
+EITR_ICONS_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/icons/eitr-current"
+mkdir -p "$EITR_ICONS_DIR"
+cat > "$EITR_ICONS_DIR/index.theme" <<EOF
+[Icon Theme]
+Name=Eitr (current theme)
+Comment=$ICON_THEME icons, with Breeze for the icons it does not have
+Inherits=$ICON_THEME,$FALLBACK_ICONS,hicolor
+Directories=
+Hidden=true
+EOF
+ICON_THEME="eitr-current"
+
 # Kvantum loads per-user overrides named after the base theme with a '#' suffix.
 python3 - "$KVANTUM_THEME" "$KVANTUM_DIR" <<'PY'
 import configparser

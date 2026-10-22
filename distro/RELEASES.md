@@ -54,6 +54,12 @@ supported language. Offline and online installs, a refused profile, applying to 
 installed machine and System Update passed in a VM (`LINUX-VM-TESTING.md`); the
 remaining checks are listed in `PROFILE-VM-TESTING.md` and TODO.md.
 
+## Icons fall back to Breeze
+
+Apps use a small per-user icon theme, `eitr-current`, that inherits the theme's
+icons and then Breeze and hicolor. Yaru lacks icons such as play, grid view and
+back that KDE-style apps ask for, so their buttons showed empty squares.
+
 ## Versions
 
 The package version is `<version>.<UTC commit date>.<time>.g<commit>`, for
