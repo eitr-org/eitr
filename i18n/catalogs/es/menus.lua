@@ -1,6 +1,6 @@
 return {
     messages = {
-        ["A notification at a time or after a delay you choose"] = "Una notificación a la vez o después de un retraso que elija",
+        ["A one-time or repeating notification"] = "Una notificación única o recurrente",
         ["AI"] = "IA",
         ["AI CLIs"] = "CLI de IA",
         ["AI Usage"] = "Uso de IA",
@@ -1002,7 +1002,7 @@ return {
         ["Transcodificar"] = "transcodificar",
         ["Transferencias de solo lectura, permisos y límites de suscripción"] = "transferencias de solo lectura, permisos y limites de suscripcion",
         ["Transmitir juegos y escritorios desde otro PC"] = "transmitir juegos y escritorios desde otro pc",
-        ["Una notificación a la vez o después de un retraso que elija"] = "una notificacion a la vez o despues de un retraso que elija",
+        ["Una notificación única o recurrente"] = "una notificacion unica o recurrente",
         ["Una versión anterior de las instantáneas de la casa"] = "una version anterior de las instantaneas de la casa",
         ["Usar la estela de fuego integrada de Kitty"] = "usar la estela de fuego integrada de kitty",
         ["Usarla en carpetas sin cuenta propia"] = "usarla en carpetas sin cuenta propia",

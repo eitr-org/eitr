@@ -1,5 +1,4 @@
 {
-  "A notification at a time or after a delay you choose": "Eine Benachrichtigung zu einer Uhrzeit oder nach einer Wartezeit",
   "AI": "KI",
   "AI CLIs": "KI-CLIs",
   "AI Usage": "KI-Nutzung",
@@ -515,5 +514,6 @@
   "Remove": "Entfernen",
   "Remove this plugin and its service": "Dieses Plugin und seinen Dienst entfernen",
   "Review a Git repository before installing": "Git-Repository vor der Installation prüfen",
-  "Review a new plugin commit": "Neuen Plugin-Commit prüfen"
+  "Review a new plugin commit": "Neuen Plugin-Commit prüfen",
+  "A one-time or repeating notification": "Eine einmalige oder wiederholte Benachrichtigung"
 }

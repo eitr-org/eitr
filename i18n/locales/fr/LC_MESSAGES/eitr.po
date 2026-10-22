@@ -217,6 +217,9 @@ msgstr "Des paquets ajoutés sont aussi supprimés : {packages}"
 msgid "Address"
 msgstr "Adresse"
 
+msgid "All future occurrences"
+msgstr "Toutes les occurrences futures"
+
 msgid "All logs"
 msgstr "Tous les journaux"
 
@@ -367,6 +370,9 @@ msgstr "Annuler"
 msgid "Cancel '{text}'?"
 msgstr "Annuler « {text} » ?"
 
+msgid "Cancel the reminder"
+msgstr "Annuler le rappel"
+
 msgid "Cancelled before any disk was changed; remove the answers drive to use the installer's questions"
 msgstr "Annulé avant toute modification de disque ; retirez le support de réponses pour utiliser les questions de l’installateur"
 
@@ -447,6 +453,9 @@ msgstr "Choisissez iwd ou NetworkManager"
 
 msgid "Choose iwd, networkmanager, or restore"
 msgstr "Choisissez iwd, networkmanager ou restore"
+
+msgid "Choose occurrence or series."
+msgstr "Choisissez occurrence ou series."
 
 msgid "Chromium default requires add.packages chromium or its recipe"
 msgstr "Chromium par défaut exige add.packages chromium ou sa recette"
@@ -690,6 +699,9 @@ msgstr "Instances de bases de données"
 
 msgid "DNS domains"
 msgstr "Domaines DNS"
+
+msgid "Daily"
+msgstr "Chaque jour"
 
 msgid "Dashboard saved"
 msgstr "Tableau de bord enregistré"
@@ -955,6 +967,9 @@ msgstr "Par exemple : {example}"
 msgid "Found in your Git configuration"
 msgstr "Trouvé dans votre configuration Git"
 
+msgid "Friday"
+msgstr "Vendredi"
+
 msgid "Function Apps"
 msgstr "Applications de fonctions"
 
@@ -1162,6 +1177,9 @@ msgstr "Identité anonyme invalide"
 msgid "Invalid assistant answer."
 msgstr "Réponse de l’assistant invalide."
 
+msgid "Invalid cancellation scope."
+msgstr "Portée d’annulation invalide."
+
 msgid "Invalid cursor choice"
 msgstr "Choix de curseur invalide"
 
@@ -1201,6 +1219,9 @@ msgstr "Heure de rappel invalide."
 msgid "Invalid reminder."
 msgstr "Rappel invalide."
 
+msgid "Invalid repeat rule."
+msgstr "Règle de répétition invalide."
+
 msgid "Invalid repository server URL"
 msgstr "URL du serveur du dépôt invalide"
 
@@ -1239,6 +1260,9 @@ msgstr "Conservez au moins une famille de polices installée"
 
 msgid "Keep at least one keyboard layout"
 msgstr "Conservez au moins une disposition de clavier"
+
+msgid "Keep it"
+msgstr "Conserver"
 
 msgid "Kept user layout link override: {target}"
 msgstr "Remplacement du lien de configuration utilisateur conservé : {target}"
@@ -1371,6 +1395,12 @@ msgstr "Fichier manquant sur la clé : {name}"
 
 msgid "Missing {missing_files}. Install the {loader} packages listed in distro/bootloader/ first. Nothing was changed."
 msgstr "Il manque {missing_files}. Installez d’abord les paquets {loader} indiqués dans distro/bootloader/. Aucune modification."
+
+msgid "Monday"
+msgstr "Lundi"
+
+msgid "Monthly"
+msgstr "Chaque mois"
 
 msgid "Mute this program"
 msgstr "Mettre ce programme en sourdine"
@@ -1798,9 +1828,6 @@ msgstr "Relayée"
 msgid "Remind me about…"
 msgstr "Me rappeler de…"
 
-msgid "Remind me in or at… (10m, 1h30m, 18:30)"
-msgstr "Me rappeler dans ou à… (10m, 1h30m, 18:30)"
-
 msgid "Reminder"
 msgstr "Rappel"
 
@@ -2001,6 +2028,9 @@ msgstr "Les chemins des clés SSH doivent être absolus"
 
 msgid "SSO Login"
 msgstr "Connexion SSO"
+
+msgid "Saturday"
+msgstr "Samedi"
 
 msgid "Save these settings?"
 msgstr "Enregistrer ces paramètres ?"
@@ -2284,6 +2314,9 @@ msgstr "Sous-réseaux"
 msgid "Subscriptions"
 msgstr "Abonnements"
 
+msgid "Sunday"
+msgstr "Dimanche"
+
 msgid "Sunshine grants full control of your desktop. Setup grants KMS capture and virtual keyboard, mouse and controller access."
 msgstr "Sunshine accorde le contrôle total du bureau. La configuration autorise la capture KMS et les entrées virtuelles du clavier, de la souris et de la manette."
 
@@ -2551,6 +2584,9 @@ msgstr "Ce lanceur n’appartient à aucun paquet installé. Aucun fichier suppr
 msgid "This layout is already added"
 msgstr "Cette disposition a déjà été ajoutée"
 
+msgid "This occurrence"
+msgstr "Cette occurrence"
+
 msgid "This removes TPM unlock from {device}; the passphrase is required at every boot again."
 msgstr "Ceci supprime le déverrouillage TPM de {device} ; la phrase secrète sera requise à chaque démarrage."
 
@@ -2569,6 +2605,9 @@ msgstr "Ce changement nécessite le DNS systemd-resolved. Vérifiez d’abord /e
 msgid "This tool must be removed through its installation manager."
 msgstr "Vous devez supprimer cet outil avec le gestionnaire utilisé pour son installation."
 
+msgid "Thursday"
+msgstr "Jeudi"
+
 msgid "Time must use HH:MM (00:00-23:59)"
 msgstr "Utilisez le format HH:MM (00:00-23:59)"
 
@@ -2583,6 +2622,9 @@ msgstr "Trop de questions ; aucune modification."
 
 msgid "Try again"
 msgstr "Réessayer"
+
+msgid "Tuesday"
+msgstr "Mardi"
 
 msgid "Turn home snapshots off?"
 msgstr "Désactiver les instantanés des dossiers personnels ?"
@@ -2740,6 +2782,9 @@ msgstr "Profil d’alimentation non pris en charge : {name}"
 msgid "Unsupported uninstall source"
 msgstr "Unsupported uninstall source"
 
+msgid "Until {date}"
+msgstr "Jusqu’au {date}"
+
 msgid "Update cancelled; nothing was changed."
 msgstr "Mise à jour annulée ; rien n’a été modifié."
 
@@ -2866,6 +2911,15 @@ msgstr "Projets de sites web"
 msgid "Websites"
 msgstr "Sites web"
 
+msgid "Wednesday"
+msgstr "Mercredi"
+
+msgid "Weekly"
+msgstr "Chaque semaine"
+
+msgid "When? (10m, 18:30, every day 08:00)"
+msgstr "Quand ? (10m, 18:30, every day 08:00)"
+
 msgid "WiFi adapter is unavailable; refresh the panel"
 msgstr "Adaptateur WiFi indisponible ; actualisez le panneau"
 
@@ -2877,6 +2931,9 @@ msgstr "Espaces de travail"
 
 msgid "Write the recovery key down and store it offline, then press Enter. "
 msgstr "Notez la clé de récupération et conservez-la hors ligne, puis appuyez sur Enter. "
+
+msgid "Yearly"
+msgstr "Chaque année"
 
 msgid "Yes"
 msgstr "Oui"
@@ -3057,6 +3114,9 @@ msgstr "{command} n’est pas installé ; utilisez Walker → Installer → Pacm
 
 msgid "{config} has an unfinished EITR style block; fix it by hand. Nothing was changed."
 msgstr "{config} contient un bloc de style EITR incomplet ; corrigez-le manuellement. Aucune modification."
+
+msgid "{count} occurrences"
+msgstr "{count} occurrences"
 
 msgid "{count} system update(s) pending. Run System → Maintenance → Update → System Update first, so upgrades get a recovery snapshot, then install again."
 msgstr "{count} mise(s) à jour système en attente. Exécutez d’abord Système → Maintenance → Mise à jour → Mise à jour du système pour créer un instantané de récupération, puis réessayez l’installation."

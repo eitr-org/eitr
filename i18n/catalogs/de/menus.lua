@@ -1,6 +1,6 @@
 return {
     messages = {
-        ["A notification at a time or after a delay you choose"] = "Eine Benachrichtigung zu einer Uhrzeit oder nach einer Wartezeit",
+        ["A one-time or repeating notification"] = "Eine einmalige oder wiederholte Benachrichtigung",
         ["AI"] = "KI",
         ["AI CLIs"] = "KI-CLIs",
         ["AI Usage"] = "KI-Nutzung",
@@ -664,8 +664,8 @@ return {
         ["Effekte, Unschärfen und Popups aus; Leistungsprofil auf"] = "effekte, unscharfen und popups aus; leistungsprofil auf",
         ["Eigene Dateien behalten"] = "eigene dateien behalten",
         ["Eine Antigravity-CLI-Sitzung in einem Projekt starten"] = "eine antigravity-cli-sitzung in einem projekt starten",
-        ["Eine Benachrichtigung zu einer Uhrzeit oder nach einer Wartezeit"] = "eine benachrichtigung zu einer uhrzeit oder nach einer wartezeit",
         ["Eine GitHub-Copilot-CLI-Sitzung in einem Projekt starten"] = "eine github-copilot-cli-sitzung in einem projekt starten",
+        ["Eine einmalige oder wiederholte Benachrichtigung"] = "eine einmalige oder wiederholte benachrichtigung",
         ["Eine frühere Version von den Home Snapshots"] = "eine fruhere version von den home snapshots",
         ["Einen Terminalassistenten zur Installation auswählen"] = "einen terminalassistenten zur installation auswahlen",
         ["Einfangen"] = "einfangen",

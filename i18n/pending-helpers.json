@@ -242,6 +242,7 @@
     "the theme colours must be a small regular file owned by the desktop user",
     "via {host}{key}",
     "{label}  {text}  (id {id})",
-    "Plugins"
+    "Plugins",
+    "{count} occurrences"
   ]
 }

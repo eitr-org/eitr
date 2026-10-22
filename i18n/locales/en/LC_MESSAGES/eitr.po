@@ -217,6 +217,9 @@ msgstr "Added packages are also removed: {packages}"
 msgid "Address"
 msgstr "Address"
 
+msgid "All future occurrences"
+msgstr "All future occurrences"
+
 msgid "All logs"
 msgstr "All logs"
 
@@ -367,6 +370,9 @@ msgstr "Cancel"
 msgid "Cancel '{text}'?"
 msgstr "Cancel '{text}'?"
 
+msgid "Cancel the reminder"
+msgstr "Cancel the reminder"
+
 msgid "Cancelled before any disk was changed; remove the answers drive to use the installer's questions"
 msgstr "Cancelled before any disk was changed; remove the answers drive to use the installer's questions"
 
@@ -447,6 +453,9 @@ msgstr "Choose iwd or NetworkManager"
 
 msgid "Choose iwd, networkmanager, or restore"
 msgstr "Choose iwd, networkmanager, or restore"
+
+msgid "Choose occurrence or series."
+msgstr "Choose occurrence or series."
 
 msgid "Chromium default requires add.packages chromium or its recipe"
 msgstr "Chromium default requires add.packages chromium or its recipe"
@@ -690,6 +699,9 @@ msgstr "DB instances"
 
 msgid "DNS domains"
 msgstr "DNS domains"
+
+msgid "Daily"
+msgstr "Daily"
 
 msgid "Dashboard saved"
 msgstr "Dashboard saved"
@@ -955,6 +967,9 @@ msgstr "For example: {example}"
 msgid "Found in your Git configuration"
 msgstr "Found in your Git configuration"
 
+msgid "Friday"
+msgstr "Friday"
+
 msgid "Function Apps"
 msgstr "Function Apps"
 
@@ -1162,6 +1177,9 @@ msgstr "Invalid anonymous identity"
 msgid "Invalid assistant answer."
 msgstr "Invalid assistant answer."
 
+msgid "Invalid cancellation scope."
+msgstr "Invalid cancellation scope."
+
 msgid "Invalid cursor choice"
 msgstr "Invalid cursor choice"
 
@@ -1201,6 +1219,9 @@ msgstr "Invalid reminder time."
 msgid "Invalid reminder."
 msgstr "Invalid reminder."
 
+msgid "Invalid repeat rule."
+msgstr "Invalid repeat rule."
+
 msgid "Invalid repository server URL"
 msgstr "Invalid repository server URL"
 
@@ -1239,6 +1260,9 @@ msgstr "Keep at least one installed font family"
 
 msgid "Keep at least one keyboard layout"
 msgstr "Keep at least one keyboard layout"
+
+msgid "Keep it"
+msgstr "Keep it"
 
 msgid "Kept user layout link override: {target}"
 msgstr "Kept user layout link override: {target}"
@@ -1371,6 +1395,12 @@ msgstr "Missing stick file: {name}"
 
 msgid "Missing {missing_files}. Install the {loader} packages listed in distro/bootloader/ first. Nothing was changed."
 msgstr "Missing {missing_files}. Install the {loader} packages listed in distro/bootloader/ first. Nothing was changed."
+
+msgid "Monday"
+msgstr "Monday"
+
+msgid "Monthly"
+msgstr "Monthly"
 
 msgid "Mute this program"
 msgstr "Mute this program"
@@ -1798,9 +1828,6 @@ msgstr "Relayed"
 msgid "Remind me about…"
 msgstr "Remind me about…"
 
-msgid "Remind me in or at… (10m, 1h30m, 18:30)"
-msgstr "Remind me in or at… (10m, 1h30m, 18:30)"
-
 msgid "Reminder"
 msgstr "Reminder"
 
@@ -2001,6 +2028,9 @@ msgstr "SSH key references must be absolute paths"
 
 msgid "SSO Login"
 msgstr "SSO Login"
+
+msgid "Saturday"
+msgstr "Saturday"
 
 msgid "Save these settings?"
 msgstr "Save these settings?"
@@ -2284,6 +2314,9 @@ msgstr "Subnets"
 msgid "Subscriptions"
 msgstr "Subscriptions"
 
+msgid "Sunday"
+msgstr "Sunday"
+
 msgid "Sunshine grants full control of your desktop. Setup grants KMS capture and virtual keyboard, mouse and controller access."
 msgstr "Sunshine grants full control of your desktop. Setup grants KMS capture and virtual keyboard, mouse and controller access."
 
@@ -2551,6 +2584,9 @@ msgstr "This launcher is not owned by an installed package. No files were remove
 msgid "This layout is already added"
 msgstr "This layout is already added"
 
+msgid "This occurrence"
+msgstr "This occurrence"
+
 msgid "This removes TPM unlock from {device}; the passphrase is required at every boot again."
 msgstr "This removes TPM unlock from {device}; the passphrase is required at every boot again."
 
@@ -2569,6 +2605,9 @@ msgstr "This switch requires systemd-resolved DNS. Review /etc/resolv.conf first
 msgid "This tool must be removed through its installation manager."
 msgstr "This tool must be removed through its installation manager."
 
+msgid "Thursday"
+msgstr "Thursday"
+
 msgid "Time must use HH:MM (00:00-23:59)"
 msgstr "Time must use HH:MM (00:00-23:59)"
 
@@ -2583,6 +2622,9 @@ msgstr "Too many questions; nothing changed."
 
 msgid "Try again"
 msgstr "Try again"
+
+msgid "Tuesday"
+msgstr "Tuesday"
 
 msgid "Turn home snapshots off?"
 msgstr "Turn home snapshots off?"
@@ -2740,6 +2782,9 @@ msgstr "Unsupported power profile: {name}"
 msgid "Unsupported uninstall source"
 msgstr "Unsupported uninstall source"
 
+msgid "Until {date}"
+msgstr "Until {date}"
+
 msgid "Update cancelled; nothing was changed."
 msgstr "Update cancelled; nothing was changed."
 
@@ -2866,6 +2911,15 @@ msgstr "Website projects"
 msgid "Websites"
 msgstr "Websites"
 
+msgid "Wednesday"
+msgstr "Wednesday"
+
+msgid "Weekly"
+msgstr "Weekly"
+
+msgid "When? (10m, 18:30, every day 08:00)"
+msgstr "When? (10m, 18:30, every day 08:00)"
+
 msgid "WiFi adapter is unavailable; refresh the panel"
 msgstr "WiFi adapter is unavailable; refresh the panel"
 
@@ -2877,6 +2931,9 @@ msgstr "Workspaces"
 
 msgid "Write the recovery key down and store it offline, then press Enter. "
 msgstr "Write the recovery key down and store it offline, then press Enter. "
+
+msgid "Yearly"
+msgstr "Yearly"
 
 msgid "Yes"
 msgstr "Yes"
@@ -3057,6 +3114,9 @@ msgstr "{command} is not installed; use Walker → Install → Pacman"
 
 msgid "{config} has an unfinished EITR style block; fix it by hand. Nothing was changed."
 msgstr "{config} has an unfinished EITR style block; fix it by hand. Nothing was changed."
+
+msgid "{count} occurrences"
+msgstr "{count} occurrences"
 
 msgid "{count} system update(s) pending. Run System → Maintenance → Update → System Update first, so upgrades get a recovery snapshot, then install again."
 msgstr "{count} system update(s) pending. Run System → Maintenance → Update → System Update first, so upgrades get a recovery snapshot, then install again."

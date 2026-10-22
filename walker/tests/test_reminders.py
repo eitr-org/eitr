@@ -121,3 +121,97 @@ class ReminderCommandTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class RepeatTests(unittest.TestCase):
+    def test_common_phrases(self):
+        now = datetime(2026, 10, 16, 14)
+        for phrase, expected, frequency in [
+            ('every day 08:00', datetime(2026, 10, 17, 8), 'daily'),
+            ('every Monday 09:30', datetime(2026, 10, 19, 9, 30), 'weekly'),
+            ('weekdays 07:00', datetime(2026, 10, 19, 7), 'weekly'),
+            ('every Monday and Thursday 09:30', datetime(2026, 10, 19, 9, 30), 'weekly'),
+            ('every month on the 31st', datetime(2026, 10, 31, 9), 'monthly')]:
+            due, rule = reminders.parse_when(phrase, now)
+            self.assertEqual(datetime.fromtimestamp(due), expected)
+            self.assertEqual(rule['frequency'], frequency)
+        self.assertEqual(reminders.parse_when('every someday', now), (None, None))
+
+    def test_month_and_leap_year_clamping_retains_anchor(self):
+        anchor = datetime(2028, 1, 31, 8)
+        self.assertEqual(reminders.occurrence(anchor, {'frequency':'monthly'}, 1), datetime(2028, 2, 29, 8))
+        self.assertEqual(reminders.occurrence(anchor, {'frequency':'monthly'}, 2), datetime(2028, 3, 31, 8))
+        self.assertEqual(reminders.occurrence(datetime(2028, 2, 29, 8), {'frequency':'yearly'}, 4), datetime(2032, 2, 29, 8))
+
+    def test_strict_rules(self):
+        for rule in [{}, {'frequency':'hourly'}, {'frequency':'daily','interval':True},
+                     {'frequency':'weekly','weekdays':[0,0]}, {'frequency':'monthly','day_of_month':32},
+                     {'frequency':'daily','weekdays':[0]}, {'frequency':'daily','count':0},
+                     {'frequency':'daily','until':'2026-02-30'}, {'frequency':'daily','until':'2026-10-30','count':2},
+                     {'frequency':'daily','command':'x'}]:
+            with self.assertRaises(ValueError, msg=str(rule)):
+                reminders.repeat_rule(rule)
+
+    def test_missed_series_once_offsets_count_and_cancel(self):
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {'XDG_STATE_HOME':directory}), patch.object(reminders, 'schedule') as schedule, patch.object(reminders, 'stop_timers'), patch.object(reminders, 'notify') as notify:
+            anchor = datetime(2026, 10, 1, 9)
+            due = int(anchor.timestamp())
+            item = {'id':'series','text':'Stretch','due':due,'alerts':[due-3600,due],
+                    'repeat':{'frequency':'daily','count':12},'repeat_anchor':anchor.isoformat(),
+                    'repeat_index':0,'alert_offsets':[3600,0]}
+            reminders.save([item])
+            now = int(datetime(2026, 10, 8, 12).timestamp())
+            with patch.object(reminders.time, 'time', return_value=now):
+                reminders.restore()
+                notify.assert_called_once()
+                saved = reminders.load()[0]
+                self.assertEqual(saved['repeat_index'], 8)
+                self.assertEqual(datetime.fromtimestamp(saved['due']), datetime(2026, 10, 9, 9))
+                self.assertEqual(saved['alerts'], [saved['due']-3600, saved['due']])
+                reminders.cancel('series', 'occurrence')
+                self.assertEqual(reminders.load()[0]['repeat_index'], 9)
+                reminders.cancel('series', 'series')
+                self.assertEqual(reminders.load(), [])
+            self.assertEqual(schedule.call_count, 2)
+
+    def test_dst_wall_clock_and_until(self):
+        from unittest.mock import patch
+        if not hasattr(time, 'tzset'):
+            self.skipTest('tzset required')
+        original = os.environ.get('TZ')
+        try:
+            os.environ['TZ'] = 'America/New_York'
+            time.tzset()
+            anchor = datetime(2026, 3, 7, 8)
+            tomorrow = reminders.occurrence(anchor, {'frequency':'daily'}, 1)
+            self.assertEqual(tomorrow.hour, 8)
+            self.assertEqual(tomorrow.timestamp()-anchor.timestamp(), 23*3600)
+            item = {'repeat':{'frequency':'daily','until':'2026-03-08'},'repeat_anchor':anchor.isoformat(), 'alert_offsets':[0]}
+            self.assertTrue(reminders.advance(item, int(anchor.timestamp())))
+            self.assertFalse(reminders.advance(item, item['due']))
+        finally:
+            if original is None:
+                os.environ.pop('TZ', None)
+            else:
+                os.environ['TZ'] = original
+            time.tzset()
+
+    def test_firing_advances_only_at_event_and_rejects_stale_timer(self):
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {'XDG_STATE_HOME':directory}), patch.object(reminders, 'schedule') as schedule, patch.object(reminders, 'stop_timers'), patch.object(reminders, 'notify') as notify:
+            now = int(datetime(2026, 10, 1, 8).timestamp())
+            with patch.object(reminders.time, 'time', return_value=now):
+                item = reminders.create('Appointment', now+7200, appointment=True, repeat={'frequency':'daily','count':2})
+                reminders.fire(item['id'], moment=now+3600)
+                self.assertEqual(reminders.load()[0]['due'], now+7200)
+                reminders.fire(item['id'], moment=now+7200)
+                next_item = reminders.load()[0]
+                self.assertEqual(next_item['repeat_index'], 1)
+                self.assertEqual(next_item['alerts'], [next_item['due']-3600, next_item['due']])
+                reminders.fire(item['id'], moment=now+7200)
+                self.assertEqual(notify.call_count, 2)
+                reminders.fire(item['id'], moment=next_item['due']-3600)
+                reminders.fire(item['id'], moment=next_item['due'])
+                self.assertEqual(reminders.load(), [])
+                self.assertEqual(schedule.call_count, 2)

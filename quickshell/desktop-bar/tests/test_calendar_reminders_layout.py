@@ -57,7 +57,7 @@ ShellRoot {
                     panel.selectedDay = day; panel.viewYear = 2026; panel.viewMonth = 9;
                     sample.emptyHeight = panel.height;
                     panel.reminders = Array.from({length: 20}, function(unused, index) {
-                        return {id: String(index), text: "Dentist appointment with a deliberately long title for wrapping", due: day.getTime()/1000};
+                        return {id: String(index), text: "Dentist appointment with a deliberately long title for wrapping", due: day.getTime()/1000, repeat: {frequency: "weekly", weekdays: [4]}, repeat_anchor: "2026-10-30T15:00:00", repeat_index: 0};
                     });
                     finish.start();
                 }

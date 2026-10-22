@@ -1,6 +1,6 @@
 return {
     messages = {
-        ["A notification at a time or after a delay you choose"] = "A notification at a time or after a delay you choose",
+        ["A one-time or repeating notification"] = "A one-time or repeating notification",
         ["AI"] = "AI",
         ["AI CLIs"] = "AI CLIs",
         ["AI Usage"] = "AI Usage",
@@ -519,7 +519,7 @@ return {
         ["{service} · {url}"] = "{service} · {url}",
     },
     sortKeys = {
-        ["A notification at a time or after a delay you choose"] = "a notification at a time or after a delay you choose",
+        ["A one-time or repeating notification"] = "a one-time or repeating notification",
         ["AI"] = "ai",
         ["AI CLIs"] = "ai clis",
         ["AI Usage"] = "ai usage",

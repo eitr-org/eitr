@@ -187,7 +187,7 @@ ThemedPopup {
                             Text {
                                 required property var modelData
                                 width: reminderSection.width
-                                text: Qt.formatTime(new Date(modelData.due * 1000), "HH:mm") + " · " + modelData.text
+                                text: Qt.formatTime(new Date(modelData.due * 1000), "HH:mm") + " · " + (modelData.repeat ? String.fromCodePoint(0xF0456) + " " : "") + modelData.text
                                 textFormat: Text.PlainText
                                 wrapMode: Text.Wrap
                                 color: menu.foreground

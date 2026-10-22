@@ -1,6 +1,6 @@
 return {
     messages = {
-        ["A notification at a time or after a delay you choose"] = "Une notification à la fois ou après un retard que vous choisissez",
+        ["A one-time or repeating notification"] = "Une notification unique ou récurrente",
         ["AI"] = "IA",
         ["AI CLIs"] = "CLI d’IA",
         ["AI Usage"] = "Utilisation de l’IA",
@@ -983,7 +983,7 @@ return {
         ["Transferts en lecture seule, autorisations et limites des abonnements"] = "transferts en lecture seule, autorisations et limites des abonnements",
         ["Tâches arrêtées"] = "taches arretees",
         ["Tâches en cours"] = "taches en cours",
-        ["Une notification à la fois ou après un retard que vous choisissez"] = "une notification a la fois ou apres un retard que vous choisissez",
+        ["Une notification unique ou récurrente"] = "une notification unique ou recurrente",
         ["Une version antérieure des snapshots d'accueil"] = "une version anterieure des snapshots d'accueil",
         ["Utilisation CPU, GPU, mémoire et stockage"] = "utilisation cpu, gpu, memoire et stockage",
         ["Utilisation de l’IA"] = "utilisation de l’ia",

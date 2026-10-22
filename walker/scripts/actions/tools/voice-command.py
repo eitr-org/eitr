@@ -4,7 +4,12 @@
 Protocol (exclusive keys):
 create: action, title (1..240), event (offset ISO timestamp), alerts (1..8
 unique offset ISO timestamps, including event; all future and <= event).
-delete: action, ids (1..100 existing unique reminder IDs).
+create also accepts optional repeat: {frequency: daily|weekly|monthly|yearly,
+interval: integer 1..1000 (default 1), weekdays: unique Monday=0..Sunday=6
+(weekly only), day_of_month: 1..31 (monthly only), until: YYYY-MM-DD OR
+count: integer 1..100000}. Monthly/yearly dates clamp to the last day.
+delete: action, ids (1..100 existing unique reminder IDs), optional scope:
+occurrence|series. Scope is required for repeating reminders; ask which scope.
 list: action only.
 ask: action, question (1..1000), choices (1..20 {id,label} entries;
 IDs unique, labels 1..1000). A selected ID is sent back as untrusted data.
@@ -64,10 +69,12 @@ def validate(payload, existing, now=None):
     now = now or datetime.now().astimezone()
     keys = {'create': {'action', 'title', 'event', 'alerts'}, 'delete': {'action', 'ids'},
             'list': {'action'}, 'ask': {'action', 'question', 'choices'}, 'none': {'action', 'message'}}
-    if not isinstance(payload, dict) or not isinstance(payload.get('action'), str) or payload['action'] not in keys or set(payload) != keys[payload['action']]:
+    if not isinstance(payload, dict) or not isinstance(payload.get('action'), str) or payload['action'] not in keys or set(payload) - ({'repeat'} if payload['action'] == 'create' else {'scope'} if payload['action'] == 'delete' else set()) != keys[payload['action']]:
         raise ValueError(tr('Invalid assistant answer.'))
     action = payload['action']
     if action == 'create':
+        if 'repeat' in payload:
+            reminders.repeat_rule(payload['repeat'])
         text_value(payload['title'], 240)
         event = timestamp(payload['event'], now)
         values = payload['alerts']
@@ -80,6 +87,8 @@ def validate(payload, existing, now=None):
         ids = payload['ids']
         if not isinstance(ids, list) or not 1 <= len(ids) <= 100 or any(not isinstance(identifier, str) for identifier in ids) or len(set(ids)) != len(ids) or not set(ids) <= {item['id'] for item in existing}:
             raise ValueError(tr('No such reminder.'))
+        if ('scope' in payload and payload['scope'] not in ('occurrence', 'series')) or ('scope' not in payload and any(item.get('repeat') for item in existing if item['id'] in ids)):
+            raise ValueError(tr('Invalid cancellation scope.'))
     elif action == 'ask':
         text_value(payload['question'], 1000)
         choices = payload['choices']
@@ -101,6 +110,7 @@ def validate(payload, existing, now=None):
 def prompt(transcript, existing, history):
     now = datetime.now().astimezone()
     context = [{'id': item['id'], 'title': item['text'],
+                'repeat': item.get('repeat'),
                 'event': datetime.fromtimestamp(item['due']).astimezone().isoformat(),
                 'alerts': [datetime.fromtimestamp(moment).astimezone().isoformat() for moment in reminders.alerts(item)]}
                for item in existing]
@@ -137,16 +147,16 @@ def execute(payload):
             now = datetime.now().astimezone()
             event = timestamp(payload['event'], now)
             times = [timestamp(value, now) for value in payload['alerts']]
-            reminder = reminders.create(payload['title'], event, times)
+            reminder = reminders.create(payload['title'], event, times, repeat=payload.get('repeat'))
             return tr('Reminder set: {title} · {time} · alerts {alerts}', title=reminder['text'],
                       time=reminders.label(event), alerts=', '.join(reminders.label(moment) for moment in times))
         if action == 'delete':
             for identifier in payload['ids']:
-                reminders.cancel(identifier)
+                reminders.cancel(identifier, payload.get('scope', 'series'))
             return tr('Reminders cancelled: {count}', count=len(payload['ids']))
         if action == 'list':
             items = reminders.load()
-            return '\n'.join(reminders.label(item['due']) + ' · ' + item['text'] for item in items) or tr('No reminders.')
+            return '\n'.join(reminders.label(item['due']) + ' · ' + item['text'] + reminders.repeat_label(item) for item in items) or tr('No reminders.')
         return payload['message']
 
 

@@ -94,8 +94,7 @@ permissions or a read-only headless mode. Do not weaken global permissions.
 
 # 5. Later
 
-- **Voice reminders, next steps.** Repeating reminders ("every Monday") and
-  syncing with Google or Outlook Calendar (needs account sign-in).
+- **Voice reminders, next steps.** Syncing with Google or Outlook Calendar (needs account sign-in).
 - **AI multi-account.** Several accounts per assistant, manual switching only.
   Each account gets its own config folder selected through the tool's own
   variable (`CLAUDE_CONFIG_DIR`, `CODEX_HOME`); sign-in for an extra account

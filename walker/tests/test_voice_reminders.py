@@ -151,3 +151,18 @@ class VoiceProtocolTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class VoiceRepeatTests(VoiceProtocolTests):
+    def test_repeat_and_scope_validation(self):
+        voice.validate({**self.payload, 'repeat':{'frequency':'weekly','weekdays':[0,3]}}, self.existing, self.now)
+        for rule in [None, {'frequency':'daily','extra':1}, {'frequency':'monthly','day_of_month':True}]:
+            with self.assertRaises(ValueError):
+                voice.validate({**self.payload,'repeat':rule}, self.existing, self.now)
+        existing = [{**self.existing[0], 'repeat':{'frequency':'daily'}}]
+        with self.assertRaises(ValueError):
+            voice.validate({'action':'delete','ids':['1']}, existing, self.now)
+        for scope in ('occurrence', 'series'):
+            voice.validate({'action':'delete','ids':['1'],'scope':scope}, existing, self.now)
+        with self.assertRaises(ValueError):
+            voice.validate({'action':'delete','ids':['1'],'scope':'all'}, existing, self.now)

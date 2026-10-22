@@ -25,6 +25,13 @@ GPUs or a real Windows/BitLocker disk, waits for the public preview and lands in
 Later codenames are planned, not promised: a release may move to the next row
 when its milestone changes. Patch releases (0.3.1) keep their minor's codename.
 
+## Repeating reminders (unreleased)
+
+Local daily, weekday, weekly, monthly and yearly reminders retain alert offsets,
+end by date or count, and skip elapsed occurrences after one missed notification.
+Calendar dots include future occurrences; cancellation can skip one or end a series.
+Google/Outlook synchronization still requires account sign-in and remains planned.
+
 ## Organization profiles (unreleased)
 
 Reviewed optional-app exclusions, strict checksum-checked stick profiles, installer

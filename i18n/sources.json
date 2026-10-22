@@ -1180,7 +1180,7 @@
     ]
   },
   "menus": {
-    "A notification at a time or after a delay you choose": [
+    "A one-time or repeating notification": [
       "elephant/menu-rows/reminders.json"
     ],
     "AI": [
@@ -3633,6 +3633,9 @@
       "walker/scripts/actions/development/monitoring.py",
       "walker/scripts/actions/install/webapps.py"
     ],
+    "All future occurrences": [
+      "walker/scripts/actions/tools/reminders.py"
+    ],
     "All logs": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
@@ -3784,6 +3787,9 @@
     "Cancel '{text}'?": [
       "walker/scripts/actions/tools/reminders.py"
     ],
+    "Cancel the reminder": [
+      "walker/scripts/actions/tools/reminders.py"
+    ],
     "Cancelled before any disk was changed; remove the answers drive to use the installer's questions": [
       "distro/archinstall/eitr-guided-install"
     ],
@@ -3865,6 +3871,9 @@
     ],
     "Choose iwd, networkmanager, or restore": [
       "walker/scripts/actions/system/network-backend.py"
+    ],
+    "Choose occurrence or series.": [
+      "walker/scripts/actions/tools/reminders.py"
     ],
     "Chromium default requires add.packages chromium or its recipe": [
       "distro/lib/eitr_profile.py"
@@ -4114,6 +4123,9 @@
     ],
     "DNS domains": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Daily": [
+      "walker/scripts/actions/tools/reminders.py"
     ],
     "Dashboard saved": [
       "walker/scripts/actions/development/monitoring.py"
@@ -4386,6 +4398,9 @@
     "Found in your Git configuration": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Friday": [
+      "walker/scripts/actions/tools/reminders.py"
+    ],
     "Function Apps": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
@@ -4597,6 +4612,10 @@
     "Invalid assistant answer.": [
       "walker/scripts/actions/tools/voice-command.py"
     ],
+    "Invalid cancellation scope.": [
+      "walker/scripts/actions/tools/reminders.py",
+      "walker/scripts/actions/tools/voice-command.py"
+    ],
     "Invalid cursor choice": [
       "walker/scripts/actions/style/cursor.py"
     ],
@@ -4639,6 +4658,9 @@
     "Invalid reminder.": [
       "walker/scripts/actions/tools/reminders.py"
     ],
+    "Invalid repeat rule.": [
+      "walker/scripts/actions/tools/reminders.py"
+    ],
     "Invalid repository server URL": [
       "distro/lib/eitr_profile.py"
     ],
@@ -4677,6 +4699,9 @@
     ],
     "Keep at least one keyboard layout": [
       "quickshell/desktop-bar/scripts/keyboard-layout.py"
+    ],
+    "Keep it": [
+      "walker/scripts/actions/tools/reminders.py"
     ],
     "Kept user layout link override: {target}": [
       "distro/lib/generated.py"
@@ -4811,6 +4836,12 @@
     ],
     "Missing {missing_files}. Install the {loader} packages listed in distro/bootloader/ first. Nothing was changed.": [
       "distro/system/eitr-system.py"
+    ],
+    "Monday": [
+      "walker/scripts/actions/tools/reminders.py"
+    ],
+    "Monthly": [
+      "walker/scripts/actions/tools/reminders.py"
     ],
     "Mute this program": [
       "walker/scripts/actions/system/crash-help.py"
@@ -5249,9 +5280,6 @@
     "Remind me about…": [
       "walker/scripts/actions/tools/reminders.py"
     ],
-    "Remind me in or at… (10m, 1h30m, 18:30)": [
-      "walker/scripts/actions/tools/reminders.py"
-    ],
     "Reminder": [
       "walker/scripts/actions/tools/reminders.py"
     ],
@@ -5456,6 +5484,9 @@
     ],
     "SSO Login": [
       "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Saturday": [
+      "walker/scripts/actions/tools/reminders.py"
     ],
     "Save these settings?": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -5739,6 +5770,9 @@
     "Subscriptions": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
+    "Sunday": [
+      "walker/scripts/actions/tools/reminders.py"
+    ],
     "Sunshine grants full control of your desktop. Setup grants KMS capture and virtual keyboard, mouse and controller access.": [
       "distro/system/eitr_remote.py"
     ],
@@ -6010,6 +6044,9 @@
     "This layout is already added": [
       "quickshell/desktop-bar/scripts/keyboard-layout.py"
     ],
+    "This occurrence": [
+      "walker/scripts/actions/tools/reminders.py"
+    ],
     "This removes TPM unlock from {device}; the passphrase is required at every boot again.": [
       "walker/scripts/actions/system/security.py"
     ],
@@ -6028,6 +6065,9 @@
     "This tool must be removed through its installation manager.": [
       "walker/scripts/actions/install/software.py"
     ],
+    "Thursday": [
+      "walker/scripts/actions/tools/reminders.py"
+    ],
     "Time must use HH:MM (00:00-23:59)": [
       "walker/scripts/actions/toggle/nightlight.py"
     ],
@@ -6042,6 +6082,9 @@
     ],
     "Try again": [
       "distro/lib/eitr_wizard.py"
+    ],
+    "Tuesday": [
+      "walker/scripts/actions/tools/reminders.py"
     ],
     "Turn home snapshots off?": [
       "walker/scripts/actions/system/home-snapshots.py"
@@ -6199,6 +6242,9 @@
     "Unsupported uninstall source": [
       "walker/scripts/actions/install/software.py"
     ],
+    "Until {date}": [
+      "walker/scripts/actions/tools/reminders.py"
+    ],
     "Update cancelled; nothing was changed.": [
       "walker/scripts/actions/system/update.sh"
     ],
@@ -6327,6 +6373,15 @@
     "Websites": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Wednesday": [
+      "walker/scripts/actions/tools/reminders.py"
+    ],
+    "Weekly": [
+      "walker/scripts/actions/tools/reminders.py"
+    ],
+    "When? (10m, 18:30, every day 08:00)": [
+      "walker/scripts/actions/tools/reminders.py"
+    ],
     "WiFi adapter is unavailable; refresh the panel": [
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py"
     ],
@@ -6338,6 +6393,9 @@
     ],
     "Write the recovery key down and store it offline, then press Enter. ": [
       "walker/scripts/actions/system/security.py"
+    ],
+    "Yearly": [
+      "walker/scripts/actions/tools/reminders.py"
     ],
     "Yes": [
       "walker/scripts/actions/development/git-accounts.py",
@@ -6519,6 +6577,9 @@
     ],
     "{config} has an unfinished EITR style block; fix it by hand. Nothing was changed.": [
       "distro/system/eitr-system.py"
+    ],
+    "{count} occurrences": [
+      "walker/scripts/actions/tools/reminders.py"
     ],
     "{count} system update(s) pending. Run System → Maintenance → Update → System Update first, so upgrades get a recovery snapshot, then install again.": [
       "walker/scripts/actions/install/software.py"

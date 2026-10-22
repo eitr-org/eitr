@@ -152,7 +152,7 @@ def parser():
     channel.add_argument("name", nargs="?", choices=["stable", "testing"], help='switch to this channel')
 
     remind = commands.add_parser("remind", help="reminders")
-    remind.add_argument("when", nargs="?", help='10m, 1h30m or 18:30; leave out to list reminders')
+    remind.add_argument("when", nargs="?", help='10m, 18:30, or "every Monday 09:30"; cancel ID [occurrence|series]; omit to list')
     remind.add_argument("text", nargs="*", help='what to be reminded about')
 
     firewall = commands.add_parser("firewall", help='the firewall')
@@ -220,6 +220,8 @@ def plan(arguments, code=None, config=None):
         return [ROOT_HELPER, "channel-status"]
     if command == "remind":
         script = str(actions / "tools/reminders.py")
+        if arguments.when == "cancel":
+            return ["python3", script, "cancel", *arguments.text]
         return ["python3", script, "new", arguments.when, *arguments.text] if arguments.when else ["python3", script, "list"]
     if command == "firewall":
         if arguments.action == "status":
