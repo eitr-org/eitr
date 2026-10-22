@@ -13,13 +13,15 @@ Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 # 1. Remote access: test with the owner
 
 Moonlight, Sunshine and Tailscale are built and inactive until set up.
-Fresh installs include them; existing machines install missing apps on demand (`distro/REMOTE-ACCESS.md`). Nothing about real hardware is
-verified yet. With the owner and a MacBook, in this order:
+Fresh installs include them; existing machines install missing apps on demand
+(`distro/REMOTE-ACCESS.md`). With the owner and a MacBook, in this order:
 
-1. Home network: Share this PC setup (permissions, Sunshine password), start
-   sharing, pair Moonlight on the Mac. Check video on both monitors, keyboard,
-   mouse, audio, a controller, behaviour while locked, start at login, and that
-   Stop Sharing and Restore Sharing Setup undo everything.
+1. Home network, tested 2026-10-21 on the owner's PC (one monitor) with Moonlight
+   on a MacBook: setup, start sharing, pairing by IP, video with no noticeable
+   delay, keyboard, mouse, audio, the lockscreen (unlocked from the Mac) and Stop
+   Sharing all work. Still to check: two monitors, start at login, Restore
+   Sharing Setup. Controllers are not needed. Fix found: Start Sharing asks
+   twice (`y`, then the helper's `yes`); ask once.
 2. Away from home: Tailscale setup and sign-in on both machines, then connect
    through it and check direct versus relayed.
 3. Fix what the tests find; only then call remote access ready in the Handbook
