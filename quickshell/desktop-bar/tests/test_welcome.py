@@ -125,11 +125,14 @@ class HandbookWelcomeTests(unittest.TestCase):
         self.assertNotIn("WelcomeMenu", (ROOT / "qmldir").read_text())
         self.assertNotIn("welcomeMenu", (ROOT / "shell.qml").read_text())
 
-    def test_walker_learn_menu_opens_welcome(self):
+    def test_learn_offers_the_handbook_whose_first_chapter_is_the_welcome(self):
+        # Learn lists the Handbook itself, not its chapters; the welcome is reopened inside it.
         learn = {"entries": json.loads((REPO / "elephant/menu-rows/learn.json").read_text())}
-        entry = next(entry for entry in learn["entries"] if entry["text"] == "Welcome")
-        self.assertEqual(entry["actions"]["open"],
-                         "bash /usr/share/eitr/quickshell/desktop-bar/scripts/handbook.sh open getting-started")
+        texts = [entry["text"] for entry in learn["entries"]]
+        self.assertIn("EITR Handbook", texts)
+        self.assertNotIn("Welcome", texts)
+        self.assertFalse(any("handbook.sh open" in entry.get("actions", {}).get("open", "") for entry in learn["entries"]))
+        self.assertIn("**Learn > EITR Handbook**", (REPO / "quickshell/desktop-bar/handbook/content/getting-started.md").read_text())
 
 
 if __name__ == "__main__":

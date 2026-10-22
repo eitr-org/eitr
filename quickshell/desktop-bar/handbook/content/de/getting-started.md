@@ -2,7 +2,7 @@
 
 EITR verbindet Arch Linux, von Hyprland verwaltete Fenster, die Quickshell-Desktopleiste und Walker-Menüs. **SUPER** bezeichnet die Taste mit dem Windows-/Command-Symbol.
 
-Die Schaltflächen über diesem Text richten das Wichtigste ein. Jede schließt das Handbuch und öffnet die zugehörige Einstellung. Dieses Kapitel öffnet sich bei der ersten Anmeldung automatisch. Aktiviere **Diese Begrüßung bei der nächsten Anmeldung anzeigen**, um es erneut zu sehen, oder öffne es über **Lernen > Willkommen**.
+Die Schaltflächen über diesem Text richten das Wichtigste ein. Jede schließt das Handbuch und öffnet die zugehörige Einstellung. Dieses Kapitel öffnet sich bei der ersten Anmeldung automatisch. Aktiviere **Diese Begrüßung bei der nächsten Anmeldung anzeigen**, um es erneut zu sehen, oder öffne es über **Lernen > EITR-Handbuch**.
 
 **Bei Fehlern einen Problembericht anbieten** ist standardmäßig eingeschaltet und teilt sich die Einstellung mit den Absturzbenachrichtigungen. Stürzt eines deiner Programme ab, bietet eine Benachrichtigung Hilfe oder einen Bericht zum Prüfen und Senden an. Siehe [Fehlerbehebung](handbook:troubleshooting).
 

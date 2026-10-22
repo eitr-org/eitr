@@ -60,7 +60,7 @@ It works out the expression itself rather than running it as code.
 
 **Offline dictation** is speech-to-text that never leaves the computer. Hold
 **SUPER + D**, speak, and release: the words are
-typed where the cursor is, in the language you spoke. While it listens, the red
+typed where the cursor is, in the language you spoke. You can also tap **SUPER + D**, speak, and tap it again. While it listens, the red
 dot just left of the clock becomes a small waveform that moves with your voice, so
 you can see it hears you; after release it pulses until the words are typed.
 The first use downloads the

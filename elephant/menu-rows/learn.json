@@ -1,33 +1,5 @@
 [
   {
-    "text": "Antigravity CLI",
-    "subtext": "Personal Google accounts; installation source awaiting verification",
-    "keywords": [
-      "agy",
-      "ai",
-      "google"
-    ],
-    "icon": "󱜙",
-    "actions": {
-      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/handbook.sh open development"
-    }
-  },
-  {
-    "text": "Assistants Working Together",
-    "subtext": "Read-only hand-offs, permissions and subscription limits",
-    "keywords": [
-      "ai",
-      "claude",
-      "codex",
-      "assistants",
-      "mcp"
-    ],
-    "icon": "󱜙",
-    "actions": {
-      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/handbook.sh open development"
-    }
-  },
-  {
     "text": "Cmux Commands",
     "subtext": "Keys for the cmux terminal multiplexer",
     "keywords": [
@@ -41,20 +13,6 @@
     "icon": "",
     "actions": {
       "open": "bash /usr/share/eitr/walker/scripts/menus/cmux.sh"
-    }
-  },
-  {
-    "text": "Default Assistant",
-    "subtext": "Open with the assistant shortcut",
-    "keywords": [
-      "development",
-      "assistant",
-      "default",
-      "SUPER Alt A"
-    ],
-    "icon": "󱜙",
-    "actions": {
-      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/handbook.sh open development"
     }
   },
   {
@@ -107,20 +65,6 @@
     }
   },
   {
-    "text": "Remote Access",
-    "subtext": "Sunshine on Eitr, Moonlight on a Mac and Tailscale away from home",
-    "icon": "󰖩",
-    "keywords": [
-      "sunshine",
-      "moonlight",
-      "tailscale",
-      "remote"
-    ],
-    "actions": {
-      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/handbook.sh open remote-access"
-    }
-  },
-  {
     "text": "Shortcuts",
     "subtext": "Every keyboard shortcut, and run one from the list",
     "keywords": [
@@ -146,21 +90,6 @@
     "icon": "",
     "actions": {
       "open": "/usr/share/eitr/walker/scripts/menus/tmux.sh"
-    }
-  },
-  {
-    "text": "Welcome",
-    "subtext": "The first-login guide and setup steps",
-    "keywords": [
-      "setup",
-      "first",
-      "start",
-      "guide",
-      "onboarding"
-    ],
-    "icon": "󰋜",
-    "actions": {
-      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/handbook.sh open getting-started"
     }
   }
 ]

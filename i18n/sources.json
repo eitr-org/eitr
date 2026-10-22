@@ -1280,7 +1280,6 @@
       "elephant/menu-rows/snapshots.json"
     ],
     "Antigravity CLI": [
-      "elephant/menu-rows/learn.json",
       "elephant/menus/ai-agy.lua"
     ],
     "App clients": [
@@ -1293,9 +1292,6 @@
     "Apps": [
       "elephant/menu-rows/main.json",
       "elephant/menus/apps.lua"
-    ],
-    "Assistants Working Together": [
-      "elephant/menu-rows/learn.json"
     ],
     "Audio": [
       "elephant/menu-rows/system-devices.json"
@@ -1559,7 +1555,6 @@
     ],
     "Default Assistant": [
       "elephant/menu-rows/development.json",
-      "elephant/menu-rows/learn.json",
       "elephant/menu-rows/shortcuts.json",
       "elephant/menus/ai-default.lua"
     ],
@@ -2150,7 +2145,6 @@
       "elephant/menu-rows/remote-share.json"
     ],
     "Open with the assistant shortcut": [
-      "elephant/menu-rows/learn.json",
       "elephant/menus/ai-default.lua"
     ],
     "Open workspace": [
@@ -2185,9 +2179,6 @@
     ],
     "Passphrase required at boot again": [
       "elephant/menu-rows/tpm-unlock.json"
-    ],
-    "Personal Google accounts; installation source awaiting verification": [
-      "elephant/menu-rows/learn.json"
     ],
     "Pick a color on screen and copy its code": [
       "elephant/menu-rows/capture.json"
@@ -2232,9 +2223,6 @@
     ],
     "Read a QR code in a selected area and copy it": [
       "elephant/menu-rows/capture.json"
-    ],
-    "Read-only hand-offs, permissions and subscription limits": [
-      "elephant/menu-rows/learn.json"
     ],
     "Read-only help from your connected assistants": [
       "elephant/menus/ai-tools.lua"
@@ -2295,7 +2283,6 @@
       "elephant/menus/reminders.lua"
     ],
     "Remote Access": [
-      "elephant/menu-rows/learn.json",
       "elephant/menu-rows/shortcuts.json",
       "elephant/menu-rows/system-connectivity.json",
       "elephant/menus/remote-access.lua"
@@ -2693,9 +2680,6 @@
     "Subnets": [
       "elephant/menus/aws-vpc-subnets-1.lua"
     ],
-    "Sunshine on Eitr, Moonlight on a Mac and Tailscale away from home": [
-      "elephant/menu-rows/learn.json"
-    ],
     "Suspend": [
       "elephant/menu-rows/power.json"
     ],
@@ -2737,9 +2721,6 @@
     ],
     "Testing": [
       "elephant/menus/update-channel.lua"
-    ],
-    "The first-login guide and setup steps": [
-      "elephant/menu-rows/learn.json"
     ],
     "The full guide to Eitr, offline": [
       "elephant/menu-rows/learn.json"
@@ -2873,9 +2854,6 @@
     ],
     "Web app · opens in your browser": [
       "walker/scripts/menus/software-menu.lua"
-    ],
-    "Welcome": [
-      "elephant/menu-rows/learn.json"
     ],
     "What Each Update Changed": [
       "elephant/menu-rows/snapshots.json"

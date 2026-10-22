@@ -6,7 +6,7 @@ and Walker menus. **SUPER** means the Windows/Command-logo key on your keyboard.
 The buttons above this text set up the essentials: each one closes the handbook
 and opens its setting. This chapter opens by itself at the first login; turn on
 **Show this welcome at the next login** to see it again, or reopen it any time
-from **Learn > Welcome**.
+from **Learn > EITR Handbook**.
 
 **Offer to report problems when something breaks** is on by default and shares the Crash Notifications setting. When one of your programs crashes, a notification offers help or a report for you to review and send; see [Troubleshooting](handbook:troubleshooting).
 

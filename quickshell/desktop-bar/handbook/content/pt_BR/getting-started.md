@@ -2,7 +2,7 @@
 
 O EITR reúne Arch Linux, janelas gerenciadas pelo Hyprland, a barra Quickshell e os menus Walker. **SUPER** é a tecla com o símbolo do Windows/Command no teclado.
 
-Os botões acima configuram o essencial: cada um fecha o manual e abre sua configuração. Este capítulo abre automaticamente no primeiro login. Ative **Mostrar estas boas-vindas no próximo login** para vê-lo novamente ou abra-o em **Aprender > Boas-vindas**.
+Os botões acima configuram o essencial: cada um fecha o manual e abre sua configuração. Este capítulo abre automaticamente no primeiro login. Ative **Mostrar estas boas-vindas no próximo login** para vê-lo novamente ou abra-o em **Aprender > Manual do EITR**.
 
 **Oferecer relatar problemas quando algo falhar** fica ativado por padrão e compartilha a opção Notificações de falhas. Quando um dos seus programas falha, uma notificação oferece ajuda ou um relatório para você revisar e enviar; veja [Solução de problemas](handbook:troubleshooting).
 
