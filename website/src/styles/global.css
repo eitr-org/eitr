@@ -406,6 +406,8 @@ body:has(.realm-dialog[open]){overflow:hidden}
 .root-bark{fill:none;stroke:#938064;stroke-width:.65;stroke-linecap:round;opacity:.45}
 
 /* Rune bands reveal Latin letters under the cursor (src/scripts/realm/rune-decoder.ts). */
+/* Decorative runes keep the normal pointer: the text cursor flickered between glyphs. */
+.rune-band,.marquee,.footer-runes,.rune-glyph{cursor:default;user-select:none}
 .rune-glyph{position:relative;display:inline-block;transition:color .35s,text-shadow .35s}
 .rune-glyph::after{content:attr(data-latin);position:absolute;left:50%;top:50%;translate:-50% -50%;font-family:var(--carved);font-size:15px;letter-spacing:0;color:var(--accent);text-shadow:0 0 12px var(--accent);opacity:0;transition:opacity .35s}
 .rune-glyph.decoded{color:transparent;text-shadow:none}

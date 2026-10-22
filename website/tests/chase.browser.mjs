@@ -53,6 +53,20 @@ try {
  assert.equal(await page.locator('.music-toggle').getAttribute('aria-pressed'),'true');
  await page.getByRole('button',{name:'Music on',exact:true,pressed:true}).click();
  assert.equal(await page.locator('#norse-audio').evaluate(audio=>audio.paused),true);
+ // The credits close on a click outside them and on Escape; clicks inside keep them open.
+ const credits = page.locator('.ambient-music details');
+ await credits.locator('summary').click();
+ assert.equal(await credits.evaluate(element=>element.open),true);
+ await credits.locator('p').first().click({position:{x:2,y:2}});
+ assert.equal(await credits.evaluate(element=>element.open),true);
+ await page.mouse.click(10, 10);
+ assert.equal(await credits.evaluate(element=>element.open),false);
+ await credits.locator('summary').click();
+ await page.keyboard.press('Escape');
+ assert.equal(await credits.evaluate(element=>element.open),false);
+ // Decorative runes keep the normal pointer instead of the text cursor.
+ assert.equal(await page.locator('.rune-band .rune-glyph').first().evaluate(element=>getComputedStyle(element).cursor),'default');
+ assert.equal(await page.locator('.rune-band').evaluate(element=>getComputedStyle(element).cursor),'default');
 
  assert.equal(await page.locator('.hero-art').count(),0);
  assert.equal(await page.locator('.hero > .hero-lightning').count(),1);

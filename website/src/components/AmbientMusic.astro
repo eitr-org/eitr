@@ -47,4 +47,14 @@ if(audio && toggle && status) {
  audio.addEventListener('error',()=>{status.textContent='Music is unavailable. Please try again later.';update();});
  document.addEventListener('visibilitychange',()=>{if(document.hidden) audio.pause();});
 }
+// The credits close on a click anywhere outside them, or on Escape (focus returns to their title).
+const credits=document.querySelector<HTMLDetailsElement>('.ambient-music details');
+if(credits) {
+ document.addEventListener('click',(event)=>{
+  if(credits.open && !credits.contains(event.target as Node)) credits.open=false;
+ });
+ document.addEventListener('keydown',(event)=>{
+  if(event.key==='Escape' && credits.open) {credits.open=false;credits.querySelector('summary')?.focus();}
+ });
+}
 </script>
