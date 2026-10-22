@@ -18,8 +18,8 @@ Fresh installs include them; existing machines install missing apps on demand
 1. Home network, tested 2026-10-21 on the owner's PC (one monitor) with Moonlight
    on a MacBook: setup, start sharing, pairing by IP, video with no noticeable
    delay, keyboard, mouse, audio, the lockscreen (unlocked from the Mac), start
-   at login and Stop Sharing all work. Still to check: two monitors, Restore
-   Sharing Setup. Controllers are not needed.
+   at login and Stop Sharing all work; two monitors and Restore Sharing Setup
+   followed on 2026-10-22. Controllers are not needed.
 2. Away from home works (2026-10-21): Tailscale setup, sign-in and connect on the
    owner's PC, and the Mac reached the PC through it.
 3. Fix what the tests find; only then call remote access ready in the Handbook
