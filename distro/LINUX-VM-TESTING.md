@@ -113,6 +113,21 @@ distro/vm-tests/eitr-vm-test boot-guard --work "$RUN"                 # after an
 CI cannot run these (no KVM on GitHub's runners); run them before tagging a
 release.
 
+The harness boots with plain VirtIO 2D graphics, where Hyprpaper crashes and the
+desktop shows no wallpaper. To check a wallpaper, boot the disk with
+`-device virtio-vga-gl -display egl-headless -vnc 127.0.0.1:77` instead (with the
+NVIDIA settings from Graphics troubleshooting) and capture with
+`gvnccapture 127.0.0.1:77 out.png`. Type at the login screen and consoles with
+QMP `send-key`; `input-send-event` clicks where Hyprland's
+`hl.dsp.cursor.move({ x = X, y = Y })` dispatcher put the pointer.
+
+To test a real upgrade without publishing, rebuild `eitr-desktop` with a higher
+`pkgrel`, sign it and a repository database with a throwaway GPG key, serve them
+on the host's loopback (QEMU's user network reaches it as `10.0.2.2`), and in the
+guest `pacman-key --add` and `--lsign-key` that key and add the repository above
+`[core]` in `pacman.conf`. Then run `update`. Stop the server and throw the disk
+away afterwards.
+
 ## Verification record
 
 October 15, 2026, with `eitr-vm-test` (4 CPUs, 8 GiB, 80 GiB VirtIO disk):
@@ -186,6 +201,26 @@ an installed machine to the same state; an online install queued Zoom from Flath
 and the first-boot timer installed it; System Update (nothing to upgrade) kept
 the profile. The runs found and fixed: stick packages refused by a wrong pacman
 option, the 12-character FAT label, and Flatpak extra data failing in the chroot.
+
+Later on October 22, the remaining profile checks, with an ISO built from
+`fe9ae8a` and then from the fix below. An unattended install from a stick holding
+both answers and a profile applied it. A real System Update upgraded pipewire,
+hyprutils and a locally served `eitr-desktop` build (pre/post snapshot pair);
+the excluded apps stayed absent, and an `eitr-desktop` that newly depended on
+`tailscale` stopped the upgrade at pacman's IgnorePkg question instead of
+installing it. With the policies on, the bar (top and left) had no Tailscale or
+Streaming icons, the Control Center no channel Change button, and Walker's menus
+and search no Remote Access, update-channel or "Let assistants work together"
+rows; removing `policies.json` brought them back. `eitr profile apply`: a mistyped
+phrase changed nothing; Norse, the profile wallpaper and Firefox were in place
+after the next login; the extra repository installed a package signed by its key
+over HTTPS; the setup script ran once in three applies, and a failing one kept
+its marker and was not rerun. The wizard Review and the countdown (Ctrl+C
+cancelled it) were shown in all five languages by running the installer with
+`LANG` on tty2. Fixed: the Review and countdown mixed English lines into
+translated screens, the summary promised first-start Flathub installs for every
+profile and printed `False`, and a skipped unfinished setup script said nothing.
+Still open: the live console font lacks ã, õ, Á and Ó.
 
 Earlier record:
 

@@ -4,10 +4,9 @@ Open work in priority order. Each item lists what decides the next step.
 Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 
 1. Remote access: test with the owner
-2. Organization profiles
-3. Smaller items
-4. Later
-5. Before 1.0.0
+2. Smaller items
+3. Later
+4. Before 1.0.0
 
 # 1. Remote access: test with the owner
 
@@ -28,23 +27,7 @@ Fresh installs include them; existing machines install missing apps on demand
 Afterwards, each tested separately: headless use, access before login, wake on
 LAN.
 
-# 2. Organization profiles: remaining checks
-
-Built and VM-tested on 2026-10-22 (`distro/LINUX-VM-TESTING.md`): offline install
-with removals, a checksummed stick package and policies; online install with a
-Flathub app (installed at first boot); a refused profile leaving the disk
-untouched; `eitr profile apply` on an installed machine; System Update keeping
-the profile. Still to check, in a VM or with the owner:
-
-1. An update that really upgrades packages does not bring an excluded app back.
-2. Remote Access, assistants and update-channel controls hidden on screen (bar
-   in both orientations, menus, search) with the policies on.
-3. `eitr profile apply`: a mistyped confirmation changes nothing; defaults
-   (theme, wallpaper, browser, extra signed repository) after the next login;
-   a setup script runs once.
-4. The profile-only wizard Review and the unattended countdown, in each language.
-
-# 3. Smaller items
+# 2. Smaller items
 
 - **ISO download counter.** Cloudflare's R2 analytics only keep a few weeks and
   cannot tell our own checks from real downloads. Put a small Worker in front of
@@ -76,8 +59,14 @@ the profile. Still to check, in a VM or with the owner:
   than promotional claims. Update the public repository description/README with
   consistent Eitr Linux positioning. Consider a dated, source-checked Omarchy
   comparison page separately; do not imply shared features are exclusive.
+- **Live installer console font.** The ISO's console uses the kernel's built-in
+  font, which lacks some accented letters (ã, õ, Á, Ó): a Portuguese or Spanish
+  installer screen shows "instalaçao", "PASOS DE INSTALACION". The installer has
+  no language choice yet (it follows `LANG`), so only a translated run shows it.
+  Pick a console font with these letters that keeps the wizard's box drawing,
+  and set it on the ISO before offering installer languages.
 
-# 4. Later
+# 3. Later
 
 - **Voice reminders, next steps.** Read-only Google/Outlook/iCal subscriptions
   through a secret iCal address are done (Reminders > Calendars). Two-way sync
@@ -92,7 +81,7 @@ the profile. Still to check, in a VM or with the owner:
   uses a private browser window; never log out of an account to add another.
   AI Usage shows each account. Useful for teams with several seats.
 
-# 5. Before 1.0.0
+# 4. Before 1.0.0
 
 - **Upgrade that skips releases.** 1.0 promises supported upgrades, so test
   installing 0.6.4 and updating straight to the 1.0 candidate. The 0.6.4 ISO is

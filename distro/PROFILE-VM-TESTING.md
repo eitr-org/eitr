@@ -68,13 +68,27 @@ path by changing the refused profile and creating a new image/work directory for
 each case. A dependency conflict must fail through pacman, never remove the
 protected dependent or silently reinstall the excluded app.
 
-Remaining visual/manual guest checks: profile-only wizard Review (boot with the
-stick and without firmware answers); unattended summary/countdown; cancellation
-of `eitr profile apply` with a mistyped phrase; all four translated summaries;
-Remote Access absent from both bar orientations, menus and search; assistants
-switch and update-channel control hidden; group menus hidden; direct tools still
-refused. Check defaults at next login and signed HTTPS repository setup. Add a
-setup script writing a guest-only marker, apply twice and confirm it ran once;
-check failed/interrupted script attempts remain recorded. Check both the
-installed-machine and installer paths. No hardware behavior is established by
-these VM checks.
+Manual guest checks (passed on 2026-10-22; `distro/LINUX-VM-TESTING.md` has the
+record and how to type, click and capture in the VM):
+
+- Wizard and countdown: boot the ISO without firmware answers. A stick with only
+  the profile opens the wizard on tty1; go through to Review. On tty2 (log in as
+  root) run `LANG=de_DE.UTF-8 eitr-guided-install --profile /run/eitr-answers`
+  for each language, and `--answers FILE --profile /run/eitr-answers` with a small
+  answers file for the countdown; Ctrl+C cancels it. A stick with
+  `eitr-answers.json` too installs unattended from tty1 after the countdown.
+- Policies on screen: log in, open the right icon group, move the bar to the left
+  (`eitr-shell desktop-bar ipc call bar update edge left`), open the Control
+  Center's Updates and Walker's Connectivity, Update and AI menus, and search for
+  remote, tailscale, moonlight, sharing, assistants, together and channel. Moving
+  `policies.json` aside and restarting Elephant shows what the policies hid.
+- `eitr profile apply` with defaults: a mistyped phrase first, then the real one
+  three times; log in again and check theme, wallpaper and browser. For the
+  repository, serve a signed database over HTTPS with a test CA the guest trusts
+  (`trust anchor`), then `pacman -Sy` and install from it. A setup script that
+  fails keeps its `started` marker and is not run again.
+- A test repository whose `eitr-desktop` depends on an excluded app makes
+  `eitr profile apply` refuse the profile (protected dependency); remove it first.
+
+The host needs dosfstools and mtools for `stick`; without them, build the stick
+images in the builder VM. No hardware behavior is established by these VM checks.
