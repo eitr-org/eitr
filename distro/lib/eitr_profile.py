@@ -205,6 +205,17 @@ def validate(drive):
     return profile
 
 
+def describe(value):
+    """A readable value for the review: stick files by path, repositories by name and server."""
+    if isinstance(value, dict):
+        if 'file' in value:
+            return value['file']
+        if 'name' in value and 'server' in value:
+            return f"{value['name']} ({value['server']})"
+        return json.dumps(value, ensure_ascii=False)
+    return str(value)
+
+
 def summary(profile):
     lines = [tr('Organization profile: {name}', name=profile['name'])]
     for package in sorted(removals(profile)):
@@ -212,14 +223,14 @@ def summary(profile):
     for kind, values in profile.get('add', {}).items():
         for value in values:
             lines.append(tr('Add: {kind}: {value} ({connection})', kind=kind,
-                            value=json.dumps(value, ensure_ascii=False) if isinstance(value, dict) else value,
+                            value=describe(value),
                             connection=tr('offline stick file') if kind == 'files' else tr('internet required')))
     for key, value in profile.get('defaults', {}).items():
-        lines.append(tr('Default: {key}: {value}', key=key, value=json.dumps(value, ensure_ascii=False)))
+        lines.append(tr('Default: {key}: {value}', key=key, value=describe(value)))
     for key, value in profile.get('policies', {}).items():
         lines.append(tr('Policy: {key}: {value}', key=key, value=str(value)))
     if 'setup' in profile:
-        lines.append(tr('Run once as root: {value}', value=json.dumps(profile['setup'])))
+        lines.append(tr('Run once as root: {value}', value=describe(profile['setup'])))
     lines.append(tr('Policies restrict Eitr tools. A user with root can override them.'))
     return '\n'.join(lines)
 
@@ -268,12 +279,13 @@ def preflight_packages(profile, drive, run=subprocess.run, databases=None):
         if result.returncode:
             fail(tr('Unknown or unavailable repository package: {reason}', reason=result.stderr.strip()))
     for entry in profile.get('add', {}).get('files', []):
-        result = run(['pacman', '-Qp', '--print-format', '%n', '--', str(stick_file(drive, entry['file']))],
-                     capture_output=True, text=True)
-        if result.returncode or not PACKAGE.fullmatch(result.stdout.strip()):
+        # pacman -Qp prints "name version" for a package file and fails for anything else.
+        result = run(['pacman', '-Qp', '--', str(stick_file(drive, entry['file']))], capture_output=True, text=True)
+        fields = result.stdout.split()
+        if result.returncode or len(fields) != 2 or not PACKAGE.fullmatch(fields[0]):
             fail(tr('Invalid package archive: {value}', value=entry['file']))
-        if result.stdout.strip() in removals(profile):
-            fail(tr('Stick package is also removed: {package}', package=result.stdout.strip()))
+        if fields[0] in removals(profile):
+            fail(tr('Stick package is also removed: {package}', package=fields[0]))
 
 
 def preflight_flatpaks(profile, run=subprocess.run):

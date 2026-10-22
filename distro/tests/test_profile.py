@@ -143,6 +143,32 @@ class ProfileFormat(unittest.TestCase):
         self.assertFalse(Path(environment['HOME']).exists())
 
 
+class StickPackages(unittest.TestCase):
+    """pacman -Qp prints "name version"; an earlier check passed an option it rejects."""
+    def setUp(self):
+        folder = tempfile.TemporaryDirectory()
+        self.addCleanup(folder.cleanup)
+        self.drive = Path(folder.name)
+        (self.drive / 'packages').mkdir()
+        (self.drive / 'packages/tool.pkg.tar.zst').write_bytes(b'not a package')
+        self.profile = {'add': {'files': [{'file': 'packages/tool.pkg.tar.zst', 'sha256': '0' * 64}]}}
+
+    def test_package_name_comes_from_pacman_query(self):
+        answer = Mock(returncode=0, stdout='office-tools 1-1\n', stderr='')
+        run = Mock(return_value=answer)
+        profile.preflight_packages(self.profile, self.drive, run=run)
+        self.assertEqual(run.call_args.args[0][:3], ['pacman', '-Qp', '--'])
+        removed = {**self.profile, 'remove': ['office-tools']}
+        with patch.object(profile, 'removals', return_value={'office-tools'}):
+            with self.assertRaisesRegex(Exception, 'also removed'):
+                profile.preflight_packages(removed, self.drive, run=run)
+
+    @unittest.skipUnless(Path('/usr/bin/pacman').exists(), 'pacman required')
+    def test_real_pacman_refuses_a_file_that_is_not_a_package(self):
+        with self.assertRaisesRegex(Exception, 'Invalid package archive'):
+            profile.preflight_packages(self.profile, self.drive)
+
+
 class PolicyEnforcement(unittest.TestCase):
     def test_menu_rows_and_tools_both_refuse_remote_access(self):
         menus = module('profile_menu_actions', 'quickshell/desktop-bar/scripts/menu-action.py')
