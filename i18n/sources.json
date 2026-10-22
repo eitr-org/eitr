@@ -5448,6 +5448,9 @@
     "Open it from Tools > Plugins.": [
       "walker/scripts/actions/install/plugins.py"
     ],
+    "Open the picture itself, right-click it, choose Copy image address and paste that.": [
+      "distro/lib/eitr_own_style.py"
+    ],
     "Open the web console": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -6358,6 +6361,9 @@
     "That OBS scene no longer exists": [
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
+    "That address is a web page, not a picture. {hint}": [
+      "distro/lib/eitr_own_style.py"
+    ],
     "That dashboard is no longer saved.": [
       "walker/scripts/actions/development/monitoring.py"
     ],
@@ -6534,6 +6540,9 @@
     ],
     "The setup script {value} did not finish when it last ran; it is not run again. Change the script to allow another attempt.": [
       "distro/lib/eitr_profile_apply.py"
+    ],
+    "The site refused the download (HTTP {code}). {hint}": [
+      "distro/lib/eitr_own_style.py"
     ],
     "The speech model could not transcribe this recording.": [
       "walker/scripts/actions/tools/voice-command.py"

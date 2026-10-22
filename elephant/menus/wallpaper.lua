@@ -57,7 +57,12 @@ function GetEntries()
         })
     end
     for _, file in ipairs(pictures(background_dir)) do add(background_dir, file, false) end
-    for _, file in ipairs(pictures(own_dir)) do add(own_dir, file, true) end
+    -- Own wallpapers the current theme already shows (a theme made from one keeps a copy) are left out.
+    local handle = io.popen("python3 " .. shell_quote(own) .. " wallpaper list 2>/dev/null")
+    if handle then
+        for path in handle:lines() do add(own_dir, path:match("[^/]+$"), true) end
+        handle:close()
+    end
     return entries
 end
 

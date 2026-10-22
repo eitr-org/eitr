@@ -11,8 +11,8 @@ BACKGROUND_DIR="$HOME/.config/theme/current/backgrounds"
 CACHE_PATH="$HOME/.cache/current-wallpaper"
 
 mapfile -t WALLPAPERS < <(python3 "$WALLPAPER_DIR/transition.py" list "$BACKGROUND_DIR")
-# The user's own wallpapers follow the theme's.
-mapfile -t -O "${#WALLPAPERS[@]}" WALLPAPERS < <(python3 "$WALLPAPER_DIR/transition.py" list "$EITR_DATA_ROOT/eitr/wallpapers")
+# The user's own wallpapers follow the theme's, without pictures the theme already shows.
+mapfile -t -O "${#WALLPAPERS[@]}" WALLPAPERS < <(python3 "$EITR_CODE_ROOT/walker/scripts/actions/style/own.py" wallpaper list)
 
 TOTAL="${#WALLPAPERS[@]}"
 

@@ -1924,6 +1924,9 @@ msgstr "Abrir imagen"
 msgid "Open it from Tools > Plugins."
 msgstr "Ábrelo en Herramientas > Plugins."
 
+msgid "Open the picture itself, right-click it, choose Copy image address and paste that."
+msgstr "Abre la imagen en sí, haz clic derecho, elige Copiar dirección de imagen y pégala."
+
 msgid "Open the web console"
 msgstr "Abrir la consola web"
 
@@ -2827,6 +2830,9 @@ msgstr "El texto sería difícil de leer: el primer plano y el fondo necesitan m
 msgid "That OBS scene no longer exists"
 msgstr "Esa escena de OBS ya no existe"
 
+msgid "That address is a web page, not a picture. {hint}"
+msgstr "Esa dirección es una página web, no una imagen. {hint}"
+
 msgid "That dashboard is no longer saved."
 msgstr "Ese panel ya no está guardado."
 
@@ -2997,6 +3003,9 @@ msgstr "El asistente de Eitr propiedad de root no está instalado; actualiza el 
 
 msgid "The setup script {value} did not finish when it last ran; it is not run again. Change the script to allow another attempt."
 msgstr "El script de configuración {value} no terminó la última vez que se ejecutó; no se vuelve a ejecutar. Cambia el script para permitir otro intento."
+
+msgid "The site refused the download (HTTP {code}). {hint}"
+msgstr "El sitio rechazó la descarga (HTTP {code}). {hint}"
 
 msgid "The speech model could not transcribe this recording."
 msgstr "El modelo de voz no pudo transcribir esta grabación."

@@ -7,6 +7,8 @@ file or an https address; each is decoded before a copy is kept.
 """
 import colorsys
 import importlib.util
+import html
+import html.parser
 import io
 import json
 import os
@@ -15,6 +17,7 @@ import re
 import shutil
 import sys
 import tempfile
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -112,6 +115,9 @@ def download(url, opener=None):
             if length and length.isdigit() and int(length) > MAX_BYTES:
                 raise ValueError(tr('The picture is larger than 50 MB.'))
             data = response.read(MAX_BYTES + 1)
+    except urllib.error.HTTPError as error:
+        raise ValueError(tr('The site refused the download (HTTP {code}). {hint}', code=f'{error.code}',
+                            hint=copy_image_hint())) from error
     except OSError as error:
         raise ValueError(tr('Could not download the picture: {error}', error=f'{error}')) from error
     if len(data) > MAX_BYTES:
@@ -140,10 +146,46 @@ def picture_format(data):
     return FORMATS[kind]
 
 
+def copy_image_hint():
+    return tr('Open the picture itself, right-click it, choose Copy image address and paste that.')
+
+
+class _PageImage(html.parser.HTMLParser):
+    """The picture a web page offers for sharing (og:image or twitter:image)."""
+    def __init__(self):
+        super().__init__()
+        self.image = None
+
+    def handle_starttag(self, tag, attributes):
+        values = dict(attributes)
+        if tag == "meta" and not self.image and (values.get("property") or values.get("name") or "").lower() in (
+                "og:image", "og:image:secure_url", "twitter:image"):
+            self.image = (values.get("content") or "").strip() or None
+
+
+def page_image(data, page):
+    """The https address of a web page's main picture, or None."""
+    if not data.lstrip()[:200].lower().startswith((b"<!doctype html", b"<html", b"<head", b"<meta", b"<!--")):
+        return None
+    parser = _PageImage()
+    parser.feed(data.decode("utf-8", "replace"))
+    if not parser.image:
+        return None
+    address = urllib.parse.urljoin(page, html.unescape(parser.image))
+    return address if address.lower().startswith("https://") else None
+
+
 def read_source(source, opener=None):
     source = check_source(source)
     if source.lower().startswith("https://"):
-        return download(source, opener)
+        data = download(source, opener)
+        image = page_image(data, source)
+        if image:
+            # A page link: take the picture it offers, once, with the same checks.
+            return download(image, opener)
+        if data.lstrip()[:1] == b"<":
+            raise ValueError(tr('That address is a web page, not a picture. {hint}', hint=copy_image_hint()))
+        return data
     path = Path(source)
     if path.stat().st_size > MAX_BYTES:
         raise ValueError(tr('The picture is larger than 50 MB.'))
@@ -155,6 +197,9 @@ def store_picture(source, directory, stem, opener=None):
     data = read_source(source, opener)
     suffix = picture_format(data)
     directory = Path(directory)
+    existing = same_picture(data, directory)
+    if existing:
+        return existing
     directory.mkdir(parents=True, exist_ok=True)
     target, number = directory / (stem + suffix), 2
     while target.exists():
@@ -181,12 +226,30 @@ def source_stem(source):
 
 # Wallpapers
 
-def wallpapers():
-    directory = own("wallpapers")
+def pictures_in(directory):
+    directory = Path(directory)
     if not directory.is_dir():
         return []
     return sorted((path for path in directory.iterdir() if path.is_file() and path.suffix.lower() in SUFFIXES),
                   key=lambda path: (path.stem.casefold(), path.suffix))
+
+
+def wallpapers(beside=None):
+    """The user's own wallpapers; with beside (the current theme's backgrounds),
+    leaving out pictures that theme already shows: a theme made from one keeps a copy."""
+    mine = pictures_in(own("wallpapers"))
+    if beside is None:
+        return mine
+    shown = {(path.name, path.stat().st_size) for path in pictures_in(beside)}
+    return [path for path in mine if (path.name, path.stat().st_size) not in shown]
+
+
+def same_picture(data, directory):
+    """A picture already in directory with exactly these bytes, or None."""
+    for path in pictures_in(directory):
+        if path.stat().st_size == len(data) and path.read_bytes() == data:
+            return path
+    return None
 
 
 def add_wallpaper(source, opener=None):
@@ -228,7 +291,7 @@ def analyse(path):
     with Image.open(path) as source:
         image = source.convert("RGB")
     image.thumbnail((96, 96), Image.Resampling.BOX)
-    pixels = list(image.getdata())
+    pixels = list(image.get_flattened_data() if hasattr(image, "get_flattened_data") else image.getdata())
     brightness = sum(tools.luminance(_hex(*(value / 255 for value in pixel))) for pixel in pixels) / len(pixels)
     quantized = image.quantize(colors=8, method=Image.Quantize.MEDIANCUT)
     colors = quantized.getpalette()

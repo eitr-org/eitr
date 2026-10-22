@@ -30,8 +30,10 @@ press **Delete**, then Enter to confirm or Escape to keep it.
 
 - **Style > Wallpaper > Add My Own Wallpaper** takes a picture file or an https
   address. Downloads stop at 50 MB, and Eitr keeps a copy only after checking
-  that the file is a JPEG, PNG or WebP picture. The picture then appears in the
-  wallpaper list, the carousel and SUPER + Shift + N. Deleting the wallpaper in
+  that the file is a JPEG, PNG or WebP picture. A web page's address works when
+  the page offers a main picture; otherwise copy the image's own address. The
+  picture is applied right away and appears in the wallpaper list, the carousel
+  and SUPER + Shift + N. Deleting the wallpaper in
   use first switches to the theme's first wallpaper.
 - **Style > Theme > Create Theme** asks for a picture (the current wallpaper,
   one of yours, the theme's, or another file or https address), light or dark

@@ -13,6 +13,7 @@ for _eitr_parent in Path(__file__).resolve().parents:
         break
 from eitr_paths import code, config as user_config, own, theme_paths
 from eitr_i18n import tr
+import eitr_own_style
 import tomllib
 import hashlib
 from PIL import Image
@@ -98,7 +99,7 @@ else:
         return [int(part) if part.isdigit() else part.lower()
                 for part in re.split(r"(\d+)", path.name)]
     # The theme's wallpapers, then the user's own (eitr_own_style).
-    images = sorted(directory.rglob("*"), key=natural) + sorted(own("wallpapers").glob("*"), key=natural)
+    images = sorted(directory.rglob("*"), key=natural) + eitr_own_style.wallpapers(beside=directory)
     for image in images:
         if image.is_file() and image.suffix.lower() in {".png", ".jpg", ".jpeg", ".webp"}:
             entries.append({"name": image.name, "value": str(image),

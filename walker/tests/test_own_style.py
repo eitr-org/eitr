@@ -6,8 +6,10 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+import shutil
 import tempfile
 import unittest
+import urllib.error
 from unittest.mock import patch
 
 from PIL import Image
@@ -127,6 +129,27 @@ class PictureTests(SandboxTest):
             own_style.download("http://example.com/a.png", opener)
         self.assertEqual(len(own_style.wallpapers()), 1)
 
+    def test_page_links_use_the_page_picture_or_explain_what_to_copy(self):
+        data = encoded()
+        page = b'<!DOCTYPE html><html><head><meta property="og:image" content="/media/lake.png?size=full&amp;x=1"></head></html>'
+        responses = iter([page, data])
+        opener = FakeOpener(b"")
+        opener.open = lambda request, timeout: (opener.requests.append(request.full_url), FakeResponse(next(responses)))[1]
+        stored = own_style.add_wallpaper("https://example.com/posts/42", opener=opener)
+        self.assertEqual(opener.requests, ["https://example.com/posts/42", "https://example.com/media/lake.png?size=full&x=1"])
+        self.assertEqual(stored.read_bytes(), data)
+        with self.assertRaisesRegex(ValueError, "web page.*Copy image address"):
+            own_style.add_wallpaper("https://example.com/b", opener=FakeOpener(b"<html><body>no picture</body></html>"))
+        plain = b'<html><head><meta property="og:image" content="http://example.com/a.png"></head></html>'
+        with self.assertRaisesRegex(ValueError, "web page"):
+            own_style.add_wallpaper("https://example.com/c", opener=FakeOpener(plain))
+
+        class Refusing:
+            def open(self, request, timeout):
+                raise urllib.error.HTTPError(request.full_url, 403, "Forbidden", {}, None)
+        with self.assertRaisesRegex(ValueError, "HTTP 403.*Copy image address"):
+            own_style.add_wallpaper("https://example.com/d", opener=Refusing())
+
     def test_redirects_away_from_https_are_refused(self):
         handler = own_style._HttpsOnly()
         with self.assertRaises(ValueError):
@@ -141,8 +164,12 @@ class PictureTests(SandboxTest):
 
     def test_wallpapers_get_unique_names_and_only_own_ones_count(self):
         source = picture(self.pictures / "lake.png")
-        first, second = own_style.add_wallpaper(str(source)), own_style.add_wallpaper(str(source))
-        self.assertEqual((first.name, second.name), ("lake.png", "lake-2.png"))
+        first, again = own_style.add_wallpaper(str(source)), own_style.add_wallpaper(str(source))
+        self.assertEqual(again, first, "the same picture is not stored twice")
+        (self.pictures / "other").mkdir()
+        other = own_style.add_wallpaper(str(picture(self.pictures / "other" / "lake.png", color=(10, 200, 90))))
+        self.assertEqual((first.name, other.name), ("lake.png", "lake-2.png"))
+        self.assertEqual(own_style.wallpapers(), [first, other])
         self.assertEqual(own_style.own_wallpaper(first), first)
         with self.assertRaises(ValueError):
             own_style.own_wallpaper(source)
@@ -205,6 +232,11 @@ class CommandTests(SandboxTest):
         self.backgrounds = eitr_paths.config("theme/current/backgrounds")
         self.backgrounds.mkdir(parents=True)
         picture(self.backgrounds / "01-first.png")
+
+    def test_an_added_wallpaper_is_applied_right_away(self):
+        with patch.object(self.cli.subprocess, "run") as run, patch.object(self.cli, "notify"):
+            self.assertEqual(self.cli.add_wallpaper(str(picture(self.pictures / "lake.png"))), 0)
+        self.assertEqual(run.call_args.args[0][-2:], ["apply", str(own_style.wallpapers()[0])])
 
     def test_deleting_the_current_wallpaper_falls_back_to_the_theme_first(self):
         path = own_style.add_wallpaper(str(picture(self.pictures / "lake.png")))
@@ -277,6 +309,12 @@ class MenuTests(SandboxTest):
         own_row = next(row for row in rows if row.startswith("lake.png|"))
         self.assertIn("|Yours|", own_row)
         self.assertIn(f"wallpaper delete '{mine}'", own_row)
+        # A theme made from that picture keeps a copy: while it is current, the picture is listed once.
+        shutil.copy(mine, backgrounds / mine.name)
+        rows = self.lua('dofile("elephant/menus/wallpaper.lua") for _, entry in ipairs(GetEntries()) do print(entry.Text) end')
+        self.assertEqual(rows.count("lake.png"), 1)
+        self.assertEqual(own_style.wallpapers(beside=backgrounds), [])
+        self.assertEqual(own_style.wallpapers(), [mine])
 
     def test_lockscreen_menu_offers_creation_and_deleting_own_designs(self):
         own_style.create_lockscreen("Rune Lock", "theme-wallpaper", str(picture(self.pictures / "lake.png")))

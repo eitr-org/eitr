@@ -48,6 +48,20 @@ class ReminderTimeTests(unittest.TestCase):
             with unittest.mock.patch.object(reminders, "ask", return_value=answer):
                 self.assertIsNone(reminders.with_time("friday"))
 
+    def test_everyday_phrasing(self):
+        now = datetime(2026, 10, 22, 17, 14)
+        stamp = lambda phrase: datetime.fromtimestamp(reminders.parse_when(phrase, now)[0]).strftime('%d %H:%M')
+        for phrase, expected in [('in one minute', '22 17:15'), ('in 1 minute', '22 17:15'), ('in half an hour', '22 17:44'),
+                                 ('1 hour and 30 minutes', '22 18:44'), ('9am', '23 09:00'), ('9:30 PM', '22 21:30'),
+                                 ('12am', '23 00:00'), ('tomorrow at 3pm', '23 15:00'), ('friday at noon', '23 12:00'),
+                                 ('Oct 30 3pm', '30 15:00'), ('every 29th at 09:00 am', '29 09:00')]:
+            self.assertEqual(stamp(phrase), expected, phrase)
+        self.assertEqual(reminders.parse_when('every 29th', now)[1], {'frequency': 'monthly', 'day_of_month': 29})
+        self.assertFalse(reminders.has_time('every 29th'))
+        self.assertIsNone(reminders.parse_when('13pm', now)[0])
+        with unittest.mock.patch.object(reminders, "ask", return_value="9 am"):
+            self.assertEqual(reminders.with_time("every 29th"), "every 29th 09:00")
+
     def test_delays(self):
         self.assertEqual(self.due("10m"), datetime(2026, 10, 16, 14, 10))
         self.assertEqual(self.due("1h30m"), datetime(2026, 10, 16, 15, 30))

@@ -58,10 +58,37 @@ def save(reminders):
     temporary.replace(path)
 
 
+NUMBER_WORDS = {"a": 1, "an": 1, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7,
+                "eight": 8, "nine": 9, "ten": 10, "fifteen": 15, "twenty": 20, "thirty": 30, "forty-five": 45}
+
+
+def normalize(text):
+    """Everyday English phrasing in the parser's own terms: "in 5 minutes" -> "5m",
+    "9:30 pm" -> "21:30", "every 29th at 9am" -> "every month on the 29th 09:00"."""
+    text = " ".join(text.strip().lower().rstrip(".!").split())
+    text = re.sub(r"\bhalf an hour\b", "30m", text)
+    text = re.sub(r"\b(" + "|".join(NUMBER_WORDS) + r")\b(?= (?:hours?|hrs?|minutes?|mins?|seconds?|secs?)\b)",
+                  lambda match: str(NUMBER_WORDS[match.group(1)]), text)
+    for pattern, unit in ((r"hours?|hrs?", "h"), (r"minutes?|mins?", "m"), (r"seconds?|secs?", "s")):
+        text = re.sub(rf"\b(\d+) ?(?:{pattern})\b", rf"\1{unit}", text)
+    text = re.sub(r"(\d[hms]) and (\d)", r"\1 \2", text)
+
+    def clock(match):
+        hour, minute = int(match.group(1)), int(match.group(2) or 0)
+        if not 1 <= hour <= 12 or minute > 59:
+            return match.group(0)
+        return f"{hour % 12 + (12 if match.group(3).startswith('p') else 0):02d}:{minute:02d}"
+    text = re.sub(r"(?<![\d:])(\d{1,2})(?::(\d{2}))? ?([ap])\.?m\b\.?", clock, text)
+    text = re.sub(r"\bnoon\b", "12:00", re.sub(r"\bmidnight\b", "00:00", text))
+    text = re.sub(r"^(?:in|at) ", "", text).replace(" at ", " ")
+    text = re.sub(r"^every (\d{1,2}(?:st|nd|rd|th))(?= |$)", r"every month on the \1", text)
+    return text
+
+
 def when(text, now=None):
     """The due time (epoch seconds) for a delay or a time of day; None if unreadable."""
     now = now or datetime.now()
-    text = text.strip().lower()
+    text = normalize(text)
     if text.isdigit():
         return int((now + timedelta(minutes=int(text))).timestamp())
     clock = CLOCK.match(text)
@@ -204,6 +231,7 @@ def repeat_label(reminder):
 
 def parse_when(text, now=None):
     now = now or datetime.now()
+    text = normalize(text)
     match = re.fullmatch(r'(every day|weekdays|every week|every month on the (\d{1,2})(?:st|nd|rd|th)?|every year|every (.+?))(?: (\d{1,2}:\d{2}))?', text.strip().lower())
     if not match:
         return when(text, now), None
@@ -337,7 +365,7 @@ def notify(title, body, urgency="normal"):
 def has_time(phrase):
     """True when the phrase says when in the day (18:30) or is relative (10m, 90);
     a date alone ("every month on the 29th", "friday") needs a time first."""
-    text = phrase.strip().lower()
+    text = normalize(phrase)
     return bool(CLOCK.search(text.split()[-1]) if text.split() else False) or text.isdigit() or bool(
         DELAY.match(text) and any(DELAY.match(text).groups()))
 
@@ -351,8 +379,8 @@ def with_time(phrase):
         needs_time = False
     if not needs_time:
         return phrase
-    clock = ask(tr('At what time? (for example 09:00)'))
-    return f"{phrase} {clock.strip()}" if clock and CLOCK.fullmatch(clock.strip()) else None
+    clock = normalize(ask(tr('At what time? (for example 09:00)')) or '')
+    return f"{phrase} {clock}" if CLOCK.fullmatch(clock) else None
 
 
 def ask(placeholder, choices=None):

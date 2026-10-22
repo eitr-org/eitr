@@ -135,7 +135,7 @@ LOCAL_PROTOCOL = """Return ONLY one JSON object, one of:
 {"action": "none", "message": "<short reason, in the user's language>"}
 Time phrases (24-hour clock): "today 13:00", "tomorrow 09:30", "friday 15:00" (the coming one),
 "next friday 15:00" (Friday of next week),
-"2026-10-30 09:00", "30m" or "2h" (from now), "every day 08:00", "every monday 09:00",
+"2026-10-30 09:00", "1m", "30m" or "2h" (from now: keep "in 5 minutes" as "5m", never work out a clock time), "every day 08:00", "every monday 09:00",
 "weekdays 07:00", "every month on the 15th 10:00". If the user gives no time of day,
 leave it out (for example "every month on the 29th") and never invent 00:00:
 Eitr asks for it. appointment is true for meetings,
@@ -144,6 +144,7 @@ Examples:
 "remind me to call mom tomorrow at 3 pm" -> {"action": "create", "title": "Call mom", "when": "tomorrow 15:00", "appointment": false}
 "dentist on friday at half past ten" -> {"action": "create", "title": "Dentist", "when": "friday 10:30", "appointment": true}
 "team call every monday at 9" -> {"action": "create", "title": "Team call", "when": "every monday 09:00", "appointment": true}
+"remind me in one minute to stretch" -> {"action": "create", "title": "Stretch", "when": "1m", "appointment": false}
 "what reminders do I have" -> {"action": "list"}"""
 
 

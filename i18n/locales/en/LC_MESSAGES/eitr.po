@@ -1924,6 +1924,9 @@ msgstr "Open image"
 msgid "Open it from Tools > Plugins."
 msgstr "Open it from Tools > Plugins."
 
+msgid "Open the picture itself, right-click it, choose Copy image address and paste that."
+msgstr "Open the picture itself, right-click it, choose Copy image address and paste that."
+
 msgid "Open the web console"
 msgstr "Open the web console"
 
@@ -2827,6 +2830,9 @@ msgstr "Text would be hard to read: foreground and background need more contrast
 msgid "That OBS scene no longer exists"
 msgstr "That OBS scene no longer exists"
 
+msgid "That address is a web page, not a picture. {hint}"
+msgstr "That address is a web page, not a picture. {hint}"
+
 msgid "That dashboard is no longer saved."
 msgstr "That dashboard is no longer saved."
 
@@ -2997,6 +3003,9 @@ msgstr "The root-owned Eitr helper is not installed; update the eitr-desktop pac
 
 msgid "The setup script {value} did not finish when it last ran; it is not run again. Change the script to allow another attempt."
 msgstr "The setup script {value} did not finish when it last ran; it is not run again. Change the script to allow another attempt."
+
+msgid "The site refused the download (HTTP {code}). {hint}"
+msgstr "The site refused the download (HTTP {code}). {hint}"
 
 msgid "The speech model could not transcribe this recording."
 msgstr "The speech model could not transcribe this recording."

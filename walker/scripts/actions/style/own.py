@@ -3,6 +3,7 @@
 
   own.py wallpaper add [SOURCE]     copy a picture (file or https address) into your wallpapers
   own.py wallpaper delete PATH      confirm, then delete one of your wallpapers
+  own.py wallpaper list             your wallpapers not already shown by the current theme
   own.py theme create               wizard: picture, light or dark, name; creates and applies it
   own.py theme colors ID            change a theme's colors, each change applied at once
   own.py theme delete ID            confirm, then delete one of your themes
@@ -117,7 +118,15 @@ def add_wallpaper(source=None):
         source = answers['source']
         print(tr('Adding the picture…'), flush=True)
     path = own.add_wallpaper(source)
+    subprocess.run([sys.executable, str(code("walker/scripts/actions/wallpaper/transition.py")), "apply", str(path)],
+                   check=False)
     notify(tr('Wallpaper added'), tr('{name} is in Style > Wallpaper and the wallpaper carousel.', name=path.name))
+    return 0
+
+
+def list_wallpapers():
+    for path in own.wallpapers(beside=user_config("theme/current/backgrounds")):
+        print(path)
     return 0
 
 
@@ -289,7 +298,7 @@ def delete_lockscreen(value, ask_first=confirm):
 
 
 COMMANDS = {
-    ("wallpaper", "add"): add_wallpaper, ("wallpaper", "delete"): delete_wallpaper,
+    ("wallpaper", "add"): add_wallpaper, ("wallpaper", "delete"): delete_wallpaper, ("wallpaper", "list"): list_wallpapers,
     ("theme", "create"): create_theme, ("theme", "colors"): edit_colors, ("theme", "delete"): delete_theme,
     ("lockscreen", "create"): create_lockscreen, ("lockscreen", "delete"): delete_lockscreen,
 }

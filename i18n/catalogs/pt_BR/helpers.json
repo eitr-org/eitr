@@ -1282,5 +1282,8 @@
   "New partitions are added in the free space of {path}.\nExisting partitions are kept, but back up important files first.\n": "Novas partições são criadas no espaço livre de {path}.\nAs partições existentes são mantidas, mas faça antes um backup dos arquivos importantes.\n",
   "ALL partitions and files on {path} will be destroyed.\n": "TODAS as partições e arquivos de {path} serão destruídos.\n",
   "Continue": "Continuar",
-  "The setup script {value} did not finish when it last ran; it is not run again. Change the script to allow another attempt.": "O script de configuração {value} não terminou na última execução; ele não é executado de novo. Altere o script para permitir outra tentativa."
+  "The setup script {value} did not finish when it last ran; it is not run again. Change the script to allow another attempt.": "O script de configuração {value} não terminou na última execução; ele não é executado de novo. Altere o script para permitir outra tentativa.",
+  "The site refused the download (HTTP {code}). {hint}": "O site recusou o download (HTTP {code}). {hint}",
+  "Open the picture itself, right-click it, choose Copy image address and paste that.": "Abra a própria imagem, clique com o botão direito, escolha Copiar endereço da imagem e cole aqui.",
+  "That address is a web page, not a picture. {hint}": "Esse endereço é uma página da web, não uma imagem. {hint}"
 }
