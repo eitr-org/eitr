@@ -4,7 +4,7 @@ Vor der Installation offizieller Pakete zeigt dir das Terminal an, dass es nach 
 
 **SUPER + Space** und Hauptmenü > Apps öffnen dieselbe Anwendungsliste. Enter startet eine App. Delete bietet in Apps eine bestätigte Deinstallation an. Die globale Suche über **SUPER + F** startet Apps, bietet aber keine Deinstallation. Es gibt kein separates Menü mit angehefteten Apps.
 
-Eingaben im Hauptmenü suchen installierte Apps und Aktionen aus allen Untermenüs. In einem Untermenü wie System oder Installieren umfasst die Suche dieses und alle darunterliegenden Menüs. Untermenüzeilen enden mit **>**; **Shift + Backspace** führt zum übergeordneten Menü.
+Eingaben im Hauptmenü suchen installierte Apps und Aktionen aus allen Untermenüs. In einem Untermenü wie System oder Installieren umfasst die Suche dieses und alle darunterliegenden Menüs. Tastaturlayouts und alles unterhalb eines Cloud-Kontos (Dienste, Ressourcen, Logs) werden nur in ihrem eigenen Menü durchsucht; die Cloud-Kontolisten bleiben in der Suche. Untermenüzeilen enden mit **>**; **Shift + Backspace** führt zum übergeordneten Menü.
 
 ## Installieren
 

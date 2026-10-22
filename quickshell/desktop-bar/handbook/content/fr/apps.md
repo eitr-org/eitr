@@ -4,7 +4,7 @@ Avant l’installation des paquets officiels, le terminal indique qu’il recher
 
 **SUPER + Space** et Principal > Applications ouvrent la même liste. Enter lance une application. Delete permet de la désinstaller dans Applications après confirmation. La recherche globale par **SUPER + F** lance les applications sans proposer leur désinstallation. Il n’existe pas de menu distinct fondé sur des applications épinglées.
 
-Saisir dans le menu principal recherche les applications installées et les actions de tous les sous-menus. Dans un sous-menu comme Système ou Installer, la recherche couvre celui-ci et ses descendants. Les lignes de sous-menu se terminent par **>** ; **Shift + Backspace** revient au parent.
+Saisir dans le menu principal recherche les applications installées et les actions de tous les sous-menus. Dans un sous-menu comme Système ou Installer, la recherche couvre celui-ci et ses descendants. Les dispositions de clavier et ce qui se trouve sous un compte cloud (services, ressources, journaux) ne sont recherchés que dans leur propre menu ; les listes de comptes cloud restent dans la recherche. Les lignes de sous-menu se terminent par **>** ; **Shift + Backspace** revient au parent.
 
 ## Installer
 

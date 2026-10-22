@@ -4,7 +4,7 @@ Antes de instalar pacotes oficiais, o terminal informa que está verificando atu
 
 **SUPER + Space** e Principal > Aplicativos abrem a mesma lista. Enter inicia o aplicativo. Delete fica disponível em Aplicativos e pede confirmação para desinstalar. A busca global de **SUPER + F** abre aplicativos, mas não oferece desinstalação. Não há um menu separado baseado em aplicativos fixados.
 
-Digitar no menu principal busca aplicativos instalados e ações de todos os submenus. Dentro de um submenu, como Sistema ou Instalar, a busca abrange esse submenu e seus descendentes. As linhas de submenu terminam em **>**; **Shift + Backspace** volta ao menu anterior.
+Digitar no menu principal busca aplicativos instalados e ações de todos os submenus. Dentro de um submenu, como Sistema ou Instalar, a busca abrange esse submenu e seus descendentes. Layouts de teclado e o que fica abaixo de uma conta de nuvem (serviços, recursos, logs) só são buscados dentro do próprio menu; as listas de contas de nuvem continuam na busca. As linhas de submenu terminam em **>**; **Shift + Backspace** volta ao menu anterior.
 
 ## Instalar
 

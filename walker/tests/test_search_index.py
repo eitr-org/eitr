@@ -27,15 +27,32 @@ class SearchIndexTests(unittest.TestCase):
             self.assertEqual(search.providers(root), ['menus:apps', 'menus:main'])
         self.assertEqual(search.snapshot(self.output(dict(self.item, provider='menus:clipboard'))), [])
 
-    def test_background_index_never_queries_cloud_resource_pickers(self):
-        menus = json.loads(search.CLOUD_MENUS.read_text())
+    def test_search_keeps_cloud_accounts_but_not_what_lies_below_them(self):
+        # Below an account (services, resources, logs) is searched only inside the
+        # opened menu; the background index never queries resource pickers either.
         indexed = set(search.providers())
-        for name, definition in menus.items():
+        for name in json.loads(search.CLOUD_MENUS.read_text()):
             with self.subTest(menu=name):
-                if definition.get('selector'):
-                    self.assertNotIn('menus:' + name, indexed)
-                else:
-                    self.assertIn('menus:' + name, indexed)
+                self.assertNotIn('menus:' + name, indexed)
+        for name in ('gcp-projects', 'gcp-logs-minutes', 'azure-logs-minutes'):
+            self.assertNotIn('menus:' + name, indexed)
+        for name in ('aws-profiles', 'gcp-contexts', 'azure-contexts', 'cloud'):
+            self.assertIn('menus:' + name, indexed)
+
+    def test_keyboard_layouts_stay_out_of_search(self):
+        indexed = set(search.providers())
+        self.assertNotIn('menus:keyboard', indexed)
+        self.assertNotIn('menus:keyboard-add', indexed)
+
+    def test_menus_below_an_account_are_found_through_their_parents(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'main.toml').touch()
+            (root / 'aws-profiles.lua').write_text('Parent = "cloud"\n')
+            (root / 'aws-account.lua').write_text('Parent = "aws-profiles"\n')
+            (root / 'aws-deep-logs.lua').write_text('Parent = "aws-ecs"\n')
+            (root / 'aws-ecs.lua').write_text('Parent = "aws-account"\n')
+            self.assertEqual(search.providers(root), ['menus:aws-profiles', 'menus:main'])
 
     def test_snapshot_deduplicates_and_keeps_actions_without_shell_code(self):
         rows = search.snapshot(self.output(self.item, self.item),

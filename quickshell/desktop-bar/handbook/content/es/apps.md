@@ -4,7 +4,7 @@ Antes de instalar paquetes oficiales, el terminal indica que está buscando actu
 
 **SUPER + Space** y Principal > Aplicaciones abren la misma lista. Enter inicia una aplicación. Delete está disponible en Aplicaciones y pide confirmar la desinstalación. La búsqueda global con **SUPER + F** abre aplicaciones sin ofrecer desinstalarlas. No hay un menú separado de aplicaciones fijadas.
 
-Escribir en el menú principal busca aplicaciones instaladas y acciones de todos los submenús. Dentro de un submenú, como Sistema o Instalar, busca en él y todos sus descendientes. Las filas de submenú terminan en **>**; **Shift + Backspace** vuelve al menú superior.
+Escribir en el menú principal busca aplicaciones instaladas y acciones de todos los submenús. Dentro de un submenú, como Sistema o Instalar, busca en él y todos sus descendientes. Las distribuciones de teclado y lo que hay bajo una cuenta en la nube (servicios, recursos, registros) solo se buscan dentro de su propio menú; las listas de cuentas en la nube siguen en la búsqueda. Las filas de submenú terminan en **>**; **Shift + Backspace** vuelve al menú superior.
 
 ## Instalar
 

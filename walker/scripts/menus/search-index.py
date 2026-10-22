@@ -44,12 +44,40 @@ def effective_files(directory=None):
     return sorted(files.values())
 
 
+# Keyboard layouts are a long list that crowds every search; the Keyboard row that
+# opens them stays findable.
+UNSEARCHED = {'keyboard', 'keyboard-add'}
+PARENT = re.compile(r'^\s*Parent\s*=\s*"([^"]+)"', re.M)
+
+
+def below_cloud_accounts(files):
+    """Menus under a cloud account: its services, resources and logs. Global search
+    keeps the account lists (aws-profiles, *-contexts); what lies below them is
+    searched only inside the opened menu."""
+    cloud = set(json.loads(CLOUD_MENUS.read_text()))
+    parents = {}
+    for path in files:
+        if path.suffix == '.lua':
+            match = PARENT.search(path.read_text(errors='replace'))
+            if match:
+                parents[path.stem] = match.group(1)
+    below = set()
+    for name in parents:
+        current, seen = name, set()
+        while current and current not in seen:
+            if current in cloud:
+                below.add(name)
+                break
+            seen.add(current)
+            current = parents.get(current)
+    return below | cloud
+
+
 def providers(directory=None):
-    # Resource pickers perform network requests; index only their parent actions.
-    resource_menus = {name for name, spec in json.loads(CLOUD_MENUS.read_text()).items()
-                      if spec.get('selector')}
-    return ['menus:' + path.stem for path in effective_files(directory)
-            if path.suffix in {'.toml', '.lua'} and path.stem not in EXCLUDED | resource_menus]
+    files = effective_files(directory)
+    excluded = EXCLUDED | UNSEARCHED | below_cloud_accounts(files)
+    return ['menus:' + path.stem for path in files
+            if path.suffix in {'.toml', '.lua'} and path.stem not in excluded]
 
 
 def row_files(directory=None):
