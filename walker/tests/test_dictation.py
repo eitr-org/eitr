@@ -4,6 +4,7 @@ import shutil
 import stat
 import subprocess
 import tempfile
+import time
 import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -22,7 +23,7 @@ class DictationTests(unittest.TestCase):
         # Only the stand-ins below and basic tools: a real whisper-cli or wtype must not be found.
         tools = self.base / "tools"
         tools.mkdir()
-        for name in ("bash", "cat", "cut", "mkdir", "mv", "rm", "sed", "sha256sum", "sleep", "tr"):
+        for name in ("flock", "timeout", "bash", "cat", "cut", "mkdir", "mv", "rm", "sed", "sha256sum", "sleep", "tr"):
             (tools / name).symlink_to(shutil.which(name))
         self.env = {"PATH": f"{self.bin}:{tools}", "HOME": str(self.base / "home"),
                     "XDG_DATA_HOME": str(self.base / "data"), "XDG_RUNTIME_DIR": str(self.base / "runtime"),
@@ -69,7 +70,63 @@ class DictationTests(unittest.TestCase):
         lines = self.logged().splitlines()
         self.assertLess(lines.index("typed -- Hello there."), lines.index("bar desktop-bar ipc call dictation stop"),
                         "the indicator stays until the words are typed")
-        self.assertFalse(any((self.base / "runtime").iterdir()), "the recording is deleted")
+        self.assertFalse(any(path.suffix != ".lock" for path in (self.base / "runtime").iterdir()), "the recording is deleted")
+
+    def ready_model(self):
+        model = self.base / "data/eitr/whisper/ggml-base.bin"
+        model.parent.mkdir(parents=True)
+        model.write_text("model")
+
+    def wait_for_log(self, message):
+        deadline = time.monotonic() + 5
+        while time.monotonic() < deadline:
+            if message in self.logged():
+                return
+            time.sleep(0.01)
+        self.fail(f"Timed out waiting for {message}: {self.logged()}")
+
+    def test_release_waits_for_start_indicator(self):
+        self.ready_model()
+        self.fake("eitr-shell", 'if [[ "${@: -1}" == start ]]; then echo starting >> "$LOG"; sleep 0.3; fi; echo "bar $*" >> "$LOG"')
+        self.assertEqual(self.run_script("start").returncode, 0)
+        self.wait_for_log("starting")
+        self.assertEqual(self.run_script("stop").returncode, 0)
+        states = [line.rsplit(" ", 1)[-1] for line in self.logged().splitlines() if line.startswith("bar ")]
+        self.assertEqual(states, ["start", "transcribe", "stop"])
+        self.assertIn("typed -- Hello there.", self.logged())
+
+    def test_release_waits_for_pid_publication(self):
+        self.ready_model()
+        self.fake("flock", '/usr/bin/flock "$@"; if [[ "$*" == 9 ]] && mkdir "$XDG_RUNTIME_DIR/gate" 2>/dev/null; then echo locked >> "$LOG"; sleep 0.3; fi')
+        start = subprocess.Popen(["bash", str(SCRIPT), "start"], env=self.env,
+                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        self.addCleanup(start.wait)
+        self.wait_for_log("locked")
+        self.assertFalse((self.base / "runtime/eitr-dictation.pid").exists())
+        self.assertEqual(self.run_script("stop").returncode, 0)
+        self.assertEqual(start.wait(timeout=5), 0)
+        start.communicate()
+        states = [line.rsplit(" ", 1)[-1] for line in self.logged().splitlines() if line.startswith("bar ")]
+        self.assertEqual(states, ["start", "transcribe", "stop"])
+        self.assertFalse((self.base / "runtime/eitr-dictation.pid").exists())
+
+    def test_recording_limit_transcribes_and_ends_indicator(self):
+        self.ready_model()
+        # Exercise the real timeout with a short clock, checking the production limit.
+        self.fake("timeout", 'echo "timeout $*" >> "$LOG"; shift 3; exec /usr/bin/timeout --signal=INT --kill-after=0.1 0.1 "$@"')
+        self.assertEqual(self.run_script("start").returncode, 0)
+        self.wait_for_log("bar desktop-bar ipc call dictation stop")
+        self.assertIn("timeout --signal=INT --kill-after=2 120 pw-record", self.logged())
+        self.assertIn("typed -- Hello there.", self.logged())
+        self.assertFalse((self.base / "runtime/eitr-dictation.pid").exists())
+        self.assertFalse((self.base / "runtime/eitr-dictation.wav").exists())
+
+    def test_recorder_exit_ends_indicator_without_release(self):
+        self.ready_model()
+        self.fake("pw-record", 'echo audio > "${@: -1}"; sleep 0.1; exit 1')
+        self.assertEqual(self.run_script("start").returncode, 0)
+        self.wait_for_log("bar desktop-bar ipc call dictation stop")
+        self.assertFalse((self.base / "runtime/eitr-dictation.pid").exists())
 
     def test_nothing_heard_still_ends_the_indicator(self):
         model = self.base / "data/eitr/whisper/ggml-base.bin"
@@ -111,7 +168,7 @@ class DictationTests(unittest.TestCase):
         self.assertIn("voice-command.py stdin", self.logged())
         self.assertIn("Hello there.", self.logged())
         self.assertNotIn("typed --", self.logged())
-        self.assertFalse(any((self.base / "runtime").iterdir()))
+        self.assertFalse(any(path.suffix != ".lock" for path in (self.base / "runtime").iterdir()))
 
     def test_transcription_failure_cleans_audio_and_indicator(self):
         model = self.base / "data/eitr/whisper/ggml-base.bin"
@@ -121,7 +178,7 @@ class DictationTests(unittest.TestCase):
         self.run_script("start")
         self.assertEqual(self.run_script("stop").returncode, 1)
         self.assertIn("dictation stop", self.logged())
-        self.assertFalse(any((self.base / "runtime").iterdir()))
+        self.assertFalse(any(path.suffix != ".lock" for path in (self.base / "runtime").iterdir()))
 
     def test_the_bar_shows_the_recording_dot_while_listening(self):
         shell = (ROOT / "quickshell/desktop-bar/shell.qml").read_text()
@@ -142,7 +199,10 @@ class DictationTests(unittest.TestCase):
         source = SCRIPT.read_text()
         self.assertIn('model_sha256="60ed5bc3dd14eea856493d334349b405782ddcaf0028d4b5df4088345fba2efe"', source)
         hypr = (ROOT / "hypr/hyprland.lua").read_text()
-        self.assertIn('dictate.sh") .. " stop"), { release = true })', hypr)
+        self.assertIn('hl.bind("D",', hypr)
+        self.assertIn('{ release = true, ignore_mods = true, non_consuming = true }', hypr)
+        self.assertIn('" stop voice"', hypr)
+        self.assertNotIn('" stop"), { release = true })', hypr)
         packages = (ROOT / "distro/packages.txt").read_text().split()
         self.assertTrue({"whisper-cpp", "wtype"} <= set(packages), "dictation is part of every installation")
         self.assertIn("SUPER + D (hold)", (ROOT / "walker/scripts/menus/shortcuts.sh").read_text())

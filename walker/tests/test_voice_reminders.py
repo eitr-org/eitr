@@ -140,9 +140,12 @@ class VoiceProtocolTests(unittest.TestCase):
     def test_shortcut_press_release_and_learn(self):
         source = (ROOT/'hypr/hyprland.lua').read_text()
         bindings = [line for line in source.splitlines() if 'voice-command.py' in line]
-        self.assertEqual(len(bindings), 2)
-        self.assertTrue(all('SHIFT + D' in line for line in bindings))
-        self.assertIn('release = true', bindings[1])
+        self.assertEqual(len(bindings), 1)
+        self.assertIn('SHIFT + D', bindings[0])
+        self.assertIn('" start"', bindings[0])
+        release = next(line for line in source.splitlines() if 'hl.bind("D",' in line)
+        self.assertIn('" stop voice"', release)
+        self.assertIn('release = true, ignore_mods = true, non_consuming = true', release)
         self.assertIn('SUPER + Shift + D (hold)', (ROOT/'walker/scripts/menus/shortcuts.sh').read_text())
 
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Offline dictation: hold SUPER + D and speak, release to type the words where
-# the cursor is. Speech stays on this computer (whisper.cpp). The speech model
-# downloads once on first use and is checked against its published checksum.
+# the cursor is. Recording also ends after 120 seconds. Speech stays on this
+# computer (whisper.cpp). The speech model downloads once on first use and is
+# checked against its published checksum.
 #
 #   dictate.sh start|stop     (the key binding runs these on press and release)
 set -euo pipefail
@@ -56,18 +57,35 @@ ensure_ready() {
 
 start() {
   ensure_ready || exit 0
-  [[ -f "$pidfile" ]] && kill "$(cat "$pidfile")" 2>/dev/null || true
-  pw-record --rate 16000 --channels 1 --format s16 "$audio" >/dev/null 2>&1 &
-  echo $! > "$pidfile"
-  bar_dot start
+  if [[ -f "$pidfile" ]] && kill -0 "$(cat "$pidfile")" 2>/dev/null; then
+    return 0
+  fi
+  # The supervisor inherits the lock until the pid and indicator are published.
+  # Neither the recorder nor later transcription may keep that lock open.
+  (
+    timeout --signal=INT --kill-after=2 120 \
+      pw-record --rate 16000 --channels 1 --format s16 "$audio" 9>&- &
+    recorder=$!
+    echo "$recorder" > "$pidfile"
+    bar_dot start
+    flock -u 9
+    exec 9>&-
+    wait "$recorder" || true
+    # An old supervisor must never stop a newer recording.
+    bash "${BASH_SOURCE[0]}" finish "$mode" "$recorder"
+  ) >/dev/null 2>&1 &
 }
 
 stop() {
   [[ -f "$pidfile" ]] || exit 0
+  if [[ "${1:-}" != "" && "$(cat "$pidfile")" != "$1" ]]; then
+    return 0
+  fi
+  # Install cleanup before IPC or recorder shutdown can fail.
+  trap 'bar_dot stop; rm -f "$audio" "$pidfile"' EXIT
   bar_dot transcribe
   # Whatever happens next (nothing heard, an error, typing), the indicator ends.
-  trap 'bar_dot stop; rm -f "$audio"' EXIT
-  kill -INT "$(cat "$pidfile")" 2>/dev/null || true
+  kill -TERM "$(cat "$pidfile")" 2>/dev/null || true
   rm -f "$pidfile"
   sleep 0.2
   [[ -s "$audio" ]] || exit 0
@@ -95,8 +113,13 @@ stop() {
   fi
 }
 
+# Keep the lock inode: unlinking it would let concurrent callers lock different files.
+exec 9>"$runtime/eitr-$mode.lock"
+flock 9
+
 case "${1:-}" in
   start) start ;;
   stop) stop ;;
+  finish) stop "${3:?missing recorder pid}" ;;
   *) echo "Usage: dictate.sh start|stop" >&2; exit 2 ;;
 esac

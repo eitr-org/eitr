@@ -64,7 +64,7 @@ you can see it hears you; after release it pulses until the words are typed.
 The first use downloads the
 speech model once (148 MB, checked against its published checksum) to
 `~/.local/share/eitr/whisper/`; after that it works offline. Transcribing takes a
-moment after release, longer on older processors.
+moment after release, longer on older processors. Recording stops when D is released, even if SUPER was released first, or after 120 seconds; the words are then transcribed as usual.
 
 **Main > Tools > Reminders > New Reminder** asks when (a delay such as `10m` or `1h30m`, or a
 time of day such as `18:30`) and what about, then shows a notification at that
