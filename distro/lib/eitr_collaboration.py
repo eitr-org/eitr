@@ -9,6 +9,7 @@ import subprocess
 import tempfile
 
 from eitr_assistants import executable
+import eitr_local_assistant
 from eitr_i18n import tr
 from eitr_paths import code, state
 
@@ -99,7 +100,11 @@ def command(identifier, binary, question):
     raise ValueError('Unsupported assistant')
 
 
-def ask(identifier, question, *, announce=True):
+def ask(identifier, question, *, announce=True, response_format=None):
+    """The answer text. RESPONSE_FORMAT 'json' constrains the local model; cloud CLIs get the prompt alone."""
+    if identifier == eitr_local_assistant.IDENTIFIER:
+        # Nothing leaves this PC, so there is no hand-off to announce.
+        return eitr_local_assistant.ask(question, response_format=response_format)
     binary = connected().get(identifier) if not os.environ.get(DEPTH) else None
     if not binary:
         raise ValueError(tr('This assistant is unavailable.'))

@@ -167,7 +167,7 @@ def process(transcript):
         raise ValueError(tr('Choose a default assistant in Development first.'))
     history = []
     for turn in range(5):
-        payload = validate(extract(assistant_ask(identifier, prompt(transcript, reminders.load(), history), announce=False)), reminders.load())
+        payload = validate(extract(assistant_ask(identifier, prompt(transcript, reminders.load(), history), announce=False, response_format='json')), reminders.load())
         if payload['action'] != 'ask':
             return execute(payload)
         selected = choose(payload)

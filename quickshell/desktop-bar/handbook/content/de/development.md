@@ -30,6 +30,14 @@ Beim Themewechsel aktualisiert Eitr nur die Hell-/Dunkel-Einstellung in vorhande
 
 Installierte SDK-Versionen und Installationsquellen stehen in den Distributionsmanifesten. Maßgeblich ist die aktuelle Auswahl; ein Handbuchbeispiel verspricht nicht die neueste Upstream-Version. Die Installation kann Downloads benötigen.
 
+### Lokaler Assistent (offline, experimentell)
+
+Entwicklung > Standardassistent bietet immer **Lokal (offline, experimentell)** an; dafür brauchst du weder Konto noch Abonnement. Beim ersten Mal erklärt ein Terminal die einmaligen Downloads, bevor sich etwas ändert: das Arch-Paket `ollama` (etwa 15 MB) und das Sprachmodell `qwen3:4b` (etwa 2,5 GB, Apache-2.0-Lizenz). Eine Bestätigung (die Eingabetaste bricht ab) installiert das Paket, legt den Benutzerdienst `eitr-ollama.service` an, lädt das Modell mit sichtbarem Fortschritt herunter und macht es zum Standard. Schlägt ein Schritt fehl, bleibt seine Ausgabe sichtbar und der bisherige Standard erhalten.
+
+Alles bleibt auf diesem PC: Der Dienst lauscht nur auf `127.0.0.1:11434`, startet bei Bedarf und speichert seine Modelle in `~/.local/share/eitr/ollama`. Er ist spürbar weniger zuverlässig als die Cloud-Assistenten, besonders bei ungewöhnlichen Formulierungen, und auf dem Prozessor langsamer. Sprach-Erinnerungen prüfen seine Antworten wie die jedes anderen Assistenten, eine falsche Antwort ändert also nichts. **SUPER + Alt + A** öffnet einen Chat mit dem Modell; `/bye` schließt ihn. Er ist nie Helfer für zusammenarbeitende Assistenten und hat keinen Eintrag in der KI-Nutzung.
+
+**Lokalen Assistenten entfernen** im selben Menü fragt einmal nach, löscht dann Dienst und Modelle, setzt den Standard zurück, falls er lokal war, und deinstalliert `ollama`, falls die Einrichtung es installiert hat. Ollamas eigener Schlüssel und Chatverlauf in `~/.ollama` bleiben erhalten.
+
 ## Monitoring
 
 Entwicklung > Monitoring macht deine Dashboards per Suche erreichbar. **Dashboard hinzufügen** fragt nach Dienst (Grafana, Datadog, Sentry, New Relic, Prometheus oder Andere), Name und Adresse. Danach öffnet das Menü das Dashboard im Browser. Die Einträge liegen nur auf diesem Rechner unter `~/.config/eitr/monitoring.json`; Delete entfernt einen. Gib niemals Passwörter oder Token in einer Adresse an.

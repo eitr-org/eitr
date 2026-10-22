@@ -48,7 +48,7 @@ Consulte [Atualizações e limpeza](handbook:maintenance) para atualizar; instal
 
 ## Lembretes por voz
 
-Segure **SUPER + Shift + D**, fale e solte, ou digite em Principal > Ferramentas > Lembretes > Fale com o assistente…. O Eitr transcreve localmente com o mesmo modelo offline do ditado e consulta o assistente escolhido em Desenvolvimento > Assistente padrão. Só a transcrição e o contexto dos lembretes vão ao provedor; o áudio fica local e é apagado após a transcrição. O assistente roda sem janela pelo caminho somente leitura do Eitr. O Eitr valida o JSON e executa as ações; o assistente não recebe ferramentas para alterar nada.
+Segure **SUPER + Shift + D**, fale e solte, ou digite em Principal > Ferramentas > Lembretes > Fale com o assistente…. O Eitr transcreve localmente com o mesmo modelo offline do ditado e consulta o assistente escolhido em Desenvolvimento > Assistente padrão. Só a transcrição e o contexto dos lembretes vão ao provedor; o áudio fica local e é apagado após a transcrição. O assistente roda sem janela pelo caminho somente leitura do Eitr. O Eitr valida o JSON e executa as ações; o assistente não recebe ferramentas para alterar nada. Com o assistente local (Desenvolvimento > Assistente padrão), a transcrição nunca sai deste PC.
 
 Diga “Me lembre de ligar amanhã às 15h” ou “Dentista em 30 de outubro às 15h, avise 30 minutos antes”. Compromissos avisam uma hora antes por padrão (ou com a antecedência pedida) e no horário; lembretes simples só no horário. Dados ausentes ou ambiguidade abrem um terminal com opções numeradas completas. Digite o número ou dite com SUPER + D; Esc cancela. Uma notificação informa o resultado. Você também pode pedir para listar ou cancelar lembretes.
 

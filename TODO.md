@@ -93,10 +93,6 @@ the profile. Still to check, in a VM or with the owner:
   variable (`CLAUDE_CONFIG_DIR`, `CODEX_HOME`); sign-in for an extra account
   uses a private browser window; never log out of an account to add another.
   AI Usage shows each account. Useful for teams with several seats.
-- **Local assistant for voice reminders.** An optional offline model through
-  Ollama (a 3B model such as Qwen 2.5 or Llama 3.2, 2-3 GB once) offered next to
-  the other assistants, with its answer constrained to the reminder JSON format and
-  checked by the same validator. Nothing leaves the PC; weaker on unusual phrasing.
 
 # 5. Before 1.0.0
 

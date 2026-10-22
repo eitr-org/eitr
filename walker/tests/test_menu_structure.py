@@ -226,6 +226,46 @@ class MenuStructureTests(unittest.TestCase):
         self.assertEqual(default['subtext'], '>')
         self.assertIn('Parent = "development"', (ROOT / 'elephant/menus/ai-default.lua').read_text())
 
+    def default_menu(self, installed, local_state, current=""):
+        """Run elephant/menus/ai-default.lua with ai-assistant.py's answers replaced."""
+        import os
+        import subprocess
+        rows = ", ".join(f"{{id = '{name}', label = '{name.title()}'}}" for name in installed)
+        harness = f"""
+            jsonDecode = function(text) return load("return " .. text)() end
+            io.popen = function(command)
+                local answer = "{{{rows}}}"
+                if command:find("local%-state") then answer = "{local_state}" end
+                if command:find(" get ") then answer = "{current}" end
+                return {{read = function() return answer end, close = function() end}}
+            end
+            dofile("elephant/menus/ai-default.lua")
+            for _, entry in ipairs(GetEntries()) do
+                assert(entry.Subtext and entry.Subtext ~= "" and #entry.Subtext <= 72)
+                print(entry.Text .. "|" .. (entry.Value or "") .. "|" .. entry.Actions.open .. "|" .. ((entry.State or {{}})[1] or ""))
+            end
+        """
+        environment = dict(os.environ, EITR_LIBRARY_ROOT=str(ROOT / "distro/lib"), EITR_CODE_ROOT=str(ROOT))
+        result = subprocess.run(["lua", "-e", harness], cwd=ROOT, env=environment, capture_output=True, text=True,
+                                check=True)
+        return [line.split("|") for line in result.stdout.splitlines()]
+
+    def test_default_assistant_always_offers_the_local_assistant(self):
+        rows = self.default_menu([], "none")
+        self.assertEqual([row[0] for row in rows], ["Install an AI Assistant", "Local (offline, experimental)"])
+        self.assertIn("task-terminal.py", rows[1][2])
+        self.assertTrue(rows[1][2].endswith(" setup-local"))
+        rows = self.default_menu(["codex"], "partial")
+        self.assertEqual([row[0] for row in rows], ["Codex", "Local (offline, experimental)", "Remove Local Assistant"])
+        self.assertTrue(rows[1][2].endswith(" setup-local"))
+        self.assertTrue(rows[2][2].endswith(" remove-local"))
+        rows = self.default_menu(["codex"], "ready", current="local")
+        local = next(row for row in rows if row[0] == "Local (offline, experimental)")
+        self.assertEqual(local[1], "local")
+        self.assertTrue(local[2].endswith(" set assistant local"))
+        self.assertEqual(local[3], "current")
+        self.assertIn("Remove Local Assistant", [row[0] for row in rows])
+
     def test_ai_lists_only_installed_assistants(self):
         self.assertIn(["Antigravity CLI", "ai-agy"], self.ai_menu({"agy"}))
         self.assertEqual(self.ai_menu({"claude", "codex"}), [["Claude", "ai-claude"], ["Codex", "ai-codex"], ["Let assistants work together", ""]])

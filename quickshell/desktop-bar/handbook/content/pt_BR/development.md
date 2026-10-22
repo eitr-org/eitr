@@ -30,6 +30,14 @@ Ao trocar o tema, o Eitr atualiza apenas a opção de tema claro/escuro nas conf
 
 As versões dos SDKs instalados e as fontes dos instaladores são mantidas nos manifestos da distribuição. Consulte o seletor atual; um exemplo do manual não garante a versão mais recente disponível no projeto original. A instalação pode exigir downloads.
 
+### Assistente local (offline, experimental)
+
+Desenvolvimento > Assistente padrão sempre oferece **Local (offline, experimental)**, que não precisa de conta nem assinatura. Na primeira vez, um terminal explica os downloads únicos antes de mudar qualquer coisa: o pacote do Arch `ollama` (cerca de 15 MB) e o modelo de linguagem `qwen3:4b` (cerca de 2,5 GB, licença Apache-2.0). Uma única confirmação (Enter cancela) instala o pacote, cria o serviço de usuário `eitr-ollama.service`, baixa o modelo mostrando o progresso e o define como padrão. Se uma etapa falhar, a saída fica na tela e o padrão anterior é mantido.
+
+Tudo fica neste PC: o serviço escuta só em `127.0.0.1:11434`, inicia quando necessário e guarda os modelos em `~/.local/share/eitr/ollama`. Ele é visivelmente menos confiável que os assistentes na nuvem, principalmente com frases incomuns, e mais lento no processador. Os lembretes por voz validam as respostas dele como as de qualquer outro assistente, então uma resposta errada não muda nada. **SUPER + Alt + A** abre um chat com o modelo; `/bye` o fecha. Ele nunca é ajudante dos assistentes trabalhando juntos e não tem entrada em Uso de IA.
+
+**Remover assistente local**, no mesmo menu, pergunta uma vez e então exclui o serviço e os modelos, redefine o padrão se ele era o local e desinstala o `ollama` se a configuração o instalou. A chave e o histórico de chat do próprio Ollama em `~/.ollama` são mantidos.
+
 ## Monitoramento
 
 Desenvolvimento > Monitoramento deixa seus painéis acessíveis pela busca. **Adicionar painel** pede o serviço (Grafana, Datadog, Sentry, New Relic, Prometheus ou Outro), um nome e seu endereço. Depois, o menu abre o painel no navegador. Os dados ficam apenas neste computador, em `~/.config/eitr/monitoring.json`; Delete remove um painel. Nunca inclua senhas ou tokens no endereço.

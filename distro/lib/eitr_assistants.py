@@ -7,6 +7,8 @@ import sys
 
 from eitr_paths import code
 from eitr_i18n import tr
+# The offline assistant is only a default-assistant choice, never an AI CLI recipe.
+import eitr_local_assistant
 
 
 def assistants():
@@ -35,6 +37,8 @@ def executable(identifier):
 
 
 def launch(identifier, arguments):
+    if identifier == eitr_local_assistant.IDENTIFIER:
+        return eitr_local_assistant.launch(arguments)
     metadata = assistants().get(identifier)
     if metadata is None:
         return 2
@@ -64,18 +68,24 @@ def launch(identifier, arguments):
     return 0
 
 
+def available(identifier):
+    if identifier == eitr_local_assistant.IDENTIFIER:
+        return eitr_local_assistant.installed()
+    return identifier in assistants() and executable(identifier) is not None
+
+
 def default_assistant():
     from eitr_paths import config, read_settings
     try:
         selected = read_settings(config('eitr/ai.json')).get('assistant', '')
     except (OSError, ValueError):
         return ''
-    return selected if isinstance(selected, str) and selected in assistants() and executable(selected) else ''
+    return selected if isinstance(selected, str) and selected and available(selected) else ''
 
 
 def set_default(identifier):
     from eitr_paths import config, write_settings
-    if identifier not in assistants() or executable(identifier) is None:
+    if not available(identifier):
         raise ValueError(tr('Choose an installed assistant.'))
     write_settings(config('eitr/ai.json'), {'assistant': identifier})
 

@@ -515,5 +515,10 @@
   "Remove this plugin and its service": "Eliminar este plugin y su servicio",
   "Review a Git repository before installing": "Revisar un repositorio Git antes de instalar",
   "Review a new plugin commit": "Revisar un nuevo commit del plugin",
-  "A one-time or repeating notification": "Una notificación única o recurrente"
+  "A one-time or repeating notification": "Una notificación única o recurrente",
+  "Delete the offline model and its background service": "Eliminar el modelo sin conexión y su servicio en segundo plano",
+  "Local (offline, experimental)": "Local (sin conexión, experimental)",
+  "Remove Local Assistant": "Quitar el asistente local",
+  "Runs only on this PC; less reliable than cloud assistants": "Solo en este PC; menos fiable que los asistentes en la nube",
+  "Set up an assistant that runs only on this PC": "Configurar un asistente que se ejecuta solo en este PC"
 }

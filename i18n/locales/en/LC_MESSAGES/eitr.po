@@ -232,6 +232,9 @@ msgstr "An earlier factory reset has not finished. Restart the computer first; i
 msgid "An interrupted factory reset needs manual review; see {MANUAL}"
 msgstr "An interrupted factory reset needs manual review; see {MANUAL}"
 
+msgid "Another Ollama server is already using {host}. Stop it, then try again."
+msgstr "Another Ollama server is already using {host}. Stop it, then try again."
+
 msgid "Answers name {disk}, not one of the eligible disks: {candidates}"
 msgstr "Answers name {disk}, not one of the eligible disks: {candidates}"
 
@@ -730,6 +733,9 @@ msgstr "Delete {provider} account {account}? The provider’s sign-in for this a
 msgid "Deleted: every app installed since, every changed setting, accounts added later and ALL files in the home folders (documents, downloads, pictures, projects)."
 msgstr "Deleted: every app installed since, every changed setting, accounts added later and ALL files in the home folders (documents, downloads, pictures, projects)."
 
+msgid "Deletes the downloaded models ({size} GB) in {folder}."
+msgstr "Deletes the downloaded models ({size} GB) in {folder}."
+
 msgid "Deployments"
 msgstr "Deployments"
 
@@ -780,6 +786,9 @@ msgstr "DocumentDB"
 
 msgid "Domains"
 msgstr "Domains"
+
+msgid "Downloading {model}…"
+msgstr "Downloading {model}…"
 
 msgid "Droplets"
 msgstr "Droplets"
@@ -1249,6 +1258,15 @@ msgstr "Invalid web app ID"
 msgid "Invalidations"
 msgstr "Invalidations"
 
+msgid "It downloads Ollama (Arch package ollama, about 15 MB) and a language model ({model}, about 2.5 GB) once."
+msgstr "It downloads Ollama (Arch package ollama, about 15 MB) and a language model ({model}, about 2.5 GB) once."
+
+msgid "It is noticeably less reliable than the cloud assistants, especially with unusual phrasing."
+msgstr "It is noticeably less reliable than the cloud assistants, especially with unusual phrasing."
+
+msgid "It runs only on this PC: your requests never leave it, and no account is needed."
+msgstr "It runs only on this PC: your requests never leave it, and no account is needed."
+
 msgid "It shows at the next boot and follows your theme from then on. Your boot entries were not changed."
 msgstr "It shows at the next boot and follows your theme from then on. Your boot entries were not changed."
 
@@ -1353,6 +1371,12 @@ msgstr "Load balancers"
 
 msgid "Loading AUR package names…"
 msgstr "Loading AUR package names…"
+
+msgid "Local assistant (offline, experimental)"
+msgstr "Local assistant (offline, experimental)"
+
+msgid "Local assistant ({model}) runs only on this PC. Type /bye to close."
+msgstr "Local assistant ({model}) runs only on this PC. Type /bye to close."
 
 msgid "Log out now"
 msgstr "Log out now"
@@ -1581,6 +1605,9 @@ msgstr "OBS status unavailable"
 
 msgid "Object storage buckets"
 msgstr "Object storage buckets"
+
+msgid "Ollama could not be installed. Your default assistant is unchanged."
+msgstr "Ollama could not be installed. Your default assistant is unchanged."
 
 msgid "Only files in the home folders have snapshots."
 msgstr "Only files in the home folders have snapshots."
@@ -1879,6 +1906,12 @@ msgstr "Remove local sign-in"
 msgid "Remove plugin {id} and its service?"
 msgstr "Remove plugin {id} and its service?"
 
+msgid "Remove the local assistant"
+msgstr "Remove the local assistant"
+
+msgid "Remove the local assistant?"
+msgstr "Remove the local assistant?"
+
 msgid "Remove the {label} web app?"
 msgstr "Remove the {label} web app?"
 
@@ -2137,6 +2170,9 @@ msgstr "Set a Sunshine username and password in the local settings page before p
 msgid "Set up full-screen monitor capture in OBS first"
 msgstr "Set up full-screen monitor capture in OBS first"
 
+msgid "Set up the local assistant?"
+msgstr "Set up the local assistant?"
+
 msgid "Settings"
 msgstr "Settings"
 
@@ -2299,6 +2335,9 @@ msgstr "Stop using {label} outside its folders?"
 msgid "Stopped tasks"
 msgstr "Stopped tasks"
 
+msgid "Stops and deletes its background service ({unit})."
+msgstr "Stops and deletes its background service ({unit})."
+
 msgid "Storage Accounts"
 msgstr "Storage Accounts"
 
@@ -2422,6 +2461,9 @@ msgstr "The AWS profile {profile} already exists; rename it with Ctrl+R in the A
 msgid "The EFI partition changed since installation; reset is not safe"
 msgstr "The EFI partition changed since installation; reset is not safe"
 
+msgid "The Ollama package is still installed; remove it with: sudo pacman -R ollama"
+msgstr "The Ollama package is still installed; remove it with: sudo pacman -R ollama"
+
 msgid "The URL must not contain spaces, control characters or backslashes."
 msgstr "The URL must not contain spaces, control characters or backslashes."
 
@@ -2473,11 +2515,41 @@ msgstr "The guided install supports UEFI boot only; boot the ISO in UEFI mode"
 msgid "The initramfs cannot use TPM2 unlock yet. Nothing was changed."
 msgstr "The initramfs cannot use TPM2 unlock yet. Nothing was changed."
 
+msgid "The local assistant could not answer: {reason}"
+msgstr "The local assistant could not answer: {reason}"
+
+msgid "The local assistant could not complete the request."
+msgstr "The local assistant could not complete the request."
+
+msgid "The local assistant is not set up."
+msgstr "The local assistant is not set up."
+
+msgid "The local assistant is not set up. Choose it in Development > Default Assistant."
+msgstr "The local assistant is not set up. Choose it in Development > Default Assistant."
+
+msgid "The local assistant is ready and is now your default assistant."
+msgstr "The local assistant is ready and is now your default assistant."
+
+msgid "The local assistant is unavailable."
+msgstr "The local assistant is unavailable."
+
+msgid "The local assistant service did not start. Check it with: systemctl --user status {unit}"
+msgstr "The local assistant service did not start. Check it with: systemctl --user status {unit}"
+
+msgid "The local assistant timed out."
+msgstr "The local assistant timed out."
+
+msgid "The local assistant was removed."
+msgstr "The local assistant was removed."
+
 msgid "The login wallpaper must be a JPEG under 25 MB"
 msgstr "The login wallpaper must be a JPEG under 25 MB"
 
 msgid "The main display stays where it is; place the other displays around it."
 msgstr "The main display stays where it is; place the other displays around it."
+
+msgid "The model download did not finish. Run setup again to resume it."
+msgstr "The model download did not finish. Run setup again to resume it."
 
 msgid "The name must not contain control characters."
 msgstr "The name must not contain control characters."
@@ -2532,6 +2604,9 @@ msgstr "The template's EFI partition size changed; update ESP_MIB"
 
 msgid "The testing repository cannot be reached right now, so nothing was changed. Check the connection and try again."
 msgstr "The testing repository cannot be reached right now, so nothing was changed. Check the connection and try again."
+
+msgid "The user service could not be loaded."
+msgstr "The user service could not be loaded."
 
 msgid "This ISO has no complete offline payload ({amount} is missing)"
 msgstr "This ISO has no complete offline payload ({amount} is missing)"
@@ -2730,6 +2805,9 @@ msgstr "Uninstall {label}? This removes uv-managed Python versions and the uv ex
 
 msgid "Uninstall {name}? The package may contain multiple apps."
 msgstr "Uninstall {name}? The package may contain multiple apps."
+
+msgid "Uninstalls the Ollama package that setup installed (asks for your password)."
+msgstr "Uninstalls the Ollama package that setup installed (asks for your password)."
 
 msgid "Unknown account"
 msgstr "Unknown account"
@@ -2941,6 +3019,9 @@ msgstr "Yearly"
 msgid "Yes"
 msgstr "Yes"
 
+msgid "You can remove it later from Development > Default Assistant."
+msgstr "You can remove it later from Development > Default Assistant."
+
 msgid "You can run more commands here manually."
 msgstr "You can run more commands here manually."
 
@@ -2952,6 +3033,9 @@ msgstr "Your current boot entries stay; the boot menu file is backed up first. S
 
 msgid "Your current personal settings, the hidden files such as ~/.config and ~/.ssh, move into the folder \"Settings before reset <date>\" in your home folder, so nothing in it is deleted."
 msgstr "Your current personal settings, the hidden files such as ~/.config and ~/.ssh, move into the folder \"Settings before reset <date>\" in your home folder, so nothing in it is deleted."
+
+msgid "Your default assistant is unchanged."
+msgstr "Your default assistant is unchanged."
 
 msgid "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send."
 msgstr "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send."

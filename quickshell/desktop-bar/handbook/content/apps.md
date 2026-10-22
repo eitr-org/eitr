@@ -99,7 +99,7 @@ package is not the same as the snapshot-protected System Update workflow.
 
 ## Voice reminders
 
-Hold **SUPER + Shift + D**, speak and release, or open Main > Tools > Reminders > Tell the assistant… to type. Eitr transcribes locally using the same offline model as dictation, then asks your Development > Default Assistant to interpret the request. Only the transcript and reminder context go to that assistant's provider; audio stays local and is deleted after transcription. The assistant runs headless through Eitr's read-only path; Eitr validates its JSON and executes reminder actions itself, without giving the assistant tools to change anything.
+Hold **SUPER + Shift + D**, speak and release, or open Main > Tools > Reminders > Tell the assistant… to type. Eitr transcribes locally using the same offline model as dictation, then asks your Development > Default Assistant to interpret the request. Only the transcript and reminder context go to that assistant's provider; audio stays local and is deleted after transcription. The assistant runs headless through Eitr's read-only path; Eitr validates its JSON and executes reminder actions itself, without giving the assistant tools to change anything. With the local assistant (Development > Default Assistant), the transcript never leaves this PC.
 
 Say “Remind me tomorrow at 15:00 to call” or “Dentist on October 30 at 15:00, alert 30 minutes before”. Appointments alert one hour before by default (or your chosen lead) and at the event; plain reminders alert at their time. Missing details or ambiguity open a terminal with full numbered choices. Type a number or dictate it with SUPER + D; Esc cancels. A notification reports the result. Ask to list or cancel reminders as well.
 

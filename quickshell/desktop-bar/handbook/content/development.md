@@ -52,6 +52,14 @@ Installed SDK versions and installer sources are maintained in distro manifests.
 Follow the actual picker rather than assuming a handbook example is a promise
 about the newest upstream version. Toolchain installation may need downloads.
 
+### Local assistant (offline, experimental)
+
+Development > Default Assistant always offers **Local (offline, experimental)**, which needs no account or subscription. The first time, a terminal explains the one-time downloads before anything changes: the Arch package `ollama` (about 15 MB) and the language model `qwen3:4b` (about 2.5 GB, Apache-2.0 licence). One confirmation (Enter cancels) installs the package, creates the user service `eitr-ollama.service`, downloads the model with visible progress and makes it the default. If a step fails, its output stays on screen and the previous default is kept.
+
+Everything stays on this PC: the service listens only on `127.0.0.1:11434`, starts when needed and keeps its models in `~/.local/share/eitr/ollama`. It is noticeably less reliable than the cloud assistants, especially with unusual phrasing, and slower on the processor. Voice reminders check its answers like any other assistant's, so a wrong answer changes nothing. **SUPER + Alt + A** opens a chat with the model; `/bye` closes it. It is never a helper for assistants working together and has no AI Usage entry.
+
+**Remove Local Assistant**, in the same menu, asks once, then deletes the service and the models, resets the default if it was local and uninstalls `ollama` if setup installed it. Ollama's own key and chat history in `~/.ollama` are kept.
+
 ## Monitoring
 
 Development > Monitoring keeps your dashboards one search away. **Add Dashboard**

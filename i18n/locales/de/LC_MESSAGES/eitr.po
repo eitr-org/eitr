@@ -232,6 +232,9 @@ msgstr "Ein vorheriges Zurücksetzen auf den Werkszustand ist nicht abgeschlosse
 msgid "An interrupted factory reset needs manual review; see {MANUAL}"
 msgstr "Ein unterbrochenes Zurücksetzen auf den Werkszustand muss manuell geprüft werden; siehe {MANUAL}"
 
+msgid "Another Ollama server is already using {host}. Stop it, then try again."
+msgstr "Ein anderer Ollama-Server verwendet bereits {host}. Beende ihn und versuche es erneut."
+
 msgid "Answers name {disk}, not one of the eligible disks: {candidates}"
 msgstr "Die Antwortdatei nennt {disk}, aber nur diese Laufwerke sind zulässig: {candidates}"
 
@@ -730,6 +733,9 @@ msgstr "Konto {account} bei {provider} löschen? Die Anmeldung des Anbieters fü
 msgid "Deleted: every app installed since, every changed setting, accounts added later and ALL files in the home folders (documents, downloads, pictures, projects)."
 msgstr "Gelöscht werden alle seitdem installierten Anwendungen, alle geänderten Einstellungen, später hinzugefügte Konten und ALLE Dateien in den persönlichen Ordnern (Dokumente, Downloads, Bilder, Projekte)."
 
+msgid "Deletes the downloaded models ({size} GB) in {folder}."
+msgstr "Löscht die heruntergeladenen Modelle ({size} GB) in {folder}."
+
 msgid "Deployments"
 msgstr "Bereitstellungen"
 
@@ -780,6 +786,9 @@ msgstr "DocumentDB"
 
 msgid "Domains"
 msgstr "Domains"
+
+msgid "Downloading {model}…"
+msgstr "{model} wird heruntergeladen…"
 
 msgid "Droplets"
 msgstr "Droplets"
@@ -1249,6 +1258,15 @@ msgstr "Invalid web app ID"
 msgid "Invalidations"
 msgstr "Invalidierungen"
 
+msgid "It downloads Ollama (Arch package ollama, about 15 MB) and a language model ({model}, about 2.5 GB) once."
+msgstr "Er lädt einmalig Ollama (Arch-Paket ollama, etwa 15 MB) und ein Sprachmodell ({model}, etwa 2,5 GB) herunter."
+
+msgid "It is noticeably less reliable than the cloud assistants, especially with unusual phrasing."
+msgstr "Er ist spürbar weniger zuverlässig als die Cloud-Assistenten, besonders bei ungewöhnlichen Formulierungen."
+
+msgid "It runs only on this PC: your requests never leave it, and no account is needed."
+msgstr "Er läuft nur auf diesem PC: Deine Anfragen verlassen ihn nie, und du brauchst kein Konto."
+
 msgid "It shows at the next boot and follows your theme from then on. Your boot entries were not changed."
 msgstr "Es erscheint beim nächsten Start und folgt danach deinem Thema. Deine Starteinträge wurden nicht geändert."
 
@@ -1353,6 +1371,12 @@ msgstr "Lastverteiler"
 
 msgid "Loading AUR package names…"
 msgstr "AUR-Paketnamen werden geladen…"
+
+msgid "Local assistant (offline, experimental)"
+msgstr "Lokaler Assistent (offline, experimentell)"
+
+msgid "Local assistant ({model}) runs only on this PC. Type /bye to close."
+msgstr "Der lokale Assistent ({model}) läuft nur auf diesem PC. Gib /bye ein, um ihn zu schließen."
 
 msgid "Log out now"
 msgstr "Jetzt abmelden"
@@ -1581,6 +1605,9 @@ msgstr "OBS-Status nicht verfügbar"
 
 msgid "Object storage buckets"
 msgstr "Objektspeicher-Buckets"
+
+msgid "Ollama could not be installed. Your default assistant is unchanged."
+msgstr "Ollama konnte nicht installiert werden. Dein Standardassistent bleibt unverändert."
 
 msgid "Only files in the home folders have snapshots."
 msgstr "Nur Dateien in persönlichen Ordnern haben Snapshots."
@@ -1879,6 +1906,12 @@ msgstr "Lokale Anmeldung entfernen"
 msgid "Remove plugin {id} and its service?"
 msgstr "Plugin {id} und seinen Dienst entfernen?"
 
+msgid "Remove the local assistant"
+msgstr "Lokalen Assistenten entfernen"
+
+msgid "Remove the local assistant?"
+msgstr "Lokalen Assistenten entfernen?"
+
 msgid "Remove the {label} web app?"
 msgstr "Web-App {label} entfernen?"
 
@@ -2137,6 +2170,9 @@ msgstr "Legen Sie vor jeder Kopplung einen Sunshine-Benutzernamen und ein Passwo
 msgid "Set up full-screen monitor capture in OBS first"
 msgstr "Richten Sie zuerst die Vollbild-Monitoraufnahme in OBS ein"
 
+msgid "Set up the local assistant?"
+msgstr "Lokalen Assistenten einrichten?"
+
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -2299,6 +2335,9 @@ msgstr "{label} außerhalb der zugehörigen Ordner nicht mehr verwenden?"
 msgid "Stopped tasks"
 msgstr "Gestoppte Aufgaben"
 
+msgid "Stops and deletes its background service ({unit})."
+msgstr "Beendet und löscht seinen Hintergrunddienst ({unit})."
+
 msgid "Storage Accounts"
 msgstr "Speicherkonten"
 
@@ -2422,6 +2461,9 @@ msgstr "AWS-Profil {profile} existiert bereits; benennen Sie es im AWS-Menü mit
 msgid "The EFI partition changed since installation; reset is not safe"
 msgstr "Die EFI-Partition wurde seit der Installation geändert; Zurücksetzen ist nicht sicher"
 
+msgid "The Ollama package is still installed; remove it with: sudo pacman -R ollama"
+msgstr "Das Ollama-Paket ist noch installiert; entferne es mit: sudo pacman -R ollama"
+
 msgid "The URL must not contain spaces, control characters or backslashes."
 msgstr "Die URL darf keine Leerzeichen, Steuerzeichen oder Rückwärtsschrägstriche enthalten."
 
@@ -2473,11 +2515,41 @@ msgstr "Die geführte Installation unterstützt nur UEFI; starten Sie das ISO im
 msgid "The initramfs cannot use TPM2 unlock yet. Nothing was changed."
 msgstr "Das Initramfs unterstützt noch keine TPM2-Entsperrung. Nichts wurde geändert."
 
+msgid "The local assistant could not answer: {reason}"
+msgstr "Der lokale Assistent konnte nicht antworten: {reason}"
+
+msgid "The local assistant could not complete the request."
+msgstr "Der lokale Assistent konnte die Anfrage nicht abschließen."
+
+msgid "The local assistant is not set up."
+msgstr "Der lokale Assistent ist nicht eingerichtet."
+
+msgid "The local assistant is not set up. Choose it in Development > Default Assistant."
+msgstr "Der lokale Assistent ist nicht eingerichtet. Wähle ihn unter Entwicklung > Standardassistent."
+
+msgid "The local assistant is ready and is now your default assistant."
+msgstr "Der lokale Assistent ist bereit und jetzt dein Standardassistent."
+
+msgid "The local assistant is unavailable."
+msgstr "Der lokale Assistent ist nicht verfügbar."
+
+msgid "The local assistant service did not start. Check it with: systemctl --user status {unit}"
+msgstr "Der Dienst des lokalen Assistenten ist nicht gestartet. Prüfe ihn mit: systemctl --user status {unit}"
+
+msgid "The local assistant timed out."
+msgstr "Das Zeitlimit des lokalen Assistenten wurde überschritten."
+
+msgid "The local assistant was removed."
+msgstr "Der lokale Assistent wurde entfernt."
+
 msgid "The login wallpaper must be a JPEG under 25 MB"
 msgstr "Der Anmeldehintergrund muss eine JPEG-Datei unter 25 MB sein"
 
 msgid "The main display stays where it is; place the other displays around it."
 msgstr "Der Hauptbildschirm bleibt, wo er ist; ordne die anderen Bildschirme um ihn herum an."
+
+msgid "The model download did not finish. Run setup again to resume it."
+msgstr "Der Download des Modells wurde nicht abgeschlossen. Starte die Einrichtung erneut, um ihn fortzusetzen."
 
 msgid "The name must not contain control characters."
 msgstr "Der Name darf keine Steuerzeichen enthalten."
@@ -2532,6 +2604,9 @@ msgstr "The template's EFI partition size changed; update ESP_MIB"
 
 msgid "The testing repository cannot be reached right now, so nothing was changed. Check the connection and try again."
 msgstr "Das Test-Repository ist derzeit nicht erreichbar; nichts wurde geändert. Prüfen Sie die Verbindung und versuchen Sie es erneut."
+
+msgid "The user service could not be loaded."
+msgstr "Der Benutzerdienst konnte nicht geladen werden."
 
 msgid "This ISO has no complete offline payload ({amount} is missing)"
 msgstr "Dieses ISO enthält keinen vollständigen Offline-Paketbestand ({amount} fehlt)"
@@ -2730,6 +2805,9 @@ msgstr "{label} deinstallieren? Dadurch werden die von uv verwalteten Python-Ver
 
 msgid "Uninstall {name}? The package may contain multiple apps."
 msgstr "{name} deinstallieren? Das Paket kann mehrere Apps enthalten."
+
+msgid "Uninstalls the Ollama package that setup installed (asks for your password)."
+msgstr "Deinstalliert das Ollama-Paket, das die Einrichtung installiert hat (fragt nach deinem Passwort)."
 
 msgid "Unknown account"
 msgstr "Unbekanntes Konto"
@@ -2941,6 +3019,9 @@ msgstr "Jährlich"
 msgid "Yes"
 msgstr "Ja"
 
+msgid "You can remove it later from Development > Default Assistant."
+msgstr "Du kannst ihn später unter Entwicklung > Standardassistent entfernen."
+
 msgid "You can run more commands here manually."
 msgstr "Du kannst hier weitere Befehle manuell ausführen."
 
@@ -2952,6 +3033,9 @@ msgstr "Deine aktuellen Starteinträge bleiben erhalten; die Menüdatei wird zue
 
 msgid "Your current personal settings, the hidden files such as ~/.config and ~/.ssh, move into the folder \"Settings before reset <date>\" in your home folder, so nothing in it is deleted."
 msgstr "Deine aktuellen persönlichen Einstellungen, also versteckte Dateien wie ~/.config und ~/.ssh, werden in den Ordner \"Settings before reset <date>\" in deinem persönlichen Ordner verschoben. Ihr Inhalt wird nicht gelöscht."
+
+msgid "Your default assistant is unchanged."
+msgstr "Dein Standardassistent bleibt unverändert."
 
 msgid "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send."
 msgstr "Ihr E-Mail-Programm hat eine Nachricht an {REPORTS_EMAIL} geöffnet. Hängen Sie {path} an, beschreiben Sie das Problem und senden Sie die Nachricht."

@@ -29,6 +29,15 @@ GPUs or a real Windows/BitLocker disk, waits for the public preview and lands in
 Later codenames are planned, not promised: a release may move to the next row
 when its milestone changes. Patch releases (0.3.1) keep their minor's codename.
 
+## Local assistant (unreleased)
+
+Development > Default Assistant always offers an offline, experimental assistant:
+Ollama (`ollama`) and `qwen3:4b` (Apache-2.0), downloaded once after one confirmation and run
+by the on-demand user service `eitr-ollama.service` on `127.0.0.1` only. Voice
+reminders use it with JSON-constrained answers and the same validator; it is never
+an assistants-together helper. Remove Local Assistant deletes the service, models
+and a package setup installed. Not yet tried on real hardware.
+
 ## Repeating reminders (unreleased)
 
 Local daily, weekday, weekly, monthly and yearly reminders retain alert offsets,

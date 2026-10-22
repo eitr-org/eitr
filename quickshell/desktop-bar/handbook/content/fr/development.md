@@ -30,6 +30,14 @@ Lors d’un changement de thème, Eitr modifie uniquement le réglage clair/somb
 
 Les versions de SDK et les sources d’installation sont maintenues dans les manifestes de la distribution. Fiez-vous au sélecteur actuel : un exemple du manuel ne promet pas la dernière version du projet d’origine. L’installation peut nécessiter des téléchargements.
 
+### Assistant local (hors ligne, expérimental)
+
+Développement > Assistant par défaut propose toujours **Local (hors ligne, expérimental)**, sans compte ni abonnement. La première fois, un terminal explique les téléchargements uniques avant toute modification : le paquet Arch `ollama` (environ 15 Mo) et le modèle de langage `qwen3:4b` (environ 2,5 Go, licence Apache-2.0). Une seule confirmation (Entrée annule) installe le paquet, crée le service utilisateur `eitr-ollama.service`, télécharge le modèle en affichant la progression et le définit par défaut. Si une étape échoue, sa sortie reste à l’écran et l’assistant par défaut précédent est conservé.
+
+Tout reste sur ce PC : le service n’écoute que sur `127.0.0.1:11434`, démarre au besoin et garde ses modèles dans `~/.local/share/eitr/ollama`. Il est nettement moins fiable que les assistants cloud, surtout avec des formulations inhabituelles, et plus lent sur le processeur. Les rappels vocaux vérifient ses réponses comme celles de tout autre assistant : une mauvaise réponse ne change rien. **SUPER + Alt + A** ouvre une discussion avec le modèle ; `/bye` la ferme. Il n’est jamais proposé comme aide aux assistants qui travaillent ensemble et n’a pas d’entrée dans Utilisation de l’IA.
+
+**Supprimer l’assistant local**, dans le même menu, demande une confirmation, puis supprime le service et les modèles, réinitialise l’assistant par défaut s’il était local et désinstalle `ollama` si la configuration l’a installé. La clé et l’historique de discussion propres à Ollama dans `~/.ollama` sont conservés.
+
 ## Supervision
 
 Développement > Supervision rend vos tableaux de bord accessibles par recherche. **Ajouter un tableau de bord** demande le service (Grafana, Datadog, Sentry, New Relic, Prometheus ou Autre), un nom et son adresse. Le menu l’ouvre ensuite dans le navigateur. Les entrées sont conservées uniquement sur cet ordinateur, dans `~/.config/eitr/monitoring.json` ; Delete en supprime une. N’incluez jamais de mots de passe ni de jetons dans une adresse.

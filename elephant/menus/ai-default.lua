@@ -8,6 +8,13 @@ Parent = "development"
 Icon = "󱜙"
 FixedOrder = true
 local script = paths.code("walker/scripts/actions/ai-assistant.py")
+local presenter = paths.code("walker/scripts/actions/task-terminal.py")
+
+local function task(action)
+    return "kitty --class eitr-software -e python3 " .. quote(presenter) .. " python3 " .. quote(script) .. " " .. action
+end
+
+-- The offline assistant is always offered: a choice once set up, otherwise its setup.
 function GetEntries()
     local options = {}
     local reader = io.popen("python3 " .. quote(script) .. " installed")
@@ -18,10 +25,28 @@ function GetEntries()
             table.insert(options, {row.label, row.id, Icon, i18n.tr("Open with the assistant shortcut")})
         end
     end
+    local localState = "none"
+    local status = io.popen("python3 " .. quote(script) .. " local-state")
+    if status then localState = status:read("*l") or "none"; status:close() end
+    local entries = {}
     if #options == 0 then
-        return i18n.entries({{Text = "Install an AI Assistant", Icon = Icon,
+        table.insert(entries, {Text = "Install an AI Assistant", Icon = Icon,
             Subtext = "Install an assistant before choosing a default",
-            Actions = {open = quote(paths.code("walker/bin/walker")) .. " --provider menus:ai-install"}}}, false)
+            Actions = {open = quote(paths.code("walker/bin/walker")) .. " --provider menus:ai-install"}})
     end
-    return i18n.entries(choices(script, "assistant", options), false)
+    if localState == "ready" then
+        table.insert(options, {i18n.mark("Local (offline, experimental)"), "local", "󰒋",
+            i18n.mark("Runs only on this PC; less reliable than cloud assistants")})
+    else
+        table.insert(entries, {Text = "Local (offline, experimental)", Icon = "󰒋",
+            Subtext = "Set up an assistant that runs only on this PC",
+            Actions = {open = task("setup-local")}})
+    end
+    for _, entry in ipairs(choices(script, "assistant", options)) do table.insert(entries, entry) end
+    if localState ~= "none" then
+        table.insert(entries, {Text = "Remove Local Assistant", Icon = "󰆴",
+            Subtext = "Delete the offline model and its background service",
+            Actions = {open = task("remove-local")}})
+    end
+    return i18n.entries(entries, false)
 end

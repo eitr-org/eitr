@@ -30,6 +30,14 @@ Al cambiar el tema, Eitr solo actualiza el ajuste claro/oscuro de los archivos e
 
 Las versiones instaladas de los SDK y las fuentes de los instaladores se mantienen en los manifiestos de la distribución. Consulta el selector actual: un ejemplo del manual no promete la última versión del proyecto original. La instalación puede necesitar descargas.
 
+### Asistente local (sin conexión, experimental)
+
+Desarrollo > Asistente predeterminado siempre ofrece **Local (sin conexión, experimental)**, que no necesita cuenta ni suscripción. La primera vez, un terminal explica las descargas únicas antes de cambiar nada: el paquete de Arch `ollama` (unos 15 MB) y el modelo de lenguaje `qwen3:4b` (unos 2,5 GB, licencia Apache-2.0). Una sola confirmación (Intro cancela) instala el paquete, crea el servicio de usuario `eitr-ollama.service`, descarga el modelo mostrando el progreso y lo deja como predeterminado. Si un paso falla, su salida queda en pantalla y se conserva el predeterminado anterior.
+
+Todo queda en este PC: el servicio escucha solo en `127.0.0.1:11434`, se inicia cuando hace falta y guarda sus modelos en `~/.local/share/eitr/ollama`. Es notablemente menos fiable que los asistentes en la nube, sobre todo con frases poco habituales, y más lento en el procesador. Los recordatorios por voz validan sus respuestas como las de cualquier otro asistente, así que una respuesta incorrecta no cambia nada. **SUPER + Alt + A** abre un chat con el modelo; `/bye` lo cierra. Nunca es ayudante de los asistentes que trabajan juntos y no tiene entrada en Uso de IA.
+
+**Quitar el asistente local**, en el mismo menú, pregunta una vez y luego elimina el servicio y los modelos, restablece el predeterminado si era el local y desinstala `ollama` si lo instaló la configuración. La clave propia y el historial de chat de Ollama en `~/.ollama` se conservan.
+
 ## Monitorización
 
 Desarrollo > Monitorización deja tus paneles al alcance de una búsqueda. **Añadir panel** pide el servicio (Grafana, Datadog, Sentry, New Relic, Prometheus u Otro), un nombre y su dirección. Después, el menú abre el panel en el navegador. Se guardan solo en este equipo, en `~/.config/eitr/monitoring.json`; Delete elimina uno. Nunca incluyas contraseñas ni tokens en una dirección.

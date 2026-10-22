@@ -127,6 +127,34 @@ class VoiceProtocolTests(unittest.TestCase):
                 self.assertIn('selected', ask.call_args.args[1])
             self.assertEqual(reminders.load(), [])
 
+    def test_local_assistant_answers_through_the_same_validator(self):
+        import io
+        from unittest.mock import Mock
+        import eitr_local_assistant
+        sent = []
+
+        def answer(text):
+            def open_request(request, timeout):
+                sent.append(json.loads(request.data))
+                return Mock(__enter__=lambda response: io.BytesIO(json.dumps({'response': text}).encode()),
+                            __exit__=lambda *details: False)
+            return Mock(open=open_request)
+        with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {'XDG_STATE_HOME': directory}), \
+                patch.object(reminders, 'schedule'), patch.object(reminders, 'stop_timers'), \
+                patch.object(voice, 'default_assistant', return_value='local'), \
+                patch.object(eitr_local_assistant, 'installed', return_value=True), \
+                patch.object(eitr_local_assistant, 'ensure_running'):
+            with patch.object(eitr_local_assistant, 'opener', return_value=answer(json.dumps(self.payload))):
+                self.assertIn('Dentist', voice.process('Dentist tomorrow'))
+            self.assertEqual([item['text'] for item in reminders.load()], ['Dentist'])
+            self.assertEqual((sent[-1]['model'], sent[-1]['format']), ('qwen3:4b', 'json'))
+            self.assertIn('Dentist tomorrow', sent[-1]['prompt'])
+            with patch.object(eitr_local_assistant, 'opener', return_value=answer('{"action":"shell","command":"touch /tmp/no"}')), \
+                    patch.object(voice, 'execute') as execute:
+                with self.assertRaises(ValueError):
+                    voice.process('Run a command')
+                execute.assert_not_called()
+
     def test_terminal_question_prints_full_choices(self):
         payload = {'action':'ask','question':'Which?', 'choices':[{'id':'1','label':'full '*100}]}
         with tempfile.TemporaryDirectory() as directory:

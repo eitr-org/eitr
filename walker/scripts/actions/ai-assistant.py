@@ -11,6 +11,17 @@ for _eitr_parent in Path(__file__).resolve().parents:
         break
 import json
 from eitr_assistants import launch, assistants, executable, default_assistant, set_default, open_default, sync_themes
+import eitr_local_assistant
+
+
+def confirm(question):
+    """The single y/N question of the local assistant's setup and removal; Enter cancels."""
+    from eitr_forms import Terminal
+    try:
+        return Terminal().confirm(question, default=False)
+    except (EOFError, KeyboardInterrupt):
+        return False
+
 
 if __name__ == '__main__':
     action = sys.argv[1] if len(sys.argv) > 1 else ''
@@ -19,6 +30,13 @@ if __name__ == '__main__':
     elif action == 'installed':
         print(json.dumps([{'id': identifier, 'label': metadata['label']}
                           for identifier, metadata in assistants().items() if executable(identifier)]))
+    elif action == 'local-state':
+        # For the Default Assistant menu: "ready", "partial" (setup left something to remove) or "none".
+        print('ready' if eitr_local_assistant.installed() else 'partial' if eitr_local_assistant.present() else 'none')
+    elif action == 'setup-local':
+        sys.exit(eitr_local_assistant.setup(confirm))
+    elif action == 'remove-local':
+        sys.exit(eitr_local_assistant.remove(confirm))
     elif action == 'get':
         print(default_assistant())
     elif action == 'set' and len(sys.argv) == 4 and sys.argv[2] == 'assistant':

@@ -64,7 +64,8 @@
   },
   "tools": {
     "lazygit": {"label": "Lazygit", "source": "pacman", "packages": ["lazygit"]},
-    "lazydocker": {"label": "Lazydocker", "source": "pacman", "packages": ["lazydocker"]}
+    "lazydocker": {"label": "Lazydocker", "source": "pacman", "packages": ["lazydocker"]},
+    "ollama": {"label": "Ollama", "source": "pacman", "packages": ["ollama"]}
   },
   "monitoring": {
     "prometheus": {"label": "Prometheus (promtool)", "source": "pacman", "packages": ["prometheus"]},

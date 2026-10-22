@@ -140,6 +140,22 @@ class CollaborationTests(unittest.TestCase):
         self.assertNotIn('gemini', bridge.connected())
         self.assertNotIn('agy', bridge.LABELS)
 
+    def test_local_assistant_is_never_a_helper_but_answers_its_own_callers(self):
+        import eitr_local_assistant
+        self.sign_in('claude')
+        with patch.object(eitr_local_assistant, 'installed', return_value=True), \
+                patch.object(eitr_local_assistant, 'ask', return_value='{"action":"list"}') as ask, \
+                patch.object(bridge.subprocess, 'run') as notify, patch.object(bridge.subprocess, 'Popen') as launch:
+            self.assertNotIn('local', bridge.LABELS)
+            self.assertNotIn('local', bridge.connected())
+            self.assertEqual([tool['name'] for tool in self.request('tools/list')['result']['tools']], ['ask_claude'])
+            self.assertEqual(self.request('tools/call', name='ask_local', arguments={'question': 'review'})['error']['code'], -32602)
+            ask.assert_not_called()
+            self.assertEqual(bridge.ask('local', 'Remind me', response_format='json'), '{"action":"list"}')
+            ask.assert_called_once_with('Remind me', response_format='json')
+            notify.assert_not_called()
+            launch.assert_not_called()
+
     def test_gemini_registration_preserves_existing_and_changed_entries(self):
         binary = self.sign_in('gemini')
         settings = self.home / '.gemini/settings.json'

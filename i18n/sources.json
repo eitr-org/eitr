@@ -1545,6 +1545,9 @@
     "Delete in SUPER + Ctrl + V": [
       "elephant/menu-rows/shortcuts.json"
     ],
+    "Delete the offline model and its background service": [
+      "elephant/menus/ai-default.lua"
+    ],
     "Deployments": [
       "elephant/menus/aws-ecs-deployments-1.lua",
       "elephant/menus/aws-ecs-deployments-2.lua"
@@ -1955,6 +1958,9 @@
       "elephant/menus/aws-ecs-list-services-1.lua",
       "elephant/menus/aws-ecs-list-services-2.lua"
     ],
+    "Local (offline, experimental)": [
+      "elephant/menus/ai-default.lua"
+    ],
     "Lock": [
       "elephant/menu-rows/power.json"
     ],
@@ -2271,6 +2277,9 @@
     "Remove Limit": [
       "elephant/menu-rows/battery-limit.json"
     ],
+    "Remove Local Assistant": [
+      "elephant/menus/ai-default.lua"
+    ],
     "Remove TPM Unlock": [
       "elephant/menu-rows/tpm-unlock.json"
     ],
@@ -2359,6 +2368,9 @@
     "Running tasks": [
       "elephant/menus/aws-ecs-running-tasks-1.lua",
       "elephant/menus/aws-ecs-running-tasks-2.lua"
+    ],
+    "Runs only on this PC; less reliable than cloud assistants": [
+      "elephant/menus/ai-default.lua"
     ],
     "S3": [
       "elephant/menus/aws-s3.lua"
@@ -2515,6 +2527,9 @@
     ],
     "Set the Sunshine password and configure streaming": [
       "elephant/menu-rows/remote-share.json"
+    ],
+    "Set up an assistant that runs only on this PC": [
+      "elephant/menus/ai-default.lua"
     ],
     "Share": [
       "elephant/menu-rows/tools.json",
@@ -3648,6 +3663,9 @@
     "An interrupted factory reset needs manual review; see {MANUAL}": [
       "distro/system/factory-reset.py"
     ],
+    "Another Ollama server is already using {host}. Stop it, then try again.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
     "Answers name {disk}, not one of the eligible disks: {candidates}": [
       "distro/archinstall/eitr-guided-install"
     ],
@@ -4155,6 +4173,9 @@
     "Deleted: every app installed since, every changed setting, accounts added later and ALL files in the home folders (documents, downloads, pictures, projects).": [
       "walker/scripts/actions/system/factory-reset.py"
     ],
+    "Deletes the downloaded models ({size} GB) in {folder}.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
     "Deployments": [
       "walker/scripts/menus/cloud/navigation.py",
       "walker/scripts/menus/cloud/providers.py"
@@ -4208,6 +4229,9 @@
     ],
     "Domains": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Downloading {model}…": [
+      "distro/lib/eitr_local_assistant.py"
     ],
     "Droplets": [
       "walker/scripts/menus/cloud/providers.py"
@@ -4688,6 +4712,15 @@
     "Invalidations": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
+    "It downloads Ollama (Arch package ollama, about 15 MB) and a language model ({model}, about 2.5 GB) once.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "It is noticeably less reliable than the cloud assistants, especially with unusual phrasing.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "It runs only on this PC: your requests never leave it, and no account is needed.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
     "It shows at the next boot and follows your theme from then on. Your boot entries were not changed.": [
       "distro/system/eitr-system.py"
     ],
@@ -4794,6 +4827,12 @@
     ],
     "Loading AUR package names…": [
       "walker/scripts/actions/install/software.py"
+    ],
+    "Local assistant (offline, experimental)": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Local assistant ({model}) runs only on this PC. Type /bye to close.": [
+      "distro/lib/eitr_local_assistant.py"
     ],
     "Log out now": [
       "walker/scripts/actions/system/restart-check.py"
@@ -4985,6 +5024,7 @@
       "walker/scripts/actions/install/software.py"
     ],
     "Nothing changed.": [
+      "distro/lib/eitr_local_assistant.py",
       "walker/scripts/actions/tools/voice-command.py"
     ],
     "Nothing changed: {reason}": [
@@ -5031,6 +5071,9 @@
     ],
     "Object storage buckets": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Ollama could not be installed. Your default assistant is unchanged.": [
+      "distro/lib/eitr_local_assistant.py"
     ],
     "Only files in the home folders have snapshots.": [
       "walker/scripts/actions/system/restore-file.py"
@@ -5332,6 +5375,12 @@
     "Remove plugin {id} and its service?": [
       "walker/scripts/actions/install/plugins.py"
     ],
+    "Remove the local assistant": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Remove the local assistant?": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
     "Remove the {label} web app?": [
       "walker/scripts/actions/install/software.py"
     ],
@@ -5593,6 +5642,9 @@
     "Set up full-screen monitor capture in OBS first": [
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
+    "Set up the local assistant?": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
     "Settings": [
       "quickshell/desktop-bar/scripts/remote-status.py"
     ],
@@ -5755,6 +5807,9 @@
     "Stopped tasks": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
+    "Stops and deletes its background service ({unit}).": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
     "Storage Accounts": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
@@ -5878,6 +5933,9 @@
     "The EFI partition changed since installation; reset is not safe": [
       "distro/system/factory-reset.py"
     ],
+    "The Ollama package is still installed; remove it with: sudo pacman -R ollama": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
     "The URL must not contain spaces, control characters or backslashes.": [
       "walker/scripts/actions/install/webapps.py"
     ],
@@ -5891,7 +5949,8 @@
       "distro/lib/eitr_assistants.py"
     ],
     "The assistant returned no answer.": [
-      "distro/lib/eitr_collaboration.py"
+      "distro/lib/eitr_collaboration.py",
+      "distro/lib/eitr_local_assistant.py"
     ],
     "The assistant timed out.": [
       "distro/lib/eitr_collaboration.py"
@@ -5929,11 +5988,41 @@
     "The initramfs cannot use TPM2 unlock yet. Nothing was changed.": [
       "distro/system/eitr-system.py"
     ],
+    "The local assistant could not answer: {reason}": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "The local assistant could not complete the request.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "The local assistant is not set up.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "The local assistant is not set up. Choose it in Development > Default Assistant.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "The local assistant is ready and is now your default assistant.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "The local assistant is unavailable.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "The local assistant service did not start. Check it with: systemctl --user status {unit}": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "The local assistant timed out.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "The local assistant was removed.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
     "The login wallpaper must be a JPEG under 25 MB": [
       "quickshell/lockscreen/scripts/sddm-select.py"
     ],
     "The main display stays where it is; place the other displays around it.": [
       "quickshell/desktop-bar/scripts/display-settings.py"
+    ],
+    "The model download did not finish. Run setup again to resume it.": [
+      "distro/lib/eitr_local_assistant.py"
     ],
     "The name must not contain control characters.": [
       "walker/scripts/actions/install/webapps.py"
@@ -5992,6 +6081,9 @@
     ],
     "The testing repository cannot be reached right now, so nothing was changed. Check the connection and try again.": [
       "distro/system/eitr-system.py"
+    ],
+    "The user service could not be loaded.": [
+      "distro/lib/eitr_local_assistant.py"
     ],
     "This ISO has no complete offline payload ({amount} is missing)": [
       "distro/archinstall/eitr-guided-install"
@@ -6190,6 +6282,9 @@
     ],
     "Uninstall {name}? The package may contain multiple apps.": [
       "walker/scripts/actions/install/software.py"
+    ],
+    "Uninstalls the Ollama package that setup installed (asks for your password).": [
+      "distro/lib/eitr_local_assistant.py"
     ],
     "Unknown account": [
       "walker/scripts/menus/cloud/providers.py"
@@ -6404,6 +6499,9 @@
       "walker/scripts/actions/development/git-accounts.py",
       "walker/scripts/actions/install/plugins.py"
     ],
+    "You can remove it later from Development > Default Assistant.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
     "You can run more commands here manually.": [
       "walker/scripts/menus/cloud/common.sh"
     ],
@@ -6415,6 +6513,9 @@
     ],
     "Your current personal settings, the hidden files such as ~/.config and ~/.ssh, move into the folder \"Settings before reset <date>\" in your home folder, so nothing in it is deleted.": [
       "walker/scripts/actions/system/factory-reset.py"
+    ],
+    "Your default assistant is unchanged.": [
+      "distro/lib/eitr_local_assistant.py"
     ],
     "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send.": [
       "walker/scripts/actions/system/report-problem.py"
