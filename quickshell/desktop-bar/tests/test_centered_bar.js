@@ -82,6 +82,8 @@ const os = require('node:os');
 const path = require('node:path');
 const childProcess = require('node:child_process');
 const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'eitr-centered-'));
+// The offscreen render needs Quickshell; without it (CI) only the geometry above is checked.
+const hasQuickshell = childProcess.spawnSync('quickshell', ['--version']).status === 0;
 function propertyExpression(name) {
     return source.match(new RegExp(`readonly property real ${name}: ([\\s\\S]*?)\\n                (?:readonly )?property`))[1];
 }
@@ -172,6 +174,7 @@ ShellRoot {
   } }
  }
 }`;
+                    if (!hasQuickshell) continue;
                     const fixturePath = path.join(directory, 'fixture.qml');
                     fs.writeFileSync(fixturePath, fixture);
                     const result = childProcess.spawnSync('quickshell', ['-p', fixturePath], {encoding: 'utf8', timeout: 10000,
