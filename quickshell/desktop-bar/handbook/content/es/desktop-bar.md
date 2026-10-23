@@ -1,6 +1,6 @@
 # Barra y espacios de trabajo
 
-La barra mantiene fecha y hora centradas. A la izquierda está primero el logotipo de Eitr, que abre el Centro de control, seguido de Vista general, marcadores de espacios de trabajo, Hardware, Uso de IA y Bloqueo automático; a la derecha, controles de dispositivos y estado. Pulsa **Mostrar iconos** para mostrar u ocultar ese grupo derecho.
+La barra mantiene fecha y hora centradas. A la izquierda está primero el logotipo de Eitr, que abre el Centro de control, seguido de Vista general, marcadores de espacios de trabajo, Uso de IA, Hardware y Bloqueo automático; a la derecha, controles de dispositivos y estado. Pulsa **Mostrar iconos** para mostrar u ocultar ese grupo derecho.
 
 ## Actualizaciones
 

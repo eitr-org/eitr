@@ -169,7 +169,7 @@ display's workspace, and only the main bar shows notification popups.
 Learn > Mouse Gestures also lists these gestures and
 the desktop wallpaper/theme double clicks. Left/right bars use upright compact
 controls, with the time/date centered and popups opening inward.
-Hardware, AI Usage and Idle Lock sit together after the workspaces; right-hand controls
+AI Usage, Hardware and Idle Lock sit together after the workspaces; right-hand controls
 retain their manual show/hide toggle in Full and Centered. Tabs keeps them visible without a toggle. Both side groups share 24 px icon slots
 and 4 px spacing, with centered alignment on every bar edge. Active workspace
 glyphs use the accent color without a filled background in every style; the

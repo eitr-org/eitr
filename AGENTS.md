@@ -240,7 +240,7 @@ existing design and workflows rather than replacing them with upstream defaults.
   error-guarded; the owner's layout is kept in `hypr/local.lua.example` and
   `hypr/preferred-outputs.example`. Update the examples, not the shared file,
   when the owner's hardware changes.
-- Hardware and AI Usage icons sit after the workspaces and open on the left,
+- AI Usage and Hardware icons sit after the workspaces and open on the left,
   followed by the Idle Lock icon, which toggles on click with no panel;
   calendar/weather open centered; other controls open on the right. Panels
   share the bar's Wayland surface and attach directly to its actual edge with

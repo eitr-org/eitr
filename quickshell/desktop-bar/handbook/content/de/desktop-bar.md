@@ -1,6 +1,6 @@
 # Leiste und Arbeitsflächen
 
-Die Leiste hält Datum und Uhrzeit mittig. Links steht zuerst das Eitr-Logo, das das Kontrollzentrum öffnet, danach folgen Übersicht, Arbeitsflächenmarkierungen, Hardware, KI-Nutzung und automatische Sperre; rechts Geräte- und Statussteuerung. **Symbole anzeigen** blendet diese rechte Gruppe ein oder aus.
+Die Leiste hält Datum und Uhrzeit mittig. Links steht zuerst das Eitr-Logo, das das Kontrollzentrum öffnet, danach folgen Übersicht, Arbeitsflächenmarkierungen, KI-Nutzung, Hardware und automatische Sperre; rechts Geräte- und Statussteuerung. **Symbole anzeigen** blendet diese rechte Gruppe ein oder aus.
 
 ## Aktualisierungen
 

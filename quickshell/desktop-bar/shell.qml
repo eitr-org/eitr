@@ -1033,8 +1033,8 @@ ShellRoot {
                             id: verticalHardware
                             anchors.horizontalCenter: parent.horizontalCenter
                             spacing: shell.workspaceItemSpacing
-                            VerticalBarIcon { id: verticalHardwareIcon; icon: "󰍛"; iconSize: 18; tooltip: Eitr.I18n.tr("Hardware"); open: true; clickable: true; onClicked: bar.togglePanel(hardwareMenu) }
                             VerticalBarIcon { id: verticalAiIcon; iconSource: Qt.resolvedUrl("assets/ai-chip.svg"); iconSize: 18; tooltip: Eitr.I18n.tr("AI Usage"); open: true; clickable: true; onClicked: bar.togglePanel(aiMenu) }
+                            VerticalBarIcon { id: verticalHardwareIcon; icon: "󰍛"; iconSize: 18; tooltip: Eitr.I18n.tr("Hardware"); open: true; clickable: true; onClicked: bar.togglePanel(hardwareMenu) }
                             VerticalBarIcon { id: verticalIdleLockIcon; icon: shell.idleLockGlyph; iconSize: 17; tooltip: shell.idleLockTooltip; open: true; clickable: true; onClicked: shell.switchIdleLock() }
                         }
                     }
@@ -1272,17 +1272,6 @@ ShellRoot {
                             spacing: shell.workspaceItemSpacing
 
                             StatusIcon {
-                                id: hardwareIcon
-                                slotWidth: shell.workspaceItemSize
-                                icon: "󰍛"
-                                iconSize: 18
-                                tooltip: Eitr.I18n.tr("Hardware")
-                                open: true
-                                clickable: true
-                                onClicked: bar.togglePanel(hardwareMenu)
-                            }
-
-                            StatusIcon {
                                 id: aiIcon
                                 slotWidth: shell.workspaceItemSize
                                 iconSource: Qt.resolvedUrl("assets/ai-chip.svg")
@@ -1291,6 +1280,17 @@ ShellRoot {
                                 open: true
                                 clickable: true
                                 onClicked: bar.togglePanel(aiMenu)
+                            }
+
+                            StatusIcon {
+                                id: hardwareIcon
+                                slotWidth: shell.workspaceItemSize
+                                icon: "󰍛"
+                                iconSize: 18
+                                tooltip: Eitr.I18n.tr("Hardware")
+                                open: true
+                                clickable: true
+                                onClicked: bar.togglePanel(hardwareMenu)
                             }
 
                             // A plain switch: a click turns automatic idle locking on or off.
