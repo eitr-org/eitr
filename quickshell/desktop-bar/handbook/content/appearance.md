@@ -34,7 +34,7 @@ press **Delete**, then Enter to confirm or Escape to keep it.
   the page offers a main picture; otherwise copy the image's own address. The
   picture is applied right away and appears in the wallpaper list, the carousel
   and SUPER + Shift + N. Deleting the wallpaper in
-  use first switches to the theme's first wallpaper.
+  use first switches to the theme's first wallpaper. Choose whether your wallpaper appears with all themes or only the current theme.
 - **Style > Theme > Create Theme** asks for a picture (the current wallpaper,
   one of yours, the theme's, or another file or https address), light or dark
   (Automatic follows the picture's brightness), and a name. After the review,

@@ -162,6 +162,36 @@ class PictureTests(SandboxTest):
             with self.assertRaises(ValueError):
                 own_style.picture_format(data)
 
+    def test_theme_wallpapers_are_scoped_deduplicated_and_deletable(self):
+        source = picture(self.pictures / "lake.png")
+        shared = own_style.add_wallpaper(str(source))
+        scoped = own_style.add_wallpaper(str(source), theme="afterglow")
+        hidden = own_style.add_wallpaper(str(source), theme="other")
+        self.assertEqual(own_style.add_wallpaper(str(source), theme="afterglow"), scoped)
+        current = eitr_paths.cache("current-theme")
+        current.parent.mkdir(parents=True, exist_ok=True)
+        current.write_text("afterglow")
+        self.assertEqual(own_style.wallpapers(), [shared, scoped])
+        self.assertEqual(own_style.own_wallpaper(scoped), scoped)
+        own_style.own_wallpaper(scoped).unlink()
+        self.assertEqual(own_style.wallpapers(), [shared])
+        current.write_text("other")
+        self.assertEqual(own_style.wallpapers(), [shared, hidden])
+        outside = eitr_paths.own("wallpapers") / "themes/other/nested/test.png"
+        outside.parent.mkdir(parents=True)
+        outside.write_bytes(source.read_bytes())
+        with self.assertRaises(ValueError):
+            own_style.own_wallpaper(outside)
+
+    def test_deleting_theme_removes_its_wallpapers(self):
+        source = picture(self.pictures / "lake.png")
+        directory = own_style.create_theme("My Theme", str(source))
+        scoped = own_style.add_wallpaper(str(source), theme=directory.name)
+        shared = own_style.add_wallpaper(str(source))
+        own_style.delete_theme(directory.name)
+        self.assertFalse(scoped.parent.exists())
+        self.assertTrue(shared.exists())
+
     def test_wallpapers_get_unique_names_and_only_own_ones_count(self):
         source = picture(self.pictures / "lake.png")
         first, again = own_style.add_wallpaper(str(source)), own_style.add_wallpaper(str(source))
@@ -232,6 +262,21 @@ class CommandTests(SandboxTest):
         self.backgrounds = eitr_paths.config("theme/current/backgrounds")
         self.backgrounds.mkdir(parents=True)
         picture(self.backgrounds / "01-first.png")
+
+    def test_wallpaper_wizard_offers_all_or_current_theme(self):
+        source = picture(self.pictures / "lake.png")
+        (self.cache / "current-theme").write_text("afterglow")
+        display = self.backgrounds.parent / "display-name"
+        display.write_text("Afterglow")
+        for theme in ("", "afterglow"):
+            with patch.object(self.cli, "collect", return_value={"source": str(source), "theme": theme}) as wizard, \
+                    patch.object(self.cli.subprocess, "run"), patch.object(self.cli, "notify"):
+                self.cli.add_wallpaper()
+            steps = wizard.call_args.args[1]
+            self.assertEqual(steps[1].default, "")
+            self.assertEqual(steps[1].options, [("All themes", ""), ("Only Afterglow", "afterglow")])
+            destination = eitr_paths.own("wallpapers") / "themes/afterglow" if theme else eitr_paths.own("wallpapers")
+            self.assertTrue((destination / "lake.png").exists())
 
     def test_an_added_wallpaper_is_applied_right_away(self):
         with patch.object(self.cli.subprocess, "run") as run, patch.object(self.cli, "notify"):
@@ -315,6 +360,15 @@ class MenuTests(SandboxTest):
         self.assertEqual(rows.count("lake.png"), 1)
         self.assertEqual(own_style.wallpapers(beside=backgrounds), [])
         self.assertEqual(own_style.wallpapers(), [mine])
+
+    def test_theme_only_wallpaper_menu_preserves_path_and_delete(self):
+        current = eitr_paths.cache("current-theme")
+        current.parent.mkdir(parents=True)
+        current.write_text("afterglow")
+        mine = own_style.add_wallpaper(str(picture(self.pictures / "lake.png")), theme="afterglow")
+        rows = self.lua('dofile("elephant/menus/wallpaper.lua") for _, entry in ipairs(GetEntries()) do '
+                        'print((entry.Value or "") .. "|" .. (entry.Subtext or "") .. "|" .. tostring(entry.Actions.wallpaper_delete)) end')
+        self.assertIn(f"{mine}|Yours|python3 '{ROOT}/walker/scripts/actions/style/own.py' wallpaper delete '{mine}'", rows)
 
     def test_lockscreen_menu_offers_creation_and_deleting_own_designs(self):
         own_style.create_lockscreen("Rune Lock", "theme-wallpaper", str(picture(self.pictures / "lake.png")))

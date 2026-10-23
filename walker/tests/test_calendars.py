@@ -153,10 +153,24 @@ class FlowTests(unittest.TestCase):
                         name='Team')
 
     def add(self, answers):
-        answers = iter(answers)
-        with patch.object(calendars.reminders, 'ask', side_effect=lambda *arguments: next(answers)), \
-                patch.object(calendars, 'fetch', return_value=self.text), patch.object(calendars.time, 'time', return_value=NOW):
-            return calendars.add()
+        provider = {'Google Calendar': 'google', 'Outlook': 'outlook', 'Other (any iCal address)': 'other'}[answers[0]]
+
+        def wizard(title, steps):
+            if steps[0].key == 'provider':
+                return {'provider': provider}
+            self.assertTrue(steps[0].secret)
+            steps[0].validator(answers[1])
+            values = {'address': answers[1]}
+            values['name'] = (answers[2] if len(answers) > 2 else '') or steps[1].default(values)
+            return values
+
+        with patch.object(calendars, 'collect', side_effect=wizard), \
+                patch.object(calendars, 'fetch', return_value=self.text), patch.object(calendars.time, 'time', return_value=NOW), \
+                patch('sys.stdout', new_callable=io.StringIO) as output:
+            result = calendars.add()
+        self.assertNotIn(SECRET, output.getvalue())
+        self.assertNotIn('private', output.getvalue())
+        return result
 
     def assert_secret_kept(self):
         for arguments, options in self.calls:
@@ -181,6 +195,15 @@ class FlowTests(unittest.TestCase):
         self.assert_secret_kept()
         rows = calendars.rows()
         self.assertEqual(rows, [{'id': saved[0]['id'], 'name': 'Team', 'host': 'calendar.example.com'}])
+
+    def test_wizard_cancel_keeps_storage_untouched(self):
+        for stage in (0, 1):
+            calls = [{'provider': 'google'}, KeyboardInterrupt()] if stage else [KeyboardInterrupt()]
+            with patch.object(calendars, 'collect', side_effect=calls), \
+                    patch('sys.stdout', new_callable=io.StringIO) as output:
+                self.assertEqual(calendars.add(), 0)
+            self.assertIn('Nothing was added.', output.getvalue())
+            self.assertFalse(calendars.subscriptions_file().exists())
 
     def test_add_refuses_insecure_or_repeated_addresses(self):
         self.assertEqual(self.add(['Other (any iCal address)', 'http://example.com/a.ics']), 1)
@@ -236,12 +259,12 @@ class FlowTests(unittest.TestCase):
 
 
 class MenuTests(unittest.TestCase):
-    def test_calendars_menu_lives_under_reminders(self):
+    def test_calendars_menu_lives_under_tools(self):
         menu = load_menu('calendars')
-        self.assertEqual(menu['parent'], 'reminders')
+        self.assertEqual(menu['parent'], 'tools')
         self.assertEqual([entry['text'] for entry in menu['entries']], ['Add Calendar…'])
         self.assertTrue(menu['entries'][0]['actions']['open'].endswith('tools/calendars.py add'))
-        row = next(entry for entry in load_menu('reminders')['entries'] if entry['text'] == 'Calendars')
+        row = next(entry for entry in load_menu('tools')['entries'] if entry['text'] == 'Calendars')
         self.assertEqual((row['subtext'], row['submenu']), ('>', 'calendars'))
         lua = (ROOT / 'elephant/menus/calendars.lua').read_text()
         self.assertIn('" rows")', lua)

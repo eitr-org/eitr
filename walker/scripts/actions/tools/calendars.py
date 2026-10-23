@@ -23,6 +23,7 @@ BYWEEKNO, BYYEARDAY, BYHOUR, several month days...) show only their first event.
 """
 import eitr_bootstrap
 from eitr_i18n import tr
+from eitr_wizard import collect, Step
 from eitr_paths import cache, config, state
 from contextlib import contextmanager
 from datetime import date, datetime, time as clock, timedelta, timezone
@@ -561,33 +562,58 @@ def rows():
 
 
 def add():
-    choices = [tr('Google Calendar'), tr('Outlook'), tr('Other (any iCal address)')]
-    provider = reminders.ask(tr('Which calendar?'), choices)
-    if provider not in choices:
-        return 1
-    provider = ['google', 'outlook', 'other'][choices.index(provider)]
-    if provider in PROVIDERS:
-        subprocess.Popen(['xdg-open', PROVIDERS[provider]], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-                         start_new_session=True)
-        reminders.notify(tr('Calendars'), tr("Copy the calendar's \"Secret address in iCal format\" from its settings.")
-                         if provider == 'google' else tr('Publish a calendar under Shared calendars and copy its ICS link.'))
-    address = normalize(reminders.ask(tr('Paste the secret iCal address (https://…)')))
-    if not address:
-        reminders.notify(tr('Calendar not added'), tr('Paste an https:// or webcal:// iCal address.'))
-        return 1
-    if any(item['url'] == address for item in load_calendars()):
-        reminders.notify(tr('Calendar not added'), tr('This calendar is already added.'))
-        return 1
-    identifier = str(time.time_ns())
     try:
-        text = fetch(address, tr('New calendar'))
-        suggested, events = parse_events(text, identifier, '')
-    except CalendarError as error:
+        provider = collect(tr('Add Calendar'), [
+            Step('provider', tr('Which calendar?'), default='google', options=[
+                (tr('Google Calendar'), 'google'), (tr('Outlook'), 'outlook'),
+                (tr('Other (any iCal address)'), 'other')]),
+        ])['provider']
+        instructions = (tr('Google: Settings > your calendar > "Secret address in iCal format".')
+                        if provider == 'google' else
+                        tr('Outlook: Settings > Calendar > Shared calendars > Publish a calendar > copy the ICS link, not the HTML one.')
+                        if provider == 'outlook' else tr('Paste an https:// or webcal:// iCal address.'))
+        if provider in PROVIDERS:
+            subprocess.Popen(['xdg-open', PROVIDERS[provider]], stdout=subprocess.DEVNULL,
+                             stderr=subprocess.DEVNULL, start_new_session=True)
+        print(instructions, flush=True)
+        identifier = str(time.time_ns())
+        fetched = {}
+
+        def validate_address(value):
+            address = normalize(value)
+            if not address:
+                raise ValueError(tr('Paste an https:// or webcal:// iCal address.'))
+            if any(item['url'] == address for item in load_calendars()):
+                raise ValueError(tr('This calendar is already added.'))
+            return True
+
+        def suggested_name(values):
+            address = normalize(values.get('address'))
+            if not address:
+                return ''
+            if address not in fetched:
+                text = fetch(address, tr('New calendar'))
+                suggested, events = parse_events(text, identifier, '')
+                fetched[address] = (text, suggested, events)
+            return (fetched[address][1] or host(address))[:80]
+
+        answers = collect(tr('Add Calendar'), [
+            Step('address', tr('Paste the secret iCal address (https://…)'), secret=True,
+                 validator=validate_address, description=instructions),
+            Step('name', tr('Name'), default=suggested_name),
+        ])
+        validate_address(answers['address'])
+        suggested = suggested_name(answers)
+        address = normalize(answers['address'])
+        text, _, events = fetched[address]
+        name = ''.join(character for character in answers['name'].strip()[:80] if ord(character) >= 32) or suggested
+    except (KeyboardInterrupt, EOFError):
+        print(tr('Nothing was added.'))
+        return 0
+    except (CalendarError, ValueError) as error:
+        print(f'{tr("Calendar not added")}: {error}', file=sys.stderr)
         reminders.notify(tr('Calendar not added'), str(error))
         return 1
-    suggested = (suggested or host(address))[:80]
-    name = (reminders.ask(tr('Name this calendar (Enter keeps {name})', name=suggested)) or suggested).strip()[:80]
-    name = ''.join(character for character in name if ord(character) >= 32) or suggested
     with locked():
         save_calendars(load_calendars() + [{'id': identifier, 'name': name, 'provider': provider, 'url': address}])
         refresh({identifier: text})

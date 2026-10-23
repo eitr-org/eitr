@@ -8,7 +8,6 @@ FixedOrder = true
 
 local home = os.getenv("HOME")
 local background_dir = home .. "/.config/theme/current/backgrounds"
-local own_dir = paths.own("wallpapers")
 
 local shell_quote = dofile(paths.code("elephant/shell-quote.lua"))
 local own = paths.code("walker/scripts/actions/style/own.py")
@@ -60,7 +59,7 @@ function GetEntries()
     -- Own wallpapers the current theme already shows (a theme made from one keeps a copy) are left out.
     local handle = io.popen("python3 " .. shell_quote(own) .. " wallpaper list 2>/dev/null")
     if handle then
-        for path in handle:lines() do add(own_dir, path:match("[^/]+$"), true) end
+        for path in handle:lines() do add(path:match("^(.*)/[^/]+$"), path:match("[^/]+$"), true) end
         handle:close()
     end
     return entries

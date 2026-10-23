@@ -1356,7 +1356,7 @@
       "elephant/menus/system-shortcuts.lua"
     ],
     "Calendars": [
-      "elephant/menu-rows/reminders.json",
+      "elephant/menu-rows/tools.json",
       "elephant/menus/calendars.lua"
     ],
     "Capture": [
@@ -3697,6 +3697,9 @@
     "Activity Logs": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
+    "Add Calendar": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
     "Add a Git account": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
@@ -3745,6 +3748,9 @@
     ],
     "All partitions and files on this disk will be erased.": [
       "distro/archinstall/installer-ui.py"
+    ],
+    "All themes": [
+      "walker/scripts/actions/style/own.py"
     ],
     "An assistants server already exists; settings were left unchanged.": [
       "distro/lib/eitr_collaboration.py"
@@ -3939,9 +3945,6 @@
       "walker/scripts/actions/tools/calendars.py"
     ],
     "Calendar removed": [
-      "walker/scripts/actions/tools/calendars.py"
-    ],
-    "Calendars": [
       "walker/scripts/actions/tools/calendars.py"
     ],
     "Camera": [
@@ -4228,9 +4231,6 @@
     ],
     "Copied to the clipboard.": [
       "walker/scripts/actions/development/git-accounts.py"
-    ],
-    "Copy the calendar's \"Secret address in iCal format\" from its settings.": [
-      "walker/scripts/actions/tools/calendars.py"
     ],
     "Copying needs wl-copy; open the saved file instead.": [
       "walker/scripts/actions/system/report-problem.py"
@@ -4738,6 +4738,9 @@
     "Google Calendar": [
       "walker/scripts/actions/tools/calendars.py"
     ],
+    "Google: Settings > your calendar > \"Secret address in iCal format\".": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
     "Grafana": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
@@ -5211,6 +5214,7 @@
       "walker/scripts/actions/development/monitoring.py",
       "walker/scripts/actions/install/webapps.py",
       "walker/scripts/actions/style/own.py",
+      "walker/scripts/actions/tools/calendars.py",
       "walker/scripts/menus/cloud/accounts.py",
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -5219,9 +5223,6 @@
     ],
     "Name the subscriptions you want in the menu": [
       "walker/scripts/menus/cloud/accounts.py"
-    ],
-    "Name this calendar (Enter keeps {name})": [
-      "walker/scripts/actions/tools/calendars.py"
     ],
     "Name this computer.": [
       "distro/archinstall/installer-ui.py"
@@ -5389,6 +5390,9 @@
     "Nothing to restore: the network backend was never switched.": [
       "distro/system/network-backend.py"
     ],
+    "Nothing was added.": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
     "Nothing was changed.": [
       "distro/system/eitr_remote.py",
       "walker/scripts/actions/assistant-collaboration.py",
@@ -5438,6 +5442,9 @@
       "walker/scripts/actions/system/battery-limit.py"
     ],
     "Only for Another picture: a file such as ~/Pictures/lake.jpg or an https address. Eitr downloads it and keeps a copy on this computer.": [
+      "walker/scripts/actions/style/own.py"
+    ],
+    "Only {theme}": [
       "walker/scripts/actions/style/own.py"
     ],
     "Open Console": [
@@ -5498,6 +5505,9 @@
       "walker/scripts/actions/style/own.py"
     ],
     "Outlook": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
+    "Outlook: Settings > Calendar > Shared calendars > Publish a calendar > copy the ICS link, not the HTML one.": [
       "walker/scripts/actions/tools/calendars.py"
     ],
     "Outside folder rules: your existing Git configuration": [
@@ -5675,9 +5685,6 @@
     ],
     "Public IP addresses": [
       "walker/scripts/menus/cloud/providers.py"
-    ],
-    "Publish a calendar under Shared calendars and copy its ICS link.": [
-      "walker/scripts/actions/tools/calendars.py"
     ],
     "Queues": [
       "walker/scripts/menus/cloud/providers.py"
@@ -6115,6 +6122,9 @@
     ],
     "Sharing this network security type is not supported": [
       "quickshell/desktop-bar/scripts/wifi-qr.py"
+    ],
+    "Show it with": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Sign In": [
       "walker/scripts/menus/cloud/providers.py"

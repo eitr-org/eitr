@@ -13,7 +13,7 @@
     ],
     "icon": "󰃭",
     "actions": {
-      "open": "python3 /usr/share/eitr/walker/scripts/actions/tools/calendars.py add"
+      "open": "kitty --class eitr-menu-terminal -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/tools/calendars.py add"
     }
   }
 ]

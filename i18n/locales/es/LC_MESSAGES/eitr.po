@@ -208,6 +208,9 @@ msgstr "Las cuentas cambiaron en otra ventana; vuelve a abrir la configuración 
 msgid "Activity Logs"
 msgstr "Registros de actividad"
 
+msgid "Add Calendar"
+msgstr "Añadir calendario"
+
 msgid "Add a Git account"
 msgstr "Añadir una cuenta de Git"
 
@@ -255,6 +258,9 @@ msgstr "Todos los registros"
 
 msgid "All partitions and files on this disk will be erased."
 msgstr "Se borrarán todas las particiones y archivos de este disco."
+
+msgid "All themes"
+msgstr "Todos los temas"
 
 msgid "An assistants server already exists; settings were left unchanged."
 msgstr "Ya existe un servidor assistants; los ajustes se dejaron sin cambios."
@@ -450,9 +456,6 @@ msgstr "Calendario no añadido"
 
 msgid "Calendar removed"
 msgstr "Calendario quitado"
-
-msgid "Calendars"
-msgstr "Calendarios"
 
 msgid "Camera"
 msgstr "Cámara"
@@ -729,9 +732,6 @@ msgstr "Informe copiado."
 
 msgid "Copied to the clipboard."
 msgstr "Copiado al portapapeles."
-
-msgid "Copy the calendar's \"Secret address in iCal format\" from its settings."
-msgstr "Copia la «Dirección secreta en formato iCal» en los ajustes del calendario."
 
 msgid "Copying needs wl-copy; open the saved file instead."
 msgstr "Para copiar se necesita wl-copy; abre el archivo guardado."
@@ -1231,6 +1231,9 @@ msgstr "La búsqueda global de aplicaciones solo permite abrirlas"
 msgid "Google Calendar"
 msgstr "Google Calendar"
 
+msgid "Google: Settings > your calendar > \"Secret address in iCal format\"."
+msgstr "Google: Configuración > tu calendario > «Dirección secreta en formato iCal»."
+
 msgid "Grafana"
 msgstr "Grafana"
 
@@ -1699,9 +1702,6 @@ msgstr "Ponle un nombre e inicia sesión"
 msgid "Name the subscriptions you want in the menu"
 msgstr "Pon nombre a las suscripciones que quieres en el menú"
 
-msgid "Name this calendar (Enter keeps {name})"
-msgstr "Nombre del calendario (Enter mantiene {name})"
-
 msgid "Name this computer."
 msgstr "Asigna un nombre a este equipo."
 
@@ -1864,6 +1864,9 @@ msgstr "Nada que importar"
 msgid "Nothing to restore: the network backend was never switched."
 msgstr "Nada que restaurar: nunca se cambió el servicio de red."
 
+msgid "Nothing was added."
+msgstr "No se añadió nada."
+
 msgid "Nothing was changed."
 msgstr "No se ha cambiado nada."
 
@@ -1911,6 +1914,9 @@ msgstr "Solo funciona con firmware que expone charge_control_end_threshold."
 
 msgid "Only for Another picture: a file such as ~/Pictures/lake.jpg or an https address. Eitr downloads it and keeps a copy on this computer."
 msgstr "Solo para Otra imagen: un archivo como ~/Pictures/lake.jpg o una dirección https. Eitr la descarga y guarda una copia en este equipo."
+
+msgid "Only {theme}"
+msgstr "Solo {theme}"
 
 msgid "Open Console"
 msgstr "Abrir consola"
@@ -1971,6 +1977,9 @@ msgstr "Otra imagen"
 
 msgid "Outlook"
 msgstr "Outlook"
+
+msgid "Outlook: Settings > Calendar > Shared calendars > Publish a calendar > copy the ICS link, not the HTML one."
+msgstr "Outlook: Configuración > Calendario > Calendarios compartidos > Publicar un calendario > copia el vínculo ICS, no el HTML."
 
 msgid "Outside folder rules: your existing Git configuration"
 msgstr "Fuera de las reglas de carpeta: tu configuración actual de Git"
@@ -2145,9 +2154,6 @@ msgstr "¿Eliminar elementos sin usar del almacén pnpm?"
 
 msgid "Public IP addresses"
 msgstr "Direcciones IP públicas"
-
-msgid "Publish a calendar under Shared calendars and copy its ICS link."
-msgstr "Publica un calendario en «Calendarios compartidos» y copia su vínculo ICS."
 
 msgid "Queues"
 msgstr "Colas"
@@ -2580,6 +2586,9 @@ msgstr "Compartiendo este escritorio"
 
 msgid "Sharing this network security type is not supported"
 msgstr "No se admite compartir este tipo de seguridad de red"
+
+msgid "Show it with"
+msgstr "Mostrar con"
 
 msgid "Sign In"
 msgstr "Iniciar sesión"

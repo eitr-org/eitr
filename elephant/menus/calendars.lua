@@ -5,7 +5,7 @@ local helper = paths.code("walker/scripts/actions/tools/calendars.py")
 local own_rows = dofile(paths.code("elephant/scoped-menu.lua"))("calendars")
 Name = "calendars"
 NamePretty = i18n.tr("Calendars")
-Parent = "reminders"
+Parent = "tools"
 Icon = "󰃭"
 FixedOrder = true
 

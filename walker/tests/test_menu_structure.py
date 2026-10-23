@@ -14,6 +14,11 @@ def menu(name):
 
 
 class MenuStructureTests(unittest.TestCase):
+    def test_tools_contains_calendars_before_other_submenus(self):
+        submenus = [entry["submenu"] for entry in menu("tools")["entries"] if entry.get("submenu")]
+        self.assertEqual(submenus, ["calendars", "capture", "plugins", "reminders", "share"])
+        self.assertFalse(any(entry.get("submenu") == "calendars" for entry in menu("reminders")["entries"]))
+
     def test_rows_that_open_something_say_what_it_does(self):
         # Submenu rows carry only the ">" marker; every other row has a description.
         for name, data in menu_data.static_menus().items():

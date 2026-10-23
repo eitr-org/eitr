@@ -50,6 +50,7 @@ ShellRoot {
             picker.keyTarget.grabToImage(function(result) {
                 result.saveToFile("CAPTURE");
                 picker.keyTarget.forceActiveFocus();
+                keyboard.keyClick(Qt.Key_0);
                 keyboard.keyClick(Qt.Key_9);
                 keyboard.keyClick(Qt.Key_3);
                 keyboard.keyClick(Qt.Key_0);
@@ -60,6 +61,23 @@ ShellRoot {
     }
     Timer {
         id: finish; interval: 400
+        onTriggered: {
+            if (picker.opened) { Qt.exit(1); return; }
+            picker.open("invalid", "At what time?", "", "12:00");
+            picker.keyTarget.forceActiveFocus();
+            keyboard.keyClick(Qt.Key_2);
+            keyboard.keyClick(Qt.Key_5);
+            keyboard.keyClick(Qt.Key_9);
+            keyboard.keyClick(Qt.Key_9);
+            if (picker.valid || picker.value !== "25:99") { Qt.exit(1); return; }
+            keyboard.keyClick(Qt.Key_Return);
+            if (!picker.opened) { Qt.exit(1); return; }
+            keyboard.keyClick(Qt.Key_Escape);
+            cancelled.start();
+        }
+    }
+    Timer {
+        id: cancelled; interval: 400
         onTriggered: { if (picker.opened) Qt.exit(1); else { console.log("CLOCK_OK"); Qt.quit(); } }
     }
 }'''.replace('BACKGROUND', background).replace('FOREGROUND', foreground).replace('CAPTURE', str(folder / 'clock.png'))
@@ -74,3 +92,4 @@ ShellRoot {
                 self.assertIn('CLOCK_OK', result.stdout + result.stderr)
                 self.assertTrue((folder / 'clock.png').is_file())
                 self.assertEqual((folder / 'eitr-time-picker/typed').read_text(), '09:30\n')
+                self.assertEqual((folder / 'eitr-time-picker/invalid').read_text(), '')

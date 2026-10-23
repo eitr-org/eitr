@@ -22,7 +22,7 @@ import urllib.parse
 import urllib.request
 
 from eitr_i18n import tr
-from eitr_paths import code, code_root, own, read_settings, write_settings
+from eitr_paths import cache, code, code_root, own, read_settings, write_settings
 
 MAX_BYTES = 50 * 1024 * 1024
 MAX_PIXELS = 120_000_000
@@ -238,6 +238,12 @@ def wallpapers(beside=None):
     """The user's own wallpapers; with beside (the current theme's backgrounds),
     leaving out pictures that theme already shows: a theme made from one keeps a copy."""
     mine = pictures_in(own("wallpapers"))
+    try:
+        identifier = cache("current-theme").read_text().strip()
+    except OSError:
+        identifier = ""
+    if re.fullmatch(r"[a-z0-9-]{1,80}", identifier):
+        mine += pictures_in(own("wallpapers") / "themes" / identifier)
     if beside is None:
         return mine
     shown = {(path.name, path.stat().st_size) for path in pictures_in(beside)}
@@ -252,14 +258,22 @@ def same_picture(data, directory):
     return None
 
 
-def add_wallpaper(source, opener=None):
-    return store_picture(source, own("wallpapers"), source_stem(source), opener)
+def add_wallpaper(source, opener=None, theme=""):
+    directory = own("wallpapers")
+    if theme:
+        if not re.fullmatch(r"[a-z0-9-]{1,80}", theme):
+            raise ValueError(tr('Not one of your themes'))
+        directory = directory / "themes" / theme
+    return store_picture(source, directory, source_stem(source), opener)
 
 
 def own_wallpaper(path):
     """The path if it is one of the user's wallpapers, else ValueError."""
     path = Path(path)
-    if path.parent.resolve() != own("wallpapers").resolve() or not path.is_file():
+    root = own("wallpapers").resolve()
+    parent = path.resolve().parent
+    themed = parent.parent == root / "themes" and re.fullmatch(r"[a-z0-9-]{1,80}", parent.name)
+    if (parent != root and not themed) or not path.is_file() or path.is_symlink() or path.suffix.lower() not in SUFFIXES:
         raise ValueError(tr('Not one of your wallpapers'))
     return path
 
@@ -520,6 +534,7 @@ def set_theme_color(identifier, key, value):
 
 def delete_theme(identifier):
     shutil.rmtree(theme_dir(identifier))
+    shutil.rmtree(own("wallpapers") / "themes" / identifier, ignore_errors=True)
 
 
 def fallback_theme(identifier):

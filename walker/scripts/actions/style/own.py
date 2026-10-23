@@ -109,15 +109,26 @@ def ask(title, steps_for):
 # Wallpapers
 
 def add_wallpaper(source=None):
+    theme = ""
     if source is None:
+        identifier = read_cache("current-theme")
+        try:
+            display = user_config("theme/current/display-name").read_text().strip() or identifier
+        except OSError:
+            display = identifier
+        options = [(tr('All themes'), '')]
+        if identifier:
+            options.append((tr('Only {theme}', theme=display), identifier))
         answers = collect(tr('Add your own wallpaper. Eitr keeps a copy only on this computer.'), [
             Step('source', tr('Picture'), validator=own.check_source,
                  description=tr('A file such as ~/Pictures/lake.jpg, or an https address. '
                                 'Eitr downloads it (up to 50 MB) and checks that it is a picture.')),
+            Step('theme', tr('Show it with'), default='', options=options),
         ])
         source = answers['source']
+        theme = answers['theme']
         print(tr('Adding the picture…'), flush=True)
-    path = own.add_wallpaper(source)
+    path = own.add_wallpaper(source, theme=theme)
     subprocess.run([sys.executable, str(code("walker/scripts/actions/wallpaper/transition.py")), "apply", str(path)],
                    check=False)
     notify(tr('Wallpaper added'), tr('{name} is in Style > Wallpaper and the wallpaper carousel.', name=path.name))
