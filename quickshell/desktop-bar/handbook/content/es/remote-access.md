@@ -53,6 +53,8 @@ controlar aplicaciones y juegos. Seleccione la pantalla en Sunshine y pruebe amb
 monitores. Gaming > Moonlight y Conectar a otro PC instalan o abren el cliente
 en Eitr para conectarse en sentido inverso. Las instalaciones nuevas incluyen estas aplicaciones; compartir permanece desactivado hasta que tú lo actives explícitamente.
 
+Atajos con SUPER desde el Mac: en los ajustes de Moonlight, activa **Capture system keyboard shortcuts** (en pantalla completa o siempre). Solo así Moonlight envía la tecla Comando del Mac como SUPER; si no, los atajos con Comando se quedan en el Mac. Ctrl+Alt+Mayús+K activa o desactiva la captura durante una sesión.
+
 ## Tailscale en ambos equipos
 
 En Acceder fuera de casa elija Configurar acceso externo. Tras instalar, el asistente

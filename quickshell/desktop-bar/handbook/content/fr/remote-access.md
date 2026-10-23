@@ -55,6 +55,8 @@ Desktop pour contrôler applications et jeux. Sélectionnez l’écran dans Suns
 et vérifiez chaque moniteur. Gaming > Moonlight et Se connecter à un autre PC installent
 ou ouvrent le client Eitr dans le sens inverse. Les nouvelles installations incluent ces applications ; le partage reste désactivé tant que vous ne l’activez pas explicitement.
 
+Raccourcis SUPER depuis le Mac : dans les réglages de Moonlight, activez **Capture system keyboard shortcuts** (en plein écran ou toujours). Ce n’est qu’ainsi que Moonlight envoie la touche Commande du Mac comme SUPER ; sinon, les raccourcis avec Commande restent sur le Mac. Ctrl+Alt+Maj+K active ou désactive la capture pendant une session.
+
 ## Tailscale sur les deux ordinateurs
 
 Dans Accès hors du domicile, choisissez Configurer l’accès extérieur. Après installation,

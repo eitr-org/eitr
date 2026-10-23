@@ -72,6 +72,10 @@ LAN.
   through a secret iCal address are done (Tools > Calendars). Two-way sync
   (creating or editing provider events) needs account sign-in (OAuth, with
   Google's app verification) and remains later.
+- **A small panel to talk to the default assistant.** The owner's idea, still
+  being decided: a quick panel (not a bar icon) for everyday questions to the
+  default assistant, the local one included, not only for development. Decide
+  the shortcut, where answers appear and what context it may see first.
 - **Antigravity as a helper.** Recheck when its command-line tool gains per-run
   permissions or a read-only headless mode; until then it stays a standalone
   assistant. Nothing to do before that.

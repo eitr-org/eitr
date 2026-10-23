@@ -57,6 +57,8 @@ Sunshine settings select the captured display; verify each monitor separately.
 Gaming > Moonlight and Connect to another PC install or open the Eitr client for
 connecting in the opposite direction. Fresh installs include these apps; sharing stays off until explicitly enabled.
 
+SUPER shortcuts from the Mac: in Moonlight's settings, turn on **Capture system keyboard shortcuts** (in fullscreen or always). Only then does Moonlight send the Mac's Command key as SUPER; otherwise Command shortcuts stay on the Mac. Ctrl+Alt+Shift+K turns the capture on or off during a session.
+
 ## Tailscale on both computers
 
 Choose Access away from home > Set Up Away Access. After installing Tailscale,

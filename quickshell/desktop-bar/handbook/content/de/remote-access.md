@@ -58,6 +58,8 @@ Bildschirm in Sunshine und prüfen Sie beide Monitore. Gaming > Moonlight und
 Mit anderem PC verbinden installieren oder öffnen den Eitr-Client für die umgekehrte
 Richtung. Neue Installationen enthalten diese Anwendungen; die Freigabe bleibt deaktiviert, bis du sie ausdrücklich aktivierst.
 
+SUPER-Tastenkürzel vom Mac: Schalte in den Moonlight-Einstellungen **Capture system keyboard shortcuts** ein (im Vollbild oder immer). Erst dann sendet Moonlight die Befehlstaste des Macs als SUPER; sonst bleiben Befehlstasten-Kürzel auf dem Mac. Strg+Alt+Umschalt+K schaltet das Abfangen während einer Sitzung ein oder aus.
+
 ## Tailscale auf beiden Rechnern
 
 Wählen Sie unter Zugriff von unterwegs den Eintrag Zugriff für unterwegs einrichten. Nach der
