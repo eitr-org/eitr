@@ -59,12 +59,10 @@ LAN.
   than promotional claims. Update the public repository description/README with
   consistent Eitr Linux positioning. Consider a dated, source-checked Omarchy
   comparison page separately; do not imply shared features are exclusive.
-- **Live installer console font.** The ISO's console uses the kernel's built-in
-  font, which lacks some accented letters (ã, õ, Á, Ó): a Portuguese or Spanish
-  installer screen shows "instalaçao", "PASOS DE INSTALACION". The installer has
-  no language choice yet (it follows `LANG`), so only a translated run shows it.
-  Pick a console font with these letters that keeps the wizard's box drawing,
-  and set it on the ISO before offering installer languages.
+- **Live installer console font: check on the next ISO.** The ISO now sets
+  `FONT=eurlatgr` (from kbd), which has ã, õ, Á and Ó and every box-drawing and
+  block character the wizard uses. Boot the next ISO in a VM with `LANG=pt_BR` and
+  `es_ES` on tty2 and confirm the installer screens show the accents.
 
 # 3. Later
 

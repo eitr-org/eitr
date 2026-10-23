@@ -89,6 +89,15 @@ install -Dm644 /dev/stdin "$profile/airootfs/etc/plymouth/plymouthd.conf" <<'EOF
 [Daemon]
 Theme=eitr
 EOF
+# The kernel's built-in console font lacks ã, õ, Á and Ó; eurlatgr (from kbd)
+# has them and every box-drawing and block character the installer wizard draws.
+vconsole="$profile/airootfs/etc/vconsole.conf"
+if [[ -f "$vconsole" ]] && grep -q '^FONT=' "$vconsole"; then
+  sed -i 's/^FONT=.*/FONT=eurlatgr/' "$vconsole"
+else
+  install -d "$(dirname "$vconsole")"
+  echo 'FONT=eurlatgr' >> "$vconsole"
+fi
 # Export committed files only, so ignored or untracked machine-local state
 # (primary display, caches, notification settings) never reaches the image.
 # The installer reads scripts and small files from this tree; the eitr-desktop

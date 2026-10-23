@@ -167,6 +167,8 @@ class InstallerUiTests(unittest.TestCase):
         self.assertIn("/dev/tty1", script)
         self.assertIn("python-pillow", script)
         self.assertIn("plymouth", script)
+        # The live console needs accented letters and box drawing for translated installers.
+        self.assertIn("FONT=eurlatgr", script)
         self.assertNotIn('"$desktop_config/distro/packages.txt"', script)
 
 
