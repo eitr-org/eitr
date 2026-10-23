@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Walker software workflows. No package writes occur while listing or reviewing."""
 import argparse
+import functools
 import gzip
 import json
 import os
@@ -88,10 +89,40 @@ def installer_url(name):
     return url
 
 
+@functools.cache
+def webapp_rows():
+    return json.loads(text(["python3", str(SCRIPT.with_name("webapps.py")), "list"]))
+
+
 def webapp(item):
     """Resolve recipes through the same catalog as Install > Web Apps."""
-    rows = json.loads(text(["python3", str(SCRIPT.with_name("webapps.py")), "list"]))
-    return next((app for app in rows if app["url"] == item["url"]), None)
+    return next((app for app in webapp_rows() if app["url"] == item["url"]), None)
+
+
+# Answers for one listing, so a menu asks pacman and Flatpak once instead of once per app.
+KNOWN_PACKAGES = {}
+FLATPAK_REFS = None
+
+
+def check_packages(packages):
+    """Ask pacman about many packages in one call; pacman -Q also accepts what a
+    package provides (sh is answered by bash), so only "not found" lines count."""
+    packages = [package for package in dict.fromkeys(packages) if package not in KNOWN_PACKAGES]
+    if not packages:
+        return
+    result = subprocess.run(["pacman", "-Q", "--", *packages], capture_output=True, text=True,
+                            env={**os.environ, "LC_ALL": "C"})
+    missing = set(re.findall(r"^error: package '([^']+)' was not found$", result.stderr, re.M))
+    for package in packages:
+        KNOWN_PACKAGES[package] = package not in missing
+
+
+def flatpak_installed(ref):
+    global FLATPAK_REFS
+    if FLATPAK_REFS is None:
+        result = subprocess.run(["flatpak", "list", "--columns=application"], capture_output=True, text=True)
+        FLATPAK_REFS = set(result.stdout.split()) if result.returncode == 0 else set()
+    return ref in FLATPAK_REFS
 
 
 def installed(item):
@@ -105,11 +136,9 @@ def installed(item):
     if item["source"] == "webapp":
         return webapp(item) is not None
     if item["source"] == "flatpak":
-        return bool(shutil.which("flatpak")) and all(
-            subprocess.run(["flatpak", "info", package], capture_output=True).returncode == 0
-            for package in item["packages"])
-    if item["packages"] and subprocess.run(["pacman", "-Q", "--", *item["packages"]],
-                                           capture_output=True).returncode != 0:
+        return bool(shutil.which("flatpak")) and all(flatpak_installed(package) for package in item["packages"])
+    check_packages(item["packages"])
+    if item["packages"] and not all(KNOWN_PACKAGES[package] for package in item["packages"]):
         return False
     if item["source"] == "managed":
         paths = item.get("installed", [])
@@ -132,6 +161,8 @@ def recipes(group):
     from eitr_policy import allowed, require_packages
     if not allowed(group.replace('-', '_')):
         return []
+    check_packages(package for value in catalog()[group].values() if value["source"] != "flatpak"
+                   for package in value.get("packages", []))
     for key, value in catalog()[group].items():
         try:
             require_packages(value.get('packages', []))

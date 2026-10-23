@@ -32,7 +32,32 @@ def repository_catalog():
     return patch.object(software, "catalog", return_value=json.loads((ROOT / "distro/software.json").read_text()))
 
 
+def forget_installed_state():
+    """A listing remembers what pacman, Flatpak and Web Apps said; tests start fresh."""
+    software.KNOWN_PACKAGES.clear()
+    software.FLATPAK_REFS = None
+    software.webapp_rows.cache_clear()
+
+
 class SoftwareTests(unittest.TestCase):
+    def setUp(self):
+        forget_installed_state()
+
+    def test_a_listing_asks_pacman_and_flatpak_once(self):
+        data = {"tools": {"a": {"label": "A", "source": "pacman", "packages": ["sh"]},
+                          "b": {"label": "B", "source": "aur", "packages": ["missing-one", "sh"]},
+                          "c": {"label": "C", "source": "flatpak", "packages": ["org.example.App"]},
+                          "d": {"label": "D", "source": "flatpak", "packages": ["org.example.Other"]}}}
+        answers = {"pacman": SimpleNamespace(returncode=1, stdout="bash 5.3-1\n",
+                                             stderr="error: package 'missing-one' was not found\n"),
+                   "flatpak": SimpleNamespace(returncode=0, stdout="org.example.App\n", stderr="")}
+        with patch.object(software, "catalog", return_value=data), \
+                patch.object(software.shutil, "which", return_value="/usr/bin/flatpak"), \
+                patch.object(software.subprocess, "run", side_effect=lambda command, **options: answers[command[0]]) as run:
+            rows = {row["id"]: row["installed"] for row in software.recipes("tools")}
+        self.assertEqual(rows, {"a": True, "b": False, "c": True, "d": False})
+        self.assertEqual([call.args[0][0] for call in run.call_args_list], ["pacman", "flatpak"])
+        self.assertEqual(run.call_args_list[0].args[0], ["pacman", "-Q", "--", "sh", "missing-one"])
     def test_geforce_adds_runtime_remote_before_install(self):
         data = json.loads((ROOT / "distro/software.json").read_text())
         with patch.object(software, "catalog", return_value=data), \
@@ -66,11 +91,13 @@ class SoftwareTests(unittest.TestCase):
                 (Path(home) / relative).touch()
             self.assertTrue(software.installed(java))
             self.assertFalse(software.installed({"label": "X", "source": "managed", "packages": []}))
-        with patch.object(software.subprocess, "run", return_value=SimpleNamespace(returncode=1)):
+        with patch.object(software.subprocess, "run", return_value=SimpleNamespace(
+                returncode=1, stdout="", stderr="error: package 'dbeaver' was not found\n")):
             self.assertFalse(software.installed({"label": "DBeaver", "source": "pacman", "packages": ["dbeaver"]}))
+        forget_installed_state()
         data = {"databases": {"dbeaver": {"label": "DBeaver", "source": "pacman", "packages": ["dbeaver"]}}}
         with patch.object(software, "catalog", return_value=data), \
-                patch.object(software.subprocess, "run", return_value=SimpleNamespace(returncode=0)), \
+                patch.object(software.subprocess, "run", return_value=SimpleNamespace(returncode=0, stdout="", stderr="")), \
                 patch.object(software, "install") as install:
             software.recipe("databases", "dbeaver")
         install.assert_not_called()
@@ -552,10 +579,13 @@ class GamingTests(unittest.TestCase):
                 launch.assert_not_called()
 
     def test_gaming_flatpak_checks_app_not_just_flatpak_binary(self):
+        item = software.catalog()["gaming"]["geforcenow"]
         for found in (True, False):
+            forget_installed_state()
+            listed = "\n".join(item["packages"]) if found else "org.example.Else"
             with self.subTest(installed=found), patch.object(software.shutil, "which", return_value="/usr/bin/flatpak"), \
-                    patch.object(software.subprocess, "run", return_value=SimpleNamespace(returncode=0 if found else 1)):
-                self.assertEqual(software.installed(software.catalog()["gaming"]["geforcenow"]), found)
+                    patch.object(software.subprocess, "run", return_value=SimpleNamespace(returncode=0, stdout=listed)):
+                self.assertEqual(software.installed(item), found)
 
     def test_retroarch_installs_official_cores_with_its_menu_assets(self):
         item = software.catalog()["gaming"]["retroarch"]

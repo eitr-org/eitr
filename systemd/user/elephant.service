@@ -7,6 +7,8 @@ Type=simple
 Environment=EITR_CODE_ROOT=/usr/share/eitr
 # Terminals opened from menus get a solid background and float (walker/bin/menu-path/kitty).
 ExecStart=/usr/bin/env PATH=/usr/share/eitr/walker/bin/menu-path:${PATH} /usr/bin/elephant
+# Build the menu search index now, so the first Walker after a boot opens at once.
+ExecStartPost=-/usr/bin/python3 /usr/share/eitr/walker/scripts/menus/search-index.py warm
 Restart=on-failure
 # Menu-launched applications must survive backend stops and restarts.
 KillMode=process

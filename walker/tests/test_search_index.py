@@ -111,6 +111,22 @@ class SearchIndexTests(unittest.TestCase):
             search.prepare()
             self.assertTrue(start.call_args.kwargs['start_new_session'])
 
+    def test_warm_waits_for_elephant_then_builds_a_missing_index_once(self):
+        answers = iter([1, 1, 0])
+        with patch.object(search.subprocess, 'run', side_effect=lambda *arguments, **options:
+                          subprocess.CompletedProcess(arguments, next(answers))) as run, \
+                patch.object(search.time, 'sleep') as sleep, \
+                patch.object(search, 'read_index', return_value={}), patch.object(search, 'refresh') as refresh:
+            search.warm()
+        self.assertEqual(run.call_count, 3)
+        self.assertEqual(sleep.call_count, 2)
+        refresh.assert_called_once_with()
+        with patch.object(search.subprocess, 'run', return_value=subprocess.CompletedProcess([], 0)), \
+                patch.object(search, 'fresh', return_value=True), patch.object(search, 'read_index', return_value={'rows': [1]}), \
+                patch.object(search, 'refresh') as refresh:
+            search.warm()
+        refresh.assert_not_called()
+
     def test_activation_routes_to_original_provider(self):
         row = search.snapshot(self.output(self.item))[0]
         with patch.object(search, 'read_index', return_value={'rows': [row]}), \

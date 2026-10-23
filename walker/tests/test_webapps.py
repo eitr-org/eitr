@@ -60,6 +60,8 @@ class WebAppTests(unittest.TestCase):
             software.recipe("productivity", "notion")
             run.assert_called_with(["python3", str(SCRIPT), "create", "Notion", item["url"]])
             self.webapps.create("My Notion", item["url"], icon_fetch=lambda *arguments: None)
+            # Each menu action is a new process; here one module stands in for several.
+            software.webapp_rows.cache_clear()
             row = software.recipes("productivity")[0]
             self.assertTrue(row["installed"])
             self.assertTrue(row["removable"])
@@ -80,6 +82,7 @@ class WebAppTests(unittest.TestCase):
             software.recipe_remove("productivity", "notion")
             run.assert_called_with(["python3", str(SCRIPT), "remove", "my-notion"])
             self.webapps.remove("my-notion")
+            software.webapp_rows.cache_clear()
             self.assertFalse(software.installed(item))
 
     def test_create_lists_and_removes_a_launcher(self):
