@@ -457,6 +457,9 @@ msgstr "Calendario no añadido"
 msgid "Calendar removed"
 msgstr "Calendario quitado"
 
+msgid "Calendars refreshed"
+msgstr "Calendarios actualizados"
+
 msgid "Camera"
 msgstr "Cámara"
 
@@ -2671,6 +2674,9 @@ msgstr "Las actualizaciones protegidas por instantáneas requieren una raíz Btr
 msgid "Snapshots"
 msgstr "Instantáneas"
 
+msgid "Some calendars could not be reached; their previous events stay."
+msgstr "No se pudo acceder a algunos calendarios; sus eventos anteriores se mantienen."
+
 msgid "Some plugins could not be updated; their previous approved commits were kept."
 msgstr "No se pudieron actualizar algunos plugins; se conservaron sus commits aprobados anteriores."
 
@@ -3705,6 +3711,9 @@ msgstr "{command} no está instalado; usa Walker → Instalar → Pacman"
 
 msgid "{config} has an unfinished EITR style block; fix it by hand. Nothing was changed."
 msgstr "{config} contiene un bloque de estilo de EITR sin terminar; corrígelo a mano. No se cambió nada."
+
+msgid "{count} events from the last week to the next 60 days."
+msgstr "{count} eventos desde la semana pasada hasta los próximos 60 días."
 
 msgid "{count} occurrences"
 msgstr "{count} ocurrencias"

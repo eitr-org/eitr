@@ -114,7 +114,16 @@ ThemedPopup {
     onOpenedChanged: {
         cancelDelete();
         deleteError = "";
-        if (opened) goToday();
+        if (opened) {
+            goToday();
+            // New events in a subscribed calendar show up while the panel is open:
+            // the refresh rewrites the cache this panel watches.
+            if (!calendarSync.running) calendarSync.running = true;
+        }
+    }
+    Process {
+        id: calendarSync
+        command: ["python3", Eitr.Paths.code("walker/scripts/actions/tools/calendars.py"), "refresh", "--if-older", "60"]
     }
 
     Item {

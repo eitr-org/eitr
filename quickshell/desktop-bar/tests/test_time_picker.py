@@ -50,10 +50,9 @@ ShellRoot {
             picker.keyTarget.grabToImage(function(result) {
                 result.saveToFile("CAPTURE");
                 picker.keyTarget.forceActiveFocus();
-                keyboard.keyClick(Qt.Key_0);
-                keyboard.keyClick(Qt.Key_9);
-                keyboard.keyClick(Qt.Key_3);
-                keyboard.keyClick(Qt.Key_0);
+                // A full field can be typed again: 21:00, then 09:30.
+                for (const key of [Qt.Key_2, Qt.Key_1, Qt.Key_0, Qt.Key_0, Qt.Key_0, Qt.Key_9, Qt.Key_3, Qt.Key_0])
+                    keyboard.keyClick(key);
                 keyboard.keyClick(Qt.Key_Return);
                 finish.start();
             });

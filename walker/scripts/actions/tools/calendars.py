@@ -5,6 +5,8 @@
   calendars.py rows        JSON rows for the Walker menu (names and hosts only)
   calendars.py remove ID   ask, then forget that calendar
   calendars.py refresh     fetch every calendar, cache its events, time the alerts
+  calendars.py refresh --if-older SECONDS   the same, unless a refresh is that recent
+  calendars.py sync        refresh now and report the result in a notification
   calendars.py fire KEY    (a timer runs this) alert for one event
 
 The addresses are secrets: they live only in $XDG_CONFIG_HOME/eitr/calendars/
@@ -12,7 +14,8 @@ subscriptions.json (folder 0700, file 0600) and never reach a command line, a lo
 a notification or an error message, which name the calendar and its host instead.
 Events from a week ago to 60 days ahead are cached in
 $XDG_CACHE_HOME/eitr/calendar-events.json for the calendar panel. eitr-calendars.timer
-refreshes them every 15 minutes and at login while at least one calendar exists.
+refreshes them every 15 minutes and at login while at least one calendar exists;
+opening the calendar panel also refreshes them when the last refresh is over a minute old.
 
 The iCal reader covers VEVENT start, end or duration, summary and UID; UTC, TZID
 (IANA names, common Windows names, else the VTIMEZONE standard offset) and floating
@@ -654,6 +657,19 @@ def main(argv):
     if command == 'refresh' and not rest:
         with locked():
             return refresh()
+    if command == 'refresh' and len(rest) == 2 and rest[0] == '--if-older' and rest[1].isdigit():
+        # The calendar panel asks on opening; a refresh within that many seconds is enough.
+        if not load_calendars() or time.time() - load_cache().get('updated', 0) < int(rest[1]):
+            return 0
+        with locked():
+            return refresh()
+    if command == 'sync' and not rest:
+        with locked():
+            failed = refresh()
+        count = len(load_cache()['events'])
+        reminders.notify(tr('Calendars refreshed'), tr('{count} events from the last week to the next 60 days.', count=count)
+                         if not failed else tr('Some calendars could not be reached; their previous events stay.'))
+        return failed
     if command == 'fire' and len(rest) == 1:
         with locked():
             return fire(rest[0])

@@ -19,8 +19,9 @@ function GetEntries()
         local ok, calendars = pcall(jsonDecode, output)
         for _, calendar in ipairs(ok and calendars or {}) do
             table.insert(entries, {Text = calendar.name, Icon = "󰃭", Value = calendar.id,
-                Subtext = i18n.tr("Read-only from {host} · select to remove", {host = calendar.host}),
-                Actions = {open = "python3 " .. quote(helper) .. " remove " .. quote(calendar.id)}})
+                Subtext = i18n.tr("Read-only from {host} · Enter refreshes, Delete removes", {host = calendar.host}),
+                Actions = {open = "python3 " .. quote(helper) .. " sync",
+                           calendar_delete = "python3 " .. quote(helper) .. " remove " .. quote(calendar.id)}})
         end
     end
     return entries

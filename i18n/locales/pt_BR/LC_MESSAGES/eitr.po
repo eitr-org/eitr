@@ -457,6 +457,9 @@ msgstr "Calendário não adicionado"
 msgid "Calendar removed"
 msgstr "Calendário removido"
 
+msgid "Calendars refreshed"
+msgstr "Calendários atualizados"
+
 msgid "Camera"
 msgstr "Câmera"
 
@@ -2671,6 +2674,9 @@ msgstr "Atualizações protegidas por snapshots exigem a raiz em Btrfs. Nenhuma 
 msgid "Snapshots"
 msgstr "Snapshots"
 
+msgid "Some calendars could not be reached; their previous events stay."
+msgstr "Alguns calendários não puderam ser acessados; os eventos anteriores continuam."
+
 msgid "Some plugins could not be updated; their previous approved commits were kept."
 msgstr "Não foi possível atualizar alguns plugins; seus commits aprovados anteriores foram mantidos."
 
@@ -3705,6 +3711,9 @@ msgstr "{command} não está instalado; use Walker → Instalar → Pacman"
 
 msgid "{config} has an unfinished EITR style block; fix it by hand. Nothing was changed."
 msgstr "{config} contém um bloco de estilo do EITR incompleto; corrija manualmente. Nada foi alterado."
+
+msgid "{count} events from the last week to the next 60 days."
+msgstr "{count} eventos da última semana aos próximos 60 dias."
 
 msgid "{count} occurrences"
 msgstr "{count} ocorrências"

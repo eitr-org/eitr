@@ -314,7 +314,7 @@
   "QR Code": "QR Code",
   "Ragnarök": "Ragnarök",
   "Read a QR code in a selected area and copy it": "Read a QR code in a selected area and copy it",
-  "Read-only from {host} · select to remove": "Read-only from {host} · select to remove",
+  "Read-only from {host} · Enter refreshes, Delete removes": "Read-only from {host} · Enter refreshes, Delete removes",
   "Read-only help from your connected assistants": "Read-only help from your connected assistants",
   "Reboot": "Reboot",
   "Reboot BIOS": "Reboot BIOS",

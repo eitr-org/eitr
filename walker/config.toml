@@ -136,6 +136,7 @@ fallback = [
   { action = "app_launch", label = "Open", bind = "Return", default = true, after = "Close" },
   { action = "font_select", label = "Select", bind = "Return", default = true, after = "Close" },
   { action = "font_delete", label = "Remove Font", bind = "Delete", after = "Close" },
+  { action = "calendar_delete", label = "Delete", bind = "Delete", after = "Close" },
   { action = "keyboard_delete", label = "Remove Layout", bind = "Delete", after = "Reload" },
   { action = "clipboard_delete", label = "Delete", bind = "Delete", after = "AsyncReload" },
   { action = "clipboard_paste", label = "Paste", bind = "Return", default = true, after = "Close" },

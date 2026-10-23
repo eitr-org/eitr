@@ -46,8 +46,9 @@ Item {
         else minute = (minute + delta + 60) % 60;
     }
     function typeDigit(text) {
-        if (!editing) { typed = ""; editing = true; }
-        if (typed.length < 4) typed += text;
+        // A full field starts over, so a typed time can always be retyped.
+        if (!editing || typed.length >= 4) { typed = ""; editing = true; }
+        typed += text;
     }
     function finish(cancelled) {
         if (!opened || writer.running) return;

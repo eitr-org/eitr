@@ -8,6 +8,7 @@ from pathlib import Path
 import stat
 import sys
 import tempfile
+import time
 import unittest
 from unittest.mock import patch
 import urllib.error
@@ -258,6 +259,30 @@ class FlowTests(unittest.TestCase):
                       [arguments for arguments, _ in self.calls])
 
 
+    def test_opening_the_panel_refreshes_only_when_a_minute_has_passed(self):
+        self.assertEqual(calendars.main(['refresh', '--if-older', '60']), 0, 'no calendars: nothing to do')
+        self.add(['Other (any iCal address)', SECRET, 'Mine'])
+        calendars.write_private(calendars.events_file(), {'updated': int(time.time()), 'events': []})
+        with patch.object(calendars, 'refresh', return_value=0) as refresh:
+            calendars.main(['refresh', '--if-older', '60'])
+            refresh.assert_not_called()
+            with patch.object(calendars.time, 'time', return_value=time.time() + 61):
+                calendars.main(['refresh', '--if-older', '60'])
+            refresh.assert_called_once_with()
+        self.assertEqual(calendars.main(['refresh', '--if-older', 'soon']), 2)
+        panel = (ROOT / 'quickshell/desktop-bar/CalendarMenu.qml').read_text()
+        self.assertIn('calendars.py"), "refresh", "--if-older", "60"]', panel)
+
+    def test_enter_refreshes_and_reports_without_the_address(self):
+        self.add(['Other (any iCal address)', SECRET, 'Mine'])
+        self.notify.reset_mock()
+        with patch.object(calendars, 'refresh', return_value=0):
+            self.assertEqual(calendars.main(['sync']), 0)
+        title, body = self.notify.call_args.args
+        self.assertEqual(title, 'Calendars refreshed')
+        self.assertNotIn(SECRET, body)
+
+
 class MenuTests(unittest.TestCase):
     def test_calendars_menu_lives_under_tools(self):
         menu = load_menu('calendars')
@@ -268,7 +293,10 @@ class MenuTests(unittest.TestCase):
         self.assertEqual((row['subtext'], row['submenu']), ('>', 'calendars'))
         lua = (ROOT / 'elephant/menus/calendars.lua').read_text()
         self.assertIn('" rows")', lua)
-        self.assertIn('" remove " .. quote(calendar.id)', lua)
+        self.assertIn('calendar_delete = "python3 " .. quote(helper) .. " remove " .. quote(calendar.id)', lua)
+        self.assertIn('open = "python3 " .. quote(helper) .. " sync"', lua)
+        config = (ROOT / 'walker/config.toml').read_text()
+        self.assertIn('{ action = "calendar_delete", label = "Delete", bind = "Delete", after = "Close" }', config)
         self.assertNotIn('url', lua)
 
     def test_units_ship_with_the_package(self):

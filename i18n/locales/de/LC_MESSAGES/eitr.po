@@ -457,6 +457,9 @@ msgstr "Kalender nicht hinzugefügt"
 msgid "Calendar removed"
 msgstr "Kalender entfernt"
 
+msgid "Calendars refreshed"
+msgstr "Kalender aktualisiert"
+
 msgid "Camera"
 msgstr "Kamera"
 
@@ -2671,6 +2674,9 @@ msgstr "Durch Snapshots geschützte Updates erfordern Btrfs als Root-Dateisystem
 msgid "Snapshots"
 msgstr "Snapshots"
 
+msgid "Some calendars could not be reached; their previous events stay."
+msgstr "Einige Kalender waren nicht erreichbar; ihre bisherigen Termine bleiben."
+
 msgid "Some plugins could not be updated; their previous approved commits were kept."
 msgstr "Einige Plugins konnten nicht aktualisiert werden; ihre zuvor bestätigten Commits wurden beibehalten."
 
@@ -3705,6 +3711,9 @@ msgstr "{command} ist nicht installiert; verwenden Sie Walker → Installieren �
 
 msgid "{config} has an unfinished EITR style block; fix it by hand. Nothing was changed."
 msgstr "{config} enthält einen unvollständigen EITR-Stilblock; korrigieren Sie ihn manuell. Nichts wurde geändert."
+
+msgid "{count} events from the last week to the next 60 days."
+msgstr "{count} Termine von der letzten Woche bis zu den nächsten 60 Tagen."
 
 msgid "{count} occurrences"
 msgstr "{count} Termine"

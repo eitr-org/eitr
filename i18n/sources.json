@@ -2256,7 +2256,7 @@
     "Read a QR code in a selected area and copy it": [
       "elephant/menu-rows/capture.json"
     ],
-    "Read-only from {host} · select to remove": [
+    "Read-only from {host} · Enter refreshes, Delete removes": [
       "elephant/menus/calendars.lua"
     ],
     "Read-only help from your connected assistants": [
@@ -3945,6 +3945,9 @@
       "walker/scripts/actions/tools/calendars.py"
     ],
     "Calendar removed": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
+    "Calendars refreshed": [
       "walker/scripts/actions/tools/calendars.py"
     ],
     "Camera": [
@@ -6207,6 +6210,9 @@
     "Snapshots": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Some calendars could not be reached; their previous events stay.": [
+      "walker/scripts/actions/tools/calendars.py"
+    ],
     "Some plugins could not be updated; their previous approved commits were kept.": [
       "walker/scripts/actions/system/update.sh"
     ],
@@ -7250,6 +7256,9 @@
     ],
     "{config} has an unfinished EITR style block; fix it by hand. Nothing was changed.": [
       "distro/system/eitr-system.py"
+    ],
+    "{count} events from the last week to the next 60 days.": [
+      "walker/scripts/actions/tools/calendars.py"
     ],
     "{count} occurrences": [
       "walker/scripts/actions/tools/reminders.py"

@@ -1288,5 +1288,8 @@
   "Nothing was added.": "No se añadió nada.",
   "Only {theme}": "Solo {theme}",
   "Outlook: Settings > Calendar > Shared calendars > Publish a calendar > copy the ICS link, not the HTML one.": "Outlook: Configuración > Calendario > Calendarios compartidos > Publicar un calendario > copia el vínculo ICS, no el HTML.",
-  "Show it with": "Mostrar con"
+  "Show it with": "Mostrar con",
+  "Calendars refreshed": "Calendarios actualizados",
+  "{count} events from the last week to the next 60 days.": "{count} eventos desde la semana pasada hasta los próximos 60 días.",
+  "Some calendars could not be reached; their previous events stay.": "No se pudo acceder a algunos calendarios; sus eventos anteriores se mantienen."
 }
