@@ -5,7 +5,9 @@ in both popups and notification history. Times are kept only for this session.
 
 ## System > Information
 
-**About** displays the EITR summary, including the installed EITR version, in a terminal. **Hardware** shows CPU, GPU,
+About groups hardware, software (including the installed EITR version), and OS age, uptime and date in themed terminal boxes beside the liquid E logo. Palette dots follow the boxes; long values are shortened to keep borders aligned.
+
+**Hardware** shows CPU, GPU,
 RAM and storage for the drive backing `/`; other disks are not combined into
 that total. Missing sensor/GPU telemetry is marked unavailable.
 

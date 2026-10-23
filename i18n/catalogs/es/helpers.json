@@ -1297,5 +1297,20 @@
   "Install Chrome, Chromium, Edge, Brave or Vivaldi from Install > Browsers to open it.": "Instala Chrome, Chromium, Edge, Brave o Vivaldi desde Instalar > Navegadores para abrirla.",
   "Install Chrome, Chromium, Edge, Brave or Vivaldi from Walker > Install > Browsers; Firefox cannot open app windows.": "Instala Chrome, Chromium, Edge, Brave o Vivaldi desde Walker > Instalar > Navegadores; Firefox no puede abrir ventanas de aplicaciones.",
   "Web apps need a Chromium-based browser. Install Chromium now? Enter installs · Esc skips": "Las aplicaciones web necesitan un navegador basado en Chromium. ¿Instalar Chromium ahora? Enter instala · Esc omite",
-  "Number or your own answer (Esc to cancel): ": "Número o tu propia respuesta (Esc para cancelar): "
+  "Number or your own answer (Esc to cancel): ": "Número o tu propia respuesta (Esc para cancelar): ",
+  "Date": "Fecha",
+  "Hardware": "Hardware",
+  "Kernel": "Núcleo",
+  "Memory": "Memoria",
+  "OS age": "Edad del sistema",
+  "PC": "PC",
+  "Packages": "Paquetes",
+  "Shell": "Shell",
+  "Software": "Software",
+  "Terminal": "Terminal",
+  "Theme": "Tema",
+  "Uptime": "Tiempo activo",
+  "Uptime / Age / Date": "Actividad / Edad / Fecha",
+  "{days} days": "{days} días",
+  "Font": "Fuente"
 }

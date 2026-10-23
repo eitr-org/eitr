@@ -4,7 +4,9 @@ Les cartes de notification affichent la date et l’heure locales d’arrivée s
 
 ## Système > Informations
 
-**À propos** affiche un résumé d’EITR, dont la version installée, dans un terminal. **Matériel** indique CPU, GPU, RAM et stockage du disque contenant `/`. Les autres disques ne sont pas additionnés à ce total. Les données manquantes des capteurs ou du GPU sont indiquées comme indisponibles.
+À propos regroupe le matériel, les logiciels (dont la version installée d’EITR), l’âge du système, la durée de fonctionnement et la date dans des cadres aux couleurs du thème, à côté du logo E liquide. Des points de palette suivent les cadres ; les valeurs longues sont raccourcies pour préserver leur alignement.
+
+**Matériel** indique CPU, GPU, RAM et stockage du disque contenant `/`. Les autres disques ne sont pas additionnés à ce total. Les données manquantes des capteurs ou du GPU sont indiquées comme indisponibles.
 
 **Utilisation de l’IA** détecte les clients installés ou configurés. L’usage en cache apparaît d’abord ; actualiser ne lance ni connexion ni conversation. Les limites de chaque compte sont affichées ; les pourcentages indiquent la part d’une limite déjà utilisée.
 

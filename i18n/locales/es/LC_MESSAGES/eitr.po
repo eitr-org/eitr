@@ -871,6 +871,9 @@ msgstr "Panel guardado"
 msgid "Databases"
 msgstr "Bases de datos"
 
+msgid "Date"
+msgstr "Fecha"
+
 msgid "Default"
 msgstr "Predeterminado"
 
@@ -1186,6 +1189,9 @@ msgstr "Carpeta cuyos repositorios usarán solo esta cuenta"
 msgid "Folder whose repositories use {label}"
 msgstr "Carpeta cuyos repositorios usan {label}"
 
+msgid "Font"
+msgstr "Fuente"
+
 msgid "Font files moved to Trash; they can be restored there."
 msgstr "Los archivos de fuentes se movieron a la papelera y pueden restaurarse desde allí."
 
@@ -1266,6 +1272,9 @@ msgstr "Grupos"
 
 msgid "HTTPS or SSH Git repository URL"
 msgstr "URL HTTPS o SSH del repositorio Git"
+
+msgid "Hardware"
+msgstr "Hardware"
 
 msgid "Hardware detection failed; see the log above"
 msgstr "Falló la detección de hardware; consulta el registro anterior"
@@ -1549,6 +1558,9 @@ msgstr "Se conservó la sustitución de configuración del usuario: {target}"
 msgid "Kept: the disk encryption passphrase and each remaining account's password."
 msgstr "Se conservarán la contraseña de cifrado del disco y la contraseña de cada cuenta restante."
 
+msgid "Kernel"
+msgstr "Núcleo"
+
 msgid "Key-value namespaces"
 msgstr "Espacios de nombres clave-valor"
 
@@ -1689,6 +1701,9 @@ msgstr "Autor del manifiesto: {author}"
 
 msgid "Manifest changed: {path}"
 msgstr "Manifiesto modificado: {path}"
+
+msgid "Memory"
+msgstr "Memoria"
 
 msgid "Message queues"
 msgstr "Colas de mensajes"
@@ -1915,6 +1930,9 @@ msgstr "Estado de pausa de OBS no disponible"
 msgid "OBS status unavailable"
 msgstr "Estado de OBS no disponible"
 
+msgid "OS age"
+msgstr "Edad del sistema"
+
 msgid "Object storage buckets"
 msgstr "Buckets de almacenamiento de objetos"
 
@@ -1999,11 +2017,17 @@ msgstr "Outlook: Configuración > Calendario > Calendarios compartidos > Publica
 msgid "Outside folder rules: your existing Git configuration"
 msgstr "Fuera de las reglas de carpeta: tu configuración actual de Git"
 
+msgid "PC"
+msgstr "PC"
+
 msgid "PCR policy: {TPM_PCRS} (Secure Boot state). Firmware or Secure Boot key changes require the passphrase once, then re-enrollment."
 msgstr "Política PCR: {TPM_PCRS} (estado de Secure Boot). Los cambios de firmware o claves de Secure Boot requieren la contraseña una vez y después un nuevo registro."
 
 msgid "Package picker failed"
 msgstr "Falló el selector de paquetes"
+
+msgid "Packages"
+msgstr "Paquetes"
 
 msgid "Pages Projects"
 msgstr "Proyectos Pages"
@@ -2602,6 +2626,9 @@ msgstr "Compartiendo este escritorio"
 msgid "Sharing this network security type is not supported"
 msgstr "No se admite compartir este tipo de seguridad de red"
 
+msgid "Shell"
+msgstr "Shell"
+
 msgid "Show it with"
 msgstr "Mostrar con"
 
@@ -2685,6 +2712,9 @@ msgstr "Las actualizaciones protegidas por instantáneas requieren una raíz Btr
 
 msgid "Snapshots"
 msgstr "Instantáneas"
+
+msgid "Software"
+msgstr "Software"
 
 msgid "Some calendars could not be reached; their previous events stay."
 msgstr "No se pudo acceder a algunos calendarios; sus eventos anteriores se mantienen."
@@ -2838,6 +2868,9 @@ msgstr "Inquilino"
 
 msgid "Tenant ID or domain"
 msgstr "ID o dominio del inquilino"
+
+msgid "Terminal"
+msgstr "Terminal"
 
 msgid "Terminal settings"
 msgstr "Configuración del terminal"
@@ -3051,6 +3084,9 @@ msgstr "No se pudo aplicar el tema."
 
 msgid "The user service could not be loaded."
 msgstr "No se pudo cargar el servicio de usuario."
+
+msgid "Theme"
+msgstr "Tema"
 
 msgid "This ISO has no complete offline payload ({amount} is missing)"
 msgstr "Esta ISO no incluye todos los paquetes para instalar sin conexión (falta {amount})"
@@ -3354,6 +3390,12 @@ msgstr "Paquetes actualizados: {packages}. El escritorio usará las nuevas versi
 
 msgid "Updates with snapshots (pass a 'before' number to see every package):\n"
 msgstr "Actualizaciones con instantáneas (indica un número 'before' para ver todos los paquetes):\n"
+
+msgid "Uptime"
+msgstr "Tiempo activo"
+
+msgid "Uptime / Age / Date"
+msgstr "Actividad / Edad / Fecha"
 
 msgid "Use a JPEG, PNG or WebP picture."
 msgstr "Usa una imagen JPEG, PNG o WebP."
@@ -3738,6 +3780,9 @@ msgstr "{count} ocurrencias"
 
 msgid "{count} system update(s) pending. Run System → Maintenance → Update → System Update first, so upgrades get a recovery snapshot, then install again."
 msgstr "Hay {count} actualización(es) del sistema pendiente(s). Ejecuta primero Sistema → Mantenimiento → Actualización → Actualización del sistema para crear una instantánea de recuperación y vuelve a instalar."
+
+msgid "{days} days"
+msgstr "{days} días"
 
 msgid "{device} already has a TPM2 slot. Remove it first to re-enroll."
 msgstr "{device} ya tiene una ranura TPM2. Elimínala antes de volver a registrar."

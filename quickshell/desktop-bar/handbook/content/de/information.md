@@ -4,7 +4,9 @@ Benachrichtigungskarten zeigen unter dem Titel das lokale Eingangsdatum und die 
 
 ## System > Informationen
 
-**Über** zeigt eine EITR-Zusammenfassung einschließlich der installierten Version im Terminal. **Hardware** zeigt CPU, GPU, RAM und den Speicher des Laufwerks, auf dem `/` liegt. Andere Laufwerke werden nicht in diese Summe einbezogen. Fehlende Sensor- oder GPU-Daten werden als nicht verfügbar gekennzeichnet.
+Über gruppiert Hardware, Software (einschließlich der installierten EITR-Version), Systemalter, Laufzeit und Datum in themenfarbenen Terminalkästen neben dem flüssigen E-Logo. Darunter stehen Palettenpunkte; lange Werte werden gekürzt, damit die Rahmen ausgerichtet bleiben.
+
+**Hardware** zeigt CPU, GPU, RAM und den Speicher des Laufwerks, auf dem `/` liegt. Andere Laufwerke werden nicht in diese Summe einbezogen. Fehlende Sensor- oder GPU-Daten werden als nicht verfügbar gekennzeichnet.
 
 **KI-Nutzung** erkennt installierte oder konfigurierte Clients. Zuerst erscheint die zwischengespeicherte Nutzung; Aktualisieren startet weder Anmeldung noch Gespräche. Die Grenzen jedes Kontos werden angezeigt. Prozentwerte geben den bereits verbrauchten Anteil eines Limits an.
 

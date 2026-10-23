@@ -71,7 +71,7 @@ def extract(root=ROOT):
     specification.loader.exec_module(handbook_builder)
     for message in handbook_builder.shortcut_messages():
         add("handbook", message, shortcut_builder)
-    for directory in ("walker", "quickshell", "distro", "hypr"):
+    for directory in ("walker", "quickshell", "distro", "hypr", "fastfetch"):
         python_files = list((root / directory).rglob("*.py"))
         for entrypoints in (root / directory / "bin", root / directory / "archinstall"):
             for path in entrypoints.glob("*"):

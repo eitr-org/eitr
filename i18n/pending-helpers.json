@@ -62,7 +62,13 @@
     "Commit: {old} → {new}",
     "Commits:",
     "Outlook",
-    "Magenta"
+    "Magenta",
+    "Hardware",
+    "Kernel",
+    "PC",
+    "Shell",
+    "Software",
+    "Terminal"
   ],
   "es": [
     "AWS SSO (IAM Identity Center)",
@@ -121,7 +127,12 @@
     "Commits:",
     "Google Calendar",
     "Outlook",
-    "Magenta"
+    "Magenta",
+    "Hardware",
+    "PC",
+    "Shell",
+    "Software",
+    "Terminal"
   ],
   "de": [
     "AWS SSO (IAM Identity Center)",
@@ -196,7 +207,13 @@
     "Cyan",
     "Design",
     "Magenta",
-    "Text"
+    "Text",
+    "Hardware",
+    "Kernel",
+    "PC",
+    "Shell",
+    "Software",
+    "Terminal"
   ],
   "fr": [
     "AWS SSO (IAM Identity Center)",
@@ -263,6 +280,10 @@
     "Outlook",
     "Accent",
     "Cyan",
-    "Magenta"
+    "Magenta",
+    "Date",
+    "PC",
+    "Shell",
+    "Terminal"
   ]
 }

@@ -871,6 +871,9 @@ msgstr "Dashboard saved"
 msgid "Databases"
 msgstr "Databases"
 
+msgid "Date"
+msgstr "Date"
+
 msgid "Default"
 msgstr "Default"
 
@@ -1186,6 +1189,9 @@ msgstr "Folder whose repositories use only this account"
 msgid "Folder whose repositories use {label}"
 msgstr "Folder whose repositories use {label}"
 
+msgid "Font"
+msgstr "Font"
+
 msgid "Font files moved to Trash; they can be restored there."
 msgstr "Font files moved to Trash; they can be restored there."
 
@@ -1266,6 +1272,9 @@ msgstr "Groups"
 
 msgid "HTTPS or SSH Git repository URL"
 msgstr "HTTPS or SSH Git repository URL"
+
+msgid "Hardware"
+msgstr "Hardware"
 
 msgid "Hardware detection failed; see the log above"
 msgstr "Hardware detection failed; see the log above"
@@ -1549,6 +1558,9 @@ msgstr "Kept user layout override: {target}"
 msgid "Kept: the disk encryption passphrase and each remaining account's password."
 msgstr "Kept: the disk encryption passphrase and each remaining account's password."
 
+msgid "Kernel"
+msgstr "Kernel"
+
 msgid "Key-value namespaces"
 msgstr "Key-value namespaces"
 
@@ -1689,6 +1701,9 @@ msgstr "Manifest author: {author}"
 
 msgid "Manifest changed: {path}"
 msgstr "Manifest changed: {path}"
+
+msgid "Memory"
+msgstr "Memory"
 
 msgid "Message queues"
 msgstr "Message queues"
@@ -1915,6 +1930,9 @@ msgstr "OBS pause status unavailable"
 msgid "OBS status unavailable"
 msgstr "OBS status unavailable"
 
+msgid "OS age"
+msgstr "OS age"
+
 msgid "Object storage buckets"
 msgstr "Object storage buckets"
 
@@ -1999,11 +2017,17 @@ msgstr "Outlook: Settings > Calendar > Shared calendars > Publish a calendar > c
 msgid "Outside folder rules: your existing Git configuration"
 msgstr "Outside folder rules: your existing Git configuration"
 
+msgid "PC"
+msgstr "PC"
+
 msgid "PCR policy: {TPM_PCRS} (Secure Boot state). Firmware or Secure Boot key changes require the passphrase once, then re-enrollment."
 msgstr "PCR policy: {TPM_PCRS} (Secure Boot state). Firmware or Secure Boot key changes require the passphrase once, then re-enrollment."
 
 msgid "Package picker failed"
 msgstr "Package picker failed"
+
+msgid "Packages"
+msgstr "Packages"
 
 msgid "Pages Projects"
 msgstr "Pages Projects"
@@ -2602,6 +2626,9 @@ msgstr "Sharing this desktop"
 msgid "Sharing this network security type is not supported"
 msgstr "Sharing this network security type is not supported"
 
+msgid "Shell"
+msgstr "Shell"
+
 msgid "Show it with"
 msgstr "Show it with"
 
@@ -2685,6 +2712,9 @@ msgstr "Snapshot-protected updates require a Btrfs root. No update was started."
 
 msgid "Snapshots"
 msgstr "Snapshots"
+
+msgid "Software"
+msgstr "Software"
 
 msgid "Some calendars could not be reached; their previous events stay."
 msgstr "Some calendars could not be reached; their previous events stay."
@@ -2838,6 +2868,9 @@ msgstr "Tenant"
 
 msgid "Tenant ID or domain"
 msgstr "Tenant ID or domain"
+
+msgid "Terminal"
+msgstr "Terminal"
 
 msgid "Terminal settings"
 msgstr "Terminal settings"
@@ -3051,6 +3084,9 @@ msgstr "The theme could not be applied."
 
 msgid "The user service could not be loaded."
 msgstr "The user service could not be loaded."
+
+msgid "Theme"
+msgstr "Theme"
 
 msgid "This ISO has no complete offline payload ({amount} is missing)"
 msgstr "This ISO has no complete offline payload ({amount} is missing)"
@@ -3354,6 +3390,12 @@ msgstr "Updated {packages}. Your desktop uses the new versions after you log bac
 
 msgid "Updates with snapshots (pass a 'before' number to see every package):\n"
 msgstr "Updates with snapshots (pass a 'before' number to see every package):\n"
+
+msgid "Uptime"
+msgstr "Uptime"
+
+msgid "Uptime / Age / Date"
+msgstr "Uptime / Age / Date"
 
 msgid "Use a JPEG, PNG or WebP picture."
 msgstr "Use a JPEG, PNG or WebP picture."
@@ -3738,6 +3780,9 @@ msgstr "{count} occurrences"
 
 msgid "{count} system update(s) pending. Run System → Maintenance → Update → System Update first, so upgrades get a recovery snapshot, then install again."
 msgstr "{count} system update(s) pending. Run System → Maintenance → Update → System Update first, so upgrades get a recovery snapshot, then install again."
+
+msgid "{days} days"
+msgstr "{days} days"
 
 msgid "{device} already has a TPM2 slot. Remove it first to re-enroll."
 msgstr "{device} already has a TPM2 slot. Remove it first to re-enroll."

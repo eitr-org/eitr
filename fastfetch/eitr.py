@@ -18,6 +18,11 @@ import re
 import subprocess
 import tempfile
 import tomllib
+import shutil
+import time
+import unicodedata
+from datetime import datetime
+from eitr_i18n import tr
 
 
 def terminal_logo(path, width=34, height=34):
@@ -72,45 +77,151 @@ def build_config(config_home, cache_home, image=True):
         return value if isinstance(value, str) and re.fullmatch(r"#[0-9a-fA-F]{6}", value) else fallback
     accent = color("accent", "#509475")
     foreground = color("foreground", "#cdd6f4")
-    background = color("background", "#1e1e2e")
     theme = text(current / "display-name", text(cache_home / "current-theme", "Default"))
-    try:
-        settings = json.loads((config_home / "quickshell/desktop-bar/bar-settings.json").read_text())
-    except (OSError, ValueError):
-        settings = {}
-    appearance = "Theme Color" if settings.get("appearance") == "solid" else "Blur"
-    def custom(key, value):
-        return {"type": "custom", "key": key, "format": value}
-    def swatches(start):
-        parts = []
-        for i in range(start, start + 8):
-            value = color(f"color{i}", foreground)
-            parts.append("{#" + value + "}██{#}")
-        return " ".join(parts)
+    def custom(value):
+        return {"type": "custom", "key": " ", "format": value}
+
+    def border(title=None):
+        if title is None:
+            line = "└" + "─" * (width - 2) + "┘"
+        else:
+            heading = " " + title + " "
+            remaining = width - 2 - cell_width(heading)
+            line = "┌" + "─" * (remaining // 2) + heading + "─" * (remaining - remaining // 2) + "┐"
+        return custom("{#2}" + line + "{#}")
+
+    def row(kind, icon, label, tint, value=None, branch="├", **options):
+        guide = "  " if not branch else branch + "─"
+        key = "{#2}│{#} {#" + tint + "}" + guide + " " + icon + " " + label + ":{#} "
+        module = {"type": kind, "key": key, **options}
+        if value is not None:
+            module["format"] = value
+        return module
+
     logo = code("fastfetch/assets/eitr-logo.png")
     logo_source = terminal_logo(logo) if image and logo.exists() else None
-    wordmark = code("fastfetch/assets/eitr-wordmark.png")
-    wordmark_source = terminal_logo(wordmark, 24, 10) if image and wordmark.exists() else None
-    # A space suppresses Fastfetch's default "Custom" key for empty strings.
-    heading = [custom(" ", "{#" + accent + "}" + row + "{#}")
-               for row in wordmark_source.removeprefix("$1").splitlines()] if wordmark_source else []
+    # Leave room for the existing 34-cell logo and its six cells of padding.
+    width = min(76, max(38, shutil.get_terminal_size((120, 40)).columns - (40 if logo_source else 0)))
+    hardware = color("color2", accent)
+    software = color("color4", accent)
+    clock = color("color3", accent)
+    try:
+        font = json.loads((config_home / "eitr/font.json").read_text()).get("family")
+    except (OSError, ValueError, AttributeError):
+        font = None
+    release, separator, build = eitr_version().partition(" (")
+    system = f"Eitr {release} on Arch Linux" + (f" ({build}" if separator else "")
+    modules = [
+        border(tr("Hardware")),
+        row("host", "󰌢", tr("PC"), hardware, "{vendor} {name}", branch=""),
+        row("cpu", "", "CPU", hardware, "{name}"),
+        row("gpu", "󰢮", "GPU", hardware, "{name}"),
+        row("memory", "", tr("Memory"), hardware, "{used} / {total} ({percentage})"),
+        row("disk", "󰋊", tr("Disk"), hardware,
+            "/: {size-used} / {size-total} ({size-percentage}) {filesystem}", branch="└", folders="/"),
+        border(), "break", border(tr("Software")),
+        row("custom", "", "OS", software, system, branch=""),
+        row("kernel", "", tr("Kernel"), software),
+        row("packages", "󰏖", tr("Packages"), software, "{pacman} (pacman), {flatpak-all} (flatpak)"),
+        row("custom", "", tr("Shell"), software, Path(os.environ.get("SHELL", "/bin/sh")).name, branch="└"),
+        row("lm", "󰍂", tr("Login"), software, branch=""),
+        row("wm", "", "WM", software),
+        row("terminal", "", tr("Terminal"), software),
+        *([row("custom", "", tr("Font"), software, " ".join(font.split()))]
+          if isinstance(font, str) and font.strip() else []),
+        row("custom", "󰏘", tr("Theme"), software, theme, branch="└"),
+        border(), "break", border(tr("Uptime / Age / Date")),
+        row("custom", "󰃭", tr("OS age"), clock, os_age(), branch=""),
+        row("uptime", "󰅐", tr("Uptime"), clock),
+        row("datetime", "󰥔", tr("Date"), clock,
+            "{year}-{month-pretty}-{day-pretty} {hour-pretty}:{minute-pretty}:{second-pretty}", branch="└"),
+        border(),
+        custom(" ".join("{#" + color(f"color{index}", foreground) + "}●{#}" for index in range(16))),
+    ]
     return {
         "logo": {"type": "data", "source": logo_source,
                  "color": {"1": accent}, "padding": {"right": 4, "left": 2}}
                 if logo_source else {"type": "none"},
-        "display": {"separator": "  ", "color": {"keys": accent}},
-        "modules": [
-            *heading,
-            custom("Eitr", "Arch-based Linux desktop"), custom("Version", eitr_version()), "break",
-            {"type": "os", "key": "Base"}, "kernel", "uptime", "packages",
-            "wm", custom("Shell", Path(os.environ.get("SHELL", "/bin/sh")).name), "terminal", "display", "break",
-            "cpu", "gpu", "memory", {"type": "disk", "folders": "/"}, "break",
-            custom("Theme", theme), custom("Appearance", appearance),
-            custom("Accent", accent), custom("Foreground", foreground),
-            custom("Background", background), custom("Palette 0–7", swatches(0)),
-            custom("Palette 8–15", swatches(8)),
-        ],
+        "display": {"separator": "", "showErrors": True, "color": {"keys": foreground},
+                    "key": {"paddingLeft": 0}},
+        "modules": modules,
     }
+
+
+def os_age(root=Path("/"), log=Path("/var/log/pacman.log")):
+    """Root birth time, falling back to the earliest timestamp in pacman's log."""
+    try:
+        result = subprocess.run(["stat", "-c", "%W", str(root)], capture_output=True,
+                                text=True, check=False, timeout=2)
+        installed = int(result.stdout.strip())
+    except (OSError, ValueError, subprocess.TimeoutExpired):
+        installed = 0
+    if installed <= 0:
+        installed = None
+        try:
+            with log.open() as entries:
+                for entry in entries:
+                    match = re.match(r"\[([^]]+)\]", entry)
+                    if match:
+                        try:
+                            timestamp = datetime.fromisoformat(match[1]).timestamp()
+                            installed = min(installed, timestamp) if installed is not None else timestamp
+                        except ValueError:
+                            continue
+        except OSError:
+            pass
+    if installed is None or installed <= 0 or installed > time.time():
+        return tr("Unavailable")
+    return tr("{days} days", days=int((time.time() - installed) // 86400))
+
+
+ANSI = re.compile(r"\x1b\[[0-9;]*m")
+
+
+def cell_width(value):
+    return sum(0 if unicodedata.combining(character) else
+               2 if unicodedata.east_asian_width(character) in ("W", "F") else 1
+               for character in ANSI.sub("", value))
+
+
+def fit_cells(value, width):
+    """Preserve SGR colours while fitting terminal cells, including wide text."""
+    truncated = cell_width(value) > width
+    limit = width - 1 if truncated else width
+    parts, used, position = [], 0, 0
+    while position < len(value):
+        escape = ANSI.match(value, position)
+        if escape:
+            parts.append(escape[0])
+            position = escape.end()
+            continue
+        character = value[position]
+        size = cell_width(character)
+        if used + size > limit:
+            break
+        parts.append(character)
+        used += size
+        position += 1
+    if truncated:
+        parts.append("…")
+        used += 1
+    return "".join(parts) + "\x1b[0m" + " " * (width - used)
+
+
+def align_boxes(output):
+    """Fit Fastfetch's native module rows without changing its left-hand logo.
+    Rows have no right border: icon widths differ between terminals, so a closing
+    │ would not line up; long values are cut with … to the box width instead."""
+    width = None
+    lines = []
+    for line in output.splitlines():
+        if "┌" in line:
+            width = cell_width(line[line.index("┌"):].rstrip())
+        elif width and "│" in line:
+            start = line.index("│")
+            line = line[:start] + "\x1b[2m│\x1b[0m" + fit_cells(line[start + 1:].rstrip(), width - 2).rstrip()
+        lines.append(line)
+    return "\n".join(lines)
 
 
 def main():
@@ -138,7 +249,10 @@ def main():
                 check=False, stdout=subprocess.PIPE, text=True)
         except FileNotFoundError:
             parser.exit(1, "Fastfetch is not installed. Install the distro's fastfetch package.\n")
-        print("\n" + result.stdout.strip("\n") + "\n", flush=True)
+        rendered = align_boxes(result.stdout.strip("\n"))
+        if not sys.stdout.isatty():
+            rendered = ANSI.sub("", rendered)
+        print("\n" + rendered + "\n", flush=True)
         raise SystemExit(result.returncode)
 
 

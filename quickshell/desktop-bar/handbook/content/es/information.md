@@ -4,7 +4,9 @@ Las tarjetas de notificación muestran la fecha y hora locales de llegada bajo e
 
 ## Sistema > Información
 
-**Acerca de** muestra un resumen de EITR, incluida la versión instalada, en un terminal. **Hardware** muestra CPU, GPU, RAM y almacenamiento de la unidad que contiene `/`; otros discos no se suman al total. Los datos de sensores o GPU que faltan aparecen como no disponibles.
+Acerca de agrupa hardware, software (incluida la versión instalada de EITR), antigüedad del sistema, tiempo de actividad y fecha en recuadros del terminal con los colores del tema, junto al logotipo E líquido. Debajo aparecen puntos de la paleta; los valores largos se acortan para mantener alineados los bordes.
+
+**Hardware** muestra CPU, GPU, RAM y almacenamiento de la unidad que contiene `/`; otros discos no se suman al total. Los datos de sensores o GPU que faltan aparecen como no disponibles.
 
 **Uso de IA** detecta clientes instalados o configurados. Primero aparece el uso en caché; actualizar no inicia sesiones ni conversaciones. Muestra los límites de cada cuenta; los porcentajes indican la parte del límite ya consumida.
 

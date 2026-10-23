@@ -4380,6 +4380,9 @@
       "walker/scripts/menus/cloud/navigation.py",
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Date": [
+      "fastfetch/eitr.py"
+    ],
     "Default": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
@@ -4447,7 +4450,8 @@
       "quickshell/desktop-bar/scripts/remote-status.py"
     ],
     "Disk": [
-      "distro/archinstall/installer-ui.py"
+      "distro/archinstall/installer-ui.py",
+      "fastfetch/eitr.py"
     ],
     "Disk Usage After Cleanup": [
       "walker/scripts/actions/system/cleanup.sh"
@@ -4701,6 +4705,9 @@
     "Folder whose repositories use {label}": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Font": [
+      "fastfetch/eitr.py"
+    ],
     "Font files moved to Trash; they can be restored there.": [
       "walker/scripts/actions/style/fonts.py"
     ],
@@ -4782,6 +4789,9 @@
     ],
     "HTTPS or SSH Git repository URL": [
       "walker/scripts/actions/install/plugins.py"
+    ],
+    "Hardware": [
+      "fastfetch/eitr.py"
     ],
     "Hardware detection failed; see the log above": [
       "distro/archinstall/eitr-guided-install"
@@ -5073,6 +5083,9 @@
     "Kept: the disk encryption passphrase and each remaining account's password.": [
       "walker/scripts/actions/system/factory-reset.py"
     ],
+    "Kernel": [
+      "fastfetch/eitr.py"
+    ],
     "Key-value namespaces": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -5184,6 +5197,7 @@
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Login": [
+      "fastfetch/eitr.py",
       "walker/scripts/menus/cloud/navigation.py"
     ],
     "Login design is not installed": [
@@ -5215,6 +5229,9 @@
     ],
     "Manifest changed: {path}": [
       "distro/lib/eitr_plugins.py"
+    ],
+    "Memory": [
+      "fastfetch/eitr.py"
     ],
     "Message queues": [
       "walker/scripts/menus/cloud/providers.py"
@@ -5453,6 +5470,9 @@
     "OBS status unavailable": [
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
+    "OS age": [
+      "fastfetch/eitr.py"
+    ],
     "Object storage buckets": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -5537,11 +5557,17 @@
     "Outside folder rules: your existing Git configuration": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "PC": [
+      "fastfetch/eitr.py"
+    ],
     "PCR policy: {TPM_PCRS} (Secure Boot state). Firmware or Secure Boot key changes require the passphrase once, then re-enrollment.": [
       "distro/system/eitr-system.py"
     ],
     "Package picker failed": [
       "walker/scripts/actions/install/software.py"
+    ],
+    "Packages": [
+      "fastfetch/eitr.py"
     ],
     "Pages Projects": [
       "walker/scripts/menus/cloud/providers.py"
@@ -6147,6 +6173,9 @@
     "Sharing this network security type is not supported": [
       "quickshell/desktop-bar/scripts/wifi-qr.py"
     ],
+    "Shell": [
+      "fastfetch/eitr.py"
+    ],
     "Show it with": [
       "walker/scripts/actions/style/own.py"
     ],
@@ -6230,6 +6259,9 @@
     ],
     "Snapshots": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Software": [
+      "fastfetch/eitr.py"
     ],
     "Some calendars could not be reached; their previous events stay.": [
       "walker/scripts/actions/tools/calendars.py"
@@ -6383,6 +6415,9 @@
     ],
     "Tenant ID or domain": [
       "walker/scripts/menus/cloud/accounts.py"
+    ],
+    "Terminal": [
+      "fastfetch/eitr.py"
     ],
     "Terminal settings": [
       "walker/scripts/actions/style/terminal-effects.py"
@@ -6603,6 +6638,9 @@
     "The user service could not be loaded.": [
       "distro/lib/eitr_local_assistant.py"
     ],
+    "Theme": [
+      "fastfetch/eitr.py"
+    ],
     "This ISO has no complete offline payload ({amount} is missing)": [
       "distro/archinstall/eitr-guided-install"
     ],
@@ -6784,6 +6822,7 @@
       "distro/archinstall/installer-ui.py"
     ],
     "Unavailable": [
+      "fastfetch/eitr.py",
       "quickshell/desktop-bar/scripts/remote-status.py"
     ],
     "Undo with Restore Sharing Setup. Existing Sunshine settings are kept.": [
@@ -6905,6 +6944,12 @@
     ],
     "Updates with snapshots (pass a 'before' number to see every package):\n": [
       "distro/system/eitr-system.py"
+    ],
+    "Uptime": [
+      "fastfetch/eitr.py"
+    ],
+    "Uptime / Age / Date": [
+      "fastfetch/eitr.py"
     ],
     "Use a JPEG, PNG or WebP picture.": [
       "distro/lib/eitr_own_style.py"
@@ -7292,6 +7337,9 @@
     ],
     "{count} system update(s) pending. Run System → Maintenance → Update → System Update first, so upgrades get a recovery snapshot, then install again.": [
       "walker/scripts/actions/install/software.py"
+    ],
+    "{days} days": [
+      "fastfetch/eitr.py"
     ],
     "{device} already has a TPM2 slot. Remove it first to re-enroll.": [
       "distro/system/eitr-system.py"

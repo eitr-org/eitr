@@ -62,10 +62,6 @@ class LogoTests(unittest.TestCase):
         self.assertNotIn("Rune Liquid", str(config["modules"]))
 
 
-if __name__ == "__main__":
-    unittest.main()
-
-
 class VersionTests(unittest.TestCase):
     def tearDown(self):
         sys.modules.pop("PIL", None)
@@ -79,3 +75,73 @@ class VersionTests(unittest.TestCase):
             self.assertEqual(module.eitr_version(), '0.3.0 "Ymir" (alpha, build 20261014.035137.g3aaa9c8)')
             (Path(directory) / "version").unlink()
             self.assertEqual(module.eitr_version(), "development checkout")
+
+
+class LayoutTests(unittest.TestCase):
+    def setUp(self):
+        self.module = load(FakeImage(("L",), None))
+
+    def tearDown(self):
+        sys.modules.pop("PIL", None)
+
+    def test_boxes_and_palette_follow_the_current_theme_without_wordmark(self):
+        with tempfile.TemporaryDirectory() as directory:
+            home = Path(directory)
+            current = home / "theme/current"
+            current.mkdir(parents=True)
+            (current / "colors.toml").write_text('[colors]\ncolor2="#123456"\ncolor4="#abcdef"\ncolor3="#654321"\n')
+            (current / "display-name").write_text("Test theme")
+            config = self.module.build_config(home, home, image=False)
+        modules = config["modules"]
+        rendered = str(modules)
+        for title in ("Hardware", "Software", "Uptime / Age / Date"):
+            self.assertIn(title, rendered)
+        for color in ("#123456", "#abcdef", "#654321"):
+            self.assertIn(color, rendered)
+        self.assertIn("Test theme", rendered)
+        self.assertNotIn("wordmark", rendered)
+        self.assertNotIn("█", rendered)
+        self.assertEqual(rendered.count("●"), 16)
+        self.assertEqual(config["logo"], {"type": "none"})
+        borders = [item["format"] for item in modules if isinstance(item, dict)
+                   and item.get("type") == "custom" and "─" in item.get("format", "")]
+        self.assertEqual(len(borders), 6)
+        self.assertEqual(len({len(border) for border in borders}), 1)
+        disk = next(item for item in modules if isinstance(item, dict) and item["type"] == "disk")
+        self.assertEqual(disk["folders"], "/")
+        self.assertIn("{filesystem}", disk["format"])
+
+    def test_long_values_are_cut_to_the_box_without_a_right_border(self):
+        output = "logo ┌──────────┐\nlogo │ \x1b[31m界界界界界界界\x1b[m\nlogo └──────────┘"
+        result = self.module.align_boxes(output)
+        lines = result.splitlines()
+        # The row stays within the box (top and bottom borders are 17 cells) and has no closing │.
+        self.assertEqual([self.module.cell_width(line) for line in (lines[0], lines[2])], [17, 17])
+        self.assertLessEqual(self.module.cell_width(lines[1]), 16)
+        self.assertIn("…", lines[1])
+        self.assertIn("\x1b[31m", lines[1])
+        self.assertFalse(self.module.ANSI.sub("", lines[1]).rstrip().endswith("│"))
+
+    def test_short_values_are_padded_and_combining_marks_take_no_extra_cell(self):
+        fitted = self.module.fit_cells("e\u0301", 5)
+        self.assertEqual(self.module.cell_width(fitted), 5)
+        self.assertNotIn("…", fitted)
+        self.assertEqual(self.module.ANSI.sub("", fitted), "e\u0301    ")
+
+    def test_age_prefers_root_birth_time_and_handles_missing_log(self):
+        from unittest.mock import patch
+        with patch.object(self.module.subprocess, "run", return_value=types.SimpleNamespace(stdout="100000")), \
+                patch.object(self.module.time, "time", return_value=100000 + 86400 * 4):
+            self.assertEqual(self.module.os_age(), "4 days")
+        with tempfile.TemporaryDirectory() as directory, \
+                patch.object(self.module.subprocess, "run", return_value=types.SimpleNamespace(stdout="0")):
+            log = Path(directory) / "pacman.log"
+            log.write_text("bad line\n[2020-03-02T00:00:00+00:00] later\n[2020-03-01T00:00:00+00:00] earlier\n")
+            with patch.object(self.module.time, "time", return_value=1583193600):
+                self.assertEqual(self.module.os_age(log=log), "2 days")
+            log.unlink()
+            self.assertEqual(self.module.os_age(log=log), "Unavailable")
+
+
+if __name__ == "__main__":
+    unittest.main()

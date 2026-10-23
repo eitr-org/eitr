@@ -2,6 +2,7 @@ import importlib.util
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -15,7 +16,8 @@ class AboutTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             config = ABOUT.build_config(Path(directory), Path(directory), False)
         self.assertEqual(config["logo"]["type"], "none")
-        self.assertIn({"type": "custom", "key": "Theme", "format": "Default"}, config["modules"])
+        self.assertTrue(any(isinstance(module, dict) and module.get("format") == "Default"
+                            and "Theme" in module["key"] for module in config["modules"]))
 
     def test_theme_is_read_again_and_nested_palette_supported(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -26,10 +28,10 @@ class AboutTests(unittest.TestCase):
             palette = theme / "colors.toml"
             palette.write_text('[colors]\naccent = "#112233"\ncolor0 = "#abcdef"\n')
             first = ABOUT.build_config(root, root, False)
-            self.assertEqual(first["display"]["color"]["keys"], "#112233")
-            self.assertIn("{##abcdef}", first["modules"][-2]["format"])
+            self.assertIn("#112233", first["modules"][1]["key"])
+            self.assertIn("{##abcdef}", first["modules"][-1]["format"])
             palette.write_text('accent = "#445566"\n')
-            self.assertEqual(ABOUT.build_config(root, root, False)["display"]["color"]["keys"], "#445566")
+            self.assertIn("#445566", ABOUT.build_config(root, root, False)["modules"][1]["key"])
 
     def test_invalid_color_cannot_inject_terminal_commands(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -37,30 +39,26 @@ class AboutTests(unittest.TestCase):
             theme = root / "theme/current"
             theme.mkdir(parents=True)
             (theme / "colors.toml").write_text('accent = "invalid"\n')
-            self.assertEqual(ABOUT.build_config(root, root, False)["display"]["color"]["keys"], "#509475")
+            self.assertIn("#509475", ABOUT.build_config(root, root, False)["modules"][1]["key"])
 
     def test_selected_logo_renders_seventeen_rows(self):
         logo = ABOUT.terminal_logo(ROOT / "fastfetch/assets/eitr-logo.png")
         self.assertEqual(len(logo.splitlines()), 17)
         self.assertIn("▀", logo)
 
-    def test_wordmark_uses_five_rows_and_active_accent(self):
+    def test_shared_wordmark_is_not_rendered_in_about(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             assets = root / "fastfetch/assets"
             assets.mkdir(parents=True)
-            (assets / "eitr-wordmark.png").write_bytes(
-                (ROOT / "fastfetch/assets/eitr-wordmark.png").read_bytes())
-            theme = root / "theme/current"
-            theme.mkdir(parents=True)
-            (theme / "colors.toml").write_text('accent = "#112233"\n')
-            config = ABOUT.build_config(root, root)
-            heading = config["modules"][:5]
-            self.assertTrue(all(row["key"] == " " for row in heading))
-            self.assertTrue(all(row["format"].startswith("{##112233}") for row in heading))
-            self.assertTrue(all(len(row["format"].removeprefix("{##112233}").removesuffix("{#}")) == 24
-                                for row in heading))
-            self.assertEqual(ABOUT.build_config(root, root, False)["modules"][0]["key"], "Eitr")
+            for name in ("eitr-logo.png", "eitr-wordmark.png"):
+                (assets / name).write_bytes(b"")
+            with patch.object(ABOUT, "code", side_effect=lambda relative: root / relative), \
+                    patch.object(ABOUT, "terminal_logo", return_value=None) as render:
+                config = ABOUT.build_config(root, root)
+            render.assert_called_once_with(assets / "eitr-logo.png")
+            self.assertIn("Hardware", config["modules"][0]["format"])
+            self.assertEqual(config["modules"][0]["key"], " ")
 
 
 if __name__ == "__main__":
