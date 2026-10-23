@@ -158,6 +158,9 @@ PanelWindow {
                     anchors.verticalCenter: parent.verticalCenter
                     source: Quickshell.shellDir + "/assets/eitr-logo-white.svg"
                     fillMode: Image.PreserveAspectFit
+                    // Drawn at its shown size: scaling the large SVG down afterwards leaves jagged edges.
+                    sourceSize: Qt.size(Math.ceil(width * Screen.devicePixelRatio), Math.ceil(height * Screen.devicePixelRatio))
+                    smooth: true
                     layer.enabled: true
                     layer.effect: MultiEffect { colorization: 1; colorizationColor: book.foreground }
                 }
