@@ -1,6 +1,6 @@
 # Desktop bar and workspaces
 
-The bar keeps the date and time centered. Its left side contains Overview,
+The bar keeps the date and time centered. Its left side starts with the Eitr logo, which opens Control Center, then Overview,
 workspace markers, Hardware, AI Usage and Idle Lock; its right side contains device/status
 controls. Click **Show Icons** to reveal or hide that right-side group.
 

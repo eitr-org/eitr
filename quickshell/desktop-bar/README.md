@@ -174,9 +174,11 @@ When on, `hypridle` locks after 15 minutes, turns screens off after 30 and
 suspends after 60. Locking now stays in the Control Center, Main > Power and
 SUPER+M. Walker's Toggle > Idle Lock and the Control Center tile are the same toggle.
 
-The Overview icon precedes the workspace markers on every bar edge. It opens a
-screen-centered overview of occupied workspaces only, across monitors, numbered
-1–10. Window captures stay in memory and refresh once per second while open;
+The Eitr logo comes first and toggles Control Center beside the bar, using the
+same left-side panel placement as Hardware. Centered bars keep panels centered
+beside the bar. The Overview icon follows the logo and precedes the workspace
+markers on every bar edge. It opens a screen-centered overview of occupied
+workspaces only, across monitors, numbered 1–10. Window captures stay in memory and refresh once per second while open;
 they are never saved to disk. The workspace layout updates without switching
 through desktops. Unsupported captures fall back to application labels. Click
 a tile or press 1–9/0 to switch; arrows select a tile and Enter switches to it.

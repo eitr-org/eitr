@@ -867,6 +867,13 @@ ShellRoot {
                             id: verticalWorkspaces
                             anchors.horizontalCenter: parent.horizontalCenter
                             spacing: shell.workspaceItemSpacing
+                            EitrLogo {
+                                id: verticalControlCenterLogo
+                                foreground: shell.fg; background: shell.workspaceMenuBg
+                                slotWidth: shell.workspaceItemSize
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                onClicked: bar.toggleControlCenter()
+                            }
                             VerticalBarIcon { icon: "󰕮"; tooltip: Eitr.I18n.tr("Overview"); open: true; clickable: true; onClicked: bar.toggleOverview() }
                             Repeater {
                                 model: shell.workspaceCount
@@ -1051,6 +1058,13 @@ ShellRoot {
                             spacing: shell.workspaceItemSpacing
                             Layout.alignment: Qt.AlignVCenter
 
+                            EitrLogo {
+                                id: controlCenterLogo
+                                foreground: shell.fg; background: shell.workspaceMenuBg
+                                slotWidth: shell.workspaceItemSize
+                                anchors.verticalCenter: parent.verticalCenter
+                                onClicked: bar.toggleControlCenter()
+                            }
                             StatusIcon {
                                 icon: "󰕮"; tooltip: Eitr.I18n.tr("Overview"); open: true; clickable: true
                                 slotWidth: shell.workspaceItemSize

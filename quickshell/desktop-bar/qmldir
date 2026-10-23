@@ -63,3 +63,4 @@ RemoteAccessContent RemoteAccessContent.qml
 RemoteAccessMenu RemoteAccessMenu.qml
 
 TimePicker 1.0 TimePicker.qml
+EitrLogo EitrLogo.qml

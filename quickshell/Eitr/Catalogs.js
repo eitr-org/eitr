@@ -90,6 +90,7 @@ var qml = {
     "Connect to WiFi": "Connect to WiFi",
     "Connected": "Connected",
     "Connectivity": "Connectivity",
+    "Control Center": "Control Center",
     "Corners": "Corners",
     "Could not change Cursor Fire": "Could not change Cursor Fire",
     "Could not change airplane mode": "Could not change airplane mode",
@@ -791,7 +792,8 @@ var qml = {
     "Skip this occurrence": "Pular esta ocorrência",
     "This one": "Esta",
     "All day": "Dia inteiro",
-    "Set": "Definir"
+    "Set": "Definir",
+    "Control Center": "Central de controle"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1176,7 +1178,8 @@ var qml = {
     "Skip this occurrence": "Omitir esta ocurrencia",
     "This one": "Esta",
     "All day": "Todo el día",
-    "Set": "Establecer"
+    "Set": "Establecer",
+    "Control Center": "Centro de control"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1561,7 +1564,8 @@ var qml = {
     "Skip this occurrence": "Diesen Termin überspringen",
     "This one": "Diesen",
     "All day": "Ganztägig",
-    "Set": "Festlegen"
+    "Set": "Festlegen",
+    "Control Center": "Kontrollzentrum"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -1946,6 +1950,7 @@ var qml = {
     "Skip this occurrence": "Ignorer cette occurrence",
     "This one": "Celle-ci",
     "All day": "Toute la journée",
-    "Set": "Définir"
+    "Set": "Définir",
+    "Control Center": "Centre de contrôle"
   }
 };

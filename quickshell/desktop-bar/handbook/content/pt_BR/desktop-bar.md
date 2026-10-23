@@ -1,6 +1,6 @@
 # Barra e espaços de trabalho
 
-A barra mantém data e hora centralizadas. À esquerda ficam Visão geral, marcadores de espaços de trabalho, Hardware, Uso de IA e Bloqueio automático; à direita, os controles de dispositivos e status. Clique em **Mostrar ícones** para exibir ou ocultar esse grupo da direita.
+A barra mantém data e hora centralizadas. À esquerda fica primeiro o logotipo do Eitr, que abre a Central de controle, seguido de Visão geral, marcadores de espaços de trabalho, Hardware, Uso de IA e Bloqueio automático; à direita, os controles de dispositivos e status. Clique em **Mostrar ícones** para exibir ou ocultar esse grupo da direita.
 
 ## Atualizações
 

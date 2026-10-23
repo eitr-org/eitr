@@ -207,6 +207,9 @@
     "Connectivity": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
+    "Control Center": [
+      "quickshell/desktop-bar/EitrLogo.qml"
+    ],
     "Corners": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],

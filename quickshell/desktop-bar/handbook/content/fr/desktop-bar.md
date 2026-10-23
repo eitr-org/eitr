@@ -1,6 +1,6 @@
 # Barre et espaces de travail
 
-La barre garde la date et l’heure centrées. À gauche figurent Vue d’ensemble, marqueurs d’espaces de travail, Matériel, Utilisation IA et Verrouillage automatique ; à droite, les commandes de périphériques et d’état. Cliquez sur **Afficher les icônes** pour afficher ou masquer ce groupe droit.
+La barre garde la date et l’heure centrées. À gauche figure d’abord le logo Eitr, qui ouvre le Centre de contrôle, puis Vue d’ensemble, marqueurs d’espaces de travail, Matériel, Utilisation IA et Verrouillage automatique ; à droite, les commandes de périphériques et d’état. Cliquez sur **Afficher les icônes** pour afficher ou masquer ce groupe droit.
 
 ## Mises à jour
 
