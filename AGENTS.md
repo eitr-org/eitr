@@ -248,8 +248,8 @@ existing design and workflows rather than replacing them with upstream defaults.
   fold them back on dismissal. Keep content padded inside the curved surface.
   Hardware uses one icon, with CPU/GPU/RAM and only the root-drive Storage data
   inside the popup. Growing content must stay within the usable screen.
-- Empty-bar double-left-click toggles transparency, double-right-click toggles
-  full/centered hover layouts, and left drag changes the screen edge. These settings
+- Empty-bar double-left-click toggles transparency, double-right-click cycles
+  the Full, Centered and Tabs layouts, and left drag changes the screen edge. These settings
   persist in `bar-settings.json` and also appear under Style > Desktop Bar.
   Centered mode shows only the clock until hovered or pinned. Expansion preserves
   icon order and the clock's exact screen center on all four edges; pin sits
@@ -264,7 +264,12 @@ existing design and workflows rather than replacing them with upstream defaults.
   surface. Do not align glyph centers at the expense of button backgrounds or
   add duplicate per-panel padding above the shared content frame.
 - Keep the right-side icon group hidden by default, with its manual toggle and
-  no auto-close timer. Preserve the existing arrow direction and icon order.
+  no auto-close timer, except in Tabs, which always shows it without the toggle.
+  Preserve the existing arrow direction and icon order.
+- Tabs: a thin edge strip with three content-sized tabs (left, centre, right)
+  joined by rounded 45° slopes, square at the screen edges; it ignores the corner
+  preference. Its panels float detached at their Full-layout positions, and the
+  weather shows only while the centre tab is hovered.
 - Keep calendar height fixed with six week rows. Weather city choices are
   session-only; the city close button restores the default geolocation.
 - Media is hidden when no eligible player exists; meetings are excluded. Keep
