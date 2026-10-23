@@ -37,6 +37,14 @@ class BarSettingsTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 bar_settings.save_settings({"appearance": "none"})
 
+    def test_notch_persists_and_unknown_layout_falls_back(self):
+        with tempfile.TemporaryDirectory() as directory, \
+                patch.object(bar_settings, "SETTINGS", Path(directory) / "bar.json"):
+            bar_settings.save_settings({"layout": "notch"})
+            self.assertEqual(bar_settings.read_settings()["layout"], "notch")
+            bar_settings.SETTINGS.write_text('{"layout": "unknown"}')
+            self.assertEqual(bar_settings.read_settings()["layout"], "unified")
+
     def test_defaults_and_persistence(self):
         with tempfile.TemporaryDirectory() as directory, \
                 patch.object(bar_settings, "SETTINGS", Path(directory) / "bar.json"):

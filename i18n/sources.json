@@ -1004,6 +1004,9 @@
     "TTLS / PAP": [
       "quickshell/desktop-bar/WifiMenu.qml"
     ],
+    "Tabs": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
     "Terminal": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
@@ -2749,6 +2752,9 @@
     "TPM Disk Unlock": [
       "elephant/menu-rows/security.json",
       "elephant/menus/tpm-unlock.lua"
+    ],
+    "Tabs": [
+      "elephant/menus/bar-layout.lua"
     ],
     "Tell the assistant…": [
       "elephant/menu-rows/reminders.json"

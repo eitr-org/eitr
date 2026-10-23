@@ -470,6 +470,7 @@ return {
         ["System default"] = "Padrão do sistema",
         ["System default ({language})"] = "Padrão do sistema ({language})",
         ["TPM Disk Unlock"] = "Desbloqueio do disco por TPM",
+        ["Tabs"] = "Abas",
         ["Tell the assistant…"] = "Fale com o assistente…",
         ["Terminal"] = "Terminal",
         ["Test Connection"] = "Testar conexão",
@@ -534,6 +535,7 @@ return {
     sortKeys = {
         ["ACLs de rede"] = "acls de rede",
         ["AWS"] = "aws",
+        ["Abas"] = "abas",
         ["Abra o estúdio OBS para gravação avançada"] = "abra o estudio obs para gravacao avancada",
         ["Abre a sua pasta de configuração num editor"] = "abre a sua pasta de configuracao num editor",
         ["Abrir OBS"] = "abrir obs",

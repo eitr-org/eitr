@@ -18,20 +18,13 @@ Item {
     implicitWidth: 23
     implicitHeight: 20
 
-    Rectangle {
-        anchors.fill: parent
-        visible: (marker.style === "Numbers" || marker.runic) && marker.active
-        radius: DesktopStyle.radius(6)
-        color: marker.accent
-    }
-
     Text {
         visible: marker.style !== "Dots"
         anchors.fill: parent
         y: marker.textOffsetY
         text: marker.style === "Glyph" ? (marker.active ? "✦" : "✧")
             : marker.runic ? (marker.runes[Number(marker.label) - 1] ?? marker.label) : marker.label
-        color: marker.active ? (marker.style === "Glyph" ? marker.accent : marker.selectedForeground) : marker.foreground
+        color: marker.active ? marker.accent : marker.foreground
         font.family: marker.runic ? "Noto Sans Runic" : DesktopFonts.family
         font.pixelSize: marker.style === "Glyph" ? 19 : marker.runic ? marker.fontSize + 2 : marker.fontSize
         font.bold: true
@@ -45,7 +38,7 @@ Item {
         width: marker.active ? 22 : 12
         height: 12
         radius: DesktopStyle.radius(6)
-        color: marker.active ? Qt.rgba(marker.accent.r, marker.accent.g, marker.accent.b, 0.16) : Qt.rgba(marker.foreground.r, marker.foreground.g, marker.foreground.b, 0.08)
+        color: marker.active ? "transparent" : Qt.rgba(marker.foreground.r, marker.foreground.g, marker.foreground.b, 0.08)
         Rectangle {
             anchors.centerIn: parent
             width: marker.active ? 17 : 6

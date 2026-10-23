@@ -12,6 +12,8 @@ Item {
     required property color foreground
     required property color background
     property real availableWidth: 260
+    property real itemSpacing: 1
+    property real indicatorSpacing: 6
     property var players: Mpris.players.values
     readonly property var eligiblePlayers: players.filter(p => p && MediaModel.eligible(p))
     readonly property var player: eligiblePlayers.find(p => p.isPlaying) || eligiblePlayers[0] || null
@@ -55,14 +57,14 @@ Item {
     }
     signal detailsRequested()
 
-    visible: player !== null && availableWidth >= controls.width + 20
-    width: visible ? controls.width + 20 : 0
+    visible: player !== null && availableWidth >= controls.width + indicatorSpacing + playbackIndicator.width
+    width: visible ? controls.width + indicatorSpacing + playbackIndicator.width : 0
     height: 24
 
     Row {
         id: controls
         height: parent.height
-        spacing: 1
+        spacing: media.itemSpacing
         MediaControl {
             text: "󰒮"
             tooltip: Eitr.I18n.tr("Previous")

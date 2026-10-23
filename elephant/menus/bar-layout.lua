@@ -11,6 +11,7 @@ function GetEntries()
     return entries("layout", {
         {"One Bar", "unified", "󰍜"},
         {"Centered Bar", "centered", "󰕰"},
+        {i18n.mark("Tabs"), "notch", "󰍜"},
     })
 end
 

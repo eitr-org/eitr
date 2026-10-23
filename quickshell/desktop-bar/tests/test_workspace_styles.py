@@ -29,6 +29,15 @@ class WorkspaceStyleTests(unittest.TestCase):
         self.assertIn("implicitHeight: styles.length * PanelStyle.selectionRowHeight", menu)
         self.assertIn("model: menu.styles", menu)
 
+    def test_active_markers_use_accent_ink_without_a_filled_background(self):
+        marker = (BAR / "WorkspaceMarker.qml").read_text()
+        self.assertIn("color: marker.active ? marker.accent : marker.foreground", marker)
+        self.assertNotIn("color: marker.accent\n", marker)
+        self.assertIn('marker.active ? "transparent"', marker)
+        css = (ROOT / "walker/themes/current/workspace-examples.css").read_text()
+        self.assertNotIn("@workspace_selected_fg_color", css)
+        self.assertIn("box-shadow: none", css)
+
     def test_runes_cover_all_ten_workspaces_in_futhark_order(self):
         marker = (BAR / "WorkspaceMarker.qml").read_text()
         runes = re.search(r'readonly property var runes: \[(.*?)\]', marker)[1]

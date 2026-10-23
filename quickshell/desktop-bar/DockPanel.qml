@@ -18,28 +18,30 @@ Item {
         }
     }
     readonly property var hostWindow: attachmentTarget ? attachmentTarget.QsWindow.window : null
-    readonly property bool detached: !!hostWindow && !!hostWindow.centeredLayout
+    readonly property bool detached: !!hostWindow && (!!hostWindow.centeredLayout || !!hostWindow.notchLayout)
+    readonly property bool centeredPlacement: !!hostWindow && !!hostWindow.centeredLayout
+    readonly property var edgeInsets: detached ? (!centeredPlacement && hostWindow.outerGaps ? hostWindow.outerGaps : [12, 12, 12, 12]) : [0, 0, 0, 0]
     readonly property real attachmentGap: detached ? hostWindow.panelGap : 0
     readonly property var focusWindows: hostWindow ? (hostWindow.panelFocusWindows || [hostWindow]) : []
     readonly property Item strip: hostWindow ? hostWindow.stripItem : null
     parent: hostWindow ? hostWindow.contentItem : null
     z: 100
-    width: detached && parent && strip ? Math.min(implicitWidth, parent.width - (attachmentEdge === "left" || attachmentEdge === "right" ? strip.width + attachmentGap + 12 : 24)) : implicitWidth
-    height: detached && parent && strip ? Math.min(implicitHeight, parent.height - (attachmentEdge === "top" || attachmentEdge === "bottom" ? strip.height + attachmentGap + 12 : 24)) : implicitHeight
+    width: detached && parent && strip ? Math.min(implicitWidth, parent.width - (attachmentEdge === "left" || attachmentEdge === "right" ? strip.width + attachmentGap + (attachmentEdge === "left" ? edgeInsets[1] : edgeInsets[3]) : edgeInsets[1] + edgeInsets[3])) : implicitWidth
+    height: detached && parent && strip ? Math.min(implicitHeight, parent.height - (attachmentEdge === "top" || attachmentEdge === "bottom" ? strip.height + attachmentGap + (attachmentEdge === "top" ? edgeInsets[2] : edgeInsets[0]) : edgeInsets[0] + edgeInsets[2])) : implicitHeight
     PanelSizeBehavior on width { ownerPanel: panel }
     PanelSizeBehavior on height { ownerPanel: panel }
     x: {
         if (!strip || !parent || !attachmentTarget) return 0;
         if (attachmentEdge === "left") return strip.x + strip.width + attachmentGap;
         if (attachmentEdge === "right") return strip.x - width - attachmentGap;
-        var desired = detached ? (parent.width - width) / 2 : alignment === "left" ? 0 : alignment === "right" ? parent.width - width : (parent.width - width) / 2;
-        return Math.max(0, Math.min(parent.width - width, desired));
+        var desired = centeredPlacement ? (parent.width - width) / 2 : alignment === "left" ? 0 : alignment === "right" ? parent.width - width : (parent.width - width) / 2;
+        return Math.max(edgeInsets[3], Math.min(parent.width - width - edgeInsets[1], desired));
     }
     y: {
         if (!strip || !parent || !attachmentTarget) return 0;
         if (attachmentEdge === "top") return strip.y + strip.height + attachmentGap;
         if (attachmentEdge === "bottom") return strip.y - height - attachmentGap;
-        var desired = detached ? (parent.height - height) / 2 : alignment === "left" ? leadingOffset : alignment === "right" ? parent.height - height : (parent.height - height) / 2;
-        return Math.max(0, Math.min(parent.height - height, desired));
+        var desired = centeredPlacement ? (parent.height - height) / 2 : alignment === "left" ? leadingOffset : alignment === "right" ? parent.height - height : (parent.height - height) / 2;
+        return Math.max(edgeInsets[0], Math.min(parent.height - height - edgeInsets[2], desired));
     }
 }

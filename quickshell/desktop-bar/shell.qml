@@ -1,4 +1,6 @@
 import QtQuick
+import QtQuick.Effects
+import QtQuick.Shapes
 import Eitr as Eitr
 import QtQuick.Layouts
 import Quickshell
@@ -8,6 +10,7 @@ import Quickshell.Services.Pipewire
 import Quickshell.Wayland
 import "PanelStyle.js" as PanelStyle
 import "WorkspaceModel.js" as WorkspaceModel
+import "BarGeometry.js" as BarGeometry
 
 ShellRoot {
     Component.onCompleted: Quickshell.watchFiles = Quickshell.env("EITR_LIVE_RELOAD") === "1"
@@ -125,8 +128,12 @@ ShellRoot {
     property string barScreens: "main"
     property var windowGaps: [6, 6, 6, 6]
     property var screenGaps: [12, 12, 12, 12]
+    readonly property bool notchLayout: barLayout === "notch"
+    readonly property real tabStripThickness: 7
+    // Radius of the four bends on each Tabs slope.
+    readonly property real tabBendRound: 6
     readonly property bool centeredLayout: barLayout === "centered"
-    readonly property bool iconsOpen: centeredLayout || statusOpen
+    readonly property bool iconsOpen: centeredLayout || notchLayout || statusOpen
     Process {
         id: windowGapQuery
         command: ["hyprctl", "-j", "getoption", "general:gaps_in"]
@@ -173,11 +180,11 @@ ShellRoot {
 
     function barDoubleClick(button) {
         if (button === Qt.LeftButton) updateBarSetting("appearance", barAppearance === "solid" ? "transparent" : "solid");
-        else if (button === Qt.RightButton) updateBarSetting("layout", centeredLayout ? "unified" : "centered");
+        else if (button === Qt.RightButton) updateBarSetting("layout", barLayout === "unified" ? "centered" : barLayout === "centered" ? "notch" : "unified");
     }
 
     function updateBarSetting(key, value) {
-        var choices = {appearance: ["transparent", "solid"], layout: ["unified", "centered"], edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"]};
+        var choices = {appearance: ["transparent", "solid"], layout: ["unified", "centered", "notch"], edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"]};
         if (!choices[key] || choices[key].indexOf(value) === -1) return;
         if (key === "appearance") barAppearance = value;
         else if (key === "layout") barLayout = value;
@@ -195,7 +202,7 @@ ShellRoot {
         function update(key: string, value: string): void { shell.updateBarSetting(key, value) }
         function toggle(kind: string): void {
             if (kind === "appearance") shell.updateBarSetting(kind, shell.barAppearance === "solid" ? "transparent" : "solid");
-            else if (kind === "layout") shell.updateBarSetting(kind, shell.centeredLayout ? "unified" : "centered");
+            else if (kind === "layout") shell.updateBarSetting(kind, shell.barLayout === "unified" ? "centered" : shell.barLayout === "centered" ? "notch" : "unified");
         }
     }
 
@@ -209,7 +216,7 @@ ShellRoot {
             try {
                 var settings = JSON.parse(barSettingsOutput.text);
                 shell.barAppearance = settings.appearance;
-                shell.barLayout = settings.layout;
+                shell.barLayout = ["unified", "centered", "notch"].indexOf(settings.layout) >= 0 ? settings.layout : "unified";
                 shell.barEdge = settings.edge;
                 shell.barPinned = settings.pinned === "yes";
                 shell.barScreens = settings.screens || "main";
@@ -561,14 +568,57 @@ ShellRoot {
                 required property var modelData
                 readonly property bool isMainBar: modelData === shell.mainScreen()
                 readonly property Item stripItem: barContents
+                readonly property real normalThickness: shell.verticalBar ? Math.ceil(Math.max(60, barWeather.width + 8)) : shell.barHeight
+                readonly property real thinThickness: normalThickness
+                // Space between a tab's outermost item and its slope, the same on every tab.
+                readonly property real tabsPadding: 4
+                function tabItemStart(item) {
+                    var start = 0;
+                    while (item && item !== barContents) {
+                        start += shell.verticalBar ? item.y : item.x;
+                        item = item.parent;
+                    }
+                    return start;
+                }
+                readonly property real tabLeadingEnd: (shell.verticalBar
+                    ? tabItemStart(verticalStart) + verticalStart.height
+                    : tabItemStart(hardwareStatus) + hardwareStatus.width) + tabsPadding
+                readonly property real tabTrailingStart: tabItemStart(shell.verticalBar ? verticalEnd : rightSide) - tabsPadding
+                readonly property real tabCenterStart: (shell.verticalBar
+                    ? tabItemStart(verticalMedia.visible ? verticalMedia : verticalCapture.shown ? verticalCapture : verticalCalendarIcon)
+                    : tabItemStart(mediaStrip.visible ? mediaStrip : barCapture.shown ? barCapture : centerInfo)) - tabsPadding
+                readonly property real tabCenterEnd: (shell.verticalBar
+                    ? tabItemStart(verticalCalendarIcon) + verticalCalendarIcon.height + (notchLayout ? weatherReveal : 3 + verticalWeatherIcon.height)
+                    : tabItemStart(centerInfo) + centerInfo.width + (notchLayout ? weatherReveal : 6 + barWeather.width)) + tabsPadding
                 readonly property var outerGaps: shell.screenGaps
                 readonly property bool centeredLayout: shell.centeredLayout
+                readonly property bool notchLayout: shell.notchLayout
                 readonly property real panelGap: shell.verticalBar ? shell.windowGaps[1] + shell.windowGaps[3] : shell.windowGaps[0] + shell.windowGaps[2]
                 property bool hoverExpanded: false
                 readonly property bool expanded: !centeredLayout || shell.barPinned || hoverExpanded || panelOpen || pendingPanel !== null || shell.barPointerHeld
-                readonly property real sideExtent: shell.verticalBar
-                    ? Math.max(verticalStart.height + (mediaStrip.player ? 110 : 0), verticalEnd.height + 50) + 14
-                    : Math.max(workspaces.width + hardwareStatus.width + 32 + (mediaStrip.player ? 120 : 0), rightSide.width + notificationIcon.width + barWeather.width + 32)
+                readonly property real itemGap: shell.workspaceItemSpacing
+                readonly property real endPadding: shell.verticalBar ? 8 : 12
+                readonly property real centerPadding: (centerExtent - (shell.verticalBar ? verticalCalendarIcon.height : centerInfo.width)) / 2
+                readonly property real leadingExtent: endPadding - centerPadding + (shell.verticalBar
+                    ? verticalStart.height + itemGap + (mediaStrip.player ? verticalMedia.height + itemGap : 0) + verticalPin.height + itemGap + (verticalCapture.shown ? verticalCapture.height + itemGap : 0)
+                    : workspaces.width + itemGap + hardwareStatus.width + itemGap + (mediaStrip.visible ? mediaStrip.width + itemGap : 0) + barPin.width + itemGap + (barCapture.shown ? barCapture.width + itemGap : 0))
+                readonly property real trailingExtent: endPadding - centerPadding + (shell.verticalBar
+                    ? itemGap + verticalWeatherIcon.height + itemGap + verticalEnd.height
+                    : itemGap + barWeather.width + itemGap + rightSide.width + itemGap + notificationIcon.width)
+                property real leadingReveal: centeredLayout && expanded ? Math.min(leadingExtent, (shell.verticalBar ? bar.height : bar.width) / 2 - centerExtent / 2) : 0
+                property real trailingReveal: centeredLayout && expanded ? Math.min(trailingExtent, (shell.verticalBar ? bar.height : bar.width) / 2 - centerExtent / 2) : 0
+                Behavior on leadingReveal { NumberAnimation { duration: 320; easing.type: Easing.OutCubic } }
+                Behavior on trailingReveal { NumberAnimation { duration: 320; easing.type: Easing.OutCubic } }
+                property bool weatherHovered: false
+                readonly property bool weatherExpanded: weatherHovered || weatherMenu.visible || pendingPanel === weatherMenu
+                readonly property real weatherExtent: shell.verticalBar ? 3 + verticalWeatherIcon.height : 6 + barWeather.width
+                property real weatherReveal: notchLayout && weatherExpanded ? weatherExtent : 0
+                Behavior on weatherReveal { NumberAnimation { duration: 320; easing.type: Easing.OutCubic } }
+                Timer {
+                    id: weatherCollapseDelay
+                    interval: collapseDelay.interval
+                    onTriggered: bar.weatherHovered = false
+                }
                 readonly property real centerExtent: shell.verticalBar ? 56 : centerInfo.width + 24
                 Timer {
                     id: collapseDelay
@@ -643,7 +693,7 @@ ShellRoot {
                 implicitHeight: modelData.height
                 color: "transparent"
                 exclusionMode: ExclusionMode.Normal
-                exclusiveZone: shell.barVisible ? (shell.verticalBar ? barContents.width : shell.barHeight) : 0
+                exclusiveZone: shell.barVisible ? bar.normalThickness : 0
                 WlrLayershell.namespace: "desktop-bar"
                 // Notification popups must have a strictly higher layer than
                 // panels, rather than depending on same-layer mapping order.
@@ -655,7 +705,10 @@ ShellRoot {
                     id: dockInput
                     width: 0; height: 0
                     Region { item: shell.barPointerHeld ? bar.contentItem : null }
-                    Region { item: barContents }
+                    Region { item: shell.notchLayout ? tabStrip : barContents }
+                    Region { item: shell.notchLayout ? leadingTab : null }
+                    Region { item: shell.notchLayout ? notchTab : null }
+                    Region { item: shell.notchLayout ? trailingTab : null }
                     Region { item: wifiMenu.opened ? wifiMenu : null }
                     Region { item: bluetoothMenu.opened ? bluetoothMenu : null }
                     Region { item: brightnessMenu.opened ? brightnessMenu : null }
@@ -801,14 +854,101 @@ ShellRoot {
 
                 Item {
                     id: barContents
-                    width: shell.verticalBar ? Math.ceil(Math.max(60, barWeather.width + 8)) : (bar.centeredLayout ? Math.min(bar.width, bar.centerExtent + (bar.expanded ? bar.sideExtent * 2 : 0)) : bar.width)
-                    height: shell.verticalBar ? (bar.centeredLayout ? Math.min(bar.height, bar.centerExtent + (bar.expanded ? bar.sideExtent * 2 : 0)) : bar.height) : shell.barHeight
-                    x: shell.verticalBar ? (shell.barEdge === "right" ? bar.width - width : 0) : (bar.width - width) / 2
-                    y: shell.verticalBar ? (bar.height - height) / 2 : (shell.barEdge === "bottom" ? bar.height - height : 0)
+                    width: shell.verticalBar ? bar.thinThickness : (bar.centeredLayout ? bar.centerExtent + bar.leadingReveal + bar.trailingReveal : bar.width)
+                    height: shell.verticalBar ? (bar.centeredLayout ? bar.centerExtent + bar.leadingReveal + bar.trailingReveal : bar.height) : bar.thinThickness
+                    x: shell.verticalBar ? (shell.barEdge === "right" ? bar.width - width : 0) : bar.centeredLayout ? (bar.width - bar.centerExtent) / 2 - bar.leadingReveal : 0
+                    y: shell.verticalBar ? (bar.centeredLayout ? (bar.height - bar.centerExtent) / 2 - bar.leadingReveal : 0) : (shell.barEdge === "bottom" ? bar.height - height : 0)
                     clip: bar.centeredLayout
-                    Behavior on width { NumberAnimation { duration: 320; easing.type: Easing.OutCubic } }
-                    Behavior on height { NumberAnimation { duration: 320; easing.type: Easing.OutCubic } }
+                    Item {
+                        id: tabStrip
+                        visible: shell.notchLayout
+                        width: shell.verticalBar ? shell.tabStripThickness : parent.width
+                        height: shell.verticalBar ? parent.height : shell.tabStripThickness
+                        x: shell.barEdge === "right" ? parent.width - width : 0
+                        y: shell.barEdge === "bottom" ? parent.height - height : 0
+                    }
+                    TabSurface { id: leadingTab; start: 0; end: bar.tabLeadingEnd }
+                    TabSurface { id: notchTab; start: bar.tabCenterStart; end: bar.tabCenterEnd }
+                    TabSurface { id: trailingTab; start: bar.tabTrailingStart; end: shell.verticalBar ? barContents.height : barContents.width }
+                    component TabSurface: Item {
+                        property real start
+                        property real end
+                        readonly property string barEdge: shell.barEdge
+                        readonly property real revealProgress: 1
+                        readonly property bool detached: false
+                        visible: shell.notchLayout
+                        width: shell.verticalBar ? bar.normalThickness - shell.tabStripThickness : end - start
+                        height: shell.verticalBar ? end - start : bar.normalThickness - shell.tabStripThickness
+                        x: shell.verticalBar ? (shell.barEdge === "right" ? 0 : shell.tabStripThickness) : start
+                        y: shell.verticalBar ? start : (shell.barEdge === "bottom" ? 0 : shell.tabStripThickness)
+
+                    }
+                    Shape {
+                        id: tabsOutline
+                        anchors.fill: parent
+                        visible: shell.notchLayout
+                        antialiasing: true
+                        // One alpha silhouette also defines Hyprland's blur coverage.
+                        ShapePath {
+                            strokeWidth: -1
+                            fillColor: shell.barBackground()
+                            PathSvg { path: {
+                                var length = shell.verticalBar ? tabsOutline.height : tabsOutline.width;
+                                var depth = bar.normalThickness;
+                                var strip = shell.tabStripThickness;
+                                var slope = depth - strip;
+                                function point(axis, inward) {
+                                    if (shell.barEdge === "bottom") return axis + " " + (depth - inward);
+                                    if (shell.barEdge === "left") return inward + " " + axis;
+                                    if (shell.barEdge === "right") return (depth - inward) + " " + axis;
+                                    return axis + " " + inward;
+                                }
+                                var spans = [[0, bar.tabLeadingEnd], [bar.tabCenterStart, bar.tabCenterEnd], [bar.tabTrailingStart, length]];
+                                // Unite overlapping slopes on small screens without self intersections.
+                                var merged = [];
+                                for (var span of spans) {
+                                    var last = merged[merged.length - 1];
+                                    if (last && span[0] - last[1] <= 2 * slope) last[1] = Math.max(last[1], span[1]);
+                                    else merged.push(span.slice());
+                                }
+                                var path = "M " + point(0, 0) + " L " + point(0, depth);
+                                for (var tab of merged) {
+                                    var start = Math.max(0, tab[0]);
+                                    var end = Math.min(length, tab[1]);
+                                    // Rounded bends keep the 45° trapezoid: the straight edges stop
+                                    // `round` before each bend and a quadratic curve joins them.
+                                    var round = Math.min(shell.tabBendRound, slope / 2);
+                                    var diagonal = round * 0.7071;
+                                    if (start > 0) {
+                                        path += " L " + point(start - slope - round, strip)
+                                            + " Q " + point(start - slope, strip) + " " + point(start - slope + diagonal, strip + diagonal)
+                                            + " L " + point(start - diagonal, depth - diagonal)
+                                            + " Q " + point(start, depth) + " " + point(start + round, depth);
+                                    }
+                                    if (end < length) {
+                                        path += " L " + point(end - round, depth)
+                                            + " Q " + point(end, depth) + " " + point(end + diagonal, depth - diagonal)
+                                            + " L " + point(end + slope - diagonal, strip + diagonal)
+                                            + " Q " + point(end + slope, strip) + " " + point(end + slope + round, strip);
+                                    } else path += " L " + point(length, depth);
+                                }
+                                return path + " L " + point(length, 0) + " Z";
+                            } }
+                        }
+                    }
                     HoverHandler {
+                        id: barHover
+                        // The bar's own handler also sees the pointer over the clock and the weather,
+                        // whose mouse areas would hide it from a separate hover box behind them.
+                        readonly property bool overCenterTab: {
+                            if (!hovered || !bar.notchLayout) return false;
+                            var along = shell.verticalBar ? point.position.y : point.position.x;
+                            return along >= bar.tabCenterStart && along <= bar.tabCenterEnd;
+                        }
+                        onOverCenterTabChanged: {
+                            if (overCenterTab) { weatherCollapseDelay.stop(); bar.weatherHovered = true; }
+                            else weatherCollapseDelay.restart();
+                        }
                         onHoveredChanged: {
                             if (hovered) { collapseDelay.stop(); bar.hoverExpanded = true; }
                             else collapseDelay.restart();
@@ -842,7 +982,7 @@ ShellRoot {
                     anchors.fill: parent
                     visible: shell.verticalBar
                     edge: shell.barEdge
-                    background: shell.barBackground()
+                    background: shell.notchLayout ? "transparent" : shell.barBackground()
                     radius: bar.centeredLayout ? DesktopStyle.radius(6) : 0
 
                     BarGestureArea {
@@ -860,7 +1000,7 @@ ShellRoot {
                         opacity: bar.expanded ? 1 : 0
                         enabled: bar.expanded
                         Behavior on opacity { NumberAnimation { duration: 180 } }
-                        y: 8
+                        y: bar.centeredLayout ? bar.endPadding : 8
                         anchors.horizontalCenter: parent.horizontalCenter
                         spacing: shell.workspaceItemSpacing
                         Column {
@@ -894,21 +1034,26 @@ ShellRoot {
                             anchors.horizontalCenter: parent.horizontalCenter
                             spacing: shell.workspaceItemSpacing
                             VerticalBarIcon { id: verticalHardwareIcon; icon: "󰍛"; iconSize: 18; tooltip: Eitr.I18n.tr("Hardware"); open: true; clickable: true; onClicked: bar.togglePanel(hardwareMenu) }
-                            VerticalBarIcon { id: verticalAiIcon; icon: "󱜙"; iconSize: 18; tooltip: Eitr.I18n.tr("AI Usage"); open: true; clickable: true; onClicked: bar.togglePanel(aiMenu) }
+                            VerticalBarIcon { id: verticalAiIcon; iconSource: Qt.resolvedUrl("assets/ai-chip.svg"); iconSize: 18; tooltip: Eitr.I18n.tr("AI Usage"); open: true; clickable: true; onClicked: bar.togglePanel(aiMenu) }
                             VerticalBarIcon { id: verticalIdleLockIcon; icon: shell.idleLockGlyph; iconSize: 17; tooltip: shell.idleLockTooltip; open: true; clickable: true; onClicked: shell.switchIdleLock() }
                         }
                     }
 
                     Item {
                         id: verticalMiddle
+                        anchors.alignWhenCentered: false
+                        anchors.horizontalCenterOffset: 0
                         anchors.centerIn: parent
+                        anchors.verticalCenterOffset: bar.centeredLayout ? (bar.leadingReveal - bar.trailingReveal) / 2 : 0
                         width: parent.width
                         height: 40
                         Column {
+                            id: verticalMedia
+                            anchors.horizontalCenterOffset: 0
                             anchors.bottom: bar.centeredLayout ? verticalPin.top : verticalCapture.top
-                            anchors.bottomMargin: 3
+                            anchors.bottomMargin: bar.centeredLayout ? bar.itemGap : 3
                             anchors.horizontalCenter: parent.horizontalCenter
-                            spacing: 2
+                            spacing: bar.centeredLayout ? bar.itemGap : 2
                             visible: mediaStrip.player !== null && bar.expanded
                             VerticalBarIcon {
                                 icon: "󰒮"; tooltip: Eitr.I18n.tr("Previous"); open: true
@@ -933,7 +1078,8 @@ ShellRoot {
                         CaptureIndicator {
                             id: verticalCapture
                             anchors.bottom: verticalCalendarIcon.top
-                            anchors.bottomMargin: shown ? 3 : 0
+                            anchors.horizontalCenterOffset: 0
+                            anchors.bottomMargin: shown ? (bar.centeredLayout ? bar.itemGap : 3) : 0
                             anchors.horizontalCenter: parent.horizontalCenter
                             height: shown ? 24 : 0
                             recording: obsMenu.obsState.recording || obsMenu.obsState.streaming
@@ -946,8 +1092,9 @@ ShellRoot {
                         }
                         VerticalBarIcon {
                             id: verticalPin
+                            anchors.horizontalCenterOffset: 0
                             anchors.bottom: verticalCapture.top
-                            anchors.bottomMargin: 3
+                            anchors.bottomMargin: bar.centeredLayout ? bar.itemGap : 3
                             anchors.horizontalCenter: parent.horizontalCenter
                             icon: shell.barPinned ? "󰐃" : "󰐄"
                             tooltip: shell.barPinned ? Eitr.I18n.tr("Unpin bar") : Eitr.I18n.tr("Pin bar open")
@@ -961,17 +1108,24 @@ ShellRoot {
                             compact: true
                             onClicked: bar.togglePanel(calendarMenu)
                         }
-                        WeatherWidget {
-                            id: verticalWeatherIcon
-                            visible: bar.expanded
+                        Item {
                             anchors.top: verticalCalendarIcon.bottom
-                            anchors.topMargin: 3
                             anchors.horizontalCenter: parent.horizontalCenter
-                            autoRefresh: false
-                            compact: true
-                            text: barWeather.text
-                            temp: barWeather.temp
-                            onClicked: bar.togglePanel(weatherMenu)
+                            width: parent.width
+                            height: bar.notchLayout ? bar.weatherReveal : (bar.centeredLayout ? bar.itemGap : 3) + verticalWeatherIcon.height
+                            clip: bar.notchLayout
+                            WeatherWidget {
+                                id: verticalWeatherIcon
+                                visible: bar.expanded
+                                enabled: !bar.notchLayout || bar.weatherExpanded
+                                y: parent.height - height
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                autoRefresh: false
+                                compact: true
+                                text: barWeather.text
+                                temp: barWeather.temp
+                                onClicked: bar.togglePanel(weatherMenu)
+                            }
                         }
                     }
 
@@ -981,12 +1135,12 @@ ShellRoot {
                         enabled: bar.expanded
                         Behavior on opacity { NumberAnimation { duration: 180 } }
                         anchors.bottom: parent.bottom
-                        anchors.bottomMargin: 8
+                        anchors.bottomMargin: bar.centeredLayout ? bar.endPadding : 8
                         anchors.horizontalCenter: parent.horizontalCenter
                         spacing: shell.workspaceItemSpacing
                         VerticalBarIcon {
                             icon: shell.statusOpen ? "⌄" : "⌃"
-                            visible: !bar.centeredLayout
+                            visible: !bar.centeredLayout && !shell.notchLayout
                             tooltip: shell.statusOpen ? Eitr.I18n.tr("Hide icons") : Eitr.I18n.tr("Show icons")
                             open: true; clickable: true
                             onClicked: shell.statusOpen = !shell.statusOpen
@@ -1028,7 +1182,7 @@ ShellRoot {
                     anchors.fill: parent
                     visible: !shell.verticalBar
                     edge: shell.barEdge
-                    background: shell.barBackground()
+                    background: shell.notchLayout ? "transparent" : shell.barBackground()
                     radius: bar.centeredLayout ? DesktopStyle.radius(6) : 0
 
 
@@ -1045,7 +1199,7 @@ ShellRoot {
 
                     RowLayout {
                         anchors.fill: parent
-                        anchors.leftMargin: 12
+                        anchors.leftMargin: bar.centeredLayout ? bar.endPadding : 12
                         anchors.rightMargin: 9
                         spacing: 0
 
@@ -1131,7 +1285,7 @@ ShellRoot {
                             StatusIcon {
                                 id: aiIcon
                                 slotWidth: shell.workspaceItemSize
-                                icon: "󱜙"
+                                iconSource: Qt.resolvedUrl("assets/ai-chip.svg")
                                 iconSize: 18
                                 tooltip: Eitr.I18n.tr("AI Usage")
                                 open: true
@@ -1194,7 +1348,7 @@ ShellRoot {
 
                             StatusIcon {
                                 id: statusToggle
-                                visible: !bar.centeredLayout
+                                visible: !bar.centeredLayout && !shell.notchLayout
                                 tooltip: shell.statusOpen ? Eitr.I18n.tr("Hide icons") : Eitr.I18n.tr("Show icons")
 
                                 icon: shell.statusOpen ? "›" : "‹"
@@ -1426,20 +1580,23 @@ ShellRoot {
                         enabled: bar.expanded
                         visible: !shell.verticalBar
                         anchors.right: parent.right
-                        anchors.rightMargin: 13
+                        anchors.rightMargin: bar.centeredLayout ? bar.endPadding : 13
                         anchors.verticalCenter: parent.verticalCenter
                     }
 
                     ClockButton {
                         id: centerInfo
+                        anchors.alignWhenCentered: false
                         anchors.centerIn: parent
+                        anchors.horizontalCenterOffset: bar.centeredLayout ? (bar.leadingReveal - bar.trailingReveal) / 2 : 0
+                        anchors.verticalCenterOffset: 0
                         onClicked: bar.togglePanel(calendarMenu)
                     }
 
                     CaptureIndicator {
                         id: barCapture
                         anchors.right: centerInfo.left
-                        anchors.rightMargin: shown ? 6 : 0
+                        anchors.rightMargin: shown ? (bar.centeredLayout ? bar.itemGap : 6) : 0
                         anchors.verticalCenter: parent.verticalCenter
                         recording: obsMenu.obsState.recording || obsMenu.obsState.streaming
                         recordingPaused: obsMenu.obsState.paused && !obsMenu.obsState.streaming
@@ -1454,7 +1611,7 @@ ShellRoot {
                         id: barPin
                         visible: bar.centeredLayout && bar.expanded
                         anchors.right: barCapture.left
-                        anchors.rightMargin: 6
+                        anchors.rightMargin: bar.centeredLayout ? bar.itemGap : 6
                         anchors.verticalCenter: parent.verticalCenter
                         icon: shell.barPinned ? "󰐃" : "󰐄"
                         tooltip: shell.barPinned ? Eitr.I18n.tr("Unpin bar") : Eitr.I18n.tr("Pin bar open")
@@ -1468,22 +1625,31 @@ ShellRoot {
                         opacity: bar.expanded ? 1 : 0
                         enabled: bar.expanded
                         anchors.right: bar.centeredLayout ? barPin.left : barCapture.left
-                        anchors.rightMargin: 12
+                        anchors.rightMargin: bar.centeredLayout ? bar.itemGap : 12
                         anchors.verticalCenter: parent.verticalCenter
-                        availableWidth: Math.max(0, centerInfo.x - hardwareStatus.mapToItem(centerInfo.parent, hardwareStatus.width, 0).x - 24)
+                        itemSpacing: bar.centeredLayout ? bar.itemGap : 1
+                        indicatorSpacing: bar.centeredLayout ? bar.itemGap : 6
+                        availableWidth: bar.centeredLayout
+                            ? Math.max(0, bar.width / 2 - centerInfo.width / 2 - workspaces.width - hardwareStatus.width - barPin.width - barCapture.width - bar.itemGap * (barCapture.shown ? 5 : 4) - bar.endPadding)
+                            : Math.max(0, centerInfo.x - hardwareStatus.mapToItem(centerInfo.parent, hardwareStatus.width, 0).x - 24)
                         foreground: shell.fg
                         background: shell.workspaceMenuBg
                         onDetailsRequested: bar.togglePanel(mediaMenu)
                     }
 
-                    WeatherWidget {
-                        id: barWeather
-                        opacity: bar.expanded ? 1 : 0
-                        enabled: bar.expanded
+                    Item {
                         anchors.left: centerInfo.right
-                        anchors.leftMargin: 6
-                        anchors.verticalCenter: parent.verticalCenter
-                        onClicked: bar.togglePanel(weatherMenu)
+                        anchors.verticalCenter: centerInfo.verticalCenter
+                        width: bar.notchLayout ? bar.weatherReveal : (bar.centeredLayout ? bar.itemGap : 6) + barWeather.width
+                        height: barWeather.height
+                        clip: bar.notchLayout
+                        WeatherWidget {
+                            id: barWeather
+                            x: parent.width - width
+                            opacity: bar.expanded ? 1 : 0
+                            enabled: bar.expanded && (!bar.notchLayout || bar.weatherExpanded)
+                            onClicked: bar.togglePanel(weatherMenu)
+                        }
                     }
 
                     CalendarMenu {
@@ -1538,7 +1704,7 @@ ShellRoot {
         width: 24
         height: buttonHeight
         radius: DesktopStyle.radius(cornerRadius)
-        color: visualStyle === "Numbers" || visualStyle === "Runes" ? (active ? shell.activeBg : (mouse.containsMouse ? shell.hoverBg : "transparent")) : "transparent"
+        color: visualStyle === "Numbers" || visualStyle === "Runes" ? (!active && mouse.containsMouse ? shell.hoverBg : "transparent") : "transparent"
 
         WorkspaceMarker {
             anchors.fill: parent
@@ -1588,6 +1754,8 @@ ShellRoot {
         id: item
 
         property string icon: ""
+        // An SVG drawn instead of the glyph, tinted with the bar's foreground.
+        property url iconSource: ""
         property string tooltip: ""
         property bool open: true
         property bool clickable: false
@@ -1612,8 +1780,20 @@ ShellRoot {
             leftPadding: 4
             rightPadding: 4
 
+            Image {
+                visible: item.iconSource != ""
+                anchors.verticalCenter: parent.verticalCenter
+                width: item.iconSize; height: item.iconSize
+                source: item.iconSource
+                // Drawn at its shown size: scaling a larger render down leaves jagged edges.
+                sourceSize: Qt.size(Math.ceil(width * Screen.devicePixelRatio), Math.ceil(height * Screen.devicePixelRatio))
+                smooth: true
+                layer.enabled: visible
+                layer.effect: MultiEffect { colorization: 1; colorizationColor: shell.fg }
+            }
             Text {
                 id: glyph
+                visible: item.iconSource == ""
                 text: item.icon
                 y: item.glyphOffsetY
                 color: shell.fg

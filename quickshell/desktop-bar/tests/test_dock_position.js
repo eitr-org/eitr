@@ -8,7 +8,7 @@ for (const edge of ['top', 'bottom', 'left', 'right']) {
     for (const alignment of ['left', 'center', 'right']) {
         const vertical = edge === 'left' || edge === 'right';
         const context = {
-            detached: false, attachmentGap: 0, leadingOffset: 0,
+            detached: false, centeredPlacement: false, edgeInsets: [0, 0, 0, 0], attachmentGap: 0, leadingOffset: 0,
             parent: {width: 1920, height: 1080}, width: 468, height: 740,
             attachmentTarget: {}, attachmentEdge: edge, alignment,
             strip: {x: edge === 'right' ? 1878 : 0,
@@ -23,7 +23,7 @@ for (const edge of ['top', 'bottom', 'left', 'right']) {
 }
 for (const edge of ['top', 'bottom', 'left', 'right']) {
     const context = {
-        detached: true, attachmentGap: 12,
+        detached: true, centeredPlacement: true, edgeInsets: [12, 12, 12, 12], attachmentGap: 12,
         parent: {width: 1920, height: 1080}, width: 468, height: 740,
         attachmentTarget: {}, attachmentEdge: edge, alignment: 'right',
         strip: {x: edge === 'right' ? 1860 : 0, y: edge === 'bottom' ? 1050 : 0,

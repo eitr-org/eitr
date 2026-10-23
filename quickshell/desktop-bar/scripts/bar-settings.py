@@ -23,7 +23,7 @@ SETTINGS = user_config("quickshell/desktop-bar/bar-settings.json")
 DEFAULTS = {"appearance": "solid", "layout": "unified", "edge": "top", "pinned": "no", "screens": "main"}
 OPTIONS = {
     "appearance": {"transparent", "solid"},
-    "layout": {"unified", "centered"},
+    "layout": {"unified", "centered", "notch"},
     "edge": {"top", "bottom", "left", "right"},
     "pinned": {"yes", "no"},
     # The bar on the main display only, or one bar on every display.
@@ -89,7 +89,7 @@ def main():
         elif len(sys.argv) == 3 and sys.argv[1] == "toggle" and sys.argv[2] in {"appearance", "layout"}:
             key = sys.argv[2]
             current = read_settings()[key]
-            value = ("transparent" if current == "solid" else "solid") if key == "appearance" else ("unified" if current == "centered" else "centered")
+            value = ("transparent" if current == "solid" else "solid") if key == "appearance" else ({"unified": "centered", "centered": "notch", "notch": "unified"}[current])
             result = save_settings({key: value})
             apply_live(key, value)
         else:

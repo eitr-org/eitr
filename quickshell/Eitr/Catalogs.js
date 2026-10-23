@@ -342,6 +342,7 @@ var qml = {
     "System": "System",
     "System Update": "System Update",
     "TTLS / PAP": "TTLS / PAP",
+    "Tabs": "Tabs",
     "Terminal": "Terminal",
     "Text & Color": "Text & Color",
     "The handbook catalog is invalid.": "The handbook catalog is invalid.",
@@ -793,7 +794,8 @@ var qml = {
     "This one": "Esta",
     "All day": "Dia inteiro",
     "Set": "Definir",
-    "Control Center": "Central de controle"
+    "Control Center": "Central de controle",
+    "Tabs": "Abas"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1179,7 +1181,8 @@ var qml = {
     "This one": "Esta",
     "All day": "Todo el día",
     "Set": "Establecer",
-    "Control Center": "Centro de control"
+    "Control Center": "Centro de control",
+    "Tabs": "Pestañas"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1565,7 +1568,8 @@ var qml = {
     "This one": "Diesen",
     "All day": "Ganztägig",
     "Set": "Festlegen",
-    "Control Center": "Kontrollzentrum"
+    "Control Center": "Kontrollzentrum",
+    "Tabs": "Laschen"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -1951,6 +1955,7 @@ var qml = {
     "This one": "Celle-ci",
     "All day": "Toute la journée",
     "Set": "Définir",
-    "Control Center": "Centre de contrôle"
+    "Control Center": "Centre de contrôle",
+    "Tabs": "Onglets"
   }
 };

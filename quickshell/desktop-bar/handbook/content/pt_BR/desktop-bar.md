@@ -9,16 +9,18 @@ O ícone de atualizações fica no grupo da direita, antes de Notificações, e 
 ## Posição e aparência
 
 - Dê dois cliques com o botão esquerdo no **espaço vazio da barra** para alternar Desfoque/Cor do tema; novas instalações começam com Cor do tema.
-- Dê dois cliques com o botão direito no espaço vazio para alternar barra completa/layout centralizado que expande ao passar o ponteiro.
+- Dê dois cliques com o botão direito no espaço vazio para alternar Completa → Centralizada → Entalhe → Completa.
 - Arraste um espaço vazio para cima, baixo, esquerda ou direita para mover a barra.
 - As mesmas opções ficam em **Estilo > Barra da área de trabalho** e Central de controle > Estilo.
 - **Telas** (Mostrar em) coloca a barra apenas no monitor principal, por padrão, ou em todos os monitores. Em todos, cada barra marca o espaço de trabalho de sua própria tela; atalhos como SUPER + , abrem na tela em uso e as notificações aparecem apenas na principal. Escolha a principal no painel de Tela.
 
-O modo centralizado mostra o relógio até você passar o ponteiro. Os ícones se expandem na ordem habitual. O alfinete entre a mídia e o relógio mantém a barra aberta; painéis abertos também a mantêm expandida. No modo completo, os painéis se unem à barra; no centralizado, ficam ao lado. Ambos abrem e fecham com a mesma animação fluida.
+O modo centralizado mostra o relógio até você passar o ponteiro. Os ícones se expandem na ordem habitual. O alfinete entre a mídia e o relógio mantém a barra aberta; painéis abertos também a mantêm expandida. No modo completo, os painéis se unem à barra; no centralizado, ficam ao lado. Ambos abrem e fecham com a mesma animação fluida. Cada lado se ajusta ao conteúdo, e o relógio permanece no centro da tela nas quatro bordas.
+
+Abas mostra uma faixa contínua de 7 px e três abas ajustadas ao conteúdo dos grupos esquerdo, central e direito. As abas mantêm a profundidade completa (30 px na horizontal), junções trapezoidais fixas com inclinações retas de 45° fora do espaçamento interno das abas. O relógio fica exatamente no centro da tela mesmo com mídia. Os painéis flutuam ao lado da barra em superfícies arredondadas separadas, alinhadas à esquerda, ao centro ou à direita como no modo Completa e afastadas das bordas da tela pela margem externa, com o espaçamento atual entre janelas do Hyprland e a mesma animação de 320 ms do modo Centralizado. Os espaços deixam os cliques passar; toda a profundidade das abas fica reservada para as janelas. Clique duplo direito alterna Completa → Centralizada → Abas → Completa. As duas dobras são levemente suavizadas e independentes da preferência de cantos; as extremidades da tela ficam quadradas e preenchidas. Abas sempre mostra todos os controles à direita sem seta para ocultar. O clima fica oculto até passar o ponteiro sobre a aba central e desliza após o relógio fixo em 320 ms. Recolhe após um breve atraso ao sair e permanece visível enquanto seu painel está aberto. Apenas o lado posterior cresce ao longo do eixo da barra, com 4 px após o último item visível.
 
 ## Espaços de trabalho
 
-A barra começa em 1–5 e cresce até o espaço atual ou o maior ocupado, com limite de 10. Marcadores superiores vazios desaparecem quando não são mais necessários. Clique com o botão direito em um marcador para escolher Pontos, Glifo, Números ou Runas, com exemplos ao vivo. Runas é o padrão e representa os espaços de 1 a 10 pelas primeiras dez runas do Futhark Antigo (ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ).
+A barra começa em 1–5 e cresce até o espaço atual ou o maior ocupado, com limite de 10. Marcadores superiores vazios desaparecem quando não são mais necessários. Clique com o botão direito em um marcador para escolher Pontos, Glifo, Números ou Runas, com exemplos ao vivo. Runas é o padrão e representa os espaços de 1 a 10 pelas primeiras dez runas do Futhark Antigo (ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ). O marcador ativo usa o símbolo na cor de destaque, sem fundo preenchido.
 
 **SUPER + 1–9/0** muda de espaço; **SUPER + Shift + 1–9/0** move uma janela. **SUPER + Tab** abre a Visão geral. Clique em uma prévia ou use setas e Enter; 1–9/0 muda diretamente. Só aparecem espaços numerados ocupados, com prévias mantidas em memória. Escape ou um clique fora fecha a Visão geral.
 

@@ -528,5 +528,6 @@
   "Create Theme": "Crear tema",
   "From a picture, with colors you can adjust; kept on this computer": "Desde una imagen, con colores ajustables; en este equipo",
   "Yours": "Tuyo",
-  "Read-only from {host} · Enter refreshes, Delete removes": "Solo lectura desde {host} · Enter actualiza, Supr quita"
+  "Read-only from {host} · Enter refreshes, Delete removes": "Solo lectura desde {host} · Enter actualiza, Supr quita",
+  "Tabs": "Pestañas"
 }

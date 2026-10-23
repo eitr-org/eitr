@@ -528,5 +528,6 @@
   "Create Theme": "Design erstellen",
   "From a picture, with colors you can adjust; kept on this computer": "Aus einem Bild, Farben anpassbar; nur auf diesem Computer",
   "Yours": "Eigenes",
-  "Read-only from {host} · Enter refreshes, Delete removes": "Schreibgeschützt von {host} · Enter aktualisiert, Entf entfernt"
+  "Read-only from {host} · Enter refreshes, Delete removes": "Schreibgeschützt von {host} · Enter aktualisiert, Entf entfernt",
+  "Tabs": "Laschen"
 }

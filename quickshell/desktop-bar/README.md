@@ -144,8 +144,11 @@ changing the primary display may require selecting it again in OBS.
 
 Double-left-click empty bar space to switch between the current transparent
 background and opaque theme color. Double-right-click empty space to switch
-between the full bar and a centered hover bar. Centered mode shows only the clock
-until hovered, then unfolds both icon groups in their existing order. The clock
+through Full, Centered and Tabs layouts. Centered mode shows only the clock
+until hovered, then unfolds both icon groups in their existing order. Each side
+packs toward the clock with the same 4 px gap between every item and group.
+The surface has equal end padding (12 px horizontally, 8 px vertically), so it can be
+asymmetric. The clock
 stays screen-centered on all four edges; vertical bars unfold up/down. Leaving
 starts a 350 ms collapse delay. A pin between media and the clock keeps it open;
 pinning persists across reloads/logins. Open panels and drags also keep it expanded.
@@ -153,6 +156,9 @@ Panels in this mode use separate rounded surfaces next to the bar, centered alon
 its axis, with the same 320 ms opening/closing effect. The gap follows Hyprland's
 live inner window spacing (opposing insets added together). Gaps outside the
 centered strip pass clicks through. Old split preferences migrate to centered.
+
+Tabs uses a continuous 7 px strip and three content-sized tabs for the left, centre and right groups. Each inner tab end has 4 px of padding measured from its outermost item, including when media is hidden; the centre tab is symmetric around the clock when media and weather are hidden. Weather is hidden until the centre tab is hovered, then slides out after the fixed clock in 320 ms; it retracts after a short hover delay and stays visible while its panel is open. Only the trailing side grows, along the bar axis on every edge, with 4 px after the last visible item. Tabs retain the full bar depth (30 px horizontally), fixed trapezoid joins with straight 45° slopes outside the tab padding. The clock stays exactly screen-centred, including with media visible. Panels float beside the bar on detached rounded surfaces, aligned left, centre or right like Full and inset from screen edges by the outer gap, with the live Hyprland inter-window gap and the same 320 ms reveal as Centered. Gaps pass clicks through; the full tab depth is reserved for windows. Double-right-click cycles Full → Centered → Tabs → Full. The slopes have subtly softened bends and do not follow the corner preference; screen-edge ends stay square and filled. Tabs always shows all right-side controls without a show/hide arrow.
+
 Drag empty bar space toward top, bottom, left, or right to change its edge; a
 preview highlights the destination. The choices persist in `bar-settings.json`.
 Walker exposes the same settings under Style > Desktop Bar > Appearance,
@@ -164,8 +170,10 @@ Learn > Mouse Gestures also lists these gestures and
 the desktop wallpaper/theme double clicks. Left/right bars use upright compact
 controls, with the time/date centered and popups opening inward.
 Hardware, AI Usage and Idle Lock sit together after the workspaces; right-hand controls
-retain their manual show/hide toggle. Both side groups share 24 px icon slots
-and 4 px spacing, with centered alignment on every bar edge.
+retain their manual show/hide toggle in Full and Centered. Tabs keeps them visible without a toggle. Both side groups share 24 px icon slots
+and 4 px spacing, with centered alignment on every bar edge. Active workspace
+glyphs use the accent color without a filled background in every style; the
+style menus show the same markers.
 Horizontal bars inset the left icon group by 12 px and the right group by
 13 px; the clock remains exactly screen-centered.
 The Idle Lock icon follows AI Usage and is a plain switch: a click turns

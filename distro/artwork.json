@@ -44,6 +44,7 @@
     {"pattern": "quickshell/lockscreen/themes/**/preview.png", "origin": "screenshots of EITR lockscreen designs", "license": "CC-BY-4.0", "status": "cleared"},
     {"pattern": "fastfetch/assets/*", "origin": "EITR logo and wordmark", "license": "EITR-trademark", "status": "cleared", "note": "See distro/ARTWORK-LICENSING.md for the logo policy."},
     {"pattern": "quickshell/desktop-bar/assets/eitr-logo-white.svg", "origin": "EITR logo", "license": "EITR-trademark", "status": "cleared"},
+    {"pattern": "quickshell/desktop-bar/assets/ai-chip.svg", "origin": "original icon drawn for EITR (hand-written SVG)", "license": "CC-BY-4.0", "status": "cleared", "note": "AI Usage bar icon; no third-party artwork."},
     {"pattern": "quickshell/desktop-bar/assets/appearance/*", "origin": "screenshots of the EITR desktop", "license": "CC-BY-4.0", "status": "cleared"},
     {"pattern": "quickshell/desktop-bar/handbook/assets/*", "origin": "screenshots of EITR components", "license": "CC-BY-4.0", "status": "cleared"}
   ]

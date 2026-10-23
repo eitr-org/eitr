@@ -14,9 +14,8 @@
 }
 .example-numbers label.active,
 .example-runes label.active {
-  background: @accent_bg_color;
-  color: @workspace_selected_fg_color;
-  border-radius: 6px;
+  background: transparent;
+  color: @accent_bg_color;
 }
 .example-glyph label.workspace-marker { font-size: 19px; }
 .example-runes label.workspace-marker { font-family: "Noto Sans Runic"; font-size: 16px; }
@@ -31,5 +30,5 @@
 .workspace-dot.active {
   min-width: 17px;
   background: @accent_bg_color;
-  box-shadow: 0 0 0 3px alpha(@accent_bg_color, 0.16);
+  box-shadow: none;
 }

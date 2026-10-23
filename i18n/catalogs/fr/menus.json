@@ -528,5 +528,6 @@
   "Create Theme": "Créer un thème",
   "From a picture, with colors you can adjust; kept on this computer": "Depuis une image, couleurs ajustables ; sur cet ordinateur",
   "Yours": "Le vôtre",
-  "Read-only from {host} · Enter refreshes, Delete removes": "Lecture seule depuis {host} · Entrée actualise, Suppr retire"
+  "Read-only from {host} · Enter refreshes, Delete removes": "Lecture seule depuis {host} · Entrée actualise, Suppr retire",
+  "Tabs": "Onglets"
 }

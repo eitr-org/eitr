@@ -331,8 +331,9 @@ ThemedPopup {
                             PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Theme Color"); selected: center.appearance === "solid"; foreground: center.foreground; onClicked: center.settingRequested("appearance", "solid") }
                         }
                         Row { width: parent.width; spacing: 8
-                            PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Unified"); selected: center.layout === "unified"; foreground: center.foreground; onClicked: center.settingRequested("layout", "unified") }
-                            PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Centered"); selected: center.layout === "centered"; foreground: center.foreground; onClicked: center.settingRequested("layout", "centered") }
+                            PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 16) / 3; text: Eitr.I18n.tr("Unified"); selected: center.layout === "unified"; foreground: center.foreground; onClicked: center.settingRequested("layout", "unified") }
+                            PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 16) / 3; text: Eitr.I18n.tr("Centered"); selected: center.layout === "centered"; foreground: center.foreground; onClicked: center.settingRequested("layout", "centered") }
+                            PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 16) / 3; text: Eitr.I18n.tr("Tabs"); selected: center.layout === "notch"; foreground: center.foreground; onClicked: center.settingRequested("layout", "notch") }
                         }
                         Label { text: Eitr.I18n.tr("Show on") }
                         Row { width: parent.width; spacing: 8

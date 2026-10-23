@@ -16,3 +16,13 @@ assert.equal(context.nearestEdge(fromRight, 2560, 1080), 'left');
 assert.equal(context.nearestEdge({x: 2500, y: 540}, 2560, 1080), 'right');
 assert.equal(context.nearestEdge({x: 1280, y: 150}, 2560, 1080), 'top');
 console.log('Bar geometry checks passed');
+
+const shell = fs.readFileSync(path.join(__dirname, '../shell.qml'), 'utf8');
+const cycle = shell.match(/else if \(button === Qt.RightButton\) updateBarSetting\("layout", ([^;]+)\);/)[1];
+for (const [barLayout, expected] of [['unified', 'centered'], ['centered', 'notch'], ['notch', 'unified']]) {
+    assert.equal(vm.runInNewContext(cycle, {barLayout}), expected);
+}
+
+assert.match(shell, /tabStripThickness: 7/);
+assert.match(shell, /id: leadingTab/);
+assert.match(shell, /id: trailingTab/);
