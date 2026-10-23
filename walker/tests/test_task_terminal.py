@@ -6,6 +6,8 @@ import subprocess
 import tempfile
 import tomllib
 import unittest
+from unittest.mock import patch
+import io
 
 import menu_data
 
@@ -14,6 +16,91 @@ PRESENTER = ROOT / "walker/scripts/actions/task-terminal.py"
 
 
 class TaskTerminalTests(unittest.TestCase):
+    def presenter(self):
+        spec = importlib.util.spec_from_file_location("task_terminal", PRESENTER)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return module
+
+    def test_capture_is_bounded_and_strips_split_ansi_and_utf8(self):
+        module = self.presenter()
+        tail = module.OutputTail()
+        tail.feed(b"old\n" * 210 + b"\x1b[3")
+        tail.feed(b"1mred\x1b[0m\n" + "é".encode()[:1])
+        tail.feed("é".encode()[1:])
+        lines = tail.text().splitlines()
+        self.assertEqual(len(lines), 200)
+        self.assertEqual(lines[-2:], ["red", "é"])
+        tail.feed(b"x" * 100000)
+        self.assertLessEqual(len(tail.pending), 8192)
+
+    def test_pty_passes_bytes_through_and_restores_terminal(self):
+        module = self.presenter()
+        tail = module.OutputTail()
+        with patch.object(module.sys.stdin, "fileno", return_value=10), patch.object(module.sys.stdout, "fileno", return_value=11), patch.object(module.pty, "fork", return_value=(42, 12)), patch.object(module.termios, "tcgetattr", return_value=["original"]), patch.object(module.termios, "tcsetattr") as restore, patch.object(module.fcntl, "ioctl", return_value=b"geometry"), patch.object(module.signal, "signal"), patch.object(module.tty, "setraw"), patch.object(module.select, "select", side_effect=[([10], [], []), ([12], [], []), ([12], [], [])]), patch.object(module.os, "read", side_effect=[b"input", b"\x1b[31moutput\x1b[0m\r\n", b""]), patch.object(module.os, "write", side_effect=[5, 18]) as write, patch.object(module.os, "close") as close, patch.object(module.os, "waitpid", side_effect=[(0, 0), (0, 0), (0, 0), (42, 7 << 8)]):
+            self.assertEqual(module.run_captured(["task"], tail), 7)
+            self.assertEqual(bytes(write.call_args_list[0].args[1]), b"input")
+            self.assertEqual(bytes(write.call_args_list[1].args[1]), b"\x1b[31moutput\x1b[0m\r\n")
+            self.assertEqual(tail.text(), "output")
+            restore.assert_called_once_with(10, module.termios.TCSADRAIN, ["original"])
+            close.assert_called_once_with(12)
+
+    def test_the_task_ending_ends_the_wait_even_if_the_terminal_stays_open(self):
+        # Something the task started in the background may keep the terminal open.
+        module = self.presenter()
+        with patch.object(module.sys.stdin, "fileno", return_value=10), patch.object(module.pty, "fork", return_value=(42, 12)), \
+                patch.object(module.termios, "tcgetattr", return_value=["original"]), patch.object(module.termios, "tcsetattr"), \
+                patch.object(module.fcntl, "ioctl", return_value=b"geometry"), patch.object(module.signal, "signal"), \
+                patch.object(module.tty, "setraw"), patch.object(module.select, "select", return_value=([], [], [])) as select, \
+                patch.object(module.os, "read") as read, patch.object(module.os, "close"), \
+                patch.object(module.os, "waitpid", side_effect=[(0, 0), (42, 3 << 8)]) as waitpid:
+            self.assertEqual(module.run_captured(["task"], module.OutputTail()), 3)
+        self.assertEqual(select.call_count, 2)
+        self.assertEqual(waitpid.call_count, 2)
+        read.assert_not_called()
+
+    def test_failure_offers_assistant_and_redacts_secrets(self):
+        module = self.presenter()
+        tail = module.OutputTail()
+        tail.feed(b"failure\npassword=abc\nTOKEN=def\nsecret=ghi\nAuthorization: Bearer xyz\n-----BEGIN PRIVATE KEY-----\n")
+        for assistant in ("gemini", "copilot", "claude"):
+            with self.subTest(assistant=assistant), patch.object(module, "default_assistant", return_value=assistant), patch.object(module, "open_default") as opened, patch.object(module, "read_key", side_effect=["A", "\x1b"]), patch("sys.stdout", new_callable=io.StringIO) as output:
+                module.failure_help(["/usr/bin/python3", "/some/task.py", "--token=abc", "extra"], tail)
+                self.assertIn("A: ask the AI", output.getvalue())
+                arguments = opened.call_args.args[0]
+                self.assertEqual(len(arguments), 2 if assistant in {"gemini", "copilot"} else 1)
+                prompt = arguments[-1]
+                self.assertIn("python3 task.py [hidden]", prompt)
+                self.assertIn("untrusted data", prompt)
+                self.assertIn("unless I agree", prompt)
+                self.assertEqual(prompt.count("[hidden]"), 6)
+                for value in ("abc", "def", "ghi", "xyz", "/some", "extra"):
+                    self.assertNotIn(value, prompt)
+
+    def test_failure_without_assistant_uses_existing_dismissal(self):
+        module = self.presenter()
+        with patch.object(module, "default_assistant", return_value=None), patch.object(module, "wait_for_escape") as wait, patch.object(module, "read_key") as key, patch.object(module, "open_default") as opened:
+            module.failure_help(["task"], module.OutputTail())
+            wait.assert_called_once_with()
+            key.assert_not_called()
+            opened.assert_not_called()
+
+    def test_task_result_controls_failure_help(self):
+        module = self.presenter()
+        for result in (0, 1, 130):
+            with self.subTest(result=result), patch.object(module, "banner"), patch.object(module.sys.stdin, "isatty", return_value=True), patch.object(module, "run_captured", return_value=result), patch.object(module, "failure_help") as help_task, patch("sys.stdout", new_callable=io.StringIO):
+                self.assertEqual(module.main(["task"]), result)
+                self.assertEqual(help_task.call_count, int(result == 1))
+
+    def test_plain_fallback_never_offers_ai(self):
+        module = self.presenter()
+        with patch.object(module, "banner"), patch.object(module.sys.stdin, "isatty", return_value=True), patch.object(module, "run_captured", side_effect=module.PtyUnavailable), patch.object(module.subprocess, "run") as run, patch.object(module, "wait_for_escape") as wait, patch.object(module, "failure_help") as help_task, patch("sys.stdout", new_callable=io.StringIO):
+            run.return_value.returncode = 1
+            self.assertEqual(module.main(["task"]), 1)
+            run.assert_called_once_with(["task"])
+            wait.assert_called_once_with()
+            help_task.assert_not_called()
+
     def test_task_and_status_terminal_launches_use_banner(self):
         for name, data in menu_data.static_menus().items():
             for entry in data.get("entries", []):

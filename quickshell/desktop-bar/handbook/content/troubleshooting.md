@@ -91,3 +91,5 @@ kept under `~/.local/state/eitr/generated-backups`. When an update changes how a
 setting is stored, it is converted once at login; a failure is reported and
 retried at the next login (`~/.local/state/eitr/migrations.log`).
 `eitr-config status` lists the settings and overrides in effect.
+
+Failed task terminals offer **A: ask the AI** when a default assistant is selected; **Esc** closes. Only the last 200 output lines are kept in memory, with ANSI escapes removed and obvious secret lines hidden before sharing: a cloud assistant sends this output to its provider, while the local assistant keeps it on this PC.

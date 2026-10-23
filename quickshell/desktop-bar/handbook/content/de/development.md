@@ -8,6 +8,9 @@ Hauptmenü > Entwicklung enthält **KI**, **Cloud**, **Git-Konten**, **Monitorin
 
 Installieren > Entwicklungssprachen und JavaScript-Werkzeuge installiert deine Auswahl. Java, Flutter und Datenbankclients sind für EITRs Leiste, Starter oder Themen nicht erforderlich. Installieren > Datenbanken bietet optionale Datenbankwerkzeuge. Installieren > Entwicklungsanwendungen bietet Bruno, Cursor, GitHub Desktop, Insomnia, JetBrains Toolbox, Meld, Postman, VS Code und Zed; Installieren > Produktivität bietet 1Password, Bitwarden, Discord, LibreOffice, Obsidian, Slack und Thunderbird. AUR-Pakete werden auf deinem Rechner heruntergeladen und gebaut; manche Lizenzen erlauben EITR keine Weitergabe.
 
+
+Sprachen bietet außerdem **mise (viele Laufzeitumgebungen)** als optionales Arch-Paket. Aktiviere es manuell mit `eval "$(mise activate zsh)"` in `~/.zshrc`; es kann für dieselbe Laufzeitumgebung mit nvm/uv kollidieren. Bestehende Sprachmanager bleiben unverändert.
+
 ## Web-Apps
 
 Installieren > Web-Apps > Web-App erstellen fragt nach Name und Adresse und legt einen Starter an, der die Website im eigenen Fenster öffnet. Das Symbol wird bei der Erstellung ausschließlich über HTTP(S) heruntergeladen. Fehlerhafte Manifeste oder nicht verfügbare Symbole führen zum Seitensymbol oder einem allgemeinen Browsersymbol. Gib keine Zugangsdaten in der Adresse an. Starter und Symbole nutzen dein XDG-Datenverzeichnis, auch ein eigenes `XDG_DATA_HOME`; das Entfernen über beide Menüs verwendet denselben Ort.

@@ -29,6 +29,13 @@ GPUs or a real Windows/BitLocker disk, waits for the public preview and lands in
 Later codenames are planned, not promised: a release may move to the next row
 when its milestone changes. Patch releases (0.3.1) keep their minor's codename.
 
+## Task failure help and optional mise (unreleased)
+
+Failed task terminals offer A to ask the default AI assistant using a memory-only,
+ANSI-stripped output tail with obvious secret lines hidden. Esc still closes;
+cloud assistants send the shared output to their provider. Install > Languages
+also offers mise without activating it or replacing existing language managers.
+
 ## Your own wallpapers, themes and lockscreens (unreleased)
 
 Style > Wallpaper adds a picture from a file or an https address (50 MB at most,

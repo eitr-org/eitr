@@ -468,6 +468,8 @@ def recipe(group, identifier):
                     item["packages"] + missing_providers(item.get("provider_defaults", {})))
         if item["source"] == "managed":
             run(["bash", str(SCRIPT.with_name("development.sh")), identifier])
+        if group == "languages" and identifier == "mise":
+            print(tr('To enable mise, add eval "$(mise activate zsh)" to ~/.zshrc. It can conflict with nvm/uv for the same runtime.'))
 
 
 def recipe_launch(group, identifier):

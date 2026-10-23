@@ -20,6 +20,8 @@ Toolbox, Meld, Postman, VS Code and Zed; Install > Productivity offers
 AUR entries download and build on your machine; some licenses do not allow
 EITR to ship them.
 
+Languages also offers **mise (many runtimes)** as an optional Arch package. Enable it manually with `eval "$(mise activate zsh)"` in `~/.zshrc`; it can conflict with nvm/uv for the same runtime. Existing per-language managers remain unchanged.
+
 ## Web apps
 
 Install > Web Apps > Create Web App asks for a name and an address and adds a

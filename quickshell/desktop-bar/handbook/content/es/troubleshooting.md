@@ -52,3 +52,5 @@ El código de EITR está en `/usr/share/eitr` y se actualiza con `eitr-desktop`;
 - Sustitución completa de un archivo distribuido: la misma ruta relativa bajo `~/.config/eitr/overrides`. Deja de recibir correcciones de actualizaciones.
 
 Archivos como `kitty/theme.conf` y el estilo de Walker se regeneran al cambiar temas y una vez tras cada actualización del paquete. Las copias anteriores quedan en `~/.local/state/eitr/generated-backups`. Si cambia el formato de un ajuste, se convierte una vez al iniciar sesión; un fallo se informa y se reintenta en la siguiente sesión (`~/.local/state/eitr/migrations.log`). `eitr-config status` muestra los ajustes y sustituciones activos.
+
+Los terminales de tareas fallidas ofrecen **A: preguntar a la IA** si hay un asistente predeterminado; **Esc** cierra. Solo se conservan en memoria las últimas 200 líneas, sin secuencias ANSI y con líneas de secretos evidentes ocultas antes de compartir: un asistente en la nube envía esta salida a su proveedor y el asistente local la mantiene en este PC.

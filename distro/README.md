@@ -64,7 +64,9 @@ existing Arch system instead. The live ISO is not a preinstalled graphical sessi
   with the latest available Oracle JDK LTS and Maven; Node uses NVM's latest LTS.
   Python remains a system dependency for desktop helpers; uv-managed development
   Python is optional. Rust uses rustup; Ruby/Rails uses mise; PHP/Composer,
-  Elixir/Erlang and .NET use Arch packages. No managers, development SDKs or AI
+  Elixir/Erlang and .NET use Arch packages. A separate mise option installs only
+  the Arch package; shell activation is manual and may conflict with nvm/uv for
+  the same runtime. No managers, development SDKs or AI
   CLIs are bootstrapped by default. Dependencies may still pull their own runtimes.
   Existing SDKs and account state on the owner's desktop are not uninstalled.
 - Lazygit and Lazydocker are included from Arch's official repositories. Gaming

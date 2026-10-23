@@ -16,15 +16,16 @@
     "sqlite": {"label": "SQLite", "source": "pacman", "packages": ["sqlite"]}
   },
   "languages": {
+    "dotnet": {"label": ".NET SDK", "source": "pacman", "packages": ["dotnet-sdk"]},
+    "elixir": {"label": "Elixir + Erlang", "source": "pacman", "packages": ["elixir"]},
     "java": {"label": "Java LTS + Maven", "source": "managed", "packages": [], "manager": "SDKMAN", "installed": ["~/.sdkman/candidates/java/current/bin/java", "~/.sdkman/candidates/maven/current/bin/mvn"], "uninstall": {"kind": "sdkman"}},
-    "python": {"label": "Python + uv", "source": "managed", "packages": [], "manager": "uv", "installed": ["~/.local/bin/uv", "~/.local/share/uv/python/*"], "uninstall": {"kind": "python"}},
-    "rust": {"label": "Rust + Cargo", "source": "managed", "packages": ["rustup"], "manager": "rustup", "installed": ["~/.rustup/toolchains/stable-*"], "uninstall": {"kind": "rust"}},
-    "rails": {"label": "Ruby + Rails", "source": "managed", "packages": ["mise", "libyaml", "openssl", "readline", "zlib", "gmp"], "manager": "mise", "installed": ["~/.local/share/mise/installs/ruby/*/bin/rails"], "uninstall": {"kind": "rails"}},
+    "laravel": {"label": "Laravel + PHP + Composer", "source": "managed", "packages": ["php", "composer"], "installed": ["~/.config/composer/vendor/bin/laravel"], "uninstall": {"kind": "composer"}},
+    "mise": {"label": "mise (many runtimes)", "source": "pacman", "packages": ["mise"], "manager": "mise"},
     "node": {"label": "Node.js LTS + npm", "source": "managed", "packages": [], "manager": "NVM", "installed": ["~/.nvm/versions/node/*/bin/node"], "uninstall": {"kind": "node"}},
     "php": {"label": "PHP + Composer", "source": "pacman", "packages": ["php", "composer"]},
-    "elixir": {"label": "Elixir + Erlang", "source": "pacman", "packages": ["elixir"]},
-    "dotnet": {"label": ".NET SDK", "source": "pacman", "packages": ["dotnet-sdk"]},
-    "laravel": {"label": "Laravel + PHP + Composer", "source": "managed", "packages": ["php", "composer"], "installed": ["~/.config/composer/vendor/bin/laravel"], "uninstall": {"kind": "composer"}}
+    "python": {"label": "Python + uv", "source": "managed", "packages": [], "manager": "uv", "installed": ["~/.local/bin/uv", "~/.local/share/uv/python/*"], "uninstall": {"kind": "python"}},
+    "rails": {"label": "Ruby + Rails", "source": "managed", "packages": ["mise", "libyaml", "openssl", "readline", "zlib", "gmp"], "manager": "mise", "installed": ["~/.local/share/mise/installs/ruby/*/bin/rails"], "uninstall": {"kind": "rails"}},
+    "rust": {"label": "Rust + Cargo", "source": "managed", "packages": ["rustup"], "manager": "rustup", "installed": ["~/.rustup/toolchains/stable-*"], "uninstall": {"kind": "rust"}}
   },
   "javascript": {
     "yarn": {"label": "Yarn", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/yarn"], "uninstall": {"kind": "npm", "package": "yarn"}},

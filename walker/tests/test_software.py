@@ -246,6 +246,19 @@ class SoftwareTests(unittest.TestCase):
                 self.assertEqual(software.data_file("software.json"), packaged)
         self.assertEqual(software.data_dirs()[-1].parent.name, "share")
 
+    def test_mise_is_optional_pacman_recipe_with_manual_activation(self):
+        with repository_catalog():
+            item = software.catalog()["languages"]["mise"]
+        self.assertEqual(item["source"], "pacman")
+        self.assertEqual(item["packages"], ["mise"])
+        self.assertEqual(item["manager"], "mise")
+        with repository_catalog(), patch.object(software, "installed", return_value=False), patch.object(software, "install") as install, patch.object(software, "run") as run, patch("builtins.print") as output:
+            software.recipe("languages", "mise")
+            install.assert_called_once_with("pacman", ["mise"])
+            run.assert_not_called()
+            self.assertIn('eval "$(mise activate zsh)"', output.call_args.args[0])
+            self.assertIn("nvm/uv", output.call_args.args[0])
+
     def test_recipe_menu_shows_catalog_errors(self):
         script = ROOT / "walker/scripts/actions/install/software.py"
         with tempfile.TemporaryDirectory() as directory:

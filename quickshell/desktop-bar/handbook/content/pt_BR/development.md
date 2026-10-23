@@ -8,6 +8,9 @@ Principal > Desenvolvimento reúne **IA**, **Nuvem**, **Contas Git**, **Monitora
 
 Instalar > Linguagens de desenvolvimento e Ferramentas JavaScript instala o que você escolher. Java, Flutter e clientes de banco de dados não são necessários para executar a barra, o lançador ou os temas do EITR. Instalar > Bancos de dados oferece ferramentas opcionais. Instalar > Aplicativos de desenvolvimento oferece Bruno, Cursor, GitHub Desktop, Insomnia, JetBrains Toolbox, Meld, Postman, VS Code e Zed; Instalar > Produtividade oferece 1Password, Bitwarden, Discord, LibreOffice, Obsidian, Slack e Thunderbird. Os pacotes AUR são baixados e compilados no seu computador; algumas licenças impedem sua distribuição pelo EITR.
 
+
+Linguagens também oferece **mise (vários runtimes)** como pacote Arch opcional. Ative manualmente com `eval "$(mise activate zsh)"` em `~/.zshrc`; pode haver conflito com nvm/uv para o mesmo runtime. Os gerenciadores existentes permanecem iguais.
+
 ## Aplicativos web
 
 Instalar > Aplicativos web > Criar aplicativo web pede um nome e um endereço e adiciona um atalho que abre o site em uma janela própria. O ícone é baixado na criação, apenas por HTTP(S). Manifestos inválidos ou ícones indisponíveis usam o ícone da página ou um ícone genérico de navegador. Não coloque credenciais no endereço. Atalhos e ícones usam seu diretório de dados XDG, inclusive um `XDG_DATA_HOME` personalizado; a remoção por qualquer menu usa esse mesmo local.
