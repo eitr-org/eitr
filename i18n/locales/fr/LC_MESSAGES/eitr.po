@@ -514,6 +514,9 @@ msgstr "Fichier exécutable modifié : {path}"
 msgid "Changed files:"
 msgstr "Fichiers modifiés :"
 
+msgid "Channel"
+msgstr "Canal"
+
 msgid "Chapters need the Hybrid MP4 recording format (OBS Settings > Output)"
 msgstr "Les marqueurs de chapitre nécessitent le format d’enregistrement Hybrid MP4 (Paramètres OBS > Sortie)"
 
@@ -2722,6 +2725,9 @@ msgstr "Certains calendriers sont injoignables ; leurs événements précédents
 msgid "Some plugins could not be updated; their previous approved commits were kept."
 msgstr "Certains plugins n’ont pas pu être mis à jour ; leurs commits précédemment approuvés ont été conservés."
 
+msgid "Stable"
+msgstr "Stable"
+
 msgid "Stable channel. Eitr packages already newer than stable stay until stable catches up."
 msgstr "Canal stable. Les paquets Eitr plus récents restent en place jusqu’à ce que le canal stable les rattrape."
 
@@ -2877,6 +2883,9 @@ msgstr "Paramètres du terminal"
 
 msgid "Terminal will stay open."
 msgstr "Le terminal reste ouvert."
+
+msgid "Testing"
+msgstr "Test"
 
 msgid "Testing channel: System Update now installs new Eitr builds as soon as they are published, before everyone else. Everything else still comes from the stable repositories."
 msgstr "Canal de test : la mise à jour du système installe les nouvelles versions d’Eitr dès leur publication, avant les autres utilisateurs. Le reste provient toujours des dépôts stables."
@@ -3184,6 +3193,9 @@ msgstr "Vous devez supprimer cet outil avec le gestionnaire utilisé pour son in
 msgid "Thursday"
 msgstr "Jeudi"
 
+msgid "Time"
+msgstr "Temps"
+
 msgid "Time must use HH:MM (00:00-23:59)"
 msgstr "Utilisez le format HH:MM (00:00-23:59)"
 
@@ -3394,9 +3406,6 @@ msgstr "Mises à jour avec instantanés (indiquez un numéro 'before' pour voir 
 msgid "Uptime"
 msgstr "Durée active"
 
-msgid "Uptime / Age / Date"
-msgstr "Durée / Âge / Date"
-
 msgid "Use a JPEG, PNG or WebP picture."
 msgstr "Utilisez une image JPEG, PNG ou WebP."
 
@@ -3480,6 +3489,9 @@ msgstr "Points de terminaison VPC"
 
 msgid "VPCs"
 msgstr "VPC"
+
+msgid "Version"
+msgstr "Version"
 
 msgid "Version: {version}"
 msgstr "Version : {version}"

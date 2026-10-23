@@ -41,9 +41,13 @@ class AboutTests(unittest.TestCase):
             (theme / "colors.toml").write_text('accent = "invalid"\n')
             self.assertIn("#509475", ABOUT.build_config(root, root, False)["modules"][1]["key"])
 
-    def test_selected_logo_renders_seventeen_rows(self):
-        logo = ABOUT.terminal_logo(ROOT / "fastfetch/assets/eitr-logo.png")
-        self.assertEqual(len(logo.splitlines()), 17)
+    def test_selected_logo_keeps_its_shape(self):
+        # The emblem is about 1.12 times wider than tall; on standard 0.5-ratio cells
+        # its 34 columns need 15 rows, not the 17 of a squeezed square.
+        with patch.object(ABOUT, "cell_ratio", return_value=0.5):
+            logo = ABOUT.terminal_logo(ROOT / "fastfetch/assets/eitr-logo.png")
+        rows = logo.removeprefix("$1").splitlines()
+        self.assertEqual((len(rows[0]), len(rows)), (34, 15))
         self.assertIn("▀", logo)
 
     def test_shared_wordmark_is_not_rendered_in_about(self):

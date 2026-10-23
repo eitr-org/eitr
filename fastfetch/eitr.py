@@ -2,6 +2,7 @@
 """Render Eitr's About page using the active desktop theme and Fastfetch."""
 import argparse
 import json
+import fcntl
 import os
 from pathlib import Path
 
@@ -15,8 +16,10 @@ for _eitr_parent in Path(__file__).resolve().parents:
         break
 from eitr_paths import code, config as user_config
 import re
+import struct
 import subprocess
 import tempfile
+import termios
 import tomllib
 import shutil
 import time
@@ -25,10 +28,24 @@ from datetime import datetime
 from eitr_i18n import tr
 
 
-def terminal_logo(path, width=34, height=34):
+def cell_ratio():
+    """Character-cell width / height from the terminal's pixel geometry; 0.5 if unknown."""
+    try:
+        rows, columns, pixels_x, pixels_y = struct.unpack(
+            "HHHH", fcntl.ioctl(sys.stdout.fileno(), termios.TIOCGWINSZ, b"\0" * 8))
+        if rows and columns and pixels_x and pixels_y:
+            return (pixels_x / columns) / (pixels_y / rows)
+    except (OSError, ValueError):
+        pass
+    return 0.5
+
+
+def terminal_logo(path, width=34, height=None):
     """Render the selected logo's alpha mask as theme-colored terminal cells.
 
-    Returns None when the logo has no visible alpha mask to render.
+    Without a height, the logo keeps its own proportions on this terminal's cells
+    (each half-block is half a cell tall). Returns None when the logo has no
+    visible alpha mask to render.
     """
     from PIL import Image
     with Image.open(path) as source:
@@ -38,7 +55,11 @@ def terminal_logo(path, width=34, height=34):
         bounds = alpha.getbbox()
         if bounds is None:
             return None
-        alpha = alpha.crop(bounds).resize((width, height), Image.Resampling.LANCZOS)
+        alpha = alpha.crop(bounds)
+        if height is None:
+            aspect = alpha.width / alpha.height
+            height = max(2, round(width * cell_ratio() / aspect) * 2)
+        alpha = alpha.resize((width, height), Image.Resampling.LANCZOS)
         rows = []
         for y in range(0, height, 2):
             rows.append("".join(" ▄▀█"[(alpha.getpixel((x, y)) >= 128) * 2
@@ -55,13 +76,23 @@ def text(path, fallback):
 
 
 def eitr_version():
-    """The release and build of the installed eitr-desktop, for example 0.6.3 "Mimir" (beta, build ...)."""
-    release, stamp = code("release.json"), code("version")
-    if not release.is_file() or not stamp.is_file():
+    """The installed release, for example 0.6.4 "Mimir" (beta); the build stays in `eitr version`."""
+    # A checkout has release.json but no installed version stamp.
+    release = code("release.json")
+    if not release.is_file() or not code("version").is_file():
         return "development checkout"
     data = json.loads(release.read_text())
-    build = stamp.read_text().strip().removeprefix(data["version"] + ".")
-    return f'{data["version"]} "{data["codename"]}" ({data["stage"]}, build {build})'
+    return f'{data["version"]} "{data["codename"]}" ({data["stage"]})'
+
+
+def update_channel():
+    """Stable or Testing, from the same read-only query the Control Center uses; None if unknown."""
+    try:
+        result = subprocess.run(["/usr/lib/eitr/eitr-system", "channel-status"], capture_output=True,
+                                text=True, timeout=3)
+    except (OSError, subprocess.SubprocessError):
+        return None
+    return {"stable": tr("Stable"), "testing": tr("Testing")}.get(result.stdout.strip())
 
 
 
@@ -81,12 +112,15 @@ def build_config(config_home, cache_home, image=True):
     def custom(value):
         return {"type": "custom", "key": " ", "format": value}
 
-    def border(title=None):
+    def border(title=None, icon="", tint=None):
         if title is None:
             line = "└" + "─" * (width - 2) + "┘"
         else:
-            heading = " " + title + " "
+            # The title's icon takes the box colour; the border and title stay dimmed.
+            heading = " " + (icon + " " if icon else "") + title + " "
             remaining = width - 2 - cell_width(heading)
+            if icon and tint:
+                heading = " {#" + tint + "}" + icon + "{#}{#2} " + title + " "
             line = "┌" + "─" * (remaining // 2) + heading + "─" * (remaining - remaining // 2) + "┐"
         return custom("{#2}" + line + "{#}")
 
@@ -109,18 +143,18 @@ def build_config(config_home, cache_home, image=True):
         font = json.loads((config_home / "eitr/font.json").read_text()).get("family")
     except (OSError, ValueError, AttributeError):
         font = None
-    release, separator, build = eitr_version().partition(" (")
-    system = f"Eitr {release} on Arch Linux" + (f" ({build}" if separator else "")
     modules = [
-        border(tr("Hardware")),
+        border(tr("Hardware"), "󰍛", hardware),
         row("host", "󰌢", tr("PC"), hardware, "{vendor} {name}", branch=""),
         row("cpu", "", "CPU", hardware, "{name}"),
         row("gpu", "󰢮", "GPU", hardware, "{name}"),
         row("memory", "", tr("Memory"), hardware, "{used} / {total} ({percentage})"),
         row("disk", "󰋊", tr("Disk"), hardware,
             "/: {size-used} / {size-total} ({size-percentage}) {filesystem}", branch="└", folders="/"),
-        border(), "break", border(tr("Software")),
-        row("custom", "", "OS", software, system, branch=""),
+        border(), "break", border(tr("Software"), "󰏗", software),
+        row("custom", "", "OS", software, "Eitr", branch=""),
+        row("custom", "󰏗", tr("Version"), software, eitr_version()),
+        *([row("custom", "󰚰", tr("Channel"), software, channel)] if (channel := update_channel()) else []),
         row("kernel", "", tr("Kernel"), software),
         row("packages", "󰏖", tr("Packages"), software, "{pacman} (pacman), {flatpak-all} (flatpak)"),
         row("custom", "", tr("Shell"), software, Path(os.environ.get("SHELL", "/bin/sh")).name, branch="└"),
@@ -130,7 +164,7 @@ def build_config(config_home, cache_home, image=True):
         *([row("custom", "", tr("Font"), software, " ".join(font.split()))]
           if isinstance(font, str) and font.strip() else []),
         row("custom", "󰏘", tr("Theme"), software, theme, branch="└"),
-        border(), "break", border(tr("Uptime / Age / Date")),
+        border(), "break", border(tr("Time"), "󰅐", clock),
         row("custom", "󰃭", tr("OS age"), clock, os_age(), branch=""),
         row("uptime", "󰅐", tr("Uptime"), clock),
         row("datetime", "󰥔", tr("Date"), clock,

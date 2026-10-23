@@ -4016,6 +4016,9 @@
     "Changed files:": [
       "walker/scripts/actions/install/plugins.py"
     ],
+    "Channel": [
+      "fastfetch/eitr.py"
+    ],
     "Chapters need the Hybrid MP4 recording format (OBS Settings > Output)": [
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
@@ -6269,6 +6272,9 @@
     "Some plugins could not be updated; their previous approved commits were kept.": [
       "walker/scripts/actions/system/update.sh"
     ],
+    "Stable": [
+      "fastfetch/eitr.py"
+    ],
     "Stable channel. Eitr packages already newer than stable stay until stable catches up.": [
       "distro/system/eitr-system.py"
     ],
@@ -6424,6 +6430,9 @@
     ],
     "Terminal will stay open.": [
       "walker/scripts/menus/cloud/common.sh"
+    ],
+    "Testing": [
+      "fastfetch/eitr.py"
     ],
     "Testing channel: System Update now installs new Eitr builds as soon as they are published, before everyone else. Everything else still comes from the stable repositories.": [
       "distro/system/eitr-system.py"
@@ -6737,6 +6746,9 @@
     "Thursday": [
       "walker/scripts/actions/tools/reminders.py"
     ],
+    "Time": [
+      "fastfetch/eitr.py"
+    ],
     "Time must use HH:MM (00:00-23:59)": [
       "walker/scripts/actions/toggle/nightlight.py"
     ],
@@ -6948,9 +6960,6 @@
     "Uptime": [
       "fastfetch/eitr.py"
     ],
-    "Uptime / Age / Date": [
-      "fastfetch/eitr.py"
-    ],
     "Use a JPEG, PNG or WebP picture.": [
       "distro/lib/eitr_own_style.py"
     ],
@@ -7035,6 +7044,9 @@
     ],
     "VPCs": [
       "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Version": [
+      "fastfetch/eitr.py"
     ],
     "Version: {version}": [
       "walker/scripts/actions/install/plugins.py"

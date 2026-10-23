@@ -5,7 +5,7 @@ Run `eitr-run fastfetch/eitr.py` directly for the same output.
 
 Each invocation reads the active theme's `colors.toml` and `display-name` (falling
 back to the cached theme name). The liquid E logo appears beside three equal-width
-boxes: Hardware, Software, and Uptime / Age / Date. Hardware includes the model,
+boxes: Hardware, Software and Time (system age, uptime and date), each titled with an icon in its colour. Hardware includes the model,
 CPU, GPUs, memory and root disk usage with percentages and filesystem. Software
 includes the installed Eitr version on Arch Linux, kernel, pacman/Flatpak counts,
 shell, login manager, window manager, terminal, configured desktop font (when

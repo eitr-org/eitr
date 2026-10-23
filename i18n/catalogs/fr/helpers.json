@@ -1310,7 +1310,11 @@
   "Terminal": "Terminal",
   "Theme": "Thème",
   "Uptime": "Durée active",
-  "Uptime / Age / Date": "Durée / Âge / Date",
   "{days} days": "{days} jours",
-  "Font": "Police"
+  "Font": "Police",
+  "Version": "Version",
+  "Channel": "Canal",
+  "Stable": "Stable",
+  "Testing": "Test",
+  "Time": "Temps"
 }

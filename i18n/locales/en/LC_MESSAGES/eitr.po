@@ -514,6 +514,9 @@ msgstr "Changed executable file: {path}"
 msgid "Changed files:"
 msgstr "Changed files:"
 
+msgid "Channel"
+msgstr "Channel"
+
 msgid "Chapters need the Hybrid MP4 recording format (OBS Settings > Output)"
 msgstr "Chapters need the Hybrid MP4 recording format (OBS Settings > Output)"
 
@@ -2722,6 +2725,9 @@ msgstr "Some calendars could not be reached; their previous events stay."
 msgid "Some plugins could not be updated; their previous approved commits were kept."
 msgstr "Some plugins could not be updated; their previous approved commits were kept."
 
+msgid "Stable"
+msgstr "Stable"
+
 msgid "Stable channel. Eitr packages already newer than stable stay until stable catches up."
 msgstr "Stable channel. Eitr packages already newer than stable stay until stable catches up."
 
@@ -2877,6 +2883,9 @@ msgstr "Terminal settings"
 
 msgid "Terminal will stay open."
 msgstr "Terminal will stay open."
+
+msgid "Testing"
+msgstr "Testing"
 
 msgid "Testing channel: System Update now installs new Eitr builds as soon as they are published, before everyone else. Everything else still comes from the stable repositories."
 msgstr "Testing channel: System Update now installs new Eitr builds as soon as they are published, before everyone else. Everything else still comes from the stable repositories."
@@ -3184,6 +3193,9 @@ msgstr "This tool must be removed through its installation manager."
 msgid "Thursday"
 msgstr "Thursday"
 
+msgid "Time"
+msgstr "Time"
+
 msgid "Time must use HH:MM (00:00-23:59)"
 msgstr "Time must use HH:MM (00:00-23:59)"
 
@@ -3394,9 +3406,6 @@ msgstr "Updates with snapshots (pass a 'before' number to see every package):\n"
 msgid "Uptime"
 msgstr "Uptime"
 
-msgid "Uptime / Age / Date"
-msgstr "Uptime / Age / Date"
-
 msgid "Use a JPEG, PNG or WebP picture."
 msgstr "Use a JPEG, PNG or WebP picture."
 
@@ -3480,6 +3489,9 @@ msgstr "VPC endpoints"
 
 msgid "VPCs"
 msgstr "VPCs"
+
+msgid "Version"
+msgstr "Version"
 
 msgid "Version: {version}"
 msgstr "Version: {version}"

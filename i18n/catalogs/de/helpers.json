@@ -1310,7 +1310,11 @@
   "Terminal": "Terminal",
   "Theme": "Thema",
   "Uptime": "Laufzeit",
-  "Uptime / Age / Date": "Laufzeit / Alter / Datum",
   "{days} days": "{days} Tage",
-  "Font": "Schrift"
+  "Font": "Schrift",
+  "Version": "Version",
+  "Channel": "Kanal",
+  "Stable": "Stabil",
+  "Testing": "Test",
+  "Time": "Zeit"
 }

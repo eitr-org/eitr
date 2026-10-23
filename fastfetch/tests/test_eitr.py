@@ -2,6 +2,7 @@
 import importlib.util
 from pathlib import Path
 import sys
+import re
 import tempfile
 import types
 import unittest
@@ -62,6 +63,37 @@ class LogoTests(unittest.TestCase):
         self.assertNotIn("Rune Liquid", str(config["modules"]))
 
 
+class SolidMask(FakeImage):
+    """A fully opaque mask of a given size, enough for terminal_logo to sample."""
+    def __init__(self, width, height):
+        super().__init__(("R", "G", "B", "A"), (0, 0, width, height))
+        self.width, self.height = width, height
+
+    def crop(self, bounds):
+        return SolidMask(bounds[2] - bounds[0], bounds[3] - bounds[1])
+
+    def resize(self, size, method=None):
+        return SolidMask(*size)
+
+    def getpixel(self, point):
+        return 255
+
+
+class ProportionTests(unittest.TestCase):
+    def tearDown(self):
+        sys.modules.pop("PIL", None)
+
+    def test_the_logo_keeps_its_proportions_on_terminal_cells(self):
+        module = load(SolidMask(200, 100))
+        sys.modules["PIL"].Image.Resampling = types.SimpleNamespace(LANCZOS=None)
+        # Half a cell per sample: a 2:1 logo on 0.5-ratio cells is 34 wide and 8 rows (16 samples) tall.
+        module.cell_ratio = lambda: 0.5
+        rows = module.terminal_logo(Path("wide.png")).removeprefix("$1").splitlines()
+        self.assertEqual((len(rows[0]), len(rows)), (34, 8))
+        explicit = module.terminal_logo(Path("wide.png"), 24, 10).removeprefix("$1").splitlines()
+        self.assertEqual((len(explicit[0]), len(explicit)), (24, 5))
+
+
 class VersionTests(unittest.TestCase):
     def tearDown(self):
         sys.modules.pop("PIL", None)
@@ -72,7 +104,7 @@ class VersionTests(unittest.TestCase):
             (Path(directory) / "version").write_text("0.3.0.20261014.035137.g3aaa9c8\n")
             (Path(directory) / "release.json").write_text('{"version": "0.3.0", "stage": "alpha", "codename": "Ymir"}')
             module.code = lambda relative: Path(directory) / relative
-            self.assertEqual(module.eitr_version(), '0.3.0 "Ymir" (alpha, build 20261014.035137.g3aaa9c8)')
+            self.assertEqual(module.eitr_version(), '0.3.0 "Ymir" (alpha)')
             (Path(directory) / "version").unlink()
             self.assertEqual(module.eitr_version(), "development checkout")
 
@@ -94,7 +126,7 @@ class LayoutTests(unittest.TestCase):
             config = self.module.build_config(home, home, image=False)
         modules = config["modules"]
         rendered = str(modules)
-        for title in ("Hardware", "Software", "Uptime / Age / Date"):
+        for title in ("Hardware", "Software", "Time"):
             self.assertIn(title, rendered)
         for color in ("#123456", "#abcdef", "#654321"):
             self.assertIn(color, rendered)
@@ -106,7 +138,9 @@ class LayoutTests(unittest.TestCase):
         borders = [item["format"] for item in modules if isinstance(item, dict)
                    and item.get("type") == "custom" and "─" in item.get("format", "")]
         self.assertEqual(len(borders), 6)
-        self.assertEqual(len({len(border) for border in borders}), 1)
+        # Every border is equally wide on screen once Fastfetch's {#...} colour codes are left out.
+        visible = {self.module.cell_width(re.sub(r"\{#[^}]*\}", "", border)) for border in borders}
+        self.assertEqual(len(visible), 1)
         disk = next(item for item in modules if isinstance(item, dict) and item["type"] == "disk")
         self.assertEqual(disk["folders"], "/")
         self.assertIn("{filesystem}", disk["format"])

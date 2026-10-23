@@ -1310,7 +1310,11 @@
   "Terminal": "Terminal",
   "Theme": "Tema",
   "Uptime": "Tempo ativo",
-  "Uptime / Age / Date": "Atividade / Idade / Data",
   "{days} days": "{days} dias",
-  "Font": "Fonte"
+  "Font": "Fonte",
+  "Version": "Versão",
+  "Channel": "Canal",
+  "Stable": "Estável",
+  "Testing": "Testes",
+  "Time": "Tempo"
 }
