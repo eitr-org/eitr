@@ -60,6 +60,11 @@ teardown abort observed when forcibly exiting a visible preview on Qt 6.12.
 
 ## Control Center
 
+The chat rail button opens an in-memory conversation with the default assistant.
+Enter sends, Shift+Enter adds a line, and Escape returns to the pages. Leaving
+chat or closing the panel clears it and cancels the headless request. The helper
+sends an allowlisted system summary only on the first turn and never saves chats.
+
 Native panel headings share a small theme-accent rune seal (PanelHeading), and
 horizontal section dividers carry a subtle carved diamond (PanelDivider). The
 seal replaces a heading's old leading glyph, and a status line under a title is

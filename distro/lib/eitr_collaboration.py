@@ -98,7 +98,7 @@ def command(identifier, binary, question):
     raise ValueError('Unsupported assistant')
 
 
-def ask(identifier, question, *, announce=True, response_format=None):
+def ask(identifier, question, *, announce=True, response_format=None, process_started=None):
     """The answer text. RESPONSE_FORMAT 'json' constrains the local model; cloud CLIs get the prompt alone."""
     if identifier == eitr_local_assistant.IDENTIFIER:
         # Nothing leaves this PC, so there is no hand-off to announce.
@@ -120,6 +120,8 @@ def ask(identifier, question, *, announce=True, response_format=None):
                                stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
                                encoding='utf-8', errors='replace', env=environment,
                                cwd=Path.cwd(), start_new_session=True)
+    if process_started is not None:
+        process_started(process)
     try:
         output, _ = process.communicate(question if identifier == 'codex' else '', timeout=TIMEOUT)
     except subprocess.TimeoutExpired:

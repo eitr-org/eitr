@@ -547,6 +547,9 @@ msgstr "Verificando atualizações dos pacotes oficiais…"
 msgid "Choose Sign In to open the browser."
 msgstr "Escolha Entrar para abrir o navegador."
 
+msgid "Choose a default assistant in Development > AI"
+msgstr "Escolha um assistente padrão em Desenvolvimento > IA"
+
 msgid "Choose a default assistant in Development first."
 msgstr "Escolha primeiro um assistente padrão em Desenvolvimento."
 
@@ -1450,11 +1453,17 @@ msgstr "Identidade anônima inválida"
 msgid "Invalid assistant answer."
 msgstr "Resposta inválida do assistente."
 
+msgid "Invalid assistant response."
+msgstr "Resposta inválida do assistente."
+
 msgid "Invalid browser profile"
 msgstr "Perfil de navegador inválido"
 
 msgid "Invalid cancellation scope."
 msgstr "Escopo de cancelamento inválido."
+
+msgid "Invalid chat conversation."
+msgstr "Conversa inválida."
 
 msgid "Invalid cursor choice"
 msgstr "Opção de cursor inválida"
@@ -2994,6 +3003,9 @@ msgstr "O canal deve ser stable ou testing"
 
 msgid "The collaboration state is invalid; settings were left unchanged."
 msgstr "O estado da colaboração é inválido; as configurações foram mantidas."
+
+msgid "The default assistant changed. Start a new chat."
+msgstr "O assistente padrão mudou. Inicie uma nova conversa."
 
 msgid "The factory reset helper is missing beside the boot guard"
 msgstr "O auxiliar de redefinição de fábrica não foi encontrado junto à proteção de boot"

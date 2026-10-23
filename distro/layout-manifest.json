@@ -2,6 +2,8 @@
   "version": 1,
   "layout_version": 2,
   "rules": [
+    {"pattern": "quickshell/desktop-bar/AssistantChat.qml", "class": "C", "runtime": true},
+    {"pattern": "quickshell/desktop-bar/scripts/assistant-chat.py", "class": "C", "runtime": true},
     {"pattern": "eitr/ai-accounts.json", "class": "P", "runtime": false},
     {"pattern": "distro/lib/eitr_ai_accounts.py", "class": "C", "runtime": true},
     {"pattern": "walker/scripts/actions/ai-accounts.py", "class": "C", "runtime": true},

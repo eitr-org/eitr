@@ -383,5 +383,14 @@
   "All day": "Ganztägig",
   "Set": "Festlegen",
   "Control Center": "Kontrollzentrum",
-  "Tabs": "Laschen"
+  "Tabs": "Laschen",
+  "Ask anything…": "Frag etwas…",
+  "Chat with %1": "Mit %1 chatten",
+  "Invalid assistant response.": "Ungültige Assistentenantwort.",
+  "Messages go to %1; nothing is saved": "Nachrichten gehen an %1; nichts wird gespeichert",
+  "New chat": "Neuer Chat",
+  "Runs on this PC; nothing is saved": "Läuft auf diesem PC; nichts wird gespeichert",
+  "Thinking…": "Denkt nach…",
+  "Back": "Zurück",
+  "Copy reply": "Antwort kopieren"
 }

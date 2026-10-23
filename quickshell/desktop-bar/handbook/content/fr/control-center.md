@@ -37,3 +37,9 @@ Sécurité, réinitialisation d’usine et service réseau restent dans Walker >
 ## Langue
 
 **Système > Langue** affiche la langue actuelle selon les paramètres régionaux. Ouvrez le sélecteur, choisissez une langue ou Valeur système, puis déconnectez-vous et reconnectez-vous pour l’appliquer. Seule la langue des messages de votre session change, jamais les fichiers régionaux système. Voir le [Guide de langue](handbook:language).
+
+## Discussion rapide
+
+L’icône de discussion près des onglets ouvre une conversation jetable avec l’assistant par défaut choisi dans Développement > IA. Elle reste masquée sans assistant ou lorsque la politique de l’organisation les désactive. Entrée envoie ; Maj+Entrée insère un saut de ligne. Échap ou Retour ramène aux pages. Nouvelle discussion, quitter la discussion ou fermer le Centre de contrôle efface les messages et annule toute réponse en attente.
+
+Les réponses proposent du Markdown sélectionnable et Copier. La conversation reste en mémoire ; Eitr n’écrit aucun historique ni journal. Sous la saisie figure le fournisseur cloud ou la mention que Ratatoskr tourne sur ce PC. Les fournisseurs reçoivent les messages et les échanges précédents. Chaque message contient uniquement version/canal d’Eitr, noyau, CPU/GPU/RAM et thème comme contexte non fiable. Aucun nom d’utilisateur ou de machine, fichier, courriel, nom WiFi, titre de fenêtre ou presse-papiers n’est collecté. L’assistant utilise le mode sans interface en lecture seule avec le compte sélectionné ; il ne peut pas modifier le système. Les erreurs apparaissent dans la discussion.

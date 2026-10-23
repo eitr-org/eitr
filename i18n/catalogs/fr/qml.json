@@ -383,5 +383,14 @@
   "All day": "Toute la journée",
   "Set": "Définir",
   "Control Center": "Centre de contrôle",
-  "Tabs": "Onglets"
+  "Tabs": "Onglets",
+  "Ask anything…": "Posez votre question…",
+  "Chat with %1": "Discuter avec %1",
+  "Invalid assistant response.": "Réponse de l’assistant invalide.",
+  "Messages go to %1; nothing is saved": "Messages envoyés à %1 ; rien n’est enregistré",
+  "New chat": "Nouvelle discussion",
+  "Runs on this PC; nothing is saved": "Sur ce PC ; rien n’est enregistré",
+  "Thinking…": "Réflexion…",
+  "Back": "Retour",
+  "Copy reply": "Copier la réponse"
 }

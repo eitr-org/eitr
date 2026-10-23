@@ -383,5 +383,14 @@
   "All day": "Todo el día",
   "Set": "Establecer",
   "Control Center": "Centro de control",
-  "Tabs": "Pestañas"
+  "Tabs": "Pestañas",
+  "Ask anything…": "Pregunta lo que quieras…",
+  "Chat with %1": "Chatear con %1",
+  "Invalid assistant response.": "Respuesta del asistente no válida.",
+  "Messages go to %1; nothing is saved": "Los mensajes se envían a %1; no se guarda nada",
+  "New chat": "Nuevo chat",
+  "Runs on this PC; nothing is saved": "Se ejecuta en este PC; no se guarda nada",
+  "Thinking…": "Pensando…",
+  "Back": "Atrás",
+  "Copy reply": "Copiar respuesta"
 }

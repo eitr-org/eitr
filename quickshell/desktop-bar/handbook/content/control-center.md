@@ -60,3 +60,9 @@ behind their own confirmations.
 Open the picker to choose a language or System default, then sign out and back
 in to apply it. It changes only your user-session message locale, never the
 system locale files. See the [Language guide](handbook:language).
+
+## Quick chat
+
+The chat icon beside the page tabs opens a disposable conversation with your default assistant, chosen in Development > AI. It is hidden without a default or when organization policy disables assistants. Enter sends; Shift+Enter inserts a line break. Escape or Back returns to the pages. New chat, leaving chat, or closing the Control Center clears all messages and cancels a pending answer.
+
+Replies support selectable Markdown and Copy. The conversation stays in memory; Eitr writes no chat history or logs. The line below the input names the cloud provider, or says Ratatoskr runs on this PC. Cloud providers receive your messages and earlier turns. Each message also carries only Eitr version/channel, kernel, CPU/GPU/RAM and theme, as untrusted context. No usernames, hostnames, files, emails, WiFi names, window titles or clipboard are collected. The assistant uses the read-only headless path with the selected account; it cannot make system changes. Failures appear inline.

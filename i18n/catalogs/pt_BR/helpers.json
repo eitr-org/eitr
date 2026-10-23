@@ -1320,5 +1320,9 @@
   "Add Account…": "Adicionar conta…",
   "Choose a label for this account.": "Escolha um nome para esta conta.",
   "No data": "Sem dados",
-  "Remove this account and its local configuration?": "Remover esta conta e sua configuração local?"
+  "Remove this account and its local configuration?": "Remover esta conta e sua configuração local?",
+  "Choose a default assistant in Development > AI": "Escolha um assistente padrão em Desenvolvimento > IA",
+  "Invalid assistant response.": "Resposta inválida do assistente.",
+  "Invalid chat conversation.": "Conversa inválida.",
+  "The default assistant changed. Start a new chat.": "O assistente padrão mudou. Inicie uma nova conversa."
 }

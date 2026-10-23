@@ -37,3 +37,9 @@ Sicherheit, Zurücksetzen auf den Werkszustand und Netzwerk-Backend bleiben unte
 ## Sprache
 
 **System > Sprache** zeigt die aktuelle Sprache entsprechend dem Gebietsschema. Öffne die Auswahl, wähle eine Sprache oder Systemstandard und melde dich zur Anwendung ab und wieder an. Nur die Meldungssprache deiner Sitzung wird geändert, niemals System-Gebietsschemadateien. Siehe [Sprachanleitung](handbook:language).
+
+## Schnellchat
+
+Das Chatsymbol neben den Seiten öffnet eine flüchtige Unterhaltung mit dem unter Entwicklung > KI gewählten Standardassistenten. Ohne Standard oder bei deaktivierender Organisationsrichtlinie bleibt es verborgen. Enter sendet, Shift+Enter fügt einen Zeilenumbruch ein. Escape oder Zurück kehrt zu den Seiten zurück. Neuer Chat, Verlassen des Chats oder Schließen des Kontrollzentrums löscht alle Nachrichten und bricht ausstehende Antworten ab.
+
+Antworten bieten auswählbares Markdown und Kopieren. Die Unterhaltung bleibt im Arbeitsspeicher; Eitr schreibt weder Verlauf noch Protokolle. Unter der Eingabe steht der Cloudanbieter oder der Hinweis, dass Ratatoskr auf diesem PC läuft. Cloudanbieter erhalten Nachrichten und bisherige Gesprächsbeiträge. Jede Nachricht enthält außerdem nur Eitr-Version/Kanal, Kernel, CPU/GPU/RAM und Thema als nicht vertrauenswürdigen Kontext. Benutzernamen, Hostnamen, Dateien, E-Mails, WLAN-Namen, Fenstertitel und Zwischenablage werden nicht erfasst. Der Assistent verwendet den schreibgeschützten Aufruf ohne Oberfläche mit dem ausgewählten Konto und kann das System nicht ändern. Fehler erscheinen im Chat.

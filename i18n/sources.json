@@ -61,6 +61,9 @@
     "Applications": [
       "quickshell/desktop-bar/AudioMenu.qml"
     ],
+    "Ask anything…": [
+      "quickshell/desktop-bar/AssistantChat.qml"
+    ],
     "At %1": [
       "quickshell/desktop-bar/DisplaySettingsEditor.qml"
     ],
@@ -78,6 +81,9 @@
     ],
     "Automatic · {start} - {end}": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
+    ],
+    "Back": [
+      "quickshell/desktop-bar/AssistantChat.qml"
     ],
     "Bar": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -152,6 +158,9 @@
     "Channel: unknown": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
+    "Chat with %1": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
     "Checking status…": [
       "quickshell/desktop-bar/RemoteAccessContent.qml"
     ],
@@ -209,6 +218,9 @@
     ],
     "Control Center": [
       "quickshell/desktop-bar/EitrLogo.qml"
+    ],
+    "Copy reply": [
+      "quickshell/desktop-bar/AssistantChat.qml"
     ],
     "Corners": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -402,6 +414,9 @@
     "Input level · muted": [
       "quickshell/desktop-bar/MicrophoneMeter.qml"
     ],
+    "Invalid assistant response.": [
+      "quickshell/desktop-bar/AssistantChat.qml"
+    ],
     "KNOWN DEVICES": [
       "quickshell/desktop-bar/BluetoothMenu.qml"
     ],
@@ -504,6 +519,9 @@
       "quickshell/desktop-bar/MediaMenu.qml",
       "quickshell/desktop-bar/shell.qml"
     ],
+    "Messages go to %1; nothing is saved": [
+      "quickshell/desktop-bar/AssistantChat.qml"
+    ],
     "Microphone": [
       "quickshell/desktop-bar/AudioMenu.qml",
       "quickshell/desktop-bar/ControlCenter.qml",
@@ -532,6 +550,9 @@
     ],
     "New Reminder": [
       "quickshell/desktop-bar/ControlCenter.qml"
+    ],
+    "New chat": [
+      "quickshell/desktop-bar/AssistantChat.qml"
     ],
     "Next": [
       "quickshell/desktop-bar/Handbook.qml",
@@ -831,6 +852,9 @@
     "Rotation, pixel offsets and more in local.lua": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
     ],
+    "Runs on this PC; nothing is saved": [
+      "quickshell/desktop-bar/AssistantChat.qml"
+    ],
     "SCANNED DEVICES": [
       "quickshell/desktop-bar/BluetoothMenu.qml"
     ],
@@ -899,6 +923,7 @@
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Send": [
+      "quickshell/desktop-bar/AssistantChat.qml",
       "quickshell/desktop-bar/NotificationCard.qml"
     ],
     "Session": [
@@ -1034,6 +1059,9 @@
     ],
     "Theme Wallpaper": [
       "quickshell/lockscreen/design-gallery.qml"
+    ],
+    "Thinking…": [
+      "quickshell/desktop-bar/AssistantChat.qml"
     ],
     "This one": [
       "quickshell/desktop-bar/CalendarMenu.qml"
@@ -4089,6 +4117,9 @@
     "Choose Sign In to open the browser.": [
       "walker/scripts/actions/system/remote-access.py"
     ],
+    "Choose a default assistant in Development > AI": [
+      "quickshell/desktop-bar/scripts/assistant-chat.py"
+    ],
     "Choose a default assistant in Development first.": [
       "walker/scripts/actions/tools/voice-command.py"
     ],
@@ -5013,12 +5044,18 @@
     "Invalid assistant answer.": [
       "walker/scripts/actions/tools/voice-command.py"
     ],
+    "Invalid assistant response.": [
+      "quickshell/desktop-bar/scripts/assistant-chat.py"
+    ],
     "Invalid browser profile": [
       "walker/scripts/actions/install/webapps.py"
     ],
     "Invalid cancellation scope.": [
       "walker/scripts/actions/tools/reminders.py",
       "walker/scripts/actions/tools/voice-command.py"
+    ],
+    "Invalid chat conversation.": [
+      "quickshell/desktop-bar/scripts/assistant-chat.py"
     ],
     "Invalid cursor choice": [
       "walker/scripts/actions/style/cursor.py"
@@ -6557,7 +6594,8 @@
       "distro/archinstall/eitr-guided-install"
     ],
     "The assistant could not complete the request.": [
-      "distro/lib/eitr_collaboration.py"
+      "distro/lib/eitr_collaboration.py",
+      "quickshell/desktop-bar/scripts/assistant-chat.py"
     ],
     "The assistant executable was not found after installation.": [
       "distro/lib/eitr_assistants.py"
@@ -6586,6 +6624,9 @@
     ],
     "The collaboration state is invalid; settings were left unchanged.": [
       "distro/lib/eitr_collaboration.py"
+    ],
+    "The default assistant changed. Start a new chat.": [
+      "quickshell/desktop-bar/scripts/assistant-chat.py"
     ],
     "The factory reset helper is missing beside the boot guard": [
       "distro/system/boot-guard.py"

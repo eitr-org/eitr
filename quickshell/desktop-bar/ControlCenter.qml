@@ -21,6 +21,8 @@ ThemedPopup {
     required property var mediaPlayer
     required property bool idleEnabled
     required property bool idleBusy
+    property bool chatOpen: false
+    property var chatAssistant: ({})
     property string page: "general"
     property string barPosition: "top"
     property string appearance: "solid"
@@ -79,7 +81,8 @@ ThemedPopup {
     }
     function run(process, command) { if (process.running) return; actionError = ""; process.command = command; process.running = true; }
     onOpenedChanged: {
-        if (opened) refresh();
+        if (opened) { refresh(); chatStatus.running = true; }
+        else { chatOpen = false; chatView.reset(); }
         if (opened && page === "style") loadStyle();
         if (opened && !organizationQuery.running) organizationQuery.running = true;
         if (opened && page === "system" && !channelQuery.running) channelQuery.running = true;
@@ -167,7 +170,12 @@ ThemedPopup {
         command: ["python3", (Quickshell.env("EITR_LIBRARY_ROOT") || "/usr/share/eitr/lib") + "/eitr_policy.py", "status"]
         stdout: StdioCollector { id: organizationOutput }
         onExited: {
-            try { center.organizationPolicy = JSON.parse(organizationOutput.text); }
+            try {
+                center.organizationPolicy = JSON.parse(organizationOutput.text);
+                if (center.organizationPolicy.development === false || center.organizationPolicy.assistants_together === false) {
+                    center.chatOpen = false; chatView.reset();
+                }
+            }
             catch (error) { center.organizationPolicy = ({}); }
         }
     }
@@ -189,6 +197,16 @@ ThemedPopup {
         onExited: {
             try { let result = JSON.parse(airplaneResult.text); center.actionError = result.error || ""; if (!result.error) center.airplane = result; } catch (e) { center.actionError = Eitr.I18n.tr("Could not change airplane mode"); }
             center.refresh();
+        }
+    }
+    Process {
+        id: chatStatus
+        command: ["python3", Eitr.Paths.code("quickshell/desktop-bar/scripts/assistant-chat.py"), "status"]
+        stdout: StdioCollector { id: chatStatusOutput }
+        onExited: {
+            try { center.chatAssistant = JSON.parse(chatStatusOutput.text); }
+            catch (error) { center.chatAssistant = ({}); }
+            if (!center.chatAssistant.identifier) { center.chatOpen = false; chatView.reset(); }
         }
     }
     RowLayout {
@@ -220,16 +238,33 @@ ThemedPopup {
                         layer.effect: MultiEffect { colorization: 1; colorizationColor: center.foreground }
                     }
                     foreground: center.foreground; selected: center.page === modelData.key
-                    onClicked: center.page = modelData.key
+                    onClicked: { center.chatOpen = false; chatView.reset(); center.page = modelData.key; }
                     HoverHandler { id: tabHover }
                     BarTooltip { target: tab; hovered: tabHover.hovered; text: Eitr.I18n.tr(tab.modelData.name); foreground: center.foreground; background: center.background }
                 }
+            }
+            PanelButton {
+                id: chatButton
+                visible: !!center.chatAssistant.identifier && center.organizationPolicy.development !== false && center.organizationPolicy.assistants_together !== false
+                width: 34; height: 34; icon: true; text: "󰭻"
+                foreground: center.foreground; selected: center.chatOpen
+                onClicked: { center.chatOpen = true; chatView.focusInput(); }
+                HoverHandler { id: chatHover }
+                BarTooltip { target: chatButton; hovered: chatHover.hovered; text: Eitr.I18n.tr("Chat with %1", [center.chatAssistant.name || ""]); foreground: center.foreground; background: center.background }
             }
         }
         Rectangle { Layout.fillHeight: true; Layout.preferredWidth: 1; color: Qt.alpha(center.foreground, PanelStyle.dividerAlpha) }
         Item {
             Layout.fillWidth: true; Layout.fillHeight: true
+            AssistantChat {
+                id: chatView
+                anchors.fill: parent; visible: center.chatOpen
+                foreground: center.foreground; background: center.background
+                assistant: center.chatAssistant
+                onClosed: { center.chatOpen = false; center.keyTarget.forceActiveFocus(); }
+            }
             Flickable {
+                visible: !center.chatOpen
                 id: scroll
                 anchors.fill: parent
                 contentHeight: content.implicitHeight; clip: true

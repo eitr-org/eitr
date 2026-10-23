@@ -547,6 +547,9 @@ msgstr "Checking official package updates…"
 msgid "Choose Sign In to open the browser."
 msgstr "Choose Sign In to open the browser."
 
+msgid "Choose a default assistant in Development > AI"
+msgstr "Choose a default assistant in Development > AI"
+
 msgid "Choose a default assistant in Development first."
 msgstr "Choose a default assistant in Development first."
 
@@ -1450,11 +1453,17 @@ msgstr "Invalid anonymous identity"
 msgid "Invalid assistant answer."
 msgstr "Invalid assistant answer."
 
+msgid "Invalid assistant response."
+msgstr "Invalid assistant response."
+
 msgid "Invalid browser profile"
 msgstr "Invalid browser profile"
 
 msgid "Invalid cancellation scope."
 msgstr "Invalid cancellation scope."
+
+msgid "Invalid chat conversation."
+msgstr "Invalid chat conversation."
 
 msgid "Invalid cursor choice"
 msgstr "Invalid cursor choice"
@@ -2994,6 +3003,9 @@ msgstr "The channel is stable or testing"
 
 msgid "The collaboration state is invalid; settings were left unchanged."
 msgstr "The collaboration state is invalid; settings were left unchanged."
+
+msgid "The default assistant changed. Start a new chat."
+msgstr "The default assistant changed. Start a new chat."
 
 msgid "The factory reset helper is missing beside the boot guard"
 msgstr "The factory reset helper is missing beside the boot guard"

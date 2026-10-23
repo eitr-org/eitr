@@ -37,3 +37,9 @@ Segurança, redefinição de fábrica e backend de rede continuam em Walker > Si
 ## Idioma
 
 **Sistema > Idioma** mostra o idioma atual conforme a localidade do sistema. Abra o seletor, escolha um idioma ou Padrão do sistema e saia e entre novamente para aplicar. Ele altera apenas o idioma de mensagens da sua sessão, nunca os arquivos de localidade do sistema. Consulte o [Guia de idioma](handbook:language).
+
+## Conversa rápida
+
+O ícone de conversa ao lado das abas abre uma conversa descartável com o assistente padrão, escolhido em Desenvolvimento > IA. Fica oculto sem um padrão ou quando a política da organização desativa assistentes. Enter envia; Shift+Enter insere uma quebra de linha. Escape ou Voltar retorna às páginas. Nova conversa, sair da conversa ou fechar o Centro de Controle apaga as mensagens e cancela uma resposta pendente.
+
+As respostas permitem selecionar Markdown e copiar. A conversa fica na memória; o Eitr não grava histórico nem registros. A linha abaixo da entrada identifica o provedor na nuvem ou informa que o Ratatoskr roda neste PC. Provedores recebem as mensagens e os turnos anteriores. Cada mensagem inclui apenas versão/canal do Eitr, kernel, CPU/GPU/RAM e tema como contexto não confiável. Não são coletados nomes de usuário ou máquina, arquivos, emails, nomes de WiFi, títulos de janelas ou área de transferência. O assistente usa a execução sem interface somente de leitura com a conta selecionada; não pode alterar o sistema. Falhas aparecem na conversa.
