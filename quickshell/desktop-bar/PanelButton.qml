@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Effects
 import "PanelStyle.js" as PanelStyle
 
 Rectangle {
@@ -17,6 +18,8 @@ Rectangle {
     property bool flat: false
     property bool selected: false
     property string leadingIcon: ""
+    // An SVG shown instead of the leading glyph, tinted with the foreground.
+    property url leadingImage: ""
     property int textAlignment: Text.AlignHCenter
     readonly property color fillColor: Qt.rgba(foreground.r, foreground.g, foreground.b, selected ? 0.18 : mouse.containsMouse || activeFocus ? 0.16 : icon || outlined || flat ? 0 : 0.08)
     signal clicked()
@@ -45,7 +48,7 @@ Rectangle {
     Text {
         id: label
         visible: !button.loading || button.icon
-        x: button.icon ? (button.width - ink.tightBoundingRect.width) / 2 - ink.tightBoundingRect.x + button.iconOffsetX : button.leadingIcon !== "" ? 34 : 8
+        x: button.icon ? (button.width - ink.tightBoundingRect.width) / 2 - ink.tightBoundingRect.x + button.iconOffsetX : button.leadingIcon !== "" || button.leadingImage != "" ? 34 : 8
         y: button.icon ? button.height / 2 - (baselineOffset + ink.tightBoundingRect.y + ink.tightBoundingRect.height / 2) : 0
         width: button.icon ? implicitWidth : parent.width - x - 8
         height: button.icon ? implicitHeight : parent.height
@@ -69,6 +72,17 @@ Rectangle {
                 onStopped: spin.angle = 0
             }
         }
+    }
+    Image {
+        visible: button.leadingImage != "" && !button.loading
+        x: 9
+        width: 16; height: 16
+        anchors.verticalCenter: parent.verticalCenter
+        source: button.leadingImage
+        sourceSize: Qt.size(Math.ceil(width * Screen.devicePixelRatio), Math.ceil(height * Screen.devicePixelRatio))
+        smooth: true
+        layer.enabled: visible
+        layer.effect: MultiEffect { colorization: 1; colorizationColor: button.foreground }
     }
     Text {
         visible: button.leadingIcon !== "" && !button.loading

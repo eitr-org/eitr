@@ -523,7 +523,7 @@ ThemedPopup {
                         GridLayout { width: parent.width; columns: 2; columnSpacing: 8; rowSpacing: 8
                             GridAction { title: Eitr.I18n.tr("About"); glyph: "󰋽"; onClicked: center.menuAction("system-information", "About") }
                             GridAction { title: Eitr.I18n.tr("Hardware"); glyph: "󰍛"; onClicked: center.panelRequested("hardware") }
-                            GridAction { title: Eitr.I18n.tr("AI Usage"); glyph: "󱜙"; onClicked: center.panelRequested("ai") }
+                            GridAction { title: Eitr.I18n.tr("AI Usage"); glyph: ""; image: Qt.resolvedUrl("assets/ai-chip.svg"); onClicked: center.panelRequested("ai") }
                             GridAction { title: Eitr.I18n.tr("Weather"); glyph: "󰖐"; onClicked: center.panelRequested("weather") }
                             GridAction { title: Eitr.I18n.tr("Report a Problem"); glyph: "󰃤"; onClicked: center.menuAction("system-information", "Report a Problem") }
                         }
@@ -653,9 +653,10 @@ ThemedPopup {
     component GridAction: PanelButton {
         required property string title
         required property string glyph
+        property url image: ""
         Layout.fillWidth: true; Layout.preferredWidth: 1; height: 34
         textSize: 12; iconSize: 16
-        text: title; leadingIcon: glyph; foreground: center.foreground; textAlignment: Text.AlignLeft
+        text: title; leadingIcon: glyph; leadingImage: image; foreground: center.foreground; textAlignment: Text.AlignLeft
     }
     component Label: Text {
         color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: 12
