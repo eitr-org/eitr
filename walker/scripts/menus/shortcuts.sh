@@ -32,8 +32,8 @@ options="󰌌  Launchers
   SUPER + Ctrl + F          Toggle fullscreen
   SUPER + Shift + P         Toggle pseudo tiling
   SUPER + A                 Toggle split direction
-  SUPER + Alt + A           Open default AI assistant (Development)
-  SUPER + Shift + A         Rotate split direction
+  SUPER + Shift + A         Open default AI assistant (Development)
+  SUPER + Shift + R         Rotate split direction
 󰆾  Focus
   SUPER + H                 Focus left
   SUPER + J                 Focus down
@@ -190,10 +190,10 @@ case "$chosen" in
   "  SUPER + A "*)
     hyprctl dispatch layoutmsg togglesplit
     ;;
-  "  SUPER + Alt + A "*)
+  "  SUPER + Shift + A "*)
     python3 "$EITR_CODE_ROOT/walker/scripts/actions/ai-assistant.py" open
     ;;
-  "  SUPER + Shift + A "*)
+  "  SUPER + Shift + R "*)
     hyprctl dispatch layoutmsg rotatesplit
     ;;
   "  SUPER + H "*)

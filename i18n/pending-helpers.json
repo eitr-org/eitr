@@ -68,7 +68,8 @@
     "PC",
     "Shell",
     "Software",
-    "Terminal"
+    "Terminal",
+    "Ratatoskr (offline, experimental)"
   ],
   "es": [
     "AWS SSO (IAM Identity Center)",

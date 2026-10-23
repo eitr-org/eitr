@@ -1,5 +1,11 @@
 [
   {
+    "text": "Assistant Access",
+    "subtext": ">",
+    "icon": "󰒃",
+    "submenu": "assistant-access"
+  },
+  {
     "text": "FIDO2 Security Key",
     "subtext": ">",
     "icon": "󰌆",

@@ -146,6 +146,7 @@ fallback = [
   { action = "theme_apply", label = "Apply", bind = "Return", default = true, after = "Close" },
   { action = "theme_preview", label = "Preview", bind = "ctrl p", after = "Close" },
   { action = "theme_colors", label = "Edit Colors", bind = "ctrl e", after = "Close" },
+  { action = "ai_local_delete", label = "Delete", bind = "Delete", after = "Close" },
   { action = "theme_delete", label = "Delete", bind = "Delete", after = "Close" },
   { action = "wallpaper_preview", label = "Preview", bind = "ctrl p", after = "Close" },
   { action = "wallpaper_delete", label = "Delete", bind = "Delete", after = "Close" },

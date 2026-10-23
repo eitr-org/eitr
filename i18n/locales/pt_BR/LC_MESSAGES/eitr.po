@@ -1360,9 +1360,6 @@ msgstr "Instale eitr-desktop antes de configurar a seleção de login"
 msgid "Install it from Install > AI CLIs: {command}"
 msgstr "Instale em Instalar > CLIs de IA: {command}"
 
-msgid "Install now? Type yes to continue; Enter cancels: "
-msgstr "Instalar agora? Digite yes para continuar; Enter cancela: "
-
 msgid "Install on which disk?"
 msgstr "Em qual disco instalar?"
 
@@ -1650,12 +1647,6 @@ msgstr "Balanceadores de carga"
 
 msgid "Loading AUR package names…"
 msgstr "Carregando nomes de pacotes AUR…"
-
-msgid "Local assistant (offline, experimental)"
-msgstr "Assistente local (offline, experimental)"
-
-msgid "Local assistant ({model}) runs only on this PC. Type /bye to close."
-msgstr "O assistente local ({model}) roda só neste PC. Digite /bye para fechar."
 
 msgid "Lockscreen created"
 msgstr "Tela de bloqueio criada"
@@ -2140,6 +2131,9 @@ msgstr "Preparando o sistema restaurado (o sistema em execução ainda não ser�
 msgid "Preparing the update…"
 msgstr "Preparando a atualização…"
 
+msgid "Press Enter to confirm; Esc to cancel."
+msgstr "Enter confirma; Esc cancela."
+
 msgid "Press Esc to close."
 msgstr "Pressione Esc para fechar."
 
@@ -2208,6 +2202,39 @@ msgstr "RISCO: {flag}"
 
 msgid "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth."
 msgstr "As conexões sem fio foram bloqueadas em outro lugar; ative-as individualmente em WiFi/Bluetooth."
+
+msgid "Ratatoskr (offline, experimental)"
+msgstr "Ratatoskr (offline, experimental)"
+
+msgid "Ratatoskr ({model}) runs only on this PC. Type /bye to close."
+msgstr "Ratatoskr ({model}) roda só neste PC. Digite /bye para fechar."
+
+msgid "Ratatoskr could not answer: {reason}"
+msgstr "Ratatoskr não conseguiu responder: {reason}"
+
+msgid "Ratatoskr could not complete the request."
+msgstr "Ratatoskr não conseguiu concluir o pedido."
+
+msgid "Ratatoskr is not set up."
+msgstr "Ratatoskr não está configurado."
+
+msgid "Ratatoskr is not set up. Choose it in Development > Default Assistant."
+msgstr "Ratatoskr não está configurado. Escolha-o em Desenvolvimento > Assistente padrão."
+
+msgid "Ratatoskr is ready and is now your default assistant."
+msgstr "Ratatoskr está pronto e agora é seu assistente padrão."
+
+msgid "Ratatoskr is unavailable."
+msgstr "Ratatoskr não está disponível."
+
+msgid "Ratatoskr service did not start. Check it with: systemctl --user status {unit}"
+msgstr "O serviço dRatatoskr não iniciou. Verifique com: systemctl --user status {unit}"
+
+msgid "Ratatoskr timed out."
+msgstr "Ratatoskr excedeu o tempo limite."
+
+msgid "Ratatoskr was removed."
+msgstr "Ratatoskr foi removido."
 
 msgid "Ready. Both resets restart the computer immediately."
 msgstr "Pronto. Ambas as opções de redefinição reiniciam o computador imediatamente."
@@ -2311,17 +2338,17 @@ msgstr "Remover"
 msgid "Remove '{name}'"
 msgstr "Remover “{name}”"
 
+msgid "Remove Ratatoskr"
+msgstr "Remover Ratatoskr"
+
+msgid "Remove Ratatoskr?"
+msgstr "Remover Ratatoskr?"
+
 msgid "Remove local sign-in"
 msgstr "Remover acesso local"
 
 msgid "Remove plugin {id} and its service?"
 msgstr "Remover o plugin {id} e seu serviço?"
-
-msgid "Remove the local assistant"
-msgstr "Remover o assistente local"
-
-msgid "Remove the local assistant?"
-msgstr "Remover o assistente local?"
 
 msgid "Remove the {label} web app?"
 msgstr "Remover o aplicativo web {label}?"
@@ -2584,11 +2611,11 @@ msgstr "Defina primeiro a senha do Sunshine. Insira o PIN exibido pelo Moonlight
 msgid "Set a Sunshine username and password in the local settings page before pairing any device."
 msgstr "Defina usuário e senha do Sunshine nas configurações locais antes de parear qualquer dispositivo."
 
+msgid "Set up Ratatoskr?"
+msgstr "Configurar Ratatoskr?"
+
 msgid "Set up full-screen monitor capture in OBS first"
 msgstr "Configure primeiro a captura de monitor inteiro no OBS"
-
-msgid "Set up the local assistant?"
-msgstr "Configurar o assistente local?"
 
 msgid "Settings"
 msgstr "Configurações"
@@ -2979,33 +3006,6 @@ msgstr "O initramfs ainda não permite desbloqueio por TPM2. Nada foi alterado."
 
 msgid "The layout your picture, color and greeting go into."
 msgstr "O layout que recebe sua imagem, cor e saudação."
-
-msgid "The local assistant could not answer: {reason}"
-msgstr "O assistente local não conseguiu responder: {reason}"
-
-msgid "The local assistant could not complete the request."
-msgstr "O assistente local não conseguiu concluir o pedido."
-
-msgid "The local assistant is not set up."
-msgstr "O assistente local não está configurado."
-
-msgid "The local assistant is not set up. Choose it in Development > Default Assistant."
-msgstr "O assistente local não está configurado. Escolha-o em Desenvolvimento > Assistente padrão."
-
-msgid "The local assistant is ready and is now your default assistant."
-msgstr "O assistente local está pronto e agora é seu assistente padrão."
-
-msgid "The local assistant is unavailable."
-msgstr "O assistente local não está disponível."
-
-msgid "The local assistant service did not start. Check it with: systemctl --user status {unit}"
-msgstr "O serviço do assistente local não iniciou. Verifique com: systemctl --user status {unit}"
-
-msgid "The local assistant timed out."
-msgstr "O assistente local excedeu o tempo limite."
-
-msgid "The local assistant was removed."
-msgstr "O assistente local foi removido."
 
 msgid "The login wallpaper must be a JPEG under 25 MB"
 msgstr "O papel de parede do login deve ser um JPEG menor que 25 MB"

@@ -2,6 +2,8 @@
   "version": 1,
   "layout_version": 2,
   "rules": [
+    {"pattern": "elephant/menus/assistant-access.lua", "class": "C", "runtime": true},
+    {"pattern": "walker/themes/current/item_menus-assistant-access.xml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/EitrLogo.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/assets/ai-chip.svg", "class": "D", "runtime": true},
     {"pattern": "quickshell/desktop-bar/assets/eitr-logo-white.svg", "class": "D", "runtime": true},

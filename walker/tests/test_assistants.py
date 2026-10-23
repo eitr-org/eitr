@@ -30,9 +30,70 @@ class AssistantTests(unittest.TestCase):
             binary.chmod(0o755)
             with patch.object(Path, 'home', return_value=Path(directory)), \
                     patch.dict(os.environ, PATH=str(binary.parent)), \
+                    patch.object(assistants, 'assistant_access', return_value='ask'), \
                     patch.object(assistants.os, 'execve') as execute:
                 self.assertEqual(assistants.launch('codex', ['a b', '--help']), 0)
                 self.assertEqual(execute.call_args.args[1], [str(binary), 'a b', '--help'])
+
+    def test_full_access_flags_and_ask_mode(self):
+        for identifier, flags in assistants.FULL_ACCESS_FLAGS.items():
+            for access in ('full', 'ask'):
+                with self.subTest(identifier=identifier, access=access), \
+                        patch.object(assistants, 'executable', return_value=Path('/bin/assistant')), \
+                        patch.object(assistants, 'assistant_access', return_value=access), \
+                        patch.object(assistants.os, 'execve') as execute:
+                    assistants.launch(identifier, ['question'])
+                    self.assertEqual(execute.call_args.args[1],
+                                     ['/bin/assistant', *(flags if access == 'full' else []), 'question'])
+
+    def test_noninteractive_launch_never_adds_full_access(self):
+        for identifier in assistants.FULL_ACCESS_FLAGS:
+            with self.subTest(identifier=identifier), \
+                    patch.object(assistants, 'executable', return_value=Path('/bin/assistant')), \
+                    patch.object(assistants, 'assistant_access', return_value='full'), \
+                    patch.object(assistants.os, 'execve') as execute:
+                assistants.launch(identifier, ['question'], interactive=False)
+                self.assertEqual(execute.call_args.args[1], ['/bin/assistant', 'question'])
+
+    def test_headless_commands_ignore_full_access_preference(self):
+        import eitr_collaboration
+        with patch.object(assistants, 'assistant_access', return_value='full'):
+            for identifier in eitr_collaboration.LABELS:
+                arguments = eitr_collaboration.command(identifier, Path('/bin/assistant'), 'question')
+                for flag in assistants.FULL_ACCESS_FLAGS[identifier]:
+                    self.assertNotIn(flag, arguments)
+
+    def test_access_preference_preserves_default_and_policy_forces_ask(self):
+        import eitr_policy
+        with tempfile.TemporaryDirectory() as directory, patch.object(Path, 'home', return_value=Path(directory)), \
+                patch.object(eitr_policy, 'load', return_value={}), \
+                patch.object(assistants, 'available', return_value=True):
+            self.assertEqual(assistants.assistant_access(), 'full')
+            assistants.set_default('codex')
+            assistants.set_access('ask')
+            self.assertEqual(assistants.assistant_access(), 'ask')
+            self.assertEqual(assistants.default_assistant(), 'codex')
+            assistants.set_access('full')
+            with patch.object(eitr_policy, 'load', return_value={'assistants_together': False}):
+                self.assertEqual(assistants.assistant_access(), 'ask')
+
+    def test_walker_access_action_writes_preference(self):
+        import runpy
+        import eitr_policy
+        script = assistants.code('walker/scripts/actions/ai-assistant.py')
+        with tempfile.TemporaryDirectory() as directory, patch.object(Path, 'home', return_value=Path(directory)), \
+                patch.object(eitr_policy, 'load', return_value={}), \
+                patch.object(assistants.sys, 'argv', [str(script), 'set', 'access', 'ask']):
+            runpy.run_path(str(script), run_name='__main__')
+            self.assertEqual(assistants.assistant_access(), 'ask')
+
+    def test_local_confirmation_enter_and_escape(self):
+        import runpy
+        namespace = runpy.run_path(str(assistants.code('walker/scripts/actions/ai-assistant.py')))
+        for key, expected in [('\r', True), ('\n', True), ('\x1b', False), ('y', False)]:
+            with patch.object(assistants.sys.stdin, 'isatty', return_value=True), \
+                    patch('eitr_terminal.read_key', return_value=key), contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(namespace['confirm']('Remove Ratatoskr?'), expected)
 
     def test_noninteractive_never_installs(self):
         with patch.object(assistants, 'executable', return_value=None), \
@@ -42,16 +103,16 @@ class AssistantTests(unittest.TestCase):
             run.assert_not_called()
             self.assertIn('Install > AI CLIs', output.getvalue())
 
-    def test_enter_cancels_and_yes_uses_shared_recipe(self):
-        for answer in ('', 'yes'):
+    def test_escape_cancels_and_enter_uses_shared_recipe(self):
+        for answer in ('\x1b', '\r'):
             with self.subTest(answer=answer), patch.object(assistants, 'executable', return_value=None), \
                     patch.object(assistants.sys.stdin, 'isatty', return_value=True), \
                     patch.object(assistants.sys.stdout, 'isatty', return_value=True), \
-                    patch('builtins.input', return_value=answer), \
+                    patch('eitr_terminal.read_key', return_value=answer), \
                     patch.object(assistants.subprocess, 'run') as run, contextlib.redirect_stderr(io.StringIO()):
                 run.return_value.returncode = 7
-                self.assertEqual(assistants.launch('copilot', []), 7 if answer else 1)
-                if answer:
+                self.assertEqual(assistants.launch('copilot', []), 7 if answer == '\r' else 1)
+                if answer == '\r':
                     self.assertEqual(run.call_args.args[0][-3:], ['recipe', 'ai', 'copilot'])
                 else:
                     run.assert_not_called()
@@ -139,9 +200,10 @@ class AntigravityTests(unittest.TestCase):
             binary.chmod(0o755)
             with patch.object(Path, 'home', return_value=Path(temporary)), \
                     patch.dict(os.environ, PATH=temporary), \
+                    patch.object(assistants, 'assistant_access', return_value='full'), \
                     patch.object(assistants.os, 'execve') as execute:
                 self.assertEqual(assistants.launch('agy', ['--help']), 0)
-                self.assertEqual(execute.call_args.args[1], [str(binary), '--help'])
+                self.assertEqual(execute.call_args.args[1], [str(binary), '--dangerously-skip-permissions', '--help'])
 
     def test_install_uses_googles_official_installer(self):
         repository = Path(__file__).resolve().parents[2]
@@ -295,13 +357,15 @@ class LocalAssistantTests(unittest.TestCase):
                 local.ensure_running()
 
     def test_setup_refused_without_confirmation_changes_nothing(self):
-        from eitr_forms import Terminal
-        for answer in ('', 'n', 'no', 'later'):
-            with self.subTest(answer=answer), patch('builtins.input', return_value=answer), \
+        import runpy
+        confirm = runpy.run_path(str(assistants.code('walker/scripts/actions/ai-assistant.py')))['confirm']
+        for answer in ('\x1b', 'n', 'y', 'later'):
+            with self.subTest(answer=answer), patch('eitr_terminal.read_key', return_value=answer), \
+                    patch.object(assistants.sys.stdin, 'isatty', return_value=True), \
                     patch.object(local.subprocess, 'run') as run, \
                     patch.object(local, 'binary', return_value=None), \
                     contextlib.redirect_stdout(io.StringIO()) as output:
-                self.assertEqual(local.setup(lambda question: Terminal().confirm(question, default=False)), 0)
+                self.assertEqual(local.setup(confirm), 0)
                 run.assert_not_called()
                 for explained in ('about 15 MB', 'about 2.5 GB', 'only on this PC', 'less reliable', 'remove it later'):
                     self.assertIn(explained, output.getvalue())

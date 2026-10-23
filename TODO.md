@@ -95,5 +95,5 @@ LAN.
   Windows/BitLocker dual boot. Fixes come from early users' reports and do not
   hold back other work.
 
-Not planned: auto-approve agent modes and the rest of the "Not planned now"
+Assistant sessions use full access by default; System > Security > Assistant Access restores permission prompts. Not planned: the rest of the "Not planned now"
 list in `distro/RELEASES.md`.

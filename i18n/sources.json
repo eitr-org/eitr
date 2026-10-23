@@ -1298,6 +1298,9 @@
       "elephant/menus/aws-cloudwatch-all-logs-1.lua",
       "elephant/menus/aws-cloudwatch-all-logs-2.lua"
     ],
+    "Allow file changes and commands without asking": [
+      "elephant/menus/assistant-access.lua"
+    ],
     "Already added": [
       "elephant/menus/keyboard-add.lua"
     ],
@@ -1317,6 +1320,13 @@
     "Apps": [
       "elephant/menu-rows/main.json",
       "elephant/menus/apps.lua"
+    ],
+    "Ask before changes": [
+      "elephant/menus/assistant-access.lua"
+    ],
+    "Assistant Access": [
+      "elephant/menu-rows/security.json",
+      "elephant/menus/assistant-access.lua"
     ],
     "Audio": [
       "elephant/menu-rows/system-devices.json"
@@ -1605,9 +1615,6 @@
     "Delete in SUPER + Ctrl + V": [
       "elephant/menu-rows/shortcuts.json"
     ],
-    "Delete the offline model and its background service": [
-      "elephant/menus/ai-default.lua"
-    ],
     "Deployments": [
       "elephant/menus/aws-ecs-deployments-1.lua",
       "elephant/menus/aws-ecs-deployments-2.lua"
@@ -1791,6 +1798,9 @@
     ],
     "Full Screen: Save and Copy": [
       "elephant/menu-rows/screenshot.json"
+    ],
+    "Full access (default)": [
+      "elephant/menus/assistant-access.lua"
     ],
     "Function config": [
       "elephant/menus/aws-lambda-function-config-1.lua"
@@ -2020,9 +2030,6 @@
     "List services": [
       "elephant/menus/aws-ecs-list-services-1.lua",
       "elephant/menus/aws-ecs-list-services-2.lua"
-    ],
-    "Local (offline, experimental)": [
-      "elephant/menus/ai-default.lua"
     ],
     "Lock": [
       "elephant/menu-rows/power.json"
@@ -2259,6 +2266,9 @@
     "Ragnarök": [
       "elephant/menus/system-shortcuts.lua"
     ],
+    "Ratatoskr (local, experimental)": [
+      "elephant/menus/ai-default.lua"
+    ],
     "Read a QR code in a selected area and copy it": [
       "elephant/menu-rows/capture.json"
     ],
@@ -2340,9 +2350,6 @@
     ],
     "Remove Limit": [
       "elephant/menu-rows/battery-limit.json"
-    ],
-    "Remove Local Assistant": [
-      "elephant/menus/ai-default.lua"
     ],
     "Remove TPM Unlock": [
       "elephant/menu-rows/tpm-unlock.json"
@@ -2448,9 +2455,6 @@
     "SUPER + =": [
       "elephant/menu-rows/shortcuts.json"
     ],
-    "SUPER + Alt + A": [
-      "elephant/menu-rows/shortcuts.json"
-    ],
     "SUPER + Ctrl + F": [
       "elephant/menu-rows/shortcuts.json"
     ],
@@ -2485,6 +2489,9 @@
       "elephant/menu-rows/shortcuts.json"
     ],
     "SUPER + Print": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
+    "SUPER + Shift + A": [
       "elephant/menu-rows/shortcuts.json"
     ],
     "SUPER + Shift + N": [
@@ -2853,6 +2860,9 @@
     ],
     "Use it in folders without their own account": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Use the assistant's normal permission prompts": [
+      "elephant/menus/assistant-access.lua"
     ],
     "User access keys": [
       "elephant/menus/aws-iam-user-access-keys-1.lua"
@@ -4879,9 +4889,6 @@
     "Install it from Install > AI CLIs: {command}": [
       "distro/lib/eitr_assistants.py"
     ],
-    "Install now? Type yes to continue; Enter cancels: ": [
-      "distro/lib/eitr_assistants.py"
-    ],
     "Install on which disk?": [
       "distro/archinstall/installer-ui.py"
     ],
@@ -5177,12 +5184,6 @@
     ],
     "Loading AUR package names…": [
       "walker/scripts/actions/install/software.py"
-    ],
-    "Local assistant (offline, experimental)": [
-      "distro/lib/eitr_local_assistant.py"
-    ],
-    "Local assistant ({model}) runs only on this PC. Type /bye to close.": [
-      "distro/lib/eitr_local_assistant.py"
     ],
     "Lockscreen created": [
       "walker/scripts/actions/style/own.py"
@@ -5681,6 +5682,10 @@
     "Preparing the update…": [
       "walker/scripts/actions/system/update.sh"
     ],
+    "Press Enter to confirm; Esc to cancel.": [
+      "distro/lib/eitr_assistants.py",
+      "walker/scripts/actions/ai-assistant.py"
+    ],
     "Press Esc to close.": [
       "distro/lib/eitr_terminal.py"
     ],
@@ -5750,6 +5755,39 @@
     ],
     "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": [
       "quickshell/desktop-bar/scripts/airplane.py"
+    ],
+    "Ratatoskr (offline, experimental)": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Ratatoskr ({model}) runs only on this PC. Type /bye to close.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Ratatoskr could not answer: {reason}": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Ratatoskr could not complete the request.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Ratatoskr is not set up.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Ratatoskr is not set up. Choose it in Development > Default Assistant.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Ratatoskr is ready and is now your default assistant.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Ratatoskr is unavailable.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Ratatoskr service did not start. Check it with: systemctl --user status {unit}": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Ratatoskr timed out.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Ratatoskr was removed.": [
+      "distro/lib/eitr_local_assistant.py"
     ],
     "Ready. Both resets restart the computer immediately.": [
       "distro/system/factory-reset.py"
@@ -5855,17 +5893,17 @@
     "Remove '{name}'": [
       "walker/scripts/actions/tools/calendars.py"
     ],
+    "Remove Ratatoskr": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Remove Ratatoskr?": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
     "Remove local sign-in": [
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Remove plugin {id} and its service?": [
       "walker/scripts/actions/install/plugins.py"
-    ],
-    "Remove the local assistant": [
-      "distro/lib/eitr_local_assistant.py"
-    ],
-    "Remove the local assistant?": [
-      "distro/lib/eitr_local_assistant.py"
     ],
     "Remove the {label} web app?": [
       "walker/scripts/actions/install/software.py"
@@ -6131,11 +6169,11 @@
     "Set a Sunshine username and password in the local settings page before pairing any device.": [
       "walker/scripts/actions/system/remote-access.py"
     ],
+    "Set up Ratatoskr?": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
     "Set up full-screen monitor capture in OBS first": [
       "quickshell/desktop-bar/scripts/obs-control.py"
-    ],
-    "Set up the local assistant?": [
-      "distro/lib/eitr_local_assistant.py"
     ],
     "Settings": [
       "quickshell/desktop-bar/scripts/remote-status.py"
@@ -6527,33 +6565,6 @@
     ],
     "The layout your picture, color and greeting go into.": [
       "walker/scripts/actions/style/own.py"
-    ],
-    "The local assistant could not answer: {reason}": [
-      "distro/lib/eitr_local_assistant.py"
-    ],
-    "The local assistant could not complete the request.": [
-      "distro/lib/eitr_local_assistant.py"
-    ],
-    "The local assistant is not set up.": [
-      "distro/lib/eitr_local_assistant.py"
-    ],
-    "The local assistant is not set up. Choose it in Development > Default Assistant.": [
-      "distro/lib/eitr_local_assistant.py"
-    ],
-    "The local assistant is ready and is now your default assistant.": [
-      "distro/lib/eitr_local_assistant.py"
-    ],
-    "The local assistant is unavailable.": [
-      "distro/lib/eitr_local_assistant.py"
-    ],
-    "The local assistant service did not start. Check it with: systemctl --user status {unit}": [
-      "distro/lib/eitr_local_assistant.py"
-    ],
-    "The local assistant timed out.": [
-      "distro/lib/eitr_local_assistant.py"
-    ],
-    "The local assistant was removed.": [
-      "distro/lib/eitr_local_assistant.py"
     ],
     "The login wallpaper must be a JPEG under 25 MB": [
       "quickshell/lockscreen/scripts/sddm-select.py"

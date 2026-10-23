@@ -55,13 +55,13 @@ picture, accent and greeting into the Theme Wallpaper or Material design. All
 three stay in `~/.local/share/eitr/`, are listed as Yours and can be deleted.
 Not yet tried on the owner's live desktop.
 
-## Local assistant (unreleased)
+## Ratatoskr (unreleased)
 
-Development > Default Assistant always offers an offline, experimental assistant:
+Development > Default Assistant always offers Ratatoskr, a local, experimental assistant:
 Ollama (`ollama`) and `qwen3:4b` (Apache-2.0), downloaded once after one confirmation and run
 by the on-demand user service `eitr-ollama.service` on `127.0.0.1` only. Voice
 reminders use it with JSON-constrained answers and the same validator; it is never
-an assistants-together helper. Remove Local Assistant deletes the service, models
+an assistants-together helper. Delete on the Ratatoskr row confirms with Enter (Esc cancels), then deletes the service, models
 and a package setup installed. Not yet tried on real hardware.
 
 ## Repeating reminders (unreleased)
@@ -235,7 +235,7 @@ consistent forms of address; early users' reports refine the wording.
 The **AI agents** feature is implemented: first-use installation for Claude Code,
 Codex, Gemini CLI, Grok Build and GitHub Copilot CLI; a machine-local default
 assistant and shortcut; supported light/dark theme settings; and opt-in AI help
-from crash notifications. Assistants retain their normal permission prompts.
+from crash notifications. Interactive assistants use full access by default; System > Security > Assistant Access restores normal permission prompts. Headless helpers stay read-only.
 
 Translation infrastructure, QML, menus and Handbook catalogs are implemented for
 Brazilian Portuguese, Spanish, German and French, with English as source and
@@ -245,7 +245,9 @@ entries explicitly. Complete helper translation review remains open; passing
 catalog checks verifies coverage and placeholders, not linguistic approval.
 
 Not planned now: dynamic wallpaper colors, community themes, a separate settings
-app, desktop raven tips, browser recoloring, a second compositor, auto-approve agent modes.
+app, desktop raven tips, browser recoloring, a second compositor.
+
+Assistant sessions use full access by default; System > Security > Assistant Access offers Ask before changes. Headless helpers remain read-only.
 
 ## Open work
 

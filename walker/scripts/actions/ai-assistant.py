@@ -10,17 +10,19 @@ for _eitr_parent in Path(__file__).resolve().parents:
         sys.path.insert(0, str(_eitr_lib))
         break
 import json
-from eitr_assistants import launch, assistants, executable, default_assistant, set_default, open_default, sync_themes
+from eitr_assistants import launch, assistants, executable, default_assistant, set_default, open_default, sync_themes, assistant_access, set_access
 import eitr_local_assistant
 
 
 def confirm(question):
-    """The single y/N question of the local assistant's setup and removal; Enter cancels."""
-    from eitr_forms import Terminal
-    try:
-        return Terminal().confirm(question, default=False)
-    except (EOFError, KeyboardInterrupt):
+    """Enter confirms; Escape cancels without changing anything."""
+    from eitr_terminal import read_key
+    from eitr_i18n import tr
+    if not sys.stdin.isatty():
         return False
+    print(question)
+    print(tr('Press Enter to confirm; Esc to cancel.'))
+    return read_key() in ('\r', '\n')
 
 
 if __name__ == '__main__':
@@ -38,9 +40,11 @@ if __name__ == '__main__':
     elif action == 'remove-local':
         sys.exit(eitr_local_assistant.remove(confirm))
     elif action == 'get':
-        print(default_assistant())
+        print(assistant_access() if sys.argv[2:] == ['access'] else default_assistant())
     elif action == 'set' and len(sys.argv) == 4 and sys.argv[2] == 'assistant':
         set_default(sys.argv[3])
+    elif action == 'set' and len(sys.argv) == 4 and sys.argv[2] == 'access':
+        set_access(sys.argv[3])
     elif action == 'theme':
         from eitr_paths import config
         sync_themes((config('theme/current') / 'light.mode').exists())

@@ -11,6 +11,36 @@ from eitr_i18n import tr
 import eitr_local_assistant
 
 
+# Checked against each installed CLI's --help (claude, codex, gemini, grok, copilot, agy).
+FULL_ACCESS_FLAGS = {
+    'claude': ['--dangerously-skip-permissions'],
+    'codex': ['--dangerously-bypass-approvals-and-sandbox'],
+    'gemini': ['--yolo'],
+    'grok': ['--always-approve'],
+    'copilot': ['--allow-all'],
+    'agy': ['--dangerously-skip-permissions'],
+}
+
+
+def assistant_access():
+    from eitr_paths import config, read_settings
+    import eitr_policy
+    try:
+        if not eitr_policy.allowed('assistants_together') or not eitr_policy.allowed('development'):
+            return 'ask'
+        value = read_settings(config('eitr/ai.json')).get('access', 'full')
+        return 'full' if value == 'full' else 'ask'
+    except (OSError, ValueError):
+        return 'ask'
+
+
+def set_access(value):
+    from eitr_paths import config, write_settings
+    if value not in ('full', 'ask'):
+        raise ValueError('Invalid assistant access')
+    write_settings(config('eitr/ai.json'), {'access': value})
+
+
 def assistants():
     # The package installs the recipes as software.json; a checkout keeps them in distro/.
     recipes = code('software.json')
@@ -36,7 +66,7 @@ def executable(identifier):
     return None
 
 
-def launch(identifier, arguments):
+def launch(identifier, arguments, *, interactive=True):
     if identifier == eitr_local_assistant.IDENTIFIER:
         return eitr_local_assistant.launch(arguments)
     metadata = assistants().get(identifier)
@@ -49,10 +79,12 @@ def launch(identifier, arguments):
         if not sys.stdin.isatty() or not sys.stdout.isatty():
             return 1
         try:
-            answer = input(tr('Install now? Type yes to continue; Enter cancels: '))
+            from eitr_terminal import read_key
+            print(tr('Press Enter to confirm; Esc to cancel.'))
+            answer = read_key()
         except (EOFError, KeyboardInterrupt):
             return 1
-        if answer.strip().lower() != 'yes':
+        if answer not in ('\r', '\n'):
             return 1
         result = subprocess.run([sys.executable, str(code('walker/scripts/actions/install/software.py')),
                                  'recipe', 'ai', identifier], check=False)
@@ -64,7 +96,8 @@ def launch(identifier, arguments):
             return 1
     # npm entrypoints use /usr/bin/env node; use the Node version owning that tool.
     environment = dict(os.environ, PATH=str(binary.parent) + os.pathsep + os.environ.get('PATH', ''))
-    os.execve(str(binary), [str(binary), *arguments], environment)
+    flags = FULL_ACCESS_FLAGS.get(identifier, []) if interactive and assistant_access() == 'full' else []
+    os.execve(str(binary), [str(binary), *flags, *arguments], environment)
     return 0
 
 

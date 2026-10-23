@@ -247,7 +247,7 @@ class MenuStructureTests(unittest.TestCase):
             dofile("elephant/menus/ai-default.lua")
             for _, entry in ipairs(GetEntries()) do
                 assert(entry.Subtext and entry.Subtext ~= "" and #entry.Subtext <= 72)
-                print(entry.Text .. "|" .. (entry.Value or "") .. "|" .. entry.Actions.open .. "|" .. ((entry.State or {{}})[1] or ""))
+                print(entry.Text .. "|" .. (entry.Value or "") .. "|" .. entry.Actions.open .. "|" .. ((entry.State or {{}})[1] or "") .. "|" .. (entry.Actions.ai_local_delete or ""))
             end
         """
         environment = dict(os.environ, EITR_LIBRARY_ROOT=str(ROOT / "distro/lib"), EITR_CODE_ROOT=str(ROOT))
@@ -257,19 +257,44 @@ class MenuStructureTests(unittest.TestCase):
 
     def test_default_assistant_always_offers_the_local_assistant(self):
         rows = self.default_menu([], "none")
-        self.assertEqual([row[0] for row in rows], ["Install an AI Assistant", "Local (offline, experimental)"])
+        self.assertEqual([row[0] for row in rows], ["Install an AI Assistant", "Ratatoskr (local, experimental)"])
+        self.assertEqual(rows[1][4], "")
         self.assertIn("task-terminal.py", rows[1][2])
         self.assertTrue(rows[1][2].endswith(" setup-local"))
         rows = self.default_menu(["codex"], "partial")
-        self.assertEqual([row[0] for row in rows], ["Codex", "Local (offline, experimental)", "Remove Local Assistant"])
+        self.assertEqual([row[0] for row in rows], ["Codex", "Ratatoskr (local, experimental)"])
         self.assertTrue(rows[1][2].endswith(" setup-local"))
-        self.assertTrue(rows[2][2].endswith(" remove-local"))
+        self.assertNotIn("Remove Local Assistant", [row[0] for row in rows])
         rows = self.default_menu(["codex"], "ready", current="local")
-        local = next(row for row in rows if row[0] == "Local (offline, experimental)")
+        local = next(row for row in rows if row[0] == "Ratatoskr (local, experimental)")
         self.assertEqual(local[1], "local")
         self.assertTrue(local[2].endswith(" set assistant local"))
         self.assertEqual(local[3], "current")
-        self.assertIn("Remove Local Assistant", [row[0] for row in rows])
+        self.assertTrue(local[4].endswith(" remove-local"))
+        self.assertNotIn("Remove Local Assistant", [row[0] for row in rows])
+
+    def test_assistant_access_menu_uses_checked_choices_and_writes_setting(self):
+        import os
+        import subprocess
+        harness = r"""
+            io.popen = function(command)
+                assert(command:find(' get access'))
+                return {read = function() return 'ask' end, close = function() end}
+            end
+            dofile('elephant/menus/assistant-access.lua')
+            local entries = GetEntries()
+            assert(#entries == 2)
+            assert(entries[1].Value == 'ask')
+            assert(entries[2].Value == 'full')
+            assert(entries[1].State[1] == 'current')
+            assert(entries[1].Icon == '\239\128\140')
+            assert(entries[2].Actions.open:find(' set access full'))
+            assert(entries[1].Actions.open:find(' set access ask'))
+            assert(Parent == 'security')
+        """
+        environment = dict(os.environ, EITR_LIBRARY_ROOT=str(ROOT / 'distro/lib'), EITR_CODE_ROOT=str(ROOT))
+        subprocess.run(['lua', '-e', harness], cwd=ROOT, env=environment, check=True)
+        self.assertIn('ai_local_delete', (ROOT / 'walker/config.toml').read_text())
 
     def test_ai_lists_only_installed_assistants(self):
         self.assertIn(["Antigravity CLI", "ai-agy"], self.ai_menu({"agy"}))

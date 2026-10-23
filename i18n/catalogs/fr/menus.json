@@ -345,7 +345,6 @@
   "SUPER + ,": "SUPER + ,",
   "SUPER + ;": "SUPER + ;",
   "SUPER + =": "SUPER + =",
-  "SUPER + Alt + A": "SUPER + Alt + A",
   "SUPER + Ctrl + F": "SUPER + Ctrl + F",
   "SUPER + Ctrl + N": "SUPER + Ctrl + N",
   "SUPER + Ctrl + P": "SUPER + Ctrl + P",
@@ -510,9 +509,6 @@
   "Review a Git repository before installing": "Vérifier un dépôt Git avant installation",
   "Review a new plugin commit": "Vérifier un nouveau commit du plugin",
   "A one-time or repeating notification": "Une notification unique ou récurrente",
-  "Delete the offline model and its background service": "Supprimer le modèle hors ligne et son service en arrière-plan",
-  "Local (offline, experimental)": "Local (hors ligne, expérimental)",
-  "Remove Local Assistant": "Supprimer l’assistant local",
   "Runs only on this PC; less reliable than cloud assistants": "Uniquement sur ce PC ; moins fiable que les assistants cloud",
   "Set up an assistant that runs only on this PC": "Configurer un assistant qui fonctionne uniquement sur ce PC",
   "Blocked by Eitr for your safety · select to remove": "Bloqué par Eitr pour votre sécurité · sélectionnez pour le supprimer",
@@ -529,5 +525,12 @@
   "From a picture, with colors you can adjust; kept on this computer": "Depuis une image, couleurs ajustables ; sur cet ordinateur",
   "Yours": "Le vôtre",
   "Read-only from {host} · Enter refreshes, Delete removes": "Lecture seule depuis {host} · Entrée actualise, Suppr retire",
-  "Tabs": "Onglets"
+  "Tabs": "Onglets",
+  "Allow file changes and commands without asking": "Autoriser les modifications et commandes sans demander",
+  "Ask before changes": "Demander avant les modifications",
+  "Assistant Access": "Accès des assistants",
+  "Full access (default)": "Accès complet (par défaut)",
+  "Ratatoskr (local, experimental)": "Ratatoskr (local, expérimental)",
+  "SUPER + Shift + A": "SUPER + Shift + A",
+  "Use the assistant's normal permission prompts": "Utiliser les demandes d’autorisation habituelles"
 }

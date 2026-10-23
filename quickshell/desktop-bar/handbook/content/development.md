@@ -46,9 +46,9 @@ Starting a session, or opening a LazyVim or VS Code project, first asks for a
 folder under `~/Development`: pick folders to go deeper, Open to use the one
 you are in, and Back to go up a level or, at the top, return to the menu.
 
-Claude Code, Codex, Gemini CLI, Grok Build and GitHub Copilot CLI (`copilot`) can also be started by command. If a tool is missing, Eitr explains it and offers the same installation as Install > AI CLIs. Type `yes` to install; Enter cancels. Without an interactive terminal, the command exits with installation instructions. Installed binaries take precedence over these launchers. Sign in through each tool’s own workflow; no assistant binaries or credentials are bundled.
+Claude Code, Codex, Gemini CLI, Grok Build and GitHub Copilot CLI (`copilot`) can also be started by command. If a tool is missing, Eitr explains it and offers the same installation as Install > AI CLIs. Enter confirms installation; Esc cancels. Without an interactive terminal, the command exits with installation instructions. Installed binaries take precedence over these launchers. Sign in through each tool’s own workflow; no assistant binaries or credentials are bundled.
 
-Development > Default Assistant selects one installed assistant for this computer. **SUPER + Alt + A** opens it in a terminal; without a default, it opens the chooser. Eitr uses each assistant’s normal permission prompts.
+Development > Default Assistant selects one installed assistant for this computer. **SUPER + Shift + A** opens it in a terminal; without a default, it opens the chooser. Interactive assistants open with full access by default: they can change files and run commands without asking. Choose **System > Security > Assistant Access > Ask before changes** to restore normal permission prompts. The preference is stored only on this PC in `eitr/ai.json`. Organization restrictions force permission prompts. Sudo still requires your password. Headless collaboration and voice reminders remain read-only.
 
 Theme changes update only the light/dark theme setting in existing, readable Claude Code, Gemini CLI and Grok Build settings. Other settings and formatting stay intact. Missing, broken or uninstalled clients are skipped; assistants without a supported light/dark setting follow their terminal’s colors.
 
@@ -56,13 +56,13 @@ Installed SDK versions and installer sources are maintained in distro manifests.
 Follow the actual picker rather than assuming a handbook example is a promise
 about the newest upstream version. Toolchain installation may need downloads.
 
-### Local assistant (offline, experimental)
+### Ratatoskr (local, experimental)
 
-Development > Default Assistant always offers **Local (offline, experimental)**, which needs no account or subscription. The first time, a terminal explains the one-time downloads before anything changes: the Arch package `ollama` (about 15 MB) and the language model `qwen3:4b` (about 2.5 GB, Apache-2.0 licence). One confirmation (Enter cancels) installs the package, creates the user service `eitr-ollama.service`, downloads the model with visible progress and makes it the default. If a step fails, its output stays on screen and the previous default is kept.
+Development > Default Assistant always offers **Ratatoskr (local, experimental)**, which needs no account or subscription. The first time, a terminal explains the one-time downloads before anything changes: the Arch package `ollama` (about 15 MB) and the language model `qwen3:4b` (about 2.5 GB, Apache-2.0 licence). One confirmation (Enter confirms; Esc cancels) installs the package, creates the user service `eitr-ollama.service`, downloads the model with visible progress and makes it the default. If a step fails, its output stays on screen and the previous default is kept.
 
-Everything stays on this PC: the service listens only on `127.0.0.1:11434`, starts when needed and keeps its models in `~/.local/share/eitr/ollama`. It is noticeably less reliable than the cloud assistants, especially with unusual phrasing, and slower on the processor. Voice reminders check its answers like any other assistant's, so a wrong answer changes nothing. **SUPER + Alt + A** opens a chat with the model; `/bye` closes it. It is never a helper for assistants working together and has no AI Usage entry.
+Everything stays on this PC: the service listens only on `127.0.0.1:11434`, starts when needed and keeps its models in `~/.local/share/eitr/ollama`. It is noticeably less reliable than the cloud assistants, especially with unusual phrasing, and slower on the processor. Voice reminders check its answers like any other assistant's, so a wrong answer changes nothing. **SUPER + Shift + A** opens a chat with the model; `/bye` closes it. It is never a helper for assistants working together and has no AI Usage entry.
 
-**Remove Local Assistant**, in the same menu, asks once, then deletes the service and the models, resets the default if it was local and uninstalls `ollama` if setup installed it. Ollama's own key and chat history in `~/.ollama` are kept.
+Select **Ratatoskr** in the same menu and press **Delete**. Removal asks once, then deletes the service and the models, resets the default if it was local and uninstalls `ollama` if setup installed it. Ollama's own key and chat history in `~/.ollama` are kept.
 
 ## Monitoring
 
