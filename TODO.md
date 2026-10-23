@@ -76,6 +76,9 @@ LAN.
   being decided: a quick panel (not a bar icon) for everyday questions to the
   default assistant, the local one included, not only for development. Decide
   the shortcut, where answers appear and what context it may see first.
+- **The Eitr logo drawn with runes.** For About (and maybe the welcome banner):
+  fill the emblem's shape with Elder Futhark runes in the theme accent, like
+  Arch's logo drawn with characters, leaving the inner E cut-out empty.
 - **Antigravity as a helper.** Recheck when its command-line tool gains per-run
   permissions or a read-only headless mode; until then it stays a standalone
   assistant. Nothing to do before that.
