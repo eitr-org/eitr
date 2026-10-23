@@ -28,25 +28,172 @@ class WebAppTests(unittest.TestCase):
         directory = tempfile.TemporaryDirectory()
         self.addCleanup(directory.cleanup)
         self.data = Path(directory.name)
-        patcher = patch.dict(os.environ, {"XDG_DATA_HOME": str(self.data)})
+        patcher = patch.dict(os.environ, {"XDG_DATA_HOME": str(self.data), "XDG_CONFIG_HOME": str(self.data / "config")})
         patcher.start()
         self.addCleanup(patcher.stop)
         self.webapps = load()
+        runner = patch.object(self.webapps.subprocess, "run")
+        runner.start()
+        self.addCleanup(runner.stop)
 
     def test_noninteractive_create_uses_validation_and_icon_fetch(self):
         with patch.object(self.webapps, "create", wraps=self.webapps.create) as create, \
                 patch.object(self.webapps, "browser", return_value="brave"), \
                 patch.object(self.webapps, "fetch", side_effect=OSError("offline")):
             self.assertEqual(self.webapps.main(["create", "Notion", "https://www.notion.so/"]), 0)
-            create.assert_called_once_with("Notion", "https://www.notion.so/")
+            create.assert_called_once_with("Notion", "https://www.notion.so/", profile="")
         self.assertEqual(self.webapps.apps()[0]["id"], "notion")
         with patch.object(self.webapps, "browser", return_value="brave"), self.assertRaises(ValueError):
             self.webapps.main(["create", "Bad", "file:///tmp/bad"])
+
+    def test_default_browser_mapping_and_fallback(self):
+        cases = [(desktop, command) for desktop, command in self.webapps.DEFAULT_BROWSERS.items()]
+        cases += [("firefox.desktop", "google-chrome-stable"), ("unknown.desktop", "google-chrome-stable"),
+                  ("", "google-chrome-stable")]
+        for desktop, expected in cases:
+            installed = {"google-chrome-stable", "brave", expected}
+            with self.subTest(desktop=desktop), \
+                    patch.object(self.webapps.subprocess, "run") as run, \
+                    patch.object(self.webapps.shutil, "which", side_effect=lambda command: command if command in installed else None):
+                run.return_value.returncode = 0
+                run.return_value.stdout = desktop + "\n"
+                self.assertEqual(self.webapps.browser(), expected)
+                run.assert_called_once_with(["xdg-settings", "get", "default-web-browser"],
+                                            capture_output=True, text=True, timeout=3, check=False)
+        for failure in (OSError(), self.webapps.subprocess.TimeoutExpired("xdg-settings", 3), None):
+            with patch.object(self.webapps.subprocess, "run", side_effect=failure) as run, \
+                    patch.object(self.webapps.shutil, "which", side_effect=lambda command: command if command == "brave" else None):
+                run.return_value.returncode = 1
+                self.assertEqual(self.webapps.browser(), "brave")
+
+    def test_install_offer_creates_after_accept_or_skip(self):
+        for interactive in (True, False):
+            for keys, installs in ((["x", "\r"], True), (["\n"], True), (["\x1b"], False),
+                                   (["\x03"], False), (["\x04"], False), ([""], False), ([EOFError()], False),
+                                   ([KeyboardInterrupt()], False)):
+                with self.subTest(interactive=interactive, keys=keys), \
+                        patch.object(self.webapps, "browser", return_value=None), \
+                        patch.object(self.webapps.sys.stdin, "isatty", return_value=True), \
+                        patch.object(self.webapps, "read_key", side_effect=keys), \
+                        patch.object(self.webapps, "collect_setup", return_value={"name": "Demo", "url": "example.test", "icon": ""}), \
+                        patch.object(self.webapps, "fetch", side_effect=OSError), \
+                        patch.object(self.webapps.shutil, "which", return_value=None), \
+                        patch.object(self.webapps.subprocess, "run") as run:
+                    self.assertEqual(self.webapps.main(["create"] if interactive else ["create", "Demo", "example.test"]), 0)
+                    recipe = ["python3", str(SCRIPT.with_name("software.py")), "recipe", "browsers", "chromium"]
+                    self.assertEqual(any(call.args[0] == recipe for call in run.call_args_list), installs)
+                    self.assertTrue(self.webapps.desktop_path("demo").exists())
+                    self.webapps.remove("demo")
+
+    def test_nonterminal_create_without_browser_does_not_prompt(self):
         with patch.object(self.webapps, "browser", return_value=None), \
-                patch.object(self.webapps, "create") as create, \
-                self.assertRaisesRegex(ValueError, "Install Chrome, Chromium, Edge or Brave"):
-            self.webapps.main(["create", "Basecamp", "https://launchpad.37signals.com/"])
-        create.assert_not_called()
+                patch.object(self.webapps.sys.stdin, "isatty", return_value=False), \
+                patch.object(self.webapps, "read_key") as read_key, \
+                patch.object(self.webapps, "fetch", side_effect=OSError):
+            with self.assertRaisesRegex(ValueError, "Install Chrome"):
+                self.webapps.main(["create", "Demo", "example.test"])
+            read_key.assert_not_called()
+        self.assertFalse(self.webapps.desktop_path("demo").exists())
+
+    def test_launch_without_browser_opens_install_terminal(self):
+        self.webapps.create("Demo", "example.test", icon_fetch=lambda *arguments: None)
+        with patch.object(self.webapps, "browser", return_value=None), \
+                patch.object(self.webapps.shutil, "which", return_value="/usr/bin/kitty"), \
+                patch.object(self.webapps.subprocess, "Popen") as terminal:
+            self.assertEqual(self.webapps.launch("demo"), 1)
+        terminal.assert_called_once_with(["kitty", "--class", "eitr-menu-terminal", "-e", "python3",
+                                          str(SCRIPT.parents[1] / "task-terminal.py"), "python3", str(SCRIPT),
+                                          "install-browser"], start_new_session=True)
+
+    def profiles(self, directories, last_used="Profile 1", command="brave"):
+        path = self.data / "config" / self.webapps.BROWSER_CONFIGS[command] / "Local State"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps({"profile": {"info_cache": directories, "last_used": last_used}}))
+        return path
+
+    def test_profile_selection_and_private_storage(self):
+        profiles = {"Default": {"name": "Personal demo", "user_name": "personal@example.test"},
+                    "Profile 1": {"name": "Work demo", "user_name": "work@example.test"}}
+        for interactive in (False, True):
+            with self.subTest(interactive=interactive):
+                self.profiles(profiles)
+                def collect(title, steps):
+                    step = steps[-1]
+                    self.assertEqual(step.label, "Browser profile")
+                    self.assertEqual(step.default, "Profile 1")
+                    self.assertEqual(step.options, [("Personal demo · personal@example.test", "Default"),
+                                                    ("Work demo · work@example.test", "Profile 1")])
+                    return {"name": "Demo", "url": "https://example.test", "icon": "", "profile": "Profile 1"}
+                with patch.object(self.webapps, "browser", return_value="brave"), \
+                        patch.object(self.webapps.sys.stdin, "isatty", return_value=True), \
+                        patch.object(self.webapps, "collect_setup", side_effect=collect) as wizard, \
+                        patch.object(self.webapps, "fetch", side_effect=OSError), \
+                        patch.object(self.webapps.subprocess, "run"):
+                    self.webapps.main(["create"] if interactive else ["create", "Demo", "example.test"])
+                wizard.assert_called_once()
+                path = self.webapps.desktop_path("demo")
+                self.assertIn("X-Eitr-WebApp-Profile=Profile 1", path.read_text())
+                self.assertNotIn("@", path.read_text())
+                self.assertNotIn("Work demo", path.read_text())
+                self.webapps.remove("demo")
+
+    def test_no_profile_question_for_single_missing_or_nonterminal(self):
+        for count, terminal in ((0, True), (1, True), (2, False)):
+            profiles = {directory: {"name": directory} for directory in ("Default", "Profile 1")[:count]}
+            self.profiles(profiles)
+            with patch.object(self.webapps, "browser", return_value="brave"), \
+                    patch.object(self.webapps.sys.stdin, "isatty", return_value=terminal), \
+                    patch.object(self.webapps, "collect_setup") as wizard, \
+                    patch.object(self.webapps, "fetch", side_effect=OSError), \
+                    patch.object(self.webapps.subprocess, "run"):
+                self.webapps.main(["create", "Demo", "example.test"])
+            wizard.assert_not_called()
+            self.assertNotIn("X-Eitr-WebApp-Profile", self.webapps.desktop_path("demo").read_text())
+            self.webapps.remove("demo")
+
+    def test_profile_default_and_unsigned_label(self):
+        self.profiles({"Default": {"name": "Guest demo", "user_name": ""}, "Profile 1": {}}, last_used="gone")
+        with patch.object(self.webapps, "browser", return_value="brave"), \
+                patch.object(self.webapps.sys.stdin, "isatty", return_value=True):
+            step = self.webapps.profile_steps()[0]
+        self.assertEqual(step.default, "Default")
+        self.assertEqual(step.options, [("Guest demo", "Default"), ("Profile 1", "Profile 1")])
+
+    def test_profile_cancel_writes_nothing(self):
+        self.profiles({"Default": {}, "Profile 1": {}})
+        for arguments in (["create"], ["create", "Demo", "example.test"]):
+            with patch.object(self.webapps, "browser", return_value="brave"), \
+                    patch.object(self.webapps.sys.stdin, "isatty", return_value=True), \
+                    patch.object(self.webapps, "collect_setup", side_effect=SystemExit(0)), \
+                    patch.object(self.webapps, "save_icon") as icon, self.assertRaises(SystemExit):
+                self.webapps.main(arguments)
+            icon.assert_not_called()
+            self.assertFalse(self.webapps.APPLICATIONS.exists())
+
+    def test_launch_validates_stored_profile_and_current_cache(self):
+        self.profiles({"Default": {}, "Profile 1": {}})
+        path, _ = self.webapps.create("Demo", "example.test", icon_fetch=lambda *arguments: None, profile="Profile 1")
+        for profile in ("Profile 1", "Profile 2", "../bad", "--bad", ""):
+            path.write_text(path.read_text().split("X-Eitr-WebApp-Profile=")[0] +
+                            f"X-Eitr-WebApp-Profile={profile}\n")
+            with patch.object(self.webapps, "browser", return_value="brave"), \
+                    patch.object(self.webapps.os, "execvp") as execute:
+                self.webapps.launch("demo")
+            expected = ["brave"] + (["--profile-directory=Profile 1"] if profile == "Profile 1" else [])
+            execute.assert_called_once_with("brave", expected + ["--app=https://example.test"])
+        with self.assertRaises(ValueError):
+            self.webapps.create("Invalid", "example.test", profile="../bad")
+
+    def test_profile_config_paths_and_bad_state(self):
+        self.assertEqual(self.webapps.BROWSER_CONFIGS["vivaldi-stable"], "vivaldi")
+        for command in self.webapps.BROWSERS:
+            path = self.profiles({"Default": {}, "Profile 1": {}}, command=command)
+            self.assertEqual(set(self.webapps.browser_profiles(command)[0]), {"Default", "Profile 1"})
+            for content in ('broken', 'null', '{"profile": []}', '{"profile":{"info_cache":[]}}'):
+                path.write_text(content)
+                self.assertEqual(self.webapps.browser_profiles(command)[0], {})
+            path.unlink()
+            self.assertEqual(self.webapps.browser_profiles(command)[0], {})
 
     def test_webapp_recipe_lifecycle_uses_own_listing(self):
         specification = importlib.util.spec_from_file_location("recipe_software", SCRIPT.with_name("software.py"))

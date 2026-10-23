@@ -29,6 +29,15 @@ GPUs or a real Windows/BitLocker disk, waits for the public preview and lands in
 Later codenames are planned, not promised: a release may move to the next row
 when its milestone changes. Patch releases (0.3.1) keep their minor's codename.
 
+## Web app browser profiles (unreleased)
+
+Creating a web app in a terminal offers a browser profile when several exist,
+including Productivity recipes. Launchers store only the profile directory and
+fall back to normal browser behavior if that profile is removed. Web apps prefer
+the supported desktop default browser and also support Vivaldi. If none is
+installed, terminal creation and launching offer Chromium installation: Enter
+installs through the browser recipe, and Esc skips.
+
 ## Task failure help and optional mise (unreleased)
 
 Failed task terminals offer A to ask the default AI assistant using a memory-only,

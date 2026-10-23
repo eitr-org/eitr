@@ -14,8 +14,9 @@ Linguagens também oferece **mise (vários runtimes)** como pacote Arch opcional
 ## Aplicativos web
 
 Instalar > Aplicativos web > Criar aplicativo web pede um nome e um endereço e adiciona um atalho que abre o site em uma janela própria. O ícone é baixado na criação, apenas por HTTP(S). Manifestos inválidos ou ícones indisponíveis usam o ícone da página ou um ícone genérico de navegador. Não coloque credenciais no endereço. Atalhos e ícones usam seu diretório de dados XDG, inclusive um `XDG_DATA_HOME` personalizado; a remoção por qualquer menu usa esse mesmo local.
+Com vários perfis de navegador, a criação de um aplicativo web pergunta em qual perfil ele será aberto; para mudar, remova e adicione o aplicativo novamente.
 
-Aplicativos web precisam de Chrome, Chromium, Edge ou Brave (Instalar > Navegadores); serviços de streaming com DRM, como Netflix, exigem Chrome. Remova um com Delete em Instalar > Aplicativos web ou no menu Aplicativos.
+Aplicativos web precisam de Chrome, Chromium, Edge, Brave ou Vivaldi (Instalar > Navegadores); serviços de streaming com DRM, como Netflix, exigem Chrome. Remova um com Delete em Instalar > Aplicativos web ou no menu Aplicativos.
 
 Instalar > Navegadores também oferece Brave (AUR). Instalar > Produtividade oferece Basecamp e Notion como aplicativos web opcionais. As receitas contêm apenas nome e URL; o ícone do site é baixado na sua máquina ao instalar. Nada vem pré-instalado.
 

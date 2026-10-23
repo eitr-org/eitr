@@ -14,8 +14,9 @@ Sprachen bietet außerdem **mise (viele Laufzeitumgebungen)** als optionales Arc
 ## Web-Apps
 
 Installieren > Web-Apps > Web-App erstellen fragt nach Name und Adresse und legt einen Starter an, der die Website im eigenen Fenster öffnet. Das Symbol wird bei der Erstellung ausschließlich über HTTP(S) heruntergeladen. Fehlerhafte Manifeste oder nicht verfügbare Symbole führen zum Seitensymbol oder einem allgemeinen Browsersymbol. Gib keine Zugangsdaten in der Adresse an. Starter und Symbole nutzen dein XDG-Datenverzeichnis, auch ein eigenes `XDG_DATA_HOME`; das Entfernen über beide Menüs verwendet denselben Ort.
+Bei mehreren Browserprofilen fragt die Erstellung einer Web-App, in welchem Profil sie geöffnet wird; um dies zu ändern, entferne die App und füge sie erneut hinzu.
 
-Web-Apps brauchen Chrome, Chromium, Edge oder Brave (Installieren > Browser); DRM-Streamingdienste wie Netflix brauchen Chrome. Entferne eine App mit Delete unter Installieren > Web-Apps oder im Apps-Menü.
+Web-Apps brauchen Chrome, Chromium, Edge, Brave oder Vivaldi (Installieren > Browser); DRM-Streamingdienste wie Netflix brauchen Chrome. Entferne eine App mit Delete unter Installieren > Web-Apps oder im Apps-Menü.
 
 Installieren > Browser bietet auch Brave (AUR). Installieren > Produktivität bietet Basecamp und Notion als optionale Web-Apps. Die Rezepte enthalten nur Name und URL; das Website-Symbol wird erst bei der Installation auf Ihren Rechner geladen. Nichts ist vorinstalliert.
 

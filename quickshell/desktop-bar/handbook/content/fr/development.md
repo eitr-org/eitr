@@ -14,8 +14,9 @@ Langages propose aussi **mise (plusieurs environnements)** comme paquet Arch fac
 ## Applications web
 
 Installer > Applications web > Créer une application web demande un nom et une adresse, puis ajoute un lanceur ouvrant le site dans sa propre fenêtre. L’icône est téléchargée à la création, uniquement par HTTP(S). Un manifeste incorrect ou une icône indisponible entraîne l’utilisation de l’icône de page ou d’une icône générique de navigateur. N’incluez pas d’identifiants dans l’adresse. Lanceurs et icônes utilisent votre répertoire de données XDG, y compris un `XDG_DATA_HOME` personnalisé ; les deux menus de suppression utilisent ce même emplacement.
+Avec plusieurs profils de navigateur, la création d’une application web demande dans quel profil elle s’ouvre ; pour le changer, supprimez puis ajoutez à nouveau l’application.
 
-Les applications web nécessitent Chrome, Chromium, Edge ou Brave (Installer > Navigateurs) ; les services de streaming avec DRM, comme Netflix, nécessitent Chrome. Supprimez une application avec Delete dans Installer > Applications web ou dans le menu Applications.
+Les applications web nécessitent Chrome, Chromium, Edge, Brave ou Vivaldi (Installer > Navigateurs) ; les services de streaming avec DRM, comme Netflix, nécessitent Chrome. Supprimez une application avec Delete dans Installer > Applications web ou dans le menu Applications.
 
 Installer > Navigateurs propose aussi Brave (AUR). Installer > Productivité propose Basecamp et Notion comme applications web facultatives. Les recettes contiennent uniquement un nom et une URL ; l’icône du site est téléchargée sur votre machine lors de l’installation. Rien n’est préinstallé.
 

@@ -30,9 +30,11 @@ when you create it, only over HTTP(S). Malformed manifests or unavailable icons
 fall back to page icons or a generic browser icon. Do not put login credentials
 in the address. Launchers and icons use your XDG data directory, including a
 custom `XDG_DATA_HOME`; removal through either menu uses that same location.
-Web apps need Chrome, Chromium, Edge or Brave (Install > Browsers);
+Web apps need Chrome, Chromium, Edge, Brave or Vivaldi (Install > Browsers);
 streaming sites with DRM, such as Netflix, need Chrome. Remove one with Delete
 in Install > Web Apps or in the Apps menu.
+
+With several browser profiles, creating a web app asks which profile it opens in; to change it, remove and add the app again.
 
 Install > Browsers also offers Brave (AUR). Install > Productivity offers Basecamp and Notion as optional web apps. These recipes contain only a name and URL; the site icon is downloaded on your machine when you install. Nothing is preinstalled.
 

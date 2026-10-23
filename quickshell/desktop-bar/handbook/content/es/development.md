@@ -14,8 +14,9 @@ Lenguajes también ofrece **mise (muchos entornos)** como paquete opcional de Ar
 ## Aplicaciones web
 
 Instalar > Aplicaciones web > Crear aplicación web pide un nombre y una dirección y añade un acceso que abre el sitio en una ventana propia. El icono se descarga al crearla, solo por HTTP(S). Si el manifiesto es incorrecto o el icono no está disponible, se usa el icono de la página o uno genérico del navegador. No incluyas credenciales en la dirección. Accesos e iconos usan tu directorio de datos XDG, incluido un `XDG_DATA_HOME` personalizado; eliminarlos desde cualquiera de los menús usa la misma ubicación.
+Si hay varios perfiles del navegador, al crear una aplicación web se pregunta con qué perfil se abrirá; para cambiarlo, elimina la aplicación y vuelve a añadirla.
 
-Las aplicaciones web necesitan Chrome, Chromium, Edge o Brave (Instalar > Navegadores); los servicios de streaming con DRM, como Netflix, necesitan Chrome. Elimínalas con Delete en Instalar > Aplicaciones web o en el menú Aplicaciones.
+Las aplicaciones web necesitan Chrome, Chromium, Edge, Brave o Vivaldi (Instalar > Navegadores); los servicios de streaming con DRM, como Netflix, necesitan Chrome. Elimínalas con Delete en Instalar > Aplicaciones web o en el menú Aplicaciones.
 
 Instalar > Navegadores también ofrece Brave (AUR). Instalar > Productividad ofrece Basecamp y Notion como aplicaciones web opcionales. Las recetas solo contienen un nombre y una URL; el icono del sitio se descarga en tu equipo al instalar. Nada viene preinstalado.
 

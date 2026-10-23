@@ -3914,6 +3914,9 @@
     "Browser must be firefox or chromium (install it with add.packages)": [
       "distro/lib/eitr_profile.py"
     ],
+    "Browser profile": [
+      "walker/scripts/actions/install/webapps.py"
+    ],
     "Buckets": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -4839,7 +4842,10 @@
     "Initramfs: the busybox 'encrypt' hook cannot use TPM2 tokens. Switch to the systemd and sd-encrypt hooks first (see RECOVERY.md, TPM disk unlock).": [
       "distro/system/eitr-system.py"
     ],
-    "Install Chrome, Chromium, Edge or Brave from Install > Browsers to open it.": [
+    "Install Chrome, Chromium, Edge, Brave or Vivaldi from Install > Browsers to open it.": [
+      "walker/scripts/actions/install/webapps.py"
+    ],
+    "Install Chrome, Chromium, Edge, Brave or Vivaldi from Walker > Install > Browsers; Firefox cannot open app windows.": [
       "walker/scripts/actions/install/webapps.py"
     ],
     "Install alongside the existing systems in {size_text} of free space": [
@@ -4856,9 +4862,6 @@
     ],
     "Install on which disk?": [
       "distro/archinstall/installer-ui.py"
-    ],
-    "Install one from Walker > Install > Browsers; Firefox cannot open app windows.": [
-      "walker/scripts/actions/install/webapps.py"
     ],
     "Install plugin?": [
       "walker/scripts/actions/install/plugins.py"
@@ -4942,6 +4945,9 @@
     ],
     "Invalid assistant answer.": [
       "walker/scripts/actions/tools/voice-command.py"
+    ],
+    "Invalid browser profile": [
+      "walker/scripts/actions/install/webapps.py"
     ],
     "Invalid cancellation scope.": [
       "walker/scripts/actions/tools/reminders.py",
@@ -7008,6 +7014,9 @@
       "walker/scripts/actions/install/webapps.py"
     ],
     "Web app needs a Chromium-based browser": [
+      "walker/scripts/actions/install/webapps.py"
+    ],
+    "Web apps need a Chromium-based browser. Install Chromium now? Enter installs · Esc skips": [
       "walker/scripts/actions/install/webapps.py"
     ],
     "Website projects": [

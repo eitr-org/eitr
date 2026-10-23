@@ -424,6 +424,9 @@ msgstr "Explorar bucket"
 msgid "Browser must be firefox or chromium (install it with add.packages)"
 msgstr "El navegador debe ser firefox o chromium (instálelo con add.packages)"
 
+msgid "Browser profile"
+msgstr "Perfil del navegador"
+
 msgid "Buckets"
 msgstr "Buckets"
 
@@ -1330,8 +1333,11 @@ msgstr "Initramfs: el hook systemd sd-encrypt está presente e intenta usar el t
 msgid "Initramfs: the busybox 'encrypt' hook cannot use TPM2 tokens. Switch to the systemd and sd-encrypt hooks first (see RECOVERY.md, TPM disk unlock)."
 msgstr "Initramfs: el hook 'encrypt' de busybox no admite tokens TPM2. Cambia primero a los hooks systemd y sd-encrypt (consulta RECOVERY.md, TPM disk unlock)."
 
-msgid "Install Chrome, Chromium, Edge or Brave from Install > Browsers to open it."
-msgstr "Instala Chrome, Chromium, Edge o Brave desde Instalar > Navegadores para abrirla."
+msgid "Install Chrome, Chromium, Edge, Brave or Vivaldi from Install > Browsers to open it."
+msgstr "Instala Chrome, Chromium, Edge, Brave o Vivaldi desde Instalar > Navegadores para abrirla."
+
+msgid "Install Chrome, Chromium, Edge, Brave or Vivaldi from Walker > Install > Browsers; Firefox cannot open app windows."
+msgstr "Instala Chrome, Chromium, Edge, Brave o Vivaldi desde Walker > Instalar > Navegadores; Firefox no puede abrir ventanas de aplicaciones."
 
 msgid "Install alongside the existing systems in {size_text} of free space"
 msgstr "Instalar junto a los sistemas existentes en {size_text} de espacio libre"
@@ -1347,9 +1353,6 @@ msgstr "¿Instalar ahora? Escribe yes para continuar; Intro cancela: "
 
 msgid "Install on which disk?"
 msgstr "¿En qué disco instalar?"
-
-msgid "Install one from Walker > Install > Browsers; Firefox cannot open app windows."
-msgstr "Instala uno desde Walker > Instalar > Navegadores; Firefox no admite ventanas de aplicaciones."
 
 msgid "Install plugin?"
 msgstr "¿Instalar plugin?"
@@ -1431,6 +1434,9 @@ msgstr "Identidad anónima no válida"
 
 msgid "Invalid assistant answer."
 msgstr "Respuesta del asistente no válida."
+
+msgid "Invalid browser profile"
+msgstr "Perfil del navegador no válido"
 
 msgid "Invalid cancellation scope."
 msgstr "Ámbito de cancelación no válido."
@@ -3465,6 +3471,9 @@ msgstr "Aplicación web creada"
 
 msgid "Web app needs a Chromium-based browser"
 msgstr "La app web necesita un navegador basado en Chromium"
+
+msgid "Web apps need a Chromium-based browser. Install Chromium now? Enter installs · Esc skips"
+msgstr "Las aplicaciones web necesitan un navegador basado en Chromium. ¿Instalar Chromium ahora? Enter instala · Esc omite"
 
 msgid "Website projects"
 msgstr "Proyectos de sitios web"

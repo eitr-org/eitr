@@ -24,16 +24,55 @@ for parent in Path(__file__).resolve().parents:
     if (library / 'eitr_paths.py').is_file():
         sys.path.insert(0, str(library))
         break
-from eitr_paths import data as user_data
+from eitr_paths import config, data as user_data
 from eitr_wizard import Step, collect as collect_setup
 from eitr_i18n import tr
+from eitr_terminal import read_key
 
 APPLICATIONS = user_data("applications")
 ICONS = user_data("eitr/webapps")
 PREFIX = "eitr-webapp-"
 MARKER = "X-Eitr-WebApp"
 # Chromium-family browsers support app windows (--app); Firefox does not.
-BROWSERS = ("google-chrome-stable", "chromium", "microsoft-edge-stable", "brave")
+BROWSERS = ("google-chrome-stable", "chromium", "microsoft-edge-stable", "brave", "vivaldi-stable")
+BROWSER_CONFIGS = dict(zip(BROWSERS, (
+    "google-chrome", "chromium", "microsoft-edge", "BraveSoftware/Brave-Browser", "vivaldi")))
+
+
+def valid_profile(directory):
+    return isinstance(directory, str) and re.fullmatch(r"[A-Za-z0-9 _-]{1,64}", directory) is not None
+
+
+def browser_profiles(command):
+    if command not in BROWSER_CONFIGS:
+        return {}, "Default"
+    try:
+        state = json.loads((config(BROWSER_CONFIGS[command]) / "Local State").read_text())
+        profile = state.get("profile", {})
+        cache = profile.get("info_cache", {})
+        profiles = {}
+        for directory, details in cache.items():
+            if valid_profile(directory) and isinstance(details, dict):
+                name = details.get("name") or directory
+                account = details.get("user_name")
+                profiles[directory] = f"{name} · {account}" if account else str(name)
+        last_used = profile.get("last_used", "Default")
+        return profiles, last_used if isinstance(last_used, str) else "Default"
+    except (OSError, ValueError, AttributeError):
+        return {}, "Default"
+
+
+def profile_steps():
+    if not sys.stdin.isatty():
+        return []
+    profiles, last_used = browser_profiles(browser())
+    if len(profiles) <= 1:
+        return []
+    return [Step('profile', tr('Browser profile'),
+                 default=last_used if last_used in profiles else 'Default',
+                 options=[(label, directory) for directory, label in profiles.items()])]
+
+
 ICON_LIMIT = 2 * 1024 * 1024
 USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0 Safari/537.36"
 
@@ -193,12 +232,14 @@ def desktop_value(value):
     return value.replace("\\", "\\\\").replace("\n", " ")
 
 
-def create(name, url, icon_url="", icon_fetch=save_icon):
+def create(name, url, icon_url="", icon_fetch=save_icon, profile=""):
     name, url = clean_name(name), clean_url(url)
     identifier = slug(name)
     path = desktop_path(identifier)
     if path.exists():
         raise ValueError(tr('A web app named {name} already exists. Remove it first from Install > Web Apps.', name=f'{name}'))
+    if profile and not valid_profile(profile):
+        raise ValueError(tr('Invalid browser profile'))
     icon = icon_fetch(url, identifier, icon_url)
     script = Path(__file__).resolve()
     APPLICATIONS.mkdir(parents=True, exist_ok=True)
@@ -214,6 +255,7 @@ def create(name, url, icon_url="", icon_fetch=save_icon):
         "Categories=Network;WebBrowser;",
         f"{MARKER}=true",
         f"X-Eitr-WebApp-URL={desktop_value(url)}",
+        *([f"X-Eitr-WebApp-Profile={profile}"] if profile else []),
         "",
     ]))
     temporary.replace(path)
@@ -229,8 +271,42 @@ def remove(identifier):
         (ICONS / f"{identifier}{suffix}").unlink(missing_ok=True)
 
 
+DEFAULT_BROWSERS = {
+    "google-chrome.desktop": "google-chrome-stable",
+    "com.google.Chrome.desktop": "google-chrome-stable",
+    "chromium.desktop": "chromium",
+    "brave-browser.desktop": "brave",
+    "microsoft-edge.desktop": "microsoft-edge-stable",
+    "vivaldi-stable.desktop": "vivaldi-stable",
+}
+
+
 def browser():
+    try:
+        result = subprocess.run(["xdg-settings", "get", "default-web-browser"],
+                                capture_output=True, text=True, timeout=3, check=False)
+        command = DEFAULT_BROWSERS.get(result.stdout.strip()) if result.returncode == 0 else None
+        if command and shutil.which(command):
+            return command
+    except (OSError, subprocess.SubprocessError):
+        pass
     return next((name for name in BROWSERS if shutil.which(name)), None)
+
+
+def install_browser():
+    if not sys.stdin.isatty():
+        return 0
+    print(tr('Web apps need a Chromium-based browser. Install Chromium now? Enter installs · Esc skips'), flush=True)
+    while True:
+        try:
+            key = read_key()
+        except (KeyboardInterrupt, EOFError):
+            return 0
+        if key in ("\x1b", "\x03", "\x04", ""):
+            return 0
+        if key in ("\r", "\n"):
+            return subprocess.run(["python3", str(Path(__file__).with_name("software.py")),
+                                   "recipe", "browsers", "chromium"], check=False).returncode
 
 
 def launch(identifier):
@@ -240,11 +316,21 @@ def launch(identifier):
     url = clean_url(entry["X-Eitr-WebApp-URL"])
     command = browser()
     if not command:
+        if shutil.which("kitty"):
+            script = Path(__file__).resolve()
+            presenter = script.parents[1] / "task-terminal.py"
+            subprocess.Popen(["kitty", "--class", "eitr-menu-terminal", "-e", "python3", str(presenter),
+                              "python3", str(script), "install-browser"], start_new_session=True)
+            return 1
         subprocess.run(["notify-send", tr('Web app needs a Chromium-based browser'),
-                        tr('Install one from Walker > Install > Browsers; Firefox cannot open app windows.')],
+                        tr('Install Chrome, Chromium, Edge, Brave or Vivaldi from Walker > Install > Browsers; Firefox cannot open app windows.')],
                        check=False)
         return 1
-    os.execvp(command, [command, f"--app={url}"])
+    profile = entry.get("X-Eitr-WebApp-Profile", "")
+    arguments = [command]
+    if valid_profile(profile) and profile in browser_profiles(command)[0]:
+        arguments.append(f"--profile-directory={profile}")
+    os.execvp(command, [*arguments, f"--app={url}"])
 
 
 def interactive():
@@ -252,12 +338,14 @@ def interactive():
         Step('name', tr('Name'), description=tr('For example: Netflix'), validator=clean_name),
         Step('url', tr('Address'), description=tr('For example: {example}', example='netflix.com'), validator=clean_url),
         Step('icon', tr('Icon address'), description=tr('Optional; press Enter to detect it.'), optional=True, validator=clean_url),
-    ])
+    ] + profile_steps())
     name, url, icon_url = (answers[key] for key in ('name', 'url', 'icon'))
-    print(tr('\nFetching the icon…'), flush=True)
-    path, icon = create(name, url, icon_url)
     if not browser():
-        print(tr('Install Chrome, Chromium, Edge or Brave from Install > Browsers to open it.'))
+        install_browser()
+    print(tr('\nFetching the icon…'), flush=True)
+    path, icon = create(name, url, icon_url, profile=answers.get("profile", ""))
+    if not browser():
+        print(tr('Install Chrome, Chromium, Edge, Brave or Vivaldi from Install > Browsers to open it.'))
     message = f"{clean_name(name)} is in your apps." + ("" if icon else " The site has no usable icon; a generic one is used.")
     subprocess.run(["notify-send", tr('Web app created'), message], check=False)
     return 0
@@ -269,12 +357,20 @@ def main(arguments):
         return interactive()
     if command == "create" and len(arguments) == 3:
         if not browser():
-            raise ValueError(tr('Install Chrome, Chromium, Edge or Brave from Install > Browsers to open it.'))
-        _, icon = create(arguments[1], arguments[2])
+            if not sys.stdin.isatty():
+                raise ValueError(tr('Install Chrome, Chromium, Edge, Brave or Vivaldi from Install > Browsers to open it.'))
+            install_browser()
+        steps = profile_steps()
+        answers = collect_setup(tr('Browser profile'), steps) if steps else {}
+        _, icon = create(arguments[1], arguments[2], profile=answers.get("profile", ""))
+        if not browser():
+            print(tr('Install Chrome, Chromium, Edge, Brave or Vivaldi from Install > Browsers to open it.'))
         message = f"{clean_name(arguments[1])} is in your apps." + ("" if icon else " The site has no usable icon; a generic one is used.")
         if shutil.which("notify-send"):
             subprocess.run(["notify-send", tr('Web app created'), message], check=False)
         return 0
+    if command == "install-browser" and len(arguments) == 1:
+        return install_browser()
     if command == "list" and len(arguments) == 1:
         print(json.dumps(apps()))
         return 0
@@ -283,7 +379,7 @@ def main(arguments):
     if command == "remove" and len(arguments) == 2:
         remove(arguments[1])
         return 0
-    print('Usage: webapps.py create [NAME URL] | list | launch ID | remove ID', file=sys.stderr)
+    print('Usage: webapps.py create [NAME URL] | list | launch ID | remove ID | install-browser', file=sys.stderr)
     return 2
 
 
