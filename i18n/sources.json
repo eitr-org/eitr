@@ -5423,7 +5423,7 @@
     "Nothing was sent. Read it and remove anything you do not want to share.": [
       "walker/scripts/actions/system/report-problem.py"
     ],
-    "Number (Esc to cancel): ": [
+    "Number or your own answer (Esc to cancel): ": [
       "walker/scripts/actions/tools/voice-command.py"
     ],
     "OBS WebSocket settings are unreadable": [

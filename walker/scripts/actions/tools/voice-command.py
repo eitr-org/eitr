@@ -12,8 +12,12 @@ delete: action, ids (1..100 existing unique reminder IDs), optional scope:
 occurrence|series. Scope is required for repeating reminders; ask which scope.
 list: action only.
 ask: action, question (1..1000), choices (1..20 {id,label} entries;
-IDs unique, labels 1..1000). A selected ID is sent back as untrusted data.
+IDs unique, labels 1..1000). A selected ID, or the user's own typed answer, is sent back as untrusted data.
 none: action, message (1..1000).
+When the user gave a date but no time of day, do not ask for the time: answer
+create with action, title, when (a date phrase without a time, such as
+"tomorrow", "friday" or "every month on the 29th") and appointment (true for
+meetings, calls and appointments); Eitr asks for the time with a clock.
 No assistant-provided commands, paths or extra keys are accepted.
 """
 import eitr_bootstrap
@@ -200,6 +204,9 @@ def choose(payload):
         if result.returncode or not answer.exists():
             raise ValueError(tr('Nothing changed.'))
         index = json.loads(answer.read_text())
+        if isinstance(index, dict) and isinstance(index.get('text'), str) and index['text'].strip():
+            # Typed instead of picking: sent back like a choice, as untrusted data.
+            return {'answer': text_value(index['text'], 1000)}
         if type(index) is not int or not 0 <= index < len(payload['choices']):
             raise ValueError(tr('Nothing changed.'))
         return payload['choices'][index]
@@ -237,7 +244,11 @@ def process(transcript):
         return execute(validate(expand_local(extract(answer), transcript=transcript), reminders.load()))
     history = []
     for turn in range(5):
-        payload = validate(extract(assistant_ask(identifier, prompt(transcript, reminders.load(), history), announce=False, response_format='json')), reminders.load())
+        answer = extract(assistant_ask(identifier, prompt(transcript, reminders.load(), history), announce=False, response_format='json'))
+        if isinstance(answer, dict) and answer.get('action') == 'create' and 'when' in answer:
+            # A date without a time: Eitr's parser and clock fill it in, as for the local assistant.
+            answer = expand_local(answer, transcript=transcript)
+        payload = validate(answer, reminders.load())
         if payload['action'] != 'ask':
             return execute(payload)
         selected = choose(payload)
@@ -252,9 +263,11 @@ def main(arguments):
         for number, choice in enumerate(payload['choices'], 1):
             print(f"{number}. {choice['label']}", flush=True)
         try:
-            answer = read_line_or_escape(tr('Number (Esc to cancel): '))
+            answer = read_line_or_escape(tr('Number or your own answer (Esc to cancel): '))
             if answer and answer.isdecimal() and 1 <= int(answer) <= len(payload['choices']):
                 Path(arguments[2]).write_text(json.dumps(int(answer) - 1))
+            elif answer and answer.strip():
+                Path(arguments[2]).write_text(json.dumps({'text': answer.strip()[:1000]}))
         except (EOFError, KeyboardInterrupt):
             pass
         return 0

@@ -195,6 +195,32 @@ class VoiceProtocolTests(unittest.TestCase):
                 self.assertIn(payload['choices'][0]['label'], str(output.call_args_list))
             self.assertEqual(json.loads(answer.read_text()), 0)
 
+    def test_a_typed_answer_goes_back_instead_of_a_number(self):
+        payload = {'action': 'ask', 'question': 'What and when?', 'choices': [{'id': '1', 'label': 'Specify it'}]}
+        with tempfile.TemporaryDirectory() as directory:
+            source, answer = Path(directory)/'q', Path(directory)/'a'
+            source.write_text(json.dumps(payload))
+            with patch.object(voice, 'read_line_or_escape', return_value='Pay the rent at 12:00'), patch('builtins.print'):
+                voice.main(['question', str(source), str(answer)])
+            self.assertEqual(json.loads(answer.read_text()), {'text': 'Pay the rent at 12:00'})
+            with patch.object(voice.subprocess, 'run', return_value=subprocess.CompletedProcess([], 0)), \
+                    patch.object(voice.tempfile, 'TemporaryDirectory', return_value=tempfile.TemporaryDirectory()) as folder:
+                Path(folder.return_value.name, 'answer.json').write_text(json.dumps({'text': 'Pay the rent at 12:00'}))
+                self.assertEqual(voice.choose(payload), {'answer': 'Pay the rent at 12:00'})
+
+    def test_cloud_assistants_leave_out_a_missing_time_for_the_clock(self):
+        dated = {'action': 'create', 'title': 'Pay taxes', 'when': 'every month on the 29th', 'appointment': False}
+        with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {'XDG_STATE_HOME': directory}), \
+                patch.object(reminders, 'schedule'), patch.object(reminders, 'stop_timers'), \
+                patch.object(voice, 'default_assistant', return_value='codex'), \
+                patch.object(voice, 'assistant_ask', return_value=json.dumps(dated)) as asked, \
+                patch.object(reminders, 'ask_time', return_value='10:00') as clock:
+            self.assertIn('↻ Monthly · 29', voice.process('Remind me every 29th to pay taxes'))
+            clock.assert_called_once()
+            self.assertIn('Eitr asks for the time with a clock', asked.call_args.args[1])
+            created = reminders.load()[0]
+            self.assertEqual((datetime.fromtimestamp(created['due']).day, datetime.fromtimestamp(created['due']).hour), (29, 10))
+
     def test_shortcut_press_release_and_learn(self):
         source = (ROOT/'hypr/hyprland.lua').read_text()
         bindings = [line for line in source.splitlines() if 'voice-command.py' in line]

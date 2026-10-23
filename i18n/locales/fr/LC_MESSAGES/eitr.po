@@ -1894,8 +1894,8 @@ msgstr "Rien n’a été installé ; la copie téléchargée a été supprimée.
 msgid "Nothing was sent. Read it and remove anything you do not want to share."
 msgstr "Rien n’a été envoyé. Lisez le contenu et retirez ce que vous ne souhaitez pas partager."
 
-msgid "Number (Esc to cancel): "
-msgstr "Numéro (Esc pour annuler) : "
+msgid "Number or your own answer (Esc to cancel): "
+msgstr "Numéro ou votre propre réponse (Échap pour annuler) : "
 
 msgid "OBS WebSocket settings are unreadable"
 msgstr "Impossible de lire les paramètres WebSocket d’OBS"

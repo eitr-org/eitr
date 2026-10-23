@@ -963,7 +963,6 @@
   "Invalid reminder.": "Recordatorio no válido.",
   "Nothing changed.": "No se cambió nada.",
   "Nothing changed: {reason}": "No se cambió nada: {reason}",
-  "Number (Esc to cancel): ": "Número (Esc para cancelar): ",
   "Reminder": "Recordatorio",
   "Reminder (while the computer was off)": "Recordatorio (mientras el equipo estaba apagado)",
   "Reminder set: {title} · {time} · alerts {alerts}": "Recordatorio creado: {title} · {time} · avisos {alerts}",
@@ -1297,5 +1296,6 @@
   "Invalid browser profile": "Perfil del navegador no válido",
   "Install Chrome, Chromium, Edge, Brave or Vivaldi from Install > Browsers to open it.": "Instala Chrome, Chromium, Edge, Brave o Vivaldi desde Instalar > Navegadores para abrirla.",
   "Install Chrome, Chromium, Edge, Brave or Vivaldi from Walker > Install > Browsers; Firefox cannot open app windows.": "Instala Chrome, Chromium, Edge, Brave o Vivaldi desde Walker > Instalar > Navegadores; Firefox no puede abrir ventanas de aplicaciones.",
-  "Web apps need a Chromium-based browser. Install Chromium now? Enter installs · Esc skips": "Las aplicaciones web necesitan un navegador basado en Chromium. ¿Instalar Chromium ahora? Enter instala · Esc omite"
+  "Web apps need a Chromium-based browser. Install Chromium now? Enter installs · Esc skips": "Las aplicaciones web necesitan un navegador basado en Chromium. ¿Instalar Chromium ahora? Enter instala · Esc omite",
+  "Number or your own answer (Esc to cancel): ": "Número o tu propia respuesta (Esc para cancelar): "
 }

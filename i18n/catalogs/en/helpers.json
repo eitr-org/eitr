@@ -630,7 +630,7 @@
   "Nothing was downloaded.": "Nothing was downloaded.",
   "Nothing was installed; the downloaded copy was deleted.": "Nothing was installed; the downloaded copy was deleted.",
   "Nothing was sent. Read it and remove anything you do not want to share.": "Nothing was sent. Read it and remove anything you do not want to share.",
-  "Number (Esc to cancel): ": "Number (Esc to cancel): ",
+  "Number or your own answer (Esc to cancel): ": "Number or your own answer (Esc to cancel): ",
   "OBS WebSocket settings are unreadable": "OBS WebSocket settings are unreadable",
   "OBS could not apply that command; check its current state": "OBS could not apply that command; check its current state",
   "OBS did not become ready; check its startup window": "OBS did not become ready; check its startup window",

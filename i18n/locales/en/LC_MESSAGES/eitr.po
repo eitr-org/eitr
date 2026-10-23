@@ -1894,8 +1894,8 @@ msgstr "Nothing was installed; the downloaded copy was deleted."
 msgid "Nothing was sent. Read it and remove anything you do not want to share."
 msgstr "Nothing was sent. Read it and remove anything you do not want to share."
 
-msgid "Number (Esc to cancel): "
-msgstr "Number (Esc to cancel): "
+msgid "Number or your own answer (Esc to cancel): "
+msgstr "Number or your own answer (Esc to cancel): "
 
 msgid "OBS WebSocket settings are unreadable"
 msgstr "OBS WebSocket settings are unreadable"
