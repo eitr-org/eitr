@@ -1252,6 +1252,20 @@
       "elephant/menu-rows/remote-access.json",
       "elephant/menus/remote-away.lua"
     ],
+    "Accounts": [
+      "elephant/menu-rows/ai-agy.json",
+      "elephant/menu-rows/ai-claude.json",
+      "elephant/menu-rows/ai-codex.json",
+      "elephant/menu-rows/ai-copilot.json",
+      "elephant/menu-rows/ai-gemini.json",
+      "elephant/menu-rows/ai-grok.json",
+      "elephant/menus/ai-agy-accounts.lua",
+      "elephant/menus/ai-claude-accounts.lua",
+      "elephant/menus/ai-codex-accounts.lua",
+      "elephant/menus/ai-copilot-accounts.lua",
+      "elephant/menus/ai-gemini-accounts.lua",
+      "elephant/menus/ai-grok-accounts.lua"
+    ],
     "Activity Logs": [
       "elephant/menus/azure-logs-minutes.lua"
     ],
@@ -1260,6 +1274,9 @@
     ],
     "Add Account": [
       "elephant/menus/git-accounts.lua"
+    ],
+    "Add Account…": [
+      "elephant/ai-account-entries.lua"
     ],
     "Add Calendar…": [
       "elephant/menu-rows/calendars.json"
@@ -2561,6 +2578,9 @@
     "See what takes space and clear caches, one question at a time": [
       "elephant/menu-rows/system-maintenance.json"
     ],
+    "Select this account": [
+      "elephant/ai-account-entries.lua"
+    ],
     "Selection": [
       "elephant/menu-rows/screenshot.json"
     ],
@@ -2578,6 +2598,9 @@
     ],
     "Send the clipboard to a nearby device with LocalSend": [
       "elephant/menu-rows/share.json"
+    ],
+    "Separate accounts unavailable": [
+      "elephant/ai-account-entries.lua"
     ],
     "Service events": [
       "elephant/menus/aws-ecs-service-events-1.lua",
@@ -2643,6 +2666,9 @@
     ],
     "Sign In": [
       "elephant/menu-rows/remote-away.json"
+    ],
+    "Sign in to a separate account": [
+      "elephant/ai-account-entries.lua"
     ],
     "Sign in, unlock and sudo by finger; your password still works": [
       "elephant/menu-rows/fingerprint.json"
@@ -2791,6 +2817,9 @@
     ],
     "Theme changes do not touch device lighting": [
       "elephant/menus/lighting.lua"
+    ],
+    "This CLI has no supported configuration folder override": [
+      "elephant/ai-account-entries.lua"
     ],
     "Tmux Commands": [
       "elephant/menu-rows/learn.json"
@@ -3705,6 +3734,7 @@
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Account name": [
+      "distro/lib/eitr_ai_accounts.py",
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Account password": [
@@ -3718,6 +3748,9 @@
     ],
     "Activity Logs": [
       "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Add Account…": [
+      "distro/lib/eitr_ai_accounts.py"
     ],
     "Add Calendar": [
       "walker/scripts/actions/tools/calendars.py"
@@ -4059,6 +4092,9 @@
     "Choose a default assistant in Development first.": [
       "walker/scripts/actions/tools/voice-command.py"
     ],
+    "Choose a label for this account.": [
+      "distro/lib/eitr_ai_accounts.py"
+    ],
     "Choose a number from 1 to {option_count}": [
       "distro/lib/eitr_forms.py"
     ],
@@ -4069,6 +4105,7 @@
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Choose an installed assistant.": [
+      "distro/lib/eitr_ai_accounts.py",
       "distro/lib/eitr_assistants.py"
     ],
     "Choose another default first; the system icon font must remain installed": [
@@ -4397,6 +4434,7 @@
       "fastfetch/eitr.py"
     ],
     "Default": [
+      "distro/lib/eitr_ai_accounts.py",
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Default account": [
@@ -5336,6 +5374,9 @@
     "No browser opened. Go to {NEW_ISSUE} and attach {path}.": [
       "walker/scripts/actions/system/report-problem.py"
     ],
+    "No data": [
+      "quickshell/desktop-bar/scripts/ai-usage.py"
+    ],
     "No default or folder account selected": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
@@ -5683,6 +5724,7 @@
       "walker/scripts/actions/system/update.sh"
     ],
     "Press Enter to confirm; Esc to cancel.": [
+      "distro/lib/eitr_ai_accounts.py",
       "distro/lib/eitr_assistants.py",
       "walker/scripts/actions/ai-assistant.py"
     ],
@@ -5907,6 +5949,9 @@
     ],
     "Remove the {label} web app?": [
       "walker/scripts/actions/install/software.py"
+    ],
+    "Remove this account and its local configuration?": [
+      "distro/lib/eitr_ai_accounts.py"
     ],
     "Remove {label} and its folder rules? Keys stay on disk.": [
       "walker/scripts/actions/development/git-accounts.py"

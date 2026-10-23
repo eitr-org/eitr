@@ -96,6 +96,8 @@ def launch(identifier, arguments, *, interactive=True):
             return 1
     # npm entrypoints use /usr/bin/env node; use the Node version owning that tool.
     environment = dict(os.environ, PATH=str(binary.parent) + os.pathsep + os.environ.get('PATH', ''))
+    from eitr_ai_accounts import environment as account_environment
+    environment = account_environment(identifier, environment)
     flags = FULL_ACCESS_FLAGS.get(identifier, []) if interactive and assistant_access() == 'full' else []
     os.execve(str(binary), [str(binary), *flags, *arguments], environment)
     return 0

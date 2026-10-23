@@ -1,5 +1,11 @@
 [
   {
+    "text": "Accounts",
+    "subtext": ">",
+    "icon": "󰀄",
+    "submenu": "ai-claude-accounts"
+  },
+  {
     "text": "New",
     "subtext": "Start a Claude Code session in a project",
     "keywords": [

@@ -532,5 +532,11 @@
   "Full access (default)": "Acesso total (padrão)",
   "Ratatoskr (local, experimental)": "Ratatoskr (local, experimental)",
   "SUPER + Shift + A": "SUPER + Shift + A",
-  "Use the assistant's normal permission prompts": "Usar as permissões normais do assistente"
+  "Use the assistant's normal permission prompts": "Usar as permissões normais do assistente",
+  "Accounts": "Contas",
+  "Add Account…": "Adicionar conta…",
+  "Select this account": "Selecionar esta conta",
+  "Separate accounts unavailable": "Contas separadas indisponíveis",
+  "Sign in to a separate account": "Entrar em uma conta separada",
+  "This CLI has no supported configuration folder override": "Esta CLI não permite substituir a pasta de configuração"
 }

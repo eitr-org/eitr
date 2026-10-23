@@ -4,6 +4,8 @@ EITR_CODE_ROOT="${EITR_CODE_ROOT:-/usr/share/eitr}"
 if [[ -f "$EITR_CODE_ROOT/lib/paths.sh" ]]; then source "$EITR_CODE_ROOT/lib/paths.sh";
 elif [[ -f "$EITR_CODE_ROOT/distro/lib/paths.sh" ]]; then source "$EITR_CODE_ROOT/distro/lib/paths.sh"; fi
 
+export EITR_ASSISTANT_RUNNER="$EITR_CODE_ROOT/walker/scripts/actions/ai-assistant.py"
+
 WALKER_DMENU="$EITR_CODE_ROOT/walker/bin/walker-dmenu"
 
 case "${1:-}" in
@@ -68,44 +70,43 @@ prompt_text() {
 
 case "$chosen" in
   "  Codex > New")
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'codex; exec zsh'
+    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run codex; exec zsh'
     ;;
   "  Codex > Resume Picker")
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'codex resume; exec zsh'
+    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run codex resume; exec zsh'
     ;;
   "  Codex > Resume by Name or ID")
     session_name="$(prompt_text "Codex Session Name or ID")"
     [[ -z "$session_name" ]] && exit 0
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" env AI_SESSION_NAME="$session_name" zsh -ic 'codex resume "$AI_SESSION_NAME"; exec zsh'
+    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" env AI_SESSION_NAME="$session_name" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run codex resume "$AI_SESSION_NAME"; exec zsh'
     ;;
   "󰚩  Claude Code > New")
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'claude; exec zsh'
+    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run claude; exec zsh'
     ;;
   "󰚩  Claude Code > New Named")
     session_name="$(prompt_text "Claude Session Name")"
     [[ -z "$session_name" ]] && exit 0
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" env AI_SESSION_NAME="$session_name" zsh -ic 'claude -n "$AI_SESSION_NAME"; exec zsh'
+    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" env AI_SESSION_NAME="$session_name" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run claude -n "$AI_SESSION_NAME"; exec zsh'
     ;;
   "󰚩  Claude Code > Resume Picker")
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'claude -r; exec zsh'
+    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run claude -r; exec zsh'
     ;;
   "󰚩  Claude Code > Resume by Name")
     session_name="$(prompt_text "Claude Session Name")"
     [[ -z "$session_name" ]] && exit 0
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" env AI_SESSION_NAME="$session_name" zsh -ic 'claude -r "$AI_SESSION_NAME"; exec zsh'
+    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" env AI_SESSION_NAME="$session_name" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run claude -r "$AI_SESSION_NAME"; exec zsh'
     ;;
   "GitHub Copilot CLI > New")
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'copilot; exec zsh'
+    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run copilot; exec zsh'
     ;;
   "Antigravity CLI > New")
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'agy; exec zsh'
+    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run agy; exec zsh'
     ;;
   "Gemini CLI > New")
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'gemini; exec zsh'
+    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run gemini; exec zsh'
     ;;
   "Grok Build > New")
-    # The xAI installer puts grok in ~/.grok/bin, which login shells may not list yet.
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'PATH="$HOME/.grok/bin:$PATH" grok; exec zsh'
+    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run grok; exec zsh'
     ;;
   *)
     exit 0

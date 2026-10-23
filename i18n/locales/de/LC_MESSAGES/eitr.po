@@ -211,6 +211,9 @@ msgstr "Die Konten wurden in einem anderen Fenster geändert; öffnen Sie die Ei
 msgid "Activity Logs"
 msgstr "Aktivitätsprotokolle"
 
+msgid "Add Account…"
+msgstr "Konto hinzufügen…"
+
 msgid "Add Calendar"
 msgstr "Kalender hinzufügen"
 
@@ -546,6 +549,9 @@ msgstr "Wählen Sie Anmelden, um den Browser zu öffnen."
 
 msgid "Choose a default assistant in Development first."
 msgstr "Wähle zuerst einen Standardassistenten unter Entwicklung."
+
+msgid "Choose a label for this account."
+msgstr "Wählen Sie einen Namen für dieses Konto."
 
 msgid "Choose a number from 1 to {option_count}"
 msgstr "Wählen Sie eine Zahl von 1 bis {option_count}"
@@ -1792,6 +1798,9 @@ msgstr "Keine Helligkeitssteuerung verfügbar"
 msgid "No browser opened. Go to {NEW_ISSUE} and attach {path}."
 msgstr "Kein Browser geöffnet. Rufen Sie {NEW_ISSUE} auf und hängen Sie {path} an."
 
+msgid "No data"
+msgstr "Keine Daten"
+
 msgid "No default or folder account selected"
 msgstr "Kein Standard- oder Ordnerkonto ausgewählt"
 
@@ -2352,6 +2361,9 @@ msgstr "Plugin {id} und seinen Dienst entfernen?"
 
 msgid "Remove the {label} web app?"
 msgstr "Web-App {label} entfernen?"
+
+msgid "Remove this account and its local configuration?"
+msgstr "Dieses Konto und seine lokale Konfiguration entfernen?"
 
 msgid "Remove {label} and its folder rules? Keys stay on disk."
 msgstr "{label} und die zugehörigen Ordnerregeln entfernen? Schlüssel bleiben auf dem Laufwerk."

@@ -211,6 +211,9 @@ msgstr "Accounts changed in another window; reopen setup before saving"
 msgid "Activity Logs"
 msgstr "Activity Logs"
 
+msgid "Add Account…"
+msgstr "Add Account…"
+
 msgid "Add Calendar"
 msgstr "Add Calendar"
 
@@ -546,6 +549,9 @@ msgstr "Choose Sign In to open the browser."
 
 msgid "Choose a default assistant in Development first."
 msgstr "Choose a default assistant in Development first."
+
+msgid "Choose a label for this account."
+msgstr "Choose a label for this account."
 
 msgid "Choose a number from 1 to {option_count}"
 msgstr "Choose a number from 1 to {option_count}"
@@ -1792,6 +1798,9 @@ msgstr "No brightness control available"
 msgid "No browser opened. Go to {NEW_ISSUE} and attach {path}."
 msgstr "No browser opened. Go to {NEW_ISSUE} and attach {path}."
 
+msgid "No data"
+msgstr "No data"
+
 msgid "No default or folder account selected"
 msgstr "No default or folder account selected"
 
@@ -2352,6 +2361,9 @@ msgstr "Remove plugin {id} and its service?"
 
 msgid "Remove the {label} web app?"
 msgstr "Remove the {label} web app?"
+
+msgid "Remove this account and its local configuration?"
+msgstr "Remove this account and its local configuration?"
 
 msgid "Remove {label} and its folder rules? Keys stay on disk."
 msgstr "Remove {label} and its folder rules? Keys stay on disk."

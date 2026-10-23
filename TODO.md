@@ -80,11 +80,6 @@ LAN.
 - **Antigravity as a helper.** Recheck when its command-line tool gains per-run
   permissions or a read-only headless mode; until then it stays a standalone
   assistant. Nothing to do before that.
-- **AI multi-account.** Several accounts per assistant, manual switching only.
-  Each account gets its own config folder selected through the tool's own
-  variable (`CLAUDE_CONFIG_DIR`, `CODEX_HOME`); sign-in for an extra account
-  uses a private browser window; never log out of an account to add another.
-  AI Usage shows each account. Useful for teams with several seats.
 
 # 4. Before 1.0.0
 

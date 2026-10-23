@@ -1,5 +1,11 @@
 [
   {
+    "text": "Accounts",
+    "subtext": ">",
+    "icon": "󰀄",
+    "submenu": "ai-codex-accounts"
+  },
+  {
     "text": "New",
     "subtext": "Start a Codex session in a project",
     "keywords": [

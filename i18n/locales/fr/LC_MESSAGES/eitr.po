@@ -211,6 +211,9 @@ msgstr "Les comptes ont changé dans une autre fenêtre ; rouvrez la configurati
 msgid "Activity Logs"
 msgstr "Journaux d’activité"
 
+msgid "Add Account…"
+msgstr "Ajouter un compte…"
+
 msgid "Add Calendar"
 msgstr "Ajouter un calendrier"
 
@@ -546,6 +549,9 @@ msgstr "Choisissez Se connecter pour ouvrir le navigateur."
 
 msgid "Choose a default assistant in Development first."
 msgstr "Choisissez d’abord un assistant par défaut dans Développement."
+
+msgid "Choose a label for this account."
+msgstr "Choisissez un nom pour ce compte."
 
 msgid "Choose a number from 1 to {option_count}"
 msgstr "Choisissez un nombre de 1 à {option_count}"
@@ -1792,6 +1798,9 @@ msgstr "Aucun réglage de luminosité disponible"
 msgid "No browser opened. Go to {NEW_ISSUE} and attach {path}."
 msgstr "Aucun navigateur ne s’est ouvert. Allez sur {NEW_ISSUE} et joignez {path}."
 
+msgid "No data"
+msgstr "Aucune donnée"
+
 msgid "No default or folder account selected"
 msgstr "Aucun compte par défaut ou de dossier sélectionné"
 
@@ -2352,6 +2361,9 @@ msgstr "Supprimer le plugin {id} et son service ?"
 
 msgid "Remove the {label} web app?"
 msgstr "Supprimer l’application web {label} ?"
+
+msgid "Remove this account and its local configuration?"
+msgstr "Supprimer ce compte et sa configuration locale ?"
 
 msgid "Remove {label} and its folder rules? Keys stay on disk."
 msgstr "Supprimer {label} et ses règles de dossiers ? Les clés restent sur le disque."

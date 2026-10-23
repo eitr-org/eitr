@@ -22,6 +22,8 @@ Instalar > Navegadores también ofrece Brave (AUR). Instalar > Productividad ofr
 
 ## Asistentes de IA
 
+Cada asistente en la nube tiene un submenú Cuentas en Desarrollo > IA. Predeterminada usa la configuración y el inicio de sesión existentes sin mover archivos. Añadir cuenta… pide un nombre, muestra una revisión y abre el inicio de sesión de la CLI con una ventana privada del navegador cuando es compatible (los navegadores desconocidos usan la apertura normal). Enter confirma; Esc cancela. Seleccione una cuenta para cambiar manualmente las próximas sesiones interactivas, Preguntar a la IA y los asistentes de solo lectura; las sesiones abiertas conservan su cuenta. Delete elimina una cuenta añadida y su configuración local tras confirmar; Predeterminada no se puede eliminar. Eliminar la cuenta seleccionada vuelve a Predeterminada sin cerrar otra sesión. Antigravity solo ofrece Predeterminada porque su CLI no permite cambiar la carpeta de configuración. Ratatoskr tiene una cuenta local. Los nombres y la selección se guardan en este PC en `eitr/ai-accounts.json` (0600); las carpetas separadas están en `$XDG_DATA_HOME/eitr/ai-accounts/` (0700). Uso de IA agrupa las cuentas por asistente y muestra Sin datos si el uso no se puede leer o no es compatible.
+
 Desarrollo > IA ofrece un menú para cada asistente instalado: Claude Code, Codex, Gemini CLI, Grok Build y GitHub Copilot CLI. Instálalos desde Instalar > CLI de IA; si no hay ninguno, Desarrollo > IA enlaza allí.
 
 Iniciar una sesión o abrir un proyecto en LazyVim o VS Code pide primero una carpeta bajo `~/Development`: entra en carpetas para profundizar, usa Abrir para elegir la actual y Atrás para subir un nivel o volver al menú desde el nivel superior.

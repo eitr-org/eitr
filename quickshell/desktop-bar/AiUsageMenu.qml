@@ -160,25 +160,12 @@ ThemedPopup {
                                 anchors.left: parent.left
                                 anchors.leftMargin: PanelStyle.selectionInset
                                 anchors.verticalCenter: parent.verticalCenter
-                                width: parent.width - planLabel.width - chevron.width - 40
+                                width: parent.width - chevron.width - 32
                                 elide: Text.ElideRight
                                 text: section.modelData.name === "Claude" ? Eitr.I18n.tr("Claude Code") : section.modelData.name
                                 color: menu.foreground
                                 font.family: DesktopFonts.family
                                 font.pixelSize: PanelStyle.bodySize
-                            }
-                            Text {
-                                id: planLabel
-                                anchors.right: chevron.left
-                                anchors.rightMargin: 8
-                                anchors.verticalCenter: parent.verticalCenter
-                                width: Math.min(implicitWidth, parent.width * 0.4)
-                                elide: Text.ElideRight
-                                text: (section.modelData.plan || Eitr.I18n.tr("Plan unavailable")).toUpperCase()
-                                color: menu.foreground
-                                opacity: PanelStyle.secondaryTextOpacity
-                                font.family: DesktopFonts.family
-                                font.pixelSize: PanelStyle.captionSize
                             }
                             Text {
                                 id: chevron
@@ -191,30 +178,42 @@ ThemedPopup {
                                 font.pixelSize: PanelStyle.bodySize
                             }
                         }
-                        Column {
-                            visible: !section.folded
-                            width: parent.width
-                            spacing: 14
-                            Text { visible: !!section.modelData.error; width: parent.width; text: section.modelData.error || ""; wrapMode: Text.Wrap; color: menu.foreground; opacity: 0.7; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
-                            Repeater {
-                                model: section.modelData.windows || []
-                                Column {
-                                    id: limit
-                                    required property var modelData
-                                    readonly property real used: Math.max(0, Math.min(100, Number(modelData.used)))
-                                    width: content.width
-                                    spacing: 7
-                                    Item {
-                                        width: parent.width; height: 17
-                                        Text { text: limit.modelData.label === "5h window" ? Eitr.I18n.tr("Session") : limit.modelData.label; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
-                                        Text { anchors.right: parent.right; text: Eitr.I18n.tr("{percent}% used", {percent: Math.round(limit.used)}); color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.secondarySize; font.features: PanelStyle.tabularFigures }
+                        Repeater {
+                            model: section.folded ? [] : (section.modelData.accounts || [])
+                            Column {
+                                id: accountSection
+                                required property var modelData
+                                width: parent.width
+                                spacing: 14
+                                Text {
+                                    width: parent.width
+                                    text: accountSection.modelData.label + " · " + (accountSection.modelData.plan || Eitr.I18n.tr("Plan unavailable"))
+                                    elide: Text.ElideRight
+                                    color: menu.foreground
+                                    font.family: DesktopFonts.family
+                                    font.pixelSize: PanelStyle.bodySize
+                                }
+                                Text { visible: !!accountSection.modelData.error; width: parent.width; text: accountSection.modelData.error || ""; wrapMode: Text.Wrap; color: menu.foreground; opacity: 0.7; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
+                                Repeater {
+                                    model: accountSection.modelData.windows || []
+                                    Column {
+                                        id: limit
+                                        required property var modelData
+                                        readonly property real used: Math.max(0, Math.min(100, Number(modelData.used)))
+                                        width: content.width
+                                        spacing: 7
+                                        Item {
+                                            width: parent.width; height: 17
+                                            Text { text: limit.modelData.label === "5h window" ? Eitr.I18n.tr("Session") : limit.modelData.label; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
+                                            Text { anchors.right: parent.right; text: Eitr.I18n.tr("{percent}% used", {percent: Math.round(limit.used)}); color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.secondarySize; font.features: PanelStyle.tabularFigures }
+                                        }
+                                        Rectangle {
+                                            width: parent.width; height: 6; radius: 3
+                                            color: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.12)
+                                            Rectangle { width: parent.width * limit.used / 100; height: 6; radius: 3; color: menu.foreground }
+                                        }
+                                        Text { visible: !!limit.modelData.reset; width: parent.width; elide: Text.ElideRight; text: limit.modelData.reset ? menu.resetLabel(limit.modelData.reset) : ""; color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
                                     }
-                                    Rectangle {
-                                        width: parent.width; height: 6; radius: 3
-                                        color: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.12)
-                                        Rectangle { width: parent.width * limit.used / 100; height: 6; radius: 3; color: menu.foreground }
-                                    }
-                                    Text { visible: !!limit.modelData.reset; width: parent.width; elide: Text.ElideRight; text: limit.modelData.reset ? menu.resetLabel(limit.modelData.reset) : ""; color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
                                 }
                             }
                         }

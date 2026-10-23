@@ -1,5 +1,11 @@
 [
   {
+    "text": "Accounts",
+    "subtext": ">",
+    "icon": "󰀄",
+    "submenu": "ai-gemini-accounts"
+  },
+  {
     "text": "New",
     "subtext": "Requires a Gemini API key or Google Cloud/company account",
     "keywords": [

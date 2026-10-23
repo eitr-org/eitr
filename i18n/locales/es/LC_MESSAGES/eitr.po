@@ -211,6 +211,9 @@ msgstr "Las cuentas cambiaron en otra ventana; vuelve a abrir la configuración 
 msgid "Activity Logs"
 msgstr "Registros de actividad"
 
+msgid "Add Account…"
+msgstr "Añadir cuenta…"
+
 msgid "Add Calendar"
 msgstr "Añadir calendario"
 
@@ -546,6 +549,9 @@ msgstr "Elija Iniciar sesión para abrir el navegador."
 
 msgid "Choose a default assistant in Development first."
 msgstr "Primero elige un asistente predeterminado en Desarrollo."
+
+msgid "Choose a label for this account."
+msgstr "Elija un nombre para esta cuenta."
 
 msgid "Choose a number from 1 to {option_count}"
 msgstr "Elige un número del 1 al {option_count}"
@@ -1792,6 +1798,9 @@ msgstr "No hay ningún control de brillo disponible"
 msgid "No browser opened. Go to {NEW_ISSUE} and attach {path}."
 msgstr "No se abrió ningún navegador. Ve a {NEW_ISSUE} y adjunta {path}."
 
+msgid "No data"
+msgstr "Sin datos"
+
 msgid "No default or folder account selected"
 msgstr "No se seleccionó ninguna cuenta predeterminada ni de carpeta"
 
@@ -2352,6 +2361,9 @@ msgstr "¿Eliminar el plugin {id} y su servicio?"
 
 msgid "Remove the {label} web app?"
 msgstr "¿Eliminar la aplicación web {label}?"
+
+msgid "Remove this account and its local configuration?"
+msgstr "¿Eliminar esta cuenta y su configuración local?"
 
 msgid "Remove {label} and its folder rules? Keys stay on disk."
 msgstr "¿Eliminar {label} y sus reglas de carpetas? Las claves permanecen en el disco."

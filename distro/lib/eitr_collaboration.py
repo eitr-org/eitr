@@ -9,6 +9,7 @@ import subprocess
 import tempfile
 
 from eitr_assistants import executable
+from eitr_ai_accounts import environment as account_environment, config_folder
 import eitr_local_assistant
 from eitr_i18n import tr
 from eitr_paths import code, state
@@ -51,7 +52,7 @@ def gemini_signed_in():
     if os.environ.get('GEMINI_API_KEY') or os.environ.get('GOOGLE_API_KEY'):
         return True
     try:
-        settings = json.loads((Path.home() / '.gemini/settings.json').read_bytes())
+        settings = json.loads((config_folder('gemini') / 'settings.json').read_bytes())
         return settings.get('security', {}).get('auth', {}).get('selectedType') in ('gemini-api-key', 'vertex-ai')
     except (OSError, ValueError, AttributeError):
         return False
@@ -59,10 +60,7 @@ def gemini_signed_in():
 
 def connected():
     """Offline hints only; never refresh credentials or start a CLI to check auth."""
-    homes = {'claude': Path(os.environ.get('CLAUDE_CONFIG_DIR') or Path.home() / '.claude'),
-             'codex': Path(os.environ.get('CODEX_HOME') or Path.home() / '.codex'),
-             'copilot': Path(os.environ.get('COPILOT_HOME') or Path.home() / '.copilot'),
-             'grok': Path(os.environ.get('GROK_HOME') or Path.home() / '.grok')}
+    homes = {identifier: config_folder(identifier) for identifier in ('claude', 'codex', 'copilot', 'grok')}
     signed = {'claude': credential(homes['claude'] / '.credentials.json', 'claudeAiOauth', 'accessToken'),
               'codex': credential(homes['codex'] / 'auth.json', 'tokens', 'access_token'),
               'copilot': copilot_signed_in(homes['copilot'] / 'config.json'),
@@ -108,7 +106,7 @@ def ask(identifier, question, *, announce=True, response_format=None):
     binary = connected().get(identifier) if not os.environ.get(DEPTH) else None
     if not binary:
         raise ValueError(tr('This assistant is unavailable.'))
-    environment = dict(os.environ, **{DEPTH: '1'})
+    environment = account_environment(identifier, dict(os.environ, **{DEPTH: '1'}))
     environment['PATH'] = str(binary.parent) + os.pathsep + environment.get('PATH', '')
     caller = LABELS.get(os.environ.get('EITR_ASSISTANTS_CALLER'), tr('Assistant'))
     try:

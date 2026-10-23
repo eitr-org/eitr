@@ -3,6 +3,7 @@
 import eitr_bootstrap
 from eitr_i18n import tr
 from eitr_assistants import executable
+from eitr_ai_accounts import rows as account_rows, environment as account_environment, CONFIGURATION
 
 import concurrent.futures
 import datetime as dt
@@ -38,9 +39,10 @@ def read_credentials(path):
         return {}
 
 
-def grok_credentials():
-    directory = Path(os.environ.get("GROK_HOME") or Path.home() / ".grok")
-    path = Path(os.environ.get("GROK_AUTH_PATH") or directory / "auth.json")
+def grok_credentials(environment=None):
+    environment = os.environ if environment is None else environment
+    directory = Path(environment.get("GROK_HOME") or Path.home() / ".grok")
+    path = Path(environment.get("GROK_AUTH_PATH") or directory / "auth.json")
     return read_credentials(path)
 
 
@@ -90,10 +92,10 @@ def grok_windows(payload):
     return [{"label": label, "used": used, "reset": reset}]
 
 
-def grok_usage():
+def grok_usage(environment=None):
     # Official Grok Build auth store / read-only billing contract. Never refresh or
     # mutate credentials, and never forward enterprise tokens to a first-party host.
-    credentials = [auth for auth in grok_credentials().values() if isinstance(auth, dict)
+    credentials = [auth for auth in grok_credentials(environment).values() if isinstance(auth, dict)
                    and auth.get("key") and auth.get("oidc_issuer") == "https://auth.x.ai"
                    and not auth.get("team_id")]
     if len(credentials) != 1:
@@ -115,9 +117,9 @@ def grok_usage():
     return {"name": "Grok", "windows": grok_windows(payload), "plan": payload.get("subscriptionTier")}
 
 
-def codex_usage():
+def codex_usage(environment=None):
     binary = codex_binary()
-    env = os.environ.copy()
+    env = dict(os.environ if environment is None else environment)
     # NVM's CLI launcher uses /usr/bin/env node; desktop sessions omit its bin dir.
     env["PATH"] = str(Path(binary).parent) + os.pathsep + env.get("PATH", "")
     proc = subprocess.Popen(
@@ -208,8 +210,9 @@ def claude_windows(payload):
     return windows
 
 
-def claude_usage():
-    home = Path(os.environ.get("CLAUDE_CONFIG_DIR", str(Path.home() / ".claude")))
+def claude_usage(environment=None):
+    environment = os.environ if environment is None else environment
+    home = Path(environment.get("CLAUDE_CONFIG_DIR", str(Path.home() / ".claude")))
     try:
         credentials = json.loads((home / ".credentials.json").read_text())
         token = credentials["claudeAiOauth"]["accessToken"]
@@ -235,21 +238,38 @@ def claude_usage():
     return {"name": "Claude", "windows": windows, "plan": plan}
 
 
+def usage_accounts():
+    """Installed assistants remain visible even when an account has no readable usage."""
+    return [(identifier, account) for identifier in CONFIGURATION if cli_binary(identifier)
+            for account in account_rows(identifier)]
+
+
 def collect():
-    def safely(name, function):
+    readers = {"claude": claude_usage, "codex": codex_usage, "grok": grok_usage}
+    labels = {"claude": "Claude", "codex": "Codex", "gemini": "Gemini CLI",
+              "grok": "Grok", "copilot": "Copilot", "agy": "Antigravity"}
+
+    def safely(identifier, account):
+        result = {"id": account["id"], "label": account["label"], "windows": []}
         try:
-            result = function()
+            reader = readers.get(identifier)
+            if reader:
+                result.update(reader(account_environment(identifier, account=account["id"])))
             if not result["windows"]:
-                result["error"] = "No subscription limits returned"
-            return result
-        except Exception as exc:
-            # Never expose raw HTTP responses or credentials in the display/cache.
-            error = str(exc) if isinstance(exc, RuntimeError) else "Could not fetch usage; retry later"
-            return {"name": name, "windows": [], "error": error}
-    readers = {"Claude": claude_usage, "Codex": codex_usage, "Grok": grok_usage}
-    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
-        jobs = [pool.submit(safely, name, readers[name]) for name in available_providers()]
-        return {"updated": time.time(), "providers": [job.result() for job in jobs]}
+                result["error"] = tr('No data')
+        except Exception:
+            # CLI/HTTP errors can contain private data. Expose only a fixed status.
+            result["error"] = tr('No data')
+        return result
+
+    grouped = {}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
+        jobs = [(identifier, pool.submit(safely, identifier, account))
+                for identifier, account in usage_accounts()]
+        for identifier, job in jobs:
+            provider = grouped.setdefault(identifier, {"name": labels[identifier], "accounts": []})
+            provider["accounts"].append(job.result())
+    return {"updated": time.time(), "providers": list(grouped.values())}
 
 
 if __name__ == "__main__":

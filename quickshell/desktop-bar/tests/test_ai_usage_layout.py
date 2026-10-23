@@ -62,11 +62,10 @@ ShellRoot {
                 onTriggered: {
                     if (panel.foldedProviders.length !== 0) throw new Error("Legacy selection was not dropped");
                     panel.usage = {providers: [
-                        {name: "Claude", plan: "Max", windows: [{label: "5h window", used: 42}, {label: "Weekly", used: 68}]},
-                        {name: "Codex", plan: "Plus", error: "Example offline error", windows: [{label: "Session", used: 23}]},
-                        {name: "Grok", plan: "Pro", windows: [{label: "Credits", used: 12}]},
-                        {name: "Example AI", plan: "Pro", windows: [{label: "Session", used: 23}]}
-
+                        {name: "Claude", accounts: [{id: "default", label: "Default", plan: "Max", windows: [{label: "5h window", used: 42}, {label: "Weekly", used: 68}]}, {id: "example", label: "Example account", error: "No data", windows: []}]},
+                        {name: "Codex", accounts: [{label: "Default", plan: "Plus", error: "Example offline error", windows: [{label: "Session", used: 23}]}]},
+                        {name: "Grok", accounts: [{label: "Default", plan: "Pro", windows: [{label: "Credits", used: 12}]}]},
+                        {name: "Example AI", accounts: [{label: "Default", plan: "Pro", windows: [{label: "Session", used: 23}]}]}
                     ].slice(0, COUNT)};
                     if (COUNT === 4) panel.toggleProvider("Grok");
                     panel.status = "Last checked 12:00";

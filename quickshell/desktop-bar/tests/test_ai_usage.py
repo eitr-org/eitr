@@ -92,7 +92,7 @@ class ProviderDetectionTests(unittest.TestCase):
             self.assertEqual(USAGE.available_providers(), [])
 
     def test_outage_keeps_configured_provider_without_leaking_errors(self):
-        with mock.patch.object(USAGE, "available_providers", return_value=["Grok"]), \
+        with mock.patch.object(USAGE, "usage_accounts", return_value=[("grok", {"id": "default", "label": "Default"})]), \
              mock.patch.object(USAGE, "grok_usage", side_effect=ValueError("secret-token")):
             data = USAGE.collect()
         self.assertEqual(data["providers"][0]["name"], "Grok")
@@ -132,7 +132,7 @@ class ProviderDetectionTests(unittest.TestCase):
     def test_all_detected_providers_have_foldable_sections(self):
         qml = (ROOT / "AiUsageMenu.qml").read_text()
         self.assertIn("model: menu.usage.providers || []", qml)
-        self.assertIn("visible: !section.folded", qml)
+        self.assertIn("model: section.folded ? [] : (section.modelData.accounts || [])", qml)
         self.assertIn("onClicked: menu.toggleProvider(section.modelData.name)", qml)
         self.assertNotIn("id: tabs", qml)
         self.assertIn('text: Eitr.I18n.tr("AI Usage")', qml)

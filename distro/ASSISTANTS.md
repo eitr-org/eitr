@@ -126,3 +126,28 @@ replaces an existing server of the same name, so Eitr checks first. Gemini ships
 Antigravity (`agy`) is never a helper: headless runs deny even reads, and its
 only unlocks bypass permissions or change global settings. Re-check when it
 supports per-run permissions or a read-only headless mode.
+
+## Manual accounts
+
+Each cloud assistant's Accounts menu preserves Default at its normal location.
+Selected accounts affect new launches and read-only requests, never existing sessions.
+The machine-local registry is `eitr/ai-accounts.json` (0600); added account roots
+are `$XDG_DATA_HOME/eitr/ai-accounts/<assistant>/<id>/` (0700). Login uses the
+CLI itself and a temporary BROWSER override; supported browsers open privately,
+unknown browsers fall back to xdg-open. No logout, migration or automatic switching.
+
+The configuration table in `lib/eitr_ai_accounts.py` was checked against:
+
+| CLI | Override | Evidence |
+| --- | --- | --- |
+| Claude | `CLAUDE_CONFIG_DIR` | [Configuration directory](https://code.claude.com/docs/en/claude-directory) |
+| Codex | `CODEX_HOME` | [Environment variables](https://learn.chatgpt.com/docs/config-file/environment-variables), installed `codex --help` for login |
+| Gemini | `GEMINI_CLI_HOME` | Installed npm bundle `docs/reference/configuration.md`: parent of `.gemini` |
+| Grok | `GROK_HOME` | [Settings](https://docs.x.ai/build/settings), installed `grok --help` |
+| Copilot | `COPILOT_HOME` | Installed `copilot help environment` and `copilot --help` for login |
+| Antigravity | None confirmed | Installed `agy --help` and [CLI reference](https://antigravity.google/docs/cli/reference): no config directory override; Default only |
+
+Usage readers receive explicit per-account environments, including Codex's child
+process, without mutating the shared process environment. Accounts without a
+reader or readable quota remain visible as No data. Credentials are never copied
+into the registry or exposed through errors.

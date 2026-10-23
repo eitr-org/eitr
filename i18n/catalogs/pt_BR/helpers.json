@@ -1316,5 +1316,9 @@
   "Ratatoskr was removed.": "Ratatoskr foi removido.",
   "Remove Ratatoskr": "Remover Ratatoskr",
   "Remove Ratatoskr?": "Remover Ratatoskr?",
-  "Set up Ratatoskr?": "Configurar Ratatoskr?"
+  "Set up Ratatoskr?": "Configurar Ratatoskr?",
+  "Add Account…": "Adicionar conta…",
+  "Choose a label for this account.": "Escolha um nome para esta conta.",
+  "No data": "Sem dados",
+  "Remove this account and its local configuration?": "Remover esta conta e sua configuração local?"
 }

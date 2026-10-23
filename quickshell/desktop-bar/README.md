@@ -249,9 +249,10 @@ between the solid theme color and transparency with blur.
 Calendar retains its fixed six-row
 grid, bottom navigation, year progress, and Left/Right/Up/Down/bracket/T keys.
 AI Usage retains the existing backend/cache, refresh-on-open and five-minute
-updates while open. It detects installed, configured Claude Code,
-Codex, and optional Grok clients locally on each refresh. Only detected providers
-appear as stacked sections in detection order, each with its plan, limits and errors.
+updates while open. Installed cloud assistants appear as stacked sections, each
+containing its Default and added accounts from the private account registry.
+Claude Code, Codex and Grok readers use each account’s own configuration;
+unreadable limits and assistants without a usage reader show No data.
 Click a section heading to fold or unfold it; all sections start expanded.
 Long lists scroll within the screen. No providers shows a setup message.
 Folding is saved machine-locally in
@@ -259,8 +260,9 @@ Folding is saved machine-locally in
 `foldedProviders`); old provider selections are dropped and missing providers
 are removed from the folded list.
 Cached usage appears independently of background requests, so opening never waits
-for network access. Outages keep configured providers visible with an error.
-Codex keyring logins use the CLI's bounded, read-only login-status check.
+for network access. Outages keep every account visible with No data.
+The derived cache is private (0600) and reconciles added/deleted account IDs
+before displaying cached results.
 Grok is not installed by this feature or added to distro defaults. Its optional
 reader follows the official Grok Build auth/billing schema for one personal
 first-party OAuth login; API-key/enterprise quotas are not supported. The Grok reader is mock-tested, not verified against a live

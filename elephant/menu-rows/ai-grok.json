@@ -1,5 +1,11 @@
 [
   {
+    "text": "Accounts",
+    "subtext": ">",
+    "icon": "󰀄",
+    "submenu": "ai-grok-accounts"
+  },
+  {
     "text": "New",
     "subtext": "Start a Grok Build session in a project",
     "keywords": [
