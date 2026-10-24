@@ -99,6 +99,9 @@ def launch(identifier, arguments, *, interactive=True):
     from eitr_ai_accounts import environment as account_environment
     environment = account_environment(identifier, environment)
     flags = FULL_ACCESS_FLAGS.get(identifier, []) if interactive and assistant_access() == 'full' else []
+    if interactive:
+        flags = [*flags, *interactive_context(identifier, environment)]
+        os.chdir(Path.home())
     os.execve(str(binary), [str(binary), *flags, *arguments], environment)
     return 0
 
@@ -245,3 +248,94 @@ def replace_toml_theme(text, mode):
         except tomllib.TOMLDecodeError:
             continue
     raise ValueError('Unsupported UI theme syntax')
+
+
+# Verified with installed --help and vendor references in ASSISTANT-STARTUP.md.
+# None means no safely verified supported mechanism; never guess config formats.
+STARTUP_SUPPORT = {
+    'claude': ('projects.home.hasTrustDialogAccepted', '--append-system-prompt'),
+    'codex': ('-c projects.<home>.trust_level', '-c developer_instructions'),
+    'gemini': ('--skip-trust', None),
+    'grok': (None, '--rules'),
+    'copilot': ('trustedFolders', None),
+    'agy': (None, None),
+}
+
+
+def trust_json(path, keys, home, *, array=False):
+    """Update just one trust value, with a first-write backup and atomic replace."""
+    import stat
+    import tempfile
+    if any(parent.is_symlink() for parent in (path, *path.parents)):
+        return
+    temporary = None
+    try:
+        original = path.read_bytes() if path.exists() else None
+        decoded = original.decode('utf-8') if original is not None else '{}'
+        settings = json.loads(decoded)
+        current = settings
+        for key in keys:
+            if not isinstance(current, dict):
+                raise ValueError('Invalid trust settings')
+            current = current.get(key, [] if array and key == keys[-1] else {})
+        if array:
+            if not isinstance(current, list) or any(not isinstance(entry, str) for entry in current):
+                raise ValueError('Invalid trusted folders')
+            if home in current:
+                return
+            value = [*current, home]
+        else:
+            if current is True:
+                return
+            value = True
+        updated = replace_json_setting(decoded, keys, value).encode('utf-8')
+        path.parent.mkdir(parents=True, mode=0o700, exist_ok=True)
+        mode = stat.S_IMODE(path.stat().st_mode) if original is not None else 0o600
+        backup = path.with_name(path.name + '.eitr-backup')
+        if original is not None:
+            try:
+                descriptor = os.open(backup, os.O_WRONLY | os.O_CREAT | os.O_EXCL, mode)
+            except FileExistsError:
+                pass
+            else:
+                with os.fdopen(descriptor, 'wb') as output:
+                    os.fchmod(output.fileno(), mode)
+                    output.write(original)
+                    output.flush()
+                    os.fsync(output.fileno())
+        descriptor, temporary = tempfile.mkstemp(prefix='.eitr-trust-', dir=path.parent)
+        with os.fdopen(descriptor, 'wb') as output:
+            os.fchmod(output.fileno(), mode)
+            output.write(updated)
+            output.flush()
+            os.fsync(output.fileno())
+        if (path.read_bytes() if path.exists() else None) == original:
+            os.replace(temporary, path)
+    except (OSError, ValueError, UnicodeError, IndexError, TypeError):
+        # Unknown or unreadable storage retains the CLI's normal trust prompt.
+        return
+    finally:
+        if temporary and os.path.exists(temporary):
+            os.unlink(temporary)
+
+
+def interactive_context(identifier, environment):
+    from eitr_assistant_context import startup_instructions
+    home = str(Path.home().resolve())
+    instruction = startup_instructions()
+    if identifier == 'claude':
+        root = environment.get('CLAUDE_CONFIG_DIR')
+        path = Path(root) / '.claude.json' if root else Path.home() / '.claude.json'
+        trust_json(path, ['projects', home, 'hasTrustDialogAccepted'], home)
+        return ['--append-system-prompt', instruction]
+    if identifier == 'codex':
+        return ['-c', 'projects.' + json.dumps(home) + '.trust_level="trusted"',
+                '-c', 'developer_instructions=' + json.dumps(instruction)]
+    if identifier == 'gemini':
+        return ['--skip-trust']
+    if identifier == 'grok':
+        return ['--rules', instruction]
+    if identifier == 'copilot':
+        root = Path(environment.get('COPILOT_HOME') or Path.home() / '.copilot')
+        trust_json(root / 'config.json', ['trustedFolders'], home, array=True)
+    return []

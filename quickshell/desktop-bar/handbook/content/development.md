@@ -40,11 +40,13 @@ Install > Browsers also offers Brave (AUR). Install > Productivity offers Baseca
 
 ## AI assistants
 
+Interactive assistant launchers (including SUPER + A) start in your home folder. Eitr grants home trust where safely supported and passes Handbook guidance through supported extra instruction options. CLI limitations are listed in distro/ASSISTANT-STARTUP.md. Read-only quick chat includes an Eitr primer and relevant localized Handbook excerpts; it says when the Handbook does not cover a question.
+
 Each cloud assistant has an Accounts submenu under Development > AI. Default uses the existing configuration and login without moving files. Add Account… asks for a label, shows a review, then opens the CLI’s own sign-in with a private browser window where supported (unknown browsers use their normal opener). Enter confirms; Esc cancels. Select an account to switch future interactive sessions, Ask the AI and read-only helpers manually; running sessions keep their account. Delete removes an added account and its local configuration after confirmation; Default cannot be removed. Removing the selected account returns to Default and never logs another account out. Antigravity offers only Default because its CLI has no supported config-folder override. Ratatoskr has one local account. Account labels and selection stay on this PC in `eitr/ai-accounts.json` (0600); separate folders live under `$XDG_DATA_HOME/eitr/ai-accounts/` (0700). AI Usage groups accounts by assistant and shows No data for unreadable or unsupported usage.
 
 Development > AI offers a menu for each installed assistant: Claude Code, Codex, Gemini CLI, Grok Build and GitHub Copilot CLI. Install them from Install > AI CLIs; with none installed, Development > AI links there.
 
-Starting a session, or opening a LazyVim or VS Code project, first asks for a
+Opening a LazyVim or VS Code project first asks for a
 folder under `~/Development`: pick folders to go deeper, Open to use the one
 you are in, and Back to go up a level or, at the top, return to the menu.
 
@@ -182,3 +184,9 @@ Delete an account with the Delete key on its account row or **Delete Account** i
 Read-only reports use the selected private account environment and the existing cloud pager. Cloudflare: Account, R2 Buckets, D1 Databases, KV Namespaces, Pages Projects, Queues. DigitalOcean: Droplets, Apps, Databases, Kubernetes, Volumes, Domains, Load Balancers, Balance. Hetzner: Servers, Volumes, Networks, Firewalls, Load Balancers, Primary IPs, Snapshots. Oracle: Compartments, Instances, Buckets, VCNs. Vercel: Projects, Deployments, Domains. Netlify: Status, Sites. IBM: Account, Target, Resource Groups, Service Instances. DigitalOcean and Hetzner always pass the chosen context; Oracle passes the chosen profile and security-token authentication, reading the tenancy only from that account’s private profile. Bucket listing first reads its namespace. Vercel passes the selected team scope. Errors remain readable and never trigger a retry with another account. Log searches retain the existing fzf viewer. Live checks with real accounts remain pending.
 
 Setup forms for cloud accounts, Git Accounts (Add and Edit), monitoring dashboards and web apps list their steps on the left and the current answer on the right. Use arrows or Tab to select a step and Enter to answer it. Review lists every answer before applying anything; return to a step with Left or the arrows, and use PgUp/PgDn to scroll long reviews. Esc or Ctrl+C cancels without saving. Vendor sign-in starts after review; failed or interrupted sign-in discards the new account. Google Cloud asks for an optional project ID before sign-in; Azure asks for an optional subscription label before sign-in and otherwise keeps each subscription’s existing name. Vercel asks for its scope before sign-in.
+
+## Docker
+
+Docker, docker-compose and Lazydocker are installed, but the Docker service is off by default. Enable it with `sudo systemctl enable --now docker.service`.
+
+If `docker ps` reports permission denied, add your user with `sudo usermod -aG docker $USER`. Membership in the docker group is root-equivalent. Log out and back in, or use `newgrp docker` in one terminal. Check your groups with `id -nG`.

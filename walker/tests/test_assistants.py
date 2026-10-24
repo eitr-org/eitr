@@ -31,6 +31,8 @@ class AssistantTests(unittest.TestCase):
             with patch.object(Path, 'home', return_value=Path(directory)), \
                     patch.dict(os.environ, PATH=str(binary.parent)), \
                     patch.object(assistants, 'assistant_access', return_value='ask'), \
+                    patch.object(assistants, 'interactive_context', return_value=[]), \
+                    patch.object(assistants.os, 'chdir'), \
                     patch.object(assistants.os, 'execve') as execute:
                 self.assertEqual(assistants.launch('codex', ['a b', '--help']), 0)
                 self.assertEqual(execute.call_args.args[1], [str(binary), 'a b', '--help'])
@@ -41,6 +43,8 @@ class AssistantTests(unittest.TestCase):
                 with self.subTest(identifier=identifier, access=access), \
                         patch.object(assistants, 'executable', return_value=Path('/bin/assistant')), \
                         patch.object(assistants, 'assistant_access', return_value=access), \
+                        patch.object(assistants, 'interactive_context', return_value=[]), \
+                        patch.object(assistants.os, 'chdir'), \
                         patch.object(assistants.os, 'execve') as execute:
                     assistants.launch(identifier, ['question'])
                     self.assertEqual(execute.call_args.args[1],
@@ -51,6 +55,8 @@ class AssistantTests(unittest.TestCase):
             with self.subTest(identifier=identifier), \
                     patch.object(assistants, 'executable', return_value=Path('/bin/assistant')), \
                     patch.object(assistants, 'assistant_access', return_value='full'), \
+                    patch.object(assistants, 'interactive_context', return_value=[]), \
+                    patch.object(assistants.os, 'chdir'), \
                     patch.object(assistants.os, 'execve') as execute:
                 assistants.launch(identifier, ['question'], interactive=False)
                 self.assertEqual(execute.call_args.args[1], ['/bin/assistant', 'question'])
@@ -201,6 +207,8 @@ class AntigravityTests(unittest.TestCase):
             with patch.object(Path, 'home', return_value=Path(temporary)), \
                     patch.dict(os.environ, PATH=temporary), \
                     patch.object(assistants, 'assistant_access', return_value='full'), \
+                    patch.object(assistants, 'interactive_context', return_value=[]), \
+                    patch.object(assistants.os, 'chdir'), \
                     patch.object(assistants.os, 'execve') as execute:
                 self.assertEqual(assistants.launch('agy', ['--help']), 0)
                 self.assertEqual(execute.call_args.args[1], [str(binary), '--dangerously-skip-permissions', '--help'])

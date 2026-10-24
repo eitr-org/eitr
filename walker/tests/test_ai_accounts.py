@@ -54,6 +54,7 @@ class AccountTests(unittest.TestCase):
         accounts.switch('codex', account)
         with patch.object(assistants, 'executable', return_value=Path('/mock/bin/codex')), \
                 patch.object(assistants, 'assistant_access', return_value='full'), \
+                patch.object(os, 'chdir'), \
                 patch.object(os, 'execve') as execute:
             assistants.launch('codex', [])
         self.assertEqual(execute.call_args.args[2]['CODEX_HOME'], str(accounts.folder('codex', account)))

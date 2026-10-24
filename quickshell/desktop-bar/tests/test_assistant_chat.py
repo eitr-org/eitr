@@ -21,11 +21,13 @@ class AssistantChatTests(unittest.TestCase):
         turns = [{'role': 'user', 'text': 'Hello'}]
         with patch.object(chat, 'system_summary', return_value={'kernel': 'example'}) as summary:
             self.assertIn('system_summary', chat.prompt(turns))
+            self.assertIn('Norse-themed Arch Linux', chat.prompt(turns))
             turns += [{'role': 'assistant', 'text': 'Hi'}, {'role': 'user', 'text': 'Explain'}]
             continued = json.loads(chat.prompt(turns).split('\n', 1)[1])
             self.assertEqual(continued['system_summary'], {'kernel': 'example'})
             self.assertEqual(continued['turns'], turns)
-            self.assertEqual(summary.call_count, 2)
+            self.assertEqual(summary.call_count, 3)
+            self.assertIn('Norse-themed Arch Linux', continued['Eitr primer'])
 
     def test_summary_has_only_public_facts(self):
         with patch.dict(os.environ, EITR_CODE_ROOT=str(ROOT)):
