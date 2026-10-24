@@ -2500,6 +2500,9 @@
     "SUPER + =": [
       "elephant/menu-rows/shortcuts.json"
     ],
+    "SUPER + A": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
     "SUPER + Ctrl + F": [
       "elephant/menu-rows/shortcuts.json"
     ],
@@ -2534,9 +2537,6 @@
       "elephant/menu-rows/shortcuts.json"
     ],
     "SUPER + Print": [
-      "elephant/menu-rows/shortcuts.json"
-    ],
-    "SUPER + Shift + A": [
       "elephant/menu-rows/shortcuts.json"
     ],
     "SUPER + Shift + N": [

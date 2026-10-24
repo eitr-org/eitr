@@ -35,7 +35,7 @@ class ShortcutsMenuTests(unittest.TestCase):
 class AssistantShortcutTests(unittest.TestCase):
     def test_assistant_and_rotate_bindings(self):
         configuration = (SCRIPT.parents[3] / 'hypr/hyprland.lua').read_text()
-        self.assertIn('mainMod .. " + SHIFT + A", hl.dsp.exec_cmd("python3 /usr/share/eitr/walker/scripts/actions/ai-assistant.py open")', configuration)
+        self.assertIn('mainMod .. " + A", hl.dsp.exec_cmd("python3 /usr/share/eitr/walker/scripts/actions/ai-assistant.py open")', configuration)
         self.assertIn('mainMod .. " + SHIFT + R", hl.dsp.layout("rotatesplit")', configuration)
         self.assertNotIn('mainMod .. " + ALT + A"', configuration)
 

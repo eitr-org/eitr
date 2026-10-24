@@ -531,12 +531,12 @@
   "Assistant Access": "Acceso del asistente",
   "Full access (default)": "Acceso completo (por defecto)",
   "Ratatoskr (local, experimental)": "Ratatoskr (local, experimental)",
-  "SUPER + Shift + A": "SUPER + Shift + A",
   "Use the assistant's normal permission prompts": "Usar las solicitudes normales de permiso del asistente",
   "Accounts": "Cuentas",
   "Add Account…": "Añadir cuenta…",
   "Select this account": "Seleccionar esta cuenta",
   "Separate accounts unavailable": "Cuentas separadas no disponibles",
   "Sign in to a separate account": "Iniciar sesión en una cuenta separada",
-  "This CLI has no supported configuration folder override": "Esta CLI no permite cambiar la carpeta de configuración"
+  "This CLI has no supported configuration folder override": "Esta CLI no permite cambiar la carpeta de configuración",
+  "SUPER + A": "SUPER + A"
 }

@@ -47,7 +47,7 @@
   },
   {
     "text": "Default Assistant",
-    "subtext": "SUPER + Shift + A",
+    "subtext": "SUPER + A",
     "icon": "󱜙",
     "actions": {
       "open": "python3 /usr/share/eitr/walker/scripts/actions/ai-assistant.py open"
