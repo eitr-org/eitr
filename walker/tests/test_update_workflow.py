@@ -127,12 +127,14 @@ class UpdateWorkflowTests(unittest.TestCase):
         result = run_protected_update(self.NEWS + self.UPDATING, answer="y\n")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("snapshot-pre", result.stdout)
-        self.assertIn("pacman -Syu", result.stdout)
+        self.assertIn("pacman -Sy\n", result.stdout + "\n")
+        self.assertIn("pacman -Su", result.stdout)
 
     def test_automated_updates_skip_the_news_question(self):
         result = run_protected_update(self.NEWS + self.UPDATING, environment_extra={"EITR_SKIP_ARCH_NEWS": "1"})
         self.assertNotIn("Arch posted news", result.stdout)
-        self.assertIn("pacman -Syu", result.stdout)
+        self.assertIn("pacman -Sy\n", result.stdout + "\n")
+        self.assertIn("pacman -Su", result.stdout)
 
     def test_failed_snapshot_prevents_package_updates(self):
         result = run_protected_update("""
@@ -153,6 +155,18 @@ yay() { echo "yay $*"; }
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("snapshot-post failed", result.stdout)
         self.assertNotIn("yay", result.stdout)
+
+    def test_a_mismatched_signature_is_repaired_by_a_forced_refresh(self):
+        # A stalled download can leave a new package list with its old signature;
+        # pacman then skips the list as current, so only -Syy fetches both again.
+        result = run_protected_update("""
+sudo() { echo "sudo $*"; if [[ "$*" == "pacman -Sy" ]]; then return 1; fi; }
+yay() { echo "yay $*"; }
+""")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        calls = [line for line in result.stdout.splitlines() if line.startswith("sudo pacman")]
+        self.assertEqual(calls, ["sudo pacman -Sy", "sudo pacman -Syy", "sudo pacman -Su"])
+        self.assertIn("snapshot-post success", result.stdout)
 
     def test_successful_upgrade_records_success(self):
         result = run_protected_update("""
@@ -214,7 +228,7 @@ yay() { echo "yay $*"; }
             result = subprocess.run(["bash", "-c", mocks + source, "update", "pacman"], capture_output=True,
                                     text=True, env=dict(os.environ, EITR_CODE_ROOT=str(ROOT), XDG_RUNTIME_DIR=directory))
             self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertIn("pacman -Syu", Path(directory, "calls").read_text())
+            self.assertIn("pacman -Su", Path(directory, "calls").read_text())
             self.assertIn("without a restart hint", result.stderr)
 
     def test_system_update_refreshes_user_flatpaks_and_tolerates_their_failure(self):

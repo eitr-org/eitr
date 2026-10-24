@@ -28,7 +28,11 @@ arch_news_ok() {
 }
 cancel() { rm -f "$packages"; eitr_gettext 'Update cancelled; nothing was changed.'; printf '\n'; exit 0; }
 # Only the distro's System Update path creates snapshots.
-full_update() { sudo pacman -Syu; yay -Sua --devel; update_flatpaks; }
+# Sync, then upgrade in the same run (the same as -Syu). A list whose signature
+# stalled mid-download keeps a mismatched old signature that pacman then skips
+# as current, so a failed sync is retried once with a forced refresh (-Syy).
+pacman_update() { sudo pacman -Sy || sudo pacman -Syy || return; sudo pacman -Su; }
+full_update() { pacman_update; yay -Sua --devel; update_flatpaks; }
 # Only a complete, successful check may skip the update. checkupdates keeps its
 # sync database separate from the system database (exit 2 means no updates).
 no_updates() (
@@ -128,7 +132,7 @@ case "${1:-}" in
     update_plugins
     offer_restart
     ;;
-  pacman) sudo pacman -Syu; offer_restart ;;
+  pacman) pacman_update; offer_restart ;;
   yay) yay -Sua --devel; offer_restart ;;
   # A function called in an && list would run with set -e disabled.
   full) full_update; offer_restart ;;

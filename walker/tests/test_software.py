@@ -368,7 +368,7 @@ class SoftwareTests(unittest.TestCase):
     def test_existing_desktop_update_does_not_require_distro_snapshot_setup(self):
         script = (ROOT / "walker/scripts/actions/system/update.sh").read_text()
         self.assertIn("if [[ -f /etc/eitr/system-update-policy.conf ]]", script)
-        self.assertIn("sudo pacman -Syu", script)
+        self.assertIn("pacman_update() { sudo pacman -Sy || sudo pacman -Syy || return; sudo pacman -Su; }", script)
         self.assertIn("yay) yay -Sua --devel", script)
 
 
