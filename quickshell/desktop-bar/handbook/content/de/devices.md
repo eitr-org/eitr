@@ -22,6 +22,8 @@ So lassen sich beliebig viele Monitore anordnen: jeweils links, rechts, über od
 
 Die Helligkeit nutzt bevorzugt eine geeignete native Hintergrundbeleuchtung, sonst einen externen Monitor per DDC. Die Verfügbarkeit hängt vom Monitor und den Berechtigungen ab. Nachtlicht bietet einen manuellen Schalter und einen optionalen Zeitplan mit bearbeitbaren Zeiten.
 
+**HDR** erscheint nur bei Monitoren, deren EDID PQ oder HLG unterstützt. Es zeigt den Desktop in HDR; Spiele können HDR auch bei ausgeschaltetem Schalter nutzen. Beim Ein- oder Ausschalten musst du die Änderung ebenfalls innerhalb von 15 Sekunden bestätigen, sonst wird sie zurückgesetzt. Bei aktivem HDR regelt **Helligkeit von SDR-Inhalten** SDR-Inhalte von 1,0× bis 2,0× und speichert sofort. HDR-Spiele im Vollbild können den Monitor auch bei ausgeschaltetem Desktop-HDR automatisch umschalten.
+
 ## Tastatur
 
 Belegungen fügst du in Walker unter System > Geräte und Eingabe > Tastatur hinzu oder entfernst sie dort. Tastaturbelegung hinzufügen listet alle Sprachen und Varianten (tippen zum Suchen); wähle eine Belegung und drücke Entf, um sie zu entfernen. Bis zu vier sind erlaubt, Duplikate werden abgelehnt, und mindestens eine muss bleiben. **Alt + Shift** wechselt zwischen ihnen. Ab zwei Belegungen zeigt die Leiste das Kürzel der aktiven (etwa US oder BR); ein Klick darauf oder das Kontrollzentrum wechselt sie. Tastaturbelegung und Systemsprache beziehungsweise Gebietsschema sind unabhängig.

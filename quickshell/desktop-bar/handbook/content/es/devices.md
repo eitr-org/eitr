@@ -22,6 +22,8 @@ Puedes organizar cualquier número de monitores: coloca cada uno a izquierda, de
 
 El brillo prefiere un control nativo de retroiluminación utilizable; en su defecto, intenta controlar un monitor externo mediante DDC. Su disponibilidad depende del monitor y los permisos. La Luz nocturna tiene un interruptor manual y un horario opcional editable.
 
+**HDR** solo aparece en monitores cuyo EDID indica compatibilidad con PQ o HLG. Muestra el escritorio en HDR; los juegos pueden usar HDR aunque esté desactivado. Al activar o desactivar HDR también debes conservar el cambio en 15 segundos; de lo contrario, se revierte. Con HDR activo, **Brillo del contenido SDR** ajusta el contenido SDR de 1,0× a 2,0× y guarda inmediatamente. Los juegos HDR a pantalla completa pueden cambiar el monitor automáticamente aunque el HDR del escritorio esté desactivado.
+
 ## Teclado
 
 Añade y quita distribuciones en Walker: Sistema > Dispositivos y entrada > Teclado. Añadir distribución lista todos los idiomas y variantes (escribe para buscar); selecciona una distribución y pulsa Supr para quitarla. Se admiten hasta cuatro, sin duplicados, y debe quedar al menos una. **Alt + Shift** las recorre. Con dos o más, la barra muestra el código de la activa (como US o BR); haz clic en él, o usa el Centro de control, para cambiarla. La distribución del teclado es independiente del idioma y la configuración regional del sistema.

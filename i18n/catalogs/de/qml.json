@@ -392,5 +392,8 @@
   "Back": "Zurück",
   "Copy reply": "Antwort kopieren",
   "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "Keine lesbaren KI-Nutzungsdaten verfügbar. Melde dich bei Claude Code, Codex oder Grok an oder aktualisiere später erneut.",
-  "Copied": "Kopiert"
+  "Copied": "Kopiert",
+  "HDR": "HDR",
+  "Shows the desktop in HDR. Games can use HDR even when this is off.": "Zeigt den Desktop in HDR. Spiele können HDR auch nutzen, wenn dies ausgeschaltet ist.",
+  "SDR content brightness": "Helligkeit von SDR-Inhalten"
 }

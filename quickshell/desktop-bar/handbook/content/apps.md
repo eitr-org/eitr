@@ -99,6 +99,9 @@ package is not the same as the snapshot-protected System Update workflow.
 
 **Music Visualizer** in **Main > Tools** opens cava with theme colours. Right-click the media equalizer to open the same visualizer; left-click still opens media details. Press **q** or **Esc** to close it. On existing desktops, a missing cava package is installed first.
 
+When a connected monitor reports HDR support, Eitr defaults Steam Proton games to Wayland and HDR with `PROTON_ENABLE_WAYLAND=1`, `PROTON_ENABLE_HDR=1` and `DXVK_HDR=1`. Machines without an HDR monitor keep their existing defaults. Hardware detection refreshes the generated display configuration when displays are listed or changed, and before that configuration loads at login or reload. Start a new desktop session and restart Steam to inherit changed defaults; an already running Steam process keeps its environment. Enable HDR in the game itself; fullscreen games can switch the monitor automatically even with desktop HDR off. A few games lose the Steam overlay in Wayland mode. To opt out for one game, set its Steam launch options to `PROTON_ENABLE_WAYLAND=0 %command%`.
+
+
 ## Voice reminders
 
 Hold **SUPER + Shift + D**, speak and release, or open Main > Tools > Reminders > Tell the assistant… to type. Eitr transcribes locally using the same offline model as dictation, then asks your Development > Default Assistant to interpret the request. Only the transcript and reminder context go to that assistant's provider; audio stays local and is deleted after transcription. The assistant runs headless through Eitr's read-only path; Eitr validates its JSON and executes reminder actions itself, without giving the assistant tools to change anything. With Ratatoskr (Development > Default Assistant), the transcript never leaves this PC.

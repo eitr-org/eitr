@@ -374,6 +374,9 @@
     "Girl · Pillow": [
       "quickshell/lockscreen/design-gallery.qml"
     ],
+    "HDR": [
+      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+    ],
     "Hardware": [
       "quickshell/desktop-bar/ControlCenter.qml",
       "quickshell/desktop-bar/shell.qml"
@@ -861,6 +864,9 @@
     "SCENE": [
       "quickshell/desktop-bar/RecordingMenu.qml"
     ],
+    "SDR content brightness": [
+      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+    ],
     "SESSION": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml",
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml"
@@ -962,6 +968,9 @@
     ],
     "Show this welcome at the next login": [
       "quickshell/desktop-bar/Handbook.qml"
+    ],
+    "Shows the desktop in HDR. Games can use HDR even when this is off.": [
+      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
     ],
     "Shut Down": [
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
@@ -6134,6 +6143,9 @@
     "SDDM was not restarted. Log out or reboot to see the login design.": [
       "quickshell/lockscreen/scripts/install-login.py"
     ],
+    "SDR content brightness must be between 1 and 2.": [
+      "quickshell/desktop-bar/scripts/display-settings.py"
+    ],
     "SQL Servers": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
@@ -6795,6 +6807,9 @@
     "This connects {assistants}. Each of them can then ask another one for a review, an explanation or a suggestion.": [
       "walker/scripts/actions/assistant-collaboration.py"
     ],
+    "This display does not report HDR support.": [
+      "quickshell/desktop-bar/scripts/display-settings.py"
+    ],
     "This family spans multiple packages; remove it with the package manager": [
       "walker/scripts/actions/style/fonts.py"
     ],
@@ -6987,6 +7002,9 @@
     ],
     "Uninstalls the Ollama package that setup installed (asks for your password).": [
       "distro/lib/eitr_local_assistant.py"
+    ],
+    "Unknown HDR value {value}": [
+      "quickshell/desktop-bar/scripts/display-settings.py"
     ],
     "Unknown account": [
       "walker/scripts/menus/cloud/providers.py"

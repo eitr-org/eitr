@@ -60,13 +60,6 @@ LAN.
   block character the wizard uses. Boot the next ISO in a VM with `LANG=pt_BR` and
   `es_ES` on tty2 and confirm the installer screens show the accents.
 
-- **HDR games by default (owner decides).** Hyprland already switches to HDR when a
-  fullscreen app asks (`cm_auto_hdr`), but Steam games run through XWayland and
-  never ask. Proposal: an "HDR games" switch in the Display panel for monitors whose
-  EDID reports HDR10, giving Steam games `PROTON_ENABLE_WAYLAND=1` and
-  `PROTON_ENABLE_HDR=1` with a per-game opt-out, ProtonPlus in Install > Gaming, and
-  a Handbook section. Test with an HDR game on the owner's monitor.
-
 # 3. Later
 
 - **Voice reminders, next steps.** Read-only Google/Outlook/iCal subscriptions

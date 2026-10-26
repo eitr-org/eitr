@@ -46,6 +46,9 @@ Für Aktualisierungen siehe [Updates und Bereinigung](handbook:maintenance); ein
 
 **Musikvisualisierer** unter **Hauptmenü > Werkzeuge** öffnet cava in den Theme-Farben. Ein Rechtsklick auf den Medien-Equalizer öffnet denselben Visualisierer; ein Linksklick öffnet weiterhin die Mediendetails. **q** oder **Esc** schließt ihn. Auf bestehenden Desktops wird cava bei Bedarf zuerst installiert.
 
+Wenn ein angeschlossener Monitor HDR unterstützt, verwendet Eitr für Steam-Proton-Spiele standardmäßig Wayland und HDR mit `PROTON_ENABLE_WAYLAND=1`, `PROTON_ENABLE_HDR=1` und `DXVK_HDR=1`. Ohne HDR-Monitor bleiben die bisherigen Vorgaben erhalten. Die Hardwareerkennung aktualisiert die erzeugte Bildschirmkonfiguration beim Auflisten oder Ändern der Bildschirme sowie vor ihrem Laden bei Anmeldung oder Neuladen. Starte eine neue Desktopsitzung und Steam neu, um geänderte Vorgaben zu übernehmen; laufendes Steam behält seine Umgebung. Aktiviere HDR im Spiel; Vollbildspiele können den Monitor auch ohne Desktop-HDR automatisch umschalten. Bei einigen Spielen fehlt unter Wayland das Steam-Overlay. Zum Abschalten für ein Spiel trage `PROTON_ENABLE_WAYLAND=0 %command%` in dessen Steam-Startoptionen ein.
+
+
 ## Erinnerungen per Sprache
 
 Halte **SUPER + Shift + D**, sprich und lasse los, oder tippe unter Hauptmenü > Werkzeuge > Erinnerungen > Dem Assistenten etwas sagen…. Eitr transkribiert lokal mit dem Offline-Modell der Diktierfunktion und fragt den unter Entwicklung > Standardassistent gewählten Assistenten. Nur Transkript und Erinnerungskontext gehen an dessen Anbieter; Audio bleibt lokal und wird nach der Transkription gelöscht. Der Assistent läuft ohne Fenster über Eitrs schreibgeschützten Aufruf. Eitr prüft dessen JSON und führt Erinnerungsaktionen selbst aus; der Assistent erhält keine Werkzeuge zum Ändern von Daten. Mit Ratatoskr (Entwicklung > Standardassistent) verlässt das Transkript diesen PC nie.

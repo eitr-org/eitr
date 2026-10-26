@@ -30,6 +30,9 @@ class DisplaySettingsTests(unittest.TestCase):
                                           "XDG_RUNTIME_DIR": str(self.base), "EITR_CODE_ROOT": str(REPO)})
         patcher.start()
         self.addCleanup(patcher.stop)
+        patcher = patch.object(display, "DRM_ROOT", self.base / "drm")
+        patcher.start()
+        self.addCleanup(patcher.stop)
         self.commands = []
 
         def run(command, **kwargs):
@@ -39,6 +42,101 @@ class DisplaySettingsTests(unittest.TestCase):
         patcher = patch.object(display.subprocess, "run", side_effect=run)
         patcher.start()
         self.addCleanup(patcher.stop)
+
+    @staticmethod
+    def edid(eotf=4):
+        base = bytearray(128)
+        base[:8] = bytes.fromhex("00ffffffffffff00")
+        base[8:18] = bytes.fromhex("16920001000000000122")
+        base[18:25] = bytes([1, 4, 0xa5, 60, 34, 120, 2])
+        base[38:54] = bytes([1, 1]) * 8
+        base[54:72] = b"\x00\x00\x00\xfc\x00Eitr HDR test"
+        base[126] = 1
+        base[127] = -sum(base) % 256
+        cta = bytearray(128)
+        cta[:8] = bytes([2, 3, 8, 0, 0xe3, 6, eotf, 1])
+        cta[127] = -sum(cta) % 256
+        return bytes(base + cta)
+
+    def hdr_connector(self, eotf=4, status="connected"):
+        connector = self.base / "drm/card1-DP-3"
+        connector.mkdir(parents=True, exist_ok=True)
+        (connector / "edid").write_bytes(self.edid(eotf))
+        (connector / "status").write_text(status)
+        return connector
+
+    def test_edid_hdr_eotfs_and_invalid_blocks(self):
+        for eotf in (4, 8, 12):
+            self.assertTrue(display.edid_hdr(self.edid(eotf)))
+        self.assertFalse(display.edid_hdr(self.edid(1)))
+        for invalid in (b"", self.edid()[:200], b"invalid" * 40, self.edid()[:-1] + b"x"):
+            self.assertFalse(display.edid_hdr(invalid))
+        malformed = bytearray(self.edid())
+        malformed[132] = 0xff
+        malformed[255] = -sum(malformed[128:255]) % 256
+        self.assertFalse(display.edid_hdr(malformed))
+        self.hdr_connector()
+        self.assertTrue(display.hdr_capable("DP-3"))
+        self.assertFalse(display.hdr_capable("DP-1"))
+
+    def test_hdr_toggle_trials_keep_revert_and_brightness(self):
+        self.hdr_connector()
+        self.assertTrue(display.set_setting("DP-3", "hdr", "on")["trial"])
+        self.assertIn('cm = "hdr", bitdepth = 10, sdrbrightness = 1', self.evaluated()[-1])
+        self.assertTrue(display.revert())
+        self.assertNotIn('cm =', self.evaluated()[-1])
+        display.set_setting("DP-3", "hdr", "on")
+        display.keep()
+        self.assertTrue(display.saved()["DP-3"]["hdr"])
+        hdr_live = [dict(MONITORS[0], colorManagementPreset="hdr", sdrBrightness=1.4), MONITORS[1]]
+        with patch.object(display, "monitors", return_value=hdr_live):
+            self.assertNotIn("trial", display.set_setting("DP-3", "sdr_brightness", "1.6"))
+            self.assertIn('sdrbrightness = 1.6', self.evaluated()[-1])
+            self.assertEqual(display.saved()["DP-3"]["sdr_brightness"], 1.6)
+            self.assertTrue(display.set_setting("DP-3", "hdr", "off")["trial"])
+            display.revert()
+            self.assertIn('sdrbrightness = 1.4', self.evaluated()[-1])
+            display.set_setting("DP-3", "hdr", "off")
+            display.keep()
+            self.assertFalse(display.saved()["DP-3"]["hdr"])
+
+    def test_sdr_brightness_is_remembered_while_desktop_hdr_is_off(self):
+        display.save({"DP-3": dict(display.current(MONITORS[0]), hdr=False, sdr_brightness=1.7)})
+        self.assertEqual(display.current(MONITORS[0])["sdr_brightness"], 1.7)
+        live = dict(MONITORS[0], colorManagementPreset="HDR", sdrBrightness=1.2)
+        self.assertTrue(display.current(live)["hdr"])
+        self.assertEqual(display.current(live)["sdr_brightness"], 1.2)
+        self.assertNotIn("sdrbrightness", display.lua_call("DP-3", display.current(MONITORS[0])))
+
+    def test_hdr_invalid_values_and_unsupported_monitor(self):
+        for key, value in (("hdr", "on"), ("hdr", "yes"), ("sdr_brightness", "nan"),
+                           ("sdr_brightness", "inf"), ("sdr_brightness", "0.9"), ("sdr_brightness", "2.1")):
+            with self.subTest(key=key, value=value), self.assertRaises(ValueError):
+                display.set_setting("DP-3", key, value)
+        self.assertEqual(self.evaluated(), [])
+
+    def test_generated_game_defaults_follow_connected_edid_and_list_reports_state(self):
+        display.save({})
+        generated = display.config_dir() / "displays.lua"
+        self.assertNotIn('hl.env', generated.read_text())
+        connector = self.hdr_connector()
+        output = []
+        with patch("builtins.print", side_effect=output.append):
+            display.main(["list"])
+        monitor = json.loads(output[0])["monitors"][0]
+        self.assertTrue(monitor["hdr_capable"])
+        self.assertFalse(monitor["hdr"])
+        self.assertEqual(monitor["sdr_brightness"], 1)
+        for variable in display.HDR_ENV:
+            self.assertIn(f'hl.env("{variable}", "1", true)', generated.read_text())
+        self.assertEqual(self.evaluated(), [], "listing never changes live monitors")
+        (connector / "status").write_text("disconnected")
+        display.main(["refresh-hdr"])
+        self.assertNotIn('hl.env', generated.read_text())
+        self.assertEqual(json.loads((display.config_dir() / "displays.json").read_text()), {})
+        self.hdr_connector(eotf=1)
+        display.save({})
+        self.assertNotIn('hl.env', generated.read_text())
 
     def evaluated(self):
         return [command[2] for command in self.commands if command[:2] == ["hyprctl", "eval"]]
@@ -177,7 +275,7 @@ class DisplaySettingsTests(unittest.TestCase):
         self.assertLessEqual(fields, {"output", "mode", "position", "scale", "transform", "mirror", "disabled"})
 
     def test_a_new_mode_is_live_but_reverts_unless_kept(self):
-        # A mode the screen cannot show leaves it black, so only a mode change is tried.
+        # A mode the screen cannot show leaves it black, so the change is tried.
         self.assertTrue(display.set_setting("DP-3", "mode", "1920x1080@60.00")["trial"])
         self.assertIn('hl.monitor({ output = "DP-3", mode = "1920x1080@60.00", position = "0x0", scale = 1 })',
                       self.evaluated())
@@ -227,7 +325,7 @@ class DisplaySettingsTests(unittest.TestCase):
     def test_the_display_panel_offers_it(self):
         panel = (BAR / "BrightnessMenu.qml").read_text()
         self.assertIn('trialOperation.command = ["python3", settingsHelper, "set", name, key, value]', panel)
-        self.assertIn("if (result.trial)", panel, "the countdown appears only for a mode being tried")
+        self.assertIn("if (result.trial)", panel, "the countdown appears for settings being tried")
         self.assertIn('menu.finishTrial("keep")', panel)
         self.assertIn('menu.finishTrial("revert")', panel)
         self.assertIn("readonly property int trialLength: 15", panel)

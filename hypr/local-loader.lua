@@ -59,5 +59,8 @@ end
 
 -- displays.lua is written by the Display panel's settings (display-settings.py);
 -- local.lua comes after it, so hand-written monitors win.
+-- Refresh hardware-dependent game defaults before loading the generated rules.
+local display_helper = paths.code("quickshell/desktop-bar/scripts/display-settings.py")
+os.execute("python3 '" .. display_helper:gsub("'", "'\\''") .. "' refresh-hdr")
 load_local_config(paths.config .. "/hypr/displays.lua")
 load_local_config(paths.config .. "/hypr/local.lua")

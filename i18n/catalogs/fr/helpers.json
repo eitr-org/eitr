@@ -1329,5 +1329,8 @@
   "Enter: run System Update now (with its snapshot), then install · Esc: cancel": "Entrée : lancer la Mise à jour du système maintenant (avec son instantané), puis installer · Échap : annuler",
   "System Update did not finish, so nothing was installed.": "La Mise à jour du système ne s'est pas terminée, rien n'a donc été installé.",
   "Updates are still waiting after System Update, so nothing was installed.": "Des mises à jour restent en attente après la Mise à jour du système, rien n'a donc été installé.",
-  "Nothing was installed. Run System Update when you are ready, then install again.": "Rien n'a été installé. Lancez la Mise à jour du système quand vous voulez, puis réinstallez."
+  "Nothing was installed. Run System Update when you are ready, then install again.": "Rien n'a été installé. Lancez la Mise à jour du système quand vous voulez, puis réinstallez.",
+  "Unknown HDR value {value}": "Valeur HDR inconnue {value}",
+  "This display does not report HDR support.": "Cet écran n’indique aucune prise en charge de HDR.",
+  "SDR content brightness must be between 1 and 2.": "La luminosité du contenu SDR doit être comprise entre 1 et 2."
 }

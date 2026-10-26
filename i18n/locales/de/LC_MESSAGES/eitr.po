@@ -2515,6 +2515,9 @@ msgstr "S3"
 msgid "SDDM was not restarted. Log out or reboot to see the login design."
 msgstr "SDDM wurde nicht neu gestartet. Melden Sie sich ab oder starten Sie neu, um das Anmeldedesign zu sehen."
 
+msgid "SDR content brightness must be between 1 and 2."
+msgstr "Die Helligkeit von SDR-Inhalten muss zwischen 1 und 2 liegen."
+
 msgid "SQL Servers"
 msgstr "SQL-Server"
 
@@ -3169,6 +3172,9 @@ msgstr "Dieser Rechner hat keinen Wiederherstellungspunkt für den Werkszustand.
 msgid "This connects {assistants}. Each of them can then ask another one for a review, an explanation or a suggestion."
 msgstr "Damit werden {assistants} verbunden. Jeder kann dann einen anderen um eine Prüfung, eine Erklärung oder einen Vorschlag bitten."
 
+msgid "This display does not report HDR support."
+msgstr "Dieser Bildschirm meldet keine HDR-Unterstützung."
+
 msgid "This family spans multiple packages; remove it with the package manager"
 msgstr "Diese Schriftfamilie verteilt sich auf mehrere Pakete; entfernen Sie sie über die Paketverwaltung"
 
@@ -3360,6 +3366,9 @@ msgstr "{name} deinstallieren? Das Paket kann mehrere Apps enthalten."
 
 msgid "Uninstalls the Ollama package that setup installed (asks for your password)."
 msgstr "Deinstalliert das Ollama-Paket, das die Einrichtung installiert hat (fragt nach deinem Passwort)."
+
+msgid "Unknown HDR value {value}"
+msgstr "Unbekannter HDR-Wert {value}"
 
 msgid "Unknown account"
 msgstr "Unbekanntes Konto"

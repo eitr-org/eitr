@@ -433,7 +433,7 @@ machine-local `~/.config/hypr/preferred-outputs`, else the largest active
 screen. A monitor's settings edit its mode, scale, position (beside another
 monitor, aligned start/center/end; remembered so it follows that monitor; the
 main display has none) and mirroring, each a collapsed row that opens its
-choices. Changes apply and save at once, except a new resolution or refresh rate,
+choices. Changes apply and save at once, except a new resolution, refresh rate or HDR toggle,
 which reverts after 15 s unless kept (the Keep bar is pinned below the scrolling
 panel). Every monitor is pinned to an explicit position, monitors that move
 together are parked aside first so no step overlaps, overlapping layouts are
@@ -442,6 +442,11 @@ refused, and settings are saved to
 and not polled, because each read takes about half a second. **Edit
 layout by hand** opens `~/.config/hypr/local.lua`, seeded from
 `hypr/local.lua.template` when missing.
+HDR-capable monitors expose an HDR switch and a 1.0–2.0× SDR content brightness slider.
+Capability comes from CTA EDID PQ/HLG metadata. Generated `displays.lua` enables
+Proton Wayland/HDR and DXVK HDR only with connected HDR hardware; the local loader
+refreshes it before loading. New sessions and a restarted Steam inherit these defaults.
+`cm_auto_hdr` remains enabled for fullscreen games with desktop HDR off.
 The Nightlight editor saves valid time changes automatically; its Auto switch
 enables or disables the schedule, while the main switch remains a manual override.
 Brightness uses the laptop backlight when present and the first DDC monitor

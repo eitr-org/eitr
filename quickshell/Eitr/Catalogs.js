@@ -144,6 +144,7 @@ var qml = {
     "General": "General",
     "Girl · Coffee": "Girl · Coffee",
     "Girl · Pillow": "Girl · Pillow",
+    "HDR": "HDR",
     "Hardware": "Hardware",
     "Hardware information unavailable": "Hardware information unavailable",
     "Hide Bar": "Hide Bar",
@@ -297,6 +298,7 @@ var qml = {
     "Runs on this PC; nothing is saved": "Runs on this PC; nothing is saved",
     "SCANNED DEVICES": "SCANNED DEVICES",
     "SCENE": "SCENE",
+    "SDR content brightness": "SDR content brightness",
     "SESSION": "SESSION",
     "SHUT DOWN": "SHUT DOWN",
     "SLEEP": "SLEEP",
@@ -329,6 +331,7 @@ var qml = {
     "Show on": "Show on",
     "Show the camera": "Show the camera",
     "Show this welcome at the next login": "Show this welcome at the next login",
+    "Shows the desktop in HDR. Games can use HDR even when this is off.": "Shows the desktop in HDR. Games can use HDR even when this is off.",
     "Shut Down": "Shut Down",
     "Shutdown": "Shutdown",
     "Size": "Size",
@@ -813,7 +816,10 @@ var qml = {
     "Back": "Voltar",
     "Copy reply": "Copiar resposta",
     "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "Nenhum dado de uso de IA legível disponível. Entre no Claude Code, Codex ou Grok, ou tente atualizar mais tarde.",
-    "Copied": "Copiado"
+    "Copied": "Copiado",
+    "HDR": "HDR",
+    "Shows the desktop in HDR. Games can use HDR even when this is off.": "Exibe a área de trabalho em HDR. Jogos podem usar HDR mesmo com esta opção desativada.",
+    "SDR content brightness": "Brilho do conteúdo SDR"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1209,7 +1215,10 @@ var qml = {
     "Back": "Atrás",
     "Copy reply": "Copiar respuesta",
     "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "No hay datos de uso de IA legibles. Inicia sesión en Claude Code, Codex o Grok, o vuelve a actualizar más tarde.",
-    "Copied": "Copiado"
+    "Copied": "Copiado",
+    "HDR": "HDR",
+    "Shows the desktop in HDR. Games can use HDR even when this is off.": "Muestra el escritorio en HDR. Los juegos pueden usar HDR aunque esté desactivado.",
+    "SDR content brightness": "Brillo del contenido SDR"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1605,7 +1614,10 @@ var qml = {
     "Back": "Zurück",
     "Copy reply": "Antwort kopieren",
     "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "Keine lesbaren KI-Nutzungsdaten verfügbar. Melde dich bei Claude Code, Codex oder Grok an oder aktualisiere später erneut.",
-    "Copied": "Kopiert"
+    "Copied": "Kopiert",
+    "HDR": "HDR",
+    "Shows the desktop in HDR. Games can use HDR even when this is off.": "Zeigt den Desktop in HDR. Spiele können HDR auch nutzen, wenn dies ausgeschaltet ist.",
+    "SDR content brightness": "Helligkeit von SDR-Inhalten"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2001,6 +2013,9 @@ var qml = {
     "Back": "Retour",
     "Copy reply": "Copier la réponse",
     "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "Aucune donnée d’utilisation de l’IA lisible. Connectez-vous à Claude Code, Codex ou Grok, ou réessayez d’actualiser plus tard.",
-    "Copied": "Copié"
+    "Copied": "Copié",
+    "HDR": "HDR",
+    "Shows the desktop in HDR. Games can use HDR even when this is off.": "Affiche le bureau en HDR. Les jeux peuvent utiliser HDR même si ce réglage est désactivé.",
+    "SDR content brightness": "Luminosité du contenu SDR"
   }
 };

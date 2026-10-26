@@ -392,5 +392,8 @@
   "Back": "Voltar",
   "Copy reply": "Copiar resposta",
   "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "Nenhum dado de uso de IA legível disponível. Entre no Claude Code, Codex ou Grok, ou tente atualizar mais tarde.",
-  "Copied": "Copiado"
+  "Copied": "Copiado",
+  "HDR": "HDR",
+  "Shows the desktop in HDR. Games can use HDR even when this is off.": "Exibe a área de trabalho em HDR. Jogos podem usar HDR mesmo com esta opção desativada.",
+  "SDR content brightness": "Brilho do conteúdo SDR"
 }

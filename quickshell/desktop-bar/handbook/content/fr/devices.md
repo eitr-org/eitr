@@ -22,6 +22,8 @@ Vous pouvez disposer autant de moniteurs que nécessaire : placez chacun à gauc
 
 La luminosité utilise de préférence un rétroéclairage natif disponible, sinon un moniteur externe via DDC. Sa disponibilité dépend du moniteur et des permissions. L’Éclairage nocturne propose un interrupteur manuel et une programmation facultative avec des horaires modifiables.
 
+**HDR** apparaît uniquement sur les moniteurs dont l’EDID indique la prise en charge de PQ ou HLG. Il affiche le bureau en HDR ; les jeux peuvent utiliser HDR même lorsque ce réglage est désactivé. Activer ou désactiver HDR demande aussi de conserver le changement sous 15 secondes, sinon il est annulé. Lorsque HDR est actif, **Luminosité du contenu SDR** règle le contenu SDR de 1,0× à 2,0× et enregistre immédiatement. Les jeux HDR en plein écran peuvent toujours basculer automatiquement le moniteur lorsque le HDR du bureau est désactivé.
+
 ## Clavier
 
 Ajoutez et retirez des dispositions dans Walker : Système > Périphériques et saisie > Clavier. Ajouter une disposition liste toutes les langues et variantes (tapez pour chercher) ; sélectionnez une disposition et appuyez sur Suppr pour la retirer. Jusqu’à quatre sont prises en charge, sans doublons, et au moins une doit rester. **Alt + Shift** les parcourt. À partir de deux, la barre affiche le code de la disposition active (comme US ou BR) ; cliquez dessus, ou utilisez le Centre de contrôle, pour en changer. La disposition du clavier est indépendante de la langue et des paramètres régionaux du système.

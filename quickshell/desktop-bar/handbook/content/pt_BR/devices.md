@@ -22,6 +22,8 @@ Cada configuração mostra o valor atual em uma linha; clique para ver as opçõ
 
 O brilho prioriza um controle nativo de iluminação disponível; caso contrário, tenta controlar um monitor externo por DDC. A disponibilidade depende do monitor e das permissões. A Luz noturna tem um botão manual e uma programação opcional com horários editáveis.
 
+**HDR** aparece apenas em monitores cujo EDID informa suporte a PQ ou HLG. Exibe a área de trabalho em HDR; jogos podem usar HDR mesmo com a opção desativada. Ativar ou desativar HDR também pede confirmação em 15 segundos; sem ela, a alteração é desfeita. Com HDR ativo, **Brilho do conteúdo SDR** ajusta o conteúdo SDR de 1,0× a 2,0× e salva imediatamente. Jogos HDR em tela cheia ainda podem alternar o monitor automaticamente quando o HDR da área de trabalho está desativado.
+
 ## Teclado
 
 Adicione e remova layouts no Walker: Sistema > Dispositivos e entrada > Teclado. Adicionar layout lista todos os idiomas e variantes (digite para buscar); selecione um layout e pressione Delete para removê-lo. São permitidos até quatro, sem duplicatas, e pelo menos um deve permanecer. **Alt + Shift** alterna entre eles. Com dois ou mais, a barra mostra o código do layout ativo (como US ou BR); clique nele, ou use a Central de controle, para trocar. O layout do teclado é independente do idioma e da localidade do sistema.

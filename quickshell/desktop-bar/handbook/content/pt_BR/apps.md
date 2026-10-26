@@ -46,6 +46,9 @@ Consulte [Atualizações e limpeza](handbook:maintenance) para atualizar; instal
 
 **Visualizador de música** em **Principal > Ferramentas** abre o cava com as cores do tema. Clique com o botão direito no equalizador de mídia para abrir o mesmo visualizador; o botão esquerdo continua abrindo os detalhes da mídia. Pressione **q** ou **Esc** para fechar. Se o cava não estiver instalado, ele será instalado primeiro.
 
+Quando um monitor conectado oferece HDR, o Eitr usa Wayland e HDR por padrão nos jogos Proton do Steam com `PROTON_ENABLE_WAYLAND=1`, `PROTON_ENABLE_HDR=1` e `DXVK_HDR=1`. Sem monitor HDR, os padrões existentes são mantidos. A detecção de hardware atualiza a configuração de monitores gerada ao listar ou alterar monitores e antes de carregá-la no login ou recarregamento. Inicie uma nova sessão da área de trabalho e reinicie o Steam para herdar alterações; o Steam já aberto mantém seu ambiente. Ative HDR no próprio jogo; jogos em tela cheia podem alternar o monitor automaticamente mesmo sem HDR na área de trabalho. Alguns jogos perdem a sobreposição do Steam no Wayland. Para excluir um jogo, use `PROTON_ENABLE_WAYLAND=0 %command%` nas opções de inicialização dele no Steam.
+
+
 ## Lembretes por voz
 
 Segure **SUPER + Shift + D**, fale e solte, ou digite em Principal > Ferramentas > Lembretes > Fale com o assistente…. O Eitr transcreve localmente com o mesmo modelo offline do ditado e consulta o assistente escolhido em Desenvolvimento > Assistente padrão. Só a transcrição e o contexto dos lembretes vão ao provedor; o áudio fica local e é apagado após a transcrição. O assistente roda sem janela pelo caminho somente leitura do Eitr. O Eitr valida o JSON e executa as ações; o assistente não recebe ferramentas para alterar nada. Com Ratatoskr (Desenvolvimento > Assistente padrão), a transcrição nunca sai deste PC.

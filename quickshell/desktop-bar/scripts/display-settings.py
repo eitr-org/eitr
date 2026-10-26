@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
-"""Resolution, scale, position and mirroring for each display.
+"""Mode, HDR, scale, position and mirroring for each display.
 
   display-settings.py list               monitors and their saved settings, as JSON
-  display-settings.py set NAME KEY VALUE apply a change and save it; a new mode is only tried
-  display-settings.py keep               save the mode being tried
-  display-settings.py revert             undo the mode being tried
+  display-settings.py set NAME KEY VALUE apply a change and save it; a mode or HDR toggle is only tried
+  display-settings.py keep               save the settings being tried
+  display-settings.py revert             undo the settings being tried
+  display-settings.py refresh-hdr        regenerate hardware-dependent rules without applying them
   display-settings.py edit               open ~/.config/hypr/local.lua, seeded with examples
 
-KEY is mode (2560x1080@144), scale (1.25), position or mirror (another output, or
-none). A position is either pixels (0x0) or SIDE:OTHER[:ALIGN], where SIDE is
+KEY is hdr (on/off), sdr_brightness (1.0–2.0), mode (2560x1080@144), scale
+(1.25), position or mirror (another output, or none). A position is either pixels (0x0) or SIDE:OTHER[:ALIGN], where SIDE is
 left-of, right-of, above or below, and ALIGN is start, center or end along the
 shared edge. That arrangement is saved, so when OTHER later changes resolution or
 scale, the displays beside it move with it. Any number of displays can be
@@ -17,14 +18,15 @@ arranged this way; a change that would make two displays overlap is refused.
 Saved settings live in the machine-local ~/.config/hypr/displays.json, and
 displays.lua (generated from it) is loaded before ~/.config/hypr/local.lua, so
 hand-written settings there still win. Position, scale and mirroring apply live
-through hyprctl and are saved at once. A new resolution or refresh rate could leave
-a screen black, so it is only tried: unless kept, a systemd user timer that does
+through hyprctl and are saved at once. A new resolution, refresh rate or HDR toggle
+could leave a screen black, so it is only tried: unless kept, a systemd user timer that does
 not depend on the bar undoes it after 15 s.
 """
 import eitr_bootstrap
 from eitr_i18n import tr
 import importlib.util
 import json
+import math
 import os
 from pathlib import Path
 import shutil
@@ -32,6 +34,9 @@ import subprocess
 import sys
 
 from eitr_paths import code
+
+DRM_ROOT = Path("/sys/class/drm")
+HDR_ENV = ("PROTON_ENABLE_WAYLAND", "PROTON_ENABLE_HDR", "DXVK_HDR")
 
 REVERT_SECONDS = 15
 REVERT_UNIT = "eitr-display-revert"
@@ -51,12 +56,70 @@ def monitors():
                                      check=True).stdout)
 
 
+def edid_hdr(data):
+    """Validate EDID blocks and inspect CTA HDR Static Metadata EOTFs."""
+    if len(data) < 128 or data[:8] != b"\x00\xff\xff\xff\xff\xff\xff\x00":
+        return False
+    count = data[126] + 1
+    if len(data) < count * 128 or any(sum(data[offset:offset + 128]) % 256
+                                     for offset in range(0, count * 128, 128)):
+        return False
+    capable = False
+    for offset in range(128, count * 128, 128):
+        block = data[offset:offset + 128]
+        if block[0] != 2:
+            continue
+        end = block[2]
+        if end == 0:
+            continue
+        if not 4 <= end <= 127:
+            return False
+        cursor = 4
+        while cursor < end:
+            header = block[cursor]
+            length = header & 31
+            cursor += 1
+            if cursor + length > end:
+                return False
+            if header >> 5 == 7 and length >= 3 and block[cursor] == 6:
+                capable |= bool(block[cursor + 1] & 0x0c)
+            cursor += length
+    return capable
+
+
+def hdr_capable(name):
+    for connector in DRM_ROOT.glob("card*-*"):
+        if connector.name.partition("-")[2] != name:
+            continue
+        try:
+            if edid_hdr((connector / "edid").read_bytes()):
+                return True
+        except OSError:
+            pass
+    return False
+
+
+def connected_hdr():
+    for connector in DRM_ROOT.glob("card*-*"):
+        try:
+            if (connector / "status").read_text().strip() == "connected" and edid_hdr((connector / "edid").read_bytes()):
+                return True
+        except OSError:
+            pass
+    return False
+
+
 def current(monitor):
     """A monitor's live settings in hl.monitor form."""
     mirror = monitor.get("mirrorOf") or "none"
+    hdr = monitor.get("colorManagementPreset", "srgb").lower() in ("hdr", "hdredid")
+    brightness = monitor.get("sdrBrightness", 1.0)
+    if not hdr:
+        brightness = saved().get(monitor.get("name"), {}).get("sdr_brightness", brightness)
     return {"mode": f"{monitor['width']}x{monitor['height']}@{monitor['refreshRate']:.2f}",
             "position": f"{monitor['x']}x{monitor['y']}", "scale": f"{monitor['scale']:g}",
-            "mirror": None if mirror == "none" else mirror}
+            "mirror": None if mirror == "none" else mirror,
+            "hdr": hdr, "sdr_brightness": brightness}
 
 
 SIDES = ("left-of", "right-of", "above", "below")
@@ -164,6 +227,8 @@ def lua_call(name, settings):
               f'scale = {settings["scale"]}']
     if settings.get("mirror"):
         fields.append(f'mirror = "{settings["mirror"]}"')
+    if settings.get("hdr"):
+        fields += ['cm = "hdr"', 'bitdepth = 10', f'sdrbrightness = {float(settings.get("sdr_brightness", 1)):g}']
     return "hl.monitor({ " + ", ".join(fields) + " })"
 
 
@@ -208,8 +273,16 @@ def save(settings):
     directory = config_dir()
     directory.mkdir(parents=True, exist_ok=True)
     (directory / "displays.json").write_text(json.dumps(settings, indent=2, sort_keys=True) + "\n")
+    write_generated(settings)
+
+
+def write_generated(settings):
+    directory = config_dir()
+    directory.mkdir(parents=True, exist_ok=True)
     lines = ["-- Generated by Eitr's display settings from displays.json; edit them there or in the",
              "-- Display panel. local.lua is loaded after this file, so its monitors win."]
+    if connected_hdr():
+        lines += [f'hl.env("{variable}", "1", true)' for variable in HDR_ENV]
     lines += [lua_call(name, values) for name, values in sorted(settings.items())]
     (directory / "displays.lua").write_text("\n".join(lines) + "\n")
 
@@ -231,7 +304,7 @@ def saved_anchors(live):
 
 
 def set_setting(name, key, value):
-    if key not in ("mode", "scale", "position", "mirror"):
+    if key not in ("mode", "scale", "position", "mirror", "hdr", "sdr_brightness"):
         raise ValueError(tr('Unknown setting {key}', key=key))
     if trial_file().exists():
         revert()
@@ -260,6 +333,17 @@ def set_setting(name, key, value):
             path = [anchor["of"]] + chain(anchor["of"], anchors)
             if name in path:
                 anchors.pop(path[path.index(name) - 1])
+    elif key == "hdr":
+        if value not in ("on", "off"):
+            raise ValueError(tr('Unknown HDR value {value}', value=value))
+        if value == "on" and not hdr_capable(name):
+            raise ValueError(tr('This display does not report HDR support.'))
+        after[name]["hdr"] = value == "on"
+    elif key == "sdr_brightness":
+        brightness = float(value)
+        if not math.isfinite(brightness) or not 1 <= brightness <= 2:
+            raise ValueError(tr('SDR content brightness must be between 1 and 2.'))
+        after[name][key] = brightness
     elif key == "mirror":
         value = None if value == "none" else value
         if value is not None and value not in {display for display in before if display != name}:
@@ -271,7 +355,7 @@ def set_setting(name, key, value):
         after[name][key] = value
     arrange(after, anchors, live)
     normalize(after)
-    if key == "mode":
+    if key in ("mode", "hdr"):
         trial_file().write_text(json.dumps({"before": before, "after": after, "anchors": anchors}) + "\n")
         subprocess.run(["systemctl", "--user", "stop", f"{REVERT_UNIT}.timer"], capture_output=True)
         subprocess.run(["systemd-run", "--user", "--quiet", f"--unit={REVERT_UNIT}", f"--on-active={REVERT_SECONDS}s",
@@ -326,13 +410,17 @@ def edit():
 
 
 def main(argv):
+    if argv == ["refresh-hdr"]:
+        write_generated(saved())
+        return 0
     if argv == ["list"]:
         live = monitors()
+        write_generated(saved())
         anchors = saved_anchors(live)
         main = main_display(live)
         anchors.pop(main, None)
         print(json.dumps({"main": main, "monitors": [{**current(monitor), "name": monitor["name"], "anchor": anchors.get(monitor["name"]),
-                                        "modes": monitor["availableModes"]} for monitor in live],
+                                        "hdr_capable": hdr_capable(monitor["name"]), "modes": monitor["availableModes"]} for monitor in live],
                           "saved": saved()}))
         return 0
     if len(argv) == 4 and argv[0] == "set":

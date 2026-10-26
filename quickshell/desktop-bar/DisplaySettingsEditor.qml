@@ -2,10 +2,10 @@ import QtQuick
 import Eitr as Eitr
 import "PanelStyle.js" as PanelStyle
 
-// Resolution, refresh rate, scale, position and mirroring for one display, inside
+// Resolution, refresh rate, HDR, scale, position and mirroring for one display, inside
 // the Display panel. Each setting is one row showing its current value; clicking
 // it opens its choices. Choosing a value asks the panel to apply it
-// (scripts/display-settings.py set); only a new mode reverts on its own unless kept.
+// (scripts/display-settings.py set); a new mode or HDR toggle reverts on its own unless kept.
 Column {
     id: editor
     required property var monitor
@@ -129,6 +129,61 @@ Column {
                 target: mainSwitch; hovered: mainHover.hovered
                 text: Eitr.I18n.tr("The main display holds the bar, panels and notifications. Position only sets where a screen sits next to the others.")
                 background: editor.background; foreground: editor.foreground
+            }
+        }
+    }
+    Column {
+        visible: !!editor.monitor.hdr_capable
+        width: parent.width
+        spacing: 6
+        Rectangle {
+            width: parent.width; height: 34
+            radius: DesktopStyle.radius(PanelStyle.controlRadius)
+            color: Qt.alpha(editor.foreground, 0.04)
+            Text {
+                x: 10; anchors.verticalCenter: parent.verticalCenter
+                text: Eitr.I18n.tr("HDR"); color: editor.foreground
+                font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
+            }
+            PanelSwitch {
+                objectName: "hdrSwitch"
+                anchors.right: parent.right; anchors.rightMargin: 4; anchors.verticalCenter: parent.verticalCenter
+                foreground: editor.foreground; accent: editor.accent
+                checked: !!editor.monitor.hdr
+                enabled: !editor.busy
+                onToggled: {
+                    editor.choose("hdr", checked ? "on" : "off");
+                    checked = Qt.binding(() => !!editor.monitor.hdr);
+                }
+            }
+        }
+        Caption {
+            width: parent.width
+            wrapMode: Text.WordWrap
+            color: editor.foreground
+            text: Eitr.I18n.tr("Shows the desktop in HDR. Games can use HDR even when this is off.")
+        }
+        Column {
+            visible: !!editor.monitor.hdr
+            width: parent.width
+            spacing: 2
+            Caption {
+                color: editor.foreground
+                text: Eitr.I18n.tr("SDR content brightness") + " · " + Number(editor.monitor.sdr_brightness || 1).toFixed(1) + "×"
+            }
+            PanelSlider {
+                objectName: "sdrBrightness"
+                width: parent.width
+                foreground: editor.foreground; accent: editor.accent
+                from: 1; to: 2; stepSize: 0.1
+                value: Number(editor.monitor.sdr_brightness || 1)
+                enabled: !editor.busy
+                onMoved: brightnessSettle.restart()
+                Timer {
+                    id: brightnessSettle
+                    interval: 180
+                    onTriggered: editor.tryChange("sdr_brightness", parent.value.toFixed(1))
+                }
             }
         }
     }

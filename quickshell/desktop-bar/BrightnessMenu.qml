@@ -191,14 +191,14 @@ ThemedPopup {
                 return;
             }
             menu.displayError = "";
-            // Only a new resolution or refresh rate is tried with a countdown; it could leave
+            // A new resolution, refresh rate or HDR toggle is tried with a countdown; it could leave
             // a screen black. Every other change is already saved.
             let result = {};
             try { result = JSON.parse(trialOutput.text); } catch (e) {}
             if (result.trial) {
                 menu.trialSeconds = menu.trialLength;
                 trialCountdown.restart();
-                // A new mode takes a moment while the monitor resynchronizes.
+                // The display change takes a moment while the monitor resynchronizes.
                 afterTrial.restart();
             } else {
                 menu.refreshDisplays();
@@ -562,7 +562,7 @@ ThemedPopup {
                         foreground: menu.foreground
                         background: menu.background
                         accent: menu.accent
-                        busy: trialOperation.running || setPrimary.running
+                        busy: trialOperation.running || setPrimary.running || menu.trialSeconds > 0
                         onTryChange: function(key, value) { menu.trySetting(displayEntry.modelData.name, key, value); }
                         onMakeMain: menu.selectPrimary(displayEntry.modelData.name)
                     }
