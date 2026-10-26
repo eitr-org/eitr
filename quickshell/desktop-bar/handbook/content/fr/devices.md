@@ -22,7 +22,7 @@ Vous pouvez disposer autant de moniteurs que nécessaire : placez chacun à gauc
 
 La luminosité utilise de préférence un rétroéclairage natif disponible, sinon un moniteur externe via DDC. Sa disponibilité dépend du moniteur et des permissions. L’Éclairage nocturne propose un interrupteur manuel et une programmation facultative avec des horaires modifiables.
 
-**HDR** apparaît uniquement sur les moniteurs dont l’EDID indique la prise en charge de PQ ou HLG. Il affiche le bureau en HDR ; les jeux peuvent utiliser HDR même lorsque ce réglage est désactivé. Activer ou désactiver HDR demande aussi de conserver le changement sous 15 secondes, sinon il est annulé. Lorsque HDR est actif, **Luminosité du contenu SDR** règle le contenu SDR de 1,0× à 2,0× et enregistre immédiatement. Les jeux HDR en plein écran peuvent toujours basculer automatiquement le moniteur lorsque le HDR du bureau est désactivé. Dans les deux cas, Eitr utilise les niveaux de crête et de noir indiqués par l’EDID du moniteur. Sous l’interrupteur, **Luminosité maximale** affiche ce pic en nits.
+**HDR** apparaît uniquement sur les moniteurs dont l’EDID indique la prise en charge de PQ ou HLG. Il affiche le bureau en HDR ; les jeux peuvent utiliser HDR même lorsque ce réglage est désactivé. Activer ou désactiver HDR demande aussi de conserver le changement sous 15 secondes, sinon il est annulé. Lorsque HDR est actif, **Luminosité du contenu SDR** règle le contenu SDR de 1,0× à 2,0× et enregistre immédiatement. Les jeux HDR en plein écran peuvent toujours basculer automatiquement le moniteur lorsque le HDR du bureau est désactivé. Dans les deux cas, Eitr utilise les niveaux de crête et de noir indiqués par l’EDID du moniteur.
 
 ## Clavier
 

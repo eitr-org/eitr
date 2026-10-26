@@ -448,9 +448,8 @@ Proton Wayland/HDR and DXVK HDR only with connected HDR hardware; the local load
 refreshes it before loading. New sessions and a restarted Steam inherit these defaults.
 `cm_auto_hdr = 2` switches fullscreen HDR games to `hdredid` with desktop HDR off;
 the switch also uses `hdredid`, so Hyprland applies the EDID's peak and black
-levels, and the editor shows the EDID peak for in-game calibration. Turning HDR
-off writes `cm = "srgb"` and 8-bit explicitly, because Hyprland keeps the
-previous preset when the fields are missing.
+levels. Turning HDR off writes `cm = "srgb"` and 8-bit explicitly, because
+Hyprland keeps the previous preset when the fields are missing.
 The Nightlight editor saves valid time changes automatically; its Auto switch
 enables or disables the schedule, while the main switch remains a manual override.
 Brightness uses the laptop backlight when present and the first DDC monitor

@@ -253,7 +253,6 @@ var qml = {
     "Password": "Password",
     "Pause": "Pause",
     "Pause recording": "Pause recording",
-    "Peak brightness: {nits} nits. Use it as the maximum in a game's HDR settings.": "Peak brightness: {nits} nits. Use it as the maximum in a game's HDR settings.",
     "PgUp/PgDn to scroll · Escape or × to close": "PgUp/PgDn to scroll · Escape or × to close",
     "Pick a wallpaper": "Pick a wallpaper",
     "Pin bar open": "Pin bar open",
@@ -820,8 +819,7 @@ var qml = {
     "Copied": "Copiado",
     "HDR": "HDR",
     "Shows the desktop in HDR. Games can use HDR even when this is off.": "Exibe a área de trabalho em HDR. Jogos podem usar HDR mesmo com esta opção desativada.",
-    "SDR content brightness": "Brilho do conteúdo SDR",
-    "Peak brightness: {nits} nits. Use it as the maximum in a game's HDR settings.": "Brilho máximo: {nits} nits. Use como máximo nas configurações de HDR de um jogo."
+    "SDR content brightness": "Brilho do conteúdo SDR"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1220,8 +1218,7 @@ var qml = {
     "Copied": "Copiado",
     "HDR": "HDR",
     "Shows the desktop in HDR. Games can use HDR even when this is off.": "Muestra el escritorio en HDR. Los juegos pueden usar HDR aunque esté desactivado.",
-    "SDR content brightness": "Brillo del contenido SDR",
-    "Peak brightness: {nits} nits. Use it as the maximum in a game's HDR settings.": "Brillo máximo: {nits} nits. Úsalo como máximo en los ajustes HDR de un juego."
+    "SDR content brightness": "Brillo del contenido SDR"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1620,8 +1617,7 @@ var qml = {
     "Copied": "Kopiert",
     "HDR": "HDR",
     "Shows the desktop in HDR. Games can use HDR even when this is off.": "Zeigt den Desktop in HDR. Spiele können HDR auch nutzen, wenn dies ausgeschaltet ist.",
-    "SDR content brightness": "Helligkeit von SDR-Inhalten",
-    "Peak brightness: {nits} nits. Use it as the maximum in a game's HDR settings.": "Spitzenhelligkeit: {nits} Nits. Nutze sie als Maximum in den HDR-Einstellungen eines Spiels."
+    "SDR content brightness": "Helligkeit von SDR-Inhalten"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2020,7 +2016,6 @@ var qml = {
     "Copied": "Copié",
     "HDR": "HDR",
     "Shows the desktop in HDR. Games can use HDR even when this is off.": "Affiche le bureau en HDR. Les jeux peuvent utiliser HDR même si ce réglage est désactivé.",
-    "SDR content brightness": "Luminosité du contenu SDR",
-    "Peak brightness: {nits} nits. Use it as the maximum in a game's HDR settings.": "Luminosité maximale : {nits} nits. Utilisez-la comme maximum dans les réglages HDR d’un jeu."
+    "SDR content brightness": "Luminosité du contenu SDR"
   }
 };

@@ -22,7 +22,7 @@ Puedes organizar cualquier número de monitores: coloca cada uno a izquierda, de
 
 El brillo prefiere un control nativo de retroiluminación utilizable; en su defecto, intenta controlar un monitor externo mediante DDC. Su disponibilidad depende del monitor y los permisos. La Luz nocturna tiene un interruptor manual y un horario opcional editable.
 
-**HDR** solo aparece en monitores cuyo EDID indica compatibilidad con PQ o HLG. Muestra el escritorio en HDR; los juegos pueden usar HDR aunque esté desactivado. Al activar o desactivar HDR también debes conservar el cambio en 15 segundos; de lo contrario, se revierte. Con HDR activo, **Brillo del contenido SDR** ajusta el contenido SDR de 1,0× a 2,0× y guarda inmediatamente. Los juegos HDR a pantalla completa pueden cambiar el monitor automáticamente aunque el HDR del escritorio esté desactivado. En ambos casos Eitr usa los niveles de pico y de negro que el propio monitor indica en su EDID. Bajo el interruptor, **Brillo máximo** muestra ese pico en nits.
+**HDR** solo aparece en monitores cuyo EDID indica compatibilidad con PQ o HLG. Muestra el escritorio en HDR; los juegos pueden usar HDR aunque esté desactivado. Al activar o desactivar HDR también debes conservar el cambio en 15 segundos; de lo contrario, se revierte. Con HDR activo, **Brillo del contenido SDR** ajusta el contenido SDR de 1,0× a 2,0× y guarda inmediatamente. Los juegos HDR a pantalla completa pueden cambiar el monitor automáticamente aunque el HDR del escritorio esté desactivado. En ambos casos Eitr usa los niveles de pico y de negro que el propio monitor indica en su EDID.
 
 ## Teclado
 

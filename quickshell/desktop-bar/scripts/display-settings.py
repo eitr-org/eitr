@@ -56,19 +56,15 @@ def monitors():
                                      check=True).stdout)
 
 
-def edid_hdr_details(data):
-    """HDR details from the CTA HDR Static Metadata block, or None for SDR or invalid EDID.
-
-    The details hold "peak", the desired peak luminance in nits, or None when the
-    monitor does not state it.
-    """
+def edid_hdr(data):
+    """Validate EDID blocks and inspect CTA HDR Static Metadata EOTFs."""
     if len(data) < 128 or data[:8] != b"\x00\xff\xff\xff\xff\xff\xff\x00":
-        return None
+        return False
     count = data[126] + 1
     if len(data) < count * 128 or any(sum(data[offset:offset + 128]) % 256
                                      for offset in range(0, count * 128, 128)):
-        return None
-    details = None
+        return False
+    capable = False
     for offset in range(128, count * 128, 128):
         block = data[offset:offset + 128]
         if block[0] != 2:
@@ -77,38 +73,18 @@ def edid_hdr_details(data):
         if end == 0:
             continue
         if not 4 <= end <= 127:
-            return None
+            return False
         cursor = 4
         while cursor < end:
             header = block[cursor]
             length = header & 31
             cursor += 1
             if cursor + length > end:
-                return None
+                return False
             if header >> 5 == 7 and length >= 3 and block[cursor] == 6 and block[cursor + 1] & 0x0c:
-                code = block[cursor + 3] if length >= 4 else 0
-                details = {"peak": round(50 * 2 ** (code / 32)) if code else None}
+                capable = True
             cursor += length
-    return details
-
-
-def edid_hdr(data):
-    """Whether the EDID reports PQ or HLG support."""
-    return edid_hdr_details(data) is not None
-
-
-def hdr_peak(name):
-    """The monitor's peak luminance in nits from its EDID, or None when it does not say."""
-    for connector in DRM_ROOT.glob("card*-*"):
-        if connector.name.partition("-")[2] != name:
-            continue
-        try:
-            details = edid_hdr_details((connector / "edid").read_bytes())
-        except OSError:
-            continue
-        if details and details["peak"]:
-            return details["peak"]
-    return None
+    return capable
 
 
 def hdr_capable(name):
@@ -452,7 +428,7 @@ def main(argv):
         main = main_display(live)
         anchors.pop(main, None)
         print(json.dumps({"main": main, "monitors": [{**current(monitor), "name": monitor["name"], "anchor": anchors.get(monitor["name"]),
-                                        "hdr_capable": hdr_capable(monitor["name"]), "hdr_peak": hdr_peak(monitor["name"]), "modes": monitor["availableModes"]} for monitor in live],
+                                        "hdr_capable": hdr_capable(monitor["name"]), "modes": monitor["availableModes"]} for monitor in live],
                           "saved": saved()}))
         return 0
     if len(argv) == 4 and argv[0] == "set":

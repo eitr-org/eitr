@@ -65,13 +65,6 @@ class DisplaySettingsTests(unittest.TestCase):
         (connector / "status").write_text(status)
         return connector
 
-    def test_peak_luminance_comes_from_the_edid(self):
-        self.assertEqual(display.edid_hdr_details(self.edid(4)), {"peak": 302})
-        self.assertIsNone(display.edid_hdr_details(self.edid(1)))
-        self.hdr_connector()
-        self.assertEqual(display.hdr_peak("DP-3"), 302)
-        self.assertIsNone(display.hdr_peak("DP-1"))
-
     def test_only_hdr_monitors_get_an_hdr_state(self):
         self.assertNotIn("hdr", display.current(MONITORS[0]))
         self.assertNotIn("cm =", display.lua_call("DP-3", display.current(MONITORS[0])))
