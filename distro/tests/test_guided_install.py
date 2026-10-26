@@ -71,6 +71,8 @@ class ConfigurationTests(unittest.TestCase):
         self.assertEqual(root["fs_type"], "btrfs")
         self.assertEqual(disk["disk_encryption"]["encryption_type"], "luks")
         self.assertEqual(disk["disk_encryption"]["partitions"], [root["obj_id"]])
+        # archinstall's 10-second default makes every boot wait after the passphrase.
+        self.assertEqual(disk["disk_encryption"]["iter_time"], 2000)
         self.assertEqual(TEMPLATE["bootloader_config"]["bootloader"], "Limine")
         self.assertFalse(TEMPLATE["bootloader_config"]["uki"])
         self.assertNotIn("btrfs_options", disk)  # Eitr's snapshots-setup owns Snapper.
@@ -466,6 +468,7 @@ class ArchinstallParserTests(unittest.TestCase):
                 self.assertEqual([str(item.mountpoint) for item in root.btrfs_subvols],
                                  ["/", "/home", "/var/log", "/var/cache/pacman/pkg"])
                 self.assertEqual(arch.disk_config.disk_encryption.partitions, [root])
+                self.assertEqual(arch.disk_config.disk_encryption.iter_time, 2000)
                 self.assertNotIn("test passphrase", arch.user_config_to_json())
 
     def test_archinstall_accepts_the_alongside_layout(self):

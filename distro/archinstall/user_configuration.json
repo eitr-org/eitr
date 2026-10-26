@@ -1,5 +1,5 @@
 {
-  "eitr_comment": "archinstall 4.x template used by eitr-guided-install. Eitr's wizard collects the disk, account, keyboard, locale, hostname and timezone. Credentials are handed to archinstall through an inherited pipe, never written to the configuration file or command line. Btrfs snapshots are left to Eitr's snapshots-setup, so archinstall's own Snapper option stays off. archinstall adds Plymouth with its script theme; the installer then selects the Eitr theme.",
+  "eitr_comment": "archinstall 4.x template used by eitr-guided-install. Eitr's wizard collects the disk, account, keyboard, locale, hostname and timezone. Credentials are handed to archinstall through an inherited pipe, never written to the configuration file or command line. Btrfs snapshots are left to Eitr's snapshots-setup, so archinstall's own Snapper option stays off. archinstall adds Plymouth with its script theme; the installer then selects the Eitr theme. The disk key takes cryptsetup's own 2-second unlock cost instead of archinstall's 10 seconds.",
   "bootloader_config": {
     "bootloader": "Limine",
     "uki": false,
@@ -65,6 +65,7 @@
     ],
     "disk_encryption": {
       "encryption_type": "luks",
+      "iter_time": 2000,
       "partitions": ["eitr-root"],
       "lvm_volumes": []
     }
