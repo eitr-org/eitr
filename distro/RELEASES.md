@@ -329,3 +329,12 @@ can pick up from the repository alone. Remove items as they ship.
   free plan; nothing costs money beyond the domain.
 - **Publishing checklist.** `PUBLISHING.md` lists what remains: splitting the
   personal overlay from the distro.
+
+## Nearby package mirrors (unreleased)
+
+Maintenance offers Choose fastest mirrors with Enter confirmation, a preview of
+selected HTTPS servers and restoration of the previous list. Fresh installs try
+ranking in the background on up to three boots. Recent mirrors are sorted by
+speed, preferring the system timezone's country when known, with the shipped
+worldwide servers retained as fallbacks. Read-only `eitr-system mirrors-status`
+reports the last successful ranking, current count and fallback/backup flags.

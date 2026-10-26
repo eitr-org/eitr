@@ -586,6 +586,9 @@ msgstr "Choose occurrence or series."
 msgid "Choose one of the listed designs."
 msgstr "Choose one of the listed designs."
 
+msgid "Choose recent HTTPS mirrors by download speed. The previous list is backed up; worldwide mirrors remain as fallbacks."
+msgstr "Choose recent HTTPS mirrors by download speed. The previous list is backed up; worldwide mirrors remain as fallbacks."
+
 msgid "Chromium default requires add.packages chromium or its recipe"
 msgstr "Chromium default requires add.packages chromium or its recipe"
 
@@ -1867,6 +1870,9 @@ msgstr "No passphrase or recovery key slot remains; add one before removing TPM2
 msgid "No picture file at {path}."
 msgstr "No picture file at {path}."
 
+msgid "No previous mirrorlist is available."
+msgstr "No previous mirrorlist is available."
+
 msgid "No reminders are waiting."
 msgstr "No reminders are waiting."
 
@@ -2172,6 +2178,9 @@ msgstr "Preparing the update…"
 
 msgid "Press Enter to confirm; Esc to cancel."
 msgstr "Press Enter to confirm; Esc to cancel."
+
+msgid "Press Enter to continue or Esc to cancel: "
+msgstr "Press Enter to continue or Esc to cancel: "
 
 msgid "Press Esc to close."
 msgstr "Press Esc to close."
@@ -3270,6 +3279,9 @@ msgstr "Timezone: {timezone} / Hostname: {hostname}"
 
 msgid "To enable mise, add eval \"$(mise activate zsh)\" to ~/.zshrc. It can conflict with nvm/uv for the same runtime."
 msgstr "To enable mise, add eval \"$(mise activate zsh)\" to ~/.zshrc. It can conflict with nvm/uv for the same runtime."
+
+msgid "To restore the previous list, type restore and press Enter instead."
+msgstr "To restore the previous list, type restore and press Enter instead."
 
 msgid "Too easy to guess: avoid patterns and your user name."
 msgstr "Too easy to guess: avoid patterns and your user name."

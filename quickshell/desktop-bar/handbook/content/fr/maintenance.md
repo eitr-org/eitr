@@ -37,3 +37,13 @@ Seule une installation compatible de la distribution disposant de son point de r
 ## Alimentation
 
 Menu principal > Alimentation et Centre de contrôle > Général (derrière **Alimentation…**) proposent verrouillage, déconnexion, veille, redémarrage et arrêt. Enregistrez votre travail avant. Ces actions sont réellement exécutées ; ce ne sont pas des démonstrations.
+
+## Miroirs des paquets
+
+Dans Système > Entretien, choisissez Choisir les miroirs les plus rapides. Le terminal explique le changement ; Enter confirme et Esc annule. Reflector sélectionne jusqu’à dix miroirs HTTPS synchronisés depuis moins de 12 heures, classés par vitesse de téléchargement. Il privilégie le pays identifié par le fuseau horaire, si connu, puis essaie les miroirs mondiaux si trop peu conviennent. Les trois serveurs mondiaux fournis restent toujours en fin de liste ; si le classement échoue, la liste reste inchangée, miroirs personnalisés compris. Chaque exécution de reflector est limitée à deux minutes.
+
+La liste précédente est sauvegardée à côté de `/etc/pacman.d/mirrorlist` sous `mirrorlist.eitr-<timestamp>.bak`. Si une sauvegarde existe, la même procédure propose de la restaurer : saisissez `restore` et appuyez sur Enter. La restauration sauvegarde aussi la liste actuelle. Le résultat reste visible jusqu’à Esc.
+
+Une nouvelle installation programme une tentative en arrière-plan deux minutes après chaque démarrage, jusqu’à trois tentatives avec connexion. Les démarrages hors ligne sont ignorés en silence et ne comptent pas ; un classement réussi arrête les tentatives. La connexion n’attend jamais le classement. Utilisez le menu si toutes les tentatives échouent. Seuls les miroirs Arch changent ; les dépôts Eitr et Flatpak restent identiques.
+
+État en lecture seule : `/usr/lib/eitr/eitr-system mirrors-status` affiche du JSON avec `last_ranking_time` (UTC, ou null avant réussite), `mirror_count`, `shipped_fallback` et `backup_available`. Il lit les fichiers locaux sans réseau ni sudo.

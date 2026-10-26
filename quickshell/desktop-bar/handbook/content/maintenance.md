@@ -79,3 +79,13 @@ for exactly what Erase Everything and Keep My Files preserve.
 
 Main > Power and Control Center > General (behind **Power…**) expose Lock,
 Logout, Suspend, Reboot and Shutdown. Save work first. These are actions, not simulated demonstrations.
+
+## Package mirrors
+
+In System > Maintenance, choose Choose fastest mirrors. The terminal explains the change; Enter confirms and Esc cancels. Reflector selects up to ten HTTPS mirrors synchronized within 12 hours, sorted by download speed. It prefers the country identified by the system timezone when known, then tries worldwide mirrors if too few qualify. The three shipped worldwide servers always remain last; if ranking fails, the list stays unchanged, including custom mirrors. Each reflector run is limited to two minutes.
+
+The previous list is saved beside `/etc/pacman.d/mirrorlist` as `mirrorlist.eitr-<timestamp>.bak`. When a backup exists, the same flow offers restoration: type `restore` and press Enter. Restoration also backs up the current list. The resulting list stays visible until Esc.
+
+Fresh installations schedule one background attempt two minutes after each boot, up to three attempts with a connection. Offline boots skip silently and do not count; a successful ranking stops further attempts. Login never waits for ranking. Run the menu action later if all attempts fail. Only Arch package mirrors change; Eitr and Flatpak repositories are unaffected.
+
+Read-only status: `/usr/lib/eitr/eitr-system mirrors-status` prints JSON with `last_ranking_time` (UTC, or null before success), `mirror_count`, `shipped_fallback` and `backup_available`. Status reads local files without network access or sudo.

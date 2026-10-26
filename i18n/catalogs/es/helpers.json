@@ -1339,5 +1339,9 @@
   "Event hook added or changed: {event}": "Hook de evento añadido o cambiado: {event}",
   "This manifest should declare schemaVersion: 1.": "Este manifiesto debería declarar schemaVersion: 1.",
   "Event hook: {event} — {command}": "Hook de evento: {event} — {command}",
-  "Pi has no built-in permission prompts. Choose another assistant for Ask before changes.": "Pi no incluye confirmaciones de permisos. Elige otro asistente para Ask before changes."
+  "Pi has no built-in permission prompts. Choose another assistant for Ask before changes.": "Pi no incluye confirmaciones de permisos. Elige otro asistente para Ask before changes.",
+  "Choose recent HTTPS mirrors by download speed. The previous list is backed up; worldwide mirrors remain as fallbacks.": "Elige espejos HTTPS recientes por velocidad de descarga. Se guarda la lista anterior; los espejos mundiales permanecen como alternativas.",
+  "No previous mirrorlist is available.": "No hay ninguna lista anterior de espejos disponible.",
+  "Press Enter to continue or Esc to cancel: ": "Pulsa Enter para continuar o Esc para cancelar: ",
+  "To restore the previous list, type restore and press Enter instead.": "Para restaurar la lista anterior, escribe restore y pulsa Enter."
 }

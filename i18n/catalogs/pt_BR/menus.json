@@ -542,5 +542,7 @@
   "Pi": "Pi",
   "Start an OpenCode session in a project": "Iniciar uma sessão do OpenCode em um projeto",
   "Start a Pi session in a project": "Iniciar uma sessão do Pi em um projeto",
-  "This CLI has no supported isolated account folder": "Esta CLI não aceita uma pasta isolada de contas"
+  "This CLI has no supported isolated account folder": "Esta CLI não aceita uma pasta isolada de contas",
+  "Choose fastest mirrors": "Escolher espelhos mais rápidos",
+  "Rank recent HTTPS package mirrors": "Classificar espelhos HTTPS recentes de pacotes"
 }

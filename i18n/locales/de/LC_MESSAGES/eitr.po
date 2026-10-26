@@ -586,6 +586,9 @@ msgstr "occurrence oder series auswählen."
 msgid "Choose one of the listed designs."
 msgstr "Wähle eines der aufgeführten Designs."
 
+msgid "Choose recent HTTPS mirrors by download speed. The previous list is backed up; worldwide mirrors remain as fallbacks."
+msgstr "Aktuelle HTTPS-Spiegel nach Downloadgeschwindigkeit auswählen. Die vorherige Liste wird gesichert; weltweite Spiegel bleiben als Ausweichserver erhalten."
+
 msgid "Chromium default requires add.packages chromium or its recipe"
 msgstr "Chromium als Vorgabe erfordert add.packages chromium oder sein Rezept"
 
@@ -1867,6 +1870,9 @@ msgstr "Kein Slot für Passphrase oder Wiederherstellungsschlüssel mehr vorhand
 msgid "No picture file at {path}."
 msgstr "Keine Bilddatei unter {path}."
 
+msgid "No previous mirrorlist is available."
+msgstr "Keine vorherige Spiegelserverliste verfügbar."
+
 msgid "No reminders are waiting."
 msgstr "Keine Erinnerungen ausstehend."
 
@@ -2172,6 +2178,9 @@ msgstr "Aktualisierung wird vorbereitet…"
 
 msgid "Press Enter to confirm; Esc to cancel."
 msgstr "Enter bestätigt; Esc bricht ab."
+
+msgid "Press Enter to continue or Esc to cancel: "
+msgstr "Enter zum Fortfahren oder Esc zum Abbrechen drücken: "
 
 msgid "Press Esc to close."
 msgstr "Zum Schließen Esc drücken."
@@ -3270,6 +3279,9 @@ msgstr "Zeitzone: {timezone} / Rechnername: {hostname}"
 
 msgid "To enable mise, add eval \"$(mise activate zsh)\" to ~/.zshrc. It can conflict with nvm/uv for the same runtime."
 msgstr "Um mise zu aktivieren, füge eval \"$(mise activate zsh)\" in ~/.zshrc ein. Es kann für dieselbe Laufzeitumgebung mit nvm/uv kollidieren."
+
+msgid "To restore the previous list, type restore and press Enter instead."
+msgstr "Zum Wiederherstellen der vorherigen Liste restore eingeben und Enter drücken."
 
 msgid "Too easy to guess: avoid patterns and your user name."
 msgstr "Zu leicht zu erraten: ohne Muster und Benutzernamen."

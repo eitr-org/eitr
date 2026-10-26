@@ -37,3 +37,13 @@ Solo se puede restablecer una instalación compatible de la distribución con su
 ## Energía
 
 Principal > Energía y Centro de control > General (tras **Energía…**) permiten bloquear, cerrar sesión, suspender, reiniciar y apagar. Guarda tu trabajo primero. Estas acciones se ejecutan de verdad; no son demostraciones.
+
+## Espejos de paquetes
+
+En Sistema > Mantenimiento, elige Elegir los espejos más rápidos. El terminal explica el cambio; Enter confirma y Esc cancela. Reflector selecciona hasta diez espejos HTTPS sincronizados en las últimas 12 horas, ordenados por velocidad de descarga. Prefiere el país identificado por la zona horaria del sistema, si se conoce, y prueba espejos mundiales si hay pocos candidatos. Los tres servidores mundiales incluidos siempre quedan al final; si falla la clasificación, la lista no cambia, incluidos los espejos propios. Cada ejecución de reflector tiene un límite de dos minutos.
+
+La lista anterior se guarda junto a `/etc/pacman.d/mirrorlist` como `mirrorlist.eitr-<timestamp>.bak`. Si existe una copia, el mismo flujo permite restaurarla: escribe `restore` y pulsa Enter. La restauración también guarda la lista actual. El resultado permanece visible hasta pulsar Esc.
+
+Las instalaciones nuevas programan un intento en segundo plano dos minutos después de cada arranque, hasta tres intentos con conexión. Los arranques sin conexión se omiten en silencio y no cuentan; una clasificación correcta detiene los intentos. El inicio de sesión nunca espera. Usa el menú si fallan todos los intentos. Solo cambian los espejos Arch; los repositorios Eitr y Flatpak no cambian.
+
+Estado de solo lectura: `/usr/lib/eitr/eitr-system mirrors-status` imprime JSON con `last_ranking_time` (UTC, o null antes del primer éxito), `mirror_count`, `shipped_fallback` y `backup_available`. Lee archivos locales sin red ni sudo.

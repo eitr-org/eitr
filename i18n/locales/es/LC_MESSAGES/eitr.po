@@ -586,6 +586,9 @@ msgstr "Elija occurrence o series."
 msgid "Choose one of the listed designs."
 msgstr "Elige uno de los diseños de la lista."
 
+msgid "Choose recent HTTPS mirrors by download speed. The previous list is backed up; worldwide mirrors remain as fallbacks."
+msgstr "Elige espejos HTTPS recientes por velocidad de descarga. Se guarda la lista anterior; los espejos mundiales permanecen como alternativas."
+
 msgid "Chromium default requires add.packages chromium or its recipe"
 msgstr "Chromium predeterminado requiere add.packages chromium o su receta"
 
@@ -1867,6 +1870,9 @@ msgstr "No queda ninguna contraseña ni clave de recuperación; añade una antes
 msgid "No picture file at {path}."
 msgstr "No hay ningún archivo de imagen en {path}."
 
+msgid "No previous mirrorlist is available."
+msgstr "No hay ninguna lista anterior de espejos disponible."
+
 msgid "No reminders are waiting."
 msgstr "No hay recordatorios pendientes."
 
@@ -2172,6 +2178,9 @@ msgstr "Preparando la actualización…"
 
 msgid "Press Enter to confirm; Esc to cancel."
 msgstr "Pulsa Enter para confirmar; Esc para cancelar."
+
+msgid "Press Enter to continue or Esc to cancel: "
+msgstr "Pulsa Enter para continuar o Esc para cancelar: "
 
 msgid "Press Esc to close."
 msgstr "Pulsa Esc para cerrar."
@@ -3270,6 +3279,9 @@ msgstr "Zona horaria: {timezone} / Nombre del equipo: {hostname}"
 
 msgid "To enable mise, add eval \"$(mise activate zsh)\" to ~/.zshrc. It can conflict with nvm/uv for the same runtime."
 msgstr "Para activar mise, añade eval \"$(mise activate zsh)\" a ~/.zshrc. Puede entrar en conflicto con nvm/uv para el mismo entorno."
+
+msgid "To restore the previous list, type restore and press Enter instead."
+msgstr "Para restaurar la lista anterior, escribe restore y pulsa Enter."
 
 msgid "Too easy to guess: avoid patterns and your user name."
 msgstr "Muy fácil de adivinar: sin patrones ni tu usuario."

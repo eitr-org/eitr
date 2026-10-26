@@ -586,6 +586,9 @@ msgstr "Choisissez occurrence ou series."
 msgid "Choose one of the listed designs."
 msgstr "Choisissez l’un des modèles proposés."
 
+msgid "Choose recent HTTPS mirrors by download speed. The previous list is backed up; worldwide mirrors remain as fallbacks."
+msgstr "Choisissez des miroirs HTTPS récents par vitesse de téléchargement. La liste précédente est sauvegardée ; les miroirs mondiaux restent disponibles en secours."
+
 msgid "Chromium default requires add.packages chromium or its recipe"
 msgstr "Chromium par défaut exige add.packages chromium ou sa recette"
 
@@ -1867,6 +1870,9 @@ msgstr "Aucune phrase secrète ni clé de récupération restante ; ajoutez-en u
 msgid "No picture file at {path}."
 msgstr "Aucun fichier image à {path}."
 
+msgid "No previous mirrorlist is available."
+msgstr "Aucune liste précédente de miroirs n’est disponible."
+
 msgid "No reminders are waiting."
 msgstr "Aucun rappel en attente."
 
@@ -2172,6 +2178,9 @@ msgstr "Préparation de la mise à jour…"
 
 msgid "Press Enter to confirm; Esc to cancel."
 msgstr "Entrée confirme ; Échap annule."
+
+msgid "Press Enter to continue or Esc to cancel: "
+msgstr "Appuyez sur Enter pour continuer ou Esc pour annuler : "
 
 msgid "Press Esc to close."
 msgstr "Appuyez sur Échap pour fermer."
@@ -3270,6 +3279,9 @@ msgstr "Fuseau horaire : {timezone} / Nom de l’ordinateur : {hostname}"
 
 msgid "To enable mise, add eval \"$(mise activate zsh)\" to ~/.zshrc. It can conflict with nvm/uv for the same runtime."
 msgstr "Pour activer mise, ajoutez eval \"$(mise activate zsh)\" à ~/.zshrc. Il peut entrer en conflit avec nvm/uv pour le même environnement."
+
+msgid "To restore the previous list, type restore and press Enter instead."
+msgstr "Pour restaurer la liste précédente, saisissez restore puis appuyez sur Enter."
 
 msgid "Too easy to guess: avoid patterns and your user name."
 msgstr "Trop facile : évitez les motifs et votre identifiant."

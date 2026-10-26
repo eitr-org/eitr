@@ -6,6 +6,7 @@ linux-firmware
 sudo
 git
 curl
+reflector
 file
 desktop-file-utils
 lm_sensors

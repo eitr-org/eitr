@@ -1,0 +1,10 @@
+[Unit]
+Description=Try initial Arch mirror ranking in the background
+ConditionPathExists=/var/lib/eitr/mirrors-pending
+
+[Timer]
+OnBootSec=2min
+Unit=eitr-mirrors.service
+
+[Install]
+WantedBy=timers.target

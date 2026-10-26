@@ -37,3 +37,13 @@ Nur eine unterstützte Distributionsinstallation mit Wiederherstellungspunkt der
 ## Energie
 
 Hauptmenü > Energie und Kontrollzentrum > Allgemein (hinter **Ein/Aus…**) bieten Sperren, Abmelden, Bereitschaft, Neustart und Ausschalten. Speichere vorher deine Arbeit. Die Aktionen werden tatsächlich ausgeführt; sie sind keine Vorführungen.
+
+## Paketspiegel
+
+Unter System > Wartung wähle Schnellste Spiegel auswählen. Das Terminal erklärt die Änderung; Enter bestätigt und Esc bricht ab. Reflector wählt bis zu zehn HTTPS-Spiegel aus, die innerhalb von 12 Stunden synchronisiert wurden, und sortiert sie nach Downloadgeschwindigkeit. Wenn bekannt, bevorzugt es das durch die Systemzeitzone bestimmte Land und versucht bei zu wenigen Treffern weltweite Spiegel. Die drei mitgelieferten weltweiten Server bleiben immer am Ende; schlägt die Bewertung fehl, bleibt die Liste unverändert, auch eigene Spiegel. Jeder reflector-Aufruf ist auf zwei Minuten begrenzt.
+
+Die vorherige Liste wird neben `/etc/pacman.d/mirrorlist` als `mirrorlist.eitr-<timestamp>.bak` gesichert. Falls eine Sicherung existiert, bietet derselbe Ablauf die Wiederherstellung an: `restore` eingeben und Enter drücken. Auch beim Wiederherstellen wird die aktuelle Liste gesichert. Das Ergebnis bleibt bis Esc sichtbar.
+
+Neue Installationen planen zwei Minuten nach jedem Start einen Hintergrundversuch, bis zu drei Versuche mit Verbindung. Starts ohne Verbindung werden still übersprungen und zählen nicht; eine erfolgreiche Bewertung beendet weitere Versuche. Die Anmeldung wartet nie darauf. Wenn alle Versuche scheitern, nutze später das Menü. Nur Arch-Paketspiegel ändern sich; Eitr- und Flatpak-Quellen bleiben gleich.
+
+Nur lesender Status: `/usr/lib/eitr/eitr-system mirrors-status` gibt JSON mit `last_ranking_time` (UTC oder null vor dem ersten Erfolg), `mirror_count`, `shipped_fallback` und `backup_available` aus. Dabei werden lokale Dateien ohne Netzwerkzugriff oder sudo gelesen.

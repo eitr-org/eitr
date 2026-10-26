@@ -1339,5 +1339,9 @@
   "{unit} is enabled; snapshot entries are written to {entries_path} from the next boot.": "{unit} is enabled; snapshot entries are written to {entries_path} from the next boot.",
   "{unit} manages networking; review that custom setup first.": "{unit} manages networking; review that custom setup first.",
   "… and {count} more": "… and {count} more",
-  "Pi has no built-in permission prompts. Choose another assistant for Ask before changes.": "Pi has no built-in permission prompts. Choose another assistant for Ask before changes."
+  "Pi has no built-in permission prompts. Choose another assistant for Ask before changes.": "Pi has no built-in permission prompts. Choose another assistant for Ask before changes.",
+  "Choose recent HTTPS mirrors by download speed. The previous list is backed up; worldwide mirrors remain as fallbacks.": "Choose recent HTTPS mirrors by download speed. The previous list is backed up; worldwide mirrors remain as fallbacks.",
+  "No previous mirrorlist is available.": "No previous mirrorlist is available.",
+  "Press Enter to continue or Esc to cancel: ": "Press Enter to continue or Esc to cancel: ",
+  "To restore the previous list, type restore and press Enter instead.": "To restore the previous list, type restore and press Enter instead."
 }

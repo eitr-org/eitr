@@ -545,3 +545,36 @@ If you installed the old Eitr hooks manually, remove only
 `/etc/pacman.d/hooks/95-eitr-snapshot-post.hook` to adopt this new policy.
 Never sudo a helper under a user-writable config path.
 Do not restart SDDM or test authentication without a recovery console available.
+
+### Arch package mirrors
+
+`payload/mirrorlist` supplies the three worldwide HTTPS servers copied by the
+guided installer into both its pacstrap environment and the installed system.
+`archinstall/user_configuration.json` leaves regional mirrors empty; the ISO
+build uses the offline payload rather than ranking the owner's live mirrors.
+`reflector` is an official dependency in `packages.txt`, consumed by desktop
+package dependencies, payload resolution and the guided desktop transaction.
+
+After restoring online sources, the guided installer enables `eitr-mirrors.timer`
+and writes `/var/lib/eitr/mirrors-pending`. Two minutes after boot the timer
+runs `/usr/lib/eitr/eitr-system mirrors-first-boot` in a background system service.
+It makes up to three attempts with a connection; offline boots skip silently and do not count, and login never waits.
+The system timezone supplies an unambiguous ISO country from `zone.tab` where
+available. Reflector tries that country, then worldwide, selecting up to ten
+recent (12-hour) HTTPS mirrors by rate, with a 120-second limit per invocation.
+The shipped three servers stay last; a failed ranking leaves the list unchanged.
+
+System > Maintenance > Choose fastest mirrors opens a task terminal with Enter
+confirmation and Esc cancellation. If a backup exists, typing `restore` restores
+the latest previous list. Root writes go only through `eitr-system mirrors-rank`
+or `mirrors-restore`; every write backs up the current list beside it as
+`mirrorlist.eitr-<timestamp>.bak`, validates servers and replaces it atomically.
+Empty lists are refused. Backups are retained for manual recovery.
+
+`eitr-system mirrors-status` needs no privileges or network and prints JSON:
+`last_ranking_time` (UTC ISO timestamp, null before successful ranking),
+`mirror_count`, `shipped_fallback` (exactly the shipped servers), and
+`backup_available`. The timestamp records the last successful ranking even after
+restoration; the count and fallback flag describe the current list. This is the
+read-only interface for future self-check integration. Eitr/Flatpak repositories
+are unaffected. No recurring reflector timer is enabled.

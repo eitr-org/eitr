@@ -1,0 +1,10 @@
+[Unit]
+Description=Rank Arch package mirrors after installation
+ConditionPathExists=/var/lib/eitr/mirrors-pending
+After=network.target eitr-timezone.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/eitr/eitr-system mirrors-first-boot
+TimeoutStartSec=5min
+Nice=10

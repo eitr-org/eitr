@@ -1495,6 +1495,9 @@
     "Choose and join networks": [
       "elephant/menu-rows/system-connectivity.json"
     ],
+    "Choose fastest mirrors": [
+      "elephant/menu-rows/system-maintenance.json"
+    ],
     "Classic consoles · NES to Dreamcast, PS1, N64, DS and PSP": [
       "elephant/menu-rows/gaming.json"
     ],
@@ -2331,6 +2334,9 @@
     ],
     "Ragnarök": [
       "elephant/menus/system-shortcuts.lua"
+    ],
+    "Rank recent HTTPS package mirrors": [
+      "elephant/menu-rows/system-maintenance.json"
     ],
     "Ratatoskr (local, experimental)": [
       "elephant/menus/ai-default.lua"
@@ -4184,6 +4190,9 @@
     "Choose one of the listed designs.": [
       "distro/lib/eitr_own_style.py"
     ],
+    "Choose recent HTTPS mirrors by download speed. The previous list is backed up; worldwide mirrors remain as fallbacks.": [
+      "walker/scripts/actions/system/mirrors.py"
+    ],
     "Chromium default requires add.packages chromium or its recipe": [
       "distro/lib/eitr_profile.py"
     ],
@@ -5498,6 +5507,9 @@
     "No picture file at {path}.": [
       "distro/lib/eitr_own_style.py"
     ],
+    "No previous mirrorlist is available.": [
+      "walker/scripts/actions/system/mirrors.py"
+    ],
     "No reminders are waiting.": [
       "walker/scripts/actions/tools/reminders.py"
     ],
@@ -5812,6 +5824,9 @@
       "distro/lib/eitr_ai_accounts.py",
       "distro/lib/eitr_assistants.py",
       "walker/scripts/actions/ai-assistant.py"
+    ],
+    "Press Enter to continue or Esc to cancel: ": [
+      "walker/scripts/actions/system/mirrors.py"
     ],
     "Press Esc to close.": [
       "distro/lib/eitr_terminal.py"
@@ -6923,6 +6938,9 @@
     ],
     "To enable mise, add eval \"$(mise activate zsh)\" to ~/.zshrc. It can conflict with nvm/uv for the same runtime.": [
       "walker/scripts/actions/install/software.py"
+    ],
+    "To restore the previous list, type restore and press Enter instead.": [
+      "walker/scripts/actions/system/mirrors.py"
     ],
     "Too easy to guess: avoid patterns and your user name.": [
       "distro/archinstall/installer-ui.py"

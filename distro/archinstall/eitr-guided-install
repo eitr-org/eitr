@@ -451,6 +451,14 @@ def schedule_timezone_detection(log):
     chroot(["systemctl", "enable", "eitr-timezone.service"], log)
 
 
+def schedule_mirror_ranking(log):
+    """Rank once online, with a bounded attempt on each of the next three boots."""
+    marker = TARGET / "var/lib/eitr/mirrors-pending"
+    marker.parent.mkdir(parents=True, exist_ok=True)
+    marker.write_text("0\n")
+    chroot(["systemctl", "enable", "eitr-mirrors.timer"], log)
+
+
 def save_factory_reset_point(log):
     """The read-only first-login state that Walker's Factory Reset restores."""
     chroot(["/usr/lib/eitr/eitr-factory-reset", "capture"], log)
@@ -641,6 +649,7 @@ def main():
                 *([] if choices["timezone_detected"] else
                   [("Scheduling timezone detection", schedule_timezone_detection)]),
                 ("Switching to online package updates", restore_online_sources),
+                ("Scheduling mirror ranking", schedule_mirror_ranking),
                 *([("Enabling SSH for automated testing",
                     lambda log: enable_test_ssh(choices["username"], choices["ssh_authorized_key"], log))]
                   if choices.get("ssh_authorized_key") else []),

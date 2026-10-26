@@ -24,6 +24,14 @@
     "submenu": "update"
   },
   {
+    "text": "Choose fastest mirrors",
+    "subtext": "Rank recent HTTPS package mirrors",
+    "icon": "󰒍",
+    "actions": {
+      "open": "kitty --hold --class system-mirrors -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/mirrors.py"
+    }
+  },
+  {
     "text": "Cleanup",
     "subtext": "See what takes space and clear caches, one question at a time",
     "keywords": [

@@ -542,5 +542,7 @@
   "Pi": "Pi",
   "Start an OpenCode session in a project": "Démarrer une session OpenCode dans un projet",
   "Start a Pi session in a project": "Démarrer une session Pi dans un projet",
-  "This CLI has no supported isolated account folder": "Cette CLI ne permet pas de dossier de compte isolé"
+  "This CLI has no supported isolated account folder": "Cette CLI ne permet pas de dossier de compte isolé",
+  "Choose fastest mirrors": "Choisir les miroirs les plus rapides",
+  "Rank recent HTTPS package mirrors": "Classer les miroirs HTTPS récents des paquets"
 }

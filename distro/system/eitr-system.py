@@ -1,5 +1,5 @@
 #!/usr/bin/python3 -I
-"""Root-owned, narrow Eitr snapshot/authentication operations; never run at login."""
+"""Root-owned, narrow Eitr system operations."""
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -8,6 +8,7 @@ from eitr_i18n import tr
 import argparse
 import datetime
 import io
+import fcntl
 import json
 import os
 from pathlib import Path
@@ -979,12 +980,161 @@ def firewall_status():
     return 0 if active else 3
 
 
+MIRRORLIST = Path("/etc/pacman.d/mirrorlist")
+ZONE_TABLE = Path("/usr/share/zoneinfo/zone.tab")
+LOCALTIME = Path("/etc/localtime")
+WORLD_MIRRORS = (
+    "https://geo.mirror.pkgbuild.com/$repo/os/$arch",
+    "https://mirrors.kernel.org/archlinux/$repo/os/$arch",
+    "https://mirror.rackspace.com/archlinux/$repo/os/$arch",
+)
+
+
+def mirror_servers(content):
+    """Accept only complete HTTPS pacman server records, never reflector comments."""
+    servers = []
+    for line in content.splitlines():
+        match = re.fullmatch(r"Server\s*=\s*(https://[^\s#]+/\$repo/os/\$arch/?)\s*", line)
+        if match and match[1] not in servers:
+            servers.append(match[1])
+    return servers
+
+
+def mirror_country():
+    """Use the system timezone's ISO country only when it is unambiguous."""
+    try:
+        zone = str(LOCALTIME.resolve()).split("/zoneinfo/", 1)[1]
+        countries = set()
+        for line in ZONE_TABLE.read_text().splitlines():
+            fields = line.split()
+            if not line.startswith("#") and len(fields) >= 3 and fields[2] == zone:
+                countries.update(fields[0].split(","))
+        if len(countries) == 1:
+            return countries.pop()
+    except (OSError, IndexError):
+        pass
+    return None
+
+
+def reflector_arguments(country=None):
+    arguments = ["/usr/bin/reflector", "--protocol", "https", "--age", "12",
+                 "--latest", "30", "--sort", "rate", "--number", "10",
+                 "--connection-timeout", "5", "--download-timeout", "5"]
+    if country:
+        arguments.extend(["--country", country])
+    return arguments
+
+
+def mirrors_status():
+    try:
+        servers = mirror_servers(MIRRORLIST.read_text())
+    except FileNotFoundError:
+        servers = []
+    try:
+        ranked = json.loads((STATE / "mirrors.json").read_text()).get("last_ranking_time")
+    except (OSError, ValueError):
+        ranked = None
+    return {"last_ranking_time": ranked, "mirror_count": len(servers),
+            "shipped_fallback": servers == list(WORLD_MIRRORS),
+            "backup_available": any(MIRRORLIST.parent.glob("mirrorlist.eitr-*.bak"))}
+
+
+def mirrors_write(content):
+    if not mirror_servers(content):
+        raise ValueError("Refusing an empty mirrorlist")
+    if MIRRORLIST.exists():
+        stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+        atomic(MIRRORLIST.with_name(f"mirrorlist.eitr-{stamp}.bak"),
+               MIRRORLIST.read_text(), mode=0o644, directory_mode=0o755)
+        # Restore needs only the latest backups; older ones would pile up in /etc.
+        for old in sorted(MIRRORLIST.parent.glob("mirrorlist.eitr-*.bak"))[:-3]:
+            old.unlink(missing_ok=True)
+    atomic(MIRRORLIST, content, mode=0o644, directory_mode=0o755)
+
+
+def mirrors_rank():
+    servers = []
+    country = mirror_country()
+    for region in ([country, None] if country else [None]):
+        try:
+            result = run(reflector_arguments(region), capture_output=True, text=True, timeout=120)
+            candidates = mirror_servers(result.stdout)
+            if len(candidates) >= 3:
+                servers = candidates[:10]
+                break
+        except (OSError, subprocess.SubprocessError):
+            continue
+    if not servers:
+        # A failed ranking changes nothing, so custom mirrors are never replaced.
+        raise ValueError("No up-to-date HTTPS mirrors were found; the mirror list was not changed")
+    ranked = True
+    servers = [server for server in servers if server not in WORLD_MIRRORS] + list(WORLD_MIRRORS)
+    content = "# Eitr HTTPS mirrors; worldwide fallbacks last.\n" + "".join(
+        f"Server = {server}\n" for server in servers)
+    mirrors_write(content)
+    if ranked:
+        atomic(STATE / "mirrors.json", json.dumps({"last_ranking_time":
+               datetime.datetime.now(datetime.timezone.utc).isoformat()}) + "\n",
+               mode=0o644, directory_mode=0o755)
+    print(content, end="")
+    return ranked
+
+
+def mirrors_restore():
+    backups = sorted(MIRRORLIST.parent.glob("mirrorlist.eitr-*.bak"))
+    if not backups:
+        raise ValueError("No previous mirrorlist is available")
+    content = backups[-1].read_text()
+    mirrors_write(content)
+    print(content, end="")
+
+
+def mirrors_first_boot():
+    marker = STATE / "mirrors-pending"
+    if not marker.exists():
+        return
+    attempts = int(marker.read_text().strip() or "0")
+    if attempts >= 3:
+        return
+    # Offline boots are not attempts: only a reachable mirror status counts.
+    import urllib.request
+    try:
+        with urllib.request.urlopen("https://archlinux.org/mirrors/status/json/", timeout=8):
+            pass
+    except OSError:
+        return
+    atomic(marker, str(attempts + 1) + "\n", mode=0o644, directory_mode=0o755)
+    try:
+        mirrors_rank()
+    except ValueError:
+        return
+    marker.unlink(missing_ok=True)
+
+
+def mirrors_dispatch(action):
+    if action == "mirrors-status":
+        print(json.dumps(mirrors_status()))
+        return
+    STATE.mkdir(parents=True, exist_ok=True, mode=0o755)
+    with (STATE / "mirrors.lock").open("w") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        if action == "mirrors-rank":
+            mirrors_rank()
+            (STATE / "mirrors-pending").unlink(missing_ok=True)
+        elif action == "mirrors-restore":
+            mirrors_restore()
+            (STATE / "mirrors-pending").unlink(missing_ok=True)
+        elif action == "mirrors-first-boot":
+            mirrors_first_boot()
+
+
 READ_ONLY_ACTIONS = {"snapshots-check", "bootloader-detect", "snapshots-boot-status", "battery-limit-status",
-                     "firewall-status", "channel-status"}
+                     "firewall-status", "channel-status", "mirrors-status"}
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("action", choices=["snapshots-check", "snapshots-setup", "snapshot-pre", "snapshot-post",
+    parser.add_argument("action", choices=["mirrors-rank", "mirrors-restore", "mirrors-status", "mirrors-first-boot",
+                                           "snapshots-check", "snapshots-setup", "snapshot-pre", "snapshot-post",
                                            "bootloader-detect", "snapshots-boot-status", "snapshots-boot-setup",
                                            "battery-limit", "battery-limit-apply", "battery-limit-status",
                                            "luks-tpm-check", "luks-tpm-enroll", "luks-recovery-key", "luks-tpm-remove",
@@ -1005,7 +1155,11 @@ if __name__ == "__main__":
     try:
         if args.profile_user and args.action != "profile-install":
             raise ValueError("Unexpected desktop user argument")
-        if args.action in ("profile-apply", "profile-install"):
+        if args.action.startswith("mirrors-"):
+            if args.argument:
+                raise ValueError("Unexpected argument")
+            mirrors_dispatch(args.action)
+        elif args.action in ("profile-apply", "profile-install"):
             if not args.argument:
                 raise ValueError("A mounted profile drive directory is required")
             from eitr_profile_apply import apply
