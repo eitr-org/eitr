@@ -4,5 +4,5 @@ set -euo pipefail
 if quickshell list --all 2>/dev/null | grep -q 'Config path: .*/calculator/shell.qml'; then
   eitr-shell calculator kill
 else
-  eitr-shell calculator --daemonize
+  "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/bin/app-launch" eitr-shell calculator --daemonize
 fi

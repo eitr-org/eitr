@@ -1,0 +1,20 @@
+[
+  {
+    "text": "Accounts",
+    "subtext": ">",
+    "icon": "󰀄",
+    "submenu": "ai-opencode-accounts"
+  },
+  {
+    "text": "New",
+    "subtext": "Start an OpenCode session in a project",
+    "keywords": [
+      "opencode",
+      "ai"
+    ],
+    "icon": "󰊭",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh opencode-new"
+    }
+  }
+]

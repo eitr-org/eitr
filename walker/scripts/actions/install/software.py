@@ -16,6 +16,7 @@ for _eitr_parent in Path(__file__).resolve().parents:
         sys.path.insert(0, str(_eitr_lib))
         break
 from eitr_paths import code, config as user_config, data as user_data
+from eitr_app import app_command
 from eitr_i18n import tr
 from eitr_forms import Terminal
 from eitr_terminal import read_key
@@ -48,7 +49,7 @@ def text(args):
 
 def terminal(*args):
     presenter = SCRIPT.parents[1] / "task-terminal.py"
-    subprocess.Popen(["kitty", "--class", "eitr-software", "-e", "python3", str(presenter), *args], start_new_session=True)
+    subprocess.Popen([str(code("walker/bin/menu-path/kitty")), "--class", "eitr-software", "-e", "python3", str(presenter), *args], start_new_session=True)
 
 
 def confirm(label):
@@ -245,7 +246,7 @@ def review(origin, name):
     if origin != "aur":
         print(text(["pacman", "-Si", "--", name]))
         print(tr('\nOfficial prebuilt package metadata; there is no local AUR build to execute.'))
-        run(["xdg-open", "https://archlinux.org/packages/?q=" + urllib.parse.quote(name)])
+        run(app_command(["xdg-open", "https://archlinux.org/packages/?q=" + urllib.parse.quote(name)]))
     else:
         # RPC resolves split packages to their actual PackageBase. Nothing is sourced.
         url = "https://aur.archlinux.org/rpc/v5/info?arg[]=" + urllib.parse.quote(name)
@@ -254,7 +255,7 @@ def review(origin, name):
         if not data.get("results"):
             raise ValueError(tr('AUR package not found'))
         base = package_name(data["results"][0]["PackageBase"])
-        run(["xdg-open", "https://aur.archlinux.org/cgit/aur.git/tree/?h=" + urllib.parse.quote(base)])
+        run(app_command(["xdg-open", "https://aur.archlinux.org/cgit/aur.git/tree/?h=" + urllib.parse.quote(base)]))
         print(tr('Opened the complete build repository: review PKGBUILD, .install files and patches.'))
 
 
@@ -665,7 +666,7 @@ def gaming(identifier):
     """Open an installed gaming app; otherwise install it in a terminal."""
     item = gaming_item(identifier)
     if installed(item):
-        subprocess.Popen(item["launch"], start_new_session=True)
+        subprocess.Popen(app_command(item["launch"]), start_new_session=True)
         return
     terminal("python3", str(SCRIPT), "gaming-install", identifier)
 

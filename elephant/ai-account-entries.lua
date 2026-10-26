@@ -31,7 +31,7 @@ return function(identifier)
                 Icon = "󰀔", Actions = {open = task("add")}})
         else
             table.insert(entries, {Text = i18n.tr("Separate accounts unavailable"),
-                Subtext = i18n.tr("This CLI has no supported configuration folder override"), Icon = "󰋽", Actions = {}})
+                Subtext = i18n.tr("This CLI has no supported isolated account folder"), Icon = "󰋽", Actions = {}})
         end
         return entries
     end

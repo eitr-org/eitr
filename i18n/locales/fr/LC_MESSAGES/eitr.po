@@ -2083,6 +2083,9 @@ msgstr "PgPréc/PgSuiv : défiler  Entrée : télécharger pour vérifier  Écha
 msgid "PgUp/PgDn: scroll  Enter: install  Esc: cancel"
 msgstr "PgPréc/PgSuiv : défiler  Entrée : installer  Échap : annuler"
 
+msgid "Pi has no built-in permission prompts. Choose another assistant for Ask before changes."
+msgstr "Pi ne possède pas de demandes de permission intégrées. Choisissez un autre assistant pour Ask before changes."
+
 msgid "Pick a reminder to cancel"
 msgstr "Choisissez un rappel à annuler"
 

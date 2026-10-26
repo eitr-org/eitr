@@ -28,6 +28,7 @@ import eitr_bootstrap
 from eitr_i18n import tr
 from eitr_wizard import collect, Step
 from eitr_paths import cache, config, state
+from eitr_app import app_command
 from contextlib import contextmanager
 from datetime import date, datetime, time as clock, timedelta, timezone
 import fcntl
@@ -576,7 +577,7 @@ def add():
                         tr('Outlook: Settings > Calendar > Shared calendars > Publish a calendar > copy the ICS link, not the HTML one.')
                         if provider == 'outlook' else tr('Paste an https:// or webcal:// iCal address.'))
         if provider in PROVIDERS:
-            subprocess.Popen(['xdg-open', PROVIDERS[provider]], stdout=subprocess.DEVNULL,
+            subprocess.Popen(app_command(['xdg-open', PROVIDERS[provider]]), stdout=subprocess.DEVNULL,
                              stderr=subprocess.DEVNULL, start_new_session=True)
         print(instructions, flush=True)
         identifier = str(time.time_ns())

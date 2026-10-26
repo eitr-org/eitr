@@ -1296,12 +1296,16 @@
       "elephant/menu-rows/ai-copilot.json",
       "elephant/menu-rows/ai-gemini.json",
       "elephant/menu-rows/ai-grok.json",
+      "elephant/menu-rows/ai-opencode.json",
+      "elephant/menu-rows/ai-pi.json",
       "elephant/menus/ai-agy-accounts.lua",
       "elephant/menus/ai-claude-accounts.lua",
       "elephant/menus/ai-codex-accounts.lua",
       "elephant/menus/ai-copilot-accounts.lua",
       "elephant/menus/ai-gemini-accounts.lua",
-      "elephant/menus/ai-grok-accounts.lua"
+      "elephant/menus/ai-grok-accounts.lua",
+      "elephant/menus/ai-opencode-accounts.lua",
+      "elephant/menus/ai-pi-accounts.lua"
     ],
     "Activity Logs": [
       "elephant/menus/azure-logs-minutes.lua"
@@ -2179,7 +2183,9 @@
       "elephant/menu-rows/ai-codex.json",
       "elephant/menu-rows/ai-copilot.json",
       "elephant/menu-rows/ai-gemini.json",
-      "elephant/menu-rows/ai-grok.json"
+      "elephant/menu-rows/ai-grok.json",
+      "elephant/menu-rows/ai-opencode.json",
+      "elephant/menu-rows/ai-pi.json"
     ],
     "New Ed25519 key with a passphrase": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -2249,6 +2255,9 @@
     "Open your configuration folder in an editor": [
       "elephant/menu-rows/system.json"
     ],
+    "OpenCode": [
+      "elephant/menus/ai-opencode.lua"
+    ],
     "Oracle Cloud": [
       "elephant/menu-rows/cloud.json",
       "elephant/menus/oracle-account.lua",
@@ -2278,6 +2287,9 @@
     ],
     "Passphrase required at boot again": [
       "elephant/menu-rows/tpm-unlock.json"
+    ],
+    "Pi": [
+      "elephant/menus/ai-pi.lua"
     ],
     "Pick a color on screen and copy its code": [
       "elephant/menu-rows/capture.json"
@@ -2747,11 +2759,17 @@
     "Start a Grok Build session in a project": [
       "elephant/menu-rows/ai-grok.json"
     ],
+    "Start a Pi session in a project": [
+      "elephant/menu-rows/ai-pi.json"
+    ],
     "Start a session with a name to resume later": [
       "elephant/menu-rows/ai-claude.json"
     ],
     "Start an Antigravity CLI session in a project": [
       "elephant/menu-rows/ai-agy.json"
+    ],
+    "Start an OpenCode session in a project": [
+      "elephant/menu-rows/ai-opencode.json"
     ],
     "Start at Login": [
       "elephant/menu-rows/remote-share.json"
@@ -2855,7 +2873,7 @@
     "Theme changes do not touch device lighting": [
       "elephant/menus/lighting.lua"
     ],
-    "This CLI has no supported configuration folder override": [
+    "This CLI has no supported isolated account folder": [
       "elephant/ai-account-entries.lua"
     ],
     "Tmux Commands": [
@@ -5701,6 +5719,9 @@
     ],
     "PgUp/PgDn: scroll  Enter: install  Esc: cancel": [
       "walker/scripts/actions/install/plugins.py"
+    ],
+    "Pi has no built-in permission prompts. Choose another assistant for Ask before changes.": [
+      "distro/lib/eitr_assistants.py"
     ],
     "Pick a reminder to cancel": [
       "walker/scripts/actions/tools/reminders.py"

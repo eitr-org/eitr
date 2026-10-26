@@ -166,8 +166,8 @@ EOF
   chmod 700 "$temp_script"
 
   if [ "$window_mode" = "toggle" ]; then
-    kitty --class cloud-terminal --title "$title" "$temp_script"
+    "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/bin/menu-path/kitty" --class cloud-terminal --title "$title" "$temp_script"
   else
-    kitty --title "$title" "$temp_script"
+    "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/bin/menu-path/kitty" --title "$title" "$temp_script"
   fi
 }

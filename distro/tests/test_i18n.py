@@ -20,6 +20,12 @@ spec.loader.exec_module(builder)
 
 
 class LocaleTests(unittest.TestCase):
+    def test_english_catalog_appends_new_keys_and_removes_stale_keys(self):
+        previous = {"Zulu": "Zulu", "Removed": "Removed", "Bravo": "Bravo"}
+        sources = {"Alpha": [], "Bravo": [], "Zulu": []}
+        self.assertEqual(list(builder.english_catalog(previous, sources)),
+                         ["Zulu", "Bravo", "Alpha"])
+
     def test_empty_messages_never_return_catalog_metadata(self):
         for locale in ("en", "pt_BR", "es", "de", "fr"):
             with patch.dict(os.environ, LC_ALL=locale):

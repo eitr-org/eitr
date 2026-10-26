@@ -44,13 +44,13 @@ Interactive assistant launchers (including SUPER + A) start in your home folder.
 
 Each cloud assistant has an Accounts submenu under Development > AI. Default uses the existing configuration and login without moving files. Add Account… asks for a label, shows a review, then opens the CLI’s own sign-in with a private browser window where supported (unknown browsers use their normal opener). Enter confirms; Esc cancels. Select an account to switch future interactive sessions, Ask the AI and read-only helpers manually; running sessions keep their account. Delete removes an added account and its local configuration after confirmation; Default cannot be removed. Removing the selected account returns to Default and never logs another account out. Antigravity offers only Default because its CLI has no supported config-folder override. Ratatoskr has one local account. Account labels and selection stay on this PC in `eitr/ai-accounts.json` (0600); separate folders live under `$XDG_DATA_HOME/eitr/ai-accounts/` (0700). AI Usage groups readable accounts by assistant and hides unreadable or unsupported usage. Sections start closed at login and keep their open or closed state for the session.
 
-Development > AI offers a menu for each installed assistant: Claude Code, Codex, Gemini CLI, Grok Build and GitHub Copilot CLI. Install them from Install > AI CLIs; with none installed, Development > AI links there.
+Development > AI offers a menu for each installed assistant: Antigravity CLI, Claude Code, Codex, Gemini CLI, GitHub Copilot CLI, Grok Build, OpenCode and Pi. Install them from Install > AI CLIs; with none installed, Development > AI links there.
 
 Opening a LazyVim or VS Code project first asks for a
 folder under `~/Development`: pick folders to go deeper, Open to use the one
 you are in, and Back to go up a level or, at the top, return to the menu.
 
-Claude Code, Codex, Gemini CLI, Grok Build and GitHub Copilot CLI (`copilot`) can also be started by command. If a tool is missing, Eitr explains it and offers the same installation as Install > AI CLIs. Enter confirms installation; Esc cancels. Without an interactive terminal, the command exits with installation instructions. Installed binaries take precedence over these launchers. Sign in through each tool’s own workflow; no assistant binaries or credentials are bundled.
+Antigravity CLI, Claude Code, Codex, Gemini CLI, GitHub Copilot CLI, Grok Build, OpenCode and Pi can also be started by command. If a tool is missing, Eitr explains it and offers the same installation as Install > AI CLIs. Enter confirms installation; Esc cancels. Without an interactive terminal, the command exits with installation instructions. Installed binaries take precedence over these launchers. Sign in through each tool’s own workflow; no assistant binaries or credentials are bundled.
 
 Development > Default Assistant selects one installed assistant for this computer. **SUPER + A** opens it in a terminal; without a default, it opens the chooser. Interactive assistants open with full access by default: they can change files and run commands without asking. Choose **System > Security > Assistant Access > Ask before changes** to restore normal permission prompts. The preference is stored only on this PC in `eitr/ai.json`. Organization restrictions force permission prompts. Sudo still requires your password. Headless collaboration and voice reminders remain read-only.
 
@@ -59,6 +59,12 @@ Theme changes update only the light/dark theme setting in existing, readable Cla
 Installed SDK versions and installer sources are maintained in distro manifests.
 Follow the actual picker rather than assuming a handbook example is a promise
 about the newest upstream version. Toolchain installation may need downloads.
+
+### OpenCode, Pi and the Eitr skill
+
+Install > AI CLIs also offers **OpenCode** (`opencode`, official Arch package) and **Pi** (`pi`, npm package `@mariozechner/pi-coding-agent`). Both have Development > AI menus, first-use command launchers and Default Assistant choices for SUPER + A. OpenCode uses `--auto` for full access. Its Accounts menu offers only Default: its config-directory override does not isolate credentials. Pi supports separate accounts through `PI_CODING_AGENT_DIR` and receives the Handbook guidance through `--append-system-prompt`. Pi has no built-in permission prompts; Eitr refuses its interactive launch in Ask before changes mode or under organization restrictions. Neither is a read-only collaboration helper.
+
+The packaged **Eitr** skill teaches safe desktop changes and points to this offline Handbook. `eitr-config seed` copies it to `~/.claude/skills/eitr/SKILL.md`, discovered by Claude Code and OpenCode when external skill discovery is enabled. `eitr-config update` refreshes unedited copies, keeps user-created or edited copies, and writes changed defaults to `.eitr-new` for review. Existing installations receive missing skills at login. Per-CLI startup instructions remain active; no sign-in is performed.
 
 ### Ratatoskr (local, experimental)
 

@@ -14,7 +14,7 @@ Netzwerkwechsel, Sicherheit, Ladegrenzen und Wiederherstellung benötigen geprü
 
 Quickshell zeigt verständliche Neuladefehler und behält möglichst die letzte funktionierende Konfiguration. Korrigiere die genannte Datei; starte den Anmeldemanager nicht wiederholt neu. **Starte SDDM niemals während deiner Desktop-Sitzung neu.**
 
-Ein Elephant-Neustart lädt Menüdefinitionen neu. Sein Dienst muss `KillMode=process` behalten, damit gestartete Anwendungen weiterlaufen. Designs erzeugen Stile neu: Verschwindet eine Änderung, korrigiere Generator und erzeugte Ausgabe.
+Ein Elephant-Neustart lädt Menüdefinitionen neu. Sein Dienst muss `KillMode=process` behalten, für Helfer und Starts ohne uwsm. In einer uwsm-Sitzung laufen gestartete Anwendungen und Terminals in eigenen Anwendungs-Scopes. Designs erzeugen Stile neu: Verschwindet eine Änderung, korrigiere Generator und erzeugte Ausgabe.
 
 ## Installation und Wiederherstellung prüfen
 

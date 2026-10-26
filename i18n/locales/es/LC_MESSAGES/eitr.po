@@ -2083,6 +2083,9 @@ msgstr "RePág/AvPág: desplazar  Enter: descargar para revisar  Esc: cancelar"
 msgid "PgUp/PgDn: scroll  Enter: install  Esc: cancel"
 msgstr "RePág/AvPág: desplazar  Enter: instalar  Esc: cancelar"
 
+msgid "Pi has no built-in permission prompts. Choose another assistant for Ask before changes."
+msgstr "Pi no incluye confirmaciones de permisos. Elige otro asistente para Ask before changes."
+
 msgid "Pick a reminder to cancel"
 msgstr "Elige un recordatorio para cancelar"
 

@@ -87,7 +87,7 @@
     "subtext": "SUPER + E",
     "icon": "",
     "actions": {
-      "open": "dolphin --new-window"
+      "open": "/usr/share/eitr/walker/bin/app-launch dolphin --new-window"
     }
   },
   {

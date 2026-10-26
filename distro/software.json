@@ -39,7 +39,9 @@
     "claude": {"label": "Claude Code", "source": "managed", "packages": [], "manager": "Anthropic installer", "installed": ["~/.local/bin/claude"], "uninstall": {"kind": "binary", "path": "~/.local/bin/claude"}},
     "grok": {"label": "Grok Build", "source": "managed", "packages": [], "manager": "xAI installer", "installed": ["~/.grok/bin/grok"], "uninstall": {"kind": "binary", "path": "~/.grok/bin/grok"}},
     "agy": {"label": "Antigravity CLI", "source": "managed", "packages": [], "manager": "Google installer", "installed": ["~/.local/bin/agy"], "uninstall": {"kind": "binary", "path": "~/.local/bin/agy"}},
-    "gemini": {"label": "Gemini CLI (Gemini API key or Google Cloud/company account)", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/gemini"], "uninstall": {"kind": "npm", "package": "@google/gemini-cli"}}
+    "gemini": {"label": "Gemini CLI (Gemini API key or Google Cloud/company account)", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/gemini"], "uninstall": {"kind": "npm", "package": "@google/gemini-cli"}},
+    "opencode": {"label": "OpenCode", "source": "pacman", "packages": ["opencode"]},
+    "pi": {"label": "Pi", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/pi"], "uninstall": {"kind": "npm", "package": "@mariozechner/pi-coding-agent"}}
   },
   "productivity": {
     "1password": {"label": "1Password", "source": "aur", "packages": ["1password"]},

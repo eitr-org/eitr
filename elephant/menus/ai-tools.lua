@@ -18,6 +18,8 @@ local assistants = {
     {id = "copilot", text = "GitHub Copilot CLI", icon = "󰆍", submenu = "ai-copilot"},
     {id = "gemini", text = i18n.mark("Gemini CLI (Gemini API key or Google Cloud/company account)"), icon = "󰊭", submenu = "ai-gemini"},
     {id = "grok", text = "Grok", icon = "󱙺", submenu = "ai-grok"},
+    {id = "opencode", text = "OpenCode", icon = "󰆍", submenu = "ai-opencode"},
+    {id = "pi", text = "Pi", icon = "󰆍", submenu = "ai-pi"},
 }
 
 function GetEntries()

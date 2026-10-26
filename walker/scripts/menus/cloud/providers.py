@@ -406,7 +406,7 @@ def run_account_locked(provider, name, action, answers=None):
 def account_entries(provider, name):
     account_path(provider, name)
     choices = {
-        tr('Open Console'): ['xdg-open', PROVIDERS[provider]['console']],
+        tr('Open Console'): [str(code('walker/bin/app-launch')), 'xdg-open', PROVIDERS[provider]['console']],
         tr('Sign In'): shlex.split(terminal(provider, 'login', name)),
         tr('CLI Help'): shlex.split(terminal(provider, 'help', name)),
         tr('Delete Account'): ['python3', str(SCRIPT), provider, 'delete', name],

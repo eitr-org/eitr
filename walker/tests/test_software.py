@@ -615,7 +615,7 @@ class GamingTests(unittest.TestCase):
             with self.subTest(identifier=identifier), patch.object(software, "installed", return_value=True), \
                     patch.object(software.subprocess, "Popen") as launch, patch.object(software, "terminal") as terminal:
                 software.gaming(identifier)
-                launch.assert_called_once_with(command, start_new_session=True)
+                launch.assert_called_once_with([str(ROOT / "walker/bin/app-launch"), *command], start_new_session=True)
                 terminal.assert_not_called()
 
     def test_missing_gaming_apps_open_install_terminal(self):
@@ -651,3 +651,21 @@ class GamingTests(unittest.TestCase):
             software.gaming_install("geforcenow")
             install.assert_called_once_with("pacman", ["flatpak"])
             recipe.assert_called_once_with("gaming", "geforcenow")
+
+
+class CodingAgentRecipesTests(unittest.TestCase):
+    def test_new_agents_install_and_remove_through_their_managers(self):
+        with repository_catalog(), patch.object(software, 'installed', return_value=False), \
+                patch.object(software, 'install') as install, patch.object(software, 'run') as run:
+            software.recipe('ai', 'opencode')
+            install.assert_called_once_with('pacman', ['opencode'])
+            run.assert_not_called()
+            software.recipe('ai', 'pi')
+            self.assertEqual(run.call_args.args[0],
+                             ['bash', str(software.SCRIPT.with_name('development.sh')), 'pi'])
+        with repository_catalog(), patch.object(software, 'installed', return_value=True), \
+                patch.object(software, 'remove') as remove, patch.object(software, 'managed_remove') as managed:
+            software.recipe_remove('ai', 'opencode')
+            remove.assert_called_once_with('pacman', 'opencode')
+            software.recipe_remove('ai', 'pi')
+            managed.assert_called_once_with({'kind': 'npm', 'package': '@mariozechner/pi-coding-agent'})

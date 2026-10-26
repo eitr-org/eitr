@@ -62,10 +62,11 @@ case "$kind" in
   oracle) download_run "$(installer_url oracle)" --accept-all-defaults ;;
   ibm) download_run "$(installer_url ibm)" ;;
   deno) download_run "$(installer_url deno)" -y --no-modify-path ;;
-  codex|gemini|copilot)
+  codex|gemini|copilot|pi)
     node_setup
     if [[ "$kind" == codex ]]; then npm install --global @openai/codex;
     elif [[ "$kind" == gemini ]]; then npm install --global @google/gemini-cli;
+    elif [[ "$kind" == pi ]]; then npm install --global @mariozechner/pi-coding-agent;
     else npm_config_ignore_scripts=false npm install --global @github/copilot; fi
     ;;
   claude) download_run "$(installer_url claude)" ;;

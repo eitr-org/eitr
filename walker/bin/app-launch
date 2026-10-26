@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# One owner for application isolation; desktop helpers do not use this launcher.
+set -euo pipefail
+# Application children see the ordinary PATH, including when a Desktop Entry
+# starts kitty. Otherwise the menu shim could create a second scope.
+here="$(cd -- "${BASH_SOURCE[0]%/*}" && pwd)"
+IFS=: read -r -a path_entries <<< "$PATH"
+application_path=()
+for entry in "${path_entries[@]}"; do
+    [[ "$entry" == "$here/menu-path" ]] || application_path+=("$entry")
+done
+PATH="$(IFS=:; printf '%s' "${application_path[*]}")"
+export PATH
+if (($# == 0)); then
+    printf 'Usage: app-launch [--desktop] COMMAND [ARGUMENTS]\n' >&2
+    exit 2
+fi
+desktop=false
+if [[ $1 == --desktop ]]; then
+    desktop=true
+    shift
+fi
+if (($# == 0)); then exit 2; fi
+# Query the already-running uwsm compositor, without starting anything or a
+# Python interpreter. A non-uwsm session retains its original launch behavior.
+if command -v uwsm >/dev/null 2>&1 &&
+    systemctl --user --quiet is-active 'wayland-wm@*.service' 2>/dev/null; then
+    exec uwsm app -s a -t scope -- "$@"
+fi
+if "$desktop"; then exec gtk-launch "$@"; fi
+exec "$@"

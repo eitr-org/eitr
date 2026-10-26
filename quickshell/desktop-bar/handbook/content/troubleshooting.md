@@ -26,7 +26,8 @@ configuration when possible. Fix the named file; do not repeatedly restart the
 login manager. **Never restart SDDM during your desktop session.**
 
 An Elephant restart reloads menu definitions. Its service must retain
-`KillMode=process` so launched apps survive. Themes regenerate styles, so fix
+`KillMode=process` for helpers and fallback launches. In a uwsm session, launched
+apps and terminals run in separate application scopes. Themes regenerate styles, so fix
 the generator as well as generated output if a change disappears later.
 
 ## Installation and recovery checks

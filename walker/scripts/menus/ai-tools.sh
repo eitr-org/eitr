@@ -42,6 +42,12 @@ case "${1:-}" in
   grok-new)
     chosen="Grok Build > New"
     ;;
+  opencode-new)
+    chosen="OpenCode > New"
+    ;;
+  pi-new)
+    chosen="Pi > New"
+    ;;
   *)
     exec "$EITR_CODE_ROOT/walker/bin/walker" --provider menus:ai-tools
     ;;
@@ -51,7 +57,7 @@ esac
 
 # Back at the top of the folder picker returns to this assistant's menu.
 case "${1:-}" in
-  agy-*|claude-*|codex-*|gemini-*|grok-*|copilot-*) parent="menus:ai-${1%%-*}" ;;
+  opencode-*|pi-*|agy-*|claude-*|codex-*|gemini-*|grok-*|copilot-*) parent="menus:ai-${1%%-*}" ;;
   *) parent="" ;;
 esac
 status=0
@@ -70,43 +76,49 @@ prompt_text() {
 
 case "$chosen" in
   "  Codex > New")
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run codex; exec zsh'
+    EITR_TERMINAL_STYLE=window "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/bin/menu-path/kitty" --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run codex; exec zsh'
     ;;
   "  Codex > Resume Picker")
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run codex resume; exec zsh'
+    EITR_TERMINAL_STYLE=window "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/bin/menu-path/kitty" --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run codex resume; exec zsh'
     ;;
   "  Codex > Resume by Name or ID")
     session_name="$(prompt_text "Codex Session Name or ID")"
     [[ -z "$session_name" ]] && exit 0
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" env AI_SESSION_NAME="$session_name" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run codex resume "$AI_SESSION_NAME"; exec zsh'
+    EITR_TERMINAL_STYLE=window "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/bin/menu-path/kitty" --directory "$repo_path" env AI_SESSION_NAME="$session_name" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run codex resume "$AI_SESSION_NAME"; exec zsh'
     ;;
   "󰚩  Claude Code > New")
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run claude; exec zsh'
+    EITR_TERMINAL_STYLE=window "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/bin/menu-path/kitty" --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run claude; exec zsh'
     ;;
   "󰚩  Claude Code > New Named")
     session_name="$(prompt_text "Claude Session Name")"
     [[ -z "$session_name" ]] && exit 0
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" env AI_SESSION_NAME="$session_name" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run claude -n "$AI_SESSION_NAME"; exec zsh'
+    EITR_TERMINAL_STYLE=window "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/bin/menu-path/kitty" --directory "$repo_path" env AI_SESSION_NAME="$session_name" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run claude -n "$AI_SESSION_NAME"; exec zsh'
     ;;
   "󰚩  Claude Code > Resume Picker")
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run claude -r; exec zsh'
+    EITR_TERMINAL_STYLE=window "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/bin/menu-path/kitty" --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run claude -r; exec zsh'
     ;;
   "󰚩  Claude Code > Resume by Name")
     session_name="$(prompt_text "Claude Session Name")"
     [[ -z "$session_name" ]] && exit 0
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" env AI_SESSION_NAME="$session_name" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run claude -r "$AI_SESSION_NAME"; exec zsh'
+    EITR_TERMINAL_STYLE=window "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/bin/menu-path/kitty" --directory "$repo_path" env AI_SESSION_NAME="$session_name" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run claude -r "$AI_SESSION_NAME"; exec zsh'
     ;;
   "GitHub Copilot CLI > New")
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run copilot; exec zsh'
+    EITR_TERMINAL_STYLE=window "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/bin/menu-path/kitty" --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run copilot; exec zsh'
     ;;
   "Antigravity CLI > New")
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run agy; exec zsh'
+    EITR_TERMINAL_STYLE=window "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/bin/menu-path/kitty" --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run agy; exec zsh'
     ;;
   "Gemini CLI > New")
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run gemini; exec zsh'
+    EITR_TERMINAL_STYLE=window "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/bin/menu-path/kitty" --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run gemini; exec zsh'
     ;;
   "Grok Build > New")
-    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run grok; exec zsh'
+    EITR_TERMINAL_STYLE=window "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/bin/menu-path/kitty" --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run grok; exec zsh'
+    ;;
+  "OpenCode > New")
+    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run opencode; exec zsh'
+    ;;
+  "Pi > New")
+    EITR_TERMINAL_STYLE=window kitty --directory "$repo_path" zsh -ic 'python3 "$EITR_ASSISTANT_RUNNER" run pi; exec zsh'
     ;;
   *)
     exit 0

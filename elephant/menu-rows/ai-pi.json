@@ -1,0 +1,20 @@
+[
+  {
+    "text": "Accounts",
+    "subtext": ">",
+    "icon": "󰀄",
+    "submenu": "ai-pi-accounts"
+  },
+  {
+    "text": "New",
+    "subtext": "Start a Pi session in a project",
+    "keywords": [
+      "pi",
+      "ai"
+    ],
+    "icon": "󰊭",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh pi-new"
+    }
+  }
+]

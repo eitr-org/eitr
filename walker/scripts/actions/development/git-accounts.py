@@ -440,7 +440,7 @@ def notify(title, body=''):
 def in_terminal(*arguments):
     """Open a task terminal for a form that needs typing."""
     presenter = code('walker/scripts/actions/task-terminal.py')
-    subprocess.Popen(['kitty', '--class', 'eitr-git-accounts', '-e', 'python3', str(presenter),
+    subprocess.Popen([str(code('walker/bin/menu-path/kitty')), '--class', 'eitr-git-accounts', '-e', 'python3', str(presenter),
                       'python3', str(Path(__file__).resolve()), *arguments], start_new_session=True)
 
 

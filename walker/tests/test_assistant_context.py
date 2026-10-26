@@ -127,7 +127,7 @@ class ContextTests(unittest.TestCase):
                 with patch.object(Path, 'home', return_value=home), \
                         patch('eitr_ai_accounts.environment', return_value=env), \
                         patch.object(assistants, 'executable', return_value=Path('/stub/assistant')), \
-                        patch.object(assistants, 'assistant_access', return_value='ask'), \
+                        patch.object(assistants, 'assistant_access', return_value='full'), \
                         patch.object(assistants.os, 'chdir') as change, \
                         patch.object(assistants.os, 'execve') as execute:
                     assistants.launch(identifier, ['question'])
@@ -135,10 +135,10 @@ class ContextTests(unittest.TestCase):
                     arguments = execute.call_args.args[1]
                     self.assertEqual(arguments[-1], 'question')
                     option = {'claude': '--append-system-prompt', 'codex': '-c',
-                              'gemini': '--skip-trust', 'grok': '--rules'}.get(identifier)
+                              'gemini': '--skip-trust', 'grok': '--rules', 'pi': '--append-system-prompt'}.get(identifier)
                     if option:
                         self.assertIn(option, arguments)
-                    if identifier in ('claude', 'codex', 'grok'):
+                    if identifier in ('claude', 'codex', 'grok', 'pi'):
                         self.assertIn('offline Eitr Handbook', ' '.join(arguments))
                     if identifier in ('claude', 'copilot'):
                         self.assertTrue(list(account.glob('*.json')))

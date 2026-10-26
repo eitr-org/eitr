@@ -330,7 +330,7 @@ def invoke(menu, arguments):
     if arguments not in allowed:
         raise ValueError('Unknown cloud action')
     subprocess.run(arguments, check=True)
-    if arguments[0] != 'xdg-open':
+    if arguments[:2] != [str(code('walker/bin/app-launch')), 'xdg-open']:
         show(menu if providers.account_path(provider, name).exists() else provider + '-contexts')
 
 

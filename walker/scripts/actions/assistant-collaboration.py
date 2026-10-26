@@ -38,7 +38,7 @@ def toggle():
             return 0
     if not connected():
         raise ValueError(tr('Sign in to an assistant before enabling collaboration.'))
-    subprocess.Popen(['kitty', '-e', sys.executable, str(code('walker/scripts/actions/task-terminal.py')),
+    subprocess.Popen([str(code('walker/bin/menu-path/kitty')), '-e', sys.executable, str(code('walker/scripts/actions/task-terminal.py')),
                       sys.executable, str(Path(__file__).resolve()), 'enable'],
                      stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
                      start_new_session=True)

@@ -229,6 +229,31 @@ their return paths call packaged commands. Install-recipe readers stop preferrin
 not silently honored. Installed Elephant is 2.22.1; the source reading is
 confirmed by the Phase 2 prototype gate, not assumed.
 
+### Application scopes
+
+`walker/bin/app-launch` owns application isolation for menu, key binding and bar
+launches. It executes `uwsm app -s a -t scope --` when uwsm is installed and an
+active `wayland-wm@*.service` exists, checked with one quiet systemctl query.
+Otherwise it executes the original command; `--desktop ID` falls back to
+`gtk-launch ID`. App arguments remain separate argv values. Launch failures are
+reported without retrying an application that may already have started.
+
+Apps passes Desktop Entry IDs, retaining application metadata. Global search
+activates the same indexed Apps action. Walker's native desktopapplications
+provider is not selected by the shipped configuration and neither Walker nor
+Elephant currently sets a native launch prefix. Such a prefix alone would not
+cover custom menus. Menu terminals go through `walker/bin/menu-path/kitty`,
+which keeps its appearance rules and calls the shared launcher. The launcher
+removes the menu PATH shim so Desktop Entries and app children cannot re-enter it. Python app callers use `eitr_app.app_command` as an argv adapter.
+
+Bar app buttons already use the terminal shim or delegate to menu/action
+helpers; browser, editor and OBS launches are isolated inside those helpers.
+Notifications, IPC, launcher menus, status queries, desktop daemons and other
+short-lived desktop helpers remain in their existing units. Keep Elephant's
+`KillMode=process` for these helpers and non-uwsm fallback launches. Scope
+separation provides independent accounting and process grouping; it does not
+set a memory limit or guarantee survival under system-wide memory exhaustion.
+
 ### Walker configuration, layouts and generated theme
 
 From Walker's source (commit `a515085fd39fae80acc086c8fbfd9b7771a9a11d`;
@@ -430,3 +455,11 @@ Tests before claiming completion:
 narrowing GTK/Qt/Kvantum whole-file writes to owned keys; restructuring Neovim into
 a shipped runtime with user extensions; portal, Dolphin and MIME adjustments;
 version markers for non-EITR file formats.
+
+## Assistant skill default
+
+The package ships `distro/assistant/skills/eitr/SKILL.md` as D runtime data.
+The user-defaults manifest seeds a managed copy to `~/.claude/skills/eitr/` for
+Claude Code and OpenCode. Updates replace unedited copies and preserve user-created
+or edited copies with `.eitr-new` review files. A login migration seeds missing
+copies on existing installations; it never starts an assistant or signs in.

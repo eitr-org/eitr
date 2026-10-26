@@ -188,8 +188,8 @@ class FlowTests(unittest.TestCase):
         saved = json.loads(store.read_text())
         self.assertEqual([(item['name'], item['url'], item['provider']) for item in saved], [('Team', SECRET, 'google')])
         self.assertNotIn('private', calendars.events_file().read_text())
-        opened = [arguments[0] for arguments, _ in self.calls if arguments[0][0] == 'xdg-open']
-        self.assertEqual(opened, [['xdg-open', calendars.PROVIDERS['google']]])
+        opened = [arguments[0] for arguments, _ in self.calls if arguments[0][:2] == [str(calendars.app_command([])[0]), 'xdg-open']]
+        self.assertEqual(opened, [[str(ROOT / 'walker/bin/app-launch'), 'xdg-open', calendars.PROVIDERS['google']]])
         self.assertIn((['systemctl', '--user', 'enable', '--now', 'eitr-calendars.timer'],),
                       [arguments for arguments, _ in self.calls])
         self.assertEqual(self.notify.call_args.args[0], 'Calendar added')

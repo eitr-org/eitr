@@ -1338,5 +1338,6 @@
   "{subscription_count} subscription(s) are ready in the Azure menu.": "{subscription_count} subscription(s) are ready in the Azure menu.",
   "{unit} is enabled; snapshot entries are written to {entries_path} from the next boot.": "{unit} is enabled; snapshot entries are written to {entries_path} from the next boot.",
   "{unit} manages networking; review that custom setup first.": "{unit} manages networking; review that custom setup first.",
-  "… and {count} more": "… and {count} more"
+  "… and {count} more": "… and {count} more",
+  "Pi has no built-in permission prompts. Choose another assistant for Ask before changes.": "Pi has no built-in permission prompts. Choose another assistant for Ask before changes."
 }

@@ -34,6 +34,7 @@ import subprocess
 import sys
 
 from eitr_paths import code
+from eitr_app import app_command
 
 DRM_ROOT = Path("/sys/class/drm")
 HDR_ENV = ("PROTON_ENABLE_WAYLAND", "PROTON_ENABLE_HDR", "DXVK_HDR")
@@ -413,7 +414,7 @@ def edit():
         local.parent.mkdir(parents=True, exist_ok=True)
         local.write_text(code("hypr/local.lua.template").read_text())
     command = ["code", str(local)] if shutil.which("code") else ["kitty", "--directory", str(local.parent), "nvim", str(local)]
-    subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+    subprocess.Popen(app_command(command), stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
                      start_new_session=True)
 
 

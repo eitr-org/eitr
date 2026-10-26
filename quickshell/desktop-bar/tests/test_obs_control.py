@@ -255,7 +255,7 @@ class ObsControlTests(unittest.TestCase):
                 obs.notify_saved("/images/test.png", screenshot=True)
                 self.assertIn("--action=open=Open image", run.call_args.args[0])
                 self.assertIn("--action=folder=Open folder", run.call_args.args[0])
-                self.assertEqual(launch.call_args.args[0], ["xdg-open", destination])
+                self.assertEqual(launch.call_args.args[0], [str(obs.code("walker/bin/app-launch")), "xdg-open", destination])
 
     def test_failed_stop_does_not_exit(self):
         with patch.object(obs.subprocess, "run", side_effect=[SimpleNamespace(returncode=0), SimpleNamespace(returncode=1)]), \
@@ -322,7 +322,7 @@ class ObsControlTests(unittest.TestCase):
         with patch.object(Path, "mkdir") as mkdir, patch.object(obs.subprocess, "Popen") as launch:
             obs.control("folder")
             mkdir.assert_called_once_with(parents=True, exist_ok=True)
-            self.assertEqual(launch.call_args.args[0], ["xdg-open", str(Path.home() / "Videos/Records")])
+            self.assertEqual(launch.call_args.args[0], [str(obs.code("walker/bin/app-launch")), "xdg-open", str(Path.home() / "Videos/Records")])
 
     def test_start_launches_minimized_and_waits_before_recording(self):
         with patch.object(obs.subprocess, "run", side_effect=[SimpleNamespace(returncode=1), SimpleNamespace(returncode=0), SimpleNamespace(returncode=0)]) as run, \

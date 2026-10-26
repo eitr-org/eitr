@@ -19,8 +19,10 @@ for _eitr_parent in Path(__file__).resolve().parents:
         sys.path.insert(0, str(_eitr_lib))
         break
 from eitr_paths import code, config as user_config, read_settings, write_settings
+from eitr_app import app_command
 from eitr_i18n import tr
 import secrets
+import shlex
 import signal
 import subprocess
 import tempfile
@@ -107,7 +109,8 @@ def apply_capture_options(command):
 def launch_background():
     result = subprocess.run([
         "hyprctl", "eval",
-        'hl.exec_cmd("obs --minimize-to-tray", { workspace = "special:obs-background silent" })',
+        'hl.exec_cmd(' + json.dumps(shlex.join(app_command(['obs', '--minimize-to-tray'])), ensure_ascii=False)
+        + ', { workspace = "special:obs-background silent" })',
     ], capture_output=True, timeout=3)
     if result.returncode:
         raise RuntimeError(tr('Could not launch OBS in the background'))
@@ -455,7 +458,7 @@ def notify_saved(path, screenshot=False, copied=False):
                              *actions, title if screenshot else tr('Recording saved'), path.name],
                             capture_output=True, text=True).stdout.strip()
     if chosen in {"folder", "open"}:
-        subprocess.Popen(["xdg-open", str(path.parent if chosen == "folder" else path)],
+        subprocess.Popen(app_command(["xdg-open", str(path.parent if chosen == "folder" else path)]),
                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
     elif chosen == "copy":
         subprocess.run(["wl-copy", "--", str(path)], check=False)
@@ -535,7 +538,7 @@ def control(action, argument=None):
     }
     if action == "folder":
         records_folder().mkdir(parents=True, exist_ok=True)
-        subprocess.Popen(["xdg-open", str(records_folder())], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+        subprocess.Popen(app_command(["xdg-open", str(records_folder())]), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
         return ""
     if action not in actions and action not in {"open", "prepare"} | LIVE_ACTIONS:
         raise RuntimeError('Unknown OBS command')
@@ -550,7 +553,7 @@ def control(action, argument=None):
         if running:
             reveal_window()
         else:
-            subprocess.Popen(["obs"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+            subprocess.Popen(app_command(["obs"]), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
         return "Opened OBS"
     if not running and action not in ("record", "stream", "prepare"):
         raise RuntimeError(tr('OBS is not running'))

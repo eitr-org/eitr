@@ -6,10 +6,11 @@ Parent = "development"
 Icon = ""
 FixedOrder = true
 
+local quote = dofile(paths.code("elephant/shell-quote.lua"))
 local project_entries = dofile(paths.code("elephant/project-entries.lua"))
 
 GetEntries = project_entries({ root = "", project = "" }, function(path)
-    return "code " .. path
+    return quote(paths.code("walker/bin/app-launch")) .. " code " .. path
 end)
 
 dofile(paths.code("walker/scripts/menus/alphabetical.lua"))

@@ -10,7 +10,7 @@ CAPTURE = ROOT / "walker/scripts/actions/capture"
 class ScreenshotTests(unittest.TestCase):
     def test_editor_copy_does_not_also_save(self):
         script = (CAPTURE / "screenshot.sh").read_text()
-        command = script.split('    satty ', 1)[1].split('\nelse', 1)[0]
+        command = script.split('app-launch" satty ', 1)[1].split('\nelse', 1)[0]
         arguments = shlex.split(command.replace('\\\n', ' '))
         self.assertNotIn('--save-after-copy', arguments)
         self.assertIn('--copy-command', arguments)
@@ -23,7 +23,7 @@ class ScreenshotTests(unittest.TestCase):
     def test_all_capture_modes_share_the_editor_command(self):
         script = (CAPTURE / "screenshot.sh").read_text()
         self.assertIn('selection|window|full', script)
-        self.assertEqual(script.count('    satty '), 1)
+        self.assertEqual(script.count('app-launch" satty '), 1)
         for wrapper, mode in [('screenshot-selection.sh', 'selection'),
                               ('screenshot-full.sh', 'full')]:
             self.assertIn(f'/screenshot.sh" {mode}', (CAPTURE / wrapper).read_text())

@@ -1338,5 +1338,6 @@
   "Invalid plugin hooks; unknown event": "Hooks del plugin no válidos; evento desconocido",
   "Event hook added or changed: {event}": "Hook de evento añadido o cambiado: {event}",
   "This manifest should declare schemaVersion: 1.": "Este manifiesto debería declarar schemaVersion: 1.",
-  "Event hook: {event} — {command}": "Hook de evento: {event} — {command}"
+  "Event hook: {event} — {command}": "Hook de evento: {event} — {command}",
+  "Pi has no built-in permission prompts. Choose another assistant for Ask before changes.": "Pi no incluye confirmaciones de permisos. Elige otro asistente para Ask before changes."
 }

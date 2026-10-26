@@ -14,7 +14,7 @@ Los cambios de servicio de red, la seguridad, los límites de batería y la recu
 
 Quickshell muestra un error de recarga legible y conserva la configuración anterior funcional cuando puede. Corrige el archivo indicado; no reinicies repetidamente el gestor de inicio de sesión. **Nunca reinicies SDDM durante tu sesión de escritorio.**
 
-Reiniciar Elephant recarga los menús. Su servicio debe mantener `KillMode=process` para que sobrevivan las aplicaciones lanzadas. Los temas regeneran estilos: si desaparece un cambio, corrige tanto el generador como la salida.
+Reiniciar Elephant recarga los menús. Su servicio debe mantener `KillMode=process` para auxiliares e inicios sin uwsm. En una sesión uwsm, las aplicaciones y terminales lanzados usan ámbitos de aplicación separados. Los temas regeneran estilos: si desaparece un cambio, corrige tanto el generador como la salida.
 
 ## Comprobaciones de instalación y recuperación
 

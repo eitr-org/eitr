@@ -120,10 +120,11 @@ existing design and workflows rather than replacing them with upstream defaults.
 - Walker is the launcher; Elephant supplies its menus. Update all relevant
   shortcut and Learn/Shortcuts entry points when changing a workflow.
 - Start Elephant through its single systemd user service, not a second raw
-  autostart process. Keep `KillMode=process`: custom menu commands inherit the
-  backend's cgroup, and restarting it must not kill launched apps or terminals.
-  Detached sessions alone do not isolate systemd cgroups; native provider launch
-  prefixes do not cover custom menu actions.
+  autostart process. Keep `KillMode=process`: short-lived menu helpers and the
+  non-uwsm fallback still inherit the backend's cgroup. Applications and terminals
+  use `walker/bin/app-launch` (terminals through `walker/bin/menu-path/kitty`)
+  to enter separate uwsm scopes. Detached sessions alone do not isolate cgroups;
+  native provider launch prefixes do not cover custom menu actions.
 - SUPER+Space and Main > Apps must share the custom `menus:apps` provider,
   including Enter/Open, Delete/Uninstall with confirmation, and back navigation.
   The owner retired the separate native Apps/pin workflow. Global search launches

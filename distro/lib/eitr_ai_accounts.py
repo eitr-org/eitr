@@ -21,6 +21,9 @@ CONFIGURATION = {
     'grok': ('GROK_HOME', '.grok', []),
     'copilot': ('COPILOT_HOME', '.copilot', ['login']),
     'agy': (None, '.gemini/antigravity-cli', []),
+    # OPENCODE_CONFIG_DIR does not isolate the shared auth.json.
+    'opencode': (None, '.config/opencode', []),
+    'pi': ('PI_CODING_AGENT_DIR', '.pi/agent', []),
 }
 DEFAULT = 'default'
 

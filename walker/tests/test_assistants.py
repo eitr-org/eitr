@@ -46,6 +46,10 @@ class AssistantTests(unittest.TestCase):
                         patch.object(assistants, 'interactive_context', return_value=[]), \
                         patch.object(assistants.os, 'chdir'), \
                         patch.object(assistants.os, 'execve') as execute:
+                    if identifier == 'pi' and access == 'ask':
+                        self.assertEqual(assistants.launch(identifier, ['question']), 1)
+                        execute.assert_not_called()
+                        continue
                     assistants.launch(identifier, ['question'])
                     self.assertEqual(execute.call_args.args[1],
                                      ['/bin/assistant', *(flags if access == 'full' else []), 'question'])
@@ -474,3 +478,47 @@ class LocalAssistantTests(unittest.TestCase):
         repository = Path(__file__).resolve().parents[2]
         catalog = json.loads((repository / 'distro/software.json').read_text())
         self.assertEqual(catalog['tools']['ollama'], {'label': 'Ollama', 'source': 'pacman', 'packages': ['ollama']})
+
+
+class NewAssistantIntegrationTests(unittest.TestCase):
+    def test_all_recipe_launch_menu_and_account_lists_match(self):
+        import re
+        import eitr_ai_accounts as accounts
+        from layout import Layout
+        repository = Path(__file__).resolve().parents[2]
+        identifiers = set(assistants.assistants())
+        self.assertEqual(identifiers, set(assistants.STARTUP_SUPPORT))
+        self.assertEqual(identifiers, set(assistants.FULL_ACCESS_FLAGS))
+        self.assertEqual(identifiers, set(accounts.CONFIGURATION))
+        menu = (repository / 'elephant/menus/ai-tools.lua').read_text()
+        self.assertEqual(identifiers, set(re.findall(r'id = "([a-z]+)"', menu)))
+        for identifier in identifiers:
+            with self.subTest(identifier=identifier):
+                launcher = repository / 'walker/assistants' / identifier
+                self.assertTrue(os.access(launcher, os.X_OK))
+                self.assertIn('run ' + identifier, launcher.read_text())
+                rows = json.loads((repository / f'elephant/menu-rows/ai-{identifier}.json').read_text())
+                self.assertEqual(rows[0]['submenu'], f'ai-{identifier}-accounts')
+                for suffix in ('', '-accounts'):
+                    for relative in (f'elephant/menus/ai-{identifier}{suffix}.lua',
+                                     f'walker/themes/current/item_menus-ai-{identifier}{suffix}.xml'):
+                        self.assertTrue((repository / relative).is_file())
+                        self.assertTrue(Layout(repository).classify(relative)['runtime'])
+
+    def test_distribution_and_isolation(self):
+        import eitr_ai_accounts as accounts
+        recipes = assistants.assistants()
+        self.assertEqual(recipes['opencode']['source'], 'pacman')
+        self.assertEqual(recipes['opencode']['packages'], ['opencode'])
+        self.assertEqual(recipes['pi']['uninstall'], {'kind': 'npm', 'package': '@mariozechner/pi-coding-agent'})
+        self.assertIsNone(accounts.CONFIGURATION['opencode'][0])
+        self.assertEqual(accounts.CONFIGURATION['pi'][0], 'PI_CODING_AGENT_DIR')
+        self.assertEqual(assistants.FULL_ACCESS_FLAGS['opencode'], ['--auto'])
+        self.assertEqual(assistants.FULL_ACCESS_FLAGS['pi'], [])
+
+    def test_opencode_default_uses_prompt_flag_instead_of_project_argument(self):
+        with patch.object(assistants, 'default_assistant', return_value='opencode'), \
+                patch.object(assistants.subprocess, 'Popen') as terminal:
+            assistants.open_default(['Explain this failure'])
+        self.assertEqual(terminal.call_args.args[0][-3:],
+                         ['opencode', '--prompt', 'Explain this failure'])

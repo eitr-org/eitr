@@ -34,7 +34,7 @@ class MonitoringTests(unittest.TestCase):
         self.assertEqual(rows[1]["label"], "Grafana")
         with patch.object(monitoring.subprocess, "Popen") as start:
             monitoring.open_dashboard("grafana-production")
-        self.assertEqual(start.call_args.args[0], ["xdg-open", "https://ops.grafana.net"])
+        self.assertEqual(start.call_args.args[0], [str(ROOT / "walker/bin/app-launch"), "xdg-open", "https://ops.grafana.net"])
         monitoring.remove("grafana-production")
         self.assertEqual([row["name"] for row in monitoring.dashboards()], ["Errors"])
 

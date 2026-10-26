@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 import re
+import shutil
 import subprocess
 import tempfile
 import unittest
@@ -15,16 +16,18 @@ class CloudMenuTests(unittest.TestCase):
         self.home = Path(self.temporary.name)
         bin_dir = self.home / ".config/walker/bin"
         bin_dir.mkdir(parents=True)
+        shutil.copytree(ROOT / "walker/bin/menu-path", bin_dir / "menu-path")
+        shutil.copy2(ROOT / "walker/bin/app-launch", bin_dir / "app-launch")
         # walker-dmenu prints MOCK_CHOICE, or nothing to simulate Escape.
         dmenu = bin_dir / "walker-dmenu"
         dmenu.write_text('#!/usr/bin/env bash\ncat >/dev/null\nprintf "%s" "${MOCK_CHOICE:-}"\n')
         dmenu.chmod(0o755)
         self.mocks = self.home / "mock-bin"
         self.mocks.mkdir()
-        for name in ("notify-send", "kitty"):
+        for name in ("notify-send", "kitty", "systemctl"):
             mock = self.mocks / name
             # kitty records the script it was asked to run.
-            mock.write_text('#!/usr/bin/env bash\nprintf "%s\\n" "${@: -1}" >> "$HOME/launched"\n')
+            mock.write_text('#!/usr/bin/env bash\n[[ ${0##*/} == systemctl ]] && exit 3\nprintf "%s\\n" "${@: -1}" >> "$HOME/launched"\n')
             mock.chmod(0o755)
         self.runtime = self.home / "runtime"
         self.runtime.mkdir()

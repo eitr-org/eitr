@@ -101,7 +101,7 @@ class WebAppTests(unittest.TestCase):
                 patch.object(self.webapps.shutil, "which", return_value="/usr/bin/kitty"), \
                 patch.object(self.webapps.subprocess, "Popen") as terminal:
             self.assertEqual(self.webapps.launch("demo"), 1)
-        terminal.assert_called_once_with(["kitty", "--class", "eitr-menu-terminal", "-e", "python3",
+        terminal.assert_called_once_with([str(self.webapps.code("walker/bin/menu-path/kitty")), "--class", "eitr-menu-terminal", "-e", "python3",
                                           str(SCRIPT.parents[1] / "task-terminal.py"), "python3", str(SCRIPT),
                                           "install-browser"], start_new_session=True)
 
@@ -180,7 +180,8 @@ class WebAppTests(unittest.TestCase):
                     patch.object(self.webapps.os, "execvp") as execute:
                 self.webapps.launch("demo")
             expected = ["brave"] + (["--profile-directory=Profile 1"] if profile == "Profile 1" else [])
-            execute.assert_called_once_with("brave", expected + ["--app=https://example.test"])
+            execute.assert_called_once_with(str(self.webapps.code("walker/bin/app-launch")),
+                                            [str(self.webapps.code("walker/bin/app-launch")), *expected, "--app=https://example.test"])
         with self.assertRaises(ValueError):
             self.webapps.create("Invalid", "example.test", profile="../bad")
 
@@ -284,7 +285,8 @@ class WebAppTests(unittest.TestCase):
         with patch.object(self.webapps.shutil, "which", side_effect=lambda name: "/usr/bin/chromium" if name == "chromium" else None), \
                 patch.object(self.webapps.os, "execvp") as execvp:
             self.webapps.launch("docs")
-        execvp.assert_called_once_with("chromium", ["chromium", "--app=https://docs.example.com"])
+        execvp.assert_called_once_with(str(self.webapps.code("walker/bin/app-launch")),
+                                      [str(self.webapps.code("walker/bin/app-launch")), "chromium", "--app=https://docs.example.com"])
         with patch.object(self.webapps.shutil, "which", return_value=None), \
                 patch.object(self.webapps.subprocess, "run") as run:
             self.assertEqual(self.webapps.launch("docs"), 1)

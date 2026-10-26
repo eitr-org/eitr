@@ -114,7 +114,9 @@ Ordinary terminals are interactive and unbranded. Installer/update/setup
 terminals show the themed rune-style EITR banner; successful tasks normally
 close, and failures stay open until dismissed. Informational reports may stay
 open intentionally. Restarting Elephant is not supposed to close launched apps:
-its systemd service uses process-only stopping, not whole-cgroup termination.
+apps and terminals opened from menus, key bindings and bar buttons use separate
+application scopes in a uwsm session. Without uwsm they launch directly. Elephant
+keeps process-only stopping for desktop helpers and fallback launches.
 
 Press **Esc** to close waiting task, account, report and About terminals. Enter remains for answers and confirmations, including acknowledging a recovery key and powering off the installer.
 

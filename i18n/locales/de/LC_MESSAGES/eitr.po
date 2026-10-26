@@ -2083,6 +2083,9 @@ msgstr "Bild↑/Bild↓: blättern  Enter: zur Prüfung laden  Esc: abbrechen"
 msgid "PgUp/PgDn: scroll  Enter: install  Esc: cancel"
 msgstr "Bild↑/Bild↓: blättern  Enter: installieren  Esc: abbrechen"
 
+msgid "Pi has no built-in permission prompts. Choose another assistant for Ask before changes."
+msgstr "Pi hat keine eingebauten Berechtigungsabfragen. Wähle für Ask before changes einen anderen Assistenten."
+
 msgid "Pick a reminder to cancel"
 msgstr "Erinnerung zum Abbrechen auswählen"
 

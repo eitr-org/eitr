@@ -14,6 +14,9 @@ class MenuTerminalTests(unittest.TestCase):
             fake = Path(directory) / "kitty"
             fake.write_text('#!/usr/bin/env bash\nprintf "%s\\n" "PATH=$PATH" "$@"\n')
             fake.chmod(0o755)
+            systemctl = Path(directory) / "systemctl"
+            systemctl.write_text('#!/usr/bin/env bash\nexit 3\n')
+            systemctl.chmod(0o755)
             environment = dict(os.environ, PATH=f"{SHIM_DIR}:{directory}:/usr/bin", **environment)
             result = subprocess.run([str(SHIM_DIR / "kitty"), *arguments], env=environment,
                                     capture_output=True, text=True, check=True)
@@ -35,9 +38,10 @@ class MenuTerminalTests(unittest.TestCase):
         self.assertEqual(arguments, ["--directory", "/tmp", "-e", "nvim", "."], "tiled and translucent")
         self.assertNotIn(str(SHIM_DIR), path)
         ai = (ROOT / "walker/scripts/menus/ai-tools.sh").read_text()
-        self.assertEqual(ai.count("kitty --directory"), ai.count("EITR_TERMINAL_STYLE=window kitty --directory"))
+        self.assertEqual(ai.count('/walker/bin/menu-path/kitty" --directory'),
+                         ai.count('EITR_TERMINAL_STYLE=window "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/bin/menu-path/kitty" --directory'))
         self.assertIn("EITR_TERMINAL_STYLE=window kitty", (ROOT / "elephant/menus/projects-nvim.lua").read_text())
-        self.assertIn("EITR_TERMINAL_STYLE=window kitty",
+        self.assertIn('EITR_TERMINAL_STYLE=window "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/bin/menu-path/kitty"',
                       (ROOT / "walker/scripts/actions/development/open-project.sh").read_text())
 
     def test_bar_launched_task_terminals_use_it_too(self):

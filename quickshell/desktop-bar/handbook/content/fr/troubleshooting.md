@@ -14,7 +14,7 @@ Changement de service réseau, sécurité, limites de charge et récupération n
 
 Quickshell affiche une erreur de rechargement lisible et garde si possible la dernière configuration fonctionnelle. Corrigez le fichier indiqué ; ne redémarrez pas le gestionnaire de connexion à répétition. **Ne redémarrez jamais SDDM pendant votre session de bureau.**
 
-Redémarrer Elephant recharge les menus. Son service doit conserver `KillMode=process` pour préserver les applications lancées. Les thèmes régénèrent les styles : si un changement disparaît, corrigez le générateur et le résultat produit.
+Redémarrer Elephant recharge les menus. Son service doit conserver `KillMode=process` pour les auxiliaires et les lancements sans uwsm. Dans une session uwsm, les applications et terminaux lancés utilisent des scopes d’application distincts. Les thèmes régénèrent les styles : si un changement disparaît, corrigez le générateur et le résultat produit.
 
 ## Vérifications d’installation et de récupération
 

@@ -11,7 +11,8 @@ from eitr_i18n import tr
 import eitr_local_assistant
 
 
-# Checked against each installed CLI's --help (claude, codex, gemini, grok, copilot, agy).
+# Verified help and vendor references are recorded in ASSISTANT-STARTUP.md.
+# Pi has no permission gate or full-access switch; ask mode refuses its launch.
 FULL_ACCESS_FLAGS = {
     'claude': ['--dangerously-skip-permissions'],
     'codex': ['--dangerously-bypass-approvals-and-sandbox'],
@@ -19,6 +20,8 @@ FULL_ACCESS_FLAGS = {
     'grok': ['--always-approve'],
     'copilot': ['--allow-all'],
     'agy': ['--dangerously-skip-permissions'],
+    'opencode': ['--auto'],
+    'pi': [],
 }
 
 
@@ -69,6 +72,9 @@ def executable(identifier):
 def launch(identifier, arguments, *, interactive=True):
     if identifier == eitr_local_assistant.IDENTIFIER:
         return eitr_local_assistant.launch(arguments)
+    if interactive and identifier == 'pi' and assistant_access() != 'full':
+        print(tr('Pi has no built-in permission prompts. Choose another assistant for Ask before changes.'), file=sys.stderr)
+        return 1
     metadata = assistants().get(identifier)
     if metadata is None:
         return 2
@@ -132,7 +138,9 @@ def open_default(arguments=None):
     selected = default_assistant()
     if not selected:
         return subprocess.run([str(code('walker/bin/walker')), '--provider', 'menus:ai-default'], check=False).returncode
-    return subprocess.Popen(['kitty', '-e', sys.executable,
+    if selected == 'opencode' and arguments and len(arguments) == 1:
+        arguments = ['--prompt', *arguments]
+    return subprocess.Popen([str(code('walker/bin/menu-path/kitty')), '-e', sys.executable,
                              str(code('walker/scripts/actions/ai-assistant.py')),
                              'run', selected, *(arguments or [])], start_new_session=True).pid
 
@@ -259,6 +267,8 @@ STARTUP_SUPPORT = {
     'grok': (None, '--rules'),
     'copilot': ('trustedFolders', None),
     'agy': (None, None),
+    'opencode': (None, None),
+    'pi': (None, '--append-system-prompt'),
 }
 
 
@@ -335,6 +345,8 @@ def interactive_context(identifier, environment):
         return ['--skip-trust']
     if identifier == 'grok':
         return ['--rules', instruction]
+    if identifier == 'pi':
+        return ['--append-system-prompt', instruction]
     if identifier == 'copilot':
         root = Path(environment.get('COPILOT_HOME') or Path.home() / '.copilot')
         trust_json(root / 'config.json', ['trustedFolders'], home, array=True)

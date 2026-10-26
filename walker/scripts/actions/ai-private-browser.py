@@ -8,6 +8,10 @@ import subprocess
 import sys
 
 
+import eitr_bootstrap
+from eitr_app import app_command
+
+
 def browser_command(url):
     if not url.startswith(('https://', 'http://')):
         raise ValueError('Expected a login URL')
@@ -35,7 +39,7 @@ def open_private(url):
     environment = dict(os.environ)
     # xdg-open can consult BROWSER in its fallback path; avoid calling ourselves.
     environment.pop('BROWSER', None)
-    return subprocess.run(browser_command(url), env=environment, check=False).returncode
+    return subprocess.run(app_command(browser_command(url)), env=environment, check=False).returncode
 
 
 if __name__ == '__main__':

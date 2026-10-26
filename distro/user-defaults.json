@@ -3,6 +3,7 @@
   "layout_version": 2,
   "comment": "Seed preferences and minimal native loaders only. Package code is never copied into user config.",
   "entries": [
+    {"source": "distro/assistant/skills/eitr", "target": "${HOME}/.claude/skills/eitr", "update": true},
     {"source": "distro/defaults/hypr", "target": "${XDG_CONFIG_HOME}/hypr", "update": false},
     {"source": "distro/defaults/kitty", "target": "${XDG_CONFIG_HOME}/kitty", "update": false},
     {"source": "distro/defaults/quickshell", "target": "${XDG_CONFIG_HOME}/quickshell", "update": false},

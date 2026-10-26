@@ -198,7 +198,7 @@ def choose(payload):
     with tempfile.TemporaryDirectory(prefix='eitr-voice-') as directory:
         request, answer = Path(directory) / 'request.json', Path(directory) / 'answer.json'
         request.write_text(json.dumps(payload))
-        result = subprocess.run(['kitty', '--class', 'eitr-voice-question', '-e', 'python3',
+        result = subprocess.run([str(code('walker/bin/menu-path/kitty')), '--class', 'eitr-voice-question', '-e', 'python3',
                                  str(code('walker/scripts/actions/task-terminal.py')), 'python3',
                                  str(Path(__file__).resolve()), 'question', str(request), str(answer)], check=False)
         if result.returncode or not answer.exists():

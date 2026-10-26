@@ -2083,6 +2083,9 @@ msgstr "PgUp/PgDn: scroll  Enter: download for review  Esc: cancel"
 msgid "PgUp/PgDn: scroll  Enter: install  Esc: cancel"
 msgstr "PgUp/PgDn: scroll  Enter: install  Esc: cancel"
 
+msgid "Pi has no built-in permission prompts. Choose another assistant for Ask before changes."
+msgstr "Pi has no built-in permission prompts. Choose another assistant for Ask before changes."
+
 msgid "Pick a reminder to cancel"
 msgstr "Pick a reminder to cancel"
 

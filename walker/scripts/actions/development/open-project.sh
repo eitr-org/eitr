@@ -42,7 +42,7 @@ fi
 [ "$status" -eq 0 ] || exit 0
 
 if [ "$tool" = "nvim" ]; then
-  EITR_TERMINAL_STYLE=window kitty --directory "$folder" -e nvim . >/dev/null 2>&1 &
+  EITR_TERMINAL_STYLE=window "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/bin/menu-path/kitty" --directory "$folder" -e nvim . >/dev/null 2>&1 &
 else
-  "$command_name" "$folder" >/dev/null 2>&1 &
+  "$EITR_CODE_ROOT/walker/bin/app-launch" "$command_name" "$folder" >/dev/null 2>&1 &
 fi

@@ -3,6 +3,7 @@
 uploaded: the user reads it, then may open it in their email app, open a GitHub
 issue in the browser, or copy it."""
 import eitr_bootstrap
+from eitr_app import app_command
 from eitr_i18n import mark, tr
 import argparse
 import getpass
@@ -126,7 +127,7 @@ def issue_link(report):
 
 def open_link(link):
     try:
-        subprocess.run(["xdg-open", link], check=True, timeout=20,
+        subprocess.run(app_command(["xdg-open", link]), check=True, timeout=20,
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         return True
     except (OSError, subprocess.SubprocessError):

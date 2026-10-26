@@ -21,6 +21,7 @@ for parent in Path(__file__).resolve().parents:
         sys.path.insert(0, str(library))
         break
 from eitr_paths import code, config as user_config  # noqa: E402
+from eitr_app import app_command
 from eitr_wizard import Step, collect as collect_setup
 from eitr_i18n import tr  # noqa: E402
 
@@ -97,7 +98,7 @@ def find(dashboard_id):
 
 
 def open_dashboard(dashboard_id):
-    subprocess.Popen(["xdg-open", find(dashboard_id)["url"]], stdin=subprocess.DEVNULL,
+    subprocess.Popen(app_command(["xdg-open", find(dashboard_id)["url"]]), stdin=subprocess.DEVNULL,
                      stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
 
 

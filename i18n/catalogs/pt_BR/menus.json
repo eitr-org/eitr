@@ -537,6 +537,10 @@
   "Select this account": "Selecionar esta conta",
   "Separate accounts unavailable": "Contas separadas indisponíveis",
   "Sign in to a separate account": "Entrar em uma conta separada",
-  "This CLI has no supported configuration folder override": "Esta CLI não permite substituir a pasta de configuração",
-  "SUPER + A": "SUPER + A"
+  "SUPER + A": "SUPER + A",
+  "OpenCode": "OpenCode",
+  "Pi": "Pi",
+  "Start an OpenCode session in a project": "Iniciar uma sessão do OpenCode em um projeto",
+  "Start a Pi session in a project": "Iniciar uma sessão do Pi em um projeto",
+  "This CLI has no supported isolated account folder": "Esta CLI não aceita uma pasta isolada de contas"
 }

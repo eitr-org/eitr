@@ -111,7 +111,7 @@ function GetEntries()
                             Icon = app.Icon or "application-x-executable",
                             Keywords = keywords,
                             Actions = {
-                                open = "gtk-launch " .. shell_quote(id),
+                                open = shell_quote(paths.code("walker/bin/app-launch")) .. " --desktop " .. shell_quote(id),
                                 app_uninstall = "python3 " .. shell_quote(paths.code("walker/scripts/actions/install/software.py")) .. " uninstall " .. shell_quote(path),
                             },
                         })

@@ -4,6 +4,7 @@ import eitr_bootstrap
 from eitr_i18n import tr
 from eitr_terminal import wait_for_escape
 from eitr_paths import code, config, state
+from eitr_app import app_command
 import importlib.util
 import json
 import os
@@ -60,7 +61,7 @@ def confirm(message):
 
 def open_page(url):
     # Detached and silent: the browser's own log would bury this terminal's questions.
-    subprocess.Popen(['xdg-open', url], stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+    subprocess.Popen(app_command(['xdg-open', url]), stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
                      stderr=subprocess.DEVNULL, start_new_session=True)
 
 

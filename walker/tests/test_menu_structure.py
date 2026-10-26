@@ -212,7 +212,7 @@ class MenuStructureTests(unittest.TestCase):
         import os
         import subprocess
         rows = ", ".join(f"{{id = '{name}', installed = {'true' if name in installed else 'false'}}}"
-                         for name in ("agy", "codex", "claude", "grok", "gemini", "copilot"))
+                         for name in ("agy", "claude", "codex", "copilot", "gemini", "grok", "opencode", "pi"))
         harness = f"""
             jsonDecode = function(text) return load("return " .. text)() end
             io.popen = function() return {{read = function() return "{{{rows}}}" end, close = function() end}} end
@@ -298,10 +298,13 @@ class MenuStructureTests(unittest.TestCase):
 
     def test_ai_lists_only_installed_assistants(self):
         self.assertIn(["Antigravity CLI", "ai-agy"], self.ai_menu({"agy"}))
+        for identifier, label in (("opencode", "OpenCode"), ("pi", "Pi")):
+            self.assertIn([label, "ai-" + identifier], self.ai_menu({identifier}))
+            self.assertTrue(any(row[1] == identifier for row in self.default_menu([identifier], "none")))
         self.assertEqual(self.ai_menu({"claude", "codex"}), [["Claude", "ai-claude"], ["Codex", "ai-codex"], ["Let assistants work together", ""]])
         self.assertEqual(self.ai_menu({"grok"}), [["Grok", "ai-grok"], ["Let assistants work together", ""]])
         self.assertEqual(self.ai_menu(set()), [["Install an AI Assistant", ""], ["Let assistants work together", ""]])
-        for name in ("agy", "claude", "codex", "gemini", "grok"):
+        for name in ("agy", "claude", "codex", "copilot", "gemini", "grok", "opencode", "pi"):
             self.assertEqual(menu(f"ai-{name}")["parent"], "ai-tools")
         script = (ROOT / "walker/scripts/menus/ai-tools.sh").read_text()
         self.assertIn("gemini-new)", script)

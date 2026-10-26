@@ -301,3 +301,43 @@ class ShippedManifestTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class AssistantSkillTests(unittest.TestCase):
+    setUp = EitrConfigTests.setUp
+    write = staticmethod(EitrConfigTests.write)
+    run_tool = EitrConfigTests.run_tool
+
+    def test_skill_package_seed_and_update_preserve_user_changes(self):
+        from layout import Layout
+        manifest = json.loads((DISTRO / 'user-defaults.json').read_text())
+        entry = next(entry for entry in manifest['entries']
+                     if entry['source'] == 'distro/assistant/skills/eitr')
+        source = entry['source'] + '/SKILL.md'
+        rule = Layout(ROOT).classify(source)
+        self.assertEqual((rule['class'], rule['runtime']), ('D', True))
+        self.write(self.repo / source, (ROOT / source).read_text())
+        self.write(self.repo / 'distro/user-defaults.json', json.dumps(
+            {'version': 1, 'layout_version': 2, 'entries': [entry]}))
+        target = self.home / '.claude/skills/eitr/SKILL.md'
+        self.assertEqual(self.run_tool('seed')[0], 0)
+        shipped = target.read_text()
+        self.write(self.repo / source, shipped + '\nUpdated guidance.\n')
+        self.assertEqual(self.run_tool('update')[0], 0)
+        self.assertIn('Updated guidance.', target.read_text())
+        target.write_text('User-created instructions\n')
+        self.write(self.repo / source, shipped + '\nNew guidance.\n')
+        self.assertEqual(self.run_tool('update')[0], 0)
+        self.assertEqual(target.read_text(), 'User-created instructions\n')
+        self.assertIn('New guidance.', target.with_name('SKILL.md.eitr-new').read_text())
+        target.with_name('SKILL.md.eitr-new').unlink()
+        self.assertEqual(self.run_tool('seed')[0], 0)
+        self.assertEqual(target.read_text(), 'User-created instructions\n')
+
+    def test_skill_stages_at_the_installed_manifest_path(self):
+        from layout import Layout
+        relative = 'distro/assistant/skills/eitr/SKILL.md'
+        layout = Layout(ROOT)
+        with patch.object(layout, 'files', return_value=[relative]):
+            layout.stage(self.share)
+        self.assertEqual((self.share / relative).read_bytes(), (ROOT / relative).read_bytes())

@@ -30,6 +30,8 @@ class ChooseFolderTests(unittest.TestCase):
         (binaries / "walker").write_text('#!/bin/sh\necho "$@" > "$HOME/reopened"\n')
         for script in binaries.iterdir():
             script.chmod(0o755)
+        shutil.copytree(ROOT / "walker/bin/menu-path", binaries / "menu-path")
+        shutil.copy2(ROOT / "walker/bin/app-launch", binaries / "app-launch")
         self.development = self.home / "Development"
         (self.development / "work/app").mkdir(parents=True)
         (self.development / "personal").mkdir()
@@ -41,6 +43,8 @@ class ChooseFolderTests(unittest.TestCase):
         for name in ("notify-send", "kitty", "code", "nvim"):
             (stubs / name).write_text('#!/bin/sh\necho "$@" >> "$HOME/launched"\n')
             (stubs / name).chmod(0o755)
+        (stubs / "systemctl").write_text('#!/bin/sh\nexit 3\n')
+        (stubs / "systemctl").chmod(0o755)
         return subprocess.run(["bash", str(self.code / script), *arguments], capture_output=True, text=True,
                               env={**os.environ, "HOME": str(self.home), "EITR_CODE_ROOT": str(self.code),
                                    "DEV_DIR": str(self.development), "PATH": f"{stubs}:/usr/bin:/bin"})

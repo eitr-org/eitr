@@ -122,10 +122,10 @@ case "$chosen" in
     exit 0
     ;;
   "  SUPER + Enter "*)
-    kitty &
+    "$EITR_CODE_ROOT/walker/bin/menu-path/kitty" &
     ;;
   "  SUPER + Ctrl + Enter "*)
-    kitty -e tmux new-session -A -s main &
+    "$EITR_CODE_ROOT/walker/bin/menu-path/kitty" -e tmux new-session -A -s main &
     ;;
   "  SUPER + Space "*)
     "$MENUS_DIR/search.sh"
@@ -137,7 +137,7 @@ case "$chosen" in
     "$MENUS_DIR/vim.sh"
     ;;
   "  SUPER + E "*)
-    dolphin --new-window &
+    "$EITR_CODE_ROOT/walker/bin/app-launch" dolphin --new-window &
     ;;
   "  SUPER + F "*)
     "$EITR_CODE_ROOT/walker/bin/walker" --provider menus:main
@@ -164,10 +164,10 @@ case "$chosen" in
     "$EITR_CODE_ROOT/walker/bin/walker" --provider menus:clipboard --width 850
     ;;
   "  SUPER + P "*)
-    kitty --class fif-terminal -e python3 "$EITR_CODE_ROOT/walker/scripts/actions/task-terminal.py" zsh -c 'source ~/.zshrc; fif' &
+    "$EITR_CODE_ROOT/walker/bin/menu-path/kitty" --class fif-terminal -e python3 "$EITR_CODE_ROOT/walker/scripts/actions/task-terminal.py" zsh -c 'source ~/.zshrc; fif' &
     ;;
   "  SUPER + Ctrl + P "*)
-    kitty --class fifs-terminal -e python3 "$EITR_CODE_ROOT/walker/scripts/actions/task-terminal.py" zsh -c 'source ~/.zshrc; fifs; exit 0' &
+    "$EITR_CODE_ROOT/walker/bin/menu-path/kitty" --class fifs-terminal -e python3 "$EITR_CODE_ROOT/walker/scripts/actions/task-terminal.py" zsh -c 'source ~/.zshrc; fifs; exit 0' &
     ;;
   "  SUPER + D (hold) "*)
     notify-send --app-name=Dictation "Offline dictation" "Hold SUPER + D in a text field, speak, then release."

@@ -1,5 +1,10 @@
 # Releases
 
+Install > AI CLIs now includes OpenCode from Arch Extra and Pi through NVM/npm.
+The managed Eitr skill supplies desktop guidance to Claude Code and OpenCode,
+with user edits preserved during updates. Pi is unavailable in Ask before changes
+because it has no built-in permission prompts.
+
 Organization profile Flatpaks now install for the desktop user at the first boot
 with a network connection, avoiding extra-data sandbox failures in the installer
 chroot. Failed installations remain queued for the next boot.

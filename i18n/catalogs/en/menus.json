@@ -486,7 +486,6 @@
   "Theme": "Theme",
   "Theme Picker": "Theme Picker",
   "Theme changes do not touch device lighting": "Theme changes do not touch device lighting",
-  "This CLI has no supported configuration folder override": "This CLI has no supported configuration folder override",
   "Tmux Commands": "Tmux Commands",
   "Toggle": "Toggle",
   "Toggle Desktop Bar": "Toggle Desktop Bar",
@@ -538,5 +537,10 @@
   "Zone details": "Zone details",
   "gh or glab for this account only": "gh or glab for this account only",
   "iwd": "iwd",
-  "{service} · {url}": "{service} · {url}"
+  "{service} · {url}": "{service} · {url}",
+  "OpenCode": "OpenCode",
+  "Pi": "Pi",
+  "Start a Pi session in a project": "Start a Pi session in a project",
+  "Start an OpenCode session in a project": "Start an OpenCode session in a project",
+  "This CLI has no supported isolated account folder": "This CLI has no supported isolated account folder"
 }

@@ -50,7 +50,7 @@ directory="$HOME/Pictures/Screenshots"
 file="$directory/$(date +'%Y-%m-%d_%H-%M-%S_%N').png"
 if [[ "$action" == edit ]]; then
     mkdir -p "$directory"
-    satty -f "$temp" -o "$file" --copy-command "wl-copy --type image/png" \
+    "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/bin/app-launch" satty -f "$temp" -o "$file" --copy-command "wl-copy --type image/png" \
         --early-exit --actions-on-escape exit \
         --app-id dev.local.ScreenshotEditor --title "Screenshot" \
         --notification-thumbnail screenshot --disable-notifications

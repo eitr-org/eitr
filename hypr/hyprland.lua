@@ -77,8 +77,10 @@ hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })
 -- Commands --
 --------------
 
-local terminal = "kitty"
-local fileManager = "dolphin"
+local shellQuote = dofile(paths.code("elephant/shell-quote.lua"))
+local appLaunch = shellQuote(paths.code("walker/bin/app-launch")) .. " "
+local terminal = appLaunch .. "kitty"
+local fileManager = appLaunch .. "dolphin"
 local mainMod = "SUPER"
 
 local scriptsDir = paths.code("walker/scripts")
@@ -264,15 +266,15 @@ hl.gesture({
 
 -- Launchers and app helpers
 hl.bind(mainMod .. " + return", hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + CTRL + return", hl.dsp.exec_cmd("kitty -e tmux new-session -A -s main"))
+hl.bind(mainMod .. " + CTRL + return", hl.dsp.exec_cmd(appLaunch .. "kitty -e tmux new-session -A -s main"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager .. " --new-window"))
 hl.bind(
 	mainMod .. " + P",
-	hl.dsp.exec_cmd([[kitty --class fif-terminal -e python3 "/usr/share/eitr/walker/scripts/actions/task-terminal.py" zsh -c 'source ~/.zshrc; fif']])
+	hl.dsp.exec_cmd(appLaunch .. [[kitty --class fif-terminal -e python3 "/usr/share/eitr/walker/scripts/actions/task-terminal.py" zsh -c 'source ~/.zshrc; fif']])
 )
 hl.bind(
 	mainMod .. " + CTRL + P",
-	hl.dsp.exec_cmd([[kitty --class fifs-terminal -e python3 "/usr/share/eitr/walker/scripts/actions/task-terminal.py" zsh -c 'source ~/.zshrc; fifs; exit 0']])
+	hl.dsp.exec_cmd(appLaunch .. [[kitty --class fifs-terminal -e python3 "/usr/share/eitr/walker/scripts/actions/task-terminal.py" zsh -c 'source ~/.zshrc; fifs; exit 0']])
 )
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("sleep 0.08; wtype -M ctrl c -m ctrl"))
 hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("sleep 0.08; wtype -M ctrl x -m ctrl"))

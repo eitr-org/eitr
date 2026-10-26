@@ -22,4 +22,4 @@ query="${query%"${query##*[![:space:]]}"}"
 
 encoded_query="$(printf '%s' "$query" | jq -sRr @uri)"
 
-xdg-open "https://www.google.com/search?q=$encoded_query"
+"$EITR_CODE_ROOT/walker/bin/app-launch" xdg-open "https://www.google.com/search?q=$encoded_query"

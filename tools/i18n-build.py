@@ -148,11 +148,19 @@ def validate(catalog, sources):
     return errors
 
 
+def english_catalog(previous, sources):
+    messages = {message: message for message in previous if message in sources}
+    messages.update({message: message for message in sources if message not in messages})
+    return messages
+
+
 def build(check=False, root=ROOT):
     sources = extract(root)
     outputs = {root / "i18n/sources.json": render(sources)}
     for layer in LAYERS:
-        outputs[root / "i18n/catalogs/en" / (layer + ".json")] = render({message: message for message in sources[layer]})
+        filename = root / "i18n/catalogs/en" / (layer + ".json")
+        previous = json.loads(filename.read_text()) if filename.is_file() else {}
+        outputs[filename] = render(english_catalog(previous, sources[layer]))
     errors = []
     for filename, contents in outputs.items():
         if check:

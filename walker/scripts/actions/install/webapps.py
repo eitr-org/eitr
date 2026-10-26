@@ -24,7 +24,8 @@ for parent in Path(__file__).resolve().parents:
     if (library / 'eitr_paths.py').is_file():
         sys.path.insert(0, str(library))
         break
-from eitr_paths import config, data as user_data
+from eitr_paths import code, config, data as user_data
+from eitr_app import app_command
 from eitr_wizard import Step, collect as collect_setup
 from eitr_i18n import tr
 from eitr_terminal import read_key
@@ -319,7 +320,7 @@ def launch(identifier):
         if shutil.which("kitty"):
             script = Path(__file__).resolve()
             presenter = script.parents[1] / "task-terminal.py"
-            subprocess.Popen(["kitty", "--class", "eitr-menu-terminal", "-e", "python3", str(presenter),
+            subprocess.Popen([str(code("walker/bin/menu-path/kitty")), "--class", "eitr-menu-terminal", "-e", "python3", str(presenter),
                               "python3", str(script), "install-browser"], start_new_session=True)
             return 1
         subprocess.run(["notify-send", tr('Web app needs a Chromium-based browser'),
@@ -330,7 +331,8 @@ def launch(identifier):
     arguments = [command]
     if valid_profile(profile) and profile in browser_profiles(command)[0]:
         arguments.append(f"--profile-directory={profile}")
-    os.execvp(command, [*arguments, f"--app={url}"])
+    launch = app_command([*arguments, f"--app={url}"])
+    os.execvp(launch[0], launch)
 
 
 def interactive():

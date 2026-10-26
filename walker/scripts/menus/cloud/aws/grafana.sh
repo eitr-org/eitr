@@ -40,7 +40,7 @@ $(aws_base) grafana list-workspaces \
     fi
 
     [ -z "$endpoint" ] && notify-send "Amazon Grafana" "Workspace has no endpoint" && exit 0
-    xdg-open "https://$endpoint" >/dev/null 2>&1 &
+    "$EITR_CODE_ROOT/walker/bin/app-launch" xdg-open "https://$endpoint" >/dev/null 2>&1 &
     ;;
   "󰅟  Workspace details")
     workspace_id="$(choose_workspace)" || exit 0

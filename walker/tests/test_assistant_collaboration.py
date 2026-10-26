@@ -301,7 +301,7 @@ class CollaborationTests(unittest.TestCase):
         with patch.object(action.subprocess, 'Popen') as terminal:
             self.assertEqual(action.toggle(), 0)
         command = terminal.call_args.args[0]
-        self.assertEqual(command[0], 'kitty')
+        self.assertEqual(command[0], str(action.code('walker/bin/menu-path/kitty')))
         self.assertTrue(command[3].endswith('task-terminal.py'))
         self.assertEqual(command[-1], 'enable')
         self.assertFalse(bridge.enabled(), 'opening the explanation changes nothing')

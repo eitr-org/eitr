@@ -20,6 +20,7 @@ for parent in Path(__file__).resolve().parents:
 
 import eitr_policy
 from eitr_forms import Terminal
+from eitr_paths import code
 from eitr_i18n import tr, mark
 from eitr_i18n import mark as menu_mark
 from eitr_plugins import (REPORT_URL, Plugins, add_flags, commit, executable_files, git, printable,
@@ -292,7 +293,7 @@ def notice(manager, plugin_id):
     result = subprocess.run(['notify-send', '--app-name=Eitr', '--urgency=critical', '--wait',
                              '--action=remove=' + tr('Remove'), title, body], capture_output=True, text=True, check=False)
     if result.stdout.strip() == 'remove':
-        subprocess.Popen(['kitty', '--class', 'eitr-plugins', '-e', 'python3', str(PRESENTER), 'python3', str(HELPER),
+        subprocess.Popen([str(code('walker/bin/menu-path/kitty')), '--class', 'eitr-plugins', '-e', 'python3', str(PRESENTER), 'python3', str(HELPER),
                           'remove', plugin_id], start_new_session=True)
 
 
