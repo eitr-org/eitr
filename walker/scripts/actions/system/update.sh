@@ -64,6 +64,9 @@ no_updates() (
   flatpaks="$(cat "$check_output")"
   [[ -z "$flatpaks" ]]
 )
+plugin_after_update() {
+  setsid python3 "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/scripts/actions/install/plugins.py" hooks after-update >/dev/null 2>&1 < /dev/null &
+}
 update_plugins() {
   # Only when a plugin is installed; most desktops have none.
   grep -q '"commit"' "${XDG_STATE_HOME:-$HOME/.local/state}/eitr/plugins.json" 2>/dev/null || return 0
@@ -130,6 +133,7 @@ case "${1:-}" in
       full_update
     fi
     update_plugins
+    plugin_after_update
     offer_restart
     ;;
   pacman) pacman_update; offer_restart ;;

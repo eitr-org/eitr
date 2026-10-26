@@ -1120,6 +1120,12 @@ msgstr "Un profil d’entreprise existe ; oubliez le réseau dans le panneau ava
 msgid "Erase the whole disk ({size_text}) and install Eitr"
 msgstr "Effacer tout le disque ({size_text}) et installer Eitr"
 
+msgid "Event hook added or changed: {event}"
+msgstr "Hook ajouté ou modifié : {event}"
+
+msgid "Event hook: {event} — {command}"
+msgstr "Hook : {event} — {command}"
+
 msgid "Everything is up to date."
 msgstr "Tout est à jour."
 
@@ -1497,6 +1503,12 @@ msgstr "Nom de paquet invalide"
 
 msgid "Invalid peer address."
 msgstr "Adresse d’appareil distant invalide."
+
+msgid "Invalid plugin hooks; unknown event"
+msgstr "Hooks du plugin invalides ; événement inconnu"
+
+msgid "Invalid plugin schemaVersion; expected 1"
+msgstr "schemaVersion du plugin invalide ; valeur attendue : 1"
 
 msgid "Invalid project ID"
 msgstr "Identifiant de projet invalide"
@@ -3202,6 +3214,9 @@ msgstr "Ce lanceur n’appartient à aucun paquet installé. Aucun fichier suppr
 msgid "This layout is already added"
 msgstr "Cette disposition a déjà été ajoutée"
 
+msgid "This manifest should declare schemaVersion: 1."
+msgstr "Ce manifeste devrait déclarer schemaVersion: 1."
+
 msgid "This occurrence"
 msgstr "Cette occurrence"
 
@@ -3210,6 +3225,9 @@ msgstr "Ce plugin est bloqué : {reason}"
 
 msgid "This plugin is on the Eitr blocklist: {reason}"
 msgstr "Ce plugin figure sur la liste de blocage d’Eitr : {reason}"
+
+msgid "This plugin needs a newer Eitr"
+msgstr "Ce plugin nécessite un Eitr plus récent"
 
 msgid "This removes TPM unlock from {device}; the passphrase is required at every boot again."
 msgstr "Ceci supprime le déverrouillage TPM de {device} ; la phrase secrète sera requise à chaque démarrage."

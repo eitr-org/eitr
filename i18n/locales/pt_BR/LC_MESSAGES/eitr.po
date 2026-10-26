@@ -1120,6 +1120,12 @@ msgstr "Já existe um perfil corporativo; esqueça a rede no painel antes de tro
 msgid "Erase the whole disk ({size_text}) and install Eitr"
 msgstr "Apagar o disco inteiro ({size_text}) e instalar o Eitr"
 
+msgid "Event hook added or changed: {event}"
+msgstr "Hook de evento adicionado ou alterado: {event}"
+
+msgid "Event hook: {event} — {command}"
+msgstr "Hook de evento: {event} — {command}"
+
 msgid "Everything is up to date."
 msgstr "Tudo está atualizado."
 
@@ -1497,6 +1503,12 @@ msgstr "Nome de pacote inválido"
 
 msgid "Invalid peer address."
 msgstr "Endereço de dispositivo inválido."
+
+msgid "Invalid plugin hooks; unknown event"
+msgstr "Hooks do plugin inválidos; evento desconhecido"
+
+msgid "Invalid plugin schemaVersion; expected 1"
+msgstr "schemaVersion do plugin inválida; esperado 1"
 
 msgid "Invalid project ID"
 msgstr "ID de projeto inválido"
@@ -3202,6 +3214,9 @@ msgstr "Este atalho não pertence a um pacote instalado. Nenhum arquivo foi remo
 msgid "This layout is already added"
 msgstr "Este layout já foi adicionado"
 
+msgid "This manifest should declare schemaVersion: 1."
+msgstr "Este manifesto deve declarar schemaVersion: 1."
+
 msgid "This occurrence"
 msgstr "Esta ocorrência"
 
@@ -3210,6 +3225,9 @@ msgstr "Este plugin está bloqueado: {reason}"
 
 msgid "This plugin is on the Eitr blocklist: {reason}"
 msgstr "Este plugin está na lista de bloqueio do Eitr: {reason}"
+
+msgid "This plugin needs a newer Eitr"
+msgstr "Este plugin precisa de um Eitr mais recente"
 
 msgid "This removes TPM unlock from {device}; the passphrase is required at every boot again."
 msgstr "Isto remove o desbloqueio por TPM de {device}; a senha volta a ser exigida em todo boot."

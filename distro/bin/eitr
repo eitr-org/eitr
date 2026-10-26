@@ -135,6 +135,9 @@ def parser():
     plugin_update.add_argument("id", nargs="?")
     plugin_remove = plugin_actions.add_parser("remove")
     plugin_remove.add_argument("id")
+    plugin_hooks = plugin_actions.add_parser("hooks", help="dispatch plugin event hooks")
+    from eitr_plugins import HOOK_EVENTS
+    plugin_hooks.add_argument("event", choices=HOOK_EVENTS)
 
     theme = commands.add_parser("theme", help="themes")
     theme_actions = theme.add_subparsers(dest="action")
@@ -197,7 +200,7 @@ def plan(arguments, code=None, config=None):
             return summary(check(arguments.drive))
         return ["sudo", ROOT_HELPER, "profile-apply", str(Path(arguments.drive).resolve())]
     if command == "plugin":
-        value = getattr(arguments, "url", None) or getattr(arguments, "id", None)
+        value = getattr(arguments, "url", None) or getattr(arguments, "id", None) or getattr(arguments, "event", None)
         return ["python3", str(actions / "install/plugins.py"), arguments.action, *([value] if value else [])]
     if command == "update":
         return ["bash", str(actions / "system/update.sh"), UPDATES[arguments.kind]]

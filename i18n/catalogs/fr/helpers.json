@@ -1332,5 +1332,11 @@
   "Nothing was installed. Run System Update when you are ready, then install again.": "Rien n'a été installé. Lancez la Mise à jour du système quand vous voulez, puis réinstallez.",
   "Unknown HDR value {value}": "Valeur HDR inconnue {value}",
   "This display does not report HDR support.": "Cet écran n’indique aucune prise en charge de HDR.",
-  "SDR content brightness must be between 1 and 2.": "La luminosité du contenu SDR doit être comprise entre 1 et 2."
+  "SDR content brightness must be between 1 and 2.": "La luminosité du contenu SDR doit être comprise entre 1 et 2.",
+  "Invalid plugin schemaVersion; expected 1": "schemaVersion du plugin invalide ; valeur attendue : 1",
+  "This plugin needs a newer Eitr": "Ce plugin nécessite un Eitr plus récent",
+  "Invalid plugin hooks; unknown event": "Hooks du plugin invalides ; événement inconnu",
+  "Event hook added or changed: {event}": "Hook ajouté ou modifié : {event}",
+  "This manifest should declare schemaVersion: 1.": "Ce manifeste devrait déclarer schemaVersion: 1.",
+  "Event hook: {event} — {command}": "Hook : {event} — {command}"
 }

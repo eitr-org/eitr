@@ -17,6 +17,9 @@ spec.loader.exec_module(transition)
 
 class WallpaperTests(unittest.TestCase):
     def setUp(self):
+        hooks = patch.object(transition, "dispatch_hooks")
+        self.hooks = hooks.start()
+        self.addCleanup(hooks.stop)
         # commit() refreshes the login copy in the background; tests never start it.
         refresh = patch.object(transition.subprocess, "Popen")
         self.refresh_login = refresh.start()
@@ -35,6 +38,7 @@ class WallpaperTests(unittest.TestCase):
                     patch.object(transition.subprocess, "run"), patch.object(transition, "commit") as commit:
                 transition.apply(str(image))
                 commit.assert_not_called()
+                self.hooks.assert_called_once_with("wallpaper-changed", EITR_WALLPAPER=str(image.resolve()))
 
     def test_backing_wallpaper_changes_only_under_completed_reveal(self):
         qml = (ROOT / "quickshell/wallpaper-transition/shell.qml").read_text()

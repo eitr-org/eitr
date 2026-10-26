@@ -1120,6 +1120,12 @@ msgstr "Ein Unternehmensprofil ist vorhanden; vergessen Sie das Netzwerk im Pane
 msgid "Erase the whole disk ({size_text}) and install Eitr"
 msgstr "Das gesamte Laufwerk ({size_text}) löschen und Eitr installieren"
 
+msgid "Event hook added or changed: {event}"
+msgstr "Ereignis-Hook hinzugefügt oder geändert: {event}"
+
+msgid "Event hook: {event} — {command}"
+msgstr "Ereignis-Hook: {event} — {command}"
+
 msgid "Everything is up to date."
 msgstr "Alles ist auf dem neuesten Stand."
 
@@ -1497,6 +1503,12 @@ msgstr "Ungültiger Paketname"
 
 msgid "Invalid peer address."
 msgstr "Ungültige Gegenstellenadresse."
+
+msgid "Invalid plugin hooks; unknown event"
+msgstr "Ungültige Plugin-Hooks; unbekanntes Ereignis"
+
+msgid "Invalid plugin schemaVersion; expected 1"
+msgstr "Ungültige Plugin-schemaVersion; erwartet wird 1"
 
 msgid "Invalid project ID"
 msgstr "Ungültige Projekt-ID"
@@ -3202,6 +3214,9 @@ msgstr "Dieser Starter gehört zu keinem installierten Paket. Keine Dateien entf
 msgid "This layout is already added"
 msgstr "Diese Belegung wurde bereits hinzugefügt"
 
+msgid "This manifest should declare schemaVersion: 1."
+msgstr "Dieses Manifest sollte schemaVersion: 1 deklarieren."
+
 msgid "This occurrence"
 msgstr "Diesen Termin"
 
@@ -3210,6 +3225,9 @@ msgstr "Dieses Plugin ist gesperrt: {reason}"
 
 msgid "This plugin is on the Eitr blocklist: {reason}"
 msgstr "Dieses Plugin steht auf der Eitr-Sperrliste: {reason}"
+
+msgid "This plugin needs a newer Eitr"
+msgstr "Dieses Plugin benötigt ein neueres Eitr"
 
 msgid "This removes TPM unlock from {device}; the passphrase is required at every boot again."
 msgstr "Dies entfernt die TPM-Entsperrung von {device}; die Passphrase ist danach bei jedem Start erforderlich."

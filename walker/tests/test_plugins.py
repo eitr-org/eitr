@@ -623,3 +623,156 @@ class PluginTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'symlinks: folder-link'):
             self.manager.update('example', lambda changes: self.fail('Symlink reached review'))
         self.assertEqual(self.manager.records()['example']['commit'], old)
+
+    def test_schema_versions_and_hooks(self):
+        valid = self.spec()
+        for version in (None, 1):
+            spec = copy.deepcopy(valid)
+            if version is None:
+                del spec['schemaVersion']
+            self.write_spec(spec)
+            self.assertEqual(plugins.manifest(self.source), spec)
+        for version in (2, 0, -1, True, '1', 1.0, None):
+            spec = dict(valid, schemaVersion=version)
+            self.write_spec(spec)
+            with self.subTest(version=version), self.assertRaisesRegex(ValueError, 'newer Eitr' if version == 2 else 'schemaVersion'):
+                plugins.manifest(self.source)
+        for hooks in ({'unknown': {'run': 'notify.sh'}}, {'login': {'run': '../escape'}},
+                      {'login': {'run': 'notify.sh', 'arguments': [1]}}, [], {'login': {'run': '/bin/true'}}):
+            self.write_spec(dict(valid, hooks=hooks))
+            with self.subTest(hooks=hooks), self.assertRaises(ValueError):
+                plugins.manifest(self.source)
+        self.write_spec(valid)
+        lines = self.cli().review_lines(self.source, valid, self.url)
+        self.assertTrue(any('Event hook: theme-changed' in line for line in lines))
+        del valid['schemaVersion']
+        self.assertTrue(any('should declare schemaVersion' in line for line in self.cli().review_lines(self.source, valid, self.url)))
+
+    def test_hook_runner_context_timeout_and_failures(self):
+        approved = self.install()
+        commit_mock = patch('eitr_plugins.commit', return_value=approved)
+        commit_mock.start()
+        self.addCleanup(commit_mock.stop)
+        with patch('eitr_plugins.subprocess.Popen') as popen, patch.dict(os.environ, {'EITR_THEME': 'forest', 'EITR_WALLPAPER': 'stale'}):
+            popen.return_value.wait.return_value = 0
+            self.manager.hooks('theme-changed')
+            argv = popen.call_args.args[0]
+            options = popen.call_args.kwargs
+            self.assertEqual(argv[1:], ['The theme changed'])
+            self.assertEqual(options['cwd'], self.manager.folder / 'example')
+            self.assertEqual(options['env']['EITR_EVENT'], 'theme-changed')
+            self.assertEqual(options['env']['EITR_THEME'], 'forest')
+            self.assertNotIn('EITR_WALLPAPER', options['env'])
+            self.assertTrue(options['start_new_session'])
+            popen.return_value.wait.assert_called_once_with(timeout=30)
+        for failure in (OSError('cannot launch'), None):
+            with patch('eitr_plugins.subprocess.Popen', side_effect=failure) as popen:
+                if failure is None:
+                    popen.return_value.wait.return_value = 7
+                self.manager.hooks('theme-changed')
+        with patch('eitr_plugins.subprocess.Popen') as popen, patch('eitr_plugins.os.killpg') as kill:
+            popen.return_value.pid = 123
+            popen.return_value.wait.side_effect = [subprocess.TimeoutExpired('hook', 30), 0]
+            self.manager.hooks('theme-changed')
+            kill.assert_called_once_with(123, plugins.signal.SIGKILL)
+        log = plugins.state('eitr/plugin-hooks.log').read_text()
+        for message in ('cannot launch', 'exited with 7', 'timeout after 30 seconds'):
+            self.assertIn(message, log)
+        for policy in ({'plugins': False}, {'plugins': {'allow': []}}):
+            self.policies = policy
+            with patch('eitr_plugins.subprocess.Popen') as popen:
+                self.manager.hooks('theme-changed')
+                popen.assert_not_called()
+        self.policies = {}
+        self.block(id='example')
+        with patch('eitr_plugins.subprocess.Popen') as popen:
+            self.manager.hooks('theme-changed')
+            popen.assert_not_called()
+
+    def test_hook_update_flags_and_detached_dispatch(self):
+        self.install()
+        spec = self.spec()
+        spec['hooks']['theme-changed']['arguments'] = ['changed']
+        spec['hooks']['login'] = {'run': 'notify.sh'}
+        self.publish(spec)
+        def approve(changes):
+            self.assertIn('Event hook added or changed: theme-changed', changes['flags'])
+            self.assertIn('Event hook added or changed: login', changes['flags'])
+            self.assertTrue(any('RISK: Event hook' in line for line in self.cli().summary_lines(changes)))
+            return False
+        self.manager.update('example', approve)
+        with patch('eitr_plugins.subprocess.Popen') as popen:
+            plugins.dispatch_hooks('wallpaper-changed', EITR_WALLPAPER='/example/image.png')
+            self.assertEqual(popen.call_args.args[0][-2:], ['hooks', 'wallpaper-changed'])
+            self.assertTrue(popen.call_args.kwargs['start_new_session'])
+            popen.return_value.wait.assert_not_called()
+        with patch('eitr_plugins.subprocess.Popen', side_effect=OSError('missing')):
+            plugins.dispatch_hooks('login')
+
+    def test_after_update_fires_only_when_updates_were_installed(self):
+        script = (ROOT / 'walker/scripts/actions/system/update.sh').read_text()
+        up_to_date = script[script.index('if [[ "${1:-}" == system ]] && no_updates; then'):]
+        up_to_date = up_to_date[:up_to_date.index('\nfi\n')]
+        self.assertNotIn('plugin_after_update', up_to_date)
+        self.assertEqual(script.count('\n    plugin_after_update\n'), 1)
+
+    def test_event_trigger_sites_are_detached(self):
+        for filename, event in (('walker/scripts/actions/style/apply.sh', 'theme-changed'),
+                                ('walker/scripts/actions/system/update.sh', 'after-update')):
+            text = (ROOT / filename).read_text()
+            line = next(line for line in text.splitlines() if 'hooks ' + event in line)
+            self.assertIn('setsid python3', line)
+            self.assertTrue(line.endswith('&'))
+            with tempfile.TemporaryDirectory() as directory:
+                trace = Path(directory) / 'calls'
+                environment = dict(os.environ, EITR_CODE_ROOT=str(ROOT), EITR_THEME='forest', THEME_NAME='forest', TRACE=str(trace))
+                harness = 'setsid() { printf "%s\\n" "$*" > "$TRACE"; };\n' + line + '\nwait\n'
+                subprocess.run(['bash', '-c', harness], env=environment, check=True)
+                self.assertIn('hooks ' + event, trace.read_text())
+        wallpaper = (ROOT / 'walker/scripts/actions/wallpaper/transition.py').read_text()
+        self.assertIn('dispatch_hooks("wallpaper-changed", EITR_WALLPAPER=path)', wallpaper)
+        bar = (ROOT / 'quickshell/desktop-bar/shell.qml').read_text()
+        self.assertIn('Quickshell.execDetached(["python3", Eitr.Paths.code("walker/scripts/actions/install/plugins.py"), "hooks", "login"])', bar)
+        if shutil.which('node'):
+            handler = bar.split('running: !pluginSession.dispatched', 1)[1].split('onTriggered: {', 1)[1].split('        }', 1)[0]
+            harness = ("const calls = []; const pluginSession = {dispatched: false}; "
+                       "const Eitr = {Paths: {code: path => path}}; "
+                       "const Quickshell = {execDetached: argv => calls.push(argv)}; "
+                       + handler + "; console.log(JSON.stringify({calls, dispatched: pluginSession.dispatched}));")
+            result = subprocess.run(['node', '-e', harness], check=True, capture_output=True, text=True)
+            observed = json.loads(result.stdout)
+            self.assertTrue(observed['dispatched'])
+            self.assertEqual(observed['calls'], [['python3', 'walker/scripts/actions/install/plugins.py', 'hooks', 'login']])
+
+
+
+    def test_login_once_per_desktop_session(self):
+        spec = self.spec()
+        spec['hooks'] = {'login': {'run': 'notify.sh'}}
+        self.publish(spec)
+        approved = self.install()
+        commit_mock = patch('eitr_plugins.commit', return_value=approved)
+        commit_mock.start()
+        self.addCleanup(commit_mock.stop)
+        Path(os.environ['XDG_RUNTIME_DIR']).mkdir(parents=True)
+        with patch.dict(os.environ, {'HYPRLAND_INSTANCE_SIGNATURE': 'fixture-session'}), patch('eitr_plugins.subprocess.Popen') as popen:
+            popen.return_value.wait.return_value = 0
+            self.manager.hooks('login')
+            self.manager.hooks('login')
+            popen.assert_called_once()
+        with patch.dict(os.environ, {'HYPRLAND_INSTANCE_SIGNATURE': 'next-session'}), patch('eitr_plugins.subprocess.Popen') as popen:
+            popen.return_value.wait.return_value = 0
+            self.manager.hooks('login')
+            popen.assert_called_once()
+
+    def test_failure_does_not_stop_other_hooks(self):
+        self.install()
+        record = self.manager.records()['example']
+        with patch.object(self.manager, 'records', return_value={'example': record, 'second': record}), \
+                patch('eitr_plugins.commit', return_value=record['commit']), \
+                patch('eitr_plugins.manifest', return_value=self.spec()), \
+                patch('eitr_plugins.command', return_value=['fixture-script']), \
+                patch('eitr_plugins.subprocess.Popen') as popen:
+            popen.return_value.wait.side_effect = [7, 0]
+            self.manager.hooks('theme-changed')
+            self.assertEqual(popen.call_count, 2)

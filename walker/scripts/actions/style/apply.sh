@@ -105,3 +105,5 @@ fi
 hook_runner="$EITR_LIBRARY_ROOT/run-hook.sh"
 [[ -f "$hook_runner" ]] || hook_runner="$EITR_CODE_ROOT/distro/lib/run-hook.sh"
 [[ -f "$hook_runner" ]] && setsid bash "$hook_runner" theme-set "$THEME_NAME" >/dev/null 2>&1 < /dev/null &
+
+EITR_THEME="$THEME_NAME" setsid python3 "$EITR_CODE_ROOT/walker/scripts/actions/install/plugins.py" hooks theme-changed >/dev/null 2>&1 < /dev/null &

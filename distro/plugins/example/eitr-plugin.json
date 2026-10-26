@@ -1,4 +1,5 @@
 {
+  "schemaVersion": 1,
   "id": "example",
   "name": "Example plugin",
   "description": "A tiny notification example",
@@ -10,7 +11,17 @@
       "description": "Show a greeting from the example plugin",
       "icon": "󰂚",
       "run": "notify.sh",
-      "arguments": ["Hello from an Eitr plugin"]
+      "arguments": [
+        "Hello from an Eitr plugin"
+      ]
     }
-  ]
+  ],
+  "hooks": {
+    "theme-changed": {
+      "run": "notify.sh",
+      "arguments": [
+        "The theme changed"
+      ]
+    }
+  }
 }

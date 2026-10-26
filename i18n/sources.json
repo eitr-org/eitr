@@ -4715,6 +4715,12 @@
     "Erase the whole disk ({size_text}) and install Eitr": [
       "distro/archinstall/installer-ui.py"
     ],
+    "Event hook added or changed: {event}": [
+      "distro/lib/eitr_plugins.py"
+    ],
+    "Event hook: {event} — {command}": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Everything is up to date.": [
       "walker/scripts/actions/system/update.sh"
     ],
@@ -5098,6 +5104,12 @@
     ],
     "Invalid peer address.": [
       "walker/scripts/actions/system/remote-access.py"
+    ],
+    "Invalid plugin hooks; unknown event": [
+      "distro/lib/eitr_plugins.py"
+    ],
+    "Invalid plugin schemaVersion; expected 1": [
+      "distro/lib/eitr_plugins.py"
     ],
     "Invalid project ID": [
       "walker/scripts/menus/cloud/contexts.py",
@@ -6837,6 +6849,9 @@
     "This layout is already added": [
       "quickshell/desktop-bar/scripts/keyboard-layout.py"
     ],
+    "This manifest should declare schemaVersion: 1.": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "This occurrence": [
       "walker/scripts/actions/tools/reminders.py"
     ],
@@ -6844,6 +6859,9 @@
       "walker/scripts/actions/install/plugins.py"
     ],
     "This plugin is on the Eitr blocklist: {reason}": [
+      "distro/lib/eitr_plugins.py"
+    ],
+    "This plugin needs a newer Eitr": [
       "distro/lib/eitr_plugins.py"
     ],
     "This removes TPM unlock from {device}; the passphrase is required at every boot again.": [

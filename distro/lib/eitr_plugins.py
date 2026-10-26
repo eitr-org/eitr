@@ -2,11 +2,13 @@
 import contextlib
 import datetime
 import fcntl
+import hashlib
 import json
 import os
 from pathlib import Path, PurePosixPath
 import re
 import shutil
+import signal
 import subprocess
 import tempfile
 from urllib.parse import urlsplit
@@ -19,6 +21,9 @@ SLUG = re.compile(r'[a-z0-9]+(?:-[a-z0-9]+)*\Z')
 COMMIT = re.compile(r'[0-9a-f]{40}(?:[0-9a-f]{24})?\Z')
 # Shipped in the signed eitr-desktop package, beside lib/ (distro/ in a checkout).
 BLOCKLIST = Path(__file__).resolve().parents[1] / 'plugin-blocklist.json'
+HOOK_EVENTS = ('theme-changed', 'wallpaper-changed', 'after-update', 'login')
+HOOK_TIMEOUT = 30
+
 REPORT_URL = 'https://github.com/eitr-org/eitr/issues/new?template=malicious-plugin.yml'
 
 
@@ -69,7 +74,14 @@ def manifest(root):
     if path.is_symlink() or path.stat().st_size > 65536:
         raise ValueError('Invalid plugin manifest file')
     value = json.loads(path.read_text(), object_pairs_hook=unique_object)
-    object_keys(value, ('id', 'name', 'description', 'author', 'version', 'rows'), ('service',))
+    if not isinstance(value, dict):
+        raise ValueError('Invalid plugin manifest fields')
+    version = value.get('schemaVersion', 1)
+    if type(version) is not int or version < 1:
+        raise ValueError(tr('Invalid plugin schemaVersion; expected 1'))
+    if version > 1:
+        raise ValueError(tr('This plugin needs a newer Eitr'))
+    object_keys(value, ('id', 'name', 'description', 'author', 'version', 'rows'), ('service', 'schemaVersion', 'hooks'))
     identifier(value['id'])
     for field in ('name', 'author', 'version'):
         string(value[field])
@@ -86,6 +98,12 @@ def manifest(root):
     if 'service' in value:
         object_keys(value['service'], ('run',), ('arguments',))
         command(root, value['service'])
+    hooks = value.get('hooks', {})
+    if not isinstance(hooks, dict) or hooks.keys() - set(HOOK_EVENTS):
+        raise ValueError(tr('Invalid plugin hooks; unknown event'))
+    for hook in hooks.values():
+        object_keys(hook, ('run',), ('arguments',))
+        command(root, hook)
     return value
 
 
@@ -214,6 +232,9 @@ def update_changes(candidate, target, old, new, old_spec, spec):
             flags.append(tr('Background service removed'))
         else:
             flags.append(tr('Background service changed: {command}', command=service_text(spec)))
+    for event, hook in spec.get('hooks', {}).items():
+        if old_spec.get('hooks', {}).get(event) != hook:
+            flags.append(tr('Event hook added or changed: {event}', event=event))
     if any(change['path'] == 'eitr-plugin.json' for change in files):
         flags.append(tr('Manifest changed: {path}', path='eitr-plugin.json'))
     for change in files:
@@ -581,6 +602,58 @@ class Plugins:
                 continue
         return sorted(rows, key=lambda row: row['title'].casefold())
 
+    def hooks(self, event):
+        """Called in a detached dispatcher; each approved hook has its own timeout."""
+        if event not in HOOK_EVENTS:
+            raise ValueError('Unknown plugin event')
+        if os.geteuid() == 0 or eitr_policy.load().get('plugins', True) is False:
+            return
+        if event == 'login':
+            session = os.environ.get('HYPRLAND_INSTANCE_SIGNATURE') or os.environ.get('XDG_SESSION_ID')
+            runtime = os.environ.get('XDG_RUNTIME_DIR')
+            if not session or not runtime:
+                return
+            marker = Path(runtime) / ('eitr-plugin-login-' + hashlib.sha256(session.encode()).hexdigest())
+            try:
+                descriptor = os.open(marker, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+            except FileExistsError:
+                return
+            os.close(descriptor)
+        log = state('eitr/plugin-hooks.log')
+        log.parent.mkdir(parents=True, exist_ok=True)
+        with log.open('a') as output:
+            for plugin_id, record in self.records().items():
+                try:
+                    if self.refusal(record['url'], record['commit'], plugin_id):
+                        continue
+                    root = self.folder / plugin_id
+                    if root.is_symlink() or commit(root) != record['commit']:
+                        continue
+                    spec = manifest(root)
+                    hook = spec.get('hooks', {}).get(event)
+                    if hook is None:
+                        continue
+                    environment = {key: value for key, value in os.environ.items() if not key.startswith('EITR_EVENT')
+                                   and key not in ('EITR_THEME', 'EITR_WALLPAPER')}
+                    environment['EITR_EVENT'] = event
+                    context = {'theme-changed': 'EITR_THEME', 'wallpaper-changed': 'EITR_WALLPAPER'}.get(event)
+                    if context and context in os.environ:
+                        environment[context] = os.environ[context]
+                    process = subprocess.Popen(command(root, hook), cwd=root, env=environment,
+                                               start_new_session=True, stdin=subprocess.DEVNULL,
+                                               stdout=output, stderr=output)
+                    try:
+                        status = process.wait(timeout=HOOK_TIMEOUT)
+                    except subprocess.TimeoutExpired:
+                        os.killpg(process.pid, signal.SIGKILL)
+                        process.wait()
+                        raise ValueError('timeout after 30 seconds') from None
+                    if status:
+                        raise ValueError(f'exited with {status}')
+                except (OSError, ValueError, subprocess.SubprocessError) as error:
+                    output.write(f'{plugin_id} {event}: {printable(str(error))}\n')
+                    output.flush()
+
     def launch(self, plugin_id, index):
         if os.geteuid() == 0:
             raise ValueError('Plugins are per-user; do not run as root')
@@ -593,3 +666,14 @@ class Plugins:
             raise ValueError('Plugin differs from its approved commit')
         spec = manifest(root)
         subprocess.Popen(command(root, spec['rows'][index]), cwd=root, start_new_session=True)
+
+
+def dispatch_hooks(event, **context):
+    """Fire and forget: triggering actions never wait for plugin code."""
+    from eitr_paths import code
+    try:
+        subprocess.Popen(['python3', str(code('walker/scripts/actions/install/plugins.py')), 'hooks', event],
+                         env=dict(os.environ, **context), start_new_session=True,
+                         stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    except OSError:
+        pass

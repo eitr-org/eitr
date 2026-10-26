@@ -86,6 +86,19 @@ ShellRoot {
             } catch (error) {}
         }
     }
+    PersistentProperties {
+        id: pluginSession
+        reloadableId: "pluginLoginSession"
+        property bool dispatched: false
+    }
+    Timer {
+        interval: 1
+        running: !pluginSession.dispatched
+        onTriggered: {
+            pluginSession.dispatched = true;
+            Quickshell.execDetached(["python3", Eitr.Paths.code("walker/scripts/actions/install/plugins.py"), "hooks", "login"]);
+        }
+    }
     LiveWallpaper {}
     RealmEffects {
         accent: shell.activeBg

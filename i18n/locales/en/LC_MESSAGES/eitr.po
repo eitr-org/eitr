@@ -1120,6 +1120,12 @@ msgstr "Enterprise profile exists; forget it in the panel before replacing crede
 msgid "Erase the whole disk ({size_text}) and install Eitr"
 msgstr "Erase the whole disk ({size_text}) and install Eitr"
 
+msgid "Event hook added or changed: {event}"
+msgstr "Event hook added or changed: {event}"
+
+msgid "Event hook: {event} — {command}"
+msgstr "Event hook: {event} — {command}"
+
 msgid "Everything is up to date."
 msgstr "Everything is up to date."
 
@@ -1497,6 +1503,12 @@ msgstr "Invalid package name"
 
 msgid "Invalid peer address."
 msgstr "Invalid peer address."
+
+msgid "Invalid plugin hooks; unknown event"
+msgstr "Invalid plugin hooks; unknown event"
+
+msgid "Invalid plugin schemaVersion; expected 1"
+msgstr "Invalid plugin schemaVersion; expected 1"
 
 msgid "Invalid project ID"
 msgstr "Invalid project ID"
@@ -3202,6 +3214,9 @@ msgstr "This launcher is not owned by an installed package. No files were remove
 msgid "This layout is already added"
 msgstr "This layout is already added"
 
+msgid "This manifest should declare schemaVersion: 1."
+msgstr "This manifest should declare schemaVersion: 1."
+
 msgid "This occurrence"
 msgstr "This occurrence"
 
@@ -3210,6 +3225,9 @@ msgstr "This plugin is blocked: {reason}"
 
 msgid "This plugin is on the Eitr blocklist: {reason}"
 msgstr "This plugin is on the Eitr blocklist: {reason}"
+
+msgid "This plugin needs a newer Eitr"
+msgstr "This plugin needs a newer Eitr"
 
 msgid "This removes TPM unlock from {device}; the passphrase is required at every boot again."
 msgstr "This removes TPM unlock from {device}; the passphrase is required at every boot again."

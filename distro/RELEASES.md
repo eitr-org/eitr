@@ -168,6 +168,12 @@ organization profiles can turn plugins off or allow listed repositories, symlink
 are refused anywhere in a plugin, and plugin services get `NoNewPrivileges=yes`.
 Report a harmful plugin with the Report a plugin issue form.
 
+Plugin manifests now declare schemaVersion 1, with compatibility for existing
+manifests. Optional event hooks run after theme and wallpaper changes, successful
+System Update and once per desktop session. Reviews list hooks and flag additions
+or changes; policy and blocklist checks apply, with detached execution and a
+30-second timeout. `distro/PLUGINS.md` documents the stable author contract.
+
 pacman shows colour and the Pac-Man progress bar (`Color` and `ILoveCandy`):
 new installs write both, and existing desktops get them once with the next
 update; removing them by hand afterwards is kept.

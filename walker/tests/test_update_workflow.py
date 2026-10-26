@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[2]
 FLOCK_MOCK = "flock() { return 0; }\n"
 # Tests never reach the host: its Flatpak installation, the restart check (which
 # reads the running kernel's modules, absent in CI containers), the bar or systemd.
-HOST_MOCKS = "sleep() { :; }; pacman() { :; }; checkupdates() { return 1; }; flatpak() { :; }; python3() { :; }; eitr-shell() { :; }; systemctl() { :; }\n"
+HOST_MOCKS = "setsid() { :; }; sleep() { :; }; pacman() { :; }; checkupdates() { return 1; }; flatpak() { :; }; python3() { :; }; eitr-shell() { :; }; systemctl() { :; }\n"
 
 
 # The update calls the user's post-update hook; tests use a stand-in runner so

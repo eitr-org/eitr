@@ -70,6 +70,11 @@ def review_lines(root, spec, url):
              tr('Background service: {service}', service=tr('Yes') if 'service' in spec else tr('No')),
              tr('Executable files: {count}', count=len(executable_files(root))),
              tr('Rows:')] + [printable(row['title'] + ' — ' + row['description']) for row in spec['rows']]
+    if 'schemaVersion' not in spec:
+        lines.append(tr('This manifest should declare schemaVersion: 1.'))
+    for event, hook in spec.get('hooks', {}).items():
+        lines.append(tr('Event hook: {event} — {command}', event=event,
+                        command=printable(' '.join([hook['run'], *hook.get('arguments', [])]))))
     return lines
 
 
@@ -197,6 +202,8 @@ def summary_lines(changes, limit=20):
         lines += ['', tr('Look closely at:')] + [WARNING + tr('RISK: {flag}', flag=flag) for flag in changes['flags']]
     else:
         lines += ['', tr('No risk flags. Read the changes anyway before you trust them.')]
+    if 'schemaVersion' not in spec:
+        lines.append(tr('This manifest should declare schemaVersion: 1.'))
     return lines + ['', tr(TRUST)]
 
 
@@ -300,12 +307,14 @@ def remove(manager, plugin_id):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['list', 'add', 'update', 'remove', 'rows', 'installed', 'launch', 'enforce', 'notice'])
+    parser.add_argument('action', choices=['list', 'add', 'update', 'remove', 'rows', 'installed', 'launch', 'enforce', 'notice', 'hooks'])
     parser.add_argument('value', nargs='?')
     parser.add_argument('index', nargs='?', type=int)
     arguments = parser.parse_args(argv)
     manager = Plugins(notify=notify_blocked)
-    if arguments.action == 'list':
+    if arguments.action == 'hooks':
+        manager.hooks(arguments.value)
+    elif arguments.action == 'list':
         for plugin_id, record in manager.records().items():
             print(plugin_id, record['commit'], record['url'])
         if sys.stdout.isatty():

@@ -49,6 +49,10 @@ class EitrCommandTests(unittest.TestCase):
         for name in [command for _, commands in eitr.GROUPS for command, _ in commands]:
             self.assertEqual(eitr.parser().parse_args([name, "check", "/tmp/stick"] if name == "profile" else [name]).command, name)
 
+    def test_plugin_hooks_routes_the_event(self):
+        self.assertEqual(self.plan("plugin", "hooks", "login"),
+                         ["python3", str(self.code / "walker/scripts/actions/install/plugins.py"), "hooks", "login"])
+
     def test_update_runs_the_menus_update_script(self):
         actions = self.code / "walker/scripts/actions/system/update.sh"
         self.assertEqual(self.plan("update"), ["bash", str(actions), "system"])

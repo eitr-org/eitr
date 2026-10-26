@@ -15,6 +15,7 @@ for _eitr_parent in Path(__file__).resolve().parents:
         sys.path.insert(0, str(_eitr_lib))
         break
 from eitr_paths import code, config as user_config, cache as cache_dir, write_settings
+from eitr_plugins import dispatch_hooks
 from eitr_i18n import tr
 import re
 import shutil
@@ -252,6 +253,7 @@ def apply(path, previous=None):
                 if not committed:
                     try:
                         commit(path)
+                        committed = True
                     except CommitError as error:
                         # The cache already points at the new wallpaper, so a
                         # reload restores it; do not abort the theme switch.
@@ -259,6 +261,9 @@ def apply(path, previous=None):
             finally:
                 for name in owned:
                     name.unlink(missing_ok=True)
+
+    if committed:
+        dispatch_hooks("wallpaper-changed", EITR_WALLPAPER=path)
 
 
 if __name__ == "__main__":
