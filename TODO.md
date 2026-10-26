@@ -29,6 +29,12 @@ LAN.
 
 # 2. Smaller items
 
+- **Visual plugins (next).** Event hooks and schemaVersion 1 shipped
+  (`distro/PLUGINS.md`). Next: plugin QML for panels, Control Center tiles and
+  widgets on the shared panel style, placed in the Control Center by default
+  (bar slots only when the user places one). They run inside the bar, so load
+  failures must be caught, crashing plugins disabled, and the review must show
+  the QML before approval.
 - **Website translations.** Offer the site in the desktop's languages
   (Portuguese (Brazil), Spanish, German, French) with a language switch, reusing
   the reviewed Handbook translations where chapters overlap. Decide the URL scheme
