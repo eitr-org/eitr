@@ -55,6 +55,7 @@ LAN.
   than promotional claims. Update the public repository description/README with
   consistent Eitr Linux positioning. Consider a dated, source-checked Omarchy
   comparison page separately; do not imply shared features are exclusive.
+
 # 3. Later
 
 - **Voice reminders, next steps.** Read-only Google/Outlook/iCal subscriptions
