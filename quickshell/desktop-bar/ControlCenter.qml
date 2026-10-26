@@ -246,7 +246,7 @@ ThemedPopup {
                         layer.enabled: true
                         layer.effect: MultiEffect { colorization: 1; colorizationColor: center.foreground }
                     }
-                    foreground: center.foreground; selected: center.page === modelData.key
+                    foreground: center.foreground; selected: center.page === modelData.key && !center.chatOpen
                     onClicked: { center.chatOpen = false; chatView.reset(); center.page = modelData.key; }
                     HoverHandler { id: tabHover }
                     BarTooltip { target: tab; hovered: tabHover.hovered; text: Eitr.I18n.tr(tab.modelData.name); foreground: center.foreground; background: center.background }
