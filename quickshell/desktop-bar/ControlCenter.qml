@@ -8,6 +8,7 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Services.Pipewire
 import "PanelStyle.js" as PanelStyle
+import "JsonState.js" as JsonState
 
 ThemedPopup {
     id: center
@@ -80,6 +81,9 @@ ThemedPopup {
         if (!fireQuery.running) fireQuery.running = true;
     }
     function run(process, command) { if (process.running) return; actionError = ""; process.command = command; process.running = true; }
+    // Fetch once in the background after the bar starts, so even the first opening
+    // shows its data instead of rebuilding lists halfway through the animation.
+    Timer { interval: 8000; running: true; onTriggered: { center.refresh(); chatStatus.running = true; } }
     onOpenedChanged: {
         if (opened) { refresh(); chatStatus.running = true; }
         else { chatOpen = false; chatView.reset(); }
@@ -136,7 +140,8 @@ ThemedPopup {
         onExited: {
             try {
                 let lines = cursorOutput.text.trim().split("\n");
-                center.cursorChoices = {family: JSON.parse(lines[0]), size: JSON.parse(lines[1]), color: JSON.parse(lines[2])};
+                let choices = {family: JSON.parse(lines[0]), size: JSON.parse(lines[1]), color: JSON.parse(lines[2])};
+                if (JsonState.changed(center.cursorChoices, choices)) center.cursorChoices = choices;
             } catch (error) {}
         }
     }
@@ -147,8 +152,9 @@ ThemedPopup {
         stdout: StdioCollector { id: lockscreenOutput }
         onExited: {
             let parts = lockscreenOutput.text.split("@current");
-            center.lockscreens = parts[0].trim().split("\n").filter(line => line.includes("\t"))
+            let lockscreens = parts[0].trim().split("\n").filter(line => line.includes("\t"))
                 .map(line => ({value: line.split("\t")[0], label: line.split("\t")[1]}));
+            if (JsonState.changed(center.lockscreens, lockscreens)) center.lockscreens = lockscreens;
             center.lockscreen = (parts[1] || "").trim();
         }
     }
@@ -171,12 +177,13 @@ ThemedPopup {
         stdout: StdioCollector { id: organizationOutput }
         onExited: {
             try {
-                center.organizationPolicy = JSON.parse(organizationOutput.text);
+                let policy = JSON.parse(organizationOutput.text);
+                if (JsonState.changed(center.organizationPolicy, policy)) center.organizationPolicy = policy;
                 if (center.organizationPolicy.development === false || center.organizationPolicy.assistants_together === false) {
                     center.chatOpen = false; chatView.reset();
                 }
             }
-            catch (error) { center.organizationPolicy = ({}); }
+            catch (error) { if (JsonState.changed(center.organizationPolicy, {})) center.organizationPolicy = ({}); }
         }
     }
     Process {
@@ -189,7 +196,7 @@ ThemedPopup {
         id: airplaneQuery
         command: ["python3", Quickshell.shellDir + "/scripts/airplane.py", "status"]
         stdout: StdioCollector { id: airplaneOutput }
-        onExited: { try { center.airplane = JSON.parse(airplaneOutput.text); } catch (e) { center.airplane = {available: false, enabled: false}; } }
+        onExited: { let airplane; try { airplane = JSON.parse(airplaneOutput.text); } catch (e) { airplane = {available: false, enabled: false}; } if (JsonState.changed(center.airplane, airplane)) center.airplane = airplane; }
     }
     Process {
         id: airplaneOperation
@@ -204,8 +211,10 @@ ThemedPopup {
         command: ["python3", Eitr.Paths.code("quickshell/desktop-bar/scripts/assistant-chat.py"), "status"]
         stdout: StdioCollector { id: chatStatusOutput }
         onExited: {
-            try { center.chatAssistant = JSON.parse(chatStatusOutput.text); }
-            catch (error) { center.chatAssistant = ({}); }
+            let assistant;
+            try { assistant = JSON.parse(chatStatusOutput.text); }
+            catch (error) { assistant = ({}); }
+            if (JsonState.changed(center.chatAssistant, assistant)) center.chatAssistant = assistant;
             if (!center.chatAssistant.identifier) { center.chatOpen = false; chatView.reset(); }
         }
     }

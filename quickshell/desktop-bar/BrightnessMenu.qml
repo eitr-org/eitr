@@ -2,6 +2,7 @@ import QtQuick
 import Eitr as Eitr
 import QtQuick.Controls.Basic as Controls
 import "PanelStyle.js" as PanelStyle
+import "JsonState.js" as JsonState
 import Quickshell
 import Quickshell.Io
 
@@ -177,7 +178,7 @@ ThemedPopup {
         id: settingsQuery
         command: ["python3", menu.settingsHelper, "list"]
         stdout: StdioCollector { id: settingsOutput }
-        onExited: { try { menu.displaySettings = JSON.parse(settingsOutput.text); } catch (e) {} }
+        onExited: { try { let settings = JSON.parse(settingsOutput.text); if (JsonState.changed(menu.displaySettings, settings)) menu.displaySettings = settings; } catch (e) {} }
     }
     Process {
         id: trialOperation
@@ -211,8 +212,10 @@ ThemedPopup {
         command: ["python3", menu.helper, "status"]
         stdout: StdioCollector { id: queryOutput }
         onExited: {
-            try { menu.state = JSON.parse(queryOutput.text); }
-            catch (e) { menu.state = {available: false, name: Eitr.I18n.tr("Brightness unavailable"), value: 0}; }
+            let state;
+            try { state = JSON.parse(queryOutput.text); }
+            catch (e) { state = {available: false, name: Eitr.I18n.tr("Brightness unavailable"), value: 0}; }
+            if (JsonState.changed(menu.state, state)) menu.state = state;
         }
     }
     Process {
@@ -234,8 +237,10 @@ ThemedPopup {
         command: ["python3", menu.powerHelper, "status"]
         stdout: StdioCollector { id: powerQueryOutput }
         onExited: {
-            try { menu.power = JSON.parse(powerQueryOutput.text); }
-            catch (e) { menu.power = {available: false, active: "", profiles: []}; }
+            let power;
+            try { power = JSON.parse(powerQueryOutput.text); }
+            catch (e) { power = {available: false, active: "", profiles: []}; }
+            if (JsonState.changed(menu.power, power)) menu.power = power;
         }
     }
     Process {
@@ -258,7 +263,7 @@ ThemedPopup {
         onExited: {
             try {
                 let result = JSON.parse(displayOutput.text);
-                menu.monitors = result.monitors || [];
+                if (JsonState.changed(menu.monitors, result.monitors || [])) menu.monitors = result.monitors || [];
                 menu.primaryDisplay = result.primary || "";
                 if (menu.displayError === menu.displayStatusError) menu.displayError = "";
             } catch (e) { menu.displayError = menu.displayStatusError; }
@@ -289,8 +294,8 @@ ThemedPopup {
         stdout: StdioCollector { id: nightQueryOutput }
         onExited: {
             try {
-                menu.nightlight = JSON.parse(nightQueryOutput.text);
-                menu.syncSchedule();
+                let nightlight = JSON.parse(nightQueryOutput.text);
+                if (JsonState.changed(menu.nightlight, nightlight)) { menu.nightlight = nightlight; menu.syncSchedule(); }
                 if (menu.nightlightError === menu.nightlightStatusError) menu.nightlightError = "";
             }
             catch (e) { menu.nightlightError = menu.nightlightStatusError; }
