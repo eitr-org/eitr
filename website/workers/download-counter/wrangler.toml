@@ -1,0 +1,13 @@
+name = "eitr-download-counter"
+main = "index.js"
+compatibility_date = "2026-10-01"
+workers_dev = false
+routes = [
+  { pattern = "download.eitr.info/eitr-*", zone_name = "eitr.info" },
+  { pattern = "download.eitr.info/stats.json*", zone_name = "eitr.info" }
+]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "eitr-stats"
+database_id = "15443a55-c3a4-41e1-8f69-d5559cdb3419"

@@ -344,3 +344,39 @@ For browser validation, serve a production build and run `npm test`. Set
 `EITR_BROWSER_EXECUTABLE` when Chrome/Chromium is outside the detected paths.
 `EITR_WEB_REVIEW_CAPTURES=/tmp/eitr-site-review npm run test:product` saves only
 headless local website views for visual review, with no live desktop capture.
+
+## ISO download counter
+
+The separate dependency-free Worker in `workers/download-counter/` counts ISO
+GET requests without Range or with a single range starting at byte zero. It
+records only UTC day, filename and count in D1; resumed/split ranges, HEAD and
+package repositories are excluded. Counts measure starts, not completed transfers
+or unique visitors. Database writes run in the background and failures do not
+block downloads. `/stats.json` exposes the total and first day, cacheable for
+five minutes. The homepage shows a positive total after load and stays silent
+when statistics are unavailable.
+
+The D1 database `eitr-stats` exists and its ID is in
+`workers/download-counter/wrangler.toml` (an ID alone grants no access). Only
+when recreating it, run `npx wrangler d1 create eitr-stats` and put the new ID
+there. Apply the schema and deploy from `website/`:
+
+```sh
+npx wrangler d1 execute eitr-stats --remote --config workers/download-counter/wrangler.toml --file workers/download-counter/schema.sql
+npx wrangler deploy --config workers/download-counter/wrangler.toml
+```
+
+The routes cover `download.eitr.info/eitr-*` (only successful `.iso` downloads
+are counted) and `/stats.json` in the `eitr.info` zone. R2 remains the origin through `fetch(request)`; requests and
+responses retain their range, cache and header behavior. Package paths under
+`repo/` and `repo-testing/` bypass the Worker. Deploy this Worker separately from
+the static-site Worker `eitr`. No provisioning or deployment runs in tests:
+
+```sh
+node --test workers/download-counter/tests/*.test.js
+npm run test:downloads
+```
+
+The download-count browser suite uses the production build with every request
+fulfilled or rejected by a mock, including the stats success, zero, invalid and
+error cases.

@@ -136,7 +136,8 @@ stage_python_tests() {
 stage_node_tests() {
   local test_files status=0
   collect test_files ':(glob)**/tests/test_*.js'
-  if ((${#test_files[@]} == 0)); then echo 'no node tests found'; return 0; fi
+  node --test website/workers/download-counter/tests/*.test.js || status=1
+  if ((${#test_files[@]} == 0)); then return "$status"; fi
   for file in "${test_files[@]}"; do
     printf -- '--- %s\n' "$file"
     node "$file" || status=1

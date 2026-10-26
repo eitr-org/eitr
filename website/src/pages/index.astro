@@ -422,6 +422,7 @@ const faq = [
         <h3>On your machine</h3>
         <p>Download the ISO, check it, write it to a USB stick, boot it and follow the installer. It can erase a disk or install beside Windows (installing beside Windows is so far tested only in a VM). Everything on <code>/dev/sdX</code> is erased.</p>
         <a class="button primary download-button" href={download.url} download={download.file}>Download {download.version}</a>
+        <p class="download-checksum" data-download-count hidden aria-live="polite"></p>
         <p class="download-checksum">SHA-256 <a class="text-link" href={download.checksum_url} download={`${download.file}.sha256`}>checksum file</a>: <code>{download.sha256}</code></p>
         <pre tabindex="0" aria-label="Commands to check and write the ISO"><code>{`sha256sum -c ${download.file}.sha256
 sudo dd if=${download.file} of=/dev/sdX bs=4M status=progress oflag=sync`}</code></pre>
@@ -498,3 +499,7 @@ sudo dd if=${download.file} of=/dev/sdX bs=4M status=progress oflag=sync`}</code
     </article>
   </section>
 </Layout>
+
+<script>
+  import "../scripts/download-count";
+</script>

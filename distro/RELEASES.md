@@ -268,7 +268,8 @@ can pick up from the repository alone. Remove items as they ship.
   with its `.sha256` beside it (Cloudflare R2 bucket `eitr-downloads`, free tier
   up to 10 GB, no bandwidth charges). The website's button reads
   `website/src/data/download.json`. The bucket holds **one ISO at a time**, so it
-  never pays for extra storage. For each release:
+  never pays for extra storage. ISO download starts are counted without storing visitor data.
+  For each release:
   1. Delete the previous ISO and its `.sha256` from the bucket
      (`aws s3 rm ... --profile eitr-r2` with R2's endpoint; list first, check
      the names, and delete nothing else).

@@ -14,11 +14,17 @@ try {
   for (const appearance of ['dark', 'light']) {
     for (const width of [390, 1440]) {
       const context = await browser.newContext({ viewport: { width, height: 960 }, reducedMotion: 'reduce' });
+      await context.route('https://download.eitr.info/stats.json', route => route.fulfill({
+        json: { total: 1234, since: '2026-10-01' },
+        headers: { 'Access-Control-Allow-Origin': new URL(site).origin },
+      }));
       await context.addInitScript(appearance => localStorage.setItem('eitr-appearance', appearance), appearance);
       const page = await context.newPage();
       const errors = [];
       page.on('pageerror', error => errors.push(error.message));
       await page.goto(site, { waitUntil: 'networkidle' });
+      await page.locator('[data-download-count]').waitFor({ state: 'visible' });
+      assert.equal(await page.locator('[data-download-count]').innerText(), 'Downloaded 1,234 times');
       assert.match(await page.locator('.hero .lead').innerText(), /keyboard-first Arch Linux.*Hyprland and Quickshell/s);
       assert.match(await page.locator('.workflow-overview').innerText(), /LazyVim, tmux and Docker are included/s);
       assert.match(await page.locator('#developers').innerText(), /Git identities and cloud contexts keep the account explicit/);
