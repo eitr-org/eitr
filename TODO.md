@@ -43,8 +43,20 @@ LAN.
 - **Dim before the idle lock.** About 20 seconds before hypridle locks, dim the
   screen as a warning and restore the exact brightness on activity (backlight on
   laptops, DDC steps on external monitors).
-- **Self-check ("Check this PC").** Study first, then build: a read-only report
-  of common problems with a suggested fix for each, shareable in problem reports.
+- **Self-check ("Check this PC").** Agreed with the owner (2026-10-26): System >
+  Maintenance > Check this PC, read-only, one line per check (ok, warning, problem)
+  and one suggested fix each; copyable and attachable to Report a Problem. Checks:
+  restart needed (running kernel older than installed, for every GPU; NVIDIA
+  module vs utils only on NVIDIA; Mesa or linux-firmware updated since login or
+  boot on AMD/Intel, using `distro/hardware/detect.sh`); disk space (root, snapshot
+  usage, ESP nearly full); updates (pending, last System Update, channel, stale
+  pacman lock, package-list signatures); recovery (snapshots, last pre/post pair,
+  boot guard, factory reset point); failed services, bar/Walker/Elephant running,
+  idle lock; memory pressure, swap, OOM kills this boot, core dumps this week;
+  DNS, clock sync, firewall; Hyprland config errors, bar load errors, PipeWire and
+  an output device; Secure Boot, encryption, exposed SSH (informational); blocked
+  plugins and hook failures. Only the keyring and ESP file system checks may ask
+  for a password, in the terminal.
 - **Website translations.** Offer the site in the desktop's languages
   (Portuguese (Brazil), Spanish, German, French) with a language switch, reusing
   the reviewed Handbook translations where chapters overlap. Decide the URL scheme
