@@ -25,7 +25,7 @@
   },
   {
     "text": "Steam",
-    "subtext": "Install or open Steam, with GameMode and MangoHud",
+    "subtext": "PC game store and library, with GameMode and MangoHud",
     "icon": "",
     "actions": {
       "open": "python3 /usr/share/eitr/walker/scripts/actions/install/software.py gaming steam"

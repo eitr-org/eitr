@@ -1960,9 +1960,6 @@
     "Install an assistant before choosing a default": [
       "elephant/menus/ai-default.lua"
     ],
-    "Install or open Steam, with GameMode and MangoHud": [
-      "elephant/menu-rows/gaming.json"
-    ],
     "Installed · web app": [
       "walker/scripts/menus/software-menu.lua"
     ],
@@ -2250,6 +2247,9 @@
     ],
     "Output device and app volumes": [
       "elephant/menu-rows/system-devices.json"
+    ],
+    "PC game store and library, with GameMode and MangoHud": [
+      "elephant/menu-rows/gaming.json"
     ],
     "Packages": [
       "elephant/menu-rows/install.json",
