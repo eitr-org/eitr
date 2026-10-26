@@ -10,6 +10,7 @@ import InnerPage from "../components/InnerPage.astro";
 import SkySwitch from "../components/SkySwitch.astro";
 import RuneText from "../components/RuneText.astro";
 import release from "../data/release.json";
+import download from "../data/download.json";
 import { sitePages } from "../data/site-pages";
 const {
   title = sitePages.home.title,
@@ -17,12 +18,31 @@ const {
   noindex = false,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
+// A real desktop screenshot, as JPEG so every link preview and answer engine can show it.
+const previewImage = new URL('/og/eitr-desktop.jpg', Astro.site).href;
+const previewAlt = 'The Eitr Linux desktop: About with the Eitr logo, the Walker main menu and Neovim';
+const screenshot = (file, caption) => ({'@type': 'ImageObject', url: new URL(`/shots/${file}.webp`, Astro.site).href, caption});
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
     {'@type': 'WebSite', '@id': new URL('/#website', Astro.site).href, url: Astro.site?.href, name: 'Eitr Linux', description: sitePages.home.description},
     {'@type': 'WebPage', '@id': canonical, url: canonical, name: title, description, isPartOf: {'@id': new URL('/#website', Astro.site).href}},
-    ...(Astro.url.pathname === '/' ? [{'@type': 'SoftwareApplication', name: 'Eitr Linux', applicationCategory: 'OperatingSystem', operatingSystem: 'x86_64 UEFI PC', softwareVersion: release.version, url: Astro.site?.href, license: 'https://github.com/eitr-org/eitr/blob/main/LICENSE'}] : []),
+    ...(Astro.url.pathname === '/' ? [{
+      '@type': 'SoftwareApplication', name: 'Eitr Linux', alternateName: 'Eitr',
+      description: 'An Arch-based Linux distribution with a keyboard-first Hyprland and Quickshell desktop, a guided offline installer that installs in about two minutes on a fast machine, and signed updates with recovery snapshots.',
+      applicationCategory: 'OperatingSystem', operatingSystem: 'x86_64 UEFI PC', softwareVersion: release.version,
+      url: Astro.site?.href, downloadUrl: download.url, installUrl: new URL('/installation/', Astro.site).href,
+      license: 'https://github.com/eitr-org/eitr/blob/main/LICENSE', isAccessibleForFree: true,
+      offers: {'@type': 'Offer', price: '0', priceCurrency: 'USD'},
+      image: previewImage,
+      screenshot: [
+        {'@type': 'ImageObject', url: new URL('/shots/hero.webp', Astro.site).href, caption: previewAlt},
+        screenshot('tabs', 'The Eitr Linux desktop with the Tabs bar'),
+        screenshot('walker', 'Walker, the Eitr Linux launcher and menus'),
+        screenshot('control-center', 'The Eitr Linux Control Center'),
+        screenshot('about', 'About in Eitr Linux'),
+      ],
+    }] : []),
   ],
 };
 const futhark = "ᚠᚢᚦᚨᚱᚲᚷᚹ ᚺᚾᛁᛃᛇᛈᛉᛊ ᛏᛒᛖᛗᛚᛜᛞᛟ";
@@ -45,9 +65,14 @@ const futhark = "ᚠᚢᚦᚨᚱᚲᚷᚹ ᚺᚾᛁᛃᛇᛈᛉᛊ ᛏᛒᛖᛗ�
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
-    <meta property="og:image" content={new URL('/art/themes/norse-full.webp', Astro.site)} />
-    <meta property="og:image:alt" content="Eitr Linux Norse theme artwork" />
+    <meta property="og:image" content={previewImage} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={previewAlt} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={previewImage} />
+    <meta name="twitter:image:alt" content={previewAlt} />
     <meta name="theme-color" content="#0a0707" />
     <link rel="icon" href="/branding/eitr-favicon.svg" type="image/svg+xml" />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />

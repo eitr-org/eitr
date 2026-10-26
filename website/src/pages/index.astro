@@ -188,6 +188,7 @@ const gaming = {
 
 const faq = [
   ["Is EITR a distribution?", "Yes. Eitr Linux is an Arch-based Linux distribution with its own ISO, guided offline installer, desktop packages and signed repository. Arch supplies the underlying system; Eitr maintains the integrated desktop and workflows on top."],
+  ["How long does installation take?", "About two minutes on a fast machine. Once you confirm, the guided offline installer took 2 minutes 8 seconds in a virtual machine on an Intel i9-11900K desktop with an NVMe drive: about a minute for the base system and a minute for the complete desktop. Nothing is downloaded during installation, so the speed of your USB stick and disk matters most."],
   ["Do I need internet to install?", "No. The ISO carries the packages needed for guided offline installation. Later updates and optional tool downloads need a connection; optional services also keep their own account requirements."],
   ["Can I break it with an update?", "On supported layouts, System Update takes a Btrfs snapshot before an upgrade. Recovery has documented layout and boot requirements, and snapshots do not replace an independent backup. Read the recovery Handbook chapter before relying on a rollback."],
   ["What does beta mean here?", `${release.version} ${release.codename} already includes the integrated desktop, developer menus and recovery workflows. Beta describes the validation scope: Eitr runs daily on its developer’s desktop and released ISOs pass automated VM checks, while broader hardware and some recovery scenarios still need testing. Read Installation & hardware before installing, and keep independent backups.`],
@@ -421,7 +422,7 @@ const faq = [
       <article class="install-card glowable reveal">
         <p class="label">Install</p>
         <h3>On your machine</h3>
-        <p>Download the ISO, check it, write it to a USB stick, boot it and follow the installer. It can erase a disk or install beside Windows (installing beside Windows is so far tested only in a VM). Everything on <code>/dev/sdX</code> is erased.</p>
+        <p>Download the ISO, check it, write it to a USB stick, boot it and follow the installer: about two minutes on a fast machine, with nothing to download. It can erase a disk or install beside Windows (installing beside Windows is so far tested only in a VM). Everything on <code>/dev/sdX</code> is erased.</p>
         <a class="button primary download-button" href={download.url} download={download.file}>Download {download.version}</a>
         <p class="download-checksum" data-download-count hidden aria-live="polite"></p>
         <p class="download-checksum">SHA-256 <a class="text-link" href={download.checksum_url} download={`${download.file}.sha256`}>checksum file</a>: <code>{download.sha256}</code></p>
@@ -482,6 +483,10 @@ sudo dd if=${download.file} of=/dev/sdX bs=4M status=progress oflag=sync`}</code
         </details>
       ))}
     </div>
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org', '@type': 'FAQPage',
+      mainEntity: faq.map(([question, answer]) => ({'@type': 'Question', name: question, acceptedAnswer: {'@type': 'Answer', text: answer}})),
+    }).replaceAll("<", "\\u003c")} />
   </section>
 
   <section id="support" class="wrap section support">

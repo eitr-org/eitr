@@ -52,9 +52,17 @@ try {
    assert.equal(await page.locator(`header nav a[href="${route}"]`).count(),1);
   }
   if(path!=='/intro/') {
-   const data=JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
+   const blocks=(await page.locator('script[type="application/ld+json"]').allTextContents()).map(text=>JSON.parse(text));
+   const data=blocks.find(block=>block['@graph']);
    assert.equal(data['@context'],'https://schema.org');
    assert.ok(data['@graph'].some(item=>item['@type']==='WebPage' && item.url===`https://eitr.info${path}`));
+   if(path==='/') {
+    const software=data['@graph'].find(item=>item['@type']==='SoftwareApplication');
+    assert.ok(software.screenshot.length>=1 && software.downloadUrl.endsWith('.iso'));
+    const faq=blocks.find(block=>block['@type']==='FAQPage');
+    assert.ok(faq.mainEntity.some(item=>/How long does installation take/.test(item.name)));
+    assert.equal(await page.locator('meta[property="og:image"]').getAttribute('content'),'https://eitr.info/og/eitr-desktop.jpg');
+   }
   }
   const chapter=handbook.find(chapter=>path===`/guide/${chapter.id}/`);
   if(chapter) {

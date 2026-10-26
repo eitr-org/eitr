@@ -5,8 +5,13 @@
 </p>
 
 An Arch-based Linux desktop built around Hyprland, Quickshell and a consistent,
-theme-aware experience: one installer, a ready graphical desktop after the first
-reboot, and safe updates you can undo.
+theme-aware experience: one offline installer that takes about two minutes on a
+fast machine, a ready graphical desktop after the first reboot, and safe updates
+you can undo.
+
+<p align="center">
+  <img src="website/public/shots/hero.webp" alt="The Eitr Linux desktop: About with the Eitr logo, the Walker main menu and Neovim" width="960">
+</p>
 
 Website and download: **https://eitr.info**
 
