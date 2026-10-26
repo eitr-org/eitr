@@ -219,6 +219,9 @@
     "Control Center": [
       "quickshell/desktop-bar/EitrLogo.qml"
     ],
+    "Copied": [
+      "quickshell/desktop-bar/AssistantChat.qml"
+    ],
     "Copy reply": [
       "quickshell/desktop-bar/AssistantChat.qml"
     ],

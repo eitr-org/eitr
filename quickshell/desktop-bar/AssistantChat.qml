@@ -102,6 +102,7 @@ FocusScope {
                 required property var modelData
                 width: messages.width
                 height: bubble.height
+                HoverHandler { id: messageHover }
                 Rectangle {
                     id: bubble
                     x: message.modelData.role === "user" ? message.width - width : 0
@@ -113,21 +114,27 @@ FocusScope {
                         id: messageBody
                         x: 8; y: 8; width: parent.width - 16; spacing: 4
                         TextEdit {
-                            width: parent.width; height: contentHeight
+                            // Replies leave room for the copy icon in the top-right corner.
+                            width: parent.width - (message.modelData.role === "assistant" ? copyReply.width : 0); height: contentHeight
                             text: message.modelData.role === "assistant" ? message.modelData.text.replace(/!\[/g, "[").replace(/</g, "&lt;") : message.modelData.text
                             textFormat: message.modelData.role === "assistant" ? Text.MarkdownText : Text.PlainText
                             readOnly: true; selectByMouse: true; wrapMode: TextEdit.Wrap
                             color: chat.foreground; selectedTextColor: chat.background; selectionColor: chat.foreground
                             font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
                         }
-                        PanelButton {
-                            visible: message.modelData.role === "assistant"
-                            id: copyReply
-                            width: replyMetrics.advanceWidth + 16; height: 28
-                            foreground: chat.foreground; text: Eitr.I18n.tr("Copy reply")
-                            TextMetrics { id: replyMetrics; text: copyReply.text; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize }
-                            onClicked: Quickshell.clipboardText = message.modelData.text
-                        }
+                    }
+                    PanelButton {
+                        id: copyReply
+                        property bool copied: false
+                        visible: message.modelData.role === "assistant" && (messageHover.hovered || copied)
+                        anchors.top: parent.top; anchors.right: parent.right; anchors.margins: 4
+                        icon: true; width: 24; height: 24; iconSize: 14; foreground: chat.foreground
+                        text: copied ? "\u{F012C}" : "\u{F018F}"
+                        Accessible.name: Eitr.I18n.tr("Copy reply")
+                        onClicked: { Quickshell.clipboardText = message.modelData.text; copied = true; copiedTimer.restart(); }
+                        Timer { id: copiedTimer; interval: 1500; onTriggered: copyReply.copied = false }
+                        HoverHandler { id: copyHover }
+                        BarTooltip { target: copyReply; hovered: copyHover.hovered; text: copyReply.copied ? Eitr.I18n.tr("Copied") : Eitr.I18n.tr("Copy reply"); foreground: chat.foreground; background: chat.background }
                     }
                 }
             }

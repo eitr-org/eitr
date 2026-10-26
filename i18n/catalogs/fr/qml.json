@@ -391,5 +391,6 @@
   "Thinking…": "Réflexion…",
   "Back": "Retour",
   "Copy reply": "Copier la réponse",
-  "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "Aucune donnée d’utilisation de l’IA lisible. Connectez-vous à Claude Code, Codex ou Grok, ou réessayez d’actualiser plus tard."
+  "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "Aucune donnée d’utilisation de l’IA lisible. Connectez-vous à Claude Code, Codex ou Grok, ou réessayez d’actualiser plus tard.",
+  "Copied": "Copié"
 }

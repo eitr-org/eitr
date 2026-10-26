@@ -94,6 +94,7 @@ var qml = {
     "Connected": "Connected",
     "Connectivity": "Connectivity",
     "Control Center": "Control Center",
+    "Copied": "Copied",
     "Copy reply": "Copy reply",
     "Corners": "Corners",
     "Could not change Cursor Fire": "Could not change Cursor Fire",
@@ -811,7 +812,8 @@ var qml = {
     "Thinking…": "Pensando…",
     "Back": "Voltar",
     "Copy reply": "Copiar resposta",
-    "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "Nenhum dado de uso de IA legível disponível. Entre no Claude Code, Codex ou Grok, ou tente atualizar mais tarde."
+    "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "Nenhum dado de uso de IA legível disponível. Entre no Claude Code, Codex ou Grok, ou tente atualizar mais tarde.",
+    "Copied": "Copiado"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1206,7 +1208,8 @@ var qml = {
     "Thinking…": "Pensando…",
     "Back": "Atrás",
     "Copy reply": "Copiar respuesta",
-    "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "No hay datos de uso de IA legibles. Inicia sesión en Claude Code, Codex o Grok, o vuelve a actualizar más tarde."
+    "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "No hay datos de uso de IA legibles. Inicia sesión en Claude Code, Codex o Grok, o vuelve a actualizar más tarde.",
+    "Copied": "Copiado"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1601,7 +1604,8 @@ var qml = {
     "Thinking…": "Denkt nach…",
     "Back": "Zurück",
     "Copy reply": "Antwort kopieren",
-    "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "Keine lesbaren KI-Nutzungsdaten verfügbar. Melde dich bei Claude Code, Codex oder Grok an oder aktualisiere später erneut."
+    "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "Keine lesbaren KI-Nutzungsdaten verfügbar. Melde dich bei Claude Code, Codex oder Grok an oder aktualisiere später erneut.",
+    "Copied": "Kopiert"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -1996,6 +2000,7 @@ var qml = {
     "Thinking…": "Réflexion…",
     "Back": "Retour",
     "Copy reply": "Copier la réponse",
-    "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "Aucune donnée d’utilisation de l’IA lisible. Connectez-vous à Claude Code, Codex ou Grok, ou réessayez d’actualiser plus tard."
+    "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "Aucune donnée d’utilisation de l’IA lisible. Connectez-vous à Claude Code, Codex ou Grok, ou réessayez d’actualiser plus tard.",
+    "Copied": "Copié"
   }
 };
