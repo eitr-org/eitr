@@ -60,11 +60,6 @@ LAN.
   block character the wizard uses. Boot the next ISO in a VM with `LANG=pt_BR` and
   `es_ES` on tty2 and confirm the installer screens show the accents.
 
-- **Lock screen frozen after waking from suspend: waiting on NVIDIA.** After
-  resume the lock screen stays still until the mouse moves; each wake logs the
-  known, unfixed nvidia-drm error "Failed to register auto-value-update ... sync
-  FD semaphore surface" (reported on drivers 565 to 610; seen here on 615.78).
-  No workaround by decision: recheck after each NVIDIA driver update.
 - **HDR games by default (owner decides).** Hyprland already switches to HDR when a
   fullscreen app asks (`cm_auto_hdr`), but Steam games run through XWayland and
   never ask. Proposal: an "HDR games" switch in the Display panel for monitors whose
