@@ -3910,6 +3910,9 @@
     "Assistant collaboration: {error}": [
       "walker/scripts/actions/assistant-collaboration.py"
     ],
+    "At least 12 characters; your input is hidden.\nThree or four random words are strong and easy to type, like \"rune fjord copper lantern\".": [
+      "distro/archinstall/installer-ui.py"
+    ],
     "At what time?": [
       "walker/scripts/actions/tools/reminders.py"
     ],
@@ -4635,7 +4638,7 @@
     "Encrypt with LUKS2: boot passphrase required (recommended)": [
       "distro/archinstall/installer-ui.py"
     ],
-    "Encrypted installs need a passphrase in the answers": [
+    "Encrypted installs need a disk passphrase of 12 or more characters, not a pattern or the user name": [
       "distro/archinstall/eitr-guided-install"
     ],
     "Encrypted partition number: ": [
@@ -6860,6 +6863,9 @@
     ],
     "To enable mise, add eval \"$(mise activate zsh)\" to ~/.zshrc. It can conflict with nvm/uv for the same runtime.": [
       "walker/scripts/actions/install/software.py"
+    ],
+    "Too easy to guess: avoid patterns and your user name.": [
+      "distro/archinstall/installer-ui.py"
     ],
     "Too many questions; nothing changed.": [
       "walker/scripts/actions/tools/voice-command.py"

@@ -257,7 +257,6 @@
   "Elastic IPs": "IP élastiques",
   "Empty values and control characters are not allowed": "Les valeurs vides et les caractères de contrôle sont interdits",
   "Encrypt with LUKS2: boot passphrase required (recommended)": "Chiffrer avec LUKS2 : phrase secrète requise au démarrage (recommandé)",
-  "Encrypted installs need a passphrase in the answers": "Une installation chiffrée nécessite une phrase secrète dans les réponses",
   "Encrypted partition number: ": "Numéro de la partition chiffrée : ",
   "Encryption": "Chiffrement",
   "English UTF-8 support is missing from the live image": "La prise en charge de l’anglais UTF-8 manque dans l’image live",
@@ -1324,5 +1323,8 @@
   "Choose a default assistant in Development > AI": "Choisissez un assistant par défaut dans Développement > IA",
   "Invalid assistant response.": "Réponse de l’assistant invalide.",
   "Invalid chat conversation.": "Conversation invalide.",
-  "The default assistant changed. Start a new chat.": "L’assistant par défaut a changé. Ouvrez une nouvelle discussion."
+  "The default assistant changed. Start a new chat.": "L’assistant par défaut a changé. Ouvrez une nouvelle discussion.",
+  "Encrypted installs need a disk passphrase of 12 or more characters, not a pattern or the user name": "Les installations chiffrées exigent une phrase de passe de disque de 12 caractères ou plus, sans motif ni nom d'utilisateur",
+  "Too easy to guess: avoid patterns and your user name.": "Trop facile : évitez les motifs et votre identifiant.",
+  "At least 12 characters; your input is hidden.\nThree or four random words are strong and easy to type, like \"rune fjord copper lantern\".": "Au moins 12 caractères ; votre saisie est masquée.\nTrois ou quatre mots au hasard sont sûrs et faciles à taper, comme « rune fjord copper lantern »."
 }

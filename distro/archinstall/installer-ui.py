@@ -104,6 +104,19 @@ def valid_username(value):
     return value != "root" and bool(re.fullmatch(r"[a-z_][a-z0-9_-]{0,31}", value))
 
 
+KEY_SEQUENCES = ("0123456789" * 5, "abcdefghijklmnopqrstuvwxyz", "qwertyuiopasdfghjklzxcvbnm")
+
+
+def strong_disk_passphrase(value, username=""):
+    """A stolen disk can be guessed at offline forever, so its passphrase needs more than the login password."""
+    text = value.lower()
+    if len(value) < 12 or len(set(text)) < 4 or "password" in text:
+        return False
+    if username and username.lower() in text:
+        return False
+    return not any(text in sequence or text in sequence[::-1] for sequence in KEY_SEQUENCES)
+
+
 def automatic_timezone():
     # Some networks block one geolocation service, so try a second.
     for url in ("https://ipinfo.io/timezone", "https://ipapi.co/timezone/"):
@@ -160,7 +173,11 @@ def collect(screen, checks, disks):
                     (tr('Do not encrypt: files are readable without a password'), False)])
                 values.pop("passphrase", None)
                 if values["encrypted"]:
-                    values["passphrase"] = ui.password(tr('LUKS2 disk encryption: needed at every boot'))
+                    values["passphrase"] = ui.password(
+                        tr('LUKS2 disk encryption: needed at every boot'),
+                        tr('At least 12 characters; your input is hidden.\nThree or four random words are strong and easy to type, like "rune fjord copper lantern".'),
+                        validator=lambda value: strong_disk_passphrase(value, values.get("username", "")),
+                        invalid=tr('Too easy to guess: avoid patterns and your user name.'))
             elif step == "Review":
                 disk = values["disk"]
                 alongside = values["layout"] == "alongside"

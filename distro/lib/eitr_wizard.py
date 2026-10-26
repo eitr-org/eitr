@@ -162,14 +162,18 @@ class Wizard:
             elif isinstance(key, str) and key.isprintable():
                 query, selected = query + key, 0
 
-    def field(self, title, description, value="", secret=False, validator=None):
+    def field(self, title, description, value="", secret=False, validator=None, invalid="Please enter a valid value."):
         error = ""
         while True:
             y, x = self.frame(title, tr('Enter: continue  Esc: back'))
-            for offset, line in enumerate(description.splitlines()):
+            lines = [wrapped for paragraph in description.splitlines()
+                     for wrapped in (textwrap.wrap(paragraph, self.body_width) or [''])]
+            for offset, line in enumerate(lines):
                 self.text(y + offset, x, line)
-            self.text(y + 4, x, ("*" * len(value) if secret else value) + "_", 2)
-            self.text(y + 6, x, error, 2)
+            entry = y + max(4, len(lines) + 1)
+            self.text(entry, x, ("*" * len(value) if secret else value) + "_", 2)
+            for offset, line in enumerate(textwrap.wrap(error, self.body_width)):
+                self.text(entry + 2 + offset, x, line, 2)
             self.screen.refresh()
             key = self.screen.get_wch()
             if key in getattr(self, "cancel_keys", ("\x1b",)):
@@ -177,16 +181,18 @@ class Wizard:
             if key in ("\n", "\r", curses.KEY_ENTER):
                 if value and (validator is None or validator(value)):
                     return value
-                error = "Please enter a valid value."
+                error = invalid
             elif key in (curses.KEY_BACKSPACE, "\x7f", "\b"):
                 value = value[:-1]
             elif isinstance(key, str) and key.isprintable() and len(value) < 256:
                 value += key
 
-    def password(self, title):
+    def password(self, title, description=None, validator=None, invalid=None):
+        description = description or tr('Use at least 8 characters. Your input is hidden.')
+        validator = validator or (lambda value: len(value) >= 8)
         while True:
-            first = self.field(title, tr('Use at least 8 characters. Your input is hidden.'),
-                               secret=True, validator=lambda value: len(value) >= 8)
+            first = self.field(title, description, secret=True, validator=validator,
+                               invalid=invalid or "Please enter a valid value.")
             second = self.field(title, tr('Repeat the password.'), secret=True)
             if first == second:
                 return first

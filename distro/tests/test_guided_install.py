@@ -386,7 +386,9 @@ class AnsweredInstallTests(unittest.TestCase):
     def test_answers_are_validated_like_the_wizard(self):
         for answers, message in [({"disk": "/dev/other"}, "eligible disks"), ({"username": "Root!"}, "username"),
                                  ({"hostname": "-bad"}, "hostname"), ({"password": ""}, "password"),
-                                 ({"encrypted": True}, "passphrase"), ({"layout": "alongside"}, "not available")]:
+                                 ({"encrypted": True}, "passphrase"),
+                                 ({"encrypted": True, "passphrase": "123456789012"}, "passphrase"),
+                                 ({"layout": "alongside"}, "not available")]:
             with self.subTest(answers=answers), self.assertRaisesRegex(guided.GuidedInstallError, message):
                 self.choices(**answers)
 

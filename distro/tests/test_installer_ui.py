@@ -40,6 +40,30 @@ class InstallerUiTests(unittest.TestCase):
         self.assertTrue(any(call.args[2] == 'Run once as root: setup.sh' for call in wizard.text.call_args_list))
         self.assertTrue(all(len(call.args[2]) <= 70 for call in wizard.text.call_args_list))
 
+    def test_disk_passphrase_needs_length_and_no_pattern(self):
+        for weak in ("short words", "aaaaaaaaaaaa", "abababababab", "123456789012", "qwertyuiopas",
+                     "zyxwvutsrqpo", "MyPassword2026", "alex-alex-alex"):
+            with self.subTest(weak=weak):
+                self.assertFalse(ui.strong_disk_passphrase(weak, "alex"))
+        for strong in ("rune fjord copper lantern", "7hK!q2-vLm9#"):
+            with self.subTest(strong=strong):
+                self.assertTrue(ui.strong_disk_passphrase(strong, "alex"))
+
+    def test_field_wraps_its_text_to_the_panel(self):
+        wizard = object.__new__(ui.Wizard)
+        wizard.screen = Mock()
+        wizard.screen.get_wch.side_effect = ["\n", "\x1b"]
+        wizard.frame = Mock(return_value=(5, 2))
+        wizard.text = Mock()
+        wizard.body_width = 20
+        with self.assertRaises(ui.Cancelled):
+            wizard.field("Title", "A first paragraph that is long.\nA second one.", "abc",
+                         validator=lambda value: False, invalid="An error that needs two lines.")
+        lines = [call.args[2] for call in wizard.text.call_args_list]
+        self.assertTrue(all(len(line) <= 20 for line in lines), lines)
+        self.assertIn("A second one.", lines)
+        self.assertIn("two lines.", lines)
+
     def test_console_text_uses_only_glyphs_of_the_default_console_font(self):
         # The live ISO's Linux console font covers code page 437; anything else
         # renders as a placeholder (rounded corners became "+").

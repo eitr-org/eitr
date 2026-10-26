@@ -551,8 +551,8 @@ def answered_choices(path, ui, checks, disks):
         raise GuidedInstallError(tr('The answers need a password'))
     if choices["encrypted"]:
         choices["passphrase"] = answers.get("passphrase", "")
-        if not choices["passphrase"]:
-            raise GuidedInstallError(tr('Encrypted installs need a passphrase in the answers'))
+        if not ui.strong_disk_passphrase(choices["passphrase"], choices["username"]):
+            raise GuidedInstallError(tr('Encrypted installs need a disk passphrase of 12 or more characters, not a pattern or the user name'))
     return choices
 
 

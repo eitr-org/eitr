@@ -343,6 +343,9 @@ msgstr "Assistant"
 msgid "Assistant collaboration: {error}"
 msgstr "Collaboration entre assistants : {error}"
 
+msgid "At least 12 characters; your input is hidden.\nThree or four random words are strong and easy to type, like \"rune fjord copper lantern\"."
+msgstr "Au moins 12 caractères ; votre saisie est masquée.\nTrois ou quatre mots au hasard sont sûrs et faciles à taper, comme « rune fjord copper lantern »."
+
 msgid "At what time?"
 msgstr "À quelle heure ?"
 
@@ -1051,8 +1054,8 @@ msgstr "Les valeurs vides et les caractères de contrôle sont interdits"
 msgid "Encrypt with LUKS2: boot passphrase required (recommended)"
 msgstr "Chiffrer avec LUKS2 : phrase secrète requise au démarrage (recommandé)"
 
-msgid "Encrypted installs need a passphrase in the answers"
-msgstr "Une installation chiffrée nécessite une phrase secrète dans les réponses"
+msgid "Encrypted installs need a disk passphrase of 12 or more characters, not a pattern or the user name"
+msgstr "Les installations chiffrées exigent une phrase de passe de disque de 12 caractères ou plus, sans motif ni nom d'utilisateur"
 
 msgid "Encrypted partition number: "
 msgstr "Numéro de la partition chiffrée : "
@@ -3234,6 +3237,9 @@ msgstr "Fuseau horaire : {timezone} / Nom de l’ordinateur : {hostname}"
 
 msgid "To enable mise, add eval \"$(mise activate zsh)\" to ~/.zshrc. It can conflict with nvm/uv for the same runtime."
 msgstr "Pour activer mise, ajoutez eval \"$(mise activate zsh)\" à ~/.zshrc. Il peut entrer en conflit avec nvm/uv pour le même environnement."
+
+msgid "Too easy to guess: avoid patterns and your user name."
+msgstr "Trop facile : évitez les motifs et votre identifiant."
 
 msgid "Too many questions; nothing changed."
 msgstr "Trop de questions ; aucune modification."

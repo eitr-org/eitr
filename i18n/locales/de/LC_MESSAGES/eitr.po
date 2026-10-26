@@ -343,6 +343,9 @@ msgstr "Assistent"
 msgid "Assistant collaboration: {error}"
 msgstr "Zusammenarbeit der Assistenten: {error}"
 
+msgid "At least 12 characters; your input is hidden.\nThree or four random words are strong and easy to type, like \"rune fjord copper lantern\"."
+msgstr "Mindestens 12 Zeichen; die Eingabe ist verborgen.\nDrei oder vier zufällige Wörter sind sicher und leicht zu tippen, etwa \"rune fjord copper lantern\"."
+
 msgid "At what time?"
 msgstr "Um wie viel Uhr?"
 
@@ -1051,8 +1054,8 @@ msgstr "Leere Werte und Steuerzeichen sind nicht erlaubt"
 msgid "Encrypt with LUKS2: boot passphrase required (recommended)"
 msgstr "Mit LUKS2 verschlüsseln: Passphrase beim Start erforderlich (empfohlen)"
 
-msgid "Encrypted installs need a passphrase in the answers"
-msgstr "Verschlüsselte Installationen erfordern eine Passphrase in den Antworten"
+msgid "Encrypted installs need a disk passphrase of 12 or more characters, not a pattern or the user name"
+msgstr "Verschlüsselte Installationen brauchen eine Festplatten-Passphrase mit mindestens 12 Zeichen, ohne Muster und ohne den Benutzernamen"
 
 msgid "Encrypted partition number: "
 msgstr "Nummer der verschlüsselten Partition: "
@@ -3234,6 +3237,9 @@ msgstr "Zeitzone: {timezone} / Rechnername: {hostname}"
 
 msgid "To enable mise, add eval \"$(mise activate zsh)\" to ~/.zshrc. It can conflict with nvm/uv for the same runtime."
 msgstr "Um mise zu aktivieren, füge eval \"$(mise activate zsh)\" in ~/.zshrc ein. Es kann für dieselbe Laufzeitumgebung mit nvm/uv kollidieren."
+
+msgid "Too easy to guess: avoid patterns and your user name."
+msgstr "Zu leicht zu erraten: ohne Muster und Benutzernamen."
 
 msgid "Too many questions; nothing changed."
 msgstr "Zu viele Fragen; nichts geändert."

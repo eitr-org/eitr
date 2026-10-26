@@ -257,7 +257,6 @@
   "Elastic IPs": "IP elásticas",
   "Empty values and control characters are not allowed": "No se permiten valores vacíos ni caracteres de control",
   "Encrypt with LUKS2: boot passphrase required (recommended)": "Cifrar con LUKS2: contraseña necesaria al arrancar (recomendado)",
-  "Encrypted installs need a passphrase in the answers": "La instalación cifrada requiere una contraseña en las respuestas",
   "Encrypted partition number: ": "Número de partición cifrada: ",
   "Encryption": "Cifrado",
   "English UTF-8 support is missing from the live image": "La imagen live no incluye soporte para inglés UTF-8",
@@ -1324,5 +1323,8 @@
   "Choose a default assistant in Development > AI": "Elige un asistente predeterminado en Desarrollo > IA",
   "Invalid assistant response.": "Respuesta del asistente no válida.",
   "Invalid chat conversation.": "Conversación no válida.",
-  "The default assistant changed. Start a new chat.": "El asistente predeterminado cambió. Inicia un nuevo chat."
+  "The default assistant changed. Start a new chat.": "El asistente predeterminado cambió. Inicia un nuevo chat.",
+  "Encrypted installs need a disk passphrase of 12 or more characters, not a pattern or the user name": "Las instalaciones cifradas necesitan una frase de contraseña de disco de 12 caracteres o más, sin patrones ni el nombre de usuario",
+  "Too easy to guess: avoid patterns and your user name.": "Muy fácil de adivinar: sin patrones ni tu usuario.",
+  "At least 12 characters; your input is hidden.\nThree or four random words are strong and easy to type, like \"rune fjord copper lantern\".": "Al menos 12 caracteres; lo que escribes está oculto.\nTres o cuatro palabras al azar son seguras y fáciles de escribir, como \"rune fjord copper lantern\"."
 }

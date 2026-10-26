@@ -424,8 +424,9 @@ up for someone else), give the ISO an answers drive:
 
    `disk` must be a disk the wizard would offer; check its name with the
    wizard first if unsure. `layout` is `erase` or `alongside`. `passphrase` is
-   needed only when `encrypted` is true. Leave out `timezone` to detect it online
-   after installation.
+   needed only when `encrypted` is true, with the wizard's rule: 12 or more
+   characters, not a pattern or the user name. Leave out `timezone` to detect it
+   online after installation.
 3. Boot the Eitr ISO with both drives plugged in. The installer reads the answers,
    validates them like the wizard, shows what it will do and counts down 15
    seconds: **Ctrl+C cancels before any disk is changed.** Then it installs and
