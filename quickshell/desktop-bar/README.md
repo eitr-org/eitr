@@ -254,18 +254,19 @@ between the solid theme color and transparency with blur.
 Calendar retains its fixed six-row
 grid, bottom navigation, year progress, and Left/Right/Up/Down/bracket/T keys.
 AI Usage retains the existing backend/cache, refresh-on-open and five-minute
-updates while open. Installed cloud assistants appear as stacked sections, each
-containing its Default and added accounts from the private account registry.
-Claude Code, Codex and Grok readers use each account’s own configuration;
-unreadable limits and assistants without a usage reader show No data.
-Click a section heading to fold or unfold it; all sections start expanded.
-Long lists scroll within the screen. No providers shows a setup message.
-Folding is saved machine-locally in
-`~/.config/quickshell/desktop-bar/ai-usage-settings.json` (version 2,
-`foldedProviders`); old provider selections are dropped and missing providers
-are removed from the folded list.
+updates while open. Accounts with readable usage appear grouped by assistant;
+accounts with errors or no usage windows and assistants without readable accounts
+are hidden. Claude Code, Codex and Grok readers use each account’s own configuration.
+The provider button includes a shared plan when available. Multiple accounts show
+labels above their bars, including individual plans when those differ.
+Click a section heading to fold or unfold it; all sections start closed at login.
+Long lists scroll within the screen. No readable providers shows an empty message.
+Opened sections are saved atomically for the session in
+`$XDG_RUNTIME_DIR/eitr-ai-usage-open.json` (version 1, `openedProviders`), surviving
+bar reloads but cleared at logout or reboot. The old config preference is ignored
+and left untouched. Temporary outages do not discard opened-section choices.
 Cached usage appears independently of background requests, so opening never waits
-for network access. Outages keep every account visible with No data.
+for network access. Unreadable cached accounts are hidden too.
 The derived cache is private (0600) and reconciles added/deleted account IDs
 before displaying cached results.
 Grok is not installed by this feature or added to distro defaults. Its optional

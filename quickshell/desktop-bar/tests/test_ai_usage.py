@@ -5,6 +5,9 @@ from unittest import mock
 import tempfile
 import json
 import subprocess
+import runpy
+import io
+from contextlib import redirect_stdout
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location("ai_usage", ROOT / "scripts/ai-usage.py")
@@ -91,12 +94,23 @@ class ProviderDetectionTests(unittest.TestCase):
              mock.patch.object(USAGE.subprocess, "run", side_effect=subprocess.TimeoutExpired("status", 3)):
             self.assertEqual(USAGE.available_providers(), [])
 
-    def test_outage_keeps_configured_provider_without_leaking_errors(self):
+    def test_outage_hides_provider_without_leaking_errors(self):
         with mock.patch.object(USAGE, "usage_accounts", return_value=[("grok", {"id": "default", "label": "Default"})]), \
              mock.patch.object(USAGE, "grok_usage", side_effect=ValueError("secret-token")):
             data = USAGE.collect()
-        self.assertEqual(data["providers"][0]["name"], "Grok")
+        self.assertEqual(data["providers"], [])
         self.assertNotIn("secret-token", json.dumps(data))
+
+    def test_empty_and_unsupported_accounts_are_hidden(self):
+        accounts = [("claude", {"id": "empty", "label": "Empty"}),
+                    ("claude", {"id": "readable", "label": "Readable"}),
+                    ("gemini", {"id": "default", "label": "Default"})]
+        with mock.patch.object(USAGE, "usage_accounts", return_value=accounts), \
+             mock.patch.object(USAGE, "account_environment", side_effect=lambda identifier, account: account), \
+             mock.patch.object(USAGE, "claude_usage", side_effect=lambda account: {
+                 "windows": [{"used": 0}] if account == "readable" else []}):
+            self.assertEqual(USAGE.collect()["providers"], [{"name": "Claude", "accounts": [
+                {"id": "readable", "label": "Readable", "windows": [{"used": 0}]}]}])
 
     def test_grok_quota_parser(self):
         rows = USAGE.grok_windows({"config": {"creditUsagePercent": 12.5,
@@ -131,11 +145,41 @@ class ProviderDetectionTests(unittest.TestCase):
 
     def test_all_detected_providers_have_foldable_sections(self):
         qml = (ROOT / "AiUsageMenu.qml").read_text()
-        self.assertIn("model: menu.usage.providers || []", qml)
+        self.assertIn("model: menu.shownProviders", qml)
         self.assertIn("model: section.folded ? [] : (section.modelData.accounts || [])", qml)
         self.assertIn("onClicked: menu.toggleProvider(section.modelData.name)", qml)
         self.assertNotIn("id: tabs", qml)
         self.assertIn('text: Eitr.I18n.tr("AI Usage")', qml)
+
+
+class CachedUsageTests(unittest.TestCase):
+    def test_cache_hides_errors_empty_and_removed_accounts(self):
+        with tempfile.TemporaryDirectory() as home:
+            cache = Path(home) / '.cache/desktop-ai-usage.json'
+            cache.parent.mkdir()
+            cache.write_text(json.dumps({"providers": [
+                {"name": "Claude", "accounts": [
+                    {"id": "good", "label": "Old label", "windows": [{"used": 0}]},
+                    {"id": "offline", "error": "No data", "windows": [{"used": 5}]},
+                    {"id": "empty", "windows": []},
+                    {"id": "removed", "windows": [{"used": 20}]}]},
+                {"name": "Codex", "accounts": [{"id": "empty", "windows": []}]}]}))
+            accounts = [("claude", {"id": identifier, "label": "Current label"})
+                        for identifier in ("good", "offline", "empty", "new")]
+            accounts.append(("codex", {"id": "empty", "label": "Default"}))
+            backend = mock.Mock()
+            backend.usage_accounts.return_value = accounts
+            specification = mock.Mock(loader=mock.Mock())
+            output = io.StringIO()
+            with mock.patch.object(Path, "home", return_value=Path(home)), \
+                 mock.patch("sys.argv", ["ai-popup.py", "cached"]), \
+                 mock.patch("importlib.util.spec_from_file_location", return_value=specification), \
+                 mock.patch("importlib.util.module_from_spec", return_value=backend), \
+                 redirect_stdout(output):
+                runpy.run_path(str(ROOT / "scripts/ai-popup.py"), run_name="__main__")
+            self.assertEqual(json.loads(output.getvalue())["providers"], [
+                {"name": "Claude", "accounts": [
+                    {"id": "good", "label": "Current label", "windows": [{"used": 0}]}]}])
 
 
 class LauncherTests(unittest.TestCase):

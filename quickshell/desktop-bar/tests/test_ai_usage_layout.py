@@ -16,8 +16,11 @@ class AiUsageLayoutTests(unittest.TestCase):
         # Replace only the Wayland popup host; render the actual panel content.
         with tempfile.TemporaryDirectory(dir=ROOT) as temporary:
             folder = Path(temporary)
-            preference = folder / 'quickshell/desktop-bar/ai-usage-settings.json'
-            preference.parent.mkdir(parents=True)
+            preference = folder / 'eitr-ai-usage-open.json'
+            legacy = folder / 'quickshell/desktop-bar/ai-usage-settings.json'
+            legacy.parent.mkdir(parents=True)
+            legacy.write_text(json.dumps({'version': 2, 'foldedProviders': ['Claude']}))
+
             for source in BAR.iterdir():
                 if source.suffix in ('.qml', '.js') or source.name == 'qmldir':
                     shutil.copy(source, folder / source.name)
@@ -36,7 +39,7 @@ Item {
             renders.mkdir(parents=True, exist_ok=True)
             for count, theme in ((count, theme) for count in (1, 2, 4) for theme in ('dark', 'light')):
                 capture = renders / f'ai-{count}-{theme}.png'
-                preference.write_text(json.dumps({"version": 1, "providers": ["Codex"]}))
+                preference.unlink(missing_ok=True)
 
                 fixture = folder / 'fixture.qml'
                 fixture.write_text('''import QtQuick
@@ -60,13 +63,14 @@ ShellRoot {
             Timer {
                 interval: 300; running: true
                 onTriggered: {
-                    if (panel.foldedProviders.length !== 0) throw new Error("Legacy selection was not dropped");
+                    if (panel.openedProviders.length !== 0) throw new Error("Sections did not start closed");
                     panel.usage = {providers: [
                         {name: "Claude", accounts: [{id: "default", label: "Default", plan: "Max", windows: [{label: "5h window", used: 42}, {label: "Weekly", used: 68}]}, {id: "example", label: "Example account", error: "No data", windows: []}]},
-                        {name: "Codex", accounts: [{label: "Default", plan: "Plus", error: "Example offline error", windows: [{label: "Session", used: 23}]}]},
+                        {name: "Codex", accounts: [{label: "Default", plan: "Plus", windows: [{label: "Session", used: 23}]}]},
                         {name: "Grok", accounts: [{label: "Default", plan: "Pro", windows: [{label: "Credits", used: 12}]}]},
-                        {name: "Example AI", accounts: [{label: "Default", plan: "Pro", windows: [{label: "Session", used: 23}]}]}
+                        {name: "Example AI", accounts: [{label: "Default", plan: "Pro", windows: [{label: "Session", used: 23}]}, {label: "Other", windows: [{label: "Session", used: 0}]}]}
                     ].slice(0, COUNT)};
+                    panel.availableProviders.forEach(function(name) { panel.toggleProvider(name); });
                     if (COUNT === 4) panel.toggleProvider("Grok");
                     panel.status = "Last checked 12:00";
                     captureDelay.start();
@@ -78,6 +82,19 @@ ShellRoot {
                 onTriggered: {
                     if (panel.height > panel.maximumHeight || panel.availableProviders.length !== COUNT)
                         throw new Error("Invalid panel geometry or providers");
+                    function visibleTexts(item) {
+                        if (!item.visible) return [];
+                        let texts = typeof item.text === "string" ? [item.text] : [];
+                        for (const child of item.children || []) texts = texts.concat(visibleTexts(child));
+                        return texts;
+                    }
+                    const texts = visibleTexts(panel);
+                    if (!texts.some(function(text) { return text.indexOf("Claude Code") !== -1 && text.indexOf("· Max") !== -1; }))
+                        throw new Error("Missing provider plan");
+                    if (texts.indexOf("Example account") !== -1 || texts.indexOf("Default · Max") !== -1 || texts.indexOf("Default") !== -1)
+                        throw new Error("Hidden account label is visible");
+                    if (COUNT === 4 && (texts.indexOf("Default · Pro") === -1 || texts.indexOf("Other") === -1))
+                        throw new Error("Missing multiple-account labels");
                     sample.grabToImage(function(result) {
                         result.saveToFile("CAPTURE");
                         console.log("AI_LAYOUT_OK");
@@ -100,4 +117,16 @@ ShellRoot {
                 self.assertIn('AI_LAYOUT_OK', result.stdout + result.stderr)
                 self.assertGreater(capture.stat().st_size, 1000)
                 self.assertEqual(json.loads(preference.read_text()),
-                                 {'version': 2, 'foldedProviders': ['Grok'] if count == 4 else []})
+                                 {'version': 1, 'openedProviders': ['Claude', 'Codex', 'Example AI'] if count == 4 else ['Claude', 'Codex'][:count]})
+                self.assertEqual(json.loads(legacy.read_text()),
+                                 {'version': 2, 'foldedProviders': ['Claude']})
+                # Recreate the component with the same runtime directory, as a bar reload does.
+                fixture.write_text(fixture.read_text().replace(
+                    'if (panel.openedProviders.length !== 0)',
+                    f'if (panel.openedProviders.length !== {3 if count == 4 else count})').replace(
+                    'panel.availableProviders.forEach(function(name) { panel.toggleProvider(name); });', '').replace(
+                    'if (4 === 4) panel.toggleProvider("Grok");', ''))
+                result = subprocess.run(['quickshell', '-p', str(fixture)], env=environment,
+                                        text=True, capture_output=True, timeout=15)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                self.assertIn('AI_LAYOUT_OK', result.stdout + result.stderr)

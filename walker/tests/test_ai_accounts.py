@@ -108,7 +108,7 @@ class AccountTests(unittest.TestCase):
         self.assertEqual(accounts.config_folder('gemini'), accounts.folder('gemini', account) / '.gemini')
         self.assertEqual(accounts.environment('codex', {'CODEX_HOME': '/existing'}), {'CODEX_HOME': '/existing'})
 
-    def test_usage_multiple_accounts_no_data_and_isolation(self):
+    def test_usage_hides_unreadable_accounts_and_preserves_isolation(self):
         account, _ = self.add_account()
         specification = importlib.util.spec_from_file_location('account_usage', ROOT / 'quickshell/desktop-bar/scripts/ai-usage.py')
         usage = importlib.util.module_from_spec(specification)
@@ -117,8 +117,8 @@ class AccountTests(unittest.TestCase):
                 patch.object(usage, 'codex_usage', side_effect=[{'windows': [{'used': 10}]}, RuntimeError('private-token')]) as reader:
             result = usage.collect()
         entries = result['providers'][0]['accounts']
-        self.assertEqual([entry['label'] for entry in entries], ['Default', 'Example'])
-        self.assertEqual(entries[1]['error'], 'No data')
+        self.assertEqual([entry['label'] for entry in entries], ['Default'])
+        self.assertEqual(entries[0]['windows'], [{'used': 10}])
         self.assertNotIn('private-token', json.dumps(result))
         self.assertEqual(reader.call_args_list[1].args[0]['CODEX_HOME'], str(accounts.folder('codex', account)))
 

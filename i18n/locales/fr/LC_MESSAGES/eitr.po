@@ -1810,9 +1810,6 @@ msgstr "Aucun réglage de luminosité disponible"
 msgid "No browser opened. Go to {NEW_ISSUE} and attach {path}."
 msgstr "Aucun navigateur ne s’est ouvert. Allez sur {NEW_ISSUE} et joignez {path}."
 
-msgid "No data"
-msgstr "Aucune donnée"
-
 msgid "No default or folder account selected"
 msgstr "Aucun compte par défaut ou de dossier sélectionné"
 

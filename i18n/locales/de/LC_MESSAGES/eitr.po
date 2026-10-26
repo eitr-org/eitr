@@ -1810,9 +1810,6 @@ msgstr "Keine Helligkeitssteuerung verfügbar"
 msgid "No browser opened. Go to {NEW_ISSUE} and attach {path}."
 msgstr "Kein Browser geöffnet. Rufen Sie {NEW_ISSUE} auf und hängen Sie {path} an."
 
-msgid "No data"
-msgstr "Keine Daten"
-
 msgid "No default or folder account selected"
 msgstr "Kein Standard- oder Ordnerkonto ausgewählt"
 

@@ -1810,9 +1810,6 @@ msgstr "Nenhum controle de brilho disponível"
 msgid "No browser opened. Go to {NEW_ISSUE} and attach {path}."
 msgstr "Nenhum navegador foi aberto. Acesse {NEW_ISSUE} e anexe {path}."
 
-msgid "No data"
-msgstr "Sem dados"
-
 msgid "No default or folder account selected"
 msgstr "Nenhuma conta padrão ou de pasta foi selecionada"
 

@@ -25,7 +25,9 @@ if len(sys.argv) > 1 and sys.argv[1] == 'cached':
     for identifier, account in backend.usage_accounts():
         name = labels[identifier]
         cached_accounts = {entry.get("id"): entry for entry in previous.get(name, {}).get("accounts", [])}
-        entry = dict(cached_accounts.get(account["id"], {"windows": [], "error": backend.tr('No data')}))
+        entry = dict(cached_accounts.get(account["id"], {}))
+        if entry.get("error") or not entry.get("windows"):
+            continue
         entry.update(id=account["id"], label=account["label"])
         providers.setdefault(name, {"name": name, "accounts": []})["accounts"].append(entry)
     data["providers"] = list(providers.values())

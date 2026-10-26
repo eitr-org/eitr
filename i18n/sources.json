@@ -615,11 +615,11 @@
     "No playback applications": [
       "quickshell/desktop-bar/AudioMenu.qml"
     ],
+    "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": [
+      "quickshell/desktop-bar/AiUsageMenu.qml"
+    ],
     "No reminders": [
       "quickshell/desktop-bar/CalendarMenu.qml"
-    ],
-    "No signed-in AI clients detected. Install and sign in to Claude Code, Codex, or Grok to show usage here.": [
-      "quickshell/desktop-bar/AiUsageMenu.qml"
     ],
     "Nothing": [
       "quickshell/lockscreen/design-gallery.qml"
@@ -723,9 +723,6 @@
     ],
     "Pin bar open": [
       "quickshell/desktop-bar/shell.qml"
-    ],
-    "Plan unavailable": [
-      "quickshell/desktop-bar/AiUsageMenu.qml"
     ],
     "Play": [
       "quickshell/desktop-bar/MediaStrip.qml"
@@ -5413,9 +5410,6 @@
     ],
     "No browser opened. Go to {NEW_ISSUE} and attach {path}.": [
       "walker/scripts/actions/system/report-problem.py"
-    ],
-    "No data": [
-      "quickshell/desktop-bar/scripts/ai-usage.py"
     ],
     "No default or folder account selected": [
       "walker/scripts/actions/development/git-accounts.py"

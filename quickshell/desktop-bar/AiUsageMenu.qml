@@ -12,46 +12,33 @@ ThemedPopup {
     implicitHeight: Math.min(maximumHeight, Math.max(300,
         content.implicitHeight + 64 + hero.height + 10 + 16 + aiFooter.height + 8 + footer.implicitHeight + 16 + 2))
     property var usage: ({providers: []})
-    property var foldedProviders: []
-    property bool detectionReceived: false
-    onUsageChanged: { detectionReceived = true; reconcileFolding(); }
+    property var openedProviders: []
     property bool selectionReady: false
     property bool selectionWritable: false
-    readonly property var availableProviders: (usage.providers || []).map(providerData => providerData.name)
-    function reconcileFolding() {
-        if (!selectionReady || !detectionReceived) return;
-        foldedProviders = Selection.reconcile(availableProviders, foldedProviders);
-        saveFolding();
-    }
-    function saveFolding() {
-        if (selectionWritable && detectionReceived)
-            selectionSettings.setText(JSON.stringify({version: 2, foldedProviders: foldedProviders}) + "\n");
-    }
+    readonly property var shownProviders: Selection.shownProviders(usage.providers)
+    readonly property var availableProviders: shownProviders.map(providerData => providerData.name)
     function toggleProvider(name) {
-        foldedProviders = Selection.toggle(availableProviders, foldedProviders, name);
-        saveFolding();
+        openedProviders = Selection.toggle(availableProviders, openedProviders, name);
+        if (selectionWritable)
+            selectionSettings.setText(JSON.stringify({version: 1, openedProviders: openedProviders}) + "\n");
     }
-    onAvailableProvidersChanged: reconcileFolding()
     FileView {
         id: selectionSettings
-        path: Eitr.Paths.config("quickshell/desktop-bar/ai-usage-settings.json")
+        path: Quickshell.env("XDG_RUNTIME_DIR") ? Quickshell.env("XDG_RUNTIME_DIR") + "/eitr-ai-usage-open.json" : ""
         atomicWrites: true
         printErrors: false
         onLoaded: {
             try {
-                var settings = Eitr.Paths.settings(text());
-                menu.foldedProviders = Selection.restore(settings);
+                menu.openedProviders = Selection.restore(Eitr.Paths.settings(text()));
                 menu.selectionWritable = true;
             } catch (error) {
-                console.warn("Invalid AI usage folding settings:", error);
+                console.warn("Invalid AI usage session settings:", error);
             }
             menu.selectionReady = true;
-            menu.reconcileFolding();
         }
         onLoadFailed: function(error) {
-            menu.selectionWritable = error === FileViewError.FileNotFound;
+            menu.selectionWritable = !!path && error === FileViewError.FileNotFound;
             menu.selectionReady = true;
-            menu.reconcileFolding();
         }
     }
     property bool freshReceived: false
@@ -136,19 +123,20 @@ ThemedPopup {
                 Text {
                     visible: menu.availableProviders.length === 0
                     width: parent.width; wrapMode: Text.Wrap
-                    text: menu.loading || cached.running ? Eitr.I18n.tr("Detecting configured AI clients…") : Eitr.I18n.tr("No signed-in AI clients detected. Install and sign in to Claude Code, Codex, or Grok to show usage here.")
+                    text: menu.loading || cached.running ? Eitr.I18n.tr("Detecting configured AI clients…") : Eitr.I18n.tr("No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.")
                     color: menu.foreground; opacity: 0.7
                     font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
                 }
                 Repeater {
-                    model: menu.usage.providers || []
+                    model: menu.shownProviders
                     Column {
                         id: section
                         required property var modelData
                         width: content.width
                         spacing: 14
                         required property int index
-                        readonly property bool folded: menu.foldedProviders.indexOf(modelData.name) !== -1
+                        readonly property string plan: Selection.sharedPlan(modelData.accounts)
+                        readonly property bool folded: menu.openedProviders.indexOf(modelData.name) === -1
                         PanelButton {
                             id: sectionHeading
                             width: parent.width
@@ -162,7 +150,13 @@ ThemedPopup {
                                 anchors.verticalCenter: parent.verticalCenter
                                 width: parent.width - chevron.width - 32
                                 elide: Text.ElideRight
-                                text: section.modelData.name === "Claude" ? Eitr.I18n.tr("Claude Code") : section.modelData.name
+                                textFormat: Text.StyledText
+                                text: {
+                                    const name = section.modelData.name === "Claude" ? Eitr.I18n.tr("Claude Code") : section.modelData.name;
+                                    const escape = value => String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+                                    const secondary = Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, PanelStyle.secondaryTextOpacity);
+                                    return escape(name) + (section.plan ? ' <font color="' + secondary + '">· ' + escape(section.plan) + '</font>' : "");
+                                }
                                 color: menu.foreground
                                 font.family: DesktopFonts.family
                                 font.pixelSize: PanelStyle.bodySize
@@ -187,13 +181,13 @@ ThemedPopup {
                                 spacing: 14
                                 Text {
                                     width: parent.width
-                                    text: accountSection.modelData.label + " · " + (accountSection.modelData.plan || Eitr.I18n.tr("Plan unavailable"))
+                                    visible: section.modelData.accounts.length > 1
+                                    text: accountSection.modelData.label + (!section.plan && accountSection.modelData.plan ? " · " + accountSection.modelData.plan : "")
                                     elide: Text.ElideRight
                                     color: menu.foreground
                                     font.family: DesktopFonts.family
-                                    font.pixelSize: PanelStyle.bodySize
+                                    font.pixelSize: PanelStyle.secondarySize
                                 }
-                                Text { visible: !!accountSection.modelData.error; width: parent.width; text: accountSection.modelData.error || ""; wrapMode: Text.Wrap; color: menu.foreground; opacity: 0.7; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
                                 Repeater {
                                     model: accountSection.modelData.windows || []
                                     Column {

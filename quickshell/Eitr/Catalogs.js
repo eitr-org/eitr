@@ -220,8 +220,8 @@ var qml = {
     "No notifications": "No notifications",
     "No occupied workspaces": "No occupied workspaces",
     "No playback applications": "No playback applications",
+    "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.",
     "No reminders": "No reminders",
-    "No signed-in AI clients detected. Install and sign in to Claude Code, Codex, or Grok to show usage here.": "No signed-in AI clients detected. Install and sign in to Claude Code, Codex, or Grok to show usage here.",
     "Nothing": "Nothing",
     "Nothing is sent automatically. You read each report first and choose whether to email it or open a GitHub issue; your name, computer name and network addresses are removed.": "Nothing is sent automatically. You read each report first and choose whether to email it or open a GitHub issue; your name, computer name and network addresses are removed.",
     "Notifications": "Notifications",
@@ -254,7 +254,6 @@ var qml = {
     "PgUp/PgDn to scroll · Escape or × to close": "PgUp/PgDn to scroll · Escape or × to close",
     "Pick a wallpaper": "Pick a wallpaper",
     "Pin bar open": "Pin bar open",
-    "Plan unavailable": "Plan unavailable",
     "Play": "Play",
     "Position": "Position",
     "Power": "Power",
@@ -601,7 +600,6 @@ var qml = {
     "No notifications": "Nenhuma notificação",
     "No occupied workspaces": "Nenhum espaço de trabalho ocupado",
     "No playback applications": "Nenhum aplicativo reproduzindo áudio",
-    "No signed-in AI clients detected. Install and sign in to Claude Code, Codex, or Grok to show usage here.": "Nenhum cliente de IA conectado. Instale e entre no Claude Code, Codex ou Grok para ver o uso aqui.",
     "Nothing": "Nothing",
     "Nothing is sent automatically. You read each report first and choose whether to email it or open a GitHub issue; your name, computer name and network addresses are removed.": "Nada é enviado automaticamente. Você lê cada relatório e escolhe enviá-lo por e-mail ou abrir uma issue no GitHub; seu nome, nome do computador e endereços de rede são removidos.",
     "Notifications": "Notificações",
@@ -633,7 +631,6 @@ var qml = {
     "PgUp/PgDn to scroll · Escape or × to close": "PgUp/PgDn para rolar · Escape ou × para fechar",
     "Pick a wallpaper": "Escolha um papel de parede",
     "Pin bar open": "Manter barra aberta",
-    "Plan unavailable": "Plano indisponível",
     "Play": "Reproduzir",
     "Position": "Posição",
     "Power": "Energia",
@@ -813,7 +810,8 @@ var qml = {
     "Runs on this PC; nothing is saved": "Executa neste PC; nada é salvo",
     "Thinking…": "Pensando…",
     "Back": "Voltar",
-    "Copy reply": "Copiar resposta"
+    "Copy reply": "Copiar resposta",
+    "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "Nenhum dado de uso de IA legível disponível. Entre no Claude Code, Codex ou Grok, ou tente atualizar mais tarde."
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -997,7 +995,6 @@ var qml = {
     "No notifications": "No hay notificaciones",
     "No occupied workspaces": "No hay espacios de trabajo ocupados",
     "No playback applications": "No hay aplicaciones reproduciendo audio",
-    "No signed-in AI clients detected. Install and sign in to Claude Code, Codex, or Grok to show usage here.": "No se detectaron clientes de IA con sesión iniciada. Instala e inicia sesión en Claude Code, Codex o Grok para ver el uso aquí.",
     "Nothing": "Nothing",
     "Nothing is sent automatically. You read each report first and choose whether to email it or open a GitHub issue; your name, computer name and network addresses are removed.": "No se envía nada automáticamente. Lees cada informe y eliges enviarlo por correo o abrir una incidencia en GitHub; se eliminan tu nombre, el nombre del equipo y las direcciones de red.",
     "Notifications": "Notificaciones",
@@ -1029,7 +1026,6 @@ var qml = {
     "PgUp/PgDn to scroll · Escape or × to close": "PgUp/PgDn para desplazarse · Escape o × para cerrar",
     "Pick a wallpaper": "Elija un papel pintado",
     "Pin bar open": "Mantener barra abierta",
-    "Plan unavailable": "Plan no disponible",
     "Play": "Reproducir",
     "Position": "Posición",
     "Power": "Energía",
@@ -1209,7 +1205,8 @@ var qml = {
     "Runs on this PC; nothing is saved": "Se ejecuta en este PC; no se guarda nada",
     "Thinking…": "Pensando…",
     "Back": "Atrás",
-    "Copy reply": "Copiar respuesta"
+    "Copy reply": "Copiar respuesta",
+    "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "No hay datos de uso de IA legibles. Inicia sesión en Claude Code, Codex o Grok, o vuelve a actualizar más tarde."
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1393,7 +1390,6 @@ var qml = {
     "No notifications": "Keine Benachrichtigungen",
     "No occupied workspaces": "Keine belegten Arbeitsflächen",
     "No playback applications": "Keine Anwendungen mit Audiowiedergabe",
-    "No signed-in AI clients detected. Install and sign in to Claude Code, Codex, or Grok to show usage here.": "Keine angemeldeten KI-Clients erkannt. Installiere Claude Code, Codex oder Grok und melde dich an, um die Nutzung hier anzuzeigen.",
     "Nothing": "Nothing",
     "Nothing is sent automatically. You read each report first and choose whether to email it or open a GitHub issue; your name, computer name and network addresses are removed.": "Es wird nichts automatisch gesendet. Du prüfst jeden Bericht und entscheidest, ob du ihn per E-Mail sendest oder ein GitHub-Issue öffnest; dein Name, Rechnername und Netzwerkadressen werden entfernt.",
     "Notifications": "Benachrichtigungen",
@@ -1425,7 +1421,6 @@ var qml = {
     "PgUp/PgDn to scroll · Escape or × to close": "PgUp/PgDn zum Scrollen · Escape oder × zum Schließen",
     "Pick a wallpaper": "Wählen Sie eine Tapete",
     "Pin bar open": "Leiste geöffnet halten",
-    "Plan unavailable": "Tarif nicht verfügbar",
     "Play": "Wiedergeben",
     "Position": "Position",
     "Power": "Energie",
@@ -1605,7 +1600,8 @@ var qml = {
     "Runs on this PC; nothing is saved": "Läuft auf diesem PC; nichts wird gespeichert",
     "Thinking…": "Denkt nach…",
     "Back": "Zurück",
-    "Copy reply": "Antwort kopieren"
+    "Copy reply": "Antwort kopieren",
+    "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "Keine lesbaren KI-Nutzungsdaten verfügbar. Melde dich bei Claude Code, Codex oder Grok an oder aktualisiere später erneut."
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -1789,7 +1785,6 @@ var qml = {
     "No notifications": "Aucune notification",
     "No occupied workspaces": "Aucun espace de travail occupé",
     "No playback applications": "Aucune application en lecture audio",
-    "No signed-in AI clients detected. Install and sign in to Claude Code, Codex, or Grok to show usage here.": "Aucun client d’IA connecté détecté. Installez Claude Code, Codex ou Grok et connectez-vous pour afficher l’utilisation ici.",
     "Nothing": "Nothing",
     "Nothing is sent automatically. You read each report first and choose whether to email it or open a GitHub issue; your name, computer name and network addresses are removed.": "Rien n’est envoyé automatiquement. Vous lisez chaque rapport et choisissez de l’envoyer par e-mail ou d’ouvrir un ticket GitHub ; votre nom, le nom de l’ordinateur et les adresses réseau sont supprimés.",
     "Notifications": "Notifications",
@@ -1821,7 +1816,6 @@ var qml = {
     "PgUp/PgDn to scroll · Escape or × to close": "PgUp/PgDn pour défiler · Échap ou × pour fermer",
     "Pick a wallpaper": "Choisir un papier peint",
     "Pin bar open": "Maintenir la barre ouverte",
-    "Plan unavailable": "Offre indisponible",
     "Play": "Lecture",
     "Position": "Position",
     "Power": "Alimentation",
@@ -2001,6 +1995,7 @@ var qml = {
     "Runs on this PC; nothing is saved": "Sur ce PC ; rien n’est enregistré",
     "Thinking…": "Réflexion…",
     "Back": "Retour",
-    "Copy reply": "Copier la réponse"
+    "Copy reply": "Copier la réponse",
+    "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "Aucune donnée d’utilisation de l’IA lisible. Connectez-vous à Claude Code, Codex ou Grok, ou réessayez d’actualiser plus tard."
   }
 };

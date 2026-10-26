@@ -9,15 +9,26 @@ const available = ['Claude', 'Codex', 'Grok'];
 const plain = value => JSON.parse(JSON.stringify(value));
 
 assert.deepEqual(plain(model.restore({version: 1, providers: ['Codex']})), []);
-assert.deepEqual(plain(model.restore({version: 2, foldedProviders: ['Codex']})), ['Codex']);
-assert.deepEqual(plain(model.restore({version: 2, foldedProviders: 'Codex'})), []);
-assert.deepEqual(plain(model.reconcile(available, undefined)), []);
-assert.deepEqual(plain(model.reconcile(available, ['Grok', 'missing', 'Claude', 'Claude'])), ['Claude', 'Grok']);
-assert.deepEqual(plain(model.reconcile([], ['Claude'])), []);
-assert.deepEqual(plain(model.reconcile(['Codex'], ['Claude'])), []);
+assert.deepEqual(plain(model.restore({version: 2, foldedProviders: ['Codex']})), []);
+assert.deepEqual(plain(model.restore({version: 1, openedProviders: 'Codex'})), []);
 assert.deepEqual(plain(model.toggle(available, [], 'Claude')), ['Claude']);
 assert.deepEqual(plain(model.toggle(available, ['Claude'], 'Codex')), ['Claude', 'Codex']);
 assert.deepEqual(plain(model.toggle(available, ['Claude', 'Codex'], 'Claude')), ['Codex']);
 assert.deepEqual(plain(model.toggle(available, ['Codex'], 'Codex')), []);
 assert.deepEqual(plain(model.toggle(available, ['Codex'], 'missing')), ['Codex']);
 console.log('AI provider folding checks passed');
+
+assert.deepEqual(plain(model.restore({version: 1, openedProviders: ['Codex']})), ['Codex']);
+assert.deepEqual(plain(model.restore(null)), []);
+assert.deepEqual(plain(model.toggle(['Codex'], ['Claude'], 'Codex')), ['Claude', 'Codex']);
+const readable = {label: 'Default', plan: 'Max', windows: [{used: 10}]};
+assert.deepEqual(plain(model.shownProviders([
+    {name: 'Claude', accounts: [readable, {error: 'Offline', windows: [{used: 5}]}, {windows: []}, {}]},
+    {name: 'Empty', accounts: []}, {name: 'Unsupported', accounts: [{windows: []}]}
+])), [{name: 'Claude', accounts: [readable]}]);
+assert.equal(model.sharedPlan([readable]), 'Max');
+assert.equal(model.sharedPlan([readable, {...readable}]), 'Max');
+assert.equal(model.sharedPlan([readable, {...readable, plan: 'Pro'}]), '');
+assert.equal(model.sharedPlan([readable, {...readable, plan: null}]), '');
+assert.equal(model.sharedPlan([{windows: [{used: 0}]}]), '');
+assert.equal(model.sharedPlan([]), '');

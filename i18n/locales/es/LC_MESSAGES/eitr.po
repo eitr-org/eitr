@@ -1810,9 +1810,6 @@ msgstr "No hay ningún control de brillo disponible"
 msgid "No browser opened. Go to {NEW_ISSUE} and attach {path}."
 msgstr "No se abrió ningún navegador. Ve a {NEW_ISSUE} y adjunta {path}."
 
-msgid "No data"
-msgstr "Sin datos"
-
 msgid "No default or folder account selected"
 msgstr "No se seleccionó ninguna cuenta predeterminada ni de carpeta"
 

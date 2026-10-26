@@ -239,7 +239,7 @@ def claude_usage(environment=None):
 
 
 def usage_accounts():
-    """Installed assistants remain visible even when an account has no readable usage."""
+    """Discover configured accounts for installed assistants."""
     return [(identifier, account) for identifier in CONFIGURATION if cli_binary(identifier)
             for account in account_rows(identifier)]
 
@@ -255,11 +255,11 @@ def collect():
             reader = readers.get(identifier)
             if reader:
                 result.update(reader(account_environment(identifier, account=account["id"])))
-            if not result["windows"]:
-                result["error"] = tr('No data')
+            if not result["windows"] or result.get("error"):
+                return None
         except Exception:
-            # CLI/HTTP errors can contain private data. Expose only a fixed status.
-            result["error"] = tr('No data')
+            # CLI/HTTP errors can contain private data. Omit unreadable accounts.
+            return None
         return result
 
     grouped = {}
@@ -267,8 +267,10 @@ def collect():
         jobs = [(identifier, pool.submit(safely, identifier, account))
                 for identifier, account in usage_accounts()]
         for identifier, job in jobs:
-            provider = grouped.setdefault(identifier, {"name": labels[identifier], "accounts": []})
-            provider["accounts"].append(job.result())
+            account = job.result()
+            if account is not None:
+                provider = grouped.setdefault(identifier, {"name": labels[identifier], "accounts": []})
+                provider["accounts"].append(account)
     return {"updated": time.time(), "providers": list(grouped.values())}
 
 

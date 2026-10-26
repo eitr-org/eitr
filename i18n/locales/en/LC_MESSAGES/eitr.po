@@ -1810,9 +1810,6 @@ msgstr "No brightness control available"
 msgid "No browser opened. Go to {NEW_ISSUE} and attach {path}."
 msgstr "No browser opened. Go to {NEW_ISSUE} and attach {path}."
 
-msgid "No data"
-msgstr "No data"
-
 msgid "No default or folder account selected"
 msgstr "No default or folder account selected"
 

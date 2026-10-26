@@ -602,7 +602,6 @@
   "No battery with a firmware charge limit (charge_control_end_threshold) was found.": "No battery with a firmware charge limit (charge_control_end_threshold) was found.",
   "No brightness control available": "No brightness control available",
   "No browser opened. Go to {NEW_ISSUE} and attach {path}.": "No browser opened. Go to {NEW_ISSUE} and attach {path}.",
-  "No data": "No data",
   "No default or folder account selected": "No default or folder account selected",
   "No display named {name}": "No display named {name}",
   "No eligible writable disk of at least 64 GiB was found": "No eligible writable disk of at least 64 GiB was found",

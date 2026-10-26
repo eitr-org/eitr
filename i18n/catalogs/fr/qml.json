@@ -180,7 +180,6 @@
   "No notifications": "Aucune notification",
   "No occupied workspaces": "Aucun espace de travail occupé",
   "No playback applications": "Aucune application en lecture audio",
-  "No signed-in AI clients detected. Install and sign in to Claude Code, Codex, or Grok to show usage here.": "Aucun client d’IA connecté détecté. Installez Claude Code, Codex ou Grok et connectez-vous pour afficher l’utilisation ici.",
   "Nothing": "Nothing",
   "Nothing is sent automatically. You read each report first and choose whether to email it or open a GitHub issue; your name, computer name and network addresses are removed.": "Rien n’est envoyé automatiquement. Vous lisez chaque rapport et choisissez de l’envoyer par e-mail ou d’ouvrir un ticket GitHub ; votre nom, le nom de l’ordinateur et les adresses réseau sont supprimés.",
   "Notifications": "Notifications",
@@ -212,7 +211,6 @@
   "PgUp/PgDn to scroll · Escape or × to close": "PgUp/PgDn pour défiler · Échap ou × pour fermer",
   "Pick a wallpaper": "Choisir un papier peint",
   "Pin bar open": "Maintenir la barre ouverte",
-  "Plan unavailable": "Offre indisponible",
   "Play": "Lecture",
   "Position": "Position",
   "Power": "Alimentation",
@@ -392,5 +390,6 @@
   "Runs on this PC; nothing is saved": "Sur ce PC ; rien n’est enregistré",
   "Thinking…": "Réflexion…",
   "Back": "Retour",
-  "Copy reply": "Copier la réponse"
+  "Copy reply": "Copier la réponse",
+  "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "Aucune donnée d’utilisation de l’IA lisible. Connectez-vous à Claude Code, Codex ou Grok, ou réessayez d’actualiser plus tard."
 }
