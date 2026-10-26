@@ -64,11 +64,13 @@ LAN.
   block character the wizard uses. Boot the next ISO in a VM with `LANG=pt_BR` and
   `es_ES` on tty2 and confirm the installer screens show the accents.
 
-- **Install with updates pending (owner decides).** Installing a repository app
-  refuses while System Update has pending upgrades, because Arch does not support
-  partial upgrades and installs skip the recovery snapshot. Choose between running
-  System Update (with its snapshot) in the same terminal and then installing, or
-  allowing the install without updating.
+- **Lock screen frozen after waking from suspend (NVIDIA).** After resume the lock
+  screen and its clock stay still until the mouse moves. Each wake logs the
+  nvidia-drm error "Failed to register auto-value-update ... sync FD semaphore
+  surface" (seen 2026-10-23 and 2026-10-26, driver 615.78, Hyprland 0.56.2). Next
+  test on the owner's PC: enable `nvidia-suspend`, `nvidia-resume` and
+  `nvidia-hibernate` (shipped disabled by nvidia-utils), suspend and wake once,
+  and compare; disable them again if nothing changes.
 - **HDR games by default (owner decides).** Hyprland already switches to HDR when a
   fullscreen app asks (`cm_auto_hdr`), but Steam games run through XWayland and
   never ask. Proposal: an "HDR games" switch in the Display panel for monitors whose
