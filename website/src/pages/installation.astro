@@ -22,7 +22,7 @@ import release from '../data/release.json';
         <li>An x86_64 PC or VM booted in UEFI mode. Apple Silicon testing uses x86_64 emulation; it is not a native ARM port.</li>
         <li>The guided installer lists writable disks of at least 64 GiB. Erase mode removes the selected disk’s contents after confirmation.</li>
         <li>Install-alongside mode requires a GPT disk with at least 34 GiB unallocated in one gap. Prepare that space first; the installer does not resize existing partitions.</li>
-        <li>The supported fresh-install layout uses Btrfs for Eitr’s snapshot and recovery workflows.</li>
+        <li>The supported fresh-install layout uses Btrfs for Eitr’s snapshot and recovery workflows. Disk encryption (LUKS2) asks for a passphrase of at least 12 characters and unlocks in about two seconds at boot; three or four random words are strong and easy to type.</li>
         <li>No network is required for the guided installation. Later updates, optional downloads and online services need a connection.</li>
       </ul>
       <p>Back up your files before changing a disk. Verify the ISO with its published SHA-256 checksum and read the canonical guide for the complete installation and recovery requirements.</p>
