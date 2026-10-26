@@ -18,6 +18,7 @@ problem report and the ISO name and boot menu all read it.
 | 0.6.2 | Mimir | beta | Updates served from download.eitr.info; Clipboard History newest first |
 | 0.6.3 | Mimir | beta | Real-desktop screenshots on the site, smaller downloads (JPEG wallpapers), check marks in Install lists |
 | 0.6.4 | Mimir | beta | Translations (Portuguese, Spanish, German, French), multi-monitor arrangement, Control Center, AI assistants, crash help, OBS defaults |
+| 0.6.5 | Mimir | beta | HDR switch and HDR games, Tabs bar, assistants (SUPER+A, quick chat, accounts), calendars, your own themes, faster disk unlock, stronger disk passphrases |
 | 0.7.0 | Huginn | beta | Fixes from early users' real-hardware installs; release-candidate hardening |
 | 1.0.0 | Bifröst | stable | Supported upgrades between releases |
 
@@ -254,7 +255,7 @@ Assistant sessions use full access by default; System > Security > Assistant Acc
 The current state and the next concrete steps, so anyone (or any AI assistant)
 can pick up from the repository alone. Remove items as they ship.
 
-- **Released.** 0.3.0 to 0.6.4, each ISO built in the owner's builder VM (outside
+- **Released.** 0.3.0 to 0.6.5, each ISO built in the owner's builder VM (outside
   this repository) and passed the automated VM tests below; the packages are
   published in `[eitr]`. `v0.6.4` and later are tagged.
 - **History.** On 2026-10-19 the 707 commits up to 0.6.3 were squashed into one, to
