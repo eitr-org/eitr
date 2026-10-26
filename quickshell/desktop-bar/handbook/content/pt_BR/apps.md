@@ -1,6 +1,6 @@
 # Aplicativos e instalação
 
-Antes de instalar pacotes oficiais, o terminal informa que está verificando atualizações pendentes do sistema. Essa verificação pode demorar um pouco antes de pedir a senha de administrador. Instalações via Flatpak também indicam a etapa de preparação.
+Antes de instalar pacotes oficiais, o terminal informa que está verificando atualizações pendentes do sistema. Essa verificação pode demorar um pouco antes de pedir a senha de administrador. Instalações via Flatpak também indicam a etapa de preparação. Se houver atualizações aguardando, ele explica o motivo: o Arch só instala apps num sistema atualizado, e instalar agora também atualizaria parte do sistema sem um snapshot de recuperação. Enter executa a Atualização do sistema com seu snapshot e depois instala; Esc cancela sem mudar nada.
 
 **SUPER + Space** e Principal > Aplicativos abrem a mesma lista. Enter inicia o aplicativo. Delete fica disponível em Aplicativos e pede confirmação para desinstalar. A busca global de **SUPER + F** abre aplicativos, mas não oferece desinstalação. Não há um menu separado baseado em aplicativos fixados.
 

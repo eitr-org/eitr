@@ -18,6 +18,7 @@ for _eitr_parent in Path(__file__).resolve().parents:
 from eitr_paths import code, config as user_config, data as user_data
 from eitr_i18n import tr
 from eitr_forms import Terminal
+from eitr_terminal import read_key
 import re
 import shlex
 import shutil
@@ -174,22 +175,47 @@ def recipes(group):
                      "removable": supported and (complete or installation_present(value))})
     return rows
 
-def require_no_pending_updates():
-    """Refuse installs that would also perform an unsnapshotted system upgrade.
+class InstallCancelled(Exception):
+    """The user chose not to update first; nothing was changed."""
 
-    Partial upgrades (-Sy without -u) are unsupported on Arch, so installs only
-    proceed once System Update has brought the system up to date.
-    """
+
+def pending_updates():
     if not shutil.which("checkupdates"):
         raise RuntimeError(tr('checkupdates (pacman-contrib) is required to install safely. Run System → Maintenance → Update → System Update, then install pacman-contrib.'))
     # checkupdates syncs a private database copy: 0 = updates, 2 = none, 1 = error.
     print(tr('Checking for system updates before installation…'), file=sys.stderr, flush=True)
     result = subprocess.run(["checkupdates"], capture_output=True, text=True, timeout=120)
     if result.returncode == 0:
-        count = len(result.stdout.splitlines())
-        raise RuntimeError(tr('{count} system update(s) pending. Run System → Maintenance → Update → System Update first, so upgrades get a recovery snapshot, then install again.', count=f'{count}'))
+        return len(result.stdout.splitlines())
     if result.returncode != 2:
         raise RuntimeError(tr('Could not check for pending updates: {error}', error=result.stderr.strip() or 'checkupdates failed'))
+    return 0
+
+
+def require_no_pending_updates():
+    """Offer System Update before installs that would otherwise upgrade without a snapshot.
+
+    Partial upgrades (-Sy without -u) are unsupported on Arch, so installs only
+    proceed once the system is up to date; the user decides whether to update now.
+    """
+    count = pending_updates()
+    if not count:
+        return
+    print(tr('{count} system update(s) are waiting. On Arch Linux an app can only be installed on an up-to-date system: installing now would also upgrade part of the system without a recovery snapshot, which can break other apps.', count=f'{count}'), flush=True)
+    print(tr('Enter: run System Update now (with its snapshot), then install · Esc: cancel'), flush=True)
+    while True:
+        try:
+            key = read_key()
+        except (KeyboardInterrupt, EOFError):
+            key = "\x1b"
+        if key in ("\x1b", "\x03", "\x04", ""):
+            raise InstallCancelled
+        if key in ("\r", "\n"):
+            break
+    if subprocess.run(["bash", str(SCRIPT.parents[1] / "system/update.sh"), "system"], check=False).returncode != 0:
+        raise RuntimeError(tr('System Update did not finish, so nothing was installed.'))
+    if pending_updates():
+        raise RuntimeError(tr('Updates are still waiting after System Update, so nothing was installed.'))
 
 
 def install(source, packages):
@@ -708,6 +734,8 @@ if __name__ == "__main__":
     options = parse_arguments()
     try:
         main(options)
+    except InstallCancelled:
+        print(tr('Nothing was installed. Run System Update when you are ready, then install again.'))
     except (OSError, ValueError, KeyError, RuntimeError, subprocess.SubprocessError) as error:
         print(str(error), file=sys.stderr)
         if options.action in PREVIEW_ACTIONS:

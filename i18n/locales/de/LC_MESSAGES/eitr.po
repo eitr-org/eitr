@@ -1105,6 +1105,9 @@ msgstr "Enter: weiter  Esc: zurück"
 msgid "Enter: continue  Esc: cancel"
 msgstr "Enter: fortfahren  Esc: abbrechen"
 
+msgid "Enter: run System Update now (with its snapshot), then install · Esc: cancel"
+msgstr "Enter: Systemaktualisierung jetzt ausführen (mit Snapshot), dann installieren · Esc: abbrechen"
+
 msgid "Enterprise WiFi requires username, password, CA certificate and server domain"
 msgstr "Unternehmens-WiFi erfordert Benutzername, Passwort, CA-Zertifikat und Serverdomäne"
 
@@ -1914,6 +1917,9 @@ msgstr "Nichts wurde geändert."
 
 msgid "Nothing was downloaded."
 msgstr "Es wurde nichts heruntergeladen."
+
+msgid "Nothing was installed. Run System Update when you are ready, then install again."
+msgstr "Es wurde nichts installiert. Führe die Systemaktualisierung aus, wenn du bereit bist, und installiere dann erneut."
 
 msgid "Nothing was installed; the downloaded copy was deleted."
 msgstr "Es wurde nichts installiert; die heruntergeladene Kopie wurde gelöscht."
@@ -2869,6 +2875,9 @@ msgstr "Einstellungen mit symbolischen Links bleiben unverändert."
 msgid "Symlinks are not allowed in login designs"
 msgstr "Symlinks are not allowed in login designs"
 
+msgid "System Update did not finish, so nothing was installed."
+msgstr "Die Systemaktualisierung wurde nicht abgeschlossen, daher wurde nichts installiert."
+
 msgid "TPM2 devices: {devices}"
 msgstr "TPM2-Geräte: {devices}"
 
@@ -3427,6 +3436,9 @@ msgstr "Aktualisiert: {packages}. Das System verwendet bis zum Neustart die alte
 msgid "Updated {packages}. Your desktop uses the new versions after you log back in."
 msgstr "Aktualisiert: {packages}. Ihr Desktop verwendet nach der nächsten Anmeldung die neuen Versionen."
 
+msgid "Updates are still waiting after System Update, so nothing was installed."
+msgstr "Nach der Systemaktualisierung stehen noch Aktualisierungen aus, daher wurde nichts installiert."
+
 msgid "Updates with snapshots (pass a 'before' number to see every package):\n"
 msgstr "Updates mit Snapshots (für alle Pakete eine 'before'-Nummer angeben):\n"
 
@@ -3817,8 +3829,8 @@ msgstr "{count} Termine von der letzten Woche bis zu den nächsten 60 Tagen."
 msgid "{count} occurrences"
 msgstr "{count} Termine"
 
-msgid "{count} system update(s) pending. Run System → Maintenance → Update → System Update first, so upgrades get a recovery snapshot, then install again."
-msgstr "{count} Systemaktualisierung(en) ausstehend. Führen Sie zuerst System → Wartung → Aktualisierung → Systemaktualisierung aus, um einen Wiederherstellungs-Snapshot zu erstellen, und installieren Sie dann erneut."
+msgid "{count} system update(s) are waiting. On Arch Linux an app can only be installed on an up-to-date system: installing now would also upgrade part of the system without a recovery snapshot, which can break other apps."
+msgstr "{count} Systemaktualisierung(en) stehen aus. Unter Arch Linux lässt sich eine App nur auf einem aktuellen System installieren: Eine Installation jetzt würde auch einen Teil des Systems ohne Wiederherstellungs-Snapshot aktualisieren, was andere Apps beschädigen kann."
 
 msgid "{days} days"
 msgstr "{days} Tage"

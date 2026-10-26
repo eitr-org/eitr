@@ -896,7 +896,6 @@
   "{command} exited with status {status}; see the log above": "{command} wurde mit Status {status} beendet; siehe Protokoll oben",
   "{command} is not installed; use Walker → Install → Pacman": "{command} ist nicht installiert; verwenden Sie Walker → Installieren → Pacman",
   "{config} has an unfinished EITR style block; fix it by hand. Nothing was changed.": "{config} enthält einen unvollständigen EITR-Stilblock; korrigieren Sie ihn manuell. Nichts wurde geändert.",
-  "{count} system update(s) pending. Run System → Maintenance → Update → System Update first, so upgrades get a recovery snapshot, then install again.": "{count} Systemaktualisierung(en) ausstehend. Führen Sie zuerst System → Wartung → Aktualisierung → Systemaktualisierung aus, um einen Wiederherstellungs-Snapshot zu erstellen, und installieren Sie dann erneut.",
   "{device} already has a TPM2 slot. Remove it first to re-enroll.": "{device} hat bereits einen TPM2-Slot. Entfernen Sie ihn vor einer erneuten Registrierung.",
   "{device} has no TPM2 slot.": "{device} hat keinen TPM2-Slot.",
   "{device} is not a LUKS2 volume. TPM unlock needs LUKS2.": "{device} ist kein LUKS2-Volume. TPM-Entsperrung erfordert LUKS2.",
@@ -1325,5 +1324,10 @@
   "The default assistant changed. Start a new chat.": "Der Standardassistent wurde geändert. Beginne einen neuen Chat.",
   "Encrypted installs need a disk passphrase of 12 or more characters, not a pattern or the user name": "Verschlüsselte Installationen brauchen eine Festplatten-Passphrase mit mindestens 12 Zeichen, ohne Muster und ohne den Benutzernamen",
   "Too easy to guess: avoid patterns and your user name.": "Zu leicht zu erraten: ohne Muster und Benutzernamen.",
-  "At least 12 characters; your input is hidden.\nThree or four random words are strong and easy to type, like \"rune fjord copper lantern\".": "Mindestens 12 Zeichen; die Eingabe ist verborgen.\nDrei oder vier zufällige Wörter sind sicher und leicht zu tippen, etwa \"rune fjord copper lantern\"."
+  "At least 12 characters; your input is hidden.\nThree or four random words are strong and easy to type, like \"rune fjord copper lantern\".": "Mindestens 12 Zeichen; die Eingabe ist verborgen.\nDrei oder vier zufällige Wörter sind sicher und leicht zu tippen, etwa \"rune fjord copper lantern\".",
+  "{count} system update(s) are waiting. On Arch Linux an app can only be installed on an up-to-date system: installing now would also upgrade part of the system without a recovery snapshot, which can break other apps.": "{count} Systemaktualisierung(en) stehen aus. Unter Arch Linux lässt sich eine App nur auf einem aktuellen System installieren: Eine Installation jetzt würde auch einen Teil des Systems ohne Wiederherstellungs-Snapshot aktualisieren, was andere Apps beschädigen kann.",
+  "Enter: run System Update now (with its snapshot), then install · Esc: cancel": "Enter: Systemaktualisierung jetzt ausführen (mit Snapshot), dann installieren · Esc: abbrechen",
+  "System Update did not finish, so nothing was installed.": "Die Systemaktualisierung wurde nicht abgeschlossen, daher wurde nichts installiert.",
+  "Updates are still waiting after System Update, so nothing was installed.": "Nach der Systemaktualisierung stehen noch Aktualisierungen aus, daher wurde nichts installiert.",
+  "Nothing was installed. Run System Update when you are ready, then install again.": "Es wurde nichts installiert. Führe die Systemaktualisierung aus, wenn du bereit bist, und installiere dann erneut."
 }

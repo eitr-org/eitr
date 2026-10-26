@@ -1105,6 +1105,9 @@ msgstr "Enter : continuer  Esc : retour"
 msgid "Enter: continue  Esc: cancel"
 msgstr "Entrée : continuer  Échap : annuler"
 
+msgid "Enter: run System Update now (with its snapshot), then install · Esc: cancel"
+msgstr "Entrée : lancer la Mise à jour du système maintenant (avec son instantané), puis installer · Échap : annuler"
+
 msgid "Enterprise WiFi requires username, password, CA certificate and server domain"
 msgstr "Le WiFi d’entreprise nécessite un identifiant, un mot de passe, un certificat d’AC et le domaine du serveur"
 
@@ -1914,6 +1917,9 @@ msgstr "Rien n’a été modifié."
 
 msgid "Nothing was downloaded."
 msgstr "Rien n’a été téléchargé."
+
+msgid "Nothing was installed. Run System Update when you are ready, then install again."
+msgstr "Rien n'a été installé. Lancez la Mise à jour du système quand vous voulez, puis réinstallez."
 
 msgid "Nothing was installed; the downloaded copy was deleted."
 msgstr "Rien n’a été installé ; la copie téléchargée a été supprimée."
@@ -2869,6 +2875,9 @@ msgstr "Les réglages liés symboliquement restent inchangés."
 msgid "Symlinks are not allowed in login designs"
 msgstr "Symlinks are not allowed in login designs"
 
+msgid "System Update did not finish, so nothing was installed."
+msgstr "La Mise à jour du système ne s'est pas terminée, rien n'a donc été installé."
+
 msgid "TPM2 devices: {devices}"
 msgstr "Périphériques TPM2 : {devices}"
 
@@ -3427,6 +3436,9 @@ msgstr "Paquets mis à jour : {packages}. Le système utilise les anciennes vers
 msgid "Updated {packages}. Your desktop uses the new versions after you log back in."
 msgstr "Paquets mis à jour : {packages}. Le bureau utilisera les nouvelles versions après votre prochaine connexion."
 
+msgid "Updates are still waiting after System Update, so nothing was installed."
+msgstr "Des mises à jour restent en attente après la Mise à jour du système, rien n'a donc été installé."
+
 msgid "Updates with snapshots (pass a 'before' number to see every package):\n"
 msgstr "Mises à jour avec instantanés (indiquez un numéro 'before' pour voir tous les paquets) :\n"
 
@@ -3817,8 +3829,8 @@ msgstr "{count} événements de la semaine passée aux 60 prochains jours."
 msgid "{count} occurrences"
 msgstr "{count} occurrences"
 
-msgid "{count} system update(s) pending. Run System → Maintenance → Update → System Update first, so upgrades get a recovery snapshot, then install again."
-msgstr "{count} mise(s) à jour système en attente. Exécutez d’abord Système → Maintenance → Mise à jour → Mise à jour du système pour créer un instantané de récupération, puis réessayez l’installation."
+msgid "{count} system update(s) are waiting. On Arch Linux an app can only be installed on an up-to-date system: installing now would also upgrade part of the system without a recovery snapshot, which can break other apps."
+msgstr "{count} mise(s) à jour du système en attente. Sous Arch Linux, une app ne s'installe que sur un système à jour : l'installer maintenant mettrait aussi à jour une partie du système sans instantané de récupération, ce qui peut casser d'autres apps."
 
 msgid "{days} days"
 msgstr "{days} jours"

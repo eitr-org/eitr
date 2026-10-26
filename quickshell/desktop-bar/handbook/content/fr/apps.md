@@ -1,6 +1,6 @@
 # Applications et installation
 
-Avant l’installation des paquets officiels, le terminal indique qu’il recherche les mises à jour du système en attente. Cette vérification peut prendre un moment avant de vous demander le mot de passe administrateur. Les installations avec Flatpak indiquent également leur étape de préparation.
+Avant l’installation des paquets officiels, le terminal indique qu’il recherche les mises à jour du système en attente. Cette vérification peut prendre un moment avant de vous demander le mot de passe administrateur. Les installations avec Flatpak indiquent également leur étape de préparation. Si des mises à jour sont en attente, il explique pourquoi : Arch n’installe des apps que sur un système à jour, et installer maintenant mettrait aussi à jour une partie du système sans instantané de récupération. Entrée lance la Mise à jour du système avec son instantané puis installe ; Échap annule sans rien changer.
 
 **SUPER + Space** et Principal > Applications ouvrent la même liste. Enter lance une application. Delete permet de la désinstaller dans Applications après confirmation. La recherche globale par **SUPER + F** lance les applications sans proposer leur désinstallation. Il n’existe pas de menu distinct fondé sur des applications épinglées.
 

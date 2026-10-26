@@ -179,10 +179,45 @@ class SoftwareTests(unittest.TestCase):
         return patch.object(software.subprocess, "run",
                             return_value=SimpleNamespace(returncode=returncode, stdout=stdout, stderr=stderr))
 
-    def test_pending_updates_redirect_to_snapshot_protected_system_update(self):
-        with patch.object(software.shutil, "which", return_value="/usr/bin/checkupdates"), \
-                self.checkupdates(0, "linux 1 -> 2\nmesa 1 -> 2\n"), patch.object(software, "run") as run:
-            with self.assertRaisesRegex(RuntimeError, "2 system update.*System Update"):
+    def test_pending_updates_explain_and_cancel_on_escape(self):
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output), \
+                patch.object(software.shutil, "which", return_value="/usr/bin/checkupdates"), \
+                self.checkupdates(0, "linux 1 -> 2\nmesa 1 -> 2\n"), \
+                patch.object(software, "read_key", return_value="\x1b"), patch.object(software, "run") as run:
+            with self.assertRaises(software.InstallCancelled):
+                software.install("pacman", ["firefox"])
+            run.assert_not_called()
+        self.assertIn("2 system update(s) are waiting", output.getvalue())
+        self.assertIn("without a recovery snapshot", output.getvalue())
+
+    def test_enter_runs_system_update_then_installs(self):
+        calls = []
+        def system(arguments, **options):
+            calls.append(arguments)
+            if arguments[0] == "checkupdates":
+                return SimpleNamespace(returncode=0 if len(calls) == 1 else 2, stdout="linux 1 -> 2\n", stderr="")
+            return SimpleNamespace(returncode=0)
+        with contextlib.redirect_stdout(io.StringIO()), \
+                patch.object(software.shutil, "which", return_value="/usr/bin/checkupdates"), \
+                patch.object(software.subprocess, "run", side_effect=system), \
+                patch.object(software, "read_key", return_value="\r"), patch.object(software, "run") as run:
+            software.install("pacman", ["firefox"])
+        self.assertEqual(calls[1][0], "bash")
+        self.assertTrue(calls[1][1].endswith("walker/scripts/actions/system/update.sh"))
+        self.assertEqual(calls[1][2], "system")
+        run.assert_called_once_with(["sudo", "pacman", "-Syu", "--needed", "--", "firefox"])
+
+    def test_failed_system_update_installs_nothing(self):
+        def system(arguments, **options):
+            if arguments[0] == "checkupdates":
+                return SimpleNamespace(returncode=0, stdout="linux 1 -> 2\n", stderr="")
+            return SimpleNamespace(returncode=1)
+        with contextlib.redirect_stdout(io.StringIO()), \
+                patch.object(software.shutil, "which", return_value="/usr/bin/checkupdates"), \
+                patch.object(software.subprocess, "run", side_effect=system), \
+                patch.object(software, "read_key", return_value="\n"), patch.object(software, "run") as run:
+            with self.assertRaisesRegex(RuntimeError, "System Update did not finish"):
                 software.install("pacman", ["firefox"])
             run.assert_not_called()
 

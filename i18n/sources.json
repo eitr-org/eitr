@@ -4691,6 +4691,9 @@
     "Enter: continue  Esc: cancel": [
       "walker/scripts/actions/install/plugins.py"
     ],
+    "Enter: run System Update now (with its snapshot), then install · Esc: cancel": [
+      "walker/scripts/actions/install/software.py"
+    ],
     "Enterprise WiFi requires username, password, CA certificate and server domain": [
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py"
     ],
@@ -5524,6 +5527,9 @@
     ],
     "Nothing was downloaded.": [
       "walker/scripts/actions/install/plugins.py"
+    ],
+    "Nothing was installed. Run System Update when you are ready, then install again.": [
+      "walker/scripts/actions/install/software.py"
     ],
     "Nothing was installed; the downloaded copy was deleted.": [
       "walker/scripts/actions/install/plugins.py"
@@ -6488,6 +6494,9 @@
     "Symlinks are not allowed in login designs": [
       "quickshell/lockscreen/scripts/install-login.py"
     ],
+    "System Update did not finish, so nothing was installed.": [
+      "walker/scripts/actions/install/software.py"
+    ],
     "TPM2 devices: {devices}": [
       "distro/system/eitr-system.py"
     ],
@@ -7054,6 +7063,9 @@
     "Updated {packages}. Your desktop uses the new versions after you log back in.": [
       "walker/scripts/actions/system/restart-check.py"
     ],
+    "Updates are still waiting after System Update, so nothing was installed.": [
+      "walker/scripts/actions/install/software.py"
+    ],
     "Updates with snapshots (pass a 'before' number to see every package):\n": [
       "distro/system/eitr-system.py"
     ],
@@ -7447,7 +7459,7 @@
     "{count} occurrences": [
       "walker/scripts/actions/tools/reminders.py"
     ],
-    "{count} system update(s) pending. Run System → Maintenance → Update → System Update first, so upgrades get a recovery snapshot, then install again.": [
+    "{count} system update(s) are waiting. On Arch Linux an app can only be installed on an up-to-date system: installing now would also upgrade part of the system without a recovery snapshot, which can break other apps.": [
       "walker/scripts/actions/install/software.py"
     ],
     "{days} days": [

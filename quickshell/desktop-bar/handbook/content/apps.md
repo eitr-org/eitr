@@ -1,6 +1,6 @@
 # Apps and installation
 
-Before installing official packages, the terminal shows that it is checking for pending system updates. This check may take a while before the administrator password is requested. Flatpak installations also announce their preparation stage.
+Before installing official packages, the terminal shows that it is checking for pending system updates. This check may take a while before the administrator password is requested. Flatpak installations also announce their preparation stage. If updates are waiting, it explains why: Arch installs apps only on an up-to-date system, and installing now would also upgrade part of the system without a recovery snapshot. Enter runs System Update with its snapshot and then installs; Esc cancels without changing anything.
 
 **SUPER + Space** and Main > Apps open the same app list. Enter launches an app.
 Delete is available in Apps and asks for uninstall confirmation. Global search

@@ -1,6 +1,6 @@
 # Apps und Installation
 
-Vor der Installation offizieller Pakete zeigt dir das Terminal an, dass es nach ausstehenden Systemaktualisierungen sucht. Diese Prüfung kann etwas dauern, bevor du nach deinem Administratorpasswort gefragt wirst. Auch Flatpak-Installationen zeigen ihre Vorbereitungsphase an.
+Vor der Installation offizieller Pakete zeigt dir das Terminal an, dass es nach ausstehenden Systemaktualisierungen sucht. Diese Prüfung kann etwas dauern, bevor du nach deinem Administratorpasswort gefragt wirst. Auch Flatpak-Installationen zeigen ihre Vorbereitungsphase an. Stehen Aktualisierungen aus, erklärt es den Grund: Arch installiert Apps nur auf einem aktuellen System, und eine Installation jetzt würde auch einen Teil des Systems ohne Wiederherstellungs-Snapshot aktualisieren. Enter führt die Systemaktualisierung mit Snapshot aus und installiert danach; Esc bricht ab, ohne etwas zu ändern.
 
 **SUPER + Space** und Hauptmenü > Apps öffnen dieselbe Anwendungsliste. Enter startet eine App. Delete bietet in Apps eine bestätigte Deinstallation an. Die globale Suche über **SUPER + F** startet Apps, bietet aber keine Deinstallation. Es gibt kein separates Menü mit angehefteten Apps.
 

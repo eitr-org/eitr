@@ -1,6 +1,6 @@
 # Aplicaciones e instalación
 
-Antes de instalar paquetes oficiales, el terminal indica que está buscando actualizaciones pendientes del sistema. Esta comprobación puede tardar un poco antes de pedirte la contraseña de administrador. Las instalaciones con Flatpak también muestran su etapa de preparación.
+Antes de instalar paquetes oficiales, el terminal indica que está buscando actualizaciones pendientes del sistema. Esta comprobación puede tardar un poco antes de pedirte la contraseña de administrador. Las instalaciones con Flatpak también muestran su etapa de preparación. Si hay actualizaciones pendientes, explica por qué: Arch solo instala apps en un sistema actualizado, e instalar ahora también actualizaría parte del sistema sin una instantánea de recuperación. Enter ejecuta Actualización del sistema con su instantánea y luego instala; Esc cancela sin cambiar nada.
 
 **SUPER + Space** y Principal > Aplicaciones abren la misma lista. Enter inicia una aplicación. Delete está disponible en Aplicaciones y pide confirmar la desinstalación. La búsqueda global con **SUPER + F** abre aplicaciones sin ofrecer desinstalarlas. No hay un menú separado de aplicaciones fijadas.
 

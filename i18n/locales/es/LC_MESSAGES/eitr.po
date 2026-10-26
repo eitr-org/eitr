@@ -1105,6 +1105,9 @@ msgstr "Enter: continuar  Esc: volver"
 msgid "Enter: continue  Esc: cancel"
 msgstr "Enter: continuar  Esc: cancelar"
 
+msgid "Enter: run System Update now (with its snapshot), then install · Esc: cancel"
+msgstr "Enter: ejecutar Actualización del sistema ahora (con su instantánea) y luego instalar · Esc: cancelar"
+
 msgid "Enterprise WiFi requires username, password, CA certificate and server domain"
 msgstr "El WiFi empresarial requiere usuario, contraseña, certificado de CA y dominio del servidor"
 
@@ -1914,6 +1917,9 @@ msgstr "No se ha cambiado nada."
 
 msgid "Nothing was downloaded."
 msgstr "No se descargó nada."
+
+msgid "Nothing was installed. Run System Update when you are ready, then install again."
+msgstr "No se instaló nada. Ejecuta Actualización del sistema cuando quieras y vuelve a instalar."
 
 msgid "Nothing was installed; the downloaded copy was deleted."
 msgstr "No se instaló nada; la copia descargada se eliminó."
@@ -2869,6 +2875,9 @@ msgstr "Los ajustes con enlaces simbólicos se dejan sin cambios."
 msgid "Symlinks are not allowed in login designs"
 msgstr "Symlinks are not allowed in login designs"
 
+msgid "System Update did not finish, so nothing was installed."
+msgstr "La Actualización del sistema no terminó, así que no se instaló nada."
+
 msgid "TPM2 devices: {devices}"
 msgstr "Dispositivos TPM2: {devices}"
 
@@ -3427,6 +3436,9 @@ msgstr "Paquetes actualizados: {packages}. El sistema sigue usando las versiones
 msgid "Updated {packages}. Your desktop uses the new versions after you log back in."
 msgstr "Paquetes actualizados: {packages}. El escritorio usará las nuevas versiones cuando vuelvas a iniciar sesión."
 
+msgid "Updates are still waiting after System Update, so nothing was installed."
+msgstr "Siguen pendientes actualizaciones después de la Actualización del sistema, así que no se instaló nada."
+
 msgid "Updates with snapshots (pass a 'before' number to see every package):\n"
 msgstr "Actualizaciones con instantáneas (indica un número 'before' para ver todos los paquetes):\n"
 
@@ -3817,8 +3829,8 @@ msgstr "{count} eventos desde la semana pasada hasta los próximos 60 días."
 msgid "{count} occurrences"
 msgstr "{count} ocurrencias"
 
-msgid "{count} system update(s) pending. Run System → Maintenance → Update → System Update first, so upgrades get a recovery snapshot, then install again."
-msgstr "Hay {count} actualización(es) del sistema pendiente(s). Ejecuta primero Sistema → Mantenimiento → Actualización → Actualización del sistema para crear una instantánea de recuperación y vuelve a instalar."
+msgid "{count} system update(s) are waiting. On Arch Linux an app can only be installed on an up-to-date system: installing now would also upgrade part of the system without a recovery snapshot, which can break other apps."
+msgstr "Hay {count} actualización(es) del sistema pendientes. En Arch Linux una app solo se puede instalar en un sistema actualizado: instalar ahora también actualizaría parte del sistema sin una instantánea de recuperación, lo que puede romper otras apps."
 
 msgid "{days} days"
 msgstr "{days} días"
