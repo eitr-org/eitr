@@ -163,6 +163,13 @@ Column {
             color: editor.foreground
             text: Eitr.I18n.tr("Shows the desktop in HDR. Games can use HDR even when this is off.")
         }
+        Caption {
+            visible: !!editor.monitor.hdr_peak
+            width: parent.width
+            wrapMode: Text.WordWrap
+            color: editor.foreground
+            text: Eitr.I18n.tr("Peak brightness: {nits} nits. Use it as the maximum in a game's HDR settings.", {nits: editor.monitor.hdr_peak || 0})
+        }
         Column {
             visible: !!editor.monitor.hdr
             width: parent.width

@@ -721,6 +721,9 @@
       "quickshell/desktop-bar/ObsMenu.qml",
       "quickshell/desktop-bar/RecordingMenu.qml"
     ],
+    "Peak brightness: {nits} nits. Use it as the maximum in a game's HDR settings.": [
+      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+    ],
     "PgUp/PgDn to scroll · Escape or × to close": [
       "quickshell/desktop-bar/Handbook.qml"
     ],

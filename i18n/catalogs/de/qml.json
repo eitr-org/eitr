@@ -395,5 +395,6 @@
   "Copied": "Kopiert",
   "HDR": "HDR",
   "Shows the desktop in HDR. Games can use HDR even when this is off.": "Zeigt den Desktop in HDR. Spiele können HDR auch nutzen, wenn dies ausgeschaltet ist.",
-  "SDR content brightness": "Helligkeit von SDR-Inhalten"
+  "SDR content brightness": "Helligkeit von SDR-Inhalten",
+  "Peak brightness: {nits} nits. Use it as the maximum in a game's HDR settings.": "Spitzenhelligkeit: {nits} Nits. Nutze sie als Maximum in den HDR-Einstellungen eines Spiels."
 }

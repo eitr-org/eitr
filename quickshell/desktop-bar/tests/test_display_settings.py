@@ -54,7 +54,7 @@ class DisplaySettingsTests(unittest.TestCase):
         base[126] = 1
         base[127] = -sum(base) % 256
         cta = bytearray(128)
-        cta[:8] = bytes([2, 3, 8, 0, 0xe3, 6, eotf, 1])
+        cta[:9] = bytes([2, 3, 9, 0, 0xe4, 6, eotf, 1, 0x53])
         cta[127] = -sum(cta) % 256
         return bytes(base + cta)
 
@@ -64,6 +64,19 @@ class DisplaySettingsTests(unittest.TestCase):
         (connector / "edid").write_bytes(self.edid(eotf))
         (connector / "status").write_text(status)
         return connector
+
+    def test_peak_luminance_comes_from_the_edid(self):
+        self.assertEqual(display.edid_hdr_details(self.edid(4)), {"peak": 302})
+        self.assertIsNone(display.edid_hdr_details(self.edid(1)))
+        self.hdr_connector()
+        self.assertEqual(display.hdr_peak("DP-3"), 302)
+        self.assertIsNone(display.hdr_peak("DP-1"))
+
+    def test_only_hdr_monitors_get_an_hdr_state(self):
+        self.assertNotIn("hdr", display.current(MONITORS[0]))
+        self.assertNotIn("cm =", display.lua_call("DP-3", display.current(MONITORS[0])))
+        self.hdr_connector()
+        self.assertIn('cm = "srgb", bitdepth = 8', display.lua_call("DP-3", display.current(MONITORS[0])))
 
     def test_edid_hdr_eotfs_and_invalid_blocks(self):
         for eotf in (4, 8, 12):
@@ -82,9 +95,9 @@ class DisplaySettingsTests(unittest.TestCase):
     def test_hdr_toggle_trials_keep_revert_and_brightness(self):
         self.hdr_connector()
         self.assertTrue(display.set_setting("DP-3", "hdr", "on")["trial"])
-        self.assertIn('cm = "hdr", bitdepth = 10, sdrbrightness = 1', self.evaluated()[-1])
+        self.assertIn('cm = "hdredid", bitdepth = 10, sdrbrightness = 1', self.evaluated()[-1])
         self.assertTrue(display.revert())
-        self.assertNotIn('cm =', self.evaluated()[-1])
+        self.assertIn('cm = "srgb", bitdepth = 8', self.evaluated()[-1])
         display.set_setting("DP-3", "hdr", "on")
         display.keep()
         self.assertTrue(display.saved()["DP-3"]["hdr"])
@@ -101,6 +114,7 @@ class DisplaySettingsTests(unittest.TestCase):
             self.assertFalse(display.saved()["DP-3"]["hdr"])
 
     def test_sdr_brightness_is_remembered_while_desktop_hdr_is_off(self):
+        self.hdr_connector()
         display.save({"DP-3": dict(display.current(MONITORS[0]), hdr=False, sdr_brightness=1.7)})
         self.assertEqual(display.current(MONITORS[0])["sdr_brightness"], 1.7)
         live = dict(MONITORS[0], colorManagementPreset="HDR", sdrBrightness=1.2)

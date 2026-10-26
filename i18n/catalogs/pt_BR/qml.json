@@ -395,5 +395,6 @@
   "Copied": "Copiado",
   "HDR": "HDR",
   "Shows the desktop in HDR. Games can use HDR even when this is off.": "Exibe a área de trabalho em HDR. Jogos podem usar HDR mesmo com esta opção desativada.",
-  "SDR content brightness": "Brilho do conteúdo SDR"
+  "SDR content brightness": "Brilho do conteúdo SDR",
+  "Peak brightness: {nits} nits. Use it as the maximum in a game's HDR settings.": "Brilho máximo: {nits} nits. Use como máximo nas configurações de HDR de um jogo."
 }

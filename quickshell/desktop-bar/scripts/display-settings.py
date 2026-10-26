@@ -56,15 +56,19 @@ def monitors():
                                      check=True).stdout)
 
 
-def edid_hdr(data):
-    """Validate EDID blocks and inspect CTA HDR Static Metadata EOTFs."""
+def edid_hdr_details(data):
+    """HDR details from the CTA HDR Static Metadata block, or None for SDR or invalid EDID.
+
+    The details hold "peak", the desired peak luminance in nits, or None when the
+    monitor does not state it.
+    """
     if len(data) < 128 or data[:8] != b"\x00\xff\xff\xff\xff\xff\xff\x00":
-        return False
+        return None
     count = data[126] + 1
     if len(data) < count * 128 or any(sum(data[offset:offset + 128]) % 256
                                      for offset in range(0, count * 128, 128)):
-        return False
-    capable = False
+        return None
+    details = None
     for offset in range(128, count * 128, 128):
         block = data[offset:offset + 128]
         if block[0] != 2:
@@ -73,18 +77,38 @@ def edid_hdr(data):
         if end == 0:
             continue
         if not 4 <= end <= 127:
-            return False
+            return None
         cursor = 4
         while cursor < end:
             header = block[cursor]
             length = header & 31
             cursor += 1
             if cursor + length > end:
-                return False
-            if header >> 5 == 7 and length >= 3 and block[cursor] == 6:
-                capable |= bool(block[cursor + 1] & 0x0c)
+                return None
+            if header >> 5 == 7 and length >= 3 and block[cursor] == 6 and block[cursor + 1] & 0x0c:
+                code = block[cursor + 3] if length >= 4 else 0
+                details = {"peak": round(50 * 2 ** (code / 32)) if code else None}
             cursor += length
-    return capable
+    return details
+
+
+def edid_hdr(data):
+    """Whether the EDID reports PQ or HLG support."""
+    return edid_hdr_details(data) is not None
+
+
+def hdr_peak(name):
+    """The monitor's peak luminance in nits from its EDID, or None when it does not say."""
+    for connector in DRM_ROOT.glob("card*-*"):
+        if connector.name.partition("-")[2] != name:
+            continue
+        try:
+            details = edid_hdr_details((connector / "edid").read_bytes())
+        except OSError:
+            continue
+        if details and details["peak"]:
+            return details["peak"]
+    return None
 
 
 def hdr_capable(name):
@@ -116,10 +140,13 @@ def current(monitor):
     brightness = monitor.get("sdrBrightness", 1.0)
     if not hdr:
         brightness = saved().get(monitor.get("name"), {}).get("sdr_brightness", brightness)
-    return {"mode": f"{monitor['width']}x{monitor['height']}@{monitor['refreshRate']:.2f}",
-            "position": f"{monitor['x']}x{monitor['y']}", "scale": f"{monitor['scale']:g}",
-            "mirror": None if mirror == "none" else mirror,
-            "hdr": hdr, "sdr_brightness": brightness}
+    settings = {"mode": f"{monitor['width']}x{monitor['height']}@{monitor['refreshRate']:.2f}",
+                "position": f"{monitor['x']}x{monitor['y']}", "scale": f"{monitor['scale']:g}",
+                "mirror": None if mirror == "none" else mirror}
+    # Only HDR monitors carry an HDR state, so SDR-only ones keep Hyprland's defaults.
+    if hdr or hdr_capable(monitor.get("name", "")):
+        settings.update(hdr=hdr, sdr_brightness=brightness)
+    return settings
 
 
 SIDES = ("left-of", "right-of", "above", "below")
@@ -227,8 +254,13 @@ def lua_call(name, settings):
               f'scale = {settings["scale"]}']
     if settings.get("mirror"):
         fields.append(f'mirror = "{settings["mirror"]}"')
+    # hdredid takes the monitor's own peak and black levels from its EDID, so games
+    # tone-map to what the panel can show. Off is written out: Hyprland keeps the
+    # previous preset when the fields are missing.
     if settings.get("hdr"):
-        fields += ['cm = "hdr"', 'bitdepth = 10', f'sdrbrightness = {float(settings.get("sdr_brightness", 1)):g}']
+        fields += ['cm = "hdredid"', 'bitdepth = 10', f'sdrbrightness = {float(settings.get("sdr_brightness", 1)):g}']
+    elif settings.get("hdr") is False:
+        fields += ['cm = "srgb"', 'bitdepth = 8']
     return "hl.monitor({ " + ", ".join(fields) + " })"
 
 
@@ -420,7 +452,7 @@ def main(argv):
         main = main_display(live)
         anchors.pop(main, None)
         print(json.dumps({"main": main, "monitors": [{**current(monitor), "name": monitor["name"], "anchor": anchors.get(monitor["name"]),
-                                        "hdr_capable": hdr_capable(monitor["name"]), "modes": monitor["availableModes"]} for monitor in live],
+                                        "hdr_capable": hdr_capable(monitor["name"]), "hdr_peak": hdr_peak(monitor["name"]), "modes": monitor["availableModes"]} for monitor in live],
                           "saved": saved()}))
         return 0
     if len(argv) == 4 and argv[0] == "set":

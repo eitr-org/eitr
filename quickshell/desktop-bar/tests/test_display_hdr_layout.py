@@ -36,7 +36,7 @@ ShellRoot {
             Bar.DisplaySettingsEditor {
                 id: panel
                 x: 24; y: 24; width: 372
-                monitor: ({hdr_capable: true, hdr: true, sdr_brightness: 1.4,
+                monitor: ({hdr_capable: true, hdr: true, hdr_peak: 302, sdr_brightness: 1.4,
                     mode: "2560x1440@144", scale: "1", position: "0x0",
                     modes: ["2560x1440@144Hz"]})
                 others: []; isMain: true

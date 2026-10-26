@@ -129,7 +129,7 @@ hl.config({
 	render = {
 		cm_enabled = true,
 		send_content_type = true,
-		cm_auto_hdr = 1,
+		cm_auto_hdr = 2,
 		direct_scanout = 2,
 		use_fp16 = 2,
 	},
