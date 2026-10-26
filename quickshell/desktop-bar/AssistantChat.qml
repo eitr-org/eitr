@@ -141,10 +141,17 @@ FocusScope {
         }
         RowLayout {
             Layout.fillWidth: true
+            // Starts as tall as Send and grows with the text up to five lines, then scrolls.
             ScrollView {
-                Layout.fillWidth: true; Layout.preferredHeight: 90
+                Layout.fillWidth: true; Layout.alignment: Qt.AlignBottom
+                Layout.preferredHeight: Math.min(input.lineHeight * 5 + input.topPadding + input.bottomPadding,
+                                                 Math.max(sendButton.height, input.implicitHeight))
                 TextArea {
                     id: input
+                    readonly property real lineHeight: Math.ceil(fontMetrics.height)
+                    FontMetrics { id: fontMetrics; font: input.font }
+                    topPadding: Math.max(0, Math.floor((sendButton.height - lineHeight) / 2)); bottomPadding: topPadding
+                    leftPadding: 10; rightPadding: 10
                     readOnly: chat.requestPending
                     placeholderText: Eitr.I18n.tr("Ask anything…")
                     color: chat.foreground; placeholderTextColor: Qt.alpha(chat.foreground, PanelStyle.secondaryTextOpacity)
@@ -158,7 +165,7 @@ FocusScope {
                     }
                 }
             }
-            PanelButton { foreground: chat.foreground; text: Eitr.I18n.tr("Send"); available: !chat.requestPending && input.text.trim() !== ""; onClicked: chat.send() }
+            PanelButton { id: sendButton; Layout.alignment: Qt.AlignBottom; foreground: chat.foreground; text: Eitr.I18n.tr("Send"); available: !chat.requestPending && input.text.trim() !== ""; onClicked: chat.send() }
         }
         Text {
             Layout.fillWidth: true; wrapMode: Text.Wrap
