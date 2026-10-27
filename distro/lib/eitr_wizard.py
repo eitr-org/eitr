@@ -210,6 +210,7 @@ class Step:
     optional: bool = False
     description: str = ''
     question: str = ''
+    password: bool = False
 
 
 class SetupWizard(Wizard):
@@ -230,6 +231,8 @@ class SetupWizard(Wizard):
         return step.default(self.values) if callable(step.default) else step.default
 
     def answer(self, step):
+        if step.password:
+            return self.password(step.question or step.label, step.description or None, step.validator)
         if step.options is not None:
             options = step.options(self.values) if callable(step.options) else step.options
             current = self.values.get(step.key, self.default(step))

@@ -119,15 +119,20 @@ add_tree() {
 }
 collect_targets() {
   local source target
+  local -a config_command=(eitr-config targets)
+  if [[ -f "$repo_root/distro/bin/eitr-config" ]]; then
+    config_command=(python3 "$repo_root/distro/bin/eitr-config" --repo "$repo_root" targets)
+  fi
   while IFS=$'\t' read -r source target; do
     add_target "$source" "$target"
-  done < <(python3 "$repo_root/distro/bin/eitr-config" --repo "$repo_root" targets)
+  done < <("${config_command[@]}")
 }
 
 shell_setup_clear() {
-  local name
+  local name home_sources="$repo_root/HOME_FILES"
+  [[ -d "$home_sources" ]] || home_sources="$repo_root/home"
   for name in "${shell_files[@]}"; do
-    [[ "$(target_state "$repo_root/HOME_FILES/$name" "$HOME/$name")" != conflict ]] || return 1
+    [[ "$(target_state "$home_sources/$name" "$HOME/$name")" != conflict ]] || return 1
   done
 }
 

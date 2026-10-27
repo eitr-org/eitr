@@ -1,6 +1,7 @@
 """Eitr's console wizard; collect choices before any installation writes."""
 import eitr_bootstrap
 from eitr_i18n import mark, tr
+from eitr_users import valid_username
 from eitr_wizard import Wizard as BaseWizard, Cancelled, filtered
 import curses
 from pathlib import Path
@@ -98,10 +99,6 @@ def layout_options(disk):
 
 def valid_hostname(value):
     return bool(re.fullmatch(r"[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?", value))
-
-
-def valid_username(value):
-    return value != "root" and bool(re.fullmatch(r"[a-z_][a-z0-9_-]{0,31}", value))
 
 
 KEY_SEQUENCES = ("0123456789" * 5, "abcdefghijklmnopqrstuvwxyz", "qwertyuiopasdfghjklzxcvbnm")

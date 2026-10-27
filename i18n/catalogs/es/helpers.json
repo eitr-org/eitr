@@ -1360,5 +1360,14 @@
   "VPN operation failed. Configuration details are hidden.": "La operación VPN falló. Los detalles de configuración están ocultos.",
   "VPN profiles need NetworkManager. Choose it in System > Connectivity > Network Backend, then reboot.": "Los perfiles VPN necesitan NetworkManager. Elíjalo en Sistema > Conectividad > Servicio de red y reinicie.",
   "Format": "Formato",
-  "Enter: open Network Backend · Esc: close": "Enter: abrir Servicio de red · Esc: cerrar"
+  "Enter: open Network Backend · Esc: close": "Enter: abrir Servicio de red · Esc: cerrar",
+  "Create User…": "Crear usuario…",
+  "Full name": "Nombre completo",
+  "Account type": "Tipo de cuenta",
+  "Optional display name.": "Nombre visible opcional.",
+  "Standard": "Estándar",
+  "Administrator": "Administrador",
+  "Administrators can use sudo. Standard accounts cannot.": "Los administradores pueden usar sudo. Las cuentas estándar no.",
+  "Use lowercase letters, digits, underscores or hyphens; start with a letter or underscore. Maximum 32 characters.": "Usa minúsculas, dígitos, guiones bajos o guiones; empieza con una letra o guion bajo. Máximo 32 caracteres.",
+  "Account created. Desktop setup runs at its first Hyprland login; shell setup may need internet access.": "Cuenta creada. El escritorio se configura en el primer inicio de Hyprland; la shell puede necesitar internet."
 }

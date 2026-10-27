@@ -187,6 +187,9 @@ msgstr "Konto und Region"
 msgid "Account balance"
 msgstr "Kontoguthaben"
 
+msgid "Account created. Desktop setup runs at its first Hyprland login; shell setup may need internet access."
+msgstr "Konto erstellt. Der Desktop wird bei der ersten Hyprland-Anmeldung eingerichtet; die Shell-Einrichtung kann Internetzugang benötigen."
+
 msgid "Account details"
 msgstr "Kontodetails"
 
@@ -204,6 +207,9 @@ msgstr "Kontopasswort"
 
 msgid "Account summary"
 msgstr "Kontoübersicht"
+
+msgid "Account type"
+msgstr "Kontotyp"
 
 msgid "Accounts changed in another window; reopen setup before saving"
 msgstr "Die Konten wurden in einem anderen Fenster geändert; öffnen Sie die Einrichtung vor dem Speichern erneut"
@@ -258,6 +264,12 @@ msgstr "Bild wird hinzugefügt…"
 
 msgid "Address"
 msgstr "Adresse"
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "Administrators can use sudo. Standard accounts cannot."
+msgstr "Administratoren können sudo verwenden. Standardkonten können dies nicht."
 
 msgid "All future occurrences"
 msgstr "Alle zukünftigen Termine"
@@ -820,6 +832,9 @@ msgstr "Zeitpunkt nicht verstanden: {when}"
 msgid "Crash summary"
 msgstr "Absturzzusammenfassung"
 
+msgid "Create User…"
+msgstr "Benutzer erstellen…"
+
 msgid "Create a lockscreen with your own picture. It stays on this computer."
 msgstr "Erstelle einen Sperrbildschirm mit eigenem Bild. Er bleibt auf diesem Computer."
 
@@ -1275,6 +1290,9 @@ msgstr "In Ihrer Git-Konfiguration gefunden"
 
 msgid "Friday"
 msgstr "Freitag"
+
+msgid "Full name"
+msgstr "Vollständiger Name"
 
 msgid "Function Apps"
 msgstr "Funktions-Apps"
@@ -2052,6 +2070,9 @@ msgstr "Öffnen Sie {path}, um den Bericht zu lesen."
 
 msgid "Opened the complete build repository: review PKGBUILD, .install files and patches."
 msgstr "Vollständiges Build-Repository geöffnet: Prüfen Sie PKGBUILD, .install-Dateien und Patches."
+
+msgid "Optional display name."
+msgstr "Optionaler Anzeigename."
 
 msgid "Optional text under the clock, up to 80 characters."
 msgstr "Optionaler Text unter der Uhr, bis zu 80 Zeichen."
@@ -2857,6 +2878,9 @@ msgstr "Stabiler Kanal. Neuere Eitr-Pakete bleiben erhalten, bis der stabile Kan
 msgid "Staging destination already exists: {destination}"
 msgstr "Vorbereitungsziel existiert bereits: {destination}"
 
+msgid "Standard"
+msgstr "Standard"
+
 msgid "Start and end times must differ"
 msgstr "Start- und Endzeit müssen unterschiedlich sein"
 
@@ -3564,6 +3588,9 @@ msgstr "Buchstaben, Ziffern, Punkte, Bindestriche, Schrägstriche oder @ verwend
 
 msgid "Use lowercase letters, digits and dashes"
 msgstr "Verwenden Sie Kleinbuchstaben, Ziffern und Bindestriche"
+
+msgid "Use lowercase letters, digits, underscores or hyphens; start with a letter or underscore. Maximum 32 characters."
+msgstr "Verwende Kleinbuchstaben, Ziffern, Unterstriche oder Bindestriche; beginne mit einem Buchstaben oder Unterstrich. Höchstens 32 Zeichen."
 
 msgid "Use sudo from your normal desktop user"
 msgstr "Verwenden Sie sudo als normaler Desktop-Benutzer"

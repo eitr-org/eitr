@@ -1,5 +1,7 @@
 # Releases
 
+System > Security adds reviewed account creation and read-only human account rows. New accounts initialize their own desktop at first Hyprland login through UWSM; deletion is not offered.
+
 Install > AI CLIs now includes OpenCode from Arch Extra and Pi through NVM/npm.
 The managed Eitr skill supplies one source of desktop guidance to Claude Code
 through `~/.claude/skills/eitr` and Codex, Gemini CLI and OpenCode through

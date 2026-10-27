@@ -187,6 +187,9 @@ msgstr "Account and region"
 msgid "Account balance"
 msgstr "Account balance"
 
+msgid "Account created. Desktop setup runs at its first Hyprland login; shell setup may need internet access."
+msgstr "Account created. Desktop setup runs at its first Hyprland login; shell setup may need internet access."
+
 msgid "Account details"
 msgstr "Account details"
 
@@ -204,6 +207,9 @@ msgstr "Account password"
 
 msgid "Account summary"
 msgstr "Account summary"
+
+msgid "Account type"
+msgstr "Account type"
 
 msgid "Accounts changed in another window; reopen setup before saving"
 msgstr "Accounts changed in another window; reopen setup before saving"
@@ -258,6 +264,12 @@ msgstr "Adding the picture…"
 
 msgid "Address"
 msgstr "Address"
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "Administrators can use sudo. Standard accounts cannot."
+msgstr "Administrators can use sudo. Standard accounts cannot."
 
 msgid "All future occurrences"
 msgstr "All future occurrences"
@@ -820,6 +832,9 @@ msgstr "Could not understand when: {when}"
 msgid "Crash summary"
 msgstr "Crash summary"
 
+msgid "Create User…"
+msgstr "Create User…"
+
 msgid "Create a lockscreen with your own picture. It stays on this computer."
 msgstr "Create a lockscreen with your own picture. It stays on this computer."
 
@@ -1275,6 +1290,9 @@ msgstr "Found in your Git configuration"
 
 msgid "Friday"
 msgstr "Friday"
+
+msgid "Full name"
+msgstr "Full name"
 
 msgid "Function Apps"
 msgstr "Function Apps"
@@ -2052,6 +2070,9 @@ msgstr "Open {path} to read it."
 
 msgid "Opened the complete build repository: review PKGBUILD, .install files and patches."
 msgstr "Opened the complete build repository: review PKGBUILD, .install files and patches."
+
+msgid "Optional display name."
+msgstr "Optional display name."
 
 msgid "Optional text under the clock, up to 80 characters."
 msgstr "Optional text under the clock, up to 80 characters."
@@ -2857,6 +2878,9 @@ msgstr "Stable channel. Eitr packages already newer than stable stay until stabl
 msgid "Staging destination already exists: {destination}"
 msgstr "Staging destination already exists: {destination}"
 
+msgid "Standard"
+msgstr "Standard"
+
 msgid "Start and end times must differ"
 msgstr "Start and end times must differ"
 
@@ -3564,6 +3588,9 @@ msgstr "Use letters, digits, dots, dashes, slashes or @"
 
 msgid "Use lowercase letters, digits and dashes"
 msgstr "Use lowercase letters, digits and dashes"
+
+msgid "Use lowercase letters, digits, underscores or hyphens; start with a letter or underscore. Maximum 32 characters."
+msgstr "Use lowercase letters, digits, underscores or hyphens; start with a letter or underscore. Maximum 32 characters."
 
 msgid "Use sudo from your normal desktop user"
 msgstr "Use sudo from your normal desktop user"

@@ -1613,8 +1613,14 @@
     "Create Theme": [
       "elephant/menu-rows/theme.json"
     ],
+    "Create User…": [
+      "elephant/menu-rows/security.json"
+    ],
     "Create Web App": [
       "elephant/menus/webapps.lua"
+    ],
+    "Create a separate login and desktop": [
+      "elephant/menu-rows/security.json"
     ],
     "Create, find or cancel reminders with your default assistant": [
       "elephant/menu-rows/reminders.json"
@@ -3813,6 +3819,9 @@
     "Account balance": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Account created. Desktop setup runs at its first Hyprland login; shell setup may need internet access.": [
+      "walker/scripts/actions/system/users.py"
+    ],
     "Account details": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -3831,6 +3840,9 @@
     ],
     "Account summary": [
       "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Account type": [
+      "walker/scripts/actions/system/users.py"
     ],
     "Accounts changed in another window; reopen setup before saving": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -3886,6 +3898,12 @@
     "Address": [
       "walker/scripts/actions/development/monitoring.py",
       "walker/scripts/actions/install/webapps.py"
+    ],
+    "Administrator": [
+      "walker/scripts/actions/system/users.py"
+    ],
+    "Administrators can use sudo. Standard accounts cannot.": [
+      "walker/scripts/actions/system/users.py"
     ],
     "All future occurrences": [
       "walker/scripts/actions/tools/reminders.py"
@@ -4459,6 +4477,9 @@
     "Crash summary": [
       "walker/scripts/actions/system/report-problem.py"
     ],
+    "Create User…": [
+      "walker/scripts/actions/system/users.py"
+    ],
     "Create a lockscreen with your own picture. It stays on this computer.": [
       "walker/scripts/actions/style/own.py"
     ],
@@ -4924,6 +4945,9 @@
     ],
     "Friday": [
       "walker/scripts/actions/tools/reminders.py"
+    ],
+    "Full name": [
+      "walker/scripts/actions/system/users.py"
     ],
     "Function Apps": [
       "walker/scripts/menus/cloud/navigation.py"
@@ -5727,6 +5751,9 @@
     "Opened the complete build repository: review PKGBUILD, .install files and patches.": [
       "walker/scripts/actions/install/software.py"
     ],
+    "Optional display name.": [
+      "walker/scripts/actions/system/users.py"
+    ],
     "Optional text under the clock, up to 80 characters.": [
       "walker/scripts/actions/style/own.py"
     ],
@@ -5782,7 +5809,8 @@
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Password": [
-      "distro/archinstall/installer-ui.py"
+      "distro/archinstall/installer-ui.py",
+      "walker/scripts/actions/system/users.py"
     ],
     "Passwords did not match": [
       "distro/lib/eitr_wizard.py"
@@ -6541,6 +6569,9 @@
     "Staging destination already exists: {destination}": [
       "quickshell/lockscreen/scripts/install-login.py"
     ],
+    "Standard": [
+      "walker/scripts/actions/system/users.py"
+    ],
     "Start and end times must differ": [
       "walker/scripts/actions/toggle/nightlight.py"
     ],
@@ -6864,7 +6895,8 @@
       "walker/scripts/actions/system/firewall.py",
       "walker/scripts/actions/system/home-snapshots.py",
       "walker/scripts/actions/system/remote-access.py",
-      "walker/scripts/actions/system/update-channel.py"
+      "walker/scripts/actions/system/update-channel.py",
+      "walker/scripts/actions/system/users.py"
     ],
     "The setup script {value} did not finish when it last ran; it is not run again. Change the script to allow another attempt.": [
       "distro/lib/eitr_profile_apply.py"
@@ -7258,6 +7290,9 @@
       "walker/scripts/menus/cloud/accounts.py",
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Use lowercase letters, digits, underscores or hyphens; start with a letter or underscore. Maximum 32 characters.": [
+      "walker/scripts/actions/system/users.py"
+    ],
     "Use sudo from your normal desktop user": [
       "distro/system/eitr-system.py"
     ],
@@ -7274,7 +7309,8 @@
       "walker/scripts/menus/cloud/navigation.py"
     ],
     "User account": [
-      "distro/archinstall/installer-ui.py"
+      "distro/archinstall/installer-ui.py",
+      "walker/scripts/actions/system/users.py"
     ],
     "User pool details": [
       "walker/scripts/menus/cloud/navigation.py"
@@ -7286,7 +7322,8 @@
       "distro/archinstall/installer-ui.py"
     ],
     "Username": [
-      "distro/archinstall/installer-ui.py"
+      "distro/archinstall/installer-ui.py",
+      "walker/scripts/actions/system/users.py"
     ],
     "Users": [
       "walker/scripts/menus/cloud/navigation.py"

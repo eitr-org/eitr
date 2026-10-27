@@ -4,6 +4,7 @@ base-devel
 linux
 linux-firmware
 sudo
+shadow
 git
 curl
 reflector

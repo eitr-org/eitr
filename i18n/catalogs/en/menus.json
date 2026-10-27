@@ -553,5 +553,7 @@
   "Set up access away from home": "Set up access away from home",
   "Tailscale": "Tailscale",
   "VPN": "VPN",
-  "WireGuard": "WireGuard"
+  "WireGuard": "WireGuard",
+  "Create User…": "Create User…",
+  "Create a separate login and desktop": "Create a separate login and desktop"
 }

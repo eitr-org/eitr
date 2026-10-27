@@ -27,3 +27,9 @@ Désactivez puis réactivez le pare-feu.
 Le chiffrement du disque est un choix proposé à l’installation. Déverrouillage du disque TPM peut ajouter un emplacement de clé TPM2 à une racine LUKS2 existante compatible ; l’installateur ne l’inscrit pas automatiquement. Gardez la phrase secrète et une clé de récupération hors ligne, jamais dans des captures d’écran ou des fichiers du dépôt. Des changements de firmware ou de Secure Boot peuvent imposer la phrase secrète au prochain démarrage.
 
 Lisez [Récupération et instantanés](handbook:recovery) avant de modifier l’authentification ou la configuration du TPM. [Secure Boot](handbook:secure-boot) est une procédure manuelle avancée : EITR n’inscrit pas de clés dans le firmware et ne signe pas les fichiers de démarrage pour vous. Une erreur peut empêcher le démarrage et même l’accès aux réglages du firmware sur certains appareils.
+
+## Comptes utilisateur
+
+**Système > Sécurité > Créer un utilisateur…** crée une connexion distincte. Saisissez le nom d’utilisateur, le nom complet facultatif, le type de compte et le mot de passe, puis vérifiez et appuyez sur Entrée pour créer le compte. Échap annule avant toute application. Les comptes standard ne peuvent pas utiliser sudo ; les administrateurs rejoignent wheel et reçoivent une règle sudo protégée par mot de passe. Les comptes existants (UID 1000–65533) figurent en lecture seule dans Sécurité.
+
+Le nouveau dossier personnel ne contient aucun fichier de votre compte. À la première connexion Hyprland via UWSM, Eitr exécute la configuration du bureau par utilisateur de l’installateur et adopte la structure du paquet sous l’identité du nouvel utilisateur. La configuration du shell peut nécessiter internet. Un échec conserve le marqueur pour la connexion suivante ; après réussite, elle ne se répète pas. Un échec de création laisse le compte incomplet verrouillé et expiré pour examen manuel. La suppression d’utilisateurs n’est pas proposée.

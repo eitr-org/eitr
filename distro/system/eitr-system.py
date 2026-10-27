@@ -1128,6 +1128,57 @@ def mirrors_dispatch(action):
             mirrors_first_boot()
 
 
+def create_user(stream):
+    """Accept a bounded stdin document; never accept credentials in arguments."""
+    from eitr_users import valid_username, valid_full_name, valid_password
+    document = stream.read(32769)
+    if len(document) > 32768:
+        raise ValueError('Account request is too large')
+    request = json.loads(document)
+    if not isinstance(request, dict) or set(request) != {'username', 'full_name', 'account_type', 'password'}:
+        raise ValueError('Invalid account request')
+    username = request['username']
+    if not valid_username(username) or not valid_full_name(request['full_name']) or not valid_password(request['password']):
+        raise ValueError('Invalid account details')
+    if request['account_type'] not in ('standard', 'administrator'):
+        raise ValueError('Invalid account type')
+    try:
+        pwd.getpwnam(username)
+    except KeyError:
+        pass
+    else:
+        raise ValueError('Account already exists')
+    home = Path('/home') / username
+    if home.exists() or home.is_symlink():
+        raise ValueError('Home already exists')
+    sudoers = Path('/etc/sudoers.d') / ('eitr-user-' + username)
+    if sudoers.exists() or sudoers.is_symlink():
+        raise ValueError('Account policy already exists')
+    with tempfile.TemporaryDirectory(prefix='eitr-user-') as directory:
+        skeleton = Path(directory)
+        pending = skeleton / '.local/state/eitr/seed-pending'
+        pending.parent.mkdir(parents=True)
+        pending.write_text('1\n')
+        hook = skeleton / '.config/uwsm/env-hyprland'
+        hook.parent.mkdir(parents=True)
+        # Never block the login: a failed setup keeps its marker and retries next time.
+        hook.write_text('/usr/bin/python3 /usr/share/eitr/lib/eitr_users.py >&2 || true\n')
+        command = ['useradd', '--create-home', '--user-group', '--home-dir', str(home),
+                   '--skel', directory, '--shell', '/usr/bin/zsh', '--comment', request['full_name']]
+        if request['account_type'] == 'administrator':
+            command += ['--groups', 'wheel']
+        run([*command, '--', username])
+    try:
+        run(['chpasswd'], input=username + ':' + request['password'] + '\n', text=True)
+        if request['account_type'] == 'administrator':
+            policy = f'{username} ALL=(ALL) ALL\n'
+            run(['visudo', '-cf', '-'], input=policy, text=True, stdout=subprocess.DEVNULL)
+            atomic(sudoers, policy, mode=0o440, directory_mode=0o750)
+    except (OSError, subprocess.SubprocessError):
+        run(['usermod', '--lock', '--expiredate', '1', '--', username])
+        raise RuntimeError('Account setup failed; the incomplete account is locked and expired. Review it manually.') from None
+
+
 def selfcheck_deeper():
     from eitr_selfcheck import collect_deeper
     print(json.dumps(collect_deeper()))
@@ -1138,7 +1189,7 @@ READ_ONLY_ACTIONS = {"selfcheck-deeper", "snapshots-check", "bootloader-detect",
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("action", choices=["mirrors-rank", "mirrors-restore", "mirrors-status", "mirrors-first-boot", "selfcheck-deeper",
+    parser.add_argument("action", choices=["user-create", "mirrors-rank", "mirrors-restore", "mirrors-status", "mirrors-first-boot", "selfcheck-deeper",
                                            "snapshots-check", "snapshots-setup", "snapshot-pre", "snapshot-post",
                                            "bootloader-detect", "snapshots-boot-status", "snapshots-boot-setup",
                                            "battery-limit", "battery-limit-apply", "battery-limit-status",
@@ -1160,7 +1211,11 @@ if __name__ == "__main__":
     try:
         if args.profile_user and args.action != "profile-install":
             raise ValueError("Unexpected desktop user argument")
-        if args.action.startswith("mirrors-"):
+        if args.action == "user-create":
+            if args.argument:
+                raise ValueError("Unexpected argument")
+            create_user(sys.stdin)
+        elif args.action.startswith("mirrors-"):
             if args.argument:
                 raise ValueError("Unexpected argument")
             mirrors_dispatch(args.action)

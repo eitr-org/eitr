@@ -553,5 +553,7 @@
   "VPN": "VPN",
   "Tailscale": "Tailscale",
   "WireGuard": "WireGuard",
-  "NetworkManager VPN": "NetworkManager VPN"
+  "NetworkManager VPN": "NetworkManager VPN",
+  "Create User…": "Benutzer erstellen…",
+  "Create a separate login and desktop": "Eine eigene Anmeldung und einen Desktop erstellen"
 }
