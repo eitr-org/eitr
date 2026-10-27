@@ -77,9 +77,10 @@ class R2UploadTests(unittest.TestCase):
             database, signature = folder / "eitr.db", folder / "eitr.db.sig"
             database.write_bytes(b"db")
             signature.write_bytes(b"sig")
-            existing = {"eitr.db", "eitr.db.sig", same.name, same.name + ".sig",
-                        "eitr-desktop-2-1-any.pkg.tar.zst", "eitr-desktop-2-1-any.pkg.tar.zst.sig",
-                        "eitr-desktop-1-1-any.pkg.tar.zst", "eitr-desktop-1-1-any.pkg.tar.zst.sig"}
+            existing = dict.fromkeys({"eitr.db", "eitr.db.sig", same.name + ".sig",
+                                      "eitr-desktop-2-1-any.pkg.tar.zst", "eitr-desktop-2-1-any.pkg.tar.zst.sig",
+                                      "eitr-desktop-1-1-any.pkg.tar.zst", "eitr-desktop-1-1-any.pkg.tar.zst.sig"}, 1)
+            existing[same.name] = len(b"package")
             calls = []
 
             def r2(arguments, endpoint, **kwargs):
@@ -101,6 +102,15 @@ class R2UploadTests(unittest.TestCase):
         removed = [call[2].rsplit("/", 1)[1] for call in calls if call[:2] == ["s3", "rm"]]
         self.assertEqual(removed, ["eitr-desktop-1-1-any.pkg.tar.zst", "eitr-desktop-1-1-any.pkg.tar.zst.sig"],
                          "the previous publish stays one more round; older files go")
+
+    def test_upload_refuses_a_published_name_with_different_contents(self):
+        with tempfile.TemporaryDirectory() as directory:
+            package = Path(directory) / "eitr-artwork-1-1-any.pkg.tar.zst"
+            package.write_bytes(b"rebuilt package")
+            with patch.object(publish, "published_keys", return_value={package.name: 3}), \
+                    patch.object(publish, "r2", return_value=""), \
+                    self.assertRaisesRegex(RuntimeError, "different contents"):
+                publish.upload_r2([package], [], "https://abc.r2.cloudflarestorage.com")
 
     def test_r2_commands_always_name_the_profile_and_endpoint(self):
         with patch.object(publish, "run", return_value=subprocess.CompletedProcess([], 0, "", "")) as run:

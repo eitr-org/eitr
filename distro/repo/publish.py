@@ -81,9 +81,9 @@ def r2(arguments, endpoint, **kwargs):
 
 
 def published_keys(endpoint):
-    """File names currently in this channel's folder."""
+    """File names currently in this channel's folder, with their sizes."""
     listing = r2(["s3api", "list-objects-v2", "--bucket", BUCKET, "--prefix", f"{TAG}/", "--output", "json"], endpoint)
-    return {item["Key"].split("/", 1)[1] for item in (json.loads(listing or "{}").get("Contents") or [])}
+    return {item["Key"].split("/", 1)[1]: item.get("Size") for item in (json.loads(listing or "{}").get("Contents") or [])}
 
 
 def listed_files(database):
@@ -103,6 +103,8 @@ def upload_r2(packages_first, database_last, endpoint):
             previous = listed_files(database)
     # File names carry the version, so an existing name already holds these bytes.
     for path in packages_first:
+        if path.name in existing and path.suffix != ".sig" and existing[path.name] != path.stat().st_size:
+            raise RuntimeError(f"{path.name} is already published with different contents; bump the version")
         if path.name not in existing:
             r2(["s3", "cp", str(path), f"s3://{BUCKET}/{TAG}/{path.name}", "--only-show-errors",
                 "--cache-control", "public, max-age=31536000, immutable"], endpoint)
@@ -110,7 +112,7 @@ def upload_r2(packages_first, database_last, endpoint):
         r2(["s3", "cp", str(path), f"s3://{BUCKET}/{TAG}/{path.name}", "--only-show-errors",
             "--cache-control", "no-cache"], endpoint)
     keep = {path.name for path in [*packages_first, *database_last]} | previous | {name + ".sig" for name in previous}
-    for name in sorted(existing - keep):
+    for name in sorted(set(existing) - keep):
         r2(["s3", "rm", f"s3://{BUCKET}/{TAG}/{name}", "--only-show-errors"], endpoint)
 
 

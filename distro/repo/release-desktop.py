@@ -176,7 +176,13 @@ def main():
         else:
             built = [build("eitr-desktop", work)]
             artwork = package_file("eitr-artwork")
-            if artwork not in assets:
+            # Rebuilding an already published version gives different bytes under the same
+            # file name, so testing reuses the artwork build it already carries.
+            testing_assets = (published_assets(TESTING_DOWNLOAD, "eitr-testing") or []) if channel == "testing" else []
+            if artwork in testing_assets:
+                reuse_published_packages([artwork], repo, work, download=TESTING_DOWNLOAD)
+                built.append(repo / artwork)
+            elif artwork not in assets:
                 built.append(build("eitr-artwork", work))
             optional = [line.strip() for line in (ROOT / "distro/optional-local-packages.txt").read_text().splitlines()
                         if line.strip() and not line.lstrip().startswith("#")]
@@ -184,7 +190,8 @@ def main():
                 if package_file(name) not in assets:
                     built.append(build(name, work))
             for package in built:
-                shutil.copy2(package, repo / package.name)
+                if package != repo / package.name:
+                    shutil.copy2(package, repo / package.name)
             rebuilt = tuple(publish.package_name(package) + "-" for package in built)
         # The testing repository carries only Eitr's own new builds; machines on it
         # still take everything else from stable, which is listed after it.
