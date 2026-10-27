@@ -35,9 +35,6 @@ LAN.
   (bar slots only when the user places one). They run inside the bar, so load
   failures must be caught, crashing plugins disabled, and the review must show
   the QML before approval.
-- **Create User.** A System action to add another account (standard or
-  administrator) on an installed machine, with a review step; the new account
-  gets Eitr's desktop setup at its first login, like the installer's first user.
 - **Website translations.** Offer the site in the desktop's languages
   (Portuguese (Brazil), Spanish, German, French) with a language switch, reusing
   the reviewed Handbook translations where chapters overlap. Decide the URL scheme
