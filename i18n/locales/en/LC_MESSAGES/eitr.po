@@ -1744,6 +1744,9 @@ msgstr "List repositories"
 msgid "List services"
 msgstr "List services"
 
+msgid "Live data command added or changed: {kind} · {id} · {command}"
+msgstr "Live data command added or changed: {kind} · {id} · {command}"
+
 msgid "Load Balancers"
 msgstr "Load Balancers"
 
@@ -2368,6 +2371,9 @@ msgstr "Ratatoskr was removed."
 msgid "Re-enable visuals"
 msgstr "Re-enable visuals"
 
+msgid "Reads the system audio spectrum (levels only, no audio is recorded or sent)"
+msgstr "Reads the system audio spectrum (levels only, no audio is recorded or sent)"
+
 msgid "Ready. Both resets restart the computer immediately."
 msgstr "Ready. Both resets restart the computer immediately."
 
@@ -2808,6 +2814,12 @@ msgstr "Sharing this network security type is not supported"
 
 msgid "Shell"
 msgstr "Shell"
+
+msgid "Show above windows"
+msgstr "Show above windows"
+
+msgid "Show behind windows"
+msgstr "Show behind windows"
 
 msgid "Show it with"
 msgstr "Show it with"

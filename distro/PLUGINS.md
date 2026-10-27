@@ -81,7 +81,7 @@ The example is documentation and is never installed automatically.
 
 ## Visual components (schema version 2)
 
-Version 2 retains all version 1 fields and adds optional `ui`. Version 1
+Version 2 retains all version 1 fields and adds optional `ui` and `capabilities`. Version 1
 manifests keep their validation and behavior; they cannot declare `ui`.
 `ui` accepts `tiles`, `panels`, `widgets` and `barItems`, each an array of at most eight objects.
 Every object requires `id`, `title` (72 characters maximum), and `qml` (a
@@ -165,7 +165,7 @@ support `dataCommand` and `refreshInterval`. Bar items may name a declared `pane
 The example's ClockWidget.qml and StatusDot.qml demonstrate both kinds.
 
 Widgets use individual bottom-layer Wayland surfaces, behind ordinary windows,
-with input limited to each widget rectangle. Their surfaces follow the bar's
+with input limited to each widget rectangle by default. Their surfaces follow the bar's
 color/transparency, theme fonts and corner preference. The placed widget’s **Edit position** action exposes
 move and resize handles; **Done** leaves edit mode. Geometry snaps to the
 Hyprland inner gap and is clamped to the monitor's usable area, including reserved
@@ -174,8 +174,8 @@ Positions are stored in logical monitor-local coordinates. Disconnecting a monit
 hides its widgets and keeps their placements; reconnecting restores them.
 
 `$XDG_CONFIG_HOME/eitr/plugin-placements.json` is machine-local and never shipped:
-`{"version":1,"widgets":[{"plugin":"example","id":"clock","monitor":"DP-1",
-"x":24,"y":48,"width":240,"height":144}],"barItems":[{"plugin":"example",
+`{"version":2,"widgets":[{"plugin":"example","id":"clock","monitor":"DP-1",
+"x":24,"y":48,"width":240,"height":144,"aboveWindows":false}],"barItems":[{"plugin":"example",
 "id":"status-dot"}]}`. Edits use the manager's lock and atomic writer. Removing
 or updating a plugin preserves preferences, so a later matching declaration can
 restore the placement. Removing a widget from a missing monitor is available in
@@ -193,3 +193,69 @@ review. **Re-enable** in Control Center’s Manage sub-view (or **Re-enable visu
 counter as `eitr plugin enable-ui ID`. Widgets and visible bar items refresh data
 while loaded; tiles and panels refresh while open. The existing QML runtime
 limitations still apply; unreported binding warnings are not counted.
+
+
+### Audio spectrum (schema version 2)
+
+Declare `"capabilities": ["audio-spectrum"]` at the manifest root. Only this
+capability is supported; unknown names, duplicates and non-array values are
+refused. Version 1 cannot declare capabilities. Installation review describes it
+as “Reads the system audio spectrum (levels only, no audio is recorded or sent)”.
+Adding it raises an update RISK flag. This is playback-monitor analysis only:
+the host fixes PipeWire `source = auto` (sink capture), with no microphone or
+input-source API. No audio samples are exposed, stored or transmitted.
+
+The component API adds:
+
+- `spectrum`: read-only array of normalized 0..1 levels, empty while inactive.
+- `audioActive`: true when a recent spectrum frame contains a nonzero level.
+- `spectrumBars`: writable integer, default 64, clamped to 8–128.
+- `spectrumFrameRate`: writable integer, default 30, clamped to 1–60 fps.
+- `spectrumSmoothing`: writable boolean, default false; requests light smoothing.
+
+For example, set `api.spectrumBars = 48` and `api.spectrumFrameRate = 30` from
+`Component.onCompleted`, then bind a Repeater to `api.spectrum` and each bar's
+height to its level. A single reference-counted provider serves all visible
+components and the media equalizer. It uses the maximum requested count and fps (capped at 128/60), with weighted
+area resampling and capped delivery for each consumer. Configuration changes are
+debounced by 300 ms, retaining the last frame during restart. Cava smoothing is
+enabled only when all consumers are plugins requesting it; otherwise requesting
+consumers smooth locally. The media equalizer alone uses 4 bars at 30 fps with
+no smoothing section, preserving its original config.
+The private cava config supports bars, framerate, monstercat and noise reduction.
+The shared stream stops when the last consumer hides or unloads. Failure retries
+back off from 500 ms to 30 seconds; missing frames clear after 1.5 seconds.
+Silence yields zero levels. This does not depend on MPRIS metadata.
+
+### Live line streams
+
+Each visual declaration may include `dataStream: {"run": "levels.py",
+"arguments": ["--fixed-option"]}`. It has exactly the same executable/path/argv
+validation as `dataCommand`, and both may coexist. Install review lists the
+command; added or changed stream declarations raise update RISK flags.
+
+`api.streamLine` holds the latest complete stdout line without its newline;
+`api.streamReceived(line)` fires for each accepted line, including repeated
+identical lines. Output is UTF-8 (invalid bytes replaced), capped at 4096 bytes
+per line and 60 accepted lines per second. Oversized lines are discarded through
+the next newline, excess lines are dropped, partial EOF lines are discarded,
+and stderr is discarded. The transport reads bounded chunks and retains only a
+bounded partial line; it does not accumulate output or log payloads.
+
+The command runs in the plugin directory only while its component is visible
+and enabled. Exits retry with exponential backoff (500 ms–30 s, reset after ten
+seconds running). Hiding/unloading stops the supervisor and kills the child
+session's process group, including descendants. The Linux supervisor also
+cleans up when its parent exits. Commands must flush stdout. These limits bound
+the supported transport, not arbitrary trusted QML or escaped process sessions;
+plugins still have the user's full permissions.
+
+### Window layers
+
+Each placed widget offers **Show above windows** in Manage and Walker Visuals.
+It switches from Bottom to Top and uses an empty input region except during
+**Edit position**. Above-window widgets hide while their monitor has a fullscreen
+window. Both layers remain on every workspace; monitor-local geometry and
+unplug/reconnect behavior are unchanged. Behind windows remains the default.
+Placement version 2 adds boolean `aboveWindows` per widget. Version 1 is migrated
+in memory with `false`; the next placement edit atomically saves version 2.

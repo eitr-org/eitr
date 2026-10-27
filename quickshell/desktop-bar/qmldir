@@ -73,3 +73,5 @@ PluginDesktop PluginDesktop.qml
 PluginBarItems PluginBarItems.qml
 PluginPanel PluginPanel.qml
 PluginManagement PluginManagement.qml
+singleton SpectrumProvider 1.0 SpectrumProvider.qml
+SpectrumConsumer SpectrumConsumer.qml

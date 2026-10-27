@@ -55,6 +55,18 @@ def safety_lines(url):
             tr('Next, Eitr downloads the plugin without running it and shows its exact author and commit.')]
 
 
+def live_review_lines(spec):
+    lines = []
+    if 'audio-spectrum' in spec.get('capabilities', []):
+        lines.append(tr('Reads the system audio spectrum (levels only, no audio is recorded or sent)'))
+    for entries in spec.get('ui', {}).values():
+        for entry in entries:
+            for field in ('dataCommand', 'dataStream'):
+                if field in entry:
+                    lines.append(field + ': ' + printable(' '.join([entry[field]['run'], *entry[field].get('arguments', [])])))
+    return lines
+
+
 def review_lines(root, spec, url):
     author = printable(git(root, 'show', '-s', '--format=%an <%ae> · %aI', 'HEAD'))
     flags = add_flags(root, spec)
@@ -73,6 +85,7 @@ def review_lines(root, spec, url):
              tr('Rows:')] + [printable(row['title'] + ' — ' + row['description']) for row in spec['rows']]
     if 'schemaVersion' not in spec:
         lines.append(tr('This manifest should declare schemaVersion: 1.'))
+    lines += live_review_lines(spec)
     for event, hook in spec.get('hooks', {}).items():
         lines.append(tr('Event hook: {event} — {command}', event=event,
                         command=printable(' '.join([hook['run'], *hook.get('arguments', [])]))))
@@ -208,6 +221,7 @@ def summary_lines(changes, limit=20):
         lines += ['', tr('No risk flags. Read the changes anyway before you trust them.')]
     if 'schemaVersion' not in spec:
         lines.append(tr('This manifest should declare schemaVersion: 1.'))
+    lines += live_review_lines(spec)
     lines += ['', 'QML files:'] + [printable(str(path.relative_to(changes['root']))) for path in qml_files(changes['root'])]
     return lines + ['', tr(TRUST)]
 
@@ -335,6 +349,11 @@ def visual_rows(manager, plugin_id, monitors):
             if monitor:
                 args += ['--monitor', monitor]
             row(label + ' · ' + entry['title'], tr('Change this visual placement'), args)
+            if installed and kind == 'widgets':
+                placement = next(placement for placement in saved if placement['monitor'] == monitor)
+                layer_label = tr('Show behind windows') if placement.get('aboveWindows') else tr('Show above windows')
+                row(layer_label + ' · ' + entry['title'] + ' · ' + monitor,
+                    tr('Change this visual placement'), base + ['toggle-layer', plugin_id, entry['id'], '--monitor', monitor])
     if any(entry['kind'] == 'widgets' for entry in entries):
         row(tr('Edit widgets'), tr('Move and resize desktop widgets'), ['eitr-shell', 'desktop-bar', 'ipc', 'call', '--', 'plugin-widgets', 'edit'])
     if any(entry['disabled'] for entry in entries):
@@ -344,7 +363,7 @@ def visual_rows(manager, plugin_id, monitors):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['list', 'add', 'update', 'remove', 'rows', 'installed', 'launch', 'enforce', 'notice', 'hooks', 'ui', 'ui-failure', 'enable-ui', 'ui-data', 'placements', 'place', 'unplace', 'visual-rows'])
+    parser.add_argument('action', choices=['list', 'add', 'update', 'remove', 'rows', 'installed', 'launch', 'enforce', 'notice', 'hooks', 'ui', 'ui-failure', 'enable-ui', 'ui-data', 'ui-stream', 'toggle-layer', 'placements', 'place', 'unplace', 'visual-rows'])
     parser.add_argument('value', nargs='?')
     parser.add_argument('index', nargs='?')
     parser.add_argument('--monitor')
@@ -356,15 +375,23 @@ def main(argv=None):
         print(json.dumps(visual_rows(manager, arguments.value, [monitor['name'] for monitor in monitors])))
     elif arguments.action == 'placements':
         print(json.dumps(manager.placements()))
-    elif arguments.action in ('place', 'unplace'):
+    elif arguments.action in ('place', 'unplace', 'toggle-layer'):
         manager.place(arguments.value, arguments.index, arguments.monitor, remove=arguments.action == 'unplace',
-                      geometry=json.loads(arguments.geometry) if arguments.geometry else None)
+                      geometry=json.loads(arguments.geometry) if arguments.geometry else None, toggle_layer=arguments.action == 'toggle-layer')
     elif arguments.action == 'ui':
         print(json.dumps(manager.ui()))
     elif arguments.action == 'ui-failure':
         print(json.dumps(manager.ui_failure(arguments.value, arguments.index, sys.stdin.read(2048))))
     elif arguments.action == 'enable-ui':
         manager.enable_ui(arguments.value)
+    elif arguments.action == 'ui-stream':
+        from eitr_plugin_stream import run_stream
+        entry = next((entry for entry in manager.ui() if entry['plugin'] == arguments.value and entry['id'] == arguments.index), None)
+        if not entry or entry['disabled'] or 'dataStream' not in entry:
+            raise ValueError('Plugin data stream is unavailable')
+        from eitr_plugins import command
+        root = manager.folder / arguments.value
+        run_stream(command(root, entry['dataStream']), root)
     elif arguments.action == 'ui-data':
         print(manager.ui_data(arguments.value, arguments.index), end='')
     elif arguments.action == 'hooks':

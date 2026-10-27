@@ -11,6 +11,7 @@ Item {
     required property color background
     required property color accent
     property bool active: true
+    readonly property bool live: active && visible && enabled && opacity > 0 && !entry.disabled && error === ""
     property bool surface: entry.kind !== "barItems"
     readonly property bool barItem: entry.kind === "barItems"
     property string error: ""
@@ -42,6 +43,13 @@ Item {
     QtObject {
         id: api
         property string detail: ""
+        property int spectrumBars: 64
+        property bool spectrumSmoothing: false
+        property int spectrumFrameRate: 30
+        readonly property var spectrum: spectrumConsumer.spectrum
+        readonly property bool audioActive: spectrumConsumer.audioActive
+        readonly property string streamLine: host.latestLine
+        signal streamReceived(string line)
         readonly property color foreground: host.foreground
         readonly property color background: host.background
         readonly property color accent: host.accent
@@ -60,6 +68,41 @@ Item {
         }
         function openPanel(panelId) { host.panelRequested(host.entry.plugin, panelId); }
         function reportError(message) { host.fail(message); }
+    }
+    SpectrumConsumer {
+        id: spectrumConsumer
+        active: host.live && (host.entry.capabilities || []).indexOf("audio-spectrum") !== -1
+        bars: Math.max(8, Math.min(128, api.spectrumBars))
+        frameRate: api.spectrumFrameRate
+        plugin: true
+        smoothing: api.spectrumSmoothing
+    }
+    property string latestLine: ""
+    property bool streamFailed: false
+    property int streamRetryDelay: 500
+    onLiveChanged: if (!live) { streamRetry.stop(); streamFailed = false; streamRetryDelay = 500; latestLine = ""; }
+    Process {
+        id: stream
+        command: ["python3", host.helper, "ui-stream", host.entry.plugin, host.entry.id]
+        running: host.live && !!host.entry.dataStream && !host.streamFailed
+        stdout: SplitParser {
+            onRead: line => {
+                host.latestLine = line;
+                api.streamReceived(line);
+            }
+        }
+        onExited: if (host.live) { host.streamFailed = true; streamRetry.start(); }
+    }
+    Timer {
+        id: streamStable; interval: 10000; running: stream.running
+        onTriggered: if (stream.running) host.streamRetryDelay = 500
+    }
+    Timer {
+        id: streamRetry; interval: host.streamRetryDelay
+        onTriggered: {
+            host.streamRetryDelay = Math.min(30000, host.streamRetryDelay * 2);
+            host.streamFailed = false;
+        }
     }
     HoverHandler { id: hover }
     Rectangle {

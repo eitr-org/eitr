@@ -22,3 +22,30 @@ const tiny = context.fit({x: 200, y: 200, width: 50, height: 50}, {x: 0, y: 0, w
 assert.equal(tiny.width, 144);
 assert.equal(tiny.height, 96);
 console.log('Plugin widget geometry passed');
+
+const spectrum = {};
+vm.createContext(spectrum);
+vm.runInContext(fs.readFileSync(path.join(__dirname, '../Spectrum.js'), 'utf8').replace(/^\.pragma library\s*/, ''), spectrum);
+for (const count of [8, 16, 31, 48, 128]) {
+    const values = spectrum.resample([0, .25, .5, 1], count);
+    assert.equal(values.length, count);
+    assert.ok(values.every(value => value >= 0 && value <= 1));
+    assert.ok(Math.abs(values.reduce((sum, level) => sum + level, 0) / count - .4375) < 1e-10);
+    assert.ok(spectrum.resample([], count).every(value => value === 0));
+}
+assert.deepEqual(Array.from(spectrum.resample([0, 0, 1, 1], 2)), [0, 1]);
+assert.deepEqual(Array.from(spectrum.resample([.25, .75], 4)), [.25, .25, .75, .75]);
+assert.equal(spectrum.frame('bad;data'), null);
+assert.equal(spectrum.frame('1;2;3;'), null);
+assert.equal(spectrum.count(1000, 1, 60), 60);
+assert.equal(spectrum.count(-1, 8, 128), 8);
+assert.equal(spectrum.count(NaN, 1, 60), 1);
+console.log('Spectrum resampling and limits passed');
+
+const media = {bars: 4, frameRate: 30, plugin: false, smoothing: false};
+const plugin = {bars: 96, frameRate: 60, plugin: true, smoothing: true};
+assert.equal(JSON.stringify(spectrum.configuration([media])), JSON.stringify({bars: 4, fps: 30, smoothing: false}));
+assert.equal(JSON.stringify(spectrum.configuration([media, plugin])), JSON.stringify({bars: 96, fps: 60, smoothing: false}));
+assert.equal(JSON.stringify(spectrum.configuration([media])), JSON.stringify({bars: 4, fps: 30, smoothing: false}));
+assert.equal(spectrum.configuration([plugin]).smoothing, true);
+assert.deepEqual(Array.from(spectrum.smooth([1, 0], [0, 1])), [.5, .5]);

@@ -1744,6 +1744,9 @@ msgstr "Repositories auflisten"
 msgid "List services"
 msgstr "Dienste auflisten"
 
+msgid "Live data command added or changed: {kind} · {id} · {command}"
+msgstr "Live-Datenbefehl hinzugefügt oder geändert: {kind} · {id} · {command}"
+
 msgid "Load Balancers"
 msgstr "Lastverteiler"
 
@@ -2368,6 +2371,9 @@ msgstr "Ratatoskr wurde entfernt."
 msgid "Re-enable visuals"
 msgstr "Visuelle Komponenten wieder aktivieren"
 
+msgid "Reads the system audio spectrum (levels only, no audio is recorded or sent)"
+msgstr "Liest das Systemklangspektrum (nur Pegel, kein Ton wird aufgenommen oder gesendet)"
+
 msgid "Ready. Both resets restart the computer immediately."
 msgstr "Bereit. Beide Arten des Zurücksetzens starten den Computer sofort neu."
 
@@ -2808,6 +2814,12 @@ msgstr "Die Freigabe dieses Netzwerksicherheitstyps wird nicht unterstützt"
 
 msgid "Shell"
 msgstr "Shell"
+
+msgid "Show above windows"
+msgstr "Über Fenstern anzeigen"
+
+msgid "Show behind windows"
+msgstr "Hinter Fenstern anzeigen"
 
 msgid "Show it with"
 msgstr "Anzeigen bei"

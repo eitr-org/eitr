@@ -35,7 +35,9 @@ LAN.
   (`distro/PLUGINS.md`). Unreported runtime binding exceptions cannot yet be
   attributed and counted automatically. In-process QML is not a sandbox and cannot
   contain native crashes or infinite loops. Opt-in desktop widgets, bar placement
-  and menu-based visual reset are implemented.
+  and menu-based visual reset are implemented. Shared playback spectrum, bounded live
+  streams and per-placement above-window widgets are implemented; verify Top-layer
+  click-through, fullscreen hiding and hotplug behavior on a live compositor.
 - **Website translations.** Offer the site in the desktop's languages
   (Portuguese (Brazil), Spanish, German, French) with a language switch, reusing
   the reviewed Handbook translations where chapters overlap. Decide the URL scheme

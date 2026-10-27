@@ -1,6 +1,5 @@
 import Eitr as Eitr
 import Quickshell
-import Quickshell.Io
 import "AudioLevels.js" as AudioLevels
 import QtQuick
 import "PanelStyle.js" as PanelStyle
@@ -15,46 +14,17 @@ Item {
     property real itemSpacing: 1
     property real indicatorSpacing: 6
     property var players: Mpris.players.values
-    readonly property var eligiblePlayers: players.filter(p => p && MediaModel.eligible(p))
-    readonly property var player: eligiblePlayers.find(p => p.isPlaying) || eligiblePlayers[0] || null
+    readonly property var eligiblePlayers: players.filter(player => player && MediaModel.eligible(player))
+    readonly property var player: eligiblePlayers.find(player => player.isPlaying) || eligiblePlayers[0] || null
     readonly property bool playing: !!player && player.isPlaying
     readonly property string title: player ? [player.trackArtist, player.trackTitle].filter(Boolean).join(" - ") || player.identity : ""
     property real pulse: 0
     property bool audioEnabled: true
     readonly property bool audioActive: audioEnabled && visible && enabled && opacity > 0 && playing
-    property bool cavaFailed: false
-    property bool hasAudioFrame: false
-    property var levels: [0, 0, 0, 0]
-    onAudioActiveChanged: {
-        if (!audioActive) {
-            hasAudioFrame = false;
-            levels = [0, 0, 0, 0];
-        }
-    }
-    Process {
-        id: cava
-        command: ["python3", Eitr.Paths.code("quickshell/desktop-bar/scripts/cava-bar.py")]
-        running: media.audioActive && !media.cavaFailed
-        stdout: SplitParser {
-            onRead: data => {
-                var frame = AudioLevels.parseFrame(data);
-                if (frame) {
-                    media.levels = frame;
-                    media.hasAudioFrame = true;
-                    audioTimeout.restart();
-                }
-            }
-        }
-        onExited: {
-            if (media.audioActive) media.cavaFailed = true;
-            media.hasAudioFrame = false;
-        }
-    }
-    Timer {
-        id: audioTimeout
-        interval: 1500
-        onTriggered: media.hasAudioFrame = false
-    }
+    readonly property bool cavaFailed: SpectrumProvider.failed
+    readonly property bool hasAudioFrame: audioActive && SpectrumProvider.hasFrame
+    readonly property var levels: audioActive ? audio.spectrum : [0, 0, 0, 0]
+    SpectrumConsumer { id: audio; active: media.audioActive; bars: 4; frameRate: 30; smoothing: false }
     signal detailsRequested()
 
     visible: player !== null && availableWidth >= controls.width + indicatorSpacing + playbackIndicator.width

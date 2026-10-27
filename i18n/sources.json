@@ -1004,6 +1004,9 @@
     "Show QR": [
       "quickshell/desktop-bar/WifiMenu.qml"
     ],
+    "Show above windows": [
+      "quickshell/desktop-bar/PluginManagement.qml"
+    ],
     "Show icons": [
       "quickshell/desktop-bar/shell.qml"
     ],
@@ -5472,6 +5475,9 @@
     "List services": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
+    "Live data command added or changed: {kind} · {id} · {command}": [
+      "distro/lib/eitr_plugins.py"
+    ],
     "Load Balancers": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -6117,6 +6123,10 @@
     "Re-enable visuals": [
       "walker/scripts/actions/install/plugins.py"
     ],
+    "Reads the system audio spectrum (levels only, no audio is recorded or sent)": [
+      "distro/lib/eitr_plugins.py",
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Ready. Both resets restart the computer immediately.": [
       "distro/system/factory-reset.py"
     ],
@@ -6562,6 +6572,12 @@
     ],
     "Shell": [
       "fastfetch/eitr.py"
+    ],
+    "Show above windows": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Show behind windows": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Show it with": [
       "walker/scripts/actions/style/own.py"

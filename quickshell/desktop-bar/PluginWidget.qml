@@ -9,6 +9,7 @@ Item {
     required property color foreground
     required property color background
     required property color accent
+    property bool active: true
     property bool editing: false
     signal moved(real deltaX, real deltaY)
     signal resized(real deltaX, real deltaY)
@@ -16,6 +17,7 @@ Item {
     Rectangle { anchors.fill: parent; color: widget.background; radius: DesktopStyle.radius(PanelStyle.controlRadius) }
     PluginComponent {
         anchors.fill: parent
+        active: widget.active && widget.visible
         entry: widget.entry
         foreground: widget.foreground; background: widget.background; accent: widget.accent
     }

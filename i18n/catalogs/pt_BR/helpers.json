@@ -1380,5 +1380,9 @@
   "Re-enable visuals": "Reativar elementos visuais",
   "Remove bar item": "Remover item da barra",
   "Remove widget · {monitor}": "Remover widget · {monitor}",
-  "Reset the shared visual failure counter": "Zerar o contador compartilhado de falhas visuais"
+  "Reset the shared visual failure counter": "Zerar o contador compartilhado de falhas visuais",
+  "Live data command added or changed: {kind} · {id} · {command}": "Comando de dados ao vivo adicionado ou alterado: {kind} · {id} · {command}",
+  "Reads the system audio spectrum (levels only, no audio is recorded or sent)": "Lê o espectro do áudio do sistema (apenas níveis, nenhum áudio é gravado ou enviado)",
+  "Show above windows": "Mostrar acima das janelas",
+  "Show behind windows": "Mostrar atrás das janelas"
 }

@@ -436,7 +436,8 @@ var qml = {
     "Manage plugin visuals": "Manage plugin visuals",
     "Plugin": "Plugin",
     "Re-enable": "Re-enable",
-    "Visuals disabled": "Visuals disabled"
+    "Visuals disabled": "Visuals disabled",
+    "Show above windows": "Show above windows"
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -851,7 +852,8 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  agora",
     "󰂚  No notifications": "󰂚  Nenhuma notificação",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Não perturbe\n\nNenhuma notificação"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Não perturbe\n\nNenhuma notificação",
+    "Show above windows": "Mostrar acima das janelas"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1266,7 +1268,8 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  ahora",
     "󰂚  No notifications": "󰂚  No hay notificaciones",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones",
+    "Show above windows": "Mostrar sobre las ventanas"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1681,7 +1684,8 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  jetzt",
     "󰂚  No notifications": "󰂚  Keine Benachrichtigungen",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen",
+    "Show above windows": "Über Fenstern anzeigen"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2096,6 +2100,7 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  maintenant",
     "󰂚  No notifications": "󰂚  Aucune notification",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification",
+    "Show above windows": "Afficher au-dessus des fenêtres"
   }
 };

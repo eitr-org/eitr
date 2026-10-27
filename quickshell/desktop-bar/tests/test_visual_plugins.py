@@ -244,3 +244,160 @@ ShellRoot {
                 self.assertNotIn('ReferenceError', result.stdout + result.stderr)
                 self.assertNotIn('TypeError', result.stdout + result.stderr)
                 self.assertTrue(capture.is_file())
+
+    def test_spectrum_and_layer_toggle_offscreen(self):
+        import sys
+        with tempfile.TemporaryDirectory(prefix='eitr-plugin-live-') as directory:
+            folder = Path(directory)
+            fake = folder / 'cava'
+            fake.write_text(f'#!{sys.executable}\nimport time\nwhile True:\n print(";".join(str((index * 17) % 100) for index in range(128)) + ";", flush=True)\n time.sleep(.03)\n')
+            fake.chmod(0o700)
+            widget = folder / 'SpectrumWidget.qml'
+            widget.write_text('''import QtQuick
+Item {
+    id: widget
+    required property var api
+    Component.onCompleted: { api.spectrumBars = 32; api.spectrumFrameRate = 30; }
+    Row {
+        anchors.centerIn: parent; spacing: 3; height: parent.height - 32
+        Repeater {
+            model: widget.api.spectrum
+            Rectangle {
+                required property real modelData
+                width: 6; height: Math.max(2, modelData * parent.height)
+                anchors.bottom: parent.bottom; radius: 2; color: widget.api.accent
+            }
+        }
+    }
+}''')
+            entry = dict(plugin='fixture', pluginName='Spectrum example', kind='widgets', id='spectrum',
+                         title='Audio spectrum', qml=widget.name, source=widget.as_uri(),
+                         commit='a' * 40, disabled=False, capabilities=['audio-spectrum'])
+            placement = dict(plugin='fixture', id='spectrum', monitor='test-display',
+                             x=24, y=24, width=320, height=180, aboveWindows=True)
+            (folder / 'eitr').mkdir()
+            (folder / 'eitr/plugin-placements.json').write_text(json.dumps(dict(version=2, widgets=[placement], barItems=[])))
+            for mode in ('spectrum-dark', 'spectrum-light', 'layer-toggle-dark', 'layer-toggle-light'):
+                captures = Path(os.environ.get('EITR_PLUGIN_REVIEW_RENDERS', directory))
+                captures.mkdir(parents=True, exist_ok=True)
+                capture = captures / (mode + '.png')
+                light = mode.endswith('light')
+                foreground, background = ('#252936', '#f5f0e7') if light else ('#e9eef1', '#18212b')
+                fixture = folder / 'shell.qml'
+                fixture.write_text('''import QtQuick
+import Quickshell
+import "BAR" as Bar
+ShellRoot {
+    FloatingWindow {
+        visible: true; implicitWidth: 540; implicitHeight: 260
+        Rectangle {
+            id: sample; anchors.fill: parent; color: "BACKGROUND"
+            Text { x: 24; y: 20; text: MANAGE ? "Plugins · Manage" : "Audio spectrum · simulated playback"; color: "FOREGROUND"; font.pixelSize: 16 }
+            Bar.PluginWidget {
+                id: widget; visible: !MANAGE
+                x: 110; y: 60; width: 320; height: 170
+                entry: ENTRY; foreground: "FOREGROUND"; background: "BACKGROUND"; accent: "#70ba9a"
+            }
+            Bar.PluginManagement {
+                id: manage; visible: MANAGE; x: 24; y: 64; width: parent.width - 48
+                entries: [ENTRY]; monitors: [{name: "test-display", description: "Example monitor"}]
+                foreground: "FOREGROUND"; background: "BACKGROUND"
+            }
+            Timer {
+                interval: 1200; running: true
+                onTriggered: {
+                    if (!MANAGE && !Bar.SpectrumProvider.hasFrame) throw new Error("No fake spectrum");
+                    if (MANAGE && (!manage.rows[0].aboveWindows || manage.height !== 36)) throw new Error("Layer toggle row missing or resized");
+                    sample.grabToImage(function(result) {
+                        result.saveToFile("CAPTURE");
+                        console.log("LIVE_PLUGIN_RENDER_OK"); Qt.quit();
+                    });
+                }
+            }
+        }
+    }
+}'''.replace('BAR', BAR.as_uri()).replace('BACKGROUND', background).replace('FOREGROUND', foreground)
+                    .replace('MANAGE', str(mode.startswith('layer')).lower()).replace('ENTRY', json.dumps(entry)).replace('CAPTURE', str(capture)))
+                environment = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
+                                   QML_IMPORT_PATH=str(ROOT / 'quickshell'), EITR_CODE_ROOT=str(ROOT),
+                                   XDG_CONFIG_HOME=directory, XDG_STATE_HOME=directory, XDG_DATA_HOME=directory,
+                                   XDG_CACHE_HOME=directory, XDG_RUNTIME_DIR=directory,
+                                   DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent', HYPRLAND_INSTANCE_SIGNATURE='',
+                                   PATH=directory + os.pathsep + os.environ['PATH'])
+                result = subprocess.run(['quickshell', '-p', str(fixture)], env=environment,
+                                        text=True, capture_output=True, timeout=10)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                self.assertIn('LIVE_PLUGIN_RENDER_OK', result.stdout + result.stderr)
+                self.assertNotIn('ReferenceError', result.stdout + result.stderr)
+                self.assertNotIn('TypeError', result.stdout + result.stderr)
+                self.assertTrue(capture.is_file())
+
+    def test_stream_visibility_and_repeated_line_signal(self):
+        import sys
+        with tempfile.TemporaryDirectory(prefix='eitr-plugin-stream-') as directory:
+            folder = Path(directory)
+            helper = folder / 'walker/scripts/actions/install/plugins.py'
+            helper.parent.mkdir(parents=True)
+            helper.write_text('''import sys
+from pathlib import Path
+from eitr_plugin_stream import run_stream
+if sys.argv[1] == 'ui-stream':
+    run_stream([sys.executable, str(Path(__file__).parents[4] / 'source.py')], Path.cwd())
+''')
+            (folder / 'source.py').write_text('''import os, signal, time
+from pathlib import Path
+log = Path(os.environ['STREAM_TEST_LOG'])
+with log.open('a') as output:
+    output.write('start\\n')
+while True:
+    print('same', flush=True)
+    time.sleep(.03)
+''')
+            widget = folder / 'Widget.qml'
+            widget.write_text('''import QtQuick
+Item {
+    id: streamView
+    required property var api
+    property int received: 0
+    Connections { target: streamView.api; function onStreamReceived(line) { streamView.received++; streamView.api.detail = String(streamView.received); } }
+}''')
+            entry = dict(plugin='fixture', kind='panels', id='stream', title='Stream', qml='Widget.qml',
+                         source=widget.as_uri(), commit='a' * 40, dataStream={'run': 'source.py'}, disabled=False)
+            fixture = folder / 'shell.qml'
+            fixture.write_text('''import QtQuick
+import Quickshell
+import "BAR"
+ShellRoot {
+    FloatingWindow {
+        visible: true
+        PluginComponent { id: host; anchors.fill: parent; entry: ENTRY; foreground: "white"; background: "black"; accent: "green" }
+    }
+    Timer {
+        interval: 400; running: true; repeat: true
+        property int stage: 0
+        onTriggered: {
+            if (stage === 0) {
+                if (Number(host.detail) < 2) throw new Error("Repeated stream lines did not emit signals");
+                host.visible = false;
+            } else if (stage === 1) host.visible = true;
+            else if (stage === 2) {
+                if (Number(host.detail) < 2) throw new Error("Stream did not restart on show");
+                host.active = false;
+            } else { console.log("STREAM_VISIBILITY_OK"); Qt.quit(); }
+            stage++;
+        }
+    }
+}'''.replace('BAR', BAR.as_uri()).replace('ENTRY', json.dumps(entry)))
+            log = folder / 'events'
+            environment = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
+                               QML_IMPORT_PATH=str(ROOT / 'quickshell'), EITR_CODE_ROOT=directory,
+                               PYTHONPATH=str(ROOT / 'distro/lib'), STREAM_TEST_LOG=str(log),
+                               XDG_CONFIG_HOME=directory, XDG_STATE_HOME=directory, XDG_DATA_HOME=directory,
+                               XDG_CACHE_HOME=directory, XDG_RUNTIME_DIR=directory,
+                               DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent', HYPRLAND_INSTANCE_SIGNATURE='')
+            result = subprocess.run(['quickshell', '-p', str(fixture)], env=environment,
+                                    text=True, capture_output=True, timeout=10)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertIn('STREAM_VISIBILITY_OK', result.stdout + result.stderr)
+            self.assertNotIn('TypeError', result.stdout + result.stderr)
+            self.assertEqual(log.read_text().splitlines(), ['start', 'start'])

@@ -933,13 +933,13 @@ class VisualPluginTests(unittest.TestCase):
     def test_explicit_placements_persist_when_monitor_disappears(self):
         self.publish(self.visual())
         self.install()
-        self.assertEqual(self.manager.placements(), dict(version=1, widgets=[], barItems=[]))
+        self.assertEqual(self.manager.placements(), dict(version=2, widgets=[], barItems=[]))
         self.manager.place('example', 'clock', 'DP-test')
         self.manager.place('example', 'dot')
         geometry = dict(x=60, y=90, width=300, height=180)
         self.manager.place('example', 'clock', 'DP-test', geometry=geometry)
         saved = self.manager.placements()
-        self.assertEqual(saved['widgets'][0], dict(plugin='example', id='clock', monitor='DP-test', **geometry))
+        self.assertEqual(saved['widgets'][0], dict(plugin='example', id='clock', monitor='DP-test', aboveWindows=False, **geometry))
         self.assertEqual(plugins.Plugins().placements(), saved)
         # Querying or disabling declarations never rewrites user placements.
         for _ in range(3):
@@ -950,7 +950,7 @@ class VisualPluginTests(unittest.TestCase):
         self.assertEqual(self.manager.placements(), saved)
         self.manager.place('example', 'clock', 'DP-test', remove=True)
         self.manager.place('example', 'dot', remove=True)
-        self.assertEqual(self.manager.placements(), dict(version=1, widgets=[], barItems=[]))
+        self.assertEqual(self.manager.placements(), dict(version=2, widgets=[], barItems=[]))
 
     def test_placement_validation_and_visual_menu_reenable(self):
         self.publish(self.visual())
@@ -975,3 +975,133 @@ class VisualPluginTests(unittest.TestCase):
             self.assertIn('enable-ui', shlex.split(command))
         self.manager.enable_ui('example')
         self.assertNotIn('Re-enable visuals', [row['text'] for row in self.cli().visual_rows(self.manager, 'example', [])])
+
+
+class LivePluginTests(unittest.TestCase):
+    setUp = PluginTests.setUp
+    git = PluginTests.git
+    spec = PluginTests.spec
+    block = PluginTests.block
+    cli = PluginTests.cli
+    commit_as = PluginTests.commit_as
+    write_spec = PluginTests.write_spec
+    publish = PluginTests.publish
+    install = PluginTests.install
+    visual = VisualPluginTests.visual
+
+    def test_capabilities_and_stream_validation(self):
+        value = self.visual()
+        value['capabilities'] = ['audio-spectrum']
+        value['ui']['widgets'][0]['dataStream'] = {'run': 'notify.sh', 'arguments': ['fixed']}
+        self.write_spec(value)
+        self.assertEqual(plugins.manifest(self.source), value)
+        for capabilities in (['microphone'], ['audio-spectrum', 'audio-spectrum'], 'audio-spectrum', [True], [{}], None):
+            with self.subTest(capabilities=capabilities):
+                invalid = dict(value, capabilities=capabilities)
+                self.write_spec(invalid)
+                with self.assertRaises(ValueError):
+                    plugins.manifest(self.source)
+        for stream in ('notify.sh', {'run': '/bin/true'}, {'run': '../notify.sh'}, {'run': 'notify.sh', 'shell': True}):
+            invalid = copy.deepcopy(value)
+            invalid['ui']['widgets'][0]['dataStream'] = stream
+            self.write_spec(invalid)
+            with self.assertRaises(ValueError):
+                plugins.manifest(self.source)
+        value['schemaVersion'] = 1
+        value.pop('ui')
+        self.write_spec(value)
+        with self.assertRaises(ValueError):
+            plugins.manifest(self.source)
+
+    def test_live_review_and_update_risks(self):
+        original = self.visual()
+        self.publish(original)
+        self.install()
+        value = copy.deepcopy(original)
+        value['capabilities'] = ['audio-spectrum']
+        value['ui']['widgets'][0]['dataStream'] = {'run': 'notify.sh'}
+        self.publish(value)
+        lines = self.cli().review_lines(self.source, value, self.url)
+        self.assertTrue(any('levels only, no audio is recorded or sent' in line for line in lines))
+        self.assertTrue(any('dataStream: notify.sh' in line for line in lines))
+        reviews = []
+        self.manager.update('example', lambda changes: reviews.append(changes) or False)
+        self.assertTrue(any('spectrum' in flag for flag in reviews[0]['flags']))
+        self.assertTrue(any('dataStream' in flag for flag in reviews[0]['flags']))
+        self.assertTrue(any('levels only' in line for line in self.cli().summary_lines(reviews[0])))
+        self.assertTrue(any('dataStream: notify.sh' in line for line in self.cli().summary_lines(reviews[0])))
+        unchanged = dict(reviews[0], flags=[])
+        self.assertTrue(any('levels only' in line for line in self.cli().summary_lines(unchanged)))
+        self.assertFalse(plugins.live_flags(value, value))
+
+    def test_layer_migration_and_toggle(self):
+        self.publish(self.visual())
+        self.install()
+        path = plugins.config('eitr/plugin-placements.json')
+        path.parent.mkdir(parents=True, exist_ok=True)
+        old = dict(version=1, widgets=[dict(plugin='example', id='clock', monitor='test', x=24, y=24, width=240, height=144)], barItems=[])
+        path.write_text(json.dumps(old))
+        migrated = self.manager.placements()
+        self.assertEqual(migrated['version'], 2)
+        self.assertFalse(migrated['widgets'][0]['aboveWindows'])
+        self.assertEqual(json.loads(path.read_text()), old)
+        self.manager.place('example', 'clock', 'test', toggle_layer=True)
+        self.assertTrue(self.manager.placements()['widgets'][0]['aboveWindows'])
+        self.manager.place('example', 'clock', 'test', geometry=dict(x=0, y=0, width=300, height=200))
+        self.assertTrue(self.manager.placements()['widgets'][0]['aboveWindows'])
+        rows = self.cli().visual_rows(self.manager, 'example', ['test'])
+        self.assertTrue(any(row['text'].startswith('Show behind windows · Clock · test') and 'toggle-layer' in row['actions']['open'] for row in rows))
+        migrated['widgets'][0]['aboveWindows'] = 'yes'
+        path.write_text(json.dumps(migrated))
+        with self.assertRaises(ValueError):
+            self.manager.placements()
+
+    def test_stream_bounds(self):
+        from eitr_plugin_stream import Lines, MAX_LINE, MAX_RATE
+        parser = Lines()
+        self.assertEqual(parser.feed(b'part', 1), [])
+        self.assertEqual(parser.feed(b'ial\nnext\n', 1), ['partial', 'next'])
+        self.assertEqual(len(parser.feed(b'x\n' * 100, 1)), MAX_RATE - 2)
+        self.assertEqual(parser.feed(b'x\n', 2), ['x'])
+        self.assertEqual(parser.feed(b'x' * (MAX_LINE + 1), 2), [])
+        self.assertLessEqual(len(parser.pending), MAX_LINE)
+        self.assertEqual(parser.feed(b'more\nvalid\n', 2), ['valid'])
+        self.assertEqual(parser.feed(b'x' * MAX_LINE + b'\n', 3), ['x' * MAX_LINE])
+
+    def test_stream_supervisor_cleans_up_descendants(self):
+        import time
+        marker = self.home / 'child'
+        script = self.home / 'stream.py'
+        script.write_text('''import subprocess, sys, time
+from pathlib import Path
+child = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(60)'])
+Path(sys.argv[1]).write_text(str(child.pid))
+print('ready', flush=True)
+time.sleep(60)
+''')
+        for shutdown in ('terminate', 'kill'):
+            with self.subTest(shutdown=shutdown):
+                supervisor = subprocess.Popen([sys.executable, '-c',
+                    'from pathlib import Path; from eitr_plugin_stream import run_stream; import sys; run_stream(sys.argv[1:], Path.cwd())',
+                    sys.executable, str(script), str(marker)], stdout=subprocess.PIPE, text=True)
+                try:
+                    import selectors
+                    with selectors.DefaultSelector() as selector:
+                        selector.register(supervisor.stdout, selectors.EVENT_READ)
+                        self.assertTrue(selector.select(3), 'Stream did not start')
+                        self.assertEqual(supervisor.stdout.readline().strip(), 'ready')
+                    child_pid = int(marker.read_text())
+                    getattr(supervisor, shutdown)()
+                    supervisor.wait(timeout=3)
+                    for attempt in range(30):
+                        status = Path(f'/proc/{child_pid}/stat')
+                        if not status.exists() or status.read_text().split()[2] == 'Z':
+                            break
+                        time.sleep(.02)
+                    else:
+                        self.fail('Stream child survived supervisor unload')
+                finally:
+                    if supervisor.poll() is None:
+                        supervisor.kill()
+                        supervisor.wait()
+                    supervisor.stdout.close()

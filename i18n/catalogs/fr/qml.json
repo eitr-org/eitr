@@ -411,5 +411,6 @@
   "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
   "•  now": "•  maintenant",
   "󰂚  No notifications": "󰂚  Aucune notification",
-  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification"
+  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification",
+  "Show above windows": "Afficher au-dessus des fenêtres"
 }

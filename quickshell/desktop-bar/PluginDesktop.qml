@@ -44,6 +44,8 @@ Scope {
             id: display
             required property var modelData
             readonly property var monitor: desktop.monitors.find(monitor => monitor.name === modelData.name)
+            readonly property var liveMonitor: Hyprland.monitorFor(modelData)
+            readonly property bool fullscreen: !!(liveMonitor && liveMonitor.activeWorkspace && liveMonitor.activeWorkspace.hasFullscreen)
             readonly property var reserved: monitor && monitor.reserved ? monitor.reserved : [0, 0, 0, 0]
             readonly property var bounds: ({x: reserved[0], y: reserved[1], width: modelData.width - reserved[0] - reserved[2], height: modelData.height - reserved[1] - reserved[3]})
             Variants {
@@ -61,12 +63,15 @@ Scope {
                     color: "transparent"
                     exclusionMode: ExclusionMode.Ignore
                     WlrLayershell.namespace: "eitr-plugin-widget"
-                    WlrLayershell.layer: WlrLayer.Bottom
+                    readonly property bool aboveWindows: !!modelData.geometry.aboveWindows
+                    visible: !aboveWindows || !display.fullscreen
+                    WlrLayershell.layer: aboveWindows ? WlrLayer.Top : WlrLayer.Bottom
                     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
-                    mask: Region { item: content }
+                    mask: Region { item: !window.aboveWindows || content.editing ? content : null }
                     PluginWidget {
                         id: content
                         anchors.fill: parent; entry: window.modelData
+                        active: window.visible
                         foreground: desktop.foreground; background: desktop.background; accent: desktop.accent
                         editing: PluginRegistry.editing && (!PluginRegistry.editTarget || (PluginRegistry.editTarget.plugin === window.modelData.plugin && PluginRegistry.editTarget.id === window.modelData.id && PluginRegistry.editTarget.monitor === display.modelData.name))
                         onMoved: function(deltaX, deltaY) {

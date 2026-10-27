@@ -8,7 +8,7 @@ import "JsonState.js" as JsonState
 QtObject {
     id: registry
     property var entries: []
-    property var placements: ({version: 1, widgets: [], barItems: []})
+    property var placements: ({version: 2, widgets: [], barItems: []})
     property bool editing: false
     property var editTarget: null
     property bool pending: false

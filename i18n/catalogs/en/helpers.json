@@ -1380,5 +1380,9 @@
   "Re-enable visuals": "Re-enable visuals",
   "Remove bar item": "Remove bar item",
   "Remove widget · {monitor}": "Remove widget · {monitor}",
-  "Reset the shared visual failure counter": "Reset the shared visual failure counter"
+  "Reset the shared visual failure counter": "Reset the shared visual failure counter",
+  "Live data command added or changed: {kind} · {id} · {command}": "Live data command added or changed: {kind} · {id} · {command}",
+  "Reads the system audio spectrum (levels only, no audio is recorded or sent)": "Reads the system audio spectrum (levels only, no audio is recorded or sent)",
+  "Show above windows": "Show above windows",
+  "Show behind windows": "Show behind windows"
 }

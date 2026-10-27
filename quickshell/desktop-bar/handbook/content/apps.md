@@ -168,8 +168,25 @@ by default. The General page shows plugin tiles; Manage lists visual items with
 Add, Remove and Re-enable actions. Add offers an inline monitor choice when
 several displays are available. Each placed widget has **Edit position**, which shows move and resize handles; drag them to snap to
 the desktop gap inside the usable screen, then choose **Done**. Widgets stay
-behind windows and follow the theme, fonts, corners and bar transparency.
+behind windows by default and follow the theme, fonts, corners and bar transparency.
 Placements are saved per monitor on this PC; unplugged monitors keep their layout
 without showing widgets. Bar items use fixed slots in the right group, obey its
 Show icons toggle, and stay visible in Tabs. Clicking an item can open its plugin
 panel. The example includes a small clock widget and a status dot.
+
+
+Each placed widget also offers **Show above windows** in Manage and Walker Visuals.
+It stays on every workspace and lets clicks pass through, except during Edit
+position. It hides when its monitor has a fullscreen window. Behind windows is
+the default; the choice is saved per placement, including older layouts.
+
+A schema v2 plugin can request `audio-spectrum`. Review says it reads system
+audio levels only: no audio is recorded or sent, and the host never captures the
+microphone. Adding this capability raises a RISK flag. All visible consumers
+share one playback spectrum provider; plugins request 8–128 bars and up to
+60 frames per second. It stops when no consumer is visible. A declared
+`dataStream` command delivers live text lines while its component is visible,
+limited to 60 lines per second and 4096 bytes per line. Review lists it and
+changes raise RISK flags. Hidden components stop their streams and child
+process groups; failures retry with backoff. Authoring details are in
+`distro/PLUGINS.md`.

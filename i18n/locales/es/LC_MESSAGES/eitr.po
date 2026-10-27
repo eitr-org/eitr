@@ -1744,6 +1744,9 @@ msgstr "Listar repositorios"
 msgid "List services"
 msgstr "Listar servicios"
 
+msgid "Live data command added or changed: {kind} · {id} · {command}"
+msgstr "Comando de datos en vivo añadido o modificado: {kind} · {id} · {command}"
+
 msgid "Load Balancers"
 msgstr "Balanceadores de carga"
 
@@ -2368,6 +2371,9 @@ msgstr "Se quitó Ratatoskr."
 msgid "Re-enable visuals"
 msgstr "Reactivar elementos visuales"
 
+msgid "Reads the system audio spectrum (levels only, no audio is recorded or sent)"
+msgstr "Lee el espectro de audio del sistema (solo niveles, no se graba ni se envía audio)"
+
 msgid "Ready. Both resets restart the computer immediately."
 msgstr "Listo. Ambas opciones de restablecimiento reinician el equipo inmediatamente."
 
@@ -2808,6 +2814,12 @@ msgstr "No se admite compartir este tipo de seguridad de red"
 
 msgid "Shell"
 msgstr "Shell"
+
+msgid "Show above windows"
+msgstr "Mostrar sobre las ventanas"
+
+msgid "Show behind windows"
+msgstr "Mostrar detrás de las ventanas"
 
 msgid "Show it with"
 msgstr "Mostrar con"

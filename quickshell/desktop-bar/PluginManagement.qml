@@ -29,7 +29,7 @@ Column {
             if (entry.kind !== "widgets" && entry.kind !== "barItems") continue;
             const placements = (PluginRegistry.placements[entry.kind] || []).filter(placement => placement.plugin === entry.plugin && placement.id === entry.id);
             if (placements.length) {
-                for (const placement of placements) result.push({entry: entry, monitor: placement.monitor || "", placed: true});
+                for (const placement of placements) result.push({entry: entry, monitor: placement.monitor || "", aboveWindows: !!placement.aboveWindows, placed: true});
             } else result.push({entry: entry, monitor: "", placed: false});
         }
         return result.sort((first, second) => (first.entry.pluginName || "").localeCompare(second.entry.pluginName || "") || first.entry.title.localeCompare(second.entry.title) || first.monitor.localeCompare(second.monitor));
@@ -77,6 +77,18 @@ Column {
                     id: actions
                     anchors.right: parent.right; anchors.rightMargin: PanelStyle.selectionActionInset
                     anchors.verticalCenter: parent.verticalCenter; spacing: PanelStyle.selectionActionGap
+                    PanelButton {
+                        visible: !visual.entry.disabled && visual.entry.kind === "widgets" && visual.modelData.placed
+                        width: PanelStyle.selectionActionWidth; height: PanelStyle.selectionActionHeight
+                        icon: true; text: "󰁝"; foreground: management.foreground
+                        selected: !!visual.modelData.aboveWindows
+                        readonly property string label: Eitr.I18n.tr("Show above windows")
+                        Accessible.name: label
+                        Accessible.checkable: true; Accessible.checked: selected
+                        onClicked: PluginRegistry.change("toggle-layer", visual.entry, visual.modelData.monitor, null)
+                        HoverHandler { id: layerHover }
+                        BarTooltip { target: parent; hovered: layerHover.hovered; text: parent.label; foreground: management.foreground; background: management.background }
+                    }
                     PanelButton {
                         visible: !visual.entry.disabled && visual.entry.kind === "widgets" && visual.modelData.placed
                         width: 24; height: 24; icon: true; text: visual.editing ? "󰄬" : "󰏫"; foreground: management.foreground

@@ -81,7 +81,10 @@ def manifest(root):
         raise ValueError(tr('Invalid plugin schemaVersion; expected 1 or 2'))
     if version > 2:
         raise ValueError(tr('This plugin needs a newer Eitr'))
-    object_keys(value, ('id', 'name', 'description', 'author', 'version', 'rows'), ('service', 'schemaVersion', 'hooks') + (('ui',) if version == 2 else ()))
+    object_keys(value, ('id', 'name', 'description', 'author', 'version', 'rows'), ('service', 'schemaVersion', 'hooks') + (('ui', 'capabilities') if version == 2 else ()))
+    capabilities = value.get('capabilities', [])
+    if not isinstance(capabilities, list) or any(not isinstance(capability, str) or capability != 'audio-spectrum' for capability in capabilities) or len(capabilities) != len(set(capabilities)):
+        raise ValueError('Invalid plugin capabilities')
     identifier(value['id'])
     for field in ('name', 'author', 'version'):
         string(value[field])
@@ -136,7 +139,7 @@ def validate_ui(root, ui):
         if not isinstance(entries, list) or len(entries) > 8:
             raise ValueError('A plugin may declare at most 8 entries per visual kind')
         for entry in entries:
-            optional = ('icon', 'refreshInterval', 'dataCommand')
+            optional = ('icon', 'refreshInterval', 'dataCommand', 'dataStream')
             if kind in ('tiles', 'barItems'):
                 optional += ('panel',)
             elif kind == 'widgets':
@@ -170,9 +173,10 @@ def validate_ui(root, ui):
                 raise ValueError('Plugin refreshInterval must be 0 or 1000..3600000 milliseconds')
             if interval and 'dataCommand' not in entry:
                 raise ValueError('Plugin refreshInterval needs a dataCommand')
-            if 'dataCommand' in entry:
-                object_keys(entry['dataCommand'], ('run',), ('arguments',))
-                command(root, entry['dataCommand'])
+            for field in ('dataCommand', 'dataStream'):
+                if field in entry:
+                    object_keys(entry[field], ('run',), ('arguments',))
+                    command(root, entry[field])
 
 
 # Private repositories use the person's own SSH keys and ~/.ssh/config aliases:
@@ -274,6 +278,20 @@ def add_flags(root, spec):
     if 'service' in spec:
         flags.append(tr('Starts a background service at every login: {command}', command=service_text(spec)))
     flags.extend(tr('Binary file: {path}', path=printable(path)) for path in binary_files(root))
+    flags.extend(live_flags(spec))
+    return flags
+
+
+def live_flags(spec, previous=None):
+    flags = []
+    if 'audio-spectrum' in spec.get('capabilities', []) and 'audio-spectrum' not in (previous or {}).get('capabilities', []):
+        flags.append(tr('Reads the system audio spectrum (levels only, no audio is recorded or sent)'))
+    for kind, entries in spec.get('ui', {}).items():
+        for entry in entries:
+            old = next((item for item in (previous or {}).get('ui', {}).get(kind, []) if item['id'] == entry['id']), {})
+            for field in ('dataCommand', 'dataStream'):
+                if field in entry and entry[field] != old.get(field):
+                    flags.append(tr('Live data command added or changed: {kind} · {id} · {command}', kind=field, id=entry['id'], command=printable(' '.join([entry[field]['run'], *entry[field].get('arguments', [])]))))
     return flags
 
 
@@ -292,7 +310,7 @@ def update_changes(candidate, target, old, new, old_spec, spec):
         added, removed = counts.get(path, ('0', '0'))
         files.append(dict(path=printable(path), status=status, old_mode=old_mode, new_mode=new_mode,
                           added=added, removed=removed, binary=added == '-'))
-    flags = []
+    flags = live_flags(spec, old_spec)
     if old_spec.get('service') != spec.get('service'):
         if 'service' not in old_spec:
             flags.append(tr('Background service added: {command}', command=service_text(spec)))
@@ -729,7 +747,7 @@ class Plugins:
                     for entry in spec.get('ui', {}).get(kind, []):
                         result.append(dict(plugin=plugin_id, pluginName=spec['name'], commit=record['commit'], kind=kind,
                                            placement={'widgets': 'desktop', 'barItems': 'bar'}.get(kind, 'control-center'), disabled=bool(failures.get(plugin_id, {}).get('disabled')),
-                                           **entry, source=(root / entry['qml']).as_uri()))
+                                           **entry, capabilities=spec.get('capabilities', []), source=(root / entry['qml']).as_uri()))
             except (OSError, ValueError, subprocess.SubprocessError):
                 continue
         return result
@@ -738,16 +756,16 @@ class Plugins:
         try:
             value = json.loads(config('eitr/plugin-placements.json').read_text(), object_pairs_hook=unique_object)
         except FileNotFoundError:
-            return dict(version=1, widgets=[], barItems=[])
+            return dict(version=2, widgets=[], barItems=[])
         object_keys(value, ('version', 'widgets', 'barItems'))
-        if type(value['version']) is not int or value['version'] != 1:
+        if type(value['version']) is not int or value['version'] not in (1, 2):
             raise ValueError('Invalid plugin placement version')
         seen = set()
         for kind in ('widgets', 'barItems'):
             if not isinstance(value[kind], list) or len(value[kind]) > 256:
                 raise ValueError('Invalid plugin placements')
             for placement in value[kind]:
-                object_keys(placement, ('plugin', 'id') + (('monitor', 'x', 'y', 'width', 'height') if kind == 'widgets' else ()))
+                object_keys(placement, ('plugin', 'id') + (('monitor', 'x', 'y', 'width', 'height') if kind == 'widgets' else ()), ('aboveWindows',) if kind == 'widgets' else ())
                 identifier(placement['plugin'])
                 identifier(placement['id'])
                 key = (kind, placement['plugin'], placement['id'], placement.get('monitor'))
@@ -755,13 +773,17 @@ class Plugins:
                     raise ValueError('Duplicate plugin placement')
                 seen.add(key)
                 if kind == 'widgets':
+                    if 'aboveWindows' in placement and (value['version'] == 1 or type(placement['aboveWindows']) is not bool):
+                        raise ValueError('Invalid widget layer')
+                    placement.setdefault('aboveWindows', False)
                     string(placement['monitor'])
                     for field in ('x', 'y', 'width', 'height'):
                         if type(placement[field]) is not int or not 0 <= placement[field] <= 65536 or (field in ('width', 'height') and placement[field] < 24):
                             raise ValueError('Invalid widget geometry')
+        value['version'] = 2
         return value
 
-    def place(self, plugin_id, entry_id, monitor=None, *, remove=False, geometry=None):
+    def place(self, plugin_id, entry_id, monitor=None, *, remove=False, geometry=None, toggle_layer=False):
         identifier(plugin_id)
         identifier(entry_id)
         with self.lock():
@@ -775,11 +797,15 @@ class Plugins:
             def matches(placement):
                 return placement['plugin'] == plugin_id and placement['id'] == entry_id and (kind != 'widgets' or placement['monitor'] == monitor)
             previous = next((placement for placement in values[kind] if matches(placement)), None)
+            if toggle_layer and (kind != 'widgets' or previous is None):
+                raise ValueError('Widget must be placed before changing layer')
             values[kind] = [placement for placement in values[kind] if not matches(placement)]
             if not remove:
                 placement = dict(plugin=plugin_id, id=entry_id)
                 if kind == 'widgets':
-                    placement.update(previous or dict(monitor=monitor, x=24, y=24, width=entry.get('defaultWidth', 192), height=entry.get('defaultHeight', 192)))
+                    placement.update(previous or dict(monitor=monitor, aboveWindows=False, x=24, y=24, width=entry.get('defaultWidth', 192), height=entry.get('defaultHeight', 192)))
+                    if toggle_layer:
+                        placement['aboveWindows'] = not placement['aboveWindows']
                     if geometry is not None:
                         object_keys(geometry, ('x', 'y', 'width', 'height'))
                         for field, number in geometry.items():
