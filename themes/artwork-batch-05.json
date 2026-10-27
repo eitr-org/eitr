@@ -15,9 +15,9 @@
   "images": [
     {
       "theme": "alfheim",
-      "name": "01-light-elf",
-      "file": "themes/alfheim/backgrounds/01-light-elf.jpg",
-      "ultrawide_file": "themes/alfheim/backgrounds-ultrawide/01-light-elf.jpg",
+      "name": "02-winged-elf",
+      "file": "themes/alfheim/backgrounds/02-winged-elf.jpg",
+      "ultrawide_file": "themes/alfheim/backgrounds-ultrawide/02-winged-elf.jpg",
       "native_source": "branding/sources/wallpapers/batch-05/alfheim-01-light-elf.png",
       "prompt": "Use case: stylized-concept. Asset: ONE original Eitr Norse fantasy desktop wallpaper. Landscape 16:9 request 3840x2160 native if supported. Generate solely from this written brief; NO reference images. Subject: A luminous adult light elf, calm three-quarter upper-body figure, two radiant wings of light spread horizontally, simplified hands tucked beneath cloak; loose offset composition right of centre. No crown. Style: bold hand-inked BLACK pen contours, clearly drawn expressive shapes, flat limited spot colours, two-tone cel shading, rhythmic confident ink strokes, restrained ink flecks. Pure black background with generous useful negative space. Strict spot palette: pure black and #ece6f5 #e04fc3 #3fe39a #8a8cf5. Keep COMPLETE subject including all extremities within x=18–82%, y=28–72%, designed to survive a centred 21:9 crop without losing any subject. Avoid filling canvas; dark breathing room above and below. Original interpretation of public-domain Norse myth, no game/movie likeness. No scenic backdrop, horizon, mountains, trees, landscape, photographic fur or skin, realistic metal, metallic engraving, 3D, volumetric lighting, gradients, text, lettering, runes, logos, signatures, watermarks, border, collage or UI.",
       "status": "selected after visual inspection",
@@ -33,9 +33,9 @@
     },
     {
       "theme": "asgard",
-      "name": "01-bifrost-hall",
-      "file": "themes/asgard/backgrounds/01-bifrost-hall.jpg",
-      "ultrawide_file": "themes/asgard/backgrounds-ultrawide/01-bifrost-hall.jpg",
+      "name": "02-bifrost-hall",
+      "file": "themes/asgard/backgrounds/02-bifrost-hall.jpg",
+      "ultrawide_file": "themes/asgard/backgrounds-ultrawide/02-bifrost-hall.jpg",
       "native_source": "branding/sources/wallpapers/batch-05/asgard-01-bifrost-hall.png",
       "prompt": "Use case: stylized-concept. Original Eitr Norse fantasy wallpaper, landscape 16:9 requested 3840x2160. Written brief only, NO reference images. Subject: Bifröst, a sweeping arch of gold and a thin emerald stripe rising toward a single golden Norse hall gable, architectural emblem floating against pure black, no landscape. Wide asymmetrical arch composition, entire arch and gable fully inside x=20–80%, y=28–72% to survive centered ultrawide crop. Bold hand-inked BLACK contours, flat limited spot colours, two-tone cel shading, expressive graphic screenprint, restrained ink flecks. Palette only pure black, ivory #d8d8d4, gold #ddbd7e, green #3fe39a, slate #8a98a8. Generous pure black negative space. No scenery, realistic materials, metallic engraving, photography, 3D, gradients, lettering, runes, logo, signature, watermark, frame, or franchise likeness.",
       "status": "selected after visual inspection",
@@ -82,7 +82,7 @@
       "ultrawide_file": "themes/jotunheim/backgrounds-ultrawide/01-stone-giant.jpg",
       "native_source": "branding/sources/wallpapers/batch-05/jotunheim-01-stone-giant.png",
       "prompt": "Use case: stylized-concept. Asset: ONE original Eitr Norse fantasy desktop wallpaper. Landscape 16:9 request 3840x2160 native if supported. Generate solely from this written brief; NO reference images. Subject: A frost giant face carved like fractured stone, frontal angular mask with two eyes and one nose, floating in black, small shards of ice around cheekbones, broad powerful silhouette. No crown or frame. Style: bold hand-inked BLACK pen contours, clearly drawn expressive shapes, flat limited spot colours, two-tone cel shading, rhythmic confident ink strokes, restrained ink flecks. Pure black background with generous useful negative space. Strict spot palette: pure black and #dfe6ea #a7b1c2 #8fb8d0 #86c3c9. Keep COMPLETE subject including all extremities within x=18–82%, y=28–72%, designed to survive a centred 21:9 crop without losing any subject. Avoid filling canvas; dark breathing room above and below. Original interpretation of public-domain Norse myth, no game/movie likeness. No scenic backdrop, horizon, mountains, trees, landscape, photographic fur or skin, realistic metal, metallic engraving, 3D, volumetric lighting, gradients, text, lettering, runes, logos, signatures, watermarks, border, collage or UI.",
-      "status": "selected after visual inspection",
+      "status": "removed",
       "ultrawide_centering": [
         0.5,
         0.5
@@ -99,7 +99,8 @@
         812
       ],
       "ultrawide_prompt": "Use case: stylized-concept. Asset: ONE original Eitr Norse fantasy desktop wallpaper. ULTRAWIDE landscape 43:18 request 3440x1440 native if supported. Generate solely from this written brief; NO reference images. Subject: A frost giant face carved like fractured stone, frontal angular mask with two eyes and one nose, floating in black, small shards of ice around cheekbones, broad powerful silhouette. No crown or frame. Style: bold hand-inked BLACK pen contours, clearly drawn expressive shapes, flat limited spot colours, two-tone cel shading, rhythmic confident ink strokes, restrained ink flecks. Pure black background with generous useful negative space. Strict spot palette: pure black and #dfe6ea #a7b1c2 #8fb8d0 #86c3c9. Keep COMPLETE subject including all extremities within x=18–82%, y=28–72%, designed to survive a centred 21:9 crop without losing any subject. Avoid filling canvas; dark breathing room above and below. Original interpretation of public-domain Norse myth, no game/movie likeness. No scenic backdrop, horizon, mountains, trees, landscape, photographic fur or skin, realistic metal, metallic engraving, 3D, volumetric lighting, gradients, text, lettering, runes, logos, signatures, watermarks, border, collage or UI.\nPANORAMIC VERSION: use a TRUE 2.39:1 wide canvas, not 16:9. Recompose the complete subject into the central half of the canvas with generous BLACK breathing room on ALL sides. Keep ALL tips, flames, stone shards and architecture at least 18% from top and bottom. Whole subject fully visible, no cut-offs, no cropped extremities. This is one complete original illustration on a naturally black field, no stretching, padding or border. No reference images.",
-      "ultrawide_note": "Separately composed panoramic version from a written brief only, preserving the subject and palette without clipping; no image inputs."
+      "ultrawide_note": "Separately composed panoramic version from a written brief only, preserving the subject and palette without clipping; no image inputs.",
+      "removed_reason": "Removed during the owner's curation of the realm wallpapers."
     },
     {
       "theme": "midgard",
@@ -108,7 +109,7 @@
       "ultrawide_file": "themes/midgard/backgrounds-ultrawide/01-longship-serpent.jpg",
       "native_source": "branding/sources/wallpapers/batch-05/midgard-01-longship-serpent.png",
       "prompt": "Use case: stylized-concept. Asset: ONE original Eitr Norse fantasy desktop wallpaper. Landscape 16:9 request 3840x2160 native if supported. Generate solely from this written brief; NO reference images. Subject: A Norse longship prow cutting through one open coil of the world serpent; only the complete sculptural prow and curling serpent, no sea or landscape. Broad sweeping S-shaped horizontal composition. Style: bold hand-inked BLACK pen contours, clearly drawn expressive shapes, flat limited spot colours, two-tone cel shading, rhythmic confident ink strokes, restrained ink flecks. Pure black background with generous useful negative space. Strict spot palette: pure black and #d9e2e8 #7ee0b5 #4fc3c9 #6aa7d8. Keep COMPLETE subject including all extremities within x=18–82%, y=28–72%, designed to survive a centred 21:9 crop without losing any subject. Avoid filling canvas; dark breathing room above and below. Original interpretation of public-domain Norse myth, no game/movie likeness. No scenic backdrop, horizon, mountains, trees, landscape, photographic fur or skin, realistic metal, metallic engraving, 3D, volumetric lighting, gradients, text, lettering, runes, logos, signatures, watermarks, border, collage or UI.",
-      "status": "selected after visual inspection",
+      "status": "removed",
       "ultrawide_centering": [
         0.5,
         0.5
@@ -117,7 +118,8 @@
       "native_size": [
         1672,
         941
-      ]
+      ],
+      "removed_reason": "Removed during the owner's curation of the realm wallpapers."
     },
     {
       "theme": "muspelheim",
@@ -126,7 +128,7 @@
       "ultrawide_file": "themes/muspelheim/backgrounds-ultrawide/01-surtr.jpg",
       "native_source": "branding/sources/wallpapers/batch-05/muspelheim-01-surtr.png",
       "prompt": "Use case: stylized-concept. Asset: ONE original Eitr Norse fantasy desktop wallpaper. Landscape 16:9 request 3840x2160 native if supported. Generate solely from this written brief; NO reference images. Subject: Surtr, a massive fire giant raising one flaming sword diagonally, complete broad crouched silhouette, simple clear hands gripping sword with plausible anatomy; flames as angular flat orange and crimson shapes. Strong rising diagonal with black breathing room. Style: bold hand-inked BLACK pen contours, clearly drawn expressive shapes, flat limited spot colours, two-tone cel shading, rhythmic confident ink strokes, restrained ink flecks. Pure black background with generous useful negative space. Strict spot palette: pure black and #f1e4ea #a6124d #e95978 #f08a4b #b7c43c. Keep COMPLETE subject including all extremities within x=18–82%, y=28–72%, designed to survive a centred 21:9 crop without losing any subject. Avoid filling canvas; dark breathing room above and below. Original interpretation of public-domain Norse myth, no game/movie likeness. No scenic backdrop, horizon, mountains, trees, landscape, photographic fur or skin, realistic metal, metallic engraving, 3D, volumetric lighting, gradients, text, lettering, runes, logos, signatures, watermarks, border, collage or UI.",
-      "status": "selected after visual inspection",
+      "status": "removed",
       "ultrawide_centering": [
         0.5,
         0.5
@@ -143,7 +145,8 @@
         817
       ],
       "ultrawide_prompt": "Use case: stylized-concept. Asset: ONE original Eitr Norse fantasy desktop wallpaper. ULTRAWIDE landscape 43:18 request 3440x1440 native if supported. Generate solely from this written brief; NO reference images. Subject: Surtr, a massive fire giant raising one flaming sword diagonally, complete broad crouched silhouette, simple clear hands gripping sword with plausible anatomy; flames as angular flat orange and crimson shapes. Strong rising diagonal with black breathing room. Style: bold hand-inked BLACK pen contours, clearly drawn expressive shapes, flat limited spot colours, two-tone cel shading, rhythmic confident ink strokes, restrained ink flecks. Pure black background with generous useful negative space. Strict spot palette: pure black and #f1e4ea #a6124d #e95978 #f08a4b #b7c43c. Keep COMPLETE subject including all extremities within x=18–82%, y=28–72%, designed to survive a centred 21:9 crop without losing any subject. Avoid filling canvas; dark breathing room above and below. Original interpretation of public-domain Norse myth, no game/movie likeness. No scenic backdrop, horizon, mountains, trees, landscape, photographic fur or skin, realistic metal, metallic engraving, 3D, volumetric lighting, gradients, text, lettering, runes, logos, signatures, watermarks, border, collage or UI.\nPANORAMIC VERSION: use a TRUE 2.39:1 wide canvas, not 16:9. Recompose the complete subject into the central half of the canvas with generous BLACK breathing room on ALL sides. Keep ALL tips, flames, stone shards and architecture at least 18% from top and bottom. Whole subject fully visible, no cut-offs, no cropped extremities. This is one complete original illustration on a naturally black field, no stretching, padding or border. No reference images.",
-      "ultrawide_note": "Separately composed panoramic version from a written brief only, preserving the subject and palette without clipping; no image inputs."
+      "ultrawide_note": "Separately composed panoramic version from a written brief only, preserving the subject and palette without clipping; no image inputs.",
+      "removed_reason": "Removed during the owner's curation of the realm wallpapers."
     },
     {
       "theme": "niflheim",
@@ -152,7 +155,7 @@
       "ultrawide_file": "themes/niflheim/backgrounds-ultrawide/01-nidhoggr.jpg",
       "native_source": "branding/sources/wallpapers/batch-05/niflheim-01-nidhoggr.png",
       "prompt": "Use case: stylized-concept. Asset: ONE original Eitr Norse fantasy desktop wallpaper. Landscape 16:9 request 3840x2160 native if supported. Generate solely from this written brief; NO reference images. Subject: Níðhöggr, a stylized Norse dragon coiled in an irregular horizontal loop, one head with two horns, folded wings, sparse flat mist ribbons and ice crystals threaded beneath its body. Full tail and horns visible, no ornamental ring. Style: bold hand-inked BLACK pen contours, clearly drawn expressive shapes, flat limited spot colours, two-tone cel shading, rhythmic confident ink strokes, restrained ink flecks. Pure black background with generous useful negative space. Strict spot palette: pure black and #dfe6ea #8fb8d0 #c9b27a #86c3c9. Keep COMPLETE subject including all extremities within x=18–82%, y=28–72%, designed to survive a centred 21:9 crop without losing any subject. Avoid filling canvas; dark breathing room above and below. Original interpretation of public-domain Norse myth, no game/movie likeness. No scenic backdrop, horizon, mountains, trees, landscape, photographic fur or skin, realistic metal, metallic engraving, 3D, volumetric lighting, gradients, text, lettering, runes, logos, signatures, watermarks, border, collage or UI.",
-      "status": "selected after visual inspection",
+      "status": "removed",
       "ultrawide_centering": [
         0.5,
         0.5
@@ -161,7 +164,8 @@
       "native_size": [
         1672,
         941
-      ]
+      ],
+      "removed_reason": "Removed during the owner's curation of the realm wallpapers."
     },
     {
       "theme": "ragnarok",
@@ -188,7 +192,7 @@
       "ultrawide_file": "themes/svartalfheim/backgrounds-ultrawide/01-dwarf-smith.jpg",
       "native_source": "branding/sources/wallpapers/batch-05/svartalfheim-01-dwarf-smith.png",
       "prompt": "Use case: stylized-concept. Asset: ONE original Eitr Norse fantasy desktop wallpaper. Landscape 16:9 request 3840x2160 native if supported. Generate solely from this written brief; NO reference images. Subject: A dwarf smith in side view forging at an anvil, one hand gripping a raised short hammer, other holding tongs over anvil, readable simple anatomy, small angular sparks. Complete compact kneeling smith and anvil group, left of centre. Style: bold hand-inked BLACK pen contours, clearly drawn expressive shapes, flat limited spot colours, two-tone cel shading, rhythmic confident ink strokes, restrained ink flecks. Pure black background with generous useful negative space. Strict spot palette: pure black and #e6dfd0 #c8894a #6f8597 #d9a865. Keep COMPLETE subject including all extremities within x=18–82%, y=28–72%, designed to survive a centred 21:9 crop without losing any subject. Avoid filling canvas; dark breathing room above and below. Original interpretation of public-domain Norse myth, no game/movie likeness. No scenic backdrop, horizon, mountains, trees, landscape, photographic fur or skin, realistic metal, metallic engraving, 3D, volumetric lighting, gradients, text, lettering, runes, logos, signatures, watermarks, border, collage or UI.",
-      "status": "selected after visual inspection",
+      "status": "removed",
       "ultrawide_centering": [
         0.5,
         0.5
@@ -197,7 +201,8 @@
       "native_size": [
         1672,
         941
-      ]
+      ],
+      "removed_reason": "Removed during the owner's curation of the realm wallpapers."
     },
     {
       "theme": "vanaheim",
@@ -206,7 +211,7 @@
       "ultrawide_file": "themes/vanaheim/backgrounds-ultrawide/01-gullinbursti.jpg",
       "native_source": "branding/sources/wallpapers/batch-05/vanaheim-01-gullinbursti.png",
       "prompt": "Use case: stylized-concept. Asset: ONE original Eitr Norse fantasy desktop wallpaper. Landscape 16:9 request 3840x2160 native if supported. Generate solely from this written brief; NO reference images. Subject: Gullinbursti, a powerful stylized boar in a low running side pose, exactly four legs, two tusks and a sweep of glowing bristles, low wide diagonal silhouette left of centre. No ornament. Style: bold hand-inked BLACK pen contours, clearly drawn expressive shapes, flat limited spot colours, two-tone cel shading, rhythmic confident ink strokes, restrained ink flecks. Pure black background with generous useful negative space. Strict spot palette: pure black and #dce2d5 #a9b47c #d9a865 #7ee0b5. Keep COMPLETE subject including all extremities within x=18–82%, y=28–72%, designed to survive a centred 21:9 crop without losing any subject. Avoid filling canvas; dark breathing room above and below. Original interpretation of public-domain Norse myth, no game/movie likeness. No scenic backdrop, horizon, mountains, trees, landscape, photographic fur or skin, realistic metal, metallic engraving, 3D, volumetric lighting, gradients, text, lettering, runes, logos, signatures, watermarks, border, collage or UI.",
-      "status": "selected after visual inspection",
+      "status": "removed",
       "ultrawide_centering": [
         0.5,
         0.5
@@ -215,19 +220,20 @@
       "native_size": [
         1672,
         941
-      ]
+      ],
+      "removed_reason": "Removed during the owner's curation of the realm wallpapers."
     }
   ],
   "previews": {
     "alfheim": "themes/alfheim/backgrounds/01-light-elf.jpg",
-    "asgard": "themes/asgard/backgrounds/01-bifrost-hall.jpg",
+    "asgard": "themes/asgard/backgrounds/01-radiant-citadel.jpg",
     "helheim": "themes/helheim/backgrounds/01-hel.jpg",
-    "jotunheim": "themes/jotunheim/backgrounds/01-stone-giant.jpg",
-    "midgard": "themes/midgard/backgrounds/01-longship-serpent.jpg",
-    "muspelheim": "themes/muspelheim/backgrounds/01-surtr.jpg",
-    "niflheim": "themes/niflheim/backgrounds/01-nidhoggr.jpg",
+    "jotunheim": "themes/jotunheim/backgrounds/01-blizzard-giant.jpg",
+    "midgard": "themes/midgard/backgrounds/01-travellers-valley.jpg",
+    "muspelheim": "themes/muspelheim/backgrounds/01-fire-ring.jpg",
+    "niflheim": "themes/niflheim/backgrounds/01-frost-queen.jpg",
     "ragnarok": "themes/ragnarok/backgrounds/01-skoll-sun.jpg",
-    "svartalfheim": "themes/svartalfheim/backgrounds/01-dwarf-smith.jpg",
-    "vanaheim": "themes/vanaheim/backgrounds/01-gullinbursti.jpg"
+    "svartalfheim": "themes/svartalfheim/backgrounds/01-cavern-city.jpg",
+    "vanaheim": "themes/vanaheim/backgrounds/01-hidden-garden.jpg"
   }
 }

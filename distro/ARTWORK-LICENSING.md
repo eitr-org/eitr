@@ -49,3 +49,13 @@ icon on the user's machine when created (Walker > Install > Web Apps).
 
 When adding artwork, add or extend an entry in `distro/artwork.json` and record
 the prompt or source next to the image.
+
+## Batch 07 realm additions
+
+Eighteen original 03/04 wallpapers across nine realms (excluding Ragnarök)
+use the same EITR artwork license. The owner requested scenic backgrounds
+and individually specified rendering styles for this set. No reference images
+were used. Exact written prompts, styles, native source sizes, hashes and
+framing are recorded in `themes/artwork-batch-07.json`; sources and exporter
+live under `branding/sources/wallpapers/batch-07/`. All existing 01/02 artwork
+and previews are preserved.

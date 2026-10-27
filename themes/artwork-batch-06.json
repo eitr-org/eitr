@@ -16,9 +16,9 @@
   "images": [
     {
       "theme": "asgard",
-      "name": "02-cloud-fortress",
-      "file": "themes/asgard/backgrounds/02-cloud-fortress.jpg",
-      "ultrawide_file": "themes/asgard/backgrounds-ultrawide/02-cloud-fortress.jpg",
+      "name": "03-cloud-fortress",
+      "file": "themes/asgard/backgrounds/03-cloud-fortress.jpg",
+      "ultrawide_file": "themes/asgard/backgrounds-ultrawide/03-cloud-fortress.jpg",
       "prompt": "Use case: stylized-concept. Original Norse fantasy environment desktop wallpaper, requested 3840x2160 landscape 16:9. Asgard: monumental golden fortress-city crowning sheer cliffs above a sea of clouds, a slender rainbow bridge of light at dawn. Original stepped stone terraces and asymmetrical halls, no borrowed landmark. Rich painterly concept art lighting, vast exploratory scale, weathered carved stone, luminous atmospheric depth. Palette from theme: near-black #0a0a0b, ivory #d8d8d4, gold #ddbd7e, emerald #3fe39a, slate #8a98a8. Top 6% calm low-contrast sky. Compose all key landmarks within middle 65% of height so a 21:9 center crop preserves the complete scene. No characters, people, gods, heroes, creatures, text, readable runes, logos, UI, signatures, watermarks. Written brief only, no reference images. Entirely original architecture and composition.",
       "status": "selected after visual inspection",
       "centering": [
@@ -50,7 +50,7 @@
       "file": "themes/alfheim/backgrounds/02-crystal-lake.jpg",
       "ultrawide_file": "themes/alfheim/backgrounds-ultrawide/02-crystal-lake.jpg",
       "prompt": "Use case: stylized-concept. ONE original Norse fantasy environment desktop wallpaper for alfheim. Landscape 16:9 requested 3840x2160. Scene: A luminous valley of crystalline spires, an original asymmetrical temple of light suspended over a glowing lake, magenta and aurora-green reflections. Rich painterly concept-art lighting, monumental scale, atmospheric perspective, ancient weathered carved stone, vast world to explore. Theme colour scheme:  #0c0a14 #ece6f5 #e04fc3 #3fe39a #8a8cf5. Original composition and original architecture only. Keep top 6% calm low-contrast sky, without busy details. Place complete key landmarks in middle 65% of image height to retain them in a centered 21:9 crop. No characters, people, gods, heroes, living creatures, lettering, text-like runes, signatures, logos, UI, watermarks or borders. No recognizable landmark or design from existing entertainment. Written brief only, no reference images.",
-      "status": "selected after visual inspection",
+      "status": "removed",
       "centering": [
         0.5,
         0.5
@@ -72,13 +72,14 @@
         812
       ],
       "ultrawide_prompt": "Use case: stylized-concept. Original Norse fantasy painterly environment wallpaper, true panoramic 2.39:1 aspect ratio, requested 3440x1440. A luminous crystal-spire valley and an original asymmetrical temple of light over a glowing lake. Magenta #e04fc3 and aurora green #3fe39a, lavender #8a8cf5, #0c0a14 shadows and #ece6f5 light. Monumental scale, rich painted concept-art lighting and atmospheric depth, ancient carved stone, vast exploratory world. Spread scene horizontally, keep all primary landmarks completely within frame with generous calm sky overhead, top 6% low contrast without architecture. Original architecture and composition, no recognizable entertainment designs. No people, characters, gods, heroes, creatures, readable runes, text, lettering, logos, UI, watermarks, signatures. Written brief only, no references. Never stretch or pad.",
-      "ultrawide_note": "Separately composed panoramic environment from a written brief, preserving complete main landmarks."
+      "ultrawide_note": "Separately composed panoramic environment from a written brief, preserving complete main landmarks.",
+      "removed_reason": "Removed during the owner's curation of the realm wallpapers."
     },
     {
       "theme": "vanaheim",
-      "name": "02-overgrown-valley",
-      "file": "themes/vanaheim/backgrounds/02-overgrown-valley.jpg",
-      "ultrawide_file": "themes/vanaheim/backgrounds-ultrawide/02-overgrown-valley.jpg",
+      "name": "03-overgrown-valley",
+      "file": "themes/vanaheim/backgrounds/03-overgrown-valley.jpg",
+      "ultrawide_file": "themes/vanaheim/backgrounds-ultrawide/03-overgrown-valley.jpg",
       "prompt": "Use case: stylized-concept. ONE original Norse fantasy environment desktop wallpaper for vanaheim. Landscape 16:9 requested 3840x2160. Scene: An overgrown valley of colossal moss-covered ruined stone terraces, cascading waterfalls and drifting golden pollen, olive and gold atmosphere. Rich painterly concept-art lighting, monumental scale, atmospheric perspective, ancient weathered carved stone, vast world to explore. Theme colour scheme: #0d100b #dce2d5 #a9b47c #d9a865 #7ee0b5. Original composition and original architecture only. Keep top 6% calm low-contrast sky, without busy details. Place complete key landmarks in middle 65% of image height to retain them in a centered 21:9 crop. No characters, people, gods, heroes, living creatures, lettering, text-like runes, signatures, logos, UI, watermarks or borders. No recognizable landmark or design from existing entertainment. Written brief only, no reference images.",
       "status": "selected after visual inspection",
       "centering": [
@@ -110,7 +111,7 @@
       "file": "themes/midgard/backgrounds/02-frozen-fjord.jpg",
       "ultrawide_file": "themes/midgard/backgrounds-ultrawide/02-frozen-fjord.jpg",
       "prompt": "Use case: stylized-concept. ONE original Norse fantasy environment desktop wallpaper for midgard. Landscape 16:9 requested 3840x2160. Scene: A frozen fjord at dusk, a colossal anonymous weathered stone figure half-sunk in ice, distant jagged peaks. Statue is an original abstract faceless monolith torso without weapons or distinctive costume, no living figures. Rich painterly concept-art lighting, monumental scale, atmospheric perspective, ancient weathered carved stone, vast world to explore. Theme colour scheme: #0b1015 #d9e2e8 #7ee0b5 #4fc3c9 #6aa7d8. Original composition and original architecture only. Keep top 6% calm low-contrast sky, without busy details. Place complete key landmarks in middle 65% of image height to retain them in a centered 21:9 crop. No characters, people, gods, heroes, living creatures, lettering, text-like runes, signatures, logos, UI, watermarks or borders. No recognizable landmark or design from existing entertainment. Written brief only, no reference images.",
-      "status": "selected after visual inspection",
+      "status": "removed",
       "centering": [
         0.5,
         0.5
@@ -132,7 +133,8 @@
         812
       ],
       "ultrawide_prompt": "Use case: stylized-concept. Original Norse fantasy painterly environment wallpaper, true panoramic 2.39:1 aspect ratio, requested 3440x1440. A frozen fjord at dusk, a colossal faceless weathered stone torso half-submerged in the ice, its head eroded to a smooth oval. Distant snowy peaks. No crown, no beard, no recognizable statue, no boats. Cold blue #6aa7d8, mint #7ee0b5 and teal #4fc3c9, #0b1015 shadows and #d9e2e8 snow. Monumental scale, rich painted concept-art lighting and atmospheric depth, ancient carved stone, vast exploratory world. Spread scene horizontally, keep all primary landmarks completely within frame with generous calm sky overhead, top 6% low contrast without architecture. Original architecture and composition, no recognizable entertainment designs. No people, characters, gods, heroes, creatures, readable runes, text, lettering, logos, UI, watermarks, signatures. Written brief only, no references. Never stretch or pad.",
-      "ultrawide_note": "Separately composed panoramic environment from a written brief, preserving complete main landmarks."
+      "ultrawide_note": "Separately composed panoramic environment from a written brief, preserving complete main landmarks.",
+      "removed_reason": "Removed during the owner's curation of the realm wallpapers."
     },
     {
       "theme": "jotunheim",
@@ -166,9 +168,9 @@
     },
     {
       "theme": "svartalfheim",
-      "name": "02-forge-canyon",
-      "file": "themes/svartalfheim/backgrounds/02-forge-canyon.jpg",
-      "ultrawide_file": "themes/svartalfheim/backgrounds-ultrawide/02-forge-canyon.jpg",
+      "name": "03-forge-canyon",
+      "file": "themes/svartalfheim/backgrounds/03-forge-canyon.jpg",
+      "ultrawide_file": "themes/svartalfheim/backgrounds-ultrawide/03-forge-canyon.jpg",
       "prompt": "Use case: stylized-concept. ONE original Norse fantasy environment desktop wallpaper for svartalfheim. Landscape 16:9 requested 3840x2160. Scene: An uninhabited dwarven mining city carved into a deep canyon, stone bridges with structurally plausible supports, huge waterwheels, suspended chains and glowing forges, warm copper against cool slate. Rich painterly concept-art lighting, monumental scale, atmospheric perspective, ancient weathered carved stone, vast world to explore. Theme colour scheme: #0d0e10 #e6dfd0 #c8894a #6f8597 #d9a865. Original composition and original architecture only. Keep top 6% calm low-contrast sky, without busy details. Place complete key landmarks in middle 65% of image height to retain them in a centered 21:9 crop. No characters, people, gods, heroes, living creatures, lettering, text-like runes, signatures, logos, UI, watermarks or borders. No recognizable landmark or design from existing entertainment. Written brief only, no reference images.",
       "status": "selected after visual inspection",
       "centering": [
@@ -189,9 +191,9 @@
     },
     {
       "theme": "niflheim",
-      "name": "02-mist-labyrinth",
-      "file": "themes/niflheim/backgrounds/02-mist-labyrinth.jpg",
-      "ultrawide_file": "themes/niflheim/backgrounds-ultrawide/02-mist-labyrinth.jpg",
+      "name": "03-mist-labyrinth",
+      "file": "themes/niflheim/backgrounds/03-mist-labyrinth.jpg",
+      "ultrawide_file": "themes/niflheim/backgrounds-ultrawide/03-mist-labyrinth.jpg",
       "prompt": "Use case: stylized-concept. One original Norse fantasy Niflheim environment wallpaper. 16:9 landscape requested 3840x2160. From a high ice shelf overlook a vast labyrinth of angular opaque ice walls drowned in pale drifting mist, shattered low stone chambers embedded in frozen ground. Faint blue illumination seeps through fog and ice. A maze of straight and offset passages, no circular rings, no cathedral, no ornate towers, no bridges or waterfalls. Monumental desolation, rich painterly concept-art treatment, atmospheric layers. Palette #0b0d10 shadows #dfe6ea frost #8fb8d0 blue #86c3c9 cyan and very faint #c9b27a stone. Horizon around 35% height; key ice formations between 25% and 75% height for ultrawide cropping. Top 10% soft uninterrupted pale fog, no busy detail. Entirely original written brief without image references. Absolutely no people, characters, creatures, lettering, runes, marks, signatures, watermarks, logos or UI anywhere, including all corners. Corners must be completely clean.",
       "status": "selected after visual inspection",
       "centering": [
@@ -246,7 +248,7 @@
       "file": "themes/helheim/backgrounds/02-icebound-longship.jpg",
       "ultrawide_file": "themes/helheim/backgrounds-ultrawide/02-icebound-longship.jpg",
       "prompt": "Use case: stylized-concept. ONE original Norse fantasy environment desktop wallpaper for helheim. Landscape 16:9 requested 3840x2160. Scene: A grey frozen wasteland under a dead sky, a single broken empty longship trapped in thick ice, cold bone tones, no decorative creature prow, desolate horizon. Rich painterly concept-art lighting, monumental scale, atmospheric perspective, ancient weathered carved stone, vast world to explore. Theme colour scheme: #0a0a0b #d8d8d4 #cfc6b0 #b8a06a #8a98a8. Original composition and original architecture only. Keep top 6% calm low-contrast sky, without busy details. Place complete key landmarks in middle 65% of image height to retain them in a centered 21:9 crop. No characters, people, gods, heroes, living creatures, lettering, text-like runes, signatures, logos, UI, watermarks or borders. No recognizable landmark or design from existing entertainment. Written brief only, no reference images.",
-      "status": "selected after visual inspection",
+      "status": "removed",
       "centering": [
         0.5,
         0.5
@@ -261,7 +263,8 @@
         1672,
         941
       ],
-      "ultrawide_note": "Centered crop preserves the main environment subject; no stretching or padding."
+      "ultrawide_note": "Centered crop preserves the main environment subject; no stretching or padding.",
+      "removed_reason": "Removed during the owner's curation of the realm wallpapers."
     },
     {
       "theme": "ragnarok",

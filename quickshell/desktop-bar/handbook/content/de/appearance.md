@@ -8,7 +8,7 @@
 
 Norse enthält gezeichnete Raben, Walküren, Odin, Fenrir und Jörmungandr auf schwarzem Hintergrund. Wähle sie über dieselben Hintergrundbild-Steuerungen; zusätzliche Bilder ändern die Palette nicht. Das erste Bild, der Runenstein, ist animiert: Polarlichter bewegen sich langsam hinter dem Runenring. Hinter Vollbildanwendungen pausieren sie; der Sperrbildschirm zeigt das Standbild.
 
-Die 25 mitgelieferten Themes enthalten zehn dunkle Paletten der Welten: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim und Vanaheim. Jedes dieser Themes enthält zwei Originalhintergründe: eine nordische Tuscheillustration und eine malerische Landschaft, jeweils in beiden Bildformaten. Die Tuscheillustration bleibt die Theme-Vorschau.
+Die 25 mitgelieferten Themes enthalten zehn dunkle Paletten der Welten: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim und Vanaheim. Jedes Welten-Theme hat zwei bis vier Originalhintergründe in verschiedenen Tusche-, Gouache-, Cel-Shading- und Malstilen, in beiden Bildformaten. Der erste Hintergrund ist die Vorschau des Themes.
 
 ## Eigene Hintergrundbilder, Designs und Sperrbildschirme
 

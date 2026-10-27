@@ -13,6 +13,7 @@ At the end of Batch 03, Batch 02's former 03 images were promoted to 01, Batch 0
 - `artwork-batch-04.json`: owner-approved fresh written-brief replacements, native sources and exact prompts; no image references.
 - `artwork-batch-05.json`: the ten approved realm illustrations and their native sources, exact prompts and preview selections.
 - `artwork-batch-06.json`: the ten second realm wallpapers, using owner-requested scenic painterly environments, with native sources, exact prompts and framing.
+- `artwork-batch-07.json`: realm wallpapers with individually recorded rendering styles, written prompts, native sources and framing; Ragnarök excluded.
 - `artwork-batch-03.json`: second reference-led round, two artworks per theme, generated with the built-in image tool.
 - `artwork-witcher.json`: the four Witcher fan-art wallpapers once made for One Dark Pro, all removed, with their prompts kept as history.
 - `one-dark-pro/references/previous-generated/`: four preserved images generated for One Dark Pro before the Witcher batch.
@@ -41,7 +42,7 @@ and native sources live in each theme’s `references/` directory.
 
 ## Realm themes — Batch 05
 
-Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim and Vanaheim are dark themes whose approved 01 wallpapers remain unchanged. Palette sources, the three derived palettes and integration bases are documented in each theme’s `artwork.md`. `artwork-batch-05.json` retains the exact written prompts, native source hashes and crop framing. Native sources and `export.py` live in `branding/sources/wallpapers/batch-05/`; the script rebuilds both exports, their manifest entries and previews. No reference images were used.
+Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim and Vanaheim are dark themes. Palette sources, the three derived palettes and integration bases are documented in each theme’s `artwork.md`. `artwork-batch-05.json` retains the exact written prompts, native source hashes and crop framing. Native sources and `export.py` live in `branding/sources/wallpapers/batch-05/`; the script rebuilds both exports, their manifest entries and previews. No reference images were used.
 
 Theme menus discover folders and sort their names automatically. The artwork package globs and desktop-package removal rules already cover both wallpaper folders and previews for every theme. The website generates `src/data/themes.json` and its counts from these same folders at build time.
 
@@ -50,8 +51,7 @@ Theme menus discover folders and sort their names automatically. The artwork pac
 At the owner's request, these ten second realm wallpapers use scenic landscapes
 and rich painterly concept-art lighting instead of the default ink screenprint
 style and no-scenery rule. This exception applies only to the ten Batch 06
-images. Each realm now has two original wallpapers in both aspect ratios; the
-approved 01 artwork remains its preview. The environments follow each theme's
+images, in both aspect ratios. The environments follow each theme's
 `colors.toml`, with calm space at the top for the desktop bar.
 
 `artwork-batch-06.json` records exact written briefs, source dimensions, hashes
@@ -61,3 +61,26 @@ Native masters and `export.py` live in
 `branding/sources/wallpapers/batch-06/`. The exporter updates the 4K and ultrawide
 manifests without rebuilding previews. Separate panoramic compositions preserve
 landmarks where a crop would lose them; exports never stretch or pad images.
+
+## Realm paintings and illustrations — Batch 07
+
+The owner explicitly requested scenic backgrounds and varied rendering media
+for additional realm wallpapers, excluding Ragnarök. This batch-specific exception includes oil painting, gouache, pastel
+matte painting, cel shading, loose brushwork, graphic novel, grey wash and
+flat poster treatments, with realistic rendering only where requested.
+The owner then curated every realm: each keeps two to four wallpapers in a
+chosen order, the first being its preview. Wallpapers left out are marked
+removed in their batch manifest with their prompts kept, and their exports and
+native sources are deleted.
+
+`artwork-batch-07.json` records each rendering style, exact written prompt,
+native source dimensions and hashes, and crop offsets. No reference images
+were used. Original compositions and characters contain no readable lettering,
+logos or third-party likenesses. Sources and `export.py` live under
+`branding/sources/wallpapers/batch-07/`; exports are 3840×2160 and 3440×1440
+JPEGs, resampled from the recorded native sizes rather than native 4K detail.
+Seven separately composed panoramic masters preserve subjects where a crop
+would lose them; other ultrawides use recorded subject-preserving crops.
+The soul gate uses its panoramic master for both exports. No stretching or
+padding is used. Selected artwork has passed agent visual inspection and
+remains available for owner review.

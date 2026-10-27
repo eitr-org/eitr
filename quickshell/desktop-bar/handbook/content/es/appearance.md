@@ -8,7 +8,7 @@ Abre **Estilo > Tema** o **SUPER + Ctrl + Shift + N**. Elige oscuro o claro y de
 
 Norse incluye dibujos de cuervo, valquiria, Odin, Fenrir y Jörmungandr sobre fondo negro. Selecciónalos con los mismos controles; las ilustraciones adicionales no cambian la paleta. El primer fondo, la piedra rúnica, está animado: las auroras se desplazan lentamente tras el anillo de runas. Se pausan detrás de aplicaciones a pantalla completa; el bloqueo muestra la imagen fija.
 
-Los 25 temas incluidos ofrecen diez paletas oscuras de los reinos: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim y Vanaheim. Cada tema de los reinos incluye dos fondos originales: una ilustración nórdica a tinta y un paisaje pictórico, ambos en las dos proporciones. La ilustración a tinta sigue siendo la vista previa del tema.
+Los 25 temas incluidos ofrecen diez paletas oscuras de los reinos: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim y Vanaheim. Cada tema de los reinos tiene de dos a cuatro fondos originales, con estilos variados de tinta, gouache, sombreado cel y pintura, en las dos proporciones. El primer fondo es la vista previa del tema.
 
 ## Tus propios fondos, temas y pantallas de bloqueo
 

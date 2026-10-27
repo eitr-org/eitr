@@ -33,6 +33,8 @@ def main():
     wide_records = json.loads(wide_path.read_text())
     wide_exports = {record['file']: record for record in wide_records['images']}
     for image in batch['images']:
+        if image.get('status') == 'removed':
+            continue
         native = ROOT / image['native_source']
         if hashlib.sha256(native.read_bytes()).hexdigest() != image['native_sha256']:
             raise ValueError('Native source differs from the recorded artwork: ' + image['native_source'])

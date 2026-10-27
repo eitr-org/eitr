@@ -65,3 +65,15 @@ rose on near-black; Moss uses dark chiaroscuro Norse oil painting in olive,
 moss, bone and umber. They retain original written-brief subjects, no franchise
 likenesses and no reference-image inputs. Their approved batch 04 replacements
 are recorded with the other native masters.
+
+## Batch 07 realm exception
+
+For the realm wallpapers in `themes/artwork-batch-06.json` and `artwork-batch-07.json`, the owner
+explicitly permits scenic backgrounds and requests varied media per image.
+Follow each recorded rendering style literally: ink, gouache, cel shading,
+storybook and poster work must remain visibly drawn, with simplified shapes,
+linework or flat colour at thumbnail size. Painterly scenes retain visible
+brushwork; only requested realistic treatments may look photographic.
+Use original written-brief compositions and characters without image inputs,
+readable runes, lettering, logos or signatures. Keep the top approximately
+6% calm for the bar. The exception covers only those realm batches.

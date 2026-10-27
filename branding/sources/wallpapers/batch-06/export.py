@@ -37,6 +37,8 @@ def main():
     wide_records = json.loads(wide_path.read_text())
     wide_exports = {record['file']: record for record in wide_records['images']}
     for record in batch['images']:
+        if record.get('status') == 'removed':
+            continue
         source = checked_source(record)
         wide_source = (checked_source(record, 'ultrawide_native')
                        if 'ultrawide_native_source' in record else source)

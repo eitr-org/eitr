@@ -8,7 +8,7 @@ Ouvrez **Style > Thème** ou **SUPER + Ctrl + Shift + N**. Choisissez sombre ou 
 
 Norse comprend des dessins de corbeau, Valkyrie, Odin, Fenrir et Jörmungandr sur fond noir. Utilisez les mêmes commandes de sélection ; ces images supplémentaires ne changent pas la palette. Le premier fond, la pierre runique, est animé : des aurores se déplacent lentement derrière l’anneau de runes. Elles s’arrêtent derrière les applications plein écran ; le verrouillage montre l’image fixe.
 
-Les 25 thèmes fournis comprennent dix palettes sombres des royaumes : Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim et Vanaheim. Chaque thème des royaumes comprend deux fonds originaux : une illustration nordique à l’encre et un paysage peint, chacun dans les deux formats. L’illustration à l’encre reste l’aperçu du thème.
+Les 25 thèmes fournis comprennent dix palettes sombres des royaumes : Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim et Vanaheim. Chaque thème des royaumes comprend de deux à quatre fonds originaux, dans des styles variés : encre, gouache, cel-shading et peinture, dans les deux formats. Le premier fond sert d’aperçu du thème.
 
 ## Vos propres fonds d’écran, thèmes et écrans de verrouillage
 

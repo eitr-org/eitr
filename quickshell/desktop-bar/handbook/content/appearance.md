@@ -22,9 +22,9 @@ image.
 
 The 25 shipped themes include ten dark realm palettes: Alfheim, Asgard, Helheim,
 Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim and Vanaheim.
-Each realm theme includes two original wallpapers: a Norse ink illustration
-and a painterly environment, each in both aspect ratios. The ink illustration
-remains the theme preview.
+Each realm theme has two to four original wallpapers in varied ink,
+gouache, cel-shaded and painted styles, in both aspect ratios. The first
+wallpaper is the theme's preview.
 
 ## Your own wallpapers, themes and lockscreens
 

@@ -1,0 +1,499 @@
+{
+  "batch": "2026-10-original-07",
+  "generator": "built-in image generation",
+  "generation": "Written briefs only; no input or reference images.",
+  "status": "Selected after agent visual inspection; awaiting owner review.",
+  "owner_requested_exception": "The owner explicitly requested scenic backgrounds and the individually recorded painting, drawing and graphic styles for these eighteen 03/04 wallpapers across nine realms. This overrides the default ink screenprint and no-scenery direction only for this batch. Ragnarök is excluded.",
+  "resolution": [
+    3840,
+    2160
+  ],
+  "ultrawide_resolution": [
+    3440,
+    1440
+  ],
+  "processing": "Lanczos crop-to-fill JPEG exports; actual native dimensions and hashes recorded per image, not native 4K detail. Separate panoramic compositions where crops lose subjects; never stretched or padded. Approved 01 and 02 wallpapers and previews preserved.",
+  "images": [
+    {
+      "theme": "asgard",
+      "name": "01-radiant-citadel",
+      "rendering_style": "luminous fantasy oil painting, visible brushwork",
+      "file": "themes/asgard/backgrounds/01-radiant-citadel.jpg",
+      "ultrawide_file": "themes/asgard/backgrounds-ultrawide/01-radiant-citadel.jpg",
+      "prompt": "Use case: stylized-concept. ONE original Norse fantasy desktop wallpaper. Landscape 16:9 requested 3840x2160. Scene: A radiant golden domed citadel with many spires floating in swirling pastel clouds at the edge of a starry night, a prismatic rainbow bridge sweeping in from the lower right, warm glow from the gate. Style/medium: luminous fantasy oil painting, visible brushwork. Make visible painted marks, simplified shapes or linework inherent in this requested medium; never a 3D render. Palette guidance: #0a0a0b #d8d8d4 #ddbd7e #3fe39a #8a98a8, allowing the scene's specified colours. Composition: top 12% uninterrupted calm low-contrast atmosphere for desktop bar. Entire main subjects and foreground figures must fit within central 68% of image height, with generous air above tallest spire and ground beneath feet, for subject-safe panoramic crop. Keep foreground figures tiny, fully in frame. Original characters, architecture and composition from this written brief only; no input or reference images. No lettering, text-like marks, readable runes, logos, watermarks, signatures, borders, or recognizable third-party designs.",
+      "status": "selected after visual inspection; awaiting owner review",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "native_source": "branding/sources/wallpapers/batch-07/asgard-03-radiant-citadel.png",
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-07/asgard-03-radiant-citadel-ultrawide.png",
+      "ultrawide_prompt": "Original LUMINOUS FANTASY OIL PAINTING with visible thick brushwork. Ultrawide panoramic 2.39:1 desktop wallpaper, requested 3440x1440. Radiant golden DOMED CITADEL with many spires FLOATING in swirling pastel clouds at edge of a starry night. Prismatic rainbow bridge sweeps in from lower right to warm glowing gate. Entire citadel crown and spires inside frame, generous dark calm sky above, top 8% only dark sky. Gold, ivory, soft pink and violet clouds, slate night, tiny emerald accents. No people or animals. Entirely original written-brief architecture and composition, no references. ABSOLUTELY NO SIGNATURE, WATERMARK, LOGO, ARTIST MARK, LETTERING, RUNES OR SCRIBBLES ANYWHERE. All corners must be clean painted clouds or plain atmosphere, especially LOWER RIGHT corner; no tiny strokes that resemble handwriting. No frames, borders, stretching or padding.",
+      "ultrawide_note": "Separately generated panoramic composition from written brief; no stretching or padding.",
+      "native_sha256": "d14ce4cdd37002cf290ee8f3f2ec926edbd5d0ff9be2bb7bc8b2b8c8c004bb08",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_sha256": "a25c582a0ff7a7eb85b1d4f9c461b47e506f0297312922d6dad584033ca09620",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ]
+    },
+    {
+      "theme": "asgard",
+      "name": "04-storm-bridge",
+      "rendering_style": "moody gouache illustration, simplified shapes",
+      "file": "themes/asgard/backgrounds/04-storm-bridge.jpg",
+      "ultrawide_file": "themes/asgard/backgrounds-ultrawide/04-storm-bridge.jpg",
+      "prompt": "Original hand-painted GOUACHE BOOK ILLUSTRATION wallpaper, 16:9. Night; a dark spired fortress silhouette on a high cliff, a glowing prismatic bridge running toward it over waterfalls, a lightning bolt in storm clouds, a tiny cloaked figure on a rock in the foreground seen from behind. RENDERING IS CRITICAL: large flat opaque colour shapes, a deliberately limited palette of six colours, no fine architectural detail, no realistic lighting, no photographic textures. Graphic simplified silhouette fortress, broad visibly dry brushed gouache marks on paper, chunky waterfall ribbons. Read as a painted children's book illustration at tiny thumbnail size. Dark slate, black, muted ivory, small gold and prismatic bridge colours. Calm dark top 10%. Fit entire fortress below 20% image height, small complete figure above bottom 18%, broad horizontal scene for later ultrawide crop. No lettering, runes, symbols, logos, signature or watermark. Entirely original written-brief composition; no reference images.",
+      "status": "selected after visual inspection; awaiting owner review",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "native_source": "branding/sources/wallpapers/batch-07/asgard-04-storm-bridge.png",
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-07/asgard-04-storm-bridge-ultrawide.png",
+      "ultrawide_prompt": "Original hand-painted GOUACHE BOOK ILLUSTRATION wallpaper, 2.39:1. Night; a dark spired fortress silhouette on a high cliff, a glowing prismatic bridge running toward it over waterfalls, a lightning bolt in storm clouds, a tiny cloaked figure on a rock in the foreground seen from behind. RENDERING IS CRITICAL: large flat opaque colour shapes, a deliberately limited palette of six colours, no fine architectural detail, no realistic lighting, no photographic textures. Graphic simplified silhouette fortress, broad visibly dry brushed gouache marks on paper, chunky waterfall ribbons. Read as a painted children's book illustration at tiny thumbnail size. Dark slate, black, muted ivory, small gold and prismatic bridge colours. Calm dark top 10%. Fit entire fortress below 20% image height, small complete figure above bottom 18%, broad horizontal scene for later ultrawide crop. No lettering, runes, symbols, logos, signature or watermark. Entirely original written-brief composition; no reference images. PANORAMIC COMPOSITION REQUIRED: extremely wide 2.39:1 canvas. Pull back: ALL fortress spires fully below upper 15%, full bridge and any tiny foreground figure above bottom 15%. Calm empty atmosphere across top 8%. Spread architecture horizontally, no stretching or padding.",
+      "ultrawide_note": "Separately generated panoramic composition from written brief; no stretching or padding.",
+      "native_sha256": "fc6cc940f46dec94e6ad0b16fa4ee406bc8e0d0d8fb4925c0ec7793647c82a0e",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_sha256": "7bd6f8961a2399152771d2768e8d4308b5786f88384c8c9881528b9ff9b863e8",
+      "ultrawide_native_size": [
+        1932,
+        814
+      ]
+    },
+    {
+      "theme": "alfheim",
+      "name": "03-temple-light",
+      "rendering_style": "soft dreamy matte painting, pastel, simplified forms",
+      "file": "themes/alfheim/backgrounds/03-temple-light.jpg",
+      "ultrawide_file": "themes/alfheim/backgrounds-ultrawide/03-temple-light.jpg",
+      "prompt": "Original fantasy wallpaper, 16:9, 3840x2160. Soft dreamy pastel MATTE PAINTING with SIMPLIFIED FORMS. Make the whole picture read as painted illustration, broad soft pastel colour planes, no fine stone or water texture, no realistic rendering. Rose-pink and teal dusk mist over a still lake. Small empty wooden boat near lower left, fully visible. Pale ruins and luminous trees on LOW islands, distant simple temple sends a SINGLE soft white beam of light into sky. Few blossom twigs at upper left corner. Deliberately simple architecture, hazy depth, gentle broad brushwork, smooth simplified reflections. Quiet upper 8% except tiny blossom corner. No mountain peaks, no waterfalls, no people, no ornament or carvings. No text, runes, lettering, logos, watermark or signature. Written brief only, no references.",
+      "status": "selected after visual inspection; awaiting owner review",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "native_source": "branding/sources/wallpapers/batch-07/alfheim-03-temple-light.png",
+      "ultrawide_note": "Subject-centred crop preserves the main subjects; no stretching or padding.",
+      "native_sha256": "e3dfe2ac252755a06e9ebd1c62ad00d292873933f4d6f38611cb9cb7c2c6ed3b",
+      "native_size": [
+        1672,
+        940
+      ]
+    },
+    {
+      "theme": "alfheim",
+      "name": "01-light-elf",
+      "rendering_style": "anime-inspired cel-shaded illustration with clean line art",
+      "file": "themes/alfheim/backgrounds/01-light-elf.jpg",
+      "ultrawide_file": "themes/alfheim/backgrounds-ultrawide/01-light-elf.jpg",
+      "prompt": "ANIME-INSPIRED CEL-SHADED ILLUSTRATION with clean black line art and flat two-tone shading. Original light-elf woman, long white hair, delicate plain gold circlet, calm expression; portrait framed at RIGHT THIRD, head and shoulders with full crown, no cropped head. Tiny glowing light motes drift around her. Dark blue NIGHT FOREST, sparse silhouetted tree trunks only. LEFT TWO THIRDS must be mostly EMPTY DEEP NAVY negative space, almost black, faint forest hints. No castle, city, ruins, landscape, moon, lake or mountains. Simple modest dark blue robe, no elaborate jewellery, no symbols. Calm unbroken dark top 10%. Landscape 16:9 requested 3840x2160 wallpaper. Entirely original face and costume. No text, lettering, runes, logo, watermark or signature. Written brief only, no references. Clearly drawn at thumbnail size, never realistic skin or 3D.",
+      "status": "selected after visual inspection; awaiting owner review",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0
+      ],
+      "native_source": "branding/sources/wallpapers/batch-07/alfheim-04-light-elf.png",
+      "ultrawide_note": "Subject-centred crop preserves the main subjects; no stretching or padding.",
+      "native_sha256": "16d1a57454e853f2d6bad7456c639eb73f0673490c1ecea752fa36712ed631ca",
+      "native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "theme": "vanaheim",
+      "name": "02-ancient-valley",
+      "rendering_style": "painterly fantasy, semi-realistic",
+      "file": "themes/vanaheim/backgrounds/02-ancient-valley.jpg",
+      "ultrawide_file": "themes/vanaheim/backgrounds-ultrawide/02-ancient-valley.jpg",
+      "prompt": "Original painterly fantasy, semi-realistic OIL PAINTING, broad visible brushwork. Landscape 16:9 wallpaper 3840x2160. Vast GREEN VALLEY, golden god-rays through clouds, winding river, waterfalls, warm haze. Enormous ANCIENT TREE on a cliff at centre-right; show its COMPLETE CROWN with generous open cloudy sky above, canopy highest point at 22% frame height, whole tree and cliff inside frame. Tree large relative to tiny valley, but viewed from far away. Upper 10% only calm softly painted clouds. Olive green, muted gold, mint green and bone mist, deep green-black shadows. No characters, animals, villages or buildings. No text, runes, signatures, logos or watermarks. Original written brief only, no image references.",
+      "status": "selected after visual inspection; awaiting owner review",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.22
+      ],
+      "native_source": "branding/sources/wallpapers/batch-07/vanaheim-03-ancient-valley.png",
+      "ultrawide_note": "Subject-centred crop preserves the main subjects; no stretching or padding.",
+      "native_sha256": "f25ec1ac907a4066b2ada7cf01da71d2a0187b388d262bf2c973740cbe85bef6",
+      "native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "theme": "vanaheim",
+      "name": "01-hidden-garden",
+      "rendering_style": "storybook gouache illustration, flat colours, hand-painted texture",
+      "file": "themes/vanaheim/backgrounds/01-hidden-garden.jpg",
+      "ultrawide_file": "themes/vanaheim/backgrounds-ultrawide/01-hidden-garden.jpg",
+      "prompt": "STORYBOOK GOUACHE ILLUSTRATION wallpaper, flat opaque colours and hand-painted paper texture, deliberately simple shapes. A hidden garden of crimson-leaved trees surrounding a few mossy PLAIN standing stones and a small overgrown PLAIN STONE SHRINE with a simple empty dark niche. Tall waterfall behind, glowing blue flowers. No people, no animals. NO ornament, engraving, carvings, symbols, drawings or inscriptions on ANY stone or shrine. Dry brush texture, chunky flat red foliage masses, olive moss, slate rock, ivory waterfall, blue flowers. Calm dim misty sky across upper 10%; keep red tree crowns lower down at sides. 16:9 requested 3840x2160. No photoreal rendering, no fine textures except painted strokes. No text, runes, lettering, logos, watermarks or signatures. Entirely original written brief, no references.",
+      "status": "selected after visual inspection; awaiting owner review",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "native_source": "branding/sources/wallpapers/batch-07/vanaheim-04-hidden-garden.png",
+      "ultrawide_note": "Subject-centred crop preserves the main subjects; no stretching or padding.",
+      "native_sha256": "a87470cd99fdf0ffc07959422be209de54859701f92e6f52b44b5831e95fe305",
+      "native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "theme": "midgard",
+      "name": "02-serpent-coast",
+      "rendering_style": "realistic dramatic oil painting",
+      "file": "themes/midgard/backgrounds/02-serpent-coast.jpg",
+      "ultrawide_file": "themes/midgard/backgrounds-ultrawide/02-serpent-coast.jpg",
+      "prompt": "Use case: stylized-concept. ONE original Norse fantasy desktop wallpaper, landscape 16:9, requested 3840x2160. Scene: A stormy northern coast; weathered knotwork-carved standing stones (no readable runes) on a cliff top among pines, a small village with chimney smoke on the far headland, sun rays breaking through dark clouds, coils of a sea serpent breaking the grey sea. REQUIRED RENDERING STYLE: realistic dramatic oil painting. Use the specified painting medium with visible expressive painted marks and atmospheric depth. Palette guidance: #0b1015 #d9e2e8 #7ee0b5 #4fc3c9 #6aa7d8, allowing specified scene colours. Keep top 10% calm low-contrast atmosphere for desktop bar. Fit full key silhouettes between 18% and 82% image height with ground below feet and air above crowns or spires so panoramic crops can preserve them. Original characters and architecture only, plausible anatomy, complete hands and faces when visible. No lettering, readable runes, text-like symbols, logos, signatures, watermarks or borders. No recognizable third-party characters or landmarks. Written brief only; no input or reference images.",
+      "status": "selected after visual inspection; awaiting owner review",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.18
+      ],
+      "native_source": "branding/sources/wallpapers/batch-07/midgard-03-serpent-coast.png",
+      "ultrawide_note": "Subject-centred crop preserves the main subjects; no stretching or padding.",
+      "native_sha256": "0e95bb05f22c01a671252d94ac8d725993b95db0602818de5e71c4fa038d223e",
+      "native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "theme": "midgard",
+      "name": "01-travellers-valley",
+      "rendering_style": "soft painterly concept art, loose brushwork",
+      "file": "themes/midgard/backgrounds/01-travellers-valley.jpg",
+      "ultrawide_file": "themes/midgard/backgrounds-ultrawide/01-travellers-valley.jpg",
+      "prompt": "SOFT PAINTERLY ILLUSTRATION, extremely loose wide brushwork, visible bristle strokes and unpainted edges; omit all tiny detail, do not render individual leaves or roof tiles. Forest edge high above a misty green valley with a winding river and small distant village. On right, a TINY lone traveller with a round shield and wolf beside them. Green, mint, slate blue, ivory mist. Calm sky upper 10%. Wide soft masses of colour, gestural marks, unmistakably a painting at thumbnail size. Original Norse fantasy wallpaper, 16:9 requested 3840x2160. No text, lettering, runes, logos, signatures, watermark, border or recognizable third-party designs. Written brief only, no references.",
+      "status": "selected after visual inspection; awaiting owner review",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "native_source": "branding/sources/wallpapers/batch-07/midgard-04-travellers-valley.png",
+      "ultrawide_note": "Subject-centred crop preserves the main subjects; no stretching or padding.",
+      "native_sha256": "16ad64212aba8dc1b500662577ae51783946537453e09842c3868ceb65e453d6",
+      "native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "theme": "jotunheim",
+      "name": "01-blizzard-giant",
+      "rendering_style": "expressive loose-brush painting, almost monochrome blue",
+      "file": "themes/jotunheim/backgrounds/01-blizzard-giant.jpg",
+      "ultrawide_file": "themes/jotunheim/backgrounds-ultrawide/01-blizzard-giant.jpg",
+      "prompt": "Expressive loose-brush BLUE PAINTING, visibly rough broad strokes, five monochrome blue values and ivory whiteout, no photoreal textures. Original Norse fantasy blizzard. A colossal stone-and-ice giant seen FAR AWAY through blowing snow, FULL HEAD AND SHOULDERS entirely within middle half of frame; broad empty pale snowstorm fills upper QUARTER of picture. Its faint glowing eyes watch one tiny cloaked warrior carrying an axe, walking toward it near lower left. Warrior full body above bottom 15%. Giant is a faint simplified angular silhouette, not close-up. Landscape 16:9 requested 3840x2160. No buildings, inscriptions, text, runes, logos, signatures or watermarks. No references or recognizable designs. Quiet top 10% for desktop bar.",
+      "status": "selected after visual inspection; awaiting owner review",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.55
+      ],
+      "native_source": "branding/sources/wallpapers/batch-07/jotunheim-03-blizzard-giant.png",
+      "ultrawide_note": "Subject-centred crop preserves the main subjects; no stretching or padding.",
+      "native_sha256": "49a8efdb2947a751a22bf03172240402dcd8c2f893f2d3e63affcb5946892b18",
+      "native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "theme": "jotunheim",
+      "name": "03-mountain-spire",
+      "rendering_style": "realistic matte painting",
+      "file": "themes/jotunheim/backgrounds/03-mountain-spire.jpg",
+      "ultrawide_file": "themes/jotunheim/backgrounds-ultrawide/03-mountain-spire.jpg",
+      "prompt": "REALISTIC MATTE PAINTING of a pristine uninhabited mountain valley. A colossal NATURAL ROCK SPIRE with rough vertical geological buttresses resembles a fortress only in overall silhouette. NO actual buildings, windows, gates, bridges, stairs, ruins or people anywhere. Snowy peaks, waterfall into a mist-filled gorge, dark pines and rocky river foreground. Slate blue, cyan mist, near-black rock, ivory snow. Entire spire fits below upper 15% with open overcast sky above. Original Norse fantasy wallpaper, 16:9 requested 3840x2160. No text, lettering, runes, logos, signatures, watermark, border or recognizable third-party designs. Written brief only, no references.",
+      "status": "selected after visual inspection; awaiting owner review",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0
+      ],
+      "native_source": "branding/sources/wallpapers/batch-07/jotunheim-04-mountain-spire.png",
+      "ultrawide_note": "Subject-centred crop preserves the main subjects; no stretching or padding.",
+      "native_sha256": "a19f54d17f39ced7aa58a973639112eb1db0cd1196ed33ddea11f6483fb03f24",
+      "native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "theme": "svartalfheim",
+      "name": "01-cavern-city",
+      "rendering_style": "dark atmospheric painting",
+      "file": "themes/svartalfheim/backgrounds/01-cavern-city.jpg",
+      "ultrawide_file": "themes/svartalfheim/backgrounds-ultrawide/01-cavern-city.jpg",
+      "prompt": "DARK ATMOSPHERIC OIL PAINTING, clearly hand-painted, broad broken bristle strokes throughout, simplified masses, loose edges, do not resolve tiny details, no photographic surfaces or 3D render. Original Norse fantasy underground city carved into a cavern: plain blocky towers with orange window dabs, stalactites, stone bridges and stairs over a chasm. Deep purple-blue gloom against sparse orange lamplight. Painterly texture plainly visible at thumbnail size, large dark shapes, subtle mist depth. Quiet dark rock upper 12%, city towers entirely below 20% height. Empty city, NO people, statues, banners, flags, inscriptions, carvings, symbols, text or runes. Wide 16:9 wallpaper requested 3840x2160. No logos, signatures or watermarks. Written brief only, no references.",
+      "status": "selected after visual inspection; awaiting owner review",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0
+      ],
+      "native_source": "branding/sources/wallpapers/batch-07/svartalfheim-03-cavern-city.png",
+      "ultrawide_note": "Subject-centred crop preserves the main subjects; no stretching or padding.",
+      "native_sha256": "fcdb568babeeebee1939f6300cc19e24f6fe67571348747264f52db9a7aca25c",
+      "native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "theme": "svartalfheim",
+      "name": "02-hammer-warriors",
+      "rendering_style": "graphic-novel illustration, bold ink outlines and flat shading",
+      "file": "themes/svartalfheim/backgrounds/02-hammer-warriors.jpg",
+      "ultrawide_file": "themes/svartalfheim/backgrounds-ultrawide/02-hammer-warriors.jpg",
+      "prompt": "Use case: stylized-concept. ONE original Norse fantasy desktop wallpaper, landscape 16:9, requested 3840x2160. Scene: Three original dwarf warriors, the front one with a braided red beard holding a huge hammer across his shoulders, shield-bearers behind in a stone hall, low heroic angle. REQUIRED RENDERING STYLE: graphic-novel illustration, bold ink outlines and flat shading. Clearly drawn at thumbnail size: simplified bold silhouettes, limited flat colour areas, visible hand-made linework or brush marks appropriate to the specified medium. No photographic surfaces, no 3D render, no realistic concept-art treatment. Palette guidance: #0d0e10 #e6dfd0 #c8894a #6f8597 #6f8fb0, allowing specified scene colours. Keep top 10% calm low-contrast atmosphere for desktop bar. Fit full key silhouettes between 18% and 82% image height with ground below feet and air above crowns or spires so panoramic crops can preserve them. Original characters and architecture only, plausible anatomy, complete hands and faces when visible. No lettering, readable runes, text-like symbols, logos, signatures, watermarks or borders. No recognizable third-party characters or landmarks. Written brief only; no input or reference images.",
+      "status": "selected after visual inspection; awaiting owner review",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "native_source": "branding/sources/wallpapers/batch-07/svartalfheim-04-hammer-warriors.png",
+      "ultrawide_note": "Separately generated panoramic composition from written brief; no stretching or padding.",
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-07/svartalfheim-04-hammer-warriors-ultrawide.png",
+      "ultrawide_prompt": "Use case: stylized-concept. ONE original Norse fantasy desktop wallpaper, landscape 2.39:1, requested 3440x1440. Scene: Three original dwarf warriors, the front one with a braided red beard holding a huge hammer across his shoulders, shield-bearers behind in a stone hall, low heroic angle. REQUIRED RENDERING STYLE: graphic-novel illustration, bold ink outlines and flat shading. Clearly drawn at thumbnail size: simplified bold silhouettes, limited flat colour areas, visible hand-made linework or brush marks appropriate to the specified medium. No photographic surfaces, no 3D render, no realistic concept-art treatment. Palette guidance: #0d0e10 #e6dfd0 #c8894a #6f8597 #6f8fb0, allowing specified scene colours. Keep top 10% calm low-contrast atmosphere for desktop bar. Fit full key silhouettes between 18% and 82% image height with ground below feet and air above crowns or spires so panoramic crops can preserve them. Original characters and architecture only, plausible anatomy, complete hands and faces when visible. No lettering, readable runes, text-like symbols, logos, signatures, watermarks or borders. No recognizable third-party characters or landmarks. Written brief only; no input or reference images. PANORAMIC RECOMPOSITION: true ultrawide 2.39:1 canvas. Pull back significantly. All complete main subjects, crowns, tree canopies, weapons and feet fit inside middle 75% height. Broad quiet empty atmosphere upper 10%. Spread scene horizontally. No banners or inscriptions. No stretched edges or padding.",
+      "native_sha256": "f7d63737ccc48690df787c85cf3c3143f3cee16604f0727a63e7b339bd6484c4",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_sha256": "ebb19ab4dcd244021bd35abce5b441c1e371d4a7224af450f47f820cce8293d3",
+      "ultrawide_native_size": [
+        1938,
+        812
+      ]
+    },
+    {
+      "theme": "niflheim",
+      "name": "02-frozen-world-tree",
+      "rendering_style": "moody painting, deep blue-green",
+      "file": "themes/niflheim/backgrounds/02-frozen-world-tree.jpg",
+      "ultrawide_file": "themes/niflheim/backgrounds-ultrawide/02-frozen-world-tree.jpg",
+      "prompt": "MOODY HAND-PAINTED fantasy wallpaper in DEEP BLUE-GREEN. Broad expressive brush strokes, soft scumbled edges, simplified atmospheric shapes, visible bristle marks and flat painted value masses, not photographic, no 3D. A colossal glowing WORLD TREE with a tiny city IN ITS BRANCHES above a FROZEN MIST-COVERED PLAIN. A few small ravens circle. A TINY hooded figure carrying a plain staff stands on a dark rock foreground left. Tree completely in frame, canopy starts at 20% height, soft calm fog fills upper 10%; figure full body above lower 15%. Broad empty frozen plain, no waterfalls or extra cliffs. Slate blue, muted cyan, dark teal, bone-white glow with sparse old-gold window dabs. Original architecture and character. Landscape 16:9 requested 3840x2160. No lettering, runes, symbols, logo, watermark or signature. Written brief only, no references.",
+      "status": "selected after visual inspection; awaiting owner review",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "native_source": "branding/sources/wallpapers/batch-07/niflheim-03-frozen-world-tree.png",
+      "ultrawide_note": "Separately generated panoramic composition from written brief; no stretching or padding.",
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-07/niflheim-03-frozen-world-tree-ultrawide.png",
+      "ultrawide_prompt": "Ultrawide 2.39:1 original fantasy wallpaper, 3440x1440. MOODY PAINTING with plainly visible loose blue-green brushwork. Wide empty frozen plain with distant WORLD TREE glowing softly; tiny city perched in its branches. ENTIRE TREE SILHOUETTE must fit in CENTRE HALF of frame: its crown from 30% down, roots at 75%, ample uninterrupted DARK SKY occupying the UPPER QUARTER. Very distant tree still feels enormous because tiny city. Small ravens near tree; tiny hooded figure with plain staff on dark rock lower left, complete figure. Simplified painted shapes, deep teal and blue shadows, pale ice mist, muted bone glow, old gold windows. No photoreal rendering. All four corners clean. Absolutely NO signatures, scribbles, watermarks, text, runes, logos, borders or marks resembling writing. Original written brief only, no reference images. Do not crop the tree crown or canopy. No padding or stretching.",
+      "native_sha256": "0c4bb792f362845f4beea7b7ef5e53343c9c9c46d2bcd1717d2b64721ad45f7c",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_sha256": "140063c656d8465bf8d5c96bdbe186764ff52f093f432d3a0917538d9ccb90c3",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ]
+    },
+    {
+      "theme": "niflheim",
+      "name": "01-frost-queen",
+      "rendering_style": "ink and grey wash illustration, muted",
+      "file": "themes/niflheim/backgrounds/01-frost-queen.jpg",
+      "ultrawide_file": "themes/niflheim/backgrounds-ultrawide/01-frost-queen.jpg",
+      "prompt": "Use case: stylized-concept. ONE original Norse fantasy desktop wallpaper, landscape 16:9, requested 3840x2160. Scene: An original pale ice-queen of the dead in heavy furs and an antler crown, standing above a scatter of skulls, frost particles and drifting cloth, full figure, centred-right. REQUIRED RENDERING STYLE: ink and grey wash illustration, muted. Clearly drawn at thumbnail size: simplified bold silhouettes, limited flat colour areas, visible hand-made linework or brush marks appropriate to the specified medium. No photographic surfaces, no 3D render, no realistic concept-art treatment. Palette guidance: #0b0d10 #dfe6ea #8fb8d0 #c9b27a #8fb8d0, allowing specified scene colours. Keep top 10% calm low-contrast atmosphere for desktop bar. Fit full key silhouettes between 18% and 82% image height with ground below feet and air above crowns or spires so panoramic crops can preserve them. Original characters and architecture only, plausible anatomy, complete hands and faces when visible. No lettering, readable runes, text-like symbols, logos, signatures, watermarks or borders. No recognizable third-party characters or landmarks. Written brief only; no input or reference images.",
+      "status": "selected after visual inspection; awaiting owner review",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "native_source": "branding/sources/wallpapers/batch-07/niflheim-04-frost-queen.png",
+      "ultrawide_note": "Separately generated panoramic composition from written brief; no stretching or padding.",
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-07/niflheim-04-frost-queen-ultrawide.png",
+      "ultrawide_prompt": "Use case: stylized-concept. ONE original Norse fantasy desktop wallpaper, landscape 2.39:1, requested 3440x1440. Scene: An original pale ice-queen of the dead in heavy furs and an antler crown, standing above a scatter of skulls, frost particles and drifting cloth, full figure, centred-right. REQUIRED RENDERING STYLE: ink and grey wash illustration, muted. Clearly drawn at thumbnail size: simplified bold silhouettes, limited flat colour areas, visible hand-made linework or brush marks appropriate to the specified medium. No photographic surfaces, no 3D render, no realistic concept-art treatment. Palette guidance: #0b0d10 #dfe6ea #8fb8d0 #c9b27a #8fb8d0, allowing specified scene colours. Keep top 10% calm low-contrast atmosphere for desktop bar. Fit full key silhouettes between 18% and 82% image height with ground below feet and air above crowns or spires so panoramic crops can preserve them. Original characters and architecture only, plausible anatomy, complete hands and faces when visible. No lettering, readable runes, text-like symbols, logos, signatures, watermarks or borders. No recognizable third-party characters or landmarks. Written brief only; no input or reference images. PANORAMIC RECOMPOSITION: true ultrawide 2.39:1 canvas. Pull back significantly: full antler crown, full figure, skulls, or entire fire ring AND tiny knight all comfortably inside frame, top of key subject below upper 15%, ground beneath feet above bottom 12%. Calm quiet top 8%. Spread scene horizontally. No stretching or padding.",
+      "native_sha256": "584a609b09432d39f9d7367b4f65bcd4620e5d34219e59abd8c03a9fcd904b19",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_sha256": "d3998ea3ed9f133439af43c58a214eb2b8d5deeca49b8772fc138a7b68bd086b",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ]
+    },
+    {
+      "theme": "muspelheim",
+      "name": "01-fire-ring",
+      "rendering_style": "flat graphic poster, limited orange/red/black palette, silhouettes",
+      "file": "themes/muspelheim/backgrounds/01-fire-ring.jpg",
+      "ultrawide_file": "themes/muspelheim/backgrounds-ultrawide/01-fire-ring.jpg",
+      "prompt": "FLAT GRAPHIC POSTER, just THREE SPOT INKS: black, orange, red. All shapes completely flat, no gradients, no armour detail, no surface rendering, no modelling. Huge simple BLACK SILHOUETTE of a horned fire giant with two tiny burning orange eyes, in front of a thick orange ring of fire. Black flying rock silhouettes. TINY black knight seen from behind at bottom. Wide negative space. Full ring with air above and full tiny knight with ground beneath. Top 10% plain near-black. Absolutely no ornament. Original Norse fantasy wallpaper, 16:9 requested 3840x2160. No text, lettering, runes, logos, signatures, watermark, border or recognizable third-party designs. Written brief only, no references.",
+      "status": "selected after visual inspection; awaiting owner review",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "native_source": "branding/sources/wallpapers/batch-07/muspelheim-03-fire-ring.png",
+      "ultrawide_note": "Separately generated panoramic composition from written brief; no stretching or padding.",
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-07/muspelheim-03-fire-ring-ultrawide.png",
+      "ultrawide_prompt": "FLAT GRAPHIC POSTER, just THREE SPOT INKS: black, orange, red. All shapes completely flat, no gradients, no armour detail, no surface rendering, no modelling. Huge simple BLACK SILHOUETTE of a horned fire giant with two tiny burning orange eyes, in front of a thick orange ring of fire. Black flying rock silhouettes. TINY black knight seen from behind at bottom. Wide negative space. Full ring with air above and full tiny knight with ground beneath. Top 10% plain near-black. Absolutely no ornament. Original Norse fantasy wallpaper, 2.39:1 requested 3440x1440. No text, lettering, runes, logos, signatures, watermark, border or recognizable third-party designs. Written brief only, no references. PANORAMIC RECOMPOSITION: true ultrawide 2.39:1 canvas. Pull back significantly: full antler crown, full figure, skulls, or entire fire ring AND tiny knight all comfortably inside frame, top of key subject below upper 15%, ground beneath feet above bottom 12%. Calm quiet top 8%. Spread scene horizontally. No stretching or padding.",
+      "native_sha256": "068164422cb635ec65cf64ee3f192d16dd06e627156683f93eb7eb6d8397c05f",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_sha256": "2fba2db1e03966e6b4919e7d2c8e62a97fe46ad5f3b7b7c9c462cd471e6461b2",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ]
+    },
+    {
+      "theme": "muspelheim",
+      "name": "03-burning-horizon",
+      "rendering_style": "painterly illustration, bold strokes",
+      "file": "themes/muspelheim/backgrounds/03-burning-horizon.jpg",
+      "ultrawide_file": "themes/muspelheim/backgrounds-ultrawide/03-burning-horizon.jpg",
+      "prompt": "PAINTERLY ILLUSTRATION with thick BOLD BRUSH STROKES and limited black, ember orange, crimson and ash-grey. Simplified volcanic badlands, broad winding rivers of glowing lava, erupting cones and black ash clouds. On far horizon a SMALL distant giant raises a blazing sword, complete sword comfortably below upper 15%. No foreground people, no animals, no buildings, no bridges. Rough bold sweeping brush marks, simplified shapes, clearly handmade painted surface, no precise photoreal detail. Original Norse fantasy wallpaper, 16:9 requested 3840x2160. No text, lettering, runes, logos, signatures, watermark, border or recognizable third-party designs. Written brief only, no references.",
+      "status": "selected after visual inspection; awaiting owner review",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0
+      ],
+      "native_source": "branding/sources/wallpapers/batch-07/muspelheim-04-burning-horizon.png",
+      "ultrawide_note": "Subject-centred crop preserves the main subjects; no stretching or padding.",
+      "native_sha256": "3c4284220447607650786668ed68bfce5bbd206ab68cd6d39a5c7cb587811082",
+      "native_size": [
+        1672,
+        940
+      ]
+    },
+    {
+      "theme": "helheim",
+      "name": "02-soul-gate",
+      "rendering_style": "realistic dark concept art",
+      "file": "themes/helheim/backgrounds/02-soul-gate.jpg",
+      "ultrawide_file": "themes/helheim/backgrounds-ultrawide/02-soul-gate.jpg",
+      "prompt": "Original realistic dark concept-art wallpaper, true ultrawide 2.39:1 requested 3440x1440. View from FAR AWAY: a colossal stone gate on centre-right with two skeletal guardian reliefs carved on its plain buttresses, entire arch crown and guardians completely visible. Gate highest point at 22% frame height, gate base at 70%. Large area of CALM DARK GREEN FOG above it fills upper 15%. A procession of tiny hooded souls with torches approaches on wet stone from left foreground. Falling pale light in green mist, wet reflections, bone-grey stone, amber tiny flames. No towers beyond gate, no waterfall, no banners, lettering, runes, text-like marks, logos, signatures or watermarks. Original architecture, no references. No stretching or padding.",
+      "status": "selected after visual inspection; awaiting owner review",
+      "centering": [
+        0.72,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "native_source": "branding/sources/wallpapers/batch-07/helheim-03-soul-gate-ultrawide.png",
+      "ultrawide_note": "Separately generated panoramic composition from written brief; no stretching or padding.",
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-07/helheim-03-soul-gate-ultrawide.png",
+      "ultrawide_prompt": "Original realistic dark concept-art wallpaper, true ultrawide 2.39:1 requested 3440x1440. View from FAR AWAY: a colossal stone gate on centre-right with two skeletal guardian reliefs carved on its plain buttresses, entire arch crown and guardians completely visible. Gate highest point at 22% frame height, gate base at 70%. Large area of CALM DARK GREEN FOG above it fills upper 15%. A procession of tiny hooded souls with torches approaches on wet stone from left foreground. Falling pale light in green mist, wet reflections, bone-grey stone, amber tiny flames. No towers beyond gate, no waterfall, no banners, lettering, runes, text-like marks, logos, signatures or watermarks. Original architecture, no references. No stretching or padding.",
+      "native_sha256": "5f22ff2dbf7e248da243feca1be3fa42721cdacaaa4e45c5c479de92036a5624",
+      "native_size": [
+        1935,
+        812
+      ],
+      "ultrawide_native_sha256": "5f22ff2dbf7e248da243feca1be3fa42721cdacaaa4e45c5c479de92036a5624",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ]
+    },
+    {
+      "theme": "helheim",
+      "name": "03-raven-fortress",
+      "rendering_style": "gothic fantasy illustration, stylised",
+      "file": "themes/helheim/backgrounds/03-raven-fortress.jpg",
+      "ultrawide_file": "themes/helheim/backgrounds-ultrawide/03-raven-fortress.jpg",
+      "prompt": "GOTHIC FANTASY ILLUSTRATION, STYLISED hand-drawn ink contours and FLAT shaded colour shapes. Twisted dead trees; raven perched on a post carrying a hanging lantern; a mountain fortress whose overall silhouette is a skull on the right; eclipsed moon; dying orange sunset beneath storm clouds. Flat slate grey and orange, pure black branching tree silhouettes, visible pen lines. Simplify stone and sky into large graphic shapes. No photoreal surfaces. Entire moon and fortress below calm upper 10%, complete raven and lantern. Original Norse fantasy wallpaper, 16:9 requested 3840x2160. No text, lettering, runes, logos, signatures, watermark, border or recognizable third-party designs. Written brief only, no references.",
+      "status": "selected after visual inspection; awaiting owner review",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0
+      ],
+      "native_source": "branding/sources/wallpapers/batch-07/helheim-04-raven-fortress.png",
+      "ultrawide_note": "Subject-centred crop preserves the main subjects; no stretching or padding.",
+      "native_sha256": "053dff3102017b6fbed6e1b20a98cafa684a055218c42c90364916dc49f920e7",
+      "native_size": [
+        1672,
+        941
+      ]
+    }
+  ]
+}

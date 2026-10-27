@@ -62,9 +62,10 @@ also offers mise without activating it or replacing existing language managers.
 
 Ten dark themes join the collection, bringing it to 25: Alfheim, Asgard, Helheim,
 Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim and Vanaheim.
-Each has an original hand-inked Norse wallpaper and a painterly environment
-in 4K and ultrawide formats, with retained native sources and reproducible
-exports. The approved hand-inked 01 artwork remains each theme’s preview. Approved palette roles
+Each has two to four original wallpapers chosen by the owner, from hand-inked
+Norse illustrations to oil, gouache, cel-shaded, ink-wash, graphic and painted
+environments, in 4K and ultrawide formats with retained native sources and
+reproducible exports. The first wallpaper is each theme's preview. Approved palette roles
 include separate panel surfaces and alerts; dark crimson accents retain readable
 text shades.
 

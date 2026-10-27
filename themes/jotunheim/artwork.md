@@ -8,23 +8,17 @@ Background, surface and raised roles are recorded separately in `colors.toml`. T
 
 Editor and icon base: nord; integration files are generated from `../integrations.json`.
 
-The approved 01 written-brief wallpaper, generated with the built-in image tool, without reference images. Exact prompt, native source, dimensions, hash and framing are recorded in [Batch 05](../artwork-batch-05.json). Native masters and reproducible exports: `branding/sources/wallpapers/batch-05/export.py`. Both aspect ratios preserve the subject, with no stretching or padding. Preview remains a resized copy of the approved 01 wallpaper. Artwork license: CC-BY-4.0.
+## Wallpapers
 
-Wallpaper: `01-stone-giant.jpg` (one subject, two aspect ratios).
+Each wallpaper ships as 3840×2160 and 3440×1440 JPEGs, in the owner's chosen order. The preview
+is a resized copy of `01`. Exact prompts, native sources, sizes, hashes and framing are recorded in
+the batch manifest named for each image; reproducible exports live in
+`branding/sources/wallpapers/batch-NN/export.py`. All are original, generated from written briefs
+with the built-in image tool and no reference images. Artwork license: CC-BY-4.0.
 
-## Second wallpaper — realm environment
+- `01-blizzard-giant.jpg`: expressive loose-brush painting, almost monochrome blue ([Batch 07](../artwork-batch-07.json)).
+- `02-carved-mountains.jpg`: painterly environment ([Batch 06](../artwork-batch-06.json)).
+- `03-mountain-spire.jpg`: realistic matte painting ([Batch 07](../artwork-batch-07.json)).
 
-Wallpaper: `02-carved-mountains.jpg` (3840×2160 and 3440×1440 JPEG).
-
-At the owner's request, this second wallpaper uses a scenic landscape and rich
-painterly concept-art lighting instead of the default ink screenprint style and
-no-scenery rule. This exception applies only to the ten Batch 06 environments.
-Its colour scheme follows this theme's `colors.toml`. The approved 01 wallpaper
-and preview are unchanged.
-
-Original written brief only, with no reference images, characters, readable
-lettering or third-party designs. Exact prompts, native dimensions, hashes and
-framing: [Batch 06](../artwork-batch-06.json). Native masters and reproducible
-exports: `branding/sources/wallpapers/batch-06/export.py`. Both aspect ratios
-preserve the main scene without stretching or padding. Artwork license:
-CC-BY-4.0, credited to the EITR project.
+Batches 06 and 07 use scenic backgrounds and varied painted or drawn media at the owner's
+explicit request, an exception to the default ink screenprint direction.

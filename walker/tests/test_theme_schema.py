@@ -30,6 +30,16 @@ def theme_dirs():
     return sorted(path for path in THEMES.iterdir() if path.is_dir())
 
 
+# The owner's curated wallpaper count per realm theme.
+REALM_WALLPAPERS = {"alfheim": 3, "asgard": 4, "helheim": 3, "jotunheim": 3, "midgard": 2,
+                    "muspelheim": 3, "niflheim": 3, "ragnarok": 2, "svartalfheim": 3, "vanaheim": 3}
+
+
+def active(records):
+    """Batch records whose wallpaper still ships; removed ones keep only their prompts."""
+    return [record for record in records if record.get("status") != "removed"]
+
+
 class ThemeSchemaTests(unittest.TestCase):
     def test_realm_palettes_and_wallpaper_contract(self):
         expected = {
@@ -59,23 +69,29 @@ class ThemeSchemaTests(unittest.TestCase):
                     self.assertGreaterEqual(palette.contrast(colors["foreground"], colors[surface]), 4.5)
                 self.assertGreaterEqual(palette.contrast(palette.accent_text(colors), colors["surface"]), 4.5)
                 self.assertFalse((theme / "light.mode").exists())
-                self.assertEqual(len(list((theme / "backgrounds").glob("*.jpg"))), 2)
-                self.assertEqual(len(list((theme / "backgrounds-ultrawide").glob("*.jpg"))), 2)
+                wallpapers = sorted(path.name for path in (theme / "backgrounds").glob("*.jpg"))
+                self.assertEqual(len(wallpapers), REALM_WALLPAPERS[name])
+                self.assertEqual([wallpaper[:3] for wallpaper in wallpapers],
+                                 [f"{number:02}-" for number in range(1, len(wallpapers) + 1)])
+                self.assertEqual(sorted(path.name for path in (theme / "backgrounds-ultrawide").glob("*.jpg")),
+                                 wallpapers)
+                self.assertEqual(batch["previews"][name], f"themes/{name}/backgrounds/{wallpapers[0]}")
                 self.assertEqual((theme / "rgb.color").read_text().strip().lower(), colors["accent"][1:])
-                record = next(record for record in batch["images"] if record["theme"] == name)
-                source = ROOT / record["native_source"]
-                self.assertEqual(hashlib.sha256(source.read_bytes()).hexdigest(), record["native_sha256"])
-                with Image.open(source) as image:
-                    self.assertEqual(list(image.size), record["native_size"])
+                for record in active(batch["images"]):
+                    if record["theme"] != name:
+                        continue
+                    source = ROOT / record["native_source"]
+                    self.assertEqual(hashlib.sha256(source.read_bytes()).hexdigest(), record["native_sha256"])
+                    with Image.open(source) as image:
+                        self.assertEqual(list(image.size), record["native_size"])
 
     def test_realm_environment_sources_and_exports(self):
         batch = json.loads((THEMES / "artwork-batch-06.json").read_text())
         approved = json.loads((THEMES / "artwork-batch-05.json").read_text())
         self.assertEqual(sorted(record["theme"] for record in batch["images"]),
                          sorted(approved["previews"]))
-        for record in batch["images"]:
+        for record in active(batch["images"]):
             with self.subTest(theme=record["theme"]):
-                self.assertTrue(Path(record["file"]).name.startswith("02-"))
                 for prefix in ("native", "ultrawide_native"):
                     if prefix + "_source" not in record:
                         continue
@@ -87,7 +103,47 @@ class ThemeSchemaTests(unittest.TestCase):
                 for key, size in (("file", (3840, 2160)), ("ultrawide_file", (3440, 1440))):
                     with Image.open(ROOT / record[key]) as image:
                         self.assertEqual(image.size, size)
-                self.assertIn("/01-", approved["previews"][record["theme"]])
+
+    def test_realm_batch_07_provenance_and_exports(self):
+        batch = json.loads((THEMES / "artwork-batch-07.json").read_text())
+        realms = {"alfheim", "asgard", "helheim", "jotunheim", "midgard",
+                  "muspelheim", "niflheim", "svartalfheim", "vanaheim"}
+        self.assertEqual(len(batch["images"]), 18)
+        self.assertLessEqual({record["theme"] for record in batch["images"]}, realms)
+        manifests = {
+            name: {record["file"]: record for record in
+                   json.loads((THEMES / name).read_text())["images"]}
+            for name in ("artwork-4k.json", "artwork-ultrawide.json")}
+        sources = set()
+        for record in active(batch["images"]):
+            with self.subTest(wallpaper=record["file"]):
+                self.assertTrue(record["rendering_style"].strip())
+                for prefix in ("native", "ultrawide_native"):
+                    if prefix + "_source" not in record:
+                        continue
+                    source = ROOT / record[prefix + "_source"]
+                    sources.add(source.resolve())
+                    self.assertEqual(hashlib.sha256(source.read_bytes()).hexdigest(),
+                                     record[prefix + "_sha256"])
+                    with Image.open(source) as image:
+                        self.assertEqual(list(image.size), record[prefix + "_size"])
+                for key, size in (("file", (3840, 2160)), ("ultrawide_file", (3440, 1440))):
+                    self.assertEqual(Path(record[key]).stem, record["name"])
+                    with Image.open(ROOT / record[key]) as image:
+                        self.assertEqual(image.size, size)
+                        self.assertEqual(image.format, "JPEG")
+                export = manifests["artwork-4k.json"][record["file"]]
+                self.assertEqual(export["source"], record["native_source"])
+                self.assertEqual(export["source_sha256"], record["native_sha256"])
+                wide = manifests["artwork-ultrawide.json"][record["ultrawide_file"]]
+                self.assertEqual(wide["source"]["file"],
+                                 record.get("ultrawide_native_source", record["native_source"]))
+                self.assertEqual(wide["framing"], "crop")
+                for centering in (record["centering"], record["ultrawide_centering"]):
+                    self.assertEqual(len(centering), 2)
+                    self.assertTrue(all(0 <= coordinate <= 1 for coordinate in centering))
+        self.assertEqual(sources, {source.resolve() for source in
+                                  (ROOT / "branding/sources/wallpapers/batch-07").glob("*.png")})
 
     def test_generated_integration_files_are_up_to_date(self):
         # icons.theme, vscode.json, neovim.lua and btop.theme come from integrations.json and colors.toml.
