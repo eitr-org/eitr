@@ -193,12 +193,11 @@ ShellRoot {
                 color: "BACKGROUND"; radius: 12
                 Column {
                     x: 24; y: 20; width: parent.width - 48; spacing: 16
-                    Text { text: "Control Center · General"; color: "FOREGROUND"; font.pixelSize: 16 }
-                    Bar.PluginArea {
-                        id: area; width: parent.width; queryEnabled: false; entries: ENTRIES
+                    Text { text: "Control Center · Plugins"; color: "FOREGROUND"; font.pixelSize: 16 }
+                    Bar.PluginManagement {
+                        id: area; width: parent.width; entries: ENTRIES
                         monitors: [{name: "missing-monitor", description: "Example display"}, {name: "DP-2", description: "Second display"}, {name: "DP-3", description: "Third display"}]
-                        Component.onCompleted: managing = true
-                        foreground: "FOREGROUND"; background: "BACKGROUND"; accent: "#70ba9a"
+                        foreground: "FOREGROUND"; background: "BACKGROUND"
                     }
                 }
             }
@@ -209,12 +208,11 @@ ShellRoot {
                         throw new Error("Clock moved off screen centre");
                     if (items.width !== 24) throw new Error("Plugin slot changed width");
                     if (MANAGEMENT) {
-                        if (!area.managing || area.height > 640) throw new Error("Management missing or clipped");
+                        if (!area.rows.length || area.height > 640) throw new Error("Management missing or clipped");
                         if (Bar.PluginRegistry.placements.widgets.length !== 1 || Bar.PluginRegistry.placements.barItems.length !== 1) throw new Error("Management lost placements before capture");
                     }
                     sample.grabToImage(function(result) {
                         result.saveToFile("CAPTURE");
-                        if (MANAGEMENT && (!area.back() || area.managing || area.back())) throw new Error("Manage back failed");
                         console.log("ROUND_TWO_RENDER_OK"); Qt.quit();
                     });
                 }
@@ -401,3 +399,227 @@ ShellRoot {
             self.assertIn('STREAM_VISIBILITY_OK', result.stdout + result.stderr)
             self.assertNotIn('TypeError', result.stdout + result.stderr)
             self.assertEqual(log.read_text().splitlines(), ['start', 'start'])
+
+
+    def test_round_four_manager_widgets_and_menu(self):
+        with tempfile.TemporaryDirectory(prefix='eitr-plugin-round4-') as directory:
+            folder = Path(directory)
+            plugin = folder / 'Visualizer.qml'
+            plugin.write_text("""import QtQuick
+Item {
+    id: view
+    required property var api
+    Component.onCompleted: api.setMenu([{id: "wave", text: "Wave", checked: true}, {id: "terminal", text: "Terminal", checked: false}])
+    Connections {
+        target: view.api
+        function onMenuTriggered(id) {
+            view.api.setMenu([{id: "wave", text: "Wave", checked: id === "wave"}, {id: "terminal", text: "Terminal", checked: id === "terminal"}]);
+        }
+    }
+    Row {
+        anchors.centerIn: parent; spacing: 5; height: parent.height - 64
+        Repeater {
+            model: 36
+            Rectangle {
+                required property int index
+                width: 7; height: 8 + (Math.sin(index * .48) + 1) * 38
+                anchors.bottom: parent.bottom; radius: 2; color: view.api.accent
+            }
+        }
+    }
+}""")
+            entry = dict(plugin='visualizer', kind='widgets', id='spectrum', title='Audio visualizer',
+                         qml=plugin.name, source=plugin.as_uri(), commit='a' * 40, disabled=False, surface='none')
+            preview = folder / 'preview.png'
+            installed = [dict(id='visualizer', name='Audio visualizer', author='Example author', version='2.1.0',
+                              description='Playback spectrum with Wave and Terminal modes', enabled=True,
+                              blocked='', visualsDisabled=False, icon=(ROOT / 'distro/plugins/example/icon.svg').as_uri(), preview=preview.as_uri()),
+                         dict(id='clock', name='Desktop clock', author='Example contributor', version='1.0.0',
+                              description='A clock for each display', enabled=False, blocked='disabled',
+                              visualsDisabled=False, icon='', preview='')]
+            for mode in ('manager-dark', 'manager-light', 'transparent-widget', 'edit-widget', 'widget-menu'):
+                captures = Path(os.environ.get('EITR_PLUGIN_REVIEW_RENDERS', directory))
+                captures.mkdir(parents=True, exist_ok=True)
+                capture = captures / (mode + '.png')
+                light = mode.endswith('light')
+                foreground, background = ('#252936', '#f5f0e7') if light else ('#e9eef1', '#18212b')
+                fixture = folder / 'shell.qml'
+                fixture.write_text("""import QtQuick
+import Quickshell
+import "BAR" as Bar
+ShellRoot {
+    FloatingWindow {
+        visible: true; implicitWidth: 660; implicitHeight: 820
+        Rectangle {
+            id: sample; anchors.fill: parent; color: "BACKGROUND"
+            Repeater {
+                model: MANAGER ? 0 : 28
+                Rectangle {
+                    required property int index
+                    x: index * 33 - 180; y: -100; width: 22; height: 1400
+                    rotation: 32; color: index % 2 ? "#315362" : "#473956"
+                }
+            }
+            Rectangle {
+                visible: MANAGER; x: 12; y: 12; width: 42; height: parent.height - 24
+                color: Qt.alpha("FOREGROUND", .05); radius: 6
+                Column {
+                    anchors.horizontalCenter: parent.horizontalCenter; y: 16; spacing: 14
+                    Repeater {
+                        model: ["󰕮", "󰏖", "󰏘", "󱁤", "󰒓"]
+                        Bar.PanelButton {
+                            required property string modelData
+                            width: 32; height: 32; text: modelData; icon: true
+                            foreground: "FOREGROUND"; selected: modelData === "󰏖"
+                        }
+                    }
+                }
+            }
+            Text { x: MANAGER ? 74 : 24; y: 24; text: MANAGER ? "Plugins" : "Audio visualizer"; color: "FOREGROUND"; font.pixelSize: 16 }
+            Bar.PluginManager {
+                id: manager; x: 74; y: 62; width: 560; visible: MANAGER
+                installed: []; entries: [ENTRY]; expanded: "visualizer"
+                foreground: "FOREGROUND"; background: "BACKGROUND"; accent: "#7ee0b5"
+            }
+            Bar.PluginWidget {
+                id: widget; x: 96; y: 100; width: 460; height: 200; visible: !MANAGER
+                entry: ENTRY; surface: "none"; editing: EDIT
+                foreground: "FOREGROUND"; background: "BACKGROUND"; accent: "#7ee0b5"
+            }
+            Rectangle {
+                visible: MENU; x: 294; y: 308; width: 300; height: options.implicitHeight + 20
+                color: "BACKGROUND"; radius: 6
+                border.width: 1; border.color: Qt.alpha("FOREGROUND", .15)
+                Bar.PluginWidgetMenu {
+                    id: options; x: 10; y: 10; width: parent.width - 20
+                    foreground: "FOREGROUND"; background: "BACKGROUND"
+                    surface: "none"; entries: widget.menuEntries
+                    onSelected: id => widget.selectMenu(id)
+                }
+            }
+            Timer {
+                interval: 700; running: true; repeat: true
+                property bool ready: false
+                onTriggered: {
+                    if (MANAGER && !ready) {
+                        widget.visible = true;
+                        widget.grabToImage(function(result) {
+                            result.saveToFile("PREVIEW");
+                            widget.visible = false;
+                            manager.installed = INSTALLED;
+                            ready = true;
+                        });
+                        return;
+                    }
+                    if (manager.height > sample.height - 90) throw new Error("Manager clipped");
+                    if (!MANAGER) {
+                        if (widget.menuEntries.length !== 2) throw new Error("Menu API missing");
+                        widget.selectMenu("terminal");
+                        if (!widget.menuEntries[1].checked || widget.menuEntries[0].checked) throw new Error("Menu API signal failed");
+                    }
+                    manager.visible = !MANAGER; manager.visible = MANAGER;
+                    sample.grabToImage(function(result) {
+                        if (!result.saveToFile("CAPTURE")) throw new Error("Capture failed");
+                        console.log("ROUND_FOUR_RENDER_OK"); Qt.quit();
+                    });
+                }
+            }
+        }
+    }
+}""".replace('BAR', BAR.as_uri()).replace('BACKGROUND', background).replace('FOREGROUND', foreground)
+                    .replace('MANAGER', str(mode.startswith('manager')).lower()).replace('EDIT', str(mode == 'edit-widget').lower())
+                    .replace('MENU', str(mode == 'widget-menu').lower()).replace('INSTALLED', json.dumps(installed))
+                    .replace('ENTRY', json.dumps(entry)).replace('CAPTURE', str(capture)).replace('PREVIEW', str(preview)))
+                environment = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
+                                   QML_IMPORT_PATH=str(ROOT / 'quickshell'), EITR_CODE_ROOT=str(ROOT),
+                                   XDG_CONFIG_HOME=directory, XDG_STATE_HOME=directory, XDG_DATA_HOME=directory,
+                                   XDG_CACHE_HOME=directory, XDG_RUNTIME_DIR=directory,
+                                   DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent', HYPRLAND_INSTANCE_SIGNATURE='')
+                result = subprocess.run(['quickshell', '-p', str(fixture)], env=environment, text=True, capture_output=True, timeout=10)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                self.assertIn('ROUND_FOUR_RENDER_OK', result.stdout + result.stderr)
+                self.assertNotIn('ReferenceError', result.stdout + result.stderr)
+                self.assertNotIn('TypeError', result.stdout + result.stderr)
+                self.assertTrue(capture.is_file())
+
+
+    def test_pointer_handles_reach_geometry_save(self):
+        with tempfile.TemporaryDirectory(prefix='eitr-widget-input-') as directory:
+            folder = Path(directory)
+            helper = folder / 'walker/scripts/actions/install/plugins.py'
+            helper.parent.mkdir(parents=True)
+            helper.write_text("""import json, sys
+from pathlib import Path
+if sys.argv[1] == 'place':
+    target = Path(__file__).parents[4] / 'saved.json'
+    values = json.loads(target.read_text()) if target.exists() else []
+    values.append(json.loads(sys.argv[sys.argv.index('--geometry') + 1]))
+    target.write_text(json.dumps(values))
+elif sys.argv[1] == 'placements':
+    print('{"version":2,"widgets":[],"barItems":[]}')
+else:
+    print('[]')
+""")
+            fixture = folder / 'shell.qml'
+            fixture.write_text("""import QtQuick
+import QtTest
+import Quickshell
+import "BAR" as Bar
+import "GEOMETRY" as Geometry
+ShellRoot {
+    FloatingWindow {
+        visible: true; implicitWidth: 900; implicitHeight: 600
+        Rectangle {
+            anchors.fill: parent; color: "#18212b"
+            property var draft: ({x: 24, y: 30, width: 360, height: 180})
+            readonly property var bounds: ({x: 0, y: 30, width: 900, height: 570})
+            id: canvas
+            TestEvent { id: pointer }
+            Bar.PluginWidget {
+                id: widget
+                entry: ({plugin: "fixture", id: "widget", kind: "widgets", title: "Input fixture", disabled: true, source: "", qml: ""})
+                x: canvas.draft.x; y: canvas.draft.y; width: canvas.draft.width; height: canvas.draft.height
+                originX: x; originY: y; editing: true
+                foreground: "white"; background: "#18212b"; accent: "#7ee0b5"
+                onMoved: function(dx, dy) { canvas.draft = Geometry.fit(Geometry.delta(canvas.draft, dx, dy, false), canvas.bounds, 96, 96, 1); }
+                onResized: function(dx, dy) { canvas.draft = Geometry.fit(Geometry.delta(canvas.draft, dx, dy, true), canvas.bounds, 96, 96, 1); }
+                onFinished: {
+                    canvas.draft = Geometry.fit(canvas.draft, canvas.bounds, 96, 96, 6);
+                    Bar.PluginRegistry.change("place", entry, "test-monitor", canvas.draft);
+                }
+            }
+            Timer {
+                interval: 500; running: true; repeat: true
+                property int stage: 0
+                onTriggered: {
+                    if (stage === 0) {
+                        pointer.mousePress(widget, 80, 12, Qt.LeftButton, Qt.NoModifier, 1);
+                        for (let step = 0; step < 20; step++) pointer.mouseMove(widget, 81, 12, 1, Qt.LeftButton, Qt.NoModifier);
+                        pointer.mouseRelease(widget, 80, 12, Qt.LeftButton, Qt.NoModifier, 1);
+                        if (canvas.draft.x <= 24) throw new Error("Title drag did not move");
+                    } else if (stage === 1) {
+                        pointer.mousePress(widget, widget.width - 10, widget.height - 10, Qt.LeftButton, Qt.NoModifier, 1);
+                        pointer.mouseMove(widget, widget.width + 20, widget.height + 20, 1, Qt.LeftButton, Qt.NoModifier);
+                        pointer.mouseRelease(widget, widget.width - 10, widget.height - 10, Qt.LeftButton, Qt.NoModifier, 1);
+                        if (canvas.draft.width <= 360 || canvas.draft.height <= 180) throw new Error("Grip did not resize");
+                    } else { console.log("POINTER_SAVE_OK"); Qt.quit(); }
+                    stage++;
+                }
+            }
+        }
+    }
+}""".replace('BAR', BAR.as_uri()).replace('GEOMETRY', (BAR / 'PluginGeometry.js').as_uri()))
+            environment = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
+                               QML_IMPORT_PATH=str(ROOT / 'quickshell'), EITR_CODE_ROOT=directory,
+                               XDG_CONFIG_HOME=directory, XDG_STATE_HOME=directory, XDG_DATA_HOME=directory,
+                               XDG_CACHE_HOME=directory, XDG_RUNTIME_DIR=directory,
+                               DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent', HYPRLAND_INSTANCE_SIGNATURE='')
+            result = subprocess.run(['quickshell', '-p', str(fixture)], env=environment, text=True, capture_output=True, timeout=10)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertIn('POINTER_SAVE_OK', result.stdout + result.stderr)
+            saved = json.loads((folder / 'saved.json').read_text())
+            self.assertEqual(len(saved), 2)
+            self.assertGreater(saved[0]['x'], 24)
+            self.assertGreater(saved[1]['width'], saved[0]['width'])
+            self.assertGreater(saved[1]['height'], saved[0]['height'])
+            self.assertTrue(all(value % 6 == 0 for geometry in saved for value in geometry.values()))

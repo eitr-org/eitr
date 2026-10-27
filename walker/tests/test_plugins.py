@@ -999,6 +999,141 @@ class LivePluginTests(unittest.TestCase):
     install = PluginTests.install
     visual = VisualPluginTests.visual
 
+    def test_enabled_state_stops_all_execution_and_preserves_placements(self):
+        value = self.visual()
+        value['service'] = {'run': 'notify.sh'}
+        self.publish(value)
+        self.install()
+        self.manager.place('example', 'clock', 'test-monitor')
+        placements = self.manager.placements()
+        self.manager.set_enabled('example', False)
+        self.assertFalse(self.manager.records()['example']['enabled'])
+        self.assertEqual(self.manager.rows(), [])
+        self.assertEqual(self.manager.ui(), [])
+        self.assertEqual(self.manager.placements(), placements)
+        self.assertFalse(self.manager.installed()[0]['enabled'])
+        self.assertIn(unittest.mock.call('disable', '--now', 'eitr-plugin-example.service'), self.commands.call_args_list)
+        with patch('eitr_plugins.subprocess.Popen') as process:
+            self.manager.hooks('theme-changed')
+            process.assert_not_called()
+            with self.assertRaises(ValueError):
+                self.manager.launch('example', 0)
+            with self.assertRaises(ValueError):
+                self.manager.ui_data('example', 'hello')
+            process.assert_not_called()
+        value['version'] = 'disabled-update'
+        self.publish(value)
+        self.commands.reset_mock()
+        def service_call(*arguments):
+            if arguments[0] == 'stop' and not self.manager.unit('example').exists():
+                raise subprocess.CalledProcessError(5, arguments)
+        with patch.object(self.manager, 'systemctl', side_effect=service_call):
+            self.assertTrue(self.manager.update('example', lambda changes: True))
+        self.assertFalse(self.manager.records()['example']['enabled'])
+        self.assertFalse(self.manager.unit('example').exists())
+        self.assertEqual(self.manager.placements(), placements)
+        self.manager.set_enabled('example', True)
+        self.assertTrue(self.manager.rows())
+        self.assertTrue(self.manager.ui())
+        self.assertEqual(self.manager.placements(), placements)
+        self.assertIn(unittest.mock.call('enable', '--now', 'eitr-plugin-example.service'), self.commands.call_args_list)
+        self.manager.set_enabled('example', False)
+        self.block(id='example')
+        with self.assertRaises(ValueError):
+            self.manager.set_enabled('example', True)
+
+    def test_surface_default_override_and_validation(self):
+        value = self.visual()
+        value['ui']['widgets'][0]['surface'] = 'none'
+        self.publish(value)
+        self.install()
+        self.manager.place('example', 'clock', 'test-monitor')
+        self.assertEqual(next(entry for entry in self.manager.ui() if entry['id'] == 'clock')['surface'], 'none')
+        self.manager.place('example', 'clock', 'test-monitor', surface='panel')
+        saved = self.manager.placements()['widgets'][0]
+        self.assertEqual(saved['surface'], 'panel')
+        geometry = dict(x=63, y=78, width=330, height=198)
+        self.manager.place('example', 'clock', 'test-monitor', geometry=geometry)
+        self.assertEqual(self.manager.placements()['widgets'][0], dict(saved, **geometry))
+        with self.assertRaises(ValueError):
+            self.manager.place('example', 'clock', 'test-monitor', surface='blur')
+        value['ui']['widgets'][0]['surface'] = 'blur'
+        with self.assertRaises(ValueError):
+            plugins.validate_ui(self.source, value['ui'])
+
+    def test_artwork_headers_sizes_paths_and_review(self):
+        from PIL import Image
+        value = self.visual()
+        Image.new('RGB', (128, 128)).save(self.source / 'icon.png')
+        Image.new('RGB', (640, 360)).save(self.source / 'preview.jpg')
+        value.update(icon='icon.png', preview='preview.jpg', homepage='https://example.invalid/plugin')
+        self.write_spec(value)
+        self.assertEqual(plugins.manifest(self.source), value)
+        lines = self.cli().review_lines(self.source, value, self.url)
+        self.assertIn('icon: icon.png', lines)
+        self.assertIn('preview: preview.jpg', lines)
+        for field, invalid in [('icon', '../icon.png'), ('icon', '/tmp/icon.png'), ('icon', 'notify.sh'),
+                               ('preview', 'icon.svg'), ('homepage', 'http://example.invalid'),
+                               ('homepage', 'https://user:password@example.invalid')]:
+            with self.subTest(field=field, invalid=invalid):
+                self.write_spec(dict(value, **{field: invalid}))
+                with self.assertRaises((ValueError, OSError)):
+                    plugins.manifest(self.source)
+        self.write_spec(value)
+        for dimensions in ((63, 63), (1025, 1025), (128, 64)):
+            Image.new('RGB', dimensions).save(self.source / 'icon.png')
+            with self.assertRaises(ValueError):
+                plugins.manifest(self.source)
+        (self.source / 'icon.png').write_bytes(b'\x89PNG\r\n\x1a\nnot an image')
+        with self.assertRaises((ValueError, OSError)):
+            plugins.manifest(self.source)
+        (self.source / 'icon.png').write_bytes(b'x' * (512 * 1024 + 1))
+        with self.assertRaises(ValueError):
+            plugins.manifest(self.source)
+        (self.source / 'icon.png').unlink()
+        (self.source / 'icon.png').symlink_to(self.source / 'preview.jpg')
+        with self.assertRaises(ValueError):
+            plugins.manifest(self.source)
+        (self.source / 'icon.png').unlink()
+        Image.new('RGB', (128, 128)).save(self.source / 'icon.png')
+        Image.new('RGB', (3841, 10)).save(self.source / 'preview.jpg')
+        with self.assertRaises(ValueError):
+            plugins.manifest(self.source)
+        Image.new('RGB', (640, 360)).save(self.source / 'preview.jpg')
+        with (self.source / 'preview.jpg').open('ab') as output:
+            output.write(b'x' * (2 * 1024 * 1024))
+        with self.assertRaises(ValueError):
+            plugins.manifest(self.source)
+        value.pop('preview')
+        value['icon'] = 'icon.svg'
+        self.write_spec(value)
+        for svg in ('not svg', '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="64"/>',
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128"><script/></svg>'):
+            (self.source / 'icon.svg').write_text(svg)
+            with self.assertRaises(ValueError):
+                plugins.manifest(self.source)
+
+    def test_iconless_legacy_keeps_working_but_new_v2_install_requires_icon(self):
+        value = self.visual()
+        value.pop('icon', None)
+        self.write_spec(value)
+        self.assertEqual(plugins.manifest(self.source), value)
+        self.assertTrue(any('generic icon' in line for line in self.cli().review_lines(self.source, value, self.url)))
+        self.publish(value)
+        with self.assertRaisesRegex(ValueError, 'requires a plugin icon'):
+            self.install()
+        # Model an approval made before artwork became mandatory.
+        self.manager.folder.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(self.source, self.manager.folder / 'example')
+        self.manager.save({'example': dict(id='example', url=self.url, commit=plugins.commit(self.source), installed='fixture')})
+        self.assertTrue(self.manager.ui())
+        self.assertEqual(self.manager.installed()[0]['icon'], '')
+        value['version'] = 'legacy-update'
+        self.publish(value)
+        self.assertTrue(self.manager.update('example', lambda changes: True))
+        self.assertTrue(self.manager.ui())
+
+
     def test_capabilities_and_stream_validation(self):
         value = self.visual()
         value['capabilities'] = ['audio-spectrum']

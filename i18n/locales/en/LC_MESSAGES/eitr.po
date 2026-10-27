@@ -1945,6 +1945,9 @@ msgstr "No passphrase or recovery key slot remains; add one before removing TPM2
 msgid "No picture file at {path}."
 msgstr "No picture file at {path}."
 
+msgid "No plugin icon; a generic icon will be shown."
+msgstr "No plugin icon; a generic icon will be shown."
+
 msgid "No previous mirrorlist is available."
 msgstr "No previous mirrorlist is available."
 

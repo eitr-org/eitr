@@ -8,10 +8,20 @@ import "JsonState.js" as JsonState
 QtObject {
     id: registry
     property var entries: []
+    property var installed: []
+    property var widgetMenus: ({})
+    signal widgetAction(string plugin, string id, string monitor, string action, bool custom)
+    function menuKey(entry, monitor) { return entry.plugin + "/" + entry.id + "/" + monitor; }
+    function setMenu(entry, monitor, entries) {
+        const next = Object.assign({}, widgetMenus);
+        next[menuKey(entry, monitor)] = entries;
+        widgetMenus = next;
+    }
     property var placements: ({version: 2, widgets: [], barItems: []})
     property bool editing: false
     property var editTarget: null
     property bool pending: false
+    property bool installedPending: false
     property bool placementPending: false
     readonly property string helper: Eitr.Paths.code("walker/scripts/actions/install/plugins.py")
     readonly property string stateRoot: Quickshell.env("XDG_STATE_HOME") || Quickshell.env("HOME") + "/.local/state"
@@ -21,7 +31,7 @@ QtObject {
         return (placements[kind] || []).filter(placement => kind !== "widgets" || placement.monitor === monitor)
             .map(placement => {
                 const entry = entries.find(entry => entry.plugin === placement.plugin && entry.id === placement.id && entry.kind === kind);
-                return entry ? Object.assign({}, entry, {geometry: placement}) : null;
+                return entry && !entry.disabled ? Object.assign({}, entry, {geometry: placement}) : null;
             }).filter(entry => entry !== null);
     }
     function refreshEntries() {
@@ -32,12 +42,32 @@ QtObject {
         if (placementQuery.running) placementPending = true;
         else placementQuery.running = true;
     }
-    function refresh() { refreshEntries(); refreshPlacements(); }
-    function change(action, entry, monitor, geometry) {
+    function refresh() { refreshEntries(); refreshPlacements(); if (installedQuery.running) installedPending = true; else installedQuery.running = true; }
+    function change(action, entry, monitor, geometry, surface) {
         let args = ["python3", helper, action, entry.plugin, entry.id];
         if (monitor) args = args.concat(["--monitor", monitor]);
         if (geometry) args = args.concat(["--geometry", JSON.stringify(geometry)]);
+        if (surface) args = args.concat(["--surface", surface]);
         Quickshell.execDetached(args);
+    }
+    function setEnabled(plugin, enabled) {
+        Quickshell.execDetached(["python3", helper, enabled ? "enable" : "disable", plugin]);
+    }
+    function review(action, plugin) {
+        Quickshell.execDetached([Eitr.Paths.code("walker/bin/menu-path/kitty"), "--class", "eitr-plugins", "-e",
+            "python3", Eitr.Paths.code("walker/scripts/actions/task-terminal.py"), "python3", helper, action].concat(plugin ? [plugin] : []));
+    }
+    function refreshInstalled() { installedQuery.running = true; }
+    property Process installedQuery: Process {
+        command: ["python3", registry.helper, "installed"]
+        stdout: StdioCollector { id: installedOutput }
+        onExited: function(code) {
+            if (code === 0) try {
+                const next = JSON.parse(installedOutput.text);
+                if (JsonState.changed(registry.installed, next)) registry.installed = next;
+            } catch (error) { console.warn("Plugin manager:", error); }
+            if (registry.installedPending) { registry.installedPending = false; Qt.callLater(registry.refreshInstalled); }
+        }
     }
     Component.onCompleted: refresh()
     property FileView approvalWatch: FileView {
@@ -77,7 +107,7 @@ QtObject {
     }
     property IpcHandler ipc: IpcHandler {
         target: "plugin-widgets"
-        function edit(): void { registry.editTarget = null; registry.editing = true; }
+        function edit(): void { registry.editTarget = null; registry.editing = !registry.editing; }
         function done(): void { registry.editing = false; }
     }
 }

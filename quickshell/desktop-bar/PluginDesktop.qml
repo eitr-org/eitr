@@ -54,33 +54,62 @@ Scope {
                     id: window
                     required property var modelData
                     property var draft: Object.assign({}, modelData.geometry)
-                    readonly property var fitted: Geometry.fit(draft, display.bounds, modelData.minWidth || 96, modelData.minHeight || 96, desktop.grid)
-                    onModelDataChanged: draft = Object.assign({}, modelData.geometry)
+                    property bool gesturing: false
+                    readonly property var fitted: Geometry.fit(draft, display.bounds, modelData.minWidth || 96, modelData.minHeight || 96, 1)
+                    function save() {
+                        draft = Geometry.fit(draft, display.bounds, modelData.minWidth || 96, modelData.minHeight || 96, desktop.grid);
+                        gesturing = false;
+                        PluginRegistry.change("place", modelData, display.modelData.name, draft);
+                    }
+                    function size(factor) {
+                        draft = Geometry.scale(fitted, display.bounds, modelData.minWidth || 96, modelData.minHeight || 96, factor);
+                        PluginRegistry.change("place", modelData, display.modelData.name, draft);
+                    }
+                    onModelDataChanged: if (!gesturing) draft = Object.assign({}, modelData.geometry)
                     screen: display.modelData
                     anchors { top: true; left: true }
                     margins.left: fitted.x; margins.top: fitted.y
                     implicitWidth: fitted.width; implicitHeight: fitted.height
                     color: "transparent"
                     exclusionMode: ExclusionMode.Ignore
-                    WlrLayershell.namespace: "eitr-plugin-widget"
+                    WlrLayershell.namespace: content.surface === "none" ? "eitr-plugin-transparent" : "eitr-plugin-widget"
                     readonly property bool aboveWindows: !!modelData.geometry.aboveWindows
-                    visible: !aboveWindows || !display.fullscreen
-                    WlrLayershell.layer: aboveWindows ? WlrLayer.Top : WlrLayer.Bottom
-                    WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
+                    visible: content.editing || !aboveWindows || !display.fullscreen
+                    WlrLayershell.layer: content.editing || content.menuOpen ? WlrLayer.Overlay : aboveWindows ? WlrLayer.Top : WlrLayer.Bottom
+                    WlrLayershell.keyboardFocus: content.editing || content.menuOpen ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
                     mask: Region { item: !window.aboveWindows || content.editing ? content : null }
+                    Connections {
+                        target: PluginRegistry
+                        function onWidgetAction(plugin, id, monitor, action, custom) {
+                            if (plugin !== window.modelData.plugin || id !== window.modelData.id || monitor !== display.modelData.name) return;
+                            if (custom) content.selectMenu(action);
+                            else content.menuAction(action);
+                        }
+                    }
                     PluginWidget {
                         id: content
                         anchors.fill: parent; entry: window.modelData
+                        originX: window.fitted.x; originY: window.fitted.y
+                        onMenuEntriesChanged: PluginRegistry.setMenu(window.modelData, display.modelData.name, menuEntries)
+                        Component.onCompleted: PluginRegistry.setMenu(window.modelData, display.modelData.name, menuEntries)
                         active: window.visible
+                        surface: window.modelData.geometry.surface || window.modelData.surface || "panel"
+                        aboveWindows: window.aboveWindows
+                        onSizeRequested: factor => window.size(factor)
+                        onSurfaceRequested: surface => PluginRegistry.change("surface", window.modelData, display.modelData.name, null, surface)
+                        onLayerRequested: PluginRegistry.change("toggle-layer", window.modelData, display.modelData.name, null)
+                        onRemoveRequested: PluginRegistry.change("unplace", window.modelData, display.modelData.name, null)
                         foreground: desktop.foreground; background: desktop.background; accent: desktop.accent
                         editing: PluginRegistry.editing && (!PluginRegistry.editTarget || (PluginRegistry.editTarget.plugin === window.modelData.plugin && PluginRegistry.editTarget.id === window.modelData.id && PluginRegistry.editTarget.monitor === display.modelData.name))
                         onMoved: function(deltaX, deltaY) {
-                            window.draft = Object.assign({}, window.draft, {x: window.draft.x + deltaX, y: window.draft.y + deltaY});
+                            window.gesturing = true;
+                            window.draft = Geometry.delta(window.fitted, deltaX, deltaY, false);
                         }
                         onResized: function(deltaX, deltaY) {
-                            window.draft = Object.assign({}, window.draft, {width: window.draft.width + deltaX, height: window.draft.height + deltaY});
+                            window.gesturing = true;
+                            window.draft = Geometry.delta(window.fitted, deltaX, deltaY, true);
                         }
-                        onFinished: PluginRegistry.change("place", window.modelData, display.modelData.name, window.fitted)
+                        onFinished: window.save()
                     }
                 }
             }

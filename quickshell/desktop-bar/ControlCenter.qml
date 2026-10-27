@@ -229,6 +229,7 @@ ThemedPopup {
             spacing: 10
             Repeater {
                 model: [{key: "general", icon: "󰕮", name: "General"},
+                    {key: "plugins", icon: "󰏖", name: "Plugins"},
                     {key: "style", icon: "󰏘", name: "Style"},
                     {key: "tools", icon: "󱁤", name: "Tools"}, {key: "system", icon: "󰒓", name: "System"}]
                 PanelButton {
@@ -283,7 +284,7 @@ ThemedPopup {
                     id: content
                     width: scroll.width; spacing: 12
                     PanelHeading {
-                        text: ({general: Eitr.I18n.tr("General"), style: Eitr.I18n.tr("Style"), tools: Eitr.I18n.tr("Tools"), system: Eitr.I18n.tr("System")})[center.page]
+                        text: ({plugins: Eitr.I18n.tr("Plugins"), general: Eitr.I18n.tr("General"), style: Eitr.I18n.tr("Style"), tools: Eitr.I18n.tr("Tools"), system: Eitr.I18n.tr("System")})[center.page]
                         rune: center.page
                         foreground: center.foreground; accent: center.accent
                     }
@@ -371,6 +372,10 @@ ThemedPopup {
                         width: parent.width
                         visible: center.page === "general" && tiles.length > 0
                         active: center.opened && center.page === "general"
+                        foreground: center.foreground; background: center.background; accent: center.accent
+                    }
+                    PluginManager {
+                        width: parent.width; visible: center.page === "plugins"
                         foreground: center.foreground; background: center.background; accent: center.accent
                     }
                     Column {

@@ -38,6 +38,9 @@ LAN.
   and menu-based visual reset are implemented. Shared playback spectrum, bounded live
   streams and per-placement above-window widgets are implemented; verify Top-layer
   click-through, fullscreen hiding and hotplug behavior on a live compositor.
+  The Plugins manager, enable/disable, artwork validation, transparent surfaces,
+  right-click options and continuous move/resize with release-time saving are
+  implemented; verify pointer grabs, edit focus and persistence on Hyprland.
 - **Website translations.** Offer the site in the desktop's languages
   (Portuguese (Brazil), Spanish, German, French) with a language switch, reusing
   the reviewed Handbook translations where chapters overlap. Decide the URL scheme

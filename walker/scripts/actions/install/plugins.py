@@ -56,7 +56,9 @@ def safety_lines(url):
 
 
 def live_review_lines(spec):
-    lines = []
+    lines = [field + ': ' + printable(spec[field]) for field in ('icon', 'preview', 'homepage') if field in spec]
+    if not spec.get('icon'):
+        lines.append(tr('No plugin icon; a generic icon will be shown.'))
     if 'audio-spectrum' in spec.get('capabilities', []):
         lines.append(tr('Reads the system audio spectrum (levels only, no audio is recorded or sent)'))
     for entries in spec.get('ui', {}).values():
@@ -363,21 +365,24 @@ def visual_rows(manager, plugin_id, monitors):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['list', 'add', 'update', 'remove', 'rows', 'installed', 'launch', 'enforce', 'notice', 'hooks', 'ui', 'ui-failure', 'enable-ui', 'ui-data', 'ui-stream', 'toggle-layer', 'placements', 'place', 'unplace', 'visual-rows'])
+    parser.add_argument('action', choices=['list', 'add', 'update', 'remove', 'enable', 'disable', 'surface', 'rows', 'installed', 'launch', 'enforce', 'notice', 'hooks', 'ui', 'ui-failure', 'enable-ui', 'ui-data', 'ui-stream', 'toggle-layer', 'placements', 'place', 'unplace', 'visual-rows'])
     parser.add_argument('value', nargs='?')
     parser.add_argument('index', nargs='?')
     parser.add_argument('--monitor')
     parser.add_argument('--geometry')
+    parser.add_argument('--surface', choices=('panel', 'none'))
     arguments = parser.parse_args(argv)
     manager = Plugins(notify=notify_blocked)
-    if arguments.action == 'visual-rows':
+    if arguments.action in ('enable', 'disable'):
+        manager.set_enabled(arguments.value, arguments.action == 'enable')
+    elif arguments.action == 'visual-rows':
         monitors = json.loads(subprocess.check_output(['hyprctl', '-j', 'monitors'], text=True))
         print(json.dumps(visual_rows(manager, arguments.value, [monitor['name'] for monitor in monitors])))
     elif arguments.action == 'placements':
         print(json.dumps(manager.placements()))
-    elif arguments.action in ('place', 'unplace', 'toggle-layer'):
+    elif arguments.action in ('place', 'unplace', 'toggle-layer', 'surface'):
         manager.place(arguments.value, arguments.index, arguments.monitor, remove=arguments.action == 'unplace',
-                      geometry=json.loads(arguments.geometry) if arguments.geometry else None, toggle_layer=arguments.action == 'toggle-layer')
+                      geometry=json.loads(arguments.geometry) if arguments.geometry else None, toggle_layer=arguments.action == 'toggle-layer', surface=arguments.surface)
     elif arguments.action == 'ui':
         print(json.dumps(manager.ui()))
     elif arguments.action == 'ui-failure':

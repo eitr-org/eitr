@@ -1945,6 +1945,9 @@ msgstr "Kein Slot für Passphrase oder Wiederherstellungsschlüssel mehr vorhand
 msgid "No picture file at {path}."
 msgstr "Keine Bilddatei unter {path}."
 
+msgid "No plugin icon; a generic icon will be shown."
+msgstr "Kein Plugin-Symbol; ein allgemeines Symbol wird angezeigt."
+
 msgid "No previous mirrorlist is available."
 msgstr "Keine vorherige Spiegelserverliste verfügbar."
 

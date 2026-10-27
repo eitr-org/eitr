@@ -836,7 +836,7 @@ ShellRoot {
                 function showControlCenter(page) {
                     // Older callers name the pages that became System and Tools.
                     page = ({settings: "system", capture: "tools"})[page] || page;
-                    if (["general", "style", "tools", "system"].indexOf(page) === -1) return;
+                    if (["general", "plugins", "style", "tools", "system"].indexOf(page) === -1) return;
                     controlCenter.page = page;
                     showPanel(controlCenter);
                 }

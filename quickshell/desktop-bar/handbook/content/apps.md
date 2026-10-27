@@ -152,7 +152,7 @@ be isolated by the loader.
 A component load error shows an inline error instead of its content and is
 logged in `$XDG_STATE_HOME/eitr/plugin-ui.log`. After three load or reported
 errors, that plugin's visual components are disabled, including across updates.
-Choose **Re-enable** in Plugins > Manage, or run `eitr plugin enable-ui ID`. Before
+Choose **Re-enable** in Control Center > Plugins, or run `eitr plugin enable-ui ID`. Before
 the threshold, close and reopen General to retry. Rows, hooks and services are
 independent. Plugins appear after the existing General sections. Panels replace
 the tiles with a title and back chevron; Back or Escape returns to tiles before
@@ -162,23 +162,14 @@ unchanged. Authoring details and the narrow style/data API are in
 `distro/PLUGINS.md`; the API is a supported interface, not a security boundary.
 
 
-In **Control Center > General > Plugins > Manage** (the settings button), or **Install > Plugins > plugin > Visuals**,
-add or remove each widget (choose its monitor) and bar item. Nothing is added
-by default. The General page shows plugin tiles; Manage lists visual items with
-Add, Remove and Re-enable actions. Add offers an inline monitor choice when
-several displays are available. Each placed widget has **Edit position**, which shows move and resize handles; drag them to snap to
-the desktop gap inside the usable screen, then choose **Done**. Widgets stay
-behind windows by default and follow the theme, fonts, corners and bar transparency.
-Placements are saved per monitor on this PC; unplugged monitors keep their layout
-without showing widgets. Bar items use fixed slots in the right group, obey its
-Show icons toggle, and stay visible in Tabs. Clicking an item can open its plugin
-panel. The example includes a small clock widget and a status dot.
+### Plugins manager and widget options
 
+**Control Center > Plugins** lists every installed plugin with its icon, author, version, description and enabled status. Expand Preview for its screenshot. Enable/Disable preserves placements and stops or restores services, Walker rows, hooks and visuals; the CLI is `eitr plugin enable ID` or `eitr plugin disable ID`. Add Plugin…, Update and Remove open the reviewed terminal flows; removal asks for confirmation. General keeps only plugin tiles. Visual failures have an independent Re-enable action.
 
-Each placed widget also offers **Show above windows** in Manage and Walker Visuals.
-It stays on every workspace and lets clicks pass through, except during Edit
-position. It hides when its monitor has a fullscreen window. Behind windows is
-the default; the choice is saved per placement, including older layouts.
+Place widgets per monitor and bar items under each plugin. Edit position temporarily raises the widget above windows: drag its title or resize grip, then Done or Escape. Motion is continuous; release snaps to the desktop gap and saves. Right-click a behind-window widget, or any widget in edit mode, for size steps (90% / 110%, preserving aspect and centre within screen limits), Full width, Panel/Transparent background, Show above windows, plugin options and Remove from desktop. Full width fits the largest size with the same aspect ratio. Above-window widgets are click-through; use their options in the Plugins page. Edit widgets in that page or Walker Visuals toggles all widgets interactive until Done or Escape (`plugin-widgets edit` / `done` IPC). Missing monitors keep their saved placements.
+
+Transparent backgrounds have no host color, border or blur; edit handles remain visible. New schema v2 plugins require a square PNG/SVG icon (up to 512 KiB, PNG 64–1024 px); optional previews are PNG/JPEG up to 2 MiB and 3840 px per axis, and homepage is HTTPS. Existing iconless plugins use a generic icon and a review note. The author API adds `api.setMenu([{id, text, checked}])` and `api.menuTriggered(id)` for options such as Wave/Terminal. See `distro/PLUGINS.md` for validation and API details.
+
 
 A schema v2 plugin can request `audio-spectrum`. Review says it reads system
 audio levels only: no audio is recorded or sent, and the host never captures the

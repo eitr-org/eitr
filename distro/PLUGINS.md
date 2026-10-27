@@ -157,7 +157,7 @@ its status panel. It is never installed automatically.
 ### Desktop widgets and bar items
 
 Nothing in `widgets` or `barItems` appears until the user places it from
-**Control Center > General > Plugins > Manage** (the heading’s settings button) or **Install > Plugins > plugin > Visuals**.
+**Control Center > Plugins** or **Install > Plugins > plugin > Visuals**.
 Widgets require a monitor choice. Each widget supports optional integer
 `minWidth`, `minHeight` (default 96), `defaultWidth`, `defaultHeight` (default 192),
 with `24 <= min <= default <= 4096` in logical pixels. Like tiles, both kinds
@@ -189,7 +189,7 @@ outside-click dismissal as built-in controls. The clock's independent screen
 centre anchors remain unchanged on every edge and layout.
 
 All four kinds share the loader, style/data API, failure counter and full QML
-review. **Re-enable** in Control Center’s Manage sub-view (or **Re-enable visuals** in Walker) resets the same
+review. **Re-enable** in Control Center’s Plugins page (or **Re-enable visuals** in Walker) resets the same
 counter as `eitr plugin enable-ui ID`. Widgets and visible bar items refresh data
 while loaded; tiles and panels refresh while open. The existing QML runtime
 limitations still apply; unreported binding warnings are not counted.
@@ -252,10 +252,67 @@ plugins still have the user's full permissions.
 
 ### Window layers
 
-Each placed widget offers **Show above windows** in Manage and Walker Visuals.
+Each placed widget offers **Show above windows** in Control Center > Plugins and Walker Visuals.
 It switches from Bottom to Top and uses an empty input region except during
 **Edit position**. Above-window widgets hide while their monitor has a fullscreen
 window. Both layers remain on every workspace; monitor-local geometry and
 unplug/reconnect behavior are unchanged. Behind windows remains the default.
 Placement version 2 adds boolean `aboveWindows` per widget. Version 1 is migrated
 in memory with `false`; the next placement edit atomically saves version 2.
+
+
+### Plugin manager and artwork
+
+Control Center has a dedicated **Plugins** page (`controlCenter show plugins`).
+It lists all installed plugins, including disabled ones, with their name, author,
+version, description and status. Expand **Preview** to see a declared screenshot.
+Add, Update and Remove open the reviewed terminal flows; removal still asks for
+confirmation. General keeps only plugin tiles and their panel navigation.
+
+`eitr plugin disable ID` stops and disables the service, hides all visuals and
+Walker actions, and skips hooks and data streams. `eitr plugin enable ID` checks
+policy and the approved commit before restoring the service and declarations.
+The boolean `enabled` lives in Eitr's existing `plugins.json` approval record;
+missing means enabled. Placements and the independent visual failure counter
+survive disable, updates and enable. Reset visual failures with `enable-ui`.
+
+New schema v2 installations require `icon`, a relative path inside the repository:
+PNG (square, 64–1024 pixels) or a square self-contained SVG, at most 512 KiB.
+SVGs contain shapes only, without entities, external references or scripts.
+Optional `preview` is a PNG/JPEG screenshot up to 2 MiB and 3840 pixels on either
+axis. Optional `homepage` is an HTTPS URL without credentials. Images must have
+valid headers and structure; symlinks and paths escaping the repository are
+refused. Install/update review lists artwork paths. Schema v1 and existing v2
+plugins without an icon remain readable and use a generic glyph, with a review
+note. Existing iconless v2 updates may remain iconless; an update cannot remove
+a declared v2 icon.
+
+### Widget options and transparent surfaces
+
+A widget declaration accepts `surface: "panel" | "none"` (default `panel`).
+The placement can override it with the same field. **Background: Transparent**
+sets `none`: the host draws no color, border or blur. Transparent widgets use
+`eitr-plugin-transparent`, outside the panel-only `eitr-plugin-widget` blur rule.
+Plugin QML must also avoid drawing its own opaque background. Edit mode always
+shows the outline, title handle, resize grip and Done control.
+
+Right-click a behind-window widget, or any widget while editing, for **Edit
+position**, **Size: Smaller / Larger** (90% / 110%, preserving aspect and centre
+where bounds permit), **Full width**, **Background**, **Show above windows**,
+plugin options and **Remove from desktop**. Size is limited by declared minimums
+and the monitor's usable area; fitting the screen takes precedence over minimums.
+Full width uses the largest aspect-preserving size that fits the usable screen.
+Above-window widgets stay click-through: their options are in **Control Center >
+Plugins**, including plugin-declared entries. **Edit widgets** in that page or
+Walker Visuals toggles global edit mode (`plugin-widgets edit` IPC); **Done**,
+Escape or `plugin-widgets done` exits. Editing temporarily raises widgets above
+windows and permits keyboard and pointer input. Dragging uses monitor-local
+pointer coordinates and unsnapped motion; release snaps and atomically saves.
+
+Widgets may call `api.setMenu([{id: "wave", text: "Wave", checked: true}])`.
+At most 20 entries are accepted, with unique lowercase alphanumeric/hyphen IDs
+(up to 64 characters), nonblank single-line text (up to 72 characters), and an
+optional boolean `checked`. Invalid lists leave the previous menu intact.
+Handle `api.menuTriggered(id)` through a QML `Connections` object; call `setMenu`
+again to update checkmarks. These actions run only in the loaded widget instance,
+so each monitor can keep independent state. Menus do not execute shell strings.

@@ -11,6 +11,7 @@ import shutil
 import signal
 import subprocess
 import tempfile
+import xml.etree.ElementTree as ET
 from urllib.parse import urlsplit
 
 import eitr_policy
@@ -69,6 +70,53 @@ def unique_object(pairs):
     return result
 
 
+def image_asset(root, relative, *, preview=False):
+    """Validate local artwork before passing its URL to Qt's image loader."""
+    path = PurePosixPath(string(relative))
+    if path.is_absolute() or '..' in path.parts or not path.parts or path.parts[0] == '.git':
+        raise ValueError('Plugin image must stay inside its folder')
+    target = root / path
+    if any(parent.is_symlink() for parent in [target, *target.parents] if parent.is_relative_to(root)):
+        raise ValueError('Plugin images may not be symlinks')
+    if not target.resolve(strict=True).is_relative_to(root.resolve()) or not target.is_file():
+        raise ValueError('Plugin image must be a file inside its folder')
+    if target.stat().st_size > (2 * 1024 * 1024 if preview else 512 * 1024):
+        raise ValueError('Plugin image exceeds its size limit')
+    if target.suffix.lower() == '.svg' and not preview:
+        raw = target.read_bytes()
+        if b'<!DOCTYPE' in raw.upper() or b'<!ENTITY' in raw.upper():
+            raise ValueError('Plugin SVG must not declare entities')
+        try:
+            svg = ET.fromstring(raw)
+            view = [float(number) for number in svg.get('viewBox', '').replace(',', ' ').split()]
+            width = float(svg.get('width', str(view[2] if len(view) == 4 else 0)).removesuffix('px'))
+            height = float(svg.get('height', str(view[3] if len(view) == 4 else 0)).removesuffix('px'))
+        except (ET.ParseError, ValueError) as error:
+            raise ValueError('Invalid plugin SVG') from error
+        if svg.tag != '{http://www.w3.org/2000/svg}svg' or not 0 < width == height <= 1024:
+            raise ValueError('Plugin icon must be square')
+        for element in svg.iter():
+            if element.tag.rsplit('}', 1)[-1] in ('script', 'style', 'foreignObject', 'image', 'use'):
+                raise ValueError('Plugin SVG must be self-contained shapes')
+            if any('href' in key or key.lower().startswith('on') or 'url(' in content.lower() for key, content in element.attrib.items()):
+                raise ValueError('Plugin SVG must not reference external content')
+    else:
+        from PIL import Image, UnidentifiedImageError
+        try:
+            with Image.open(target) as image:
+                expected = ('PNG', 'JPEG') if preview else ('PNG',)
+                if image.format not in expected or target.suffix.lower() not in (('.png', '.jpg', '.jpeg') if preview else ('.png',)):
+                    raise ValueError('Invalid plugin image format')
+                width, height = image.size
+                valid = (0 < width <= 3840 and 0 < height <= 3840) if preview else (64 <= width == height <= 1024)
+                if not valid:
+                    raise ValueError('Invalid plugin image dimensions')
+                image.verify()
+        except (UnidentifiedImageError, Image.DecompressionBombError, SyntaxError) as error:
+            raise ValueError('Invalid plugin image') from error
+    return target
+
+
 def manifest(root):
     path = root / 'eitr-plugin.json'
     if path.is_symlink() or path.stat().st_size > 65536:
@@ -81,7 +129,18 @@ def manifest(root):
         raise ValueError(tr('Invalid plugin schemaVersion; expected 1 or 2'))
     if version > 2:
         raise ValueError(tr('This plugin needs a newer Eitr'))
-    object_keys(value, ('id', 'name', 'description', 'author', 'version', 'rows'), ('service', 'schemaVersion', 'hooks') + (('ui', 'capabilities') if version == 2 else ()))
+    object_keys(value, ('id', 'name', 'description', 'author', 'version', 'rows'), ('service', 'schemaVersion', 'hooks', 'icon', 'preview', 'homepage') + (('ui', 'capabilities') if version == 2 else ()))
+    for field in ('icon', 'preview'):
+        if field in value:
+            image_asset(root, value[field], preview=field == 'preview')
+    if 'homepage' in value:
+        homepage_text = string(value['homepage'], 2048)
+        homepage = urlsplit(homepage_text)
+        homepage.port
+        if any(character.isspace() for character in homepage_text) or '\\' in homepage_text:
+            raise ValueError('Invalid plugin homepage')
+        if homepage.scheme != 'https' or not homepage.hostname or homepage.username or homepage.password:
+            raise ValueError('Plugin homepage must be an HTTPS URL without credentials')
     capabilities = value.get('capabilities', [])
     if not isinstance(capabilities, list) or any(not isinstance(capability, str) or capability != 'audio-spectrum' for capability in capabilities) or len(capabilities) != len(set(capabilities)):
         raise ValueError('Invalid plugin capabilities')
@@ -145,13 +204,15 @@ def validate_ui(root, ui):
             if kind in ('tiles', 'barItems'):
                 optional += ('panel',)
             elif kind == 'widgets':
-                optional += ('minWidth', 'minHeight', 'defaultWidth', 'defaultHeight')
+                optional += ('minWidth', 'minHeight', 'defaultWidth', 'defaultHeight', 'surface')
             object_keys(entry, ('id', 'title', 'qml'), optional)
             if 'panel' in entry:
                 panel_id = identifier(entry['panel'])
                 if panel_id not in [panel.get('id') for panel in ui.get('panels', []) if isinstance(panel, dict)]:
                     raise ValueError('Visual panel must name a declared panel')
             if kind == 'widgets':
+                if entry.get('surface', 'panel') not in ('panel', 'none'):
+                    raise ValueError('Invalid widget surface')
                 for dimension in ('Width', 'Height'):
                     minimum = entry.get('min' + dimension, 96)
                     default = entry.get('default' + dimension, 192)
@@ -434,7 +495,9 @@ class Plugins:
             raise ValueError('Invalid plugin state')
         for plugin_id, record in value.items():
             identifier(plugin_id)
-            object_keys(record, ('url', 'id', 'commit', 'installed'))
+            object_keys(record, ('url', 'id', 'commit', 'installed'), ('enabled',))
+            if type(record.get('enabled', True)) is not bool:
+                raise ValueError('Invalid plugin enabled state')
             if record['id'] != plugin_id or not re.fullmatch(r'[0-9a-f]{40,64}', record['commit']):
                 raise ValueError('Invalid plugin state')
         return value
@@ -477,8 +540,10 @@ class Plugins:
         if spec and 'service' in spec:
             self.systemctl('enable', '--now', unit.name)
 
-    def refusal(self, url, commit=None, plugin_id=None):
+    def refusal(self, url, commit=None, plugin_id=None, *, include_disabled=True):
         """('policy' or 'blocklist', reason) when this repository, commit or id may not be used."""
+        if include_disabled and plugin_id and not self.records().get(plugin_id, {}).get('enabled', True):
+            return 'disabled', 'Plugin disabled'
         reason = policy_reason(url)
         if reason:
             return 'policy', reason
@@ -486,7 +551,7 @@ class Plugins:
         return ('blocklist', reason) if reason else None
 
     def check(self, url, commit=None, plugin_id=None):
-        refused = self.refusal(url, commit, plugin_id)
+        refused = self.refusal(url, commit, plugin_id, include_disabled=False)
         if refused:
             kind, reason = refused
             raise ValueError(reason if kind == 'policy' else tr('This plugin is on the Eitr blocklist: {reason}', reason=reason))
@@ -530,6 +595,8 @@ class Plugins:
                 notices = {}
             updated = {}
             for plugin_id, (kind, reason) in blocked.items():
+                if kind == 'disabled':
+                    continue
                 notice = notices.get(plugin_id)
                 if not isinstance(notice, dict) or notice.get('reason') != reason:
                     self.stop(plugin_id)
@@ -559,6 +626,8 @@ class Plugins:
         with self.lock(), tempfile.TemporaryDirectory(prefix='eitr-plugin-') as temporary:
             records = self.records()
             candidate, spec = self.prepare(url, Path(temporary))
+            if spec.get('schemaVersion') == 2 and 'icon' not in spec:
+                raise ValueError('Schema version 2 requires a plugin icon')
             plugin_id = spec['id']
             target = self.folder / plugin_id
             if plugin_id in records or target.exists() or target.is_symlink() or self.unit(plugin_id).exists():
@@ -612,6 +681,8 @@ class Plugins:
                                     'Eitr does not update it automatically. If you still trust its author, remove the plugin and add it again.',
                                     id=plugin_id, commit=record['commit'][:12])) from None
             old_spec = manifest(target)
+            if spec.get('schemaVersion') == 2 and 'icon' not in spec and (old_spec.get('schemaVersion', 1) != 2 or old_spec.get('icon')):
+                raise ValueError('Schema version 2 requires a plugin icon')
             if not approve(update_changes(candidate, target, record['commit'], new_commit, old_spec, spec)):
                 return False
             replacement = self.folder / ('.' + plugin_id + '-new')
@@ -622,12 +693,12 @@ class Plugins:
                 shutil.copytree(candidate, replacement, symlinks=True)
                 if manifest(replacement) != spec:
                     raise ValueError('Plugin manifest changed after approval')
-                if 'service' in old_spec:
+                if 'service' in old_spec and self.unit(plugin_id).exists():
                     self.systemctl('stop', self.unit(plugin_id).name)
                 target.rename(backup)
                 replacement.rename(target)
                 if 'service' in spec or 'service' in old_spec:
-                    self.service(plugin_id, spec)
+                    self.service(plugin_id, spec if record.get('enabled', True) else None)
                 self.save({**records, plugin_id: {**record, 'commit': new_commit}})
             except BaseException:
                 if backup.exists():
@@ -639,7 +710,7 @@ class Plugins:
                     backup.rename(target)
                     if 'service' in old_spec or 'service' in spec:
                         with contextlib.suppress(OSError, subprocess.SubprocessError):
-                            self.service(plugin_id, old_spec)
+                            self.service(plugin_id, old_spec if record.get('enabled', True) else None)
                 if replacement.exists():
                     shutil.rmtree(replacement)
                 raise
@@ -664,14 +735,36 @@ class Plugins:
             self.save(records)
             return True
 
+    def set_enabled(self, plugin_id, enabled):
+        identifier(plugin_id)
+        with self.lock():
+            records = self.records()
+            record = records[plugin_id]
+            if enabled:
+                self.check(record['url'], record['commit'], plugin_id)
+                root = self.folder / plugin_id
+                if root.is_symlink() or commit(root) != record['commit']:
+                    raise ValueError('Plugin differs from its approved commit')
+                spec = manifest(root)
+                self.service(plugin_id, spec)
+            elif self.unit(plugin_id).exists():
+                self.service(plugin_id)
+            records[plugin_id] = {**record, 'enabled': enabled}
+            self.save(records)
+
     def installed(self):
         """Install > Plugins: every plugin, with its manifest author and whether it is blocked."""
         blocked = self.blocked()
         rows = []
-        for plugin_id in self.records():
+        for plugin_id, record in self.records().items():
             spec = self.spec(plugin_id)
             rows.append(dict(id=plugin_id, name=printable(spec['name']) if spec else plugin_id,
-                             author=short_author(spec) if spec else '?', blocked=blocked.get(plugin_id, ('',))[0]))
+                             author=printable(spec['author']) if spec else '?', blocked=blocked.get(plugin_id, ('',))[0],
+                             enabled=record.get('enabled', True), version=spec['version'] if spec else '',
+                             description=spec['description'] if spec else '',
+                             visualsDisabled=bool(self.ui_state().get(plugin_id, {}).get('disabled')),
+                             icon=(self.folder / plugin_id / spec['icon']).as_uri() if spec and spec.get('icon') else '',
+                             preview=(self.folder / plugin_id / spec['preview']).as_uri() if spec and spec.get('preview') else ''))
         return sorted(rows, key=lambda row: row['name'].casefold())
 
     def rows(self):
@@ -767,7 +860,7 @@ class Plugins:
             if not isinstance(value[kind], list) or len(value[kind]) > 256:
                 raise ValueError('Invalid plugin placements')
             for placement in value[kind]:
-                object_keys(placement, ('plugin', 'id') + (('monitor', 'x', 'y', 'width', 'height') if kind == 'widgets' else ()), ('aboveWindows',) if kind == 'widgets' else ())
+                object_keys(placement, ('plugin', 'id') + (('monitor', 'x', 'y', 'width', 'height') if kind == 'widgets' else ()), ('aboveWindows', 'surface') if kind == 'widgets' else ())
                 identifier(placement['plugin'])
                 identifier(placement['id'])
                 key = (kind, placement['plugin'], placement['id'], placement.get('monitor'))
@@ -777,6 +870,8 @@ class Plugins:
                 if kind == 'widgets':
                     if 'aboveWindows' in placement and (value['version'] == 1 or type(placement['aboveWindows']) is not bool):
                         raise ValueError('Invalid widget layer')
+                    if 'surface' in placement and placement['surface'] not in ('panel', 'none'):
+                        raise ValueError('Invalid widget surface')
                     placement.setdefault('aboveWindows', False)
                     string(placement['monitor'])
                     for field in ('x', 'y', 'width', 'height'):
@@ -785,7 +880,7 @@ class Plugins:
         value['version'] = 2
         return value
 
-    def place(self, plugin_id, entry_id, monitor=None, *, remove=False, geometry=None, toggle_layer=False):
+    def place(self, plugin_id, entry_id, monitor=None, *, remove=False, geometry=None, toggle_layer=False, surface=None):
         identifier(plugin_id)
         identifier(entry_id)
         with self.lock():
@@ -806,6 +901,10 @@ class Plugins:
                 placement = dict(plugin=plugin_id, id=entry_id)
                 if kind == 'widgets':
                     placement.update(previous or dict(monitor=monitor, aboveWindows=False, x=24, y=24, width=entry.get('defaultWidth', 192), height=entry.get('defaultHeight', 192)))
+                    if surface is not None:
+                        if surface not in ('panel', 'none'):
+                            raise ValueError('Invalid widget surface')
+                        placement['surface'] = surface
                     if toggle_layer:
                         placement['aboveWindows'] = not placement['aboveWindows']
                     if geometry is not None:
@@ -900,8 +999,11 @@ class Plugins:
         if os.geteuid() == 0:
             raise ValueError('Plugins are per-user; do not run as root')
         record = self.records()[identifier(plugin_id)]
-        if self.refusal(record['url'], record['commit'], plugin_id):
+        refused = self.refusal(record['url'], record['commit'], plugin_id)
+        if refused:
             self.enforce()
+            if refused[0] == 'disabled':
+                raise ValueError(refused[1])
             self.check(record['url'], record['commit'], plugin_id)
         root = self.folder / plugin_id
         if root.is_symlink() or commit(root) != record['commit']:

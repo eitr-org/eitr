@@ -2,7 +2,7 @@
 
 Pulsa **SUPER + ,** para abrir o cerrar el Centro de control. Se abre desde el borde actual de la barra y se cierra con Escape o un clic fuera. Al cerrarse vuelve a General.
 
-Sus cuatro páginas reúnen todo lo que queda fuera de Desarrollo, Aplicaciones, Instalar, Aprender y Juegos; la mayoría de los ajustes no necesitan Walker. Las secciones plegables comienzan cerradas; pulsa el título para abrir o cerrar y la elección se conserva hasta cerrar sesión. Si la barra tiene un panel propio (OBS, WiFi, Bluetooth, Audio, Pantalla, Hardware, Uso de IA o Tiempo), el Centro de control abre ese panel.
+Sus cinco páginas reúnen todo lo que queda fuera de Desarrollo, Aplicaciones, Instalar, Aprender y Juegos; la mayoría de los ajustes no necesitan Walker. Las secciones plegables comienzan cerradas; pulsa el título para abrir o cerrar y la elección se conserva hasta cerrar sesión. Si la barra tiene un panel propio (OBS, WiFi, Bluetooth, Audio, Pantalla, Hardware, Uso de IA o Tiempo), el Centro de control abre ese panel.
 
 ## General
 
@@ -43,3 +43,7 @@ Seguridad, restablecimiento de fábrica y servicio de red siguen en Walker > Sis
 El icono de chat junto a las pestañas abre una conversación desechable con el asistente predeterminado elegido en Desarrollo > IA. Se oculta si no hay uno o si la política de la organización desactiva los asistentes. Enter envía; Shift+Enter inserta un salto de línea. Escape o Atrás vuelve a las páginas. Nuevo chat, salir del chat o cerrar el Centro de control borra los mensajes y cancela las respuestas pendientes.
 
 Las respuestas ofrecen Markdown seleccionable y Copiar. La conversación permanece en memoria; Eitr no escribe historial ni registros. Debajo de la entrada se identifica al proveedor en la nube o se indica que Ratatoskr se ejecuta en este PC. Los proveedores reciben los mensajes y los turnos anteriores. Cada mensaje incluye únicamente versión/canal de Eitr, kernel, CPU/GPU/RAM y tema como contexto no confiable. No se recopilan nombres de usuario o equipo, archivos, correos, nombres WiFi, títulos de ventanas ni portapapeles. El asistente usa la ejecución sin interfaz de solo lectura con la cuenta seleccionada y no puede modificar el sistema. Los fallos aparecen en el chat.
+
+## Plugins
+
+**Centro de control > Plugins** muestra cada plugin instalado con icono, autor, versión, descripción y estado. Expande Vista previa para ver su imagen. Activar/Desactivar conserva posiciones y detiene o restaura servicios, filas de Walker, hooks y elementos visuales; usa `eitr plugin enable ID` o `eitr plugin disable ID`. Añadir plugin…, Actualizar y Eliminar abren los flujos revisados del terminal; eliminar pide confirmación. General conserva solo los bloques de plugins. Los fallos visuales tienen una acción independiente para reactivar.

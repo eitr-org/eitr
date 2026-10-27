@@ -1945,6 +1945,9 @@ msgstr "Aucune phrase secrète ni clé de récupération restante ; ajoutez-en u
 msgid "No picture file at {path}."
 msgstr "Aucun fichier image à {path}."
 
+msgid "No plugin icon; a generic icon will be shown."
+msgstr "Aucune icône de plugin ; une icône générique sera affichée."
+
 msgid "No previous mirrorlist is available."
 msgstr "Aucune liste précédente de miroirs n’est disponible."
 

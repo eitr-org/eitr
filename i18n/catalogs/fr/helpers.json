@@ -1384,5 +1384,6 @@
   "Live data command added or changed: {kind} · {id} · {command}": "Commande de données en direct ajoutée ou modifiée : {kind} · {id} · {command}",
   "Reads the system audio spectrum (levels only, no audio is recorded or sent)": "Lit le spectre du son système (niveaux seulement, aucun son enregistré ni envoyé)",
   "Show above windows": "Afficher au-dessus des fenêtres",
-  "Show behind windows": "Afficher derrière les fenêtres"
+  "Show behind windows": "Afficher derrière les fenêtres",
+  "No plugin icon; a generic icon will be shown.": "Aucune icône de plugin ; une icône générique sera affichée."
 }

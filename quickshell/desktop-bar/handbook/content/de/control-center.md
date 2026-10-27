@@ -2,7 +2,7 @@
 
 **SUPER + ,** öffnet oder schließt das Kontrollzentrum. Es öffnet am aktuellen Leistenrand und schließt mit Escape oder einem Klick außerhalb. Beim Schließen wird auf Allgemein zurückgesetzt.
 
-Seine vier Seiten enthalten alles außerhalb von Entwicklung, Apps, Installieren, Lernen und Spielen; die meisten Einstellungen brauchen daher keinen Walker. Einklappbare Abschnitte beginnen geschlossen; ein Klick auf den Titel schaltet sie um und bleibt bis zur Abmeldung gespeichert. Gibt es ein eigenes Leistenpanel (OBS, WiFi, Bluetooth, Audio, Bildschirm, Hardware, KI-Nutzung, Wetter), öffnet das Kontrollzentrum dieses.
+Seine fünf Seiten enthalten alles außerhalb von Entwicklung, Apps, Installieren, Lernen und Spielen; die meisten Einstellungen brauchen daher keinen Walker. Einklappbare Abschnitte beginnen geschlossen; ein Klick auf den Titel schaltet sie um und bleibt bis zur Abmeldung gespeichert. Gibt es ein eigenes Leistenpanel (OBS, WiFi, Bluetooth, Audio, Bildschirm, Hardware, KI-Nutzung, Wetter), öffnet das Kontrollzentrum dieses.
 
 ## Allgemein
 
@@ -43,3 +43,7 @@ Sicherheit, Zurücksetzen auf den Werkszustand und Netzwerk-Backend bleiben unte
 Das Chatsymbol neben den Seiten öffnet eine flüchtige Unterhaltung mit dem unter Entwicklung > KI gewählten Standardassistenten. Ohne Standard oder bei deaktivierender Organisationsrichtlinie bleibt es verborgen. Enter sendet, Shift+Enter fügt einen Zeilenumbruch ein. Escape oder Zurück kehrt zu den Seiten zurück. Neuer Chat, Verlassen des Chats oder Schließen des Kontrollzentrums löscht alle Nachrichten und bricht ausstehende Antworten ab.
 
 Antworten bieten auswählbares Markdown und Kopieren. Die Unterhaltung bleibt im Arbeitsspeicher; Eitr schreibt weder Verlauf noch Protokolle. Unter der Eingabe steht der Cloudanbieter oder der Hinweis, dass Ratatoskr auf diesem PC läuft. Cloudanbieter erhalten Nachrichten und bisherige Gesprächsbeiträge. Jede Nachricht enthält außerdem nur Eitr-Version/Kanal, Kernel, CPU/GPU/RAM und Thema als nicht vertrauenswürdigen Kontext. Benutzernamen, Hostnamen, Dateien, E-Mails, WLAN-Namen, Fenstertitel und Zwischenablage werden nicht erfasst. Der Assistent verwendet den schreibgeschützten Aufruf ohne Oberfläche mit dem ausgewählten Konto und kann das System nicht ändern. Fehler erscheinen im Chat.
+
+## Plugins
+
+**Kontrollzentrum > Plugins** zeigt jedes installierte Plugin mit Symbol, Autor, Version, Beschreibung und Status. Vorschau öffnet das Bildschirmfoto. Aktivieren/Deaktivieren erhält Positionen und stoppt oder startet Dienste, Walker-Einträge, Hooks und visuelle Komponenten; per CLI: `eitr plugin enable ID` oder `eitr plugin disable ID`. Plugin hinzufügen…, Aktualisieren und Entfernen öffnen die geprüften Terminalabläufe; Entfernen verlangt Bestätigung. Allgemein behält nur Plugin-Kacheln. Visuelle Fehler haben eine unabhängige Aktion zum erneuten Aktivieren.

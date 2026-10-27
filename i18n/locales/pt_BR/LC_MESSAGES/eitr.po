@@ -1945,6 +1945,9 @@ msgstr "Não resta nenhuma senha ou chave de recuperação; adicione uma antes d
 msgid "No picture file at {path}."
 msgstr "Nenhum arquivo de imagem em {path}."
 
+msgid "No plugin icon; a generic icon will be shown."
+msgstr "Plugin sem ícone; será usado um ícone genérico."
+
 msgid "No previous mirrorlist is available."
 msgstr "Nenhuma lista anterior de espelhos está disponível."
 

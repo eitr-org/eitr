@@ -2,7 +2,7 @@
 
 **SUPER + ,** ouvre ou ferme le Centre de contrôle. Il s’ouvre depuis le bord actuel de la barre et se ferme avec Escape ou un clic à l’extérieur. Sa fermeture revient à Général.
 
-Ses quatre pages regroupent tout ce qui est hors Développement, Applications, Installer, Apprendre et Jeux ; la plupart des réglages ne nécessitent donc pas Walker. Les sections repliables commencent fermées ; cliquez sur le titre pour les ouvrir ou fermer, avec mémorisation jusqu’à déconnexion. Si la barre possède un panneau dédié (OBS, WiFi, Bluetooth, Audio, Écran, Matériel, Utilisation IA, Météo), le Centre de contrôle l’ouvre.
+Ses cinq pages regroupent tout ce qui est hors Développement, Applications, Installer, Apprendre et Jeux ; la plupart des réglages ne nécessitent donc pas Walker. Les sections repliables commencent fermées ; cliquez sur le titre pour les ouvrir ou fermer, avec mémorisation jusqu’à déconnexion. Si la barre possède un panneau dédié (OBS, WiFi, Bluetooth, Audio, Écran, Matériel, Utilisation IA, Météo), le Centre de contrôle l’ouvre.
 
 ## Général
 
@@ -43,3 +43,7 @@ Sécurité, réinitialisation d’usine et service réseau restent dans Walker >
 L’icône de discussion près des onglets ouvre une conversation jetable avec l’assistant par défaut choisi dans Développement > IA. Elle reste masquée sans assistant ou lorsque la politique de l’organisation les désactive. Entrée envoie ; Maj+Entrée insère un saut de ligne. Échap ou Retour ramène aux pages. Nouvelle discussion, quitter la discussion ou fermer le Centre de contrôle efface les messages et annule toute réponse en attente.
 
 Les réponses proposent du Markdown sélectionnable et Copier. La conversation reste en mémoire ; Eitr n’écrit aucun historique ni journal. Sous la saisie figure le fournisseur cloud ou la mention que Ratatoskr tourne sur ce PC. Les fournisseurs reçoivent les messages et les échanges précédents. Chaque message contient uniquement version/canal d’Eitr, noyau, CPU/GPU/RAM et thème comme contexte non fiable. Aucun nom d’utilisateur ou de machine, fichier, courriel, nom WiFi, titre de fenêtre ou presse-papiers n’est collecté. L’assistant utilise le mode sans interface en lecture seule avec le compte sélectionné ; il ne peut pas modifier le système. Les erreurs apparaissent dans la discussion.
+
+## Plugins
+
+**Centre de contrôle > Plugins** affiche chaque plugin installé avec icône, auteur, version, description et état. Dépliez Aperçu pour voir sa capture. Activer/Désactiver conserve les positions et arrête ou rétablit services, lignes Walker, hooks et composants visuels ; utilisez `eitr plugin enable ID` ou `eitr plugin disable ID`. Ajouter un plugin…, Mettre à jour et Supprimer ouvrent les parcours de vérification du terminal ; la suppression demande confirmation. Général conserve uniquement les tuiles. Les erreurs visuelles ont une action indépendante de réactivation.

@@ -76,7 +76,7 @@ workspace style menu has no heading. Decorations follow the
 current theme and stay static, with no background animation.
 
 SUPER+, toggles the native control center. Its icon rail selects General,
-Style, Tools and System; sections fold from their titles (remembered for the
+Plugins, Style, Tools and System; sections fold from their titles (remembered for the
 session). Buttons that match a Walker menu row run that row's own command through
 `scripts/menu-action.py`, so the two never drift apart. Closing resets it to General. It uses the same DockPanel,
 PanelSurface, 320 ms unfolding/folding, padding, and live Blur/Theme Color as the
@@ -583,8 +583,7 @@ manifest, API contract, review behavior and runtime limitations.
 
 PluginRegistry prefetches approved declarations and opt-in placements once, using
 JsonState to avoid rebuilding unchanged entries. PluginArea, PluginDesktop and
-PluginBarItems share it. The Plugins heading’s trailing action opens the Manage sub-view with the same
-Back/Escape navigation as plugin panels. PluginManagement uses shared 36 px rows
+PluginBarItems share it. The dedicated Plugins page groups management controls by plugin. PluginManagement uses shared 36 px rows
 with inset 24 px actions, declared titles and plugin/monitor display names. It exposes monitor-specific widget actions,
 bar placement and failure reset. PluginDesktop maps each placed widget to a
 Bottom-layer window by default, or an opt-in click-through Top-layer window; PluginWidget
@@ -601,3 +600,15 @@ SpectrumConsumer resamples and caps delivery. PluginComponent supervises declare
 line streams through eitr_plugin_stream.py. Placement v2 stores aboveWindows;
 Top-layer widgets pass clicks through outside edit mode and hide on fullscreen
 monitors. See distro/PLUGINS.md for API limits and trust boundaries.
+
+
+The Plugins page prefetches installed metadata through PluginRegistry and
+JsonState alongside declarations and placements. It offers enable/disable,
+reviewed Add/Update/Remove, icon/preview cards and per-plugin visual controls.
+Widget options are shared by the page and right-click popup (PluginWidgetMenu).
+PluginWidget uses monitor-local pointer coordinates; PluginDesktop keeps motion
+unsnapped until release, raises edit surfaces, and saves fitted geometry through
+the locked placement helper. Transparent widgets use a separate unblurred layer
+namespace; their edit outline remains visible. Edit widgets toggles all widgets
+interactive; Done and Escape end editing. Above-window widgets expose their
+options in the Plugins page while click-through.

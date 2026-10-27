@@ -1384,5 +1384,6 @@
   "Live data command added or changed: {kind} · {id} · {command}": "Live data command added or changed: {kind} · {id} · {command}",
   "Reads the system audio spectrum (levels only, no audio is recorded or sent)": "Reads the system audio spectrum (levels only, no audio is recorded or sent)",
   "Show above windows": "Show above windows",
-  "Show behind windows": "Show behind windows"
+  "Show behind windows": "Show behind windows",
+  "No plugin icon; a generic icon will be shown.": "No plugin icon; a generic icon will be shown."
 }

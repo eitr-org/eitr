@@ -42,6 +42,7 @@ Column {
             readonly property var entry: modelData.entry
             readonly property bool editing: PluginRegistry.editing && PluginRegistry.editTarget !== null && PluginRegistry.editTarget.plugin === entry.plugin && PluginRegistry.editTarget.id === entry.id && PluginRegistry.editTarget.monitor === modelData.monitor
             property bool choosing: false
+            property bool optionsOpen: false
             readonly property var availableMonitors: management.monitors.filter(monitor => !(PluginRegistry.placements.widgets || []).some(placement => placement.plugin === entry.plugin && placement.id === entry.id && placement.monitor === monitor.name))
             width: management.width; spacing: PanelStyle.selectionRowGap
             Rectangle {
@@ -77,6 +78,12 @@ Column {
                     id: actions
                     anchors.right: parent.right; anchors.rightMargin: PanelStyle.selectionActionInset
                     anchors.verticalCenter: parent.verticalCenter; spacing: PanelStyle.selectionActionGap
+                    PanelButton {
+                        visible: !visual.entry.disabled && visual.entry.kind === "widgets" && visual.modelData.placed
+                        width: 24; height: 24; icon: true; text: "⋯"; foreground: management.foreground
+                        Accessible.name: Eitr.I18n.tr("Widget options")
+                        onClicked: visual.optionsOpen = !visual.optionsOpen
+                    }
                     PanelButton {
                         visible: !visual.entry.disabled && visual.entry.kind === "widgets" && visual.modelData.placed
                         width: PanelStyle.selectionActionWidth; height: PanelStyle.selectionActionHeight
@@ -129,6 +136,23 @@ Column {
                         BarTooltip { target: parent; hovered: addHover.hovered; text: Eitr.I18n.tr("Add"); foreground: management.foreground; background: management.background }
                     }
                 }
+            }
+            PluginWidgetMenu {
+                width: parent.width; visible: visual.optionsOpen; height: visible ? implicitHeight : 0
+                foreground: management.foreground; background: management.background
+                aboveWindows: !!visual.modelData.aboveWindows
+                surface: {
+                    const placement = (PluginRegistry.placements.widgets || []).find(placement => placement.plugin === visual.entry.plugin && placement.id === visual.entry.id && placement.monitor === visual.modelData.monitor);
+                    return placement && placement.surface || visual.entry.surface || "panel";
+                }
+                entries: PluginRegistry.widgetMenus[PluginRegistry.menuKey(visual.entry, visual.modelData.monitor)] || []
+                onAction: function(action) {
+                    if (action === "panel" || action === "none") PluginRegistry.change("surface", visual.entry, visual.modelData.monitor, null, action);
+                    else if (action === "layer") PluginRegistry.change("toggle-layer", visual.entry, visual.modelData.monitor, null);
+                    else if (action === "remove") PluginRegistry.change("unplace", visual.entry, visual.modelData.monitor, null);
+                    else PluginRegistry.widgetAction(visual.entry.plugin, visual.entry.id, visual.modelData.monitor, action, false);
+                }
+                onSelected: id => PluginRegistry.widgetAction(visual.entry.plugin, visual.entry.id, visual.modelData.monitor, id, true)
             }
             Column {
                 width: parent.width; visible: visual.choosing; spacing: PanelStyle.selectionRowGap

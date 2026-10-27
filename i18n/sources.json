@@ -27,8 +27,14 @@
     "Above": [
       "quickshell/desktop-bar/DisplaySettingsEditor.qml"
     ],
+    "Above-window widgets are click-through. Use this page or Edit widgets for their options.": [
+      "quickshell/desktop-bar/PluginManager.qml"
+    ],
     "Add": [
       "quickshell/desktop-bar/PluginManagement.qml"
+    ],
+    "Add Plugin…": [
+      "quickshell/desktop-bar/PluginManager.qml"
     ],
     "Add a chapter marker": [
       "quickshell/desktop-bar/RecordingMenu.qml"
@@ -89,6 +95,12 @@
       "quickshell/desktop-bar/AssistantChat.qml",
       "quickshell/desktop-bar/PluginArea.qml"
     ],
+    "Background: Panel": [
+      "quickshell/desktop-bar/PluginWidgetMenu.qml"
+    ],
+    "Background: Transparent": [
+      "quickshell/desktop-bar/PluginWidgetMenu.qml"
+    ],
     "Bar": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
@@ -106,6 +118,9 @@
     ],
     "Beside %1": [
       "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+    ],
+    "Blocked": [
+      "quickshell/desktop-bar/PluginManager.qml"
     ],
     "Bluetooth": [
       "quickshell/desktop-bar/BluetoothMenu.qml",
@@ -309,7 +324,8 @@
       "quickshell/desktop-bar/shell.qml"
     ],
     "Disabled": [
-      "quickshell/desktop-bar/PluginComponent.qml"
+      "quickshell/desktop-bar/PluginComponent.qml",
+      "quickshell/desktop-bar/PluginManager.qml"
     ],
     "Disconnect": [
       "quickshell/desktop-bar/WifiMenu.qml"
@@ -331,7 +347,8 @@
       "quickshell/desktop-bar/PluginWidget.qml"
     ],
     "Done editing widgets": [
-      "quickshell/desktop-bar/PluginManagement.qml"
+      "quickshell/desktop-bar/PluginManagement.qml",
+      "quickshell/desktop-bar/PluginManager.qml"
     ],
     "Dotfiles": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -358,13 +375,23 @@
       "quickshell/desktop-bar/BrightnessMenu.qml"
     ],
     "Edit position": [
-      "quickshell/desktop-bar/PluginManagement.qml"
+      "quickshell/desktop-bar/PluginManagement.qml",
+      "quickshell/desktop-bar/PluginWidgetMenu.qml"
     ],
     "Edit schedule": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
     ],
+    "Edit widgets": [
+      "quickshell/desktop-bar/PluginManager.qml"
+    ],
     "Eitr Calculator": [
       "quickshell/calculator/shell.qml"
+    ],
+    "Enable plugin": [
+      "quickshell/desktop-bar/PluginManager.qml"
+    ],
+    "Enabled": [
+      "quickshell/desktop-bar/PluginManager.qml"
     ],
     "End": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
@@ -380,6 +407,9 @@
     ],
     "Full Screen": [
       "quickshell/desktop-bar/ControlCenter.qml"
+    ],
+    "Full width": [
+      "quickshell/desktop-bar/PluginWidgetMenu.qml"
     ],
     "Game Mode": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -533,12 +563,6 @@
     "Main display · others go around it": [
       "quickshell/desktop-bar/DisplaySettingsEditor.qml"
     ],
-    "Manage": [
-      "quickshell/desktop-bar/PluginArea.qml"
-    ],
-    "Manage plugin visuals": [
-      "quickshell/desktop-bar/PluginArea.qml"
-    ],
     "Manual": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
     ],
@@ -648,6 +672,9 @@
     ],
     "No playback applications": [
       "quickshell/desktop-bar/AudioMenu.qml"
+    ],
+    "No plugins installed": [
+      "quickshell/desktop-bar/PluginManager.qml"
     ],
     "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": [
       "quickshell/desktop-bar/AiUsageMenu.qml"
@@ -765,6 +792,7 @@
       "quickshell/desktop-bar/PluginManagement.qml"
     ],
     "Plugins": [
+      "quickshell/desktop-bar/ControlCenter.qml",
       "quickshell/desktop-bar/PluginArea.qml"
     ],
     "Position": [
@@ -782,6 +810,9 @@
     ],
     "Power…": [
       "quickshell/desktop-bar/ControlCenter.qml"
+    ],
+    "Preview": [
+      "quickshell/desktop-bar/PluginManager.qml"
     ],
     "Previous": [
       "quickshell/desktop-bar/Handbook.qml",
@@ -857,7 +888,11 @@
     "Remove": [
       "quickshell/desktop-bar/BluetoothMenu.qml",
       "quickshell/desktop-bar/PluginManagement.qml",
+      "quickshell/desktop-bar/PluginManager.qml",
       "quickshell/desktop-bar/WifiMenu.qml"
+    ],
+    "Remove from desktop": [
+      "quickshell/desktop-bar/PluginWidgetMenu.qml"
     ],
     "Remove layout": [
       "quickshell/desktop-bar/KeyboardLayoutRow.qml"
@@ -1005,7 +1040,8 @@
       "quickshell/desktop-bar/WifiMenu.qml"
     ],
     "Show above windows": [
-      "quickshell/desktop-bar/PluginManagement.qml"
+      "quickshell/desktop-bar/PluginManagement.qml",
+      "quickshell/desktop-bar/PluginWidgetMenu.qml"
     ],
     "Show icons": [
       "quickshell/desktop-bar/shell.qml"
@@ -1030,6 +1066,12 @@
     ],
     "Size": [
       "quickshell/desktop-bar/ControlCenter.qml"
+    ],
+    "Size: Larger": [
+      "quickshell/desktop-bar/PluginWidgetMenu.qml"
+    ],
+    "Size: Smaller": [
+      "quickshell/desktop-bar/PluginWidgetMenu.qml"
     ],
     "Skip this occurrence": [
       "quickshell/desktop-bar/CalendarMenu.qml"
@@ -1173,6 +1215,9 @@
     "Upcoming": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
+    "Update": [
+      "quickshell/desktop-bar/PluginManager.qml"
+    ],
     "Updates": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
@@ -1190,6 +1235,9 @@
     ],
     "Visuals disabled": [
       "quickshell/desktop-bar/PluginManagement.qml"
+    ],
+    "Visuals disabled after failures": [
+      "quickshell/desktop-bar/PluginManager.qml"
     ],
     "Volume": [
       "quickshell/desktop-bar/AudioMenu.qml"
@@ -1218,6 +1266,9 @@
     ],
     "WiFi password": [
       "quickshell/desktop-bar/WifiMenu.qml"
+    ],
+    "Widget options": [
+      "quickshell/desktop-bar/PluginManagement.qml"
     ],
     "Window": [
       "quickshell/desktop-bar/ControlCenter.qml",
@@ -5684,6 +5735,9 @@
     ],
     "No picture file at {path}.": [
       "distro/lib/eitr_own_style.py"
+    ],
+    "No plugin icon; a generic icon will be shown.": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "No previous mirrorlist is available.": [
       "walker/scripts/actions/system/mirrors.py"

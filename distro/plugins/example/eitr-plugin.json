@@ -60,5 +60,6 @@
         "panel": "hello-panel"
       }
     ]
-  }
+  },
+  "icon": "icon.svg"
 }
