@@ -1,8 +1,6 @@
 # Jotunheim
 
-Palette: Frost & Ash (derived). All dark.
-
-Derived from Frost & Ash’s neutrals and ANSI colours, with stone slate #a7b1c2 and ice blue #8fb8d0.
+Palette: the owner's Jotunheim realm palette (2026-10-27), accent #78b6cd and second #b7a0d9. All dark.
 
 Background, surface and raised roles are recorded separately in `colors.toml`. Terminal black uses surface, white uses text, bright black uses muted, and bright colours mix 25% white into each normal colour. Body and selection text retain the approved text colour.
 

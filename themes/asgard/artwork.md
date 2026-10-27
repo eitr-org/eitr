@@ -1,8 +1,6 @@
 # Asgard
 
-Palette: Raven (derived). All dark.
-
-Derived from Raven’s neutrals and ANSI colours, with gold #ddbd7e and Bifröst green #3fe39a.
+Palette: the owner's Asgard realm palette (2026-10-27), accent #e4b968 and second #8faed8. All dark.
 
 Background, surface and raised roles are recorded separately in `colors.toml`. Terminal black uses surface, white uses text, bright black uses muted, and bright colours mix 25% white into each normal colour. Body and selection text retain the approved text colour.
 

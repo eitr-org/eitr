@@ -1,8 +1,6 @@
 # Svartalfheim
 
-Palette: Iron & Ember. All dark.
-
-Uses the approved palette exactly.
+Palette: the owner's Svartalfheim realm palette (2026-10-27), accent #d49a65 and second #8ab7ad. All dark.
 
 Background, surface and raised roles are recorded separately in `colors.toml`. Terminal black uses surface, white uses text, bright black uses muted, and bright colours mix 25% white into each normal colour. Body and selection text retain the approved text colour.
 

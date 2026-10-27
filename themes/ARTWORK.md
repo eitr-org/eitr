@@ -42,7 +42,7 @@ and native sources live in each theme’s `references/` directory.
 
 ## Realm themes — Batch 05
 
-Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim and Vanaheim are dark themes. Palette sources, the three derived palettes and integration bases are documented in each theme’s `artwork.md`. `artwork-batch-05.json` retains the exact written prompts, native source hashes and crop framing. Native sources and `export.py` live in `branding/sources/wallpapers/batch-05/`; the script rebuilds both exports, their manifest entries and previews. No reference images were used.
+Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim and Vanaheim are dark themes. Nine realms use the owner's realm palettes (2026-10-27) and Ragnarök keeps Blood & Iron; each theme’s `artwork.md` names its palette and integration base. `artwork-batch-05.json` retains the exact written prompts, native source hashes and crop framing. Native sources and `export.py` live in `branding/sources/wallpapers/batch-05/`; the script rebuilds both exports, their manifest entries and previews. No reference images were used.
 
 Theme menus discover folders and sort their names automatically. The artwork package globs and desktop-package removal rules already cover both wallpaper folders and previews for every theme. The website generates `src/data/themes.json` and its counts from these same folders at build time.
 

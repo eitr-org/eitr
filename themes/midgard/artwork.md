@@ -1,8 +1,6 @@
 # Midgard
 
-Palette: Fjord. All dark.
-
-Uses the approved palette exactly.
+Palette: the owner's Midgard realm palette (2026-10-27), accent #83a6c7 and second #bfa17b. All dark.
 
 Background, surface and raised roles are recorded separately in `colors.toml`. Terminal black uses surface, white uses text, bright black uses muted, and bright colours mix 25% white into each normal colour. Body and selection text retain the approved text colour.
 

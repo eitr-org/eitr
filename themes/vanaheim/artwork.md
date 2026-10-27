@@ -1,8 +1,6 @@
 # Vanaheim
 
-Palette: Fjord (derived moss/olive neutrals). All dark.
-
-Derived from Fjord’s structure and ANSI colours, shifting its near-black neutrals slightly toward moss/olive, with accent #a9b47c and second #d9a865.
+Palette: the owner's Vanaheim realm palette (2026-10-27), accent #83b88e and second #d5ad72. All dark.
 
 Background, surface and raised roles are recorded separately in `colors.toml`. Terminal black uses surface, white uses text, bright black uses muted, and bright colours mix 25% white into each normal colour. Body and selection text retain the approved text colour.
 
