@@ -532,6 +532,9 @@ msgstr "Charging will stop at {value}% to reduce battery wear, also after reboot
 msgid "Check Auth"
 msgstr "Check Auth"
 
+msgid "Check this PC"
+msgstr "Check this PC"
+
 msgid "Checking AUR updates…"
 msgstr "Checking AUR updates…"
 
@@ -759,6 +762,9 @@ msgstr "Copied the report."
 
 msgid "Copied to the clipboard."
 msgstr "Copied to the clipboard."
+
+msgid "Copying needs wl-copy."
+msgstr "Copying needs wl-copy."
 
 msgid "Copying needs wl-copy; open the saved file instead."
 msgstr "Copying needs wl-copy; open the saved file instead."
@@ -1107,6 +1113,9 @@ msgstr "Enter: continue  Esc: back"
 
 msgid "Enter: continue  Esc: cancel"
 msgstr "Enter: continue  Esc: cancel"
+
+msgid "Enter: copy the redacted report · Esc: close"
+msgstr "Enter: copy the redacted report · Esc: close"
 
 msgid "Enter: run System Update now (with its snapshot), then install · Esc: cancel"
 msgstr "Enter: run System Update now (with its snapshot), then install · Esc: cancel"
@@ -2509,6 +2518,9 @@ msgstr "Run as your desktop user without GIT_CONFIG_GLOBAL"
 msgid "Run as your desktop user, not root"
 msgstr "Run as your desktop user, not root"
 
+msgid "Run deeper checks (asks for your password) · Enter: run · Esc: skip"
+msgstr "Run deeper checks (asks for your password) · Enter: run · Esc: skip"
+
 msgid "Run eitr-guided-install as root from the Eitr live ISO"
 msgstr "Run eitr-guided-install as root from the Eitr live ISO"
 
@@ -2874,6 +2886,9 @@ msgstr "Subnets"
 
 msgid "Subscriptions"
 msgstr "Subscriptions"
+
+msgid "Summary: {ok} ok, {warning} warning, {problem} problem, {info} info, {skipped} skipped."
+msgstr "Summary: {ok} ok, {warning} warning, {problem} problem, {info} info, {skipped} skipped."
 
 msgid "Sunday"
 msgstr "Sunday"

@@ -1479,6 +1479,9 @@
     "Check the restore point; changes nothing": [
       "elephant/menu-rows/factory-reset.json"
     ],
+    "Check this PC": [
+      "elephant/menu-rows/system-maintenance.json"
+    ],
     "Check whether a connection is direct or relayed": [
       "elephant/menu-rows/remote-away.json"
     ],
@@ -2343,6 +2346,9 @@
     ],
     "Read a QR code in a selected area and copy it": [
       "elephant/menu-rows/capture.json"
+    ],
+    "Read-only checks with suggested fixes; copy a redacted report": [
+      "elephant/menu-rows/system-maintenance.json"
     ],
     "Read-only from {host} · Enter refreshes, Delete removes": [
       "elephant/menus/calendars.lua"
@@ -4135,6 +4141,9 @@
     "Check Auth": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
+    "Check this PC": [
+      "distro/lib/eitr_selfcheck.py"
+    ],
     "Checking AUR updates…": [
       "walker/scripts/actions/system/update.sh"
     ],
@@ -4365,10 +4374,14 @@
       "walker/scripts/actions/system/factory-reset.py"
     ],
     "Copied the report.": [
+      "distro/lib/eitr_selfcheck.py",
       "walker/scripts/actions/system/report-problem.py"
     ],
     "Copied to the clipboard.": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Copying needs wl-copy.": [
+      "distro/lib/eitr_selfcheck.py"
     ],
     "Copying needs wl-copy; open the saved file instead.": [
       "walker/scripts/actions/system/report-problem.py"
@@ -4726,6 +4739,9 @@
     ],
     "Enter: continue  Esc: cancel": [
       "walker/scripts/actions/install/plugins.py"
+    ],
+    "Enter: copy the redacted report · Esc: close": [
+      "distro/lib/eitr_selfcheck.py"
     ],
     "Enter: run System Update now (with its snapshot), then install · Esc: cancel": [
       "walker/scripts/actions/install/software.py"
@@ -6161,6 +6177,9 @@
     "Run as your desktop user, not root": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Run deeper checks (asks for your password) · Enter: run · Esc: skip": [
+      "distro/lib/eitr_selfcheck.py"
+    ],
     "Run eitr-guided-install as root from the Eitr live ISO": [
       "distro/archinstall/eitr-guided-install"
     ],
@@ -6526,6 +6545,9 @@
     ],
     "Subscriptions": [
       "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Summary: {ok} ok, {warning} warning, {problem} problem, {info} info, {skipped} skipped.": [
+      "distro/lib/eitr_selfcheck.py"
     ],
     "Sunday": [
       "walker/scripts/actions/tools/reminders.py"

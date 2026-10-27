@@ -14,6 +14,8 @@
 #   QMLLINT           Path to the Qt 6 qmllint (default /usr/lib/qt6/bin/qmllint).
 
 set -uo pipefail
+# Prevent QML render test crashes from filling the desktop coredump journal.
+ulimit -c 0
 
 repo_root="$(git -C "$(dirname "${BASH_SOURCE[0]}")" rev-parse --show-toplevel)" || {
   printf 'check.sh: not inside a Git checkout\n' >&2

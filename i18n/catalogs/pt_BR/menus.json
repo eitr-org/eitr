@@ -544,5 +544,7 @@
   "Start a Pi session in a project": "Iniciar uma sessão do Pi em um projeto",
   "This CLI has no supported isolated account folder": "Esta CLI não aceita uma pasta isolada de contas",
   "Choose fastest mirrors": "Escolher espelhos mais rápidos",
-  "Rank recent HTTPS package mirrors": "Classificar espelhos HTTPS recentes de pacotes"
+  "Rank recent HTTPS package mirrors": "Classificar espelhos HTTPS recentes de pacotes",
+  "Check this PC": "Verificar este PC",
+  "Read-only checks with suggested fixes; copy a redacted report": "Verificações somente de leitura e relatório com dados ocultos"
 }

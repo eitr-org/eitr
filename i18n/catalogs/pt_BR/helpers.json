@@ -1343,5 +1343,10 @@
   "Choose recent HTTPS mirrors by download speed. The previous list is backed up; worldwide mirrors remain as fallbacks.": "Escolha espelhos HTTPS recentes pela velocidade de download. A lista anterior será salva; espelhos mundiais permanecem como alternativas.",
   "No previous mirrorlist is available.": "Nenhuma lista anterior de espelhos está disponível.",
   "Press Enter to continue or Esc to cancel: ": "Pressione Enter para continuar ou Esc para cancelar: ",
-  "To restore the previous list, type restore and press Enter instead.": "Para restaurar a lista anterior, digite restore e pressione Enter."
+  "To restore the previous list, type restore and press Enter instead.": "Para restaurar a lista anterior, digite restore e pressione Enter.",
+  "Check this PC": "Verificar este PC",
+  "Copying needs wl-copy.": "A cópia exige wl-copy.",
+  "Enter: copy the redacted report · Esc: close": "Enter: copiar o relatório com dados ocultos · Esc: fechar",
+  "Run deeper checks (asks for your password) · Enter: run · Esc: skip": "Verificações aprofundadas (pede sua senha) · Enter: executar · Esc: pular",
+  "Summary: {ok} ok, {warning} warning, {problem} problem, {info} info, {skipped} skipped.": "Resumo: {ok} ok, {warning} avisos, {problem} problemas, {info} informações, {skipped} ignorados."
 }

@@ -1,5 +1,14 @@
 # Troubleshooting
 
+## Check this PC
+
+Open **System > Maintenance > Check this PC**, or run `eitr check`. Checks are read-only and never repair or restart anything. Cached update lists are not refreshed; DNS resolution uses the network. `eitr check --json` prints technical evidence without prompts.
+
+**Run deeper checks (asks for your password)**: press Enter to run `sudo /usr/lib/eitr/eitr-system selfcheck-deeper` in the same terminal, or Esc to skip. Results replace matching skipped checks. This reads root Snapper configuration, retained pre/post pairs, the last successful package upgrade description, existing Btrfs qgroups, boot guard JSON, an already mounted factory manifest, and trusted Arch Linux/Eitr keys with `pacman-key --list-keys`. It never enables quotas or mounts the factory point. Missing evidence is skipped with a reason. The factory manifest alone does not verify archive integrity. ESP checking uses `fsck.vfat -n` only on a uniquely identified FAT ESP not mounted read-write; otherwise it asks for an unmounted filesystem and skips.
+
+Failed units show up to three names and a status command. Snapshot descriptions do not prove later desktop update steps succeeded; hook logs have no timestamps. Bar load errors have no structured query. Afterwards, **Enter** copies a redacted report and **Esc** closes. Review text before sharing; copying requires `wl-copy`.
+
+
 ## A menu action reports a missing tool
 
 Fresh distro manifests include desktop runtime dependencies, but an existing

@@ -55,6 +55,7 @@ GROUPS = [
         ("channel", "the update channel: stable, or testing for new builds first"),
     ]),
     ("Safety", [
+        ("check", "read-only PC diagnostics; --json for machine use"),
         ("firewall", "show, turn on or turn off the firewall"),
         ("snapshots", "list the recovery snapshots, or what each update changed"),
         ("restore", "an earlier version of a file or folder from the home snapshots"),
@@ -171,6 +172,9 @@ def parser():
     reset.add_argument("mode", nargs="?", default="status", choices=["status", "keep-files", "everything"],
                        help='status (default) shows the restore point; the others ask twice before resetting')
 
+    check = commands.add_parser("check", help="read-only PC diagnostics")
+    check.add_argument("--json", action="store_true", help="machine-readable output")
+
     commands.add_parser("report", help='prepare a problem report')
 
     restore = commands.add_parser("restore", help='restore from the home snapshots')
@@ -238,6 +242,11 @@ def plan(arguments, code=None, config=None):
         return ["python3", str(actions / "system/factory-reset.py"), arguments.mode]
     if command == "restore":
         return ["python3", str(actions / "system/restore-file.py"), *([arguments.path] if arguments.path else [])]
+    if command == "check":
+        library = code / "lib/eitr_selfcheck.py"
+        if not library.is_file():
+            library = code / "distro/lib/eitr_selfcheck.py"
+        return ["python3", str(library), *(["--json"] if arguments.json else [])]
     if command == "report":
         return ["python3", str(actions / "system/report-problem.py")]
     if command == "hook":

@@ -1,5 +1,14 @@
 # Dépannage
 
+## Vérifier ce PC
+
+Ouvrez **Système > Entretien > Vérifier ce PC** ou `eitr check`. Les vérifications lisent seulement, sans réparation ni redémarrage. Les listes de paquets ne sont pas actualisées. DNS utilise le réseau. `eitr check --json` affiche les détails techniques sans invite.
+
+**Vérifications approfondies (mot de passe requis)**: Pour les vérifications approfondies, appuyez sur Entrée ; Échap les ignore. `sudo /usr/lib/eitr/eitr-system selfcheck-deeper` demande votre mot de passe dans le même terminal. Les résultats remplacent les vérifications ignorées correspondantes. Cela lit Snapper, les paires pré/post, la dernière mise à jour réussie, les qgroups Btrfs existants, le JSON de protection du démarrage, un manifeste d’usine déjà monté et les clés Arch Linux/Eitr avec `pacman-key --list-keys`. Aucun quota n’est activé et aucun point d’usine n’est monté. Les données absentes sont ignorées avec une raison ; le manifeste ne vérifie pas l’intégrité des archives. `fsck.vfat -n` vérifie uniquement une ESP FAT identifiée sans ambiguïté et non montée en écriture ; sinon la vérification demande son démontage et est ignorée.
+
+Les unités en échec affichent trois noms au maximum et une commande d’état. Les descriptions des instantanés ne prouvent pas les étapes ultérieures ; les hooks n’ont pas d’horodatage. La barre n’a pas de requête structurée des erreurs. Ensuite **Entrée** copie le rapport expurgé et **Échap** ferme. Relisez avant de partager ; la copie nécessite `wl-copy`.
+
+
 ## Une action indique qu’un outil manque
 
 Les nouvelles installations incluent les dépendances du bureau ; un Arch existant peut ne pas toutes les avoir. Lisez l’erreur et installez le paquet depuis Installer > Paquets > Pacman ou par une mise à jour complète normale. Ne supprimez pas BlueZ/iwd/PipeWire/WirePlumber au seul motif que leurs réglages sont dans des panneaux natifs : ces panneaux utilisent toujours ces services.

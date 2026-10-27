@@ -544,5 +544,7 @@
   "Start an OpenCode session in a project": "Start an OpenCode session in a project",
   "This CLI has no supported isolated account folder": "This CLI has no supported isolated account folder",
   "Choose fastest mirrors": "Choose fastest mirrors",
-  "Rank recent HTTPS package mirrors": "Rank recent HTTPS package mirrors"
+  "Rank recent HTTPS package mirrors": "Rank recent HTTPS package mirrors",
+  "Check this PC": "Check this PC",
+  "Read-only checks with suggested fixes; copy a redacted report": "Read-only checks with suggested fixes; copy a redacted report"
 }

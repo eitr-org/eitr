@@ -1,5 +1,14 @@
 # Solução de problemas
 
+## Verificar este PC
+
+Abra **Sistema > Manutenção > Verificar este PC** ou `eitr check`. As verificações só leem, sem reparar ou reiniciar nada. Não atualizam listas de pacotes. DNS usa a rede. `eitr check --json` mostra detalhes técnicos sem perguntas.
+
+**Verificações aprofundadas (pede sua senha)**: Para verificações aprofundadas pressione Enter; Esc pula esta etapa. `sudo /usr/lib/eitr/eitr-system selfcheck-deeper` pede sua senha no mesmo terminal. Os resultados substituem as verificações correspondentes que foram puladas. Lê Snapper, pares pré/pós, a última atualização de pacotes bem-sucedida, qgroups Btrfs existentes, JSON da proteção de boot, um manifesto de fábrica já montado e chaves Arch Linux/Eitr com `pacman-key --list-keys`. Nunca ativa cotas nem monta o ponto de fábrica. Dados ausentes são pulados com motivo; o manifesto não verifica a integridade do arquivo. `fsck.vfat -n` verifica somente uma ESP FAT identificada sem ambiguidade e não montada para escrita; caso contrário pede que seja desmontada e pula a verificação.
+
+Unidades com falha mostram até três nomes e um comando de estado. Descrições de snapshots não comprovam etapas posteriores; logs de hooks não têm datas. A barra não tem consulta estruturada de erros. Depois **Enter** copia o relatório com dados ocultados e **Esc** fecha. Revise antes de compartilhar; copiar exige `wl-copy`.
+
+
 ## Uma ação informa que falta uma ferramenta
 
 Novas instalações incluem as dependências do desktop, mas uma instalação Arch existente pode não ter todas. Leia o erro e instale o pacote correspondente em Instalar > Pacotes > Pacman ou por uma atualização completa normal. Não remova BlueZ/iwd/PipeWire/WirePlumber só porque os controles estão em painéis nativos: os painéis ainda dependem desses serviços.

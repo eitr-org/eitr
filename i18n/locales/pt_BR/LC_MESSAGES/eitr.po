@@ -532,6 +532,9 @@ msgstr "A carga vai parar em {value}% para reduzir o desgaste da bateria, inclus
 msgid "Check Auth"
 msgstr "Verificar autenticação"
 
+msgid "Check this PC"
+msgstr "Verificar este PC"
+
 msgid "Checking AUR updates…"
 msgstr "Verificando atualizações do AUR…"
 
@@ -759,6 +762,9 @@ msgstr "Relatório copiado."
 
 msgid "Copied to the clipboard."
 msgstr "Copiado para a área de transferência."
+
+msgid "Copying needs wl-copy."
+msgstr "A cópia exige wl-copy."
 
 msgid "Copying needs wl-copy; open the saved file instead."
 msgstr "Para copiar, é necessário wl-copy; abra o arquivo salvo."
@@ -1107,6 +1113,9 @@ msgstr "Enter: continuar  Esc: voltar"
 
 msgid "Enter: continue  Esc: cancel"
 msgstr "Enter: continuar  Esc: cancelar"
+
+msgid "Enter: copy the redacted report · Esc: close"
+msgstr "Enter: copiar o relatório com dados ocultos · Esc: fechar"
 
 msgid "Enter: run System Update now (with its snapshot), then install · Esc: cancel"
 msgstr "Enter: executar a Atualização do sistema agora (com seu snapshot) e depois instalar · Esc: cancelar"
@@ -2509,6 +2518,9 @@ msgstr "Execute com seu usuário da área de trabalho, sem GIT_CONFIG_GLOBAL"
 msgid "Run as your desktop user, not root"
 msgstr "Execute com seu usuário da área de trabalho, não como root"
 
+msgid "Run deeper checks (asks for your password) · Enter: run · Esc: skip"
+msgstr "Verificações aprofundadas (pede sua senha) · Enter: executar · Esc: pular"
+
 msgid "Run eitr-guided-install as root from the Eitr live ISO"
 msgstr "Execute eitr-guided-install como root pela ISO live do Eitr"
 
@@ -2874,6 +2886,9 @@ msgstr "Sub-redes"
 
 msgid "Subscriptions"
 msgstr "Assinaturas"
+
+msgid "Summary: {ok} ok, {warning} warning, {problem} problem, {info} info, {skipped} skipped."
+msgstr "Resumo: {ok} ok, {warning} avisos, {problem} problemas, {info} informações, {skipped} ignorados."
 
 msgid "Sunday"
 msgstr "Domingo"

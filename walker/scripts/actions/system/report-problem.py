@@ -76,6 +76,8 @@ def collect():
     cache = Path(os.environ.get("XDG_CACHE_HOME") or Path.home() / ".cache")
     version = Path("/usr/share/eitr/version")
     release = Path("/usr/share/eitr/release.json")
+    from eitr_selfcheck import collect as selfcheck_collect, plain as selfcheck_plain, summary as selfcheck_summary
+    checks = selfcheck_collect()
     sections = [
         "# EITR problem report",
         f"Created: {time.strftime('%Y-%m-%d %H:%M %Z')}",
@@ -83,6 +85,7 @@ def collect():
         f"Release: {' '.join(release.read_text().split()) if release.is_file() else 'unknown'}",
         f"Layout adopted: {(state / 'eitr/layout.json').is_file()}",
         "",
+        "## Self-check summary\n" + selfcheck_summary(checks) + "\n\n" + selfcheck_plain(checks),
         command("Kernel", ["uname", "-srm"]),
         command("Packages", ["pacman", "-Q", *PACKAGES]),
         command("Graphics", ["sh", "-c", "lspci -nnk | grep -A3 -Ei 'vga|3d|display'"]),

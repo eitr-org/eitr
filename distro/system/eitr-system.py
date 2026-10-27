@@ -1128,12 +1128,17 @@ def mirrors_dispatch(action):
             mirrors_first_boot()
 
 
-READ_ONLY_ACTIONS = {"snapshots-check", "bootloader-detect", "snapshots-boot-status", "battery-limit-status",
+def selfcheck_deeper():
+    from eitr_selfcheck import collect_deeper
+    print(json.dumps(collect_deeper()))
+
+
+READ_ONLY_ACTIONS = {"selfcheck-deeper", "snapshots-check", "bootloader-detect", "snapshots-boot-status", "battery-limit-status",
                      "firewall-status", "channel-status", "mirrors-status"}
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("action", choices=["mirrors-rank", "mirrors-restore", "mirrors-status", "mirrors-first-boot",
+    parser.add_argument("action", choices=["mirrors-rank", "mirrors-restore", "mirrors-status", "mirrors-first-boot", "selfcheck-deeper",
                                            "snapshots-check", "snapshots-setup", "snapshot-pre", "snapshot-post",
                                            "bootloader-detect", "snapshots-boot-status", "snapshots-boot-setup",
                                            "battery-limit", "battery-limit-apply", "battery-limit-status",
@@ -1174,6 +1179,8 @@ if __name__ == "__main__":
         elif args.action.startswith("remote-"):
             import eitr_remote
             eitr_remote.dispatch(args.action.removeprefix("remote-"), args.argument)
+        elif args.action == "selfcheck-deeper":
+            selfcheck_deeper()
         elif args.action == "snapshots-check":
             snapshot_supported()
         elif args.action == "snapshots-setup":
