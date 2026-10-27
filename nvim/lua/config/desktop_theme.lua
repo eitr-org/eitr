@@ -23,7 +23,12 @@ function M.specs()
   specs = ok and specs or {}
   local seen = {}
   for _, spec in ipairs(specs) do seen[plugin_name(spec)] = true end
-  for _, path in ipairs(vim.fn.glob(config_root .. "/themes/*/neovim.lua", false, true)) do
+  -- Bundled themes ship with the package; a home that has not adopted the
+  -- package layout still keeps its own copies in ~/.config/themes.
+  local shipped = (os.getenv("EITR_CODE_ROOT") or "/usr/share/eitr") .. "/themes/*/neovim.lua"
+  local theme_files = vim.fn.glob(shipped, false, true)
+  vim.list_extend(theme_files, vim.fn.glob(config_root .. "/themes/*/neovim.lua", false, true))
+  for _, path in ipairs(theme_files) do
     local valid, entries = pcall(dofile, path)
     if valid then
       for _, spec in ipairs(entries) do

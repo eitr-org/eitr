@@ -13,7 +13,7 @@ class DesktopThemeTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             result = subprocess.run(
                 ["nvim", "--headless", "-u", "NONE", "-l", "nvim/tests/desktop_theme.lua"],
-                cwd=root, env={**os.environ, "XDG_CONFIG_HOME": directory},
+                cwd=root, env={**os.environ, "XDG_CONFIG_HOME": directory, "EITR_CODE_ROOT": directory + "/code"},
                 capture_output=True, text=True, timeout=15,
             )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)

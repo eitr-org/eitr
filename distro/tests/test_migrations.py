@@ -135,3 +135,29 @@ class ZshrcLoaderTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class NeovimShippedThemesMigrationTests(unittest.TestCase):
+    MIGRATION = ROOT / 'distro/migrations/20261027020000-nvim-shipped-themes.py'
+
+    def run_migration(self, text):
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / 'nvim/lua/config/desktop_theme.lua'
+            if text is not None:
+                target.parent.mkdir(parents=True)
+                target.write_text(text)
+            subprocess.run([sys.executable, str(self.MIGRATION)], env=dict(os.environ, XDG_CONFIG_HOME=directory), check=True)
+            return target.read_text() if target.exists() else None
+
+    def test_the_previously_shipped_file_becomes_the_current_one(self):
+        current = (ROOT / 'nvim/lua/config/desktop_theme.lua').read_text()
+        names = {}
+        exec(compile(self.MIGRATION.read_text().split('base = os.environ')[0], str(self.MIGRATION), 'exec'), names)
+        old = current.replace(names['NEW'], names['OLD'])
+        self.assertNotEqual(old, current)
+        self.assertEqual(self.run_migration(old), current)
+        self.assertEqual(self.run_migration(current), current)
+
+    def test_edited_or_missing_files_are_left_alone(self):
+        self.assertEqual(self.run_migration('-- my own theme loader\n'), '-- my own theme loader\n')
+        self.assertIsNone(self.run_migration(None))

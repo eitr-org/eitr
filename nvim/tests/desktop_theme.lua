@@ -9,13 +9,19 @@ local function write(path, text) vim.fn.writefile({text}, path) end
 write(root .. "/theme/current/neovim.lua", spec("habamax", "dark"))
 write(root .. "/themes/test-dark/neovim.lua", spec("habamax", "dark"))
 write(root .. "/themes/test-light/neovim.lua", 'return {{"example/light.nvim"}}')
+-- Bundled themes ship in the package (EITR_CODE_ROOT), not in ~/.config/themes.
+local code = os.getenv("EITR_CODE_ROOT")
+vim.fn.mkdir(code .. "/themes/test-shipped", "p")
+write(code .. "/themes/test-shipped/neovim.lua", 'return {{"example/shipped.nvim"}}')
 local setup_value
 package.loaded["test"] = { setup = function(opts) setup_value = opts.value end }
 package.loaded["lazy"] = { load = function() end }
 package.loaded["lazy.core.loader"] = { get_main = function() return "test" end }
 package.loaded["lazy.core.config"] = { plugins = {["test.nvim"] = {}} }
 local theme = dofile("nvim/lua/config/desktop_theme.lua")
-assert(#theme.specs() == 3, "Dormant theme plugins must be registered without duplicate specs")
+local specs = theme.specs()
+assert(#specs == 4, "Dormant theme plugins must be registered without duplicate specs")
+assert(vim.iter(specs):any(function(item) return item.name == "shipped.nvim" end), "Shipped themes must be registered")
 vim.api.nvim_buf_set_lines(0, 0, -1, false, {"unsaved work"})
 local buffer = vim.api.nvim_get_current_buf()
 theme.setup()
