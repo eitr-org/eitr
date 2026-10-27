@@ -78,6 +78,10 @@
     "sunshine": {"label": "Sunshine", "source": "pacman", "packages": ["eitr-sunshine"]},
     "tailscale": {"label": "Tailscale", "source": "pacman", "packages": ["tailscale"]}
   },
+  "vpn": {
+    "networkmanager": {"label": "NetworkManager VPN", "source": "pacman", "packages": ["networkmanager-openvpn", "networkmanager-openconnect"]},
+    "wireguard": {"label": "WireGuard", "source": "pacman", "packages": ["wireguard-tools"]}
+  },
   "gaming": {
     "moonlight": {"label": "Moonlight", "source": "pacman", "packages": ["moonlight-qt"], "launch": ["moonlight"]},
     "steam": {"label": "Steam", "source": "pacman", "packages": ["steam", "steam-devices", "gamemode", "lib32-gamemode", "mangohud", "lib32-mangohud"], "launch": ["steam"]},

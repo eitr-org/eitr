@@ -36,3 +36,13 @@ has been tested. Clean-install pairing-agent coverage remains a known check.
 Control Center > General blocks WiFi/Bluetooth using rfkill. Turning it off
 restores only the radios it originally blocked. Hardware or externally applied
 blocks are not silently overridden. Enable a radio individually if needed.
+
+## VPN
+
+Open Install > VPN for Tailscale, WireGuard or NetworkManager VPN. Tailscale keeps its existing remote-access panel and setup flow.
+
+WireGuard installs the official `wireguard-tools` package through the normal pending-update check. Choose Import a WireGuard configuration…, enter a profile name and the full path to a `.conf` file, then review the name, endpoints and peer count. Keys are never shown. Executable hooks and SaveConfig are refused. On NetworkManager the profile is imported there; on iwd it is saved privately under `/etc/wireguard` for wg-quick. Existing wg-quick profiles are never overwritten.
+
+NetworkManager VPN installs `networkmanager-openvpn` and `networkmanager-openconnect`. WireGuard support is built into NetworkManager and needs no separate plugin. On iwd this workflow explains the requirement and opens the existing backend choice; it never switches backends itself. See [Network Backends](handbook:network-backends). Import a VPN file… accepts `.ovpn` for OpenVPN and other provider files supported by the OpenConnect importer. Unsupported files fail without displaying their contents.
+
+Imports remain disconnected unless you explicitly choose Connect after import. Automatic connection at boot is disabled. Reopen WireGuard or NetworkManager VPN and choose Connect or Disconnect with the saved profile name. No VPN toggle is added to Control Center. Import and connection behavior has automated mock coverage; real VPN connectivity has not been verified on hardware.

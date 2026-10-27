@@ -1,0 +1,26 @@
+[
+  {
+    "text": "NetworkManager VPN",
+    "subtext": "Install VPN plugins and import a VPN file",
+    "icon": "󰖂",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/install/vpn.py networkmanager"
+    }
+  },
+  {
+    "text": "Tailscale",
+    "subtext": "Set up access away from home",
+    "icon": "󰖂",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away setup"
+    }
+  },
+  {
+    "text": "WireGuard",
+    "subtext": "Install WireGuard and import a configuration",
+    "icon": "󰖂",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/install/vpn.py wireguard"
+    }
+  }
+]

@@ -1348,5 +1348,17 @@
   "Choose recent HTTPS mirrors by download speed. The previous list is backed up; worldwide mirrors remain as fallbacks.": "Choose recent HTTPS mirrors by download speed. The previous list is backed up; worldwide mirrors remain as fallbacks.",
   "No previous mirrorlist is available.": "No previous mirrorlist is available.",
   "Press Enter to continue or Esc to cancel: ": "Press Enter to continue or Esc to cancel: ",
-  "To restore the previous list, type restore and press Enter instead.": "To restore the previous list, type restore and press Enter instead."
+  "To restore the previous list, type restore and press Enter instead.": "To restore the previous list, type restore and press Enter instead.",
+  "Action": "Action",
+  "Configuration file": "Configuration file",
+  "Connect": "Connect",
+  "Connect after import": "Connect after import",
+  "Disconnect": "Disconnect",
+  "Enter the full path to the configuration file.": "Enter the full path to the configuration file.",
+  "Import a VPN file…": "Import a VPN file…",
+  "Import a WireGuard configuration…": "Import a WireGuard configuration…",
+  "VPN operation failed. Configuration details are hidden.": "VPN operation failed. Configuration details are hidden.",
+  "VPN profiles need NetworkManager. Choose it in System > Connectivity > Network Backend, then reboot.": "VPN profiles need NetworkManager. Choose it in System > Connectivity > Network Backend, then reboot.",
+  "Format": "Format",
+  "Enter: open Network Backend · Esc: close": "Enter: open Network Backend · Esc: close"
 }

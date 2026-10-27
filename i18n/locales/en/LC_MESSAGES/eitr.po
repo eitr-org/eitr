@@ -208,6 +208,9 @@ msgstr "Account summary"
 msgid "Accounts changed in another window; reopen setup before saving"
 msgstr "Accounts changed in another window; reopen setup before saving"
 
+msgid "Action"
+msgstr "Action"
+
 msgid "Activity Logs"
 msgstr "Activity Logs"
 
@@ -712,6 +715,9 @@ msgstr "Configuration ID"
 msgid "Configuration changed during preview: {path}"
 msgstr "Configuration changed during preview: {path}"
 
+msgid "Configuration file"
+msgstr "Configuration file"
+
 msgid "Configure this source in OBS first"
 msgstr "Configure this source in OBS first"
 
@@ -723,6 +729,12 @@ msgstr "Confirm"
 
 msgid "Conflicting iwd backend setting in {path}; review it before switching."
 msgstr "Conflicting iwd backend setting in {path}; review it before switching."
+
+msgid "Connect"
+msgstr "Connect"
+
+msgid "Connect after import"
+msgstr "Connect after import"
 
 msgid "Connected"
 msgstr "Connected"
@@ -958,6 +970,9 @@ msgstr "Direct"
 msgid "Disabled by organization policy: {feature}"
 msgstr "Disabled by organization policy: {feature}"
 
+msgid "Disconnect"
+msgstr "Disconnect"
+
 msgid "Disconnected"
 msgstr "Disconnected"
 
@@ -1099,6 +1114,9 @@ msgstr "Enter the WiFi password"
 msgid "Enter the authentication server domain without wildcards"
 msgstr "Enter the authentication server domain without wildcards"
 
+msgid "Enter the full path to the configuration file."
+msgstr "Enter the full path to the configuration file."
+
 msgid "Enter the other picture's file or https address."
 msgstr "Enter the other picture's file or https address."
 
@@ -1116,6 +1134,9 @@ msgstr "Enter: continue  Esc: cancel"
 
 msgid "Enter: copy the redacted report · Esc: close"
 msgstr "Enter: copy the redacted report · Esc: close"
+
+msgid "Enter: open Network Backend · Esc: close"
+msgstr "Enter: open Network Backend · Esc: close"
 
 msgid "Enter: run System Update now (with its snapshot), then install · Esc: cancel"
 msgstr "Enter: run System Update now (with its snapshot), then install · Esc: cancel"
@@ -1246,6 +1267,9 @@ msgstr "For example: Production"
 msgid "For example: {example}"
 msgstr "For example: {example}"
 
+msgid "Format"
+msgstr "Format"
+
 msgid "Found in your Git configuration"
 msgstr "Found in your Git configuration"
 
@@ -1368,6 +1392,12 @@ msgstr "Idle; ping to check"
 
 msgid "Ignore"
 msgstr "Ignore"
+
+msgid "Import a VPN file…"
+msgstr "Import a VPN file…"
+
+msgid "Import a WireGuard configuration…"
+msgstr "Import a WireGuard configuration…"
 
 msgid "Initramfs: mkinitcpio not found; make sure your initramfs unlocks with systemd-cryptsetup."
 msgstr "Initramfs: mkinitcpio not found; make sure your initramfs unlocks with systemd-cryptsetup."
@@ -3585,6 +3615,12 @@ msgstr "VPC endpoints"
 
 msgid "VPCs"
 msgstr "VPCs"
+
+msgid "VPN operation failed. Configuration details are hidden."
+msgstr "VPN operation failed. Configuration details are hidden."
+
+msgid "VPN profiles need NetworkManager. Choose it in System > Connectivity > Network Backend, then reboot."
+msgstr "VPN profiles need NetworkManager. Choose it in System > Connectivity > Network Backend, then reboot."
 
 msgid "Version"
 msgstr "Version"

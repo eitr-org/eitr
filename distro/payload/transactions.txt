@@ -15,3 +15,5 @@ bluez bluez-utils
 # The packages list in distro/archinstall/user_configuration.json.
 git iwd pciutils python sudo
 @desktop
+wireguard-tools
+networkmanager-openvpn networkmanager-openconnect

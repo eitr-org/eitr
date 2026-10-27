@@ -1348,5 +1348,17 @@
   "Copying needs wl-copy.": "La copia requiere wl-copy.",
   "Enter: copy the redacted report · Esc: close": "Enter: copiar el informe con datos ocultos · Esc: cerrar",
   "Run deeper checks (asks for your password) · Enter: run · Esc: skip": "Comprobaciones profundas (requiere contraseña) · Enter: ejecutar · Esc: omitir",
-  "Summary: {ok} ok, {warning} warning, {problem} problem, {info} info, {skipped} skipped.": "Resumen: {ok} ok, {warning} advertencias, {problem} problemas, {info} información, {skipped} omitidos."
+  "Summary: {ok} ok, {warning} warning, {problem} problem, {info} info, {skipped} skipped.": "Resumen: {ok} ok, {warning} advertencias, {problem} problemas, {info} información, {skipped} omitidos.",
+  "Action": "Acción",
+  "Configuration file": "Archivo de configuración",
+  "Connect": "Conectar",
+  "Connect after import": "Conectar tras importar",
+  "Disconnect": "Desconectar",
+  "Enter the full path to the configuration file.": "Introduzca la ruta completa del archivo de configuración.",
+  "Import a VPN file…": "Importar un archivo VPN…",
+  "Import a WireGuard configuration…": "Importar una configuración WireGuard…",
+  "VPN operation failed. Configuration details are hidden.": "La operación VPN falló. Los detalles de configuración están ocultos.",
+  "VPN profiles need NetworkManager. Choose it in System > Connectivity > Network Backend, then reboot.": "Los perfiles VPN necesitan NetworkManager. Elíjalo en Sistema > Conectividad > Servicio de red y reinicie.",
+  "Format": "Formato",
+  "Enter: open Network Backend · Esc: close": "Enter: abrir Servicio de red · Esc: cerrar"
 }

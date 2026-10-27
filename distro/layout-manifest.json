@@ -2,6 +2,13 @@
   "version": 1,
   "layout_version": 2,
   "rules": [
+    {"pattern": "walker/tests/test_vpn.py", "class": "C", "runtime": false},
+    {"pattern": "distro/system/eitr_vpn_root.py", "class": "C", "runtime": true},
+    {"pattern": "distro/lib/eitr_vpn.py", "class": "C", "runtime": true},
+    {"pattern": "walker/scripts/actions/install/vpn.py", "class": "C", "runtime": true},
+    {"pattern": "walker/themes/current/item_menus-vpn.xml", "class": "C", "runtime": true},
+    {"pattern": "elephant/menu-rows/vpn.json", "class": "C", "runtime": true},
+    {"pattern": "elephant/menus/vpn.lua", "class": "C", "runtime": true},
     {"pattern": "distro/assistant/skills/eitr/SKILL.md", "class": "D", "runtime": true},
     {"pattern": "elephant/menus/ai-opencode.lua", "class": "C", "runtime": true},
     {"pattern": "elephant/menus/ai-opencode-accounts.lua", "class": "C", "runtime": true},

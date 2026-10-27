@@ -1147,7 +1147,7 @@ if __name__ == "__main__":
                                            "boot-menu-style-remove", "boot-menu-refresh",
                                            "firewall-on", "firewall-off", "firewall-status", "firewall-allow-ssh",
                                            "snapshot-changes", "channel-status", "channel-set",
-                                           "remote-setup", "remote-arm", "remote-undo", "remote-open", "remote-close",
+                                           "vpn-import", "vpn-up", "vpn-down", "remote-setup", "remote-arm", "remote-undo", "remote-open", "remote-close",
                                            "remote-tailscale", "remote-tailscale-undo", "profile-apply", "profile-install", "profile-flatpaks"])
     parser.add_argument("argument", nargs="?",
                         help='auth-enable: fingerprint|fido2|password; auth-restore: backup name; snapshot-post: success|failed; boot-menu-style: desktop user; battery-limit: 60-100|off; luks-*: /dev path')
@@ -1176,6 +1176,11 @@ if __name__ == "__main__":
                 raise ValueError("Unexpected argument")
             from eitr_profile_apply import finish_flatpaks
             finish_flatpaks()
+        elif args.action.startswith("vpn-"):
+            if args.argument:
+                raise ValueError("Unexpected argument")
+            import eitr_vpn_root
+            eitr_vpn_root.dispatch(args.action.removeprefix("vpn-"))
         elif args.action.startswith("remote-"):
             import eitr_remote
             eitr_remote.dispatch(args.action.removeprefix("remote-"), args.argument)

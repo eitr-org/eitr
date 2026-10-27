@@ -208,6 +208,9 @@ msgstr "Résumé du compte"
 msgid "Accounts changed in another window; reopen setup before saving"
 msgstr "Les comptes ont changé dans une autre fenêtre ; rouvrez la configuration avant d’enregistrer"
 
+msgid "Action"
+msgstr "Action"
+
 msgid "Activity Logs"
 msgstr "Journaux d’activité"
 
@@ -712,6 +715,9 @@ msgstr "Identifiant de configuration"
 msgid "Configuration changed during preview: {path}"
 msgstr "La configuration a changé pendant l’aperçu : {path}"
 
+msgid "Configuration file"
+msgstr "Fichier de configuration"
+
 msgid "Configure this source in OBS first"
 msgstr "Configurez d’abord cette source dans OBS"
 
@@ -723,6 +729,12 @@ msgstr "Confirmer"
 
 msgid "Conflicting iwd backend setting in {path}; review it before switching."
 msgstr "Paramètre du service iwd contradictoire dans {path} ; vérifiez-le avant de changer."
+
+msgid "Connect"
+msgstr "Connecter"
+
+msgid "Connect after import"
+msgstr "Connecter après l’import"
 
 msgid "Connected"
 msgstr "Connecté"
@@ -958,6 +970,9 @@ msgstr "Directe"
 msgid "Disabled by organization policy: {feature}"
 msgstr "Désactivé par la politique de l’organisation : {feature}"
 
+msgid "Disconnect"
+msgstr "Déconnecter"
+
 msgid "Disconnected"
 msgstr "Déconnecté"
 
@@ -1099,6 +1114,9 @@ msgstr "Saisissez le mot de passe WiFi"
 msgid "Enter the authentication server domain without wildcards"
 msgstr "Saisissez le domaine du serveur d’authentification sans caractères génériques"
 
+msgid "Enter the full path to the configuration file."
+msgstr "Saisissez le chemin complet du fichier de configuration."
+
 msgid "Enter the other picture's file or https address."
 msgstr "Saisissez le fichier ou l’adresse https de l’autre image."
 
@@ -1116,6 +1134,9 @@ msgstr "Entrée : continuer  Échap : annuler"
 
 msgid "Enter: copy the redacted report · Esc: close"
 msgstr "Enter : copier le rapport anonymisé · Esc : fermer"
+
+msgid "Enter: open Network Backend · Esc: close"
+msgstr "Entrée : ouvrir Moteur de réseau · Échap : fermer"
 
 msgid "Enter: run System Update now (with its snapshot), then install · Esc: cancel"
 msgstr "Entrée : lancer la Mise à jour du système maintenant (avec son instantané), puis installer · Échap : annuler"
@@ -1246,6 +1267,9 @@ msgstr "Par exemple : Production"
 msgid "For example: {example}"
 msgstr "Par exemple : {example}"
 
+msgid "Format"
+msgstr "Format"
+
 msgid "Found in your Git configuration"
 msgstr "Trouvé dans votre configuration Git"
 
@@ -1368,6 +1392,12 @@ msgstr "Inactive ; testez avec un ping"
 
 msgid "Ignore"
 msgstr "Ignorer"
+
+msgid "Import a VPN file…"
+msgstr "Importer un fichier VPN…"
+
+msgid "Import a WireGuard configuration…"
+msgstr "Importer une configuration WireGuard…"
 
 msgid "Initramfs: mkinitcpio not found; make sure your initramfs unlocks with systemd-cryptsetup."
 msgstr "Initramfs : mkinitcpio introuvable ; vérifiez que l’initramfs déverrouille avec systemd-cryptsetup."
@@ -3585,6 +3615,12 @@ msgstr "Points de terminaison VPC"
 
 msgid "VPCs"
 msgstr "VPC"
+
+msgid "VPN operation failed. Configuration details are hidden."
+msgstr "Échec de l’opération VPN. Les détails de configuration sont masqués."
+
+msgid "VPN profiles need NetworkManager. Choose it in System > Connectivity > Network Backend, then reboot."
+msgstr "Les profils VPN nécessitent NetworkManager. Choisissez-le dans Système > Connectivité > Service réseau, puis redémarrez."
 
 msgid "Version"
 msgstr "Version"

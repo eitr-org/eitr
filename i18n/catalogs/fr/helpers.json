@@ -1348,5 +1348,17 @@
   "Copying needs wl-copy.": "La copie nécessite wl-copy.",
   "Enter: copy the redacted report · Esc: close": "Enter : copier le rapport anonymisé · Esc : fermer",
   "Run deeper checks (asks for your password) · Enter: run · Esc: skip": "Vérifications approfondies (mot de passe requis) · Entrée : lancer · Échap : ignorer",
-  "Summary: {ok} ok, {warning} warning, {problem} problem, {info} info, {skipped} skipped.": "Résumé : {ok} ok, {warning} avertissements, {problem} problèmes, {info} informations, {skipped} ignorés."
+  "Summary: {ok} ok, {warning} warning, {problem} problem, {info} info, {skipped} skipped.": "Résumé : {ok} ok, {warning} avertissements, {problem} problèmes, {info} informations, {skipped} ignorés.",
+  "Action": "Action",
+  "Configuration file": "Fichier de configuration",
+  "Connect": "Connecter",
+  "Connect after import": "Connecter après l’import",
+  "Disconnect": "Déconnecter",
+  "Enter the full path to the configuration file.": "Saisissez le chemin complet du fichier de configuration.",
+  "Import a VPN file…": "Importer un fichier VPN…",
+  "Import a WireGuard configuration…": "Importer une configuration WireGuard…",
+  "VPN operation failed. Configuration details are hidden.": "Échec de l’opération VPN. Les détails de configuration sont masqués.",
+  "VPN profiles need NetworkManager. Choose it in System > Connectivity > Network Backend, then reboot.": "Les profils VPN nécessitent NetworkManager. Choisissez-le dans Système > Connectivité > Service réseau, puis redémarrez.",
+  "Format": "Format",
+  "Enter: open Network Backend · Esc: close": "Entrée : ouvrir Moteur de réseau · Échap : fermer"
 }

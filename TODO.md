@@ -38,8 +38,6 @@ LAN.
 - **Create User.** A System action to add another account (standard or
   administrator) on an installed machine, with a review step; the new account
   gets Eitr's desktop setup at its first login, like the installer's first user.
-- **Install > VPN.** Tailscale (keeps its panel), WireGuard and NetworkManager
-  VPN profiles: install the tools and import a profile, in one menu.
 - **Website translations.** Offer the site in the desktop's languages
   (Portuguese (Brazil), Spanish, German, French) with a language switch, reusing
   the reviewed Handbook translations where chapters overlap. Decide the URL scheme

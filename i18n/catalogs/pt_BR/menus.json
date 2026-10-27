@@ -546,5 +546,12 @@
   "Choose fastest mirrors": "Escolher espelhos mais rápidos",
   "Rank recent HTTPS package mirrors": "Classificar espelhos HTTPS recentes de pacotes",
   "Check this PC": "Verificar este PC",
-  "Read-only checks with suggested fixes; copy a redacted report": "Verificações somente de leitura e relatório com dados ocultos"
+  "Read-only checks with suggested fixes; copy a redacted report": "Verificações somente de leitura e relatório com dados ocultos",
+  "Install VPN plugins and import a VPN file": "Instalar plugins VPN e importar um arquivo VPN",
+  "Install WireGuard and import a configuration": "Instalar WireGuard e importar uma configuração",
+  "Set up access away from home": "Configurar acesso fora de casa",
+  "VPN": "VPN",
+  "Tailscale": "Tailscale",
+  "WireGuard": "WireGuard",
+  "NetworkManager VPN": "NetworkManager VPN"
 }

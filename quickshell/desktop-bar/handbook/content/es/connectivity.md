@@ -19,3 +19,13 @@ Emparejar puede requerir un PIN o un agente de confirmación. El escritorio actu
 ## Modo avión
 
 Centro de control > General bloquea WiFi y Bluetooth mediante rfkill. Desactivarlo restaura solo las radios que bloqueó. Los bloqueos físicos o externos no se anulan silenciosamente. Activa una radio individualmente si hace falta.
+
+## VPN
+
+Abra Install > VPN para Tailscale, WireGuard o NetworkManager VPN. Tailscale conserva su panel de acceso remoto y su configuración.
+
+WireGuard instala el paquete oficial `wireguard-tools` mediante la comprobación habitual de actualizaciones pendientes. Importe una configuración indicando el nombre y la ruta completa de un archivo `.conf`; revise nombre, destinos y cantidad de pares. Nunca se muestran claves. Se rechazan hooks ejecutables y SaveConfig. Con NetworkManager se importa allí; con iwd se guarda de forma privada en `/etc/wireguard` para wg-quick, sin sobrescribir perfiles existentes.
+
+NetworkManager VPN instala `networkmanager-openvpn` y `networkmanager-openconnect`. NetworkManager incluye WireGuard sin otro complemento. Con iwd se explica el requisito y se abre la selección existente del servicio, sin cambiarlo. Consulte [Servicios de red](handbook:network-backends). La importación acepta `.ovpn` para OpenVPN y archivos compatibles con el importador OpenConnect. Los errores no muestran el contenido.
+
+Los perfiles permanecen desconectados salvo que elija conectarlos tras importar. La conexión automática al arrancar está desactivada. Vuelva al menú y elija conectar o desconectar con el nombre guardado. No se añade un control VPN al centro de control. Las pruebas usan simulaciones; no se han verificado conexiones reales en hardware.

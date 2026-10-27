@@ -63,6 +63,12 @@
     "submenu": "productivity"
   },
   {
+    "text": "VPN",
+    "subtext": ">",
+    "icon": "󰖂",
+    "submenu": "vpn"
+  },
+  {
     "text": "Web Apps",
     "subtext": ">",
     "icon": "󰘔",

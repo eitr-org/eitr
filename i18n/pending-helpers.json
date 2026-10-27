@@ -215,7 +215,8 @@
     "Shell",
     "Software",
     "Terminal",
-    "Version"
+    "Version",
+    "Format"
   ],
   "fr": [
     "AWS SSO (IAM Identity Center)",
@@ -288,6 +289,8 @@
     "Shell",
     "Terminal",
     "Version",
-    "Stable"
+    "Stable",
+    "Action",
+    "Format"
   ]
 }

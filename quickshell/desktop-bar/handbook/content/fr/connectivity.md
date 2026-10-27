@@ -19,3 +19,13 @@ L’association peut nécessiter un PIN ou un agent de confirmation. Le bureau a
 ## Mode avion
 
 Centre de contrôle > Général bloque WiFi et Bluetooth avec rfkill. Le désactiver ne rétablit que les radios qu’il a lui-même bloquées. Les blocages matériels ou externes ne sont pas annulés silencieusement. Activez une radio individuellement si nécessaire.
+
+## VPN
+
+Ouvrez Install > VPN pour Tailscale, WireGuard ou NetworkManager VPN. Tailscale conserve son panneau d’accès distant et sa configuration.
+
+WireGuard installe le paquet officiel `wireguard-tools` avec la vérification habituelle des mises à jour en attente. Importez une configuration en indiquant le nom et le chemin complet d’un fichier `.conf`, puis vérifiez nom, destinations et nombre de pairs. Les clés ne sont jamais affichées. Les hooks exécutables et SaveConfig sont refusés. Avec NetworkManager, le profil y est importé ; avec iwd, il est enregistré confidentiellement sous `/etc/wireguard` pour wg-quick, sans écraser les profils existants.
+
+NetworkManager VPN installe `networkmanager-openvpn` et `networkmanager-openconnect`. WireGuard est intégré à NetworkManager sans autre extension. Avec iwd, le parcours explique le besoin et ouvre le choix existant du service, sans le changer. Voir [Services réseau](handbook:network-backends). L’import accepte `.ovpn` pour OpenVPN et les fichiers compatibles avec l’importateur OpenConnect. Les erreurs masquent leur contenu.
+
+Les profils restent déconnectés sauf choix explicite de connexion après l’import. La connexion automatique au démarrage est désactivée. Rouvrez le menu pour connecter ou déconnecter le nom enregistré. Aucun bouton VPN n’est ajouté au centre de contrôle. Les tests utilisent des simulations ; aucune connexion réelle n’a été vérifiée sur matériel.

@@ -1972,6 +1972,12 @@
     "Install Packages": [
       "elephant/menu-rows/shortcuts.json"
     ],
+    "Install VPN plugins and import a VPN file": [
+      "elephant/menu-rows/vpn.json"
+    ],
+    "Install WireGuard and import a configuration": [
+      "elephant/menu-rows/vpn.json"
+    ],
     "Install an AI Assistant": [
       "elephant/menus/ai-default.lua",
       "elephant/menus/ai-tools.lua"
@@ -2182,6 +2188,9 @@
     ],
     "NetworkManager": [
       "elephant/menu-rows/network-backend.json"
+    ],
+    "NetworkManager VPN": [
+      "elephant/menu-rows/vpn.json"
     ],
     "New": [
       "elephant/menu-rows/ai-agy.json",
@@ -2683,6 +2692,9 @@
     "Set the Sunshine password and configure streaming": [
       "elephant/menu-rows/remote-share.json"
     ],
+    "Set up access away from home": [
+      "elephant/menu-rows/vpn.json"
+    ],
     "Set up an assistant that runs only on this PC": [
       "elephant/menus/ai-default.lua"
     ],
@@ -2856,6 +2868,9 @@
     "Tabs": [
       "elephant/menus/bar-layout.lua"
     ],
+    "Tailscale": [
+      "elephant/menu-rows/vpn.json"
+    ],
     "Tell the assistant…": [
       "elephant/menu-rows/reminders.json"
     ],
@@ -2972,6 +2987,10 @@
     "VPC endpoints": [
       "elephant/menus/aws-vpc-vpc-endpoints-1.lua"
     ],
+    "VPN": [
+      "elephant/menu-rows/install.json",
+      "elephant/menus/vpn.lua"
+    ],
     "VS Code Projects": [
       "elephant/menu-rows/development.json",
       "elephant/menus/projects-vscode.lua"
@@ -3028,6 +3047,9 @@
     ],
     "Window: Copy": [
       "elephant/menu-rows/screenshot.json"
+    ],
+    "WireGuard": [
+      "elephant/menu-rows/vpn.json"
     ],
     "Workspace Overview": [
       "elephant/menus/system-shortcuts.lua"
@@ -3813,6 +3835,9 @@
     "Accounts changed in another window; reopen setup before saving": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Action": [
+      "walker/scripts/actions/install/vpn.py"
+    ],
     "Activity Logs": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
@@ -4323,6 +4348,9 @@
       "walker/scripts/actions/development/git-accounts.py",
       "walker/scripts/menus/cloud/accounts.py"
     ],
+    "Configuration file": [
+      "walker/scripts/actions/install/vpn.py"
+    ],
     "Configure this source in OBS first": [
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
@@ -4335,6 +4363,12 @@
     ],
     "Conflicting iwd backend setting in {path}; review it before switching.": [
       "distro/system/network-backend.py"
+    ],
+    "Connect": [
+      "walker/scripts/actions/install/vpn.py"
+    ],
+    "Connect after import": [
+      "walker/scripts/actions/install/vpn.py"
     ],
     "Connected": [
       "quickshell/desktop-bar/scripts/remote-status.py"
@@ -4580,6 +4614,9 @@
       "distro/lib/eitr_policy.py",
       "quickshell/desktop-bar/scripts/menu-action.py"
     ],
+    "Disconnect": [
+      "walker/scripts/actions/install/vpn.py"
+    ],
     "Disconnected": [
       "quickshell/desktop-bar/scripts/remote-status.py"
     ],
@@ -4725,6 +4762,9 @@
       "distro/system/network-backend.py",
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py"
     ],
+    "Enter the full path to the configuration file.": [
+      "walker/scripts/actions/install/vpn.py"
+    ],
     "Enter the other picture's file or https address.": [
       "walker/scripts/actions/style/own.py"
     ],
@@ -4742,6 +4782,9 @@
     ],
     "Enter: copy the redacted report · Esc: close": [
       "distro/lib/eitr_selfcheck.py"
+    ],
+    "Enter: open Network Backend · Esc: close": [
+      "walker/scripts/actions/install/vpn.py"
     ],
     "Enter: run System Update now (with its snapshot), then install · Esc: cancel": [
       "walker/scripts/actions/install/software.py"
@@ -4873,6 +4916,9 @@
       "walker/scripts/actions/development/monitoring.py",
       "walker/scripts/actions/install/webapps.py"
     ],
+    "Format": [
+      "walker/scripts/actions/install/vpn.py"
+    ],
     "Found in your Git configuration": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
@@ -4997,6 +5043,12 @@
     ],
     "Ignore": [
       "walker/scripts/actions/system/crash-help.py"
+    ],
+    "Import a VPN file…": [
+      "walker/scripts/actions/install/vpn.py"
+    ],
+    "Import a WireGuard configuration…": [
+      "walker/scripts/actions/install/vpn.py"
     ],
     "Initramfs: mkinitcpio not found; make sure your initramfs unlocks with systemd-cryptsetup.": [
       "distro/system/eitr-system.py"
@@ -5402,6 +5454,7 @@
     ],
     "Name": [
       "walker/scripts/actions/development/monitoring.py",
+      "walker/scripts/actions/install/vpn.py",
       "walker/scripts/actions/install/webapps.py",
       "walker/scripts/actions/style/own.py",
       "walker/scripts/actions/tools/calendars.py",
@@ -5449,7 +5502,8 @@
     ],
     "No": [
       "walker/scripts/actions/development/git-accounts.py",
-      "walker/scripts/actions/install/plugins.py"
+      "walker/scripts/actions/install/plugins.py",
+      "walker/scripts/actions/install/vpn.py"
     ],
     "No LUKS-encrypted partition was found.": [
       "walker/scripts/actions/system/security.py"
@@ -5860,6 +5914,7 @@
       "quickshell/lockscreen/scripts/install-login.py"
     ],
     "Profile": [
+      "walker/scripts/actions/install/vpn.py",
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Profile ID": [
@@ -7254,6 +7309,12 @@
     "VPCs": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
+    "VPN operation failed. Configuration details are hidden.": [
+      "walker/scripts/actions/install/vpn.py"
+    ],
+    "VPN profiles need NetworkManager. Choose it in System > Connectivity > Network Backend, then reboot.": [
+      "walker/scripts/actions/install/vpn.py"
+    ],
     "Version": [
       "fastfetch/eitr.py"
     ],
@@ -7332,7 +7393,8 @@
     ],
     "Yes": [
       "walker/scripts/actions/development/git-accounts.py",
-      "walker/scripts/actions/install/plugins.py"
+      "walker/scripts/actions/install/plugins.py",
+      "walker/scripts/actions/install/vpn.py"
     ],
     "You can remove it later from Development > Default Assistant.": [
       "distro/lib/eitr_local_assistant.py"
