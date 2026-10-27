@@ -62,6 +62,9 @@ with Btrfs root (`bash distro/install.sh --check`, then `bash distro/install.sh`
 Package defaults are recorded in [distro/](distro/README.md). Credentials and
 account state are never part of the installation.
 
+`eitr` lists the available terminal commands; `eitr version` prints the release,
+and `eitr about` opens or focuses the About window.
+
 ## Everyday shortcuts
 
 - `Super + Space`: search applications.

@@ -66,6 +66,10 @@ class EitrCommandTests(unittest.TestCase):
         self.assertEqual(self.plan("theme", "set", "Rose Pine"),
                          ["bash", str(self.code / "walker/scripts/actions/style/apply.sh"), "Rose Pine"])
 
+    def test_about_reuses_the_focus_or_open_action(self):
+        self.assertEqual(self.plan("about"), ["bash", str(self.code / "walker/scripts/actions/about.sh")])
+        self.assertIn("about", eitr.overview())
+
     def test_version_reads_the_release_and_build(self):
         self.assertEqual(self.plan("version"), "Eitr 0.5.0 Yggdrasil (beta), build 0.5.0.20261016.120000.gabc1234")
 

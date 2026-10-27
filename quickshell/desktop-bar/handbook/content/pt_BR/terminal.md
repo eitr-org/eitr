@@ -26,7 +26,10 @@ eitr reset keep-files        # factory reset, after the usual two warnings
 eitr report                  # prepare a problem report
 eitr handbook troubleshooting
 eitr version
+eitr about
 ```
+
+`eitr about` abre a janela de informações do Eitr ou traz a janela existente para o primeiro plano.
 
 `eitr config` e `eitr git` encaminham argumentos para `eitr-config` e `eitr-git`. Cada comando oferece `--help`.
 

@@ -1,5 +1,7 @@
 # Releases
 
+`eitr about` opens or focuses the existing About window through Walker’s action.
+
 Plugin management uses compact rows with a separate detail view. Widget menus
 wait for their popup to map before taking focus; editing keeps its Wayland
 surface stationary and saves snapped geometry on release. Live Hyprland review

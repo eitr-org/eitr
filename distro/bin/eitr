@@ -52,6 +52,7 @@ GROUPS = [
         ("handbook", "open the Handbook, optionally at a chapter"),
         ("remind", "a reminder later or at a time (eitr remind 25m Tea), or the list"),
         ("version", "show the installed Eitr version"),
+        ("about", "open About Eitr, or focus its existing window"),
         ("channel", "the update channel: stable, or testing for new builds first"),
     ]),
     ("Safety", [
@@ -155,6 +156,7 @@ def parser():
     handbook.add_argument("chapter", nargs="?", help='a chapter id, such as troubleshooting')
 
     commands.add_parser("version", help='show the installed Eitr version')
+    commands.add_parser("about", help='open About Eitr')
 
     channel = commands.add_parser("channel", help='the update channel')
     channel.add_argument("name", nargs="?", choices=["stable", "testing"], help='switch to this channel')
@@ -223,6 +225,8 @@ def plan(arguments, code=None, config=None):
     if command == "handbook":
         script = str(code / "quickshell/desktop-bar/scripts/handbook.sh")
         return ["bash", script, "open", arguments.chapter] if arguments.chapter else ["bash", script, "toggle"]
+    if command == "about":
+        return ["bash", str(actions / "about.sh")]
     if command == "version":
         return version(code)
     if command == "channel":
