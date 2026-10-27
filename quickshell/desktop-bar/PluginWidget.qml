@@ -12,7 +12,7 @@ Item {
     required property color foreground
     required property color background
     required property color accent
-    property string surface: "panel"
+    property string surface: entry.surface || "none"
     property bool aboveWindows: false
     property real originX: 0
     property real originY: 0

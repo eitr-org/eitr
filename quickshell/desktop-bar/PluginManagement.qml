@@ -143,7 +143,7 @@ Column {
                 aboveWindows: !!visual.modelData.aboveWindows
                 surface: {
                     const placement = (PluginRegistry.placements.widgets || []).find(placement => placement.plugin === visual.entry.plugin && placement.id === visual.entry.id && placement.monitor === visual.modelData.monitor);
-                    return placement && placement.surface || visual.entry.surface || "panel";
+                    return PluginRegistry.widgetSurface(Object.assign({}, visual.entry, {geometry: placement}));
                 }
                 entries: PluginRegistry.widgetMenus[PluginRegistry.menuKey(visual.entry, visual.modelData.monitor)] || []
                 onAction: function(action) {

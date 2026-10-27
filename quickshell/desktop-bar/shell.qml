@@ -291,6 +291,7 @@ ShellRoot {
             onStreamFinished: {
                 try {
                     var palette = JSON.parse(text);
+                    PluginRegistry.palette = palette.palette || ({});
                     shell.activeBg = palette.background;
                     shell.activeFg = palette.foreground;
                     if (!saveWorkspaceStyle.running) shell.workspaceStyle = palette.style;

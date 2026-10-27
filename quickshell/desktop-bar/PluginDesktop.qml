@@ -93,7 +93,7 @@ Scope {
                         onMenuEntriesChanged: PluginRegistry.setMenu(window.modelData, display.modelData.name, menuEntries)
                         Component.onCompleted: PluginRegistry.setMenu(window.modelData, display.modelData.name, menuEntries)
                         active: window.visible
-                        surface: window.modelData.geometry.surface || window.modelData.surface || "panel"
+                        surface: PluginRegistry.widgetSurface(window.modelData)
                         aboveWindows: window.aboveWindows
                         onSizeRequested: factor => window.size(factor)
                         onSurfaceRequested: surface => PluginRegistry.change("surface", window.modelData, display.modelData.name, null, surface)

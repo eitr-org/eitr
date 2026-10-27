@@ -8,7 +8,7 @@ Column {
     required property color foreground
     required property color background
     property bool aboveWindows: false
-    property string surface: "panel"
+    property string surface: "none"
     property var entries: []
     signal action(string action)
     signal selected(string id)

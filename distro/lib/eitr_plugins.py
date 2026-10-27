@@ -203,6 +203,10 @@ def validate_ui(root, ui):
             optional = ('icon', 'refreshInterval', 'dataCommand', 'dataStream')
             if kind in ('tiles', 'barItems'):
                 optional += ('panel',)
+            if kind == 'tiles':
+                optional += ('look',)
+            elif kind == 'panels':
+                optional += ('surface', 'header')
             elif kind == 'widgets':
                 optional += ('minWidth', 'minHeight', 'defaultWidth', 'defaultHeight', 'surface')
             object_keys(entry, ('id', 'title', 'qml'), optional)
@@ -210,9 +214,13 @@ def validate_ui(root, ui):
                 panel_id = identifier(entry['panel'])
                 if panel_id not in [panel.get('id') for panel in ui.get('panels', []) if isinstance(panel, dict)]:
                     raise ValueError('Visual panel must name a declared panel')
+            if kind == 'tiles' and entry.get('look', 'eitr') not in ('eitr', 'custom'):
+                raise ValueError('Invalid tile look')
+            if kind == 'panels' and type(entry.get('header', True)) is not bool:
+                raise ValueError('Panel header must be a boolean')
+            if kind in ('widgets', 'panels') and entry.get('surface', 'none') not in ('panel', 'none'):
+                raise ValueError('Invalid visual surface')
             if kind == 'widgets':
-                if entry.get('surface', 'panel') not in ('panel', 'none'):
-                    raise ValueError('Invalid widget surface')
                 for dimension in ('Width', 'Height'):
                     minimum = entry.get('min' + dimension, 96)
                     default = entry.get('default' + dimension, 192)

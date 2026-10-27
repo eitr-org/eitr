@@ -7,6 +7,10 @@ import "JsonState.js" as JsonState
 
 QtObject {
     id: registry
+    property var palette: ({})
+    function widgetSurface(entry) {
+        return entry.geometry && entry.geometry.surface || entry.surface || "none";
+    }
     property var entries: []
     property var installed: []
     property var widgetMenus: ({})

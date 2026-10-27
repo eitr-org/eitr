@@ -103,10 +103,10 @@ and no larger than 64 KiB. Symlinks are refused anywhere in the repository.
 Tiles appear at the end of **Control Center > General**, under **Plugins**, only
 when tiles are declared. The host draws each 36 px row: declared icon centred
 in the 10 px leading slot, title at 36 px, and optional caption with a 2 px gap.
-Plugin tile QML supplies `api.detail` and optional trailing content (root
-`implicitWidth`, capped at 96 px); it must not draw another tile or title.
+With `look: "eitr"` (the default), plugin tile QML supplies `api.detail` and optional trailing content (root
+`implicitWidth`, capped at 96 px); the host supplies the title and row. With `look: "custom"`, QML fills the whole fixed 36 px high, full-width slot and draws everything. The host only handles click/Return/Space, keyboard focus and the focus ring.
 Declare `panel` on a tile or bar item to name one of this plugin's panels. The host handles
-click, Return and Space. Panels replace the tiles with a back chevron and title.
+click, Return and Space. Panels replace the tiles; by default the host shows a back chevron and title.
 Back or Escape returns to tiles; another Escape closes Control Center.
 Panel height follows the root `implicitHeight`, scrolling above 360 px.
 Placements are prefetched in the background, retained while closed, and refreshed
@@ -115,7 +115,8 @@ on installation, update, removal and re-enabling, without open-page polling.
 Every root component must be a QtQuick Item and declare
 `required property var api`. The injected object exposes:
 
-- `foreground`, `background`, `accent`: live theme colors.
+- `foreground`, `background`, `accent`: optional live theme colors.
+- `palette`: full theme palette, including `color0`–`color15` and named roles from colors.toml. `themeChanged()` signals changes to the palette or style helpers.
 - `fontFamily`, `bodySize`, `captionSize`, `headingSize`, `radius`: shared style.
 - `title`, `icon`: this component's manifest labels.
 - `runDataCommand()`: runs only this component's declared argv, with its plugin
@@ -165,8 +166,7 @@ support `dataCommand` and `refreshInterval`. Bar items may name a declared `pane
 The example's ClockWidget.qml and StatusDot.qml demonstrate both kinds.
 
 Widgets use individual bottom-layer Wayland surfaces, behind ordinary windows,
-with input limited to each widget rectangle by default. Their surfaces follow the bar's
-color/transparency, theme fonts and corner preference. The placed widget’s **Edit position** action exposes
+with input limited to each widget rectangle by default. Their appearance belongs to the author. Eitr backgrounds and theme helpers are optional. The placed widget’s **Edit position** action exposes
 move and resize handles; **Done** leaves edit mode. Geometry snaps to the
 Hyprland inner gap and is clamped to the monitor's usable area, including reserved
 edges. If the screen is smaller than a declared minimum, fitting the screen wins.
@@ -184,8 +184,8 @@ both management interfaces. Edit mode is session-only.
 Bar items occupy fixed icon slots in the existing right-side group, with its
 normal hidden/show toggle (always shown in Tabs). They have no hover fill and
 use short themed tooltips. Their content is clipped to the slot. Declared panels
-use the same attached Full or detached Centered/Tabs panel surface, Escape and
-outside-click dismissal as built-in controls. The clock's independent screen
+use the same attached Full or detached Centered/Tabs geometry, Escape and
+outside-click dismissal as built-in controls; their surface is opt-in. The clock's independent screen
 centre anchors remain unchanged on every edge and layout.
 
 All four kinds share the loader, style/data API, failure counter and full QML
@@ -289,11 +289,11 @@ a declared v2 icon.
 
 ### Widget options and transparent surfaces
 
-A widget declaration accepts `surface: "panel" | "none"` (default `panel`).
+A widget declaration accepts `surface: "panel" | "none"` (default `none`).
 The placement can override it with the same field. **Background: Transparent**
 sets `none`: the host draws no color, border or blur. Transparent widgets use
 `eitr-plugin-transparent`, outside the panel-only `eitr-plugin-widget` blur rule.
-Plugin QML must also avoid drawing its own opaque background. Edit mode always
+Plugin QML may draw any colours, images, shaders or animation, including its own opaque background. Edit mode always
 shows the outline, title handle, resize grip and Done control.
 
 Right-click a behind-window widget, or any widget while editing, for **Edit
@@ -316,3 +316,28 @@ optional boolean `checked`. Invalid lists leave the previous menu intact.
 Handle `api.menuTriggered(id)` through a QML `Connections` object; call `setMenu`
 again to update checkmarks. These actions run only in the loaded widget instance,
 so each monitor can keep independent state. Menus do not execute shell strings.
+
+### Author-controlled appearance
+
+Following Eitr's style is optional for every visual component. Theme colors,
+fonts, sizes and radius are helpers, not requirements. Authors may use any
+colors, images, shaders and animations. Relative QML asset paths (for example
+`Image { source: "images/logo.png" }`) resolve inside the plugin's own directory,
+relative to the QML file; assets are part of the reviewed repository.
+
+Panels accept `surface: "none" | "panel"` (default `none`) and boolean `header`
+(default `true`). The plugin area is a free canvas: no host fill, border, tint
+or content inset is added unless `panel` is requested. Control Center retains
+its existing page surface behind that canvas; bar panels have a transparent
+outer surface by default. This one default avoids adding a second panel inside
+Control Center while allowing bar panels to draw their own appearance.
+`header: false` hides the navigation header; Back/Escape navigation remains.
+The outer desktop frame, bounds, scrolling, dismissal and navigation are host UI.
+
+Widgets default to `surface: "none"`; `panel` opts into the Eitr background and
+blur. Explicit saved placement choices win over the declaration; without a saved
+choice the current declaration wins, falling back to `none`. Edit handles remain
+host UI. Bar slots never add hover fills or tint to plugin content. Fixed tile,
+bar and widget bounds, clock centring, review, capability checks and visual
+failure handling apply regardless of appearance. The example's CustomTile.qml
+shows independent purple/yellow colors beside the Eitr-styled Hello tile.

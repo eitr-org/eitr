@@ -100,10 +100,14 @@ class DesktopStyleTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as home:
             theme = Path(home) / ".config/theme/current"
             theme.mkdir(parents=True)
-            (theme / "colors.toml").write_text('background = "#0c0a14"\nsurface = "#15121f"\n')
+            (theme / "colors.toml").write_text('background = "#0c0a14"\nsurface = "#15121f"\n' + ''.join(f'color{index} = "#{index:06x}"\n' for index in range(16)))
             result = subprocess.run(["python3", str(ROOT / "scripts/workspace-color.py")], capture_output=True,
                                     text=True, check=True, env=dict(os.environ, HOME=home))
-            self.assertEqual(json.loads(result.stdout)["menuBackground"], "#15121f")
+            values = json.loads(result.stdout)
+            self.assertEqual(values["menuBackground"], "#15121f")
+            self.assertEqual(values["palette"]["surface"], "#15121f")
+            for index in range(16):
+                self.assertEqual(values["palette"][f"color{index}"], f"#{index:06x}")
 
     def test_weather_slot_only_grows_for_wide_glyphs(self):
         source = (ROOT / "WeatherMenu.qml").read_text()

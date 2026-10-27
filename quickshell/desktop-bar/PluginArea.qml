@@ -59,6 +59,7 @@ Column {
             width: area.width
             spacing: PanelStyle.selectionRowGap
             Row {
+                visible: !area.selectedPanel || area.selectedPanel.header !== false
                 width: parent.width; spacing: PanelStyle.selectionActionGap
                 PanelButton {
                     icon: true; text: "󰅁"; foreground: area.foreground

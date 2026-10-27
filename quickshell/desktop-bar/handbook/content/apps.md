@@ -142,7 +142,7 @@ Plugins can declare `theme-changed`, `wallpaper-changed`, `after-update` and `lo
 ### Visual plugins
 
 Schema version 2 can add tiles to **Control Center > General > Plugins** and
-panels opened from those tiles. They use the desktop colors, fonts and corners;
+panels opened from those tiles. They may follow Eitr’s colors, fonts and corners;
 widgets and bar items appear only after you add them. Review lists every QML file and its full source before
 installation. Updates show a scrollable diff and the candidate QML before
 approval; QML changes raise RISK flags. QML is not a sandbox: it runs inside the
@@ -181,3 +181,5 @@ limited to 60 lines per second and 4096 bytes per line. Review lists it and
 changes raise RISK flags. Hidden components stop their streams and child
 process groups; failures retry with backoff. Authoring details are in
 `distro/PLUGINS.md`.
+
+Plugin authors choose their own colors, images, shaders and animation. Theme helpers (`api.palette`, color0–15 and named roles, fonts, sizes, radius and `themeChanged`) are optional. Widgets and panels default to `surface: "none"`; `"panel"` opts into Eitr’s background. Explicit saved widget backgrounds override declarations; otherwise the declaration applies. Control Center keeps its outer page frame, without adding decoration inside the plugin canvas. Panels keep a navigation header unless `header: false`; Back/Escape still work. Tiles default to `look: "eitr"`; `"custom"` draws the whole fixed slot, with only host activation and a focus ring. Bar slots add no hover fill or tint. Relative QML images resolve in the plugin directory. Bounds, centred clock, reviews, capabilities and failure handling remain unchanged. The example demonstrates both tile styles.

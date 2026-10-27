@@ -32,13 +32,21 @@
         "icon": "☀",
         "qml": "HelloTile.qml",
         "panel": "hello-panel"
+      },
+      {
+        "id": "custom",
+        "title": "Custom colours",
+        "qml": "CustomTile.qml",
+        "look": "custom",
+        "panel": "hello-panel"
       }
     ],
     "panels": [
       {
         "id": "hello-panel",
         "title": "Hello status",
-        "qml": "HelloPanel.qml"
+        "qml": "HelloPanel.qml",
+        "surface": "panel"
       }
     ],
     "widgets": [
@@ -49,7 +57,8 @@
         "minWidth": 144,
         "minHeight": 96,
         "defaultWidth": 240,
-        "defaultHeight": 144
+        "defaultHeight": 144,
+        "surface": "panel"
       }
     ],
     "barItems": [

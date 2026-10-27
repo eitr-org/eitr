@@ -612,3 +612,5 @@ the locked placement helper. Transparent widgets use a separate unblurred layer
 namespace; their edit outline remains visible. Edit widgets toggles all widgets
 interactive; Done and Escape end editing. Above-window widgets expose their
 options in the Plugins page while click-through.
+
+Plugin appearance belongs to its author. Widgets and panels default to no host surface; panel surfaces and theme helpers are opt-in. Tiles default to the Eitr row, with `look: "custom"` providing a full-slot canvas. See `distro/PLUGINS.md`.

@@ -13,6 +13,103 @@ BAR = ROOT / 'quickshell/desktop-bar'
 
 @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')
 class VisualPluginLayoutTests(unittest.TestCase):
+    def test_author_canvases_and_theme_api(self):
+        with tempfile.TemporaryDirectory(prefix='eitr-plugin-style-') as directory:
+            folder = Path(directory)
+            canvas = folder / 'Canvas.qml'
+            canvas.write_text('''import QtQuick
+Rectangle {
+    required property var api
+    implicitHeight: 120
+    color: "#ed286b"
+    Component.onCompleted: {
+        if (api.palette.color15 !== "#fff123" || api.palette.foreground !== "#abcdef")
+            throw new Error("Missing full palette");
+        api.themeChanged.connect(function() { console.log("THEME_SIGNAL_OK"); });
+    }
+    Text { anchors.centerIn: parent; text: "MY CANVAS"; color: "#132750"; font.pixelSize: 22 }
+}''')
+            spec = json.loads((ROOT / 'distro/plugins/example/eitr-plugin.json').read_text())
+            entries = [dict(entry, plugin='example', kind=kind, commit='a' * 40, disabled=False,
+                            source=(ROOT / 'distro/plugins/example' / entry['qml']).as_uri())
+                       for kind, declarations in spec['ui'].items() for entry in declarations]
+            widget = dict(plugin='example', kind='widgets', id='canvas', title='Canvas', source=canvas.as_uri(), qml='Canvas.qml', disabled=False, commit='a' * 40)
+            panel = dict(widget, kind='panels', id='canvas-panel', header=False)
+            entries.append(panel)
+            for mode in ('custom-tiles', 'widget-none', 'panel-no-header'):
+                captures = Path(os.environ.get('EITR_PLUGIN_REVIEW_RENDERS', directory))
+                captures.mkdir(parents=True, exist_ok=True)
+                capture = captures / (mode + '.png')
+                fixture = folder / 'fixture.qml'
+                fixture.write_text('''import QtQuick
+import Quickshell
+import "BAR" as Bar
+ShellRoot {
+    Component.onCompleted: {
+        Bar.PluginRegistry.palette = {color15: "#fff123", foreground: "#abcdef"};
+        if (Bar.PluginRegistry.widgetSurface({}) !== "none"
+            || Bar.PluginRegistry.widgetSurface({surface: "panel"}) !== "panel"
+            || Bar.PluginRegistry.widgetSurface({surface: "panel", geometry: {surface: "none"}}) !== "none"
+            || Bar.PluginRegistry.widgetSurface({surface: "none", geometry: {surface: "panel"}}) !== "panel")
+            throw new Error("Surface precedence failed");
+    }
+    Bar.PluginComponent {
+        id: defaultTile; active: false; visible: false
+        entry: ({kind: "tiles", title: "Default"})
+        foreground: "white"; background: "black"; accent: "cyan"
+    }
+    FloatingWindow {
+        visible: true; implicitWidth: 480; implicitHeight: 240
+        Rectangle {
+            id: sample; anchors.fill: parent; color: "#162c36"
+            Bar.PluginArea {
+                id: area; x: 24; y: 24; width: 432; visible: !WIDGET
+                foreground: "#e9eef1"; background: "#18212b"; accent: "#7ee0b5"
+                queryEnabled: false; entries: ENTRIES
+                Component.onCompleted: if (PANEL) openPanel("example", "canvas-panel")
+            }
+            Bar.PluginWidget {
+                id: widget; visible: WIDGET; x: 24; y: 24; width: 432; height: 180
+                entry: WIDGET_ENTRY
+                foreground: "#e9eef1"; background: "#18212b"; accent: "#7ee0b5"
+            }
+            Timer {
+                interval: 1200; running: true
+                onTriggered: {
+                    if (defaultTile.customTile || !defaultTile.surface || defaultTile.implicitHeight !== 36) throw new Error("Tile default changed");
+                    if (WIDGET && widget.surface !== "none") throw new Error("Widget default changed");
+                    if (!PANEL && !WIDGET && (area.tiles.length !== 2 || area.height !== 116)) throw new Error("Tile slot geometry changed");
+                    if (PANEL && area.height !== 120) throw new Error("Hidden header reserves space");
+                    Bar.PluginRegistry.palette = {color15: "#123fff", foreground: "#abcdef"};
+                    sample.grabToImage(function(result) {
+                        result.saveToFile("CAPTURE");
+                        if (PANEL && !area.back()) throw new Error("Headerless Back failed");
+                        console.log("AUTHOR_RENDER_OK"); Qt.quit();
+                    });
+                }
+            }
+        }
+    }
+}'''.replace('BAR', BAR.as_uri()).replace('WIDGET_ENTRY', json.dumps(widget))
+                    .replace('WIDGET', str(mode == 'widget-none').lower())
+                    .replace('PANEL', str(mode == 'panel-no-header').lower())
+                    .replace('ENTRIES', json.dumps(entries)).replace('CAPTURE', str(capture)))
+                environment = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
+                                   QML_IMPORT_PATH=str(ROOT / 'quickshell'), EITR_CODE_ROOT=str(ROOT),
+                                   XDG_CONFIG_HOME=directory, XDG_STATE_HOME=directory, XDG_DATA_HOME=directory,
+                                   XDG_CACHE_HOME=directory, XDG_RUNTIME_DIR=directory,
+                                   DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent', HYPRLAND_INSTANCE_SIGNATURE='')
+                result = subprocess.run(['quickshell', '-p', str(fixture)], env=environment,
+                                        text=True, capture_output=True, timeout=15)
+                output = result.stdout + result.stderr
+                self.assertEqual(result.returncode, 0, output)
+                self.assertIn('AUTHOR_RENDER_OK', output)
+                self.assertNotIn('Error:', output)
+                self.assertNotIn('Plugin QML', output)
+                if mode != 'custom-tiles':
+                    self.assertIn('THEME_SIGNAL_OK', output)
+                self.assertTrue(capture.is_file())
+
     def test_example_and_load_failure_in_both_themes(self):
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory)

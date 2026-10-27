@@ -40,4 +40,4 @@ if not isinstance(critical, str) or not re.fullmatch(r'#[0-9a-fA-F]{6}', critica
     critical = '#e05c68'
 print(json.dumps({'background': accent, 'foreground': '#000000' if luminance > 0.179 else '#ffffff',
                   'style': style, 'menuBackground': palette.get('surface', palette.get('background', '#181824')),
-                  'menuForeground': palette.get('foreground', '#cdd6f4'), 'critical': critical}))
+                  'menuForeground': palette.get('foreground', '#cdd6f4'), 'critical': critical, 'palette': palette}))

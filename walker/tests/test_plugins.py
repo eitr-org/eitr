@@ -1042,6 +1042,24 @@ class LivePluginTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.manager.set_enabled('example', True)
 
+    def test_author_appearance_validation(self):
+        value = self.visual()
+        plugins.validate_ui(self.source, value['ui'])
+        for kind, field, valid, invalid in (
+                ('tiles', 'look', ('eitr', 'custom'), ('theme', False, None, [])),
+                ('panels', 'surface', ('none', 'panel'), ('blur', True, None, [])),
+                ('panels', 'header', (True, False), ('false', 0, 1, None)),
+                ('widgets', 'surface', ('none', 'panel'), ('blur', True, None, []))):
+            entry = value['ui'][kind][0]
+            for choice in valid:
+                entry[field] = choice
+                plugins.validate_ui(self.source, value['ui'])
+            for choice in invalid:
+                entry[field] = choice
+                with self.assertRaises(ValueError):
+                    plugins.validate_ui(self.source, value['ui'])
+            del entry[field]
+
     def test_surface_default_override_and_validation(self):
         value = self.visual()
         value['ui']['widgets'][0]['surface'] = 'none'

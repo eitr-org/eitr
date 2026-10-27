@@ -29,7 +29,7 @@ LAN.
 
 # 2. Smaller items
 
-- **Visual plugins: runtime fault attribution remains.** Schema v2 Control Center
+- **Visual plugins: runtime fault attribution remains.** Styling is author-controlled; theme helpers and widget/panel surfaces are opt-in, with custom tile canvases available. Schema v2 Control Center
   prefetched host-drawn tiles and panel subviews, shared style/data API, full QML review, checked loading
   and persistent disable after three load/reported errors are implemented
   (`distro/PLUGINS.md`). Unreported runtime binding exceptions cannot yet be

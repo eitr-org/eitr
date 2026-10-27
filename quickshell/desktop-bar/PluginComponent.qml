@@ -12,7 +12,9 @@ Item {
     required property color accent
     property bool active: true
     readonly property bool live: active && visible && enabled && opacity > 0 && !entry.disabled && error === ""
-    property bool surface: entry.kind !== "barItems"
+    property bool surface: tile ? styledTile : entry.surface === "panel"
+    readonly property bool customTile: tile && entry.look === "custom"
+    readonly property bool styledTile: tile && (!customTile || entry.disabled || error !== "")
     readonly property bool barItem: entry.kind === "barItems"
     property string error: ""
     readonly property var menuEntries: api.menuEntries
@@ -71,6 +73,14 @@ Item {
         readonly property color foreground: host.foreground
         readonly property color background: host.background
         readonly property color accent: host.accent
+        readonly property var palette: PluginRegistry.palette
+        signal themeChanged()
+        onPaletteChanged: themeChanged()
+        onForegroundChanged: themeChanged()
+        onBackgroundChanged: themeChanged()
+        onAccentChanged: themeChanged()
+        onFontFamilyChanged: themeChanged()
+        onRadiusChanged: themeChanged()
         readonly property string fontFamily: DesktopFonts.family
         readonly property int bodySize: PanelStyle.bodySize
         readonly property int captionSize: PanelStyle.captionSize
@@ -127,12 +137,12 @@ Item {
         visible: host.surface
         anchors.fill: parent
         radius: DesktopStyle.radius(PanelStyle.controlRadius)
-        color: Qt.alpha(host.foreground, PanelStyle.selectionAlpha(false, hover.hovered || host.activeFocus))
-        border.width: PanelStyle.selectionBorderWidth(false)
+        color: host.tile ? Qt.alpha(host.foreground, PanelStyle.selectionAlpha(false, hover.hovered || host.activeFocus)) : host.background
+        border.width: host.tile ? PanelStyle.selectionBorderWidth(false) : 0
         border.color: Qt.alpha(host.foreground, PanelStyle.selectionBorderAlpha)
     }
     MouseArea {
-        anchors.fill: parent; enabled: host.tile || host.barItem
+        anchors.fill: parent; enabled: host.tile || host.barItem; z: 2
         cursorShape: host.entry.panel ? Qt.PointingHandCursor : Qt.ArrowCursor
         onClicked: { host.forceActiveFocus(); host.activate(); }
     }
@@ -141,8 +151,8 @@ Item {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.right: parent.right
-        width: host.tile ? Math.min(96, item ? item.implicitWidth : 0) : host.barItem ? host.width : host.width - 2 * PanelStyle.selectionInset
-        anchors.rightMargin: host.tile ? PanelStyle.selectionActionInset : host.barItem ? 0 : PanelStyle.selectionInset
+        width: host.styledTile ? Math.min(96, item ? item.implicitWidth : 0) : host.width
+        anchors.rightMargin: host.styledTile ? PanelStyle.selectionActionInset : 0
         z: host.barItem ? -1 : 0
         active: host.active && !host.entry.disabled && host.error === ""
         asynchronous: true
@@ -159,8 +169,14 @@ Item {
             }
         }
     }
+    Rectangle {
+        anchors.fill: parent; z: 3
+        visible: host.activeFocus && (host.tile || host.barItem)
+        color: "transparent"; border.width: 2; border.color: host.accent
+        radius: DesktopStyle.radius(PanelStyle.controlRadius)
+    }
     Text {
-        visible: host.tile
+        visible: host.styledTile
         x: PanelStyle.selectionInset; width: PanelStyle.selectionIconSize
         anchors.verticalCenter: parent.verticalCenter
         horizontalAlignment: Text.AlignHCenter
@@ -168,7 +184,7 @@ Item {
         color: host.foreground; font.family: PanelStyle.fontFamily; font.pixelSize: PanelStyle.selectionIconSize
     }
     Column {
-        visible: host.tile
+        visible: host.styledTile
         x: PanelStyle.selectionTextInset
         width: Math.max(0, host.width - x - content.width - 2 * PanelStyle.selectionActionInset)
         anchors.verticalCenter: parent.verticalCenter
