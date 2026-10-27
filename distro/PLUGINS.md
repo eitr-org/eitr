@@ -17,7 +17,7 @@ keys. Required fields:
 - `name`, `author`, `version`: nonblank display strings, at most 256 characters.
   `version` is the author's display version; approval pins a Git commit.
 - `description`: nonblank summary, at most 72 characters.
-- `rows`: 1–20 actions. Each requires `title` and `description` (at most 72
+- `rows`: 1–20 actions (0–20 for a schema version 2 plugin that declares `ui` components). Each requires `title` and `description` (at most 72
   characters) and `run`. Optional `icon` is a nonblank string up to 64 characters;
   optional `arguments` is an array of at most 64 fixed strings, each at most 4096
   characters. Empty arguments are allowed; control characters are refused.

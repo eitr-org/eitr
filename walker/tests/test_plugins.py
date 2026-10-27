@@ -827,6 +827,16 @@ class VisualPluginTests(unittest.TestCase):
         self.write_spec(value)
         self.assertEqual(plugins.manifest(self.source), value)
 
+    def test_visual_only_plugin_needs_no_rows(self):
+        value = self.visual()
+        value['rows'] = []
+        self.write_spec(value)
+        self.assertEqual(plugins.manifest(self.source)['rows'], [])
+        value.pop('ui')
+        self.write_spec(value)
+        with self.assertRaisesRegex(ValueError, '1..20 rows'):
+            plugins.manifest(self.source)
+
     def test_tile_panel_reference_validation(self):
         value = self.visual()
         value['ui']['tiles'][0]['panel'] = 'missing'

@@ -89,8 +89,10 @@ def manifest(root):
     for field in ('name', 'author', 'version'):
         string(value[field])
     string(value['description'], 72)
-    if not isinstance(value['rows'], list) or not 1 <= len(value['rows']) <= 20:
-        raise ValueError('A plugin must declare 1..20 rows')
+    # A visual-only plugin (schema 2 with ui components) needs no Walker rows.
+    visual = version == 2 and isinstance(value.get('ui'), dict) and any(value['ui'].values())
+    if not isinstance(value['rows'], list) or not (0 if visual else 1) <= len(value['rows']) <= 20:
+        raise ValueError('A plugin must declare 1..20 rows' if not visual else 'A plugin may declare at most 20 rows')
     for row in value['rows']:
         object_keys(row, ('title', 'description', 'run'), ('icon', 'arguments'))
         string(row['title'], 72)
