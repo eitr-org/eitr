@@ -42,6 +42,8 @@ LAN.
   - Still open: runtime QML errors are not attributed to a plugin; in-process QML
     is not a sandbox; verify above-window click-through, fullscreen hiding and
     monitor hotplug live.
+- **`eitr about`.** A subcommand that opens the About window (`walker/scripts/actions/about.sh`), next to `eitr version`.
+- **Theme previews.** Previews are Neovim + About screenshots (2026-10-27); `branding/sources/wallpapers/batch-05/export.py` still rewrites realm previews from wallpapers, so drop its preview step before rerunning it.
 - **Auto-hide bar.** A bar option to hide it and reveal it when the pointer
   touches the screen edge it sits on (any of the four edges), like Windows' taskbar
   auto-hide. Panels opened from the bar keep it shown; persist the choice in
