@@ -333,6 +333,18 @@ class MenuStructureTests(unittest.TestCase):
         for name in ("lazygit", "lazydocker"):
             self.assertIn(name, packages)
 
+    def test_users_live_in_their_own_security_submenu(self):
+        entries = menu("security")["entries"]
+        entry = next(entry for entry in entries if entry.get("submenu") == "users")
+        self.assertEqual(entry.get("subtext"), ">")
+        self.assertFalse(any("Create User" in item["text"] for item in entries))
+        users = menu("users")
+        self.assertEqual(users["parent"], "security")
+        self.assertEqual([item["text"] for item in users["entries"]], ["Create User…"])
+        self.assertIn("users.py", users["entries"][0]["actions"]["open"])
+        layout = ROOT / "walker/themes/current"
+        self.assertEqual((layout / "item_menus-users.xml").read_text(), (layout / "item_menus-security.xml").read_text())
+
     def test_fingerprint_has_its_own_submenu(self):
         entries = menu("security")["entries"]
         self.assertTrue(any(entry.get("submenu") == "fingerprint" for entry in entries))

@@ -30,12 +30,10 @@
     "submenu": "tpm-unlock"
   },
   {
-    "text": "Create User…",
-    "subtext": "Create a separate login and desktop",
+    "text": "Users",
+    "subtext": ">",
     "icon": "󰀄",
-    "actions": {
-      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/users.py"
-    }
+    "submenu": "users"
   },
   {
     "text": "Firewall",

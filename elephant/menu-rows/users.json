@@ -1,0 +1,10 @@
+[
+  {
+    "text": "Create User…",
+    "subtext": "Create a separate login and desktop",
+    "icon": "󰀄",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/users.py"
+    }
+  }
+]

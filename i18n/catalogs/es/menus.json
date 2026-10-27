@@ -555,5 +555,6 @@
   "WireGuard": "WireGuard",
   "NetworkManager VPN": "NetworkManager VPN",
   "Create User…": "Crear usuario…",
-  "Create a separate login and desktop": "Crear un acceso y escritorio independientes"
+  "Create a separate login and desktop": "Crear un acceso y escritorio independientes",
+  "Users": "Usuarios"
 }

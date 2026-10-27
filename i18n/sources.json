@@ -1614,13 +1614,13 @@
       "elephant/menu-rows/theme.json"
     ],
     "Create User…": [
-      "elephant/menu-rows/security.json"
+      "elephant/menu-rows/users.json"
     ],
     "Create Web App": [
       "elephant/menus/webapps.lua"
     ],
     "Create a separate login and desktop": [
-      "elephant/menu-rows/security.json"
+      "elephant/menu-rows/users.json"
     ],
     "Create, find or cancel reminders with your default assistant": [
       "elephant/menu-rows/reminders.json"
@@ -2986,6 +2986,10 @@
     ],
     "User pool details": [
       "elephant/menus/aws-cognito-user-pool-details-1.lua"
+    ],
+    "Users": [
+      "elephant/menu-rows/security.json",
+      "elephant/menus/users.lua"
     ],
     "VPC": [
       "elephant/menus/aws-vpc.lua"
