@@ -23,3 +23,15 @@ Abra **Aprender > Manual do EITR** ou pressione **SUPER + F1**. O mesmo atalho, 
 O manual não executa comandos. Os blocos de código são exemplos para você conferir e copiar conscientemente. Links externos só abrem quando clicados.
 
 Continue em [Atalhos](handbook:shortcuts), [Barra do desktop](handbook:desktop-bar) ou [Menu do sistema](handbook:system).
+
+<!-- eitr-overview -->
+## O que o Eitr inclui
+
+O Eitr combina Arch Linux e Hyprland com menus pesquisáveis do Walker e uma barra Quickshell. Escolha os layouts Full, Centered ou Tabs; os painéis reúnem conectividade, áudio, telas, hardware, notificações, clima e áreas de trabalho. Os temas coordenam o desktop, e você pode criar seus próprios temas.
+
+System Update atualiza pacotes oficiais, AUR e Flatpak, com snapshots em instalações compatíveis da distribuição. O boot guard pode recuperar uma atualização malsucedida antes do login. A restauração de fábrica exige instalação compatível, baseline do primeiro login, avisos e confirmação digitada. O instalador aceita pacotes offline; instalação e recuperação dependem dos layouts documentados.
+
+O Steam já vem instalado com GameMode, MangoHud e gamescope; Install > Gaming oferece mais. Controles HDR aparecem em telas compatíveis; ter um cliente ou monitor HDR não garante que todo jogo funcione. Development oferece editores, runtimes, Docker e assistentes de IA. Git Accounts separa identidades por pasta; os menus de nuvem mostram o contexto do provedor. A disponibilidade depende da instalação e configuração.
+
+Calendários e lembretes ajudam a organizar o dia. O ditado transforma fala em texto após configuração. Moonlight, Sunshine e Tailscale oferecem acesso remoto; instale e configure as ferramentas necessárias. Plugins ampliam o Eitr pelo fluxo de plugins. Há traduções para inglês, português brasileiro, espanhol, francês e alemão. O manual offline explica atalhos, ajustes e recuperação sem enviar perguntas. O chat rápido do Control Center envia a conversa, um resumo limitado da máquina e contexto do manual ao assistente selecionado; não executa comandos nem altera ajustes.
+<!-- /eitr-overview -->

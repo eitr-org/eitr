@@ -23,3 +23,15 @@ Neue EITR-Installationen verwenden **Afterglow** und den Sperrbildschirm **Clock
 Das Handbuch führt keine Befehle aus. Codeblöcke sind Beispiele zum bewussten Prüfen und Kopieren. Externe Links öffnen sich nur beim Anklicken.
 
 Weiter mit [Tastenkürzeln](handbook:shortcuts), [Desktopleiste](handbook:desktop-bar) oder [Systemmenü](handbook:system).
+
+<!-- eitr-overview -->
+## Was Eitr bietet
+
+Eitr verbindet Arch Linux und Hyprland mit durchsuchbaren Walker-Menüs und einer Quickshell-Leiste. Wählen Sie Full, Centered oder Tabs; die Panels bündeln Verbindungen, Audio, Bildschirme, Hardware, Benachrichtigungen, Wetter und Arbeitsflächen. Themes gestalten den Desktop einheitlich; eigene Themes sind ebenfalls möglich.
+
+System Update aktualisiert offizielle, AUR- und Flatpak-Pakete mit Snapshots auf unterstützten Distributionsinstallationen. Der Boot Guard kann fehlgeschlagene Updates vor der Anmeldung zurücksetzen. Das Zurücksetzen auf Werkseinstellungen erfordert eine unterstützte Installation, ihren Ausgangszustand, Warnungen und eine eingetippte Bestätigung. Der Installer unterstützt einen Offline-Paketvorrat; Installation und Wiederherstellung hängen von den dokumentierten Datenträgerlayouts ab.
+
+Steam ist mit GameMode, MangoHud und gamescope vorinstalliert; Install > Gaming bietet mehr. HDR-Regler erscheinen für geeignete Bildschirme; ein installierter Client oder HDR-Monitor garantiert nicht jedes Spiel. Development bietet Editoren, Laufzeitumgebungen, Docker und KI-Assistenten. Git Accounts trennt Identitäten nach Ordner; Cloud-Menüs zeigen die Anbieterkontexte. Die Verfügbarkeit hängt von Installation und Einrichtung ab.
+
+Kalender und Erinnerungen helfen im Alltag. Diktieren wandelt Sprache nach Einrichtung in Text um. Moonlight, Sunshine und Tailscale ermöglichen Fernzugriff; installieren und konfigurieren Sie die benötigten Werkzeuge. Plugins erweitern Eitr über dessen Plugin-Ablauf. Übersetzungen unterstützen Englisch, brasilianisches Portugiesisch, Spanisch, Französisch und Deutsch. Das Offline-Handbuch erklärt Tastenkürzel, Einstellungen und Wiederherstellung, ohne Fragen zu versenden. Der Control-Center-Chat sendet Gespräch, begrenzte Maschinenübersicht und Handbuchkontext an den gewählten Assistenten; er führt keine Befehle aus und ändert keine Einstellungen.
+<!-- /eitr-overview -->

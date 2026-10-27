@@ -32,15 +32,32 @@ update workflow. Sudo needs the user's password; ask before destructive actions.
 def primer():
     """Read shortcut descriptions from Learn rather than maintaining another table."""
     try:
-        lines = code('walker/scripts/menus/shortcuts.sh').read_text().splitlines()
+        source = code('walker/scripts/menus/shortcuts.sh').read_text()
+        listing = source.split('options="', 1)[-1].split('"', 1)[0]
+        lines = listing.splitlines()
     except OSError:
         lines = []
     shortcuts = []
     for line in lines:
-        match = re.fullmatch(r'\s*(SUPER \+ (?:Enter|Space|F|F1|,|A))\s{2,}(.+)', line)
+        match = re.fullmatch(r'  (\S.*?)\s{2,}(.+)', line)
         if match:
             shortcuts.append(match.group(1) + ': ' + match.group(2))
     return PRIMER + '\nLearn shortcuts:\n' + '\n'.join(shortcuts)
+
+
+def overview(*, locale=None):
+    """Read the canonical welcome section, falling back if its translation is absent."""
+    root = code(BOOK)
+    locale = locale or select_locale()
+    for path in (root / locale / 'getting-started.md', root / 'getting-started.md'):
+        try:
+            match = re.search(r'<!-- eitr-overview -->\s*(.*?)\s*<!-- /eitr-overview -->',
+                              path.read_text(), re.S)
+        except OSError:
+            continue
+        if match:
+            return match.group(1)
+    return ''
 
 
 def tokens(text):
@@ -62,6 +79,7 @@ def excerpts(turns, *, locale=None, budget=7168):
         except OSError:
             continue
         title = text.splitlines()[0].lstrip('# ')
+        text = re.sub(r'<!-- eitr-overview -->.*?<!-- /eitr-overview -->', '', text, flags=re.S)
         for section in re.split(r'(?m)(?=^## )', text):
             heading = section.splitlines()[0].lstrip('# ') if section.strip() else ''
             score = len(query & tokens(section)) + 3 * len(query & tokens(heading + ' ' + title))
@@ -85,3 +103,11 @@ def startup_instructions():
             'for how this desktop works. Read the relevant chapter before answering Eitr '
             'questions or changing its configuration. Settings and machine-local files live '
             'under ~/.config. Ask before destructive actions. Sudo needs the user’s password.')
+
+
+def chat_excerpts(turns, *, locale=None, budget=7168):
+    """Reserve the existing byte budget for the overview before ranked excerpts."""
+    introduction = overview(locale=locale).encode('utf-8')[:max(0, budget)].decode('utf-8', errors='ignore')
+    remaining = budget - len(introduction.encode('utf-8')) - 2
+    relevant = excerpts(turns, locale=locale, budget=max(0, remaining))
+    return '\n\n'.join(section for section in (introduction, relevant) if section)

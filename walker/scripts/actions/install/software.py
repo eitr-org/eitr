@@ -106,15 +106,17 @@ KNOWN_PACKAGES = {}
 FLATPAK_REFS = None
 
 
-def check_packages(packages):
+def check_packages(packages, *, timeout=None):
     """Ask pacman about many packages in one call; pacman -Q also accepts what a
     package provides (sh is answered by bash), so only "not found" lines count."""
     packages = [package for package in dict.fromkeys(packages) if package not in KNOWN_PACKAGES]
     if not packages:
         return
     result = subprocess.run(["pacman", "-Q", "--", *packages], capture_output=True, text=True,
-                            env={**os.environ, "LC_ALL": "C"})
+                            env={**os.environ, "LC_ALL": "C"}, timeout=timeout)
     missing = set(re.findall(r"^error: package '([^']+)' was not found$", result.stderr, re.M))
+    if result.returncode and not missing:
+        raise subprocess.CalledProcessError(result.returncode, result.args)
     for package in packages:
         KNOWN_PACKAGES[package] = package not in missing
 

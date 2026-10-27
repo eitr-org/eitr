@@ -23,3 +23,15 @@ Ouvrez **Apprendre > Manuel EITR** ou appuyez sur **SUPER + F1**. Le même racco
 Le manuel n’exécute aucune commande. Les blocs de code sont des exemples à examiner et copier volontairement. Les liens externes ne s’ouvrent qu’au clic.
 
 Continuez avec [Raccourcis](handbook:shortcuts), [Barre du bureau](handbook:desktop-bar) ou [Menu système](handbook:system).
+
+<!-- eitr-overview -->
+## Ce que propose Eitr
+
+Eitr associe Arch Linux et Hyprland aux menus recherchables de Walker et à une barre Quickshell. Choisissez Full, Centered ou Tabs ; les panneaux regroupent connectivité, audio, écrans, matériel, notifications, météo et espaces de travail. Les thèmes harmonisent le bureau et vous pouvez créer vos propres thèmes.
+
+System Update met à jour les paquets officiels, AUR et Flatpak, avec des instantanés sur les installations compatibles. Le boot guard peut restaurer une mise à jour défaillante avant la connexion. La réinitialisation exige une installation compatible, son état initial, des avertissements et une confirmation saisie. L’installateur accepte une réserve de paquets hors ligne ; installation et récupération dépendent des dispositions de disque documentées.
+
+Steam est installé avec GameMode, MangoHud et gamescope ; Install > Gaming en propose davantage. Les commandes HDR apparaissent pour les écrans compatibles ; un client installé ou un écran HDR ne garantit pas tous les jeux. Development propose éditeurs, environnements, Docker et assistants IA. Git Accounts sépare les identités par dossier ; les menus cloud affichent les contextes du fournisseur. La disponibilité dépend de l’installation et de la configuration.
+
+Calendriers et rappels organisent la journée. La dictée transforme la parole en texte après configuration. Moonlight, Sunshine et Tailscale permettent l’accès distant ; installez et configurez les outils nécessaires. Les plugins étendent Eitr via son mécanisme de plugins. Les traductions couvrent anglais, portugais brésilien, espagnol, français et allemand. Le manuel hors ligne explique raccourcis, réglages et récupération sans envoyer vos questions. Le chat du Control Center transmet la conversation, un résumé limité de la machine et du manuel à l’assistant choisi ; il ne lance aucune commande ni ne modifie les réglages.
+<!-- /eitr-overview -->

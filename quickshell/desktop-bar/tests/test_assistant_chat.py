@@ -5,11 +5,14 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+import tempfile
 import unittest
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'distro/lib'))
+sys.path.insert(0, str(ROOT / 'walker/tests'))
+from home_isolation import setUpModule, tearDownModule
 spec = importlib.util.spec_from_file_location('assistant_chat', ROOT / 'quickshell/desktop-bar/scripts/assistant-chat.py')
 chat = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(chat)
@@ -30,11 +33,77 @@ class AssistantChatTests(unittest.TestCase):
             self.assertIn('Norse-themed Arch Linux', continued['Eitr primer'])
 
     def test_summary_has_only_public_facts(self):
-        with patch.dict(os.environ, EITR_CODE_ROOT=str(ROOT)):
+        with patch.dict(os.environ, EITR_CODE_ROOT=str(ROOT)), \
+                patch.object(chat, 'installed_highlights', return_value=['Steam']), \
+                patch.object(chat, 'connected_hdr', return_value=True):
             summary = chat.system_summary()
-        self.assertEqual(set(summary), {'eitr', 'channel', 'kernel', 'cpu', 'gpu', 'ram_gib', 'theme'})
+        self.assertEqual(set(summary), {'eitr', 'channel', 'kernel', 'cpu', 'gpu', 'ram_gib', 'theme', 'installed_highlights', 'hdr_monitor_connected'})
         for private in ('hostname', 'username', 'email', 'clipboard', 'windows', 'ssid', 'files'):
             self.assertNotIn(private, summary)
+
+    def test_highlights_batch_and_managed_paths_without_executing_tools(self):
+        def query(arguments, **kwargs):
+            self.assertEqual(arguments[:3], ['pacman', '-Q', '--'])
+            self.assertEqual(kwargs['timeout'], 3)
+            self.assertNotIn('unrelated-package', arguments)
+            present = {'steam', 'gamemode', 'opencode', 'eitr-sunshine'}
+            missing = [package for package in arguments[3:] if package not in present]
+            return subprocess.CompletedProcess(arguments, 1, 'steam 1.0\n',
+                ''.join("error: package '" + package + "' was not found\n" for package in missing))
+        with tempfile.TemporaryDirectory() as temporary, \
+                patch.object(Path, 'home', return_value=Path(temporary)), \
+                patch.object(subprocess, 'run', side_effect=query) as run:
+            executable = Path(temporary) / '.local/bin/claude'
+            executable.parent.mkdir(parents=True)
+            executable.touch()
+            result = chat.installed_highlights()
+            self.assertEqual(set(result), {'Steam', 'GameMode', 'OpenCode', 'Sunshine', 'Claude Code'})
+            self.assertEqual(run.call_count, 1)
+        with patch.object(subprocess, 'run', side_effect=FileNotFoundError):
+            self.assertIsNone(chat.installed_highlights())
+
+    def test_highlights_all_packages_and_query_failures(self):
+        with tempfile.TemporaryDirectory() as temporary, \
+                patch.object(Path, 'home', return_value=Path(temporary)), \
+                patch.object(subprocess, 'run', return_value=subprocess.CompletedProcess([], 0, '', '')) as run:
+            result = chat.installed_highlights()
+            self.assertEqual(set(result), {'Steam', 'GameMode', 'MangoHud', 'gamescope',
+                                          'Docker', 'Flatpak', 'OBS', 'LocalSend',
+                                          'Moonlight', 'Sunshine', 'Tailscale', 'OpenCode'})
+            self.assertEqual(run.call_count, 1)
+        for failure in (subprocess.TimeoutExpired('pacman', 3),
+                        subprocess.CompletedProcess(['pacman'], 1, '', 'database unavailable')):
+            with self.subTest(failure=failure):
+                options = {'side_effect': failure} if isinstance(failure, Exception) else {'return_value': failure}
+                with patch.object(subprocess, 'run', **options):
+                    self.assertIsNone(chat.installed_highlights())
+
+    def test_hdr_reuses_display_detection(self):
+        display = chat.load_reference('test_chat_display', 'quickshell/desktop-bar/scripts/display-settings.py')
+        from test_display_settings import DisplaySettingsTests
+        with tempfile.TemporaryDirectory() as temporary:
+            connector = Path(temporary) / 'card0-DP-1'
+            connector.mkdir()
+            (connector / 'edid').write_bytes(DisplaySettingsTests.edid())
+            with patch.object(display, 'DRM_ROOT', Path(temporary)), \
+                    patch.object(chat, 'load_reference', return_value=display):
+                for status, expected in (('disconnected', False), ('connected', True)):
+                    (connector / 'status').write_text(status)
+                    self.assertEqual(chat.connected_hdr(), expected)
+                (connector / 'edid').write_bytes(b'invalid')
+                self.assertFalse(chat.connected_hdr())
+
+    def test_example_prompts_have_overview_shortcuts_and_bounded_context(self):
+        for question in ('what is the shortcut for a terminal', 'what interesting things does Eitr have',
+                         'can I play games already?', 'how does Eitr work?'):
+            with patch.object(chat, 'system_summary', return_value={'installed_highlights': ['Steam']}):
+                rendered = chat.prompt([{'role': 'user', 'text': question}])
+            payload = json.loads(rendered.split('\n', 1)[1])
+            self.assertIn('What Eitr includes', payload['Eitr Handbook excerpts'])
+            self.assertIn('SUPER + Enter:', payload['Eitr primer'])
+            self.assertIn('Answer shortcut questions from Learn shortcuts', rendered)
+            self.assertLessEqual(len(payload['Eitr Handbook excerpts'].encode()), 7168)
+            self.assertLess(len(rendered.encode()), 18000)
 
     def test_readonly_path_and_account_selection(self):
         selected = {'identifier': 'codex'}

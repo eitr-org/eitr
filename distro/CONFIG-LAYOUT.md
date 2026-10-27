@@ -459,7 +459,7 @@ version markers for non-EITR file formats.
 ## Assistant skill default
 
 The package ships `distro/assistant/skills/eitr/SKILL.md` as D runtime data.
-The user-defaults manifest seeds a managed copy to `~/.claude/skills/eitr/` for
-Claude Code and OpenCode. Updates replace unedited copies and preserve user-created
+The user-defaults manifest seeds the same source to `~/.claude/skills/eitr/` for
+Claude Code and `~/.agents/skills/eitr/` for Codex, Gemini CLI and OpenCode. Updates replace unedited copies and preserve user-created
 or edited copies with `.eitr-new` review files. A login migration seeds missing
 copies on existing installations; it never starts an assistant or signs in.

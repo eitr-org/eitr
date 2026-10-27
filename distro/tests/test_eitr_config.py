@@ -311,28 +311,53 @@ class AssistantSkillTests(unittest.TestCase):
     def test_skill_package_seed_and_update_preserve_user_changes(self):
         from layout import Layout
         manifest = json.loads((DISTRO / 'user-defaults.json').read_text())
-        entry = next(entry for entry in manifest['entries']
-                     if entry['source'] == 'distro/assistant/skills/eitr')
-        source = entry['source'] + '/SKILL.md'
+        entries = [entry for entry in manifest['entries']
+                   if entry['source'] == 'distro/assistant/skills/eitr']
+        self.assertEqual({entry['target'] for entry in entries},
+                         {'${HOME}/.claude/skills/eitr', '${HOME}/.agents/skills/eitr'})
+        source = entries[0]['source'] + '/SKILL.md'
         rule = Layout(ROOT).classify(source)
         self.assertEqual((rule['class'], rule['runtime']), ('D', True))
-        self.write(self.repo / source, (ROOT / source).read_text())
+        shipped = (ROOT / source).read_text()
+        self.write(self.repo / source, shipped)
         self.write(self.repo / 'distro/user-defaults.json', json.dumps(
-            {'version': 1, 'layout_version': 2, 'entries': [entry]}))
-        target = self.home / '.claude/skills/eitr/SKILL.md'
+            {'version': 1, 'layout_version': 2, 'entries': entries}))
+        targets = [self.home / directory / 'skills/eitr/SKILL.md'
+                   for directory in ('.claude', '.agents')]
+        # Simulate an existing testing home that ran the earlier migration.
+        self.write(targets[0], 'Existing instructions\n')
         self.assertEqual(self.run_tool('seed')[0], 0)
-        shipped = target.read_text()
+        self.assertEqual(targets[0].read_text(), 'Existing instructions\n')
+        self.assertEqual(targets[1].read_text(), shipped)
+        targets[0].unlink()
+        self.assertEqual(self.run_tool('seed')[0], 0)
         self.write(self.repo / source, shipped + '\nUpdated guidance.\n')
         self.assertEqual(self.run_tool('update')[0], 0)
-        self.assertIn('Updated guidance.', target.read_text())
-        target.write_text('User-created instructions\n')
+        for target in targets:
+            self.assertIn('Updated guidance.', target.read_text())
+            target.write_text('User-created instructions\n')
         self.write(self.repo / source, shipped + '\nNew guidance.\n')
         self.assertEqual(self.run_tool('update')[0], 0)
-        self.assertEqual(target.read_text(), 'User-created instructions\n')
-        self.assertIn('New guidance.', target.with_name('SKILL.md.eitr-new').read_text())
-        target.with_name('SKILL.md.eitr-new').unlink()
+        for target in targets:
+            self.assertEqual(target.read_text(), 'User-created instructions\n')
+            self.assertIn('New guidance.', target.with_name('SKILL.md.eitr-new').read_text())
+            target.with_name('SKILL.md.eitr-new').unlink()
         self.assertEqual(self.run_tool('seed')[0], 0)
-        self.assertEqual(target.read_text(), 'User-created instructions\n')
+        for target in targets:
+            self.assertEqual(target.read_text(), 'User-created instructions\n')
+
+    def test_shared_skill_migration_is_packaged_and_only_seeds(self):
+        from layout import Layout
+        relative = 'distro/migrations/20261026130000-shared-assistant-skill.py'
+        layout = Layout(ROOT)
+        self.assertTrue(layout.classify(relative)['runtime'])
+        with patch.object(layout, 'files', return_value=[relative]):
+            layout.stage(self.share)
+        self.assertEqual((self.share / 'migrations' / Path(relative).name).read_bytes(),
+                         (ROOT / relative).read_bytes())
+        with patch('subprocess.run') as run:
+            exec(compile((ROOT / relative).read_text(), relative, 'exec'), {})
+        run.assert_called_once_with(['eitr-config', 'seed'], check=True)
 
     def test_skill_stages_at_the_installed_manifest_path(self):
         from layout import Layout

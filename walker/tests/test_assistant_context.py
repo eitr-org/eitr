@@ -33,11 +33,42 @@ class ContextTests(unittest.TestCase):
                 self.assertIn('English docker', result)
                 self.assertNotIn('English theme', result)
 
+    def test_overview_translation_and_fallback(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / 'fr').mkdir()
+            (root / 'getting-started.md').write_text(
+                '<!-- eitr-overview -->English overview<!-- /eitr-overview -->')
+            translated = root / 'fr/getting-started.md'
+            translated.write_text('<!-- eitr-overview -->French overview<!-- /eitr-overview -->')
+            with patch.object(context, 'code', return_value=root):
+                self.assertEqual(context.overview(locale='fr'), 'French overview')
+                translated.write_text('# Incomplete translation')
+                self.assertEqual(context.overview(locale='fr'), 'English overview')
+                translated.unlink()
+                self.assertEqual(context.overview(locale='fr'), 'English overview')
+
+    def test_chat_overview_always_present_and_budgeted(self):
+        for locale in ('en', 'pt_BR', 'es', 'fr', 'de'):
+            for question in ('what interesting things does Eitr have', 'can I play games already?',
+                             'how does Eitr work?', 'what is the shortcut for a terminal'):
+                turns = [{'role': 'user', 'text': question}]
+                result = context.chat_excerpts(turns, locale=locale)
+                self.assertTrue(result.startswith(context.overview(locale=locale)))
+                self.assertEqual(result.count('<!-- eitr-overview -->'), 0)
+                self.assertLessEqual(len(result.encode()), 7168)
+                for budget in (0, 1, 80, 2500):
+                    self.assertLessEqual(len(context.chat_excerpts(turns, locale=locale, budget=budget).encode()), budget)
+
     def test_primer_reads_shortcuts(self):
         with patch.object(context, 'code') as source:
             source.return_value.read_text.return_value = '  SUPER + A                 Example assistant'
             self.assertIn('SUPER + A: Example assistant', context.primer())
         self.assertIn('SUPER + F1: Toggle EITR handbook', context.primer())
+        self.assertIn('SUPER + Print: Frozen selection', context.primer())
+        self.assertIn('SUPER + D (hold): Dictate', context.primer())
+        self.assertIn('Media Next: Next media', context.primer())
+        self.assertLess(len(context.primer().encode()), 8000)
 
     def test_primer_menu_and_channel_references_match_sources(self):
         for menu, labels in (

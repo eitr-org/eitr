@@ -58,9 +58,9 @@ Verified from vendor documentation and tagged source without running either CLI:
 
 `distro/assistant/skills/eitr/SKILL.md` ships as package-owned data under
 `/usr/share/eitr/distro/assistant/skills/eitr/`. `eitr-config seed` installs a
-managed copy at `~/.claude/skills/eitr/SKILL.md`. Claude Code and OpenCode discover
-that location ([OpenCode skill docs](https://opencode.ai/docs/skills/)); OpenCode's
-external/Claude skill discovery must remain enabled. `eitr-config update` refreshes
+managed copy at `~/.claude/skills/eitr/SKILL.md` for Claude Code and at
+`~/.agents/skills/eitr/SKILL.md` for Codex, Gemini CLI and OpenCode. Both targets
+use the same packaged source; external skill discovery must remain enabled. `eitr-config update` refreshes
 an unedited copy, preserves user edits or an existing user-created skill, and puts
 changed upstream content in `.eitr-new` for review. The login migration seeds
 missing skills on existing installations without overwriting anything. This does

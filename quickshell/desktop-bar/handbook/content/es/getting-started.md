@@ -23,3 +23,15 @@ Abre **Aprender > Manual de EITR** o pulsa **SUPER + F1**. El mismo atajo, Escap
 El manual no ejecuta comandos. Los bloques de código son ejemplos que puedes revisar y copiar conscientemente. Los enlaces externos solo se abren al hacer clic.
 
 Continúa con [Atajos](handbook:shortcuts), [Barra del escritorio](handbook:desktop-bar) o [Menú del sistema](handbook:system).
+
+<!-- eitr-overview -->
+## Qué incluye Eitr
+
+Eitr combina Arch Linux y Hyprland con los menús buscables de Walker y una barra Quickshell. Elige Full, Centered o Tabs; los paneles reúnen conectividad, audio, pantallas, hardware, notificaciones, tiempo y espacios de trabajo. Los temas coordinan el escritorio y puedes crear tus propios temas.
+
+System Update actualiza paquetes oficiales, AUR y Flatpak, con instantáneas en instalaciones compatibles de la distribución. El boot guard puede recuperar una actualización fallida antes del inicio de sesión. El restablecimiento de fábrica requiere una instalación compatible, su estado inicial, advertencias y confirmación escrita. El instalador admite paquetes sin conexión; instalación y recuperación dependen de las distribuciones de disco documentadas.
+
+Steam viene instalado con GameMode, MangoHud y gamescope; Install > Gaming ofrece más. Los controles HDR aparecen para pantallas compatibles; un cliente instalado o monitor HDR no garantiza que todos los juegos funcionen. Development ofrece editores, entornos, Docker y asistentes de IA. Git Accounts separa identidades por carpeta; los menús de nube muestran los contextos del proveedor. La disponibilidad depende de la instalación y configuración.
+
+Calendarios y recordatorios organizan el día. El dictado convierte voz en texto tras configurarlo. Moonlight, Sunshine y Tailscale permiten acceso remoto; instala y configura lo necesario. Los plugins amplían Eitr mediante su flujo de plugins. Hay traducciones al inglés, portugués brasileño, español, francés y alemán. El manual sin conexión explica atajos, ajustes y recuperación sin enviar preguntas. El chat rápido del Control Center envía la conversación, un resumen limitado del equipo y contexto del manual al asistente seleccionado; no ejecuta comandos ni cambia ajustes.
+<!-- /eitr-overview -->
