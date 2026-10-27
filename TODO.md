@@ -44,6 +44,15 @@ LAN.
     monitor hotplug live.
 - **`eitr about`.** A subcommand that opens the About window (`walker/scripts/actions/about.sh`), next to `eitr version`.
 - **Theme previews.** Previews are Neovim + About screenshots (2026-10-27); `branding/sources/wallpapers/batch-05/export.py` still rewrites realm previews from wallpapers, so drop its preview step before rerunning it.
+- **Realm theme colours.** The owner wants each realm's own colour as its theme's
+  main colour, not the current mapping of the 2026-10-15 palette page (Alfheim got
+  Aurora magenta, Muspelheim Red Aurora rose, and so on; see each theme's
+  `artwork.md`). First agree per realm, showing the colours visually: start from the
+  Yggdrasil map in `website/src/components/WorldTree.astro` (Asgard #ddbd7e, Alfheim
+  #e0a0a4, Vanaheim #a9b47c, Jotunheim #a7b1c2, Midgard #e4d5aa, Svartalfheim
+  #e0784a, Niflheim #c9d3db, Muspelheim #e05a5a, Helheim #9a8f86) and the palette
+  page's neutrals. Then update `colors.toml`, rerun `build-theme-files.py`, the
+  realm palette test and the previews.
 - **Auto-hide bar.** A bar option to hide it and reveal it when the pointer
   touches the screen edge it sits on (any of the four edges), like Windows' taskbar
   auto-hide. Panels opened from the bar keep it shown; persist the choice in
