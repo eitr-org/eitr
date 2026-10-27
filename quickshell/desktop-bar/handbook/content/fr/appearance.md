@@ -8,6 +8,8 @@ Ouvrez **Style > Thème** ou **SUPER + Ctrl + Shift + N**. Choisissez sombre ou 
 
 Norse comprend des dessins de corbeau, Valkyrie, Odin, Fenrir et Jörmungandr sur fond noir. Utilisez les mêmes commandes de sélection ; ces images supplémentaires ne changent pas la palette. Le premier fond, la pierre runique, est animé : des aurores se déplacent lentement derrière l’anneau de runes. Elles s’arrêtent derrière les applications plein écran ; le verrouillage montre l’image fixe.
 
+Les 25 thèmes fournis comprennent dix palettes sombres des royaumes : Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim et Vanaheim. Chaque thème des royaumes comprend deux fonds originaux : une illustration nordique à l’encre et un paysage peint, chacun dans les deux formats. L’illustration à l’encre reste l’aperçu du thème.
+
 ## Vos propres fonds d’écran, thèmes et écrans de verrouillage
 
 Vos images, thèmes et écrans de verrouillage restent sur cet ordinateur, dans `~/.local/share/eitr/` (`wallpapers`, `themes` et `lockscreens`). Eitr ne les envoie ni ne les partage jamais, et les mises à jour ne les modifient jamais. Ils apparaissent à côté de ceux distribués, marqués **Le vôtre**, et eux seuls peuvent être supprimés : sélectionnez-en un, appuyez sur **Suppr**, puis Entrée pour confirmer ou Échap pour le garder.

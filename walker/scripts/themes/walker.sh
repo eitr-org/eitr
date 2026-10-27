@@ -66,7 +66,11 @@ fi
   read -r error_background
   read -r color0
   read -r color8
-} < <(palette get accent foreground background selection_foreground selection_background color1 color0 color8)
+} < <(palette get accent foreground background selection_foreground selection_background alert color0 color8)
+
+surface="$(palette get surface)"
+background="${surface:-$background}"
+error_background="${error_background:-$(palette get color1)}"
 
 if [[ -z "$accent" || -z "$foreground" || -z "$background" ]]; then
   cp "$EITR_CODE_ROOT/walker/themes/current/style.css" "$CURRENT_FILE"

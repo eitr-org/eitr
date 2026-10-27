@@ -81,7 +81,9 @@ class DesktopStyleTests(unittest.TestCase):
         import json
         import os
         import subprocess
-        for colors, expected in (('color1 = "#c34043"\n', "#c34043"), ('color1 = "red"\n', "#e05c68"), ("", "#e05c68")):
+        for colors, expected in (('color1 = "#c34043"\n', "#c34043"),
+                                 ('color1 = "#f0505a"\nalert = "#f08a4b"\n', "#f08a4b"),
+                                 ('color1 = "red"\n', "#e05c68"), ("", "#e05c68")):
             with self.subTest(colors=colors), tempfile.TemporaryDirectory() as home:
                 theme = Path(home) / ".config/theme/current"
                 theme.mkdir(parents=True)
@@ -90,6 +92,18 @@ class DesktopStyleTests(unittest.TestCase):
                                         text=True, check=True, env=dict(os.environ, HOME=home))
                 self.assertEqual(json.loads(result.stdout)["critical"], expected)
         self.assertIn("DesktopStyle.criticalColor = palette.critical", (ROOT / "shell.qml").read_text())
+
+    def test_theme_panel_surface_is_separate_from_terminal_background(self):
+        import json
+        import os
+        import subprocess
+        with tempfile.TemporaryDirectory() as home:
+            theme = Path(home) / ".config/theme/current"
+            theme.mkdir(parents=True)
+            (theme / "colors.toml").write_text('background = "#0c0a14"\nsurface = "#15121f"\n')
+            result = subprocess.run(["python3", str(ROOT / "scripts/workspace-color.py")], capture_output=True,
+                                    text=True, check=True, env=dict(os.environ, HOME=home))
+            self.assertEqual(json.loads(result.stdout)["menuBackground"], "#15121f")
 
     def test_weather_slot_only_grows_for_wide_glyphs(self):
         source = (ROOT / "WeatherMenu.qml").read_text()

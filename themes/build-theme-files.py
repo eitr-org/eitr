@@ -38,10 +38,10 @@ NEOVIM_PALETTE = {
 # btop's theme keys, each with the colors.toml keys tried in order.
 BTOP = [
     ("Window and text", [("main_bg", ["background"]), ("main_fg", ["foreground"]),
-                         ("title", ["bright_foreground", "foreground"]), ("hi_fg", ["accent"]),
+                         ("title", ["bright_foreground", "foreground"]), ("hi_fg", ["accent_text", "accent"]),
                          ("inactive_fg", ["muted"]), ("graph_text", ["light_foreground", "foreground"])]),
     ("Selected process", [("selected_bg", ["selection_background", "selection"]),
-                          ("selected_fg", ["selection_foreground", "foreground"]), ("proc_misc", ["accent"])]),
+                          ("selected_fg", ["selection_foreground", "foreground"]), ("proc_misc", ["accent_text", "accent"])]),
     ("Box outlines and dividers", [("cpu_box", ["muted"]), ("mem_box", ["muted"]), ("net_box", ["muted"]),
                                    ("proc_box", ["muted"]), ("div_line", ["muted"]),
                                    ("meter_bg", ["dark_background", "selection"])]),

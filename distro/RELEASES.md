@@ -58,6 +58,16 @@ ANSI-stripped output tail with obvious secret lines hidden. Esc still closes;
 cloud assistants send the shared output to their provider. Install > Languages
 also offers mise without activating it or replacing existing language managers.
 
+## Realm themes (unreleased)
+
+Ten dark themes join the collection, bringing it to 25: Alfheim, Asgard, Helheim,
+Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim and Vanaheim.
+Each has an original hand-inked Norse wallpaper and a painterly environment
+in 4K and ultrawide formats, with retained native sources and reproducible
+exports. The approved hand-inked 01 artwork remains each theme’s preview. Approved palette roles
+include separate panel surfaces and alerts; dark crimson accents retain readable
+text shades.
+
 ## Your own wallpapers, themes and lockscreens (unreleased)
 
 Style > Wallpaper adds a picture from a file or an https address (50 MB at most,
@@ -231,7 +241,7 @@ carousel now shows resting Hati/Sköll with a glowing full moon/sun on black.
 Translations: cloud account setup subtitles and menu search use the session
 language; Spanish Install and French Development labels are corrected.
 
-The theme collection now contains 15 themes; Moonveil and Obsidian have been
+The theme collection now contains 25 themes; Moonveil and Obsidian have been
 removed at the owner’s request. Its generation prompts remain archived in the artwork batches.
 Batch 04 replaces the approved Stillwater, Catppuccin Latte, Rose Pine and
 Wisteria wallpapers with fresh written-brief illustrations. Wallpapers have 4K

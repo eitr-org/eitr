@@ -167,6 +167,8 @@
     {"pattern": "website/**", "class": "C", "runtime": false},
     {"pattern": "docs/**", "class": "D", "runtime": false},
     {"pattern": "branding/sources/wallpapers/batch-04/export.py", "class": "C", "runtime": false},
+    {"pattern": "branding/sources/wallpapers/batch-05/export.py", "class": "C", "runtime": false},
+    {"pattern": "branding/sources/wallpapers/batch-06/export.py", "class": "C", "runtime": false},
     {"pattern": "branding/**", "class": "D", "runtime": false},
     {"pattern": ".github/**", "class": "C", "runtime": false},
     {"pattern": ".githooks/**", "class": "C", "runtime": false},

@@ -8,6 +8,8 @@ Abre **Estilo > Tema** o **SUPER + Ctrl + Shift + N**. Elige oscuro o claro y de
 
 Norse incluye dibujos de cuervo, valquiria, Odin, Fenrir y Jörmungandr sobre fondo negro. Selecciónalos con los mismos controles; las ilustraciones adicionales no cambian la paleta. El primer fondo, la piedra rúnica, está animado: las auroras se desplazan lentamente tras el anillo de runas. Se pausan detrás de aplicaciones a pantalla completa; el bloqueo muestra la imagen fija.
 
+Los 25 temas incluidos ofrecen diez paletas oscuras de los reinos: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim y Vanaheim. Cada tema de los reinos incluye dos fondos originales: una ilustración nórdica a tinta y un paisaje pictórico, ambos en las dos proporciones. La ilustración a tinta sigue siendo la vista previa del tema.
+
 ## Tus propios fondos, temas y pantallas de bloqueo
 
 Tus imágenes, temas y pantallas de bloqueo se quedan en este equipo, en `~/.local/share/eitr/` (`wallpapers`, `themes` y `lockscreens`). Eitr nunca los sube ni los comparte, y las actualizaciones nunca los cambian. Aparecen junto a los distribuidos, marcados como **Tuyo**, y solo ellos se pueden eliminar: selecciona uno, pulsa **Supr** y después Enter para confirmar o Escape para conservarlo.

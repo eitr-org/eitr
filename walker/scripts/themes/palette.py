@@ -87,7 +87,8 @@ def accent_text(palette):
     """A dark accent is fine as a fill; text and thin lines need a readable shade of it."""
     if not all(key in palette for key in ("foreground", "background", "accent")):
         return palette.get("accent", "")
-    return readable(palette["accent"], palette["background"], palette["foreground"])
+    return readable(palette.get("accent_text", palette["accent"]),
+                    palette.get("surface", palette["background"]), palette["foreground"])
 
 
 def fzf_colors(palette):

@@ -8,6 +8,8 @@
 
 Norse enthält gezeichnete Raben, Walküren, Odin, Fenrir und Jörmungandr auf schwarzem Hintergrund. Wähle sie über dieselben Hintergrundbild-Steuerungen; zusätzliche Bilder ändern die Palette nicht. Das erste Bild, der Runenstein, ist animiert: Polarlichter bewegen sich langsam hinter dem Runenring. Hinter Vollbildanwendungen pausieren sie; der Sperrbildschirm zeigt das Standbild.
 
+Die 25 mitgelieferten Themes enthalten zehn dunkle Paletten der Welten: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim und Vanaheim. Jedes dieser Themes enthält zwei Originalhintergründe: eine nordische Tuscheillustration und eine malerische Landschaft, jeweils in beiden Bildformaten. Die Tuscheillustration bleibt die Theme-Vorschau.
+
 ## Eigene Hintergrundbilder, Designs und Sperrbildschirme
 
 Eigene Bilder, Designs und Sperrbildschirme bleiben auf diesem Computer, in `~/.local/share/eitr/` (`wallpapers`, `themes` und `lockscreens`). Eitr lädt sie nie hoch und teilt sie nie, und Updates verändern sie nicht. Sie erscheinen neben den ausgelieferten, markiert mit **Eigenes**, und nur sie lassen sich löschen: auswählen, **Entf** drücken, dann Enter zum Bestätigen oder Escape zum Behalten.

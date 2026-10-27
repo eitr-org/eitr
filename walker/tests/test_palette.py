@@ -55,6 +55,13 @@ class PaletteTests(unittest.TestCase):
     def test_contrast(self):
         self.assertAlmostEqual(palette.contrast("#000000", "#ffffff"), 21.0)
 
+    def test_explicit_accent_text_is_readable_on_panel_surface(self):
+        colors = {"accent": "#a8323a", "accent_text": "#d4545c",
+                  "background": "#0a0909", "surface": "#131111", "foreground": "#e4dcd2"}
+        self.assertEqual(palette.accent_text(colors), "#d4545c")
+        colors["surface"] = "#555555"
+        self.assertGreaterEqual(palette.contrast(palette.accent_text(colors), colors["surface"]), 4.5)
+
 
 if __name__ == "__main__":
     unittest.main()

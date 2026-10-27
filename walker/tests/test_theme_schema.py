@@ -1,3 +1,4 @@
+import hashlib
 import os
 from pathlib import Path
 import json
@@ -30,6 +31,64 @@ def theme_dirs():
 
 
 class ThemeSchemaTests(unittest.TestCase):
+    def test_realm_palettes_and_wallpaper_contract(self):
+        expected = {
+            "alfheim": ("0c0a14 15121f 241e36 ece6f5 9d93b3 e04fc3 3fe39a ff6b7a", "ff6b7a 3fe39a c2ee5a 8a8cf5 e04fc3 4fd2c0"),
+            "asgard": ("0a0a0b 131315 202024 d8d8d4 8d8d88 ddbd7e 3fe39a c86a5e", "c86a5e 9aa58a b8a06a 8a98a8 a395a8 92a8a4"),
+            "helheim": ("0a0a0b 131315 202024 d8d8d4 8d8d88 cfc6b0 b8a06a c86a5e", "c86a5e 9aa58a b8a06a 8a98a8 a395a8 92a8a4"),
+            "jotunheim": ("0b0d10 12161b 1d252e dfe6ea 8995a0 a7b1c2 8fb8d0 d0736b", "d0736b 8fbf9f c9b27a 8fb8d0 a99cc9 86c3c9"),
+            "midgard": ("0b1015 121a22 1e2a35 d9e2e8 8a9aa6 7ee0b5 4fc3c9 e0716a", "e0716a 7ee0b5 d9a865 6aa7d8 a78bd6 4fc3c9"),
+            "muspelheim": ("0e070c 170c14 2a1424 f1e4ea a68e9b a6124d b7c43c f08a4b", "f0505a 9cc72a ccc564 8a7fd0 e95978 6fc2b0"),
+            "niflheim": ("0b0d10 12161b 1d252e dfe6ea 8995a0 8fb8d0 c9b27a d0736b", "d0736b 8fbf9f c9b27a 8fb8d0 a99cc9 86c3c9"),
+            "ragnarok": ("0a0909 131111 221d1d e4dcd2 9a8f86 a8323a b08d57 d9822b", "c94a4a 8f9a63 b08d57 6d7f99 9a5a7a 6f9590"),
+            "svartalfheim": ("0d0e10 15171a 22252a e6dfd0 9a9488 c8894a 6f8597 c4554a", "c4554a 8fa36b d9a865 6f8fb0 9c7aa8 6fa3a3"),
+            "vanaheim": ("0d100b 171b13 252d20 dce2d5 929e87 a9b47c d9a865 e0716a", "e0716a 7ee0b5 d9a865 6aa7d8 a78bd6 4fc3c9"),
+        }
+        batch = json.loads((THEMES / "artwork-batch-05.json").read_text())
+        self.assertEqual(sorted(record["theme"] for record in batch["images"]), sorted(expected))
+        for name, (roles, ansi) in expected.items():
+            with self.subTest(theme=name):
+                theme = THEMES / name
+                colors = palette.load(theme)
+                for key, value in zip(("background", "surface", "raised", "foreground", "muted",
+                                       "accent", "second", "alert"), roles.split()):
+                    self.assertEqual(colors[key], "#" + value)
+                for index, value in enumerate(ansi.split(), 1):
+                    self.assertEqual(colors[f"color{index}"], "#" + value)
+                for surface in ("background", "surface", "raised"):
+                    self.assertGreaterEqual(palette.contrast(colors["foreground"], colors[surface]), 4.5)
+                self.assertGreaterEqual(palette.contrast(palette.accent_text(colors), colors["surface"]), 4.5)
+                self.assertFalse((theme / "light.mode").exists())
+                self.assertEqual(len(list((theme / "backgrounds").glob("*.jpg"))), 2)
+                self.assertEqual(len(list((theme / "backgrounds-ultrawide").glob("*.jpg"))), 2)
+                self.assertEqual((theme / "rgb.color").read_text().strip().lower(), colors["accent"][1:])
+                record = next(record for record in batch["images"] if record["theme"] == name)
+                source = ROOT / record["native_source"]
+                self.assertEqual(hashlib.sha256(source.read_bytes()).hexdigest(), record["native_sha256"])
+                with Image.open(source) as image:
+                    self.assertEqual(list(image.size), record["native_size"])
+
+    def test_realm_environment_sources_and_exports(self):
+        batch = json.loads((THEMES / "artwork-batch-06.json").read_text())
+        approved = json.loads((THEMES / "artwork-batch-05.json").read_text())
+        self.assertEqual(sorted(record["theme"] for record in batch["images"]),
+                         sorted(approved["previews"]))
+        for record in batch["images"]:
+            with self.subTest(theme=record["theme"]):
+                self.assertTrue(Path(record["file"]).name.startswith("02-"))
+                for prefix in ("native", "ultrawide_native"):
+                    if prefix + "_source" not in record:
+                        continue
+                    source = ROOT / record[prefix + "_source"]
+                    self.assertEqual(hashlib.sha256(source.read_bytes()).hexdigest(),
+                                     record[prefix + "_sha256"])
+                    with Image.open(source) as image:
+                        self.assertEqual(list(image.size), record[prefix + "_size"])
+                for key, size in (("file", (3840, 2160)), ("ultrawide_file", (3440, 1440))):
+                    with Image.open(ROOT / record[key]) as image:
+                        self.assertEqual(image.size, size)
+                self.assertIn("/01-", approved["previews"][record["theme"]])
+
     def test_generated_integration_files_are_up_to_date(self):
         # icons.theme, vscode.json, neovim.lua and btop.theme come from integrations.json and colors.toml.
         result = subprocess.run([sys.executable, str(THEMES / "build-theme-files.py"), "--check"],

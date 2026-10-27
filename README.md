@@ -30,8 +30,9 @@ GPUs, may still need fixes; please [report problems](https://github.com/eitr-org
   Bluetooth, display (brightness, nightlight, resolution, refresh rate and scale),
   calendar, weather, hardware, AI usage limits and a control center.
 - Native notifications with grouped stacks, history and Do Not Disturb.
-- Workspace Overview with live previews; dark and light themes with matching
-  wallpapers, lockscreens and application colors.
+- Workspace Overview with live previews; 25 dark and light themes with matching
+  wallpapers, lockscreens and application colors. Each of the ten realm themes
+  includes an ink illustration and a painted environment in both aspect ratios.
 - Walker menus for apps, tools, settings and installs; typing searches every menu.
 - Tools: screenshots, screen recording, OCR, QR codes, color picker, LocalSend
   sharing, reminders, a calculator and offline dictation (hold `Super + D`).

@@ -18,6 +18,38 @@
       ]
     }
   },
+  "alfheim": {
+    "icons": "Yaru-blue",
+    "vscode": {
+      "name": "Catppuccin Mocha",
+      "extension": "catppuccin.catppuccin-vsc"
+    },
+    "neovim": {
+      "colorscheme": "catppuccin",
+      "plugins": [
+        {
+          "name": "catppuccin",
+          "priority": 1000,
+          "repo": "catppuccin/nvim"
+        }
+      ]
+    }
+  },
+  "asgard": {
+    "icons": "Yaru-olive",
+    "vscode": {
+      "name": "Gruvbox Dark Medium",
+      "extension": "jdinhlife.gruvbox"
+    },
+    "neovim": {
+      "colorscheme": "gruvbox",
+      "plugins": [
+        {
+          "repo": "ellisonleao/gruvbox.nvim"
+        }
+      ]
+    }
+  },
   "catppuccin": {
     "icons": "Yaru-blue",
     "vscode": {
@@ -103,6 +135,23 @@
       ]
     }
   },
+  "helheim": {
+    "icons": "Yaru",
+    "vscode": {
+      "name": "Matte Black",
+      "extension": "TahaYVR.matteblack"
+    },
+    "neovim": {
+      "colorscheme": "matteblack",
+      "plugins": [
+        {
+          "lazy": false,
+          "priority": 1000,
+          "repo": "tahayvr/matteblack.nvim"
+        }
+      ]
+    }
+  },
   "jade": {
     "icons": "Yaru-prussiangreen",
     "vscode": {
@@ -115,6 +164,21 @@
         {
           "priority": 1000,
           "repo": "ribru17/bamboo.nvim"
+        }
+      ]
+    }
+  },
+  "jotunheim": {
+    "icons": "Yaru-gray",
+    "vscode": {
+      "name": "Nord",
+      "extension": "arcticicestudio.nord-visual-studio-code"
+    },
+    "neovim": {
+      "colorscheme": "nordfox",
+      "plugins": [
+        {
+          "repo": "EdenEast/nightfox.nvim"
         }
       ]
     }
@@ -134,6 +198,22 @@
       ]
     }
   },
+  "midgard": {
+    "icons": "Yaru-prussiangreen",
+    "vscode": {
+      "name": "Ocean Green: Dark",
+      "extension": "jovejonovski.ocean-green"
+    },
+    "neovim": {
+      "colorscheme": "bamboo",
+      "plugins": [
+        {
+          "priority": 1000,
+          "repo": "ribru17/bamboo.nvim"
+        }
+      ]
+    }
+  },
   "moss": {
     "icons": "Yaru-wartybrown",
     "vscode": {
@@ -146,6 +226,38 @@
         {
           "priority": 1000,
           "repo": "OldJobobo/miasma.nvim"
+        }
+      ]
+    }
+  },
+  "muspelheim": {
+    "icons": "Yaru-blue",
+    "vscode": {
+      "name": "Catppuccin Mocha",
+      "extension": "catppuccin.catppuccin-vsc"
+    },
+    "neovim": {
+      "colorscheme": "catppuccin",
+      "plugins": [
+        {
+          "name": "catppuccin",
+          "priority": 1000,
+          "repo": "catppuccin/nvim"
+        }
+      ]
+    }
+  },
+  "niflheim": {
+    "icons": "Yaru-gray",
+    "vscode": {
+      "name": "Nord",
+      "extension": "arcticicestudio.nord-visual-studio-code"
+    },
+    "neovim": {
+      "colorscheme": "nordfox",
+      "plugins": [
+        {
+          "repo": "EdenEast/nightfox.nvim"
         }
       ]
     }
@@ -229,6 +341,21 @@
       ]
     }
   },
+  "ragnarok": {
+    "icons": "Yaru-olive",
+    "vscode": {
+      "name": "Gruvbox Dark Medium",
+      "extension": "jdinhlife.gruvbox"
+    },
+    "neovim": {
+      "colorscheme": "gruvbox",
+      "plugins": [
+        {
+          "repo": "ellisonleao/gruvbox.nvim"
+        }
+      ]
+    }
+  },
   "rose-pine": {
     "icons": "Yaru-magenta",
     "vscode": {
@@ -256,6 +383,37 @@
       "plugins": [
         {
           "repo": "ficcdaf/ashen.nvim"
+        }
+      ]
+    }
+  },
+  "svartalfheim": {
+    "icons": "Yaru-olive",
+    "vscode": {
+      "name": "Gruvbox Dark Medium",
+      "extension": "jdinhlife.gruvbox"
+    },
+    "neovim": {
+      "colorscheme": "gruvbox",
+      "plugins": [
+        {
+          "repo": "ellisonleao/gruvbox.nvim"
+        }
+      ]
+    }
+  },
+  "vanaheim": {
+    "icons": "Yaru-wartybrown",
+    "vscode": {
+      "name": "Miasma",
+      "extension": "oldjobobo.miasma-theme"
+    },
+    "neovim": {
+      "colorscheme": "miasma",
+      "plugins": [
+        {
+          "priority": 1000,
+          "repo": "OldJobobo/miasma.nvim"
         }
       ]
     }

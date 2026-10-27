@@ -20,6 +20,12 @@ wallpaper, the runestone, is live: the northern lights drift slowly behind the
 rune ring. They pause behind fullscreen apps, and the lockscreen shows the still
 image.
 
+The 25 shipped themes include ten dark realm palettes: Alfheim, Asgard, Helheim,
+Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim and Vanaheim.
+Each realm theme includes two original wallpapers: a Norse ink illustration
+and a painterly environment, each in both aspect ratios. The ink illustration
+remains the theme preview.
+
 ## Your own wallpapers, themes and lockscreens
 
 Your own pictures, themes and lockscreens stay on this computer, in

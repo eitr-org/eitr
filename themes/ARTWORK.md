@@ -1,6 +1,6 @@
 # Wallpaper Collection
 
-The collection spans 15 themes. The Norse theme combines procedural and generated illustration (see themes/norse/artwork.md). Batches 01-03 originally generated 95 images and the Witcher batch four more, 99 in all. The owner's curation removes and reorders wallpapers; wallpaper names remain stable during review, and manifest entries for removed wallpapers are marked removed with their prompts kept as history.
+The collection spans 25 themes. The Norse theme combines procedural and generated illustration (see themes/norse/artwork.md). Batches 01-03 originally generated 95 images and the Witcher batch four more, 99 in all. The owner's curation removes and reorders wallpapers; wallpaper names remain stable during review, and manifest entries for removed wallpapers are marked removed with their prompts kept as history.
 
 At the end of Batch 03, Batch 02's former 03 images were promoted to 01, Batch 01's original pair became 02 and 03, and Batch 03 occupied 04 and 05. Later curation changed that order. One Dark Pro (named Witcher for a time) keeps its two owner-supplied wallpapers; its Witcher fan art was removed before public distribution. Historical manifest entries for archived images include an explicit file path.
 
@@ -11,6 +11,8 @@ At the end of Batch 03, Batch 02's former 03 images were promoted to 01, Batch 0
 - `artwork-batch.json`: collection manifest and generation/edit prompts.
 - `artwork-batch-02.json`: completed reference-led batch and its generation prompts.
 - `artwork-batch-04.json`: owner-approved fresh written-brief replacements, native sources and exact prompts; no image references.
+- `artwork-batch-05.json`: the ten approved realm illustrations and their native sources, exact prompts and preview selections.
+- `artwork-batch-06.json`: the ten second realm wallpapers, using owner-requested scenic painterly environments, with native sources, exact prompts and framing.
 - `artwork-batch-03.json`: second reference-led round, two artworks per theme, generated with the built-in image tool.
 - `artwork-witcher.json`: the four Witcher fan-art wallpapers once made for One Dark Pro, all removed, with their prompts kept as history.
 - `one-dark-pro/references/previous-generated/`: four preserved images generated for One Dark Pro before the Witcher batch.
@@ -36,3 +38,26 @@ Batch 04’s theme previews are resized copies of its approved artwork. Other th
 The Catppuccin additions use owner-requested animated-film atmosphere rather
 than the collection’s default Norse screenprint direction. Their exact prompts
 and native sources live in each theme’s `references/` directory.
+
+## Realm themes — Batch 05
+
+Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim and Vanaheim are dark themes whose approved 01 wallpapers remain unchanged. Palette sources, the three derived palettes and integration bases are documented in each theme’s `artwork.md`. `artwork-batch-05.json` retains the exact written prompts, native source hashes and crop framing. Native sources and `export.py` live in `branding/sources/wallpapers/batch-05/`; the script rebuilds both exports, their manifest entries and previews. No reference images were used.
+
+Theme menus discover folders and sort their names automatically. The artwork package globs and desktop-package removal rules already cover both wallpaper folders and previews for every theme. The website generates `src/data/themes.json` and its counts from these same folders at build time.
+
+## Realm environments — Batch 06
+
+At the owner's request, these ten second realm wallpapers use scenic landscapes
+and rich painterly concept-art lighting instead of the default ink screenprint
+style and no-scenery rule. This exception applies only to the ten Batch 06
+images. Each realm now has two original wallpapers in both aspect ratios; the
+approved 01 artwork remains its preview. The environments follow each theme's
+`colors.toml`, with calm space at the top for the desktop bar.
+
+`artwork-batch-06.json` records exact written briefs, source dimensions, hashes
+and framing. No reference images were supplied. All architecture and compositions
+are original, without characters, readable lettering or third-party designs.
+Native masters and `export.py` live in
+`branding/sources/wallpapers/batch-06/`. The exporter updates the 4K and ultrawide
+manifests without rebuilding previews. Separate panoramic compositions preserve
+landmarks where a crop would lose them; exports never stretch or pad images.

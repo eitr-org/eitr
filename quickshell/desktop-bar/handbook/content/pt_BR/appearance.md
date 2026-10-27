@@ -8,6 +8,8 @@ Abra **Estilo > Tema** ou **SUPER + Ctrl + Shift + N**. Escolha escuro ou claro 
 
 O tema Norse inclui desenhos de corvo, Valquíria, Odin, Fenrir e Jörmungandr sobre fundo preto. Escolha-os pelos mesmos controles; a arte adicional não altera a paleta. O primeiro papel de parede, a pedra rúnica, é animado: auroras se movem lentamente atrás do anel de runas. Elas pausam atrás de aplicativos em tela cheia; a tela de bloqueio usa a imagem estática.
 
+Os 25 temas incluídos oferecem dez paletas escuras dos reinos: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim e Vanaheim. Cada tema dos reinos inclui dois papéis de parede originais: uma ilustração nórdica a tinta e uma paisagem pintada, ambos nas duas proporções. A ilustração a tinta continua como prévia do tema.
+
 ## Seus próprios papéis de parede, temas e telas de bloqueio
 
 Suas imagens, temas e telas de bloqueio ficam neste computador, em `~/.local/share/eitr/` (`wallpapers`, `themes` e `lockscreens`). O Eitr nunca os envia nem compartilha, e as atualizações nunca os alteram. Eles aparecem ao lado dos distribuídos, marcados como **Seu**, e só eles podem ser excluídos: selecione um, pressione **Delete** e depois Enter para confirmar ou Esc para mantê-lo.

@@ -57,6 +57,74 @@
       "source": "branding/sources/wallpapers/batch-04/afterglow-03-bronze-and-embers.png"
     },
     {
+      "file": "themes/alfheim/backgrounds/01-light-elf.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "571dc8ece05623a1ab75559fcdcb362f0e99d1123618c458b5b61aacc2963554",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-05/alfheim-01-light-elf.png"
+    },
+    {
+      "file": "themes/alfheim/backgrounds/02-crystal-lake.jpg",
+      "source": "branding/sources/wallpapers/batch-06/alfheim-02-crystal-lake.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "036951fbb0c19f2c0fa188fc158c849c0ecb672941a63101c5d7db3b3ca2168c",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/asgard/backgrounds/01-bifrost-hall.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "890bfd03610b009838b1e3d7e0da92d675e98082875224b24008427b5b9b106a",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-05/asgard-01-bifrost-hall.png"
+    },
+    {
+      "file": "themes/asgard/backgrounds/02-cloud-fortress.jpg",
+      "source": "branding/sources/wallpapers/batch-06/asgard-02-cloud-fortress.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "32fe3dfd81591d64c275a74bddbdf8210453873c9b828783fd18c8281cb59f15",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
       "file": "themes/catppuccin-latte/backgrounds/01-ribbon-hare.jpg",
       "source_size": [
         1672,
@@ -331,6 +399,40 @@
       ]
     },
     {
+      "file": "themes/helheim/backgrounds/01-hel.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "dd7520dde9321870e9cd6ec26d1cc6112e16da554f23b90e0b4c07f631a147b3",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-05/helheim-01-hel.png"
+    },
+    {
+      "file": "themes/helheim/backgrounds/02-icebound-longship.jpg",
+      "source": "branding/sources/wallpapers/batch-06/helheim-02-icebound-longship.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "bfca240ad59de73a68b749e2be26e087ae9466d899f83fa371fbff51c186e033",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
       "file": "themes/jade/backgrounds/01-midnight-study.jpg",
       "source_size": [
         3440,
@@ -385,6 +487,40 @@
         1440
       ],
       "source_sha256": "8d0b09b11837c09973fcfba757bd37b02da0d92cc56c6ab49770c4d12506b9a7",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/jotunheim/backgrounds/01-stone-giant.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "f7e86ba4036bf90943c502725e6ed55fa2e642a49159a888f3dd3b5c1af360d4",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-05/jotunheim-01-stone-giant.png"
+    },
+    {
+      "file": "themes/jotunheim/backgrounds/02-carved-mountains.jpg",
+      "source": "branding/sources/wallpapers/batch-06/jotunheim-02-carved-mountains.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "e732f093a1987356ce33f0ab653e8fed7cf8a8db49bf9ab6eb6c437d087bbc7f",
       "centering": [
         0.5,
         0.5
@@ -459,6 +595,40 @@
       ]
     },
     {
+      "file": "themes/midgard/backgrounds/01-longship-serpent.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "200181be097347e36003bfa2481e759601b08326253136ba056db4d76d227c1b",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-05/midgard-01-longship-serpent.png"
+    },
+    {
+      "file": "themes/midgard/backgrounds/02-frozen-fjord.jpg",
+      "source": "branding/sources/wallpapers/batch-06/midgard-02-frozen-fjord.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "f0e64f413fbe30b42d020186df523e9b515ec9d0b69bd41720d76f8e541e7734",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
       "file": "themes/moss/backgrounds/01-smokehole-seeress.jpg",
       "source_size": [
         1672,
@@ -508,6 +678,74 @@
         2160
       ],
       "source": "branding/sources/wallpapers/batch-04/moss-03-candlelit-relics.png"
+    },
+    {
+      "file": "themes/muspelheim/backgrounds/01-surtr.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "b2378e104a4534173f03fbddd48636644614f4bc19a462efa6b5487508761ed4",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-05/muspelheim-01-surtr.png"
+    },
+    {
+      "file": "themes/muspelheim/backgrounds/02-lava-plains.jpg",
+      "source": "branding/sources/wallpapers/batch-06/muspelheim-02-lava-plains.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "b84494cfbc3637bf970fde1e9d75de46c8f1ba3017fadb8230a718d1a261d670",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/niflheim/backgrounds/01-nidhoggr.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "3761cab90d5ef9cf4e115487805a530c6f3528438fa012c2a7a537ac9f8c4a78",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-05/niflheim-01-nidhoggr.png"
+    },
+    {
+      "file": "themes/niflheim/backgrounds/02-mist-labyrinth.jpg",
+      "source": "branding/sources/wallpapers/batch-06/niflheim-02-mist-labyrinth.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "10932c8bc463d745ed826ab6cdc875e8ae0959c4375e9ca63983d043a59eadf2",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
     },
     {
       "file": "themes/nord/backgrounds/01-blue-hour-reader.jpg",
@@ -702,6 +940,40 @@
       ]
     },
     {
+      "file": "themes/ragnarok/backgrounds/01-skoll-sun.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "560417028bf80e8ebb9bc497048df94ac6e40e5047aee77345fdd9bd92041dce",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-05/ragnarok-01-skoll-sun.png"
+    },
+    {
+      "file": "themes/ragnarok/backgrounds/02-world-tree-pyre.jpg",
+      "source": "branding/sources/wallpapers/batch-06/ragnarok-02-world-tree-pyre.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "77bda38efb69e25959d53bc93c70e1ffd48af7ed889b9d272f9d5763e23b393c",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
       "file": "themes/rose-pine/backgrounds/01-heron-and-thread.jpg",
       "source_size": [
         1672,
@@ -816,6 +1088,74 @@
         2160
       ],
       "source": "branding/sources/wallpapers/batch-04/stillwater-04-silent-wings.png"
+    },
+    {
+      "file": "themes/svartalfheim/backgrounds/01-dwarf-smith.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "a633fcc6708d5c60211c58eae7e25470b42b90814dcb6df01eab4a202a73cf0b",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-05/svartalfheim-01-dwarf-smith.png"
+    },
+    {
+      "file": "themes/svartalfheim/backgrounds/02-forge-canyon.jpg",
+      "source": "branding/sources/wallpapers/batch-06/svartalfheim-02-forge-canyon.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "d9b2675764079083aa303b82645e40a0f623dc4d9424e97b52640602c70a4f8b",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/vanaheim/backgrounds/01-gullinbursti.jpg",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "8496185e940bf121a319af80a27bd85e384805408ab065b183688d1423f78931",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ],
+      "source": "branding/sources/wallpapers/batch-05/vanaheim-01-gullinbursti.png"
+    },
+    {
+      "file": "themes/vanaheim/backgrounds/02-overgrown-valley.jpg",
+      "source": "branding/sources/wallpapers/batch-06/vanaheim-02-overgrown-valley.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "bdb3db450e9bf9be19e81c58d9d74821a42470b386b8337c0fcd8b3339d85ec4",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
     },
     {
       "file": "themes/wisteria/backgrounds/01-indigo-bellflowers.jpg",

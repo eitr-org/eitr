@@ -34,6 +34,12 @@ does not clear content: an image that depicts a recognizable character, logo or
 franchise setting carries that owner's rights however it was made. Prompts asked
 for original imagery, with references guiding only mood and palette.
 
+Batch 06 adds ten original realm environments under the same EITR artwork
+license. The owner requested scenic landscapes and painterly rendering for this
+set only. They were generated from written briefs without image references;
+exact prompts and native-source provenance are in `themes/artwork-batch-06.json`.
+The approved Batch 05 illustrations remain the realm previews.
+
 ## Before a public release
 
 `python3 distro/artwork-check.py --public` lists any shipped image that is not
