@@ -1371,5 +1371,14 @@
   "Use lowercase letters, digits, underscores or hyphens; start with a letter or underscore. Maximum 32 characters.": "Use lowercase letters, digits, underscores or hyphens; start with a letter or underscore. Maximum 32 characters.",
   "Invalid plugin schemaVersion; expected 1 or 2": "Invalid plugin schemaVersion; expected 1 or 2",
   "QML added, changed or removed: {path}": "QML added, changed or removed: {path}",
-  "QML runs inside the bar: {path}": "QML runs inside the bar: {path}"
+  "QML runs inside the bar: {path}": "QML runs inside the bar: {path}",
+  "Add bar item": "Add bar item",
+  "Add widget · {monitor}": "Add widget · {monitor}",
+  "Change this visual placement": "Change this visual placement",
+  "Edit widgets": "Edit widgets",
+  "Move and resize desktop widgets": "Move and resize desktop widgets",
+  "Re-enable visuals": "Re-enable visuals",
+  "Remove bar item": "Remove bar item",
+  "Remove widget · {monitor}": "Remove widget · {monitor}",
+  "Reset the shared visual failure counter": "Reset the shared visual failure counter"
 }

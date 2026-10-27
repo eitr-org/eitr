@@ -7,7 +7,7 @@ local paths = dofile((os.getenv("EITR_LIBRARY_ROOT") or "/usr/share/eitr/lib") .
 local search = dofile(paths.code("elephant/search-index-entries.lua"))
 local i18n = dofile(paths.code("elephant/i18n.lua"))
 
-return function(name)
+return function(name, configure)
     local source = paths.code("elephant/menu-rows/" .. name .. ".json")
 
     local function own_entries()
@@ -25,6 +25,7 @@ return function(name)
                 State = submenu and {"submenu"} or nil, Keywords = row.keywords,
                 Icon = row.icon, SubMenu = row.submenu, Actions = row.actions})
         end
+        if configure then entries = configure(entries) end
         return i18n.entries(entries, name == "main")
     end
 

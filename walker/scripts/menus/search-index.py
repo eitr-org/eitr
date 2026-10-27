@@ -29,7 +29,7 @@ CONFIG = user_config("elephant/menus")
 RUNTIME = Path(os.environ.get('XDG_RUNTIME_DIR', f'/run/user/{os.getuid()}')) / 'eitr-search'
 INDEX = RUNTIME / 'index.json'
 MAX_AGE = 60
-EXCLUDED = {'clipboard', 'search-index', 'plugin-actions'}
+EXCLUDED = {'clipboard', 'search-index', 'plugin-actions', 'plugin-visuals'}
 CLOUD_MENUS = code('walker/scripts/menus/cloud/navigation-menus.json')
 
 

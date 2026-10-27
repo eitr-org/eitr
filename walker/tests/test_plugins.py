@@ -311,7 +311,14 @@ class PluginTests(unittest.TestCase):
                 local action = command:match(" ([a-z]+)$")
                 return {read = function() return action end, close = function() end}
             end
-            jsonDecode = function(action) return fixtures[action] end
+            jsonDecode = function(action)
+                if action:sub(1, 1) == "[" then return {
+                    {text="Visuals", subtext=">", submenu="plugin-visuals"},
+                    {text="Remove", subtext="Remove this plugin and its service"},
+                    {text="Update", subtext="Review a new plugin commit"}}
+                end
+                return fixtures[action]
+            end
             lastMenuValue = function(name) assert(name == "plugins-install"); return "example" end
             for _, name in ipairs({"plugins", "plugins-install", "plugin-actions"}) do
                 dofile("elephant/menus/" .. name .. ".lua")
@@ -803,6 +810,9 @@ class VisualPluginTests(unittest.TestCase):
         value['ui'] = {'tiles': [{'id': 'hello', 'title': 'Hello', 'qml': 'HelloTile.qml',
                                   'dataCommand': {'run': 'notify.sh'}, 'refreshInterval': 1000}],
                        'panels': [{'id': 'hello-panel', 'title': 'Hello status', 'qml': 'HelloPanel.qml'}]}
+        value['ui']['widgets'] = [{'id': 'clock', 'title': 'Clock', 'qml': 'HelloPanel.qml',
+                                   'minWidth': 96, 'minHeight': 96, 'defaultWidth': 240, 'defaultHeight': 144}]
+        value['ui']['barItems'] = [{'id': 'dot', 'title': 'Status', 'qml': 'HelloTile.qml', 'panel': 'hello-panel'}]
         return value
 
     def test_v2_valid_and_v1_unchanged(self):
@@ -894,6 +904,8 @@ class VisualPluginTests(unittest.TestCase):
         self.publish(self.visual())
         self.install()
         entries = self.manager.ui()
+        self.assertTrue(entries)
+        self.assertTrue(all(entry['pluginName'] == self.visual()['name'] for entry in entries))
         with patch.object(self.manager, 'ui', return_value=entries), patch('eitr_plugins.subprocess.Popen') as process:
             process.return_value.wait.return_value = 0
             self.assertEqual(self.manager.ui_data('example', 'hello'), '')
@@ -901,3 +913,65 @@ class VisualPluginTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 self.manager.ui_data('example', 'undeclared')
             self.assertEqual(process.call_count, 1)
+
+    def test_widget_dimensions_and_bar_panel_validation(self):
+        for field, invalid in [('minWidth', True), ('defaultWidth', 95), ('minHeight', 0),
+                               ('defaultHeight', 4097), ('defaultHeight', '200')]:
+            value = self.visual()
+            value['ui']['widgets'][0][field] = invalid
+            with self.subTest(field=field, invalid=invalid), self.assertRaises(ValueError):
+                plugins.validate_ui(self.source, value['ui'])
+        value = self.visual()
+        value['ui']['barItems'][0]['panel'] = 'missing'
+        with self.assertRaises(ValueError):
+            plugins.validate_ui(self.source, value['ui'])
+        value = self.visual()
+        value['ui']['barItems'][0]['id'] = 'clock'
+        with self.assertRaises(ValueError):
+            plugins.validate_ui(self.source, value['ui'])
+
+    def test_explicit_placements_persist_when_monitor_disappears(self):
+        self.publish(self.visual())
+        self.install()
+        self.assertEqual(self.manager.placements(), dict(version=1, widgets=[], barItems=[]))
+        self.manager.place('example', 'clock', 'DP-test')
+        self.manager.place('example', 'dot')
+        geometry = dict(x=60, y=90, width=300, height=180)
+        self.manager.place('example', 'clock', 'DP-test', geometry=geometry)
+        saved = self.manager.placements()
+        self.assertEqual(saved['widgets'][0], dict(plugin='example', id='clock', monitor='DP-test', **geometry))
+        self.assertEqual(plugins.Plugins().placements(), saved)
+        # Querying or disabling declarations never rewrites user placements.
+        for _ in range(3):
+            self.manager.ui_failure('example', self.manager.records()['example']['commit'])
+        self.manager.ui()
+        self.assertEqual(self.manager.placements(), saved)
+        self.manager.enable_ui('example')
+        self.assertEqual(self.manager.placements(), saved)
+        self.manager.place('example', 'clock', 'DP-test', remove=True)
+        self.manager.place('example', 'dot', remove=True)
+        self.assertEqual(self.manager.placements(), dict(version=1, widgets=[], barItems=[]))
+
+    def test_placement_validation_and_visual_menu_reenable(self):
+        self.publish(self.visual())
+        approved = self.install()
+        with self.assertRaises(ValueError):
+            self.manager.place('example', 'clock', 'DP-test', geometry=dict(x=0, y=0, width=2, height=2))
+        with self.assertRaises(ValueError):
+            self.manager.place('example', 'unknown')
+        self.manager.place('example', 'clock', 'missing-monitor')
+        for _ in range(3):
+            self.manager.ui_failure('example', approved)
+        rows = self.cli().visual_rows(self.manager, 'example', ['connected-monitor'])
+        labels = [row['text'] for row in rows]
+        self.assertEqual(labels, sorted(labels, key=str.casefold))
+        self.assertIn('Re-enable visuals', labels)
+        self.assertTrue(any('missing-monitor' in label and label.startswith('Remove') for label in labels))
+        self.assertTrue(any('connected-monitor' in label and label.startswith('Add') for label in labels))
+        self.assertTrue(all(row['subtext'] and row['actions']['open'] for row in rows))
+        command = next(row['actions']['open'] for row in rows if row['text'] == 'Re-enable visuals')
+        import shlex
+        with patch.object(self.cli(), 'Plugins', return_value=self.manager):
+            self.assertIn('enable-ui', shlex.split(command))
+        self.manager.enable_ui('example')
+        self.assertNotIn('Re-enable visuals', [row['text'] for row in self.cli().visual_rows(self.manager, 'example', [])])

@@ -67,3 +67,9 @@ EitrLogo EitrLogo.qml
 AssistantChat AssistantChat.qml
 PluginArea PluginArea.qml
 PluginComponent PluginComponent.qml
+singleton PluginRegistry 1.0 PluginRegistry.qml
+PluginWidget PluginWidget.qml
+PluginDesktop PluginDesktop.qml
+PluginBarItems PluginBarItems.qml
+PluginPanel PluginPanel.qml
+PluginManagement PluginManagement.qml

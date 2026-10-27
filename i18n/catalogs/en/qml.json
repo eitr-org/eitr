@@ -402,5 +402,14 @@
   "Re-enable with eitr plugin enable-ui {plugin}": "Re-enable with eitr plugin enable-ui {plugin}",
   "Reopen to retry; disabled after 3 failures": "Reopen to retry; disabled after 3 failures",
   "Hello from an Eitr plugin": "Hello from an Eitr plugin",
-  "Ready": "Ready"
+  "Ready": "Ready",
+  "Done": "Done",
+  "Done editing widgets": "Done editing widgets",
+  "Add": "Add",
+  "Edit position": "Edit position",
+  "Manage": "Manage",
+  "Manage plugin visuals": "Manage plugin visuals",
+  "Plugin": "Plugin",
+  "Re-enable": "Re-enable",
+  "Visuals disabled": "Visuals disabled"
 }

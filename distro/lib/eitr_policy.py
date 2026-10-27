@@ -7,7 +7,7 @@ from eitr_i18n import tr
 
 POLICIES = Path('/etc/eitr/policies.json')
 PROFILE = Path('/etc/eitr/profile.json')
-PLUGIN_MENUS = {'plugins', 'plugins-install', 'plugin-actions'}
+PLUGIN_MENUS = {'plugins', 'plugins-install', 'plugin-actions', 'plugin-visuals'}
 
 
 def load(path=POLICIES):

@@ -1,2 +1,4 @@
 HelloTile HelloTile.qml
 HelloPanel HelloPanel.qml
+ClockWidget ClockWidget.qml
+StatusDot StatusDot.qml

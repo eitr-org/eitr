@@ -27,6 +27,9 @@
     "Above": [
       "quickshell/desktop-bar/DisplaySettingsEditor.qml"
     ],
+    "Add": [
+      "quickshell/desktop-bar/PluginManagement.qml"
+    ],
     "Add a chapter marker": [
       "quickshell/desktop-bar/RecordingMenu.qml"
     ],
@@ -324,6 +327,12 @@
       "quickshell/desktop-bar/NotificationList.qml",
       "quickshell/desktop-bar/shell.qml"
     ],
+    "Done": [
+      "quickshell/desktop-bar/PluginWidget.qml"
+    ],
+    "Done editing widgets": [
+      "quickshell/desktop-bar/PluginManagement.qml"
+    ],
     "Dotfiles": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
@@ -347,6 +356,9 @@
     ],
     "Edit layout by hand…": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
+    ],
+    "Edit position": [
+      "quickshell/desktop-bar/PluginManagement.qml"
     ],
     "Edit schedule": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
@@ -520,6 +532,12 @@
     ],
     "Main display · others go around it": [
       "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+    ],
+    "Manage": [
+      "quickshell/desktop-bar/PluginArea.qml"
+    ],
+    "Manage plugin visuals": [
+      "quickshell/desktop-bar/PluginArea.qml"
     ],
     "Manual": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
@@ -743,6 +761,9 @@
     "Play": [
       "quickshell/desktop-bar/MediaStrip.qml"
     ],
+    "Plugin": [
+      "quickshell/desktop-bar/PluginManagement.qml"
+    ],
     "Plugins": [
       "quickshell/desktop-bar/PluginArea.qml"
     ],
@@ -790,6 +811,9 @@
     "RESTART": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml"
     ],
+    "Re-enable": [
+      "quickshell/desktop-bar/PluginManagement.qml"
+    ],
     "Re-enable with eitr plugin enable-ui {plugin}": [
       "quickshell/desktop-bar/PluginComponent.qml"
     ],
@@ -832,6 +856,7 @@
     ],
     "Remove": [
       "quickshell/desktop-bar/BluetoothMenu.qml",
+      "quickshell/desktop-bar/PluginManagement.qml",
       "quickshell/desktop-bar/WifiMenu.qml"
     ],
     "Remove layout": [
@@ -1159,6 +1184,9 @@
     ],
     "Username": [
       "quickshell/desktop-bar/WifiMenu.qml"
+    ],
+    "Visuals disabled": [
+      "quickshell/desktop-bar/PluginManagement.qml"
     ],
     "Volume": [
       "quickshell/desktop-bar/AudioMenu.qml"
@@ -2454,6 +2482,7 @@
       "elephant/menus/remote-access.lua"
     ],
     "Remove": [
+      "elephant/menu-rows/plugin-actions.json",
       "elephant/plugin-entries.lua",
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -2470,6 +2499,7 @@
       "elephant/menu-rows/tpm-unlock.json"
     ],
     "Remove this plugin and its service": [
+      "elephant/menu-rows/plugin-actions.json",
       "elephant/plugin-entries.lua",
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -2536,6 +2566,7 @@
       "walker/scripts/actions/install/plugins.py"
     ],
     "Review a new plugin commit": [
+      "elephant/menu-rows/plugin-actions.json",
       "elephant/plugin-entries.lua",
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -2982,6 +3013,7 @@
       "elephant/menu-rows/reminders.json"
     ],
     "Update": [
+      "elephant/menu-rows/plugin-actions.json",
       "elephant/menu-rows/system-maintenance.json",
       "elephant/menus/update.lua",
       "elephant/plugin-entries.lua",
@@ -3031,6 +3063,11 @@
       "elephant/menu-rows/cloud.json",
       "elephant/menus/vercel-account.lua",
       "elephant/menus/vercel-contexts.lua"
+    ],
+    "Visuals": [
+      "elephant/menu-rows/plugin-actions.json",
+      "elephant/menus/plugin-visuals.lua",
+      "elephant/plugin-entries.lua"
     ],
     "WARN logs": [
       "elephant/menus/aws-cloudwatch-warn-logs-1.lua",
@@ -3906,6 +3943,12 @@
     "Add an Azure account": [
       "walker/scripts/menus/cloud/accounts.py"
     ],
+    "Add bar item": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Add widget · {monitor}": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Add your own wallpaper. Eitr keeps a copy only on this computer.": [
       "walker/scripts/actions/style/own.py"
     ],
@@ -4191,6 +4234,9 @@
     ],
     "Capture": [
       "quickshell/desktop-bar/scripts/remote-status.py"
+    ],
+    "Change this visual placement": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Changed executable file: {path}": [
       "distro/lib/eitr_plugins.py"
@@ -4743,6 +4789,9 @@
     ],
     "Each hand-off uses the helper’s subscription and counts toward its limits.": [
       "walker/scripts/actions/assistant-collaboration.py"
+    ],
+    "Edit widgets": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Edit {label}": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -5499,6 +5548,9 @@
     "Monthly": [
       "walker/scripts/actions/tools/reminders.py"
     ],
+    "Move and resize desktop widgets": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Mute this program": [
       "walker/scripts/actions/system/crash-help.py"
     ],
@@ -6062,6 +6114,9 @@
     "Ratatoskr was removed.": [
       "distro/lib/eitr_local_assistant.py"
     ],
+    "Re-enable visuals": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Ready. Both resets restart the computer immediately.": [
       "distro/system/factory-reset.py"
     ],
@@ -6172,6 +6227,9 @@
     "Remove Ratatoskr?": [
       "distro/lib/eitr_local_assistant.py"
     ],
+    "Remove bar item": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Remove local sign-in": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -6183,6 +6241,9 @@
     ],
     "Remove this account and its local configuration?": [
       "distro/lib/eitr_ai_accounts.py"
+    ],
+    "Remove widget · {monitor}": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Remove {label} and its folder rules? Keys stay on disk.": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -6224,6 +6285,9 @@
       "distro/lib/eitr_profile.py"
     ],
     "Repository: {url}": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Reset the shared visual failure counter": [
       "walker/scripts/actions/install/plugins.py"
     ],
     "Resource Groups": [

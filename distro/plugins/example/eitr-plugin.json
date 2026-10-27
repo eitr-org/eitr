@@ -40,6 +40,25 @@
         "title": "Hello status",
         "qml": "HelloPanel.qml"
       }
+    ],
+    "widgets": [
+      {
+        "id": "clock",
+        "title": "Clock",
+        "qml": "ClockWidget.qml",
+        "minWidth": 144,
+        "minHeight": 96,
+        "defaultWidth": 240,
+        "defaultHeight": 144
+      }
+    ],
+    "barItems": [
+      {
+        "id": "status-dot",
+        "title": "Example status",
+        "qml": "StatusDot.qml",
+        "panel": "hello-panel"
+      }
     ]
   }
 }

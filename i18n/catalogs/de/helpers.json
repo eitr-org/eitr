@@ -1371,5 +1371,14 @@
   "Use lowercase letters, digits, underscores or hyphens; start with a letter or underscore. Maximum 32 characters.": "Verwende Kleinbuchstaben, Ziffern, Unterstriche oder Bindestriche; beginne mit einem Buchstaben oder Unterstrich. Höchstens 32 Zeichen.",
   "Account created. Desktop setup runs at its first Hyprland login; shell setup may need internet access.": "Konto erstellt. Der Desktop wird bei der ersten Hyprland-Anmeldung eingerichtet; die Shell-Einrichtung kann Internetzugang benötigen.",
   "QML added, changed or removed: {path}": "QML hinzugefügt, geändert oder entfernt: {path}",
-  "QML runs inside the bar: {path}": "QML läuft innerhalb der Leiste: {path}"
+  "QML runs inside the bar: {path}": "QML läuft innerhalb der Leiste: {path}",
+  "Add bar item": "Leistenelement hinzufügen",
+  "Add widget · {monitor}": "Widget hinzufügen · {monitor}",
+  "Change this visual placement": "Platzierung dieser Komponente ändern",
+  "Edit widgets": "Widgets bearbeiten",
+  "Move and resize desktop widgets": "Desktop-Widgets verschieben und skalieren",
+  "Re-enable visuals": "Visuelle Komponenten wieder aktivieren",
+  "Remove bar item": "Leistenelement entfernen",
+  "Remove widget · {monitor}": "Widget entfernen · {monitor}",
+  "Reset the shared visual failure counter": "Gemeinsamen Fehlerzähler zurücksetzen"
 }

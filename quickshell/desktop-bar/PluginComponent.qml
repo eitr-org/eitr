@@ -11,6 +11,8 @@ Item {
     required property color background
     required property color accent
     property bool active: true
+    property bool surface: entry.kind !== "barItems"
+    readonly property bool barItem: entry.kind === "barItems"
     property string error: ""
     onActiveChanged: if (!active) { error = ""; api.detail = ""; }
     signal panelRequested(string plugin, string panel)
@@ -18,9 +20,9 @@ Item {
     readonly property bool tile: entry.kind === "tiles"
     readonly property string detail: entry.disabled ? Eitr.I18n.tr("Disabled") : error !== "" ? Eitr.I18n.tr("Could not load") : api.detail
     implicitHeight: tile ? PanelStyle.selectionRowHeight : error !== "" || entry.disabled ? 56 : Math.max(36, content.item ? content.item.implicitHeight : 36)
-    activeFocusOnTab: tile
+    activeFocusOnTab: tile || barItem
     function activate() {
-        if (tile && entry.panel && !entry.disabled && error === "") panelRequested(entry.plugin, entry.panel);
+        if ((tile || barItem) && entry.panel && !entry.disabled && error === "") panelRequested(entry.plugin, entry.panel);
     }
     Keys.onReturnPressed: activate()
     Keys.onEnterPressed: activate()
@@ -61,6 +63,7 @@ Item {
     }
     HoverHandler { id: hover }
     Rectangle {
+        visible: host.surface
         anchors.fill: parent
         radius: DesktopStyle.radius(PanelStyle.controlRadius)
         color: Qt.alpha(host.foreground, PanelStyle.selectionAlpha(false, hover.hovered || host.activeFocus))
@@ -68,7 +71,7 @@ Item {
         border.color: Qt.alpha(host.foreground, PanelStyle.selectionBorderAlpha)
     }
     MouseArea {
-        anchors.fill: parent; enabled: host.tile
+        anchors.fill: parent; enabled: host.tile || host.barItem
         cursorShape: host.entry.panel ? Qt.PointingHandCursor : Qt.ArrowCursor
         onClicked: { host.forceActiveFocus(); host.activate(); }
     }
@@ -77,8 +80,9 @@ Item {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.right: parent.right
-        width: host.tile ? Math.min(96, item ? item.implicitWidth : 0) : host.width - 2 * PanelStyle.selectionInset
-        anchors.rightMargin: host.tile ? PanelStyle.selectionActionInset : PanelStyle.selectionInset
+        width: host.tile ? Math.min(96, item ? item.implicitWidth : 0) : host.barItem ? host.width : host.width - 2 * PanelStyle.selectionInset
+        anchors.rightMargin: host.tile ? PanelStyle.selectionActionInset : host.barItem ? 0 : PanelStyle.selectionInset
+        z: host.barItem ? -1 : 0
         active: host.active && !host.entry.disabled && host.error === ""
         asynchronous: true
         onActiveChanged: if (active) load()

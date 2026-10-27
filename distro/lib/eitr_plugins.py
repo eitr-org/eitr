@@ -126,21 +126,32 @@ def qml_files(root):
 
 
 def validate_ui(root, ui):
-    object_keys(ui, (), ('tiles', 'panels'))
+    object_keys(ui, (), ('tiles', 'panels', 'widgets', 'barItems'))
     if not isinstance(ui.get('panels', []), list):
         raise ValueError('Plugin panels must be a list')
     files = qml_files(root)
     ids = set()
-    for kind in ('tiles', 'panels'):
+    for kind in ('tiles', 'panels', 'widgets', 'barItems'):
         entries = ui.get(kind, [])
         if not isinstance(entries, list) or len(entries) > 8:
-            raise ValueError('A plugin may declare at most 8 tiles and 8 panels')
+            raise ValueError('A plugin may declare at most 8 entries per visual kind')
         for entry in entries:
-            object_keys(entry, ('id', 'title', 'qml'), ('icon', 'refreshInterval', 'dataCommand') + (('panel',) if kind == 'tiles' else ()))
+            optional = ('icon', 'refreshInterval', 'dataCommand')
+            if kind in ('tiles', 'barItems'):
+                optional += ('panel',)
+            elif kind == 'widgets':
+                optional += ('minWidth', 'minHeight', 'defaultWidth', 'defaultHeight')
+            object_keys(entry, ('id', 'title', 'qml'), optional)
             if 'panel' in entry:
                 panel_id = identifier(entry['panel'])
                 if panel_id not in [panel.get('id') for panel in ui.get('panels', []) if isinstance(panel, dict)]:
-                    raise ValueError('Tile panel must name a declared panel')
+                    raise ValueError('Visual panel must name a declared panel')
+            if kind == 'widgets':
+                for dimension in ('Width', 'Height'):
+                    minimum = entry.get('min' + dimension, 96)
+                    default = entry.get('default' + dimension, 192)
+                    if type(minimum) is not int or type(default) is not int or not 24 <= minimum <= default <= 4096:
+                        raise ValueError('Widget sizes must be integers: 24 <= min <= default <= 4096')
             key = identifier(entry['id'])
             if key in ids:
                 raise ValueError('Duplicate plugin UI id')
@@ -701,7 +712,7 @@ class Plugins:
             self.write(state('eitr/plugin-ui.json'), values)
 
     def ui(self):
-        """UI placements are explicit, ready for future opt-in destinations."""
+        """Approved declarations; widgets and bar items need a separate user placement."""
         blocked = self.blocked()
         failures = self.ui_state()
         result = []
@@ -714,14 +725,75 @@ class Plugins:
                     continue
                 list(plugin_files(root))
                 spec = manifest(root)
-                for kind in ('tiles', 'panels'):
+                for kind in ('tiles', 'panels', 'widgets', 'barItems'):
                     for entry in spec.get('ui', {}).get(kind, []):
-                        result.append(dict(plugin=plugin_id, commit=record['commit'], kind=kind,
-                                           placement='control-center', disabled=bool(failures.get(plugin_id, {}).get('disabled')),
+                        result.append(dict(plugin=plugin_id, pluginName=spec['name'], commit=record['commit'], kind=kind,
+                                           placement={'widgets': 'desktop', 'barItems': 'bar'}.get(kind, 'control-center'), disabled=bool(failures.get(plugin_id, {}).get('disabled')),
                                            **entry, source=(root / entry['qml']).as_uri()))
             except (OSError, ValueError, subprocess.SubprocessError):
                 continue
         return result
+
+    def placements(self):
+        try:
+            value = json.loads(config('eitr/plugin-placements.json').read_text(), object_pairs_hook=unique_object)
+        except FileNotFoundError:
+            return dict(version=1, widgets=[], barItems=[])
+        object_keys(value, ('version', 'widgets', 'barItems'))
+        if type(value['version']) is not int or value['version'] != 1:
+            raise ValueError('Invalid plugin placement version')
+        seen = set()
+        for kind in ('widgets', 'barItems'):
+            if not isinstance(value[kind], list) or len(value[kind]) > 256:
+                raise ValueError('Invalid plugin placements')
+            for placement in value[kind]:
+                object_keys(placement, ('plugin', 'id') + (('monitor', 'x', 'y', 'width', 'height') if kind == 'widgets' else ()))
+                identifier(placement['plugin'])
+                identifier(placement['id'])
+                key = (kind, placement['plugin'], placement['id'], placement.get('monitor'))
+                if key in seen:
+                    raise ValueError('Duplicate plugin placement')
+                seen.add(key)
+                if kind == 'widgets':
+                    string(placement['monitor'])
+                    for field in ('x', 'y', 'width', 'height'):
+                        if type(placement[field]) is not int or not 0 <= placement[field] <= 65536 or (field in ('width', 'height') and placement[field] < 24):
+                            raise ValueError('Invalid widget geometry')
+        return value
+
+    def place(self, plugin_id, entry_id, monitor=None, *, remove=False, geometry=None):
+        identifier(plugin_id)
+        identifier(entry_id)
+        with self.lock():
+            values = self.placements()
+            entry = next((entry for entry in self.ui() if entry['plugin'] == plugin_id and entry['id'] == entry_id and entry['kind'] in ('widgets', 'barItems')), None)
+            if not entry and not remove:
+                raise ValueError('Unknown plugin visual')
+            kind = entry['kind'] if entry else ('widgets' if monitor is not None else 'barItems')
+            if kind == 'widgets':
+                string(monitor)
+            def matches(placement):
+                return placement['plugin'] == plugin_id and placement['id'] == entry_id and (kind != 'widgets' or placement['monitor'] == monitor)
+            previous = next((placement for placement in values[kind] if matches(placement)), None)
+            values[kind] = [placement for placement in values[kind] if not matches(placement)]
+            if not remove:
+                placement = dict(plugin=plugin_id, id=entry_id)
+                if kind == 'widgets':
+                    placement.update(previous or dict(monitor=monitor, x=24, y=24, width=entry.get('defaultWidth', 192), height=entry.get('defaultHeight', 192)))
+                    if geometry is not None:
+                        object_keys(geometry, ('x', 'y', 'width', 'height'))
+                        for field, number in geometry.items():
+                            if type(number) is not int or not 0 <= number <= 65536:
+                                raise ValueError('Invalid widget geometry')
+                        if geometry['width'] < 24 or geometry['height'] < 24:
+                            raise ValueError('Widget geometry must be at least 24 pixels')
+                        placement.update(geometry)
+                values[kind].append(placement)
+            if len(values[kind]) > 256:
+                raise ValueError('Too many plugin placements')
+            path = config('eitr/plugin-placements.json')
+            path.parent.mkdir(parents=True, exist_ok=True)
+            self.write(path, values)
 
     def ui_data(self, plugin_id, entry_id):
         entry = next((entry for entry in self.ui() if entry['plugin'] == plugin_id and entry['id'] == entry_id), None)

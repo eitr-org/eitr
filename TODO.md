@@ -34,7 +34,8 @@ LAN.
   and persistent disable after three load/reported errors are implemented
   (`distro/PLUGINS.md`). Unreported runtime binding exceptions cannot yet be
   attributed and counted automatically. In-process QML is not a sandbox and cannot
-  contain native crashes or infinite loops. Bar placement remains out of scope.
+  contain native crashes or infinite loops. Opt-in desktop widgets, bar placement
+  and menu-based visual reset are implemented.
 - **Website translations.** Offer the site in the desktop's languages
   (Portuguese (Brazil), Spanish, German, French) with a language switch, reusing
   the reviewed Handbook translations where chapters overlap. Decide the URL scheme

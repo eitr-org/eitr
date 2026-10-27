@@ -1,6 +1,7 @@
 import importlib.util
 import json
 from pathlib import Path
+import re
 import subprocess
 import tempfile
 import unittest
@@ -181,7 +182,8 @@ class SearchIndexTests(unittest.TestCase):
             with self.subTest(menu=rows.stem):
                 lua = (root / 'menus' / f'{rows.stem}.lua').read_text()
                 self.assertIn(f'Name = "{rows.stem}"', lua)
-                self.assertIn(f'dofile(paths.code("elephant/scoped-menu.lua"))("{rows.stem}")', lua)
+                call = f'dofile(paths.code("elephant/scoped-menu.lua"))("{rows.stem}"'
+                self.assertRegex(lua, re.escape(call) + r'(?:\)|,\s*function\()')
                 self.assertIn('FixedOrder = true', lua)
 
     def test_lua_search_only_reads_the_index(self):

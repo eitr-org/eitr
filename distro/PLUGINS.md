@@ -83,10 +83,10 @@ The example is documentation and is never installed automatically.
 
 Version 2 retains all version 1 fields and adds optional `ui`. Version 1
 manifests keep their validation and behavior; they cannot declare `ui`.
-`ui` accepts only `tiles` and `panels`, each an array of at most eight objects.
+`ui` accepts `tiles`, `panels`, `widgets` and `barItems`, each an array of at most eight objects.
 Every object requires `id`, `title` (72 characters maximum), and `qml` (a
 relative `.qml` path inside the plugin). IDs follow the plugin ID grammar and
-must be unique across tiles and panels. Optional `icon` is up to eight characters.
+must be unique across all four kinds. Optional `icon` is up to eight characters.
 Optional `dataCommand` uses the same `{run, arguments}` validation as rows.
 Optional `refreshInterval` is milliseconds: zero (on demand), or 1000–3600000;
 a nonzero interval requires a data command. Unknown fields are refused.
@@ -105,7 +105,7 @@ when tiles are declared. The host draws each 36 px row: declared icon centred
 in the 10 px leading slot, title at 36 px, and optional caption with a 2 px gap.
 Plugin tile QML supplies `api.detail` and optional trailing content (root
 `implicitWidth`, capped at 96 px); it must not draw another tile or title.
-Declare `panel` on a tile to name one of this plugin's panels. The host handles
+Declare `panel` on a tile or bar item to name one of this plugin's panels. The host handles
 click, Return and Space. Panels replace the tiles with a back chevron and title.
 Back or Escape returns to tiles; another Escape closes Control Center.
 Panel height follows the root `implicitHeight`, scrolling above 360 px.
@@ -152,3 +152,44 @@ removed QML raises update RISK flags. Visual updates open the full scrollable
 diff before approval and display the candidate's full QML sources as well.
 The example includes HelloTile.qml and HelloPanel.qml; select Hello to open
 its status panel. It is never installed automatically.
+
+
+### Desktop widgets and bar items
+
+Nothing in `widgets` or `barItems` appears until the user places it from
+**Control Center > General > Plugins > Manage** (the heading’s settings button) or **Install > Plugins > plugin > Visuals**.
+Widgets require a monitor choice. Each widget supports optional integer
+`minWidth`, `minHeight` (default 96), `defaultWidth`, `defaultHeight` (default 192),
+with `24 <= min <= default <= 4096` in logical pixels. Like tiles, both kinds
+support `dataCommand` and `refreshInterval`. Bar items may name a declared `panel`.
+The example's ClockWidget.qml and StatusDot.qml demonstrate both kinds.
+
+Widgets use individual bottom-layer Wayland surfaces, behind ordinary windows,
+with input limited to each widget rectangle. Their surfaces follow the bar's
+color/transparency, theme fonts and corner preference. The placed widget’s **Edit position** action exposes
+move and resize handles; **Done** leaves edit mode. Geometry snaps to the
+Hyprland inner gap and is clamped to the monitor's usable area, including reserved
+edges. If the screen is smaller than a declared minimum, fitting the screen wins.
+Positions are stored in logical monitor-local coordinates. Disconnecting a monitor
+hides its widgets and keeps their placements; reconnecting restores them.
+
+`$XDG_CONFIG_HOME/eitr/plugin-placements.json` is machine-local and never shipped:
+`{"version":1,"widgets":[{"plugin":"example","id":"clock","monitor":"DP-1",
+"x":24,"y":48,"width":240,"height":144}],"barItems":[{"plugin":"example",
+"id":"status-dot"}]}`. Edits use the manager's lock and atomic writer. Removing
+or updating a plugin preserves preferences, so a later matching declaration can
+restore the placement. Removing a widget from a missing monitor is available in
+both management interfaces. Edit mode is session-only.
+
+Bar items occupy fixed icon slots in the existing right-side group, with its
+normal hidden/show toggle (always shown in Tabs). They have no hover fill and
+use short themed tooltips. Their content is clipped to the slot. Declared panels
+use the same attached Full or detached Centered/Tabs panel surface, Escape and
+outside-click dismissal as built-in controls. The clock's independent screen
+centre anchors remain unchanged on every edge and layout.
+
+All four kinds share the loader, style/data API, failure counter and full QML
+review. **Re-enable** in Control Center’s Manage sub-view (or **Re-enable visuals** in Walker) resets the same
+counter as `eitr plugin enable-ui ID`. Widgets and visible bar items refresh data
+while loaded; tiles and panels refresh while open. The existing QML runtime
+limitations still apply; unreported binding warnings are not counted.

@@ -313,14 +313,53 @@ def remove(manager, plugin_id):
     return manager.remove(plugin_id, lambda record: confirm(tr('Remove plugin {id} and its service?', id=record['id'])))
 
 
+def visual_rows(manager, plugin_id, monitors):
+    """Walker actions use the same declarations and placement mutations as the panel."""
+    import shlex
+    rows = []
+    entries = [entry for entry in manager.ui() if entry['plugin'] == plugin_id]
+    placements = manager.placements()
+    def row(title, description, arguments):
+        rows.append(dict(text=title, subtext=description, actions={'open': shlex.join(arguments)}))
+    base = ['python3', str(HELPER)]
+    for entry in entries:
+        kind = entry['kind']
+        if kind not in ('widgets', 'barItems'):
+            continue
+        saved = [placement for placement in placements[kind] if placement['plugin'] == plugin_id and placement['id'] == entry['id']]
+        targets = sorted(set(monitors) | {placement['monitor'] for placement in saved}) if kind == 'widgets' else ['']
+        for monitor in targets:
+            installed = any(kind != 'widgets' or placement['monitor'] == monitor for placement in saved)
+            label = (tr('Remove widget · {monitor}', monitor=monitor) if installed else tr('Add widget · {monitor}', monitor=monitor)) if kind == 'widgets' else (tr('Remove bar item') if installed else tr('Add bar item'))
+            args = base + ['unplace' if installed else 'place', plugin_id, entry['id']]
+            if monitor:
+                args += ['--monitor', monitor]
+            row(label + ' · ' + entry['title'], tr('Change this visual placement'), args)
+    if any(entry['kind'] == 'widgets' for entry in entries):
+        row(tr('Edit widgets'), tr('Move and resize desktop widgets'), ['eitr-shell', 'desktop-bar', 'ipc', 'call', '--', 'plugin-widgets', 'edit'])
+    if any(entry['disabled'] for entry in entries):
+        row(tr('Re-enable visuals'), tr('Reset the shared visual failure counter'), base + ['enable-ui', plugin_id])
+    return sorted(rows, key=lambda row: row['text'].casefold())
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['list', 'add', 'update', 'remove', 'rows', 'installed', 'launch', 'enforce', 'notice', 'hooks', 'ui', 'ui-failure', 'enable-ui', 'ui-data'])
+    parser.add_argument('action', choices=['list', 'add', 'update', 'remove', 'rows', 'installed', 'launch', 'enforce', 'notice', 'hooks', 'ui', 'ui-failure', 'enable-ui', 'ui-data', 'placements', 'place', 'unplace', 'visual-rows'])
     parser.add_argument('value', nargs='?')
     parser.add_argument('index', nargs='?')
+    parser.add_argument('--monitor')
+    parser.add_argument('--geometry')
     arguments = parser.parse_args(argv)
     manager = Plugins(notify=notify_blocked)
-    if arguments.action == 'ui':
+    if arguments.action == 'visual-rows':
+        monitors = json.loads(subprocess.check_output(['hyprctl', '-j', 'monitors'], text=True))
+        print(json.dumps(visual_rows(manager, arguments.value, [monitor['name'] for monitor in monitors])))
+    elif arguments.action == 'placements':
+        print(json.dumps(manager.placements()))
+    elif arguments.action in ('place', 'unplace'):
+        manager.place(arguments.value, arguments.index, arguments.monitor, remove=arguments.action == 'unplace',
+                      geometry=json.loads(arguments.geometry) if arguments.geometry else None)
+    elif arguments.action == 'ui':
         print(json.dumps(manager.ui()))
     elif arguments.action == 'ui-failure':
         print(json.dumps(manager.ui_failure(arguments.value, arguments.index, sys.stdin.read(2048))))

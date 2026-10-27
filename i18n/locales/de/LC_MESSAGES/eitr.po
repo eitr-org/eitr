@@ -247,6 +247,12 @@ msgstr "AWS-Konto hinzufügen"
 msgid "Add an Azure account"
 msgstr "Azure-Konto hinzufügen"
 
+msgid "Add bar item"
+msgstr "Leistenelement hinzufügen"
+
+msgid "Add widget · {monitor}"
+msgstr "Widget hinzufügen · {monitor}"
+
 msgid "Add your own wallpaper. Eitr keeps a copy only on this computer."
 msgstr "Eigenes Hintergrundbild hinzufügen. Eitr behält eine Kopie nur auf diesem Computer."
 
@@ -528,6 +534,9 @@ msgstr "Flatpak-Quelle {remote} kann nicht geprüft werden: {reason}"
 
 msgid "Capture"
 msgstr "Aufnahme"
+
+msgid "Change this visual placement"
+msgstr "Platzierung dieser Komponente ändern"
 
 msgid "Changed executable file: {path}"
 msgstr "Geänderte ausführbare Datei: {path}"
@@ -1065,6 +1074,9 @@ msgstr "Jede Änderung gilt sofort. Text muss auf dem Hintergrund lesbar bleiben
 
 msgid "Each hand-off uses the helper’s subscription and counts toward its limits."
 msgstr "Jede Übergabe nutzt das Abonnement des helfenden Assistenten und zählt zu dessen Limits."
+
+msgid "Edit widgets"
+msgstr "Widgets bearbeiten"
 
 msgid "Edit {label}"
 msgstr "{label} bearbeiten"
@@ -1807,6 +1819,9 @@ msgstr "Montag"
 msgid "Monthly"
 msgstr "Monatlich"
 
+msgid "Move and resize desktop widgets"
+msgstr "Desktop-Widgets verschieben und skalieren"
+
 msgid "Mute this program"
 msgstr "Dieses Programm stummschalten"
 
@@ -2350,6 +2365,9 @@ msgstr "Das Zeitlimit des Ratatoskr wurde überschritten."
 msgid "Ratatoskr was removed."
 msgstr "Ratatoskr wurde entfernt."
 
+msgid "Re-enable visuals"
+msgstr "Visuelle Komponenten wieder aktivieren"
+
 msgid "Ready. Both resets restart the computer immediately."
 msgstr "Bereit. Beide Arten des Zurücksetzens starten den Computer sofort neu."
 
@@ -2458,6 +2476,9 @@ msgstr "Lokalen Assistenten entfernen"
 msgid "Remove Ratatoskr?"
 msgstr "Lokalen Assistenten entfernen?"
 
+msgid "Remove bar item"
+msgstr "Leistenelement entfernen"
+
 msgid "Remove local sign-in"
 msgstr "Lokale Anmeldung entfernen"
 
@@ -2469,6 +2490,9 @@ msgstr "Web-App {label} entfernen?"
 
 msgid "Remove this account and its local configuration?"
 msgstr "Dieses Konto und seine lokale Konfiguration entfernen?"
+
+msgid "Remove widget · {monitor}"
+msgstr "Widget entfernen · {monitor}"
 
 msgid "Remove {label} and its folder rules? Keys stay on disk."
 msgstr "{label} und die zugehörigen Ordnerregeln entfernen? Schlüssel bleiben auf dem Laufwerk."
@@ -2511,6 +2535,9 @@ msgstr "Der Repositoryserver muss HTTPS ohne Zugangsdaten, Abfrage oder Fragment
 
 msgid "Repository: {url}"
 msgstr "Repository: {url}"
+
+msgid "Reset the shared visual failure counter"
+msgstr "Gemeinsamen Fehlerzähler zurücksetzen"
 
 msgid "Resource Groups"
 msgstr "Ressourcengruppen"

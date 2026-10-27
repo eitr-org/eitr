@@ -247,6 +247,12 @@ msgstr "Add an AWS account"
 msgid "Add an Azure account"
 msgstr "Add an Azure account"
 
+msgid "Add bar item"
+msgstr "Add bar item"
+
+msgid "Add widget · {monitor}"
+msgstr "Add widget · {monitor}"
+
 msgid "Add your own wallpaper. Eitr keeps a copy only on this computer."
 msgstr "Add your own wallpaper. Eitr keeps a copy only on this computer."
 
@@ -528,6 +534,9 @@ msgstr "Cannot validate Flatpak remote {remote}: {reason}"
 
 msgid "Capture"
 msgstr "Capture"
+
+msgid "Change this visual placement"
+msgstr "Change this visual placement"
 
 msgid "Changed executable file: {path}"
 msgstr "Changed executable file: {path}"
@@ -1065,6 +1074,9 @@ msgstr "Each change applies at once. Text must stay readable on the background."
 
 msgid "Each hand-off uses the helper’s subscription and counts toward its limits."
 msgstr "Each hand-off uses the helper’s subscription and counts toward its limits."
+
+msgid "Edit widgets"
+msgstr "Edit widgets"
 
 msgid "Edit {label}"
 msgstr "Edit {label}"
@@ -1807,6 +1819,9 @@ msgstr "Monday"
 msgid "Monthly"
 msgstr "Monthly"
 
+msgid "Move and resize desktop widgets"
+msgstr "Move and resize desktop widgets"
+
 msgid "Mute this program"
 msgstr "Mute this program"
 
@@ -2350,6 +2365,9 @@ msgstr "Ratatoskr timed out."
 msgid "Ratatoskr was removed."
 msgstr "Ratatoskr was removed."
 
+msgid "Re-enable visuals"
+msgstr "Re-enable visuals"
+
 msgid "Ready. Both resets restart the computer immediately."
 msgstr "Ready. Both resets restart the computer immediately."
 
@@ -2458,6 +2476,9 @@ msgstr "Remove Ratatoskr"
 msgid "Remove Ratatoskr?"
 msgstr "Remove Ratatoskr?"
 
+msgid "Remove bar item"
+msgstr "Remove bar item"
+
 msgid "Remove local sign-in"
 msgstr "Remove local sign-in"
 
@@ -2469,6 +2490,9 @@ msgstr "Remove the {label} web app?"
 
 msgid "Remove this account and its local configuration?"
 msgstr "Remove this account and its local configuration?"
+
+msgid "Remove widget · {monitor}"
+msgstr "Remove widget · {monitor}"
 
 msgid "Remove {label} and its folder rules? Keys stay on disk."
 msgstr "Remove {label} and its folder rules? Keys stay on disk."
@@ -2511,6 +2535,9 @@ msgstr "Repository server must use HTTPS without credentials, query or fragment"
 
 msgid "Repository: {url}"
 msgstr "Repository: {url}"
+
+msgid "Reset the shared visual failure counter"
+msgstr "Reset the shared visual failure counter"
 
 msgid "Resource Groups"
 msgstr "Resource Groups"

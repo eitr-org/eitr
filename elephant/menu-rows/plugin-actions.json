@@ -1,0 +1,18 @@
+[
+  {
+    "text": "Visuals",
+    "subtext": ">",
+    "icon": "󰏖",
+    "submenu": "plugin-visuals"
+  },
+  {
+    "text": "Remove",
+    "subtext": "Remove this plugin and its service",
+    "icon": "󰆴"
+  },
+  {
+    "text": "Update",
+    "subtext": "Review a new plugin commit",
+    "icon": "󰚰"
+  }
+]

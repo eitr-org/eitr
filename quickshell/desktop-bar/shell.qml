@@ -100,6 +100,11 @@ ShellRoot {
         }
     }
     LiveWallpaper {}
+    PluginDesktop {
+        id: pluginDesktop
+        foreground: shell.fg; background: shell.barBackground(); accent: shell.activeBg
+        grid: shell.windowGaps[0]
+    }
     RealmEffects {
         accent: shell.activeBg
         defaultScreen: shell.targetScreens()[0] || null
@@ -178,6 +183,7 @@ ShellRoot {
         onTriggered: {
             if (!windowGapQuery.running) windowGapQuery.running = true;
             if (!screenGapQuery.running) screenGapQuery.running = true;
+            pluginDesktop.refresh();
         }
     }
     property string barEdge: "top"
@@ -639,7 +645,7 @@ ShellRoot {
                     onTriggered: bar.hoverExpanded = false
                 }
                 readonly property var dockPanels: [wifiMenu, bluetoothMenu, brightnessMenu, volumeMenu, tailscaleMenu, streamingMenu,
-                    keyboardMenu, calendarMenu, weatherMenu, hardwareMenu, aiMenu, obsMenu, recordingMenu, workspaceMenu, notificationCenter, controlCenter, mediaMenu, batteryMenu]
+                    keyboardMenu, calendarMenu, weatherMenu, hardwareMenu, aiMenu, obsMenu, recordingMenu, workspaceMenu, notificationCenter, controlCenter, mediaMenu, batteryMenu, pluginPanel]
                 readonly property bool panelOpen: dockPanels.some(panel => panel.visible)
                 readonly property var panelFocusWindows: notificationPopups.visible ? [bar, notificationPopups] : [bar]
                 property var pendingPanel: null
@@ -740,6 +746,7 @@ ShellRoot {
                     Region { item: controlCenter.opened ? controlCenter : null }
                     Region { item: mediaMenu.opened ? mediaMenu : null }
                     Region { item: batteryMenu.opened ? batteryMenu : null }
+                    Region { item: pluginPanel.opened ? pluginPanel : null }
                 }
 
                 Connections {
@@ -779,6 +786,19 @@ ShellRoot {
                     accent: shell.activeBg
                 }
 
+                PluginPanel {
+                    id: pluginPanel
+                    target: notificationIcon
+                    barEdge: shell.barEdge; surfaceColor: shell.barBackground()
+                    foreground: shell.fg; background: shell.workspaceMenuBg; accent: shell.activeBg
+                }
+                function openPluginPanel(plugin, panel, target) {
+                    var entry = PluginRegistry.entries.find(entry => entry.plugin === plugin && entry.id === panel && entry.kind === "panels");
+                    if (!entry) return;
+                    pluginPanel.target = target;
+                    pluginPanel.entry = entry;
+                    showPanel(pluginPanel);
+                }
                 ControlCenter {
                     id: controlCenter
                     screenMargins: shell.screenGaps
@@ -1158,6 +1178,11 @@ ShellRoot {
                             open: true; clickable: true
                             onClicked: shell.statusOpen = !shell.statusOpen
                         }
+                        PluginBarItems {
+                            foreground: shell.fg; background: shell.barBackground(); accent: shell.activeBg
+                            vertical: true; open: shell.iconsOpen; slotSize: shell.workspaceItemSize; slotSpacing: shell.workspaceItemSpacing
+                            onPanelRequested: function(plugin, panel, target) { bar.openPluginPanel(plugin, panel, target); }
+                        }
                         StatusCommand {
                             id: verticalWifiIcon
                             script: Quickshell.shellDir + "/scripts/wifi-status.sh"
@@ -1370,6 +1395,12 @@ ShellRoot {
                                 iconSize: 21
                                 glyphOffsetY: -1
                                 onClicked: shell.statusOpen = !shell.statusOpen
+                            }
+
+                            PluginBarItems {
+                                foreground: shell.fg; background: shell.barBackground(); accent: shell.activeBg
+                                open: shell.iconsOpen; slotSize: shell.workspaceItemSize; slotSpacing: shell.workspaceItemSpacing
+                                onPanelRequested: function(plugin, panel, target) { bar.openPluginPanel(plugin, panel, target); }
                             }
 
                             StatusCommand {

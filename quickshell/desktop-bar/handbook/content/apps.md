@@ -143,7 +143,7 @@ Plugins can declare `theme-changed`, `wallpaper-changed`, `after-update` and `lo
 
 Schema version 2 can add tiles to **Control Center > General > Plugins** and
 panels opened from those tiles. They use the desktop colors, fonts and corners;
-no bar icons are added. Review lists every QML file and its full source before
+widgets and bar items appear only after you add them. Review lists every QML file and its full source before
 installation. Updates show a scrollable diff and the candidate QML before
 approval; QML changes raise RISK flags. QML is not a sandbox: it runs inside the
 bar with your full permissions. Trust the author; a loop or native crash cannot
@@ -152,7 +152,7 @@ be isolated by the loader.
 A component load error shows an inline error instead of its content and is
 logged in `$XDG_STATE_HOME/eitr/plugin-ui.log`. After three load or reported
 errors, that plugin's visual components are disabled, including across updates.
-The tile explains how to re-enable them: run `eitr plugin enable-ui ID`. Before
+Choose **Re-enable** in Plugins > Manage, or run `eitr plugin enable-ui ID`. Before
 the threshold, close and reopen General to retry. Rows, hooks and services are
 independent. Plugins appear after the existing General sections. Panels replace
 the tiles with a title and back chevron; Back or Escape returns to tiles before
@@ -160,3 +160,16 @@ another Escape closes Control Center. Tall panels scroll inside the subview. The
 example has a Hello tile and status panel. Schema v1 plugins remain supported
 unchanged. Authoring details and the narrow style/data API are in
 `distro/PLUGINS.md`; the API is a supported interface, not a security boundary.
+
+
+In **Control Center > General > Plugins > Manage** (the settings button), or **Install > Plugins > plugin > Visuals**,
+add or remove each widget (choose its monitor) and bar item. Nothing is added
+by default. The General page shows plugin tiles; Manage lists visual items with
+Add, Remove and Re-enable actions. Add offers an inline monitor choice when
+several displays are available. Each placed widget has **Edit position**, which shows move and resize handles; drag them to snap to
+the desktop gap inside the usable screen, then choose **Done**. Widgets stay
+behind windows and follow the theme, fonts, corners and bar transparency.
+Placements are saved per monitor on this PC; unplugged monitors keep their layout
+without showing widgets. Bar items use fixed slots in the right group, obey its
+Show icons toggle, and stay visible in Tabs. Clicking an item can open its plugin
+panel. The example includes a small clock widget and a status dot.

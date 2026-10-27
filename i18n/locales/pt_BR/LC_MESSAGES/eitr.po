@@ -247,6 +247,12 @@ msgstr "Adicionar uma conta AWS"
 msgid "Add an Azure account"
 msgstr "Adicionar uma conta Azure"
 
+msgid "Add bar item"
+msgstr "Adicionar item à barra"
+
+msgid "Add widget · {monitor}"
+msgstr "Adicionar widget · {monitor}"
+
 msgid "Add your own wallpaper. Eitr keeps a copy only on this computer."
 msgstr "Adicione seu papel de parede. O Eitr guarda uma cópia só neste computador."
 
@@ -528,6 +534,9 @@ msgstr "Não foi possível validar o repositório Flatpak {remote}: {reason}"
 
 msgid "Capture"
 msgstr "Captura"
+
+msgid "Change this visual placement"
+msgstr "Alterar a posição deste elemento"
 
 msgid "Changed executable file: {path}"
 msgstr "Arquivo executável alterado: {path}"
@@ -1065,6 +1074,9 @@ msgstr "Cada alteração é aplicada na hora. O texto precisa continuar legível
 
 msgid "Each hand-off uses the helper’s subscription and counts toward its limits."
 msgstr "Cada transferência usa a assinatura do assistente auxiliar e conta para os limites dele."
+
+msgid "Edit widgets"
+msgstr "Editar widgets"
 
 msgid "Edit {label}"
 msgstr "Editar {label}"
@@ -1807,6 +1819,9 @@ msgstr "Segunda-feira"
 msgid "Monthly"
 msgstr "Mensalmente"
 
+msgid "Move and resize desktop widgets"
+msgstr "Mover e redimensionar widgets da área de trabalho"
+
 msgid "Mute this program"
 msgstr "Silenciar este programa"
 
@@ -2350,6 +2365,9 @@ msgstr "Ratatoskr excedeu o tempo limite."
 msgid "Ratatoskr was removed."
 msgstr "Ratatoskr foi removido."
 
+msgid "Re-enable visuals"
+msgstr "Reativar elementos visuais"
+
 msgid "Ready. Both resets restart the computer immediately."
 msgstr "Pronto. Ambas as opções de redefinição reiniciam o computador imediatamente."
 
@@ -2458,6 +2476,9 @@ msgstr "Remover Ratatoskr"
 msgid "Remove Ratatoskr?"
 msgstr "Remover Ratatoskr?"
 
+msgid "Remove bar item"
+msgstr "Remover item da barra"
+
 msgid "Remove local sign-in"
 msgstr "Remover acesso local"
 
@@ -2469,6 +2490,9 @@ msgstr "Remover o aplicativo web {label}?"
 
 msgid "Remove this account and its local configuration?"
 msgstr "Remover esta conta e sua configuração local?"
+
+msgid "Remove widget · {monitor}"
+msgstr "Remover widget · {monitor}"
 
 msgid "Remove {label} and its folder rules? Keys stay on disk."
 msgstr "Remover {label} e suas regras de pastas? As chaves permanecem no disco."
@@ -2511,6 +2535,9 @@ msgstr "O servidor do repositório deve usar HTTPS sem credenciais, consulta ou 
 
 msgid "Repository: {url}"
 msgstr "Repositório: {url}"
+
+msgid "Reset the shared visual failure counter"
+msgstr "Zerar o contador compartilhado de falhas visuais"
 
 msgid "Resource Groups"
 msgstr "Grupos de recursos"

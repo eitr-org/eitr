@@ -6,4 +6,15 @@ Parent = "plugins-install"
 Icon = "󰏖"
 FixedOrder = true
 HideFromProviderlist = true
-GetEntries = function() return dofile(paths.code("elephant/plugin-entries.lua"))("plugin-actions") end
+local quote = dofile(paths.code("elephant/shell-quote.lua"))
+GetEntries = dofile(paths.code("elephant/scoped-menu.lua"))("plugin-actions", function(entries)
+    local id = lastMenuValue("plugins-install") or ""
+    for _, entry in ipairs(entries) do
+        if not entry.SubMenu then
+            local action = entry.Text == "Remove" and "remove" or "update"
+            entry.Actions = {open = "kitty --class eitr-plugins -e python3 " .. quote(paths.code("walker/scripts/actions/task-terminal.py"))
+                .. " python3 " .. quote(paths.code("walker/scripts/actions/install/plugins.py")) .. " " .. action .. " " .. quote(id)}
+        end
+    end
+    return entries
+end)

@@ -18,7 +18,7 @@ function module.row(entry, menu)
     if not module.allowed('remote_access') and (scope:find('remote%-') or scope:find('gaming moonlight')) then return false end
     if not module.allowed('assistants_together') and (scope:find('assistant%-collaboration.py') or entry.Text == 'Let assistants work together') then return false end
     if not module.allowed('update_channel') and (scope:find('update%-channel') or scope:find('channel%-set')) then return false end
-    local plugin_menus = {plugins = true, ['plugins-install'] = true, ['plugin-actions'] = true}
+    local plugin_menus = {plugins = true, ['plugins-install'] = true, ['plugin-actions'] = true, ['plugin-visuals'] = true}
     if not module.allowed('plugins') and (plugin_menus[entry.SubMenu or ''] or plugin_menus[menu or ''] or scope:find('install/plugins.py', 1, true)) then return false end
     for _, group in ipairs({'gaming', 'media', 'development', 'sharing', 'accessories'}) do
         if not module.allowed(group) and (entry.SubMenu == group or menu == group or scope:find('software.py ' .. group, 1, true)) then return false end

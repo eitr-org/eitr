@@ -46,9 +46,17 @@ return function(kind)
         end
         table.insert(entries, {Text = i18n.tr("Add Plugin…"), Subtext = i18n.tr("Review a Git repository before installing"), Icon = "󰐕",
             Actions = {open = task("add")}})
+    elseif kind == "plugin-visuals" then
+        local id = lastMenuValue("plugins-install") or ""
+        if id ~= "" then
+            for _, row in ipairs(read("visual-rows " .. quote(id))) do
+                table.insert(entries, {Text = row.text, Subtext = row.subtext, Actions = row.actions})
+            end
+        end
     else
         local id = lastMenuValue("plugins-install") or ""
         if id ~= "" then
+            table.insert(entries, {Text = "Visuals", State = {"submenu"}, SubMenu = "plugin-visuals"})
             table.insert(entries, {Text = "Remove", Subtext = "Remove this plugin and its service", Icon = "󰆴",
                 Actions = {open = task("remove", id)}})
             table.insert(entries, {Text = "Update", Subtext = "Review a new plugin commit", Icon = "󰚰",

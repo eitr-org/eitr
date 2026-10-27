@@ -576,6 +576,22 @@ loading, the style/data API, shared tile rows and inline failure fallback.
 Placements prefetch before opening and refresh on registry changes. Panel subviews
 use an intrinsic height with scrolling above 360 px; Back and Escape return to tiles.
 Three component failures disable a plugin's visual components persistently;
-`eitr plugin enable-ui ID` resets them. No bar slots are added. QML runs inside
+`eitr plugin enable-ui ID` and the Re-enable visuals action reset them. QML runs inside
 the bar and is not a sandbox or crash boundary. See `distro/PLUGINS.md` for the
 manifest, API contract, review behavior and runtime limitations.
+
+
+PluginRegistry prefetches approved declarations and opt-in placements once, using
+JsonState to avoid rebuilding unchanged entries. PluginArea, PluginDesktop and
+PluginBarItems share it. The Plugins heading’s trailing action opens the Manage sub-view with the same
+Back/Escape navigation as plugin panels. PluginManagement uses shared 36 px rows
+with inset 24 px actions, declared titles and plugin/monitor display names. It exposes monitor-specific widget actions,
+bar placement and failure reset. PluginDesktop maps each placed widget to a
+bottom-layer window with an input mask restricted to its rectangle; PluginWidget
+adds explicit edit handles. PluginGeometry snaps and clamps logical geometry to
+Hyprland's monitor reserved area. Missing monitors retain their saved entries.
+`eitr/plugin-placements.json` is an ignored machine-local preference, version 1,
+with widgets keyed by plugin/id/monitor and bar items by plugin/id. Edit mode is
+session-only. PluginBarItems uses fixed 24 px slots and 4 px spacing supplied by
+the shell's shared metrics, inside the right group on every edge. PluginPanel
+uses ThemedPopup/DockPanel for attached or detached surfaces and dismissal.
