@@ -2,6 +2,8 @@
 
 **SUPER + M** sperrt den Bildschirm sofort. Ein Klick auf das Symbol der automatischen Sperre links in der Leiste (nach KI-Nutzung) schaltet die Sperre bei Inaktivität ein oder aus; der Tooltip zeigt den Zustand. Ist sie an, sperrt der Bildschirm nach 15 Minuten Inaktivität, schaltet sich nach 30 ab, und der Computer geht nach 60 in Bereitschaft. Das Kontrollzentrum bietet denselben Schalter und eine Sperren-Schaltfläche.
 
+Zwanzig Sekunden vor dem Sperren werden unterstützte Bildschirme auf etwa 30 % ihrer bisherigen Helligkeit gedimmt (nie auf null). Aktivität stellt den exakten vorherigen Wert wieder her, auch nach dem Sperren; ebenso das Ausschalten der automatischen Sperre. Externe Monitore ohne DDC-Helligkeitssteuerung werden übersprungen.
+
 ## Passwort und alternative Authentifizierung
 
 **System > Sicherheit > Passwort ändern** ändert dein Kontopasswort. Fingerabdruck und FIDO2 haben eigene Abläufe zur Registrierung und Aktivierung. Ein FIDO2-Sicherheitsschlüssel ist ein physisches Sicherheitsgerät, kein Fingerabdruckleser im Laptop. Registriere das Gerät zuerst und aktiviere dann die Authentifizierung. Das Hilfsprogramm sichert die PAM-Einstellungen; halte ein funktionierendes Passwort und einen Zugang zu einem TTY bereit.

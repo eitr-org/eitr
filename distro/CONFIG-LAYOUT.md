@@ -194,7 +194,11 @@ status` reports; it receives no shipped defaults unless it loads them.
 Hypridle, Hyprpaper and Hyprlock start through a packaged launcher that passes an
 existing user config if present, otherwise the shipped baseline, via `-c`
 (`hypridle --help`, `hyprpaper --help` and `hyprlock --help` all accept it). Keep
-idle timings and fallback behavior.
+idle timings and fallback behavior. The shipped idle config dims supported displays
+at 880 seconds and restores their saved brightness on activity; lock, display-off
+and suspend remain at 900, 1800 and 3600 seconds. Adopted homes receive this
+through the package. A deliberate `hypr/hypridle.conf` override must include the
+dim/restore listener itself; it continues to take precedence.
 
 ### Elephant menus and cloud tools
 

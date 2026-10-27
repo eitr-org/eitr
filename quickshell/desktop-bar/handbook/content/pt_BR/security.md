@@ -2,6 +2,8 @@
 
 **SUPER + M** bloqueia a tela imediatamente. Clique no ícone de Bloqueio automático à esquerda da barra (depois de Uso de IA) para ligar ou desligar o bloqueio por inatividade; a dica mostra o estado. Ligado, a tela bloqueia após 15 minutos de inatividade, desliga após 30 e o computador suspende após 60. A Central de controle oferece o mesmo controle e um botão Bloquear.
 
+Vinte segundos antes do bloqueio, as telas compatíveis reduzem o brilho para cerca de 30% do nível anterior (nunca zero). Qualquer atividade restaura exatamente o nível anterior, mesmo após o bloqueio; desativar o bloqueio automático também o restaura. Monitores externos sem controle de brilho DDC são ignorados.
+
 ## Senha e autenticação alternativa
 
 **Sistema > Segurança > Atualizar senha** altera a senha da conta. Impressão digital e FIDO2 têm etapas próprias de cadastro e ativação. Uma chave de segurança FIDO2 é um dispositivo físico, não o leitor de impressão digital do notebook. Cadastre primeiro e depois ative a autenticação. O auxiliar faz backup das configurações do PAM; mantenha uma senha que funcione e uma forma de acessar um TTY.

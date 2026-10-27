@@ -6,6 +6,8 @@ When on, the screen locks after 15 minutes idle, turns off after 30 and the
 computer sleeps after 60. The Control Center has the same Idle Lock toggle and
 a Lock button.
 
+Twenty seconds before locking, supported displays dim to about 30% of their previous brightness (never zero). Activity restores the exact previous level, even after locking; turning Idle Lock off also restores it. External monitors without DDC brightness control are skipped.
+
 ## Password and alternative authentication
 
 **System > Security > Update Password** changes your account password.

@@ -40,9 +40,6 @@ LAN.
   gets Eitr's desktop setup at its first login, like the installer's first user.
 - **Install > VPN.** Tailscale (keeps its panel), WireGuard and NetworkManager
   VPN profiles: install the tools and import a profile, in one menu.
-- **Dim before the idle lock.** About 20 seconds before hypridle locks, dim the
-  screen as a warning and restore the exact brightness on activity (backlight on
-  laptops, DDC steps on external monitors).
 - **Website translations.** Offer the site in the desktop's languages
   (Portuguese (Brazil), Spanish, German, French) with a language switch, reusing
   the reviewed Handbook translations where chapters overlap. Decide the URL scheme

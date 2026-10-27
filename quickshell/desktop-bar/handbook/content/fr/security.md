@@ -2,6 +2,8 @@
 
 **SUPER + M** verrouille immédiatement l’écran. Cliquez sur l’icône Verrouillage automatique à gauche de la barre (après Utilisation IA) pour activer ou désactiver le verrouillage après inactivité ; son infobulle indique l’état. Activé, l’écran se verrouille après 15 minutes d’inactivité, s’éteint après 30 et l’ordinateur se met en veille après 60. Le Centre de contrôle propose le même réglage et un bouton Verrouiller.
 
+Vingt secondes avant le verrouillage, les écrans compatibles réduisent leur luminosité à environ 30 % du niveau précédent (jamais à zéro). Toute activité rétablit exactement le niveau précédent, même après le verrouillage ; désactiver le verrouillage automatique le rétablit aussi. Les moniteurs externes sans contrôle de luminosité DDC sont ignorés.
+
 ## Mot de passe et authentification alternative
 
 **Système > Sécurité > Mettre à jour le mot de passe** change le mot de passe de votre compte. L’empreinte digitale et FIDO2 ont leurs propres procédures d’inscription et d’activation. Une clé de sécurité FIDO2 est un dispositif physique, pas le lecteur d’empreintes d’un portable. Inscrivez d’abord le dispositif, puis activez l’authentification. L’utilitaire sauvegarde les paramètres PAM ; gardez un mot de passe valide et un moyen d’accéder à un TTY.

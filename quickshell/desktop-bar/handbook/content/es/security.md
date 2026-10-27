@@ -2,6 +2,8 @@
 
 **SUPER + M** bloquea la pantalla inmediatamente. Haz clic en el icono de Bloqueo automático a la izquierda de la barra (tras Uso de IA) para activar o desactivar el bloqueo por inactividad; su descripción muestra el estado. Activado, la pantalla se bloquea tras 15 minutos de inactividad, se apaga a los 30 y el equipo se suspende a los 60. El Centro de control ofrece el mismo ajuste y un botón Bloquear.
 
+Veinte segundos antes del bloqueo, las pantallas compatibles atenúan su brillo a aproximadamente el 30 % del nivel anterior (nunca a cero). La actividad restaura el nivel anterior exacto, incluso después del bloqueo; desactivar el bloqueo automático también lo restaura. Se omiten los monitores externos sin control de brillo DDC.
+
 ## Contraseña y autenticación alternativa
 
 **Sistema > Seguridad > Actualizar contraseña** cambia la contraseña de tu cuenta. Huella digital y FIDO2 tienen procesos separados de registro y activación. Una llave FIDO2 es un dispositivo físico, no el lector de huellas del portátil. Regístrala primero y después activa la autenticación. El auxiliar guarda una copia de los ajustes PAM; conserva una contraseña válida y una forma de acceder a un TTY.
