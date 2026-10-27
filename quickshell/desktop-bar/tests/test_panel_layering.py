@@ -32,7 +32,7 @@ class PanelLayeringTests(unittest.TestCase):
         self.assertIn("popup.keyTarget.forceActiveFocus();", themed)
         self.assertIn("Keys.onEscapePressed: if (!popup.escapeHandler || !popup.escapeHandler()) popup.opened = false", themed)
         center = (ROOT / "ControlCenter.qml").read_text()
-        self.assertIn("escapeHandler: () => plugins.back()", center)
+        self.assertIn('escapeHandler: () => center.page === "plugins" ? pluginManager.back() : plugins.back()', center)
         for filename in ("AudioMenu.qml", "SystemMonitorMenu.qml", "WorkspaceStyleMenu.qml"):
             with self.subTest(filename=filename):
                 source = (ROOT / filename).read_text()

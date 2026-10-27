@@ -167,7 +167,7 @@ The example's ClockWidget.qml and StatusDot.qml demonstrate both kinds.
 
 Widgets use individual bottom-layer Wayland surfaces, behind ordinary windows,
 with input limited to each widget rectangle by default. Their appearance belongs to the author. Eitr backgrounds and theme helpers are optional. The placed widget’s **Edit position** action exposes
-move and resize handles; **Done** leaves edit mode. Geometry snaps to the
+move and resize handles on a stable monitor-sized editing surface; **Done** leaves edit mode. Motion follows the pointer without snapping until release. Geometry then snaps to the
 Hyprland inner gap and is clamped to the monitor's usable area, including reserved
 edges. If the screen is smaller than a declared minimum, fitting the screen wins.
 Positions are stored in logical monitor-local coordinates. Disconnecting a monitor
@@ -264,8 +264,9 @@ in memory with `false`; the next placement edit atomically saves version 2.
 ### Plugin manager and artwork
 
 Control Center has a dedicated **Plugins** page (`controlCenter show plugins`).
-It lists all installed plugins, including disabled ones, with their name, author,
-version, description and status. Expand **Preview** to see a declared screenshot.
+It lists all installed plugins, including disabled ones, as compact icon/name/switch
+rows. Select a row for its author, version, description, status, visual placements
+and **Preview**. Back or Escape returns to the list.
 Add, Update and Remove open the reviewed terminal flows; removal still asks for
 confirmation. General keeps only plugin tiles and their panel navigation.
 
@@ -306,8 +307,8 @@ Above-window widgets stay click-through: their options are in **Control Center >
 Plugins**, including plugin-declared entries. **Edit widgets** in that page or
 Walker Visuals toggles global edit mode (`plugin-widgets edit` IPC); **Done**,
 Escape or `plugin-widgets done` exits. Editing temporarily raises widgets above
-windows and permits keyboard and pointer input. Dragging uses monitor-local
-pointer coordinates and unsnapped motion; release snaps and atomically saves.
+windows and permits keyboard and pointer input. Dragging uses global pointer coordinates on a stable editing surface and
+unsnapped motion; release snaps and atomically saves.
 
 Widgets may call `api.setMenu([{id: "wave", text: "Wave", checked: true}])`.
 At most 20 entries are accepted, with unique lowercase alphanumeric/hyphen IDs
@@ -341,3 +342,5 @@ host UI. Bar slots never add hover fills or tint to plugin content. Fixed tile,
 bar and widget bounds, clock centring, review, capability checks and visual
 failure handling apply regardless of appearance. The example's CustomTile.qml
 shows independent purple/yellow colors beside the Eitr-styled Hello tile.
+
+Widget context menus stay open until an action, Escape or an outside click.

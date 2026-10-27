@@ -534,7 +534,7 @@ Item {
                          dict(id='clock', name='Desktop clock', author='Example contributor', version='1.0.0',
                               description='A clock for each display', enabled=False, blocked='disabled',
                               visualsDisabled=False, icon='', preview='')]
-            for mode in ('manager-dark', 'manager-light', 'transparent-widget', 'edit-widget', 'widget-menu'):
+            for mode in ('manager-dark', 'manager-light', 'manager-list', 'transparent-widget', 'edit-widget', 'widget-menu'):
                 captures = Path(os.environ.get('EITR_PLUGIN_REVIEW_RENDERS', directory))
                 captures.mkdir(parents=True, exist_ok=True)
                 capture = captures / (mode + '.png')
@@ -575,7 +575,7 @@ ShellRoot {
             Text { x: MANAGER ? 74 : 24; y: 24; text: MANAGER ? "Plugins" : "Audio visualizer"; color: "FOREGROUND"; font.pixelSize: 16 }
             Bar.PluginManager {
                 id: manager; x: 74; y: 62; width: 560; visible: MANAGER
-                installed: []; entries: [ENTRY]; expanded: "visualizer"
+                installed: []; entries: [ENTRY]; selectedPlugin: LIST ? "" : "visualizer"; expanded: "visualizer"
                 foreground: "FOREGROUND"; background: "BACKGROUND"; accent: "#7ee0b5"
             }
             Bar.PluginWidget {
@@ -597,15 +597,25 @@ ShellRoot {
             Timer {
                 interval: 700; running: true; repeat: true
                 property bool ready: false
+                property bool listChecked: false
                 onTriggered: {
                     if (MANAGER && !ready) {
                         widget.visible = true;
                         widget.grabToImage(function(result) {
                             result.saveToFile("PREVIEW");
                             widget.visible = false;
-                            manager.installed = INSTALLED;
+                            manager.installed = LIST ? Array.from({length: 20}, function(unusedValue, index) { return Object.assign({}, INSTALLED[0], {id: "plugin-" + index}); }) : INSTALLED;
+                            manager.selectedPlugin = LIST ? "" : "visualizer";
                             ready = true;
                         });
+                        return;
+                    }
+                    if (LIST && !listChecked) {
+                        if (manager.height > 20 * 42 + 150) throw new Error("Plugin list is not compact");
+                        manager.selectedPlugin = "plugin-0";
+                        if (!manager.selected || manager.selected.id !== "plugin-0" || !manager.back() || manager.back()) throw new Error("Detail navigation failed");
+                        manager.installed = INSTALLED;
+                        listChecked = true;
                         return;
                     }
                     if (manager.height > sample.height - 90) throw new Error("Manager clipped");
@@ -624,7 +634,7 @@ ShellRoot {
         }
     }
 }""".replace('BAR', BAR.as_uri()).replace('BACKGROUND', background).replace('FOREGROUND', foreground)
-                    .replace('MANAGER', str(mode.startswith('manager')).lower()).replace('EDIT', str(mode == 'edit-widget').lower())
+                    .replace('MANAGER', str(mode.startswith('manager')).lower()).replace('LIST', str(mode == 'manager-list').lower()).replace('EDIT', str(mode == 'edit-widget').lower())
                     .replace('MENU', str(mode == 'widget-menu').lower()).replace('INSTALLED', json.dumps(installed))
                     .replace('ENTRY', json.dumps(entry)).replace('CAPTURE', str(capture)).replace('PREVIEW', str(preview)))
                 environment = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
@@ -668,6 +678,7 @@ ShellRoot {
         visible: true; implicitWidth: 900; implicitHeight: 600
         Rectangle {
             anchors.fill: parent; color: "#18212b"
+            property var gestureStart: null
             property var draft: ({x: 24, y: 30, width: 360, height: 180})
             readonly property var bounds: ({x: 0, y: 30, width: 900, height: 570})
             id: canvas
@@ -678,8 +689,9 @@ ShellRoot {
                 x: canvas.draft.x; y: canvas.draft.y; width: canvas.draft.width; height: canvas.draft.height
                 originX: x; originY: y; editing: true
                 foreground: "white"; background: "#18212b"; accent: "#7ee0b5"
-                onMoved: function(dx, dy) { canvas.draft = Geometry.fit(Geometry.delta(canvas.draft, dx, dy, false), canvas.bounds, 96, 96, 1); }
-                onResized: function(dx, dy) { canvas.draft = Geometry.fit(Geometry.delta(canvas.draft, dx, dy, true), canvas.bounds, 96, 96, 1); }
+                onBegun: canvas.gestureStart = Object.assign({}, canvas.draft)
+                onMoved: function(dx, dy) { canvas.draft = Geometry.fit(Geometry.delta(canvas.gestureStart, dx, dy, false), canvas.bounds, 96, 96, 1); }
+                onResized: function(dx, dy) { canvas.draft = Geometry.fit(Geometry.delta(canvas.gestureStart, dx, dy, true), canvas.bounds, 96, 96, 1); }
                 onFinished: {
                     canvas.draft = Geometry.fit(canvas.draft, canvas.bounds, 96, 96, 6);
                     Bar.PluginRegistry.change("place", entry, "test-monitor", canvas.draft);
@@ -690,11 +702,18 @@ ShellRoot {
                 property int stage: 0
                 onTriggered: {
                     if (stage === 0) {
+                        pointer.mouseClick(widget, 180, 80, Qt.RightButton, Qt.NoModifier, 1);
+                        if (!widget.menuOpen) throw new Error("Right-click did not open menu");
+                    } else if (stage === 1) {
+                        if (!widget.menuOpen) throw new Error("Menu dismissed after right-click release");
+                        widget.forceActiveFocus();
+                        pointer.keyClick(Qt.Key_Escape, Qt.NoModifier, 1);
+                        if (widget.menuOpen) throw new Error("Escape did not close menu");
                         pointer.mousePress(widget, 80, 12, Qt.LeftButton, Qt.NoModifier, 1);
                         for (let step = 0; step < 20; step++) pointer.mouseMove(widget, 81, 12, 1, Qt.LeftButton, Qt.NoModifier);
                         pointer.mouseRelease(widget, 80, 12, Qt.LeftButton, Qt.NoModifier, 1);
                         if (canvas.draft.x <= 24) throw new Error("Title drag did not move");
-                    } else if (stage === 1) {
+                    } else if (stage === 2) {
                         pointer.mousePress(widget, widget.width - 10, widget.height - 10, Qt.LeftButton, Qt.NoModifier, 1);
                         pointer.mouseMove(widget, widget.width + 20, widget.height + 20, 1, Qt.LeftButton, Qt.NoModifier);
                         pointer.mouseRelease(widget, widget.width - 10, widget.height - 10, Qt.LeftButton, Qt.NoModifier, 1);

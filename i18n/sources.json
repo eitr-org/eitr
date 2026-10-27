@@ -94,6 +94,7 @@
     "Back": [
       "quickshell/desktop-bar/AssistantChat.qml",
       "quickshell/desktop-bar/PluginArea.qml",
+      "quickshell/desktop-bar/PluginManager.qml",
       "quickshell/desktop-bar/PluginPanel.qml"
     ],
     "Background: Panel": [

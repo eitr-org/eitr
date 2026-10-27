@@ -11,8 +11,17 @@ Column {
     property var installed: PluginRegistry.installed
     property var entries: PluginRegistry.entries
     property string expanded: ""
+    property string selectedPlugin: ""
+    readonly property var selected: installed.find(plugin => plugin.id === selectedPlugin) || null
+    onInstalledChanged: if (selectedPlugin && !selected) selectedPlugin = ""
+    function back() {
+        if (!selectedPlugin) return false;
+        selectedPlugin = "";
+        return true;
+    }
     spacing: PanelStyle.selectionRowGap
     Flow {
+        visible: !manager.selected
         width: parent.width
         spacing: PanelStyle.selectionActionGap
         PanelButton {
@@ -32,18 +41,85 @@ Column {
         }
     }
     Text {
-        visible: manager.installed.length === 0
+        visible: !manager.selected && manager.installed.length === 0
         text: Eitr.I18n.tr("No plugins installed")
         color: manager.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
     }
     Text {
+        visible: !manager.selected
         width: manager.width; wrapMode: Text.Wrap
         text: Eitr.I18n.tr("Above-window widgets are click-through. Use this page or Edit widgets for their options.")
         color: manager.foreground; opacity: PanelStyle.secondaryTextOpacity
         font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
     }
     Repeater {
-        model: manager.installed
+        model: manager.selected ? [] : manager.installed
+        Rectangle {
+            id: pluginRow
+            required property var modelData
+            width: manager.width; height: PanelStyle.selectionRowHeight
+            radius: DesktopStyle.radius(PanelStyle.controlRadius)
+            color: Qt.alpha(manager.foreground, PanelStyle.selectionAlpha(false, rowHover.hovered))
+            border.width: PanelStyle.selectionBorderWidth(false)
+            border.color: Qt.alpha(manager.foreground, PanelStyle.selectionBorderAlpha)
+            Image {
+                id: rowIcon
+                x: PanelStyle.selectionInset; anchors.verticalCenter: parent.verticalCenter
+                width: PanelStyle.selectionIconSize; height: width
+                source: pluginRow.modelData.icon || ""; fillMode: Image.PreserveAspectFit
+            }
+            Text {
+                visible: rowIcon.status !== Image.Ready
+                x: PanelStyle.selectionInset; anchors.verticalCenter: parent.verticalCenter
+                text: "󰏖"; color: manager.foreground
+                font.family: PanelStyle.fontFamily; font.pixelSize: PanelStyle.selectionIconSize
+            }
+            Text {
+                x: PanelStyle.selectionTextInset; anchors.verticalCenter: parent.verticalCenter
+                width: rowSwitch.x - x - PanelStyle.selectionActionGap
+                text: pluginRow.modelData.name; textFormat: Text.PlainText; elide: Text.ElideRight
+                color: manager.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
+            }
+            HoverHandler { id: rowHover }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: manager.selectedPlugin = pluginRow.modelData.id
+            }
+            Accessible.role: Accessible.Button
+            Accessible.name: modelData.name
+            Accessible.onPressAction: manager.selectedPlugin = modelData.id
+            activeFocusOnTab: true
+            Keys.onReturnPressed: manager.selectedPlugin = modelData.id
+            Keys.onSpacePressed: manager.selectedPlugin = modelData.id
+            PanelSwitch {
+                id: rowSwitch
+                anchors.right: parent.right; anchors.rightMargin: PanelStyle.selectionActionInset
+                anchors.verticalCenter: parent.verticalCenter
+                checked: pluginRow.modelData.enabled
+                enabled: !pluginRow.modelData.blocked || pluginRow.modelData.blocked === "disabled"
+                foreground: manager.foreground; accent: manager.accent
+                Accessible.name: Eitr.I18n.tr("Enable plugin")
+                onClicked: PluginRegistry.setEnabled(pluginRow.modelData.id, checked)
+            }
+        }
+    }
+    Row {
+        visible: !!manager.selected
+        width: parent.width; spacing: PanelStyle.selectionActionGap
+        PanelButton {
+            width: 28; height: 28; icon: true; text: "󰅁"
+            foreground: manager.foreground; Accessible.name: Eitr.I18n.tr("Back")
+            onClicked: manager.back()
+        }
+        Text {
+            width: parent.width - 34; height: 28; verticalAlignment: Text.AlignVCenter
+            text: manager.selected ? manager.selected.name : ""
+            textFormat: Text.PlainText; elide: Text.ElideRight
+            color: manager.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.headingSize
+        }
+    }
+    Repeater {
+        model: manager.selected ? [manager.selected] : []
         Rectangle {
             id: card
             required property var modelData
@@ -127,7 +203,7 @@ Column {
                     }
                 }
                 Image {
-                    width: parent.width; height: visible ? Math.min(220, width * (sourceSize.height || 1) / (sourceSize.width || 1)) : 0
+                    width: parent.width; height: visible ? 220 : 0
                     visible: manager.expanded === card.modelData.id && !!card.modelData.preview
                     source: card.modelData.preview || ""; fillMode: Image.PreserveAspectFit
                 }

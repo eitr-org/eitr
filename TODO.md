@@ -32,13 +32,8 @@ LAN.
 - **Plugins: fixes from the owner's first test (2026-10-27).** Schema v2 plugins
   (tiles, panels, widgets, bar items, audio spectrum, streams, Plugins page,
   opt-in styling) are on testing; `distro/PLUGINS.md` has the details.
-  - Right-clicking a widget opens its menu and closes it immediately, so no
-    option can be chosen.
-  - Edit widgets (Control Center > Plugins): dragging a widget is erratic on
-    Hyprland. Reproduce on the live desktop and fix the pointer grab or geometry.
-  - Plugins page: show each plugin as a compact row (icon, name, switch); clicking
-    it opens its details (author, version, description, Update/Remove, widgets),
-    so twenty plugins stay readable.
+  - Menu focus, stable edit surfaces and compact list/detail navigation are implemented; verify right-click dismissal and smooth dragging on Hyprland
+    before calling these fixes shipped.
   - Still open: runtime QML errors are not attributed to a plugin; in-process QML
     is not a sandbox; verify above-window click-through, fullscreen hiding and
     monitor hotplug live.

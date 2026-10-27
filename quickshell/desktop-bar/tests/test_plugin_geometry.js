@@ -74,3 +74,11 @@ assert.equal(larger.width, 440);
 assert.equal(larger.height, 220);
 assert.equal(larger.x + larger.width / 2, 600);
 assert.equal(larger.y + larger.height / 2, 400);
+
+// A gesture always starts from the press geometry, including reversals at a boundary.
+const pressGeometry = {x: 120, y: 60, width: 240, height: 120};
+for (const offset of [1, 2, 19, 8000, 18, -8000, 0]) {
+    const result = context.fit(context.delta(pressGeometry, offset, 0, false), usable, 96, 96, 1);
+    assert.equal(result.x, Math.max(usable.x, Math.min(usable.width - 240, 120 + offset)));
+    assert.equal(pressGeometry.x, 120);
+}

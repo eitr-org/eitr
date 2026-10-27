@@ -1,5 +1,10 @@
 # Releases
 
+Plugin management uses compact rows with a separate detail view. Widget menus
+wait for their popup to map before taking focus; editing keeps its Wayland
+surface stationary and saves snapped geometry on release. Live Hyprland review
+is still required for the reported menu and drag issues.
+
 System > Security adds reviewed account creation and read-only human account rows. New accounts initialize their own desktop at first Hyprland login through UWSM; deletion is not offered.
 
 Install > AI CLIs now includes OpenCode from Arch Extra and Pi through NVM/npm.

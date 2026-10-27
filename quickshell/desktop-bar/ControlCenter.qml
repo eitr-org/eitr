@@ -12,7 +12,7 @@ import "JsonState.js" as JsonState
 
 ThemedPopup {
     id: center
-    escapeHandler: () => plugins.back()
+    escapeHandler: () => center.page === "plugins" ? pluginManager.back() : plugins.back()
     required property var service
     required property var wifiControl
     required property var bluetoothControl
@@ -375,6 +375,7 @@ ThemedPopup {
                         foreground: center.foreground; background: center.background; accent: center.accent
                     }
                     PluginManager {
+                        id: pluginManager
                         width: parent.width; visible: center.page === "plugins"
                         foreground: center.foreground; background: center.background; accent: center.accent
                     }

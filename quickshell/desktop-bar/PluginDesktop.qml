@@ -55,6 +55,7 @@ Scope {
                     required property var modelData
                     property var draft: Object.assign({}, modelData.geometry)
                     property bool gesturing: false
+                    property var gestureStart: null
                     readonly property var fitted: Geometry.fit(draft, display.bounds, modelData.minWidth || 96, modelData.minHeight || 96, 1)
                     function save() {
                         draft = Geometry.fit(draft, display.bounds, modelData.minWidth || 96, modelData.minHeight || 96, desktop.grid);
@@ -67,16 +68,16 @@ Scope {
                     }
                     onModelDataChanged: if (!gesturing) draft = Object.assign({}, modelData.geometry)
                     screen: display.modelData
-                    anchors { top: true; left: true }
-                    margins.left: fitted.x; margins.top: fitted.y
+                    anchors { top: true; left: true; right: content.editing; bottom: content.editing }
+                    margins.left: content.editing ? 0 : fitted.x; margins.top: content.editing ? 0 : fitted.y
                     implicitWidth: fitted.width; implicitHeight: fitted.height
                     color: "transparent"
                     exclusionMode: ExclusionMode.Ignore
                     WlrLayershell.namespace: content.surface === "none" ? "eitr-plugin-transparent" : "eitr-plugin-widget"
                     readonly property bool aboveWindows: !!modelData.geometry.aboveWindows
                     visible: content.editing || !aboveWindows || !display.fullscreen
-                    WlrLayershell.layer: content.editing || content.menuOpen ? WlrLayer.Overlay : aboveWindows ? WlrLayer.Top : WlrLayer.Bottom
-                    WlrLayershell.keyboardFocus: content.editing || content.menuOpen ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
+                    WlrLayershell.layer: content.editing ? WlrLayer.Overlay : aboveWindows ? WlrLayer.Top : WlrLayer.Bottom
+                    WlrLayershell.keyboardFocus: content.editing ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
                     mask: Region { item: !window.aboveWindows || content.editing ? content : null }
                     Connections {
                         target: PluginRegistry
@@ -88,7 +89,9 @@ Scope {
                     }
                     PluginWidget {
                         id: content
-                        anchors.fill: parent; entry: window.modelData
+                        x: editing ? window.fitted.x : 0; y: editing ? window.fitted.y : 0
+                        width: window.fitted.width; height: window.fitted.height
+                        entry: window.modelData
                         originX: window.fitted.x; originY: window.fitted.y
                         onMenuEntriesChanged: PluginRegistry.setMenu(window.modelData, display.modelData.name, menuEntries)
                         Component.onCompleted: PluginRegistry.setMenu(window.modelData, display.modelData.name, menuEntries)
@@ -101,13 +104,14 @@ Scope {
                         onRemoveRequested: PluginRegistry.change("unplace", window.modelData, display.modelData.name, null)
                         foreground: desktop.foreground; background: desktop.background; accent: desktop.accent
                         editing: PluginRegistry.editing && (!PluginRegistry.editTarget || (PluginRegistry.editTarget.plugin === window.modelData.plugin && PluginRegistry.editTarget.id === window.modelData.id && PluginRegistry.editTarget.monitor === display.modelData.name))
+                        onBegun: { window.gestureStart = Object.assign({}, window.fitted); window.gesturing = true; }
                         onMoved: function(deltaX, deltaY) {
                             window.gesturing = true;
-                            window.draft = Geometry.delta(window.fitted, deltaX, deltaY, false);
+                            window.draft = Geometry.delta(window.gestureStart, deltaX, deltaY, false);
                         }
                         onResized: function(deltaX, deltaY) {
                             window.gesturing = true;
-                            window.draft = Geometry.delta(window.fitted, deltaX, deltaY, true);
+                            window.draft = Geometry.delta(window.gestureStart, deltaX, deltaY, true);
                         }
                         onFinished: window.save()
                     }

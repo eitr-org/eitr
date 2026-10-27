@@ -18,8 +18,7 @@ Item {
     property real originY: 0
     readonly property var menuEntries: component.menuEntries
     function pointerPosition(area, mouse) {
-        const point = area.mapToItem(widget, mouse.x, mouse.y);
-        return Qt.point(originX + point.x, originY + point.y);
+        return area.mapToGlobal(mouse.x, mouse.y);
     }
     function selectMenu(id) { component.menuSelect(id); }
     property bool menuOpen: false
@@ -30,6 +29,7 @@ Item {
     signal removeRequested()
     property bool active: true
     property bool editing: false
+    signal begun()
     signal moved(real deltaX, real deltaY)
     signal resized(real deltaX, real deltaY)
     signal finished()
@@ -71,7 +71,16 @@ Item {
         anchor.edges: Edges.Top | Edges.Left
         anchor.gravity: Edges.Bottom | Edges.Right
         anchor.adjustment: PopupAdjustment.Slide
-        HyprlandFocusGrab { active: widget.menuOpen; windows: [context]; onCleared: widget.menuOpen = false }
+        onVisibleChanged: {
+            if (visible) menuGrabDelay.restart();
+            else { menuGrabDelay.stop(); menuGrab.active = false; }
+        }
+        Timer {
+            id: menuGrabDelay
+            interval: 100
+            onTriggered: if (widget.menuOpen) { options.forceActiveFocus(); menuGrab.active = true; }
+        }
+        HyprlandFocusGrab { id: menuGrab; windows: [context]; onCleared: widget.menuOpen = false }
         Rectangle {
             anchors.fill: parent; color: widget.background
             radius: DesktopStyle.radius(PanelStyle.cornerRadius)
@@ -108,13 +117,13 @@ Item {
         }
         MouseArea {
             id: moveHandle
-            anchors.fill: parent; cursorShape: Qt.SizeAllCursor
+            anchors.fill: parent; cursorShape: Qt.SizeAllCursor; preventStealing: true
             property point start
-            onPressed: function(mouse) { start = widget.pointerPosition(moveHandle, mouse); }
+            onPressed: function(mouse) { start = widget.pointerPosition(moveHandle, mouse); widget.begun(); }
             onPositionChanged: function(mouse) {
                 if (!pressed) return;
                 const next = widget.pointerPosition(moveHandle, mouse);
-                widget.moved(next.x - start.x, next.y - start.y); start = next;
+                widget.moved(next.x - start.x, next.y - start.y);
             }
             onReleased: widget.finished()
             onCanceled: widget.finished()
@@ -127,13 +136,13 @@ Item {
         Text { anchors.centerIn: parent; text: "↘"; color: widget.background; font.pixelSize: 20 }
         MouseArea {
             id: resizeHandle
-            anchors.fill: parent; cursorShape: Qt.SizeFDiagCursor
+            anchors.fill: parent; cursorShape: Qt.SizeFDiagCursor; preventStealing: true
             property point start
-            onPressed: function(mouse) { start = widget.pointerPosition(resizeHandle, mouse); }
+            onPressed: function(mouse) { start = widget.pointerPosition(resizeHandle, mouse); widget.begun(); }
             onPositionChanged: function(mouse) {
                 if (!pressed) return;
                 const next = widget.pointerPosition(resizeHandle, mouse);
-                widget.resized(next.x - start.x, next.y - start.y); start = next;
+                widget.resized(next.x - start.x, next.y - start.y);
             }
             onReleased: widget.finished()
             onCanceled: widget.finished()
