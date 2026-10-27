@@ -29,18 +29,28 @@ LAN.
 
 # 2. Smaller items
 
-- **Visual plugins: runtime fault attribution remains.** Styling is author-controlled; theme helpers and widget/panel surfaces are opt-in, with custom tile canvases available. Schema v2 Control Center
-  prefetched host-drawn tiles and panel subviews, shared style/data API, full QML review, checked loading
-  and persistent disable after three load/reported errors are implemented
-  (`distro/PLUGINS.md`). Unreported runtime binding exceptions cannot yet be
-  attributed and counted automatically. In-process QML is not a sandbox and cannot
-  contain native crashes or infinite loops. Opt-in desktop widgets, bar placement
-  and menu-based visual reset are implemented. Shared playback spectrum, bounded live
-  streams and per-placement above-window widgets are implemented; verify Top-layer
-  click-through, fullscreen hiding and hotplug behavior on a live compositor.
-  The Plugins manager, enable/disable, artwork validation, transparent surfaces,
-  right-click options and continuous move/resize with release-time saving are
-  implemented; verify pointer grabs, edit focus and persistence on Hyprland.
+- **Plugins: fixes from the owner's first test (2026-10-27).** Schema v2 plugins
+  (tiles, panels, widgets, bar items, audio spectrum, streams, Plugins page,
+  opt-in styling) are on testing; `distro/PLUGINS.md` has the details.
+  - Right-clicking a widget opens its menu and closes it immediately, so no
+    option can be chosen.
+  - Edit widgets (Control Center > Plugins): dragging a widget is erratic on
+    Hyprland. Reproduce on the live desktop and fix the pointer grab or geometry.
+  - Plugins page: show each plugin as a compact row (icon, name, switch); clicking
+    it opens its details (author, version, description, Update/Remove, widgets),
+    so twenty plugins stay readable.
+  - Still open: runtime QML errors are not attributed to a plugin; in-process QML
+    is not a sandbox; verify above-window click-through, fullscreen hiding and
+    monitor hotplug live.
+- **Auto-hide bar.** A bar option to hide it and reveal it when the pointer
+  touches the screen edge it sits on (any of the four edges), like Windows' taskbar
+  auto-hide. Panels opened from the bar keep it shown; persist the choice in
+  `bar-settings.json` and offer it under Style > Desktop Bar.
+- **Boot, shutdown and disk-password screens (`distro/plymouth`).** Replace the dark
+  green: the logo cycles through the same Bifröst colour transitions as System
+  Update's text, and the rune loading animation uses the gold of the Norse
+  runestone wallpaper's emblem. Applies at power on, power off and the disk
+  passphrase prompt.
 - **Website translations.** Offer the site in the desktop's languages
   (Portuguese (Brazil), Spanish, German, French) with a language switch, reusing
   the reviewed Handbook translations where chapters overlap. Decide the URL scheme
