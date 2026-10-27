@@ -3,8 +3,7 @@
 ## Schema version 1
 
 Declare `"schemaVersion": 1` in the root `eitr-plugin.json`. A missing field is
-accepted as version 1 for existing plugins, with a review reminder. Other values
-are refused; a higher integer requires a newer Eitr. Booleans are not versions.
+accepted as version 1 for existing plugins, with a review reminder. Version 2 adds the optional visual declarations below; a higher integer requires a newer Eitr. Booleans are not versions.
 
 Version 1 fields and hook names will not change meaning or be removed within
 1.x. Additions are optional fields. A breaking change requires schemaVersion 2;
@@ -79,3 +78,77 @@ raise update RISK flags. Hooks are not run during installation or update review.
 
 See `distro/plugins/example/` for a manifest, notification row and theme hook.
 The example is documentation and is never installed automatically.
+
+## Visual components (schema version 2)
+
+Version 2 retains all version 1 fields and adds optional `ui`. Version 1
+manifests keep their validation and behavior; they cannot declare `ui`.
+`ui` accepts only `tiles` and `panels`, each an array of at most eight objects.
+Every object requires `id`, `title` (72 characters maximum), and `qml` (a
+relative `.qml` path inside the plugin). IDs follow the plugin ID grammar and
+must be unique across tiles and panels. Optional `icon` is up to eight characters.
+Optional `dataCommand` uses the same `{run, arguments}` validation as rows.
+Optional `refreshInterval` is milliseconds: zero (on demand), or 1000–3600000;
+a nonzero interval requires a data command. Unknown fields are refused.
+At most 32 QML files are allowed per visual plugin, each UTF-8, without NUL,
+and no larger than 64 KiB. Symlinks are refused anywhere in the repository.
+
+```json
+"ui": {
+  "tiles": [{"id": "hello", "title": "Hello", "qml": "HelloTile.qml", "panel": "hello-panel"}],
+  "panels": [{"id": "hello-panel", "title": "Hello status", "qml": "HelloPanel.qml"}]
+}
+```
+
+Tiles appear at the end of **Control Center > General**, under **Plugins**, only
+when tiles are declared. The host draws each 36 px row: declared icon centred
+in the 10 px leading slot, title at 36 px, and optional caption with a 2 px gap.
+Plugin tile QML supplies `api.detail` and optional trailing content (root
+`implicitWidth`, capped at 96 px); it must not draw another tile or title.
+Declare `panel` on a tile to name one of this plugin's panels. The host handles
+click, Return and Space. Panels replace the tiles with a back chevron and title.
+Back or Escape returns to tiles; another Escape closes Control Center.
+Panel height follows the root `implicitHeight`, scrolling above 360 px.
+Placements are prefetched in the background, retained while closed, and refreshed
+on installation, update, removal and re-enabling, without open-page polling.
+
+Every root component must be a QtQuick Item and declare
+`required property var api`. The injected object exposes:
+
+- `foreground`, `background`, `accent`: live theme colors.
+- `fontFamily`, `bodySize`, `captionSize`, `headingSize`, `radius`: shared style.
+- `title`, `icon`: this component's manifest labels.
+- `runDataCommand()`: runs only this component's declared argv, with its plugin
+  directory as cwd. Repeated calls while busy are ignored. Runs on component
+  load and at `refreshInterval` while the General page is open.
+- `loading`, `dataText`, `dataError`: command progress, UTF-8 stdout and helper
+  error text. Commands time out after ten seconds and output above 64 KiB is
+  refused. Do not use this helper for unbounded output or background jobs.
+- `detail`: writable optional tile caption.
+- `openPanel(id)`: in-panel navigation to a panel belonging to the same plugin.
+- `reportError(message)`: reports a fatal component error and unloads it.
+
+The Loader checks status and replaces failed content with an inline error.
+Failures are logged to `$XDG_STATE_HOME/eitr/plugin-ui.log`. After three load
+or reported errors across a plugin's components, its visual components are
+persistently disabled (including after updates). The tile shows how to reset:
+`eitr plugin enable-ui ID`. Close and reopen General to retry before the
+threshold; after resetting, the next refresh reloads the component. Script rows,
+hooks and services retain their existing independent behavior. Policy and
+blocklist refusals also hide visual components. Disabled state lives in
+`$XDG_STATE_HOME/eitr/plugin-ui.json`.
+
+**QML is not a sandbox.** Components run inside the bar with the user's full
+permissions. The API is a supported interface, not a security boundary: QML
+can import other modules, execute code and reach its environment. Loader error
+handling cannot contain infinite loops, native crashes or arbitrary runtime
+binding warnings. Authors should catch their own fatal runtime errors and call
+`reportError`. Install only trusted code. No in-process host can promise crash
+isolation against arbitrary plugin code.
+
+Install review lists every QML file, including helpers not declared as entry
+points, and displays its full source without executing it. Added, changed or
+removed QML raises update RISK flags. Visual updates open the full scrollable
+diff before approval and display the candidate's full QML sources as well.
+The example includes HelloTile.qml and HelloPanel.qml; select Hello to open
+its status panel. It is never installed automatically.

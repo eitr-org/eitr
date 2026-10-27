@@ -130,10 +130,33 @@ Plugins live only in `$XDG_DATA_HOME/eitr/plugins/<id>/` (default `~/.local/shar
 
 ### Manifest reference
 
-The repository root contains `eitr-plugin.json`. Only these keys are accepted: `id` (lowercase letters/digits separated by single hyphens), `name`, `description` (up to 72 characters), `author`, `version`, `rows` (1–20), and optional `service`, `schemaVersion` and `hooks`. Each row requires `title`, `description` (both up to 72 characters) and `run`; optional keys are `icon` and `arguments` (an array of fixed strings). A service accepts only `run` and optional `arguments`. Commands use argv, never shell strings. `run` must name an executable inside the repository: absolute paths and `..` are refused, and so is a symlink anywhere in the plugin. Unknown or duplicate JSON keys are refused. Submodules are not initialized.
+Version 1: The repository root contains `eitr-plugin.json`. Only these keys are accepted: `id` (lowercase letters/digits separated by single hyphens), `name`, `description` (up to 72 characters), `author`, `version`, `rows` (1–20), and optional `service`, `schemaVersion` and `hooks`. Each row requires `title`, `description` (both up to 72 characters) and `run`; optional keys are `icon` and `arguments` (an array of fixed strings). A service accepts only `run` and optional `arguments`. Commands use argv, never shell strings. `run` must name an executable inside the repository: absolute paths and `..` are refused, and so is a symlink anywhere in the plugin. Unknown or duplicate JSON keys are refused. Submodules are not initialized.
 
 The tiny example in `distro/plugins/example/` contains a manifest and `notify.sh`, one notification action, a theme hook and no service. Copy it into your own Git repository, commit it and publish an HTTPS Git URL to try the complete installation flow. The example is shipped as documentation; it is not installed automatically.
 
-Declare `schemaVersion: 1` in new manifests. Older manifests without it still work, with a reminder in review; higher versions need a newer Eitr. The author guide `distro/PLUGINS.md` (packaged as `PLUGINS.md`) defines the stable version 1 contract.
+Declare `schemaVersion: 1` for script-only manifests or `schemaVersion: 2` for the optional `ui` section below. Older manifests without a version still work as v1, with a reminder in review; versions above 2 need a newer Eitr. The author guide `distro/PLUGINS.md` (packaged as `PLUGINS.md`) defines the stable version 1 contract.
 
 Plugins can declare `theme-changed`, `wallpaper-changed`, `after-update` and `login` hooks. They run in the background after the action (login once per desktop session), with a 30-second timeout. Failures are logged in `$XDG_STATE_HOME/eitr/plugin-hooks.log` and never fail the action. Review lists hooks; added or changed hooks raise update RISK flags. Blocklist and organization policy apply to hooks too.
+
+
+### Visual plugins
+
+Schema version 2 can add tiles to **Control Center > General > Plugins** and
+panels opened from those tiles. They use the desktop colors, fonts and corners;
+no bar icons are added. Review lists every QML file and its full source before
+installation. Updates show a scrollable diff and the candidate QML before
+approval; QML changes raise RISK flags. QML is not a sandbox: it runs inside the
+bar with your full permissions. Trust the author; a loop or native crash cannot
+be isolated by the loader.
+
+A component load error shows an inline error instead of its content and is
+logged in `$XDG_STATE_HOME/eitr/plugin-ui.log`. After three load or reported
+errors, that plugin's visual components are disabled, including across updates.
+The tile explains how to re-enable them: run `eitr plugin enable-ui ID`. Before
+the threshold, close and reopen General to retry. Rows, hooks and services are
+independent. Plugins appear after the existing General sections. Panels replace
+the tiles with a title and back chevron; Back or Escape returns to tiles before
+another Escape closes Control Center. Tall panels scroll inside the subview. The schema v2
+example has a Hello tile and status panel. Schema v1 plugins remain supported
+unchanged. Authoring details and the narrow style/data API are in
+`distro/PLUGINS.md`; the API is a supported interface, not a security boundary.

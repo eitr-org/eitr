@@ -1333,7 +1333,7 @@
   "Unknown HDR value {value}": "Valor HDR desconhecido {value}",
   "This display does not report HDR support.": "Este monitor não informa suporte a HDR.",
   "SDR content brightness must be between 1 and 2.": "O brilho do conteúdo SDR deve estar entre 1 e 2.",
-  "Invalid plugin schemaVersion; expected 1": "schemaVersion do plugin inválida; esperado 1",
+  "Invalid plugin schemaVersion; expected 1 or 2": "schemaVersion do plugin inválida; esperado 1 ou 2",
   "This plugin needs a newer Eitr": "Este plugin precisa de um Eitr mais recente",
   "Invalid plugin hooks; unknown event": "Hooks do plugin inválidos; evento desconhecido",
   "Event hook added or changed: {event}": "Hook de evento adicionado ou alterado: {event}",
@@ -1369,5 +1369,7 @@
   "Administrator": "Administrador",
   "Administrators can use sudo. Standard accounts cannot.": "Administradores podem usar sudo. Contas padrão não podem.",
   "Use lowercase letters, digits, underscores or hyphens; start with a letter or underscore. Maximum 32 characters.": "Use letras minúsculas, números, sublinhados ou hífens; comece com letra ou sublinhado. Máximo de 32 caracteres.",
-  "Account created. Desktop setup runs at its first Hyprland login; shell setup may need internet access.": "Conta criada. O desktop será configurado no primeiro login no Hyprland; o shell pode precisar de internet."
+  "Account created. Desktop setup runs at its first Hyprland login; shell setup may need internet access.": "Conta criada. O desktop será configurado no primeiro login no Hyprland; o shell pode precisar de internet.",
+  "QML added, changed or removed: {path}": "QML adicionado, alterado ou removido: {path}",
+  "QML runs inside the bar: {path}": "QML executa dentro da barra: {path}"
 }

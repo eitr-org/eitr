@@ -504,7 +504,6 @@
   "Invalid package name": "Invalid package name",
   "Invalid peer address.": "Invalid peer address.",
   "Invalid plugin hooks; unknown event": "Invalid plugin hooks; unknown event",
-  "Invalid plugin schemaVersion; expected 1": "Invalid plugin schemaVersion; expected 1",
   "Invalid project ID": "Invalid project ID",
   "Invalid reminder alerts.": "Invalid reminder alerts.",
   "Invalid reminder time.": "Invalid reminder time.",
@@ -1369,5 +1368,8 @@
   "Full name": "Full name",
   "Optional display name.": "Optional display name.",
   "Standard": "Standard",
-  "Use lowercase letters, digits, underscores or hyphens; start with a letter or underscore. Maximum 32 characters.": "Use lowercase letters, digits, underscores or hyphens; start with a letter or underscore. Maximum 32 characters."
+  "Use lowercase letters, digits, underscores or hyphens; start with a letter or underscore. Maximum 32 characters.": "Use lowercase letters, digits, underscores or hyphens; start with a letter or underscore. Maximum 32 characters.",
+  "Invalid plugin schemaVersion; expected 1 or 2": "Invalid plugin schemaVersion; expected 1 or 2",
+  "QML added, changed or removed: {path}": "QML added, changed or removed: {path}",
+  "QML runs inside the bar: {path}": "QML runs inside the bar: {path}"
 }

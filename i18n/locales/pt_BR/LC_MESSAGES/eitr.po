@@ -1567,8 +1567,8 @@ msgstr "Endereço de dispositivo inválido."
 msgid "Invalid plugin hooks; unknown event"
 msgstr "Hooks do plugin inválidos; evento desconhecido"
 
-msgid "Invalid plugin schemaVersion; expected 1"
-msgstr "schemaVersion do plugin inválida; esperado 1"
+msgid "Invalid plugin schemaVersion; expected 1 or 2"
+msgstr "schemaVersion do plugin inválida; esperado 1 ou 2"
 
 msgid "Invalid project ID"
 msgstr "ID de projeto inválido"
@@ -2298,6 +2298,12 @@ msgstr "Remover itens não usados do armazenamento pnpm?"
 
 msgid "Public IP addresses"
 msgstr "Endereços IP públicos"
+
+msgid "QML added, changed or removed: {path}"
+msgstr "QML adicionado, alterado ou removido: {path}"
+
+msgid "QML runs inside the bar: {path}"
+msgstr "QML executa dentro da barra: {path}"
 
 msgid "Queues"
 msgstr "Filas"

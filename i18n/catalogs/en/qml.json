@@ -395,5 +395,12 @@
   "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
   "•  now": "•  now",
   "󰂚  No notifications": "󰂚  No notifications",
-  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Do Not Disturb\n\nNo notifications"
+  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Do Not Disturb\n\nNo notifications",
+  "Plugins": "Plugins",
+  "Could not load": "Could not load",
+  "Disabled": "Disabled",
+  "Re-enable with eitr plugin enable-ui {plugin}": "Re-enable with eitr plugin enable-ui {plugin}",
+  "Reopen to retry; disabled after 3 failures": "Reopen to retry; disabled after 3 failures",
+  "Hello from an Eitr plugin": "Hello from an Eitr plugin",
+  "Ready": "Ready"
 }

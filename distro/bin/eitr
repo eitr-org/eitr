@@ -136,6 +136,8 @@ def parser():
     plugin_update.add_argument("id", nargs="?")
     plugin_remove = plugin_actions.add_parser("remove")
     plugin_remove.add_argument("id")
+    plugin_enable = plugin_actions.add_parser("enable-ui")
+    plugin_enable.add_argument("id")
     plugin_hooks = plugin_actions.add_parser("hooks", help="dispatch plugin event hooks")
     from eitr_plugins import HOOK_EVENTS
     plugin_hooks.add_argument("event", choices=HOOK_EVENTS)

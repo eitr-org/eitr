@@ -420,7 +420,14 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  now",
     "󰂚  No notifications": "󰂚  No notifications",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Do Not Disturb\n\nNo notifications"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Do Not Disturb\n\nNo notifications",
+    "Plugins": "Plugins",
+    "Could not load": "Could not load",
+    "Disabled": "Disabled",
+    "Re-enable with eitr plugin enable-ui {plugin}": "Re-enable with eitr plugin enable-ui {plugin}",
+    "Reopen to retry; disabled after 3 failures": "Reopen to retry; disabled after 3 failures",
+    "Hello from an Eitr plugin": "Hello from an Eitr plugin",
+    "Ready": "Ready"
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -819,7 +826,14 @@ var qml = {
     "Copied": "Copiado",
     "HDR": "HDR",
     "Shows the desktop in HDR. Games can use HDR even when this is off.": "Exibe a área de trabalho em HDR. Jogos podem usar HDR mesmo com esta opção desativada.",
-    "SDR content brightness": "Brilho do conteúdo SDR"
+    "SDR content brightness": "Brilho do conteúdo SDR",
+    "Plugins": "Plugins",
+    "Disabled": "Desativado",
+    "Could not load": "Não foi possível carregar",
+    "Re-enable with eitr plugin enable-ui {plugin}": "Reative com eitr plugin enable-ui {plugin}",
+    "Reopen to retry; disabled after 3 failures": "Reabra para tentar novamente; desativado após 3 falhas",
+    "Ready": "Pronto",
+    "Hello from an Eitr plugin": "Olá de um plugin do Eitr"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1218,7 +1232,14 @@ var qml = {
     "Copied": "Copiado",
     "HDR": "HDR",
     "Shows the desktop in HDR. Games can use HDR even when this is off.": "Muestra el escritorio en HDR. Los juegos pueden usar HDR aunque esté desactivado.",
-    "SDR content brightness": "Brillo del contenido SDR"
+    "SDR content brightness": "Brillo del contenido SDR",
+    "Plugins": "Plugins",
+    "Disabled": "Desactivado",
+    "Could not load": "No se pudo cargar",
+    "Re-enable with eitr plugin enable-ui {plugin}": "Reactivar con eitr plugin enable-ui {plugin}",
+    "Reopen to retry; disabled after 3 failures": "Vuelve a abrir para reintentar; se desactiva tras 3 fallos",
+    "Ready": "Listo",
+    "Hello from an Eitr plugin": "Hola desde un plugin de Eitr"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1617,7 +1638,14 @@ var qml = {
     "Copied": "Kopiert",
     "HDR": "HDR",
     "Shows the desktop in HDR. Games can use HDR even when this is off.": "Zeigt den Desktop in HDR. Spiele können HDR auch nutzen, wenn dies ausgeschaltet ist.",
-    "SDR content brightness": "Helligkeit von SDR-Inhalten"
+    "SDR content brightness": "Helligkeit von SDR-Inhalten",
+    "Plugins": "Plugins",
+    "Disabled": "Deaktiviert",
+    "Could not load": "Konnte nicht geladen werden",
+    "Re-enable with eitr plugin enable-ui {plugin}": "Mit eitr plugin enable-ui {plugin} wieder aktivieren",
+    "Reopen to retry; disabled after 3 failures": "Zum Wiederholen erneut öffnen; nach 3 Fehlern deaktiviert",
+    "Ready": "Bereit",
+    "Hello from an Eitr plugin": "Hallo von einem Eitr-Plugin"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2016,6 +2044,13 @@ var qml = {
     "Copied": "Copié",
     "HDR": "HDR",
     "Shows the desktop in HDR. Games can use HDR even when this is off.": "Affiche le bureau en HDR. Les jeux peuvent utiliser HDR même si ce réglage est désactivé.",
-    "SDR content brightness": "Luminosité du contenu SDR"
+    "SDR content brightness": "Luminosité du contenu SDR",
+    "Plugins": "Plugins",
+    "Disabled": "Désactivé",
+    "Could not load": "Chargement impossible",
+    "Re-enable with eitr plugin enable-ui {plugin}": "Réactiver avec eitr plugin enable-ui {plugin}",
+    "Reopen to retry; disabled after 3 failures": "Rouvrir pour réessayer ; désactivé après 3 échecs",
+    "Ready": "Prêt",
+    "Hello from an Eitr plugin": "Bonjour depuis un plugin Eitr"
   }
 };

@@ -1567,8 +1567,8 @@ msgstr "Adresse d’appareil distant invalide."
 msgid "Invalid plugin hooks; unknown event"
 msgstr "Hooks du plugin invalides ; événement inconnu"
 
-msgid "Invalid plugin schemaVersion; expected 1"
-msgstr "schemaVersion du plugin invalide ; valeur attendue : 1"
+msgid "Invalid plugin schemaVersion; expected 1 or 2"
+msgstr "schemaVersion du plugin invalide ; 1 ou 2 attendu"
 
 msgid "Invalid project ID"
 msgstr "Identifiant de projet invalide"
@@ -2298,6 +2298,12 @@ msgstr "Supprimer les éléments inutilisés du stockage pnpm ?"
 
 msgid "Public IP addresses"
 msgstr "Adresses IP publiques"
+
+msgid "QML added, changed or removed: {path}"
+msgstr "QML ajouté, modifié ou supprimé : {path}"
+
+msgid "QML runs inside the bar: {path}"
+msgstr "QML s’exécute dans la barre : {path}"
 
 msgid "Queues"
 msgstr "Files d’attente"

@@ -567,3 +567,15 @@ Every panel follows the same rules, so a new one feels like the others:
   groups (devices, sections, options); Control Center sections carry a label.
 - **Walker descriptions fit.** Row descriptions stay within 72 characters in
   every language; `walker/tests/test_menu_structure.py` enforces it.
+
+## Visual plugins
+
+General ends with a labelled Plugins area for approved schema v2 tile components.
+PluginArea queries approved placements; PluginComponent owns checked asynchronous
+loading, the style/data API, shared tile rows and inline failure fallback.
+Placements prefetch before opening and refresh on registry changes. Panel subviews
+use an intrinsic height with scrolling above 360 px; Back and Escape return to tiles.
+Three component failures disable a plugin's visual components persistently;
+`eitr plugin enable-ui ID` resets them. No bar slots are added. QML runs inside
+the bar and is not a sandbox or crash boundary. See `distro/PLUGINS.md` for the
+manifest, API contract, review behavior and runtime limitations.

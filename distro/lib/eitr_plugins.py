@@ -78,10 +78,10 @@ def manifest(root):
         raise ValueError('Invalid plugin manifest fields')
     version = value.get('schemaVersion', 1)
     if type(version) is not int or version < 1:
-        raise ValueError(tr('Invalid plugin schemaVersion; expected 1'))
-    if version > 1:
+        raise ValueError(tr('Invalid plugin schemaVersion; expected 1 or 2'))
+    if version > 2:
         raise ValueError(tr('This plugin needs a newer Eitr'))
-    object_keys(value, ('id', 'name', 'description', 'author', 'version', 'rows'), ('service', 'schemaVersion', 'hooks'))
+    object_keys(value, ('id', 'name', 'description', 'author', 'version', 'rows'), ('service', 'schemaVersion', 'hooks') + (('ui',) if version == 2 else ()))
     identifier(value['id'])
     for field in ('name', 'author', 'version'):
         string(value[field])
@@ -104,7 +104,64 @@ def manifest(root):
     for hook in hooks.values():
         object_keys(hook, ('run',), ('arguments',))
         command(root, hook)
+    if 'ui' in value:
+        validate_ui(root, value['ui'])
     return value
+
+
+UI_FAILURE_LIMIT = 3
+
+
+def qml_files(root):
+    files = sorted(path for path in plugin_files(root) if path.suffix.casefold() == '.qml')
+    if len(files) > 32:
+        raise ValueError('A plugin may contain at most 32 QML files')
+    for path in files:
+        if path.stat().st_size > 65536:
+            raise ValueError('Plugin QML files must be at most 64 KiB')
+        source = path.read_text(encoding='utf-8')
+        if '\0' in source:
+            raise ValueError('Plugin QML must be UTF-8 text without NUL')
+    return files
+
+
+def validate_ui(root, ui):
+    object_keys(ui, (), ('tiles', 'panels'))
+    if not isinstance(ui.get('panels', []), list):
+        raise ValueError('Plugin panels must be a list')
+    files = qml_files(root)
+    ids = set()
+    for kind in ('tiles', 'panels'):
+        entries = ui.get(kind, [])
+        if not isinstance(entries, list) or len(entries) > 8:
+            raise ValueError('A plugin may declare at most 8 tiles and 8 panels')
+        for entry in entries:
+            object_keys(entry, ('id', 'title', 'qml'), ('icon', 'refreshInterval', 'dataCommand') + (('panel',) if kind == 'tiles' else ()))
+            if 'panel' in entry:
+                panel_id = identifier(entry['panel'])
+                if panel_id not in [panel.get('id') for panel in ui.get('panels', []) if isinstance(panel, dict)]:
+                    raise ValueError('Tile panel must name a declared panel')
+            key = identifier(entry['id'])
+            if key in ids:
+                raise ValueError('Duplicate plugin UI id')
+            ids.add(key)
+            string(entry['title'], 72)
+            if 'icon' in entry:
+                string(entry['icon'], 8)
+            relative = PurePosixPath(string(entry['qml'], 256))
+            if relative.is_absolute() or '..' in relative.parts or not relative.parts or relative.parts[0] == '.git':
+                raise ValueError('Plugin QML must stay inside its folder')
+            target = root / relative
+            if target.is_symlink() or target.resolve() not in [path.resolve() for path in files]:
+                raise ValueError('Plugin QML must name a QML file inside its folder')
+            interval = entry.get('refreshInterval', 0)
+            if type(interval) is not int or (interval != 0 and not 1000 <= interval <= 3600000):
+                raise ValueError('Plugin refreshInterval must be 0 or 1000..3600000 milliseconds')
+            if interval and 'dataCommand' not in entry:
+                raise ValueError('Plugin refreshInterval needs a dataCommand')
+            if 'dataCommand' in entry:
+                object_keys(entry['dataCommand'], ('run',), ('arguments',))
+                command(root, entry['dataCommand'])
 
 
 # Private repositories use the person's own SSH keys and ~/.ssh/config aliases:
@@ -202,7 +259,7 @@ def service_text(spec):
 
 
 def add_flags(root, spec):
-    flags = []
+    flags = [tr('QML runs inside the bar: {path}', path=printable(str(path.relative_to(root)))) for path in qml_files(root)]
     if 'service' in spec:
         flags.append(tr('Starts a background service at every login: {command}', command=service_text(spec)))
     flags.extend(tr('Binary file: {path}', path=printable(path)) for path in binary_files(root))
@@ -238,6 +295,8 @@ def update_changes(candidate, target, old, new, old_spec, spec):
     if any(change['path'] == 'eitr-plugin.json' for change in files):
         flags.append(tr('Manifest changed: {path}', path='eitr-plugin.json'))
     for change in files:
+        if change['path'].casefold().endswith('.qml'):
+            flags.append(tr('QML added, changed or removed: {path}', path=change['path']))
         if change['new_mode'] == '100755':
             if change['status'] == 'A':
                 flags.append(tr('New executable file: {path}', path=change['path']))
@@ -601,6 +660,89 @@ class Plugins:
             except (OSError, ValueError, subprocess.SubprocessError):
                 continue
         return sorted(rows, key=lambda row: row['title'].casefold())
+
+    def ui_state(self):
+        path = state('eitr/plugin-ui.json')
+        try:
+            value = json.loads(path.read_text())
+            if not isinstance(value, dict):
+                raise ValueError('Invalid plugin UI state')
+            for plugin_id, record in value.items():
+                identifier(plugin_id)
+                object_keys(record, ('failures', 'disabled'))
+                if type(record['failures']) is not int or not 0 <= record['failures'] <= UI_FAILURE_LIMIT or type(record['disabled']) is not bool:
+                    raise ValueError('Invalid plugin UI state')
+            return value
+        except FileNotFoundError:
+            return {}
+
+    def ui_failure(self, plugin_id, approved, message='Component load error'):
+        identifier(plugin_id)
+        with self.lock():
+            if self.records()[plugin_id]['commit'] != approved:
+                raise ValueError('Stale plugin UI failure')
+            values = self.ui_state()
+            previous = values.get(plugin_id, {})
+            count = min(UI_FAILURE_LIMIT, previous.get('failures', 0) + 1)
+            values[plugin_id] = dict(failures=count, disabled=count >= UI_FAILURE_LIMIT)
+            self.write(state('eitr/plugin-ui.json'), values)
+            log = state('eitr/plugin-ui.log')
+            with log.open('a') as output:
+                output.write(f'{plugin_id}: {printable(message)[:2048]} ({count}/{UI_FAILURE_LIMIT})\n')
+            return values[plugin_id]
+
+    def enable_ui(self, plugin_id):
+        identifier(plugin_id)
+        with self.lock():
+            if plugin_id not in self.records():
+                raise ValueError('Unknown plugin')
+            values = self.ui_state()
+            values.pop(plugin_id, None)
+            self.write(state('eitr/plugin-ui.json'), values)
+
+    def ui(self):
+        """UI placements are explicit, ready for future opt-in destinations."""
+        blocked = self.blocked()
+        failures = self.ui_state()
+        result = []
+        for plugin_id, record in self.records().items():
+            if plugin_id in blocked:
+                continue
+            root = self.folder / plugin_id
+            try:
+                if root.is_symlink() or commit(root) != record['commit']:
+                    continue
+                list(plugin_files(root))
+                spec = manifest(root)
+                for kind in ('tiles', 'panels'):
+                    for entry in spec.get('ui', {}).get(kind, []):
+                        result.append(dict(plugin=plugin_id, commit=record['commit'], kind=kind,
+                                           placement='control-center', disabled=bool(failures.get(plugin_id, {}).get('disabled')),
+                                           **entry, source=(root / entry['qml']).as_uri()))
+            except (OSError, ValueError, subprocess.SubprocessError):
+                continue
+        return result
+
+    def ui_data(self, plugin_id, entry_id):
+        entry = next((entry for entry in self.ui() if entry['plugin'] == plugin_id and entry['id'] == entry_id), None)
+        if not entry or entry['disabled'] or 'dataCommand' not in entry:
+            raise ValueError('Plugin data command is unavailable')
+        root = self.folder / plugin_id
+        # A temporary file bounds memory even when a command writes excessive output.
+        with tempfile.TemporaryFile() as output:
+            process = subprocess.Popen(command(root, entry['dataCommand']), cwd=root, start_new_session=True,
+                                       stdin=subprocess.DEVNULL, stdout=output, stderr=subprocess.DEVNULL)
+            try:
+                status = process.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                os.killpg(process.pid, signal.SIGKILL)
+                process.wait()
+                raise ValueError('Plugin data command timed out') from None
+            output.seek(0)
+            value = output.read(65537)
+            if status or len(value) > 65536:
+                raise ValueError('Plugin data command failed or exceeded 64 KiB')
+            return value.decode('utf-8')
 
     def hooks(self, event):
         """Called in a detached dispatcher; each approved hook has its own timeout."""

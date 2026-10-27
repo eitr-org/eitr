@@ -39,7 +39,8 @@ def extract(root=ROOT):
         if message and message != ">":
             sources[layer].setdefault(message, []).append(str(path.relative_to(root)))
 
-    for path in sorted((root / "quickshell").rglob("*.qml")):
+    for path in sorted([*(root / "quickshell").rglob("*.qml"),
+                        *(root / "distro/plugins/example").glob("*.qml")]):
         parts = path.relative_to(root).parts
         if "tests" in parts or "references" in parts or path.name.endswith("-preview.qml"):
             continue

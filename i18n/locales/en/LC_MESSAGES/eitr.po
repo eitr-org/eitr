@@ -1567,8 +1567,8 @@ msgstr "Invalid peer address."
 msgid "Invalid plugin hooks; unknown event"
 msgstr "Invalid plugin hooks; unknown event"
 
-msgid "Invalid plugin schemaVersion; expected 1"
-msgstr "Invalid plugin schemaVersion; expected 1"
+msgid "Invalid plugin schemaVersion; expected 1 or 2"
+msgstr "Invalid plugin schemaVersion; expected 1 or 2"
 
 msgid "Invalid project ID"
 msgstr "Invalid project ID"
@@ -2298,6 +2298,12 @@ msgstr "Prune pnpm store?"
 
 msgid "Public IP addresses"
 msgstr "Public IP addresses"
+
+msgid "QML added, changed or removed: {path}"
+msgstr "QML added, changed or removed: {path}"
+
+msgid "QML runs inside the bar: {path}"
+msgstr "QML runs inside the bar: {path}"
 
 msgid "Queues"
 msgstr "Queues"

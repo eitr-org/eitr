@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "id": "example",
   "name": "Example plugin",
   "description": "A tiny notification example",
@@ -23,5 +23,23 @@
         "The theme changed"
       ]
     }
+  },
+  "ui": {
+    "tiles": [
+      {
+        "id": "hello",
+        "title": "Hello",
+        "icon": "☀",
+        "qml": "HelloTile.qml",
+        "panel": "hello-panel"
+      }
+    ],
+    "panels": [
+      {
+        "id": "hello-panel",
+        "title": "Hello status",
+        "qml": "HelloPanel.qml"
+      }
+    ]
   }
 }

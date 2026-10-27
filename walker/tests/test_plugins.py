@@ -35,6 +35,12 @@ class PluginTests(unittest.TestCase):
         self.addCleanup(self.root_user.stop)
         self.source = self.home / 'source'
         shutil.copytree(ROOT / 'distro/plugins/example', self.source)
+        for name in ('HelloTile.qml', 'HelloPanel.qml', 'qmldir'):
+            (self.source / name).unlink()
+        legacy = self.spec()
+        legacy['schemaVersion'] = 1
+        legacy.pop('ui', None)
+        (self.source / 'eitr-plugin.json').write_text(json.dumps(legacy))
         self.git(self.source, 'init', '-b', 'main')
         self.git(self.source, 'add', '.')
         self.git(self.source, '-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-m', 'Initial plugin')
@@ -632,10 +638,10 @@ class PluginTests(unittest.TestCase):
                 del spec['schemaVersion']
             self.write_spec(spec)
             self.assertEqual(plugins.manifest(self.source), spec)
-        for version in (2, 0, -1, True, '1', 1.0, None):
+        for version in (3, 0, -1, True, '1', 1.0, None):
             spec = dict(valid, schemaVersion=version)
             self.write_spec(spec)
-            with self.subTest(version=version), self.assertRaisesRegex(ValueError, 'newer Eitr' if version == 2 else 'schemaVersion'):
+            with self.subTest(version=version), self.assertRaisesRegex(ValueError, 'newer Eitr' if version == 3 else 'schemaVersion'):
                 plugins.manifest(self.source)
         for hooks in ({'unknown': {'run': 'notify.sh'}}, {'login': {'run': '../escape'}},
                       {'login': {'run': 'notify.sh', 'arguments': [1]}}, [], {'login': {'run': '/bin/true'}}):
@@ -776,3 +782,122 @@ class PluginTests(unittest.TestCase):
             popen.return_value.wait.side_effect = [7, 0]
             self.manager.hooks('theme-changed')
             self.assertEqual(popen.call_count, 2)
+
+
+class VisualPluginTests(unittest.TestCase):
+    setUp = PluginTests.setUp
+    git = PluginTests.git
+    spec = PluginTests.spec
+    block = PluginTests.block
+    cli = PluginTests.cli
+    commit_as = PluginTests.commit_as
+    write_spec = PluginTests.write_spec
+    publish = PluginTests.publish
+    install = PluginTests.install
+
+    def visual(self):
+        for name in ('HelloTile.qml', 'HelloPanel.qml', 'qmldir'):
+            shutil.copy(ROOT / 'distro/plugins/example' / name, self.source / name)
+        value = self.spec()
+        value['schemaVersion'] = 2
+        value['ui'] = {'tiles': [{'id': 'hello', 'title': 'Hello', 'qml': 'HelloTile.qml',
+                                  'dataCommand': {'run': 'notify.sh'}, 'refreshInterval': 1000}],
+                       'panels': [{'id': 'hello-panel', 'title': 'Hello status', 'qml': 'HelloPanel.qml'}]}
+        return value
+
+    def test_v2_valid_and_v1_unchanged(self):
+        value = self.visual()
+        self.write_spec(value)
+        self.assertEqual(plugins.manifest(self.source), value)
+        value['schemaVersion'] = 1
+        self.write_spec(value)
+        with self.assertRaises(ValueError):
+            plugins.manifest(self.source)
+        value.pop('ui')
+        self.write_spec(value)
+        self.assertEqual(plugins.manifest(self.source), value)
+
+    def test_tile_panel_reference_validation(self):
+        value = self.visual()
+        value['ui']['tiles'][0]['panel'] = 'missing'
+        with self.assertRaises(ValueError):
+            plugins.validate_ui(self.source, value['ui'])
+        value['ui']['tiles'][0]['panel'] = 'hello-panel'
+        plugins.validate_ui(self.source, value['ui'])
+        value['ui']['panels'][0]['panel'] = 'hello-panel'
+        with self.assertRaises(ValueError):
+            plugins.validate_ui(self.source, value['ui'])
+        value['ui']['panels'] = None
+        with self.assertRaises(ValueError):
+            plugins.validate_ui(self.source, value['ui'])
+
+    def test_ui_validation(self):
+        for field, invalid in [('qml', '../HelloTile.qml'), ('qml', '/tmp/HelloTile.qml'),
+                               ('qml', 'notify.sh'), ('qml', 'missing.qml'), ('id', 'Bad id'),
+                               ('refreshInterval', True), ('refreshInterval', 999),
+                               ('refreshInterval', 3600001), ('dataCommand', {'run': '/bin/true'}),
+                               ('unknown', 'value')]:
+            value = self.visual()
+            value['ui']['tiles'][0][field] = invalid
+            self.write_spec(value)
+            with self.subTest(field=field, invalid=invalid), self.assertRaises((ValueError, OSError)):
+                plugins.manifest(self.source)
+        value = self.visual()
+        value['ui']['panels'][0]['id'] = 'hello'
+        self.write_spec(value)
+        with self.assertRaises(ValueError):
+            plugins.manifest(self.source)
+        value = self.visual()
+        value['ui']['tiles'] *= 9
+        self.write_spec(value)
+        with self.assertRaises(ValueError):
+            plugins.manifest(self.source)
+        self.write_spec(self.visual())
+        (self.source / 'HelloTile.qml').write_text('x' * 65537)
+        with self.assertRaises(ValueError):
+            plugins.manifest(self.source)
+
+    def test_review_shows_every_qml_full_source_and_flags(self):
+        value = self.visual()
+        self.write_spec(value)
+        lines = self.cli().review_lines(self.source, value, self.url)
+        for name in ('HelloTile.qml', 'HelloPanel.qml'):
+            self.assertIn('QML: ' + name, lines)
+            for line in (self.source / name).read_text().splitlines():
+                self.assertIn(plugins.printable(line), lines)
+        self.assertTrue(any('QML runs inside the bar' in flag for flag in plugins.add_flags(self.source, value)))
+        self.install()
+        (self.source / 'HelloTile.qml').write_text('import QtQuick\nItem { required property var api }\n')
+        self.commit_as('Fixture')
+        observed = []
+        self.manager.update('example', lambda changes: observed.append(changes) or False)
+        self.assertTrue(any('QML added, changed or removed' in flag for flag in observed[0]['flags']))
+
+    def test_failure_threshold_persistence_and_reenable(self):
+        self.publish(self.visual())
+        approved = self.install()
+        for count in range(1, 4):
+            outcome = self.manager.ui_failure('example', approved, 'broken\x1b')
+            self.assertEqual(outcome, {'failures': count, 'disabled': count == 3})
+        self.assertTrue(all(entry['disabled'] for entry in self.manager.ui()))
+        self.assertIn('broken?', plugins.state('eitr/plugin-ui.log').read_text())
+        with self.assertRaises(ValueError):
+            self.manager.ui_failure('example', '0' * 40)
+        cli = self.cli()
+        with patch.object(cli, 'Plugins', return_value=self.manager):
+            self.assertEqual(cli.main(['enable-ui', 'example']), 0)
+        self.assertTrue(all(not entry['disabled'] for entry in self.manager.ui()))
+        self.block(id='example')
+        self.assertEqual(self.manager.ui(), [])
+
+    def test_data_helper_only_runs_declared_command(self):
+        self.publish(self.visual())
+        self.install()
+        entries = self.manager.ui()
+        with patch.object(self.manager, 'ui', return_value=entries), patch('eitr_plugins.subprocess.Popen') as process:
+            process.return_value.wait.return_value = 0
+            self.assertEqual(self.manager.ui_data('example', 'hello'), '')
+            self.assertEqual(process.call_args.args[0][0], str(self.manager.folder / 'example/notify.sh'))
+            with self.assertRaises(ValueError):
+                self.manager.ui_data('example', 'undeclared')
+            self.assertEqual(process.call_count, 1)

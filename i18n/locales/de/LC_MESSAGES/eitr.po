@@ -1567,8 +1567,8 @@ msgstr "Ungültige Gegenstellenadresse."
 msgid "Invalid plugin hooks; unknown event"
 msgstr "Ungültige Plugin-Hooks; unbekanntes Ereignis"
 
-msgid "Invalid plugin schemaVersion; expected 1"
-msgstr "Ungültige Plugin-schemaVersion; erwartet wird 1"
+msgid "Invalid plugin schemaVersion; expected 1 or 2"
+msgstr "Ungültige Plugin-schemaVersion; erwartet 1 oder 2"
 
 msgid "Invalid project ID"
 msgstr "Ungültige Projekt-ID"
@@ -2298,6 +2298,12 @@ msgstr "Ungenutzte Einträge im pnpm-Speicher entfernen?"
 
 msgid "Public IP addresses"
 msgstr "Öffentliche IP-Adressen"
+
+msgid "QML added, changed or removed: {path}"
+msgstr "QML hinzugefügt, geändert oder entfernt: {path}"
+
+msgid "QML runs inside the bar: {path}"
+msgstr "QML läuft innerhalb der Leiste: {path}"
 
 msgid "Queues"
 msgstr "Warteschlangen"

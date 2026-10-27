@@ -29,12 +29,12 @@ LAN.
 
 # 2. Smaller items
 
-- **Visual plugins (next).** Event hooks and schemaVersion 1 shipped
-  (`distro/PLUGINS.md`). Next: plugin QML for panels, Control Center tiles and
-  widgets on the shared panel style, placed in the Control Center by default
-  (bar slots only when the user places one). They run inside the bar, so load
-  failures must be caught, crashing plugins disabled, and the review must show
-  the QML before approval.
+- **Visual plugins: runtime fault attribution remains.** Schema v2 Control Center
+  prefetched host-drawn tiles and panel subviews, shared style/data API, full QML review, checked loading
+  and persistent disable after three load/reported errors are implemented
+  (`distro/PLUGINS.md`). Unreported runtime binding exceptions cannot yet be
+  attributed and counted automatically. In-process QML is not a sandbox and cannot
+  contain native crashes or infinite loops. Bar placement remains out of scope.
 - **Website translations.** Offer the site in the desktop's languages
   (Portuguese (Brazil), Spanish, German, French) with a language switch, reusing
   the reviewed Handbook translations where chapters overlap. Decide the URL scheme

@@ -24,7 +24,7 @@ from eitr_paths import code
 from eitr_i18n import tr, mark
 from eitr_i18n import mark as menu_mark
 from eitr_plugins import (REPORT_URL, Plugins, add_flags, commit, executable_files, git, printable,
-                          repository_url, short_author)
+                          repository_url, short_author, qml_files)
 from eitr_terminal import read_key, read_line_or_escape, wait_for_escape
 from eitr_wizard import Cancelled, Wizard
 
@@ -76,6 +76,9 @@ def review_lines(root, spec, url):
     for event, hook in spec.get('hooks', {}).items():
         lines.append(tr('Event hook: {event} — {command}', event=event,
                         command=printable(' '.join([hook['run'], *hook.get('arguments', [])]))))
+    for path in qml_files(root):
+        lines += ['', 'QML: ' + printable(str(path.relative_to(root)))]
+        lines += [printable(line) for line in path.read_text().splitlines()]
     return lines
 
 
@@ -205,6 +208,7 @@ def summary_lines(changes, limit=20):
         lines += ['', tr('No risk flags. Read the changes anyway before you trust them.')]
     if 'schemaVersion' not in spec:
         lines.append(tr('This manifest should declare schemaVersion: 1.'))
+    lines += ['', 'QML files:'] + [printable(str(path.relative_to(changes['root']))) for path in qml_files(changes['root'])]
     return lines + ['', tr(TRUST)]
 
 
@@ -241,6 +245,9 @@ def update(manager, plugin_id=None):
     def approve(changes):
         print(Terminal().title(tr('Plugin update: {name}', name=printable(changes['spec']['name']))))
         show(summary_lines(changes))
+        if qml_files(changes['root']) or any(change['path'].casefold().endswith('.qml') for change in changes['files']):
+            show_diff(changes)
+            show(review_lines(changes['root'], changes['spec'], 'Approved update candidate'))
         while True:
             print(f"{Terminal().accent}›\033[0m {tr('d: full diff  Enter: update  Esc: keep the current version')} ", end='', flush=True)
             key = read_key()
@@ -308,12 +315,20 @@ def remove(manager, plugin_id):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['list', 'add', 'update', 'remove', 'rows', 'installed', 'launch', 'enforce', 'notice', 'hooks'])
+    parser.add_argument('action', choices=['list', 'add', 'update', 'remove', 'rows', 'installed', 'launch', 'enforce', 'notice', 'hooks', 'ui', 'ui-failure', 'enable-ui', 'ui-data'])
     parser.add_argument('value', nargs='?')
-    parser.add_argument('index', nargs='?', type=int)
+    parser.add_argument('index', nargs='?')
     arguments = parser.parse_args(argv)
     manager = Plugins(notify=notify_blocked)
-    if arguments.action == 'hooks':
+    if arguments.action == 'ui':
+        print(json.dumps(manager.ui()))
+    elif arguments.action == 'ui-failure':
+        print(json.dumps(manager.ui_failure(arguments.value, arguments.index, sys.stdin.read(2048))))
+    elif arguments.action == 'enable-ui':
+        manager.enable_ui(arguments.value)
+    elif arguments.action == 'ui-data':
+        print(manager.ui_data(arguments.value, arguments.index), end='')
+    elif arguments.action == 'hooks':
         manager.hooks(arguments.value)
     elif arguments.action == 'list':
         for plugin_id, record in manager.records().items():
@@ -337,9 +352,9 @@ def main(argv=None):
             parser.error('remove requires ID')
         remove(manager, arguments.value)
     elif arguments.action == 'launch':
-        if not arguments.value or arguments.index is None or arguments.index < 0:
+        if not arguments.value or arguments.index is None or int(arguments.index) < 0:
             parser.error('launch requires ID and row index')
-        manager.launch(arguments.value, arguments.index)
+        manager.launch(arguments.value, int(arguments.index))
     return 0
 
 

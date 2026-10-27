@@ -30,7 +30,9 @@ class PanelLayeringTests(unittest.TestCase):
     def test_bar_panels_share_themed_popup_grab_and_focus(self):
         themed = (ROOT / "ThemedPopup.qml").read_text()
         self.assertIn("popup.keyTarget.forceActiveFocus();", themed)
-        self.assertIn("Keys.onEscapePressed: popup.opened = false", themed)
+        self.assertIn("Keys.onEscapePressed: if (!popup.escapeHandler || !popup.escapeHandler()) popup.opened = false", themed)
+        center = (ROOT / "ControlCenter.qml").read_text()
+        self.assertIn("escapeHandler: () => plugins.back()", center)
         for filename in ("AudioMenu.qml", "SystemMonitorMenu.qml", "WorkspaceStyleMenu.qml"):
             with self.subTest(filename=filename):
                 source = (ROOT / filename).read_text()

@@ -395,5 +395,12 @@
   "Copied": "Copiado",
   "HDR": "HDR",
   "Shows the desktop in HDR. Games can use HDR even when this is off.": "Muestra el escritorio en HDR. Los juegos pueden usar HDR aunque esté desactivado.",
-  "SDR content brightness": "Brillo del contenido SDR"
+  "SDR content brightness": "Brillo del contenido SDR",
+  "Plugins": "Plugins",
+  "Disabled": "Desactivado",
+  "Could not load": "No se pudo cargar",
+  "Re-enable with eitr plugin enable-ui {plugin}": "Reactivar con eitr plugin enable-ui {plugin}",
+  "Reopen to retry; disabled after 3 failures": "Vuelve a abrir para reintentar; se desactiva tras 3 fallos",
+  "Ready": "Listo",
+  "Hello from an Eitr plugin": "Hola desde un plugin de Eitr"
 }

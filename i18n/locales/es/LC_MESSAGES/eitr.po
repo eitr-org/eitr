@@ -1567,8 +1567,8 @@ msgstr "Dirección de equipo no válida."
 msgid "Invalid plugin hooks; unknown event"
 msgstr "Hooks del plugin no válidos; evento desconocido"
 
-msgid "Invalid plugin schemaVersion; expected 1"
-msgstr "schemaVersion del plugin no válida; se esperaba 1"
+msgid "Invalid plugin schemaVersion; expected 1 or 2"
+msgstr "schemaVersion del plugin no válida; se esperaba 1 o 2"
 
 msgid "Invalid project ID"
 msgstr "ID de proyecto no válido"
@@ -2298,6 +2298,12 @@ msgstr "¿Eliminar elementos sin usar del almacén pnpm?"
 
 msgid "Public IP addresses"
 msgstr "Direcciones IP públicas"
+
+msgid "QML added, changed or removed: {path}"
+msgstr "QML añadido, cambiado o eliminado: {path}"
+
+msgid "QML runs inside the bar: {path}"
+msgstr "QML se ejecuta dentro de la barra: {path}"
 
 msgid "Queues"
 msgstr "Colas"

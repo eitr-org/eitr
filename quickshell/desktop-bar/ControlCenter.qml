@@ -12,6 +12,7 @@ import "JsonState.js" as JsonState
 
 ThemedPopup {
     id: center
+    escapeHandler: () => plugins.back()
     required property var service
     required property var wifiControl
     required property var bluetoothControl
@@ -364,6 +365,13 @@ ThemedPopup {
                         }
                         Section { visible: !!center.mediaPlayer; text: Eitr.I18n.tr("Media"); width: parent.width }
                         MediaCard { compact: true; visible: !!center.mediaPlayer; width: parent.width; player: center.mediaPlayer; active: center.opened && center.page === "general"; foreground: center.foreground; accent: center.accent }
+                    }
+                    PluginArea {
+                        id: plugins
+                        width: parent.width
+                        visible: center.page === "general" && tiles.length > 0
+                        active: center.opened && center.page === "general"
+                        foreground: center.foreground; background: center.background; accent: center.accent
                     }
                     Column {
                         visible: center.page === "style"; width: parent.width; spacing: 12

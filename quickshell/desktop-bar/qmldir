@@ -65,3 +65,5 @@ RemoteAccessMenu RemoteAccessMenu.qml
 TimePicker 1.0 TimePicker.qml
 EitrLogo EitrLogo.qml
 AssistantChat AssistantChat.qml
+PluginArea PluginArea.qml
+PluginComponent PluginComponent.qml

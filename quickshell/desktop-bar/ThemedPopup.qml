@@ -5,6 +5,7 @@ import Quickshell.Hyprland
 
 DockPanel {
     id: popup
+    property var escapeHandler: null
     required property Item target
     required property color foreground
     required property color background
@@ -53,7 +54,7 @@ DockPanel {
                 anchors.fill: parent
                 clip: true
                 focus: true
-                Keys.onEscapePressed: popup.opened = false
+                Keys.onEscapePressed: if (!popup.escapeHandler || !popup.escapeHandler()) popup.opened = false
             }
         }
     ]

@@ -83,7 +83,8 @@
       "quickshell/desktop-bar/BrightnessMenu.qml"
     ],
     "Back": [
-      "quickshell/desktop-bar/AssistantChat.qml"
+      "quickshell/desktop-bar/AssistantChat.qml",
+      "quickshell/desktop-bar/PluginArea.qml"
     ],
     "Bar": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -255,6 +256,9 @@
     "Could not delete the reminder": [
       "quickshell/desktop-bar/CalendarMenu.qml"
     ],
+    "Could not load": [
+      "quickshell/desktop-bar/PluginComponent.qml"
+    ],
     "Could not save recording settings": [
       "quickshell/desktop-bar/ObsMenu.qml"
     ],
@@ -300,6 +304,9 @@
     ],
     "Dictating": [
       "quickshell/desktop-bar/shell.qml"
+    ],
+    "Disabled": [
+      "quickshell/desktop-bar/PluginComponent.qml"
     ],
     "Disconnect": [
       "quickshell/desktop-bar/WifiMenu.qml"
@@ -383,6 +390,9 @@
     ],
     "Hardware information unavailable": [
       "quickshell/desktop-bar/SystemMonitorMenu.qml"
+    ],
+    "Hello from an Eitr plugin": [
+      "distro/plugins/example/HelloPanel.qml"
     ],
     "Hide Bar": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -733,6 +743,9 @@
     "Play": [
       "quickshell/desktop-bar/MediaStrip.qml"
     ],
+    "Plugins": [
+      "quickshell/desktop-bar/PluginArea.qml"
+    ],
     "Position": [
       "quickshell/desktop-bar/ControlCenter.qml",
       "quickshell/desktop-bar/DisplaySettingsEditor.qml"
@@ -777,6 +790,12 @@
     "RESTART": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml"
     ],
+    "Re-enable with eitr plugin enable-ui {plugin}": [
+      "quickshell/desktop-bar/PluginComponent.qml"
+    ],
+    "Ready": [
+      "distro/plugins/example/HelloTile.qml"
+    ],
     "Reboot": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
@@ -820,6 +839,9 @@
     ],
     "Rename": [
       "quickshell/desktop-bar/AudioMenu.qml"
+    ],
+    "Reopen to retry; disabled after 3 failures": [
+      "quickshell/desktop-bar/PluginComponent.qml"
     ],
     "Reply…": [
       "quickshell/desktop-bar/NotificationCard.qml"
@@ -5231,7 +5253,7 @@
     "Invalid plugin hooks; unknown event": [
       "distro/lib/eitr_plugins.py"
     ],
-    "Invalid plugin schemaVersion; expected 1": [
+    "Invalid plugin schemaVersion; expected 1 or 2": [
       "distro/lib/eitr_plugins.py"
     ],
     "Invalid project ID": [
@@ -5988,6 +6010,12 @@
     ],
     "Public IP addresses": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "QML added, changed or removed: {path}": [
+      "distro/lib/eitr_plugins.py"
+    ],
+    "QML runs inside the bar: {path}": [
+      "distro/lib/eitr_plugins.py"
     ],
     "Queues": [
       "walker/scripts/menus/cloud/providers.py"
