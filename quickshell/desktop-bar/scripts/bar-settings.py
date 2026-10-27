@@ -20,7 +20,7 @@ import subprocess
 
 
 SETTINGS = user_config("quickshell/desktop-bar/bar-settings.json")
-DEFAULTS = {"appearance": "solid", "layout": "unified", "edge": "top", "pinned": "no", "screens": "main"}
+DEFAULTS = {"appearance": "solid", "layout": "unified", "edge": "top", "pinned": "no", "screens": "main", "autohide": "no"}
 OPTIONS = {
     "appearance": {"transparent", "solid"},
     "layout": {"unified", "centered", "notch"},
@@ -28,6 +28,7 @@ OPTIONS = {
     "pinned": {"yes", "no"},
     # The bar on the main display only, or one bar on every display.
     "screens": {"main", "all"},
+    "autohide": {"yes", "no"},
 }
 
 
@@ -81,7 +82,7 @@ def main():
         elif len(sys.argv) == 3 and sys.argv[1] == "get" and sys.argv[2] in OPTIONS:
             print(read_settings()[sys.argv[2]])
             return 0
-        elif len(sys.argv) in {5, 6, 7} and sys.argv[1] == "set-all":
+        elif len(sys.argv) in {5, 6, 7, 8} and sys.argv[1] == "set-all":
             result = save_settings(dict(zip(DEFAULTS, sys.argv[2:])))
         elif len(sys.argv) == 4 and sys.argv[1] == "set":
             result = save_settings({sys.argv[2]: sys.argv[3]})
@@ -93,7 +94,7 @@ def main():
             result = save_settings({key: value})
             apply_live(key, value)
         else:
-            raise ValueError("Usage: bar-settings.py status|set KEY VALUE|set-all APPEARANCE LAYOUT EDGE [PINNED [SCREENS]]")
+            raise ValueError("Usage: bar-settings.py status|set KEY VALUE|set-all APPEARANCE LAYOUT EDGE [PINNED [SCREENS [AUTOHIDE]]]")
         print(json.dumps(result))
     except (OSError, ValueError) as error:
         print(error, file=sys.stderr)

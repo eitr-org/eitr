@@ -88,6 +88,9 @@
     "Auto": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
     ],
+    "Auto-hide": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
     "Automatic · {start} - {end}": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
     ],
@@ -1468,6 +1471,9 @@
     "Already added": [
       "elephant/menus/keyboard-add.lua"
     ],
+    "Always visible": [
+      "elephant/menus/bar-autohide.lua"
+    ],
     "An earlier version from the home snapshots": [
       "elephant/menu-rows/snapshots.json"
     ],
@@ -1497,6 +1503,10 @@
     ],
     "Aurora / RDS": [
       "elephant/menus/aws-rds.lua"
+    ],
+    "Auto-hide": [
+      "elephant/menu-rows/bar.json",
+      "elephant/menus/bar-autohide.lua"
     ],
     "Azure": [
       "elephant/menu-rows/cloud.json",
@@ -2122,6 +2132,9 @@
     "Keep sharing manual": [
       "elephant/menu-rows/remote-share.json"
     ],
+    "Keep the bar on screen": [
+      "elephant/menus/bar-autohide.lua"
+    ],
     "Keep the normal fast cursor trail": [
       "elephant/menus/terminal-cursor-fire.lua"
     ],
@@ -2616,6 +2629,9 @@
     ],
     "Return to Password Authentication": [
       "elephant/menu-rows/security.json"
+    ],
+    "Reveal the bar at the screen edge": [
+      "elephant/menus/bar-autohide.lua"
     ],
     "Review a Git repository before installing": [
       "elephant/plugin-entries.lua",

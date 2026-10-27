@@ -142,6 +142,7 @@ ShellRoot {
     property string barAppearance: "solid"
     property string barLayout: "unified"
     property bool barPinned: false
+    property bool barAutoHide: false
     // "all" puts a bar on every display; the main one keeps notifications.
     property string barScreens: "main"
     property var windowGaps: [6, 6, 6, 6]
@@ -203,12 +204,13 @@ ShellRoot {
     }
 
     function updateBarSetting(key, value) {
-        var choices = {appearance: ["transparent", "solid"], layout: ["unified", "centered", "notch"], edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"]};
+        var choices = {appearance: ["transparent", "solid"], layout: ["unified", "centered", "notch"], edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"]};
         if (!choices[key] || choices[key].indexOf(value) === -1) return;
         if (key === "appearance") barAppearance = value;
         else if (key === "layout") barLayout = value;
         else if (key === "pinned") barPinned = value === "yes";
         else if (key === "screens") barScreens = value;
+        else if (key === "autohide") barAutoHide = value === "yes";
         else barEdge = value;
         settingsDirty = true;
         settingsSaveDelay.restart();
@@ -239,6 +241,7 @@ ShellRoot {
                 shell.barEdge = settings.edge;
                 shell.barPinned = settings.pinned === "yes";
                 shell.barScreens = settings.screens || "main";
+                shell.barAutoHide = settings.autohide === "yes";
             } catch (e) {}
         }
     }
@@ -260,7 +263,7 @@ ShellRoot {
         if (saveBarSettings.running) return;
         settingsDirty = false;
         saveBarSettings.command = ["python3", Quickshell.shellDir + "/scripts/bar-settings.py",
-            "set-all", barAppearance, barLayout, barEdge, barPinned ? "yes" : "no", barScreens];
+            "set-all", barAppearance, barLayout, barEdge, barPinned ? "yes" : "no", barScreens, barAutoHide ? "yes" : "no"];
         saveBarSettings.running = true;
     }
 
@@ -713,7 +716,7 @@ ShellRoot {
                 implicitHeight: modelData.height
                 color: "transparent"
                 exclusionMode: ExclusionMode.Normal
-                exclusiveZone: shell.barVisible ? bar.normalThickness : 0
+                exclusiveZone: shell.barVisible && autoHide.shown ? bar.normalThickness : 0
                 WlrLayershell.namespace: "desktop-bar"
                 // Notification popups must have a strictly higher layer than
                 // panels, rather than depending on same-layer mapping order.
@@ -721,9 +724,25 @@ ShellRoot {
                 mask: dockInput
                 WlrLayershell.keyboardFocus: panelOpen ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
+                BarAutoHide {
+                    id: autoHide
+                    autoHide: shell.barAutoHide
+                    pointerInside: barHover.hovered || edgeHover.hovered
+                    held: bar.panelOpen || bar.pendingPanel !== null || bar.pendingOverview || overview.visible || shell.barPointerHeld || notificationPopups.visible
+                }
+                Item {
+                    id: edgeSensor
+                    width: shell.verticalBar ? 1 : bar.width
+                    height: shell.verticalBar ? bar.height : 1
+                    x: shell.barEdge === "right" ? bar.width - width : 0
+                    y: shell.barEdge === "bottom" ? bar.height - height : 0
+                    visible: shell.barAutoHide
+                    HoverHandler { id: edgeHover }
+                }
                 Region {
                     id: dockInput
                     width: 0; height: 0
+                    Region { item: edgeSensor.visible ? edgeSensor : null }
                     Region { item: shell.barPointerHeld ? bar.contentItem : null }
                     Region { item: shell.notchLayout ? tabStrip : barContents }
                     Region { item: shell.notchLayout ? leadingTab : null }
@@ -812,7 +831,7 @@ ShellRoot {
                     wifiGlyph: shell.verticalBar ? verticalWifiIcon.text : wifiIcon.text
                     battery: shell.battery; mediaPlayer: mediaStrip.player
                     idleEnabled: shell.idleLockEnabled; idleBusy: toggleIdleLock.running
-                    barPosition: shell.barEdge; appearance: shell.barAppearance; layout: shell.barLayout; barScreens: shell.barScreens; workspaceStyle: shell.workspaceStyle
+                    barPosition: shell.barEdge; appearance: shell.barAppearance; layout: shell.barLayout; barScreens: shell.barScreens; barAutoHide: shell.barAutoHide; workspaceStyle: shell.workspaceStyle
                     onIdleToggleRequested: if (!toggleIdleLock.running) toggleIdleLock.running = true
                     onLockRequested: runAfterClose(["bash", Eitr.Paths.code("hypr/scripts/manual-lock.sh")])
                     onSettingRequested: function(key, value) { shell.updateBarSetting(key, value); }
@@ -888,6 +907,10 @@ ShellRoot {
 
                 Item {
                     id: barContents
+                    transform: Translate {
+                        x: shell.verticalBar ? (shell.barEdge === "left" ? -1 : 1) * bar.normalThickness * (1 - autoHide.progress) : 0
+                        y: !shell.verticalBar ? (shell.barEdge === "top" ? -1 : 1) * bar.normalThickness * (1 - autoHide.progress) : 0
+                    }
                     width: shell.verticalBar ? bar.thinThickness : (bar.centeredLayout ? bar.centerExtent + bar.leadingReveal + bar.trailingReveal : bar.width)
                     height: shell.verticalBar ? (bar.centeredLayout ? bar.centerExtent + bar.leadingReveal + bar.trailingReveal : bar.height) : bar.thinThickness
                     x: shell.verticalBar ? (shell.barEdge === "right" ? bar.width - width : 0) : bar.centeredLayout ? (bar.width - bar.centerExtent) / 2 - bar.leadingReveal : 0

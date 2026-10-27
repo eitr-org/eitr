@@ -12,6 +12,17 @@
     "submenu": "bar-appearance"
   },
   {
+    "text": "Auto-hide",
+    "subtext": ">",
+    "icon": "󰍜",
+    "keywords": [
+      "hide",
+      "reveal",
+      "screen edge"
+    ],
+    "submenu": "bar-autohide"
+  },
+  {
     "text": "Displays",
     "subtext": ">",
     "icon": "󰍹",

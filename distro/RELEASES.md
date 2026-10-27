@@ -1,5 +1,8 @@
 # Releases
 
+Optional bar auto-hide reveals at the screen edge, holds open for panels and
+dragging, and frees the reserved window space while hidden. It is off by default.
+
 `eitr about` opens or focuses the existing About window through Walker’s action.
 
 Plugin management uses compact rows with a separate detail view. Widget menus

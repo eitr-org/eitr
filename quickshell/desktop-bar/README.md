@@ -614,3 +614,9 @@ interactive; Done and Escape end editing. Above-window widgets expose their
 options in the Plugins page while click-through.
 
 Plugin appearance belongs to its author. Widgets and panels default to no host surface; panel surfaces and theme helpers are opt-in. Tiles default to the Eitr row, with `look: "custom"` providing a full-slot canvas. See `distro/PLUGINS.md`.
+
+Auto-hide is optional in Style > Desktop Bar and Control Center > Style. The
+strip slides out in 320 ms, retaining a one-pixel edge input region. Panels,
+pending popups, notification toasts, Overview and dragging hold it open; a 350 ms leave delay precedes
+hiding. A hidden bar reserves no space. The preference is separate from the
+Centered pin and applies independently to each displayed bar.

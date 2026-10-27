@@ -557,5 +557,9 @@
   "Create User…": "Créer un utilisateur…",
   "Create a separate login and desktop": "Créer une connexion et un bureau distincts",
   "Users": "Utilisateurs",
-  "Visuals": "Éléments visuels"
+  "Visuals": "Éléments visuels",
+  "Always visible": "Toujours visible",
+  "Auto-hide": "Masquage automatique",
+  "Keep the bar on screen": "Garder la barre à l’écran",
+  "Reveal the bar at the screen edge": "Afficher la barre au bord de l’écran"
 }

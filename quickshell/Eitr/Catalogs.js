@@ -452,7 +452,8 @@ var qml = {
     "Size: Smaller": "Size: Smaller",
     "Update": "Update",
     "Visuals disabled after failures": "Visuals disabled after failures",
-    "Widget options": "Widget options"
+    "Widget options": "Widget options",
+    "Auto-hide": "Auto-hide"
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -883,7 +884,8 @@ var qml = {
     "Size: Smaller": "Tamanho: Menor",
     "Update": "Atualizar",
     "Visuals disabled after failures": "Visuais desativados após falhas",
-    "Widget options": "Opções do widget"
+    "Widget options": "Opções do widget",
+    "Auto-hide": "Ocultar automaticamente"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1314,7 +1316,8 @@ var qml = {
     "Size: Smaller": "Tamaño: Menor",
     "Update": "Actualizar",
     "Visuals disabled after failures": "Elementos visuales desactivados tras fallos",
-    "Widget options": "Opciones del widget"
+    "Widget options": "Opciones del widget",
+    "Auto-hide": "Ocultar automáticamente"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1745,7 +1748,8 @@ var qml = {
     "Size: Smaller": "Größe: Kleiner",
     "Update": "Aktualisieren",
     "Visuals disabled after failures": "Visuelle Komponenten nach Fehlern deaktiviert",
-    "Widget options": "Widget-Optionen"
+    "Widget options": "Widget-Optionen",
+    "Auto-hide": "Automatisch ausblenden"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2176,6 +2180,7 @@ var qml = {
     "Size: Smaller": "Taille : Réduire",
     "Update": "Mettre à jour",
     "Visuals disabled after failures": "Composants visuels désactivés après des erreurs",
-    "Widget options": "Options du widget"
+    "Widget options": "Options du widget",
+    "Auto-hide": "Masquage automatique"
   }
 };

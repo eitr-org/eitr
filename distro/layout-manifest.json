@@ -2,6 +2,9 @@
   "version": 1,
   "layout_version": 2,
   "rules": [
+    {"pattern": "quickshell/desktop-bar/BarAutoHide.qml", "class": "C", "runtime": true},
+    {"pattern": "elephant/menus/bar-autohide.lua", "class": "C", "runtime": true},
+    {"pattern": "walker/themes/current/item_menus-bar-autohide.xml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/PluginManager.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/PluginWidgetMenu.qml", "class": "C", "runtime": true},
     {"pattern": "distro/lib/eitr_plugin_stream.py", "class": "C", "runtime": true},

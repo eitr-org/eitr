@@ -557,5 +557,9 @@
   "Create User…": "Create User…",
   "Create a separate login and desktop": "Create a separate login and desktop",
   "Users": "Users",
-  "Visuals": "Visuals"
+  "Visuals": "Visuals",
+  "Always visible": "Always visible",
+  "Auto-hide": "Auto-hide",
+  "Keep the bar on screen": "Keep the bar on screen",
+  "Reveal the bar at the screen edge": "Reveal the bar at the screen edge"
 }

@@ -43,10 +43,8 @@ LAN.
   the nine realms; Ragnarök keeps Blood & Iron. Waiting on the owner: whether any
   should be darker. Afterwards retake the Neovim + About previews of the realm themes
   (they still show the old colours).
-- **Auto-hide bar.** A bar option to hide it and reveal it when the pointer
-  touches the screen edge it sits on (any of the four edges), like Windows' taskbar
-  auto-hide. Panels opened from the bar keep it shown; persist the choice in
-  `bar-settings.json` and offer it under Style > Desktop Bar.
+- **Auto-hide bar.** Implemented for every edge and layout;
+  live Hyprland pointer-edge and exclusive-zone checks are pending before release.
 - **Boot, shutdown and disk-password screens (`distro/plymouth`).** Replace the dark
   green: the logo cycles through the same Bifröst colour transitions as System
   Update's text, and the rune loading animation uses the gold of the Norse

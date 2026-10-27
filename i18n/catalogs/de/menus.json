@@ -557,5 +557,9 @@
   "Create User…": "Benutzer erstellen…",
   "Create a separate login and desktop": "Eine eigene Anmeldung und einen Desktop erstellen",
   "Users": "Benutzer",
-  "Visuals": "Visuelle Komponenten"
+  "Visuals": "Visuelle Komponenten",
+  "Always visible": "Immer sichtbar",
+  "Auto-hide": "Automatisch ausblenden",
+  "Keep the bar on screen": "Die Leiste auf dem Bildschirm lassen",
+  "Reveal the bar at the screen edge": "Die Leiste am Bildschirmrand einblenden"
 }

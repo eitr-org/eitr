@@ -30,6 +30,7 @@ ThemedPopup {
     property string appearance: "solid"
     property string layout: "unified"
     property string barScreens: "main"
+    property bool barAutoHide: false
     property string workspaceStyle: "Runes"
     property var airplane: ({available: false, enabled: false})
     property bool crashNotifications: true
@@ -392,6 +393,21 @@ ThemedPopup {
                             PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 16) / 3; text: Eitr.I18n.tr("Unified"); selected: center.layout === "unified"; foreground: center.foreground; onClicked: center.settingRequested("layout", "unified") }
                             PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 16) / 3; text: Eitr.I18n.tr("Centered"); selected: center.layout === "centered"; foreground: center.foreground; onClicked: center.settingRequested("layout", "centered") }
                             PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 16) / 3; text: Eitr.I18n.tr("Tabs"); selected: center.layout === "notch"; foreground: center.foreground; onClicked: center.settingRequested("layout", "notch") }
+                        }
+                        Row {
+                            width: parent.width; spacing: PanelStyle.selectionActionGap
+                            Text {
+                                width: parent.width - autoHideSwitch.width - parent.spacing; height: 32
+                                verticalAlignment: Text.AlignVCenter; text: Eitr.I18n.tr("Auto-hide")
+                                color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
+                            }
+                            PanelSwitch {
+                                id: autoHideSwitch
+                                anchors.verticalCenter: parent.verticalCenter
+                                checked: center.barAutoHide; foreground: center.foreground; accent: center.accent
+                                Accessible.name: Eitr.I18n.tr("Auto-hide")
+                                onClicked: center.settingRequested("autohide", checked ? "yes" : "no")
+                            }
                         }
                         Label { text: Eitr.I18n.tr("Show on") }
                         Row { width: parent.width; spacing: 8
