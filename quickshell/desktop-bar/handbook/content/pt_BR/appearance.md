@@ -6,9 +6,9 @@ Abra **Estilo > Tema** ou **SUPER + Ctrl + Shift + N**. Escolha escuro ou claro 
 
 **SUPER + Ctrl + N** abre os papéis de parede e **SUPER + Shift + N** avança para o próximo. Uma marca indica a escolha ativa no Walker. As trocas não exibem notificações de sucesso. Monitores ultrawide, com largura de pelo menos duas vezes a altura, usam a versão 21:9 de cada imagem para reduzir o recorte; os demais usam a versão 4K 16:9.
 
-O tema Norse inclui desenhos de corvo, Valquíria, Odin, Fenrir e Jörmungandr sobre fundo preto. Escolha-os pelos mesmos controles; a arte adicional não altera a paleta. O primeiro papel de parede, a pedra rúnica, é animado: auroras se movem lentamente atrás do anel de runas. Elas pausam atrás de aplicativos em tela cheia; a tela de bloqueio usa a imagem estática.
+O Eitr tem quatro papéis de parede: Primordial Drop (padrão), Runestone, Élivágar e Venom Rootlight. Escolha pelos mesmos controles; a paleta permanece igual. O segundo, Runestone, é animado: auroras se movem lentamente atrás do anel de runas, pausam atrás de aplicativos em tela cheia e ficam estáticas na tela de bloqueio. Graphite foi removido; seleções salvas do Graphite mudam para Eitr e seu papel de parede padrão.
 
-Os 25 temas incluídos oferecem dez paletas escuras dos reinos: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim e Vanaheim. Cada tema dos reinos tem de dois a quatro papéis de parede originais, com estilos variados de tinta, guache, cel shading e pintura, nas duas proporções. O primeiro papel de parede é a prévia do tema.
+Os 24 temas incluídos oferecem dez paletas escuras dos reinos: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim e Vanaheim. Cada tema dos reinos tem de dois a cinco papéis de parede originais, com estilos variados de tinta, guache, cel shading e pintura, nas duas proporções. O primeiro papel de parede é a prévia do tema.
 
 ## Seus próprios papéis de parede, temas e telas de bloqueio
 
@@ -40,4 +40,4 @@ A arte tem resolução alvo de 4K (3840×2160, 16:9). Coffee e Pillow mantêm o 
 
 Compare os oito desenhos com `bash quickshell/lockscreen/scripts/gallery.sh`. Isso não altera a tela de bloqueio escolhida; autenticação e ações de energia ficam desativadas na galeria. Clockwork usa QML procedural; Coffee, Pillow, Material e Nothing mantêm os layouts licenciados com arte nova e a fonte JetBrainsMono Nerd Font instalada. Não são necessários vídeos nem fontes incluídas separadamente.
 
-**Papel de parede do tema** usa o papel de parede atual com relógio no alto à esquerda e senha no canto inferior direito. A prévia do Walker mostra a imagem atual. Mudanças posteriores aparecem no próximo bloqueio ou prévia; Ctrl+P mostra o layout inteiro sem bloquear. A tela de login não pode ler sua pasta pessoal, então usa uma cópia salva pelo Eitr ao escolher esse desenho e a cada troca de papel de parede. Se ela estiver indisponível, usa outro papel do tema atual ou o padrão Norse.
+**Papel de parede do tema** usa o papel de parede atual com relógio no alto à esquerda e senha no canto inferior direito. A prévia do Walker mostra a imagem atual. Mudanças posteriores aparecem no próximo bloqueio ou prévia; Ctrl+P mostra o layout inteiro sem bloquear. A tela de login não pode ler sua pasta pessoal, então usa uma cópia salva pelo Eitr ao escolher esse desenho e a cada troca de papel de parede. Se ela estiver indisponível, usa outro papel do tema atual ou o padrão Eitr.

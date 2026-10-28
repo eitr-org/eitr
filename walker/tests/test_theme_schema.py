@@ -9,6 +9,9 @@ import tomllib
 import unittest
 from PIL import Image
 
+# The editor-theme helpers live in themes/; a __pycache__ there would look like a theme.
+sys.dont_write_bytecode = True
+
 import menu_data
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -32,7 +35,7 @@ def theme_dirs():
 
 # The owner's curated wallpaper count per realm theme.
 REALM_WALLPAPERS = {"alfheim": 3, "asgard": 4, "helheim": 3, "jotunheim": 3, "midgard": 2,
-                    "muspelheim": 3, "niflheim": 3, "ragnarok": 4, "svartalfheim": 3, "vanaheim": 3}
+                    "muspelheim": 3, "niflheim": 3, "ragnarok": 5, "svartalfheim": 3, "vanaheim": 3}
 
 
 def active(records):
@@ -41,6 +44,36 @@ def active(records):
 
 
 class ThemeSchemaTests(unittest.TestCase):
+    def test_eitr_runestone_and_ragnarok_fenrir_collections(self):
+        for folder, runestone in (("backgrounds", "02-eitr-runestone.png"),
+                                   ("backgrounds-ultrawide", "02-eitr-runestone.jpg")):
+            self.assertEqual(sorted(path.name for path in (THEMES / "eitr" / folder).iterdir()), ["01-primordial-drop.jpg", runestone, "03-elivagar.jpg", "04-venom-rootlight.jpg"])
+            self.assertTrue((THEMES / "ragnarok" / folder / "05-fenrir.jpg").is_file())
+        for manifest in ("artwork-4k.json", "artwork-ultrawide.json"):
+            records = json.loads((THEMES / manifest).read_text())["images"]
+            for record in records:
+                self.assertTrue((THEMES.parent / record["file"]).is_file(), record["file"])
+        website = THEMES.parent / "website/assets/norse"
+        for record in json.loads((website / "artwork.json").read_text())["entries"]:
+            self.assertTrue((website / record["file"]).is_file(), record["file"])
+
+    def test_eitr_primordial_venom_palette(self):
+        colors = palette.load(THEMES / "eitr")
+        for key, value in zip(("background", "surface", "raised", "foreground", "muted", "accent", "second", "alert"),
+                              "000000 0b110e 19251d e2eae2 91a397 b9d77e 85c69a dd777c".split()):
+            self.assertEqual(colors[key], "#" + value)
+        for index, value in enumerate("c9777d 85c69a d5c27d 8cafcb b39bcb 80c8ba".split(), 1):
+            self.assertEqual(colors[f"color{index}"], "#" + value)
+            bright = "#" + "".join(f"{round(channel * .75 + 255 * .25):02x}" for channel in bytes.fromhex(value))
+            self.assertEqual(colors[f"color{index + 8}"], bright)
+        for surface in ("background", "surface", "raised"):
+            self.assertGreaterEqual(palette.contrast(colors["foreground"], colors[surface]), 4.5)
+        self.assertEqual(colors["color0"], colors["surface"])
+        self.assertEqual(colors["color7"], colors["foreground"])
+        self.assertEqual(colors["color8"], colors["muted"])
+        self.assertEqual(colors["selection_background"], colors["raised"])
+        self.assertEqual((THEMES / "eitr/rgb.color").read_text().strip(), colors["accent"][1:])
+
     def test_realm_palettes_and_wallpaper_contract(self):
         expected = {
             "alfheim": ("191721 252231 373044 f0eaf6 ada2ba d5b9f2 8eddd3 e895a7", "e895a7 a9d6b3 e6ce96 a3bdf0 d5b9f2 8eddd3"),
@@ -145,14 +178,13 @@ class ThemeSchemaTests(unittest.TestCase):
         self.assertEqual(sources, {source.resolve() for source in
                                   (ROOT / "branding/sources/wallpapers/batch-07").glob("*.png")})
 
-    def test_ragnarok_batch_08_provenance_and_exports(self):
-        batch = json.loads((THEMES / "artwork-batch-08.json").read_text())
-        self.assertEqual([record["name"] for record in batch["images"]],
-                         ["01-blood-eclipse", "02-fenrir-devours-the-sun", "03-dying-yggdrasil"])
+    def check_painterly_batch(self, number, theme, names):
+        batch = json.loads((THEMES / f"artwork-batch-{number}.json").read_text())
+        self.assertEqual([record["name"] for record in batch["images"]], names)
         sources = set()
         for record in batch["images"]:
             with self.subTest(wallpaper=record["name"]):
-                self.assertEqual(record["theme"], "ragnarok")
+                self.assertEqual(record["theme"], theme)
                 self.assertIn("owner-approved", record["status"])
                 self.assertTrue(record["rendering_style"])
                 self.assertTrue(record["prompt"])
@@ -170,7 +202,36 @@ class ThemeSchemaTests(unittest.TestCase):
                         self.assertEqual(image.size, size)
                         self.assertEqual(image.format, "JPEG")
         self.assertEqual(sources, {source.resolve() for source in
-                                  (ROOT / "branding/sources/wallpapers/batch-08").glob("*.png")})
+                                  (ROOT / f"branding/sources/wallpapers/batch-{number}").glob("*.png")})
+
+    def test_ragnarok_batch_08_provenance_and_exports(self):
+        self.check_painterly_batch("08", "ragnarok",
+                                  ["01-blood-eclipse", "02-fenrir-devours-the-sun", "03-dying-yggdrasil"])
+
+    def test_eitr_batch_09_provenance_and_exports(self):
+        self.check_painterly_batch("09", "eitr",
+                                  ["01-primordial-drop", "03-elivagar", "04-venom-rootlight"])
+        self.assertFalse((THEMES / "graphite").exists())
+        integrations = json.loads((THEMES / "integrations.json").read_text())
+        self.assertNotIn("graphite", integrations)
+        for record in json.loads((THEMES / "artwork-batch-09.json").read_text())["images"]:
+            self.assertEqual(record["input_images"], ["branding/png/eitr-logo-white-1024.png"]
+                             if record["name"] == "01-primordial-drop" else [])
+
+    def test_eitr_generator_preserves_palette_and_light_mode(self):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("theme_generator", THEMES / "build-theme-files.py")
+        generator = importlib.util.module_from_spec(spec)
+        sys.path.insert(0, str(THEMES))
+        spec.loader.exec_module(generator)
+        import tomllib
+        palette = tomllib.loads((THEMES / "eitr/colors.toml").read_text())
+        palette["mode"] = "light"
+        output = generator.neovim("test", {"eitr": True, "colorscheme": "eitr"}, palette)
+        self.assertIn('background = "light"', output)
+        self.assertIn('dir = (os.getenv("EITR_CODE_ROOT") or "/usr/share/eitr") .. "/nvim-theme"', output)
+        for name, keys in generator.NEOVIM_PALETTE.items():
+            self.assertIn(f'{name} = "{generator.color(palette, keys, "test")}"', output)
 
     def test_generated_integration_files_are_up_to_date(self):
         # icons.theme, vscode.json, neovim.lua and btop.theme come from integrations.json and colors.toml.
@@ -178,6 +239,43 @@ class ThemeSchemaTests(unittest.TestCase):
                                 capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertFalse((THEMES / "IMPORT-LICENSE").exists(), "no imported theme files remain")
+
+    def test_local_editor_themes_are_deterministic_and_readable(self):
+        import importlib.util
+        import io
+        import zipfile
+        import tomllib
+        sys.path.insert(0, str(THEMES))
+        from editor_roles import roles, contrast
+        spec = importlib.util.spec_from_file_location("vscode_builder", THEMES / "build-vscode-themes.py")
+        builder = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(builder)
+        integrations = json.loads((THEMES / "integrations.json").read_text())
+        identities = set()
+        for name, integration in integrations.items():
+            if not integration["neovim"].get("eitr"):
+                continue
+            palette = tomllib.loads((THEMES / name / "colors.toml").read_text())
+            mapped = roles(palette)
+            for role in ("accent", "second", "keyword", "function", "type", "string", "number", "constant", "builtin", "property", "parameter", "comment"):
+                self.assertGreaterEqual(contrast(mapped[role], palette["background"]), 4.5, (name, role))
+            if name in ("afterglow", "wisteria"):
+                continue
+            data = builder.archive(name, integration["vscode"]["name"], palette)
+            self.assertEqual(data, (THEMES / name / "vscode.vsix").read_bytes())
+            self.assertEqual(data, builder.archive(name, integration["vscode"]["name"], palette))
+            with zipfile.ZipFile(io.BytesIO(data)) as bundle:
+                document = json.loads(bundle.read("extension/themes/colors.json"))
+                package = json.loads(bundle.read("extension/package.json"))
+            self.assertEqual('local.' + package['name'], integration['vscode']['extension'])
+            self.assertEqual(document['colors']['button.background'], palette['accent'])
+            self.assertEqual(document['semanticTokenColors']['function'], mapped['function'])
+            for index, ansi in enumerate(('Black', 'Red', 'Green', 'Yellow', 'Blue', 'Magenta', 'Cyan', 'White', 'BrightBlack', 'BrightRed', 'BrightGreen', 'BrightYellow', 'BrightBlue', 'BrightMagenta', 'BrightCyan', 'BrightWhite')):
+                self.assertEqual(document['colors']['terminal.ansi' + ansi], palette['color' + str(index)])
+            identities.add(document['colors']['button.background'])
+        self.assertEqual(len(identities), 11)
+        result = subprocess.run([sys.executable, str(THEMES / "build-vscode-themes.py"), "--check"], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
 
     def test_wallpapers_are_4k_and_retired_themes_are_absent(self):
         for name in ('everforest', 'tokyo-night', 'flexoki-light'):

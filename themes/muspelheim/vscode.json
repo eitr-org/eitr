@@ -1,4 +1,5 @@
 {
-  "name": "Catppuccin Mocha",
-  "extension": "catppuccin.catppuccin-vsc"
+  "name": "Eitr Muspelheim",
+  "extension": "local.eitr-muspelheim-theme",
+  "vsix": "vscode.vsix"
 }

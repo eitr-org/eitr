@@ -1,0 +1,119 @@
+{
+  "batch": "2026-10-original-09",
+  "generator": "built-in image generation",
+  "generation": "Three owner-approved native images preserved byte-for-byte. New panoramic compositions from the same final written prompts; only Eitr’s own emblem PNG is the drop shape reference.",
+  "status": "Owner-approved 16:9 selections; panoramic compositions passed agent visual inspection.",
+  "owner_requested_exception": "The owner explicitly approved painterly cinematic dark fantasy and scenic primordial terrain for these three Eitr wallpapers, overriding the default ink screenprint and no-scenery direction for batch 09 only.",
+  "resolution": [
+    3840,
+    2160
+  ],
+  "ultrawide_resolution": [
+    3440,
+    1440
+  ],
+  "processing": "Lanczos crop-to-fill JPEG exports from recorded native masters, never stretched or padded. Separate written-brief panoramic compositions; no claim of native 4K detail. Theme preview preserved.",
+  "images": [
+    {
+      "theme": "eitr",
+      "name": "01-primordial-drop",
+      "rendering_style": "Painterly cinematic dark fantasy, near-black with restrained emerald/jade venom light.",
+      "file": "themes/eitr/backgrounds/01-primordial-drop.jpg",
+      "ultrawide_file": "themes/eitr/backgrounds-ultrawide/01-primordial-drop.jpg",
+      "prompt": "Use case: stylized-concept. Create one original Eitr desktop wallpaper, 16:9 landscape, largest native landscape size supported. Cinematic dark fantasy painting with visible fine brushwork and precise detail only where light falls, never 3D or stock science fiction. True black #000000 dominates, green-black #0B110E and raised #19251D shadows, restrained ancient emerald #85C69A and muted jade #80C8BA bioluminescence, sparse venom lime #B9D77E highlights, pale #E2EAE2 and sage #91A397 only very restrained. Light comes ONLY from ancient venom. Calm near-black upper 6% for desktop bar, broad very dark low-detail negative space. Dark areas retain faint irregular painterly grain and mist rather than featureless gradients or banding. No neon, fluorescent slime, heavy bloom, lens flare, orange illumination, bright blue ice, sun, moon, stars, readable runes, text, lettering, signatures, watermarks, borders, interface, franchise likenesses or third-party designs. The Primordial Drop, variant b. EMPTY VOID ONLY, no ground, terrain, floor, scenery or pool. One small complete translucent glass-like venom teardrop floats at (64%,54%), occupying 22% image width and 40% image height, tip below y=30%. Left side empty near-black softly grained void. Subdued emerald liquid currents and tiny particles inside. Input is Eitr's own emblem, SHAPE REFERENCE ONLY: preserve its soft asymmetric four-lobed outer contour and precise angular dark internal cutout. Its shape emerges faintly from the liquid currents inside the drop, partially veiled and low contrast, discernible on looking carefully, not a sticker or flat icon. The drop is a separate enclosing shape. Tiny sparse drifting particles. Realistic refraction with subtle dim jade reflections, painterly atmosphere. Extremely restrained glow, minimal lime, dark emerald interior. No other logo or ornament. Mandatory framing: tiny droplet fully enclosed within rectangle x=54% to 74%, y=32% to 72%. Rounded teardrop with a short pointed top, no long liquid stem or connection to frame edge. Entire upper quarter empty darkness. Emblem much fainter than surrounding liquid: interrupt its currents subtly with mist while retaining reference contour.",
+      "ultrawide_prompt": "Use case: stylized-concept. Create one original Eitr desktop wallpaper, true panoramic 2.39:1 landscape, widest native panoramic aspect supported, ideally 3440×1440. Cinematic dark fantasy painting with visible fine brushwork and precise detail only where light falls, never 3D or stock science fiction. True black #000000 dominates, green-black #0B110E and raised #19251D shadows, restrained ancient emerald #85C69A and muted jade #80C8BA bioluminescence, sparse venom lime #B9D77E highlights, pale #E2EAE2 and sage #91A397 only very restrained. Light comes ONLY from ancient venom. Calm near-black upper 6% for desktop bar, broad very dark low-detail negative space. Dark areas retain faint irregular painterly grain and mist rather than featureless gradients or banding. No neon, fluorescent slime, heavy bloom, lens flare, orange illumination, bright blue ice, sun, moon, stars, readable runes, text, lettering, signatures, watermarks, borders, interface, franchise likenesses or third-party designs. The Primordial Drop, variant b. EMPTY VOID ONLY, no ground, terrain, floor, scenery or pool. One small complete translucent glass-like venom teardrop floats at (64%,54%), occupying 22% image width and 40% image height, tip below y=30%. Left side empty near-black softly grained void. Subdued emerald liquid currents and tiny particles inside. Input is Eitr's own emblem, SHAPE REFERENCE ONLY: preserve its soft asymmetric four-lobed outer contour and precise angular dark internal cutout. Its shape emerges faintly from the liquid currents inside the drop, partially veiled and low contrast, discernible on looking carefully, not a sticker or flat icon. The drop is a separate enclosing shape. Tiny sparse drifting particles. Realistic refraction with subtle dim jade reflections, painterly atmosphere. Extremely restrained glow, minimal lime, dark emerald interior. No other logo or ornament. Mandatory framing: tiny droplet fully enclosed within rectangle x=54% to 74%, y=32% to 72%. Rounded teardrop with a short pointed top, no long liquid stem or connection to frame edge. Entire upper quarter empty darkness. Emblem much fainter than surrounding liquid: interrupt its currents subtly with mist while retaining reference contour. PANORAMIC RECOMPOSITION: create a NEW panoramic composition from this same written brief. Preserve subject, palette, painterly style and venom-only lighting. Keep the complete subject in frame with generous margins; extra horizontal width is calm near-black grained negative space. Top 6% calm dark. Never stretch or crop an earlier image.",
+      "status": "owner-approved 16:9; ultrawide selected after agent visual inspection",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_note": "New panoramic composition inspected at native size: complete subject, dark top bar strip, no visible text-like marks, banding or duplicated edges.",
+      "input_images": [
+        "branding/png/eitr-logo-white-1024.png"
+      ],
+      "input_role": "Eitr emblem shape reference only",
+      "native_source": "branding/sources/wallpapers/batch-09/eitr-01-primordial-drop.png",
+      "native_sha256": "d6734be7e4330f9a1c00532c0df23f422ab9f1120c71790284d97e6005e105fb",
+      "native_size": [
+        1672,
+        940
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-09/eitr-01-primordial-drop-ultrawide.png",
+      "ultrawide_native_sha256": "8a8a0037ffa18b95fabe90e61713d818731070506fdb16aa7edde33ca1865947",
+      "ultrawide_native_size": [
+        1938,
+        812
+      ]
+    },
+    {
+      "theme": "eitr",
+      "name": "03-elivagar",
+      "rendering_style": "Painterly cinematic dark fantasy, near-black with restrained emerald/jade venom light.",
+      "file": "themes/eitr/backgrounds/03-elivagar.jpg",
+      "ultrawide_file": "themes/eitr/backgrounds-ultrawide/03-elivagar.jpg",
+      "prompt": "Use case: stylized-concept. Create one original Eitr desktop wallpaper, 16:9 landscape, largest native landscape size supported. Cinematic dark fantasy painting with visible fine brushwork and precise detail only where light falls, never 3D or stock science fiction. True black #000000 dominates, green-black #0B110E and raised #19251D shadows, restrained ancient emerald #85C69A and muted jade #80C8BA bioluminescence, sparse venom lime #B9D77E highlights, pale #E2EAE2 and sage #91A397 only very restrained. Light comes ONLY from ancient venom. Calm near-black upper 6% for desktop bar, broad very dark low-detail negative space. Dark areas retain faint irregular painterly grain and mist rather than featureless gradients or banding. No neon, fluorescent slime, heavy bloom, lens flare, orange illumination, bright blue ice, sun, moon, stars, readable runes, text, lettering, signatures, watermarks, borders, interface, franchise likenesses or third-party designs. Élivágar, the primordial rivers. Vast non-earthly primordial landscape before the Nine Realms: black volcanic stone and jagged obsidian vanish into endless darkness. Narrow rivers of dark translucent emerald venom glow very faintly from within, winding as delicate leading lines toward a horizon dissolved into black. Rivers mostly in lower half, upper 55–60% almost black with only vague huge distant shadowy rock formations, top 6% completely calm. Thin cold greenish mist immediately above water, a very few luminous particles. No structures, characters, vegetation, celestial bodies or external light sources. Low-key near-black matte painting, restrained brushwork, broad quiet shadows, no bright green torrents.",
+      "ultrawide_prompt": "Use case: stylized-concept. Create one original Eitr desktop wallpaper, true panoramic 2.39:1 landscape, widest native panoramic aspect supported, ideally 3440×1440. Cinematic dark fantasy painting with visible fine brushwork and precise detail only where light falls, never 3D or stock science fiction. True black #000000 dominates, green-black #0B110E and raised #19251D shadows, restrained ancient emerald #85C69A and muted jade #80C8BA bioluminescence, sparse venom lime #B9D77E highlights, pale #E2EAE2 and sage #91A397 only very restrained. Light comes ONLY from ancient venom. Calm near-black upper 6% for desktop bar, broad very dark low-detail negative space. Dark areas retain faint irregular painterly grain and mist rather than featureless gradients or banding. No neon, fluorescent slime, heavy bloom, lens flare, orange illumination, bright blue ice, sun, moon, stars, readable runes, text, lettering, signatures, watermarks, borders, interface, franchise likenesses or third-party designs. Élivágar, the primordial rivers. Vast non-earthly primordial landscape before the Nine Realms: black volcanic stone and jagged obsidian vanish into endless darkness. Narrow rivers of dark translucent emerald venom glow very faintly from within, winding as delicate leading lines toward a horizon dissolved into black. Rivers mostly in lower half, upper 55–60% almost black with only vague huge distant shadowy rock formations, top 6% completely calm. Thin cold greenish mist immediately above water, a very few luminous particles. No structures, characters, vegetation, celestial bodies or external light sources. Low-key near-black matte painting, restrained brushwork, broad quiet shadows, no bright green torrents. PANORAMIC RECOMPOSITION: create a NEW panoramic composition from this same written brief. Preserve subject, palette, painterly style and venom-only lighting. Keep the complete subject in frame with generous margins; extra horizontal width is calm near-black grained negative space. Top 6% calm dark. Never stretch or crop an earlier image.",
+      "status": "owner-approved 16:9; ultrawide selected after agent visual inspection",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_note": "New panoramic composition inspected at native size: complete subject, dark top bar strip, no visible text-like marks, banding or duplicated edges.",
+      "input_images": [],
+      "input_role": "Written brief only; no input images.",
+      "native_source": "branding/sources/wallpapers/batch-09/eitr-03-elivagar.png",
+      "native_sha256": "1a14facc937f97ad59c36567a6522a2abea265ee731b025a2d7bddc3019ddf04",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-09/eitr-03-elivagar-ultrawide.png",
+      "ultrawide_native_sha256": "e6d06eba2063e5afeeb4ec6ba6afecfea17e87c4704a6e0a13a0d4be35a004a1",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ]
+    },
+    {
+      "theme": "eitr",
+      "name": "04-venom-rootlight",
+      "rendering_style": "Painterly cinematic dark fantasy, near-black with restrained emerald/jade venom light.",
+      "file": "themes/eitr/backgrounds/04-venom-rootlight.jpg",
+      "ultrawide_file": "themes/eitr/backgrounds-ultrawide/04-venom-rootlight.jpg",
+      "prompt": "Use case: stylized-concept. Create one original Eitr desktop wallpaper, 16:9 landscape, largest native landscape size supported. Cinematic dark fantasy painting with visible fine brushwork and precise detail only where light falls, never 3D or stock science fiction. True black #000000 dominates, green-black #0B110E and raised #19251D shadows, restrained ancient emerald #85C69A and muted jade #80C8BA bioluminescence, sparse venom lime #B9D77E highlights, pale #E2EAE2 and sage #91A397 only very restrained. Light comes ONLY from ancient venom. Calm near-black upper 6% for desktop bar, broad very dark low-detail negative space. Dark areas retain faint irregular painterly grain rather than featureless gradients or banding. No neon, fluorescent slime, heavy bloom, lens flare, orange illumination, bright blue ice, sun, moon, stars, readable runes, text, lettering, signatures, watermarks, borders, interface, franchise likenesses or third-party designs. The first spark of life as the moment venom first moves. A single extremely fine thread of glowing venom falls vertically out of darkness at x=66%, beginning below the calm upper quarter, onto rough black stone at y=78%, blooming into delicate branching root-like light veins across the stone surface in the lower third. These are hairline mineral light veins, not actual roots or vegetation. Low wide composition, lower third barely lit, upper two thirds almost black, left side mostly quiet darkness. An intimate spreading network of fine asymmetrical branching emerald lines suggests life moving for the first time. No free-floating drop, plant, seedling, leaves, rivers, horizon, spotlight or bright impact splash. Restrained dim light, no white-hot center.",
+      "ultrawide_prompt": "Use case: stylized-concept. Create one original Eitr desktop wallpaper, true panoramic 2.39:1 landscape, widest native panoramic aspect supported, ideally 3440×1440. Cinematic dark fantasy painting with visible fine brushwork and precise detail only where light falls, never 3D or stock science fiction. True black #000000 dominates, green-black #0B110E and raised #19251D shadows, restrained ancient emerald #85C69A and muted jade #80C8BA bioluminescence, sparse venom lime #B9D77E highlights, pale #E2EAE2 and sage #91A397 only very restrained. Light comes ONLY from ancient venom. Calm near-black upper 6% for desktop bar, broad very dark low-detail negative space. Dark areas retain faint irregular painterly grain rather than featureless gradients or banding. No neon, fluorescent slime, heavy bloom, lens flare, orange illumination, bright blue ice, sun, moon, stars, readable runes, text, lettering, signatures, watermarks, borders, interface, franchise likenesses or third-party designs. The first spark of life as the moment venom first moves. A single extremely fine thread of glowing venom falls vertically out of darkness at x=66%, beginning below the calm upper quarter, onto rough black stone at y=78%, blooming into delicate branching root-like light veins across the stone surface in the lower third. These are hairline mineral light veins, not actual roots or vegetation. Low wide composition, lower third barely lit, upper two thirds almost black, left side mostly quiet darkness. An intimate spreading network of fine asymmetrical branching emerald lines suggests life moving for the first time. No free-floating drop, plant, seedling, leaves, rivers, horizon, spotlight or bright impact splash. Restrained dim light, no white-hot center. PANORAMIC RECOMPOSITION: create a NEW panoramic composition from this same written brief. Preserve subject, palette, painterly style and venom-only lighting. Keep the complete subject in frame with generous margins; extra horizontal width is calm near-black grained negative space. Top 6% calm dark. Never stretch or crop an earlier image.",
+      "status": "owner-approved 16:9; ultrawide selected after agent visual inspection",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_note": "New panoramic composition inspected at native size: complete subject, dark top bar strip, no visible text-like marks, banding or duplicated edges.",
+      "input_images": [],
+      "input_role": "Written brief only; no input images.",
+      "native_source": "branding/sources/wallpapers/batch-09/eitr-04-venom-rootlight.png",
+      "native_sha256": "3dc2b07c63bd97c24558a5b578e73d30699493b11f28cc9eebfe636a119f12bb",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-09/eitr-04-venom-rootlight-ultrawide.png",
+      "ultrawide_native_sha256": "2a71ee5741bd50aaad7e42907403f906986014bc11aa38fcfaef985343bfe65d",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ]
+    }
+  ]
+}

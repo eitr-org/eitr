@@ -33,3 +33,18 @@ class LayoutManifestTests(unittest.TestCase):
         layout = module.Layout(ROOT)
         for path in ['nvim/init.lua', 'hypr/local.lua', 'quickshell/desktop-bar/bar-settings.json']:
             self.assertEqual(layout.classify(path)['class'], 'P')
+
+    def test_eitr_colorscheme_is_package_owned_runtime_code(self):
+        layout = module.Layout(ROOT)
+        for relative in ['nvim-theme/colors/eitr.lua', 'nvim-theme/lua/eitr_theme/init.lua', 'nvim-theme/lua/lualine/themes/eitr.lua']:
+            self.assertEqual(layout.classify(relative)['class'], 'C')
+            self.assertTrue(layout.classify(relative)['runtime'])
+        with tempfile.TemporaryDirectory() as directory:
+            exported = Path(directory) / 'source'
+            exported.mkdir()
+            import shutil
+            shutil.copytree(ROOT / 'nvim-theme', exported / 'nvim-theme')
+            shutil.copytree(ROOT / 'distro', exported / 'distro', ignore=shutil.ignore_patterns('__pycache__'))
+            staged = Path(directory) / 'stage'
+            module.Layout(exported).stage(staged)
+            self.assertTrue((staged / 'nvim-theme/colors/eitr.lua').is_file())

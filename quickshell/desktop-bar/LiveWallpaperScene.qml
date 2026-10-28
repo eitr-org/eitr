@@ -15,7 +15,7 @@ Item {
 
     Item {
         id: stage
-        // The layers' pixel size (themes/norse/references/generate-wallpapers.py).
+        // The layers' pixel size (themes/eitr/references/generate-wallpapers.py).
         readonly property real fit: Math.max(scene.width / 3840, scene.height / 2160)
         width: 3840 * fit
         height: 2160 * fit
@@ -41,7 +41,7 @@ Item {
     Image {
         id: ring
         readonly property bool wide: scene.width * 9 > scene.height * 16
-        // The ring's centre in its layer (themes/norse/references/generate-wallpapers.py).
+        // The ring's centre in its layer (themes/eitr/references/generate-wallpapers.py).
         readonly property real across: 0.7
         width: wide ? height * 16 / 9 : stage.width
         height: wide ? scene.height : stage.height

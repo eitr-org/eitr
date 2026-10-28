@@ -1,4 +1,5 @@
 {
-  "name": "Matte Black",
-  "extension": "TahaYVR.matteblack"
+  "name": "Eitr Helheim",
+  "extension": "local.eitr-helheim-theme",
+  "vsix": "vscode.vsix"
 }

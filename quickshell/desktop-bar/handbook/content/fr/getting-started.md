@@ -14,7 +14,7 @@ Les boutons au-dessus règlent l’essentiel : chacun ferme le manuel et ouvre l
 4. Connectez-vous depuis l’icône WiFi ou Bluetooth. Les icônes de droite peuvent être masquées : utilisez la flèche pour les afficher.
 5. Choisissez un thème dans **Style > Thème**, puis un fond dans **Style > Fond d’écran**.
 
-Les nouvelles installations EITR utilisent **Afterglow** et l’écran de verrouillage **Clockwork Tape**. Les bureaux existants conservent leurs choix.
+Les nouvelles installations EITR utilisent **Eitr** et l’écran de verrouillage **Clockwork Tape**. Les bureaux existants conservent leurs choix.
 
 ## Apprendre à votre rythme
 

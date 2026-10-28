@@ -13,7 +13,7 @@ local function read(path)
 end
 
 local function plugin_name(spec)
-  return spec.name or spec[1]:match("([^/]+)$"):gsub("%.git$", "")
+  return spec.name or (spec[1] or spec.dir):match("([^/]+)$"):gsub("%.git$", "")
 end
 
 -- Keep every bundled colorscheme available to lazy's colorscheme loader.
@@ -34,7 +34,7 @@ function M.specs()
       for _, spec in ipairs(entries) do
         local name = plugin_name(spec)
         if spec[1] ~= "LazyVim/LazyVim" and not seen[name] then
-          table.insert(specs, { spec[1], name = name, branch = spec.branch, lazy = true })
+          table.insert(specs, { spec[1], name = name, branch = spec.branch, dir = spec.dir, main = spec.main, lazy = true })
           seen[name] = true
         end
       end
@@ -66,7 +66,7 @@ function M.reload(force)
         else
           -- Sessions opened before this integration can use already-installed
           -- colorschemes without rebuilding lazy's registry or restarting.
-          local directory = vim.fn.stdpath("data") .. "/lazy/" .. name
+          local directory = spec.dir or (vim.fn.stdpath("data") .. "/lazy/" .. name)
           assert(vim.fn.isdirectory(directory) == 1, "Theme plugin not installed: " .. name .. "; reopen Neovim once to install bundled themes")
           vim.opt.rtp:prepend(directory)
           plugin = { name = name, dir = directory }

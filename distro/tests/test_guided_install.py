@@ -429,7 +429,7 @@ class InstallerTreeTests(unittest.TestCase):
                                             text=True).splitlines())
         for needed in ("distro/install.sh", "distro/system/configure-desktop.sh", "distro/network/20-wifi.network",
                        "distro/archinstall/installer-ui.py", "fastfetch/eitr.py", "fastfetch/assets/eitr-wordmark.png",
-                       "themes/norse/colors.toml", "HOME_FILES/.zshrc", "hypr/hyprland.lua"):
+                       "themes/eitr/colors.toml", "HOME_FILES/.zshrc", "hypr/hyprland.lua"):
             self.assertIn(needed, files)
         self.assertFalse([name for name in files if "/backgrounds/" in name or name.endswith(".mp4")
                           or name.endswith("/preview.png") and name.startswith("themes/")])

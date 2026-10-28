@@ -1,4 +1,5 @@
 {
-  "name": "Catppuccin Mocha",
-  "extension": "catppuccin.catppuccin-vsc"
+  "name": "Eitr Alfheim",
+  "extension": "local.eitr-alfheim-theme",
+  "vsix": "vscode.vsix"
 }

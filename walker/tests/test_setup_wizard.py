@@ -29,6 +29,20 @@ class SetupWizardTests(unittest.TestCase):
         wizard.panel_bottom = 33
         return wizard
 
+    def test_colors_follow_the_current_theme_and_fall_back_to_eitr(self):
+        import os
+        import tempfile
+        root = Path(__file__).resolve().parents[2]
+        with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {'XDG_CONFIG_HOME': directory}):
+            self.assertEqual(eitr_wizard.theme_palette(root)['accent'], '#b9d77e')
+            current = Path(directory) / 'theme/current'
+            current.mkdir(parents=True)
+            (current / 'colors.toml').write_text('background = "#120f13"\nforeground = "#f2e7e2"\naccent = "#c44750"\n')
+            self.assertEqual(eitr_wizard.theme_palette(root),
+                             {'background': '#120f13', 'foreground': '#f2e7e2', 'accent': '#c44750'})
+            (current / 'colors.toml').write_text('accent = "#c44750"\n')
+            self.assertEqual(eitr_wizard.theme_palette(root)['accent'], '#b9d77e')
+
     def test_blank_text_is_not_translated_or_drawn(self):
         wizard = object.__new__(SetupWizard)
         wizard.screen = Mock()

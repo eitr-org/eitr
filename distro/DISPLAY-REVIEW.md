@@ -289,7 +289,7 @@ The full repository gate and both catalog build/check pairs pass.
 
 The terminal setup forms now reuse `distro/lib/eitr_wizard.py`, extracted from
 `distro/archinstall/installer-ui.py`. The installer retains its original
-`collect()` sequence, Norse palette, renderer, filtering, validation, back/cancel
+`collect()` sequence, approved setup palette, renderer, filtering, validation, back/cancel
 rules, default Cancel selection and final typed disk confirmation. Setup forms
 add independent step navigation and a Review screen: arrows/Tab select a step,
 Enter edits it, Left/Tab returns from editing, and Esc/Ctrl+C cancels. Text,

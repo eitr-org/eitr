@@ -21,7 +21,7 @@ from **Learn > EITR Handbook**.
    click the Show Icons arrow to reveal them.
 5. Choose a theme from **Style > Theme**, then a wallpaper from **Style > Wallpaper**.
 
-Fresh EITR defaults are **Afterglow** and the **Clockwork Tape** lockscreen.
+Fresh EITR defaults are **Eitr** and the **Clockwork Tape** lockscreen.
 Existing desktops keep their saved choices.
 
 ## Learn at your own pace

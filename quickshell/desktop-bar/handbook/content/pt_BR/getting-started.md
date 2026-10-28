@@ -14,7 +14,7 @@ Os botões acima configuram o essencial: cada um fecha o manual e abre sua confi
 4. Conecte-se pelo ícone de WiFi ou Bluetooth. Os ícones à direita podem estar ocultos: use a seta de mostrar ícones para exibi-los.
 5. Escolha um tema em **Estilo > Tema** e um papel de parede em **Estilo > Papel de parede**.
 
-Novas instalações do EITR usam **Afterglow** e a tela de bloqueio **Clockwork Tape**. Instalações existentes mantêm as escolhas salvas.
+Novas instalações do EITR usam **Eitr** e a tela de bloqueio **Clockwork Tape**. Instalações existentes mantêm as escolhas salvas.
 
 ## Aprenda no seu ritmo
 

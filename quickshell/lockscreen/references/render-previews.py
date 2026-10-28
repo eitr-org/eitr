@@ -33,7 +33,7 @@ def main():
             parser.read(design.parent / "theme.conf")
             settings = dict(parser["General"])
             if design.parent.name == "theme-wallpaper":
-                settings['background'] = (ROOT.parents[1] / 'themes/norse/backgrounds/01-eitr-runestone.png').as_uri()
+                settings['background'] = (ROOT.parents[1] / 'themes/eitr/backgrounds/02-eitr-runestone.png').as_uri()
             environment = dict(os.environ, QT_QPA_PLATFORM=f"offscreen:configfile={screen}",
                                QSG_RHI_BACKEND="opengl", LIBGL_ALWAYS_SOFTWARE="1",
                                QML_IMPORT_PATH=os.pathsep.join((str(ROOT.parent), str(ROOT / "imports"))),

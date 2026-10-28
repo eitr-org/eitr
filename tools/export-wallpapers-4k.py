@@ -33,7 +33,7 @@ def export(path, lossless=frozenset()):
         if to_jpeg:
             record['converted_from'] = relative
         if fit:
-            centering = (0.85, 0.5) if path.parent.parent.name == 'norse' else (0.5, 0.5)
+            centering = (0.85, 0.5) if path.parent.parent.name == 'eitr' else (0.5, 0.5)
             record.update({'source_size': list(image.size),
                            'source_sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
                            'centering': list(centering), 'output_size': list(SIZE)})

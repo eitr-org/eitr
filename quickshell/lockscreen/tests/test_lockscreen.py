@@ -171,7 +171,7 @@ class ThemeWallpaperTests(unittest.TestCase):
         theme.touch()
         self.assertEqual(self.settings.theme_wallpaper(), theme)
         theme.unlink()
-        fallback = self.home / 'package/themes/norse/backgrounds/01-eitr-runestone.png'
+        fallback = self.home / 'package/themes/eitr/backgrounds/02-eitr-runestone.png'
         fallback.parent.mkdir(parents=True)
         fallback.touch()
         self.assertEqual(self.settings.theme_wallpaper(), fallback)

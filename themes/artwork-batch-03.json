@@ -114,14 +114,15 @@
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Monochrome stipple and engraving illustration; black #121212, silver-gray #bebebe, highly refined dot shading and tactile etched details; large negative space. New artwork: An asymmetrical broken stone sphere with a wide hollow inner chamber suspended on right third, edges dissolving into crisp sparse silver particles, rendered entirely in meticulous stipple ink against a charcoal blank void, no stars or scenery.",
       "reference": "graphite/references/originals/",
       "status": "removed",
-      "note": "Not in the owner-curated wallpaper collection; prompt retained for provenance."
+      "note": "Theme removed from the shipped collection at the owner’s request; prompts retained for provenance."
     },
     {
       "theme": "graphite",
       "name": "03-thread-and-shadow",
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Monochrome stipple and engraving illustration; black #121212, silver-gray #bebebe, highly refined dot shading and tactile etched details; large negative space. New artwork: A sculptural silver-gray strip twisting into an open irregular loop, one end unraveling into fine dotted threads, horizontal arrangement and dark void, precise pointillist illustration, no text or ASCII glyphs.",
       "reference": "graphite/references/originals/",
-      "status": "installed"
+      "status": "removed",
+      "note": "Theme removed from the shipped collection at the owner’s request; prompts retained for provenance."
     },
     {
       "theme": "moss",

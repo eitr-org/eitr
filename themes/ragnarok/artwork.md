@@ -4,7 +4,7 @@ Palette: the owner's Ragnarök palette (2026-10-28), accent #c44750 and second #
 
 Background, surface and raised roles are recorded separately in `colors.toml`. Terminal black uses surface, white uses text, bright black uses muted, and bright colours mix 25% white into each normal colour. Body and selection text retain the approved text colour.
 
-Neovim uses aether with this palette; icon base: gruvbox. Integration files are generated from `../integrations.json`.
+Neovim and VS Code use Eitr's own themes from this palette.
 
 ## Wallpapers
 
@@ -12,6 +12,10 @@ Neovim uses aether with this palette; icon base: gruvbox. Integration files are 
 - `02-fenrir-devours-the-sun.jpg`: a colossal wolf in profile, connected jaws surrounding the eclipsed sun, crimson rim light and dark negative space.
 - `03-dying-yggdrasil.jpg`: the complete dying World Tree beneath a blood moon, crimson bark cracks, sparse gold highlights and barren dark ground.
 - `04-world-tree-pyre.jpg`: a burning World Tree and darkening sun above a ruined distant landscape, in crimson and gold.
+
+- `05-fenrir.jpg`: an unframed ivory-and-black ink wolf with ember-red eyes,
+  originally generated for the Norse collection. Both exports are preserved
+  unchanged; prompts and provenance are in [graphic artwork](references/graphic-artwork.json).
 
 The first three are the owner's approved batch 08 selections. Their ultrawides
 are separately generated panoramic compositions from the same written briefs,

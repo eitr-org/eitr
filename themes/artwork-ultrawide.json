@@ -196,10 +196,10 @@
       }
     },
     {
-      "file": "themes/graphite/backgrounds-ultrawide/01-fragments-of-touch.jpg",
-      "wallpaper": "themes/graphite/backgrounds/01-fragments-of-touch.jpg",
+      "file": "themes/eitr/backgrounds-ultrawide/01-primordial-drop.jpg",
+      "wallpaper": "themes/eitr/backgrounds/01-primordial-drop.jpg",
       "source": {
-        "file": "branding/sources/wallpapers/batch-04/graphite-01-fragments-of-touch.png"
+        "file": "branding/sources/wallpapers/batch-09/eitr-01-primordial-drop-ultrawide.png"
       },
       "framing": "crop",
       "centering": [
@@ -208,18 +208,35 @@
       ]
     },
     {
-      "file": "themes/graphite/backgrounds-ultrawide/02-ember-harbor.jpg",
-      "wallpaper": "themes/graphite/backgrounds/02-ember-harbor.jpg",
+      "file": "themes/eitr/backgrounds-ultrawide/02-eitr-runestone.jpg",
+      "wallpaper": "themes/eitr/backgrounds/02-eitr-runestone.png",
       "source": {
         "final": "exported from the original 21:9 artwork; this file is now the master"
       }
     },
     {
-      "file": "themes/graphite/backgrounds-ultrawide/03-thread-and-shadow.jpg",
-      "wallpaper": "themes/graphite/backgrounds/03-thread-and-shadow.jpg",
+      "file": "themes/eitr/backgrounds-ultrawide/03-elivagar.jpg",
+      "wallpaper": "themes/eitr/backgrounds/03-elivagar.jpg",
       "source": {
-        "final": "exported from the original 21:9 artwork; this file is now the master"
-      }
+        "file": "branding/sources/wallpapers/batch-09/eitr-03-elivagar-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "file": "themes/eitr/backgrounds-ultrawide/04-venom-rootlight.jpg",
+      "wallpaper": "themes/eitr/backgrounds/04-venom-rootlight.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-09/eitr-04-venom-rootlight-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
     },
     {
       "file": "themes/gruvbox/backgrounds-ultrawide/01-violin-and-pear.jpg",
@@ -545,62 +562,6 @@
       }
     },
     {
-      "file": "themes/norse/backgrounds-ultrawide/01-eitr-runestone.jpg",
-      "wallpaper": "themes/norse/backgrounds/01-eitr-runestone.png",
-      "source": {
-        "final": "exported from the original 21:9 artwork; this file is now the master"
-      }
-    },
-    {
-      "file": "themes/norse/backgrounds-ultrawide/02-odin-allfather.jpg",
-      "wallpaper": "themes/norse/backgrounds/02-odin-allfather.jpg",
-      "source": {
-        "final": "exported from the original 21:9 artwork; this file is now the master"
-      }
-    },
-    {
-      "file": "themes/norse/backgrounds-ultrawide/03-mimir-well-of-wisdom.jpg",
-      "wallpaper": "themes/norse/backgrounds/03-mimir-well-of-wisdom.jpg",
-      "source": {
-        "final": "exported from the original 21:9 artwork; this file is now the master"
-      }
-    },
-    {
-      "file": "themes/norse/backgrounds-ultrawide/04-huginn-muninn.jpg",
-      "wallpaper": "themes/norse/backgrounds/04-huginn-muninn.jpg",
-      "source": {
-        "final": "exported from the original 21:9 artwork; this file is now the master"
-      }
-    },
-    {
-      "file": "themes/norse/backgrounds-ultrawide/05-valkyrie.jpg",
-      "wallpaper": "themes/norse/backgrounds/05-valkyrie.jpg",
-      "source": {
-        "final": "exported from the original 21:9 artwork; this file is now the master"
-      }
-    },
-    {
-      "file": "themes/norse/backgrounds-ultrawide/06-odin.jpg",
-      "wallpaper": "themes/norse/backgrounds/06-odin.jpg",
-      "source": {
-        "final": "exported from the original 21:9 artwork; this file is now the master"
-      }
-    },
-    {
-      "file": "themes/norse/backgrounds-ultrawide/07-fenrir.jpg",
-      "wallpaper": "themes/norse/backgrounds/07-fenrir.jpg",
-      "source": {
-        "final": "exported from the original 21:9 artwork; this file is now the master"
-      }
-    },
-    {
-      "file": "themes/norse/backgrounds-ultrawide/08-jormungandr.jpg",
-      "wallpaper": "themes/norse/backgrounds/08-jormungandr.jpg",
-      "source": {
-        "final": "exported from the original 21:9 artwork; this file is now the master"
-      }
-    },
-    {
       "file": "themes/one-dark-pro/backgrounds-ultrawide/01-neon-summit.jpg",
       "wallpaper": "themes/one-dark-pro/backgrounds/01-neon-summit.jpg",
       "source": {
@@ -661,6 +622,13 @@
         0.5,
         0.5
       ]
+    },
+    {
+      "file": "themes/ragnarok/backgrounds-ultrawide/05-fenrir.jpg",
+      "wallpaper": "themes/ragnarok/backgrounds/05-fenrir.jpg",
+      "source": {
+        "final": "exported from the original 21:9 artwork; this file is now the master"
+      }
     },
     {
       "file": "themes/rose-pine/backgrounds-ultrawide/01-heron-and-thread.jpg",

@@ -16,7 +16,7 @@ Vollständiges Beispiel: Ersetzen Sie die Beispielprüfsummen durch die tatsäch
     "files": [{"file": "packages/office-tools-1-1-any.pkg.tar.zst", "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"}]
   },
   "defaults": {
-    "theme": "norse",
+    "theme": "eitr",
     "wallpaper": {"file": "office.png", "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"},
     "browser": "chromium",
     "update_channel": "stable",

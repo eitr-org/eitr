@@ -13,16 +13,16 @@ changes stay quiet: they do not send success notifications. Ultrawide monitors
 (at least twice as wide as tall) show each wallpaper's 21:9 version, so less of
 the picture is cut away; other monitors show the 4K 16:9 one.
 
-The Norse theme includes drawn raven, Valkyrie, Odin, Fenrir and Jörmungandr
-wallpapers on black backgrounds. Select them through these same wallpaper
-controls; the additional artwork does not change the palette. Its first
-wallpaper, the runestone, is live: the northern lights drift slowly behind the
-rune ring. They pause behind fullscreen apps, and the lockscreen shows the still
-image.
+The Eitr theme has four wallpapers: Primordial Drop (the default), Runestone,
+Élivágar and Venom Rootlight. Select them through the same wallpaper controls;
+the palette stays the same. The second wallpaper, Runestone, is live: northern
+lights drift slowly behind the rune ring, pause behind fullscreen apps, and
+remain still on the lockscreen. Graphite has been retired; saved Graphite
+selections switch to Eitr and its default wallpaper.
 
-The 25 shipped themes include ten dark realm palettes: Alfheim, Asgard, Helheim,
+The 24 shipped themes include ten dark realm palettes: Alfheim, Asgard, Helheim,
 Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim and Vanaheim.
-Each realm theme has two to four original wallpapers in varied ink,
+Each realm theme has two to five original wallpapers in varied ink,
 gouache, cel-shaded and painted styles, in both aspect ratios. The first
 wallpaper is the theme's preview.
 
@@ -115,4 +115,4 @@ current wallpaper. It follows later wallpaper changes at the next lock or
 preview; Ctrl+P previews the full layout without locking. The login screen cannot
 read your home folder, so it shows a copy of the wallpaper that Eitr stores when
 you choose this design and again whenever you change wallpaper. If the saved image
-is unavailable it uses another current-theme wallpaper or the Norse default.
+is unavailable it uses another current-theme wallpaper or the Eitr default.

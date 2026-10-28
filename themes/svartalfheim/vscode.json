@@ -1,4 +1,5 @@
 {
-  "name": "Gruvbox Dark Medium",
-  "extension": "jdinhlife.gruvbox"
+  "name": "Eitr Svartalfheim",
+  "extension": "local.eitr-svartalfheim-theme",
+  "vsix": "vscode.vsix"
 }

@@ -14,7 +14,7 @@ Die Schaltflächen über diesem Text richten das Wichtigste ein. Jede schließt 
 4. Verbinde dich über das WiFi- oder Bluetooth-Symbol. Rechte Leistensymbole können ausgeblendet sein; zeige sie mit dem Pfeil an.
 5. Wähle unter **Stil > Design** ein Design und unter **Stil > Hintergrundbild** ein Hintergrundbild.
 
-Neue EITR-Installationen verwenden **Afterglow** und den Sperrbildschirm **Clockwork Tape**. Bestehende Installationen behalten ihre Auswahl.
+Neue EITR-Installationen verwenden **Eitr** und den Sperrbildschirm **Clockwork Tape**. Bestehende Installationen behalten ihre Auswahl.
 
 ## Im eigenen Tempo lernen
 

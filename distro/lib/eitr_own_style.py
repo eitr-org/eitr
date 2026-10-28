@@ -33,7 +33,7 @@ SUFFIXES = {".jpg", ".jpeg", ".png", ".webp"}
 MARKER = "own-theme.json"
 # A shipped theme to return to when the current own theme is deleted: the one used
 # before it was created, else the fresh-install default (distro/user-defaults.json).
-DEFAULT_THEME = "afterglow"
+DEFAULT_THEME = "eitr"
 # Lockscreen designs that show a picture and accept an accent and a greeting.
 LOCK_DESIGNS = ("theme-wallpaper", "material-you-dark", "material-you")
 LOCK_PREFIX = "user:"
@@ -399,7 +399,8 @@ def reference_integration(light):
     """The integration of a shipped theme whose Neovim colors come from its palette."""
     integrations = json.loads(code("themes/integrations.json").read_text())
     for theme, integration in sorted(integrations.items()):
-        driven = any(plugin.get("palette") for plugin in integration["neovim"]["plugins"])
+        driven = integration["neovim"].get("eitr") or any(
+            plugin.get("palette") for plugin in integration["neovim"].get("plugins", []))
         if driven and (code_root() / "themes" / theme / "light.mode").is_file() == light:
             return integration
     raise ValueError(tr('No palette-driven theme integration is installed.'))
@@ -433,7 +434,7 @@ def write_theme_files(directory, colors, light):
     (directory / "vscode.json").write_text(json.dumps(vscode, indent=2, ensure_ascii=False) + "\n")
     # Palette-driven Neovim schemes also name these shades; derive them instead of storing them.
     shade = "#ffffff" if light else "#000000"
-    extended = dict(colors, darker_background=mix(colors["background"], shade, 0.35),
+    extended = dict(colors, mode="light" if light else "dark", darker_background=mix(colors["background"], shade, 0.35),
                     lighter_background=mix(colors["background"], colors["foreground"], 0.06),
                     dark_foreground=colors["color8"])
     (directory / "neovim.lua").write_text(builder.neovim(directory.name, integration["neovim"], extended))

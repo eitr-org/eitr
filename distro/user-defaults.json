@@ -14,7 +14,7 @@
     {"source": "dolphinrc", "target": "${XDG_CONFIG_HOME}/dolphinrc", "update": false},
     {"source": "filetypesrc", "target": "${XDG_CONFIG_HOME}/filetypesrc", "update": false},
     {"source": "mimeapps.list", "target": "${XDG_CONFIG_HOME}/mimeapps.list", "update": false},
-    {"source": "themes/afterglow", "target": "${XDG_CONFIG_HOME}/theme/current", "update": false, "whole": true},
+    {"source": "themes/eitr", "target": "${XDG_CONFIG_HOME}/theme/current", "update": false, "whole": true},
     {"source": "HOME_FILES/.config/lockscreen/selected", "target": "${XDG_CONFIG_HOME}/lockscreen/selected", "update": false},
     {"source": "distro/defaults/home/.local", "target": "${HOME}/.local", "update": false},
     {"source": "distro/defaults/home/.zshrc", "target": "${HOME}/.zshrc", "update": false, "requires": "${HOME}/.oh-my-zsh/oh-my-zsh.sh"},

@@ -213,3 +213,149 @@ class NeovimTransparentAtStartupMigrationTests(unittest.TestCase):
     def test_edited_or_missing_files_are_left_alone(self):
         self.assertEqual(self.run_migration('-- my own autocmds\n'), '-- my own autocmds\n')
         self.assertIsNone(self.run_migration(None))
+
+
+class EitrThemeRenameTests(unittest.TestCase):
+    def test_retired_wallpapers_and_fenrir_follow_selected_theme(self):
+        migration = ROOT / 'distro/migrations/20261028210000-rename-norse-theme.py'
+        names = {'__name__': 'migration_test'}
+        import types
+        from unittest.mock import patch
+        paths = types.ModuleType('eitr_paths')
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            paths.config = paths.cache = paths.data = lambda relative: base / relative
+            with patch.dict(sys.modules, eitr_paths=paths):
+                exec(compile(migration.read_text().split("update_json(config('eitr/appearance.json')")[0], str(migration), 'exec'), names)
+            for theme in ('norse', 'eitr', 'ragnarok', 'nord'):
+                names['THEME'] = theme
+                for old_theme in ('norse', 'eitr'):
+                    for folder in ('backgrounds', 'backgrounds-ultrawide'):
+                        for stem in sorted(names['RETIRED'] | {'07-fenrir'}):
+                            with self.subTest(theme=theme, old_theme=old_theme, folder=folder, stem=stem):
+                                old = f'/usr/share/eitr/themes/{old_theme}/{folder}/{stem}.jpg'
+                                expected = '/usr/share/eitr/themes/eitr/backgrounds/02-eitr-runestone.png'
+                                if stem == '07-fenrir' and theme == 'ragnarok':
+                                    expected = f'/usr/share/eitr/themes/ragnarok/{folder}/05-fenrir.jpg'
+                                result = names['renamed'](old)
+                                self.assertEqual(result, expected)
+                                self.assertEqual(names['renamed'](result), expected)
+                for old_theme in ('norse', 'eitr'):
+                    for folder, suffix in (('backgrounds', 'png'), ('backgrounds-ultrawide', 'jpg')):
+                        runestone = 'eitr-runestone'
+                        old = f'/usr/share/eitr/themes/{old_theme}/{folder}/01-{runestone}.{suffix}'
+                        expected = f'/usr/share/eitr/themes/eitr/{folder}/02-{runestone}.{suffix}'
+                        self.assertEqual(names['renamed'](old), expected)
+                        self.assertEqual(names['renamed'](expected), expected)
+                self.assertEqual(names['renamed']('/pictures/05-valkyrie.jpg'), '/pictures/05-valkyrie.jpg')
+
+    def test_saved_theme_wallpaper_caches_and_own_theme_follow_rename(self):
+        import json
+        with tempfile.TemporaryDirectory() as directory:
+            home = Path(directory)
+            config = home / '.config'
+            cache = home / '.cache'
+            data = home / '.local/share'
+            preference = config / 'eitr/appearance.json'
+            preference.parent.mkdir(parents=True)
+            wallpaper = '/usr/share/eitr/themes/norse/backgrounds/05-valkyrie.jpg'
+            preference.write_text(json.dumps({'theme': 'norse', 'wallpaper': wallpaper, 'other': 42}))
+            cache.mkdir()
+            (cache / 'current-theme').write_text('norse\n')
+            (cache / 'current-wallpaper').write_text(wallpaper + '\n')
+            (cache / 'current-wallpaper-image').symlink_to(wallpaper)
+            marker = data / 'eitr/themes/mine/own-theme.json'
+            marker.parent.mkdir(parents=True)
+            marker.write_text(json.dumps({'previous': 'norse', 'name': 'Mine'}))
+            environment = dict(os.environ, HOME=str(home), XDG_CONFIG_HOME=str(config),
+                               XDG_CACHE_HOME=str(cache), XDG_DATA_HOME=str(data),
+                               PYTHONPATH=str(ROOT / 'distro/lib'))
+            migration = ROOT / 'distro/migrations/20261028210000-rename-norse-theme.py'
+            for attempt in range(2):
+                subprocess.run([sys.executable, str(migration)], env=environment, check=True)
+                values = json.loads(preference.read_text())
+                self.assertEqual(values, {'theme': 'eitr', 'wallpaper': '/usr/share/eitr/themes/eitr/backgrounds/02-eitr-runestone.png', 'other': 42})
+                self.assertEqual((cache / 'current-theme').read_text(), 'eitr\n')
+                self.assertEqual(os.readlink(cache / 'current-wallpaper-image'), values['wallpaper'])
+                self.assertEqual(json.loads(marker.read_text())['previous'], 'eitr')
+            preference.write_text(json.dumps({'theme': 'nord', 'wallpaper': '/pictures/mine.jpg'}))
+            subprocess.run([sys.executable, str(migration)], env=environment, check=True)
+            self.assertEqual(json.loads(preference.read_text()), {'theme': 'nord', 'wallpaper': '/pictures/mine.jpg'})
+
+
+class NeovimLocalThemeMigrationTests(NeovimShippedThemesMigrationTests):
+    MIGRATION = ROOT / 'distro/migrations/20261028220000-nvim-local-theme.py'
+
+    def test_the_previously_shipped_file_becomes_the_current_one(self):
+        names = {}
+        exec(compile(self.MIGRATION.read_text().split('base = os.environ')[0], str(self.MIGRATION), 'exec'), names)
+        current = (ROOT / 'nvim/lua/config/desktop_theme.lua').read_text()
+        self.assertEqual(names['NEW'], current)
+        self.assertEqual(self.run_migration(names['OLD']), current)
+        self.assertEqual(self.run_migration(current), current)
+        edited = names['OLD'] + '-- custom settings\n'
+        self.assertEqual(self.run_migration(edited), edited)
+
+
+class GraphiteRemovalTests(unittest.TestCase):
+    def test_only_retired_selection_calls_standard_theme_switch(self):
+        import json
+        import runpy
+        migration = ROOT / 'distro/migrations/20261028230000-remove-graphite-theme.py'
+        with tempfile.TemporaryDirectory() as directory:
+            home = Path(directory)
+            preference = home / '.config/eitr/appearance.json'
+            preference.parent.mkdir(parents=True)
+            cache = home / '.cache/current-theme'
+            cache.parent.mkdir()
+            environment = dict(HOME=str(home), XDG_CONFIG_HOME=str(home / '.config'),
+                               XDG_CACHE_HOME=str(home / '.cache'), EITR_CODE_ROOT=str(ROOT))
+            with patch.dict(os.environ, environment), patch('subprocess.run') as switch:
+                for saved in ('graphite', 'eitr', 'nord', None):
+                    for cached in ('graphite', 'nord', None):
+                        for path in (preference, cache):
+                            path.unlink(missing_ok=True)
+                        if saved:
+                            preference.write_text(json.dumps({'theme': saved, 'other': 42}))
+                        if cached:
+                            cache.write_text(cached + '\n')
+                        before = preference.read_bytes() if preference.exists() else None
+                        switch.reset_mock()
+                        runpy.run_path(str(migration))
+                        self.assertEqual(switch.call_count, int((saved or cached) == 'graphite'))
+                        if switch.called:
+                            args, kwargs = switch.call_args
+                            self.assertEqual(args[0], ['bash', str(ROOT / 'walker/scripts/actions/style/apply.sh'), 'eitr'])
+                            self.assertTrue(kwargs['check'])
+                            self.assertEqual(kwargs['env']['EITR_NO_SESSION'], '1')
+                        self.assertEqual(preference.read_bytes() if preference.exists() else None, before)
+
+    def test_retired_selection_applies_eitr_default_and_preserves_preferences(self):
+        import json
+        with tempfile.TemporaryDirectory() as directory:
+            home = Path(directory)
+            config = home / 'config'
+            (config / 'swayosd').mkdir(parents=True)
+            preference = config / 'eitr/appearance.json'
+            preference.parent.mkdir()
+            preference.write_text(json.dumps({'theme': 'graphite', 'wallpaper': '/gone.jpg',
+                                               'barColor': 'theme', 'other': 42}))
+            environment = dict(os.environ, HOME=str(home), XDG_CONFIG_HOME=str(config),
+                               XDG_CACHE_HOME=str(home / 'cache'), XDG_DATA_HOME=str(home / 'data'),
+                               XDG_STATE_HOME=str(home / 'state'), XDG_RUNTIME_DIR=str(home),
+                               EITR_CODE_ROOT=str(ROOT), EITR_LIBRARY_ROOT=str(ROOT / 'distro/lib'),
+                               PYTHONPATH=str(ROOT / 'distro/lib'), GSETTINGS_BACKEND='memory',
+                               DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent')
+            migration = ROOT / 'distro/migrations/20261028230000-remove-graphite-theme.py'
+            for attempt in range(2):
+                result = subprocess.run([sys.executable, str(migration)], env=environment,
+                                        capture_output=True, text=True)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                values = json.loads(preference.read_text())
+                self.assertEqual(values['theme'], 'eitr')
+                self.assertEqual(Path(values['wallpaper']).name, '01-primordial-drop.jpg')
+                self.assertTrue(Path(values['wallpaper']).is_file())
+                self.assertEqual(values['barColor'], 'theme')
+                self.assertEqual(values['other'], 42)
+                self.assertEqual((config / 'theme/current/neovim.lua').read_text(),
+                                 (ROOT / 'themes/eitr/neovim.lua').read_text())

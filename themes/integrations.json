@@ -6,54 +6,32 @@
       "extension": "rikkarth.ship-at-sea"
     },
     "neovim": {
-      "colorscheme": "aether",
-      "plugins": [
-        {
-          "branch": "v3",
-          "name": "aether",
-          "priority": 1000,
-          "repo": "omacom/aether.nvim",
-          "palette": true
-        }
-      ]
+      "colorscheme": "eitr",
+      "eitr": true
     }
   },
   "alfheim": {
     "icons": "Yaru-blue",
     "vscode": {
-      "name": "Catppuccin Mocha",
-      "extension": "catppuccin.catppuccin-vsc"
+      "name": "Eitr Alfheim",
+      "extension": "local.eitr-alfheim-theme",
+      "vsix": "vscode.vsix"
     },
     "neovim": {
-      "colorscheme": "aether",
-      "plugins": [
-        {
-          "branch": "v3",
-          "name": "aether",
-          "priority": 1000,
-          "repo": "omacom/aether.nvim",
-          "palette": true
-        }
-      ]
+      "colorscheme": "eitr",
+      "eitr": true
     }
   },
   "asgard": {
     "icons": "Yaru-olive",
     "vscode": {
-      "name": "Gruvbox Dark Medium",
-      "extension": "jdinhlife.gruvbox"
+      "name": "Eitr Asgard",
+      "extension": "local.eitr-asgard-theme",
+      "vsix": "vscode.vsix"
     },
     "neovim": {
-      "colorscheme": "aether",
-      "plugins": [
-        {
-          "branch": "v3",
-          "name": "aether",
-          "priority": 1000,
-          "repo": "omacom/aether.nvim",
-          "palette": true
-        }
-      ]
+      "colorscheme": "eitr",
+      "eitr": true
     }
   },
   "catppuccin": {
@@ -109,23 +87,6 @@
       ]
     }
   },
-  "graphite": {
-    "icons": "Yaru",
-    "vscode": {
-      "name": "Matte Black",
-      "extension": "TahaYVR.matteblack"
-    },
-    "neovim": {
-      "colorscheme": "matteblack",
-      "plugins": [
-        {
-          "lazy": false,
-          "priority": 1000,
-          "repo": "tahayvr/matteblack.nvim"
-        }
-      ]
-    }
-  },
   "gruvbox": {
     "icons": "Yaru-olive",
     "vscode": {
@@ -144,20 +105,13 @@
   "helheim": {
     "icons": "Yaru",
     "vscode": {
-      "name": "Matte Black",
-      "extension": "TahaYVR.matteblack"
+      "name": "Eitr Helheim",
+      "extension": "local.eitr-helheim-theme",
+      "vsix": "vscode.vsix"
     },
     "neovim": {
-      "colorscheme": "aether",
-      "plugins": [
-        {
-          "branch": "v3",
-          "name": "aether",
-          "priority": 1000,
-          "repo": "omacom/aether.nvim",
-          "palette": true
-        }
-      ]
+      "colorscheme": "eitr",
+      "eitr": true
     }
   },
   "jade": {
@@ -179,20 +133,13 @@
   "jotunheim": {
     "icons": "Yaru-gray",
     "vscode": {
-      "name": "Nord",
-      "extension": "arcticicestudio.nord-visual-studio-code"
+      "name": "Eitr Jotunheim",
+      "extension": "local.eitr-jotunheim-theme",
+      "vsix": "vscode.vsix"
     },
     "neovim": {
-      "colorscheme": "aether",
-      "plugins": [
-        {
-          "branch": "v3",
-          "name": "aether",
-          "priority": 1000,
-          "repo": "omacom/aether.nvim",
-          "palette": true
-        }
-      ]
+      "colorscheme": "eitr",
+      "eitr": true
     }
   },
   "kanagawa": {
@@ -213,20 +160,13 @@
   "midgard": {
     "icons": "Yaru-prussiangreen",
     "vscode": {
-      "name": "Ocean Green: Dark",
-      "extension": "jovejonovski.ocean-green"
+      "name": "Eitr Midgard",
+      "extension": "local.eitr-midgard-theme",
+      "vsix": "vscode.vsix"
     },
     "neovim": {
-      "colorscheme": "aether",
-      "plugins": [
-        {
-          "branch": "v3",
-          "name": "aether",
-          "priority": 1000,
-          "repo": "omacom/aether.nvim",
-          "palette": true
-        }
-      ]
+      "colorscheme": "eitr",
+      "eitr": true
     }
   },
   "moss": {
@@ -248,39 +188,25 @@
   "muspelheim": {
     "icons": "Yaru-blue",
     "vscode": {
-      "name": "Catppuccin Mocha",
-      "extension": "catppuccin.catppuccin-vsc"
+      "name": "Eitr Muspelheim",
+      "extension": "local.eitr-muspelheim-theme",
+      "vsix": "vscode.vsix"
     },
     "neovim": {
-      "colorscheme": "aether",
-      "plugins": [
-        {
-          "branch": "v3",
-          "name": "aether",
-          "priority": 1000,
-          "repo": "omacom/aether.nvim",
-          "palette": true
-        }
-      ]
+      "colorscheme": "eitr",
+      "eitr": true
     }
   },
   "niflheim": {
     "icons": "Yaru-gray",
     "vscode": {
-      "name": "Nord",
-      "extension": "arcticicestudio.nord-visual-studio-code"
+      "name": "Eitr Niflheim",
+      "extension": "local.eitr-niflheim-theme",
+      "vsix": "vscode.vsix"
     },
     "neovim": {
-      "colorscheme": "aether",
-      "plugins": [
-        {
-          "branch": "v3",
-          "name": "aether",
-          "priority": 1000,
-          "repo": "omacom/aether.nvim",
-          "palette": true
-        }
-      ]
+      "colorscheme": "eitr",
+      "eitr": true
     }
   },
   "nord": {
@@ -298,46 +224,16 @@
       ]
     }
   },
-  "norse": {
+  "eitr": {
     "icons": "Yaru-prussiangreen",
     "vscode": {
-      "name": "Norse",
-      "extension": "local.norse-theme",
+      "name": "Eitr",
+      "extension": "local.eitr-eitr-theme",
       "vsix": "vscode.vsix"
     },
     "neovim": {
-      "colorscheme": "carbonfox",
-      "plugins": [
-        {
-          "opts": {
-            "palettes": {
-              "carbonfox": {
-                "bg0": "#06070c",
-                "bg1": "#0a0b12",
-                "bg2": "#13141e",
-                "bg3": "#1a1b28",
-                "bg4": "#2e3046",
-                "blue": "#8a8cf5",
-                "comment": "#666c85",
-                "cyan": "#4fd2c0",
-                "fg0": "#f4f6fa",
-                "fg1": "#e8ecf2",
-                "fg2": "#c9cfdb",
-                "fg3": "#454a63",
-                "green": "#3fe39a",
-                "magenta": "#e04fc3",
-                "orange": "#c2ee5a",
-                "pink": "#f08bd8",
-                "red": "#ff6b7a",
-                "sel0": "#1e3a32",
-                "sel1": "#2a4a3e",
-                "yellow": "#c2ee5a"
-              }
-            }
-          },
-          "repo": "EdenEast/nightfox.nvim"
-        }
-      ]
+      "colorscheme": "eitr",
+      "eitr": true
     }
   },
   "one-dark-pro": {
@@ -365,20 +261,13 @@
   "ragnarok": {
     "icons": "Yaru-olive",
     "vscode": {
-      "name": "Gruvbox Dark Medium",
-      "extension": "jdinhlife.gruvbox"
+      "name": "Eitr Ragnarök",
+      "extension": "local.eitr-ragnarok-theme",
+      "vsix": "vscode.vsix"
     },
     "neovim": {
-      "colorscheme": "aether",
-      "plugins": [
-        {
-          "branch": "v3",
-          "name": "aether",
-          "priority": 1000,
-          "repo": "omacom/aether.nvim",
-          "palette": true
-        }
-      ]
+      "colorscheme": "eitr",
+      "eitr": true
     }
   },
   "rose-pine": {
@@ -415,39 +304,25 @@
   "svartalfheim": {
     "icons": "Yaru-olive",
     "vscode": {
-      "name": "Gruvbox Dark Medium",
-      "extension": "jdinhlife.gruvbox"
+      "name": "Eitr Svartalfheim",
+      "extension": "local.eitr-svartalfheim-theme",
+      "vsix": "vscode.vsix"
     },
     "neovim": {
-      "colorscheme": "aether",
-      "plugins": [
-        {
-          "branch": "v3",
-          "name": "aether",
-          "priority": 1000,
-          "repo": "omacom/aether.nvim",
-          "palette": true
-        }
-      ]
+      "colorscheme": "eitr",
+      "eitr": true
     }
   },
   "vanaheim": {
     "icons": "Yaru-wartybrown",
     "vscode": {
-      "name": "Miasma",
-      "extension": "oldjobobo.miasma-theme"
+      "name": "Eitr Vanaheim",
+      "extension": "local.eitr-vanaheim-theme",
+      "vsix": "vscode.vsix"
     },
     "neovim": {
-      "colorscheme": "aether",
-      "plugins": [
-        {
-          "branch": "v3",
-          "name": "aether",
-          "priority": 1000,
-          "repo": "omacom/aether.nvim",
-          "palette": true
-        }
-      ]
+      "colorscheme": "eitr",
+      "eitr": true
     }
   },
   "wisteria": {
@@ -457,16 +332,8 @@
       "extension": ""
     },
     "neovim": {
-      "colorscheme": "aether",
-      "plugins": [
-        {
-          "branch": "v3",
-          "name": "aether",
-          "priority": 1000,
-          "repo": "omacom/aether.nvim",
-          "palette": true
-        }
-      ]
+      "colorscheme": "eitr",
+      "eitr": true
     }
   }
 }

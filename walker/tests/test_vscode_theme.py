@@ -1,5 +1,6 @@
 import importlib.util
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -46,6 +47,31 @@ class VSCodeThemeTests(unittest.TestCase):
             subprocess.run([sys.executable, str(SCRIPT), "set", str(settings), "Nord"], check=True)
             self.assertIn('"workbench.colorTheme": "Nord", // theme comment', settings.read_text())
             self.assertIn("/* editor */", settings.read_text())
+
+    def test_cli_reads_local_realm_bundle(self):
+        theme = ROOT / "themes/ragnarok/vscode.json"
+        data = json.loads(theme.read_text())
+        result = subprocess.run([sys.executable, str(SCRIPT), "read", str(theme)], capture_output=True, text=True)
+        self.assertEqual(result.stdout.splitlines(), [data["name"], "local.eitr-ragnarok-theme", "vscode.vsix"])
+        self.assertTrue((theme.parent / data["vsix"]).is_file())
+
+    def test_local_bundle_is_refreshed_even_when_already_installed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            current = root / "theme/current"
+            current.mkdir(parents=True)
+            (current / "vscode.json").write_text(json.dumps({"name": "Eitr", "extension": "local.eitr-eitr-theme", "vsix": "vscode.vsix"}))
+            (current / "vscode.vsix").write_bytes(b"fixture")
+            executable = root / "code"
+            executable.write_text('#!/bin/sh\nprintf "%s\\n" "$@" >> "$VSCODE_TEST_LOG"\n')
+            executable.chmod(0o755)
+            log = root / "calls"
+            result = subprocess.run(["bash", str(ROOT / "walker/scripts/themes/vscode.sh")],
+                env={**os.environ, "PATH": str(root) + os.pathsep + os.environ["PATH"], "XDG_CONFIG_HOME": directory,
+                     "EITR_NO_SESSION": "0", "VSCODE_TEST_LOG": str(log)}, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(log.read_text().splitlines(), ["--install-extension", str(current / "vscode.vsix"), "--force"])
+            self.assertEqual(json.loads((root / "Code/User/settings.json").read_text())["workbench.colorTheme"], "Eitr")
 
     def test_invalid_settings_are_left_untouched(self):
         with tempfile.TemporaryDirectory() as directory:

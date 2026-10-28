@@ -1,6 +1,6 @@
 # Wallpaper Collection
 
-The collection spans 25 themes. The Norse theme combines procedural and generated illustration (see themes/norse/artwork.md). Batches 01-03 originally generated 95 images and the Witcher batch four more, 99 in all. The owner's curation removes and reorders wallpapers; wallpaper names remain stable during review, and manifest entries for removed wallpapers are marked removed with their prompts kept as history.
+The collection spans 24 themes. The Eitr theme combines procedural and generated illustration (see themes/eitr/artwork.md). Batches 01-03 originally generated 95 images and the Witcher batch four more, 99 in all. The owner's curation removes and reorders wallpapers; wallpaper names remain stable during review, and manifest entries for removed wallpapers are marked removed with their prompts kept as history.
 
 At the end of Batch 03, Batch 02's former 03 images were promoted to 01, Batch 01's original pair became 02 and 03, and Batch 03 occupied 04 and 05. Later curation changed that order. One Dark Pro (named Witcher for a time) keeps its two owner-supplied wallpapers; its Witcher fan art was removed before public distribution. Historical manifest entries for archived images include an explicit file path.
 
@@ -19,11 +19,11 @@ At the end of Batch 03, Batch 02's former 03 images were promoted to 01, Batch 0
 - `artwork-witcher.json`: the four Witcher fan-art wallpapers once made for One Dark Pro, all removed, with their prompts kept as history.
 - `one-dark-pro/references/previous-generated/`: four preserved images generated for One Dark Pro before the Witcher batch.
 
-Renamed theme folders include afterglow, daylight, graphite, jade, moonveil, moss, obsidian, stillwater, and wisteria. Moonveil and Obsidian were removed at the owner’s request; its generation prompts remain marked removed in the historical batch manifests. One Dark Pro was renamed to Witcher and back. Established palette names remain unchanged. External editor plugin identifiers are upstream names and must not be renamed as local folder names.
+Renamed theme folders include afterglow, daylight, graphite, jade, moonveil, moss, obsidian, stillwater, and wisteria. Graphite, Moonveil and Obsidian were removed at the owner’s request; their generation prompts remain marked removed in the historical batch manifests. One Dark Pro was renamed to Witcher and back. Established palette names remain unchanged. External editor plugin identifiers are upstream names and must not be renamed as local folder names.
 
 ## Resolution
 
-The shipped collection targets 3840×2160 (16:9). Existing raster artwork is cropped to fill while preserving its main subject, then Lanczos-resampled. These are 4K exports rather than claims of native generated detail. Per-file source sizes, hashes and framing are in `artwork-4k.json`; `tools/export-wallpapers-4k.py` repeats the conversion without restoring deleted files. The Norse runestone and its motion layers are regenerated natively by their source script. Each wallpaper also has a 21:9 version in `backgrounds-ultrawide/` (3440×1440 JPEG), which monitors at least twice as wide as tall show instead; most are the 21:9 originals the 4K files were cropped from. Their sources are in `artwork-ultrawide.json`, and `tools/export-wallpapers-ultrawide.py` rebuilds them. Batch 04 retains its native sources under `branding/sources/wallpapers/batch-04/`; its `export.py` uses both existing exporters and rebuilds its theme previews. Ultrawide exports use separate panoramic expansions where needed, otherwise subject-centered crops, without stretched edge padding. Per-image framing lives in batch04 and the ultrawide manifest.
+The shipped collection targets 3840×2160 (16:9). Existing raster artwork is cropped to fill while preserving its main subject, then Lanczos-resampled. These are 4K exports rather than claims of native generated detail. Per-file source sizes, hashes and framing are in `artwork-4k.json`; `tools/export-wallpapers-4k.py` repeats the conversion without restoring deleted files. The Eitr runestone and its motion layers are regenerated natively by their source script. Each wallpaper also has a 21:9 version in `backgrounds-ultrawide/` (3440×1440 JPEG), which monitors at least twice as wide as tall show instead; most are the 21:9 originals the 4K files were cropped from. Their sources are in `artwork-ultrawide.json`, and `tools/export-wallpapers-ultrawide.py` rebuilds them. Batch 04 retains its native sources under `branding/sources/wallpapers/batch-04/`; its `export.py` uses both existing exporters and rebuilds its theme previews. Ultrawide exports use separate panoramic expansions where needed, otherwise subject-centered crops, without stretched edge padding. Per-image framing lives in batch04 and the ultrawide manifest.
 
 ## Next Batch
 
@@ -99,3 +99,17 @@ live under `branding/sources/wallpapers/batch-08/`. The 16:9 masters are preserv
 byte-for-byte; new 1935×812 panoramic compositions preserve complete subjects and
 calm dark space. Crop-to-fill exports are 3840×2160 and 3440×1440 JPEGs without
 stretching or padding. Ragnarök's independent theme preview is preserved.
+
+## Eitr batch 09
+
+The owner approved Primordial Drop, Élivágar and Venom Rootlight in painterly
+cinematic dark fantasy, an explicit exception to the ink illustration and
+no-scenery defaults for this batch. Native owner-approved PNGs are preserved
+byte-for-byte; ultrawides are new panoramic compositions from the same final
+written prompts, with only Eitr’s emblem used as the drop’s shape reference.
+Exact prompts, hashes, sizes and framing: `themes/artwork-batch-09.json`.
+Masters and reproducible exports: `branding/sources/wallpapers/batch-09/`.
+Eitr’s order is Drop (default), Runestone, Élivágar, Rootlight; the existing
+preview is preserved. Runestone and its live layers are now numbered 02.
+
+The ten realms and Eitr use local Neovim and VS Code themes from the same contrast-corrected palette roles. Run `python3 themes/build-vscode-themes.py` and its `--check` after palette changes; VSIX archives use fixed timestamps and content-derived versions. Afterglow and Wisteria retain their existing VS Code integrations.

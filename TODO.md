@@ -29,25 +29,12 @@ LAN.
 
 # 2. Smaller items
 
-- **Plugins: fixes from the owner's first test (2026-10-27).** Schema v2 plugins
-  (tiles, panels, widgets, bar items, audio spectrum, streams, Plugins page,
-  opt-in styling) are on testing; `distro/PLUGINS.md` has the details.
-  - Menu focus, stable edit surfaces and compact list/detail navigation are implemented; verify right-click dismissal and smooth dragging on Hyprland
-    before calling these fixes shipped.
-  - Plugin updates have a separate reviewed action; System Update only checks availability.
-  - Still open: runtime QML errors are not attributed to a plugin; in-process QML
-    is not a sandbox; verify above-window click-through, fullscreen hiding and
-    monitor hotplug live.
+- **Plugins.** The owner confirmed the schema v2 plugins work (2026-10-28).
+  Still open: runtime QML errors are not attributed to a plugin, and in-process
+  QML is not a sandbox.
 
 - **Theme previews.** Previews are Neovim + About screenshots (2026-10-27); `branding/sources/wallpapers/batch-05/export.py` still rewrites realm previews from wallpapers, so drop its preview step before rerunning it.
-- **Realm theme colours.** The owner's palettes are applied to all ten realms, and
-  each realm's Neovim follows its palette (aether). Waiting on the owner: whether any
-  realm should be darker.
-- **Auto-hide bar.** Implemented for every edge and layout;
-  live Hyprland pointer-edge and exclusive-zone checks are pending before release.
-- **Boot, shutdown and disk-password screens.** Shared Bifröst logo colours and
-  runestone-gold runes are implemented with offscreen
-  previews; boot, shutdown and encrypted unlock still need VM review before release.
+- **Light themes.** The owner has ideas for more light themes; create them later.
 - **Website translations.** Offer the site in the desktop's languages
   (Portuguese (Brazil), Spanish, German, French) with a language switch, reusing
   the reviewed Handbook translations where chapters overlap. Decide the URL scheme

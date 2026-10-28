@@ -14,7 +14,7 @@ Los botones de arriba configuran lo esencial: cada uno cierra el manual y abre s
 4. Conéctate desde el icono WiFi o Bluetooth. Los iconos de la derecha pueden estar ocultos: usa la flecha para mostrarlos.
 5. Elige un tema en **Estilo > Tema** y un fondo en **Estilo > Fondo de pantalla**.
 
-Las instalaciones nuevas de EITR usan **Afterglow** y la pantalla de bloqueo **Clockwork Tape**. Los escritorios existentes conservan sus elecciones.
+Las instalaciones nuevas de EITR usan **Eitr** y la pantalla de bloqueo **Clockwork Tape**. Los escritorios existentes conservan sus elecciones.
 
 ## Aprende a tu ritmo
 

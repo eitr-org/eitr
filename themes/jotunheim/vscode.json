@@ -1,4 +1,5 @@
 {
-  "name": "Nord",
-  "extension": "arcticicestudio.nord-visual-studio-code"
+  "name": "Eitr Jotunheim",
+  "extension": "local.eitr-jotunheim-theme",
+  "vsix": "vscode.vsix"
 }

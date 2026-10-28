@@ -1,4 +1,5 @@
 {
-  "name": "Gruvbox Dark Medium",
-  "extension": "jdinhlife.gruvbox"
+  "name": "Eitr Ragnarök",
+  "extension": "local.eitr-ragnarok-theme",
+  "vsix": "vscode.vsix"
 }

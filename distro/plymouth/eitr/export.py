@@ -12,7 +12,6 @@ import sys
 import tempfile
 from pathlib import Path
 import re
-import tomllib
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 HERE = Path(__file__).resolve().parent
@@ -82,7 +81,8 @@ def wordmark_frame(alpha, phase):
 
 def export(output):
     output.mkdir(parents=True, exist_ok=True)
-    palette = tomllib.loads((ROOT / "themes/norse/colors.toml").read_text())
+    # The boot screens keep their approved colors; they run before any desktop theme loads.
+    palette = {"background": "#0a0b12", "foreground": "#e8ecf2", "accent": "#2bb87a"}
     accent = RUNE_GOLD
     foreground = palette["foreground"]
     script = output / "eitr.script"

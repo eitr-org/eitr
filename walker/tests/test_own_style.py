@@ -210,22 +210,23 @@ class ThemeTests(SandboxTest):
         return own_style.create_theme(name, str(picture(self.pictures / "lake.png")), **arguments)
 
     def test_created_theme_is_complete_and_listed_beside_shipped_ones(self):
-        directory = self.create(previous="norse")
+        directory = self.create(previous="eitr")
         self.assertEqual(directory, eitr_paths.data("eitr/themes/lake-at-dawn"))
         names = {path.name for path in directory.iterdir()}
         self.assertEqual(REQUIRED - names, set())
         self.assertIn(own_style.MARKER, names)
         self.assertEqual(set(own_style.palette_tools().load(directory)), COLOR_KEYS)
         self.assertRegex((directory / "dolphin.theme").read_text().strip(), KVANTUM_THEME)
-        self.assertIn('"aether"', (directory / "neovim.lua").read_text())
+        self.assertIn('"eitr"', (directory / "neovim.lua").read_text())
+        self.assertIn('background = "dark"', (directory / "neovim.lua").read_text())
         paths = eitr_paths.theme_paths()
         self.assertEqual(paths["lake-at-dawn"], directory)
-        self.assertEqual(paths["norse"], ROOT / "themes/norse")
-        self.assertEqual(own_style.fallback_theme("lake-at-dawn"), "norse")
+        self.assertEqual(paths["eitr"], ROOT / "themes/eitr")
+        self.assertEqual(own_style.fallback_theme("lake-at-dawn"), "eitr")
 
     def test_names_of_shipped_or_existing_themes_are_refused(self):
         self.create()
-        for name in ("Norse", "Lake at Dawn", "!!!"):
+        for name in ("Eitr", "Lake at Dawn", "!!!"):
             with self.subTest(name=name), self.assertRaises(ValueError):
                 self.create(name)
         self.assertEqual(list(own_style.own_themes()), ["lake-at-dawn"])
@@ -304,7 +305,7 @@ class CommandTests(SandboxTest):
         self.assertEqual(applied, ["jade"])
         self.assertFalse(directory.exists())
         with self.assertRaises(ValueError):
-            self.cli.delete_theme("norse", ask_first=lambda *arguments: True)
+            self.cli.delete_theme("eitr", ask_first=lambda *arguments: True)
 
     def test_lockscreens_are_listed_configured_and_deleted(self):
         value = own_style.create_lockscreen("Rune Lock", "material-you-dark", str(picture(self.pictures / "lake.png")),
@@ -394,7 +395,7 @@ class MenuTests(SandboxTest):
         self.assertIn("|Yours|", own_row)
         self.assertIn("theme delete 'lake'", own_row)
         self.assertIn("theme colors 'lake'", own_row)
-        self.assertIn("norse||nil|nil", rows)
+        self.assertIn("eitr||nil|nil", rows)
 
     def test_theme_rows_offer_creation(self):
         rows = json.loads((ROOT / "elephant/menu-rows/theme.json").read_text())
@@ -402,9 +403,9 @@ class MenuTests(SandboxTest):
 
     def test_shell_resolver_prefers_overrides_then_own_then_shipped(self):
         own_style.create_theme("Lake", str(picture(self.pictures / "lake.png")))
-        script = 'source distro/lib/paths.sh; eitr_theme_dir lake; eitr_theme_dir norse; eitr_theme_dir missing || echo none'
+        script = 'source distro/lib/paths.sh; eitr_theme_dir lake; eitr_theme_dir eitr; eitr_theme_dir missing || echo none'
         output = subprocess.run(["bash", "-c", script], cwd=ROOT, capture_output=True, text=True, check=True).stdout
-        self.assertEqual(output.splitlines(), [str(eitr_paths.data("eitr/themes/lake")), str(ROOT / "themes/norse"), "none"])
+        self.assertEqual(output.splitlines(), [str(eitr_paths.data("eitr/themes/lake")), str(ROOT / "themes/eitr"), "none"])
 
 
 if __name__ == "__main__":

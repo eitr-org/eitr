@@ -150,7 +150,7 @@ def parser():
     theme_actions.add_parser("list", help='list the installed themes')
     theme_actions.add_parser("current", help='show the current theme')
     theme_set = theme_actions.add_parser("set", help='switch to a theme')
-    theme_set.add_argument("name", help="a name from 'eitr theme list', such as norse or 'Rose Pine'")
+    theme_set.add_argument("name", help="a name from 'eitr theme list', such as eitr or 'Rose Pine'")
 
     handbook = commands.add_parser("handbook", help='open the Handbook')
     handbook.add_argument("chapter", nargs="?", help='a chapter id, such as troubleshooting')

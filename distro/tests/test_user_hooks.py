@@ -31,10 +31,10 @@ class UserHookTests(unittest.TestCase):
 
     def test_a_hook_gets_its_arguments_and_its_output_is_logged(self):
         self.hook("theme-set", f'echo "theme is $1" > "{self.home}/seen"; echo visible')
-        self.assertEqual(self.run_hook("theme-set", "norse").returncode, 0)
-        self.assertEqual((self.home / "seen").read_text(), "theme is norse\n")
+        self.assertEqual(self.run_hook("theme-set", "eitr").returncode, 0)
+        self.assertEqual((self.home / "seen").read_text(), "theme is eitr\n")
         log = self.log.read_text()
-        self.assertIn("theme-set: running with norse", log)
+        self.assertIn("theme-set: running with eitr", log)
         self.assertIn("visible", log)
 
     def test_a_failing_hook_never_fails_the_caller(self):

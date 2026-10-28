@@ -18,7 +18,7 @@ Requiere Kitty 0.49+ y `shader-slang`, incluidos en las dependencias de Eitr. Ac
 eitr update                  # System Update: snapshot, packages, AUR, Flatpak
 eitr update aur              # only AUR packages, without a snapshot
 eitr theme list              # installed themes, the current one marked *
-eitr theme set "Norse" # switch theme
+eitr theme set "Eitr" # switch theme
 eitr firewall on             # also: off, status
 eitr snapshots               # recovery snapshots
 eitr snapshots changes       # what each update changed
@@ -51,7 +51,7 @@ Para cambiar los colores de Spotify con Spicetify al cambiar de tema, crea `~/.c
 spicetify config color_scheme "$1" && spicetify apply
 ```
 
-Hazlo ejecutable con `chmod +x ~/.config/eitr/hooks/theme-set`. Cada hook dispone de 60 segundos; su salida y los fallos van a `~/.local/state/eitr/hooks.log`. Un fallo nunca detiene la actualización ni el cambio de tema. `eitr hook list` enumera los hooks; `eitr hook run theme-set norse` prueba uno. Las actualizaciones nunca modifican esta carpeta.
+Hazlo ejecutable con `chmod +x ~/.config/eitr/hooks/theme-set`. Cada hook dispone de 60 segundos; su salida y los fallos van a `~/.local/state/eitr/hooks.log`. Un fallo nunca detiene la actualización ni el cambio de tema. `eitr hook list` enumera los hooks; `eitr hook run theme-set eitr` prueba uno. Las actualizaciones nunca modifican esta carpeta.
 
 ## cmux TUI
 

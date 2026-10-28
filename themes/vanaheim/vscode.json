@@ -1,4 +1,5 @@
 {
-  "name": "Miasma",
-  "extension": "oldjobobo.miasma-theme"
+  "name": "Eitr Vanaheim",
+  "extension": "local.eitr-vanaheim-theme",
+  "vsix": "vscode.vsix"
 }

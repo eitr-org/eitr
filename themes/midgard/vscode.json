@@ -1,4 +1,5 @@
 {
-  "name": "Ocean Green: Dark",
-  "extension": "jovejonovski.ocean-green"
+  "name": "Eitr Midgard",
+  "extension": "local.eitr-midgard-theme",
+  "vsix": "vscode.vsix"
 }

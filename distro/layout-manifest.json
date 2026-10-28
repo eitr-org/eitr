@@ -2,6 +2,9 @@
   "version": 1,
   "layout_version": 2,
   "rules": [
+    {"pattern": "themes/editor_roles.py", "class": "C", "runtime": true},
+    {"pattern": "themes/build-vscode-themes.py", "class": "C", "runtime": false},
+    {"pattern": "nvim-theme/**", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/MediaIndicator.qml", "class": "C", "runtime": true},
     {"pattern": "elephant/menus/bar-media.lua", "class": "C", "runtime": true},
     {"pattern": "walker/themes/current/item_menus-bar-media.xml", "class": "C", "runtime": true},

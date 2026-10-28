@@ -321,29 +321,13 @@
       ]
     },
     {
-      "file": "themes/graphite/backgrounds/01-fragments-of-touch.jpg",
+      "file": "themes/eitr/backgrounds/01-primordial-drop.jpg",
+      "source": "branding/sources/wallpapers/batch-09/eitr-01-primordial-drop.png",
       "source_size": [
-        1938,
-        811
+        1672,
+        940
       ],
-      "source_sha256": "39f9eb249f0cb7d6448258ef2309ec5978a071488e3830a8b4d025a9b0bc2a42",
-      "centering": [
-        0.5,
-        0.5
-      ],
-      "output_size": [
-        3840,
-        2160
-      ],
-      "source": "branding/sources/wallpapers/batch-04/graphite-01-fragments-of-touch.png"
-    },
-    {
-      "file": "themes/graphite/backgrounds/02-ember-harbor.jpg",
-      "source_size": [
-        3440,
-        1440
-      ],
-      "source_sha256": "71d0adb841ad75458b880a5fa6999b2fec99a50b0721e7773646ddcb1e19b521",
+      "source_sha256": "d6734be7e4330f9a1c00532c0df23f422ab9f1120c71790284d97e6005e105fb",
       "centering": [
         0.5,
         0.5
@@ -354,12 +338,30 @@
       ]
     },
     {
-      "file": "themes/graphite/backgrounds/03-thread-and-shadow.jpg",
+      "file": "themes/eitr/backgrounds/03-elivagar.jpg",
+      "source": "branding/sources/wallpapers/batch-09/eitr-03-elivagar.png",
       "source_size": [
-        3440,
-        1440
+        1672,
+        941
       ],
-      "source_sha256": "a86c5a937edca086c6764375a7551d125d5501f7766b443fec9c2b86cb2e2186",
+      "source_sha256": "1a14facc937f97ad59c36567a6522a2abea265ee731b025a2d7bddc3019ddf04",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/eitr/backgrounds/04-venom-rootlight.jpg",
+      "source": "branding/sources/wallpapers/batch-09/eitr-04-venom-rootlight.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "3dc2b07c63bd97c24558a5b578e73d30699493b11f28cc9eebfe636a119f12bb",
       "centering": [
         0.5,
         0.5
@@ -931,118 +933,6 @@
       ]
     },
     {
-      "file": "themes/norse/backgrounds/02-odin-allfather.jpg",
-      "source_size": [
-        3440,
-        1440
-      ],
-      "source_sha256": "82b309ebb512ffc733bda3454dc757e14914a939786fca2e8c68ec4b49a7ae02",
-      "centering": [
-        0.85,
-        0.5
-      ],
-      "output_size": [
-        3840,
-        2160
-      ]
-    },
-    {
-      "file": "themes/norse/backgrounds/03-mimir-well-of-wisdom.jpg",
-      "source_size": [
-        3440,
-        1440
-      ],
-      "source_sha256": "7f8e00e857c369a2ac39b57ded18e0823b6c4955dd5df335999ee4735bbcb84c",
-      "centering": [
-        0.85,
-        0.5
-      ],
-      "output_size": [
-        3840,
-        2160
-      ]
-    },
-    {
-      "file": "themes/norse/backgrounds/04-huginn-muninn.jpg",
-      "source_size": [
-        1931,
-        814
-      ],
-      "source_sha256": "167197c1918214ef1d96a9230346b332ffe5e6977c1dc993cacfe41ac50fccaf",
-      "centering": [
-        0.85,
-        0.5
-      ],
-      "output_size": [
-        3840,
-        2160
-      ]
-    },
-    {
-      "file": "themes/norse/backgrounds/05-valkyrie.jpg",
-      "source_size": [
-        1931,
-        814
-      ],
-      "source_sha256": "e81ea6cf3e97579ef66e131f2bb0c11965582ad55b443f833e232ea9cb4b4b41",
-      "centering": [
-        0.85,
-        0.5
-      ],
-      "output_size": [
-        3840,
-        2160
-      ]
-    },
-    {
-      "file": "themes/norse/backgrounds/06-odin.jpg",
-      "source_size": [
-        1931,
-        814
-      ],
-      "source_sha256": "6bef3c3f5cb92f337f5994cfb54c7f3f5fc560c0f34e7db6011a9c8a256e9cd7",
-      "centering": [
-        0.85,
-        0.5
-      ],
-      "output_size": [
-        3840,
-        2160
-      ]
-    },
-    {
-      "file": "themes/norse/backgrounds/07-fenrir.jpg",
-      "source_size": [
-        1931,
-        814
-      ],
-      "source_sha256": "65c14585238ed57872de1e8bfdcdadbf718aeddb73a63df4c3a0e16e9e3dc8f9",
-      "centering": [
-        0.85,
-        0.5
-      ],
-      "output_size": [
-        3840,
-        2160
-      ]
-    },
-    {
-      "file": "themes/norse/backgrounds/08-jormungandr.jpg",
-      "source_size": [
-        1931,
-        814
-      ],
-      "source_sha256": "2bb322eca76a60ab0115e2ea410f92e0fac0e479f25cd000a658c44bf2660316",
-      "centering": [
-        0.85,
-        0.5
-      ],
-      "output_size": [
-        3840,
-        2160
-      ]
-    },
-    {
       "file": "themes/one-dark-pro/backgrounds/01-neon-summit.jpg",
       "source_size": [
         5032,
@@ -1119,6 +1009,22 @@
       "source_sha256": "77bda38efb69e25959d53bc93c70e1ffd48af7ed889b9d272f9d5763e23b393c",
       "centering": [
         0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/ragnarok/backgrounds/05-fenrir.jpg",
+      "source_size": [
+        1931,
+        814
+      ],
+      "source_sha256": "65c14585238ed57872de1e8bfdcdadbf718aeddb73a63df4c3a0e16e9e3dc8f9",
+      "centering": [
+        0.85,
         0.5
       ],
       "output_size": [
@@ -1395,6 +1301,6 @@
     }
   ],
   "procedural": {
-    "themes/norse/backgrounds/01-eitr-runestone.png": "Native 3840×2160; generated with themes/norse/references/generate-wallpapers.py, including its motion layers."
+    "themes/eitr/backgrounds/02-eitr-runestone.png": "Native 3840×2160; generated with themes/eitr/references/generate-wallpapers.py, including its motion layers."
   }
 }

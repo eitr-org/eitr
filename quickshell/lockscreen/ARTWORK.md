@@ -73,6 +73,6 @@ Landscape 16:9, same cozy sleepy mood, clearly drawn rather than realistic.
 retaining its GPL provenance. The background is resolved from the owner's current
 desktop selection at launch; no personal wallpaper is copied into this repository
 or into SDDM. The public 3840×2160 preview uses
-`themes/norse/backgrounds/01-eitr-runestone.png`, whose provenance is documented
-in `themes/norse/artwork.md`. The selected wallpaper keeps its native resolution;
+`themes/eitr/backgrounds/02-eitr-runestone.png`, whose provenance is documented
+in `themes/eitr/artwork.md`. The selected wallpaper keeps its native resolution;
 Qt scales/crops it to the lockscreen surface without generating a second copy.

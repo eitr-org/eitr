@@ -78,14 +78,15 @@
       "theme": "graphite",
       "name": "02-ember-harbor",
       "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. A tiny unmarked sailboat crossing a charcoal harbor below immense layered storm clouds, narrow amber light through cloud break, intricate black engraved wave lines. Original woodcut-inspired illustration, dark restrained composition. Graphite #121212 #bebebe with sparing #e68e0d amber.",
-      "status": "installed"
+      "status": "removed",
+      "note": "Theme removed from the shipped collection at the owner’s request; prompts retained for provenance."
     },
     {
       "theme": "graphite",
       "name": "03-basalt-station",
       "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. A secluded concrete research station embedded in black basalt cliffs at dusk, long reflective dark shoreline, tiny amber window strips, subtle volcanic mist. Photorealistic cinematic architecture, original design, readable details. Graphite black #121212 gray #bebebe, amber #e68e0d accents only.",
       "status": "removed",
-      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+      "note": "Theme removed from the shipped collection at the owner’s request; prompts retained for provenance."
     },
     {
       "theme": "gruvbox",

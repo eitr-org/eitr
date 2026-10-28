@@ -25,6 +25,8 @@ THEME_NAME="$(
     tr ' ' '-'
 )"
 
+[[ "$THEME_NAME" != norse ]] || THEME_NAME=eitr
+
 if [[ ! "$THEME_NAME" =~ ^[a-z0-9-]+$ ]]; then
   notify-send "Theme" "Invalid theme name: $1"
   exit 1

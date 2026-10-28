@@ -5,7 +5,8 @@
 Wallpapers and website illustrations use clearly drawn Norse fantasy poster
 art. The owner approved the graphic Sköll/Hati, Huginn/Muninn and Yggdrasil
 studies: bold contours, flat color areas, expressive shapes and knotwork crowns.
-The durable reference is the Norse wallpaper `themes/norse/backgrounds/04-huginn-muninn.jpg`.
+Durable references are the website illustrations in `website/assets/norse/`
+and the unframed Fenrir in `themes/ragnarok/backgrounds/05-fenrir.jpg`.
 
 - Use strong visible black pen contours, simplified anatomy, two-tone cel
   shading, rhythmic flowing strokes and restrained ink splatter.
@@ -90,3 +91,15 @@ width is calm dark negative space, with the top approximately 6–8% quiet for
 the bar. No lettering, runes, logos, watermarks or image references. This
 exception applies only to batch 08. Native masters and reproducible exports
 live in `branding/sources/wallpapers/batch-08/`.
+
+## Eitr batch 09
+
+The owner approved Primordial Drop, Élivágar and Venom Rootlight in painterly
+cinematic dark fantasy, an explicit exception to the ink illustration and
+no-scenery defaults for this batch. Native owner-approved PNGs are preserved
+byte-for-byte; ultrawides are new panoramic compositions from the same final
+written prompts, with only Eitr’s emblem used as the drop’s shape reference.
+Exact prompts, hashes, sizes and framing: `themes/artwork-batch-09.json`.
+Masters and reproducible exports: `branding/sources/wallpapers/batch-09/`.
+Eitr’s order is Drop (default), Runestone, Élivágar, Rootlight; the existing
+preview is preserved. Runestone and its live layers are now numbered 02.

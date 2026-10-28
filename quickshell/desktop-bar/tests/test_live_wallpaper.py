@@ -8,7 +8,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[3]
 BAR = ROOT / "quickshell/desktop-bar"
-MOTION = ROOT / "themes/norse/motion/01-eitr-runestone"
+MOTION = ROOT / "themes/eitr/motion/02-eitr-runestone"
 
 
 class LiveWallpaperTests(unittest.TestCase):
@@ -78,7 +78,7 @@ ShellRoot {{
             built = hashlib.sha256((Path(directory) / "aurora.frag.qsb").read_bytes()).hexdigest()
         committed = hashlib.sha256((BAR / "shaders/aurora.frag.qsb").read_bytes()).hexdigest()
         self.assertEqual(built, committed, "Run quickshell/desktop-bar/shaders/build.sh after editing aurora.frag")
-        self.assertTrue((ROOT / "themes/norse/backgrounds/01-eitr-runestone.png").is_file())
+        self.assertTrue((ROOT / "themes/eitr/backgrounds/02-eitr-runestone.png").is_file())
 
     def test_layers_follow_the_saved_wallpaper_and_never_take_input(self):
         source = (BAR / "LiveWallpaper.qml").read_text()

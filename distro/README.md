@@ -163,7 +163,7 @@ link once installation and release testing is complete.
    configures Zsh as the login shell and installs the selected root-owned SDDM
    design. Docker and cronie are installed but not enabled; the installer prints
    the commands to enable them. Joining the `docker` group is root-equivalent.
-5. Fresh installs start with Afterglow and Clockwork Tape; existing user selections
+5. Fresh installs start with Eitr and Clockwork Tape; existing user selections
    are preserved. Hyprland's update popup is disabled in favor of Eitr's welcome.
    Sign into apps yourself. Open Walker and apply a theme once to generate
    all application-specific styles. LazyVim installs plugins at first Neovim
@@ -386,7 +386,7 @@ wizard supports arrow keys, type-to-filter lists, Enter and Escape. It:
    GPU in charge) and the prebuilt AUR packages.
 5. Sets up the new user without a running session: `install.sh --seed-user`
    seeds the defaults, unpacks Oh My Zsh and Powerlevel10k, and generates every
-   Afterglow app style; `system/configure-desktop.sh` installs the network files,
+   Eitr app style; `system/configure-desktop.sh` installs the network files,
    the Clockwork Tape login design, the Hyprland UWSM session as SDDM's default,
    Zsh and the services. Snapper is configured, the Limine menu entry is
    titled Eitr and every Windows Boot Manager found on another EFI partition is
@@ -465,7 +465,7 @@ addition, default, policy and setup script before any disk changes. Example:
     "files": [{"file": "packages/office-tools-1-1-any.pkg.tar.zst", "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"}]
   },
   "defaults": {
-    "theme": "norse",
+    "theme": "eitr",
     "wallpaper": {"file": "office.png", "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"},
     "browser": "chromium",
     "update_channel": "stable",

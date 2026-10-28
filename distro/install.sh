@@ -215,7 +215,7 @@ seed_user() {
     python3 "$repo_root/quickshell/desktop-bar/scripts/obs-control.py" default-folder >/dev/null ||
       printf 'Could not set the OBS recording folder; choose it in OBS > Settings > Output.\n' >&2
   fi
-  [[ -e "$HOME/.cache/current-theme" ]] || printf 'afterglow\n' > "$HOME/.cache/current-theme"
+  [[ -e "$HOME/.cache/current-theme" ]] || printf 'eitr\n' > "$HOME/.cache/current-theme"
   if [[ ! -e "$HOME/.cache/current-wallpaper-image" && ! -L "$HOME/.cache/current-wallpaper-image" ]]; then
     wallpaper="$(find "$HOME/.config/theme/current/backgrounds" -maxdepth 1 -type f \
       \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.webp' \) | sort | head -n 1)"

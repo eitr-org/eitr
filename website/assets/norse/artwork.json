@@ -1,7 +1,6 @@
 {
   "generator": "built-in image generation",
   "license": "CC-BY-4.0",
-  "reference": "themes/norse/backgrounds/04-huginn-muninn.jpg",
   "entries": [
     {
       "file": "yggdrasil.png",
@@ -11,6 +10,48 @@
         1024
       ],
       "reference": "Owner-supplied Yggdrasil tree-and-realms images; composition inspiration only, not distributed assets."
+    },
+    {
+      "file": "03-mimir-well-of-wisdom.jpg",
+      "generator": "built-in image generation",
+      "license": "CC-BY-4.0",
+      "nativeSize": [
+        1935,
+        812
+      ],
+      "prompt": "ONE original 21:9 ultrawide EITR wallpaper, requested 3440x1440. STYLIZED DARK FANTASY ILLUSTRATION, emphatically NOT photorealistic or hyperrealistic. Hand-painted charcoal, ink and rough gouache aesthetic: broad visible strokes, dry-brush edges, simplified angular shapes, expressive silhouettes, limited detail, flattened graphic shadow shapes. No rendered skin pores, individual hair strands, photographic lighting, shiny 3D rendering, intricate armor microdetail, or realistic portrait finish. Mature, grim and powerful, not cute or cartoon comedy. Mostly near-black #0b1015 and deep blue #18212b with a FEW glowing eitr-green #7ee0b5 accents; restrained teal #4fc3c9, violet #a78bd6, bronze #c4914f and frost-white #e9eef1. Strong dark silhouette on right half; calm nearly black left half and upper 12% left empty for desktop controls. All faces, bird heads and key objects BELOW that top margin. Backdrop is abstract ink washes and smoke ONLY: no mountains, waterfalls, cities or landscape panorama. Full bleed, no border, text, logos, signatures, watermark, UI or collage. Original Edda-based Norse designs, never Marvel, God of War, Assassin's Creed or any other entertainment franchise. References guide ONLY mood, loose illustrative marks, dissolving edges and contrast, never copy faces, costumes, compositions or symbols. The intended result reads as an expressive painted illustration even at thumbnail size, NOT a photograph of a fantasy character.\n\nMímir: a sacred eerie still life, an ancient preserved head with broad silver beard shapes on the rim of a black well, no body, neck hidden by herbs, no blood or wounds. Expressive aged face painted in a few restrained rough planes with barely visible green eyes. Bronze beard rings reduced to simple muted marks. A small patch of dark water shows a single sacrificed eye as a subtle green almond-shaped glint. One huge twisted root suggested behind in shadow. Everything dissolves to black on the left. Sparse green smoke; no ravens, no scenery. Mysterious ink-and-gouache illustration, no realistic skin texture.",
+      "reference": "Owner-supplied references guided illustrative marks, mood and contrast only; no source artwork was copied.",
+      "exportSize": [
+        3840,
+        2160
+      ],
+      "exportProcessing": "Main-subject 16:9 crop and Lanczos upscale."
+    },
+    {
+      "file": "05-valkyrie.jpg",
+      "prompt": "Create one original ultrawide 21:9 EITR wallpaper, requested 2560x1080. Use the attached approved raven illustration as the STRICT visual-style reference: bold hand-inked fantasy screenprint, heavy visible black contours, simplified expressive shapes, flat limited spot colors, two-tone cel shading, flowing decorative pen strokes and sparse ink splatter. It MUST look clearly DRAWN like that reference, NOT photorealistic, NOT 3D, NOT cinematic realistic rendering, NOT finely rendered metal/fur/skin, NOT bronze engraving. Pure black background, original emblem-like composition. Ivory, slate blue and muted ochre accents, optional one tiny restrained emerald accent. Nordic interlace and a broken braided CROWN/RING as graphic framing, no words or invented text. No nature backdrop, no mountain, forest, lake, horizon, foggy scenery. Keep subject fully in frame with breathing room at edges. No watermark, border, text or copied character design.\nSubject: Original armored Valkyrie suspended in flight, imposing outspread raven-like feather wings, face concealed by a stylized winged helmet, slender spear. Angular graphic feather shapes; ivory/slate-blue with restrained ochre armor accents. Wide wing silhouette framed by broken knotwork crown. Figure center-right with black left space. Heroic and mysterious, not a photographic woman.",
+      "nativeSize": [
+        1931,
+        814
+      ],
+      "exportSize": [
+        3840,
+        2160
+      ],
+      "exportProcessing": "Main-subject 16:9 crop and Lanczos upscale; nativeSize records the original generation."
+    },
+    {
+      "file": "08-jormungandr.jpg",
+      "prompt": "Create ONE original ultrawide 21:9 wallpaper requested 2560x1080. Clearly DRAWN elegant dark fantasy illustration in sweeping ink and flat screenprint colors, emphatically not realistic or 3D. Subject Jormungandr: a vast slender sea serpent crossing the panorama in an OPEN HORIZONTAL S curve, head at far right facing left, tapering body flowing across the frame. Do NOT curl it into a circle or closed loop. Broad flowing cobalt-blue and icy cyan flat scales, thick black ink contour, ivory belly accents. Stylized flat ribbon-waves and white ink spray weave around parts of the body and disappear into PURE BLACK; no horizon, no scenic ocean backdrop. A few large graphic fins, angular expressive face, no realistic texture. Composition feels fluid and spacious, distinct from an aggressive brush-painted wolf. No gold, ochre, crowns, rings, halos, medallions, chains, knotwork frames or ornamental borders. No mountains, forests, lettering, caption or watermark. Original graphic poster composition with black negative space.",
+      "nativeSize": [
+        1931,
+        814
+      ],
+      "exportSize": [
+        3840,
+        2160
+      ],
+      "exportProcessing": "Main-subject 16:9 crop and Lanczos upscale; nativeSize records the original generation."
     }
   ]
 }

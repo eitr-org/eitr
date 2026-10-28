@@ -1,5 +1,11 @@
 # Releases
 
+Eitr is the new default theme (formerly Norse), using the approved Primordial Venom palette and
+Eitr’s own palette-driven colorscheme for Neovim. Saved Norse selections and wallpaper paths
+migrate to Eitr; the old theme command name remains an alias. Existing artwork
+is retained. Boot, shutdown and disk unlock colors stay fixed; setup wizards follow
+the current desktop theme (Eitr's palette in the installer).
+
 The Plymouth wordmark flows a left-to-right gradient using the terminal progress
 palette and pace, with blended frames. The gold rune ring appears during boot
 and shutdown; disk unlock shows only the logo, neutral prompt and password field.
@@ -254,17 +260,15 @@ Handbook translations track their English source revision; checks flag source
 changes even when the localized catalogs have been regenerated.
 
 Ultrawide artwork uses panoramic expansions or proper crops instead of stretched
-edge padding. Moss’s
-kneeling warrior and Graphite’s reaching hands have corrected hand anatomy; its left hand uses an
-owner-approved open pose with five clearly separated digits.
+edge padding. Moss’s kneeling warrior has corrected hand anatomy.
 Catppuccin Latte keeps the owner’s revised wallpaper order. The Dark/Light
 carousel now shows resting Hati/Sköll with a glowing full moon/sun on black.
 
 Translations: cloud account setup subtitles and menu search use the session
 language; Spanish Install and French Development labels are corrected.
 
-The theme collection now contains 25 themes; Moonveil and Obsidian have been
-removed at the owner’s request. Its generation prompts remain archived in the artwork batches.
+The theme collection now contains 24 themes; Graphite, Moonveil and Obsidian have been
+removed at the owner’s request. Their generation prompts remain archived in the artwork batches.
 Batch 04 replaces the approved Stillwater, Catppuccin Latte, Rose Pine and
 Wisteria wallpapers with fresh written-brief illustrations. Wallpapers have 4K
 and ultrawide exports. Afterglow and Moss now also have fresh written-brief
@@ -377,3 +381,8 @@ ranking in the background on up to three boots. Recent mirrors are sorted by
 speed, preferring the system timezone's country when known, with the shipped
 worldwide servers retained as fallbacks. Read-only `eitr-system mirrors-status`
 reports the last successful ranking, current count and fallback/backup flags.
+
+Eitr’s wallpaper collection now starts with Primordial Drop, followed by the
+renumbered Runestone, Élivágar and Venom Rootlight, including separate panoramic
+compositions. Saved runestone selections follow the rename. Graphite is retired;
+its saved selections switch to Eitr’s default through the standard theme command.

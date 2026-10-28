@@ -54,7 +54,7 @@ try {
         problems.push(`${appearance} ${view.name} ${path}: ${violation.id} (${violation.impact}, ${violation.nodes.length}x) ${violation.help}\n    ${targets}`);
       }
       if(path==='/' && view.name==='desktop') {
-        for(const theme of ['catppuccin-latte','norse']) {
+        for(const theme of ['catppuccin-latte','eitr']) {
           await page.locator(`[data-theme="${theme}"]`).hover();
           await page.waitForTimeout(900);
           const hovered=await page.evaluate(()=>window.axe.run(document,{

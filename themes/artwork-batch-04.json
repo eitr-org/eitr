@@ -332,7 +332,7 @@
       "file": "themes/graphite/backgrounds/01-fragments-of-touch.jpg",
       "ultrawide_file": "themes/graphite/backgrounds-ultrawide/01-fragments-of-touch.jpg",
       "native_source": "branding/sources/wallpapers/batch-04/graphite-01-fragments-of-touch.png",
-      "status": "installed",
+      "status": "removed",
       "prompt": "Replace the entire LOWER LEFT HAND with a completely NEW and much SIMPLER anatomically correct hand. Remove the current layered cupped fingers entirely. Draw a single hand reaching diagonally up-right, palm facing the viewer almost flat, fingers gently spread in ONE SINGLE PLANE with NO OVERLAP. EXACTLY FIVE visible digits in total, each one clean silhouette with a black gap from the next: thumb at upper-left of palm, index at upper-right, middle longest to the right, ring below middle, little shortest at lower-right. One thumb plus four fingers, five fingertips total, one palm, one wrist. Do not draw two rows of fingers or stacked fingertips; no extra small finger tucked underneath. The palm should be broad and fingers simple smooth shapes, realistic human proportions in the existing monochrome graphite drawing. Preserve the right-side reaching hand, black background, particle-dissolving wrists, original composition and ultrawide aspect43:18. Focus exclusively on believable five-digit anatomy. No text, numbers, labels, watermark, color or border. The old left-hand pose is explicitly discarded: create the new open flat hand rather than modifying existing fingers.",
       "origin": "Owner-approved recreation of the left hand in Eitr’s generated Graphite wallpaper; initial generation prompt remains in batch02.",
       "native_size": [
@@ -350,7 +350,8 @@
           "native_sha256": "2d5830572710e197ca439513f1b8f886e9fb6be7feb07f5c28c732c63e8ee7ec",
           "status": "superseded by owner-approved five-digit left-hand recreation"
         }
-      ]
+      ],
+      "note": "Theme removed from the shipped collection at the owner’s request; prompts retained for provenance."
     }
   ],
   "previews": {

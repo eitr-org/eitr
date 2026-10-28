@@ -4,7 +4,7 @@ Palette: the owner's Niflheim realm palette (2026-10-27), accent #91d5e6 and sec
 
 Background, surface and raised roles are recorded separately in `colors.toml`. Terminal black uses surface, white uses text, bright black uses muted, and bright colours mix 25% white into each normal colour. Body and selection text retain the approved text colour.
 
-Neovim uses aether with this palette; icon base: nord. Integration files are generated from `../integrations.json`.
+Neovim and VS Code use Eitr's own themes from this palette.
 
 ## Wallpapers
 

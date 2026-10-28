@@ -67,7 +67,7 @@ def theme_wallpaper():
         pass
     candidates.append(cache('current-wallpaper-image'))
     candidates.extend(sorted(user_config('theme/current/backgrounds').glob('*')))
-    candidates.append(code('themes/norse/backgrounds/01-eitr-runestone.png'))
+    candidates.append(code('themes/eitr/backgrounds/02-eitr-runestone.png'))
     for candidate in candidates:
         try:
             resolved = candidate.resolve(strict=True)

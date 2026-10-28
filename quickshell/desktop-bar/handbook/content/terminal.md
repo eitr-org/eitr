@@ -35,7 +35,7 @@ same scripts as the menus, so both always behave alike.
 eitr update                  # System Update: snapshot, packages, AUR, Flatpak
 eitr update aur              # only AUR packages, without a snapshot
 eitr theme list              # installed themes, the current one marked *
-eitr theme set "Norse" # switch theme
+eitr theme set "Eitr" # switch theme
 eitr firewall on             # also: off, status
 eitr snapshots               # recovery snapshots
 eitr snapshots changes       # what each update changed
@@ -76,7 +76,7 @@ then make it executable with `chmod +x ~/.config/eitr/hooks/theme-set`. Each hoo
 gets up to 60 seconds; its output and any failure go to
 `~/.local/state/eitr/hooks.log`, and a failing hook never stops the update or
 theme switch. `eitr hook list` shows which hooks exist, and
-`eitr hook run theme-set norse` tries one. Updates never touch this folder.
+`eitr hook run theme-set eitr` tries one. Updates never touch this folder.
 
 ## cmux TUI
 

@@ -17,7 +17,7 @@ class WallpaperExportTests(unittest.TestCase):
         self.directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.directory.cleanup)
         self.root = Path(self.directory.name)
-        self.path = self.root / 'themes/norse/backgrounds/subject.png'
+        self.path = self.root / 'themes/eitr/backgrounds/subject.png'
         self.path.parent.mkdir(parents=True)
         image = Image.new('RGB', (100, 40), 'blue')
         ImageDraw.Draw(image).rectangle((85, 0, 99, 39), fill='red')
@@ -28,18 +28,18 @@ class WallpaperExportTests(unittest.TestCase):
             self.addCleanup(override.stop)
 
     def test_right_hand_subject_survives_crop(self):
-        record = exporter.export(self.path, lossless={'themes/norse/backgrounds/subject.png'})
+        record = exporter.export(self.path, lossless={'themes/eitr/backgrounds/subject.png'})
         self.assertEqual(record['source_size'], [100, 40])
         with Image.open(self.path) as image:
             self.assertEqual(image.size, (32, 18))
             self.assertEqual(image.getpixel((31, 9)), (255, 0, 0))
-        self.assertIsNone(exporter.export(self.path, lossless={'themes/norse/backgrounds/subject.png'}))
+        self.assertIsNone(exporter.export(self.path, lossless={'themes/eitr/backgrounds/subject.png'}))
 
     def test_painted_wallpapers_become_jpeg(self):
         record = exporter.export(self.path)
         jpeg = self.path.with_suffix('.jpg')
         self.assertEqual((record['file'], record['converted_from']),
-                         ('themes/norse/backgrounds/subject.jpg', 'themes/norse/backgrounds/subject.png'))
+                         ('themes/eitr/backgrounds/subject.jpg', 'themes/eitr/backgrounds/subject.png'))
         self.assertFalse(self.path.exists(), 'the PNG is replaced, not kept beside it')
         with Image.open(jpeg) as image:
             self.assertEqual((image.format, image.size), ('JPEG', (32, 18)))

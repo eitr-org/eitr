@@ -9,7 +9,7 @@ import textwrap
 import tomllib
 
 from eitr_i18n import mark, tr
-from eitr_paths import ROOT
+from eitr_paths import ROOT, config
 
 
 class Cancelled(Exception):
@@ -24,6 +24,19 @@ def filtered(options, query):
     return [item for item in options if query.casefold() in item[0].casefold()]
 
 
+def theme_palette(root=ROOT):
+    """The current desktop theme's colors; Eitr's own before a desktop theme exists (installer)."""
+    for path in (config('theme/current/colors.toml'), root / 'themes/eitr/colors.toml'):
+        try:
+            values = tomllib.loads(path.read_text())
+            palette = {role: values[role] for role in ('background', 'foreground', 'accent')}
+        except (OSError, KeyError, tomllib.TOMLDecodeError):
+            continue
+        if all(isinstance(value, str) and len(value) == 7 and value.startswith('#') for value in palette.values()):
+            return palette
+    return {"background": "#000000", "foreground": "#e2eae2", "accent": "#b9d77e"}
+
+
 class Wizard:
     def __init__(self, screen, steps, root=ROOT):
         self.heading = tr('Setup steps')
@@ -36,8 +49,7 @@ class Wizard:
         # Esc cancels at once; curses otherwise waits a second to tell it from arrow keys.
         curses.set_escdelay(25)
         curses.start_color()
-        # Use the EITR identity theme, like the boot splash.
-        palette = tomllib.loads((self.root / "themes/norse/colors.toml").read_text())
+        palette = theme_palette(self.root)
         for index, role in enumerate(("background", "foreground", "accent"), 1):
             rgb = [int(palette[role][offset:offset + 2], 16) for offset in (1, 3, 5)]
             if curses.can_change_color():

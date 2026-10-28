@@ -20,7 +20,7 @@ class EitrCommandTests(unittest.TestCase):
         self.addCleanup(directory.cleanup)
         base = Path(directory.name)
         self.code, self.config = base / "code", base / "config"
-        for root, name, label in ((self.code, "norse", "Norse"), (self.code, "nord", "Nord"),
+        for root, name, label in ((self.code, "eitr", "Eitr"), (self.code, "nord", "Nord"),
                                   (self.config, "mine", "My Theme")):
             theme = root / "themes" / name
             theme.mkdir(parents=True)
@@ -60,8 +60,8 @@ class EitrCommandTests(unittest.TestCase):
 
     def test_themes_are_listed_with_the_current_one_marked(self):
         listing = self.plan("theme", "list").splitlines()
-        self.assertEqual([line[2:].split("  ")[0] for line in listing], ["My Theme", "Nord", "Norse"])
-        self.assertEqual([line[0] for line in listing], [" ", "*", " "], "the current theme is marked")
+        self.assertEqual([line[2:].split("  ")[0] for line in listing], ["Eitr", "My Theme", "Nord"])
+        self.assertEqual([line[0] for line in listing], [" ", " ", "*"], "the current theme is marked")
         self.assertEqual(self.plan("theme", "current"), "Nord")
         self.assertEqual(self.plan("theme", "set", "Rose Pine"),
                          ["bash", str(self.code / "walker/scripts/actions/style/apply.sh"), "Rose Pine"])

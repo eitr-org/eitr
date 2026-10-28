@@ -286,14 +286,14 @@ class ShippedManifestTests(unittest.TestCase):
                           if source.startswith(('HOME_FILES/.', 'distro/defaults/home/.'))
                           and Path(source).name in array('shell_files')}, array("shell_files"))
         self.assertIn('eitr-config" --repo "$repo_root" targets', installer)
-        self.assertIn("themes/afterglow", sources)
+        self.assertIn("themes/eitr", sources)
 
     def test_fresh_install_desktop_defaults(self):
         manifest = json.loads((DISTRO / "user-defaults.json").read_text())
         entries = {entry["target"]: entry for entry in manifest["entries"]}
         theme = entries["${XDG_CONFIG_HOME}/theme/current"]
         lockscreen = entries["${XDG_CONFIG_HOME}/lockscreen/selected"]
-        self.assertEqual(theme["source"], "themes/afterglow")
+        self.assertEqual(theme["source"], "themes/eitr")
         self.assertFalse(theme["update"])
         self.assertFalse(lockscreen["update"])
         self.assertEqual((ROOT / lockscreen["source"]).read_text().strip(), "clockwork/tape")

@@ -152,11 +152,11 @@ an adapted Sword layout: the clock at top left and the user/password controls
 at bottom right, with dark gradients for readability. Walker previews the current
 wallpaper; Ctrl+P shows the complete layout without locking. Each launch resolves
 the latest selection. A missing saved image falls back to a current-theme image,
-then the packaged Norse default; without any image the dark gradient stays usable.
+then the packaged Eitr default; without any image the dark gradient stays usable.
 The login screen uses it too: SDDM cannot read the home folder, so
 `settings.py` hands a JPEG copy of the wallpaper to `desktop-login-select
 --wallpaper` (stdin only; it checks the JPEG and stores
 `/var/lib/eitr/login-wallpaper.jpg`) when the design is chosen and after every
 wallpaper change while it is selected. Without that copy the login screen shows
-the Norse runestone.
+the Eitr runestone.
 Its bundled 4K preview uses public Norse artwork, never an owner's wallpaper.

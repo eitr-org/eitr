@@ -33,6 +33,8 @@ def main():
     wide_records = json.loads(wide_path.read_text())
     wide_exports = {record['file']: record for record in wide_records['images']}
     for image in batch['images']:
+        if image.get('status') == 'removed':
+            continue
         native = ROOT / image['native_source']
         if hashlib.sha256(native.read_bytes()).hexdigest() != image['native_sha256']:
             raise ValueError('Native source differs from the approved artwork: ' + image['native_source'])
@@ -58,6 +60,8 @@ def main():
     write_json(records_path, records)
     write_json(wide_path, wide_records)
     for theme, source in batch['previews'].items():
+        if not (ROOT / 'themes' / theme).is_dir():
+            continue
         with Image.open(ROOT / source) as image:
             image.resize((1280, 720), Image.Resampling.LANCZOS).save(ROOT / 'themes' / theme / 'preview.png', optimize=True)
 

@@ -610,7 +610,7 @@ def restore_auth(name):
 
 CODE_ROOT = Path("/usr/share/eitr")
 # The theme a new user starts with (distro/user-defaults.json); used when no desktop theme can be read.
-DEFAULT_THEME = "afterglow"
+DEFAULT_THEME = "eitr"
 BOOT_MENU_STATE = STATE / "boot-menu-style.json"
 BOOT_MENU_UNIT = "eitr-boot-menu.service"
 STYLE_BEGIN, STYLE_END = "# BEGIN EITR BOOT MENU STYLE", "# END EITR BOOT MENU STYLE"

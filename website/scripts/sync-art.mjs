@@ -10,17 +10,17 @@ const art = new URL("../public/art/", import.meta.url);
 const data = new URL("../src/data/", import.meta.url);
 const approvedArtwork = JSON.parse(await readFile(new URL("../../themes/artwork-batch-04.json", import.meta.url), "utf8"));
 
-const norse = {
-  mimir: "../../themes/norse/backgrounds/03-mimir-well-of-wisdom.jpg",
-  valkyrie: "../../themes/norse/backgrounds/05-valkyrie.jpg",
+const eitr = {
+  mimir: "../assets/norse/03-mimir-well-of-wisdom.jpg",
+  valkyrie: "../assets/norse/05-valkyrie.jpg",
   yggdrasil: "../assets/norse/yggdrasil.png",
-  jormungandr: "../../themes/norse/backgrounds/08-jormungandr.jpg",
+  jormungandr: "../assets/norse/08-jormungandr.jpg",
 };
 
 await mkdir(new URL("themes/", art), { recursive: true });
 await mkdir(data, { recursive: true });
 
-for (const [name, file] of Object.entries(norse)) {
+for (const [name, file] of Object.entries(eitr)) {
   const source = new URL(file, import.meta.url).pathname;
   await sharp(source).resize({ width: 2400, withoutEnlargement: true }).webp({ quality: 80 }).toFile(new URL(`${name}.webp`, art).pathname);
 }
@@ -39,7 +39,7 @@ for (const entry of (await readdir(themes, { withFileTypes: true })).filter((ite
   const selectedArtwork = approvedArtwork.previews[entry.name];
   const previewSource = selectedArtwork
     ? new URL(`../../${selectedArtwork}`, import.meta.url).pathname
-    : new URL(`backgrounds/${entry.name === "norse" ? "04-huginn-muninn.jpg" : wallpapers[0]}`, directory).pathname;
+    : new URL(`backgrounds/${wallpapers[0]}`, directory).pathname;
   await sharp(previewSource)
     .resize({ width: 900, height: 506, fit: "cover" })
     .webp({ quality: 76 })
@@ -56,7 +56,7 @@ for (const entry of (await readdir(themes, { withFileTypes: true })).filter((ite
     swatches: [colors.background, colors.color1, colors.color2, colors.color3, colors.color4, colors.color5, colors.accent],
   });
 }
-catalog.sort((a, b) => (a.id === "norse" ? -1 : b.id === "norse" ? 1 : a.name.localeCompare(b.name)));
+catalog.sort((first, second) => (first.id === "eitr" ? -1 : second.id === "eitr" ? 1 : first.name.localeCompare(second.name)));
 for (const name of ["skoll", "hati"]) {
   await sharp(new URL(`../assets/chase/${name}-bite.png`, import.meta.url).pathname)
     .resize({ width: 768, withoutEnlargement: true }).webp({ quality: 85 })
@@ -76,4 +76,4 @@ const roadmap = [...releases.matchAll(/^\| *(\d+\.\d+\.\d+) *\| *([^|]+?) *\| *(
   .map(([, version, codename, stage, milestone]) => ({ version, codename, stage, milestone }));
 if (!roadmap.length) throw new Error("No release table found in distro/RELEASES.md");
 await writeFile(new URL("roadmap.json", data), JSON.stringify(roadmap, null, 2) + "\n");
-console.log(`Synchronized ${Object.keys(norse).length} illustrations and ${catalog.length} themes.`);
+console.log(`Synchronized ${Object.keys(eitr).length} illustrations and ${catalog.length} themes.`);
