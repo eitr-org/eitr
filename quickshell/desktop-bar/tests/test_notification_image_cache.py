@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[3]
 
 
 class NotificationImageCacheTests(unittest.TestCase):
+    @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')
     def test_notification_card_actions_in_popup_and_history(self):
         bar = ROOT / 'quickshell/desktop-bar'
         with tempfile.TemporaryDirectory() as directory:
