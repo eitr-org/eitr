@@ -36,7 +36,7 @@ class ChooseFolderTests(unittest.TestCase):
         (self.development / "work/app").mkdir(parents=True)
         (self.development / "personal").mkdir()
 
-    def run_script(self, script, *arguments, choices):
+    def run_script(self, script, *arguments, choices, start=True):
         (self.home / "choices").write_text("".join(choice + "\n" for choice in choices))
         stubs = self.home / "stubs"
         stubs.mkdir(exist_ok=True)
@@ -47,7 +47,8 @@ class ChooseFolderTests(unittest.TestCase):
         (stubs / "systemctl").chmod(0o755)
         return subprocess.run(["bash", str(self.code / script), *arguments], capture_output=True, text=True,
                               env={**os.environ, "HOME": str(self.home), "EITR_CODE_ROOT": str(self.code),
-                                   "DEV_DIR": str(self.development), "PATH": f"{stubs}:/usr/bin:/bin"})
+                                   **({"DEV_DIR": str(self.development)} if start else {}),
+                                   "PATH": f"{stubs}:/usr/bin:/bin"})
 
     def menu(self, number):
         return (self.home / f"menu-{number}").read_text().splitlines()
@@ -60,6 +61,16 @@ class ChooseFolderTests(unittest.TestCase):
         self.assertEqual(self.menu(1)[:2], ["*  Open Development", BACK])
         self.assertIn(FOLDER + "personal", self.menu(1))
         self.assertEqual(self.menu(3)[:2], ["*  Open work/app", BACK])
+
+    def test_starts_in_the_home_folder_without_hidden_folders(self):
+        os.environ.pop("DEV_DIR", None)
+        (self.home / ".cache").mkdir(exist_ok=True)
+        result = self.run_script(PICKER, "AI project", "*", choices=["*  Open Home"], start=False)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout.strip(), str(self.home))
+        self.assertEqual(self.menu(1)[:2], ["*  Open Home", BACK])
+        self.assertIn(FOLDER + "Development", self.menu(1))
+        self.assertNotIn(FOLDER + ".cache", self.menu(1))
 
     def test_back_at_the_top_and_dismissal_have_their_own_codes(self):
         self.assertEqual(self.run_script(PICKER, "AI project", "*", choices=[BACK]).returncode, 2)

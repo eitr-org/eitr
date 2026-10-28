@@ -27,7 +27,7 @@ const databases = Object.values(software.databases).map(tool => tool.label).join
           <tr><th scope="row">Included</th><td>Open Kitty with <kbd>Super + Enter</kbd>, or tmux with <kbd>Super + Ctrl + Enter</kbd>. Use Learn’s LazyVim, tmux and cmux references without leaving the desktop.</td></tr>
           <tr><th scope="row">Curated optional installs</th><td>Install → Developer Apps offers {editors}. Official packages, AUR builds and managed installers keep their source-specific requirements.</td></tr>
           <tr><th scope="row">Optional toolchains</th><td>Install → Development Languages offers {languages}. JavaScript Tools adds pnpm, Yarn, Bun and Deno; Languages also offers mise for managing several runtimes.</td></tr>
-          <tr><th scope="row">Your existing projects</th><td>Development → LazyVim Projects or VS Code Projects asks for a folder under <code>~/Development</code> and opens it in that editor. The VS Code workflow requires VS Code to be installed.</td></tr>
+          <tr><th scope="row">Your existing projects</th><td>Development → LazyVim Projects or VS Code Projects asks for a folder, starting in your home folder, and opens it in that editor. The VS Code workflow requires VS Code to be installed.</td></tr>
         </tbody>
       </table></div>
       <p>Installation terminals explain what is happening and request permission where needed. Named Install lists mark installed tools; Delete offers confirmed removal. The Pacman/Yay package pickers remain install-only. Managed toolchain removal explains its wider effect before proceeding.</p>

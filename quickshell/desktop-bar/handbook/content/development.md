@@ -40,14 +40,14 @@ Install > Browsers also offers Brave (AUR). Install > Productivity offers Baseca
 
 ## AI assistants
 
-Assistants open in your home folder. **SUPER + A** also trusts that folder where safely supported and passes Handbook guidance through supported extra instruction options; Development > AI opens an assistant as its own command would. CLI limitations are listed in distro/ASSISTANT-STARTUP.md. Read-only quick chat includes an Eitr primer and relevant localized Handbook excerpts; it says when the Handbook does not cover a question.
+**SUPER + A** opens the assistant in your home folder, trusts that folder where safely supported and passes Handbook guidance through supported extra instruction options. Development > AI asks for a folder, starting in your home folder, and opens the assistant there as its own command would. CLI limitations are listed in distro/ASSISTANT-STARTUP.md. Read-only quick chat includes an Eitr primer and relevant localized Handbook excerpts; it says when the Handbook does not cover a question.
 
 Each cloud assistant has an Accounts submenu under Development > AI. Default uses the existing configuration and login without moving files. Add Account… asks for a label, shows a review, then opens the CLI’s own sign-in with a private browser window where supported (unknown browsers use their normal opener). Enter confirms; Esc cancels. Select an account to switch future interactive sessions, Ask the AI and read-only helpers manually; running sessions keep their account. Delete removes an added account and its local configuration after confirmation; Default cannot be removed. Removing the selected account returns to Default and never logs another account out. Antigravity offers only Default because its CLI has no supported config-folder override. Ratatoskr has one local account. Account labels and selection stay on this PC in `eitr/ai-accounts.json` (0600); separate folders live under `$XDG_DATA_HOME/eitr/ai-accounts/` (0700). AI Usage groups readable accounts by assistant and hides unreadable or unsupported usage. Sections start closed at login and keep their open or closed state for the session.
 
 Development > AI offers a menu for each installed assistant: Antigravity CLI, Claude Code, Codex, Gemini CLI, GitHub Copilot CLI, Grok Build, OpenCode and Pi. Install them from Install > AI CLIs; with none installed, Development > AI links there.
 
 Opening a LazyVim or VS Code project first asks for a
-folder under `~/Development`: pick folders to go deeper, Open to use the one
+folder, starting in your home folder (hidden folders are left out): pick folders to go deeper, Open to use the one
 you are in, and Back to go up a level or, at the top, return to the menu.
 
 Antigravity CLI, Claude Code, Codex, Gemini CLI, GitHub Copilot CLI, Grok Build, OpenCode and Pi can also be started by command. If a tool is missing, Eitr explains it and offers the same installation as Install > AI CLIs. Enter confirms installation; Esc cancels. Without an interactive terminal, the command exits with installation instructions. Installed binaries take precedence over these launchers. Sign in through each tool’s own workflow; no assistant binaries or credentials are bundled.

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Folder picker under DEV_DIR (default ~/Development), shared by the AI and
+# Folder picker under DEV_DIR (default: the home folder), shared by the AI and
 # project menus. Usage: choose-folder.sh TITLE ICON
 # Prints the chosen folder and exits 0; exits 1 when dismissed and 2 when Back
 # is chosen at the top, so the caller can reopen the menu it came from.
@@ -12,7 +12,7 @@ set -euo pipefail
 
 title="${1:?title}"
 icon="${2:?icon}"
-DEV_DIR="${DEV_DIR:-$HOME/Development}"
+DEV_DIR="${DEV_DIR:-$HOME}"
 DEV_DIR="${DEV_DIR%/}"
 WALKER_DMENU="${WALKER_DMENU:-$EITR_CODE_ROOT/walker/bin/walker-dmenu}"
 back_label="󰁍  Back"
@@ -30,7 +30,7 @@ while true; do
 
   if [ -z "$rel" ]; then
     prompt="$title"
-    open_label="$icon  Open Development"
+    if [ "$DEV_DIR" = "${HOME%/}" ]; then open_label="$icon  Open Home"; else open_label="$icon  Open ${DEV_DIR##*/}"; fi
   else
     prompt="$title: $rel"
     open_label="$icon  Open $rel"
@@ -41,7 +41,7 @@ while true; do
     options+=("󰉋  $folder")
   done < <(
     find "$current" -mindepth 1 -maxdepth 1 -type d \
-      ! -name ".git" \
+      ! -name ".*" \
       ! -name "node_modules" \
       ! -name ".idea" \
       ! -name ".gradle" \

@@ -70,8 +70,9 @@ def executable(identifier):
 
 
 def launch(identifier, arguments, *, interactive=True, trusted=False):
-    """Start an assistant in the home folder. Only SUPER+A (trusted) adds full access,
-    folder trust and Handbook guidance; menus open the assistant with its own prompts."""
+    """Start an assistant. SUPER+A (trusted) starts in the home folder with full access,
+    folder trust and Handbook guidance; menus keep the folder the user picked and the
+    assistant's own prompts."""
     if identifier == eitr_local_assistant.IDENTIFIER:
         return eitr_local_assistant.launch(arguments)
     if trusted and identifier == 'pi' and assistant_access() != 'full':
@@ -109,7 +110,6 @@ def launch(identifier, arguments, *, interactive=True, trusted=False):
     flags = FULL_ACCESS_FLAGS.get(identifier, []) if trusted and assistant_access() == 'full' else []
     if trusted:
         flags = [*flags, *interactive_context(identifier, environment)]
-    if interactive:
         os.chdir(Path.home())
     os.execve(str(binary), [str(binary), *flags, *arguments], environment)
     return 0

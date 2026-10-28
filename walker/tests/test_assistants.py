@@ -66,7 +66,7 @@ class AssistantTests(unittest.TestCase):
                 assistants.launch(identifier, ['question'])
                 self.assertEqual(execute.call_args.args[1], ['/bin/assistant', 'question'])
                 context.assert_not_called()
-                change.assert_called_once_with(Path.home())
+                change.assert_not_called()
 
     def test_noninteractive_launch_never_adds_full_access(self):
         for identifier in assistants.FULL_ACCESS_FLAGS:
