@@ -143,6 +143,7 @@ ShellRoot {
     property string barLayout: "unified"
     property bool barPinned: false
     property bool barAutoHide: false
+    property string barMediaStyle: "bars"
     // "all" puts a bar on every display; the main one keeps notifications.
     property string barScreens: "main"
     property var windowGaps: [6, 6, 6, 6]
@@ -204,11 +205,12 @@ ShellRoot {
     }
 
     function updateBarSetting(key, value) {
-        var choices = {appearance: ["transparent", "solid"], layout: ["unified", "centered", "notch"], edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], reduceMotion: ["yes", "no"]};
+        var choices = {appearance: ["transparent", "solid"], layout: ["unified", "centered", "notch"], edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], reduceMotion: ["yes", "no"], mediaStyle: ["bars", "line"]};
         if (!choices[key] || choices[key].indexOf(value) === -1) return;
         if (key === "appearance") barAppearance = value;
         else if (key === "layout") barLayout = value;
         else if (key === "pinned") barPinned = value === "yes";
+        else if (key === "mediaStyle") barMediaStyle = value;
         else if (key === "screens") barScreens = value;
         else if (key === "reduceMotion") DesktopStyle.reduceMotion = value === "yes";
         else if (key === "autohide") barAutoHide = value === "yes";
@@ -241,6 +243,7 @@ ShellRoot {
                 shell.barLayout = ["unified", "centered", "notch"].indexOf(settings.layout) >= 0 ? settings.layout : "unified";
                 shell.barEdge = settings.edge;
                 shell.barPinned = settings.pinned === "yes";
+                shell.barMediaStyle = settings.mediaStyle === "line" ? "line" : "bars";
                 shell.barScreens = settings.screens || "main";
                 shell.barAutoHide = settings.autohide === "yes";
                 DesktopStyle.reduceMotion = settings.reduceMotion === "yes";
@@ -265,7 +268,7 @@ ShellRoot {
         if (saveBarSettings.running) return;
         settingsDirty = false;
         saveBarSettings.command = ["python3", Quickshell.shellDir + "/scripts/bar-settings.py",
-            "set-all", barAppearance, barLayout, barEdge, barPinned ? "yes" : "no", barScreens, barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no"];
+            "set-all", barAppearance, barLayout, barEdge, barPinned ? "yes" : "no", barScreens, barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no", barMediaStyle];
         saveBarSettings.running = true;
     }
 
@@ -834,7 +837,7 @@ ShellRoot {
                     wifiGlyph: shell.verticalBar ? verticalWifiIcon.text : wifiIcon.text
                     battery: shell.battery; mediaPlayer: mediaStrip.player
                     idleEnabled: shell.idleLockEnabled; idleBusy: toggleIdleLock.running
-                    barPosition: shell.barEdge; appearance: shell.barAppearance; layout: shell.barLayout; barScreens: shell.barScreens; barAutoHide: shell.barAutoHide; workspaceStyle: shell.workspaceStyle
+                    barPosition: shell.barEdge; appearance: shell.barAppearance; layout: shell.barLayout; barScreens: shell.barScreens; barAutoHide: shell.barAutoHide; mediaStyle: shell.barMediaStyle; workspaceStyle: shell.workspaceStyle
                     onIdleToggleRequested: if (!toggleIdleLock.running) toggleIdleLock.running = true
                     onLockRequested: runAfterClose(["bash", Eitr.Paths.code("hypr/scripts/manual-lock.sh")])
                     onSettingRequested: function(key, value) { shell.updateBarSetting(key, value); }
@@ -1115,6 +1118,17 @@ ShellRoot {
                             anchors.horizontalCenter: parent.horizontalCenter
                             spacing: bar.centeredLayout ? bar.itemGap : 2
                             visible: mediaStrip.player !== null && bar.expanded
+                            MediaIndicator {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                rotation: 90
+                                style: shell.barMediaStyle
+                                playing: mediaStrip.playing
+                                active: shell.barVisible && shell.verticalBar && bar.expanded
+                                foreground: shell.fg
+                                background: shell.workspaceMenuBg
+                                title: mediaStrip.title
+                                onDetailsRequested: bar.togglePanel(mediaMenu)
+                            }
                             VerticalBarIcon {
                                 icon: "󰒮"; tooltip: Eitr.I18n.tr("Previous"); open: true
                                 clickable: !!mediaStrip.player && mediaStrip.player.canGoPrevious
@@ -1692,6 +1706,7 @@ ShellRoot {
 
                     MediaStrip {
                         id: mediaStrip
+                        mediaStyle: shell.barMediaStyle
                         audioEnabled: shell.barVisible && !shell.verticalBar && bar.expanded
                         opacity: bar.expanded ? 1 : 0
                         enabled: bar.expanded

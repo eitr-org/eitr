@@ -31,6 +31,19 @@ class BarSettingsTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 bar_settings.save_settings({"reduceMotion": True})
 
+    def test_media_style_migration_and_choices(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(bar_settings, "SETTINGS", Path(directory) / "bar.json"):
+            bar_settings.SETTINGS.write_text('{"layout":"centered"}')
+            self.assertEqual(bar_settings.read_settings()["mediaStyle"], "bars")
+            for style in ("line", "bars"):
+                bar_settings.save_settings({"mediaStyle": style})
+                self.assertEqual(bar_settings.read_settings()["mediaStyle"], style)
+                self.assertEqual(bar_settings.read_settings()["layout"], "centered")
+            with self.assertRaises(ValueError):
+                bar_settings.save_settings({"mediaStyle": "wave"})
+            bar_settings.SETTINGS.write_text('{"mediaStyle":false}')
+            self.assertEqual(bar_settings.read_settings()["mediaStyle"], "bars")
+
     def test_only_appearance_changes_refresh_walker(self):
         with tempfile.TemporaryDirectory() as directory, \
                 patch.object(bar_settings, "SETTINGS", Path(directory) / "bar.json"):
@@ -64,7 +77,7 @@ class BarSettingsTests(unittest.TestCase):
             self.assertEqual(bar_settings.read_settings(), {**bar_settings.DEFAULTS, 'version': 1})
             bar_settings.save_settings({"appearance": "solid", "edge": "left"})
             self.assertEqual(bar_settings.read_settings(), {
-                "appearance": "solid", "layout": "unified", "edge": "left", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "version": 1
+                "appearance": "solid", "layout": "unified", "edge": "left", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "version": 1
             })
             bar_settings.save_settings({"layout": "centered"})
             self.assertEqual(bar_settings.read_settings()["appearance"], "solid")
@@ -78,7 +91,7 @@ class BarSettingsTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 bar_settings.save_settings({"screens": "some"})
         shell = (Path(__file__).parents[1] / "shell.qml").read_text()
-        self.assertIn('"set-all", barAppearance, barLayout, barEdge, barPinned ? "yes" : "no", barScreens, barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no"]', shell)
+        self.assertIn('"set-all", barAppearance, barLayout, barEdge, barPinned ? "yes" : "no", barScreens, barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no", barMediaStyle]', shell)
         self.assertIn("enabled: bar.isMainBar", shell, "only the main bar receives shortcuts")
         self.assertIn("shell.activeBar(bar).showKind(kind)", shell, "and hands them to the bar of the display in use")
         self.assertIn("shown: bar.isMainBar", shell, "notifications pop up on the main display only")

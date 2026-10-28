@@ -79,3 +79,5 @@ PluginManager 1.0 PluginManager.qml
 PluginWidgetMenu 1.0 PluginWidgetMenu.qml
 
 BarAutoHide 1.0 BarAutoHide.qml
+
+MediaIndicator 1.0 MediaIndicator.qml

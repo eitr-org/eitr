@@ -430,5 +430,8 @@
   "Widget options": "Opções do widget",
   "Auto-hide": "Ocultar automaticamente",
   "Reduce motion": "Reduzir movimento",
-  "Repository: {url}": "Repositório: {url}"
+  "Repository: {url}": "Repositório: {url}",
+  "Media style": "Estilo de mídia",
+  "Bars": "Barras",
+  "Line": "Linha"
 }

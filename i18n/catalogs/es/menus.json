@@ -574,5 +574,10 @@
   "List sessions and choose a session number": "Listar sesiones y elegir un número de sesión",
   "Resume by ID": "Reanudar por ID",
   "Resume by ID or Title": "Reanudar por ID o título",
-  "Resume by Number": "Reanudar por número"
+  "Resume by Number": "Reanudar por número",
+  "Media style": "Estilo multimedia",
+  "Bars": "Barras",
+  "Line": "Línea",
+  "Seven audio spectrum bars": "Siete barras del espectro de audio",
+  "A simple audio spectrum wave": "Una onda sencilla del espectro de audio"
 }

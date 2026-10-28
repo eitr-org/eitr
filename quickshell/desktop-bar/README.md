@@ -112,12 +112,15 @@ and panel text when it changes. Nerd Font icons retain their dedicated fallback.
 
 Media shows cover art, title/artist, previous/play/next, and elapsed/total time.
 Seeking is enabled only when the player supports it. Clicking the bar's animated
-equalizer (or Media icon on vertical bars) opens a single-background media popup;
+indicator (or Media icon on vertical bars) opens a single-background media popup;
 the card background is retained only inside the control center. Player selection retains the bar's
-existing meeting exclusions and playing-player preference. Four equalizer bars follow
-live system audio through a private raw-output cava process while visible and playing;
-a gentle playback animation is used if cava is unavailable. Its runtime config is
-independent of the interactive visualizer configuration.
+existing meeting exclusions and playing-player preference. Media style
+(`mediaStyle: bars/line` in `bar-settings.json`) selects seven bars or a smooth
+16-point line before the playback controls. Both use a fixed 26 px indicator and
+one shared spectrum consumer at 30 fps, including on vertical edges. A gentle
+playback animation is used if no audio frame arrives. Reduce motion preserves
+live levels without easing and disables decorative fallback motion. The shared
+provider's runtime config is independent of the interactive visualizer configuration.
 
 The battery icon and Power section appear only with a present system battery,
 never for wireless mice/headsets. Battery displays charge/state, an estimated
@@ -322,8 +325,8 @@ Meeting apps and recognized meeting-page URLs/titles are excluded, including
 Google Meet, Zoom, Teams, and Webex. Previous, play/pause, and
 next controls respect the player's capabilities. The animated indicator shows
 the song title on hover and opens the compact media card when clicked.
-The animated bars indicate playback, not an audio spectrum.
-No media daemon or audio capture is started. The strip hides without an eligible
+The indicator follows live system audio through the shared spectrum provider
+only while visible and playing. The strip hides without an eligible
 player or when there is insufficient space beside the hardware indicators.
 
 WiFi and Bluetooth open themed native popups on the right. Outside clicks,

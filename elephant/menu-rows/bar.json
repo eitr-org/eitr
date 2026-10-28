@@ -49,6 +49,18 @@
     "submenu": "bar-layout"
   },
   {
+    "text": "Media style",
+    "subtext": ">",
+    "icon": "󰍜",
+    "keywords": [
+      "equalizer",
+      "bars",
+      "line",
+      "wave"
+    ],
+    "submenu": "bar-media"
+  },
+  {
     "text": "Position",
     "subtext": ">",
     "icon": "󰆾",

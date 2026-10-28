@@ -455,7 +455,10 @@ var qml = {
     "Widget options": "Widget options",
     "Auto-hide": "Auto-hide",
     "Reduce motion": "Reduce motion",
-    "Repository: {url}": "Repository: {url}"
+    "Repository: {url}": "Repository: {url}",
+    "Bars": "Bars",
+    "Line": "Line",
+    "Media style": "Media style"
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -889,7 +892,10 @@ var qml = {
     "Widget options": "Opções do widget",
     "Auto-hide": "Ocultar automaticamente",
     "Reduce motion": "Reduzir movimento",
-    "Repository: {url}": "Repositório: {url}"
+    "Repository: {url}": "Repositório: {url}",
+    "Media style": "Estilo de mídia",
+    "Bars": "Barras",
+    "Line": "Linha"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1323,7 +1329,10 @@ var qml = {
     "Widget options": "Opciones del widget",
     "Auto-hide": "Ocultar automáticamente",
     "Reduce motion": "Reducir movimiento",
-    "Repository: {url}": "Repositorio: {url}"
+    "Repository: {url}": "Repositorio: {url}",
+    "Media style": "Estilo multimedia",
+    "Bars": "Barras",
+    "Line": "Línea"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1757,7 +1766,10 @@ var qml = {
     "Widget options": "Widget-Optionen",
     "Auto-hide": "Automatisch ausblenden",
     "Reduce motion": "Bewegung reduzieren",
-    "Repository: {url}": "Repository: {url}"
+    "Repository: {url}": "Repository: {url}",
+    "Media style": "Medienstil",
+    "Bars": "Balken",
+    "Line": "Linie"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2191,6 +2203,9 @@ var qml = {
     "Widget options": "Options du widget",
     "Auto-hide": "Masquage automatique",
     "Reduce motion": "Réduire les animations",
-    "Repository: {url}": "Dépôt : {url}"
+    "Repository: {url}": "Dépôt : {url}",
+    "Media style": "Style multimédia",
+    "Bars": "Barres",
+    "Line": "Ligne"
   }
 };

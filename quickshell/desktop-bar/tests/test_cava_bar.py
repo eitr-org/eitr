@@ -34,6 +34,11 @@ class CavaBarTests(unittest.TestCase):
             self.assertEqual(list(directory.iterdir()), [target])
 
     def test_process_lifecycle_offscreen(self):
+        for style, count in (("bars", 7), ("line", 16)):
+            with self.subTest(style=style):
+                self.check_process_lifecycle_offscreen(style, count)
+
+    def check_process_lifecycle_offscreen(self, style, count):
         import os
         import shutil
         import subprocess
@@ -51,6 +56,7 @@ def record(message):
     with log.open('a') as stream:
         stream.write(message + '\\n')
 def stop(signum, frame):
+    signal.signal(signal.SIGTERM, signal.SIG_IGN)
     record('stop')
     raise SystemExit(0)
 signal.signal(signal.SIGTERM, stop)
@@ -67,6 +73,7 @@ import "BAR"
 ShellRoot {
     MediaStrip {
         id: strip
+        mediaStyle: "STYLE"
         foreground: "white"
         background: "black"
         players: [{identity: "Test", trackTitle: "Song", isPlaying: true}]
@@ -78,10 +85,12 @@ ShellRoot {
         running: true
         onTriggered: {
             if (stage === 0) {
-                if (!strip.hasAudioFrame || strip.levels[2] !== .5) throw new Error("No audio frame");
+                if (!strip.hasAudioFrame || strip.levels.length !== COUNT || strip.levels[COUNT - 1] !== 1) throw new Error("No audio frame");
+                const consumers = SpectrumProvider.consumers;
+                if (consumers.length !== 1 || consumers[0].bars !== COUNT || consumers[0].frameRate !== 30 || consumers[0].smoothing) throw new Error("Wrong spectrum cost");
                 strip.enabled = false;
             } else if (stage === 1) {
-                if (strip.hasAudioFrame) throw new Error("Hidden strip retained audio");
+                if (strip.hasAudioFrame || SpectrumProvider.consumers.length) throw new Error("Hidden strip retained audio");
                 strip.enabled = true;
             } else if (stage === 2) {
                 if (!strip.hasAudioFrame) throw new Error("Audio did not restart");
@@ -94,7 +103,7 @@ ShellRoot {
             stage++;
         }
     }
-}'''.replace('BAR', SCRIPT.parents[1].as_uri()))
+}'''.replace('BAR', SCRIPT.parents[1].as_uri()).replace('STYLE', style).replace('COUNT', str(count)))
             log = directory / 'events'
             environment = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
                                QML_IMPORT_PATH=str(root / 'quickshell'), EITR_CODE_ROOT=str(root),

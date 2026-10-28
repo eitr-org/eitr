@@ -32,6 +32,7 @@ ThemedPopup {
     property string layout: "unified"
     property string barScreens: "main"
     property bool barAutoHide: false
+    property string mediaStyle: "bars"
     property string workspaceStyle: "Runes"
     property var airplane: ({available: false, enabled: false})
     property bool crashNotifications: true
@@ -405,6 +406,11 @@ ThemedPopup {
                         visible: center.page === "style"; width: parent.width; spacing: 12
                         Fold {
                         title: Eitr.I18n.tr("Bar")
+                        Label { text: Eitr.I18n.tr("Media style") }
+                        Row { width: parent.width; spacing: 8
+                            PanelButton { width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Bars"); selected: center.mediaStyle === "bars"; foreground: center.foreground; onClicked: center.settingRequested("mediaStyle", "bars") }
+                            PanelButton { width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Line"); selected: center.mediaStyle === "line"; foreground: center.foreground; onClicked: center.settingRequested("mediaStyle", "line") }
+                        }
                         Label { text: Eitr.I18n.tr("Appearance") }
                         Row { width: parent.width; spacing: 8
                             PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Blur"); selected: center.appearance === "transparent"; foreground: center.foreground; onClicked: center.settingRequested("appearance", "transparent") }

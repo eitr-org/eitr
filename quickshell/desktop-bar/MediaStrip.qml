@@ -1,8 +1,6 @@
 import Eitr as Eitr
 import Quickshell
-import "AudioLevels.js" as AudioLevels
 import QtQuick
-import "PanelStyle.js" as PanelStyle
 import Quickshell.Services.Mpris
 import "MediaModel.js" as MediaModel
 
@@ -18,13 +16,11 @@ Item {
     readonly property var player: eligiblePlayers.find(player => player.isPlaying) || eligiblePlayers[0] || null
     readonly property bool playing: !!player && player.isPlaying
     readonly property string title: player ? [player.trackArtist, player.trackTitle].filter(Boolean).join(" - ") || player.identity : ""
-    property real pulse: 0
+    property string mediaStyle: "bars"
     property bool audioEnabled: true
-    readonly property bool audioActive: audioEnabled && visible && enabled && opacity > 0 && playing
+    readonly property bool hasAudioFrame: playbackIndicator.hasAudioFrame
+    readonly property var levels: playbackIndicator.levels
     readonly property bool cavaFailed: SpectrumProvider.failed
-    readonly property bool hasAudioFrame: audioActive && SpectrumProvider.hasFrame
-    readonly property var levels: audioActive ? audio.spectrum : [0, 0, 0, 0]
-    SpectrumConsumer { id: audio; active: media.audioActive; bars: 4; frameRate: 30; smoothing: false }
     signal detailsRequested()
 
     visible: player !== null && availableWidth >= controls.width + indicatorSpacing + playbackIndicator.width
@@ -33,6 +29,7 @@ Item {
 
     Row {
         id: controls
+        x: playbackIndicator.width + media.indicatorSpacing
         height: parent.height
         spacing: media.itemSpacing
         MediaControl {
@@ -54,51 +51,16 @@ Item {
             onTriggered: media.player.next()
         }
     }
-    Item {
+    MediaIndicator {
         id: playbackIndicator
-        anchors.right: parent.right
-        width: 14
-        height: parent.height
-        MouseArea {
-            id: indicatorMouse
-            anchors.fill: parent
-            hoverEnabled: true
-            cursorShape: Qt.PointingHandCursor
-            acceptedButtons: Qt.LeftButton | Qt.RightButton
-            onClicked: function(mouse) {
-                if (mouse.button === Qt.RightButton)
-                    Quickshell.execDetached(["bash", Eitr.Paths.code("walker/scripts/actions/tools/music-visualizer.sh")]);
-                else
-                    media.detailsRequested();
-            }
-        }
-        BarTooltip {
-            target: playbackIndicator
-            hovered: indicatorMouse.containsMouse
-            text: media.title
-            foreground: media.foreground
-            background: media.background
-        }
-        Row {
-            anchors.centerIn: parent
-            height: 14
-            spacing: 1
-            Repeater {
-                model: 4
-                Rectangle {
-                    required property int index
-                    anchors.verticalCenter: parent.verticalCenter
-                    width: 2.75
-                    height: !media.playing ? 3 : media.hasAudioFrame ? AudioLevels.height(media.levels[index]) : 4 + (Math.sin(media.pulse + index * 1.7) + 1) * 4
-                    Behavior on height { NumberAnimation { duration: DesktopStyle.motionDuration(70) } }
-                    radius: 1
-                    color: media.foreground
-                    opacity: media.playing ? 1 : 0.55
-                }
-            }
-        }
+        style: media.mediaStyle
+        playing: media.playing
+        active: media.audioEnabled && media.visible && media.enabled && media.opacity > 0
+        foreground: media.foreground
+        background: media.background
+        title: media.title
+        onDetailsRequested: media.detailsRequested()
     }
-    NumberAnimation on pulse { from: 0; to: Math.PI * 2; duration: 1500; loops: Animation.Infinite; running: !DesktopStyle.reduceMotion && (media.audioActive && !media.hasAudioFrame)}
 
     component MediaControl: Item {
         id: control

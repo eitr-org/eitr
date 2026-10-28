@@ -109,6 +109,9 @@
     "Bar": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
+    "Bars": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
     "Battery & Power": [
       "quickshell/desktop-bar/BatteryMenu.qml"
     ],
@@ -541,6 +544,9 @@
     "Lighting": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
+    "Line": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
     "Loading...": [
       "quickshell/desktop-bar/AppearancePicker.qml",
       "quickshell/desktop-bar/KeyboardLayoutMenu.qml",
@@ -581,6 +587,9 @@
       "quickshell/desktop-bar/ControlCenter.qml",
       "quickshell/desktop-bar/MediaMenu.qml",
       "quickshell/desktop-bar/shell.qml"
+    ],
+    "Media style": [
+      "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Messages go to %1; nothing is saved": [
       "quickshell/desktop-bar/AssistantChat.qml"
@@ -1381,6 +1390,9 @@
     "A picture file or an https address, kept on this computer": [
       "elephant/menus/wallpaper.lua"
     ],
+    "A simple audio spectrum wave": [
+      "elephant/menus/bar-media.lua"
+    ],
     "AI": [
       "elephant/menu-rows/development.json",
       "elephant/menus/ai-tools.lua"
@@ -1524,6 +1536,9 @@
     ],
     "Back to the first login, files too": [
       "elephant/menu-rows/factory-reset.json"
+    ],
+    "Bars": [
+      "elephant/menus/bar-media.lua"
     ],
     "Battery Charge Limit": [
       "elephant/menu-rows/system-devices.json",
@@ -2256,6 +2271,9 @@
     "Lightweight WiFi (default); applies after a restart": [
       "elephant/menu-rows/network-backend.json"
     ],
+    "Line": [
+      "elephant/menus/bar-media.lua"
+    ],
     "List Recovery Snapshots": [
       "elephant/menu-rows/snapshots.json"
     ],
@@ -2313,6 +2331,10 @@
     ],
     "Make Default": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Media style": [
+      "elephant/menu-rows/bar.json",
+      "elephant/menus/bar-media.lua"
     ],
     "Microphone": [
       "elephant/menu-rows/system-devices.json"
@@ -2896,6 +2918,9 @@
     ],
     "Set up an assistant that runs only on this PC": [
       "elephant/menus/ai-default.lua"
+    ],
+    "Seven audio spectrum bars": [
+      "elephant/menus/bar-media.lua"
     ],
     "Share": [
       "elephant/menu-rows/tools.json",
