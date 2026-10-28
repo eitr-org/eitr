@@ -34,6 +34,10 @@ LAN.
   QML is not a sandbox.
 
 - **Theme previews.** Previews are Neovim + About screenshots (2026-10-27); `branding/sources/wallpapers/batch-05/export.py` still rewrites realm previews from wallpapers, so drop its preview step before rerunning it.
+- **Hidden edge shelf.** The owner's idea (2026-10-28): touching the screen edge
+  opposite the bar reveals a hidden surface, like the auto-hide bar, that floats
+  over windows and never resizes them. What it shows is still open (ideas: plugin
+  widgets, running and pinned apps, media). Decide the content first.
 - **Light themes.** The owner has ideas for more light themes; create them later.
 - **Website translations.** Offer the site in the desktop's languages
   (Portuguese (Brazil), Spanish, German, French) with a language switch, reusing
