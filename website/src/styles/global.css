@@ -146,6 +146,8 @@ em { font-style: italic; color: var(--accent); }
 .what-art img { width: 100%; height: 100%; object-fit: cover; object-position: 72% 50%; transition: transform 6s ease; }
 .what-art:hover img { transform: scale(1.06); }
 .what-art::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 0 1px var(--line-strong), inset 0 -120px 120px -40px var(--bg); }
+.what-heading { grid-column: 1 / -1; position: relative; margin-bottom: -24px; }
+.what-copy > p:first-child { margin-top: 0; }
 .what-copy > p:not(.eyebrow) { margin: 28px 0 34px; max-width: 480px; }
 .dossier { border: 1px solid var(--line); background: linear-gradient(160deg, var(--surface), transparent); padding: 22px 26px; border-radius: 4px; }
 .dossier .label { color: var(--bronze); margin-bottom: 10px; }
@@ -157,7 +159,7 @@ em { font-style: italic; color: var(--accent); }
 
 /* Sections */
 .section { padding: 120px 0 40px; }
-.section-heading, .what-copy { position: relative; }
+.section-heading, .what-copy, .what-heading { position: relative; }
 .section-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 56px; align-items: end; margin-bottom: 56px; }
 .section-heading .eyebrow { grid-column: 1 / -1; margin-bottom: 4px; }
 .section-heading > p:not(.eyebrow) { max-width: 440px; }
@@ -591,7 +593,8 @@ body.menu-open { overflow: hidden; }
   .hero-details { align-items: stretch; gap: 0 20px; }
   .what { padding: 0 0 32px; gap: 32px; overflow: hidden; }
   .what-art { width: 100%; aspect-ratio: 16 / 10; border-radius: 0; box-shadow: none; }
-  .what-copy { padding-inline: 20px; }
+  .what-copy, .what-heading { padding-inline: 20px; }
+  .what-heading { margin-bottom: 0; padding-top: 32px; }
 }
 /* Small carved labels share the same 12 px floor as the eyebrows. */
 .stage, .realm-topic { font-size: 12px; }
