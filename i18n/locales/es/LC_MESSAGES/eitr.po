@@ -151,6 +151,9 @@ msgstr "Ya existe un panel de {service} llamado {name}."
 msgid "A: ask the AI about this failure · Esc: close"
 msgstr "A: preguntar a la IA sobre este fallo · Esc: cerrar"
 
+msgid "AI sessions"
+msgstr "Sesiones de IA"
+
 msgid "AKS Clusters"
 msgstr "Clústeres AKS"
 
@@ -1603,6 +1606,9 @@ msgstr "Regla de repetición no válida."
 msgid "Invalid repository server URL"
 msgstr "URL del servidor del repositorio no válida"
 
+msgid "Invalid session number."
+msgstr "Número de sesión no válido."
+
 msgid "Invalid stick file path"
 msgstr "Ruta de archivo en la memoria no válida"
 
@@ -1962,6 +1968,9 @@ msgstr "No hay recordatorios."
 
 msgid "No risk flags. Read the changes anyway before you trust them."
 msgstr "Sin señales de riesgo. Lee los cambios de todos modos antes de confiar en ellos."
+
+msgid "No sessions found."
+msgstr "No se encontraron sesiones."
 
 msgid "No snapshot has {path}."
 msgstr "Ninguna instantánea contiene {path}."
@@ -2584,6 +2593,9 @@ msgstr "Archivos PAM {service_names} restaurados desde {backup}"
 msgid "Restoring the boot files"
 msgstr "Restaurando los archivos de arranque"
 
+msgid "Resume Picker"
+msgstr "Selector de sesiones"
+
 msgid "Review"
 msgstr "Revisar"
 
@@ -2772,6 +2784,12 @@ msgstr "Eventos del servicio"
 
 msgid "Service status"
 msgstr "Estado del servicio"
+
+msgid "Session name or ID"
+msgstr "Nombre o ID de sesión"
+
+msgid "Session number (empty cancels): "
+msgstr "Número de sesión (vacío cancela): "
 
 msgid "Set Sunshine’s password first. Enter the PIN shown by Moonlight only for a device you trust."
 msgstr "Defina primero la contraseña de Sunshine. Introduzca el PIN de Moonlight solo para un dispositivo de confianza."
@@ -3480,6 +3498,9 @@ msgstr "Escribe {confirmation} para registrar el desbloqueo por TPM (cualquier o
 
 msgid "Type {path} exactly to start installation."
 msgstr "Escribe exactamente {path} para iniciar la instalación."
+
+msgid "Unable to list sessions."
+msgstr "No se pudieron listar las sesiones."
 
 msgid "Unavailable"
 msgstr "No disponible"

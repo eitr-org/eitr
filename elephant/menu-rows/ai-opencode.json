@@ -16,5 +16,53 @@
     "actions": {
       "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh opencode-new"
     }
+  },
+  {
+    "text": "Continue Last",
+    "subtext": "Continue the most recent session",
+    "keywords": [
+      "opencode",
+      "session"
+    ],
+    "icon": "󰊭",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh opencode-continue-last"
+    }
+  },
+  {
+    "text": "New Named",
+    "subtext": "Start a session with a name to resume later",
+    "keywords": [
+      "opencode",
+      "session"
+    ],
+    "icon": "󰊭",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh opencode-new-named"
+    }
+  },
+  {
+    "text": "Resume by ID",
+    "subtext": "Continue a session by ID",
+    "keywords": [
+      "opencode",
+      "session"
+    ],
+    "icon": "󰊭",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh opencode-resume-id"
+    }
+  },
+  {
+    "text": "Resume Picker",
+    "subtext": "Choose an earlier session to continue",
+    "keywords": [
+      "opencode",
+      "session"
+    ],
+    "icon": "󰊭",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh opencode-resume-picker"
+    }
   }
 ]

@@ -17,6 +17,18 @@
     }
   },
   {
+    "text": "Continue Last",
+    "subtext": "Continue the most recent session",
+    "keywords": [
+      "codex",
+      "session"
+    ],
+    "icon": "󰆍",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh codex-continue-last"
+    }
+  },
+  {
     "text": "Resume by Name or ID",
     "subtext": "Continue a session by its name or ID",
     "keywords": [

@@ -67,3 +67,18 @@ missing skills on existing installations without overwriting anything. This does
 not replace per-CLI startup instructions or change any login. Separate Claude
 config directories can have their own skill discovery settings; no account folder
 is overwritten. Pi receives the Handbook primer through its additive prompt flag.
+
+## Walker session actions
+
+Verified on 2026-10-28 using installed CLI help, including `codex resume`,
+`grok sessions list`, `copilot sessions` and `opencode session list`.
+Claude and Copilot have native pickers and name flags; Codex has a native picker
+but no new-session naming flag. Gemini lists numbered sessions, Grok lists a
+plain table, and OpenCode lists JSON; Walker converts these lists to pickers.
+Gemini’s installed list renderer confirms `N. title (date) [id]` rows.
+OpenCode accepts a string session ID and creates it if absent, so New Named
+uses `--session`; an existing ID resumes instead. Grok and Gemini require UUIDs
+for new session IDs, which cannot name sessions. Antigravity exposes continue
+and conversation ID flags, with no list or naming option. Pi is not installed;
+the package references above do not confirm session controls, so its menu retains
+New only. No assistant conversation or sign-in was started during verification.

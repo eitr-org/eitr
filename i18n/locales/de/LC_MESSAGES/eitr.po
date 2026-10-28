@@ -151,6 +151,9 @@ msgstr "Ein {service}-Dashboard namens {name} existiert bereits."
 msgid "A: ask the AI about this failure · Esc: close"
 msgstr "A: KI zu diesem Fehler fragen · Esc: schließen"
 
+msgid "AI sessions"
+msgstr "KI-Sitzungen"
+
 msgid "AKS Clusters"
 msgstr "AKS-Cluster"
 
@@ -1603,6 +1606,9 @@ msgstr "Ungültige Wiederholungsregel."
 msgid "Invalid repository server URL"
 msgstr "Ungültige Repository-Serveradresse"
 
+msgid "Invalid session number."
+msgstr "Ungültige Sitzungsnummer."
+
 msgid "Invalid stick file path"
 msgstr "Ungültiger Dateipfad auf dem Stick"
 
@@ -1962,6 +1968,9 @@ msgstr "Keine Erinnerungen."
 
 msgid "No risk flags. Read the changes anyway before you trust them."
 msgstr "Keine Risikohinweise. Lies die Änderungen trotzdem, bevor du ihnen vertraust."
+
+msgid "No sessions found."
+msgstr "Keine Sitzungen gefunden."
 
 msgid "No snapshot has {path}."
 msgstr "Kein Snapshot enthält {path}."
@@ -2584,6 +2593,9 @@ msgstr "PAM-Dateien {service_names} aus {backup} wiederhergestellt"
 msgid "Restoring the boot files"
 msgstr "Bootdateien werden wiederhergestellt"
 
+msgid "Resume Picker"
+msgstr "Sitzungsauswahl"
+
 msgid "Review"
 msgstr "Prüfen"
 
@@ -2772,6 +2784,12 @@ msgstr "Dienstereignisse"
 
 msgid "Service status"
 msgstr "Dienststatus"
+
+msgid "Session name or ID"
+msgstr "Sitzungsname oder ID"
+
+msgid "Session number (empty cancels): "
+msgstr "Sitzungsnummer (leer bricht ab): "
 
 msgid "Set Sunshine’s password first. Enter the PIN shown by Moonlight only for a device you trust."
 msgstr "Legen Sie zuerst das Sunshine-Passwort fest. Geben Sie die Moonlight-PIN nur für ein vertrautes Gerät ein."
@@ -3480,6 +3498,9 @@ msgstr "Zum Einrichten der TPM-Entsperrung {confirmation} eingeben (jede andere 
 
 msgid "Type {path} exactly to start installation."
 msgstr "Zum Starten der Installation genau {path} eingeben."
+
+msgid "Unable to list sessions."
+msgstr "Sitzungen konnten nicht aufgelistet werden."
 
 msgid "Unavailable"
 msgstr "Nicht verfügbar"

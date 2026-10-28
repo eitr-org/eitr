@@ -16,5 +16,41 @@
     "actions": {
       "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh grok-new"
     }
+  },
+  {
+    "text": "Continue Last",
+    "subtext": "Continue the most recent session",
+    "keywords": [
+      "grok",
+      "session"
+    ],
+    "icon": "󱙺",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh grok-continue-last"
+    }
+  },
+  {
+    "text": "Resume by ID or Title",
+    "subtext": "Continue a session by ID or title",
+    "keywords": [
+      "grok",
+      "session"
+    ],
+    "icon": "󱙺",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh grok-resume-id"
+    }
+  },
+  {
+    "text": "Resume Picker",
+    "subtext": "Choose an earlier session to continue",
+    "keywords": [
+      "grok",
+      "session"
+    ],
+    "icon": "󱙺",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh grok-resume-picker"
+    }
   }
 ]

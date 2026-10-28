@@ -16,5 +16,41 @@
     "actions": {
       "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh gemini-new"
     }
+  },
+  {
+    "text": "Continue Last",
+    "subtext": "Continue the most recent session",
+    "keywords": [
+      "gemini",
+      "session"
+    ],
+    "icon": "󰊭",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh gemini-continue-last"
+    }
+  },
+  {
+    "text": "Resume by Number",
+    "subtext": "List sessions and choose a session number",
+    "keywords": [
+      "gemini",
+      "session"
+    ],
+    "icon": "󰊭",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh gemini-resume-number"
+    }
+  },
+  {
+    "text": "Resume Picker",
+    "subtext": "Choose an earlier session to continue",
+    "keywords": [
+      "gemini",
+      "session"
+    ],
+    "icon": "󰊭",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh gemini-resume-picker"
+    }
   }
 ]

@@ -1388,5 +1388,12 @@
   "No plugin icon; a generic icon will be shown.": "No plugin icon; a generic icon will be shown.",
   "Arrows: move  Space: select  Enter: review  Esc: cancel": "Arrows: move  Space: select  Enter: review  Esc: cancel",
   "Plugin icon: {icon}": "Plugin icon: {icon}",
-  "Select plugins": "Select plugins"
+  "Select plugins": "Select plugins",
+  "AI sessions": "AI sessions",
+  "Invalid session number.": "Invalid session number.",
+  "No sessions found.": "No sessions found.",
+  "Resume Picker": "Resume Picker",
+  "Session name or ID": "Session name or ID",
+  "Session number (empty cancels): ": "Session number (empty cancels): ",
+  "Unable to list sessions.": "Unable to list sessions."
 }

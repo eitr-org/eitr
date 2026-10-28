@@ -26,7 +26,24 @@ return function(name, configure)
                 Icon = row.icon, SubMenu = row.submenu, Actions = row.actions})
         end
         if configure then entries = configure(entries) end
-        return i18n.entries(entries, name == "main")
+        -- Assistant menus keep New before the other translated, sorted actions.
+        local new_entry
+        for _, entry in ipairs(entries) do
+            if entry.Text == "New" and name:match("^ai%-") then new_entry = entry end
+        end
+        entries = i18n.entries(entries, name == "main")
+        if new_entry then
+            for index, entry in ipairs(entries) do
+                if entry == new_entry then
+                    table.remove(entries, index)
+                    local position = 1
+                    while entries[position] and entries[position].SubMenu do position = position + 1 end
+                    table.insert(entries, position, new_entry)
+                    break
+                end
+            end
+        end
+        return entries
     end
 
     return function(query)

@@ -17,6 +17,18 @@
     }
   },
   {
+    "text": "Continue Last",
+    "subtext": "Continue the most recent session",
+    "keywords": [
+      "claude",
+      "session"
+    ],
+    "icon": "󰙴",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh claude-continue-last"
+    }
+  },
+  {
     "text": "New Named",
     "subtext": "Start a session with a name to resume later",
     "keywords": [

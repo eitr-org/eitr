@@ -1388,5 +1388,12 @@
   "No plugin icon; a generic icon will be shown.": "El plugin no tiene icono; se mostrará uno genérico.",
   "Arrows: move  Space: select  Enter: review  Esc: cancel": "Flechas: mover  Espacio: seleccionar  Intro: revisar  Esc: cancelar",
   "Plugin icon: {icon}": "Icono del plugin: {icon}",
-  "Select plugins": "Seleccionar plugins"
+  "Select plugins": "Seleccionar plugins",
+  "AI sessions": "Sesiones de IA",
+  "Invalid session number.": "Número de sesión no válido.",
+  "No sessions found.": "No se encontraron sesiones.",
+  "Resume Picker": "Selector de sesiones",
+  "Session name or ID": "Nombre o ID de sesión",
+  "Session number (empty cancels): ": "Número de sesión (vacío cancela): ",
+  "Unable to list sessions.": "No se pudieron listar las sesiones."
 }

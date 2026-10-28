@@ -46,6 +46,8 @@ Each cloud assistant has an Accounts submenu under Development > AI. Default use
 
 Development > AI offers a menu for each installed assistant: Antigravity CLI, Claude Code, Codex, Gemini CLI, GitHub Copilot CLI, Grok Build, OpenCode and Pi. Install them from Install > AI CLIs; with none installed, Development > AI links there.
 
+Session menus keep **New** first, then sort the other actions alphabetically. Claude Code and GitHub Copilot CLI offer **New Named**, **Continue Last**, **Resume Picker** and resume by name or ID (Claude labels it **Resume by Name**). Codex offers **Continue Last**, **Resume Picker** and **Resume by Name or ID**. Gemini CLI offers **Continue Last**, a Walker **Resume Picker** and **Resume by Number**; the last option displays the numbered session list in the terminal before asking for a number. Grok Build offers **Continue Last**, a Walker **Resume Picker** and **Resume by ID or Title**. OpenCode offers **Continue Last**, a Walker **Resume Picker**, **Resume by ID** and **New Named** through its session ID option: a new name creates a session, while an existing ID resumes it. Antigravity CLI offers **Continue Last** and **Resume by ID**, with no supported list or naming option. Pi keeps **New** only because session options could not be confirmed from the available package documentation. Walker pickers show session titles and dates where available; an empty list shows a message. Empty name/ID prompts cancel. Accounts submenus remain available.
+
 Opening a LazyVim or VS Code project first asks for a
 folder, starting in your home folder (hidden folders are left out): pick folders to go deeper, Open to use the one
 you are in, and Back to go up a level or, at the top, return to the menu.

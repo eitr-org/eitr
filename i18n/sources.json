@@ -1618,7 +1618,11 @@
     ],
     "Choose an earlier session to continue": [
       "elephant/menu-rows/ai-claude.json",
-      "elephant/menu-rows/ai-codex.json"
+      "elephant/menu-rows/ai-codex.json",
+      "elephant/menu-rows/ai-copilot.json",
+      "elephant/menu-rows/ai-gemini.json",
+      "elephant/menu-rows/ai-grok.json",
+      "elephant/menu-rows/ai-opencode.json"
     ],
     "Choose and join networks": [
       "elephant/menu-rows/system-connectivity.json"
@@ -1710,11 +1714,39 @@
       "elephant/menu-rows/system.json",
       "elephant/menus/system-connectivity.lua"
     ],
+    "Continue Last": [
+      "elephant/menu-rows/ai-agy.json",
+      "elephant/menu-rows/ai-claude.json",
+      "elephant/menu-rows/ai-codex.json",
+      "elephant/menu-rows/ai-copilot.json",
+      "elephant/menu-rows/ai-gemini.json",
+      "elephant/menu-rows/ai-grok.json",
+      "elephant/menu-rows/ai-opencode.json"
+    ],
     "Continue a named session": [
       "elephant/menu-rows/ai-claude.json"
     ],
+    "Continue a session by ID": [
+      "elephant/menu-rows/ai-agy.json",
+      "elephant/menu-rows/ai-opencode.json"
+    ],
+    "Continue a session by ID or title": [
+      "elephant/menu-rows/ai-grok.json"
+    ],
     "Continue a session by its name or ID": [
       "elephant/menu-rows/ai-codex.json"
+    ],
+    "Continue a session by name or ID": [
+      "elephant/menu-rows/ai-copilot.json"
+    ],
+    "Continue the most recent session": [
+      "elephant/menu-rows/ai-agy.json",
+      "elephant/menu-rows/ai-claude.json",
+      "elephant/menu-rows/ai-codex.json",
+      "elephant/menu-rows/ai-copilot.json",
+      "elephant/menu-rows/ai-gemini.json",
+      "elephant/menu-rows/ai-grok.json",
+      "elephant/menu-rows/ai-opencode.json"
     ],
     "Convert an image or video to another format": [
       "elephant/menu-rows/capture.json"
@@ -2235,6 +2267,9 @@
       "elephant/menus/aws-ecs-list-services-1.lua",
       "elephant/menus/aws-ecs-list-services-2.lua"
     ],
+    "List sessions and choose a session number": [
+      "elephant/menu-rows/ai-gemini.json"
+    ],
     "Lock": [
       "elephant/menu-rows/power.json"
     ],
@@ -2346,7 +2381,9 @@
       "elephant/menus/update-channel.lua"
     ],
     "New Named": [
-      "elephant/menu-rows/ai-claude.json"
+      "elephant/menu-rows/ai-claude.json",
+      "elephant/menu-rows/ai-copilot.json",
+      "elephant/menu-rows/ai-opencode.json"
     ],
     "New Reminder": [
       "elephant/menu-rows/reminders.json"
@@ -2632,13 +2669,28 @@
     ],
     "Resume Picker": [
       "elephant/menu-rows/ai-claude.json",
-      "elephant/menu-rows/ai-codex.json"
+      "elephant/menu-rows/ai-codex.json",
+      "elephant/menu-rows/ai-copilot.json",
+      "elephant/menu-rows/ai-gemini.json",
+      "elephant/menu-rows/ai-grok.json",
+      "elephant/menu-rows/ai-opencode.json"
+    ],
+    "Resume by ID": [
+      "elephant/menu-rows/ai-agy.json",
+      "elephant/menu-rows/ai-opencode.json"
+    ],
+    "Resume by ID or Title": [
+      "elephant/menu-rows/ai-grok.json"
     ],
     "Resume by Name": [
       "elephant/menu-rows/ai-claude.json"
     ],
     "Resume by Name or ID": [
-      "elephant/menu-rows/ai-codex.json"
+      "elephant/menu-rows/ai-codex.json",
+      "elephant/menu-rows/ai-copilot.json"
+    ],
+    "Resume by Number": [
+      "elephant/menu-rows/ai-gemini.json"
     ],
     "RetroArch": [
       "elephant/menu-rows/gaming.json"
@@ -2937,7 +2989,9 @@
       "elephant/menu-rows/ai-pi.json"
     ],
     "Start a session with a name to resume later": [
-      "elephant/menu-rows/ai-claude.json"
+      "elephant/menu-rows/ai-claude.json",
+      "elephant/menu-rows/ai-copilot.json",
+      "elephant/menu-rows/ai-opencode.json"
     ],
     "Start an Antigravity CLI session in a project": [
       "elephant/menu-rows/ai-agy.json"
@@ -3936,6 +3990,9 @@
     ],
     "A: ask the AI about this failure · Esc: close": [
       "walker/scripts/actions/task-terminal.py"
+    ],
+    "AI sessions": [
+      "walker/scripts/actions/ai-assistant.py"
     ],
     "AKS Clusters": [
       "walker/scripts/menus/cloud/navigation.py"
@@ -5420,6 +5477,9 @@
     "Invalid repository server URL": [
       "distro/lib/eitr_profile.py"
     ],
+    "Invalid session number.": [
+      "walker/scripts/actions/ai-assistant.py"
+    ],
     "Invalid stick file path": [
       "distro/lib/eitr_profile.py"
     ],
@@ -5791,6 +5851,9 @@
     ],
     "No risk flags. Read the changes anyway before you trust them.": [
       "walker/scripts/actions/install/plugins.py"
+    ],
+    "No sessions found.": [
+      "walker/scripts/actions/ai-assistant.py"
     ],
     "No snapshot has {path}.": [
       "walker/scripts/actions/system/restore-file.py"
@@ -6428,6 +6491,9 @@
     "Restoring the boot files": [
       "distro/system/factory-reset.py"
     ],
+    "Resume Picker": [
+      "walker/scripts/actions/ai-assistant.py"
+    ],
     "Review": [
       "distro/archinstall/installer-ui.py",
       "distro/lib/eitr_wizard.py",
@@ -6618,6 +6684,12 @@
     ],
     "Service status": [
       "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Session name or ID": [
+      "walker/scripts/menus/ai-tools.sh"
+    ],
+    "Session number (empty cancels): ": [
+      "walker/scripts/actions/ai-assistant.py"
     ],
     "Set Sunshine’s password first. Enter the PIN shown by Moonlight only for a device you trust.": [
       "walker/scripts/actions/system/remote-access.py"
@@ -7334,6 +7406,9 @@
     ],
     "Type {path} exactly to start installation.": [
       "distro/archinstall/installer-ui.py"
+    ],
+    "Unable to list sessions.": [
+      "walker/scripts/actions/ai-assistant.py"
     ],
     "Unavailable": [
       "fastfetch/eitr.py",

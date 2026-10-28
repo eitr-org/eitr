@@ -51,11 +51,12 @@ class MenuStructureTests(unittest.TestCase):
         for name, data in menu_data.static_menus().items():
             if name == "main":
                 continue
-            # Submenus first, like folders, then the rows that open something; each group alphabetical.
+            # Submenus first, then alphabetical actions; assistant menus keep New first.
             entries = data.get("entries", [])
             names = [entry["text"] for entry in entries]
             expected = [entry["text"] for entry in sorted(
-                entries, key=lambda entry: (entry.get("subtext") != ">", entry["text"].lower()))]
+                entries, key=lambda entry: (entry.get("subtext") != ">",
+                    0 if name.startswith("ai-") and entry["text"] == "New" else 1, entry["text"].lower()))]
             self.assertEqual(names, expected, name)
     def test_update_offers_only_system_update_and_channel(self):
         entries = menu("update")["entries"]

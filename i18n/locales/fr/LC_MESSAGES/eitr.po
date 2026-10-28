@@ -151,6 +151,9 @@ msgstr "Un tableau de bord {service} nommé {name} existe déjà."
 msgid "A: ask the AI about this failure · Esc: close"
 msgstr "A : demander à l’IA à propos de cet échec · Échap : fermer"
 
+msgid "AI sessions"
+msgstr "Sessions d’IA"
+
 msgid "AKS Clusters"
 msgstr "Clusters AKS"
 
@@ -1603,6 +1606,9 @@ msgstr "Règle de répétition invalide."
 msgid "Invalid repository server URL"
 msgstr "URL du serveur du dépôt invalide"
 
+msgid "Invalid session number."
+msgstr "Numéro de session invalide."
+
 msgid "Invalid stick file path"
 msgstr "Chemin de fichier sur la clé invalide"
 
@@ -1962,6 +1968,9 @@ msgstr "Aucun rappel."
 
 msgid "No risk flags. Read the changes anyway before you trust them."
 msgstr "Aucun signal de risque. Lisez quand même les modifications avant de leur faire confiance."
+
+msgid "No sessions found."
+msgstr "Aucune session trouvée."
 
 msgid "No snapshot has {path}."
 msgstr "Aucun instantané ne contient {path}."
@@ -2584,6 +2593,9 @@ msgstr "Fichiers PAM {service_names} restaurés depuis {backup}"
 msgid "Restoring the boot files"
 msgstr "Restauration des fichiers de démarrage"
 
+msgid "Resume Picker"
+msgstr "Sélecteur de sessions"
+
 msgid "Review"
 msgstr "Vérifier"
 
@@ -2772,6 +2784,12 @@ msgstr "Événements du service"
 
 msgid "Service status"
 msgstr "État du service"
+
+msgid "Session name or ID"
+msgstr "Nom ou ID de session"
+
+msgid "Session number (empty cancels): "
+msgstr "Numéro de session (vide pour annuler) : "
 
 msgid "Set Sunshine’s password first. Enter the PIN shown by Moonlight only for a device you trust."
 msgstr "Définissez d’abord le mot de passe Sunshine. Saisissez le PIN Moonlight uniquement pour un appareil de confiance."
@@ -3480,6 +3498,9 @@ msgstr "Saisissez {confirmation} pour configurer le déverrouillage TPM (toute a
 
 msgid "Type {path} exactly to start installation."
 msgstr "Saisissez exactement {path} pour lancer l’installation."
+
+msgid "Unable to list sessions."
+msgstr "Impossible de lister les sessions."
 
 msgid "Unavailable"
 msgstr "Indisponible"

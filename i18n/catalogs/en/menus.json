@@ -565,5 +565,14 @@
   "Animate panels and bar controls": "Animate panels and bar controls",
   "Full motion": "Full motion",
   "Reduce motion": "Reduce motion",
-  "Show panels and bar controls instantly": "Show panels and bar controls instantly"
+  "Show panels and bar controls instantly": "Show panels and bar controls instantly",
+  "Continue Last": "Continue Last",
+  "Continue a session by name or ID": "Continue a session by name or ID",
+  "Continue the most recent session": "Continue the most recent session",
+  "List sessions and choose a session number": "List sessions and choose a session number",
+  "Resume by ID": "Resume by ID",
+  "Resume by ID or Title": "Resume by ID or Title",
+  "Resume by Number": "Resume by Number",
+  "Continue a session by ID": "Continue a session by ID",
+  "Continue a session by ID or title": "Continue a session by ID or title"
 }

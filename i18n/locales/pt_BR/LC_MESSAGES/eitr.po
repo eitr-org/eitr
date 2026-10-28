@@ -151,6 +151,9 @@ msgstr "Já existe um painel {service} chamado {name}."
 msgid "A: ask the AI about this failure · Esc: close"
 msgstr "A: perguntar à IA sobre esta falha · Esc: fechar"
 
+msgid "AI sessions"
+msgstr "Sessões de IA"
+
 msgid "AKS Clusters"
 msgstr "Clusters AKS"
 
@@ -1603,6 +1606,9 @@ msgstr "Regra de repetição inválida."
 msgid "Invalid repository server URL"
 msgstr "URL do servidor do repositório inválida"
 
+msgid "Invalid session number."
+msgstr "Número de sessão inválido."
+
 msgid "Invalid stick file path"
 msgstr "Caminho de arquivo no pendrive inválido"
 
@@ -1962,6 +1968,9 @@ msgstr "Nenhum lembrete."
 
 msgid "No risk flags. Read the changes anyway before you trust them."
 msgstr "Nenhum sinal de risco. Leia as mudanças mesmo assim antes de confiar nelas."
+
+msgid "No sessions found."
+msgstr "Nenhuma sessão encontrada."
 
 msgid "No snapshot has {path}."
 msgstr "Nenhum snapshot contém {path}."
@@ -2584,6 +2593,9 @@ msgstr "Arquivos PAM {service_names} restaurados de {backup}"
 msgid "Restoring the boot files"
 msgstr "Restaurando os arquivos de boot"
 
+msgid "Resume Picker"
+msgstr "Seletor de sessões"
+
 msgid "Review"
 msgstr "Revisar"
 
@@ -2772,6 +2784,12 @@ msgstr "Eventos do serviço"
 
 msgid "Service status"
 msgstr "Estado do serviço"
+
+msgid "Session name or ID"
+msgstr "Nome ou ID da sessão"
+
+msgid "Session number (empty cancels): "
+msgstr "Número da sessão (vazio cancela): "
 
 msgid "Set Sunshine’s password first. Enter the PIN shown by Moonlight only for a device you trust."
 msgstr "Defina primeiro a senha do Sunshine. Insira o PIN exibido pelo Moonlight apenas para um dispositivo confiável."
@@ -3480,6 +3498,9 @@ msgstr "Digite {confirmation} para cadastrar o desbloqueio por TPM (qualquer out
 
 msgid "Type {path} exactly to start installation."
 msgstr "Digite exatamente {path} para iniciar a instalação."
+
+msgid "Unable to list sessions."
+msgstr "Não foi possível listar as sessões."
 
 msgid "Unavailable"
 msgstr "Indisponível"

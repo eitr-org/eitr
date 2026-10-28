@@ -16,5 +16,29 @@
     "actions": {
       "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh agy-new"
     }
+  },
+  {
+    "text": "Continue Last",
+    "subtext": "Continue the most recent session",
+    "keywords": [
+      "agy",
+      "session"
+    ],
+    "icon": "󰊭",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh agy-continue-last"
+    }
+  },
+  {
+    "text": "Resume by ID",
+    "subtext": "Continue a session by ID",
+    "keywords": [
+      "agy",
+      "session"
+    ],
+    "icon": "󰊭",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/menus/ai-tools.sh agy-resume-id"
+    }
   }
 ]

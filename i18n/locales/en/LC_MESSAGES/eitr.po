@@ -151,6 +151,9 @@ msgstr "A {service} dashboard named {name} already exists."
 msgid "A: ask the AI about this failure · Esc: close"
 msgstr "A: ask the AI about this failure · Esc: close"
 
+msgid "AI sessions"
+msgstr "AI sessions"
+
 msgid "AKS Clusters"
 msgstr "AKS Clusters"
 
@@ -1603,6 +1606,9 @@ msgstr "Invalid repeat rule."
 msgid "Invalid repository server URL"
 msgstr "Invalid repository server URL"
 
+msgid "Invalid session number."
+msgstr "Invalid session number."
+
 msgid "Invalid stick file path"
 msgstr "Invalid stick file path"
 
@@ -1962,6 +1968,9 @@ msgstr "No reminders."
 
 msgid "No risk flags. Read the changes anyway before you trust them."
 msgstr "No risk flags. Read the changes anyway before you trust them."
+
+msgid "No sessions found."
+msgstr "No sessions found."
 
 msgid "No snapshot has {path}."
 msgstr "No snapshot has {path}."
@@ -2584,6 +2593,9 @@ msgstr "Restored {service_names} PAM files from {backup}"
 msgid "Restoring the boot files"
 msgstr "Restoring the boot files"
 
+msgid "Resume Picker"
+msgstr "Resume Picker"
+
 msgid "Review"
 msgstr "Review"
 
@@ -2772,6 +2784,12 @@ msgstr "Service events"
 
 msgid "Service status"
 msgstr "Service status"
+
+msgid "Session name or ID"
+msgstr "Session name or ID"
+
+msgid "Session number (empty cancels): "
+msgstr "Session number (empty cancels): "
 
 msgid "Set Sunshine’s password first. Enter the PIN shown by Moonlight only for a device you trust."
 msgstr "Set Sunshine’s password first. Enter the PIN shown by Moonlight only for a device you trust."
@@ -3480,6 +3498,9 @@ msgstr "Type {confirmation} to enroll TPM unlock (anything else cancels): "
 
 msgid "Type {path} exactly to start installation."
 msgstr "Type {path} exactly to start installation."
+
+msgid "Unable to list sessions."
+msgstr "Unable to list sessions."
 
 msgid "Unavailable"
 msgstr "Unavailable"

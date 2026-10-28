@@ -1388,5 +1388,12 @@
   "No plugin icon; a generic icon will be shown.": "Kein Plugin-Symbol; ein allgemeines Symbol wird angezeigt.",
   "Arrows: move  Space: select  Enter: review  Esc: cancel": "Pfeile: bewegen  Leertaste: wählen  Enter: prüfen  Esc: abbrechen",
   "Plugin icon: {icon}": "Plugin-Symbol: {icon}",
-  "Select plugins": "Plugins auswählen"
+  "Select plugins": "Plugins auswählen",
+  "AI sessions": "KI-Sitzungen",
+  "Invalid session number.": "Ungültige Sitzungsnummer.",
+  "No sessions found.": "Keine Sitzungen gefunden.",
+  "Resume Picker": "Sitzungsauswahl",
+  "Session name or ID": "Sitzungsname oder ID",
+  "Session number (empty cancels): ": "Sitzungsnummer (leer bricht ab): ",
+  "Unable to list sessions.": "Sitzungen konnten nicht aufgelistet werden."
 }
