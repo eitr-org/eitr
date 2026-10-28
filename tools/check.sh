@@ -119,19 +119,28 @@ collect() {
 # --- stages ----------------------------------------------------------------
 
 stage_python_tests() {
-  local test_files dir status=0
+  local test_files status=0 results file
   collect test_files ':(glob)**/tests/test_*.py'
-  local -A dirs=()
-  for file in "${test_files[@]}"; do dirs["${file%/*}"]=1; done
-  if ((${#dirs[@]} == 0)); then echo 'no Python test suites found'; return 0; fi
-  for dir in $(printf '%s\n' "${!dirs[@]}" | sort); do
-    printf -- '--- %s\n' "$dir"
-    # Tests stay out of a live desktop session: its XDG directories and its
-    # notification bus.
+  if ((${#test_files[@]} == 0)); then echo 'no Python test suites found'; return 0; fi
+  # Every test file runs as its own process, as many at once as there are cores,
+  # then the outputs print in file order. Tests stay out of a live desktop session:
+  # its XDG directories and its notification bus.
+  results="$(mktemp -d)"
+  # shellcheck disable=SC2016 # the job script expands its own variables
+  printf '%s\0' "${test_files[@]}" | xargs -0 -P "${EITR_CHECK_JOBS:-$(( ($(nproc) + 1) / 2 ))}" -I '{}' \
     env -u XDG_CONFIG_HOME -u XDG_STATE_HOME -u XDG_DATA_HOME -u XDG_CACHE_HOME \
-      DBUS_SESSION_BUS_ADDRESS=unix:path=/nonexistent \
-      python3 -m unittest discover -s "$dir" -p 'test_*.py' || status=1
+      DBUS_SESSION_BUS_ADDRESS=unix:path=/nonexistent RESULTS="$results" \
+      bash -c 'file="$1"; log="$RESULTS/${file//\//__}"
+        python3 -m unittest discover -s "${file%/*}" -p "${file##*/}" > "$log" 2>&1 || touch "$log.failed"' _ '{}'
+  for file in "${test_files[@]}"; do
+    local log="$results/${file//\//__}"
+    if [[ -e "$log.failed" ]]; then
+      printf -- '--- %s (FAILED)\n' "$file"; cat "$log"; status=1
+    else
+      printf -- '--- %s: %s\n' "$file" "$(grep -E '^(Ran |OK)' "$log" | tr '\n' ' ')"
+    fi
   done
+  rm -rf "$results"
   return "$status"
 }
 

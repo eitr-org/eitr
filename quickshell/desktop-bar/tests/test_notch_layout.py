@@ -1,5 +1,6 @@
 """Render the production notch geometry and surfaces without a desktop connection."""
 import itertools
+from concurrent.futures import ThreadPoolExecutor
 import json
 import os
 from pathlib import Path
@@ -49,13 +50,13 @@ class NotchLayoutTests(unittest.TestCase):
                          for alignment in ('left', 'right'))
             cases = [(*case, media, False) for case in cases for media in (False, True)]
             cases.extend((edge, False, 'center', 'rounded', 5, False, False, True) for edge in ('top', 'left'))
-            for edge, light, alignment, corners, workspace_count, centered_layout, media, hovered in cases:
+            jobs = []
+            for index, (edge, light, alignment, corners, workspace_count, centered_layout, media, hovered) in enumerate(cases):
                 center_panel = alignment == "center"
-                with self.subTest(edge=edge, light=light, alignment=alignment, centered=centered_layout, corners=corners, workspaces=workspace_count, media=media):
-                    capture_folder = Path(os.environ.get('EITR_NOTCH_RENDERS', directory))
-                    capture_folder.mkdir(parents=True, exist_ok=True)
-                    capture = capture_folder / f'{edge}-{light}-{alignment}-{corners}-{workspace_count}-{centered_layout}-{media}.png'
-                    fixture = '''import QtQuick
+                capture_folder = Path(os.environ.get('EITR_NOTCH_RENDERS', directory))
+                capture_folder.mkdir(parents=True, exist_ok=True)
+                capture = capture_folder / f'{edge}-{light}-{alignment}-{corners}-{workspace_count}-{centered_layout}-{media}.png'
+                fixture = '''import QtQuick
 import QtQuick.Shapes
 import Quickshell
 import "PanelStyle.js" as PanelStyle
@@ -132,28 +133,28 @@ FloatingWindow {
             Text { id: rightSide; text: "WiFi  BT  Audio  Updates  Bell"; color: centerInfo.color; font.pixelSize: 13
                 visible: !shell.verticalBar; x: parent.width - width - 13; y: (parent.height - height) / 2
             }
+                Grid {
+                    id: verticalStart
+                    columns: shell.verticalBar ? 1 : 2
+                    x: shell.verticalBar ? (parent.width - width) / 2 : 12
+                    y: shell.verticalBar ? 8 : 3
+                    spacing: shell.workspaceItemSpacing
                     Grid {
-                        id: verticalStart
-                        columns: shell.verticalBar ? 1 : 2
-                        x: shell.verticalBar ? (parent.width - width) / 2 : 12
-                        y: shell.verticalBar ? 8 : 3
-                        spacing: shell.workspaceItemSpacing
-                        Grid {
-                            columns: shell.verticalBar ? 1 : WORKSPACES + 2
-                            id: workspaces; spacing: shell.workspaceItemSpacing
-                            Repeater { model: WORKSPACES + 2
-                                Text { required property int index; text: index === 0 ? "ᛖ" : index === 1 ? "▦" : String(index - 1)
-                                    width: 24; height: 24; color: centerInfo.color; horizontalAlignment: Text.AlignHCenter }
-                            }
-                        }
-                        Grid {
-                            columns: shell.verticalBar ? 1 : 3
-                            id: hardwareStatus; spacing: shell.workspaceItemSpacing
-                            Repeater { model: ["◉", "AI", "▣"]
-                                Text { required property string modelData; text: modelData; width: 24; height: 24; color: centerInfo.color }
-                            }
+                        columns: shell.verticalBar ? 1 : WORKSPACES + 2
+                        id: workspaces; spacing: shell.workspaceItemSpacing
+                        Repeater { model: WORKSPACES + 2
+                            Text { required property int index; text: index === 0 ? "ᛖ" : index === 1 ? "▦" : String(index - 1)
+                                width: 24; height: 24; color: centerInfo.color; horizontalAlignment: Text.AlignHCenter }
                         }
                     }
+                    Grid {
+                        columns: shell.verticalBar ? 1 : 3
+                        id: hardwareStatus; spacing: shell.workspaceItemSpacing
+                        Repeater { model: ["◉", "AI", "▣"]
+                            Text { required property string modelData; text: modelData; width: 24; height: 24; color: centerInfo.color }
+                        }
+                    }
+                }
 
         }
     }
@@ -242,19 +243,32 @@ Timer {
     }
 }
     }'''.replace('HOVERED', str(hovered).lower()).replace('MEDIA', str(media).lower()).replace('TAB', tab).replace('ICON_VISIBILITY', icon_visibility).replace('TOGGLE_VISIBILITY', toggle_visibility).replace('GEOMETRY', geometry).replace('REVEAL', reveal).replace('WORKSPACES', str(workspace_count)).replace('CORNERS', corners).replace('CORNER_STYLES', json.dumps(corner_styles)).replace('EDGE', '"' + edge + '"').replace('LIGHT', str(light).lower()).replace('CENTERED', str(centered_layout).lower()).replace('PANEL_WIDTH', '1800' if alignment == 'right' and corners == 'square' and workspace_count == 10 else '330').replace('PANEL_HEIGHT', '1400' if alignment == 'right' and corners == 'square' and workspace_count == 10 else '300').replace('ALIGNMENT', alignment).replace('CALENDAR', str(center_panel).lower()).replace('CAPTURE', str(capture))
-                    (folder / 'fixture.qml').write_text(fixture)
-                    environment = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
-                                       QML_IMPORT_PATH=str(ROOT / 'quickshell'), HOME=directory,
-                                       XDG_CONFIG_HOME=directory, XDG_STATE_HOME=directory,
-                                       XDG_CACHE_HOME=directory, XDG_RUNTIME_DIR=directory,
-                                       DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent', HYPRLAND_INSTANCE_SIGNATURE='')
-                    try:
-                        result = subprocess.run(['quickshell', '-p', str(folder / 'fixture.qml')], env=environment,
-                                                text=True, capture_output=True, timeout=15)
-                    except subprocess.TimeoutExpired as error:
-                        self.fail(str(error.stdout) + str(error.stderr))
-                    output = result.stdout + result.stderr
-                    self.assertEqual(result.returncode, 0, output)
+                # Each case renders in its own Quickshell process; they run in parallel below.
+                fixture_path = folder / f'fixture-{index}.qml'
+                fixture_path.write_text(fixture)
+                subtest = dict(edge=edge, light=light, alignment=alignment, centered=centered_layout,
+                               corners=corners, workspaces=workspace_count, media=media)
+                jobs.append((subtest, fixture_path, capture))
+            environment = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
+                               QML_IMPORT_PATH=str(ROOT / 'quickshell'), HOME=directory,
+                               XDG_CONFIG_HOME=directory, XDG_STATE_HOME=directory,
+                               XDG_CACHE_HOME=directory, XDG_RUNTIME_DIR=directory,
+                               DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent', HYPRLAND_INSTANCE_SIGNATURE='')
+
+            def render(job):
+                try:
+                    result = subprocess.run(['quickshell', '-p', str(job[1])], env=environment,
+                                            text=True, capture_output=True, timeout=60)
+                    return result.returncode, result.stdout + result.stderr
+                except subprocess.TimeoutExpired as error:
+                    return None, str(error.stdout) + str(error.stderr)
+
+            with ThreadPoolExecutor(max_workers=max(2, (os.cpu_count() or 4) // 4)) as pool:
+                results = list(pool.map(render, jobs))
+            for (subtest, _, capture), (returncode, output) in zip(jobs, results):
+                with self.subTest(**subtest):
+                    self.assertIsNotNone(returncode, output)
+                    self.assertEqual(returncode, 0, output)
                     self.assertIn('NOTCH_OK', output)
                     self.assertNotIn('ReferenceError', output)
                     self.assertNotIn('TypeError', output)
