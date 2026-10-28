@@ -50,7 +50,7 @@ class ThemeSchemaTests(unittest.TestCase):
             "midgard": ("171a1d 22282d 343e45 e5e8e8 9ca7ac 83a6c7 bfa17b da8582", "da8582 91b69c d8be85 83a6c7 be9cbf 80bdbe"),
             "muspelheim": ("1d1314 2b1c1c 432a27 f4e6df bda39c f28b59 e9bd63 f07870", "f07870 b4c486 e9bd63 91abce d29bbf 8ec8c2"),
             "niflheim": ("101b25 1b2a36 2a3d4b e7f3f7 9fb7c6 91d5e6 a6c1f0 de94a5", "de94a5 9acdbd dbd49f a6c1f0 c5b0e2 91d5e6"),
-            "ragnarok": ("0a0909 131111 221d1d e4dcd2 9a8f86 a8323a b08d57 d9822b", "c94a4a 8f9a63 b08d57 6d7f99 9a5a7a 6f9590"),
+            "ragnarok": ("120f13 21191e 38272d f2e7e2 ac999e c44750 e7ad67 e16a72", "8f202b a4bd8d e7ad67 9ca9d5 c69ac6 8ac8cc"),
             "svartalfheim": ("191715 29231f 3c322b ede5db b0a398 d49a65 8ab7ad e17f72", "e17f72 9dbb89 e0bd78 8eadcb b79ac6 8ab7ad"),
             "vanaheim": ("101a17 1b2822 2c3e33 e3ede2 94aa9c 83b88e d5ad72 df827b", "df827b 83b88e d5ad72 83afa8 c6a0c8 8bcbc0"),
         }

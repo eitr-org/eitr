@@ -1,8 +1,6 @@
 # Ragnarök
 
-Palette: Blood & Iron. All dark.
-
-Uses the approved palette exactly.
+Palette: the owner's Ragnarök palette (2026-10-28), accent #c44750 and second #e7ad67. All dark.
 
 Background, surface and raised roles are recorded separately in `colors.toml`. Terminal black uses surface, white uses text, bright black uses muted, and bright colours mix 25% white into each normal colour. Body and selection text retain the approved text colour.
 

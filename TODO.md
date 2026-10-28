@@ -40,9 +40,11 @@ LAN.
     monitor hotplug live.
 
 - **Theme previews.** Previews are Neovim + About screenshots (2026-10-27); `branding/sources/wallpapers/batch-05/export.py` still rewrites realm previews from wallpapers, so drop its preview step before rerunning it.
-- **Realm theme colours.** The owner's palettes (from their realm CSV) are applied to
-  the nine realms, with Neovim + About previews retaken (2026-10-28); Ragnarök keeps
-  Blood & Iron. Waiting on the owner: whether any should be darker.
+- **Realm theme colours.** The owner's palettes are applied to all ten realms (Ragnarök on
+  2026-10-28, with red #8f202b as given: it reads poorly as terminal text, so the owner
+  may switch it to #e16a72). Waiting on the owner: whether any should be darker, and
+  which of the three Ragnarök candidates (~/Pictures/eitr-ragnarok-candidates) to keep.
+  After the owner's next System Update, retake Ragnarök's Neovim + About preview.
 - **Auto-hide bar.** Implemented for every edge and layout;
   live Hyprland pointer-edge and exclusive-zone checks are pending before release.
 - **Boot, shutdown and disk-password screens.** Shared Bifröst logo colours and
