@@ -44,6 +44,7 @@ npm run preview   # serves the production build locally
 ## Your first Astro project
 
 - `src/pages/index.astro`: the homepage. Files in `pages/` become routes.
+- `src/pages/screenshots.astro`: `/screenshots/`, the complete grouped screenshot gallery.
 - `src/pages/about.astro`: `/about/`, the distribution's identity, audience and beta scope.
 - `src/pages/features.astro`: `/features/`, current desktop, development and recovery capabilities.
 - `src/pages/installation.astro`: `/installation/`, target requirements and hardware evidence.
@@ -78,16 +79,21 @@ Edit those canonical sources and run `npm run sync-assets` during development.
 Website copies are generated consumers, not independent logo or artwork sources.
 Generated `public/art/` and `src/data/` files are Git-ignored.
 
-The homepage's tour (`#tour`) and its Developers and Gaming sections show real
-screenshots from `public/shots/`, captured on the developer's own 2560×1080
-desktop with the Afterglow theme: an empty workspace, Do Not Disturb on and the
-pointer hidden, each panel or menu opened through the bar's IPC and taken with
-`grim`, then cropped to 16:9 around what it shows. Never capture WiFi, Bluetooth,
-Weather, AI Usage, Clipboard History, accounts, folder pickers, notifications or
-open windows. Keep the shots free of accounts, network names, tokens, private
-notifications and project content, save them as WebP and describe them in the
-alt text. Everything else uses Eitr's drawn Norse illustrations and the wallpaper
-catalog.
+The homepage introduces five features with one screenshot each. `/screenshots/`
+shows every image in `public/shots/`, grouped by desktop area, with a keyboard-accessible
+full-screen viewer. Without JavaScript, thumbnails link directly to the image.
+`src/data/screenshots.ts` owns captions, alt text and dimensions for both pages.
+The theme wallpaper gallery and its viewer remain separate.
+
+Capture the owner's 2560×1080 desktop with the Afterglow theme, an empty workspace,
+Do Not Disturb on and the pointer hidden. Crop a 1920×1080 window around what the
+image shows; never squeeze the ultrawide desktop into 16:9. Export ordinary shots
+at 1600×900 WebP; `hero.webp` is 1920×810. Blur hardware models, device names,
+network names and private plugin names. Never capture WiFi, Bluetooth, Weather,
+AI Usage, Clipboard History, accounts, folder pickers, notifications or private
+open windows. Keep accounts, tokens and project content out of every shot.
+Describe the visible interface in alt text. Everything else uses Eitr's drawn
+Norse illustrations and the wallpaper catalog.
 
 The website uses a dark Norse "Blood & Iron" presentation (black-iron surfaces,
 bone text, blood-crimson and tarnished-gold accents) with serif/runic
@@ -245,7 +251,7 @@ dismissal, mobile sizing, reduced motion and missing-art fallback.
 
 ## Interactive Yggdrasil
 
-Before the six promises, the approved Yggdrasil illustration holds nine realm
+The approved Yggdrasil illustration holds nine realm
 buttons. Each opens a native modal dialog about a different part of Eitr:
 desktop shell, everyday flow, themes, preferences, Arch and updates, account
 tools, the Handbook, installation or recovery. The realm associations are a

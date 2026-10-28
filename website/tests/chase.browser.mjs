@@ -218,7 +218,7 @@ try {
  }),true);
  await page.waitForFunction(()=>document.querySelector('.bifrost-crossing').dataset.active==='false');
  assert.ok(await page.evaluate(()=>scrollY>1000));
- await page.getByRole('link',{name:'Desktop',exact:true}).click();
+ await page.getByRole('link',{name:'Explore the desktop',exact:true}).click();
  await page.waitForFunction(()=>document.querySelector('.bifrost-crossing').dataset.active==='true');
  assert.equal(new URL(page.url()).hash,'#what');
  await page.emulateMedia({reducedMotion:'reduce'});

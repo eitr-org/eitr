@@ -46,11 +46,11 @@ html[data-appearance="light"] .install-card pre{background:var(--night);color:va
 html[data-appearance="light"] .sky-toggle{background:#fff4}
 html[data-appearance="light"] .ambient-music,html[data-appearance="light"] .music-toggle{color:var(--muted);border-color:var(--line-strong)}
 html[data-appearance="light"] .theme-viewer-step{background:#f2ecdfe6}
+html[data-appearance="light"] .shot-viewer .theme-viewer-step{color:var(--fg)}
 html[data-appearance="light"] .section h2 em,html[data-appearance="light"] .what h2 em,html[data-appearance="light"] .world-tree h2 em,html[data-appearance="light"] .themes-section h2 em,html[data-appearance="light"] .install h2 em{color:var(--accent)}
-html[data-appearance="light"] .tour-panel,html[data-appearance="light"] .tour-list p{color:var(--muted)}
 html[data-appearance="light"] #road h2 em{background:none;color:var(--accent)}
 html[data-appearance="light"] #faq h2 em{color:var(--accent)}
 
-html[data-appearance="light"] .theme-tag,html[data-appearance="light"] .tour-shot-hint{background:var(--surface);color:var(--fg);border:1px solid var(--line-strong)}
+html[data-appearance="light"] .theme-tag{background:var(--surface);color:var(--fg);border:1px solid var(--line-strong)}
 
 html[data-appearance="light"] { --secondary: #574f47; }

@@ -26,8 +26,8 @@ try {
       await page.locator('[data-download-count]').waitFor({ state: 'visible' });
       assert.equal(await page.locator('[data-download-count]').innerText(), 'Downloaded 1,234 times');
       assert.match(await page.locator('.hero .lead').innerText(), /keyboard-first Arch Linux.*Hyprland and Quickshell/s);
-      assert.match(await page.locator('.workflow-overview').innerText(), /LazyVim, tmux and Docker are included/s);
-      assert.match(await page.locator('#developers').innerText(), /Git identities and cloud contexts keep the account explicit/);
+      assert.match(await page.locator('#developers').innerText(), /LazyVim, tmux and Docker are included/s);
+      assert.match(await page.locator('#developers').innerText(), /Git identities and cloud menus keep account context explicit/);
       if (width < 1201) {
         await page.getByRole('button', { name: 'Menu', exact: true }).click();
         const menu = page.getByRole('dialog', { name: 'Main menu' });

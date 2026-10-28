@@ -13,7 +13,7 @@ const executablePath = process.env.EITR_BROWSER_EXECUTABLE || [
 if (!executablePath) throw new Error('Set EITR_BROWSER_EXECUTABLE to a Chrome/Chromium executable.');
 const axeSource = readFileSync(createRequire(import.meta.url).resolve('axe-core/axe.min.js'), 'utf8');
 const site = process.env.EITR_SITE_URL || 'http://127.0.0.1:4321/';
-const pages = ['/', '/about/', '/features/', '/installation/', '/guide/', '/intro/', '/privacy/', '/development/', '/guide/development/', '/guide/shortcuts/', '/guide/git-accounts/', '/guide/recovery/'];
+const pages = ['/', '/screenshots/', '/about/', '/features/', '/installation/', '/guide/', '/intro/', '/privacy/', '/development/', '/guide/development/', '/guide/shortcuts/', '/guide/git-accounts/', '/guide/recovery/'];
 const views = [
   { name: 'desktop', viewport: { width: 1440, height: 900 }, reducedMotion: 'no-preference' },
   { name: 'phone', viewport: { width: 390, height: 844 }, reducedMotion: 'no-preference' },
@@ -52,6 +52,16 @@ try {
       for (const violation of results.violations.filter(item => ['serious', 'critical'].includes(item.impact))) {
         const targets = violation.nodes.slice(0, 3).map(node => node.target.join(' ')).join(' | ');
         problems.push(`${appearance} ${view.name} ${path}: ${violation.id} (${violation.impact}, ${violation.nodes.length}x) ${violation.help}\n    ${targets}`);
+      }
+      if (path === '/screenshots/') {
+        await page.locator('.screenshot-link').first().click();
+        const modal = await page.evaluate(() => window.axe.run(document, {
+          runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'] },
+        }));
+        for (const issue of modal.violations.filter(violation => ['serious', 'critical'].includes(violation.impact))) {
+          problems.push(`${appearance} ${view.name} screenshot viewer: ${issue.id}`);
+        }
+        await page.keyboard.press('Escape');
       }
       if(path==='/' && view.name==='desktop') {
         for(const theme of ['catppuccin-latte','eitr']) {

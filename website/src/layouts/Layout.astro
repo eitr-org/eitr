@@ -94,7 +94,7 @@ const futhark = "ᚠᚢᚦᚨᚱᚲᚷᚹ ᚺᚾᛁᛃᛇᛈᛉᛊ ᛏᛒᛖᛗ�
           <a href={sitePages.development.path} aria-current={Astro.url.pathname === sitePages.development.path ? "page" : undefined}>Development</a>
           <a href={sitePages.features.path} aria-current={Astro.url.pathname === sitePages.features.path ? "page" : undefined}>Features</a>
           <a href={sitePages.guide.path} aria-current={Astro.url.pathname === sitePages.guide.path ? "page" : undefined}>Handbook</a>
-          <a href="/#what">Desktop</a>
+          <a href={sitePages.screenshots.path} aria-current={Astro.url.pathname === sitePages.screenshots.path ? "page" : undefined}>Screenshots</a>
           <a href="/#themes">Themes</a>
           <a href={sitePages.installation.path} aria-current={Astro.url.pathname === sitePages.installation.path ? "page" : undefined}>Installation</a>
           <a href="/#faq">FAQ</a>
@@ -131,6 +131,7 @@ const futhark = "ᚠᚢᚦᚨᚱᚲᚷᚹ ᚺᚾᛁᛃᛇᛈᛉᛊ ᛏᛒᛖᛗ�
             <a href={sitePages.about.path} aria-current={Astro.url.pathname === sitePages.about.path ? "page" : undefined}>{sitePages.about.label}</a>
             <a href={sitePages.features.path} aria-current={Astro.url.pathname === sitePages.features.path ? "page" : undefined}>{sitePages.features.label}</a>
             <a href={sitePages.development.path} aria-current={Astro.url.pathname === sitePages.development.path ? "page" : undefined}>{sitePages.development.label}</a>
+            <a href={sitePages.screenshots.path}>Screenshots</a>
             <a href="/#road">Roadmap</a>
           </div>
           <div>
