@@ -272,7 +272,6 @@ em { font-style: italic; color: var(--accent); }
 .faq details p { padding-bottom: 20px; max-width: 700px; }
 
 /* Footer */
-.footer { margin-top: 120px; }
 .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr 1.3fr; gap: 32px; padding: 60px 0 56px; }
 .footer .wordmark { width: 88px; height: 32px; margin-bottom: 14px; }
 .footer-links { display: flex; flex-direction: column; gap: 10px; }
@@ -367,13 +366,14 @@ main,.footer{position:relative;z-index:1}
 #road h2 em{background:linear-gradient(110deg,#efe4d2 5%,#d9a865 30%,#e0784a 55%,#d4545c 78%,#a8323a 96%);background-clip:text;-webkit-background-clip:text;color:transparent}
 @media(forced-colors:active){#road h2 em{background:none;color:CanvasText}}
 
-:root{--bifrost-spectrum:linear-gradient(100deg,#d4545c,#e0784a,#d9a865,#efe4d2,#d9a865,#e0784a,#d4545c)}
-.bifrost-brand,.site-header .wordmark,.footer .wordmark,.inline-wordmark{background:var(--bifrost-spectrum);background-size:300% 100%;animation:bifrost-flow 6s ease-in-out infinite alternate}
+/* The desktop's Bifröst palette and pace (distro/lib/eitr_bifrost.py): six stops, one cycle every 3 s, flowing left to right. */
+:root{--bifrost-spectrum:linear-gradient(90deg,#e05c68,#e8935a,#e6c36a,#7fc98f,#6fa8dc,#a98bd6,#e05c68)}
+.bifrost-brand,.site-header .wordmark,.footer .wordmark,.inline-wordmark{background:var(--bifrost-spectrum);background-size:200% 100%;background-repeat:repeat-x;animation:bifrost-flow 3s linear infinite}
 .wordmark.inline-wordmark{width:2.4em;height:.91em;vertical-align:-.06em}
 .bifrost-brand{background-clip:text;-webkit-background-clip:text;color:transparent}
 .hero h1 em{background:none;color:#fff}
 .hero h1{color:#fff}
-@keyframes bifrost-flow{from{background-position:0% 50%}to{background-position:100% 50%}}
+@keyframes bifrost-flow{from{background-position:0% 50%}to{background-position:-200% 50%}}
 @media(forced-colors:active){.bifrost-brand{background:none;color:CanvasText}.wordmark{background:CanvasText!important}}
 
 .bifrost-crossing{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:0;background:linear-gradient(115deg,#ff6c7a88,#ffa85c88,#f5dc7188,#80dfa088,#70c8ff99,#aa8fff99,#ed8ad588,#ff6c7a88);background-size:220% 100%;mix-blend-mode:screen}
@@ -650,3 +650,4 @@ body.menu-open { overflow: hidden; }
 #install { padding-top: 48px; padding-bottom: 48px; }
 .screenshots-cta { padding-bottom: 40px; }
 #themes { margin-top: 40px; padding-bottom: 48px; }
+.footer { margin-top: 40px; }
