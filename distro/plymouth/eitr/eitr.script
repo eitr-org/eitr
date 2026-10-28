@@ -15,7 +15,8 @@ wordmark.phase_count = 64;
 wordmark.ticks_per_frame = 5;
 wordmark.advance_numerator = 2;
 wordmark.advance_denominator = 3;
-wordmark.phase = 0;
+wordmark.phase = -1;
+Plymouth.SetRefreshRate(50);
 for (index = 0; index < wordmark.phase_count; index++)
 {
   if (index < 10) name = "wordmark-0" + index + ".png"; else name = "wordmark-" + index + ".png";
@@ -25,7 +26,9 @@ wordmark.image = global.wordmarks[0];
 wordmark.sprite = Sprite(wordmark.image);
 wordmark.y = center_y - wordmark.image.GetHeight() / 2 - 40;
 wordmark.sprite.SetPosition(center_x - wordmark.image.GetWidth() / 2, wordmark.y, 10);
-
+wordmark.blend = Sprite(global.wordmarks[1]);
+wordmark.blend.SetPosition(center_x - wordmark.image.GetWidth() / 2, wordmark.y, 11);
+wordmark.blend.SetOpacity(0);
 
 
 ring.count = 24;
@@ -34,7 +37,7 @@ ring.radius_x = wordmark.image.GetWidth() / 2 + 90;
 ring.radius_y = wordmark.image.GetHeight() / 2 + 90;
 ring.visible = 1;
 ring.progress = 0;
-below_wordmark = ring.center_y + ring.radius_y + 40;
+below_wordmark = wordmark.y + wordmark.image.GetHeight() + 48;
 for (index = 0; index < ring.count; index++)
 {
   if (index < 10) name = "rune-0" + index + ".png"; else name = "rune-" + index + ".png";
@@ -66,13 +69,18 @@ tick = 0;
 fun refresh_callback ()
 {
   global.tick++;
-  phase = Math.Int(Math.Int(global.tick / wordmark.ticks_per_frame) * wordmark.advance_numerator / wordmark.advance_denominator);
+  phase = global.tick / wordmark.ticks_per_frame * wordmark.advance_numerator / wordmark.advance_denominator;
   phase = phase - Math.Int(phase / wordmark.phase_count) * wordmark.phase_count;
-  if (phase != wordmark.phase)
+  index = Math.Int(phase);
+  if (index != wordmark.phase)
   {
-    global.wordmark.phase = phase;
-    wordmark.sprite.SetImage(global.wordmarks[phase]);
+    global.wordmark.phase = index;
+    next = index + 1;
+    if (next == wordmark.phase_count) next = 0;
+    wordmark.sprite.SetImage(global.wordmarks[index]);
+    wordmark.blend.SetImage(global.wordmarks[next]);
   }
+  wordmark.blend.SetOpacity(phase - index);
   # The glow travels around the ring once every four seconds (50 refreshes a second).
   head = (global.tick / 200 - Math.Int(global.tick / 200)) * ring.count;
   for (index = 0; index < ring.count; index++)
@@ -96,7 +104,9 @@ Plymouth.SetBootProgressFunction(boot_progress_callback);
 
 fun show_progress (visible)
 {
-  global.ring.visible = 1;
+  global.ring.visible = visible;
+  for (index = 0; index < ring.count; index++)
+    global.runes[index].SetOpacity(visible * 0.18);
   prompt.sprite.SetOpacity(1 - visible);
   field.sprite.SetOpacity(1 - visible);
 }

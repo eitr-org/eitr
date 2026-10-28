@@ -23,6 +23,7 @@ from eitr_bifrost import (ADVANCE_NUMERATOR, ADVANCE_DENOMINATOR, FRAME_SECONDS,
 
 # Dominant gold in the central runestone emblem: RGB (196, 145, 79).
 RUNE_GOLD = "#c4914f"
+GRADIENT_COLUMN_WIDTH = 12
 WORDMARK = ROOT / "branding/png/eitr-wordmark-white-1024.png"
 FONT = Path("/usr/share/fonts/TTF/JetBrainsMonoNerdFont-Regular.ttf")
 SCALE = 4  # draw large, then downsample for smooth rounded edges
@@ -62,6 +63,23 @@ def runes(accent, output):
         result.save(output / f"rune-{index:02d}.png")
 
 
+def gradient_color(phase):
+    lower = math.floor(phase)
+    mix = phase - lower
+    first, second = phase_color(lower), phase_color(lower + 1)
+    return tuple(round(start + (end - start) * mix) for start, end in zip(first, second))
+
+
+def wordmark_frame(alpha, phase):
+    # One virtual terminal column per 12 pixels; increasing phase moves bands right.
+    row = Image.new("RGBA", (alpha.width, 1))
+    row.putdata([gradient_color(phase - column / GRADIENT_COLUMN_WIDTH) + (255,)
+                 for column in range(alpha.width)])
+    frame = row.resize(alpha.size)
+    frame.putalpha(alpha)
+    return frame
+
+
 def export(output):
     output.mkdir(parents=True, exist_ok=True)
     palette = tomllib.loads((ROOT / "themes/norse/colors.toml").read_text())
@@ -75,12 +93,10 @@ def export(output):
     width = 360
     alpha = source.getchannel("A").resize((width, round(width * source.height / source.width)),
                                           Image.Resampling.LANCZOS)
-    wordmark = Image.new("RGBA", alpha.size, rgb(accent))
-    wordmark.putalpha(alpha)
+    wordmark = wordmark_frame(alpha, 0)
     wordmark.save(output / "wordmark.png")
     for phase in range(PHASE_COUNT):
-        frame = Image.new("RGBA", alpha.size, phase_color(phase) + (255,))
-        frame.putalpha(alpha)
+        frame = wordmark_frame(alpha, phase)
         frame.save(output / f"wordmark-{phase:02d}.png")
     text = script.read_text()
     constants = (f"wordmark.phase_count = {PHASE_COUNT};\n"
@@ -111,7 +127,7 @@ def previews(output, destination):
         logo = Image.open(output / f"wordmark-{frame_phase(frame):02d}.png").convert("RGBA")
         center_x, center_y = 640, 320
         canvas.alpha_composite(logo, (center_x - logo.width // 2, center_y - logo.height // 2))
-        for index in range(24):
+        for index in range(0 if password else 24):
             rune = Image.open(output / f"rune-{index:02d}.png").convert("RGBA")
             angle = index / 24 * 2 * math.pi - math.pi / 2
             distance = abs(index - (frame / 40 % 1) * 24)
@@ -121,7 +137,7 @@ def previews(output, destination):
             canvas.alpha_composite(rune, (round(center_x + math.cos(angle) * 270 - 26),
                                            round(center_y + math.sin(angle) * (logo.height / 2 + 90) - 26)))
         if password:
-            below = center_y + logo.height / 2 + 90 + 40
+            below = center_y + logo.height / 2 + 48
             label = Image.open(output / "passphrase.png").convert("RGBA")
             field = Image.open(output / "field.png").convert("RGBA")
             canvas.alpha_composite(label, (center_x - label.width // 2, round(below - 8)))

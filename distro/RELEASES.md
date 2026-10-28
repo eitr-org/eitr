@@ -1,7 +1,8 @@
 # Releases
 
-The Plymouth wordmark cycles through the terminal progress palette; rune loading
-and password bullets use runestone gold, with neutral password prompt text.
+The Plymouth wordmark flows a left-to-right gradient using the terminal progress
+palette and pace, with blended frames. The gold rune ring appears during boot
+and shutdown; disk unlock shows only the logo, neutral prompt and password field.
 Generated assets retain the existing package refresh hook. VM review is pending.
 
 Optional bar auto-hide reveals at the screen edge, holds open for panels and

@@ -6,12 +6,15 @@ install sets up the complete desktop, AUR packages included, without a network
 (`download.eitr.info` serves the current one). `install.sh` installs onto an
 existing Arch system instead. The live ISO is not a preinstalled graphical session.
 
-The Plymouth splash cycles the Eitr wordmark through the same Bifröst palette
-and timing as terminal progress. Runes use the runestone emblem’s measured gold,
-including at the disk-password prompt; the prompt text stays neutral. Regenerate
+The Plymouth splash flows a horizontal Bifröst gradient across the Eitr wordmark,
+using the same palette and timing as terminal progress. Runes use the runestone
+emblem’s measured gold during boot and shutdown. The password prompt hides the rune ring and keeps
+only the logo, neutral prompt and password field. Regenerate
 assets with `python3 distro/plymouth/eitr/export.py` and verify with `--check`.
 `--preview-dir PATH` writes illustrative boot, shutdown and password frames
-without running Plymouth. The existing package hook refreshes the initramfs only
+without running Plymouth. For an owner-run windowed preview, see
+[distro/plymouth/eitr/README.md](plymouth/eitr/README.md).
+The existing package hook refreshes the initramfs only
 when the Eitr splash and Plymouth hook are selected; this does not change boot
 entries. Validate the actual boot, shutdown and unlock in a VM before release.
 

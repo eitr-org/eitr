@@ -1,3 +1,4 @@
+import importlib.util
 import subprocess
 import sys
 import tomllib
@@ -7,6 +8,9 @@ from eitr_bifrost import PHASE_COUNT, FRAME_SECONDS, ADVANCE_NUMERATOR, ADVANCE_
 import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
+export_spec = importlib.util.spec_from_file_location("plymouth_export", ROOT / "distro/plymouth/eitr/export.py")
+exporter = importlib.util.module_from_spec(export_spec)
+export_spec.loader.exec_module(exporter)
 SCRIPT = ROOT / "distro/plymouth/eitr/eitr.script"
 
 
@@ -28,13 +32,18 @@ class PlymouthThemeTests(unittest.TestCase):
                 self.assertEqual(opaque[:3], expected)
                 self.assertGreater(opaque[3], 200)
         script = SCRIPT.read_text()
-        self.assertIn("global.ring.visible = 1;", script)
+        self.assertIn("global.ring.visible = visible;", script)
+        password = script.split("fun display_password_callback", 1)[1].split("Plymouth.SetDisplayPasswordFunction", 1)[0]
+        normal = script.split("fun display_normal_callback", 1)[1]
+        self.assertIn("show_progress(0);", password)
+        self.assertIn("show_progress(1);", normal)
+        self.assertIn("global.runes[index].SetOpacity(visible * 0.18);", script)
         with Image.open(SCRIPT.parent / "wordmark.png") as logo, Image.open(SCRIPT.parent / "passphrase.png") as prompt:
             for height in (480, 720, 1080):
-                ring_bottom = height / 2 - 40 + logo.height / 2 + 90
-                prompt_y = ring_bottom + 40 - 8
-                field_bottom = ring_bottom + 40 + prompt.height + 4 + 40
-                self.assertGreaterEqual(prompt_y, ring_bottom + 26)
+                logo_bottom = height / 2 - 40 + logo.height / 2
+                prompt_y = logo_bottom + 48 - 8
+                field_bottom = logo_bottom + 48 + prompt.height + 4 + 40
+                self.assertGreaterEqual(prompt_y, logo_bottom + 32)
                 self.assertLessEqual(field_bottom, height)
 
     def test_all_wordmark_phases_match_the_shared_terminal_palette(self):
@@ -43,12 +52,27 @@ class PlymouthThemeTests(unittest.TestCase):
         self.assertIn(f"wordmark.ticks_per_frame = {FRAME_SECONDS * 50:g};", script)
         self.assertIn(f"wordmark.advance_numerator = {ADVANCE_NUMERATOR};", script)
         self.assertIn(f"wordmark.advance_denominator = {ADVANCE_DENOMINATOR};", script)
+        mask = None
         for phase in range(PHASE_COUNT):
             with Image.open(SCRIPT.parent / f"wordmark-{phase:02d}.png") as image:
-                pixel = max(image.convert("RGBA").get_flattened_data(), key=lambda pixel: pixel[3])
-                self.assertEqual(pixel, phase_color(phase) + (255,))
+                if mask is None: mask = image.getchannel("A").tobytes()
+                self.assertEqual(image.getchannel("A").tobytes(), mask)
+                for column in (0, 70, 170, 280, 359):
+                    expected = exporter.gradient_color(phase - column / exporter.GRADIENT_COLUMN_WIDTH)
+                    self.assertEqual(image.getpixel((column, 50))[:3], expected)
+                self.assertNotEqual(image.getpixel((0, 50))[:3], image.getpixel((280, 50))[:3])
+        self.assertIn("wordmark.blend.SetOpacity(phase - index);", script)
+        self.assertNotIn("Math.Int(Math.Int(global.tick", script)
         self.assertEqual(frame_phase(0), frame_phase(96))
         self.assertEqual(phase_color(0), (224, 92, 104))
+
+    def test_gradient_moves_right_and_wraps_smoothly(self):
+        for phase in range(PHASE_COUNT):
+            # One phase advances the same band twelve pixels to the right.
+            self.assertEqual(exporter.gradient_color(phase + 1 - 132 / 12), exporter.gradient_color(phase - 120 / 12))
+            self.assertEqual(exporter.gradient_color(phase + PHASE_COUNT), exporter.gradient_color(phase))
+            first, second = exporter.gradient_color(phase), exporter.gradient_color(phase + 1)
+            self.assertLessEqual(max(abs(start - end) for start, end in zip(first, second)), 16)
 
     def test_exports_are_reproducible_without_running_plymouth(self):
         result = subprocess.run([sys.executable, str(SCRIPT.parent / "export.py"), "--check"], capture_output=True, text=True)
