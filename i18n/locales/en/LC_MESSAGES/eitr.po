@@ -1015,6 +1015,9 @@ msgstr "Disk Usage After Cleanup"
 msgid "Disk encryption"
 msgstr "Disk encryption"
 
+msgid "Dismiss"
+msgstr "Dismiss"
+
 msgid "Display is not connected"
 msgstr "Display is not connected"
 
@@ -2931,6 +2934,15 @@ msgstr "Snapshot-protected updates require a Btrfs root. No update was started."
 
 msgid "Snapshots"
 msgstr "Snapshots"
+
+msgid "Snooze 1 hour"
+msgstr "Snooze 1 hour"
+
+msgid "Snooze 10 min"
+msgstr "Snooze 10 min"
+
+msgid "Snooze 5 min"
+msgstr "Snooze 5 min"
 
 msgid "Software"
 msgstr "Software"

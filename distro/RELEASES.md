@@ -13,7 +13,10 @@ dragging, and frees the reserved window space while hidden. It is off by default
 Plugin management uses compact rows with a separate detail view. Widget menus
 wait for their popup to map before taking focus; editing keeps its Wayland
 surface stationary and saves snapped geometry on release. Live Hyprland review
-is still required for the reported menu and drag issues.
+is still required for the reported menu and drag issues. Panel grabs now require
+a visible window with a live anchor, and losing a plugin anchor closes its panel.
+Reviewed plugin terminals release menus and widget editing before launch;
+approval reloads also end editing for installs started through Walker.
 
 System > Security adds reviewed account creation and read-only human account rows. New accounts initialize their own desktop at first Hyprland login through UWSM; deletion is not offered.
 
@@ -108,6 +111,9 @@ and a package setup installed. Not yet tried on real hardware.
 Local daily, weekday, weekly, monthly and yearly reminders retain alert offsets,
 end by date or count, and skip elapsed occurrences after one missed notification.
 Calendar dots include future occurrences; cancellation can skip one or end a series.
+Reminder notifications offer 5-minute, 10-minute and 1-hour snoozes plus Dismiss,
+in popups and history for up to 24 hours. Snoozes create independent one-off
+reminders without shifting a repeating series.
 The calendar panel's reminder rows have a trash button with an inline confirmation
 (This one or All for a repeating reminder) that runs the same cancel command.
 

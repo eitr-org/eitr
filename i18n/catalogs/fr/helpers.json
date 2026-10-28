@@ -1394,5 +1394,9 @@
   "Session name or ID": "Nom ou ID de session",
   "Session number (empty cancels): ": "Numéro de session (vide pour annuler) : ",
   "Unable to list sessions.": "Impossible de lister les sessions.",
-  "{count} plugin updates available: Control Center > Plugins or Install > Plugins > Update Plugins": "{count} mises à jour de plugins disponibles : Centre de contrôle > Plugins ou Installer > Plugins > Mettre à jour les plugins"
+  "{count} plugin updates available: Control Center > Plugins or Install > Plugins > Update Plugins": "{count} mises à jour de plugins disponibles : Centre de contrôle > Plugins ou Installer > Plugins > Mettre à jour les plugins",
+  "Dismiss": "Fermer",
+  "Snooze 1 hour": "Reporter de 1 heure",
+  "Snooze 10 min": "Reporter de 10 min",
+  "Snooze 5 min": "Reporter de 5 min"
 }

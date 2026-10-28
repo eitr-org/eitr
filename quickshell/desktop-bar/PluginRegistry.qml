@@ -14,6 +14,7 @@ QtObject {
     property var entries: []
     property var installed: []
     property var widgetMenus: ({})
+    signal reviewStarted()
     signal widgetAction(string plugin, string id, string monitor, string action, bool custom)
     function menuKey(entry, monitor) { return entry.plugin + "/" + entry.id + "/" + monitor; }
     function setMenu(entry, monitor, entries) {
@@ -58,6 +59,9 @@ QtObject {
         Quickshell.execDetached(["python3", helper, enabled ? "enable" : "disable", plugin]);
     }
     function review(action, plugin) {
+        editing = false;
+        editTarget = null;
+        reviewStarted();
         Quickshell.execDetached([Eitr.Paths.code("walker/bin/menu-path/kitty"), "--class", "eitr-plugins", "-e",
             "python3", Eitr.Paths.code("walker/scripts/actions/task-terminal.py"), "python3", helper, action].concat(plugin ? [plugin] : []));
     }
@@ -76,7 +80,7 @@ QtObject {
     Component.onCompleted: refresh()
     property FileView approvalWatch: FileView {
         path: registry.stateRoot + "/eitr/plugins.json"; watchChanges: true; printErrors: false
-        onFileChanged: { reload(); registry.refresh(); }
+        onFileChanged: { registry.editing = false; registry.editTarget = null; reload(); registry.refresh(); }
     }
     property FileView updateWatch: FileView {
         path: registry.stateRoot + "/eitr/plugin-updates.json"; watchChanges: true; printErrors: false

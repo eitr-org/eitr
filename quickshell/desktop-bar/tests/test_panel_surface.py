@@ -19,6 +19,59 @@ class PanelSurfaceTests(unittest.TestCase):
 
 class PanelMotionTests(unittest.TestCase):
     @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')
+    def test_plugin_reload_and_review_release_panel_grab(self):
+        bar = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as temporary:
+            folder = Path(temporary)
+            fixture = folder / 'shell.qml'
+            fixture.write_text('''import QtQuick
+import Quickshell
+import "BAR" as Bar
+ShellRoot {
+    FloatingWindow {
+        id: window
+        visible: true; implicitWidth: 500; implicitHeight: 400
+        property Item stripItem: strip
+        Item { id: strip; width: 500; height: 30 }
+        Bar.ThemedPopup {
+            id: panel; target: strip
+            foreground: "white"; background: "black"; accent: "cyan"
+            implicitWidth: 300; implicitHeight: 200
+        }
+        Timer {
+            interval: 200; running: true; repeat: true
+            property int stage: 0
+            onTriggered: {
+                if (stage === 0) panel.opened = true;
+                else if (stage === 1) {
+                    if (!panel.grabReady) throw new Error("Opening did not arm grab");
+                    panel.target = null;
+                    if (panel.opened) throw new Error("Lost anchor left panel open");
+                    panel.target = strip;
+                    panel.opened = true;
+                } else if (stage === 2) {
+                    Bar.PluginRegistry.reviewStarted();
+                    if (panel.opened) throw new Error("Review left panel open");
+                    if (panel.grabReady) throw new Error("Review left grab armed");
+                    console.log("PLUGIN_GRAB_RELEASE_OK"); Qt.quit();
+                }
+                stage++;
+            }
+        }
+    }
+}'''.replace('BAR', bar.as_uri()))
+            environment = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
+                QML_IMPORT_PATH=str(bar.parent), EITR_CODE_ROOT=temporary,
+                XDG_CONFIG_HOME=temporary, XDG_STATE_HOME=temporary, XDG_DATA_HOME=temporary,
+                XDG_CACHE_HOME=temporary, XDG_RUNTIME_DIR=temporary,
+                DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent', HYPRLAND_INSTANCE_SIGNATURE='')
+            result = subprocess.run(['quickshell', '-p', str(fixture)], env=environment,
+                text=True, capture_output=True, timeout=10)
+            output = result.stdout + result.stderr
+            self.assertEqual(result.returncode, 0, output)
+            self.assertIn('PLUGIN_GRAB_RELEASE_OK', output)
+
+    @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')
     def test_single_motion_with_retargeted_size(self):
         bar = Path(__file__).resolve().parents[1]
         for reduced, first_result in ((False, 20), (False, 180), (True, 20)):

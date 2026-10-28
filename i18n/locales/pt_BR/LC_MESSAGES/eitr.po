@@ -1015,6 +1015,9 @@ msgstr "Uso do disco após a limpeza"
 msgid "Disk encryption"
 msgstr "Criptografia do disco"
 
+msgid "Dismiss"
+msgstr "Dispensar"
+
 msgid "Display is not connected"
 msgstr "O monitor não está conectado"
 
@@ -2931,6 +2934,15 @@ msgstr "Atualizações protegidas por snapshots exigem a raiz em Btrfs. Nenhuma 
 
 msgid "Snapshots"
 msgstr "Snapshots"
+
+msgid "Snooze 1 hour"
+msgstr "Adiar 1 hora"
+
+msgid "Snooze 10 min"
+msgstr "Adiar 10 min"
+
+msgid "Snooze 5 min"
+msgstr "Adiar 5 min"
 
 msgid "Software"
 msgstr "Software"

@@ -683,6 +683,7 @@ ShellRoot {
             readonly property var bounds: ({x: 0, y: 30, width: 900, height: 570})
             id: canvas
             TestEvent { id: pointer }
+            TestCase { id: assertions; when: false; function test_pending() {} }
             Bar.PluginWidget {
                 id: widget
                 entry: ({plugin: "fixture", id: "widget", kind: "widgets", title: "Input fixture", disabled: true, source: "", qml: ""})
@@ -702,6 +703,8 @@ ShellRoot {
                 property int stage: 0
                 onTriggered: {
                     if (stage === 0) {
+                        const grab = assertions.findChild(widget, "pluginMenuGrab");
+                        if (!grab || grab.active) throw new Error("New widget grabbed input with its menu closed");
                         pointer.mouseClick(widget, 180, 80, Qt.RightButton, Qt.NoModifier, 1);
                         if (!widget.menuOpen) throw new Error("Right-click did not open menu");
                     } else if (stage === 1) {
@@ -709,6 +712,7 @@ ShellRoot {
                         widget.forceActiveFocus();
                         pointer.keyClick(Qt.Key_Escape, Qt.NoModifier, 1);
                         if (widget.menuOpen) throw new Error("Escape did not close menu");
+                        if (assertions.findChild(widget, "pluginMenuGrab").active) throw new Error("Closed menu retained its grab");
                         pointer.mousePress(widget, 80, 12, Qt.LeftButton, Qt.NoModifier, 1);
                         for (let step = 0; step < 20; step++) pointer.mouseMove(widget, 81, 12, 1, Qt.LeftButton, Qt.NoModifier);
                         pointer.mouseRelease(widget, 80, 12, Qt.LeftButton, Qt.NoModifier, 1);

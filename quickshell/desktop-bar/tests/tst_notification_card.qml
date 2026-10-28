@@ -76,6 +76,28 @@ TestCase {
         mouseClick(findChild(card, "dismissNotification"));
         compare(dismissCalls, 1);
     }
+    function test_reminder_actions_data() {
+        return [{tag: "history", compact: false}, {tag: "popup", compact: true}];
+    }
+    function test_reminder_actions(data) {
+        var notification = notice();
+        notification.hasInlineReply = false;
+        notification.actions = [
+            {identifier: "snooze-5", text: "Snooze 5 min", invoke: function() { test.actionCalls++; }},
+            {identifier: "snooze-10", text: "Snooze 10 min", invoke: function() { test.actionCalls++; }},
+            {identifier: "snooze-60", text: "Snooze 1 hour", invoke: function() { test.actionCalls++; }},
+            {identifier: "dismiss", text: "Dismiss", invoke: function() { test.actionCalls++; }}];
+        var card = createTemporaryObject(cardComponent, test, {notification: notification, compact: data.compact});
+        wait(20);
+        notification.actions.forEach(function(action) {
+            var button = findChild(card, "notificationAction_" + action.identifier);
+            verify(button.visible);
+            verify(button.width > 0);
+            mouseClick(button);
+        });
+        compare(actionCalls, 4);
+        console.log("REMINDER_ACTIONS_OK_" + data.compact);
+    }
     function test_inline_reply() {
         var card = createTemporaryObject(cardComponent, test, {notification: notice()});
         var reply = findChild(card, "notificationReply");
@@ -101,10 +123,12 @@ TestCase {
         mouseClick(findChild(card, "notificationTitle"));
         mouseClick(card, 30, 55);
         compare(actionCalls, 4);
+        console.log("REMINDER_ACTIONS_OK_" + data.compact);
         compare(activatedId, 17);
         mouseClick(findChild(card, "dismissNotification"));
         compare(dismissCalls, 1);
         compare(actionCalls, 4);
+        console.log("REMINDER_ACTIONS_OK_" + data.compact);
         mouseClick(findChild(card, "notificationAction_open"));
         compare(actionCalls, 5);
         mouseClick(findChild(card, "notificationReply"));

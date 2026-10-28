@@ -22,6 +22,9 @@ Item {
     }
     function selectMenu(id) { component.menuSelect(id); }
     property bool menuOpen: false
+    property bool menuGrabReady: false
+    onActiveChanged: if (!active) menuOpen = false
+    onVisibleChanged: if (!visible) menuOpen = false
     property point menuPoint: Qt.point(0, 0)
     signal sizeRequested(real factor)
     signal surfaceRequested(string surface)
@@ -55,6 +58,10 @@ Item {
         else if (action === "layer") layerRequested();
         else if (action === "remove") removeRequested();
     }
+    Connections {
+        target: PluginRegistry
+        function onReviewStarted() { widget.menuOpen = false; }
+    }
     MouseArea {
         anchors.fill: parent; z: 3
         acceptedButtons: Qt.RightButton
@@ -73,14 +80,14 @@ Item {
         anchor.adjustment: PopupAdjustment.Slide
         onVisibleChanged: {
             if (visible) menuGrabDelay.restart();
-            else { menuGrabDelay.stop(); menuGrab.active = false; }
+            else { menuGrabDelay.stop(); widget.menuGrabReady = false; }
         }
         Timer {
             id: menuGrabDelay
             interval: 100
-            onTriggered: if (widget.menuOpen) { options.forceActiveFocus(); menuGrab.active = true; }
+            onTriggered: if (widget.menuOpen) { options.forceActiveFocus(); widget.menuGrabReady = true; }
         }
-        HyprlandFocusGrab { id: menuGrab; windows: [context]; onCleared: widget.menuOpen = false }
+        HyprlandFocusGrab { id: menuGrab; objectName: "pluginMenuGrab"; active: widget.menuGrabReady && widget.menuOpen && context.visible && widget.active && widget.visible; windows: [context]; onCleared: widget.menuOpen = false }
         Rectangle {
             anchors.fill: parent; color: widget.background
             radius: DesktopStyle.radius(PanelStyle.cornerRadius)

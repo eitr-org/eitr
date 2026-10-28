@@ -1394,5 +1394,9 @@
   "Session name or ID": "Sitzungsname oder ID",
   "Session number (empty cancels): ": "Sitzungsnummer (leer bricht ab): ",
   "Unable to list sessions.": "Sitzungen konnten nicht aufgelistet werden.",
-  "{count} plugin updates available: Control Center > Plugins or Install > Plugins > Update Plugins": "{count} Plugin-Aktualisierungen verfügbar: Kontrollzentrum > Plugins oder Installieren > Plugins > Plugins aktualisieren"
+  "{count} plugin updates available: Control Center > Plugins or Install > Plugins > Update Plugins": "{count} Plugin-Aktualisierungen verfügbar: Kontrollzentrum > Plugins oder Installieren > Plugins > Plugins aktualisieren",
+  "Dismiss": "Schließen",
+  "Snooze 1 hour": "1 Stunde schlummern",
+  "Snooze 10 min": "10 Min. schlummern",
+  "Snooze 5 min": "5 Min. schlummern"
 }

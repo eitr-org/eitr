@@ -1015,6 +1015,9 @@ msgstr "Laufwerksbelegung nach der Bereinigung"
 msgid "Disk encryption"
 msgstr "Festplattenverschlüsselung"
 
+msgid "Dismiss"
+msgstr "Schließen"
+
 msgid "Display is not connected"
 msgstr "Bildschirm ist nicht angeschlossen"
 
@@ -2931,6 +2934,15 @@ msgstr "Durch Snapshots geschützte Updates erfordern Btrfs als Root-Dateisystem
 
 msgid "Snapshots"
 msgstr "Snapshots"
+
+msgid "Snooze 1 hour"
+msgstr "1 Stunde schlummern"
+
+msgid "Snooze 10 min"
+msgstr "10 Min. schlummern"
+
+msgid "Snooze 5 min"
+msgstr "5 Min. schlummern"
 
 msgid "Software"
 msgstr "Software"

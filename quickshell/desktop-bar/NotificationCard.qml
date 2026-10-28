@@ -168,7 +168,7 @@ Rectangle {
         // equal columns, and an odd last action spans the row.
         Flow {
             id: actionGrid
-            readonly property var actions: card.notification ? card.notification.actions.filter(a => a.identifier !== "default" && a.identifier !== "inline-reply") : []
+            readonly property var actions: card.notification ? card.notification.actions.filter(action => action.identifier !== "default" && action.identifier !== "inline-reply") : []
             width: parent.width
             spacing: 6
             Repeater {

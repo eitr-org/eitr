@@ -1394,5 +1394,9 @@
   "Session name or ID": "Nome ou ID da sessão",
   "Session number (empty cancels): ": "Número da sessão (vazio cancela): ",
   "Unable to list sessions.": "Não foi possível listar as sessões.",
-  "{count} plugin updates available: Control Center > Plugins or Install > Plugins > Update Plugins": "{count} atualizações de plugins disponíveis: Central de controle > Plugins ou Instalar > Plugins > Atualizar plugins"
+  "{count} plugin updates available: Control Center > Plugins or Install > Plugins > Update Plugins": "{count} atualizações de plugins disponíveis: Central de controle > Plugins ou Instalar > Plugins > Atualizar plugins",
+  "Dismiss": "Dispensar",
+  "Snooze 1 hour": "Adiar 1 hora",
+  "Snooze 10 min": "Adiar 10 min",
+  "Snooze 5 min": "Adiar 5 min"
 }

@@ -357,7 +357,38 @@ def chime():
         pass
 
 
-def notify(title, body, urgency="normal"):
+SNOOZE_SECONDS = {"snooze-5": 300, "snooze-10": 600, "snooze-60": 3600}
+ACTION_LIFETIME = 86400
+
+
+def reminder_action(title, text):
+    root = os.environ.get("EITR_CODE_ROOT", "/usr/share/eitr")
+    command = ["notify-send", "--app-name=Reminders", "--urgency=critical",
+               f"--icon={root}/fastfetch/assets/eitr-logo.png", "--wait",
+               f"--expire-time={ACTION_LIFETIME * 1000}",
+               "--action=snooze-5=" + tr('Snooze 5 min'),
+               "--action=snooze-10=" + tr('Snooze 10 min'),
+               "--action=snooze-60=" + tr('Snooze 1 hour'),
+               "--action=dismiss=" + tr('Dismiss'), "--", title, text]
+    try:
+        result = subprocess.run(command, capture_output=True, text=True,
+                                timeout=ACTION_LIFETIME + 5, check=False)
+        delay = SNOOZE_SECONDS.get(result.stdout.strip()) if result.returncode == 0 else None
+        if delay:
+            with locked():
+                create(text, int(time.time()) + delay)
+    except (OSError, subprocess.SubprocessError, ValueError) as error:
+        print(str(error), file=sys.stderr)
+
+
+def notify(title, body, urgency="normal", actions=False):
+    if actions:
+        # Each alert owns its bounded waiter; never hold the state lock while waiting.
+        subprocess.run(["systemd-run", "--user", "--quiet", "--collect",
+                        f"--property=RuntimeMaxSec={ACTION_LIFETIME + 10}s",
+                        sys.executable, str(Path(__file__).resolve()), "notification-action", title, body],
+                       check=False, timeout=5)
+        return
     root = os.environ.get("EITR_CODE_ROOT", "/usr/share/eitr")
     subprocess.run(["notify-send", "--app-name=Reminders", f"--urgency={urgency}",
                     f"--icon={root}/fastfetch/assets/eitr-logo.png", title, body], check=False)
@@ -469,7 +500,7 @@ def fire(identifier, missed=False, moment=None):
         else:
             reminders.remove(reminder)
         save(reminders)
-        notify(tr('Reminder (while the computer was off)') if missed else tr('Reminder'), reminder['text'], urgency='critical')
+        notify(tr('Reminder (while the computer was off)') if missed else tr('Reminder'), reminder['text'], urgency='critical', actions=True)
         chime()
         return 0
     if remaining:
@@ -478,7 +509,7 @@ def fire(identifier, missed=False, moment=None):
         reminders.remove(reminder)
     save(reminders)
     title = tr('Reminder (while the computer was off)') if missed else tr('Reminder')
-    notify(title, reminder["text"], urgency="critical")
+    notify(title, reminder["text"], urgency="critical", actions=True)
     chime()
     return 0
 
@@ -605,6 +636,9 @@ def main(argv):
 
 
 if __name__ == "__main__":
+    if len(sys.argv) == 4 and sys.argv[1] == "notification-action":
+        reminder_action(sys.argv[2], sys.argv[3])
+        sys.exit(0)
     if len(sys.argv) == 1 or sys.argv[1] in ("new", "manage"):
         sys.exit(main(sys.argv[1:]))
     with locked():

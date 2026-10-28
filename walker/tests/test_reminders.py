@@ -88,6 +88,11 @@ class ReminderCommandTests(unittest.TestCase):
             tool = self.folder / name
             tool.write_text(f'#!/bin/sh\necho "{name} $*" >> "{self.calls}"\nexit 1\n' if name == "systemctl" else
                             f'#!/bin/sh\necho "{name} $*" >> "{self.calls}"\n')
+            if name == "systemd-run":
+                with tool.open('a') as stream:
+                    stream.write('while [ "$#" -gt 0 ]; do\n'
+                                 '  if [ "$1" = notification-action ]; then exec python3 ' + str(SCRIPT) + ' "$@"; fi\n'
+                                 '  shift\ndone\n')
             tool.chmod(0o755)
         self.environment = {**os.environ, "PATH": f"{self.folder}:{os.environ['PATH']}",
                             "XDG_STATE_HOME": str(self.folder / "state"), "EITR_CODE_ROOT": str(ROOT)}
@@ -315,3 +320,47 @@ class NativeTimePickerTests(unittest.TestCase):
         with unittest.mock.patch.object(reminders, 'ask_time', return_value='09:30') as ask:
             self.assertEqual(reminders.with_time('tomorrow', 'Dentist'), 'tomorrow 09:30')
             ask.assert_called_once_with('At what time?', 'Dentist')
+
+
+class ReminderActionTests(unittest.TestCase):
+    def test_snooze_creates_and_schedules_one_off_without_changing_series(self):
+        patch = unittest.mock.patch
+        for action, delay in reminders.SNOOZE_SECONDS.items():
+            with self.subTest(action=action), tempfile.TemporaryDirectory() as directory, \
+                    patch.dict(os.environ, {'XDG_STATE_HOME': directory}), \
+                    patch.object(reminders.time, 'time', return_value=2000000000), \
+                    patch.object(reminders, 'schedule') as schedule, \
+                    patch.object(reminders.subprocess, 'run', return_value=subprocess.CompletedProcess([], 0, action + '\n')) as run:
+                series = reminders.create('Stretch', 2000007200, repeat={'frequency': 'daily'})
+                schedule.reset_mock()
+                reminders.reminder_action('Reminder', 'Stretch')
+                saved = reminders.load()
+                self.assertIn(series, saved)
+                snoozed = next(item for item in saved if item['id'] != series['id'])
+                self.assertEqual(snoozed['text'], 'Stretch')
+                self.assertEqual(snoozed['due'], 2000000000 + delay)
+                self.assertNotIn('repeat', snoozed)
+                schedule.assert_called_once_with(snoozed)
+                self.assertEqual(run.call_args.kwargs['timeout'], reminders.ACTION_LIFETIME + 5)
+                self.assertIn('--wait', run.call_args.args[0])
+                self.assertEqual(sum(argument.startswith('--action=') for argument in run.call_args.args[0]), 4)
+
+    def test_dismiss_close_unknown_failure_and_timeout_do_not_schedule(self):
+        patch = unittest.mock.patch
+        for answer, code in [('dismiss', 0), ('', 0), ('unknown', 0), ('snooze-5', 1)]:
+            with self.subTest(answer=answer, code=code), patch.object(reminders, 'create') as create, \
+                    patch.object(reminders.subprocess, 'run', return_value=subprocess.CompletedProcess([], code, answer)):
+                reminders.reminder_action('Reminder', 'Stretch')
+                create.assert_not_called()
+        with patch.object(reminders, 'create') as create, \
+                patch.object(reminders.subprocess, 'run', side_effect=subprocess.TimeoutExpired('notify-send', 1)):
+            reminders.reminder_action('Reminder', 'Stretch')
+            create.assert_not_called()
+
+    def test_alert_waiter_is_independent_of_firing_lock(self):
+        with unittest.mock.patch.object(reminders.subprocess, 'run') as launch:
+            reminders.notify('Reminder', 'Stretch', urgency='critical', actions=True)
+            self.assertEqual(launch.call_args.args[0][-3:], ['notification-action', 'Reminder', 'Stretch'])
+            self.assertIn('--collect', launch.call_args.args[0])
+            self.assertIn('--property=RuntimeMaxSec=86410s', launch.call_args.args[0])
+            self.assertEqual(launch.call_args.kwargs['timeout'], 5)

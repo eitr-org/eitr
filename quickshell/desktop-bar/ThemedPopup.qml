@@ -6,6 +6,9 @@ import Quickshell.Hyprland
 DockPanel {
     id: popup
     property var escapeHandler: null
+    property bool grabReady: false
+    onHostWindowChanged: if (!hostWindow && grabReady) opened = false
+    onVisibleChanged: if (!visible) grabReady = false
     required property Item target
     required property color foreground
     required property color background
@@ -26,12 +29,16 @@ DockPanel {
     alignment: centered ? "center" : leftAligned ? "left" : "right"
     data: [
         Connections {
+            target: PluginRegistry
+            function onReviewStarted() { popup.opened = false; }
+        },
+        Connections {
             target: popup
             function onOpenedChanged() {
                 if (popup.opened) grabDelay.restart();
                 else {
                     grabDelay.stop();
-                    grab.active = false;
+                    popup.grabReady = false;
                 }
             }
         },
@@ -39,11 +46,12 @@ DockPanel {
             id: grabDelay
             interval: 100
             onTriggered: if (popup.opened) {
+                if (!popup.hostWindow) { popup.opened = false; return; }
                 popup.keyTarget.forceActiveFocus();
-                grab.active = true;
+                popup.grabReady = true;
             }
         },
-        HyprlandFocusGrab { id: grab; windows: popup.focusWindows; onCleared: popup.opened = false },
+        HyprlandFocusGrab { id: grab; active: popup.grabReady && popup.opened && popup.visible && !!popup.hostWindow && popup.focusWindows.length > 0; windows: popup.focusWindows; onCleared: popup.opened = false },
         PanelSurface {
             id: panelSurface
             anchors.fill: parent

@@ -179,6 +179,16 @@ Item {
         }
     }
     Timer {
+        interval: 1000
+        running: service.all.some(notification => notification.appName === "Reminders" && notification.expireTimeout > 0)
+        repeat: true
+        onTriggered: service.all.slice().forEach(notification => {
+            if (notification.appName === "Reminders" && notification.expireTimeout > 0
+                    && Date.now() - service.timestamps[notification.id] >= notification.expireTimeout)
+                notification.expire();
+        })
+    }
+    Timer {
         interval: 60000
         running: service.all.length > 100
         repeat: true

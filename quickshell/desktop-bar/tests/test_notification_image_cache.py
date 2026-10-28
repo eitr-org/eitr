@@ -11,6 +11,28 @@ ROOT = Path(__file__).resolve().parents[3]
 
 
 class NotificationImageCacheTests(unittest.TestCase):
+    def test_notification_card_actions_in_popup_and_history(self):
+        bar = ROOT / 'quickshell/desktop-bar'
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = Path(directory) / 'shell.qml'
+            source = (bar / 'tests/tst_notification_card.qml').read_text()
+            source = source.replace('import ".."', 'import Quickshell\nimport "' + bar.as_uri() + '"')
+            source = source.replace('when: windowShown', 'when: true')
+            source = source.replace('TestCase {', 'ShellRoot { FloatingWindow { visible: true; implicitWidth: 440; implicitHeight: 420\nTestCase {', 1) + '\n}}\n'
+            fixture.write_text(source)
+            result = subprocess.run(['quickshell', '-p', str(fixture)],
+                env=dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
+                    QML_IMPORT_PATH=str(bar.parent), EITR_CODE_ROOT=str(ROOT),
+                    XDG_CONFIG_HOME=directory, XDG_STATE_HOME=directory, XDG_DATA_HOME=directory,
+                    XDG_CACHE_HOME=directory, XDG_RUNTIME_DIR=directory,
+                    DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent', HYPRLAND_INSTANCE_SIGNATURE=''),
+                text=True, capture_output=True, timeout=20)
+            output = result.stdout + result.stderr
+            self.assertEqual(result.returncode, 0, output)
+            self.assertIn('REMINDER_ACTIONS_OK_true', output)
+            self.assertIn('REMINDER_ACTIONS_OK_false', output)
+            self.assertNotIn('FAIL!', output)
+
     def test_bulk_dismiss_publishes_one_history_update(self):
         source = (ROOT / "quickshell/desktop-bar/NotificationService.qml").read_text()
         state = source[source.index("    readonly property var tracked:"):source.index("    readonly property var history:")]

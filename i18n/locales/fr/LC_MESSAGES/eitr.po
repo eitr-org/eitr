@@ -1015,6 +1015,9 @@ msgstr "Utilisation du disque après nettoyage"
 msgid "Disk encryption"
 msgstr "Chiffrement du disque"
 
+msgid "Dismiss"
+msgstr "Fermer"
+
 msgid "Display is not connected"
 msgstr "L’écran n’est pas connecté"
 
@@ -2931,6 +2934,15 @@ msgstr "Les mises à jour protégées par instantanés nécessitent une racine B
 
 msgid "Snapshots"
 msgstr "Instantanés"
+
+msgid "Snooze 1 hour"
+msgstr "Reporter de 1 heure"
+
+msgid "Snooze 10 min"
+msgstr "Reporter de 10 min"
+
+msgid "Snooze 5 min"
+msgstr "Reporter de 5 min"
 
 msgid "Software"
 msgstr "Logiciels"

@@ -1015,6 +1015,9 @@ msgstr "Uso del disco tras la limpieza"
 msgid "Disk encryption"
 msgstr "Cifrado del disco"
 
+msgid "Dismiss"
+msgstr "Descartar"
+
 msgid "Display is not connected"
 msgstr "La pantalla no está conectada"
 
@@ -2931,6 +2934,15 @@ msgstr "Las actualizaciones protegidas por instantáneas requieren una raíz Btr
 
 msgid "Snapshots"
 msgstr "Instantáneas"
+
+msgid "Snooze 1 hour"
+msgstr "Posponer 1 hora"
+
+msgid "Snooze 10 min"
+msgstr "Posponer 10 min"
+
+msgid "Snooze 5 min"
+msgstr "Posponer 5 min"
 
 msgid "Software"
 msgstr "Software"
