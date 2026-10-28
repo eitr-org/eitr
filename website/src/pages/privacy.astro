@@ -5,7 +5,7 @@ import { sitePages } from "../data/site-pages";
 const sections = [
   [
     "Nothing is collected by itself",
-    "Eitr has no telemetry and no server of its own. It never sends anything without you. If you allow it in the welcome, it only offers to prepare a report when part of the desktop crashes.",
+    "Eitr collects no usage telemetry. Weather, updates and connected tools contact their own services. Crash notifications offer help or a report for you to review and send; they are on by default and can be turned off in the Handbook welcome.",
   ],
   [
     "What a problem report holds",
@@ -21,7 +21,7 @@ const sections = [
   ],
   [
     "Your choices",
-    "Reply to your report email, or write to contact@eitr.info, to have your report deleted at any time. You can turn crash offers off again in the welcome chapter of the handbook.",
+    "Reply to your report email, or write to contact@eitr.info, to have your report deleted at any time. You can turn crash offers off in the welcome chapter of the Handbook. Optional cloud assistants receive messages and context you share; Control Center quick chat is read-only and keeps its conversation only in memory until closed.",
   ],
   [
     "This website",
@@ -39,13 +39,13 @@ const sections = [
       <em>Your choice.</em>
     </h1>
     <p class="lead">
-      <BrandText text="Eitr" /> sends nothing on its own. A problem report leaves your computer only when you send it.
+      <BrandText text="Eitr" /> collects no usage telemetry. A problem report leaves your computer only when you send it.
     </p>
   </section>
   <section class="wrap guide-links" aria-label="How problem reports are handled">
-    {sections.map(([title, body], i) => (
+    {sections.map(([title, body], index) => (
       <div class="guide-link">
-        <span class="feature-number">0{i + 1}</span>
+        <span class="feature-number">0{index + 1}</span>
         <div>
           <h2>{title}</h2>
           <p>{body}</p>

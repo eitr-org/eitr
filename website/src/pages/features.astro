@@ -20,18 +20,18 @@ import themes from '../data/themes.json';
       <ul>
         <li>Choose Full, Centered with evenly packed icons around a centered clock, or Tabs: three content-sized tabs joined by slopes on a thin strip, floating panels and weather on hover. Active workspace glyphs use the accent color; AI Usage has its own icon.</li>
         <li>Place monitors beside one another, choose a main display, and show the bar on one or all screens. HDR monitors get an HDR switch with SDR content brightness.</li>
-        <li>Adjust per-application audio and microphone controls in one panel.</li>
-        <li>Choose from {themes.length} themes, with matching application colors, lockscreens, 4K wallpapers and ultrawide artwork.</li>
+        <li>Adjust per-application audio and microphone controls in one panel; choose Bars or Line for the media equalizer.</li>
+        <li>Choose from {themes.length} themes, with matching application colors, lockscreens, 4K wallpapers and ultrawide artwork. Eitr is the default; it and each realm have their own Neovim and VS Code colors, and setup wizards follow the current theme.</li>
         <li>Add wallpapers from a file or link for all themes or one theme; generate a theme from a picture, edit colors live, and create your own lockscreen.</li>
-        <li>Keep your preferred bar position, corners, cursor and fonts when switching themes.</li>
+        <li>Keep your preferred bar position, corners, cursor and fonts when switching themes. Auto-hide reveals the bar at its screen edge; Reduce motion makes desktop transitions instant.</li>
       </ul>
       <a class="text-link" href="/#tour">See the real desktop →</a>
     </section>
     <section class="info-section" id="development" aria-labelledby="features-development">
       <p class="eyebrow">Development &amp; AI</p>
       <h2 id="features-development">Tools for the work.<br /><em>Assistance by choice.</em></h2>
-      <p>Kitty, Zsh, tmux, Neovim with LazyVim, Docker, Lazygit and Lazydocker form the development workspace. Menus offer additional editors, language environments, database clients, API tools and monitoring dashboards. Plugins add your own tools from a Git repository: two confirmations show the risks, author and exact commit before anything runs, and their actions appear under Tools &gt; Plugins. Plugins can also run on <a href="/development/#plugins-title">theme, wallpaper, update and login events</a>.</p>
-      <p>Claude Code, Codex, GitHub Copilot CLI, Grok and Gemini CLI are available through first-use installation. Antigravity is also available as a standalone assistant. Super + A opens your default assistant trusted in the home folder, with full access and offline Handbook guidance where supported. System &gt; Security &gt; Assistant Access restores permission prompts. Switch several accounts manually per supported assistant, or use Ratatoskr, the experimental offline assistant. The bar shows supported usage information.</p>
+      <p>Kitty, Zsh, tmux, Neovim with LazyVim, Docker, Lazygit and Lazydocker form the development workspace. Menus offer additional editors, language environments, database clients, API tools and monitoring dashboards. Schema v2 plugins add tools, tiles, panels, desktop widgets and bar items from reviewed Git commits. Control Center’s Plugins page manages them; <a href="/development/#plugins-title">Update Plugins</a> reviews updates separately from System Update.</p>
+      <p>Claude Code, Codex, GitHub Copilot CLI, Grok and Gemini CLI are available through first-use installation. Antigravity, OpenCode and Pi are also available as standalone assistants. Super + A opens your default assistant trusted in the home folder, with full access and offline Handbook guidance where supported. System &gt; Security &gt; Assistant Access restores permission prompts. Development &gt; AI opens normal sessions in a picked folder, with account switching and session options where supported. Ratatoskr is the experimental offline assistant. The bar shows supported usage information.</p>
       <p>The optional “Let assistants work together” feature connects supported clients through a local bridge. Another signed-in assistant can give a read-only second opinion from the same working folder. Hand-offs retain the caller’s tool-approval boundary; helpers cannot delegate onward. Real-account verification remains a separate step from mock and unit tests; Gemini has answered read-only and through the bridge with a free API key; Antigravity is not a collaboration helper.</p>
       <p>Failed task terminals offer Ask the AI; crash notifications offer assistant help or a problem report with crash details. These are opt-in workflows; Eitr does not silently send every crash to an AI service. Provider accounts, subscriptions and network access are separate from the distribution.</p>
       <a class="text-link" href="/development/">Development workflows, defaults &amp; optional tools →</a>
@@ -53,7 +53,7 @@ import themes from '../data/themes.json';
     <section class="info-section" aria-labelledby="features-everyday">
       <p class="eyebrow">Everyday tools &amp; gaming</p>
       <h2 id="features-everyday">Capture an idea.<br /><em>Make room to play.</em></h2>
-      <p>Capture screenshots, record with OBS, read screen text or QR codes, pick a color and share nearby with LocalSend. Tap Super + D twice or hold and release for local dictation. Hold Super + Shift + D for voice reminders, or type everyday times such as “9am”, “in 5 minutes” and “every 29th”. Repeats and appointment alerts appear in the calendar; a missing time opens the native HH:MM clock with any assistant. Alerts chime unless Do Not Disturb is on.</p>
+      <p>Capture screenshots, record with OBS, read screen text or QR codes, pick a color and share nearby with LocalSend. Tap Super + D twice or hold and release for local dictation. Hold Super + Shift + D for voice reminders, or type everyday times such as “9am”, “in 5 minutes” and “every 29th”. Repeats and appointment alerts appear in the calendar; a missing time opens the native HH:MM clock with any assistant. Alerts chime unless Do Not Disturb is on, with snooze and dismiss actions in popups and notification history.</p>
       <p>Tools &gt; Calendars adds read-only Google, Outlook or iCal subscriptions using a secret calendar address, refreshed when you open the panel. Edit provider events at their source. The offline Handbook opens with Super + F1.</p>
       <p>Web apps open in their own window with a chosen browser profile. Eitr follows your compatible default browser, supports Vivaldi and offers to install Chromium when needed.</p>
       <p>Steam comes installed with GameMode, MangoHud and gamescope; RetroArch and GeForce NOW are optional, for classic and cloud gaming. On HDR monitors, fullscreen HDR games turn HDR on by themselves, tone-mapped to the monitor's own brightness range, and an HDR switch in the display settings shows the whole desktop in HDR. Game Mode can disable animations, blur and notification popups. Individual games, controllers and cloud services have their own compatibility and account requirements.</p>
@@ -68,9 +68,9 @@ import themes from '../data/themes.json';
       <a class="text-link" href="/guide/recovery/">Read the recovery Handbook →</a>
     </section>
     <section class="info-section" aria-labelledby="features-remote">
-      <p class="eyebrow">Remote access / Tested setup</p>
+      <p class="eyebrow">Remote access / Explicit setup</p>
       <h2 id="features-remote">Remote access.<br /><em>Share by choice.</em></h2>
-      <p>Moonlight, Sunshine sharing and Tailscale away access have setup workflows and native status panels. Sharing remains inactive until explicitly configured. Video, keyboard, mouse, audio, lockscreen access, two monitors and restoring sharing setup have passed on a tested desktop/client pair, alongside access over Tailscale. This does not establish compatibility with every device.</p>
+      <p>Moonlight, Sunshine sharing and Tailscale away access have setup workflows and native status panels. Sharing remains inactive until explicitly configured. It controls a signed-in, awake desktop. Real-device checks are recorded, but final validation remains open; headless use, access before login and wake on LAN are future work. Stop sharing before locking when privacy matters.</p>
       <a class="text-link" href="https://github.com/eitr-org/eitr/blob/main/distro/REMOTE-ACCESS.md" target="_blank" rel="noopener noreferrer">Read the setup and security boundaries ↗</a>
     </section>
   </div>
