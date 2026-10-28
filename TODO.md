@@ -34,6 +34,7 @@ LAN.
   opt-in styling) are on testing; `distro/PLUGINS.md` has the details.
   - Menu focus, stable edit surfaces and compact list/detail navigation are implemented; verify right-click dismissal and smooth dragging on Hyprland
     before calling these fixes shipped.
+  - Plugin updates have a separate reviewed action; System Update only checks availability.
   - Still open: runtime QML errors are not attributed to a plugin; in-process QML
     is not a sandbox; verify above-window click-through, fullscreen hiding and
     monitor hotplug live.

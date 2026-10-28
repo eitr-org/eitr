@@ -78,6 +78,10 @@ QtObject {
         path: registry.stateRoot + "/eitr/plugins.json"; watchChanges: true; printErrors: false
         onFileChanged: { reload(); registry.refresh(); }
     }
+    property FileView updateWatch: FileView {
+        path: registry.stateRoot + "/eitr/plugin-updates.json"; watchChanges: true; printErrors: false
+        onFileChanged: { reload(); registry.refresh(); }
+    }
     property FileView failureWatch: FileView {
         path: registry.stateRoot + "/eitr/plugin-ui.json"; watchChanges: true; printErrors: false
         onFileChanged: { reload(); registry.refresh(); }

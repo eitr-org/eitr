@@ -46,6 +46,14 @@ return function(kind)
         end
         table.insert(entries, {Text = i18n.tr("Add Plugin…"), Subtext = i18n.tr("Review a Git repository before installing"), Icon = "󰐕",
             Actions = {open = task("add")}})
+        table.insert(entries, {Text = i18n.tr("Update Plugins"), Subtext = i18n.tr("Review and update installed plugins"), Icon = "󰚰",
+            Actions = {open = task("update")}})
+        table.sort(entries, function(first, second)
+            local firstMenu = first.SubMenu ~= nil
+            local secondMenu = second.SubMenu ~= nil
+            if firstMenu ~= secondMenu then return firstMenu end
+            return first.Text:lower() < second.Text:lower()
+        end)
     elseif kind == "plugin-visuals" then
         local id = lastMenuValue("plugins-install") or ""
         if id ~= "" then

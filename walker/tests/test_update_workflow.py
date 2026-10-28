@@ -51,21 +51,26 @@ class UpdateWorkflowTests(unittest.TestCase):
     UPDATING = 'sudo() { echo "sudo $*"; }\nyay() { echo "yay $*"; }\n'
 
     def test_no_package_updates_still_checks_plugins(self):
-        mocks = ('checkupdates() { return 2; }; yay() { :; }; flatpak() { :; }; '
-                 'sudo() { echo unexpected; }; python3() { [[ "$1" == *install/plugins.py ]] && echo "plugins checked" >&2; };\n')
-        with tempfile.TemporaryDirectory() as state:
-            (Path(state) / "eitr").mkdir()
-            (Path(state) / "eitr/plugins.json").write_text('{"example": {"commit": "0"}}')
-            result = run_protected_update(mocks, environment_extra={"XDG_STATE_HOME": state})
+        mocks = ("checkupdates() { return 2; }; yay() { :; }; flatpak() { :; }; "
+                 "sudo() { echo unexpected; }; python3() { if [[ \"$1\" == *install/plugins.py ]]; then "
+                 "[[ \"$2\" == check ]] || { echo unexpected-review >&2; return 1; }; "
+                 "echo '{\"one\": 2, \"two\": 1, \"current\": 0}'; else command python3 \"$@\"; fi; };\n")
+        result = run_protected_update(mocks)
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(result.stdout.strip(), "Everything is up to date.")
-        self.assertIn("Plugins", result.stderr)
-        self.assertIn("plugins checked", result.stderr)
-        # Without an installed plugin, System Update shows no Plugins step at all.
-        with tempfile.TemporaryDirectory() as state:
-            result = run_protected_update(mocks, environment_extra={"XDG_STATE_HOME": state})
-        self.assertNotIn("Plugins", result.stderr)
-        self.assertNotIn("plugins checked", result.stderr)
+        self.assertIn("2 plugin updates available: Control Center > Plugins or Install > Plugins > Update Plugins", result.stdout)
+        self.assertIn("Everything is up to date.", result.stdout)
+        self.assertNotIn("unexpected", result.stdout + result.stderr)
+
+    def test_plugin_check_empty_or_network_failure_has_no_message(self):
+        for output in ("echo '{}'", 'return 1'):
+            mocks = ("checkupdates() { return 2; }; yay() { :; }; flatpak() { :; }; "
+                     "python3() { if [[ \"$1\" == *install/plugins.py ]]; then " + output +
+                     "; else command python3 \"$@\"; fi; };\n")
+            result = run_protected_update(mocks)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(result.stdout.strip(), "Everything is up to date.")
+            self.assertNotIn('plugin', result.stderr.lower())
+            self.assertNotIn('Traceback', result.stderr)
 
     def test_up_to_date_message_stays_visible_for_three_seconds(self):
         result = run_protected_update('checkupdates() { return 2; }; yay() { :; }; flatpak() { :; }; '

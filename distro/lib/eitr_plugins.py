@@ -932,13 +932,41 @@ class Plugins:
             records[plugin_id] = {**record, 'enabled': enabled}
             self.save(records)
 
+    def check_updates(self):
+        """Fetch metadata into installed repositories without checking out or running code."""
+        counts = {}
+        checked = {}
+        with self.lock():
+            for plugin_id, record in self.records().items():
+                try:
+                    root = self.root(plugin_id)
+                    git(root, 'fetch', '--no-recurse-submodules', '--', record['url'],
+                        'HEAD', allow_file=self.allow_file)
+                    count = int(git(root, 'rev-list', '--count', record['commit'] + '..FETCH_HEAD'))
+                    checked[plugin_id] = dict(commit=record['commit'], count=count)
+                    counts[plugin_id] = count
+                except (OSError, ValueError, subprocess.SubprocessError):
+                    continue
+            self.write(self.state.with_name('plugin-updates.json'), checked)
+        return counts
+
+    def update_counts(self):
+        try:
+            return json.loads(self.state.with_name('plugin-updates.json').read_text())
+        except (OSError, ValueError):
+            return {}
+
     def installed(self):
         """Install > Plugins: every plugin, with its manifest author and whether it is blocked."""
         blocked = self.blocked()
+        updates = self.update_counts()
         rows = []
         for plugin_id, record in self.records().items():
             spec = self.spec(plugin_id)
-            rows.append(dict(id=plugin_id, name=printable(spec['name']) if spec else plugin_id,
+            checked = updates.get(plugin_id, {})
+            count = checked.get('count', 0) if checked.get('commit') == record['commit'] else 0
+            rows.append(dict(id=plugin_id, updateCount=count,
+                             name=printable(spec['name']) if spec else plugin_id,
                              author=printable(spec['author']) if spec else '?', blocked=blocked.get(plugin_id, ('',))[0],
                              repository=printable(record['url']), repositoryPath=record.get('path', ''),
                              enabled=record.get('enabled', True), version=spec['version'] if spec else '',

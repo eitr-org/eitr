@@ -100,6 +100,45 @@ class PluginTests(unittest.TestCase):
         self.assertTrue(self.manager.add(self.url, lambda url: True, lambda *details: True))
         return self.manager.records()['example']['commit']
 
+    def test_check_reports_json_without_approval_or_worktree_changes(self):
+        approved = self.install()
+        self.assertEqual(self.manager.check_updates(), {'example': 0})
+        self.publish()
+        cli = self.cli()
+        output = io.StringIO()
+        with patch.object(cli, 'Plugins', return_value=self.manager), redirect_stdout(output):
+            self.assertEqual(cli.main(['check']), 0)
+        self.assertEqual(json.loads(output.getvalue()), {'example': 1})
+        self.assertEqual(self.manager.records()['example']['commit'], approved)
+        self.assertEqual(plugins.commit(self.manager.root('example')), approved)
+        self.assertFalse((self.manager.root('example') / 'revision').exists())
+        self.assertEqual(self.manager.installed()[0]['updateCount'], 1)
+        self.assertTrue(self.manager.update('example', lambda changes: True))
+        self.assertEqual(self.manager.installed()[0]['updateCount'], 0)
+        self.assertEqual(self.manager.check_updates(), {'example': 0})
+
+    def test_check_network_failure_is_quiet_and_clears_mark(self):
+        self.install()
+        self.publish()
+        self.manager.check_updates()
+        output, errors = io.StringIO(), io.StringIO()
+        with patch('eitr_plugins.git', side_effect=subprocess.CalledProcessError(1, 'git')), redirect_stdout(output), redirect_stderr(errors):
+            self.assertEqual(self.manager.check_updates(), {})
+        self.assertEqual(output.getvalue() + errors.getvalue(), '')
+        self.assertEqual(self.manager.installed()[0]['updateCount'], 0)
+
+    def test_update_actions_share_reviewed_terminal_flow(self):
+        menu = (ROOT / 'elephant/plugin-entries.lua').read_text()
+        self.assertIn('Text = i18n.tr("Update Plugins")', menu)
+        self.assertIn('Subtext = i18n.tr("Review and update installed plugins")', menu)
+        self.assertIn('Actions = {open = task("update")}', menu)
+        self.assertIn('table.sort(entries, function(first, second)', menu)
+        page = (ROOT / 'quickshell/desktop-bar/PluginManager.qml').read_text()
+        self.assertIn('text: Eitr.I18n.tr("Update Plugins")', page)
+        self.assertIn('PluginRegistry.review("update", "")', page)
+        self.assertIn('pluginRow.modelData.updateCount > 0', page)
+        self.assertIn('card.modelData.updateCount > 0', page)
+
     def make_index(self):
         spec = self.spec()
         for plugin_id in ('example', 'second'):
@@ -116,6 +155,19 @@ class PluginTests(unittest.TestCase):
         (self.source / 'eitr-plugins.json').write_text(json.dumps(index))
         self.publish()
         return index
+
+    def test_check_indexed_plugins_keeps_individual_approved_commits(self):
+        self.make_index()
+        self.manager.add(self.url, lambda url: True, lambda *details: True,
+                         lambda entries: ['example', 'second'])
+        approved = self.manager.records()
+        (self.source / 'plugins/example/revision').write_text('new indexed revision')
+        self.commit_as('Fixture')
+        self.assertEqual(self.manager.check_updates(), {'example': 1, 'second': 1})
+        self.assertEqual(self.manager.records(), approved)
+        self.assertTrue(self.manager.update('example', lambda changes: True))
+        self.assertEqual(self.manager.check_updates(), {'example': 0, 'second': 1})
+        self.assertEqual(self.manager.records()['second'], approved['second'])
 
     def test_repository_picker_lists_metadata_and_selects_multiple(self):
         self.make_index()
@@ -462,6 +514,9 @@ class PluginTests(unittest.TestCase):
         self.assertIn('plugins | Example notification | - | Plugin by Eitr contributors · not reviewed by Eitr', result.stdout)
         self.assertIn('plugins-install | Bad plugin | - | Blocked by Eitr for your safety · select to remove', result.stdout)
         self.assertIn('plugins-install | Example plugin | plugin-actions | Plugin by Eitr contributors · not reviewed by Eitr', result.stdout)
+        self.assertIn('plugins-install | Update Plugins | - | Review and update installed plugins', result.stdout)
+        install_rows = [line.split(' | ')[1] for line in result.stdout.splitlines() if line.startswith('plugins-install |')]
+        self.assertEqual(install_rows, ['Example plugin', 'Add Plugin…', 'Bad plugin', 'Update Plugins'])
         self.assertIn('plugin-actions | Remove |', result.stdout)
         self.assertIn('plugin-actions | Update |', result.stdout)
         print(result.stdout.strip())

@@ -47,3 +47,5 @@ La liste précédente est sauvegardée à côté de `/etc/pacman.d/mirrorlist` s
 Une nouvelle installation programme une tentative en arrière-plan deux minutes après chaque démarrage, jusqu’à trois tentatives avec connexion. Les démarrages hors ligne sont ignorés en silence et ne comptent pas ; un classement réussi arrête les tentatives. La connexion n’attend jamais le classement. Utilisez le menu si toutes les tentatives échouent. Seuls les miroirs Arch changent ; les dépôts Eitr et Flatpak restent identiques.
 
 État en lecture seule : `/usr/lib/eitr/eitr-system mirrors-status` affiche du JSON avec `last_ranking_time` (UTC, ou null avant réussite), `mirror_count`, `shipped_fallback` et `backup_available`. Il lit les fichiers locaux sans réseau ni sudo.
+
+La mise à jour du système vérifie les nouveaux commits des plugins à la fin sans changer les versions approuvées. Révisez-les et installez-les séparément dans **Centre de contrôle > Plugins > Mettre à jour les plugins**, **Installer > Plugins > Mettre à jour les plugins** ou avec `eitr plugin update`. Les erreurs réseau sont ignorées silencieusement ; les hooks after-update restent inchangés.

@@ -433,5 +433,7 @@
   "Repository: {url}": "Dépôt : {url}",
   "Media style": "Style multimédia",
   "Bars": "Barres",
-  "Line": "Ligne"
+  "Line": "Ligne",
+  "Update Plugins": "Mettre à jour les plugins",
+  "Update available": "Mise à jour disponible"
 }

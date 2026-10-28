@@ -458,7 +458,9 @@ var qml = {
     "Repository: {url}": "Repository: {url}",
     "Bars": "Bars",
     "Line": "Line",
-    "Media style": "Media style"
+    "Media style": "Media style",
+    "Update Plugins": "Update Plugins",
+    "Update available": "Update available"
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -895,7 +897,9 @@ var qml = {
     "Repository: {url}": "Repositório: {url}",
     "Media style": "Estilo de mídia",
     "Bars": "Barras",
-    "Line": "Linha"
+    "Line": "Linha",
+    "Update Plugins": "Atualizar plugins",
+    "Update available": "Atualização disponível"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1332,7 +1336,9 @@ var qml = {
     "Repository: {url}": "Repositorio: {url}",
     "Media style": "Estilo multimedia",
     "Bars": "Barras",
-    "Line": "Línea"
+    "Line": "Línea",
+    "Update Plugins": "Actualizar plugins",
+    "Update available": "Actualización disponible"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1769,7 +1775,9 @@ var qml = {
     "Repository: {url}": "Repository: {url}",
     "Media style": "Medienstil",
     "Bars": "Balken",
-    "Line": "Linie"
+    "Line": "Linie",
+    "Update Plugins": "Plugins aktualisieren",
+    "Update available": "Aktualisierung verfügbar"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2206,6 +2214,8 @@ var qml = {
     "Repository: {url}": "Dépôt : {url}",
     "Media style": "Style multimédia",
     "Bars": "Barres",
-    "Line": "Ligne"
+    "Line": "Ligne",
+    "Update Plugins": "Mettre à jour les plugins",
+    "Update available": "Mise à jour disponible"
   }
 };

@@ -397,7 +397,7 @@ def visual_rows(manager, plugin_id, monitors):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['list', 'add', 'update', 'remove', 'enable', 'disable', 'surface', 'rows', 'installed', 'launch', 'enforce', 'notice', 'hooks', 'ui', 'ui-failure', 'enable-ui', 'ui-data', 'ui-stream', 'toggle-layer', 'placements', 'place', 'unplace', 'visual-rows'])
+    parser.add_argument('action', choices=['check', 'list', 'add', 'update', 'remove', 'enable', 'disable', 'surface', 'rows', 'installed', 'launch', 'enforce', 'notice', 'hooks', 'ui', 'ui-failure', 'enable-ui', 'ui-data', 'ui-stream', 'toggle-layer', 'placements', 'place', 'unplace', 'visual-rows'])
     parser.add_argument('value', nargs='?')
     parser.add_argument('index', nargs='?')
     parser.add_argument('--monitor')
@@ -405,7 +405,9 @@ def main(argv=None):
     parser.add_argument('--surface', choices=('panel', 'none'))
     arguments = parser.parse_args(argv)
     manager = Plugins(notify=notify_blocked)
-    if arguments.action in ('enable', 'disable'):
+    if arguments.action == 'check':
+        print(json.dumps(manager.check_updates()))
+    elif arguments.action in ('enable', 'disable'):
         manager.set_enabled(arguments.value, arguments.action == 'enable')
     elif arguments.action == 'visual-rows':
         monitors = json.loads(subprocess.check_output(['hyprctl', '-j', 'monitors'], text=True))

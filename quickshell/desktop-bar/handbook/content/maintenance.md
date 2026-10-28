@@ -89,3 +89,5 @@ The previous list is saved beside `/etc/pacman.d/mirrorlist` as `mirrorlist.eitr
 Fresh installations schedule one background attempt two minutes after each boot, up to three attempts with a connection. Offline boots skip silently and do not count; a successful ranking stops further attempts. Login never waits for ranking. Run the menu action later if all attempts fail. Only Arch package mirrors change; Eitr and Flatpak repositories are unaffected.
 
 Read-only status: `/usr/lib/eitr/eitr-system mirrors-status` prints JSON with `last_ranking_time` (UTC, or null before success), `mirror_count`, `shipped_fallback` and `backup_available`. Status reads local files without network access or sudo.
+
+System Update checks plugin availability at the end without changing approved plugin versions. Review and install plugin updates separately from **Control Center > Plugins > Update Plugins**, **Install > Plugins > Update Plugins**, or `eitr plugin update`. Offline check failures are ignored quietly; after-update hooks are unchanged.

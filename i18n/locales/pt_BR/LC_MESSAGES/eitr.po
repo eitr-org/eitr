@@ -2227,9 +2227,6 @@ msgstr "Plugin {id}: versão atual mantida."
 msgid "Plugin: {name}"
 msgstr "Plugin: {name}"
 
-msgid "Plugins"
-msgstr "Plugins"
-
 msgid "Plugins are turned off by your organization."
 msgstr "Os plugins foram desativados pela sua organização."
 
@@ -2940,9 +2937,6 @@ msgstr "Software"
 
 msgid "Some calendars could not be reached; their previous events stay."
 msgstr "Alguns calendários não puderam ser acessados; os eventos anteriores continuam."
-
-msgid "Some plugins could not be updated; their previous approved commits were kept."
-msgstr "Não foi possível atualizar alguns plugins; seus commits aprovados anteriores foram mantidos."
 
 msgid "Stable"
 msgstr "Estável"
@@ -4026,6 +4020,9 @@ msgstr "{count} eventos da última semana aos próximos 60 dias."
 
 msgid "{count} occurrences"
 msgstr "{count} ocorrências"
+
+msgid "{count} plugin updates available: Control Center > Plugins or Install > Plugins > Update Plugins"
+msgstr "{count} atualizações de plugins disponíveis: Central de controle > Plugins ou Instalar > Plugins > Atualizar plugins"
 
 msgid "{count} system update(s) are waiting. On Arch Linux an app can only be installed on an up-to-date system: installing now would also upgrade part of the system without a recovery snapshot, which can break other apps."
 msgstr "{count} atualização(ões) do sistema aguardando. No Arch Linux um app só pode ser instalado num sistema atualizado: instalar agora também atualizaria parte do sistema sem um snapshot de recuperação, o que pode quebrar outros apps."

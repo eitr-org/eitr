@@ -67,14 +67,17 @@ no_updates() (
 plugin_after_update() {
   setsid python3 "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/scripts/actions/install/plugins.py" hooks after-update >/dev/null 2>&1 < /dev/null &
 }
-update_plugins() {
-  # Only when a plugin is installed; most desktops have none.
-  grep -q '"commit"' "${XDG_STATE_HOME:-$HOME/.local/state}/eitr/plugins.json" 2>/dev/null || return 0
-  eitr_gettext 'Plugins' >&2; printf '\n' >&2
-  python3 "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/scripts/actions/install/plugins.py" update || eitr_gettext 'Some plugins could not be updated; their previous approved commits were kept.' >&2
+check_plugin_updates() {
+  local count
+  count="$(python3 "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/scripts/actions/install/plugins.py" check 2>/dev/null | python3 -c 'import json, sys; print(sum(count > 0 for count in json.load(sys.stdin).values()))' 2>/dev/null)" || return 0
+  if [[ "$count" =~ ^[0-9]+$ ]] && (( count > 0 )); then
+    eitr_gettext '{count} plugin updates available: Control Center > Plugins or Install > Plugins > Update Plugins' "count=$count"
+    printf '\n'
+  fi
 }
+
 if [[ "${1:-}" == system ]] && no_updates; then
-  update_plugins
+  check_plugin_updates
   eitr_gettext 'Everything is up to date.'
   printf '\n'
   sleep 3
@@ -132,7 +135,7 @@ case "${1:-}" in
     else
       full_update
     fi
-    update_plugins
+    check_plugin_updates
     plugin_after_update
     offer_restart
     ;;

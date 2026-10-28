@@ -708,7 +708,6 @@
   "Plugin {id} was not updated: {reason}": "Plugin {id} was not updated: {reason}",
   "Plugin {id}: kept the current version.": "Plugin {id}: kept the current version.",
   "Plugin: {name}": "Plugin: {name}",
-  "Plugins": "Plugins",
   "Plugins are turned off by your organization.": "Plugins are turned off by your organization.",
   "Plugins may not contain symlinks: {path}": "Plugins may not contain symlinks: {path}",
   "Plugins run with your account’s full permissions. Eitr has not reviewed this code. Install only if you trust its author and repository.": "Plugins run with your account’s full permissions. Eitr has not reviewed this code. Install only if you trust its author and repository.",
@@ -932,7 +931,6 @@
   "Snapshots": "Snapshots",
   "Software": "Software",
   "Some calendars could not be reached; their previous events stay.": "Some calendars could not be reached; their previous events stay.",
-  "Some plugins could not be updated; their previous approved commits were kept.": "Some plugins could not be updated; their previous approved commits were kept.",
   "Stable": "Stable",
   "Stable channel. Eitr packages already newer than stable stay until stable catches up.": "Stable channel. Eitr packages already newer than stable stay until stable catches up.",
   "Staging destination already exists: {destination}": "Staging destination already exists: {destination}",
@@ -1395,5 +1393,6 @@
   "Resume Picker": "Resume Picker",
   "Session name or ID": "Session name or ID",
   "Session number (empty cancels): ": "Session number (empty cancels): ",
-  "Unable to list sessions.": "Unable to list sessions."
+  "Unable to list sessions.": "Unable to list sessions.",
+  "{count} plugin updates available: Control Center > Plugins or Install > Plugins > Update Plugins": "{count} plugin updates available: Control Center > Plugins or Install > Plugins > Update Plugins"
 }

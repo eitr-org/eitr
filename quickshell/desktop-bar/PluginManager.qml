@@ -32,6 +32,13 @@ Column {
             onClicked: PluginRegistry.review("add", "")
         }
         PanelButton {
+            id: updateAllButton
+            width: Math.max(68, updateAllMetrics.width + 20)
+            TextMetrics { id: updateAllMetrics; text: updateAllButton.text; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize }
+            text: Eitr.I18n.tr("Update Plugins"); foreground: manager.foreground
+            onClicked: PluginRegistry.review("update", "")
+        }
+        PanelButton {
             id: editButton
             width: Math.max(68, editMetrics.width + 20)
             TextMetrics { id: editMetrics; text: editButton.text; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize }
@@ -78,7 +85,7 @@ Column {
             Text {
                 x: PanelStyle.selectionTextInset; anchors.verticalCenter: parent.verticalCenter
                 width: rowSwitch.x - x - PanelStyle.selectionActionGap
-                text: pluginRow.modelData.name; textFormat: Text.PlainText; elide: Text.ElideRight
+                text: pluginRow.modelData.name + (pluginRow.modelData.updateCount > 0 ? " · ↑" : ""); textFormat: Text.PlainText; elide: Text.ElideRight
                 color: manager.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
             }
             HoverHandler { id: rowHover }
@@ -87,7 +94,7 @@ Column {
                 onClicked: manager.selectedPlugin = pluginRow.modelData.id
             }
             Accessible.role: Accessible.Button
-            Accessible.name: modelData.name
+            Accessible.name: modelData.name + (modelData.updateCount > 0 ? " · " + Eitr.I18n.tr("Update available") : "")
             Accessible.onPressAction: manager.selectedPlugin = modelData.id
             activeFocusOnTab: true
             Keys.onReturnPressed: manager.selectedPlugin = modelData.id
@@ -189,6 +196,11 @@ Column {
                     text: !card.modelData.enabled ? Eitr.I18n.tr("Disabled") : card.modelData.visualsDisabled ? Eitr.I18n.tr("Visuals disabled after failures") : card.modelData.blocked ? Eitr.I18n.tr("Blocked") : Eitr.I18n.tr("Enabled")
                     color: manager.foreground; opacity: PanelStyle.secondaryTextOpacity
                     font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
+                }
+                Text {
+                    visible: card.modelData.updateCount > 0
+                    text: "↑ " + Eitr.I18n.tr("Update available")
+                    color: manager.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
                 }
                 Flow {
                     width: parent.width

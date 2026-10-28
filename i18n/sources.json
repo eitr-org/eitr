@@ -1238,6 +1238,12 @@
     "Update": [
       "quickshell/desktop-bar/PluginManager.qml"
     ],
+    "Update Plugins": [
+      "quickshell/desktop-bar/PluginManager.qml"
+    ],
+    "Update available": [
+      "quickshell/desktop-bar/PluginManager.qml"
+    ],
     "Updates": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
@@ -2735,6 +2741,9 @@
     "Review and turn on the Tailscale service": [
       "elephant/menu-rows/remote-away.json"
     ],
+    "Review and update installed plugins": [
+      "elephant/plugin-entries.lua"
+    ],
     "Review screen capture and input permissions": [
       "elephant/menu-rows/remote-share.json"
     ],
@@ -3195,6 +3204,9 @@
     ],
     "Update Password": [
       "elephant/menu-rows/security.json"
+    ],
+    "Update Plugins": [
+      "elephant/plugin-entries.lua"
     ],
     "Use Kitty’s built-in blazing cursor trail": [
       "elephant/menus/terminal-cursor-fire.lua"
@@ -6141,9 +6153,6 @@
     "Plugin: {name}": [
       "walker/scripts/actions/install/plugins.py"
     ],
-    "Plugins": [
-      "walker/scripts/actions/system/update.sh"
-    ],
     "Plugins are turned off by your organization.": [
       "distro/lib/eitr_plugins.py",
       "walker/scripts/actions/install/plugins.py"
@@ -6865,9 +6874,6 @@
     ],
     "Some calendars could not be reached; their previous events stay.": [
       "walker/scripts/actions/tools/calendars.py"
-    ],
-    "Some plugins could not be updated; their previous approved commits were kept.": [
-      "walker/scripts/actions/system/update.sh"
     ],
     "Stable": [
       "fastfetch/eitr.py"
@@ -7966,6 +7972,9 @@
     ],
     "{count} occurrences": [
       "walker/scripts/actions/tools/reminders.py"
+    ],
+    "{count} plugin updates available: Control Center > Plugins or Install > Plugins > Update Plugins": [
+      "walker/scripts/actions/system/update.sh"
     ],
     "{count} system update(s) are waiting. On Arch Linux an app can only be installed on an up-to-date system: installing now would also upgrade part of the system without a recovery snapshot, which can break other apps.": [
       "walker/scripts/actions/install/software.py"

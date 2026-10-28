@@ -529,7 +529,7 @@ Item {
                          qml=plugin.name, source=plugin.as_uri(), commit='a' * 40, disabled=False, surface='none')
             preview = folder / 'preview.png'
             installed = [dict(id='visualizer', name='Audio visualizer', author='Example author', version='2.1.0',
-                              description='Playback spectrum with Wave and Terminal modes', enabled=True,
+                              description='Playback spectrum with Wave and Terminal modes', enabled=True, updateCount=2,
                               blocked='', visualsDisabled=False, icon=(ROOT / 'distro/plugins/example/icon.svg').as_uri(), preview=preview.as_uri()),
                          dict(id='clock', name='Desktop clock', author='Example contributor', version='1.0.0',
                               description='A clock for each display', enabled=False, blocked='disabled',

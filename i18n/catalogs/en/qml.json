@@ -433,5 +433,7 @@
   "Repository: {url}": "Repository: {url}",
   "Bars": "Bars",
   "Line": "Line",
-  "Media style": "Media style"
+  "Media style": "Media style",
+  "Update Plugins": "Update Plugins",
+  "Update available": "Update available"
 }

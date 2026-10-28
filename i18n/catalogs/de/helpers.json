@@ -977,14 +977,12 @@
   "Plugin update: {name}": "Plugin-Aktualisierung: {name}",
   "Plugin {id} could not be updated: {error}": "Plugin {id} konnte nicht aktualisiert werden: {error}",
   "Plugin: {name}": "Plugin: {name}",
-  "Plugins": "Plugins",
   "Plugins run with your account’s full permissions. Eitr has not reviewed this code. Install only if you trust its author and repository.": "Plugins laufen mit allen Berechtigungen deines Kontos. Eitr hat diesen Code nicht geprüft. Installiere nur, wenn du Autor und Repository vertraust.",
   "Plugins: non-interactive update skipped; run eitr plugin update in a terminal.": "Plugins: nicht interaktive Aktualisierung übersprungen; eitr plugin update im Terminal ausführen.",
   "Remove plugin {id} and its service?": "Plugin {id} und seinen Dienst entfernen?",
   "Repository URL": "Repository-URL",
   "Repository: {url}": "Repository: {url}",
   "Rows:": "Einträge:",
-  "Some plugins could not be updated; their previous approved commits were kept.": "Einige Plugins konnten nicht aktualisiert werden; ihre zuvor bestätigten Commits wurden beibehalten.",
   "Version: {version}": "Version: {version}",
   "Plugin installed": "Plugin installiert",
   "Open it from Tools > Plugins.": "Öffne es unter Werkzeuge > Plugins.",
@@ -1395,5 +1393,6 @@
   "Resume Picker": "Sitzungsauswahl",
   "Session name or ID": "Sitzungsname oder ID",
   "Session number (empty cancels): ": "Sitzungsnummer (leer bricht ab): ",
-  "Unable to list sessions.": "Sitzungen konnten nicht aufgelistet werden."
+  "Unable to list sessions.": "Sitzungen konnten nicht aufgelistet werden.",
+  "{count} plugin updates available: Control Center > Plugins or Install > Plugins > Update Plugins": "{count} Plugin-Aktualisierungen verfügbar: Kontrollzentrum > Plugins oder Installieren > Plugins > Plugins aktualisieren"
 }

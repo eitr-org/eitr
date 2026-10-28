@@ -27,6 +27,21 @@ control characters. `run` names an executable file inside the repository, never
 an absolute path or a path containing `..`. Symlinks anywhere in a plugin are
 refused. Submodules are not initialized.
 
+## Checking and updating plugins
+
+System Update only checks for new plugin commits, including when packages are
+current. It fetches Git metadata into the existing installed repository cache,
+without checking out new code, changing approved commits or running plugin code.
+`plugins.py check` prints JSON mapping checked plugin IDs to their new commit counts (including zero);
+network errors are silently ignored. The last check is saved in the machine-local
+`$XDG_STATE_HOME/eitr/plugin-updates.json`, tied to each approved commit.
+
+Use **Update Plugins** next to **Add Plugin…** in **Control Center > Plugins**,
+**Install > Plugins > Update Plugins**, or `eitr plugin update [ID]` to review
+and install updates. Each plugin keeps the same diffs, risk flags and confirmation.
+The Plugins list shows a small ↑ mark and details show **Update available** when
+the last check found new commits. After-update hooks retain their existing behavior.
+
 ## Repositories containing several plugins
 
 Single-plugin repositories keep their root `eitr-plugin.json`. To offer several
