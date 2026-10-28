@@ -10,12 +10,23 @@ Window.SetBackgroundBottomColor(0.039, 0.043, 0.071);
 center_x = Window.GetX() + Window.GetWidth() / 2;
 center_y = Window.GetY() + Window.GetHeight() / 2;
 
-wordmark.image = Image("wordmark.png");
+# Generated from distro/lib/eitr_bifrost.py by export.py.
+wordmark.phase_count = 64;
+wordmark.ticks_per_frame = 5;
+wordmark.advance_numerator = 2;
+wordmark.advance_denominator = 3;
+wordmark.phase = 0;
+for (index = 0; index < wordmark.phase_count; index++)
+{
+  if (index < 10) name = "wordmark-0" + index + ".png"; else name = "wordmark-" + index + ".png";
+  global.wordmarks[index] = Image(name);
+}
+wordmark.image = global.wordmarks[0];
 wordmark.sprite = Sprite(wordmark.image);
 wordmark.y = center_y - wordmark.image.GetHeight() / 2 - 40;
 wordmark.sprite.SetPosition(center_x - wordmark.image.GetWidth() / 2, wordmark.y, 10);
 
-below_wordmark = wordmark.y + wordmark.image.GetHeight() + 48;
+
 
 ring.count = 24;
 ring.center_y = wordmark.y + wordmark.image.GetHeight() / 2;
@@ -23,6 +34,7 @@ ring.radius_x = wordmark.image.GetWidth() / 2 + 90;
 ring.radius_y = wordmark.image.GetHeight() / 2 + 90;
 ring.visible = 1;
 ring.progress = 0;
+below_wordmark = ring.center_y + ring.radius_y + 40;
 for (index = 0; index < ring.count; index++)
 {
   if (index < 10) name = "rune-0" + index + ".png"; else name = "rune-" + index + ".png";
@@ -54,6 +66,13 @@ tick = 0;
 fun refresh_callback ()
 {
   global.tick++;
+  phase = Math.Int(Math.Int(global.tick / wordmark.ticks_per_frame) * wordmark.advance_numerator / wordmark.advance_denominator);
+  phase = phase - Math.Int(phase / wordmark.phase_count) * wordmark.phase_count;
+  if (phase != wordmark.phase)
+  {
+    global.wordmark.phase = phase;
+    wordmark.sprite.SetImage(global.wordmarks[phase]);
+  }
   # The glow travels around the ring once every four seconds (50 refreshes a second).
   head = (global.tick / 200 - Math.Int(global.tick / 200)) * ring.count;
   for (index = 0; index < ring.count; index++)
@@ -77,7 +96,7 @@ Plymouth.SetBootProgressFunction(boot_progress_callback);
 
 fun show_progress (visible)
 {
-  global.ring.visible = visible;
+  global.ring.visible = 1;
   prompt.sprite.SetOpacity(1 - visible);
   field.sprite.SetOpacity(1 - visible);
 }

@@ -56,7 +56,13 @@ run_with_spinner() (
         trap 'exit 0' TERM INT
         local frame=0 started=$SECONDS phrase='' elapsed suffix line position stop next mix character frame_text colour lead truecolor=0
         local -a runes=(ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ)
-        local -a red=(224 232 230 127 111 169) green=(92 147 195 201 168 139) blue=(104 90 106 143 220 214)
+        local -a rainbow red green blue
+        local frame_seconds advance_numerator advance_denominator letter_phase stop_resolution stop_count
+        mapfile -t rainbow < <(python3 "${BASH_SOURCE[0]%/*}/eitr_bifrost.py")
+        read -r -a red <<< "${rainbow[0]}"
+        read -r -a green <<< "${rainbow[1]}"
+        read -r -a blue <<< "${rainbow[2]}"
+        read -r frame_seconds advance_numerator advance_denominator letter_phase stop_resolution stop_count <<< "${rainbow[3]}"
         [[ ${COLORTERM:-} == truecolor || ${COLORTERM:-} == 24bit ]] && truecolor=1
         printf '\033[?25l' >&2
         while :; do
@@ -73,12 +79,12 @@ run_with_spinner() (
             for ((character=0; character<${#line} && character<${#text}; character++)); do
                 if (( truecolor )); then
                     # The Bifröst rainbow flows along the text, about 7 letters a second.
-                    position=$((((character - frame * 2 / 3) * 24 % 1536 + 1536) % 1536))
-                    stop=$((position / 256)) next=$(((stop + 1) % 6)) mix=$((position % 256))
+                    position=$((((character - frame * advance_numerator / advance_denominator) * letter_phase % (stop_count * stop_resolution) + stop_count * stop_resolution) % (stop_count * stop_resolution)))
+                    stop=$((position / stop_resolution)) next=$(((stop + 1) % stop_count)) mix=$((position % stop_resolution))
                     printf -v colour '\033[38;2;%d;%d;%dm' \
-                        "$((red[stop] + (red[next] - red[stop]) * mix / 256))" \
-                        "$((green[stop] + (green[next] - green[stop]) * mix / 256))" \
-                        "$((blue[stop] + (blue[next] - blue[stop]) * mix / 256))"
+                        "$((red[stop] + (red[next] - red[stop]) * mix / stop_resolution))" \
+                        "$((green[stop] + (green[next] - green[stop]) * mix / stop_resolution))" \
+                        "$((blue[stop] + (blue[next] - blue[stop]) * mix / stop_resolution))"
                     (( character )) || lead="$colour"
                     frame_text+="$colour${line:character:1}"
                 else
@@ -87,7 +93,7 @@ run_with_spinner() (
             done
             printf '\r%s%s \033[0m%s\033[2m%s%s\033[0m\033[K' "$lead" "${runes[frame % ${#runes[@]}]}" "$frame_text" "${line:character}" "$suffix" >&2
             frame=$((frame + 1))
-            read -r -t 0.1 -u "$tick" _ || true
+            read -r -t "$frame_seconds" -u "$tick" _ || true
         done
     ) </dev/null &
     animator=$!

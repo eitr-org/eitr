@@ -45,11 +45,9 @@ LAN.
   (they still show the old colours).
 - **Auto-hide bar.** Implemented for every edge and layout;
   live Hyprland pointer-edge and exclusive-zone checks are pending before release.
-- **Boot, shutdown and disk-password screens (`distro/plymouth`).** Replace the dark
-  green: the logo cycles through the same Bifröst colour transitions as System
-  Update's text, and the rune loading animation uses the gold of the Norse
-  runestone wallpaper's emblem. Applies at power on, power off and the disk
-  passphrase prompt.
+- **Boot, shutdown and disk-password screens.** Shared Bifröst logo colours and
+  runestone-gold runes are implemented with offscreen
+  previews; boot, shutdown and encrypted unlock still need VM review before release.
 - **Website translations.** Offer the site in the desktop's languages
   (Portuguese (Brazil), Spanish, German, French) with a language switch, reusing
   the reviewed Handbook translations where chapters overlap. Decide the URL scheme

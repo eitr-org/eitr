@@ -37,7 +37,7 @@ jobs:
             sed -i '/^\[options\]/a DisableSandbox' /etc/pacman.conf
           pacman -Syu --noconfirm --needed \
             bash git python python-pillow python-gobject python-markdown nodejs shellcheck \
-            lua qt6-declarative jq util-linux xkeyboard-config
+            lua qt6-declarative jq util-linux xkeyboard-config noto-fonts ttf-jetbrains-mono-nerd
           # Keep the cache small: drop packages that are no longer installed.
           pacman -Sc --noconfirm
 

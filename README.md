@@ -134,5 +134,5 @@ On a non-Arch host, run it from a regular clone in a throwaway Arch container.
 The checkout is mounted read-only and copied, so its file ownership is untouched:
 
 ```sh
-docker run --rm --platform linux/amd64 -v "$PWD":/repo:ro archlinux:latest bash -c 'sed -i "/^\[options\]/a DisableSandbox" /etc/pacman.conf && pacman -Syu --noconfirm --needed bash git python python-pillow python-gobject nodejs shellcheck lua qt6-declarative jq util-linux xkeyboard-config >/dev/null && useradd -m tester && cp -a /repo /home/tester/eitr && chown -R tester: /home/tester/eitr && su tester -c "cd ~/eitr && bash tools/check.sh"'
+docker run --rm --platform linux/amd64 -v "$PWD":/repo:ro archlinux:latest bash -c 'sed -i "/^\[options\]/a DisableSandbox" /etc/pacman.conf && pacman -Syu --noconfirm --needed bash git python python-pillow python-gobject nodejs shellcheck lua qt6-declarative jq util-linux xkeyboard-config noto-fonts ttf-jetbrains-mono-nerd >/dev/null && useradd -m tester && cp -a /repo /home/tester/eitr && chown -R tester: /home/tester/eitr && su tester -c "cd ~/eitr && bash tools/check.sh"'
 ```

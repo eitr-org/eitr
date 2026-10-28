@@ -1,5 +1,9 @@
 # Releases
 
+The Plymouth wordmark cycles through the terminal progress palette; rune loading
+and password bullets use runestone gold, with neutral password prompt text.
+Generated assets retain the existing package refresh hook. VM review is pending.
+
 Optional bar auto-hide reveals at the screen edge, holds open for panels and
 dragging, and frees the reserved window space while hidden. It is off by default.
 
