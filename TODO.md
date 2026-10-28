@@ -57,16 +57,15 @@ LAN.
   effects (unfold, fold, Overview entrances), applied everywhere through
   `DesktopStyle`/`DockPanel`, saved in `bar-settings.json`, Walker and QML settings.
   Implemented with five-language Handbook/catalog updates; live review remains.
-- **Official plugins repository.** An `eitr-org/eitr-plugins` repository with reviewed
-  official plugins. Multi-plugin repository support is implemented: strict
-  `eitr-plugins.json` indexes, multi-select, separate reviews and shared pinned
-  snapshots, with single-plugin compatibility. Creating and populating the
-  official repository remains. Plugin ideas: the audio visualizer, a system
-  monitor widget (CPU/GPU/RAM graphs), a weather widget, a calendar/agenda widget,
-  a now-playing card with album art, a Pomodoro timer, a clipboard history tile,
-  a GitHub notifications/PR tile, a Docker containers tile, a Home Assistant
-  switchboard, a crypto/stock ticker, a world clock, a sticky notes widget, a
-  network speed graph, a CI status tile (GitHub Actions), a Tailscale peers tile.
+- **Official plugins repository.** `eitr-org/eitr-plugins` is public with the
+  Visualizer (2026-10-28); Add Plugin lists a repository's plugins from its
+  `eitr-plugins.json` index. Next: add more plugins there and mention the repository
+  on the website and in the Handbook. Ideas: a system monitor widget (CPU/GPU/RAM
+  graphs), a weather widget, a calendar/agenda widget, a now-playing card with album
+  art, a Pomodoro timer, a clipboard history tile, a GitHub notifications/PR tile, a
+  Docker containers tile, a Home Assistant switchboard, a crypto/stock ticker, a
+  world clock, a sticky notes widget, a network speed graph, a CI status tile (GitHub
+  Actions), a Tailscale peers tile.
 - **Themes from a Git repository.** Let users add a theme by repository URL, like
   plugins: validate `colors.toml` and the theme files against `test_theme_schema.py`'s
   contract, review before installing, pin to a commit, offer updates through System
