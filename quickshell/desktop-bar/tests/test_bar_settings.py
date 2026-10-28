@@ -211,7 +211,7 @@ ShellRoot {
         bar = Path(__file__).resolve().parents[1]
         source = (bar / "shell.qml").read_text()
         transform = source.split("id: barContents\n", 1)[1].split("                    width:", 1)[0]
-        self.assertIn("exclusiveZone: shell.barVisible && autoHide.shown ? bar.normalThickness : 0", source)
+        self.assertIn("exclusiveZone: shell.barVisible && !shell.barAutoHide ? bar.normalThickness : 0", source)
         self.assertIn("bar.panelOpen || bar.pendingPanel !== null || bar.pendingOverview || overview.visible || shell.barPointerHeld || notificationPopups.visible", source)
         with tempfile.TemporaryDirectory(prefix="eitr-autohide-") as directory:
             folder = Path(directory)
@@ -244,7 +244,7 @@ ShellRoot {
                                 required property string modelData
                                 width: 172; height: 172; color: "#2c3640"; clip: true
                                 property real normalThickness: 30
-                                property real exclusiveZone: autoHide.shown ? normalThickness : 0
+                                property real exclusiveZone: autoHide.autoHide ? 0 : normalThickness
                                 Bar.BarAutoHide {
                                     id: autoHide
                                     autoHide: sample.hiding; pointerInside: sample.pointerInside; held: sample.held
@@ -261,7 +261,7 @@ ShellRoot {
                                 Text { anchors.centerIn: parent; text: shell.barEdge + "\\n" + modelData; color: "white"; font.pixelSize: 12 }
                                 function verify(hidden) {
                                     if (Math.abs(autoHide.progress - (hidden ? 0 : 1)) > .001) throw new Error("Reveal did not settle");
-                                    if (exclusiveZone !== (hidden ? 0 : 30)) throw new Error("Wrong reserved space");
+                                    if (exclusiveZone !== (autoHide.autoHide ? 0 : 30)) throw new Error("Wrong reserved space");
                                     const point = strip.mapToItem(bar, 0, 0);
                                     if (hidden && !(point.x <= -30 || point.x >= 172 || point.y <= -30 || point.y >= 172)) throw new Error("Strip still on screen");
                                     if (!hidden && (point.x < 0 || point.y < 0 || point.x > 142 || point.y > 142)) throw new Error("Bad reveal edge");

@@ -718,7 +718,8 @@ ShellRoot {
                 implicitHeight: modelData.height
                 color: "transparent"
                 exclusionMode: ExclusionMode.Normal
-                exclusiveZone: shell.barVisible && autoHide.shown ? bar.normalThickness : 0
+                // Auto-hide reserves no space, so revealing the bar slides it over windows instead of re-tiling them.
+                exclusiveZone: shell.barVisible && !shell.barAutoHide ? bar.normalThickness : 0
                 WlrLayershell.namespace: "desktop-bar"
                 // Notification popups must have a strictly higher layer than
                 // panels, rather than depending on same-layer mapping order.
