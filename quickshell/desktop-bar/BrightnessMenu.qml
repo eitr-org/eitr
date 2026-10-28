@@ -357,8 +357,9 @@ ThemedPopup {
                 width: parent.width
                 spacing: 12
                 PanelHeading { text: Eitr.I18n.tr("Display"); foreground: menu.foreground; accent: menu.accent; rune: "display" }
-                Text { width: parent.width; text: menu.state.available ? Eitr.I18n.tr("Brightness") : (menu.state.name || Eitr.I18n.tr("Brightness unavailable")); elide: Text.ElideRight; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
+                // Only built-in laptop screens get a slider; desktop monitors have their own controls.
                 Row {
+                    visible: menu.state.kind === "backlight"
                     width: parent.width
                     spacing: 10
                     Text { width: 30; height: 30; text: "󰃟"; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: 18 }
@@ -412,7 +413,7 @@ ThemedPopup {
                         font.pixelSize: PanelStyle.captionSize
                     }
                 }
-                PanelDivider { width: parent.width; height: 8; foreground: menu.foreground }
+                PanelDivider { visible: menu.state.kind === "backlight" || menu.power.available; width: parent.width; height: 8; foreground: menu.foreground }
                 Row {
                     width: parent.width
                     height: 40

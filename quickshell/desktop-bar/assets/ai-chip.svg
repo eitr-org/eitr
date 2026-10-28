@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-  <title>AI usage</title>
-  <defs><mask id="letters"><rect x="0" y="0" width="24" height="24" fill="#fff"/><path fill="#000" fill-rule="evenodd" d="M 7.60 16.40 L 10.53 7.60 L 13.47 16.40 Z M 9.30 16.40 L 10.53 12.70 L 11.77 16.40 Z"/><path fill="#000" d="M 8.83 15.29 L 12.23 14.23 L 12.23 15.11 L 8.83 16.17 Z"/><path fill="#000" d="M 14.79 8.48 L 16.40 7.60 L 16.40 15.52 L 14.79 16.40 Z"/></mask></defs>
-  <g fill="#ffffff"><rect x="4.6" y="4.6" width="14.8" height="14.8" rx="2.6" mask="url(#letters)"/><rect x="7.4" y="1.2" width="1.8" height="3"/><rect x="7.4" y="19.8" width="1.8" height="3"/><rect x="1.2" y="7.4" width="3" height="1.8"/><rect x="19.8" y="7.4" width="3" height="1.8"/><rect x="11.1" y="1.2" width="1.8" height="3"/><rect x="11.1" y="19.8" width="1.8" height="3"/><rect x="1.2" y="11.1" width="3" height="1.8"/><rect x="19.8" y="11.1" width="3" height="1.8"/><rect x="14.8" y="1.2" width="1.8" height="3"/><rect x="14.8" y="19.8" width="1.8" height="3"/><rect x="1.2" y="14.8" width="3" height="1.8"/><rect x="19.8" y="14.8" width="3" height="1.8"/></g>
-</svg>

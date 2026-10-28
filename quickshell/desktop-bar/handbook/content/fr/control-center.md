@@ -9,7 +9,7 @@ Ses cinq pages regroupent tout ce qui est hors Développement, Applications, Ins
 - **Connectivité:** interrupteurs WiFi et Bluetooth, et Mode avion.
 - **Commandes rapides:** Verrouillage automatique, Notifications de plantage, Ne pas déranger, Mode jeu (effets, flou et notifications contextuelles désactivés, profil de performances activé jusqu’à désactivation) et Éclairage nocturne. Une commande activée se remplit de la couleur d’accent du thème. En dessous, Masquer la barre (SUPER+Shift+Space la réaffiche) et Économiseur d’écran s’exécutent une fois.
 - **Son:** volume et gain/sourdine du microphone.
-- **Écran:** luminosité.
+- **Écran:** luminosité, sur les ordinateurs portables avec écran intégré.
 - **Média:** pochette, artiste, lecture et déplacement dans la piste si disponible.
 - **Alimentation:** Verrouiller, et **Alimentation…**, qui déplie Déconnexion, Veille, Redémarrer et Éteindre.
 

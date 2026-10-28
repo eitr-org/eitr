@@ -51,8 +51,9 @@ a docked laptop); nothing changes until you uncomment one and run
 `hyprctl reload`. Monitors set there take precedence over the panel; remove
 them to manage those monitors here again.
 
-Brightness prefers a usable native backlight; otherwise it tries an external
-monitor through DDC. DDC availability depends on the monitor and permissions.
+The brightness slider appears only on laptops with a built-in screen (a native
+backlight); desktop monitors keep their own buttons. Idle dimming can still lower
+an external monitor through DDC where the monitor and permissions allow it.
 Night Light has a manual switch and an optional schedule with editable times.
 
 **HDR** appears only on monitors whose EDID reports PQ or HLG support. It shows the desktop in HDR; games can use HDR even when it is off. Turning HDR on or off also asks you to keep the change within 15 seconds, otherwise it reverts. While HDR is on, **SDR content brightness** adjusts SDR content from 1.0× to 2.0× and saves immediately. Fullscreen HDR games can still switch the monitor automatically when desktop HDR is off. In both cases Eitr uses the monitor's own peak and black levels from its EDID.

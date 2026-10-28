@@ -13,7 +13,8 @@ if [[ "${EITR_TERMINAL_STYLE:-}" == window ]]; then
   exec "$here/../app-launch" kitty "$@"
 fi
 
-options=(-o background_opacity=1)
+# About two columns of padding at the sides, so banner text never touches the window edges.
+options=(-o background_opacity=1 -o 'window_padding_width=6 16')
 class_given=false
 for argument in "$@"; do
   [[ "$argument" == "-e" ]] && break

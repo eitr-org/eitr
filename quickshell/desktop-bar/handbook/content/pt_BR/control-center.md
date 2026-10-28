@@ -9,7 +9,7 @@ Suas cinco páginas reúnem tudo que fica fora de Desenvolvimento, Aplicativos, 
 - **Conectividade:** ligar/desligar WiFi e Bluetooth, além do Modo avião.
 - **Atalhos rápidos:** Bloqueio automático, Notificações de falhas, Não perturbe, Modo jogo (desativa efeitos, desfoque e pop-ups e ativa o perfil de desempenho até você desligá-lo) e Luz noturna. Um controle ligado fica preenchido com a cor de destaque do tema. Abaixo, Ocultar barra (SUPER+Shift+Space a traz de volta) e Protetor de tela executam uma vez.
 - **Som:** volume e ganho/mudo do microfone.
-- **Tela:** brilho.
+- **Tela:** brilho, em notebooks com tela integrada.
 - **Mídia:** capa, artista, reprodução e avanço na faixa quando compatível.
 - **Energia:** Bloquear e **Energia…**, que abre Sair, Suspender, Reiniciar e Desligar.
 

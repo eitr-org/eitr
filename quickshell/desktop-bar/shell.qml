@@ -1096,7 +1096,7 @@ ShellRoot {
                             id: verticalHardware
                             anchors.horizontalCenter: parent.horizontalCenter
                             spacing: shell.workspaceItemSpacing
-                            VerticalBarIcon { id: verticalAiIcon; iconSource: Qt.resolvedUrl("assets/ai-chip.svg"); iconSize: 18; tooltip: Eitr.I18n.tr("AI Usage"); open: true; clickable: true; onClicked: bar.togglePanel(aiMenu) }
+                            VerticalBarIcon { id: verticalAiIcon; icon: ""; iconSize: 16; tooltip: Eitr.I18n.tr("AI Usage"); open: true; clickable: true; onClicked: bar.togglePanel(aiMenu) }
                             VerticalBarIcon { id: verticalHardwareIcon; icon: "󰍛"; iconSize: 18; tooltip: Eitr.I18n.tr("Hardware"); open: true; clickable: true; onClicked: bar.togglePanel(hardwareMenu) }
                             VerticalBarIcon { id: verticalIdleLockIcon; icon: shell.idleLockGlyph; iconSize: 17; tooltip: shell.idleLockTooltip; open: true; clickable: true; onClicked: shell.switchIdleLock() }
                         }
@@ -1353,8 +1353,8 @@ ShellRoot {
                             StatusIcon {
                                 id: aiIcon
                                 slotWidth: shell.workspaceItemSize
-                                iconSource: Qt.resolvedUrl("assets/ai-chip.svg")
-                                iconSize: 18
+                                icon: ""
+                                iconSize: 16
                                 tooltip: Eitr.I18n.tr("AI Usage")
                                 open: true
                                 clickable: true

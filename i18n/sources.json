@@ -144,9 +144,6 @@
     "Bottom": [
       "quickshell/desktop-bar/DisplaySettingsEditor.qml"
     ],
-    "Brightness": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
-    ],
     "Brightness unavailable": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
     ],

@@ -9,7 +9,7 @@ Seine fünf Seiten enthalten alles außerhalb von Entwicklung, Apps, Installiere
 - **Verbindungen:** WiFi- und Bluetooth-Schalter sowie Flugmodus.
 - **Schnellschalter:** automatische Bildschirmsperre, Absturzbenachrichtigungen, Nicht stören, Spielmodus (Effekte, Unschärfe und Popups aus, Leistungsprofil an, bis du ihn ausschaltest) und Nachtlicht. Ein eingeschalteter Schalter füllt sich mit der Akzentfarbe des Designs. Darunter führen Leiste ausblenden (SUPER+Shift+Space holt sie zurück) und Bildschirmschoner einmalig eine Aktion aus.
 - **Ton:** Lautstärke sowie Mikrofonverstärkung und Stummschaltung.
-- **Bildschirm:** Helligkeit.
+- **Bildschirm:** Helligkeit, auf Laptops mit eingebautem Bildschirm.
 - **Medien:** Cover, Interpret, Wiedergabesteuerung und Positionswahl, sofern unterstützt.
 - **Energie:** Sperren sowie **Ein/Aus…**, das Abmelden, Bereitschaft, Neustart und Ausschalten aufklappt.
 

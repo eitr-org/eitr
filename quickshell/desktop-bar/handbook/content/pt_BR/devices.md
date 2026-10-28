@@ -20,7 +20,7 @@ Cada configuração mostra o valor atual em uma linha; clique para ver as opçõ
 
 **Editar layout manualmente** abre `~/.config/hypr/local.lua` para configurações que o painel não cobre, como telas giradas ou espaços de trabalho fixados em um monitor. Um arquivo novo contém exemplos comentados de três monitores, orientação vertical, empilhamento, espelhamento e notebook conectado a uma base. Nada muda até você descomentar um exemplo e executar `hyprctl reload`. Monitores definidos nesse arquivo têm prioridade sobre o painel; remova essas definições para voltar a gerenciá-los aqui.
 
-O brilho prioriza um controle nativo de iluminação disponível; caso contrário, tenta controlar um monitor externo por DDC. A disponibilidade depende do monitor e das permissões. A Luz noturna tem um botão manual e uma programação opcional com horários editáveis.
+O controle de brilho só aparece em notebooks com tela integrada (iluminação nativa); monitores de mesa mantêm os próprios botões. O escurecimento antes do bloqueio ainda pode reduzir um monitor externo por DDC quando o monitor e as permissões permitem. A Luz noturna tem um botão manual e uma programação opcional com horários editáveis.
 
 **HDR** aparece apenas em monitores cujo EDID informa suporte a PQ ou HLG. Exibe a área de trabalho em HDR; jogos podem usar HDR mesmo com a opção desativada. Ativar ou desativar HDR também pede confirmação em 15 segundos; sem ela, a alteração é desfeita. Com HDR ativo, **Brilho do conteúdo SDR** ajusta o conteúdo SDR de 1,0× a 2,0× e salva imediatamente. Jogos HDR em tela cheia ainda podem alternar o monitor automaticamente quando o HDR da área de trabalho está desativado. Nos dois casos o Eitr usa os níveis de pico e de preto informados pela EDID do próprio monitor.
 

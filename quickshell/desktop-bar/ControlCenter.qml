@@ -372,8 +372,9 @@ ThemedPopup {
                         Section { text: Eitr.I18n.tr("Sound"); width: parent.width }
                         AudioLevelControl { width: parent.width; node: Pipewire.defaultAudioSink; showName: false; textSize: 12; iconSize: 16; foreground: center.foreground; background: center.background; accent: center.accent }
                         AudioLevelControl { width: parent.width; node: Pipewire.defaultAudioSource; microphone: true; showName: false; textSize: 12; iconSize: 16; foreground: center.foreground; background: center.background; accent: center.accent }
-                        Section { text: Eitr.I18n.tr("Display"); width: parent.width }
+                        Section { visible: center.displayControl.state.kind === "backlight"; text: Eitr.I18n.tr("Display"); width: parent.width }
                         Row {
+                            visible: center.displayControl.state.kind === "backlight"
                             width: parent.width; spacing: 10
                             Text { width: 30; height: 30; horizontalAlignment: Text.AlignHCenter; verticalAlignment: Text.AlignVCenter; text: "󰃟"; color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: 16 }
                             PanelSlider {
@@ -639,7 +640,7 @@ ThemedPopup {
                         GridLayout { width: parent.width; columns: 2; columnSpacing: 8; rowSpacing: 8
                             GridAction { title: Eitr.I18n.tr("About"); glyph: "󰋽"; onClicked: center.menuAction("system-information", "About") }
                             GridAction { title: Eitr.I18n.tr("Hardware"); glyph: "󰍛"; onClicked: center.panelRequested("hardware") }
-                            GridAction { title: Eitr.I18n.tr("AI Usage"); glyph: ""; image: Qt.resolvedUrl("assets/ai-chip.svg"); onClicked: center.panelRequested("ai") }
+                            GridAction { title: Eitr.I18n.tr("AI Usage"); glyph: ""; onClicked: center.panelRequested("ai") }
                             GridAction { title: Eitr.I18n.tr("Weather"); glyph: "󰖐"; onClicked: center.panelRequested("weather") }
                             GridAction { title: Eitr.I18n.tr("Report a Problem"); glyph: "󰃤"; onClicked: center.menuAction("system-information", "Report a Problem") }
                         }

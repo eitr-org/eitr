@@ -16,7 +16,7 @@ Bluetooth, Audio, Display, Hardware, AI Usage, Weather), the Control Center open
   Light. A toggle that is on fills with the theme accent. Below them, Hide Bar
   (SUPER+Shift+Space brings it back) and Screensaver run once.
 - **Sound:** volume and microphone gain/mute.
-- **Display:** brightness.
+- **Display:** brightness, on laptops with a built-in screen.
 - **Media:** cover, artist, playback controls and seeking when supported.
 - **Power:** Lock, plus **Power…**, which unfolds Logout, Suspend, Reboot and Shutdown.
 
