@@ -36,9 +36,6 @@ html[data-appearance="light"] .impact-emblem{background:var(--fg)}
 html[data-appearance="light"] .what,html[data-appearance="light"] .themes-section,html[data-appearance="light"] .stone,html[data-appearance="light"] .install-card,html[data-appearance="light"] .install-card.status,html[data-appearance="light"] .support-card{background:var(--surface);border-color:var(--line-strong)}
 html[data-appearance="light"] .button.ghost{background:#fff6;color:var(--fg)}
 html[data-appearance="light"] .button.primary{color:#fff3e7;background:#91313b;border-color:#91313b;box-shadow:0 8px 30px #91313b1a}
-html[data-appearance="light"] .pillar-copy,html[data-appearance="light"] .pillar-copy h3{color:#f4eadc}
-html[data-appearance="light"] .pillar-copy p:last-child{color:#dbd0c1}
-html[data-appearance="light"] .pillar::after{background:linear-gradient(0deg,#070606 0%,#070606cc 40%,transparent 85%)}
 html[data-appearance="light"] .realm-dialog{background:var(--surface);color:var(--fg);border-color:var(--bronze)}
 html[data-appearance="light"] .realm-dialog li,html[data-appearance="light"] .world-tree .realm-dialog .realm-dialog-content .eyebrow,html[data-appearance="light"] .realm-close{color:var(--fg)}
 html[data-appearance="light"] .realm-dialog-symbol{color:var(--bronze)}

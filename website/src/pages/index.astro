@@ -51,7 +51,7 @@ const homepageFeatures = [
   {
     "id": "tour",
     "title": "The desktop",
-    "file": "control-center",
+    "file": "desktop",
     "body": "Walker brings apps, settings and actions into one keyboard-first flow. The bar and control center open the same native panels.",
     "group": "desktop"
   },
@@ -64,7 +64,8 @@ const homepageFeatures = [
   },
   {
     "id": "developers",
-    "title": "Built for developers",
+    "title": "Built for Linux lovers,",
+    "subtitle": "ready for development.",
     "file": "development",
     "body": "LazyVim, tmux and Docker are included. Curated installs add editors, language toolchains and AI coding agents, while Git identities and cloud menus keep account context explicit.",
     "group": "development"
@@ -149,25 +150,6 @@ const faq = [
     </div>
   </section>
 
-  <section class="wrap pillars">
-    <article class="pillar glowable reveal">
-      <img src="/art/valkyrie.webp" alt="" loading="lazy" />
-      <div class="pillar-copy">
-        <p class="label">I · Power · ᚦ Thurisaz</p>
-        <h3>Strike fast.</h3>
-        <p>Everything is a keystroke away. Walker finds apps, settings and actions; Hyprland tiles your windows the moment they open.</p>
-      </div>
-    </article>
-    <article class="pillar glowable reveal">
-      <img src="/art/jormungandr.webp" alt="" loading="lazy" />
-      <div class="pillar-copy">
-        <p class="label">II · Endurance · ᛇ Eihwaz</p>
-        <h3>Hold the world.</h3>
-        <p>System Update takes a snapshot before an upgrade. A signed repository and documented recovery procedures help you maintain the system; independent backups still matter.</p>
-      </div>
-    </article>
-  </section>
-
   <WorldTree />
   <Ravens />
 
@@ -175,11 +157,11 @@ const faq = [
     const shot = screenshots.find(shot => shot.file === feature.file)!;
     return <section id={feature.id} class="wrap section homepage-feature">
       <div class="feature-copy">
-        <h2>{feature.title}</h2>
+        <h2>{feature.title}{feature.subtitle && <><br /><em>{feature.subtitle}</em></>}</h2>
         <p>{feature.body}</p>
         <a class="text-link" href={`/screenshots/#${feature.group}`}>See more →</a>
       </div>
-      <a class="feature-image" href={`/screenshots/#${feature.group}`} aria-label={`See more: ${feature.title}`}>
+      <a class="feature-image" href={`/screenshots/#${feature.group}`} aria-label={`See more: ${[feature.title, feature.subtitle].filter(Boolean).join(" ")}`}>
         <img src={`/shots/${shot.file}.webp`} alt={shot.alt} width={shot.width} height={shot.height} loading="lazy" />
       </a>
     </section>;

@@ -5,10 +5,10 @@ export const screenshotGroups = [
     "shots": [
       {
         "file": "desktop",
-        "caption": "The desktop on an ultrawide monitor",
-        "alt": "The desktop on an ultrawide monitor",
-        "width": 1600,
-        "height": 900
+        "caption": "The desktop: About and Neovim side by side",
+        "alt": "The Eitr desktop in the Afterglow theme with About on the left and Neovim on the right",
+        "width": 1920,
+        "height": 1080
       },
       {
         "file": "control-center",
@@ -21,7 +21,7 @@ export const screenshotGroups = [
         "file": "tabs",
         "caption": "The Tabs bar: three sloped tabs on a thin desktop strip",
         "alt": "The Tabs bar: three sloped tabs on a thin desktop strip",
-        "width": 2560,
+        "width": 1920,
         "height": 1080
       },
       {
@@ -90,8 +90,8 @@ export const screenshotGroups = [
         "file": "themes",
         "caption": "Choosing a theme",
         "alt": "Choosing a theme",
-        "width": 1600,
-        "height": 900
+        "width": 1920,
+        "height": 1080
       },
       {
         "file": "lockscreen",
@@ -276,8 +276,8 @@ export const screenshotGroups = [
         "file": "about",
         "caption": "About: software, Eitr version and channel in grouped terminal boxes",
         "alt": "About: software, Eitr version and channel in grouped terminal boxes",
-        "width": 1600,
-        "height": 900
+        "width": 1920,
+        "height": 1080
       }
     ]
   },
@@ -289,15 +289,15 @@ export const screenshotGroups = [
         "file": "handbook",
         "caption": "The EITR Handbook's welcome",
         "alt": "The EITR Handbook open on the desktop",
-        "width": 1600,
-        "height": 900
+        "width": 1920,
+        "height": 1080
       },
       {
         "file": "handbook-shortcuts",
         "caption": "Shortcuts in the Handbook",
         "alt": "Shortcuts in the Handbook",
-        "width": 1600,
-        "height": 900
+        "width": 1920,
+        "height": 1080
       },
       {
         "file": "learn",
