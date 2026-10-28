@@ -25,7 +25,12 @@ class AiUsageLayoutTests(unittest.TestCase):
                 if source.suffix in ('.qml', '.js') or source.name == 'qmldir':
                     shutil.copy(source, folder / source.name)
             (folder / 'ThemedPopup.qml').write_text('''import QtQuick
+import "JsonState.js" as JsonState
 Item {
+    id: popup
+    property bool waitForFreshData: false
+    function updateContent(action) { action(); }
+    function applySnapshot(name, value) { if (JsonState.changed(popup[name], value)) popup[name] = value; }
     property Item target
     property bool opened: false
     property color foreground

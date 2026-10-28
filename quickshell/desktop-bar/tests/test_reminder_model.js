@@ -14,7 +14,7 @@ assert.equal(context.forDay(context.parse('[]'), day).length, 0);
 const qml = fs.readFileSync(path.join(__dirname, '../CalendarMenu.qml'), 'utf8');
 assert.match(qml, /watchChanges: true/);
 assert.match(qml, /onFileChanged: reload\(\)/);
-assert.match(qml, /onLoaded: menu.reminders = ReminderModel.parse\(text\(\)\)/);
+assert.match(qml, /menu\.updateContent\(function\(\) \{ menu\.applySnapshot\("reminders", ReminderModel\.parse\(snapshot\)\)/);
 console.log('Reminder model passed');
 const anchor = new Date(2028, 0, 31, 8);
 const series = {id:'r', text:'Monthly', due:anchor.getTime()/1000, repeat_anchor:'2028-01-31T08:00:00', repeat_index:0, repeat:{frequency:'monthly', count:3}};
@@ -46,5 +46,5 @@ assert.deepEqual(Array.from(context.eventsForDay(events, new Date(2026, 10, 1)),
 const items = context.dayItems([{id:'r', text:'Dentist', due:at(30, 5)}], events, new Date(2026, 9, 30));
 assert.deepEqual(Array.from(items, (item) => [item.kind, item.id, !!item.continued]),
     [['event', 'trip', false], ['event', 'night', true], ['reminder', 'r', false]]);
-assert.match(qml, /onLoaded: menu.events = ReminderModel.parseEvents\(text\(\)\)/);
+assert.match(qml, /menu\.updateContent\(function\(\) \{ menu\.applySnapshot\("events", ReminderModel\.parseEvents\(snapshot\)\)/);
 assert.match(qml, /"\/eitr\/calendar-events.json"/);

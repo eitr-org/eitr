@@ -35,7 +35,7 @@ Item {
         text: "\u{F0142}"
         color: link.foreground
         opacity: link.emphasized ? 1 : PanelStyle.secondaryTextOpacity
-        Behavior on anchors.rightMargin { NumberAnimation { duration: 120 } }
+        Behavior on anchors.rightMargin { NumberAnimation { duration: DesktopStyle.motionDuration(120) } }
         font.family: DesktopFonts.family
         font.pixelSize: 16
     }

@@ -7,6 +7,7 @@ import Quickshell.Io
 
 ThemedPopup {
     id: menu
+    waitForFreshData: true
     implicitWidth: 468
     property int maximumHeight: 1000
     implicitHeight: Math.min(maximumHeight, Math.max(300,
@@ -54,22 +55,26 @@ ThemedPopup {
         var seconds = Math.max(0, Math.floor(timestamp - Date.now() / 1000));
         return "Resets " + Qt.formatDateTime(new Date(timestamp * 1000), "ddd MMM dd, HH:mm") + " · " + Math.floor(seconds / 3600) + "h " + Math.floor(seconds % 3600 / 60) + "m";
     }
+    Component.onCompleted: cached.running = true
     onOpenedChanged: if (opened) {
         contentViewport.contentY = 0;
         freshReceived = false;
-        if (!cached.running) cached.running = true;
         refresh();
     }
-    Timer { interval: 300000; repeat: true; running: menu.opened; onTriggered: menu.refresh() }
+    Timer { interval: 300000; repeat: true; running: true; onTriggered: menu.refresh() }
     Process {
         id: cached
         command: ["python3", Quickshell.shellDir + "/scripts/ai-popup.py", "cached"]
         stdout: StdioCollector { id: cachedOutput }
         onExited: {
-            try {
-                var data = JSON.parse(cachedOutput.text);
-                if (data.providers && !menu.freshReceived) menu.usage = data;
-            } catch (e) {}
+            const received = cachedOutput.text;
+            menu.updateContent(function() {
+                try {
+                    var data = JSON.parse(received);
+                    if (data.providers && !menu.freshReceived) menu.applySnapshot("usage", data);
+                } catch (e) {}
+
+            });
         }
     }
     Process {
@@ -77,12 +82,16 @@ ThemedPopup {
         command: ["python3", Quickshell.shellDir + "/scripts/ai-popup.py"]
         stdout: StdioCollector { id: output }
         onExited: function(code) {
-            try {
-                if (code !== 0) throw new Error("query failed");
-                menu.usage = JSON.parse(output.text);
-                menu.freshReceived = true;
-                menu.status = "Last checked " + Qt.formatDateTime(new Date(menu.usage.updated * 1000), "HH:mm");
-            } catch (e) { menu.status = "Could not update usage. Try refreshing."; }
+            const received = output.text;
+            menu.updateContent(function() {
+                try {
+                    if (code !== 0) throw new Error("query failed");
+                    menu.applySnapshot("usage", JSON.parse(received));
+                    menu.freshReceived = true;
+                    menu.status = "Last checked " + Qt.formatDateTime(new Date(menu.usage.updated * 1000), "HH:mm");
+                } catch (e) { menu.status = "Could not update usage. Try refreshing."; }
+
+            });
         }
     }
     Item {

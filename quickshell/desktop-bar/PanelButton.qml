@@ -68,7 +68,7 @@ Rectangle {
                 from: 0; to: 360
                 duration: 1200
                 loops: Animation.Infinite
-                running: button.visible && button.icon && button.loading
+                running: !DesktopStyle.reduceMotion && (button.visible && button.icon && button.loading)
                 onStopped: spin.angle = 0
             }
         }
@@ -78,6 +78,7 @@ Rectangle {
         x: 9
         width: 16; height: 16
         anchors.verticalCenter: parent.verticalCenter
+        asynchronous: true
         source: button.leadingImage
         sourceSize: Qt.size(Math.ceil(width * Screen.devicePixelRatio), Math.ceil(height * Screen.devicePixelRatio))
         smooth: true
@@ -107,7 +108,7 @@ Rectangle {
             to: 360
             duration: 900
             loops: Animation.Infinite
-            running: button.visible && button.loading
+            running: !DesktopStyle.reduceMotion && button.visible && button.loading
         }
     }
     MouseArea {

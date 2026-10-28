@@ -26,17 +26,19 @@ PanelWindow {
     WlrLayershell.namespace: "desktop-overview"
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: opened ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
-    Behavior on revealProgress { enabled: overview.opened; NumberAnimation { duration: 320; easing.type: Easing.OutCubic } }
+    Behavior on revealProgress { enabled: overview.opened; NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     NumberAnimation {
         id: tileEntrances
         target: overview; property: "entranceElapsed"
-        from: 0; to: 755; duration: 755
+        from: 0; to: 755; duration: DesktopStyle.motionDuration(755)
         easing.type: Easing.Linear
     }
     onOpenedChanged: if (opened) {
         entranceElapsed = 0;
-        tileEntrances.restart();
-        Hyprland.refreshToplevels();
+        if (DesktopStyle.reduceMotion) entranceElapsed = 755;
+        else tileEntrances.restart();
+        // The service model is already event-driven; refresh after the entrance.
+        refreshAfterEntrance.restart();
         var active = Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.id : 0;
         selectedIndex = Math.max(0, workspaces.findIndex(w => w.id === active));
         focusDelay.restart();
@@ -47,6 +49,7 @@ PanelWindow {
         interval: 100
         onTriggered: if (overview.opened && contentLoader.item) contentLoader.item.forceActiveFocus()
     }
+    Timer { id: refreshAfterEntrance; interval: DesktopStyle.motionDuration(755); onTriggered: if (overview.opened) Hyprland.refreshToplevels() }
     Timer { interval: 1000; repeat: true; running: overview.opened; onTriggered: Hyprland.refreshToplevels() }
     function choose(id) {
         if (id < 1 || id > 10) return;
@@ -62,9 +65,10 @@ PanelWindow {
     Loader {
         id: contentLoader
         focus: overview.opened
-        onLoaded: item.forceActiveFocus()
+        onLoaded: if (overview.opened) item.forceActiveFocus()
         anchors.fill: parent
-        active: overview.visible
+        active: true
+        asynchronous: true
         sourceComponent: Component {
             Rectangle {
                 color: overview.background
@@ -120,7 +124,7 @@ PanelWindow {
                                         anchors.fill: parent
                                         workspace: cell.modelData
                                         foreground: overview.foreground; background: overview.background; accent: overview.accent
-                                        capturing: overview.visible
+                                        capturing: overview.visible && overview.entranceElapsed >= 755
                                         selected: overview.selectedIndex === cell.index
                                         current: Hyprland.focusedWorkspace !== null && Hyprland.focusedWorkspace.id === cell.modelData.id
                                         onChosen: id => overview.choose(id)

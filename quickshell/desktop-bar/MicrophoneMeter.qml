@@ -23,7 +23,7 @@ Column {
             height: parent.height; radius: parent.radius
             width: parent.width * (meter.muted ? 0 : Math.min(1, Math.max(0, meter.peak)))
             color: meter.accent
-            Behavior on width { NumberAnimation { duration: 80; easing.type: Easing.OutCubic } }
+            Behavior on width { NumberAnimation { duration: DesktopStyle.motionDuration(80); easing.type: Easing.OutCubic } }
         }
     }
 }

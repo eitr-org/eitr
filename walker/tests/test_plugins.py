@@ -100,6 +100,131 @@ class PluginTests(unittest.TestCase):
         self.assertTrue(self.manager.add(self.url, lambda url: True, lambda *details: True))
         return self.manager.records()['example']['commit']
 
+    def make_index(self):
+        spec = self.spec()
+        for plugin_id in ('example', 'second'):
+            folder = self.source / 'plugins' / plugin_id
+            folder.mkdir(parents=True)
+            for source in self.source.iterdir():
+                if source.is_file() and source.name != 'eitr-plugins.json':
+                    shutil.copy(source, folder / source.name)
+            current = {**spec, 'id': plugin_id, 'name': plugin_id.title()}
+            (folder / 'eitr-plugin.json').write_text(json.dumps(current))
+        (self.source / 'eitr-plugin.json').unlink()
+        index = {'schemaVersion': 1, 'plugins': [
+            {'id': plugin_id, 'path': 'plugins/' + plugin_id} for plugin_id in ('example', 'second')]}
+        (self.source / 'eitr-plugins.json').write_text(json.dumps(index))
+        self.publish()
+        return index
+
+    def test_repository_picker_lists_metadata_and_selects_multiple(self):
+        self.make_index()
+        entries = plugins.repository_plugins(self.source)
+        cli = self.cli()
+        wizard = object.__new__(cli.PluginWizard)
+        wizard.screen = unittest.mock.Mock()
+        wizard.screen.get_wch.side_effect = [' ', cli.curses.KEY_DOWN, ' ', '\n']
+        wizard.frame = unittest.mock.Mock(return_value=(1, 1))
+        wizard.text = unittest.mock.Mock()
+        wizard.panel_bottom = 24
+        self.assertEqual(wizard.pick(entries), ['example', 'second'])
+        displayed = [call.args[2] for call in wizard.text.call_args_list]
+        self.assertTrue(any('Example' in line for line in displayed))
+        self.assertTrue(any(entries[0]['spec']['description'] in line for line in displayed))
+        self.assertTrue(any('Plugin icon:' in line for line in displayed))
+        wizard.screen.get_wch.side_effect = ['\x1b']
+        self.assertEqual(wizard.pick(entries), [])
+
+    def test_indexed_update_refuses_removed_or_moved_entry_without_review(self):
+        index = self.make_index()
+        self.manager.add(self.url, lambda url: True, lambda *details: True, lambda entries: ['example'])
+        index['plugins'] = [index['plugins'][1]]
+        (self.source / 'eitr-plugins.json').write_text(json.dumps(index))
+        self.publish()
+        approve = unittest.mock.Mock(return_value=True)
+        with self.assertRaises(ValueError):
+            self.manager.update('example', approve)
+        approve.assert_not_called()
+
+    def test_indexed_selection_individual_review_and_shared_snapshot(self):
+        self.make_index()
+        reviews, offered = [], []
+        def pick(entries):
+            offered.extend(entries)
+            return ['example', 'second']
+        def approve(root, spec, url):
+            reviews.append((root, spec['id'], plugins.commit(root)))
+            return True
+        with patch.object(plugins, 'clone', wraps=plugins.clone) as clone:
+            self.assertTrue(self.manager.add(self.url, lambda url: True, approve, pick))
+            self.assertEqual(clone.call_count, 1)
+        self.assertEqual([entry['spec']['name'] for entry in offered], ['Example', 'Second'])
+        self.assertEqual([entry[1] for entry in reviews], ['example', 'second'])
+        self.assertEqual(self.manager.root('example').parent, self.manager.root('second').parent)
+        self.assertEqual(self.manager.spec('second')['id'], 'second')
+        self.assertTrue(all(row['repository'] == self.url for row in self.manager.installed()))
+        self.assertEqual(len(self.manager.records()), 2)
+
+    def test_indexed_decline_empty_unknown_and_duplicate_selection(self):
+        self.make_index()
+        self.assertFalse(self.manager.add(self.url, lambda url: True, lambda *details: False,
+                                          lambda entries: ['example', 'second']))
+        self.assertEqual(self.manager.records(), {})
+        self.assertFalse(self.manager.add(self.url, lambda url: True, lambda *details: True, lambda entries: []))
+        for selection in (['unknown'], ['example', 'example'], 'example'):
+            with self.subTest(selection=selection), self.assertRaises(ValueError):
+                self.manager.add(self.url, lambda url: True, lambda *details: True, lambda entries: selection)
+        reviewed = []
+        self.assertTrue(self.manager.add(self.url, lambda url: True,
+            lambda root, spec, url: reviewed.append(spec['id']) is None and spec['id'] == 'second',
+            lambda entries: ['example', 'second']))
+        self.assertEqual(reviewed, ['example', 'second'])
+        self.assertEqual(list(self.manager.records()), ['second'])
+
+    def test_indexed_update_keeps_sibling_pinned_and_removal_preserves_it(self):
+        self.make_index()
+        self.manager.add(self.url, lambda url: True, lambda *details: True, lambda entries: ['example', 'second'])
+        old = self.manager.records()['example']['commit']
+        (self.source / 'plugins/example/revision').write_text('changed')
+        self.publish()
+        declined = []
+        self.assertFalse(self.manager.update('example', lambda changes: declined.append(changes) or False))
+        self.assertEqual(self.manager.records()['example']['commit'], old)
+        approved = []
+        self.assertTrue(self.manager.update('example', lambda changes: approved.append(changes) or True))
+        self.assertEqual(approved[0]['spec']['id'], 'example')
+        self.assertTrue(any(change['path'] == 'revision' for change in approved[0]['files']))
+        self.assertEqual(self.manager.records()['second']['commit'], old)
+        sibling = self.manager.root('second')
+        self.manager.remove('example', lambda record: True)
+        self.assertTrue(sibling.is_dir())
+        self.assertEqual(self.manager.spec('second')['id'], 'second')
+        self.manager.remove('second', lambda record: True)
+        self.assertFalse(sibling.exists())
+
+    def test_index_validation_refuses_all_entries_before_selection(self):
+        valid = self.make_index()
+        bad_entries = [
+            {'id': 'second', 'path': '../outside'}, {'id': 'second', 'path': '/tmp'},
+            {'id': 'second', 'path': 'plugins/./second'}, {'id': 'second', 'path': 'plugins//second'},
+            {'id': 'second', 'path': 'plugins/second/'}, {'id': 'example', 'path': 'plugins/second'},
+            {'id': 'second', 'path': 'plugins/example'}, {'id': 'second', 'path': '.git'},
+            {'id': 'second', 'path': 'plugins/second', 'extra': True}]
+        for entry in bad_entries:
+            with self.subTest(entry=entry):
+                index = {**valid, 'plugins': [valid['plugins'][0], entry]}
+                (self.source / 'eitr-plugins.json').write_text(json.dumps(index))
+                with self.assertRaises((ValueError, OSError)):
+                    plugins.repository_plugins(self.source)
+        for version in (True, 2, '1'):
+            (self.source / 'eitr-plugins.json').write_text(json.dumps({**valid, 'schemaVersion': version}))
+            with self.assertRaises(ValueError):
+                plugins.repository_plugins(self.source)
+        (self.source / 'eitr-plugins.json').write_text(json.dumps(valid))
+        (self.source / 'plugins/second/linked').symlink_to('/tmp')
+        with self.assertRaises(ValueError):
+            plugins.repository_plugins(self.source)
+
     def test_manifest_refusals(self):
         valid = self.spec()
         cases = []

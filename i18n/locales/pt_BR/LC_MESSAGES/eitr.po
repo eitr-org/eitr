@@ -349,6 +349,9 @@ msgstr "Setas: mover  Enter: alterar  Esc: concluir"
 msgid "Arrows: move  Enter: select  Type: search  Esc: back"
 msgstr "Setas: mover  Enter: selecionar  Digite para buscar  Esc: voltar"
 
+msgid "Arrows: move  Space: select  Enter: review  Esc: cancel"
+msgstr "Setas: mover  Espaço: selecionar  Enter: revisar  Esc: cancelar"
+
 msgid "Artifact Registry"
 msgstr "Artifact Registry"
 
@@ -2191,6 +2194,9 @@ msgstr "Plugin bloqueado: {name}"
 msgid "Plugin by {author} · not reviewed by Eitr"
 msgstr "Plugin de {author} · não revisado pelo Eitr"
 
+msgid "Plugin icon: {icon}"
+msgstr "Ícone do plugin: {icon}"
+
 msgid "Plugin installed"
 msgstr "Plugin instalado"
 
@@ -2742,6 +2748,9 @@ msgstr "Selecione pelo menos um pacote"
 
 msgid "Select it in Style > Lockscreen; Ctrl+P previews it."
 msgstr "Selecione em Estilo > Tela de bloqueio; Ctrl+P mostra uma prévia."
+
+msgid "Select plugins"
+msgstr "Selecionar plugins"
 
 msgid "Select the line above to copy it."
 msgstr "Selecione a linha acima para copiá-la."

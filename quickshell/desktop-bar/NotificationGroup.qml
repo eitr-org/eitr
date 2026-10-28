@@ -29,7 +29,7 @@ Column {
     property real revealProgress: expanded ? 1 : 0
     Behavior on revealProgress {
         NumberAnimation {
-            duration: 320
+            duration: DesktopStyle.motionDuration(320)
             easing.type: group.expanded ? Easing.OutCubic : Easing.InCubic
         }
     }

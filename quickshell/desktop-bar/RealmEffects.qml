@@ -29,6 +29,7 @@ Scope {
         target: "realm"
         // geometry is slurp's "x,y wxh" in layout coordinates, or empty for the whole monitor.
         function lightning(monitor: string, geometry: string): void {
+            if (DesktopStyle.reduceMotion) return;
             var match = /^(-?\d+),(-?\d+) (\d+)x(\d+)$/.exec(geometry.trim());
             var screen = match ? realm.screenAt(Number(match[1]), Number(match[2])) : realm.screenNamed(monitor);
             screen = screen || realm.focusedScreen();
@@ -38,7 +39,7 @@ Scope {
                 : Qt.rect(0, 0, screen.width, screen.height);
             storm.strike(screen, target);
         }
-        function ragnarok(): void { fenrir.summon(realm.focusedScreen()); }
+        function ragnarok(): void { if (!DesktopStyle.reduceMotion) fenrir.summon(realm.focusedScreen()); }
         function status(): string { return JSON.stringify({lightning: storm.visible, ragnarok: fenrir.stage}); }
     }
 

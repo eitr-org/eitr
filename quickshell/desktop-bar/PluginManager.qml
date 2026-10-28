@@ -63,6 +63,7 @@ Column {
             border.width: PanelStyle.selectionBorderWidth(false)
             border.color: Qt.alpha(manager.foreground, PanelStyle.selectionBorderAlpha)
             Image {
+                asynchronous: true
                 id: rowIcon
                 x: PanelStyle.selectionInset; anchors.verticalCenter: parent.verticalCenter
                 width: PanelStyle.selectionIconSize; height: width
@@ -135,6 +136,7 @@ Column {
                 Item {
                     width: body.width; height: 48
                     Image {
+                        asynchronous: true
                         id: icon
                         width: 40; height: 40; anchors.verticalCenter: parent.verticalCenter
                         source: card.modelData.icon || ""; fillMode: Image.PreserveAspectFit
@@ -176,6 +178,13 @@ Column {
                     font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
                 }
                 Text {
+                    width: parent.width; wrapMode: Text.Wrap; textFormat: Text.PlainText
+                    text: Eitr.I18n.tr("Repository: {url}", {url: card.modelData.repository || ""})
+                        + (card.modelData.repositoryPath ? " · " + card.modelData.repositoryPath : "")
+                    color: manager.foreground; opacity: PanelStyle.secondaryTextOpacity
+                    font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
+                }
+                Text {
                     width: parent.width; wrapMode: Text.Wrap
                     text: !card.modelData.enabled ? Eitr.I18n.tr("Disabled") : card.modelData.visualsDisabled ? Eitr.I18n.tr("Visuals disabled after failures") : card.modelData.blocked ? Eitr.I18n.tr("Blocked") : Eitr.I18n.tr("Enabled")
                     color: manager.foreground; opacity: PanelStyle.secondaryTextOpacity
@@ -203,6 +212,7 @@ Column {
                     }
                 }
                 Image {
+                    asynchronous: true
                     width: parent.width; height: visible ? 220 : 0
                     visible: manager.expanded === card.modelData.id && !!card.modelData.preview
                     source: card.modelData.preview || ""; fillMode: Image.PreserveAspectFit

@@ -26,7 +26,7 @@ Rectangle {
     color: filled ? Qt.alpha(tile.accent, tileMouse.containsMouse || tile.activeFocus ? 0.85 : 1)
         : Qt.alpha(tile.foreground, PanelStyle.selectionAlpha(selected && !toggle, tileMouse.containsMouse || tile.activeFocus))
     border.width: filled ? 0 : PanelStyle.selectionBorderWidth(selected && !toggle)
-    Behavior on color { ColorAnimation { duration: 140 } }
+    Behavior on color { ColorAnimation { duration: DesktopStyle.motionDuration(140) } }
     border.color: Qt.alpha(tile.foreground, PanelStyle.selectionBorderAlpha)
     opacity: available ? 1 : 0.45
     activeFocusOnTab: true

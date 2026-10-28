@@ -349,6 +349,9 @@ msgstr "Flèches : déplacer  Entrée : modifier  Échap : terminer"
 msgid "Arrows: move  Enter: select  Type: search  Esc: back"
 msgstr "Flèches : déplacer  Enter : sélectionner  Saisie : rechercher  Esc : retour"
 
+msgid "Arrows: move  Space: select  Enter: review  Esc: cancel"
+msgstr "Flèches : déplacer  Espace : sélectionner  Entrée : examiner  Échap : annuler"
+
 msgid "Artifact Registry"
 msgstr "Artifact Registry"
 
@@ -2191,6 +2194,9 @@ msgstr "Plugin bloqué : {name}"
 msgid "Plugin by {author} · not reviewed by Eitr"
 msgstr "Plugin de {author} · non vérifié par Eitr"
 
+msgid "Plugin icon: {icon}"
+msgstr "Icône du plugin : {icon}"
+
 msgid "Plugin installed"
 msgstr "Plugin installé"
 
@@ -2742,6 +2748,9 @@ msgstr "Sélectionnez au moins un paquet"
 
 msgid "Select it in Style > Lockscreen; Ctrl+P previews it."
 msgstr "Choisissez-le dans Style > Écran de verrouillage ; Ctrl+P en affiche un aperçu."
+
+msgid "Select plugins"
+msgstr "Sélectionner des plugins"
 
 msgid "Select the line above to copy it."
 msgstr "Sélectionnez la ligne ci-dessus pour la copier."

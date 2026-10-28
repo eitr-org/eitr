@@ -27,6 +27,47 @@ control characters. `run` names an executable file inside the repository, never
 an absolute path or a path containing `..`. Symlinks anywhere in a plugin are
 refused. Submodules are not initialized.
 
+## Repositories containing several plugins
+
+Single-plugin repositories keep their root `eitr-plugin.json`. To offer several
+plugins, instead put this index at the repository root:
+
+```json
+{
+  "schemaVersion": 1,
+  "plugins": [
+    {"id": "weather", "path": "plugins/weather"},
+    {"id": "calendar", "path": "plugins/calendar"}
+  ]
+}
+```
+
+Each indexed folder contains its own valid `eitr-plugin.json` with the matching
+`id`. All command, QML, icon and preview paths are relative to that folder, so
+plugins cannot use files in sibling folders. The index accepts exactly these
+keys, schema version 1 (an integer), and 1–100 entries. IDs and paths are unique;
+folders cannot overlap. Paths must be normalized relative directories inside the
+repository: no absolute paths, `..`, dot segments, backslashes or symlinks.
+Duplicate JSON keys, unknown keys, invalid manifests and an index over 64 KiB
+are rejected before selection. Symlinks anywhere in the repository are refused.
+When an index exists, it is authoritative; a root manifest is not a fallback.
+
+Add Plugin… downloads once after the existing safety confirmation. Its picker
+lists names, descriptions and icon paths; arrows move, Space selects one or more,
+Enter proceeds to individual reviews and Escape cancels. The terminal displays
+icon paths as text. No plugin code runs to generate this list. Every selected
+plugin receives the same author, source, exact commit, code and risk review as a
+single-plugin repository; declining a review skips only that plugin. Choosing
+nothing installs nothing. Selection itself grants no execution permission.
+
+Approved siblings share one stored repository snapshot per commit. Each record
+pins its own commit and folder. Update reviews only that plugin's folder and
+commit changes, refuses rewritten history or a moved/missing indexed folder,
+and leaves siblings at their previous commits. Old snapshots remain until the
+last installed plugin stops referencing them. Removing one plugin preserves its
+siblings. Control Center > Plugins shows the source URL and folder in details.
+This support does not create or publish an official plugin repository.
+
 ## Execution
 
 Rows launch as the current user, detached, with the plugin directory as their

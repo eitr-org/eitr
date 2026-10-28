@@ -45,8 +45,8 @@ Item {
             height: 6
             radius: 3
             color: marker.active ? marker.accent : marker.foreground
-            Behavior on width { NumberAnimation { duration: 140 } }
+            Behavior on width { NumberAnimation { duration: DesktopStyle.motionDuration(140) } }
         }
-        Behavior on width { NumberAnimation { duration: 140 } }
+        Behavior on width { NumberAnimation { duration: DesktopStyle.motionDuration(140) } }
     }
 }

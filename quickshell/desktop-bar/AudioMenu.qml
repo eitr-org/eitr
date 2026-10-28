@@ -13,7 +13,7 @@ ThemedPopup {
     function scrollToSelection() {
         scroll.contentY = microphone ? Math.min(inputSection.y, Math.max(0, scroll.contentHeight - scroll.height)) : 0;
     }
-    onOpenedChanged: if (opened) Qt.callLater(scrollToSelection)
+    onOpenedChanged: if (opened) scrollToSelection()
     onMicrophoneChanged: if (opened) Qt.callLater(scrollToSelection)
 
     component AudioSection: Column {
@@ -23,7 +23,13 @@ ThemedPopup {
         required property color foreground
         required property color accent
         required property color background
-        property var nodes: Pipewire.nodes.values
+        property var nodes: []
+        readonly property var availableNodes: Pipewire.nodes.values
+        onAvailableNodesChanged: menu.updateContent(function() {
+            const next = section.availableNodes;
+            if (section.nodes.length !== next.length || section.nodes.some((node, index) => node !== next[index])) section.nodes = next;
+        })
+        Component.onCompleted: nodes = availableNodes
         property PwNode currentNode: microphone ? Pipewire.defaultAudioSource : Pipewire.defaultAudioSink
         property bool picking: false
         onActiveChanged: if (!active) picking = false
@@ -259,7 +265,7 @@ ThemedPopup {
             AudioSection {
                 width: parent.width
                 microphone: false
-                active: menu.opened
+                active: menu.opened && menu.revealProgress === 1
                 foreground: menu.foreground
                 accent: menu.accent
                 background: menu.background
@@ -269,7 +275,7 @@ ThemedPopup {
                 id: inputSection
                 width: parent.width
                 microphone: true
-                active: menu.opened
+                active: menu.opened && menu.revealProgress === 1
                 foreground: menu.foreground
                 accent: menu.accent
                 background: menu.background

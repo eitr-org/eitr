@@ -21,6 +21,16 @@ class BarSettingsTests(unittest.TestCase):
         self.refresh_walker = refresh.start()
         self.addCleanup(refresh.stop)
 
+    def test_reduce_motion_is_opt_in_persisted_and_strict(self):
+        with tempfile.TemporaryDirectory() as directory, \
+                patch.object(bar_settings, "SETTINGS", Path(directory) / "bar.json"):
+            self.assertEqual(bar_settings.read_settings()["reduceMotion"], "no")
+            bar_settings.save_settings({"reduceMotion": "yes"})
+            self.assertEqual(bar_settings.read_settings()["reduceMotion"], "yes")
+            self.refresh_walker.assert_not_called()
+            with self.assertRaises(ValueError):
+                bar_settings.save_settings({"reduceMotion": True})
+
     def test_only_appearance_changes_refresh_walker(self):
         with tempfile.TemporaryDirectory() as directory, \
                 patch.object(bar_settings, "SETTINGS", Path(directory) / "bar.json"):
@@ -54,7 +64,7 @@ class BarSettingsTests(unittest.TestCase):
             self.assertEqual(bar_settings.read_settings(), {**bar_settings.DEFAULTS, 'version': 1})
             bar_settings.save_settings({"appearance": "solid", "edge": "left"})
             self.assertEqual(bar_settings.read_settings(), {
-                "appearance": "solid", "layout": "unified", "edge": "left", "pinned": "no", "screens": "main", "autohide": "no", "version": 1
+                "appearance": "solid", "layout": "unified", "edge": "left", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "version": 1
             })
             bar_settings.save_settings({"layout": "centered"})
             self.assertEqual(bar_settings.read_settings()["appearance"], "solid")
@@ -68,7 +78,7 @@ class BarSettingsTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 bar_settings.save_settings({"screens": "some"})
         shell = (Path(__file__).parents[1] / "shell.qml").read_text()
-        self.assertIn('"set-all", barAppearance, barLayout, barEdge, barPinned ? "yes" : "no", barScreens, barAutoHide ? "yes" : "no"]', shell)
+        self.assertIn('"set-all", barAppearance, barLayout, barEdge, barPinned ? "yes" : "no", barScreens, barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no"]', shell)
         self.assertIn("enabled: bar.isMainBar", shell, "only the main bar receives shortcuts")
         self.assertIn("shell.activeBar(bar).showKind(kind)", shell, "and hands them to the bar of the display in use")
         self.assertIn("shown: bar.isMainBar", shell, "notifications pop up on the main display only")
@@ -127,12 +137,20 @@ if __name__ == "__main__":
 @unittest.skipUnless(shutil.which("quickshell"), "Quickshell required")
 class AutoHideLayoutTests(unittest.TestCase):
     def test_native_autohide_control_fits_german_in_both_palettes(self):
+        self.render_setting(False)
+
+    def test_native_reduce_motion_control_fits_german_in_both_palettes(self):
+        self.render_setting(True)
+
+    def render_setting(self, reduce_motion):
         bar = Path(__file__).resolve().parents[1]
         source = (bar / "ControlCenter.qml").read_text()
-        control = source.index("id: autoHideSwitch")
+        control = source.index("id: reduceMotionSwitch" if reduce_motion else "id: autoHideSwitch")
         start = source.rfind("                        Row {", 0, control)
-        end = source.index('                        Label { text: Eitr.I18n.tr("Show on") }', control)
+        end = source.index('                        Label { text: Eitr.I18n.tr("Show on") }', control) if reduce_motion else source.index("                        Row {", control)
         row = source[start:end]
+        if reduce_motion:
+            row = row.replace("reduceMotionSwitch", "autoHideSwitch").replace("DesktopStyle.reduceMotion", "center.barAutoHide")
         for light in (False, True):
             with tempfile.TemporaryDirectory(prefix="eitr-autohide-control-") as directory:
                 folder = Path(directory)
@@ -176,7 +194,8 @@ ShellRoot {
 }'''.replace("BAR", bar.as_uri()).replace("STYLE", (bar / "PanelStyle.js").as_uri())
                     .replace("FOREGROUND", "#252936" if light else "#e9eef1")
                     .replace("BACKGROUND", "#f5f0e7" if light else "#18212b").replace("ROW", row)
-                    .replace("CAPTURE", str(captures / ("auto-hide-control-light.png" if light else "auto-hide-control-dark.png"))))
+                    .replace("Automatisch ausblenden", "Bewegung reduzieren" if reduce_motion else "Automatisch ausblenden")
+                    .replace("CAPTURE", str(captures / (("reduce-motion" if reduce_motion else "auto-hide") + ("-control-light.png" if light else "-control-dark.png")))))
                 environment = dict(os.environ, QT_QPA_PLATFORM="offscreen", QT_QUICK_BACKEND="software",
                                    QML_IMPORT_PATH=str(bar.parent), EITR_CODE_ROOT=str(bar.parents[1]),
                                    XDG_CONFIG_HOME=directory, XDG_STATE_HOME=directory, XDG_DATA_HOME=directory,

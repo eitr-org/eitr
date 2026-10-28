@@ -9,6 +9,7 @@ import Quickshell.Io
 // through ObsMenu (the controller); details come from obs-control.py details.
 ThemedPopup {
     id: menu
+    waitForFreshData: true
     required property var controller
     property var details: ({})
     property real fetchedAt: 0
@@ -37,21 +38,26 @@ ThemedPopup {
         if (!detailsQuery.running) detailsQuery.running = true;
     }
 
+    Component.onCompleted: refresh()
     onOpenedChanged: if (opened) refresh()
-    Timer { interval: 2000; repeat: true; running: menu.opened; onTriggered: menu.refresh() }
+    Timer { interval: 2000; repeat: true; running: true; onTriggered: menu.refresh() }
     Timer { interval: 500; repeat: true; running: menu.opened; onTriggered: menu.now = Date.now() }
     Process {
         id: detailsQuery
         command: ["python3", menu.controller.controlScript, "details"]
         stdout: StdioCollector { id: detailsOutput }
         onExited: function(code) {
-            try {
-                if (code === 0) {
-                    menu.details = JSON.parse(detailsOutput.text);
-                    menu.fetchedAt = Date.now();
-                    menu.now = menu.fetchedAt;
-                }
-            } catch (error) {}
+            const received = detailsOutput.text;
+            menu.updateContent(function() {
+                try {
+                    if (code === 0) {
+                        menu.applySnapshot("details", JSON.parse(received));
+                        menu.fetchedAt = Date.now();
+                        menu.now = menu.fetchedAt;
+                    }
+                } catch (error) {}
+
+            });
         }
     }
     Connections {

@@ -7,6 +7,7 @@ import Quickshell.Io
 
 ThemedPopup {
     id: menu
+    waitForFreshData: true
     implicitWidth: 328
     implicitHeight: content.implicitHeight + verticalContentInset
     property string status: ""
@@ -71,9 +72,13 @@ ThemedPopup {
         command: ["python3", menu.controlScript, "options"]
         stdout: StdioCollector { id: optionOutput }
         onExited: function(code) {
-            if (optionWriter.running || Object.keys(menu.pendingOptionChanges).length) return;
-            try { if (code === 0) menu.captureOptions = JSON.parse(optionOutput.text); }
-            catch (error) { menu.status = "Recording settings unavailable"; }
+            const received = optionOutput.text;
+            menu.updateContent(function() {
+                if (optionWriter.running || Object.keys(menu.pendingOptionChanges).length) return;
+                try { if (code === 0) menu.applySnapshot("captureOptions", JSON.parse(received)); }
+                catch (error) { menu.status = "Recording settings unavailable"; }
+
+            });
         }
     }
     Process {
@@ -107,17 +112,21 @@ ThemedPopup {
         command: ["python3", menu.controlScript, "status"]
         stdout: StdioCollector { id: stateOutput }
         onExited: function(code) {
-            if (actionProcess.running) return;
-            try {
-                if (code !== 0) throw new Error("query failed");
-                menu.obsState = JSON.parse(stateOutput.text);
-                menu.status = menu.actionError || menu.obsState.error || "";
-            } catch (error) {
-                menu.obsState = {ready: false, recording: false, paused: false, streaming: false};
-                menu.status = menu.actionError || Eitr.I18n.tr("OBS status unavailable");
-            }
-            menu.pendingAction = "";
-            menu.awaitingState = false;
+            const received = stateOutput.text;
+            menu.updateContent(function() {
+                if (actionProcess.running) return;
+                try {
+                    if (code !== 0) throw new Error("query failed");
+                    menu.applySnapshot("obsState", JSON.parse(received));
+                    menu.status = menu.actionError || menu.obsState.error || "";
+                } catch (error) {
+                    menu.applySnapshot("obsState", {ready: false, recording: false, paused: false, streaming: false});
+                    menu.status = menu.actionError || Eitr.I18n.tr("OBS status unavailable");
+                }
+                menu.pendingAction = "";
+                menu.awaitingState = false;
+
+            });
         }
     }
     Process {

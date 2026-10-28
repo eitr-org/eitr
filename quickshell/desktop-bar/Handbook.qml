@@ -1,5 +1,6 @@
 import Eitr as Eitr
 import QtQuick
+import "JsonState.js" as JsonState
 import QtQuick.Effects
 import QtQuick.Controls.Basic
 import Quickshell
@@ -51,9 +52,9 @@ PanelWindow {
     WlrLayershell.namespace: "desktop-handbook"
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: opened ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
-    Behavior on reveal { NumberAnimation { duration: 320; easing.type: Easing.OutCubic } }
+    Behavior on reveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     onOpenedChanged: {
-        if (opened) { catalog.reload(); focusDelay.restart(); return; }
+        if (opened) { focusDelay.restart(); return; }
         // Closing the automatic welcome without asking to see it again dismisses it for good.
         if (welcomeShown && !showAtLogin) welcomeChoice("dismiss");
         welcomeShown = false;
@@ -101,16 +102,22 @@ PanelWindow {
         watchChanges: true
         onFileChanged: reload()
         printErrors: false
-        onLoaded: {
-            try {
-                var data = JSON.parse(text());
-                book.chapters = data.chapters;
-                book.loadError = "";
-                if (book.selectedIndex < 0 && book.chapters.length) book.selectedId = book.chapters[0].id;
-            } catch (error) { book.loadError = Eitr.I18n.tr("The handbook catalog is invalid."); }
-        }
+        onLoaded: { book.pendingCatalog = text(); book.applyCatalog(); }
         onLoadFailed: book.loadError = Eitr.I18n.tr("The handbook is missing. Reinstall or update the Eitr desktop files.")
     }
+    property string pendingCatalog: ""
+    function applyCatalog() {
+        if (!pendingCatalog || (reveal > 0 && reveal < 1)) return;
+        try {
+            const data = JSON.parse(pendingCatalog);
+            if (JsonState.changed(chapters, data.chapters)) chapters = data.chapters;
+            pendingCatalog = "";
+            loadError = "";
+            if (selectedIndex < 0 && chapters.length) selectedId = chapters[0].id;
+        } catch (error) { loadError = Eitr.I18n.tr("The handbook catalog is invalid."); }
+    }
+    onRevealChanged: if (reveal === 0 || reveal === 1) catalogSettled.restart()
+    Timer { id: catalogSettled; interval: 0; onTriggered: book.applyCatalog() }
     Timer { id: focusDelay; interval: 80; onTriggered: if (book.opened) search.forceActiveFocus() }
     IpcHandler {
         target: "handbook"

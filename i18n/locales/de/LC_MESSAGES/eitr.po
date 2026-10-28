@@ -349,6 +349,9 @@ msgstr "Pfeile: bewegen  Enter: ändern  Esc: fertig"
 msgid "Arrows: move  Enter: select  Type: search  Esc: back"
 msgstr "Pfeile: bewegen  Enter: auswählen  Tippen: suchen  Esc: zurück"
 
+msgid "Arrows: move  Space: select  Enter: review  Esc: cancel"
+msgstr "Pfeile: bewegen  Leertaste: wählen  Enter: prüfen  Esc: abbrechen"
+
 msgid "Artifact Registry"
 msgstr "Artifact Registry"
 
@@ -2191,6 +2194,9 @@ msgstr "Plugin gesperrt: {name}"
 msgid "Plugin by {author} · not reviewed by Eitr"
 msgstr "Plugin von {author} · nicht von Eitr geprüft"
 
+msgid "Plugin icon: {icon}"
+msgstr "Plugin-Symbol: {icon}"
+
 msgid "Plugin installed"
 msgstr "Plugin installiert"
 
@@ -2742,6 +2748,9 @@ msgstr "Wählen Sie mindestens ein Paket"
 
 msgid "Select it in Style > Lockscreen; Ctrl+P previews it."
 msgstr "Wähle ihn unter Stil > Sperrbildschirm; Strg+P zeigt eine Vorschau."
+
+msgid "Select plugins"
+msgstr "Plugins auswählen"
 
 msgid "Select the line above to copy it."
 msgstr "Wählen Sie die Zeile oben aus, um sie zu kopieren."

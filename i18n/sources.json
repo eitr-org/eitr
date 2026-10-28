@@ -881,6 +881,9 @@
     "Recovery Snapshots": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
+    "Reduce motion": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
     "Refresh rate": [
       "quickshell/desktop-bar/DisplaySettingsEditor.qml"
     ],
@@ -913,6 +916,9 @@
     ],
     "Report a Problem": [
       "quickshell/desktop-bar/ControlCenter.qml"
+    ],
+    "Repository: {url}": [
+      "quickshell/desktop-bar/PluginManager.qml"
     ],
     "Resolution": [
       "quickshell/desktop-bar/DisplaySettingsEditor.qml"
@@ -1477,6 +1483,9 @@
     "An earlier version from the home snapshots": [
       "elephant/menu-rows/snapshots.json"
     ],
+    "Animate panels and bar controls": [
+      "elephant/menus/bar-motion.lua"
+    ],
     "Antigravity CLI": [
       "elephant/menus/ai-agy.lua"
     ],
@@ -1987,6 +1996,9 @@
     ],
     "Full access (default)": [
       "elephant/menus/assistant-access.lua"
+    ],
+    "Full motion": [
+      "elephant/menus/bar-motion.lua"
     ],
     "Function config": [
       "elephant/menus/aws-lambda-function-config-1.lua"
@@ -2538,6 +2550,10 @@
     "Recovery Instructions": [
       "elephant/menu-rows/snapshots.json"
     ],
+    "Reduce motion": [
+      "elephant/menu-rows/bar.json",
+      "elephant/menus/bar-motion.lua"
+    ],
     "Refresh": [
       "elephant/cloud-context-entries.lua"
     ],
@@ -2855,6 +2871,9 @@
     ],
     "Show or hide the desktop bar": [
       "elephant/menu-rows/toggle.json"
+    ],
+    "Show panels and bar controls instantly": [
+      "elephant/menus/bar-motion.lua"
     ],
     "Show the charge limit in use": [
       "elephant/menu-rows/battery-limit.json"
@@ -4117,6 +4136,9 @@
     ],
     "Arrows: move  Enter: select  Type: search  Esc: back": [
       "distro/lib/eitr_wizard.py"
+    ],
+    "Arrows: move  Space: select  Enter: review  Esc: cancel": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Artifact Registry": [
       "walker/scripts/menus/cloud/navigation.py"
@@ -6007,6 +6029,9 @@
     "Plugin by {author} · not reviewed by Eitr": [
       "walker/scripts/actions/install/plugins.py"
     ],
+    "Plugin icon: {icon}": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Plugin installed": [
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -6569,6 +6594,9 @@
     ],
     "Select it in Style > Lockscreen; Ctrl+P previews it.": [
       "walker/scripts/actions/style/own.py"
+    ],
+    "Select plugins": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Select the line above to copy it.": [
       "walker/scripts/actions/development/git-accounts.py"

@@ -1,4 +1,5 @@
 import QtQuick
+import "JsonState.js" as JsonState
 import Quickshell
 
 Item {
@@ -8,8 +9,58 @@ Item {
     property string alignment: "right"
     property real leadingOffset: 0
     property bool opened: false
-    readonly property int transitionDuration: 320
-    property real revealProgress: opened ? 1 : 0
+    readonly property int transitionDuration: DesktopStyle.motionDuration(320)
+    readonly property bool transitioning: revealProgress > 0 && revealProgress < 1
+    // Queries start on opened; a first snapshot releases the wait after layout settles.
+    property bool waitForFreshData: false
+    property bool preparing: false
+    property bool revealReady: false
+    property double revealStartedAt: 0
+    function remainingResizeDuration() {
+        return transitioning && opened
+            ? Math.max(0, transitionDuration - (Date.now() - revealStartedAt)) : transitionDuration;
+    }
+    function updateContent(action) { action(); dataReady(); }
+    function dataReady() {
+        if (opened && preparing) layoutReady.restart();
+    }
+    function applySnapshot(name, value) {
+        if (JsonState.changed(panel[name], value)) panel[name] = value;
+        dataReady();
+    }
+    property Timer layoutReady: Timer {
+        interval: 0
+        onTriggered: panel.startReveal()
+    }
+    function startReveal() {
+        if (!opened || !preparing) return;
+        preparationCap.stop();
+        preparing = false;
+        revealStartedAt = Date.now();
+        revealReady = true;
+    }
+    property Timer preparationCap: Timer {
+        interval: 100
+        onTriggered: panel.startReveal()
+    }
+    function prepareOpening() {
+        layoutReady.stop();
+        preparationCap.stop();
+        if (opened) {
+            preparing = true;
+            if (waitForFreshData) preparationCap.start();
+            else layoutReady.start();
+        } else {
+            preparing = false;
+            revealReady = false;
+        }
+    }
+    Component.onCompleted: if (opened) prepareOpening()
+    property Connections opening: Connections {
+        target: panel
+        function onOpenedChanged() { panel.prepareOpening(); }
+    }
+    property real revealProgress: opened && revealReady ? 1 : 0
     visible: opened || revealProgress > 0
     Behavior on revealProgress {
         NumberAnimation {
@@ -17,6 +68,8 @@ Item {
             easing.type: panel.opened ? Easing.OutCubic : Easing.InCubic
         }
     }
+    readonly property real desiredWidth: implicitWidth
+    readonly property real desiredHeight: implicitHeight
     readonly property var hostWindow: attachmentTarget ? attachmentTarget.QsWindow.window : null
     readonly property bool detached: !!hostWindow && (!!hostWindow.centeredLayout || !!hostWindow.notchLayout)
     readonly property bool centeredPlacement: !!hostWindow && !!hostWindow.centeredLayout
@@ -26,8 +79,8 @@ Item {
     readonly property Item strip: hostWindow ? hostWindow.stripItem : null
     parent: hostWindow ? hostWindow.contentItem : null
     z: 100
-    width: detached && parent && strip ? Math.min(implicitWidth, parent.width - (attachmentEdge === "left" || attachmentEdge === "right" ? strip.width + attachmentGap + (attachmentEdge === "left" ? edgeInsets[1] : edgeInsets[3]) : edgeInsets[1] + edgeInsets[3])) : implicitWidth
-    height: detached && parent && strip ? Math.min(implicitHeight, parent.height - (attachmentEdge === "top" || attachmentEdge === "bottom" ? strip.height + attachmentGap + (attachmentEdge === "top" ? edgeInsets[2] : edgeInsets[0]) : edgeInsets[0] + edgeInsets[2])) : implicitHeight
+    width: detached && parent && strip ? Math.min(desiredWidth, parent.width - (attachmentEdge === "left" || attachmentEdge === "right" ? strip.width + attachmentGap + (attachmentEdge === "left" ? edgeInsets[1] : edgeInsets[3]) : edgeInsets[1] + edgeInsets[3])) : desiredWidth
+    height: detached && parent && strip ? Math.min(desiredHeight, parent.height - (attachmentEdge === "top" || attachmentEdge === "bottom" ? strip.height + attachmentGap + (attachmentEdge === "top" ? edgeInsets[2] : edgeInsets[0]) : edgeInsets[0] + edgeInsets[2])) : desiredHeight
     PanelSizeBehavior on width { ownerPanel: panel }
     PanelSizeBehavior on height { ownerPanel: panel }
     x: {

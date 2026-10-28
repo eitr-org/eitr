@@ -7,6 +7,7 @@ import Quickshell.Io
 
 ThemedPopup {
     id: menu
+    waitForFreshData: true
     implicitWidth: 588
     implicitHeight: weatherColumn.implicitHeight + verticalContentInset
     keyTarget: weatherContent
@@ -52,6 +53,7 @@ ThemedPopup {
     function forecastIcon(code) {
         return WeatherIcons.forecastIcon(code);
     }
+    Component.onCompleted: refresh()
     onOpenedChanged: {
         if (opened) {
             city = null;
@@ -62,7 +64,7 @@ ThemedPopup {
             cancelSearch();
         }
     }
-    Timer { interval: 900000; running: menu.opened; repeat: true; onTriggered: menu.refresh() }
+    Timer { interval: 900000; running: true; repeat: true; onTriggered: menu.refresh() }
     Timer {
         id: debounce
         interval: 300
@@ -77,19 +79,23 @@ ThemedPopup {
         id: weatherQuery
         stdout: StdioCollector { id: weatherOutput }
         onExited: function(code) {
-            if (!menu.opened) return;
-            if (menu.requestedCity !== JSON.stringify(menu.city)) {
-                menu.refresh();
-                return;
-            }
-            try {
-                if (code !== 0) throw new Error("weather unavailable");
-                menu.weatherData = JSON.parse(weatherOutput.text);
-                if (menu.city === null) menu.defaultWeatherUpdated(menu.weatherData);
-            } catch (e) {
-                if (menu.city === null && menu.weatherData.temp) return;
-                menu.weatherData = {temp: "--", condition: "Unavailable", location: menu.city ? menu.city.name : "Weather"};
-            }
+            const received = weatherOutput.text;
+            menu.updateContent(function() {
+                if (!menu.opened && menu.city !== null) return;
+                if (menu.requestedCity !== JSON.stringify(menu.city)) {
+                    menu.refresh();
+                    return;
+                }
+                try {
+                    if (code !== 0) throw new Error("weather unavailable");
+                    menu.applySnapshot("weatherData", JSON.parse(received));
+                    if (menu.city === null) menu.defaultWeatherUpdated(menu.weatherData);
+                } catch (e) {
+                    if (menu.city === null && menu.weatherData.temp) return;
+                    menu.weatherData = {temp: "--", condition: "Unavailable", location: menu.city ? menu.city.name : "Weather"};
+                }
+
+            });
         }
     }
     Process {

@@ -561,5 +561,9 @@
   "Always visible": "Toujours visible",
   "Auto-hide": "Masquage automatique",
   "Keep the bar on screen": "Garder la barre à l’écran",
-  "Reveal the bar at the screen edge": "Afficher la barre au bord de l’écran"
+  "Reveal the bar at the screen edge": "Afficher la barre au bord de l’écran",
+  "Animate panels and bar controls": "Animer les panneaux et commandes de la barre",
+  "Full motion": "Toutes les animations",
+  "Reduce motion": "Réduire les animations",
+  "Show panels and bar controls instantly": "Afficher immédiatement panneaux et commandes"
 }

@@ -428,5 +428,7 @@
   "Update": "Atualizar",
   "Visuals disabled after failures": "Visuais desativados após falhas",
   "Widget options": "Opções do widget",
-  "Auto-hide": "Ocultar automaticamente"
+  "Auto-hide": "Ocultar automaticamente",
+  "Reduce motion": "Reduzir movimento",
+  "Repository: {url}": "Repositório: {url}"
 }

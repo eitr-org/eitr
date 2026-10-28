@@ -32,7 +32,7 @@ class NotchLayoutTests(unittest.TestCase):
             '                readonly property var outerGaps:', 1)[0]
         reveal = shell_source.split('                property bool weatherHovered:', 1)[1].split('                readonly property real centerExtent:', 1)[0]
         reveal = 'property bool weatherHovered:' + reveal
-        self.assertIn('duration: 320; easing.type: Easing.OutCubic', reveal)
+        self.assertIn('duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic', reveal)
         self.assertIn('interval: collapseDelay.interval', reveal)
         self.assertIn('weatherMenu.visible || pendingPanel === weatherMenu', reveal)
         tab = 'Item {\n visible: shell.notchLayout' + tab

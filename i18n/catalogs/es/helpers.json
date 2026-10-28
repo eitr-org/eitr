@@ -1385,5 +1385,8 @@
   "Reads the system audio spectrum (levels only, no audio is recorded or sent)": "Lee el espectro de audio del sistema (solo niveles, no se graba ni se envía audio)",
   "Show above windows": "Mostrar sobre las ventanas",
   "Show behind windows": "Mostrar detrás de las ventanas",
-  "No plugin icon; a generic icon will be shown.": "El plugin no tiene icono; se mostrará uno genérico."
+  "No plugin icon; a generic icon will be shown.": "El plugin no tiene icono; se mostrará uno genérico.",
+  "Arrows: move  Space: select  Enter: review  Esc: cancel": "Flechas: mover  Espacio: seleccionar  Intro: revisar  Esc: cancelar",
+  "Plugin icon: {icon}": "Icono del plugin: {icon}",
+  "Select plugins": "Seleccionar plugins"
 }

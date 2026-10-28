@@ -90,7 +90,7 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     width: 2.75
                     height: !media.playing ? 3 : media.hasAudioFrame ? AudioLevels.height(media.levels[index]) : 4 + (Math.sin(media.pulse + index * 1.7) + 1) * 4
-                    Behavior on height { NumberAnimation { duration: 70 } }
+                    Behavior on height { NumberAnimation { duration: DesktopStyle.motionDuration(70) } }
                     radius: 1
                     color: media.foreground
                     opacity: media.playing ? 1 : 0.55
@@ -98,7 +98,7 @@ Item {
             }
         }
     }
-    NumberAnimation on pulse { from: 0; to: Math.PI * 2; duration: 1500; loops: Animation.Infinite; running: media.audioActive && !media.hasAudioFrame }
+    NumberAnimation on pulse { from: 0; to: Math.PI * 2; duration: 1500; loops: Animation.Infinite; running: !DesktopStyle.reduceMotion && (media.audioActive && !media.hasAudioFrame)}
 
     component MediaControl: Item {
         id: control

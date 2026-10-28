@@ -428,5 +428,7 @@
   "Update": "Aktualisieren",
   "Visuals disabled after failures": "Visuelle Komponenten nach Fehlern deaktiviert",
   "Widget options": "Widget-Optionen",
-  "Auto-hide": "Automatisch ausblenden"
+  "Auto-hide": "Automatisch ausblenden",
+  "Reduce motion": "Bewegung reduzieren",
+  "Repository: {url}": "Repository: {url}"
 }

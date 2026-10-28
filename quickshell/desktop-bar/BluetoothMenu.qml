@@ -10,7 +10,17 @@ ThemedPopup {
     implicitHeight: Math.min(508, Math.max(248, groups.height + 122))
     property var adapter: Bluetooth.defaultAdapter
     property var scanningAdapter: null
-    readonly property var sections: [
+    property var sections: []
+    onAvailableSectionsChanged: menu.updateContent(function() {
+        const next = menu.availableSections;
+        if (menu.sections.length !== next.length || next.some((group, index) => {
+            const previous = menu.sections[index];
+            return previous.title !== group.title || previous.devices.length !== group.devices.length
+                || group.devices.some((device, deviceIndex) => device !== previous.devices[deviceIndex]);
+        })) menu.sections = next;
+    })
+    Component.onCompleted: sections = availableSections
+    readonly property var availableSections: [
         {title: Eitr.I18n.tr("CONNECTED"), devices: adapter ? adapter.devices.values.filter(d => d.connected) : []},
         {title: Eitr.I18n.tr("KNOWN DEVICES"), devices: adapter ? adapter.devices.values.filter(d => !d.connected && d.paired) : []},
         {title: Eitr.I18n.tr("SCANNED DEVICES"), devices: adapter ? adapter.devices.values.filter(d => !d.connected && !d.paired) : []}

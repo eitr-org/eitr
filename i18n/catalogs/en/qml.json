@@ -428,5 +428,7 @@
   "Update": "Update",
   "Visuals disabled after failures": "Visuals disabled after failures",
   "Widget options": "Widget options",
-  "Auto-hide": "Auto-hide"
+  "Auto-hide": "Auto-hide",
+  "Reduce motion": "Reduce motion",
+  "Repository: {url}": "Repository: {url}"
 }

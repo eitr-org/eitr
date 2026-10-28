@@ -8,7 +8,7 @@ Item {
     property bool revealed: true
     readonly property bool shown: !autoHide || pointerInside || held || revealed
     property real progress: shown ? 1 : 0
-    Behavior on progress { NumberAnimation { duration: 320; easing.type: Easing.OutCubic } }
+    Behavior on progress { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     function reconsider() {
         if (!autoHide || pointerInside || held) {
             hideDelay.stop();

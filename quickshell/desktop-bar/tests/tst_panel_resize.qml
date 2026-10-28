@@ -35,12 +35,14 @@ TestCase {
         verify(panel.height > 200 && panel.height < 500);
         tryCompare(panel, "height", 200);
     }
-    function test_no_resize_animation_while_closed_or_unfolding() {
+    function test_closed_is_instant_and_unfold_retargets() {
         panel.desiredHeight = 500;
         compare(panel.height, 500);
         panel.opened = true;
         panel.revealProgress = 0.5;
         panel.desiredHeight = 200;
-        compare(panel.height, 200);
+        wait(100);
+        verify(panel.height < 500 && panel.height > 200);
+        tryCompare(panel, "height", 200);
     }
 }

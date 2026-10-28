@@ -620,3 +620,118 @@ strip slides out in 320 ms, retaining a one-pixel edge input region. Panels,
 pending popups, notification toasts, Overview and dragging hold it open; a 350 ms leave delay precedes
 hiding. A hidden bar reserves no space. The preference is separate from the
 Centered pin and applies independently to each displayed bar.
+
+## Motion and panel smoothness audit
+
+Reduce motion is off by default. Style > Desktop Bar > Reduce motion and
+Control Center > Style > Bar share `bar-settings.json` (`reduceMotion: yes/no`).
+`DesktopStyle.motionDuration()` owns the policy: normal durations/easing are
+unchanged, reduced durations are zero. DockPanel unfold/fold/resize, notification
+group transitions, Handbook, Overview, carousel, bar expansion/auto-hide, markers,
+button effects and meters use it. Infinite indicators stop under reduced motion;
+loading state remains visible. Realm screenshot flashes and Fenrir are suppressed.
+Data refresh, focus, notification-expiry and pointer-leave timers are unchanged.
+
+Inventory: `shell.qml`'s `dockPanels`, `showKind()`/`panels` IPC, Control Center
+page routing, `qmldir`, and auxiliary popup/overlay types. `brightness`/`display`
+and `volume`/`mic` are aliases of the same panels. Walker uses these same IPC
+kinds; it does not instantiate another copy.
+
+Models stay warm through background status prefetch and `JsonState.changed` guards.
+Opening starts fresh queries immediately. Panels with asynchronous data wait for
+the first result and a layout turn, capped at 100 ms, before their single 320 ms
+unfold. Retained/static panels begin on the next layout turn. `applySnapshot`
+applies changed data immediately and signals readiness; `updateContent` does the
+same for parsers updating scalar or native identity-guarded properties. There is
+no after-reveal data queue or geometry latch. A size target received during the
+unfold animates from the current size over the remaining reveal time, so both
+finish together. Ordinary size changes after opening retain the 320 ms resize.
+Native QObject lists compare identities rather than serializing service objects.
+
+Every entry below **needs live check** on all four edges, Full/Centered/Tabs,
+both palettes, cold/warm cache and slow providers. Offscreen checks cannot prove
+compositor blur, D-Bus, GPU capture, DDC or real hardware performance.
+
+| Panel / popup and routes | Opening work found | Fix / audited decision | Status |
+| --- | --- | --- | --- |
+| Control Center — General (`center`) | Multiple status processes and plugin activation | Warm prefetch; immediate open queries/results; guarded snapshots; plugins activate before reveal | needs live check |
+| Control Center — Style | Cursor/lockscreen list queries; theme/font glyph layout | Prefetch style choices; apply query results before/during the shared reveal; fixed text roles | needs live check |
+| Control Center — Tools | Static action rows; recording routes | Retained content; no open-time model query; actions still run only on click | needs live check |
+| Control Center — System | Channel, keyboard, monitor and policy data | Immediate channel/policy queries; existing display/keyboard guards; retained page content | needs live check |
+| Control Center — Plugins and details | Installed registry model, icon/preview decoding | Registry already prefetches and guards changes; fixed icon slots now decode asynchronously; source URL/folder shown | needs live check |
+| Control Center — Quick chat | Assistant status; conversation delegates | Status query immediate and guarded; no request until Send; closing still clears memory | needs live check |
+| AI Usage (`ai`) | Cache + fresh query replaced provider model on every open | Startup cache; immediate fresh query/results; guarded usage assignment | needs live check |
+| Hardware (`hardware`) | Telemetry process replaced all section delegates | Warm background prefetch; immediate refresh/parse; guarded section snapshot | needs live check |
+| WiFi (`wifi`) | Status process replaced devices; ping could follow during reveal | Warm background status; immediate open query/parse and ping; guarded device snapshot; QR generated only after explicit Share | needs live check |
+| Bluetooth (`bluetooth`) | Service-backed section arrays recreated when devices changed | Apply sections immediately and compare device identities; scan remains explicit and stops on close | needs live check |
+| Display (`brightness`, `display`) and monitor editor | Status/monitor/settings/nightlight/power JSON; slow DDC read | Existing prefetch/JsonState retained; immediate query parsers and open DDC read; shared size retargeting | needs live check |
+| Audio (`volume`, `mic`) and device picker | PipeWire node list, scroll positioning, microphone peak monitor | Apply node-list identity changes and initial scroll immediately; peak monitor activates after reveal; no recording is started | needs live check |
+| Tailscale (`tailscale`) | Shared remote-status process and facts/actions model | Prefetch shared status; guard equality; panel snapshots and refresh apply before/during reveal | needs live check |
+| Streaming (`streaming`) | Same remote-status process and facts/actions model | Same shared owner and immediate guarded panel snapshot; no connection action on open | needs live check |
+| Keyboard (`keyboard`) | Layout process recreated all rows | Existing startup query retained; immediate open refresh/parse; guarded layout snapshot | needs live check |
+| OBS (`obs`) | Status/options query replaced controls; periodic poll | Existing startup/poll retained; immediate parsers and open refresh; guarded status/options | needs live check |
+| Recording / Streaming status (`recording`) | Details query rebuilt scenes and device controls | Warm background details; immediate open refresh/parse; guarded details; elapsed clock remains live | needs live check |
+| Calendar (`calendar`) | Watched reminder/event files reparsed; subscription sync on open | Immediate parsing and guards on both lists; retain six fixed calendar weeks; sync runs outside GUI and watched results apply immediately | needs live check |
+| Weather (`weather`) and city search | Weather JSON replaced forecast model; async city search | Warm background weather; immediate request and parsing; guard weather snapshot; city search remains explicit/debounced; shared size retargeting | needs live check |
+| Notifications center (`notifications`) | Already-retained service groups and in-memory images | No open-time process; fixed panel height; shared reveal and group duration policy | needs live check |
+| Notification toasts / grouped cards | Arrival-driven delegates and image loading | Existing decoded-image cache and async fixed image slots retained; group transitions use central motion policy | needs live check |
+| Workspace style (`workspace`) | Static choices and font metrics | Retained delegates/TextMetrics; shared size retargeting during reveal; marker animations honor motion policy | needs live check |
+| Media (`media`) | MPRIS seek timer and cover art | Existing async fixed-size cover retained; no process/model load on open | needs live check |
+| Battery / Power (`battery`) | Power-profile refresh | Immediate refresh; existing shared power data and fixed control metrics | needs live check |
+| Plugin panels (`PluginPanel`) and General subviews | Author QML/data loader activates on opening | Asynchronous PluginComponent retained; host activates before reveal and reports implicit-height readiness; arbitrary author code still requires profiling | needs live check |
+| Overview (`overview`) | Synchronous grid Loader, toplevel refresh and capture on open | Retain grid with asynchronous construction; defer refresh and captures until entrances finish; async sized wallpaper; dismissal remains instant | needs live check |
+| Theme / Wallpaper carousel | Re-query, model clear and image cache disabled | Reuse per-mode catalog; guard equal results; async bounded image placeholders; preserve uncached artwork across theme changes; motion policy covers navigation | needs live check |
+| Handbook / first-login welcome | Reload/parse complete catalog on every open | Existing startup/watch loading retained; remove redundant open reload; guard and defer changed catalogs; figures already async | needs live check |
+| Time picker (`timepicker`) | Fixed controls; writer only on confirmation | No open-time process or image load; already instant | needs live check |
+| Header More actions, widget options, device/layout choices, power confirmation rows | Retained small action lists | No background load on open; shared button images async; existing instant popup behavior retained | needs live check |
+| Bar/tool/workspace tooltips | Text-only popup and font metrics | Fixed font roles, bounded width; existing delay and instant display retained; no open-time process | needs live check |
+| Reload-error popup | Lazy text-only error surface | Deliberately lazy to survive shell errors; no heavy model or image work, already instant | needs live check |
+
+Offscreen regression: `PanelMotionTests` supplies a result before revealing and
+a size-changing result during the unfold, then repeats equivalent snapshots every
+20 ms. It requires one continuous motion, guarded equal-model assignments, final
+size at reveal completion, and no second size animation afterwards. Reduced
+motion applies both results immediately without animation. Assertions in frame
+callbacks are retained and cause a nonzero exit, rather than merely logging QML
+exceptions. The late-result fixture reaches final size in about 342 ms including
+its 20 ms preparation, with one motion.
+
+Run `EITR_PANEL_REVIEW_RENDERS=OUTPUT bash tools/check.sh python-tests` for the
+shared regression captures. Run
+`EITR_PANEL_REVIEW_RENDERS=OUTPUT python3 quickshell/desktop-bar/tests/render_panel_motion.py`
+for isolated per-panel measurements and dark/light captures. This harness loads
+actual panel components with mock services and no live helper scripts or D-Bus.
+It samples every 16 ms and fails on a second motion or size change after reveal.
+The review renders are outside the checkout in `../panels-shots/`.
+
+Per-panel results below include preparation and the first sampled final frame;
+the configured unfold duration is 320 ms. These are software-renderer fixture
+measurements, not live provider/hardware latency claims.
+
+| Panel / route | Time to final size, dark / light (ms) | Motions |
+| --- | --- | --- |
+| AiUsageMenu | 321 / 322 | 1 |
+| SystemMonitorMenu | 330 / 329 | 1 |
+| WifiMenu | 329 / 329 | 1 |
+| BluetoothMenu | 321 / 321 | 1 |
+| BrightnessMenu | 330 / 330 | 1 |
+| AudioMenu | 321 / 321 | 1 |
+| KeyboardLayoutMenu | 329 / 328 | 1 |
+| ObsMenu | 328 / 329 | 1 |
+| RecordingMenu | 330 / 331 | 1 |
+| WeatherMenu | 322 / 322 | 1 |
+| CalendarMenu | 322 / 322 | 1 |
+| RemoteAccessMenu | 421 / 421 | 1 |
+| BatteryMenu | 322 / 321 | 1 |
+| WorkspaceStyleMenu | 320 / 321 | 1 |
+| NotificationCenter | 321 / 321 | 1 |
+| PluginPanel | 322 / 322 | 1 |
+| ControlCenter-style | 335 / 332 | 1 |
+| ControlCenter-plugins | 329 / 330 | 1 |
+| ControlCenter-plugin-details | 331 / 330 | 1 |
+| MediaMenu | 322 / 321 | 1 |
+| AudioMenu-mic | 321 / 322 | 1 |
+| RemoteAccessMenu-streaming | 422 / 422 | 1 |
+| ControlCenter-general | 332 / 340 | 1 |
+| ControlCenter-tools | 336 / 337 | 1 |
+| ControlCenter-system | 348 / 329 | 1 |

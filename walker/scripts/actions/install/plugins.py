@@ -124,6 +124,36 @@ class PluginWizard(Wizard):
             if key in (curses.KEY_PPAGE, curses.KEY_UP):
                 offset -= count if key == curses.KEY_PPAGE else 1
 
+    def pick(self, entries):
+        selected, position = set(), 0
+        while True:
+            y, x = self.frame(tr('Select plugins'), tr('Arrows: move  Space: select  Enter: review  Esc: cancel'))
+            count = max(1, (self.panel_bottom - y) // 3)
+            start = max(0, position - count + 1)
+            for index, entry in enumerate(entries[start:start + count], start):
+                spec = entry['spec']
+                marker = '✓' if spec['id'] in selected else '○'
+                self.text(y + (index - start) * 3, x, marker + ' ' + printable(spec['name']), 3 if index == position else 1)
+                self.text(y + (index - start) * 3 + 1, x + 2, printable(spec['description']))
+                self.text(y + (index - start) * 3 + 2, x + 2,
+                          tr('Plugin icon: {icon}', icon=printable(spec.get('icon', '—'))))
+            self.screen.refresh()
+            key = self.screen.get_wch()
+            if key in ('\x1b', '\x03'):
+                return []
+            if key == curses.KEY_UP:
+                position = max(0, position - 1)
+            elif key == curses.KEY_DOWN:
+                position = min(len(entries) - 1, position + 1)
+            elif key == ' ':
+                plugin_id = entries[position]['spec']['id']
+                if plugin_id in selected:
+                    selected.remove(plugin_id)
+                else:
+                    selected.add(plugin_id)
+            elif key in ('\n', '\r', curses.KEY_ENTER):
+                return [entry['spec']['id'] for entry in entries if entry['spec']['id'] in selected]
+
     def safety(self, url):
         return self.review(safety_lines(url), step=1, title=tr('Before you download a plugin'),
                            keys=tr('PgUp/PgDn: scroll  Enter: download for review  Esc: cancel'))
@@ -145,7 +175,7 @@ def add(manager, url=None):
             wizard = PluginWizard(screen)
             value = wizard.field(tr('Repository URL'), tr('HTTPS or SSH Git repository URL'), validator=repository_url)
             repository_url(value)
-            return manager.add(value, wizard.safety, lambda root, spec, source: wizard.review(review_lines(root, spec, source)))
+            return manager.add(value, wizard.safety, lambda root, spec, source: wizard.review(review_lines(root, spec, source)), wizard.pick)
         try:
             installed = curses.wrapper(flow)
         except Cancelled:
@@ -182,7 +212,9 @@ def add_in_terminal(manager, url):
             return True
         print(tr('Nothing was installed; the downloaded copy was deleted.'))
         return False
-    return manager.add(url, consent, approve)
+    def pick(entries):
+        return curses.wrapper(lambda screen: PluginWizard(screen).pick(entries))
+    return manager.add(url, consent, approve, pick)
 
 
 def confirm(question):
@@ -238,7 +270,7 @@ def pager_command():
 
 def show_diff(changes):
     command, colour = pager_command()
-    diff = git(changes['root'], 'diff', '--no-ext-diff', '--no-textconv', '--color=always' if colour else '--color=never',
+    diff = git(changes['root'], 'diff', '--relative', '--no-ext-diff', '--no-textconv', '--color=always' if colour else '--color=never',
                changes['old'], changes['new'])
     # LESSSECURE turns off less's shell, editor and file commands while reading untrusted text.
     environment = dict(os.environ, LESSSECURE='1', LESS='-R', DELTA_PAGER='less -R', PAGER='less -R')
@@ -395,7 +427,7 @@ def main(argv=None):
         if not entry or entry['disabled'] or 'dataStream' not in entry:
             raise ValueError('Plugin data stream is unavailable')
         from eitr_plugins import command
-        root = manager.folder / arguments.value
+        root = manager.root(arguments.value)
         run_stream(command(root, entry['dataStream']), root)
     elif arguments.action == 'ui-data':
         print(manager.ui_data(arguments.value, arguments.index), end='')

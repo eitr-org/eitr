@@ -453,7 +453,9 @@ var qml = {
     "Update": "Update",
     "Visuals disabled after failures": "Visuals disabled after failures",
     "Widget options": "Widget options",
-    "Auto-hide": "Auto-hide"
+    "Auto-hide": "Auto-hide",
+    "Reduce motion": "Reduce motion",
+    "Repository: {url}": "Repository: {url}"
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -885,7 +887,9 @@ var qml = {
     "Update": "Atualizar",
     "Visuals disabled after failures": "Visuais desativados após falhas",
     "Widget options": "Opções do widget",
-    "Auto-hide": "Ocultar automaticamente"
+    "Auto-hide": "Ocultar automaticamente",
+    "Reduce motion": "Reduzir movimento",
+    "Repository: {url}": "Repositório: {url}"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1317,7 +1321,9 @@ var qml = {
     "Update": "Actualizar",
     "Visuals disabled after failures": "Elementos visuales desactivados tras fallos",
     "Widget options": "Opciones del widget",
-    "Auto-hide": "Ocultar automáticamente"
+    "Auto-hide": "Ocultar automáticamente",
+    "Reduce motion": "Reducir movimiento",
+    "Repository: {url}": "Repositorio: {url}"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1749,7 +1755,9 @@ var qml = {
     "Update": "Aktualisieren",
     "Visuals disabled after failures": "Visuelle Komponenten nach Fehlern deaktiviert",
     "Widget options": "Widget-Optionen",
-    "Auto-hide": "Automatisch ausblenden"
+    "Auto-hide": "Automatisch ausblenden",
+    "Reduce motion": "Bewegung reduzieren",
+    "Repository: {url}": "Repository: {url}"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2181,6 +2189,8 @@ var qml = {
     "Update": "Mettre à jour",
     "Visuals disabled after failures": "Composants visuels désactivés après des erreurs",
     "Widget options": "Options du widget",
-    "Auto-hide": "Masquage automatique"
+    "Auto-hide": "Masquage automatique",
+    "Reduce motion": "Réduire les animations",
+    "Repository: {url}": "Dépôt : {url}"
   }
 };

@@ -2,6 +2,8 @@
   "version": 1,
   "layout_version": 2,
   "rules": [
+    {"pattern": "elephant/menus/bar-motion.lua", "class": "C", "runtime": true},
+    {"pattern": "walker/themes/current/item_menus-bar-motion.xml", "class": "C", "runtime": true},
     {"pattern": "distro/plymouth/eitr/wordmark-*.png", "class": "G", "runtime": false},
     {"pattern": "quickshell/desktop-bar/BarAutoHide.qml", "class": "C", "runtime": true},
     {"pattern": "elephant/menus/bar-autohide.lua", "class": "C", "runtime": true},

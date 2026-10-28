@@ -48,16 +48,20 @@ LAN.
   rebuilding during the animation, as Control Center and Display did before
   `JsonState.js` prefetching). Measure each panel's open on the live desktop, find
   mid-animation work (process launches, model rebuilds, image loads, layout jumps),
-  prefetch or defer it, and keep a checklist of panels verified. Then a full review
+  prefetch it or apply it within the same reveal, and keep a checklist of panels verified. The repository audit,
+  warm guarded snapshots, capped pre-reveal readiness, shared-deadline size retargeting
+  and per-panel offscreen measurements are in desktop-bar/README.md;
+  every entry still needs the live check. Then a full review
   and testing round of all panels with the owner.
 - **Reduce motion option.** A Style > Desktop Bar setting to turn off panel open/close
   effects (unfold, fold, Overview entrances), applied everywhere through
-  `PanelStyle`/`DockPanel`, saved in `bar-settings.json`, Walker and QML settings.
+  `DesktopStyle`/`DockPanel`, saved in `bar-settings.json`, Walker and QML settings.
+  Implemented with five-language Handbook/catalog updates; live review remains.
 - **Official plugins repository.** An `eitr-org/eitr-plugins` repository with reviewed
-  official plugins. Add Plugin today takes one plugin per repository URL: support a
-  repository holding several plugins (e.g. `plugins/<id>/eitr-plugin.json` plus an
-  index), where Add Plugin lists them and the user picks which to install, each still
-  reviewed and pinned to a commit. Plugin ideas: the audio visualizer, a system
+  official plugins. Multi-plugin repository support is implemented: strict
+  `eitr-plugins.json` indexes, multi-select, separate reviews and shared pinned
+  snapshots, with single-plugin compatibility. Creating and populating the
+  official repository remains. Plugin ideas: the audio visualizer, a system
   monitor widget (CPU/GPU/RAM graphs), a weather widget, a calendar/agenda widget,
   a now-playing card with album art, a Pomodoro timer, a clipboard history tile,
   a GitHub notifications/PR tile, a Docker containers tile, a Home Assistant

@@ -4,7 +4,7 @@ import Eitr as Eitr
 import Quickshell
 import Quickshell.Io
 
-// Corner style and the critical-notification color. Styles come from
+// Shared motion policy, corner style and critical-notification color. Styles come from
 // corner-styles.json; desktop-style.py calls `style reload` after a change,
 // and the bar's theme refresh supplies criticalColor, so nothing polls here.
 QtObject {
@@ -16,6 +16,9 @@ QtObject {
     property string preferenceText: ""
     readonly property var options: Object.keys(styles).map(key => ({key: key, label: styles[key].label}))
     readonly property real scale: styles[corners] ? styles[corners].scale : 1
+
+    property bool reduceMotion: false
+    function motionDuration(milliseconds) { return reduceMotion ? 0 : milliseconds; }
 
     function radius(value) { return value * scale; }
     function select(value) {

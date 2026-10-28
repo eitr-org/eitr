@@ -12,6 +12,7 @@ import "JsonState.js" as JsonState
 
 ThemedPopup {
     id: center
+    waitForFreshData: true
     escapeHandler: () => center.page === "plugins" ? pluginManager.back() : plugins.back()
     required property var service
     required property var wifiControl
@@ -85,9 +86,9 @@ ThemedPopup {
     function run(process, command) { if (process.running) return; actionError = ""; process.command = command; process.running = true; }
     // Fetch once in the background after the bar starts, so even the first opening
     // shows its data instead of rebuilding lists halfway through the animation.
-    Timer { interval: 8000; running: true; onTriggered: { center.refresh(); chatStatus.running = true; } }
+    Timer { interval: 8000; running: true; onTriggered: { center.refresh(); center.loadStyle(); chatStatus.running = true; } }
     onOpenedChanged: {
-        if (opened) { refresh(); chatStatus.running = true; }
+        if (opened) { center.refresh(); chatStatus.running = true; }
         else { chatOpen = false; chatView.reset(); }
         if (opened && page === "style") loadStyle();
         if (opened && !organizationQuery.running) organizationQuery.running = true;
@@ -140,11 +141,15 @@ ThemedPopup {
         command: ["sh", "-c", 'for group in family size color; do python3 "$1" entries "$group"; done', "sh", center.cursorScript]
         stdout: StdioCollector { id: cursorOutput }
         onExited: {
-            try {
-                let lines = cursorOutput.text.trim().split("\n");
-                let choices = {family: JSON.parse(lines[0]), size: JSON.parse(lines[1]), color: JSON.parse(lines[2])};
-                if (JsonState.changed(center.cursorChoices, choices)) center.cursorChoices = choices;
-            } catch (error) {}
+            const received = cursorOutput.text;
+            center.updateContent(function() {
+                try {
+                    let lines = received.trim().split("\n");
+                    let choices = {family: JSON.parse(lines[0]), size: JSON.parse(lines[1]), color: JSON.parse(lines[2])};
+                    if (JsonState.changed(center.cursorChoices, choices)) center.cursorChoices = choices;
+                } catch (error) {}
+
+            });
         }
     }
     Process { id: cursorWrite; onExited: function(code) { if (code !== 0) center.actionError = Eitr.I18n.tr("Could not change the cursor"); cursorQuery.running = true; } }
@@ -153,11 +158,15 @@ ThemedPopup {
         command: ["sh", "-c", 'python3 "$1" list; echo "@current"; python3 "$1" current', "sh", center.lockscreenScript]
         stdout: StdioCollector { id: lockscreenOutput }
         onExited: {
-            let parts = lockscreenOutput.text.split("@current");
-            let lockscreens = parts[0].trim().split("\n").filter(line => line.includes("\t"))
-                .map(line => ({value: line.split("\t")[0], label: line.split("\t")[1]}));
-            if (JsonState.changed(center.lockscreens, lockscreens)) center.lockscreens = lockscreens;
-            center.lockscreen = (parts[1] || "").trim();
+            const received = lockscreenOutput.text;
+            center.updateContent(function() {
+                let parts = received.split("@current");
+                let lockscreens = parts[0].trim().split("\n").filter(line => line.includes("\t"))
+                    .map(line => ({value: line.split("\t")[0], label: line.split("\t")[1]}));
+                if (JsonState.changed(center.lockscreens, lockscreens)) center.lockscreens = lockscreens;
+                center.lockscreen = (parts[1] || "").trim();
+
+            });
         }
     }
     Process {
@@ -178,14 +187,18 @@ ThemedPopup {
         command: ["python3", (Quickshell.env("EITR_LIBRARY_ROOT") || "/usr/share/eitr/lib") + "/eitr_policy.py", "status"]
         stdout: StdioCollector { id: organizationOutput }
         onExited: {
-            try {
-                let policy = JSON.parse(organizationOutput.text);
-                if (JsonState.changed(center.organizationPolicy, policy)) center.organizationPolicy = policy;
-                if (center.organizationPolicy.development === false || center.organizationPolicy.assistants_together === false) {
-                    center.chatOpen = false; chatView.reset();
+            const received = organizationOutput.text;
+            center.updateContent(function() {
+                try {
+                    let policy = JSON.parse(received);
+                    if (JsonState.changed(center.organizationPolicy, policy)) center.organizationPolicy = policy;
+                    if (center.organizationPolicy.development === false || center.organizationPolicy.assistants_together === false) {
+                        center.chatOpen = false; chatView.reset();
+                    }
                 }
-            }
-            catch (error) { if (JsonState.changed(center.organizationPolicy, {})) center.organizationPolicy = ({}); }
+                catch (error) { if (JsonState.changed(center.organizationPolicy, {})) center.organizationPolicy = ({}); }
+
+            });
         }
     }
     Process {
@@ -198,7 +211,11 @@ ThemedPopup {
         id: airplaneQuery
         command: ["python3", Quickshell.shellDir + "/scripts/airplane.py", "status"]
         stdout: StdioCollector { id: airplaneOutput }
-        onExited: { let airplane; try { airplane = JSON.parse(airplaneOutput.text); } catch (e) { airplane = {available: false, enabled: false}; } if (JsonState.changed(center.airplane, airplane)) center.airplane = airplane; }
+        onExited: {
+            const received = airplaneOutput.text;
+            center.updateContent(function() { let airplane; try { airplane = JSON.parse(received); } catch (e) { airplane = {available: false, enabled: false}; } if (JsonState.changed(center.airplane, airplane)) center.airplane = airplane;
+            });
+        }
     }
     Process {
         id: airplaneOperation
@@ -213,11 +230,15 @@ ThemedPopup {
         command: ["python3", Eitr.Paths.code("quickshell/desktop-bar/scripts/assistant-chat.py"), "status"]
         stdout: StdioCollector { id: chatStatusOutput }
         onExited: {
-            let assistant;
-            try { assistant = JSON.parse(chatStatusOutput.text); }
-            catch (error) { assistant = ({}); }
-            if (JsonState.changed(center.chatAssistant, assistant)) center.chatAssistant = assistant;
-            if (!center.chatAssistant.identifier) { center.chatOpen = false; chatView.reset(); }
+            const received = chatStatusOutput.text;
+            center.updateContent(function() {
+                let assistant;
+                try { assistant = JSON.parse(received); }
+                catch (error) { assistant = ({}); }
+                if (JsonState.changed(center.chatAssistant, assistant)) center.chatAssistant = assistant;
+                if (!center.chatAssistant.identifier) { center.chatOpen = false; chatView.reset(); }
+
+            });
         }
     }
     RowLayout {
@@ -407,6 +428,21 @@ ThemedPopup {
                                 checked: center.barAutoHide; foreground: center.foreground; accent: center.accent
                                 Accessible.name: Eitr.I18n.tr("Auto-hide")
                                 onClicked: center.settingRequested("autohide", checked ? "yes" : "no")
+                            }
+                        }
+                        Row {
+                            width: parent.width; spacing: PanelStyle.selectionActionGap
+                            Text {
+                                width: parent.width - reduceMotionSwitch.width - parent.spacing; height: 32
+                                verticalAlignment: Text.AlignVCenter; text: Eitr.I18n.tr("Reduce motion")
+                                color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
+                            }
+                            PanelSwitch {
+                                id: reduceMotionSwitch
+                                anchors.verticalCenter: parent.verticalCenter
+                                checked: DesktopStyle.reduceMotion; foreground: center.foreground; accent: center.accent
+                                Accessible.name: Eitr.I18n.tr("Reduce motion")
+                                onClicked: center.settingRequested("reduceMotion", checked ? "yes" : "no")
                             }
                         }
                         Label { text: Eitr.I18n.tr("Show on") }

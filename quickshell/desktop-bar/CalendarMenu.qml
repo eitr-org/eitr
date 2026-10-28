@@ -26,8 +26,8 @@ ThemedPopup {
         watchChanges: true
         printErrors: false
         onFileChanged: reload()
-        onLoaded: menu.events = ReminderModel.parseEvents(text())
-        onLoadFailed: menu.events = []
+        onLoaded: { const snapshot = text(); menu.updateContent(function() { menu.applySnapshot("events", ReminderModel.parseEvents(snapshot)); }); }
+        onLoadFailed: menu.applySnapshot("events", [])
     }
     FileView {
         id: reminderFile
@@ -38,8 +38,8 @@ ThemedPopup {
         watchChanges: true
         printErrors: false
         onFileChanged: reload()
-        onLoaded: menu.reminders = ReminderModel.parse(text())
-        onLoadFailed: menu.reminders = []
+        onLoaded: { const snapshot = text(); menu.updateContent(function() { menu.applySnapshot("reminders", ReminderModel.parse(snapshot)); }); }
+        onLoadFailed: menu.applySnapshot("reminders", [])
     }
     // One reminder row at a time asks before deleting; the list follows the file watch.
     property string pendingKey: ""

@@ -1,4 +1,5 @@
 import QtQuick
+import "JsonState.js" as JsonState
 import Eitr as Eitr
 import "PanelStyle.js" as PanelStyle
 import QtQuick.Effects
@@ -15,6 +16,7 @@ Item {
     property var defaultScreen: null
     property var items: []
     property var allItems: []
+    property var catalogs: ({})
     property string searchText: ""
     readonly property bool searchable: mode === "theme-dark" || mode === "theme-light"
     property int selectedIndex: 0
@@ -27,8 +29,9 @@ Item {
             return;
         mode = kind === "theme" ? "theme-category" : kind;
         targetScreen = screen;
-        items = [];
-        allItems = [];
+        const cached = catalogs[mode] || [];
+        if (JsonState.changed(items, cached)) items = cached;
+        if (JsonState.changed(allItems, cached)) allItems = cached;
         searchText = "";
         error = "";
         opened = true;
@@ -78,8 +81,9 @@ Item {
                 if (code !== 0)
                     throw new Error("load failed");
                 var data = JSON.parse(output.text);
-                picker.items = data.items;
-                picker.allItems = data.items;
+                if (JsonState.changed(picker.items, data.items)) picker.items = data.items;
+                if (JsonState.changed(picker.allItems, data.items)) picker.allItems = data.items;
+                picker.catalogs[picker.mode] = data.items;
                 picker.accent = data.accent;
                 picker.foreground = data.foreground;
                 picker.selectedIndex = 0;
@@ -205,10 +209,10 @@ Item {
                     x: selected ? (content.width - content.previewWidth) / 2 : (offset < 0 ? (content.width - content.previewWidth) / 2 + offset * content.step : (content.width + content.previewWidth) / 2 - content.sliceWidth * 0.26 + (offset - 1) * content.step)
                     y: (content.height - height) / 2 - 24
                     z: selected ? 100 : 50 - Math.abs(offset)
-                    Behavior on x { NumberAnimation { duration: 160; easing.type: Easing.OutCubic } }
-                    Behavior on width { NumberAnimation { duration: 160; easing.type: Easing.OutCubic } }
-                    Behavior on height { NumberAnimation { duration: 160; easing.type: Easing.OutCubic } }
-                    Behavior on y { NumberAnimation { duration: 160; easing.type: Easing.OutCubic } }
+                    Behavior on x { NumberAnimation { duration: DesktopStyle.motionDuration(160); easing.type: Easing.OutCubic } }
+                    Behavior on width { NumberAnimation { duration: DesktopStyle.motionDuration(160); easing.type: Easing.OutCubic } }
+                    Behavior on height { NumberAnimation { duration: DesktopStyle.motionDuration(160); easing.type: Easing.OutCubic } }
+                    Behavior on y { NumberAnimation { duration: DesktopStyle.motionDuration(160); easing.type: Easing.OutCubic } }
 
                     Rectangle {
                         id: roundedMask

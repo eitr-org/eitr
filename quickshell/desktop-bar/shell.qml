@@ -204,12 +204,13 @@ ShellRoot {
     }
 
     function updateBarSetting(key, value) {
-        var choices = {appearance: ["transparent", "solid"], layout: ["unified", "centered", "notch"], edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"]};
+        var choices = {appearance: ["transparent", "solid"], layout: ["unified", "centered", "notch"], edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], reduceMotion: ["yes", "no"]};
         if (!choices[key] || choices[key].indexOf(value) === -1) return;
         if (key === "appearance") barAppearance = value;
         else if (key === "layout") barLayout = value;
         else if (key === "pinned") barPinned = value === "yes";
         else if (key === "screens") barScreens = value;
+        else if (key === "reduceMotion") DesktopStyle.reduceMotion = value === "yes";
         else if (key === "autohide") barAutoHide = value === "yes";
         else barEdge = value;
         settingsDirty = true;
@@ -242,6 +243,7 @@ ShellRoot {
                 shell.barPinned = settings.pinned === "yes";
                 shell.barScreens = settings.screens || "main";
                 shell.barAutoHide = settings.autohide === "yes";
+                DesktopStyle.reduceMotion = settings.reduceMotion === "yes";
             } catch (e) {}
         }
     }
@@ -263,7 +265,7 @@ ShellRoot {
         if (saveBarSettings.running) return;
         settingsDirty = false;
         saveBarSettings.command = ["python3", Quickshell.shellDir + "/scripts/bar-settings.py",
-            "set-all", barAppearance, barLayout, barEdge, barPinned ? "yes" : "no", barScreens, barAutoHide ? "yes" : "no"];
+            "set-all", barAppearance, barLayout, barEdge, barPinned ? "yes" : "no", barScreens, barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no"];
         saveBarSettings.running = true;
     }
 
@@ -630,13 +632,13 @@ ShellRoot {
                     : itemGap + barWeather.width + itemGap + rightSide.width + itemGap + notificationIcon.width)
                 property real leadingReveal: centeredLayout && expanded ? Math.min(leadingExtent, (shell.verticalBar ? bar.height : bar.width) / 2 - centerExtent / 2) : 0
                 property real trailingReveal: centeredLayout && expanded ? Math.min(trailingExtent, (shell.verticalBar ? bar.height : bar.width) / 2 - centerExtent / 2) : 0
-                Behavior on leadingReveal { NumberAnimation { duration: 320; easing.type: Easing.OutCubic } }
-                Behavior on trailingReveal { NumberAnimation { duration: 320; easing.type: Easing.OutCubic } }
+                Behavior on leadingReveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
+                Behavior on trailingReveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
                 property bool weatherHovered: false
                 readonly property bool weatherExpanded: weatherHovered || weatherMenu.visible || pendingPanel === weatherMenu
                 readonly property real weatherExtent: shell.verticalBar ? 3 + verticalWeatherIcon.height : 6 + barWeather.width
                 property real weatherReveal: notchLayout && weatherExpanded ? weatherExtent : 0
-                Behavior on weatherReveal { NumberAnimation { duration: 320; easing.type: Easing.OutCubic } }
+                Behavior on weatherReveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
                 Timer {
                     id: weatherCollapseDelay
                     interval: collapseDelay.interval
@@ -1056,7 +1058,7 @@ ShellRoot {
                         id: verticalStart
                         opacity: bar.expanded ? 1 : 0
                         enabled: bar.expanded
-                        Behavior on opacity { NumberAnimation { duration: 180 } }
+                        Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
                         y: bar.centeredLayout ? bar.endPadding : 8
                         anchors.horizontalCenter: parent.horizontalCenter
                         spacing: shell.workspaceItemSpacing
@@ -1190,7 +1192,7 @@ ShellRoot {
                         id: verticalEnd
                         opacity: bar.expanded ? 1 : 0
                         enabled: bar.expanded
-                        Behavior on opacity { NumberAnimation { duration: 180 } }
+                        Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: bar.centeredLayout ? bar.endPadding : 8
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -1269,7 +1271,7 @@ ShellRoot {
                             id: workspaces
                             opacity: bar.expanded ? 1 : 0
                             enabled: bar.expanded
-                            Behavior on opacity { NumberAnimation { duration: 180 } }
+                            Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
 
                             spacing: shell.workspaceItemSpacing
                             Layout.alignment: Qt.AlignVCenter
@@ -1328,7 +1330,7 @@ ShellRoot {
                             id: hardwareStatus
                             opacity: bar.expanded ? 1 : 0
                             enabled: bar.expanded
-                            Behavior on opacity { NumberAnimation { duration: 180 } }
+                            Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
                             Layout.alignment: Qt.AlignVCenter
                             Layout.leftMargin: shell.workspaceItemSpacing
                             spacing: shell.workspaceItemSpacing
@@ -1401,7 +1403,7 @@ ShellRoot {
                             id: rightSide
                             opacity: bar.expanded ? 1 : 0
                             enabled: bar.expanded
-                            Behavior on opacity { NumberAnimation { duration: 180 } }
+                            Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
 
                             spacing: shell.workspaceItemSpacing
                             anchors.right: notificationIcon.left
@@ -1811,7 +1813,7 @@ ShellRoot {
 
         Behavior on color {
             ColorAnimation {
-                duration: 120
+                duration: DesktopStyle.motionDuration(120)
             }
 
         }
@@ -1876,7 +1878,7 @@ ShellRoot {
                     origin.y: glyph.baselineOffset + glyphInk.tightBoundingRect.y + glyphInk.tightBoundingRect.height / 2
 
                     NumberAnimation on angle {
-                        running: item.spinning
+                        running: !DesktopStyle.reduceMotion && (item.spinning)
                         from: 0; to: 360
                         duration: 1200
                         loops: Animation.Infinite
@@ -1913,7 +1915,7 @@ ShellRoot {
 
         Behavior on width {
             NumberAnimation {
-                duration: 180
+                duration: DesktopStyle.motionDuration(180)
                 easing.type: Easing.InOutCubic
             }
 
@@ -1921,7 +1923,7 @@ ShellRoot {
 
         Behavior on opacity {
             NumberAnimation {
-                duration: 120
+                duration: DesktopStyle.motionDuration(120)
                 easing.type: Easing.InOutCubic
             }
 
@@ -2030,7 +2032,7 @@ ShellRoot {
 
         Behavior on width {
             NumberAnimation {
-                duration: 180
+                duration: DesktopStyle.motionDuration(180)
                 easing.type: Easing.InOutCubic
             }
 
@@ -2038,7 +2040,7 @@ ShellRoot {
 
         Behavior on opacity {
             NumberAnimation {
-                duration: 120
+                duration: DesktopStyle.motionDuration(120)
                 easing.type: Easing.InOutCubic
             }
 
@@ -2061,7 +2063,7 @@ ShellRoot {
         readonly property bool shown: recording || listening
         property real transcribePhase: 0
         NumberAnimation on transcribePhase {
-            running: capture.transcribing
+            running: !DesktopStyle.reduceMotion && (capture.transcribing)
             from: 0; to: 1; duration: 900; loops: Animation.Infinite
         }
         width: shown ? recordingDot.width : 0
@@ -2101,7 +2103,7 @@ ShellRoot {
                             : 3 + 11 * (capture.dictationLevels[Math.abs(index - 3)] || 0)
                         // Smooths the 70 ms microphone samples only: the pulse changes every
                         // frame, and a Behavior restarted each frame never leaves its start.
-                        Behavior on height { enabled: !capture.transcribing; NumberAnimation { duration: 70 } }
+                        Behavior on height { enabled: !capture.transcribing; NumberAnimation { duration: DesktopStyle.motionDuration(70) } }
                     }
                 }
             }
@@ -2295,7 +2297,7 @@ ShellRoot {
 
         Behavior on color {
             ColorAnimation {
-                duration: 120
+                duration: DesktopStyle.motionDuration(120)
             }
 
         }

@@ -561,5 +561,9 @@
   "Always visible": "Always visible",
   "Auto-hide": "Auto-hide",
   "Keep the bar on screen": "Keep the bar on screen",
-  "Reveal the bar at the screen edge": "Reveal the bar at the screen edge"
+  "Reveal the bar at the screen edge": "Reveal the bar at the screen edge",
+  "Animate panels and bar controls": "Animate panels and bar controls",
+  "Full motion": "Full motion",
+  "Reduce motion": "Reduce motion",
+  "Show panels and bar controls instantly": "Show panels and bar controls instantly"
 }

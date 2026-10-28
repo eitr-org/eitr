@@ -60,5 +60,15 @@
       "edge"
     ],
     "submenu": "bar-position"
+  },
+  {
+    "text": "Reduce motion",
+    "subtext": ">",
+    "icon": "󰍜",
+    "keywords": [
+      "animation",
+      "accessibility"
+    ],
+    "submenu": "bar-motion"
   }
 ]

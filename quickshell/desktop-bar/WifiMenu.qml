@@ -7,6 +7,7 @@ import Quickshell.Io
 
 ThemedPopup {
     id: menu
+    waitForFreshData: true
     implicitWidth: 468
     implicitHeight: 528
     property var devices: []
@@ -67,26 +68,31 @@ ThemedPopup {
         }
     }
     function probe() { if (visible && device && device.state === "connected" && !pingQuery.running) { pingQuery.command = ["python3", helper, "probe", device.name]; pingQuery.running = true; } }
+    Component.onCompleted: refresh()
     onOpenedChanged: {
         if (opened) { message = ""; latency = ({}); refresh(); }
         else { selectedNetwork = null; secret = ""; pendingRemoval = ""; password.text = ""; clearEnterprise(); closeShare(); }
     }
-    Timer { interval: 2000; running: menu.opened; repeat: true; onTriggered: menu.refresh() }
+    Timer { interval: 2000; running: true; repeat: true; onTriggered: menu.refresh() }
     Timer { interval: 15000; running: menu.opened; repeat: true; onTriggered: menu.probe() }
     Process {
         id: query
         command: ["python3", menu.helper, "status"]
         stdout: StdioCollector { id: snapshot }
         onExited: {
-            try {
-                var result = JSON.parse(snapshot.text);
-                if (result.error) menu.message = result.error;
-                else {
-                    menu.devices = result.devices;
-                    menu.backend = result.backend || "iwd";
-                    if (menu.device && menu.latency.ping === undefined) menu.probe();
-                }
-            } catch (e) { menu.message = "WiFi unavailable"; }
+            const received = snapshot.text;
+            menu.updateContent(function() {
+                try {
+                    var result = JSON.parse(received);
+                    if (result.error) menu.message = result.error;
+                    else {
+                        menu.applySnapshot("devices", result.devices);
+                        menu.backend = result.backend || "iwd";
+                        if (menu.device && menu.latency.ping === undefined) menu.probe();
+                    }
+                } catch (e) { menu.message = "WiFi unavailable"; }
+
+            });
         }
     }
     Process {

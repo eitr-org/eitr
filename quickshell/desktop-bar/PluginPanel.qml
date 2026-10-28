@@ -6,6 +6,7 @@ import "PanelStyle.js" as PanelStyle
 
 ThemedPopup {
     id: panel
+    waitForFreshData: true
     property var entry: null
     surfaceColor: entry && entry.surface === "panel" ? background : "transparent"
     property var history: []
@@ -48,7 +49,8 @@ ThemedPopup {
         PluginComponent {
             id: content
             width: scroll.availableWidth; height: implicitHeight
-            active: panel.opened && panel.entry !== null
+            active: panel.entry !== null
+            onImplicitHeightChanged: panel.dataReady()
             entry: panel.entry || ({kind: "panels", plugin: "", id: "", commit: "", qml: "", source: "", title: "", disabled: true})
             foreground: panel.foreground; background: panel.background; accent: panel.accent
             onPanelRequested: function(plugin, requested) {

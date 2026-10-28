@@ -61,3 +61,5 @@ The Audio/Mic control opens one panel with separate output and microphone sectio
 **Music Visualizer** in **Main > Tools** opens cava with theme colours. Right-click the media equalizer to open the same visualizer; left-click still opens media details. Press **q** or **Esc** to close it. On existing desktops, a missing cava package is installed first.
 
 **Auto-hide**, under Style > Desktop Bar and Control Center > Style, slides the bar away after a short pointer-leave delay. Touch its screen edge to reveal it. It works on all four edges with Full, Centered and Tabs layouts. Open panels and popups, and dragging the bar, keep it visible; it hides again afterwards. Hidden bars reserve no window space. The setting is saved independently of the centered-layout pin and is off by default on new installations.
+
+**Reduce motion**, under Style > Desktop Bar and Control Center > Style > Bar, makes panel unfolding and folding, Overview entrances, notification transitions and decorative bar animations instant. It is off by default and saved in `bar-settings.json`. Timers that refresh data, dismiss notifications or delay auto-hide keep their normal behavior.

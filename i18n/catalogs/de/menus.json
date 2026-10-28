@@ -561,5 +561,9 @@
   "Always visible": "Immer sichtbar",
   "Auto-hide": "Automatisch ausblenden",
   "Keep the bar on screen": "Die Leiste auf dem Bildschirm lassen",
-  "Reveal the bar at the screen edge": "Die Leiste am Bildschirmrand einblenden"
+  "Reveal the bar at the screen edge": "Die Leiste am Bildschirmrand einblenden",
+  "Animate panels and bar controls": "Panels und Leistensteuerung animieren",
+  "Full motion": "Alle Animationen",
+  "Reduce motion": "Bewegung reduzieren",
+  "Show panels and bar controls instantly": "Panels und Leistensteuerung sofort anzeigen"
 }

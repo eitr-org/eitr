@@ -173,6 +173,48 @@ def manifest(root):
     return value
 
 
+def repository_plugins(root):
+    """Validate the entire index before offering any entry for review."""
+    index = root / 'eitr-plugins.json'
+    if not index.exists() and not index.is_symlink():
+        return [dict(path='', spec=manifest(root))]
+    list(plugin_files(root))
+    if index.is_symlink() or not index.is_file() or index.stat().st_size > 65536:
+        raise ValueError('Invalid plugin index file')
+    value = json.loads(index.read_text(), object_pairs_hook=unique_object)
+    object_keys(value, ('schemaVersion', 'plugins'))
+    if type(value['schemaVersion']) is not int or value['schemaVersion'] != 1:
+        raise ValueError('Invalid plugin index schemaVersion')
+    entries = value['plugins']
+    if not isinstance(entries, list) or not 1 <= len(entries) <= 100:
+        raise ValueError('A plugin index must declare 1..100 plugins')
+    result, ids, paths = [], set(), set()
+    for entry in entries:
+        object_keys(entry, ('id', 'path'))
+        plugin_id = identifier(entry['id'])
+        relative = string(entry['path'], 512)
+        parts = PurePosixPath(relative)
+        if (parts.is_absolute() or '..' in parts.parts or '.' in relative.split('/')
+                or '\\' in relative or str(parts) != relative or not parts.parts):
+            raise ValueError('Plugin index paths must be normalized repository-relative folders')
+        folder = root / relative
+        if not folder.is_dir() or not folder.resolve().is_relative_to(root.resolve()):
+            raise ValueError('Plugin index path escapes the repository or is missing')
+        if plugin_id in ids or relative in paths:
+            raise ValueError('Duplicate plugin index id or path')
+        if any(folder.is_relative_to(root / previous) or (root / previous).is_relative_to(folder) for previous in paths):
+            raise ValueError('Plugin index folders may not overlap')
+        spec = manifest(folder)
+        if spec['id'] != plugin_id:
+            raise ValueError('Plugin index id does not match its manifest')
+        if spec.get('schemaVersion') == 2 and 'icon' not in spec:
+            raise ValueError('Schema version 2 requires a plugin icon')
+        ids.add(plugin_id)
+        paths.add(relative)
+        result.append(dict(path=relative, spec=spec))
+    return result
+
+
 UI_FAILURE_LIMIT = 3
 
 
@@ -370,11 +412,11 @@ def update_changes(candidate, target, old, new, old_spec, spec):
     """What an update changes and the risks worth a second look, read from the Git history."""
     subjects = [printable(line) for line in git(candidate, 'log', '--format=%h %s', old + '..' + new).splitlines()]
     counts = {}
-    for item in git(candidate, 'diff', '--numstat', '-z', '--no-renames', '--no-ext-diff', '--no-textconv', old, new).split('\0'):
+    for item in git(candidate, 'diff', '--numstat', '--relative', '-z', '--no-renames', '--no-ext-diff', '--no-textconv', old, new).split('\0'):
         if item:
             added, removed, path = item.split('\t', 2)
             counts[path] = (added, removed)
-    raw = git(candidate, 'diff', '--raw', '-z', '--no-renames', '--no-abbrev', old, new).split('\0')
+    raw = git(candidate, 'diff', '--raw', '--relative', '-z', '--no-renames', '--no-abbrev', old, new).split('\0')
     files = []
     for header, path in zip(raw[0::2], raw[1::2]):
         old_mode, new_mode, _, _, status = header.lstrip(':').split(' ')
@@ -503,7 +545,11 @@ class Plugins:
             raise ValueError('Invalid plugin state')
         for plugin_id, record in value.items():
             identifier(plugin_id)
-            object_keys(record, ('url', 'id', 'commit', 'installed'), ('enabled',))
+            object_keys(record, ('url', 'id', 'commit', 'installed'), ('enabled', 'path'))
+            if 'path' in record:
+                relative = record['path']
+                if not isinstance(relative, str) or not relative or PurePosixPath(relative).is_absolute() or '..' in PurePosixPath(relative).parts or '\\' in relative or str(PurePosixPath(relative)) != relative:
+                    raise ValueError('Invalid plugin repository path')
             if type(record.get('enabled', True)) is not bool:
                 raise ValueError('Invalid plugin enabled state')
             if record['id'] != plugin_id or not re.fullmatch(r'[0-9a-f]{40,64}', record['commit']):
@@ -530,20 +576,54 @@ class Plugins:
             with contextlib.suppress(OSError):
                 (Path(runtime) / 'eitr-search/index.json').unlink(missing_ok=True)
 
+    def snapshot(self, url, revision):
+        source = hashlib.sha256(normalized_url(url).encode()).hexdigest()
+        return self.folder / '.repositories' / source / revision
+
+    def root(self, plugin_id):
+        record = self.records().get(plugin_id, {})
+        if record.get('path'):
+            return self.snapshot(record['url'], record['commit']) / record['path']
+        return self.folder / plugin_id
+
+    def keep_snapshot(self, candidate, url, revision):
+        target = self.snapshot(url, revision)
+        if not target.exists():
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copytree(candidate, target, symlinks=True)
+        if target.is_symlink() or commit(target) != revision:
+            raise ValueError('Repository snapshot differs from its approved commit')
+        return target
+
+    def clean_snapshots(self):
+        retained = {self.snapshot(record['url'], record['commit']) for record in self.records().values() if record.get('path')}
+        parent = self.folder / '.repositories'
+        if parent.exists():
+            for source in parent.iterdir():
+                if source.is_symlink() or not source.is_dir():
+                    raise ValueError('Invalid plugin repository storage')
+                for snapshot in source.iterdir():
+                    if snapshot not in retained:
+                        if snapshot.is_symlink() or not snapshot.is_dir():
+                            raise ValueError('Invalid plugin repository snapshot')
+                        shutil.rmtree(snapshot)
+                if not any(source.iterdir()):
+                    source.rmdir()
+
     def unit(self, plugin_id):
         return self.units / f'eitr-plugin-{identifier(plugin_id)}.service'
 
     def systemctl(self, *arguments):
         subprocess.run(['systemctl', '--user', *arguments], check=True, capture_output=True, text=True)
 
-    def service(self, plugin_id, spec=None):
+    def service(self, plugin_id, spec=None, *, root=None):
         unit = self.unit(plugin_id)
         if unit.exists():
             self.systemctl('disable', '--now', unit.name)
             unit.unlink()
         if spec and 'service' in spec:
             self.units.mkdir(parents=True, exist_ok=True)
-            unit.write_text(unit_content(self.folder / plugin_id, spec))
+            unit.write_text(unit_content(root if root is not None else self.root(plugin_id), spec))
         self.systemctl('daemon-reload')
         if spec and 'service' in spec:
             self.systemctl('enable', '--now', unit.name)
@@ -575,7 +655,7 @@ class Plugins:
 
     def spec(self, plugin_id):
         try:
-            return manifest(self.folder / plugin_id)
+            return manifest(self.root(plugin_id))
         except (OSError, ValueError):
             return None
 
@@ -622,10 +702,10 @@ class Plugins:
         candidate = temporary / 'candidate'
         clone(url, candidate, allow_file=self.allow_file)
         list(plugin_files(candidate))
-        spec = manifest(candidate)
-        return candidate, spec
+        entries = repository_plugins(candidate)
+        return candidate, entries if entries[0]["path"] else entries[0]["spec"]
 
-    def add(self, url, consent, approve):
+    def add(self, url, consent, approve, pick=None):
         """consent(url) accepts the risk before anything is downloaded; approve() the exact commit."""
         repository_url(url, allow_file=self.allow_file)
         self.check(url)
@@ -634,10 +714,12 @@ class Plugins:
         with self.lock(), tempfile.TemporaryDirectory(prefix='eitr-plugin-') as temporary:
             records = self.records()
             candidate, spec = self.prepare(url, Path(temporary))
+            if isinstance(spec, list):
+                return self.add_indexed(candidate, spec, url, records, approve, pick)
             if spec.get('schemaVersion') == 2 and 'icon' not in spec:
                 raise ValueError('Schema version 2 requires a plugin icon')
             plugin_id = spec['id']
-            target = self.folder / plugin_id
+            target = self.root(plugin_id)
             if plugin_id in records or target.exists() or target.is_symlink() or self.unit(plugin_id).exists():
                 raise ValueError('Plugin id or service already exists')
             approved = commit(candidate)
@@ -663,6 +745,91 @@ class Plugins:
                 raise
             return True
 
+    def add_indexed(self, candidate, entries, url, records, approve, pick):
+        if pick is None:
+            raise ValueError('Choose plugins from this repository before installing')
+        choices = pick(entries)
+        if not isinstance(choices, list) or any(not isinstance(choice, str) for choice in choices) or len(choices) != len(set(choices)):
+            raise ValueError('Invalid plugin selection')
+        available = {entry['spec']['id']: entry for entry in entries}
+        if set(choices) - available.keys():
+            raise ValueError('Unknown plugin selection')
+        revision = commit(candidate)
+        installed = False
+        try:
+            for plugin_id in choices:
+                entry = available[plugin_id]
+                spec = entry['spec']
+                if plugin_id in records or (self.folder / plugin_id).exists() or self.unit(plugin_id).exists():
+                    raise ValueError('Plugin id or service already exists')
+                if spec.get('schemaVersion') == 2 and 'icon' not in spec:
+                    raise ValueError('Schema version 2 requires a plugin icon')
+                self.check(url, revision, plugin_id)
+                if not approve(candidate / entry['path'], spec, url):
+                    continue
+                snapshot = self.keep_snapshot(candidate, url, revision)
+                root = snapshot / entry['path']
+                if manifest(root) != spec:
+                    raise ValueError('Plugin manifest changed after approval')
+                record = dict(url=url, id=plugin_id, commit=revision, path=entry['path'],
+                              installed=datetime.datetime.now(datetime.timezone.utc).isoformat())
+                try:
+                    if 'service' in spec:
+                        self.service(plugin_id, spec, root=root)
+                    self.save({**records, plugin_id: record})
+                except BaseException:
+                    if self.unit(plugin_id).exists():
+                        with contextlib.suppress(OSError, subprocess.SubprocessError):
+                            self.service(plugin_id)
+                    raise
+                records[plugin_id] = record
+                installed = True
+        finally:
+            self.clean_snapshots()
+        return installed
+
+    def update_indexed(self, plugin_id, record, records, approve):
+        target = self.root(plugin_id)
+        if target.is_symlink() or commit(target) != record['commit']:
+            raise ValueError('Installed plugin differs from its approved commit')
+        with tempfile.TemporaryDirectory(prefix='eitr-plugin-') as temporary:
+            candidate, entries = self.prepare(record['url'], Path(temporary))
+            if not isinstance(entries, list):
+                raise ValueError('Installed plugin is missing from the repository index')
+            entry = next((entry for entry in entries if entry['spec']['id'] == plugin_id), None)
+            if entry is None or entry['path'] != record['path']:
+                raise ValueError('Installed plugin path cannot change during update')
+            revision = commit(candidate)
+            if revision == record['commit']:
+                return False
+            self.check(record['url'], revision, plugin_id)
+            try:
+                git(candidate, 'merge-base', '--is-ancestor', record['commit'], revision)
+            except subprocess.CalledProcessError:
+                raise ValueError('Plugin repository history was rewritten') from None
+            old_spec, spec = manifest(target), entry['spec']
+            if spec.get('schemaVersion') == 2 and 'icon' not in spec:
+                raise ValueError('Schema version 2 requires a plugin icon')
+            changes = update_changes(candidate / entry['path'], target, record['commit'], revision, old_spec, spec)
+            if not approve(changes):
+                return False
+            snapshot = self.keep_snapshot(candidate, record['url'], revision)
+            root = snapshot / entry['path']
+            try:
+                if manifest(root) != spec:
+                    raise ValueError('Plugin manifest changed after approval')
+                if 'service' in spec or 'service' in old_spec:
+                    self.service(plugin_id, spec if record.get('enabled', True) else None, root=root)
+                self.save({**records, plugin_id: {**record, 'commit': revision}})
+            except BaseException:
+                if 'service' in spec or 'service' in old_spec:
+                    with contextlib.suppress(OSError, subprocess.SubprocessError):
+                        self.service(plugin_id, old_spec if record.get('enabled', True) else None, root=target)
+                raise
+            finally:
+                self.clean_snapshots()
+            return True
+
     def update(self, plugin_id, approve):
         """approve(changes) sees update_changes(); a rewritten history is refused before it."""
         identifier(plugin_id)
@@ -670,11 +837,15 @@ class Plugins:
             records = self.records()
             record = records[plugin_id]
             self.check(record['url'], plugin_id=plugin_id)
-            target = self.folder / plugin_id
+            if record.get('path'):
+                return self.update_indexed(plugin_id, record, records, approve)
+            target = self.root(plugin_id)
             if target.is_symlink() or commit(target) != record['commit']:
                 raise ValueError('Installed plugin differs from its approved commit')
             # Fetch into a disposable clone: hooks and unapproved worktree never run.
             candidate, spec = self.prepare(record['url'], Path(temporary))
+            if isinstance(spec, list):
+                raise ValueError('Single-plugin repository changed to an index; remove and add it again')
             git(candidate, 'fetch', '--no-recurse-submodules', 'origin', allow_file=self.allow_file)
             new_commit = commit(candidate)
             if new_commit == record['commit']:
@@ -732,15 +903,16 @@ class Plugins:
             record = records[plugin_id]
             if not approve(record):
                 return False
-            target = self.folder / plugin_id
+            target = self.root(plugin_id)
             if target.is_symlink():
                 raise ValueError('Plugin folder must not be a symlink')
             if self.unit(plugin_id).exists():
                 self.service(plugin_id)
-            if target.exists():
+            if target.exists() and not record.get('path'):
                 shutil.rmtree(target)
             del records[plugin_id]
             self.save(records)
+            self.clean_snapshots()
             return True
 
     def set_enabled(self, plugin_id, enabled):
@@ -750,7 +922,7 @@ class Plugins:
             record = records[plugin_id]
             if enabled:
                 self.check(record['url'], record['commit'], plugin_id)
-                root = self.folder / plugin_id
+                root = self.root(plugin_id)
                 if root.is_symlink() or commit(root) != record['commit']:
                     raise ValueError('Plugin differs from its approved commit')
                 spec = manifest(root)
@@ -768,11 +940,12 @@ class Plugins:
             spec = self.spec(plugin_id)
             rows.append(dict(id=plugin_id, name=printable(spec['name']) if spec else plugin_id,
                              author=printable(spec['author']) if spec else '?', blocked=blocked.get(plugin_id, ('',))[0],
+                             repository=printable(record['url']), repositoryPath=record.get('path', ''),
                              enabled=record.get('enabled', True), version=spec['version'] if spec else '',
                              description=spec['description'] if spec else '',
                              visualsDisabled=bool(self.ui_state().get(plugin_id, {}).get('disabled')),
-                             icon=(self.folder / plugin_id / spec['icon']).as_uri() if spec and spec.get('icon') else '',
-                             preview=(self.folder / plugin_id / spec['preview']).as_uri() if spec and spec.get('preview') else ''))
+                             icon=(self.root(plugin_id) / spec['icon']).as_uri() if spec and spec.get('icon') else '',
+                             preview=(self.root(plugin_id) / spec['preview']).as_uri() if spec and spec.get('preview') else ''))
         return sorted(rows, key=lambda row: row['name'].casefold())
 
     def rows(self):
@@ -781,7 +954,7 @@ class Plugins:
         for plugin_id, record in self.records().items():
             if plugin_id in blocked:
                 continue
-            root = self.folder / plugin_id
+            root = self.root(plugin_id)
             try:
                 if root.is_symlink() or commit(root) != record['commit']:
                     continue
@@ -840,7 +1013,7 @@ class Plugins:
         for plugin_id, record in self.records().items():
             if plugin_id in blocked:
                 continue
-            root = self.folder / plugin_id
+            root = self.root(plugin_id)
             try:
                 if root.is_symlink() or commit(root) != record['commit']:
                     continue
@@ -934,7 +1107,7 @@ class Plugins:
         entry = next((entry for entry in self.ui() if entry['plugin'] == plugin_id and entry['id'] == entry_id), None)
         if not entry or entry['disabled'] or 'dataCommand' not in entry:
             raise ValueError('Plugin data command is unavailable')
-        root = self.folder / plugin_id
+        root = self.root(plugin_id)
         # A temporary file bounds memory even when a command writes excessive output.
         with tempfile.TemporaryFile() as output:
             process = subprocess.Popen(command(root, entry['dataCommand']), cwd=root, start_new_session=True,
@@ -975,7 +1148,7 @@ class Plugins:
                 try:
                     if self.refusal(record['url'], record['commit'], plugin_id):
                         continue
-                    root = self.folder / plugin_id
+                    root = self.root(plugin_id)
                     if root.is_symlink() or commit(root) != record['commit']:
                         continue
                     spec = manifest(root)
@@ -1013,7 +1186,7 @@ class Plugins:
             if refused[0] == 'disabled':
                 raise ValueError(refused[1])
             self.check(record['url'], record['commit'], plugin_id)
-        root = self.folder / plugin_id
+        root = self.root(plugin_id)
         if root.is_symlink() or commit(root) != record['commit']:
             raise ValueError('Plugin differs from its approved commit')
         spec = manifest(root)

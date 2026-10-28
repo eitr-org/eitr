@@ -428,5 +428,7 @@
   "Update": "Mettre à jour",
   "Visuals disabled after failures": "Composants visuels désactivés après des erreurs",
   "Widget options": "Options du widget",
-  "Auto-hide": "Masquage automatique"
+  "Auto-hide": "Masquage automatique",
+  "Reduce motion": "Réduire les animations",
+  "Repository: {url}": "Dépôt : {url}"
 }

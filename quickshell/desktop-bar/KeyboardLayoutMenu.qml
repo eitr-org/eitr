@@ -10,6 +10,7 @@ import Quickshell.Io
 // `activeCode` to show its indicator only when there is more than one layout.
 ThemedPopup {
     id: menu
+    waitForFreshData: true
     property var layouts: []
     property int activeLayout: -1
     property string error: ""
@@ -46,12 +47,16 @@ ThemedPopup {
         command: ["python3", menu.helper]
         stdout: StdioCollector { id: output }
         onExited: function(code) {
-            try {
-                var result = JSON.parse(output.text);
-                if (code !== 0) throw new Error(result.error || Eitr.I18n.tr("Layouts unavailable"));
-                menu.layouts = result.layouts;
-                menu.activeLayout = result.active;
-            } catch (e) { menu.error = e.message; }
+            const received = output.text;
+            menu.updateContent(function() {
+                try {
+                    var result = JSON.parse(received);
+                    if (code !== 0) throw new Error(result.error || Eitr.I18n.tr("Layouts unavailable"));
+                    menu.applySnapshot("layouts", result.layouts);
+                    menu.activeLayout = result.active;
+                } catch (e) { menu.error = e.message; }
+
+            });
         }
     }
     Process {

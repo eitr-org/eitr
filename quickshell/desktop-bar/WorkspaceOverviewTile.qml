@@ -44,6 +44,8 @@ Rectangle {
             anchors.fill: parent
             source: "file://" + Quickshell.env("HOME") + "/.cache/current-wallpaper-image"
             fillMode: Image.PreserveAspectCrop
+            asynchronous: true
+            sourceSize: Qt.size(Math.ceil(desktop.width), Math.ceil(desktop.height))
         }
         Repeater {
             model: tile.workspace.windows

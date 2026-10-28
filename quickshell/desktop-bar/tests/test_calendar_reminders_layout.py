@@ -11,7 +11,11 @@ ROOT = Path(__file__).resolve().parents[3]
 BAR = ROOT / 'quickshell/desktop-bar'
 THEMES = {'dark': ('#18212b', '#e9eef1'), 'light': ('#f5f0e7', '#252936')}
 POPUP_STUB = '''import QtQuick
+import "JsonState.js" as JsonState
 Item {
+    id: popup
+    function updateContent(action) { action(); }
+    function applySnapshot(name, value) { if (JsonState.changed(popup[name], value)) popup[name] = value; }
     property bool opened: true
     property var keyTarget
     property color foreground

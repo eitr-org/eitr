@@ -4,11 +4,18 @@ import Quickshell
 
 ThemedPopup {
     id: menu
+    waitForFreshData: true
     required property var service
     property string kind: "tailscale"
     property int maximumHeight: 700
     implicitWidth: 468
     implicitHeight: Math.min(content.implicitHeight + verticalContentInset, maximumHeight)
+    property var snapshot: ({})
+    Connections {
+        target: menu.service
+        function onStateChanged() { menu.applySnapshot("snapshot", menu.service.state); }
+    }
+    Component.onCompleted: snapshot = service.state
     onOpenedChanged: if (opened) service.refresh()
     Flickable {
         anchors.fill: parent
@@ -19,7 +26,7 @@ ThemedPopup {
             id: content
             width: parent.width
             kind: menu.kind
-            state: menu.service.state
+            state: menu.snapshot
             busy: menu.service.busy
             foreground: menu.foreground
             accent: menu.accent

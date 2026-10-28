@@ -8,6 +8,7 @@ import Quickshell.Io
 
 ThemedPopup {
     id: menu
+    waitForFreshData: true
     implicitWidth: 428
     property int maximumHeight: 1000
     implicitHeight: Math.min(contentColumn.implicitHeight + (trialFooter.visible ? trialFooter.height + 8 : 0)
@@ -149,16 +150,13 @@ ThemedPopup {
         nightOperation.running = true;
     }
     onOpenedChanged: {
-        // An external monitor's brightness is read over DDC, which takes about half a second
-        // and stalls the unfold if it runs at once; it waits until the panel is open.
-        if (opened) { refreshNightlight(); refreshDisplays(); refreshPower(); brightnessAfterOpen.restart(); }
+        if (opened) { refresh(); refreshNightlight(); refreshDisplays(); refreshPower(); }
         else {
             editingSchedule = false;
             settingsFor = "";
             if (scheduleDirty) scheduleSettle.restart();
         }
     }
-    Timer { id: brightnessAfterOpen; interval: 400; onTriggered: menu.refresh() }
     // DDC monitors are not polled: only this panel changes their brightness.
     Timer { interval: 3000; repeat: true; running: menu.opened; onTriggered: { if (menu.state.kind !== "ddc") menu.refresh(); menu.refreshNightlight(); menu.refreshPower(); } }
     Timer { interval: 6000; repeat: true; running: menu.opened; onTriggered: menu.refreshDisplays() }
@@ -178,7 +176,11 @@ ThemedPopup {
         id: settingsQuery
         command: ["python3", menu.settingsHelper, "list"]
         stdout: StdioCollector { id: settingsOutput }
-        onExited: { try { let settings = JSON.parse(settingsOutput.text); if (JsonState.changed(menu.displaySettings, settings)) menu.displaySettings = settings; } catch (e) {} }
+        onExited: {
+            const received = settingsOutput.text;
+            menu.updateContent(function() { try { let settings = JSON.parse(received); if (JsonState.changed(menu.displaySettings, settings)) menu.displaySettings = settings; } catch (e) {}
+            });
+        }
     }
     Process {
         id: trialOperation
@@ -212,10 +214,14 @@ ThemedPopup {
         command: ["python3", menu.helper, "status"]
         stdout: StdioCollector { id: queryOutput }
         onExited: {
-            let state;
-            try { state = JSON.parse(queryOutput.text); }
-            catch (e) { state = {available: false, name: Eitr.I18n.tr("Brightness unavailable"), value: 0}; }
-            if (JsonState.changed(menu.state, state)) menu.state = state;
+            const received = queryOutput.text;
+            menu.updateContent(function() {
+                let state;
+                try { state = JSON.parse(received); }
+                catch (e) { state = {available: false, name: Eitr.I18n.tr("Brightness unavailable"), value: 0}; }
+                if (JsonState.changed(menu.state, state)) menu.state = state;
+
+            });
         }
     }
     Process {
@@ -237,10 +243,14 @@ ThemedPopup {
         command: ["python3", menu.powerHelper, "status"]
         stdout: StdioCollector { id: powerQueryOutput }
         onExited: {
-            let power;
-            try { power = JSON.parse(powerQueryOutput.text); }
-            catch (e) { power = {available: false, active: "", profiles: []}; }
-            if (JsonState.changed(menu.power, power)) menu.power = power;
+            const received = powerQueryOutput.text;
+            menu.updateContent(function() {
+                let power;
+                try { power = JSON.parse(received); }
+                catch (e) { power = {available: false, active: "", profiles: []}; }
+                if (JsonState.changed(menu.power, power)) menu.power = power;
+
+            });
         }
     }
     Process {
@@ -261,12 +271,16 @@ ThemedPopup {
         command: ["python3", menu.displayHelper, "status"]
         stdout: StdioCollector { id: displayOutput }
         onExited: {
-            try {
-                let result = JSON.parse(displayOutput.text);
-                if (JsonState.changed(menu.monitors, result.monitors || [])) menu.monitors = result.monitors || [];
-                menu.primaryDisplay = result.primary || "";
-                if (menu.displayError === menu.displayStatusError) menu.displayError = "";
-            } catch (e) { menu.displayError = menu.displayStatusError; }
+            const received = displayOutput.text;
+            menu.updateContent(function() {
+                try {
+                    let result = JSON.parse(received);
+                    if (JsonState.changed(menu.monitors, result.monitors || [])) menu.monitors = result.monitors || [];
+                    menu.primaryDisplay = result.primary || "";
+                    if (menu.displayError === menu.displayStatusError) menu.displayError = "";
+                } catch (e) { menu.displayError = menu.displayStatusError; }
+
+            });
         }
     }
     Process {
@@ -293,12 +307,16 @@ ThemedPopup {
         command: ["python3", menu.nightlightHelper, "status"]
         stdout: StdioCollector { id: nightQueryOutput }
         onExited: {
-            try {
-                let nightlight = JSON.parse(nightQueryOutput.text);
-                if (JsonState.changed(menu.nightlight, nightlight)) { menu.nightlight = nightlight; menu.syncSchedule(); }
-                if (menu.nightlightError === menu.nightlightStatusError) menu.nightlightError = "";
-            }
-            catch (e) { menu.nightlightError = menu.nightlightStatusError; }
+            const received = nightQueryOutput.text;
+            menu.updateContent(function() {
+                try {
+                    let nightlight = JSON.parse(received);
+                    if (JsonState.changed(menu.nightlight, nightlight)) { menu.nightlight = nightlight; menu.syncSchedule(); }
+                    if (menu.nightlightError === menu.nightlightStatusError) menu.nightlightError = "";
+                }
+                catch (e) { menu.nightlightError = menu.nightlightStatusError; }
+
+            });
         }
     }
     Process {

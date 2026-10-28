@@ -349,6 +349,9 @@ msgstr "Arrows: move  Enter: change  Esc: done"
 msgid "Arrows: move  Enter: select  Type: search  Esc: back"
 msgstr "Arrows: move  Enter: select  Type: search  Esc: back"
 
+msgid "Arrows: move  Space: select  Enter: review  Esc: cancel"
+msgstr "Arrows: move  Space: select  Enter: review  Esc: cancel"
+
 msgid "Artifact Registry"
 msgstr "Artifact Registry"
 
@@ -2191,6 +2194,9 @@ msgstr "Plugin blocked: {name}"
 msgid "Plugin by {author} · not reviewed by Eitr"
 msgstr "Plugin by {author} · not reviewed by Eitr"
 
+msgid "Plugin icon: {icon}"
+msgstr "Plugin icon: {icon}"
+
 msgid "Plugin installed"
 msgstr "Plugin installed"
 
@@ -2742,6 +2748,9 @@ msgstr "Select at least one package"
 
 msgid "Select it in Style > Lockscreen; Ctrl+P previews it."
 msgstr "Select it in Style > Lockscreen; Ctrl+P previews it."
+
+msgid "Select plugins"
+msgstr "Select plugins"
 
 msgid "Select the line above to copy it."
 msgstr "Select the line above to copy it."
