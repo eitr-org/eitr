@@ -268,9 +268,9 @@
     },
     {
       "theme": "ragnarok",
-      "name": "02-world-tree-pyre",
-      "file": "themes/ragnarok/backgrounds/02-world-tree-pyre.jpg",
-      "ultrawide_file": "themes/ragnarok/backgrounds-ultrawide/02-world-tree-pyre.jpg",
+      "name": "04-world-tree-pyre",
+      "file": "themes/ragnarok/backgrounds/04-world-tree-pyre.jpg",
+      "ultrawide_file": "themes/ragnarok/backgrounds-ultrawide/04-world-tree-pyre.jpg",
       "prompt": "Use case: stylized-concept. ONE original Norse fantasy environment desktop wallpaper for ragnarok. Landscape 16:9 requested 3840x2160. Scene: The end of the world: burning sky, darkened sun being consumed by an encroaching crescent of black ash, immense world-tree silhouette aflame above a ruined distant landscape, crimson and gold. No creature in sky. Rich painterly concept-art lighting, monumental scale, atmospheric perspective, ancient weathered carved stone, vast world to explore. Theme colour scheme: #0a0909 #e4dcd2 #a8323a #d4545c #b08d57 #d9822b. Original composition and original architecture only. Keep top 6% calm low-contrast sky, without busy details. Place complete key landmarks in middle 65% of image height to retain them in a centered 21:9 crop. No characters, people, gods, heroes, living creatures, lettering, text-like runes, signatures, logos, UI, watermarks or borders. No recognizable landmark or design from existing entertainment. Written brief only, no reference images.",
       "status": "selected after visual inspection",
       "centering": [
@@ -281,13 +281,13 @@
         0.5,
         0.5
       ],
-      "native_source": "branding/sources/wallpapers/batch-06/ragnarok-02-world-tree-pyre.png",
+      "native_source": "branding/sources/wallpapers/batch-06/ragnarok-04-world-tree-pyre.png",
       "native_sha256": "77bda38efb69e25959d53bc93c70e1ffd48af7ed889b9d272f9d5763e23b393c",
       "native_size": [
         1672,
         941
       ],
-      "ultrawide_native_source": "branding/sources/wallpapers/batch-06/ragnarok-02-world-tree-pyre-ultrawide.png",
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-06/ragnarok-04-world-tree-pyre-ultrawide.png",
       "ultrawide_native_sha256": "fa9e2beba0a155608b12cfb1aae579fe12dd3799d4432d4031d7413ff9a04911",
       "ultrawide_native_size": [
         1935,

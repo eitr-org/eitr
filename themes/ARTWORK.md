@@ -14,6 +14,7 @@ At the end of Batch 03, Batch 02's former 03 images were promoted to 01, Batch 0
 - `artwork-batch-05.json`: the ten approved realm illustrations and their native sources, exact prompts and preview selections.
 - `artwork-batch-06.json`: the ten second realm wallpapers, using owner-requested scenic painterly environments, with native sources, exact prompts and framing.
 - `artwork-batch-07.json`: realm wallpapers with individually recorded rendering styles, written prompts, native sources and framing; Ragnarök excluded.
+- `artwork-batch-08.json`: three owner-approved Ragnarök selections with separate panoramic compositions, exact written prompts and native provenance.
 - `artwork-batch-03.json`: second reference-led round, two artworks per theme, generated with the built-in image tool.
 - `artwork-witcher.json`: the four Witcher fan-art wallpapers once made for One Dark Pro, all removed, with their prompts kept as history.
 - `one-dark-pro/references/previous-generated/`: four preserved images generated for One Dark Pro before the Witcher batch.
@@ -84,3 +85,17 @@ would lose them; other ultrawides use recorded subject-preserving crops.
 The soul gate uses its panoramic master for both exports. No stretching or
 padding is used. Selected artwork has passed agent visual inspection and
 remains available for owner review.
+
+## Ragnarök — Batch 08
+
+Three owner-approved painterly dark fantasy wallpapers lead Ragnarök's four-image
+set: Blood Eclipse, Fenrir Devours the Sun and Dying Yggdrasil, followed by World
+Tree Pyre from batch 06. The owner explicitly permits scenic and painterly
+rendering for batch 08. Written briefs only, without reference images.
+
+`artwork-batch-08.json` records the exact prompts for both aspect ratios, rendering
+style, native dimensions, hashes and centering. Six native PNGs and `export.py`
+live under `branding/sources/wallpapers/batch-08/`. The 16:9 masters are preserved
+byte-for-byte; new 1935×812 panoramic compositions preserve complete subjects and
+calm dark space. Crop-to-fill exports are 3840×2160 and 3440×1440 JPEGs without
+stretching or padding. Ragnarök's independent theme preview is preserved.

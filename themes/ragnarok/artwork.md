@@ -6,23 +6,30 @@ Background, surface and raised roles are recorded separately in `colors.toml`. T
 
 Editor and icon base: gruvbox; integration files are generated from `../integrations.json`.
 
-The approved 01 written-brief wallpaper, generated with the built-in image tool, without reference images. Exact prompt, native source, dimensions, hash and framing are recorded in [Batch 05](../artwork-batch-05.json). Native masters and reproducible exports: `branding/sources/wallpapers/batch-05/export.py`. Both aspect ratios preserve the subject, with no stretching or padding. Preview remains a resized copy of the approved 01 wallpaper. Artwork license: CC-BY-4.0.
+## Wallpapers
 
-Wallpaper: `01-skoll-sun.jpg` (one subject, two aspect ratios).
+- `01-blood-eclipse.jpg`: a complete black celestial disk with a restrained crimson ring, faint charcoal haze and a low mountain silhouette.
+- `02-fenrir-devours-the-sun.jpg`: a colossal wolf in profile, connected jaws surrounding the eclipsed sun, crimson rim light and dark negative space.
+- `03-dying-yggdrasil.jpg`: the complete dying World Tree beneath a blood moon, crimson bark cracks, sparse gold highlights and barren dark ground.
+- `04-world-tree-pyre.jpg`: a burning World Tree and darkening sun above a ruined distant landscape, in crimson and gold.
 
-## Second wallpaper — realm environment
+The first three are the owner's approved batch 08 selections. Their ultrawides
+are separately generated panoramic compositions from the same written briefs,
+with no reference-image inputs. The full disks, jaws and tree canopy stay in
+frame, with calm dark space across the top for the bar. Native masters and exact
+prompts, rendering styles, dimensions, SHA-256 hashes and framing are in
+[Batch 08](../artwork-batch-08.json); rebuild with
+`branding/sources/wallpapers/batch-08/export.py`.
 
-Wallpaper: `02-world-tree-pyre.jpg` (3840×2160 and 3440×1440 JPEG).
+World Tree Pyre's native masters and exact prompts are recorded in
+[Batch 06](../artwork-batch-06.json); rebuild with
+`branding/sources/wallpapers/batch-06/export.py`.
 
-At the owner's request, this second wallpaper uses a scenic landscape and rich
-painterly concept-art lighting instead of the default ink screenprint style and
-no-scenery rule. This exception applies only to the ten Batch 06 environments.
-Its colour scheme follows this theme's `colors.toml`. The approved 01 wallpaper
-and preview are unchanged.
-
-Original written brief only, with no reference images, characters, readable
-lettering or third-party designs. Exact prompts, native dimensions, hashes and
-framing: [Batch 06](../artwork-batch-06.json). Native masters and reproducible
-exports: `branding/sources/wallpapers/batch-06/export.py`. Both aspect ratios
-preserve the main scene without stretching or padding. Artwork license:
-CC-BY-4.0, credited to the EITR project.
+The owner explicitly permits scenic environments and painterly dark fantasy
+for this set. All compositions are original, without readable lettering,
+runes, logos or third-party likenesses. Native-size panoramic inspection checks
+anatomy, complete framing, banding and unwanted marks. Exports are crop-to-fill
+Lanczos-resampled JPEGs: 3840×2160 in `backgrounds/` and 3440×1440 in
+`backgrounds-ultrawide/`, never stretched or padded. These are export sizes,
+not native generated detail. The theme's independent `preview.png` is preserved.
+Artwork license: CC-BY-4.0, credited to the EITR project.

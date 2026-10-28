@@ -59,3 +59,13 @@ were used. Exact written prompts, styles, native source sizes, hashes and
 framing are recorded in `themes/artwork-batch-07.json`; sources and exporter
 live under `branding/sources/wallpapers/batch-07/`. All existing 01/02 artwork
 and previews are preserved.
+
+## Batch 08 Ragnarök
+
+The three owner-approved Ragnarök selections and their separately generated
+panoramas use CC-BY-4.0, credited to the EITR project. The owner permits scenic
+painterly rendering for this batch. Exact written briefs, rendering style,
+native dimensions, hashes and framing are in `themes/artwork-batch-08.json`;
+six native masters and the exporter live in
+`branding/sources/wallpapers/batch-08/`. No reference images were used.
+The independent Ragnarök preview is preserved.

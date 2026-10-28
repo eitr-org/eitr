@@ -1,0 +1,111 @@
+{
+  "batch": "2026-10-original-08",
+  "generator": "built-in image generation",
+  "generation": "Written briefs only; no input or reference images.",
+  "status": "Owner-approved 16:9 selections; panoramic compositions passed agent visual inspection.",
+  "owner_requested_exception": "The owner explicitly requested scenic painterly cinematic dark fantasy for these three Ragnarök wallpapers, overriding the default ink screenprint and no-scenery direction for batch 08 only.",
+  "resolution": [
+    3840,
+    2160
+  ],
+  "ultrawide_resolution": [
+    3440,
+    1440
+  ],
+  "processing": "Lanczos crop-to-fill JPEG exports from recorded native masters, never stretched or padded. Separate written-brief panoramic compositions; no claim of native 4K detail. Theme preview preserved.",
+  "images": [
+    {
+      "theme": "ragnarok",
+      "name": "01-blood-eclipse",
+      "rendering_style": "Painterly cinematic dark fantasy with visible brushwork and sparse crimson light on obsidian; not photorealistic.",
+      "file": "themes/ragnarok/backgrounds/01-blood-eclipse.jpg",
+      "ultrawide_file": "themes/ragnarok/backgrounds-ultrawide/01-blood-eclipse.jpg",
+      "prompt": "Use case: stylized-concept. Asset type: preview desktop wallpaper. Generate one original composition from this written brief only, with no reference images or game/film likeness. 16:9 landscape, at the largest native size supported for 16:9. Painterly cinematic dark fantasy with visible brushwork, never photorealistic or a generic game poster. Palette: obsidian #120F13, surface shadow #21191E, raised #38272D, dark blood #8F202B, crimson #C44750, muted gold #E7AD67, pale ash #AC999E, text-ivory #F2E7E2; highlights very sparse. Keep the entire top 6% calm, dark and low contrast for a desktop bar; reserve large calm low-detail areas for windows and widgets. No text, lettering, readable runes, logos, signatures, watermarks, borders or interface elements. Avoid bright orange fire, heavy bloom, lens flares, oversaturated red gradients and star-filled skies. The Blood Eclipse. Deliberately minimal: a colossal black celestial disk in the upper-middle of the frame, wholly below the calm top strip, surrounded by a thin uneven ring of deep crimson light. It radiates only a faint blood-red glow revealing subtle layers of charcoal clouds and drifting haze. Near the bottom, barely visible jagged mountain silhouettes with a subtle crimson touch on their peaks; the rest dissolves into near-black. Quiet cosmic horror, elegant balance between darkness and the celestial focal point. Smooth soft gradients without banding, painterly tonal transitions, very large dark low-detail areas. No stars. Strict minimalism override: 85% of the image is nearly featureless obsidian darkness. Clouds are barely perceptible soft charcoal brush veils, not dramatic sculpted storm clouds. Mountains occupy only the lowest 8% as faint flat silhouettes, no detailed terrain or valleys. The ring is dim deep blood crimson, never bright red-white; no fiery corona. Disk centered horizontally around 40% frame height, diameter about 40% frame height. Restrained abstract tonal oil painting, not elaborate fantasy landscape.",
+      "ultrawide_prompt": "Use case: stylized-concept. Asset type: production ultrawide desktop wallpaper. Generate one original composition from this written brief only, with no reference images or game/film likeness. True panoramic 2.39:1 landscape, at the widest native panoramic aspect supported, ideally 21:9; request 3440x1440 native if supported. Painterly cinematic dark fantasy with visible brushwork, never photorealistic or a generic game poster. Palette: obsidian #120F13, surface shadow #21191E, raised #38272D, dark blood #8F202B, crimson #C44750, muted gold #E7AD67, pale ash #AC999E, text-ivory #F2E7E2; highlights very sparse. Keep the entire top 6% calm, dark and low contrast for a desktop bar; reserve large calm low-detail areas for windows and widgets. No text, lettering, readable runes, logos, signatures, watermarks, borders or interface elements. Avoid bright orange fire, heavy bloom, lens flares, oversaturated red gradients and star-filled skies. The Blood Eclipse. Deliberately minimal: a colossal black celestial disk in the upper-middle of the frame, wholly below the calm top strip, surrounded by a thin uneven ring of deep crimson light. It radiates only a faint blood-red glow revealing subtle layers of charcoal clouds and drifting haze. Near the bottom, barely visible jagged mountain silhouettes with a subtle crimson touch on their peaks; the rest dissolves into near-black. Quiet cosmic horror, elegant balance between darkness and the celestial focal point. Smooth soft gradients without banding, painterly tonal transitions, very large dark low-detail areas. No stars. Strict minimalism override: 85% of the image is nearly featureless obsidian darkness. Clouds are barely perceptible soft charcoal brush veils, not dramatic sculpted storm clouds. Mountains occupy only the lowest 8% as faint flat silhouettes, no detailed terrain or valleys. The ring is dim deep blood crimson, never bright red-white; no fiery corona. Disk centered horizontally around 40% frame height, diameter about 40% frame height. Restrained abstract tonal oil painting, not elaborate fantasy landscape. PANORAMIC RECOMPOSITION: create a NEW wide composition, keeping the same subject, palette, painterly treatment, lighting and mood. Keep the entire celestial disk, wolf skull and both connected jaws, or entire tree canopy as applicable fully inside the frame with generous margins. Extend calm near-black negative space horizontally; do not enlarge or crop the subject to fill the width. Top 8% remains calm dark low-contrast atmosphere. Smooth painted transitions without banding, no compression artifacts or text-like marks. Written brief only; absolutely no input images.",
+      "status": "owner-approved 16:9; ultrawide selected after agent visual inspection",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_note": "New panoramic composition from written brief only; full subject preserved, calm dark side space and top bar margin. No visible banding, text-like marks or anatomy artifacts on native-size inspection.",
+      "native_source": "branding/sources/wallpapers/batch-08/ragnarok-01-blood-eclipse.png",
+      "native_sha256": "7e270a5fbeb87ce8f01719f74fc874dd385d0b268eda79930c13467ce3a33184",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-08/ragnarok-01-blood-eclipse-ultrawide.png",
+      "ultrawide_native_sha256": "ed02782e20ae0d302d6671a0777f8861749871f34bf618a5aeb2f65c85f71d87",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ]
+    },
+    {
+      "theme": "ragnarok",
+      "name": "02-fenrir-devours-the-sun",
+      "rendering_style": "Painterly cinematic dark fantasy with visible brushwork and sparse crimson light on obsidian; not photorealistic.",
+      "file": "themes/ragnarok/backgrounds/02-fenrir-devours-the-sun.jpg",
+      "ultrawide_file": "themes/ragnarok/backgrounds-ultrawide/02-fenrir-devours-the-sun.jpg",
+      "prompt": "Use case: stylized-concept. Asset type: preview desktop wallpaper. Generate one original composition from this written brief only, with no reference images or game/film likeness. 16:9 landscape, at the largest native size supported for 16:9. Painterly cinematic dark fantasy with visible brushwork, never photorealistic or a generic game poster. Palette: obsidian #120F13, surface shadow #21191E, raised #38272D, dark blood #8F202B, crimson #C44750, muted gold #E7AD67, pale ash #AC999E, text-ivory #F2E7E2; highlights very sparse. Keep the entire top 6% calm, dark and low contrast for a desktop bar; reserve large calm low-detail areas for windows and widgets. No text, lettering, readable runes, logos, signatures, watermarks, borders or interface elements. Avoid bright orange fire, heavy bloom, lens flares, oversaturated red gradients and star-filled skies. Fenrir Devouring the Sun. A colossal terrifying wolf emerges from the darkness of a ruined world, so enormous his silhouette merges with mountain ranges and storm clouds. Show one coherent anatomically convincing wolf head in side profile, gigantic jaws open around a blood-red partially eclipsed sun, moments from consuming it. The eclipse forms a dramatic restrained crimson halo outlining his head, enormous teeth and ragged fur. Upper and lower jaws connect naturally to the same skull; teeth follow the jaws. An ancient almost supernatural force rather than an ordinary animal; much of his body stays hidden in darkness. Below, a desolate landscape and tiny distant mountains show his impossible scale. Nearly black sky with restrained crimson clouds; the eclipse is the main light. No gore, no cartoonish features, no glowing eyes. The silent moment the sun disappears from the world. Composition priority: minimalist silhouette painting. Most of the left half and bottom quarter are almost-black empty haze, with very little internal detail. Wolf head and sun occupy the right-center, below the top 8%. No architecture, bridges or ruins. No intricate mountains or detailed fur: broad loose brush masses merging into darkness. Crimson rim light only, no orange or pale gold outline. Keep the wolf's jaws recognizable and coherent.",
+      "ultrawide_prompt": "Use case: stylized-concept. Asset type: production ultrawide desktop wallpaper. Generate one original composition from this written brief only, with no reference images or game/film likeness. True panoramic 2.39:1 landscape, at the widest native panoramic aspect supported, ideally 21:9; request 3440x1440 native if supported. Painterly cinematic dark fantasy with visible brushwork, never photorealistic or a generic game poster. Palette: obsidian #120F13, surface shadow #21191E, raised #38272D, dark blood #8F202B, crimson #C44750, muted gold #E7AD67, pale ash #AC999E, text-ivory #F2E7E2; highlights very sparse. Keep the entire top 6% calm, dark and low contrast for a desktop bar; reserve large calm low-detail areas for windows and widgets. No text, lettering, readable runes, logos, signatures, watermarks, borders or interface elements. Avoid bright orange fire, heavy bloom, lens flares, oversaturated red gradients and star-filled skies. Fenrir Devouring the Sun. A colossal terrifying wolf emerges from the darkness of a ruined world, so enormous his silhouette merges with mountain ranges and storm clouds. Show one coherent anatomically convincing wolf head in side profile, gigantic jaws open around a blood-red partially eclipsed sun, moments from consuming it. The eclipse forms a dramatic restrained crimson halo outlining his head, enormous teeth and ragged fur. Upper and lower jaws connect naturally to the same skull; teeth follow the jaws. An ancient almost supernatural force rather than an ordinary animal; much of his body stays hidden in darkness. Below, a desolate landscape and tiny distant mountains show his impossible scale. Nearly black sky with restrained crimson clouds; the eclipse is the main light. No gore, no cartoonish features, no glowing eyes. The silent moment the sun disappears from the world. Composition priority: minimalist silhouette painting. Most of the left half and bottom quarter are almost-black empty haze, with very little internal detail. Wolf head and sun occupy the right-center, below the top 8%. No architecture, bridges or ruins. No intricate mountains or detailed fur: broad loose brush masses merging into darkness. Crimson rim light only, no orange or pale gold outline. Keep the wolf's jaws recognizable and coherent. PANORAMIC RECOMPOSITION: create a NEW wide composition, keeping the same subject, palette, painterly treatment, lighting and mood. Keep the entire celestial disk, wolf skull and both connected jaws, or entire tree canopy as applicable fully inside the frame with generous margins. Extend calm near-black negative space horizontally; do not enlarge or crop the subject to fill the width. Top 8% remains calm dark low-contrast atmosphere. Smooth painted transitions without banding, no compression artifacts or text-like marks. Written brief only; absolutely no input images.",
+      "status": "owner-approved 16:9; ultrawide selected after agent visual inspection",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_note": "New panoramic composition from written brief only; full subject preserved, calm dark side space and top bar margin. No visible banding, text-like marks or anatomy artifacts on native-size inspection.",
+      "native_source": "branding/sources/wallpapers/batch-08/ragnarok-02-fenrir-devours-the-sun.png",
+      "native_sha256": "3025b9a1497a81791012593b9fa0c55238af66c2327dd70c949115b2768d70a6",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-08/ragnarok-02-fenrir-devours-the-sun-ultrawide.png",
+      "ultrawide_native_sha256": "4d5ccafaa1ef8429c8360302a4303ff91163b5a32d7607b57b20b95e71ae3803",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ]
+    },
+    {
+      "theme": "ragnarok",
+      "name": "03-dying-yggdrasil",
+      "rendering_style": "Painterly cinematic dark fantasy with visible brushwork and sparse crimson light on obsidian; not photorealistic.",
+      "file": "themes/ragnarok/backgrounds/03-dying-yggdrasil.jpg",
+      "ultrawide_file": "themes/ragnarok/backgrounds-ultrawide/03-dying-yggdrasil.jpg",
+      "prompt": "Use case: stylized-concept. Asset type: preview desktop wallpaper. Generate one original composition from this written brief only, with no reference images or game/film likeness. 16:9 landscape, at the largest native size supported for 16:9. Painterly cinematic dark fantasy with visible brushwork, never photorealistic or a generic game poster. Palette: obsidian #120F13, surface shadow #21191E, raised #38272D, dark blood #8F202B, crimson #C44750, muted gold #E7AD67, pale ash #AC999E, text-ivory #F2E7E2; highlights very sparse. Keep the entire top 6% calm, dark and low contrast for a desktop bar; reserve large calm low-detail areas for windows and widgets. No text, lettering, readable runes, logos, signatures, watermarks, borders or interface elements. Avoid bright orange fire, heavy bloom, lens flares, oversaturated red gradients and star-filled skies. The Dying Yggdrasil. An impossibly enormous ancient World Tree stands alone in a devastated landscape during the final moments of Ragnarök. Massive twisted branches stretch across the sky, many broken and lifeless, with the canopy below the calm top strip. The tree is mostly a dark silhouette; subtle crimson light glows through deep cracks in its bark as though its essence is dying. A few dying branches carry faint molten-gold highlights. Behind it an enormous blood-red moon dominates the sky, partly hidden by dense dark storm clouds, casting a muted crimson glow over the dead land. Foreground: dark barren ground, scattered stones, faint mist and sparse drifting ash. Overwhelming scale, ancient, tragic and monumental, never decorative. Minimalist composition with generous negative space, almost-black violet and charcoal backgrounds. Composition priority: distant wide view, the entire tree fully inside the frame, occupying only the central 45% of width and 65% of height. Leave the outer thirds and lower foreground largely empty near-black mist and flat barren ground. No detailed rock formations, cliffs or busy terrain. Reduce branch density and surface detail drastically; broad painted masses, not intricate concept-art detail. Moon muted and partly obscured. Top 8% essentially empty dark cloud.",
+      "ultrawide_prompt": "Use case: stylized-concept. Asset type: production ultrawide desktop wallpaper. Generate one original composition from this written brief only, with no reference images or game/film likeness. True panoramic 2.39:1 landscape, at the widest native panoramic aspect supported, ideally 21:9; request 3440x1440 native if supported. Painterly cinematic dark fantasy with visible brushwork, never photorealistic or a generic game poster. Palette: obsidian #120F13, surface shadow #21191E, raised #38272D, dark blood #8F202B, crimson #C44750, muted gold #E7AD67, pale ash #AC999E, text-ivory #F2E7E2; highlights very sparse. Keep the entire top 6% calm, dark and low contrast for a desktop bar; reserve large calm low-detail areas for windows and widgets. No text, lettering, readable runes, logos, signatures, watermarks, borders or interface elements. Avoid bright orange fire, heavy bloom, lens flares, oversaturated red gradients and star-filled skies. The Dying Yggdrasil. An impossibly enormous ancient World Tree stands alone in a devastated landscape during the final moments of Ragnarök. Massive twisted branches stretch across the sky, many broken and lifeless, with the canopy below the calm top strip. The tree is mostly a dark silhouette; subtle crimson light glows through deep cracks in its bark as though its essence is dying. A few dying branches carry faint molten-gold highlights. Behind it an enormous blood-red moon dominates the sky, partly hidden by dense dark storm clouds, casting a muted crimson glow over the dead land. Foreground: dark barren ground, scattered stones, faint mist and sparse drifting ash. Overwhelming scale, ancient, tragic and monumental, never decorative. Minimalist composition with generous negative space, almost-black violet and charcoal backgrounds. Composition priority: distant wide view, the entire tree fully inside the frame, occupying only the central 45% of width and 65% of height. Leave the outer thirds and lower foreground largely empty near-black mist and flat barren ground. No detailed rock formations, cliffs or busy terrain. Reduce branch density and surface detail drastically; broad painted masses, not intricate concept-art detail. Moon muted and partly obscured. Top 8% essentially empty dark cloud. PANORAMIC RECOMPOSITION: create a NEW wide composition, keeping the same subject, palette, painterly treatment, lighting and mood. Keep the entire celestial disk, wolf skull and both connected jaws, or entire tree canopy as applicable fully inside the frame with generous margins. Extend calm near-black negative space horizontally; do not enlarge or crop the subject to fill the width. Top 8% remains calm dark low-contrast atmosphere. Smooth painted transitions without banding, no compression artifacts or text-like marks. Written brief only; absolutely no input images.",
+      "status": "owner-approved 16:9; ultrawide selected after agent visual inspection",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_note": "New panoramic composition from written brief only; full subject preserved, calm dark side space and top bar margin. No visible banding, text-like marks or anatomy artifacts on native-size inspection.",
+      "native_source": "branding/sources/wallpapers/batch-08/ragnarok-03-dying-yggdrasil.png",
+      "native_sha256": "e9a2d1a497219f937fcd11cb603860f49997c461924bdc737a94b6ee7b47ba82",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-08/ragnarok-03-dying-yggdrasil-ultrawide.png",
+      "ultrawide_native_sha256": "cf4742c9b27ee1a790e178c332a0b2609c2727de1990368b6a404d02be7b54ba",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ]
+    }
+  ]
+}

@@ -174,7 +174,7 @@
       "ultrawide_file": "themes/ragnarok/backgrounds-ultrawide/01-skoll-sun.jpg",
       "native_source": "branding/sources/wallpapers/batch-05/ragnarok-01-skoll-sun.png",
       "prompt": "Use case: stylized-concept. Asset: ONE original Eitr Norse fantasy desktop wallpaper. Landscape 16:9 request 3840x2160 native if supported. Generate solely from this written brief; NO reference images. Subject: Sköll the wolf swallowing the sun, complete wolf head and neck in strong sideways upward profile, open jaws grasping one ochre solar disk, expressive ink fur, teeth cleanly connected to jaws, a few flat rays breaking loose. Broad dynamic diagonal, no crown or ornamental ring. Style: bold hand-inked BLACK pen contours, clearly drawn expressive shapes, flat limited spot colours, two-tone cel shading, rhythmic confident ink strokes, restrained ink flecks. Pure black background with generous useful negative space. Strict spot palette: pure black and #e4dcd2 #a8323a #d4545c #b08d57 #d9822b. Keep COMPLETE subject including all extremities within x=18–82%, y=28–72%, designed to survive a centred 21:9 crop without losing any subject. Avoid filling canvas; dark breathing room above and below. Original interpretation of public-domain Norse myth, no game/movie likeness. No scenic backdrop, horizon, mountains, trees, landscape, photographic fur or skin, realistic metal, metallic engraving, 3D, volumetric lighting, gradients, text, lettering, runes, logos, signatures, watermarks, border, collage or UI.",
-      "status": "selected after visual inspection",
+      "status": "removed",
       "ultrawide_centering": [
         0.5,
         0.5
@@ -232,7 +232,7 @@
     "midgard": "themes/midgard/backgrounds/01-travellers-valley.jpg",
     "muspelheim": "themes/muspelheim/backgrounds/01-fire-ring.jpg",
     "niflheim": "themes/niflheim/backgrounds/01-frost-queen.jpg",
-    "ragnarok": "themes/ragnarok/backgrounds/01-skoll-sun.jpg",
+    "ragnarok": "themes/ragnarok/backgrounds/01-blood-eclipse.jpg",
     "svartalfheim": "themes/svartalfheim/backgrounds/01-cavern-city.jpg",
     "vanaheim": "themes/vanaheim/backgrounds/01-hidden-garden.jpg"
   }

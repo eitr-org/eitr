@@ -1059,12 +1059,13 @@
       ]
     },
     {
-      "file": "themes/ragnarok/backgrounds/01-skoll-sun.jpg",
+      "file": "themes/ragnarok/backgrounds/01-blood-eclipse.jpg",
+      "source": "branding/sources/wallpapers/batch-08/ragnarok-01-blood-eclipse.png",
       "source_size": [
         1672,
         941
       ],
-      "source_sha256": "560417028bf80e8ebb9bc497048df94ac6e40e5047aee77345fdd9bd92041dce",
+      "source_sha256": "7e270a5fbeb87ce8f01719f74fc874dd385d0b268eda79930c13467ce3a33184",
       "centering": [
         0.5,
         0.5
@@ -1072,12 +1073,45 @@
       "output_size": [
         3840,
         2160
-      ],
-      "source": "branding/sources/wallpapers/batch-05/ragnarok-01-skoll-sun.png"
+      ]
     },
     {
-      "file": "themes/ragnarok/backgrounds/02-world-tree-pyre.jpg",
-      "source": "branding/sources/wallpapers/batch-06/ragnarok-02-world-tree-pyre.png",
+      "file": "themes/ragnarok/backgrounds/02-fenrir-devours-the-sun.jpg",
+      "source": "branding/sources/wallpapers/batch-08/ragnarok-02-fenrir-devours-the-sun.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "3025b9a1497a81791012593b9fa0c55238af66c2327dd70c949115b2768d70a6",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/ragnarok/backgrounds/03-dying-yggdrasil.jpg",
+      "source": "branding/sources/wallpapers/batch-08/ragnarok-03-dying-yggdrasil.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "e9a2d1a497219f937fcd11cb603860f49997c461924bdc737a94b6ee7b47ba82",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/ragnarok/backgrounds/04-world-tree-pyre.jpg",
+      "source": "branding/sources/wallpapers/batch-06/ragnarok-04-world-tree-pyre.png",
       "source_size": [
         1672,
         941

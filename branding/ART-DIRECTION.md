@@ -77,3 +77,16 @@ brushwork; only requested realistic treatments may look photographic.
 Use original written-brief compositions and characters without image inputs,
 readable runes, lettering, logos or signatures. Keep the top approximately
 6% calm for the bar. The exception covers only those realm batches.
+
+## Batch 08 Ragnarök exception
+
+The owner explicitly approves scenic painterly cinematic dark fantasy for the
+three Ragnarök selections recorded in `themes/artwork-batch-08.json`: Blood
+Eclipse, Fenrir Devours the Sun and Dying Yggdrasil. Use visible brushwork,
+obsidian and charcoal darkness, restrained blood crimson and sparse muted gold.
+Generate panoramic compositions from written briefs only, with complete disks,
+coherent connected wolf jaws and full tree canopies inside the frame. Extra
+width is calm dark negative space, with the top approximately 6–8% quiet for
+the bar. No lettering, runes, logos, watermarks or image references. This
+exception applies only to batch 08. Native masters and reproducible exports
+live in `branding/sources/wallpapers/batch-08/`.
