@@ -58,9 +58,9 @@ LAN.
 - **Public discovery.** After the owner's video and with their approval, prepare release announcements for
   appropriate Linux communities, invite independent testers/reviewers and check
   distro-directory submission requirements. Share reproducible evidence rather
-  than promotional claims. Update the public repository description/README with
-  consistent Eitr Linux positioning. Consider a dated, source-checked Omarchy
-  comparison page separately; do not imply shared features are exclusive.
+  than promotional claims. Describe Eitr the same way everywhere (repository
+  description, README and website), and never present features common to other
+  Arch or Hyprland setups as exclusive to Eitr.
 
 # 3. Later
 
