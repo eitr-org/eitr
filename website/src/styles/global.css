@@ -141,9 +141,10 @@ em { font-style: italic; color: var(--accent); }
 .glowable:hover::before { opacity: 1; }
 
 /* What it is */
-.what { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 140px 0 100px; }
-.what-art { position: relative; border-radius: 4px; overflow: hidden; aspect-ratio: 4 / 5; box-shadow: 0 40px 120px #00000099; }
-.what-art img { width: 100%; height: 100%; object-fit: cover; object-position: 72% 50%; transition: transform 6s ease; }
+.what { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: stretch; padding: 48px 0; }
+.what-art { position: relative; border-radius: 4px; overflow: hidden; min-height: 100%; box-shadow: 0 40px 120px #00000099; }
+.what-copy > :last-child { margin-bottom: 0; }
+.what-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 72% 50%; transition: transform 6s ease; }
 .what-art:hover img { transform: scale(1.06); }
 .what-art::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 0 1px var(--line-strong), inset 0 -120px 120px -40px var(--bg); }
 .what-heading { grid-column: 1 / -1; position: relative; margin-bottom: -24px; }
@@ -176,7 +177,7 @@ em { font-style: italic; color: var(--accent); }
 .stone > p:not(.label) { font-size: 13px; }
 
 /* Calm feature rows and the complete screenshot gallery. */
-.homepage-feature { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); align-items: center; gap: clamp(32px, 6vw, 88px); padding-block: 80px; }
+.homepage-feature { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); align-items: center; gap: clamp(32px, 6vw, 88px); padding-block: 40px; }
 .homepage-feature:nth-of-type(even) { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
 .homepage-feature:nth-of-type(even) .feature-copy { order: 2; }
 .feature-copy h2 { font-size: clamp(30px, 3vw, 46px); margin-bottom: 24px; }
@@ -223,7 +224,7 @@ em { font-style: italic; color: var(--accent); }
 @media (max-width: 760px) { .support-card { flex-direction: column; align-items: flex-start; } }
 
 /* Themes */
-.themes-section { padding: 120px 0 80px; background: radial-gradient(80% 60% at 50% 0%, #a8323a14, transparent), var(--night); border-block: 1px solid var(--line); margin-top: 80px; }
+.themes-section { padding: 48px 0 80px; background: radial-gradient(80% 60% at 50% 0%, #a8323a14, transparent), var(--night); border-block: 1px solid var(--line); margin-top: 80px; }
 .theme-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 .theme-card { border-radius: 4px; border: 1px solid var(--line); background: var(--surface); transition: transform 0.4s, border-color 0.4s; }
 .theme-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; filter: grayscale(0.85) brightness(0.55); transition: filter 0.6s, transform 1s; }
@@ -237,8 +238,10 @@ em { font-style: italic; color: var(--accent); }
 
 /* Install */
 .install { position: relative; padding: 140px 0 60px; }
-.install-art { position: absolute; inset: 60px 0 auto 40%; height: 520px; z-index: -1; background-size: cover; background-position: 70% 50%; opacity: 0.35; mask-image: radial-gradient(closest-side, #000 30%, transparent); }
+.install-art { position: absolute; inset: 60px 0 auto 40%; height: 520px; z-index: -1; background-size: cover; background-position: 50% 45%; opacity: 0.5; mask-image: radial-gradient(closest-side, #000 30%, transparent); }
 .install-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.road-status { display: grid; gap: 12px; max-width: 760px; margin: 0 0 40px; padding: 22px 26px; border: 1px solid #a8323a33; border-radius: 4px; background: #0c0a0ae8; }
+.road-status .label { color: var(--bronze); display: flex; align-items: center; gap: 10px; }
 .install-card { padding: 30px; border: 1px solid var(--line); border-radius: 4px; background: #130f0fdd; backdrop-filter: blur(8px); display: grid; gap: 14px; align-content: start; }
 .download-button { justify-self: start; }
 .download-checksum { font-size: 11px; }
@@ -246,7 +249,6 @@ em { font-style: italic; color: var(--accent); }
 .install-card .label { color: var(--bronze); display: flex; align-items: center; gap: 10px; }
 .install-card h3 { font-family: var(--serif); font-size: 30px; letter-spacing: 0; font-weight: 500; }
 .install-card pre { margin: 6px 0 0; padding: 12px 14px; border-radius: 3px; background: #070505; border: 1px solid var(--line); overflow-x: auto; font-size: 11.5px; color: var(--accent); }
-.install-card.status { border-color: #a8323a33; }
 
 /* Road to Bifröst */
 .road { list-style: none; padding: 0; border-left: 1px solid; border-image: linear-gradient(180deg, var(--accent), var(--violet), var(--bronze)) 1; margin-left: 22px; }
@@ -339,7 +341,6 @@ em { font-style: italic; color: var(--accent); }
 .stone:nth-child(3n+1) .stone-symbol{color:#d9a865}
 .stone:nth-child(3n) .stone-symbol{color:var(--bronze)}
 .install-card{background:#0c0a0ae8;border-color:#b08d5733}
-.install-card.status{background:#0c0a0ae8;border-color:#a8323a33}
 .road .current{background:#ffffff03}
 .hero-lightning{mix-blend-mode:screen}
 @media(max-width:600px){.what{padding-inline:20px}}
@@ -558,8 +559,6 @@ kbd{font:inherit;color:var(--fg)}
 body.menu-open { overflow: hidden; }
 .page-rail { display: none; }
 .install-grid { align-items: stretch; }
-.install-card.status { display: flex; flex-direction: column; gap: 14px; }
-.install-card.status > .text-link { margin-top: auto; align-self: flex-start; }
 @media (min-width: 1100px) {
   .inner-page { display: grid; grid-template-columns: minmax(0, 780px) minmax(230px, 1fr); gap: 64px; width: min(1200px, calc(100% - 48px)); margin: 0 auto; }
   .inner-content { min-width: 0; }

@@ -5,8 +5,8 @@ export const screenshotGroups = [
     "shots": [
       {
         "file": "desktop",
-        "caption": "The desktop: About and Neovim side by side",
-        "alt": "The Eitr desktop in the Afterglow theme with About on the left and Neovim on the right",
+        "caption": "The desktop, nothing open",
+        "alt": "The empty Eitr desktop in the Afterglow theme with the bar along the top",
         "width": 1920,
         "height": 1080
       },

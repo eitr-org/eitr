@@ -33,7 +33,7 @@ html[data-appearance="light"] .hero h1,html[data-appearance="light"] .hero h1 em
 html[data-appearance="light"] .hero-copy .lead{color:var(--muted)}
 html[data-appearance="light"] .hero .aurora-sky[data-running="true"]{opacity:1}
 html[data-appearance="light"] .impact-emblem{background:var(--fg)}
-html[data-appearance="light"] .what,html[data-appearance="light"] .themes-section,html[data-appearance="light"] .stone,html[data-appearance="light"] .install-card,html[data-appearance="light"] .install-card.status,html[data-appearance="light"] .support-card{background:var(--surface);border-color:var(--line-strong)}
+html[data-appearance="light"] .what,html[data-appearance="light"] .themes-section,html[data-appearance="light"] .stone,html[data-appearance="light"] .install-card,html[data-appearance="light"] .road-status,html[data-appearance="light"] .support-card{background:var(--surface);border-color:var(--line-strong)}
 html[data-appearance="light"] .button.ghost{background:#fff6;color:var(--fg)}
 html[data-appearance="light"] .button.primary{color:#fff3e7;background:#91313b;border-color:#91313b;box-shadow:0 8px 30px #91313b1a}
 html[data-appearance="light"] .realm-dialog{background:var(--surface);color:var(--fg);border-color:var(--bronze)}

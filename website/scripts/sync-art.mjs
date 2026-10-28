@@ -15,6 +15,7 @@ const eitr = {
   valkyrie: "../assets/norse/05-valkyrie.jpg",
   yggdrasil: "../assets/norse/yggdrasil.png",
   jormungandr: "../assets/norse/08-jormungandr.jpg",
+  ragnarok: "../../themes/ragnarok/backgrounds/01-blood-eclipse.jpg",
 };
 
 await mkdir(new URL("themes/", art), { recursive: true });

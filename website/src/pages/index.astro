@@ -209,7 +209,7 @@ const faq = [
   </dialog>
 
   <section id="install" class="wrap install">
-    <div class="install-art reveal" style="background-image: url('/art/yggdrasil.webp')" aria-hidden="true"></div>
+    <div class="install-art reveal" style="background-image: url('/art/ragnarok.webp')" aria-hidden="true"></div>
     <div class="section-heading">
       <RuneCarving rune="fehu" />
       <p class="eyebrow reveal"><NorseSymbol name="ship" class="heading-symbol"/> Fehu / Begin</p>
@@ -226,12 +226,6 @@ const faq = [
         <pre tabindex="0" aria-label="Commands to check and write the ISO"><code>{`sha256sum -c ${download.file}.sha256
 sudo dd if=${download.file} of=/dev/sdX bs=4M status=progress oflag=sync`}</code></pre>
       </article>
-      <article class="install-card status glowable reveal">
-        <p class="label"><span class="status-dot"></span> Honest status</p>
-        <h3>{release.version} {release.codename} · {release.stage}</h3>
-        <p>A preview for early users. The installer, updates and recovery pass automated VM tests and run on the first real machine; other hardware is what we learn from you. Something broke? System &gt; Information &gt; Report a Problem.</p>
-        <a class="text-link" href="/installation/">Tested hardware &amp; known limitations →</a>
-      </article>
     </div>
   </section>
 
@@ -241,6 +235,11 @@ sudo dd if=${download.file} of=/dev/sdX bs=4M status=progress oflag=sync`}</code
       <p class="eyebrow reveal"><NorseSymbol name="serpent" class="heading-symbol"/> Raidho / The road ahead</p>
       <h2 class="reveal">The road<br /><em>to Bifröst.</em></h2>
       <p class="reveal">Each release takes its name from the old stories, from the first being to the bridge between worlds.</p>
+    </div>
+    <div class="road-status reveal">
+      <p class="label"><span class="status-dot"></span> Now: {release.version} {release.codename} · {release.stage}</p>
+      <p>A preview for early users. The installer, updates and recovery pass automated VM tests and run on the first real machine; other hardware is what we learn from you. Something broke? System &gt; Information &gt; Report a Problem.</p>
+      <a class="text-link" href="/installation/">Tested hardware &amp; known limitations →</a>
     </div>
     <ol class="road">
       {roadmapGroups.map((entries) => {
