@@ -644,3 +644,9 @@ body.menu-open { overflow: hidden; }
 @media (min-width: 1201px) and (max-width: 1360px) {
   .site-header nav { gap: 11px; letter-spacing: 0.08em; }
 }
+
+/* Homepage rhythm: sections sit close together, as the owner asked. */
+#realms, #road, #faq, #support { padding-top: 48px; padding-bottom: 40px; }
+#install { padding-top: 48px; padding-bottom: 48px; }
+.screenshots-cta { padding-bottom: 40px; }
+#themes { margin-top: 40px; padding-bottom: 48px; }
