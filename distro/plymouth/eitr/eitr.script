@@ -13,8 +13,8 @@ center_y = Window.GetY() + Window.GetHeight() / 2;
 # Generated from distro/lib/eitr_bifrost.py by export.py.
 wordmark.phase_count = 64;
 wordmark.ticks_per_frame = 5;
-wordmark.advance_numerator = 2;
-wordmark.advance_denominator = 3;
+wordmark.advance_numerator = 32;
+wordmark.advance_denominator = 15;
 wordmark.phase = -1;
 Plymouth.SetRefreshRate(50);
 for (index = 0; index < wordmark.phase_count; index++)

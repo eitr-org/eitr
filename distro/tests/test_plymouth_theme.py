@@ -63,7 +63,9 @@ class PlymouthThemeTests(unittest.TestCase):
                 self.assertNotEqual(image.getpixel((0, 50))[:3], image.getpixel((280, 50))[:3])
         self.assertIn("wordmark.blend.SetOpacity(phase - index);", script)
         self.assertNotIn("Math.Int(Math.Int(global.tick", script)
-        self.assertEqual(frame_phase(0), frame_phase(96))
+        # A full colour cycle takes 3 seconds: 30 frames of 0.1 s.
+        self.assertEqual(frame_phase(0), frame_phase(30))
+        self.assertNotEqual(frame_phase(0), frame_phase(15))
         self.assertEqual(phase_color(0), (224, 92, 104))
 
     def test_gradient_moves_right_and_wraps_smoothly(self):

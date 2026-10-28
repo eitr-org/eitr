@@ -78,7 +78,7 @@ run_with_spinner() (
             lead="$tint"
             for ((character=0; character<${#line} && character<${#text}; character++)); do
                 if (( truecolor )); then
-                    # The Bifröst rainbow flows along the text, about 7 letters a second.
+                    # The Bifröst rainbow flows along the text, a full cycle every 3 seconds.
                     position=$((((character - frame * advance_numerator / advance_denominator) * letter_phase % (stop_count * stop_resolution) + stop_count * stop_resolution) % (stop_count * stop_resolution)))
                     stop=$((position / stop_resolution)) next=$(((stop + 1) % stop_count)) mix=$((position % stop_resolution))
                     printf -v colour '\033[38;2;%d;%d;%dm' \

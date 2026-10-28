@@ -2,7 +2,7 @@
 
 The logo contains a horizontal Bifröst gradient. Bands move left to right at
 80 logical pixels per second (one virtual terminal column per 12 pixels), with
-the same palette, phase advance and 9.6-second cycle as System Update text.
+the same palette, phase advance and 3-second cycle as System Update text.
 The 64 masked gradient phases blend at 50 Hz, including across the loop seam.
 The exported images preserve the wordmark's alpha mask.
 
