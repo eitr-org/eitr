@@ -43,6 +43,30 @@ LAN.
   the nine realms; Ragnarök keeps Blood & Iron. Waiting on the owner: whether any
   should be darker. Afterwards retake the Neovim + About previews of the realm themes
   (they still show the old colours).
+- **Panel smoothness review.** Every bar panel, Control Center page and popup must open
+  and close fluidly. Some still start opening, freeze, then finish (data loading or
+  rebuilding during the animation, as Control Center and Display did before
+  `JsonState.js` prefetching). Measure each panel's open on the live desktop, find
+  mid-animation work (process launches, model rebuilds, image loads, layout jumps),
+  prefetch or defer it, and keep a checklist of panels verified. Then a full review
+  and testing round of all panels with the owner.
+- **Reduce motion option.** A Style > Desktop Bar setting to turn off panel open/close
+  effects (unfold, fold, Overview entrances), applied everywhere through
+  `PanelStyle`/`DockPanel`, saved in `bar-settings.json`, Walker and QML settings.
+- **Official plugins repository.** An `eitr-org/eitr-plugins` repository with reviewed
+  official plugins. Add Plugin today takes one plugin per repository URL: support a
+  repository holding several plugins (e.g. `plugins/<id>/eitr-plugin.json` plus an
+  index), where Add Plugin lists them and the user picks which to install, each still
+  reviewed and pinned to a commit. Plugin ideas: the audio visualizer, a system
+  monitor widget (CPU/GPU/RAM graphs), a weather widget, a calendar/agenda widget,
+  a now-playing card with album art, a Pomodoro timer, a clipboard history tile,
+  a GitHub notifications/PR tile, a Docker containers tile, a Home Assistant
+  switchboard, a crypto/stock ticker, a world clock, a sticky notes widget, a
+  network speed graph, a CI status tile (GitHub Actions), a Tailscale peers tile.
+- **Themes from a Git repository.** Let users add a theme by repository URL, like
+  plugins: validate `colors.toml` and the theme files against `test_theme_schema.py`'s
+  contract, review before installing, pin to a commit, offer updates through System
+  Update, and list user themes next to the bundled ones. Bundled themes stay as they are.
 - **Auto-hide bar.** Implemented for every edge and layout;
   live Hyprland pointer-edge and exclusive-zone checks are pending before release.
 - **Boot, shutdown and disk-password screens.** Shared Bifröst logo colours and
