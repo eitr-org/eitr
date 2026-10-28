@@ -25,12 +25,12 @@ class MenuTerminalTests(unittest.TestCase):
 
     def test_menu_terminals_are_solid_and_float(self):
         path, arguments, _ = self.run_shim("-e", "htop")
-        self.assertEqual(arguments, ["-o", "background_opacity=1", "-o", "window_padding_width=6 16", "--class", "eitr-menu-terminal", "-e", "htop"])
+        self.assertEqual(arguments, ["-o", "background_opacity=1", "-o", "window_padding_width=3 8", "--class", "eitr-menu-terminal", "-e", "htop"])
         self.assertNotIn(str(SHIM_DIR), path, "the terminal's own programs see the normal PATH")
 
     def test_an_explicit_class_is_kept(self):
         _, arguments, _ = self.run_shim("--hold", "--class", "system-cleanup", "-e", "cleanup.sh", "--class", "x")
-        self.assertEqual(arguments[:4], ["-o", "background_opacity=1", "-o", "window_padding_width=6 16"])
+        self.assertEqual(arguments[:4], ["-o", "background_opacity=1", "-o", "window_padding_width=3 8"])
         self.assertEqual(arguments.count("--class"), 2, "only the ones the caller passed")
 
     def test_work_sessions_open_as_ordinary_windows(self):
