@@ -49,18 +49,17 @@ ShellRoot {
             for (const style of ["bars", "line"]) {
                 strip.mediaStyle = style;
                 indicator.style = style;
-                if (strip.width !== originalWidth || originalWidth !== 88) throw new Error("Media width changed");
-                if (indicator.width !== 26 || indicator.height !== 24) throw new Error("Indicator size changed");
+                if (strip.width !== originalWidth || originalWidth !== 92) throw new Error("Media width changed");
+                if (indicator.width !== 30 || indicator.height !== 24) throw new Error("Indicator size changed");
                 for (const edge of ["top", "bottom", "left", "right"]) {
                     indicator.rotation = edge === "left" || edge === "right" ? 90 : 0;
-                    if (indicator.width !== 26 || indicator.height !== 24) throw new Error("Edge changed geometry");
+                    if (indicator.width !== 30 || indicator.height !== 24) throw new Error("Edge changed geometry");
                 }
                 indicator.playing = false;
                 if (indicator.level(0) !== 0 || indicator.level(15) !== 0) throw new Error("Pause did not flatten");
                 indicator.playing = true;
                 Bar.DesktopStyle.reduceMotion = true;
-                indicator.pulse = 0;
-                if (indicator.level(0) !== .5) throw new Error("Fallback lost information");
+                if (indicator.level(0) !== 0) throw new Error("No audio frame must rest flat, not invent motion");
             }
             if (Bar.SpectrumProvider.consumers.length) throw new Error("Hidden indicator retained consumer");
             console.log("MEDIA_STYLE_OK");

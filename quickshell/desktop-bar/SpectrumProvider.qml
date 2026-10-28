@@ -37,7 +37,11 @@ QtObject {
         reconfiguring = false;
     }
     function acquire(consumer) {
-        if (consumers.indexOf(consumer) === -1) consumers = consumers.concat([consumer]);
+        if (consumers.indexOf(consumer) !== -1) return;
+        const next = consumers.concat([consumer]);
+        // Start cava with the settings its consumers need instead of restarting it 300 ms later.
+        if (!process.running) config = Spectrum.configuration(next);
+        consumers = next;
         update();
     }
     function release(consumer) {

@@ -11,36 +11,28 @@ Item {
     required property color foreground
     required property color background
     property string title: ""
-    property real pulse: 0
     readonly property bool audioActive: active && visible && enabled && opacity > 0 && playing
     readonly property bool hasAudioFrame: audioActive && SpectrumProvider.hasFrame
     readonly property var levels: audio.spectrum
     signal detailsRequested()
-    width: 26
+    width: 30
     height: 24
 
     function level(index) {
-        if (!playing) return 0;
-        if (hasAudioFrame) return Math.max(0, Math.min(1, levels[index] || 0));
-        return (Math.sin(pulse + index * 1.7) + 1) / 2;
+        // No invented motion: without real audio frames the indicator rests flat.
+        if (!playing || !hasAudioFrame) return 0;
+        return Math.max(0, Math.min(1, levels[index] || 0));
     }
     SpectrumConsumer {
         id: audio
         active: indicator.audioActive
-        bars: indicator.style === "line" ? 16 : 7
+        bars: indicator.style === "line" ? 16 : 8
         frameRate: 30
         smoothing: false
         onSpectrumChanged: if (wave.visible && indicator.active) wave.requestPaint()
     }
-    Timer {
-        interval: Math.ceil(1000 / 30)
-        repeat: true
-        running: indicator.audioActive && !indicator.hasAudioFrame && !DesktopStyle.reduceMotion
-        onTriggered: indicator.pulse = (indicator.pulse + Math.PI * 2 / 45) % (Math.PI * 2)
-    }
     onHasAudioFrameChanged: if (wave.visible && active) wave.requestPaint()
     onActiveChanged: if (wave.visible && active) wave.requestPaint()
-    onPulseChanged: if (wave.visible && active) wave.requestPaint()
     onPlayingChanged: if (wave.visible) wave.requestPaint()
     onForegroundChanged: if (wave.visible) wave.requestPaint()
     Row {
@@ -49,13 +41,12 @@ Item {
         height: 14
         spacing: 1
         Repeater {
-            model: indicator.style === "line" ? 0 : 7
+            model: indicator.style === "line" ? 0 : 8
             Rectangle {
                 required property int index
                 anchors.verticalCenter: parent.verticalCenter
                 width: 2.75
                 height: AudioLevels.height(indicator.level(index))
-                Behavior on height { NumberAnimation { duration: DesktopStyle.motionDuration(70) } }
                 radius: 1
                 color: indicator.foreground
                 opacity: indicator.playing ? 1 : 0.55
@@ -65,7 +56,7 @@ Item {
     Canvas {
         id: wave
         anchors.centerIn: parent
-        width: 26
+        width: 30
         height: 16
         visible: indicator.style === "line"
         opacity: indicator.playing ? 1 : 0.55

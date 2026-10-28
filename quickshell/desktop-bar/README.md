@@ -115,7 +115,7 @@ Seeking is enabled only when the player supports it. Clicking the bar's animated
 indicator (or Media icon on vertical bars) opens a single-background media popup;
 the card background is retained only inside the control center. Player selection retains the bar's
 existing meeting exclusions and playing-player preference. Media style
-(`mediaStyle: bars/line` in `bar-settings.json`) selects seven bars or a smooth
+(`mediaStyle: bars/line` in `bar-settings.json`) selects eight bars or a smooth
 16-point line before the playback controls. Both use a fixed 26 px indicator and
 one shared spectrum consumer at 30 fps, including on vertical edges. A gentle
 playback animation is used if no audio frame arrives. Reduce motion preserves
