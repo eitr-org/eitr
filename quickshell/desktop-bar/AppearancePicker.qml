@@ -154,7 +154,8 @@ Item {
             id: content
             anchors.fill: parent
             focus: true
-            readonly property real themeAspect: Math.max(1.3, Math.min(3, width / Math.max(1, height)))
+            // Theme previews are 1280x720 screenshots, so their card is 16:9 on every screen shape.
+            readonly property real themeAspect: 16 / 9
             readonly property real previewAspect: picker.mode === "theme-category" ? (picker.items[picker.selectedIndex]?.aspectRatio || 16 / 9) : themeAspect
             readonly property real previewWidth: picker.mode !== "wallpaper" ? previewHeight * previewAspect : Math.min(768, width * 0.55)
             readonly property real previewHeight: picker.mode !== "wallpaper" ? Math.min(560, height * 0.58, width * 0.68 / previewAspect) : Math.min(475, height * 0.58)
