@@ -56,7 +56,7 @@ class AccountTests(unittest.TestCase):
                 patch.object(assistants, 'assistant_access', return_value='full'), \
                 patch.object(os, 'chdir'), \
                 patch.object(os, 'execve') as execute:
-            assistants.launch('codex', [])
+            assistants.launch('codex', [], trusted=True)
         self.assertEqual(execute.call_args.args[2]['CODEX_HOME'], str(accounts.folder('codex', account)))
         self.assertIn('--dangerously-bypass-approvals-and-sandbox', execute.call_args.args[1])
         auth = accounts.folder('codex', account) / 'auth.json'

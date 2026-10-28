@@ -69,10 +69,12 @@ def executable(identifier):
     return None
 
 
-def launch(identifier, arguments, *, interactive=True):
+def launch(identifier, arguments, *, interactive=True, trusted=False):
+    """Start an assistant in the home folder. Only SUPER+A (trusted) adds full access,
+    folder trust and Handbook guidance; menus open the assistant with its own prompts."""
     if identifier == eitr_local_assistant.IDENTIFIER:
         return eitr_local_assistant.launch(arguments)
-    if interactive and identifier == 'pi' and assistant_access() != 'full':
+    if trusted and identifier == 'pi' and assistant_access() != 'full':
         print(tr('Pi has no built-in permission prompts. Choose another assistant for Ask before changes.'), file=sys.stderr)
         return 1
     metadata = assistants().get(identifier)
@@ -104,9 +106,10 @@ def launch(identifier, arguments, *, interactive=True):
     environment = dict(os.environ, PATH=str(binary.parent) + os.pathsep + os.environ.get('PATH', ''))
     from eitr_ai_accounts import environment as account_environment
     environment = account_environment(identifier, environment)
-    flags = FULL_ACCESS_FLAGS.get(identifier, []) if interactive and assistant_access() == 'full' else []
-    if interactive:
+    flags = FULL_ACCESS_FLAGS.get(identifier, []) if trusted and assistant_access() == 'full' else []
+    if trusted:
         flags = [*flags, *interactive_context(identifier, environment)]
+    if interactive:
         os.chdir(Path.home())
     os.execve(str(binary), [str(binary), *flags, *arguments], environment)
     return 0
@@ -142,7 +145,7 @@ def open_default(arguments=None):
         arguments = ['--prompt', *arguments]
     return subprocess.Popen([str(code('walker/bin/menu-path/kitty')), '-e', sys.executable,
                              str(code('walker/scripts/actions/ai-assistant.py')),
-                             'run', selected, *(arguments or [])], start_new_session=True).pid
+                             'run-trusted', selected, *(arguments or [])], start_new_session=True).pid
 
 
 def replace_json_setting(text, keys, value):

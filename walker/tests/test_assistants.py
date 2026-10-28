@@ -47,12 +47,26 @@ class AssistantTests(unittest.TestCase):
                         patch.object(assistants.os, 'chdir'), \
                         patch.object(assistants.os, 'execve') as execute:
                     if identifier == 'pi' and access == 'ask':
-                        self.assertEqual(assistants.launch(identifier, ['question']), 1)
+                        self.assertEqual(assistants.launch(identifier, ['question'], trusted=True), 1)
                         execute.assert_not_called()
                         continue
-                    assistants.launch(identifier, ['question'])
+                    assistants.launch(identifier, ['question'], trusted=True)
                     self.assertEqual(execute.call_args.args[1],
                                      ['/bin/assistant', *(flags if access == 'full' else []), 'question'])
+
+    def test_menu_launch_never_adds_full_access_or_trust(self):
+        # Development > AI opens the assistant with its own prompts; only SUPER+A is trusted.
+        for identifier in assistants.FULL_ACCESS_FLAGS:
+            with self.subTest(identifier=identifier), \
+                    patch.object(assistants, 'executable', return_value=Path('/bin/assistant')), \
+                    patch.object(assistants, 'assistant_access', return_value='full'), \
+                    patch.object(assistants, 'interactive_context', return_value=['--trusted']) as context, \
+                    patch.object(assistants.os, 'chdir') as change, \
+                    patch.object(assistants.os, 'execve') as execute:
+                assistants.launch(identifier, ['question'])
+                self.assertEqual(execute.call_args.args[1], ['/bin/assistant', 'question'])
+                context.assert_not_called()
+                change.assert_called_once_with(Path.home())
 
     def test_noninteractive_launch_never_adds_full_access(self):
         for identifier in assistants.FULL_ACCESS_FLAGS:
@@ -146,7 +160,7 @@ class AssistantTests(unittest.TestCase):
         with patch.object(assistants, 'default_assistant', return_value='codex'), \
                 patch.object(assistants.subprocess, 'Popen') as launch:
             assistants.open_default(['Explain this crash'])
-            self.assertEqual(launch.call_args.args[0][-3:], ['run', 'codex', 'Explain this crash'])
+            self.assertEqual(launch.call_args.args[0][-3:], ['run-trusted', 'codex', 'Explain this crash'])
 
     def test_theme_changes_only_the_requested_value(self):
         original = '{\r\n "ui" : {"theme": "old", "value": 1e3}, "token":"\\u0061", "other":true\r\n}\r\n'
@@ -214,7 +228,7 @@ class AntigravityTests(unittest.TestCase):
                     patch.object(assistants, 'interactive_context', return_value=[]), \
                     patch.object(assistants.os, 'chdir'), \
                     patch.object(assistants.os, 'execve') as execute:
-                self.assertEqual(assistants.launch('agy', ['--help']), 0)
+                self.assertEqual(assistants.launch('agy', ['--help'], trusted=True), 0)
                 self.assertEqual(execute.call_args.args[1], [str(binary), '--dangerously-skip-permissions', '--help'])
 
     def test_install_uses_googles_official_installer(self):

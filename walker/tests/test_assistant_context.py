@@ -161,7 +161,7 @@ class ContextTests(unittest.TestCase):
                         patch.object(assistants, 'assistant_access', return_value='full'), \
                         patch.object(assistants.os, 'chdir') as change, \
                         patch.object(assistants.os, 'execve') as execute:
-                    assistants.launch(identifier, ['question'])
+                    assistants.launch(identifier, ['question'], trusted=True)
                     change.assert_called_once_with(home)
                     arguments = execute.call_args.args[1]
                     self.assertEqual(arguments[-1], 'question')

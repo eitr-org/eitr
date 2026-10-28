@@ -27,8 +27,8 @@ def confirm(question):
 
 if __name__ == '__main__':
     action = sys.argv[1] if len(sys.argv) > 1 else ''
-    if action == 'run' and len(sys.argv) > 2:
-        sys.exit(launch(sys.argv[2], sys.argv[3:]))
+    if action in ('run', 'run-trusted') and len(sys.argv) > 2:
+        sys.exit(launch(sys.argv[2], sys.argv[3:], trusted=action == 'run-trusted'))
     elif action == 'installed':
         print(json.dumps([{'id': identifier, 'label': metadata['label']}
                           for identifier, metadata in assistants().items() if executable(identifier)]))
