@@ -330,6 +330,7 @@ class GraphiteRemovalTests(unittest.TestCase):
                             self.assertEqual(kwargs['env']['EITR_NO_SESSION'], '1')
                         self.assertEqual(preference.read_bytes() if preference.exists() else None, before)
 
+    @unittest.skipUnless(Path('/usr/share/Kvantum').is_dir(), 'the real theme switch needs the installed Kvantum themes')
     def test_retired_selection_applies_eitr_default_and_preserves_preferences(self):
         import json
         with tempfile.TemporaryDirectory() as directory:
