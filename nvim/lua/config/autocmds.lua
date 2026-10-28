@@ -37,6 +37,9 @@ local function apply_transparent_background()
     "Terminal",
     "TermNormal",
     "TermNormalNC",
+    "SnacksNormal",
+    "SnacksNormalNC",
+    "SnacksDashboardNormal",
   }) do
     clear_bg(group)
   end
