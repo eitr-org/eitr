@@ -4,7 +4,7 @@ Palette: the owner's Alfheim realm palette (2026-10-27), accent #d5b9f2 and seco
 
 Background, surface and raised roles are recorded separately in `colors.toml`. Terminal black uses surface, white uses text, bright black uses muted, and bright colours mix 25% white into each normal colour. Body and selection text retain the approved text colour.
 
-Editor and icon base: catppuccin; integration files are generated from `../integrations.json`.
+Neovim uses aether with this palette; icon base: catppuccin. Integration files are generated from `../integrations.json`.
 
 ## Wallpapers
 

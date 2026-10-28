@@ -49,6 +49,8 @@ vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
   group = transparent_group,
   callback = apply_transparent_background,
 })
+-- LazyVim loads this file after the startup colour scheme, so apply it once now.
+apply_transparent_background()
 
 vim.api.nvim_create_autocmd("TermOpen", {
   group = transparent_group,

@@ -25,12 +25,14 @@
       "extension": "catppuccin.catppuccin-vsc"
     },
     "neovim": {
-      "colorscheme": "catppuccin",
+      "colorscheme": "aether",
       "plugins": [
         {
-          "name": "catppuccin",
+          "branch": "v3",
+          "name": "aether",
           "priority": 1000,
-          "repo": "catppuccin/nvim"
+          "repo": "omacom/aether.nvim",
+          "palette": true
         }
       ]
     }
@@ -42,10 +44,14 @@
       "extension": "jdinhlife.gruvbox"
     },
     "neovim": {
-      "colorscheme": "gruvbox",
+      "colorscheme": "aether",
       "plugins": [
         {
-          "repo": "ellisonleao/gruvbox.nvim"
+          "branch": "v3",
+          "name": "aether",
+          "priority": 1000,
+          "repo": "omacom/aether.nvim",
+          "palette": true
         }
       ]
     }
@@ -142,12 +148,14 @@
       "extension": "TahaYVR.matteblack"
     },
     "neovim": {
-      "colorscheme": "matteblack",
+      "colorscheme": "aether",
       "plugins": [
         {
-          "lazy": false,
+          "branch": "v3",
+          "name": "aether",
           "priority": 1000,
-          "repo": "tahayvr/matteblack.nvim"
+          "repo": "omacom/aether.nvim",
+          "palette": true
         }
       ]
     }
@@ -175,10 +183,14 @@
       "extension": "arcticicestudio.nord-visual-studio-code"
     },
     "neovim": {
-      "colorscheme": "nordfox",
+      "colorscheme": "aether",
       "plugins": [
         {
-          "repo": "EdenEast/nightfox.nvim"
+          "branch": "v3",
+          "name": "aether",
+          "priority": 1000,
+          "repo": "omacom/aether.nvim",
+          "palette": true
         }
       ]
     }
@@ -205,11 +217,14 @@
       "extension": "jovejonovski.ocean-green"
     },
     "neovim": {
-      "colorscheme": "bamboo",
+      "colorscheme": "aether",
       "plugins": [
         {
+          "branch": "v3",
+          "name": "aether",
           "priority": 1000,
-          "repo": "ribru17/bamboo.nvim"
+          "repo": "omacom/aether.nvim",
+          "palette": true
         }
       ]
     }
@@ -237,12 +252,14 @@
       "extension": "catppuccin.catppuccin-vsc"
     },
     "neovim": {
-      "colorscheme": "catppuccin",
+      "colorscheme": "aether",
       "plugins": [
         {
-          "name": "catppuccin",
+          "branch": "v3",
+          "name": "aether",
           "priority": 1000,
-          "repo": "catppuccin/nvim"
+          "repo": "omacom/aether.nvim",
+          "palette": true
         }
       ]
     }
@@ -254,10 +271,14 @@
       "extension": "arcticicestudio.nord-visual-studio-code"
     },
     "neovim": {
-      "colorscheme": "nordfox",
+      "colorscheme": "aether",
       "plugins": [
         {
-          "repo": "EdenEast/nightfox.nvim"
+          "branch": "v3",
+          "name": "aether",
+          "priority": 1000,
+          "repo": "omacom/aether.nvim",
+          "palette": true
         }
       ]
     }
@@ -348,10 +369,14 @@
       "extension": "jdinhlife.gruvbox"
     },
     "neovim": {
-      "colorscheme": "gruvbox",
+      "colorscheme": "aether",
       "plugins": [
         {
-          "repo": "ellisonleao/gruvbox.nvim"
+          "branch": "v3",
+          "name": "aether",
+          "priority": 1000,
+          "repo": "omacom/aether.nvim",
+          "palette": true
         }
       ]
     }
@@ -394,10 +419,14 @@
       "extension": "jdinhlife.gruvbox"
     },
     "neovim": {
-      "colorscheme": "gruvbox",
+      "colorscheme": "aether",
       "plugins": [
         {
-          "repo": "ellisonleao/gruvbox.nvim"
+          "branch": "v3",
+          "name": "aether",
+          "priority": 1000,
+          "repo": "omacom/aether.nvim",
+          "palette": true
         }
       ]
     }
@@ -409,11 +438,14 @@
       "extension": "oldjobobo.miasma-theme"
     },
     "neovim": {
-      "colorscheme": "miasma",
+      "colorscheme": "aether",
       "plugins": [
         {
+          "branch": "v3",
+          "name": "aether",
           "priority": 1000,
-          "repo": "OldJobobo/miasma.nvim"
+          "repo": "omacom/aether.nvim",
+          "palette": true
         }
       ]
     }

@@ -4,7 +4,7 @@ Palette: the owner's Ragnarök palette (2026-10-28), accent #c44750 and second #
 
 Background, surface and raised roles are recorded separately in `colors.toml`. Terminal black uses surface, white uses text, bright black uses muted, and bright colours mix 25% white into each normal colour. Body and selection text retain the approved text colour.
 
-Editor and icon base: gruvbox; integration files are generated from `../integrations.json`.
+Neovim uses aether with this palette; icon base: gruvbox. Integration files are generated from `../integrations.json`.
 
 ## Wallpapers
 
