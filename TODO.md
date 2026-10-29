@@ -53,16 +53,17 @@ LAN.
   would make Eitr feel bad on an old or low-end machine, then optimize those and
   decide what a lighter setup turns off. Test in a VM with few cores and little RAM.
 - **Hardcore mode.** The owner's idea (2026-10-29), for developers who want no
-  effects: one switch turns the desktop into a plain tabbed workspace. A tab strip
-  across the top lists the open windows (no workspaces, no other bar items); every
-  app opens full screen with no gaps, rounding, blur, shadows or animations; and
-  shortcuts split two apps side by side (say a terminal beside the browser) and
-  join them back into tabs. Switching it off restores the normal desktop exactly.
-  Decided (2026-10-29): it is a Style preset that persists across reboots and
-  updates; the strip also shows a small clock and battery/network status. Splits
-  as proposed: side by side or stacked, up to four panes (2x2), keyboard-resizable,
-  with a shortcut to send a split pane back to the tabs; confirm the keys with the
-  owner before building.
+  effects. A Style preset that persists across reboots and updates; switching it off
+  restores the normal desktop exactly. The plan, agreed 2026-10-29:
+  - **Strip:** a thin tab strip across the top lists the open windows as tabs, plus
+    a small clock and battery/network status. No workspaces, no other bar items.
+  - **Windows:** every app opens full screen with no gaps, rounding, blur, shadows
+    or animations. Built on Hyprland window groups, so tabs stay native and fast.
+  - **Splits:** side by side or stacked, up to four panes (2x2); split tabs show as
+    joined on the strip. Proposed keys: Super+\ split side by side with the next
+    tab, Super+- stack, Super+arrows move between panes, Super+Ctrl+arrows resize,
+    Super+Enter send the pane back to a tab. Check them against existing shortcuts
+    and confirm with the owner before building.
 - **Website evidence and screenshots.** Keep the public pages in step with verified
   desktop behavior. A feature gets a screenshot when it has a screen people look
   for (a panel, menu or wizard) shown on the website or in the Handbook;
