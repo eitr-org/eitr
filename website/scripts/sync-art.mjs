@@ -73,7 +73,7 @@ await writeFile(new URL("release.json", data), await readFile(new URL("../../dis
 // The roadmap is the release table in distro/RELEASES.md:
 // | Version | Codename | Stage | Milestone |
 const releases = await readFile(new URL("../../distro/RELEASES.md", import.meta.url), "utf8");
-const roadmap = [...releases.matchAll(/^\| *(\d+\.\d+\.\d+) *\| *([^|]+?) *\| *([a-z]+) *\| *([^|]+?) *\|$/gm)]
+const roadmap = [...releases.matchAll(/^\| *(\d+\.\d+\.\d+) *\| *([^|]+?) *\| *([a-z][a-z ]*?) *\| *([^|]+?) *\|$/gm)]
   .map(([, version, codename, stage, milestone]) => ({ version, codename, stage, milestone }));
 if (!roadmap.length) throw new Error("No release table found in distro/RELEASES.md");
 await writeFile(new URL("roadmap.json", data), JSON.stringify(roadmap, null, 2) + "\n");

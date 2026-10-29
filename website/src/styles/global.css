@@ -238,7 +238,7 @@ em { font-style: italic; color: var(--accent); }
 
 /* Install */
 .install { position: relative; padding: 140px 0 60px; }
-.install-art { position: absolute; inset: 60px 0 auto 40%; height: 520px; z-index: -1; background-size: cover; background-position: 50% 45%; opacity: 0.5; mask-image: radial-gradient(closest-side, #000 30%, transparent); }
+.install-art { background-image: url("/art/ragnarok.webp"); position: absolute; inset: 60px 0 auto 40%; height: 520px; z-index: -1; background-size: cover; background-position: 50% 45%; opacity: 0.5; mask-image: radial-gradient(closest-side, #000 30%, transparent); }
 .install-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
 .road-status { display: grid; gap: 12px; margin: 0 0 40px; padding: 22px 26px; border: 1px solid #a8323a33; border-radius: 4px; background: #0c0a0ae8; }
 .road-status .label { color: var(--bronze); display: flex; align-items: center; gap: 10px; }
@@ -651,3 +651,4 @@ body.menu-open { overflow: hidden; }
 .screenshots-cta { padding-bottom: 40px; }
 #themes { margin-top: 40px; padding-bottom: 48px; }
 .footer { margin-top: 40px; }
+html[data-appearance="light"] .install-art { background-image: url("/art/yggdrasil.webp"); }

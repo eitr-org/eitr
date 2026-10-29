@@ -6,7 +6,7 @@ Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 1. Remote access: test with the owner
 2. Smaller items
 3. Later
-4. Before 1.0.0
+4. 0.8 release candidate and 1.0.0
 
 # 1. Remote access: test with the owner
 
@@ -79,14 +79,21 @@ LAN.
   permissions or a read-only headless mode; until then it stays a standalone
   assistant. Nothing to do before that.
 
-# 4. Before 1.0.0
+# 4. 0.8 release candidate and 1.0.0
+
+0.8 (Muninn) is the exact ISO intended for 1.0; 1.0 (Bifröst) publishes the
+promises below. The roadmap table in `distro/RELEASES.md` has the wording.
 
 - **Upgrade that skips releases.** 1.0 promises supported upgrades, so test
-  installing 0.6.4 and updating straight to the 1.0 candidate. The 0.6.4 ISO is
+  installing 0.6.4 and updating straight to the 0.8 candidate. The 0.6.4 ISO is
   kept locally for this test only, then deleted.
-- **Hardware we do not have** (0.7.0): laptops, AMD and Intel graphics, a real
+- **Repeated clean installs and destructive recovery tests** of the 0.8 ISO in
+  isolated VMs, until install, maintenance and recovery are reproducible.
+- **Hardware we do not have**: laptops, AMD and Intel graphics, a real
   Windows/BitLocker dual boot. Fixes come from early users' reports and do not
-  hold back other work.
+  hold back other work; the results become 1.0's supported hardware matrix.
+- **1.0 documents**: supported hardware matrix, tested upgrade paths, rollback
+  limitations, security-update process, compatibility policy.
 
 Assistant sessions use full access by default; System > Security > Assistant Access restores permission prompts. Not planned: the rest of the "Not planned now"
 list in `distro/RELEASES.md`.
