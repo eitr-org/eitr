@@ -52,6 +52,14 @@ LAN.
   animations, Elephant/Walker, background services, first-login work), find what
   would make Eitr feel bad on an old or low-end machine, then optimize those and
   decide what a lighter setup turns off. Test in a VM with few cores and little RAM.
+- **Hardcore mode.** The owner's idea (2026-10-29), for developers who want no
+  effects: one switch turns the desktop into a plain tabbed workspace. A tab strip
+  across the top lists the open windows (no workspaces, no other bar items); every
+  app opens full screen with no gaps, rounding, blur, shadows or animations; and
+  shortcuts split two apps side by side (say a terminal beside the browser) and
+  join them back into tabs. Switching it off restores the normal desktop exactly.
+  Decide with the owner: what the strip keeps (clock, status?), how splits look,
+  and whether it is a bar layout, a separate session or a Style preset.
 - **Website evidence and screenshots.** Keep the public pages in step with verified
   desktop behavior. A feature gets a screenshot when it has a screen people look
   for (a panel, menu or wizard) shown on the website or in the Handbook;
