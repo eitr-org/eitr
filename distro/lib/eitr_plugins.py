@@ -807,6 +807,9 @@ class Plugins:
                 git(candidate, 'merge-base', '--is-ancestor', record['commit'], revision)
             except subprocess.CalledProcessError:
                 raise ValueError('Plugin repository history was rewritten') from None
+            if (git(candidate, 'rev-parse', record['commit'] + ':' + record['path'])
+                    == git(candidate, 'rev-parse', revision + ':' + record['path'])):
+                return False
             old_spec, spec = manifest(target), entry['spec']
             if spec.get('schemaVersion') == 2 and 'icon' not in spec:
                 raise ValueError('Schema version 2 requires a plugin icon')
@@ -942,7 +945,9 @@ class Plugins:
                     root = self.root(plugin_id)
                     git(root, 'fetch', '--no-recurse-submodules', '--', record['url'],
                         'HEAD', allow_file=self.allow_file)
-                    count = int(git(root, 'rev-list', '--count', record['commit'] + '..FETCH_HEAD'))
+                    # A plugin from an indexed repository counts only commits that touch its own folder.
+                    scope = ['--', ':(top)' + record['path']] if record.get('path') else []
+                    count = int(git(root, 'rev-list', '--count', record['commit'] + '..FETCH_HEAD', *scope))
                     checked[plugin_id] = dict(commit=record['commit'], count=count)
                     counts[plugin_id] = count
                 except (OSError, ValueError, subprocess.SubprocessError):

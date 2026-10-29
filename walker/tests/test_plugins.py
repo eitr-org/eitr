@@ -163,10 +163,13 @@ class PluginTests(unittest.TestCase):
         approved = self.manager.records()
         (self.source / 'plugins/example/revision').write_text('new indexed revision')
         self.commit_as('Fixture')
-        self.assertEqual(self.manager.check_updates(), {'example': 1, 'second': 1})
+        self.assertEqual(self.manager.check_updates(), {'example': 1, 'second': 0})
         self.assertEqual(self.manager.records(), approved)
         self.assertTrue(self.manager.update('example', lambda changes: True))
-        self.assertEqual(self.manager.check_updates(), {'example': 0, 'second': 1})
+        self.assertEqual(self.manager.check_updates(), {'example': 0, 'second': 0})
+        approve = unittest.mock.Mock(return_value=True)
+        self.assertFalse(self.manager.update('second', approve))
+        approve.assert_not_called()
         self.assertEqual(self.manager.records()['second'], approved['second'])
 
     def test_repository_picker_lists_metadata_and_selects_multiple(self):

@@ -33,7 +33,9 @@ System Update only checks for new plugin commits, including when packages are
 current. It fetches Git metadata into the existing installed repository cache,
 without checking out new code, changing approved commits or running plugin code.
 `plugins.py check` prints JSON mapping checked plugin IDs to their new commit counts (including zero);
-network errors are silently ignored. The last check is saved in the machine-local
+a plugin from a repository with several plugins counts only commits that change its
+own folder, and updating it skips commits that leave that folder unchanged.
+Network errors are silently ignored. The last check is saved in the machine-local
 `$XDG_STATE_HOME/eitr/plugin-updates.json`, tied to each approved commit.
 
 Use **Update Plugins** next to **Add Plugin…** in **Control Center > Plugins**,
