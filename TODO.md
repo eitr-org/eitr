@@ -32,6 +32,17 @@ LAN.
 - **Light themes.** The owner has ideas for more light themes; create them later.
 - **An Eitr lockscreen.** A new lockscreen design with Eitr's own face (the owner's
   idea, 2026-10-29), beside the existing designs; ask the owner for direction first.
+- **A full security review of the distro.** The owner's request (2026-10-29): review
+  the whole system, not one feature: installer and first login, root helpers and
+  `eitr-system` actions, sudo/polkit rules, services and their permissions, update
+  and package signing, plugins, remote access, browsers and assistants with full
+  access, secrets and file permissions. Report findings by severity, fix them, and
+  record what was checked.
+- **Performance on weak computers.** The owner's request (2026-10-29): measure what
+  costs the most CPU, GPU, memory, disk and battery (bar, live wallpapers, blur and
+  animations, Elephant/Walker, background services, first-login work), find what
+  would make Eitr feel bad on an old or low-end machine, then optimize those and
+  decide what a lighter setup turns off. Test in a VM with few cores and little RAM.
 - **Website evidence and screenshots.** Keep the public pages in step with verified
   desktop behavior. A feature gets a screenshot when it has a screen people look
   for (a panel, menu or wizard) shown on the website or in the Handbook;
