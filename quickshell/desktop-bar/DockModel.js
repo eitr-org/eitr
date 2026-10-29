@@ -26,6 +26,14 @@ function groups(clients, workspaceId, pinnedEntries) {
     return entries;
 }
 
+// Clicking an app focuses its most recent window; when that window already has
+// focus, the click moves on to the app's next window, in Hyprland's order.
+function activationTarget(entry) {
+    if (!entry.recent) return null;
+    if (entry.recent.focusHistoryID !== 0 || entry.windows.length < 2) return entry.recent;
+    return entry.windows[(entry.windows.indexOf(entry.recent) + 1) % entry.windows.length];
+}
+
 // The hyprctl call that focuses or closes one window. Hyprland's Lua config only
 // accepts hl.dsp calls; the old "focuswindow address:" form is silently ignored.
 function windowCommand(action, address) {

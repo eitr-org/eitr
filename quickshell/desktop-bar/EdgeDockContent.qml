@@ -11,10 +11,11 @@ Item {
     property var desktopEntries: DesktopEntries.applications.values
     property real availableLength: 1000
     readonly property bool vertical: barEdge === "left" || barEdge === "right"
-    readonly property real axisLength: Math.min(availableLength, 16 + Math.max(0, apps.length * 42 - 6))
+    // The attached surface adds a concave join at each end of the strip.
+    readonly property real axisLength: Math.min(availableLength, 16 + 2 * PanelStyle.surfaceInset + Math.max(0, apps.length * 42 - 6))
     readonly property QtObject hostWindow: QtObject { readonly property var outerGaps: [4, 4, 4, 4] }
-    readonly property bool detached: true
-    readonly property real revealProgress: 1
+    readonly property bool detached: false
+    property real revealProgress: 1
     readonly property bool hovered: pointer.hovered
     signal activated(var entry)
     signal closeRequested(var entry)
@@ -48,6 +49,12 @@ Item {
                         readonly property var application: dock.application(modelData.appClass)
                         readonly property string appName: application ? application.name : modelData.appClass
                         width: 36; height: 36
+                        Rectangle {
+                            anchors.fill: parent
+                            radius: DesktopStyle.radius(6)
+                            color: Qt.rgba(dock.foreground.r, dock.foreground.g, dock.foreground.b, PanelStyle.selectionAlpha(false, true))
+                            visible: mouse.containsMouse
+                        }
                         Image {
                             id: icon
                             anchors.centerIn: parent
@@ -62,17 +69,22 @@ Item {
                             text: "󰀻"; color: dock.foreground
                             font.family: PanelStyle.fontFamily; font.pixelSize: 24
                         }
-                        Rectangle {
-                            width: 3; height: 3; radius: 1.5
+                        // One dot per window, up to three; dimmed when none is on this workspace.
+                        Row {
                             anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.bottom: parent.bottom
-                            color: dock.foreground
-                            visible: slot.modelData.onCurrentWorkspace
+                            anchors.bottom: parent.bottom; anchors.bottomMargin: 1
+                            spacing: 2
+                            opacity: slot.modelData.onCurrentWorkspace ? 1 : 0.4
+                            Repeater {
+                                model: Math.min(3, slot.modelData.windows.length)
+                                Rectangle { width: 3; height: 3; radius: 1.5; color: dock.foreground }
+                            }
                         }
                         MouseArea {
                             id: mouse
                             anchors.fill: parent
                             hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
                             acceptedButtons: Qt.LeftButton | Qt.MiddleButton
                             onClicked: function(event) {
                                 if (event.button === Qt.MiddleButton) dock.closeRequested(slot.modelData);
@@ -81,7 +93,7 @@ Item {
                         }
                         BarTooltip {
                             target: slot; hovered: mouse.containsMouse
-                            text: slot.appName; background: dock.background; foreground: dock.foreground
+                            text: slot.modelData.windows.length > 1 ? slot.appName + " (" + slot.modelData.windows.length + ")" : slot.appName; background: dock.background; foreground: dock.foreground
                         }
                     }
                 }

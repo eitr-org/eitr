@@ -186,14 +186,19 @@ ThemedPopup {
                     width: column === 0 ? 34 : 56
                     height: row === 0 ? 24 : 38
                     radius: DesktopStyle.radius(7)
-                    color: isToday ? menu.foreground : "transparent"
+                    color: isToday ? menu.foreground
+                        : dayMouse.containsMouse ? Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, PanelStyle.selectionAlpha(false, true))
+                        : "transparent"
                     readonly property bool hasReminders: row > 0 && column > 0 && (ReminderModel.forDay(menu.reminders, day).length > 0
                         || ReminderModel.eventsForDay(menu.events, day).length > 0)
                     border.width: row > 0 && column > 0 && day.toDateString() === menu.selectedDay.toDateString() ? 1 : 0
                     border.color: menu.foreground
                     MouseArea {
+                        id: dayMouse
                         anchors.fill: parent
                         enabled: parent.row > 0 && parent.column > 0
+                        // Hover drives the day's highlight.
+                        hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
                         onClicked: menu.selectedDay = parent.day
                     }
@@ -418,7 +423,8 @@ ThemedPopup {
         MouseArea {
             anchors.fill: parent
             z: 10
-            enabled: menu.pendingKey !== ""
+            // Hidden, not just disabled, so it never takes the days' cursor.
+            visible: menu.pendingKey !== ""
             onPressed: function(mouse) {
                 const row = menu.pendingRow;
                 const point = row ? mapToItem(row.actionsItem, mouse.x, mouse.y) : null;

@@ -33,7 +33,7 @@ PanelWindow {
     mask: Region {
         width: 0; height: 0
         Region { item: dock.available ? sensor : null }
-        Region { item: dock.available && reveal.progress > 0 ? surfaceArea : null; radius: DesktopStyle.radius(6) }
+        Region { item: dock.available && reveal.progress > 0 ? surfaceArea : null }
     }
     BarAutoHide {
         id: reveal
@@ -49,8 +49,7 @@ PanelWindow {
         y: dock.edge === "bottom" ? dock.height - height : 0
         HoverHandler { id: edgeHover }
     }
-    // The input mask follows this resting rectangle: a Region does not track the
-    // slide-in transform, so masking the moving surface would leave it unclickable.
+    // The input mask covers the whole resting surface; it unfolds inside it.
     Item {
         id: surfaceArea
         x: surface.x; y: surface.y; width: surface.width; height: surface.height
@@ -60,14 +59,14 @@ PanelWindow {
         barEdge: dock.edge
         apps: dock.apps
         foreground: dock.foreground; background: dock.background
+        revealProgress: reveal.progress
         availableLength: Math.max(0, (dock.vertical ? dock.height : dock.width) - 16)
-        x: dock.vertical ? (dock.edge === "right" ? dock.width - width - 8 : 8) : (dock.width - width) / 2
-        y: dock.vertical ? (dock.height - height) / 2 : (dock.edge === "bottom" ? dock.height - height - 8 : 8)
-        transform: Translate {
-            x: dock.vertical ? (dock.edge === "left" ? -1 : 1) * (surface.width + 8) * (1 - reveal.progress) : 0
-            y: !dock.vertical ? (dock.edge === "top" ? -1 : 1) * (surface.height + 8) * (1 - reveal.progress) : 0
+        x: dock.vertical ? (dock.edge === "right" ? dock.width - width : 0) : (dock.width - width) / 2
+        y: dock.vertical ? (dock.height - height) / 2 : (dock.edge === "bottom" ? dock.height - height : 0)
+        onActivated: function(entry) {
+            var target = DockModel.activationTarget(entry);
+            if (target) dock.run(DockModel.windowCommand("focus", target.address));
         }
-        onActivated: function(entry) { if (entry.recent) dock.run(DockModel.windowCommand("focus", entry.recent.address)); }
         onCloseRequested: function(entry) { if (entry.recent) dock.run(DockModel.windowCommand("close", entry.recent.address)); }
     }
 }

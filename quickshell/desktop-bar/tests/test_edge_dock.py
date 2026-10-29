@@ -65,12 +65,13 @@ class EdgeDockTests(unittest.TestCase):
                 var pinned = DockModel.groups(dock.clients, 2, [{appClass: "Other"}, {appClass: "browser"}]);
                 if (pinned.length !== 3 || pinned[0].windows.length || !pinned[1].pinned || pinned[1].windows.length !== 2) throw new Error("Pinned entry extension");
                 var expected = {top: "bottom", bottom: "top", left: "right", right: "left"}[dock.barEdge];
-                if (dock.edge !== expected || surface.width !== (dock.vertical ? 52 : 94) || surface.height !== (dock.vertical ? 94 : 52)) throw new Error("Dock geometry");
+                if (dock.edge !== expected || surface.width !== (dock.vertical ? 52 : 122) || surface.height !== (dock.vertical ? 122 : 52) || surface.detached) throw new Error("Dock geometry");
                 var center = dock.vertical ? surface.y + surface.height / 2 : surface.x + surface.width / 2;
                 if (center !== (dock.vertical ? dock.height : dock.width) / 2) throw new Error("Dock not centered");
                 if ((dock.vertical ? sensor.width : sensor.height) !== 1) throw new Error("Trigger thickness");
-                surface.activated(dock.apps[0]); surface.closeRequested(dock.apps[0]);
-                if (dock.actions.join("|") !== 'hyprctl dispatch hl.dsp.focus({ window = "address:0x3" })|hyprctl dispatch hl.dsp.window.close({ window = "address:0x3" })') throw new Error("App actions: " + dock.actions.join("|"));
+                // Browser's recent window 0x3 already has focus, so a click moves on to 0x1.
+                surface.activated(dock.apps[0]); surface.activated(dock.apps[1]); surface.closeRequested(dock.apps[0]);
+                if (dock.actions.join("|") !== 'hyprctl dispatch hl.dsp.focus({ window = "address:0x1" })|hyprctl dispatch hl.dsp.focus({ window = "address:0x2" })|hyprctl dispatch hl.dsp.window.close({ window = "address:0x3" })') throw new Error("App actions: " + dock.actions.join("|"));
                 reveal.pointerInside = true;
             } else if (dock.phase === 1) {
                 if (reveal.progress !== 1) throw new Error("Dock did not reveal");
