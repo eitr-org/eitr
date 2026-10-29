@@ -207,6 +207,16 @@ class ReleaseDesktopTests(unittest.TestCase):
                             release.reuse_published_packages([name], repo, work)
                         self.assertFalse((repo / name).exists())
 
+    def test_published_check_finds_packages_of_every_architecture(self):
+        release = self.load()
+        listing = "eitr-desktop-1:0.7.0-1/desc\neitr-sunshine-2026.914.233613-2/desc\n"
+        with patch.object(release, "fetch"), patch.object(release, "verify_database"), \
+                patch.object(release, "text", return_value=listing):
+            for name in ("eitr-desktop-1:0.7.0-1-any.pkg.tar.zst", "eitr-sunshine-2026.914.233613-2-x86_64.pkg.tar.zst"):
+                release.verify_published(Path(name))
+            with self.assertRaises(RuntimeError):
+                release.verify_published(Path("eitr-sunshine-2026.914.233613-3-x86_64.pkg.tar.zst"))
+
     def test_artwork_is_rebuilt_only_when_its_version_is_not_published(self):
         release = self.load()
         for published, expected in ((True, ["eitr-desktop", "eitr-sunshine"]), (False, ["eitr-desktop", "eitr-artwork", "eitr-sunshine"])):

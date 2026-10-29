@@ -163,7 +163,7 @@ def verify_published(package, download=DOWNLOAD, name="eitr"):
         fetch(download + f"{name}.db", database)
         verify_database(download, database)
         listed = text(["bsdtar", "-tf", str(database)])
-    entry = package.name.removesuffix("-any.pkg.tar.zst")
+    entry = re.sub(r"-(?:any|x86_64)\.pkg\.tar\.zst$", "", package.name)
     # Promoted packages carry their file name, where publish.py turned the epoch's ':' into '.'.
     if f"{entry}/" not in listed and f"{entry}/" not in listed.replace(":", "."):
         raise RuntimeError(f"The published database does not list {entry} yet")
