@@ -8,7 +8,6 @@ import Quickshell.Io
 
 ThemedPopup {
     id: menu
-    waitForFreshData: true
     implicitWidth: 428
     property int maximumHeight: 1000
     implicitHeight: Math.min(contentColumn.implicitHeight + (trialFooter.visible ? trialFooter.height + 8 : 0)
@@ -149,9 +148,13 @@ ThemedPopup {
         nightOperation.command = ["python3", nightlightHelper, "configure", start, end, mode];
         nightOperation.running = true;
     }
+    // Fetch once in the background after the bar starts, so the first opening already
+    // has its data; later openings query only after the unfold (DockPanel.revealed),
+    // since starting the helpers during it stalls the animation.
+    Timer { interval: 8000; running: true; onTriggered: { menu.refresh(); menu.refreshNightlight(); menu.refreshDisplays(); menu.refreshPower(); } }
+    onRevealed: { refresh(); refreshNightlight(); refreshDisplays(); refreshPower(); }
     onOpenedChanged: {
-        if (opened) { refresh(); refreshNightlight(); refreshDisplays(); refreshPower(); }
-        else {
+        if (!opened) {
             editingSchedule = false;
             settingsFor = "";
             if (scheduleDirty) scheduleSettle.restart();

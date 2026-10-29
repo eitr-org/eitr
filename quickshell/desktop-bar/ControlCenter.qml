@@ -88,13 +88,15 @@ ThemedPopup {
     // Fetch once in the background after the bar starts, so even the first opening
     // shows its data instead of rebuilding lists halfway through the animation.
     Timer { interval: 8000; running: true; onTriggered: { center.refresh(); center.loadStyle(); chatStatus.running = true; } }
-    onOpenedChanged: {
-        if (opened) { center.refresh(); chatStatus.running = true; }
-        else { chatOpen = false; chatView.reset(); }
-        if (opened && page === "style") loadStyle();
-        if (opened && !organizationQuery.running) organizationQuery.running = true;
-        if (opened && page === "system" && !channelQuery.running) channelQuery.running = true;
+    // Queries start once the unfold has finished (DockPanel.revealed): their results
+    // rebuild lists, which would otherwise stall the animation midway.
+    onRevealed: {
+        center.refresh(); chatStatus.running = true;
+        if (page === "style") loadStyle();
+        if (!organizationQuery.running) organizationQuery.running = true;
+        if (page === "system" && !channelQuery.running) channelQuery.running = true;
     }
+    onOpenedChanged: if (!opened) { chatOpen = false; chatView.reset(); }
     onPageChanged: {
         if (page === "style") loadStyle();
         if (page === "system" && !channelQuery.running) channelQuery.running = true;

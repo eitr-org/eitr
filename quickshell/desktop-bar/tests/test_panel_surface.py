@@ -100,6 +100,63 @@ ShellRoot {
                 if os.environ.get('EITR_PANEL_REVIEW_RENDERS'):
                     (captures / (stem + '.log')).write_text(output)
 
+    @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')
+    def test_updates_wait_for_the_unfold_and_revealed_fires_once(self):
+        """Data arriving mid-unfold is applied after it, so the panel never re-lays out while moving."""
+        bar = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = Path(temporary) / 'shell.qml'
+            fixture.write_text('''import QtQuick
+import Quickshell
+import "BAR" as Bar
+ShellRoot {
+    FloatingWindow {
+        id: window
+        visible: true; implicitWidth: 500; implicitHeight: 400
+        property Item stripItem: strip
+        Item { id: strip; width: 500; height: 30 }
+        Bar.ThemedPopup {
+            id: panel; target: strip
+            foreground: "white"; background: "black"; accent: "cyan"
+            implicitWidth: 300; implicitHeight: 200
+            property string value: "old"
+            property int revealCount: 0
+            property bool checked: false
+            onRevealed: revealCount++
+            onRevealProgressChanged: {
+                if (checked || revealProgress <= 0.2 || revealProgress >= 1) return;
+                checked = true;
+                updateContent(function() { value = "new"; });
+                if (value !== "old") throw new Error("Update applied during the unfold");
+            }
+        }
+        Timer {
+            interval: 500; running: true; repeat: true
+            property int stage: 0
+            onTriggered: {
+                if (stage === 0) panel.opened = true;
+                else {
+                    if (!panel.checked) throw new Error("Unfold was never observed");
+                    if (panel.value !== "new") throw new Error("Deferred update was lost");
+                    if (panel.revealCount !== 1) throw new Error("revealed fired " + panel.revealCount + " times");
+                    console.log("DEFERRED_UPDATES_OK"); Qt.quit();
+                }
+                stage++;
+            }
+        }
+    }
+}'''.replace('BAR', bar.as_uri()))
+            environment = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
+                QML_IMPORT_PATH=str(bar.parent), EITR_CODE_ROOT=temporary,
+                XDG_CONFIG_HOME=temporary, XDG_STATE_HOME=temporary, XDG_DATA_HOME=temporary,
+                XDG_CACHE_HOME=temporary, XDG_RUNTIME_DIR=temporary,
+                DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent', HYPRLAND_INSTANCE_SIGNATURE='')
+            result = subprocess.run(['quickshell', '-p', str(fixture)], env=environment,
+                text=True, capture_output=True, timeout=10)
+            output = result.stdout + result.stderr
+            self.assertEqual(result.returncode, 0, output)
+            self.assertIn('DEFERRED_UPDATES_OK', output)
+
 FIXTURE = '''import QtQuick
 import Quickshell
 import "." as Bar

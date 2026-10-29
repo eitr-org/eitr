@@ -20,13 +20,33 @@ Item {
         return transitioning && opened
             ? Math.max(0, transitionDuration - (Date.now() - revealStartedAt)) : transitionDuration;
     }
-    function updateContent(action) { action(); dataReady(); }
+    // Data that arrives while the panel unfolds waits for the unfold to finish:
+    // rebuilding lists mid-animation stalls rendering and makes the panel jump.
+    property var deferredUpdates: []
+    signal revealed()
+    function updateContent(action) {
+        if (opened && revealReady && revealProgress < 1) {
+            deferredUpdates = deferredUpdates.concat([action]);
+            return;
+        }
+        action();
+        dataReady();
+    }
+    function flushDeferredUpdates() {
+        const pending = deferredUpdates;
+        deferredUpdates = [];
+        pending.forEach(action => action());
+    }
+    onRevealProgressChanged: {
+        if (revealProgress < 1 || !opened) return;
+        flushDeferredUpdates();
+        revealed();
+    }
     function dataReady() {
         if (opened && preparing) layoutReady.restart();
     }
     function applySnapshot(name, value) {
-        if (JsonState.changed(panel[name], value)) panel[name] = value;
-        dataReady();
+        updateContent(function() { if (JsonState.changed(panel[name], value)) panel[name] = value; });
     }
     property Timer layoutReady: Timer {
         interval: 0
@@ -53,6 +73,7 @@ Item {
         } else {
             preparing = false;
             revealReady = false;
+            flushDeferredUpdates();
         }
     }
     Component.onCompleted: if (opened) prepareOpening()

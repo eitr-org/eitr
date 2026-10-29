@@ -569,6 +569,13 @@ Every panel follows the same rules, so a new one feels like the others:
 - **Refresh on open.** Panels load fresh data when they open and on their own
   timers; there are no refresh buttons. `PanelLoadingIndicator` spins in the
   header only while loading (or scanning) and disappears when done.
+- **Nothing heavy during the unfold.** Starting helper processes blocks rendering
+  for a moment, and rebuilding content re-lays out the panel, so either one during
+  the 320 ms unfold makes it jump. Data passed to `updateContent`/`applySnapshot`
+  while a panel unfolds waits until it has finished. Panels that start several
+  helpers on opening (Control Center, Display) start them on `DockPanel.revealed`
+  instead, and fetch once in the background after the bar starts so the first
+  opening already has data.
 - **Dividers between groups.** A subtle `PanelDivider` separates a panel's
   groups (devices, sections, options); Control Center sections carry a label.
 - **Walker descriptions fit.** Row descriptions stay within 72 characters in
