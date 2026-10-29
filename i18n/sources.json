@@ -127,6 +127,9 @@
     "Battery health: {percent}%": [
       "quickshell/desktop-bar/BatteryMenu.qml"
     ],
+    "Behavior": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
     "Below": [
       "quickshell/desktop-bar/DisplaySettingsEditor.qml"
     ],
@@ -337,6 +340,9 @@
     "Dictating": [
       "quickshell/desktop-bar/shell.qml"
     ],
+    "Disable effects and popups; use the performance profile.": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
     "Disabled": [
       "quickshell/desktop-bar/PluginComponent.qml",
       "quickshell/desktop-bar/PluginManager.qml"
@@ -459,6 +465,9 @@
     "Hide icons": [
       "quickshell/desktop-bar/shell.qml"
     ],
+    "Hide the bar; press SUPER + Shift + Space to restore it.": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
     "Hide the camera": [
       "quickshell/desktop-bar/RecordingMenu.qml"
     ],
@@ -538,6 +547,9 @@
     "Language · %1": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
+    "Layout": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
     "Layouts unavailable": [
       "quickshell/desktop-bar/KeyboardLayoutMenu.qml"
     ],
@@ -565,6 +577,9 @@
       "quickshell/desktop-bar/SystemMonitorMenu.qml"
     ],
     "Lock": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
+    "Lock the screen automatically when you're away.": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Lockscreen": [
@@ -1075,6 +1090,9 @@
       "quickshell/desktop-bar/PluginManagement.qml",
       "quickshell/desktop-bar/PluginWidgetMenu.qml"
     ],
+    "Show help notifications when a program crashes.": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
     "Show icons": [
       "quickshell/desktop-bar/shell.qml"
     ],
@@ -1094,6 +1112,9 @@
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
     ],
     "Shutdown": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
+    "Silence popups while keeping notification history.": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Size": [
@@ -1125,6 +1146,9 @@
     ],
     "Start streaming": [
       "quickshell/desktop-bar/ObsMenu.qml"
+    ],
+    "Start the screensaver now.": [
+      "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Status unavailable": [
       "quickshell/desktop-bar/RemoteAccessContent.qml"
@@ -1264,6 +1288,9 @@
     ],
     "Use the certificate and server domain supplied by your network administrator. Certificate validation is required.": [
       "quickshell/desktop-bar/WifiMenu.qml"
+    ],
+    "Use warmer screen colors.": [
+      "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "User": [
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"

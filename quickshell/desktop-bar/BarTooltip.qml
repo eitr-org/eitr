@@ -16,8 +16,13 @@ PopupWindow {
     implicitWidth: Math.min(360, label.implicitWidth + 18)
     implicitHeight: label.implicitHeight + 12
     anchor.item: target
-    anchor.rect.x: pointer.hovered ? pointer.point.position.x + 12 : (target.width - implicitWidth) / 2
-    anchor.rect.y: pointer.hovered ? pointer.point.position.y + 18 : target.height + 6
+    // Follow the pointer, but keep its last position after it leaves: the tip hides a moment
+    // later, and falling back to the centred position first would make it jump.
+    property point pointerPosition: Qt.point(-1, -1)
+    readonly property point livePointer: pointer.point.position
+    onLivePointerChanged: if (pointer.hovered) pointerPosition = livePointer
+    anchor.rect.x: pointerPosition.x >= 0 ? pointerPosition.x + 12 : (target.width - implicitWidth) / 2
+    anchor.rect.y: pointerPosition.x >= 0 ? pointerPosition.y + 18 : target.height + 6
     anchor.edges: Edges.Top | Edges.Left
     anchor.gravity: Edges.Bottom | Edges.Right
     anchor.adjustment: PopupAdjustment.Slide

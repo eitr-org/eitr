@@ -99,8 +99,12 @@ external blocks are never silently overridden. Opening the panel never changes
 radio state or starts scanning/audio capture.
 
 Notifications remain exclusively in the dedicated notification panel.
-Style exposes bar appearance/layout/position, workspace markers with previews,
-the theme/wallpaper carousels, and the default-font picker. Settings contains
+Style groups its settings into Theme & Wallpaper (open initially), Corners, Bar,
+Workspaces, Lockscreen, Cursor and Terminal folds. Each open fold encloses its
+header and padded options in one subtle surface. Bar groups Layout, Position,
+Appearance, Show on, Clock, Media style and Behavior; Behavior holds Auto-hide,
+Dock and Reduce motion. Theme & Wallpaper opens the carousels and font picker;
+Workspaces includes marker previews. Settings contains
 inline keyboard and display/night-light configuration. Keyboard rows include
 removal controls, disabled when only one layout remains. General ends
 with icon-only Lock, Logout, Suspend, Reboot, and Shutdown actions with tooltips.

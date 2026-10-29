@@ -2,7 +2,7 @@
 
 Pulsa **SUPER + ,** para abrir o cerrar el Centro de control. Se abre desde el borde actual de la barra y se cierra con Escape o un clic fuera. Al cerrarse vuelve a General.
 
-Sus cinco páginas reúnen todo lo que queda fuera de Desarrollo, Aplicaciones, Instalar, Aprender y Juegos; la mayoría de los ajustes no necesitan Walker. Las secciones plegables comienzan cerradas; pulsa el título para abrir o cerrar y la elección se conserva hasta cerrar sesión. Si la barra tiene un panel propio (OBS, WiFi, Bluetooth, Audio, Pantalla, Hardware, Uso de IA o Tiempo), el Centro de control abre ese panel.
+Sus cinco páginas reúnen todo lo que queda fuera de Desarrollo, Aplicaciones, Instalar, Aprender y Juegos; la mayoría de los ajustes no necesitan Walker. Las secciones plegables suelen comenzar cerradas; pulsa el título para abrir o cerrar y la elección se conserva hasta cerrar sesión. Si la barra tiene un panel propio (OBS, WiFi, Bluetooth, Audio, Pantalla, Hardware, Uso de IA o Tiempo), el Centro de control abre ese panel.
 
 ## General
 
@@ -16,6 +16,8 @@ Sus cinco páginas reúnen todo lo que queda fuera de Desarrollo, Aplicaciones, 
 El Modo avión recuerda qué conexiones bloqueó y restaura solo esas. No molestar suprime ventanas emergentes sin borrar el historial. Bloqueo automático no equivale a impedir la suspensión; cuida la privacidad de la pantalla.
 
 ## Estilo
+
+Estilo organiza los ajustes en Tema y fondo de pantalla (abierto al principio), Esquinas, Barra, Espacios de trabajo, Pantalla de bloqueo, Cursor y Terminal. Haz clic en el título de un grupo para plegarlo; su superficie delimita todas sus opciones. Barra reúne Distribución, Posición, Apariencia, Mostrar en, Reloj, Estilo multimedia y Comportamiento. Comportamiento contiene Ocultar automáticamente, Dock y Reducir movimiento.
 
 Tema y Fondo abren sus carruseles; Fuente predeterminada abre la lista de fuentes. Diseño de bloqueo, cursor (familia, tamaño y color), apariencia, disposición, borde y pantallas de la barra, marcadores de espacios, esquinas y Fuego del cursor de Kitty cambian directamente en el panel y comparten preferencias con Walker.
 

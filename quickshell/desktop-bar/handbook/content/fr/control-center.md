@@ -2,7 +2,7 @@
 
 **SUPER + ,** ouvre ou ferme le Centre de contrôle. Il s’ouvre depuis le bord actuel de la barre et se ferme avec Escape ou un clic à l’extérieur. Sa fermeture revient à Général.
 
-Ses cinq pages regroupent tout ce qui est hors Développement, Applications, Installer, Apprendre et Jeux ; la plupart des réglages ne nécessitent donc pas Walker. Les sections repliables commencent fermées ; cliquez sur le titre pour les ouvrir ou fermer, avec mémorisation jusqu’à déconnexion. Si la barre possède un panneau dédié (OBS, WiFi, Bluetooth, Audio, Écran, Matériel, Utilisation IA, Météo), le Centre de contrôle l’ouvre.
+Ses cinq pages regroupent tout ce qui est hors Développement, Applications, Installer, Apprendre et Jeux ; la plupart des réglages ne nécessitent donc pas Walker. Les sections repliables commencent généralement fermées ; cliquez sur le titre pour les ouvrir ou fermer, avec mémorisation jusqu’à déconnexion. Si la barre possède un panneau dédié (OBS, WiFi, Bluetooth, Audio, Écran, Matériel, Utilisation IA, Météo), le Centre de contrôle l’ouvre.
 
 ## Général
 
@@ -16,6 +16,8 @@ Ses cinq pages regroupent tout ce qui est hors Développement, Applications, Ins
 Le Mode avion mémorise les radios bloquées et ne restaure que celles-ci. Ne pas déranger masque les notifications contextuelles sans vider l’historique. Verrouillage automatique ne signifie pas empêcher la veille ; veillez à la confidentialité de l’écran.
 
 ## Style
+
+Style regroupe les réglages dans Thème et fond d’écran (ouvert au départ), Coins, Barre, Espaces de travail, Écran de verrouillage, Curseur et Terminal. Cliquez sur le titre d’un groupe pour le replier ; sa surface délimite toutes ses options. Barre regroupe Disposition, Position, Apparence, Afficher sur, Horloge, Style multimédia et Comportement. Comportement contient Masquage automatique, Dock et Réduire les animations.
 
 Thème et Fond d’écran ouvrent leurs carrousels ; Police par défaut ouvre la liste des polices. Thème de verrouillage, curseur (famille, taille, couleur), apparence, disposition, bord et écrans de la barre, marqueurs d’espaces, coins et Cursor Fire de Kitty se règlent directement dans le panneau et partagent leurs préférences avec Walker.
 

@@ -13,6 +13,8 @@ Rectangle {
     readonly property color ink: filled ? accentInk : foreground
     required property string title
     required property string glyph
+    property string tooltip: ""
+    property color tooltipBackground
     property string subtitle: ""
     // Short current state shown after the title on the same line.
     property string detail: ""
@@ -43,6 +45,8 @@ Rectangle {
         Text { width: parent.width; text: tile.subtitle; visible: tile.subtitle !== ""; elide: Text.ElideRight; color: tile.ink; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
     }
     MouseArea { id: tileMouse; anchors.fill: parent; enabled: tile.available; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: { tile.forceActiveFocus(); tile.clicked(); } }
+    HoverHandler { id: tooltipHover; enabled: tile.tooltip !== "" }
+    BarTooltip { target: tile; hovered: tooltipHover.hovered; text: tile.tooltip; foreground: tile.foreground; background: tile.tooltipBackground }
     PanelButton {
         textSize: 12; iconSize: 16
         visible: tile.details; anchors.right: parent.right; anchors.rightMargin: PanelStyle.selectionActionInset; anchors.verticalCenter: parent.verticalCenter

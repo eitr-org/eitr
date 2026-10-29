@@ -440,5 +440,14 @@
   "12-hour": "12-hour",
   "24-hour": "24-hour",
   "Clock": "Clock",
-  "ddd MMM dd HH:mm": "ddd MMM dd HH:mm"
+  "ddd MMM dd HH:mm": "ddd MMM dd HH:mm",
+  "Behavior": "Behavior",
+  "Layout": "Layout",
+  "Disable effects and popups; use the performance profile.": "Disable effects and popups; use the performance profile.",
+  "Hide the bar; press SUPER + Shift + Space to restore it.": "Hide the bar; press SUPER + Shift + Space to restore it.",
+  "Lock the screen automatically when you're away.": "Lock the screen automatically when you're away.",
+  "Show help notifications when a program crashes.": "Show help notifications when a program crashes.",
+  "Silence popups while keeping notification history.": "Silence popups while keeping notification history.",
+  "Use warmer screen colors.": "Use warmer screen colors.",
+  "Start the screensaver now.": "Start the screensaver now."
 }

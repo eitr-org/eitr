@@ -190,7 +190,7 @@ class AutoHideLayoutTests(unittest.TestCase):
         source = (bar / "ControlCenter.qml").read_text()
         control = source.index("id: dockSwitch" if dock else "id: reduceMotionSwitch" if reduce_motion else "id: autoHideSwitch")
         start = source.rfind("                        Row {", 0, control)
-        end = source.index('                        Label { text: Eitr.I18n.tr("Show on") }', control) if reduce_motion else source.index("                        Row {", control)
+        end = source.index("\n                        }", control) + len("\n                        }")
         row = source[start:end]
         if dock:
             row = row.replace("dockSwitch", "autoHideSwitch").replace("center.barDock", "center.barAutoHide")

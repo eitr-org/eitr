@@ -347,17 +347,17 @@ ThemedPopup {
                         Section { text: Eitr.I18n.tr("Quick Toggles"); width: parent.width }
                         GridLayout {
                             width: parent.width; columns: 2; columnSpacing: PanelStyle.selectionActionGap; rowSpacing: PanelStyle.selectionRowGap
-                            ToggleTile { title: Eitr.I18n.tr("Idle Lock"); glyph: "󱫖"; selected: center.idleEnabled; available: !center.idleBusy; onClicked: center.idleToggleRequested() }
-                            ToggleTile { title: Eitr.I18n.tr("Crash Notifications"); glyph: "󰅚"; selected: center.crashNotifications; available: !crashOperation.running; onClicked: { center.actionError = ""; crashOperation.running = true; } }
-                            ToggleTile { title: Eitr.I18n.tr("Do Not Disturb"); glyph: "󰂛"; selected: center.service.doNotDisturb; onClicked: center.service.toggleDnd() }
+                            ToggleTile { title: Eitr.I18n.tr("Idle Lock"); tooltip: Eitr.I18n.tr("Lock the screen automatically when you're away."); glyph: "󱫖"; selected: center.idleEnabled; available: !center.idleBusy; onClicked: center.idleToggleRequested() }
+                            ToggleTile { title: Eitr.I18n.tr("Crash Notifications"); tooltip: Eitr.I18n.tr("Show help notifications when a program crashes."); glyph: "󰅚"; selected: center.crashNotifications; available: !crashOperation.running; onClicked: { center.actionError = ""; crashOperation.running = true; } }
+                            ToggleTile { title: Eitr.I18n.tr("Do Not Disturb"); tooltip: Eitr.I18n.tr("Silence popups while keeping notification history."); glyph: "󰂛"; selected: center.service.doNotDisturb; onClicked: center.service.toggleDnd() }
                             ToggleTile {
                                 visible: center.organizationPolicy.gaming === true
-                                title: Eitr.I18n.tr("Game Mode"); glyph: "󰊴"; selected: center.gameMode
+                                title: Eitr.I18n.tr("Game Mode"); tooltip: Eitr.I18n.tr("Disable effects and popups; use the performance profile."); glyph: "󰊴"; selected: center.gameMode
                                 available: !gameModeOperation.running
                                 onClicked: { center.actionError = ""; gameModeOperation.running = true; }
                             }
                             ToggleTile {
-                                title: Eitr.I18n.tr("Night Light"); glyph: "󰖔"
+                                title: Eitr.I18n.tr("Night Light"); tooltip: Eitr.I18n.tr("Use warmer screen colors."); glyph: "󰖔"
                                 detail: center.displayControl.nightlight.mode === "auto" ? Eitr.I18n.tr("Scheduled") : ""
                                 selected: center.displayControl.nightlight.mode === "on" || !!center.displayControl.nightlight.active
                                 available: !!center.displayControl.nightlight.available
@@ -366,8 +366,8 @@ ThemedPopup {
                         }
                         GridLayout {
                             width: parent.width; columns: 2; columnSpacing: PanelStyle.selectionActionGap; rowSpacing: PanelStyle.selectionRowGap
-                            GridAction { title: Eitr.I18n.tr("Hide Bar"); glyph: "󰍜"; onClicked: center.menuAction("toggle", "Desktop Bar") }
-                            GridAction { title: Eitr.I18n.tr("Screensaver"); glyph: "󱄄"; onClicked: center.menuAction("toggle", "Screensaver") }
+                            GridAction { title: Eitr.I18n.tr("Hide Bar"); tooltip: Eitr.I18n.tr("Hide the bar; press SUPER + Shift + Space to restore it."); glyph: "󰍜"; onClicked: center.menuAction("toggle", "Desktop Bar") }
+                            GridAction { title: Eitr.I18n.tr("Screensaver"); tooltip: Eitr.I18n.tr("Start the screensaver now."); glyph: "󱄄"; onClicked: center.menuAction("toggle", "Screensaver") }
                         }
                     }
                     Column {
@@ -410,28 +410,66 @@ ThemedPopup {
                     Column {
                         visible: center.page === "style"; width: parent.width; spacing: 12
                         Fold {
+                        title: Eitr.I18n.tr("Theme & Wallpaper"); startOpen: true
+                        GridLayout { width: parent.width; columns: 2; columnSpacing: 8; rowSpacing: 8
+                            GridAction { title: Eitr.I18n.tr("Theme"); glyph: "󰏘"; onClicked: center.pickerRequested("theme") }
+                            GridAction { title: Eitr.I18n.tr("Wallpaper"); glyph: "󰸉"; onClicked: center.pickerRequested("wallpaper") }
+                            GridAction { title: Eitr.I18n.tr("Default Font"); glyph: "󰛖"; onClicked: center.walkerMenu("fonts") }
+                        }
+                        }
+                        Fold {
+                        title: Eitr.I18n.tr("Corners")
+                        Row {
+                            width: parent.width; spacing: 8
+                            Repeater {
+                                model: DesktopStyle.options
+                                PanelButton {
+                                    required property var modelData
+                                    width: (parent.width - 16) / 3
+                                    text: Eitr.I18n.tr(modelData.label); textSize: 12
+                                    foreground: center.foreground
+                                    selected: DesktopStyle.corners === modelData.key
+                                    onClicked: DesktopStyle.select(modelData.key)
+                                }
+                            }
+                        }
+                        }
+                        Fold {
                         title: Eitr.I18n.tr("Bar")
-                        Label { text: Eitr.I18n.tr("Media style") }
-                        Row { width: parent.width; spacing: 8
-                            PanelButton { width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Bars"); selected: center.mediaStyle === "bars"; foreground: center.foreground; onClicked: center.settingRequested("mediaStyle", "bars") }
-                            PanelButton { width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Line"); selected: center.mediaStyle === "line"; foreground: center.foreground; onClicked: center.settingRequested("mediaStyle", "line") }
-                        }
-                        Label { text: Eitr.I18n.tr("Clock") }
-                        Row { width: parent.width; spacing: 8
-                            PanelButton { width: (parent.width - 8) / 2; text: Eitr.I18n.tr("12-hour"); selected: center.clockFormat === "12h"; foreground: center.foreground; onClicked: center.settingRequested("clock", "12h") }
-                            PanelButton { width: (parent.width - 8) / 2; text: Eitr.I18n.tr("24-hour"); selected: center.clockFormat === "24h"; foreground: center.foreground; onClicked: center.settingRequested("clock", "24h") }
-                        }
-                        Label { text: Eitr.I18n.tr("Appearance") }
-                        Row { width: parent.width; spacing: 8
-                            PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Blur"); selected: center.appearance === "transparent"; foreground: center.foreground; onClicked: center.settingRequested("appearance", "transparent") }
-                            PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Theme Color"); selected: center.appearance === "solid"; foreground: center.foreground; onClicked: center.settingRequested("appearance", "solid") }
-                        }
+                        OptionHeading { text: Eitr.I18n.tr("Layout") }
                         Grid { width: parent.width; columns: 2; spacing: 8
                             PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Unified"); selected: center.layout === "unified"; foreground: center.foreground; onClicked: center.settingRequested("layout", "unified") }
                             PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Centered"); selected: center.layout === "centered"; foreground: center.foreground; onClicked: center.settingRequested("layout", "centered") }
                             PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Tabs"); selected: center.layout === "notch"; foreground: center.foreground; onClicked: center.settingRequested("layout", "notch") }
                             PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Islands"); selected: center.layout === "islands"; foreground: center.foreground; onClicked: center.settingRequested("layout", "islands") }
                         }
+                        OptionHeading { text: Eitr.I18n.tr("Position") }
+                        GridLayout { width: parent.width; columns: 2; columnSpacing: 8; rowSpacing: 8
+                            Repeater { model: ["top", "bottom", "left", "right"]
+                                PanelButton { textSize: 12; iconSize: 16; required property string modelData; Layout.fillWidth: true; text: modelData.charAt(0).toUpperCase() + modelData.slice(1); foreground: center.foreground; selected: center.barPosition === modelData; onClicked: center.settingRequested("edge", modelData) }
+                            }
+                        }
+                        OptionHeading { text: Eitr.I18n.tr("Appearance") }
+                        Row { width: parent.width; spacing: 8
+                            PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Blur"); selected: center.appearance === "transparent"; foreground: center.foreground; onClicked: center.settingRequested("appearance", "transparent") }
+                            PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Theme Color"); selected: center.appearance === "solid"; foreground: center.foreground; onClicked: center.settingRequested("appearance", "solid") }
+                        }
+                        OptionHeading { text: Eitr.I18n.tr("Show on") }
+                        Row { width: parent.width; spacing: 8
+                            PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Main Display"); selected: center.barScreens === "main"; foreground: center.foreground; onClicked: center.settingRequested("screens", "main") }
+                            PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("All Displays"); selected: center.barScreens === "all"; foreground: center.foreground; onClicked: center.settingRequested("screens", "all") }
+                        }
+                        OptionHeading { text: Eitr.I18n.tr("Clock") }
+                        Row { width: parent.width; spacing: 8
+                            PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("12-hour"); selected: center.clockFormat === "12h"; foreground: center.foreground; onClicked: center.settingRequested("clock", "12h") }
+                            PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("24-hour"); selected: center.clockFormat === "24h"; foreground: center.foreground; onClicked: center.settingRequested("clock", "24h") }
+                        }
+                        OptionHeading { text: Eitr.I18n.tr("Media style") }
+                        Row { width: parent.width; spacing: 8
+                            PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Bars"); selected: center.mediaStyle === "bars"; foreground: center.foreground; onClicked: center.settingRequested("mediaStyle", "bars") }
+                            PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Line"); selected: center.mediaStyle === "line"; foreground: center.foreground; onClicked: center.settingRequested("mediaStyle", "line") }
+                        }
+                        OptionHeading { text: Eitr.I18n.tr("Behavior") }
                         Row {
                             width: parent.width; spacing: PanelStyle.selectionActionGap
                             Text {
@@ -477,17 +515,6 @@ ThemedPopup {
                                 onClicked: center.settingRequested("reduceMotion", checked ? "yes" : "no")
                             }
                         }
-                        Label { text: Eitr.I18n.tr("Show on") }
-                        Row { width: parent.width; spacing: 8
-                            PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Main Display"); selected: center.barScreens === "main"; foreground: center.foreground; onClicked: center.settingRequested("screens", "main") }
-                            PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("All Displays"); selected: center.barScreens === "all"; foreground: center.foreground; onClicked: center.settingRequested("screens", "all") }
-                        }
-                        Label { text: Eitr.I18n.tr("Position") }
-                        GridLayout { width: parent.width; columns: 2; columnSpacing: 8; rowSpacing: 8
-                            Repeater { model: ["top", "bottom", "left", "right"]
-                                PanelButton { textSize: 12; iconSize: 16; required property string modelData; Layout.fillWidth: true; text: modelData.charAt(0).toUpperCase() + modelData.slice(1); foreground: center.foreground; selected: center.barPosition === modelData; onClicked: center.settingRequested("edge", modelData) }
-                            }
-                        }
                         }
                         Fold {
                         title: Eitr.I18n.tr("Workspaces")
@@ -509,27 +536,6 @@ ThemedPopup {
                                 }
                             }
                         }
-                        }
-                        Section { text: Eitr.I18n.tr("Corners"); width: parent.width }
-                        Row {
-                            width: parent.width; spacing: 8
-                            Repeater {
-                                model: DesktopStyle.options
-                                PanelButton {
-                                    required property var modelData
-                                    width: (parent.width - 16) / 3
-                                    text: Eitr.I18n.tr(modelData.label); textSize: 12
-                                    foreground: center.foreground
-                                    selected: DesktopStyle.corners === modelData.key
-                                    onClicked: DesktopStyle.select(modelData.key)
-                                }
-                            }
-                        }
-                        Section { text: Eitr.I18n.tr("Theme & Wallpaper"); width: parent.width }
-                        GridLayout { width: parent.width; columns: 2; columnSpacing: 8; rowSpacing: 8
-                            GridAction { title: Eitr.I18n.tr("Theme"); glyph: "󰏘"; onClicked: center.pickerRequested("theme") }
-                            GridAction { title: Eitr.I18n.tr("Wallpaper"); glyph: "󰸉"; onClicked: center.pickerRequested("wallpaper") }
-                            GridAction { title: Eitr.I18n.tr("Default Font"); glyph: "󰛖"; onClicked: center.walkerMenu("fonts") }
                         }
                         Fold {
                             title: Eitr.I18n.tr("Lockscreen")
@@ -554,7 +560,7 @@ ThemedPopup {
                                     id: cursorGroup
                                     required property var modelData
                                     width: parent.width; spacing: 6
-                                    Label { text: cursorGroup.modelData.label; opacity: 0.7 }
+                                    OptionHeading { text: cursorGroup.modelData.label }
                                     Flow { width: parent.width; spacing: 6
                                         Repeater { model: center.cursorChoices[cursorGroup.modelData.key] || []
                                             PanelButton {
@@ -570,15 +576,17 @@ ThemedPopup {
                                 }
                             }
                         }
-                        Section { text: Eitr.I18n.tr("Terminal"); width: parent.width }
-                        Item { width: parent.width; height: 32
-                            Label { width: parent.width - 60; anchors.verticalCenter: parent.verticalCenter; wrapMode: Text.WordWrap; text: Eitr.I18n.tr("Cursor Fire: a blazing trail behind Kitty's cursor") }
+                        Fold {
+                        title: Eitr.I18n.tr("Terminal")
+                        Item { width: parent.width; height: Math.max(32, terminalLabel.implicitHeight)
+                            Label { id: terminalLabel; width: parent.width - 60; anchors.verticalCenter: parent.verticalCenter; wrapMode: Text.WordWrap; text: Eitr.I18n.tr("Cursor Fire: a blazing trail behind Kitty's cursor") }
                             PanelSwitch {
                                 anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter
                                 checked: center.cursorFire; enabled: !fireWrite.running
                                 foreground: center.foreground; accent: center.accent
                                 onToggled: center.run(fireWrite, ["python3", center.effectsScript, "set", "cursor-fire", checked ? "on" : "off"])
                             }
+                        }
                         }
                     }
                     Column {
@@ -630,10 +638,10 @@ ThemedPopup {
                         title: Eitr.I18n.tr("Night Light & Main Display")
                         Row { width: parent.width; spacing: 8
                             Repeater { model: ["off", "on", "auto"]
-                                PanelButton { textSize: 12; iconSize: 16; required property string modelData; width: (content.width - 16) / 3; text: modelData.charAt(0).toUpperCase() + modelData.slice(1); foreground: center.foreground; selected: center.displayControl.nightlight.mode === modelData; available: !!center.displayControl.nightlight.available; onClicked: center.displayControl.setNightlight(modelData) }
+                                PanelButton { textSize: 12; iconSize: 16; required property string modelData; width: (parent.width - 16) / 3; text: modelData.charAt(0).toUpperCase() + modelData.slice(1); foreground: center.foreground; selected: center.displayControl.nightlight.mode === modelData; available: !!center.displayControl.nightlight.available; onClicked: center.displayControl.setNightlight(modelData) }
                             }
                         }
-                        Label { text: Eitr.I18n.tr("Night Light schedule") }
+                        OptionHeading { text: Eitr.I18n.tr("Night Light schedule") }
                         Row { width: parent.width; spacing: 8
                             TextField {
                                 id: scheduleStart; width: (parent.width - 8) / 2; height: 36
@@ -651,7 +659,7 @@ ThemedPopup {
                             }
                         }
                         Label { visible: center.displayControl.nightlightError !== ""; width: parent.width; wrapMode: Text.WordWrap; text: center.displayControl.nightlightError }
-                        Label { text: Eitr.I18n.tr("Main display") }
+                        OptionHeading { text: Eitr.I18n.tr("Main display") }
                         Column {
                         width: parent.width; spacing: PanelStyle.selectionRowGap
                         Repeater {
@@ -764,22 +772,29 @@ ThemedPopup {
     component Section: PanelDivider {
         foreground: center.foreground
     }
-    // A section that folds, closed until opened: its title row toggles it, remembered
-    // for the session.
-    component Fold: Column {
+    // Fold choices persist for the session; the surface encloses header and body.
+    component Fold: Item {
         id: fold
         required property string title
         property bool startOpen: false
         default property alias body: foldBody.data
         readonly property bool open: center.folds[title] === undefined ? startOpen : center.folds[title]
-        width: parent ? parent.width : 0; spacing: 10
+        width: parent ? parent.width : 0
+        implicitHeight: foldHeader.height + (open ? foldBody.implicitHeight + PanelStyle.selectionInset * 2 : 0)
         Rectangle {
+            anchors.fill: parent
+            radius: DesktopStyle.radius(PanelStyle.controlRadius)
+            color: Qt.alpha(center.foreground, PanelStyle.selectionAlpha(false, false))
+            border.width: 1; border.color: Qt.alpha(center.foreground, PanelStyle.dividerAlpha)
+        }
+        Rectangle {
+            id: foldHeader
             width: parent.width; height: 34
             radius: DesktopStyle.radius(PanelStyle.controlRadius)
-            color: Qt.alpha(center.foreground, foldMouse.containsMouse ? 0.12 : fold.open ? 0.07 : 0.04)
-            border.width: 1; border.color: Qt.alpha(center.foreground, PanelStyle.dividerAlpha)
+            color: Qt.alpha(center.foreground, foldMouse.containsMouse ? PanelStyle.selectionAlpha(false, true) : 0)
             Text {
-                x: 12; anchors.verticalCenter: parent.verticalCenter
+                x: 12; width: parent.width - 42; anchors.verticalCenter: parent.verticalCenter
+                elide: Text.ElideRight
                 text: fold.title.toUpperCase(); color: center.foreground
                 font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize; font.bold: true; font.letterSpacing: 0.6
             }
@@ -790,9 +805,24 @@ ThemedPopup {
             }
             MouseArea { id: foldMouse; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: center.setFold(fold.title, !fold.open) }
         }
-        Column { id: foldBody; visible: fold.open; width: parent.width; spacing: 12 }
+        Column {
+            id: foldBody
+            visible: fold.open
+            x: PanelStyle.selectionInset; y: foldHeader.height + PanelStyle.selectionInset
+            width: fold.width - PanelStyle.selectionInset * 2; spacing: PanelStyle.selectionRowGap
+        }
+    }
+    component OptionHeading: Label {
+        width: parent.width
+        topPadding: PanelStyle.selectionRowGap
+        wrapMode: Text.WordWrap
+        opacity: PanelStyle.secondaryTextOpacity
     }
     component GridAction: PanelButton {
+        id: action
+        property string tooltip: ""
+        HoverHandler { id: actionHover; enabled: action.tooltip !== "" }
+        BarTooltip { target: action; hovered: actionHover.hovered; text: action.tooltip; foreground: center.foreground; background: center.background }
         required property string title
         required property string glyph
         property url image: ""
@@ -801,9 +831,10 @@ ThemedPopup {
         text: title; leadingIcon: glyph; leadingImage: image; foreground: center.foreground; textAlignment: Text.AlignLeft
     }
     component Label: Text {
-        color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: 12
+        color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
     }
     component Tile: ControlCenterTile {
+        tooltipBackground: center.background
         foreground: center.foreground; accent: center.accent; accentInk: PanelStyle.readableInk(center.accent, center.foreground, center.background)
     }
     // On/off switches: the accent fill shows the state, so no On/Off subtitle is needed.

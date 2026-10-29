@@ -2,7 +2,7 @@
 
 Pressione **SUPER + ,** para abrir ou fechar a Central de controle. Ele abre pela borda atual da barra e fecha com Escape ou um clique fora. Ao fechar, volta à página Geral.
 
-Suas cinco páginas reúnem tudo que fica fora de Desenvolvimento, Aplicativos, Instalar, Aprender e Jogos; assim, a maioria das configurações dispensa o Walker. As seções recolhíveis começam fechadas; clique no título para abrir ou fechar, com a escolha lembrada até sair da sessão. Quando há um painel próprio na barra (OBS, WiFi, Bluetooth, Áudio, Tela, Hardware, Uso de IA ou Clima), a Central de controle abre esse painel.
+Suas cinco páginas reúnem tudo que fica fora de Desenvolvimento, Aplicativos, Instalar, Aprender e Jogos; assim, a maioria das configurações dispensa o Walker. As seções recolhíveis geralmente começam fechadas; clique no título para abrir ou fechar, com a escolha lembrada até sair da sessão. Quando há um painel próprio na barra (OBS, WiFi, Bluetooth, Áudio, Tela, Hardware, Uso de IA ou Clima), a Central de controle abre esse painel.
 
 ## Geral
 
@@ -16,6 +16,8 @@ Suas cinco páginas reúnem tudo que fica fora de Desenvolvimento, Aplicativos, 
 O Modo avião lembra quais conexões bloqueou e restaura apenas essas. Não perturbe suprime pop-ups sem limpar o histórico de notificações. Bloqueio automático não é o mesmo que impedir suspensão; cuide da privacidade da tela.
 
 ## Estilo
+
+Estilo organiza as configurações em Tema e papel de parede (aberto inicialmente), Cantos, Barra, Espaços de trabalho, Tela de bloqueio, Cursor e Terminal. Clique no título de um grupo para recolhê-lo; sua superfície delimita todas as opções. Barra reúne Layout, Posição, Aparência, Mostrar em, Relógio, Estilo de mídia e Comportamento. Comportamento contém Ocultar automaticamente, Dock e Reduzir movimento.
 
 Tema e Papel de parede abrem seus carrosséis; Fonte padrão abre a lista de fontes. O tema da tela de bloqueio, cursor (família, tamanho e cor), aparência, layout, borda e monitores da barra, marcadores de espaços, cantos e Cursor Fire do Kitty mudam diretamente no painel e compartilham suas preferências com o Walker.
 

@@ -440,5 +440,14 @@
   "Clock": "Uhr",
   "12-hour": "12 Stunden",
   "24-hour": "24 Stunden",
-  "ddd MMM dd HH:mm": "ddd MMM dd HH:mm"
+  "ddd MMM dd HH:mm": "ddd MMM dd HH:mm",
+  "Behavior": "Verhalten",
+  "Layout": "Anordnung",
+  "Lock the screen automatically when you're away.": "Sperre den Bildschirm automatisch bei Abwesenheit.",
+  "Show help notifications when a program crashes.": "Zeige Hilfebenachrichtigungen bei Programmabstürzen.",
+  "Silence popups while keeping notification history.": "Blende Popups aus und behalte den Benachrichtigungsverlauf.",
+  "Disable effects and popups; use the performance profile.": "Schalte Effekte und Popups aus und nutze das Leistungsprofil.",
+  "Use warmer screen colors.": "Verwende wärmere Bildschirmfarben.",
+  "Hide the bar; press SUPER + Shift + Space to restore it.": "Blende die Leiste aus; SUPER + Shift + Space zeigt sie wieder.",
+  "Start the screensaver now.": "Starte jetzt den Bildschirmschoner."
 }

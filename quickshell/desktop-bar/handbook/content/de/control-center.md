@@ -2,7 +2,7 @@
 
 **SUPER + ,** öffnet oder schließt das Kontrollzentrum. Es öffnet am aktuellen Leistenrand und schließt mit Escape oder einem Klick außerhalb. Beim Schließen wird auf Allgemein zurückgesetzt.
 
-Seine fünf Seiten enthalten alles außerhalb von Entwicklung, Apps, Installieren, Lernen und Spielen; die meisten Einstellungen brauchen daher keinen Walker. Einklappbare Abschnitte beginnen geschlossen; ein Klick auf den Titel schaltet sie um und bleibt bis zur Abmeldung gespeichert. Gibt es ein eigenes Leistenpanel (OBS, WiFi, Bluetooth, Audio, Bildschirm, Hardware, KI-Nutzung, Wetter), öffnet das Kontrollzentrum dieses.
+Seine fünf Seiten enthalten alles außerhalb von Entwicklung, Apps, Installieren, Lernen und Spielen; die meisten Einstellungen brauchen daher keinen Walker. Einklappbare Abschnitte beginnen normalerweise geschlossen; ein Klick auf den Titel schaltet sie um und bleibt bis zur Abmeldung gespeichert. Gibt es ein eigenes Leistenpanel (OBS, WiFi, Bluetooth, Audio, Bildschirm, Hardware, KI-Nutzung, Wetter), öffnet das Kontrollzentrum dieses.
 
 ## Allgemein
 
@@ -16,6 +16,8 @@ Seine fünf Seiten enthalten alles außerhalb von Entwicklung, Apps, Installiere
 Der Flugmodus merkt sich gesperrte Funkverbindungen und stellt nur diese wieder her. Nicht stören unterdrückt Popups, ohne den Verlauf zu löschen. Automatische Sperre ist nicht dasselbe wie das Verhindern des Schlafmodus; beachte den Schutz deines Bildschirminhalts.
 
 ## Stil
+
+Stil gliedert die Einstellungen in Theme & Hintergrundbild (anfangs geöffnet), Ecken, Leiste, Arbeitsflächen, Sperrbildschirm, Mauszeiger und Terminal. Ein Klick auf den Gruppentitel klappt die Gruppe ein; ihre Fläche umfasst alle zugehörigen Optionen. Leiste enthält Anordnung, Position, Erscheinungsbild, Anzeigen auf, Uhr, Medienstil und Verhalten. Verhalten umfasst Automatisch ausblenden, Dock und Bewegung reduzieren.
 
 Design und Hintergrundbild öffnen ihre Karussells; Standardschrift öffnet die Schriftliste. Sperrbildschirmdesign, Mauszeiger (Familie, Größe, Farbe), Leistenerscheinung, Layout, Rand und Bildschirme, Arbeitsflächenmarkierungen, Ecken und Kittys Cursor Fire ändere direkt im Panel. Die Einstellungen werden mit Walker geteilt.
 

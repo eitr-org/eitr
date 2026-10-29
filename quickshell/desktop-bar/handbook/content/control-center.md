@@ -4,7 +4,7 @@ Press **SUPER + ,** to toggle the Control Center. It opens from the bar's curren
 edge and closes on Escape or an outside click. Closing returns it to General.
 
 Its five pages hold everything outside Development, Apps, Install, Learn and
-Gaming, so most settings never need Walker. Folding sections start closed; click
+Gaming, so most settings never need Walker. Folding sections usually start closed; click
 a section's title to open or close it, remembered until you log out. Where the bar has its own panel (OBS, WiFi,
 Bluetooth, Audio, Display, Hardware, AI Usage, Weather), the Control Center opens it.
 
@@ -25,6 +25,8 @@ Do Not Disturb suppresses popups without clearing notification history.
 Idle Lock is not the same as preventing sleep; be mindful of screen privacy.
 
 ## Style
+
+Style groups its settings into Theme & Wallpaper (open initially), Corners, Bar, Workspaces, Lockscreen, Cursor and Terminal. Click a group header to fold it; its surface encloses all its options. Bar groups Layout, Position, Appearance, Show on, Clock, Media style and Behavior. Behavior contains Auto-hide, Dock and Reduce motion.
 
 Theme and Wallpaper open their carousels; Default Font opens the font list. The
 lockscreen design, cursor (family, size and color), bar appearance, layout,

@@ -465,7 +465,16 @@ var qml = {
     "12-hour": "12-hour",
     "24-hour": "24-hour",
     "Clock": "Clock",
-    "ddd MMM dd HH:mm": "ddd MMM dd HH:mm"
+    "ddd MMM dd HH:mm": "ddd MMM dd HH:mm",
+    "Behavior": "Behavior",
+    "Layout": "Layout",
+    "Disable effects and popups; use the performance profile.": "Disable effects and popups; use the performance profile.",
+    "Hide the bar; press SUPER + Shift + Space to restore it.": "Hide the bar; press SUPER + Shift + Space to restore it.",
+    "Lock the screen automatically when you're away.": "Lock the screen automatically when you're away.",
+    "Show help notifications when a program crashes.": "Show help notifications when a program crashes.",
+    "Silence popups while keeping notification history.": "Silence popups while keeping notification history.",
+    "Use warmer screen colors.": "Use warmer screen colors.",
+    "Start the screensaver now.": "Start the screensaver now."
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -909,7 +918,16 @@ var qml = {
     "Clock": "Relógio",
     "12-hour": "12 horas",
     "24-hour": "24 horas",
-    "ddd MMM dd HH:mm": "ddd MMM dd HH:mm"
+    "ddd MMM dd HH:mm": "ddd MMM dd HH:mm",
+    "Behavior": "Comportamento",
+    "Layout": "Layout",
+    "Lock the screen automatically when you're away.": "Bloqueie a tela automaticamente quando estiver ausente.",
+    "Show help notifications when a program crashes.": "Mostre notificações de ajuda quando um programa travar.",
+    "Silence popups while keeping notification history.": "Silencie os pop-ups sem apagar o histórico de notificações.",
+    "Disable effects and popups; use the performance profile.": "Desative efeitos e pop-ups e use o perfil de desempenho.",
+    "Use warmer screen colors.": "Use cores mais quentes na tela.",
+    "Hide the bar; press SUPER + Shift + Space to restore it.": "Oculte a barra; SUPER + Shift + Space a traz de volta.",
+    "Start the screensaver now.": "Inicie o protetor de tela agora."
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1353,7 +1371,16 @@ var qml = {
     "Clock": "Reloj",
     "12-hour": "12 horas",
     "24-hour": "24 horas",
-    "ddd MMM dd HH:mm": "ddd MMM dd HH:mm"
+    "ddd MMM dd HH:mm": "ddd MMM dd HH:mm",
+    "Behavior": "Comportamiento",
+    "Layout": "Distribución",
+    "Lock the screen automatically when you're away.": "Bloquea la pantalla automáticamente cuando te ausentas.",
+    "Show help notifications when a program crashes.": "Muestra ayuda cuando un programa falla.",
+    "Silence popups while keeping notification history.": "Silencia los avisos sin borrar el historial de notificaciones.",
+    "Disable effects and popups; use the performance profile.": "Desactiva efectos y avisos y usa el perfil de rendimiento.",
+    "Use warmer screen colors.": "Usa colores de pantalla más cálidos.",
+    "Hide the bar; press SUPER + Shift + Space to restore it.": "Oculta la barra; SUPER + Shift + Space la restaura.",
+    "Start the screensaver now.": "Inicia el salvapantallas ahora."
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1797,7 +1824,16 @@ var qml = {
     "Clock": "Uhr",
     "12-hour": "12 Stunden",
     "24-hour": "24 Stunden",
-    "ddd MMM dd HH:mm": "ddd MMM dd HH:mm"
+    "ddd MMM dd HH:mm": "ddd MMM dd HH:mm",
+    "Behavior": "Verhalten",
+    "Layout": "Anordnung",
+    "Lock the screen automatically when you're away.": "Sperre den Bildschirm automatisch bei Abwesenheit.",
+    "Show help notifications when a program crashes.": "Zeige Hilfebenachrichtigungen bei Programmabstürzen.",
+    "Silence popups while keeping notification history.": "Blende Popups aus und behalte den Benachrichtigungsverlauf.",
+    "Disable effects and popups; use the performance profile.": "Schalte Effekte und Popups aus und nutze das Leistungsprofil.",
+    "Use warmer screen colors.": "Verwende wärmere Bildschirmfarben.",
+    "Hide the bar; press SUPER + Shift + Space to restore it.": "Blende die Leiste aus; SUPER + Shift + Space zeigt sie wieder.",
+    "Start the screensaver now.": "Starte jetzt den Bildschirmschoner."
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2241,6 +2277,15 @@ var qml = {
     "Clock": "Horloge",
     "12-hour": "12 heures",
     "24-hour": "24 heures",
-    "ddd MMM dd HH:mm": "ddd MMM dd HH:mm"
+    "ddd MMM dd HH:mm": "ddd MMM dd HH:mm",
+    "Behavior": "Comportement",
+    "Layout": "Disposition",
+    "Lock the screen automatically when you're away.": "Verrouillez l’écran automatiquement en votre absence.",
+    "Show help notifications when a program crashes.": "Affichez une aide lorsqu’un programme plante.",
+    "Silence popups while keeping notification history.": "Masquez les notifications sans effacer leur historique.",
+    "Disable effects and popups; use the performance profile.": "Désactivez effets et notifications et activez le profil performance.",
+    "Use warmer screen colors.": "Utilisez des couleurs d’écran plus chaudes.",
+    "Hide the bar; press SUPER + Shift + Space to restore it.": "Masquez la barre ; SUPER + Shift + Space la réaffiche.",
+    "Start the screensaver now.": "Lancez l’économiseur d’écran maintenant."
   }
 };
