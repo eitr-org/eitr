@@ -49,8 +49,10 @@ LAN.
   background behavior gets none.
   Describe remote access as verified only after the real-device tests above pass.
 - **Search indexing and measurement.** eitr.info is verified in Google Search
-  Console and Bing Webmaster Tools with the sitemap submitted (2026-10-22). Check
-  that both read it, then track impressions, queries and clicks there without
+  Console and Bing Webmaster Tools. Bing reads the sitemap (2026-10-29); Google
+  indexes the home page but its sitemap entry was stuck on "Couldn't fetch", so the
+  owner resubmitted it (2026-10-29): check it reads Success. Then track impressions,
+  queries and clicks there without
   adding site analytics. Periodically spot-check whether search/AI answers
   identify Eitr accurately; inclusion and recommendations are not guaranteed.
 - **Releases and public evidence.** After the owner records the video, add a website Releases page and prepare
