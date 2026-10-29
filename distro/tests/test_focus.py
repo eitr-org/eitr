@@ -46,7 +46,9 @@ class FakeHypr:
             return {'css': '6 8 10 12'}
         if name == 'general:layout':
             return {'str': 'dwindle'}
-        return {'int': 1}
+        if name in ('general:border_size', 'decoration:rounding'):
+            return {'int': 1}
+        return {'bool': True}
 
     def evaluate(self, text):
         self.commands.append(text)

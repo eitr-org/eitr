@@ -117,7 +117,7 @@ class NativeFakeHypr(Hypr):
         self.bar_recovered = True
 
     def option(self, name):
-        return {'css': '6 6 6 6', 'int': 1, 'str': 'dwindle'}
+        return {'css': '6 6 6 6', 'int': 1, 'bool': True, 'str': 'dwindle'}
 
     def run(self, *arguments):
         if arguments[0] == 'reload':

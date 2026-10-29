@@ -49,7 +49,7 @@ def snapshot(hypr):
                 raise ValueError('Expected four compositor gap values')
             values[name] = dict(zip(('top', 'right', 'bottom', 'left'), parts))
         elif kind == 'bool':
-            values[name] = bool(value['int'])
+            values[name] = bool(value['bool'])
         else:
             values[name] = value[kind]
     write_settings(state('eitr/focus-session.json'), {
@@ -250,7 +250,7 @@ def change(action, hypr):
         gather(hypr)
     elif previous or any(client.get('workspace', {}).get('name', '').startswith(PREFIX)
                          for client in hypr.query('clients')):
-        merge_policy = hypr.option('group:group_on_movetoworkspace')['int']
+        merge_policy = hypr.option('group:group_on_movetoworkspace')['bool']
         spread(hypr)
         hypr.evaluate('hl.config({group={group_on_movetoworkspace=' + ('true' if merge_policy else 'false') + '}})')
     if not desired:
