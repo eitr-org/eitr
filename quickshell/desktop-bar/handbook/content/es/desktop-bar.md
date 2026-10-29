@@ -13,6 +13,7 @@ El icono de actualizaciones está en el grupo derecho, antes de Notificaciones, 
 - Haz doble clic izquierdo en el **espacio vacío de la barra** para alternar Desenfoque/Color del tema; las instalaciones nuevas comienzan con Color del tema.
 - Haz doble clic derecho en el espacio vacío para recorrer Completa → Centrada → Pestañas → Islas → Completa.
 - Arrastra el espacio vacío hacia arriba, abajo, izquierda o derecha para mover la barra. A izquierda y derecha la barra es tan estrecha como arriba y abajo: el reloj muestra la hora sobre los minutos con un icono de calendario y el tiempo solo su icono; pasa el puntero para ver la fecha y la temperatura.
+- **Reloj** en Estilo > Barra del escritorio y Centro de control > Estilo > Barra muestra la hora en formato de 12 horas con AM/PM (predeterminado) o de 24 horas, en cualquier borde.
 - Las mismas opciones están en **Estilo > Barra del escritorio** y Centro de control > Estilo.
 - **Pantallas** (Mostrar en) coloca la barra solo en la principal, por defecto, o en todas. En todas, cada barra marca el espacio de trabajo de su pantalla; atajos como SUPER + , se abren en la pantalla en uso y las notificaciones aparecen solo en la principal. Elige la principal en el panel Pantalla.
 

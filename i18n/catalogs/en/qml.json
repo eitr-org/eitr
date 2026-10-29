@@ -436,5 +436,9 @@
   "Update available": "Update available",
   "Dock": "Dock",
   "Islands": "Islands",
-  "ddd MMM dd": "ddd MMM dd"
+  "ddd MMM dd": "ddd MMM dd",
+  "12-hour": "12-hour",
+  "24-hour": "24-hour",
+  "Clock": "Clock",
+  "ddd MMM dd HH:mm": "ddd MMM dd HH:mm"
 }

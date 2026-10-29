@@ -6,6 +6,12 @@
     "02 / NEO ORBITAL": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
+    "12-hour": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
+    "24-hour": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
     "ACCESS DENIED": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml",
       "quickshell/lockscreen/themes/nothing/Main.qml"
@@ -199,6 +205,9 @@
     ],
     "Clear all": [
       "quickshell/desktop-bar/NotificationList.qml"
+    ],
+    "Clock": [
+      "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Clockwork Neo Orbital": [
       "quickshell/lockscreen/design-gallery.qml"
@@ -1318,6 +1327,9 @@
     "ddd MMM dd": [
       "quickshell/desktop-bar/shell.qml"
     ],
+    "ddd MMM dd HH:mm": [
+      "quickshell/desktop-bar/shell.qml"
+    ],
     "ddd MMM dd hh:mm AP": [
       "quickshell/desktop-bar/shell.qml"
     ],
@@ -1390,6 +1402,12 @@
     ]
   },
   "menus": {
+    "12-hour": [
+      "elephant/menus/bar-clock.lua"
+    ],
+    "24-hour": [
+      "elephant/menus/bar-clock.lua"
+    ],
     "A design with your own picture, color and greeting": [
       "elephant/menus/lockscreen.lua"
     ],
@@ -1672,6 +1690,10 @@
     "Clipboard History": [
       "elephant/menu-rows/shortcuts.json",
       "elephant/menus/clipboard.lua"
+    ],
+    "Clock": [
+      "elephant/menu-rows/bar.json",
+      "elephant/menus/bar-clock.lua"
     ],
     "Close Window": [
       "elephant/menu-rows/shortcuts.json"
@@ -3157,6 +3179,12 @@
     ],
     "This CLI has no supported isolated account folder": [
       "elephant/ai-account-entries.lua"
+    ],
+    "Time from 00:00 to 23:59, like 21:30": [
+      "elephant/menus/bar-clock.lua"
+    ],
+    "Time with AM or PM, like 09:30 PM": [
+      "elephant/menus/bar-clock.lua"
     ],
     "Tmux Commands": [
       "elephant/menu-rows/learn.json"

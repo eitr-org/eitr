@@ -34,6 +34,7 @@ ThemedPopup {
     property bool barAutoHide: false
     property bool barDock: true
     property string mediaStyle: "bars"
+    property string clockFormat: "12h"
     property string workspaceStyle: "Runes"
     property var airplane: ({available: false, enabled: false})
     property bool crashNotifications: true
@@ -414,6 +415,11 @@ ThemedPopup {
                         Row { width: parent.width; spacing: 8
                             PanelButton { width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Bars"); selected: center.mediaStyle === "bars"; foreground: center.foreground; onClicked: center.settingRequested("mediaStyle", "bars") }
                             PanelButton { width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Line"); selected: center.mediaStyle === "line"; foreground: center.foreground; onClicked: center.settingRequested("mediaStyle", "line") }
+                        }
+                        Label { text: Eitr.I18n.tr("Clock") }
+                        Row { width: parent.width; spacing: 8
+                            PanelButton { width: (parent.width - 8) / 2; text: Eitr.I18n.tr("12-hour"); selected: center.clockFormat === "12h"; foreground: center.foreground; onClicked: center.settingRequested("clock", "12h") }
+                            PanelButton { width: (parent.width - 8) / 2; text: Eitr.I18n.tr("24-hour"); selected: center.clockFormat === "24h"; foreground: center.foreground; onClicked: center.settingRequested("clock", "24h") }
                         }
                         Label { text: Eitr.I18n.tr("Appearance") }
                         Row { width: parent.width; spacing: 8

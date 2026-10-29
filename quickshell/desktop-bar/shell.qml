@@ -147,6 +147,7 @@ ShellRoot {
     property bool barDock: true
     DockClients { id: dockClients; observing: shell.barDock }
     property string barMediaStyle: "bars"
+    property string barClock: "12h"
     // "all" puts a bar on every display; the main one keeps notifications.
     property string barScreens: "main"
     property var windowGaps: [6, 6, 6, 6]
@@ -209,12 +210,13 @@ ShellRoot {
     }
 
     function updateBarSetting(key, value) {
-        var choices = {appearance: ["transparent", "solid"], layout: ["unified", "centered", "notch", "islands"], edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], dock: ["yes", "no"], reduceMotion: ["yes", "no"], mediaStyle: ["bars", "line"]};
+        var choices = {appearance: ["transparent", "solid"], layout: ["unified", "centered", "notch", "islands"], edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], dock: ["yes", "no"], reduceMotion: ["yes", "no"], mediaStyle: ["bars", "line"], clock: ["12h", "24h"]};
         if (!choices[key] || choices[key].indexOf(value) === -1) return;
         if (key === "appearance") barAppearance = value;
         else if (key === "layout") barLayout = value;
         else if (key === "pinned") barPinned = value === "yes";
         else if (key === "mediaStyle") barMediaStyle = value;
+        else if (key === "clock") barClock = value;
         else if (key === "screens") barScreens = value;
         else if (key === "reduceMotion") DesktopStyle.reduceMotion = value === "yes";
         else if (key === "dock") barDock = value === "yes";
@@ -249,6 +251,7 @@ ShellRoot {
                 shell.barEdge = settings.edge;
                 shell.barPinned = settings.pinned === "yes";
                 shell.barMediaStyle = settings.mediaStyle === "line" ? "line" : "bars";
+                shell.barClock = settings.clock === "24h" ? "24h" : "12h";
                 shell.barScreens = settings.screens || "main";
                 shell.barAutoHide = settings.autohide === "yes";
                 shell.barDock = settings.dock !== "no";
@@ -274,7 +277,7 @@ ShellRoot {
         if (saveBarSettings.running) return;
         settingsDirty = false;
         saveBarSettings.command = ["python3", Quickshell.shellDir + "/scripts/bar-settings.py",
-            "set-all", barAppearance, barLayout, barEdge, barPinned ? "yes" : "no", barScreens, barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no", barMediaStyle, barDock ? "yes" : "no"];
+            "set-all", barAppearance, barLayout, barEdge, barPinned ? "yes" : "no", barScreens, barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no", barMediaStyle, barDock ? "yes" : "no", barClock];
         saveBarSettings.running = true;
     }
 
@@ -864,7 +867,7 @@ ShellRoot {
                     wifiGlyph: shell.verticalBar ? verticalWifiIcon.text : wifiIcon.text
                     battery: shell.battery; mediaPlayer: mediaStrip.player
                     idleEnabled: shell.idleLockEnabled; idleBusy: toggleIdleLock.running
-                    barPosition: shell.barEdge; appearance: shell.barAppearance; layout: shell.barLayout; barScreens: shell.barScreens; barAutoHide: shell.barAutoHide; barDock: shell.barDock; mediaStyle: shell.barMediaStyle; workspaceStyle: shell.workspaceStyle
+                    barPosition: shell.barEdge; appearance: shell.barAppearance; layout: shell.barLayout; barScreens: shell.barScreens; barAutoHide: shell.barAutoHide; barDock: shell.barDock; mediaStyle: shell.barMediaStyle; clockFormat: shell.barClock; workspaceStyle: shell.workspaceStyle
                     onIdleToggleRequested: if (!toggleIdleLock.running) toggleIdleLock.running = true
                     onLockRequested: runAfterClose(["bash", Eitr.Paths.code("hypr/scripts/manual-lock.sh")])
                     onSettingRequested: function(key, value) { shell.updateBarSetting(key, value); }
@@ -2416,7 +2419,7 @@ ShellRoot {
 
             anchors.centerIn: parent
             visible: !clock.compact
-            text: Qt.formatDateTime(clock.now, Eitr.I18n.tr("ddd MMM dd hh:mm AP"))
+            text: Qt.formatDateTime(clock.now, shell.barClock === "24h" ? Eitr.I18n.tr("ddd MMM dd HH:mm") : Eitr.I18n.tr("ddd MMM dd hh:mm AP"))
             horizontalAlignment: Text.AlignHCenter
             color: shell.fg
             font.family: DesktopFonts.family
@@ -2424,7 +2427,7 @@ ShellRoot {
             font.bold: true
         }
 
-        // Vertical bars stack the hour over the minutes, with a calendar glyph below.
+        // Vertical bars stack the hour over the minutes (and AM/PM for 12-hour time), with a calendar glyph below.
         Column {
             id: compactLabel
 
@@ -2433,12 +2436,21 @@ ShellRoot {
             spacing: 2
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: Qt.formatDateTime(clock.now, "hh\nmm")
+                text: Qt.formatDateTime(clock.now, shell.barClock === "24h" ? "HH\nmm" : "hh\nmm")
                 horizontalAlignment: Text.AlignHCenter
                 lineHeight: 0.9
                 color: shell.fg
                 font.family: DesktopFonts.family
                 font.pixelSize: 13
+                font.bold: true
+            }
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible: shell.barClock !== "24h"
+                text: Qt.formatDateTime(clock.now, "AP")
+                color: shell.fg
+                font.family: DesktopFonts.family
+                font.pixelSize: 9
                 font.bold: true
             }
             Text {

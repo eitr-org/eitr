@@ -461,7 +461,11 @@ var qml = {
     "Update available": "Update available",
     "Dock": "Dock",
     "Islands": "Islands",
-    "ddd MMM dd": "ddd MMM dd"
+    "ddd MMM dd": "ddd MMM dd",
+    "12-hour": "12-hour",
+    "24-hour": "24-hour",
+    "Clock": "Clock",
+    "ddd MMM dd HH:mm": "ddd MMM dd HH:mm"
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -901,7 +905,11 @@ var qml = {
     "Update available": "Atualização disponível",
     "Dock": "Dock",
     "Islands": "Ilhas",
-    "ddd MMM dd": "ddd MMM dd"
+    "ddd MMM dd": "ddd MMM dd",
+    "Clock": "Relógio",
+    "12-hour": "12 horas",
+    "24-hour": "24 horas",
+    "ddd MMM dd HH:mm": "ddd MMM dd HH:mm"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1341,7 +1349,11 @@ var qml = {
     "Update available": "Actualización disponible",
     "Dock": "Dock",
     "Islands": "Islas",
-    "ddd MMM dd": "ddd MMM dd"
+    "ddd MMM dd": "ddd MMM dd",
+    "Clock": "Reloj",
+    "12-hour": "12 horas",
+    "24-hour": "24 horas",
+    "ddd MMM dd HH:mm": "ddd MMM dd HH:mm"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1781,7 +1793,11 @@ var qml = {
     "Update available": "Aktualisierung verfügbar",
     "Dock": "Dock",
     "Islands": "Inseln",
-    "ddd MMM dd": "ddd MMM dd"
+    "ddd MMM dd": "ddd MMM dd",
+    "Clock": "Uhr",
+    "12-hour": "12 Stunden",
+    "24-hour": "24 Stunden",
+    "ddd MMM dd HH:mm": "ddd MMM dd HH:mm"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2221,6 +2237,10 @@ var qml = {
     "Update available": "Mise à jour disponible",
     "Dock": "Dock",
     "Islands": "Îlots",
-    "ddd MMM dd": "ddd MMM dd"
+    "ddd MMM dd": "ddd MMM dd",
+    "Clock": "Horloge",
+    "12-hour": "12 heures",
+    "24-hour": "24 heures",
+    "ddd MMM dd HH:mm": "ddd MMM dd HH:mm"
   }
 };

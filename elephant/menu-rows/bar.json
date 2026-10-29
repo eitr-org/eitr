@@ -23,6 +23,19 @@
     "submenu": "bar-autohide"
   },
   {
+    "text": "Clock",
+    "subtext": ">",
+    "icon": "󰥔",
+    "keywords": [
+      "time",
+      "12-hour",
+      "24-hour",
+      "am",
+      "pm"
+    ],
+    "submenu": "bar-clock"
+  },
+  {
     "text": "Displays",
     "subtext": ">",
     "icon": "󰍹",

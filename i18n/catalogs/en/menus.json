@@ -585,5 +585,10 @@
   "Dock": "Dock",
   "Hide the application dock": "Hide the application dock",
   "Reveal open apps at the opposite edge": "Reveal open apps at the opposite edge",
-  "Islands": "Islands"
+  "Islands": "Islands",
+  "12-hour": "12-hour",
+  "24-hour": "24-hour",
+  "Clock": "Clock",
+  "Time from 00:00 to 23:59, like 21:30": "Time from 00:00 to 23:59, like 21:30",
+  "Time with AM or PM, like 09:30 PM": "Time with AM or PM, like 09:30 PM"
 }

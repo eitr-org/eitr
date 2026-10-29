@@ -179,8 +179,12 @@ display's workspace, and only the main bar shows notification popups.
 Learn > Mouse Gestures also lists these gestures and
 the desktop wallpaper/theme double clicks. Left/right bars keep the 30 px depth of
 top/bottom bars with upright compact controls: the centered clock stacks the hour
-over the minutes above a calendar glyph (the date is in its tooltip), the weather
+over the minutes (with AM/PM for 12-hour time) above a calendar glyph (the date is
+in its tooltip), the weather
 shows only its icon (the temperature is in its tooltip), and popups open inward.
+The `clock` setting in `bar-settings.json` (`12h`, the default, or `24h`), under
+Style > Desktop Bar > Clock and Control Center > Style > Bar, picks the time format
+for every edge.
 AI Usage, Hardware and Idle Lock sit together after the workspaces; right-hand controls
 retain their manual show/hide toggle in Full, Centered and Islands. Tabs keeps them visible without a toggle. Both side groups share 24 px icon slots
 and 4 px spacing, with centered alignment on every bar edge. Active workspace
