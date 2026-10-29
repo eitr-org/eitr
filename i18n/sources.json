@@ -1315,6 +1315,9 @@
     "Your workspace awaits.": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
+    "ddd MMM dd": [
+      "quickshell/desktop-bar/shell.qml"
+    ],
     "ddd MMM dd hh:mm AP": [
       "quickshell/desktop-bar/shell.qml"
     ],
@@ -1326,9 +1329,6 @@
     ],
     "good morning": [
       "quickshell/lockscreen/themes/girl-coffee/Main.qml"
-    ],
-    "hh:mm\nMMM dd": [
-      "quickshell/desktop-bar/shell.qml"
     ],
     "password": [
       "quickshell/lockscreen/themes/girl-coffee/Main.qml",

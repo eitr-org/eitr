@@ -177,8 +177,10 @@ shows the bar on the main display only (default) or on every display; then the
 focused display's bar answers IPC and shortcuts, each bar highlights its own
 display's workspace, and only the main bar shows notification popups.
 Learn > Mouse Gestures also lists these gestures and
-the desktop wallpaper/theme double clicks. Left/right bars use upright compact
-controls, with the time/date centered and popups opening inward.
+the desktop wallpaper/theme double clicks. Left/right bars keep the 30 px depth of
+top/bottom bars with upright compact controls: the centered clock stacks the hour
+over the minutes above a calendar glyph (the date is in its tooltip), the weather
+shows only its icon (the temperature is in its tooltip), and popups open inward.
 AI Usage, Hardware and Idle Lock sit together after the workspaces; right-hand controls
 retain their manual show/hide toggle in Full, Centered and Islands. Tabs keeps them visible without a toggle. Both side groups share 24 px icon slots
 and 4 px spacing, with centered alignment on every bar edge. Active workspace

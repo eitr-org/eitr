@@ -401,7 +401,6 @@ var qml = {
     "good afternoon": "good afternoon",
     "good evening": "good evening",
     "good morning": "good morning",
-    "hh:mm\nMMM dd": "hh:mm\nMMM dd",
     "password": "password",
     "restart": "restart",
     "session": "session",
@@ -461,7 +460,8 @@ var qml = {
     "Update Plugins": "Update Plugins",
     "Update available": "Update available",
     "Dock": "Dock",
-    "Islands": "Islands"
+    "Islands": "Islands",
+    "ddd MMM dd": "ddd MMM dd"
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -855,7 +855,6 @@ var qml = {
     "good afternoon": "boa tarde",
     "good evening": "boa noite",
     "good morning": "bom dia",
-    "hh:mm\nMMM dd": "hh:mm\nMMM dd",
     "password": "senha",
     "restart": "reiniciar",
     "session": "sessão",
@@ -901,7 +900,8 @@ var qml = {
     "Update Plugins": "Atualizar plugins",
     "Update available": "Atualização disponível",
     "Dock": "Dock",
-    "Islands": "Ilhas"
+    "Islands": "Ilhas",
+    "ddd MMM dd": "ddd MMM dd"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1295,7 +1295,6 @@ var qml = {
     "good afternoon": "buenas tardes",
     "good evening": "buenas noches",
     "good morning": "buenos días",
-    "hh:mm\nMMM dd": "hh:mm\nMMM dd",
     "password": "contraseña",
     "restart": "reiniciar",
     "session": "sesión",
@@ -1341,7 +1340,8 @@ var qml = {
     "Update Plugins": "Actualizar plugins",
     "Update available": "Actualización disponible",
     "Dock": "Dock",
-    "Islands": "Islas"
+    "Islands": "Islas",
+    "ddd MMM dd": "ddd MMM dd"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1735,7 +1735,6 @@ var qml = {
     "good afternoon": "guten Tag",
     "good evening": "guten Abend",
     "good morning": "guten Morgen",
-    "hh:mm\nMMM dd": "hh:mm\nMMM dd",
     "password": "Passwort",
     "restart": "neu starten",
     "session": "Sitzung",
@@ -1781,7 +1780,8 @@ var qml = {
     "Update Plugins": "Plugins aktualisieren",
     "Update available": "Aktualisierung verfügbar",
     "Dock": "Dock",
-    "Islands": "Inseln"
+    "Islands": "Inseln",
+    "ddd MMM dd": "ddd MMM dd"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2175,7 +2175,6 @@ var qml = {
     "good afternoon": "bon après-midi",
     "good evening": "bonsoir",
     "good morning": "bonjour",
-    "hh:mm\nMMM dd": "hh:mm\nMMM dd",
     "password": "mot de passe",
     "restart": "redémarrer",
     "session": "session",
@@ -2221,6 +2220,7 @@ var qml = {
     "Update Plugins": "Mettre à jour les plugins",
     "Update available": "Mise à jour disponible",
     "Dock": "Dock",
-    "Islands": "Îlots"
+    "Islands": "Îlots",
+    "ddd MMM dd": "ddd MMM dd"
   }
 };

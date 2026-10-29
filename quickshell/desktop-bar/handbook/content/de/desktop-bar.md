@@ -12,7 +12,7 @@ Das Updatesymbol rechts vor Benachrichtigungen prüft kurz nach der Anmeldung un
 
 - Doppelklicke mit links auf **leere Leistenfläche**, um zwischen Unschärfe/Designfarbe zu wechseln; Neuinstallationen beginnen mit Designfarbe.
 - Ein rechter Doppelklick auf leere Fläche wechselt Voll → Zentriert → Laschen → Inseln → Voll.
-- Ziehe leere Fläche nach oben, unten, links oder rechts, um die Leiste zu verschieben.
+- Ziehe leere Fläche nach oben, unten, links oder rechts, um die Leiste zu verschieben. Links und rechts ist die Leiste so schmal wie oben und unten: Die Uhr zeigt Stunde über Minuten mit einem Kalendersymbol, das Wetter nur sein Symbol; Datum und Temperatur erscheinen beim Darüberfahren.
 - Dieselben Einstellungen findest du unter **Stil > Desktopleiste** und Kontrollzentrum > Stil.
 - **Bildschirme** (Anzeigen auf) zeigt die Leiste standardmäßig nur auf dem Hauptbildschirm oder auf allen Bildschirmen. Bei mehreren Leisten markiert jede die Arbeitsfläche ihres Bildschirms; Kürzel wie SUPER + , öffnen auf dem gerade genutzten Bildschirm, Benachrichtigungen erscheinen nur auf dem Hauptbildschirm. Wähle diesen im Bildschirm-Panel.
 

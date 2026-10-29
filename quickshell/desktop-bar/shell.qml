@@ -602,7 +602,8 @@ ShellRoot {
                 required property var modelData
                 readonly property bool isMainBar: modelData === shell.mainScreen()
                 readonly property Item stripItem: barContents
-                readonly property real normalThickness: shell.verticalBar ? (shell.islandsLayout ? 60 : Math.ceil(Math.max(60, barWeather.width + 8))) : shell.barHeight
+                // Vertical bars keep the horizontal depth: the clock stacks and the weather shows only its icon.
+                readonly property real normalThickness: shell.barHeight
                 readonly property real thinThickness: normalThickness
                 // Space between a tab's outermost item and its slope, the same on every tab.
                 readonly property real tabsPadding: 4
@@ -1046,7 +1047,7 @@ ShellRoot {
                         readonly property bool vertical: shell.dragCandidate === "left" || shell.dragCandidate === "right"
                         x: shell.dragCandidate === "right" ? parent.width - width : 0
                         y: shell.dragCandidate === "bottom" ? parent.height - height : 0
-                        width: vertical ? 60 : parent.width
+                        width: vertical ? shell.barHeight : parent.width
                         height: vertical ? parent.height : shell.barHeight
                         radius: DesktopStyle.radius(6)
                         color: Qt.alpha(shell.workspaceMenuBg, 0.65)
@@ -1253,8 +1254,6 @@ ShellRoot {
                             clip: bar.notchLayout
                             WeatherWidget {
                                 id: verticalWeatherIcon
-                                width: bar.islandsLayout ? Math.min(52, contentWidth) : contentWidth
-                                clip: bar.islandsLayout
                                 visible: bar.expanded
                                 enabled: !bar.notchLayout || bar.weatherExpanded
                                 y: parent.height - height
@@ -2263,6 +2262,7 @@ ShellRoot {
             }
         }
 
+        readonly property string temperature: weather.temp || (weather.text.indexOf(" ") >= 0 ? weather.text.slice(weather.text.indexOf(" ") + 1).trim() : "")
         readonly property real contentWidth: Math.max(26, label.implicitWidth + 8)
         width: contentWidth
         height: 24
@@ -2280,7 +2280,8 @@ ShellRoot {
                 font.bold: true
             }
             Text {
-                text: weather.temp || (weather.text.indexOf(" ") >= 0 ? weather.text.slice(weather.text.indexOf(" ") + 1).trim() : "")
+                visible: !weather.compact
+                text: weather.temperature
                 color: shell.fg
                 font.family: DesktopFonts.family
                 font.pixelSize: weather.compact ? 12 : 14
@@ -2304,7 +2305,8 @@ ShellRoot {
             foreground: shell.fg
             target: weather
             hovered: weatherMouse.containsMouse
-            text: Eitr.I18n.tr("Weather")
+            // Vertical bars show only the icon; the temperature moves to the tooltip.
+            text: weather.compact && weather.temperature ? Eitr.I18n.tr("Weather") + " · " + weather.temperature : Eitr.I18n.tr("Weather")
         }
 
         Timer {
@@ -2396,8 +2398,8 @@ ShellRoot {
 
         signal clicked()
 
-        width: compact ? 54 : label.implicitWidth + 17
-        height: compact ? 40 : 24
+        width: compact ? shell.barHeight - 2 : label.implicitWidth + 17
+        height: compact ? compactLabel.implicitHeight + 6 : 24
         radius: DesktopStyle.radius(7)
         color: "transparent"
 
@@ -2413,12 +2415,39 @@ ShellRoot {
             id: label
 
             anchors.centerIn: parent
-            text: Qt.formatDateTime(clock.now, clock.compact ? Eitr.I18n.tr("hh:mm\nMMM dd") : Eitr.I18n.tr("ddd MMM dd hh:mm AP"))
+            visible: !clock.compact
+            text: Qt.formatDateTime(clock.now, Eitr.I18n.tr("ddd MMM dd hh:mm AP"))
             horizontalAlignment: Text.AlignHCenter
             color: shell.fg
             font.family: DesktopFonts.family
-            font.pixelSize: clock.compact ? 12 : 14
+            font.pixelSize: 14
             font.bold: true
+        }
+
+        // Vertical bars stack the hour over the minutes, with a calendar glyph below.
+        Column {
+            id: compactLabel
+
+            anchors.centerIn: parent
+            visible: clock.compact
+            spacing: 2
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: Qt.formatDateTime(clock.now, "hh\nmm")
+                horizontalAlignment: Text.AlignHCenter
+                lineHeight: 0.9
+                color: shell.fg
+                font.family: DesktopFonts.family
+                font.pixelSize: 13
+                font.bold: true
+            }
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "\u{F00ED}"
+                color: shell.fg
+                font.family: DesktopFonts.family
+                font.pixelSize: 14
+            }
         }
 
         MouseArea {
@@ -2435,7 +2464,7 @@ ShellRoot {
             foreground: shell.fg
             target: clock
             hovered: mouse.containsMouse
-            text: Eitr.I18n.tr("Calendar")
+            text: clock.compact ? Qt.formatDateTime(clock.now, Eitr.I18n.tr("ddd MMM dd")) : Eitr.I18n.tr("Calendar")
         }
 
     }

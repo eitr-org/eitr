@@ -12,7 +12,7 @@ L’icône de mises à jour du groupe droit, avant Notifications, vérifie les p
 
 - Double-cliquez à gauche sur un **espace vide de la barre** pour alterner Flou/Couleur du thème ; les nouvelles installations démarrent avec Couleur du thème.
 - Double-cliquez à droite sur un espace vide pour faire défiler Complète → Centrée → Onglets → Îlots → Complète.
-- Faites glisser un espace vide vers le haut, le bas, la gauche ou la droite pour déplacer la barre.
+- Faites glisser un espace vide vers le haut, le bas, la gauche ou la droite pour déplacer la barre. À gauche et à droite, la barre est aussi fine qu’en haut et en bas : l’horloge affiche l’heure au-dessus des minutes avec une icône de calendrier, et la météo seulement son icône ; survolez-les pour la date et la température.
 - Les mêmes réglages figurent dans **Style > Barre de bureau** et Centre de contrôle > Style.
 - **Écrans** (Afficher sur) place la barre uniquement sur l’écran principal, par défaut, ou sur tous. Avec plusieurs barres, chacune indique l’espace de travail de son écran ; les raccourcis comme SUPER + , s’ouvrent sur l’écran utilisé et les notifications apparaissent uniquement sur le principal. Choisissez celui-ci dans le panneau Écran.
 

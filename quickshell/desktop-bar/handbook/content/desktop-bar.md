@@ -21,7 +21,7 @@ never leaves the system partially upgraded.
 - Double-left-click **empty bar space** to switch Blur/Theme Color (new
   installations start with Theme Color).
 - Double-right-click empty space to cycle Full → Centered → Tabs → Islands → Full.
-- Drag empty space toward the top, bottom, left or right to move the bar.
+- Drag empty space toward the top, bottom, left or right to move the bar. Left and right bars are as thin as top and bottom ones: the clock shows the hour over the minutes with a calendar icon, and the weather shows its icon; hover them for the date and temperature.
 - The same settings are under **Style > Desktop Bar** and Control Center > Style.
 - **Displays** (Show on) puts the bar on the main display only, the default, or
   on every display. With a bar on every display, each one marks the workspace

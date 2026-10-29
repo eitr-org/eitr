@@ -390,7 +390,6 @@
   "good afternoon": "guten Tag",
   "good evening": "guten Abend",
   "good morning": "guten Morgen",
-  "hh:mm\nMMM dd": "hh:mm\nMMM dd",
   "password": "Passwort",
   "restart": "neu starten",
   "session": "Sitzung",
@@ -436,5 +435,6 @@
   "Update Plugins": "Plugins aktualisieren",
   "Update available": "Aktualisierung verfügbar",
   "Dock": "Dock",
-  "Islands": "Inseln"
+  "Islands": "Inseln",
+  "ddd MMM dd": "ddd MMM dd"
 }
