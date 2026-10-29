@@ -35,8 +35,8 @@ export const screenshotGroups = [
         "file": "display",
         "caption": "display_nightlight_and_each_monitor_s_resolution_refresh_rate_and",
         "alt": "display_nightlight_and_each_monitor_s_resolution_refresh_rate_and",
-        "width": 1280,
-        "height": 720
+        "width": 1600,
+        "height": 900
       },
       {
         "file": "audio",

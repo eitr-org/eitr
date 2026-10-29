@@ -42,7 +42,7 @@ LAN.
 - **Website evidence and screenshots.** Keep the public pages in step with verified
   desktop behavior. A feature gets a screenshot when it has a screen people look
   for (a panel, menu or wizard) shown on the website or in the Handbook;
-  background behavior gets none. Missing: the HDR switch in a monitor's display settings.
+  background behavior gets none.
   Describe remote access as verified only after the real-device tests above pass.
 - **Search indexing and measurement.** eitr.info is verified in Google Search
   Console and Bing Webmaster Tools with the sitemap submitted (2026-10-22). Check
