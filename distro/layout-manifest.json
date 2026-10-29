@@ -2,6 +2,17 @@
   "version": 1,
   "layout_version": 2,
   "rules": [
+    {"pattern": "quickshell/desktop-bar/DockClients.qml", "class": "C", "runtime": true},
+    {"pattern": "quickshell/desktop-bar/DockModel.js", "class": "C", "runtime": true},
+    {"pattern": "quickshell/desktop-bar/EdgeDock.qml", "class": "C", "runtime": true},
+    {"pattern": "quickshell/desktop-bar/EdgeDockContent.qml", "class": "C", "runtime": true},
+    {"pattern": "elephant/menus/bar-dock.lua", "class": "C", "runtime": true},
+    {"pattern": "walker/themes/current/item_menus-bar-dock.xml", "class": "C", "runtime": true},
+    {"pattern": "quickshell/desktop-bar/tests/test_edge_dock.py", "class": "C", "runtime": false},
+
+    {"pattern": "quickshell/desktop-bar/CenteredBarMask.qml", "class": "C", "runtime": true},
+    {"pattern": "quickshell/desktop-bar/EdgeSlopes.js", "class": "C", "runtime": true},
+    {"pattern": "quickshell/desktop-bar/tests/test_centered_slopes.py", "class": "C", "runtime": false},
     {"pattern": "themes/editor_roles.py", "class": "C", "runtime": true},
     {"pattern": "themes/build-vscode-themes.py", "class": "C", "runtime": false},
     {"pattern": "nvim-theme/**", "class": "C", "runtime": true},

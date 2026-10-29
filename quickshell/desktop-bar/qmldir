@@ -81,3 +81,7 @@ PluginWidgetMenu 1.0 PluginWidgetMenu.qml
 BarAutoHide 1.0 BarAutoHide.qml
 
 MediaIndicator 1.0 MediaIndicator.qml
+CenteredBarMask CenteredBarMask.qml
+DockClients DockClients.qml
+EdgeDock EdgeDock.qml
+EdgeDockContent EdgeDockContent.qml

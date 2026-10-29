@@ -581,5 +581,8 @@
   "Media style": "Media style",
   "Seven audio spectrum bars": "Seven audio spectrum bars",
   "Review and update installed plugins": "Review and update installed plugins",
-  "Update Plugins": "Update Plugins"
+  "Update Plugins": "Update Plugins",
+  "Dock": "Dock",
+  "Hide the application dock": "Hide the application dock",
+  "Reveal open apps at the opposite edge": "Reveal open apps at the opposite edge"
 }

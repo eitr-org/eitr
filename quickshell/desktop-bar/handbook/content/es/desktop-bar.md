@@ -37,3 +37,13 @@ El control Audio/Mic abre un panel con secciones separadas para la salida de aud
 **Reducir movimiento**, en Estilo > Barra del escritorio y Centro de control > Estilo > Barra, hace instantáneas la apertura y el cierre de paneles, las entradas de Vista general, las transiciones de notificaciones y las animaciones decorativas de la barra. Está desactivado por defecto y se guarda en `bar-settings.json`. Los temporizadores de actualización de datos, caducidad de notificaciones y ocultación automática mantienen su funcionamiento normal.
 
 El estilo multimedia se guarda en `bar-settings.json`: elige Barras (predeterminado, ocho barras) o Línea (una onda de audio suave y sencilla) en Estilo > Barra del escritorio o Centro de control > Estilo > Barra. El indicador precede a los controles, mantiene un tamaño fijo en todos los diseños y gira en los bordes izquierdo y derecho. Al pasar el puntero muestra la canción; el clic izquierdo abre los detalles y el derecho abre el visualizador de música. En pausa, la línea queda plana. Reducir movimiento mantiene los niveles de audio sin transiciones y detiene el movimiento decorativo de respaldo.
+
+El modo Centrado se une al borde de la pantalla con extremos rectos y las mismas pendientes de 45° suavemente redondeadas que Pestañas a ambos lados. Las pendientes giran con la barra en los cuatro bordes e ignoran la preferencia de esquinas; los paneles separados siguen respetándola.
+
+## Dock de aplicaciones
+
+Toca el borde opuesto a la barra para mostrar el dock. Flota sobre las ventanas sin redimensionarlas y se oculta 350 ms después de que salga el puntero, con una animación de 320 ms (instantánea con Reducir movimiento). Aparece en la pantalla principal o en todas si la barra usa todas las pantallas. Nunca aparece sobre una ventana a pantalla completa.
+
+Las aplicaciones abiertas se agrupan por clase, en el orden de ventanas de Hyprland. Los iconos ocupan 36 px con separaciones de 6 px y usan el icono de escritorio o un símbolo alternativo. Un punto debajo indica ventanas en el espacio actual de esa pantalla. Pasa el puntero para ver el nombre; haz clic para enfocar la ventana usada más recientemente, cambiando de espacio si hace falta; el botón central cierra esa ventana. Las listas largas se desplazan a lo largo del dock. La superficie respeta Desenfoque/Color del tema y las esquinas elegidas.
+
+**Dock** en **Estilo > Barra del escritorio** y **Centro de control > Estilo > Barra** lo activa o desactiva. La opción `dock` de `bar-settings.json` tiene el valor predeterminado `"yes"`. Aún no hay atajo ni control para fijar aplicaciones.

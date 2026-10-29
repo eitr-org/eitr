@@ -38,13 +38,8 @@ LAN.
   (left: logo and workspaces; centre: clock; weather in its own pill; right: status
   icons) over the wallpaper, each pill following the Square/Rounded/Extra Rounded
   corner choice. Media and other conditional items appear as pills only when needed.
-- **Centered bar with Tabs-style slopes.** The Centered layout's pill should use the
-  Tabs layout's rounded 45° slopes where it meets the screen edge, square at the
-  edge, and like Tabs it then ignores the corner preference.
-- **Hidden edge shelf.** The owner's idea (2026-10-28): touching the screen edge
-  opposite the bar reveals a hidden surface, like the auto-hide bar, that floats
-  over windows and never resizes them. What it shows is still open (ideas: plugin
-  widgets, running and pinned apps, media). Decide the content first.
+- **Dock: pinned apps.** The edge dock (opposite the bar) shows open apps; next,
+  pinned apps that stay in it when closed, as the owner planned.
 - **Light themes.** The owner has ideas for more light themes; create them later.
 - **Website Handbook in every language.** The site is translated (`/pt-br/`, `/es/`,
   `/de/`, `/fr/`), but its Handbook chapters still show English; the desktop's

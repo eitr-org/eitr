@@ -36,6 +36,17 @@
     "submenu": "bar-screens"
   },
   {
+    "text": "Dock",
+    "subtext": ">",
+    "icon": "󰀻",
+    "keywords": [
+      "apps",
+      "open windows",
+      "screen edge"
+    ],
+    "submenu": "bar-dock"
+  },
+  {
     "text": "Layout",
     "subtext": ">",
     "icon": "󰕰",

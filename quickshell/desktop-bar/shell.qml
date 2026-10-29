@@ -11,6 +11,7 @@ import Quickshell.Wayland
 import "PanelStyle.js" as PanelStyle
 import "WorkspaceModel.js" as WorkspaceModel
 import "BarGeometry.js" as BarGeometry
+import "EdgeSlopes.js" as EdgeSlopes
 
 ShellRoot {
     Component.onCompleted: Quickshell.watchFiles = Quickshell.env("EITR_LIVE_RELOAD") === "1"
@@ -143,6 +144,8 @@ ShellRoot {
     property string barLayout: "unified"
     property bool barPinned: false
     property bool barAutoHide: false
+    property bool barDock: true
+    DockClients { id: dockClients; observing: shell.barDock }
     property string barMediaStyle: "bars"
     // "all" puts a bar on every display; the main one keeps notifications.
     property string barScreens: "main"
@@ -205,7 +208,7 @@ ShellRoot {
     }
 
     function updateBarSetting(key, value) {
-        var choices = {appearance: ["transparent", "solid"], layout: ["unified", "centered", "notch"], edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], reduceMotion: ["yes", "no"], mediaStyle: ["bars", "line"]};
+        var choices = {appearance: ["transparent", "solid"], layout: ["unified", "centered", "notch"], edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], dock: ["yes", "no"], reduceMotion: ["yes", "no"], mediaStyle: ["bars", "line"]};
         if (!choices[key] || choices[key].indexOf(value) === -1) return;
         if (key === "appearance") barAppearance = value;
         else if (key === "layout") barLayout = value;
@@ -213,6 +216,7 @@ ShellRoot {
         else if (key === "mediaStyle") barMediaStyle = value;
         else if (key === "screens") barScreens = value;
         else if (key === "reduceMotion") DesktopStyle.reduceMotion = value === "yes";
+        else if (key === "dock") barDock = value === "yes";
         else if (key === "autohide") barAutoHide = value === "yes";
         else barEdge = value;
         settingsDirty = true;
@@ -246,6 +250,7 @@ ShellRoot {
                 shell.barMediaStyle = settings.mediaStyle === "line" ? "line" : "bars";
                 shell.barScreens = settings.screens || "main";
                 shell.barAutoHide = settings.autohide === "yes";
+                shell.barDock = settings.dock !== "no";
                 DesktopStyle.reduceMotion = settings.reduceMotion === "yes";
             } catch (e) {}
         }
@@ -268,7 +273,7 @@ ShellRoot {
         if (saveBarSettings.running) return;
         settingsDirty = false;
         saveBarSettings.command = ["python3", Quickshell.shellDir + "/scripts/bar-settings.py",
-            "set-all", barAppearance, barLayout, barEdge, barPinned ? "yes" : "no", barScreens, barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no", barMediaStyle];
+            "set-all", barAppearance, barLayout, barEdge, barPinned ? "yes" : "no", barScreens, barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no", barMediaStyle, barDock ? "yes" : "no"];
         saveBarSettings.running = true;
     }
 
@@ -623,6 +628,11 @@ ShellRoot {
                 readonly property bool notchLayout: shell.notchLayout
                 readonly property real panelGap: shell.verticalBar ? shell.windowGaps[1] + shell.windowGaps[3] : shell.windowGaps[0] + shell.windowGaps[2]
                 property bool hoverExpanded: false
+                readonly property bool pointerInside: barHover.hovered || centeredHover.hovered
+                onPointerInsideChanged: {
+                    if (pointerInside) { collapseDelay.stop(); hoverExpanded = true; }
+                    else collapseDelay.restart();
+                }
                 readonly property bool expanded: !centeredLayout || shell.barPinned || hoverExpanded || panelOpen || pendingPanel !== null || shell.barPointerHeld
                 readonly property real itemGap: shell.workspaceItemSpacing
                 readonly property real endPadding: shell.verticalBar ? 8 : 12
@@ -688,6 +698,14 @@ ShellRoot {
                     dockPanels.forEach(panel => panel.opened = false);
                     finishPanelSwitch();
                 }
+                EdgeDock {
+                    screen: bar.screen
+                    barEdge: shell.barEdge
+                    clients: dockClients.clients
+                    dockEnabled: shell.barDock && shell.barVisible
+                    foreground: shell.fg
+                    background: shell.barBackground()
+                }
                 WorkspaceOverview {
                     id: overview
                     ipcEnabled: bar.isMainBar
@@ -733,7 +751,7 @@ ShellRoot {
                 BarAutoHide {
                     id: autoHide
                     autoHide: shell.barAutoHide
-                    pointerInside: barHover.hovered || edgeHover.hovered
+                    pointerInside: bar.pointerInside || edgeHover.hovered
                     held: bar.panelOpen || bar.pendingPanel !== null || bar.pendingOverview || overview.visible || shell.barPointerHeld || notificationPopups.visible
                 }
                 Item {
@@ -750,7 +768,8 @@ ShellRoot {
                     width: 0; height: 0
                     Region { item: edgeSensor.visible ? edgeSensor : null }
                     Region { item: shell.barPointerHeld ? bar.contentItem : null }
-                    Region { item: shell.notchLayout ? tabStrip : barContents }
+                    Region { item: shell.notchLayout ? tabStrip : shell.centeredLayout ? null : barContents }
+                    CenteredBarMask { surface: centeredOutline; edge: shell.barEdge; depth: bar.normalThickness; bendRound: shell.tabBendRound }
                     Region { item: shell.notchLayout ? leadingTab : null }
                     Region { item: shell.notchLayout ? notchTab : null }
                     Region { item: shell.notchLayout ? trailingTab : null }
@@ -837,7 +856,7 @@ ShellRoot {
                     wifiGlyph: shell.verticalBar ? verticalWifiIcon.text : wifiIcon.text
                     battery: shell.battery; mediaPlayer: mediaStrip.player
                     idleEnabled: shell.idleLockEnabled; idleBusy: toggleIdleLock.running
-                    barPosition: shell.barEdge; appearance: shell.barAppearance; layout: shell.barLayout; barScreens: shell.barScreens; barAutoHide: shell.barAutoHide; mediaStyle: shell.barMediaStyle; workspaceStyle: shell.workspaceStyle
+                    barPosition: shell.barEdge; appearance: shell.barAppearance; layout: shell.barLayout; barScreens: shell.barScreens; barAutoHide: shell.barAutoHide; barDock: shell.barDock; mediaStyle: shell.barMediaStyle; workspaceStyle: shell.workspaceStyle
                     onIdleToggleRequested: if (!toggleIdleLock.running) toggleIdleLock.running = true
                     onLockRequested: runAfterClose(["bash", Eitr.Paths.code("hypr/scripts/manual-lock.sh")])
                     onSettingRequested: function(key, value) { shell.updateBarSetting(key, value); }
@@ -911,6 +930,35 @@ ShellRoot {
                     right: shell.barEdge === "top" || shell.barEdge === "bottom" || shell.barEdge === "right"
                 }
 
+                Shape {
+                    id: centeredOutline
+                    visible: shell.centeredLayout
+                    readonly property real slope: bar.normalThickness + shell.tabBendRound
+                    x: barContents.x - (shell.verticalBar ? 0 : slope) + (shell.verticalBar ? (shell.barEdge === "left" ? -1 : 1) * bar.normalThickness * (1 - autoHide.progress) : 0)
+                    y: barContents.y - (shell.verticalBar ? slope : 0) + (!shell.verticalBar ? (shell.barEdge === "top" ? -1 : 1) * bar.normalThickness * (1 - autoHide.progress) : 0)
+                    width: barContents.width + (shell.verticalBar ? 0 : 2 * slope)
+                    height: barContents.height + (shell.verticalBar ? 2 * slope : 0)
+                    HoverHandler { id: centeredHover }
+                    BarGestureArea {
+                        anchors.fill: parent
+                        hostWindow: bar
+                        edge: shell.barEdge
+                        onCandidateChanged: shell.dragCandidate = candidate
+                        onPointerHeld: function(held) { shell.barPointerHeld = held }
+                        onDoubleTapped: function(button) { shell.barDoubleClick(button) }
+                        onDropped: function(edge) { shell.updateBarSetting("edge", edge) }
+                    }
+                    antialiasing: true
+                    ShapePath {
+                        strokeWidth: -1
+                        fillColor: shell.barBackground()
+                        PathSvg { path: EdgeSlopes.outline(shell.barEdge,
+                            shell.verticalBar ? centeredOutline.height : centeredOutline.width,
+                            bar.normalThickness, 0, shell.tabBendRound,
+                            [[centeredOutline.slope, (shell.verticalBar ? centeredOutline.height : centeredOutline.width) - centeredOutline.slope]]) }
+                    }
+                }
+
                 Item {
                     id: barContents
                     transform: Translate {
@@ -956,46 +1004,10 @@ ShellRoot {
                             strokeWidth: -1
                             fillColor: shell.barBackground()
                             PathSvg { path: {
-                                var length = shell.verticalBar ? tabsOutline.height : tabsOutline.width;
-                                var depth = bar.normalThickness;
-                                var strip = shell.tabStripThickness;
-                                var slope = depth - strip;
-                                function point(axis, inward) {
-                                    if (shell.barEdge === "bottom") return axis + " " + (depth - inward);
-                                    if (shell.barEdge === "left") return inward + " " + axis;
-                                    if (shell.barEdge === "right") return (depth - inward) + " " + axis;
-                                    return axis + " " + inward;
-                                }
-                                var spans = [[0, bar.tabLeadingEnd], [bar.tabCenterStart, bar.tabCenterEnd], [bar.tabTrailingStart, length]];
-                                // Unite overlapping slopes on small screens without self intersections.
-                                var merged = [];
-                                for (var span of spans) {
-                                    var last = merged[merged.length - 1];
-                                    if (last && span[0] - last[1] <= 2 * slope) last[1] = Math.max(last[1], span[1]);
-                                    else merged.push(span.slice());
-                                }
-                                var path = "M " + point(0, 0) + " L " + point(0, depth);
-                                for (var tab of merged) {
-                                    var start = Math.max(0, tab[0]);
-                                    var end = Math.min(length, tab[1]);
-                                    // Rounded bends keep the 45° trapezoid: the straight edges stop
-                                    // `round` before each bend and a quadratic curve joins them.
-                                    var round = Math.min(shell.tabBendRound, slope / 2);
-                                    var diagonal = round * 0.7071;
-                                    if (start > 0) {
-                                        path += " L " + point(start - slope - round, strip)
-                                            + " Q " + point(start - slope, strip) + " " + point(start - slope + diagonal, strip + diagonal)
-                                            + " L " + point(start - diagonal, depth - diagonal)
-                                            + " Q " + point(start, depth) + " " + point(start + round, depth);
-                                    }
-                                    if (end < length) {
-                                        path += " L " + point(end - round, depth)
-                                            + " Q " + point(end, depth) + " " + point(end + diagonal, depth - diagonal)
-                                            + " L " + point(end + slope - diagonal, strip + diagonal)
-                                            + " Q " + point(end + slope, strip) + " " + point(end + slope + round, strip);
-                                    } else path += " L " + point(length, depth);
-                                }
-                                return path + " L " + point(length, 0) + " Z";
+                                return EdgeSlopes.outline(shell.barEdge,
+                                    shell.verticalBar ? tabsOutline.height : tabsOutline.width,
+                                    bar.normalThickness, shell.tabStripThickness, shell.tabBendRound,
+                                    [[0, bar.tabLeadingEnd], [bar.tabCenterStart, bar.tabCenterEnd], [bar.tabTrailingStart, shell.verticalBar ? tabsOutline.height : tabsOutline.width]]);
                             } }
                         }
                     }
@@ -1011,10 +1023,6 @@ ShellRoot {
                         onOverCenterTabChanged: {
                             if (overCenterTab) { weatherCollapseDelay.stop(); bar.weatherHovered = true; }
                             else weatherCollapseDelay.restart();
-                        }
-                        onHoveredChanged: {
-                            if (hovered) { collapseDelay.stop(); bar.hoverExpanded = true; }
-                            else collapseDelay.restart();
                         }
                     }
 
@@ -1045,8 +1053,8 @@ ShellRoot {
                     anchors.fill: parent
                     visible: shell.verticalBar
                     edge: shell.barEdge
-                    background: shell.notchLayout ? "transparent" : shell.barBackground()
-                    radius: bar.centeredLayout ? DesktopStyle.radius(6) : 0
+                    background: shell.notchLayout || shell.centeredLayout ? "transparent" : shell.barBackground()
+                    radius: 0
 
                     BarGestureArea {
                         anchors.fill: parent
@@ -1261,8 +1269,8 @@ ShellRoot {
                     anchors.fill: parent
                     visible: !shell.verticalBar
                     edge: shell.barEdge
-                    background: shell.notchLayout ? "transparent" : shell.barBackground()
-                    radius: bar.centeredLayout ? DesktopStyle.radius(6) : 0
+                    background: shell.notchLayout || shell.centeredLayout ? "transparent" : shell.barBackground()
+                    radius: 0
 
 
                     BarGestureArea {

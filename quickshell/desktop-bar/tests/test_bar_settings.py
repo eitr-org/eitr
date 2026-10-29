@@ -77,7 +77,7 @@ class BarSettingsTests(unittest.TestCase):
             self.assertEqual(bar_settings.read_settings(), {**bar_settings.DEFAULTS, 'version': 1})
             bar_settings.save_settings({"appearance": "solid", "edge": "left"})
             self.assertEqual(bar_settings.read_settings(), {
-                "appearance": "solid", "layout": "unified", "edge": "left", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "version": 1
+                "appearance": "solid", "layout": "unified", "edge": "left", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "version": 1
             })
             bar_settings.save_settings({"layout": "centered"})
             self.assertEqual(bar_settings.read_settings()["appearance"], "solid")
@@ -91,10 +91,23 @@ class BarSettingsTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 bar_settings.save_settings({"screens": "some"})
         shell = (Path(__file__).parents[1] / "shell.qml").read_text()
-        self.assertIn('"set-all", barAppearance, barLayout, barEdge, barPinned ? "yes" : "no", barScreens, barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no", barMediaStyle]', shell)
+        self.assertIn('"set-all", barAppearance, barLayout, barEdge, barPinned ? "yes" : "no", barScreens, barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no", barMediaStyle, barDock ? "yes" : "no"]', shell)
         self.assertIn("enabled: bar.isMainBar", shell, "only the main bar receives shortcuts")
         self.assertIn("shell.activeBar(bar).showKind(kind)", shell, "and hands them to the bar of the display in use")
         self.assertIn("shown: bar.isMainBar", shell, "notifications pop up on the main display only")
+
+    def test_dock_defaults_to_yes_and_is_strict_and_independent(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(bar_settings, "SETTINGS", Path(directory) / "bar.json"):
+            self.assertEqual(bar_settings.read_settings()["dock"], "yes")
+            bar_settings.save_settings({"dock": "no", "autohide": "yes", "layout": "centered"})
+            self.assertEqual(bar_settings.read_settings()["dock"], "no")
+            self.assertEqual(bar_settings.read_settings()["autohide"], "yes")
+            self.assertEqual(bar_settings.read_settings()["layout"], "centered")
+            with self.assertRaises(ValueError):
+                bar_settings.save_settings({"dock": True})
+            bar_settings.SETTINGS.write_text('{"dock":"invalid"}')
+            self.assertEqual(bar_settings.read_settings()["dock"], "yes")
+            self.refresh_walker.assert_not_called()
 
     def test_autohide_persists_without_changing_other_preferences(self):
         with tempfile.TemporaryDirectory() as directory, patch.object(bar_settings, "SETTINGS", Path(directory) / "bar.json"):
@@ -155,13 +168,18 @@ class AutoHideLayoutTests(unittest.TestCase):
     def test_native_reduce_motion_control_fits_german_in_both_palettes(self):
         self.render_setting(True)
 
-    def render_setting(self, reduce_motion):
+    def test_native_dock_control_fits_both_palettes(self):
+        self.render_setting(False, dock=True)
+
+    def render_setting(self, reduce_motion, dock=False):
         bar = Path(__file__).resolve().parents[1]
         source = (bar / "ControlCenter.qml").read_text()
-        control = source.index("id: reduceMotionSwitch" if reduce_motion else "id: autoHideSwitch")
+        control = source.index("id: dockSwitch" if dock else "id: reduceMotionSwitch" if reduce_motion else "id: autoHideSwitch")
         start = source.rfind("                        Row {", 0, control)
         end = source.index('                        Label { text: Eitr.I18n.tr("Show on") }', control) if reduce_motion else source.index("                        Row {", control)
         row = source[start:end]
+        if dock:
+            row = row.replace("dockSwitch", "autoHideSwitch").replace("center.barDock", "center.barAutoHide")
         if reduce_motion:
             row = row.replace("reduceMotionSwitch", "autoHideSwitch").replace("DesktopStyle.reduceMotion", "center.barAutoHide")
         for light in (False, True):
@@ -207,7 +225,7 @@ ShellRoot {
 }'''.replace("BAR", bar.as_uri()).replace("STYLE", (bar / "PanelStyle.js").as_uri())
                     .replace("FOREGROUND", "#252936" if light else "#e9eef1")
                     .replace("BACKGROUND", "#f5f0e7" if light else "#18212b").replace("ROW", row)
-                    .replace("Automatisch ausblenden", "Bewegung reduzieren" if reduce_motion else "Automatisch ausblenden")
+                    .replace("Automatisch ausblenden", "Dock" if dock else "Bewegung reduzieren" if reduce_motion else "Automatisch ausblenden")
                     .replace("CAPTURE", str(captures / (("reduce-motion" if reduce_motion else "auto-hide") + ("-control-light.png" if light else "-control-dark.png")))))
                 environment = dict(os.environ, QT_QPA_PLATFORM="offscreen", QT_QUICK_BACKEND="software",
                                    QML_IMPORT_PATH=str(bar.parent), EITR_CODE_ROOT=str(bar.parents[1]),

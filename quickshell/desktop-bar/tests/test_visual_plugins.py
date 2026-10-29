@@ -220,6 +220,7 @@ ShellRoot {
                 foreground, background = ('#252936', '#f5f0e7') if light else ('#e9eef1', '#18212b')
                 fixture = '''import QtQuick
 import QtQuick.Shapes
+import "EdgeSlopes.js" as EdgeSlopes
 import Quickshell
 import "." as Bar
 ShellRoot {

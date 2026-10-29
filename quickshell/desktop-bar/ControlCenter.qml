@@ -32,6 +32,7 @@ ThemedPopup {
     property string layout: "unified"
     property string barScreens: "main"
     property bool barAutoHide: false
+    property bool barDock: true
     property string mediaStyle: "bars"
     property string workspaceStyle: "Runes"
     property var airplane: ({available: false, enabled: false})
@@ -437,6 +438,21 @@ ThemedPopup {
                                 checked: center.barAutoHide; foreground: center.foreground; accent: center.accent
                                 Accessible.name: Eitr.I18n.tr("Auto-hide")
                                 onClicked: center.settingRequested("autohide", checked ? "yes" : "no")
+                            }
+                        }
+                        Row {
+                            width: parent.width; spacing: PanelStyle.selectionActionGap
+                            Text {
+                                width: parent.width - dockSwitch.width - parent.spacing; height: 32
+                                verticalAlignment: Text.AlignVCenter; text: Eitr.I18n.tr("Dock")
+                                color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
+                            }
+                            PanelSwitch {
+                                id: dockSwitch
+                                anchors.verticalCenter: parent.verticalCenter
+                                checked: center.barDock; foreground: center.foreground; accent: center.accent
+                                Accessible.name: Eitr.I18n.tr("Dock")
+                                onClicked: center.settingRequested("dock", checked ? "yes" : "no")
                             }
                         }
                         Row {

@@ -348,6 +348,9 @@
       "quickshell/desktop-bar/NotificationList.qml",
       "quickshell/desktop-bar/shell.qml"
     ],
+    "Dock": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
     "Done": [
       "quickshell/desktop-bar/PluginWidget.qml"
     ],
@@ -1898,6 +1901,7 @@
       "elephant/menus/digitalocean-contexts.lua"
     ],
     "Disabled": [
+      "elephant/menus/bar-dock.lua",
       "elephant/menus/terminal-cursor-fire.lua"
     ],
     "Disconnect": [
@@ -1918,6 +1922,10 @@
     ],
     "Do Not Disturb": [
       "elephant/menu-rows/toggle.json"
+    ],
+    "Dock": [
+      "elephant/menu-rows/bar.json",
+      "elephant/menus/bar-dock.lua"
     ],
     "DocumentDB": [
       "elephant/menus/aws-docdb.lua"
@@ -2111,6 +2119,9 @@
       "elephant/menu-rows/cloud.json",
       "elephant/menus/hetzner-account.lua",
       "elephant/menus/hetzner-contexts.lua"
+    ],
+    "Hide the application dock": [
+      "elephant/menus/bar-dock.lua"
     ],
     "Home Folder Snapshots": [
       "elephant/menu-rows/snapshots.json"
@@ -2722,6 +2733,9 @@
     ],
     "Return to Password Authentication": [
       "elephant/menu-rows/security.json"
+    ],
+    "Reveal open apps at the opposite edge": [
+      "elephant/menus/bar-dock.lua"
     ],
     "Reveal the bar at the screen edge": [
       "elephant/menus/bar-autohide.lua"

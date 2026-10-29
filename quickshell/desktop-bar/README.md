@@ -153,7 +153,7 @@ changing the primary display may require selecting it again in OBS.
 Double-left-click empty bar space to switch between the current transparent
 background and opaque theme color. Double-right-click empty space to switch
 through Full, Centered and Tabs layouts. Centered mode shows only the clock
-until hovered, then unfolds both icon groups in their existing order. Each side
+until hovered, then unfolds both icon groups in their existing order. Centered meets the screen edge with square edge ends and the same softly rounded 45° slopes as Tabs on both sides. These slopes rotate with the bar on all four edges and ignore the corner preference; its detached panels still follow that preference. Each side
 packs toward the clock with the same 4 px gap between every item and group.
 The surface has equal end padding (12 px horizontally, 8 px vertically), so it can be
 asymmetric. The clock
@@ -633,6 +633,15 @@ strip slides out in 320 ms, retaining a one-pixel edge input region. Panels,
 pending popups, notification toasts, Overview and dragging hold it open; a 350 ms leave delay precedes
 hiding. A hidden bar reserves no space. The preference is separate from the
 Centered pin and applies independently to each displayed bar.
+
+## Edge dock
+
+Touch the screen edge opposite the bar to reveal the application dock. It floats over windows without moving or resizing them and hides 350 ms after the pointer leaves, with the shared 320 ms motion (instant with Reduce motion). It appears on the main screen, or on every screen when Displays is set to all, and never reveals over a fullscreen window.
+
+The dock groups open windows by application class, in Hyprland’s window order. Each 36 px icon slot has a 6 px gap and uses the application’s desktop icon, with a glyph fallback. A dot below an icon means that app has a window on the current workspace of that screen. Hover for its name, click to focus its most recently used window (including switching workspace), or middle-click to close that window. Long lists scroll along the dock. The surface follows Blur/Theme Color and the corner preference.
+
+**Dock** in **Style > Desktop Bar** and **Control Center > Style > Bar** turns it off or on. The `dock` setting in `bar-settings.json` defaults to `"yes"`. There is no dock shortcut or pinning control yet.
+
 
 ## Motion and panel smoothness audit
 

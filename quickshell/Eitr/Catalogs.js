@@ -459,7 +459,8 @@ var qml = {
     "Line": "Line",
     "Media style": "Media style",
     "Update Plugins": "Update Plugins",
-    "Update available": "Update available"
+    "Update available": "Update available",
+    "Dock": "Dock"
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -897,7 +898,8 @@ var qml = {
     "Bars": "Barras",
     "Line": "Linha",
     "Update Plugins": "Atualizar plugins",
-    "Update available": "Atualização disponível"
+    "Update available": "Atualização disponível",
+    "Dock": "Dock"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1335,7 +1337,8 @@ var qml = {
     "Bars": "Barras",
     "Line": "Línea",
     "Update Plugins": "Actualizar plugins",
-    "Update available": "Actualización disponible"
+    "Update available": "Actualización disponible",
+    "Dock": "Dock"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1773,7 +1776,8 @@ var qml = {
     "Bars": "Balken",
     "Line": "Linie",
     "Update Plugins": "Plugins aktualisieren",
-    "Update available": "Aktualisierung verfügbar"
+    "Update available": "Aktualisierung verfügbar",
+    "Dock": "Dock"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2211,6 +2215,7 @@ var qml = {
     "Bars": "Barres",
     "Line": "Ligne",
     "Update Plugins": "Mettre à jour les plugins",
-    "Update available": "Mise à jour disponible"
+    "Update available": "Mise à jour disponible",
+    "Dock": "Dock"
   }
 };

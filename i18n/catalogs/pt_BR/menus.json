@@ -581,5 +581,8 @@
   "Seven audio spectrum bars": "Sete barras do espectro de áudio",
   "A simple audio spectrum wave": "Uma onda simples do espectro de áudio",
   "Review and update installed plugins": "Revisar e atualizar plugins instalados",
-  "Update Plugins": "Atualizar plugins"
+  "Update Plugins": "Atualizar plugins",
+  "Dock": "Dock",
+  "Hide the application dock": "Ocultar o dock de aplicativos",
+  "Reveal open apps at the opposite edge": "Mostrar apps abertos na borda oposta"
 }

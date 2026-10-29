@@ -37,3 +37,13 @@ O controle Áudio/Mic abre um painel com seções separadas para saída de áudi
 **Reduzir movimento**, em Estilo > Barra da área de trabalho e Central de controle > Estilo > Barra, torna instantâneas a abertura e o fechamento dos painéis, as entradas da Visão geral, as transições de notificações e as animações decorativas da barra. Vem desativado e é salvo em `bar-settings.json`. Os temporizadores de atualização de dados, expiração de notificações e ocultação automática mantêm seu funcionamento normal.
 
 O estilo de mídia é salvo em `bar-settings.json`: escolha Barras (padrão, oito barras) ou Linha (uma onda de áudio simples e suave) em Estilo > Barra da área de trabalho ou Central de controle > Estilo > Barra. O indicador vem antes dos controles, mantém tamanho fixo em todos os layouts e gira nas bordas esquerda e direita. Passe o ponteiro para ver a música; o clique esquerdo abre os detalhes e o direito abre o visualizador de música. Em pausa, a linha fica plana. Reduzir movimento mantém os níveis de áudio sem transições e interrompe o movimento decorativo de reserva.
+
+O modo Centralizado encontra a borda da tela com extremidades retas e as mesmas rampas de 45° suavemente arredondadas de Abas nos dois lados. As rampas giram com a barra nas quatro bordas e ignoram a preferência de cantos; os painéis separados continuam seguindo essa preferência.
+
+## Dock de aplicativos
+
+Toque na borda oposta à barra para revelar o dock. Ele flutua sobre as janelas sem redimensioná-las e se esconde 350 ms após o ponteiro sair, com animação de 320 ms (instantânea com Reduzir movimento). Aparece na tela principal ou em todas quando a barra usa todas as telas. Nunca aparece sobre uma janela em tela cheia.
+
+Os aplicativos abertos são agrupados pela classe, na ordem das janelas do Hyprland. Os ícones usam espaços de 36 px separados por 6 px, com o ícone do aplicativo ou um símbolo alternativo. Um ponto abaixo indica janelas no espaço de trabalho atual daquela tela. Passe o ponteiro para ver o nome; clique para focar a janela usada mais recentemente, mudando de espaço se necessário; clique com o botão do meio para fechar essa janela. Listas longas rolam ao longo do dock. A superfície segue Desfoque/Cor do tema e os cantos escolhidos.
+
+**Dock** em **Estilo > Barra da área de trabalho** e **Central de controle > Estilo > Barra** ativa ou desativa o dock. A opção `dock` em `bar-settings.json` começa em `"yes"`. Ainda não há atalho nem controle para fixar aplicativos.

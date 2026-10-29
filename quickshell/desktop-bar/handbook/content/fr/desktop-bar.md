@@ -37,3 +37,13 @@ Le contrôle Audio/Micro ouvre un panneau avec des sections distinctes pour la s
 **Réduire les animations**, dans Style > Barre du bureau et Centre de contrôle > Style > Barre, rend instantanés l’ouverture et la fermeture des panneaux, les entrées de la Vue d’ensemble, les transitions des notifications et les animations décoratives de la barre. Cette option est désactivée par défaut et enregistrée dans `bar-settings.json`. Les délais d’actualisation des données, d’expiration des notifications et de masquage automatique restent inchangés.
 
 Le style multimédia est enregistré dans `bar-settings.json` : choisissez Barres (par défaut, huit barres) ou Ligne (une onde audio simple et lisse) dans Style > Barre du bureau ou Centre de contrôle > Style > Barre. L’indicateur précède les commandes, conserve une taille fixe dans chaque disposition et pivote sur les bords gauche et droit. Le survol affiche le titre ; le clic gauche ouvre les détails et le clic droit ouvre le visualiseur de musique. En pause, la ligne devient plate. Réduire les animations conserve les niveaux audio sans transition et arrête le mouvement décoratif de secours.
+
+Le mode Centré rejoint le bord de l’écran avec des extrémités droites et les mêmes pentes à 45° légèrement arrondies que les onglets des deux côtés. Les pentes tournent avec la barre sur les quatre bords et ignorent le choix des coins ; les panneaux détachés respectent toujours ce choix.
+
+## Dock d’applications
+
+Touchez le bord opposé à la barre pour révéler le dock. Il flotte au-dessus des fenêtres sans les redimensionner et se masque 350 ms après le départ du pointeur, avec une animation de 320 ms (instantanée avec Réduire les animations). Il apparaît sur l’écran principal, ou sur tous si la barre utilise tous les écrans. Il ne se révèle jamais au-dessus d’une fenêtre en plein écran.
+
+Les applications ouvertes sont regroupées par classe, dans l’ordre des fenêtres de Hyprland. Les icônes occupent 36 px avec un espacement de 6 px et utilisent l’icône du bureau ou un symbole de secours. Un point dessous indique des fenêtres sur l’espace actuel de cet écran. Survolez pour lire le nom ; cliquez pour activer la fenêtre utilisée le plus récemment, en changeant d’espace si nécessaire ; le clic central ferme cette fenêtre. Les longues listes défilent dans l’axe du dock. La surface respecte Flou/Couleur du thème et le choix des coins.
+
+**Dock** dans **Style > Barre de bureau** et **Centre de contrôle > Style > Barre** l’active ou le désactive. Le réglage `dock` dans `bar-settings.json` vaut `"yes"` par défaut. Aucun raccourci ni contrôle d’épinglage n’est encore proposé.

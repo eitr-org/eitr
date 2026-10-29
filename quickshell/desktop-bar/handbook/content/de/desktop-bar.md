@@ -37,3 +37,13 @@ Audio/Mikro öffnet ein gemeinsames Panel mit getrennten Bereichen für Audioaus
 **Bewegung reduzieren** unter Stil > Desktop-Leiste und Kontrollzentrum > Stil > Leiste zeigt das Öffnen und Schließen von Panels, die Übersicht, Benachrichtigungsübergänge und dekorative Leistenanimationen sofort. Die Option ist standardmäßig aus und wird in `bar-settings.json` gespeichert. Zeitgeber für Datenaktualisierung, Benachrichtigungen und automatisches Ausblenden behalten ihr normales Verhalten.
 
 Der Medienstil wird in `bar-settings.json` gespeichert: Unter Stil > Desktopleiste oder Kontrollzentrum > Stil > Leiste stehen Balken (Standard, acht Balken) und Linie (eine einfache glatte Audiowelle) zur Wahl. Die Anzeige steht vor den Wiedergabesteuerungen, bleibt in jedem Layout gleich groß und dreht sich am linken und rechten Rand. Beim Darüberfahren erscheint der Titel; Linksklick öffnet Mediendetails, Rechtsklick den Musikvisualisierer. Bei pausierter Wiedergabe wird die Linie flach. Reduzierte Bewegung zeigt weiterhin Audiopegel ohne Übergänge und stoppt die dekorative Ersatzbewegung.
+
+Die zentrierte Leiste schließt mit geraden Bildschirmkanten und denselben sanft abgerundeten 45°-Schrägen wie die Tabs auf beiden Seiten an den Bildschirmrand an. Die Schrägen drehen sich an allen vier Rändern mit und ignorieren die Eckeneinstellung; die abgesetzten Panels folgen dieser Einstellung weiterhin.
+
+## Anwendungsdock
+
+Berühren Sie den Bildschirmrand gegenüber der Leiste, um das Dock einzublenden. Es schwebt über Fenstern, ohne deren Größe zu ändern, und verschwindet 350 ms nach Verlassen durch den Zeiger mit einer 320-ms-Animation (sofort bei reduzierter Bewegung). Es erscheint auf dem Hauptbildschirm oder auf allen Bildschirmen, wenn die Leiste überall angezeigt wird. Über einem Vollbildfenster wird es nie eingeblendet.
+
+Offene Anwendungen werden nach Klasse in der Hyprland-Fensterreihenfolge gruppiert. Die Symbolplätze sind 36 px groß, mit 6 px Abstand; verwendet wird das Anwendungssymbol oder ein Ersatzzeichen. Ein Punkt darunter zeigt Fenster auf dem aktuellen Arbeitsbereich dieses Bildschirms an. Beim Darüberfahren erscheint der Name. Ein Klick aktiviert das zuletzt verwendete Fenster und wechselt bei Bedarf den Arbeitsbereich; ein Mittelklick schließt dieses Fenster. Lange Listen lassen sich entlang des Docks scrollen. Die Oberfläche folgt Unschärfe/Themenfarbe und der Eckeneinstellung.
+
+**Dock** unter **Stil > Desktopleiste** und **Kontrollzentrum > Stil > Leiste** schaltet es ein oder aus. Die Einstellung `dock` in `bar-settings.json` ist standardmäßig `"yes"`. Es gibt noch kein Tastenkürzel und keine Funktion zum Anheften.

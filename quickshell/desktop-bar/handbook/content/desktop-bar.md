@@ -29,6 +29,8 @@ never leaves the system partially upgraded.
   are using, and notifications pop up on the main display only. Choose the
   main display in the Display panel.
 
+Centered meets the screen edge with square edge ends and the same softly rounded 45° slopes as Tabs on both sides. These slopes rotate with the bar on all four edges and ignore the corner preference; its detached panels still follow that preference.
+
 Centered mode shows the clock until you hover. Icons unfold in their usual
 order. Each side fits its content while the clock stays at the screen center on every edge. The pin between media and the clock keeps the bar open; open panels
 also keep it expanded. Full-bar panels join the bar; centered-bar panels sit
@@ -65,3 +67,11 @@ The Audio/Mic control opens one panel with separate output and microphone sectio
 **Reduce motion**, under Style > Desktop Bar and Control Center > Style > Bar, makes panel unfolding and folding, Overview entrances, notification transitions and decorative bar animations instant. It is off by default and saved in `bar-settings.json`. Timers that refresh data, dismiss notifications or delay auto-hide keep their normal behavior.
 
 Media style is saved in `bar-settings.json`: choose Bars (default, eight bars) or Line (a simple smooth audio wave) under Style > Desktop Bar or Control Center > Style > Bar. The indicator precedes the playback controls, keeps a fixed size in every layout and rotates on left/right edges. Hover for the song name; left-click opens media details and right-click opens Music Visualizer. Paused playback settles the line flat. Reduce motion keeps live audio levels without easing and stops decorative fallback motion.
+
+## Edge dock
+
+Touch the screen edge opposite the bar to reveal the application dock. It floats over windows without moving or resizing them and hides 350 ms after the pointer leaves, with the shared 320 ms motion (instant with Reduce motion). It appears on the main screen, or on every screen when Displays is set to all, and never reveals over a fullscreen window.
+
+The dock groups open windows by application class, in Hyprland’s window order. Each 36 px icon slot has a 6 px gap and uses the application’s desktop icon, with a glyph fallback. A dot below an icon means that app has a window on the current workspace of that screen. Hover for its name, click to focus its most recently used window (including switching workspace), or middle-click to close that window. Long lists scroll along the dock. The surface follows Blur/Theme Color and the corner preference.
+
+**Dock** in **Style > Desktop Bar** and **Control Center > Style > Bar** turns it off or on. The `dock` setting in `bar-settings.json` defaults to `"yes"`. There is no dock shortcut or pinning control yet.

@@ -58,6 +58,18 @@ class MenuStructureTests(unittest.TestCase):
                 entries, key=lambda entry: (entry.get("subtext") != ">",
                     0 if name.startswith("ai-") and entry["text"] == "New" else 1, entry["text"].lower()))]
             self.assertEqual(names, expected, name)
+    def test_bar_dock_menu_uses_shared_settings_and_layout(self):
+        rows = menu("bar")["entries"]
+        self.assertEqual([entry["text"] for entry in rows], sorted(entry["text"] for entry in rows))
+        self.assertEqual(next(entry for entry in rows if entry["text"] == "Dock")["submenu"], "bar-dock")
+        source = (MENUS / "bar-dock.lua").read_text()
+        self.assertIn('Parent = "bar"', source)
+        self.assertIn('entries("dock", {', source)
+        self.assertIn('"no"', source)
+        self.assertIn('"yes"', source)
+        self.assertEqual((ROOT / "walker/themes/current/item_menus-bar-dock.xml").read_text(),
+                         (ROOT / "walker/themes/current/item_menus-main.xml").read_text())
+
     def test_update_offers_only_system_update_and_channel(self):
         entries = menu("update")["entries"]
         self.assertEqual([entry["text"] for entry in entries],

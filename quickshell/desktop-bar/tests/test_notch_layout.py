@@ -23,7 +23,7 @@ class NotchLayoutTests(unittest.TestCase):
         # The centre-tab hover comes from the bar's own handler, which also sees the clock and weather.
         self.assertIn('readonly property bool overCenterTab', shell_source)
         self.assertEqual(outline.count('ShapePath {'), 1)
-        self.assertIn('var slope = depth - strip;', outline)
+        self.assertIn('EdgeSlopes.outline', outline)
         self.assertNotIn('PanelSurface {', tab)
         icon_visibility = shell_source.split('readonly property bool iconsOpen: ', 1)[1].split('\n', 1)[0]
         toggle_visibility = shell_source.split('id: statusToggle', 1)[1].split('visible: ', 1)[1].split('\n', 1)[0]
@@ -61,6 +61,7 @@ import QtQuick.Shapes
 import Quickshell
 import "PanelStyle.js" as PanelStyle
 import "BarGeometry.js" as BarGeometry
+import "EdgeSlopes.js" as EdgeSlopes
 ShellRoot {
 id: shell
 property bool verticalBar: EDGE === "left" || EDGE === "right"
