@@ -69,9 +69,12 @@ LAN.
   tested configurations and known limitations. Publish installation walkthroughs
   and a video, a hardware test matrix, and suitable GitHub feedback templates.
   Keep beta and untested-hardware limits explicit.
-- **Public discovery.** After the owner's video and with their approval, prepare release announcements for
-  appropriate Linux communities, invite independent testers/reviewers and check
-  distro-directory submission requirements. Share reproducible evidence rather
+- **Public discovery: announce the release right after the video.** With the owner's
+  approval, post the release on Linux community sites and forums and on Reddit (for
+  example r/linux, r/archlinux's rules permitting, r/hyprland and r/unixporn), each
+  written for that community and following its self-promotion rules. Invite
+  independent testers/reviewers and check distro-directory submission requirements
+  (for example DistroWatch). Share reproducible evidence rather
   than promotional claims. Describe Eitr the same way everywhere (repository
   description, README and website), and never present features common to other
   Arch or Hyprland setups as exclusive to Eitr.
