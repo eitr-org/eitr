@@ -65,7 +65,7 @@ class EdgeDockTests(unittest.TestCase):
                 var pinned = DockModel.groups(dock.clients, 2, [{appClass: "Other"}, {appClass: "browser"}]);
                 if (pinned.length !== 3 || pinned[0].windows.length || !pinned[1].pinned || pinned[1].windows.length !== 2) throw new Error("Pinned entry extension");
                 var expected = {top: "bottom", bottom: "top", left: "right", right: "left"}[dock.barEdge];
-                if (dock.edge !== expected || surface.width !== (dock.vertical ? 52 : 122) || surface.height !== (dock.vertical ? 122 : 52) || surface.detached) throw new Error("Dock geometry");
+                if (dock.edge !== expected || surface.width !== (dock.vertical ? 52 : 94) || surface.height !== (dock.vertical ? 94 : 52) || surface.detached) throw new Error("Dock geometry");
                 var center = dock.vertical ? surface.y + surface.height / 2 : surface.x + surface.width / 2;
                 if (center !== (dock.vertical ? dock.height : dock.width) / 2) throw new Error("Dock not centered");
                 if ((dock.vertical ? sensor.width : sensor.height) !== 1) throw new Error("Trigger thickness");

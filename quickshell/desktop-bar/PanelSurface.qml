@@ -15,10 +15,12 @@ Item {
     readonly property bool flushTrailing: hostWindow.parent && (vertical
         ? hostWindow.y + hostWindow.height >= hostWindow.parent.height
         : hostWindow.x + hostWindow.width >= hostWindow.parent.width)
-    // Concave joins inset the painted body except at a flush screen edge.
+    // Concave joins inset the painted body except at a flush screen edge, or
+    // when the host meets its edge with straight sides (edgeJoins: false).
     // Pad relative to that body, not the larger rectangular attachment area.
-    readonly property int leadingBodyInset: detached || flushLeading ? 0 : contentInset
-    readonly property int trailingBodyInset: detached || flushTrailing ? 0 : contentInset
+    readonly property bool edgeJoins: hostWindow.edgeJoins !== false
+    readonly property int leadingBodyInset: detached || flushLeading || !edgeJoins ? 0 : contentInset
+    readonly property int trailingBodyInset: detached || flushTrailing || !edgeJoins ? 0 : contentInset
     readonly property var outerGaps: hostWindow.hostWindow && hostWindow.hostWindow.outerGaps
         ? hostWindow.hostWindow.outerGaps : [12, 12, 12, 12]
     // Keep the sheet attached to the bar; only its content gains the window gap.
@@ -58,8 +60,8 @@ Item {
                 if (w <= 0 || h <= 0) return "";
                 var r = Math.min(surface.contentInset, w / 4, h / 2);
                 var reversed = surface.edge === "bottom" || surface.edge === "left";
-                var startInset = (reversed ? surface.flushTrailing : surface.flushLeading) ? 0 : r;
-                var endInset = (reversed ? surface.flushLeading : surface.flushTrailing) ? 0 : r;
+                var startInset = !surface.edgeJoins || (reversed ? surface.flushTrailing : surface.flushLeading) ? 0 : r;
+                var endInset = !surface.edgeJoins || (reversed ? surface.flushLeading : surface.flushTrailing) ? 0 : r;
                 var corner = Math.min(DesktopStyle.radius(surface.contentInset), (w-startInset-endInset) / 2, h / 2);
                 // The two inward curves join the sheet to the bar; the outer
                 // corners remain rounded as the sheet unfolds.

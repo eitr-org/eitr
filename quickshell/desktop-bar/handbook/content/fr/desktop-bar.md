@@ -44,7 +44,7 @@ Le mode Centré rejoint le bord de l’écran avec des extrémités droites et l
 
 ## Dock d’applications
 
-Touchez le bord opposé à la barre pour révéler le dock. Il se déplie depuis ce bord, raccordé à lui par les mêmes courbes rentrantes que les panneaux de la barre, au-dessus des fenêtres sans les redimensionner et se masque 350 ms après le départ du pointeur, avec une animation de 320 ms (instantanée avec Réduire les animations). Il apparaît sur l’écran principal, ou sur tous si la barre utilise tous les écrans. Il ne se révèle jamais au-dessus d’une fenêtre en plein écran.
+Touchez le bord opposé à la barre pour révéler le dock. Il se déplie depuis ce bord, ses côtés droits rejoignant le bord, au-dessus des fenêtres sans les redimensionner et se masque 350 ms après le départ du pointeur, avec une animation de 320 ms (instantanée avec Réduire les animations). Il apparaît sur l’écran principal, ou sur tous si la barre utilise tous les écrans. Il ne se révèle jamais au-dessus d’une fenêtre en plein écran.
 
 Les applications ouvertes sont regroupées par classe, dans l’ordre des fenêtres de Hyprland. Les icônes occupent 36 px avec un espacement de 6 px et utilisent l’icône du bureau ou un symbole de secours. Les points dessous comptent ses fenêtres, jusqu’à trois, et s’estompent quand aucune n’est sur l’espace actuel de cet écran. Survolez pour lire le nom et le nombre de fenêtres. Cliquez pour activer la fenêtre utilisée le plus récemment, en changeant d’espace si nécessaire ; un nouveau clic passe à sa fenêtre suivante. Le clic central ferme la fenêtre la plus récente. Les longues listes défilent dans l’axe du dock. La surface respecte Flou/Couleur du thème et le choix des coins.
 

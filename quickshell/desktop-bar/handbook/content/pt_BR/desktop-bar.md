@@ -44,7 +44,7 @@ O modo Centralizado encontra a borda da tela com extremidades retas e as mesmas 
 
 ## Dock de aplicativos
 
-Toque na borda oposta à barra para revelar o dock. Ele se desdobra a partir dessa borda, unido a ela pelas mesmas curvas para dentro dos painéis da barra, sobre as janelas sem redimensioná-las e se esconde 350 ms após o ponteiro sair, com animação de 320 ms (instantânea com Reduzir movimento). Aparece na tela principal ou em todas quando a barra usa todas as telas. Nunca aparece sobre uma janela em tela cheia.
+Toque na borda oposta à barra para revelar o dock. Ele se desdobra a partir dessa borda, com laterais retas que encontram a borda, sobre as janelas sem redimensioná-las e se esconde 350 ms após o ponteiro sair, com animação de 320 ms (instantânea com Reduzir movimento). Aparece na tela principal ou em todas quando a barra usa todas as telas. Nunca aparece sobre uma janela em tela cheia.
 
 Os aplicativos abertos são agrupados pela classe, na ordem das janelas do Hyprland. Os ícones usam espaços de 36 px separados por 6 px, com o ícone do aplicativo ou um símbolo alternativo. Os pontos abaixo contam as janelas, até três, e ficam esmaecidos quando nenhuma está no espaço de trabalho atual daquela tela. Passe o ponteiro para ver o nome e o número de janelas. Clique para focar a janela usada mais recentemente, mudando de espaço se necessário; clique de novo para ir à próxima janela dele. O botão do meio fecha a janela mais recente. Listas longas rolam ao longo do dock. A superfície segue Desfoque/Cor do tema e os cantos escolhidos.
 

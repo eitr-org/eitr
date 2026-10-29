@@ -44,7 +44,7 @@ El modo Centrado se une al borde de la pantalla con extremos rectos y las mismas
 
 ## Dock de aplicaciones
 
-Toca el borde opuesto a la barra para mostrar el dock. Se despliega desde ese borde, unido a él con las mismas curvas hacia dentro que los paneles de la barra, sobre las ventanas sin redimensionarlas y se oculta 350 ms después de que salga el puntero, con una animación de 320 ms (instantánea con Reducir movimiento). Aparece en la pantalla principal o en todas si la barra usa todas las pantallas. Nunca aparece sobre una ventana a pantalla completa.
+Toca el borde opuesto a la barra para mostrar el dock. Se despliega desde ese borde, con lados rectos que llegan hasta él, sobre las ventanas sin redimensionarlas y se oculta 350 ms después de que salga el puntero, con una animación de 320 ms (instantánea con Reducir movimiento). Aparece en la pantalla principal o en todas si la barra usa todas las pantallas. Nunca aparece sobre una ventana a pantalla completa.
 
 Las aplicaciones abiertas se agrupan por clase, en el orden de ventanas de Hyprland. Los iconos ocupan 36 px con separaciones de 6 px y usan el icono de escritorio o un símbolo alternativo. Los puntos debajo cuentan sus ventanas, hasta tres, y se atenúan si ninguna está en el espacio actual de esa pantalla. Pasa el puntero para ver el nombre y el número de ventanas. Haz clic para enfocar la ventana usada más recientemente, cambiando de espacio si hace falta; otro clic pasa a su siguiente ventana. El botón central cierra la ventana más reciente. Las listas largas se desplazan a lo largo del dock. La superficie respeta Desenfoque/Color del tema y las esquinas elegidas.
 

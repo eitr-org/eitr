@@ -11,10 +11,11 @@ Item {
     property var desktopEntries: DesktopEntries.applications.values
     property real availableLength: 1000
     readonly property bool vertical: barEdge === "left" || barEdge === "right"
-    // The attached surface adds a concave join at each end of the strip.
-    readonly property real axisLength: Math.min(availableLength, 16 + 2 * PanelStyle.surfaceInset + Math.max(0, apps.length * 42 - 6))
+    readonly property real axisLength: Math.min(availableLength, 16 + Math.max(0, apps.length * 42 - 6))
     readonly property QtObject hostWindow: QtObject { readonly property var outerGaps: [4, 4, 4, 4] }
     readonly property bool detached: false
+    // Straight sides meet the screen edge, without the panels' inward curves.
+    readonly property bool edgeJoins: false
     property real revealProgress: 1
     readonly property bool hovered: pointer.hovered
     signal activated(var entry)
