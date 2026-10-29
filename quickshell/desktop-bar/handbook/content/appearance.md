@@ -92,17 +92,19 @@ system booting after an edit.
 **Style > Lockscreen** sets the design of both the lockscreen and the login
 screen. Existing preferences survive theme changes.
 
-Available designs are Clockwork Neo Orbital, Clockwork Tape, Girl Coffee,
+Available designs are Clockwork Neo Orbital, Clockwork Tape, Eitr, Girl Coffee,
 Girl Pillow, Material Dark, Material Light, Nothing and Theme Wallpaper, followed
 by any lockscreens of your own; previews do not lock the session. A selection of a design
-that is no longer shipped moves to Clockwork Tape, the default for fresh
-installations.
+that is no longer shipped moves to Clockwork Tape. Fresh installations start with
+Eitr.
+
+Eitr shows the EITR wordmark in your theme's accent inside the boot splash's gold rune ring, which ticks once a second, over a starry sky with the Milky Way, now and then a shooting star, and the desktop's aurora on pure black (on an OLED those pixels stay off). The clock shows hours and minutes in Eitr's own Norse numerals and follows the 12- or 24-hour preference. Each character you type carves a rune into the password field (always the same runes, in order, so only the length shows); arrows, Home and End move the block cursor, and Backspace or Delete crumble the rune beside it. After the password is accepted and the session already unlocked, lightning strikes the middle of the screen and the lockscreen burns away from there like paper, onto your desktop. Reduce motion holds everything still and skips these effects. In a preview, Enter shows the unlock effect without unlocking anything and Escape closes it.
 
 The artwork targets 4K (3840×2160, 16:9). Coffee and Pillow keep their
 relaxed anime style with Norse clothing; Material and Clockwork use subtle rune
 ornaments. Nothing keeps its existing design. QML and SVG remain scalable.
 
-Compare the eight shipped EITR designs using
+Compare the nine shipped EITR designs using
 `bash quickshell/lockscreen/scripts/gallery.sh`. This does not change the selected
 lockscreen; authentication and power actions are disabled in the gallery.
 Clockwork uses procedural QML; Coffee, Pillow, Material and Nothing retain the

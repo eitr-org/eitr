@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import subprocess
 import tempfile
+from aurora_reference import AuroraReference
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
@@ -21,6 +22,7 @@ def main():
     if set(requested) - known:
         parser.error("Unknown design ID")
     with tempfile.TemporaryDirectory(prefix="eitr-lockscreen-render-") as directory:
+        aurora = AuroraReference(directory)
         screen = Path(directory) / "screen.json"
         screen.write_text(json.dumps({"screens": [{"name": "4K", "x": 0, "y": 0,
                                                    "width": 3840, "height": 2160,
@@ -41,6 +43,8 @@ def main():
                                EITR_RENDER_CONFIG=json.dumps(settings),
                                EITR_RENDER_DESIGN=design.as_uri(),
                                EITR_RENDER_OUTPUT=str(design.parent / "preview.png"))
+            if design.parent.name == 'eitr':
+                environment['EITR_RENDER_AURORA'] = aurora.render(settings, 3840, 2160)
             environment.pop("QT_QUICK_BACKEND", None)
             result = subprocess.run(["quickshell", "-n", "-p", str(HERE / "render-preview.qml")],
                                     env=environment, capture_output=True, text=True, timeout=30)

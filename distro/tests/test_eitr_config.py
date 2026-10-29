@@ -296,7 +296,7 @@ class ShippedManifestTests(unittest.TestCase):
         self.assertEqual(theme["source"], "themes/eitr")
         self.assertFalse(theme["update"])
         self.assertFalse(lockscreen["update"])
-        self.assertEqual((ROOT / lockscreen["source"]).read_text().strip(), "clockwork/tape")
+        self.assertEqual((ROOT / lockscreen["source"]).read_text().strip(), "eitr")
 
 
 if __name__ == "__main__":

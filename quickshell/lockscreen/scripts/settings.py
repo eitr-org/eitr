@@ -15,6 +15,7 @@ from eitr_paths import cache, code, config as user_config
 from eitr_i18n import tr
 import eitr_own_style
 import subprocess
+import tomllib
 
 ROOT = Path(__file__).resolve().parents[1]
 STATE = user_config("lockscreen/selected")
@@ -22,6 +23,7 @@ LOGIN_HELPERS = (Path('/usr/lib/eitr/desktop-login-select'), Path('/usr/local/bi
 NAMES = {
     'clockwork/neo-orbital': 'Clockwork Neo Orbital',
     'clockwork/tape': 'Clockwork Tape',
+    'eitr': 'Eitr',
     'girl-coffee': 'Girl · Coffee',
     'girl-pillow': 'Girl · Pillow',
     'material-you-dark': 'Material Dark',
@@ -90,6 +92,31 @@ def design_config(value):
     elif value == 'theme-wallpaper':
         wallpaper = theme_wallpaper()
         settings['background'] = wallpaper.as_uri() if wallpaper else ''
+    if value == 'eitr':
+        settings.update(eitr_config())
+    return settings
+
+
+def eitr_config():
+    """Snapshot public theme tokens and accessibility preferences at launch."""
+    try:
+        palette = tomllib.loads(user_config('theme/current/colors.toml').read_text())
+    except (OSError, ValueError):
+        palette = {}
+    try:
+        preferences = json.loads(user_config('quickshell/desktop-bar/bar-settings.json').read_text())
+    except (OSError, ValueError):
+        preferences = {}
+    settings = {key: palette[key] for key in ('foreground', 'accent', 'muted', 'alert') if key in palette}
+    if 'background' in palette:
+        settings['backgroundColor'] = palette['background']
+    settings['themeMode'] = 'light' if user_config('theme/current/light.mode').exists() else 'dark'
+    colors = [palette[key] for key in ('accent', 'color6', 'color4', 'color5', 'color3') if key in palette]
+    if colors:
+        settings['palette'] = colors
+    settings['reduceMotion'] = preferences.get('reduceMotion') == 'yes'
+    settings['clock'] = preferences.get('clock', '24h')
+    settings['eitrTheme'] = user_config('theme/current').resolve().name == 'eitr'
     return settings
 
 

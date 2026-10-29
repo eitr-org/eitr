@@ -411,6 +411,9 @@
     "Edit widgets": [
       "quickshell/desktop-bar/PluginManager.qml"
     ],
+    "Eitr": [
+      "quickshell/lockscreen/design-gallery.qml"
+    ],
     "Eitr Calculator": [
       "quickshell/calculator/shell.qml"
     ],
@@ -1268,6 +1271,9 @@
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml",
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml",
       "quickshell/lockscreen/themes/nothing/Main.qml"
+    ],
+    "Unable to unlock. Try again.": [
+      "quickshell/lockscreen/themes/eitr/Main.qml"
     ],
     "Unified": [
       "quickshell/desktop-bar/ControlCenter.qml"

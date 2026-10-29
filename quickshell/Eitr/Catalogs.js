@@ -480,7 +480,9 @@ var qml = {
     "New Window": "New Window",
     "Remove from Dock": "Remove from Dock",
     "This plugin has errors": "This plugin has errors",
-    "View error details": "View error details"
+    "View error details": "View error details",
+    "Eitr": "Eitr",
+    "Unable to unlock. Try again.": "Unable to unlock. Try again."
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -939,7 +941,9 @@ var qml = {
     "New Window": "Nova janela",
     "Close All Windows": "Fechar todas as janelas",
     "This plugin has errors": "Este plugin tem erros",
-    "View error details": "Ver detalhes dos erros"
+    "View error details": "Ver detalhes dos erros",
+    "Eitr": "Eitr",
+    "Unable to unlock. Try again.": "Não foi possível desbloquear. Tente novamente."
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1398,7 +1402,9 @@ var qml = {
     "New Window": "Nueva ventana",
     "Close All Windows": "Cerrar todas las ventanas",
     "This plugin has errors": "Este plugin tiene errores",
-    "View error details": "Ver detalles de errores"
+    "View error details": "Ver detalles de errores",
+    "Eitr": "Eitr",
+    "Unable to unlock. Try again.": "No se pudo desbloquear. Inténtalo de nuevo."
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1857,7 +1863,9 @@ var qml = {
     "New Window": "Neues Fenster",
     "Close All Windows": "Alle Fenster schließen",
     "This plugin has errors": "Dieses Plugin hat Fehler",
-    "View error details": "Fehlerdetails anzeigen"
+    "View error details": "Fehlerdetails anzeigen",
+    "Eitr": "Eitr",
+    "Unable to unlock. Try again.": "Entsperren fehlgeschlagen. Versuche es erneut."
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2316,6 +2324,8 @@ var qml = {
     "New Window": "Nouvelle fenêtre",
     "Close All Windows": "Fermer toutes les fenêtres",
     "This plugin has errors": "Ce plugin a des erreurs",
-    "View error details": "Voir les détails des erreurs"
+    "View error details": "Voir les détails des erreurs",
+    "Eitr": "Eitr",
+    "Unable to unlock. Try again.": "Impossible de déverrouiller. Réessayez."
   }
 };

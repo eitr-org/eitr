@@ -4,6 +4,7 @@ import Quickshell.Wayland
 
 ShellRoot {
     id: shell
+    readonly property bool isLockPreview: true
     readonly property var config: JSON.parse(Quickshell.env("DESKTOP_LOCK_CONFIG") || "{}")
     readonly property var sddm: auth.sddm
     readonly property var userModel: auth.userModel
@@ -17,11 +18,14 @@ ShellRoot {
         exclusionMode: ExclusionMode.Ignore
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
-        color: "black"
+        color: "transparent"
         Loader {
             anchors.fill: parent
             source: "file://" + Quickshell.env("DESKTOP_LOCK_THEME") + "/Main.qml"
-            onLoaded: item.forceActiveFocus()
+            onLoaded: {
+                item.forceActiveFocus();
+                if (item.previewFinished) item.previewFinished.connect(function() { Qt.quit(); });
+            }
         }
         Shortcut { sequence: "Escape"; onActivated: Qt.quit() }
     }

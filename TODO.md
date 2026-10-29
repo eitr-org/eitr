@@ -30,8 +30,6 @@ LAN.
 # 2. Smaller items
 
 - **Light themes.** The owner has ideas for more light themes; create them later.
-- **An Eitr lockscreen.** A new lockscreen design with Eitr's own face (the owner's
-  idea, 2026-10-29), beside the existing designs; ask the owner for direction first.
 - **A full security review of the distro.** The owner's request (2026-10-29): review
   the whole system, not one feature: installer and first login, root helpers and
   `eitr-system` actions, sudo/polkit rules, services and their permissions, update

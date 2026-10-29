@@ -34,7 +34,9 @@ O menu de inicialização do Limine usa as cores do tema atual, o título EITR e
 
 **Estilo > Tela de bloqueio** define o desenho da tela de bloqueio e da tela de login. As preferências existentes são mantidas nas trocas de tema.
 
-Os desenhos disponíveis são Clockwork Neo Orbital, Clockwork Tape, Girl Coffee, Girl Pillow, Material Dark, Material Light, Nothing e Theme Wallpaper. Depois vêm as suas próprias telas de bloqueio; prévias não bloqueiam a sessão. Uma escolha removida da distribuição passa para Clockwork Tape, o padrão de novas instalações.
+Os desenhos disponíveis são Clockwork Neo Orbital, Clockwork Tape, Eitr, Girl Coffee, Girl Pillow, Material Dark, Material Light, Nothing e Theme Wallpaper. Depois vêm as suas próprias telas de bloqueio; prévias não bloqueiam a sessão. Uma escolha removida da distribuição passa para Clockwork Tape. Novas instalações começam com Eitr.
+
+Eitr mostra a marca EITR na cor de destaque do seu tema dentro do anel dourado de runas da tela de inicialização, que avança a cada segundo, sobre um céu estrelado com a Via Láctea, uma estrela cadente de vez em quando e a aurora da área de trabalho sobre preto puro (numa tela OLED esses pixels ficam apagados). O relógio mostra horas e minutos com os numerais nórdicos do próprio Eitr e segue a preferência de 12 ou 24 horas. Cada caractere digitado entalha uma runa no campo de senha (sempre as mesmas runas, em ordem, então só o tamanho aparece); as setas, Home e End movem o cursor em bloco, e Backspace ou Delete esfarelam a runa ao lado. Depois que a senha é aceita e a sessão já está desbloqueada, um raio cai no meio da tela e a tela de bloqueio queima a partir dali como papel, até revelar a área de trabalho. Reduzir movimento deixa tudo parado e pula esses efeitos. Numa prévia, Enter mostra o efeito de desbloqueio sem desbloquear nada e Esc a fecha.
 
 A arte tem resolução alvo de 4K (3840×2160, 16:9). Coffee e Pillow mantêm o estilo anime tranquilo com roupas nórdicas; Material e Clockwork usam ornamentos rúnicos discretos. Nothing mantém seu desenho. QML e SVG continuam escaláveis.
 

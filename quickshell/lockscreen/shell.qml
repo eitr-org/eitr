@@ -1,7 +1,9 @@
 import Eitr as Eitr
 import QtQuick
+import QtQuick.Window
 import Quickshell
 import Quickshell.Wayland
+import "themes/eitr/Spectrum.js" as Spectrum
 
 ShellRoot {
     Component.onCompleted: Quickshell.watchFiles = Quickshell.env("EITR_LIVE_RELOAD") === "1"
@@ -13,6 +15,25 @@ ShellRoot {
     readonly property var sessionModel: auth.sessionModel
     readonly property var keyboard: keyboardState
     property bool unlocked: false
+    readonly property bool sweepEnabled: themePath.endsWith("/eitr") && config.reduceMotion !== true
+    signal snapshotAll()
+    Loader {
+        id: exitEffect
+        active: shell.sweepEnabled
+        asynchronous: true
+        source: "UnlockOverlay.qml"
+        onLoaded: {
+            item.authenticated = Qt.binding(function() { return shell.unlocked; });
+            item.locked = Qt.binding(function() { return sessionLock.locked; });
+            item.secure = Qt.binding(function() { return sessionLock.secure; });
+            item.reduced = !shell.sweepEnabled;
+            item.spectrum = Spectrum.colors(config.themeMode === "light");
+            item.style = config.unlockEffect || "bifrost";
+        }
+    }
+    function capture(item, screenName) {
+        if (exitEffect.item) exitEffect.item.capture(item, screenName);
+    }
 
     QtObject { id: keyboardState; property bool numLock: false }
     AuthAdapter {
@@ -26,20 +47,32 @@ ShellRoot {
         }
     }
 
-    Timer { id: quitTimer; interval: 200; onTriggered: Qt.quit() }
+    Timer { id: quitTimer; interval: shell.sweepEnabled ? 1200 : 200; onTriggered: Qt.quit() }
 
     Component {
         id: themeSurface
         Item {
+            readonly property string screenName: Window.window && Window.window.screen ? Window.window.screen.name : ""
+            Connections {
+                target: shell
+                function onSnapshotAll() { shell.capture(theme.item, screenName); }
+            }
             Loader {
                 id: theme
                 anchors.fill: parent
                 asynchronous: true
-                // Create the lock surface before loading the theme and video decoder.
+                // Create the lock surface before loading the presentation.
                 Component.onCompleted: Qt.callLater(function() {
                     theme.source = "file://" + shell.themePath + "/Main.qml";
                 })
-                onLoaded: item.forceActiveFocus()
+                onLoaded: {
+                    item.forceActiveFocus();
+                    if (shell.sweepEnabled && item.captureRequested)
+                        item.captureRequested.connect(function() {
+                            if (exitEffect.item) exitEffect.item.resetCapture();
+                            shell.snapshotAll();
+                        });
+                }
             }
             Rectangle {
                 anchors.fill: parent

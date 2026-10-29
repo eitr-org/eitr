@@ -45,6 +45,9 @@ def use_bundled_module(destination):
         rewritten = MODULE_IMPORT.sub(f'import "{SHARED_MODULE.name}"', source)
         relative = os.path.relpath(destination / "Eitr", path.parent)
         rewritten = rewritten.replace("import Eitr as Eitr", 'import "' + relative + '" as Eitr')
+        rewritten = rewritten.replace(
+            'Qt.resolvedUrl("../../../desktop-bar/shaders/aurora.frag.qsb")',
+            '"file:///usr/share/eitr/quickshell/desktop-bar/shaders/aurora.frag.qsb"')
         if rewritten != source:
             path.write_text(rewritten)
 

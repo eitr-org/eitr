@@ -1,0 +1,9 @@
+[SddmGreeterTheme]
+Name=Eitr
+Description=Eitr emblem, Elder Futhark and a palette-lit Bifrost bridge
+Author=EITR
+License=GPL-3.0
+Type=sddm-theme
+MainScript=Main.qml
+ConfigFile=theme.conf
+QtVersion=6

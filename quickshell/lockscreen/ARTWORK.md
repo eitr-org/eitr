@@ -1,6 +1,6 @@
 # EITR lockscreen artwork provenance
 
-Eight designs use installed system fonts, procedural QML/SVG and still
+Nine designs use installed system fonts, procedural QML/SVG and still
 backgrounds. No bundled fonts or videos are required. Preview using
 `bash quickshell/lockscreen/scripts/gallery.sh`; authentication and power actions
 are disabled. Preview images contain only mock EITR account/session data.
@@ -76,3 +76,52 @@ or into SDDM. The public 3840×2160 preview uses
 `themes/eitr/backgrounds/02-eitr-runestone.png`, whose provenance is documented
 in `themes/eitr/artwork.md`. The selected wallpaper keeps its native resolution;
 Qt scales/crops it to the lockscreen surface without generating a second copy.
+
+## Eitr
+
+The default design for fresh installations. Original QML presentation on a pure
+black ground (dark themes), so an OLED leaves those pixels off.
+
+- **Wordmark:** a byte-identical copy of `branding/svg/eitr-wordmark.svg` for
+  self-contained SDDM packaging, filled with the theme's accent; no logo paths are
+  redrawn.
+- **Rune ring:** the boot splash's (`distro/plymouth/eitr/export.py`): the 24 Elder
+  Futhark letters in Noto Sans Runic and runestone gold `#c4914f` with a soft glow,
+  drawn as text so they stay sharp while turning. It ticks six degrees each second,
+  a turn per minute, over a translucent dark disc.
+- **Clock:** hours and minutes only, in Eitr's own Norse glyphs
+  (`themes/eitr/NorseGlyphs.js`): digits, colon and A/P/M built from the wordmark's
+  parts (thick even strokes, straight stems, 30° and 45° diagonals, flat cut ends,
+  no curves), drawn as vector strokes.
+- **Sky:** `shaders/sky.frag` draws a starfield in three sizes and a Milky Way band
+  with dust lanes once (no time input, so its layer is reused); a few brighter
+  stars glow. Thirty stars on top scintillate quickly and gently without fading
+  out, and now and then a shooting star crosses the upper sky.
+- **Aurora:** the desktop's single `quickshell/desktop-bar/shaders/aurora.frag.qsb`,
+  drawn as the live wallpaper draws it (`LiveWallpaperScene.qml`): half resolution
+  scaled twice, with time advancing every 50 ms at twice the wallpaper's drift, in
+  fixed northern-lights greens rising to teal and violet, with a gentle saturation
+  boost. Pale themes tint the curtain alpha with a ColorOverlay instead.
+- **Password field:** no placeholder; a block caret in the accent. Each typed
+  character carves one rune in typing order (never derived from the character, so
+  only the length shows): it falls, lands white-hot with a flash and sparks, jolts
+  the field and cools to gold. Arrows, Home and End move the caret; Backspace and
+  Delete crumble the rune beside it into falling pieces. Selection is off, so every
+  edit is a plain insert or delete.
+- **Unlock:** `unlockEffect` in `theme.conf` picks `lightning` (default) or
+  `bifrost`. Lightning is the website's hold-to-strike bolt
+  (`website/src/scripts/realm/mjolnir-charge.ts`): a jagged bolt from the top to
+  the centre, re-rolled once at 140 ms and faded by 420 ms, a faint 90 ms flash and
+  a small burst where it lands; then `shaders/burn.frag` burns the lockscreen away
+  from the centre like paper, a ragged circle with a glowing ember rim and charred
+  edge. Bifröst drops a spectrum beam down the middle that splits and opens like a
+  gate.
+
+Reduce motion holds every layer still and skips the strike, crumbling and unlock
+effect. The caret blinks on a timer, never a looping animation, so the scene
+redraws about twenty times a second instead of at the monitor's refresh rate.
+`shaders/build.sh` regenerates the brand, sky and burn shaders; the desktop owns
+the aurora source and bytecode. Offscreen review executes the canonical aurora
+GLSL through surfaceless Mesa OpenGL; it does not establish hardware GPU cost.
+Preview unlock frames reveal only a synthetic desktop, and real unlock snapshots
+stay in memory. No photos, new generated artwork, bundled fonts or video are used.

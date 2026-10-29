@@ -156,6 +156,28 @@ class ThemeWallpaperTests(unittest.TestCase):
         self.cache = self.home / 'cache'
         self.cache.mkdir()
 
+    def test_eitr_uses_theme_tokens_and_accessibility_preferences(self):
+        theme = self.home / 'config/theme/current'
+        theme.mkdir(parents=True)
+        (theme / 'colors.toml').write_text('background="#ffffff"\nforeground="#121212"\naccent="#667755"\ncolor4="#445566"\n')
+        (theme / 'light.mode').touch()
+        preferences = self.home / 'config/quickshell/desktop-bar/bar-settings.json'
+        preferences.parent.mkdir(parents=True)
+        preferences.write_text('{"reduceMotion":"yes","clock":"12h"}')
+        settings = self.settings.design_config('eitr')
+        self.assertEqual(settings['themeMode'], 'light')
+        self.assertEqual(settings['backgroundColor'], '#ffffff')
+        self.assertEqual(settings['palette'], ['#667755', '#445566'])
+        self.assertTrue(settings['reduceMotion'])
+        self.assertEqual(settings['clock'], '12h')
+
+    def test_eitr_missing_or_invalid_preferences_have_safe_defaults(self):
+        self.assertEqual(self.settings.eitr_config(), {'themeMode': 'dark', 'reduceMotion': False, 'clock': '24h', 'eitrTheme': False})
+        theme = self.home / 'config/theme/current'
+        theme.mkdir(parents=True)
+        (theme / 'colors.toml').write_text('invalid TOML')
+        self.assertEqual(self.settings.eitr_config()['themeMode'], 'dark')
+
     def test_config_follows_wallpaper_changes_and_encodes_paths(self):
         for name in ('first wallpaper #1.png', 'second wallpaper.webp'):
             wallpaper = self.home / name

@@ -13,6 +13,7 @@ ShellRoot {
     readonly property var designs: [
         {id: "clockwork/neo-orbital", title: Eitr.I18n.tr("Clockwork Neo Orbital")},
         {id: "clockwork/tape", title: Eitr.I18n.tr("Clockwork Tape")},
+        {id: "eitr", title: Eitr.I18n.tr("Eitr")},
         {id: "girl-coffee", title: Eitr.I18n.tr("Girl · Coffee")},
         {id: "girl-pillow", title: Eitr.I18n.tr("Girl · Pillow")},
         {id: "material-you-dark", title: Eitr.I18n.tr("Material Dark")},
@@ -22,7 +23,14 @@ ShellRoot {
     ]
     readonly property var backgrounds: ({"material-you": "background.svg", "material-you-dark": "background.svg", "girl-coffee": "background.png", "girl-pillow": "background.png"})
     property var wallpaperConfig: ({})
-    readonly property var config: designs[selectedIndex].id === "theme-wallpaper" ? wallpaperConfig : ({themeMode: light ? "light" : "dark", background: backgrounds[designs[selectedIndex].id] || ""})
+    property var eitrSettings: ({})
+    readonly property bool isLockPreview: true
+    readonly property var config: designs[selectedIndex].id === "theme-wallpaper" ? wallpaperConfig : ({themeMode: light ? "light" : "dark", reduceMotion: eitrSettings.reduceMotion === true, clock: eitrSettings.clock || "24h", background: backgrounds[designs[selectedIndex].id] || ""})
+    Process {
+        running: true
+        command: ["python3", decodeURIComponent(Qt.resolvedUrl("scripts/settings.py").toString().replace("file://", "")), "config", "eitr"]
+        stdout: StdioCollector { onStreamFinished: gallery.eitrSettings = JSON.parse(text) }
+    }
     Process {
         id: wallpaperSettings
         running: true
@@ -62,12 +70,15 @@ ShellRoot {
         WlrLayershell.namespace: "eitr-lockscreen-gallery"
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
-        color: "#101211"
+        color: "transparent"
         Loader {
             id: designLoader
             anchors.fill: parent
             source: Qt.resolvedUrl("themes/" + gallery.designs[gallery.selectedIndex].id + "/Main.qml")
-            onLoaded: item.forceActiveFocus()
+            onLoaded: {
+                item.forceActiveFocus();
+                if (item.previewFinished) item.previewFinished.connect(function() { gallery.stop(); });
+            }
         }
         Row {
             visible: gallery.controlsVisible

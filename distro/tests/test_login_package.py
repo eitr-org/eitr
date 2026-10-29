@@ -15,7 +15,7 @@ class LoginPackageTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             package = Path(directory)
             designs = login.stage(package)
-            self.assertEqual(len(designs), 8)
+            self.assertEqual(len(designs), 9)
             self.assertEqual(designs['theme-wallpaper'], 'desktop-lockscreen-theme-wallpaper')
             self.assertEqual(json.loads((package / 'usr/share/eitr/lockscreen-designs.json').read_text()), designs)
             for name in designs.values():
@@ -23,6 +23,9 @@ class LoginPackageTests(unittest.TestCase):
                 source = (design / 'Main.qml').read_text()
                 self.assertNotIn('import LockscreenComponents', source)
                 self.assertTrue((design / 'LockscreenComponents/LoginController.qml').is_file())
+            aurora = (package / 'usr/share/sddm/themes/desktop-lockscreen-eitr/Aurora.qml').read_text()
+            self.assertIn('file:///usr/share/eitr/quickshell/desktop-bar/shaders/aurora.frag.qsb', aurora)
+            self.assertFalse((package / 'usr/share/sddm/themes/desktop-lockscreen-eitr/shaders/aurora.frag.qsb').exists())
             with self.assertRaises(SystemExit):
                 login.stage(package)
 

@@ -455,5 +455,7 @@
   "New Window": "Nueva ventana",
   "Close All Windows": "Cerrar todas las ventanas",
   "This plugin has errors": "Este plugin tiene errores",
-  "View error details": "Ver detalles de errores"
+  "View error details": "Ver detalles de errores",
+  "Eitr": "Eitr",
+  "Unable to unlock. Try again.": "No se pudo desbloquear. Inténtalo de nuevo."
 }

@@ -1,5 +1,12 @@
 # Releases
 
+Style > Lockscreen adds Eitr, the new default for fresh installations: the EITR
+wordmark in the theme's accent inside the boot splash's gold rune ring, a starry
+sky with the Milky Way, shooting stars and the desktop's aurora on black, Norse
+clock numerals, runes carved into the password field and a lightning strike that
+burns the lockscreen away after the session is already unlocked. Reduce motion
+holds it still. PAM is unchanged; existing lockscreen choices are kept.
+
 Eitr is the new default theme (formerly Norse), using the approved Primordial Venom palette and
 Eitr’s own palette-driven colorscheme for Neovim. Saved Norse selections and wallpaper paths
 migrate to Eitr; the old theme command name remains an alias. Existing artwork
