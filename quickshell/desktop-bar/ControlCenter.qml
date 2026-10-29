@@ -106,6 +106,7 @@ ThemedPopup {
     onVisibleChanged: if (!visible) {
         powerOpen = false;
         page = "general";
+        pluginManager.reset();
         scroll.contentY = 0;
         if (pendingCommand.length) {
             let command = pendingCommand; pendingCommand = [];

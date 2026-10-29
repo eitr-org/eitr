@@ -31,7 +31,9 @@ return function(kind)
             table.insert(entries, {Text = i18n.tr("No plugins installed"), Subtext = i18n.tr("Add a plugin from Install > Plugins"), Icon = "󰏖"})
         end
     elseif kind == "plugins-install" then
+        local updates = 0
         for _, row in ipairs(read("installed")) do
+            if (tonumber(row.updateCount) or 0) > 0 then updates = updates + 1 end
             if row.blocked == "policy" or row.blocked == "blocklist" then
                 -- Blocked plugins keep their files; the only action left is removing them.
                 table.insert(entries, {Text = row.name, Icon = "󰀦", Value = row.id,
@@ -46,8 +48,11 @@ return function(kind)
         end
         table.insert(entries, {Text = i18n.tr("Add Plugin…"), Subtext = i18n.tr("Review a Git repository before installing"), Icon = "󰐕",
             Actions = {open = task("add")}})
-        table.insert(entries, {Text = i18n.tr("Update Plugins"), Subtext = i18n.tr("Review and update installed plugins"), Icon = "󰚰",
-            Actions = {open = task("update")}})
+        -- Offered only when the last check found a new commit for an installed plugin.
+        if updates > 0 then
+            table.insert(entries, {Text = i18n.tr("Update Plugins"), Subtext = i18n.tr("Review and update installed plugins"), Icon = "󰚰",
+                Actions = {open = task("update")}})
+        end
         table.sort(entries, function(first, second)
             local firstMenu = first.SubMenu ~= nil
             local secondMenu = second.SubMenu ~= nil

@@ -72,7 +72,7 @@ own folder, and updating it skips commits that leave that folder unchanged.
 Network errors are silently ignored. The last check is saved in the machine-local
 `$XDG_STATE_HOME/eitr/plugin-updates.json`, tied to each approved commit.
 
-Use **Update Plugins** next to **Add Plugin…** in **Control Center > Plugins**,
+When the last check found an update, use **Update Plugins** next to **Add Plugin…** in **Control Center > Plugins**,
 **Install > Plugins > Update Plugins**, or `eitr plugin update [ID]` to review
 and install updates. Each plugin keeps the same diffs, risk flags and confirmation.
 The Plugins list shows a small ↑ mark and details show **Update available** when

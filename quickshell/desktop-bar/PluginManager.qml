@@ -16,6 +16,11 @@ Column {
     property string selectedPlugin: ""
     readonly property var selected: installed.find(plugin => plugin.id === selectedPlugin) || null
     onInstalledChanged: if (selectedPlugin && !selected) selectedPlugin = ""
+    function reset() {
+        selectedPlugin = "";
+        expanded = "";
+        showErrors = false;
+    }
     function back() {
         if (!selectedPlugin) return false;
         selectedPlugin = "";
@@ -37,6 +42,7 @@ Column {
             id: updateAllButton
             width: Math.max(68, updateAllMetrics.width + 20)
             TextMetrics { id: updateAllMetrics; text: updateAllButton.text; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize }
+            visible: manager.installed.some(plugin => plugin.updateCount > 0)
             text: Eitr.I18n.tr("Update Plugins"); foreground: manager.foreground
             onClicked: PluginRegistry.review("update", "")
         }

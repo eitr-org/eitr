@@ -485,7 +485,7 @@ class PluginTests(unittest.TestCase):
             return '{' + ','.join('{' + ','.join(key + '=' + json.dumps(value, ensure_ascii=False)
                 for key, value in row.items()) + '}' for row in values) + '}'
         harness = '''
-            local fixtures = {rows = %s, installed = {{id="example", name="Example plugin", author="Eitr contributors", blocked=""},
+            local fixtures = {rows = %s, installed = {{id="example", name="Example plugin", author="Eitr contributors", blocked="", updateCount=UPDATES},
                 {id="bad", name="Bad plugin", author="Someone", blocked="blocklist"}}}
             io.popen = function(command)
                 local action = command:match(" ([a-z]+)$")
@@ -513,7 +513,11 @@ class PluginTests(unittest.TestCase):
             end
         ''' % lua_rows(rows)
         environment = dict(os.environ, EITR_LIBRARY_ROOT=str(ROOT / 'distro/lib'), EITR_CODE_ROOT=str(ROOT))
-        result = subprocess.run(['lua', '-e', harness], cwd=ROOT, env=environment, capture_output=True, text=True, check=True)
+        result = subprocess.run(['lua', '-e', harness.replace('UPDATES', '1')], cwd=ROOT, env=environment,
+                                capture_output=True, text=True, check=True)
+        current = subprocess.run(['lua', '-e', harness.replace('UPDATES', '0')], cwd=ROOT, env=environment,
+                                 capture_output=True, text=True, check=True)
+        self.assertNotIn('Update Plugins', current.stdout)
         self.assertIn('plugins | Example notification | - | Plugin by Eitr contributors · not reviewed by Eitr', result.stdout)
         self.assertIn('plugins-install | Bad plugin | - | Blocked by Eitr for your safety · select to remove', result.stdout)
         self.assertIn('plugins-install | Example plugin | plugin-actions | Plugin by Eitr contributors · not reviewed by Eitr', result.stdout)
