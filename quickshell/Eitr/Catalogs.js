@@ -460,7 +460,8 @@ var qml = {
     "Media style": "Media style",
     "Update Plugins": "Update Plugins",
     "Update available": "Update available",
-    "Dock": "Dock"
+    "Dock": "Dock",
+    "Islands": "Islands"
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -899,7 +900,8 @@ var qml = {
     "Line": "Linha",
     "Update Plugins": "Atualizar plugins",
     "Update available": "Atualização disponível",
-    "Dock": "Dock"
+    "Dock": "Dock",
+    "Islands": "Ilhas"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1338,7 +1340,8 @@ var qml = {
     "Line": "Línea",
     "Update Plugins": "Actualizar plugins",
     "Update available": "Actualización disponible",
-    "Dock": "Dock"
+    "Dock": "Dock",
+    "Islands": "Islas"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1777,7 +1780,8 @@ var qml = {
     "Line": "Linie",
     "Update Plugins": "Plugins aktualisieren",
     "Update available": "Aktualisierung verfügbar",
-    "Dock": "Dock"
+    "Dock": "Dock",
+    "Islands": "Inseln"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2216,6 +2220,7 @@ var qml = {
     "Line": "Ligne",
     "Update Plugins": "Mettre à jour les plugins",
     "Update available": "Mise à jour disponible",
-    "Dock": "Dock"
+    "Dock": "Dock",
+    "Islands": "Îlots"
   }
 };

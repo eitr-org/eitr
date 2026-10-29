@@ -43,7 +43,7 @@ Continue with [Shortcuts](handbook:shortcuts),
 <!-- eitr-overview -->
 ## What Eitr includes
 
-Eitr combines Arch Linux and Hyprland with a desktop designed around Walker's searchable menus and a Quickshell bar. Choose Full, Centered or Tabs layouts; panels bring together connectivity, audio, displays, hardware, notifications, weather and workspaces. Themes coordinate the desktop, and you can create your own themes.
+Eitr combines Arch Linux and Hyprland with a desktop designed around Walker's searchable menus and a Quickshell bar. Choose Full, Centered, Tabs or Islands layouts; panels bring together connectivity, audio, displays, hardware, notifications, weather and workspaces. Themes coordinate the desktop, and you can create your own themes.
 
 System Update handles official, AUR and Flatpak updates, with snapshots on supported distro installs. The boot guard can recover a failed update before login. Factory reset requires a supported install and its first-login baseline, warnings and typed confirmation. The installer supports an offline package payload; recovery and installation depend on the documented supported layouts.
 

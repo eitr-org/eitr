@@ -152,7 +152,7 @@ changing the primary display may require selecting it again in OBS.
 
 Double-left-click empty bar space to switch between the current transparent
 background and opaque theme color. Double-right-click empty space to switch
-through Full, Centered and Tabs layouts. Centered mode shows only the clock
+through Full, Centered, Tabs and Islands layouts. Centered mode shows only the clock
 until hovered, then unfolds both icon groups in their existing order. Centered meets the screen edge with square edge ends and the same softly rounded 45° slopes as Tabs on both sides. These slopes rotate with the bar on all four edges and ignore the corner preference; its detached panels still follow that preference. Each side
 packs toward the clock with the same 4 px gap between every item and group.
 The surface has equal end padding (12 px horizontally, 8 px vertically), so it can be
@@ -165,7 +165,9 @@ its axis, with the same 320 ms opening/closing effect. The gap follows Hyprland'
 live inner window spacing (opposing insets added together). Gaps outside the
 centered strip pass clicks through. Old split preferences migrate to centered.
 
-Tabs uses a continuous 7 px strip and three content-sized tabs for the left, centre and right groups. Each inner tab end has 4 px of padding measured from its outermost item, including when media is hidden; the centre tab is symmetric around the clock when media and weather are hidden. Weather is hidden until the centre tab is hovered, then slides out after the fixed clock in 320 ms; it retracts after a short hover delay and stays visible while its panel is open. Only the trailing side grows, along the bar axis on every edge, with 4 px after the last visible item. Tabs retain the full bar depth (30 px horizontally), fixed trapezoid joins with straight 45° slopes outside the tab padding. The clock stays exactly screen-centred, including with media visible. Panels float beside the bar on detached rounded surfaces, aligned left, centre or right like Full and inset from screen edges by the outer gap, with the live Hyprland inter-window gap and the same 320 ms reveal as Centered. Gaps pass clicks through; the full tab depth is reserved for windows. Double-right-click cycles Full → Centered → Tabs → Full. The slopes have subtly softened bends and do not follow the corner preference; screen-edge ends stay square and filled. Tabs always shows all right-side controls without a show/hide arrow.
+Islands gives the logo, Overview/workspaces, AI Usage/Hardware/Idle Lock, clock, weather and status controls separate content-sized pills, preserving their order and Full’s icon spacing. Media and capture indicators get pills only while active. The clock stays exactly screen-centred; weather has its own pill beside it. Pills follow Square/Rounded/Extra Rounded, the bar colour/transparency and blur. Hyprland’s live outer gap separates pills from the screen edge and each other, on all four edges. The reserved window space includes the pill depth and outer gap; auto-hide reserves none. Gaps and rounded corners pass clicks through. Empty space on each pill supports the usual double-click and drag gestures. Panels use Tabs’ detached rounded surfaces at Full’s positions, with the live inter-window gap and 320 ms reveal. The status group retains Full’s manual show/hide toggle.
+
+Tabs uses a continuous 7 px strip and three content-sized tabs for the left, centre and right groups. Each inner tab end has 4 px of padding measured from its outermost item, including when media is hidden; the centre tab is symmetric around the clock when media and weather are hidden. Weather is hidden until the centre tab is hovered, then slides out after the fixed clock in 320 ms; it retracts after a short hover delay and stays visible while its panel is open. Only the trailing side grows, along the bar axis on every edge, with 4 px after the last visible item. Tabs retain the full bar depth (30 px horizontally), fixed trapezoid joins with straight 45° slopes outside the tab padding. The clock stays exactly screen-centred, including with media visible. Panels float beside the bar on detached rounded surfaces, aligned left, centre or right like Full and inset from screen edges by the outer gap, with the live Hyprland inter-window gap and the same 320 ms reveal as Centered. Gaps pass clicks through; the full tab depth is reserved for windows. Double-right-click cycles Full → Centered → Tabs → Islands → Full. The slopes have subtly softened bends and do not follow the corner preference; screen-edge ends stay square and filled. Tabs always shows all right-side controls without a show/hide arrow.
 
 Drag empty bar space toward top, bottom, left, or right to change its edge; a
 preview highlights the destination. The choices persist in `bar-settings.json`.
@@ -178,7 +180,7 @@ Learn > Mouse Gestures also lists these gestures and
 the desktop wallpaper/theme double clicks. Left/right bars use upright compact
 controls, with the time/date centered and popups opening inward.
 AI Usage, Hardware and Idle Lock sit together after the workspaces; right-hand controls
-retain their manual show/hide toggle in Full and Centered. Tabs keeps them visible without a toggle. Both side groups share 24 px icon slots
+retain their manual show/hide toggle in Full, Centered and Islands. Tabs keeps them visible without a toggle. Both side groups share 24 px icon slots
 and 4 px spacing, with centered alignment on every bar edge. Active workspace
 glyphs use the accent color without a filled background in every style; the
 style menus show the same markers.
@@ -670,7 +672,7 @@ unfold animates from the current size over the remaining reveal time, so both
 finish together. Ordinary size changes after opening retain the 320 ms resize.
 Native QObject lists compare identities rather than serializing service objects.
 
-Every entry below **needs live check** on all four edges, Full/Centered/Tabs,
+Every entry below **needs live check** on all four edges, Full/Centered/Tabs/Islands,
 both palettes, cold/warm cache and slow providers. Offscreen checks cannot prove
 compositor blur, D-Bus, GPU capture, DDC or real hardware performance.
 

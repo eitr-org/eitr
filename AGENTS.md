@@ -250,7 +250,7 @@ existing design and workflows rather than replacing them with upstream defaults.
   Hardware uses one icon, with CPU/GPU/RAM and only the root-drive Storage data
   inside the popup. Growing content must stay within the usable screen.
 - Empty-bar double-left-click toggles transparency, double-right-click cycles
-  the Full, Centered and Tabs layouts, and left drag changes the screen edge. These settings
+  the Full, Centered, Tabs and Islands layouts, and left drag changes the screen edge. These settings
   persist in `bar-settings.json` and also appear under Style > Desktop Bar.
   Centered mode shows only the clock until hovered or pinned. Expansion preserves
   icon order and the clock's exact screen center on all four edges; pin sits
@@ -271,6 +271,12 @@ existing design and workflows rather than replacing them with upstream defaults.
   joined by rounded 45° slopes, square at the screen edges; it ignores the corner
   preference. Its panels float detached at their Full-layout positions, and the
   weather shows only while the centre tab is hovered.
+- Islands: content-sized pills for logo, Overview/workspaces, AI/Hardware/Idle Lock,
+  clock, weather, conditional media/capture and status, preserving icon order and
+  Full spacing. Pills follow DesktopStyle corners and float by the live outer gap,
+  also used between pills. Reserve pill depth plus gap; gaps pass clicks through.
+  Clock remains screen-centred. Panels use Tabs’ detached Full-layout positions.
+  Status controls keep Full’s manual toggle.
 - Keep calendar height fixed with six week rows. Weather city choices are
   session-only; the city close button restores the default geolocation.
 - Media is hidden when no eligible player exists; meetings are excluded. Keep

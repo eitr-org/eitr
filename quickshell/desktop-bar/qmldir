@@ -85,3 +85,4 @@ CenteredBarMask CenteredBarMask.qml
 DockClients DockClients.qml
 EdgeDock EdgeDock.qml
 EdgeDockContent EdgeDockContent.qml
+IslandMask IslandMask.qml

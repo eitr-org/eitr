@@ -39,7 +39,6 @@
   "Focus right": "Mettre au point à droite",
   "Focus up": "Concentre-toi",
   "Frozen selection (floating editor)": "Sélection surgelée (éditeur flottant)",
-  "Full bar / centered hover bar": "Barre complète / bar hover centré",
   "Full screenshot (floating editor)": "Capture d'écran complète (éditeur flottant)",
   "Fuzzy-find files": "Fichiers à la recherche floue",
   "Fuzzy-find text": "Texte à la recherche floue",
@@ -177,5 +176,6 @@
   "Workspace style": "Style d'espace de travail",
   "Workspace: right-click": "Espace de travail : clic droit",
   "Workspaces": "Espaces de travail",
-  "iwd, NetworkManager, reboot-only switching and enterprise configuration": "iwd, NetworkManager, redémarrage uniquement de la commutation et de la configuration d'entreprise"
+  "iwd, NetworkManager, reboot-only switching and enterprise configuration": "iwd, NetworkManager, redémarrage uniquement de la commutation et de la configuration d'entreprise",
+  "Full / Centered / Tabs / Islands": "Full / Centered / Tabs / Islands"
 }

@@ -12,6 +12,7 @@ function GetEntries()
         {"One Bar", "unified", "󰍜"},
         {"Centered Bar", "centered", "󰕰"},
         {i18n.mark("Tabs"), "notch", "󰍜"},
+        {i18n.mark("Islands"), "islands", "󰍜"},
     })
 end
 

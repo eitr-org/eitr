@@ -483,6 +483,9 @@
     "Invalid assistant response.": [
       "quickshell/desktop-bar/AssistantChat.qml"
     ],
+    "Islands": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
     "KNOWN DEVICES": [
       "quickshell/desktop-bar/BluetoothMenu.qml"
     ],
@@ -2189,6 +2192,9 @@
     "Invalidations": [
       "elephant/menus/aws-cloudfront-invalidations-1.lua"
     ],
+    "Islands": [
+      "elephant/menus/bar-layout.lua"
+    ],
     "JavaScript Tools": [
       "elephant/menu-rows/install.json",
       "elephant/menus/javascript-tools.lua"
@@ -3465,7 +3471,7 @@
     "Frozen selection (floating editor)": [
       "quickshell/desktop-bar/scripts/handbook-build.py"
     ],
-    "Full bar / centered hover bar": [
+    "Full / Centered / Tabs / Islands": [
       "quickshell/desktop-bar/scripts/handbook-build.py"
     ],
     "Full screenshot (floating editor)": [

@@ -151,6 +151,7 @@ ShellRoot {
     property string barScreens: "main"
     property var windowGaps: [6, 6, 6, 6]
     property var screenGaps: [12, 12, 12, 12]
+    readonly property bool islandsLayout: barLayout === "islands"
     readonly property bool notchLayout: barLayout === "notch"
     readonly property real tabStripThickness: 7
     // Radius of the four bends on each Tabs slope.
@@ -204,11 +205,11 @@ ShellRoot {
 
     function barDoubleClick(button) {
         if (button === Qt.LeftButton) updateBarSetting("appearance", barAppearance === "solid" ? "transparent" : "solid");
-        else if (button === Qt.RightButton) updateBarSetting("layout", barLayout === "unified" ? "centered" : barLayout === "centered" ? "notch" : "unified");
+        else if (button === Qt.RightButton) updateBarSetting("layout", barLayout === "unified" ? "centered" : barLayout === "centered" ? "notch" : barLayout === "notch" ? "islands" : "unified");
     }
 
     function updateBarSetting(key, value) {
-        var choices = {appearance: ["transparent", "solid"], layout: ["unified", "centered", "notch"], edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], dock: ["yes", "no"], reduceMotion: ["yes", "no"], mediaStyle: ["bars", "line"]};
+        var choices = {appearance: ["transparent", "solid"], layout: ["unified", "centered", "notch", "islands"], edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], dock: ["yes", "no"], reduceMotion: ["yes", "no"], mediaStyle: ["bars", "line"]};
         if (!choices[key] || choices[key].indexOf(value) === -1) return;
         if (key === "appearance") barAppearance = value;
         else if (key === "layout") barLayout = value;
@@ -230,7 +231,7 @@ ShellRoot {
         function update(key: string, value: string): void { shell.updateBarSetting(key, value) }
         function toggle(kind: string): void {
             if (kind === "appearance") shell.updateBarSetting(kind, shell.barAppearance === "solid" ? "transparent" : "solid");
-            else if (kind === "layout") shell.updateBarSetting(kind, shell.barLayout === "unified" ? "centered" : shell.barLayout === "centered" ? "notch" : "unified");
+            else if (kind === "layout") shell.updateBarSetting(kind, shell.barLayout === "unified" ? "centered" : shell.barLayout === "centered" ? "notch" : shell.barLayout === "notch" ? "islands" : "unified");
         }
     }
 
@@ -244,7 +245,7 @@ ShellRoot {
             try {
                 var settings = JSON.parse(barSettingsOutput.text);
                 shell.barAppearance = settings.appearance;
-                shell.barLayout = ["unified", "centered", "notch"].indexOf(settings.layout) >= 0 ? settings.layout : "unified";
+                shell.barLayout = ["unified", "centered", "notch", "islands"].indexOf(settings.layout) >= 0 ? settings.layout : "unified";
                 shell.barEdge = settings.edge;
                 shell.barPinned = settings.pinned === "yes";
                 shell.barMediaStyle = settings.mediaStyle === "line" ? "line" : "bars";
@@ -601,7 +602,7 @@ ShellRoot {
                 required property var modelData
                 readonly property bool isMainBar: modelData === shell.mainScreen()
                 readonly property Item stripItem: barContents
-                readonly property real normalThickness: shell.verticalBar ? Math.ceil(Math.max(60, barWeather.width + 8)) : shell.barHeight
+                readonly property real normalThickness: shell.verticalBar ? (shell.islandsLayout ? 60 : Math.ceil(Math.max(60, barWeather.width + 8))) : shell.barHeight
                 readonly property real thinThickness: normalThickness
                 // Space between a tab's outermost item and its slope, the same on every tab.
                 readonly property real tabsPadding: 4
@@ -625,6 +626,10 @@ ShellRoot {
                     : tabItemStart(centerInfo) + centerInfo.width + (notchLayout ? weatherReveal : 6 + barWeather.width)) + tabsPadding
                 readonly property var outerGaps: shell.screenGaps
                 readonly property bool centeredLayout: shell.centeredLayout
+                readonly property bool islandsLayout: shell.islandsLayout
+                readonly property real islandGap: outerGaps[({top: 0, right: 1, bottom: 2, left: 3})[shell.barEdge]]
+                readonly property real islandSpacing: islandGap + 8
+                readonly property real reservedThickness: normalThickness + (islandsLayout ? islandGap : 0)
                 readonly property bool notchLayout: shell.notchLayout
                 readonly property real panelGap: shell.verticalBar ? shell.windowGaps[1] + shell.windowGaps[3] : shell.windowGaps[0] + shell.windowGaps[2]
                 property bool hoverExpanded: false
@@ -740,7 +745,7 @@ ShellRoot {
                 color: "transparent"
                 exclusionMode: ExclusionMode.Normal
                 // Auto-hide reserves no space, so revealing the bar slides it over windows instead of re-tiling them.
-                exclusiveZone: shell.barVisible && !shell.barAutoHide ? bar.normalThickness : 0
+                exclusiveZone: shell.barVisible && !shell.barAutoHide ? bar.reservedThickness : 0
                 WlrLayershell.namespace: "desktop-bar"
                 // Notification popups must have a strictly higher layer than
                 // panels, rather than depending on same-layer mapping order.
@@ -768,7 +773,8 @@ ShellRoot {
                     width: 0; height: 0
                     Region { item: edgeSensor.visible ? edgeSensor : null }
                     Region { item: shell.barPointerHeld ? bar.contentItem : null }
-                    Region { item: shell.notchLayout ? tabStrip : shell.centeredLayout ? null : barContents }
+                    Region { item: shell.notchLayout ? tabStrip : shell.centeredLayout || shell.islandsLayout ? null : barContents }
+                    IslandMask { surfaces: islandSurfaces.children }
                     CenteredBarMask { surface: centeredOutline; edge: shell.barEdge; depth: bar.normalThickness; bendRound: shell.tabBendRound }
                     Region { item: shell.notchLayout ? leadingTab : null }
                     Region { item: shell.notchLayout ? notchTab : null }
@@ -962,13 +968,13 @@ ShellRoot {
                 Item {
                     id: barContents
                     transform: Translate {
-                        x: shell.verticalBar ? (shell.barEdge === "left" ? -1 : 1) * bar.normalThickness * (1 - autoHide.progress) : 0
-                        y: !shell.verticalBar ? (shell.barEdge === "top" ? -1 : 1) * bar.normalThickness * (1 - autoHide.progress) : 0
+                        x: shell.verticalBar ? (shell.barEdge === "left" ? -1 : 1) * (bar.normalThickness + (shell.islandsLayout ? bar.islandGap : 0)) * (1 - autoHide.progress) : 0
+                        y: !shell.verticalBar ? (shell.barEdge === "top" ? -1 : 1) * (bar.normalThickness + (shell.islandsLayout ? bar.islandGap : 0)) * (1 - autoHide.progress) : 0
                     }
                     width: shell.verticalBar ? bar.thinThickness : (bar.centeredLayout ? bar.centerExtent + bar.leadingReveal + bar.trailingReveal : bar.width)
                     height: shell.verticalBar ? (bar.centeredLayout ? bar.centerExtent + bar.leadingReveal + bar.trailingReveal : bar.height) : bar.thinThickness
-                    x: shell.verticalBar ? (shell.barEdge === "right" ? bar.width - width : 0) : bar.centeredLayout ? (bar.width - bar.centerExtent) / 2 - bar.leadingReveal : 0
-                    y: shell.verticalBar ? (bar.centeredLayout ? (bar.height - bar.centerExtent) / 2 - bar.leadingReveal : 0) : (shell.barEdge === "bottom" ? bar.height - height : 0)
+                    x: shell.verticalBar ? (shell.barEdge === "right" ? bar.width - width - (bar.islandsLayout ? bar.islandGap : 0) : (bar.islandsLayout ? bar.islandGap : 0)) : bar.centeredLayout ? (bar.width - bar.centerExtent) / 2 - bar.leadingReveal : 0
+                    y: shell.verticalBar ? (bar.centeredLayout ? (bar.height - bar.centerExtent) / 2 - bar.leadingReveal : 0) : (shell.barEdge === "bottom" ? bar.height - height - (bar.islandsLayout ? bar.islandGap : 0) : (bar.islandsLayout ? bar.islandGap : 0))
                     clip: bar.centeredLayout
                     Item {
                         id: tabStrip
@@ -1048,12 +1054,58 @@ ShellRoot {
                     }
                 }
 
+                Item {
+                    id: islandSurfaces
+                    anchors.fill: parent
+                    IslandSurface { first: shell.verticalBar ? verticalControlCenterLogo : controlCenterLogo }
+                    IslandSurface { first: shell.verticalBar ? verticalOverviewIcon : overviewIcon; last: shell.verticalBar ? verticalWorkspaces : workspaces }
+                    IslandSurface { first: shell.verticalBar ? verticalHardware : hardwareStatus }
+                    IslandSurface { first: shell.verticalBar ? verticalCalendarIcon : centerInfo }
+                    IslandSurface { first: shell.verticalBar ? verticalWeatherIcon : barWeather }
+                    IslandSurface { first: shell.verticalBar ? verticalMedia : mediaStrip; shown: shell.verticalBar ? verticalMedia.visible : mediaStrip.visible }
+                    IslandSurface { first: shell.verticalBar ? verticalCapture : barCapture; shown: shell.verticalBar ? verticalCapture.shown : barCapture.shown }
+                    IslandSurface { first: shell.verticalBar ? verticalEnd : rightSide; last: shell.verticalBar ? verticalEnd : notificationIcon }
+                }
+                component IslandSurface: Rectangle {
+                    required property Item first
+                    property Item last: first
+                    property bool shown: true
+                    visible: bar.islandsLayout && shown
+                    readonly property point leading: itemPosition(first)
+                    readonly property point trailing: itemPosition(last)
+                    function itemPosition(item) {
+                        var horizontal = 0;
+                        var vertical = 0;
+                        while (item && item !== barContents) {
+                            horizontal += item.x;
+                            vertical += item.y;
+                            item = item.parent;
+                        }
+                        return Qt.point(horizontal, vertical);
+                    }
+                    x: shell.verticalBar ? 0 : leading.x - 4
+                    y: shell.verticalBar ? leading.y - 4 : 0
+                    width: shell.verticalBar ? bar.normalThickness : trailing.x + last.width - leading.x + 8
+                    height: shell.verticalBar ? trailing.y + last.height - leading.y + 8 : bar.normalThickness
+                    radius: DesktopStyle.radius(PanelStyle.cornerRadius)
+                    color: shell.barBackground()
+                    BarGestureArea {
+                        anchors.fill: parent
+                        hostWindow: bar
+                        edge: shell.barEdge
+                        onCandidateChanged: shell.dragCandidate = candidate
+                        onPointerHeld: function(held) { shell.barPointerHeld = held }
+                        onDoubleTapped: function(button) { shell.barDoubleClick(button) }
+                        onDropped: function(edge) { shell.updateBarSetting("edge", edge) }
+                    }
+                }
+
                 BarSection {
                     id: verticalSurface
                     anchors.fill: parent
                     visible: shell.verticalBar
                     edge: shell.barEdge
-                    background: shell.notchLayout || shell.centeredLayout ? "transparent" : shell.barBackground()
+                    background: shell.notchLayout || shell.centeredLayout || shell.islandsLayout ? "transparent" : shell.barBackground()
                     radius: 0
 
                     BarGestureArea {
@@ -1071,7 +1123,7 @@ ShellRoot {
                         opacity: bar.expanded ? 1 : 0
                         enabled: bar.expanded
                         Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
-                        y: bar.centeredLayout ? bar.endPadding : 8
+                        y: bar.islandsLayout ? shell.screenGaps[0] + 4 : bar.centeredLayout ? bar.endPadding : 8
                         anchors.horizontalCenter: parent.horizontalCenter
                         spacing: shell.workspaceItemSpacing
                         Column {
@@ -1085,7 +1137,8 @@ ShellRoot {
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 onClicked: bar.toggleControlCenter()
                             }
-                            VerticalBarIcon { icon: "󰕮"; tooltip: Eitr.I18n.tr("Overview"); open: true; clickable: true; onClicked: bar.toggleOverview() }
+                            Item { width: 1; height: bar.islandsLayout ? bar.islandSpacing - 2 * shell.workspaceItemSpacing : 0; visible: bar.islandsLayout }
+                            VerticalBarIcon { id: verticalOverviewIcon; icon: "󰕮"; tooltip: Eitr.I18n.tr("Overview"); open: true; clickable: true; onClicked: bar.toggleOverview() }
                             Repeater {
                                 model: shell.workspaceCount
                                 BarButton {
@@ -1100,6 +1153,7 @@ ShellRoot {
                                 }
                             }
                         }
+                        Item { width: 1; height: bar.islandsLayout ? bar.islandSpacing - 2 * shell.workspaceItemSpacing : 0; visible: bar.islandsLayout }
                         Column {
                             id: verticalHardware
                             anchors.horizontalCenter: parent.horizontalCenter
@@ -1122,7 +1176,7 @@ ShellRoot {
                             id: verticalMedia
                             anchors.horizontalCenterOffset: 0
                             anchors.bottom: bar.centeredLayout ? verticalPin.top : verticalCapture.top
-                            anchors.bottomMargin: bar.centeredLayout ? bar.itemGap : 3
+                            anchors.bottomMargin: bar.islandsLayout ? bar.islandSpacing : bar.centeredLayout ? bar.itemGap : 3
                             anchors.horizontalCenter: parent.horizontalCenter
                             spacing: bar.centeredLayout ? bar.itemGap : 2
                             visible: mediaStrip.player !== null && bar.expanded
@@ -1161,7 +1215,7 @@ ShellRoot {
                             id: verticalCapture
                             anchors.bottom: verticalCalendarIcon.top
                             anchors.horizontalCenterOffset: 0
-                            anchors.bottomMargin: shown ? (bar.centeredLayout ? bar.itemGap : 3) : 0
+                            anchors.bottomMargin: shown ? (bar.islandsLayout ? bar.islandSpacing : bar.centeredLayout ? bar.itemGap : 3) : 0
                             anchors.horizontalCenter: parent.horizontalCenter
                             height: shown ? 24 : 0
                             recording: obsMenu.obsState.recording || obsMenu.obsState.streaming
@@ -1176,7 +1230,7 @@ ShellRoot {
                             id: verticalPin
                             anchors.horizontalCenterOffset: 0
                             anchors.bottom: verticalCapture.top
-                            anchors.bottomMargin: bar.centeredLayout ? bar.itemGap : 3
+                            anchors.bottomMargin: bar.islandsLayout ? bar.islandSpacing : bar.centeredLayout ? bar.itemGap : 3
                             anchors.horizontalCenter: parent.horizontalCenter
                             icon: shell.barPinned ? "󰐃" : "󰐄"
                             tooltip: shell.barPinned ? Eitr.I18n.tr("Unpin bar") : Eitr.I18n.tr("Pin bar open")
@@ -1194,10 +1248,12 @@ ShellRoot {
                             anchors.top: verticalCalendarIcon.bottom
                             anchors.horizontalCenter: parent.horizontalCenter
                             width: parent.width
-                            height: bar.notchLayout ? bar.weatherReveal : (bar.centeredLayout ? bar.itemGap : 3) + verticalWeatherIcon.height
+                            height: bar.notchLayout ? bar.weatherReveal : (bar.islandsLayout ? bar.islandSpacing : bar.centeredLayout ? bar.itemGap : 3) + verticalWeatherIcon.height
                             clip: bar.notchLayout
                             WeatherWidget {
                                 id: verticalWeatherIcon
+                                width: bar.islandsLayout ? Math.min(52, contentWidth) : contentWidth
+                                clip: bar.islandsLayout
                                 visible: bar.expanded
                                 enabled: !bar.notchLayout || bar.weatherExpanded
                                 y: parent.height - height
@@ -1217,7 +1273,7 @@ ShellRoot {
                         enabled: bar.expanded
                         Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
                         anchors.bottom: parent.bottom
-                        anchors.bottomMargin: bar.centeredLayout ? bar.endPadding : 8
+                        anchors.bottomMargin: bar.islandsLayout ? shell.screenGaps[2] + 4 : bar.centeredLayout ? bar.endPadding : 8
                         anchors.horizontalCenter: parent.horizontalCenter
                         spacing: shell.workspaceItemSpacing
                         VerticalBarIcon {
@@ -1269,7 +1325,7 @@ ShellRoot {
                     anchors.fill: parent
                     visible: !shell.verticalBar
                     edge: shell.barEdge
-                    background: shell.notchLayout || shell.centeredLayout ? "transparent" : shell.barBackground()
+                    background: shell.notchLayout || shell.centeredLayout || shell.islandsLayout ? "transparent" : shell.barBackground()
                     radius: 0
 
 
@@ -1286,7 +1342,7 @@ ShellRoot {
 
                     RowLayout {
                         anchors.fill: parent
-                        anchors.leftMargin: bar.centeredLayout ? bar.endPadding : 12
+                        anchors.leftMargin: bar.islandsLayout ? shell.screenGaps[3] + 4 : bar.centeredLayout ? bar.endPadding : 12
                         anchors.rightMargin: 9
                         spacing: 0
 
@@ -1306,7 +1362,9 @@ ShellRoot {
                                 anchors.verticalCenter: parent.verticalCenter
                                 onClicked: bar.toggleControlCenter()
                             }
+                            Item { width: bar.islandsLayout ? bar.islandSpacing - 2 * shell.workspaceItemSpacing : 0; height: 1; visible: bar.islandsLayout }
                             StatusIcon {
+                                id: overviewIcon
                                 icon: "󰕮"; tooltip: Eitr.I18n.tr("Overview"); open: true; clickable: true
                                 slotWidth: shell.workspaceItemSize
                                 anchors.verticalCenter: parent.verticalCenter
@@ -1355,7 +1413,7 @@ ShellRoot {
                             enabled: bar.expanded
                             Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
                             Layout.alignment: Qt.AlignVCenter
-                            Layout.leftMargin: shell.workspaceItemSpacing
+                            Layout.leftMargin: bar.islandsLayout ? bar.islandSpacing : shell.workspaceItemSpacing
                             spacing: shell.workspaceItemSpacing
 
                             StatusIcon {
@@ -1673,7 +1731,7 @@ ShellRoot {
                         enabled: bar.expanded
                         visible: !shell.verticalBar
                         anchors.right: parent.right
-                        anchors.rightMargin: bar.centeredLayout ? bar.endPadding : 13
+                        anchors.rightMargin: bar.islandsLayout ? shell.screenGaps[1] + 4 : bar.centeredLayout ? bar.endPadding : 13
                         anchors.verticalCenter: parent.verticalCenter
                     }
 
@@ -1689,7 +1747,7 @@ ShellRoot {
                     CaptureIndicator {
                         id: barCapture
                         anchors.right: centerInfo.left
-                        anchors.rightMargin: shown ? (bar.centeredLayout ? bar.itemGap : 6) : 0
+                        anchors.rightMargin: shown ? (bar.islandsLayout ? bar.islandSpacing : bar.centeredLayout ? bar.itemGap : 6) : 0
                         anchors.verticalCenter: parent.verticalCenter
                         recording: obsMenu.obsState.recording || obsMenu.obsState.streaming
                         recordingPaused: obsMenu.obsState.paused && !obsMenu.obsState.streaming
@@ -1704,7 +1762,7 @@ ShellRoot {
                         id: barPin
                         visible: bar.centeredLayout && bar.expanded
                         anchors.right: barCapture.left
-                        anchors.rightMargin: bar.centeredLayout ? bar.itemGap : 6
+                        anchors.rightMargin: bar.islandsLayout ? bar.islandSpacing : bar.centeredLayout ? bar.itemGap : 6
                         anchors.verticalCenter: parent.verticalCenter
                         icon: shell.barPinned ? "󰐃" : "󰐄"
                         tooltip: shell.barPinned ? Eitr.I18n.tr("Unpin bar") : Eitr.I18n.tr("Pin bar open")
@@ -1719,13 +1777,13 @@ ShellRoot {
                         opacity: bar.expanded ? 1 : 0
                         enabled: bar.expanded
                         anchors.right: bar.centeredLayout ? barPin.left : barCapture.left
-                        anchors.rightMargin: bar.centeredLayout ? bar.itemGap : 12
+                        anchors.rightMargin: bar.islandsLayout ? bar.islandSpacing : bar.centeredLayout ? bar.itemGap : 12
                         anchors.verticalCenter: parent.verticalCenter
                         itemSpacing: bar.centeredLayout ? bar.itemGap : 1
                         indicatorSpacing: bar.centeredLayout ? bar.itemGap : 6
                         availableWidth: bar.centeredLayout
                             ? Math.max(0, bar.width / 2 - centerInfo.width / 2 - workspaces.width - hardwareStatus.width - barPin.width - barCapture.width - bar.itemGap * (barCapture.shown ? 5 : 4) - bar.endPadding)
-                            : Math.max(0, centerInfo.x - hardwareStatus.mapToItem(centerInfo.parent, hardwareStatus.width, 0).x - 24)
+                            : Math.max(0, centerInfo.x - hardwareStatus.mapToItem(centerInfo.parent, hardwareStatus.width, 0).x - (bar.islandsLayout ? 2 * bar.islandSpacing + (barCapture.shown ? barCapture.width + bar.islandSpacing : 0) : 24))
                         foreground: shell.fg
                         background: shell.workspaceMenuBg
                         onDetailsRequested: bar.togglePanel(mediaMenu)
@@ -1734,7 +1792,7 @@ ShellRoot {
                     Item {
                         anchors.left: centerInfo.right
                         anchors.verticalCenter: centerInfo.verticalCenter
-                        width: bar.notchLayout ? bar.weatherReveal : (bar.centeredLayout ? bar.itemGap : 6) + barWeather.width
+                        width: bar.notchLayout ? bar.weatherReveal : (bar.islandsLayout ? bar.islandSpacing : bar.centeredLayout ? bar.itemGap : 6) + barWeather.width
                         height: barWeather.height
                         clip: bar.notchLayout
                         WeatherWidget {
@@ -2204,7 +2262,8 @@ ShellRoot {
             }
         }
 
-        width: Math.max(26, label.implicitWidth + 8)
+        readonly property real contentWidth: Math.max(26, label.implicitWidth + 8)
+        width: contentWidth
         height: 24
         Component.onCompleted: if (autoRefresh) refresh()
 

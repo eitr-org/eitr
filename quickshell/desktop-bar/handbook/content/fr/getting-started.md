@@ -27,7 +27,7 @@ Continuez avec [Raccourcis](handbook:shortcuts), [Barre du bureau](handbook:desk
 <!-- eitr-overview -->
 ## Ce que propose Eitr
 
-Eitr associe Arch Linux et Hyprland aux menus recherchables de Walker et à une barre Quickshell. Choisissez Full, Centered ou Tabs ; les panneaux regroupent connectivité, audio, écrans, matériel, notifications, météo et espaces de travail. Les thèmes harmonisent le bureau et vous pouvez créer vos propres thèmes.
+Eitr associe Arch Linux et Hyprland aux menus recherchables de Walker et à une barre Quickshell. Choisissez Full, Centered, Tabs ou Islands ; les panneaux regroupent connectivité, audio, écrans, matériel, notifications, météo et espaces de travail. Les thèmes harmonisent le bureau et vous pouvez créer vos propres thèmes.
 
 System Update met à jour les paquets officiels, AUR et Flatpak, avec des instantanés sur les installations compatibles. Le boot guard peut restaurer une mise à jour défaillante avant la connexion. La réinitialisation exige une installation compatible, son état initial, des avertissements et une confirmation saisie. L’installateur accepte une réserve de paquets hors ligne ; installation et récupération dépendent des dispositions de disque documentées.
 

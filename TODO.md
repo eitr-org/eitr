@@ -33,11 +33,6 @@ LAN.
   Still open: runtime QML errors are not attributed to a plugin, and in-process
   QML is not a sandbox.
 
-- **Islands bar layout.** The owner's idea (2026-10-28): a fourth bar layout beside
-  Full, Centered and Tabs, where the bar's groups float as separate rounded pills
-  (left: logo and workspaces; centre: clock; weather in its own pill; right: status
-  icons) over the wallpaper, each pill following the Square/Rounded/Extra Rounded
-  corner choice. Media and other conditional items appear as pills only when needed.
 - **Dock: pinned apps.** The edge dock (opposite the bar) shows open apps; next,
   pinned apps that stay in it when closed, as the owner planned.
 - **Light themes.** The owner has ideas for more light themes; create them later.

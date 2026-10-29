@@ -235,6 +235,7 @@ return {
         ["Installed · web app"] = "Installée · appli web",
         ["Instance status"] = "État de l’instance",
         ["Invalidations"] = "Invalidations",
+        ["Islands"] = "Îlots",
         ["JavaScript Tools"] = "Outils JavaScript",
         ["Keep My Files"] = "Garder mes fichiers",
         ["Keep files; reset apps and settings"] = "Conserver les fichiers; réinitialiser les applications et les paramètres",
@@ -1174,6 +1175,7 @@ return {
         ["Événements du service"] = "evenements du service",
         ["Événements récents"] = "evenements recents",
         ["Événements récents de la base de données"] = "evenements recents de la base de donnees",
+        ["Îlots"] = "ilots",
     },
     language = "Français"
 }

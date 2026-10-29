@@ -71,6 +71,20 @@ class BarSettingsTests(unittest.TestCase):
             bar_settings.SETTINGS.write_text('{"layout": "unknown"}')
             self.assertEqual(bar_settings.read_settings()["layout"], "unified")
 
+    def test_islands_persists_and_layout_cycle_matches_menus(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(bar_settings, "SETTINGS", Path(directory) / "bar.json"), patch.object(bar_settings, "apply_live"):
+            bar_settings.save_settings({"layout": "islands"})
+            self.assertEqual(bar_settings.read_settings()["layout"], "islands")
+            for expected in ("unified", "centered", "notch", "islands"):
+                with patch("sys.argv", ["bar-settings.py", "toggle", "layout"]):
+                    bar_settings.main()
+                self.assertEqual(bar_settings.read_settings()["layout"], expected)
+        root = Path(__file__).resolve().parents[3]
+        menu = (root / "elephant/menus/bar-layout.lua").read_text()
+        self.assertLess(menu.index('"notch"'), menu.index('"islands"'))
+        controls = (root / "quickshell/desktop-bar/ControlCenter.qml").read_text()
+        self.assertLess(controls.index('tr("Tabs")'), controls.index('tr("Islands")'))
+
     def test_defaults_and_persistence(self):
         with tempfile.TemporaryDirectory() as directory, \
                 patch.object(bar_settings, "SETTINGS", Path(directory) / "bar.json"):
@@ -242,7 +256,7 @@ ShellRoot {
         bar = Path(__file__).resolve().parents[1]
         source = (bar / "shell.qml").read_text()
         transform = source.split("id: barContents\n", 1)[1].split("                    width:", 1)[0]
-        self.assertIn("exclusiveZone: shell.barVisible && !shell.barAutoHide ? bar.normalThickness : 0", source)
+        self.assertIn("exclusiveZone: shell.barVisible && !shell.barAutoHide ? bar.reservedThickness : 0", source)
         self.assertIn("bar.panelOpen || bar.pendingPanel !== null || bar.pendingOverview || overview.visible || shell.barPointerHeld || notificationPopups.visible", source)
         with tempfile.TemporaryDirectory(prefix="eitr-autohide-") as directory:
             folder = Path(directory)
@@ -267,6 +281,7 @@ ShellRoot {
                         id: shell
                         required property string modelData
                         property string barEdge: modelData
+                        property bool islandsLayout: false
                         property bool verticalBar: barEdge === "left" || barEdge === "right"
                         Repeater {
                             model: ["unified", "centered", "notch"]
