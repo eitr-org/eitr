@@ -267,6 +267,10 @@ existing design and workflows rather than replacing them with upstream defaults.
 - Keep the right-side icon group hidden by default, with its manual toggle and
   no auto-close timer, except in Tabs, which always shows it without the toggle.
   Preserve the existing arrow direction and icon order.
+- Focus is a separate Style preset, controlled by `eitr focus on|off|status`,
+  Style > Focus and Control Center > Style. Its machine-local preference preserves
+  normal bar settings; native groups provide tabs and up to four panes per monitor.
+  Focus strips have square edges and show only tabs, clock and network/battery status.
 - Tabs: a thin edge strip with three content-sized tabs (left, centre, right)
   joined by rounded 45° slopes, square at the screen edges; it ignores the corner
   preference. Its panels float detached at their Full-layout positions, and the

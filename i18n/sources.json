@@ -362,6 +362,9 @@
     "Displays": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
     ],
+    "Distraction-free tabbed desktop": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
     "Do Not Disturb": [
       "quickshell/desktop-bar/ControlCenter.qml",
       "quickshell/desktop-bar/NotificationList.qml",
@@ -430,6 +433,9 @@
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
     ],
     "Family": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
+    "Focus": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Follows the system locale (LC_MESSAGES / LANG). Sign out and back in after changing it.": [
@@ -1994,6 +2000,9 @@
       "elephant/menu-rows/bar.json",
       "elephant/menus/bar-screens.lua"
     ],
+    "Distraction-free tabbed desktop": [
+      "elephant/menus/focus.lua"
+    ],
     "Distribution details": [
       "elephant/menus/aws-cloudfront-distribution-details-1.lua"
     ],
@@ -2100,6 +2109,22 @@
     ],
     "Firewall": [
       "elephant/menu-rows/security.json"
+    ],
+    "Focus": [
+      "elephant/menu-rows/style.json",
+      "elephant/menus/focus.lua"
+    ],
+    "Focus down": [
+      "distro/lib/eitr_focus.py"
+    ],
+    "Focus left": [
+      "distro/lib/eitr_focus.py"
+    ],
+    "Focus right": [
+      "distro/lib/eitr_focus.py"
+    ],
+    "Focus up": [
+      "distro/lib/eitr_focus.py"
     ],
     "Folder": [
       "elephant/menu-rows/share.json"
@@ -2507,6 +2532,9 @@
     "Next Wallpaper": [
       "elephant/menu-rows/shortcuts.json"
     ],
+    "Next tab": [
+      "distro/lib/eitr_focus.py"
+    ],
     "Nightlight": [
       "elephant/menu-rows/toggle.json"
     ],
@@ -2525,6 +2553,12 @@
     ],
     "OCR Text": [
       "elephant/menu-rows/capture.json"
+    ],
+    "Off": [
+      "elephant/menus/focus.lua"
+    ],
+    "On": [
+      "elephant/menus/focus.lua"
     ],
     "Open Development": [
       "elephant/project-entries.lua"
@@ -2620,6 +2654,9 @@
     "Power": [
       "elephant/menu-rows/main.json",
       "elephant/menus/power.lua"
+    ],
+    "Previous tab": [
+      "distro/lib/eitr_focus.py"
     ],
     "Print": [
       "elephant/menu-rows/shortcuts.json"
@@ -2762,6 +2799,18 @@
     "Reset Status": [
       "elephant/menu-rows/factory-reset.json"
     ],
+    "Resize narrower": [
+      "distro/lib/eitr_focus.py"
+    ],
+    "Resize shorter": [
+      "distro/lib/eitr_focus.py"
+    ],
+    "Resize taller": [
+      "distro/lib/eitr_focus.py"
+    ],
+    "Resize wider": [
+      "distro/lib/eitr_focus.py"
+    ],
     "Restart into the firmware settings": [
       "elephant/menu-rows/power.json"
     ],
@@ -2782,6 +2831,9 @@
     ],
     "Restore tailscaled startup and the previous operator": [
       "elephant/menu-rows/remote-away.json"
+    ],
+    "Restore the normal desktop": [
+      "elephant/menus/focus.lua"
     ],
     "Resume Picker": [
       "elephant/menu-rows/ai-claude.json",
@@ -2810,6 +2862,9 @@
     ],
     "RetroArch": [
       "elephant/menu-rows/gaming.json"
+    ],
+    "Return pane to a tab": [
+      "distro/lib/eitr_focus.py"
     ],
     "Return to Password Authentication": [
       "elephant/menu-rows/security.json"
@@ -2969,6 +3024,9 @@
     "See what takes space and clear caches, one question at a time": [
       "elephant/menu-rows/system-maintenance.json"
     ],
+    "Select tab {number}": [
+      "distro/lib/eitr_focus.py"
+    ],
     "Select this account": [
       "elephant/ai-account-entries.lua"
     ],
@@ -3091,6 +3149,12 @@
     "Snapshots": [
       "elephant/menu-rows/system-maintenance.json",
       "elephant/menus/snapshots.lua"
+    ],
+    "Split side by side": [
+      "distro/lib/eitr_focus.py"
+    ],
+    "Split stacked": [
+      "distro/lib/eitr_focus.py"
     ],
     "Stable": [
       "elephant/menus/update-channel.lua"
@@ -3542,6 +3606,10 @@
     "Focus left": [
       "quickshell/desktop-bar/scripts/handbook-build.py"
     ],
+    "Focus mode": [
+      "quickshell/desktop-bar/handbook/chapters.json",
+      "quickshell/desktop-bar/scripts/handbook-build.py"
+    ],
     "Focus right": [
       "quickshell/desktop-bar/scripts/handbook-build.py"
     ],
@@ -3731,6 +3799,9 @@
     "Next media": [
       "quickshell/desktop-bar/scripts/handbook-build.py"
     ],
+    "Next tab": [
+      "quickshell/desktop-bar/scripts/handbook-build.py"
+    ],
     "Next wallpaper": [
       "quickshell/desktop-bar/scripts/handbook-build.py"
     ],
@@ -3782,6 +3853,9 @@
     "Previous media": [
       "quickshell/desktop-bar/scripts/handbook-build.py"
     ],
+    "Previous tab": [
+      "quickshell/desktop-bar/scripts/handbook-build.py"
+    ],
     "Print": [
       "quickshell/desktop-bar/scripts/handbook-build.py"
     ],
@@ -3818,6 +3892,9 @@
     "Resize wider": [
       "quickshell/desktop-bar/scripts/handbook-build.py"
     ],
+    "Return pane to a tab": [
+      "quickshell/desktop-bar/scripts/handbook-build.py"
+    ],
     "Reviewed installation software, defaults and organization policies": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
@@ -3842,6 +3919,33 @@
     "Security & Locking": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
+    "Select tab 1": [
+      "quickshell/desktop-bar/scripts/handbook-build.py"
+    ],
+    "Select tab 2": [
+      "quickshell/desktop-bar/scripts/handbook-build.py"
+    ],
+    "Select tab 3": [
+      "quickshell/desktop-bar/scripts/handbook-build.py"
+    ],
+    "Select tab 4": [
+      "quickshell/desktop-bar/scripts/handbook-build.py"
+    ],
+    "Select tab 5": [
+      "quickshell/desktop-bar/scripts/handbook-build.py"
+    ],
+    "Select tab 6": [
+      "quickshell/desktop-bar/scripts/handbook-build.py"
+    ],
+    "Select tab 7": [
+      "quickshell/desktop-bar/scripts/handbook-build.py"
+    ],
+    "Select tab 8": [
+      "quickshell/desktop-bar/scripts/handbook-build.py"
+    ],
+    "Select tab 9": [
+      "quickshell/desktop-bar/scripts/handbook-build.py"
+    ],
     "Shortcut": [
       "quickshell/desktop-bar/scripts/handbook-build.py"
     ],
@@ -3855,6 +3959,12 @@
     "Show shortcuts": [
       "quickshell/desktop-bar/scripts/handbook-build.py"
     ],
+    "Split side by side": [
+      "quickshell/desktop-bar/scripts/handbook-build.py"
+    ],
+    "Split stacked": [
+      "quickshell/desktop-bar/scripts/handbook-build.py"
+    ],
     "Sunshine on Eitr, Moonlight on a Mac and Tailscale away from home": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
@@ -3865,6 +3975,9 @@
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "System locale, English fallback and contributing translations": [
+      "quickshell/desktop-bar/handbook/chapters.json"
+    ],
+    "Tabbed desktop, split panes, monitor behavior and recovery": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Terminal & Editors": [
@@ -3881,6 +3994,9 @@
     ],
     "Themes & Style": [
       "quickshell/desktop-bar/handbook/chapters.json"
+    ],
+    "These keys replace workspace controls while Focus is on. See the Focus chapter for recovery and monitor behavior.": [
+      "quickshell/desktop-bar/scripts/handbook-build.py"
     ],
     "Toggle EITR handbook": [
       "quickshell/desktop-bar/scripts/handbook-build.py"

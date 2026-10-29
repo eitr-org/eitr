@@ -86,3 +86,6 @@ DockClients DockClients.qml
 EdgeDock EdgeDock.qml
 EdgeDockContent EdgeDockContent.qml
 IslandMask IslandMask.qml
+
+singleton FocusMode 1.0 FocusMode.qml
+FocusStrip FocusStrip.qml

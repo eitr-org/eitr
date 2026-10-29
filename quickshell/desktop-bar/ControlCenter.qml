@@ -418,6 +418,15 @@ ThemedPopup {
                         }
                         }
                         Fold {
+                        title: Eitr.I18n.tr("Focus")
+                        RowLayout {
+                            width: parent.width
+                            Text { Layout.fillWidth: true; text: Eitr.I18n.tr("Distraction-free tabbed desktop"); color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize; wrapMode: Text.WordWrap }
+                            PanelSwitch { checked: FocusMode.enabled; foreground: center.foreground; accent: center.accent; onClicked: FocusMode.select(checked) }
+                        }
+                        Text { width: parent.width; visible: FocusMode.error !== ""; text: FocusMode.error; color: center.foreground; wrapMode: Text.Wrap; font.pixelSize: PanelStyle.captionSize }
+                        }
+                        Fold {
                         title: Eitr.I18n.tr("Corners")
                         Row {
                             width: parent.width; spacing: 8

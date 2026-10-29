@@ -482,7 +482,9 @@ var qml = {
     "This plugin has errors": "This plugin has errors",
     "View error details": "View error details",
     "Eitr": "Eitr",
-    "Unable to unlock. Try again.": "Unable to unlock. Try again."
+    "Unable to unlock. Try again.": "Unable to unlock. Try again.",
+    "Distraction-free tabbed desktop": "Distraction-free tabbed desktop",
+    "Focus": "Focus"
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -943,7 +945,9 @@ var qml = {
     "This plugin has errors": "Este plugin tem erros",
     "View error details": "Ver detalhes dos erros",
     "Eitr": "Eitr",
-    "Unable to unlock. Try again.": "Não foi possível desbloquear. Tente novamente."
+    "Unable to unlock. Try again.": "Não foi possível desbloquear. Tente novamente.",
+    "Distraction-free tabbed desktop": "Área de trabalho com abas, sem distrações",
+    "Focus": "Focus"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1404,7 +1408,9 @@ var qml = {
     "This plugin has errors": "Este plugin tiene errores",
     "View error details": "Ver detalles de errores",
     "Eitr": "Eitr",
-    "Unable to unlock. Try again.": "No se pudo desbloquear. Inténtalo de nuevo."
+    "Unable to unlock. Try again.": "No se pudo desbloquear. Inténtalo de nuevo.",
+    "Distraction-free tabbed desktop": "Escritorio con pestañas sin distracciones",
+    "Focus": "Focus"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1865,7 +1871,9 @@ var qml = {
     "This plugin has errors": "Dieses Plugin hat Fehler",
     "View error details": "Fehlerdetails anzeigen",
     "Eitr": "Eitr",
-    "Unable to unlock. Try again.": "Entsperren fehlgeschlagen. Versuche es erneut."
+    "Unable to unlock. Try again.": "Entsperren fehlgeschlagen. Versuche es erneut.",
+    "Distraction-free tabbed desktop": "Ablenkungsfreier Desktop mit Tabs",
+    "Focus": "Focus"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2326,6 +2334,8 @@ var qml = {
     "This plugin has errors": "Ce plugin a des erreurs",
     "View error details": "Voir les détails des erreurs",
     "Eitr": "Eitr",
-    "Unable to unlock. Try again.": "Impossible de déverrouiller. Réessayez."
+    "Unable to unlock. Try again.": "Impossible de déverrouiller. Réessayez.",
+    "Distraction-free tabbed desktop": "Bureau à onglets sans distractions",
+    "Focus": "Focus"
   }
 };

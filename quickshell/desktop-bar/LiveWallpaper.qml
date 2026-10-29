@@ -46,7 +46,7 @@ Scope {
             screen: modelData
             readonly property var monitor: Hyprland.monitorFor(modelData)
             readonly property bool covered: !!(monitor && monitor.activeWorkspace && monitor.activeWorkspace.hasFullscreen)
-            visible: live.motion !== "" && !live.suspended && scene.ready
+            visible: !FocusMode.enabled && live.motion !== "" && !live.suspended && scene.ready
             color: "transparent"
             anchors { top: true; bottom: true; left: true; right: true }
             exclusionMode: ExclusionMode.Ignore

@@ -160,6 +160,7 @@
     {"pattern": "quickshell/desktop-bar/*-settings.json", "class": "P", "runtime": false},
     {"pattern": "quickshell/desktop-bar/workspace-style.json", "class": "P", "runtime": false},
     {"pattern": "quickshell/desktop-bar/obs-recording.json", "class": "P", "runtime": false},
+    {"pattern": "eitr/focus.json", "class": "P", "runtime": false},
     {"pattern": "eitr/crash-help.json", "class": "P", "runtime": false},
     {"pattern": "eitr/ai.json", "class": "P", "runtime": false},
     {"pattern": "eitr/audio-names.json", "class": "P", "runtime": false},

@@ -779,3 +779,11 @@ measurements, not live provider/hardware latency claims.
 | ControlCenter-general | 332 / 340 | 1 |
 | ControlCenter-tools | 336 / 337 | 1 |
 | ControlCenter-system | 348 / 329 | 1 |
+
+## Focus preset
+
+Style > Focus, Control Center > Style > Focus and `eitr focus on|off|status`
+share a machine-local preference. Focus uses native Hyprland groups with up to
+four panes per monitor and a thin Quickshell tab strip. Turning it off restores
+the normal bar and effects, spreading windows two per workspace. See the
+[Focus Handbook chapter](handbook/content/focus.md) for keys, monitor behavior and recovery.

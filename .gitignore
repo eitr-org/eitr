@@ -42,3 +42,5 @@ hypr/cursor-env.conf
 /eitr/cloud-navigation.json
 /eitr/ai-accounts.json
 /eitr/plugin-placements.json
+
+/eitr/focus.json

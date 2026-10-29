@@ -140,3 +140,11 @@ The checkout is mounted read-only and copied, so its file ownership is untouched
 ```sh
 docker run --rm --platform linux/amd64 -v "$PWD":/repo:ro archlinux:latest bash -c 'sed -i "/^\[options\]/a DisableSandbox" /etc/pacman.conf && pacman -Syu --noconfirm --needed bash git python python-pillow python-gobject nodejs shellcheck lua qt6-declarative jq util-linux xkeyboard-config noto-fonts ttf-jetbrains-mono-nerd >/dev/null && useradd -m tester && cp -a /repo /home/tester/eitr && chown -R tester: /home/tester/eitr && su tester -c "cd ~/eitr && bash tools/check.sh"'
 ```
+
+## Focus preset
+
+Style > Focus, Control Center > Style > Focus and `eitr focus on|off|status`
+share a machine-local preference. Focus uses native Hyprland groups with up to
+four panes per monitor and a thin Quickshell tab strip. Turning it off restores
+the normal bar and effects, spreading windows two per workspace. See the
+[Focus Handbook chapter](quickshell/desktop-bar/handbook/content/focus.md) for keys, monitor behavior and recovery.

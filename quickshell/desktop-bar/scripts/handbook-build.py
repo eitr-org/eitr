@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[3]
 BOOK = ROOT / "quickshell/desktop-bar/handbook"
 sys.path.insert(0, str(ROOT / ("distro/lib" if (ROOT / "distro/lib").is_dir() else "lib")))
 from eitr_i18n import languages, table
+from eitr_focus import shortcut_entries
 
 
 class Blocks(HTMLParser):
@@ -78,6 +79,10 @@ def shortcuts():
         else:
             lines.extend(["", "### " + line.split("  ", 1)[-1], "",
                           "| Shortcut | Action |", "| :--- | :--- |"])
+    lines.extend(["", "### Focus mode", "", "These keys replace workspace controls while Focus is on. See the Focus chapter for recovery and monitor behavior.", "",
+                  "| Shortcut | Action |", "| :--- | :--- |"])
+    for entry in shortcut_entries():
+        lines.append("| **" + entry["Subtext"] + "** | " + entry["Text"] + " |")
     source = (ROOT / "walker/scripts/menus/mouse-gestures.sh").read_text()
     mouse = re.search(r'^options="(.*?)"$', source, re.MULTILINE | re.DOTALL)[1]
     lines.extend(["", "## Mouse", "", "Use empty desktop or bar space for desktop/bar gestures, not an application's content.", "",

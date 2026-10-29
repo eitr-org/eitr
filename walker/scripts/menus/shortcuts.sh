@@ -7,6 +7,10 @@ elif [[ -f "$EITR_CODE_ROOT/distro/lib/paths.sh" ]]; then source "$EITR_CODE_ROO
 MENUS_DIR="$EITR_CODE_ROOT/walker/scripts/menus"
 ACTIONS_DIR="$EITR_CODE_ROOT/walker/scripts/actions"
 
+if [[ "$(python3 "$EITR_CODE_ROOT/quickshell/desktop-bar/scripts/focus-mode.py" status)" == on ]]; then
+  exec "$EITR_CODE_ROOT/walker/bin/walker" --provider menus:shortcuts
+fi
+
 options="󰌌  Launchers
   SUPER + Enter             Open terminal
   SUPER + Ctrl + Enter      Open tmux

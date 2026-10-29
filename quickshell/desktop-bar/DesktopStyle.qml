@@ -18,7 +18,7 @@ QtObject {
     readonly property real scale: styles[corners] ? styles[corners].scale : 1
 
     property bool reduceMotion: false
-    function motionDuration(milliseconds) { return reduceMotion ? 0 : milliseconds; }
+    function motionDuration(milliseconds) { return reduceMotion || FocusMode.enabled ? 0 : milliseconds; }
 
     function radius(value) { return value * scale; }
     function select(value) {

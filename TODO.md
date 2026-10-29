@@ -50,22 +50,11 @@ LAN.
   animations, Elephant/Walker, background services, first-login work), find what
   would make Eitr feel bad on an old or low-end machine, then optimize those and
   decide what a lighter setup turns off. Test in a VM with few cores and little RAM.
-- **Focus mode.** The owner's idea (2026-10-29), for developers who want no
-  effects (named Focus, not Hardcore, 2026-10-29). A Style preset that persists across reboots and updates; switching it off
-  restores the normal desktop exactly. The plan, agreed 2026-10-29:
-  - **Strip:** a thin tab strip across the top lists the open windows as tabs, plus
-    a small clock and battery/network status. No workspaces, no other bar items.
-  - **Windows:** every app opens full screen with no gaps, rounding, blur, shadows
-    or animations. Built on Hyprland window groups, so tabs stay native and fast.
-  - **Splits:** side by side or stacked, up to four panes (2x2); split tabs show as
-    joined on the strip. Proposed keys: Super+\ split side by side with the next
-    tab, Super+- stack, Super+arrows move between panes (window focus, distinct from Focus mode), Super+Ctrl+arrows resize,
-    Super+Enter send the pane back to a tab. Check them against existing shortcuts
-    and confirm with the owner before building.
-  - **Command:** `eitr focus on|off|status` beside the Style switch, same result.
-  - **Open apps move with it:** turning it on gathers every open window into tabs;
-    turning it off spreads them back over normal workspaces, two per workspace in
-    any order (earlier workspace positions are not kept).
+- **Focus mode: live validation.** The preset, native tabs/four-pane grid,
+  per-monitor strips, Style/Control Center switch and `eitr focus on|off|status`
+  are implemented with offline coverage. Validate actual Hyprland group behavior,
+  monitor hotplug, reload/reboot persistence and strip-crash recovery in a live
+  test session before describing those as verified.
 - **Website evidence and screenshots.** Keep the public pages in step with verified
   desktop behavior. A feature gets a screenshot when it has a screen people look
   for (a panel, menu or wizard) shown on the website or in the Handbook;

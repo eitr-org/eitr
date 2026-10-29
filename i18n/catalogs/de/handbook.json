@@ -177,5 +177,22 @@
   "Workspace: right-click": "Workspace: Rechtsklick",
   "Workspaces": "Arbeitsbereiche",
   "iwd, NetworkManager, reboot-only switching and enterprise configuration": "iwd, NetworkManager, Reboot-Only Switching und Unternehmenskonfiguration",
-  "Full / Centered / Tabs / Islands": "Full / Centered / Tabs / Islands"
+  "Full / Centered / Tabs / Islands": "Full / Centered / Tabs / Islands",
+  "Focus mode": "Focus-Modus",
+  "Next tab": "Nächster Tab",
+  "Previous tab": "Vorheriger Tab",
+  "Return pane to a tab": "Bereich in Tabs zusammenführen",
+  "Select tab 1": "Tab 1 auswählen",
+  "Select tab 2": "Tab 2 auswählen",
+  "Select tab 3": "Tab 3 auswählen",
+  "Select tab 4": "Tab 4 auswählen",
+  "Select tab 5": "Tab 5 auswählen",
+  "Select tab 6": "Tab 6 auswählen",
+  "Select tab 7": "Tab 7 auswählen",
+  "Select tab 8": "Tab 8 auswählen",
+  "Select tab 9": "Tab 9 auswählen",
+  "Split side by side": "Nebeneinander teilen",
+  "Split stacked": "Übereinander teilen",
+  "Tabbed desktop, split panes, monitor behavior and recovery": "Desktop mit Tabs, Bereichen, Bildschirmen und Wiederherstellung",
+  "These keys replace workspace controls while Focus is on. See the Focus chapter for recovery and monitor behavior.": "Diese Tasten ersetzen die Arbeitsbereichssteuerung bei aktivem Focus. Das Kapitel Focus beschreibt Wiederherstellung und Bildschirmverhalten."
 }

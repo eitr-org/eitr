@@ -94,7 +94,7 @@ logged.
 | Path relative to the config/state/cache root | Class | Reader/writer |
 | --- | --- | --- |
 | `quickshell/desktop-bar/{bar-settings,workspace-style,notification-settings,obs-recording}.json` | P | Bar helpers and services |
-| `eitr/{cursor,font,style,cloud-contexts,terminal}.json`, `eitr/cloud.env` | P | Cursor, font, style, cloud and terminal helpers |
+| `eitr/{cursor,focus,font,style,cloud-contexts,terminal}.json`, `eitr/cloud.env` | P | Cursor, font, style, cloud and terminal helpers |
 | `eitr/git-accounts.json`, `~/.gitconfig` managed include | P | Opt-in Git Accounts setup; versioned identities and folder rules |
 | `eitr/git-accounts/{active.gitconfig,generations/**}` | G | Git Accounts generates native includes from preferences |
 | `eitr/git-accounts/cli/**`, `~/.ssh/eitr-*` | Private account data | Provider CLI tokens and SSH keys; never packaged or backed up by Git Accounts |
@@ -106,7 +106,7 @@ logged.
 | `gtk-{3,4}.0/settings.ini`, `qt{5,6}ct/*.conf`, `Kvantum/*#`, `kdeglobals` | G/P | System, font and cursor generators |
 | `Code/User/settings.json` | P with generated keys | Font and VS Code helpers; JSONC-safe narrow updates |
 | State `desktop-nightlight/{mode,schedule.json}`, timer drop-in `schedule.conf` | P / G | `nightlight.py` |
-| State `eitr/{installed-paths,user-defaults-state.json,welcome-*}` | State | Installer, `eitr-config`, welcome |
+| State `eitr/{installed-paths,user-defaults-state.json,welcome-*,focus-session.json,focus.lock}` | State | Installer, `eitr-config`, welcome |
 | Cache `current-theme`, `current-wallpaper`, `current-wallpaper-image` | G | Menus, bar, wallpaper; derived from the appearance preference |
 | Runtime `eitr-search/index.json`, lock and IPC files; AI, weather, preview caches | G | Regenerated; never packaged or migrated |
 

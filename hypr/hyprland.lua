@@ -222,6 +222,8 @@ hl.config({
 	},
 })
 
+local focus_bindings = dofile(paths.code("hypr/focus.lua"))(paths, shellQuote)
+
 -----------
 -- Input --
 -----------
@@ -246,12 +248,14 @@ hl.config({
 	},
 })
 
--- Your original 3-finger horizontal workspace gesture.
+-- Focus mode has tabs instead of workspace gestures.
+if not focus_bindings then
 hl.gesture({
 	fingers = 3,
 	direction = "horizontal",
 	action = "workspace",
 })
+end
 
 -- hl.gesture({
 --   fingers = 4,
@@ -544,3 +548,5 @@ blurred_layer("swayosd", 0.3)
 ------------------------------
 -- Machine-Local Overrides --
 ------------------------------
+
+if focus_bindings then focus_bindings() end

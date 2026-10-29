@@ -48,6 +48,7 @@ HOOKS = {
 GROUPS = [
     ("Everyday", [
         ("update", "update the system (with a snapshot) or only pacman/AUR packages"),
+        ("focus", "turn the distraction-free tabbed desktop on or off, or show its status"),
         ("theme", "list themes, show the current one, or switch"),
         ("handbook", "open the Handbook, optionally at a chapter"),
         ("remind", "a reminder later or at a time (eitr remind 25m Tea), or the list"),
@@ -152,6 +153,9 @@ def parser():
     theme_set = theme_actions.add_parser("set", help='switch to a theme')
     theme_set.add_argument("name", help="a name from 'eitr theme list', such as eitr or 'Rose Pine'")
 
+    focus = commands.add_parser("focus", help="distraction-free tabbed desktop")
+    focus.add_argument("action", nargs="?", default="status", choices=["on", "off", "status"])
+
     handbook = commands.add_parser("handbook", help='open the Handbook')
     handbook.add_argument("chapter", nargs="?", help='a chapter id, such as troubleshooting')
 
@@ -222,6 +226,11 @@ def plan(arguments, code=None, config=None):
         found = themes(code, config)
         active = current_theme(config)
         return "\n".join(f"{'*' if label == active else ' '} {label:<20} {name}" for name, label in found.items())
+    if command == "focus":
+        library = code / "lib/eitr_focus.py"
+        if not library.is_file():
+            library = code / "distro/lib/eitr_focus.py"
+        return ["python3", str(library), arguments.action]
     if command == "handbook":
         script = str(code / "quickshell/desktop-bar/scripts/handbook.sh")
         return ["bash", script, "open", arguments.chapter] if arguments.chapter else ["bash", script, "toggle"]

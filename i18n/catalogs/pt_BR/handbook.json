@@ -177,5 +177,22 @@
   "Workspace: right-click": "Espaço de trabalho: clique com o botão direito",
   "Workspaces": "Espaços de trabalho",
   "iwd, NetworkManager, reboot-only switching and enterprise configuration": "iwd, NetworkManager, comutação só de reinicialização e configuração empresarial",
-  "Full / Centered / Tabs / Islands": "Full / Centered / Tabs / Islands"
+  "Full / Centered / Tabs / Islands": "Full / Centered / Tabs / Islands",
+  "Focus mode": "Modo Focus",
+  "Next tab": "Próxima aba",
+  "Previous tab": "Aba anterior",
+  "Return pane to a tab": "Devolver painel às abas",
+  "Select tab 1": "Selecionar aba 1",
+  "Select tab 2": "Selecionar aba 2",
+  "Select tab 3": "Selecionar aba 3",
+  "Select tab 4": "Selecionar aba 4",
+  "Select tab 5": "Selecionar aba 5",
+  "Select tab 6": "Selecionar aba 6",
+  "Select tab 7": "Selecionar aba 7",
+  "Select tab 8": "Selecionar aba 8",
+  "Select tab 9": "Selecionar aba 9",
+  "Split side by side": "Dividir lado a lado",
+  "Split stacked": "Dividir empilhado",
+  "Tabbed desktop, split panes, monitor behavior and recovery": "Área de trabalho com abas, divisões, monitores e recuperação",
+  "These keys replace workspace controls while Focus is on. See the Focus chapter for recovery and monitor behavior.": "Estas teclas substituem os controles de áreas de trabalho enquanto o Focus está ativo. Veja o capítulo Focus para recuperação e comportamento dos monitores."
 }

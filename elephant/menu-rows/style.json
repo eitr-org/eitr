@@ -41,6 +41,17 @@
     "submenu": "bar"
   },
   {
+    "text": "Focus",
+    "subtext": ">",
+    "keywords": [
+      "tabs",
+      "split",
+      "distraction-free"
+    ],
+    "icon": "󰍹",
+    "submenu": "focus"
+  },
+  {
     "text": "Fonts",
     "subtext": ">",
     "keywords": [

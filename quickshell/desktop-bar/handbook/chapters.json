@@ -40,6 +40,13 @@
     ]
   },
   {
+    "id": "focus",
+    "title": "Focus mode",
+    "icon": "󰍹",
+    "summary": "Tabbed desktop, split panes, monitor behavior and recovery",
+    "source": "quickshell/desktop-bar/handbook/content/focus.md"
+  },
+  {
     "id": "control-center",
     "title": "Control Center",
     "icon": "󰒓",

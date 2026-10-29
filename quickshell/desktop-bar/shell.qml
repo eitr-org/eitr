@@ -148,7 +148,7 @@ ShellRoot {
     property bool barPinned: false
     property bool barAutoHide: false
     property bool barDock: true
-    DockClients { id: dockClients; observing: shell.barDock }
+    DockClients { id: dockClients; observing: shell.barDock && !FocusMode.enabled }
     property string barMediaStyle: "bars"
     property string barClock: "12h"
     // "all" puts a bar on every display; the main one keeps notifications.
@@ -599,6 +599,42 @@ ShellRoot {
     }
 
     Variants {
+        model: FocusMode.enabled ? Quickshell.screens : []
+        delegate: Component {
+            PanelWindow {
+                required property var modelData
+                screen: modelData
+                anchors { top: true; left: true; right: true }
+                implicitHeight: 28; exclusiveZone: 28
+                color: "transparent"
+                WlrLayershell.namespace: "eitr-focus-strip"
+                FocusStrip {
+                    anchors.fill: parent
+                    tabs: FocusMode.tabs(modelData)
+                    foreground: shell.fg; background: shell.workspaceMenuBg; accent: shell.activeBg
+                    clockText: Qt.formatDateTime(focusClock.date, shell.barClock === "24h" ? "HH:mm" : "h:mm AP")
+                    networkText: shell.focusNetworkGlyph
+                    batteryText: shell.battery.available ? shell.batteryIcon + " " + Math.round(shell.battery.percent) + "%" : ""
+                    onSelected: address => FocusMode.activate(address)
+                }
+            }
+        }
+    }
+    SystemClock { id: focusClock; precision: SystemClock.Minutes }
+    property string focusNetworkGlyph: ""
+    Process {
+        id: focusNetworkQuery
+        command: ["python3", Quickshell.shellDir + "/scripts/focus-mode.py", "network"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                try { shell.focusNetworkGlyph = JSON.parse(text).text; } catch (error) {}
+            }
+        }
+    }
+    Timer { interval: 5000; repeat: true; running: FocusMode.enabled; triggeredOnStart: true; onTriggered: if (!focusNetworkQuery.running) focusNetworkQuery.running = true }
+
+
+    Variants {
         model: shell.targetScreens()
 
         delegate: Component {
@@ -715,7 +751,7 @@ ShellRoot {
                     screen: bar.screen
                     barEdge: shell.barEdge
                     clients: dockClients.clients
-                    dockEnabled: shell.barDock && shell.barVisible
+                    dockEnabled: shell.barDock && shell.barVisible && !FocusMode.enabled
                     foreground: shell.fg
                     background: shell.barBackground()
                 }
@@ -747,13 +783,13 @@ ShellRoot {
                 }
 
                 screen: modelData
-                visible: shell.barVisible || panelOpen
+                visible: (!FocusMode.enabled && shell.barVisible) || panelOpen
                 implicitWidth: modelData.width
                 implicitHeight: modelData.height
                 color: "transparent"
                 exclusionMode: ExclusionMode.Normal
                 // Auto-hide reserves no space, so revealing the bar slides it over windows instead of re-tiling them.
-                exclusiveZone: shell.barVisible && !shell.barAutoHide ? bar.reservedThickness : 0
+                exclusiveZone: !FocusMode.enabled && shell.barVisible && !shell.barAutoHide ? bar.reservedThickness : 0
                 WlrLayershell.namespace: "desktop-bar"
                 // Notification popups must have a strictly higher layer than
                 // panels, rather than depending on same-layer mapping order.
@@ -975,6 +1011,7 @@ ShellRoot {
 
                 Item {
                     id: barContents
+                    visible: !FocusMode.enabled
                     transform: Translate {
                         x: shell.verticalBar ? (shell.barEdge === "left" ? -1 : 1) * (bar.normalThickness + (shell.islandsLayout ? bar.islandGap : 0)) * (1 - autoHide.progress) : 0
                         y: !shell.verticalBar ? (shell.barEdge === "top" ? -1 : 1) * (bar.normalThickness + (shell.islandsLayout ? bar.islandGap : 0)) * (1 - autoHide.progress) : 0

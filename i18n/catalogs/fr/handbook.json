@@ -177,5 +177,22 @@
   "Workspace: right-click": "Espace de travail : clic droit",
   "Workspaces": "Espaces de travail",
   "iwd, NetworkManager, reboot-only switching and enterprise configuration": "iwd, NetworkManager, redémarrage uniquement de la commutation et de la configuration d'entreprise",
-  "Full / Centered / Tabs / Islands": "Full / Centered / Tabs / Islands"
+  "Full / Centered / Tabs / Islands": "Full / Centered / Tabs / Islands",
+  "Focus mode": "Mode Focus",
+  "Next tab": "Onglet suivant",
+  "Previous tab": "Onglet précédent",
+  "Return pane to a tab": "Réunir le volet dans les onglets",
+  "Select tab 1": "Choisir l’onglet 1",
+  "Select tab 2": "Choisir l’onglet 2",
+  "Select tab 3": "Choisir l’onglet 3",
+  "Select tab 4": "Choisir l’onglet 4",
+  "Select tab 5": "Choisir l’onglet 5",
+  "Select tab 6": "Choisir l’onglet 6",
+  "Select tab 7": "Choisir l’onglet 7",
+  "Select tab 8": "Choisir l’onglet 8",
+  "Select tab 9": "Choisir l’onglet 9",
+  "Split side by side": "Diviser côte à côte",
+  "Split stacked": "Diviser verticalement",
+  "Tabbed desktop, split panes, monitor behavior and recovery": "Bureau à onglets, volets, écrans et récupération",
+  "These keys replace workspace controls while Focus is on. See the Focus chapter for recovery and monitor behavior.": "Ces touches remplacent les commandes des espaces quand Focus est actif. Consultez le chapitre Focus pour la récupération et le comportement des écrans."
 }
