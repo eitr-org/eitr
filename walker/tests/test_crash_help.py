@@ -30,6 +30,9 @@ class CrashHelpTests(unittest.TestCase):
         cursor = patch.object(crashes, 'cursor_file', return_value=Path(directory.name) / 'cursor')
         cursor.start()
         self.addCleanup(cursor.stop)
+        ended = patch.object(crashes, 'shutdown_file', return_value=Path(directory.name) / 'session-end')
+        ended.start()
+        self.addCleanup(ended.stop)
     def test_only_own_new_crashes_and_rate_limit_and_ignore(self):
         with patch.object(crashes, 'preferences', return_value={'enabled': True, 'ignored': []}):
             recent = {}
@@ -149,3 +152,20 @@ class CrashHelpTests(unittest.TestCase):
         self.assertIn('--lines=0', popen.call_args.args[0])
         notify.assert_called_once_with(recent)
         self.assertEqual(crashes.journal_start(), ['--after-cursor=recent'])
+
+    def test_crashes_after_a_deliberate_logout_are_not_offered(self):
+        ended = time.time()
+        before = {**event(), '__REALTIME_TIMESTAMP': str(int((ended - 1) * 1_000_000))}
+        during = {**event(), '__REALTIME_TIMESTAMP': str(int((ended + 1) * 1_000_000))}
+        later = {**event(), '__REALTIME_TIMESTAMP': str(int((ended + 2 * crashes.SHUTDOWN_SECONDS) * 1_000_000))}
+        with patch.object(crashes, 'compositor_running', return_value=True):
+            crashes.session_ending(ended)
+        self.assertFalse(crashes.during_shutdown(before))
+        self.assertTrue(crashes.during_shutdown(during))
+        self.assertFalse(crashes.during_shutdown(later))
+
+    def test_a_compositor_crash_does_not_hide_the_crashes_that_follow(self):
+        with patch.object(crashes, 'compositor_running', return_value=False):
+            crashes.session_ending(time.time())
+        self.assertFalse(crashes.shutdown_file().exists())
+        self.assertFalse(crashes.during_shutdown(event()))

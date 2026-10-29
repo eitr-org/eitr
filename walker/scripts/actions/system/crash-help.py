@@ -18,6 +18,9 @@ MESSAGE_ID = 'fc2e22bc6ee647b6b90729ab34a250b1'
 RATE_SECONDS = 300
 # Crashes older than this when the watcher starts are not offered any more.
 CATCH_UP_SECONDS = 86400
+# Programs that crash this soon after a logout, reboot or shutdown began are
+# losing their compositor or session, not failing on their own.
+SHUTDOWN_SECONDS = 60
 
 
 from eitr_crashes import settings as preferences, set_enabled
@@ -67,7 +70,7 @@ def notify(event):
                '--action=mute=' + tr('Mute this program')]
     if default_assistant():
         actions.insert(0, '--action=ai=' + tr('Ask the AI'))
-    result = subprocess.run(['notify-send', '--app-name=Eitr', '--icon=dialog-warning', '--wait',
+    result = subprocess.run(['notify-send', '--app-name=Eitr', '--icon=' + str(code('fastfetch/assets/eitr-logo.png')), '--wait',
                              '--expire-time=15000', *actions, '--', tr('A program crashed'),
                              Path(event['COREDUMP_EXE']).name], capture_output=True, text=True,
                             timeout=60, check=False)
@@ -108,6 +111,33 @@ def remember(cursor):
     os.replace(temporary, path)
 
 
+def shutdown_file():
+    return state('eitr/crash-help-session-end')
+
+
+def compositor_running():
+    return subprocess.run(['pgrep', '-u', str(os.getuid()), '-x', 'Hyprland'], capture_output=True,
+                          check=False).returncode == 0
+
+
+def session_ending(now=None):
+    """Mark a deliberate end of session; after a compositor crash it is already gone."""
+    if not compositor_running():
+        return
+    path = shutdown_file()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(f'{now if now is not None else time.time():.6f}\n')
+
+
+def during_shutdown(event):
+    try:
+        ended = float(shutdown_file().read_text().strip())
+        happened = int(event.get('__REALTIME_TIMESTAMP', '0')) / 1_000_000
+    except (OSError, TypeError, ValueError):
+        return False
+    return ended <= happened <= ended + SHUTDOWN_SECONDS
+
+
 def too_old(event, now=None):
     try:
         happened = int(event.get('__REALTIME_TIMESTAMP', '0')) / 1_000_000
@@ -143,7 +173,7 @@ def watch():
                 if len(seen) > 4096:
                     seen = {cursor}
                 remember(cursor)
-                if too_old(event):
+                if too_old(event) or during_shutdown(event):
                     continue
                 now = time.monotonic()
                 recent = {program: timestamp for program, timestamp in recent.items() if now - timestamp < RATE_SECONDS}
@@ -162,6 +192,7 @@ if __name__ == '__main__':
     action = sys.argv[1] if len(sys.argv) > 1 else ''
     if action == 'watch':
         def stop(signal_number, frame):
+            session_ending()
             raise SystemExit(0)
         signal.signal(signal.SIGTERM, stop)
         sys.exit(watch())
