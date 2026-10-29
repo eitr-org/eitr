@@ -64,6 +64,10 @@ LAN.
     tab, Super+- stack, Super+arrows move between panes, Super+Ctrl+arrows resize,
     Super+Enter send the pane back to a tab. Check them against existing shortcuts
     and confirm with the owner before building.
+  - **Command:** `eitr hardcore on|off|status` beside the Style switch, same result.
+  - **Open apps move with it:** turning it on gathers every open window into tabs;
+    turning it off spreads them back over normal workspaces, two per workspace in
+    any order (earlier workspace positions are not kept).
 - **Website evidence and screenshots.** Keep the public pages in step with verified
   desktop behavior. A feature gets a screenshot when it has a screen people look
   for (a panel, menu or wizard) shown on the website or in the Handbook;
