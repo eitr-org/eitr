@@ -36,6 +36,8 @@ LAN.
 - **Dock: pinned apps.** The edge dock (opposite the bar) shows open apps; next,
   pinned apps that stay in it when closed, as the owner planned.
 - **Light themes.** The owner has ideas for more light themes; create them later.
+- **An Eitr lockscreen.** A new lockscreen design with Eitr's own face (the owner's
+  idea, 2026-10-29), beside the existing designs; ask the owner for direction first.
 - **Website Handbook in every language.** The site is translated (`/pt-br/`, `/es/`,
   `/de/`, `/fr/`), but its Handbook chapters still show English; the desktop's
   Handbook already has reviewed translations to publish there.
