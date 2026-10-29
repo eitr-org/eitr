@@ -3,7 +3,8 @@ import { translator } from '../i18n';
 const t = translator(Astro.url.pathname, 'SkySwitch');
 ---
 <button class="sky-toggle" type="button" role="switch" aria-label={t('light_theme')} aria-checked="false">
-  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 1v3m0 16v3M1 12h3m16 0h3M4 4l2 2m12 12 2 2M4 20l2-2M18 6l2-2"/></svg>
+  <svg class="sky-icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 1v3m0 16v3M1 12h3m16 0h3M4 4l2 2m12 12 2 2M4 20l2-2M18 6l2-2"/></svg>
+  <svg class="sky-icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 12.8A9 9 0 0 1 11.2 3 9 9 0 1 0 21 12.8Z"/></svg>
   <span data-sky-label>{t('night')}</span>
 </button>
 <div class="sky-change" data-sky-change data-to="light" data-active="false" aria-hidden="true">
@@ -14,11 +15,12 @@ const t = translator(Astro.url.pathname, 'SkySwitch');
 import { message } from "../scripts/messages";
 import { motionAllowed, onMotionChange } from '../scripts/realm/motion';
 import { wolfHowl } from '../scripts/realm/sound';
-import { celestialChase, chaseRevealFrames, CHASE_DURATION } from '../scripts/realm/celestial-chase';
+import { celestialChase, chaseRevealFrames, CHASE_DURATION, preloadChaseWolves } from '../scripts/realm/celestial-chase';
 const root=document.documentElement;
 const toggle=document.querySelector<HTMLButtonElement>('.sky-toggle');
 const scene=document.querySelector<HTMLElement>('[data-sky-change]');
 if(toggle && scene) {
+ preloadChaseWolves();
  document.body.append(scene);
  const label=toggle.querySelector('[data-sky-label]');
  const canvas=scene.querySelector<HTMLCanvasElement>('.sky-flight')!;

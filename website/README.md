@@ -118,6 +118,8 @@ of its mouth. The whole wolf stays ahead of the V tip with a visible gap after i
 and is drawn above the glow and trails. Its two
 luminous trails form a widening V behind it; the new theme fills the V's
 interior, with its point following the wolf until every corner is revealed.
+Both wolf sprites preload and decode during idle time. The moving overlay uses
+a 1× canvas with layered trail strokes and a cached celestial halo.
 The 2.5-second flight reuses the original drawn wolf sprites and a View
 Transition (an immediate palette change is the fallback without that API).
 It works at any scroll position and updates every section without moving the

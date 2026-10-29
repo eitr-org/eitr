@@ -2,6 +2,9 @@
 .sky-toggle{display:flex;align-items:center;gap:7px;flex:none;padding:8px 10px;border:1px solid var(--line-strong);border-radius:999px;background:transparent;color:var(--fg);font:11px var(--mono);cursor:pointer}
 .sky-toggle:hover{border-color:var(--bronze)}
 .sky-toggle{width:34px;height:34px;padding:0;justify-content:center;border-radius:50%}
+.sky-toggle .sky-icon-moon{display:none}
+html[data-appearance="light"] .sky-toggle .sky-icon-sun{display:none}
+html[data-appearance="light"] .sky-toggle .sky-icon-moon{display:block}
 .sky-toggle [data-sky-label]{display:none}
 .sky-toggle[aria-disabled="true"]{cursor:wait}
 .sky-status{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}

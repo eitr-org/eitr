@@ -13,7 +13,12 @@ try {
  const errors=[];page.on('pageerror',error=>errors.push(String(error)));
  await page.goto(site,{waitUntil:'networkidle'});
  const toggle=page.getByRole('switch',{name:'Light theme'});
+ const assertSkyIcon=async appearance=>{
+  assert.equal(await toggle.locator('.sky-icon-sun').isVisible(),appearance==='dark');
+  assert.equal(await toggle.locator('.sky-icon-moon').isVisible(),appearance==='light');
+ };
  assert.equal(await toggle.getAttribute('aria-checked'),'false');
+ await assertSkyIcon('dark');
  assert.equal(await page.locator('[data-chase]').count(),0);
  await page.evaluate(()=>{
   window.skyHowls=0;window.skyHowlEnded=false;
@@ -43,6 +48,7 @@ try {
  await page.waitForFunction(()=>document.documentElement.dataset.appearance==='light');
  await page.waitForFunction(()=>document.querySelector('[data-sky-change]').dataset.active==='false');
  assert.equal(await toggle.getAttribute('aria-checked'),'true');
+ await assertSkyIcon('light');
  assert.equal(await toggle.isEnabled(),true);
  assert.equal(await page.evaluate(()=>window.skyHowlDuration),4);
  assert.equal(await page.evaluate(()=>window.skyHowlEnded),false,'The howl must outlast the visual transition');
@@ -65,6 +71,7 @@ try {
  assert.deepEqual(serious.map(violation=>({id:violation.id,nodes:violation.nodes.map(node=>node.target)})),[]);
  await page.reload({waitUntil:'networkidle'});
  assert.equal(await toggle.getAttribute('aria-checked'),'true');
+ await assertSkyIcon('light');
  await page.evaluate(()=>{
   window.skyHowls=0;
   const original=AudioBufferSourceNode.prototype.start;
@@ -81,13 +88,16 @@ try {
  assert.equal(await page.evaluate(()=>window.skyHowls),2);
  await page.goto(new URL('/guide/',site).href,{waitUntil:'networkidle'});
  assert.equal(await toggle.getAttribute('aria-checked'),'true');
+ await assertSkyIcon('light');
  await toggle.click();
  assert.equal(await page.locator('[data-sky-change]').getAttribute('data-to'),'dark');
  await page.emulateMedia({reducedMotion:'reduce'});
  await page.waitForFunction(()=>document.querySelector('[data-sky-change]').dataset.active==='false');
  assert.equal(await toggle.getAttribute('aria-checked'),'false');
+ await assertSkyIcon('dark');
  await toggle.focus();await page.keyboard.press('Space');
  assert.equal(await toggle.getAttribute('aria-checked'),'true');
+ await assertSkyIcon('light');
  assert.equal(await page.locator('[data-sky-change]').getAttribute('data-active'),'false');
  assert.deepEqual(errors,[]);
  const blocked=await browser.newPage();
