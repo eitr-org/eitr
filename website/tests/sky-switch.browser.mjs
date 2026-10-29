@@ -123,7 +123,7 @@ try {
  assert.ok(await retina.getByRole('switch',{name:'Light theme'}).isEnabled());
  await retina.getByRole('switch',{name:'Light theme'}).click();
  await retina.waitForFunction(()=>document.documentElement.dataset.skyCapture==='true');
- await retina.locator('nav a[href="/#themes"]').click();
+ await retina.locator('.version-badge').click();
  await retina.waitForFunction(()=>document.querySelector('[data-sky-change]').dataset.active==='false');
  assert.equal(await retina.locator('html').getAttribute('data-sky-capture'),null);
  await retina.close();

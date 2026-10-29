@@ -32,7 +32,7 @@ try {
         await page.getByRole('button', { name: 'Menu', exact: true }).click();
         const menu = page.getByRole('dialog', { name: 'Main menu' });
         assert.ok(await menu.isVisible());
-        assert.equal(await menu.locator('nav a').count(), 8);
+        assert.equal(await menu.locator('nav a').count(), 6);
         assert.equal(await page.evaluate(() => getComputedStyle(document.body).overflow), 'hidden');
         assert.ok(await menu.getByRole('button', { name: 'Close', exact: true }).evaluate(button => button === document.activeElement));
         assert.ok(await menu.locator('nav a').evaluateAll(links => links.every(link => link.getBoundingClientRect().height >= 44)));

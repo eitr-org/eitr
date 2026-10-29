@@ -34,6 +34,14 @@ LAN.
   QML is not a sandbox.
 
 - **Theme previews.** Previews are Neovim + About screenshots (2026-10-27); `branding/sources/wallpapers/batch-05/export.py` still rewrites realm previews from wallpapers, so drop its preview step before rerunning it.
+- **Islands bar layout.** The owner's idea (2026-10-28): a fourth bar layout beside
+  Full, Centered and Tabs, where the bar's groups float as separate rounded pills
+  (left: logo and workspaces; centre: clock; weather in its own pill; right: status
+  icons) over the wallpaper, each pill following the Square/Rounded/Extra Rounded
+  corner choice. Media and other conditional items appear as pills only when needed.
+- **Centered bar with Tabs-style slopes.** The Centered layout's pill should use the
+  Tabs layout's rounded 45° slopes where it meets the screen edge, square at the
+  edge, and like Tabs it then ignores the corner preference.
 - **Hidden edge shelf.** The owner's idea (2026-10-28): touching the screen edge
   opposite the bar reveals a hidden surface, like the auto-hide bar, that floats
   over windows and never resizes them. What it shows is still open (ideas: plugin

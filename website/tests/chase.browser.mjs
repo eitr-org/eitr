@@ -125,7 +125,7 @@ try {
  assert.equal(await page.locator('.hero').evaluate(element=>getComputedStyle(element).backgroundColor),'rgba(0, 0, 0, 0)');
  assert.ok(await page.evaluate(()=>Number(getComputedStyle(document.querySelector('main')).zIndex)>Number(getComputedStyle(document.querySelector('.ambient-sparks')).zIndex)));
  assert.equal(await page.locator('.ambient-sparks i').first().evaluate(element=>getComputedStyle(element).width),'3px');
- assert.equal(await page.locator('.what-art img').getAttribute('src'),'/art/mimir.webp');
+ assert.equal(await page.locator('.install-grid .dossier').count(),1);
  assert.equal(await page.locator('.myth-gallery,.chase-demo').count(),0);
  assert.ok(await page.locator('.norse-symbol').count()>=10);
  assert.equal(await page.locator('[data-chase]').count(),0);
@@ -220,12 +220,12 @@ try {
  assert.ok(await page.evaluate(()=>scrollY>1000));
  await page.getByRole('link',{name:'Explore the desktop',exact:true}).click();
  await page.waitForFunction(()=>document.querySelector('.bifrost-crossing').dataset.active==='true');
- assert.equal(new URL(page.url()).hash,'#what');
+ assert.equal(new URL(page.url()).hash,'#tour');
  await page.emulateMedia({reducedMotion:'reduce'});
  await page.waitForFunction(()=>document.querySelector('.bifrost-crossing').dataset.active==='false');
- await page.getByRole('link',{name:'Themes',exact:true}).click();
+ await page.locator('.version-badge').click();
  assert.equal(await page.locator('.bifrost-crossing').getAttribute('data-active'),'false');
- assert.equal(new URL(page.url()).hash,'#themes');
+ assert.equal(new URL(page.url()).hash,'#road');
  await page.emulateMedia({reducedMotion:'no-preference'});
  await page.addInitScript(()=>{window.entranceStrikes=[];document.addEventListener('eitr:strike',event=>window.entranceStrikes.push(event.detail));});
  await page.goto(new URL('/intro/',page.url()).href,{waitUntil:'networkidle'});

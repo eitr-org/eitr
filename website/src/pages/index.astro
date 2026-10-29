@@ -26,6 +26,10 @@ const dossier = [
   ["Install", "Guided and fully offline from the ISO"],
   ["Updates", "Signed [eitr] repository"],
   ["Recovery", "Btrfs snapshots and factory reset"],
+  ["Channels", "Stable, or testing for early fixes"],
+  ["Themes", `${themes.length}, each recoloring the desktop, Neovim and more`],
+  ["Plugins", "Widgets, panels and bar items from Git"],
+  ["Assistants", "Claude Code, Codex, Gemini CLI and more, with accounts"],
   ["Languages", "English, Português (Brasil), Español, Deutsch and Français"],
 ];
 
@@ -88,7 +92,7 @@ const homepageFeatures = [
 ];
 
 const faq = [
-  ["Is EITR a distribution?", "Yes. Eitr Linux is an Arch-based Linux distribution with its own ISO, guided offline installer, desktop packages and signed repository. Arch supplies the underlying system; Eitr maintains the integrated desktop and workflows on top."],
+  ["Is it free?", "Yes, free to download, use and share, with no account, subscription or paid tier. Eitr is open source: its code is GPL-3.0 and its artwork CC BY 4.0, all developed in the open on GitHub. If it makes your days better, you can sponsor its development."],
   ["How long does installation take?", "About two minutes in a virtual machine on a fast computer, from confirming to finished. Everything comes from the ISO, so nothing is downloaded while it installs."],
   ["Do I need internet to install?", "No. The ISO carries the packages needed for guided offline installation. Later updates and optional tool downloads need a connection; optional services also keep their own account requirements."],
   ["Can I break it with an update?", "On supported layouts, System Update takes a Btrfs snapshot before an upgrade. Recovery has documented layout and boot requirements, and snapshots do not replace an independent backup. Read the recovery Handbook chapter before relying on a rollback."],
@@ -106,12 +110,14 @@ const faq = [
       <p class="eyebrow reveal"><NorseSymbol name="raven" class="heading-symbol"/> An Arch-based Linux distribution from the far north</p>
       <h1 class="reveal">From eitr,<br /><em>a world<br />takes shape.</em></h1>
       <p class="lead reveal">
-        A keyboard-first Arch Linux environment built around Hyprland and Quickshell.
-        Your desktop, development tools, cloud accounts and system management, brought together.
+        A keyboard-first Arch Linux distribution built around Hyprland and Quickshell, with its own
+        ISO, guided offline installer and signed package repository alongside Arch’s. Your desktop,
+        development tools, cloud accounts and system management in one coherent system; graphical
+        controls are there when you want them, never required.
       </p>
       <div class="actions reveal">
         <a class="button primary" href="#install">Begin <span>ᚠ</span></a>
-        <a class="button ghost" href="#what">Explore the desktop</a>
+        <a class="button ghost" href="#tour">Explore the desktop</a>
       </div>
       <nav class="info-links hero-details" aria-label="Learn about Eitr Linux">
         <a class="text-link" href="/about/">About Eitr Linux</a>
@@ -128,32 +134,6 @@ const faq = [
 
   <div class="rune-band" aria-hidden="true"><div><span><RuneText text={`${futhark} ${futhark} ${futhark} ${futhark}`} /></span></div></div>
 
-  <section id="what" class="wrap what">
-    <div class="what-heading">
-      <RuneCarving rune="ansuz" />
-      <p class="eyebrow reveal"><NorseSymbol name="spear" class="heading-symbol"/> Ansuz / What it is</p>
-      <h2 class="reveal">Old wisdom,<br /><em>a modern shell.</em></h2>
-    </div>
-    <figure class="what-art reveal" aria-hidden="true">
-      <img src="/art/mimir.webp" alt="" loading="lazy" />
-    </figure>
-    <div class="what-copy">
-      <p class="reveal">
-        Eitr Linux is a distribution with its own ISO, guided offline installer and signed
-        package repository alongside Arch’s. Its Quickshell desktop brings panels,
-        notifications and settings into one coherent system. Keep Arch’s packages,
-        choose your tools, and work from the keyboard. Graphical controls are another way
-        into the same workflows, not a requirement to use them.
-      </p>
-      <p class="reveal"><a class="text-link" href="/about/">What is Eitr Linux? →</a></p>
-      <div class="dossier reveal" role="group" aria-labelledby="dossier-title">
-        <p class="label" id="dossier-title">System dossier</p>
-        <dl>{dossier.map(([term, value]) => (<div><dt>{term}</dt><dd><BrandText text={value} /></dd></div>))}</dl>
-      </div>
-    </div>
-  </section>
-
-  <WorldTree />
   <Ravens />
 
   {homepageFeatures.map(feature => {
@@ -170,6 +150,8 @@ const faq = [
     </section>;
   })}
   <div class="wrap screenshots-cta"><a class="button" href="/screenshots/">See all screenshots →</a></div>
+
+  <WorldTree />
 
   <section id="themes" class="themes-section">
     <div class="wrap">
@@ -197,7 +179,9 @@ const faq = [
 
   <dialog class="theme-viewer" aria-labelledby="theme-viewer-name">
     <div class="theme-viewer-stage">
+      <div class="theme-carousel-side" data-side="-1" aria-hidden="true"></div>
       <img alt="" />
+      <div class="theme-carousel-side" data-side="1" aria-hidden="true"></div>
       <button class="theme-viewer-step" type="button" data-step="-1" aria-label="Previous theme">‹</button>
       <button class="theme-viewer-step" type="button" data-step="1" aria-label="Next theme">›</button>
     </div>
@@ -227,6 +211,10 @@ const faq = [
         <pre tabindex="0" aria-label="Commands to check and write the ISO"><code>{`sha256sum -c ${download.file}.sha256
 sudo dd if=${download.file} of=/dev/sdX bs=4M status=progress oflag=sync`}</code></pre>
       </article>
+      <div class="dossier reveal" role="group" aria-labelledby="dossier-title">
+        <p class="label" id="dossier-title">System dossier</p>
+        <dl>{dossier.map(([term, value]) => (<div><dt>{term}</dt><dd><BrandText text={value} /></dd></div>))}</dl>
+      </div>
     </div>
   </section>
 
@@ -236,11 +224,6 @@ sudo dd if=${download.file} of=/dev/sdX bs=4M status=progress oflag=sync`}</code
       <p class="eyebrow reveal"><NorseSymbol name="serpent" class="heading-symbol"/> Raidho / The road ahead</p>
       <h2 class="reveal">The road<br /><em>to Bifröst.</em></h2>
       <p class="reveal">Each release takes its name from the old stories, from the first being to the bridge between worlds.</p>
-    </div>
-    <div class="road-status reveal">
-      <p class="label"><span class="status-dot"></span> Now: {release.version} {release.codename} · {release.stage}</p>
-      <p>A preview for early users. The installer, updates and recovery pass automated VM tests and run on the first real machine; other hardware is what we learn from you. Something broke? System &gt; Information &gt; Report a Problem.</p>
-      <a class="text-link" href="/installation/">Tested hardware &amp; known limitations →</a>
     </div>
     <ol class="road">
       {roadmapGroups.map((entries) => {
@@ -260,6 +243,7 @@ sudo dd if=${download.file} of=/dev/sdX bs=4M status=progress oflag=sync`}</code
                 {entry.version === release.version && <span class="stage">now</span>}
               </li>)}
             </ul> : <p>{milestone}.</p>}
+            {current && <p class="road-note">A preview for early users. The installer, updates and recovery pass automated VM tests and run on the first real machine; other hardware is what we learn from you. Something broke? System &gt; Information &gt; Report a Problem. <a class="text-link" href="/installation/">Tested hardware &amp; known limitations →</a></p>}
           </div>
         </li>
       ); })}
