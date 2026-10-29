@@ -76,8 +76,8 @@ ShellRoot {
         property real reservedThickness: normalThickness + (islandsLayout ? islandGap : 0)
         property real exclusiveZone: EXCLUSION
         property real thinThickness: normalThickness
-        property real islandGap: 12
-        property real islandSpacing: islandGap + 8
+        property real islandGap: 6
+        property real islandSpacing: islandGap * 2 + 8
         property Item stripItem: barContents
         property real panelGap: 12
         property var outerGaps: [12, 12, 12, 12]
@@ -182,7 +182,7 @@ ShellRoot {
             const length = shell.verticalBar ? bar.height : bar.width;
             if (Math.abs(center - length / 2) > .001) throw new Error("Clock shifted");
             const gap = shell.verticalBar ? weather.y - clock.y - clock.height : weather.x - clock.x - clock.width;
-            if (Math.abs(gap - bar.islandGap) > .001) throw new Error("Weather shares clock pill");
+            if (Math.abs(gap - 2 * bar.islandGap) > .001) throw new Error("Weather shares clock pill");
         }
         Timer {
             interval: 120; running: true; repeat: true
@@ -208,7 +208,7 @@ ShellRoot {
                             const point = pill.mapToItem(bar.contentItem, 0, 0);
                             if (!(point.x + pill.width <= 0 || point.y + pill.height <= 0 || point.x >= bar.width || point.y >= bar.height)) throw new Error("Auto-hidden pill still on screen");
                         }
-                        autoHide.progress = 1; shell.barAutoHide = false; bar.islandGap = 12; shell.surfaceAlpha = 1; DesktopStyle.reduceMotion = false;
+                        autoHide.progress = 1; shell.barAutoHide = false; bar.islandGap = 6; shell.surfaceAlpha = 1; DesktopStyle.reduceMotion = false;
                     } else if (stage === 5) {
                         bar.verify();
                         if (!sample.grabToImage(function(result) {

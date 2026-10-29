@@ -627,8 +627,9 @@ ShellRoot {
                 readonly property var outerGaps: shell.screenGaps
                 readonly property bool centeredLayout: shell.centeredLayout
                 readonly property bool islandsLayout: shell.islandsLayout
-                readonly property real islandGap: outerGaps[({top: 0, right: 1, bottom: 2, left: 3})[shell.barEdge]]
-                readonly property real islandSpacing: islandGap + 8
+                // Islands float half the outer gap off the screen edge; pills keep the full gap between them.
+                readonly property real islandGap: outerGaps[({top: 0, right: 1, bottom: 2, left: 3})[shell.barEdge]] / 2
+                readonly property real islandSpacing: islandGap * 2 + 8
                 readonly property real reservedThickness: normalThickness + (islandsLayout ? islandGap : 0)
                 readonly property bool notchLayout: shell.notchLayout
                 readonly property real panelGap: shell.verticalBar ? shell.windowGaps[1] + shell.windowGaps[3] : shell.windowGaps[0] + shell.windowGaps[2]

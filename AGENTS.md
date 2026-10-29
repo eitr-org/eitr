@@ -273,8 +273,9 @@ existing design and workflows rather than replacing them with upstream defaults.
   weather shows only while the centre tab is hovered.
 - Islands: content-sized pills for logo, Overview/workspaces, AI/Hardware/Idle Lock,
   clock, weather, conditional media/capture and status, preserving icon order and
-  Full spacing. Pills follow DesktopStyle corners and float by the live outer gap,
-  also used between pills. Reserve pill depth plus gap; gaps pass clicks through.
+  Full spacing. Pills follow DesktopStyle corners and float half the live outer gap
+  off the screen edge, with the full gap between pills. Reserve pill depth plus that
+  half gap; gaps pass clicks through.
   Clock remains screen-centred. Panels use Tabs’ detached Full-layout positions.
   Status controls keep Full’s manual toggle.
 - Keep calendar height fixed with six week rows. Weather city choices are
