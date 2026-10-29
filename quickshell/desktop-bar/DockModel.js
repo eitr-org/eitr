@@ -1,18 +1,50 @@
 .pragma library
 
-function groups(clients, workspaceId, pinnedEntries) {
+function desktopId(value) {
+    return String(value || "").replace(/\.desktop$/i, "").toLowerCase();
+}
+
+// Eitr's own task and menu terminals (classes from hyprland.lua and
+// walker/bin/menu-path/kitty) have no desktop entry; they share one Eitr icon.
+var eitrTerminalClass = /^(eitr-.+|(fifs?|cloud|about)-terminal|system-cleanup)$/;
+
+function eitrTerminal(appClass) {
+    return eitrTerminalClass.test(String(appClass || ""));
+}
+
+function movePin(pins, id, position, keep) {
+    var result = pins.filter(pin => desktopId(pin) !== desktopId(id));
+    if (keep && id) result.splice(Math.max(0, Math.min(position, result.length)), 0, id);
+    return result;
+}
+
+function dragPins(pins, entry, axis) {
+    var boundary = pins.length ? pins.length * 42 + 3 : 21;
+    var keep = axis < boundary;
+    var position = Math.max(0, Math.floor((axis + 3) / 42));
+    return movePin(pins, entry.desktopId, position, keep);
+}
+
+function orderWithPins(entries, pins) {
+    var ordered = pins.map(pin => entries.find(entry => desktopId(entry.desktopId || entry.appClass) === desktopId(pin)))
+        .filter(entry => !!entry);
+    return ordered.concat(entries.filter(entry => !ordered.some(pin => pin.id === entry.id)));
+}
+
+function groups(clients, workspaceId, pinnedEntries, application) {
     var entries = [];
     var byClass = Object.create(null);
     function entryFor(appClass, pinned) {
-        var key = appClass.toLowerCase();
+        var app = application ? application(appClass) : null;
+        var key = desktopId(app ? app.id : eitrTerminal(appClass) ? "eitr-terminal" : appClass);
         if (!byClass[key]) {
-            byClass[key] = {id: key, appClass: appClass, pinned: !!pinned,
+            byClass[key] = {id: key, desktopId: app ? app.id : "", appClass: appClass, pinned: !!pinned,
                 windows: [], recent: null, onCurrentWorkspace: false};
             entries.push(byClass[key]);
         }
         return byClass[key];
     }
-    for (var pinned of pinnedEntries || []) entryFor(pinned.appClass, true);
+    for (var pinned of pinnedEntries || []) entryFor(typeof pinned === "string" ? pinned : pinned.appClass, true);
     // Preserve Hyprland's client order; focus history selects the activation target only.
     for (var client of clients) {
         if (client.mapped === false || !client.address) continue;

@@ -691,5 +691,21 @@
     "raven_9": "Contas Git separa identidades pessoais e profissionais, pasta por pasta.",
     "motto": "Do eitr, um mundo toma forma.",
     "ragnarok": "Ragnarök. Fenrir engole o mundo, e ele toma forma de novo."
+  },
+  "handbook": {
+    "name": "Manual do Eitr Linux",
+    "description": ". Leia online o mesmo Manual disponível no leitor offline do desktop.",
+    "breadcrumb": "Navegação estrutural",
+    "eyebrow": "Manual / Documentação atual do desktop",
+    "outline": "Nesta página",
+    "chapters": "Capítulos do Manual",
+    "all": "Todos os capítulos",
+    "source": "Leia ou proponha uma correção no original ↗",
+    "label": "Manual",
+    "context": "Este é o Manual do desktop, publicado a partir do mesmo catálogo gerado. Botões, painéis e menus se referem ao desktop instalado. As atualizações podem ser mais recentes que a ISO disponível.",
+    "scope": "Consulte o escopo de instalação e validação.",
+    "fallback": "Este capítulo está em inglês enquanto a tradução aguarda revisão.",
+    "generated": "As tabelas de teclado e mouse são geradas a partir das fontes de atalhos e gestos do menu Aprender.",
+    "shared": "Este capítulo é compartilhado com o Manual offline; não é uma cópia mantida separadamente para o site."
   }
 }

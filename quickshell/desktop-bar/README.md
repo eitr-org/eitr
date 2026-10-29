@@ -597,6 +597,8 @@ Every panel follows the same rules, so a new one feels like the others:
 
 ## Visual plugins
 
+Plugin runtime diagnostics appear in **Control Center > Plugins**: an error state, the first message and **View error details**, with one-click disabling retained. The session list is bounded and de-duplicated; file URLs identify plugin QML warnings and exceptions. Messages without plugin URLs cannot be attributed reliably. Plugins run inside the desktop with its permissions, without a sandbox; install only trusted plugins. The existing installation review shows the full-permissions warning, including for plugins outside the official collection. See `distro/PLUGINS.md` for diagnostic limits.
+
 General ends with a labelled Plugins area for approved schema v2 tile components.
 PluginArea queries approved placements; PluginComponent owns checked asynchronous
 loading, the style/data API, shared tile rows and inline failure fallback.
@@ -652,9 +654,15 @@ Centered pin and applies independently to each displayed bar.
 
 Touch the screen edge opposite the bar to reveal the application dock. It unfolds from that edge, its straight sides meeting the edge, over windows without moving or resizing them and hides 350 ms after the pointer leaves, with the shared 320 ms motion (instant with Reduce motion). It appears on the main screen, or on every screen when Displays is set to all, and never reveals over a fullscreen window.
 
-The dock groups open windows by application class, in Hyprland’s window order. Each 36 px icon slot has a 6 px gap and uses the application’s desktop icon, with a glyph fallback. Dots below an icon count its windows, up to three, and dim when none is on the current workspace of that screen. Hover for its name and window count. Click to focus its most recently used window (including switching workspace); click again to move to its next window. Middle-click closes the most recent window. Long lists scroll along the dock. The surface follows Blur/Theme Color and the corner preference.
+The dock shows pinned apps first, followed by other open applications in Hyprland’s window order. Each 36 px icon slot has a 6 px gap and uses the application’s desktop icon, with a glyph fallback; Eitr’s own task and menu terminals share one Eitr logo icon. Dots below an icon count its windows, up to three, and dim when none is on the current workspace of that screen. Hover for its name and window count. Click to focus its most recently used window (including switching workspace); click again to move to its next window. Middle-click closes the most recent window. Long lists scroll along the dock. The surface follows Blur/Theme Color and the corner preference.
 
-**Dock** in **Style > Desktop Bar** and **Control Center > Style > Bar** turns it off or on. The `dock` setting in `bar-settings.json` defaults to `"yes"`. There is no dock shortcut or pinning control yet.
+**Dock** in **Style > Desktop Bar** and **Control Center > Style > Bar** turns it off or on. The `dock` setting in `bar-settings.json` defaults to `"yes"`. There is no dock shortcut.
+
+Pinned apps stay at full opacity with no dots when closed; click one to launch it in its own application scope. Right-click an icon for Keep in Dock / Remove from Dock, New Window (when a desktop entry is available), and Close or Close All Windows. Escape or a click outside dismisses the menu. Apps without a desktop entry cannot be pinned.
+
+Drag icons along the dock to reorder pins. Drag a running app into the pinned section to keep it there, or drag a pin past that section to remove it. Other icons make room with a short animation (instant with Reduce motion); unpinned apps retain Hyprland’s window order. A thin divider separates pins from other running apps only when both sections contain apps. Menus and drags keep the dock revealed.
+
+Pins are desktop-entry IDs stored in order in the machine-local `quickshell/desktop-bar/dock-pins.json` under `$XDG_CONFIG_HOME` (normally `~/.config`), written atomically. Fresh installs have no pins. Window matching uses desktop-entry IDs, StartupWMClass and application classes.
 
 
 ## Motion and panel smoothness audit

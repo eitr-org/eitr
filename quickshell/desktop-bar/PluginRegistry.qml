@@ -13,6 +13,89 @@ QtObject {
     }
     property var entries: []
     property var installed: []
+    // Session diagnostics only: never persist arbitrary plugin messages.
+    property var errors: []
+    property var diagnosticRoots: ({})
+    function registerSource(entry) {
+        if (!entry.source || !entry.qml) return;
+        let folder = String(entry.source);
+        for (let depth = entry.qml.split("/").length; depth > 0; depth--) folder = folder.slice(0, folder.lastIndexOf("/"));
+        const next = Object.assign({}, diagnosticRoots);
+        next[entry.plugin] = decodedUrl(folder + "/");
+        diagnosticRoots = next;
+    }
+    function decodedUrl(url) {
+        try { return decodeURIComponent(url); } catch (error) { return url; }
+    }
+    onEntriesChanged: entries.forEach(entry => registerSource(entry))
+    function pluginErrors(plugin) { return errors.filter(error => error.plugin === plugin); }
+    function recordError(plugin, file, line, message) {
+        message = String(message).slice(0, 2048);
+        file = String(file).slice(0, 4096);
+        if (errors.some(error => error.plugin === plugin && error.file === file && error.line === line && error.message === message)) return;
+        let next = errors.slice();
+        if (pluginErrors(plugin).length >= 50) {
+            const oldest = next.findIndex(error => error.plugin === plugin);
+            next.splice(oldest, 1);
+        }
+        next.push({plugin: plugin, file: file, line: line, message: message, time: new Date().toISOString()});
+        errors = next.slice(-200);
+    }
+    function diagnostic(line) {
+        // Accept Qt URL:line:column and Quickshell URL[line:column] locations.
+        if (!/\b(?:WARN|ERROR)\b/.test(line)) return;
+        const match = /(?:^|\s)(file:\/\/\/.+?)(?::(-?\d+)(?::[-\d]+)?|\[(-?\d+):[-\d]+\])?:\s*(.*)/.exec(line);
+        if (!match) return;
+        for (const plugin of Object.keys(diagnosticRoots)) {
+            if (decodedUrl(match[1]).startsWith(diagnosticRoots[plugin])) {
+                recordError(plugin, match[1], Math.max(0, Number(match[2] || match[3] || 0)), match[4]);
+                return;
+            }
+        }
+    }
+    function errorDetails(plugin) {
+        return pluginErrors(plugin).map(error => error.time + " · " + error.plugin + "\n"
+            + error.file + ":" + error.line + "\n" + error.message).join("\n\n");
+    }
+    property bool diagnosticStopping: false
+    property int diagnosticRetryDelay: 500
+    property int diagnosticExitCode: 0
+    property string diagnosticLogError: ""
+    function startDiagnostics() {
+        if (!diagnosticStopping && !diagnosticLog.running && !diagnosticRetry.running)
+            diagnosticRetry.start();
+    }
+    function retryDiagnostics() {
+        if (diagnosticStopping || diagnosticRetry.running) return;
+        diagnosticRetry.interval = diagnosticRetryDelay;
+        diagnosticRetryDelay = Math.min(30000, diagnosticRetryDelay * 2);
+        diagnosticRetry.start();
+    }
+    property Timer diagnosticRetry: Timer {
+        interval: 500
+        onTriggered: if (!registry.diagnosticStopping && !registry.diagnosticLog.running)
+            registry.diagnosticLog.running = true
+    }
+    property Timer diagnosticStable: Timer {
+        interval: 10000
+        running: registry.diagnosticLog.running
+        onTriggered: registry.diagnosticRetryDelay = 500
+    }
+    property Process diagnosticLog: Process {
+        command: ["quickshell", "log", "--follow", "--pid", String(Quickshell.processId), "--no-color"]
+        stdout: SplitParser { onRead: line => registry.diagnostic(line) }
+        stderr: SplitParser { onRead: line => registry.diagnosticLogError = line.slice(0, 1024) }
+        onStarted: registry.diagnosticLogError = ""
+        onExited: function(code) { registry.diagnosticExitCode = code; }
+        // FailedToStart emits runningChanged but no exited signal in Quickshell 0.3.2.
+        onRunningChanged: if (!running) registry.retryDiagnostics()
+    }
+    Component.onDestruction: {
+        diagnosticStopping = true;
+        diagnosticRetry.stop();
+        diagnosticStable.stop();
+        diagnosticLog.running = false;
+    }
     property var widgetMenus: ({})
     signal reviewStarted()
     signal widgetAction(string plugin, string id, string monitor, string action, bool custom)
@@ -77,7 +160,7 @@ QtObject {
             if (registry.installedPending) { registry.installedPending = false; Qt.callLater(registry.refreshInstalled); }
         }
     }
-    Component.onCompleted: refresh()
+    Component.onCompleted: { refresh(); startDiagnostics(); }
     property FileView approvalWatch: FileView {
         path: registry.stateRoot + "/eitr/plugins.json"; watchChanges: true; printErrors: false
         onFileChanged: { registry.editing = false; registry.editTarget = null; reload(); registry.refresh(); }

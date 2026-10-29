@@ -13,6 +13,171 @@ BAR = ROOT / 'quickshell/desktop-bar'
 
 @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')
 class VisualPluginLayoutTests(unittest.TestCase):
+    def test_diagnostic_follower_recovers_and_stops_with_shell(self):
+        import time
+        executable = shutil.which('quickshell')
+        with tempfile.TemporaryDirectory(prefix='eitr-log-restart-') as directory:
+            folder = Path(directory)
+            wrapper = folder / 'reader'
+            attempts = folder / 'attempts.jsonl'
+            wrapper.write_text('''#!/usr/bin/python3
+import json, os, sys, time
+from pathlib import Path
+log = Path(os.environ['FOLLOWER_ATTEMPTS'])
+previous = log.read_text().splitlines() if log.exists() else []
+with log.open('a') as output:
+    output.write(json.dumps({'time': time.monotonic(), 'pid': os.getpid(), 'args': sys.argv[1:]}) + '\\n')
+if not previous:
+    print('fixture reader exited', file=sys.stderr, flush=True)
+    raise SystemExit(7)
+os.execv(os.environ['REAL_QUICKSHELL'], [os.environ['REAL_QUICKSHELL'], *sys.argv[1:]])
+''')
+            wrapper.chmod(0o755)
+            fixture = folder / 'shell.qml'
+            fixture.write_text('''import QtQuick
+import Quickshell
+import "BAR" as Bar
+ShellRoot {
+    property var originalCommand
+    property bool sawExit: false
+    property bool killed: false
+    property var previousPid
+    Component.onCompleted: {
+        originalCommand = Bar.PluginRegistry.diagnosticLog.command.slice();
+        originalCommand[0] = "WRAPPER";
+        Bar.PluginRegistry.diagnosticLog.environment = {WAYLAND_DISPLAY: "eitr-follower-other-display"};
+        Bar.PluginRegistry.diagnosticLog.command = ["/nonexistent-eitr-log-reader"];
+        Bar.PluginRegistry.registerSource({plugin: "fixture", qml: "Plugin.qml", source: "PLUGIN_URL"});
+    }
+    Timer {
+        interval: 750; running: true
+        onTriggered: {
+            if (Bar.PluginRegistry.diagnosticLog.running || !Bar.PluginRegistry.diagnosticRetry.running)
+                throw new Error("Failed launch did not schedule retry");
+            Bar.PluginRegistry.diagnosticLog.command = originalCommand;
+        }
+    }
+    Timer {
+        interval: 200; running: true; repeat: true
+        onTriggered: console.warn("PLUGIN_URL:4: recovered warning")
+    }
+    Timer {
+        interval: 50; running: true; repeat: true
+        onTriggered: {
+            const registry = Bar.PluginRegistry;
+            if (registry.diagnosticExitCode === 7 && registry.diagnosticLogError === "fixture reader exited") sawExit = true;
+            if (!sawExit || !registry.diagnosticLog.running || !registry.pluginErrors("fixture").length) return;
+            if (!killed) {
+                previousPid = registry.diagnosticLog.processId;
+                killed = true;
+                registry.errors = [];
+                registry.diagnosticLog.signal(15);
+            } else if (registry.diagnosticLog.processId !== previousPid && !registry.diagnosticRetry.running) {
+                console.log("FOLLOWER_RESTART_OK"); Qt.quit();
+            }
+        }
+    }
+    Timer { interval: 12000; running: true; onTriggered: Qt.quit() }
+}'''.replace('BAR', BAR.as_uri()).replace('WRAPPER', str(wrapper)).replace('PLUGIN_URL', (folder / 'Plugin.qml').as_uri()))
+            environment = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
+                               QML_IMPORT_PATH=str(ROOT / 'quickshell'), EITR_CODE_ROOT=str(ROOT),
+                               XDG_CONFIG_HOME=directory, XDG_STATE_HOME=directory, XDG_DATA_HOME=directory,
+                               XDG_CACHE_HOME=directory, XDG_RUNTIME_DIR=directory,
+                               DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent', HYPRLAND_INSTANCE_SIGNATURE='',
+                               FOLLOWER_ATTEMPTS=str(attempts), REAL_QUICKSHELL=executable)
+            result = subprocess.run([executable, '-p', str(fixture)], env=environment,
+                                    text=True, capture_output=True, timeout=15)
+            output = result.stdout + result.stderr
+            self.assertEqual(result.returncode, 0, output)
+            self.assertIn('FOLLOWER_RESTART_OK', output)
+            launches = [json.loads(line) for line in attempts.read_text().splitlines()]
+            self.assertEqual(len(launches), 3, launches)
+            self.assertGreaterEqual(launches[1]['time'] - launches[0]['time'], .8)
+            self.assertGreaterEqual(launches[2]['time'] - launches[1]['time'], 1.8)
+            self.assertTrue(all('--pid' in launch['args'] for launch in launches))
+            deadline = time.monotonic() + 2
+            while any(Path('/proc', str(launch['pid'])).exists() for launch in launches) and time.monotonic() < deadline:
+                time.sleep(.02)
+            self.assertFalse(any(Path('/proc', str(launch['pid'])).exists() for launch in launches), launches)
+
+    def test_diagnostics_are_attributed_and_other_plugins_survive(self):
+        with tempfile.TemporaryDirectory(prefix='eitr plugin errors-') as directory:
+            folder = Path(directory)
+            entries = []
+            for plugin, source in {
+                'broken': 'import QtQuick\nItem { invalid syntax }',
+                'throws': 'import QtQuick\nItem { required property var api; Timer { interval: 200; running: true; onTriggered: { const component = Qt.createComponent("BrokenHelper.qml"); console.warn(component.errorString()); throw new Error("runtime fixture"); } } }',
+                'healthy': 'import QtQuick\nItem { required property var api; Component.onCompleted: { api.detail = "healthy loaded"; console.log("HEALTHY_LOADED"); } Timer { interval: 1000; running: true; onTriggered: console.log("HEALTHY_STILL_ACTIVE") } }',
+            }.items():
+                root = folder / plugin
+                root.mkdir()
+                qml = root / 'Main.qml'
+                qml.write_text(source)
+                if plugin == 'throws':
+                    (root / 'BrokenHelper.qml').write_text('import QtQuick\nItem { invalid syntax }')
+                entries.append(dict(plugin=plugin, id='main', kind='tiles', title=plugin,
+                                    qml='Main.qml', source=qml.as_uri(), disabled=False, commit='a' * 40))
+            fixture = folder / 'shell.qml'
+            fixture.write_text('''import QtQuick
+import Quickshell
+import "BAR" as Bar
+ShellRoot {
+    FloatingWindow {
+        visible: true; implicitWidth: 480; implicitHeight: 300
+        Column {
+            Repeater {
+                model: ENTRIES
+                Bar.PluginComponent {
+                    required property var modelData
+                    objectName: modelData.plugin
+                    width: 400; entry: modelData
+                    foreground: "white"; background: "black"; accent: "cyan"
+                }
+            }
+        }
+    }
+    Timer {
+        interval: 2500; running: true
+        onTriggered: {
+            const broken = Bar.PluginRegistry.pluginErrors("broken");
+            const runtime = Bar.PluginRegistry.pluginErrors("throws");
+            if (!broken.some(error => error.line === 2)) throw new Error("Missing syntax diagnostic: " + JSON.stringify(broken));
+            if (!runtime.some(error => error.message.indexOf("runtime fixture") !== -1 && error.line === 2)) throw new Error("Missing runtime diagnostic: " + JSON.stringify(runtime));
+            if (!runtime.some(error => error.file.endsWith("/BrokenHelper.qml") && error.line === 2)) throw new Error("Missing createComponent diagnostic");
+            if (Bar.PluginRegistry.pluginErrors("healthy").length) throw new Error("Healthy plugin blamed");
+            const original = runtime.find(error => error.message.indexOf("runtime fixture") !== -1);
+            if (!original.time || original.plugin !== "throws" || !original.file.endsWith("/throws/Main.qml")) throw new Error("Missing diagnostic fields");
+            Bar.PluginRegistry.recordError(original.plugin, original.file, original.line, original.message);
+            if (Bar.PluginRegistry.pluginErrors("throws").length !== runtime.length) throw new Error("Duplicate retained");
+            const countBeforeUnrelated = Bar.PluginRegistry.errors.length;
+            Bar.PluginRegistry.diagnostic("WARN: file:///unrelated/Main.qml:2: unrelated");
+            Bar.PluginRegistry.diagnostic("WARN: " + original.file.replace("/throws/", "/throws-sibling/") + ":2: sibling");
+            Bar.PluginRegistry.diagnostic("DEBUG qml: " + original.file + ":2: ordinary log");
+            if (Bar.PluginRegistry.errors.length !== countBeforeUnrelated) throw new Error("Unrelated log attributed");
+            Bar.PluginRegistry.diagnostic("WARN qml: " + original.file + ": warning without line");
+            if (!Bar.PluginRegistry.pluginErrors("throws").some(error => error.line === 0 && error.message === "warning without line")) throw new Error("Missing unlocated warning");
+            for (let index = 0; index < 70; index++) Bar.PluginRegistry.recordError("throws", original.file, 5, "bounded " + index);
+            if (Bar.PluginRegistry.pluginErrors("throws").length !== 50) throw new Error("Plugin bound exceeded");
+            for (let index = 0; index < 250; index++) Bar.PluginRegistry.recordError("plugin-" + index, original.file, 5, "global bound");
+            if (Bar.PluginRegistry.errors.length !== 200) throw new Error("Global bound exceeded");
+            console.log("DIAGNOSTICS_OK"); Qt.quit();
+        }
+    }
+    Timer { interval: 4000; running: true; onTriggered: Qt.quit() }
+}'''.replace('BAR', BAR.as_uri()).replace('ENTRIES', json.dumps(entries)))
+            environment = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
+                               QML_IMPORT_PATH=str(ROOT / 'quickshell'), EITR_CODE_ROOT=str(ROOT),
+                               XDG_CONFIG_HOME=directory, XDG_STATE_HOME=directory, XDG_DATA_HOME=directory,
+                               XDG_CACHE_HOME=directory, XDG_RUNTIME_DIR=directory,
+                               DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent', HYPRLAND_INSTANCE_SIGNATURE='')
+            result = subprocess.run(['quickshell', '-p', str(fixture)], env=environment,
+                                    text=True, capture_output=True, timeout=10)
+            output = result.stdout + result.stderr
+            self.assertEqual(result.returncode, 0, output)
+            self.assertIn('DIAGNOSTICS_OK', output)
+            self.assertIn('HEALTHY_LOADED', output)
+            self.assertIn('HEALTHY_STILL_ACTIVE', output)
+
     def test_author_canvases_and_theme_api(self):
         with tempfile.TemporaryDirectory(prefix='eitr-plugin-style-') as directory:
             folder = Path(directory)
@@ -471,13 +636,19 @@ ShellRoot {
     Timer {
         interval: 400; running: true; repeat: true
         property int stage: 0
+        property int receivedBeforeHide: 0
+        property int restartWaits: 0
         onTriggered: {
             if (stage === 0) {
                 if (Number(host.detail) < 2) throw new Error("Repeated stream lines did not emit signals");
+                receivedBeforeHide = Number(host.detail);
                 host.visible = false;
             } else if (stage === 1) host.visible = true;
             else if (stage === 2) {
-                if (Number(host.detail) < 2) throw new Error("Stream did not restart on show");
+                if (Number(host.detail) <= receivedBeforeHide) {
+                    if (++restartWaits > 10) throw new Error("Stream did not restart on show");
+                    return;
+                }
                 host.active = false;
             } else { console.log("STREAM_VISIBILITY_OK"); Qt.quit(); }
             stage++;

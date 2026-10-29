@@ -106,6 +106,10 @@ on an active session. Installs, updates and resets are tested in virtual machine
 [LINUX-VM-TESTING.md](distro/LINUX-VM-TESTING.md)). Releases follow
 [distro/RELEASES.md](distro/RELEASES.md) and [PUBLISHING.md](PUBLISHING.md).
 
+## Plugins
+
+Plugin runtime diagnostics appear in **Control Center > Plugins**: an error state, the first message and **View error details**, with one-click disabling retained. The session list is bounded and de-duplicated; file URLs identify plugin QML warnings and exceptions. Messages without plugin URLs cannot be attributed reliably. Plugins run inside the desktop with its permissions, without a sandbox; install only trusted plugins. The existing installation review shows the full-permissions warning, including for plugins outside the official collection. See `distro/PLUGINS.md` for diagnostic limits.
+
 ## License
 
 EITR's code and configuration are licensed under the GNU General Public License,

@@ -22,7 +22,7 @@
     "test:product": "node tests/product.browser.mjs",
     "test:downloads": "node tests/download-count.browser.mjs",
     "test:screenshots": "node tests/screenshots.browser.mjs",
-    "test:i18n": "python3 tests/i18n.test.py"
+    "test:i18n": "node --test tests/handbook-headings.test.mjs && python3 tests/i18n.test.py"
   },
   "dependencies": {
     "@fontsource/cinzel": "5.3.0",

@@ -691,5 +691,21 @@
     "raven_9": "Git-Konten trennt private und berufliche Identitäten, Ordner für Ordner.",
     "motto": "Aus Eitr nimmt eine Welt Gestalt an.",
     "ragnarok": "Ragnarök. Fenrir verschlingt die Welt, und sie nimmt erneut Gestalt an."
+  },
+  "handbook": {
+    "name": "Eitr Linux Handbuch",
+    "description": ". Lies online dasselbe Handbuch wie im Offline-Leser des Desktops.",
+    "breadcrumb": "Brotkrümelnavigation",
+    "eyebrow": "Handbuch / Aktuelle Desktop-Dokumentation",
+    "outline": "Auf dieser Seite",
+    "chapters": "Handbuchkapitel",
+    "all": "Alle Kapitel",
+    "source": "Quelle lesen oder eine Korrektur vorschlagen ↗",
+    "label": "Handbuch",
+    "context": "Dies ist das Desktop-Handbuch aus demselben generierten Katalog. Schaltflächen, Panels und Menüs beziehen sich auf den installierten Desktop. Paketaktualisierungen können neuer als die verfügbare ISO sein.",
+    "scope": "Installations- und Validierungsumfang prüfen.",
+    "fallback": "Dieses Kapitel wird auf Englisch angezeigt, während seine Übersetzung auf Prüfung wartet.",
+    "generated": "Tastatur- und Maustabellen werden aus den Quellen für Tastenkürzel und Gesten von Lernen generiert.",
+    "shared": "Dieses Kapitel wird mit dem Offline-Handbuch geteilt und nicht separat für die Website gepflegt."
   }
 }

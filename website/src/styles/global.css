@@ -274,6 +274,7 @@ em { font-style: italic; color: var(--accent); }
 .guide-notice .status-dot { margin-top: 8px; flex: none; }
 .guide-links { display: grid; border-top: 1px solid var(--line); }
 .guide-link { display: grid; grid-template-columns: 60px 1fr auto; gap: 24px; align-items: center; padding: 28px 0; border-bottom: 1px solid var(--line); }
+.guide-link > * { min-width: 0; overflow-wrap: break-word; hyphens: auto; }
 .guide-link h2 { font-size: 32px; transition: color 0.2s; }
 .guide-link:hover h2 { color: var(--accent); }
 .guide-link p { font-size: 13px; margin-top: 6px; }

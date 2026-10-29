@@ -691,5 +691,21 @@
     "raven_9": "Git Accounts keeps work and personal identities apart, folder by folder.",
     "motto": "From eitr, a world takes shape.",
     "ragnarok": "Ragnarök. Fenrir swallows the world, and it takes shape again."
+  },
+  "handbook": {
+    "name": "Eitr Linux Handbook",
+    "description": ". Read the Eitr Linux Handbook online, from the same sources as the offline desktop reader.",
+    "breadcrumb": "Breadcrumb",
+    "eyebrow": "Handbook / Current desktop documentation",
+    "outline": "On this page",
+    "chapters": "Handbook chapters",
+    "all": "All chapters",
+    "source": "Read or propose a correction to the source ↗",
+    "label": "Handbook",
+    "context": "This is the English desktop Handbook, published online from the same generated catalog. References to buttons, panels and menus describe the installed desktop. Package updates can be newer than the downloadable ISO.",
+    "scope": "Check installation & validation scope.",
+    "fallback": "This chapter is shown in English while its translation awaits review.",
+    "generated": "Keyboard and mouse tables are generated from Learn’s shortcut and gesture sources.",
+    "shared": "This chapter is shared with the offline Handbook; it is not a second copy maintained for the website."
   }
 }

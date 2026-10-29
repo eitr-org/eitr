@@ -691,5 +691,21 @@
     "raven_9": "Cuentas de Git separa identidades personales y profesionales, carpeta a carpeta.",
     "motto": "Del eitr, un mundo toma forma.",
     "ragnarok": "Ragnarök. Fenrir devora el mundo, y este vuelve a tomar forma."
+  },
+  "handbook": {
+    "name": "Manual de Eitr Linux",
+    "description": ". Lee en línea el mismo Manual disponible en el lector sin conexión del escritorio.",
+    "breadcrumb": "Ruta de navegación",
+    "eyebrow": "Manual / Documentación actual del escritorio",
+    "outline": "En esta página",
+    "chapters": "Capítulos del Manual",
+    "all": "Todos los capítulos",
+    "source": "Lee o propone una corrección en la fuente ↗",
+    "label": "Manual",
+    "context": "Este es el Manual del escritorio, publicado desde el mismo catálogo generado. Los botones, paneles y menús se refieren al escritorio instalado. Las actualizaciones pueden ser más recientes que la ISO disponible.",
+    "scope": "Consulta el alcance de instalación y validación.",
+    "fallback": "Este capítulo se muestra en inglés mientras su traducción espera revisión.",
+    "generated": "Las tablas de teclado y ratón se generan desde las fuentes de atajos y gestos de Aprender.",
+    "shared": "Este capítulo se comparte con el Manual sin conexión; no es una copia mantenida aparte para el sitio."
   }
 }

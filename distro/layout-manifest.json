@@ -2,6 +2,8 @@
   "version": 1,
   "layout_version": 2,
   "rules": [
+    {"pattern": "quickshell/desktop-bar/scripts/dock-pins.py", "class": "C", "runtime": true},
+    {"pattern": "quickshell/desktop-bar/dock-pins.json", "class": "P", "runtime": false},
     {"pattern": "quickshell/desktop-bar/IslandMask.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/tests/test_islands_layout.py", "class": "C", "runtime": false},
     {"pattern": "quickshell/desktop-bar/DockClients.qml", "class": "C", "runtime": true},

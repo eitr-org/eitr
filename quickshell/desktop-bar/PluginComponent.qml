@@ -38,6 +38,7 @@ Item {
     function fail(message) {
         if (error !== "") return;
         error = String(message);
+        PluginRegistry.recordError(entry.plugin, entry.source || entry.qml, 0, error);
         console.warn("Plugin QML", entry.plugin, entry.id, error);
         if (!failure.running) {
             failure.running = true;
@@ -159,10 +160,13 @@ Item {
         onActiveChanged: if (active) load()
         Component.onCompleted: if (active) load()
         function load() {
+            PluginRegistry.registerSource(host.entry);
             setSource(host.entry.source, {api: api});
         }
         onStatusChanged: {
-            if (status === Loader.Error) host.fail("Could not load " + host.entry.qml);
+            if (status === Loader.Error) Qt.callLater(function() {
+                if (content.status === Loader.Error) host.fail("Could not load " + host.entry.qml);
+            });
             if (status === Loader.Ready) {
                 if (!item || !item.hasOwnProperty("api")) host.fail("Component must declare required property var api");
                 else api.runDataCommand();

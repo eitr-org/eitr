@@ -9,10 +9,13 @@ import Privacy from '../privacy.astro';
 import Screenshots from '../screenshots.astro';
 import Intro from '../intro.astro';
 import Guide from '../guide.astro';
+import Chapter from '../guide/[chapter].astro';
+import { handbookChapters } from '../../data/handbook';
 const pages = {home: Home, about: About, features: Features, development: Development, installation: Installation, privacy: Privacy, screenshots: Screenshots, intro: Intro, guide: Guide};
 export function getStaticPaths() {
-  return languageCodes.filter(locale => locale !== 'en').flatMap(locale => pagePaths.map(path => ({params: {locale, page: path === '/' ? undefined : path.slice(1, -1)}})));
+  return languageCodes.filter(locale => locale !== 'en').flatMap(locale => [...pagePaths, ...handbookChapters.map(chapter => chapter.path)].map(path => ({params: {locale, page: path === '/' ? undefined : path.slice(1, -1)}})));
 }
-const Page = pages[(Astro.params.page ?? 'home') as keyof typeof pages];
+const chapter = handbookChapters.find(entry => `guide/${entry.id}` === Astro.params.page);
+const Page = chapter ? Chapter : pages[(Astro.params.page ?? 'home') as keyof typeof pages];
 ---
-<Page />
+<Page chapter={chapter} />

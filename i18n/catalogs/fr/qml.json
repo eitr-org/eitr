@@ -449,5 +449,11 @@
   "Disable effects and popups; use the performance profile.": "Désactivez effets et notifications et activez le profil performance.",
   "Use warmer screen colors.": "Utilisez des couleurs d’écran plus chaudes.",
   "Hide the bar; press SUPER + Shift + Space to restore it.": "Masquez la barre ; SUPER + Shift + Space la réaffiche.",
-  "Start the screensaver now.": "Lancez l’économiseur d’écran maintenant."
+  "Start the screensaver now.": "Lancez l’économiseur d’écran maintenant.",
+  "Keep in Dock": "Garder dans le Dock",
+  "Remove from Dock": "Retirer du Dock",
+  "New Window": "Nouvelle fenêtre",
+  "Close All Windows": "Fermer toutes les fenêtres",
+  "This plugin has errors": "Ce plugin a des erreurs",
+  "View error details": "Voir les détails des erreurs"
 }

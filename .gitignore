@@ -23,6 +23,7 @@ distro/out/
 /hypr/preferred-outputs
 /quickshell/desktop-bar/notification-settings.json
 /lockscreen/selected
+/quickshell/desktop-bar/dock-pins.json
 /quickshell/desktop-bar/bar-settings.json
 /quickshell/desktop-bar/workspace-style.json
 /eitr/font.json

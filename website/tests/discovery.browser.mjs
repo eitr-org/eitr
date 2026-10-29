@@ -10,7 +10,7 @@ const englishPaths=[...readdirSync(new URL('../src/pages/',import.meta.url))
  .filter(name=>name.endsWith('.astro') && name!=='intro.astro')
  .map(name=>name==='index.astro'?'/':`/${name.slice(0,-6)}/`), ...handbook.map(chapter=>`/guide/${chapter.id}/`)].sort();
 const locales=['pt-br','es','de','fr'];
-const translatedBases=englishPaths.filter(path=>!path.startsWith('/guide/') || path==='/guide/');
+const translatedBases=englishPaths;
 const localizedPaths=locales.flatMap(locale=>translatedBases.map(path=>`/${locale}${path}`));
 const publicPaths=[...englishPaths,...localizedPaths].sort();
 const browser=await chromium.launch({executablePath,headless:true});
@@ -125,8 +125,14 @@ try {
    }
    await page.setViewportSize({width:360,height:900});
    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${path} overflows at 360 without JavaScript`);
-   for(const anchor of await page.locator('main a[href^="/guide/"]').all()) {
-    assert.ok((await anchor.getAttribute('href')).startsWith('/guide/'),'English chapter fallback');
+   assert.equal(await page.locator('main a[href^="/guide/"]').count(),0,'Handbook links retain locale');
+   if(base==='/guide/getting-started/') {
+    const desktop=locale==='pt-br'?'pt_BR':locale;
+    const catalog=JSON.parse(readFileSync(new URL(`../../quickshell/desktop-bar/handbook/catalogs/${desktop}.json`,import.meta.url),'utf8'));
+    const chapter=catalog.chapters.find(entry=>entry.id==='getting-started');
+    assert.equal(await page.locator('h1').textContent(),chapter.title);
+    const paragraph=await page.evaluate(html=>{const element=document.createElement('div');element.innerHTML=html;return element.textContent;},chapter.blocks[1]);
+    assert.ok((await page.locator('.doc-copy').textContent()).includes(paragraph));
    }
   }
  }

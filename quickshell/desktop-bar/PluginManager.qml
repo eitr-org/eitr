@@ -11,6 +11,8 @@ Column {
     property var installed: PluginRegistry.installed
     property var entries: PluginRegistry.entries
     property string expanded: ""
+    property bool showErrors: false
+    onSelectedPluginChanged: showErrors = false
     property string selectedPlugin: ""
     readonly property var selected: installed.find(plugin => plugin.id === selectedPlugin) || null
     onInstalledChanged: if (selectedPlugin && !selected) selectedPlugin = ""
@@ -64,7 +66,8 @@ Column {
         Rectangle {
             id: pluginRow
             required property var modelData
-            width: manager.width; height: PanelStyle.selectionRowHeight
+            readonly property var diagnostics: PluginRegistry.pluginErrors(modelData.id)
+            width: manager.width; height: diagnostics.length ? 72 : PanelStyle.selectionRowHeight
             radius: DesktopStyle.radius(PanelStyle.controlRadius)
             color: Qt.alpha(manager.foreground, PanelStyle.selectionAlpha(false, rowHover.hovered))
             border.width: PanelStyle.selectionBorderWidth(false)
@@ -82,11 +85,28 @@ Column {
                 text: "󰏖"; color: manager.foreground
                 font.family: PanelStyle.fontFamily; font.pixelSize: PanelStyle.selectionIconSize
             }
-            Text {
+            Column {
                 x: PanelStyle.selectionTextInset; anchors.verticalCenter: parent.verticalCenter
                 width: rowSwitch.x - x - PanelStyle.selectionActionGap
-                text: pluginRow.modelData.name + (pluginRow.modelData.updateCount > 0 ? " · ↑" : ""); textFormat: Text.PlainText; elide: Text.ElideRight
-                color: manager.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
+                spacing: PanelStyle.selectionDetailGap
+                Text {
+                    width: parent.width
+                    text: pluginRow.modelData.name + (pluginRow.modelData.updateCount > 0 ? " · ↑" : "")
+                    textFormat: Text.PlainText; elide: Text.ElideRight
+                    color: manager.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
+                }
+                Text {
+                    visible: pluginRow.diagnostics.length > 0
+                    width: parent.width; text: Eitr.I18n.tr("This plugin has errors")
+                    textFormat: Text.PlainText; elide: Text.ElideRight
+                    color: manager.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
+                }
+                Text {
+                    visible: pluginRow.diagnostics.length > 0
+                    width: parent.width; text: pluginRow.diagnostics[0]?.message || ""
+                    textFormat: Text.PlainText; elide: Text.ElideRight
+                    color: manager.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
+                }
             }
             HoverHandler { id: rowHover }
             MouseArea {
@@ -94,7 +114,7 @@ Column {
                 onClicked: manager.selectedPlugin = pluginRow.modelData.id
             }
             Accessible.role: Accessible.Button
-            Accessible.name: modelData.name + (modelData.updateCount > 0 ? " · " + Eitr.I18n.tr("Update available") : "")
+            Accessible.name: modelData.name + (diagnostics.length ? " · " + Eitr.I18n.tr("This plugin has errors") + ": " + diagnostics[0].message : "") + (modelData.updateCount > 0 ? " · " + Eitr.I18n.tr("Update available") : "")
             Accessible.onPressAction: manager.selectedPlugin = modelData.id
             activeFocusOnTab: true
             Keys.onReturnPressed: manager.selectedPlugin = modelData.id
@@ -228,6 +248,25 @@ Column {
                     width: parent.width; height: visible ? 220 : 0
                     visible: manager.expanded === card.modelData.id && !!card.modelData.preview
                     source: card.modelData.preview || ""; fillMode: Image.PreserveAspectFit
+                }
+                Text {
+                    visible: PluginRegistry.pluginErrors(card.modelData.id).length > 0
+                    width: parent.width; wrapMode: Text.Wrap; textFormat: Text.PlainText
+                    text: Eitr.I18n.tr("This plugin has errors") + "\n" + (PluginRegistry.pluginErrors(card.modelData.id)[0]?.message || "")
+                    color: manager.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
+                }
+                PanelButton {
+                    visible: PluginRegistry.pluginErrors(card.modelData.id).length > 0
+                    width: parent.width
+                    text: Eitr.I18n.tr("View error details"); foreground: manager.foreground
+                    onClicked: manager.showErrors = !manager.showErrors
+                }
+                TextEdit {
+                    visible: manager.showErrors
+                    width: parent.width; readOnly: true; selectByMouse: true; wrapMode: TextEdit.Wrap
+                    textFormat: TextEdit.PlainText
+                    text: PluginRegistry.errorDetails(card.modelData.id)
+                    color: manager.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
                 }
                 PluginManagement {
                     width: parent.width

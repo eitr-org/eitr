@@ -5,12 +5,13 @@ import json
 from pathlib import Path
 import re
 import unittest
-from urllib.parse import unquote, urlsplit
+from urllib.parse import unquote, urlsplit, urljoin
 import xml.etree.ElementTree as ElementTree
 
 ROOT = Path(__file__).resolve().parents[1]
 LANGUAGES = ('en', 'pt-br', 'es', 'de', 'fr')
-PAGES = ('', 'about/', 'features/', 'development/', 'installation/', 'privacy/', 'screenshots/', 'guide/', 'intro/')
+CHAPTERS = json.loads((ROOT.parent / 'quickshell/desktop-bar/handbook/chapters.json').read_text())
+PAGES = ('', 'about/', 'features/', 'development/', 'installation/', 'privacy/', 'screenshots/', 'guide/', 'intro/') + tuple(f'guide/{chapter["id"]}/' for chapter in CHAPTERS)
 
 
 class Document(HTMLParser):
@@ -70,18 +71,16 @@ class WebsiteTranslations(unittest.TestCase):
                 for switch in switches:
                     locale = switch['data-language']
                     self.assertEqual(switch['href'], f'/{"" if locale == "en" else locale + "/"}{page}')
-                if language != 'en':
+                if language != 'en' and page.count('/') <= 1:
                     html = file.read_text()
                     for english in ['Skip to content', 'Previous screenshot', 'Previous theme', 'Main navigation', 'On this page']:
                         self.assertNotIn(english, html, (path, english))
         for path, document in documents.items():
             for anchor in document.attributes('a'):
-                target = urlsplit(anchor.get('href', ''))
-                if target.scheme or target.netloc:
+                target = urlsplit(urljoin(f'https://eitr.info{path}', anchor.get('href', '')))
+                if target.scheme not in ('http', 'https') or target.netloc != 'eitr.info':
                     continue
-                pathname = target.path or path
-                if not pathname.startswith('/'):
-                    continue
+                pathname = unquote(target.path)
                 file = ROOT / 'dist' / pathname.lstrip('/')
                 if pathname.endswith('/'):
                     file /= 'index.html'
@@ -89,6 +88,70 @@ class WebsiteTranslations(unittest.TestCase):
                 if target.fragment and file.suffix == '.html':
                     linked = documents.get(pathname) or Document(file)
                     self.assertIn(unquote(target.fragment), linked.ids, (path, anchor))
+
+    def test_every_localized_fragment_resolves(self):
+        documents = {}
+        for language in LANGUAGES[1:]:
+            pages = list((ROOT / 'dist' / language).rglob('*.html'))
+            self.assertTrue(pages, f'Build localized pages before testing: {language}')
+            for file in pages:
+                path = '/' + file.relative_to(ROOT / 'dist').as_posix()
+                path = path.removesuffix('index.html')
+                document = Document(file)
+                for anchor in document.attributes('a'):
+                    target = urlsplit(urljoin(f'https://eitr.info{path}', anchor.get('href', '')))
+                    if target.netloc != 'eitr.info' or target.scheme not in ('http', 'https') or not target.fragment:
+                        continue
+                    target_file = ROOT / 'dist' / unquote(target.path).lstrip('/')
+                    if target.path.endswith('/'):
+                        target_file /= 'index.html'
+                    self.assertTrue(target_file.is_file(), (path, anchor))
+                    if target_file not in documents:
+                        documents[target_file] = Document(target_file)
+                    self.assertIn(unquote(target.fragment), documents[target_file].ids, (path, anchor))
+
+    def test_localized_heading_ids_match_english(self):
+        for chapter in CHAPTERS:
+            suffix = f'guide/{chapter["id"]}/index.html'
+            english = Document(ROOT / f'dist/{suffix}')
+            source = [(tag, attributes.get('id')) for tag, attributes in english.tags if re.fullmatch(r'h[2-6]', tag)]
+            for language in LANGUAGES[1:]:
+                localized = Document(ROOT / f'dist/{language}/{suffix}')
+                target = [(tag, attributes.get('id')) for tag, attributes in localized.tags if re.fullmatch(r'h[2-6]', tag)]
+                self.assertEqual(target, source, (language, chapter['id']))
+
+    def test_reviewed_chapter_content(self):
+        import hashlib
+        book = ROOT.parent / 'quickshell/desktop-bar/handbook'
+        english = json.loads((book / 'catalog.json').read_text())['chapters']
+        for language in LANGUAGES[1:]:
+            desktop = 'pt_BR' if language == 'pt-br' else language
+            catalog = json.loads((book / f'catalogs/{desktop}.json').read_text())['chapters']
+            hashes = json.loads((book / f'content/{desktop}/source-hashes.json').read_text())
+            for definition, source in zip(CHAPTERS, english):
+                candidate = next(chapter for chapter in catalog if chapter['id'] == source['id'])
+                fresh = 'source' not in definition or (
+                    (book / f'content/{desktop}/{source["id"]}.md').is_file()
+                    and hashes.get(source['id']) == hashlib.sha256((ROOT.parent / definition['source']).read_bytes()).hexdigest())
+                levels = lambda chapter: re.findall(r'<(h[2-6])>', '\n'.join(chapter['blocks']))
+                translated = candidate.get('sourceLocale') == desktop and fresh and levels(source) == levels(candidate)
+                expected = candidate if translated else source
+                output = ROOT / f'dist/{language}/guide/{source["id"]}/index.html'
+                document = Document(output)
+                html = output.read_text()
+                self.assertIn(expected['title'], html)
+                self.assertEqual('data-translation-fallback' in html, not translated)
+                self.assertEqual(document.attributes('div', **{'class': 'doc-copy'})[0]['lang'], ('pt-BR' if language == 'pt-br' else language) if translated else 'en')
+                class Text(HTMLParser):
+                    def __init__(self, markup):
+                        super().__init__()
+                        self.parts = []
+                        self.feed(markup)
+
+                    def handle_data(self, text):
+                        self.parts.append(text)
+
+                self.assertIn(''.join(Text(expected['blocks'][1]).parts), ''.join(Text(html).parts))
 
     def test_sitemap(self):
         tree = ElementTree.parse(ROOT / 'dist/sitemap.xml')

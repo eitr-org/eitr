@@ -339,7 +339,7 @@ time. Edit its canonical Markdown, rebuild with
 `python3 quickshell/desktop-bar/scripts/handbook-build.py`, and run `--check`;
 never edit a second copy under the website. The adapter changes links and makes
 code blocks keyboard-focusable; it retains commands, tables and body text.
-The web chapter bodies are English; the website interface is localized, and the installed reader also has pt_BR, es, de and fr.
+The web reader uses the desktop’s reviewed pt_BR, es, de and fr catalogs (pt_BR maps to `/pt-br/`). Missing or stale chapter translations fall back to English with a localized note; freshness is checked against canonical source bytes and `source-hashes.json`.
 References to desktop reader buttons are identified as installed-desktop actions.
 Source corrections go through the canonical Markdown, not generated HTML.
 
@@ -422,9 +422,7 @@ entry and closes the menu on Escape or outside click. Storage failures are
 ignored. URLs always determine the language; neither browser language nor a
 saved choice redirects a visit. No analytics or cookies are added.
 
-The web Handbook chapter bodies remain English, with English fallback links
-from every localized page. The localized guide index identifies this explicitly;
-installed Handbook translations remain in their canonical desktop sources.
+Every localized `guide/` and `guide/<chapter>/` route shares the English rendering path. Heading IDs follow English headings by position and level so deep links remain stable across languages. A different heading hierarchy falls back to the English chapter until reviewed. Chapter titles, search, navigation and metadata use the selected locale; internal links and language switches preserve the chapter. Translations remain in the canonical desktop sources.
 
 After editing copy or routes, run `npm run build` and `npm run test:i18n`.
 The latter checks all catalogs, placeholders, generated routes, metadata,

@@ -15,11 +15,13 @@ export function unprefixed(path: string) {
   return path.replace(/^\/(pt-br|es|de|fr)(?=\/|$)/, '') || '/';
 }
 export const pagePaths = ['/', '/about/', '/features/', '/development/', '/installation/', '/privacy/', '/screenshots/', '/intro/', '/guide/'];
+export function hasLocalizedPage(path: string) {
+  return pagePaths.includes(path) || /^\/guide\/[a-z0-9-]+\/$/.test(path);
+}
 export function localizedPath(path: string, language: Language) {
   const base = unprefixed(path);
   const pathname = base.split(/[?#]/)[0];
-  // The web reader publishes English chapters; never imply translated chapter availability.
-  return language === 'en' || !pagePaths.includes(pathname) ? base : `/${language}${base}`;
+  return language === 'en' || !hasLocalizedPage(pathname) ? base : `/${language}${base}`;
 }
 export function localizeLinks(html: string, language: Language) {
   return html.replace(/href="(\/[^"\s]*)"/g, (_attribute, path: string) => `href="${localizedPath(path, language)}"`);

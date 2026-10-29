@@ -198,8 +198,7 @@ blocklist refusals also hide visual components. Disabled state lives in
 **QML is not a sandbox.** Components run inside the bar with the user's full
 permissions. The API is a supported interface, not a security boundary: QML
 can import other modules, execute code and reach its environment. Loader error
-handling cannot contain infinite loops, native crashes or arbitrary runtime
-binding warnings. Authors should catch their own fatal runtime errors and call
+handling cannot contain infinite loops or native crashes. Authors should catch their own fatal runtime errors and call
 `reportError`. Install only trusted code. No in-process host can promise crash
 isolation against arbitrary plugin code.
 
@@ -248,7 +247,7 @@ All four kinds share the loader, style/data API, failure counter and full QML
 review. **Re-enable** in Control Center’s Plugins page (or **Re-enable visuals** in Walker) resets the same
 counter as `eitr plugin enable-ui ID`. Widgets and visible bar items refresh data
 while loaded; tiles and panels refresh while open. The existing QML runtime
-limitations still apply; unreported binding warnings are not counted.
+limitations still apply; URL-attributed warnings are diagnostic and do not increment the fatal failure counter.
 
 
 ### Audio spectrum (schema version 2)
@@ -400,3 +399,14 @@ failure handling apply regardless of appearance. The example's CustomTile.qml
 shows independent purple/yellow colors beside the Eitr-styled Hello tile.
 
 Widget context menus stay open until an action, Escape or an outside click.
+
+
+### Runtime diagnostics
+
+The Plugins list marks “This plugin has errors” and shows the first message. Select the plugin and choose View error details for selectable diagnostics with plugin ID, file, line and UTC time. The enable switch still disables it in one click. Diagnostics are de-duplicated and kept for this bar session only (50 per plugin, 200 total). Loader failures and QML warnings or JavaScript exceptions with a file URL inside the plugin folder are attributed, including helper components and Qt.createComponent errors that Qt logs. Messages without a plugin URL, swallowed exceptions, infinite loops and native crashes cannot be reliably attributed or isolated. Plugins run with the desktop’s permissions; install only plugins you trust. The existing install review already warns about full permissions, including plugins outside the official collection.
+
+Quickshell 0.3.2 exposes no QML engine warning signal to QML. The host follows only its own instance log using `quickshell log --follow --pid` and `Quickshell.processId`, matching file URLs against approved plugin folders. Selecting the bar’s PID avoids the display filtering applied by ID lookup. It does not read other instances. The file URL boundary includes the trailing slash, so sibling folders cannot match. A Loader error also records a fallback diagnostic with line 0 when Qt supplies no location. Warnings do not unload components or increment the persistent fatal failure counter. Diagnostics are not a security boundary: trusted plugin code can spoof log messages or interfere with the host.
+
+A `Qt.createComponent()` failure returned silently to plugin code is not observable by the host: the installed API provides no engine warning signal or interception hook for that call. The author must log `errorString()` or call `api.reportError()`. Exceptions caught by plugin code and messages without a file URL likewise have no reliable host attribution.
+
+The bar explicitly starts the registry at startup. Its log reader starts after 500 ms and retries failed launches or exits with exponential back-off (500 ms–30 s), resetting after ten seconds running. Both output channels are consumed; the last stderr message and exit code remain available on the registry for diagnosis. The QML-owned process and retry timers stop when the registry is destroyed, including bar shutdown or reload.

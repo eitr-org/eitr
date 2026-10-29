@@ -691,5 +691,21 @@
     "raven_9": "Comptes Git sépare les identités personnelles et professionnelles, dossier par dossier.",
     "motto": "De l’eitr, un monde prend forme.",
     "ragnarok": "Ragnarök. Fenrir engloutit le monde, qui reprend forme à nouveau."
+  },
+  "handbook": {
+    "name": "Manuel Eitr Linux",
+    "description": ". Lisez en ligne le même Manuel que dans le lecteur hors ligne du bureau.",
+    "breadcrumb": "Fil d’Ariane",
+    "eyebrow": "Manuel / Documentation actuelle du bureau",
+    "outline": "Sur cette page",
+    "chapters": "Chapitres du Manuel",
+    "all": "Tous les chapitres",
+    "source": "Lire la source ou proposer une correction ↗",
+    "label": "Manuel",
+    "context": "Voici le Manuel du bureau, publié depuis le même catalogue généré. Les boutons, panneaux et menus décrivent le bureau installé. Les mises à jour peuvent être plus récentes que l’ISO disponible.",
+    "scope": "Consulter le périmètre d’installation et de validation.",
+    "fallback": "Ce chapitre est affiché en anglais en attendant la révision de sa traduction.",
+    "generated": "Les tableaux du clavier et de la souris sont générés depuis les sources des raccourcis et gestes du menu Apprendre.",
+    "shared": "Ce chapitre est partagé avec le Manuel hors ligne ; il n’est pas maintenu séparément pour le site."
   }
 }

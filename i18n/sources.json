@@ -219,7 +219,11 @@
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Close": [
+      "quickshell/desktop-bar/EdgeDock.qml",
       "quickshell/lockscreen/design-gallery.qml"
+    ],
+    "Close All Windows": [
+      "quickshell/desktop-bar/EdgeDock.qml"
     ],
     "Close handbook": [
       "quickshell/desktop-bar/Handbook.qml"
@@ -513,6 +517,9 @@
     "Keep": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
     ],
+    "Keep in Dock": [
+      "quickshell/desktop-bar/EdgeDock.qml"
+    ],
     "Keep reminder": [
       "quickshell/desktop-bar/CalendarMenu.qml"
     ],
@@ -649,6 +656,9 @@
     ],
     "New Reminder": [
       "quickshell/desktop-bar/ControlCenter.qml"
+    ],
+    "New Window": [
+      "quickshell/desktop-bar/EdgeDock.qml"
     ],
     "New chat": [
       "quickshell/desktop-bar/AssistantChat.qml"
@@ -934,6 +944,9 @@
       "quickshell/desktop-bar/PluginManagement.qml",
       "quickshell/desktop-bar/PluginManager.qml",
       "quickshell/desktop-bar/WifiMenu.qml"
+    ],
+    "Remove from Dock": [
+      "quickshell/desktop-bar/EdgeDock.qml"
     ],
     "Remove from desktop": [
       "quickshell/desktop-bar/PluginWidgetMenu.qml"
@@ -1223,6 +1236,9 @@
     "This one": [
       "quickshell/desktop-bar/CalendarMenu.qml"
     ],
+    "This plugin has errors": [
+      "quickshell/desktop-bar/PluginManager.qml"
+    ],
     "Today": [
       "quickshell/desktop-bar/CalendarMenu.qml"
     ],
@@ -1297,6 +1313,9 @@
     ],
     "Username": [
       "quickshell/desktop-bar/WifiMenu.qml"
+    ],
+    "View error details": [
+      "quickshell/desktop-bar/PluginManager.qml"
     ],
     "Visuals disabled": [
       "quickshell/desktop-bar/PluginManagement.qml"

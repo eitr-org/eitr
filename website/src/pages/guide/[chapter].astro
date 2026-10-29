@@ -1,30 +1,35 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { handbookChapters } from '../../data/handbook';
+import { handbookChapters, chaptersFor } from '../../data/handbook';
 export function getStaticPaths() {
   return handbookChapters.map(chapter => ({ params: { chapter: chapter.id }, props: { chapter } }));
 }
-const { chapter } = Astro.props;
-const index = handbookChapters.findIndex(entry => entry.id === chapter.id);
-const previous = handbookChapters[index - 1];
-const next = handbookChapters[index + 1];
+import { languageFor, translator } from '../../i18n';
+const language = languageFor(Astro.url.pathname);
+const t = translator(Astro.url.pathname, 'handbook');
+const chapters = chaptersFor(language);
+const chapter = chapters.find(entry => entry.id === Astro.props.chapter.id)!;
+const index = chapters.findIndex(entry => entry.id === chapter.id);
+const previous = chapters[index - 1];
+const next = chapters[index + 1];
 ---
-<Layout title={`${chapter.title} — Eitr Linux Handbook`} description={chapter.summary + '. Read the Eitr Linux Handbook online, from the same sources as the offline desktop reader.'}>
+<Layout title={`${chapter.title} — ${t('name')}`} description={chapter.summary + t('description')}>
   <article class="wrap guide-intro handbook-page">
-    <nav class="info-links" aria-label="Breadcrumb"><a class="text-link" href="/">Eitr Linux</a><span aria-hidden="true">/</span><a class="text-link" href="/guide/">Handbook</a></nav>
-    <p class="eyebrow">Handbook / Current desktop documentation</p>
+    <nav class="info-links" aria-label={t('breadcrumb')}><a class="text-link" href="/">Eitr Linux</a><span aria-hidden="true">/</span><a class="text-link" href="/guide/">{t('label')}</a></nav>
+    <p class="eyebrow">{t('eyebrow')}</p>
     <h1>{chapter.title}</h1>
     <p class="lead">{chapter.summary}.</p>
-    <p class="doc-context">This is the English desktop Handbook, published online from the same generated catalog. References to buttons, panels and menus describe the installed desktop. Package updates can be newer than the downloadable ISO. <a class="text-link" href="/installation/">Check installation &amp; validation scope.</a></p>
-    {chapter.sections.length > 0 && <nav class="doc-outline info-links" aria-label="On this page">{chapter.sections.map(section => <a class="text-link" href={`#${section.id}`} set:html={section.title} />)}</nav>}
-    <div class="doc-copy" set:html={chapter.html} />
+    <p class="doc-context">{t('context')} <a class="text-link" href="/installation/">{t('scope')}</a></p>
+    {chapter.fallback && <p class="doc-context" data-translation-fallback>{t('fallback')}</p>}
+    {chapter.sections.length > 0 && <nav class="doc-outline info-links" aria-label={t('outline')}>{chapter.sections.map(section => <a class="text-link" href={`#${section.id}`} set:html={section.title} />)}</nav>}
+    <div lang={chapter.contentLanguage} class="doc-copy" set:html={chapter.html} />
     <footer class="doc-source">
-      <p>{chapter.generated ? 'Keyboard and mouse tables are generated from Learn’s shortcut and gesture sources.' : 'This chapter is shared with the offline Handbook; it is not a second copy maintained for the website.'}</p>
-      <a class="text-link" href={chapter.source} target="_blank" rel="noopener noreferrer">Read or propose a correction to the source ↗</a>
+      <p>{chapter.generated ? t('generated') : t('shared')}</p>
+      <a class="text-link" href={chapter.source} target="_blank" rel="noopener noreferrer">{t('source')}</a>
     </footer>
-    <nav class="doc-pagination info-links" aria-label="Handbook chapters">
+    <nav class="doc-pagination info-links" aria-label={t('chapters')}>
       {previous && <a class="text-link" href={previous.path}>← {previous.title}</a>}
-      <a class="text-link" href="/guide/">All chapters</a>
+      <a class="text-link" href="/guide/">{t('all')}</a>
       {next && <a class="text-link" href={next.path}>{next.title} →</a>}
     </nav>
   </article>

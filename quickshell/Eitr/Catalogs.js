@@ -474,7 +474,13 @@ var qml = {
     "Show help notifications when a program crashes.": "Show help notifications when a program crashes.",
     "Silence popups while keeping notification history.": "Silence popups while keeping notification history.",
     "Use warmer screen colors.": "Use warmer screen colors.",
-    "Start the screensaver now.": "Start the screensaver now."
+    "Start the screensaver now.": "Start the screensaver now.",
+    "Close All Windows": "Close All Windows",
+    "Keep in Dock": "Keep in Dock",
+    "New Window": "New Window",
+    "Remove from Dock": "Remove from Dock",
+    "This plugin has errors": "This plugin has errors",
+    "View error details": "View error details"
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -927,7 +933,13 @@ var qml = {
     "Disable effects and popups; use the performance profile.": "Desative efeitos e pop-ups e use o perfil de desempenho.",
     "Use warmer screen colors.": "Use cores mais quentes na tela.",
     "Hide the bar; press SUPER + Shift + Space to restore it.": "Oculte a barra; SUPER + Shift + Space a traz de volta.",
-    "Start the screensaver now.": "Inicie o protetor de tela agora."
+    "Start the screensaver now.": "Inicie o protetor de tela agora.",
+    "Keep in Dock": "Manter no Dock",
+    "Remove from Dock": "Remover do Dock",
+    "New Window": "Nova janela",
+    "Close All Windows": "Fechar todas as janelas",
+    "This plugin has errors": "Este plugin tem erros",
+    "View error details": "Ver detalhes dos erros"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1380,7 +1392,13 @@ var qml = {
     "Disable effects and popups; use the performance profile.": "Desactiva efectos y avisos y usa el perfil de rendimiento.",
     "Use warmer screen colors.": "Usa colores de pantalla más cálidos.",
     "Hide the bar; press SUPER + Shift + Space to restore it.": "Oculta la barra; SUPER + Shift + Space la restaura.",
-    "Start the screensaver now.": "Inicia el salvapantallas ahora."
+    "Start the screensaver now.": "Inicia el salvapantallas ahora.",
+    "Keep in Dock": "Mantener en el Dock",
+    "Remove from Dock": "Quitar del Dock",
+    "New Window": "Nueva ventana",
+    "Close All Windows": "Cerrar todas las ventanas",
+    "This plugin has errors": "Este plugin tiene errores",
+    "View error details": "Ver detalles de errores"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1833,7 +1851,13 @@ var qml = {
     "Disable effects and popups; use the performance profile.": "Schalte Effekte und Popups aus und nutze das Leistungsprofil.",
     "Use warmer screen colors.": "Verwende wärmere Bildschirmfarben.",
     "Hide the bar; press SUPER + Shift + Space to restore it.": "Blende die Leiste aus; SUPER + Shift + Space zeigt sie wieder.",
-    "Start the screensaver now.": "Starte jetzt den Bildschirmschoner."
+    "Start the screensaver now.": "Starte jetzt den Bildschirmschoner.",
+    "Keep in Dock": "Im Dock behalten",
+    "Remove from Dock": "Aus Dock entfernen",
+    "New Window": "Neues Fenster",
+    "Close All Windows": "Alle Fenster schließen",
+    "This plugin has errors": "Dieses Plugin hat Fehler",
+    "View error details": "Fehlerdetails anzeigen"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2286,6 +2310,12 @@ var qml = {
     "Disable effects and popups; use the performance profile.": "Désactivez effets et notifications et activez le profil performance.",
     "Use warmer screen colors.": "Utilisez des couleurs d’écran plus chaudes.",
     "Hide the bar; press SUPER + Shift + Space to restore it.": "Masquez la barre ; SUPER + Shift + Space la réaffiche.",
-    "Start the screensaver now.": "Lancez l’économiseur d’écran maintenant."
+    "Start the screensaver now.": "Lancez l’économiseur d’écran maintenant.",
+    "Keep in Dock": "Garder dans le Dock",
+    "Remove from Dock": "Retirer du Dock",
+    "New Window": "Nouvelle fenêtre",
+    "Close All Windows": "Fermer toutes les fenêtres",
+    "This plugin has errors": "Ce plugin a des erreurs",
+    "View error details": "Voir les détails des erreurs"
   }
 };

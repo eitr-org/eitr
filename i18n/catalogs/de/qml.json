@@ -449,5 +449,11 @@
   "Disable effects and popups; use the performance profile.": "Schalte Effekte und Popups aus und nutze das Leistungsprofil.",
   "Use warmer screen colors.": "Verwende wärmere Bildschirmfarben.",
   "Hide the bar; press SUPER + Shift + Space to restore it.": "Blende die Leiste aus; SUPER + Shift + Space zeigt sie wieder.",
-  "Start the screensaver now.": "Starte jetzt den Bildschirmschoner."
+  "Start the screensaver now.": "Starte jetzt den Bildschirmschoner.",
+  "Keep in Dock": "Im Dock behalten",
+  "Remove from Dock": "Aus Dock entfernen",
+  "New Window": "Neues Fenster",
+  "Close All Windows": "Alle Fenster schließen",
+  "This plugin has errors": "Dieses Plugin hat Fehler",
+  "View error details": "Fehlerdetails anzeigen"
 }

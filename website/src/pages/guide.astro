@@ -3,7 +3,9 @@ import { translator } from '../i18n';
 const t = translator(Astro.url.pathname, 'guide');
 import Layout from '../layouts/Layout.astro';
 import { sitePages } from '../data/site-pages';
-import { handbookChapters } from '../data/handbook';
+import { chaptersFor } from '../data/handbook';
+import { languageFor } from '../i18n';
+const handbookChapters = chaptersFor(languageFor(Astro.url.pathname));
 const repo = 'https://github.com/eitr-org/eitr/blob/main/';
 const guides = [
   [t('installation_guide'), t('target_requirements_package_manifests_disk_choices_and_'), 'distro/README.md'],
@@ -20,7 +22,6 @@ const guides = [
       <a class="text-link" href="/guide/getting-started/">{t('first_login')}</a><a class="text-link" href="/guide/shortcuts/">{t('keyboard_mouse')}</a><a class="text-link" href="/development/">{t('development_overview')}</a><a class="text-link" href="/installation/">{t('installation_hardware')}</a>
     </nav>
     <p class="doc-context">{t('online_chapters_describe_the_current_desktop_packages_t')} <a class="text-link" href="/installation/">{t('release_and_compatibility_notes')}</a>.</p>
-    {Astro.url.pathname !== '/guide/' && <p class="doc-context">{t('english_chapters')}</p>}
     <form class="handbook-search" role="search" hidden>
       <label for="chapter-search">{t('find_a_handbook_chapter')}</label>
       <input id="chapter-search" type="search" placeholder={t('try_git_cloud_ai_keyboard_or_snapshots')} autocomplete="off" />
@@ -29,7 +30,7 @@ const guides = [
   </section>
   <section class="wrap guide-links" aria-label={t('handbook_chapters')}>
     {handbookChapters.map((chapter, index) => (
-      <a class="guide-link" href={chapter.path} lang="en" hreflang="en" data-chapter data-search={`${chapter.title} ${chapter.summary} ${Array.from(new Set(chapter.markdown.toLocaleLowerCase('en').split(/\s+/))).join(' ')}`.toLocaleLowerCase('en')}>
+      <a class="guide-link" href={chapter.path} lang={chapter.contentLanguage} data-chapter data-search={`${chapter.title} ${chapter.summary} ${Array.from(new Set(chapter.markdown.toLocaleLowerCase('en').split(/\s+/))).join(' ')}`.toLocaleLowerCase('en')}>
         <span class="feature-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
         <div><h2>{chapter.title}</h2><p>{chapter.summary}</p></div><span aria-hidden="true">→</span>
       </a>

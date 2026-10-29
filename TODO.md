@@ -29,18 +29,9 @@ LAN.
 
 # 2. Smaller items
 
-- **Plugins.** The owner confirmed the schema v2 plugins work (2026-10-28).
-  Still open: runtime QML errors are not attributed to a plugin, and in-process
-  QML is not a sandbox.
-
-- **Dock: pinned apps.** The edge dock (opposite the bar) shows open apps; next,
-  pinned apps that stay in it when closed, as the owner planned.
 - **Light themes.** The owner has ideas for more light themes; create them later.
 - **An Eitr lockscreen.** A new lockscreen design with Eitr's own face (the owner's
   idea, 2026-10-29), beside the existing designs; ask the owner for direction first.
-- **Website Handbook in every language.** The site is translated (`/pt-br/`, `/es/`,
-  `/de/`, `/fr/`), but its Handbook chapters still show English; the desktop's
-  Handbook already has reviewed translations to publish there.
 - **Website evidence and screenshots.** Keep the public pages in step with verified
   desktop behavior. A feature gets a screenshot when it has a screen people look
   for (a panel, menu or wizard) shown on the website or in the Handbook;

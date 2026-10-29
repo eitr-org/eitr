@@ -14,7 +14,10 @@ import "BarGeometry.js" as BarGeometry
 import "EdgeSlopes.js" as EdgeSlopes
 
 ShellRoot {
-    Component.onCompleted: Quickshell.watchFiles = Quickshell.env("EITR_LIVE_RELOAD") === "1"
+    Component.onCompleted: {
+        Quickshell.watchFiles = Quickshell.env("EITR_LIVE_RELOAD") === "1";
+        PluginRegistry.startDiagnostics();
+    }
     id: shell
     signal handbookOpened()
     NotificationService { id: notificationsService }
