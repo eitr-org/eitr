@@ -37,9 +37,36 @@ service. There is no router forwarding or automatic UPnP.
 
 Undo actions retain installed packages, Sunshine settings, paired clients and
 Tailscale sign-in credentials. Restore Sharing Setup first stops/disables the Eitr
-user service, then restores saved udev/module/sudoers files, binary capabilities
-and device ACLs, removes its nftables guard and runtime openings, and deletes its
+user service, then restores saved udev/module/sudoers files and device ACLs, removes
+binary capabilities, its nftables guard and runtime openings, and deletes its
 journal. If setup loaded uinput, undo unloads it after Sunshine has stopped. A busy module
 causes a reported failure and retains the journal for retry after closing the
 application using it. Restore Away Access Setup restores
 the previous Tailscale operator and original enabled/active service states.
+
+KMS capture is restricted to the sharing account: the package declares the system
+group `eitr-sharing` through sysusers.d. Confirmed setup adds only that account and
+sets `/usr/bin/sunshine` to `root:eitr-sharing`, mode `0750`, before granting
+`cap_sys_admin+p`. Setup refuses a group containing other accounts. Sign out and
+back in before starting sharing: the user service manager needs the new groups.
+Setup does not restart a running service; changing executable permissions does
+not revoke its existing process credentials or open executable. An automatic
+service restart before the next login can fail to execute Sunshine.
+
+Package upgrades replace the binary with root:root mode 0755 and no capability.
+The existing confirmed Set Up Sharing repair path restores ownership, mode and
+membership before reapplying the capability; no automatic upgrade grant is added.
+Stop Sharing closes ports and stops the service, retaining setup permissions for
+a later start. Restore Sharing Setup removes the sharing account's supplementary
+group membership and all binary capabilities, returning the binary to root:root
+0755 (also for older journals). It deliberately never restores a formerly global
+KMS grant. Existing sessions retain their group list until logout, but the binary
+no longer has the capability. Restore setup before removing the package; the
+empty system group remains for idempotent reinstalls. If the package was already
+removed, restore still removes membership and the saved setup files.
+
+The uinput `uaccess` rule remains unchanged. It grants active local-seat users
+input-device access through logind, independently of the KMS executable grant.
+Replacing that shared mechanism with a group-only rule could break other local
+input applications and requires separate compatibility testing; this change does
+not claim that virtual input itself is exclusive to the sharing account.

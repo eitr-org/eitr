@@ -21,7 +21,7 @@ la capture KMS et les entrées virtuelles du clavier, de la souris et de la mane
 L’état initial est conservé dans `/var/lib/eitr/remote-access`. La configuration
 ajoute une règle udev pour uinput, charge uinput au démarrage, accorde l’accès à
 votre utilisateur et applique `cap_sys_admin+p` à Sunshine. Rétablir la configuration du partage
-rétablit les fichiers, la capacité et l’ACL d’origine. Si la configuration a chargé uinput, l’annulation le décharge aussi. Si une autre
+rétablit les fichiers et l’ACL d’origine et retire les permissions de capture. Si la configuration a chargé uinput, l’annulation le décharge aussi. Si une autre
 application l’utilise encore, l’échec est signalé et le journal est conservé pour
 fermer l’application puis réessayer.
 
@@ -46,6 +46,8 @@ Au premier démarrage, la diffusion reste bloquée pendant la définition du mot
 Une mise à jour du paquet Sunshine retire la capacité de capture de l’exécutable.
 Si le partage refuse ensuite de démarrer, utilisez à nouveau Configurer le partage
 et confirmez l’autorisation. Le journal d’annulation initial est conservé.
+
+Sunshine utilise la capacité KMS uniquement comme root ou avec le compte de partage : la configuration applique `root:eitr-sharing`, mode `0750`, et ajoute votre compte à ce groupe système. Déconnectez-vous puis reconnectez-vous avant de démarrer pour actualiser les groupes du service utilisateur. La configuration laisse le processus actif ; un redémarrage avant la prochaine connexion peut échouer. Arrêter conserve les permissions. Rétablir retire le compte du groupe et toutes les capacités du fichier, puis applique `root:root`, mode `0755`, même pour les anciens journaux. Après une mise à jour du paquet, la configuration répare le propriétaire et le mode avant de réattribuer la capacité.
 
 ## Moonlight sur un Mac
 

@@ -148,8 +148,14 @@ msgstr "A web app named {name} already exists. Remove it first from Install > We
 msgid "A {service} dashboard named {name} already exists."
 msgstr "A {service} dashboard named {name} already exists."
 
+msgid "A: Ask the AI to check"
+msgstr "A: Ask the AI to check"
+
 msgid "A: ask the AI about this failure · Esc: close"
 msgstr "A: ask the AI about this failure · Esc: close"
+
+msgid "AI can miss things. This is advice, not approval. The full-permissions warning still applies."
+msgstr "AI can miss things. This is advice, not approval. The full-permissions warning still applies."
 
 msgid "AI sessions"
 msgstr "AI sessions"
@@ -579,6 +585,9 @@ msgstr "Checking for system updates before installation…"
 
 msgid "Checking official package updates…"
 msgstr "Checking official package updates…"
+
+msgid "Checking the downloaded copy…"
+msgstr "Checking the downloaded copy…"
 
 msgid "Choose Sign In to open the browser."
 msgstr "Choose Sign In to open the browser."
@@ -2878,6 +2887,9 @@ msgstr "Sign in with `claude` to show subscription usage"
 msgid "Sign in with an API key"
 msgstr "Sign in with an API key"
 
+msgid "Sign out and back in before starting sharing. Running sharing stays active."
+msgstr "Sign out and back in before starting sharing. Running sharing stays active."
+
 msgid "Sign-in and site status"
 msgstr "Sign-in and site status"
 
@@ -3145,6 +3157,9 @@ msgstr "That address is a web page, not a picture. {hint}"
 msgid "That dashboard is no longer saved."
 msgstr "That dashboard is no longer saved."
 
+msgid "The AI check could not finish. You can still install or cancel."
+msgstr "The AI check could not finish. You can still install or cancel."
+
 msgid "The AWS CLI did not create the profile {profile}"
 msgstr "The AWS CLI did not create the profile {profile}"
 
@@ -3198,6 +3213,9 @@ msgstr "The collaboration state is invalid; settings were left unchanged."
 
 msgid "The default assistant changed. Start a new chat."
 msgstr "The default assistant changed. Start a new chat."
+
+msgid "The eitr-sharing group must contain only the sharing account"
+msgstr "The eitr-sharing group must contain only the sharing account"
 
 msgid "The factory reset helper is missing beside the boot guard"
 msgstr "The factory reset helper is missing beside the boot guard"
@@ -3631,6 +3649,9 @@ msgstr "Update channel must be stable or testing"
 msgid "Update of {update_date} (snapshot {pre} -> {state}, {outcome}):"
 msgstr "Update of {update_date} (snapshot {pre} -> {state}, {outcome}):"
 
+msgid "Update the eitr-sunshine package to create the sharing group."
+msgstr "Update the eitr-sunshine package to create the sharing group."
+
 msgid "Updated {packages}. The system keeps using the old versions until it restarts."
 msgstr "Updated {packages}. The system keeps using the old versions until it restarts."
 
@@ -3834,6 +3855,9 @@ msgstr "Your current personal settings, the hidden files such as ~/.config and ~
 
 msgid "Your default assistant is unchanged."
 msgstr "Your default assistant is unchanged."
+
+msgid "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can."
+msgstr "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can."
 
 msgid "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send."
 msgstr "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send."

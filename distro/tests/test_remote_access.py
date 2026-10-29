@@ -5,6 +5,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
+from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
@@ -28,6 +29,12 @@ class RemoteSystemTests(unittest.TestCase):
             self.addCleanup(patcher.stop)
         remote.BINARY.write_text('native')
 
+        patcher = patch.object(remote.grp, 'getgrnam', return_value=SimpleNamespace(gr_gid=2345, gr_mem=['tester']))
+        patcher.start()
+        self.addCleanup(patcher.stop)
+        patcher = patch.object(remote.pwd, 'getpwall', return_value=[])
+        patcher.start()
+        self.addCleanup(patcher.stop)
         self.commands = []
         patcher = patch.object(remote, 'run', side_effect=self.run_command)
         patcher.start()
@@ -104,7 +111,7 @@ class RemoteSystemTests(unittest.TestCase):
         self.assertEqual(previous['user'], 'tester')
         self.assertIn(['setcap', 'cap_sys_admin+p', str(remote.BINARY)], self.commands)
         count = len(self.commands)
-        with patch.object(remote, 'output', return_value=str(remote.BINARY) + ' cap_sys_admin=p'):
+        with patch.object(remote, 'capture_ready', return_value=True):
             remote.setup('tester')
         self.assertEqual(len(self.commands), count)
         sudoers = (self.root / 'etc/sudoers.d/eitr-remote-access').read_text()
@@ -132,7 +139,7 @@ class RemoteSystemTests(unittest.TestCase):
         previous = remote.journal('sunshine')
         previous['armed'] = True
         remote.save('sunshine', previous)
-        with patch.object(remote, 'firewall_active', return_value=True), patch.object(remote, 'output', side_effect=lambda command: str(remote.BINARY) + ' cap_sys_admin=p' if command[0] == 'getcap' else '[]'), patch.object(remote, 'run', side_effect=fail_once):
+        with patch.object(remote, 'capture_ready', return_value=True), patch.object(remote, 'firewall_active', return_value=True), patch.object(remote, 'output', side_effect=lambda command: str(remote.BINARY) + ' cap_sys_admin=p' if command[0] == 'getcap' else '[]'), patch.object(remote, 'run', side_effect=fail_once):
             with self.assertRaises(subprocess.CalledProcessError):
                 remote.sharing('tester', True)
         self.assertFalse(remote.RULES.exists())
@@ -225,6 +232,83 @@ class RemoteSystemTests(unittest.TestCase):
             remote.setup('tester')
         self.assertEqual(remote.journal('sunshine'), original)
         self.assertEqual(self.commands[-1], ['setcap', 'cap_sys_admin+p', str(remote.BINARY)])
+
+    def test_grant_restricts_execution_before_capability_without_service_restart(self):
+        self.setup_sharing()
+        owner = ['chown', 'root:eitr-sharing', str(remote.BINARY)]
+        mode = ['chmod', '0750', str(remote.BINARY)]
+        capability = ['setcap', 'cap_sys_admin+p', str(remote.BINARY)]
+        self.assertLess(self.commands.index(owner), self.commands.index(capability))
+        self.assertLess(self.commands.index(mode), self.commands.index(capability))
+        self.assertIn(['usermod', '-a', '-G', 'eitr-sharing', 'tester'], self.commands)
+        self.assertFalse(any(command[0] == 'systemctl' for command in self.commands))
+
+    def test_capture_status_rejects_global_mode_wrong_group_and_extra_capabilities(self):
+        metadata = SimpleNamespace(st_gid=2345, st_mode=0o100750)
+        with patch.object(remote.BINARY.__class__, 'stat', return_value=metadata), \
+                patch.object(remote, 'output', return_value=str(remote.BINARY) + ' cap_sys_admin=p'):
+            self.assertTrue(remote.capture_ready('tester'))
+            metadata.st_mode = 0o100755
+            self.assertFalse(remote.capture_ready('tester'))
+            metadata.st_mode = 0o104750
+            self.assertFalse(remote.capture_ready('tester'))
+            metadata.st_mode = 0o100750
+            metadata.st_gid = 0
+            self.assertFalse(remote.capture_ready('tester'))
+            metadata.st_gid = 2345
+            with patch.object(remote, 'output', return_value=str(remote.BINARY) + ' cap_sys_admin,cap_net_admin=p'):
+                self.assertFalse(remote.capture_ready('tester'))
+
+    def test_setup_refuses_other_group_members_before_mutations(self):
+        with patch.object(remote.grp, 'getgrnam', return_value=SimpleNamespace(gr_gid=2345, gr_mem=['other'])):
+            with self.assertRaisesRegex(RuntimeError, 'only the sharing account'):
+                remote.setup('tester')
+        self.assertEqual(self.commands, [])
+        self.assertFalse(remote.STATE.exists())
+
+    def test_old_global_grant_is_repaired_even_when_capability_exists(self):
+        self.setup_sharing()
+        original = remote.journal('sunshine')
+        self.commands.clear()
+        with patch.object(remote, 'capture_ready', return_value=False), \
+                patch.object(remote, 'output', return_value=str(remote.BINARY) + ' cap_sys_admin=p'), \
+                patch('builtins.input', return_value='yes'):
+            remote.setup('tester')
+        self.assertEqual(self.commands[0], ['setcap', '-r', str(remote.BINARY)])
+        self.assertEqual(self.commands[-1], ['setcap', 'cap_sys_admin+p', str(remote.BINARY)])
+        self.assertEqual(remote.journal('sunshine'), original)
+
+    def test_restore_removes_membership_and_never_restores_global_capability(self):
+        self.setup_sharing()
+        previous = remote.journal('sunshine')
+        previous['capabilities'] = str(remote.BINARY) + ' cap_sys_admin=p'
+        remote.save('sunshine', previous)
+        self.commands.clear()
+        with patch.object(remote, 'output', return_value=str(remote.BINARY) + ' cap_sys_admin=p'), \
+                patch.object(remote.subprocess, 'run', return_value=subprocess.CompletedProcess([], 1)):
+            remote.undo_sunshine('tester', ask=False)
+        self.assertEqual(self.commands[:3], [['setcap', '-r', str(remote.BINARY)],
+                                            ['chown', 'root:root', str(remote.BINARY)],
+                                            ['chmod', '0755', str(remote.BINARY)]])
+        self.assertIn(['gpasswd', '-d', 'tester', 'eitr-sharing'], self.commands)
+        self.assertNotIn(['setcap', 'cap_sys_admin+p', str(remote.BINARY)], self.commands)
+        self.assertIsNone(remote.journal('sunshine'))
+
+    def test_restore_after_package_removal_still_revokes_membership(self):
+        self.setup_sharing()
+        remote.BINARY.unlink()
+        self.commands.clear()
+        with patch.object(remote.subprocess, 'run', return_value=subprocess.CompletedProcess([], 1)):
+            remote.undo_sunshine('tester', ask=False)
+        self.assertIn(['gpasswd', '-d', 'tester', 'eitr-sharing'], self.commands)
+        self.assertFalse(any(command[0] == 'setcap' for command in self.commands))
+
+    def test_package_declares_system_group_without_capability_install_hook(self):
+        package = ROOT / 'distro/pkg/eitr-sunshine'
+        self.assertEqual((package / 'eitr-sharing.conf').read_text(), 'g eitr-sharing -\n')
+        recipe = (package / 'PKGBUILD').read_text()
+        self.assertIn('/usr/lib/sysusers.d/eitr-sharing.conf', recipe)
+        self.assertNotIn('setcap', recipe)
 
     def test_packaged_root_import_with_isolated_python(self):
         library = self.root / 'usr/lib/eitr'

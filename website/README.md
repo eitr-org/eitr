@@ -430,3 +430,27 @@ internal links, fragment targets and sitemap entries without a browser.
 `npm run test:discovery` also checks localized static HTML, the language switch,
 blocked storage and 360 px layouts with and without JavaScript. Run the browser
 suite against a production preview as described above.
+
+## Security headers
+
+`public/_headers` is copied to the assets root by Astro. Cloudflare Workers
+static assets apply its `/*` rule to every path (see [Cloudflare's headers
+reference](https://developers.cloudflare.com/workers/static-assets/headers/)).
+The CSP starts in report-only mode; review browser console violations before
+enforcing it. No report collector is configured. `X-Frame-Options: DENY` already
+blocks framing. HSTS covers only this host for one year: no preload or
+includeSubDomains, because HTTPS-only operation of every subdomain was not verified.
+
+The production build uses local module scripts, fonts, images and audio, plus
+`https://download.eitr.info/stats.json`. `connect-src` also allows local audio and
+SVG fetches. `img-src data:` permits the inline SVG grain texture. Inline script
+permission covers the appearance bootstrap, Astro-inlined modules and localized
+JSON-LD/data blocks; hashes for all per-page localized structured data would
+exceed Cloudflare's 2,000-character header-line limit. Inline style permission
+covers generated style blocks, HTML style attributes and runtime animation styles.
+Neither scripts nor styles allow external origins or eval. Revisit these inline
+exceptions before enforcing a stricter policy.
+
+After `npm run build`, `npm run test:headers` checks the built header file and
+asset policy against all generated pages. It is also part of `npm test`.
+Deployment and live response headers require a separate post-deploy check.

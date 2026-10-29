@@ -20,7 +20,7 @@ Lea el aviso de control total y escriba `yes` solo si acepta captura KMS y entra
 virtual de teclado, ratón y mando. El estado original se guarda en
 `/var/lib/eitr/remote-access`. Se añade una regla udev para uinput, se carga uinput
 al arrancar, se concede acceso al usuario y se aplica `cap_sys_admin+p` a Sunshine.
-Restaurar configuración de uso compartido restaura los archivos, la capacidad y la ACL originales.
+Restaurar configuración de uso compartido restaura los archivos y la ACL originales y elimina los permisos de captura.
 Si la configuración cargó uinput, la restauración también lo descarga. Si otra
 aplicación lo usa, se informa del fallo y se conserva el registro para cerrar
 la aplicación y reintentar.
@@ -45,6 +45,8 @@ La primera vez, la transmisión permanece bloqueada mientras define la contrase�
 Una actualización del paquete Sunshine borra la capacidad de captura del ejecutable.
 Si después no se inicia, use Configurar uso compartido de nuevo y confirme el permiso;
 se conserva el registro original de restauración.
+
+Sunshine usa la capacidad KMS solo como root o con la cuenta que configuró el uso compartido: la configuración establece `root:eitr-sharing`, modo `0750`, y añade tu cuenta al grupo del sistema. Cierra sesión y vuelve a entrar antes de iniciar para actualizar los grupos del servicio de usuario. La configuración mantiene el proceso activo; reiniciarlo antes de volver a entrar puede fallar. Detener conserva los permisos. Restaurar elimina la pertenencia al grupo y todas las capacidades del ejecutable y restablece `root:root`, modo `0755`, también para registros antiguos. Tras actualizar el paquete, Configurar uso compartido corrige propietario y modo antes de conceder la capacidad.
 
 ## Moonlight en un Mac
 

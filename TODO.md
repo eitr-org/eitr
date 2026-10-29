@@ -36,15 +36,10 @@ LAN.
   and package signing, plugins, remote access, browsers and assistants with full
   access, secrets and file permissions. Report findings by severity, fix them, and
   record what was checked.
-- **Ask the AI to check a plugin or theme before installing.** The owner's idea
-  (2026-10-29): the install review for plugins and themes from GitHub offers "Ask
-  the AI to check", using the default assistant like Crash Help does. It reviews
-  the downloaded copy, read-only and before anything is installed, and reports what
-  the code does (commands it runs, files and network it touches) in plain words.
-  The repository is untrusted data: text in it that tries to steer the review is
-  itself reported as a red flag. The result is advice, never an approval, and the
-  review says so plainly: the AI can miss things, so the existing permission
-  warning and the user's choice stay.
+- **AI install review:** implemented for the installed default assistant when it
+  supports text-only checks without tools (Ratatoskr and Claude). Unsupported
+  defaults get a translated explanation. Reviews keep the advice notice and
+  Install/Cancel choice; see `distro/PLUGINS.md`. There is no Git theme installer.
 - **Performance on weak computers.** The owner's request (2026-10-29): measure what
   costs the most CPU, GPU, memory, disk and battery (bar, live wallpapers, blur and
   animations, Elephant/Walker, background services, first-login work), find what

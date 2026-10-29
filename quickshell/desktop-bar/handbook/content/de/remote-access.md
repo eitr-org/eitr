@@ -21,7 +21,7 @@ Sie KMS-Aufnahme und virtuelle Tastatur-, Maus- und Controller-Eingaben erlauben
 Der ursprüngliche Zustand wird unter `/var/lib/eitr/remote-access` gespeichert.
 Die Einrichtung ergänzt eine udev-Regel für uinput, lädt uinput beim Start, gewährt
 Ihrem Benutzer Gerätezugriff und setzt `cap_sys_admin+p` für Sunshine.
-Freigabeeinrichtung zurücksetzen stellt Dateien, Capability und Geräte-ACL wieder her.
+Freigabeeinrichtung zurücksetzen stellt Dateien und Geräte-ACL wieder her und entfernt die Aufnahmeberechtigungen.
 Wurde uinput bei der Einrichtung geladen, wird es beim Zurücksetzen entladen.
 Verwendet es eine andere Anwendung noch, wird der Fehler gemeldet und das Protokoll
 bleibt erhalten. Schließen Sie die Anwendung und versuchen Sie es erneut.
@@ -48,6 +48,8 @@ Beim ersten Mal bleibt Streaming während der Passwortvergabe gesperrt. Kehren S
 Ein Sunshine-Paketupdate entfernt die Aufnahme-Capability der ausführbaren Datei.
 Falls die Freigabe danach nicht startet, wählen Sie erneut Freigabe einrichten
 und bestätigen Sie die Erlaubnis. Das ursprüngliche Wiederherstellungsprotokoll bleibt erhalten.
+
+Sunshine verwendet die KMS-Capability nur als root oder mit dem Freigabekonto: Die Einrichtung setzt `root:eitr-sharing`, Modus `0750`, und nimmt dein Konto in diese Systemgruppe auf. Melde dich vor dem Start ab und wieder an, damit der Benutzerdienst die neue Gruppe erhält. Die Einrichtung lässt laufende Prozesse aktiv; ein Neustart vor der nächsten Anmeldung kann fehlschlagen. Stoppen behält die Berechtigungen. Zurücksetzen entfernt die Gruppenmitgliedschaft und alle Datei-Capabilities und setzt `root:root`, Modus `0755`, auch bei älteren Einrichtungsdaten. Nach Paketupdates repariert die Einrichtung Eigentümer und Modus vor der erneuten Vergabe der Capability.
 
 ## Moonlight auf einem Mac
 

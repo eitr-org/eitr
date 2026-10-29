@@ -145,6 +145,68 @@ class ReleaseDesktopTests(unittest.TestCase):
             release.fetch("https://download.eitr.info/repo/eitr.db", Path(directory) / "eitr.db")
         self.assertNotIn("Python-urllib", urlopen.call_args.args[0].get_header("User-agent"))
 
+    def test_repository_filenames_cannot_escape_download_directories(self):
+        for filename in ("../../outside.pkg.tar.zst", "/outside.pkg.tar.zst",
+                         "https://example.org/file.pkg.tar.zst", "file?query.pkg.tar.zst",
+                         "file#fragment.pkg.tar.zst", "file\\name.pkg.tar.zst", "-option.pkg.tar.zst"):
+            with self.subTest(filename=filename), self.assertRaises(ValueError):
+                publish.validate_package_filename(filename)
+        publish.validate_package_filename("eitr-desktop-1:0.6.3-1-any.pkg.tar.zst")
+        release = self.load()
+        with patch.object(release, "fetch") as fetch, self.assertRaises(ValueError):
+            release.reuse_published_packages(["../../outside.pkg.tar.zst"], Path("/unused"), Path("/unused"))
+        fetch.assert_not_called()
+
+    def test_database_rejects_unsafe_filenames_and_archive_errors(self):
+        with patch.object(publish.subprocess, "run", return_value=subprocess.CompletedProcess(
+                [], 0, "%FILENAME%\n../../outside.pkg.tar.zst\n", "")), self.assertRaises(ValueError):
+            publish.listed_files(Path("unused.db"))
+        with patch.object(publish.subprocess, "run", side_effect=subprocess.CalledProcessError(1, "bsdtar")), \
+                self.assertRaises(subprocess.CalledProcessError):
+            publish.listed_files(Path("unused.db"))
+
+    def test_database_is_authenticated_before_package_names_are_read(self):
+        release = self.load()
+        for accepted in (False, True):
+            with self.subTest(accepted=accepted), patch.object(release, "fetch") as fetch, \
+                    patch.object(release, "signing_environment", return_value={}), \
+                    patch.object(release, "valid_signature", return_value=accepted), \
+                    patch.object(release.publish, "listed_files", return_value={"example-1-1-any.pkg.tar.zst"}) as listed:
+                if accepted:
+                    self.assertEqual(release.published_assets(), ["example-1-1-any.pkg.tar.zst"])
+                    listed.assert_called_once()
+                else:
+                    with self.assertRaisesRegex(RuntimeError, "database failed signature"):
+                        release.published_assets()
+                    listed.assert_not_called()
+                self.assertTrue(fetch.call_args_list[-1].args[0].endswith("eitr.db.sig"))
+
+    def test_signature_requires_success_and_exact_signer(self):
+        release = self.load()
+        fingerprint = (DISTRO / "keys/eitr.fingerprint").read_text().strip()
+        for status, output, accepted in (
+                (0, f"[GNUPG:] VALIDSIG {fingerprint} 2026", True),
+                (1, f"[GNUPG:] VALIDSIG {fingerprint} 2026", False),
+                (0, f"[GNUPG:] VALIDSIG {fingerprint}BAD 2026", False),
+                (0, f"untrusted text VALIDSIG {fingerprint}", False)):
+            with self.subTest(status=status, output=output), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                downloads, repo, work = root / "cache", root / "repo", root / "work"
+                for folder in (downloads, repo, work):
+                    folder.mkdir()
+                name = "example-1-1-any.pkg.tar.zst"
+                (downloads / name).write_bytes(b"package")
+                with patch.object(release, "cache", return_value=downloads), \
+                        patch.object(release, "fetch"), patch.object(release, "run"), \
+                        patch.object(release.subprocess, "run", return_value=subprocess.CompletedProcess([], status, output, "")):
+                    if accepted:
+                        release.reuse_published_packages([name], repo, work)
+                        self.assertEqual((repo / name).read_bytes(), b"package")
+                    else:
+                        with self.assertRaises(RuntimeError):
+                            release.reuse_published_packages([name], repo, work)
+                        self.assertFalse((repo / name).exists())
+
     def test_artwork_is_rebuilt_only_when_its_version_is_not_published(self):
         release = self.load()
         for published, expected in ((True, ["eitr-desktop", "eitr-sunshine"]), (False, ["eitr-desktop", "eitr-artwork", "eitr-sunshine"])):

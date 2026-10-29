@@ -1,4 +1,5 @@
 """Confirmed remote-access system changes and their private undo journal."""
+import grp
 import ipaddress
 import json
 import os
@@ -14,6 +15,7 @@ STATE = Path('/var/lib/eitr/remote-access')
 RULES = Path('/run/eitr/firewall.d/remote-access.nft')
 GUARD = Path('/etc/eitr/remote-access.nft')
 BINARY = Path('/usr/bin/sunshine')
+SHARING_GROUP = 'eitr-sharing'
 UNIT = 'tailscaled.service'
 PORTS = 'tcp dport { 47984, 47989, 48010 }'
 UDP = 'udp dport 47998-48000'
@@ -82,6 +84,47 @@ def native_binary():
             and not BINARY.stat().st_mode & 0o022)
 
 
+def sharing_group(name):
+    try:
+        group = grp.getgrnam(SHARING_GROUP)
+    except KeyError:
+        raise RuntimeError(tr('Update the eitr-sunshine package to create the sharing group.')) from None
+    others = set(group.gr_mem) - {name}
+    others.update(user.pw_name for user in pwd.getpwall()
+                  if user.pw_gid == group.gr_gid and user.pw_name != name)
+    if others:
+        raise RuntimeError(tr('The eitr-sharing group must contain only the sharing account'))
+    return group
+
+
+def capture_ready(name):
+    if not native_binary():
+        return False
+    try:
+        group = sharing_group(name)
+    except RuntimeError:
+        return False
+    metadata = BINARY.stat()
+    return (metadata.st_gid == group.gr_gid and metadata.st_mode & 0o7777 == 0o750
+            and (name in group.gr_mem or account(name).pw_gid == group.gr_gid)
+            and output(['getcap', str(BINARY)]) == str(BINARY) + ' cap_sys_admin=p')
+
+
+def grant_capture(name):
+    sharing_group(name)
+    # Remove any old grant before changing ownership/mode; setcap is always last.
+    if output(['getcap', str(BINARY)]):
+        run(['setcap', '-r', str(BINARY)])
+    run(['chown', 'root:' + SHARING_GROUP, str(BINARY)])
+    run(['chmod', '0750', str(BINARY)])
+    run(['usermod', '-a', '-G', SHARING_GROUP, name])
+    run(['setcap', 'cap_sys_admin+p', str(BINARY)])
+
+
+def login_notice():
+    print(tr('Sign out and back in before starting sharing. Running sharing stays active.'))
+
+
 def setup(name):
     user = account(name)
     if not native_binary():
@@ -91,11 +134,13 @@ def setup(name):
             raise RuntimeError(tr('Remote access belongs to another desktop user'))
         # Package upgrades replace the executable and clear its capability.
         # Re-grant only with confirmation, retaining the original undo journal.
-        if 'cap_sys_admin' not in output(['getcap', str(BINARY)]):
+        if not capture_ready(name):
             print(tr('Sunshine grants full control of your desktop. Setup grants KMS capture and virtual keyboard, mouse and controller access.'))
             confirmed()
-            run(['setcap', 'cap_sys_admin+p', str(BINARY)])
+            grant_capture(name)
+            login_notice()
         return
+    sharing_group(name)
     rule = ROOT / 'etc/udev/rules.d/70-eitr-remote-input.rules'
     module = ROOT / 'etc/modules-load.d/eitr-remote-input.conf'
     sudoers = ROOT / 'etc/sudoers.d/eitr-remote-access'
@@ -120,7 +165,8 @@ def setup(name):
         run(['modprobe', 'uinput'])
         run(['udevadm', 'control', '--reload-rules'])
         run(['setfacl', '-m', f'u:{user.pw_uid}:rw', '/dev/uinput'])
-        run(['setcap', 'cap_sys_admin+p', str(BINARY)])
+        grant_capture(name)
+        login_notice()
     except Exception:
         undo_sunshine(name, ask=False)
         raise
@@ -195,7 +241,7 @@ def sharing(name, enabled):
         if firewall_active():
             run(['nft', '-f', '/usr/share/eitr/firewall.nft'])
         return
-    if not native_binary() or 'cap_sys_admin' not in output(['getcap', str(BINARY)]):
+    if not capture_ready(name):
         raise RuntimeError(tr('Run Sharing Setup first.'))
     if not firewall_active():
         raise RuntimeError(tr('Turn on Eitr’s firewall before sharing.'))
@@ -226,9 +272,17 @@ def undo_sunshine(name, ask=True):
         confirmed()
     if GUARD.exists() or RULES.exists():
         sharing(name, False)
-    capabilities = previous['capabilities'].split(' ', 1)
-    if len(capabilities) == 2 or output(['getcap', str(BINARY)]):
-        run(['setcap', capabilities[1] if len(capabilities) == 2 else '-r', str(BINARY)])
+    if BINARY.exists():
+        if output(['getcap', str(BINARY)]):
+            run(['setcap', '-r', str(BINARY)])
+        run(['chown', 'root:root', str(BINARY)])
+        run(['chmod', '0755', str(BINARY)])
+    try:
+        group = grp.getgrnam(SHARING_GROUP)
+    except KeyError:
+        group = None
+    if group and name in group.gr_mem:
+        run(['gpasswd', '-d', name, SHARING_GROUP])
     if (ROOT / 'dev/uinput').exists():
         if previous['acl']:
             run(['setfacl', '--restore=-'], input=previous['acl'], text=True)

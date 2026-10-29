@@ -111,8 +111,8 @@ def ensure_running(wait=START_TIMEOUT):
     raise ValueError(tr('Ratatoskr service did not start. Check it with: systemctl --user status {unit}', unit=UNIT))
 
 
-def ask(question, *, response_format=None, timeout=TIMEOUT):
-    """One non-streaming answer from the local model; JSON-constrained when the caller needs it."""
+def ask(question, *, response_format=None, timeout=TIMEOUT, context_tokens=None):
+    """One tool-free local answer, with optional JSON format and explicit context budget."""
     if not installed():
         raise ValueError(tr('Ratatoskr is not set up.'))
     ensure_running()
@@ -121,6 +121,8 @@ def ask(question, *, response_format=None, timeout=TIMEOUT):
     if response_format == 'json':
         body['format'] = 'json'
         body['options'] = {'temperature': 0}
+    if context_tokens is not None:
+        body.setdefault('options', {}).update(num_ctx=context_tokens, num_predict=4096)
     request = urllib.request.Request(URL + '/api/generate', data=json.dumps(body).encode(),
                                      headers={'Content-Type': 'application/json'}, method='POST')
     try:

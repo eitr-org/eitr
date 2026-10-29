@@ -1400,5 +1400,13 @@
   "Snooze 10 min": "Adiar 10 min",
   "Snooze 5 min": "Adiar 5 min",
   "Downloading the plugin": "Baixando o plugin",
-  "Downloading the plugin for review…": "Baixando o plugin para revisão…"
+  "Downloading the plugin for review…": "Baixando o plugin para revisão…",
+  "Sign out and back in before starting sharing. Running sharing stays active.": "Saia e entre novamente antes de iniciar o compartilhamento. O compartilhamento em execução continua ativo.",
+  "The eitr-sharing group must contain only the sharing account": "O grupo eitr-sharing deve conter apenas a conta de compartilhamento",
+  "Update the eitr-sunshine package to create the sharing group.": "Atualize o pacote eitr-sunshine para criar o grupo de compartilhamento.",
+  "A: Ask the AI to check": "A: Pedir à IA para verificar",
+  "AI can miss things. This is advice, not approval. The full-permissions warning still applies.": "A IA pode deixar passar problemas. Isto é uma orientação, não uma aprovação. O aviso sobre permissões totais continua valendo.",
+  "Checking the downloaded copy…": "Verificando a cópia baixada…",
+  "The AI check could not finish. You can still install or cancel.": "A verificação pela IA não foi concluída. Você ainda pode instalar ou cancelar.",
+  "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can.": "Seu assistente padrão, {assistant}, ainda não pode verificar plugins com segurança. Ratatoskr e Claude podem."
 }

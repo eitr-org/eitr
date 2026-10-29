@@ -330,6 +330,26 @@ class LocalAssistantTests(unittest.TestCase):
             local.ask('Hello')
             self.assertNotIn('format', json.loads(sent[-1][0].data))
 
+    def test_plugin_review_uses_tool_free_api_with_bounded_context(self):
+        server, sent = self.fake_server({'response': 'Advice only'})
+        with patch.object(local, 'installed', return_value=True), \
+                patch.object(local, 'ensure_running'), \
+                patch.object(local, 'opener', return_value=server), \
+                patch.object(local.subprocess, 'run') as run, \
+                patch.object(local.subprocess, 'Popen') as launch, \
+                patch.dict(os.environ, {'OPENAI_API_KEY': 'PRIVATE_TOKEN', 'SSH_AUTH_SOCK': '/private/ssh-agent'}):
+            self.assertEqual(local.ask('Untrusted file contents', timeout=180, context_tokens=32768), 'Advice only')
+        request, timeout = sent[-1]
+        self.assertEqual(request.full_url, 'http://127.0.0.1:11434/api/generate')
+        self.assertEqual(timeout, 180)
+        body = json.loads(request.data)
+        self.assertEqual(set(body), {'model', 'prompt', 'stream', 'think', 'options'})
+        self.assertEqual(body['options'], {'num_ctx': 32768, 'num_predict': 4096})
+        self.assertNotIn('PRIVATE_TOKEN', request.data.decode())
+        self.assertNotIn('/private/ssh-agent', request.data.decode())
+        run.assert_not_called()
+        launch.assert_not_called()
+
     def test_proxies_from_the_environment_are_ignored(self):
         with patch.dict(os.environ, http_proxy='http://proxy.invalid:8080'):
             handlers = [handler for handler in local.opener().handlers

@@ -1400,5 +1400,13 @@
   "Snooze 10 min": "Snooze 10 min",
   "Snooze 5 min": "Snooze 5 min",
   "Downloading the plugin": "Downloading the plugin",
-  "Downloading the plugin for review…": "Downloading the plugin for review…"
+  "Downloading the plugin for review…": "Downloading the plugin for review…",
+  "Sign out and back in before starting sharing. Running sharing stays active.": "Sign out and back in before starting sharing. Running sharing stays active.",
+  "The eitr-sharing group must contain only the sharing account": "The eitr-sharing group must contain only the sharing account",
+  "Update the eitr-sunshine package to create the sharing group.": "Update the eitr-sunshine package to create the sharing group.",
+  "A: Ask the AI to check": "A: Ask the AI to check",
+  "AI can miss things. This is advice, not approval. The full-permissions warning still applies.": "AI can miss things. This is advice, not approval. The full-permissions warning still applies.",
+  "Checking the downloaded copy…": "Checking the downloaded copy…",
+  "The AI check could not finish. You can still install or cancel.": "The AI check could not finish. You can still install or cancel.",
+  "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can.": "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can."
 }

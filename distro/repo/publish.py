@@ -12,6 +12,7 @@ it). See distro/REPOSITORY.md.
 import argparse
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -88,9 +89,17 @@ def published_keys(endpoint):
 
 def listed_files(database):
     """Package file names a pacman database lists."""
-    text = subprocess.run(["bsdtar", "-xOf", str(database), "*/desc"], capture_output=True, text=True).stdout
+    text = subprocess.run(["bsdtar", "-xOf", str(database), "*/desc"], capture_output=True, text=True, check=True).stdout
     lines = text.splitlines()
-    return {lines[index + 1] for index, line in enumerate(lines[:-1]) if line == "%FILENAME%"}
+    filenames = {lines[index + 1] for index, line in enumerate(lines[:-1]) if line == "%FILENAME%"}
+    for filename in filenames:
+        validate_package_filename(filename)
+    return filenames
+
+
+def validate_package_filename(filename):
+    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._+:-]*\.pkg\.tar\.(?:zst|xz|gz|bz2|lrz|lzo|Z)", filename):
+        raise ValueError("Invalid repository package filename")
 
 
 def upload_r2(packages_first, database_last, endpoint):

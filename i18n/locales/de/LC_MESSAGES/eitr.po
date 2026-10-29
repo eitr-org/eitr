@@ -148,8 +148,14 @@ msgstr "Eine Web-App namens {name} existiert bereits. Entfernen Sie sie zuerst u
 msgid "A {service} dashboard named {name} already exists."
 msgstr "Ein {service}-Dashboard namens {name} existiert bereits."
 
+msgid "A: Ask the AI to check"
+msgstr "A: Von der KI prüfen lassen"
+
 msgid "A: ask the AI about this failure · Esc: close"
 msgstr "A: KI zu diesem Fehler fragen · Esc: schließen"
+
+msgid "AI can miss things. This is advice, not approval. The full-permissions warning still applies."
+msgstr "Die KI kann Probleme übersehen. Dies ist ein Hinweis, keine Freigabe. Die Warnung zu den vollen Zugriffsrechten gilt weiterhin."
 
 msgid "AI sessions"
 msgstr "KI-Sitzungen"
@@ -579,6 +585,9 @@ msgstr "Vor der Installation wird nach Systemaktualisierungen gesucht…"
 
 msgid "Checking official package updates…"
 msgstr "Suche nach Aktualisierungen offizieller Pakete…"
+
+msgid "Checking the downloaded copy…"
+msgstr "Die heruntergeladene Kopie wird geprüft…"
 
 msgid "Choose Sign In to open the browser."
 msgstr "Wählen Sie Anmelden, um den Browser zu öffnen."
@@ -2878,6 +2887,9 @@ msgstr "Melden Sie sich mit `claude` an, um die Abonnementnutzung anzuzeigen"
 msgid "Sign in with an API key"
 msgstr "Mit einem API-Schlüssel anmelden"
 
+msgid "Sign out and back in before starting sharing. Running sharing stays active."
+msgstr "Melde dich vor dem Start der Freigabe ab und wieder an. Eine laufende Freigabe bleibt aktiv."
+
 msgid "Sign-in and site status"
 msgstr "Anmelde- und Website-Status"
 
@@ -3145,6 +3157,9 @@ msgstr "Diese Adresse ist eine Webseite, kein Bild. {hint}"
 msgid "That dashboard is no longer saved."
 msgstr "Dieses Dashboard ist nicht mehr gespeichert."
 
+msgid "The AI check could not finish. You can still install or cancel."
+msgstr "Die KI-Prüfung konnte nicht abgeschlossen werden. Du kannst weiterhin installieren oder abbrechen."
+
 msgid "The AWS CLI did not create the profile {profile}"
 msgstr "Die AWS CLI hat Profil {profile} nicht erstellt"
 
@@ -3198,6 +3213,9 @@ msgstr "Der Zusammenarbeitsstatus ist ungültig; die Einstellungen bleiben unver
 
 msgid "The default assistant changed. Start a new chat."
 msgstr "Der Standardassistent wurde geändert. Beginne einen neuen Chat."
+
+msgid "The eitr-sharing group must contain only the sharing account"
+msgstr "Die Gruppe eitr-sharing darf nur das Freigabekonto enthalten"
 
 msgid "The factory reset helper is missing beside the boot guard"
 msgstr "Der Helfer zum Zurücksetzen auf den Werkszustand fehlt neben dem Startschutz"
@@ -3631,6 +3649,9 @@ msgstr "Der Updatekanal muss stable oder testing sein"
 msgid "Update of {update_date} (snapshot {pre} -> {state}, {outcome}):"
 msgstr "Aktualisierung vom {update_date} (Snapshot {pre} -> {state}, {outcome}):"
 
+msgid "Update the eitr-sunshine package to create the sharing group."
+msgstr "Aktualisiere das Paket eitr-sunshine, um die Freigabegruppe anzulegen."
+
 msgid "Updated {packages}. The system keeps using the old versions until it restarts."
 msgstr "Aktualisiert: {packages}. Das System verwendet bis zum Neustart die alten Versionen."
 
@@ -3834,6 +3855,9 @@ msgstr "Deine aktuellen persönlichen Einstellungen, also versteckte Dateien wie
 
 msgid "Your default assistant is unchanged."
 msgstr "Dein Standardassistent bleibt unverändert."
+
+msgid "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can."
+msgstr "Dein Standardassistent {assistant} kann Plugins noch nicht sicher prüfen. Ratatoskr und Claude können das."
 
 msgid "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send."
 msgstr "Ihr E-Mail-Programm hat eine Nachricht an {REPORTS_EMAIL} geöffnet. Hängen Sie {path} an, beschreiben Sie das Problem und senden Sie die Nachricht."

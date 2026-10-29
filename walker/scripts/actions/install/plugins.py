@@ -19,6 +19,7 @@ for parent in Path(__file__).resolve().parents:
         break
 
 import eitr_policy
+import eitr_plugin_review
 from eitr_forms import Terminal
 from eitr_paths import code
 from eitr_i18n import tr, mark
@@ -97,32 +98,73 @@ def review_lines(root, spec, url):
     return lines
 
 
+def install_review_lines(root, spec, source):
+    lines = review_lines(root, spec, source)
+    reason = eitr_plugin_review.unsupported_message()
+    if reason:
+        lines = [lines[0], '', reason, *lines[1:]]
+    return lines
+
+
 class PluginWizard(Wizard):
     def __init__(self, screen):
         super().__init__(screen, (tr('Repository URL'), tr('Safety'), tr('Review')))
 
-    def review(self, lines, step=2, title=None, keys=None):
-        """A scrolling page: Enter accepts, Escape (or Ctrl+C) declines; other keys do nothing."""
+    def review(self, lines, step=2, title=None, keys=None, ai_check=None):
+        """A scrolling review; optional AI advice never blocks the Enter/Escape decision."""
         self.step = step
         offset = 0
-        while True:
-            y, x = self.frame(title or tr('Install plugin?'), keys or tr('PgUp/PgDn: scroll  Enter: install  Esc: cancel'))
-            wrapped = [(line, paragraph.startswith(WARNING)) for paragraph in lines
-                       for line in (textwrap.wrap(paragraph, self.body_width, subsequent_indent='  ' if paragraph.startswith(WARNING) else '') or [''])]
-            count = max(1, self.panel_bottom - y)
-            offset = max(0, min(offset, len(wrapped) - count))
-            for index, (line, warning) in enumerate(wrapped[offset:offset + count]):
-                self.text(y + index, x, line, 2 if warning else 1)
-            self.screen.refresh()
-            key = self.screen.get_wch()
-            if key in ('\x1b', '\x03'):
-                return False
-            if key in ('\n', '\r', curses.KEY_ENTER):
-                return True
-            if key in (curses.KEY_NPAGE, curses.KEY_DOWN):
-                offset += count if key == curses.KEY_NPAGE else 1
-            if key in (curses.KEY_PPAGE, curses.KEY_UP):
-                offset -= count if key == curses.KEY_PPAGE else 1
+        original = list(lines)
+        job = None
+        try:
+            while True:
+                if job is not None:
+                    result = job.poll()
+                    if result is not None:
+                        lines = [*result, '', *original]
+                        offset = 0
+                        job.close()
+                        job = None
+                y, x = self.frame(title or tr('Install plugin?'), keys or tr('PgUp/PgDn: scroll  Enter: install  Esc: cancel'))
+                if ai_check:
+                    self.text(y, x, tr('Checking the downloaded copy…') if job else tr('A: Ask the AI to check'), 2)
+                    y += 2
+                wrapped = [(line, paragraph.startswith(WARNING)) for paragraph in lines
+                           for line in (textwrap.wrap(paragraph, self.body_width, subsequent_indent='  ' if paragraph.startswith(WARNING) else '') or [''])]
+                count = max(1, self.panel_bottom - y)
+                offset = max(0, min(offset, len(wrapped) - count))
+                for index, (line, warning) in enumerate(wrapped[offset:offset + count]):
+                    self.text(y + index, x, line, 2 if warning else 1)
+                self.screen.refresh()
+                self.screen.timeout(100 if job else -1)
+                try:
+                    key = self.screen.get_wch()
+                except curses.error:
+                    continue
+                if ai_check and job is None and key in ('a', 'A'):
+                    job = ai_check()
+                    continue
+                if key in ('\x1b', '\x03'):
+                    return False
+                if key in ('\n', '\r', curses.KEY_ENTER):
+                    return True
+                if key in (curses.KEY_NPAGE, curses.KEY_DOWN):
+                    offset += count if key == curses.KEY_NPAGE else 1
+                if key in (curses.KEY_PPAGE, curses.KEY_UP):
+                    offset -= count if key == curses.KEY_PPAGE else 1
+        finally:
+            self.screen.timeout(-1)
+            if job is not None:
+                job.close()
+
+    def install_review(self, root, spec, source):
+        ai_check = None
+        if eitr_plugin_review.available():
+            repository = Path(git(root, 'rev-parse', '--show-toplevel'))
+            selected = Path(root).resolve().relative_to(repository.resolve()).as_posix()
+            def ai_check():
+                return eitr_plugin_review.ReviewJob(repository, selected)
+        return self.review(install_review_lines(root, spec, source), ai_check=ai_check)
 
     def pick(self, entries):
         selected, position = set(), 0
@@ -182,7 +224,7 @@ def add(manager, url=None):
             wizard = PluginWizard(screen)
             value = wizard.field(tr('Repository URL'), tr('HTTPS or SSH Git repository URL'), validator=repository_url)
             repository_url(value)
-            return manager.add(value, wizard.safety, lambda root, spec, source: wizard.review(review_lines(root, spec, source)), wizard.pick)
+            return manager.add(value, wizard.safety, wizard.install_review, wizard.pick)
         try:
             installed = curses.wrapper(flow)
         except Cancelled:
@@ -212,8 +254,10 @@ def add_in_terminal(manager, url):
         return False
 
     def approve(root, spec, source):
+        if eitr_plugin_review.available():
+            return curses.wrapper(lambda screen: PluginWizard(screen).install_review(root, spec, source))
         print(Terminal().title(tr('Install plugin?')))
-        show(review_lines(root, spec, source))
+        show(install_review_lines(root, spec, source))
         print()
         if confirm(tr('Install this plugin?')):
             return True

@@ -4238,8 +4238,14 @@
     "A {service} dashboard named {name} already exists.": [
       "walker/scripts/actions/development/monitoring.py"
     ],
+    "A: Ask the AI to check": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "A: ask the AI about this failure · Esc: close": [
       "walker/scripts/actions/task-terminal.py"
+    ],
+    "AI can miss things. This is advice, not approval. The full-permissions warning still applies.": [
+      "distro/lib/eitr_plugin_review.py"
     ],
     "AI sessions": [
       "walker/scripts/actions/ai-assistant.py"
@@ -4674,6 +4680,9 @@
     ],
     "Checking official package updates…": [
       "walker/scripts/actions/system/update.sh"
+    ],
+    "Checking the downloaded copy…": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Choose Sign In to open the browser.": [
       "walker/scripts/actions/system/remote-access.py"
@@ -6531,7 +6540,8 @@
       "distro/lib/eitr_local_assistant.py"
     ],
     "Ratatoskr timed out.": [
-      "distro/lib/eitr_local_assistant.py"
+      "distro/lib/eitr_local_assistant.py",
+      "distro/lib/eitr_plugin_review.py"
     ],
     "Ratatoskr was removed.": [
       "distro/lib/eitr_local_assistant.py"
@@ -7028,6 +7038,9 @@
     "Sign in with an API key": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Sign out and back in before starting sharing. Running sharing stays active.": [
+      "distro/system/eitr_remote.py"
+    ],
     "Sign-in and site status": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -7295,6 +7308,9 @@
     "That dashboard is no longer saved.": [
       "walker/scripts/actions/development/monitoring.py"
     ],
+    "The AI check could not finish. You can still install or cancel.": [
+      "distro/lib/eitr_plugin_review.py"
+    ],
     "The AWS CLI did not create the profile {profile}": [
       "walker/scripts/menus/cloud/accounts.py"
     ],
@@ -7325,10 +7341,12 @@
     ],
     "The assistant returned no answer.": [
       "distro/lib/eitr_collaboration.py",
-      "distro/lib/eitr_local_assistant.py"
+      "distro/lib/eitr_local_assistant.py",
+      "distro/lib/eitr_plugin_review.py"
     ],
     "The assistant timed out.": [
-      "distro/lib/eitr_collaboration.py"
+      "distro/lib/eitr_collaboration.py",
+      "distro/lib/eitr_plugin_review.py"
     ],
     "The assistants entry changed; it was left unchanged.": [
       "distro/lib/eitr_collaboration.py"
@@ -7350,6 +7368,9 @@
     ],
     "The default assistant changed. Start a new chat.": [
       "quickshell/desktop-bar/scripts/assistant-chat.py"
+    ],
+    "The eitr-sharing group must contain only the sharing account": [
+      "distro/system/eitr_remote.py"
     ],
     "The factory reset helper is missing beside the boot guard": [
       "distro/system/boot-guard.py"
@@ -7790,6 +7811,9 @@
     "Update of {update_date} (snapshot {pre} -> {state}, {outcome}):": [
       "distro/system/eitr-system.py"
     ],
+    "Update the eitr-sunshine package to create the sharing group.": [
+      "distro/system/eitr_remote.py"
+    ],
     "Updated {packages}. The system keeps using the old versions until it restarts.": [
       "walker/scripts/actions/system/restart-check.py"
     ],
@@ -7999,6 +8023,9 @@
     ],
     "Your default assistant is unchanged.": [
       "distro/lib/eitr_local_assistant.py"
+    ],
+    "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can.": [
+      "distro/lib/eitr_plugin_review.py"
     ],
     "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send.": [
       "walker/scripts/actions/system/report-problem.py"

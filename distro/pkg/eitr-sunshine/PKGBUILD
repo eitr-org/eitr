@@ -7,20 +7,21 @@
 # confirmed, undoable sharing setup (distro/REMOTE-ACCESS.md).
 pkgname=eitr-sunshine
 pkgver=2026.914.233613
-pkgrel=1
+pkgrel=2
 pkgdesc='Native Sunshine desktop sharing, with explicit Eitr permission setup'
 arch=(x86_64)
 url='https://github.com/LizardByte/Sunshine'
 license=('GPL-3.0-only')
 provides=(sunshine)
 conflicts=(sunshine sunshine-bin sunshine-git)
-depends=(avahi curl gcc-libs gtk3 libayatana-appindicator libcap libdrm libevdev libmfx libpipewire libpulse libva libx11 libxcb libxfixes libxrandr libxtst miniupnpc numactl openssl opus qt6-base qt6-svg vulkan-icd-loader)
+depends=(shadow avahi curl gcc-libs gtk3 libayatana-appindicator libcap libdrm libevdev libmfx libpipewire libpulse libva libx11 libxcb libxfixes libxrandr libxtst miniupnpc numactl openssl opus qt6-base qt6-svg vulkan-icd-loader)
 options=(!strip !debug)
-source=("sunshine-${pkgver}-x86_64.pkg.tar.zst::https://github.com/LizardByte/Sunshine/releases/download/v${pkgver}/sunshine-${pkgver}-1-x86_64.pkg.tar.zst")
+source=(eitr-sharing.conf "sunshine-${pkgver}-x86_64.pkg.tar.zst::https://github.com/LizardByte/Sunshine/releases/download/v${pkgver}/sunshine-${pkgver}-1-x86_64.pkg.tar.zst")
 noextract=("sunshine-${pkgver}-x86_64.pkg.tar.zst")
-sha256sums=('17eb8c4d823a2693038f40aeeab56943ef0d5d6ace8ac90b3693905b0acbba87')
+sha256sums=('9ddf6a6fedb712713121aa1b85bbe6cffb8af0f37ed7d1d4380c8bdd100f151f' '17eb8c4d823a2693038f40aeeab56943ef0d5d6ace8ac90b3693905b0acbba87')
 
 package() {
+  install -Dm644 "$srcdir/eitr-sharing.conf" "$pkgdir/usr/lib/sysusers.d/eitr-sharing.conf"
   bsdtar -xf "$srcdir/sunshine-${pkgver}-x86_64.pkg.tar.zst" -C "$srcdir" usr/bin/sunshine usr/share/sunshine
   install -Dm755 "$srcdir/usr/bin/sunshine" "$pkgdir/usr/bin/sunshine"
   install -dm755 "$pkgdir/usr/share/sunshine"

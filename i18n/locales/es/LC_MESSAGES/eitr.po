@@ -148,8 +148,14 @@ msgstr "Ya existe una aplicación web llamada {name}. Elimínala primero en Inst
 msgid "A {service} dashboard named {name} already exists."
 msgstr "Ya existe un panel de {service} llamado {name}."
 
+msgid "A: Ask the AI to check"
+msgstr "A: Pedir a la IA que lo revise"
+
 msgid "A: ask the AI about this failure · Esc: close"
 msgstr "A: preguntar a la IA sobre este fallo · Esc: cerrar"
+
+msgid "AI can miss things. This is advice, not approval. The full-permissions warning still applies."
+msgstr "La IA puede pasar por alto problemas. Esto es un consejo, no una aprobación. La advertencia sobre permisos completos sigue vigente."
 
 msgid "AI sessions"
 msgstr "Sesiones de IA"
@@ -579,6 +585,9 @@ msgstr "Buscando actualizaciones del sistema antes de instalar…"
 
 msgid "Checking official package updates…"
 msgstr "Buscando actualizaciones de paquetes oficiales…"
+
+msgid "Checking the downloaded copy…"
+msgstr "Revisando la copia descargada…"
 
 msgid "Choose Sign In to open the browser."
 msgstr "Elija Iniciar sesión para abrir el navegador."
@@ -2878,6 +2887,9 @@ msgstr "Inicia sesión con `claude` para ver el uso de la suscripción"
 msgid "Sign in with an API key"
 msgstr "Iniciar sesión con una clave de API"
 
+msgid "Sign out and back in before starting sharing. Running sharing stays active."
+msgstr "Cierra sesión y vuelve a entrar antes de iniciar el uso compartido. El uso compartido en curso sigue activo."
+
 msgid "Sign-in and site status"
 msgstr "Estado de sesión y del sitio"
 
@@ -3145,6 +3157,9 @@ msgstr "Esa dirección es una página web, no una imagen. {hint}"
 msgid "That dashboard is no longer saved."
 msgstr "Ese panel ya no está guardado."
 
+msgid "The AI check could not finish. You can still install or cancel."
+msgstr "La revisión de la IA no pudo terminar. Puedes instalar o cancelar."
+
 msgid "The AWS CLI did not create the profile {profile}"
 msgstr "La AWS CLI no creó el perfil {profile}"
 
@@ -3198,6 +3213,9 @@ msgstr "El estado de colaboración no es válido; los ajustes se dejaron sin cam
 
 msgid "The default assistant changed. Start a new chat."
 msgstr "El asistente predeterminado cambió. Inicia un nuevo chat."
+
+msgid "The eitr-sharing group must contain only the sharing account"
+msgstr "El grupo eitr-sharing debe contener solo la cuenta de uso compartido"
 
 msgid "The factory reset helper is missing beside the boot guard"
 msgstr "Falta el asistente de restablecimiento de fábrica junto a la protección de arranque"
@@ -3631,6 +3649,9 @@ msgstr "El canal de actualización debe ser stable o testing"
 msgid "Update of {update_date} (snapshot {pre} -> {state}, {outcome}):"
 msgstr "Actualización del {update_date} (instantánea {pre} -> {state}, {outcome}):"
 
+msgid "Update the eitr-sunshine package to create the sharing group."
+msgstr "Actualiza el paquete eitr-sunshine para crear el grupo de uso compartido."
+
 msgid "Updated {packages}. The system keeps using the old versions until it restarts."
 msgstr "Paquetes actualizados: {packages}. El sistema sigue usando las versiones antiguas hasta que reinicies."
 
@@ -3834,6 +3855,9 @@ msgstr "Tus ajustes personales actuales, incluidos los archivos ocultos como ~/.
 
 msgid "Your default assistant is unchanged."
 msgstr "Tu asistente predeterminado no cambió."
+
+msgid "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can."
+msgstr "Tu asistente predeterminado, {assistant}, aún no puede revisar plugins de forma segura. Ratatoskr y Claude sí pueden."
 
 msgid "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send."
 msgstr "Tu aplicación de correo abrió un mensaje para {REPORTS_EMAIL}. Adjunta {path}, describe lo ocurrido y envíalo."

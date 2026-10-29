@@ -148,8 +148,14 @@ msgstr "Une application web nommée {name} existe déjà. Supprimez-la d’abord
 msgid "A {service} dashboard named {name} already exists."
 msgstr "Un tableau de bord {service} nommé {name} existe déjà."
 
+msgid "A: Ask the AI to check"
+msgstr "A: Demander une vérification à l’IA"
+
 msgid "A: ask the AI about this failure · Esc: close"
 msgstr "A : demander à l’IA à propos de cet échec · Échap : fermer"
+
+msgid "AI can miss things. This is advice, not approval. The full-permissions warning still applies."
+msgstr "L’IA peut manquer des problèmes. Ceci est un conseil, pas une approbation. L’avertissement sur les droits d’accès complets reste valable."
 
 msgid "AI sessions"
 msgstr "Sessions d’IA"
@@ -579,6 +585,9 @@ msgstr "Recherche des mises à jour du système avant l’installation…"
 
 msgid "Checking official package updates…"
 msgstr "Recherche des mises à jour des paquets officiels…"
+
+msgid "Checking the downloaded copy…"
+msgstr "Vérification de la copie téléchargée…"
 
 msgid "Choose Sign In to open the browser."
 msgstr "Choisissez Se connecter pour ouvrir le navigateur."
@@ -2878,6 +2887,9 @@ msgstr "Connectez-vous avec `claude` pour afficher l’utilisation de l’abonne
 msgid "Sign in with an API key"
 msgstr "Se connecter avec une clé d’API"
 
+msgid "Sign out and back in before starting sharing. Running sharing stays active."
+msgstr "Déconnectez-vous puis reconnectez-vous avant de démarrer le partage. Le partage en cours reste actif."
+
 msgid "Sign-in and site status"
 msgstr "État de connexion et du site"
 
@@ -3145,6 +3157,9 @@ msgstr "Cette adresse est une page web, pas une image. {hint}"
 msgid "That dashboard is no longer saved."
 msgstr "Ce tableau de bord n'est plus enregistré."
 
+msgid "The AI check could not finish. You can still install or cancel."
+msgstr "La vérification par l’IA n’a pas abouti. Vous pouvez toujours installer ou annuler."
+
 msgid "The AWS CLI did not create the profile {profile}"
 msgstr "La AWS CLI n’a pas créé le profil {profile}"
 
@@ -3198,6 +3213,9 @@ msgstr "L’état de collaboration est invalide ; les réglages restent inchang�
 
 msgid "The default assistant changed. Start a new chat."
 msgstr "L’assistant par défaut a changé. Ouvrez une nouvelle discussion."
+
+msgid "The eitr-sharing group must contain only the sharing account"
+msgstr "Le groupe eitr-sharing doit contenir uniquement le compte de partage"
 
 msgid "The factory reset helper is missing beside the boot guard"
 msgstr "L’utilitaire de réinitialisation d’usine est absent à côté de la protection de démarrage"
@@ -3631,6 +3649,9 @@ msgstr "Le canal de mise à jour doit être stable ou testing"
 msgid "Update of {update_date} (snapshot {pre} -> {state}, {outcome}):"
 msgstr "Mise à jour du {update_date} (instantané {pre} -> {state}, {outcome}) :"
 
+msgid "Update the eitr-sunshine package to create the sharing group."
+msgstr "Mettez à jour le paquet eitr-sunshine pour créer le groupe de partage."
+
 msgid "Updated {packages}. The system keeps using the old versions until it restarts."
 msgstr "Paquets mis à jour : {packages}. Le système utilise les anciennes versions jusqu’au redémarrage."
 
@@ -3834,6 +3855,9 @@ msgstr "Vos réglages personnels actuels, y compris les fichiers cachés comme ~
 
 msgid "Your default assistant is unchanged."
 msgstr "Votre assistant par défaut reste inchangé."
+
+msgid "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can."
+msgstr "Votre assistant par défaut, {assistant}, ne peut pas encore vérifier les plugins en toute sécurité. Ratatoskr et Claude le peuvent."
 
 msgid "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send."
 msgstr "Votre messagerie a ouvert un message à {REPORTS_EMAIL}. Joignez {path}, décrivez le problème et envoyez-le."

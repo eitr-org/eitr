@@ -1400,5 +1400,13 @@
   "Snooze 10 min": "10 Min. schlummern",
   "Snooze 5 min": "5 Min. schlummern",
   "Downloading the plugin": "Plugin wird heruntergeladen",
-  "Downloading the plugin for review…": "Plugin wird zur Prüfung heruntergeladen…"
+  "Downloading the plugin for review…": "Plugin wird zur Prüfung heruntergeladen…",
+  "Sign out and back in before starting sharing. Running sharing stays active.": "Melde dich vor dem Start der Freigabe ab und wieder an. Eine laufende Freigabe bleibt aktiv.",
+  "The eitr-sharing group must contain only the sharing account": "Die Gruppe eitr-sharing darf nur das Freigabekonto enthalten",
+  "Update the eitr-sunshine package to create the sharing group.": "Aktualisiere das Paket eitr-sunshine, um die Freigabegruppe anzulegen.",
+  "A: Ask the AI to check": "A: Von der KI prüfen lassen",
+  "AI can miss things. This is advice, not approval. The full-permissions warning still applies.": "Die KI kann Probleme übersehen. Dies ist ein Hinweis, keine Freigabe. Die Warnung zu den vollen Zugriffsrechten gilt weiterhin.",
+  "Checking the downloaded copy…": "Die heruntergeladene Kopie wird geprüft…",
+  "The AI check could not finish. You can still install or cancel.": "Die KI-Prüfung konnte nicht abgeschlossen werden. Du kannst weiterhin installieren oder abbrechen.",
+  "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can.": "Dein Standardassistent {assistant} kann Plugins noch nicht sicher prüfen. Ratatoskr und Claude können das."
 }

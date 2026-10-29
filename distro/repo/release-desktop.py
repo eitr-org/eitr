@@ -78,6 +78,30 @@ def fetch(url, destination):
         shutil.copyfileobj(response, output)
 
 
+def signing_environment(work):
+    keyring = work / "gnupg"
+    keyring.mkdir(mode=0o700, exist_ok=True)
+    environment = dict(os.environ, GNUPGHOME=str(keyring))
+    run(["gpg", "--quiet", "--import", str(ROOT / "distro/keys/eitr.asc")], env=environment, capture_output=True)
+    return environment
+
+
+def valid_signature(path, signature, environment):
+    fingerprint = (ROOT / "distro/keys/eitr.fingerprint").read_text().strip()
+    verification = subprocess.run(["gpg", "--status-fd", "1", "--verify", str(signature), str(path)],
+                                  env=environment, capture_output=True, text=True)
+    return verification.returncode == 0 and any(
+        line.split()[:3] == ["[GNUPG:]", "VALIDSIG", fingerprint]
+        for line in verification.stdout.splitlines())
+
+
+def verify_database(download, database):
+    signature = database.with_suffix(database.suffix + ".sig")
+    fetch(download + signature.name, signature)
+    if not valid_signature(database, signature, signing_environment(database.parent)):
+        raise RuntimeError("Published database failed signature verification")
+
+
 def published_assets(download=DOWNLOAD, name="eitr"):
     """Package files the published database lists, or None when nothing is published there."""
     with tempfile.TemporaryDirectory() as directory:
@@ -88,6 +112,7 @@ def published_assets(download=DOWNLOAD, name="eitr"):
             if error.code == 404:
                 return None
             raise
+        verify_database(download, database)
         return sorted(publish.listed_files(database))
 
 
@@ -104,22 +129,18 @@ def r2_endpoint():
 
 def reuse_published_packages(packages, repo, work, download=DOWNLOAD):
     """Copy published packages into REPO from the download cache, verifying each signature."""
+    for name in packages:
+        publish.validate_package_filename(name)
     downloads = cache("eitr/release-packages")
     downloads.mkdir(parents=True, exist_ok=True)
-    keyring = work / "gnupg"
-    keyring.mkdir(mode=0o700, exist_ok=True)
-    environment = dict(os.environ, GNUPGHOME=str(keyring))
-    run(["gpg", "--quiet", "--import", str(ROOT / "distro/keys/eitr.asc")], env=environment, capture_output=True)
-    fingerprint = (ROOT / "distro/keys/eitr.fingerprint").read_text().strip()
+    environment = signing_environment(work)
     print(f"Reusing {len(packages)} published packages…", flush=True)
     for name in packages:
         if not (downloads / name).is_file():
             fetch(download + name, downloads / (name + ".part"))
             (downloads / (name + ".part")).rename(downloads / name)
         fetch(download + name + ".sig", work / (name + ".sig"))
-        status = subprocess.run(["gpg", "--status-fd", "1", "--verify", str(work / (name + ".sig")),
-                                 str(downloads / name)], env=environment, capture_output=True, text=True).stdout
-        if f"VALIDSIG {fingerprint}" not in status:
+        if not valid_signature(downloads / name, work / (name + ".sig"), environment):
             (downloads / name).unlink()
             raise RuntimeError(f"Published package {name} failed signature verification")
         shutil.copy2(downloads / name, repo / name)
@@ -140,6 +161,7 @@ def verify_published(package, download=DOWNLOAD, name="eitr"):
     with tempfile.TemporaryDirectory() as directory:
         database = Path(directory) / f"{name}.db"
         fetch(download + f"{name}.db", database)
+        verify_database(download, database)
         listed = text(["bsdtar", "-tf", str(database)])
     entry = package.name.removesuffix("-any.pkg.tar.zst")
     # Promoted packages carry their file name, where publish.py turned the epoch's ':' into '.'.

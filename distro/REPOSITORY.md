@@ -55,6 +55,11 @@ HEAD's artwork version is not published yet, reuses the other published packages
 after verifying their signatures (cached in `~/.cache/eitr/release-packages`),
 uploads only packages whose content changed, asks once for the signing key
 passphrase, and checks that the published database lists the new version.
+Repository package filenames must be plain package basenames. Reuse requires
+GPG to succeed and report the exact configured signing fingerprint; malformed
+repository archives are refused.
+The release tool also verifies the database signature before reading its package
+list or confirming a publication.
 Uploads go through the `eitr-r2` AWS CLI profile with R2's endpoint on every
 command; the endpoint comes from `EITR_R2_ENDPOINT`, else `npx wrangler whoami`
 in `website/`. Packages go up before the database that lists them, and the
