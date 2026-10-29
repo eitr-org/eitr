@@ -155,8 +155,15 @@ class PluginWizard(Wizard):
                 return [entry['spec']['id'] for entry in entries if entry['spec']['id'] in selected]
 
     def safety(self, url):
-        return self.review(safety_lines(url), step=1, title=tr('Before you download a plugin'),
-                           keys=tr('PgUp/PgDn: scroll  Enter: download for review  Esc: cancel'))
+        accepted = self.review(safety_lines(url), step=1, title=tr('Before you download a plugin'),
+                               keys=tr('PgUp/PgDn: scroll  Enter: download for review  Esc: cancel'))
+        if accepted:
+            # The download takes a few seconds; show it instead of a frozen safety page.
+            self.step = 2
+            y, x = self.frame(tr('Downloading the plugin'), '')
+            self.text(y, x, tr('Downloading the plugin for review…'))
+            self.screen.refresh()
+        return accepted
 
 
 def require_plugins():

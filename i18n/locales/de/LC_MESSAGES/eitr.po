@@ -1042,6 +1042,12 @@ msgstr "Domains"
 msgid "Download this plugin for review?"
 msgstr "Dieses Plugin zur Prüfung herunterladen?"
 
+msgid "Downloading the plugin"
+msgstr "Plugin wird heruntergeladen"
+
+msgid "Downloading the plugin for review…"
+msgstr "Plugin wird zur Prüfung heruntergeladen…"
+
 msgid "Downloading {model}…"
 msgstr "{model} wird heruntergeladen…"
 

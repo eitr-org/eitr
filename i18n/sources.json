@@ -5030,6 +5030,12 @@
     "Download this plugin for review?": [
       "walker/scripts/actions/install/plugins.py"
     ],
+    "Downloading the plugin": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Downloading the plugin for review…": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Downloading {model}…": [
       "distro/lib/eitr_local_assistant.py"
     ],
