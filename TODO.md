@@ -58,8 +58,11 @@ LAN.
   app opens full screen with no gaps, rounding, blur, shadows or animations; and
   shortcuts split two apps side by side (say a terminal beside the browser) and
   join them back into tabs. Switching it off restores the normal desktop exactly.
-  Decide with the owner: what the strip keeps (clock, status?), how splits look,
-  and whether it is a bar layout, a separate session or a Style preset.
+  Decided (2026-10-29): it is a Style preset that persists across reboots and
+  updates; the strip also shows a small clock and battery/network status. Splits
+  as proposed: side by side or stacked, up to four panes (2x2), keyboard-resizable,
+  with a shortcut to send a split pane back to the tabs; confirm the keys with the
+  owner before building.
 - **Website evidence and screenshots.** Keep the public pages in step with verified
   desktop behavior. A feature gets a screenshot when it has a screen people look
   for (a panel, menu or wizard) shown on the website or in the Handbook;
