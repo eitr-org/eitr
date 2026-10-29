@@ -69,6 +69,7 @@
     {"pattern": "themes/*/backgrounds/*", "origin": "generated with Codex; prompts in themes/artwork-*.json", "license": "CC-BY-4.0", "status": "cleared", "note": "Original imagery; references guided mood and palette only."},
     {"pattern": "themes/*/preview.png", "origin": "screenshots of the EITR desktop", "license": "CC-BY-4.0", "status": "cleared"},
     {"pattern": "quickshell/lockscreen/themes/*/background.png", "origin": "generated with Codex; prompts in quickshell/lockscreen/ARTWORK.md", "license": "CC-BY-4.0", "status": "cleared"},
+    {"pattern": "quickshell/lockscreen/themes/eitr/wordmark.svg", "origin": "EITR wordmark, copied from branding/svg/eitr-wordmark.svg", "license": "EITR-trademark", "status": "cleared", "note": "See distro/ARTWORK-LICENSING.md for the logo policy."},
     {"pattern": "quickshell/lockscreen/themes/*/background.svg", "origin": "EITR geometry", "license": "CC-BY-4.0", "status": "cleared"},
     {"pattern": "quickshell/lockscreen/themes/**/preview.png", "origin": "screenshots of EITR lockscreen designs", "license": "CC-BY-4.0", "status": "cleared"},
     {"pattern": "fastfetch/assets/*", "origin": "EITR logo and wordmark", "license": "EITR-trademark", "status": "cleared", "note": "See distro/ARTWORK-LICENSING.md for the logo policy."},
