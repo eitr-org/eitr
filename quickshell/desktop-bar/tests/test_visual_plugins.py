@@ -30,7 +30,7 @@ with log.open('a') as output:
 if not previous:
     print('fixture reader exited', file=sys.stderr, flush=True)
     raise SystemExit(7)
-os.execv(os.environ['REAL_QUICKSHELL'], [os.environ['REAL_QUICKSHELL'], *sys.argv[1:]])
+os.execv(os.environ['REAL_READER'], [os.environ['REAL_READER'], *sys.argv[1:]])
 ''')
             wrapper.chmod(0o755)
             fixture = folder / 'shell.qml'
@@ -84,7 +84,7 @@ ShellRoot {
                                XDG_CONFIG_HOME=directory, XDG_STATE_HOME=directory, XDG_DATA_HOME=directory,
                                XDG_CACHE_HOME=directory, XDG_RUNTIME_DIR=directory,
                                DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent', HYPRLAND_INSTANCE_SIGNATURE='',
-                               FOLLOWER_ATTEMPTS=str(attempts), REAL_QUICKSHELL=executable)
+                               FOLLOWER_ATTEMPTS=str(attempts), REAL_READER=shutil.which('tail'))
             result = subprocess.run([executable, '-p', str(fixture)], env=environment,
                                     text=True, capture_output=True, timeout=15)
             output = result.stdout + result.stderr
@@ -94,7 +94,7 @@ ShellRoot {
             self.assertEqual(len(launches), 3, launches)
             self.assertGreaterEqual(launches[1]['time'] - launches[0]['time'], .8)
             self.assertGreaterEqual(launches[2]['time'] - launches[1]['time'], 1.8)
-            self.assertTrue(all('--pid' in launch['args'] for launch in launches))
+            self.assertTrue(all(any(argument.startswith('--pid=') for argument in launch['args']) for launch in launches))
             deadline = time.monotonic() + 2
             while any(Path('/proc', str(launch['pid'])).exists() for launch in launches) and time.monotonic() < deadline:
                 time.sleep(.02)

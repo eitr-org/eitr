@@ -82,7 +82,10 @@ QtObject {
         onTriggered: registry.diagnosticRetryDelay = 500
     }
     property Process diagnosticLog: Process {
-        command: ["quickshell", "log", "--follow", "--pid", String(Quickshell.processId), "--no-color"]
+        // Quickshell's plain-text copy of this instance's log, read from its start and
+        // until the bar exits. `quickshell log --follow` aborts on its own at times.
+        command: ["tail", "-n", "+1", "-F", "--pid=" + Quickshell.processId,
+            Quickshell.env("XDG_RUNTIME_DIR") + "/quickshell/by-pid/" + Quickshell.processId + "/log.log"]
         stdout: SplitParser { onRead: line => registry.diagnostic(line) }
         stderr: SplitParser { onRead: line => registry.diagnosticLogError = line.slice(0, 1024) }
         onStarted: registry.diagnosticLogError = ""
