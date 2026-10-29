@@ -1,4 +1,6 @@
 ---
+import { translator } from '../i18n';
+const t = translator(Astro.url.pathname, 'MjolnirScene');
 import logoMarkup from '../data/eitr-logo.svg?raw';
 const { embedded = false } = Astro.props;
 // Mjölnir carries the EITR logo inlaid in gold on its head.
@@ -25,7 +27,7 @@ const pieces = Array.from({ length: 16 }, (_, i) => ({
   rotate: i * 47,
 }));
 ---
-    <div class:list={["impact-stage", "playing", { embedded }]} id="impact-stage" role="group" aria-label="Lightning strikes the darkness and the Eitr emblem rises from the crack">
+    <div class:list={["impact-stage", "playing", { embedded }]} id="impact-stage" role="group" aria-label={t('lightning_strikes_the_darkness_and_the_eitr_emblem_rise')}>
       <svg class="hammer" viewBox="0 0 200 300" aria-hidden="true">
         <defs>
           <linearGradient id="mjolnir-steel" x1="0" y1="0" x2="0" y2="1">
@@ -61,7 +63,7 @@ const pieces = Array.from({ length: 16 }, (_, i) => ({
         </g>
       </svg>
       <div class="debris" aria-hidden="true">{pieces.map(p=><i style={`--dx:${p.x}px;--dy:${p.y}px;--spin:${p.rotate}deg`}></i>)}</div>
-      <button class="emergent-logo" type="button" aria-label="Spark lightning from the Eitr logo"><span class="emblem-depth" aria-hidden="true"><span class="rune-ring"><span class="rune-ring-art"></span><span class="rune-ring-spark"></span><span class="rune-ring-embers">{runeEmbers.map(style => <i style={style}></i>)}</span></span><span class="impact-emblem"></span><svg class="emblem-hit" aria-hidden="true"><path /></svg><svg class="emblem-shimmer" fill="none"><path pathLength="1000" /></svg></span></button>
+      <button class="emergent-logo" type="button" aria-label={t('spark_lightning_from_the_eitr_logo')}><span class="emblem-depth" aria-hidden="true"><span class="rune-ring"><span class="rune-ring-art"></span><span class="rune-ring-spark"></span><span class="rune-ring-embers">{runeEmbers.map(style => <i style={style}></i>)}</span></span><span class="impact-emblem"></span><svg class="emblem-hit" aria-hidden="true"><path /></svg><svg class="emblem-shimmer" fill="none"><path pathLength="1000" /></svg></span></button>
       <svg class="click-lightning" viewBox="0 0 1000 600" fill="none" aria-hidden="true"><defs><mask id={maskId} maskUnits="userSpaceOnUse" x="-2000" y="-2000" width="5000" height="5000"><rect x="-2000" y="-2000" width="5000" height="5000" fill="white"/><path data-logo-exclusion fill="black" stroke="black" stroke-width="5"/></mask></defs><g mask={`url(#${maskId})`}>{lightningEffects.map((d,index)=><g data-lightning-effect={index}><path d={d}/></g>)}</g></svg>
     </div>
 <style>/* The stage keeps the Mjölnir drawing only for wield-mjolnir.ts to copy. It stays rendered but

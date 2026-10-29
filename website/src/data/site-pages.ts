@@ -1,15 +1,16 @@
+import en from '../i18n/en.json';
 import { handbookChapters } from './handbook';
 
 // Public information pages, shared by metadata, navigation and the sitemap.
 export const sitePages = {
-  home: { path: '/', label: 'Home', title: 'Eitr Linux — Keyboard-first Arch, an integrated desktop', description: 'Eitr Linux brings Hyprland, Quickshell, curated developer tools, AI coding agents, cloud and Git workflows, and system recovery into one keyboard-first Arch Linux environment that installs offline in about two minutes.' },
-  screenshots: { path: '/screenshots/', label: 'Screenshots', title: 'Eitr Linux screenshots — Explore the desktop', description: 'See the Eitr Linux desktop, themes, everyday tools, development menus and system recovery in a gallery of real screenshots.' },
-  about: { path: '/about/', label: 'About Eitr Linux', title: 'About Eitr Linux — An Arch-based Linux distribution', description: 'What Eitr Linux is, who it is for, how it builds on Arch Linux, and the scope of its current beta.' },
-  features: { path: '/features/', label: 'Features', title: 'Eitr Linux features — Desktop, development and recovery', description: 'Explore Eitr’s native desktop panels, AI assistant collaboration, cloud account tools, repeating reminders, organization profiles, themes, gaming, offline Handbook, user accounts, read-only PC checks, mirror ranking, visual plugins and system recovery.' },
-  development: { path: '/development/', label: 'Development', title: 'Develop with Eitr Linux — Editors, AI, cloud and Git workflows', description: 'Explore Eitr’s included terminal environment, optional editors and toolchains, AI accounts and sessions, explicit cloud contexts, Git identities, monitoring dashboards and desktop plugins.' },
-  installation: { path: '/installation/', label: 'Installation & hardware', title: 'Install Eitr Linux — ISO, hardware and beta limitations', description: 'Download the Eitr Linux ISO, plan an x86_64 UEFI or unattended installation with organization profiles, and understand tested hardware, NVIDIA drivers, VM testing and current limitations.' },
-  guide: { path: '/guide/', label: 'Handbook & guides', title: 'Eitr Linux Handbook — Desktop, development and system guides', description: 'Read Eitr’s Handbook online: keyboard shortcuts, applications, development, AI agents, Git identities, cloud workflows, desktop settings and recovery.' },
-  privacy: { path: '/privacy/', label: 'Privacy', title: 'Eitr Linux privacy — Reports and website data', description: 'How Eitr Linux handles optional problem reports and what the Eitr website collects.' },
+  home: { path: '/', label: en.metadata.home_label, title: en.metadata.home_title, description: en.metadata.home_description },
+  screenshots: { path: '/screenshots/', label: en.metadata.screenshots_label, title: en.metadata.screenshots_title, description: en.metadata.screenshots_description },
+  about: { path: '/about/', label: en.metadata.about_label, title: en.metadata.about_title, description: en.metadata.about_description },
+  features: { path: '/features/', label: en.metadata.features_label, title: en.metadata.features_title, description: en.metadata.features_description },
+  development: { path: '/development/', label: en.metadata.development_label, title: en.metadata.development_title, description: en.metadata.development_description },
+  installation: { path: '/installation/', label: en.metadata.installation_label, title: en.metadata.installation_title, description: en.metadata.installation_description },
+  guide: { path: '/guide/', label: en.metadata.guide_label, title: en.metadata.guide_title, description: en.metadata.guide_description },
+  privacy: { path: '/privacy/', label: en.metadata.privacy_label, title: en.metadata.privacy_title, description: en.metadata.privacy_description },
 } as const;
 
 export const publicPages = [...Object.values(sitePages), ...handbookChapters.map(chapter => ({path: chapter.path, label: chapter.title, title: `${chapter.title} — Eitr Linux Handbook`, description: chapter.summary}))];

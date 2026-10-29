@@ -1,13 +1,15 @@
 ---
+import { translator } from '../i18n';
+const t = translator(Astro.url.pathname, 'intro');
 import Layout from '../layouts/Layout.astro';
 import MjolnirScene from '../components/MjolnirScene.astro';
 ---
-<Layout title="Lightning entrance study · Eitr Linux" noindex>
+<Layout title={t('lightning_entrance_study_eitr_linux')} description={t('description')} noindex>
   <section class="wrap intro-study">
-    <h1 class="eyebrow">Motion study / Lightning</h1>
+    <h1 class="eyebrow">{t('motion_study_lightning')}</h1>
     <MjolnirScene />
-    <div class="intro-controls"><button class="button primary" id="replay">Replay the strike ↻</button><a class="text-link" href="/">Back to the website ↗</a></div>
-    <p class="fine">Quick motion prototype · original SVG and CSS · reduced motion shows the finished logo.</p>
+    <div class="intro-controls"><button class="button primary" id="replay">{t('replay_the_strike')}</button><a class="text-link" href="/">{t('back_to_the_website')}</a></div>
+    <p class="fine">{t('quick_motion_prototype_original_svg_and_css_reduced_mot')}</p>
   </section>
 </Layout>
 <style>

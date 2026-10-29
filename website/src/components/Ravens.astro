@@ -1,10 +1,12 @@
 ---
+import { translator } from '../i18n';
+const t = translator(Astro.url.pathname, 'Ravens');
 // Huginn and Muninn now and then fly in, land beside a heading in view, and fly
 // off again. Clicking a perched raven shares a short tip about EITR.
 const ravens = [["huginn", "Huginn"], ["muninn", "Muninn"]];
 ---
 {ravens.map(([id, name]) => (
-  <button class="raven" type="button" data-raven={id} aria-label={`${name}, Odin's raven, has a tip`} hidden>
+  <button class="raven" type="button" data-raven={id} aria-label={t('raven_tip', {name})} hidden>
     <svg class="raven-fly" viewBox="0 0 100 60" aria-hidden="true">
       <path class="raven-wing far" d="M54 31C58 22 64 14 74 7l-1 6 7-4-3 6 7-2-5 6 6 0-11 6c-7 3-13 5-18 8z" />
       <path class="raven-body" d="M26 36 8 30l3 6-5 5 6 1-3 5 18-7c9 5 25 6 37 2 6-2 10-3 14-3l2 2 1-3 3 0 13-4-13-4c-2-4-10-4-13-1-5 3-13 2-21 1-10 0-18 3-24 6z" />
@@ -45,20 +47,10 @@ const ravens = [["huginn", "Huginn"], ["muninn", "Muninn"]];
 @media(prefers-reduced-motion:reduce){.raven,.raven-tip{display:none}}
 </style>
 <script>
+import { message } from "../scripts/messages";
 import { motionAllowed } from '../scripts/realm/motion';
 
-const tips = [
-  'SUPER + Space opens your apps. SUPER + F opens everything else.',
-  'SUPER + Tab previews occupied workspaces.',
-  'Typing inside any Walker menu searches everything below it.',
-  'System Update snapshots upgrades on supported layouts. Keep an independent backup too.',
-  'Every theme recolors the bar, terminal, launcher and lockscreen together.',
-  'SUPER + F1 opens the Handbook. It works offline, inside the desktop.',
-  'The bar tells you when updates are waiting. Right-click its icon to check again.',
-  'Press Print and lightning strikes whatever you capture.',
-  'Type "ragnarok" in Walker. If you dare.',
-  'Git Accounts keeps work and personal identities apart, folder by folder.',
-];
+const tips = Array.from({length: 10}, (_tip, index) => message(`raven_${index}`));
 const birds = [...document.querySelectorAll<HTMLButtonElement>('.raven')];
 const tip = document.querySelector<HTMLElement>('.raven-tip');
 // Page coordinates: the birds and their tip live directly in <body>.

@@ -1,3 +1,4 @@
+import { message } from './messages';
 async function showDownloadCount() {
   const label = document.querySelector<HTMLElement>('[data-download-count]');
   if (!label) return;
@@ -9,7 +10,7 @@ async function showDownloadCount() {
     if (!response.ok) return;
     const { total } = await response.json();
     if (!Number.isSafeInteger(total) || total <= 0) return;
-    label.textContent = `Downloaded ${total.toLocaleString('en-US')} times`;
+    label.textContent = message('downloaded', {count: total.toLocaleString(document.documentElement.lang)});
     label.hidden = false;
   } catch {
     // The download link remains available when statistics are unavailable.

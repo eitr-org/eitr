@@ -1,4 +1,6 @@
 ---
+import { languageFor, languages, languageCodes, localizedPath, unprefixed, pagePaths, localizeLinks, translator } from '../i18n';
+const t = translator(Astro.url.pathname, 'shared');
 import "@fontsource/cinzel/500.css";
 import "@fontsource/cinzel/700.css";
 import "@fontsource/noto-sans-runic/400.css";
@@ -9,38 +11,48 @@ import "../styles/appearance.css";
 import InnerPage from "../components/InnerPage.astro";
 import SkySwitch from "../components/SkySwitch.astro";
 import RuneText from "../components/RuneText.astro";
+import englishMessages from "../i18n/en.json";
 import release from "../data/release.json";
 import download from "../data/download.json";
-import { sitePages } from "../data/site-pages";
+import { sitePages as englishPages } from "../data/site-pages";
+const language = languageFor(Astro.url.pathname);
+const path = unprefixed(Astro.url.pathname);
+const metadata = translator(Astro.url.pathname, "metadata");
+const sitePages = Object.fromEntries(Object.entries(englishPages).map(([key, page]) => [key, {...page, path: localizedPath(page.path, language), label: metadata(`${key}_label`), title: metadata(`${key}_title`), description: metadata(`${key}_description`)}]));
+const pageKey = Object.keys(englishPages).find(key => englishPages[key].path === path);
+const content = localizeLinks(await Astro.slots.render("default"), language);
+const link = (href: string) => localizedPath(href, language);
 const {
-  title = sitePages.home.title,
-  description = sitePages.home.description,
+  title: suppliedTitle,
+  description: suppliedDescription,
   noindex = false,
 } = Astro.props;
+const title = pageKey ? sitePages[pageKey].title : suppliedTitle ?? sitePages.home.title;
+const description = pageKey ? sitePages[pageKey].description : suppliedDescription ?? sitePages.home.description;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 // A real desktop screenshot, as JPEG so every link preview and answer engine can show it.
 const previewImage = new URL('/og/eitr-desktop.jpg', Astro.site).href;
-const previewAlt = 'The Eitr Linux desktop: About with the Eitr logo, the Walker main menu and Neovim';
+const previewAlt = t('the_eitr_linux_desktop_about_with_the_eitr_logo_the_wal');
 const screenshot = (file, caption) => ({'@type': 'ImageObject', url: new URL(`/shots/${file}.webp`, Astro.site).href, caption});
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
     {'@type': 'WebSite', '@id': new URL('/#website', Astro.site).href, url: Astro.site?.href, name: 'Eitr Linux', description: sitePages.home.description},
     {'@type': 'WebPage', '@id': canonical, url: canonical, name: title, description, isPartOf: {'@id': new URL('/#website', Astro.site).href}},
-    ...(Astro.url.pathname === '/' ? [{
+    ...(path === '/' ? [{
       '@type': 'SoftwareApplication', name: 'Eitr Linux', alternateName: 'Eitr',
-      description: 'An Arch-based Linux distribution with a keyboard-first Hyprland and Quickshell desktop, a guided offline installer that installs in about two minutes on a fast machine, and signed updates with recovery snapshots.',
+      description: t("software_description"),
       applicationCategory: 'OperatingSystem', operatingSystem: 'x86_64 UEFI PC', softwareVersion: release.version,
-      url: Astro.site?.href, downloadUrl: download.url, installUrl: new URL('/installation/', Astro.site).href,
+      url: Astro.site?.href, downloadUrl: download.url, installUrl: new URL(link('/installation/'), Astro.site).href,
       license: 'https://github.com/eitr-org/eitr/blob/main/LICENSE', isAccessibleForFree: true,
       offers: {'@type': 'Offer', price: '0', priceCurrency: 'USD'},
       image: previewImage,
       screenshot: [
         {'@type': 'ImageObject', url: new URL('/shots/hero.webp', Astro.site).href, caption: previewAlt},
-        screenshot('tabs', 'The Eitr Linux desktop with the Tabs bar'),
-        screenshot('walker', 'Walker, the Eitr Linux launcher and menus'),
-        screenshot('control-center', 'The Eitr Linux Control Center'),
-        screenshot('about', 'About in Eitr Linux'),
+        screenshot('tabs', t('the_eitr_linux_desktop_with_the_tabs_bar')),
+        screenshot('walker', t('walker_the_eitr_linux_launcher_and_menus')),
+        screenshot('control-center', t('the_eitr_linux_control_center')),
+        screenshot('about', t('about_in_eitr_linux')),
       ],
     }] : []),
   ],
@@ -49,7 +61,7 @@ const futhark = "ᚠᚢᚦᚨᚱᚲᚷᚹ ᚺᚾᛁᛃᛇᛈᛉᛊ ᛏᛒᛖᛗ�
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={language === "pt-br" ? "pt-BR" : language}>
   <head>
     <meta charset="UTF-8" />
     <script is:inline>
@@ -76,44 +88,50 @@ const futhark = "ᚠᚢᚦᚨᚱᚲᚷᚹ ᚺᚾᛁᛃᛇᛈᛉᛊ ᛏᛒᛖᛗ�
     <meta name="theme-color" content="#0a0707" />
     <link rel="icon" href="/branding/eitr-favicon.svg" type="image/svg+xml" />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    {languageCodes.filter(locale => pagePaths.includes(path) || locale === 'en').map(locale => <link rel="alternate" hreflang={locale === 'pt-br' ? 'pt-BR' : locale} href={new URL(localizedPath(path, locale), Astro.site)} />)}
+    <link rel="alternate" hreflang="x-default" href={new URL(path, Astro.site)} />
     <title>{title}</title>
     {!noindex && <script type="application/ld+json" set:html={JSON.stringify(structuredData).replaceAll("<", "\\u003c")} />}
   </head>
   <body>
     <div class="site-page"><div class="site-page-content">
-    <a class="skip" href="#main">Skip to content</a>
+    <a class="skip" href="#main">{t('skip_to_content')}</a>
     <div class="grain" aria-hidden="true"></div>
     <div class="bifrost-crossing" data-active="false" aria-hidden="true"></div>
     <div class="ambient-sparks" data-ambient="false" aria-hidden="true">{Array.from({length:24},(_spark, index)=><i style={`--left:${3+(index*37)%94}%;--top:${5+(index*23)%90}%;--drift:${index%2 ? 22 : -18}px;--duration:${9+index%7}s;--wait:${-index*1.7}s`}></i>)}</div>
     <header class="site-header">
       <div class="wrap header-inner">
-        <a class="brand" href="/" aria-label="Eitr Linux home"><span class="wordmark" aria-hidden="true"></span></a>
-        <button class="menu-toggle" type="button" aria-haspopup="dialog" aria-controls="mobile-menu" aria-expanded="false">Menu</button>
-        <nav aria-label="Main navigation">
-          <a href={sitePages.about.path} aria-current={Astro.url.pathname === sitePages.about.path ? "page" : undefined}>About</a>
-          <a href={sitePages.development.path} aria-current={Astro.url.pathname === sitePages.development.path ? "page" : undefined}>Development</a>
-          <a href={sitePages.features.path} aria-current={Astro.url.pathname === sitePages.features.path ? "page" : undefined}>Features</a>
-          <a href={sitePages.guide.path} aria-current={Astro.url.pathname === sitePages.guide.path ? "page" : undefined}>Handbook</a>
-          <a href={sitePages.screenshots.path} aria-current={Astro.url.pathname === sitePages.screenshots.path ? "page" : undefined}>Screenshots</a>
-          <a href={sitePages.installation.path} aria-current={Astro.url.pathname === sitePages.installation.path ? "page" : undefined}>Installation</a>
+        <a class="brand" href={link("/")} aria-label={t('eitr_linux_home')}><span class="wordmark" aria-hidden="true"></span></a>
+        <button class="menu-toggle" type="button" aria-haspopup="dialog" aria-controls="mobile-menu" aria-expanded="false">{t('menu')}</button>
+        <nav aria-label={t('main_navigation')}>
+          <a href={sitePages.about.path} aria-current={Astro.url.pathname === sitePages.about.path ? "page" : undefined}>{t('about')}</a>
+          <a href={sitePages.development.path} aria-current={Astro.url.pathname === sitePages.development.path ? "page" : undefined}>{t('development')}</a>
+          <a href={sitePages.features.path} aria-current={Astro.url.pathname === sitePages.features.path ? "page" : undefined}>{t('features')}</a>
+          <a href={sitePages.guide.path} aria-current={Astro.url.pathname === sitePages.guide.path ? "page" : undefined}>{t('handbook')}</a>
+          <a href={sitePages.screenshots.path} aria-current={Astro.url.pathname === sitePages.screenshots.path ? "page" : undefined}>{t('screenshots')}</a>
+          <a href={sitePages.installation.path} aria-current={Astro.url.pathname === sitePages.installation.path ? "page" : undefined}>{t('installation')}</a>
         </nav>
         <div class="header-tools">
-        <a class="version-badge" href="/#road" aria-label={`Eitr ${release.version} ${release.codename}: see the roadmap`}><span class="status-dot"></span> {release.version} {release.codename}</a>
+        <a class="version-badge" href={link("/#road")} aria-label={t('version_roadmap', {version: release.version, codename: release.codename})}><span class="status-dot"></span> {release.version} {release.codename}</a>
+        <details class="language-menu">
+          <summary aria-label={t('language')}>{language === 'pt-br' ? 'PT' : language.toUpperCase()}</summary>
+          <ul>{Object.entries(languages).map(([locale, name]) => <li><a href={localizedPath(path, locale as keyof typeof languages)} lang={locale === 'pt-br' ? 'pt-BR' : locale} hreflang={pagePaths.includes(path) ? (locale === 'pt-br' ? 'pt-BR' : locale) : 'en'} data-language={locale} aria-current={locale === language ? 'true' : undefined}>{name}</a></li>)}</ul>
+        </details>
         <SkySwitch />
-        <a class="github" href="https://github.com/eitr-org/eitr" target="_blank" rel="noopener noreferrer" aria-label="EITR on GitHub">
+        <a class="github" href="https://github.com/eitr-org/eitr" target="_blank" rel="noopener noreferrer" aria-label={t('eitr_on_github')}>
           <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" /></svg>
         </a>
         </div>
       </div>
-      <dialog id="mobile-menu" class="mobile-menu" aria-label="Main menu">
-        <button class="menu-close" type="button" autofocus>Close</button>
+      <dialog id="mobile-menu" class="mobile-menu" aria-label={t('main_menu')}>
+        <button class="menu-close" type="button" autofocus>{t('close')}</button>
         <div class="mobile-menu-content"></div>
       </dialog>
     </header>
     <main id="main">
-      {['/about/', '/features/', '/development/', '/installation/', '/privacy/', '/guide/'].some(path => Astro.url.pathname === path || (path === '/guide/' && Astro.url.pathname.startsWith(path)))
-        ? <InnerPage html={await Astro.slots.render('default')} path={Astro.url.pathname} />
-        : <slot />}
+      {['/about/', '/features/', '/development/', '/installation/', '/privacy/', '/guide/'].some(section => path === section || (section === '/guide/' && path.startsWith(section)))
+        ? <InnerPage html={content} path={path} />
+        : <Fragment set:html={content} />}
     </main>
     <slot name="overlay" />
     <footer class="footer">
@@ -121,41 +139,43 @@ const futhark = "ᚠᚢᚦᚨᚱᚲᚷᚹ ᚺᚾᛁᛃᛇᛈᛉᛊ ᛏᛒᛖᛗ�
       <div class="wrap footer-grid">
         <div class="footer-brand">
           <span class="wordmark" aria-hidden="true"></span>
-          <p class="footer-motto">From eitr,<br />a world takes shape.</p>
+          <p class="footer-motto">{t('from_eitr')}<br />{t('a_world_takes_shape')}</p>
           <p class="footer-runes" aria-hidden="true"><RuneText text="ᚠᚱᛟᛗ ᛖᛁᛏᚱ ᛫ ᚨ ᚹᛟᚱᛚᛞ ᛏᚨᚲᛖᛊ ᛊᚺᚨᛈᛖ" /></p>
-          <a class="footer-release" href="/installation/"><span class="dot" aria-hidden="true"></span>{release.version} {release.codename} · {release.stage}</a>
+          <a class="footer-release" href={link("/installation/")}><span class="dot" aria-hidden="true"></span>{release.version} {release.codename} · {translator(Astro.url.pathname, 'roadmap')(release.stage)}</a>
         </div>
-        <nav class="footer-links" aria-label="Footer">
+        <nav class="footer-links" aria-label={t('footer')}>
           <div>
-            <p class="label">Explore</p>
+            <p class="label">{t('explore')}</p>
             <a href={sitePages.about.path} aria-current={Astro.url.pathname === sitePages.about.path ? "page" : undefined}>{sitePages.about.label}</a>
             <a href={sitePages.features.path} aria-current={Astro.url.pathname === sitePages.features.path ? "page" : undefined}>{sitePages.features.label}</a>
             <a href={sitePages.development.path} aria-current={Astro.url.pathname === sitePages.development.path ? "page" : undefined}>{sitePages.development.label}</a>
-            <a href={sitePages.screenshots.path}>Screenshots</a>
-            <a href="/#road">Roadmap</a>
+            <a href={sitePages.screenshots.path}>{t('screenshots')}</a>
+            <a href={link("/#road")}>{t('roadmap')}</a>
           </div>
           <div>
-            <p class="label">Learn</p>
+            <p class="label">{t('learn')}</p>
             <a href={sitePages.guide.path} aria-current={Astro.url.pathname === sitePages.guide.path ? "page" : undefined}>{sitePages.guide.label}</a>
             <a href={sitePages.installation.path} aria-current={Astro.url.pathname === sitePages.installation.path ? "page" : undefined}>{sitePages.installation.label}</a>
-            <a href="/privacy/" aria-current={Astro.url.pathname === "/privacy/" ? "page" : undefined}>Privacy</a>
+            <a href={link("/privacy/")} aria-current={path === "/privacy/" ? "page" : undefined}>{t('privacy')}</a>
           </div>
           <div>
-            <p class="label">Project</p>
-            <a href="https://github.com/eitr-org/eitr" target="_blank" rel="noopener noreferrer">Source code ↗</a>
-            <a href="https://github.com/eitr-org/eitr/blob/main/distro/RELEASES.md" target="_blank" rel="noopener noreferrer">Releases ↗</a>
-            <a href="https://github.com/sponsors/erickbatistaprado" target="_blank" rel="noopener noreferrer">Sponsor ↗</a>
-            <a href="mailto:contact@eitr.info">Contact</a>
+            <p class="label">{t('project')}</p>
+            <a href="https://github.com/eitr-org/eitr" target="_blank" rel="noopener noreferrer">{t('source_code')}</a>
+            <a href="https://github.com/eitr-org/eitr/blob/main/distro/RELEASES.md" target="_blank" rel="noopener noreferrer">{t('releases')}</a>
+            <a href="https://github.com/sponsors/erickbatistaprado" target="_blank" rel="noopener noreferrer">{t('sponsor')}</a>
+            <a href="mailto:contact@eitr.info">{t('contact')}</a>
           </div>
         </nav>
       </div>
       <div class="wrap footer-base fine">
-        <p>Eitr Linux · GPL-3.0 code · CC BY 4.0 artwork</p>
-        <p>An independent Arch-based distribution from the far north.</p>
+        <p>{t('eitr_linux_gpl_3_0_code_cc_by_4_0_artwork')}</p>
+        <p>{t('an_independent_arch_based_distribution_from_the_far_nor')}</p>
       </div>
     </footer>
     </div></div>
+    <script id="site-messages" type="application/json" set:html={JSON.stringify(Object.fromEntries(Object.keys(englishMessages.client).map(key => [key, translator(Astro.url.pathname, "client")(key)]))).replaceAll("<", "\\u003c")} />
     <script>
+      import "../scripts/language-menu";
       import "../scripts/effects";
       import "../scripts/realm/thunder";
       import "../scripts/realm/mjolnir-charge";

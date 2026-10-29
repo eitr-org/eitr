@@ -1,16 +1,19 @@
 ---
+import { translator } from '../i18n';
+const t = translator(Astro.url.pathname, 'screenshots');
 import Layout from '../layouts/Layout.astro';
 import { sitePages } from '../data/site-pages';
-import { screenshotGroups } from '../data/screenshots';
+import { localizedScreenshots } from '../data/screenshots';
+const screenshotGroups = localizedScreenshots(translator(Astro.url.pathname, 'gallery'));
 ---
 <Layout title={sitePages.screenshots.title} description={sitePages.screenshots.description}>
   <div class="wrap section screenshots-page">
     <div class="section-heading">
-      <p class="eyebrow">Inside Eitr</p>
-      <h1>Screenshots</h1>
-      <p>The real desktop, from everyday tools to system recovery. Choose an image for a closer look.</p>
+      <p class="eyebrow">{t('inside_eitr')}</p>
+      <h1>{t('screenshots')}</h1>
+      <p>{t('the_real_desktop_from_everyday_tools_to_system_recovery')}</p>
     </div>
-    <nav class="screenshot-groups" aria-label="Screenshot areas">
+    <nav class="screenshot-groups" aria-label={t('screenshot_areas')}>
       {screenshotGroups.map(group => <a class="text-link" href={`#${group.id}`}>{group.title}</a>)}
     </nav>
     {screenshotGroups.map(group => <section id={group.id} class="screenshot-group">
@@ -28,13 +31,13 @@ import { screenshotGroups } from '../data/screenshots';
   <dialog class="shot-viewer" aria-labelledby="shot-viewer-caption">
     <div class="theme-viewer-stage">
       <img alt="" />
-      <button class="theme-viewer-step" type="button" data-step="-1" aria-label="Previous screenshot">‹</button>
-      <button class="theme-viewer-step" type="button" data-step="1" aria-label="Next screenshot">›</button>
+      <button class="theme-viewer-step" type="button" data-step="-1" aria-label={t('previous_screenshot')}>‹</button>
+      <button class="theme-viewer-step" type="button" data-step="1" aria-label={t('next_screenshot')}>›</button>
     </div>
     <div class="theme-viewer-bar">
       <p class="theme-name" id="shot-viewer-caption" aria-live="polite"></p>
       <span class="theme-count" aria-live="polite"></span>
-      <button class="theme-viewer-close" type="button" aria-label="Close" autofocus>✕</button>
+      <button class="theme-viewer-close" type="button" aria-label={t('close')} autofocus>✕</button>
     </div>
   </dialog>
 </Layout>

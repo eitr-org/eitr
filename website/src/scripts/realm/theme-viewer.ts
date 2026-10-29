@@ -1,3 +1,4 @@
+import { message } from '../messages';
 // Clicking a theme card (or Enter/Space on it) shows its wallpaper large and
 // still, without the well's ripple, with the theme's name and colors. Like the
 // desktop's theme picker, the neighbouring themes stand beside it as narrow
@@ -36,7 +37,7 @@ function show(index: number) {
   current = (index + cards.length) % cards.length;
   const card = cards[current];
   image.src = `/art/themes/${card.dataset.theme}-full.webp`;
-  image.alt = `${card.dataset.name} theme wallpaper`;
+  image.alt = message('wallpaper', {name: card.dataset.name ?? ''});
   name.textContent = card.dataset.name ?? '';
   count.textContent = `${current + 1} / ${cards.length}`;
   swatches.replaceChildren(...[...card.querySelectorAll('.swatches i')].map((swatch) => swatch.cloneNode()));

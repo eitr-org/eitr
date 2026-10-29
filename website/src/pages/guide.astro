@@ -1,32 +1,35 @@
 ---
+import { translator } from '../i18n';
+const t = translator(Astro.url.pathname, 'guide');
 import Layout from '../layouts/Layout.astro';
 import { sitePages } from '../data/site-pages';
 import { handbookChapters } from '../data/handbook';
 const repo = 'https://github.com/eitr-org/eitr/blob/main/';
 const guides = [
-  ['Installation guide', 'Target requirements, package manifests, disk choices and installation limitations.', 'distro/README.md'],
-  ['Linux VM testing', 'The preferred first test: an x86_64 guest on Linux/KVM.', 'distro/LINUX-VM-TESTING.md'],
-  ['Mac VM testing', 'Apple Silicon uses x86_64 emulation, not a native ARM port.', 'distro/MAC-VM-TESTING.md'],
+  [t('installation_guide'), t('target_requirements_package_manifests_disk_choices_and_'), 'distro/README.md'],
+  [t('linux_vm_testing'), t('the_preferred_first_test_an_x86_64_guest_on_linux_kvm'), 'distro/LINUX-VM-TESTING.md'],
+  [t('mac_vm_testing'), t('apple_silicon_uses_x86_64_emulation_not_a_native_arm_po'), 'distro/MAC-VM-TESTING.md'],
 ];
 ---
 <Layout {...sitePages.guide}>
   <section class="wrap guide-intro">
-    <p class="eyebrow">The Handbook / On the desktop and on the web</p>
-    <h1>Find your way.<br /><em>Keep the knowledge close.</em></h1>
-    <p class="lead">Read the same practical chapters that ship in Eitr’s offline Handbook: keyboard shortcuts, applications, development workflows, desktop controls and system recovery.</p>
-    <nav class="info-links" aria-label="Start reading">
-      <a class="text-link" href="/guide/getting-started/">First login →</a><a class="text-link" href="/guide/shortcuts/">Keyboard &amp; mouse →</a><a class="text-link" href="/development/">Development overview →</a><a class="text-link" href="/installation/">Installation &amp; hardware →</a>
+    <p class="eyebrow">{t('the_handbook_on_the_desktop_and_on_the_web')}</p>
+    <h1>{t('find_your_way')}<br /><em>{t('keep_the_knowledge_close')}</em></h1>
+    <p class="lead">{t('read_the_same_practical_chapters_that_ship_in_eitr_s_of')}</p>
+    <nav class="info-links" aria-label={t('start_reading')}>
+      <a class="text-link" href="/guide/getting-started/">{t('first_login')}</a><a class="text-link" href="/guide/shortcuts/">{t('keyboard_mouse')}</a><a class="text-link" href="/development/">{t('development_overview')}</a><a class="text-link" href="/installation/">{t('installation_hardware')}</a>
     </nav>
-    <p class="doc-context">Online chapters describe the current desktop packages. The downloadable ISO may contain earlier package versions. Installation decisions belong with the <a class="text-link" href="/installation/">release and compatibility notes</a>.</p>
+    <p class="doc-context">{t('online_chapters_describe_the_current_desktop_packages_t')} <a class="text-link" href="/installation/">{t('release_and_compatibility_notes')}</a>.</p>
+    {Astro.url.pathname !== '/guide/' && <p class="doc-context">{t('english_chapters')}</p>}
     <form class="handbook-search" role="search" hidden>
-      <label for="chapter-search">Find a Handbook chapter</label>
-      <input id="chapter-search" type="search" placeholder="Try Git, cloud, AI, keyboard or snapshots" autocomplete="off" />
+      <label for="chapter-search">{t('find_a_handbook_chapter')}</label>
+      <input id="chapter-search" type="search" placeholder={t('try_git_cloud_ai_keyboard_or_snapshots')} autocomplete="off" />
       <p id="chapter-count" role="status" aria-live="polite"></p>
     </form>
   </section>
-  <section class="wrap guide-links" aria-label="Handbook chapters">
+  <section class="wrap guide-links" aria-label={t('handbook_chapters')}>
     {handbookChapters.map((chapter, index) => (
-      <a class="guide-link" href={chapter.path} data-chapter data-search={`${chapter.title} ${chapter.summary} ${Array.from(new Set(chapter.markdown.toLocaleLowerCase('en').split(/\s+/))).join(' ')}`.toLocaleLowerCase('en')}>
+      <a class="guide-link" href={chapter.path} lang="en" hreflang="en" data-chapter data-search={`${chapter.title} ${chapter.summary} ${Array.from(new Set(chapter.markdown.toLocaleLowerCase('en').split(/\s+/))).join(' ')}`.toLocaleLowerCase('en')}>
         <span class="feature-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
         <div><h2>{chapter.title}</h2><p>{chapter.summary}</p></div><span aria-hidden="true">→</span>
       </a>
@@ -34,13 +37,14 @@ const guides = [
   </section>
   <section class="wrap info-body">
     <section class="info-section" aria-labelledby="install-guides">
-      <p class="eyebrow">Before installing</p><h2 id="install-guides">Know the ground.<br /><em>Start with the guide.</em></h2>
-      <p>The full installation and VM testing procedures remain in the repository. Read them alongside the website’s tested-hardware and release notes before changing a disk.</p>
+      <p class="eyebrow">{t('before_installing')}</p><h2 id="install-guides">{t('know_the_ground')}<br /><em>{t('start_with_the_guide')}</em></h2>
+      <p>{t('the_full_installation_and_vm_testing_procedures_remain_')}</p>
       <div class="info-links">{guides.map(([title, description, path]) => <a class="text-link" href={repo + path} title={description} target="_blank" rel="noopener noreferrer">{title} ↗</a>)}</div>
     </section>
   </section>
 </Layout>
 <script>
+import { message } from "../scripts/messages";
   const form = document.querySelector<HTMLFormElement>('.handbook-search');
   const input = document.querySelector<HTMLInputElement>('#chapter-search');
   const count = document.querySelector<HTMLElement>('#chapter-count');
@@ -52,7 +56,7 @@ const guides = [
       const words = input.value.toLocaleLowerCase('en').trim().split(/\s+/).filter(Boolean);
       for (const chapter of chapters) chapter.hidden = !words.every(word => chapter.dataset.search?.includes(word));
       const shown = chapters.filter(chapter => !chapter.hidden).length;
-      count.textContent = `${shown} of ${chapters.length} chapters`;
+      count.textContent = message('chapter_count', {shown, total: chapters.length});
     });
   }
 </script>

@@ -156,7 +156,7 @@ suite fails on serious or critical violations.
 The version badge, status texts and roadmap come from `distro/release.json` and
 the release table in `distro/RELEASES.md`, copied into `src/data/` by
 `npm run sync-assets` (part of `dev` and `build`). The site adds only each
-codename's myth line, in `src/pages/index.astro`. Consecutive releases with the
+codename's myth line, in `src/i18n/en.json`. Consecutive releases with the
 same codename share one entry and a compact milestone list, with the current
 release marked on its own row.
 
@@ -307,7 +307,7 @@ Information pages separate available workflows, real-hardware evidence and
 pending checks. The website does not claim unverified remote-access or hardware
 support. A Releases page and external discovery work remain in `../TODO.md`.
 
-`site-pages.ts` owns titles, descriptions and public sitemap paths. Layout emits
+`site-pages.ts` owns public page paths; `src/i18n/*.json` owns localized titles and descriptions. Layout emits
 canonical and Open Graph metadata. `/sitemap.xml` is built from that catalog;
 `/robots.txt` permits search access and advertises it. The `/intro/` motion study
 is excluded from the sitemap and uses `noindex, follow`.
@@ -337,7 +337,7 @@ time. Edit its canonical Markdown, rebuild with
 `python3 quickshell/desktop-bar/scripts/handbook-build.py`, and run `--check`;
 never edit a second copy under the website. The adapter changes links and makes
 code blocks keyboard-focusable; it retains commands, tables and body text.
-The web reader is English; the installed reader also has pt_BR, es, de and fr.
+The web chapter bodies are English; the website interface is localized, and the installed reader also has pt_BR, es, de and fr.
 References to desktop reader buttons are identified as installed-desktop actions.
 Source corrections go through the canonical Markdown, not generated HTML.
 
@@ -388,3 +388,45 @@ npm run test:downloads
 The download-count browser suite uses the production build with every request
 fulfilled or rejected by a mock, including the stats success, zero, invalid and
 error cases.
+
+## Website languages
+
+English is the source and fallback at `/`. The same page components generate
+Portuguese (Brazil) under `/pt-br/`, Spanish under `/es/`, German under `/de/`
+and French under `/fr/`. Every prefix offers the home page and `about/`,
+`features/`, `development/`, `installation/`, `privacy/`, `screenshots/`,
+`guide/` and `intro/`. Intro keeps `noindex` and stays outside the sitemap.
+
+`src/i18n/en.json`, `pt-br.json`, `es.json`, `de.json` and `fr.json` own page
+and shared-interface copy, including metadata, gallery descriptions, myths and
+roadmap milestones. Keys are grouped by page or shared component. Keep keys,
+placeholders such as `{version}` and `{count}`, product names, commands and
+paths intact when editing a translation. `translator()` falls back per string
+to English; a key missing from English fails the build. Desktop menu names
+follow the corresponding `i18n/catalogs/<locale>/` labels. Release data still
+owns version numbers and codenames. New roadmap milestones need matching keys
+in the website catalogs; asset sync never invents translations.
+
+`src/pages/[locale]/[...page].astro` generates localized routes from the existing
+page components. `src/i18n/index.ts` owns locale selection and local link
+mapping. Rendered HTML includes the translated copy, `lang`, canonical URL and
+all available `hreflang` alternates, including English as `x-default`. The
+sitemap includes every indexable localized page. `llms.txt` stays English.
+
+The header's native language menu works with keyboard navigation and without
+JavaScript. JavaScript preserves the current query and fragment when switching,
+remembers explicit selections in the browser's `eitr-language` localStorage
+entry and closes the menu on Escape or outside click. Storage failures are
+ignored. URLs always determine the language; neither browser language nor a
+saved choice redirects a visit. No analytics or cookies are added.
+
+The web Handbook chapter bodies remain English, with English fallback links
+from every localized page. The localized guide index identifies this explicitly;
+installed Handbook translations remain in their canonical desktop sources.
+
+After editing copy or routes, run `npm run build` and `npm run test:i18n`.
+The latter checks all catalogs, placeholders, generated routes, metadata,
+internal links, fragment targets and sitemap entries without a browser.
+`npm run test:discovery` also checks localized static HTML, the language switch,
+blocked storage and 360 px layouts with and without JavaScript. Run the browser
+suite against a production preview as described above.

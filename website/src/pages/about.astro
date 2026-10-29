@@ -1,48 +1,50 @@
 ---
+import { translator } from '../i18n';
+const t = translator(Astro.url.pathname, 'about');
 import Layout from '../layouts/Layout.astro';
 import { sitePages } from '../data/site-pages';
 import release from '../data/release.json';
 ---
 <Layout {...sitePages.about}>
   <section class="wrap guide-intro">
-    <p class="eyebrow">About / Eitr Linux</p>
-    <h1>Arch underneath.<br /><em>Eitr throughout.</em></h1>
-    <p class="lead">Eitr Linux is an Arch-based Linux distribution built around Hyprland and a custom Quickshell desktop. Its own ISO and guided installer bring you to a complete keyboard-first environment, with Eitr packages delivered through a signed repository alongside Arch’s.</p>
-    <nav class="info-links" aria-label="Explore Eitr Linux">
-      <a class="text-link" href="/features/">Explore the features →</a>
-      <a class="text-link" href="/development/">Development workflows →</a>
-      <a class="text-link" href="/installation/">Installation &amp; hardware →</a>
+    <p class="eyebrow">{t('about_eitr_linux')}</p>
+    <h1>{t('arch_underneath')}<br /><em>{t('eitr_throughout')}</em></h1>
+    <p class="lead">{t('eitr_linux_is_an_arch_based_linux_distribution_built_ar')}</p>
+    <nav class="info-links" aria-label={t('explore_eitr_linux')}>
+      <a class="text-link" href="/features/">{t('explore_the_features')}</a>
+      <a class="text-link" href="/development/">{t('development_workflows')}</a>
+      <a class="text-link" href="/installation/">{t('installation_hardware')}</a>
     </nav>
   </section>
   <div class="wrap info-body">
     <section class="info-section" aria-labelledby="about-desktop">
-      <p class="eyebrow">One desktop</p>
-      <h2 id="about-desktop">A tiling workflow.<br /><em>Controls within reach.</em></h2>
-      <p>Hyprland arranges windows and workspaces. Eitr’s Quickshell bar, notifications, native panels and Control Center share the same visual language. Walker and Elephant bring applications, settings and actions into one searchable menu system.</p>
-      <p>Use shortcuts when you want to move quickly, or open graphical controls for sound, networking, displays and appearance. A theme reaches the bar, launcher, terminal, lockscreen and supported applications, rather than stopping at the wallpaper.</p>
+      <p class="eyebrow">{t('one_desktop')}</p>
+      <h2 id="about-desktop">{t('a_tiling_workflow')}<br /><em>{t('controls_within_reach')}</em></h2>
+      <p>{t('hyprland_arranges_windows_and_workspaces_eitr_s_quicksh')}</p>
+      <p>{t('use_shortcuts_when_you_want_to_move_quickly_or_open_gra')}</p>
     </section>
     <section class="info-section" aria-labelledby="about-audience">
-      <p class="eyebrow">Who it is for</p>
-      <h2 id="about-audience">Build, work,<br /><em>and make it yours.</em></h2>
-      <p>Eitr is for people who want Arch’s packages and a keyboard-first desktop without assembling every panel and everyday workflow themselves. Developer environments, cloud accounts, Git identities and coding assistants are available through its menus. Gaming, capture tools and offline dictation are part of the same desktop.</p>
-      <p>You can inspect the configuration and source, choose your tools and change the defaults. Optional assistants keep their own sign-in and permission boundaries; using Eitr does not require an AI subscription.</p>
+      <p class="eyebrow">{t('who_it_is_for')}</p>
+      <h2 id="about-audience">{t('build_work')}<br /><em>{t('and_make_it_yours')}</em></h2>
+      <p>{t('eitr_is_for_people_who_want_arch_s_packages_and_a_keybo')}</p>
+      <p>{t('you_can_inspect_the_configuration_and_source_choose_you')}</p>
     </section>
     <section class="info-section" aria-labelledby="about-foundation">
-      <p class="eyebrow">The foundation</p>
-      <h2 id="about-foundation">Built on Arch.<br /><em>Maintained as Eitr.</em></h2>
-      <p>Eitr uses Arch Linux and pacman, with its own desktop packages, installer, artwork and integration. System Update combines Arch updates with the signed [eitr] repository and, on supported snapshot setups, checks for changes before creating a Btrfs snapshot. From a terminal, <code>eitr update pacman</code>, <code>eitr update aur</code> and <code>eitr update full</code> update without automatic snapshots. The offline Handbook documents the desktop and its recovery procedures.</p>
-      <p>Eitr’s code is free and open source under GPL-3.0-or-later. Its artwork is CC BY 4.0; third-party components retain their own licenses.</p>
+      <p class="eyebrow">{t('the_foundation')}</p>
+      <h2 id="about-foundation">{t('built_on_arch')}<br /><em>{t('maintained_as_eitr')}</em></h2>
+      <p>{t('eitr_uses_arch_linux_and_pacman_with_its_own_desktop_pa')} <code>eitr update pacman</code>, <code>eitr update aur</code> {t('and')} <code>eitr update full</code> {t('update_without_automatic_snapshots_the_offline_handbook')}</p>
+      <p>{t('eitr_s_code_is_free_and_open_source_under_gpl_3_0_or_la')}</p>
       <div class="info-links">
-        <a class="text-link" href="https://github.com/eitr-org/eitr" target="_blank" rel="noopener noreferrer">Read the source ↗</a>
-        <a class="text-link" href="https://github.com/eitr-org/eitr/blob/main/NOTICE.md" target="_blank" rel="noopener noreferrer">Licenses &amp; notices ↗</a>
+        <a class="text-link" href="https://github.com/eitr-org/eitr" target="_blank" rel="noopener noreferrer">{t('read_the_source')}</a>
+        <a class="text-link" href="https://github.com/eitr-org/eitr/blob/main/NOTICE.md" target="_blank" rel="noopener noreferrer">{t('licenses_notices')}</a>
       </div>
     </section>
     <section class="info-section" aria-labelledby="about-status">
-      <p class="eyebrow">Current status / {release.version} {release.codename}</p>
-      <h2 id="about-status">A public beta.<br /><em>Functionality and validation.</em></h2>
-      <p>Eitr runs daily on its developer’s desktop. Released ISOs pass automated VM checks for offline installation, updates and factory resets. That is evidence for those configurations, not a promise that every laptop, graphics card or recovery scenario has been tested.</p>
-      <p>The beta label describes validation and support scope; it does not remove the desktop or development workflows described here. Read the current hardware and recovery limitations before installing. Independent testing and useful problem reports help expand what Eitr can verify.</p>
-      <a class="button" href="/installation/">Check installation &amp; hardware →</a>
+      <p class="eyebrow">{t('current_status')} {release.version} {release.codename}</p>
+      <h2 id="about-status">{t('a_public_beta')}<br /><em>{t('functionality_and_validation')}</em></h2>
+      <p>{t('eitr_runs_daily_on_its_developer_s_desktop_released_iso')}</p>
+      <p>{t('the_beta_label_describes_validation_and_support_scope_i')}</p>
+      <a class="button" href="/installation/">{t('check_installation_hardware')}</a>
     </section>
   </div>
 </Layout>

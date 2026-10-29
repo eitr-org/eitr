@@ -1,10 +1,12 @@
-import { screenshots } from "../data/screenshots";
-
 const viewer = document.querySelector<HTMLDialogElement>('.shot-viewer');
 const picture = viewer?.querySelector('img');
 const caption = viewer?.querySelector('.theme-name');
 const counter = viewer?.querySelector('.theme-count');
-const shots = screenshots;
+const shots = Array.from(document.querySelectorAll<HTMLAnchorElement>('.screenshot-link')).map(link => ({
+  file: link.dataset.shot!,
+  alt: link.querySelector('img')?.alt ?? '',
+  caption: link.closest('figure')?.querySelector('figcaption')?.textContent ?? '',
+}));
 let opener: HTMLAnchorElement | null = null;
 let shown = 0;
 

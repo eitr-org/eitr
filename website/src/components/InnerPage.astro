@@ -1,4 +1,6 @@
 ---
+import { translator } from '../i18n';
+const t = translator(Astro.url.pathname, 'InnerPage');
 const { html, path } = Astro.props;
 const headings: { id: string; title: string }[] = [];
 const usedIds = new Set(Array.from(html.matchAll(/\bid="([^"]+)"/g), (match: RegExpMatchArray) => match[1]));
@@ -22,8 +24,8 @@ const artwork = path.startsWith('/guide/') ? 'mimir' : path === '/installation/'
   <div class="inner-content" set:html={content} />
   <aside class="page-rail">
     <img class="inner-hero-art" src={`/art/${artwork}.webp`} alt="" width="480" height="360" />
-    {headings.length > 0 && <nav class="page-outline" aria-label="On this page">
-      <p class="label">On this page</p>
+    {headings.length > 0 && <nav class="page-outline" aria-label={t('on_this_page')}>
+      <p class="label">{t('on_this_page')}</p>
       <ol>{headings.map(heading => <li><a href={`#${heading.id}`} set:html={heading.title} /></li>)}</ol>
     </nav>}
   </aside>

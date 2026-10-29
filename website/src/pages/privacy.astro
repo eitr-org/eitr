@@ -1,53 +1,55 @@
 ---
+import { translator } from '../i18n';
+const t = translator(Astro.url.pathname, 'privacy');
 import BrandText from "../components/BrandText.astro";
 import Layout from "../layouts/Layout.astro";
 import { sitePages } from "../data/site-pages";
 const sections = [
   [
-    "Nothing is collected by itself",
-    "Eitr collects no usage telemetry. Weather, updates and connected tools contact their own services. Crash notifications offer help or a report for you to review and send; they are on by default and can be turned off in the Handbook welcome.",
+    t('nothing_is_collected_by_itself'),
+    t('eitr_collects_no_usage_telemetry_weather_updates_and_co'),
   ],
   [
-    "What a problem report holds",
-    "Versions of Eitr and its main packages, graphics hardware, desktop errors and warnings, recent crashes, the installation log and recent package changes. Your user name, computer name, home folder, email, IP and MAC addresses are removed before you see it. You read the whole report before sending it.",
+    t('what_a_problem_report_holds'),
+    t('versions_of_eitr_and_its_main_packages_graphics_hardwar'),
   ],
   [
-    "How a report reaches us",
-    "Only if you send it: by email to reports@eitr.info, or as a public GitHub issue. An email shares your email address with us; a GitHub issue is visible to everyone.",
+    t('how_a_report_reaches_us'),
+    t('only_if_you_send_it_by_email_to_reports_eitr_info_or_as'),
   ],
   [
-    "What we do with it",
-    "A report is used only to find and fix the problem it describes. It is not sold, shared or used for anything else, and it is deleted once the problem is fixed.",
+    t('what_we_do_with_it'),
+    t('a_report_is_used_only_to_find_and_fix_the_problem_it_de'),
   ],
   [
-    "Your choices",
-    "Reply to your report email, or write to contact@eitr.info, to have your report deleted at any time. You can turn crash offers off in the welcome chapter of the Handbook. Optional cloud assistants receive messages and context you share; Control Center quick chat is read-only and keeps its conversation only in memory until closed.",
+    t('your_choices'),
+    t('reply_to_your_report_email_or_write_to_contact_eitr_inf'),
   ],
   [
-    "This website",
-    "The site sets no cookies. ISO download starts are counted by UTC day and filename without storing visitor data; the website displays the aggregate total. Your day/night preference is saved only in this browser’s local storage. It is served by Cloudflare, which processes visitors' network addresses to deliver and protect it.",
+    t('this_website'),
+    t('the_site_sets_no_cookies_iso_download_starts_are_counte'),
   ],
 ];
 ---
 
 <Layout {...sitePages.privacy}>
   <section class="wrap guide-intro">
-    <p class="eyebrow">Privacy</p>
+    <p class="eyebrow">{t('privacy')}</p>
     <h1>
-      Your machine.
+      {t('your_machine')}
       <br />
-      <em>Your choice.</em>
+      <em>{t('your_choice')}</em>
     </h1>
     <p class="lead">
-      <BrandText text="Eitr" /> collects no usage telemetry. A problem report leaves your computer only when you send it.
+      <BrandText text="Eitr" /> {t('collects_no_usage_telemetry_a_problem_report_leaves_you')}
     </p>
   </section>
-  <section class="wrap guide-links" aria-label="How problem reports are handled">
+  <section class="wrap guide-links" aria-label={t('how_problem_reports_are_handled')}>
     {sections.map(([title, body], index) => (
       <div class="guide-link">
         <span class="feature-number">0{index + 1}</span>
         <div>
-          <h2>{title}</h2>
+          <h2 id={`privacy-${index + 1}`}>{title}</h2>
           <p>{body}</p>
         </div>
       </div>

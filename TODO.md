@@ -46,11 +46,9 @@ LAN.
   over windows and never resizes them. What it shows is still open (ideas: plugin
   widgets, running and pinned apps, media). Decide the content first.
 - **Light themes.** The owner has ideas for more light themes; create them later.
-- **Website translations.** Offer the site in the desktop's languages
-  (Portuguese (Brazil), Spanish, German, French) with a language switch, reusing
-  the reviewed Handbook translations where chapters overlap. Decide the URL scheme
-  (`/pt-br/...`), `hreflang` and sitemap entries first; keep English the default
-  and keep untranslated pages falling back to English.
+- **Website Handbook in every language.** The site is translated (`/pt-br/`, `/es/`,
+  `/de/`, `/fr/`), but its Handbook chapters still show English; the desktop's
+  Handbook already has reviewed translations to publish there.
 - **Website evidence and screenshots.** Keep the public pages in step with verified
   desktop behavior. A feature gets a screenshot when it has a screen people look
   for (a panel, menu or wizard) shown on the website or in the Handbook;

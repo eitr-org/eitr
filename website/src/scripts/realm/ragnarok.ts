@@ -1,5 +1,6 @@
 // Typing "ragnarok" summons Fenrir's jaws, then the world takes shape again.
 // Click/Escape dismiss; reduced motion shows only the quiet rebirth.
+import { message } from '../messages';
 import { reducedMotion } from './motion';
 import { fenrirSnap, fenrirSnarl } from './sound';
 
@@ -16,7 +17,8 @@ function scene() {
     <div class="ragnarok-fenrir"><div class="fenrir-face"></div></div>
     <div class="fenrir-jaws"><div class="fenrir-jaw fenrir-jaw-upper"></div><div class="fenrir-jaw fenrir-jaw-lower"></div></div>
     <div class="fenrir-darkness"></div>
-    <div class="ragnarok-rebirth"><span class="wordmark"></span><p>From eitr, a world takes shape.</p></div>`;
+    <div class="ragnarok-rebirth"><span class="wordmark"></span><p></p></div>`;
+  overlay.querySelector('p')!.textContent = message('motto');
   document.body.append(overlay);
   return overlay;
 }
@@ -35,7 +37,7 @@ function ragnarok() {
   const quiet = reducedMotion.matches;
   root.dataset.ragnarok = quiet ? 'quiet' : 'summoning';
   const overlay = scene();
-  announce('Ragnarök. Fenrir swallows the world, and it takes shape again.');
+  announce(message('ragnarok'));
   const timers: number[] = [];
   let finished = false;
   const at = (seconds: number, action: () => void) => timers.push(window.setTimeout(action, seconds * 1000));

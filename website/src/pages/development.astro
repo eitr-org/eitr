@@ -1,4 +1,6 @@
 ---
+import { translator } from '../i18n';
+const t = translator(Astro.url.pathname, 'development');
 import Layout from '../layouts/Layout.astro';
 import { sitePages } from '../data/site-pages';
 import software from '../../../distro/software.json';
@@ -8,81 +10,81 @@ const databases = Object.values(software.databases).map(tool => tool.label).join
 ---
 <Layout {...sitePages.development}>
   <section class="wrap guide-intro">
-    <p class="eyebrow">Development / Part of the same desktop</p>
-    <h1>From a keystroke<br /><em>to the work.</em></h1>
-    <p class="lead">A terminal environment is included. Editors and toolchains are yours to choose. Eitr connects the work around them: project folders, Git identities, cloud contexts and optional AI coding agents.</p>
-    <nav class="info-links" aria-label="Development workflows">
-      <a class="text-link" href="#environment">Environment</a><a class="text-link" href="#agents">AI coding agents</a><a class="text-link" href="#accounts">Git &amp; cloud</a><a class="text-link" href="#data">Data &amp; monitoring</a><a class="text-link" href="#plugins">Plugins</a>
+    <p class="eyebrow">{t('development_part_of_the_same_desktop')}</p>
+    <h1>{t('from_a_keystroke')}<br /><em>{t('to_the_work')}</em></h1>
+    <p class="lead">{t('a_terminal_environment_is_included_editors_and_toolchai')}</p>
+    <nav class="info-links" aria-label={t('development_workflows')}>
+      <a class="text-link" href="#environment">{t('environment')}</a><a class="text-link" href="#agents">{t('ai_coding_agents')}</a><a class="text-link" href="#accounts">{t('git_cloud')}</a><a class="text-link" href="#data">{t('data_monitoring')}</a><a class="text-link" href="#plugins">{t('plugins')}</a>
     </nav>
   </section>
   <div class="wrap info-body">
     <section class="info-section" id="environment" aria-labelledby="environment-title">
-      <p class="eyebrow">Included / Choose what comes next</p>
-      <h2 id="environment-title">A working foundation.<br /><em>Your choice of tools.</em></h2>
-      <p>Kitty, Zsh, tmux, Neovim with LazyVim, Git, Lazygit, Lazydocker, Docker and Docker Compose are included in Eitr’s package manifest. Installing Eitr does not install every editor, language environment or coding agent.</p>
+      <p class="eyebrow">{t('included_choose_what_comes_next')}</p>
+      <h2 id="environment-title">{t('a_working_foundation')}<br /><em>{t('your_choice_of_tools')}</em></h2>
+      <p>{t('kitty_zsh_tmux_neovim_with_lazyvim_git_lazygit_lazydock')}</p>
       <div class="info-table-scroll"><table class="info-table">
-        <caption>What is there on day one, and what you choose</caption>
-        <thead><tr><th scope="col">Availability</th><th scope="col">Workflow</th></tr></thead>
+        <caption>{t('what_is_there_on_day_one_and_what_you_choose')}</caption>
+        <thead><tr><th scope="col">{t('availability')}</th><th scope="col">{t('workflow')}</th></tr></thead>
         <tbody>
-          <tr><th scope="row">Included</th><td>Open Kitty with <kbd>Super + Enter</kbd>, or tmux with <kbd>Super + Ctrl + Enter</kbd>. Use Learn’s LazyVim, tmux and cmux references without leaving the desktop.</td></tr>
-          <tr><th scope="row">Curated optional installs</th><td>Install → Developer Apps offers {editors}. Official packages, AUR builds and managed installers keep their source-specific requirements.</td></tr>
-          <tr><th scope="row">Optional toolchains</th><td>Install → Development Languages offers {languages}. JavaScript Tools adds pnpm, Yarn, Bun and Deno; Languages also offers mise for managing several runtimes.</td></tr>
-          <tr><th scope="row">Your existing projects</th><td>Development → LazyVim Projects or VS Code Projects asks for a folder, starting in your home folder, and opens it in that editor. The VS Code workflow requires VS Code to be installed.</td></tr>
+          <tr><th scope="row">{t('included')}</th><td>{t('open_kitty_with')} <kbd>Super + Enter</kbd>{t('or_tmux_with')} <kbd>Super + Ctrl + Enter</kbd>{t('use_learn_s_lazyvim_tmux_and_cmux_references_without_le')}</td></tr>
+          <tr><th scope="row">{t('curated_optional_installs')}</th><td>{t('install_developer_apps_offers')} {editors}{t('official_packages_aur_builds_and_managed_installers_kee')}</td></tr>
+          <tr><th scope="row">{t('optional_toolchains')}</th><td>{t('install_development_languages_offers')} {languages}{t('javascript_tools_adds_pnpm_yarn_bun_and_deno_languages_')}</td></tr>
+          <tr><th scope="row">{t('your_existing_projects')}</th><td>{t('development_lazyvim_projects_or_vs_code_projects_asks_f')}</td></tr>
         </tbody>
       </table></div>
-      <p>Installation terminals explain what is happening and request permission where needed. Named Install lists mark installed tools; Delete offers confirmed removal. The Pacman/Yay package pickers remain install-only. Managed toolchain removal explains its wider effect before proceeding.</p>
-      <div class="info-links"><a class="text-link" href="/guide/apps/">Applications &amp; installation →</a><a class="text-link" href="/guide/terminal/">Terminal &amp; editors →</a></div>
+      <p>{t('installation_terminals_explain_what_is_happening_and_re')}</p>
+      <div class="info-links"><a class="text-link" href="/guide/apps/">{t('applications_installation')}</a><a class="text-link" href="/guide/terminal/">{t('terminal_editors')}</a></div>
     </section>
     <section class="info-section" id="keyboard" aria-labelledby="keyboard-title">
-      <p class="eyebrow">Keyboard-first / Graphical when useful</p>
-      <h2 id="keyboard-title">Keep your hands<br /><em>in the flow.</em></h2>
-      <p><kbd>Super + F</kbd> opens Walker’s main menu. Typing searches apps and actions across Elephant menus; inside a submenu it searches that branch. <kbd>Super + Space</kbd> opens Apps, and <kbd>Shift + Backspace</kbd> returns to a parent menu.</p>
-      <p>Hyprland handles tiling, directional focus and workspace navigation. <kbd>Super + H/J/K/L</kbd> changes focus; <kbd>Super + 1–9/0</kbd> changes workspace. <kbd>Super + comma</kbd> opens Control Center. Graphical configuration offers another entrance to the same settings and actions.</p>
-      <a class="text-link" href="/guide/shortcuts/">Read the generated keyboard &amp; mouse reference →</a>
+      <p class="eyebrow">{t('keyboard_first_graphical_when_useful')}</p>
+      <h2 id="keyboard-title">{t('keep_your_hands')}<br /><em>{t('in_the_flow')}</em></h2>
+      <p><kbd>Super + F</kbd> {t('opens_walker_s_main_menu_typing_searches_apps_and_actio')} <kbd>Super + Space</kbd> {t('opens_apps_and')} <kbd>Shift + Backspace</kbd> {t('returns_to_a_parent_menu')}</p>
+      <p>{t('hyprland_handles_tiling_directional_focus_and_workspace')} <kbd>Super + H/J/K/L</kbd> {t('changes_focus')} <kbd>Super + 1–9/0</kbd> {t('changes_workspace')} <kbd>Super + comma</kbd> {t('opens_control_center_graphical_configuration_offers_ano')}</p>
+      <a class="text-link" href="/guide/shortcuts/">{t('read_the_generated_keyboard_mouse_reference')}</a>
     </section>
     <section class="info-section" id="agents" aria-labelledby="agents-title">
-      <p class="eyebrow">Optional / Provider accounts are separate</p>
-      <h2 id="agents-title">An assistant by choice.<br /><em>A boundary by design.</em></h2>
-      <p>Install → AI CLIs offers Claude Code, Codex, GitHub Copilot CLI, Grok Build, Gemini CLI, Antigravity CLI, OpenCode and Pi. The packaged Eitr skill gives Claude Code, Codex, Gemini CLI and OpenCode desktop guidance without replacing user instructions. Eitr’s first-use launchers offer installation when a supported command is missing; installed binaries take precedence. No assistant binaries, credentials or subscriptions are bundled.</p>
-      <p>Choose a machine-local default in Development → Default Assistant, then open it with <kbd>Super + A</kbd>. It starts trusted in your home folder, with full access to change files and run commands, and offline Handbook guidance where supported. Choose System → Security → Assistant Access → Ask before changes to restore permission prompts. Development → AI opens normal sessions in a picked folder, with per-CLI options for named, continued or resumed sessions where supported. Each cloud assistant has an Accounts submenu: add, select or delete accounts manually; running sessions keep their original account. Antigravity and OpenCode offer only Default. Pi supports accounts but cannot launch in Ask before changes mode because it has no built-in permission prompts. The bar’s AI Usage panel reports supported clients’ usage, grouped by assistant and readable account; usage a client cannot report is left out, and sections start closed at each login. Account types and API billing may differ.</p>
-      <p>Ratatoskr is the experimental local assistant: after one-time model downloads it runs on this PC without an account. Control Center also offers disposable, read-only quick chat with your default assistant and relevant Handbook context; closing it clears the conversation. Cloud chat sends your messages to the provider. Failed task terminals offer Ask the AI when you choose to share their output.</p>
-      <p>“Let assistants work together” is off by default. Supported, configured clients can request a second opinion through a local MCP bridge. Eitr retains the caller’s approval prompt, intends helpers for read-only consultation, and prevents onward delegation. Questions and context may go to the helper’s provider and count toward its limits.</p>
-      <p>Availability is distinct from validation. The Handbook records sign-in detection and per-client restrictions; Gemini needs an API key (a free one works) or a Google Cloud account; a read-only question and a bridge call have passed with a free key, while plan mode’s file and shell limits are not independently verified. Antigravity is available as a standalone client and is not a collaboration helper. Do not treat the bridge as a security sandbox or enable blanket tool approval for it.</p>
-      <a class="text-link" href="/guide/development/#ai-assistants">AI setup, permissions &amp; current limitations →</a>
+      <p class="eyebrow">{t('optional_provider_accounts_are_separate')}</p>
+      <h2 id="agents-title">{t('an_assistant_by_choice')}<br /><em>{t('a_boundary_by_design')}</em></h2>
+      <p>{t('install_ai_clis_offers_claude_code_codex_github_copilot')}</p>
+      <p>{t('choose_a_machine_local_default_in_development_default_a')} <kbd>Super + A</kbd>{t('it_starts_trusted_in_your_home_folder_with_full_access_')}</p>
+      <p>{t('ratatoskr_is_the_experimental_local_assistant_after_one')}</p>
+      <p>{t('let_assistants_work_together_is_off_by_default_supporte')}</p>
+      <p>{t('availability_is_distinct_from_validation_the_handbook_r')}</p>
+      <a class="text-link" href="/guide/development/#ai-assistants">{t('ai_setup_permissions_current_limitations')}</a>
     </section>
     <section class="info-section" id="accounts" aria-labelledby="accounts-title">
-      <p class="eyebrow">Git identities / Explicit cloud contexts</p>
-      <h2 id="accounts-title">Choose the account.<br /><em>Keep the context.</em></h2>
-      <p>Development → Git Accounts configures a default identity and folder-specific rules after a review step. SSH keys and GitHub/GitLab CLI logins stay separate per account. Repository-local settings win; Eitr does not rewrite remotes or switch global provider CLI logins.</p>
-      <pre tabindex="0" aria-label="Inspect the current Git identity and account-aware CLI"><code>{`git var GIT_AUTHOR_IDENT
+      <p class="eyebrow">{t('git_identities_explicit_cloud_contexts')}</p>
+      <h2 id="accounts-title">{t('choose_the_account')}<br /><em>{t('keep_the_context')}</em></h2>
+      <p>{t('development_git_accounts_configures_a_default_identity_')}</p>
+      <pre tabindex="0" aria-label={t('inspect_git')}><code>{`git var GIT_AUTHOR_IDENT
 eitr-git cli auth status
 eitr-git cli repo view`}</code></pre>
-      <p>Development → Cloud selects an account before opening resource tools. AWS profiles, Google Cloud configurations/projects and Azure tenants/subscriptions remain visible. Returning from a terminal retains the context without changing global CLI defaults.</p>
-      <p>Additional menus cover Cloudflare, DigitalOcean, Hetzner Cloud, Oracle Cloud, Vercel, Netlify and IBM Cloud in private per-account workspaces. These do not import existing provider credentials. Browser consoles use their own sessions; confirm their account separately. Newer provider workflows have mock-tested views, with live sign-in and resource checks still pending.</p>
-      <p>Cloud operations use your provider permissions. Some actions modify resources and can incur charges; a menu entry is not a promise of a free service or universal live testing.</p>
-      <div class="info-links"><a class="text-link" href="/guide/git-accounts/">Git identity, SSH &amp; CLI setup →</a><a class="text-link" href="/guide/development/#accounts-and-cloud-workflows">Cloud account workflows →</a></div>
+      <p>{t('development_cloud_selects_an_account_before_opening_res')}</p>
+      <p>{t('additional_menus_cover_cloudflare_digitalocean_hetzner_')}</p>
+      <p>{t('cloud_operations_use_your_provider_permissions_some_act')}</p>
+      <div class="info-links"><a class="text-link" href="/guide/git-accounts/">{t('git_identity_ssh_cli_setup')}</a><a class="text-link" href="/guide/development/#accounts-and-cloud-workflows">{t('cloud_account_workflows')}</a></div>
     </section>
     <section class="info-section" id="data" aria-labelledby="data-title">
-      <p class="eyebrow">Optional / Local tools and your services</p>
-      <h2 id="data-title">Inspect the system.<br /><em>Follow the signal.</em></h2>
-      <p>Install → Databases offers {databases}. Client installation does not provision a remote database or grant access. Postman, Bruno and Insomnia are optional Developer Apps for API work.</p>
-      <p>Development → Monitoring saves named dashboard links for Grafana, Datadog, Sentry, New Relic, Prometheus or another service and opens them in your browser. It is a dashboard launcher, not a bundled monitoring backend. Monitoring Tools offers promtool and the Sentry CLI. Amazon Managed Grafana workspaces are under the selected AWS account.</p>
-      <p>Accounts, service configuration and permissions remain yours. Keep passwords and tokens out of dashboard URLs and shared configuration.</p>
-      <a class="text-link" href="/guide/development/">Read the complete development Handbook chapter →</a>
+      <p class="eyebrow">{t('optional_local_tools_and_your_services')}</p>
+      <h2 id="data-title">{t('inspect_the_system')}<br /><em>{t('follow_the_signal')}</em></h2>
+      <p>{t('install_databases_offers')} {databases}{t('client_installation_does_not_provision_a_remote_databas')}</p>
+      <p>{t('development_monitoring_saves_named_dashboard_links_for_')}</p>
+      <p>{t('accounts_service_configuration_and_permissions_remain_y')}</p>
+      <a class="text-link" href="/guide/development/">{t('read_the_complete_development_handbook_chapter')}</a>
     </section>
     <section class="info-section" id="plugins" aria-labelledby="plugins-title">
-      <p class="eyebrow">Plugins / Your code, your trust</p>
-      <h2 id="plugins-title">Bring your own tools.<br /><em>Approve every commit.</em></h2>
-      <p>Plugins come from Git repositories, including the official <a href="https://github.com/eitr-org/eitr-plugins" target="_blank" rel="noopener noreferrer">eitr-org/eitr-plugins</a> collection. Install → Plugins → Add Plugin… accepts HTTPS or private SSH URLs, including repositories with several plugins. Each plugin has its own <code>eitr-plugin.json</code> manifest and review: two confirmations cover the risks, author, exact commit and declared code before anything runs. Walker actions appear under Tools → Plugins.</p>
-      <p>Schema v2 adds Control Center tiles and panels, desktop widgets and bar items, with optional Eitr styling, audio spectrum levels and live data streams. Control Center → Plugins manages enable switches, details, previews and visual placements. Hooks can run on theme, wallpaper, successful System Update and login events.</p>
-      <p>Plugins stay pinned per user to the approved commit and run with your account’s full permissions. System Update only reports an available-update count. Install → Plugins → Update Plugins or Control Center → Plugins opens the separate review of commits, changed files, risk flags and diffs before approval; <code>eitr plugin update</code> does the same from a terminal. Eitr has not reviewed third-party plugin code.</p>
-      <div class="info-links"><a class="text-link" href="https://github.com/eitr-org/eitr/tree/main/distro/plugins/example" target="_blank" rel="noopener noreferrer">Start from the example plugin ↗</a><a class="text-link" href="/guide/apps/#plugins">Plugin manifest reference →</a></div>
+      <p class="eyebrow">{t('plugins_your_code_your_trust')}</p>
+      <h2 id="plugins-title">{t('bring_your_own_tools')}<br /><em>{t('approve_every_commit')}</em></h2>
+      <p>{t('plugins_come_from_git_repositories_including_the_offici')} <a href="https://github.com/eitr-org/eitr-plugins" target="_blank" rel="noopener noreferrer">{t('eitr_org_eitr_plugins')}</a> {t('collection_install_plugins_add_plugin_accepts_https_or_')} <code>eitr-plugin.json</code> {t('manifest_and_review_two_confirmations_cover_the_risks_a')}</p>
+      <p>{t('schema_v2_adds_control_center_tiles_and_panels_desktop_')}</p>
+      <p>{t('plugins_stay_pinned_per_user_to_the_approved_commit_and')} <code>eitr plugin update</code> {t('does_the_same_from_a_terminal_eitr_has_not_reviewed_thi')}</p>
+      <div class="info-links"><a class="text-link" href="https://github.com/eitr-org/eitr/tree/main/distro/plugins/example" target="_blank" rel="noopener noreferrer">{t('start_from_the_example_plugin')}</a><a class="text-link" href="/guide/apps/#plugins">{t('plugin_manifest_reference')}</a></div>
     </section>
     <section class="info-section" aria-labelledby="development-system">
-      <p class="eyebrow">One environment / Beyond the editor</p>
-      <h2 id="development-system">The work continues<br /><em>around the tools.</em></h2>
-      <p>The same desktop manages displays, sound, capture and appearance. System Update checks news and packages before taking a Btrfs snapshot when an upgrade is needed on supported setups. The Handbook covers recovery boundaries and independent backups.</p>
-      <div class="info-links"><a class="text-link" href="/features/">Explore the rest of Eitr →</a><a class="text-link" href="/installation/">Installation &amp; validation scope →</a></div>
+      <p class="eyebrow">{t('one_environment_beyond_the_editor')}</p>
+      <h2 id="development-system">{t('the_work_continues')}<br /><em>{t('around_the_tools')}</em></h2>
+      <p>{t('the_same_desktop_manages_displays_sound_capture_and_app')}</p>
+      <div class="info-links"><a class="text-link" href="/features/">{t('explore_the_rest_of_eitr')}</a><a class="text-link" href="/installation/">{t('installation_validation_scope')}</a></div>
     </section>
   </div>
 </Layout>

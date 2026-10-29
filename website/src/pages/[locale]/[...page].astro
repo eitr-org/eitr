@@ -1,0 +1,18 @@
+---
+import { languageCodes, pagePaths } from '../../i18n';
+import Home from '../index.astro';
+import About from '../about.astro';
+import Features from '../features.astro';
+import Development from '../development.astro';
+import Installation from '../installation.astro';
+import Privacy from '../privacy.astro';
+import Screenshots from '../screenshots.astro';
+import Intro from '../intro.astro';
+import Guide from '../guide.astro';
+const pages = {home: Home, about: About, features: Features, development: Development, installation: Installation, privacy: Privacy, screenshots: Screenshots, intro: Intro, guide: Guide};
+export function getStaticPaths() {
+  return languageCodes.filter(locale => locale !== 'en').flatMap(locale => pagePaths.map(path => ({params: {locale, page: path === '/' ? undefined : path.slice(1, -1)}})));
+}
+const Page = pages[(Astro.params.page ?? 'home') as keyof typeof pages];
+---
+<Page />
