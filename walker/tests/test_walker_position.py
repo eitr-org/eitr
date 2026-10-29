@@ -71,4 +71,4 @@ class WalkerPositionTests(unittest.TestCase):
                                    env=environment, check=True, capture_output=True)
                     css = (temporary / "theme/style.css").read_text()
                     self.assertTrue(css.rstrip().endswith(".box-wrapper { margin-top: 212px; }"))
-                    self.assertIn("border-radius: 8px;", css)
+                    self.assertIn("border-radius: 12px;", css)

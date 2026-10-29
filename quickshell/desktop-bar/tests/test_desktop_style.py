@@ -38,7 +38,7 @@ class DesktopStyleTests(unittest.TestCase):
         default, styles = style.definitions()
         self.assertEqual(default, "rounded")
         self.assertEqual({key: (value["scale"], value["windowRounding"]) for key, value in styles.items()},
-                         {"square": (0, 0), "rounded": (1, 4), "extra-rounded": (3, 18)})
+                         {"square": (0, 0), "rounded": (1.5, 9), "extra-rounded": (3, 18)})
         repo = ROOT.parents[1]
         walker = (repo / "walker/scripts/themes/walker.sh").read_text()
         hyprland = (repo / "hypr/hyprland.lua").read_text()
@@ -72,7 +72,7 @@ class DesktopStyleTests(unittest.TestCase):
                 patch.object(style.sys, "argv", ["desktop-style.py", "get", "windowRounding"]), \
                 patch("builtins.print") as printed:
             style.main()
-            printed.assert_called_with(4)
+            printed.assert_called_with(9)
             style.SETTINGS.write_text('{"corners": "extra-rounded"}')
             style.main()
             printed.assert_called_with(18)

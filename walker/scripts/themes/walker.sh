@@ -104,10 +104,11 @@ fi
 bar_appearance="$(python3 "$EITR_CODE_ROOT/quickshell/desktop-bar/scripts/bar-settings.py" get appearance)"
 # The corner style scales Walker's base radii (8, 6 and 5 px); see corner-styles.json.
 corner_scale="$(python3 "$EITR_CODE_ROOT/quickshell/desktop-bar/scripts/desktop-style.py" get scale)" || corner_scale=1
-[[ "$corner_scale" =~ ^[0-9]+$ ]] || corner_scale=1
-surface_radius="$((8 * corner_scale))px"
-row_radius="$((6 * corner_scale))px"
-input_radius="$((5 * corner_scale))px"
+[[ "$corner_scale" =~ ^[0-9]+(\.[0-9]+)?$ ]] || corner_scale=1
+scaled_radius() { awk -v base="$1" -v scale="$corner_scale" 'BEGIN { printf "%gpx", base * scale }'; }
+surface_radius="$(scaled_radius 8)"
+row_radius="$(scaled_radius 6)"
+input_radius="$(scaled_radius 5)"
 if [[ "$bar_appearance" == "solid" ]]; then
   window_alpha="1"
 fi

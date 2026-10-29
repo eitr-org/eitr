@@ -514,7 +514,7 @@ eitr-shell desktop-bar kill
 ## Panel Style
 
 Control Center > Style > Corners and Walker > Style > Corners select Square,
-Rounded (the existing radii) or Extra Rounded. The machine-local preference is
+Rounded (1.5× the base radii, halfway to Extra Rounded) or Extra Rounded. The machine-local preference is
 `~/.config/eitr/style.json`. The styles, their radius scale and Hyprland window
 rounding are defined once in `corner-styles.json`, which `desktop-style.py`,
 DesktopStyle, the Walker style generator and `hyprland.lua` read; add or tune a
