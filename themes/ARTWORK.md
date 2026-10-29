@@ -23,7 +23,7 @@ Renamed theme folders include afterglow, daylight, graphite, jade, moonveil, mos
 
 ## Resolution
 
-The shipped collection targets 3840×2160 (16:9). Existing raster artwork is cropped to fill while preserving its main subject, then Lanczos-resampled. These are 4K exports rather than claims of native generated detail. Per-file source sizes, hashes and framing are in `artwork-4k.json`; `tools/export-wallpapers-4k.py` repeats the conversion without restoring deleted files. The Eitr runestone and its motion layers are regenerated natively by their source script. Each wallpaper also has a 21:9 version in `backgrounds-ultrawide/` (3440×1440 JPEG), which monitors at least twice as wide as tall show instead; most are the 21:9 originals the 4K files were cropped from. Their sources are in `artwork-ultrawide.json`, and `tools/export-wallpapers-ultrawide.py` rebuilds them. Batch 04 retains its native sources under `branding/sources/wallpapers/batch-04/`; its `export.py` uses both existing exporters and rebuilds its theme previews. Ultrawide exports use separate panoramic expansions where needed, otherwise subject-centered crops, without stretched edge padding. Per-image framing lives in batch04 and the ultrawide manifest.
+The shipped collection targets 3840×2160 (16:9). Existing raster artwork is cropped to fill while preserving its main subject, then Lanczos-resampled. These are 4K exports rather than claims of native generated detail. Per-file source sizes, hashes and framing are in `artwork-4k.json`; `tools/export-wallpapers-4k.py` repeats the conversion without restoring deleted files. The Eitr runestone and its motion layers are regenerated natively by their source script. Each wallpaper also has a 21:9 version in `backgrounds-ultrawide/` (3440×1440 JPEG), which monitors at least twice as wide as tall show instead; most are the 21:9 originals the 4K files were cropped from. Their sources are in `artwork-ultrawide.json`, and `tools/export-wallpapers-ultrawide.py` rebuilds them. Batch 04 retains its native sources under `branding/sources/wallpapers/batch-04/`; its `export.py` uses both existing exporters. Ultrawide exports use separate panoramic expansions where needed, otherwise subject-centered crops, without stretched edge padding. Per-image framing lives in batch04 and the ultrawide manifest.
 
 ## Next Batch
 
@@ -35,7 +35,7 @@ Batches 02 and 03 were generated with contact sheets of earlier third-party wall
 
 Batch 04 replaces all selected reference-led images that were too close to earlier artwork with fresh illustrations generated from written briefs only: three each for Stillwater, Afterglow and Moss, and one each for Catppuccin Latte, Rose Pine and Wisteria. Their earlier prompts remain marked removed in batches 02/03. Afterglow and Moss retain their owner-requested soft painterly and chiaroscuro rendering, respectively, with new Norse subjects.
 
-Batch 04’s theme previews are resized copies of its approved artwork. Other theme screenshot previews and Dark/Light category images remain unchanged.
+Theme previews (`preview.png`) are screenshots of each theme's desktop with Neovim and About open, retaken whenever a theme's look changes; no export script writes them. Batch 04's `previews` list only selects the website's theme-card artwork.
 
 The Catppuccin additions use owner-requested animated-film atmosphere rather
 than the collection’s default Norse screenprint direction. Their exact prompts
@@ -43,7 +43,7 @@ and native sources live in each theme’s `references/` directory.
 
 ## Realm themes — Batch 05
 
-Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim and Vanaheim are dark themes. All ten use the owner's realm palettes (2026-10-27 and 2026-10-28); each theme’s `artwork.md` names its palette and integration base. `artwork-batch-05.json` retains the exact written prompts, native source hashes and crop framing. Native sources and `export.py` live in `branding/sources/wallpapers/batch-05/`; the script rebuilds both exports, their manifest entries and previews. No reference images were used.
+Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim and Vanaheim are dark themes. All ten use the owner's realm palettes (2026-10-27 and 2026-10-28); each theme’s `artwork.md` names its palette and integration base. `artwork-batch-05.json` retains the exact written prompts, native source hashes and crop framing. Native sources and `export.py` live in `branding/sources/wallpapers/batch-05/`; the script rebuilds both exports and their manifest entries. No reference images were used.
 
 Theme menus discover folders and sort their names automatically. The artwork package globs and desktop-package removal rules already cover both wallpaper folders and previews for every theme. The website generates `src/data/themes.json` and its counts from these same folders at build time.
 

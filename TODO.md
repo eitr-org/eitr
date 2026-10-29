@@ -33,7 +33,6 @@ LAN.
   Still open: runtime QML errors are not attributed to a plugin, and in-process
   QML is not a sandbox.
 
-- **Theme previews.** Previews are Neovim + About screenshots (2026-10-27); `branding/sources/wallpapers/batch-05/export.py` still rewrites realm previews from wallpapers, so drop its preview step before rerunning it.
 - **Islands bar layout.** The owner's idea (2026-10-28): a fourth bar layout beside
   Full, Centered and Tabs, where the bar's groups float as separate rounded pills
   (left: logo and workspaces; centre: clock; weather in its own pill; right: status

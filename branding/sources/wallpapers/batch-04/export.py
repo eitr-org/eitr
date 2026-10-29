@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild batch 04 wallpaper exports and previews from the approved native PNGs."""
+"""Rebuild batch 04 wallpaper exports from the approved native PNGs."""
 import hashlib
 import importlib.util
 import json
@@ -59,11 +59,7 @@ def main():
     wide_records['images'] = [record for name, record in sorted(wide_exports.items()) if (ROOT / name).is_file()]
     write_json(records_path, records)
     write_json(wide_path, wide_records)
-    for theme, source in batch['previews'].items():
-        if not (ROOT / 'themes' / theme).is_dir():
-            continue
-        with Image.open(ROOT / source) as image:
-            image.resize((1280, 720), Image.Resampling.LANCZOS).save(ROOT / 'themes' / theme / 'preview.png', optimize=True)
+    # Theme previews are screenshots of the desktop (themes/ARTWORK.md); never rewrite them here.
 
 
 if __name__ == '__main__':
