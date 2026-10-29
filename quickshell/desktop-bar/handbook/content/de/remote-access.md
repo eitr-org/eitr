@@ -5,8 +5,9 @@ Detaillierter Status öffnet ein Diagnoseterminal, das bis zum Drücken von Esc 
 Öffnen Sie System > Connectivity > Fernzugriff. Die Freigabe bleibt bis zur
 Aktivierung ausgeschaltet. Unterstützt wird der angemeldete, wache Eitr-Desktop.
 Betrieb ohne Monitor, Zugriff vor der Anmeldung und wake on LAN folgen später.
-Das Verhalten bei gesperrtem Bildschirm ist noch ungeprüft; beenden Sie vorher
-die Freigabe, wenn Vertraulichkeit wichtig ist.
+Sperrt sich dieser PC während der Freigabe, zeigt der entfernte Bildschirm den
+Sperrbildschirm; wer verbunden ist, sieht ihn und kann das Passwort eingeben.
+Beenden Sie die Freigabe, bevor Sie weggehen, wenn Vertraulichkeit wichtig ist.
 
 ## Sunshine auf Eitr
 
@@ -82,9 +83,12 @@ aktiver Dienst bleibt aktiv. Trennen Sie bei Bedarf vorher mit Disconnect.
 Fehler bleiben im Terminal sichtbar; beheben Sie die Ursache und wiederholen Sie
 den Schritt. Pakete werden nicht automatisch entfernt.
 
-## Ausstehende Prüfung
+## Was geprüft wurde
 
-Automatische Tests verwenden Simulationen. Prüfen Sie mit dem Eigentümer
-Hyprland/NVIDIA-Aufnahme, Tastatur, Maus, Audio, Controller, beide Monitore,
-Bildschirmsperre und Anmeldestart; danach MacBook-Kopplung und direkte/weitergeleitete
-Tailscale-Verbindungen. Erfolgreiche Tests bestätigen diese Hardwarefunktionen nicht.
+Automatische Tests verwenden Simulationen. Auf einem echten Desktop (mit einem,
+dann zwei Monitoren) und einem MacBook mit Moonlight geprüft: Einrichtung, Freigabe
+starten, Kopplung über die Adresse, Bild, Tastatur, Maus, Audio, der Sperrbildschirm
+(vom Mac aus entsperrt), Start bei der Anmeldung, Freigabe beenden und
+Freigabe-Einrichtung wiederherstellen im Heimnetz sowie Tailscale-Einrichtung,
+Anmeldung und Verbindung von unterwegs. Controller, andere Grafikkarten und andere
+Clients wurden nicht geprüft.

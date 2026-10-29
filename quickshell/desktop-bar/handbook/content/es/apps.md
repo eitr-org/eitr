@@ -63,7 +63,7 @@ Las notificaciones de recordatorios, incluidos los avisos pendientes, ofrecen **
 
 ## Plugins
 
-Un plugin es un repositorio Git con scripts, entradas de Walker y, opcionalmente, un servicio de usuario. Un plugin se ejecuta como tú, con todos los permisos de tu cuenta: puede leer tus archivos, claves SSH y datos del navegador, enviarlos a cualquier lugar y mantenerse en ejecución. Eitr no ha revisado su código; el código es de su autor, no de Eitr, y cada entrada de plugin lo indica, por ejemplo Plugin de Ada · no revisado por Eitr. Añade solo plugins de personas y repositorios en los que confíes.
+Un plugin es un repositorio Git con scripts, entradas de Walker, piezas visuales opcionales (mosaicos, paneles, widgets de escritorio y elementos de la barra) y, opcionalmente, un servicio de usuario; un repositorio puede contener varios plugins. Un plugin se ejecuta como tú, con todos los permisos de tu cuenta: puede leer tus archivos, claves SSH y datos del navegador, enviarlos a cualquier lugar y mantenerse en ejecución. Eitr no ha revisado su código; el código es de su autor, no de Eitr, y cada entrada de plugin lo indica, por ejemplo Plugin de Ada · no revisado por Eitr. Añade solo plugins de personas y repositorios en los que confíes.
 
 Eitr pide tu contraseña solo en un terminal que abrió para un paso que tú iniciaste, como la Actualización del sistema, nunca en una ventana emergente. Si un plugin te pide la contraseña, no es Eitr: no la escribas.
 
@@ -81,7 +81,7 @@ Los plugins residen solo en `$XDG_DATA_HOME/eitr/plugins/<id>/` (por defecto `~/
 
 Versión 1: La raíz contiene `eitr-plugin.json`. Solo se aceptan estas claves: `id` (letras minúsculas y dígitos separados por guiones simples), `name`, `description` (hasta 72 caracteres), `author`, `version`, `rows` (1–20; 0–20 con `ui`) y los campos opcionales `service`, `schemaVersion` y `hooks`. Cada entrada requiere `title`, `description` (ambos hasta 72 caracteres) y `run`; admite `icon` y `arguments` (lista de cadenas fijas) opcionales. Un servicio solo acepta `run` y `arguments` opcional. Los comandos usan argv, nunca cadenas de shell. `run` debe indicar un ejecutable dentro del repositorio: se rechazan rutas absolutas, `..` y cualquier enlace simbólico dentro del plugin. Se rechazan claves JSON desconocidas o duplicadas. No se inicializan submódulos.
 
-El ejemplo en `distro/plugins/example/` contiene manifiesto y `notify.sh`, una acción de notificación, un hook de tema y ningún servicio. Cópialo a tu repositorio Git, crea un commit y publica una URL Git HTTPS para probar la instalación completa. Se distribuye como documentación; no se instala automáticamente.
+El ejemplo en `distro/plugins/example/` contiene manifiesto y `notify.sh`, una acción de notificación, un hook de tema y ningún servicio. Cópialo a tu repositorio Git, crea un commit y publica una URL Git HTTPS para probar la instalación completa. Se distribuye como documentación; no se instala automáticamente. Para un plugin visual, la colección oficial en `https://github.com/eitr-org/eitr-plugins` incluye el Visualizer.
 
 Declara `schemaVersion: 1` para manifiestos de scripts o `schemaVersion: 2` para la sección opcional `ui` descrita abajo. Los antiguos sin versión siguen como v1, con un aviso en la revisión; las versiones superiores a 2 requieren un Eitr más reciente. La guía para autores `distro/PLUGINS.md` (instalada como `PLUGINS.md`) define el contrato estable de la versión 1.
 

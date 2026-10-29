@@ -4,8 +4,10 @@ Estado detallado abre un terminal de diagnóstico que permanece abierto hasta qu
 
 Abra System > Connectivity > Acceso remoto. Compartir permanece desactivado hasta
 que lo active. Se controla la sesión de Eitr iniciada y despierta. El uso sin
-monitor, antes del inicio de sesión y wake on LAN quedan para después. El bloqueo
-aún no está validado: deje de compartir antes de bloquear si necesita privacidad.
+monitor, antes del inicio de sesión y wake on LAN quedan para después. Si este equipo
+se bloquea mientras comparte, la pantalla remota muestra la pantalla de bloqueo:
+quien esté conectado la ve y puede escribir la contraseña. Deje de compartir
+antes de ausentarse si necesita privacidad.
 
 ## Sunshine en Eitr
 
@@ -75,9 +77,12 @@ y ejecución del servicio; conserva la cuenta y los paquetes. Si el servicio ya
 estaba activo, sigue activo. Use Disconnect antes para cerrar la conexión. Los
 errores quedan visibles en el terminal; corríjalos y repita. No se quitan paquetes.
 
-## Validación pendiente
+## Qué se ha probado
 
-Las pruebas automáticas usan simulaciones. Con el propietario, pruebe captura
-Hyprland/NVIDIA, teclado, ratón, audio, mando, ambos monitores, bloqueo e inicio
-automático; después, emparejamiento del MacBook y rutas directas/retransmitidas.
-Las pruebas automáticas no acreditan estos comportamientos del hardware.
+Las pruebas automáticas usan simulaciones. En un escritorio real (con uno y luego
+dos monitores) y un MacBook con Moonlight: configuración, empezar a compartir,
+emparejamiento por dirección, imagen, teclado, ratón, audio, la pantalla de bloqueo
+(desbloqueada desde el Mac), inicio al iniciar sesión, Dejar de compartir y
+Restaurar la configuración en la red de casa, y la configuración, el inicio de
+sesión y la conexión de Tailscale desde fuera. No se han probado mandos, otras
+tarjetas gráficas ni otros clientes.

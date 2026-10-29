@@ -15,7 +15,7 @@ that total. Missing sensor/GPU telemetry is marked unavailable.
 refresh does not launch sign-in or conversations. It shows each account's
 limits; percentages mean the part of a limit already used.
 
-Every detected provider has its own section with its plan, limits and errors. Click a heading to fold or unfold only that section. All sections start expanded; folding is remembered on this machine. Long lists scroll within the screen.
+Every detected provider has its own section with its plan, limits and errors. Click a heading to fold or unfold only that section. Sections start closed at login and keep their open or closed state for the session. Long lists scroll within the screen.
 
 **Weather** uses the default location and supports temporary city searches.
 The override ends when the panel closes. Escape clears city search before

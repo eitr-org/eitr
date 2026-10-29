@@ -81,7 +81,7 @@ commit changes, refuses rewritten history or a moved/missing indexed folder,
 and leaves siblings at their previous commits. Old snapshots remain until the
 last installed plugin stops referencing them. Removing one plugin preserves its
 siblings. Control Center > Plugins shows the source URL and folder in details.
-This support does not create or publish an official plugin repository.
+The official collection is `https://github.com/eitr-org/eitr-plugins`; its `eitr-plugins.json` index lists the plugins it holds.
 
 ## Execution
 

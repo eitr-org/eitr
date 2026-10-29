@@ -4,8 +4,9 @@ Detailed Status opens a diagnostic terminal that stays open until you press Esc.
 
 Use System > Connectivity > Remote Access. Hosting is off until you enable it.
 This milestone controls your signed-in, awake Eitr desktop. Headless use, access
-before login and wake on LAN are separate future work. Locked-session behaviour
-has not been validated: stop sharing before locking when privacy matters.
+before login and wake on LAN are separate future work. While sharing, the remote
+screen shows the lockscreen when this PC locks; anyone connected sees it and can
+type the password, so stop sharing before stepping away when privacy matters.
 
 ## Sunshine on Eitr
 
@@ -83,9 +84,11 @@ If the service was already active it stays active. Disconnect first if you want
 to stop a connection. Failed installs or commands stay visible in the task terminal;
 retry the failed step after resolving its error. No package removal is implicit.
 
-## Validation still needed
+## What has been tested
 
-Automated tests use mocks. With the owner, verify local Hyprland/NVIDIA capture,
-keyboard, mouse, audio, controller, both monitors, lock behaviour, login startup,
-then MacBook pairing and Tailscale direct/relay paths. Do not assume these hardware
-behaviours have been verified by a green test suite.
+Automated tests use mocks. On a real desktop (one and then two monitors) with a
+MacBook running Moonlight: setup, start sharing, pairing by address, video,
+keyboard, mouse, audio, the lockscreen (unlocked from the Mac), start at login,
+Stop Sharing and Restore Sharing Setup on the home network, and Tailscale setup,
+sign-in and connection from away. Controllers, other GPUs and other clients have
+not been tested.

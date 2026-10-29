@@ -63,7 +63,7 @@ As notificações de lembretes, incluindo alertas perdidos, oferecem **Adiar 5 m
 
 ## Plugins
 
-Um plugin é um repositório Git com scripts, itens do Walker e, opcionalmente, um serviço do usuário. Um plugin é executado como você, com todas as permissões da sua conta: pode ler seus arquivos, chaves SSH e dados do navegador, enviá-los para qualquer lugar e continuar rodando. O Eitr não revisou o código; o código é do autor, não do Eitr, e cada item de plugin diz isso, por exemplo Plugin de Ada · não revisado pelo Eitr. Adicione apenas plugins de pessoas e repositórios em que você confia.
+Um plugin é um repositório Git com scripts, itens do Walker, peças visuais opcionais (blocos, painéis, widgets da área de trabalho e itens da barra) e, opcionalmente, um serviço do usuário; um repositório pode conter vários plugins. Um plugin é executado como você, com todas as permissões da sua conta: pode ler seus arquivos, chaves SSH e dados do navegador, enviá-los para qualquer lugar e continuar rodando. O Eitr não revisou o código; o código é do autor, não do Eitr, e cada item de plugin diz isso, por exemplo Plugin de Ada · não revisado pelo Eitr. Adicione apenas plugins de pessoas e repositórios em que você confia.
 
 O Eitr pede sua senha apenas em um terminal que ele abriu para uma etapa que você iniciou, como a Atualização do sistema, nunca em uma janela pop-up. Se um plugin pedir sua senha, não é o Eitr: não a digite.
 
@@ -81,7 +81,7 @@ Plugins ficam apenas em `$XDG_DATA_HOME/eitr/plugins/<id>/` (padrão `~/.local/s
 
 Versão 1: A raiz contém `eitr-plugin.json`. Somente estas chaves são aceitas: `id` (letras minúsculas e dígitos separados por hífens simples), `name`, `description` (até 72 caracteres), `author`, `version`, `rows` (1–20; 0–20 com `ui`) e os campos opcionais `service`, `schemaVersion` e `hooks`. Cada item exige `title`, `description` (ambos até 72 caracteres) e `run`; aceita `icon` e `arguments` (lista de strings fixas) opcionais. Um serviço aceita apenas `run` e `arguments` opcional. Comandos usam argv, nunca strings de shell. `run` deve apontar para um executável dentro do repositório: caminhos absolutos e `..` são recusados, assim como qualquer link simbólico em qualquer lugar do plugin. Chaves JSON desconhecidas ou duplicadas são recusadas. Submódulos não são inicializados.
 
-O exemplo em `distro/plugins/example/` contém manifesto e `notify.sh`, uma ação de notificação, um hook de tema e nenhum serviço. Copie-o para seu repositório Git, faça commit e publique uma URL Git HTTPS para testar a instalação completa. É documentação; não é instalado automaticamente.
+O exemplo em `distro/plugins/example/` contém manifesto e `notify.sh`, uma ação de notificação, um hook de tema e nenhum serviço. Copie-o para seu repositório Git, faça commit e publique uma URL Git HTTPS para testar a instalação completa. É documentação; não é instalado automaticamente. Para um plugin visual, a coleção oficial em `https://github.com/eitr-org/eitr-plugins` traz o Visualizer.
 
 Declare `schemaVersion: 1` para manifestos de scripts ou `schemaVersion: 2` para a seção opcional `ui` abaixo. Os antigos sem versão continuam como v1, com um lembrete na revisão; versões acima de 2 exigem um Eitr mais recente. O guia para autores `distro/PLUGINS.md` (instalado como `PLUGINS.md`) define o contrato estável da versão 1.
 

@@ -10,7 +10,7 @@ Acerca de agrupa hardware, software (incluida la versión instalada de EITR), an
 
 **Uso de IA** detecta clientes instalados o configurados. Primero aparece el uso en caché; actualizar no inicia sesiones ni conversaciones. Muestra los límites de cada cuenta; los porcentajes indican la parte del límite ya consumida.
 
-Cada proveedor detectado tiene su propia sección con plan, límites y errores. Haz clic en el título para plegar o desplegar solo esa sección. Todas empiezan desplegadas; el estado se guarda en este equipo. Las listas largas se desplazan dentro de la pantalla.
+Cada proveedor detectado tiene su propia sección con plan, límites y errores. Haz clic en el título para plegar o desplegar solo esa sección. Al iniciar sesión todas empiezan plegadas y conservan su estado durante la sesión. Las listas largas se desplazan dentro de la pantalla.
 
 **Tiempo** usa la ubicación predeterminada y permite búsquedas temporales de ciudades. La selección temporal termina al cerrar el panel. Escape borra la búsqueda antes de cerrar; las unidades de temperatura siguen la ubicación y se muestra otra unidad al lado.
 

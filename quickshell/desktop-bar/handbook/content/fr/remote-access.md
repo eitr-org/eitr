@@ -5,8 +5,9 @@
 Ouvrez System > Connectivity > Accès à distance. Le partage reste désactivé jusqu’à
 son activation. Cette étape contrôle le bureau Eitr connecté et éveillé.
 Le fonctionnement sans écran, avant connexion et wake on LAN viendront plus tard.
-Le comportement verrouillé reste à vérifier ; arrêtez le partage avant de
-verrouiller si la confidentialité est importante.
+Si cet ordinateur se verrouille pendant le partage, l’écran distant affiche
+l’écran de verrouillage : la personne connectée le voit et peut saisir le mot de
+passe. Arrêtez le partage avant de vous absenter si la confidentialité compte.
 
 ## Sunshine sur Eitr
 
@@ -79,9 +80,12 @@ reste. Utilisez Disconnect avant si vous voulez couper la connexion. Les erreurs
 restent visibles dans le terminal ; corrigez-les puis réessayez. Aucun paquet
 n’est supprimé implicitement.
 
-## Vérifications restantes
+## Ce qui a été vérifié
 
-Les tests automatiques utilisent des simulations. Avec le propriétaire, vérifiez
-capture Hyprland/NVIDIA, clavier, souris, audio, manette, deux moniteurs,
-verrouillage et démarrage à la connexion ; puis association du MacBook et chemins
-Tailscale directs/relayés. Des tests réussis ne valident pas ces fonctions matérielles.
+Les tests automatiques utilisent des simulations. Sur un vrai bureau (un puis deux
+moniteurs) avec un MacBook sous Moonlight : configuration, démarrage du partage,
+association par adresse, image, clavier, souris, audio, l’écran de verrouillage
+(déverrouillé depuis le Mac), démarrage à la connexion, Arrêter le partage et
+Restaurer la configuration sur le réseau domestique, ainsi que la configuration,
+la connexion et l’accès Tailscale depuis l’extérieur. Les manettes, les autres
+cartes graphiques et les autres clients n’ont pas été testés.
