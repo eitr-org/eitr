@@ -461,7 +461,9 @@ Capability comes from CTA EDID PQ/HLG metadata. Generated `displays.lua` enables
 Proton Wayland/HDR and DXVK HDR only with connected HDR hardware; the local loader
 refreshes it before loading. New sessions and a restarted Steam inherit these defaults.
 `cm_auto_hdr = 2` switches fullscreen HDR games to `hdredid` with desktop HDR off;
-the switch also uses `hdredid`, so Hyprland applies the EDID's peak and black
+browsers use HDR only when desktop HDR is on for their monitor. The browser
+`no_auto_hdr` window rule preserves colour management while preventing fullscreen
+browser surfaces from switching an SDR desktop into HDR. The desktop switch also uses `hdredid`, so Hyprland applies the EDID's peak and black
 levels. Turning HDR off writes `cm = "srgb"` and 8-bit explicitly, because
 Hyprland keeps the previous preset when the fields are missing.
 The Nightlight editor saves valid time changes automatically; its Auto switch

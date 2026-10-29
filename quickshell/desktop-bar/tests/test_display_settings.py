@@ -2,6 +2,7 @@ import importlib.util
 import json
 import os
 import re
+import subprocess
 from pathlib import Path
 import tempfile
 import unittest
@@ -342,6 +343,34 @@ class DisplaySettingsTests(unittest.TestCase):
         names = [row["text"] for row in rows]
         self.assertNotIn("Display Settings", names, "the Display panel holds them")
         self.assertIn("resolution", next(row for row in rows if row["text"] == "Display")["keywords"])
+
+
+class BrowserHdrRuleTests(unittest.TestCase):
+    def test_browsers_follow_desktop_hdr_without_disabling_game_auto_hdr(self):
+        source = (REPO / "hypr/hyprland.lua").read_text()
+        rule = re.search(r'hl\.window_rule\(\{\s*name = "browser-no-auto-hdr",.*?\n\}\)',
+                         source, re.DOTALL).group()
+        # Evaluate the shipped Lua table so escaping and effect types are checked too.
+        capture = subprocess.run(["lua", "-"], input=
+                                 'hl = { window_rule = function(rule) '
+                                 'assert(rule.no_auto_hdr == true); '
+                                 'assert(rule.match.class and not rule.match.monitor); '
+                                 'print(rule.match.class) end }\n' + rule,
+                                 capture_output=True, text=True, check=True)
+        pattern = capture.stdout.strip()
+        for browser in ("google-chrome", "Google-chrome", "google-chrome-unstable", "chromium",
+                        "chromium-browser", "Brave-browser", "brave-browser-beta", "firefox",
+                        "firefox-esr", "firefox-developer-edition", "microsoft-edge", "Microsoft-edge",
+                        "microsoft-edge-dev", "vivaldi-stable", "Vivaldi-snapshot", "tor-browser",
+                        "org.mozilla.firefox", "org.torproject.torbrowser"):
+            with self.subTest(browser=browser):
+                self.assertIsNotNone(re.fullmatch(pattern, browser))
+        for application in ("steam_app_123", "gamescope", "mpv", "kitty", "my-firefox-helper",
+                            "orgXmozillaXfirefox"):
+            with self.subTest(application=application):
+                self.assertIsNone(re.fullmatch(pattern, application))
+        for setting in ("cm_auto_hdr", "direct_scanout", "use_fp16", "prefer_hdr"):
+            self.assertRegex(source, setting + r"\s*=\s*2\b")
 
 
 if __name__ == "__main__":

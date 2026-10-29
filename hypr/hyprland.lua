@@ -453,6 +453,13 @@ local function blurred_layer(namespace, ignore_alpha)
 	hl.layer_rule({ match = { namespace = namespace }, ignore_alpha = ignore_alpha })
 end
 
+-- Browsers and their web apps follow each monitor's desktop HDR setting; games retain auto-HDR.
+hl.window_rule({
+	name = "browser-no-auto-hdr",
+	match = { class = "(?i)^(google-chrome(-.*)?|chromium(-.*)?|brave-browser(-.*)?|firefox(-.*)?|microsoft-edge(-.*)?|vivaldi(-.*)?|tor-browser|org\\.mozilla\\.firefox|org\\.torproject\\.torbrowser|(chrome|brave|msedge|vivaldi)-.+)$" },
+	no_auto_hdr = true,
+})
+
 -- Floating utility windows
 local topRightPanelPosition = "top-right"
 
