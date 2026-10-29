@@ -52,8 +52,8 @@ LAN.
   animations, Elephant/Walker, background services, first-login work), find what
   would make Eitr feel bad on an old or low-end machine, then optimize those and
   decide what a lighter setup turns off. Test in a VM with few cores and little RAM.
-- **Hardcore mode.** The owner's idea (2026-10-29), for developers who want no
-  effects. A Style preset that persists across reboots and updates; switching it off
+- **Focus mode.** The owner's idea (2026-10-29), for developers who want no
+  effects (named Focus, not Hardcore, 2026-10-29). A Style preset that persists across reboots and updates; switching it off
   restores the normal desktop exactly. The plan, agreed 2026-10-29:
   - **Strip:** a thin tab strip across the top lists the open windows as tabs, plus
     a small clock and battery/network status. No workspaces, no other bar items.
@@ -61,10 +61,10 @@ LAN.
     or animations. Built on Hyprland window groups, so tabs stay native and fast.
   - **Splits:** side by side or stacked, up to four panes (2x2); split tabs show as
     joined on the strip. Proposed keys: Super+\ split side by side with the next
-    tab, Super+- stack, Super+arrows move between panes, Super+Ctrl+arrows resize,
+    tab, Super+- stack, Super+arrows move between panes (window focus, distinct from Focus mode), Super+Ctrl+arrows resize,
     Super+Enter send the pane back to a tab. Check them against existing shortcuts
     and confirm with the owner before building.
-  - **Command:** `eitr hardcore on|off|status` beside the Style switch, same result.
+  - **Command:** `eitr focus on|off|status` beside the Style switch, same result.
   - **Open apps move with it:** turning it on gathers every open window into tabs;
     turning it off spreads them back over normal workspaces, two per workspace in
     any order (earlier workspace positions are not kept).
