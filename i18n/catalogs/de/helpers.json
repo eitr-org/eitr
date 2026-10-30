@@ -1408,5 +1408,8 @@
   "AI can miss things. This is advice, not approval. The full-permissions warning still applies.": "Die KI kann Probleme übersehen. Dies ist ein Hinweis, keine Freigabe. Die Warnung zu den vollen Zugriffsrechten gilt weiterhin.",
   "Checking the downloaded copy…": "Die heruntergeladene Kopie wird geprüft…",
   "The AI check could not finish. You can still install or cancel.": "Die KI-Prüfung konnte nicht abgeschlossen werden. Du kannst weiterhin installieren oder abbrechen.",
-  "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can.": "Dein Standardassistent {assistant} kann Plugins noch nicht sicher prüfen. Ratatoskr und Claude können das."
+  "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can.": "Dein Standardassistent {assistant} kann Plugins noch nicht sicher prüfen. Ratatoskr und Claude können das.",
+  "This plugin is already installed. Update or remove it from Control Center > Plugins.": "Dieses Plugin ist bereits installiert. Aktualisiere oder entferne es unter Kontrollzentrum > Plugins.",
+  "Every plugin in this repository is already installed. Update or remove them from Control Center > Plugins.": "Alle Plugins dieses Repositorys sind bereits installiert. Aktualisiere oder entferne sie unter Kontrollzentrum > Plugins.",
+  "Installed": "Installiert"
 }

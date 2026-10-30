@@ -1210,6 +1210,9 @@ msgstr "Hook de evento adicionado ou alterado: {event}"
 msgid "Event hook: {event} — {command}"
 msgstr "Hook de evento: {event} — {command}"
 
+msgid "Every plugin in this repository is already installed. Update or remove them from Control Center > Plugins."
+msgstr "Todos os plugins deste repositório já estão instalados. Atualize ou remova-os em Central de controle > Plugins."
+
 msgid "Everything is up to date."
 msgstr "Tudo está atualizado."
 
@@ -1509,6 +1512,9 @@ msgstr "Instale {package} primeiro: sudo pacman -Syu --needed {package_2}"
 
 msgid "Install {package} now?"
 msgstr "Instalar {package} agora?"
+
+msgid "Installed"
+msgstr "Instalado"
 
 msgid "Installed plugins could not be checked against the new policy: {error}"
 msgstr "Não foi possível verificar os plugins instalados com a nova política: {error}"
@@ -3405,6 +3411,9 @@ msgstr "Este manifesto deve declarar schemaVersion: 1."
 
 msgid "This occurrence"
 msgstr "Esta ocorrência"
+
+msgid "This plugin is already installed. Update or remove it from Control Center > Plugins."
+msgstr "Este plugin já está instalado. Atualize ou remova-o em Central de controle > Plugins."
 
 msgid "This plugin is blocked: {reason}"
 msgstr "Este plugin está bloqueado: {reason}"

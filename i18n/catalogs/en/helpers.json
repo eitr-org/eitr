@@ -1408,5 +1408,8 @@
   "AI can miss things. This is advice, not approval. The full-permissions warning still applies.": "AI can miss things. This is advice, not approval. The full-permissions warning still applies.",
   "Checking the downloaded copy…": "Checking the downloaded copy…",
   "The AI check could not finish. You can still install or cancel.": "The AI check could not finish. You can still install or cancel.",
-  "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can.": "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can."
+  "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can.": "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can.",
+  "This plugin is already installed. Update or remove it from Control Center > Plugins.": "This plugin is already installed. Update or remove it from Control Center > Plugins.",
+  "Every plugin in this repository is already installed. Update or remove them from Control Center > Plugins.": "Every plugin in this repository is already installed. Update or remove them from Control Center > Plugins.",
+  "Installed": "Installed"
 }

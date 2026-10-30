@@ -5322,6 +5322,9 @@
     "Event hook: {event} — {command}": [
       "walker/scripts/actions/install/plugins.py"
     ],
+    "Every plugin in this repository is already installed. Update or remove them from Control Center > Plugins.": [
+      "distro/lib/eitr_plugins.py"
+    ],
     "Everything is up to date.": [
       "walker/scripts/actions/system/update.sh"
     ],
@@ -5625,6 +5628,9 @@
     "Install {package} now?": [
       "walker/scripts/menus/cloud/accounts.py",
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Installed": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Installed plugins could not be checked against the new policy: {error}": [
       "distro/lib/eitr_profile_apply.py"
@@ -7566,6 +7572,9 @@
     ],
     "This occurrence": [
       "walker/scripts/actions/tools/reminders.py"
+    ],
+    "This plugin is already installed. Update or remove it from Control Center > Plugins.": [
+      "distro/lib/eitr_plugins.py"
     ],
     "This plugin is blocked: {reason}": [
       "walker/scripts/actions/install/plugins.py"

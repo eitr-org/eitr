@@ -110,6 +110,9 @@ icon paths as text. No plugin code runs to generate this list. Every selected
 plugin receives the same author, source, exact commit, code and risk review as a
 single-plugin repository; declining a review skips only that plugin. Choosing
 nothing installs nothing. Selection itself grants no execution permission.
+Plugins that are already installed show as Installed and cannot be selected; a
+single-plugin repository that is already installed is refused before anything
+is downloaded, pointing to Control Center > Plugins to update or remove it.
 
 Approved siblings share one stored repository snapshot per commit. Each record
 pins its own commit and folder. Update reviews only that plugin's folder and

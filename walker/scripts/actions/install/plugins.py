@@ -174,8 +174,9 @@ class PluginWizard(Wizard):
             start = max(0, position - count + 1)
             for index, entry in enumerate(entries[start:start + count], start):
                 spec = entry['spec']
-                marker = '✓' if spec['id'] in selected else '○'
-                self.text(y + (index - start) * 3, x, marker + ' ' + printable(spec['name']), 3 if index == position else 1)
+                marker = '✓' if spec['id'] in selected or entry.get('installed') else '○'
+                name = printable(spec['name']) + ('  · ' + tr('Installed') if entry.get('installed') else '')
+                self.text(y + (index - start) * 3, x, marker + ' ' + name, 3 if index == position else 1)
                 self.text(y + (index - start) * 3 + 1, x + 2, printable(spec['description']))
                 self.text(y + (index - start) * 3 + 2, x + 2,
                           tr('Plugin icon: {icon}', icon=printable(spec.get('icon', '—'))))
@@ -187,7 +188,7 @@ class PluginWizard(Wizard):
                 position = max(0, position - 1)
             elif key == curses.KEY_DOWN:
                 position = min(len(entries) - 1, position + 1)
-            elif key == ' ':
+            elif key == ' ' and not entries[position].get('installed'):
                 plugin_id = entries[position]['spec']['id']
                 if plugin_id in selected:
                     selected.remove(plugin_id)

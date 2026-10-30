@@ -15,7 +15,7 @@ import xml.etree.ElementTree as ET
 from urllib.parse import urlsplit
 
 import eitr_policy
-from eitr_i18n import tr
+from eitr_i18n import mark, tr
 from eitr_paths import config, data, state
 
 SLUG = re.compile(r'[a-z0-9]+(?:-[a-z0-9]+)*\Z')
@@ -311,6 +311,9 @@ def repository_url(value, *, allow_file=False):
         return value
     raise ValueError('Plugin repository must be an HTTPS or SSH Git URL without credentials')
 
+
+ALREADY_INSTALLED = mark('This plugin is already installed. Update or remove it from Control Center > Plugins.')
+ALL_INSTALLED = mark('Every plugin in this repository is already installed. Update or remove them from Control Center > Plugins.')
 
 def normalized_url(value):
     """One spelling per repository: host and path, without scheme, user, port, .git or case."""
@@ -709,6 +712,10 @@ class Plugins:
         """consent(url) accepts the risk before anything is downloaded; approve() the exact commit."""
         repository_url(url, allow_file=self.allow_file)
         self.check(url)
+        # A single-plugin repository installed earlier is recognised before anything is downloaded.
+        if any(normalized_url(record['url']) == normalized_url(url) and not record.get('path')
+               for record in self.records().values()):
+            raise ValueError(tr(ALREADY_INSTALLED))
         if not consent(url):
             return False
         with self.lock(), tempfile.TemporaryDirectory(prefix='eitr-plugin-') as temporary:
@@ -720,7 +727,9 @@ class Plugins:
                 raise ValueError('Schema version 2 requires a plugin icon')
             plugin_id = spec['id']
             target = self.root(plugin_id)
-            if plugin_id in records or target.exists() or target.is_symlink() or self.unit(plugin_id).exists():
+            if plugin_id in records:
+                raise ValueError(tr(ALREADY_INSTALLED))
+            if target.exists() or target.is_symlink() or self.unit(plugin_id).exists():
                 raise ValueError('Plugin id or service already exists')
             approved = commit(candidate)
             self.check(url, approved, plugin_id)
@@ -748,12 +757,17 @@ class Plugins:
     def add_indexed(self, candidate, entries, url, records, approve, pick):
         if pick is None:
             raise ValueError('Choose plugins from this repository before installing')
+        entries = [{**entry, 'installed': entry['spec']['id'] in records} for entry in entries]
+        if all(entry['installed'] for entry in entries):
+            raise ValueError(tr(ALL_INSTALLED))
         choices = pick(entries)
         if not isinstance(choices, list) or any(not isinstance(choice, str) for choice in choices) or len(choices) != len(set(choices)):
             raise ValueError('Invalid plugin selection')
         available = {entry['spec']['id']: entry for entry in entries}
         if set(choices) - available.keys():
             raise ValueError('Unknown plugin selection')
+        if any(available[choice]['installed'] for choice in choices):
+            raise ValueError(tr(ALREADY_INSTALLED))
         revision = commit(candidate)
         installed = False
         try:

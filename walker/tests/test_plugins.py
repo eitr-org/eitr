@@ -172,6 +172,26 @@ class PluginTests(unittest.TestCase):
         approve.assert_not_called()
         self.assertEqual(self.manager.records()['second'], approved['second'])
 
+    def test_installed_plugins_are_recognised_before_download_and_in_the_picker(self):
+        self.assertTrue(self.manager.add(self.url, lambda url: True, lambda *details: True))
+        consent = unittest.mock.Mock(return_value=True)
+        with self.assertRaisesRegex(ValueError, 'already installed'):
+            self.manager.add(self.url, consent, lambda *details: True)
+        consent.assert_not_called()
+
+    def test_indexed_picker_marks_installed_plugins(self):
+        self.make_index()
+        self.manager.add(self.url, lambda url: True, lambda *details: True, lambda entries: ['example'])
+        offered = []
+        self.manager.add(self.url, lambda url: True, lambda *details: True,
+                         lambda entries: offered.extend(entries) or [])
+        self.assertEqual({entry['spec']['id']: entry['installed'] for entry in offered}, {'example': True, 'second': False})
+        with self.assertRaisesRegex(ValueError, 'already installed'):
+            self.manager.add(self.url, lambda url: True, lambda *details: True, lambda entries: ['example'])
+        self.manager.add(self.url, lambda url: True, lambda *details: True, lambda entries: ['second'])
+        with self.assertRaisesRegex(ValueError, 'Every plugin in this repository'):
+            self.manager.add(self.url, lambda url: True, lambda *details: True, lambda entries: [])
+
     def test_repository_picker_lists_metadata_and_selects_multiple(self):
         self.make_index()
         entries = plugins.repository_plugins(self.source)
@@ -518,6 +538,8 @@ class PluginTests(unittest.TestCase):
         current = subprocess.run(['lua', '-e', harness.replace('UPDATES', '0')], cwd=ROOT, env=environment,
                                  capture_output=True, text=True, check=True)
         self.assertNotIn('Update Plugins', current.stdout)
+        self.assertNotIn('plugin-actions | Update |', current.stdout)
+        self.assertIn('plugin-actions | Remove |', current.stdout)
         self.assertIn('plugins | Example notification | - | Plugin by Eitr contributors · not reviewed by Eitr', result.stdout)
         self.assertIn('plugins-install | Bad plugin | - | Blocked by Eitr for your safety · select to remove', result.stdout)
         self.assertIn('plugins-install | Example plugin | plugin-actions | Plugin by Eitr contributors · not reviewed by Eitr', result.stdout)

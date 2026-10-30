@@ -233,6 +233,7 @@ Column {
                     spacing: PanelStyle.selectionActionGap
                     PanelButton {
                         id: updateButton
+                        visible: card.modelData.updateCount > 0
             width: Math.max(68, updateMetrics.width + 20)
                         TextMetrics { id: updateMetrics; text: updateButton.text; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize }
                         text: Eitr.I18n.tr("Update"); foreground: manager.foreground; onClicked: PluginRegistry.review("update", card.modelData.id) }
