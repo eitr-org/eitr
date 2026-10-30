@@ -9,7 +9,7 @@ import Eitr as Eitr
 QtObject {
     id: focus
     property bool enabled: false
-    property DockClients clients: DockClients { observing: focus.enabled }
+    property DockClients clients: DockClients { observing: focus.enabled; followTitles: true }
     property string error: ""
     property var requested: null
     function command(action) { return ["python3", Quickshell.shellDir + "/scripts/focus-mode.py", action]; }

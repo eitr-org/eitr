@@ -11,6 +11,16 @@ BAR = Path(__file__).resolve().parents[1]
 ROOT = BAR.parents[1]
 
 
+class DockClientRefreshTests(unittest.TestCase):
+    def test_title_changes_refresh_only_title_consumers(self):
+        source = (BAR / 'DockClients.qml').read_text()
+        immediate = source[source.index('["openwindow"'):source.index('].indexOf')]
+        self.assertNotIn('windowtitlev2', immediate)
+        self.assertIn('event.name === "windowtitlev2" && model.followTitles', source)
+        self.assertIn('followTitles: true', (BAR / 'FocusMode.qml').read_text())
+        self.assertNotIn('followTitles', (BAR / 'shell.qml').read_text())
+
+
 @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')
 class EdgeDockTests(unittest.TestCase):
     def test_model_geometry_and_reveal(self):
