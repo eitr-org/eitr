@@ -51,6 +51,18 @@ LAN.
   are implemented with offline coverage. Validate actual Hyprland group behavior,
   monitor hotplug, reload/reboot persistence and strip-crash recovery in a live
   test session before describing those as verified.
+- **Several user accounts.** The owner's request (2026-10-29): the login screen
+  shows which account logs in and lets the user pick another one in every design
+  when the PC has more than one; the lockscreen shows whose session is locked and
+  offers Switch user, which keeps it locked and opens the login screen. No unlock
+  effect on the login screen.
+- **Unlock: black screen after Enter.** The owner sees a black screen for about
+  2 s after unlocking with the Eitr design, which other designs do not show. Not
+  reproduced in the VM (the burn reveals the desktop directly); the owner will
+  record it.
+- **Lofi Radio plugin.** An official plugin in `eitr-org/eitr-plugins` playing lofi
+  music through `lowfi` (AUR), with a start/stop row; it never installs packages
+  itself.
 - **Choice of terminal: Kitty or Ghostty.** The owner's idea (2026-10-29): offer
   Ghostty beside Kitty as the default terminal, keeping everything Eitr sets up
   today: theme colours and their regeneration on theme changes, fonts, cursor
