@@ -5,7 +5,6 @@ from unittest import mock
 import tempfile
 import json
 import subprocess
-import runpy
 import io
 from contextlib import redirect_stdout
 
@@ -169,14 +168,16 @@ class CachedUsageTests(unittest.TestCase):
             accounts.append(("codex", {"id": "empty", "label": "Default"}))
             backend = mock.Mock()
             backend.usage_accounts.return_value = accounts
-            specification = mock.Mock(loader=mock.Mock())
+            specification = importlib.util.spec_from_file_location('ai_domain', ROOT / 'scripts/ai-domain.py')
+            module = importlib.util.module_from_spec(specification)
+            specification.loader.exec_module(module)
+            adapter = module.AiDomain.__new__(module.AiDomain)
+            adapter.backend = backend
+            backend.LABELS = USAGE.LABELS
+            adapter.cache = cache
             output = io.StringIO()
-            with mock.patch.object(Path, "home", return_value=Path(home)), \
-                 mock.patch("sys.argv", ["ai-popup.py", "cached"]), \
-                 mock.patch("importlib.util.spec_from_file_location", return_value=specification), \
-                 mock.patch("importlib.util.module_from_spec", return_value=backend), \
-                 redirect_stdout(output):
-                runpy.run_path(str(ROOT / "scripts/ai-popup.py"), run_name="__main__")
+            with redirect_stdout(output):
+                print(json.dumps(adapter.cached()))
             self.assertEqual(json.loads(output.getvalue())["providers"], [
                 {"name": "Claude", "accounts": [
                     {"id": "good", "label": "Current label", "windows": [{"used": 0}]}]}])
@@ -195,3 +196,16 @@ class LauncherTests(unittest.TestCase):
             real.write_text("#!/bin/sh\n")
             real.chmod(0o755)
             self.assertEqual(USAGE.cli_binary("claude"), str(real))
+
+
+class RateLimitTests(unittest.TestCase):
+    def test_account_cooldown_and_errors_never_expose_payloads(self):
+        account = dict(id='fixture', label='Private label')
+        error = USAGE.UsageRateLimit('private provider payload', {'Retry-After': '1000'})
+        with mock.patch.object(USAGE, 'COOLDOWNS', {}), \
+                mock.patch.object(USAGE, 'account_environment', return_value={}), \
+                mock.patch.object(USAGE, 'claude_usage', side_effect=error) as reader:
+            self.assertIsNone(USAGE.collect_account('claude', account))
+            self.assertIsNone(USAGE.collect_account('claude', account))
+            reader.assert_called_once()
+            self.assertGreater(USAGE.COOLDOWNS[('claude', 'fixture')], USAGE.time.monotonic() + 900)

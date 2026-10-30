@@ -7,6 +7,7 @@ from eitr_ai_accounts import rows as account_rows, environment as account_enviro
 
 import concurrent.futures
 import datetime as dt
+import email.utils
 import json
 import os
 from pathlib import Path
@@ -16,6 +17,21 @@ import time
 import sys
 import urllib.error
 import urllib.request
+
+
+COOLDOWNS = {}
+
+
+class UsageRateLimit(RuntimeError):
+    def __init__(self, message, headers):
+        super().__init__(message)
+        try:
+            self.delay = max(300, float(headers.get('Retry-After', 300)))
+        except (TypeError, ValueError):
+            try:
+                self.delay = max(300, email.utils.parsedate_to_datetime(headers['Retry-After']).timestamp() - time.time())
+            except (KeyError, TypeError, ValueError):
+                self.delay = 300
 
 
 def cli_binary(name):
@@ -113,7 +129,8 @@ def grok_usage(environment=None):
         with urllib.request.build_opener(NoRedirect).open(request, timeout=10) as response:
             payload = json.load(response)
     except urllib.error.HTTPError as exc:
-        raise RuntimeError(tr('Grok usage returned HTTP {code}; retry later or sign in again', code=f'{exc.code}')) from None
+        message = tr('Grok usage returned HTTP {code}; retry later or sign in again', code=f'{exc.code}')
+        raise (UsageRateLimit(message, exc.headers) if exc.code == 429 else RuntimeError(message)) from None
     return {"name": "Grok", "windows": grok_windows(payload), "plan": payload.get("subscriptionTier")}
 
 
@@ -226,7 +243,8 @@ def claude_usage(environment=None):
         with urllib.request.urlopen(request, timeout=10) as response:
             payload = json.load(response)
     except urllib.error.HTTPError as exc:
-        raise RuntimeError(tr('Claude usage returned HTTP {code}; retry later or sign in again', code=f'{exc.code}')) from None
+        message = tr('Claude usage returned HTTP {code}; retry later or sign in again', code=f'{exc.code}')
+        raise (UsageRateLimit(message, exc.headers) if exc.code == 429 else RuntimeError(message)) from None
     windows = claude_windows(payload)
     account = credentials.get("claudeAiOauth", {})
     tier = account.get("rateLimitTier", "")
@@ -244,34 +262,42 @@ def usage_accounts():
             for account in account_rows(identifier)]
 
 
-def collect():
-    readers = {"claude": claude_usage, "codex": codex_usage, "grok": grok_usage}
-    labels = {"claude": "Claude", "codex": "Codex", "gemini": "Gemini CLI",
-              "grok": "Grok", "copilot": "Copilot", "agy": "Antigravity"}
+LABELS = {"claude": "Claude", "codex": "Codex", "gemini": "Gemini CLI",
+          "grok": "Grok", "copilot": "Copilot", "agy": "Antigravity"}
 
-    def safely(identifier, account):
-        result = {"id": account["id"], "label": account["label"], "windows": []}
-        try:
-            reader = readers.get(identifier)
-            if reader:
-                result.update(reader(account_environment(identifier, account=account["id"])))
-            if not result["windows"] or result.get("error"):
-                return None
-        except Exception:
-            # CLI/HTTP errors can contain private data. Omit unreadable accounts.
-            return None
-        return result
 
+def collect_account(identifier, account):
+    key = (identifier, account["id"])
+    if time.monotonic() < COOLDOWNS.get(key, 0):
+        return None
+    result = {"id": account["id"], "label": account["label"], "windows": []}
+    try:
+        reader = {"claude": claude_usage, "codex": codex_usage, "grok": grok_usage}.get(identifier)
+        if reader:
+            result.update(reader(account_environment(identifier, account=account["id"])))
+        if result["windows"] and not result.get("error"):
+            return result
+    except UsageRateLimit as error:
+        COOLDOWNS[key] = time.monotonic() + error.delay
+    except Exception:
+        pass
+    return None
+
+
+def group_results(results):
     grouped = {}
-    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
-        jobs = [(identifier, pool.submit(safely, identifier, account))
-                for identifier, account in usage_accounts()]
-        for identifier, job in jobs:
-            account = job.result()
-            if account is not None:
-                provider = grouped.setdefault(identifier, {"name": labels[identifier], "accounts": []})
-                provider["accounts"].append(account)
+    for identifier, account in results:
+        if account is not None:
+            provider = grouped.setdefault(identifier, {"name": LABELS[identifier], "accounts": []})
+            provider["accounts"].append(account)
     return {"updated": time.time(), "providers": list(grouped.values())}
+
+
+def collect():
+    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
+        jobs = [(identifier, pool.submit(collect_account, identifier, account))
+                for identifier, account in usage_accounts()]
+        return group_results((identifier, job.result()) for identifier, job in jobs)
 
 
 if __name__ == "__main__":

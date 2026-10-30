@@ -1032,3 +1032,132 @@ class HardwareBrokerTests(unittest.IsolatedAsyncioTestCase):
         finally:
             gate.set()
             await broker.close()
+
+
+class WeatherAiBrokerTests(unittest.IsolatedAsyncioTestCase):
+    async def settle(self, predicate):
+        for attempt in range(400):
+            if predicate():
+                return
+            await asyncio.sleep(.005)
+        self.fail('broker did not settle')
+
+    async def test_weather_shared_default_scoped_cities_and_cancel(self):
+        frames, calls = [], []
+        gate = threading.Event()
+        def weather(city=None, **options):
+            calls.append(city)
+            if city:
+                gate.wait(2)
+            return dict(temp='17°C', location=city['name'] if city else 'default')
+        adapter = Mock(read=lambda topic: weather(), weather=weather,
+                       search=lambda query, deadline: dict(cities=[], error='No cities found'))
+        broker = broker_module.Broker(frames.append)
+        broker.domains['weather'] = adapter
+        try:
+            for token in ('screen-one', 'screen-two', 'menu'):
+                broker.request(dict(v=1, op='subscribe', topic='weather.default', token=token))
+            await self.settle(lambda: broker.states['weather.default']['task'] is None)
+            self.assertEqual(calls, [None])
+            city = dict(name='alternate', latitude=1, longitude=2)
+            for request in ('closed-panel', 'other-panel'):
+                broker.request(dict(v=1, op='query', topic='weather', id=request, name='city', args=dict(city=city)))
+            await self.settle(lambda: len(calls) == 2)
+            broker.request(dict(v=1, op='cancel', topic='weather', id='closed-panel'))
+            self.assertEqual(broker.states['weather.default']['data']['location'], 'default')
+            gate.set()
+            await self.settle(lambda: not broker.queries)
+            replies = [frame for frame in frames if frame['op'] == 'reply']
+            self.assertEqual([frame['id'] for frame in replies], ['other-panel'])
+            self.assertEqual(replies[0]['data']['location'], 'alternate')
+            self.assertEqual(broker.states['weather.default']['data']['location'], 'default')
+        finally:
+            gate.set()
+            await broker.close()
+
+    async def test_ai_many_accounts_close_stops_queue_and_unloads_backend(self):
+        specification = importlib.util.spec_from_file_location('test_ai_domain', SCRIPT.with_name('ai-domain.py'))
+        module = importlib.util.module_from_spec(specification)
+        specification.loader.exec_module(module)
+        adapter = module.AiDomain.__new__(module.AiDomain)
+        gate = threading.Event()
+        calls = []
+        def account(identifier, row):
+            calls.append(row['id'])
+            gate.wait(2)
+            return dict(id=row['id'], windows=[dict(used=10)])
+        adapter.backend = Mock(usage_accounts=lambda: [('claude', dict(id=str(index))) for index in range(100)],
+                               collect_account=account, group_results=lambda results: dict(providers=list(results)))
+        adapter.accounts = adapter.backend.usage_accounts()
+        adapter.cached = lambda: dict(providers=[], updated=1)
+        adapter.save = lambda data: data
+        broker = broker_module.Broker(lambda frame: None)
+        self.assertEqual(broker.domains, {}, 'AI backend must be absent before demand')
+        broker.domains['ai'] = adapter
+        try:
+            for token in ('one', 'two'):
+                broker.request(dict(v=1, op='subscribe', topic='ai.usage', token=token))
+            await self.settle(lambda: len(calls) == 2)
+            self.assertEqual(broker.states['ai.usage']['data']['updated'], 1, 'cache appears before provider jobs finish')
+            broker.domains['power'] = Mock(read=lambda topic: dict(available=False))
+            broker.request(dict(v=1, op='subscribe', topic='power.battery', token='power'))
+            await self.settle(lambda: broker.states['power.battery']['status'] == 'ready')
+            for token in ('one', 'two'):
+                broker.request(dict(v=1, op='unsubscribe', topic='ai.usage', token=token))
+            gate.set()
+            await self.settle(lambda: broker.states['ai.usage']['task'] is None)
+            self.assertEqual(len(calls), 2, 'closed panels must not start queued provider jobs')
+            self.assertNotIn('ai', broker.domains, 'heavy AI backend released after last job drains')
+            self.assertNotIn('claude', json.dumps(broker.diagnostics()))
+        finally:
+            gate.set()
+            await broker.close()
+
+    async def test_new_domain_import_failure_does_not_break_other_domains(self):
+        for domain, topic in [('weather', 'weather.default'), ('ai', 'ai.usage')]:
+            broker = broker_module.Broker(lambda frame: None)
+            broker.domains['power'] = Mock(read=lambda topic: dict(available=False))
+            original = broker.load_domain
+            def load(name):
+                if name == domain:
+                    raise ImportError('private fixture text')
+                return original(name)
+            try:
+                with patch.object(broker, 'load_domain', side_effect=load):
+                    broker.request(dict(v=1, op='subscribe', topic=topic, token='bad'))
+                    broker.request(dict(v=1, op='subscribe', topic='power.battery', token='good'))
+                    await self.settle(lambda: all(broker.states[current]['task'] is None for current in (topic, 'power.battery')))
+                self.assertEqual(broker.states[topic]['error'], 'read-failed')
+                self.assertEqual(broker.states['power.battery']['status'], 'ready')
+                self.assertNotIn('private', json.dumps(broker.diagnostics()))
+            finally:
+                await broker.close()
+
+    async def test_ai_many_accounts_complete_in_order_with_offline_accounts_omitted(self):
+        specification = importlib.util.spec_from_file_location('test_ai_domain', SCRIPT.with_name('ai-domain.py'))
+        module = importlib.util.module_from_spec(specification)
+        specification.loader.exec_module(module)
+        adapter = module.AiDomain.__new__(module.AiDomain)
+        adapter.accounts = [('claude', dict(id=str(index))) for index in range(60)]
+        calls = []
+        def collect(identifier, account):
+            calls.append(account['id'])
+            return None if int(account['id']) % 3 == 0 else dict(id=account['id'], windows=[dict(used=10)])
+        adapter.backend = Mock(collect_account=collect, group_results=lambda results: dict(
+            providers=[account for identifier, account in results if account is not None]))
+        saved = []
+        adapter.save = lambda data: saved.append(data) or data
+        adapter.cached = lambda: dict(providers=[], updated=1)
+        broker = broker_module.Broker(lambda frame: None)
+        broker.domains['ai'] = adapter
+        try:
+            for token in ('screen-one', 'screen-two'):
+                broker.request(dict(v=1, op='subscribe', topic='ai.usage', token=token))
+            await self.settle(lambda: broker.states['ai.usage']['task'] is None)
+            self.assertEqual(len(calls), 60, 'each account is queried once across screens')
+            self.assertEqual(len(saved), 1)
+            self.assertEqual([account['id'] for account in saved[0]['providers']],
+                             [str(index) for index in range(60) if index % 3])
+            self.assertEqual(broker.states['ai.usage']['status'], 'ready')
+        finally:
+            await broker.close()

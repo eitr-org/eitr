@@ -8,13 +8,14 @@ const icons = {};
 vm.createContext(icons);
 vm.runInContext(fs.readFileSync(path.join(root, 'WeatherIcons.js'), 'utf8').replace(/^\.pragma library\s*/, ''), icons);
 
-// Every WMO group in weather-status.sh's weather_icon() maps to one forecast glyph.
-const script = fs.readFileSync(path.join(root, 'scripts', 'weather-status.sh'), 'utf8');
-const body = script.slice(script.indexOf('weather_icon() {'), script.indexOf('condition_text() {'));
-const scriptGroups = [...body.matchAll(/^\s*([0-9|]+)\)/gm)].map(match => match[1].split('|').map(Number));
-assert(scriptGroups.length >= 8, 'weather_icon groups not found');
-const libraryGroups = JSON.parse(JSON.stringify(icons.groups.map(group => group.codes)));
-assert.deepEqual(libraryGroups, scriptGroups);
+// Forecast groups cover the same WMO codes as the shared collector.
+const script = fs.readFileSync(path.join(root, 'scripts', 'weather-domain.py'), 'utf8');
+const body = script.slice(script.indexOf('def icon('), script.indexOf('def number('));
+const codes = [...body.matchAll(/code == (\d+)|code in \(([^)]+)\)/g)].flatMap(match =>
+    match[1] ? [Number(match[1])] : match[2].split(',').map(Number));
+const libraryCodes = icons.groups.flatMap(group => group.codes);
+assert.deepEqual([...libraryCodes].sort((left, right) => left - right),
+    [...codes, 3].sort((left, right) => left - right));
 
 const seen = new Set();
 for (const group of icons.groups) {

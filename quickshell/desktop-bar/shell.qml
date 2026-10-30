@@ -1811,14 +1811,12 @@ ShellRoot {
                     WeatherMenu {
                         id: weatherMenu
                         surfaceColor: shell.barBackground()
-                        defaultWeatherData: barWeather.latestData
                         target: shell.verticalBar ? verticalWeatherIcon : centerInfo
                         barEdge: shell.barEdge
                         centered: true
                         accent: shell.activeBg
                         foreground: shell.fg
                         background: shell.workspaceMenuBg
-                        onDefaultWeatherUpdated: function(data) { barWeather.updateData(data); }
                     }
 
                 }
@@ -2165,17 +2163,9 @@ ShellRoot {
         property string forecast: ""
         property var latestData: ({})
         property int dataRevision: 0
-        property int requestedRevision: 0
-
-        function refresh() {
-            if (process.running)
-                return ;
-
-            process.command = ["bash", Quickshell.shellDir + "/scripts/weather-status.sh"];
-            requestedRevision = dataRevision;
-            process.running = true;
-        }
-
+        readonly property var snapshot: DesktopData.topics["weather.default"]
+        function refresh() { DesktopData.refresh("weather.default"); }
+        onSnapshotChanged: if (snapshot && snapshot.data.temp) updateData(snapshot.data)
         function updateData(data) {
             dataRevision++;
             latestData = data;
@@ -2189,27 +2179,12 @@ ShellRoot {
             weather.forecast = String(data.forecast || "");
         }
 
-        function parse(raw) {
-            // A panel refresh may have supplied newer data during this request.
-            if (requestedRevision !== dataRevision) return;
-            var value = String(raw || "").trim();
-            if (value === "")
-                return ;
-
-            try {
-                var data = JSON.parse(value.split("\n").pop());
-                weather.updateData(data);
-            } catch (e) {
-                weather.text = "󰖐";
-                weather.condition = "Weather unavailable";
-            }
-        }
-
         readonly property string temperature: weather.temp || (weather.text.indexOf(" ") >= 0 ? weather.text.slice(weather.text.indexOf(" ") + 1).trim() : "")
         readonly property real contentWidth: Math.max(26, label.implicitWidth + 8)
         width: contentWidth
         height: 24
-        Component.onCompleted: if (autoRefresh) refresh()
+        Component.onCompleted: if (autoRefresh) DesktopData.observe("weather.default", weather)
+        Component.onDestruction: DesktopData.releaseOwner(weather)
 
         Row {
             id: label
@@ -2250,28 +2225,6 @@ ShellRoot {
             hovered: weatherMouse.containsMouse
             // Vertical bars show only the icon; the temperature moves to the tooltip.
             text: weather.compact && weather.temperature ? Eitr.I18n.tr("Weather") + " · " + weather.temperature : Eitr.I18n.tr("Weather")
-        }
-
-        Timer {
-            interval: 900000
-            running: weather.autoRefresh
-            repeat: true
-            onTriggered: weather.refresh()
-        }
-
-        Process {
-            id: process
-
-            running: false
-            command: []
-            onExited: weather.parse(weatherOutput.text)
-
-            stdout: StdioCollector {
-                id: weatherOutput
-
-                waitForEnd: true
-            }
-
         }
 
     }

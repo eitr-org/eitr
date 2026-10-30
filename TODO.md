@@ -37,7 +37,8 @@ LAN.
 - **Shared data service for the bar (refactor, after the improvements).** One
   long-running helper instead of ~33 short-lived scripts: one reader per piece of
   data, one set of tests, consistent timeouts and refresh-on-open, easier to trace.
-  Migrate one panel at a time.
+  WiFi, capture, power, display, hardware, remote access, weather and AI usage now
+  use the broker. Updates remain to migrate; screen acceptance is still pending.
 - **hyprpaper crash without a GPU: follow upstream.** hyprpaper segfaults in VMs
   without 3D acceleration (hyprwm/hyprtoolkit#144); the bar now draws the still
   wallpaper on any screen hyprpaper does not answer for. Drop the note once a fixed

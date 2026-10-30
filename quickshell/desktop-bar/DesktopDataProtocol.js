@@ -1,4 +1,5 @@
 function createClient(send, changed) {
+    const queries = {};
     const tokens = {};
     const states = {};
     let epoch = "";
@@ -65,6 +66,18 @@ function createClient(send, changed) {
         delete tokens[token];
         changed();
     }
+    function queryWeather(name, args, owner, callback) {
+        if (!online) { callback("broker-unavailable", {}); return ""; }
+        const id = "query-" + (++sequence);
+        queries[id] = {owner: owner, callback: callback};
+        send({v: 1, op: "query", topic: "weather", name: name, args: args, id: id});
+        return id;
+    }
+    function cancelQuery(id) {
+        if (!queries[id]) return;
+        delete queries[id];
+        if (online) send({v: 1, op: "cancel", topic: "weather", id: id});
+    }
     function receive(text) {
         if (text.length > 262144) return;
         let frame;
@@ -76,6 +89,10 @@ function createClient(send, changed) {
             online = true;
             if (capturePresent) send({v: 1, op: "presence", topic: "capture", present: true});
             Object.keys(tokens).forEach(token => request("subscribe", tokens[token].topic, token));
+        } else if (online && frame.epoch === epoch && frame.op === "reply" && frame.topic === "weather") {
+            const query = queries[frame.id];
+            delete queries[frame.id];
+            if (query) query.callback(frame.error || "", frame.data || {});
         } else if (online && frame.epoch === epoch && frame.topic === "power" && frame.op === "domain") {
             powerDomain.busy = frame.busy === true || Object.keys(powerActions).length > 0;
             if (frame.busy === true || !powerDomain.busy) powerDomain.name = frame.name || "";
@@ -115,7 +132,7 @@ function createClient(send, changed) {
             }
             if (callback) callback(frame.error || "", frame.message || "");
         } else if (online && frame.epoch === epoch && frame.op === "state") {
-            if (!["remote.availability", "remote.status", "hardware.details", "display.topology", "display.settings", "display.brightness", "display.nightlight", "power.battery", "power.profile", "power.radios", "network.summary", "network.details", "network.latency", "capture.summary", "capture.details", "capture.options"].includes(frame.topic)
+            if (!["weather.default", "ai.usage", "remote.availability", "remote.status", "hardware.details", "display.topology", "display.settings", "display.brightness", "display.nightlight", "power.battery", "power.profile", "power.radios", "network.summary", "network.details", "network.latency", "capture.summary", "capture.details", "capture.options"].includes(frame.topic)
                 || !Number.isInteger(frame.seq) || frame.seq < 0
                 || !["loading", "ready", "unavailable", "stale", "error"].includes(frame.status)
                 || !frame.data || typeof frame.data !== "object") return;
@@ -141,6 +158,9 @@ function createClient(send, changed) {
     }
     function died() {
         online = false;
+        Object.keys(queries).forEach(id => {
+            const query = queries[id]; delete queries[id]; query.callback("broker-unavailable", {});
+        });
         powerReconcile = {"power.profile": true, "power.radios": true}; powerReconcileSeq = {"power.profile": -1, "power.radios": -1};
         powerDomain.busy = false; powerDomain.name = "";
         Object.keys(powerActions).forEach(id => delete powerActions[id]);
@@ -161,12 +181,15 @@ function createClient(send, changed) {
         });
         changed();
     }
-    return {setCapturePresence: present => {
+    return {queryWeather: queryWeather, cancelQuery: cancelQuery, setCapturePresence: present => {
             capturePresent = present;
             if (online) send({v: 1, op: "presence", topic: "capture", present: present});
         }, actPower: actPower, powerDomain: powerDomain, actCapture: actCapture, captureDomain: captureDomain, act: act, detachAction: detachAction, domain: domain, online: () => online, epoch: () => epoch, tokens: tokens, states: states, observe: observe, release: release, receive: receive, died: died,
         refresh: topic => request("refresh", topic),
-        releaseOwner: owner => Object.keys(tokens).filter(token => tokens[token].owner === owner).forEach(release),
+        releaseOwner: owner => {
+            Object.keys(queries).filter(id => queries[id].owner === owner).forEach(cancelQuery);
+            Object.keys(tokens).filter(token => tokens[token].owner === owner).forEach(release);
+        },
         count: topic => Object.keys(tokens).filter(token => tokens[token].topic === topic).length};
 }
 function restartDelay(failures, random) {

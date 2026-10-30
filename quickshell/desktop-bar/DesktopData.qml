@@ -21,6 +21,8 @@ QtObject {
     function release(token) { client.release(token); }
     function releaseOwner(owner) { client.releaseOwner(owner); }
     function refresh(topic) { client.refresh(topic); }
+    function queryWeather(name, args, owner, callback) { return client.queryWeather(name, args, owner, callback); }
+    function cancelQuery(id) { client.cancelQuery(id); }
     function retry() {
         if (broker.running) return;
         failures = 0;
@@ -32,7 +34,7 @@ QtObject {
     function status() {
         if (broker.running) send({v: 1, op: "status", id: "diagnostics"});
         const result = {};
-        ["remote.availability", "remote.status", "hardware.details", "display.topology", "display.settings", "display.brightness", "display.nightlight", "power.battery", "power.profile", "power.radios", "network.summary", "network.details", "network.latency", "capture.summary", "capture.details", "capture.options"].forEach(topic => {
+        ["weather.default", "ai.usage", "remote.availability", "remote.status", "hardware.details", "display.topology", "display.settings", "display.brightness", "display.nightlight", "power.battery", "power.profile", "power.radios", "network.summary", "network.details", "network.latency", "capture.summary", "capture.details", "capture.options"].forEach(topic => {
             const state = topics[topic];
             result[topic] = Object.assign({}, diagnostics[topic], {
                 ageMs: state && state.updatedAt ? Date.now() - state.updatedAt : null,

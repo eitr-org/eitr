@@ -1,7 +1,7 @@
 .pragma library
 
 // Forecast glyphs for open-meteo WMO weather codes, grouped like
-// weather_icon() in scripts/weather-status.sh.
+// icon() in scripts/weather-domain.py.
 var groups = [
     {codes: [0], icon: "󰖙"},
     {codes: [1, 2], icon: "󰖕"},

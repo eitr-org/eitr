@@ -15,7 +15,7 @@ import uuid
 
 MAX_FRAME = 262144
 MAX_RESULT = MAX_FRAME // 2
-INTERVALS = {"remote.availability": float("inf"), "remote.status": 10, "hardware.details": 2, "display.topology": float("inf"), "display.settings": float("inf"),
+INTERVALS = {"weather.default": 900, "ai.usage": 300, "remote.availability": float("inf"), "remote.status": 10, "hardware.details": 2, "display.topology": float("inf"), "display.settings": float("inf"),
              "display.brightness": 3, "display.nightlight": 3, "network.summary": 10, "network.details": 2, "network.latency": 15,
              "power.battery": 30, "power.profile": 5, "power.radios": 5,
              "capture.summary": 2, "capture.details": 2, "capture.options": float("inf")}
@@ -142,8 +142,12 @@ class Broker:
         self.capture = CaptureController(self)
         self.domains = {}
         self.domain_jobs = {}
-        self.read_slots = {name: asyncio.Semaphore(2) for name in ("network", "capture", "power", "display", "hardware", "remote")}
-        self.domain_locks = {name: threading.Lock() for name in ("network", "capture", "power", "display", "hardware", "remote")}
+        self.read_slots = {name: asyncio.Semaphore(2) for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai")}
+        self.domain_locks = {name: threading.Lock() for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai")}
+        self.read_slots["weather"] = asyncio.Semaphore(1)
+        self.ai_cooldowns = {}
+        self.queries = {}
+        self.query_history = deque(maxlen=256)
         self.periods = {}
         self.adapter = None
         self.reader = reader or self.read
@@ -171,6 +175,8 @@ class Broker:
                 module = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(module)
                 self.domains[name] = module if name == "network" else getattr(module, name.title() + "Domain")()
+                if name == "ai":
+                    self.domains[name].backend.COOLDOWNS = self.ai_cooldowns
             return self.domains[name]
 
     @property
@@ -217,6 +223,16 @@ class Broker:
             finally:
                 if future.done():
                     self.domain_jobs.pop(domain, None)
+        if topic == "ai.usage" and self.reader == self.read:
+            generation = self.states[topic]["generation"]
+            adapter = self.domains["ai"]
+            cached = await loop.run_in_executor(self.executor, adapter.cached)
+            state = self.states[topic]
+            if self.wanted(topic) and generation == state["generation"] and loop.time() < deadline:
+                state.update(data=cached, status="ready", success=time.monotonic())
+                state["seq"] += 1
+                self.snapshot(topic)
+            return cached
         async with self.read_slots[domain]:
             # refresh() already admitted this read while observed. A later close
             # invalidates its result in update(), without retracting the read.
@@ -246,7 +262,7 @@ class Broker:
         self.emit(dict(v=1, op="state", topic=topic, token=token, id=request, epoch=self.epoch,
                        seq=state["seq"], status=state["status"], data=state["data"], ageMs=self.age(state),
                        error=state["error"], **({"inFlight": bool(state["task"]), "pending": state["pending"]}
-                                              if topic.startswith("remote.") else {})))
+                                              if topic.startswith(("remote.", "ai.", "weather.")) else {})))
 
     def diagnostics(self):
         return {topic: dict(ageMs=self.age(state), lastError=state["error"],
@@ -277,14 +293,14 @@ class Broker:
             return
         if state["task"]:
             state["pending"] = True
-            if topic.startswith("remote."):
+            if topic.startswith(("remote.", "ai.", "weather.")):
                 self.snapshot(topic)
             return
         state["pending"] = False
         state["id"] = request
         state["task"] = asyncio.create_task(self.update(topic, state["generation"]))
         self.schedule_changed.set()
-        if topic.startswith("remote."):
+        if topic.startswith(("remote.", "ai.", "weather.")):
             self.snapshot(topic)
         self.jobs.add(state["task"])
         state["task"].add_done_callback(self.jobs.discard)
@@ -306,7 +322,7 @@ class Broker:
         started = time.monotonic()
         timed_out = False
         try:
-            budget = 10 if topic == "remote.status" else 16 if topic == "display.topology" else 9 if topic == "display.brightness" else 25 if topic == "capture.details" else 10 if topic == "capture.summary" else self.timeout
+            budget = 17 if topic == "weather.default" else 10 if topic == "remote.status" else 16 if topic == "display.topology" else 9 if topic == "display.brightness" else 25 if topic == "capture.details" else 10 if topic == "capture.summary" else self.timeout
             if self.timeout < 5:
                 budget = min(budget, self.timeout)
             future = asyncio.create_task(self.read_in_pool(topic, asyncio.get_running_loop().time() + budget))
@@ -316,6 +332,19 @@ class Broker:
                 if not done:
                     raise TimeoutError()
                 result = future.result()
+                if topic == "ai.usage" and self.reader == self.read and generation == state["generation"]:
+                    adapter = self.domains["ai"]
+                    budget = max(30, 25 * ((len(adapter.accounts) + 1) // 2))
+                    if self.timeout < 5:
+                        budget = min(budget, self.timeout)
+                    future = asyncio.create_task(adapter.collect(self.executor,
+                        lambda: self.wanted(topic) and generation == state["generation"],
+                        asyncio.get_running_loop().time() + budget))
+                    future.add_done_callback(lambda completed: completed.exception() if not completed.cancelled() else None)
+                    done, _ = await asyncio.wait([future], timeout=budget)
+                    if not done:
+                        raise TimeoutError()
+                    result = future.result()
             except TimeoutError:
                 timed_out = True
                 if generation == state["generation"]:
@@ -356,9 +385,14 @@ class Broker:
             state["task"] = None
             state["durationMs"] = int((time.monotonic() - started) * 1000)
             state["due"] = time.monotonic() + min([self.periods.get(token, INTERVALS[topic]) for token, subscribed in self.tokens.items() if subscribed == topic] or [INTERVALS[topic]])
+            if topic == "weather.default":
+                expiry = getattr(self.domains.get("weather"), "next_refresh", None)
+                if isinstance(expiry, (int, float)):
+                    state["due"] = max(time.monotonic(), expiry)
             if (timed_out or generation != state["generation"]) and state["pending"] and self.wanted(topic):
                 state["pending"] = False
                 state["due"] = time.monotonic()
+            self.release_ai()
             self.schedule_changed.set()
             if timed_out and topic.startswith("remote.") and generation == state["generation"]:
                 self.snapshot(topic, request=state["id"])
@@ -505,6 +539,51 @@ class Broker:
             self.schedule_changed.set()
             self.action_state()
 
+    def release_ai(self):
+        if not self.wanted("ai.usage") and not self.states["ai.usage"]["task"]:
+            self.domains.pop("ai", None)
+
+    async def query_weather(self, frame, cancelled):
+        request = frame["id"]
+        error, result = "", {}
+        loop = asyncio.get_running_loop()
+        deadline = loop.time() + 17
+        def read():
+            if cancelled.is_set() or time.monotonic() >= deadline:
+                return {}
+            adapter = self.load_domain("weather")
+            if cancelled.is_set():
+                return {}
+            if frame["name"] == "search":
+                return adapter.search(frame["args"]["query"], deadline)
+            return adapter.weather(frame["args"]["city"], deadline=deadline)
+        async def admitted():
+            async with self.read_slots["weather"]:
+                return await loop.run_in_executor(self.executor, read)
+        future = asyncio.create_task(admitted())
+        try:
+            done, _ = await asyncio.wait([future], timeout=17)
+            if not done:
+                error = "timeout"
+                cancelled.set()
+            else:
+                result = future.result()
+                if len(json.dumps(result).encode()) > MAX_RESULT:
+                    raise ValueError("oversize-result")
+        except Exception:
+            error = "read-failed"
+        if not cancelled.is_set() or error:
+            self.emit(dict(v=1, op="reply", topic="weather", id=request, epoch=self.epoch,
+                           error=error, data=result))
+        # Hold the admission slot until a timed out worker actually drains.
+        if not future.done():
+            await asyncio.wait([future])
+            try:
+                future.result()
+            except Exception:
+                pass
+        self.queries.pop(request, None)
+
     def request(self, frame):
         if not isinstance(frame, dict) or type(frame.get("v")) is not int or frame["v"] != 1:
             raise ValueError("invalid-version")
@@ -530,6 +609,36 @@ class Broker:
             return
         if operation == "action" and topic == "network":
             self.enqueue_action(frame)
+            return
+        if operation == "cancel" and topic == "weather":
+            if request in self.queries:
+                self.queries[request].set()
+            return
+        if operation == "query" and topic == "weather":
+            args, name = frame.get("args"), frame.get("name")
+            if len(self.queries) >= 8:
+                self.emit(dict(v=1, op="reply", topic="weather", id=request, epoch=self.epoch,
+                               error="busy", data={}))
+                return
+            if not request or request in self.query_history or not isinstance(args, dict):
+                raise ValueError("invalid-query")
+            if name == "search":
+                if not isinstance(args.get("query"), str) or not 2 <= len(args["query"]) <= 200:
+                    raise ValueError("invalid-query")
+            elif name == "city":
+                city = args.get("city")
+                if not isinstance(city, dict) or not isinstance(city.get("name"), str) or any(
+                        type(city.get(key)) not in (int, float) or not -limit <= city[key] <= limit
+                        for key, limit in (("latitude", 90), ("longitude", 180))):
+                    raise ValueError("invalid-query")
+            else:
+                raise ValueError("invalid-query")
+            self.query_history.append(request)
+            cancelled = threading.Event()
+            self.queries[request] = cancelled
+            task = asyncio.create_task(self.query_weather(frame, cancelled))
+            self.jobs.add(task)
+            task.add_done_callback(self.jobs.discard)
             return
         if topic not in self.states:
             raise ValueError("invalid-topic")
@@ -557,6 +666,7 @@ class Broker:
                 state = self.states[topic]
                 state["generation"] += 1
                 state["pending"] = False
+                self.release_ai()
         elif operation == "refresh":
             request = frame.get("id", "")
             if not isinstance(request, str) or len(request) > 128:
@@ -586,6 +696,8 @@ class Broker:
     async def close(self):
         self.closing = True
         self.tokens.clear()
+        for cancelled in self.queries.values():
+            cancelled.set()
         self.periods.clear()
         tasks = list(self.jobs)
         for task in tasks:

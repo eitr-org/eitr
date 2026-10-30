@@ -13,9 +13,8 @@ One OBS status source refreshes every 2 s while an OBS window/process exists;
 open recording details supply that snapshot instead. A startup probe discovers
 an existing tray instance; subsequent OBS window events activate observation.
 Remote details share the broker’s `remote.status` topic and refresh on opening and every 10 s while observed; closed panels
-only read policy availability at startup and policy changes. AI and weather
-popup refresh timers run only while open; the weather glyph keeps its 15 min
-schedule.
+only read policy availability at startup and policy changes. Weather shares one default forecast across screens with a 15 min cache and schedule.
+AI usage refreshes on opening and every 5 min only while a usage menu is open.
 
 Live artwork decodes at the output's pixel dimensions. Aurora runs at 20 Hz on
 an empty workspace and 5 Hz behind ordinary windows, retaining fullscreen and
@@ -940,3 +939,26 @@ it cannot prevent broker startup or another domain's reads. Capture's ordered
 action controller belongs to the broker, separate from its lazy read adapter.
 `eitr-shell desktop-bar ipc call -- data status` includes hardware demand,
 freshness and read errors without scheduling periodic diagnostics.
+
+### Weather and AI data ownership
+
+`weather.default` shares the weather calculation and compatible disk cache with
+`weather-status.sh` and `weather-popup.py`. All bar screens and default-location
+panels consume it; the broker schedules one 15-minute reader. Opening a panel
+checks the same 15-minute cache. City search and alternate forecasts use bounded
+`query`/`reply` requests addressed to the requesting panel, cancelled on close or
+replacement. They never replace the default forecast or its disk cache. Alternate
+cities remain session-only. HTTP calls have five-second limits within a total
+17-second budget; provider 429 responses establish cooldowns.
+
+`ai.usage` refreshes on opening and every five minutes only while observed.
+The shared adapter reconciles cached accounts before refreshing; at most two
+account jobs use the three-thread broker pool, leaving room for other domains.
+Closing the last menu prevents queued accounts from starting; active calls drain
+under their existing command/HTTP timeouts. The AI adapter is then released, so
+its provider implementation is not retained at idle. Account cooldown deadlines
+survive adapter release without retaining provider payloads. `ai-popup.py` and
+`ai-usage.py` retain their standalone interfaces and compatible cache; the popup's
+session selection file is unchanged. Diagnostics expose only topic-level codes
+and counters, never account identifiers or provider responses. Adapter imports
+and reads run lazily in the bounded pool; an import failure affects only its domain.

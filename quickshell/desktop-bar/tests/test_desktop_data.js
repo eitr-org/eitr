@@ -249,3 +249,25 @@ const remoteService = fs.readFileSync(path.join(bar, 'RemoteAccessService.qml'),
 assert.doesNotMatch(remoteService, /\b(?:Process|Timer)\s*\{/);
 assert.match(remoteService, /Component.onDestruction: DesktopData.releaseOwner\(service\)/);
 console.log('remote state, read activity, restart and closed-panel replay passed');
+
+const scopedFrames = [];
+const scoped = createClient(frame => scopedFrames.push(frame), () => {});
+scoped.receive(JSON.stringify({v: 1, op: 'hello', epoch: 'scoped'}));
+let cityReply = null;
+const cancelledCity = scoped.queryWeather('city', {city: {}}, 'closed', (error, data) => { cityReply = data; });
+const retainedCity = scoped.queryWeather('city', {city: {}}, 'open', (error, data) => { cityReply = data; });
+scoped.releaseOwner('closed');
+assert(scopedFrames.some(frame => frame.op === 'cancel' && frame.id === cancelledCity));
+scoped.receive(JSON.stringify({v: 1, op: 'reply', topic: 'weather', epoch: 'scoped', id: cancelledCity, data: {temp: 'old'}}));
+assert.equal(cityReply, null);
+scoped.receive(JSON.stringify({v: 1, op: 'reply', topic: 'weather', epoch: 'scoped', id: retainedCity, data: {temp: 'new'}}));
+assert.equal(cityReply.temp, 'new');
+scoped.queryWeather('search', {query: 'city'}, 'open', error => { cityReply = error; });
+scoped.died();
+assert.equal(cityReply, 'broker-unavailable');
+const weatherMenu = fs.readFileSync(path.join(bar, 'WeatherMenu.qml'), 'utf8');
+const aiMenu = fs.readFileSync(path.join(bar, 'AiUsageMenu.qml'), 'utf8');
+assert.doesNotMatch(weatherMenu, /\bProcess\s*\{/);
+assert.doesNotMatch(aiMenu, /\b(?:Process|Timer)\s*\{/);
+assert.match(aiMenu, /if \(opened\)[\s\S]*DesktopData.observe\("ai.usage", menu\)/);
+console.log('weather request ownership and AI open-only demand passed');
