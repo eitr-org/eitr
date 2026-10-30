@@ -25,7 +25,7 @@ class IdleLockBindingsTests(unittest.TestCase):
         self.assertLess(vertical.index("id: verticalAiIcon"), vertical.index("id: verticalIdleLockIcon"))
 
     def test_shared_status_icon_forwards_the_actual_button(self):
-        component = SHELL.split("component StatusIcon: Item", 1)[1].split("component VerticalBarIcon", 1)[0]
+        component = (ROOT / "StatusIcon.qml").read_text()
         self.assertIn("signal clicked(int button)", component)
         self.assertIn("item.clicked(event.button)", component)
 

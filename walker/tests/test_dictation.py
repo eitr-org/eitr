@@ -242,13 +242,14 @@ class DictationTests(unittest.TestCase):
         self.assertFalse(any(path.suffix != ".lock" for path in (self.base / "runtime").iterdir()))
 
     def test_the_bar_shows_the_recording_dot_while_listening(self):
-        shell = (ROOT / "quickshell/desktop-bar/shell.qml").read_text()
+        bar = ROOT / "quickshell/desktop-bar"
+        shell = (bar / "shell.qml").read_text() + (bar / "CaptureIndicator.qml").read_text()
         self.assertIn('target: "dictation"', shell)
         for binding in ("dictating: shell.dictating", "transcribing: shell.transcribing", "dictationLevels: shell.dictationLevels"):
             self.assertEqual(shell.count(binding), 2, "horizontal and vertical bars: " + binding)
         self.assertIn('text: capture.dictating ? Eitr.I18n.tr("Dictating") : capture.transcribing ? Eitr.I18n.tr("Transcribing")', shell)
         # The indicator sits just before the clock on both bar orientations.
-        self.assertIn("component CaptureIndicator: Item", shell)
+        self.assertTrue((bar / "CaptureIndicator.qml").read_text().startswith("import QtQuick"))
         self.assertIn("id: barCapture\n                        anchors.right: centerInfo.left", shell)
         self.assertIn("id: verticalCapture\n                            anchors.bottom: verticalCalendarIcon.top", shell)
         self.assertIn("node: Pipewire.defaultAudioSource", shell, "the waveform follows the microphone dictation records")

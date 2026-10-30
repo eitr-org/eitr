@@ -1,6 +1,13 @@
 singleton DesktopFonts 1.0 DesktopFonts.qml
 singleton DesktopStyle 1.0 DesktopStyle.qml
 singleton AudioDevices 1.0 AudioDevices.qml
+singleton PluginRegistry 1.0 PluginRegistry.qml
+singleton SpectrumProvider 1.0 SpectrumProvider.qml
+singleton FocusMode 1.0 FocusMode.qml
+singleton ObsStatus 1.0 ObsStatus.qml
+singleton DesktopData DesktopData.qml
+singleton PowerService 1.0 PowerService.qml
+singleton DisplayService 1.0 DisplayService.qml
 AiUsageMenu AiUsageMenu.qml
 AppearancePicker AppearancePicker.qml
 AudioLevelControl AudioLevelControl.qml
@@ -61,40 +68,34 @@ WorkspaceStyleMenu WorkspaceStyleMenu.qml
 RemoteAccessService RemoteAccessService.qml
 RemoteAccessContent RemoteAccessContent.qml
 RemoteAccessMenu RemoteAccessMenu.qml
-
 TimePicker 1.0 TimePicker.qml
 EitrLogo EitrLogo.qml
 AssistantChat AssistantChat.qml
 PluginArea PluginArea.qml
 PluginComponent PluginComponent.qml
-singleton PluginRegistry 1.0 PluginRegistry.qml
 PluginWidget PluginWidget.qml
 PluginDesktop PluginDesktop.qml
 PluginBarItems PluginBarItems.qml
 PluginPanel PluginPanel.qml
 PluginManagement PluginManagement.qml
-singleton SpectrumProvider 1.0 SpectrumProvider.qml
 SpectrumConsumer SpectrumConsumer.qml
 PluginManager 1.0 PluginManager.qml
 PluginWidgetMenu 1.0 PluginWidgetMenu.qml
-
 BarAutoHide 1.0 BarAutoHide.qml
-
 MediaIndicator 1.0 MediaIndicator.qml
 CenteredBarMask CenteredBarMask.qml
 DockClients DockClients.qml
 EdgeDock EdgeDock.qml
 EdgeDockContent EdgeDockContent.qml
 IslandMask IslandMask.qml
-
-singleton FocusMode 1.0 FocusMode.qml
 FocusStrip FocusStrip.qml
-
-singleton ObsStatus 1.0 ObsStatus.qml
 PreferenceWatch PreferenceWatch.qml
 NetworkService NetworkService.qml
-singleton DesktopData DesktopData.qml
-
-singleton PowerService 1.0 PowerService.qml
-
-singleton DisplayService 1.0 DisplayService.qml
+BarButton BarButton.qml
+StatusIcon StatusIcon.qml
+VerticalBarIcon VerticalBarIcon.qml
+StatusCommand StatusCommand.qml
+CaptureIndicator CaptureIndicator.qml
+WeatherWidget WeatherWidget.qml
+NotificationWidget NotificationWidget.qml
+ClockButton ClockButton.qml

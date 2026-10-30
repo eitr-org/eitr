@@ -176,7 +176,7 @@
       "quickshell/calculator/CalculatorView.qml"
     ],
     "Calendar": [
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/ClockButton.qml"
     ],
     "Cancel": [
       "quickshell/desktop-bar/TimePicker.qml",
@@ -357,7 +357,7 @@
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Dictating": [
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/CaptureIndicator.qml"
     ],
     "Disable effects and popups; use the performance profile.": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -383,7 +383,7 @@
     "Do Not Disturb": [
       "quickshell/desktop-bar/ControlCenter.qml",
       "quickshell/desktop-bar/NotificationList.qml",
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/NotificationWidget.qml"
     ],
     "Dock": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -763,7 +763,7 @@
       "quickshell/desktop-bar/WifiMenu.qml"
     ],
     "No notifications": [
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/NotificationWidget.qml"
     ],
     "No occupied workspaces": [
       "quickshell/desktop-bar/WorkspaceOverview.qml"
@@ -1319,7 +1319,7 @@
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Transcribing": [
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/CaptureIndicator.qml"
     ],
     "UNLOCK": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml",
@@ -1406,7 +1406,7 @@
     "Weather": [
       "quickshell/desktop-bar/ControlCenter.qml",
       "quickshell/desktop-bar/WeatherMenu.qml",
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/WeatherWidget.qml"
     ],
     "Webcam": [
       "quickshell/desktop-bar/ObsMenu.qml"
@@ -1444,13 +1444,13 @@
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
     "ddd MMM dd": [
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/ClockButton.qml"
     ],
     "ddd MMM dd HH:mm": [
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/ClockButton.qml"
     ],
     "ddd MMM dd hh:mm AP": [
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/ClockButton.qml"
     ],
     "good afternoon": [
       "quickshell/lockscreen/themes/girl-coffee/Main.qml"
@@ -1486,11 +1486,11 @@
     ],
     "{count} notification": [
       "quickshell/desktop-bar/NotificationGroup.qml",
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/NotificationWidget.qml"
     ],
     "{count} notifications": [
       "quickshell/desktop-bar/NotificationGroup.qml",
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/NotificationWidget.qml"
     ],
     "{day} · WEEK {week} · {year}": [
       "quickshell/desktop-bar/CalendarMenu.qml"
