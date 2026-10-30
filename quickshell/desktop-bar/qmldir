@@ -99,3 +99,4 @@ CaptureIndicator CaptureIndicator.qml
 WeatherWidget WeatherWidget.qml
 NotificationWidget NotificationWidget.qml
 ClockButton ClockButton.qml
+WelcomeSession WelcomeSession.qml
