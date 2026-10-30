@@ -4274,6 +4274,9 @@
     "AUR package not found": [
       "walker/scripts/actions/install/software.py"
     ],
+    "AUR packages are made by the community and are not reviewed by Eitr or Arch Linux. Read the build file before installing.": [
+      "walker/scripts/actions/install/software.py"
+    ],
     "AWS SSO (IAM Identity Center)": [
       "walker/scripts/menus/cloud/accounts.py"
     ],
@@ -4998,6 +5001,9 @@
     "Creating the theme…": [
       "walker/scripts/actions/style/own.py"
     ],
+    "Ctrl+B: view build file · Ctrl+O: open in browser": [
+      "walker/scripts/actions/install/software.py"
+    ],
     "Current Disk Usage": [
       "walker/scripts/actions/system/cleanup.sh"
     ],
@@ -5300,6 +5306,9 @@
     ],
     "Enter: apply  Left: back  PgUp/PgDn: scroll  Esc: cancel": [
       "distro/lib/eitr_wizard.py"
+    ],
+    "Enter: confirm · Esc: cancel": [
+      "walker/scripts/actions/install/software.py"
     ],
     "Enter: continue  Esc: back": [
       "distro/lib/eitr_wizard.py"
@@ -5633,6 +5642,9 @@
     ],
     "Install type {layout} is not available on {path}": [
       "distro/archinstall/eitr-guided-install"
+    ],
+    "Install {name} from {source}.": [
+      "walker/scripts/actions/install/software.py"
     ],
     "Install {package} first: sudo pacman -Syu --needed {package_2}": [
       "distro/system/network-backend.py"
@@ -6332,6 +6344,10 @@
     "PCR policy: {TPM_PCRS} (Secure Boot state). Firmware or Secure Boot key changes require the passphrase once, then re-enrollment.": [
       "distro/system/eitr-system.py"
     ],
+    "Package actions require a terminal.": [
+      "distro/bin/eitr",
+      "walker/scripts/actions/install/software.py"
+    ],
     "Package picker failed": [
       "walker/scripts/actions/install/software.py"
     ],
@@ -6707,6 +6723,9 @@
     ],
     "Remove {label} and its folder rules? Keys stay on disk.": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Remove {name}.": [
+      "walker/scripts/actions/install/software.py"
     ],
     "Remove: {value}": [
       "distro/lib/eitr_profile.py"
@@ -7259,6 +7278,9 @@
     ],
     "Tab / arrows: choose  Enter: select  PgUp/PgDn: scroll  Esc: cancel": [
       "distro/archinstall/installer-ui.py"
+    ],
+    "Tab select · Enter install · Ctrl+D remove\nCtrl+F installed/all · Ctrl+B build file / details\nCtrl+O open in browser · Esc cancel": [
+      "walker/scripts/actions/install/software.py"
     ],
     "Tailscale IP": [
       "quickshell/desktop-bar/scripts/remote-status.py"
@@ -8355,11 +8377,17 @@
     "{name} from {snapshot_date} is at {target}": [
       "walker/scripts/actions/system/restore-file.py"
     ],
+    "{name} is already installed.": [
+      "walker/scripts/actions/install/software.py"
+    ],
     "{name} is in Development > Monitoring.": [
       "walker/scripts/actions/development/monitoring.py"
     ],
     "{name} is in Style > Wallpaper and the wallpaper carousel.": [
       "walker/scripts/actions/style/own.py"
+    ],
+    "{name} is not installed.": [
+      "walker/scripts/actions/install/software.py"
     ],
     "{name} starts charging at {charge_percent}%; choose a limit above that. Nothing was changed.": [
       "distro/system/eitr-system.py"

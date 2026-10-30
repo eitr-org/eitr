@@ -1413,5 +1413,14 @@
   "PgUp/PgDn: scroll  Enter: download for review  Left: back  Esc: cancel": "PgUp/PgDn: scroll  Enter: download for review  Left: back  Esc: cancel",
   "Arrows: move  Space: select  Enter: review  Left: back  Esc: cancel": "Arrows: move  Space: select  Enter: review  Left: back  Esc: cancel",
   "Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr project. Like every plugin, it runs with your account’s full permissions.": "Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr project. Like every plugin, it runs with your account’s full permissions.",
-  "Official Eitr plugin": "Official Eitr plugin"
+  "Official Eitr plugin": "Official Eitr plugin",
+  "AUR packages are made by the community and are not reviewed by Eitr or Arch Linux. Read the build file before installing.": "AUR packages are made by the community and are not reviewed by Eitr or Arch Linux. Read the build file before installing.",
+  "Ctrl+B: view build file · Ctrl+O: open in browser": "Ctrl+B: view build file · Ctrl+O: open in browser",
+  "Enter: confirm · Esc: cancel": "Enter: confirm · Esc: cancel",
+  "Install {name} from {source}.": "Install {name} from {source}.",
+  "Package actions require a terminal.": "Package actions require a terminal.",
+  "Remove {name}.": "Remove {name}.",
+  "Tab select · Enter install · Ctrl+D remove\nCtrl+F installed/all · Ctrl+B build file / details\nCtrl+O open in browser · Esc cancel": "Tab select · Enter install · Ctrl+D remove\nCtrl+F installed/all · Ctrl+B build file / details\nCtrl+O open in browser · Esc cancel",
+  "{name} is already installed.": "{name} is already installed.",
+  "{name} is not installed.": "{name} is not installed."
 }

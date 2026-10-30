@@ -8,7 +8,7 @@ Eingaben im Hauptmenü suchen installierte Apps und Aktionen aus allen Untermen�
 
 ## Installieren
 
-Drücke Delete bei einem installierten Eintrag in den Anwendungs- und Werkzeuglisten unter Installieren, um ihn nach einer Bestätigung zu deinstallieren. Web-Apps behalten ihre Aktion zum Entfernen. Pakete (Pacman und Yay) dienen weiterhin nur zur Installation und haben keine Delete-Aktion. Erforderliche Systemabhängigkeiten werden nie rekursiv entfernt. pacman verweigert das Entfernen, wenn dadurch ein anderes Paket beschädigt würde.
+Drücke Delete bei einem installierten Eintrag in den Anwendungs- und Werkzeuglisten unter Installieren, um ihn nach einer Bestätigung zu deinstallieren. Web-Apps behalten ihre Aktion zum Entfernen. In den Paketlisten (Pacman und Yay) entfernt Ctrl+D das markierte installierte Paket nach Bestätigung. Ctrl+F wechselt zwischen installierten und allen Paketen. Eitr-Pakete bleiben installiert. Erforderliche Systemabhängigkeiten werden nie rekursiv entfernt. pacman verweigert das Entfernen, wenn dadurch ein anderes Paket beschädigt würde.
 
 Bei verwalteten Sprachpaketen siehst du zunächst die vollständige Warnung im Terminal. Danach bestätigst du mit [y/N]; Enter bricht ab. Bei Node werden alle von NVM verwalteten Versionen und ihre globalen npm-Werkzeuge entfernt. Bei Python betrifft dies die von uv verwalteten Versionen und uv selbst, nicht System-Python. Bei Java werden die aktuellen SDKMAN-Versionen von Java und Maven entfernt, bei Rust nur die stabile Toolchain. Rails und Laravel entfernen ihre Framework-Werkzeuge; Ruby, PHP und Composer bleiben erhalten. Projekte, Einstellungen und Zugangsdaten bleiben erhalten, aber abhängige Werkzeuge und Umgebungen funktionieren danach möglicherweise nicht mehr. Beim Entfernen nativer Assistenten bleiben zwischengespeicherte Versionen und Einstellungen erhalten.
 
@@ -24,6 +24,8 @@ Vorhandene Apps zeigen **Installiert** unter ihrem Namen; die Auswahl meldet die
 Installations-, Aktualisierungs- und Einrichtungsterminals zeigen das EITR-Banner im aktuellen Design. Erfolgreiche Aufgaben schließen normalerweise; Fehler bleiben sichtbar. Berichte wie Bereinigung bleiben zum Lesen offen. Normale Terminals und Über zeigen kein Aufgabenbanner.
 
 Drücke **Esc**, um wartende Aufgaben-, Konto-, Berichts- und Über-Terminals zu schließen. Enter bleibt für Antworten und Bestätigungen vorgesehen, etwa zum Bestätigen der notierten Wiederherstellungsschlüssel und zum Ausschalten im Installationsprogramm.
+
+`eitr package install NAME` installiert ein offizielles Paket, `eitr package install --aur NAME` ein AUR-Paket und `eitr package remove NAME` entfernt ein Paket. Ein Terminal ist erforderlich. Die Übersicht zeigt Paket und Quelle: Enter bestätigt, Esc bricht ab. Bei AUR zeigt Ctrl+B die Bauanweisungen (q kehrt zurück); Ctrl+O öffnet das Build-Repository. AUR-Pakete stammen aus der Community und werden weder von Eitr noch Arch Linux geprüft. Bereits installierte Pakete beenden den Vorgang erfolgreich. Fehler bleiben bis Esc sichtbar. Plugins können `kitty --class eitr-menu-terminal -e eitr package install --aur lowfi` verwenden.
 
 ## Werkzeuge
 

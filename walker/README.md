@@ -65,9 +65,12 @@ Main → Install → Packages → Pacman / Yay (AUR) opens a terminal package pi
 package names, press Tab to select/unselect multiple packages, then Enter to install
 the selection in that terminal. Escape cancels without installing. Pacman uses
 the local repository databases; AUR downloads its package-name index when opened.
-Ctrl+B opens official metadata or the AUR build repository without
-executing it; review PKGBUILD, .install files and patches before accepting Yay's
-build prompts. Selection lasts only for that picker session.
+Ctrl+B toggles details and the build file; Ctrl+O opens the package page or AUR
+build repository in the browser. Review PKGBUILD, .install files and patches
+before accepting Yay's build prompts. Selection lasts only for that picker session.
+Package pickers: Ctrl+D removes the highlighted installed package after Enter/Esc confirmation and reloads its status; Eitr packages stay installed. Ctrl+F toggles installed-only/all. Tab still selects multiple packages.
+
+Use `eitr package install [--aur] NAME` or `eitr package remove NAME` in a terminal. Enter confirms, Esc cancels; Ctrl+B reads an AUR build file (q returns), Ctrl+O opens its repository. Failures stay visible until dismissed. Plugins can run `kitty --class eitr-menu-terminal -e eitr package install --aur lowfi`.
 
 SUPER+Space and Main → Apps use the same custom Apps provider. SUPER+F opens Main.
 The native pin/launch-and-keep-open menu is no longer used. Apps has Enter-to-launch

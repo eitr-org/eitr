@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 DISTRO = Path(__file__).resolve().parents[1]
 loader = importlib.machinery.SourceFileLoader("eitr_command", str(DISTRO / "bin/eitr"))
@@ -35,6 +36,20 @@ class EitrCommandTests(unittest.TestCase):
     def plan(self, *argv):
         return eitr.plan(eitr.parser().parse_args(list(argv)), code=self.code, config=self.config)
 
+    def test_package_arguments_and_validation(self):
+        checkout = DISTRO.parent
+        for argv, source in [(["install", "lowfi"], "pacman"), (["install", "--aur", "lowfi"], "aur"), (["remove", "lowfi"], "pacman")]:
+            with patch.object(eitr.sys.stdin, "isatty", return_value=True), patch.object(eitr.sys.stdout, "isatty", return_value=True):
+                result = eitr.plan(eitr.parser().parse_args(["package", *argv]), code=checkout)
+                self.assertEqual(result[-4:], ["package-confirm", argv[0], source, "lowfi"])
+        for argv in (["install"], ["remove", "--aur", "lowfi"], ["install", "one", "two"]):
+            with self.assertRaises(SystemExit), contextlib.redirect_stderr(io.StringIO()):
+                eitr.parser().parse_args(["package", *argv])
+        with self.assertRaises(ValueError):
+            eitr.plan(eitr.parser().parse_args(["package", "install", "../bad"]), code=checkout)
+        with patch.object(eitr.sys.stdin, "isatty", return_value=False), self.assertRaisesRegex(ValueError, "terminal"):
+            eitr.plan(eitr.parser().parse_args(["package", "install", "lowfi"]), code=checkout)
+
     def test_no_arguments_shows_every_command_grouped(self):
         output = io.StringIO()
         with contextlib.redirect_stdout(output):
@@ -47,7 +62,8 @@ class EitrCommandTests(unittest.TestCase):
 
     def test_every_listed_command_is_accepted(self):
         for name in [command for _, commands in eitr.GROUPS for command, _ in commands]:
-            self.assertEqual(eitr.parser().parse_args([name, "check", "/tmp/stick"] if name == "profile" else [name]).command, name)
+            arguments = {"profile": ["check", "/tmp/stick"], "package": ["install", "lowfi"]}.get(name, [])
+            self.assertEqual(eitr.parser().parse_args([name, *arguments]).command, name)
 
     def test_plugin_hooks_routes_the_event(self):
         self.assertEqual(self.plan("plugin", "hooks", "login"),

@@ -172,6 +172,9 @@ msgstr "A compilação de pacotes AUR deve ser feita por um usuário comum"
 msgid "AUR package not found"
 msgstr "Pacote AUR não encontrado"
 
+msgid "AUR packages are made by the community and are not reviewed by Eitr or Arch Linux. Read the build file before installing."
+msgstr "Os pacotes do AUR são criados pela comunidade e não são revisados pelo Eitr nem pelo Arch Linux. Leia o arquivo de compilação antes de instalar."
+
 msgid "AWS SSO (IAM Identity Center)"
 msgstr "AWS SSO (IAM Identity Center)"
 
@@ -883,6 +886,9 @@ msgstr "Criando a tela de bloqueio…"
 msgid "Creating the theme…"
 msgstr "Criando o tema…"
 
+msgid "Ctrl+B: view build file · Ctrl+O: open in browser"
+msgstr "Ctrl+B: ver arquivo de compilação · Ctrl+O: abrir no navegador"
+
 msgid "Current Disk Usage"
 msgstr "Uso atual do disco"
 
@@ -1176,6 +1182,9 @@ msgstr "Enter: responder  Esquerda / Tab: voltar  Esc: cancelar"
 
 msgid "Enter: apply  Left: back  PgUp/PgDn: scroll  Esc: cancel"
 msgstr "Enter: aplicar  Esquerda: voltar  PgUp/PgDn: rolar  Esc: cancelar"
+
+msgid "Enter: confirm · Esc: cancel"
+msgstr "Enter: confirmar · Esc: cancelar"
 
 msgid "Enter: continue  Esc: back"
 msgstr "Enter: continuar  Esc: voltar"
@@ -1506,6 +1515,9 @@ msgstr "Tipo de instalação"
 
 msgid "Install type {layout} is not available on {path}"
 msgstr "A instalação do tipo {layout} não está disponível em {path}"
+
+msgid "Install {name} from {source}."
+msgstr "Instalar {name} de {source}."
 
 msgid "Install {package} first: sudo pacman -Syu --needed {package_2}"
 msgstr "Instale {package} primeiro: sudo pacman -Syu --needed {package_2}"
@@ -2182,6 +2194,9 @@ msgstr "PC"
 msgid "PCR policy: {TPM_PCRS} (Secure Boot state). Firmware or Secure Boot key changes require the passphrase once, then re-enrollment."
 msgstr "Política PCR: {TPM_PCRS} (estado do Secure Boot). Mudanças no firmware ou nas chaves do Secure Boot exigem a senha uma vez e depois um novo cadastro."
 
+msgid "Package actions require a terminal."
+msgstr "As ações de pacotes exigem um terminal."
+
 msgid "Package picker failed"
 msgstr "O seletor de pacotes falhou"
 
@@ -2547,6 +2562,9 @@ msgstr "Remover widget · {monitor}"
 
 msgid "Remove {label} and its folder rules? Keys stay on disk."
 msgstr "Remover {label} e suas regras de pastas? As chaves permanecem no disco."
+
+msgid "Remove {name}."
+msgstr "Remover {name}."
 
 msgid "Remove: {value}"
 msgstr "Remover: {value}"
@@ -3096,6 +3114,9 @@ msgstr "Desbloqueio por TPM2 removido de {device}; a senha volta a ser exigida n
 
 msgid "Tab / arrows: choose  Enter: select  PgUp/PgDn: scroll  Esc: cancel"
 msgstr "Tab / setas: escolher  Enter: selecionar  PgUp/PgDn: rolar  Esc: cancelar"
+
+msgid "Tab select · Enter install · Ctrl+D remove\nCtrl+F installed/all · Ctrl+B build file / details\nCtrl+O open in browser · Esc cancel"
+msgstr "Tab selecionar · Enter instalar · Ctrl+D remover\nCtrl+F instalados/todos · Ctrl+B compilação / detalhes\nCtrl+O abrir no navegador · Esc cancelar"
 
 msgid "Tailscale IP"
 msgstr "IP do Tailscale"
@@ -4174,11 +4195,17 @@ msgstr "{name} (seu)"
 msgid "{name} from {snapshot_date} is at {target}"
 msgstr "{name} de {snapshot_date} está em {target}"
 
+msgid "{name} is already installed."
+msgstr "{name} já está instalado."
+
 msgid "{name} is in Development > Monitoring."
 msgstr "{name} está em Desenvolvimento > Monitoramento."
 
 msgid "{name} is in Style > Wallpaper and the wallpaper carousel."
 msgstr "{name} está em Estilo > Papel de parede e no carrossel de papéis de parede."
+
+msgid "{name} is not installed."
+msgstr "{name} não está instalado."
 
 msgid "{name} starts charging at {charge_percent}%; choose a limit above that. Nothing was changed."
 msgstr "{name}: a carga começa em {charge_percent}%; escolha um limite maior. Nada foi alterado."

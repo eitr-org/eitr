@@ -8,7 +8,7 @@ Escribir en el menú principal busca aplicaciones instaladas y acciones de todos
 
 ## Instalar
 
-Pulsa Delete en una entrada instalada de las listas de aplicaciones y herramientas de Instalar para desinstalarla tras confirmar. Aplicaciones web conserva su acción de eliminación. Paquetes (Pacman y Yay) sigue siendo solo para instalar, sin acción Delete. Nunca se eliminan dependencias necesarias del sistema de forma recursiva; pacman rechaza las eliminaciones que romperían otro paquete.
+Pulsa Delete en una entrada instalada de las listas de aplicaciones y herramientas de Instalar para desinstalarla tras confirmar. Aplicaciones web conserva su acción de eliminación. En las listas de paquetes (Pacman y Yay), Ctrl+D elimina el paquete instalado resaltado tras confirmar. Ctrl+F alterna entre los instalados y todos. Los paquetes de Eitr permanecen instalados. Nunca se eliminan dependencias necesarias del sistema de forma recursiva; pacman rechaza las eliminaciones que romperían otro paquete.
 
 Los paquetes de lenguajes gestionados muestran el aviso completo de eliminación en un terminal antes de pedir confirmación con [y/N]; Enter cancela. Eliminar Node incluye todas las versiones gestionadas por NVM y sus herramientas npm globales. Eliminar Python afecta a las versiones gestionadas por uv y al propio uv, no a Python del sistema. Java elimina las versiones actuales de Java y Maven en SDKMAN; Rust elimina solo su cadena de herramientas estable. Rails y Laravel eliminan sus herramientas de framework y conservan Ruby, PHP y Composer. Se conservan tus proyectos, la configuración y las credenciales, pero algunas herramientas y entornos dependientes podrían dejar de funcionar. La eliminación de asistentes nativos conserva las versiones en caché y la configuración.
 
@@ -24,6 +24,8 @@ Las aplicaciones presentes muestran **Instalado** bajo el nombre; elegirlas lo i
 Las terminales de instalación, actualización y configuración muestran el banner de EITR con el tema actual. Las tareas correctas suelen cerrarse; los fallos quedan visibles. Informes como Limpieza permanecen abiertos para leerlos. Las terminales normales y Acerca de no muestran el banner.
 
 Pulsa **Esc** para cerrar los terminales de tareas, cuentas, informes y Acerca de que esperan una tecla. Enter sigue sirviendo para respuestas y confirmaciones, como confirmar que has anotado la clave de recuperación y apagar el instalador.
+
+Usa `eitr package install NAME` para un paquete oficial, `eitr package install --aur NAME` para AUR o `eitr package remove NAME` para eliminarlo. Se requiere una terminal. La revisión muestra el paquete y su origen: Enter confirma y Esc cancela. En AUR, Ctrl+B muestra el archivo de compilación (q vuelve) y Ctrl+O abre el repositorio. Los paquetes comunitarios de AUR no están revisados por Eitr ni Arch Linux. Los paquetes ya instalados terminan correctamente. Los errores permanecen hasta pulsar Esc. Los plugins pueden usar `kitty --class eitr-menu-terminal -e eitr package install --aur lowfi`.
 
 ## Herramientas
 

@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Walker software workflows. No package writes occur while listing or reviewing."""
 import argparse
+import contextlib
+import io
+import textwrap
 import functools
 import gzip
 import json
@@ -618,8 +621,90 @@ def package_rows(source):
             for name, origin in sorted(origins.items())]
 
 
+def package_confirm(action, source, name):
+    """Single-package terminal review shared by the CLI and picker removal."""
+    name = package_name(name)
+    if not sys.stdin.isatty() or not sys.stdout.isatty():
+        raise ValueError(tr('Package actions require a terminal.'))
+    if action == "remove" and name in EITR_PACKAGES:
+        remove("pacman", name)
+    KNOWN_PACKAGES.pop(name, None)
+    present = installed({"source": "pacman", "packages": [name]})
+    if action == "install" and present:
+        print(tr('{name} is already installed.', name=name), flush=True)
+        return
+    if action == "remove" and not present:
+        print(tr('{name} is not installed.', name=name), flush=True)
+        return
+    if action == "install":
+        print(tr('Install {name} from {source}.', name=name,
+                 source="AUR" if source == "aur" else "Arch Linux"), flush=True)
+    else:
+        print(tr('Remove {name}.', name=name), flush=True)
+    if action == "install" and source == "aur":
+        print(textwrap.fill(tr('AUR packages are made by the community and are not reviewed by Eitr or Arch Linux. Read the build file before installing.'),
+                            width=shutil.get_terminal_size().columns), flush=True)
+        print(tr('Ctrl+B: view build file · Ctrl+O: open in browser'), flush=True)
+    print(tr('Enter: confirm · Esc: cancel'), flush=True)
+    while True:
+        key = read_key()
+        if key in ("\x1b", "\x03", "\x04", ""):
+            return
+        if key in ("\r", "\n"):
+            if action == "install":
+                install(source, [name])
+            else:
+                remove("pacman", name)
+            return
+        if action == "install" and source == "aur":
+            if key == "\x02":
+                with contextlib.redirect_stdout(io.StringIO()) as output:
+                    build_file(source, name)
+                subprocess.run(["less", "-R"], input=output.getvalue(), text=True, check=True)
+                print(tr('Enter: confirm · Esc: cancel'), flush=True)
+            elif key == "\x0f":
+                review(source, name)
+
+
 def package_picker(source):
     rows = package_rows(source)
+    installed_only = False
+    query = ""
+    while True:
+        result = pick_packages(source, [row for row in rows if not installed_only or row.endswith("installed")], query=query)
+        if result.returncode == 130:
+            return
+        if result.returncode not in (0, 1):
+            raise RuntimeError(tr("Package picker failed"))
+        lines = result.stdout.splitlines()
+        if len(lines) < 2:
+            return
+        query, key, *selected = lines
+        if key == "ctrl-f":
+            installed_only = not installed_only
+            continue
+        if key == "ctrl-d":
+            if selected:
+                name = selected[0].split("\t")[0]
+                try:
+                    package_confirm("remove", "pacman", name)
+                except (ValueError, RuntimeError, subprocess.SubprocessError) as error:
+                    print(str(error), flush=True)
+                    from eitr_terminal import wait_for_escape
+                    wait_for_escape()
+                rows = package_rows(source)
+            continue
+        break
+    chosen = [[field.strip() for field in line.split("\t")[:2]] for line in selected if "\t" in line]
+    official = [name for name, origin in chosen if origin != "aur"]
+    community = [name for name, origin in chosen if origin == "aur"]
+    if official:
+        install("pacman", official)
+    if community:
+        install("aur", community)
+
+
+def pick_packages(source, rows, *, query=""):
     # Search on top, the packages under it, and the selected package's details
     # below; Ctrl+B swaps the details for its build file and back.
     helper = shlex.join(["python3", str(SCRIPT)])
@@ -627,30 +712,21 @@ def package_picker(source):
     show_build = f"{helper} build-file {{2}} {{1}}"
     review_command = f"{helper} review {{2}} {{1}}"
     result = subprocess.run(
-        ["fzf", "--multi", "--layout=reverse", "--border", "--with-shell", "bash -c",
+        ["fzf", "--multi", "--print-query", "--query", query, "--layout=reverse", "--border", "--with-shell", "bash -c",
          "--prompt", ("Pacman" if source == "pacman" else "AUR") + " > ",
-         "--delimiter", "\t", "--nth", "1", "--tabstop", "40",
-         "--header", "Tab select · Enter install · Ctrl+B build file / details · Ctrl+O open in browser · Esc cancel",
+         "--delimiter", "\t", "--nth", "1", "--tabstop", str(max(8, min(40, (shutil.get_terminal_size().columns - 18) // 2))),
+         "--header", tr("Tab select · Enter install · Ctrl+D remove\nCtrl+F installed/all · Ctrl+B build file / details\nCtrl+O open in browser · Esc cancel"),
          "--header-first", "--preview", show_details,
          "--preview-window", "down,55%,border-top,wrap", "--preview-label", " Details ",
          "--bind", "tab:toggle+down,shift-tab:toggle+up",
+         "--bind", "enter:print()+accept,ctrl-d:clear-multi+print(ctrl-d)+accept,ctrl-f:print(ctrl-f)+accept",
          "--bind", f"ctrl-b:transform:[[ $FZF_PREVIEW_LABEL == ' Details ' ]] && "
                    f"echo 'change-preview({show_build})+change-preview-label( Build file )+change-preview-window(nowrap)' || "
                    f"echo 'change-preview({show_details})+change-preview-label( Details )+change-preview-window(wrap)'",
          "--bind", f"ctrl-o:execute-silent({review_command})",
          "--bind", "alt-j:preview-down,alt-k:preview-up,alt-d:preview-half-page-down,alt-u:preview-half-page-up"],
         input="\n".join(rows) + "\n", text=True, stdout=subprocess.PIPE)
-    if result.returncode in (1, 130):
-        return
-    if result.returncode != 0:
-        raise RuntimeError(tr('Package picker failed'))
-    chosen = [[field.strip() for field in line.split("\t")[:2]] for line in result.stdout.splitlines() if "\t" in line]
-    official = [name for name, origin in chosen if origin != "aur"]
-    community = [name for name, origin in chosen if origin == "aur"]
-    if official:
-        install("pacman", official)
-    if community:
-        install("aur", community)
+    return result
 
 
 def gaming_item(identifier):
@@ -687,14 +763,16 @@ PREVIEW_ACTIONS = {"details", "build-file"}
 
 def parse_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument("action", choices=["recipes", "installer", "install", "launch", "review", "details", "build-file", "uninstall", "remove", "recipe", "recipe-launch", "recipe-uninstall", "recipe-remove", "recipe-review", "gaming", "gaming-install", "picker", "picker-launch"])
+    parser.add_argument("action", choices=["recipes", "installer", "install", "launch", "review", "details", "build-file", "uninstall", "remove", "recipe", "recipe-launch", "recipe-uninstall", "recipe-remove", "recipe-review", "gaming", "gaming-install", "picker", "picker-launch", "package-confirm"])
     parser.add_argument("args", nargs="*")
     return parser.parse_args()
 
 
 def main(options):
     args = options.args
-    if options.action == "installer":
+    if options.action == "package-confirm":
+        package_confirm(*args)
+    elif options.action == "installer":
         print(installer_url(args[0]))
     elif options.action == "recipes":
         print(json.dumps(recipes(args[0])))
@@ -747,6 +825,6 @@ if __name__ == "__main__":
         if options.action in JSON_ACTIONS:
             # Menus render this row instead of silently showing nothing.
             print(json.dumps([{"label": str(error), "error": True}]))
-        else:
+        elif options.action != "package-confirm":
             subprocess.run(["notify-send", tr('Eitr software'), str(error)])
         sys.exit(1)

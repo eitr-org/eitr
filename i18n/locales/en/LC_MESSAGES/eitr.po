@@ -172,6 +172,9 @@ msgstr "AUR builds must run as a normal user"
 msgid "AUR package not found"
 msgstr "AUR package not found"
 
+msgid "AUR packages are made by the community and are not reviewed by Eitr or Arch Linux. Read the build file before installing."
+msgstr "AUR packages are made by the community and are not reviewed by Eitr or Arch Linux. Read the build file before installing."
+
 msgid "AWS SSO (IAM Identity Center)"
 msgstr "AWS SSO (IAM Identity Center)"
 
@@ -883,6 +886,9 @@ msgstr "Creating the lockscreen…"
 msgid "Creating the theme…"
 msgstr "Creating the theme…"
 
+msgid "Ctrl+B: view build file · Ctrl+O: open in browser"
+msgstr "Ctrl+B: view build file · Ctrl+O: open in browser"
+
 msgid "Current Disk Usage"
 msgstr "Current Disk Usage"
 
@@ -1176,6 +1182,9 @@ msgstr "Enter: answer  Left / Tab: back  Esc: cancel"
 
 msgid "Enter: apply  Left: back  PgUp/PgDn: scroll  Esc: cancel"
 msgstr "Enter: apply  Left: back  PgUp/PgDn: scroll  Esc: cancel"
+
+msgid "Enter: confirm · Esc: cancel"
+msgstr "Enter: confirm · Esc: cancel"
 
 msgid "Enter: continue  Esc: back"
 msgstr "Enter: continue  Esc: back"
@@ -1506,6 +1515,9 @@ msgstr "Install type"
 
 msgid "Install type {layout} is not available on {path}"
 msgstr "Install type {layout} is not available on {path}"
+
+msgid "Install {name} from {source}."
+msgstr "Install {name} from {source}."
 
 msgid "Install {package} first: sudo pacman -Syu --needed {package_2}"
 msgstr "Install {package} first: sudo pacman -Syu --needed {package_2}"
@@ -2182,6 +2194,9 @@ msgstr "PC"
 msgid "PCR policy: {TPM_PCRS} (Secure Boot state). Firmware or Secure Boot key changes require the passphrase once, then re-enrollment."
 msgstr "PCR policy: {TPM_PCRS} (Secure Boot state). Firmware or Secure Boot key changes require the passphrase once, then re-enrollment."
 
+msgid "Package actions require a terminal."
+msgstr "Package actions require a terminal."
+
 msgid "Package picker failed"
 msgstr "Package picker failed"
 
@@ -2547,6 +2562,9 @@ msgstr "Remove widget · {monitor}"
 
 msgid "Remove {label} and its folder rules? Keys stay on disk."
 msgstr "Remove {label} and its folder rules? Keys stay on disk."
+
+msgid "Remove {name}."
+msgstr "Remove {name}."
 
 msgid "Remove: {value}"
 msgstr "Remove: {value}"
@@ -3096,6 +3114,9 @@ msgstr "TPM2 unlock removed from {device}; the passphrase is required at boot ag
 
 msgid "Tab / arrows: choose  Enter: select  PgUp/PgDn: scroll  Esc: cancel"
 msgstr "Tab / arrows: choose  Enter: select  PgUp/PgDn: scroll  Esc: cancel"
+
+msgid "Tab select · Enter install · Ctrl+D remove\nCtrl+F installed/all · Ctrl+B build file / details\nCtrl+O open in browser · Esc cancel"
+msgstr "Tab select · Enter install · Ctrl+D remove\nCtrl+F installed/all · Ctrl+B build file / details\nCtrl+O open in browser · Esc cancel"
 
 msgid "Tailscale IP"
 msgstr "Tailscale IP"
@@ -4174,11 +4195,17 @@ msgstr "{name} (yours)"
 msgid "{name} from {snapshot_date} is at {target}"
 msgstr "{name} from {snapshot_date} is at {target}"
 
+msgid "{name} is already installed."
+msgstr "{name} is already installed."
+
 msgid "{name} is in Development > Monitoring."
 msgstr "{name} is in Development > Monitoring."
 
 msgid "{name} is in Style > Wallpaper and the wallpaper carousel."
 msgstr "{name} is in Style > Wallpaper and the wallpaper carousel."
+
+msgid "{name} is not installed."
+msgstr "{name} is not installed."
 
 msgid "{name} starts charging at {charge_percent}%; choose a limit above that. Nothing was changed."
 msgstr "{name} starts charging at {charge_percent}%; choose a limit above that. Nothing was changed."

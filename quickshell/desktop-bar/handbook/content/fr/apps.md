@@ -8,7 +8,7 @@ Saisir dans le menu principal recherche les applications installées et les acti
 
 ## Installer
 
-Appuyez sur Delete sur une entrée installée dans les listes d’applications et d’outils d’Installer pour la désinstaller après confirmation. Applications web conserve son action de suppression. Paquets (Pacman et Yay) reste réservé à l’installation, sans action Delete. Les dépendances nécessaires au système ne sont jamais supprimées récursivement ; pacman refuse une suppression qui casserait un autre paquet.
+Appuyez sur Delete sur une entrée installée dans les listes d’applications et d’outils d’Installer pour la désinstaller après confirmation. Applications web conserve son action de suppression. Dans les listes de paquets (Pacman et Yay), Ctrl+D supprime le paquet installé sélectionné après confirmation. Ctrl+F alterne entre les paquets installés et tous les paquets. Les paquets Eitr restent installés. Les dépendances nécessaires au système ne sont jamais supprimées récursivement ; pacman refuse une suppression qui casserait un autre paquet.
 
 Les ensembles de langages gérés affichent leur avertissement complet dans un terminal avant de demander confirmation avec [y/N] ; Enter annule. La suppression de Node inclut toutes les versions gérées par NVM et leurs outils npm globaux. Celle de Python concerne les versions gérées par uv et uv lui-même, pas Python du système. Pour Java, les versions actuelles de Java et Maven dans SDKMAN sont supprimées ; pour Rust, seule la chaîne d’outils stable est supprimée. Rails et Laravel suppriment leurs outils de framework en conservant Ruby, PHP et Composer. Vos projets, paramètres et identifiants sont conservés, mais certains outils et environnements dépendants pourraient ne plus fonctionner. La suppression des assistants natifs conserve les versions en cache et les paramètres.
 
@@ -24,6 +24,8 @@ Les applications présentes affichent **Installé** sous leur nom ; les choisir 
 Les terminaux d’installation, mise à jour et configuration affichent le bandeau EITR aux couleurs du thème. Les tâches réussies se ferment normalement ; les échecs restent visibles. Les rapports comme Nettoyage restent ouverts pour lecture. Les terminaux ordinaires et À propos n’affichent pas ce bandeau.
 
 Appuyez sur **Échap** pour fermer les terminaux de tâches, de comptes, de rapports et À propos qui attendent une touche. Entrée reste utilisée pour les réponses et confirmations, notamment après avoir noté la clé de récupération et pour éteindre le programme d’installation.
+
+Utilisez `eitr package install NAME` pour un paquet officiel, `eitr package install --aur NAME` pour AUR ou `eitr package remove NAME` pour le supprimer. Un terminal est requis. La présentation indique le paquet et sa source : Enter confirme et Esc annule. Pour AUR, Ctrl+B affiche le fichier de compilation (q revient) et Ctrl+O ouvre le dépôt. Les paquets communautaires AUR ne sont vérifiés ni par Eitr ni par Arch Linux. Les paquets déjà installés terminent avec succès. Les erreurs restent visibles jusqu’à Esc. Les plugins peuvent utiliser `kitty --class eitr-menu-terminal -e eitr package install --aur lowfi`.
 
 ## Outils
 

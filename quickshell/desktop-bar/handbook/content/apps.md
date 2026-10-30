@@ -16,7 +16,7 @@ returns to the parent.
 
 ## Install
 
-Press Delete on an installed entry in the named Install lists to uninstall it after confirmation. Web Apps retain their removal action. Packages (Pacman and Yay) remain install-only and have no Delete action. Required system dependencies are never removed recursively; pacman refuses removals that would break another package.
+Press Delete on an installed entry in the named Install lists to uninstall it after confirmation. Web Apps retain their removal action. Packages (Pacman and Yay) use Ctrl+D to remove the highlighted installed package after confirmation. Ctrl+F toggles installed packages only or all packages. Eitr packages stay installed. Required system dependencies are never removed recursively; pacman refuses removals that would break another package.
 
 Managed language bundles show their full removal warning in a terminal before asking for confirmation with [y/N]; Enter cancels. Node removal includes all NVM-managed versions and their global npm tools. Python removal affects uv-managed versions and uv, not system Python. Java removes the current SDKMAN Java and Maven versions; Rust removes only its stable toolchain. Rails and Laravel remove their framework tools while retaining Ruby, PHP and Composer. Projects, settings and credentials are kept, but dependent tools and environments may stop working. Native assistant removal keeps cached versions and settings.
 
@@ -48,6 +48,8 @@ tasks normally close; failures stay visible. Reports such as Cleanup stay open
 so you can read them. Ordinary terminals and About do not show the task banner.
 
 Press **Esc** to close waiting task, account, report and About terminals. Enter remains for answers and confirmations, including acknowledging a recovery key and powering off the installer.
+
+Use `eitr package install NAME` for one official package, `eitr package install --aur NAME` for AUR, or `eitr package remove NAME`. A terminal is required. The themed review shows the package and source: Enter confirms and Esc cancels. For AUR, Ctrl+B reads the build file (q returns) and Ctrl+O opens the build repository. Community AUR packages are not reviewed by Eitr or Arch Linux. Already installed packages exit successfully. Failed tasks stay open until Esc. Plugins can use `kitty --class eitr-menu-terminal -e eitr package install --aur lowfi`.
 
 ## Tools
 

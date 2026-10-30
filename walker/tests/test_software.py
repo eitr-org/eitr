@@ -43,6 +43,77 @@ class SoftwareTests(unittest.TestCase):
     def setUp(self):
         forget_installed_state()
 
+    def test_package_confirmation_keys_and_installed_noop(self):
+        for key, present, expected in [("\r", False, True), ("\x1b", False, False), ("\r", True, False)]:
+            with self.subTest(key=key, present=present), \
+                    patch.object(software.sys.stdin, "isatty", return_value=True), \
+                    patch.object(software.sys.stdout, "isatty", return_value=True), \
+                    patch.object(software, "installed", return_value=present), \
+                    patch.object(software, "read_key", return_value=key), \
+                    patch.object(software, "install") as install, contextlib.redirect_stdout(io.StringIO()) as output:
+                output.isatty = lambda: True
+                software.package_confirm("install", "pacman", "lowfi")
+                self.assertEqual(install.called, expected)
+                if present:
+                    self.assertIn("already installed", output.getvalue())
+
+    def test_package_confirmation_rejects_no_terminal_and_bad_names(self):
+        with patch.object(software.sys.stdin, "isatty", return_value=False), patch.object(software, "install") as install:
+            for name in ("lowfi", "--root", "foo/bar", "foo:bar", "foo;id", "foo\nbar", ""):
+                with self.subTest(name=name), self.assertRaises(ValueError):
+                    software.package_confirm("install", "pacman", name)
+            install.assert_not_called()
+
+    def test_package_confirmation_refuses_eitr_removal(self):
+        with patch.object(software.sys.stdin, "isatty", return_value=True), \
+                patch.object(software.sys.stdout, "isatty", return_value=True), patch.object(software, "run") as run:
+            for name in software.EITR_PACKAGES:
+                with self.assertRaisesRegex(ValueError, "part of Eitr"):
+                    software.package_confirm("remove", "pacman", name)
+            run.assert_not_called()
+
+    def test_aur_confirmation_reuses_build_file_and_review(self):
+        with patch.object(software.sys.stdin, "isatty", return_value=True), \
+                patch.object(software.sys.stdout, "isatty", return_value=True), \
+                patch.object(software, "installed", return_value=False), \
+                patch.object(software, "read_key", side_effect=["\x02", "\x0f", "\r"]), \
+                patch.object(software, "build_file") as build_file, \
+                patch.object(software, "review") as review, \
+                patch.object(software.subprocess, "run") as run, \
+                patch.object(software, "install") as install:
+            software.package_confirm("install", "aur", "lowfi")
+            build_file.assert_called_once_with("aur", "lowfi")
+            review.assert_called_once_with("aur", "lowfi")
+            self.assertEqual(run.call_args.args[0], ["less", "-R"])
+            install.assert_called_once_with("aur", ["lowfi"])
+
+    def test_remove_confirmation_uses_shared_removal(self):
+        for key, present, expected in [("\r", True, True), ("\x1b", True, False), ("\r", False, False)]:
+            with self.subTest(key=key, present=present), \
+                    patch.object(software.sys.stdin, "isatty", return_value=True), \
+                    patch.object(software.sys.stdout, "isatty", return_value=True), \
+                    patch.object(software, "installed", return_value=present), \
+                    patch.object(software, "read_key", return_value=key), \
+                    patch.object(software, "remove") as remove:
+                software.package_confirm("remove", "pacman", "lowfi")
+                self.assertEqual(remove.called, expected)
+                if expected:
+                    remove.assert_called_once_with("pacman", "lowfi")
+
+    def test_picker_removes_then_refreshes_and_toggles_filter(self):
+        rows = ["lowfi\taur     \tinstalled", "other\taur     \tavailable"]
+        answers = [SimpleNamespace(returncode=0, stdout="low\nctrl-d\n" + rows[0] + "\n"),
+                   SimpleNamespace(returncode=1, stdout="low\nctrl-f\n"),
+                   SimpleNamespace(returncode=130, stdout="")]
+        with patch.object(software, "package_rows", return_value=rows) as listing, \
+                patch.object(software, "pick_packages", side_effect=answers) as picker, \
+                patch.object(software, "package_confirm") as confirm:
+            software.package_picker("aur")
+            confirm.assert_called_once_with("remove", "pacman", "lowfi")
+            self.assertEqual(listing.call_count, 2)
+            self.assertEqual(picker.call_args.args[1], [rows[0]])
+            self.assertEqual(picker.call_args.kwargs["query"], "low")
+
     def test_a_listing_asks_pacman_and_flatpak_once(self):
         data = {"tools": {"a": {"label": "A", "source": "pacman", "packages": ["sh"]},
                           "b": {"label": "B", "source": "aur", "packages": ["missing-one", "sh"]},
@@ -122,13 +193,15 @@ class SoftwareTests(unittest.TestCase):
 
     def test_package_picker_sends_each_selection_to_its_installer(self):
         rows = ["firefox\textra\t", "chromium\textra\tinstalled", "yay-bin\taur\t"]
-        chosen = "firefox\textra\t\nyay-bin\taur\t\n"
+        chosen = "\n\nfirefox\textra\t\nyay-bin\taur\t\n"
         with patch.object(software, "package_rows", return_value=rows), \
                 patch.object(software.subprocess, "run", return_value=SimpleNamespace(returncode=0, stdout=chosen)) as picker, \
                 patch.object(software, "install") as install:
             software.package_picker("pacman")
             command = picker.call_args.args[0]
             self.assertIn("--multi", command)
+            self.assertTrue(any("ctrl-d:" in argument for argument in command))
+            self.assertTrue(any("ctrl-f:" in argument for argument in command))
             self.assertIn("down,55%,border-top,wrap", command, "details sit under the list")
             self.assertTrue(any(argument.startswith("ctrl-b:transform:") for argument in command))
             self.assertEqual(picker.call_args.kwargs["input"], "\n".join(rows) + "\n")
@@ -566,7 +639,7 @@ class SoftwareRemovalTests(unittest.TestCase):
             software.recipe_remove("languages", "laravel")
             self.assertEqual(run.call_args.args[0], ["composer", "global", "remove", "laravel/installer"])
 
-    def test_packages_picker_keeps_install_only_keys(self):
+    def test_packages_picker_keeps_walker_delete_scoped(self):
         source = (ROOT / "walker/scripts/actions/install/software.py").read_text()
         picker = source[source.index("def package_picker("):source.index("def gaming_item(")]
         self.assertNotIn("delete", picker.lower())

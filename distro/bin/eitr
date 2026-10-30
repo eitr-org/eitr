@@ -65,6 +65,7 @@ GROUPS = [
         ("report", "prepare a problem report to read and send"),
     ]),
     ("Setup", [
+        ("package", "install [--aur] NAME or remove NAME, with terminal confirmation"),
         ("profile", "check or apply an organization profile from a mounted stick"),
         ("hook", "list your hooks, or run one to try it"),
         ("plugin", "list, add, update or remove per-user plugins"),
@@ -123,6 +124,14 @@ def parser():
     update = commands.add_parser("update", help='update the system')
     update.add_argument("kind", nargs="?", default="system", choices=sorted(UPDATES),
                         help='system (default: snapshot, packages, AUR and Flatpak), pacman, aur or full')
+
+    package = commands.add_parser("package", help="install or remove one package in this terminal",
+                                  description="Enter confirms; Esc cancels. A terminal is required; failed tasks stay open.")
+    package_actions = package.add_subparsers(dest="action", required=True)
+    package_install = package_actions.add_parser("install")
+    package_install.add_argument("--aur", action="store_true", help="use community AUR packages instead of official Arch packages")
+    package_install.add_argument("name")
+    package_actions.add_parser("remove").add_argument("name")
 
     profile = commands.add_parser("profile", help="validate or apply an organization profile")
     profile.add_argument("action", choices=["check", "apply"])
@@ -208,6 +217,17 @@ def plan(arguments, code=None, config=None):
     code, config = code or code_root(), config or config_root()
     actions = code / "walker/scripts/actions"
     command = arguments.command
+    if command == "package":
+        import importlib.util
+        specification = importlib.util.spec_from_file_location("eitr_software", actions / "install/software.py")
+        software = importlib.util.module_from_spec(specification)
+        specification.loader.exec_module(software)
+        software.package_name(arguments.name)
+        if not sys.stdin.isatty() or not sys.stdout.isatty():
+            raise ValueError(tr('Package actions require a terminal.'))
+        return ["python3", str(actions / "task-terminal.py"), "python3",
+                str(actions / "install/software.py"), "package-confirm", arguments.action,
+                "aur" if getattr(arguments, "aur", False) else "pacman", arguments.name]
     if command == "profile":
         if arguments.action == "check":
             from eitr_profile import check, summary
