@@ -34,21 +34,16 @@ LAN.
   closed panels stay quiet: idle launches in a 4-core VM fell from ~800 to ~40 a
   minute (CPU 25% to 1% of one core). Still to check on an old laptop, with
   multiple monitors and with OBS started straight into the tray.
-- **Shared data service for the bar: confirm on the owner's PC.** One broker owns
-  WiFi, capture, power, display, hardware, remote access, weather, AI usage and
-  update reads, with bounded workers, deadlines and shared demand. It passed the VM
-  acceptance and a real-hardware read of every topic; check the panels on the
-  owner's PC after the testing update, then promote it.
-- **Maintainability refactors, after the data service.** In this order:
-  1. Split `shell.qml` (about 2,500 lines): data owners first, then one bar section
-     at a time, keeping the centred clock, panel anchors and click-through gaps.
-  2. Control Center's style settings: give the cursor/font helpers structured
+- **Maintainability refactors.** In this order (the owner's):
+  1. Control Center's style settings: give the cursor/font helpers structured
      (JSON) answers instead of parsing plain text from three separate runs.
-  3. One definition per menu row, shared by browsing and search (including Learn's
+  2. One definition per menu row, shared by browsing and search (including Learn's
      shortcut list and the search index).
-  4. Notification image memory: cap decoded image bytes without shortening history.
-  5. Menus with live contents (accounts, plugins) get the same type-to-search-below
+  3. Notification image memory: cap decoded image bytes without shortening history.
+  4. Menus with live contents (accounts, plugins) get the same type-to-search-below
      behaviour as fixed menus, through one shared adapter.
+  5. Split `shell.qml` (about 2,500 lines): data owners first, then one bar section
+     at a time, keeping the centred clock, panel anchors and click-through gaps.
   6. Retire the older VS Code / LazyVim project providers once nothing uses them.
   Only if profiling shows a need: sharing plugin data between copies of the same
   widget, and one shared window list for the dock, Focus and OBS.
