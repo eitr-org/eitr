@@ -89,7 +89,7 @@ class DisplayPrimaryTests(unittest.TestCase):
         self.assertIn("width * screens[i].height > largest.width * largest.height", body)
         self.assertNotRegex(body, r"(HDMI-A|e?DP)-\d")
         self.assertNotIn("portable", shell)
-        self.assertIn("shell.preferredOutputs = preferred", shell)
+        self.assertIn("property var preferredOutputs: DisplayService.topology.preferred", shell)
         saved = body.index("primaryDisplay")
         preferred = body.index("preferredOutputs")
         largest = body.index("return largest")

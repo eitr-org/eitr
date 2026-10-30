@@ -2,7 +2,6 @@ import QtQuick
 import Eitr as Eitr
 import QtQuick.Controls.Basic as Controls
 import "PanelStyle.js" as PanelStyle
-import "JsonState.js" as JsonState
 import Quickshell
 import Quickshell.Io
 
@@ -17,8 +16,8 @@ ThemedPopup {
     property int requested: -1
     property int applied: -1
     property var nightlight: ({mode: "auto", enabled: false, available: false})
-    property var monitors: []
-    property string primaryDisplay: ""
+    property var monitors: DisplayService.topology.monitors
+    property string primaryDisplay: DisplayService.topology.primary
     property string displayError: ""
     signal primarySelected(string name)
     property string nightlightError: ""
@@ -46,7 +45,7 @@ ThemedPopup {
     property var powerTokens: []
     property string powerActionId: ""
     property string powerRequested: ""
-    Component.onDestruction: { DesktopData.releaseOwner(menu); DesktopData.client.detachAction(powerActionId); }
+    Component.onDestruction: { DisplayService.close(menu); DisplayService.resumeBrightness(menu); DisplayService.resumeNightlight(menu); DesktopData.releaseOwner(menu); DesktopData.client.detachAction(powerActionId); }
     Connections {
         target: PowerService
         function onProfileChanged() { menu.updateContent(function() { menu.power = PowerService.profile; }); }
@@ -57,10 +56,9 @@ ThemedPopup {
         {name: "performance", label: "Performance"}
     ]
 
-    function refresh() {
-        if (!query.running && !operation.running && !slider.pressed && !settle.running) query.running = true;
-    }
+    function refresh() { DisplayService.refreshBrightness(); }
     function applyValue(value) {
+        DisplayService.pauseBrightness(menu);
         requested = value;
         if (!operation.running) startSet();
     }
@@ -70,14 +68,29 @@ ThemedPopup {
         operation.command = ["python3", helper, "set", String(applied), String(state.maximum || 100)];
         operation.running = true;
     }
-    function refreshNightlight() {
-        if (!nightQuery.running && !nightOperation.running) nightQuery.running = true;
+    function refreshNightlight() { DesktopData.refresh("display.nightlight"); }
+    function refreshDisplays() { DisplayService.refresh(); }
+    function refreshDisplaySettings() { DesktopData.refresh("display.settings"); }
+    readonly property var brightnessSnapshot: DesktopData.topics["display.brightness"]
+    readonly property var nightSnapshot: DesktopData.topics["display.nightlight"]
+    readonly property var topologySnapshot: DesktopData.topics["display.topology"]
+    onTopologySnapshotChanged: if (topologySnapshot) {
+        if (topologySnapshot.error) displayError = displayStatusError;
+        else if (topologySnapshot.status === "ready" && displayError === displayStatusError) displayError = "";
     }
-    function refreshDisplays() {
-        if (!displayQuery.running && !setPrimary.running) displayQuery.running = true;
+    readonly property var settingsSnapshot: DesktopData.topics["display.settings"]
+    onBrightnessSnapshotChanged: if (brightnessSnapshot && brightnessSnapshot.status === "ready" && !operation.running && !slider.pressed && !settle.running) {
+        const received = brightnessSnapshot.data;
+        updateContent(function() { menu.state = received; });
     }
-    function refreshDisplaySettings() {
-        if (!settingsQuery.running) settingsQuery.running = true;
+    onNightSnapshotChanged: if (nightSnapshot && nightSnapshot.status === "ready" && !nightOperation.running) {
+        const received = nightSnapshot.data;
+        updateContent(function() { menu.nightlight = received; menu.syncSchedule(); });
+        if (nightlightError === nightlightStatusError) nightlightError = "";
+    } else if (nightSnapshot && nightSnapshot.error) nightlightError = nightlightStatusError;
+    onSettingsSnapshotChanged: if (settingsSnapshot && settingsSnapshot.status === "ready") {
+        const received = settingsSnapshot.data;
+        updateContent(function() { menu.displaySettings = received; });
     }
     // Displays this one can be placed beside: any other except those already placed
     // beside it (directly or through others), which would make the two follow each other.
@@ -124,6 +137,7 @@ ThemedPopup {
         if (scheduleDirty) { configureNightlight(mode); return; }
         nightlightError = "";
         nightOperation.command = ["python3", nightlightHelper, "set", mode];
+        DisplayService.pauseNightlight(menu);
         nightOperation.running = true;
     }
     function displayTime(value) {
@@ -154,25 +168,20 @@ ThemedPopup {
         if (nightOperation.running) return;
         nightlightError = "";
         nightOperation.command = ["python3", nightlightHelper, "configure", start, end, mode];
+        DisplayService.pauseNightlight(menu);
         nightOperation.running = true;
     }
-    // Fetch once in the background after the bar starts, so the first opening already
-    // has its data; later openings query only after the unfold (DockPanel.revealed),
-    // since starting the helpers during it stalls the animation.
-    Timer { interval: 8000; running: true; onTriggered: { menu.refresh(); menu.refreshNightlight(); menu.refreshDisplays(); } }
-    onRevealed: { refresh(); refreshNightlight(); refreshDisplays(); }
+    onRevealed: { DisplayService.open(menu); refreshDisplays(); }
     onOpenedChanged: {
         PowerService.release(powerTokens);
         powerTokens = opened ? PowerService.observe(menu, 3, false) : [];
         if (!opened) {
+            DisplayService.close(menu);
             editingSchedule = false;
             settingsFor = "";
             if (scheduleDirty) scheduleSettle.restart();
         }
     }
-    // DDC monitors are not polled: only this panel changes their brightness.
-    Timer { interval: 3000; repeat: true; running: menu.opened; onTriggered: { if (menu.state.kind !== "ddc") menu.refresh(); menu.refreshNightlight(); } }
-    Timer { interval: 6000; repeat: true; running: menu.opened; onTriggered: menu.refreshDisplays() }
     Timer { id: scheduleSettle; interval: 650; onTriggered: if (menu.scheduleDirty && !nightOperation.running) menu.configureNightlight(menu.nightlight.mode) }
     Timer { id: settle; interval: 80; onTriggered: menu.applyValue(Math.round(slider.value)) }
     // Mirrors the revert timer display-settings.py starts; that timer reverts even if the panel closes.
@@ -185,16 +194,6 @@ ThemedPopup {
         }
     }
     Timer { id: afterTrial; interval: 1200; onTriggered: { menu.refreshDisplays(); menu.refreshDisplaySettings(); } }
-    Process {
-        id: settingsQuery
-        command: ["python3", menu.settingsHelper, "list"]
-        stdout: StdioCollector { id: settingsOutput }
-        onExited: {
-            const received = settingsOutput.text;
-            menu.updateContent(function() { try { let settings = JSON.parse(received); if (JsonState.changed(menu.displaySettings, settings)) menu.displaySettings = settings; } catch (e) {}
-            });
-        }
-    }
     Process {
         id: trialOperation
         stdout: StdioCollector { id: trialOutput }
@@ -223,21 +222,6 @@ ThemedPopup {
         }
     }
     Process {
-        id: query
-        command: ["python3", menu.helper, "status"]
-        stdout: StdioCollector { id: queryOutput }
-        onExited: {
-            const received = queryOutput.text;
-            menu.updateContent(function() {
-                let state;
-                try { state = JSON.parse(received); }
-                catch (e) { state = {available: false, name: Eitr.I18n.tr("Brightness unavailable"), value: 0}; }
-                if (JsonState.changed(menu.state, state)) menu.state = state;
-
-            });
-        }
-    }
-    Process {
         id: operation
         stdout: StdioCollector { id: operationOutput }
         onExited: {
@@ -248,26 +232,10 @@ ThemedPopup {
                 if (!brightnessOsd.running) brightnessOsd.running = true;
             }
             if (menu.requested !== menu.applied) menu.startSet();
+            else DisplayService.resumeBrightness(menu);
         }
     }
     Process { id: brightnessOsd; command: ["swayosd-client", "--custom-icon", "display-brightness-symbolic", "--custom-progress", "0"] }
-    Process {
-        id: displayQuery
-        command: ["python3", menu.displayHelper, "status"]
-        stdout: StdioCollector { id: displayOutput }
-        onExited: {
-            const received = displayOutput.text;
-            menu.updateContent(function() {
-                try {
-                    let result = JSON.parse(received);
-                    if (JsonState.changed(menu.monitors, result.monitors || [])) menu.monitors = result.monitors || [];
-                    menu.primaryDisplay = result.primary || "";
-                    if (menu.displayError === menu.displayStatusError) menu.displayError = "";
-                } catch (e) { menu.displayError = menu.displayStatusError; }
-
-            });
-        }
-    }
     Process {
         id: setPrimary
         stdout: StdioCollector { id: setPrimaryOutput }
@@ -279,29 +247,11 @@ ThemedPopup {
             }
             try {
                 let result = JSON.parse(setPrimaryOutput.text);
-                menu.monitors = result.monitors || [];
-                menu.primaryDisplay = result.primary || "";
-                menu.primarySelected(menu.primaryDisplay);
+                menu.refreshDisplays();
+                menu.primarySelected(result.primary || "");
                 // The main display stays put and the others are placed around it, so positions change meaning.
                 menu.refreshDisplaySettings();
             } catch (e) { menu.displayError = menu.displayStatusError; }
-        }
-    }
-    Process {
-        id: nightQuery
-        command: ["python3", menu.nightlightHelper, "status"]
-        stdout: StdioCollector { id: nightQueryOutput }
-        onExited: {
-            const received = nightQueryOutput.text;
-            menu.updateContent(function() {
-                try {
-                    let nightlight = JSON.parse(received);
-                    if (JsonState.changed(menu.nightlight, nightlight)) { menu.nightlight = nightlight; menu.syncSchedule(); }
-                    if (menu.nightlightError === menu.nightlightStatusError) menu.nightlightError = "";
-                }
-                catch (e) { menu.nightlightError = menu.nightlightStatusError; }
-
-            });
         }
     }
     Process {
@@ -320,7 +270,7 @@ ThemedPopup {
                 }
                 catch (e) { menu.nightlightError = menu.nightlightStatusError; }
             }
-            menu.refreshNightlight();
+            DisplayService.resumeNightlight(menu);
         }
     }
     Item {

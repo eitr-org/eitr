@@ -902,3 +902,19 @@ Profile and airplane writes have request IDs, ordered serialization with network
 writes and originating-panel results. They keep the existing helpers and privilege
 boundaries. Unknown outcomes require a successful refresh and explicit retry;
 writes are never replayed. Data status includes all three power topics.
+
+
+`DisplayService` shares `display.topology`, `display.settings`,
+`display.brightness` and `display.nightlight` through the same broker. The display
+domain loads on first demand inside the bounded worker pool; import and read
+failures affect the requested topic without preventing other domains from starting. Hyprland
+monitor/configuration events and the watched primary/preferred output files
+refresh topology; shell geometry, desktop widgets and display controls use one
+monitor snapshot, including reserved edges. The saved main display, preferred
+connected output and largest-display fallback order is unchanged.
+Brightness and night-light reads retain their three-second interval only while
+observed; startup warms each once. DDC brightness is never periodically polled.
+Slider writes keep the latest pending value and suspend read demand until the
+write queue drains. Panel actions and display trials still use their existing
+helpers; the independent trial rollback survives bar or broker exit. The
+standalone display and hypridle brightness commands remain available.

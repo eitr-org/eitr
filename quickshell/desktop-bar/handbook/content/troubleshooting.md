@@ -62,6 +62,9 @@ available to Walker and screenshot shortcuts.
 
 Battery, power profiles and airplane status also share this broker. Battery reads run every 30 seconds; profile and radio reads run only while the relevant panels are open. Peripheral batteries do not enable laptop controls. Low-battery hooks and warnings retain their thresholds. Power-profile and airplane actions are ordered, report errors to the requesting panel and are never replayed after an unknown outcome. The standalone commands remain available.
 
+Display topology, brightness and night-light reads also share the broker. Monitor events and main-display preference changes refresh geometry across screens. Brightness and night-light refresh only while observed; DDC brightness is not polled. Display trials keep their independent automatic rollback even if the bar or broker exits. Standalone display and idle dim/restore commands remain available.
+
+
 ## Installation and recovery checks
 
 EITR is still in beta: VM coverage does not prove every WiFi adapter, Bluetooth

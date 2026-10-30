@@ -96,3 +96,5 @@ NetworkService NetworkService.qml
 singleton DesktopData DesktopData.qml
 
 singleton PowerService 1.0 PowerService.qml
+
+singleton DisplayService 1.0 DisplayService.qml

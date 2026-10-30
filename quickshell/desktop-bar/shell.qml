@@ -138,8 +138,8 @@ ShellRoot {
     property var hardwareIdentity: null
     property var battery: PowerService.battery
     readonly property string batteryIcon: battery.status === "Charging" ? "󰂄" : battery.percent < 20 ? "󰁻" : battery.percent < 60 ? "󰁾" : "󰁹"
-    property string primaryDisplay: ""
-    property var preferredOutputs: []
+    property string primaryDisplay: DisplayService.topology.primary
+    property var preferredOutputs: DisplayService.topology.preferred
     property string workspaceStyle: "Runes"
     readonly property int workspaceCount: WorkspaceModel.ceiling(WorkspaceModel.occupied(Hyprland.toplevels.values),
         Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.id : 0)
@@ -157,8 +157,8 @@ ShellRoot {
     property string barClock: "12h"
     // "all" puts a bar on every display; the main one keeps notifications.
     property string barScreens: "main"
-    property var windowGaps: [6, 6, 6, 6]
-    property var screenGaps: [12, 12, 12, 12]
+    property var windowGaps: DisplayService.topology.windowGaps
+    property var screenGaps: DisplayService.topology.screenGaps
     readonly property bool islandsLayout: barLayout === "islands"
     readonly property bool notchLayout: barLayout === "notch"
     readonly property real tabStripThickness: 7
@@ -166,55 +166,6 @@ ShellRoot {
     readonly property real tabBendRound: 6
     readonly property bool centeredLayout: barLayout === "centered"
     readonly property bool iconsOpen: centeredLayout || notchLayout || statusOpen
-    Process {
-        id: windowGapQuery
-        command: ["hyprctl", "-j", "getoption", "general:gaps_in"]
-        running: true
-        stdout: StdioCollector {
-            onStreamFinished: {
-                try {
-                    var gaps = JSON.parse(text).css.trim().split(/\s+/).map(Number);
-                    if (gaps.length === 4 && gaps.every(value => isFinite(value) && value >= 0)) shell.windowGaps = gaps;
-                } catch (e) {}
-            }
-        }
-    }
-    Process {
-        id: screenGapQuery
-        command: ["hyprctl", "-j", "getoption", "general:gaps_out"]
-        running: true
-        stdout: StdioCollector {
-            onStreamFinished: {
-                try {
-                    var gaps = JSON.parse(text).css.trim().split(/\s+/).map(Number);
-                    if (gaps.length === 4 && gaps.every(value => isFinite(value) && value >= 0)) shell.screenGaps = gaps;
-                } catch (e) {}
-            }
-        }
-    }
-    Timer {
-        interval: 60000; running: true; repeat: true
-        onTriggered: shell.refreshDisplayState()
-    }
-    function refreshDisplayState() {
-        if (windowGapQuery.running || screenGapQuery.running || primaryDisplayQuery.running) { displayReload.restart(); return; }
-        if (!windowGapQuery.running) windowGapQuery.running = true;
-        if (!screenGapQuery.running) screenGapQuery.running = true;
-        if (!primaryDisplayQuery.running) primaryDisplayQuery.running = true;
-        pluginDesktop.refresh();
-    }
-    Connections {
-        target: Hyprland
-        function onRawEvent(event) {
-            if (["monitoradded", "monitoraddedv2", "monitorremoved", "configreloaded"].indexOf(event.name) !== -1)
-                displayReload.restart();
-        }
-    }
-    Connections {
-        target: Quickshell
-        function onScreensChanged() { displayReload.restart(); }
-    }
-    Timer { id: displayReload; interval: 80; onTriggered: shell.refreshDisplayState() }
     property string barEdge: "top"
     property bool settingsDirty: false
     property string dragCandidate: ""
@@ -369,32 +320,6 @@ ShellRoot {
             if (workspacePalette.running || saveWorkspaceStyle.running) restart();
             else workspacePalette.running = true;
         }
-    }
-
-    Process {
-        id: primaryDisplayQuery
-        command: ["python3", Quickshell.shellDir + "/scripts/display-primary.py", "status"]
-        running: true
-        stdout: StdioCollector { id: primaryDisplayOutput }
-        onExited: function(code) {
-            if (code !== 0) return;
-            try {
-                var result = JSON.parse(primaryDisplayOutput.text);
-                shell.primaryDisplay = result.primary || "";
-                var preferred = result.preferred || [];
-                if (JSON.stringify(preferred) !== JSON.stringify(shell.preferredOutputs))
-                    shell.preferredOutputs = preferred;
-            } catch (e) {}
-        }
-    }
-
-    PreferenceWatch {
-        path: Eitr.Paths.config("hypr/primary-display")
-        onChanged: displayReload.restart()
-    }
-    PreferenceWatch {
-        path: Eitr.Paths.config("hypr/preferred-outputs")
-        onChanged: displayReload.restart()
     }
 
     Process {
@@ -1642,7 +1567,7 @@ ShellRoot {
                                 accent: shell.activeBg
                                 foreground: shell.fg
                                 background: shell.workspaceMenuBg
-                                onPrimarySelected: function(name) { shell.primaryDisplay = name }
+                                onPrimarySelected: DisplayService.refresh()
                             }
 
                             StatusIcon {

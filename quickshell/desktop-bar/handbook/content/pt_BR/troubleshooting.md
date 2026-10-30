@@ -90,3 +90,6 @@ O código do EITR fica em `/usr/share/eitr` e é atualizado pelo pacote `eitr-de
 Arquivos como `kitty/theme.conf` e o estilo do Walker são regenerados ao trocar temas e uma vez após cada atualização do pacote. As cópias anteriores ficam em `~/.local/state/eitr/generated-backups`. Se uma atualização muda o formato de uma preferência, ela é convertida uma vez no login; uma falha é informada e tentada novamente no próximo login (`~/.local/state/eitr/migrations.log`). `eitr-config status` lista configurações e substituições ativas.
 
 Terminais de tarefas que falharam oferecem **A: perguntar à IA** quando há um assistente padrão; **Esc** fecha. Só as últimas 200 linhas ficam na memória, sem sequências ANSI e com linhas de segredos evidentes ocultadas antes do envio: um assistente na nuvem envia essa saída ao provedor, enquanto Ratatoskr a mantém neste PC.
+
+
+A topologia das telas, o brilho e a luz noturna também compartilham o broker. Eventos dos monitores e mudanças na preferência de tela principal atualizam a geometria em todas as telas. O brilho e a luz noturna são atualizados apenas enquanto observados; o brilho DDC não é consultado periodicamente. Os testes de tela mantêm a reversão automática independente mesmo se a barra ou o broker encerrar. Os comandos de tela e de redução/restauração do brilho por inatividade continuam disponíveis.

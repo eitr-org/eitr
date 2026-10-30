@@ -140,3 +140,61 @@ powerClient.died();
 assert.deepEqual(powerResults, ['outcome-unknown', 'outcome-unknown']);
 powerClient.releaseOwner('brightness'); powerClient.releaseOwner('battery');
 assert.equal(powerClient.count('power.profile'), 0);
+
+// Exercise demand transitions with two screens and overlapping slider writes.
+const vm = require('node:vm');
+const displaySource = fs.readFileSync(path.join(bar, 'DisplayService.qml'), 'utf8');
+function displayFunction(name) {
+    const start = displaySource.indexOf('function ' + name + '(');
+    assert.ok(start >= 0, name);
+    let cursor = displaySource.indexOf('{', start), depth = 1;
+    while (depth && ++cursor < displaySource.length) {
+        if (displaySource[cursor] === '{') depth++;
+        if (displaySource[cursor] === '}') depth--;
+    }
+    return displaySource.slice(start, cursor + 1);
+}
+const displayTokens = new Map();
+let displaySequence = 0;
+const displayContext = {
+    observers: [], readInterval: 3, brightnessWriters: [], nightWriters: [],
+    brightnessToken: '', nightToken: '', settingsToken: '', warmTokens: {},
+    DesktopData: {
+        observe(topic, owner, interval) {
+            const token = String(++displaySequence);
+            displayTokens.set(token, {topic, interval});
+            return token;
+        },
+        release(token) { assert.ok(displayTokens.delete(token), 'release once'); },
+        refresh() {}
+    }
+};
+Object.defineProperty(displayContext, 'brightnessPaused', {get: () => displayContext.brightnessWriters.length > 0});
+Object.defineProperty(displayContext, 'nightPaused', {get: () => displayContext.nightWriters.length > 0});
+displayContext.service = displayContext;
+vm.createContext(displayContext);
+vm.runInContext(['open', 'close', 'updateDemand', 'pauseBrightness', 'resumeBrightness',
+    'refreshBrightness', 'pauseNightlight', 'resumeNightlight', 'releaseWarm'].map(displayFunction).join('\n'), displayContext);
+displayContext.open('control-center', 5);
+assert.equal(displayTokens.size, 3);
+assert.equal(displayContext.readInterval, 5);
+displayContext.open('display-one', 3);
+displayContext.open('display-two', 3);
+assert.equal(displayTokens.size, 3, 'screens share one set of reads');
+assert.equal(displayContext.readInterval, 3);
+displayContext.pauseBrightness('display-one');
+displayContext.pauseBrightness('display-two');
+assert.equal(displayTokens.size, 2);
+displayContext.resumeBrightness('display-one');
+assert.equal(displayTokens.size, 2, 'second writer still excludes reads');
+displayContext.close('display-one');
+displayContext.resumeBrightness('display-two');
+assert.equal(displayTokens.size, 3);
+displayContext.close('display-two');
+assert.equal(displayContext.readInterval, 5);
+displayContext.pauseNightlight('control-center');
+assert.equal(displayTokens.size, 2);
+displayContext.close('control-center');
+displayContext.resumeNightlight('control-center');
+assert.equal(displayTokens.size, 0, 'closed and destroyed observers leave no reads');
+console.log('display shared demand, intervals and write exclusion passed');

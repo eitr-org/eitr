@@ -6,7 +6,7 @@ import os
 import shutil
 import subprocess
 import threading
-from unittest.mock import patch, AsyncMock
+from unittest.mock import patch, AsyncMock, Mock
 import tempfile
 from pathlib import Path
 import sys
@@ -713,4 +713,68 @@ assert.equal(hooks.length,2); assert.equal(notifications.length,3);
             self.assertEqual(frames[-1]['error'], 'invalid-request')
             self.assertEqual(start.call_count, 2, 'duplicate writes must not replay')
         finally:
+            await broker.close()
+
+
+class DisplayIsolationTests(unittest.IsolatedAsyncioTestCase):
+    async def test_missing_display_domain_is_lazy_and_does_not_break_network(self):
+        loop_thread = threading.get_ident()
+        imports = []
+        original_spec = importlib.util.spec_from_file_location
+        def locate(name, path):
+            if name == "display_domain":
+                imports.append(threading.get_ident())
+                raise FileNotFoundError("display fixture absent")
+            return original_spec(name, path)
+        with patch.object(broker_module.importlib.util, "spec_from_file_location", side_effect=locate):
+            broker = broker_module.Broker(lambda frame: None)
+            try:
+                self.assertEqual(imports, [], "startup must not load an unobserved display domain")
+                broker.adapter = Mock()
+                broker.adapter.read_state.return_value = {"devices": []}
+                broker.request(dict(v=1, op="subscribe", topic="display.topology", token="display"))
+                broker.request(dict(v=1, op="subscribe", topic="network.summary", token="network"))
+                self.assertEqual(imports, [], "subscribe must not import on the event loop")
+                await asyncio.wait_for(asyncio.gather(broker.states["display.topology"]["task"],
+                                                     broker.states["network.summary"]["task"]), 1)
+                self.assertEqual(broker.states["display.topology"]["status"], "unavailable")
+                self.assertEqual(broker.states["network.summary"]["status"], "ready")
+                self.assertEqual(len(imports), 1)
+                self.assertNotEqual(imports[0], loop_thread, "display import belongs in the worker pool")
+            finally:
+                await broker.close()
+
+    async def test_slow_display_read_has_deadline_without_blocking_network(self):
+        gate = threading.Event()
+        calls = []
+        loop_thread = threading.get_ident()
+        def read(topic):
+            calls.append(threading.get_ident())
+            gate.wait(2)
+            return {"available": True, "kind": "ddc", "value": 50}
+        broker = broker_module.Broker(lambda frame: None, timeout=.02)
+        broker.display = Mock()
+        broker.display.read.side_effect = read
+        broker.adapter = Mock()
+        broker.adapter.read_state.return_value = {"devices": []}
+        try:
+            broker.request(dict(v=1, op="subscribe", topic="display.brightness", token="display"))
+            display_task = broker.states["display.brightness"]["task"]
+            broker.request(dict(v=1, op="subscribe", topic="network.summary", token="network"))
+            await asyncio.wait_for(broker.states["network.summary"]["task"], 1)
+            await asyncio.sleep(.04)
+            self.assertEqual(broker.states["network.summary"]["status"], "ready")
+            self.assertEqual(broker.states["display.brightness"]["error"], "timeout")
+            self.assertFalse(display_task.done(), "timed-out read retains its bounded worker slot")
+            self.assertEqual(len(calls), 1)
+            self.assertNotEqual(calls[0], loop_thread)
+            broker.refresh("display.brightness")
+            broker.refresh("display.brightness")
+            self.assertEqual(len(calls), 1, "refreshes must not spawn more blocked reads")
+            broker.request(dict(v=1, op="unsubscribe", topic="display.brightness", token="display"))
+            gate.set()
+            await asyncio.wait_for(display_task, 1)
+            self.assertEqual(broker.states["display.brightness"]["data"], {}, "late result is discarded")
+        finally:
+            gate.set()
             await broker.close()

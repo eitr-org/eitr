@@ -10,11 +10,13 @@ import os
 import signal
 import sys
 import time
+import threading
 import uuid
 
 MAX_FRAME = 262144
 MAX_RESULT = MAX_FRAME // 2
-INTERVALS = {"network.summary": 10, "network.details": 2, "network.latency": 15,
+INTERVALS = {"display.topology": float("inf"), "display.settings": float("inf"),
+             "display.brightness": 3, "display.nightlight": 3, "network.summary": 10, "network.details": 2, "network.latency": 15,
              "power.battery": 30, "power.profile": 5, "power.radios": 5,
              "capture.summary": 2, "capture.details": 2, "capture.options": float("inf")}
 
@@ -30,6 +32,8 @@ class Broker:
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
         self.power = module.PowerDomain()
+        self.display = None
+        self.display_lock = threading.Lock()
         self.periods = {}
         self.adapter = None
         self.reader = reader or self.read
@@ -50,6 +54,14 @@ class Broker:
                                    pending=False, due=0, generation=0, durationMs=0, id="") for topic in INTERVALS}
 
     def read(self, topic):
+        if topic.startswith("display."):
+            with self.display_lock:
+                if self.display is None:
+                    spec = importlib.util.spec_from_file_location("display_domain", Path(__file__).with_name("display-domain.py"))
+                    module = importlib.util.module_from_spec(spec)
+                    spec.loader.exec_module(module)
+                    self.display = module.DisplayDomain()
+            return self.display.read(topic)
         if topic.startswith("power."):
             return self.power.read(topic)
         if topic.startswith("capture."):
@@ -68,6 +80,8 @@ class Broker:
 
     def scheduled(self, topic):
         if not self.wanted(topic):
+            return False
+        if topic == "display.brightness" and self.states[topic]["data"].get("kind") == "ddc":
             return False
         if topic == "capture.summary":
             return not self.wanted("capture.details") and (self.capture.has_window or self.states[topic]["data"].get("running", False))
@@ -144,7 +158,9 @@ class Broker:
                 spec.loader.exec_module(adapter)
                 self.adapter = adapter
             future = asyncio.get_running_loop().run_in_executor(self.executor, self.reader, topic)
-            budget = 25 if topic == "capture.details" else 10 if topic == "capture.summary" else self.timeout
+            budget = 16 if topic == "display.topology" else 9 if topic == "display.brightness" else 25 if topic == "capture.details" else 10 if topic == "capture.summary" else self.timeout
+            if self.timeout < 5:
+                budget = min(budget, self.timeout)
             try:
                 result = await asyncio.wait_for(asyncio.shield(future), budget)
             except TimeoutError:
@@ -369,7 +385,7 @@ class Broker:
                 raise ValueError("token-conflict")
             fresh = token not in self.tokens
             self.tokens[token] = topic
-            if topic == "power.profile":
+            if topic in {"power.profile", "display.brightness", "display.nightlight"}:
                 self.periods[token] = 3 if frame.get("interval") == 3 else 5
             self.action_state()
             self.capture.state()

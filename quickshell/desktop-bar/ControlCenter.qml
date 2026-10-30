@@ -76,7 +76,7 @@ ThemedPopup {
     barEdge: barPosition
     leftAligned: true
     function refresh() {
-        keyboardControl.refresh(); displayControl.refresh(); displayControl.refreshNightlight(); displayControl.refreshDisplays();
+        keyboardControl.refresh();
         if (!crashQuery.running && !crashOperation.running) crashQuery.running = true;
         if (!gameModeQuery.running && !gameModeOperation.running) gameModeQuery.running = true;
     }
@@ -101,6 +101,7 @@ ThemedPopup {
     // Queries start once the unfold has finished (DockPanel.revealed): their results
     // rebuild lists, which would otherwise stall the animation midway.
     onRevealed: {
+        DisplayService.open(center, 5);
         center.refresh(); chatStatus.running = true;
         if (page === "style") loadStyle();
         if (!organizationQuery.running) organizationQuery.running = true;
@@ -114,8 +115,9 @@ ThemedPopup {
         target: center.wifiControl
         function onBusyChanged() { if (center.opened && !center.wifiControl.busy) center.refresh(); }
     }
-    Component.onDestruction: { wifiControl.release(networkToken); wifiControl.detach(center); DesktopData.releaseOwner(center); DesktopData.client.detachAction(powerActionId); }
+    Component.onDestruction: { DisplayService.close(center); wifiControl.release(networkToken); wifiControl.detach(center); DesktopData.releaseOwner(center); DesktopData.client.detachAction(powerActionId); }
     onOpenedChanged: {
+        if (!opened) DisplayService.close(center);
         PowerService.release(powerTokens);
         powerTokens = opened ? PowerService.observe(center, 5, true) : [];
         if (opened) networkToken = wifiControl.observe(center);
