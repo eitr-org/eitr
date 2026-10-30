@@ -12,7 +12,6 @@ import "PanelStyle.js" as PanelStyle
 import "WorkspaceModel.js" as WorkspaceModel
 import "BarGeometry.js" as BarGeometry
 import "EdgeSlopes.js" as EdgeSlopes
-import "NetworkStatus.js" as NetworkStatus
 
 ShellRoot {
     Component.onCompleted: {
@@ -21,6 +20,7 @@ ShellRoot {
     }
     id: shell
     signal handbookOpened()
+    NetworkService { id: networkOwner }
     NotificationService { id: notificationsService }
     RemoteAccessService { id: remoteAccessService; observing: shell.remotePanelsOpen }
     Handbook {
@@ -660,23 +660,8 @@ ShellRoot {
         }
     }
     SystemClock { id: focusClock; precision: SystemClock.Minutes }
-    property string wifiGlyph: ""
-    property string focusNetworkGlyph: ""
-    Process {
-        id: wifiStatusQuery
-        command: ["python3", Quickshell.shellDir + "/scripts/wifi-popup.py", "icon"]
-        running: true
-        stdout: StdioCollector {
-            onStreamFinished: {
-                try {
-                    const snapshot = JSON.parse(text);
-                    shell.wifiGlyph = NetworkStatus.glyph(snapshot, snapshot.blocked);
-                    shell.focusNetworkGlyph = snapshot.wired ? "󰈀" : shell.wifiGlyph;
-                } catch (error) {}
-            }
-        }
-    }
-    Timer { interval: 10000; repeat: true; running: true; onTriggered: if (!wifiStatusQuery.running) wifiStatusQuery.running = true }
+    readonly property string wifiGlyph: networkOwner.glyph
+    readonly property string focusNetworkGlyph: networkOwner.focusGlyph
 
 
     Variants {
@@ -947,7 +932,7 @@ ShellRoot {
                     surfaceColor: shell.barBackground()
                     foreground: shell.fg; background: shell.workspaceMenuBg; accent: shell.activeBg
                     service: notificationsService
-                    wifiControl: wifiMenu; bluetoothControl: bluetoothMenu; displayControl: brightnessMenu
+                    wifiControl: networkOwner; bluetoothControl: bluetoothMenu; displayControl: brightnessMenu
                     keyboardControl: keyboardMenu
                     wifiGlyph: shell.verticalBar ? verticalWifiIcon.text : wifiIcon.text
                     battery: shell.battery; mediaPlayer: mediaStrip.player
@@ -1617,8 +1602,7 @@ ShellRoot {
 
                             WifiMenu {
                                 id: wifiMenu
-                                observing: controlCenter.opened
-                                onStatusReceived: snapshot => shell.wifiGlyph = NetworkStatus.glyph(snapshot)
+                                networkService: networkOwner
                                 surfaceColor: shell.barBackground()
                                 target: shell.verticalBar ? verticalWifiIcon : (shell.iconsOpen ? wifiIcon : notificationIcon)
                                 barEdge: shell.barEdge

@@ -1,0 +1,149 @@
+{
+  "noAdapter": {
+    "devices": [],
+    "backend": "iwd",
+    "blocked": false,
+    "wired": false
+  },
+  "blocked": {
+    "devices": [
+      {
+        "path": "/device/0",
+        "name": "wlan-fixture",
+        "powered": false,
+        "state": "off",
+        "scanning": false,
+        "networks": [
+          {
+            "path": "",
+            "name": "Saved offline",
+            "type": "psk",
+            "known": true,
+            "connected": false,
+            "available": false,
+            "strength": null,
+            "knownPath": "/known/offline"
+          }
+        ],
+        "details": {}
+      }
+    ],
+    "backend": "iwd",
+    "blocked": true,
+    "wired": false
+  },
+  "wired": {
+    "devices": [],
+    "backend": "iwd",
+    "blocked": false,
+    "wired": true
+  },
+  "connected": {
+    "devices": [
+      {
+        "path": "/device/0",
+        "name": "wlan-fixture",
+        "powered": true,
+        "state": "connected",
+        "scanning": false,
+        "networks": [
+          {
+            "path": "/net/connected",
+            "name": "Fixture WiFi",
+            "type": "psk",
+            "known": true,
+            "connected": true,
+            "available": true,
+            "strength": 80,
+            "knownPath": "/known/connected"
+          },
+          {
+            "path": "",
+            "name": "Saved offline",
+            "type": "psk",
+            "known": true,
+            "connected": false,
+            "available": false,
+            "strength": null,
+            "knownPath": "/known/offline"
+          },
+          {
+            "path": "/net/guest",
+            "name": "Guest",
+            "type": "open",
+            "known": false,
+            "connected": false,
+            "available": true,
+            "strength": 80,
+            "knownPath": ""
+          }
+        ],
+        "details": {
+          "ip": "192.0.2.10",
+          "gateway": "192.0.2.1",
+          "band": "5 GHz"
+        }
+      }
+    ],
+    "backend": "iwd"
+  },
+  "networkmanager": {
+    "devices": [
+      {
+        "path": "/device/0",
+        "name": "wlan-fixture",
+        "powered": true,
+        "state": "connected",
+        "scanning": false,
+        "networks": [
+          {
+            "path": "/net/connected",
+            "name": "Fixture WiFi",
+            "type": "psk",
+            "known": true,
+            "connected": true,
+            "available": true,
+            "strength": 80,
+            "knownPath": "/known/connected",
+            "devicePath": "/device/0"
+          },
+          {
+            "path": "/net/guest",
+            "name": "Guest",
+            "type": "open",
+            "known": false,
+            "connected": false,
+            "available": true,
+            "strength": 80,
+            "knownPath": "",
+            "devicePath": "/device/0"
+          },
+          {
+            "path": "",
+            "name": "Saved offline",
+            "type": "psk",
+            "known": true,
+            "connected": false,
+            "available": false,
+            "strength": null,
+            "knownPath": "/known/offline",
+            "devicePath": "/device/0"
+          }
+        ],
+        "details": {
+          "ip": "192.0.2.10",
+          "gateway": "192.0.2.1",
+          "band": "5 GHz"
+        }
+      }
+    ],
+    "backend": "networkmanager"
+  },
+  "unavailable": {
+    "error": "No WiFi backend is running"
+  },
+  "latency": {
+    "ping": 12.5,
+    "loss": 0
+  }
+}

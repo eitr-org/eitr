@@ -70,7 +70,7 @@ ThemedPopup {
     barEdge: barPosition
     leftAligned: true
     function refresh() {
-        wifiControl.refresh(); keyboardControl.refresh(); displayControl.refresh(); displayControl.refreshNightlight(); displayControl.refreshPower(); displayControl.refreshDisplays();
+        keyboardControl.refresh(); displayControl.refresh(); displayControl.refreshNightlight(); displayControl.refreshPower(); displayControl.refreshDisplays();
         if (!airplaneQuery.running && !airplaneOperation.running) airplaneQuery.running = true;
         if (!crashQuery.running && !crashOperation.running) crashQuery.running = true;
         if (!gameModeQuery.running && !gameModeOperation.running) gameModeQuery.running = true;
@@ -101,7 +101,17 @@ ThemedPopup {
         if (!organizationQuery.running) organizationQuery.running = true;
         if (page === "settings" && !channelQuery.running) channelQuery.running = true;
     }
-    onOpenedChanged: if (!opened) { chatOpen = false; chatView.reset(); }
+    property string networkToken: ""
+    property string networkMessage: ""
+    function networkActionFinished(error) { networkMessage = error; }
+    Component.onDestruction: { wifiControl.release(networkToken); wifiControl.detach(center); }
+    onOpenedChanged: {
+        if (opened) networkToken = wifiControl.observe(center);
+        else {
+            wifiControl.release(networkToken); networkToken = "";
+            chatOpen = false; chatView.reset();
+        }
+    }
     onPageChanged: {
         if (page === "style") loadStyle();
         if (page === "settings" && !channelQuery.running) channelQuery.running = true;
@@ -345,7 +355,7 @@ ThemedPopup {
                                 detail: center.wifiControl.connected ? center.wifiControl.connected.name : ""
                                 selected: !!center.wifiControl.device && center.wifiControl.device.powered
                                 available: !!center.wifiControl.device && !center.wifiControl.busy && !center.airplane.enabled
-                                onClicked: center.wifiControl.act("power", center.wifiControl.device.path, center.wifiControl.device.powered ? "false" : "true")
+                                onClicked: center.wifiControl.act(center, "power", center.wifiControl.device.path, center.wifiControl.device.powered ? "false" : "true")
                             }
                             ToggleTile {
                                 title: Eitr.I18n.tr("Bluetooth"); glyph: "󰂯"
@@ -361,7 +371,7 @@ ThemedPopup {
                                 onClicked: { center.actionError = ""; airplaneOperation.command = ["python3", Quickshell.shellDir + "/scripts/airplane.py", "set", center.airplane.enabled ? "false" : "true"]; airplaneOperation.running = true; }
                             }
                         }
-                        Text { visible: center.wifiControl.message !== ""; width: parent.width; wrapMode: Text.WordWrap; text: center.wifiControl.message; color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                        Text { visible: (center.networkMessage || center.wifiControl.details.error || "") !== ""; width: parent.width; wrapMode: Text.WordWrap; text: (center.networkMessage || center.wifiControl.details.error || ""); color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
                         Section { text: Eitr.I18n.tr("Quick Actions"); width: parent.width }
                         GridLayout {
                             width: parent.width; columns: 2; columnSpacing: PanelStyle.selectionActionGap; rowSpacing: PanelStyle.selectionRowGap

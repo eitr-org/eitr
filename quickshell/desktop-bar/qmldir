@@ -92,3 +92,4 @@ FocusStrip FocusStrip.qml
 
 singleton ObsStatus 1.0 ObsStatus.qml
 PreferenceWatch PreferenceWatch.qml
+NetworkService NetworkService.qml

@@ -742,7 +742,7 @@ compositor blur, D-Bus, GPU capture, DDC or real hardware performance.
 | Control Center — Quick chat | Assistant status; conversation delegates | Status query immediate and guarded; no request until Send; closing still clears memory | needs live check |
 | AI Usage (`ai`) | Cache + fresh query replaced provider model on every open | Startup cache; immediate fresh query/results; guarded usage assignment | needs live check |
 | Hardware (`hardware`) | Telemetry process replaced all section delegates | Warm background prefetch; immediate refresh/parse; guarded section snapshot | needs live check |
-| WiFi (`wifi`) | Status process replaced devices; ping could follow during reveal | Warm background status; immediate open query/parse and ping; guarded device snapshot; QR generated only after explicit Share | needs live check |
+| WiFi (`wifi`) | Status process replaced devices; ping could follow during reveal | Shared cached status; refresh on open and visible-only ping; guarded device snapshot; QR generated only after explicit Share | needs live check |
 | Bluetooth (`bluetooth`) | Service-backed section arrays recreated when devices changed | Apply sections immediately and compare device identities; scan remains explicit and stops on close | needs live check |
 | Display (`brightness`, `display`) and monitor editor | Status/monitor/settings/nightlight/power JSON; slow DDC read | Existing prefetch/JsonState retained; immediate query parsers and open DDC read; shared size retargeting | needs live check |
 | Audio (`volume`, `mic`) and device picker | PipeWire node list, scroll positioning, microphone peak monitor | Apply node-list identity changes and initial scroll immediately; peak monitor activates after reveal; no recording is started | needs live check |
@@ -823,3 +823,20 @@ share a machine-local preference. Focus uses native Hyprland groups with up to
 four panes per monitor and a thin Quickshell tab strip. Turning it off restores
 the normal bar and effects, spreading windows two per workspace. See the
 [Focus Handbook chapter](handbook/content/focus.md) for keys, monitor behavior and recovery.
+
+### Network data ownership
+
+One `NetworkService` in the shell supplies every screen, bar layout and Focus
+strip. It reads the existing `wifi-popup.py icon` summary at startup and every
+10 seconds. WiFi menus and Control Center hold detail observer tokens while
+open; one shared reader refreshes on opening and every 2 seconds. Only visible
+WiFi menus hold latency tokens, for one probe on opening/connection and every
+15 seconds. Closing or destroying a consumer releases its tokens idempotently;
+zero demand stops the corresponding reader and timer. Cached details appear
+immediately, with fresh panel content applied through the popup reveal guard.
+Refreshes coalesce to one running read and one pending refresh. Each topic keeps
+its last good data, timestamp, and loading/ready/unavailable/stale/error status.
+Network actions share a busy guard across screens. QR generation has its own
+guard; credentials and QR results go only to the requesting panel and are not
+part of shared snapshots. The existing iwd and NetworkManager readers and action
+helpers remain the backend authority.
