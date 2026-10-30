@@ -126,115 +126,20 @@ ShellRoot {
         onExited: if (!idleLockStatus.running) idleLockStatus.running = true
     }
 
-    Connections {
-        target: PowerService
-        function onBatteryReceived() { shell.checkBatteryLow(); }
-    }
-    // The user's hooks (distro/lib/run-hook.sh): battery-low once per drop to 15%,
-    // post-boot at start (the runner keeps it to once per boot).
-    property bool batteryLowHookRan: false
-    function runHook(args) {
-        var library = Quickshell.env("EITR_LIBRARY_ROOT") || (Eitr.Paths.codeRoot + "/lib");
-        Quickshell.execDetached(["bash", library + "/run-hook.sh"].concat(args));
-    }
-    // The lowest battery warning already given during this discharge (0 = none).
-    property int batteryWarned: 0
-    function checkBatteryLow() {
-        var discharging = shell.battery.available && shell.battery.status === "Discharging";
-        var low = discharging && shell.battery.percent <= 15;
-        if (low && !batteryLowHookRan) runHook(["battery-low", String(shell.battery.percent)]);
-        batteryLowHookRan = low;
-        if (!discharging) { batteryWarned = 0; return; }
-        var level = shell.battery.percent <= 5 ? 5 : shell.battery.percent <= 10 ? 10 : 0;
-        if (level === 0 || (batteryWarned !== 0 && batteryWarned <= level)) return;
-        batteryWarned = level;
-        Quickshell.execDetached(["notify-send", "--app-name=Battery", "--urgency=" + (level === 5 ? "critical" : "normal"),
-            "--icon=battery-caution-symbolic", level === 5 ? "Battery almost empty" : "Battery low",
-            shell.battery.percent + "% left. " + (level === 5 ? "Plug in now to avoid losing work." : "Plug in soon.")]);
-    }
-    Timer { interval: 5000; running: true; onTriggered: shell.runHook(["post-boot"]) }
-    // Reminders survive restarts: reschedule them, and show ones that came due while off.
-    Timer {
-        interval: 6000
-        running: true
-        onTriggered: Quickshell.execDetached(["python3", Eitr.Paths.codeRoot + "/walker/scripts/actions/tools/reminders.py", "restore"])
-    }
+    SessionHooks { id: sessionHooks; host: shell }
+    function runHook(args) { sessionHooks.runHook(args); }
 
-    // Checked shortly after login, every six hours, and again after System Update.
-    property string updatesToken: DesktopData.observe("updates.status", "shell-updates")
-    readonly property var updatesState: DesktopData.topics["updates.status"] || {status: "loading", data: {}}
-    readonly property var updates: Object.assign({count: 0, repository: 0, aur: 0, downloadBytes: 0}, updatesState.data,
-        {checking: updatesState.status === "loading" || (!!updatesState.inFlight && updatesState.error !== "broker-unavailable")})
-    onUpdatesStateChanged: if (updatesState.status === "ready" && !updatesState.inFlight) shell.announceUpdates();
-    // A notification goes out only when more updates are pending than were last announced.
-    property int announcedUpdates: 0
-    readonly property string updatesIcon: updates.checking ? "󰁪" : updates.count > 0 ? "󰚰" : "󰗡"
-    readonly property string updatesSize: updates.downloadBytes <= 0 ? ""
-        : updates.downloadBytes >= 1073741824 ? (updates.downloadBytes / 1073741824).toFixed(1) + " GB"
-        : Math.max(1, Math.round(updates.downloadBytes / 1048576)) + " MB"
-    readonly property string updatesTooltip: {
-        if (updates.checking) return "Checking for updates";
-        if (updatesState.error === "offline") return Eitr.I18n.tr("Offline");
-        if (updatesState.status !== "ready") return Eitr.I18n.tr("Updates unavailable · right-click to check again");
-        if (updates.count === 0) return "Up to date · right-click to check again";
-        return updates.count + (updates.count === 1 ? " update" : " updates") + (updatesSize ? " · " + updatesSize : "");
-    }
-    function announceUpdates() {
-        if (updates.count <= announcedUpdates) {
-            announcedUpdates = updates.count;
-            return;
-        }
-        announcedUpdates = updates.count;
-        Quickshell.execDetached(["bash", Quickshell.shellDir + "/scripts/updates-notify.sh", String(updates.count), updatesSize]);
-    }
-    function checkUpdates() { DesktopData.refresh("updates.status"); }
-    function openSystemUpdate() {
-        var root = Quickshell.env("EITR_CODE_ROOT") || Quickshell.shellDir + "/../..";
-        // Floating, with the theme's solid background, like terminals that menus open.
-        Quickshell.execDetached([root + "/walker/bin/menu-path/kitty", "-e", "python3", root + "/walker/scripts/actions/task-terminal.py",
-            "bash", root + "/walker/scripts/actions/system/update.sh", "system"]);
-    }
-    IpcHandler {
-        target: "updates"
-        function refresh(): void { shell.checkUpdates(); }
-    }
-    // Hold-to-talk dictation (walker/scripts/actions/tools/dictate.sh) turns the
-    // recording dot into a live waveform while the microphone listens, then a
-    // slow pulse while the speech is transcribed.
-    property bool dictating: false
-    property bool transcribing: false
-    // Microphone levels for the waveform, newest first (drawn at the centre).
-    property var dictationLevels: [0, 0, 0, 0]
-    IpcHandler {
-        target: "dictation"
-        function start(): void { shell.transcribing = false; shell.dictating = true; dictationSafety.restart(); }
-        function transcribe(): void { shell.dictating = false; shell.transcribing = true; dictationSafety.restart(); }
-        function stop(): void { shell.dictating = false; shell.transcribing = false; dictationSafety.stop(); }
-    }
-    // A lost stop must not leave the dot on.
-    Timer { id: dictationSafety; interval: 300000; onTriggered: { shell.dictating = false; shell.transcribing = false; } }
-    // The waveform never outlives the recording: while it shows, check every few
-    // seconds that a recorder still exists (dictate.sh keeps its pid in these files).
-    Timer {
-        interval: 3000; repeat: true; running: shell.dictating
-        onTriggered: dictationAlive.running = true
-    }
-    Process {
-        id: dictationAlive
-        command: ["sh", "-c", "for mode in dictation voice; do f=\"${XDG_RUNTIME_DIR:-/tmp}/eitr-$mode.pid\"; [ -f \"$f\" ] && kill -0 \"$(cat \"$f\")\" 2>/dev/null && exit 0; done; exit 1"]
-        onExited: (code) => { if (code !== 0 && shell.dictating) shell.dictating = false; }
-    }
-    PwNodePeakMonitor {
-        id: dictationPeak
-        node: Pipewire.defaultAudioSource
-        enabled: shell.dictating && node !== null
-    }
-    Timer {
-        interval: 70; repeat: true; running: shell.dictating
-        // Speech peaks sit low on a linear scale; the square root lifts them.
-        onTriggered: shell.dictationLevels = [Math.min(1, Math.sqrt(dictationPeak.peak) * 1.4)].concat(shell.dictationLevels.slice(0, 3))
-    }
-    onDictatingChanged: if (!dictating) dictationLevels = [0, 0, 0, 0]
+    UpdatesStatus { id: updatesStatus }
+    readonly property alias updates: updatesStatus.updates
+    readonly property alias updatesIcon: updatesStatus.updatesIcon
+    readonly property alias updatesTooltip: updatesStatus.updatesTooltip
+    function checkUpdates() { updatesStatus.checkUpdates(); }
+    function openSystemUpdate() { updatesStatus.openSystemUpdate(); }
+    // Hold-to-talk dictation state (DictationState.qml) drives the recording dot.
+    DictationState { id: dictation }
+    readonly property alias dictating: dictation.dictating
+    readonly property alias transcribing: dictation.transcribing
+    readonly property alias dictationLevels: dictation.dictationLevels
 
     TimePicker { defaultScreen: shell.targetScreens()[0] || null; foreground: shell.fg; background: shell.barBackground() }
     AppearancePicker { defaultScreen: shell.targetScreens()[0] || null }
@@ -328,29 +233,7 @@ ShellRoot {
         return [main].concat((Quickshell.screens || []).filter(screen => screen && screen !== main));
     }
 
-    Variants {
-        model: FocusMode.enabled ? Quickshell.screens : []
-        delegate: Component {
-            PanelWindow {
-                required property var modelData
-                screen: modelData
-                anchors { top: true; left: true; right: true }
-                implicitHeight: 28; exclusiveZone: 28
-                color: "transparent"
-                WlrLayershell.namespace: "eitr-focus-strip"
-                FocusStrip {
-                    anchors.fill: parent
-                    tabs: FocusMode.tabs(modelData)
-                    foreground: shell.fg; background: shell.workspaceMenuBg; accent: shell.activeBg
-                    clockText: Qt.formatDateTime(focusClock.date, shell.barClock === "24h" ? "HH:mm" : "h:mm AP")
-                    networkText: shell.focusNetworkGlyph
-                    batteryText: shell.battery.available ? shell.batteryIcon + " " + Math.round(shell.battery.percent) + "%" : ""
-                    onSelected: address => FocusMode.activate(address)
-                }
-            }
-        }
-    }
-    SystemClock { id: focusClock; precision: SystemClock.Minutes }
+    FocusStrips { host: shell }
     readonly property string wifiGlyph: networkOwner.glyph
     readonly property string focusNetworkGlyph: networkOwner.focusGlyph
 

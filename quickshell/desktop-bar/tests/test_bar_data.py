@@ -685,21 +685,21 @@ class PowerTests(unittest.IsolatedAsyncioTestCase):
             await broker.close()
 
     def test_warning_thresholds_once_across_suspend_and_repeated_snapshots(self):
-        source = (SCRIPT.parents[1] / 'shell.qml').read_text()
+        source = (SCRIPT.parents[1] / 'SessionHooks.qml').read_text()
         start = source.index('    function checkBatteryLow()')
         end = source.index('\n    }', start) + 6
         function = source[start:end]
         code = '''const assert = require('assert');
 const hooks = [], notifications = [];
 let batteryLowHookRan = false, batteryWarned = 0;
-const shell = {battery: {available:true, status:'Discharging', percent:50}};
+const host = {battery: {available:true, status:'Discharging', percent:50}};
 const runHook = args => hooks.push(args);
 const Quickshell = {execDetached: args => notifications.push(args)};
 ''' + function + '''
-[50,15,15,9,9,4,4].forEach(percent => {shell.battery.percent = percent; checkBatteryLow();});
+[50,15,15,9,9,4,4].forEach(percent => {host.battery.percent = percent; checkBatteryLow();});
 assert.equal(hooks.length,1); assert.equal(notifications.length,2);
-shell.battery.status = 'Charging'; checkBatteryLow();
-shell.battery.status = 'Discharging'; shell.battery.percent = 4;
+host.battery.status = 'Charging'; checkBatteryLow();
+host.battery.status = 'Discharging'; host.battery.percent = 4;
 checkBatteryLow(); checkBatteryLow();
 assert.equal(hooks.length,2); assert.equal(notifications.length,3);
 '''

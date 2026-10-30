@@ -273,7 +273,7 @@ assert.match(aiMenu, /if \(opened\)[\s\S]*DesktopData.observe\("ai.usage", menu\
 console.log('weather request ownership and AI open-only demand passed');
 
 // Exercise the shell-owned notification guard through repeated shared snapshots.
-const updateShell = fs.readFileSync(path.join(bar, 'shell.qml'), 'utf8');
+const updateShell = fs.readFileSync(path.join(bar, 'UpdatesStatus.qml'), 'utf8');
 const announcementBody = updateShell.match(/function announceUpdates\(\) \{([\s\S]*?)\n    \}/)[1];
 const announcementContext = {updates: {count: 0}, announcedUpdates: 0, updatesSize: '',
     Quickshell: {shellDir: '/fixture', execDetached: command => announcements.push(command)}};

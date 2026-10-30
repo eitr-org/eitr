@@ -124,9 +124,11 @@ print(entries[1].Actions.app_uninstall)
         self.assertIn('Actions = row.actions', scoped)
         self.assertNotIn('app-launch', scoped)
         for name in ['SystemMonitorMenu.qml', 'shell.qml']:
-            self.assertIn('/walker/bin/menu-path/kitty' if name == 'shell.qml' else 'walker/bin/menu-path/kitty',
-                          (ROOT / 'quickshell/desktop-bar' / name).read_text())
-        self.assertIn('["notify-send",', (ROOT / 'quickshell/desktop-bar/shell.qml').read_text())
+            source = (ROOT / 'quickshell/desktop-bar' / name).read_text()
+            if name == 'shell.qml':
+                source += (ROOT / 'quickshell/desktop-bar/UpdatesStatus.qml').read_text()
+            self.assertIn('/walker/bin/menu-path/kitty' if name == 'shell.qml' else 'walker/bin/menu-path/kitty', source)
+        self.assertIn('["notify-send",', (ROOT / 'quickshell/desktop-bar/SessionHooks.qml').read_text())
 
 
 if __name__ == '__main__':

@@ -41,9 +41,9 @@ class LaptopWiringTests(unittest.TestCase):
         self.assertIn('hl.bind("XF86KbdBrightnessUp"', hypr)
         self.assertIn('hl.bind("switch:on:Lid Switch"', hypr)
         self.assertIn('hl.bind("switch:off:Lid Switch"', hypr)
-        shell = (ROOT / "quickshell/desktop-bar/shell.qml").read_text()
+        shell = (ROOT / "quickshell/desktop-bar/SessionHooks.qml").read_text()
         self.assertIn('"Battery almost empty"', shell)
-        self.assertIn("shell.battery.percent <= 5 ? 5 : shell.battery.percent <= 10 ? 10 : 0", shell)
+        self.assertIn("host.battery.percent <= 5 ? 5 : host.battery.percent <= 10 ? 10 : 0", shell)
         self.assertIn("systemctl enable thermald.service", (ROOT / "distro/system/configure-desktop.sh").read_text())
 
 

@@ -819,8 +819,8 @@
       "quickshell/desktop-bar/Handbook.qml"
     ],
     "Offline": [
-      "quickshell/desktop-bar/WifiMenu.qml",
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/UpdatesStatus.qml",
+      "quickshell/desktop-bar/WifiMenu.qml"
     ],
     "Only the next occurrence can be skipped": [
       "quickshell/desktop-bar/CalendarMenu.qml"
@@ -1367,7 +1367,7 @@
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Updates unavailable · right-click to check again": [
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/UpdatesStatus.qml"
     ],
     "Updating": [
       "quickshell/desktop-bar/PanelLoadingIndicator.qml"

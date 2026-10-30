@@ -101,3 +101,7 @@ NotificationWidget NotificationWidget.qml
 ClockButton ClockButton.qml
 WelcomeSession WelcomeSession.qml
 BarPreferences BarPreferences.qml
+DictationState DictationState.qml
+SessionHooks SessionHooks.qml
+UpdatesStatus UpdatesStatus.qml
+FocusStrips FocusStrips.qml

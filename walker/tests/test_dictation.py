@@ -243,7 +243,7 @@ class DictationTests(unittest.TestCase):
 
     def test_the_bar_shows_the_recording_dot_while_listening(self):
         bar = ROOT / "quickshell/desktop-bar"
-        shell = (bar / "shell.qml").read_text() + (bar / "CaptureIndicator.qml").read_text()
+        shell = (bar / "shell.qml").read_text() + (bar / "CaptureIndicator.qml").read_text() + (bar / "DictationState.qml").read_text()
         self.assertIn('target: "dictation"', shell)
         for binding in ("dictating: shell.dictating", "transcribing: shell.transcribing", "dictationLevels: shell.dictationLevels"):
             self.assertEqual(shell.count(binding), 2, "horizontal and vertical bars: " + binding)
@@ -253,7 +253,7 @@ class DictationTests(unittest.TestCase):
         self.assertIn("id: barCapture\n                        anchors.right: centerInfo.left", shell)
         self.assertIn("id: verticalCapture\n                            anchors.bottom: verticalCalendarIcon.top", shell)
         self.assertIn("node: Pipewire.defaultAudioSource", shell, "the waveform follows the microphone dictation records")
-        self.assertIn("enabled: shell.dictating && node !== null", shell, "the microphone is only metered while listening")
+        self.assertIn("enabled: dictation.dictating && node !== null", shell, "the microphone is only metered while listening")
         self.assertIn("Behavior on height { enabled: !capture.transcribing;", shell,
                       "a per-frame pulse under a restarting Behavior stays flat")
 
