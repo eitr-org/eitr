@@ -693,8 +693,6 @@
   "Paste an https:// or webcal:// iCal address.": "Paste an https:// or webcal:// iCal address.",
   "Paste the secret iCal address (https://…)": "Paste the secret iCal address (https://…)",
   "Peer Tailscale address or name: ": "Peer Tailscale address or name: ",
-  "PgUp/PgDn: scroll  Enter: download for review  Esc: cancel": "PgUp/PgDn: scroll  Enter: download for review  Esc: cancel",
-  "PgUp/PgDn: scroll  Enter: install  Esc: cancel": "PgUp/PgDn: scroll  Enter: install  Esc: cancel",
   "Pick a reminder to cancel": "Pick a reminder to cancel",
   "Picture": "Picture",
   "Please enlarge the console to at least 80 columns and 24 rows.": "Please enlarge the console to at least 80 columns and 24 rows.",
@@ -1384,7 +1382,6 @@
   "Show above windows": "Show above windows",
   "Show behind windows": "Show behind windows",
   "No plugin icon; a generic icon will be shown.": "No plugin icon; a generic icon will be shown.",
-  "Arrows: move  Space: select  Enter: review  Esc: cancel": "Arrows: move  Space: select  Enter: review  Esc: cancel",
   "Plugin icon: {icon}": "Plugin icon: {icon}",
   "Select plugins": "Select plugins",
   "AI sessions": "AI sessions",
@@ -1411,5 +1408,8 @@
   "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can.": "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can.",
   "This plugin is already installed. Update or remove it from Control Center > Plugins.": "This plugin is already installed. Update or remove it from Control Center > Plugins.",
   "Every plugin in this repository is already installed. Update or remove them from Control Center > Plugins.": "Every plugin in this repository is already installed. Update or remove them from Control Center > Plugins.",
-  "Installed": "Installed"
+  "Installed": "Installed",
+  "PgUp/PgDn: scroll  Enter: install  Left: back  Esc: cancel": "PgUp/PgDn: scroll  Enter: install  Left: back  Esc: cancel",
+  "PgUp/PgDn: scroll  Enter: download for review  Left: back  Esc: cancel": "PgUp/PgDn: scroll  Enter: download for review  Left: back  Esc: cancel",
+  "Arrows: move  Space: select  Enter: review  Left: back  Esc: cancel": "Arrows: move  Space: select  Enter: review  Left: back  Esc: cancel"
 }

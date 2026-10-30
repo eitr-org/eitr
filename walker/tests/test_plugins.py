@@ -192,6 +192,38 @@ class PluginTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Every plugin in this repository'):
             self.manager.add(self.url, lambda url: True, lambda *details: True, lambda entries: [])
 
+    def test_back_from_later_pages_returns_to_the_address(self):
+        cli = self.cli()
+        wizard = object.__new__(cli.PluginWizard)
+        wizard.screen = unittest.mock.Mock()
+        wizard.frame = unittest.mock.Mock(return_value=(1, 1))
+        wizard.text = unittest.mock.Mock()
+        wizard.panel_bottom = 24
+        wizard.body_width = 60
+        for key in (cli.curses.KEY_LEFT, '\t'):
+            wizard.screen.get_wch.side_effect = [key]
+            with self.assertRaises(cli.Back):
+                wizard.review(['Example'])
+            wizard.screen.get_wch.side_effect = [key]
+            with self.assertRaises(cli.Back):
+                wizard.pick([{'spec': {'id': 'example', 'name': 'Example', 'description': 'Example'}}])
+        addresses = []
+
+        def field(self, title, description, value='', **options):
+            addresses.append(value)
+            return value or 'https://example.com/wrong.git'
+
+        manager = unittest.mock.Mock()
+        manager.add.side_effect = [cli.Back(), True]
+        with unittest.mock.patch.object(cli.PluginWizard, 'field', field), \
+                unittest.mock.patch.object(cli.PluginWizard, '__init__', lambda self, screen: None), \
+                unittest.mock.patch.object(cli.curses, 'wrapper', lambda flow: flow(None)), \
+                unittest.mock.patch.object(cli.sys.stdin, 'isatty', return_value=True), \
+                unittest.mock.patch.object(cli.shutil, 'which', return_value=None):
+            self.assertTrue(cli.add(manager))
+        # The second visit keeps the address typed before, ready to be corrected.
+        self.assertEqual(addresses, ['', 'https://example.com/wrong.git'])
+
     def test_repository_picker_lists_metadata_and_selects_multiple(self):
         self.make_index()
         entries = plugins.repository_plugins(self.source)

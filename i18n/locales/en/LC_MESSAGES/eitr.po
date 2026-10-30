@@ -358,8 +358,8 @@ msgstr "Arrows: move  Enter: change  Esc: done"
 msgid "Arrows: move  Enter: select  Type: search  Esc: back"
 msgstr "Arrows: move  Enter: select  Type: search  Esc: back"
 
-msgid "Arrows: move  Space: select  Enter: review  Esc: cancel"
-msgstr "Arrows: move  Space: select  Enter: review  Esc: cancel"
+msgid "Arrows: move  Space: select  Enter: review  Left: back  Esc: cancel"
+msgstr "Arrows: move  Space: select  Enter: review  Left: back  Esc: cancel"
 
 msgid "Artifact Registry"
 msgstr "Artifact Registry"
@@ -2200,11 +2200,11 @@ msgstr "Paste the secret iCal address (https://…)"
 msgid "Peer Tailscale address or name: "
 msgstr "Peer Tailscale address or name: "
 
-msgid "PgUp/PgDn: scroll  Enter: download for review  Esc: cancel"
-msgstr "PgUp/PgDn: scroll  Enter: download for review  Esc: cancel"
+msgid "PgUp/PgDn: scroll  Enter: download for review  Left: back  Esc: cancel"
+msgstr "PgUp/PgDn: scroll  Enter: download for review  Left: back  Esc: cancel"
 
-msgid "PgUp/PgDn: scroll  Enter: install  Esc: cancel"
-msgstr "PgUp/PgDn: scroll  Enter: install  Esc: cancel"
+msgid "PgUp/PgDn: scroll  Enter: install  Left: back  Esc: cancel"
+msgstr "PgUp/PgDn: scroll  Enter: install  Left: back  Esc: cancel"
 
 msgid "Pi has no built-in permission prompts. Choose another assistant for Ask before changes."
 msgstr "Pi has no built-in permission prompts. Choose another assistant for Ask before changes."

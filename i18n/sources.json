@@ -4459,7 +4459,7 @@
     "Arrows: move  Enter: select  Type: search  Esc: back": [
       "distro/lib/eitr_wizard.py"
     ],
-    "Arrows: move  Space: select  Enter: review  Esc: cancel": [
+    "Arrows: move  Space: select  Enter: review  Left: back  Esc: cancel": [
       "walker/scripts/actions/install/plugins.py"
     ],
     "Artifact Registry": [
@@ -6348,10 +6348,10 @@
     "Peer Tailscale address or name: ": [
       "walker/scripts/actions/system/remote-access.py"
     ],
-    "PgUp/PgDn: scroll  Enter: download for review  Esc: cancel": [
+    "PgUp/PgDn: scroll  Enter: download for review  Left: back  Esc: cancel": [
       "walker/scripts/actions/install/plugins.py"
     ],
-    "PgUp/PgDn: scroll  Enter: install  Esc: cancel": [
+    "PgUp/PgDn: scroll  Enter: install  Left: back  Esc: cancel": [
       "walker/scripts/actions/install/plugins.py"
     ],
     "Pi has no built-in permission prompts. Choose another assistant for Ask before changes.": [

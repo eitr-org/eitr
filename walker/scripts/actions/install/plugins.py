@@ -27,7 +27,7 @@ from eitr_i18n import mark as menu_mark
 from eitr_plugins import (REPORT_URL, Plugins, add_flags, commit, executable_files, git, printable,
                           repository_url, short_author, qml_files)
 from eitr_terminal import read_key, read_line_or_escape, wait_for_escape
-from eitr_wizard import Cancelled, Wizard
+from eitr_wizard import Back, Cancelled, Wizard
 
 HELPER = Path(__file__).resolve()
 PRESENTER = HELPER.parents[1] / 'task-terminal.py'
@@ -125,7 +125,7 @@ class PluginWizard(Wizard):
                         offset = 0
                         job.close()
                         job = None
-                y, x = self.frame(title or tr('Install plugin?'), keys or tr('PgUp/PgDn: scroll  Enter: install  Esc: cancel'))
+                y, x = self.frame(title or tr('Install plugin?'), keys or tr('PgUp/PgDn: scroll  Enter: install  Left: back  Esc: cancel'))
                 if ai_check:
                     self.text(y, x, tr('Checking the downloaded copy…') if job else tr('A: Ask the AI to check'), 2)
                     y += 2
@@ -146,6 +146,8 @@ class PluginWizard(Wizard):
                     continue
                 if key in ('\x1b', '\x03'):
                     return False
+                if key in (curses.KEY_LEFT, '\t', curses.KEY_BTAB):
+                    raise Back
                 if key in ('\n', '\r', curses.KEY_ENTER):
                     return True
                 if key in (curses.KEY_NPAGE, curses.KEY_DOWN):
@@ -169,7 +171,7 @@ class PluginWizard(Wizard):
     def pick(self, entries):
         selected, position = set(), 0
         while True:
-            y, x = self.frame(tr('Select plugins'), tr('Arrows: move  Space: select  Enter: review  Esc: cancel'))
+            y, x = self.frame(tr('Select plugins'), tr('Arrows: move  Space: select  Enter: review  Left: back  Esc: cancel'))
             count = max(1, (self.panel_bottom - y) // 3)
             start = max(0, position - count + 1)
             for index, entry in enumerate(entries[start:start + count], start):
@@ -184,6 +186,8 @@ class PluginWizard(Wizard):
             key = self.screen.get_wch()
             if key in ('\x1b', '\x03'):
                 return []
+            if key in (curses.KEY_LEFT, '\t', curses.KEY_BTAB):
+                raise Back
             if key == curses.KEY_UP:
                 position = max(0, position - 1)
             elif key == curses.KEY_DOWN:
@@ -199,7 +203,7 @@ class PluginWizard(Wizard):
 
     def safety(self, url):
         accepted = self.review(safety_lines(url), step=1, title=tr('Before you download a plugin'),
-                               keys=tr('PgUp/PgDn: scroll  Enter: download for review  Esc: cancel'))
+                               keys=tr('PgUp/PgDn: scroll  Enter: download for review  Left: back  Esc: cancel'))
         if accepted:
             # The download takes a few seconds; show it instead of a frozen safety page.
             self.step = 2
@@ -223,9 +227,16 @@ def add(manager, url=None):
     else:
         def flow(screen):
             wizard = PluginWizard(screen)
-            value = wizard.field(tr('Repository URL'), tr('HTTPS or SSH Git repository URL'), validator=repository_url)
-            repository_url(value)
-            return manager.add(value, wizard.safety, wizard.install_review, wizard.pick)
+            value = ''
+            while True:
+                value = wizard.field(tr('Repository URL'), tr('HTTPS or SSH Git repository URL'), value=value,
+                                     validator=repository_url)
+                repository_url(value)
+                try:
+                    return manager.add(value, wizard.safety, wizard.install_review, wizard.pick)
+                except Back:
+                    # Left/Tab on a later page returns here to fix the address; nothing was installed.
+                    wizard.step = 0
         try:
             installed = curses.wrapper(flow)
         except Cancelled:

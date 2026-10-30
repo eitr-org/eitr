@@ -358,8 +358,8 @@ msgstr "Pfeile: bewegen  Enter: ändern  Esc: fertig"
 msgid "Arrows: move  Enter: select  Type: search  Esc: back"
 msgstr "Pfeile: bewegen  Enter: auswählen  Tippen: suchen  Esc: zurück"
 
-msgid "Arrows: move  Space: select  Enter: review  Esc: cancel"
-msgstr "Pfeile: bewegen  Leertaste: wählen  Enter: prüfen  Esc: abbrechen"
+msgid "Arrows: move  Space: select  Enter: review  Left: back  Esc: cancel"
+msgstr "Pfeile: bewegen  Leertaste: wählen  Enter: prüfen  Links: zurück  Esc: abbrechen"
 
 msgid "Artifact Registry"
 msgstr "Artifact Registry"
@@ -2200,11 +2200,11 @@ msgstr "Geheime iCal-Adresse einfügen (https://…)"
 msgid "Peer Tailscale address or name: "
 msgstr "Tailscale-Adresse oder Name der Gegenstelle: "
 
-msgid "PgUp/PgDn: scroll  Enter: download for review  Esc: cancel"
-msgstr "Bild↑/Bild↓: blättern  Enter: zur Prüfung laden  Esc: abbrechen"
+msgid "PgUp/PgDn: scroll  Enter: download for review  Left: back  Esc: cancel"
+msgstr "Bild↑/Bild↓: blättern  Enter: zur Prüfung laden  Links: zurück  Esc: abbrechen"
 
-msgid "PgUp/PgDn: scroll  Enter: install  Esc: cancel"
-msgstr "Bild↑/Bild↓: blättern  Enter: installieren  Esc: abbrechen"
+msgid "PgUp/PgDn: scroll  Enter: install  Left: back  Esc: cancel"
+msgstr "Bild↑/Bild↓: blättern  Enter: installieren  Links: zurück  Esc: abbrechen"
 
 msgid "Pi has no built-in permission prompts. Choose another assistant for Ask before changes."
 msgstr "Pi hat keine eingebauten Berechtigungsabfragen. Wähle für Ask before changes einen anderen Assistenten."

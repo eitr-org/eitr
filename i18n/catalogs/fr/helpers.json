@@ -1135,8 +1135,6 @@
   "{reason} Its service was stopped and its files were kept. Remove it from Install > Plugins.": "{reason} Son service a été arrêté et ses fichiers conservés. Supprimez-le depuis Installer > Plugins.",
   "{reason} Its service was stopped and its files were kept. Remove it from Install > Plugins. Report a plugin: {url}": "{reason} Son service a été arrêté et ses fichiers conservés. Supprimez-le depuis Installer > Plugins. Signaler un plugin : {url}",
   "… and {count} more": "… et {count} de plus",
-  "PgUp/PgDn: scroll  Enter: install  Esc: cancel": "PgPréc/PgSuiv : défiler  Entrée : installer  Échap : annuler",
-  "PgUp/PgDn: scroll  Enter: download for review  Esc: cancel": "PgPréc/PgSuiv : défiler  Entrée : télécharger pour vérifier  Échap : annuler",
   "d: full diff  Enter: update  Esc: keep the current version": "d : diff complet  Entrée : mettre à jour  Échap : garder la version actuelle",
   "Enter: continue  Esc: cancel": "Entrée : continuer  Échap : annuler",
   "Could not understand when: {when}": "Moment non compris : {when}",
@@ -1384,7 +1382,6 @@
   "Show above windows": "Afficher au-dessus des fenêtres",
   "Show behind windows": "Afficher derrière les fenêtres",
   "No plugin icon; a generic icon will be shown.": "Aucune icône de plugin ; une icône générique sera affichée.",
-  "Arrows: move  Space: select  Enter: review  Esc: cancel": "Flèches : déplacer  Espace : sélectionner  Entrée : examiner  Échap : annuler",
   "Plugin icon: {icon}": "Icône du plugin : {icon}",
   "Select plugins": "Sélectionner des plugins",
   "AI sessions": "Sessions d’IA",
@@ -1411,5 +1408,8 @@
   "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can.": "Votre assistant par défaut, {assistant}, ne peut pas encore vérifier les plugins en toute sécurité. Ratatoskr et Claude le peuvent.",
   "This plugin is already installed. Update or remove it from Control Center > Plugins.": "Ce plugin est déjà installé. Mettez-le à jour ou supprimez-le dans Centre de contrôle > Plugins.",
   "Every plugin in this repository is already installed. Update or remove them from Control Center > Plugins.": "Tous les plugins de ce dépôt sont déjà installés. Mettez-les à jour ou supprimez-les dans Centre de contrôle > Plugins.",
-  "Installed": "Installé"
+  "Installed": "Installé",
+  "PgUp/PgDn: scroll  Enter: install  Left: back  Esc: cancel": "PgPréc/PgSuiv : défiler  Entrée : installer  Gauche : retour  Échap : annuler",
+  "PgUp/PgDn: scroll  Enter: download for review  Left: back  Esc: cancel": "PgPréc/PgSuiv : défiler  Entrée : télécharger pour vérifier  Gauche : retour  Échap : annuler",
+  "Arrows: move  Space: select  Enter: review  Left: back  Esc: cancel": "Flèches : déplacer  Espace : sélectionner  Entrée : examiner  Gauche : retour  Échap : annuler"
 }
