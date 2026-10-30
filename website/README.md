@@ -436,8 +436,9 @@ suite against a production preview as described above.
 `public/_headers` is copied to the assets root by Astro. Cloudflare Workers
 static assets apply its `/*` rule to every path (see [Cloudflare's headers
 reference](https://developers.cloudflare.com/workers/static-assets/headers/)).
-The CSP starts in report-only mode; review browser console violations before
-enforcing it. No report collector is configured. `X-Frame-Options: DENY` already
+The CSP is enforced. It also allows Cloudflare Web Analytics, which Cloudflare
+inserts into every page (`static.cloudflareinsights.com` script, beacon to
+`cloudflareinsights.com`); remove both if Web Analytics is turned off. `X-Frame-Options: DENY` already
 blocks framing. HSTS covers only this host for one year: no preload or
 includeSubDomains, because HTTPS-only operation of every subdomain was not verified.
 

@@ -3,14 +3,14 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { test } from 'node:test';
 
 const dist = new URL('../dist/', import.meta.url);
-const policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://download.eitr.info; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; frame-ancestors 'none'";
+const policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://download.eitr.info https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; frame-ancestors 'none'";
 const expected = {
   'X-Content-Type-Options': 'nosniff',
   'X-Frame-Options': 'DENY',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'Strict-Transport-Security': 'max-age=31536000',
   'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
-  'Content-Security-Policy-Report-Only': policy,
+  'Content-Security-Policy': policy,
 };
 
 function* files(directory) {
@@ -21,7 +21,7 @@ function* files(directory) {
   }
 }
 
-test('production assets carry the universal report-only security headers', () => {
+test('production assets carry the universal security headers', () => {
   const headers = readFileSync(new URL('_headers', dist), 'utf8');
   assert.equal(headers, readFileSync(new URL('../public/_headers', import.meta.url), 'utf8'));
   const lines = headers.trimEnd().split('\n');
