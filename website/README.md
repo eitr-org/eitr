@@ -85,10 +85,11 @@ full-screen viewer. Without JavaScript, thumbnails link directly to the image.
 `src/data/screenshots.ts` owns captions, alt text and dimensions for both pages.
 The theme wallpaper gallery and its viewer remain separate.
 
-Capture the owner's 2560×1080 desktop with the Afterglow theme, an empty workspace,
-Do Not Disturb on and the pointer hidden. Crop a 1920×1080 window around what the
-image shows; never squeeze the ultrawide desktop into 16:9. Export ordinary shots
-at 1600×900 WebP; `hero.webp` is 1920×810. Blur hardware models, device names,
+Capture the owner's 1920×1080 desktop on an empty workspace (workspace 1), with
+Do Not Disturb on and the pointer hidden; vary the theme between shots and restore
+the owner's theme afterwards. On an ultrawide display, crop a 16:9 window around what
+the image shows rather than squeezing it. Export ordinary shots at 1280×720 WebP;
+`hero.webp` is 1920×810. Blur hardware models, device names,
 network names and private plugin names. Never capture WiFi, Bluetooth, Weather,
 AI Usage, Clipboard History, accounts, folder pickers, notifications or private
 open windows. Keep accounts, tokens and project content out of every shot.

@@ -239,8 +239,8 @@ export const screenshotGroups = [
       },
       {
         "file": "update",
-        "caption": "update",
-        "alt": "update",
+        "caption": "settings_system",
+        "alt": "settings_system",
         "width": 1280,
         "height": 720
       },
