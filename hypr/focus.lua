@@ -68,7 +68,7 @@ return function(paths, quote)
         })
     end
     apply_options()
-    hl.window_rule({name = "eitr-focus-windows", match = {class = ".*"}, float = false,
+    hl.window_rule({name = "eitr-focus-windows", match = {class = ".*"},
         rounding = 0, no_blur = true, no_shadow = true, suppress_event = "fullscreen"})
     -- This watcher belongs to Hyprland, so strip crashes cannot stop conversion.
     hl.on("config.reloaded", function()

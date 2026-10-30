@@ -191,7 +191,7 @@ assert.equal(entries[0].desktopId, 'org.browser');
 assert.equal(entries[1].windows.length, 0);
 assert.equal(entries[2].appClass, 'Other');
 assert.deepEqual(groups(clients, 1, [], lookup).map(entry => entry.appClass), ['BrowserClass', 'Other']);
-assert.ok(eitrTerminal('eitr-menu-terminal') && eitrTerminal('fifs-terminal') && eitrTerminal('system-cleanup'));
+assert.ok(eitrTerminal('eitr-menu-terminal') && eitrTerminal('fifs-terminal') && eitrTerminal('system-cleanup') && eitrTerminal('system-mirrors'));
 assert.ok(!eitrTerminal('kitty') && !eitrTerminal('eitr'));
 const terminals = groups([{address: '0x3', class: 'eitr-menu-terminal'}, {address: '0x4', class: 'cloud-terminal'}], 1, [], lookup);
 assert.equal(terminals.length, 1);

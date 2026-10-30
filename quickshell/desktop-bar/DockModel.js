@@ -6,7 +6,7 @@ function desktopId(value) {
 
 // Eitr's own task and menu terminals (classes from hyprland.lua and
 // walker/bin/menu-path/kitty) have no desktop entry; they share one Eitr icon.
-var eitrTerminalClass = /^(eitr-.+|(fifs?|cloud|about)-terminal|system-cleanup)$/;
+var eitrTerminalClass = /^(eitr-.+|(fifs?|cloud|about)-terminal|system-(cleanup|check|mirrors))$/;
 
 function eitrTerminal(appClass) {
     return eitrTerminalClass.test(String(appClass || ""));

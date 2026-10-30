@@ -103,6 +103,17 @@ class FocusTests(unittest.TestCase):
         self.assertTrue(any('anchor.group:add(window)' in str(command) for command in hypr.commands))
         self.assertTrue(all(not isinstance(command, tuple) or command[0] == '0x4' for command in hypr.commands))
 
+    def test_floating_windows_stay_floating_and_out_of_tabs(self):
+        dialog = {**client(5), 'floating': True}
+        hypr = FakeHypr([client(4), dialog])
+        gather(hypr)
+        dialog_commands = [text for address, text in (command for command in hypr.commands if isinstance(command, tuple))
+                           if address == '0x5']
+        self.assertEqual(len(dialog_commands), 1)
+        self.assertIn('window.move', dialog_commands[0])
+        # Hyprland treats an unknown float or pin action as a toggle.
+        self.assertNotIn('"unset"', ''.join(str(command) for command in hypr.commands))
+
     def test_empty_and_four_pane_limit(self):
         hypr = FakeHypr()
         change('on', hypr)

@@ -476,7 +476,7 @@ floating_window_rule("fifs-terminal-float", "^(fifs-terminal)$", { 1500, 800 })
 floating_window_rule("cloud-terminal-float", "^(cloud-terminal)$", { 1700, 950 })
 floating_window_rule("about-terminal-float", "^(about-terminal)$", { 1000, 600 })
 -- Terminals opened from Walker menus (walker/bin/menu-path/kitty).
-floating_window_rule("menu-terminal-float", "^(eitr-menu-terminal|eitr-cloud|eitr-git-accounts|eitr-software|system-cleanup)$", { 1100, 700 })
+floating_window_rule("menu-terminal-float", "^(eitr-menu-terminal|eitr-cloud|eitr-git-accounts|eitr-software|eitr-plugins|system-cleanup|system-check|system-mirrors)$", { 1100, 700 })
 
 -- App opacity
 opacity_rule("set-dolphin-transparency", "^(org.kde.dolphin)$", "1 0.94")

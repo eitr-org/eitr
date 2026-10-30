@@ -176,11 +176,7 @@ def spread_plan(clients):
 
 
 def normalize(hypr, client):
-    hypr.window(client['address'], '''
-        hl.dispatch(hl.dsp.window.fullscreen_state({window=window, internal=0, client=0}));
-        hl.dispatch(hl.dsp.window.pin({window=window, action="unset"}));
-        hl.dispatch(hl.dsp.window.float({window=window, action="unset"}));
-    ''')
+    hypr.window(client['address'], 'hl.dispatch(hl.dsp.window.fullscreen_state({window=window, internal=0, client=0}))')
 
 
 def gather(hypr):
@@ -193,13 +189,20 @@ def gather(hypr):
             hypr.evaluate('hl.dispatch(hl.dsp.focus({monitor=' + lua(monitor['name']) + '})); '
                           'hl.dispatch(hl.dsp.workspace.toggle_special(' + lua(special[8:]) + '))')
         windows = clients_by_monitor(clients).get(monitor['id'], [])
-        resident = [window for window in windows if window.get('workspace', {}).get('name') == workspace]
+        resident = [window for window in windows if window.get('workspace', {}).get('name') == workspace
+                    and not window.get('floating')]
         anchor = next((window for window in resident if window.get('grouped')), None)
         if anchor is None and resident:
             anchor = resident[0]
             hypr.window(anchor['address'], 'if not window.group then hl.dispatch(hl.dsp.group.toggle({window=window})) end')
         placed = False
         for client in windows:
+            if client.get('floating'):
+                # Dialogs and Eitr's task terminals float above the tabs instead of becoming one.
+                if client.get('workspace', {}).get('name') != workspace:
+                    hypr.window(client['address'], 'hl.dispatch(hl.dsp.window.move({window=window, workspace='
+                                + lua('name:' + workspace) + ', follow=false}))')
+                continue
             if client in resident and (client.get("grouped") or client is anchor):
                 continue
             normalize(hypr, client)
