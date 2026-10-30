@@ -15,25 +15,135 @@ import uuid
 
 MAX_FRAME = 262144
 MAX_RESULT = MAX_FRAME // 2
-INTERVALS = {"display.topology": float("inf"), "display.settings": float("inf"),
+INTERVALS = {"hardware.details": 2, "display.topology": float("inf"), "display.settings": float("inf"),
              "display.brightness": 3, "display.nightlight": 3, "network.summary": 10, "network.details": 2, "network.latency": 15,
              "power.battery": 30, "power.profile": 5, "power.radios": 5,
              "capture.summary": 2, "capture.details": 2, "capture.options": float("inf")}
 
 
+class CaptureController:
+    def __init__(self, broker):
+        self.broker = broker
+        self.has_window = False
+        self.queue = deque()
+        self.history = deque(maxlen=256)
+        self.task = None
+
+    def state(self):
+        self.broker.emit(dict(v=1, op="domain", topic="capture", epoch=self.broker.epoch,
+                              busy=bool(self.task), name=self.queue[0]["name"] if self.queue else ""))
+
+    def result(self, request, error="", message=""):
+        self.broker.emit(dict(v=1, op="result", topic="capture", epoch=self.broker.epoch,
+                              id=request, error=error, message=message, busy=bool(self.task)))
+
+    def enqueue(self, frame):
+        request, name, args = frame.get("id"), frame.get("name"), frame.get("args")
+        allowed = {"record", "stop", "pause", "resume", "stream", "stop-stream", "prepare",
+                   "chapter", "mic-mute", "mic-unmute", "camera-on", "camera-off", "scene", "open", "folder", "set-option"}
+        if not request or request in self.history or not isinstance(args, dict):
+            self.result(request or "", "invalid-request")
+            return
+        if name not in allowed or not isinstance(args.get("argument", ""), str):
+            self.result(request, "invalid-action")
+            return
+        if name == "set-option" and (args.get("key") not in {"audio", "mic", "webcam"} or type(args.get("enabled")) is not bool):
+            self.result(request, "invalid-request")
+            return
+        if len(self.queue) >= 16:
+            self.result(request, "queue-full")
+            return
+        self.history.append(request)
+        self.queue.append(frame)
+        if self.task is None:
+            self.task = asyncio.create_task(self.run())
+            self.broker.jobs.add(self.task)
+            self.task.add_done_callback(self.broker.jobs.discard)
+        self.state()
+
+    async def run(self):
+        try:
+            while self.queue:
+                frame = self.queue[0]
+                for topic in ("capture.summary", "capture.details"):
+                    self.broker.states[topic]["generation"] += 1
+                process = None
+                error, message = "", ""
+                try:
+                    command = [sys.executable, str(Path(__file__).with_name("obs-control.py")), frame["name"]]
+                    if frame["name"] == "set-option":
+                        command.extend([frame["args"]["key"], str(frame["args"]["enabled"]).lower()])
+                    argument = frame["args"].get("argument", "")
+                    if argument:
+                        command.append(argument)
+                    process = await asyncio.create_subprocess_exec(*command, stdout=asyncio.subprocess.PIPE,
+                        stderr=asyncio.subprocess.DEVNULL, start_new_session=True,
+                        env=dict(os.environ, EITR_BAR_ACTION="1"))
+                    async def exchange():
+                        output = bytearray()
+                        while True:
+                            chunk = await process.stdout.read(8192)
+                            if not chunk:
+                                break
+                            output.extend(chunk)
+                            if len(output) > 131072:
+                                raise ValueError("oversize-result")
+                        await process.wait()
+                        return output.decode().strip()
+                    # Stop's obs-cmd call retains its 30 s deadline; allow bounded
+                    # time for saved-file notification and idle-window cleanup.
+                    budget = 45 if frame["name"] in {"stop", "stop-stream"} else 90 if frame["name"] == "prepare" else 30
+                    output = await asyncio.wait_for(exchange(), budget)
+                    if process.returncode:
+                        result = json.loads(output)
+                        if not isinstance(result, dict) or result.get("error") not in {"action-failed", "outcome-unknown"}:
+                            raise ValueError("invalid-result")
+                        error, message = result["error"], result.get("message", "")
+                        if not isinstance(message, str):
+                            raise ValueError("invalid-result")
+                except asyncio.CancelledError:
+                    raise
+                except Exception:
+                    error = "outcome-unknown" if process else "backend-unavailable"
+                finally:
+                    if process is not None and process.returncode is None:
+                        try:
+                            os.killpg(process.pid, signal.SIGKILL)
+                        except ProcessLookupError:
+                            pass
+                        await process.wait()
+                self.result(frame["id"], error, message)
+                self.queue.popleft()
+                if error == "outcome-unknown":
+                    for topic in ("capture.summary", "capture.details"):
+                        state = self.broker.states[topic]
+                        state.update(status="stale" if state["success"] is not None else "unavailable", error=error)
+                        state["seq"] += 1
+                        self.broker.snapshot(topic)
+                    while self.queue:
+                        self.result(self.queue.popleft()["id"], "outcome-unknown")
+                for topic in ("capture.details", "capture.summary", "capture.options"):
+                    self.broker.states[topic]["generation"] += 1
+                    self.broker.refresh(topic)
+                self.state()
+        finally:
+            self.queue.clear()
+            self.task = None
+            for topic in ("capture.details", "capture.summary", "capture.options"):
+                self.broker.states[topic]["due"] = 0
+            self.broker.schedule_changed.set()
+            self.state()
+
+
 class Broker:
     def __init__(self, emit, reader=None, timeout=5):
         self.emit = emit
-        spec = importlib.util.spec_from_file_location("capture_domain", Path(__file__).with_name("capture-domain.py"))
-        module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)
-        self.capture = module.CaptureDomain(self)
-        spec = importlib.util.spec_from_file_location("power_domain", Path(__file__).with_name("power-domain.py"))
-        module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)
-        self.power = module.PowerDomain()
-        self.display = None
-        self.display_lock = threading.Lock()
+        self.closing = False
+        self.capture = CaptureController(self)
+        self.domains = {}
+        self.domain_jobs = {}
+        self.read_slots = {name: asyncio.Semaphore(2) for name in ("network", "capture", "power", "display", "hardware")}
+        self.domain_locks = {name: threading.Lock() for name in ("network", "capture", "power", "display", "hardware")}
         self.periods = {}
         self.adapter = None
         self.reader = reader or self.read
@@ -53,19 +163,34 @@ class Broker:
         self.states = {topic: dict(seq=0, status="loading", data={}, success=None, error="", task=None,
                                    pending=False, due=0, generation=0, durationMs=0, id="") for topic in INTERVALS}
 
+    def load_domain(self, name):
+        with self.domain_locks[name]:
+            if name not in self.domains:
+                filename = "wifi-popup.py" if name == "network" else name + "-domain.py"
+                spec = importlib.util.spec_from_file_location("bar_" + name, Path(__file__).with_name(filename))
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                self.domains[name] = module if name == "network" else getattr(module, name.title() + "Domain")()
+            return self.domains[name]
+
+    @property
+    def power(self):
+        return self.load_domain("power")
+
+    @property
+    def display(self):
+        return self.load_domain("display")
+
+    @display.setter
+    def display(self, value):
+        self.domains["display"] = value
+
     def read(self, topic):
-        if topic.startswith("display."):
-            with self.display_lock:
-                if self.display is None:
-                    spec = importlib.util.spec_from_file_location("display_domain", Path(__file__).with_name("display-domain.py"))
-                    module = importlib.util.module_from_spec(spec)
-                    spec.loader.exec_module(module)
-                    self.display = module.DisplayDomain()
-            return self.display.read(topic)
-        if topic.startswith("power."):
-            return self.power.read(topic)
-        if topic.startswith("capture."):
-            return self.capture.read(topic)
+        domain = topic.split(".")[0]
+        if domain != "network":
+            return self.load_domain(domain).read(topic)
+        if self.adapter is None:
+            self.adapter = self.load_domain("network")
         interface = ""
         if topic == "network.latency":
             devices = self.states["network.details"]["data"].get("devices", [])
@@ -74,6 +199,30 @@ class Broker:
             interface = devices[0]["name"]
         return self.adapter.read_state({"network.summary": "icon", "network.details": "status",
                                         "network.latency": "probe"}[topic], interface)
+
+    async def read_in_pool(self, topic, deadline):
+        if self.closing:
+            return {}
+        loop = asyncio.get_running_loop()
+        domain = topic.split(".")[0]
+        if self.reader == self.read and domain not in self.domains and not (domain == "network" and self.adapter is not None):
+            # Share initialization before submitting reads, so sibling topics cannot
+            # occupy pool threads waiting for a slow domain's import lock.
+            if domain not in self.domain_jobs:
+                self.domain_jobs[domain] = loop.run_in_executor(self.executor, self.load_domain, domain)
+            future = self.domain_jobs[domain]
+            try:
+                await asyncio.wait([future])
+                future.result()
+            finally:
+                if future.done():
+                    self.domain_jobs.pop(domain, None)
+        async with self.read_slots[domain]:
+            # refresh() already admitted this read while observed. A later close
+            # invalidates its result in update(), without retracting the read.
+            if self.closing or loop.time() >= deadline:
+                return {}
+            return await loop.run_in_executor(self.executor, self.reader, topic)
 
     def wanted(self, topic):
         return topic in self.tokens.values()
@@ -152,17 +301,16 @@ class Broker:
         started = time.monotonic()
         timed_out = False
         try:
-            if self.reader == self.read and self.adapter is None and topic.startswith("network."):
-                spec = importlib.util.spec_from_file_location("wifi_popup", Path(__file__).with_name("wifi-popup.py"))
-                adapter = importlib.util.module_from_spec(spec)
-                spec.loader.exec_module(adapter)
-                self.adapter = adapter
-            future = asyncio.get_running_loop().run_in_executor(self.executor, self.reader, topic)
             budget = 16 if topic == "display.topology" else 9 if topic == "display.brightness" else 25 if topic == "capture.details" else 10 if topic == "capture.summary" else self.timeout
             if self.timeout < 5:
                 budget = min(budget, self.timeout)
+            future = asyncio.create_task(self.read_in_pool(topic, asyncio.get_running_loop().time() + budget))
+            future.add_done_callback(lambda completed: completed.exception() if not completed.cancelled() else None)
             try:
-                result = await asyncio.wait_for(asyncio.shield(future), budget)
+                done, _ = await asyncio.wait([future], timeout=budget)
+                if not done:
+                    raise TimeoutError()
+                result = future.result()
             except TimeoutError:
                 timed_out = True
                 if generation == state["generation"]:
@@ -173,7 +321,8 @@ class Broker:
                         self.capture_summary(state)
                 # The deadline cannot stop a thread. Keep this topic occupied until it returns.
                 try:
-                    await asyncio.shield(future)
+                    await asyncio.wait([future])
+                    future.result()
                 except Exception:
                     pass
                 return
@@ -384,13 +533,14 @@ class Broker:
             if token in self.tokens and self.tokens[token] != topic:
                 raise ValueError("token-conflict")
             fresh = token not in self.tokens
+            was_wanted = self.wanted(topic)
             self.tokens[token] = topic
             if topic in {"power.profile", "display.brightness", "display.nightlight"}:
                 self.periods[token] = 3 if frame.get("interval") == 3 else 5
             self.action_state()
             self.capture.state()
             self.snapshot(topic, token)
-            if fresh and not self.states[topic]["task"]:
+            if fresh and (not self.states[topic]["task"] or not was_wanted):
                 self.refresh(topic)
         elif operation == "unsubscribe":
             if self.tokens.get(token) == topic:
@@ -427,6 +577,9 @@ class Broker:
                 pass
 
     async def close(self):
+        self.closing = True
+        self.tokens.clear()
+        self.periods.clear()
         tasks = list(self.jobs)
         for task in tasks:
             task.cancel()

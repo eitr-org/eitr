@@ -1,4 +1,7 @@
 import importlib.util
+import os
+import shutil
+import subprocess
 from pathlib import Path
 import tempfile
 import unittest
@@ -144,3 +147,105 @@ class ControlCenterContracts(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class HardwareSubscriberTests(unittest.TestCase):
+    @unittest.skipUnless(shutil.which("quickshell"), "Quickshell unavailable")
+    def test_panel_demand_lifetime_retained_errors_and_control_center_entry(self):
+        bar = Path(__file__).parents[1]
+        self.assertIn('center.panelRequested("hardware")', (bar / 'ControlCenter.qml').read_text())
+        self.assertNotIn('hardwareIdentity', (bar / 'shell.qml').read_text())
+        panel = (bar / 'SystemMonitorMenu.qml').read_text()
+        self.assertNotIn('Process {', panel)
+        self.assertNotIn('Timer {', panel)
+        with tempfile.TemporaryDirectory(prefix="eitr-hardware-test-") as directory:
+            root = Path(directory)
+            (root / 'SystemMonitorMenu.qml').write_text(panel[:panel.index('    Flickable {')] + '}\n')
+            shutil.copy(bar / 'PanelStyle.js', root / 'PanelStyle.js')
+            (root / 'ThemedPopup.qml').write_text("""
+import QtQuick
+Item {
+    property bool opened: false
+    property bool waitForFreshData: false
+    property bool leftAligned: false
+    property real verticalContentInset: 0
+    property var content: ({implicitHeight: 20})
+    function updateContent(action) { action(); }
+    function applySnapshot(name, value) { this[name] = value; }
+}
+""")
+            (root / 'DesktopData.qml').write_text("""
+pragma Singleton
+import QtQuick
+QtObject {
+    property var topics: ({})
+    property var tokens: []
+    property int serial: 0
+    function observe(topic, owner) {
+        const token = {id: ++serial, owner: owner};
+        tokens = tokens.concat([token]);
+        return String(token.id);
+    }
+    function release(token) { tokens = tokens.filter(entry => String(entry.id) !== token); }
+    function releaseOwner(owner) { tokens = tokens.filter(entry => entry.owner !== owner); }
+    function refresh(topic) {}
+}
+""")
+            (root / 'qmldir').write_text('singleton DesktopData DesktopData.qml\nSystemMonitorMenu SystemMonitorMenu.qml\nThemedPopup ThemedPopup.qml\n')
+            (root / 'shell.qml').write_text("""
+import QtQuick
+import Quickshell
+ShellRoot {
+    id: harness
+    property var first: null
+    property var second: null
+    property int phase: 0
+    function check(condition, message) {
+        if (!condition) { console.error("HARDWARE FAIL", message); Qt.exit(1); }
+    }
+    Component { id: panel; SystemMonitorMenu {} }
+    Timer {
+        interval: 50; repeat: true; running: true
+        onTriggered: {
+            if (harness.phase === 0) {
+                harness.first = panel.createObject(harness);
+                harness.second = panel.createObject(harness);
+                harness.check(DesktopData.tokens.length === 0, "closed panels have no demand");
+                harness.first.opened = true; harness.second.opened = true;
+                harness.check(DesktopData.tokens.length === 2, "two subscribers");
+                DesktopData.topics = {"hardware.details": {status: "ready", data: {
+                    identity: {cpu: "fixture"}, sections: [{title: "CPU", usage: 75}]}}};
+            } else if (harness.phase === 1) {
+                harness.check(harness.first.sections[0].usage === 75 && harness.second.sections[0].usage === 75, "same snapshot");
+                DesktopData.topics = {"hardware.details": {status: "stale", data: DesktopData.topics["hardware.details"].data}};
+            } else if (harness.phase === 2) {
+                harness.check(harness.first.error === "Hardware information unavailable", "translated error boundary");
+                harness.check(harness.first.sections[0].usage === 75, "retain last sections");
+                harness.first.opened = false;
+                harness.check(DesktopData.tokens.length === 1, "close releases demand");
+                harness.second.destroy();
+            } else {
+                harness.check(DesktopData.tokens.length === 0, "destruction releases demand");
+                console.log("HARDWARE PASS"); Qt.quit();
+            }
+            harness.phase++;
+        }
+    }
+}
+""")
+            runtime = root / 'runtime'
+            runtime.mkdir(mode=0o700)
+            environment = dict(os.environ, QT_QPA_PLATFORM='offscreen', QML_IMPORT_PATH=str(bar.parent),
+                               DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent', XDG_RUNTIME_DIR=str(runtime),
+                               HYPRLAND_INSTANCE_SIGNATURE='')
+            for kind in ('CONFIG', 'CACHE', 'STATE', 'DATA'):
+                environment[f'XDG_{kind}_HOME'] = str(root / kind.lower())
+            for name in ('WAYLAND_DISPLAY', 'DISPLAY', 'QS_CONFIG_PATH', 'QS_CONFIG_NAME'):
+                environment.pop(name, None)
+            result = subprocess.run(['quickshell', '--no-color', '-p', str(root / 'shell.qml')],
+                                    env=environment, capture_output=True, text=True, timeout=10)
+            output = result.stdout + result.stderr
+            self.assertEqual(result.returncode, 0, output)
+            self.assertIn('HARDWARE PASS', output)
+            self.assertNotIn('ReferenceError', output)
+            self.assertNotIn('TypeError', output)

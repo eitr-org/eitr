@@ -8,7 +8,7 @@ Battery stays at 30 s. WiFi glyphs and Focus share one 10 s status query without
 IP/route telemetry; network details refresh only while WiFi or Control Center is
 open. Hardware and recording details refresh immediately on opening, then every
 2 s while open. Hardware identity and unsupported GPU detection are cached for
-the bar session; utilization, frequency, temperatures and disk usage remain live.
+the broker session; utilization, frequency, temperatures and disk usage remain live.
 One OBS status source refreshes every 2 s while an OBS window/process exists;
 open recording details supply that snapshot instead. A startup probe discovers
 an existing tray instance; subsequent OBS window events activate observation.
@@ -468,7 +468,7 @@ retains up to 100 notifications, with periodic pruning. `notifications` IPC
 provides `toggle`, `dnd`, `clear`, `clearApp`, and `status`.
 
 Click the Hardware icon to open the shared CPU/GPU/RAM/Storage popup. It refreshes every
-two seconds while visible and closes on an outside click or Escape. CPU load,
+two seconds while any hardware panel is visible and closes on an outside click or Escape. CPU load,
 cores, frequency and temperature, GPU usage, VRAM and power, and RAM/swap totals
 are read locally. Storage identifies only the drive backing `/`, including
 encrypted device stacks, and shows installation used/free space. Other drives
@@ -741,7 +741,7 @@ compositor blur, D-Bus, GPU capture, DDC or real hardware performance.
 | Control Center — Plugins and details | Installed registry model, icon/preview decoding | Registry already prefetches and guards changes; fixed icon slots now decode asynchronously; source URL/folder shown | needs live check |
 | Control Center — Quick chat | Assistant status; conversation delegates | Status query immediate and guarded; no request until Send; closing still clears memory | needs live check |
 | AI Usage (`ai`) | Cache + fresh query replaced provider model on every open | Startup cache; immediate fresh query/results; guarded usage assignment | needs live check |
-| Hardware (`hardware`) | Telemetry process replaced all section delegates | Warm background prefetch; immediate refresh/parse; guarded section snapshot | needs live check |
+| Hardware (`hardware`) | Shared broker telemetry snapshot | Subscribe on open; immediate refresh; guarded section snapshot | needs live check |
 | WiFi (`wifi`) | Status process replaced devices; ping could follow during reveal | Shared cached status; refresh on open and visible-only ping; guarded device snapshot; QR generated only after explicit Share | needs live check |
 | Bluetooth (`bluetooth`) | Service-backed section arrays recreated when devices changed | Apply sections immediately and compare device identities; scan remains explicit and stops on close | needs live check |
 | Display (`brightness`, `display`) and monitor editor | Status/monitor/settings/nightlight/power JSON; slow DDC read | Existing prefetch/JsonState retained; immediate query parsers and open DDC read; shared size retargeting | needs live check |
@@ -918,3 +918,25 @@ Slider writes keep the latest pending value and suspend read demand until the
 write queue drains. Panel actions and display trials still use their existing
 helpers; the independent trial rollback survives bar or broker exit. The
 standalone display and hypridle brightness commands remain available.
+
+
+Hardware read ownership
+-----------------------
+
+`hardware.details` owns the hardware sampler and session identity in the broker.
+The Hardware popup, including Control Center's Hardware entry, subscribes on open
+and releases on close or destruction. Opening refreshes immediately; multiple
+screens share one 2-second sampler, with no periodic sampling after the last
+observer closes. An already-admitted read may finish; a closed generation cannot
+publish its result. Identity discovery is retained across opens, including failed or timed-out
+GPU probes. The popup keeps its last good sections on failure and uses the existing
+translated unavailable message. `system-details.py` remains an independent CLI with
+its existing JSON and optional stdin identity contract.
+
+All domain adapters load lazily on demand inside the bounded worker pool, under
+the read deadline. Each domain can occupy at most two of the three pool
+workers, so one slow domain cannot fill the pool with sibling topics. A failed or slow import marks only that topic unavailable;
+it cannot prevent broker startup or another domain's reads. Capture's ordered
+action controller belongs to the broker, separate from its lazy read adapter.
+`eitr-shell desktop-bar ipc call -- data status` includes hardware demand,
+freshness and read errors without scheduling periodic diagnostics.

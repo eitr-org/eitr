@@ -198,3 +198,28 @@ displayContext.close('control-center');
 displayContext.resumeNightlight('control-center');
 assert.equal(displayTokens.size, 0, 'closed and destroyed observers leave no reads');
 console.log('display shared demand, intervals and write exclusion passed');
+
+
+const hardwareFrames = [];
+const hardwareClient = createClient(frame => hardwareFrames.push(frame), () => {});
+const hardwareOne = hardwareClient.observe('hardware.details', 'screen-one');
+const hardwareTwo = hardwareClient.observe('hardware.details', 'control-center-hardware');
+function receiveHardware(frame) { hardwareClient.receive(JSON.stringify({v: 1, ...frame})); }
+receiveHardware({op: 'hello', epoch: 'hardware-one'});
+assert.equal(hardwareFrames.filter(frame => frame.op === 'subscribe').length, 2);
+const hardwareData = {identity: {gpu: {available: false}}, sections: [{title: 'CPU', usage: 75}]};
+receiveHardware({op: 'state', topic: 'hardware.details', epoch: 'hardware-one', seq: 1,
+    status: 'ready', data: hardwareData, ageMs: 0});
+assert.deepEqual(hardwareClient.states['hardware.details'].data, hardwareData);
+hardwareClient.died();
+assert.equal(hardwareClient.states['hardware.details'].status, 'stale');
+hardwareClient.release(hardwareOne);
+hardwareFrames.length = 0;
+receiveHardware({op: 'hello', epoch: 'hardware-two'});
+assert.deepEqual(hardwareFrames.filter(frame => frame.op === 'subscribe').map(frame => frame.token), [hardwareTwo]);
+receiveHardware({op: 'state', topic: 'hardware.details', epoch: 'hardware-two', seq: 0,
+    status: 'loading', data: {}, ageMs: null});
+assert.deepEqual(hardwareClient.states['hardware.details'].data, hardwareData, 'restart preserves sections');
+hardwareClient.releaseOwner('control-center-hardware');
+assert.equal(hardwareClient.count('hardware.details'), 0);
+console.log('hardware snapshots, restart replay and subscriber lifetime passed');

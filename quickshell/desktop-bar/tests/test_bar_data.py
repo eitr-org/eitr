@@ -168,6 +168,24 @@ class BrokerTests(unittest.IsolatedAsyncioTestCase):
         await self.settle(lambda: self.broker.states['network.details']['task'] is None)
         self.assertEqual(self.broker.states['network.details']['data'], {})
 
+    async def test_admitted_refresh_survives_close_before_worker_dispatch(self):
+        # Deliver open and close in one event-loop turn, as the QML transport can.
+        self.subscribe('brief-open')
+        self.broker.request(dict(v=1, op='unsubscribe', topic='network.details', token='brief-open'))
+        self.assertEqual(self.calls, [])
+        self.gate.set()
+        await self.settle(lambda: self.broker.states['network.details']['task'] is None)
+        self.assertEqual(self.calls, ['network.details'])
+        self.assertEqual(self.broker.states['network.details']['data'], {}, 'closed generation cannot publish')
+        self.assertFalse(self.broker.scheduled('network.details'), 'closing stops periodic sampling')
+        self.broker.refresh('network.details')
+        await asyncio.sleep(.02)
+        self.assertEqual(self.calls, ['network.details'], 'no new refresh without demand')
+        self.subscribe('reopen')
+        await self.settle(lambda: self.broker.states['network.details']['task'] is None)
+        self.assertEqual(self.calls, ['network.details', 'network.details'])
+        self.assertEqual(self.broker.states['network.details']['status'], 'ready')
+
     async def test_hung_read_blocks_only_its_topic(self):
         self.broker.timeout = .03
         def reader(topic):
@@ -273,7 +291,7 @@ class PackagingTests(unittest.TestCase):
         from layout import Layout
         root = SCRIPT.parents[3]
         files = ['quickshell/desktop-bar/' + name for name in [
-            'PowerService.qml', 'scripts/power-domain.py', 'DesktopData.qml', 'DesktopDataProtocol.js', 'ObsStatus.qml', 'scripts/bar-data.py', 'scripts/capture-domain.py']]
+            'scripts/hardware-domain.py', 'scripts/system-details.py', 'PowerService.qml', 'scripts/power-domain.py', 'DesktopData.qml', 'DesktopDataProtocol.js', 'ObsStatus.qml', 'scripts/bar-data.py', 'scripts/capture-domain.py']]
         layout = Layout(root)
         layout.files = lambda: files
         with tempfile.TemporaryDirectory() as directory:
@@ -413,11 +431,11 @@ class CaptureTests(unittest.IsolatedAsyncioTestCase):
                 return dict(self.snapshot, recording=False)
             return {"devices": []}
         self.broker.reader = reader
-        wait_for = asyncio.wait_for
-        async def timed(awaitable, budget):
-            return await wait_for(awaitable, .02 if budget == 25 else budget)
+        wait = asyncio.wait
+        async def timed(awaitables, *, timeout=None):
+            return await wait(awaitables, timeout=.02 if timeout == 25 else timeout)
         try:
-            with patch.object(broker_module.asyncio, "wait_for", side_effect=timed):
+            with patch.object(broker_module.asyncio, "wait", side_effect=timed):
                 self.subscribe("capture.details", "panel")
                 await asyncio.sleep(.05)
                 summary = self.broker.states["capture.summary"]
@@ -722,7 +740,7 @@ class DisplayIsolationTests(unittest.IsolatedAsyncioTestCase):
         imports = []
         original_spec = importlib.util.spec_from_file_location
         def locate(name, path):
-            if name == "display_domain":
+            if Path(path).name == "display-domain.py":
                 imports.append(threading.get_ident())
                 raise FileNotFoundError("display fixture absent")
             return original_spec(name, path)
@@ -736,7 +754,7 @@ class DisplayIsolationTests(unittest.IsolatedAsyncioTestCase):
                 broker.request(dict(v=1, op="subscribe", topic="network.summary", token="network"))
                 self.assertEqual(imports, [], "subscribe must not import on the event loop")
                 await asyncio.wait_for(asyncio.gather(broker.states["display.topology"]["task"],
-                                                     broker.states["network.summary"]["task"]), 1)
+                                                     broker.states["network.summary"]["task"]), 3)
                 self.assertEqual(broker.states["display.topology"]["status"], "unavailable")
                 self.assertEqual(broker.states["network.summary"]["status"], "ready")
                 self.assertEqual(len(imports), 1)
@@ -775,6 +793,174 @@ class DisplayIsolationTests(unittest.IsolatedAsyncioTestCase):
             gate.set()
             await asyncio.wait_for(display_task, 1)
             self.assertEqual(broker.states["display.brightness"]["data"], {}, "late result is discarded")
+        finally:
+            gate.set()
+            await broker.close()
+
+
+class HardwareBrokerTests(unittest.IsolatedAsyncioTestCase):
+    async def settle(self, predicate):
+        for attempt in range(200):
+            if predicate():
+                return
+            await asyncio.sleep(.005)
+        self.fail("hardware read did not settle")
+
+    async def test_observed_sampler_refresh_reopen_and_no_idle_work(self):
+        calls = []
+        gate = threading.Event()
+        def read(topic):
+            calls.append(topic)
+            gate.wait(2)
+            return {"sections": [], "identity": {"cached": True}}
+        broker = broker_module.Broker(lambda frame: None, read)
+        scheduler = asyncio.create_task(broker.schedule())
+        def demand(operation, token):
+            broker.request(dict(v=1, op=operation, topic="hardware.details", token=token))
+        try:
+            self.assertEqual(broker_module.INTERVALS["hardware.details"], 2)
+            await asyncio.sleep(.02)
+            self.assertEqual(calls, [])
+            demand("subscribe", "one")
+            demand("subscribe", "two")
+            await self.settle(lambda: len(calls) == 1)
+            self.assertEqual(broker.diagnostics()["hardware.details"]["observers"], 2)
+            gate.set()
+            await self.settle(lambda: broker.states["hardware.details"]["task"] is None)
+            self.assertEqual(len(calls), 1)
+            broker.states["hardware.details"]["due"] = 0
+            broker.schedule_changed.set()
+            await self.settle(lambda: len(calls) == 2 and broker.states["hardware.details"]["task"] is None)
+            demand("unsubscribe", "one")
+            demand("unsubscribe", "two")
+            broker.states["hardware.details"]["due"] = 0
+            broker.schedule_changed.set()
+            await asyncio.sleep(.03)
+            self.assertEqual(len(calls), 2)
+            demand("subscribe", "reopened")
+            await self.settle(lambda: len(calls) == 3)
+        finally:
+            gate.set()
+            scheduler.cancel()
+            await asyncio.gather(scheduler, return_exceptions=True)
+            await broker.close()
+
+    async def test_all_domain_import_failures_and_deadlines_are_isolated(self):
+        from types import SimpleNamespace
+        for broken in ("network", "power", "capture", "display", "hardware"):
+            for slow in (False, True):
+                gate = threading.Event()
+                imports = []
+                main_thread = threading.get_ident()
+                def spec(name, path):
+                    def execute(module):
+                        imports.append(Path(path).name)
+                        self.assertNotEqual(threading.get_ident(), main_thread)
+                        if Path(path).name == ("wifi-popup.py" if broken == "network" else broken + "-domain.py"):
+                            if slow:
+                                gate.wait(2)
+                            raise ImportError("broken fixture domain")
+                        module.PowerDomain = lambda: SimpleNamespace(read=lambda topic: {"available": False})
+                        module.HardwareDomain = lambda: SimpleNamespace(read=lambda topic: {"sections": []})
+                    return SimpleNamespace(loader=SimpleNamespace(exec_module=execute))
+                broker = broker_module.Broker(lambda frame: None, timeout=.03)
+                try:
+                    self.assertEqual(imports, [], "construction must not import any domain")
+                    with patch.object(broker_module.importlib.util, "spec_from_file_location", side_effect=spec), \
+                            patch.object(broker_module.importlib.util, "module_from_spec", side_effect=lambda spec: SimpleNamespace()):
+                        topic = {"network": "network.details", "power": "power.battery", "capture": "capture.options",
+                                 "display": "display.topology", "hardware": "hardware.details"}[broken]
+                        broker.request(dict(v=1, op="subscribe", token="broken", topic=topic))
+                        siblings = {"network": ["network.summary"], "power": ["power.profile", "power.radios"],
+                                    "capture": ["capture.details", "capture.summary"],
+                                    "display": ["display.settings", "display.brightness", "display.nightlight"], "hardware": []}[broken]
+                        if slow:
+                            for sibling in siblings:
+                                broker.request(dict(v=1, op="subscribe", token=sibling, topic=sibling))
+                        await self.settle(lambda: broker.states[topic]["status"] == "unavailable")
+                        self.assertEqual(broker.states[topic]["error"], "timeout" if slow else "read-failed")
+                        healthy = "hardware.details" if broken != "hardware" else "power.battery"
+                        broker.request(dict(v=1, op="subscribe", token="healthy", topic=healthy))
+                        await self.settle(lambda: broker.states[healthy]["status"] == "ready")
+                        if slow:
+                            filename = "wifi-popup.py" if broken == "network" else broken + "-domain.py"
+                            self.assertEqual(imports.count(filename), 1, "sibling topics share a single import job")
+                        gate.set()
+                        await self.settle(lambda: all(broker.states[entry]["task"] is None for entry in [topic, *siblings]))
+                        self.assertNotIn(broken, broker.domains, "failed import must never install a partial adapter")
+                finally:
+                    gate.set()
+                    await broker.close()
+
+    async def test_hardware_identity_survives_read_failure_and_reopen(self):
+        broker = broker_module.Broker(lambda frame: None)
+        try:
+            domain = broker.load_domain("hardware")
+            adapter = domain.adapter
+            with patch.object(adapter, "cpu_identity", return_value={"name": "CPU", "cores": "4 / 8"}) as cpu_identity, \
+                    patch.object(adapter, "storage_identity", return_value={"name": "Root", "rows": []}) as storage_identity, \
+                    patch.object(adapter, "query", return_value="") as query, \
+                    patch.object(adapter, "cpu", side_effect=[OSError("fixture"), {"title": "CPU"}, {"title": "CPU"}]), \
+                    patch.object(adapter, "memory", return_value={"title": "RAM"}), \
+                    patch.object(adapter, "storage", return_value=[]):
+                for token, expected in (("first", "unavailable"), ("reopen", "ready"), ("again", "ready")):
+                    broker.request(dict(v=1, op="subscribe", topic="hardware.details", token=token))
+                    await self.settle(lambda: broker.states["hardware.details"]["task"] is None)
+                    self.assertEqual(broker.states["hardware.details"]["status"], expected)
+                    broker.request(dict(v=1, op="unsubscribe", topic="hardware.details", token=token))
+                cpu_identity.assert_called_once()
+                storage_identity.assert_called_once()
+                query.assert_called_once()
+                self.assertFalse(domain.identity["gpu"]["available"])
+        finally:
+            await broker.close()
+
+
+    async def test_close_reopen_during_inflight_refreshes_without_duplicate_sampler(self):
+        gate = threading.Event()
+        calls = []
+        def reader(topic):
+            calls.append(topic)
+            gate.wait(2)
+            return {"identity": {}, "sections": []}
+        broker = broker_module.Broker(lambda frame: None, reader)
+        scheduler = asyncio.create_task(broker.schedule())
+        try:
+            broker.request(dict(v=1, op="subscribe", topic="hardware.details", token="first"))
+            await self.settle(lambda: len(calls) == 1)
+            broker.request(dict(v=1, op="unsubscribe", topic="hardware.details", token="first"))
+            broker.request(dict(v=1, op="subscribe", topic="hardware.details", token="reopen"))
+            self.assertEqual(len(calls), 1)
+            gate.set()
+            await self.settle(lambda: len(calls) == 2 and broker.states["hardware.details"]["task"] is None)
+            self.assertEqual(broker.states["hardware.details"]["status"], "ready")
+        finally:
+            gate.set()
+            scheduler.cancel()
+            await asyncio.gather(scheduler, return_exceptions=True)
+            await broker.close()
+
+    async def test_slow_reads_in_one_domain_leave_pool_capacity_for_others(self):
+        gate = threading.Event()
+        calls = []
+        def slow_read(topic):
+            calls.append(topic)
+            gate.wait(2)
+            return {"available": False}
+        broker = broker_module.Broker(lambda frame: None, timeout=.03)
+        broker.domains['power'] = Mock(read=slow_read)
+        broker.domains['hardware'] = Mock(read=lambda topic: {"identity": {}, "sections": []})
+        try:
+            for topic in ('power.battery', 'power.profile', 'power.radios'):
+                broker.request(dict(v=1, op='subscribe', topic=topic, token=topic))
+            await self.settle(lambda: all(broker.states[topic]['status'] == 'unavailable'
+                                         for topic in ('power.battery', 'power.profile', 'power.radios')))
+            broker.request(dict(v=1, op='subscribe', topic='hardware.details', token='healthy'))
+            await self.settle(lambda: broker.states['hardware.details']['status'] == 'ready')
+            self.assertEqual(len(calls), 2, 'one stalled domain leaves a pool worker available')
+            gate.set()
+            await self.settle(lambda: not any(state['task'] for state in broker.states.values()))
+            self.assertEqual(len(calls), 2, 'queued reads past their deadline never start')
         finally:
             gate.set()
             await broker.close()

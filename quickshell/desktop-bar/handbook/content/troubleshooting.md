@@ -129,3 +129,5 @@ retried at the next login (`~/.local/state/eitr/migrations.log`).
 `eitr-config status` lists the settings and overrides in effect.
 
 Failed task terminals offer **A: ask the AI** when a default assistant is selected; **Esc** closes. Only the last 200 output lines are kept in memory, with ANSI escapes removed and obvious secret lines hidden before sharing: a cloud assistant sends this output to its provider, while Ratatoskr keeps it on this PC.
+
+Hardware uses one broker sampler across screens and the Control Center Hardware action. Opening a hardware panel refreshes immediately, then every two seconds while any hardware panel is open. Closing the last panel stops sampling. CPU, root-drive and GPU identity stay cached for the broker session, including unavailable or timed-out GPU probes. Last good sections remain visible when a read fails. The standalone `system-details.py` CLI remains available; `eitr-shell desktop-bar ipc call -- data status` includes `hardware.details` diagnostics.

@@ -115,7 +115,7 @@ function createClient(send, changed) {
             }
             if (callback) callback(frame.error || "", frame.message || "");
         } else if (online && frame.epoch === epoch && frame.op === "state") {
-            if (!["display.topology", "display.settings", "display.brightness", "display.nightlight", "power.battery", "power.profile", "power.radios", "network.summary", "network.details", "network.latency", "capture.summary", "capture.details", "capture.options"].includes(frame.topic)
+            if (!["hardware.details", "display.topology", "display.settings", "display.brightness", "display.nightlight", "power.battery", "power.profile", "power.radios", "network.summary", "network.details", "network.latency", "capture.summary", "capture.details", "capture.options"].includes(frame.topic)
                 || !Number.isInteger(frame.seq) || frame.seq < 0
                 || !["loading", "ready", "unavailable", "stale", "error"].includes(frame.status)
                 || !frame.data || typeof frame.data !== "object") return;

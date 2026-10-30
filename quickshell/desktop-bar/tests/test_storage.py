@@ -69,3 +69,31 @@ class IdentityCacheTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class HardwareSamplingFixtures(unittest.TestCase):
+    def test_cpu_delta_uses_busy_ticks_and_iowait(self):
+        files = {'/proc/cpuinfo': 'model name: Fixture CPU\ncpu MHz: 3000\n',
+                 '/proc/loadavg': '1.00 2.00 3.00 1/100 42'}
+        with patch.object(system_details, 'cpu_ticks', side_effect=[(1000, 700), (1100, 725)]), \
+                patch.object(system_details.time, 'sleep') as sleep, \
+                patch.object(system_details.Path, 'read_text', autospec=True, side_effect=lambda path: files[str(path)]), \
+                patch.object(system_details, 'query', return_value=''):
+            result = system_details.cpu({'name': 'Fixture CPU', 'cores': '4 / 8'})
+        self.assertEqual(result['usage'], 75)
+        self.assertIn(['Load · 1 / 5 / 15 min', '1.00 / 2.00 / 3.00'], result['rows'])
+        sleep.assert_called_once_with(.2)
+
+    def test_cpu_ticks_include_iowait_in_idle(self):
+        with patch.object(system_details.Path, 'read_text', return_value='cpu 10 20 30 40 50 60 70 80 90 100\n'):
+            self.assertEqual(system_details.cpu_ticks(), (360, 90))
+
+    def test_missing_or_timed_out_gpu_is_cached(self):
+        for error in (FileNotFoundError(), system_details.subprocess.TimeoutExpired('nvidia-smi', 2)):
+            with patch.object(system_details.subprocess, 'check_output', side_effect=error) as command:
+                graphics = system_details.gpu()
+                identity = {'available': bool(graphics['rows']), 'name': graphics['name']}
+                self.assertIsNone(system_details.gpu(identity)['usage'])
+                self.assertIsNone(system_details.gpu(identity)['usage'])
+                command.assert_called_once()
+                self.assertEqual(command.call_args.kwargs['timeout'], 2)

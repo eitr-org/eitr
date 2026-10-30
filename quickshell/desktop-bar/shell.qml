@@ -135,7 +135,6 @@ ShellRoot {
     readonly property string idleLockGlyph: idleLockEnabled ? "󱫗" : "󱫖"
     readonly property string idleLockTooltip: idleLockEnabled ? Eitr.I18n.tr("Idle Lock: On") : Eitr.I18n.tr("Idle Lock: Off")
     function switchIdleLock() { if (!toggleIdleLock.running) toggleIdleLock.running = true; }
-    property var hardwareIdentity: null
     property var battery: PowerService.battery
     readonly property string batteryIcon: battery.status === "Charging" ? "󰂄" : battery.percent < 20 ? "󰁻" : battery.percent < 60 ? "󰁾" : "󰁹"
     property string primaryDisplay: DisplayService.topology.primary
@@ -1445,8 +1444,6 @@ ShellRoot {
 
                         SystemMonitorMenu {
                             id: hardwareMenu
-                            identity: shell.hardwareIdentity
-                            onIdentityReceived: identity => shell.hardwareIdentity = identity
                             surfaceColor: shell.barBackground()
                             maximumHeight: bar.screen.height - 70
                             target: shell.verticalBar ? verticalHardwareIcon : hardwareIcon
