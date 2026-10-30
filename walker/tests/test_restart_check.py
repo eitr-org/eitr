@@ -58,7 +58,7 @@ class RestartCheckTests(unittest.TestCase):
         self.assertTrue(popen.call_args.kwargs["start_new_session"])
 
     def test_only_the_offered_button_acts(self):
-        for answer, expected in (("restart", ["systemctl", "reboot"]), ("later", None), ("", None)):
+        for answer, expected in (("restart", ["systemctl", "reboot", "--no-wall"]), ("later", None), ("", None)):
             with self.subTest(answer=answer), patch.object(self.check.subprocess, "run") as run:
                 run.return_value.stdout = answer + "\n"
                 self.check.prompt("restart", ["linux"])

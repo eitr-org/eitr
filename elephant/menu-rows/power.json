@@ -20,7 +20,7 @@
     "subtext": "Restart the computer",
     "icon": "",
     "actions": {
-      "open": "systemctl reboot"
+      "open": "systemctl reboot --no-wall"
     }
   },
   {
@@ -32,7 +32,7 @@
     ],
     "icon": "",
     "actions": {
-      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py systemctl reboot --firmware-setup"
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py systemctl reboot --firmware-setup --no-wall"
     }
   },
   {
@@ -40,7 +40,7 @@
     "subtext": "Turn the computer off",
     "icon": "",
     "actions": {
-      "open": "systemctl poweroff"
+      "open": "systemctl poweroff --no-wall"
     }
   },
   {

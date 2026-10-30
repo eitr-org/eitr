@@ -131,7 +131,7 @@ def restore(armed):
         write(current / str(NOTICE).lstrip("/"), {"snapshot": number, "restored": when, "failed": FAILED,
                                                   "cleaned": False}, mode=0o644)
         reset.run(["sync", "-f", str(top)])
-    reset.run(["systemctl", "reboot"])
+    reset.run(["systemctl", "reboot", "--no-wall"])
 
 
 def healthy(wait=HEALTHY_SECONDS, timeout=600):

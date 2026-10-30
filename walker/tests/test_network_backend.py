@@ -67,7 +67,7 @@ assert(checked == 1)
         with patch.object(choice, "HELPER", self.helper()), patch("builtins.input", side_effect=["y", "y"]), patch("builtins.print"), \
                 patch.object(choice.subprocess, "run") as run:
             choice.main(["iwd"])
-        self.assertEqual(run.call_args_list[-1].args[0], ["systemctl", "reboot"])
+        self.assertEqual(run.call_args_list[-1].args[0], ["systemctl", "reboot", "--no-wall"])
 
     def test_declining_selection_does_not_change_anything(self):
         with patch.object(choice, "HELPER", self.helper()), patch("builtins.input", return_value="n"), patch("builtins.print"), \

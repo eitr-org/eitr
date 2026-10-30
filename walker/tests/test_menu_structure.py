@@ -439,3 +439,18 @@ class MenuStructureTests(unittest.TestCase):
         self.assertTrue((ROOT / "distro/SECURE-BOOT.md").is_file())
         chapters = json.loads((ROOT / "quickshell/desktop-bar/handbook/chapters.json").read_text())
         self.assertTrue(any(chapter["id"] == "secure-boot" and chapter["source"] == "distro/SECURE-BOOT.md" for chapter in chapters))
+
+
+class ShutdownBroadcastTests(unittest.TestCase):
+    def test_desktop_power_actions_skip_the_console_broadcast(self):
+        """A wall message would show on the text console before the shutdown splash."""
+        import re
+        sources = ['elephant/menu-rows/power.json', 'quickshell/desktop-bar/ControlCenter.qml',
+                   'quickshell/lockscreen/AuthAdapter.qml', 'walker/scripts/actions/system/restart-check.py',
+                   'walker/scripts/actions/system/network-backend.py']
+        for source in sources:
+            text = (ROOT / source).read_text()
+            commands = re.findall(r'systemctl[" ,]+(?:reboot|poweroff)[^\]\n]*', text)
+            self.assertTrue(commands, source)
+            for command in commands:
+                self.assertIn('--no-wall', command, source)

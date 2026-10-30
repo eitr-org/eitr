@@ -20,7 +20,7 @@ RESTART = re.compile(r"^(linux(-lts|-zen|-hardened|-rt)?|linux-firmware.*|.*-uco
 # The desktop session loads these once; a new session picks up the update.
 LOG_OUT = re.compile(r"^(eitr-desktop|hyprland|hypr.*|aquamarine|quickshell|walker|elephant.*|uwsm|qt6-base|"
                      r"qt6-declarative|xdg-desktop-portal.*|pipewire.*|wireplumber)$")
-COMMANDS = {"restart": ["systemctl", "reboot"], "log-out": ["uwsm", "stop"]}
+COMMANDS = {"restart": ["systemctl", "reboot", "--no-wall"], "log-out": ["uwsm", "stop"]}
 
 
 def installed():

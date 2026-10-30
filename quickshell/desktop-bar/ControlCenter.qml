@@ -796,8 +796,8 @@ ThemedPopup {
                                 model: center.powerOpen ? [
                                     {title: Eitr.I18n.tr("Logout"), icon: "", command: ["uwsm", "stop"]},
                                     {title: Eitr.I18n.tr("Suspend"), icon: "", command: ["sh", "-c", "loginctl lock-session && sleep 1 && systemctl suspend"]},
-                                    {title: Eitr.I18n.tr("Reboot"), icon: "", command: ["systemctl", "reboot"]},
-                                    {title: Eitr.I18n.tr("Shutdown"), icon: "", command: ["systemctl", "poweroff"]}
+                                    {title: Eitr.I18n.tr("Reboot"), icon: "", command: ["systemctl", "reboot", "--no-wall"]},
+                                    {title: Eitr.I18n.tr("Shutdown"), icon: "", command: ["systemctl", "poweroff", "--no-wall"]}
                                 ] : []
                                 GridAction {
                                     required property var modelData

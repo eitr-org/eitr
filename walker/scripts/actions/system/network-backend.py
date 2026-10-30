@@ -25,7 +25,7 @@ def main(args):
     command = ["sudo", str(HELPER), "restore"] if args[0] == "restore" else ["sudo", str(HELPER), "stage", args[0]]
     subprocess.run(command, check=True)
     if input(tr('Reboot now to apply?') + ' [y/N] ').strip().lower() in ("y", "yes"):
-        subprocess.run(["systemctl", "reboot"], check=True)
+        subprocess.run(["systemctl", "reboot", "--no-wall"], check=True)
 
 
 if __name__ == "__main__":

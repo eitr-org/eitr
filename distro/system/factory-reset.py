@@ -394,7 +394,7 @@ def reset(mode, confirmation):
             print(tr('Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review.', problem=f'{problem}', PREVIOUS=f'{PREVIOUS}'))
         run(["sync", "-f", str(top)])
     print(tr('Factory reset is ready. Restarting now.'))
-    run(["systemctl", "reboot"])
+    run(["systemctl", "reboot", "--no-wall"])
 
 
 def undo_swap(top, previous, swapped):

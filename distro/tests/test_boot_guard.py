@@ -110,7 +110,7 @@ class BootGuardTests(unittest.TestCase):
         self.assertEqual((self.top / guard.FAILED / "etc/version").read_text(), "after the update\n")
         notice = json.loads((self.top / "@" / str(guard.NOTICE).lstrip("/")).read_text())
         self.assertEqual((notice["snapshot"], notice["failed"], notice["cleaned"]), ("7", guard.FAILED, False))
-        self.assertIn(["systemctl", "reboot"], self.reset.commands)
+        self.assertIn(["systemctl", "reboot", "--no-wall"], self.reset.commands)
 
     def test_a_record_copied_into_the_snapshot_does_not_arm_the_restored_system(self):
         stale = self.top / "@/.snapshots/7/snapshot" / str(guard.ARMED).lstrip("/")
@@ -130,7 +130,7 @@ class BootGuardTests(unittest.TestCase):
         self.assertTrue((self.top / "@/.snapshots/7/snapshot").is_dir())
         self.assertFalse((self.top / guard.FAILED).exists())
         self.assertEqual((self.boot / "vmlinuz").read_text(), "new kernel\n")
-        self.assertNotIn(["systemctl", "reboot"], self.reset.commands)
+        self.assertNotIn(["systemctl", "reboot", "--no-wall"], self.reset.commands)
 
     def test_a_missing_snapshot_changes_nothing(self):
         shutil.rmtree(self.top / "@/.snapshots/7")

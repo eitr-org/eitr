@@ -74,8 +74,8 @@ Item {
             auth.supplied = false;
             pam.start();
         }
-        function reboot() { if (!auth.preview) Quickshell.execDetached(["systemctl", "reboot"]); }
-        function powerOff() { if (!auth.preview) Quickshell.execDetached(["systemctl", "poweroff"]); }
+        function reboot() { if (!auth.preview) Quickshell.execDetached(["systemctl", "reboot", "--no-wall"]); }
+        function powerOff() { if (!auth.preview) Quickshell.execDetached(["systemctl", "poweroff", "--no-wall"]); }
         function suspend() { if (!auth.preview) Quickshell.execDetached(["systemctl", "suspend"]); }
     }
     PamContext {
