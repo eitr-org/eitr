@@ -8,13 +8,14 @@ QtObject {
     id: facade
     property var topics: ({})
     property var networkDomain: ({busy: false, name: ""})
+    property var captureDomain: ({busy: false, name: ""})
     property var diagnostics: ({})
     property int restartCount: 0
     property int failures: 0
     property bool retryAvailable: false
     property var client: Protocol.createClient(send, publish)
     function send(frame) { broker.write(JSON.stringify(frame) + "\n"); }
-    function publish() { topics = Object.assign({}, client.states); networkDomain = Object.assign({}, client.domain); }
+    function publish() { topics = Object.assign({}, client.states); networkDomain = Object.assign({}, client.domain); captureDomain = Object.assign({}, client.captureDomain); }
     function observe(topic, owner) { return client.observe(topic, owner); }
     function release(token) { client.release(token); }
     function releaseOwner(owner) { client.releaseOwner(owner); }
@@ -30,7 +31,7 @@ QtObject {
     function status() {
         if (broker.running) send({v: 1, op: "status", id: "diagnostics"});
         const result = {};
-        ["network.summary", "network.details", "network.latency"].forEach(topic => {
+        ["network.summary", "network.details", "network.latency", "capture.summary", "capture.details", "capture.options"].forEach(topic => {
             const state = topics[topic];
             result[topic] = Object.assign({}, diagnostics[topic], {
                 ageMs: state && state.updatedAt ? Date.now() - state.updatedAt : null,

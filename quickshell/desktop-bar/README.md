@@ -174,7 +174,7 @@ the resulting status refresh finish. Starting capture first prepares OBS in
 the background, then closes the panel before recording or streaming starts.
 The recording dot (just left of the clock while OBS records or streams, where dictation
 also shows its level bars) opens RecordingMenu: elapsed
-time and size from `obs-control.py details`, Pause/Resume, Chapter and Stop, a LIVE
+time and size from the shared broker capture details, Pause/Resume, Chapter and Stop, a LIVE
 row with Stop for streams, OBS microphone and camera toggles and the scene list.
 Stopping a recording sends an Open folder / Copy path notification. During
 SUPER+D dictation the dot becomes a red waveform fed by the default microphone's
@@ -824,7 +824,7 @@ four panes per monitor and a thin Quickshell tab strip. Turning it off restores
 the normal bar and effects, spreading windows two per workspace. See the
 [Focus Handbook chapter](handbook/content/focus.md) for keys, monitor behavior and recovery.
 
-### Network data ownership
+### Desktop data ownership
 
 One `NetworkService` in the shell supplies every screen, bar layout and Focus
 strip. The registered `DesktopData` singleton owns one `scripts/bar-data.py` child
@@ -846,7 +846,8 @@ helpers remain the backend authority.
 The version 1 transport uses bounded newline-delimited JSON on stdin/stdout;
 Adapter logs never enter protocol stdout. Requests use `subscribe`/`unsubscribe`
 with a topic and unique observer token, or `refresh` with a request ID. Topics are
-`network.summary`, `network.details`, and `network.latency`. State snapshots carry
+`network.summary`, `network.details`, `network.latency`, and the capture topics
+described below. State snapshots carry
 `v`, `op`, `topic`, `token`, `id`, `epoch`, per-topic `seq`, `status`, `data`, and
 `ageMs` (null before a successful read). A `hello` establishes the epoch; reconnect
 replays current tokens and sends full snapshots. Old epoch/sequence results are
@@ -861,3 +862,26 @@ ages, error codes, in-flight/pending counts, observers and restart count, withou
 network identities or raw data. Each status call requests diagnostics once and
 returns the diagnostics received from the previous call; there is no status polling. Native desktop controls remain independent.
 Network actions use request IDs and a bounded ordered broker queue, including airplane writes. Busy state is shared across screens; results and error codes return only to the originating panel. Each helper receives credentials on stdin and is killed and reaped at its operation deadline (enterprise: 120 s). Timeout or broker death means outcome unknown: reconcile state and retry explicitly. Writes are never replayed. QR remains an ephemeral helper outside the broker.
+
+### Capture data ownership
+
+The singleton `ObsStatus` adapts `capture.summary`, `capture.details`, and
+`capture.options` from the same `DesktopData` broker. Imported OBS reads run in
+the bounded worker pool; they do not launch Python per refresh. Summary checks
+run at startup, on window changes and explicit refresh, then every 2 seconds
+only while an OBS window or process is known to exist. Recording panels share
+one 2-second details reader while open; details also update the summary, so no
+parallel summary check runs. Options refresh on open or after writes, without
+periodic polling. Unavailable reads retain last-good data with controls disabled;
+unknown status never becomes a confirmed stopped state.
+
+Capture actions, including option writes and preparation, use request IDs and
+one bounded ordered domain queue. Busy state is shared across screens; results
+return to the requesting controller. The existing prepare/close/reveal delay
+before starting capture is preserved. The OBS stop command keeps its 30-second
+deadline, within a 45-second total budget for notification and idle cleanup.
+Timeouts and broker death leave an unknown outcome, require state reconciliation,
+and never replay writes. `obs-control.py` remains the standalone CLI for Walker,
+screenshots and shortcuts, with the same output and translation behavior.
+`eitr-shell desktop-bar ipc call -- data status` includes capture topic diagnostics
+without recording paths, scene names or raw OBS data.

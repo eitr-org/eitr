@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bounded JSON-lines transport. Blocking network adapters share a bounded thread pool."""
+"""Bounded JSON-lines transport. Blocking domain adapters share a bounded thread pool."""
 import asyncio
 import json
 import importlib.util
@@ -14,12 +14,17 @@ import uuid
 
 MAX_FRAME = 262144
 MAX_RESULT = MAX_FRAME // 2
-INTERVALS = {"network.summary": 10, "network.details": 2, "network.latency": 15}
+INTERVALS = {"network.summary": 10, "network.details": 2, "network.latency": 15,
+             "capture.summary": 2, "capture.details": 2, "capture.options": float("inf")}
 
 
 class Broker:
     def __init__(self, emit, reader=None, timeout=5):
         self.emit = emit
+        spec = importlib.util.spec_from_file_location("capture_domain", Path(__file__).with_name("capture-domain.py"))
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        self.capture = module.CaptureDomain(self)
         self.adapter = None
         self.reader = reader or self.read
         self.timeout = timeout
@@ -39,6 +44,8 @@ class Broker:
                                    pending=False, due=0, generation=0, durationMs=0, id="") for topic in INTERVALS}
 
     def read(self, topic):
+        if topic.startswith("capture."):
+            return self.capture.read(topic)
         interface = ""
         if topic == "network.latency":
             devices = self.states["network.details"]["data"].get("devices", [])
@@ -50,6 +57,13 @@ class Broker:
 
     def wanted(self, topic):
         return topic in self.tokens.values()
+
+    def scheduled(self, topic):
+        if not self.wanted(topic):
+            return False
+        if topic == "capture.summary":
+            return not self.wanted("capture.details") and (self.capture.has_window or self.states[topic]["data"].get("running", False))
+        return True
 
     def age(self, state):
         return None if state["success"] is None else int((time.monotonic() - state["success"]) * 1000)
@@ -67,39 +81,67 @@ class Broker:
                             id=state["id"]) for topic, state in self.states.items()}
 
     def refresh(self, topic, request=""):
-        state = self.states[topic]
-        if topic == "network.latency" and self.states["network.details"]["success"] is None:
-            return
         if not self.wanted(topic):
+            return
+        state = self.states[topic]
+        if topic == "capture.details" and self.states["capture.summary"]["task"]:
+            state["pending"] = True
+            return
+        if topic == "capture.summary" and self.states["capture.details"]["task"] and not self.wanted("capture.details"):
+            state["pending"] = True
+            return
+        if topic == "capture.summary" and self.wanted("capture.details"):
+            self.refresh("capture.details", request)
+            return
+        if topic.startswith("capture.") and self.capture.task:
+            state["pending"] = True
+            return
+        if topic == "network.latency" and self.states["network.details"]["success"] is None:
             return
         if state["task"]:
             state["pending"] = True
             return
+        state["pending"] = False
         state["id"] = request
         state["task"] = asyncio.create_task(self.update(topic, state["generation"]))
         self.schedule_changed.set()
         self.jobs.add(state["task"])
         state["task"].add_done_callback(self.jobs.discard)
 
+    def capture_summary(self, state):
+        summary = self.states["capture.summary"]
+        if state["status"] == "ready":
+            summary.update(data={key: state["data"][key] for key in ("running", "ready", "recording", "paused", "streaming")},
+                           success=state["success"], status="ready", error="")
+        else:
+            if "running" in state["data"]:
+                summary["data"] = dict(summary["data"], running=state["data"]["running"])
+            summary.update(status="stale" if summary["success"] is not None else "unavailable", error=state["error"])
+        summary["seq"] += 1
+        self.snapshot("capture.summary")
+
     async def update(self, topic, generation):
         state = self.states[topic]
         started = time.monotonic()
         timed_out = False
         try:
-            if self.reader == self.read and self.adapter is None:
+            if self.reader == self.read and self.adapter is None and topic.startswith("network."):
                 spec = importlib.util.spec_from_file_location("wifi_popup", Path(__file__).with_name("wifi-popup.py"))
                 adapter = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(adapter)
                 self.adapter = adapter
             future = asyncio.get_running_loop().run_in_executor(self.executor, self.reader, topic)
+            budget = 25 if topic == "capture.details" else 10 if topic == "capture.summary" else self.timeout
             try:
-                result = await asyncio.wait_for(asyncio.shield(future), self.timeout)
+                result = await asyncio.wait_for(asyncio.shield(future), budget)
             except TimeoutError:
                 timed_out = True
                 if generation == state["generation"]:
                     state.update(status="stale" if state["success"] is not None else "unavailable", error="timeout")
                     state["seq"] += 1
                     self.snapshot(topic, request=state["id"])
+                    if topic == "capture.details":
+                        self.capture_summary(state)
                 # The deadline cannot stop a thread. Keep this topic occupied until it returns.
                 try:
                     await asyncio.shield(future)
@@ -109,10 +151,16 @@ class Broker:
             if generation != state["generation"]:
                 return
             if not isinstance(result, dict) or (topic.endswith("latency") and "ping" not in result) or (
-                    not topic.endswith("latency") and not isinstance(result.get("devices"), list)):
+                    topic.startswith("network.") and not topic.endswith("latency") and not isinstance(result.get("devices"), list)):
                 raise ValueError("invalid-result")
             if len(json.dumps(result).encode()) > MAX_RESULT:
                 raise ValueError("oversize-result")
+            if topic in {"capture.summary", "capture.details"} and any(
+                    type(result.get(key)) is not bool for key in ("running", "ready", "recording", "paused", "streaming")):
+                raise ValueError("invalid-result")
+            if topic in {"capture.summary", "capture.details"} and not result.get("ready"):
+                state["data"] = dict(state["data"], running=result.get("running", True))
+                raise ValueError("capture-unavailable")
             state.update(data=result, success=time.monotonic(), status="ready", error="")
         except asyncio.CancelledError:
             return
@@ -133,6 +181,10 @@ class Broker:
             return
         state["seq"] += 1
         self.snapshot(topic, request=state["id"])
+        if topic == "capture.summary" and self.wanted("capture.details"):
+            self.refresh("capture.details")
+        if topic == "capture.details":
+            self.capture_summary(state)
         if topic == "network.details":
             devices = state["data"].get("devices", [])
             interface = devices[0].get("name", "") if devices and devices[0].get("state") == "connected" else ""
@@ -264,6 +316,15 @@ class Broker:
         if operation == "status":
             self.emit(dict(v=1, op="status", epoch=self.epoch, id=frame.get("id", ""), data=self.diagnostics()))
             return
+        if operation == "presence" and topic == "capture":
+            if type(frame.get("present")) is not bool:
+                raise ValueError("invalid-presence")
+            self.capture.has_window = frame["present"]
+            self.refresh("capture.summary")
+            return
+        if operation == "action" and topic == "capture":
+            self.capture.enqueue(frame)
+            return
         if operation == "action" and topic == "network":
             self.enqueue_action(frame)
             return
@@ -278,8 +339,9 @@ class Broker:
             fresh = token not in self.tokens
             self.tokens[token] = topic
             self.action_state()
+            self.capture.state()
             self.snapshot(topic, token)
-            if fresh:
+            if fresh and not self.states[topic]["task"]:
                 self.refresh(topic)
         elif operation == "unsubscribe":
             if self.tokens.get(token) == topic:
@@ -301,10 +363,12 @@ class Broker:
             self.schedule_changed.clear()
             now = time.monotonic()
             for topic, state in self.states.items():
-                if self.wanted(topic) and not state["task"] and now >= state["due"]:
+                if self.scheduled(topic) and not state["task"] and not (topic.startswith("capture.") and self.capture.task) and now >= state["due"]:
                     self.refresh(topic)
             due = [state["due"] for topic, state in self.states.items()
-                   if self.wanted(topic) and not state["task"]
+                   if self.scheduled(topic) and not state["task"] and not (topic.startswith("capture.") and self.capture.task)
+                   and not (topic == "capture.details" and self.states["capture.summary"]["task"])
+                   and not (topic == "capture.summary" and self.states["capture.details"]["task"])
                    and (topic != "network.latency" or self.states["network.details"]["success"] is not None)]
             delay = max(0, min(due) - time.monotonic()) if due else None
             try:

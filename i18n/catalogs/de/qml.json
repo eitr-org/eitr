@@ -476,5 +476,6 @@
   "Connection failed; verify credentials and certificate settings": "Verbindung fehlgeschlagen; Zugangsdaten und Zertifikateinstellungen prüfen",
   "Connection timed out; check the WiFi panel": "Zeitüberschreitung der Verbindung; WiFi-Bereich prüfen",
   "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": "Die Funkverbindungen wurden anderweitig gesperrt; aktivieren Sie sie einzeln unter WiFi/Bluetooth.",
-  "Could not complete request": "Could not complete request"
+  "Could not complete request": "Anfrage konnte nicht abgeschlossen werden",
+  "Recording settings unavailable": "Aufnahmeeinstellungen nicht verfügbar"
 }

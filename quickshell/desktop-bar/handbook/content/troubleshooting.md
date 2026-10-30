@@ -51,6 +51,15 @@ For a technical status snapshot, use
 error codes, in-flight reads, observers and restarts without network names or
 addresses. Retry with `eitr-shell desktop-bar ipc call -- data retry`.
 
+OBS capture uses the same broker across screens. One shared check runs every
+2 seconds only while an OBS window or process is known to exist. Recording
+details refresh every 2 seconds only while a recording panel is open, and also
+supply the shared status. Unknown status keeps the last known capture state and
+disables controls until a successful refresh. Capture actions and option writes
+share an ordered queue; a timeout or broker exit leaves the outcome unknown and
+never repeats the action automatically. The standalone OBS command remains
+available to Walker and screenshot shortcuts.
+
 ## Installation and recovery checks
 
 EITR is still in beta: VM coverage does not prove every WiFi adapter, Bluetooth

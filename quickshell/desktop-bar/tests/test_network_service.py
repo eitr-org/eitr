@@ -18,7 +18,8 @@ class NetworkServiceTests(unittest.TestCase):
             (root / "qmldir").write_text("singleton DesktopData DesktopData.qml\nNetworkService NetworkService.qml\n")
             scripts = root / "scripts"
             scripts.mkdir()
-            shutil.copy(bar / "scripts/bar-data.py", scripts / "bar-data.py")
+            for name in ("bar-data.py", "capture-domain.py"):
+                shutil.copy(bar / "scripts" / name, scripts / name)
             (scripts / "wifi-popup.py").write_text(
                 'import json, os, sys, time\nfrom pathlib import Path\n'
                 'def read_state(action, interface):\n'

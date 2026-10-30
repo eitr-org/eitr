@@ -501,7 +501,8 @@ var qml = {
     "Connection failed; verify credentials and certificate settings": "Connection failed; verify credentials and certificate settings",
     "Connection timed out; check the WiFi panel": "Connection timed out; check the WiFi panel",
     "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.",
-    "Could not complete request": "Could not complete request"
+    "Could not complete request": "Could not complete request",
+    "Recording settings unavailable": "Recording settings unavailable"
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -981,7 +982,8 @@ var qml = {
     "Connection failed; verify credentials and certificate settings": "A conexão falhou; verifique as credenciais e as configurações do certificado",
     "Connection timed out; check the WiFi panel": "A conexão expirou; verifique o painel de WiFi",
     "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": "As conexões sem fio foram bloqueadas em outro lugar; ative-as individualmente em WiFi/Bluetooth.",
-    "Could not complete request": "Could not complete request"
+    "Could not complete request": "Não foi possível concluir a solicitação",
+    "Recording settings unavailable": "Configurações de gravação indisponíveis"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1461,7 +1463,8 @@ var qml = {
     "Connection failed; verify credentials and certificate settings": "La conexión ha fallado; comprueba las credenciales y los ajustes del certificado",
     "Connection timed out; check the WiFi panel": "La conexión ha agotado el tiempo de espera; comprueba el panel de WiFi",
     "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": "Las conexiones inalámbricas se bloquearon en otro lugar; actívalas individualmente en WiFi/Bluetooth.",
-    "Could not complete request": "Could not complete request"
+    "Could not complete request": "No se pudo completar la solicitud",
+    "Recording settings unavailable": "Configuración de grabación no disponible"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1941,7 +1944,8 @@ var qml = {
     "Connection failed; verify credentials and certificate settings": "Verbindung fehlgeschlagen; Zugangsdaten und Zertifikateinstellungen prüfen",
     "Connection timed out; check the WiFi panel": "Zeitüberschreitung der Verbindung; WiFi-Bereich prüfen",
     "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": "Die Funkverbindungen wurden anderweitig gesperrt; aktivieren Sie sie einzeln unter WiFi/Bluetooth.",
-    "Could not complete request": "Could not complete request"
+    "Could not complete request": "Anfrage konnte nicht abgeschlossen werden",
+    "Recording settings unavailable": "Aufnahmeeinstellungen nicht verfügbar"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2421,6 +2425,7 @@ var qml = {
     "Connection failed; verify credentials and certificate settings": "Échec de la connexion ; vérifiez les identifiants et les paramètres du certificat",
     "Connection timed out; check the WiFi panel": "La connexion a expiré ; vérifiez le panneau WiFi",
     "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": "Les connexions radio ont été bloquées ailleurs ; réactivez-les séparément dans WiFi/Bluetooth.",
-    "Could not complete request": "Could not complete request"
+    "Could not complete request": "Impossible de terminer la demande",
+    "Recording settings unavailable": "Paramètres d’enregistrement indisponibles"
   }
 };

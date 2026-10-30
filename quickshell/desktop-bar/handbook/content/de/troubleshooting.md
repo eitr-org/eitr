@@ -39,6 +39,17 @@ Fehlercodes, laufende Lesevorgänge, Beobachter und Neustarts, aber keine
 Netzwerknamen oder Adressen. Ein neuer Versuch erfolgt mit
 `eitr-shell desktop-bar ipc call -- data retry`.
 
+Die OBS-Aufnahme nutzt denselben Broker auf allen Bildschirmen. Eine gemeinsame
+Prüfung läuft alle 2 Sekunden, solange ein OBS-Fenster oder -Prozess bekannt ist.
+Aufnahmedetails werden nur bei geöffnetem Aufnahmepanel alle 2 Sekunden
+aktualisiert und liefern auch den gemeinsamen Status. Bei unbekanntem Status
+bleibt der letzte bekannte Aufnahmezustand erhalten; die Steuerelemente sind
+bis zu einer erfolgreichen Aktualisierung deaktiviert. Aufnahmeaktionen und
+Optionsänderungen teilen sich eine geordnete Warteschlange. Bei Zeitüberschreitung
+oder Beendigung des Brokers ist das Ergebnis unbekannt; die Aktion wird niemals
+automatisch wiederholt. Der eigenständige OBS-Befehl bleibt für Walker und
+Screenshot-Tastenkürzel verfügbar.
+
 ## Installation und Wiederherstellung prüfen
 
 EITR ist weiterhin Beta. VM-Tests belegen nicht die Funktion jedes WiFi-Adapters, Bluetooth-Agenten, TPMs, GPUs, Fingerabdrucklesers oder Secure-Boot-Aufbaus. Aktueller WiFi-Dienst- und Unternehmensauthentifizierungscode wird mit Nachbildungen getestet. Prüfe echte Authentifizierung, bevor du dich darauf verlässt. Bestehende ISOs ändern sich nicht mit den Repository-Manifesten; baue Payload und ISO für neue Installationen neu.

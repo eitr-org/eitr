@@ -73,3 +73,43 @@ const detachedId = client.act('connect', {}, () => { throw new Error('closed pan
 assert.ok(detachedId, 'explicit retry after fresh state');
 client.detachAction(detachedId);
 client.died();
+
+receive({op: 'hello', epoch: 'capture-test'});
+const captureResults = [];
+const captureToken = client.observe('capture.summary', 'bar');
+receive({op: 'state', epoch: 'capture-test', topic: 'capture.summary', seq: 1, status: 'ready',
+    data: {running: true, ready: true, recording: true, paused: true, streaming: false}, ageMs: 0});
+const captureId = client.actCapture('pause', {}, code => captureResults.push(code));
+assert.ok(captureId);
+assert.equal(client.actCapture('stop', {}, () => {}), '', 'shared capture conflict guard');
+receive({op: 'domain', epoch: 'capture-test', topic: 'capture', busy: false});
+assert.equal(client.captureDomain.busy, true, 'old idle event cannot unlock capture');
+client.died();
+assert.deepEqual(captureResults, ['outcome-unknown']);
+sent.length = 0;
+receive({op: 'hello', epoch: 'capture-restart'});
+assert.ok(sent.some(frame => frame.token === captureToken), 'capture demand replays');
+assert.ok(!sent.some(frame => frame.op === 'action'), 'capture writes never replay');
+assert.equal(client.states['capture.summary'].status, 'stale');
+assert.equal(client.states['capture.summary'].data.recording, true);
+assert.equal(client.actCapture('stop', {}, () => {}), '', 'capture must reconcile');
+for (const filename of ['ObsStatus.qml', 'RecordingMenu.qml', 'ObsMenu.qml']) {
+    assert.ok(!/Process\s*\{/.test(fs.readFileSync(path.join(bar, filename), 'utf8')), filename + ' has no per-panel readers or actions');
+}
+receive({op: 'state', epoch: 'capture-restart', topic: 'capture.summary', seq: 1, status: 'ready',
+    data: {running: false, ready: true, recording: false, paused: false, streaming: false}, ageMs: 0});
+const timeoutId = client.actCapture('record', {}, code => captureResults.push(code));
+receive({op: 'domain', epoch: 'capture-restart', topic: 'network', busy: false});
+assert.equal(client.domain.busy, false, 'capture never holds the network domain busy');
+receive({op: 'result', epoch: 'capture-restart', topic: 'capture', id: timeoutId, error: 'outcome-unknown'});
+receive({op: 'domain', epoch: 'capture-restart', topic: 'capture', busy: false});
+assert.equal(client.actCapture('record', {}, () => {}), '', 'unknown capture outcome requires reconciliation');
+receive({op: 'state', epoch: 'capture-restart', topic: 'capture.summary', seq: 1, status: 'ready',
+    data: {running: false, ready: true, recording: false, paused: false, streaming: false}, ageMs: 0});
+assert.equal(client.actCapture('record', {}, () => {}), '', 'cached capture result is not reconciliation');
+receive({op: 'state', epoch: 'capture-restart', topic: 'capture.summary', seq: 2, status: 'ready',
+    data: {running: true, ready: true, recording: true, paused: false, streaming: false}, ageMs: 0});
+const captureRetry = client.actCapture('stop', {}, () => { throw new Error('destroyed controller callback'); });
+assert.ok(captureRetry, 'explicit capture retry only after fresh state');
+client.detachAction(captureRetry);
+client.died();

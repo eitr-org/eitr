@@ -200,19 +200,25 @@ class ObsControlTests(unittest.TestCase):
             ("audio", "status"): "Audio device 'Mic' is: unmuted\n",
         }
 
+        calls = []
         def run(command, **options):
+            calls.append(command)
+            if command[0] == "pgrep":
+                return SimpleNamespace(returncode=0)
             return SimpleNamespace(returncode=0, stdout=outputs[tuple(command[1:3])])
 
         options = {"mic": {"sources": ["Mic"], "available": True, "enabled": True},
                    "webcam": {"sources": [], "available": False, "enabled": False}}
         state = {"running": True, "ready": True, "recording": True, "paused": False, "streaming": True}
-        with patch.object(obs, "status", return_value=dict(state)), patch.object(obs, "capture_options", return_value=options), \
+        with patch.object(obs, "capture_options", return_value=options), \
                 patch.object(obs, "websocket_command", return_value=["obs-cmd"]), patch.object(obs.subprocess, "run", side_effect=run):
             details = obs.details()
         self.assertEqual((details["recordingSeconds"], details["recordingBytes"], details["streamingSeconds"]), (65, 2048, 4))
         self.assertEqual((details["scenes"], details["scene"]), (["Desk", "Screen: Main"], "Screen: Main"))
         self.assertEqual(details["mic"], {"available": True, "muted": False})
         self.assertNotIn("detailsError", details)
+        self.assertEqual(calls.count(["obs-cmd", "recording", "status"]), 1)
+        self.assertEqual(calls.count(["obs-cmd", "streaming", "status"]), 1)
 
     def test_live_actions_reach_obs(self):
         calls = []

@@ -834,7 +834,8 @@
       "quickshell/desktop-bar/ObsMenu.qml"
     ],
     "Outcome unknown; refresh before retrying.": [
-      "quickshell/desktop-bar/NetworkService.qml"
+      "quickshell/desktop-bar/NetworkService.qml",
+      "quickshell/desktop-bar/ObsMenu.qml"
     ],
     "Output device": [
       "quickshell/desktop-bar/AudioMenu.qml"
@@ -973,6 +974,9 @@
     ],
     "Recording paused": [
       "quickshell/desktop-bar/shell.qml"
+    ],
+    "Recording settings unavailable": [
+      "quickshell/desktop-bar/ObsMenu.qml"
     ],
     "Recovery Guide": [
       "quickshell/desktop-bar/ControlCenter.qml"

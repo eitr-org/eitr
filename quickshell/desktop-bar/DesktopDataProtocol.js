@@ -4,10 +4,26 @@ function createClient(send, changed) {
     let epoch = "";
     let sequence = 0;
     let online = false;
+    let capturePresent = false;
     const actions = {};
+    const captureActions = {};
     let reconcile = true;
     let reconcileSeq = -1;
     const domain = {busy: false, name: ""};
+    const captureDomain = {busy: false, name: ""};
+    const reconciliation = {capture: true};
+    let captureReconcileSeq = -1;
+    function actCapture(name, args, callback) {
+        const snapshot = states["capture.summary"];
+        if (!online || reconciliation.capture || !snapshot || snapshot.status !== "ready" || captureDomain.busy) return "";
+        const id = "action-" + (++sequence);
+        actions[id] = callback;
+        captureActions[id] = true;
+        captureDomain.busy = true; captureDomain.name = name;
+        send({v: 1, op: "action", topic: "capture", id: id, name: name, args: args});
+        changed();
+        return id;
+    }
     function act(name, args, callback) {
         if (reconcile || !online || !states["network.summary"] || states["network.summary"].status !== "ready" || domain.busy) return "";
         const id = "action-" + (++sequence);
@@ -44,9 +60,21 @@ function createClient(send, changed) {
             if (online || typeof frame.epoch !== "string" || !frame.epoch) return;
             epoch = frame.epoch;
             online = true;
+            if (capturePresent) send({v: 1, op: "presence", topic: "capture", present: true});
             Object.keys(tokens).forEach(token => request("subscribe", tokens[token].topic, token));
+        } else if (online && frame.epoch === epoch && frame.topic === "capture" && frame.op === "domain") {
+            captureDomain.busy = frame.busy === true || Object.keys(captureActions).length > 0;
+            if (frame.busy === true || !captureDomain.busy) captureDomain.name = frame.name || "";
+        } else if (online && frame.epoch === epoch && frame.topic === "capture" && frame.op === "result") {
+            const callback = actions[frame.id];
+            delete actions[frame.id]; delete captureActions[frame.id];
+            if (frame.error === "outcome-unknown") {
+                reconciliation.capture = true;
+                captureReconcileSeq = states["capture.summary"] ? states["capture.summary"].seq : -1;
+            }
+            if (callback) callback(frame.error || "", frame.message || "");
         } else if (online && frame.epoch === epoch && frame.topic === "network" && frame.op === "domain") {
-            domain.busy = frame.busy === true || Object.keys(actions).length > 0;
+            domain.busy = frame.busy === true || Object.keys(actions).some(id => !captureActions[id]);
             if (frame.busy === true || !domain.busy) domain.name = frame.name || "";
         } else if (online && frame.epoch === epoch && frame.topic === "network" && frame.op === "result") {
             if (typeof frame.busy === "boolean") {
@@ -61,13 +89,14 @@ function createClient(send, changed) {
             }
             if (callback) callback(frame.error || "", frame.message || "");
         } else if (online && frame.epoch === epoch && frame.op === "state") {
-            if (!["network.summary", "network.details", "network.latency"].includes(frame.topic)
+            if (!["network.summary", "network.details", "network.latency", "capture.summary", "capture.details", "capture.options"].includes(frame.topic)
                 || !Number.isInteger(frame.seq) || frame.seq < 0
                 || !["loading", "ready", "unavailable", "stale", "error"].includes(frame.status)
                 || !frame.data || typeof frame.data !== "object") return;
             const previous = states[frame.topic];
             if (previous && previous.epoch === epoch && previous.seq > frame.seq) return;
             if (frame.topic === "network.summary" && frame.status === "ready" && frame.seq > reconcileSeq) reconcile = false;
+            if (frame.topic === "capture.summary" && frame.status === "ready" && frame.seq > captureReconcileSeq) reconciliation.capture = false;
             // A restarted broker's loading snapshot must not erase retained good state.
             if (frame.status === "loading" && previous && previous.updatedAt) return;
             if (frame.status !== "ready" && previous && previous.updatedAt && frame.ageMs === null) {
@@ -85,6 +114,10 @@ function createClient(send, changed) {
     }
     function died() {
         online = false;
+        reconciliation.capture = true;
+        captureReconcileSeq = -1;
+        captureDomain.busy = false; captureDomain.name = "";
+        Object.keys(captureActions).forEach(id => delete captureActions[id]);
         reconcile = true;
         reconcileSeq = -1;
         domain.busy = false; domain.name = "";
@@ -98,7 +131,10 @@ function createClient(send, changed) {
         });
         changed();
     }
-    return {act: act, detachAction: detachAction, domain: domain, online: () => online, epoch: () => epoch, tokens: tokens, states: states, observe: observe, release: release, receive: receive, died: died,
+    return {setCapturePresence: present => {
+            capturePresent = present;
+            if (online) send({v: 1, op: "presence", topic: "capture", present: present});
+        }, actCapture: actCapture, captureDomain: captureDomain, act: act, detachAction: detachAction, domain: domain, online: () => online, epoch: () => epoch, tokens: tokens, states: states, observe: observe, release: release, receive: receive, died: died,
         refresh: topic => request("refresh", topic),
         releaseOwner: owner => Object.keys(tokens).filter(token => tokens[token].owner === owner).forEach(release),
         count: topic => Object.keys(tokens).filter(token => tokens[token].topic === topic).length};

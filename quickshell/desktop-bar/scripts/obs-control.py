@@ -271,7 +271,7 @@ def default_scene_collection():
 
 
 def obs_running():
-    return subprocess.run(["pgrep", "-x", "obs"], capture_output=True).returncode == 0
+    return subprocess.run(["pgrep", "-x", "obs"], capture_output=True, timeout=2).returncode == 0
 
 
 def websocket_settings():
@@ -332,9 +332,9 @@ def parse_status(text):
     return {"active": active == "true", "paused": paused == "true"}
 
 
-def status():
+def status(outputs=None):
     state = {"running": False, "ready": True, "recording": False, "paused": False, "streaming": False}
-    if subprocess.run(["pgrep", "-x", "obs"], capture_output=True).returncode != 0:
+    if subprocess.run(["pgrep", "-x", "obs"], capture_output=True, timeout=2).returncode != 0:
         return state
     state.update(running=True, ready=False)
     try:
@@ -343,6 +343,8 @@ def status():
             result = subprocess.run(command + [kind, "status"], capture_output=True, text=True, timeout=3)
             if result.returncode:
                 raise RuntimeError(tr('Could not read OBS status'))
+            if outputs is not None:
+                outputs[kind] = result.stdout
             parsed = parse_status(result.stdout)
             state[kind] = parsed["active"]
             if kind == "recording":
@@ -403,17 +405,18 @@ def microphone_muted(command, name):
 
 def details():
     """Status plus what the recording popup shows: elapsed times, size, scenes, mic and camera."""
-    state = status()
+    outputs = {}
+    state = status(outputs)
     if not state["ready"] or not (state["recording"] or state["streaming"]):
         return state
     try:
         command = websocket_command()
         if state["recording"]:
-            recording = fields(obs_output(command, ["recording", "status"], "Could not read OBS status"))
+            recording = fields(outputs["recording"])
             state["recordingSeconds"] = parse_duration(recording.get("Timecode", "0s"))
             state["recordingBytes"] = int(recording.get("Bytes", "0") or 0)
         if state["streaming"]:
-            streaming = fields(obs_output(command, ["streaming", "status"], "Could not read OBS status"))
+            streaming = fields(outputs["streaming"])
             state["streamingSeconds"] = int(streaming.get("Duration", "0ms").removesuffix("ms") or 0) / 1000
         state["scenes"] = scenes(command)
         state["scene"] = current_scene(command)
@@ -542,7 +545,7 @@ def control(action, argument=None):
         return ""
     if action not in actions and action not in {"open", "prepare"} | LIVE_ACTIONS:
         raise RuntimeError('Unknown OBS command')
-    running = subprocess.run(["pgrep", "-x", "obs"], capture_output=True).returncode == 0
+    running = subprocess.run(["pgrep", "-x", "obs"], capture_output=True, timeout=2).returncode == 0
     if not running:
         try:
             default_scene_collection()
@@ -608,5 +611,10 @@ if __name__ == "__main__":
         else:
             print(json.dumps(status()) if action == "status" else control(action, sys.argv[2] if len(sys.argv) > 2 else None))
     except Exception as error:
-        print(str(error) if isinstance(error, RuntimeError) else "Could not control OBS")
+        message = str(error) if isinstance(error, RuntimeError) else "Could not control OBS"
+        if os.environ.get("EITR_BAR_ACTION") == "1":
+            print(json.dumps({"error": "outcome-unknown" if isinstance(error, subprocess.TimeoutExpired) else "action-failed",
+                              "message": message}))
+        else:
+            print(message)
         sys.exit(1)

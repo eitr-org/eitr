@@ -39,6 +39,17 @@ données, les codes d’erreur, les lectures en cours, les observateurs et les
 redémarrages, sans noms ni adresses réseau. Réessayez avec
 `eitr-shell desktop-bar ipc call -- data retry`.
 
+La capture OBS utilise le même processus partagé entre les écrans. Une seule
+vérification est effectuée toutes les 2 secondes uniquement tant qu’une fenêtre
+ou un processus OBS est connu. Les détails d’enregistrement sont actualisés
+toutes les 2 secondes uniquement lorsqu’un panneau d’enregistrement est ouvert
+et fournissent aussi l’état partagé. Un état inconnu conserve le dernier état
+de capture connu et désactive les commandes jusqu’à une actualisation réussie.
+Les actions de capture et les modifications d’options partagent une file
+ordonnée. Si le délai expire ou si le processus s’arrête, le résultat reste
+inconnu et l’action n’est jamais répétée automatiquement. La commande OBS
+autonome reste disponible pour Walker et les raccourcis de capture d’écran.
+
 ## Vérifications d’installation et de récupération
 
 EITR reste en bêta. Les tests en VM ne prouvent pas le fonctionnement de chaque adaptateur WiFi, agent Bluetooth, TPM, GPU, lecteur d’empreintes ou configuration Secure Boot. Le code actuel des services WiFi et de l’authentification d’entreprise est testé par simulation. Vérifiez l’authentification réelle avant d’en dépendre. Modifier les manifestes ne change pas les ISO existantes : reconstruisez le payload et l’ISO pour intégrer les changements aux nouvelles installations.

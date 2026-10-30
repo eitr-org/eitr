@@ -476,5 +476,6 @@
   "Connection failed; verify credentials and certificate settings": "Connection failed; verify credentials and certificate settings",
   "Connection timed out; check the WiFi panel": "Connection timed out; check the WiFi panel",
   "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.",
-  "Could not complete request": "Could not complete request"
+  "Could not complete request": "Could not complete request",
+  "Recording settings unavailable": "Recording settings unavailable"
 }
