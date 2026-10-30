@@ -4,6 +4,7 @@ import argparse
 import hashlib
 from html.parser import HTMLParser
 import json
+import os
 from pathlib import Path
 import re
 import sys
@@ -67,6 +68,8 @@ def blocks(html):
 
 
 def shortcuts():
+    # The Handbook is built from this tree's shortcut source, not an installed copy.
+    os.environ["EITR_CODE_ROOT"] = str(ROOT)
     from eitr_menu import shortcut_options
     options = shortcut_options()
     lines = ["# Shortcuts", "", "Keyboard and mouse shortcuts share this reference. SUPER is the Windows/Command-logo key.", "",
