@@ -69,6 +69,13 @@ ShellRoot {
 
 @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required for offscreen rendering')
 class FocusStripTests(unittest.TestCase):
+    def test_focus_keeps_the_bar_window_mapped(self):
+        # Unmapping the bar's layer window while Focus starts crashes Quickshell 0.3.2.
+        shell = (BAR / 'shell.qml').read_text()
+        self.assertIn('visible: shell.barVisible || panelOpen', shell)
+        self.assertIn('Region { item: FocusMode.enabled ? null :', shell)
+        self.assertIn('visible: shell.centeredLayout && !FocusMode.enabled', shell)
+
     def test_dark_light_tabs_and_splits(self):
         with tempfile.TemporaryDirectory() as directory:
             render_all(directory)

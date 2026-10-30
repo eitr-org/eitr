@@ -99,8 +99,9 @@ return function(paths, quote)
         local generated = io.popen(helper .. " bindings")
         if not generated then error("Cannot generate Focus bindings") end
         local source = generated:read("*a")
-        local success = generated:close()
-        if not success then error("Cannot read Focus bindings") end
+        -- Hyprland reaps its children itself, so close() cannot report the exit status.
+        generated:close()
+        if not source:find("hl.bind", 1, true) then error("Cannot read Focus bindings") end
         assert(load(source, "Focus bindings"))()
     end
     return install_bindings

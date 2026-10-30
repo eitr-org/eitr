@@ -17,7 +17,8 @@ io.popen = function(command)
     if command:match("focus%-mode.py.* status$") then
         return {read=function() return mode and "on" or "off" end, close=function() return true end}
     elseif command:match("focus%-mode.py.* bindings$") then
-        return {read=function() return bindings end, close=function() return true end}
+        -- Hyprland reaps its children, so close() reports no exit status there.
+        return {read=function() return bindings end, close=function() return nil end}
     end
     error("Unexpected subprocess: " .. command)
 end

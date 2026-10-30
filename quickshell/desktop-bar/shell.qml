@@ -783,7 +783,7 @@ ShellRoot {
                 }
 
                 screen: modelData
-                visible: (!FocusMode.enabled && shell.barVisible) || panelOpen
+                visible: shell.barVisible || panelOpen
                 implicitWidth: modelData.width
                 implicitHeight: modelData.height
                 color: "transparent"
@@ -815,14 +815,15 @@ ShellRoot {
                 Region {
                     id: dockInput
                     width: 0; height: 0
-                    Region { item: edgeSensor.visible ? edgeSensor : null }
-                    Region { item: shell.barPointerHeld ? bar.contentItem : null }
-                    Region { item: shell.notchLayout ? tabStrip : shell.centeredLayout || shell.islandsLayout ? null : barContents }
+                    // Focus hides the bar but keeps its window: hiding the window crashes Quickshell.
+                    Region { item: edgeSensor.visible && !FocusMode.enabled ? edgeSensor : null }
+                    Region { item: shell.barPointerHeld && !FocusMode.enabled ? bar.contentItem : null }
+                    Region { item: FocusMode.enabled ? null : shell.notchLayout ? tabStrip : shell.centeredLayout || shell.islandsLayout ? null : barContents }
                     IslandMask { surfaces: islandSurfaces.children }
                     CenteredBarMask { surface: centeredOutline; edge: shell.barEdge; depth: bar.normalThickness; bendRound: shell.tabBendRound }
-                    Region { item: shell.notchLayout ? leadingTab : null }
-                    Region { item: shell.notchLayout ? notchTab : null }
-                    Region { item: shell.notchLayout ? trailingTab : null }
+                    Region { item: shell.notchLayout && !FocusMode.enabled ? leadingTab : null }
+                    Region { item: shell.notchLayout && !FocusMode.enabled ? notchTab : null }
+                    Region { item: shell.notchLayout && !FocusMode.enabled ? trailingTab : null }
                     Region { item: wifiMenu.opened ? wifiMenu : null }
                     Region { item: bluetoothMenu.opened ? bluetoothMenu : null }
                     Region { item: brightnessMenu.opened ? brightnessMenu : null }
@@ -982,7 +983,7 @@ ShellRoot {
 
                 Shape {
                     id: centeredOutline
-                    visible: shell.centeredLayout
+                    visible: shell.centeredLayout && !FocusMode.enabled
                     readonly property real slope: bar.normalThickness + shell.tabBendRound
                     x: barContents.x - (shell.verticalBar ? 0 : slope) + (shell.verticalBar ? (shell.barEdge === "left" ? -1 : 1) * bar.normalThickness * (1 - autoHide.progress) : 0)
                     y: barContents.y - (shell.verticalBar ? slope : 0) + (!shell.verticalBar ? (shell.barEdge === "top" ? -1 : 1) * bar.normalThickness * (1 - autoHide.progress) : 0)
@@ -1101,6 +1102,7 @@ ShellRoot {
 
                 Item {
                     id: islandSurfaces
+                    visible: !FocusMode.enabled
                     anchors.fill: parent
                     IslandSurface { first: shell.verticalBar ? verticalControlCenterLogo : controlCenterLogo }
                     IslandSurface { first: shell.verticalBar ? verticalOverviewIcon : overviewIcon; last: shell.verticalBar ? verticalWorkspaces : workspaces }
