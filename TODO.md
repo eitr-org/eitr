@@ -38,6 +38,19 @@ LAN.
   long-running helper instead of ~33 short-lived scripts: one reader per piece of
   data, one set of tests, consistent timeouts and refresh-on-open, easier to trace.
   Migrate one panel at a time.
+- **Maintainability refactors, after the data service.** In this order:
+  1. Split `shell.qml` (about 2,500 lines): data owners first, then one bar section
+     at a time, keeping the centred clock, panel anchors and click-through gaps.
+  2. Control Center's style settings: give the cursor/font helpers structured
+     (JSON) answers instead of parsing plain text from three separate runs.
+  3. One definition per menu row, shared by browsing and search (including Learn's
+     shortcut list and the search index).
+  4. Notification image memory: cap decoded image bytes without shortening history.
+  5. Menus with live contents (accounts, plugins) get the same type-to-search-below
+     behaviour as fixed menus, through one shared adapter.
+  6. Retire the older VS Code / LazyVim project providers once nothing uses them.
+  Only if profiling shows a need: sharing plugin data between copies of the same
+  widget, and one shared window list for the dock, Focus and OBS.
 - **hyprpaper crash without a GPU: follow upstream.** hyprpaper segfaults in VMs
   without 3D acceleration (hyprwm/hyprtoolkit#144); the bar now draws the still
   wallpaper on any screen hyprpaper does not answer for. Drop the note once a fixed
