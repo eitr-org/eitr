@@ -1,5 +1,8 @@
 .pragma library
 
+var thumbnailWidth = 160;
+var thumbnailHeight = 120;
+
 function imageSource(notification) {
     if (!notification) return "";
     // Use Qt's file loader/cache, not an icon-provider lookup for local images.

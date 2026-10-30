@@ -43,4 +43,7 @@ Notifications have a soft inward glow in the theme's accent colour; critical
 ones glow in the theme's red instead, and low-priority ones are subdued with
 no glow. Do Not Disturb suppresses popups
 without deleting history. History stays in memory across config reloads, not
-process restarts. No notification contents are saved as a log.
+process restarts. No notification contents are saved as a log. Thumbnail retention uses a 32 MiB
+budget and decodes at up to 160×120. The oldest hidden images are released first;
+text remains in history. Images shown in popups or the open center stay retained
+until hidden, even if that temporarily exceeds the budget.

@@ -11,12 +11,13 @@ TestCase {
         id: retained
         visible: false
         source: Qt.resolvedUrl("thumbnail.png")
+        sourceSize: Qt.size(160, 120)
         asynchronous: false
         cache: true
     }
     Component {
         id: laterImage
-        Image { width: 28; height: 28; asynchronous: true }
+        Image { width: 28; height: 28; sourceSize: Qt.size(160, 120); asynchronous: true }
     }
     function test_preview_survives_sender_file_cleanup() {
         compare(retained.status, Image.Ready);

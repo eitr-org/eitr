@@ -464,7 +464,11 @@ popup expiry. Do Not Disturb suppresses popups while retaining history.
 History stays in memory and survives Quickshell configuration reloads, but not
 process restarts; notification contents are never written to a log. Only Do Not
 Disturb is persisted in machine-local `notification-settings.json`. The center
-retains up to 100 notifications, with periodic pruning. `notifications` IPC
+retains up to 100 notifications, pruning bursts immediately once cards are hidden.
+Thumbnail decodes are bounded to 160×120 and retained under a 32 MiB RGBA
+budget, evicting the oldest hidden images first without removing text. Popup
+images and images in the open center are pinned; visible images may exceed
+the budget until hidden. Image retention ends at bar reload as before. `notifications` IPC
 provides `toggle`, `dnd`, `clear`, `clearApp`, and `status`.
 
 Click the Hardware icon to open the shared CPU/GPU/RAM/Storage popup. It refreshes every

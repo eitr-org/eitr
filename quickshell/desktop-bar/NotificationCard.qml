@@ -22,6 +22,7 @@ Rectangle {
         id: imageLoader
         visible: false
         source: NotificationLogic.imageSource(card.notification)
+        sourceSize: Qt.size(NotificationLogic.thumbnailWidth * Screen.devicePixelRatio, NotificationLogic.thumbnailHeight * Screen.devicePixelRatio)
         asynchronous: true
     }
     signal activated(int notificationId)
@@ -76,6 +77,7 @@ Rectangle {
                     objectName: "notificationImage"
                     anchors.fill: parent
                     source: card.useNotificationImage ? imageLoader.source : ""
+                    sourceSize: Qt.size(NotificationLogic.thumbnailWidth * Screen.devicePixelRatio, NotificationLogic.thumbnailHeight * Screen.devicePixelRatio)
                     fillMode: Image.PreserveAspectFit
                     asynchronous: true
                     visible: status === Image.Ready
@@ -154,6 +156,7 @@ Rectangle {
         Image {
             objectName: "notificationPreview"
             source: card.imageIsPreview ? imageLoader.source : ""
+            sourceSize: Qt.size(NotificationLogic.thumbnailWidth * Screen.devicePixelRatio, NotificationLogic.thumbnailHeight * Screen.devicePixelRatio)
             visible: status === Image.Ready && card.imageIsPreview
             readonly property real displayScale: Math.min(1,
                 content.width / Math.max(1, implicitWidth),

@@ -26,3 +26,5 @@ Haz clic en el ecualizador animado para ver portada, título y artista, usar ant
 **SUPER + N** o la campana abre el centro de notificaciones. Se agrupan por aplicación. La tarjeta más reciente queda delante de la pila; expándela para ver las anteriores. Puedes descartar una tarjeta, borrar un grupo o borrarlas todas. Los avisos emergentes también se apilan por aplicación, con el más reciente delante; mantener el puntero encima pausa su caducidad.
 
 Las notificaciones tienen un brillo interior suave con el color de acento del tema. Las críticas usan el rojo del tema y las de baja prioridad son discretas, sin brillo. No molestar oculta los avisos emergentes sin borrar el historial. Este permanece en memoria al recargar la configuración, pero no al reiniciar el proceso. No se guarda el contenido de las notificaciones en un registro.
+
+La retención de miniaturas usa un presupuesto de 32 MiB y decodifica imágenes de hasta 160×120. Las imágenes ocultas más antiguas se liberan primero; el texto permanece en el historial. Las imágenes de los avisos emergentes o del centro abierto se conservan hasta que se ocultan, aunque se supere temporalmente el presupuesto.

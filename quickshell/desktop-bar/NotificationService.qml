@@ -14,6 +14,10 @@ Item {
     property var popupIds: []
     property var pausedPopupIds: []
     property var retainedImages: ({})
+    // Decoded RGBA thumbnail storage; visible images are pinned even over budget.
+    property int retainedImageBudget: 32 * 1024 * 1024
+    property int retainedImageBytes: 0
+    property var imageOrder: []
     signal toggleRequested()
     readonly property var tracked: server.trackedNotifications.values
     property var all: []
@@ -39,14 +43,58 @@ Item {
             required property var notification
             visible: false
             source: Logic.imageSource(notification)
+            sourceSize: Qt.size(Logic.thumbnailWidth, Logic.thumbnailHeight)
             asynchronous: false
             cache: true
         }
     }
     function retainImage(notification) {
-        if (retainedImages[notification.id]) return;
-        retainedImages[notification.id] = retainedImageComponent.createObject(service,
-            {notification: notification});
+        releaseImage(notification.id);
+        var image = retainedImageComponent.createObject(service, {notification: notification});
+        retainedImages[notification.id] = image;
+        imageOrder = imageOrder.concat([notification.id]);
+        retainedImageBytes += image.sourceSize.width * image.sourceSize.height * 4;
+    }
+    function releaseImage(id) {
+        var image = retainedImages[id];
+        if (!image) return;
+        retainedImageBytes -= image.sourceSize.width * image.sourceSize.height * 4;
+        image.source = "";
+        image.destroy();
+        delete retainedImages[id];
+        imageOrder = imageOrder.filter(value => value !== Number(id));
+    }
+    function imagePinned(id) {
+        if (centerOpen) return true;
+        var pendingPopups = tracked.filter(notification => popupIds.indexOf(notification.id) !== -1);
+        return Logic.grouped(pendingPopups, timestamps, true).slice(0, 4).some(group =>
+            group.notifications[0].id === Number(id));
+    }
+    function trimImages() {
+        imageOrder.slice().forEach(id => {
+            if (retainedImageBytes > retainedImageBudget && !imagePinned(id)) releaseImage(id);
+        });
+    }
+    onPopupIdsChanged: { trimImages(); Qt.callLater(pruneHistory); scheduleExpiry(); }
+    onPausedPopupIdsChanged: scheduleExpiry()
+    onPopupDeadlinesChanged: scheduleExpiry()
+    onRetainedImageBudgetChanged: trimImages()
+    function scheduleExpiry() {
+        expiry.stop();
+        var now = Date.now();
+        var nearest = Infinity;
+        all.forEach(notification => {
+            var id = notification.id;
+            var deadline = popupDeadlines[id];
+            if (deadline && popupIds.indexOf(id) !== -1 && pausedPopupIds.indexOf(id) === -1)
+                nearest = Math.min(nearest, deadline);
+            if (notification.appName === "Reminders" && notification.expireTimeout > 0)
+                nearest = Math.min(nearest, timestamps[id] + notification.expireTimeout);
+        });
+        if (isFinite(nearest)) {
+            expiry.interval = Math.max(1, Math.min(2147483647, nearest - now));
+            expiry.start();
+        }
     }
 
     function hidePopup(id) {
@@ -81,13 +129,18 @@ Item {
         return doNotDisturb;
     }
     onDoNotDisturbChanged: if (doNotDisturb) popupIds = []
-    onCenterOpenChanged: if (centerOpen) popupIds = []
+    onCenterOpenChanged: { if (centerOpen) popupIds = []; trimImages(); Qt.callLater(pruneHistory); }
+    function pruneHistory() {
+        // Keep the existing history length, but never dismiss a displayed card.
+        all.slice(0, Math.max(0, all.length - 100)).forEach(notification => {
+            if (!imagePinned(notification.id)) notification.dismiss();
+        });
+    }
     onAllChanged: {
         var ids = all.map(notification => notification.id);
         Object.keys(retainedImages).forEach(id => {
             if (ids.indexOf(Number(id)) === -1) {
-                retainedImages[id].destroy();
-                delete retainedImages[id];
+                releaseImage(id);
             }
         });
         popupIds = popupIds.filter(id => ids.indexOf(id) !== -1);
@@ -99,6 +152,9 @@ Item {
         });
         timestamps = times;
         popupDeadlines = deadlines;
+        pruneHistory();
+        trimImages();
+        scheduleExpiry();
     }
 
     IpcHandler {
@@ -160,38 +216,28 @@ Item {
             } else if (notification.transient) {
                 notification.expire();
             }
+            service.trimImages();
         }
     }
 
     Timer {
-        interval: 250
-        running: service.popupIds.length > 0
-        repeat: true
+        id: expiry
+        repeat: false
         onTriggered: {
             var now = Date.now();
             service.all.slice().forEach(notification => {
-                var deadline = service.popupDeadlines[notification.id];
-                if (deadline && deadline <= now && service.popupIds.indexOf(notification.id) !== -1 && service.pausedPopupIds.indexOf(notification.id) === -1) {
-                    service.hidePopup(notification.id);
+                var id = notification.id;
+                var deadline = service.popupDeadlines[id];
+                if (deadline && deadline <= now && service.popupIds.indexOf(id) !== -1
+                        && service.pausedPopupIds.indexOf(id) === -1) {
+                    service.hidePopup(id);
                     if (notification.transient) notification.expire();
                 }
+                if (notification.appName === "Reminders" && notification.expireTimeout > 0
+                        && now - service.timestamps[id] >= notification.expireTimeout)
+                    notification.expire();
             });
+            service.scheduleExpiry();
         }
-    }
-    Timer {
-        interval: 1000
-        running: service.all.some(notification => notification.appName === "Reminders" && notification.expireTimeout > 0)
-        repeat: true
-        onTriggered: service.all.slice().forEach(notification => {
-            if (notification.appName === "Reminders" && notification.expireTimeout > 0
-                    && Date.now() - service.timestamps[notification.id] >= notification.expireTimeout)
-                notification.expire();
-        })
-    }
-    Timer {
-        interval: 60000
-        running: service.all.length > 100
-        repeat: true
-        onTriggered: service.all.slice(0, service.all.length - 100).forEach(notification => notification.dismiss())
     }
 }

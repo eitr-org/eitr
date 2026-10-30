@@ -72,6 +72,101 @@ TestCase {
                                     text=True, capture_output=True, timeout=15)
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
+    def test_large_image_burst_respects_byte_budget(self):
+        # Exercise the production QML retain/evict code with real decoded fixtures.
+        bar = ROOT / "quickshell/desktop-bar"
+        source = (bar / "NotificationService.qml").read_text()
+        retention = source[source.index("    Component {\n        id: retainedImageComponent"):source.index("    onPopupIdsChanged:")]
+        receipt = re.search(r"        onNotification: function\(notification\) \{.*?\n        \}", source, re.S).group()
+        receipt = receipt.replace("onNotification: function", "function receiveNotification", 1)
+        scheduling = re.search(r"    function scheduleExpiry\(\) \{.*?\n    \}", source, re.S).group()
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory)
+            # Uncompressed PPM keeps this fixture independent of image libraries.
+            image = target / "large.ppm"
+            image.write_bytes(b"P6\n2048 1536\n255\n" + bytes([40, 100, 160]) * (2048 * 1536))
+            fixture = target / "tst_budget.qml"
+            fixture.write_text("""import QtQuick
+import QtTest
+import """ + '"' + (bar / "NotificationLogic.js").as_uri() + '" as Logic\n' + """
+TestCase {
+    id: service
+    name: "NotificationImageBudget"
+    when: windowShown
+    property var retainedImages: ({})
+    property var imageOrder: []
+    property var popupIds: []
+    property bool centerOpen: false
+    property bool doNotDisturb: false
+    property int retainedImageBudget: 3 * 160 * 120 * 4
+    property int retainedImageBytes: 0
+    property var all: []
+    property var tracked: []
+    property var timestamps: ({})
+    property var popupDeadlines: ({})
+    property var pausedPopupIds: []
+    Timer { id: expiry }
+""" + retention + scheduling + receipt + """
+    function test_deadlines() {
+        var now = Date.now();
+        all = [{id: 1, appName: "Chat"}, {id: 2, appName: "Reminders", expireTimeout: 1000}];
+        popupIds = [1];
+        popupDeadlines = {1: now + 5000};
+        timestamps = {2: now};
+        scheduleExpiry();
+        verify(expiry.running);
+        verify(expiry.interval > 0 && expiry.interval <= 1000);
+        all = [all[0]];
+        scheduleExpiry();
+        verify(expiry.interval > 1000 && expiry.interval <= 5000);
+        pausedPopupIds = [1];
+        scheduleExpiry();
+        verify(!expiry.running);
+        all = [];
+        pausedPopupIds = [];
+    }
+    function test_burst() {
+        for (var index = 1; index <= 150; index++) {
+            popupIds = [index];
+            var notice = {id: index, appName: "Screenshot Test", image: Qt.resolvedUrl("large.ppm?" + index)};
+            tracked = tracked.concat([notice]);
+            receiveNotification(notice);
+            verify(retainedImageBytes <= retainedImageBudget);
+            compare(retainedImages[index].status, Image.Ready);
+            verify(retainedImages[index].sourceSize.width <= 160);
+            verify(retainedImages[index].sourceSize.height <= 120);
+        }
+        verify(!retainedImages[1]);
+        verify(!!retainedImages[150]);
+        // Open-center cards and popups survive pressure, then trim on hiding.
+        centerOpen = true;
+        for (var extra = 151; extra <= 155; extra++) {
+            retainImage({id: extra, image: Qt.resolvedUrl("large.ppm?" + extra)});
+            trimImages();
+        }
+        verify(!!retainedImages[150]);
+        verify(!!retainedImages[155]);
+        verify(retainedImageBytes > retainedImageBudget);
+        centerOpen = false;
+        popupIds = [150, 155];
+        tracked = [{id: 150, appName: "First"}, {id: 155, appName: "Second"}];
+        trimImages();
+        verify(retainedImageBytes <= retainedImageBudget);
+        verify(!!retainedImages[150]);
+        verify(!!retainedImages[155]);
+        retainImage({id: 155, image: Qt.resolvedUrl("large.ppm?replacement")});
+        trimImages();
+        compare(imageOrder.filter(value => value === 155).length, 1);
+        imageOrder.slice().forEach(id => releaseImage(id));
+        compare(retainedImageBytes, 0);
+    }
+}
+""")
+            result = subprocess.run(["/usr/lib/qt6/bin/qmltestrunner", "-input", str(fixture)],
+                                    env={**os.environ, "QT_QPA_PLATFORM": "offscreen"},
+                                    text=True, capture_output=True, timeout=30)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_thumbnail_remains_available_after_sender_deletes_file(self):
         with tempfile.TemporaryDirectory(prefix="eitr-notification-test-") as directory:
             target = Path(directory)
