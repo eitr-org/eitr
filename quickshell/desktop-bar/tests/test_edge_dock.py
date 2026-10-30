@@ -16,6 +16,8 @@ class DockClientRefreshTests(unittest.TestCase):
         source = (BAR / 'DockClients.qml').read_text()
         immediate = source[source.index('["openwindow"'):source.index('].indexOf')]
         self.assertNotIn('windowtitlev2', immediate)
+        self.assertNotIn('activewindowv2', immediate)
+        self.assertIn('event.data === model.activeAddress', source)
         self.assertIn('event.name === "windowtitlev2" && model.followTitles', source)
         self.assertIn('followTitles: true', (BAR / 'FocusMode.qml').read_text())
         self.assertNotIn('followTitles', (BAR / 'shell.qml').read_text())

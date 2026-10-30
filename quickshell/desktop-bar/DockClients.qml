@@ -8,6 +8,7 @@ Item {
     property bool observing: true
     // Only consumers that show titles (Focus tabs) follow title changes, at most once a second.
     property bool followTitles: false
+    property string activeAddress: ""
     property var clients: []
     property bool refreshPending: false
     visible: false
@@ -33,7 +34,12 @@ Item {
     Connections {
         target: Hyprland
         function onRawEvent(event) {
-            if (["openwindow", "closewindow", "activewindowv2", "movewindow", "movewindowv2", "configreloaded"].indexOf(event.name) >= 0)
+            // Hyprland repeats activewindowv2 for the same window whenever its title changes.
+            if (event.name === "activewindowv2") {
+                if (event.data === model.activeAddress) return;
+                model.activeAddress = event.data;
+                refreshDelay.restart();
+            } else if (["openwindow", "closewindow", "movewindow", "movewindowv2", "configreloaded"].indexOf(event.name) >= 0)
                 refreshDelay.restart();
             else if (event.name === "windowtitlev2" && model.followTitles && !titleDelay.running)
                 titleDelay.start();
