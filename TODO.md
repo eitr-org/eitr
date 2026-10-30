@@ -41,10 +41,6 @@ LAN.
   Settings with a Control Center row, Toggle becomes Quick Actions, clearer plugin
   and calendar names, System Update one level up, Default Assistant inside AI,
   consistent names, and the rule slips it found (missing descriptions and checks).
-- **Unlock: black screen after Enter.** The owner sees a black screen for about
-  2 s after unlocking with the Eitr design, which other designs do not show. Not
-  reproduced in the VM (the burn reveals the desktop directly); the owner will
-  record it.
 - **Website evidence and screenshots.** Keep the public pages in step with verified
   desktop behavior. A feature gets a screenshot when it has a screen people look
   for (a panel, menu or wizard) shown on the website or in the Handbook;
