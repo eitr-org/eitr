@@ -34,6 +34,9 @@ LAN.
   closed panels stay quiet: idle launches in a 4-core VM fell from ~800 to ~40 a
   minute (CPU 25% to 1% of one core). Still to check on an old laptop, with
   multiple monitors and with OBS started straight into the tray.
+- **Walker slow to open after a reboot.** Reported 2026-10-30. Elephant and the search
+  index answer in milliseconds after login, so the delay is elsewhere (Walker's
+  window, or what else starts then). The owner will record the next reboot.
 - **Maintainability refactors.** In this order (the owner's):
   1. Control Center's style settings: give the cursor/font helpers structured
      (JSON) answers instead of parsing plain text from three separate runs.
