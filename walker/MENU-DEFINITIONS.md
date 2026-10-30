@@ -36,7 +36,11 @@ the description. Prepared live rows retain the folder labels from that same
 snapshot and prefix their description with the path below the searched menu,
 using ` › ` between levels (for example `Claude › Accounts: Sign in to a separate
 account`). This distinguishes repeated live folder names; fixed-row descriptions
-remain unchanged. Shortcut links do not rename a destination's real parent.
+remain unchanged. Rows below a folder that a live menu did not list in that
+snapshot (an assistant that is not installed) are left out of the index, since
+they cannot be browsed to; a folder without a listed label uses its menu's
+`NamePretty`. The index records battery presence when it is built, so typing
+starts no battery helper. Shortcut links do not rename a destination's real parent.
 The optional context function reads only local state and invalidates a snapshot
 when the selection changes; a cold or invalidated typed query returns no rows
 until the menu is opened again. Locale changes also invalidate the snapshot.
