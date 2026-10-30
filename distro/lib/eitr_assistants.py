@@ -143,7 +143,7 @@ def open_default(arguments=None):
         return subprocess.run([str(code('walker/bin/walker')), '--provider', 'menus:ai-default'], check=False).returncode
     if selected == 'opencode' and arguments and len(arguments) == 1:
         arguments = ['--prompt', *arguments]
-    return subprocess.Popen([str(code('walker/bin/menu-path/kitty')), '-e', sys.executable,
+    return subprocess.Popen([str(code('walker/bin/app-launch')), '--terminal', '-e', sys.executable,
                              str(code('walker/scripts/actions/ai-assistant.py')),
                              'run-trusted', selected, *(arguments or [])], start_new_session=True).pid
 

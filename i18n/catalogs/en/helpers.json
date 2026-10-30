@@ -1422,5 +1422,6 @@
   "Remove {name}.": "Remove {name}.",
   "Tab select · Enter install · Ctrl+D remove\nCtrl+F installed/all · Ctrl+B build file / details\nCtrl+O open in browser · Esc cancel": "Tab select · Enter install · Ctrl+D remove\nCtrl+F installed/all · Ctrl+B build file / details\nCtrl+O open in browser · Esc cancel",
   "{name} is already installed.": "{name} is already installed.",
-  "{name} is not installed.": "{name} is not installed."
+  "{name} is not installed.": "{name} is not installed.",
+  "Install Ghostty? Enter: install · Esc: cancel": "Install Ghostty? Enter: install · Esc: cancel"
 }

@@ -12,7 +12,7 @@ from eitr_i18n import tr
 # replace them; lasting customization belongs in the documented override files.
 GENERATED_OUTPUTS = (
     'walker/themes/current/style.css', 'walker/themes/current/workspace-examples.css',
-    'walker/themes/current/codex.svg', 'kitty/theme.conf', 'kitty/fonts.conf', 'kitty/cursor-fire.conf',
+    'walker/themes/current/codex.svg', 'ghostty/eitr.conf', 'kitty/theme.conf', 'kitty/fonts.conf', 'kitty/cursor-fire.conf',
     'swayosd/style.css', 'hypr/cursor-env.conf', 'btop/themes/current.theme',
     'gtk-3.0/settings.ini', 'gtk-4.0/settings.ini', 'qt5ct/qt5ct.conf', 'qt6ct/qt6ct.conf',
     'Kvantum/kvantum.kvconfig',

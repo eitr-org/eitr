@@ -38,7 +38,7 @@ GPUs, may still need fixes; please [report problems](https://github.com/eitr-org
 - Tools: screenshots, screen recording, OCR, QR codes, color picker, LocalSend
   sharing, reminders, a calculator and offline dictation (hold `Super + D`).
 - The EITR Handbook: an offline guide to everything, opened with `Super + F1`.
-- Kitty, Zsh, Neovim/LazyVim, Lazygit and Lazydocker; optional installs for
+- Kitty (default) or optional Ghostty via Style > Terminal, Zsh, Neovim/LazyVim, Lazygit and Lazydocker; optional installs for
   languages, databases, developer apps, browsers and AI coding assistants.
 
 ## Safety and recovery

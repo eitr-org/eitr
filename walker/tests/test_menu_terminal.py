@@ -28,6 +28,10 @@ class MenuTerminalTests(unittest.TestCase):
         self.assertEqual(arguments, ["-o", "background_opacity=1", "-o", "window_padding_width=3 8", "--class", "eitr-menu-terminal", "-e", "htop"])
         self.assertNotIn(str(SHIM_DIR), path, "the terminal's own programs see the normal PATH")
 
+    def test_default_menu_terminal_keeps_kitty_window_options(self):
+        _, arguments, _ = self.run_shim()
+        self.assertEqual(arguments, ["-o", "background_opacity=1", "-o", "window_padding_width=3 8", "--class", "eitr-menu-terminal"])
+
     def test_an_explicit_class_is_kept(self):
         _, arguments, _ = self.run_shim("--hold", "--class", "system-cleanup", "-e", "cleanup.sh", "--class", "x")
         self.assertEqual(arguments[:4], ["-o", "background_opacity=1", "-o", "window_padding_width=3 8"])

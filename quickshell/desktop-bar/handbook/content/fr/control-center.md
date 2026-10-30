@@ -21,6 +21,8 @@ Style regroupe les réglages dans Thème et fond d’écran (ouvert au départ),
 
 Thème et Fond d’écran ouvrent leurs carrousels ; Police par défaut ouvre la liste des polices. Thème de verrouillage, curseur (famille, taille, couleur), apparence, disposition, bord et écrans de la barre, marqueurs d’espaces, coins et Cursor Fire de Kitty se règlent directement dans le panneau et partagent leurs préférences avec Walker.
 
+Terminal propose Kitty (par défaut) et Ghostty facultatif ; les terminaux utilitaires d’Eitr restent sous Kitty. Consultez [Terminal et éditeurs](terminal.md) pour l’installation et la configuration.
+
 ## Outils
 
 Captures d’écran (sélection, écran entier, fenêtre ou sélection directement dans le presse-papiers), enregistrement (commandes OBS, Enregistrer, Enregistrer + Audio et Arrêter), OCR, QR codes, sélecteur de couleurs, Transcoder, rappels et partage LocalSend. Le panneau se ferme avant le début d’une sélection ou d’un enregistrement.

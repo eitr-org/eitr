@@ -21,6 +21,8 @@ Estilo organiza as configurações em Tema e papel de parede (aberto inicialment
 
 Tema e Papel de parede abrem seus carrosséis; Fonte padrão abre a lista de fontes. O tema da tela de bloqueio, cursor (família, tamanho e cor), aparência, layout, borda e monitores da barra, marcadores de espaços, cantos e Cursor Fire do Kitty mudam diretamente no painel e compartilham suas preferências com o Walker.
 
+Terminal oferece Kitty (padrão) e Ghostty opcional; os terminais auxiliares do Eitr continuam no Kitty. Veja [Terminal e editores](terminal.md) para instalação e configuração.
+
 ## Ferramentas
 
 Capturas (seleção, tela inteira, janela ou seleção direto para a área de transferência), gravação (controles do OBS, Gravar, Gravar + Áudio e Parar), OCR, códigos QR, seletor de cores, Transcodificar, lembretes e compartilhamento com LocalSend. O painel fecha antes de uma seleção ou gravação começar.

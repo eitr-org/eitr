@@ -28,7 +28,7 @@ open_file() {
 
   case "$file" in
     *.ts|*.js|*.jsx|*.tsx|*.json|*.md|*.xml|*.java|*.go|*.py|*.sh|*.zsh|*.lua|*.css|*.html|*.yml|*.yaml|*.rs|*.rb|*.erb|*.txt)
-      setsid -f kitty --class nvim-file -e nvim "$file" >/dev/null 2>&1 < /dev/null
+      setsid -f "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/bin/app-launch" --terminal -e nvim "$file" >/dev/null 2>&1 < /dev/null
       ;;
     *)
       setsid -f xdg-open "$file" >/dev/null 2>&1 < /dev/null

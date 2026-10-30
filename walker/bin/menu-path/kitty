@@ -10,7 +10,12 @@ here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # tiled, with the usual translucent background.
 if [[ "${EITR_TERMINAL_STYLE:-}" == window ]]; then
   unset EITR_TERMINAL_STYLE
-  exec "$here/../app-launch" kitty "$@"
+  exec "$here/../app-launch" --terminal "$@"
+fi
+
+# Bare terminal actions (including Walker open-in-terminal) use the user's choice.
+if (($# == 0)) && [[ "$(python3 "$here/../../scripts/actions/style/terminal.py" get terminal)" == ghostty ]]; then
+  exec "$here/../app-launch" --terminal
 fi
 
 # About two columns of padding at the sides, so banner text never touches the window edges.

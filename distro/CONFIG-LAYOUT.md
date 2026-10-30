@@ -219,6 +219,9 @@ Arrangement:
   `paths = ['/usr/share/eitr/elephant/menus']`, exposed as
   `/etc/xdg/elephant/menus.toml`. Provider plugins stay at their native
   `/etc/xdg/elephant/providers` location; do not use `--config`.
+- Package `elephant/elephant.toml` at `/etc/xdg/elephant/elephant.toml` to route
+  native open-in-terminal actions through `app-launch --terminal -e`.
+  Explicit user Elephant configuration remains an override.
 - A user `elephant/menus/<name>.{toml,lua}` is the deliberate named-menu override;
   it loads after the shipped path. Shared Lua helpers resolve package code.
 - A user `elephant/menus.toml` is a provider-settings override that must keep the

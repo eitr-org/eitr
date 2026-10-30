@@ -21,6 +21,8 @@ Estilo organiza los ajustes en Tema y fondo de pantalla (abierto al principio), 
 
 Tema y Fondo abren sus carruseles; Fuente predeterminada abre la lista de fuentes. Diseño de bloqueo, cursor (familia, tamaño y color), apariencia, disposición, borde y pantallas de la barra, marcadores de espacios, esquinas y Fuego del cursor de Kitty cambian directamente en el panel y comparten preferencias con Walker.
 
+Terminal ofrece Kitty (predeterminado) y Ghostty opcional; los terminales auxiliares de Eitr siguen usando Kitty. Consulta [Terminal y editores](terminal.md) para instalar y configurar.
+
 ## Herramientas
 
 Capturas (selección, pantalla completa, ventana o selección directa al portapapeles), grabación (controles de OBS, Grabar, Grabar + Audio y Detener), OCR, códigos QR, selector de colores, Transcodificar, recordatorios y compartir con LocalSend. El panel se cierra antes de empezar una selección o grabación.

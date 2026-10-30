@@ -44,3 +44,5 @@ hypr/cursor-env.conf
 /eitr/plugin-placements.json
 
 /eitr/focus.json
+
+/ghostty/eitr.conf

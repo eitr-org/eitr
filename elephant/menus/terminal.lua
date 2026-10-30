@@ -5,4 +5,13 @@ NamePretty = i18n.tr("Terminal")
 Parent = "style"
 Icon = "󰆍"
 FixedOrder = true
-GetEntries = dofile(paths.code("elephant/scoped-menu.lua"))("terminal")
+local choices = dofile(paths.code("elephant/choice-entries.lua"))
+GetEntries = dofile(paths.code("elephant/scoped-menu.lua"))("terminal", function(entries)
+    for _, entry in ipairs(choices(paths.code("walker/scripts/actions/style/terminal.py"), "terminal", {
+        {i18n.mark("Ghostty"), "ghostty", "󰆍", i18n.mark("Use Ghostty for your terminal")},
+        {i18n.mark("Kitty"), "kitty", "󰆍", i18n.mark("Use Kitty for your terminal (default)")},
+    })) do
+        table.insert(entries, entry)
+    end
+    return entries
+end)

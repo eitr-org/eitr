@@ -1,5 +1,11 @@
 # Releases
 
+Style > Terminal and Control Center > Style offer Kitty (unchanged default) or
+optional Ghostty. Theme/font generation and user terminal launchers follow the
+choice; missing Ghostty offers the normal official-package install and keeps Kitty
+until successful. Eitr utility terminals retain Kitty-specific options and rules.
+Ghostty is excluded from the ISO payload. Live package verification is pending.
+
 Style > Lockscreen adds Eitr, the new default for fresh installations: the EITR
 wordmark in the theme's accent inside the boot splash's gold rune ring, a starry
 sky with the Milky Way, shooting stars and the desktop's aurora on black, Norse

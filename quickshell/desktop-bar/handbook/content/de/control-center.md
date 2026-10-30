@@ -21,6 +21,8 @@ Stil gliedert die Einstellungen in Theme & Hintergrundbild (anfangs geöffnet), 
 
 Design und Hintergrundbild öffnen ihre Karussells; Standardschrift öffnet die Schriftliste. Sperrbildschirmdesign, Mauszeiger (Familie, Größe, Farbe), Leistenerscheinung, Layout, Rand und Bildschirme, Arbeitsflächenmarkierungen, Ecken und Kittys Cursor Fire ändere direkt im Panel. Die Einstellungen werden mit Walker geteilt.
 
+Terminal bietet Kitty (Standard) und optional Ghostty; Eitrs Hilfsterminals bleiben bei Kitty. Installation und Konfiguration stehen unter [Terminal und Editoren](terminal.md).
+
 ## Werkzeuge
 
 Screenshots (Auswahl, Vollbild, Fenster oder Auswahl direkt in die Zwischenablage), Aufnahme (OBS-Steuerung, Aufnehmen, Aufnehmen + Audio und Stopp), OCR, QR-Codes, Farbauswahl, Transkodieren, Erinnerungen und LocalSend-Freigabe. Das Panel schließt vor Beginn einer Auswahl oder Aufnahme.

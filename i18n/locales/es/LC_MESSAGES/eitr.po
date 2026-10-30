@@ -1480,6 +1480,9 @@ msgstr "Instala Chrome, Chromium, Edge, Brave o Vivaldi desde Instalar > Navegad
 msgid "Install Chrome, Chromium, Edge, Brave or Vivaldi from Walker > Install > Browsers; Firefox cannot open app windows."
 msgstr "Instala Chrome, Chromium, Edge, Brave o Vivaldi desde Walker > Instalar > Navegadores; Firefox no puede abrir ventanas de aplicaciones."
 
+msgid "Install Ghostty? Enter: install · Esc: cancel"
+msgstr "¿Instalar Ghostty? Enter: instalar · Esc: cancelar"
+
 msgid "Install alongside the existing systems in {size_text} of free space"
 msgstr "Instalar junto a los sistemas existentes en {size_text} de espacio libre"
 

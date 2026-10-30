@@ -492,6 +492,7 @@
   "Initramfs: the busybox 'encrypt' hook cannot use TPM2 tokens. Switch to the systemd and sd-encrypt hooks first (see RECOVERY.md, TPM disk unlock).": "Initramfs: Der busybox-Hook 'encrypt' unterstützt keine TPM2-Token. Wechseln Sie zuerst zu systemd und sd-encrypt (siehe RECOVERY.md, TPM disk unlock).",
   "Install Chrome, Chromium, Edge, Brave or Vivaldi from Install > Browsers to open it.": "Installiere Chrome, Chromium, Edge, Brave oder Vivaldi unter Installieren > Browser, um die App zu öffnen.",
   "Install Chrome, Chromium, Edge, Brave or Vivaldi from Walker > Install > Browsers; Firefox cannot open app windows.": "Installiere Chrome, Chromium, Edge, Brave oder Vivaldi unter Walker > Installieren > Browser; Firefox kann keine App-Fenster öffnen.",
+  "Install Ghostty? Enter: install · Esc: cancel": "Ghostty installieren? Enter: installieren · Esc: abbrechen",
   "Install alongside the existing systems in {size_text} of free space": "Neben bestehenden Systemen in {size_text} freiem Speicher installieren",
   "Install eitr-desktop before configuring login selection": "Installieren Sie eitr-desktop vor der Einrichtung der Anmeldeauswahl",
   "Install it from Install > AI CLIs: {command}": "Installiere ihn unter Installieren > KI-CLIs: {command}",

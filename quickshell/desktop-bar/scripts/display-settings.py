@@ -413,7 +413,7 @@ def edit():
     if not local.exists():
         local.parent.mkdir(parents=True, exist_ok=True)
         local.write_text(code("hypr/local.lua.template").read_text())
-    command = ["code", str(local)] if shutil.which("code") else ["kitty", "--directory", str(local.parent), "nvim", str(local)]
+    command = ["code", str(local)] if shutil.which("code") else ["--terminal", "--directory", str(local.parent), "nvim", str(local)]
     subprocess.Popen(app_command(command), stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
                      start_new_session=True)
 

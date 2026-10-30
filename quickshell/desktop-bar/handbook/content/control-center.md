@@ -33,6 +33,8 @@ lockscreen design, cursor (family, size and color), bar appearance, layout,
 edge and displays, workspace markers, corners and Kitty's Cursor Fire change right in the
 panel and share their preferences with Walker.
 
+Terminal offers Kitty (default) and optional Ghostty; Eitr utility terminals stay on Kitty. See [Terminal and editors](terminal.md) for installation and configuration.
+
 ## Tools
 
 Screenshots (selection, full screen, window, or a selection straight to the

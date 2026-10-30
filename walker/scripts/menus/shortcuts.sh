@@ -129,7 +129,7 @@ case "$chosen" in
     "$EITR_CODE_ROOT/walker/bin/menu-path/kitty" &
     ;;
   "  SUPER + Ctrl + Enter "*)
-    "$EITR_CODE_ROOT/walker/bin/menu-path/kitty" -e tmux new-session -A -s main &
+    "$EITR_CODE_ROOT/walker/bin/app-launch" --terminal -e tmux new-session -A -s main &
     ;;
   "  SUPER + Space "*)
     "$MENUS_DIR/search.sh"

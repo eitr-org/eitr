@@ -2195,6 +2195,9 @@
       "elephant/menus/ai-gemini.lua",
       "elephant/menus/ai-tools.lua"
     ],
+    "Ghostty": [
+      "elephant/menus/terminal.lua"
+    ],
     "Git Account": [
       "elephant/menus/git-account.lua"
     ],
@@ -2340,6 +2343,9 @@
     ],
     "Keys stay on disk": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Kitty": [
+      "elephant/menus/terminal.lua"
     ],
     "LUKS2 · passphrase kept · PCR 7 · typed confirmation": [
       "elephant/menu-rows/tpm-unlock.json"
@@ -3380,6 +3386,12 @@
     ],
     "Update Plugins": [
       "elephant/plugin-entries.lua"
+    ],
+    "Use Ghostty for your terminal": [
+      "elephant/menus/terminal.lua"
+    ],
+    "Use Kitty for your terminal (default)": [
+      "elephant/menus/terminal.lua"
     ],
     "Use Kitty’s built-in blazing cursor trail": [
       "elephant/menus/terminal-cursor-fire.lua"
@@ -5606,6 +5618,9 @@
     ],
     "Install Chrome, Chromium, Edge, Brave or Vivaldi from Walker > Install > Browsers; Firefox cannot open app windows.": [
       "walker/scripts/actions/install/webapps.py"
+    ],
+    "Install Ghostty? Enter: install · Esc: cancel": [
+      "walker/scripts/actions/style/terminal.py"
     ],
     "Install alongside the existing systems in {size_text} of free space": [
       "distro/archinstall/installer-ui.py"

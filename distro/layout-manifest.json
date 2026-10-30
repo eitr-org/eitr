@@ -174,6 +174,7 @@
     {"pattern": "hypr/preferred-outputs", "class": "P", "runtime": false},
     {"pattern": "hypr/cursor-env.conf", "class": "G", "runtime": false},
     {"pattern": "Kvantum/**", "class": "G", "runtime": false},
+    {"pattern": "ghostty/eitr.conf", "class": "G", "runtime": false},
     {"pattern": "kitty/theme.conf", "class": "G", "runtime": true},
     {"pattern": "kitty/cursor-fire.conf", "class": "G", "runtime": false},
     {"pattern": "kitty/fonts.conf", "class": "G", "runtime": false},

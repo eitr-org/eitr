@@ -19,6 +19,7 @@ if ! python3 "$THEME_SCRIPTS_DIR/../actions/ai-assistant.py" theme; then
 fi
 
 # Fonts belong to the desktop preference, not to the selected color theme.
+# Font sync also regenerates Ghostty configuration from the current palette.
 if ! python3 "$THEME_SCRIPTS_DIR/../actions/style/fonts.py" sync; then
   failed_modules+=(fonts)
 fi

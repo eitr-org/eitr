@@ -610,5 +610,9 @@
   "Select tab {number}": "Choisir l’onglet {number}",
   "Split side by side": "Diviser côte à côte",
   "Split stacked": "Diviser verticalement",
-  "Official Eitr plugin": "Plugin officiel d’Eitr"
+  "Official Eitr plugin": "Plugin officiel d’Eitr",
+  "Ghostty": "Ghostty",
+  "Kitty": "Kitty",
+  "Use Ghostty for your terminal": "Utiliser Ghostty comme terminal",
+  "Use Kitty for your terminal (default)": "Utiliser Kitty comme terminal (par défaut)"
 }

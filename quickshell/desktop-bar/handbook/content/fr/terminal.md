@@ -1,6 +1,6 @@
 # Terminal et éditeurs
 
-**SUPER + Enter** ouvre Kitty. **SUPER + Ctrl + Enter** ouvre ou rejoint la session tmux principale. **SUPER + P** recherche des fichiers par correspondance approximative ; **SUPER + Ctrl + P** cherche dans leur contenu. Apprendre > Commandes Cmux, Commandes Tmux et Commandes LazyVim sont des références consultables : choisir une commande la copie sans l’exécuter.
+**SUPER + Enter** ouvre le terminal choisi (Kitty par défaut). **SUPER + Ctrl + Enter** ouvre ou rejoint la session tmux principale. **SUPER + P** recherche des fichiers par correspondance approximative ; **SUPER + Ctrl + P** cherche dans leur contenu. Apprendre > Commandes Cmux, Commandes Tmux et Commandes LazyVim sont des références consultables : choisir une commande la copie sans l’exécuter.
 
 Kitty affiche une courte traînée lors des sauts d’au moins deux cellules, comme Enter, Home/End ou les déplacements entre mots. Elle commence après 3 ms de repos et disparaît en 0,05–0,15 seconde. Réglez `cursor_trail`, `cursor_trail_decay` ou `cursor_trail_start_threshold` dans `~/.config/kitty/local.conf` ; `cursor_trail 0` la désactive. Vos options priment sur celles du paquet et survivent aux changements de thème.
 
@@ -9,6 +9,40 @@ Kitty affiche une courte traînée lors des sauts d’au moins deux cellules, co
 **Style > Terminal > Feu du curseur** propose **Désactivé** (par défaut) et **Activé**. Activé, il utilise l’effet intégré `cursor-trail-blaze` de Kitty pendant les déplacements, sans détecter la vitesse de frappe. Désactivé, il rétablit la traînée rapide normale et votre choix personnel de shader.
 
 L’effet nécessite Kitty 0.49+ et `shader-slang`, inclus dans les dépendances d’Eitr. L’activation vérifie le shader avant d’enregistrer ou recharger Kitty. La préférence locale est `~/.config/eitr/terminal.json` ; l’utilitaire écrit `kitty/cursor-fire.conf`, inclus en dernier par le chargeur utilisateur. Activé, il choisit le shader de feu et abaisse le seuil à une cellule. Polices, thèmes et fichiers personnels restent intacts.
+
+## Choisir son terminal
+
+**Style > Terminal** dans Walker et **Centre de contrôle > Style > Terminal** proposent
+**Kitty** (par défaut) et **Ghostty**. Le champ local `terminal` de
+`~/.config/eitr/terminal.json` contrôle Super+Entrée, tmux, les sessions utilisateur,
+les terminaux IA/projets et les actions Walker pour ouvrir dans un terminal.
+Si Ghostty manque, le sélectionner ouvre le processus habituel d’installation du
+paquet officiel : Entrée installe, Échap annule. Kitty reste sélectionné jusqu’à
+la réussite de l’installation. Si Ghostty est ensuite supprimé, Kitty prend le relais.
+Ghostty est facultatif et n’est pas inclus dans l’ISO.
+
+Les changements de thème régénèrent `~/.config/ghostty/eitr.conf` avec les 16 couleurs
+ANSI et les couleurs de fond, texte, sélection et curseur de texte. Les changements
+de police reprennent la famille choisie ; la taille par défaut est de 10 points.
+Ghostty utilise le même zsh et son invite, avec une opacité de 75 % et aucune marge
+intérieure dans les fenêtres normales. Hyprland fournit le flou, les décorations et
+les règles normales. La famille, la taille et le choix Auto/Clair/Sombre du pointeur
+dans `eitr/cursor.json` restent appliqués par GTK et le compositeur, indépendamment
+du curseur de texte.
+
+Le lanceur Eitr charge le fichier généré. Placez vos réglages comme
+`font-size = 12` ou `cursor-style = bar` dans `~/.config/ghostty/local.conf`, chargé
+en dernier et conservé lors des changements de thème. Les sessions ouvertes
+reçoivent le signal de rechargement pris en charge après un changement de thème
+ou de police. Certaines options ne concernent que les nouvelles fenêtres.
+La traînée et le Feu du curseur de Kitty restent propres à Kitty ; Ghostty ne
+possède pas de réglage Blaze intégré équivalent.
+
+Les terminaux de tâches, menus, état et configuration d’Eitr utilisent toujours
+Kitty, y compris `eitr-menu-terminal`, `eitr-plugins` et `fif-terminal` : leurs
+options `--class`, `--hold`, `--title` et règles de fenêtres flottantes dépendent
+de Kitty. Choisir Ghostty ne les modifie pas.
+
 
 ## La commande eitr
 

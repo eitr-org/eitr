@@ -1,6 +1,6 @@
 # Terminal y editores
 
-**SUPER + Enter** abre Kitty. **SUPER + Ctrl + Enter** abre o conecta la sesión principal de tmux. **SUPER + P** busca archivos por coincidencia aproximada; **SUPER + Ctrl + P** busca en su contenido. Aprender > Comandos Cmux, Comandos Tmux y Comandos LazyVim son referencias consultables: seleccionar un comando lo copia, no lo ejecuta.
+**SUPER + Enter** abre el terminal elegido (Kitty por defecto). **SUPER + Ctrl + Enter** abre o conecta la sesión principal de tmux. **SUPER + P** busca archivos por coincidencia aproximada; **SUPER + Ctrl + P** busca en su contenido. Aprender > Comandos Cmux, Comandos Tmux y Comandos LazyVim son referencias consultables: seleccionar un comando lo copia, no lo ejecuta.
 
 Kitty muestra una estela corta en saltos de al menos dos celdas, como Enter, Home/End o movimientos entre palabras. Empieza tras 3 ms en reposo y desaparece en 0,05–0,15 segundos. Ajusta `cursor_trail`, `cursor_trail_decay` o `cursor_trail_start_threshold` en `~/.config/kitty/local.conf`; `cursor_trail 0` la desactiva. Tus opciones prevalecen sobre las del paquete y sobreviven a los cambios de tema.
 
@@ -9,6 +9,39 @@ Kitty muestra una estela corta en saltos de al menos dos celdas, como Enter, Hom
 **Estilo > Terminal > Fuego del cursor** ofrece **Desactivado** (predeterminado) y **Activado**. Activado usa el efecto `cursor-trail-blaze` integrado de Kitty al mover el cursor, sin detectar velocidad de escritura. Desactivado recupera la estela rápida normal y tu elección personal de shader.
 
 Requiere Kitty 0.49+ y `shader-slang`, incluidos en las dependencias de Eitr. Activarlo valida el shader antes de guardar o recargar Kitty. La preferencia local está en `~/.config/eitr/terminal.json`; el auxiliar escribe `kitty/cursor-fire.conf`, incluido al final por el cargador del usuario. Activado, selecciona el shader de fuego y baja el umbral a una celda. Fuentes, temas y archivos personales quedan intactos.
+
+## Elegir terminal
+
+**Estilo > Terminal** en Walker y **Centro de control > Estilo > Terminal** ofrecen
+**Kitty** (predeterminado) y **Ghostty**. El campo local `terminal` de
+`~/.config/eitr/terminal.json` controla Super+Enter, tmux, las sesiones de usuario,
+los terminales de IA/proyectos y las acciones de Walker para abrir en un terminal.
+Si falta Ghostty, elegirlo abre el flujo normal de instalación del paquete oficial:
+Enter instala y Esc cancela. Kitty sigue seleccionado hasta que la instalación
+termine correctamente. Si después se elimina Ghostty, se usa Kitty.
+Ghostty es opcional y no se incluye en la ISO.
+
+Al cambiar de tema se regenera `~/.config/ghostty/eitr.conf` con los 16 colores
+ANSI y los colores de fondo, texto, selección y cursor de texto. Los cambios de
+fuente actualizan la familia elegida; el tamaño predeterminado es 10 puntos.
+Ghostty usa la misma zsh y su prompt, con opacidad del 75 % y sin margen interior
+en ventanas normales. Hyprland proporciona el desenfoque, las decoraciones y
+las reglas normales. La familia, tamaño y opción Auto/Claro/Oscuro del puntero
+en `eitr/cursor.json` siguen aplicándose mediante GTK y el compositor, por separado
+del cursor de texto.
+
+El lanzador de Eitr carga el archivo generado. Guarda opciones personales como
+`font-size = 12` o `cursor-style = bar` en `~/.config/ghostty/local.conf`:
+se carga al final y se conserva al cambiar de tema. Las sesiones abiertas reciben
+la señal de recarga compatible tras cambios de tema o fuente. Algunas opciones
+solo afectan a ventanas nuevas. El rastro y Fuego del cursor de Kitty son exclusivos
+de Kitty; Ghostty no tiene un ajuste Blaze integrado equivalente.
+
+Los terminales de tareas, menús, estado y configuración de Eitr siempre usan Kitty,
+incluidos `eitr-menu-terminal`, `eitr-plugins` y `fif-terminal`: dependen de sus
+opciones `--class`, `--hold`, `--title` y reglas de ventanas flotantes.
+Elegir Ghostty no los cambia.
+
 
 ## El comando eitr
 

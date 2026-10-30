@@ -48,6 +48,8 @@ ThemedPopup {
     property var cursorChoices: ({family: [], size: [], color: []})
     property var lockscreens: []
     property string lockscreen: ""
+    property string terminalChoice: "kitty"
+    readonly property string terminalScript: Eitr.Paths.code("walker/scripts/actions/style/terminal.py")
     property bool cursorFire: false
     property string updateChannel: ""
     property var organizationPolicy: ({})
@@ -84,6 +86,7 @@ ThemedPopup {
     function loadStyle() {
         if (!cursorQuery.running) cursorQuery.running = true;
         if (!lockscreenQuery.running) lockscreenQuery.running = true;
+        if (!terminalQuery.running) terminalQuery.running = true;
         if (!fireQuery.running) fireQuery.running = true;
     }
     function run(process, command) { if (process.running) return; actionError = ""; process.command = command; process.running = true; }
@@ -185,6 +188,20 @@ ThemedPopup {
         command: ["python3", center.effectsScript, "get", "cursor-fire"]
         stdout: StdioCollector { id: fireOutput }
         onExited: center.cursorFire = fireOutput.text.trim() === "on"
+    }
+    Process {
+        id: terminalQuery
+        command: ["python3", center.terminalScript, "get", "terminal"]
+        stdout: StdioCollector { id: terminalOutput }
+        onExited: center.terminalChoice = terminalOutput.text.trim()
+    }
+    Process {
+        id: terminalWrite
+        stderr: StdioCollector { id: terminalError }
+        onExited: function(code) {
+            if (code !== 0) center.actionError = terminalError.text.trim();
+            terminalQuery.running = true;
+        }
     }
     Process { id: fireWrite; onExited: function(code) { if (code !== 0) center.actionError = Eitr.I18n.tr("Could not change Cursor Fire"); fireQuery.running = true; } }
     Process {
@@ -588,6 +605,20 @@ ThemedPopup {
                         }
                         Fold {
                         title: Eitr.I18n.tr("Terminal")
+                        Column { width: parent.width; spacing: 6
+                        Flow { width: parent.width; spacing: 6
+                            Repeater { model: ["kitty", "ghostty"]
+                                PanelButton {
+                                    required property string modelData
+                                    width: (parent.width - 6) / 2
+                                    text: modelData === "kitty" ? "Kitty" : "Ghostty"
+                                    foreground: center.foreground; selected: center.terminalChoice === modelData
+                                    leadingIcon: selected ? "\u{F00C}" : ""
+                                    available: !terminalWrite.running
+                                    onClicked: if (!selected) center.run(terminalWrite, ["python3", center.terminalScript, "set", "terminal", modelData])
+                                }
+                            }
+                        }
                         Item { width: parent.width; height: Math.max(32, terminalLabel.implicitHeight)
                             Label { id: terminalLabel; width: parent.width - 60; anchors.verticalCenter: parent.verticalCenter; wrapMode: Text.WordWrap; text: Eitr.I18n.tr("Cursor Fire: a blazing trail behind Kitty's cursor") }
                             PanelSwitch {
@@ -596,6 +627,7 @@ ThemedPopup {
                                 foreground: center.foreground; accent: center.accent
                                 onToggled: center.run(fireWrite, ["python3", center.effectsScript, "set", "cursor-fire", checked ? "on" : "off"])
                             }
+                        }
                         }
                         }
                     }

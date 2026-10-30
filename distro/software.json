@@ -66,6 +66,7 @@
     "zed": {"label": "Zed", "source": "pacman", "packages": ["zed"], "provider_defaults": {"netcat": "openbsd-netcat"}}
   },
   "tools": {
+    "ghostty": {"label": "Ghostty", "source": "pacman", "packages": ["ghostty"]},
     "lazygit": {"label": "Lazygit", "source": "pacman", "packages": ["lazygit"]},
     "lazydocker": {"label": "Lazydocker", "source": "pacman", "packages": ["lazydocker"]},
     "ollama": {"label": "Ollama", "source": "pacman", "packages": ["ollama"]}

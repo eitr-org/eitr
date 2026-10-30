@@ -18,7 +18,9 @@ class ChooseFolderTests(unittest.TestCase):
         self.addCleanup(directory.cleanup)
         self.home = Path(directory.name)
         self.code = self.home / "code"
-        for script in (PICKER, "walker/scripts/menus/ai-tools.sh", "walker/scripts/actions/development/open-project.sh"):
+        for script in (PICKER, "walker/scripts/menus/ai-tools.sh", "walker/scripts/actions/development/open-project.sh",
+                       "walker/scripts/actions/style/terminal.py", "distro/lib/eitr_paths.py",
+                       "distro/lib/eitr_i18n.py"):
             (self.code / script).parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(ROOT / script, self.code / script)
         binaries = self.code / "walker/bin"

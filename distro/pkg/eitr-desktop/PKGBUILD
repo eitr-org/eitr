@@ -114,6 +114,7 @@ package() {
   done
   # The walker package owns /etc/xdg/walker; the EITR wrapper puts this first.
   install -Dm644 walker/config.toml "$pkgdir/usr/share/eitr/xdg/walker/config.toml"
+  install -Dm644 elephant/elephant.toml "$pkgdir/etc/xdg/elephant/elephant.toml"
   install -Dm644 elephant/menus.toml "$pkgdir/etc/xdg/elephant/menus.toml"
   install -Dm644 xdg-desktop-portal/hyprland-portals.conf \
     "$pkgdir/etc/xdg/xdg-desktop-portal/hyprland-portals.conf"

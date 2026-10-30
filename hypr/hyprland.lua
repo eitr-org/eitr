@@ -79,7 +79,7 @@ hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })
 
 local shellQuote = dofile(paths.code("elephant/shell-quote.lua"))
 local appLaunch = shellQuote(paths.code("walker/bin/app-launch")) .. " "
-local terminal = appLaunch .. "kitty"
+local terminal = appLaunch .. "--terminal"
 local fileManager = appLaunch .. "dolphin"
 local mainMod = "SUPER"
 
@@ -270,7 +270,7 @@ end
 
 -- Launchers and app helpers
 hl.bind(mainMod .. " + return", hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + CTRL + return", hl.dsp.exec_cmd(appLaunch .. "kitty -e tmux new-session -A -s main"))
+hl.bind(mainMod .. " + CTRL + return", hl.dsp.exec_cmd(appLaunch .. "--terminal -e tmux new-session -A -s main"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager .. " --new-window"))
 hl.bind(
 	mainMod .. " + P",

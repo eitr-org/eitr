@@ -1,6 +1,6 @@
 # Terminal and editors
 
-**SUPER + Enter** opens Kitty. **SUPER + Ctrl + Enter** opens/attaches the main
+**SUPER + Enter** opens your selected terminal (Kitty by default). **SUPER + Ctrl + Enter** opens/attaches the main
 tmux session. **SUPER + P** fuzzy-finds files; **SUPER + Ctrl + P** searches file
 contents. Learn > Cmux Commands, Tmux Commands and LazyVim Commands are
 searchable references; selecting a command copies it, rather than executing it.
@@ -25,6 +25,38 @@ Kitty. The machine-local preference is `~/.config/eitr/terminal.json`; the helpe
 writes `kitty/cursor-fire.conf`, included last by Kitty's user loader. While
 enabled, it selects the fire shader and lowers the movement threshold to one
 cell. Fonts, themes and personal config files remain intact.
+
+## Choosing your terminal
+
+**Style > Terminal** in Walker and **Control Center > Style > Terminal** offer
+**Kitty** (the default) and **Ghostty**. The machine-local `terminal` field in
+`~/.config/eitr/terminal.json` controls Super+Enter, tmux, user terminal sessions,
+AI/project terminals and Walker's open-in-terminal actions. If Ghostty is missing,
+choosing it opens the normal official-package Install flow: Enter installs,
+Esc cancels. Kitty remains selected until installation succeeds. If Ghostty is
+later removed, launches fall back to Kitty. Ghostty is optional and is not in
+the ISO payload.
+
+Theme switches regenerate `~/.config/ghostty/eitr.conf` with the theme's sixteen
+ANSI colours, background, foreground, selection and text cursor colours. Font
+changes regenerate the selected family; the default size is 10 points. Ghostty
+runs the same zsh and prompt, with 75% opacity and zero ordinary-window padding.
+Hyprland supplies blur and the same normal window decorations/rules. The pointer
+family, size and Auto/Light/Dark choice in `eitr/cursor.json` continue through
+GTK and the compositor; they are separate from the terminal's text cursor.
+
+Ghostty loads the generated file through the Eitr launcher. Put personal settings
+such as `font-size = 12` or `cursor-style = bar` in
+`~/.config/ghostty/local.conf`, loaded last and preserved on theme changes.
+Running Ghostty sessions receive their supported reload signal after theme/font
+changes. Some options apply only to new windows. Kitty's cursor trail and
+Cursor Fire are Kitty-only; Ghostty has no equivalent built-in blaze setting.
+
+Eitr's task, menu, status and setup terminals always use Kitty, including
+`eitr-menu-terminal`, `eitr-plugins` and `fif-terminal`: their `--class`, `--hold`,
+`--title` options and floating-window rules remain Kitty-specific. They do not
+change when selecting Ghostty.
+
 
 ## The eitr command
 

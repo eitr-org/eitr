@@ -610,5 +610,9 @@
   "Select tab {number}": "Select tab {number}",
   "Split side by side": "Split side by side",
   "Split stacked": "Split stacked",
-  "Official Eitr plugin": "Official Eitr plugin"
+  "Official Eitr plugin": "Official Eitr plugin",
+  "Ghostty": "Ghostty",
+  "Kitty": "Kitty",
+  "Use Ghostty for your terminal": "Use Ghostty for your terminal",
+  "Use Kitty for your terminal (default)": "Use Kitty for your terminal (default)"
 }

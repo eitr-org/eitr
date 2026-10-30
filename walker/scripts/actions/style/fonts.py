@@ -160,6 +160,7 @@ def sync():
         if not re.search(r'^(?:glob)?include\s+fonts\.conf\s*$', text, re.M):
             write(kitty, text.rstrip() + '\ninclude fonts.conf\n')
         write(CONFIG / 'kitty/fonts.conf', f'font_family {family}\nbold_font auto\nitalic_font auto\nbold_italic_font auto\ndisable_ligatures never\n')
+    subprocess.run(['python3', str(SCRIPT.with_name('terminal.py')), 'sync'], env={**os.environ, 'XDG_CONFIG_HOME': str(CONFIG)}, check=True)
     module = jsonc_module()
     for app in ('Code', 'VSCodium'):
         path = CONFIG / app / 'User/settings.json'
