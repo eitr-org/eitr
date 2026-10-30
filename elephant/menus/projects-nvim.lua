@@ -13,3 +13,5 @@ GetEntries = project_entries({ root = "", project = "" }, function(path)
 end)
 
 dofile(paths.code("walker/scripts/menus/alphabetical.lua"))
+
+GetEntries = dofile(paths.code("elephant/live-menu.lua"))(Name, GetEntries)

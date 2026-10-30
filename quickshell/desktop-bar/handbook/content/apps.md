@@ -11,7 +11,10 @@ Typing in the main menu searches installed apps and actions from all submenus.
 Typing inside a submenu, such as System or Install, searches that submenu and
 everything below it. Keyboard layouts and what lies below a cloud account
 (services, resources, logs) are searched only inside their own menu; the cloud
-account lists stay in search. Submenu rows end with **>**; **Shift + Backspace**
+account lists stay in search. Live menus also search loaded child actions, such
+as an action inside an installed plugin or Git account. Typing reuses what the
+menu loaded; open a resource picker or Visuals to search choices that need another
+provider read. Submenu rows end with **>**; **Shift + Backspace**
 returns to the parent.
 
 ## Install

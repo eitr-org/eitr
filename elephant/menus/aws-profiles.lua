@@ -9,3 +9,5 @@ FixedOrder = true
 GetEntries = dofile(paths.code("elephant/aws-profile-entries.lua"))("", true)
 
 dofile(paths.code("walker/scripts/menus/alphabetical.lua"))
+
+GetEntries = dofile(paths.code("elephant/live-menu.lua"))(Name, GetEntries)

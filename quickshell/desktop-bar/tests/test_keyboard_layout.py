@@ -40,7 +40,8 @@ class KeyboardLayoutTests(unittest.TestCase):
         self.assertIn('SubMenu = "keyboard-add"', menu)
         self.assertIn('if #layouts > 1 then', menu)
         self.assertIn('--notify remove', menu)
-        self.assertIn('--notify add', (repo / 'elephant/menus/keyboard-add.lua').read_text())
+        self.assertIn('elephant/keyboard-catalog.lua', (repo / 'elephant/menus/keyboard-add.lua').read_text())
+        self.assertIn('--notify add', (repo / 'elephant/keyboard-catalog.lua').read_text())
         shell = (root / 'shell.qml').read_text()
         self.assertEqual(shell.count('keyboardMenu.layouts.length > 1'), 2)
 

@@ -12,3 +12,5 @@ function GetEntries()
         {i18n.mark("Ask before changes"), "ask", Icon, i18n.mark("Use the assistant's normal permission prompts")},
     }), false)
 end
+
+GetEntries = dofile(paths.code("elephant/live-menu.lua"))(Name, GetEntries)

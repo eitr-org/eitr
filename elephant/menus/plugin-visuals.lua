@@ -7,3 +7,5 @@ Icon = "󰏖"
 FixedOrder = true
 HideFromProviderlist = true
 GetEntries = function() return dofile(paths.code("elephant/plugin-entries.lua"))("plugin-visuals") end
+
+GetEntries = dofile(paths.code("elephant/live-menu.lua"))(Name, GetEntries, function() return lastMenuValue("plugins-install") or "" end)

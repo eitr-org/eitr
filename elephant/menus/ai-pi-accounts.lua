@@ -6,3 +6,5 @@ Parent = "ai-pi"
 Icon = "󰀄"
 FixedOrder = true
 GetEntries = dofile(paths.code("elephant/ai-account-entries.lua"))("pi")
+
+GetEntries = dofile(paths.code("elephant/live-menu.lua"))(Name, GetEntries)

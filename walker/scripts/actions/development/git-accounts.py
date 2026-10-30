@@ -456,6 +456,8 @@ def rows():
     model = load()
     accounts = sorted(model['accounts'].items(), key=lambda pair: pair[1]['label'].casefold())
     return [{'id': identifier, 'label': account['label'], 'provider': account['provider'],
+             'searchActions': [{'label': name, 'hint': ACTION_HINTS[name], 'icon': ACTION_ICONS[name]}
+                               for name in account_actions(model, identifier)],
              'detail': scope(model, identifier), 'isDefault': model.get('default') == identifier,
              'folders': [Path(rule['path']).name for rule in model['folders'] if rule['account'] == identifier]} for identifier, account in accounts]
 

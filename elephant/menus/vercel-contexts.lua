@@ -23,3 +23,5 @@ function GetEntries()
 end
 
 dofile(paths.code("walker/scripts/menus/alphabetical.lua"))
+
+GetEntries = dofile(paths.code("elephant/live-menu.lua"))(Name, GetEntries)

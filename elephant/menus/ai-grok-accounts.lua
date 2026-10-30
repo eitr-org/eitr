@@ -6,3 +6,5 @@ Parent = "ai-grok"
 Icon = "󰀄"
 FixedOrder = true
 GetEntries = dofile(paths.code("elephant/ai-account-entries.lua"))("grok")
+
+GetEntries = dofile(paths.code("elephant/live-menu.lua"))(Name, GetEntries)

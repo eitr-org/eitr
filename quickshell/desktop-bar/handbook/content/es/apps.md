@@ -6,6 +6,8 @@ Antes de instalar paquetes oficiales, el terminal indica que está buscando actu
 
 Escribir en el menú principal busca aplicaciones instaladas y acciones de todos los submenús. Dentro de un submenú, como Sistema o Instalar, busca en él y todos sus descendientes. Las distribuciones de teclado y lo que hay bajo una cuenta en la nube (servicios, recursos, registros) solo se buscan dentro de su propio menú; las listas de cuentas en la nube siguen en la búsqueda. Las filas de submenú terminan en **>**; **Shift + Backspace** vuelve al menú superior.
 
+Los menús dinámicos también buscan acciones secundarias ya cargadas, como las de un plugin instalado o una cuenta Git. La búsqueda reutiliza lo que cargó el menú; abre el selector de recursos o Visuales para buscar opciones que requieren otra lectura del proveedor.
+
 ## Instalar
 
 Pulsa Delete en una entrada instalada de las listas de aplicaciones y herramientas de Instalar para desinstalarla tras confirmar. Aplicaciones web conserva su acción de eliminación. En las listas de paquetes (Pacman y Yay), Ctrl+D elimina el paquete instalado resaltado tras confirmar. Ctrl+F alterna entre los instalados y todos. Los paquetes de Eitr permanecen instalados. Nunca se eliminan dependencias necesarias del sistema de forma recursiva; pacman rechaza las eliminaciones que romperían otro paquete.

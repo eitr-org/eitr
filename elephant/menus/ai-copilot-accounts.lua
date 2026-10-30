@@ -6,3 +6,5 @@ Parent = "ai-copilot"
 Icon = "󰀄"
 FixedOrder = true
 GetEntries = dofile(paths.code("elephant/ai-account-entries.lua"))("copilot")
+
+GetEntries = dofile(paths.code("elephant/live-menu.lua"))(Name, GetEntries)

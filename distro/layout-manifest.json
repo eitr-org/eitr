@@ -2,6 +2,8 @@
   "version": 1,
   "layout_version": 2,
   "rules": [
+    {"pattern": "elephant/keyboard-catalog.lua", "class": "C", "runtime": true},
+    {"pattern": "elephant/live-menu.lua", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/scripts/weather-domain.py", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/scripts/ai-domain.py", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/scripts/remote-domain.py", "class": "C", "runtime": true},

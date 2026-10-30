@@ -74,7 +74,8 @@ sys.exit(int(os.environ['ACTIVE_STATUS'] if name == 'systemctl' else os.environ[
         harness = r'''local original_dofile = dofile
 function dofile(path)
     if path:match("/elephant/i18n.lua$") then
-        return {tr = function(value) return value end, entries = function(entries) return entries end}
+        return {tr = function(value) return value end, entries = function(entries) return entries end,
+            language = function() return "English" end}
     end
     return original_dofile(path)
 end

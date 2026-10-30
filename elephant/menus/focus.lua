@@ -12,3 +12,5 @@ function GetEntries()
         {i18n.mark("On"), "on", Icon, i18n.mark("Distraction-free tabbed desktop")},
     }), false)
 end
+
+GetEntries = dofile(paths.code("elephant/live-menu.lua"))(Name, GetEntries)

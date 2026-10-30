@@ -27,7 +27,8 @@ return function(name, configure)
                 table.insert(entries, entry)
             end
         end
-        if configure then entries = configure(entries) end
+        local descendants
+        if configure then entries, descendants = configure(entries) end
         -- Assistant menus keep New before the other translated, sorted actions.
         local new_entry
         for _, entry in ipairs(entries) do
@@ -45,14 +46,14 @@ return function(name, configure)
                 end
             end
         end
-        return entries
+        return entries, descendants
     end
 
     return function(query)
-        local entries = own_entries()
+        local entries, descendants = own_entries()
         if query and query ~= "" then
             for _, entry in ipairs(search(name)) do table.insert(entries, entry) end
         end
-        return entries
+        return entries, descendants
     end
 end

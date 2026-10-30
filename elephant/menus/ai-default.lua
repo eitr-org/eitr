@@ -52,3 +52,5 @@ function GetEntries()
     end
     return i18n.entries(entries, false)
 end
+
+GetEntries = dofile(paths.code("elephant/live-menu.lua"))(Name, GetEntries)

@@ -6,6 +6,8 @@ Avant l’installation des paquets officiels, le terminal indique qu’il recher
 
 Saisir dans le menu principal recherche les applications installées et les actions de tous les sous-menus. Dans un sous-menu comme Système ou Installer, la recherche couvre celui-ci et ses descendants. Les dispositions de clavier et ce qui se trouve sous un compte cloud (services, ressources, journaux) ne sont recherchés que dans leur propre menu ; les listes de comptes cloud restent dans la recherche. Les lignes de sous-menu se terminent par **>** ; **Shift + Backspace** revient au parent.
 
+Les menus dynamiques recherchent aussi les actions secondaires déjà chargées, par exemple celles d’un plugin installé ou d’un compte Git. La recherche réutilise les données chargées par le menu ; ouvrez le sélecteur de ressources ou Visuels pour rechercher les choix nécessitant une nouvelle lecture du fournisseur.
+
 ## Installer
 
 Appuyez sur Delete sur une entrée installée dans les listes d’applications et d’outils d’Installer pour la désinstaller après confirmation. Applications web conserve son action de suppression. Dans les listes de paquets (Pacman et Yay), Ctrl+D supprime le paquet installé sélectionné après confirmation. Ctrl+F alterne entre les paquets installés et tous les paquets. Les paquets Eitr restent installés. Les dépendances nécessaires au système ne sont jamais supprimées récursivement ; pacman refuse une suppression qui casserait un autre paquet.

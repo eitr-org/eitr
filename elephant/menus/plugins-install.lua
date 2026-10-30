@@ -7,3 +7,5 @@ Icon = "󰏖"
 FixedOrder = true
 
 GetEntries = function() return dofile(paths.code("elephant/plugin-entries.lua"))("plugins-install") end
+
+GetEntries = dofile(paths.code("elephant/live-menu.lua"))(Name, GetEntries)

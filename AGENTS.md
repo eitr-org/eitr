@@ -139,7 +139,16 @@ existing design and workflows rather than replacing them with upstream defaults.
   instead of crowding their parent. Set each submenu's parent to its actual
   location so Shift+Backspace returns correctly. A menu with submenus is a Lua
   menu on `elephant/scoped-menu.lua` with its rows in `elephant/menu-rows/<name>.json`,
-  so typing in it searches everything below it. Menus share one row layout
+  so typing in it searches everything below it. Dynamic providers use
+  `elephant/live-menu.lua`: one loader returns browse rows and optional descendant
+  groups (`parent`, `entries`) from the same loaded data. Empty queries refresh
+  Elephant's per-menu snapshot; typed queries reuse it and the prepared index,
+  never invoking provider commands. Bind descendant actions to explicit IDs,
+  preserve real Parents, and invalidate snapshots when their context changes.
+  Keyboard layouts are searched only inside Keyboard/Add Layout; cloud account
+  contents only inside the opened account menu. Skip deeper resource selectors
+  or external providers requiring new CLI/network reads. Global app search keeps
+  launch actions only. Menus share one row layout
   (copy item_menus-main.xml to item_menus-<name>.xml for a new menu).
   Shared row presentation lives in `elephant/row-entry.lua`; Python consumers
   use `distro/lib/eitr_menu.py`. Learn's shell shortcut reference uses

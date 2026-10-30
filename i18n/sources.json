@@ -1617,7 +1617,7 @@
       "walker/scripts/actions/install/plugins.py"
     ],
     "Add this layout; Alt + Shift switches layouts": [
-      "elephant/menus/keyboard-add.lua"
+      "elephant/keyboard-catalog.lua"
     ],
     "Add {provider} Account": [
       "elephant/cloud-context-entries.lua"
@@ -1633,7 +1633,7 @@
       "elephant/menus/assistant-access.lua"
     ],
     "Already added": [
-      "elephant/menus/keyboard-add.lua"
+      "elephant/keyboard-catalog.lua"
     ],
     "Always visible": [
       "elephant/menus/bar-autohide.lua"

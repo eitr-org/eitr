@@ -157,7 +157,24 @@ class CloudNavigationTests(unittest.TestCase):
         self.assertTrue(any(row['Text'] == 'SSO Login' for row in rows))
         run.assert_not_called()
 
-    def test_lua_menus_delegate_queries_to_generated_entries(self):
+    def test_snapshot_preserves_browse_and_skips_resource_and_external_children(self):
+        self.select()
+        with patch.object(navigation.subprocess, 'run') as run, \
+                patch.object(navigation, 'resource_rows', side_effect=AssertionError('Resource picker read')):
+            expected = navigation.entries('aws-account')
+            snapshot = navigation.menu_snapshot('aws-account')
+        self.assertEqual(snapshot['entries'], expected)
+        self.assertTrue(any(entry['Text'] == 'Instances' for group in snapshot['descendants']
+                            for entry in group['entries']))
+        run.assert_not_called()
+
+        menus = {'root': {}, 'external': {'external': True}, 'selector': {'selector': 'project'}}
+        with patch.object(navigation, 'MENUS', menus), patch.object(navigation, 'entries', return_value=[
+                {'Text': 'External', 'SubMenu': 'external'}, {'Text': 'Projects', 'SubMenu': 'selector'}]) as entries:
+            self.assertEqual(navigation.menu_snapshot('root')['descendants'], [])
+        entries.assert_called_once_with('root')
+
+    def test_lua_menus_reuse_generated_snapshot_while_typing(self):
         for name, menu in navigation.MENUS.items():
             script = '''
 local invoked = ''
@@ -167,15 +184,18 @@ io.popen = function(command)
 end
 jsonDecode = function(raw)
     assert(raw == 'fixture')
-    return {{Text = 'Saved account', Subtext = 'Saved context', Actions = {open = 'mock'}}}
+    return {entries={{Text = 'Saved account', Subtext = 'Saved context', Actions = {open = 'mock'}}}, descendants={}}
 end
 dofile(%s)
 assert(Parent == %s)
-local entries = GetEntries('needle')
+local entries = GetEntries('')
+io.popen = function() error('Typing must not run provider commands') end
+entries = GetEntries('needle')
 assert(entries[1].Subtext == 'Saved context')
 assert(invoked:find('navigation.py', 1, true))
 assert(invoked:find(%s, 1, true))
-assert(invoked:find('needle', 1, true))
+assert(invoked:find('snapshot', 1, true))
+assert(not invoked:find('needle', 1, true))
 ''' % (json.dumps(str(ROOT / 'elephant/menus' / (name + '.lua'))), json.dumps(menu['parent']), json.dumps(name))
             result = subprocess.run(['lua', '-'], input=script, text=True, capture_output=True, check=False)
             self.assertEqual(result.returncode, 0, (name, result.stderr))

@@ -51,3 +51,6 @@ GetEntries = dofile(paths.code("elephant/scoped-menu.lua"))("plugin-actions", fu
     end
     return shown
 end)
+
+GetEntries = dofile(paths.code("elephant/live-menu.lua"))(Name, GetEntries,
+    function() return lastMenuValue("plugins-install") or "" end)

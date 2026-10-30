@@ -18,3 +18,5 @@ local untranslatedGetEntries = GetEntries
 function GetEntries(...)
     return i18n.entries(untranslatedGetEntries(...), false)
 end
+
+GetEntries = dofile(paths.code("elephant/live-menu.lua"))(Name, GetEntries)

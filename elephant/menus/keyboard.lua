@@ -36,7 +36,10 @@ function GetEntries()
         end
         table.insert(entries, entry)
     end
-    return entries
+    local catalog = dofile(paths.code("elephant/keyboard-catalog.lua"))()
+    return entries, {{parent = i18n.tr("Add Layout"), entries = i18n.entries(catalog, false)}}
 end
 
 dofile(paths.code("walker/scripts/menus/alphabetical.lua"))
+
+GetEntries = dofile(paths.code("elephant/live-menu.lua"))(Name, GetEntries)

@@ -31,3 +31,5 @@ function GetEntries()
     end
     return entries
 end
+
+GetEntries = dofile(paths.code("elephant/live-menu.lua"))(Name, GetEntries)

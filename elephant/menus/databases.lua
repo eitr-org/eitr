@@ -9,3 +9,5 @@ SoftwareGroup = "databases"
 dofile(paths.code("walker/scripts/menus/software-menu.lua"))
 
 dofile(paths.code("walker/scripts/menus/alphabetical.lua"))
+
+GetEntries = dofile(paths.code("elephant/live-menu.lua"))(Name, GetEntries)

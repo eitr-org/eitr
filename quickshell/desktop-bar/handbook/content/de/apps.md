@@ -6,6 +6,8 @@ Vor der Installation offizieller Pakete zeigt dir das Terminal an, dass es nach 
 
 Eingaben im Hauptmenü suchen installierte Apps und Aktionen aus allen Untermenüs. In einem Untermenü wie System oder Installieren umfasst die Suche dieses und alle darunterliegenden Menüs. Tastaturlayouts und alles unterhalb eines Cloud-Kontos (Dienste, Ressourcen, Logs) werden nur in ihrem eigenen Menü durchsucht; die Cloud-Kontolisten bleiben in der Suche. Untermenüzeilen enden mit **>**; **Shift + Backspace** führt zum übergeordneten Menü.
 
+Dynamische Menüs durchsuchen auch bereits geladene untergeordnete Aktionen, etwa die eines installierten Plugins oder eines Git-Kontos. Die Suche verwendet die geladenen Daten erneut; öffne die Ressourcenauswahl oder Visuals, um Optionen zu suchen, die einen weiteren Anbieterabruf benötigen.
+
 ## Installieren
 
 Drücke Delete bei einem installierten Eintrag in den Anwendungs- und Werkzeuglisten unter Installieren, um ihn nach einer Bestätigung zu deinstallieren. Web-Apps behalten ihre Aktion zum Entfernen. In den Paketlisten (Pacman und Yay) entfernt Ctrl+D das markierte installierte Paket nach Bestätigung. Ctrl+F wechselt zwischen installierten und allen Paketen. Eitr-Pakete bleiben installiert. Erforderliche Systemabhängigkeiten werden nie rekursiv entfernt. pacman verweigert das Entfernen, wenn dadurch ein anderes Paket beschädigt würde.

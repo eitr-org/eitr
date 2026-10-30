@@ -282,10 +282,34 @@ def entries(menu, query="", visited=None):
         descendants = []
         for row in rows:
             child = row.get('SubMenu')
-            if child and not MENUS[child].get('selector'):
+            if child and not MENUS[child].get('selector') and not MENUS[child].get('external'):
                 descendants.extend(entry for entry in entries(child, query, visited) if entry.get('Actions') or entry.get('SubMenu'))
         rows.extend(descendants)
     return sorted(rows, key=lambda row: (not bool(row.get('SubMenu')), row['Text'].casefold()))
+
+
+def menu_snapshot(menu):
+    """Load this menu once; project only static descendants without resource reads."""
+    own = entries(menu)
+    groups = []
+    visited = {menu}
+
+    def below(rows):
+        for row in rows:
+            child = row.get('SubMenu')
+            if not child or child in visited:
+                continue
+            visited.add(child)
+            spec = MENUS[child]
+            if spec.get('selector') or spec.get('external'):
+                continue
+            children = entries(child)
+            groups.append(dict(parent=row['Text'], entries=[entry for entry in children
+                          if entry.get('Actions') or entry.get('SubMenu')]))
+            below(children)
+
+    below(own)
+    return dict(entries=own, descendants=groups)
 
 
 def encode(value):
@@ -355,12 +379,14 @@ def run(menu, action):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=('entries', 'select', 'pick', 'run', 'show', 'invoke'))
+    parser.add_argument('action', choices=('snapshot', 'entries', 'select', 'pick', 'run', 'show', 'invoke'))
     parser.add_argument('target')
     parser.add_argument('value', nargs='?')
     parser.add_argument('destination', nargs='?')
     args = parser.parse_args()
-    if args.action == 'entries':
+    if args.action == 'snapshot':
+        print(json.dumps(menu_snapshot(args.target), ensure_ascii=False))
+    elif args.action == 'entries':
         print(json.dumps(entries(args.target, args.value or ""), ensure_ascii=False))
     elif args.action == 'select':
         select(args.target, args.value if args.target == 'aws' else json.loads(base64.urlsafe_b64decode(args.value)), args.destination)

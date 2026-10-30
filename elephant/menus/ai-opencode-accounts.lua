@@ -6,3 +6,5 @@ Parent = "ai-opencode"
 Icon = "󰀄"
 FixedOrder = true
 GetEntries = dofile(paths.code("elephant/ai-account-entries.lua"))("opencode")
+
+GetEntries = dofile(paths.code("elephant/live-menu.lua"))(Name, GetEntries)

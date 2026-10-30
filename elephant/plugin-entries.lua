@@ -17,12 +17,31 @@ local function task(action, id)
     return "kitty --class eitr-plugins -e python3 " .. quote(presenter) .. " python3 " .. quote(helper) .. " " .. action .. " " .. quote(id or "")
 end
 
+local function action_group(row, launch_rows)
+    local actions = {{Text = i18n.tr("Remove"), Value = row.id .. ":remove", Icon = "󰆴", Actions = {open = task("remove", row.id)}}}
+    if (tonumber(row.updateCount) or 0) > 0 then
+        table.insert(actions, {Text = i18n.tr("Update"), Value = row.id .. ":update", Icon = "󰚰", Actions = {open = task("update", row.id)}})
+    end
+    for _, launch in ipairs(launch_rows) do
+        if launch.id == row.id then
+            table.insert(actions, {Text = launch.title, Translate = false, Icon = launch.icon, Value = row.id .. ":launch:" .. launch.index,
+                Keywords = {launch.description}, Actions = {open = "python3 " .. quote(helper)
+                    .. " launch " .. quote(row.id) .. " " .. launch.index}})
+        end
+    end
+    return {parent = row.name, entries = actions}
+end
+
 return function(kind)
-    local entries = {}
+    local entries, descendants = {}, {}
     if kind == "plugins" then
         local updates = 0
+        local launch_rows = read("rows")
         for _, row in ipairs(read("installed")) do
             if (tonumber(row.updateCount) or 0) > 0 then updates = updates + 1 end
+            if row.blocked ~= "policy" and row.blocked ~= "blocklist" then
+                table.insert(descendants, action_group(row, launch_rows))
+            end
         end
         table.insert(entries, {Text = i18n.tr("Add Plugins"),
             Subtext = i18n.tr("Review a repository and select one or more plugins to install"), Icon = "󰐕",
@@ -32,6 +51,7 @@ return function(kind)
                 Actions = {open = task("update")}})
         end
     elseif kind == "plugins-install" then
+        local launch_rows = read("rows")
         for _, row in ipairs(read("installed")) do
             if row.blocked == "policy" or row.blocked == "blocklist" then
                 -- Blocked plugins keep their files; the only action left is removing them.
@@ -42,6 +62,7 @@ return function(kind)
             else
                 table.insert(entries, {Text = row.name, State = {"submenu", "current"}, Value = row.id, Icon = "\239\128\140",
                     SubMenu = "plugin-actions"})
+                table.insert(descendants, action_group(row, launch_rows))
             end
         end
         if #entries == 0 then
@@ -72,5 +93,5 @@ return function(kind)
         end
     end
     -- Plugin labels belong to their authors; only Eitr's management UI is translated.
-    return kind ~= "plugin-actions" and entries or i18n.entries(entries, false)
+    return kind ~= "plugin-actions" and entries or i18n.entries(entries, false), descendants
 end
