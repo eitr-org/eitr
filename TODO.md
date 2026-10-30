@@ -51,6 +51,10 @@ LAN.
   6. Retire the older VS Code / LazyVim project providers once nothing uses them.
   Only if profiling shows a need: sharing plugin data between copies of the same
   widget, and one shared window list for the dock, Focus and OBS.
+- **Web Apps show their own icon in the dock.** A web app opened from Install >
+  Web Apps (for example YouTube Music) shows a generic grid icon in the dock
+  instead of its app icon; match the web app's window class to its desktop entry
+  and icon.
 - **hyprpaper crash without a GPU: follow upstream.** hyprpaper segfaults in VMs
   without 3D acceleration (hyprwm/hyprtoolkit#144); the bar now draws the still
   wallpaper on any screen hyprpaper does not answer for. Drop the note once a fixed
