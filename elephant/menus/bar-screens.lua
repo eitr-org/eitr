@@ -9,8 +9,8 @@ FixedOrder = true
 local entries = dofile(paths.code("elephant/bar-settings-entries.lua"))
 function GetEntries()
     return entries("screens", {
-        {"All Displays", "all", "\243\176\141\186"},
-        {"Main Display Only", "main", "\243\176\141\185"},
+        {"All Displays", "all", "\243\176\141\186", i18n.mark("Show the bar on every display")},
+        {"Main Display Only", "main", "\243\176\141\185", i18n.mark("Show the bar on the main display")},
     })
 end
 

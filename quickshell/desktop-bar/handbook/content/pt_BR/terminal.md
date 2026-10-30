@@ -6,13 +6,13 @@ O Kitty mostra uma trilha curta em saltos de pelo menos duas células, como Ente
 
 ### Fogo do cursor
 
-**Estilo > Terminal > Fogo do cursor** oferece **Desativado** (padrão) e **Ativado**. Ativado usa o efeito `cursor-trail-blaze` integrado do Kitty nos movimentos do cursor, sem detectar velocidade de digitação. Desativado restaura a trilha rápida normal e a seleção pessoal de shader.
+**Configurações > Estilo > Terminal > Fogo do cursor** oferece **Desativado** (padrão) e **Ativado**. Ativado usa o efeito `cursor-trail-blaze` integrado do Kitty nos movimentos do cursor, sem detectar velocidade de digitação. Desativado restaura a trilha rápida normal e a seleção pessoal de shader.
 
 O efeito exige Kitty 0.49+ e `shader-slang`, incluídos nas dependências do Eitr. A ativação valida o shader antes de salvar ou recarregar o Kitty. A preferência local fica em `~/.config/eitr/terminal.json`; o auxiliar escreve `kitty/cursor-fire.conf`, incluído por último pelo carregador do usuário. Ativado, escolhe o shader de fogo e reduz o limiar para uma célula. Fontes, temas e configurações pessoais permanecem intactos.
 
 ## Escolher o terminal
 
-**Estilo > Terminal** no Walker e **Central de controle > Estilo > Terminal** oferecem
+**Configurações > Estilo > Terminal** no Walker e **Central de controle > Estilo > Terminal** oferecem
 **Kitty** (padrão) e **Ghostty**. O campo local `terminal` em
 `~/.config/eitr/terminal.json` controla Super+Enter, tmux, sessões do usuário,
 terminais de IA/projetos e ações do Walker para abrir no terminal. Se Ghostty não

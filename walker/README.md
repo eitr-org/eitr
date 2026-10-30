@@ -1,6 +1,6 @@
 # Walker
 
-Style → Cursor offers Bibata Modern (Eitr default), Breeze, and Vanilla DMZ.
+Settings → Style → Cursor offers Bibata Modern (Eitr default), Breeze, and Vanilla DMZ.
 Each family has light/dark variants, shown with previews decoded from its actual
 cursor artwork. Color → Auto follows the selected theme; Light/Dark remain fixed
 until Auto is selected again. Size is configurable, with 24 px as the default.
@@ -31,14 +31,14 @@ freshness window). Clipboard contents are excluded; open Clipboard History to
 search those. Selections are validated against the original provider before
 running its existing action. No action commands or clipboard data are cached.
 
-Style > Fonts searches installed main font families, grouping weight/style
+Settings > Style > Fonts searches installed main font families, grouping weight/style
 aliases and Nerd Font editions into one entry. Enter selects the desktop
 default (JetBrainsMono Nerd Font initially); Delete asks for confirmation.
 User-installed font files go to Trash. Package-owned fonts open a terminal to
 remove the owning package with normal dependency checks, never recursive removal.
 The active default and system icon font are protected, including when bundled
 with another family. Removing the last font or keyboard layout is forbidden.
-System > Devices & Input > Keyboard supports Delete for a layout; keyboard panel rows have the same
+Settings > Devices & Input > Keyboard supports Delete for a layout; keyboard panel rows have the same
 guarded removal control.
 The picker hides document and icon-only families and keeps one main Noto and
 Adwaita choice. Their fallback/script/variant fonts remain installed. A hidden
@@ -103,25 +103,25 @@ already adds their PATH entries. The runtime catalog ships in `/usr/share/eitr/`
 with the eitr-desktop package (a copy in `~/.local/share/eitr/` takes precedence);
 a missing catalog is shown as an error row in the menu.
 
-System → Security separates password changes, fingerprint enrollment and FIDO2
+Settings → Security separates password changes, fingerprint enrollment and FIDO2
 security-key enrollment. Enrolling does not automatically change PAM; enabling
 authentication is a separate confirmed operation through the root-owned helper.
 Password fallback remains. Fingerprint is added to the hyprlock, SDDM and sudo
 PAM stacks so "password only" also applies to the lockscreen; pam_fprintd may
 delay the password prompt for up to 10 seconds. A FIDO2 biometric key is not a laptop fingerprint reader.
 Touch ID on the host Mac is not passed through as a normal Linux fingerprint reader.
-System → Maintenance → Snapshots requires the reviewed privileged integration described
+Settings → System → Maintenance → Snapshots requires the reviewed privileged integration described
 in [the distro guide](../distro/README.md). Update works normally on existing
 desktops. System Update upgrades official and AUR packages, with pre/post
-snapshots enabled only on distro installs. Update also offers Update Channel.
+snapshots enabled only on distro installs. Settings > System also offers Update Channel.
 Terminal commands `eitr update pacman`, `eitr update aur` and `eitr update full`
 remain available without automatic snapshots.
 No PAM or snapshot setup runs at login.
-System → Devices & Input → Battery Charge Limit sets 60/80/90% or removes the limit after a typed
+Settings → Devices & Input → Battery Charge Limit sets 60/80/90% or removes the limit after a typed
 `yes`, through `eitr-system battery-limit`. It needs a laptop battery whose
 firmware exposes `charge_control_end_threshold`; elsewhere it explains that no
 control exists. The limit is restored at boot and after resume.
-System → Maintenance → Factory Reset offers Erase Everything and Keep My Files on computers
+Settings → System → Maintenance → Factory Reset offers Erase Everything and Keep My Files on computers
 installed with the Eitr ISO, after two warnings and typing `RESET MY COMPUTER`;
 Reset Status only checks. See [FACTORY-RESET.md](../distro/FACTORY-RESET.md).
 

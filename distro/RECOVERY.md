@@ -13,7 +13,7 @@ ISO's `eitr-guided-install` erases the disk you confirm, creating this layout
 ## Before updates
 
 The installer enables `/etc/eitr/system-update-policy.conf`. Before
-System → Maintenance → Update → System Update upgrades official and AUR packages, it:
+Settings → System → System Update upgrades official and AUR packages, it:
 
 1. Verifies the supported layout and Snapper root configuration.
 2. Archives `/boot` and `/efi` only when they are separate mounts (a `/boot`
@@ -118,12 +118,12 @@ sudo systemd-cryptenroll --wipe-slot=tpm2 /dev/<luks-partition>
 ## Factory reset
 
 Computers installed with the Eitr ISO also keep a read-only first-login restore
-point outside Snapper. Walker → System → Maintenance → Factory Reset returns to it, with or
+point outside Snapper. Walker → Settings → System → Maintenance → Factory Reset returns to it, with or
 without the home folder files; see [FACTORY-RESET.md](FACTORY-RESET.md).
 
 ## Inspect recovery points
 
-Use Walker → System → Maintenance → Snapshots, or run these read-only checks:
+Use Walker → Settings → System → Maintenance → Snapshots, or run these read-only checks:
 
 ```sh
 sudo snapper -c root list
@@ -139,7 +139,7 @@ making any changes. Do not copy commands from another machine blindly.
 
 ## Home folder snapshots
 
-Off by default. **System > Maintenance > Snapshots > Home Folder Snapshots**
+Off by default. **Settings > System > Maintenance > Snapshots > Home Folder Snapshots**
 turns them on (it asks first, and turning them off deletes them). Snapper's
 `home` configuration then keeps a snapshot of `/home` every hour for a day and
 one a day for a week, deleting the oldest when free space falls below 20%.
@@ -170,7 +170,7 @@ ever overwritten.
 
 ## What each update changed
 
-Before rolling back, check what you would undo. **System > Maintenance >
+Before rolling back, check what you would undo. **Settings > System > Maintenance >
 Snapshots > What Each Update Changed** (or `eitr snapshots changes`) lists every
 update's before/after pair with counts of upgraded, downgraded, installed and
 removed packages. `eitr snapshots changes <before number>` lists every package of
@@ -184,7 +184,7 @@ With GRUB or Limine, the boot menu can list read-only Snapper snapshots, so a
 broken update can be inspected and rolled back without live media. The
 installer offers this only after you type `yes`; on an existing installation run
 `bash distro/bootloader/setup.sh` (`--check` only reports). Check the result with
-Walker → System → Maintenance → Snapshots → Bootable Snapshot Status, or
+Walker → Settings → System → Maintenance → Snapshots → Bootable Snapshot Status, or
 `sudo /usr/lib/eitr/eitr-system snapshots-boot-status`.
 
 | Boot loader | Integration | Packages (`distro/bootloader/`) |

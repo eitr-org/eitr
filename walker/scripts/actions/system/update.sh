@@ -71,7 +71,7 @@ check_plugin_updates() {
   local count
   count="$(python3 "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/scripts/actions/install/plugins.py" check 2>/dev/null | python3 -c 'import json, sys; print(sum(count > 0 for count in json.load(sys.stdin).values()))' 2>/dev/null)" || return 0
   if [[ "$count" =~ ^[0-9]+$ ]] && (( count > 0 )); then
-    eitr_gettext '{count} plugin updates available: Control Center > Plugins or Install > Plugins > Update Plugins' "count=$count"
+    eitr_gettext '{count} plugin updates available: Control Center > Plugins or Plugins > Update Plugins' "count=$count"
     printf '\n'
   fi
 }

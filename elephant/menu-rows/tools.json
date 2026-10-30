@@ -1,13 +1,14 @@
 [
   {
-    "text": "Calendars",
+    "text": "Calendar Sources",
     "subtext": ">",
     "keywords": [
       "google",
       "outlook",
       "ical",
       "ics",
-      "subscribe"
+      "subscribe",
+      "Calendars"
     ],
     "icon": "󰃭",
     "submenu": "calendars"
@@ -22,12 +23,6 @@
     ],
     "icon": "",
     "submenu": "capture"
-  },
-  {
-    "text": "Plugins",
-    "subtext": ">",
-    "icon": "󰏖",
-    "submenu": "plugins"
   },
   {
     "text": "Reminders",

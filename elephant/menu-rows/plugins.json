@@ -1,0 +1,8 @@
+[
+  {
+    "text": "Installed Plugins",
+    "subtext": ">",
+    "icon": "󰏖",
+    "submenu": "plugins-install"
+  }
+]

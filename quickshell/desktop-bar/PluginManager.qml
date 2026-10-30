@@ -35,7 +35,7 @@ Column {
             id: addButton
             width: Math.max(68, addMetrics.width + 20)
             TextMetrics { id: addMetrics; text: addButton.text; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize }
-            text: Eitr.I18n.tr("Add Plugin…"); foreground: manager.foreground
+            text: Eitr.I18n.tr("Add Plugins"); foreground: manager.foreground
             onClicked: PluginRegistry.review("add", "")
         }
         PanelButton {

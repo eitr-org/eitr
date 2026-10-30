@@ -72,7 +72,7 @@ Si le bureau échoue mais que le système démarre encore, passez à une console
 
 ## Instantanés du dossier personnel
 
-Désactivés par défaut. **Système > Entretien > Instantanés > Instantanés du dossier personnel** les active après confirmation ; les désactiver les supprime. La configuration `home` de Snapper conserve alors un instantané de `/home` par heure pendant un jour et un par jour pendant une semaine. Les plus anciens sont supprimés lorsque l’espace libre passe sous 20 %.
+Désactivés par défaut. **Paramètres > Système > Entretien > Instantanés > Instantanés du dossier personnel** les active après confirmation ; les désactiver les supprime. La configuration `home` de Snapper conserve alors un instantané de `/home` par heure pendant un jour et un par jour pendant une semaine. Les plus anciens sont supprimés lorsque l’espace libre passe sous 20 %.
 
 Les caches, `~/Downloads`, les dossiers de disques de VM (`~/.local/share/libvirt/images`, GNOME Boxes, `~/VirtualBox VMs`) et la bibliothèque Steam sont exclus. Au prochain démarrage, avant toute connexion, `eitr-home-exclusions.service` les transforme en sous-volumes Btrfs imbriqués que les instantanés personnels n’incluent pas. Leurs fichiers sont conservés par reflinks, sans espace supplémentaire pour le déplacement. Le mode Garder mes fichiers de la réinitialisation d’usine les transfère dans le dossier personnel restauré : les sous-volumes cachés vont dans "Settings before reset" et les caches sont abandonnés. Si l’un d’eux ne peut pas être déplacé, l’ancien dossier personnel est conservé pour examen au lieu d’être supprimé.
 
@@ -82,7 +82,7 @@ La conversion et la création des dossiers exclus manquants sont exécutées ave
 
 ## Ce que chaque mise à jour a changé
 
-Avant une restauration, vérifiez ce que vous annuleriez. **Système > Entretien > Instantanés > Ce que chaque mise à jour a changé** (ou `eitr snapshots changes`) liste chaque paire avant/après d’une mise à jour avec le nombre de paquets mis à jour, rétrogradés, installés et supprimés. `eitr snapshots changes <before number>` liste chaque paquet d’une mise à jour avec ses versions ancienne et nouvelle. La comparaison utilise les bases de données de paquets des deux instantanés. Si l’instantané après n’existe pas encore, elle utilise le système en cours d’exécution.
+Avant une restauration, vérifiez ce que vous annuleriez. **Paramètres > Système > Entretien > Instantanés > Ce que chaque mise à jour a changé** (ou `eitr snapshots changes`) liste chaque paire avant/après d’une mise à jour avec le nombre de paquets mis à jour, rétrogradés, installés et supprimés. `eitr snapshots changes <before number>` liste chaque paquet d’une mise à jour avec ses versions ancienne et nouvelle. La comparaison utilise les bases de données de paquets des deux instantanés. Si l’instantané après n’existe pas encore, elle utilise le système en cours d’exécution.
 
 ## Démarrer un ancien instantané
 

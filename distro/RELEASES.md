@@ -1,12 +1,20 @@
 # Releases
 
-Style > Terminal and Control Center > Style offer Kitty (unchanged default) or
+Walker groups desktop preferences under Settings, with System information and
+maintenance inside Settings > System. Main includes Quick Actions and Plugins;
+plugin installation, updates and installed actions now share the Plugins menu.
+Remote access separates Setup from everyday connection and sharing actions.
+Battery Charge Limit is hidden without a system battery; choice menus describe
+and check their current selections.
+
+
+Settings > Style > Terminal and Control Center > Style offer Kitty (unchanged default) or
 optional Ghostty. Theme/font generation and user terminal launchers follow the
 choice; missing Ghostty offers the normal official-package install and keeps Kitty
 until successful. Eitr utility terminals retain Kitty-specific options and rules.
 Ghostty is excluded from the ISO payload. Live package verification is pending.
 
-Style > Lockscreen adds Eitr, the new default for fresh installations: the EITR
+Settings > Style > Lockscreen adds Eitr, the new default for fresh installations: the EITR
 wordmark in the theme's accent inside the boot splash's gold rune ring, a starry
 sky with the Milky Way, shooting stars and the desktop's aurora on black, Norse
 clock numerals, runes carved into the password field and a lightning strike that
@@ -37,7 +45,7 @@ a visible window with a live anchor, and losing a plugin anchor closes its panel
 Reviewed plugin terminals release menus and widget editing before launch;
 approval reloads also end editing for installs started through Walker.
 
-System > Security adds reviewed account creation and read-only human account rows. New accounts initialize their own desktop at first Hyprland login through UWSM; deletion is not offered.
+Settings > Security adds reviewed account creation and read-only human account rows. New accounts initialize their own desktop at first Hyprland login through UWSM; deletion is not offered.
 
 Install > AI CLIs now includes OpenCode from Arch Extra and Pi through NVM/npm.
 The managed Eitr skill supplies one source of desktop guidance to Claude Code
@@ -109,10 +117,10 @@ text shades.
 
 ## Your own wallpapers, themes and lockscreens (unreleased)
 
-Style > Wallpaper adds a picture from a file or an https address (50 MB at most,
-decoded before a copy is kept). Style > Theme > Create Theme builds a complete
+Settings > Style > Wallpaper adds a picture from a file or an https address (50 MB at most,
+decoded before a copy is kept). Settings > Style > Theme > Create Theme builds a complete
 palette from a picture, light or dark, with readable text, applies it and then
-lets each main color change live. Style > Lockscreen > Create Lockscreen puts a
+lets each main color change live. Settings > Style > Lockscreen > Create Lockscreen puts a
 picture, accent and greeting into the Theme Wallpaper or Material design. All
 three stay in `~/.local/share/eitr/`, are listed as Yours and can be deleted.
 Not yet tried on the owner's live desktop.
@@ -213,8 +221,8 @@ process while visible and playing, with a gentle animation fallback. Theme switc
 regenerate its colour gradient while keeping
 settings outside the colour section. Existing desktops install cava on first use.
 
-Plugins: Main > Install > Plugins adds a Git repository whose `eitr-plugin.json`
-declares Walker rows (shown under Tools > Plugins) and optionally a user service.
+Plugins: Main > Plugins > Installed Plugins adds a Git repository whose `eitr-plugin.json`
+declares Walker rows (shown under Plugins > Installed Plugins) and optionally a user service.
 Installation shows the author, commit and a trust warning before anything runs;
 plugins stay per-user, pinned to the approved commit, and System Update shows each
 plugin's changes and asks before updating it. `eitr plugin` does the same from a
@@ -304,7 +312,7 @@ consistent forms of address; early users' reports refine the wording.
 The **AI agents** feature is implemented: first-use installation for Claude Code,
 Codex, Gemini CLI, Grok Build and GitHub Copilot CLI; a machine-local default
 assistant and shortcut; supported light/dark theme settings; and opt-in AI help
-from crash notifications. Interactive assistants use full access by default; System > Security > Assistant Access restores normal permission prompts. Headless helpers stay read-only.
+from crash notifications. Interactive assistants use full access by default; Settings > Security > Assistant Access restores normal permission prompts. Headless helpers stay read-only.
 
 Translation infrastructure, QML, menus and Handbook catalogs are implemented for
 Brazilian Portuguese, Spanish, German and French, with English as source and
@@ -316,7 +324,7 @@ catalog checks verifies coverage and placeholders, not linguistic approval.
 Not planned now: dynamic wallpaper colors, community themes, a separate settings
 app, desktop raven tips, browser recoloring, a second compositor.
 
-Assistant sessions use full access by default; System > Security > Assistant Access offers Ask before changes. Headless helpers remain read-only.
+Assistant sessions use full access by default; Settings > Security > Assistant Access offers Ask before changes. Headless helpers remain read-only.
 
 ## Open work
 
@@ -389,7 +397,7 @@ can pick up from the repository alone. Remove items as they ship.
 
 ## Nearby package mirrors (unreleased)
 
-Maintenance offers Choose fastest mirrors with Enter confirmation, a preview of
+Maintenance offers Choose Fastest Mirrors with Enter confirmation, a preview of
 selected HTTPS servers and restoration of the previous list. Fresh installs try
 ranking in the background on up to three boots. Recent mirrors are sorted by
 speed, preferring the system timezone's country when known, with the shipped

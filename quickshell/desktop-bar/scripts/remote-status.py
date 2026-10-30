@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 
 
 def query(arguments):
@@ -19,10 +20,14 @@ def menu_actions(menu):
     module = importlib.util.module_from_spec(specification)
     specification.loader.exec_module(module)
     messages = table('menus')
-    return [{'menu': menu, 'source': row['text'], 'title': messages.get(row['text'], row['text']),
+    setup = menu + '-setup'
+    sources = [(menu, row) for row in module.rows(menu)]
+    if menu in ('remote-away', 'remote-share'):
+        sources += [(setup, row) for row in module.rows(setup)]
+    return [{'menu': owner, 'source': row['text'], 'title': messages.get(row['text'], row['text']),
              'description': messages.get(row.get('subtext', ''), row.get('subtext', '')),
              'icon': row.get('icon', '')}
-            for row in module.rows(menu) if row.get('actions') and row['text'] not in ('Sharing Status', 'Connection Status', 'Log In')]
+            for owner, row in sources if row.get('actions') and row['text'] not in ('Sharing Status', 'Connection Status', 'Log In')]
 
 
 def tailscale_status():
@@ -93,4 +98,9 @@ def status():
 
 
 if __name__ == '__main__':
-    print(json.dumps(status(), ensure_ascii=False))
+    if sys.argv[1:] == ['availability']:
+        from eitr_policy import allowed
+        result = {'allowed': allowed('remote_access')}
+    else:
+        result = status()
+    print(json.dumps(result, ensure_ascii=False))

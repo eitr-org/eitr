@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Laptop battery charge limit; changes only after typed confirmation."""
 import eitr_bootstrap
+import json
+from eitr_battery import system_batteries
 from eitr_i18n import tr
 from pathlib import Path
 import subprocess
@@ -15,6 +17,14 @@ def valid_limit(value):
 
 
 def main(args):
+    if args == ["menu-state"]:
+        batteries = system_batteries()
+        try:
+            current = Path('/etc/eitr/battery-limit').read_text().strip()
+        except OSError:
+            current = "off"
+        print(json.dumps({'available': bool(batteries), 'current': current}))
+        return
     helper = next((path for path in ROOT_HELPERS if Path(path).is_file()), None)
     if helper is None:
         raise RuntimeError(tr('The root-owned Eitr helper is not installed. See distro/README.md; never sudo a user-writable helper.'))

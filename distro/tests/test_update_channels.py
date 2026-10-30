@@ -84,13 +84,13 @@ class UpdateChannelTests(unittest.TestCase):
                       "testing carries only Eitr's own new builds")
 
     def test_menu_and_command_offer_it(self):
-        rows = json.loads((DISTRO.parent / "elephant/menu-rows/update.json").read_text())
+        rows = json.loads((DISTRO.parent / "elephant/menu-rows/system.json").read_text())
         names = [row["text"] for row in rows]
         self.assertIn("Update Channel", names)
         row = next(row for row in rows if row["text"] == "Update Channel")
         self.assertEqual(row["submenu"], "update-channel")
         menu = (DISTRO.parent / "elephant/menus/update-channel.lua").read_text()
-        self.assertIn('Parent = "update"', menu)
+        self.assertIn('Parent = "system"', menu)
         self.assertIn('" set " .. channel.name', menu)
         self.assertIn('if not active then', menu, "the current channel opens nothing")
         script = (DISTRO.parent / "walker/scripts/actions/system/update-channel.py").read_text()

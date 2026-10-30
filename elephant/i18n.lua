@@ -65,8 +65,10 @@ function module.entries(entries, preserve_order)
         for _, keyword in ipairs(entry.Keywords or {}) do table.insert(keywords, keyword) end
         table.insert(keywords, english)
         if description ~= ">" then table.insert(keywords, description) end
-        entry.Text = module.tr(english)
-        entry.Subtext = module.tr(entry.Subtext)
+        if entry.Translate ~= false then
+            entry.Text = module.tr(english)
+            entry.Subtext = module.tr(entry.Subtext)
+        end
         table.insert(keywords, entry.Text)
         if entry.Subtext ~= ">" then table.insert(keywords, entry.Subtext or "") end
         entry.Keywords = keywords

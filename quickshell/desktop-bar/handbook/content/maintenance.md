@@ -4,14 +4,14 @@ The terminal names each update check and snapshot stage while it runs. If everyt
 
 Waiting steps in System Update show a spinning rune and flow with Bifröst rainbow text on truecolour terminals, or the theme accent otherwise, followed by translated Norse phrases and elapsed time. Successful steps settle as a plain check mark and step text.
 
-Open **System > Maintenance**. Review terminal output and keep independent
+Open **Settings > System > Maintenance**. Review terminal output and keep independent
 backups before system changes. Snapshot protection is not an off-disk backup.
 
 System Update first checks official packages with checkupdates in a separate temporary database, AUR packages (including development packages), and user Flatpaks. When all checks confirm no updates, it exits without snapshots, upgrades or a restart prompt. If a check fails or a tool is missing, the normal update workflow continues.
 
 ## Update
 
-**Update > System Update** is the normal complete package-update workflow.
+**Settings > System > System Update** is the normal complete package-update workflow.
 On a configured fresh EITR distro, it verifies snapshot support and creates
 pre/post snapshots with boot archives. If protection fails, no upgrade begins.
 An existing Arch desktop without the distro policy does not require this setup
@@ -25,7 +25,7 @@ links and asks **Continue the update? [y/N]**: Enter cancels before anything
 changes, so you can read the post first. Without news, or without internet, it
 just continues.
 
-**Update > Update Channel** lists both channels with yours marked; choosing the
+**Settings > System > Update Channel** lists both channels with yours marked; choosing the
 other asks for your password in a terminal and switches. It chooses where Eitr's
 own updates come from. Stable,
 the default, gets them once they have been tried. Testing gets new builds as
@@ -42,7 +42,7 @@ happened. It works on computers installed with the Eitr installer; see
 [Recovery & Snapshots](handbook:recovery) for the details.
 
 **Home folder snapshots** keep earlier versions of your own files: turn them on
-in **System > Maintenance > Snapshots > Home Folder Snapshots**. They are taken
+in **Settings > System > Maintenance > Snapshots > Home Folder Snapshots**. They are taken
 every hour for a day and every day for a week, and the oldest go when the disk
 gets full; caches, Downloads, VM disks and games are left out. To get a file
 back, choose **Restore a File or Folder**, type its path and pick a time. The
@@ -82,7 +82,7 @@ Logout, Suspend, Reboot and Shutdown. Save work first. These are actions, not si
 
 ## Package mirrors
 
-In System > Maintenance, choose Choose fastest mirrors. The terminal explains the change; Enter confirms and Esc cancels. Reflector selects up to ten HTTPS mirrors synchronized within 12 hours, sorted by download speed. It prefers the country identified by the system timezone when known, then tries worldwide mirrors if too few qualify. The three shipped worldwide servers always remain last; if ranking fails, the list stays unchanged, including custom mirrors. Each reflector run is limited to two minutes.
+In Settings > System > Maintenance, choose Choose Fastest Mirrors. The terminal explains the change; Enter confirms and Esc cancels. Reflector selects up to ten HTTPS mirrors synchronized within 12 hours, sorted by download speed. It prefers the country identified by the system timezone when known, then tries worldwide mirrors if too few qualify. The three shipped worldwide servers always remain last; if ranking fails, the list stays unchanged, including custom mirrors. Each reflector run is limited to two minutes.
 
 The previous list is saved beside `/etc/pacman.d/mirrorlist` as `mirrorlist.eitr-<timestamp>.bak`. When a backup exists, the same flow offers restoration: type `restore` and press Enter. Restoration also backs up the current list. The resulting list stays visible until Esc.
 
@@ -90,4 +90,4 @@ Fresh installations schedule one background attempt two minutes after each boot,
 
 Read-only status: `/usr/lib/eitr/eitr-system mirrors-status` prints JSON with `last_ranking_time` (UTC, or null before success), `mirror_count`, `shipped_fallback` and `backup_available`. Status reads local files without network access or sudo.
 
-System Update checks plugin availability at the end without changing approved plugin versions. Review and install plugin updates separately from **Control Center > Plugins > Update Plugins**, **Install > Plugins > Update Plugins**, or `eitr plugin update`. Offline check failures are ignored quietly; after-update hooks are unchanged.
+System Update checks plugin availability at the end without changing approved plugin versions. Review and install plugin updates separately from **Control Center > Plugins > Update Plugins**, **Plugins > Update Plugins**, or `eitr plugin update`. Offline check failures are ignored quietly; after-update hooks are unchanged.

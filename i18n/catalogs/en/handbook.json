@@ -16,7 +16,6 @@
   "Close active window": "Close active window",
   "Color picker": "Color picker",
   "Connecting, known networks, enterprise credentials, pairing and airplane mode": "Connecting, known networks, enterprise credentials, pairing and airplane mode",
-  "Connectivity, Devices & Input, Information, Maintenance, Security and Dotfiles": "Connectivity, Devices & Input, Information, Maintenance, Security and Dotfiles",
   "Control Center": "Control Center",
   "Copy": "Copy",
   "Cut": "Cut",
@@ -140,7 +139,6 @@
   "Show LazyVim commands": "Show LazyVim commands",
   "Show shortcuts": "Show shortcuts",
   "Sunshine on Eitr, Moonlight on a Mac and Tailscale away from home": "Sunshine on Eitr, Moonlight on a Mac and Tailscale away from home",
-  "System Menu": "System Menu",
   "System Update versus advanced pacman/yay updates, cleanup and snapshots": "System Update versus advanced pacman/yay updates, cleanup and snapshots",
   "System locale, English fallback and contributing translations": "System locale, English fallback and contributing translations",
   "Terminal & Editors": "Terminal & Editors",
@@ -194,5 +192,7 @@
   "Split side by side": "Split side by side",
   "Split stacked": "Split stacked",
   "Tabbed desktop, split panes, monitor behavior and recovery": "Tabbed desktop, split panes, monitor behavior and recovery",
-  "These keys replace workspace controls while Focus is on. See the Focus chapter for recovery and monitor behavior.": "These keys replace workspace controls while Focus is on. See the Focus chapter for recovery and monitor behavior."
+  "These keys replace workspace controls while Focus is on. See the Focus chapter for recovery and monitor behavior.": "These keys replace workspace controls while Focus is on. See the Focus chapter for recovery and monitor behavior.",
+  "Connectivity, Devices & Input, Language, Security, Style and System": "Connectivity, Devices & Input, Language, Security, Style and System",
+  "Settings Menu": "Settings Menu"
 }

@@ -53,7 +53,6 @@ ThemedPopup {
     function forecastIcon(code) {
         return WeatherIcons.forecastIcon(code);
     }
-    Component.onCompleted: refresh()
     onOpenedChanged: {
         if (opened) {
             city = null;
@@ -64,7 +63,7 @@ ThemedPopup {
             cancelSearch();
         }
     }
-    Timer { interval: 900000; running: true; repeat: true; onTriggered: menu.refresh() }
+    Timer { interval: 900000; running: menu.opened; repeat: true; onTriggered: menu.refresh() }
     Timer {
         id: debounce
         interval: 300

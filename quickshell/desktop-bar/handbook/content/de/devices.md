@@ -1,6 +1,6 @@
 # Geräte und Eingabe
 
-Diese Bedienelemente findest du unter **System > Geräte und Eingabe** oder über die entsprechenden Symbole in der Leiste. Das Kontrollzentrum bietet ebenfalls die alltäglichen Schalter und Regler.
+Diese Bedienelemente findest du unter **Einstellungen > Geräte und Eingabe** oder über die entsprechenden Symbole in der Leiste. Das Kontrollzentrum bietet ebenfalls die alltäglichen Schalter und Regler.
 
 ## Audio und Mikrofon
 
@@ -26,7 +26,7 @@ Der Helligkeitsregler erscheint nur auf Laptops mit eingebautem Bildschirm (nati
 
 ## Tastatur
 
-Belegungen fügst du in Walker unter System > Geräte und Eingabe > Tastatur hinzu oder entfernst sie dort. Tastaturbelegung hinzufügen listet alle Sprachen und Varianten (tippen zum Suchen); wähle eine Belegung und drücke Entf, um sie zu entfernen. Bis zu vier sind erlaubt, Duplikate werden abgelehnt, und mindestens eine muss bleiben. **Alt + Shift** wechselt zwischen ihnen. Ab zwei Belegungen zeigt die Leiste das Kürzel der aktiven (etwa US oder BR); ein Klick darauf oder das Kontrollzentrum wechselt sie. Tastaturbelegung und Systemsprache beziehungsweise Gebietsschema sind unabhängig.
+Belegungen fügst du in Walker unter Einstellungen > Geräte und Eingabe > Tastatur hinzu oder entfernst sie dort. Tastaturbelegung hinzufügen listet alle Sprachen und Varianten (tippen zum Suchen); wähle eine Belegung und drücke Entf, um sie zu entfernen. Bis zu vier sind erlaubt, Duplikate werden abgelehnt, und mindestens eine muss bleiben. **Alt + Shift** wechselt zwischen ihnen. Ab zwei Belegungen zeigt die Leiste das Kürzel der aktiven (etwa US oder BR); ein Klick darauf oder das Kontrollzentrum wechselt sie. Tastaturbelegung und Systemsprache beziehungsweise Gebietsschema sind unabhängig.
 
 Der Desktop startet mit der im Installationsprogramm gewählten Tastatur. US richtet US und US International ein; Akzente sind damit über Alt + Shift erreichbar.
 

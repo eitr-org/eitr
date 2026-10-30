@@ -91,7 +91,7 @@ class ControlCenterContracts(unittest.TestCase):
 
     def test_general_controls_have_ordered_groups(self):
         center = (Path(__file__).parents[1] / 'ControlCenter.qml').read_text()
-        names = ['Connectivity', 'Quick Toggles', 'Sound', 'Display', 'Media', 'Power']
+        names = ['Connectivity', 'Quick Actions', 'Sound', 'Display', 'Media', 'Power']
         positions = [center.index('text: Eitr.I18n.tr("' + name + '"); width: parent.width') for name in names]
         self.assertEqual(positions, sorted(positions))
         self.assertNotIn('text: "Sound & Display"', center)

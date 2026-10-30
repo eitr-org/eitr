@@ -1,0 +1,53 @@
+[
+  {
+    "text": "Detailed Status",
+    "subtext": "Open the diagnostic report in a terminal",
+    "icon": "󰋽",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host status"
+    }
+  },
+  {
+    "text": "Restore Sharing Setup",
+    "subtext": "Undo capture and virtual input permissions",
+    "icon": "󰦛",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host undo"
+    }
+  },
+  {
+    "text": "Set Up Sharing",
+    "subtext": "Review screen capture and input permissions",
+    "icon": "󰖷",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host setup"
+    }
+  },
+  {
+    "text": "Sharing Settings",
+    "subtext": "Set the Sunshine password and configure streaming",
+    "icon": "󰒓",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host settings"
+    },
+    "keywords": [
+      "Open Settings"
+    ]
+  },
+  {
+    "text": "Start at Login",
+    "subtext": "Enable sharing when you sign in",
+    "icon": "󰍂",
+    "actions": {
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host login"
+    }
+  },
+  {
+    "text": "Turn Off Start at Login",
+    "subtext": "Keep sharing manual",
+    "icon": "󰍃",
+    "actions": {
+      "open": "python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host no-login"
+    }
+  }
+]

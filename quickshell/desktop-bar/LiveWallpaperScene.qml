@@ -8,6 +8,7 @@ import QtQuick
 Item {
     id: scene
     property string motion: ""
+    property real pixelRatio: 1
     // Seconds of motion so far; the shader drifts its curtains from it.
     property real time: 0
     readonly property bool ready: sky.status === Image.Ready && ring.status === Image.Ready
@@ -21,8 +22,8 @@ Item {
         height: 2160 * fit
         anchors.centerIn: parent
 
-        Image { id: sky; anchors.fill: parent; source: scene.motion ? scene.motion + "sky.png" : ""; smooth: true }
-        // The curtains are soft, so half resolution looks the same at a quarter of the cost.
+        Image { id: sky; anchors.fill: parent; source: scene.motion ? scene.motion + "sky.png" : ""; sourceSize: Qt.size(Math.ceil(width * scene.pixelRatio), Math.ceil(height * scene.pixelRatio)); smooth: true }
+        // Preserve the existing curtain geometry and composition.
         ShaderEffect {
             width: parent.width / 2
             height: parent.height / 2
@@ -48,6 +49,7 @@ Item {
         x: wide ? scene.width * across - width * across : stage.x
         y: wide ? 0 : stage.y
         source: scene.motion ? scene.motion + "ring.png" : ""
+        sourceSize: Qt.size(Math.ceil(width * scene.pixelRatio), Math.ceil(height * scene.pixelRatio))
         smooth: true
     }
 }

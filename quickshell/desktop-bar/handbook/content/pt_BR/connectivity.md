@@ -1,6 +1,6 @@
 # WiFi, Bluetooth e modo avião
 
-Abra pelos ícones da barra ou por **Sistema > Conectividade**. Abrir um painel nunca troca o serviço de rede nem desconecta um dispositivo por conta própria.
+Abra pelos ícones da barra ou por **Configurações > Conectividade**. Abrir um painel nunca troca o serviço de rede nem desconecta um dispositivo por conta própria.
 
 ## WiFi
 

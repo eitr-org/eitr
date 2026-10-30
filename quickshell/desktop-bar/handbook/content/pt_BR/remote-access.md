@@ -1,8 +1,10 @@
 # Acesso remoto
 
+Configuração inicial agrupa os ajustes. Compartilhar este PC > Configuração inicial contém Configurar compartilhamento, Configurações de compartilhamento, Iniciar ao entrar, Desativar início ao entrar, Status detalhado e Restaurar configuração de compartilhamento. Acessar este PC remotamente > Configuração inicial contém Entrar, Configurar acesso remoto, Restaurar configuração de acesso remoto, Status detalhado e Testar um par com ping. As ações do dia a dia continuam diretamente nos menus superiores.
+
 Status detalhado abre um terminal de diagnóstico que permanece aberto até você pressionar Esc.
 
-Abra System > Connectivity > Acesso remoto. O compartilhamento fica desligado até
+Abra Configurações > Conectividade > Acesso remoto. O compartilhamento fica desligado até
 você ativá-lo. Esta etapa controla a sessão do Eitr já iniciada e acordada. Uso sem
 monitor, acesso antes do login e wake on LAN ficam para depois. Se este computador
 bloquear durante o compartilhamento, a tela remota mostra a tela de bloqueio:
@@ -62,7 +64,7 @@ Atalhos com SUPER a partir do Mac: nas configurações do Moonlight, ative **Cap
 
 ## Tailscale nos dois computadores
 
-Em Acessar fora de casa, escolha Configurar acesso fora de casa. Após instalar, o assistente
+Em Acessar este PC remotamente, escolha Configurar acesso fora de casa. Após instalar, o assistente
 root confirmado ativa e inicia `tailscaled.service` e define seu usuário como
 operador. Por isso entrar, conectar e desconectar não pedem senha. Um Tailscale configurado de outra forma pede a senha de administrador. Entrar abre no navegador a URL de
 `tailscale login`. Connect conecta; Disconnect desconecta sem apagar credenciais.

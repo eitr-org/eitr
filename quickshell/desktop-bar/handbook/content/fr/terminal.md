@@ -6,13 +6,13 @@ Kitty affiche une courte traînée lors des sauts d’au moins deux cellules, co
 
 ### Feu du curseur
 
-**Style > Terminal > Feu du curseur** propose **Désactivé** (par défaut) et **Activé**. Activé, il utilise l’effet intégré `cursor-trail-blaze` de Kitty pendant les déplacements, sans détecter la vitesse de frappe. Désactivé, il rétablit la traînée rapide normale et votre choix personnel de shader.
+**Paramètres > Style > Terminal > Feu du curseur** propose **Désactivé** (par défaut) et **Activé**. Activé, il utilise l’effet intégré `cursor-trail-blaze` de Kitty pendant les déplacements, sans détecter la vitesse de frappe. Désactivé, il rétablit la traînée rapide normale et votre choix personnel de shader.
 
 L’effet nécessite Kitty 0.49+ et `shader-slang`, inclus dans les dépendances d’Eitr. L’activation vérifie le shader avant d’enregistrer ou recharger Kitty. La préférence locale est `~/.config/eitr/terminal.json` ; l’utilitaire écrit `kitty/cursor-fire.conf`, inclus en dernier par le chargeur utilisateur. Activé, il choisit le shader de feu et abaisse le seuil à une cellule. Polices, thèmes et fichiers personnels restent intacts.
 
 ## Choisir son terminal
 
-**Style > Terminal** dans Walker et **Centre de contrôle > Style > Terminal** proposent
+**Paramètres > Style > Terminal** dans Walker et **Centre de contrôle > Style > Terminal** proposent
 **Kitty** (par défaut) et **Ghostty**. Le champ local `terminal` de
 `~/.config/eitr/terminal.json` contrôle Super+Entrée, tmux, les sessions utilisateur,
 les terminaux IA/projets et les actions Walker pour ouvrir dans un terminal.

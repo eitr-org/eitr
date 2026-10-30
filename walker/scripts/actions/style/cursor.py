@@ -15,7 +15,7 @@ for _eitr_parent in Path(__file__).resolve().parents:
         sys.path.insert(0, str(_eitr_lib))
         break
 from eitr_paths import code, config as user_config, read_settings, write_settings
-from eitr_i18n import tr
+from eitr_i18n import tr, mark as menu_mark
 import shutil
 import subprocess
 import struct
@@ -127,8 +127,8 @@ def entries(group):
         theme = resolve(candidate)
         selected = choice[group] == value
         rows.append({"id": str(value), "label": label, "selected": selected,
-                     "icon": "" if selected else preview(theme),
-                     "detail": "" if group == "size" else theme})
+                     "icon": "\uf00c" if selected else preview(theme),
+                     "detail": menu_mark("Set the cursor size") if group == "size" else theme})
     return rows if group == "size" else sorted(rows, key=lambda row: row["label"].casefold())
 
 

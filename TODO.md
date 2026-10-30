@@ -30,13 +30,14 @@ LAN.
 # 2. Smaller items
 
 - **Light themes.** The owner has ideas for more light themes; create them later.
-- **Performance on weak computers: decide the fixes.** Analysed 2026-10-30 (code review
-  plus live measurements). Main costs: the bar polls with short-lived Python
-  helpers every 2 s, mostly for closed panels (~400 processes a minute); the live
-  wallpaper and blur keep the GPU busy at idle; login starts ~15 programs at once,
-  so the wallpaper and bar appear ~3 s after Hyprland. Proposed order: stop
-  closed-panel polling and use file/compositor events (no visible change), a
-  reversible Light preset, then a startup order that shows the wallpaper first.
+- **Performance on weak computers: verify on target hardware.** Implemented
+  event-driven bar settings/palette/display updates, 30–60 s recovery checks,
+  open-only panel telemetry, shared WiFi/OBS status, session-cached hardware
+  identity, screen-sized wallpaper decoding, 5 Hz motion behind windows and
+  a still wallpaper on software renderers. Login stages wallpaper and bar before
+  optional helpers. Blur and desktop styling stay unchanged; no extra preset.
+  Remaining: measure idle process launches and cold login on a slow VM and real
+  hardware, including multi-monitor changes and OBS tray-only launches.
 - **Walker menu organisation: decide on the review.** Proposals: System becomes
   Settings with a Control Center row, Toggle becomes Quick Actions, clearer plugin
   and calendar names, System Update one level up, Default Assistant inside AI,
@@ -94,5 +95,5 @@ promises below. The roadmap table in `distro/RELEASES.md` has the wording.
 - **1.0 documents**: supported hardware matrix, tested upgrade paths, rollback
   limitations, security-update process, compatibility policy.
 
-Assistant sessions use full access by default; System > Security > Assistant Access restores permission prompts. Not planned: the rest of the "Not planned now"
+Assistant sessions use full access by default; Settings > Security > Assistant Access restores permission prompts. Not planned: the rest of the "Not planned now"
 list in `distro/RELEASES.md`.

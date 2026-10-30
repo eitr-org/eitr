@@ -61,6 +61,7 @@ esac
     def test_desktop_without_system_battery_is_unavailable(self):
         self.add_supply('AC', 'Mains')
         self.add_supply('hidpp_battery_0', 'Battery')
+        (self.supplies / 'hidpp_battery_0/scope').write_text('Device')
         self.mock_powerprofilesctl()
         result = self.run_script('status')
         self.assertEqual(json.loads(result.stdout), {'available': False, 'active': '', 'profiles': []})

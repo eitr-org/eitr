@@ -69,9 +69,9 @@
   },
   {
     "id": "system",
-    "title": "System Menu",
+    "title": "Settings Menu",
     "icon": "",
-    "summary": "Connectivity, Devices & Input, Information, Maintenance, Security and Dotfiles",
+    "summary": "Connectivity, Devices & Input, Language, Security, Style and System",
     "source": "quickshell/desktop-bar/handbook/content/system.md"
   },
   {

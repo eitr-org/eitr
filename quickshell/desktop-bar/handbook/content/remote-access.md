@@ -1,8 +1,10 @@
 # Remote access
 
+Setup groups the configuration actions. Share This PC > Setup contains Set Up Sharing, Sharing Settings, Start at Login, Turn Off Start at Login, Detailed Status and Restore Sharing Setup. Access This PC Remotely > Setup contains Sign In, Set Up Away Access, Restore Away Access Setup, Detailed Status and Ping a Peer. Everyday sharing and connection actions stay directly in their parent menus.
+
 Detailed Status opens a diagnostic terminal that stays open until you press Esc.
 
-Use System > Connectivity > Remote Access. Hosting is off until you enable it.
+Use Settings > Connectivity > Remote Access. Hosting is off until you enable it.
 This milestone controls your signed-in, awake Eitr desktop. Headless use, access
 before login and wake on LAN are separate future work. While sharing, the remote
 screen shows the lockscreen when this PC locks; anyone connected sees it and can
@@ -10,7 +12,7 @@ type the password, so stop sharing before stepping away when privacy matters.
 
 ## Sunshine on Eitr
 
-Choose Share this PC > Set Up Sharing. Installation uses Eitr's signed native
+Choose Share This PC > Setup > Set Up Sharing. Installation uses Eitr's signed native
 Sunshine package, built from upstream sources by the release maintainer. There
 is no AUR build on first click. Flatpak and AppImage lack KMS capture. Existing
 Sunshine configuration and paired devices are kept; do not run another Sunshine
@@ -30,7 +32,7 @@ open at `https://localhost:47990`. On first use, streaming stays blocked while y
 set the password. Return to the terminal and confirm that it is set; your
 administrator password then enables remote control. Accept the local self-signed certificate only
 at that address. Set Sunshine's username and a strong password before pairing.
-Open Settings returns here; Pair a Device opens the PIN page. Enter only the PIN
+Sharing Settings in Setup returns here; Pair a Device opens the PIN page. Enter only the PIN
 shown on your own Moonlight device. Keep automatic router configuration off;
 Eitr enforces `upnp=off`. Do not configure router port forwarding.
 
@@ -64,7 +66,7 @@ SUPER shortcuts from the Mac: in Moonlight's settings, turn on **Capture system 
 
 ## Tailscale on both computers
 
-Choose Access away from home > Set Up Away Access. After installing Tailscale,
+Choose Access This PC Remotely > Setup > Set Up Away Access. After installing Tailscale,
 the confirmed root helper enables and starts `tailscaled.service`, then makes
 your desktop user its operator, so Sign In, Connect and Disconnect need no
 password. A Tailscale set up some other way asks for the administrator password

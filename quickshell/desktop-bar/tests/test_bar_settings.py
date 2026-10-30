@@ -170,10 +170,6 @@ class BarSettingsTests(unittest.TestCase):
                          ["eitr-shell", "desktop-bar", "ipc", "call", "--", "bar", "update", "edge", "left"])
 
 
-if __name__ == "__main__":
-    unittest.main()
-
-
 @unittest.skipUnless(shutil.which("quickshell"), "Quickshell required")
 class AutoHideLayoutTests(unittest.TestCase):
     def test_native_autohide_control_fits_german_in_both_palettes(self):
@@ -348,3 +344,61 @@ ShellRoot {
             self.assertEqual(result.returncode, 0, output)
             self.assertIn("AUTOHIDE_OK", output)
             self.assertNotIn("Error:", output)
+
+
+class PreferenceWatchTests(unittest.TestCase):
+    @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')
+    def test_atomic_rewrites_missing_file_and_theme_symlink_replacement(self):
+        import time
+        bar = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'theme').mkdir()
+            for theme in ('one', 'two'):
+                (root / theme).mkdir()
+            (root / 'two/colors').write_text('third')
+            (root / 'theme/current').symlink_to(root / 'one', target_is_directory=True)
+            fixture = root / 'shell.qml'
+            fixture.write_text('''import QtQuick
+import Quickshell
+import Quickshell.Io
+import "file:'''+str(bar)+'''" as Bar
+ShellRoot {
+    Bar.PreferenceWatch {
+        path: "'''+str(root / 'theme/current/colors')+'''"
+        ancestor: "'''+str(root / 'theme')+'''"
+        onChanged: read.reload()
+    }
+    FileView {
+        id: read; path: "'''+str(root / 'theme/current/colors')+'''"; printErrors: false
+        onLoaded: console.log("VALUE=" + text())
+    }
+    Timer { interval: 3500; running: true; onTriggered: Qt.quit() }
+}''')
+            environment = dict(os.environ, HOME=directory, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
+                               XDG_CONFIG_HOME=directory, XDG_CACHE_HOME=directory, XDG_STATE_HOME=directory,
+                               XDG_DATA_HOME=directory, XDG_RUNTIME_DIR=directory, QML_IMPORT_PATH=str(bar.parent),
+                               HYPRLAND_INSTANCE_SIGNATURE='', DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent')
+            process = subprocess.Popen(['quickshell', '-p', str(fixture)], env=environment,
+                                       stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+            try:
+                for value in ('first', 'second'):
+                    time.sleep(0.6)
+                    (root / 'next').write_text(value)
+                    (root / 'next').replace(root / 'one/colors')
+                time.sleep(0.6)
+                (root / 'theme/next').symlink_to(root / 'two', target_is_directory=True)
+                (root / 'theme/next').replace(root / 'theme/current')
+                time.sleep(0.6)
+                (root / 'next').write_text('fourth')
+                (root / 'next').replace(root / 'two/colors')
+                output = process.communicate(timeout=10)[0]
+            finally:
+                if process.poll() is None:
+                    process.kill()
+                    process.communicate()
+            for value in ('first', 'second', 'third', 'fourth'):
+                self.assertIn('VALUE=' + value, output, output)
+
+if __name__ == "__main__":
+    unittest.main()

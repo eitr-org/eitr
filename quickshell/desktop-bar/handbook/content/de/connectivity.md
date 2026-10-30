@@ -1,6 +1,6 @@
 # WiFi, Bluetooth und Flugmodus
 
-Öffne die Leistensymbole oder **System > Verbindungen**. Ein Panel zu öffnen wechselt niemals selbstständig den Netzwerkdienst oder trennt Geräte.
+Öffne die Leistensymbole oder **Einstellungen > Verbindungen**. Ein Panel zu öffnen wechselt niemals selbstständig den Netzwerkdienst oder trennt Geräte.
 
 ## WiFi
 

@@ -1,58 +1,23 @@
-# Finding your way around System
+# Finding your way around Settings
 
-Open **SUPER + F > System**. Actions are grouped alphabetically; global search
-still finds them directly, without making you navigate every group.
+Open **SUPER + F > Settings**. Folders come first, then actions, in alphabetical order. Global search also finds settings by their old names, including System and Toggle.
 
-## Connectivity
+**Connectivity**, **Devices & Input**, **Language**, **Security**, **Style** and **System** are folders. **Control Center** opens the same controls as SUPER + comma. **Dotfiles** opens your configuration folder in VS Code or LazyVim.
 
-**Bluetooth**, **Network Backend**, **WiFi**. The device entries open the same
-panels as the bar. Backend selection prepares the next boot, not a live restart.
+Connectivity opens the native Bluetooth and WiFi panels, Network Backend and Remote Access. Backend selection prepares the next boot without restarting the live connection.
 
-## Devices & Input
+Devices & Input contains Audio, Battery Charge Limit, Display, Keyboard, Lighting and Microphone. Battery Charge Limit appears only with a system battery and requires supported firmware. Peripheral batteries do not enable laptop controls. Display includes brightness, Night Light and supported laptop power profiles.
 
-**Audio**, **Battery Charge Limit**, **Display**, **Keyboard**, **Lighting**,
-**Microphone**. Charge-limit controls require supported laptop firmware. Display
-contains brightness, Night Light, monitor selection and supported laptop power
-profiles.
+Lighting is off by default. Follow Theme lets theme changes recolour devices controlled by OpenRGB.
 
-**Lighting** decides whether theme changes recolour fans, keyboards and other
-devices that OpenRGB controls. It is off by default, so EITR leaves your
-lighting alone; choose **Follow Theme** to give them the theme's colour now and
-at every theme change.
+Style contains the existing theme, wallpaper, lockscreen, Fonts and desktop appearance choices. Main now calls Toggle Quick Actions; Start Screensaver starts the screensaver immediately.
 
-## Information
+**Settings > System** contains **Information**, **Maintenance**, **Update Channel**, **About** and **System Update**. About opens the EITR system summary. Information contains AI Usage, Hardware, Report a Problem and Weather. Calendar, Workspace Overview and Ragnarök remain available through global search.
 
-**About**, **AI Usage**, **Hardware**, **Report a Problem**, **Weather**. About
-opens the EITR system summary; Report a Problem collects a private report you
-read before sending. The others use native panels. Calendar and Workspace Overview remain
-available from the bar and global search rather than crowding this menu. Search
-for **Ragnarök** to let Fenrir bite the screen; click or Escape ends it early.
+Maintenance contains Factory Reset, Snapshots, Check This PC, Choose Fastest Mirrors and Cleanup. Factory Reset requires two warnings and typed confirmation; read [Factory Reset](handbook:factory-reset) first.
 
-## Maintenance
+Security keeps its existing authentication, firewall and user controls. Secure Boot documentation remains in [Secure Boot](handbook:secure-boot). Keep hardware overrides in `~/.config/hypr/local.lua` and secrets out of configuration backups.
 
-**Cleanup**, **Factory Reset**, **Snapshots**, **Update**. Update offers
-System Update and Update Channel. Factory Reset is destructive and
-requires two warnings; read [Factory Reset](handbook:factory-reset) first.
+**Walker > Settings > Language** lists available languages with the current choice checked; see [Language](handbook:language). English and translated names remain searchable. Main and Apps keep their custom order.
 
-## Security
-
-**FIDO2 Security Key**, **Fingerprint**, **TPM Disk Unlock**, **Firewall**, **Return
-to Password Authentication**, **Update Password**. Secure Boot documentation is in
-**Learn > EITR Handbook > Secure Boot**, not a separate menu or security-setting action.
-
-## Dotfiles
-
-Opens your configuration directory in VS Code, or in LazyVim when VS Code is
-not installed. Keep machine-specific monitor
-and hardware overrides in `~/.config/hypr/local.lua`, not the shared defaults.
-Do not paste tokens, recovery keys or passwords into configuration backups.
-
-Use the chapters that follow for the detailed workflows and safety limits.
-
-## Language
-
-**Walker > System > Language** lists the languages, with the current one
-checked; see the [Language guide](handbook:language).
-English menu names remain searchable alongside translated names. Submenus sort
-first, then actions, by their translated titles. Main and Apps retain their
-existing order.
+Security: Assistant Access, FIDO2 Security Key, Fingerprint, TPM Disk Unlock, Users, Firewall, Return to Password Authentication, Update Password.

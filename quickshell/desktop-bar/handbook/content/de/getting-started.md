@@ -12,7 +12,7 @@ Die Schaltflächen über diesem Text richten das Wichtigste ein. Jede schließt 
 2. **SUPER + Space** öffnet die Anwendungen, **SUPER + Enter** ein Terminal.
 3. **SUPER + ,** öffnet das Kontrollzentrum. Die Einstellungen enthalten Tastatur, Bildschirm und Nachtlicht; Stil enthält die Darstellung.
 4. Verbinde dich über das WiFi- oder Bluetooth-Symbol. Rechte Leistensymbole können ausgeblendet sein; zeige sie mit dem Pfeil an.
-5. Wähle unter **Stil > Design** ein Design und unter **Stil > Hintergrundbild** ein Hintergrundbild.
+5. Wähle unter **Einstellungen > Stil > Design** ein Design und unter **Einstellungen > Stil > Hintergrundbild** ein Hintergrundbild.
 
 Neue EITR-Installationen verwenden **Eitr** und den Sperrbildschirm **Clockwork Tape**. Bestehende Installationen behalten ihre Auswahl.
 
@@ -22,7 +22,7 @@ Neue EITR-Installationen verwenden **Eitr** und den Sperrbildschirm **Clockwork 
 
 Das Handbuch führt keine Befehle aus. Codeblöcke sind Beispiele zum bewussten Prüfen und Kopieren. Externe Links öffnen sich nur beim Anklicken.
 
-Weiter mit [Tastenkürzeln](handbook:shortcuts), [Desktopleiste](handbook:desktop-bar) oder [Systemmenü](handbook:system).
+Weiter mit [Tastenkürzeln](handbook:shortcuts), [Desktopleiste](handbook:desktop-bar) oder [Einstellungsmenü](handbook:system).
 
 <!-- eitr-overview -->
 ## Was Eitr bietet

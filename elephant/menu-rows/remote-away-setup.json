@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Detailed Status",
+    "subtext": "Open the diagnostic report in a terminal",
+    "icon": "󰋽",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away status"
+    }
+  },
+  {
+    "text": "Ping a Peer",
+    "subtext": "Check whether a connection is direct or relayed",
+    "icon": "󰒢",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away ping"
+    }
+  },
+  {
+    "text": "Restore Away Access Setup",
+    "subtext": "Restore tailscaled startup and the previous operator",
+    "icon": "󰦛",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away undo"
+    }
+  },
+  {
+    "text": "Set Up Away Access",
+    "subtext": "Review and turn on the Tailscale service",
+    "icon": "󰖷",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away setup"
+    }
+  },
+  {
+    "text": "Sign In",
+    "subtext": "Open Tailscale sign-in in the browser",
+    "icon": "󰍂",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away login"
+    }
+  }
+]

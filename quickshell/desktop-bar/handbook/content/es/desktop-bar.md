@@ -14,7 +14,7 @@ El icono de actualizaciones está en el grupo derecho, antes de Notificaciones, 
 - Haz doble clic derecho en el espacio vacío para recorrer Completa → Centrada → Pestañas → Islas → Completa.
 - Arrastra el espacio vacío hacia arriba, abajo, izquierda o derecha para mover la barra. A izquierda y derecha la barra es tan estrecha como arriba y abajo: el reloj muestra la hora sobre los minutos con un icono de calendario y el tiempo solo su icono; pasa el puntero para ver la fecha y la temperatura.
 - **Reloj** en Estilo > Barra del escritorio y Centro de control > Estilo > Barra muestra la hora en formato de 12 horas con AM/PM (predeterminado) o de 24 horas, en cualquier borde.
-- Las mismas opciones están en **Estilo > Barra del escritorio** y Centro de control > Estilo.
+- Las mismas opciones están en **Configuración > Estilo > Barra del escritorio** y Centro de control > Estilo.
 - **Pantallas** (Mostrar en) coloca la barra solo en la principal, por defecto, o en todas. En todas, cada barra marca el espacio de trabajo de su pantalla; atajos como SUPER + , se abren en la pantalla en uso y las notificaciones aparecen solo en la principal. Elige la principal en el panel Pantalla.
 
 El modo centrado muestra el reloj hasta pasar el puntero. Los iconos se despliegan en su orden habitual. La chincheta entre medios y reloj mantiene la barra abierta; los paneles abiertos también. En modo completo los paneles se unen a la barra; en modo centrado se sitúan junto a ella. Ambos abren y cierran con la misma animación fluida. Cada lado se ajusta a su contenido y el reloj permanece en el centro de la pantalla en los cuatro bordes.
@@ -33,7 +33,7 @@ Los gestos de ratón para fondo y tema en el escritorio vacío están en **Apren
 
 El control Audio/Mic abre un panel con secciones separadas para la salida de audio y el micrófono. Tailscale y Streaming están justo antes de OBS. Un interruptor en su cabecera conecta Tailscale o inicia el uso compartido, debajo siguen detalles y dispositivos, y las acciones de configuración o diagnóstico están en el menú «…». El fondo de los botones de icono aparece al pasar el puntero; los paneles se actualizan solos al abrirse, un icono de actualización gira solo mientras cargan y las ayudas aparecen cerca del puntero. Los interruptores y los botones de acción internos tienen tamaños compactos comunes.
 
-**Visualizador de música** en **Principal > Herramientas** abre cava con los colores del tema. Haz clic derecho en el ecualizador multimedia para abrirlo; el clic izquierdo sigue abriendo los detalles multimedia. Pulsa **q** o **Esc** para cerrarlo. Si falta cava, se instala primero.
+**Visualizador de música** abre cava con los colores del tema. Haz clic derecho en el ecualizador multimedia para abrirlo; el clic izquierdo sigue abriendo los detalles multimedia. Pulsa **q** o **Esc** para cerrarlo. Si falta cava, se instala primero.
 
 **Ocultar automáticamente**, en Estilo > Barra del escritorio y Centro de control > Estilo, retrae la barra tras un breve retraso cuando sales de ella con el puntero. Lleva el puntero al borde de la pantalla para mostrarla. Funciona en los cuatro bordes con los modos Completa, Centrada, Pestañas e Islas. Los paneles y menús abiertos, así como arrastrar la barra, la mantienen visible; después vuelve a ocultarse. Mientras está activado, la barra no reserva espacio para las ventanas: se desliza sobre ellas en vez de moverlas. La preferencia se guarda por separado del anclaje del modo centrado y viene desactivada en instalaciones nuevas.
 
@@ -49,7 +49,7 @@ Toca el borde opuesto a la barra para mostrar el dock. Se despliega desde ese bo
 
 Las aplicaciones abiertas se agrupan por clase, en el orden de ventanas de Hyprland. Los iconos ocupan 36 px con separaciones de 6 px y usan el icono de escritorio o un símbolo alternativo; las terminales de tareas y menús de Eitr comparten un único icono con el logotipo de Eitr. Los puntos debajo cuentan sus ventanas, hasta tres, y se atenúan si ninguna está en el espacio actual de esa pantalla. Pasa el puntero para ver el nombre y el número de ventanas. Haz clic para enfocar la ventana usada más recientemente, cambiando de espacio si hace falta; otro clic pasa a su siguiente ventana. El botón central cierra la ventana más reciente. Las listas largas se desplazan a lo largo del dock. La superficie respeta Desenfoque/Color del tema y las esquinas elegidas.
 
-**Dock** en **Estilo > Barra del escritorio** y **Centro de control > Estilo > Barra** lo activa o desactiva. La opción `dock` de `bar-settings.json` tiene el valor predeterminado `"yes"`. No hay atajo para el dock.
+**Dock** en **Configuración > Estilo > Barra del escritorio** y **Centro de control > Estilo > Barra** lo activa o desactiva. La opción `dock` de `bar-settings.json` tiene el valor predeterminado `"yes"`. No hay atajo para el dock.
 
 Las aplicaciones fijadas permanecen totalmente opacas y sin puntos cuando están cerradas; haz clic para abrirlas en su propio ámbito de aplicación. Haz clic derecho para Mantener en el Dock / Quitar del Dock, Nueva ventana (si hay una entrada de escritorio) y Cerrar o Cerrar todas las ventanas. Escape o un clic fuera cierra el menú. Las aplicaciones sin entrada de escritorio no se pueden fijar.
 

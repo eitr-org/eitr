@@ -7,6 +7,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import time
+import sys
 
 
 def query(command):
@@ -21,17 +22,26 @@ def cpu_ticks():
     return sum(values), values[3] + values[4]
 
 
-def cpu():
+def cpu_identity(cpuinfo):
+    processors = []
+    for block in cpuinfo.strip().split('\n\n'):
+        processors.append({key.strip(): value.strip() for key, value in
+                           (line.split(':', 1) for line in block.splitlines() if ':' in line)})
+    cores = {(item.get('physical id', '0'), item.get('core id', str(index)))
+             for index, item in enumerate(processors)}
+    return {'name': processors[0].get('model name', 'Processor'),
+            'cores': f'{len(cores)} / {len(processors)}'}
+
+
+def cpu(identity=None):
     before, idle_before = cpu_ticks()
     time.sleep(0.2)
     after, idle_after = cpu_ticks()
     usage = round(100 * (1 - (idle_after - idle_before) / max(1, after - before)))
-    processors = []
-    for block in Path('/proc/cpuinfo').read_text().strip().split('\n\n'):
-        processors.append(dict(line.split(':', 1) for line in block.splitlines() if ':' in line))
-    processors = [{key.strip(): value.strip() for key, value in item.items()} for item in processors]
-    cores = {(item.get('physical id', '0'), item.get('core id', str(index))) for index, item in enumerate(processors)}
-    mhz = [float(item['cpu MHz']) for item in processors if 'cpu MHz' in item]
+    cpuinfo = Path('/proc/cpuinfo').read_text()
+    if identity is None:
+        identity = cpu_identity(cpuinfo)
+    mhz = [float(line.split(':', 1)[1]) for line in cpuinfo.splitlines() if line.startswith('cpu MHz')]
     temperature = 'Unavailable'
     try:
         sensors = json.loads(query(['sensors', '-j']))
@@ -48,8 +58,8 @@ def cpu():
     except (ValueError, AttributeError):
         pass
     load = ' / '.join(Path('/proc/loadavg').read_text().split()[:3])
-    return {'title': 'CPU', 'name': processors[0].get('model name', 'Processor'), 'usage': usage,
-            'rows': [['Cores / threads', f'{len(cores)} / {len(processors)}'],
+    return {'title': 'CPU', 'name': identity['name'], 'usage': usage,
+            'rows': [['Cores / threads', identity['cores']],
                      ['Frequency / temperature', f'{sum(mhz) / len(mhz) / 1000:.2f} GHz · {temperature}' if mhz else temperature],
                      ['Load · 1 / 5 / 15 min', load]]}
 
@@ -71,25 +81,40 @@ def memory():
                      ['Swap used / total', f'{gib(swap - values["SwapFree"])} / {gib(swap)}']]}
 
 
-def gpu():
-    raw = query(['nvidia-smi', '--query-gpu=name,utilization.gpu,memory.used,memory.total,temperature.gpu,power.draw,power.limit',
+def gpu(identity=None):
+    if identity is not None and not identity["available"]:
+        return {"title": "GPU", "name": "GPU telemetry unavailable", "usage": None, "rows": []}
+    fields = 'utilization.gpu,memory.used,memory.total,temperature.gpu,power.draw,power.limit'
+    if identity is None:
+        fields = 'name,' + fields
+    raw = query(['nvidia-smi', '--query-gpu=' + fields,
                  '--format=csv,noheader,nounits'])
     entries = list(csv.reader(io.StringIO(raw)))
     if not entries:
         return {'title': 'GPU', 'name': 'GPU telemetry unavailable', 'usage': None, 'rows': []}
-    name, usage, used, total, temperature, power, limit = [value.strip() for value in entries[0]]
+    values = [value.strip() for value in entries[0]]
+    if identity is not None:
+        values.insert(0, identity['name'])
+    name, usage, used, total, temperature, power, limit = values
     def number(value, unit, divisor=1):
         try:
             return f'{float(value) / divisor:.1f} {unit}'
         except ValueError:
             return 'Unavailable'
-    return {'title': 'GPU', 'name': name, 'usage': float(usage) if usage.isdigit() else None,
+    return {'title': 'GPU', 'name': identity['name'] if identity else name, 'usage': float(usage) if usage.isdigit() else None,
             'rows': [['VRAM used / total', f'{number(used, "GiB", 1024)} / {number(total, "GiB", 1024)}'],
                      ['Temperature', number(temperature, '°C')],
                      ['Power / limit', f'{number(power, "W")} / {number(limit, "W")}']]}
 
 
-def storage():
+def storage(identity=None):
+    if identity is None:
+        identity = storage_identity()
+    name, rows = identity["name"], [list(row) for row in identity["rows"]]
+    return storage_usage(name, rows)
+
+
+def storage_identity():
     try:
         devices = json.loads(query(['lsblk', '-J', '-b', '-o', 'NAME,TYPE,SIZE,MODEL,ROTA,MOUNTPOINTS']))['blockdevices']
     except (ValueError, KeyError, TypeError):
@@ -108,6 +133,10 @@ def storage():
         capacity = f'{int(device.get("size") or 0) / 1024 ** 3:.1f} GiB'
         rows = [['Type / device', f'{kind} · {name}'], ['Capacity', capacity]]
         name = (device.get('model') or name).strip()
+    return {"name": name, "rows": rows}
+
+
+def storage_usage(name, rows):
     usage = None
     try:
         stats = shutil.disk_usage('/')
@@ -121,5 +150,17 @@ def storage():
     return [{'title': 'Storage', 'name': name, 'usage': usage, 'rows': rows}]
 
 
+def snapshot(identity=None):
+    if identity is None:
+        identity = {'cpu': cpu_identity(Path('/proc/cpuinfo').read_text()), 'storage': storage_identity()}
+        graphics = gpu()
+        identity['gpu'] = {'available': graphics['usage'] is not None or bool(graphics['rows']),
+                           'name': graphics['name']}
+    else:
+        graphics = gpu(identity['gpu'])
+    return {'identity': identity, 'sections': [cpu(identity['cpu']), graphics, memory(), *storage(identity['storage'])]}
+
+
 if __name__ == '__main__':
-    print(json.dumps({'sections': [cpu(), gpu(), memory(), *storage()]}))
+    identity = json.loads(sys.stdin.readline()) if '--identity' in sys.argv else None
+    print(json.dumps(snapshot(identity)))

@@ -1,8 +1,10 @@
 # Accès à distance
 
+Configuration regroupe les réglages. Partager ce PC > Configuration contient Configurer le partage, Paramètres de partage, Démarrer à la connexion, Désactiver le démarrage à la connexion, État détaillé et Restaurer la configuration du partage. Accéder à ce PC à distance > Configuration contient Se connecter, Configurer l’accès distant, Restaurer la configuration d’accès distant, État détaillé et Tester un pair par ping. Les actions courantes restent directement dans leur menu parent.
+
 État détaillé ouvre un terminal de diagnostic qui reste ouvert jusqu’à un appui sur Esc.
 
-Ouvrez System > Connectivity > Accès à distance. Le partage reste désactivé jusqu’à
+Ouvrez Paramètres > Connectivité > Accès à distance. Le partage reste désactivé jusqu’à
 son activation. Cette étape contrôle le bureau Eitr connecté et éveillé.
 Le fonctionnement sans écran, avant connexion et wake on LAN viendront plus tard.
 Si cet ordinateur se verrouille pendant le partage, l’écran distant affiche
@@ -62,7 +64,7 @@ Raccourcis SUPER depuis le Mac : dans les réglages de Moonlight, activez **Capt
 
 ## Tailscale sur les deux ordinateurs
 
-Dans Accès hors du domicile, choisissez Configurer l’accès extérieur. Après installation,
+Dans Accéder à ce PC à distance, choisissez Configurer l’accès extérieur. Après installation,
 l’assistant root confirmé active et démarre `tailscaled.service`, puis définit
 votre utilisateur comme opérateur. La connexion au compte, la connexion au réseau et la déconnexion ne demandent donc aucun mot de passe. Un Tailscale configuré autrement demande le mot de passe administrateur.
 Se connecter ouvre l’URL de `tailscale login` dans le navigateur. Connect connecte ;

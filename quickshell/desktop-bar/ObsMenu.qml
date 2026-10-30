@@ -29,7 +29,7 @@ ThemedPopup {
 
     function refresh() {
         if (busy && !awaitingState) return;
-        if (!query.running && !actionProcess.running) query.running = true;
+        if (!actionProcess.running) ObsStatus.refresh();
     }
     function run(action, argument) {
         if (busy) return;
@@ -40,7 +40,6 @@ ThemedPopup {
         preparingStart = action === "record" || action === "stream";
         if (preparingStart) editing = false;
         awaitingState = false;
-        query.running = false;
         if (!optionWriter.running) beginAction();
     }
     function beginAction() {
@@ -66,7 +65,7 @@ ThemedPopup {
         optionWriter.running = true;
     }
     onOpenedChanged: if (opened) { refresh(); loadOptions(); }
-    Component.onCompleted: { refresh(); loadOptions(); }
+    Component.onCompleted: obsState = ObsStatus.state
     Process {
         id: optionQuery
         command: ["python3", menu.controlScript, "options"]
@@ -98,7 +97,6 @@ ThemedPopup {
             }
         }
     }
-    Timer { interval: 2000; repeat: true; running: true; onTriggered: menu.refresh() }
     Timer {
         id: startDelay
         interval: menu.transitionDuration + 50
@@ -107,25 +105,15 @@ ThemedPopup {
             actionProcess.running = true;
         }
     }
-    Process {
-        id: query
-        command: ["python3", menu.controlScript, "status"]
-        stdout: StdioCollector { id: stateOutput }
-        onExited: function(code) {
-            const received = stateOutput.text;
+    Connections {
+        target: ObsStatus
+        function onReceived(snapshot) {
             menu.updateContent(function() {
-                if (actionProcess.running) return;
-                try {
-                    if (code !== 0) throw new Error("query failed");
-                    menu.applySnapshot("obsState", JSON.parse(received));
-                    menu.status = menu.actionError || menu.obsState.error || "";
-                } catch (error) {
-                    menu.applySnapshot("obsState", {ready: false, recording: false, paused: false, streaming: false});
-                    menu.status = menu.actionError || Eitr.I18n.tr("OBS status unavailable");
-                }
+                if (actionProcess.running || (menu.busy && !menu.awaitingState)) return;
+                menu.applySnapshot("obsState", snapshot);
+                menu.status = menu.actionError || snapshot.error || (!snapshot.ready ? Eitr.I18n.tr("OBS status unavailable") : "");
                 menu.pendingAction = "";
                 menu.awaitingState = false;
-
             });
         }
     }

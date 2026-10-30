@@ -25,8 +25,9 @@ return function(scope)
     local ok, index = pcall(jsonDecode, raw)
     if not ok or not index.rows then return {} end
     local entries = {}
+    local battery = dofile(paths.code("elephant/battery-state.lua"))()
     for _, row in ipairs(index.rows) do
-        if in_scope(row, scope) then
+        if in_scope(row, scope) and (battery.available or (row.submenu ~= "battery-limit" and row.provider ~= "menus:battery-limit")) then
             local submenu = row.subtext == ">"
             local entry = {Text = row.text, Subtext = not submenu and row.subtext or nil,
                 State = submenu and {"submenu"} or nil, Icon = row.icon, Value = row.key,

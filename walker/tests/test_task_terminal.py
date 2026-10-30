@@ -183,10 +183,10 @@ class TaskTerminalTests(unittest.TestCase):
                         self.assertIn("ItemSubtext", layout.read_text())
 
     def test_update_terminals_use_presenter_without_hold(self):
-        for name in ("update",):
+        for name in ("system",):
             data = menu_data.load(name)
             for entry in data["entries"]:
-                if "actions" in entry:
+                if entry["text"] == "System Update":
                     command = entry["actions"]["open"]
                     self.assertIn("task-terminal.py", command)
                     self.assertNotIn("--hold", command)

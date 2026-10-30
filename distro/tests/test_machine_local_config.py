@@ -63,8 +63,13 @@ class MachineLocalConfigTests(unittest.TestCase):
     def test_launcher_backends_start_with_the_desktop(self):
         text = HYPRLAND.read_text()
         startup = text.split('hl.on("hyprland.start", function()', 1)[1].split('end)', 1)[0]
-        self.assertIn('hl.exec_cmd("systemctl --user start elephant.service")', startup)
-        self.assertIn('hl.exec_cmd("eitr-session && eitr-walker --gapplication-service")', startup)
+        self.assertIn('hyprScriptsDir .. "/session-start.sh"', startup)
+        script = (ROOT / 'hypr/scripts/session-start.sh').read_text()
+        self.assertLess(script.index('eitr-hyprpaper &'), script.index('eitr-shell desktop-bar --daemonize'))
+        self.assertLess(script.index('eitr-shell desktop-bar --daemonize'), script.index('sleep 4'))
+        self.assertLess(script.index('sleep 4'), script.index('start --no-block elephant.service'))
+        self.assertIn('(eitr-session && eitr-walker --gapplication-service) &', script)
+        self.assertIn('systemctl --user start elephant.service', (ROOT / 'walker/bin/walker').read_text())
 
     def test_shared_hyprland_config_has_no_machine_specific_outputs_or_devices(self):
         text = HYPRLAND.read_text()

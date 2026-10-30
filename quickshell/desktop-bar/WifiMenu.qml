@@ -10,6 +10,9 @@ ThemedPopup {
     waitForFreshData: true
     implicitWidth: 468
     implicitHeight: 528
+    property bool observing: false
+    onObservingChanged: if (observing) refresh()
+    signal statusReceived(var snapshot)
     property var devices: []
     readonly property var device: devices.length ? devices[0] : null
     readonly property var details: device ? device.details : ({})
@@ -68,12 +71,11 @@ ThemedPopup {
         }
     }
     function probe() { if (visible && device && device.state === "connected" && !pingQuery.running) { pingQuery.command = ["python3", helper, "probe", device.name]; pingQuery.running = true; } }
-    Component.onCompleted: refresh()
     onOpenedChanged: {
         if (opened) { message = ""; latency = ({}); refresh(); }
         else { selectedNetwork = null; secret = ""; pendingRemoval = ""; password.text = ""; clearEnterprise(); closeShare(); }
     }
-    Timer { interval: 2000; running: true; repeat: true; onTriggered: menu.refresh() }
+    Timer { interval: 2000; running: menu.opened || menu.observing; repeat: true; onTriggered: menu.refresh() }
     Timer { interval: 15000; running: menu.opened; repeat: true; onTriggered: menu.probe() }
     Process {
         id: query
@@ -88,6 +90,7 @@ ThemedPopup {
                     else {
                         menu.applySnapshot("devices", result.devices);
                         menu.backend = result.backend || "iwd";
+                        menu.statusReceived(result);
                         if (menu.device && menu.latency.ping === undefined) menu.probe();
                     }
                 } catch (e) { menu.message = "WiFi unavailable"; }

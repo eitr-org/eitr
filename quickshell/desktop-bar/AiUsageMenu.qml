@@ -61,7 +61,7 @@ ThemedPopup {
         freshReceived = false;
         refresh();
     }
-    Timer { interval: 300000; repeat: true; running: true; onTriggered: menu.refresh() }
+    Timer { interval: 300000; repeat: true; running: menu.opened; onTriggered: menu.refresh() }
     Process {
         id: cached
         command: ["python3", Quickshell.shellDir + "/scripts/ai-popup.py", "cached"]

@@ -457,8 +457,8 @@ msgstr "Boot menu: Eitr starts first and lists Windows when it is found"
 msgid "Bootable snapshots are not supported with {loader}. {reason} Nothing was changed."
 msgstr "Bootable snapshots are not supported with {loader}. {reason} Nothing was changed."
 
-msgid "Both network backends are running; select one in System > Connectivity > Network Backend and reboot"
-msgstr "Both network backends are running; select one in System > Connectivity > Network Backend and reboot"
+msgid "Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot"
+msgstr "Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot"
 
 msgid "Browse bucket"
 msgstr "Browse bucket"
@@ -571,8 +571,8 @@ msgstr "Charging will stop at {value}% to reduce battery wear, also after reboot
 msgid "Check Auth"
 msgstr "Check Auth"
 
-msgid "Check this PC"
-msgstr "Check this PC"
+msgid "Check This PC"
+msgstr "Check This PC"
 
 msgid "Checking AUR updates…"
 msgstr "Checking AUR updates…"
@@ -1414,8 +1414,8 @@ msgstr "Helpers only read: they cannot change files or run commands."
 msgid "Home snapshots are off, and the existing ones were deleted. The excluded folders stay as they are."
 msgstr "Home snapshots are off, and the existing ones were deleted. The excluded folders stay as they are."
 
-msgid "Home snapshots are off: turn them on in System > Maintenance > Snapshots"
-msgstr "Home snapshots are off: turn them on in System > Maintenance > Snapshots"
+msgid "Home snapshots are off: turn them on in Settings > System > Maintenance > Snapshots"
+msgstr "Home snapshots are off: turn them on in Settings > System > Maintenance > Snapshots"
 
 msgid "Home snapshots are on: one every hour for a day and one a day for a week. Caches, Downloads, VM disks and games are left out from the next start."
 msgstr "Home snapshots are on: one every hour for a day and one a day for a week. Caches, Downloads, VM disks and games are left out from the next start."
@@ -2131,8 +2131,8 @@ msgstr "Open folder"
 msgid "Open image"
 msgstr "Open image"
 
-msgid "Open it from Tools > Plugins."
-msgstr "Open it from Tools > Plugins."
+msgid "Open it from Plugins > Installed Plugins."
+msgstr "Open it from Plugins > Installed Plugins."
 
 msgid "Open the picture itself, right-click it, choose Copy image address and paste that."
 msgstr "Open the picture itself, right-click it, choose Copy image address and paste that."
@@ -3136,8 +3136,8 @@ msgstr "Tailscale needs your administrator password once to let this account swi
 msgid "Tailscale setup belongs to another desktop user"
 msgstr "Tailscale setup belongs to another desktop user"
 
-msgid "Tailscale sign-in failed. Try again from Access away from home."
-msgstr "Tailscale sign-in failed. Try again from Access away from home."
+msgid "Tailscale sign-in failed. Try again from Access This PC Remotely."
+msgstr "Tailscale sign-in failed. Try again from Access This PC Remotely."
 
 msgid "Tailscale state: {state}"
 msgstr "Tailscale state: {state}"
@@ -3796,8 +3796,8 @@ msgstr "VPCs"
 msgid "VPN operation failed. Configuration details are hidden."
 msgstr "VPN operation failed. Configuration details are hidden."
 
-msgid "VPN profiles need NetworkManager. Choose it in System > Connectivity > Network Backend, then reboot."
-msgstr "VPN profiles need NetworkManager. Choose it in System > Connectivity > Network Backend, then reboot."
+msgid "VPN profiles need NetworkManager. Choose it in Settings > Connectivity > Network Backend, then reboot."
+msgstr "VPN profiles need NetworkManager. Choose it in Settings > Connectivity > Network Backend, then reboot."
 
 msgid "Version"
 msgstr "Version"
@@ -3940,8 +3940,8 @@ msgstr "cannot list monitors: {error}"
 msgid "checking the longships"
 msgstr "checking the longships"
 
-msgid "checkupdates (pacman-contrib) is required to install safely. Run System → Maintenance → Update → System Update, then install pacman-contrib."
-msgstr "checkupdates (pacman-contrib) is required to install safely. Run System → Maintenance → Update → System Update, then install pacman-contrib."
+msgid "checkupdates (pacman-contrib) is required to install safely. Run Settings → System → System Update, then install pacman-contrib."
+msgstr "checkupdates (pacman-contrib) is required to install safely. Run Settings → System → System Update, then install pacman-contrib."
 
 msgid "consulting the Norns"
 msgstr "consulting the Norns"
@@ -4102,8 +4102,8 @@ msgstr "{count} events from the last week to the next 60 days."
 msgid "{count} occurrences"
 msgstr "{count} occurrences"
 
-msgid "{count} plugin updates available: Control Center > Plugins or Install > Plugins > Update Plugins"
-msgstr "{count} plugin updates available: Control Center > Plugins or Install > Plugins > Update Plugins"
+msgid "{count} plugin updates available: Control Center > Plugins or Plugins > Update Plugins"
+msgstr "{count} plugin updates available: Control Center > Plugins or Plugins > Update Plugins"
 
 msgid "{count} system update(s) are waiting. On Arch Linux an app can only be installed on an up-to-date system: installing now would also upgrade part of the system without a recovery snapshot, which can break other apps."
 msgstr "{count} system update(s) are waiting. On Arch Linux an app can only be installed on an up-to-date system: installing now would also upgrade part of the system without a recovery snapshot, which can break other apps."
@@ -4243,11 +4243,11 @@ msgstr "{path} still refers to the installation medium"
 msgid "{provider_name} needs the {command} command"
 msgstr "{provider_name} needs the {command} command"
 
-msgid "{reason} Its service was stopped and its files were kept. Remove it from Install > Plugins."
-msgstr "{reason} Its service was stopped and its files were kept. Remove it from Install > Plugins."
+msgid "{reason} Its service was stopped and its files were kept. Remove it from Plugins > Installed Plugins."
+msgstr "{reason} Its service was stopped and its files were kept. Remove it from Plugins > Installed Plugins."
 
-msgid "{reason} Its service was stopped and its files were kept. Remove it from Install > Plugins. Report a plugin: {url}"
-msgstr "{reason} Its service was stopped and its files were kept. Remove it from Install > Plugins. Report a plugin: {url}"
+msgid "{reason} Its service was stopped and its files were kept. Remove it from Plugins > Installed Plugins. Report a plugin: {url}"
+msgstr "{reason} Its service was stopped and its files were kept. Remove it from Plugins > Installed Plugins. Report a plugin: {url}"
 
 msgid "{relative_path} is no longer read-only; the restore point is not trusted"
 msgstr "{relative_path} is no longer read-only; the restore point is not trusted"

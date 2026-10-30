@@ -1,6 +1,6 @@
 # WiFi, Bluetooth and airplane mode
 
-Open the bar icons or **System > Connectivity**. Opening a panel never changes
+Open the bar icons or **Settings > Connectivity**. Opening a panel never changes
 the selected backend or disconnects a device by itself.
 
 ## WiFi

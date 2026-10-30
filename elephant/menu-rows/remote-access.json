@@ -1,15 +1,21 @@
 [
   {
-    "text": "Access away from home",
+    "text": "Access This PC Remotely",
     "subtext": ">",
     "icon": "󰇧",
-    "submenu": "remote-away"
+    "submenu": "remote-away",
+    "keywords": [
+      "Access This PC Remotely"
+    ]
   },
   {
-    "text": "Share this PC",
+    "text": "Share This PC",
     "subtext": ">",
     "icon": "󱒃",
-    "submenu": "remote-share"
+    "submenu": "remote-share",
+    "keywords": [
+      "Share This PC"
+    ]
   },
   {
     "text": "Connect to another PC",

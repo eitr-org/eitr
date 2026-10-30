@@ -6,13 +6,13 @@ Kitty muestra una estela corta en saltos de al menos dos celdas, como Enter, Hom
 
 ### Fuego del cursor
 
-**Estilo > Terminal > Fuego del cursor** ofrece **Desactivado** (predeterminado) y **Activado**. Activado usa el efecto `cursor-trail-blaze` integrado de Kitty al mover el cursor, sin detectar velocidad de escritura. Desactivado recupera la estela rápida normal y tu elección personal de shader.
+**Configuración > Estilo > Terminal > Fuego del cursor** ofrece **Desactivado** (predeterminado) y **Activado**. Activado usa el efecto `cursor-trail-blaze` integrado de Kitty al mover el cursor, sin detectar velocidad de escritura. Desactivado recupera la estela rápida normal y tu elección personal de shader.
 
 Requiere Kitty 0.49+ y `shader-slang`, incluidos en las dependencias de Eitr. Activarlo valida el shader antes de guardar o recargar Kitty. La preferencia local está en `~/.config/eitr/terminal.json`; el auxiliar escribe `kitty/cursor-fire.conf`, incluido al final por el cargador del usuario. Activado, selecciona el shader de fuego y baja el umbral a una celda. Fuentes, temas y archivos personales quedan intactos.
 
 ## Elegir terminal
 
-**Estilo > Terminal** en Walker y **Centro de control > Estilo > Terminal** ofrecen
+**Configuración > Estilo > Terminal** en Walker y **Centro de control > Estilo > Terminal** ofrecen
 **Kitty** (predeterminado) y **Ghostty**. El campo local `terminal` de
 `~/.config/eitr/terminal.json` controla Super+Enter, tmux, las sesiones de usuario,
 los terminales de IA/proyectos y las acciones de Walker para abrir en un terminal.

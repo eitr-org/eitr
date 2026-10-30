@@ -8,6 +8,8 @@ ThemedPopup {
     id: menu
     waitForFreshData: true
     property int maximumHeight: 900
+    property var identity: null
+    signal identityReceived(var identity)
     property var sections: []
     property string error: ""
     readonly property var sectionIcons: ({CPU: "\u{F0EE0}", GPU: "\u{F08AE}", RAM: "\u{F035B}", Storage: "\u{F02CA}"})
@@ -17,25 +19,28 @@ ThemedPopup {
     function toggle(title) { let next = Object.assign({}, expanded); next[title] = !next[title]; expanded = next; }
 
     function refresh() {
-        if (!query.running) query.running = true;
+        if (!query.running) { query.stdinEnabled = true; query.running = true; }
     }
 
     implicitWidth: 468
     implicitHeight: Math.min(content.implicitHeight + verticalContentInset, maximumHeight)
     leftAligned: true
-    Component.onCompleted: refresh()
     onOpenedChanged: if (opened) refresh()
-    Timer { interval: 2000; repeat: true; running: true; onTriggered: menu.refresh() }
+    Timer { interval: 2000; repeat: true; running: menu.opened; onTriggered: menu.refresh() }
     Process {
         id: query
-        command: ["python3", Quickshell.shellDir + "/scripts/system-details.py"]
+        command: ["python3", Quickshell.shellDir + "/scripts/system-details.py", "--identity"]
+        stdinEnabled: true
+        onStarted: { write(JSON.stringify(menu.identity) + "\n"); stdinEnabled = false; }
         stdout: StdioCollector { id: output }
         onExited: function(code) {
             const received = output.text;
             menu.updateContent(function() {
                 try {
                     if (code !== 0) throw new Error("query failed");
-                    menu.applySnapshot("sections", JSON.parse(received).sections);
+                    const snapshot = JSON.parse(received);
+                    menu.identityReceived(snapshot.identity);
+                    menu.applySnapshot("sections", snapshot.sections);
                     menu.error = "";
                 } catch (e) { menu.error = Eitr.I18n.tr("Hardware information unavailable"); }
 

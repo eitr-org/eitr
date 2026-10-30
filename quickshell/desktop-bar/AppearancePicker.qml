@@ -179,7 +179,7 @@ Item {
             PanelHeading {
                 x: PanelStyle.padding; y: PanelStyle.padding
                 width: parent.width - 2 * PanelStyle.padding
-                text: picker.mode === "wallpaper" ? Eitr.I18n.tr("Wallpaper") : picker.mode === "font" ? Eitr.I18n.tr("Default Font") : Eitr.I18n.tr("Theme")
+                text: picker.mode === "wallpaper" ? Eitr.I18n.tr("Wallpaper") : picker.mode === "font" ? Eitr.I18n.tr("Fonts") : Eitr.I18n.tr("Theme")
                 foreground: picker.foreground; accent: picker.accent; rune: "style"
             }
             Text {

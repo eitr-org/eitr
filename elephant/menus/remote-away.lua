@@ -1,7 +1,7 @@
 local paths = dofile((os.getenv("EITR_LIBRARY_ROOT") or "/usr/share/eitr/lib") .. "/paths.lua")
 local i18n = dofile(paths.code("elephant/i18n.lua"))
 Name = "remote-away"
-NamePretty = i18n.tr("Access away from home")
+NamePretty = i18n.tr("Access This PC Remotely")
 Parent = "remote-access"
 Icon = "󰇧"
 FixedOrder = true

@@ -43,10 +43,10 @@ def origin_line(spec, url):
         return tr(OFFICIAL)
     return tr('Plugin by {author} · not reviewed by Eitr', author=short_author(spec))
 menu_mark('Plugins')
-menu_mark('Add Plugin…')
-menu_mark('Review a Git repository before installing')
+menu_mark('Add Plugins')
+menu_mark('Review a repository and select one or more plugins to install')
 menu_mark('No plugins installed')
-menu_mark('Add a plugin from Install > Plugins')
+menu_mark('Add plugins from Main > Plugins')
 menu_mark('Update')
 menu_mark('Review a new plugin commit')
 menu_mark('Remove')
@@ -252,7 +252,7 @@ def add(manager, url=None):
         except Cancelled:
             return False
     if installed and shutil.which('notify-send'):
-        subprocess.run(['notify-send', '--app-name=Eitr', tr('Plugin installed'), tr('Open it from Tools > Plugins.')],
+        subprocess.run(['notify-send', '--app-name=Eitr', tr('Plugin installed'), tr('Open it from Plugins > Installed Plugins.')],
                        check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     return installed
 
@@ -409,9 +409,9 @@ def notify_blocked(plugin_id, name, kind, reason):
 def notice_text(name, kind, reason):
     if kind == 'policy':
         return (tr('Plugin turned off: {name}', name=name),
-                tr('{reason} Its service was stopped and its files were kept. Remove it from Install > Plugins.', reason=reason))
+                tr('{reason} Its service was stopped and its files were kept. Remove it from Plugins > Installed Plugins.', reason=reason))
     return (tr('Plugin blocked: {name}', name=name),
-            tr('{reason} Its service was stopped and its files were kept. Remove it from Install > Plugins. Report a plugin: {url}',
+            tr('{reason} Its service was stopped and its files were kept. Remove it from Plugins > Installed Plugins. Report a plugin: {url}',
                reason=reason, url=REPORT_URL))
 
 

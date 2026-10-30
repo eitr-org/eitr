@@ -10,6 +10,9 @@ set -euo pipefail
 export XDG_CONFIG_DIRS="$EITR_CODE_ROOT/xdg:${XDG_CONFIG_DIRS:-/etc/xdg}"
 # GTK's empty background-effect region otherwise overrides compositor blur.
 export GDK_WAYLAND_DISABLE="${GDK_WAYLAND_DISABLE:+$GDK_WAYLAND_DISABLE,}ext_background_effect_manager_v1"
+# A shortcut during staged login starts the same backend service and waits for
+# readiness, including its menu warm-up. systemd coalesces concurrent requests.
+systemctl --user start elephant.service
 # Menus list their own rows when empty and, while typing, search the menus below
 # them (Main: every Elephant menu, Apps included) from the index prepared here.
 # Apps and Clipboard search only themselves, so opening them skips the preparation.

@@ -9,8 +9,8 @@ FixedOrder = true
 local entries = dofile(paths.code("elephant/bar-settings-entries.lua"))
 function GetEntries()
     return entries("appearance", {
-        {"Blur", "transparent", "󰐾"},
-        {"Theme Color", "solid", "󰏘"},
+        {"Blur", "transparent", "󰐾", i18n.mark("Use a blurred transparent bar")},
+        {"Theme Color", "solid", "󰏘", i18n.mark("Use the current theme colour")},
     })
 end
 

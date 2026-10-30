@@ -351,9 +351,9 @@ class MenuTests(SandboxTest):
         rows = self.lua('dofile("elephant/menus/wallpaper.lua") for _, entry in ipairs(GetEntries()) do '
                         'print(entry.Text .. "|" .. (entry.Subtext or "") .. "|" .. tostring(entry.Actions.wallpaper_delete)) end')
         self.assertIn("Add My Own Wallpaper|A picture file or an https address, kept on this computer|nil", rows)
-        self.assertIn("01-shipped.png||nil", rows)
+        self.assertIn("01-shipped.png|Apply or preview this wallpaper|nil", rows)
         own_row = next(row for row in rows if row.startswith("lake.png|"))
-        self.assertIn("|Yours|", own_row)
+        self.assertIn("|Yours · ", own_row)
         self.assertIn(f"wallpaper delete '{mine}'", own_row)
         # A theme made from that picture keeps a copy: while it is current, the picture is listed once.
         shutil.copy(mine, backgrounds / mine.name)
@@ -369,14 +369,14 @@ class MenuTests(SandboxTest):
         mine = own_style.add_wallpaper(str(picture(self.pictures / "lake.png")), theme="afterglow")
         rows = self.lua('dofile("elephant/menus/wallpaper.lua") for _, entry in ipairs(GetEntries()) do '
                         'print((entry.Value or "") .. "|" .. (entry.Subtext or "") .. "|" .. tostring(entry.Actions.wallpaper_delete)) end')
-        self.assertIn(f"{mine}|Yours|python3 '{ROOT}/walker/scripts/actions/style/own.py' wallpaper delete '{mine}'", rows)
+        self.assertIn(f"{mine}|Yours · Apply or preview this wallpaper|python3 '{ROOT}/walker/scripts/actions/style/own.py' wallpaper delete '{mine}'", rows)
 
     def test_lockscreen_menu_offers_creation_and_deleting_own_designs(self):
         own_style.create_lockscreen("Rune Lock", "theme-wallpaper", str(picture(self.pictures / "lake.png")))
         rows = self.lua('dofile("elephant/menus/lockscreen.lua") for _, entry in ipairs(GetEntries()) do '
                         'print(entry.Text .. "|" .. (entry.Subtext or "") .. "|" .. tostring(entry.Actions.lockscreen_delete)) end')
         self.assertTrue(any(row.startswith("Create Lockscreen|") for row in rows))
-        self.assertIn("Nothing||nil", rows)
+        self.assertIn("Nothing|Select or preview this lockscreen|nil", rows)
         own_row = next(row for row in rows if row.startswith("Rune Lock|"))
         self.assertIn("lockscreen delete 'user:rune-lock'", own_row)
 
@@ -392,10 +392,10 @@ class MenuTests(SandboxTest):
                 print(entry.Value .. "|" .. (entry.Subtext or "") .. "|" .. tostring(entry.Actions.theme_delete) .. "|" .. tostring(entry.Actions.theme_colors))
             end''')
         own_row = next(row for row in rows if row.startswith("lake|"))
-        self.assertIn("|Yours|", own_row)
+        self.assertIn("|Yours · ", own_row)
         self.assertIn("theme delete 'lake'", own_row)
         self.assertIn("theme colors 'lake'", own_row)
-        self.assertIn("eitr||nil|nil", rows)
+        self.assertIn("eitr|Apply or preview this theme|nil|nil", rows)
 
     def test_theme_rows_offer_creation(self):
         rows = json.loads((ROOT / "elephant/menu-rows/theme.json").read_text())

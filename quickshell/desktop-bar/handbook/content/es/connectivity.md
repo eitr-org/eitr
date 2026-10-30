@@ -1,6 +1,6 @@
 # WiFi, Bluetooth y modo avión
 
-Abre los iconos de la barra o **Sistema > Conectividad**. Abrir un panel nunca cambia el servicio de red ni desconecta un dispositivo por sí solo.
+Abre los iconos de la barra o **Configuración > Conectividad**. Abrir un panel nunca cambia el servicio de red ni desconecta un dispositivo por sí solo.
 
 ## WiFi
 

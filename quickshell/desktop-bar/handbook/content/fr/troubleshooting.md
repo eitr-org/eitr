@@ -2,7 +2,7 @@
 
 ## Vérifier ce PC
 
-Ouvrez **Système > Entretien > Vérifier ce PC** ou `eitr check`. Les vérifications lisent seulement, sans réparation ni redémarrage. Les listes de paquets ne sont pas actualisées. DNS utilise le réseau. `eitr check --json` affiche les détails techniques sans invite.
+Ouvrez **Paramètres > Système > Entretien > Vérifier ce PC** ou `eitr check`. Les vérifications lisent seulement, sans réparation ni redémarrage. Les listes de paquets ne sont pas actualisées. DNS utilise le réseau. `eitr check --json` affiche les détails techniques sans invite.
 
 **Vérifications approfondies (mot de passe requis)**: Pour les vérifications approfondies, appuyez sur Entrée ; Échap les ignore. `sudo /usr/lib/eitr/eitr-system selfcheck-deeper` demande votre mot de passe dans le même terminal. Les résultats remplacent les vérifications ignorées correspondantes. Cela lit Snapper, les paires pré/post, la dernière mise à jour réussie, les qgroups Btrfs existants, le JSON de protection du démarrage, un manifeste d’usine déjà monté et les clés Arch Linux/Eitr avec `pacman-key --list-keys`. Aucun quota n’est activé et aucun point d’usine n’est monté. Les données absentes sont ignorées avec une raison ; le manifeste ne vérifie pas l’intégrité des archives. `fsck.vfat -n` vérifie uniquement une ESP FAT identifiée sans ambiguïté et non montée en écriture ; sinon la vérification demande son démontage et est ignorée.
 
@@ -33,7 +33,7 @@ Sauvegardez les autres disques avant d’installer sur un SSD séparé et vérif
 
 ## Signaler un problème
 
-**Système > Informations > Signaler un problème** recueille versions d’EITR et des paquets, matériel graphique, erreurs Hyprland, services défaillants, avertissements récents, plantages de la dernière semaine, erreurs du démarrage précédent, journal d’installation et changements de paquets dans `~/Documents/eitr-problem-report-<time>.txt`, lisible uniquement par vous. Il retire nom d’utilisateur, nom du PC, chemin personnel, e-mail, IP et MAC. Les journaux peuvent encore citer applications ou fichiers : lisez le rapport avant envoi.
+**Paramètres > Système > Informations > Signaler un problème** recueille versions d’EITR et des paquets, matériel graphique, erreurs Hyprland, services défaillants, avertissements récents, plantages de la dernière semaine, erreurs du démarrage précédent, journal d’installation et changements de paquets dans `~/Documents/eitr-problem-report-<time>.txt`, lisible uniquement par vous. Il retire nom d’utilisateur, nom du PC, chemin personnel, e-mail, IP et MAC. Les journaux peuvent encore citer applications ou fichiers : lisez le rapport avant envoi.
 
 Rien n’est envoyé automatiquement. Le terminal indique seulement où le rapport est enregistré et propose de l’envoyer ou de le lire d’abord :
 
@@ -46,7 +46,7 @@ Le rapport sert uniquement à identifier et corriger ce problème, puis il est s
 
 ### Quand un composant plante
 
-Les Notifications de plantage sont activées par défaut. Un service utilisateur surveille les nouveaux enregistrements lisibles de systemd-coredump concernant vos propres programmes. Chaque plantage propose Signaler un problème, Ignorer et Mettre ce programme en sourdine ; Demander à l’IA apparaît lorsqu’un assistant par défaut est installé et sélectionné. Les plantages répétés d’un programme sont limités à une notification toutes les cinq minutes. Un plantage qui met fin à la session est proposé à la connexion suivante, mais pas ceux des programmes qui plantent dans la minute suivant une déconnexion, un redémarrage ou un arrêt : ils perdent seulement le bureau autour d’eux. Activez ou désactivez-les dans Principal > Basculer ou Centre de contrôle > Réglages rapides. Les préférences et les chemins des programmes masqués restent dans `~/.config/eitr/crash-help.json` ; retirez un chemin de `ignored` pour recevoir à nouveau ses notifications.
+Les Notifications de plantage sont activées par défaut. Un service utilisateur surveille les nouveaux enregistrements lisibles de systemd-coredump concernant vos propres programmes. Chaque plantage propose Signaler un problème, Ignorer et Mettre ce programme en sourdine ; Demander à l’IA apparaît lorsqu’un assistant par défaut est installé et sélectionné. Les plantages répétés d’un programme sont limités à une notification toutes les cinq minutes. Un plantage qui met fin à la session est proposé à la connexion suivante, mais pas ceux des programmes qui plantent dans la minute suivant une déconnexion, un redémarrage ou un arrêt : ils perdent seulement le bureau autour d’eux. Activez ou désactivez-les dans Principal > Actions rapides ou Centre de contrôle > Réglages rapides. Les préférences et les chemins des programmes masqués restent dans `~/.config/eitr/crash-help.json` ; retirez un chemin de `ignored` pour recevoir à nouveau ses notifications.
 
 Demander à l’IA ouvre votre assistant par défaut avec uniquement le programme, le signal et la trace de pile de `coredumpctl info`, en demandant une explication et une solution proposée sans modifier le système sans votre accord. Aucun fichier de vidage mémoire n’est transmis. Lorsque vous choisissez cette action, l’assistant peut envoyer le résumé à son fournisseur. Signaler un problème joint le même résumé au parcours existant : vérifiez-le avant de le partager ; rien n’est envoyé automatiquement.
 

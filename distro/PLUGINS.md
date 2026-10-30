@@ -81,8 +81,8 @@ own folder, and updating it skips commits that leave that folder unchanged.
 Network errors are silently ignored. The last check is saved in the machine-local
 `$XDG_STATE_HOME/eitr/plugin-updates.json`, tied to each approved commit.
 
-When the last check found an update, use **Update Plugins** next to **Add Plugin…** in **Control Center > Plugins**,
-**Install > Plugins > Update Plugins**, or `eitr plugin update [ID]` to review
+When the last check found an update, use **Update Plugins** next to **Add Plugins** in **Control Center > Plugins**,
+**Plugins > Update Plugins**, or `eitr plugin update [ID]` to review
 and install updates. Each plugin keeps the same diffs, risk flags and confirmation.
 The Plugins list shows a small ↑ mark and details show **Update available** when
 the last check found new commits. After-update hooks retain their existing behavior.
@@ -112,7 +112,7 @@ Duplicate JSON keys, unknown keys, invalid manifests and an index over 64 KiB
 are rejected before selection. Symlinks anywhere in the repository are refused.
 When an index exists, it is authoritative; a root manifest is not a fallback.
 
-Add Plugin… downloads once after the existing safety confirmation. Its picker
+Add Plugins downloads once after the existing safety confirmation. Its picker
 lists names, descriptions and icon paths; arrows move, Space selects one or more,
 Enter proceeds to individual reviews and Escape cancels. The terminal displays
 icon paths as text. No plugin code runs to generate this list. Every selected
@@ -261,7 +261,7 @@ its status panel. It is never installed automatically.
 ### Desktop widgets and bar items
 
 Nothing in `widgets` or `barItems` appears until the user places it from
-**Control Center > Plugins** or **Install > Plugins > plugin > Visuals**.
+**Control Center > Plugins** or **Plugins > Installed Plugins > plugin > Visuals**.
 Widgets require a monitor choice. Each widget supports optional integer
 `minWidth`, `minHeight` (default 96), `defaultWidth`, `defaultHeight` (default 192),
 with `24 <= min <= default <= 4096` in logical pixels. Like tiles, both kinds

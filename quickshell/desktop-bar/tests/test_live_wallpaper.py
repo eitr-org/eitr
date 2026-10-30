@@ -98,5 +98,52 @@ ShellRoot {{
         self.assertIn('"$pkgdir"/usr/share/eitr/themes/*/motion', (ROOT / "distro/pkg/eitr-desktop/PKGBUILD").read_text())
 
 
+class RenderingPolicyTests(unittest.TestCase):
+    def test_driver_detection_and_probe_failures(self):
+        import importlib.util
+        specification = importlib.util.spec_from_file_location('rendering_policy', BAR / 'scripts/rendering.py')
+        rendering = importlib.util.module_from_spec(specification)
+        specification.loader.exec_module(rendering)
+        for renderer in ('llvmpipe (LLVM 19, 256 bits)', 'softpipe', 'Mesa SWRAST', 'Software Rasterizer', 'lavapipe'):
+            self.assertTrue(rendering.software_renderer(renderer), renderer)
+        for renderer in ('AMD Radeon RX 6600', 'Mesa Intel UHD Graphics', 'NVIDIA GeForce', 'virgl (AMD Radeon)'):
+            self.assertFalse(rendering.software_renderer(renderer), renderer)
+        self.assertTrue(rendering.detect(lambda: 'Intel', {'LIBGL_ALWAYS_SOFTWARE': 'true'})['software'])
+        self.assertTrue(rendering.detect(lambda: 'Intel', {'QT_QUICK_BACKEND': 'software'})['software'])
+        self.assertEqual(rendering.detect(lambda: 'Intel', {}), {'software': False, 'detected': True})
+        self.assertEqual(rendering.detect(lambda: '', {}), {'software': True, 'detected': False})
+        def unavailable():
+            raise OSError('No EGL')
+        self.assertFalse(rendering.detect(unavailable, {})['detected'])
+
+    def test_intervals_and_network_thresholds(self):
+        program = r'''
+const assert = require('node:assert/strict');
+const policy = require('./quickshell/desktop-bar/Performance.js');
+const network = require('./quickshell/desktop-bar/NetworkStatus.js');
+assert.equal(policy.wallpaperInterval(false), 50);
+assert.equal(policy.wallpaperInterval(true), 200);
+assert.equal(policy.workspaceHasWindows([{workspace: {id: 2}}], 1), false);
+assert.equal(policy.workspaceHasWindows([{workspace: {id: 2}}], 2), true);
+assert.equal(policy.workspaceHasWindows([{}], 2), false);
+assert.equal(policy.obsPolling(false, false, 0), false);
+assert.equal(policy.obsPolling(true, false, 0), true);
+assert.equal(policy.obsPolling(false, true, 0), true);
+assert.equal(policy.obsPolling(true, true, 1), false);
+assert.equal(network.glyph({}), '');
+assert.equal(network.glyph({}, true), '󰤮');
+for (const backend of ['iwd', 'networkmanager']) {
+    const thresholds = backend === 'iwd' ? [100, 80, 60, 40] : [75, 55, 35, 15];
+    const icons = ['󰤨', '󰤥', '󰤢', '󰤟', '󰤯'];
+    for (const [index, strength] of thresholds.entries()) {
+        const snapshot = {backend, devices: [{networks: [{connected: true, strength}]}]};
+        assert.equal(network.glyph(snapshot), icons[index]);
+        snapshot.devices[0].networks[0].strength--;
+        assert.equal(network.glyph(snapshot), icons[index + 1]);
+    }
+}
+'''
+        subprocess.run(['node', '-e', program], cwd=ROOT, check=True)
+
 if __name__ == "__main__":
     unittest.main()

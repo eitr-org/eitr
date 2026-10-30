@@ -457,7 +457,7 @@ msgstr "Menu de démarrage : Eitr démarre en premier et propose Windows s’il 
 msgid "Bootable snapshots are not supported with {loader}. {reason} Nothing was changed."
 msgstr "Les instantanés amorçables ne sont pas pris en charge avec {loader}. {reason} Aucune modification."
 
-msgid "Both network backends are running; select one in System > Connectivity > Network Backend and reboot"
+msgid "Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot"
 msgstr "Les deux services réseau fonctionnent ; choisissez-en un dans Système > Connectivité > Service réseau, puis redémarrez"
 
 msgid "Browse bucket"
@@ -571,7 +571,7 @@ msgstr "La charge s’arrêtera à {value} % pour préserver la batterie, même 
 msgid "Check Auth"
 msgstr "Vérifier l’authentification"
 
-msgid "Check this PC"
+msgid "Check This PC"
 msgstr "Vérifier ce PC"
 
 msgid "Checking AUR updates…"
@@ -1414,7 +1414,7 @@ msgstr "Les assistants sollicités lisent seulement : ils ne peuvent ni modifier
 msgid "Home snapshots are off, and the existing ones were deleted. The excluded folders stay as they are."
 msgstr "Les instantanés des dossiers personnels sont désactivés et les instantanés existants ont été supprimés. Les dossiers exclus restent inchangés."
 
-msgid "Home snapshots are off: turn them on in System > Maintenance > Snapshots"
+msgid "Home snapshots are off: turn them on in Settings > System > Maintenance > Snapshots"
 msgstr "Les instantanés du dossier personnel sont désactivés : activez-les dans Système > Maintenance > Instantanés"
 
 msgid "Home snapshots are on: one every hour for a day and one a day for a week. Caches, Downloads, VM disks and games are left out from the next start."
@@ -2131,8 +2131,8 @@ msgstr "Ouvrir le dossier"
 msgid "Open image"
 msgstr "Ouvrir l’image"
 
-msgid "Open it from Tools > Plugins."
-msgstr "Ouvrez-le depuis Outils > Plugins."
+msgid "Open it from Plugins > Installed Plugins."
+msgstr "Ouvrez-le depuis Plugins > Plugins installés."
 
 msgid "Open the picture itself, right-click it, choose Copy image address and paste that."
 msgstr "Ouvrez l’image elle-même, faites un clic droit, choisissez Copier l’adresse de l’image et collez-la."
@@ -3136,8 +3136,8 @@ msgstr "Tailscale a besoin une fois de votre mot de passe administrateur pour qu
 msgid "Tailscale setup belongs to another desktop user"
 msgstr "La configuration Tailscale appartient à un autre utilisateur"
 
-msgid "Tailscale sign-in failed. Try again from Access away from home."
-msgstr "Échec de connexion à Tailscale. Réessayez depuis Accès hors du domicile."
+msgid "Tailscale sign-in failed. Try again from Access This PC Remotely."
+msgstr "La connexion à Tailscale a échoué. Réessayez depuis Accéder à ce PC à distance."
 
 msgid "Tailscale state: {state}"
 msgstr "État de Tailscale : {state}"
@@ -3796,7 +3796,7 @@ msgstr "VPC"
 msgid "VPN operation failed. Configuration details are hidden."
 msgstr "Échec de l’opération VPN. Les détails de configuration sont masqués."
 
-msgid "VPN profiles need NetworkManager. Choose it in System > Connectivity > Network Backend, then reboot."
+msgid "VPN profiles need NetworkManager. Choose it in Settings > Connectivity > Network Backend, then reboot."
 msgstr "Les profils VPN nécessitent NetworkManager. Choisissez-le dans Système > Connectivité > Service réseau, puis redémarrez."
 
 msgid "Version"
@@ -3940,8 +3940,8 @@ msgstr "impossible de lister les écrans : {error}"
 msgid "checking the longships"
 msgstr "inspectant les drakkars"
 
-msgid "checkupdates (pacman-contrib) is required to install safely. Run System → Maintenance → Update → System Update, then install pacman-contrib."
-msgstr "checkupdates (pacman-contrib) est requis pour une installation sûre. Exécutez Système → Maintenance → Mise à jour → Mise à jour du système, puis installez pacman-contrib."
+msgid "checkupdates (pacman-contrib) is required to install safely. Run Settings → System → System Update, then install pacman-contrib."
+msgstr "checkupdates (pacman-contrib) est nécessaire pour une installation sûre. Lancez Paramètres → Système → Mise à jour du système, puis installez pacman-contrib."
 
 msgid "consulting the Norns"
 msgstr "consultant les Nornes"
@@ -4102,8 +4102,8 @@ msgstr "{count} événements de la semaine passée aux 60 prochains jours."
 msgid "{count} occurrences"
 msgstr "{count} occurrences"
 
-msgid "{count} plugin updates available: Control Center > Plugins or Install > Plugins > Update Plugins"
-msgstr "{count} mises à jour de plugins disponibles : Centre de contrôle > Plugins ou Installer > Plugins > Mettre à jour les plugins"
+msgid "{count} plugin updates available: Control Center > Plugins or Plugins > Update Plugins"
+msgstr "{count} mises à jour de plugins disponibles : Centre de contrôle > Plugins ou Plugins > Plugins installés > Mettre à jour les plugins"
 
 msgid "{count} system update(s) are waiting. On Arch Linux an app can only be installed on an up-to-date system: installing now would also upgrade part of the system without a recovery snapshot, which can break other apps."
 msgstr "{count} mise(s) à jour du système en attente. Sous Arch Linux, une app ne s'installe que sur un système à jour : l'installer maintenant mettrait aussi à jour une partie du système sans instantané de récupération, ce qui peut casser d'autres apps."
@@ -4243,11 +4243,11 @@ msgstr "{path} désigne encore le support d’installation"
 msgid "{provider_name} needs the {command} command"
 msgstr "{provider_name} nécessite la commande {command}"
 
-msgid "{reason} Its service was stopped and its files were kept. Remove it from Install > Plugins."
-msgstr "{reason} Son service a été arrêté et ses fichiers conservés. Supprimez-le depuis Installer > Plugins."
+msgid "{reason} Its service was stopped and its files were kept. Remove it from Plugins > Installed Plugins."
+msgstr "{reason} Son service a été arrêté et ses fichiers conservés. Supprimez-le depuis Plugins > Plugins installés."
 
-msgid "{reason} Its service was stopped and its files were kept. Remove it from Install > Plugins. Report a plugin: {url}"
-msgstr "{reason} Son service a été arrêté et ses fichiers conservés. Supprimez-le depuis Installer > Plugins. Signaler un plugin : {url}"
+msgid "{reason} Its service was stopped and its files were kept. Remove it from Plugins > Installed Plugins. Report a plugin: {url}"
+msgstr "{reason} Son service a été arrêté et ses fichiers conservés. Supprimez-le depuis Plugins > Plugins installés. Signaler un plugin : {url}"
 
 msgid "{relative_path} is no longer read-only; the restore point is not trusted"
 msgstr "{relative_path} n’est plus en lecture seule ; le point de restauration n’est pas fiable"

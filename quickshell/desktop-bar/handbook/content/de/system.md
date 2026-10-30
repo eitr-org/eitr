@@ -1,35 +1,23 @@
-# Im Systemmenü zurechtfinden
+# In den Einstellungen zurechtfinden
 
-Öffne **SUPER + F > System**. Aktionen sind alphabetisch gruppiert. Die globale Suche findet sie weiterhin direkt, ohne dass du jede Gruppe öffnen musst.
+Öffne **SUPER + F > Einstellungen**. Zuerst kommen Ordner, dann Aktionen, jeweils alphabetisch. Die globale Suche findet auch frühere Namen wie System und Toggle.
 
-## Konnektivität
+**Verbindungen**, **Geräte und Eingabe**, **Sprache**, **Sicherheit**, **Stil**, **System** sind Ordner. **Kontrollzentrum** öffnet dieselben Bedienelemente wie SUPER + Komma. **Konfigurationsdateien** öffnet deinen Konfigurationsordner in VS Code oder LazyVim.
 
-**Bluetooth**, **Netzwerk-Backend**, **WiFi**. Die Geräteeinträge öffnen dieselben Panels wie die Leiste. Die Wahl des Netzwerkdienstes bereitet den nächsten Start vor, ohne die laufende Verbindung neu zu starten.
+Verbindungen öffnet die nativen Bluetooth- und WiFi-Panels, Netzwerk-Backend und Fernzugriff. Die Backend-Auswahl bereitet den nächsten Start vor, ohne die laufende Verbindung neu zu starten.
 
-## Geräte und Eingabe
+Geräte & Eingabe enthält Audio, Batterieladegrenzwert, Anzeige, Tastatur, Beleuchtung und Mikrofon. Der Batterieladegrenzwert erscheint nur mit einer Systembatterie und benötigt unterstützte Firmware. Peripheriebatterien aktivieren keine Laptop-Bedienelemente. Anzeige enthält Helligkeit, Nachtlicht und unterstützte Laptop-Energieprofile.
 
-**Audio**, **Batterieladegrenzwert**, **Bildschirm**, **Tastatur**, **Beleuchtung**, **Mikrofon**. Die Ladegrenze benötigt unterstützte Laptop-Firmware. Anzeige enthält Helligkeit, Nachtlicht, Monitorauswahl und unterstützte Laptop-Energieprofile.
+Beleuchtung ist standardmäßig ausgeschaltet. Thema folgen lässt Themenwechsel die von OpenRGB gesteuerten Geräte neu einfärben.
 
-**Beleuchtung** bestimmt, ob Designwechsel Lüfter, Tastaturen und andere OpenRGB-Geräte umfärben. Standardmäßig ist das ausgeschaltet; EITR lässt deine Beleuchtung unverändert. **Design folgen** übernimmt die aktuelle Designfarbe sofort und bei jedem Designwechsel.
+Stil enthält die bisherigen Optionen für Thema, Hintergrundbild, Sperrbildschirm, Schriften und Desktop-Aussehen. Im Hauptmenü heißt Toggle jetzt Schnellaktionen; Bildschirmschoner starten startet ihn sofort.
 
-## Informationen
+**Einstellungen > System** enthält **Informationen**, **Instandhaltung**, **Update-Kanal**, **Über**, **Systemaktualisierung**. Über öffnet die EITR-Systemübersicht. Informationen enthält KI-Nutzung, Hardware, Problem melden und Wetter. Kalender, Arbeitsbereichsübersicht und Ragnarök bleiben über die globale Suche erreichbar.
 
-**Über**, **KI-Nutzung**, **Hardware**, **Problem melden**, **Wetter**. Über öffnet die EITR-Systemzusammenfassung. Problem melden sammelt einen vertraulichen Bericht, den du vor dem Senden liest. Die anderen Einträge öffnen native Panels. Kalender und Arbeitsflächenübersicht bleiben in Leiste und globaler Suche, statt dieses Menü zu füllen. Suche **Ragnarök**, damit Fenrir in den Bildschirm beißt; Klick oder Escape beendet den Effekt vorzeitig.
+Wartung enthält Werksreset, Snapshots, Diesen PC prüfen, Schnellste Spiegel auswählen und Bereinigung. Der Werksreset verlangt zwei Warnungen und eine eingetippte Bestätigung; lies zuerst [Werksreset](handbook:factory-reset).
 
-## Instandhaltung
+Sicherheit behält die bisherigen Authentifizierungs-, Firewall- und Benutzerfunktionen. Die Dokumentation bleibt unter [Secure Boot](handbook:secure-boot). Hardware-Anpassungen gehören in `~/.config/hypr/local.lua`; halte Geheimnisse aus Konfigurationssicherungen heraus.
 
-**Bereinigung**, **Werkseinstellungen**, **Momentaufnahmen**, **Aktualisierung**. Aktualisierung bietet Systemaktualisierung und Update-Kanal. Zurücksetzen auf Werkseinstellungen ist destruktiv und verlangt zwei Warnungen. Lies vorher [Werkseinstellungen](handbook:factory-reset).
+**Walker > Einstellungen > Sprache** listet die Sprachen mit markierter aktueller Auswahl; siehe [Sprache](handbook:language). Englische und übersetzte Namen bleiben suchbar. Hauptmenü und Apps behalten ihre eigene Reihenfolge.
 
-## Sicherheit
-
-**FIDO2 Sicherheitsschlüssel**, **Fingerabdrücke**, **TPM-Laufwerksentsperrung**, **Firewall**, **Zurück zur Passwort-Authentifizierung**, **Passwort ändern**. Die Secure-Boot-Anleitung liegt unter **Lernen > EITR-Handbuch > Secure Boot**, nicht in einer eigenen Menü- oder Sicherheitsaktion.
-
-## Dotfiles
-
-Öffnet deinen Konfigurationsordner in VS Code oder, falls nicht installiert, in LazyVim. Rechnerspezifische Monitor- und Hardwarevorgaben gehören in `~/.config/hypr/local.lua`, nicht in gemeinsame Standards. Füge keine Token, Wiederherstellungsschlüssel oder Passwörter in Konfigurationssicherungen ein.
-
-Die folgenden Kapitel erklären Abläufe und Sicherheitsgrenzen genauer.
-
-## Sprache
-
-**Walker > System > Sprache** listet die Sprachen auf, die aktuelle ist markiert; siehe [Sprachanleitung](handbook:language). Englische und übersetzte Namen bleiben suchbar. Untermenüs stehen vor Aktionen; beide werden nach übersetzten Titeln sortiert. Hauptmenü und Anwendungen behalten ihre Reihenfolge.
+Sicherheit: Assistentenzugriff, FIDO2 Sicherheitsschlüssel, Fingerabdrücke, TPM-Laufwerksentsperrung, Benutzer, Firewall, Zurück zur Passwort-Authentifizierung, Passwort ändern.

@@ -9,10 +9,10 @@ function GetEntries()
     local panels = paths.code("quickshell/desktop-bar/scripts/show-panel.sh")
     local quote = dofile(paths.code("elephant/shell-quote.lua"))
     return {
-        {Text = "Calendar", Icon = "󰃭", Actions = {open = "bash " .. quote(panels) .. " calendar"}},
-        {Text = "Workspace Overview", Icon = "󰕮", Keywords = {"workspaces", "windows", "overview"},
+        {Text = "Calendar", Subtext = "Open the calendar panel", Icon = "󰃭", Actions = {open = "bash " .. quote(panels) .. " calendar"}},
+        {Text = "Workspace Overview", Subtext = "Show occupied workspaces", Icon = "󰕮", Keywords = {"workspaces", "windows", "overview"},
             Actions = {open = "bash " .. quote(panels) .. " overview"}},
-        {Text = "Ragnarök", Icon = "ᚺ", Keywords = {"ragnarok", "fenrir"},
+        {Text = "Ragnarök", Subtext = "Open the Ragnarök realm", Icon = "ᚺ", Keywords = {"ragnarok", "fenrir"},
             Actions = {open = "eitr-shell desktop-bar ipc call -- realm ragnarok"}},
     }
 end

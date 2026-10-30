@@ -72,7 +72,7 @@ Se o desktop falhar, mas o sistema ainda iniciar, mude para um console de texto 
 
 ## Snapshots da pasta pessoal
 
-Desativados por padrão. **Sistema > Manutenção > Instantâneos > Snapshots da pasta pessoal** os ativa (pedindo confirmação; desativá-los os exclui). A configuração `home` do Snapper mantém então um snapshot de `/home` por hora durante um dia e um por dia durante uma semana, excluindo os mais antigos quando o espaço livre cai abaixo de 20%.
+Desativados por padrão. **Configurações > Sistema > Manutenção > Instantâneos > Snapshots da pasta pessoal** os ativa (pedindo confirmação; desativá-los os exclui). A configuração `home` do Snapper mantém então um snapshot de `/home` por hora durante um dia e um por dia durante uma semana, excluindo os mais antigos quando o espaço livre cai abaixo de 20%.
 
 Caches, `~/Downloads`, pastas de discos de VMs (`~/.local/share/libvirt/images`, GNOME Boxes, `~/VirtualBox VMs`) e a biblioteca do Steam ficam de fora: na próxima inicialização, antes de qualquer login, `eitr-home-exclusions.service` os transforma em subvolumes Btrfs aninhados, que os snapshots pessoais não incluem. Seus arquivos são preservados com reflinks, sem espaço adicional para a movimentação. O modo Manter os Meus Arquivos da redefinição de fábrica leva esses subvolumes para a pasta pessoal restaurada: os ocultos vão para "Settings before reset", e os caches são descartados. Se algum não puder ser movido, a pasta pessoal anterior será preservada para análise, em vez de excluída.
 
@@ -82,7 +82,7 @@ A conversão e a criação de pastas excluídas ausentes são executadas como o 
 
 ## O que cada atualização mudou
 
-Antes de reverter, confira o que seria desfeito. **Sistema > Manutenção > Instantâneos > O que cada atualização mudou** (ou `eitr snapshots changes`) lista cada par anterior/posterior de atualização, com as quantidades de pacotes atualizados, rebaixados, instalados e removidos. `eitr snapshots changes <before number>` lista todos os pacotes de uma atualização com as versões anterior e nova. A comparação usa os bancos de dados de pacotes dentro dos dois snapshots; se ainda não houver snapshot posterior, compara com o sistema em execução.
+Antes de reverter, confira o que seria desfeito. **Configurações > Sistema > Manutenção > Instantâneos > O que cada atualização mudou** (ou `eitr snapshots changes`) lista cada par anterior/posterior de atualização, com as quantidades de pacotes atualizados, rebaixados, instalados e removidos. `eitr snapshots changes <before number>` lista todos os pacotes de uma atualização com as versões anterior e nova. A comparação usa os bancos de dados de pacotes dentro dos dois snapshots; se ainda não houver snapshot posterior, compara com o sistema em execução.
 
 ## Inicializar por um snapshot antigo
 

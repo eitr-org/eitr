@@ -1,35 +1,23 @@
-# Orientarte en Sistema
+# Orientarte en Configuración
 
-Abre **SUPER + F > Sistema**. Las acciones se agrupan alfabéticamente; la búsqueda global las encuentra directamente sin recorrer cada grupo.
+Abre **SUPER + F > Configuración**. Primero aparecen las carpetas y luego las acciones, en orden alfabético. La búsqueda global también encuentra nombres anteriores como System y Toggle.
 
-## Conectividad
+**Conectividad**, **Dispositivos y entrada**, **Idioma**, **Seguridad**, **Estilo**, **Sistema** son carpetas. **Centro de control** abre los mismos controles que SUPER + coma. **Archivos de configuración** abre tu carpeta de configuración en VS Code o LazyVim.
 
-**Bluetooth**, **Servicio de red**, **WiFi**. Las entradas de dispositivos abren los mismos paneles que la barra. Elegir el servicio de red prepara el próximo arranque sin reiniciar la conexión actual.
+Conectividad abre los paneles nativos de Bluetooth y WiFi, el servicio de red y el acceso remoto. La elección del servicio prepara el próximo arranque sin reiniciar la conexión actual.
 
-## Dispositivos y entrada
+Dispositivos y entrada contiene Audio, Límite de carga de batería, Pantalla, Teclado, Iluminación y Micrófono. El límite aparece solo con una batería del sistema y requiere firmware compatible. Las baterías de periféricos no activan controles de portátil. Pantalla incluye brillo, luz nocturna y perfiles de energía de portátiles compatibles.
 
-**Audio**, **Límite de carga de batería**, **Pantalla**, **Teclado**, **Iluminación**, **Micrófono**. El límite de carga requiere firmware de portátil compatible. Pantalla reúne brillo, luz nocturna, selección de monitores y perfiles de energía de portátiles compatibles.
+Iluminación está desactivada por defecto. Seguir el tema permite recolorear los dispositivos controlados por OpenRGB al cambiar de tema.
 
-**Iluminación** decide si los cambios de tema recolorean ventiladores, teclados y otros dispositivos OpenRGB. Está desactivado por defecto para conservar tu iluminación. Elige **Seguir el tema** para aplicar el color actual y seguir cada cambio de tema.
+Estilo conserva las opciones de tema, fondo, bloqueo, fuentes y apariencia del escritorio. Toggle ahora se llama Acciones rápidas en Principal; Iniciar salvapantallas lo inicia inmediatamente.
 
-## Información
+**Configuración > Sistema** contiene **Información**, **Mantenimiento**, **Canal de actualización**, **Acerca de**, **Actualización del sistema**. Acerca de abre el resumen del sistema EITR. Información contiene Uso de IA, Hardware, Informar de un problema y Tiempo. Calendario, vista de espacios y Ragnarök siguen disponibles en la búsqueda global.
 
-**Acerca de**, **Uso de IA**, **Hardware**, **Informar de un problema**, **Tiempo**. Acerca de abre el resumen EITR; Informar de un problema recoge un informe privado que lees antes de enviar. Los demás usan paneles nativos. Calendario y vista de espacios siguen en la barra y la búsqueda global sin llenar este menú. Busca **Ragnarök** para que Fenrir muerda la pantalla; un clic o Escape termina el efecto antes.
+Mantenimiento contiene Restablecimiento de fábrica, Instantáneas, Comprobar este PC, Elegir los servidores más rápidos y Limpieza. El restablecimiento exige dos advertencias y confirmación escrita; lee antes [Restablecimiento de fábrica](handbook:factory-reset).
 
-## Mantenimiento
+Seguridad mantiene los controles de autenticación, cortafuegos y usuarios. La documentación sigue en [Secure Boot](handbook:secure-boot). Guarda los ajustes propios del hardware en `~/.config/hypr/local.lua` y excluye secretos de las copias de configuración.
 
-**Limpieza**, **Restablecimiento de fábrica**, **Instantáneas**, **Actualización**. Actualizar ofrece la actualización del sistema y el canal de actualización. El restablecimiento de fábrica es destructivo y exige dos advertencias: lee antes [Restablecimiento de fábrica](handbook:factory-reset).
+**Walker > Configuración > Idioma** enumera los idiomas con el actual marcado; consulta [Idioma](handbook:language). Puedes buscar los nombres ingleses y traducidos. Principal y Aplicaciones conservan su orden.
 
-## Seguridad
-
-**Llave de seguridad FIDO2**, **Huella digital**, **Desbloqueo del disco mediante TPM**, **Cortafuegos**, **Volver a la autenticación de contraseña**, **Actualizar contraseña**. La documentación de Secure Boot está en **Aprender > Manual de EITR > Secure Boot**, no en una acción separada del menú o de seguridad.
-
-## Dotfiles
-
-Abre tu carpeta de configuración en VS Code o en LazyVim si VS Code no está instalado. Guarda los ajustes de monitores y hardware propios del equipo en `~/.config/hypr/local.lua`, no en los valores compartidos. No pegues tokens, claves de recuperación ni contraseñas en copias de configuración.
-
-Los capítulos siguientes detallan los procesos y límites de seguridad.
-
-## Idioma
-
-**Walker > Sistema > Idioma** enumera los idiomas, con el actual marcado; consulta la [Guía de idioma](handbook:language). Puedes buscar los nombres ingleses y traducidos. Primero aparecen los submenús y después las acciones, ordenados por sus títulos traducidos. Principal y Aplicaciones conservan su orden.
+Seguridad: Acceso del asistente, Llave de seguridad FIDO2, Huella digital, Desbloqueo del disco mediante TPM, Usuarios, Cortafuegos, Volver a la autenticación de contraseña, Actualizar contraseña.

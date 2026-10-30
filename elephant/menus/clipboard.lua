@@ -17,6 +17,7 @@ function GetEntries()
     for _, row in ipairs(jsonDecode(output)) do
         table.insert(entries, {
             Text = row.label,
+            Subtext = row.preview ~= "" and i18n.tr("Paste this image") or i18n.tr("Paste this text"),
             Value = row.id,
             Icon = row.preview ~= "" and "image-x-generic" or "edit-paste",
             Preview = row.preview,

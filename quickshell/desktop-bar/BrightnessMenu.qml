@@ -424,7 +424,7 @@ ThemedPopup {
                         width: parent.width - 88
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: 2
-                        Text { text: Eitr.I18n.tr("Nightlight"); color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
+                        Text { text: Eitr.I18n.tr("Night Light"); color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
                         Text { width: parent.width; elide: Text.ElideRight; text: menu.nightlight.mode === "auto" ? Eitr.I18n.tr("Automatic · {start} - {end}", {start: menu.displayTime(menu.nightlight.start || "18:00"), end: menu.displayTime(menu.nightlight.end || "09:00")}) : Eitr.I18n.tr("Manual"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
                     }
                     PanelButton {

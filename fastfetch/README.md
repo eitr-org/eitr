@@ -1,6 +1,6 @@
 # About Eitr
 
-Walker → System → Information → About opens the themed Fastfetch page via `eitr.py`.
+Walker → Settings → System → About opens the themed Fastfetch page via `eitr.py`.
 Run `eitr-run fastfetch/eitr.py` directly for the same output.
 
 Each invocation reads the active theme's `colors.toml` and `display-name` (falling

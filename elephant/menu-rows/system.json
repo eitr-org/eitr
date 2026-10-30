@@ -1,32 +1,9 @@
 [
   {
-    "text": "Connectivity",
-    "icon": "󰖩",
-    "subtext": ">",
-    "submenu": "system-connectivity"
-  },
-  {
-    "text": "Devices & Input",
-    "icon": "󰍹",
-    "subtext": ">",
-    "submenu": "system-devices"
-  },
-  {
     "text": "Information",
     "icon": "",
     "subtext": ">",
     "submenu": "system-information"
-  },
-  {
-    "text": "Language",
-    "icon": "󰗊",
-    "subtext": ">",
-    "submenu": "language",
-    "keywords": [
-      "language",
-      "locale",
-      "translation"
-    ]
   },
   {
     "text": "Maintenance",
@@ -35,20 +12,32 @@
     "submenu": "system-maintenance"
   },
   {
-    "text": "Security",
+    "text": "Update Channel",
     "subtext": ">",
-    "icon": "󰒃",
-    "submenu": "security"
+    "keywords": [
+      "channel",
+      "testing",
+      "stable",
+      "beta",
+      "early"
+    ],
+    "icon": "󰚰",
+    "submenu": "update-channel"
   },
   {
-    "text": "Dotfiles",
-    "subtext": "Open your configuration folder in an editor",
-    "keywords": [
-      "config"
-    ],
-    "icon": "",
+    "text": "About",
+    "subtext": "Eitr version, hardware and system details",
+    "icon": "",
     "actions": {
-      "open": "/usr/share/eitr/walker/scripts/actions/system/dotfiles.sh"
+      "open": "/usr/share/eitr/walker/scripts/actions/about.sh"
+    }
+  },
+  {
+    "text": "System Update",
+    "subtext": "Snapshot, then update Arch, AUR, Flatpak and Eitr",
+    "icon": "󰜉",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py bash /usr/share/eitr/walker/scripts/actions/system/update.sh system"
     }
   }
 ]

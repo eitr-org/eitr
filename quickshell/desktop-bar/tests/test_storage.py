@@ -40,5 +40,32 @@ class StorageTests(unittest.TestCase):
             self.assertEqual(system_details.storage()[0]['usage'], 75)
 
 
+class IdentityCacheTests(unittest.TestCase):
+    def test_cached_identity_skips_topology_and_unsupported_gpu_queries(self):
+        identity = {'cpu': {'name': 'Cached processor', 'cores': '4 / 8'},
+                    'storage': {'name': 'Cached SSD', 'rows': [['Capacity', '100 GiB']]},
+                    'gpu': {'available': False, 'name': 'GPU telemetry unavailable'}}
+        stats = SimpleNamespace(total=100, used=40, free=60)
+        with patch.object(system_details, 'query', return_value='') as query, \
+                patch.object(system_details, 'cpu_identity', side_effect=AssertionError('CPU rediscovery')), \
+                patch.object(system_details, 'storage_identity', side_effect=AssertionError('Disk rediscovery')), \
+                patch.object(system_details.time, 'sleep'), \
+                patch.object(system_details.shutil, 'disk_usage', return_value=stats):
+            result = system_details.snapshot(identity)
+        self.assertEqual(result['identity'], identity)
+        self.assertEqual(result['sections'][0]['name'], 'Cached processor')
+        self.assertEqual(result['sections'][3]['name'], 'Cached SSD')
+        self.assertEqual(result['sections'][3]['usage'], 40)
+        query.assert_called_once_with(['sensors', '-j'])
+        self.assertEqual(identity['storage']['rows'], [['Capacity', '100 GiB']])
+    def test_supported_gpu_uses_cached_model_with_fresh_telemetry(self):
+        identity = {'available': True, 'name': 'Cached GPU'}
+        with patch.object(system_details, 'query', return_value='42, 512, 4096, 55, 20, 100') as query:
+            result = system_details.gpu(identity)
+        self.assertEqual(result['name'], 'Cached GPU')
+        self.assertEqual(result['usage'], 42)
+        self.assertNotIn('name,', query.call_args.args[0][1])
+
+
 if __name__ == '__main__':
     unittest.main()

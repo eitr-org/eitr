@@ -1,13 +1,5 @@
 [
   {
-    "text": "About",
-    "subtext": "Eitr version, hardware and system details",
-    "icon": "",
-    "actions": {
-      "open": "/usr/share/eitr/walker/scripts/actions/about.sh"
-    }
-  },
-  {
     "text": "AI Usage",
     "subtext": "Claude and Codex usage limits",
     "keywords": [

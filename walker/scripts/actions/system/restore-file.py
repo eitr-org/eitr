@@ -26,7 +26,7 @@ def versions(path):
     """(number, date, size, same as now) for each snapshot that has this path, newest first."""
     result = subprocess.run(["snapper", "-c", "home", "--jsonout", "list"], capture_output=True, text=True)
     if result.returncode:
-        raise RuntimeError(tr('Home snapshots are off: turn them on in System > Maintenance > Snapshots'))
+        raise RuntimeError(tr('Home snapshots are off: turn them on in Settings > System > Maintenance > Snapshots'))
     relative = path.resolve().relative_to(HOME_ROOT)
     found = []
     for item in json.loads(result.stdout).get("home", []):

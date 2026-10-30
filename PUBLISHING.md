@@ -81,4 +81,4 @@ into something debuggable.
 - [x] Brand marks replaced with neutral icons; One Dark Pro preview retaken
 - [x] Full-history secret scan clean (2026-10-16)
 - [x] Owner identity and AGENTS identity rules out of the repository (hooks read local Git config)
-- [x] Diagnostics action available for bug reports (System > Information > Report a Problem)
+- [x] Diagnostics action available for bug reports (Settings > System > Information > Report a Problem)

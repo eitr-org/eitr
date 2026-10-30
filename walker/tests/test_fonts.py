@@ -139,7 +139,7 @@ class FontTests(unittest.TestCase):
         center = (ROOT / 'quickshell/desktop-bar/ControlCenter.qml').read_text()
         self.assertIn('key: "style"', center)
         self.assertLess(center.index('visible: center.page === "style"'), center.index('title: Eitr.I18n.tr("Bar")'))
-        self.assertLess(center.index('visible: center.page === "system"'), center.index('title: Eitr.I18n.tr("Keyboard")'))
+        self.assertLess(center.index('visible: center.page === "settings"'), center.index('title: Eitr.I18n.tr("Keyboard")'))
 
     def test_selection_reloads_kitty_without_terminating_it(self):
         with patch.object(fonts, 'installed', return_value={'Example': set()}), \

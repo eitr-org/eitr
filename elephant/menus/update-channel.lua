@@ -4,7 +4,7 @@ local i18n = dofile(paths.code("elephant/i18n.lua"))
 -- password that switching needs (update-channel.py set).
 Name = "update-channel"
 NamePretty = i18n.tr("Update Channel")
-Parent = "update"
+Parent = "system"
 Icon = "󰚰"
 FixedOrder = true
 

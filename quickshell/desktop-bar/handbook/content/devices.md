@@ -1,6 +1,6 @@
 # Devices and input
 
-Find these controls under **System > Devices & Input** or the corresponding bar
+Find these controls under **Settings > Devices & Input** or the corresponding bar
 icons. The Control Center provides their everyday toggles and sliders too.
 
 ## Audio and microphone
@@ -60,7 +60,7 @@ Night Light has a manual switch and an optional schedule with editable times.
 
 ## Keyboard
 
-Add and remove layouts in Walker: System > Devices & Input > Keyboard. Add Layout
+Add and remove layouts in Walker: Settings > Devices & Input > Keyboard. Add Layout
 lists every language and variant (type to search); select a layout and press
 Delete to remove it. Up to four layouts are supported, duplicates are rejected
 and at least one layout must remain. **Alt + Shift** cycles them. With two or

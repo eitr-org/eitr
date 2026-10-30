@@ -290,7 +290,7 @@ generated styles append an optional `walker/style.override.css` last.
 Theme IDs resolve in user `themes/<id>` first, then the user's own themes in
 `$XDG_DATA_HOME/eitr/themes/<id>`, then `/usr/share/eitr/themes/<id>`;
 a user theme directory is a deliberate whole-theme override, not a copied
-catalog. Own themes are created by Style > Theme > Create Theme and cannot reuse
+catalog. Own themes are created by Settings > Style > Theme > Create Theme and cannot reuse
 a shipped ID. The same resolver serves Elephant, appearance items, wallpaper
 next/apply/transition, Neovim theme discovery and Learn previews. Shipped theme
 code is never run as root.

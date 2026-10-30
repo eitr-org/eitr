@@ -1,8 +1,8 @@
 # Troubleshooting
 
-## Check this PC
+## Check This PC
 
-Open **System > Maintenance > Check this PC**, or run `eitr check`. Checks are read-only and never repair or restart anything. Cached update lists are not refreshed; DNS resolution uses the network. `eitr check --json` prints technical evidence without prompts.
+Open **Settings > System > Maintenance > Check This PC**, or run `eitr check`. Checks are read-only and never repair or restart anything. Cached update lists are not refreshed; DNS resolution uses the network. `eitr check --json` prints technical evidence without prompts.
 
 **Run deeper checks (asks for your password)**: press Enter to run `sudo /usr/lib/eitr/eitr-system selfcheck-deeper` in the same terminal, or Esc to skip. Results replace matching skipped checks. This reads root Snapper configuration, retained pre/post pairs, the last successful package upgrade description, existing Btrfs qgroups, boot guard JSON, an already mounted factory manifest, and trusted Arch Linux/Eitr keys with `pacman-key --list-keys`. It never enables quotas or mounts the factory point. Missing evidence is skipped with a reason. The factory manifest alone does not verify archive integrity. ESP checking uses `fsck.vfat -n` only on a uniquely identified FAT ESP not mounted read-write; otherwise it asks for an unmounted filesystem and skips.
 
@@ -54,7 +54,7 @@ independent backup. Start with [Recovery & Snapshots](handbook:recovery).
 
 ## Reporting a problem
 
-**System > Information > Report a Problem** collects the EITR and package
+**Settings > System > Information > Report a Problem** collects the EITR and package
 versions, graphics hardware, Hyprland errors, failed services, recent warnings,
 crashes of the last week, errors from the previous start, the installation log
 and recent package changes into `~/Documents/eitr-problem-report-<time>.txt`,

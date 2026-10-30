@@ -99,12 +99,12 @@ ThemedPopup {
         center.refresh(); chatStatus.running = true;
         if (page === "style") loadStyle();
         if (!organizationQuery.running) organizationQuery.running = true;
-        if (page === "system" && !channelQuery.running) channelQuery.running = true;
+        if (page === "settings" && !channelQuery.running) channelQuery.running = true;
     }
     onOpenedChanged: if (!opened) { chatOpen = false; chatView.reset(); }
     onPageChanged: {
         if (page === "style") loadStyle();
-        if (page === "system" && !channelQuery.running) channelQuery.running = true;
+        if (page === "settings" && !channelQuery.running) channelQuery.running = true;
     }
     onVisibleChanged: if (!visible) {
         powerOpen = false;
@@ -276,7 +276,7 @@ ThemedPopup {
                 model: [{key: "general", icon: "󰕮", name: "General"},
                     {key: "plugins", icon: "󰏖", name: "Plugins"},
                     {key: "style", icon: "󰏘", name: "Style"},
-                    {key: "tools", icon: "󱁤", name: "Tools"}, {key: "system", icon: "󰒓", name: "System"}]
+                    {key: "tools", icon: "󱁤", name: "Tools"}, {key: "settings", icon: "󰒓", name: "Settings"}]
                 PanelButton {
                     textSize: 12; iconSize: 20
                     id: tab
@@ -329,7 +329,7 @@ ThemedPopup {
                     id: content
                     width: scroll.width; spacing: 12
                     PanelHeading {
-                        text: ({plugins: Eitr.I18n.tr("Plugins"), general: Eitr.I18n.tr("General"), style: Eitr.I18n.tr("Style"), tools: Eitr.I18n.tr("Tools"), system: Eitr.I18n.tr("System")})[center.page]
+                        text: ({plugins: Eitr.I18n.tr("Plugins"), general: Eitr.I18n.tr("General"), style: Eitr.I18n.tr("Style"), tools: Eitr.I18n.tr("Tools"), settings: Eitr.I18n.tr("Settings")})[center.page]
                         rune: center.page
                         foreground: center.foreground; accent: center.accent
                     }
@@ -362,7 +362,7 @@ ThemedPopup {
                             }
                         }
                         Text { visible: center.wifiControl.message !== ""; width: parent.width; wrapMode: Text.WordWrap; text: center.wifiControl.message; color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
-                        Section { text: Eitr.I18n.tr("Quick Toggles"); width: parent.width }
+                        Section { text: Eitr.I18n.tr("Quick Actions"); width: parent.width }
                         GridLayout {
                             width: parent.width; columns: 2; columnSpacing: PanelStyle.selectionActionGap; rowSpacing: PanelStyle.selectionRowGap
                             ToggleTile { title: Eitr.I18n.tr("Idle Lock"); tooltip: Eitr.I18n.tr("Lock the screen automatically when you're away."); glyph: "󱫖"; selected: center.idleEnabled; available: !center.idleBusy; onClicked: center.idleToggleRequested() }
@@ -385,7 +385,7 @@ ThemedPopup {
                         GridLayout {
                             width: parent.width; columns: 2; columnSpacing: PanelStyle.selectionActionGap; rowSpacing: PanelStyle.selectionRowGap
                             GridAction { title: Eitr.I18n.tr("Hide Bar"); tooltip: Eitr.I18n.tr("Hide the bar; press SUPER + Shift + Space to restore it."); glyph: "󰍜"; onClicked: center.menuAction("toggle", "Desktop Bar") }
-                            GridAction { title: Eitr.I18n.tr("Screensaver"); tooltip: Eitr.I18n.tr("Start the screensaver now."); glyph: "󱄄"; onClicked: center.menuAction("toggle", "Screensaver") }
+                            GridAction { title: Eitr.I18n.tr("Start Screensaver"); tooltip: Eitr.I18n.tr("Start the screensaver now."); glyph: "󱄄"; onClicked: center.menuAction("toggle", "Start Screensaver") }
                         }
                     }
                     Column {
@@ -432,7 +432,7 @@ ThemedPopup {
                         GridLayout { width: parent.width; columns: 2; columnSpacing: 8; rowSpacing: 8
                             GridAction { title: Eitr.I18n.tr("Theme"); glyph: "󰏘"; onClicked: center.pickerRequested("theme") }
                             GridAction { title: Eitr.I18n.tr("Wallpaper"); glyph: "󰸉"; onClicked: center.pickerRequested("wallpaper") }
-                            GridAction { title: Eitr.I18n.tr("Default Font"); glyph: "󰛖"; onClicked: center.walkerMenu("fonts") }
+                            GridAction { title: Eitr.I18n.tr("Fonts"); glyph: "󰛖"; onClicked: center.walkerMenu("fonts") }
                         }
                         }
                         Fold {
@@ -465,7 +465,7 @@ ThemedPopup {
                         title: Eitr.I18n.tr("Bar")
                         OptionHeading { text: Eitr.I18n.tr("Layout") }
                         Grid { width: parent.width; columns: 2; spacing: 8
-                            PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Unified"); selected: center.layout === "unified"; foreground: center.foreground; onClicked: center.settingRequested("layout", "unified") }
+                            PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Full"); selected: center.layout === "unified"; foreground: center.foreground; onClicked: center.settingRequested("layout", "unified") }
                             PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Centered"); selected: center.layout === "centered"; foreground: center.foreground; onClicked: center.settingRequested("layout", "centered") }
                             PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Tabs"); selected: center.layout === "notch"; foreground: center.foreground; onClicked: center.settingRequested("layout", "notch") }
                             PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Islands"); selected: center.layout === "islands"; foreground: center.foreground; onClicked: center.settingRequested("layout", "islands") }
@@ -632,7 +632,7 @@ ThemedPopup {
                         }
                     }
                     Column {
-                        visible: center.page === "system"; width: parent.width; spacing: 12
+                        visible: center.page === "settings"; width: parent.width; spacing: 12
                         Section { text: Eitr.I18n.tr("Language"); width: parent.width }
                         PanelButton {
                             width: parent.width; textAlignment: Text.AlignLeft
@@ -713,7 +713,7 @@ ThemedPopup {
                         Fold {
                         title: Eitr.I18n.tr("Information")
                         GridLayout { width: parent.width; columns: 2; columnSpacing: 8; rowSpacing: 8
-                            GridAction { title: Eitr.I18n.tr("About"); glyph: "󰋽"; onClicked: center.menuAction("system-information", "About") }
+                            GridAction { title: Eitr.I18n.tr("About"); glyph: "󰋽"; onClicked: center.menuAction("system", "About") }
                             GridAction { title: Eitr.I18n.tr("Hardware"); glyph: "󰍛"; onClicked: center.panelRequested("hardware") }
                             GridAction { title: Eitr.I18n.tr("AI Usage"); glyph: ""; onClicked: center.panelRequested("ai") }
                             GridAction { title: Eitr.I18n.tr("Weather"); glyph: "󰖐"; onClicked: center.panelRequested("weather") }
@@ -727,7 +727,7 @@ ThemedPopup {
                             PanelButton { anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter; width: 110; height: 30; textSize: 12; text: Eitr.I18n.tr("Change"); visible: center.organizationPolicy.update_channel === true; foreground: center.foreground; onClicked: center.walkerMenu("update-channel") }
                         }
                         GridLayout { width: parent.width; columns: 2; columnSpacing: 8; rowSpacing: 8
-                            GridAction { title: Eitr.I18n.tr("System Update"); glyph: "󰚰"; onClicked: center.menuAction("update", "System Update") }
+                            GridAction { title: Eitr.I18n.tr("System Update"); glyph: "󰚰"; onClicked: center.menuAction("system", "System Update") }
                             GridAction { title: Eitr.I18n.tr("What Changed"); glyph: "󰋚"; onClicked: center.menuAction("snapshots", "What Each Update Changed") }
                         }
                         }
@@ -739,7 +739,7 @@ ThemedPopup {
                             GridAction { title: Eitr.I18n.tr("Recovery Snapshots"); glyph: "󰆓"; onClicked: center.menuAction("snapshots", "List Recovery Snapshots") }
                             GridAction { title: Eitr.I18n.tr("Recovery Guide"); glyph: "󰋗"; onClicked: center.menuAction("snapshots", "Recovery Instructions") }
                             GridAction { title: Eitr.I18n.tr("Cleanup"); glyph: "󰃢"; onClicked: center.menuAction("system-maintenance", "Cleanup") }
-                            GridAction { title: Eitr.I18n.tr("Dotfiles"); glyph: "󰘓"; onClicked: center.menuAction("system", "Dotfiles") }
+                            GridAction { title: Eitr.I18n.tr("Dotfiles"); glyph: "󰘓"; onClicked: center.menuAction("settings", "Dotfiles") }
                         }
                         }
                     }

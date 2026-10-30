@@ -418,14 +418,14 @@ class SelfcheckTests(unittest.TestCase):
         rows = json.loads((ROOT / 'elephant/menu-rows/system-maintenance.json').read_text())
         actions = [row['text'] for row in rows if 'submenu' not in row]
         self.assertEqual(actions, sorted(actions, key=str.casefold))
-        row = next(row for row in rows if row['text'] == 'Check this PC')
+        row = next(row for row in rows if row['text'] == 'Check This PC')
         self.assertIn('/task-terminal.py eitr check', row['actions']['open'])
         self.assertNotIn('--hold', row['actions']['open'])
         self.assertIn('scoped-menu.lua', (ROOT / 'elephant/menus/system-maintenance.lua').read_text())
         rules = json.loads((ROOT / 'distro/layout-manifest.json').read_text())['rules']
         self.assertTrue(any(rule['pattern'] == 'distro/lib/eitr_selfcheck.py' and rule['runtime'] for rule in rules))
         # Every menu fix is resolved by following the real menu tree.
-        for path in (check.UPDATE, check.REPORT, check.RESTART, check.CLEANUP, check.FIREWALL, 'Install > Plugins'):
+        for path in (check.UPDATE, check.REPORT, check.RESTART, check.CLEANUP, check.FIREWALL, 'Plugins > Installed Plugins'):
             parts = path.removeprefix('Main > ').split(' > ')
             menu = 'main'
             for title in parts:

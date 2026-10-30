@@ -19,7 +19,7 @@ from **Learn > EITR Handbook**.
    and display/night-light controls; Style contains appearance choices.
 4. Connect from the WiFi or Bluetooth icon. Right-side bar icons may be hidden:
    click the Show Icons arrow to reveal them.
-5. Choose a theme from **Style > Theme**, then a wallpaper from **Style > Wallpaper**.
+5. Choose a theme from **Settings > Style > Theme**, then a wallpaper from **Settings > Style > Wallpaper**.
 
 Fresh EITR defaults are **Eitr** and the **Clockwork Tape** lockscreen.
 Existing desktops keep their saved choices.
@@ -38,7 +38,7 @@ The handbook does not run commands. Code blocks are examples for you to inspect
 and copy deliberately. External reference links open only when clicked.
 
 Continue with [Shortcuts](handbook:shortcuts),
-[Desktop Bar](handbook:desktop-bar), or the [System Menu](handbook:system).
+[Desktop Bar](handbook:desktop-bar), or the [Settings Menu](handbook:system).
 
 <!-- eitr-overview -->
 ## What Eitr includes

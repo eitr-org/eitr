@@ -6,13 +6,13 @@ Kitty zeigt bei Sprüngen ab zwei Zellen eine kurze Cursorspur, etwa bei Enter, 
 
 ### Cursor-Feuer
 
-**Stil > Terminal > Cursor-Feuer** bietet **Deaktiviert** (Standard) und **Aktiviert**. Aktiviert wird Kittys integrierter Effekt `cursor-trail-blaze` bei Cursorbewegungen, ohne Erkennung der Tippgeschwindigkeit. Deaktivieren stellt die normale kurze Spur und deine eigene Shader-Auswahl wieder her.
+**Einstellungen > Stil > Terminal > Cursor-Feuer** bietet **Deaktiviert** (Standard) und **Aktiviert**. Aktiviert wird Kittys integrierter Effekt `cursor-trail-blaze` bei Cursorbewegungen, ohne Erkennung der Tippgeschwindigkeit. Deaktivieren stellt die normale kurze Spur und deine eigene Shader-Auswahl wieder her.
 
 Erforderlich sind Kitty 0.49+ und `shader-slang` aus Eitrs Desktop-Abhängigkeiten. Aktivieren prüft den Shader vor Speichern oder Neuladen von Kitty. Die lokale Einstellung liegt in `~/.config/eitr/terminal.json`. Das Hilfsprogramm schreibt `kitty/cursor-fire.conf`, die der Benutzer-Lader zuletzt einbindet. Aktiviert wählt es den Feuershader und senkt die Bewegungsschwelle auf eine Zelle. Schriften, Designs und eigene Konfigurationsdateien bleiben unverändert.
 
 ## Terminal auswählen
 
-**Stil > Terminal** in Walker und **Kontrollzentrum > Stil > Terminal** bieten
+**Einstellungen > Stil > Terminal** in Walker und **Kontrollzentrum > Stil > Terminal** bieten
 **Kitty** (Standard) und **Ghostty**. Das lokale Feld `terminal` in
 `~/.config/eitr/terminal.json` steuert Super+Enter, tmux, eigene Terminals,
 KI-/Projektterminals und Walkers Aktionen zum Öffnen im Terminal. Fehlt Ghostty,
@@ -128,4 +128,4 @@ Der Verlauf kann Token oder Zugangsdaten enthalten; kopiere ihn nicht in Fehlerb
 
 ## Darstellung der Editoren
 
-Designwechsel aktualisieren erzeugte Einstellungen für VS Code und LazyVim. Unterstützte laufende LazyVim-Sitzungen aktualisieren sich ohne erneutes Öffnen. Eigene Vorgaben und Plugins können andere Farben wählen. Prüfe ihre Konfiguration, wenn der Editor nicht dem Desktop folgt. Die Standardschrift wird nur in unterstützten Anwendungen übernommen.
+Designwechsel aktualisieren erzeugte Einstellungen für VS Code und LazyVim. Unterstützte laufende LazyVim-Sitzungen aktualisieren sich ohne erneutes Öffnen. Eigene Vorgaben und Plugins können andere Farben wählen. Prüfe ihre Konfiguration, wenn der Editor nicht dem Desktop folgt. Die Schriftarten wird nur in unterstützten Anwendungen übernommen.

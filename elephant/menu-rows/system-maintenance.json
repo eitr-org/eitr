@@ -18,19 +18,14 @@
     "submenu": "snapshots"
   },
   {
-    "text": "Update",
-    "subtext": ">",
-    "icon": "",
-    "submenu": "update"
-  },
-  {
-    "text": "Check this PC",
+    "text": "Check This PC",
     "subtext": "Read-only checks with suggested fixes; copy a redacted report",
     "keywords": [
       "diagnostics",
       "health",
       "troubleshoot",
-      "self-check"
+      "self-check",
+      "Check This PC"
     ],
     "icon": "󰒓",
     "actions": {
@@ -38,12 +33,15 @@
     }
   },
   {
-    "text": "Choose fastest mirrors",
+    "text": "Choose Fastest Mirrors",
     "subtext": "Rank recent HTTPS package mirrors",
     "icon": "󰒍",
     "actions": {
       "open": "kitty --hold --class system-mirrors -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/mirrors.py"
-    }
+    },
+    "keywords": [
+      "Choose Fastest Mirrors"
+    ]
   },
   {
     "text": "Cleanup",

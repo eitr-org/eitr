@@ -1,5 +1,35 @@
 # Desktop Bar
 
+Settings and workspace colours follow file/directory watches, including atomic
+writes and theme symlink replacement. Monitor/configuration events refresh primary
+output and gaps, with a 60 s recovery check. The dock also uses window events and
+60 s recovery. Idle Lock toggles report their state over IPC (30 s recovery).
+Battery stays at 30 s. WiFi glyphs and Focus share one 10 s status query without
+IP/route telemetry; network details refresh only while WiFi or Control Center is
+open. Hardware and recording details refresh immediately on opening, then every
+2 s while open. Hardware identity and unsupported GPU detection are cached for
+the bar session; utilization, frequency, temperatures and disk usage remain live.
+One OBS status source refreshes every 2 s while an OBS window/process exists;
+open recording details supply that snapshot instead. A startup probe discovers
+an existing tray instance; subsequent OBS window events activate observation.
+Remote details refresh on opening and every 10 s while observed; closed panels
+only read policy availability at startup and policy changes. AI and weather
+popup refresh timers run only while open; the weather glyph keeps its 15 min
+schedule.
+
+Live artwork decodes at the output's pixel dimensions. Aurora runs at 20 Hz on
+an empty workspace and 5 Hz behind ordinary windows, retaining fullscreen and
+Focus pauses. A one-shot Wayland EGL renderer probe detects llvmpipe/softpipe
+and explicit software rendering. Software or unavailable EGL keeps Hyprpaper's
+selected still image and skips the live scene. No machine preference is added.
+
+Login starts Hyprpaper, waits up to 2 s for its IPC endpoint, then starts the bar.
+Optional session preparation, Elephant, crash help, cursor sync, nightlight, OSD
+and clipboard watchers follow after 4 s. Authentication agents and idle locking
+keep their existing startup path. Walker starts/waits for the same Elephant
+service when invoked early; its KillMode remains process. Plugin login hooks
+start after 12 s and the first automatic update check after 45 s.
+
 The shared Audio/Mic panel includes a live PipeWire input-level meter. Monitoring runs
 only while that panel is open; no audio is written to disk. The meter follows the
 shared panel theme and shows zero when the selected microphone is muted.
@@ -175,7 +205,7 @@ Tabs uses a continuous 7 px strip and three content-sized tabs for the left, cen
 
 Drag empty bar space toward top, bottom, left, or right to change its edge; a
 preview highlights the destination. The choices persist in `bar-settings.json`.
-Walker exposes the same settings under Style > Desktop Bar > Appearance,
+Walker exposes the same settings under Settings > Style > Desktop Bar > Appearance,
 Displays, Layout, and Position. Appearance offers Blur and Theme Color. Displays
 shows the bar on the main display only (default) or on every display; then the
 focused display's bar answers IPC and shortcuts, each bar highlights its own
@@ -187,7 +217,7 @@ over the minutes (with AM/PM for 12-hour time) above a calendar glyph (the date 
 in its tooltip), the weather
 shows only its icon (the temperature is in its tooltip), and popups open inward.
 The `clock` setting in `bar-settings.json` (`12h`, the default, or `24h`), under
-Style > Desktop Bar > Clock and Control Center > Style > Bar, picks the time format
+Settings > Style > Desktop Bar > Clock and Control Center > Style > Bar, picks the time format
 for every edge.
 AI Usage, Hardware and Idle Lock sit together after the workspaces; right-hand controls
 retain their manual show/hide toggle in Full, Centered and Islands. Tabs keeps them visible without a toggle. Both side groups share 24 px icon slots
@@ -200,7 +230,7 @@ The Idle Lock icon follows AI Usage and is a plain switch: a click turns
 automatic idle locking on or off, with no panel; its tooltip shows the state.
 When on, `hypridle` locks after 15 minutes, turns screens off after 30 and
 suspends after 60. Locking now stays in the Control Center, Main > Power and
-SUPER+M. Walker's Toggle > Idle Lock and the Control Center tile are the same toggle.
+SUPER+M. Walker's Quick Actions > Idle Lock and the Control Center tile are the same toggle.
 
 The Eitr logo comes first and toggles Control Center beside the bar, using the
 same left-side panel placement as Hardware. Centered bars keep panels centered
@@ -235,7 +265,7 @@ monitor assignments remain unchanged. Named/special workspaces are not included
 in the numbered overview; external compositor commands can still create them.
 
 Right-click a workspace to choose Dots, Glyph, Numbers or Runes (the default), or use Walker's
-Style > Workspaces menu. Both selectors share the same saved preference.
+Settings > Style > Workspaces menu. Both selectors share the same saved preference.
 The menu includes examples; the checkmark identifies the current selection.
 The choice is saved in `workspace-style.json`. Selected workspace colors follow
 the current theme's accent.
@@ -352,12 +382,12 @@ Walker System entries use show-panel.sh to open these same bar popups, including
 audio, microphone, keyboard, display, calendar, weather, hardware, and AI usage.
 Its allowlist accepts exactly the `panels show` kinds; a test keeps them in sync. Hidden
 status icons remain hidden; their popups anchor beside the notification icon.
-Walker's System > Devices & Input > Keyboard menu is the only place to add or
+Walker's Settings > Devices & Input > Keyboard menu is the only place to add or
 remove layouts: Add Layout lists the installed XKB languages and variants, and
 Delete removes the selected layout. Added layouts persist in
 hypr/keyboard-layouts.lua and retain Alt+Shift switching.
 Up to four layouts can be configured; duplicate and unknown layouts are rejected.
-WiFi defaults to iwd and supports NetworkManager through System > Connectivity > Network Backend.
+WiFi defaults to iwd and supports NetworkManager through Settings > Connectivity > Network Backend.
 Selection applies after reboot; the panel uses the running backend's D-Bus API for adapter power,
 scanning, connection, and disconnection. The compact panel separates remembered
 networks from other networks and shows ping, the current WiFi band, IP address
@@ -440,7 +470,7 @@ are omitted, and Btrfs subvolume mounts are not counted repeatedly.
 GPU telemetry uses `nvidia-smi`; temperatures use `sensors`.
 Missing optional telemetry is shown as unavailable. No terminal is launched.
 
-Display opens a themed native panel with brightness, Nightlight, and active
+Display opens a themed native panel with brightness, Night Light, and active
 monitor names, resolutions, and refresh rates. Clicking a display opens its
 settings inside its card; their Main display switch makes it the bar's primary
 screen (the choice persists in `~/.config/hypr/primary-display`), and the main
@@ -470,7 +500,7 @@ browsers use HDR only when desktop HDR is on for their monitor. The browser
 browser surfaces from switching an SDR desktop into HDR. The desktop switch also uses `hdredid`, so Hyprland applies the EDID's peak and black
 levels. Turning HDR off writes `cm = "srgb"` and 8-bit explicitly, because
 Hyprland keeps the previous preset when the fields are missing.
-The Nightlight editor saves valid time changes automatically; its Auto switch
+The Night Light editor saves valid time changes automatically; its Auto switch
 enables or disables the schedule, while the main switch remains a manual override.
 Brightness uses the laptop backlight when present and the first DDC monitor
 otherwise. The SwayOSD overlay for volume and
@@ -525,7 +555,7 @@ eitr-shell desktop-bar kill
 
 ## Panel Style
 
-Control Center > Style > Corners and Walker > Style > Corners select Square,
+Control Center > Style > Corners and Walker > Settings > Style > Corners select Square,
 Rounded (1.5× the base radii, halfway to Extra Rounded) or Extra Rounded. The machine-local preference is
 `~/.config/eitr/style.json`. The styles, their radius scale and Hyprland window
 rounding are defined once in `corner-styles.json`, which `desktop-style.py`,
@@ -644,7 +674,7 @@ options in the Plugins page while click-through.
 
 Plugin appearance belongs to its author. Widgets and panels default to no host surface; panel surfaces and theme helpers are opt-in. Tiles default to the Eitr row, with `look: "custom"` providing a full-slot canvas. See `distro/PLUGINS.md`.
 
-Auto-hide is optional in Style > Desktop Bar and Control Center > Style. The
+Auto-hide is optional in Settings > Style > Desktop Bar and Control Center > Style. The
 strip slides out in 320 ms, retaining a one-pixel edge input region. Panels,
 pending popups, notification toasts, Overview and dragging hold it open; a 350 ms leave delay precedes
 hiding. A hidden bar reserves no space. The preference is separate from the
@@ -656,7 +686,7 @@ Touch the screen edge opposite the bar to reveal the application dock. It unfold
 
 The dock shows pinned apps first, followed by other open applications in Hyprland’s window order. Each 36 px icon slot has a 6 px gap and uses the application’s desktop icon, with a glyph fallback; Eitr’s own task and menu terminals share one Eitr logo icon. Dots below an icon count its windows, up to three, and dim when none is on the current workspace of that screen. Hover for its name and window count. Click to focus its most recently used window (including switching workspace); click again to move to its next window. Middle-click closes the most recent window. Long lists scroll along the dock. The surface follows Blur/Theme Color and the corner preference.
 
-**Dock** in **Style > Desktop Bar** and **Control Center > Style > Bar** turns it off or on. The `dock` setting in `bar-settings.json` defaults to `"yes"`. There is no dock shortcut.
+**Dock** in **Settings > Style > Desktop Bar** and **Control Center > Style > Bar** turns it off or on. The `dock` setting in `bar-settings.json` defaults to `"yes"`. There is no dock shortcut.
 
 Pinned apps stay at full opacity with no dots when closed; click one to launch it in its own application scope. Right-click an icon for Keep in Dock / Remove from Dock, New Window (when a desktop entry is available), and Close or Close All Windows. Escape or a click outside dismisses the menu. Apps without a desktop entry cannot be pinned.
 
@@ -667,7 +697,7 @@ Pins are desktop-entry IDs stored in order in the machine-local `quickshell/desk
 
 ## Motion and panel smoothness audit
 
-Reduce motion is off by default. Style > Desktop Bar > Reduce motion and
+Reduce motion is off by default. Settings > Style > Desktop Bar > Reduce motion and
 Control Center > Style > Bar share `bar-settings.json` (`reduceMotion: yes/no`).
 `DesktopStyle.motionDuration()` owns the policy: normal durations/easing are
 unchanged, reduced durations are zero. DockPanel unfold/fold/resize, notification
@@ -782,7 +812,7 @@ measurements, not live provider/hardware latency claims.
 
 ## Focus preset
 
-Style > Focus, Control Center > Style > Focus and `eitr focus on|off|status`
+Settings > Style > Focus, Control Center > Style > Focus and `eitr focus on|off|status`
 share a machine-local preference. Focus uses native Hyprland groups with up to
 four panes per monitor and a thin Quickshell tab strip. Turning it off restores
 the normal bar and effects, spreading windows two per workspace. See the

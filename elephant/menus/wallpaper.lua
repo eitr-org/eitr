@@ -42,7 +42,7 @@ function GetEntries()
         local path = directory .. "/" .. file
         table.insert(entries, {
             Text = file,
-            Subtext = mine and yours or nil,
+            Subtext = (mine and yours .. " · " or "") .. i18n.tr("Apply or preview this wallpaper"),
             Value = path,
             Icon = path == current and "\239\128\140" or path,
             State = path == current and { "current" } or {},

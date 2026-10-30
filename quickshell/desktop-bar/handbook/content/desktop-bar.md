@@ -22,8 +22,8 @@ never leaves the system partially upgraded.
   installations start with Theme Color).
 - Double-right-click empty space to cycle Full → Centered → Tabs → Islands → Full.
 - Drag empty space toward the top, bottom, left or right to move the bar. Left and right bars are as thin as top and bottom ones: the clock shows the hour over the minutes with a calendar icon, and the weather shows its icon; hover them for the date and temperature.
-- **Clock** under Style > Desktop Bar and Control Center > Style > Bar shows 12-hour time with AM/PM (the default) or 24-hour time, on every bar edge.
-- The same settings are under **Style > Desktop Bar** and Control Center > Style.
+- **Clock** under Settings > Style > Desktop Bar and Control Center > Style > Bar shows 12-hour time with AM/PM (the default) or 24-hour time, on every bar edge.
+- The same settings are under **Settings > Style > Desktop Bar** and Control Center > Style.
 - **Displays** (Show on) puts the bar on the main display only, the default, or
   on every display. With a bar on every display, each one marks the workspace
   shown on its own screen, shortcuts such as SUPER + , open on the display you
@@ -63,13 +63,13 @@ On empty desktop space, the wallpaper/theme mouse gestures are listed under
 
 The Audio/Mic control opens one panel with separate output and microphone sections. Tailscale and Streaming sit immediately before OBS. A switch in their header connects Tailscale or starts sharing, details and devices follow, and setup or diagnostic actions are in the "…" menu. Icon buttons show their background on hover; panels refresh by themselves when they open, a refresh icon spins only while they load, and tooltips appear near the pointer. Switches and inset action buttons use compact shared sizes.
 
-**Music Visualizer** in **Main > Tools** opens cava with theme colours. Right-click the media equalizer to open the same visualizer; left-click still opens media details. Press **q** or **Esc** to close it. On existing desktops, a missing cava package is installed first.
+**Music Visualizer** opens cava with theme colours. Right-click the media equalizer to open the same visualizer; left-click still opens media details. Press **q** or **Esc** to close it. On existing desktops, a missing cava package is installed first.
 
-**Auto-hide**, under Style > Desktop Bar and Control Center > Style, slides the bar away after a short pointer-leave delay. Touch its screen edge to reveal it. It works on all four edges with Full, Centered, Tabs and Islands layouts. Open panels and popups, and dragging the bar, keep it visible; it hides again afterwards. While auto-hide is on, the bar reserves no window space: it slides over windows instead of moving them. The setting is saved independently of the centered-layout pin and is off by default on new installations.
+**Auto-hide**, under Settings > Style > Desktop Bar and Control Center > Style, slides the bar away after a short pointer-leave delay. Touch its screen edge to reveal it. It works on all four edges with Full, Centered, Tabs and Islands layouts. Open panels and popups, and dragging the bar, keep it visible; it hides again afterwards. While auto-hide is on, the bar reserves no window space: it slides over windows instead of moving them. The setting is saved independently of the centered-layout pin and is off by default on new installations.
 
-**Reduce motion**, under Style > Desktop Bar and Control Center > Style > Bar, makes panel unfolding and folding, Overview entrances, notification transitions and decorative bar animations instant. It is off by default and saved in `bar-settings.json`. Timers that refresh data, dismiss notifications or delay auto-hide keep their normal behavior.
+**Reduce motion**, under Settings > Style > Desktop Bar and Control Center > Style > Bar, makes panel unfolding and folding, Overview entrances, notification transitions and decorative bar animations instant. It is off by default and saved in `bar-settings.json`. Timers that refresh data, dismiss notifications or delay auto-hide keep their normal behavior.
 
-Media style is saved in `bar-settings.json`: choose Bars (default, eight bars) or Line (a simple smooth audio wave) under Style > Desktop Bar or Control Center > Style > Bar. The indicator precedes the playback controls, keeps a fixed size in every layout and rotates on left/right edges. Hover for the song name; left-click opens media details and right-click opens Music Visualizer. Paused playback settles the line flat. Reduce motion keeps live audio levels without easing and stops decorative fallback motion.
+Media style is saved in `bar-settings.json`: choose Bars (default, eight bars) or Line (a simple smooth audio wave) under Settings > Style > Desktop Bar or Control Center > Style > Bar. The indicator precedes the playback controls, keeps a fixed size in every layout and rotates on left/right edges. Hover for the song name; left-click opens media details and right-click opens Music Visualizer. Paused playback settles the line flat. Reduce motion keeps live audio levels without easing and stops decorative fallback motion.
 
 ## Edge dock
 
@@ -77,7 +77,7 @@ Touch the screen edge opposite the bar to reveal the application dock. It unfold
 
 The dock shows pinned apps first, followed by other open applications in Hyprland’s window order. Each 36 px icon slot has a 6 px gap and uses the application’s desktop icon, with a glyph fallback; Eitr’s own task and menu terminals share one Eitr logo icon. Dots below an icon count its windows, up to three, and dim when none is on the current workspace of that screen. Hover for its name and window count. Click to focus its most recently used window (including switching workspace); click again to move to its next window. Middle-click closes the most recent window. Long lists scroll along the dock. The surface follows Blur/Theme Color and the corner preference.
 
-**Dock** in **Style > Desktop Bar** and **Control Center > Style > Bar** turns it off or on. The `dock` setting in `bar-settings.json` defaults to `"yes"`. There is no dock shortcut.
+**Dock** in **Settings > Style > Desktop Bar** and **Control Center > Style > Bar** turns it off or on. The `dock` setting in `bar-settings.json` defaults to `"yes"`. There is no dock shortcut.
 
 Pinned apps stay at full opacity with no dots when closed; click one to launch it in its own application scope. Right-click an icon for Keep in Dock / Remove from Dock, New Window (when a desktop entry is available), and Close or Close All Windows. Escape or a click outside dismisses the menu. Apps without a desktop entry cannot be pinned.
 

@@ -2,7 +2,7 @@
 
 ## Themes and wallpapers
 
-Open **Style > Theme** or **SUPER + Ctrl + Shift + N**. Pick Dark/Light, then a
+Open **Settings > Style > Theme** or **SUPER + Ctrl + Shift + N**. Pick Dark/Light, then a
 theme. Start typing inside the theme carousel to filter; arrows/Tab move and
 Enter applies. Backspace edits search first; Escape clears search before closing.
 The category picker and wallpaper carousel do not have theme search.
@@ -16,8 +16,10 @@ the picture is cut away; other monitors show the 4K 16:9 one.
 The Eitr theme has four wallpapers: Primordial Drop (the default), Runestone,
 Élivágar and Venom Rootlight. Select them through the same wallpaper controls;
 the palette stays the same. The second wallpaper, Runestone, is live: northern
-lights drift slowly behind the rune ring, pause behind fullscreen apps, and
-remain still on the lockscreen. Graphite has been retired; saved Graphite
+lights drift slowly behind the rune ring, update more slowly behind ordinary
+windows, pause behind fullscreen apps, and remain still on the lockscreen.
+Software rendering (for example, a VM without 3D acceleration) uses the selected
+still wallpaper; the same fallback applies if the renderer cannot be detected. Graphite has been retired; saved Graphite
 selections switch to Eitr and its default wallpaper.
 
 The 24 shipped themes include ten dark realm palettes: Alfheim, Asgard, Helheim,
@@ -34,14 +36,14 @@ uploads or shares them, and updates never change them. They appear beside the
 shipped ones, marked **Yours**, and only they can be deleted: select one and
 press **Delete**, then Enter to confirm or Escape to keep it.
 
-- **Style > Wallpaper > Add My Own Wallpaper** takes a picture file or an https
+- **Settings > Style > Wallpaper > Add My Own Wallpaper** takes a picture file or an https
   address. Downloads stop at 50 MB, and Eitr keeps a copy only after checking
   that the file is a JPEG, PNG or WebP picture. A web page's address works when
   the page offers a main picture; otherwise copy the image's own address. The
   picture is applied right away and appears in the wallpaper list, the carousel
   and SUPER + Shift + N. Deleting the wallpaper in
   use first switches to the theme's first wallpaper. Choose whether your wallpaper appears with all themes or only the current theme.
-- **Style > Theme > Create Theme** asks for a picture (the current wallpaper,
+- **Settings > Style > Theme > Create Theme** asks for a picture (the current wallpaper,
   one of yours, the theme's, or another file or https address), light or dark
   (Automatic follows the picture's brightness), and a name. After the review,
   Eitr builds a full palette from the picture, keeping text clearly readable on
@@ -50,7 +52,7 @@ press **Delete**, then Enter to confirm or Escape to keep it.
   terminal colors, type six hex digits, and the change applies at once; Escape
   finishes. **Ctrl + E** on one of your themes opens the list again. Deleting the
   theme in use first returns to the theme you used before creating it.
-- **Style > Lockscreen > Create Lockscreen** uses the Theme Wallpaper or
+- **Settings > Style > Lockscreen > Create Lockscreen** uses the Theme Wallpaper or
   Material design with your picture, an optional accent color and an optional
   greeting under the clock, then shows a preview. Select it like any design.
   The login screen cannot read your home folder: it shows the same design, with
@@ -59,14 +61,14 @@ press **Delete**, then Enter to confirm or Escape to keep it.
 
 ## Bar and corners
 
-**Style > Desktop Bar** selects Blur/Theme Color, full/centered layout and edge.
-Walker follows that appearance. **Style > Corners** selects Square, Rounded or
+**Settings > Style > Desktop Bar** selects Blur/Theme Color, full/centered layout and edge.
+Walker follows that appearance. **Settings > Style > Corners** selects Square, Rounded or
 Extra Rounded for EITR surfaces and compositor decorations. Third-party apps
 may retain their own internal widget style; circular status dots remain circular.
 
 ## Fonts
 
-**Style > Fonts** lists usable installed font families, not every bold/italic
+**Settings > Style > Fonts** lists usable installed font families, not every bold/italic
 variant. Document/fallback families stay hidden. JetBrainsMono Nerd Font is
 the default. Selection updates supported desktop apps; ligatures are enabled
 where supported. Removing a family removes its supported installed variants;
@@ -74,7 +76,7 @@ the last usable choice cannot be deleted. Package ownership may require review.
 
 ## Cursor
 
-**Style > Cursor** offers Bibata Modern, Breeze and Vanilla DMZ; Color offers
+**Settings > Style > Cursor** offers Bibata Modern, Breeze and Vanilla DMZ; Color offers
 Auto, Dark and Light; Size chooses the pointer size. Auto follows the theme's
 light/dark category without changing your selected family. Explicit color
 overrides persist. The selected row uses a left-side checkmark; other family
@@ -89,7 +91,7 @@ are used if yours cannot be read. Boot entries are never changed, and
 Secure Boot is enabled, because an enrolled Limine config hash would stop the
 system booting after an edit.
 
-**Style > Lockscreen** sets the design of both the lockscreen and the login
+**Settings > Style > Lockscreen** sets the design of both the lockscreen and the login
 screen. Existing preferences survive theme changes.
 
 Available designs are Clockwork Neo Orbital, Clockwork Tape, Eitr, Girl Coffee,

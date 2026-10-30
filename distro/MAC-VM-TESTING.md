@@ -125,7 +125,7 @@ for the basic desktop test.
 - [ ] Arch guest boots without the ISO; virtual Ethernet and DNS work.
 - [ ] Preflight, package installs, AUR builds, and development setup finish.
 - [ ] Reboot reaches SDDM; Hyprland login succeeds at a usable resolution.
-- [ ] Quickshell, Walker, terminal, theme selection, and System > Information > About work.
+- [ ] Quickshell, Walker, terminal, theme selection, and Settings > System > About work.
 - [ ] Theme Color/Blur, light/dark themes, and all four bar edges render correctly.
 - [ ] Panels open/close, resize, remain padded, and do not overlap incorrectly.
 - [ ] Notifications appear above panels; dismissing one does not activate a

@@ -127,7 +127,7 @@ class MirrorsTests(unittest.TestCase):
 
     def test_install_and_menu_wiring(self):
         rows = json.loads((ROOT / "elephant/menu-rows/system-maintenance.json").read_text())
-        row = next(row for row in rows if row["text"] == "Choose fastest mirrors")
+        row = next(row for row in rows if row["text"] == "Choose Fastest Mirrors")
         self.assertIn("task-terminal.py python3", row["actions"]["open"])
         self.assertIn("system/mirrors.py", row["actions"]["open"])
         installer = (ROOT / "distro/archinstall/eitr-guided-install").read_text()

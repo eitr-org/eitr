@@ -3,7 +3,7 @@ local i18n = dofile(paths.code("elephant/i18n.lua"))
 -- Rows: elephant/menu-rows/style.json. Typing also searches the menus below this one.
 Name = "style"
 NamePretty = i18n.tr("Style")
-Parent = "main"
+Parent = "settings"
 Icon = ""
 FixedOrder = true
 GetEntries = dofile(paths.code("elephant/scoped-menu.lua"))("style")

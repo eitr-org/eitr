@@ -17,6 +17,7 @@ return function(icons, open_command)
         local entries = {
             {
                 Text = "Open Development",
+                Subtext = "Open your development folder",
                 Value = root,
                 Icon = icons.root,
                 Actions = { open = open_command(shell_quote(root)) },
@@ -30,6 +31,7 @@ return function(icons, open_command)
             local path = git_dir:gsub("/%.git$", "")
             table.insert(entries, {
                 Text = path:sub(#root + 2),
+                Subtext = "Open this project in the editor",
                 Value = path,
                 Icon = icons.project,
                 Actions = { open = open_command(shell_quote(path)) },

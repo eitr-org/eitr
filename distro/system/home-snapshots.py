@@ -291,7 +291,7 @@ def main():
     if args.action == "status":
         return status()
     if os.geteuid() != 0:
-        parser.error('Run through sudo (System > Maintenance > Snapshots)')
+        parser.error('Run through sudo (Settings > System > Maintenance > Snapshots)')
     if args.action == "on":
         if not args.user:
             parser.error('on needs the user who may browse the snapshots')

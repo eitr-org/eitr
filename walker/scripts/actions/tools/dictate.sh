@@ -43,7 +43,7 @@ transcriber() {
 
 ensure_ready() {
   if [[ -z "$(transcriber)" ]] || ! command -v wtype >/dev/null 2>&1; then
-    notify "Dictation is not installed" "It comes with Eitr: run Main > System > Maintenance > Update > System Update."
+    notify "Dictation is not installed" "It comes with Eitr: run Main > Settings > System > System Update."
     return 1
   fi
   [[ -f "$model" ]] && return 0

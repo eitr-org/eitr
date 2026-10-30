@@ -127,7 +127,7 @@ panels["ControlCenter-plugin-details"] = (panels["ControlCenter-plugins"][0], pa
 panels['MediaMenu'] = ('player: null', '')
 panels['AudioMenu-mic'] = ('microphone: true', '')
 panels['RemoteAccessMenu-streaming'] = ('service: mock; kind: "streaming"', '')
-for page in ['general', 'tools', 'system']:
+for page in ['general', 'tools', 'settings']:
  panels['ControlCenter-'+page] = (panels['ControlCenter-style'][0].replace('page: "style"', 'page: "'+page+'"'), 'panel.page="'+page+'";')
 panels['PluginPanel'] = ('', 'panel.entry={kind:"panels",plugin:"preview",id:"preview",qml:"FixturePlugin.qml",source:Qt.resolvedUrl("FixturePlugin.qml").toString(),title:"Preview",disabled:false,surface:"panel"};')
 for name, (extra, data) in panels.items():

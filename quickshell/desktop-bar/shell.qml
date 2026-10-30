@@ -12,6 +12,7 @@ import "PanelStyle.js" as PanelStyle
 import "WorkspaceModel.js" as WorkspaceModel
 import "BarGeometry.js" as BarGeometry
 import "EdgeSlopes.js" as EdgeSlopes
+import "NetworkStatus.js" as NetworkStatus
 
 ShellRoot {
     Component.onCompleted: {
@@ -21,7 +22,7 @@ ShellRoot {
     id: shell
     signal handbookOpened()
     NotificationService { id: notificationsService }
-    RemoteAccessService { id: remoteAccessService; observing: shell.iconsOpen }
+    RemoteAccessService { id: remoteAccessService; observing: shell.remotePanelsOpen }
     Handbook {
         id: handbook
         foreground: shell.fg
@@ -96,7 +97,7 @@ ShellRoot {
         property bool dispatched: false
     }
     Timer {
-        interval: 1
+        interval: 12000
         running: !pluginSession.dispatched
         onTriggered: {
             pluginSession.dispatched = true;
@@ -120,6 +121,8 @@ ShellRoot {
         barEdge: shell.barEdge
     }
 
+    property int remoteObservers: 0
+    readonly property bool remotePanelsOpen: remoteObservers > 0
     property bool statusOpen: false
     property bool barVisible: true
     property int barHeight: 30
@@ -132,6 +135,7 @@ ShellRoot {
     readonly property string idleLockGlyph: idleLockEnabled ? "󱫗" : "󱫖"
     readonly property string idleLockTooltip: idleLockEnabled ? Eitr.I18n.tr("Idle Lock: On") : Eitr.I18n.tr("Idle Lock: Off")
     function switchIdleLock() { if (!toggleIdleLock.running) toggleIdleLock.running = true; }
+    property var hardwareIdentity: null
     property var battery: ({available: false, percent: 0, status: "", health: 0, hours: 0})
     readonly property string batteryIcon: battery.status === "Charging" ? "󰂄" : battery.percent < 20 ? "󰁻" : battery.percent < 60 ? "󰁾" : "󰁹"
     property string primaryDisplay: ""
@@ -189,13 +193,28 @@ ShellRoot {
         }
     }
     Timer {
-        interval: 5000; running: true; repeat: true
-        onTriggered: {
-            if (!windowGapQuery.running) windowGapQuery.running = true;
-            if (!screenGapQuery.running) screenGapQuery.running = true;
-            pluginDesktop.refresh();
+        interval: 60000; running: true; repeat: true
+        onTriggered: shell.refreshDisplayState()
+    }
+    function refreshDisplayState() {
+        if (windowGapQuery.running || screenGapQuery.running || primaryDisplayQuery.running) { displayReload.restart(); return; }
+        if (!windowGapQuery.running) windowGapQuery.running = true;
+        if (!screenGapQuery.running) screenGapQuery.running = true;
+        if (!primaryDisplayQuery.running) primaryDisplayQuery.running = true;
+        pluginDesktop.refresh();
+    }
+    Connections {
+        target: Hyprland
+        function onRawEvent(event) {
+            if (["monitoradded", "monitoraddedv2", "monitorremoved", "configreloaded"].indexOf(event.name) !== -1)
+                displayReload.restart();
         }
     }
+    Connections {
+        target: Quickshell
+        function onScreensChanged() { displayReload.restart(); }
+    }
+    Timer { id: displayReload; interval: 80; onTriggered: shell.refreshDisplayState() }
     property string barEdge: "top"
     property bool settingsDirty: false
     property string dragCandidate: ""
@@ -231,6 +250,7 @@ ShellRoot {
 
     IpcHandler {
         target: "bar"
+        function idleLock(enabled: bool): void { shell.idleLockEnabled = enabled; }
         function workspaces(): string { return JSON.stringify({count: shell.workspaceCount, limit: 10}); }
         function visibility(): void { shell.barVisible = !shell.barVisible; }
         function update(key: string, value: string): void { shell.updateBarSetting(key, value) }
@@ -263,11 +283,17 @@ ShellRoot {
         }
     }
 
+    PreferenceWatch {
+        path: Eitr.Paths.config("quickshell/desktop-bar/bar-settings.json")
+        onChanged: settingsReload.restart()
+    }
     Timer {
-        interval: 2000
-        running: true
-        repeat: true
-        onTriggered: if (!barSettingsQuery.running && !saveBarSettings.running) barSettingsQuery.running = true
+        id: settingsReload
+        interval: 40
+        onTriggered: {
+            if (barSettingsQuery.running || saveBarSettings.running || shell.settingsDirty) restart();
+            else barSettingsQuery.running = true;
+        }
     }
 
     Timer {
@@ -327,11 +353,22 @@ ShellRoot {
         }
     }
 
+    PreferenceWatch {
+        path: Eitr.Paths.config("theme/current/colors.toml")
+        ancestor: Eitr.Paths.config("theme")
+        onChanged: paletteReload.restart()
+    }
+    PreferenceWatch {
+        path: Eitr.Paths.config("quickshell/desktop-bar/workspace-style.json")
+        onChanged: paletteReload.restart()
+    }
     Timer {
-        interval: 2000
-        running: true
-        repeat: true
-        onTriggered: if (!workspacePalette.running) workspacePalette.running = true
+        id: paletteReload
+        interval: 40
+        onTriggered: {
+            if (workspacePalette.running || saveWorkspaceStyle.running) restart();
+            else workspacePalette.running = true;
+        }
     }
 
     Process {
@@ -351,11 +388,13 @@ ShellRoot {
         }
     }
 
-    Timer {
-        interval: 5000
-        running: true
-        repeat: true
-        onTriggered: if (!primaryDisplayQuery.running) primaryDisplayQuery.running = true
+    PreferenceWatch {
+        path: Eitr.Paths.config("hypr/primary-display")
+        onChanged: displayReload.restart()
+    }
+    PreferenceWatch {
+        path: Eitr.Paths.config("hypr/preferred-outputs")
+        onChanged: displayReload.restart()
     }
 
     Process {
@@ -366,7 +405,7 @@ ShellRoot {
     }
 
     Timer {
-        interval: 1500
+        interval: 30000
         running: true
         repeat: true
         onTriggered: if (!idleLockStatus.running && !toggleIdleLock.running) idleLockStatus.running = true
@@ -462,7 +501,7 @@ ShellRoot {
             shell.announceUpdates();
         }
     }
-    Timer { interval: 15000; running: true; onTriggered: shell.checkUpdates() }
+    Timer { interval: 45000; running: true; onTriggered: shell.checkUpdates() }
     Timer { interval: 6 * 60 * 60 * 1000; repeat: true; running: true; onTriggered: shell.checkUpdates() }
     IpcHandler {
         target: "updates"
@@ -621,17 +660,23 @@ ShellRoot {
         }
     }
     SystemClock { id: focusClock; precision: SystemClock.Minutes }
-    property string focusNetworkGlyph: ""
+    property string wifiGlyph: ""
+    property string focusNetworkGlyph: ""
     Process {
-        id: focusNetworkQuery
-        command: ["python3", Quickshell.shellDir + "/scripts/focus-mode.py", "network"]
+        id: wifiStatusQuery
+        command: ["python3", Quickshell.shellDir + "/scripts/wifi-popup.py", "icon"]
+        running: true
         stdout: StdioCollector {
             onStreamFinished: {
-                try { shell.focusNetworkGlyph = JSON.parse(text).text; } catch (error) {}
+                try {
+                    const snapshot = JSON.parse(text);
+                    shell.wifiGlyph = NetworkStatus.glyph(snapshot, snapshot.blocked);
+                    shell.focusNetworkGlyph = snapshot.wired ? "󰈀" : shell.wifiGlyph;
+                } catch (error) {}
             }
         }
     }
-    Timer { interval: 5000; repeat: true; running: FocusMode.enabled; triggeredOnStart: true; onTriggered: if (!focusNetworkQuery.running) focusNetworkQuery.running = true }
+    Timer { interval: 10000; repeat: true; running: true; onTriggered: if (!wifiStatusQuery.running) wifiStatusQuery.running = true }
 
 
     Variants {
@@ -930,9 +975,9 @@ ShellRoot {
                     battery: shell.battery; displayControl: brightnessMenu
                 }
                 function showControlCenter(page) {
-                    // Older callers name the pages that became System and Tools.
-                    page = ({settings: "system", capture: "tools"})[page] || page;
-                    if (["general", "plugins", "style", "tools", "system"].indexOf(page) === -1) return;
+                    // Accept the System and Capture aliases for Settings and Tools.
+                    page = ({system: "settings", capture: "tools"})[page] || page;
+                    if (["general", "plugins", "style", "tools", "settings"].indexOf(page) === -1) return;
                     controlCenter.page = page;
                     showPanel(controlCenter);
                 }
@@ -1335,8 +1380,8 @@ ShellRoot {
                         }
                         StatusCommand {
                             id: verticalWifiIcon
-                            script: Quickshell.shellDir + "/scripts/wifi-status.sh"
-                            hoverLabel: "WiFi"; fontSize: 16; interval: 3000
+                            text: shell.wifiGlyph
+                            hoverLabel: "WiFi"; fontSize: 16
                             open: shell.iconsOpen; height: open ? 24 : 0; fixedWidth: 56; clickable: true
                             anchors.horizontalCenter: parent.horizontalCenter
                             onClicked: bar.togglePanel(wifiMenu)
@@ -1498,6 +1543,8 @@ ShellRoot {
 
                         SystemMonitorMenu {
                             id: hardwareMenu
+                            identity: shell.hardwareIdentity
+                            onIdentityReceived: identity => shell.hardwareIdentity = identity
                             surfaceColor: shell.barBackground()
                             maximumHeight: bar.screen.height - 70
                             target: shell.verticalBar ? verticalHardwareIcon : hardwareIcon
@@ -1557,10 +1604,9 @@ ShellRoot {
 
                             StatusCommand {
                                 id: wifiIcon
-                                script: Quickshell.shellDir + "/scripts/wifi-status.sh"
+                                text: shell.wifiGlyph
                                 hoverLabel: "WiFi"
                                 fontSize: 16
-                                interval: 3000
                                 open: shell.iconsOpen
                                 slotWidth: shell.workspaceItemSize
                                 fixedWidth: shell.workspaceItemSize
@@ -1571,6 +1617,8 @@ ShellRoot {
 
                             WifiMenu {
                                 id: wifiMenu
+                                observing: controlCenter.opened
+                                onStatusReceived: snapshot => shell.wifiGlyph = NetworkStatus.glyph(snapshot)
                                 surfaceColor: shell.barBackground()
                                 target: shell.verticalBar ? verticalWifiIcon : (shell.iconsOpen ? wifiIcon : notificationIcon)
                                 barEdge: shell.barEdge
@@ -1656,6 +1704,7 @@ ShellRoot {
                                 id: tailscaleMenu
                                 kind: "tailscale"
                                 service: remoteAccessService
+                                onObservationChanged: observing => shell.remoteObservers += observing ? 1 : -1
                                 maximumHeight: bar.screen.height - 70
                                 surfaceColor: shell.barBackground()
                                 target: shell.verticalBar ? verticalTailscaleIcon : tailscaleIcon
@@ -1678,6 +1727,7 @@ ShellRoot {
                                 id: streamingMenu
                                 kind: "streaming"
                                 service: remoteAccessService
+                                onObservationChanged: observing => shell.remoteObservers += observing ? 1 : -1
                                 maximumHeight: bar.screen.height - 70
                                 surfaceColor: shell.barBackground()
                                 target: shell.verticalBar ? verticalStreamingIcon : streamingIcon
@@ -2066,38 +2116,14 @@ ShellRoot {
     component StatusCommand: Item {
         id: item
 
-        // Script path run with bash; it prints {"text": ...} or plain text.
-        property string script: ""
         property string hoverLabel: ""
         property bool clickable: false
         signal clicked()
         property bool open: true
-        property int interval: 5000
         property string text: ""
         property int slotWidth: 44
         property int fixedWidth: 0
         property int fontSize: 13
-
-        function refresh() {
-            if (process.running)
-                return ;
-
-            process.command = ["bash", item.script];
-            process.running = true;
-        }
-
-        function parse(raw) {
-            var value = String(raw || "").trim();
-            if (value === "")
-                return ;
-
-            try {
-                var parsed = JSON.parse(value.split("\n").pop());
-                item.text = String(parsed.text || "");
-            } catch (e) {
-                item.text = value;
-            }
-        }
 
         width: open ? (fixedWidth > 0 ? fixedWidth : Math.max(slotWidth, label.implicitWidth + 8)) : 0
         height: 24
@@ -2132,31 +2158,6 @@ ShellRoot {
             hovered: commandMouse.containsMouse && item.open
             text: item.hoverLabel
         }
-
-        // Both bar orientations exist; only the visible one polls.
-        Timer {
-            interval: item.interval
-            running: item.visible
-            repeat: true
-            triggeredOnStart: true
-            onTriggered: item.refresh()
-        }
-
-        Process {
-            id: process
-
-            running: false
-            command: []
-            onExited: item.parse(output.text)
-
-            stdout: StdioCollector {
-                id: output
-
-                waitForEnd: true
-            }
-
-        }
-
         Behavior on width {
             NumberAnimation {
                 duration: DesktopStyle.motionDuration(180)
@@ -2172,7 +2173,6 @@ ShellRoot {
             }
 
         }
-
     }
 
     // OBS recording or streaming, and dictation (SUPER+D): a red dot or the

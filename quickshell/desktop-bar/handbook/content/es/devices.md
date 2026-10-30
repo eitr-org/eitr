@@ -1,6 +1,6 @@
 # Dispositivos y entrada
 
-Estos controles están en **Sistema > Dispositivos y entrada** o en los iconos correspondientes de la barra. El Centro de control también ofrece sus interruptores y deslizadores habituales.
+Estos controles están en **Configuración > Dispositivos y entrada** o en los iconos correspondientes de la barra. El Centro de control también ofrece sus interruptores y deslizadores habituales.
 
 ## Audio y micrófono
 
@@ -26,7 +26,7 @@ El control deslizante de brillo solo aparece en portátiles con pantalla integra
 
 ## Teclado
 
-Añade y quita distribuciones en Walker: Sistema > Dispositivos y entrada > Teclado. Añadir distribución lista todos los idiomas y variantes (escribe para buscar); selecciona una distribución y pulsa Supr para quitarla. Se admiten hasta cuatro, sin duplicados, y debe quedar al menos una. **Alt + Shift** las recorre. Con dos o más, la barra muestra el código de la activa (como US o BR); haz clic en él, o usa el Centro de control, para cambiarla. La distribución del teclado es independiente del idioma y la configuración regional del sistema.
+Añade y quita distribuciones en Walker: Configuración > Dispositivos y entrada > Teclado. Añadir distribución lista todos los idiomas y variantes (escribe para buscar); selecciona una distribución y pulsa Supr para quitarla. Se admiten hasta cuatro, sin duplicados, y debe quedar al menos una. **Alt + Shift** las recorre. Con dos o más, la barra muestra el código de la activa (como US o BR); haz clic en él, o usa el Centro de control, para cambiarla. La distribución del teclado es independiente del idioma y la configuración regional del sistema.
 
 El escritorio comienza con el teclado elegido en el instalador. Elegir US incluye US y US International: basta Alt + Shift para acceder a los acentos.
 

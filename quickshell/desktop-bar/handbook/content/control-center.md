@@ -11,7 +11,7 @@ Bluetooth, Audio, Display, Hardware, AI Usage, Weather), the Control Center open
 ## General
 
 - **Connectivity:** WiFi and Bluetooth power toggles, plus Airplane mode.
-- **Quick Toggles:** automatic Idle Lock, Crash Notifications, Do Not Disturb, Game Mode (effects, blur
+- **Quick Actions:** automatic Idle Lock, Crash Notifications, Do Not Disturb, Game Mode (effects, blur
   and popups off and the performance profile on, until you turn it off) and Night
   Light. A toggle that is on fills with the theme accent. Below them, Hide Bar
   (SUPER+Shift+Space brings it back) and Screensaver run once.
@@ -28,7 +28,7 @@ Idle Lock is not the same as preventing sleep; be mindful of screen privacy.
 
 Style groups its settings into Theme & Wallpaper (open initially), Corners, Bar, Workspaces, Lockscreen, Cursor and Terminal. Click a group header to fold it; its surface encloses all its options. Bar groups Layout, Position, Appearance, Show on, Clock, Media style and Behavior. Behavior contains Auto-hide, Dock and Reduce motion.
 
-Theme and Wallpaper open their carousels; Default Font opens the font list. The
+Theme and Wallpaper open their carousels; Fonts opens the font list. The
 lockscreen design, cursor (family, size and color), bar appearance, layout,
 edge and displays, workspace markers, corners and Kitty's Cursor Fire change right in the
 panel and share their preferences with Walker.
@@ -42,7 +42,7 @@ clipboard), recording (the OBS controls, Record, Record + Audio and Stop), OCR,
 QR codes, the color picker, Transcode, reminders and LocalSend sharing. The panel
 closes before a selection or recording starts.
 
-## System
+## Settings
 
 - **Devices:** Audio, Microphone, Display (resolution, refresh rate and scale),
   Bluetooth and WiFi panels, Lighting, and the battery charge limit on laptops.
@@ -55,12 +55,12 @@ closes before a selection or recording starts.
 - **Snapshots & Cleanup:** restore a file, home snapshots, recovery snapshots and
   their guide, Cleanup and Dotfiles.
 
-Security settings, factory reset and the network backend stay in Walker > System,
+Security settings, factory reset and the network backend stay in Walker > Settings,
 behind their own confirmations.
 
 ## Language
 
-**System > Language** shows the current language and follows the system locale.
+**Settings > Language** shows the current language and follows the system locale.
 Open the picker to choose a language or System default, then sign out and back
 in to apply it. It changes only your user-session message locale, never the
 system locale files. See the [Language guide](handbook:language).
@@ -73,10 +73,10 @@ Replies support selectable Markdown and Copy. The conversation stays in memory; 
 
 ## Plugins
 
-**Control Center > Plugins** shows a compact row for each installed plugin: icon, name and enable switch. Select a row to see its author, version, description, Update/Remove actions, widgets, bar items and Preview. Use Back or Escape to return to the list. Enable/Disable preserves placements and stops or restores services, Walker rows, hooks and visuals; the CLI is `eitr plugin enable ID` or `eitr plugin disable ID`. Add Plugin…, Update and Remove open the reviewed terminal flows; removal asks for confirmation. General keeps only plugin tiles. Visual failures have an independent Re-enable action.
+**Control Center > Plugins** shows a compact row for each installed plugin: icon, name and enable switch. Select a row to see its author, version, description, Update/Remove actions, widgets, bar items and Preview. Use Back or Escape to return to the list. Enable/Disable preserves placements and stops or restores services, Walker rows, hooks and visuals; the CLI is `eitr plugin enable ID` or `eitr plugin disable ID`. Add Plugins, Update and Remove open the reviewed terminal flows; removal asks for confirmation. General keeps only plugin tiles. Visual failures have an independent Re-enable action.
 
-Add Plugin… also accepts repositories containing several plugins. A root `eitr-plugins.json` index lists their IDs and folders, each with its own `eitr-plugin.json`. Select one or more entries by name, description and icon, then review each plugin separately. Declining one does not approve the others. Selected plugins share one downloaded repository snapshot and are pinned individually to its exact commit; updating one leaves the others at their approved commits. The Plugins details show the repository URL and plugin folder. A single root `eitr-plugin.json` continues to work unchanged.
+Add Plugins also accepts repositories containing several plugins. A root `eitr-plugins.json` index lists their IDs and folders, each with its own `eitr-plugin.json`. Select one or more entries by name, description and icon, then review each plugin separately. Declining one does not approve the others. Selected plugins share one downloaded repository snapshot and are pinned individually to its exact commit; updating one leaves the others at their approved commits. The Plugins details show the repository URL and plugin folder. A single root `eitr-plugin.json` continues to work unchanged.
 
-System Update only checks for new plugin commits, even when system packages are current, and prints a count and where to update. It never reviews or updates plugins; network errors are silently ignored. Run **Update Plugins** from **Control Center > Plugins** (next to Add Plugin…) or **Install > Plugins > Update Plugins**, or use `eitr plugin update`. A small ↑ mark in the plugin row and “Update available” in its details reflect the last check for its approved commit. The separate action keeps the existing per-plugin diffs, risk flags and confirmations.
+System Update only checks for new plugin commits, even when system packages are current, and prints a count and where to update. It never reviews or updates plugins; network errors are silently ignored. Run **Update Plugins** from **Control Center > Plugins** (next to Add Plugins) or **Plugins > Update Plugins**, or use `eitr plugin update`. A small ↑ mark in the plugin row and “Update available” in its details reflect the last check for its approved commit. The separate action keeps the existing per-plugin diffs, risk flags and confirmations.
 
 The Plugins list shows “This plugin has errors” and its first message. Select the plugin and choose View error details to read more; use the enable switch to disable it in one click. Errors are caught only when they name a file in that plugin’s folder. Plugins run with the desktop’s permissions, so install only plugins you trust.

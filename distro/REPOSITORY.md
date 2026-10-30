@@ -83,7 +83,7 @@ A plain stable release also publishes its `eitr-desktop` build to testing, so th
 testing repository always exists and is never behind stable. The artwork is not
 copied there: testing machines take the identical `eitr-artwork` from `[eitr]`.
 
-Users switch with System > Maintenance > Update > Update Channel or
+Users switch with Settings > System > Update Channel or
 `eitr channel testing|stable`; `eitr-system channel-set` adds or removes the
 marked `[eitr-testing]` block in `/etc/pacman.conf`, and refuses to add it while
 the testing repository cannot be downloaded.

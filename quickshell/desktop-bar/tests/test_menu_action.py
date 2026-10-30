@@ -13,7 +13,7 @@ spec.loader.exec_module(action)
 class MenuActionTests(unittest.TestCase):
     def test_runs_the_rows_own_command_detached(self):
         with patch.object(action.subprocess, "Popen") as start:
-            action.main(["toggle", "Screensaver"])
+            action.main(["toggle", "Start Screensaver"])
         command = start.call_args.args[0]
         self.assertEqual(command[:2], ["sh", "-c"])
         self.assertTrue(command[2].endswith("toggle/screensaver.sh"))
@@ -24,7 +24,7 @@ class MenuActionTests(unittest.TestCase):
 
     def test_submenus_and_unknown_rows_are_refused(self):
         with self.assertRaisesRegex(ValueError, "submenu"):
-            action.command("update", "Update Channel")
+            action.command("system", "Update Channel")
         with self.assertRaisesRegex(ValueError, "No row"):
             action.command("toggle", "Nothing")
         with self.assertRaisesRegex(ValueError, "Invalid menu"):

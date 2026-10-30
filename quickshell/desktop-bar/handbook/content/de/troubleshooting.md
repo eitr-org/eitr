@@ -2,7 +2,7 @@
 
 ## Diesen PC prüfen
 
-Öffnen Sie **System > Instandhaltung > Diesen PC prüfen** oder `eitr check`. Die Prüfungen lesen nur; sie reparieren nichts und starten nichts neu. Paketlisten werden nicht aktualisiert. DNS verwendet das Netzwerk. `eitr check --json` zeigt technische Details ohne Rückfragen.
+Öffnen Sie **Einstellungen > System > Instandhaltung > Diesen PC prüfen** oder `eitr check`. Die Prüfungen lesen nur; sie reparieren nichts und starten nichts neu. Paketlisten werden nicht aktualisiert. DNS verwendet das Netzwerk. `eitr check --json` zeigt technische Details ohne Rückfragen.
 
 **Tiefere Prüfungen (Passwort erforderlich)**: Für tiefere Prüfungen drücken Sie Enter; Esc überspringt sie. Im selben Terminal fragt `sudo /usr/lib/eitr/eitr-system selfcheck-deeper` nach Ihrem Passwort. Ergebnisse ersetzen passende übersprungene Prüfungen. Gelesen werden Snapper-Konfiguration, Vorher/Nachher-Paare, die letzte erfolgreiche Paketaktualisierung, vorhandene Btrfs-Qgroups, Boot-Guard-JSON, ein bereits eingehängtes Werksmanifest und Arch-Linux/Eitr-Schlüssel mit `pacman-key --list-keys`. Quoten werden nie aktiviert und das Werksabbild wird nicht eingehängt. Fehlende Daten werden begründet übersprungen; das Manifest bestätigt nicht die Archivintegrität. `fsck.vfat -n` prüft nur eine eindeutig bestimmte FAT-ESP, die nicht schreibbar eingehängt ist; andernfalls muss sie ausgehängt werden und die Prüfung entfällt.
 
@@ -33,7 +33,7 @@ Sichere vor der Installation auf einer separaten SSD deine anderen Laufwerke und
 
 ## Ein Problem melden
 
-**System > Informationen > Problem melden** sammelt EITR- und Paketversionen, Grafikhardware, Hyprland-Fehler, fehlgeschlagene Dienste, aktuelle Warnungen, Abstürze der letzten Woche, Fehler des vorherigen Starts, Installationsprotokoll und letzte Paketänderungen in `~/Documents/eitr-problem-report-<time>.txt`. Nur du kannst die Datei lesen. Benutzername, Rechnername, persönlicher Pfad, E-Mail-, IP- und MAC-Adressen werden entfernt; Protokolle können weiterhin Anwendungen oder Dateinamen nennen. Lies den Bericht vor dem Senden.
+**Einstellungen > System > Informationen > Problem melden** sammelt EITR- und Paketversionen, Grafikhardware, Hyprland-Fehler, fehlgeschlagene Dienste, aktuelle Warnungen, Abstürze der letzten Woche, Fehler des vorherigen Starts, Installationsprotokoll und letzte Paketänderungen in `~/Documents/eitr-problem-report-<time>.txt`. Nur du kannst die Datei lesen. Benutzername, Rechnername, persönlicher Pfad, E-Mail-, IP- und MAC-Adressen werden entfernt; Protokolle können weiterhin Anwendungen oder Dateinamen nennen. Lies den Bericht vor dem Senden.
 
 Nichts wird automatisch versendet. Das Terminal zeigt nur den Speicherort und bietet Versand oder vorheriges Lesen an:
 
@@ -46,7 +46,7 @@ Der Bericht dient nur zum Finden und Beheben dieses Problems und wird danach gel
 
 ### Wenn etwas abstürzt
 
-Absturzbenachrichtigungen sind standardmäßig eingeschaltet. Ein Benutzerdienst beobachtet neue, lesbare systemd-coredump-Einträge deiner eigenen Programme. Jeder Absturz bietet Problem melden, Ignorieren und Dieses Programm stummschalten; Die KI fragen erscheint, wenn ein Standardassistent installiert und ausgewählt ist. Wiederholte Abstürze desselben Programms erzeugen höchstens alle fünf Minuten eine Benachrichtigung. Ein Absturz, der die Sitzung beendet, wird bei der nächsten Anmeldung angeboten; Programme, die in der Minute nach dem Abmelden, Neustarten oder Herunterfahren abstürzen, dagegen nicht: Ihnen fehlt dann nur der Desktop. Schalte sie unter Hauptmenü > Umschalten oder Kontrollzentrum > Schnellschalter um. Einstellungen und stummgeschaltete Programmpfade stehen in `~/.config/eitr/crash-help.json`; entferne einen Pfad aus `ignored`, um wieder Hinweise zu erhalten.
+Absturzbenachrichtigungen sind standardmäßig eingeschaltet. Ein Benutzerdienst beobachtet neue, lesbare systemd-coredump-Einträge deiner eigenen Programme. Jeder Absturz bietet Problem melden, Ignorieren und Dieses Programm stummschalten; Die KI fragen erscheint, wenn ein Standardassistent installiert und ausgewählt ist. Wiederholte Abstürze desselben Programms erzeugen höchstens alle fünf Minuten eine Benachrichtigung. Ein Absturz, der die Sitzung beendet, wird bei der nächsten Anmeldung angeboten; Programme, die in der Minute nach dem Abmelden, Neustarten oder Herunterfahren abstürzen, dagegen nicht: Ihnen fehlt dann nur der Desktop. Schalte sie unter Hauptmenü > Schnellaktionen oder Kontrollzentrum > Schnellaktionen um. Einstellungen und stummgeschaltete Programmpfade stehen in `~/.config/eitr/crash-help.json`; entferne einen Pfad aus `ignored`, um wieder Hinweise zu erhalten.
 
 Die KI fragen öffnet deinen Standardassistenten nur mit Programm, Signal und Stacktrace aus `coredumpctl info`. Er soll die Ursache erklären und eine Lösung vorschlagen, ohne das System ohne deine Zustimmung zu ändern. Ein Speicherabbild wird nicht übergeben. Wenn du diese Aktion wählst, kann der Assistent die Zusammenfassung an seinen Anbieter senden. Problem melden fügt dieselbe Zusammenfassung dem vorhandenen Meldeablauf hinzu: Prüfe sie vor dem Teilen; nichts wird automatisch gesendet.
 

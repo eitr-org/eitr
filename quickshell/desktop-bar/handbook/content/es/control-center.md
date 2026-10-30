@@ -7,7 +7,7 @@ Sus cinco páginas reúnen todo lo que queda fuera de Desarrollo, Aplicaciones, 
 ## General
 
 - **Conectividad:** interruptores de WiFi y Bluetooth y Modo avión.
-- **Controles rápidos:** Bloqueo automático, Notificaciones de fallos, No molestar, Modo juego (desactiva efectos, desenfoque y ventanas emergentes y activa el perfil de rendimiento hasta apagarlo) y Luz nocturna. Un control activado se rellena con el color de acento del tema. Debajo, Ocultar barra (SUPER+Shift+Space la recupera) y Salvapantallas se ejecutan una vez.
+- **Acciones rápidas:** Bloqueo automático, Notificaciones de fallos, No molestar, Modo juego (desactiva efectos, desenfoque y ventanas emergentes y activa el perfil de rendimiento hasta apagarlo) y Luz nocturna. Un control activado se rellena con el color de acento del tema. Debajo, Ocultar barra (SUPER+Shift+Space la recupera) y Salvapantallas se ejecutan una vez.
 - **Sonido:** volumen y ganancia/silencio del micrófono.
 - **Pantalla:** brillo, en portátiles con pantalla integrada.
 - **Multimedia:** portada, artista, reproducción y desplazamiento por la pista cuando se admite.
@@ -19,7 +19,7 @@ El Modo avión recuerda qué conexiones bloqueó y restaura solo esas. No molest
 
 Estilo organiza los ajustes en Tema y fondo de pantalla (abierto al principio), Esquinas, Barra, Espacios de trabajo, Pantalla de bloqueo, Cursor y Terminal. Haz clic en el título de un grupo para plegarlo; su superficie delimita todas sus opciones. Barra reúne Distribución, Posición, Apariencia, Mostrar en, Reloj, Estilo multimedia y Comportamiento. Comportamiento contiene Ocultar automáticamente, Dock y Reducir movimiento.
 
-Tema y Fondo abren sus carruseles; Fuente predeterminada abre la lista de fuentes. Diseño de bloqueo, cursor (familia, tamaño y color), apariencia, disposición, borde y pantallas de la barra, marcadores de espacios, esquinas y Fuego del cursor de Kitty cambian directamente en el panel y comparten preferencias con Walker.
+Tema y Fondo abren sus carruseles; Fuentes abre la lista de fuentes. Diseño de bloqueo, cursor (familia, tamaño y color), apariencia, disposición, borde y pantallas de la barra, marcadores de espacios, esquinas y Fuego del cursor de Kitty cambian directamente en el panel y comparten preferencias con Walker.
 
 Terminal ofrece Kitty (predeterminado) y Ghostty opcional; los terminales auxiliares de Eitr siguen usando Kitty. Consulta [Terminal y editores](terminal.md) para instalar y configurar.
 
@@ -27,7 +27,7 @@ Terminal ofrece Kitty (predeterminado) y Ghostty opcional; los terminales auxili
 
 Capturas (selección, pantalla completa, ventana o selección directa al portapapeles), grabación (controles de OBS, Grabar, Grabar + Audio y Detener), OCR, códigos QR, selector de colores, Transcodificar, recordatorios y compartir con LocalSend. El panel se cierra antes de empezar una selección o grabación.
 
-## Sistema
+## Configuración
 
 - **Dispositivos:** paneles de Audio, Micrófono, Pantalla (resolución, frecuencia y escala), Bluetooth y WiFi, Iluminación y límite de carga en portátiles.
 - **Teclado:** seleccionar, añadir y eliminar distribuciones, conservando al menos una.
@@ -40,7 +40,7 @@ Seguridad, restablecimiento de fábrica y servicio de red siguen en Walker > Sis
 
 ## Idioma
 
-**Sistema > Idioma** muestra el idioma actual según la configuración regional. Abre el selector, elige un idioma o Predeterminado del sistema y cierra e inicia sesión para aplicarlo. Solo cambia el idioma de mensajes de tu sesión, nunca los archivos regionales del sistema. Consulta la [Guía de idioma](handbook:language).
+**Configuración > Idioma** muestra el idioma actual según la configuración regional. Abre el selector, elige un idioma o Predeterminado del sistema y cierra e inicia sesión para aplicarlo. Solo cambia el idioma de mensajes de tu sesión, nunca los archivos regionales del sistema. Consulta la [Guía de idioma](handbook:language).
 
 ## Chat rápido
 
@@ -50,10 +50,10 @@ Las respuestas ofrecen Markdown seleccionable y Copiar. La conversación permane
 
 ## Plugins
 
-**Centro de control > Plugins** muestra una fila compacta por plugin instalado, con icono, nombre e interruptor de activación. Selecciona una fila para ver autor, versión, descripción, acciones de actualización y eliminación, widgets, elementos de la barra y vista previa. Usa Atrás o Escape para volver a la lista. Activar/Desactivar conserva posiciones y detiene o restaura servicios, filas de Walker, hooks y elementos visuales; usa `eitr plugin enable ID` o `eitr plugin disable ID`. Añadir plugin…, Actualizar y Eliminar abren los flujos revisados del terminal; eliminar pide confirmación. General conserva solo los bloques de plugins. Los fallos visuales tienen una acción independiente para reactivar.
+**Centro de control > Plugins** muestra una fila compacta por plugin instalado, con icono, nombre e interruptor de activación. Selecciona una fila para ver autor, versión, descripción, acciones de actualización y eliminación, widgets, elementos de la barra y vista previa. Usa Atrás o Escape para volver a la lista. Activar/Desactivar conserva posiciones y detiene o restaura servicios, filas de Walker, hooks y elementos visuales; usa `eitr plugin enable ID` o `eitr plugin disable ID`. Añadir plugins, Actualizar y Eliminar abren los flujos revisados del terminal; eliminar pide confirmación. General conserva solo los bloques de plugins. Los fallos visuales tienen una acción independiente para reactivar.
 
-Añadir plugin… también acepta repositorios con varios plugins. El índice raíz `eitr-plugins.json` enumera sus IDs y carpetas, cada una con su propio `eitr-plugin.json`. Selecciona uno o más por nombre, descripción e icono y revisa cada plugin por separado. Rechazar uno no aprueba los demás. Los seleccionados comparten una copia del repositorio y quedan fijados individualmente al commit exacto; actualizar uno mantiene los demás en sus commits aprobados. Los detalles muestran la URL del repositorio y la carpeta del plugin. Un único `eitr-plugin.json` en la raíz sigue funcionando como antes.
+Añadir plugins también acepta repositorios con varios plugins. El índice raíz `eitr-plugins.json` enumera sus IDs y carpetas, cada una con su propio `eitr-plugin.json`. Selecciona uno o más por nombre, descripción e icono y revisa cada plugin por separado. Rechazar uno no aprueba los demás. Los seleccionados comparten una copia del repositorio y quedan fijados individualmente al commit exacto; actualizar uno mantiene los demás en sus commits aprobados. Los detalles muestran la URL del repositorio y la carpeta del plugin. Un único `eitr-plugin.json` en la raíz sigue funcionando como antes.
 
-Actualización del sistema solo comprueba nuevos commits de plugins, incluso cuando los paquetes están al día, e indica la cantidad y dónde actualizar. No revisa ni actualiza plugins; los errores de red se ignoran en silencio. Usa **Actualizar plugins** en **Centro de control > Plugins**, junto a Añadir plugin…, o **Instalar > Plugins > Actualizar plugins**, o ejecuta `eitr plugin update`. La marca ↑ en la fila y «Actualización disponible» en los detalles reflejan la última comprobación del commit aprobado. La acción separada conserva los diffs, avisos de riesgo y confirmaciones por plugin.
+Actualización del sistema solo comprueba nuevos commits de plugins, incluso cuando los paquetes están al día, e indica la cantidad y dónde actualizar. No revisa ni actualiza plugins; los errores de red se ignoran en silencio. Usa **Actualizar plugins** en **Centro de control > Plugins**, junto a Añadir plugins, o **Plugins > Actualizar plugins**, o ejecuta `eitr plugin update`. La marca ↑ en la fila y «Actualización disponible» en los detalles reflejan la última comprobación del commit aprobado. La acción separada conserva los diffs, avisos de riesgo y confirmaciones por plugin.
 
 La lista de Plugins muestra «Este plugin tiene errores» y el primer mensaje. Seleccione el plugin y elija Ver detalles de errores para saber más; use el interruptor para desactivarlo con un clic. Solo se detectan los errores que indican un archivo de la carpeta del plugin. Los plugins tienen los permisos del escritorio, así que instale solo aquellos en los que confíe.

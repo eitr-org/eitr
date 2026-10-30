@@ -1,8 +1,10 @@
 # Fernzugriff
 
+Einrichtung bündelt die Konfiguration. Unter Diesen PC freigeben > Einrichtung stehen Freigabe einrichten, Freigabeeinstellungen, Beim Anmelden starten, Start beim Anmelden ausschalten, Detaillierter Status und Freigabeeinrichtung wiederherstellen. Remotezugriff auf diesen PC > Einrichtung enthält Anmelden, Fernzugriff einrichten, Fernzugriffseinrichtung wiederherstellen, Detaillierter Status und Peer anpingen. Tägliche Freigabe- und Verbindungsaktionen bleiben direkt im übergeordneten Menü.
+
 Detaillierter Status öffnet ein Diagnoseterminal, das bis zum Drücken von Esc geöffnet bleibt.
 
-Öffnen Sie System > Connectivity > Fernzugriff. Die Freigabe bleibt bis zur
+Öffnen Sie Einstellungen > Verbindungen > Fernzugriff. Die Freigabe bleibt bis zur
 Aktivierung ausgeschaltet. Unterstützt wird der angemeldete, wache Eitr-Desktop.
 Betrieb ohne Monitor, Zugriff vor der Anmeldung und wake on LAN folgen später.
 Sperrt sich dieser PC während der Freigabe, zeigt der entfernte Bildschirm den
@@ -65,7 +67,7 @@ SUPER-Tastenkürzel vom Mac: Schalte in den Moonlight-Einstellungen **Capture sy
 
 ## Tailscale auf beiden Rechnern
 
-Wählen Sie unter Zugriff von unterwegs den Eintrag Zugriff für unterwegs einrichten. Nach der
+Wählen Sie unter Remotezugriff auf diesen PC den Eintrag Zugriff für unterwegs einrichten. Nach der
 Installation aktiviert und startet der bestätigte Root-Helfer `tailscaled.service`
 und setzt Ihren Benutzer als Operator. Daher brauchen Anmelden, Verbinden und Trennen kein Passwort. Ein anders eingerichtetes Tailscale fragt stattdessen nach dem Administratorpasswort.
 Anmelden öffnet die URL von `tailscale login` im Browser. Connect verbindet;

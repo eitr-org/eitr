@@ -1,6 +1,6 @@
 # WiFi, Bluetooth et mode avion
 
-Ouvrez les icônes de la barre ou **Système > Connectivité**. Ouvrir un panneau ne change jamais le service réseau et ne déconnecte aucun appareil de lui-même.
+Ouvrez les icônes de la barre ou **Paramètres > Connectivité**. Ouvrir un panneau ne change jamais le service réseau et ne déconnecte aucun appareil de lui-même.
 
 ## WiFi
 

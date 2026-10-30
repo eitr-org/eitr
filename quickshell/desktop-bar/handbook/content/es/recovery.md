@@ -72,7 +72,7 @@ Si falla el escritorio pero el sistema arranca, cambia a una consola de texto o 
 
 ## Instantáneas de la carpeta personal
 
-Desactivadas de forma predeterminada. **Sistema > Mantenimiento > Instantáneas > Instantáneas de la carpeta personal** las activa (pide confirmación; desactivarlas las elimina). La configuración `home` de Snapper conserva una instantánea de `/home` cada hora durante un día y una diaria durante una semana, eliminando las más antiguas cuando el espacio libre baja del 20 %.
+Desactivadas de forma predeterminada. **Configuración > Sistema > Mantenimiento > Instantáneas > Instantáneas de la carpeta personal** las activa (pide confirmación; desactivarlas las elimina). La configuración `home` de Snapper conserva una instantánea de `/home` cada hora durante un día y una diaria durante una semana, eliminando las más antiguas cuando el espacio libre baja del 20 %.
 
 Se excluyen las cachés, `~/Downloads`, las carpetas de discos de máquinas virtuales (`~/.local/share/libvirt/images`, GNOME Boxes, `~/VirtualBox VMs`) y la biblioteca de Steam. En el siguiente arranque, antes de cualquier inicio de sesión, `eitr-home-exclusions.service` las convierte en subvolúmenes Btrfs anidados que las instantáneas personales no incluyen. Los archivos se conservan mediante reflinks, sin espacio adicional para moverlos. El modo Mantener mis archivos del restablecimiento de fábrica lleva estos subvolúmenes a la carpeta personal restaurada: los ocultos van a "Settings before reset" y las cachés se descartan. Si alguno no puede moverse, se conserva la carpeta personal anterior para revisarla en vez de eliminarla.
 
@@ -82,7 +82,7 @@ La conversión y la creación de carpetas excluidas ausentes se ejecutan como el
 
 ## Qué cambió cada actualización
 
-Antes de revertir, comprueba qué desharías. **Sistema > Mantenimiento > Instantáneas > Lo que cada actualización cambió** (o `eitr snapshots changes`) muestra cada par anterior/posterior de una actualización y cuántos paquetes se actualizaron, cambiaron a una versión anterior, instalaron o eliminaron. `eitr snapshots changes <before number>` enumera todos los paquetes de una actualización con sus versiones antigua y nueva. Compara las bases de datos de paquetes dentro de las dos instantáneas; si aún no hay instantánea posterior, compara con el sistema en ejecución.
+Antes de revertir, comprueba qué desharías. **Configuración > Sistema > Mantenimiento > Instantáneas > Lo que cada actualización cambió** (o `eitr snapshots changes`) muestra cada par anterior/posterior de una actualización y cuántos paquetes se actualizaron, cambiaron a una versión anterior, instalaron o eliminaron. `eitr snapshots changes <before number>` enumera todos los paquetes de una actualización con sus versiones antigua y nueva. Compara las bases de datos de paquetes dentro de las dos instantáneas; si aún no hay instantánea posterior, compara con el sistema en ejecución.
 
 ## Arrancar una instantánea anterior
 

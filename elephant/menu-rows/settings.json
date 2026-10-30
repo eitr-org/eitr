@@ -1,0 +1,67 @@
+[
+  {
+    "text": "Connectivity",
+    "icon": "󰖩",
+    "subtext": ">",
+    "submenu": "system-connectivity"
+  },
+  {
+    "text": "Devices & Input",
+    "icon": "󰍹",
+    "subtext": ">",
+    "submenu": "system-devices"
+  },
+  {
+    "text": "Language",
+    "icon": "󰗊",
+    "subtext": ">",
+    "submenu": "language",
+    "keywords": [
+      "language",
+      "locale",
+      "translation"
+    ]
+  },
+  {
+    "text": "Security",
+    "subtext": ">",
+    "icon": "󰒃",
+    "submenu": "security"
+  },
+  {
+    "text": "Style",
+    "subtext": ">",
+    "keywords": [
+      "theme",
+      "wallpaper",
+      "appearance"
+    ],
+    "icon": "",
+    "submenu": "style"
+  },
+  {
+    "text": "System",
+    "subtext": ">",
+    "icon": "",
+    "submenu": "system"
+  },
+  {
+    "text": "Control Center",
+    "subtext": "Open desktop controls and preferences",
+    "icon": "󰒓",
+    "actions": {
+      "open": "eitr-shell desktop-bar ipc call -- controlCenter toggle"
+    }
+  },
+  {
+    "text": "Dotfiles",
+    "subtext": "Open your configuration folder in an editor",
+    "keywords": [
+      "config"
+    ],
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/system/dotfiles.sh"
+    }
+  }
+]

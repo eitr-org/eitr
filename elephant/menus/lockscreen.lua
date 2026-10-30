@@ -35,7 +35,7 @@ function GetEntries()
                 end
                 table.insert(entries, {
                     Text = label, Value = value,
-                    Subtext = mine and yours or nil,
+                    Subtext = (mine and yours .. " · " or "") .. i18n.tr("Select or preview this lockscreen"),
                     Icon = value == current and "\239\128\140" or "󰌾",
                     State = value == current and {"current"} or {},
                     Preview = preview,

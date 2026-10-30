@@ -489,13 +489,13 @@ class PluginTests(unittest.TestCase):
             self.manager.add(self.url, lambda url: True, lambda *details: True)
 
     def test_menu_parents_and_scoped_search(self):
-        for name, parent in [('plugins', 'tools'), ('plugins-install', 'install'), ('plugin-actions', 'plugins-install')]:
+        for name, parent in [('plugins', 'main'), ('plugins-install', 'plugins'), ('plugin-actions', 'plugins-install')]:
             self.assertIn('Parent = "' + parent + '"', (ROOT / 'elephant/menus' / (name + '.lua')).read_text())
             self.assertEqual((ROOT / 'walker/themes/current' / ('item_menus-' + name + '.xml')).read_bytes(),
                              (ROOT / 'walker/themes/current/item_menus-main.xml').read_bytes())
         for name in ('tools', 'install'):
             rows = json.loads((ROOT / 'elephant/menu-rows' / (name + '.json')).read_text())
-            self.assertTrue(any(row['text'] == 'Plugins' and row['subtext'] == '>' for row in rows))
+            self.assertFalse(any(row['text'] == 'Plugins' for row in rows))
 
     def test_declared_service_and_script_do_not_run_before_approval(self):
         marker = self.home / 'plugin-ran'
@@ -550,6 +550,9 @@ class PluginTests(unittest.TestCase):
 
     def test_walker_entries_and_scoped_search_data(self):
         import importlib.util
+        manifest = self.spec()
+        manifest['rows'].append({'title': 'Music Visualizer', 'description': 'Watch music dance', 'run': 'notify.sh'})
+        self.publish(manifest)
         self.install()
         rows = self.manager.rows()
         def lua_rows(values):
@@ -563,6 +566,7 @@ class PluginTests(unittest.TestCase):
                 return {read = function() return action end, close = function() end}
             end
             jsonDecode = function(action)
+                if action:find('"Installed Plugins"', 1, true) then return {{text="Installed Plugins", subtext=">", submenu="plugins-install"}} end
                 if action:sub(1, 1) == "[" then return {
                     {text="Visuals", subtext=">", submenu="plugin-visuals"},
                     {text="Remove", subtext="Remove this plugin and its service"},
@@ -591,12 +595,14 @@ class PluginTests(unittest.TestCase):
         self.assertNotIn('Update Plugins', current.stdout)
         self.assertNotIn('plugin-actions | Update |', current.stdout)
         self.assertIn('plugin-actions | Remove |', current.stdout)
-        self.assertIn('plugins | Example notification | - | Plugin by Eitr contributors · not reviewed by Eitr', result.stdout)
+        self.assertIn('plugin-actions | Example notification | - | Plugin by Eitr contributors · not reviewed by Eitr', result.stdout)
         self.assertIn('plugins-install | Bad plugin | - | Blocked by Eitr for your safety · select to remove', result.stdout)
-        self.assertIn('plugins-install | Example plugin | plugin-actions | Plugin by Eitr contributors · not reviewed by Eitr', result.stdout)
-        self.assertIn('plugins-install | Update Plugins | - | Review and update installed plugins', result.stdout)
+        self.assertIn('plugins-install | Example plugin | plugin-actions | ', result.stdout)
+        self.assertIn('plugins | Update Plugins | - | Review and update installed plugins', result.stdout)
         install_rows = [line.split(' | ')[1] for line in result.stdout.splitlines() if line.startswith('plugins-install |')]
-        self.assertEqual(install_rows, ['Example plugin', 'Add Plugin…', 'Bad plugin', 'Update Plugins'])
+        self.assertEqual(install_rows, ['Example plugin', 'Bad plugin'])
+        self.assertIn('plugin-actions | Music Visualizer |', result.stdout)
+        self.assertNotIn('plugins | Music Visualizer |', result.stdout)
         self.assertIn('plugin-actions | Remove |', result.stdout)
         self.assertIn('plugin-actions | Update |', result.stdout)
         print(result.stdout.strip())
@@ -606,7 +612,8 @@ class PluginTests(unittest.TestCase):
         output = json.dumps({'item': dict(provider='menus:plugins', identifier='example:0',
             text=rows[0]['title'], subtext=rows[0]['description'], actions=['open'])})
         snapshot = search.snapshot(output, parent_of=search.parents())
-        self.assertIn('tools', snapshot[0]['menus'])
+        self.assertIn('main', snapshot[0]['menus'])
+        self.assertNotIn('tools', snapshot[0]['menus'])
         self.assertIn('main', snapshot[0]['menus'])
         self.assertEqual(snapshot[0]['actions'], ['open'])
 

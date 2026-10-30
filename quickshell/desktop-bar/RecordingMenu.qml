@@ -38,9 +38,12 @@ ThemedPopup {
         if (!detailsQuery.running) detailsQuery.running = true;
     }
 
-    Component.onCompleted: refresh()
-    onOpenedChanged: if (opened) refresh()
-    Timer { interval: 2000; repeat: true; running: true; onTriggered: menu.refresh() }
+    onOpenedChanged: {
+        ObsStatus.detailObservers += opened ? 1 : -1;
+        if (opened) refresh();
+    }
+    Component.onDestruction: if (opened) ObsStatus.detailObservers--
+    Timer { interval: 2000; repeat: true; running: menu.opened; onTriggered: menu.refresh() }
     Timer { interval: 500; repeat: true; running: menu.opened; onTriggered: menu.now = Date.now() }
     Process {
         id: detailsQuery
@@ -51,7 +54,10 @@ ThemedPopup {
             menu.updateContent(function() {
                 try {
                     if (code === 0) {
-                        menu.applySnapshot("details", JSON.parse(received));
+                        const snapshot = JSON.parse(received);
+                        ObsStatus.state = snapshot;
+                        ObsStatus.received(snapshot);
+                        menu.applySnapshot("details", snapshot);
                         menu.fetchedAt = Date.now();
                         menu.now = menu.fetchedAt;
                     }

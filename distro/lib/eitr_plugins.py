@@ -987,7 +987,7 @@ class Plugins:
             return {}
 
     def installed(self):
-        """Install > Plugins: every plugin, with its manifest author and whether it is blocked."""
+        """Plugins > Installed Plugins: every plugin, with its manifest author and whether it is blocked."""
         blocked = self.blocked()
         updates = self.update_counts()
         rows = []

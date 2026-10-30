@@ -45,9 +45,9 @@ return function(category)
                 local mine = theme_dir:sub(1, #own_dir) == own_dir
                 table.insert(entries, {
                     Text = display_name(theme, theme_dir),
-                    Subtext = mine and yours or nil,
+                    Subtext = (mine and yours .. " · " or "") .. i18n.tr("Apply or preview this theme"),
                     Value = theme,
-                    Icon = theme == current and "" or "󰸌",
+                    Icon = theme == current and "\239\128\140" or "󰸌",
                     State = theme == current and { "current" } or {},
                     Preview = theme_dir .. "/preview.png",
                     PreviewType = "file",

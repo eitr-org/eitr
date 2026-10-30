@@ -154,10 +154,11 @@ existing design and workflows rather than replacing them with upstream defaults.
   `elephant/choice-entries.lua` for small fixed choices.
 - Walker system actions should open the same native panels as bar clicks. Use
   the existing `panels` IPC interface, including `call -- panels show <kind>`.
-- System groups Connectivity, Devices & Input, Information and Maintenance;
-  Security and Dotfiles remain directly under System. Calendar and Workspace
+- Settings groups Connectivity, Devices & Input, Language, Security, Style and System,
+  with Control Center and Dotfiles rows. System groups Information, Maintenance
+  and Update Channel, with About and System Update rows. Calendar and Workspace
   Overview remain searchable through the hidden system-shortcuts provider and
-  accessible from the bar, without adding rows to System.
+  accessible from the bar, without adding rows to Settings.
 - Existing cloud CLI configurations belong to the owner and may hold work
   accounts. Never run commands against, edit, reformat or write to a profile,
   account or config file (`~/.aws/config`, `~/.aws/credentials`, gcloud or Azure
@@ -251,7 +252,7 @@ existing design and workflows rather than replacing them with upstream defaults.
   inside the popup. Growing content must stay within the usable screen.
 - Empty-bar double-left-click toggles transparency, double-right-click cycles
   the Full, Centered, Tabs and Islands layouts, and left drag changes the screen edge. These settings
-  persist in `bar-settings.json` and also appear under Style > Desktop Bar.
+  persist in `bar-settings.json` and also appear under Settings > Style > Desktop Bar.
   Centered mode shows only the clock until hovered or pinned. Expansion preserves
   icon order and the clock's exact screen center on all four edges; pin sits
   between media and clock. Keep it expanded during panel use/dragging. Its panels
@@ -268,7 +269,7 @@ existing design and workflows rather than replacing them with upstream defaults.
   no auto-close timer, except in Tabs, which always shows it without the toggle.
   Preserve the existing arrow direction and icon order.
 - Focus is a separate Style preset, controlled by `eitr focus on|off|status`,
-  Style > Focus and Control Center > Style. Its machine-local preference preserves
+  Settings > Style > Focus and Control Center > Style. Its machine-local preference preserves
   normal bar settings; native groups provide tabs and up to four panes per monitor.
   Focus strips have square edges and show only tabs, clock and network/battery status.
 - Tabs: a thin edge strip with three content-sized tabs (left, centre, right)

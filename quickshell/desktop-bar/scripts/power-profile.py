@@ -2,6 +2,7 @@
 """Read and set the power-profiles-daemon profile; laptops only."""
 import eitr_bootstrap
 from eitr_i18n import tr
+from eitr_battery import system_batteries
 
 import json
 from pathlib import Path
@@ -18,17 +19,7 @@ PROFILE_LINE = re.compile(r'^([* ]) ([a-z-]+):$')
 
 
 def has_battery():
-    for supply in POWER_SUPPLY.glob('*'):
-        try:
-            if not (supply / 'scope').exists() and not supply.name.startswith('BAT'):
-                continue
-            if (supply / 'type').read_text().strip() == 'Battery' and not (
-                (supply / 'scope').exists() and (supply / 'scope').read_text().strip() == 'Device'
-            ) and not ((supply / 'present').exists() and (supply / 'present').read_text().strip() == '0'):
-                return True
-        except OSError:
-            continue
-    return False
+    return bool(system_batteries(POWER_SUPPLY))
 
 
 def unavailable():

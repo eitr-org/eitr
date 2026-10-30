@@ -26,6 +26,19 @@ GetEntries = dofile(paths.code("elephant/scoped-menu.lua"))("plugin-actions", fu
     local id = lastMenuValue("plugins-install") or ""
     local update = has_update(id)
     local shown = {}
+    local handle = io.popen("python3 " .. quote(helper) .. " rows")
+    if handle then
+        local ok, rows = pcall(jsonDecode, handle:read("*a"))
+        handle:close()
+        for _, row in ipairs(ok and rows or {}) do
+            if row.id == id then
+                table.insert(shown, {Text = row.title, Translate = false, Subtext = row.official == true and i18n.tr("Official Eitr plugin")
+                    or i18n.tr("Plugin by {author} · not reviewed by Eitr", {author = row.author}),
+                    Keywords = {row.description},
+                    Icon = row.icon, Actions = {open = "python3 " .. quote(helper) .. " launch " .. quote(id) .. " " .. row.index}})
+            end
+        end
+    end
     for _, entry in ipairs(entries) do
         if entry.SubMenu then
             table.insert(shown, entry)

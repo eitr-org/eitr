@@ -8,7 +8,7 @@ set -euo pipefail
 
 result="$(python3 "$EITR_CODE_ROOT/walker/scripts/actions/toggle/nightlight.py" toggle)"
 if [[ "$(jq -r '.enabled' <<< "$result")" == "true" ]]; then
-  notify-send -u low "  Nightlight enabled"
+  notify-send -u low "  Night Light enabled"
 else
-  notify-send -u low "  Nightlight disabled"
+  notify-send -u low "  Night Light disabled"
 fi

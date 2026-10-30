@@ -38,7 +38,7 @@ GPUs, may still need fixes; please [report problems](https://github.com/eitr-org
 - Tools: screenshots, screen recording, OCR, QR codes, color picker, LocalSend
   sharing, reminders, a calculator and offline dictation (hold `Super + D`).
 - The EITR Handbook: an offline guide to everything, opened with `Super + F1`.
-- Kitty (default) or optional Ghostty via Style > Terminal, Zsh, Neovim/LazyVim, Lazygit and Lazydocker; optional installs for
+- Kitty (default) or optional Ghostty via Settings > Style > Terminal, Zsh, Neovim/LazyVim, Lazygit and Lazydocker; optional installs for
   languages, databases, developer apps, browsers and AI coding assistants.
 
 ## Safety and recovery
@@ -151,7 +151,7 @@ docker run --rm --platform linux/amd64 -v "$PWD":/repo:ro archlinux:latest bash 
 
 ## Focus preset
 
-Style > Focus, Control Center > Style > Focus and `eitr focus on|off|status`
+Settings > Style > Focus, Control Center > Style > Focus and `eitr focus on|off|status`
 share a machine-local preference. Focus uses native Hyprland groups with up to
 four panes per monitor and a thin Quickshell tab strip. Turning it off restores
 the normal bar and effects, spreading windows two per workspace. See the

@@ -2,8 +2,9 @@
 
 Las tarjetas de notificación muestran la fecha y hora locales de llegada bajo el título, tanto en los avisos emergentes como en el historial. Las horas se conservan solo durante esta sesión.
 
-## Sistema > Información
+## Configuración > Sistema > Información
 
+Acerca de está directamente en Configuración > Sistema.
 Acerca de agrupa hardware, software (incluida la versión instalada de EITR), antigüedad del sistema, tiempo de actividad y fecha en recuadros del terminal con los colores del tema, junto al logotipo E líquido. Debajo aparecen puntos de la paleta; los valores largos se acortan para mantener alineados los bordes.
 
 **Hardware** muestra CPU, GPU, RAM y almacenamiento de la unidad que contiene `/`; otros discos no se suman al total. Los datos de sensores o GPU que faltan aparecen como no disponibles.

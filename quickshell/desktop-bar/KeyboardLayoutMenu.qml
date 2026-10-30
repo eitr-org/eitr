@@ -6,7 +6,7 @@ import Quickshell.Hyprland
 import Quickshell.Io
 
 // Switches between the configured layouts. Adding and removing them belongs to
-// Walker's System > Devices > Keyboard menu. The bar reads `layouts` and
+// Walker's Settings > Devices & Input > Keyboard menu. The bar reads `layouts` and
 // `activeCode` to show its indicator only when there is more than one layout.
 ThemedPopup {
     id: menu

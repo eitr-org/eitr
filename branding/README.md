@@ -36,7 +36,7 @@ bubbles, drips, text, shadows or glow.
 
 The installed copy is `fastfetch/assets/eitr-logo.png`. Keep it identical to
 `source/eitr-logo-master.png`.
-Walker System → Information → About renders the alpha silhouette as theme-colored terminal
+Walker Settings → System → About renders the alpha silhouette as theme-colored terminal
 half-blocks, so the mark follows the active accent on both light and dark themes.
 
 ## Production exports

@@ -3,7 +3,7 @@
 ![Faixa de abas do Focus com janelas de exemplo e dois painéis unidos.](assets/focus-strip.png)
 
 O Focus troca a barra por uma faixa de abas de 28 px no topo de cada monitor.
-Abra **Estilo > Focus** ou **Central de controle > Estilo > Focus**, ou execute
+Abra **Configurações > Estilo > Focus** ou **Central de controle > Estilo > Focus**, ou execute
 `eitr focus on`. `eitr focus status` mostra `on` ou `off` sem consultar o
 Hyprland. `eitr focus off` restaura a barra, os efeitos e os atalhos normais.
 Não há atalho exclusivo para alternar o modo.

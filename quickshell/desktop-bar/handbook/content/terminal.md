@@ -14,7 +14,7 @@ override the packaged defaults and survive theme changes.
 
 ### Cursor Fire
 
-**Style > Terminal > Cursor Fire** offers **Disabled** (the default) and
+**Settings > Style > Terminal > Cursor Fire** offers **Disabled** (the default) and
 **Enabled**. Enabled selects Kitty's built-in `cursor-trail-blaze` effect on
 cursor movements, with no typing-speed detection. Disabled returns to the
 normal configured fast trail and any personal shader selection.
@@ -28,7 +28,7 @@ cell. Fonts, themes and personal config files remain intact.
 
 ## Choosing your terminal
 
-**Style > Terminal** in Walker and **Control Center > Style > Terminal** offer
+**Settings > Style > Terminal** in Walker and **Control Center > Style > Terminal** offer
 **Kitty** (the default) and **Ghostty**. The machine-local `terminal` field in
 `~/.config/eitr/terminal.json` controls Super+Enter, tmux, user terminal sessions,
 AI/project terminals and Walker's open-in-terminal actions. If Ghostty is missing,

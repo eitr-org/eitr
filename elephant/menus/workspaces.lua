@@ -19,8 +19,8 @@ function GetEntries()
         local state = {"workspace-" .. choice:lower()}
         if choice == current then table.insert(state, "current") end
         table.insert(entries, {
-            Text = choice, Value = choice,
-            Icon = choice == current and "" or "󰍹",
+            Text = choice, Subtext = i18n.mark("Use these workspace markers"), Value = choice,
+            Icon = choice == current and "\239\128\140" or "󰍹",
             State = state,
             Actions = {open = "python3 " .. quote(script) .. " " .. quote(choice)},
         })

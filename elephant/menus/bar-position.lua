@@ -9,10 +9,10 @@ FixedOrder = true
 local entries = dofile(paths.code("elephant/bar-settings-entries.lua"))
 function GetEntries()
     return entries("edge", {
-        {"Top", "top", "󰁝"},
-        {"Bottom", "bottom", "󰁅"},
-        {"Left", "left", "󰁍"},
-        {"Right", "right", "󰁔"},
+        {"Top", "top", "󰁝", i18n.mark("Place the bar at the top")},
+        {"Bottom", "bottom", "󰁅", i18n.mark("Place the bar at the bottom")},
+        {"Left", "left", "󰁍", i18n.mark("Place the bar on the left")},
+        {"Right", "right", "󰁔", i18n.mark("Place the bar on the right")},
     })
 end
 

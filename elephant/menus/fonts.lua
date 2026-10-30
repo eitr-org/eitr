@@ -15,8 +15,8 @@ function GetEntries()
     reader:close()
     local entries = {}
     for _, row in ipairs(jsonDecode(raw) or {}) do
-        table.insert(entries, {Text = row.family, Value = row.family,
-            Icon = row.current and "" or "󰛖", State = row.current and {"current"} or {},
+        table.insert(entries, {Text = row.family, Subtext = i18n.mark("Use this font throughout the desktop"), Value = row.family,
+            Icon = row.current and "\239\128\140" or "󰛖", State = row.current and {"current"} or {},
             Actions = {font_select = "python3 " .. quote(helper) .. " select " .. quote(row.family),
                 font_delete = row.deletable and "python3 " .. quote(helper) .. " delete " .. quote(row.family) or nil}})
     end

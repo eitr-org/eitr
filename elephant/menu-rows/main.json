@@ -22,23 +22,13 @@
     "submenu": "apps"
   },
   {
-    "text": "Style",
-    "subtext": ">",
-    "keywords": [
-      "theme",
-      "wallpaper",
-      "appearance"
-    ],
-    "icon": "",
-    "submenu": "style"
-  },
-  {
-    "text": "Toggle",
+    "text": "Quick Actions",
     "subtext": ">",
     "keywords": [
       "switch",
       "enable",
-      "disable"
+      "disable",
+      "toggle"
     ],
     "icon": "󰔎",
     "submenu": "toggle"
@@ -79,20 +69,27 @@
     "submenu": "install"
   },
   {
+    "text": "Plugins",
+    "subtext": ">",
+    "icon": "󰏖",
+    "submenu": "plugins"
+  },
+  {
     "text": "Gaming",
     "subtext": ">",
     "icon": "󰊴",
     "submenu": "gaming"
   },
   {
-    "text": "System",
+    "text": "Settings",
     "subtext": ">",
     "keywords": [
+      "system",
       "settings",
-      "tools"
+      "preferences"
     ],
     "icon": "",
-    "submenu": "system"
+    "submenu": "settings"
   },
   {
     "text": "Power",

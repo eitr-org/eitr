@@ -12,7 +12,7 @@ Les boutons au-dessus règlent l’essentiel : chacun ferme le manuel et ouvre l
 2. **SUPER + Space** ouvre les applications, **SUPER + Enter** un terminal.
 3. **SUPER + ,** ouvre le Centre de contrôle. Les paramètres regroupent clavier, écran et éclairage nocturne ; Style regroupe l’apparence.
 4. Connectez-vous depuis l’icône WiFi ou Bluetooth. Les icônes de droite peuvent être masquées : utilisez la flèche pour les afficher.
-5. Choisissez un thème dans **Style > Thème**, puis un fond dans **Style > Fond d’écran**.
+5. Choisissez un thème dans **Paramètres > Style > Thème**, puis un fond dans **Paramètres > Style > Fond d’écran**.
 
 Les nouvelles installations EITR utilisent **Eitr** et l’écran de verrouillage **Clockwork Tape**. Les bureaux existants conservent leurs choix.
 
@@ -22,7 +22,7 @@ Ouvrez **Apprendre > Manuel EITR** ou appuyez sur **SUPER + F1**. Le même racco
 
 Le manuel n’exécute aucune commande. Les blocs de code sont des exemples à examiner et copier volontairement. Les liens externes ne s’ouvrent qu’au clic.
 
-Continuez avec [Raccourcis](handbook:shortcuts), [Barre du bureau](handbook:desktop-bar) ou [Menu système](handbook:system).
+Continuez avec [Raccourcis](handbook:shortcuts), [Barre du bureau](handbook:desktop-bar) ou [Menu Paramètres](handbook:system).
 
 <!-- eitr-overview -->
 ## Ce que propose Eitr

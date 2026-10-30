@@ -51,12 +51,6 @@
     "submenu": "packages"
   },
   {
-    "text": "Plugins",
-    "subtext": ">",
-    "icon": "󰏖",
-    "submenu": "plugins-install"
-  },
-  {
     "text": "Productivity",
     "subtext": ">",
     "icon": "󰃖",

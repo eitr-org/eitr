@@ -1,6 +1,6 @@
 # Périphériques et saisie
 
-Ces commandes se trouvent dans **Système > Périphériques et saisie** ou via les icônes correspondantes de la barre. Le Centre de contrôle propose aussi leurs interrupteurs et curseurs courants.
+Ces commandes se trouvent dans **Paramètres > Périphériques et saisie** ou via les icônes correspondantes de la barre. Le Centre de contrôle propose aussi leurs interrupteurs et curseurs courants.
 
 ## Audio et microphone
 
@@ -26,7 +26,7 @@ Le curseur de luminosité n’apparaît que sur les ordinateurs portables avec �
 
 ## Clavier
 
-Ajoutez et retirez des dispositions dans Walker : Système > Périphériques et saisie > Clavier. Ajouter une disposition liste toutes les langues et variantes (tapez pour chercher) ; sélectionnez une disposition et appuyez sur Suppr pour la retirer. Jusqu’à quatre sont prises en charge, sans doublons, et au moins une doit rester. **Alt + Shift** les parcourt. À partir de deux, la barre affiche le code de la disposition active (comme US ou BR) ; cliquez dessus, ou utilisez le Centre de contrôle, pour en changer. La disposition du clavier est indépendante de la langue et des paramètres régionaux du système.
+Ajoutez et retirez des dispositions dans Walker : Paramètres > Périphériques et saisie > Clavier. Ajouter une disposition liste toutes les langues et variantes (tapez pour chercher) ; sélectionnez une disposition et appuyez sur Suppr pour la retirer. Jusqu’à quatre sont prises en charge, sans doublons, et au moins une doit rester. **Alt + Shift** les parcourt. À partir de deux, la barre affiche le code de la disposition active (comme US ou BR) ; cliquez dessus, ou utilisez le Centre de contrôle, pour en changer. La disposition du clavier est indépendante de la langue et des paramètres régionaux du système.
 
 Le bureau démarre avec le clavier choisi dans l’installateur. Le choix US inclut US et US International ; Alt + Shift suffit pour accéder aux accents.
 

@@ -58,7 +58,8 @@
       "font",
       "typeface",
       "ligatures",
-      "default"
+      "default",
+      "Default Font"
     ],
     "icon": "󰛖",
     "submenu": "fonts"

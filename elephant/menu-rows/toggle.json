@@ -50,19 +50,25 @@
     }
   },
   {
-    "text": "Nightlight",
+    "text": "Night Light",
     "subtext": "Warmer screen colors for the evening; on or off",
     "icon": "󰔎",
     "actions": {
       "open": "/usr/share/eitr/walker/scripts/actions/toggle/nightlight.sh"
-    }
+    },
+    "keywords": [
+      "Night Light"
+    ]
   },
   {
-    "text": "Screensaver",
+    "text": "Start Screensaver",
     "subtext": "Start the screensaver now",
     "icon": "󱄄",
     "actions": {
       "open": "/usr/share/eitr/walker/scripts/actions/toggle/screensaver.sh"
-    }
+    },
+    "keywords": [
+      "Start Screensaver"
+    ]
   }
 ]

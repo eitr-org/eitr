@@ -1,6 +1,6 @@
 # Dispositivos e entrada
 
-Encontre estes controles em **Sistema > Dispositivos e entrada** ou nos ícones correspondentes da barra. A Central de controle também oferece os botões e controles deslizantes de uso diário.
+Encontre estes controles em **Configurações > Dispositivos e entrada** ou nos ícones correspondentes da barra. A Central de controle também oferece os botões e controles deslizantes de uso diário.
 
 ## Áudio e microfone
 
@@ -26,7 +26,7 @@ O controle de brilho só aparece em notebooks com tela integrada (iluminação n
 
 ## Teclado
 
-Adicione e remova layouts no Walker: Sistema > Dispositivos e entrada > Teclado. Adicionar layout lista todos os idiomas e variantes (digite para buscar); selecione um layout e pressione Delete para removê-lo. São permitidos até quatro, sem duplicatas, e pelo menos um deve permanecer. **Alt + Shift** alterna entre eles. Com dois ou mais, a barra mostra o código do layout ativo (como US ou BR); clique nele, ou use a Central de controle, para trocar. O layout do teclado é independente do idioma e da localidade do sistema.
+Adicione e remova layouts no Walker: Configurações > Dispositivos e entrada > Teclado. Adicionar layout lista todos os idiomas e variantes (digite para buscar); selecione um layout e pressione Delete para removê-lo. São permitidos até quatro, sem duplicatas, e pelo menos um deve permanecer. **Alt + Shift** alterna entre eles. Com dois ou mais, a barra mostra o código do layout ativo (como US ou BR); clique nele, ou use a Central de controle, para trocar. O layout do teclado é independente do idioma e da localidade do sistema.
 
 A área de trabalho começa com o teclado escolhido no instalador. A opção US inclui US e US International; basta Alt + Shift para acessar os acentos.
 

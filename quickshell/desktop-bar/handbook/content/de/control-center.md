@@ -7,7 +7,7 @@ Seine fünf Seiten enthalten alles außerhalb von Entwicklung, Apps, Installiere
 ## Allgemein
 
 - **Verbindungen:** WiFi- und Bluetooth-Schalter sowie Flugmodus.
-- **Schnellschalter:** automatische Bildschirmsperre, Absturzbenachrichtigungen, Nicht stören, Spielmodus (Effekte, Unschärfe und Popups aus, Leistungsprofil an, bis du ihn ausschaltest) und Nachtlicht. Ein eingeschalteter Schalter füllt sich mit der Akzentfarbe des Designs. Darunter führen Leiste ausblenden (SUPER+Shift+Space holt sie zurück) und Bildschirmschoner einmalig eine Aktion aus.
+- **Schnellaktionen:** automatische Bildschirmsperre, Absturzbenachrichtigungen, Nicht stören, Spielmodus (Effekte, Unschärfe und Popups aus, Leistungsprofil an, bis du ihn ausschaltest) und Nachtlicht. Ein eingeschalteter Schalter füllt sich mit der Akzentfarbe des Designs. Darunter führen Leiste ausblenden (SUPER+Shift+Space holt sie zurück) und Bildschirmschoner einmalig eine Aktion aus.
 - **Ton:** Lautstärke sowie Mikrofonverstärkung und Stummschaltung.
 - **Bildschirm:** Helligkeit, auf Laptops mit eingebautem Bildschirm.
 - **Medien:** Cover, Interpret, Wiedergabesteuerung und Positionswahl, sofern unterstützt.
@@ -19,7 +19,7 @@ Der Flugmodus merkt sich gesperrte Funkverbindungen und stellt nur diese wieder 
 
 Stil gliedert die Einstellungen in Theme & Hintergrundbild (anfangs geöffnet), Ecken, Leiste, Arbeitsflächen, Sperrbildschirm, Mauszeiger und Terminal. Ein Klick auf den Gruppentitel klappt die Gruppe ein; ihre Fläche umfasst alle zugehörigen Optionen. Leiste enthält Anordnung, Position, Erscheinungsbild, Anzeigen auf, Uhr, Medienstil und Verhalten. Verhalten umfasst Automatisch ausblenden, Dock und Bewegung reduzieren.
 
-Design und Hintergrundbild öffnen ihre Karussells; Standardschrift öffnet die Schriftliste. Sperrbildschirmdesign, Mauszeiger (Familie, Größe, Farbe), Leistenerscheinung, Layout, Rand und Bildschirme, Arbeitsflächenmarkierungen, Ecken und Kittys Cursor Fire ändere direkt im Panel. Die Einstellungen werden mit Walker geteilt.
+Design und Hintergrundbild öffnen ihre Karussells; Schriftarten öffnet die Schriftliste. Sperrbildschirmdesign, Mauszeiger (Familie, Größe, Farbe), Leistenerscheinung, Layout, Rand und Bildschirme, Arbeitsflächenmarkierungen, Ecken und Kittys Cursor Fire ändere direkt im Panel. Die Einstellungen werden mit Walker geteilt.
 
 Terminal bietet Kitty (Standard) und optional Ghostty; Eitrs Hilfsterminals bleiben bei Kitty. Installation und Konfiguration stehen unter [Terminal und Editoren](terminal.md).
 
@@ -27,7 +27,7 @@ Terminal bietet Kitty (Standard) und optional Ghostty; Eitrs Hilfsterminals blei
 
 Screenshots (Auswahl, Vollbild, Fenster oder Auswahl direkt in die Zwischenablage), Aufnahme (OBS-Steuerung, Aufnehmen, Aufnehmen + Audio und Stopp), OCR, QR-Codes, Farbauswahl, Transkodieren, Erinnerungen und LocalSend-Freigabe. Das Panel schließt vor Beginn einer Auswahl oder Aufnahme.
 
-## System
+## Einstellungen
 
 - **Geräte:** Panels für Audio, Mikrofon, Bildschirm (Auflösung, Bildwiederholrate, Skalierung), Bluetooth und WiFi, Beleuchtung und Akkuladelimit auf Laptops.
 - **Tastatur:** Belegungen wählen, hinzufügen und entfernen; mindestens eine bleibt erhalten.
@@ -40,7 +40,7 @@ Sicherheit, Zurücksetzen auf den Werkszustand und Netzwerk-Backend bleiben unte
 
 ## Sprache
 
-**System > Sprache** zeigt die aktuelle Sprache entsprechend dem Gebietsschema. Öffne die Auswahl, wähle eine Sprache oder Systemstandard und melde dich zur Anwendung ab und wieder an. Nur die Meldungssprache deiner Sitzung wird geändert, niemals System-Gebietsschemadateien. Siehe [Sprachanleitung](handbook:language).
+**Einstellungen > Sprache** zeigt die aktuelle Sprache entsprechend dem Gebietsschema. Öffne die Auswahl, wähle eine Sprache oder Systemstandard und melde dich zur Anwendung ab und wieder an. Nur die Meldungssprache deiner Sitzung wird geändert, niemals System-Gebietsschemadateien. Siehe [Sprachanleitung](handbook:language).
 
 ## Schnellchat
 
@@ -50,10 +50,10 @@ Antworten bieten auswählbares Markdown und Kopieren. Die Unterhaltung bleibt im
 
 ## Plugins
 
-**Kontrollzentrum > Plugins** zeigt für jedes installierte Plugin eine kompakte Zeile mit Symbol, Namen und Aktivierungsschalter. Wähle eine Zeile, um Autor, Version, Beschreibung, Aktualisieren/Entfernen, Widgets, Leistenelemente und Vorschau zu sehen. Mit Zurück oder Escape kehrst du zur Liste zurück. Aktivieren/Deaktivieren erhält Positionen und stoppt oder startet Dienste, Walker-Einträge, Hooks und visuelle Komponenten; per CLI: `eitr plugin enable ID` oder `eitr plugin disable ID`. Plugin hinzufügen…, Aktualisieren und Entfernen öffnen die geprüften Terminalabläufe; Entfernen verlangt Bestätigung. Allgemein behält nur Plugin-Kacheln. Visuelle Fehler haben eine unabhängige Aktion zum erneuten Aktivieren.
+**Kontrollzentrum > Plugins** zeigt für jedes installierte Plugin eine kompakte Zeile mit Symbol, Namen und Aktivierungsschalter. Wähle eine Zeile, um Autor, Version, Beschreibung, Aktualisieren/Entfernen, Widgets, Leistenelemente und Vorschau zu sehen. Mit Zurück oder Escape kehrst du zur Liste zurück. Aktivieren/Deaktivieren erhält Positionen und stoppt oder startet Dienste, Walker-Einträge, Hooks und visuelle Komponenten; per CLI: `eitr plugin enable ID` oder `eitr plugin disable ID`. Plugins hinzufügen, Aktualisieren und Entfernen öffnen die geprüften Terminalabläufe; Entfernen verlangt Bestätigung. Allgemein behält nur Plugin-Kacheln. Visuelle Fehler haben eine unabhängige Aktion zum erneuten Aktivieren.
 
-Plugin hinzufügen… unterstützt auch Repositorys mit mehreren Plugins. Der Index `eitr-plugins.json` im Stammverzeichnis listet IDs und Ordner auf, jeweils mit eigener `eitr-plugin.json`. Wähle anhand von Name, Beschreibung und Symbol ein oder mehrere Plugins und prüfe jedes einzeln. Die Ablehnung eines Plugins genehmigt keine anderen. Ausgewählte Plugins teilen eine heruntergeladene Repository-Kopie und werden einzeln an den exakten Commit gebunden; ein Update lässt die genehmigten Commits der anderen unverändert. Die Details zeigen Repository-URL und Plugin-Ordner. Eine einzelne `eitr-plugin.json` im Stammverzeichnis funktioniert weiterhin wie bisher.
+Plugins hinzufügen unterstützt auch Repositorys mit mehreren Plugins. Der Index `eitr-plugins.json` im Stammverzeichnis listet IDs und Ordner auf, jeweils mit eigener `eitr-plugin.json`. Wähle anhand von Name, Beschreibung und Symbol ein oder mehrere Plugins und prüfe jedes einzeln. Die Ablehnung eines Plugins genehmigt keine anderen. Ausgewählte Plugins teilen eine heruntergeladene Repository-Kopie und werden einzeln an den exakten Commit gebunden; ein Update lässt die genehmigten Commits der anderen unverändert. Die Details zeigen Repository-URL und Plugin-Ordner. Eine einzelne `eitr-plugin.json` im Stammverzeichnis funktioniert weiterhin wie bisher.
 
-Die Systemaktualisierung prüft nur auf neue Plugin-Commits, auch wenn alle Pakete aktuell sind, und nennt Anzahl und Aktualisierungsweg. Sie prüft keinen Plugin-Code und aktualisiert keine Plugins; Netzwerkfehler werden still ignoriert. Starte **Plugins aktualisieren** unter **Kontrollzentrum > Plugins** neben Plugin hinzufügen… oder **Installieren > Plugins > Plugins aktualisieren**, oder nutze `eitr plugin update`. Die Markierung ↑ in der Zeile und „Aktualisierung verfügbar“ in den Details zeigen die letzte Prüfung des bestätigten Commits. Die separate Aktion behält Diffs, Risikohinweise und Bestätigungen für jedes Plugin bei.
+Die Systemaktualisierung prüft nur auf neue Plugin-Commits, auch wenn alle Pakete aktuell sind, und nennt Anzahl und Aktualisierungsweg. Sie prüft keinen Plugin-Code und aktualisiert keine Plugins; Netzwerkfehler werden still ignoriert. Starte **Plugins aktualisieren** unter **Kontrollzentrum > Plugins** neben Plugins hinzufügen oder **Plugins > Plugins aktualisieren**, oder nutze `eitr plugin update`. Die Markierung ↑ in der Zeile und „Aktualisierung verfügbar“ in den Details zeigen die letzte Prüfung des bestätigten Commits. Die separate Aktion behält Diffs, Risikohinweise und Bestätigungen für jedes Plugin bei.
 
 Die Plugin-Liste zeigt „Dieses Plugin hat Fehler“ und die erste Meldung an. Wählen Sie das Plugin und Fehlerdetails anzeigen, um mehr zu erfahren; über den Schalter deaktivieren Sie es mit einem Klick. Nur Fehler, die eine Datei im Ordner des Plugins nennen, werden erfasst. Plugins haben dieselben Berechtigungen wie der Desktop; installieren Sie daher nur Plugins, denen Sie vertrauen.

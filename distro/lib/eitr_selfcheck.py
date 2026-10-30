@@ -24,12 +24,12 @@ from eitr_i18n import tr
 from eitr_terminal import read_key
 
 HELPER = '/usr/lib/eitr/eitr-system'
-UPDATE = 'System > Maintenance > Update > System Update'
+UPDATE = 'Settings > System > System Update'
 RECOVERY = 'eitr handbook recovery'
-REPORT = 'System > Information > Report a Problem'
+REPORT = 'Settings > System > Information > Report a Problem'
 RESTART = 'Main > Power > Reboot'
-CLEANUP = 'System > Maintenance > Cleanup'
-FIREWALL = 'System > Security > Firewall'
+CLEANUP = 'Settings > System > Maintenance > Cleanup'
+FIREWALL = 'Settings > Security > Firewall'
 
 
 class Unavailable(Exception):
@@ -506,7 +506,7 @@ def check_plugins(context):
     context.read(context.state / 'eitr/plugins.json')
     blocked = Plugins().blocked()
     if blocked:
-        return result('warning', f'{len(blocked)} installed plugins are blocked.', 'Install > Plugins')
+        return result('warning', f'{len(blocked)} installed plugins are blocked.', 'Plugins > Installed Plugins')
     return result('ok', 'No installed plugins are blocked.')
 
 
@@ -514,7 +514,7 @@ def check_plugin_hooks(context):
     lines = context.read(context.state / 'eitr/plugin-hooks.log').splitlines()[-100:]
     failures = [line for line in lines if re.search(r'^[a-z0-9][a-z0-9-]* (after-update|login|theme-changed|wallpaper-changed): ', line)]
     if failures:
-        return result('warning', f'{len(failures)} hook failures in last 100 log lines; log has no timestamps, age unknown.', 'Install > Plugins')
+        return result('warning', f'{len(failures)} hook failures in last 100 log lines; log has no timestamps, age unknown.', 'Plugins > Installed Plugins')
     return result('ok', 'No hook failure records in last 100 log lines; age unknown.')
 
 
@@ -660,7 +660,7 @@ def summary(checks):
 
 
 def plain(checks, color=False, width=120):
-    lines = [tr('Check this PC'), '']
+    lines = [tr('Check This PC'), '']
     colors = {'ok': '32', 'warning': '33', 'problem': '31', 'info': '36', 'skipped': '90'}
     previous = None
     for check in checks:

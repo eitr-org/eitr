@@ -18,10 +18,10 @@ and `eitr config status` before editing. Never replace user configuration with
 shipped defaults. Generated theme styles must be changed through their source
 settings/generators, not hand-edited as a lasting fix.
 
-Use System > Maintenance > System Update or `eitr update system` for package
+Use Settings > System > System Update or `eitr update system` for package
 updates with snapshots. Never perform partial Arch upgrades. Ask before sudo.
 Use `eitr theme list`, `eitr theme current` and `eitr theme set NAME` for themes;
-Style > Wallpaper selects wallpaper, and SUPER + Shift + N advances it.
+Settings > Style > Wallpaper selects wallpaper, and SUPER + Shift + N advances it.
 For a wallpaper file, use
 `bash /usr/share/eitr/walker/scripts/actions/wallpaper/apply.sh FILE`.
 There is no `eitr wallpaper` command.
@@ -33,5 +33,5 @@ restarting the bar or other disruptive services. Walker launches go through
 verify `KillMode=process` before restarting it so launched applications survive.
 Never restart SDDM, lock, suspend or log out the user's session.
 
-Use `eitr report` or System > Information > Report a Problem. Read the generated
+Use `eitr report` or Settings > System > Information > Report a Problem. Read the generated
 report before sharing; nothing is sent automatically and GitHub issues are public.

@@ -20,7 +20,7 @@ def networkmanager_active():
 def main(kind):
     active = networkmanager_active()
     if kind == 'networkmanager' and not active:
-        print(tr('VPN profiles need NetworkManager. Choose it in System > Connectivity > Network Backend, then reboot.'))
+        print(tr('VPN profiles need NetworkManager. Choose it in Settings > Connectivity > Network Backend, then reboot.'))
         print(tr('Enter: open Network Backend · Esc: close'), flush=True)
         if read_key() in ('\r', '\n'):
             subprocess.run([str(software.WALKER), '-m', 'menus:network-backend'], check=True)

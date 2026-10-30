@@ -8,7 +8,7 @@ Imported from upstream revision `f6561e2ceae33f26e5e660742a5df2f725cbe514`.
 
 ## Use
 
-- Walker: Style > Lockscreen. Enter selects a design for future locks.
+- Walker: Settings > Style > Lockscreen. Enter selects a design for future locks.
 - Ctrl+P previews without locking; Escape returns to the selector.
 - Super+M locks with the selected design. Hyprlock remains the safety fallback.
 - Preferences: `~/.config/lockscreen/selected` (machine-local; Hyprlock when absent).
@@ -158,7 +158,7 @@ with mock authentication, and never locks or captures the desktop.
 
 ### Theme Wallpaper
 
-Style > Lockscreen > Theme Wallpaper uses the selected desktop wallpaper with
+Settings > Style > Lockscreen > Theme Wallpaper uses the selected desktop wallpaper with
 an adapted Sword layout: the clock at top left and the user/password controls
 at bottom right, with dark gradients for readability. Walker previews the current
 wallpaper; Ctrl+P shows the complete layout without locking. Each launch resolves

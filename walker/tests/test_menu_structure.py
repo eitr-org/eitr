@@ -14,9 +14,29 @@ def menu(name):
 
 
 class MenuStructureTests(unittest.TestCase):
+    def test_approved_main_order_and_settings_command(self):
+        self.assertEqual([row["text"] for row in menu("main")["entries"]],
+                         ["Development", "Apps", "Quick Actions", "Tools", "Learn", "Install", "Plugins", "Gaming", "Settings", "Power"])
+        settings = next(row for row in menu("main")["entries"] if row["text"] == "Settings")
+        self.assertTrue({"system", "settings", "preferences"}.issubset(settings["keywords"]))
+        control = next(row for row in menu("settings")["entries"] if row["text"] == "Control Center")
+        self.assertIn(control["actions"]["open"], (ROOT / "hypr/hyprland.lua").read_text())
+        for name in ("style", "language", "security", "system"):
+            self.assertEqual(menu(name)["parent"], "settings")
+
+    def test_remote_setup_folders_keep_daily_actions_direct(self):
+        for name, titles in [("remote-share", ["Setup", "Pair a Device", "Sharing Status", "Start Sharing", "Stop Sharing"]),
+                             ("remote-away", ["Setup", "Connect", "Connection Status", "Disconnect"])]:
+            self.assertEqual([row["text"] for row in menu(name)["entries"]], titles)
+            self.assertEqual(menu(name + "-setup")["parent"], name)
+        sharing = {row["text"] for row in menu("remote-share-setup")["entries"]}
+        self.assertEqual(sharing, {"Set Up Sharing", "Sharing Settings", "Start at Login", "Turn Off Start at Login", "Detailed Status", "Restore Sharing Setup"})
+        away = {row["text"] for row in menu("remote-away-setup")["entries"]}
+        self.assertEqual(away, {"Sign In", "Set Up Away Access", "Restore Away Access Setup", "Detailed Status", "Ping a Peer"})
+
     def test_tools_contains_calendars_before_other_submenus(self):
         submenus = [entry["submenu"] for entry in menu("tools")["entries"] if entry.get("submenu")]
-        self.assertEqual(submenus, ["calendars", "capture", "plugins", "reminders", "share"])
+        self.assertEqual(submenus, ["calendars", "capture", "reminders", "share"])
         self.assertFalse(any(entry.get("submenu") == "calendars" for entry in menu("reminders")["entries"]))
 
     def test_rows_that_open_something_say_what_it_does(self):
@@ -70,12 +90,13 @@ class MenuStructureTests(unittest.TestCase):
         self.assertEqual((ROOT / "walker/themes/current/item_menus-bar-dock.xml").read_text(),
                          (ROOT / "walker/themes/current/item_menus-main.xml").read_text())
 
-    def test_update_offers_only_system_update_and_channel(self):
-        entries = menu("update")["entries"]
+    def test_system_contains_updates_and_information(self):
+        entries = menu("system")["entries"]
         self.assertEqual([entry["text"] for entry in entries],
-                         ["Update Channel", "System Update"])
-        self.assertEqual(entries[0]["submenu"], "update-channel")
-        self.assertTrue(entries[1]["actions"]["open"].endswith("update.sh system"))
+                         ["Information", "Maintenance", "Update Channel", "About", "System Update"])
+        self.assertEqual(menu("update-channel")["parent"], "system")
+        self.assertFalse((MENUS / "update.lua").exists())
+        self.assertTrue(entries[-1]["actions"]["open"].endswith("update.sh system"))
 
     def test_security_groups_authentication_methods(self):
         entries = menu("security")["entries"]
@@ -133,7 +154,7 @@ class MenuStructureTests(unittest.TestCase):
         # Rows in the "current" state (the active theme, channel, design or an installed
         # app) show the check icon, written as an escape so editors cannot drop it:
         # \u{F00C} in TOML, JSON and Python, its UTF-8 bytes in Lua.
-        check = ("\\u{F00C}", "\uf00c", "\\239\\128\\140")
+        check = ("\\u{F00C}", "\\uf00c", "\uf00c", "\\239\\128\\140")
         sources = [path for path in [*ROOT.glob("elephant/**/*.lua"), *ROOT.glob("walker/scripts/menus/*.lua")]
                    if '"current"' in path.read_text()]
         self.assertTrue(sources)
@@ -331,7 +352,7 @@ class MenuStructureTests(unittest.TestCase):
     def test_install_and_gaming_follow_learn(self):
         names = [entry["text"] for entry in menu("main")["entries"]]
         start = names.index("Learn")
-        self.assertEqual(names[start:start + 3], ["Learn", "Install", "Gaming"])
+        self.assertEqual(names[start:start + 4], ["Learn", "Install", "Plugins", "Gaming"])
 
     def test_optional_runtimes_belong_to_install(self):
         development = [entry.get("submenu") for entry in menu("development")["entries"]]
@@ -378,13 +399,13 @@ class MenuStructureTests(unittest.TestCase):
         self.assertEqual(menu("battery-limit")["parent"], "system-devices")
 
     def test_system_groups_have_matching_layouts_and_back_navigation(self):
-        self.assertEqual([entry["text"] for entry in menu("system")["entries"]],
-                         ["Connectivity", "Devices & Input", "Information", "Language", "Maintenance", "Security", "Dotfiles"])
-        language = next(entry for entry in menu("system")["entries"] if entry["text"] == "Language")
+        self.assertEqual([entry["text"] for entry in menu("settings")["entries"]],
+                         ["Connectivity", "Devices & Input", "Language", "Security", "Style", "System", "Control Center", "Dotfiles"])
+        language = next(entry for entry in menu("settings")["entries"] if entry["text"] == "Language")
         self.assertEqual((language.get("subtext"), language.get("submenu")), (">", "language"), "Language is a folder")
         layout = ROOT / "walker/themes/current"
         for group in ("system-connectivity", "system-devices", "system-information", "system-maintenance"):
-            self.assertEqual(menu(group)["parent"], "system")
+            self.assertEqual(menu(group)["parent"], "settings" if group in ("system-connectivity", "system-devices") else "system")
             self.assertEqual((layout / f"item_menus-{group}.xml").read_text(),
                              (layout / "item_menus-system.xml").read_text())
             for entry in menu(group)["entries"]:

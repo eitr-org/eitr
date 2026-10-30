@@ -20,6 +20,15 @@ class SearchIndexTests(unittest.TestCase):
     def output(self, *items):
         return '\n'.join(json.dumps({'item': item}) for item in items)
 
+    def test_battery_folder_and_choices_are_not_indexed_without_system_battery(self):
+        folder = dict(self.item, provider='menus:system-devices', text='Battery Charge Limit')
+        choice = dict(self.item, provider='menus:battery-limit', text='Charge Limit 80%')
+        definitions = {'system-devices': {'entries': [{'text': 'Battery Charge Limit', 'submenu': 'battery-limit'}]}}
+        with patch.object(search, 'system_batteries', return_value=[]):
+            self.assertEqual(search.snapshot(self.output(folder, choice), menus=definitions), [])
+        with patch.object(search, 'system_batteries', return_value=[Path('/mock/BAT0')]):
+            self.assertEqual(len(search.snapshot(self.output(folder, choice), menus=definitions)), 2)
+
     def test_private_clipboard_and_index_are_excluded(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -154,19 +163,19 @@ class SearchIndexTests(unittest.TestCase):
             menus, rows = elephant / 'menus', elephant / 'menu-rows'
             menus.mkdir(parents=True)
             rows.mkdir()
-            (menus / 'system.lua').write_text('Name = "system"\nParent = "main"\n')
-            (rows / 'system.json').write_text(json.dumps([{'text': 'Security', 'subtext': '>', 'submenu': 'security'}]))
-            (menus / 'security.toml').write_text('name = "security"\nparent = "system"\n'
+            (menus / 'settings.lua').write_text('Name = "settings"\nParent = "main"\n')
+            (rows / 'settings.json').write_text(json.dumps([{'text': 'Security', 'subtext': '>', 'submenu': 'security'}]))
+            (menus / 'security.toml').write_text('name = "security"\nparent = "settings"\n'
                                                  '[[entries]]\ntext = "Fingerprint"\nsubmenu = "fingerprint"\n')
             (menus / 'git-accounts.lua').write_text('Name = "git-accounts"\nParent = "development"\n')
             parents, definitions = search.parents(menus), search.definitions(menus)
-        self.assertEqual(parents, {'system': 'main', 'security': 'system', 'git-accounts': 'development'})
+        self.assertEqual(parents, {'settings': 'main', 'security': 'settings', 'git-accounts': 'development'})
         output = self.output(
             dict(provider='menus:security', identifier='menus:fingerprint::1', text='Fingerprint', actions=['menus:open']),
-            dict(provider='menus:system', identifier='security:system:2', text='Security', actions=['menus:open']),
+            dict(provider='menus:settings', identifier='security:settings:2', text='Security', actions=['menus:open']),
             dict(provider='menus:git-accounts', identifier='menus:git-account::3', text='Work', actions=['menus:open']))
         rows = {row['text']: row for row in search.snapshot(output, {}, parents, definitions)}
-        self.assertEqual(rows['Fingerprint']['menus'], ['system', 'main'])
+        self.assertEqual(rows['Fingerprint']['menus'], ['settings', 'main'])
         self.assertEqual(rows['Fingerprint']['submenu'], 'fingerprint')
         self.assertEqual(rows['Security']['submenu'], 'security')
         # A generated menu's submenu needs the selected row's value; it keeps the helper.

@@ -57,7 +57,7 @@ class UpdateWorkflowTests(unittest.TestCase):
                  "echo '{\"one\": 2, \"two\": 1, \"current\": 0}'; else command python3 \"$@\"; fi; };\n")
         result = run_protected_update(mocks)
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn("2 plugin updates available: Control Center > Plugins or Install > Plugins > Update Plugins", result.stdout)
+        self.assertIn("2 plugin updates available: Control Center > Plugins or Plugins > Update Plugins", result.stdout)
         self.assertIn("Everything is up to date.", result.stdout)
         self.assertNotIn("unexpected", result.stdout + result.stderr)
 

@@ -26,7 +26,7 @@ def active_backend():
                              Gio.DBusCallFlags.NONE, 2000, None).unpack()[0]
     nm, iwd = owns("org.freedesktop.NetworkManager"), owns(SERVICE)
     if nm and iwd:
-        raise RuntimeError(tr('Both network backends are running; select one in System > Connectivity > Network Backend and reboot'))
+        raise RuntimeError(tr('Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot'))
     if nm:
         return "networkmanager"
     if iwd:
@@ -59,7 +59,7 @@ def merge_known(networks, objects):
     return result
 
 
-def snapshot():
+def snapshot(include_details=True):
     objects = call("/", "org.freedesktop.DBus.ObjectManager", "GetManagedObjects")[0]
     devices = []
     for path, interfaces in objects.items():
@@ -76,8 +76,8 @@ def snapshot():
                                  "connected": station.get("ConnectedNetwork") == network_path,
                                  "strength": max(0, min(100, 2 * (strength / 100 + 100)))})
         networks = merge_known(networks, objects)
-        details = telemetry(device["Name"])
-        if station.get("State") == "connected":
+        details = telemetry(device["Name"]) if include_details else {}
+        if include_details and station.get("State") == "connected":
             try:
                 diagnostic = call(path, PREFIX + "StationDiagnostic", "GetDiagnostics")[0]
                 frequency = diagnostic.get("Frequency", 0)
@@ -182,6 +182,23 @@ def main():
     if action == "probe":
         return probe(sys.argv[2])
     backend = active_backend()
+    if action == "icon":
+        if backend == "networkmanager":
+            spec = importlib.util.spec_from_file_location("wifi_nm", Path(__file__).with_name("wifi-networkmanager.py"))
+            adapter = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(adapter)
+            result = adapter.snapshot(bus, lambda interface: {})
+        else:
+            result = {**snapshot(include_details=False), "backend": "iwd"}
+        radios = Path('/sys/class/rfkill')
+        result["blocked"] = any(
+            (radio / 'type').read_text().strip() == 'wlan' and (radio / 'state').read_text().strip() == '0'
+            for radio in radios.glob('rfkill*'))
+        result["wired"] = any(
+            interface.name != 'lo' and not (interface / 'wireless').exists() and (interface / 'device').exists()
+            and (interface / 'operstate').read_text().strip() == 'up'
+            for interface in Path('/sys/class/net').iterdir())
+        return result
     if backend == "networkmanager":
         spec = importlib.util.spec_from_file_location("wifi_nm", Path(__file__).with_name("wifi-networkmanager.py"))
         adapter = importlib.util.module_from_spec(spec)

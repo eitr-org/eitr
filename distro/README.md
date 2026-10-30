@@ -104,7 +104,7 @@ entries. Validate the actual boot, shutdown and unlock in a VM before release.
   Secure Boot is documentation only: [SECURE-BOOT.md](SECURE-BOOT.md) (sbctl,
   Option ROM risks, GRUB/Limine snapshot entries, undo), bundled in
   Walker → Learn → EITR Handbook → Secure Boot.
-- Laptops: Walker → System → Devices & Input → Battery Charge Limit runs
+- Laptops: Walker → Settings → Devices & Input → Battery Charge Limit runs
   `eitr-system battery-limit <60-100|off>`, which writes
   `charge_control_end_threshold` and installs `eitr-battery-limit.service` to
   restore it at boot and after resume. Desktops have no threshold and are refused.
@@ -576,7 +576,7 @@ available. Reflector tries that country, then worldwide, selecting up to ten
 recent (12-hour) HTTPS mirrors by rate, with a 120-second limit per invocation.
 The shipped three servers stay last; a failed ranking leaves the list unchanged.
 
-System > Maintenance > Choose fastest mirrors opens a task terminal with Enter
+Settings > System > Maintenance > Choose Fastest Mirrors opens a task terminal with Enter
 confirmation and Esc cancellation. If a backup exists, typing `restore` restores
 the latest previous list. Root writes go only through `eitr-system mirrors-rank`
 or `mirrors-restore`; every write backs up the current list beside it as

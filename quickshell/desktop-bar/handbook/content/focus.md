@@ -3,7 +3,7 @@
 ![Focus tab strip with example windows and two joined panes.](assets/focus-strip.png)
 
 Focus replaces the desktop bar with a 28 px tab strip at the top of every monitor.
-Open **Style > Focus** or **Control Center > Style > Focus**, or run
+Open **Settings > Style > Focus** or **Control Center > Style > Focus**, or run
 `eitr focus on`. `eitr focus status` prints `on` or `off` without contacting
 Hyprland. `eitr focus off` restores the normal desktop, including its bar layout,
 effects and shortcuts. There is no dedicated toggle shortcut.

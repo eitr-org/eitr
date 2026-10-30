@@ -89,3 +89,6 @@ IslandMask IslandMask.qml
 
 singleton FocusMode 1.0 FocusMode.qml
 FocusStrip FocusStrip.qml
+
+singleton ObsStatus 1.0 ObsStatus.qml
+PreferenceWatch PreferenceWatch.qml

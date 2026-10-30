@@ -2,7 +2,7 @@
 """Whether theme switches recolour OpenRGB devices (fans, keyboard, RAM).
 
 Off by default: lighting is a personal choice, so EITR changes it only after the
-owner opts in under System > Devices & Input > Lighting. The preference is the
+owner opts in under Settings > Devices & Input > Lighting. The preference is the
 machine-local eitr/lighting.json.
 """
 import argparse

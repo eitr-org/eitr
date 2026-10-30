@@ -2,7 +2,7 @@
 
 ## Verificar este PC
 
-Abra **Sistema > Manutenção > Verificar este PC** ou `eitr check`. As verificações só leem, sem reparar ou reiniciar nada. Não atualizam listas de pacotes. DNS usa a rede. `eitr check --json` mostra detalhes técnicos sem perguntas.
+Abra **Configurações > Sistema > Manutenção > Verificar este PC** ou `eitr check`. As verificações só leem, sem reparar ou reiniciar nada. Não atualizam listas de pacotes. DNS usa a rede. `eitr check --json` mostra detalhes técnicos sem perguntas.
 
 **Verificações aprofundadas (pede sua senha)**: Para verificações aprofundadas pressione Enter; Esc pula esta etapa. `sudo /usr/lib/eitr/eitr-system selfcheck-deeper` pede sua senha no mesmo terminal. Os resultados substituem as verificações correspondentes que foram puladas. Lê Snapper, pares pré/pós, a última atualização de pacotes bem-sucedida, qgroups Btrfs existentes, JSON da proteção de boot, um manifesto de fábrica já montado e chaves Arch Linux/Eitr com `pacman-key --list-keys`. Nunca ativa cotas nem monta o ponto de fábrica. Dados ausentes são pulados com motivo; o manifesto não verifica a integridade do arquivo. `fsck.vfat -n` verifica somente uma ESP FAT identificada sem ambiguidade e não montada para escrita; caso contrário pede que seja desmontada e pula a verificação.
 
@@ -33,7 +33,7 @@ Faça backup dos outros discos antes de instalar em um SSD separado e confira cu
 
 ## Relatar um problema
 
-**Sistema > Informações > Relatar um problema** coleta versões do EITR e dos pacotes, hardware gráfico, erros do Hyprland, serviços com falha, avisos recentes, falhas da última semana, erros da inicialização anterior, log da instalação e mudanças recentes de pacotes em `~/Documents/eitr-problem-report-<time>.txt`, legível somente por você. Remove usuário, nome do computador, caminho da pasta pessoal, e-mail, IP e MAC; os logs ainda podem citar aplicativos ou arquivos. Leia antes de enviar.
+**Configurações > Sistema > Informações > Relatar um problema** coleta versões do EITR e dos pacotes, hardware gráfico, erros do Hyprland, serviços com falha, avisos recentes, falhas da última semana, erros da inicialização anterior, log da instalação e mudanças recentes de pacotes em `~/Documents/eitr-problem-report-<time>.txt`, legível somente por você. Remove usuário, nome do computador, caminho da pasta pessoal, e-mail, IP e MAC; os logs ainda podem citar aplicativos ou arquivos. Leia antes de enviar.
 
 Nada é enviado automaticamente. O terminal mostra somente onde salvou o relatório e oferece formas de enviar ou ler primeiro:
 
@@ -46,7 +46,7 @@ O relatório é usado somente para identificar e corrigir o problema e é exclu�
 
 ### Quando um componente falha
 
-As Notificações de falhas ficam ativadas por padrão. Um serviço de usuário acompanha novos registros legíveis do systemd-coredump dos seus próprios programas. Cada falha oferece Relatar um problema, Ignorar e Silenciar este programa; Perguntar à IA aparece quando há um assistente padrão instalado e selecionado. Falhas repetidas de um programa geram no máximo uma notificação a cada cinco minutos. Uma falha que encerra a sessão é oferecida no próximo login, mas não as de programas que falham no minuto seguinte a sair, reiniciar ou desligar: eles estão apenas perdendo a área de trabalho. Ative ou desative em Principal > Alternar ou Central de controle > Ações rápidas. As preferências e os caminhos silenciados ficam em `~/.config/eitr/crash-help.json`; remova um caminho de `ignored` para voltar a receber avisos.
+As Notificações de falhas ficam ativadas por padrão. Um serviço de usuário acompanha novos registros legíveis do systemd-coredump dos seus próprios programas. Cada falha oferece Relatar um problema, Ignorar e Silenciar este programa; Perguntar à IA aparece quando há um assistente padrão instalado e selecionado. Falhas repetidas de um programa geram no máximo uma notificação a cada cinco minutos. Uma falha que encerra a sessão é oferecida no próximo login, mas não as de programas que falham no minuto seguinte a sair, reiniciar ou desligar: eles estão apenas perdendo a área de trabalho. Ative ou desative em Principal > Ações rápidas ou Central de controle > Ações rápidas. As preferências e os caminhos silenciados ficam em `~/.config/eitr/crash-help.json`; remova um caminho de `ignored` para voltar a receber avisos.
 
 Perguntar à IA abre seu assistente padrão apenas com programa, sinal e rastreamento de pilha do `coredumpctl info`, pedindo uma explicação e uma sugestão de correção sem alterar o sistema sem sua autorização. Nenhum despejo de memória é enviado ao assistente. Ao escolher essa ação, o assistente pode enviar o resumo ao provedor. Relatar um problema anexa o mesmo resumo ao fluxo existente: revise antes de compartilhar; nada é enviado automaticamente.
 

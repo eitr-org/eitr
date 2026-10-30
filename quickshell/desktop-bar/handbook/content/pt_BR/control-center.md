@@ -7,7 +7,7 @@ Suas cinco páginas reúnem tudo que fica fora de Desenvolvimento, Aplicativos, 
 ## Geral
 
 - **Conectividade:** ligar/desligar WiFi e Bluetooth, além do Modo avião.
-- **Atalhos rápidos:** Bloqueio automático, Notificações de falhas, Não perturbe, Modo jogo (desativa efeitos, desfoque e pop-ups e ativa o perfil de desempenho até você desligá-lo) e Luz noturna. Um controle ligado fica preenchido com a cor de destaque do tema. Abaixo, Ocultar barra (SUPER+Shift+Space a traz de volta) e Protetor de tela executam uma vez.
+- **Ações rápidas:** Bloqueio automático, Notificações de falhas, Não perturbe, Modo jogo (desativa efeitos, desfoque e pop-ups e ativa o perfil de desempenho até você desligá-lo) e Luz noturna. Um controle ligado fica preenchido com a cor de destaque do tema. Abaixo, Ocultar barra (SUPER+Shift+Space a traz de volta) e Protetor de tela executam uma vez.
 - **Som:** volume e ganho/mudo do microfone.
 - **Tela:** brilho, em notebooks com tela integrada.
 - **Mídia:** capa, artista, reprodução e avanço na faixa quando compatível.
@@ -19,7 +19,7 @@ O Modo avião lembra quais conexões bloqueou e restaura apenas essas. Não pert
 
 Estilo organiza as configurações em Tema e papel de parede (aberto inicialmente), Cantos, Barra, Espaços de trabalho, Tela de bloqueio, Cursor e Terminal. Clique no título de um grupo para recolhê-lo; sua superfície delimita todas as opções. Barra reúne Layout, Posição, Aparência, Mostrar em, Relógio, Estilo de mídia e Comportamento. Comportamento contém Ocultar automaticamente, Dock e Reduzir movimento.
 
-Tema e Papel de parede abrem seus carrosséis; Fonte padrão abre a lista de fontes. O tema da tela de bloqueio, cursor (família, tamanho e cor), aparência, layout, borda e monitores da barra, marcadores de espaços, cantos e Cursor Fire do Kitty mudam diretamente no painel e compartilham suas preferências com o Walker.
+Tema e Papel de parede abrem seus carrosséis; Fontes abre a lista de fontes. O tema da tela de bloqueio, cursor (família, tamanho e cor), aparência, layout, borda e monitores da barra, marcadores de espaços, cantos e Cursor Fire do Kitty mudam diretamente no painel e compartilham suas preferências com o Walker.
 
 Terminal oferece Kitty (padrão) e Ghostty opcional; os terminais auxiliares do Eitr continuam no Kitty. Veja [Terminal e editores](terminal.md) para instalação e configuração.
 
@@ -27,7 +27,7 @@ Terminal oferece Kitty (padrão) e Ghostty opcional; os terminais auxiliares do 
 
 Capturas (seleção, tela inteira, janela ou seleção direto para a área de transferência), gravação (controles do OBS, Gravar, Gravar + Áudio e Parar), OCR, códigos QR, seletor de cores, Transcodificar, lembretes e compartilhamento com LocalSend. O painel fecha antes de uma seleção ou gravação começar.
 
-## Sistema
+## Configurações
 
 - **Dispositivos:** painéis de Áudio, Microfone, Tela (resolução, taxa de atualização e escala), Bluetooth e WiFi, Iluminação e limite de carga em notebooks.
 - **Teclado:** selecionar, adicionar e remover layouts, mantendo pelo menos um.
@@ -40,7 +40,7 @@ Segurança, redefinição de fábrica e backend de rede continuam em Walker > Si
 
 ## Idioma
 
-**Sistema > Idioma** mostra o idioma atual conforme a localidade do sistema. Abra o seletor, escolha um idioma ou Padrão do sistema e saia e entre novamente para aplicar. Ele altera apenas o idioma de mensagens da sua sessão, nunca os arquivos de localidade do sistema. Consulte o [Guia de idioma](handbook:language).
+**Configurações > Idioma** mostra o idioma atual conforme a localidade do sistema. Abra o seletor, escolha um idioma ou Padrão do sistema e saia e entre novamente para aplicar. Ele altera apenas o idioma de mensagens da sua sessão, nunca os arquivos de localidade do sistema. Consulte o [Guia de idioma](handbook:language).
 
 ## Conversa rápida
 
@@ -50,10 +50,10 @@ As respostas permitem selecionar Markdown e copiar. A conversa fica na memória;
 
 ## Plugins
 
-**Central de controle > Plugins** mostra uma linha compacta por plugin instalado, com ícone, nome e interruptor de ativação. Selecione uma linha para ver autor, versão, descrição, ações de atualização e remoção, widgets, itens da barra e prévia. Use Voltar ou Escape para retornar à lista. Ativar/Desativar preserva posições e interrompe ou restaura serviços, itens do Walker, hooks e elementos visuais; use `eitr plugin enable ID` ou `eitr plugin disable ID`. Adicionar plugin…, Atualizar e Remover abrem os fluxos revisados no terminal; remover pede confirmação. Geral mantém apenas os blocos de plugins. Falhas visuais têm uma ação independente para reativar.
+**Central de controle > Plugins** mostra uma linha compacta por plugin instalado, com ícone, nome e interruptor de ativação. Selecione uma linha para ver autor, versão, descrição, ações de atualização e remoção, widgets, itens da barra e prévia. Use Voltar ou Escape para retornar à lista. Ativar/Desativar preserva posições e interrompe ou restaura serviços, itens do Walker, hooks e elementos visuais; use `eitr plugin enable ID` ou `eitr plugin disable ID`. Adicionar plugins, Atualizar e Remover abrem os fluxos revisados no terminal; remover pede confirmação. Geral mantém apenas os blocos de plugins. Falhas visuais têm uma ação independente para reativar.
 
-Adicionar plugin… também aceita repositórios com vários plugins. O índice `eitr-plugins.json` na raiz lista seus IDs e pastas, cada uma com seu próprio `eitr-plugin.json`. Selecione um ou mais pelo nome, descrição e ícone e revise cada plugin separadamente. Recusar um não aprova os demais. Os selecionados compartilham uma cópia do repositório e ficam fixados individualmente no commit exato; atualizar um mantém os outros nos commits aprovados. Os detalhes mostram a URL do repositório e a pasta do plugin. Um único `eitr-plugin.json` na raiz continua funcionando como antes.
+Adicionar plugins também aceita repositórios com vários plugins. O índice `eitr-plugins.json` na raiz lista seus IDs e pastas, cada uma com seu próprio `eitr-plugin.json`. Selecione um ou mais pelo nome, descrição e ícone e revise cada plugin separadamente. Recusar um não aprova os demais. Os selecionados compartilham uma cópia do repositório e ficam fixados individualmente no commit exato; atualizar um mantém os outros nos commits aprovados. Os detalhes mostram a URL do repositório e a pasta do plugin. Um único `eitr-plugin.json` na raiz continua funcionando como antes.
 
-A Atualização do sistema apenas verifica novos commits dos plugins, mesmo quando os pacotes estão atualizados, e informa a quantidade e onde atualizar. Ela não revisa nem atualiza plugins; erros de rede são ignorados silenciosamente. Use **Atualizar plugins** em **Central de controle > Plugins**, ao lado de Adicionar plugin…, ou **Instalar > Plugins > Atualizar plugins**, ou execute `eitr plugin update`. A marca ↑ na linha e “Atualização disponível” nos detalhes refletem a última verificação do commit aprovado. A ação separada mantém os diffs, alertas de risco e confirmações por plugin.
+A Atualização do sistema apenas verifica novos commits dos plugins, mesmo quando os pacotes estão atualizados, e informa a quantidade e onde atualizar. Ela não revisa nem atualiza plugins; erros de rede são ignorados silenciosamente. Use **Atualizar plugins** em **Central de controle > Plugins**, ao lado de Adicionar plugins, ou **Plugins > Atualizar plugins**, ou execute `eitr plugin update`. A marca ↑ na linha e “Atualização disponível” nos detalhes refletem a última verificação do commit aprovado. A ação separada mantém os diffs, alertas de risco e confirmações por plugin.
 
 A lista de Plugins mostra “Este plugin tem erros” e a primeira mensagem. Selecione o plugin e escolha Ver detalhes dos erros para saber mais; use o interruptor para desativá-lo com um clique. Só são identificados os erros que indicam um arquivo na pasta do plugin. Plugins têm as mesmas permissões do desktop, então instale apenas aqueles em que você confia.

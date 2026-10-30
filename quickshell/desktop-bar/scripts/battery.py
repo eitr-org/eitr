@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """System batteries only; peripherals must not turn a desktop into a laptop."""
+import eitr_bootstrap
+from eitr_battery import system_batteries
 import json
 from pathlib import Path
 
@@ -11,16 +13,8 @@ def number(path, name):
 
 def status(root=Path('/sys/class/power_supply')):
     batteries = []
-    for path in root.glob('*'):
+    for path in system_batteries(root):
         try:
-            if (path / 'type').read_text().strip() != 'Battery':
-                continue
-            if not (path / 'scope').exists() and not path.name.startswith('BAT'):
-                continue
-            if (path / 'scope').exists() and (path / 'scope').read_text().strip() == 'Device':
-                continue
-            if (path / 'present').exists() and not number(path, 'present'):
-                continue
             full = number(path, 'energy_full') or number(path, 'charge_full')
             now = number(path, 'energy_now') or number(path, 'charge_now')
             design = number(path, 'energy_full_design') or number(path, 'charge_full_design')

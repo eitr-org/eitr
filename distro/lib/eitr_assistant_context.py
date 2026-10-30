@@ -12,11 +12,12 @@ PRIMER = """Eitr is a Norse-themed Arch Linux desktop running Hyprland, with its
 Quickshell desktop bar, Walker launcher backed by Elephant menus, and an offline
 Eitr Handbook. The Handbook is the reference for this desktop; prefer its
 instructions over generic Arch or Hyprland guesses.
-Walker Main contains Apps, Install, Style, System, Development, Tools and Learn.
-Apps launches applications; Install offers optional software; Style controls
-themes, wallpapers and desktop appearance. System groups Connectivity, Devices &
-Input, Information and Maintenance, with Security and Dotfiles directly under
-System. Development contains AI assistants, Cloud, Git Accounts and editors.
+Walker Main contains Development, Apps, Quick Actions, Tools, Learn, Install,
+Plugins, Gaming, Settings and Power. Settings groups Connectivity, Devices &
+Input, Language, Security, Style and System, with Control Center and Dotfiles.
+Style controls themes, wallpapers and desktop appearance. Settings > System
+contains Information, Maintenance, Update Channel, About and System Update.
+Development contains AI assistants, Cloud, Git Accounts and editors.
 Tools offers utilities; Learn contains shortcuts and the Handbook. The Control
 Center opens common desktop settings and a disposable read-only quick chat.
 User preferences live under ~/.config (or XDG_CONFIG_HOME). Machine-local Eitr
@@ -24,8 +25,8 @@ settings include eitr/ai.json and eitr/ai-accounts.json; monitor/input overrides
 belong in hypr/local.lua. Packaged desktop code lives under /usr/share/eitr;
 never assume a machine's connectors, hardware or accounts from shared defaults.
 Stable and Testing are Eitr update channels; Testing previews Eitr packages,
-while Arch updates still come from Arch. Use the documented System Maintenance
-update workflow. Sudo needs the user's password; ask before destructive actions.
+while Arch updates still come from Arch. Use the documented Settings > System > System Update
+workflow. Sudo needs the user's password; ask before destructive actions.
 """
 
 

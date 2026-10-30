@@ -1,6 +1,6 @@
 # Sprache
 
-Eitr verwendet die Nachrichtensprache des Systems. **Kontrollzentrum > System > Sprache** zeigt die für das aktuelle Gebietsschema verwendete Sprache und öffnet eine Sprachauswahl; **Walker > System > Sprache** listet dieselben Optionen auf, die aktuelle ist markiert. Wähle eine Sprache oder **Systemstandard** und melde dich danach ab und erneut an. Eitr meldet dich niemals automatisch ab.
+Eitr verwendet die Nachrichtensprache des Systems. **Kontrollzentrum > Einstellungen > Sprache** zeigt die für das aktuelle Gebietsschema verwendete Sprache und öffnet eine Sprachauswahl; **Walker > Einstellungen > Sprache** listet dieselben Optionen auf, die aktuelle ist markiert. Wähle eine Sprache oder **Systemstandard** und melde dich danach ab und erneut an. Eitr meldet dich niemals automatisch ab.
 
 Eitr prüft zuerst **LC_ALL**, dann **LC_MESSAGES** und zuletzt **LANG**. Leere Variablen werden ignoriert. `LC_MESSAGES` ändert die Nachrichten, ohne Datums-, Zahlen- oder Währungsformate zu verändern. `LC_ALL` überschreibt alle Gebietsschema-Kategorien und bleibt normalerweise ungesetzt. Bei `C`, `POSIX` und nicht unterstützten Sprachen verwendet Eitr Englisch. Fehlende Übersetzungen erscheinen auf Englisch; bei einem fehlenden Handbuchkapitel wird das gesamte englische Kapitel verwendet.
 

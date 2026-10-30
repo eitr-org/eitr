@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Apply the theme's rgb.color to every OpenRGB device. Runs in the background
 # during theme switches, so it only logs problems and never notifies. It does
-# nothing unless the owner opted in (System > Devices & Input > Lighting).
+# nothing unless the owner opted in (Settings > Devices & Input > Lighting).
 
 set -euo pipefail
 

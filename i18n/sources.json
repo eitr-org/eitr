@@ -39,7 +39,7 @@
     "Add": [
       "quickshell/desktop-bar/PluginManagement.qml"
     ],
-    "Add Plugin…": [
+    "Add Plugins": [
       "quickshell/desktop-bar/PluginManager.qml"
     ],
     "Add a chapter marker": [
@@ -322,10 +322,6 @@
     "Dark": [
       "quickshell/lockscreen/design-gallery.qml"
     ],
-    "Default Font": [
-      "quickshell/desktop-bar/AppearancePicker.qml",
-      "quickshell/desktop-bar/ControlCenter.qml"
-    ],
     "Delete every occurrence": [
       "quickshell/desktop-bar/CalendarMenu.qml"
     ],
@@ -442,6 +438,13 @@
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Follows the system locale (LC_MESSAGES / LANG). Sign out and back in after changing it.": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
+    "Fonts": [
+      "quickshell/desktop-bar/AppearancePicker.qml",
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
+    "Full": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Full Screen": [
@@ -685,6 +688,7 @@
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Night Light": [
+      "quickshell/desktop-bar/BrightnessMenu.qml",
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Night Light & Main Display": [
@@ -692,9 +696,6 @@
     ],
     "Night Light schedule": [
       "quickshell/desktop-bar/ControlCenter.qml"
-    ],
-    "Nightlight": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
     ],
     "No Bluetooth adapter": [
       "quickshell/desktop-bar/BluetoothMenu.qml"
@@ -892,7 +893,7 @@
     "QUICK SETTINGS": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml"
     ],
-    "Quick Toggles": [
+    "Quick Actions": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Quickshell reload failed": [
@@ -1064,9 +1065,6 @@
     "Scheduled": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
-    "Screensaver": [
-      "quickshell/desktop-bar/ControlCenter.qml"
-    ],
     "Screenshots": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
@@ -1098,6 +1096,9 @@
     ],
     "Set the main display": [
       "quickshell/desktop-bar/Handbook.qml"
+    ],
+    "Settings": [
+      "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Share Clipboard": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -1166,6 +1167,9 @@
     "Start": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
     ],
+    "Start Screensaver": [
+      "quickshell/desktop-bar/ControlCenter.qml"
+    ],
     "Start at login": [
       "quickshell/desktop-bar/RemoteAccessContent.qml"
     ],
@@ -1207,9 +1211,6 @@
     ],
     "Switch user": [
       "quickshell/lockscreen/shell.qml"
-    ],
-    "System": [
-      "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "System Update": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -1289,9 +1290,6 @@
     ],
     "Unable to unlock. Try again.": [
       "quickshell/lockscreen/themes/eitr/Main.qml"
-    ],
-    "Unified": [
-      "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Unlock": [
       "quickshell/lockscreen/shell.qml"
@@ -1504,9 +1502,9 @@
       "elephant/menus/aws-profiles.lua"
     ],
     "About": [
-      "elephant/menu-rows/system-information.json"
+      "elephant/menu-rows/system.json"
     ],
-    "Access away from home": [
+    "Access This PC Remotely": [
       "elephant/menu-rows/remote-access.json",
       "elephant/menus/remote-away.lua"
     ],
@@ -1556,11 +1554,11 @@
     "Add My Own Wallpaper": [
       "elephant/menus/wallpaper.lua"
     ],
-    "Add Plugin…": [
+    "Add Plugins": [
       "elephant/plugin-entries.lua",
       "walker/scripts/actions/install/plugins.py"
     ],
-    "Add a plugin from Install > Plugins": [
+    "Add plugins from Main > Plugins": [
       "elephant/plugin-entries.lua",
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -1601,6 +1599,12 @@
     "Appearance": [
       "elephant/menu-rows/bar.json",
       "elephant/menus/bar-appearance.lua"
+    ],
+    "Apply or preview this theme": [
+      "elephant/theme-entries.lua"
+    ],
+    "Apply or preview this wallpaper": [
+      "elephant/menus/wallpaper.lua"
     ],
     "Apps": [
       "elephant/menu-rows/main.json",
@@ -1647,7 +1651,7 @@
     "Bootable Snapshot Status": [
       "elephant/menu-rows/snapshots.json"
     ],
-    "Brightness, nightlight, resolution, refresh rate and scale": [
+    "Brightness, Night Light, resolution, refresh rate and scale": [
       "elephant/menu-rows/system-devices.json"
     ],
     "Browse bucket": [
@@ -1663,7 +1667,7 @@
     "Calendar": [
       "elephant/menus/system-shortcuts.lua"
     ],
-    "Calendars": [
+    "Calendar Sources": [
       "elephant/menu-rows/tools.json",
       "elephant/menus/calendars.lua"
     ],
@@ -1707,17 +1711,20 @@
     "Charge to 100%": [
       "elephant/menu-rows/battery-limit.json"
     ],
+    "Check This PC": [
+      "elephant/menu-rows/system-maintenance.json"
+    ],
     "Check that the provider accepts the key": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Check the restore point; changes nothing": [
       "elephant/menu-rows/factory-reset.json"
     ],
-    "Check this PC": [
-      "elephant/menu-rows/system-maintenance.json"
-    ],
     "Check whether a connection is direct or relayed": [
-      "elephant/menu-rows/remote-away.json"
+      "elephant/menu-rows/remote-away-setup.json"
+    ],
+    "Choose Fastest Mirrors": [
+      "elephant/menu-rows/system-maintenance.json"
     ],
     "Choose a key from ~/.ssh": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -1735,9 +1742,6 @@
     ],
     "Choose and join networks": [
       "elephant/menu-rows/system-connectivity.json"
-    ],
-    "Choose fastest mirrors": [
-      "elephant/menu-rows/system-maintenance.json"
     ],
     "Classic consoles · NES to Dreamcast, PS1, N64, DS and PSP": [
       "elephant/menu-rows/gaming.json"
@@ -1824,7 +1828,7 @@
       "elephant/menu-rows/remote-away.json"
     ],
     "Connectivity": [
-      "elephant/menu-rows/system.json",
+      "elephant/menu-rows/settings.json",
       "elephant/menus/system-connectivity.lua"
     ],
     "Continue Last": [
@@ -1860,6 +1864,9 @@
       "elephant/menu-rows/ai-gemini.json",
       "elephant/menu-rows/ai-grok.json",
       "elephant/menu-rows/ai-opencode.json"
+    ],
+    "Control Center": [
+      "elephant/menu-rows/settings.json"
     ],
     "Convert an image or video to another format": [
       "elephant/menu-rows/capture.json"
@@ -1968,8 +1975,8 @@
       "elephant/menu-rows/shortcuts.json"
     ],
     "Detailed Status": [
-      "elephant/menu-rows/remote-away.json",
-      "elephant/menu-rows/remote-share.json"
+      "elephant/menu-rows/remote-away-setup.json",
+      "elephant/menu-rows/remote-share-setup.json"
     ],
     "Developer Apps": [
       "elephant/menu-rows/install.json",
@@ -1984,7 +1991,7 @@
       "elephant/menus/languages.lua"
     ],
     "Devices & Input": [
-      "elephant/menu-rows/system.json",
+      "elephant/menu-rows/settings.json",
       "elephant/menus/system-devices.lua"
     ],
     "DigitalOcean": [
@@ -2026,7 +2033,7 @@
       "elephant/menus/aws-docdb.lua"
     ],
     "Dotfiles": [
-      "elephant/menu-rows/system.json"
+      "elephant/menu-rows/settings.json"
     ],
     "EC2": [
       "elephant/menus/aws-ec2.lua"
@@ -2054,7 +2061,7 @@
       "elephant/menus/update-channel.lua"
     ],
     "Eitr version, hardware and system details": [
-      "elephant/menu-rows/system-information.json"
+      "elephant/menu-rows/system.json"
     ],
     "Emojis": [
       "elephant/menu-rows/shortcuts.json"
@@ -2066,7 +2073,7 @@
       "elephant/menu-rows/fingerprint.json"
     ],
     "Enable sharing when you sign in": [
-      "elephant/menu-rows/remote-share.json"
+      "elephant/menu-rows/remote-share-setup.json"
     ],
     "Enabled": [
       "elephant/menus/terminal-cursor-fire.lua"
@@ -2294,6 +2301,10 @@
     "Install an assistant before choosing a default": [
       "elephant/menus/ai-default.lua"
     ],
+    "Installed Plugins": [
+      "elephant/menu-rows/plugins.json",
+      "elephant/menus/plugins-install.lua"
+    ],
     "Installed · web app": [
       "walker/scripts/menus/software-menu.lua"
     ],
@@ -2320,7 +2331,7 @@
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Keep sharing manual": [
-      "elephant/menu-rows/remote-share.json"
+      "elephant/menu-rows/remote-share-setup.json"
     ],
     "Keep the bar on screen": [
       "elephant/menus/bar-autohide.lua"
@@ -2354,7 +2365,7 @@
       "elephant/menus/aws-lambda.lua"
     ],
     "Language": [
-      "elephant/menu-rows/system.json",
+      "elephant/menu-rows/settings.json",
       "elephant/menus/language.lua"
     ],
     "Laptops only": [
@@ -2550,7 +2561,7 @@
     "Next tab": [
       "distro/lib/eitr_focus.py"
     ],
-    "Nightlight": [
+    "Night Light": [
       "elephant/menu-rows/toggle.json"
     ],
     "No plugins installed": [
@@ -2573,7 +2584,7 @@
       "elephant/menus/focus.lua"
     ],
     "Official Eitr plugin": [
-      "elephant/plugin-entries.lua"
+      "elephant/menus/plugin-actions.lua"
     ],
     "On": [
       "elephant/menus/focus.lua"
@@ -2590,18 +2601,27 @@
     "Open OBS Studio for advanced recording": [
       "elephant/menu-rows/screenrecord.json"
     ],
-    "Open Settings": [
-      "elephant/menu-rows/remote-share.json"
-    ],
     "Open Tailscale sign-in in the browser": [
-      "elephant/menu-rows/remote-away.json"
+      "elephant/menu-rows/remote-away-setup.json"
     ],
     "Open Terminal": [
       "elephant/menu-rows/shortcuts.json"
     ],
+    "Open desktop controls and preferences": [
+      "elephant/menu-rows/settings.json"
+    ],
+    "Open the Ragnarök realm": [
+      "elephant/menus/system-shortcuts.lua"
+    ],
+    "Open the calendar panel": [
+      "elephant/menus/system-shortcuts.lua"
+    ],
     "Open the diagnostic report in a terminal": [
-      "elephant/menu-rows/remote-away.json",
-      "elephant/menu-rows/remote-share.json"
+      "elephant/menu-rows/remote-away-setup.json",
+      "elephant/menu-rows/remote-share-setup.json"
+    ],
+    "Open this project in the editor": [
+      "elephant/project-entries.lua"
     ],
     "Open with the assistant shortcut": [
       "elephant/menus/ai-default.lua"
@@ -2610,7 +2630,10 @@
       "elephant/menus/aws-grafana-open-workspace-1.lua"
     ],
     "Open your configuration folder in an editor": [
-      "elephant/menu-rows/system.json"
+      "elephant/menu-rows/settings.json"
+    ],
+    "Open your development folder": [
+      "elephant/project-entries.lua"
     ],
     "OpenCode": [
       "elephant/menus/ai-opencode.lua"
@@ -2645,6 +2668,12 @@
     "Passphrase required at boot again": [
       "elephant/menu-rows/tpm-unlock.json"
     ],
+    "Paste this image": [
+      "elephant/menus/clipboard.lua"
+    ],
+    "Paste this text": [
+      "elephant/menus/clipboard.lua"
+    ],
     "Pi": [
       "elephant/menus/ai-pi.lua"
     ],
@@ -2652,16 +2681,26 @@
       "elephant/menu-rows/capture.json"
     ],
     "Ping a Peer": [
-      "elephant/menu-rows/remote-away.json"
+      "elephant/menu-rows/remote-away-setup.json"
+    ],
+    "Place the bar at the bottom": [
+      "elephant/menus/bar-position.lua"
+    ],
+    "Place the bar at the top": [
+      "elephant/menus/bar-position.lua"
+    ],
+    "Place the bar on the left": [
+      "elephant/menus/bar-position.lua"
+    ],
+    "Place the bar on the right": [
+      "elephant/menus/bar-position.lua"
     ],
     "Plugin by {author} · not reviewed by Eitr": [
-      "elephant/plugin-entries.lua"
+      "elephant/menus/plugin-actions.lua"
     ],
     "Plugins": [
-      "elephant/menu-rows/install.json",
-      "elephant/menu-rows/tools.json",
+      "elephant/menu-rows/main.json",
       "elephant/menus/plugin-actions.lua",
-      "elephant/menus/plugins-install.lua",
       "elephant/menus/plugins.lua",
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -2688,6 +2727,10 @@
     ],
     "QR Code": [
       "elephant/menu-rows/capture.json"
+    ],
+    "Quick Actions": [
+      "elephant/menu-rows/main.json",
+      "elephant/menus/toggle.lua"
     ],
     "Ragnarök": [
       "elephant/menus/system-shortcuts.lua"
@@ -2836,19 +2879,19 @@
       "elephant/menu-rows/power.json"
     ],
     "Restore Away Access Setup": [
-      "elephant/menu-rows/remote-away.json"
+      "elephant/menu-rows/remote-away-setup.json"
     ],
     "Restore Original Network Configuration": [
       "elephant/menu-rows/network-backend.json"
     ],
     "Restore Sharing Setup": [
-      "elephant/menu-rows/remote-share.json"
+      "elephant/menu-rows/remote-share-setup.json"
     ],
     "Restore a File or Folder": [
       "elephant/menu-rows/snapshots.json"
     ],
     "Restore tailscaled startup and the previous operator": [
-      "elephant/menu-rows/remote-away.json"
+      "elephant/menu-rows/remote-away-setup.json"
     ],
     "Restore the normal desktop": [
       "elephant/menus/focus.lua"
@@ -2893,23 +2936,23 @@
     "Reveal the bar at the screen edge": [
       "elephant/menus/bar-autohide.lua"
     ],
-    "Review a Git repository before installing": [
-      "elephant/plugin-entries.lua",
-      "walker/scripts/actions/install/plugins.py"
-    ],
     "Review a new plugin commit": [
       "elephant/menu-rows/plugin-actions.json",
       "elephant/plugin-entries.lua",
       "walker/scripts/actions/install/plugins.py"
     ],
+    "Review a repository and select one or more plugins to install": [
+      "elephant/plugin-entries.lua",
+      "walker/scripts/actions/install/plugins.py"
+    ],
     "Review and turn on the Tailscale service": [
-      "elephant/menu-rows/remote-away.json"
+      "elephant/menu-rows/remote-away-setup.json"
     ],
     "Review and update installed plugins": [
       "elephant/plugin-entries.lua"
     ],
     "Review screen capture and input permissions": [
-      "elephant/menu-rows/remote-share.json"
+      "elephant/menu-rows/remote-share-setup.json"
     ],
     "Route 53": [
       "elephant/menus/aws-route53.lua"
@@ -3000,9 +3043,6 @@
     "Screen, sound and your OBS webcam source": [
       "elephant/menu-rows/screenrecord.json"
     ],
-    "Screensaver": [
-      "elephant/menu-rows/toggle.json"
-    ],
     "Screenshot": [
       "elephant/menu-rows/capture.json",
       "elephant/menus/screenshot.lua"
@@ -3033,7 +3073,7 @@
       "elephant/menus/aws-cloudwatch-search-word-2.lua"
     ],
     "Security": [
-      "elephant/menu-rows/system.json",
+      "elephant/menu-rows/settings.json",
       "elephant/menus/security.lua"
     ],
     "See or cancel the reminders still to come": [
@@ -3041,6 +3081,9 @@
     ],
     "See what takes space and clear caches, one question at a time": [
       "elephant/menu-rows/system-maintenance.json"
+    ],
+    "Select or preview this lockscreen": [
+      "elephant/menus/lockscreen.lua"
     ],
     "Select tab {number}": [
       "distro/lib/eitr_focus.py"
@@ -3081,19 +3124,32 @@
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Set Up Away Access": [
-      "elephant/menu-rows/remote-away.json"
+      "elephant/menu-rows/remote-away-setup.json"
     ],
     "Set Up Sharing": [
-      "elephant/menu-rows/remote-share.json"
+      "elephant/menu-rows/remote-share-setup.json"
     ],
     "Set the Sunshine password and configure streaming": [
-      "elephant/menu-rows/remote-share.json"
+      "elephant/menu-rows/remote-share-setup.json"
+    ],
+    "Set the cursor size": [
+      "walker/scripts/actions/style/cursor.py"
     ],
     "Set up access away from home": [
       "elephant/menu-rows/vpn.json"
     ],
     "Set up an assistant that runs only on this PC": [
       "elephant/menus/ai-default.lua"
+    ],
+    "Settings": [
+      "elephant/menu-rows/main.json",
+      "elephant/menus/settings.lua"
+    ],
+    "Setup": [
+      "elephant/menu-rows/remote-away.json",
+      "elephant/menu-rows/remote-share.json",
+      "elephant/menus/remote-away-setup.lua",
+      "elephant/menus/remote-share-setup.lua"
     ],
     "Seven audio spectrum bars": [
       "elephant/menus/bar-media.lua"
@@ -3102,9 +3158,12 @@
       "elephant/menu-rows/tools.json",
       "elephant/menus/share.lua"
     ],
-    "Share this PC": [
+    "Share This PC": [
       "elephant/menu-rows/remote-access.json",
       "elephant/menus/remote-share.lua"
+    ],
+    "Sharing Settings": [
+      "elephant/menu-rows/remote-share-setup.json"
     ],
     "Sharing Status": [
       "elephant/menu-rows/remote-share.json"
@@ -3122,17 +3181,38 @@
     "Show a Google, Outlook or iCal calendar beside your reminders": [
       "elephant/menu-rows/calendars.json"
     ],
+    "Show occupied workspaces": [
+      "elephant/menus/system-shortcuts.lua"
+    ],
     "Show or hide the desktop bar": [
       "elephant/menu-rows/toggle.json"
     ],
     "Show panels and bar controls instantly": [
       "elephant/menus/bar-motion.lua"
     ],
+    "Show separate floating pills": [
+      "elephant/menus/bar-layout.lua"
+    ],
+    "Show the bar on every display": [
+      "elephant/menus/bar-screens.lua"
+    ],
+    "Show the bar on the main display": [
+      "elephant/menus/bar-screens.lua"
+    ],
     "Show the charge limit in use": [
       "elephant/menu-rows/battery-limit.json"
     ],
+    "Show the clock and expand on hover": [
+      "elephant/menus/bar-layout.lua"
+    ],
+    "Show the full desktop bar": [
+      "elephant/menus/bar-layout.lua"
+    ],
     "Show this PC’s address and peer connection paths": [
       "elephant/menu-rows/remote-away.json"
+    ],
+    "Show three compact edge tabs": [
+      "elephant/menus/bar-layout.lua"
     ],
     "Show whether Sunshine is running": [
       "elephant/menu-rows/remote-share.json"
@@ -3141,7 +3221,7 @@
       "elephant/menu-rows/power.json"
     ],
     "Sign In": [
-      "elephant/menu-rows/remote-away.json"
+      "elephant/menu-rows/remote-away-setup.json"
     ],
     "Sign in to a separate account": [
       "elephant/ai-account-entries.lua"
@@ -3162,7 +3242,7 @@
       "elephant/menu-rows/cursor.json"
     ],
     "Snapshot, then update Arch, AUR, Flatpak and Eitr": [
-      "elephant/menu-rows/update.json"
+      "elephant/menu-rows/system.json"
     ],
     "Snapshots": [
       "elephant/menu-rows/system-maintenance.json",
@@ -3176,6 +3256,9 @@
     ],
     "Stable": [
       "elephant/menus/update-channel.lua"
+    ],
+    "Start Screensaver": [
+      "elephant/menu-rows/toggle.json"
     ],
     "Start Sharing": [
       "elephant/menu-rows/remote-share.json"
@@ -3207,7 +3290,7 @@
       "elephant/menu-rows/ai-opencode.json"
     ],
     "Start at Login": [
-      "elephant/menu-rows/remote-share.json"
+      "elephant/menu-rows/remote-share-setup.json"
     ],
     "Start the screensaver now": [
       "elephant/menu-rows/toggle.json"
@@ -3241,7 +3324,7 @@
       "elephant/menu-rows/gaming.json"
     ],
     "Style": [
-      "elephant/menu-rows/main.json",
+      "elephant/menu-rows/settings.json",
       "elephant/menus/style.lua"
     ],
     "Subnets": [
@@ -3257,14 +3340,14 @@
       "elephant/menus/keyboard.lua"
     ],
     "System": [
-      "elephant/menu-rows/main.json",
+      "elephant/menu-rows/settings.json",
       "elephant/menus/system.lua"
     ],
     "System Shortcuts": [
       "elephant/menus/system-shortcuts.lua"
     ],
     "System Update": [
-      "elephant/menu-rows/update.json"
+      "elephant/menu-rows/system.json"
     ],
     "System default": [
       "elephant/menus/language.lua"
@@ -3323,10 +3406,6 @@
     "Tmux Commands": [
       "elephant/menu-rows/learn.json"
     ],
-    "Toggle": [
-      "elephant/menu-rows/main.json",
-      "elephant/menus/toggle.lua"
-    ],
     "Toggle Desktop Bar": [
       "elephant/menu-rows/shortcuts.json"
     ],
@@ -3344,7 +3423,7 @@
       "elephant/menu-rows/capture.json"
     ],
     "Turn Off Start at Login": [
-      "elephant/menu-rows/remote-share.json"
+      "elephant/menu-rows/remote-share-setup.json"
     ],
     "Turn crash help notifications on or off": [
       "elephant/menu-rows/toggle.json"
@@ -3359,7 +3438,7 @@
       "elephant/menu-rows/security.json"
     ],
     "Undo capture and virtual input permissions": [
-      "elephant/menu-rows/remote-share.json"
+      "elephant/menu-rows/remote-share-setup.json"
     ],
     "Undo the backend choice; applies after a restart": [
       "elephant/menu-rows/network-backend.json"
@@ -3372,13 +3451,11 @@
     ],
     "Update": [
       "elephant/menu-rows/plugin-actions.json",
-      "elephant/menu-rows/system-maintenance.json",
-      "elephant/menus/update.lua",
       "elephant/plugin-entries.lua",
       "walker/scripts/actions/install/plugins.py"
     ],
     "Update Channel": [
-      "elephant/menu-rows/update.json",
+      "elephant/menu-rows/system.json",
       "elephant/menus/update-channel.lua"
     ],
     "Update Password": [
@@ -3396,11 +3473,23 @@
     "Use Kitty’s built-in blazing cursor trail": [
       "elephant/menus/terminal-cursor-fire.lua"
     ],
+    "Use a blurred transparent bar": [
+      "elephant/menus/bar-appearance.lua"
+    ],
     "Use it in folders without their own account": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Use the assistant's normal permission prompts": [
       "elephant/menus/assistant-access.lua"
+    ],
+    "Use the current theme colour": [
+      "elephant/menus/bar-appearance.lua"
+    ],
+    "Use these workspace markers": [
+      "elephant/menus/workspaces.lua"
+    ],
+    "Use this font throughout the desktop": [
+      "elephant/menus/fonts.lua"
     ],
     "User access keys": [
       "elephant/menus/aws-iam-user-access-keys-1.lua"
@@ -3570,7 +3659,7 @@
     "Connecting, known networks, enterprise credentials, pairing and airplane mode": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
-    "Connectivity, Devices & Input, Information, Maintenance, Security and Dotfiles": [
+    "Connectivity, Devices & Input, Language, Security, Style and System": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Control Center": [
@@ -3970,6 +4059,9 @@
     "Select tab 9": [
       "quickshell/desktop-bar/scripts/handbook-build.py"
     ],
+    "Settings Menu": [
+      "quickshell/desktop-bar/handbook/chapters.json"
+    ],
     "Shortcut": [
       "quickshell/desktop-bar/scripts/handbook-build.py"
     ],
@@ -3990,9 +4082,6 @@
       "quickshell/desktop-bar/scripts/handbook-build.py"
     ],
     "Sunshine on Eitr, Moonlight on a Mac and Tailscale away from home": [
-      "quickshell/desktop-bar/handbook/chapters.json"
-    ],
-    "System Menu": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "System Update versus advanced pacman/yay updates, cleanup and snapshots": [
@@ -4573,7 +4662,7 @@
     "Bootable snapshots are not supported with {loader}. {reason} Nothing was changed.": [
       "distro/system/eitr-system.py"
     ],
-    "Both network backends are running; select one in System > Connectivity > Network Backend and reboot": [
+    "Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot": [
       "quickshell/desktop-bar/scripts/wifi-popup.py"
     ],
     "Browse bucket": [
@@ -4690,7 +4779,7 @@
     "Check Auth": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
-    "Check this PC": [
+    "Check This PC": [
       "distro/lib/eitr_selfcheck.py"
     ],
     "Checking AUR updates…": [
@@ -5551,7 +5640,7 @@
     "Home snapshots are off, and the existing ones were deleted. The excluded folders stay as they are.": [
       "distro/system/home-snapshots.py"
     ],
-    "Home snapshots are off: turn them on in System > Maintenance > Snapshots": [
+    "Home snapshots are off: turn them on in Settings > System > Maintenance > Snapshots": [
       "walker/scripts/actions/system/restore-file.py"
     ],
     "Home snapshots are on: one every hour for a day and one a day for a week. Caches, Downloads, VM disks and games are left out from the next start.": [
@@ -6293,7 +6382,7 @@
     "Open image": [
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
-    "Open it from Tools > Plugins.": [
+    "Open it from Plugins > Installed Plugins.": [
       "walker/scripts/actions/install/plugins.py"
     ],
     "Open the picture itself, right-click it, choose Copy image address and paste that.": [
@@ -7312,7 +7401,7 @@
     "Tailscale setup belongs to another desktop user": [
       "distro/system/eitr_remote.py"
     ],
-    "Tailscale sign-in failed. Try again from Access away from home.": [
+    "Tailscale sign-in failed. Try again from Access This PC Remotely.": [
       "walker/scripts/actions/system/remote-access.py"
     ],
     "Tailscale state: {state}": [
@@ -7986,7 +8075,7 @@
     "VPN operation failed. Configuration details are hidden.": [
       "walker/scripts/actions/install/vpn.py"
     ],
-    "VPN profiles need NetworkManager. Choose it in System > Connectivity > Network Backend, then reboot.": [
+    "VPN profiles need NetworkManager. Choose it in Settings > Connectivity > Network Backend, then reboot.": [
       "walker/scripts/actions/install/vpn.py"
     ],
     "Version": [
@@ -8133,7 +8222,7 @@
     "checking the longships": [
       "distro/lib/spinner.sh"
     ],
-    "checkupdates (pacman-contrib) is required to install safely. Run System → Maintenance → Update → System Update, then install pacman-contrib.": [
+    "checkupdates (pacman-contrib) is required to install safely. Run Settings → System → System Update, then install pacman-contrib.": [
       "walker/scripts/actions/install/software.py"
     ],
     "consulting the Norns": [
@@ -8295,7 +8384,7 @@
     "{count} occurrences": [
       "walker/scripts/actions/tools/reminders.py"
     ],
-    "{count} plugin updates available: Control Center > Plugins or Install > Plugins > Update Plugins": [
+    "{count} plugin updates available: Control Center > Plugins or Plugins > Update Plugins": [
       "walker/scripts/actions/system/update.sh"
     ],
     "{count} system update(s) are waiting. On Arch Linux an app can only be installed on an up-to-date system: installing now would also upgrade part of the system without a recovery snapshot, which can break other apps.": [
@@ -8437,10 +8526,10 @@
     "{provider_name} needs the {command} command": [
       "walker/scripts/menus/cloud/accounts.py"
     ],
-    "{reason} Its service was stopped and its files were kept. Remove it from Install > Plugins.": [
+    "{reason} Its service was stopped and its files were kept. Remove it from Plugins > Installed Plugins.": [
       "walker/scripts/actions/install/plugins.py"
     ],
-    "{reason} Its service was stopped and its files were kept. Remove it from Install > Plugins. Report a plugin: {url}": [
+    "{reason} Its service was stopped and its files were kept. Remove it from Plugins > Installed Plugins. Report a plugin: {url}": [
       "walker/scripts/actions/install/plugins.py"
     ],
     "{relative_path} is no longer read-only; the restore point is not trusted": [

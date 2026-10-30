@@ -18,6 +18,7 @@ for _eitr_parent in Path(__file__).resolve().parents:
         sys.path.insert(0, str(_eitr_lib))
         break
 from eitr_paths import code, config as user_config
+from eitr_battery import system_batteries
 from eitr_i18n import tr
 from eitr_i18n import select_locale, table
 import subprocess
@@ -144,6 +145,7 @@ def snapshot(output, keywords=None, parent_of=None, menus=None):
                 for name, data in (menus or {}).items() for entry in data.get('entries', []) if entry.get('submenu')
                 for title in (entry['text'], messages.get(entry['text'], entry['text']))}
     rows = {}
+    battery_available = bool(system_batteries())
     for line in output.splitlines():
         response = json.loads(line)
         item = response.get('item')
@@ -153,6 +155,8 @@ def snapshot(output, keywords=None, parent_of=None, menus=None):
         if not provider.startswith('menus:') or provider.removeprefix('menus:') in EXCLUDED:
             continue
         menu = provider.removeprefix('menus:')
+        if not battery_available and (menu == 'battery-limit' or submenus.get((provider, item['text'])) == 'battery-limit'):
+            continue
         key = hashlib.sha256((provider + '\0' + item['identifier']).encode()).hexdigest()
         actions = item.get('actions', [])
         row = dict(key=key, provider=provider, identifier=item['identifier'],

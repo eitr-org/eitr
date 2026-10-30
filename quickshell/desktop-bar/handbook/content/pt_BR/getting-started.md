@@ -12,7 +12,7 @@ Os botões acima configuram o essencial: cada um fecha o manual e abre sua confi
 2. Pressione **SUPER + Space** para abrir os aplicativos ou **SUPER + Enter** para um terminal.
 3. Abra **SUPER + ,** para a Central de controle. A aba de configurações reúne teclado, tela e luz noturna; Estilo reúne a aparência.
 4. Conecte-se pelo ícone de WiFi ou Bluetooth. Os ícones à direita podem estar ocultos: use a seta de mostrar ícones para exibi-los.
-5. Escolha um tema em **Estilo > Tema** e um papel de parede em **Estilo > Papel de parede**.
+5. Escolha um tema em **Configurações > Estilo > Tema** e um papel de parede em **Configurações > Estilo > Papel de parede**.
 
 Novas instalações do EITR usam **Eitr** e a tela de bloqueio **Clockwork Tape**. Instalações existentes mantêm as escolhas salvas.
 

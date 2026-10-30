@@ -12,16 +12,19 @@ Scope {
     required property color background
     required property color accent
     property real grid: 6
+    readonly property bool observing: Quickshell.screens.some(screen => PluginRegistry.placed("widgets", screen.name).length > 0)
+    onObservingChanged: if (observing) refresh()
     property var monitors: []
     property bool refreshPending: false
     function refresh() {
+        if (!observing) return;
         if (monitorQuery.running) refreshPending = true;
         else monitorQuery.running = true;
     }
     Process {
         id: monitorQuery
         command: ["hyprctl", "-j", "monitors"]
-        running: true
+        running: desktop.observing
         stdout: StdioCollector { id: monitorOutput }
         onExited: function(code) {
             if (desktop.refreshPending) { desktop.refreshPending = false; Qt.callLater(desktop.refresh); }

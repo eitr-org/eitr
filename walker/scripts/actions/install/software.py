@@ -187,7 +187,7 @@ class InstallCancelled(Exception):
 
 def pending_updates():
     if not shutil.which("checkupdates"):
-        raise RuntimeError(tr('checkupdates (pacman-contrib) is required to install safely. Run System → Maintenance → Update → System Update, then install pacman-contrib.'))
+        raise RuntimeError(tr('checkupdates (pacman-contrib) is required to install safely. Run Settings → System → System Update, then install pacman-contrib.'))
     # checkupdates syncs a private database copy: 0 = updates, 2 = none, 1 = error.
     print(tr('Checking for system updates before installation…'), file=sys.stderr, flush=True)
     result = subprocess.run(["checkupdates"], capture_output=True, text=True, timeout=120)

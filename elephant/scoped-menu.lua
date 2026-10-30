@@ -17,13 +17,16 @@ return function(name, configure)
         handle:close()
         local ok, rows = pcall(jsonDecode, raw)
         local entries = {}
+        local battery = (name == "system-devices" or name == "battery-limit") and dofile(paths.code("elephant/battery-state.lua"))() or {}
         for _, row in ipairs(ok and rows or {}) do
-            -- A ">" subtext marks a row that opens a submenu: the layout draws the
-            -- marker on the right, leaving the subtitle line for descriptions.
-            local submenu = row.subtext == ">"
-            table.insert(entries, {Text = row.text, Subtext = not submenu and row.subtext or nil,
-                State = submenu and {"submenu"} or nil, Keywords = row.keywords,
-                Icon = row.icon, SubMenu = row.submenu, Actions = row.actions})
+            if (row.submenu ~= "battery-limit" and name ~= "battery-limit") or battery.available then
+                -- A ">" subtext marks a row that opens a submenu: the layout draws the
+                -- marker on the right, leaving the subtitle line for descriptions.
+                local submenu = row.subtext == ">"
+                table.insert(entries, {Text = row.text, Subtext = not submenu and row.subtext or nil,
+                    State = submenu and {"submenu"} or nil, Keywords = row.keywords,
+                    Icon = row.icon, SubMenu = row.submenu, Actions = row.actions})
+            end
         end
         if configure then entries = configure(entries) end
         -- Assistant menus keep New before the other translated, sorted actions.

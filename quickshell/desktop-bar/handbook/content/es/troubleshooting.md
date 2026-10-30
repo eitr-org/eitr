@@ -2,7 +2,7 @@
 
 ## Comprobar este PC
 
-Abra **Sistema > Mantenimiento > Comprobar este PC** o `eitr check`. Las comprobaciones solo leen; no reparan ni reinician nada. No actualizan listas de paquetes. DNS usa la red. `eitr check --json` muestra detalles técnicos sin preguntas.
+Abra **Configuración > Sistema > Mantenimiento > Comprobar este PC** o `eitr check`. Las comprobaciones solo leen; no reparan ni reinician nada. No actualizan listas de paquetes. DNS usa la red. `eitr check --json` muestra detalles técnicos sin preguntas.
 
 **Comprobaciones profundas (requiere contraseña)**: Para comprobaciones profundas pulse Enter; Esc las omite. `sudo /usr/lib/eitr/eitr-system selfcheck-deeper` pide su contraseña en el mismo terminal. Los resultados sustituyen las comprobaciones omitidas correspondientes. Lee Snapper, pares pre/post, la última actualización de paquetes correcta, qgroups Btrfs existentes, JSON de protección de arranque, un manifiesto de fábrica ya montado y claves Arch Linux/Eitr con `pacman-key --list-keys`. Nunca activa cuotas ni monta el punto de fábrica. Los datos ausentes se omiten con un motivo; el manifiesto no verifica la integridad del archivo. `fsck.vfat -n` solo comprueba una ESP FAT identificada sin ambigüedad que no esté montada con escritura; de lo contrario pide desmontarla y omite la prueba.
 
@@ -33,7 +33,7 @@ Guarda copias de tus otros discos antes de instalar en un SSD separado y comprue
 
 ## Informar de un problema
 
-**Sistema > Información > Informar de un problema** recoge versiones de EITR y paquetes, hardware gráfico, errores de Hyprland, servicios fallidos, avisos recientes, fallos de la última semana, errores del arranque anterior, registro de instalación y cambios recientes de paquetes en `~/Documents/eitr-problem-report-<time>.txt`, legible solo por ti. Elimina usuario, nombre del equipo, ruta personal, correo, IP y MAC; los registros aún pueden mencionar aplicaciones o archivos. Léelo antes de enviarlo.
+**Configuración > Sistema > Información > Informar de un problema** recoge versiones de EITR y paquetes, hardware gráfico, errores de Hyprland, servicios fallidos, avisos recientes, fallos de la última semana, errores del arranque anterior, registro de instalación y cambios recientes de paquetes en `~/Documents/eitr-problem-report-<time>.txt`, legible solo por ti. Elimina usuario, nombre del equipo, ruta personal, correo, IP y MAC; los registros aún pueden mencionar aplicaciones o archivos. Léelo antes de enviarlo.
 
 Nada se envía automáticamente. El terminal muestra solo dónde se guardó y ofrece enviarlo o leerlo primero:
 
@@ -46,7 +46,7 @@ El informe se usa solo para identificar y corregir el problema y se elimina al r
 
 ### Cuando falla un componente
 
-Las Notificaciones de fallos están activadas de forma predeterminada. Un servicio de usuario observa los nuevos registros legibles de systemd-coredump de tus propios programas. Cada fallo ofrece Informar de un problema, Ignorar y Silenciar este programa; Preguntar a la IA aparece cuando tienes un asistente predeterminado instalado y seleccionado. Los fallos repetidos de un programa generan como máximo una notificación cada cinco minutos. Un fallo que cierra la sesión se ofrece en el siguiente inicio de sesión, pero no los programas que fallan en el minuto posterior a cerrar sesión, reiniciar o apagar: solo están perdiendo el escritorio. Actívalas o desactívalas en Principal > Alternar o Centro de control > Controles rápidos. Las preferencias y las rutas silenciadas se guardan en `~/.config/eitr/crash-help.json`; elimina una ruta de `ignored` para volver a recibir avisos.
+Las Notificaciones de fallos están activadas de forma predeterminada. Un servicio de usuario observa los nuevos registros legibles de systemd-coredump de tus propios programas. Cada fallo ofrece Informar de un problema, Ignorar y Silenciar este programa; Preguntar a la IA aparece cuando tienes un asistente predeterminado instalado y seleccionado. Los fallos repetidos de un programa generan como máximo una notificación cada cinco minutos. Un fallo que cierra la sesión se ofrece en el siguiente inicio de sesión, pero no los programas que fallan en el minuto posterior a cerrar sesión, reiniciar o apagar: solo están perdiendo el escritorio. Actívalas o desactívalas en Principal > Acciones rápidas o Centro de control > Acciones rápidas. Las preferencias y las rutas silenciadas se guardan en `~/.config/eitr/crash-help.json`; elimina una ruta de `ignored` para volver a recibir avisos.
 
 Preguntar a la IA abre tu asistente predeterminado solo con el programa, la señal y la traza de pila de `coredumpctl info`, pidiendo una explicación y una propuesta de solución sin cambiar el sistema salvo que lo autorices. No se pasa ningún volcado de memoria. Al elegir esta acción, el asistente puede enviar el resumen a su proveedor. Informar de un problema adjunta el mismo resumen al flujo existente: revísalo antes de compartirlo; nada se envía automáticamente.
 

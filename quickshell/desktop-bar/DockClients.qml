@@ -36,5 +36,5 @@ Item {
         }
     }
     Timer { id: refreshDelay; interval: 40; onTriggered: model.refresh() }
-    Timer { interval: 3000; repeat: true; running: model.observing; onTriggered: model.refresh() }
+    Timer { interval: 60000; repeat: true; running: model.observing; onTriggered: model.refresh() }
 }

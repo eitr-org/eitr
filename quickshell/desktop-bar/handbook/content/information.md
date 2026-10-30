@@ -3,8 +3,9 @@
 Notification cards show their local arrival date and time beneath the title,
 in both popups and notification history. Times are kept only for this session.
 
-## System > Information
+## Settings > System > Information
 
+About is directly under Settings > System.
 About groups hardware, software (including the installed EITR version), and OS age, uptime and date in themed terminal boxes beside the liquid E logo. Palette dots follow the boxes; long values are shortened to keep borders aligned.
 
 **Hardware** shows CPU, GPU,

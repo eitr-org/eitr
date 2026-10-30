@@ -1,7 +1,7 @@
 # Factory reset
 
 Computers installed with the Eitr ISO can return to the state of their first
-login from Walker → System → Maintenance → Factory Reset. The reset is local: it restores a
+login from Walker → Settings → System → Maintenance → Factory Reset. The reset is local: it restores a
 read-only copy saved on the same disk. It is not a backup and not secure
 erasure; a failed disk loses the computer and its restore point together.
 

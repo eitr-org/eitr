@@ -2,8 +2,9 @@
 
 Les cartes de notification affichent la date et l’heure locales d’arrivée sous le titre, dans les popups comme dans l’historique. Ces horaires sont conservés uniquement pendant la session.
 
-## Système > Informations
+## Paramètres > Système > Informations
 
+À propos se trouve directement dans Paramètres > Système.
 À propos regroupe le matériel, les logiciels (dont la version installée d’EITR), l’âge du système, la durée de fonctionnement et la date dans des cadres aux couleurs du thème, à côté du logo E liquide. Des points de palette suivent les cadres ; les valeurs longues sont raccourcies pour préserver leur alignement.
 
 **Matériel** indique CPU, GPU, RAM et stockage du disque contenant `/`. Les autres disques ne sont pas additionnés à ce total. Les données manquantes des capteurs ou du GPU sont indiquées comme indisponibles.

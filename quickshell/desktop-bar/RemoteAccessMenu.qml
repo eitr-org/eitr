@@ -4,6 +4,7 @@ import Quickshell
 
 ThemedPopup {
     id: menu
+    signal observationChanged(bool observing)
     waitForFreshData: true
     required property var service
     property string kind: "tailscale"
@@ -16,7 +17,8 @@ ThemedPopup {
         function onStateChanged() { menu.applySnapshot("snapshot", menu.service.state); }
     }
     Component.onCompleted: snapshot = service.state
-    onOpenedChanged: if (opened) service.refresh()
+    onOpenedChanged: { observationChanged(opened); if (opened) service.refresh(); }
+    Component.onDestruction: if (opened) observationChanged(false)
     Flickable {
         anchors.fill: parent
         contentHeight: content.implicitHeight

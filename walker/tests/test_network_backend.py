@@ -2,6 +2,11 @@ import importlib.util
 from pathlib import Path
 from types import SimpleNamespace
 import unittest
+import json
+import os
+import shutil
+import subprocess
+from test_menu_translations import lua_value
 from unittest.mock import Mock, patch
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -11,6 +16,37 @@ spec.loader.exec_module(choice)
 
 
 class NetworkChoiceTests(unittest.TestCase):
+    @unittest.skipUnless(shutil.which("lua"), "Lua is required")
+    def test_menu_checks_saved_next_boot_backend(self):
+        rows = json.loads((ROOT / "elephant/menu-rows/network-backend.json").read_text())
+        for selected, expected in [("iwd", "iwd"), ("networkmanager", "NetworkManager")]:
+            with self.subTest(selected=selected):
+                harness = "local rows = " + lua_value(rows) + "\nlocal selected = " + lua_value(selected) + r'''
+local open = io.open
+io.open = function(path, ...)
+    if path == "/var/lib/eitr/network-backend/selected" then
+        return {read=function() return selected end, close=function() end}
+    end
+    return open(path, ...)
+end
+io.popen = function() error("saved choice requires no service query") end
+jsonDecode = function() return rows end
+dofile(os.getenv("EITR_CODE_ROOT") .. "/elephant/menus/network-backend.lua")
+local checked = 0
+for _, entry in ipairs(GetEntries("")) do
+    if entry.State and entry.State[1] == "current" then
+        assert(entry.Icon == "\239\128\140")
+        print(entry.Text)
+        checked = checked + 1
+    end
+end
+assert(checked == 1)
+'''
+                environment = dict(os.environ, EITR_CODE_ROOT=str(ROOT), EITR_LIBRARY_ROOT=str(ROOT / "distro/lib"), LC_ALL="C.UTF-8")
+                result = subprocess.run(["lua", "-"], input=harness, text=True, capture_output=True, env=environment)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual(result.stdout.strip(), expected)
+
     def helper(self):
         helper = Mock()
         helper.is_file.return_value = True

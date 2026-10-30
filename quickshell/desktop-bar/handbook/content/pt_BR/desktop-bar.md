@@ -14,7 +14,7 @@ O ícone de atualizações fica no grupo da direita, antes de Notificações, e 
 - Dê dois cliques com o botão direito no espaço vazio para alternar Completa → Centralizada → Abas → Ilhas → Completa.
 - Arraste um espaço vazio para cima, baixo, esquerda ou direita para mover a barra. À esquerda e à direita, a barra é tão fina quanto em cima e embaixo: o relógio mostra a hora acima dos minutos com um ícone de calendário, e o clima só o ícone; passe o ponteiro para ver a data e a temperatura.
 - **Relógio** em Estilo > Barra da área de trabalho e Central de controle > Estilo > Barra mostra a hora no formato de 12 horas com AM/PM (padrão) ou de 24 horas, em qualquer borda.
-- As mesmas opções ficam em **Estilo > Barra da área de trabalho** e Central de controle > Estilo.
+- As mesmas opções ficam em **Configurações > Estilo > Barra da área de trabalho** e Central de controle > Estilo.
 - **Telas** (Mostrar em) coloca a barra apenas no monitor principal, por padrão, ou em todos os monitores. Em todos, cada barra marca o espaço de trabalho de sua própria tela; atalhos como SUPER + , abrem na tela em uso e as notificações aparecem apenas na principal. Escolha a principal no painel de Tela.
 
 O modo centralizado mostra o relógio até você passar o ponteiro. Os ícones se expandem na ordem habitual. O alfinete entre a mídia e o relógio mantém a barra aberta; painéis abertos também a mantêm expandida. No modo completo, os painéis se unem à barra; no centralizado, ficam ao lado. Ambos abrem e fecham com a mesma animação fluida. Cada lado se ajusta ao conteúdo, e o relógio permanece no centro da tela nas quatro bordas.
@@ -33,7 +33,7 @@ Os gestos de mouse para papéis de parede e temas no espaço vazio da área de t
 
 O controle Áudio/Mic abre um painel com seções separadas para saída de áudio e microfone. Tailscale e Streaming ficam imediatamente antes do OBS. Um interruptor no cabeçalho conecta o Tailscale ou inicia o compartilhamento, depois vêm detalhes e dispositivos, e as ações de configuração ou diagnóstico ficam no menu “…”. O fundo dos botões de ícone aparece quando você passa o ponteiro sobre eles; os painéis se atualizam sozinhos ao abrir, um ícone de atualização gira só enquanto carregam, e as dicas aparecem perto do ponteiro. Os interruptores e botões de ação internos usam tamanhos compactos compartilhados.
 
-**Visualizador de música** em **Principal > Ferramentas** abre o cava com as cores do tema. Clique com o botão direito no equalizador de mídia para abrir o mesmo visualizador; o botão esquerdo continua abrindo os detalhes da mídia. Pressione **q** ou **Esc** para fechar. Se o cava não estiver instalado, ele será instalado primeiro.
+**Visualizador de música** abre o cava com as cores do tema. Clique com o botão direito no equalizador de mídia para abrir o mesmo visualizador; o botão esquerdo continua abrindo os detalhes da mídia. Pressione **q** ou **Esc** para fechar. Se o cava não estiver instalado, ele será instalado primeiro.
 
 **Ocultar automaticamente**, em Estilo > Barra da área de trabalho e Central de controle > Estilo, recolhe a barra após um breve atraso quando o ponteiro sai. Encoste o ponteiro na borda da tela para mostrá-la. Funciona nas quatro bordas com os modos Completa, Centralizada, Abas e Ilhas. Painéis e menus abertos, assim como arrastar a barra, mantêm a barra visível; depois ela volta a se ocultar. Enquanto estiver ativado, a barra não reserva espaço das janelas: ela desliza sobre elas em vez de movê-las. A preferência é salva separadamente do alfinete do modo centralizado e vem desativada em novas instalações.
 
@@ -49,7 +49,7 @@ Toque na borda oposta à barra para revelar o dock. Ele se desdobra a partir des
 
 Os aplicativos abertos são agrupados pela classe, na ordem das janelas do Hyprland. Os ícones usam espaços de 36 px separados por 6 px, com o ícone do aplicativo ou um símbolo alternativo; os terminais de tarefas e menus do próprio Eitr compartilham um único ícone com o logo do Eitr. Os pontos abaixo contam as janelas, até três, e ficam esmaecidos quando nenhuma está no espaço de trabalho atual daquela tela. Passe o ponteiro para ver o nome e o número de janelas. Clique para focar a janela usada mais recentemente, mudando de espaço se necessário; clique de novo para ir à próxima janela dele. O botão do meio fecha a janela mais recente. Listas longas rolam ao longo do dock. A superfície segue Desfoque/Cor do tema e os cantos escolhidos.
 
-**Dock** em **Estilo > Barra da área de trabalho** e **Central de controle > Estilo > Barra** ativa ou desativa o dock. A opção `dock` em `bar-settings.json` começa em `"yes"`. Não há atalho para o dock.
+**Dock** em **Configurações > Estilo > Barra da área de trabalho** e **Central de controle > Estilo > Barra** ativa ou desativa o dock. A opção `dock` em `bar-settings.json` começa em `"yes"`. Não há atalho para o dock.
 
 Aplicativos fixados permanecem totalmente opacos e sem pontos quando fechados; clique para abri-los em seu próprio escopo de aplicativo. Clique com o botão direito para Manter no Dock / Remover do Dock, Nova janela (quando houver uma entrada de desktop) e Fechar ou Fechar todas as janelas. Escape ou um clique fora fecha o menu. Aplicativos sem entrada de desktop não podem ser fixados.
 
