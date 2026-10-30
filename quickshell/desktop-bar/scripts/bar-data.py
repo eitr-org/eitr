@@ -15,7 +15,7 @@ import uuid
 
 MAX_FRAME = 262144
 MAX_RESULT = MAX_FRAME // 2
-INTERVALS = {"hardware.details": 2, "display.topology": float("inf"), "display.settings": float("inf"),
+INTERVALS = {"remote.availability": float("inf"), "remote.status": 10, "hardware.details": 2, "display.topology": float("inf"), "display.settings": float("inf"),
              "display.brightness": 3, "display.nightlight": 3, "network.summary": 10, "network.details": 2, "network.latency": 15,
              "power.battery": 30, "power.profile": 5, "power.radios": 5,
              "capture.summary": 2, "capture.details": 2, "capture.options": float("inf")}
@@ -142,8 +142,8 @@ class Broker:
         self.capture = CaptureController(self)
         self.domains = {}
         self.domain_jobs = {}
-        self.read_slots = {name: asyncio.Semaphore(2) for name in ("network", "capture", "power", "display", "hardware")}
-        self.domain_locks = {name: threading.Lock() for name in ("network", "capture", "power", "display", "hardware")}
+        self.read_slots = {name: asyncio.Semaphore(2) for name in ("network", "capture", "power", "display", "hardware", "remote")}
+        self.domain_locks = {name: threading.Lock() for name in ("network", "capture", "power", "display", "hardware", "remote")}
         self.periods = {}
         self.adapter = None
         self.reader = reader or self.read
@@ -245,7 +245,8 @@ class Broker:
         state = self.states[topic]
         self.emit(dict(v=1, op="state", topic=topic, token=token, id=request, epoch=self.epoch,
                        seq=state["seq"], status=state["status"], data=state["data"], ageMs=self.age(state),
-                       error=state["error"]))
+                       error=state["error"], **({"inFlight": bool(state["task"]), "pending": state["pending"]}
+                                              if topic.startswith("remote.") else {})))
 
     def diagnostics(self):
         return {topic: dict(ageMs=self.age(state), lastError=state["error"],
@@ -276,11 +277,15 @@ class Broker:
             return
         if state["task"]:
             state["pending"] = True
+            if topic.startswith("remote."):
+                self.snapshot(topic)
             return
         state["pending"] = False
         state["id"] = request
         state["task"] = asyncio.create_task(self.update(topic, state["generation"]))
         self.schedule_changed.set()
+        if topic.startswith("remote."):
+            self.snapshot(topic)
         self.jobs.add(state["task"])
         state["task"].add_done_callback(self.jobs.discard)
 
@@ -301,7 +306,7 @@ class Broker:
         started = time.monotonic()
         timed_out = False
         try:
-            budget = 16 if topic == "display.topology" else 9 if topic == "display.brightness" else 25 if topic == "capture.details" else 10 if topic == "capture.summary" else self.timeout
+            budget = 10 if topic == "remote.status" else 16 if topic == "display.topology" else 9 if topic == "display.brightness" else 25 if topic == "capture.details" else 10 if topic == "capture.summary" else self.timeout
             if self.timeout < 5:
                 budget = min(budget, self.timeout)
             future = asyncio.create_task(self.read_in_pool(topic, asyncio.get_running_loop().time() + budget))
@@ -355,6 +360,8 @@ class Broker:
                 state["pending"] = False
                 state["due"] = time.monotonic()
             self.schedule_changed.set()
+            if timed_out and topic.startswith("remote.") and generation == state["generation"]:
+                self.snapshot(topic, request=state["id"])
         if generation != state["generation"]:
             return
         state["seq"] += 1

@@ -223,3 +223,29 @@ assert.deepEqual(hardwareClient.states['hardware.details'].data, hardwareData, '
 hardwareClient.releaseOwner('control-center-hardware');
 assert.equal(hardwareClient.count('hardware.details'), 0);
 console.log('hardware snapshots, restart replay and subscriber lifetime passed');
+
+const remoteFrames = [];
+const remoteClient = createClient(frame => remoteFrames.push(frame), () => {});
+const remoteToken = remoteClient.observe('remote.status', 'remote-panels');
+remoteClient.observe('remote.availability', 'remote-service');
+function receiveRemote(frame) { remoteClient.receive(JSON.stringify({v: 1, ...frame})); }
+receiveRemote({op: 'hello', epoch: 'remote-one'});
+const remoteData = {allowed: true, tailscale: {installed: false}, streaming: {installed: false}};
+receiveRemote({op: 'state', topic: 'remote.status', epoch: 'remote-one', seq: 1,
+    status: 'ready', data: remoteData, ageMs: 0, inFlight: false, pending: false});
+receiveRemote({op: 'state', topic: 'remote.status', epoch: 'remote-one', seq: 1,
+    status: 'ready', data: remoteData, ageMs: 0, inFlight: true, pending: true});
+assert.equal(remoteClient.states['remote.status'].inFlight, true);
+assert.equal(remoteClient.states['remote.status'].pending, true);
+remoteClient.died();
+assert.deepEqual(remoteClient.states['remote.status'].data, remoteData);
+remoteClient.release(remoteToken);
+remoteFrames.length = 0;
+receiveRemote({op: 'hello', epoch: 'remote-two'});
+assert.deepEqual(remoteFrames.filter(frame => frame.op === 'subscribe').map(frame => frame.topic), ['remote.availability']);
+remoteClient.releaseOwner('remote-service');
+assert.equal(remoteClient.count('remote.availability'), 0);
+const remoteService = fs.readFileSync(path.join(bar, 'RemoteAccessService.qml'), 'utf8');
+assert.doesNotMatch(remoteService, /\b(?:Process|Timer)\s*\{/);
+assert.match(remoteService, /Component.onDestruction: DesktopData.releaseOwner\(service\)/);
+console.log('remote state, read activity, restart and closed-panel replay passed');

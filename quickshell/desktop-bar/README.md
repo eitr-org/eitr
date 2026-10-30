@@ -12,7 +12,7 @@ the broker session; utilization, frequency, temperatures and disk usage remain l
 One OBS status source refreshes every 2 s while an OBS window/process exists;
 open recording details supply that snapshot instead. A startup probe discovers
 an existing tray instance; subsequent OBS window events activate observation.
-Remote details refresh on opening and every 10 s while observed; closed panels
+Remote details share the broker’s `remote.status` topic and refresh on opening and every 10 s while observed; closed panels
 only read policy availability at startup and policy changes. AI and weather
 popup refresh timers run only while open; the weather glyph keeps its 15 min
 schedule.

@@ -32,7 +32,7 @@ QtObject {
     function status() {
         if (broker.running) send({v: 1, op: "status", id: "diagnostics"});
         const result = {};
-        ["hardware.details", "display.topology", "display.settings", "display.brightness", "display.nightlight", "power.battery", "power.profile", "power.radios", "network.summary", "network.details", "network.latency", "capture.summary", "capture.details", "capture.options"].forEach(topic => {
+        ["remote.availability", "remote.status", "hardware.details", "display.topology", "display.settings", "display.brightness", "display.nightlight", "power.battery", "power.profile", "power.radios", "network.summary", "network.details", "network.latency", "capture.summary", "capture.details", "capture.options"].forEach(topic => {
             const state = topics[topic];
             result[topic] = Object.assign({}, diagnostics[topic], {
                 ageMs: state && state.updatedAt ? Date.now() - state.updatedAt : null,

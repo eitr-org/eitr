@@ -59,3 +59,45 @@ class RemoteStatusTests(unittest.TestCase):
         self.assertIn('Detailed Status', titles)
         self.assertIn('Sign In', titles)
         self.assertNotIn('Connection Status', titles)
+
+
+class RemoteDomainTests(unittest.TestCase):
+    def setUp(self):
+        spec = importlib.util.spec_from_file_location('remote_domain', ROOT / 'quickshell/desktop-bar/scripts/remote-domain.py')
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        self.domain = module.RemoteDomain()
+
+    def test_client_missing_preserves_cli_result(self):
+        with patch.object(self.domain.adapter.shutil, 'which', return_value=None), \
+                patch.object(self.domain.adapter, 'menu_actions', return_value=[]), \
+                patch('eitr_policy.allowed', return_value=True), \
+                patch.object(self.domain.adapter, 'query') as query:
+            result = self.domain.read('remote.status')
+        query.assert_not_called()
+        self.assertFalse(result['tailscale']['installed'])
+        self.assertEqual(result['tailscale']['status'], 'Tailscale is not installed.')
+        self.assertEqual(result['streaming']['status'], 'Sunshine is not installed.')
+
+    def test_policy_denied_skips_clients_and_actions(self):
+        with patch('eitr_policy.allowed', return_value=False), \
+                patch.object(self.domain.adapter, 'query') as query, \
+                patch.object(self.domain.adapter, 'menu_actions') as actions:
+            self.assertEqual(self.domain.read('remote.status'), {'allowed': False, 'tailscale': {}, 'streaming': {}})
+            self.assertEqual(self.domain.read('remote.availability'), {'allowed': False})
+        query.assert_not_called()
+        actions.assert_not_called()
+
+    def test_service_error_preserves_translated_messages(self):
+        with patch('eitr_policy.allowed', return_value=True), \
+                patch.object(self.domain.adapter.shutil, 'which', return_value='/fixture/client'), \
+                patch.object(self.domain.adapter, 'query', side_effect=subprocess.TimeoutExpired('fixture', 3)), \
+                patch.object(self.domain.adapter, 'menu_actions', return_value=[]):
+            result = self.domain.read('remote.status')
+        self.assertEqual(result['tailscale']['status'], 'Tailscale status unavailable.')
+        self.assertEqual(result['streaming']['status'], 'Sharing status unavailable.')
+
+    def test_availability_does_not_read_clients(self):
+        with patch('eitr_policy.allowed', return_value=True), patch.object(self.domain.adapter, 'status') as read:
+            self.assertEqual(self.domain.read('remote.availability'), {'allowed': True})
+        read.assert_not_called()

@@ -291,7 +291,7 @@ class PackagingTests(unittest.TestCase):
         from layout import Layout
         root = SCRIPT.parents[3]
         files = ['quickshell/desktop-bar/' + name for name in [
-            'scripts/hardware-domain.py', 'scripts/system-details.py', 'PowerService.qml', 'scripts/power-domain.py', 'DesktopData.qml', 'DesktopDataProtocol.js', 'ObsStatus.qml', 'scripts/bar-data.py', 'scripts/capture-domain.py']]
+            'scripts/remote-domain.py', 'scripts/hardware-domain.py', 'scripts/system-details.py', 'PowerService.qml', 'scripts/power-domain.py', 'DesktopData.qml', 'DesktopDataProtocol.js', 'ObsStatus.qml', 'scripts/bar-data.py', 'scripts/capture-domain.py']]
         layout = Layout(root)
         layout.files = lambda: files
         with tempfile.TemporaryDirectory() as directory:
@@ -845,9 +845,77 @@ class HardwareBrokerTests(unittest.IsolatedAsyncioTestCase):
             await asyncio.gather(scheduler, return_exceptions=True)
             await broker.close()
 
+    async def test_remote_observers_refresh_reopen_and_no_idle_work(self):
+        calls = []
+        gate = threading.Event()
+        def read(topic):
+            calls.append(topic)
+            gate.wait(2)
+            return {"allowed": True, "tailscale": {}, "streaming": {}}
+        broker = broker_module.Broker(lambda frame: None, read)
+        scheduler = asyncio.create_task(broker.schedule())
+        def demand(operation, token):
+            broker.request(dict(v=1, op=operation, topic="remote.status", token=token))
+        try:
+            self.assertEqual(broker_module.INTERVALS["remote.status"], 10)
+            await asyncio.sleep(.02)
+            self.assertEqual(calls, [])
+            demand("subscribe", "one")
+            demand("subscribe", "two")
+            await self.settle(lambda: len(calls) == 1)
+            self.assertEqual(broker.diagnostics()["remote.status"]["observers"], 2)
+            gate.set()
+            await self.settle(lambda: broker.states["remote.status"]["task"] is None)
+            self.assertEqual(len(calls), 1)
+            broker.states["remote.status"]["due"] = 0
+            broker.schedule_changed.set()
+            await self.settle(lambda: len(calls) == 2 and broker.states["remote.status"]["task"] is None)
+            demand("unsubscribe", "one")
+            demand("unsubscribe", "two")
+            broker.states["remote.status"]["due"] = 0
+            broker.schedule_changed.set()
+            await asyncio.sleep(.03)
+            self.assertEqual(len(calls), 2)
+            demand("subscribe", "reopened")
+            await self.settle(lambda: len(calls) == 3)
+        finally:
+            gate.set()
+            scheduler.cancel()
+            await asyncio.gather(scheduler, return_exceptions=True)
+            await broker.close()
+
+    async def test_remote_availability_has_no_periodic_work_and_read_failure_is_isolated(self):
+        calls = []
+        def read(topic):
+            calls.append(topic)
+            if topic == "remote.status":
+                raise RuntimeError("fixture service failure")
+            return {"allowed": True} if topic == "remote.availability" else {"sections": []}
+        frames = []
+        broker = broker_module.Broker(frames.append, read)
+        scheduler = asyncio.create_task(broker.schedule())
+        try:
+            self.assertEqual(broker_module.INTERVALS["remote.availability"], float("inf"))
+            for topic in ("remote.availability", "remote.status", "hardware.details"):
+                broker.request(dict(v=1, op="subscribe", topic=topic, token=topic))
+            await self.settle(lambda: all(broker.states[topic]["task"] is None for topic in calls) and len(calls) == 3)
+            self.assertEqual(broker.states["remote.status"]["error"], "read-failed")
+            self.assertEqual(broker.states["hardware.details"]["status"], "ready")
+            self.assertEqual(broker.states["remote.availability"]["due"], float("inf"))
+            remote = [frame for frame in frames if frame.get("topic") == "remote.status"]
+            self.assertTrue(any(frame.get("inFlight") for frame in remote))
+            self.assertFalse(remote[-1]["inFlight"])
+            broker.request(dict(v=1, op="unsubscribe", topic="remote.status", token="remote.status"))
+            await asyncio.sleep(.03)
+            self.assertEqual(calls.count("remote.availability"), 1)
+        finally:
+            scheduler.cancel()
+            await asyncio.gather(scheduler, return_exceptions=True)
+            await broker.close()
+
     async def test_all_domain_import_failures_and_deadlines_are_isolated(self):
         from types import SimpleNamespace
-        for broken in ("network", "power", "capture", "display", "hardware"):
+        for broken in ("network", "power", "capture", "display", "hardware", "remote"):
             for slow in (False, True):
                 gate = threading.Event()
                 imports = []
@@ -869,11 +937,11 @@ class HardwareBrokerTests(unittest.IsolatedAsyncioTestCase):
                     with patch.object(broker_module.importlib.util, "spec_from_file_location", side_effect=spec), \
                             patch.object(broker_module.importlib.util, "module_from_spec", side_effect=lambda spec: SimpleNamespace()):
                         topic = {"network": "network.details", "power": "power.battery", "capture": "capture.options",
-                                 "display": "display.topology", "hardware": "hardware.details"}[broken]
+                                 "display": "display.topology", "hardware": "hardware.details", "remote": "remote.status"}[broken]
                         broker.request(dict(v=1, op="subscribe", token="broken", topic=topic))
                         siblings = {"network": ["network.summary"], "power": ["power.profile", "power.radios"],
                                     "capture": ["capture.details", "capture.summary"],
-                                    "display": ["display.settings", "display.brightness", "display.nightlight"], "hardware": []}[broken]
+                                    "display": ["display.settings", "display.brightness", "display.nightlight"], "hardware": [], "remote": ["remote.availability"]}[broken]
                         if slow:
                             for sibling in siblings:
                                 broker.request(dict(v=1, op="subscribe", token=sibling, topic=sibling))
