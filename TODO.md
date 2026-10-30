@@ -38,14 +38,12 @@ LAN.
   index answer in milliseconds after login, so the delay is elsewhere (Walker's
   window, or what else starts then). The owner will record the next reboot.
 - **Maintainability refactors.** In this order (the owner's):
-  1. One definition per menu row, shared by browsing and search (including Learn's
-     shortcut list and the search index).
-  2. Notification image memory: cap decoded image bytes without shortening history.
-  3. Menus with live contents (accounts, plugins) get the same type-to-search-below
+  1. Notification image memory: cap decoded image bytes without shortening history.
+  2. Menus with live contents (accounts, plugins) get the same type-to-search-below
      behaviour as fixed menus, through one shared adapter.
-  4. Split `shell.qml` (about 2,500 lines): data owners first, then one bar section
+  3. Split `shell.qml` (about 2,500 lines): data owners first, then one bar section
      at a time, keeping the centred clock, panel anchors and click-through gaps.
-  5. Retire the older VS Code / LazyVim project providers once nothing uses them.
+  4. Retire the older VS Code / LazyVim project providers once nothing uses them.
   Only if profiling shows a need: sharing plugin data between copies of the same
   widget, and one shared window list for the dock, Focus and OBS.
 - **hyprpaper crash without a GPU: follow upstream.** hyprpaper segfaults in VMs
