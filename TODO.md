@@ -32,11 +32,10 @@ LAN.
 - **Light themes.** The owner has ideas for more light themes; create them later.
 - **Security review: what is left.** The review (2026-10-29) is done; fixed so far:
   release signatures and package names, Sunshine limited to the sharing account,
-  website security headers. Left: the home-snapshot conversion race (convert as the
-  folder's owner instead of root, tested in a VM), enforcing the website's content
-  policy once its report-only mode shows no violations, and the owner's choice on
-  Cloudflare Web Analytics, which the policy currently reports. Vendor installers
-  and assistants' full access are accepted as the user's choice.
+  website security headers with an enforced content policy (it allows Cloudflare
+  Web Analytics, which the owner keeps). Left: the home-snapshot conversion race
+  (convert as the folder's owner instead of root, tested in a VM). Vendor
+  installers and assistants' full access are accepted as the user's choice.
 - **AI install review:** implemented for the installed default assistant when it
   supports text-only checks without tools (Ratatoskr and Claude). Unsupported
   defaults get a translated explanation. Reviews keep the advice notice and
@@ -46,11 +45,6 @@ LAN.
   animations, Elephant/Walker, background services, first-login work), find what
   would make Eitr feel bad on an old or low-end machine, then optimize those and
   decide what a lighter setup turns off. Test in a VM with few cores and little RAM.
-- **Focus mode: live validation.** The preset, native tabs/four-pane grid,
-  per-monitor strips, Style/Control Center switch and `eitr focus on|off|status`
-  are implemented with offline coverage. Validate actual Hyprland group behavior,
-  monitor hotplug, reload/reboot persistence and strip-crash recovery in a live
-  test session before describing those as verified.
 - **Several user accounts.** The owner's request (2026-10-29): the login screen
   shows which account logs in and lets the user pick another one in every design
   when the PC has more than one; the lockscreen shows whose session is locked and
