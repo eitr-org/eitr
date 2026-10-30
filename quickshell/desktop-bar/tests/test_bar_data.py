@@ -1161,3 +1161,118 @@ class WeatherAiBrokerTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(broker.states['ai.usage']['status'], 'ready')
         finally:
             await broker.close()
+
+
+class UpdatesSchedulingTests(unittest.IsolatedAsyncioTestCase):
+    async def test_initial_delay_and_manual_refresh_during_scheduled_read(self):
+        gate = threading.Event()
+        calls = []
+        def read(topic):
+            calls.append(topic)
+            gate.wait(2)
+            return {'state': 'ready', 'count': 0}
+        broker = broker_module.Broker(lambda frame: None, read)
+        scheduler = None
+        try:
+            broker.request(dict(v=1, op='subscribe', topic='updates.status', token='shell'))
+            state = broker.states['updates.status']
+            self.assertAlmostEqual(state['due'] - broker.started, 45)
+            self.assertIsNone(state['task'])
+            broker.started -= 45
+            state['due'] = 0
+            scheduler = asyncio.create_task(broker.schedule())
+            for attempt in range(100):
+                if calls:
+                    break
+                await asyncio.sleep(.005)
+            broker.request(dict(v=1, op='refresh', topic='updates.status', id='manual'))
+            broker.request(dict(v=1, op='refresh', topic='updates.status', id='again'))
+            self.assertTrue(state['pending'])
+            self.assertEqual(len(calls), 1)
+            gate.set()
+            for attempt in range(100):
+                if len(calls) == 2 and state['task'] is None:
+                    break
+                await asyncio.sleep(.005)
+            self.assertEqual(len(calls), 2)
+            self.assertEqual(state['status'], 'ready')
+            self.assertEqual(state['due'], broker.started + 21600)
+        finally:
+            gate.set()
+            if scheduler:
+                scheduler.cancel()
+                await asyncio.gather(scheduler, return_exceptions=True)
+            await broker.close()
+
+    async def test_broken_lazy_domain_does_not_stop_other_domains(self):
+        for broken in ('network', 'power', 'capture', 'display'):
+            broker = broker_module.Broker(lambda frame: None)
+            original = broker_module.importlib.util.spec_from_file_location
+            imports = []
+            def specification(name, filename):
+                imports.append(threading.current_thread().name)
+                if name == 'bar_' + broken:
+                    raise ImportError('fixture broken adapter')
+                return original(name, filename)
+            healthy = 'network' if broken != 'network' else 'power'
+            topic = {'network': 'network.summary', 'power': 'power.battery',
+                     'capture': 'capture.summary', 'display': 'display.topology'}[broken]
+            broker.domains[healthy] = Mock()
+            if healthy == 'network':
+                broker.domains[healthy].read_state.return_value = {'devices': []}
+            else:
+                broker.domains[healthy].read.return_value = {'available': False}
+            healthy_topic = 'network.summary' if healthy == 'network' else 'power.battery'
+            try:
+                with patch.object(broker_module.importlib.util, 'spec_from_file_location', side_effect=specification):
+                    broker.request(dict(v=1, op='subscribe', topic=topic, token='broken'))
+                    broker.request(dict(v=1, op='subscribe', topic=healthy_topic, token='healthy'))
+                    for attempt in range(100):
+                        if broker.states[topic]['task'] is None and broker.states[healthy_topic]['task'] is None:
+                            break
+                        await asyncio.sleep(.005)
+                self.assertEqual(broker.states[topic]['status'], 'unavailable')
+                self.assertEqual(broker.states[healthy_topic]['status'], 'ready')
+                self.assertTrue(imports)
+                self.assertTrue(all(name.startswith('bar-data') for name in imports))
+            finally:
+                await broker.close()
+
+    async def test_updates_timeout_and_offline_retain_known_count_without_ready(self):
+        gate = threading.Event()
+        mode = 'ready'
+        def read(topic):
+            if mode == 'slow':
+                gate.wait(1)
+            return {'state': 'offline'} if mode == 'offline' else {'state': 'ready', 'count': 4}
+        frames = []
+        broker = broker_module.Broker(frames.append, read, timeout=.03)
+        try:
+            broker.request(dict(v=1, op='subscribe', topic='updates.status', token='shell'))
+            for next_mode, expected_error in (('ready', ''), ('offline', 'offline'), ('slow', 'timeout')):
+                mode = next_mode
+                broker.refresh('updates.status')
+                for attempt in range(100):
+                    if broker.states['updates.status']['error'] == expected_error and (
+                            expected_error == 'timeout' or broker.states['updates.status']['task'] is None):
+                        break
+                    await asyncio.sleep(.005)
+                state = broker.states['updates.status']
+                self.assertEqual(state['data']['count'], 4)
+                self.assertEqual(state['error'], expected_error)
+                self.assertEqual(state['status'], 'stale' if expected_error else 'ready')
+                broker.request(dict(v=1, op='status', id='responsive'))
+                self.assertEqual(frames[-1]['op'], 'status')
+        finally:
+            gate.set()
+            await broker.close()
+
+    async def test_early_manual_check_preserves_login_deadline(self):
+        broker = broker_module.Broker(lambda frame: None, lambda topic: {'state': 'ready', 'count': 0})
+        try:
+            broker.request(dict(v=1, op='subscribe', topic='updates.status', token='shell'))
+            broker.refresh('updates.status')
+            await broker.states['updates.status']['task']
+            self.assertEqual(broker.states['updates.status']['due'], broker.started + 45)
+        finally:
+            await broker.close()

@@ -3,7 +3,7 @@
 
 checkupdates syncs a private copy of the package databases, so the check never
 leaves the system partially upgraded. AUR updates come from yay. Any failure,
-such as being offline, reports no updates; the bar checks again at the next login.
+such as being offline, retains the legacy CLI output. Broker reads report explicit states.
 """
 import json
 import os
@@ -37,21 +37,51 @@ def download_bytes(text):
     return total
 
 
-def repository_updates(database):
+def failure(result):
+    detail = getattr(result, "stderr", "").lower()
+    return "offline" if any(message in detail for message in (
+        "could not resolve", "failed to connect", "network is unreachable", "couldn't connect")) else "unavailable"
+
+
+def repository_updates(database, strict=False):
     # checkupdates exits 0 with updates, 2 with none and 1 on errors.
     result = run(["checkupdates"], {"CHECKUPDATES_DB": str(database)})
+    if strict and (result is None or result.returncode not in (0, 2)):
+        raise RuntimeError(failure(result))
     if result is None or result.returncode != 0:
         return [], 0
     names = package_names(result.stdout)
+    if strict and not names:
+        raise RuntimeError("unavailable")
     details = run(["pacman", "--dbpath", str(database), "-Si", *names]) if names else None
+    if strict and names and (details is None or details.returncode != 0):
+        raise RuntimeError(failure(details))
+    if strict and names and not re.search(r"^Download Size\s*:", details.stdout, re.M):
+        raise RuntimeError("unavailable")
     return names, download_bytes(details.stdout) if details and details.returncode == 0 else 0
 
 
-def aur_updates():
+def aur_updates(strict=False):
     if not shutil.which("yay"):
         return []
     result = run(["yay", "-Qua"])
+    if strict and (result is None or result.returncode != 0):
+        raise RuntimeError(failure(result))
+    if strict and result.stdout.strip() and not package_names(result.stdout):
+        raise RuntimeError("unavailable")
     return package_names(result.stdout) if result and result.returncode == 0 else []
+
+
+class UpdatesDomain:
+    def read(self, topic):
+        runtime = Path(os.environ.get("XDG_RUNTIME_DIR") or f"/tmp/eitr-{os.getuid()}")
+        try:
+            repository, size = repository_updates(runtime / "eitr-checkupdates-db", strict=True)
+            aur = aur_updates(strict=True)
+        except RuntimeError as error:
+            return {"state": str(error)}
+        return {"state": "ready", "count": len(repository) + len(aur),
+                "repository": len(repository), "aur": len(aur), "downloadBytes": size}
 
 
 def main():

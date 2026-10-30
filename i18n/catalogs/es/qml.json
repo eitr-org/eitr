@@ -477,5 +477,6 @@
   "Connection timed out; check the WiFi panel": "La conexión ha agotado el tiempo de espera; comprueba el panel de WiFi",
   "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": "Las conexiones inalámbricas se bloquearon en otro lugar; actívalas individualmente en WiFi/Bluetooth.",
   "Could not complete request": "No se pudo completar la solicitud",
-  "Recording settings unavailable": "Configuración de grabación no disponible"
+  "Recording settings unavailable": "Configuración de grabación no disponible",
+  "Updates unavailable · right-click to check again": "Actualizaciones no disponibles · clic derecho para comprobar de nuevo"
 }

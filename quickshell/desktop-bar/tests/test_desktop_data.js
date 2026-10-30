@@ -271,3 +271,26 @@ assert.doesNotMatch(weatherMenu, /\bProcess\s*\{/);
 assert.doesNotMatch(aiMenu, /\b(?:Process|Timer)\s*\{/);
 assert.match(aiMenu, /if \(opened\)[\s\S]*DesktopData.observe\("ai.usage", menu\)/);
 console.log('weather request ownership and AI open-only demand passed');
+
+// Exercise the shell-owned notification guard through repeated shared snapshots.
+const updateShell = fs.readFileSync(path.join(bar, 'shell.qml'), 'utf8');
+const announcementBody = updateShell.match(/function announceUpdates\(\) \{([\s\S]*?)\n    \}/)[1];
+const announcementContext = {updates: {count: 0}, announcedUpdates: 0, updatesSize: '',
+    Quickshell: {shellDir: '/fixture', execDetached: command => announcements.push(command)}};
+const announcements = [];
+vm.createContext(announcementContext);
+for (const count of [3, 3, 3, 5, 5, 0, 0, 2, 2]) {
+    announcementContext.updates = {count};
+    vm.runInContext('(function() {' + announcementBody + '})()', announcementContext);
+}
+assert.deepEqual(announcements.map(command => command[2]), ['3', '5', '2']);
+const updateClient = createClient(() => {}, () => {});
+updateClient.observe('updates.status', 'shell');
+updateClient.receive(JSON.stringify({v: 1, op: 'hello', epoch: 'updates'}));
+updateClient.receive(JSON.stringify({v: 1, op: 'state', topic: 'updates.status', epoch: 'updates', seq: 1,
+    status: 'ready', data: {state: 'ready', count: 0}, ageMs: 0, inFlight: false}));
+assert.equal(updateClient.states['updates.status'].data.count, 0);
+updateClient.receive(JSON.stringify({v: 1, op: 'state', topic: 'updates.status', epoch: 'updates', seq: 2,
+    status: 'stale', error: 'offline', data: {state: 'ready', count: 0}, ageMs: 1, inFlight: false}));
+assert.equal(updateClient.states['updates.status'].error, 'offline');
+assert.equal(updateClient.states['updates.status'].status, 'stale');

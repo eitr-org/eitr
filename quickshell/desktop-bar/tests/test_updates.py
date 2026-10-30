@@ -54,3 +54,38 @@ class UpdatesTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class BrokerUpdateResultsTests(unittest.TestCase):
+    def test_offline_and_unknown_failure_are_not_successful_zero(self):
+        offline = Completed(1)
+        offline.stderr = 'Could not resolve host: mirror.example'
+        for result, expected in ((Completed(2), 'ready'), (offline, 'offline'), (None, 'unavailable')):
+            with self.subTest(expected=expected), patch.object(updates, 'run', return_value=result), \
+                    patch.object(updates.shutil, 'which', return_value=None):
+                data = updates.UpdatesDomain().read('updates.status')
+                self.assertEqual(data['state'], expected)
+                if expected == 'ready':
+                    self.assertEqual(data['count'], 0)
+                else:
+                    self.assertNotIn('count', data)
+
+    def test_command_timeout_retains_deadline_and_cli_fallback(self):
+        with patch.object(updates.subprocess, 'run', side_effect=updates.subprocess.TimeoutExpired('checkupdates', 120)) as execute:
+            self.assertIsNone(updates.run(['checkupdates']))
+            self.assertEqual(execute.call_args.kwargs['timeout'], 120)
+        with patch.object(updates, 'run', return_value=None):
+            self.assertEqual(updates.repository_updates(Path('/run/private-db')), ([], 0))
+            with self.assertRaises(RuntimeError):
+                updates.repository_updates(Path('/run/private-db'), strict=True)
+
+    def test_failed_size_or_aur_read_is_unavailable(self):
+        with patch.object(updates, 'run', side_effect=[Completed(0, 'linux 1 -> 2'), None]):
+            self.assertEqual(updates.UpdatesDomain().read('updates.status'), {'state': 'unavailable'})
+        with patch.object(updates, 'run', side_effect=[Completed(2), None]), \
+                patch.object(updates.shutil, 'which', return_value='/usr/bin/yay'):
+            self.assertEqual(updates.UpdatesDomain().read('updates.status'), {'state': 'unavailable'})
+
+    def test_unreadable_success_is_not_zero(self):
+        with patch.object(updates, 'run', return_value=Completed(0, 'unreadable output')):
+            self.assertEqual(updates.UpdatesDomain().read('updates.status'), {'state': 'unavailable'})

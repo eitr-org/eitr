@@ -477,5 +477,6 @@
   "Connection timed out; check the WiFi panel": "Zeitüberschreitung der Verbindung; WiFi-Bereich prüfen",
   "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": "Die Funkverbindungen wurden anderweitig gesperrt; aktivieren Sie sie einzeln unter WiFi/Bluetooth.",
   "Could not complete request": "Anfrage konnte nicht abgeschlossen werden",
-  "Recording settings unavailable": "Aufnahmeeinstellungen nicht verfügbar"
+  "Recording settings unavailable": "Aufnahmeeinstellungen nicht verfügbar",
+  "Updates unavailable · right-click to check again": "Aktualisierungen nicht verfügbar · Rechtsklick zum erneuten Prüfen"
 }

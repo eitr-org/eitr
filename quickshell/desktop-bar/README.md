@@ -845,8 +845,11 @@ helpers remain the backend authority.
 The version 1 transport uses bounded newline-delimited JSON on stdin/stdout;
 Adapter logs never enter protocol stdout. Requests use `subscribe`/`unsubscribe`
 with a topic and unique observer token, or `refresh` with a request ID. Topics are
-`network.summary`, `network.details`, `network.latency`, and the capture topics
-described below. State snapshots carry
+`network.summary`, `network.details`, `network.latency`, `capture.summary`,
+`capture.details`, `capture.options`, `power.battery`, `power.profile`,
+`power.radios`, `display.topology`, `display.settings`, `display.brightness`,
+`display.nightlight`, `hardware.details`, `remote.availability`, `remote.status`,
+`weather.default`, `ai.usage` and `updates.status`. State snapshots carry
 `v`, `op`, `topic`, `token`, `id`, `epoch`, per-topic `seq`, `status`, `data`, and
 `ageMs` (null before a successful read). A `hello` establishes the epoch; reconnect
 replays current tokens and sends full snapshots. Old epoch/sequence results are
@@ -962,3 +965,17 @@ survive adapter release without retaining provider payloads. `ai-popup.py` and
 session selection file is unchanged. Diagnostics expose only topic-level codes
 and counters, never account identifiers or provider responses. Adapter imports
 and reads run lazily in the bounded pool; an import failure affects only its domain.
+
+### Update data ownership
+
+The broker lazily imports `updates.py` in its bounded worker pool. It checks
+45 seconds after startup, every six hours, and on the existing `updates refresh`
+IPC after System Update or a manual check. Concurrent refreshes coalesce into one
+follow-up check. Each external command retains its 120-second timeout; the read
+budget is 365 seconds for the three sequential commands. Private checkupdates
+package databases remain separate from the system database. Successful zero,
+offline and unreadable results are distinct; failed checks never report up to date.
+The shell retains presentation, count-based notification deduplication and task
+terminal launching. The standalone CLI retains its output and updater actions
+remain outside the broker. All domains initialize lazily inside the worker pool;
+an import failure remains local to its domain. Screen/VM acceptance is pending.

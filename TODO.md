@@ -34,11 +34,10 @@ LAN.
   closed panels stay quiet: idle launches in a 4-core VM fell from ~800 to ~40 a
   minute (CPU 25% to 1% of one core). Still to check on an old laptop, with
   multiple monitors and with OBS started straight into the tray.
-- **Shared data service for the bar (refactor, after the improvements).** One
-  long-running helper instead of ~33 short-lived scripts: one reader per piece of
-  data, one set of tests, consistent timeouts and refresh-on-open, easier to trace.
-  WiFi, capture, power, display, hardware, remote access, weather and AI usage now
-  use the broker. Updates remain to migrate; screen acceptance is still pending.
+- **Shared data service for the bar: final screen/VM acceptance.** The shared
+  broker owns WiFi, capture, power, display, hardware, remote access, weather,
+  AI usage and update reads, with bounded workers, deadlines and shared demand.
+  Implementation is complete; final screen and isolated VM acceptance remain.
 - **hyprpaper crash without a GPU: follow upstream.** hyprpaper segfaults in VMs
   without 3D acceleration (hyprwm/hyprtoolkit#144); the bar now draws the still
   wallpaper on any screen hyprpaper does not answer for. Drop the note once a fixed
