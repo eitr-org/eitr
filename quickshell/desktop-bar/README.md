@@ -916,6 +916,8 @@ monitor snapshot, including reserved edges. The saved main display, preferred
 connected output and largest-display fallback order is unchanged.
 Brightness and night-light reads retain their three-second interval only while
 observed; startup warms each once. DDC brightness is never periodically polled.
+Brightness reads share the CLI fallback for missing backlight/DDC controls:
+`ready` with `available: false`, without a broker error.
 Slider writes keep the latest pending value and suspend read demand until the
 write queue drains. Panel actions and display trials still use their existing
 helpers; the independent trial rollback survives bar or broker exit. The
@@ -976,6 +978,7 @@ budget is 365 seconds for the three sequential commands. Private checkupdates
 package databases remain separate from the system database. Successful zero,
 offline and unreadable results are distinct; failed checks never report up to date.
 The shell retains presentation, count-based notification deduplication and task
-terminal launching. The standalone CLI retains its output and updater actions
+terminal launching. A silent `yay -Qua` exit 1 is a successful empty AUR query, so it does not
+discard repository updates. The standalone CLI retains its output and updater actions
 remain outside the broker. All domains initialize lazily inside the worker pool;
 an import failure remains local to its domain. Screen/VM acceptance is pending.

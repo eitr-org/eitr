@@ -213,3 +213,14 @@ class IdleBrightnessTests(unittest.TestCase):
             setter.side_effect = None
             brightness.idle_brightness('restore')
             self.assertEqual([call.args[1] for call in setter.call_args_list], [22, 27, 73, 90])
+
+
+class BrightnessReadFallbackTests(unittest.TestCase):
+    def test_no_ddc_display_returns_cli_unavailable_payload(self):
+        for error in (brightness.subprocess.CalledProcessError(1, ['ddcutil', 'getvcp', '10', '--brief']),
+                      brightness.subprocess.TimeoutExpired('ddcutil', 8)):
+            with self.subTest(error=error), patch.object(brightness, 'backlight', return_value=None), \
+                    patch.object(brightness.shutil, 'which', return_value='/usr/bin/ddcutil'), \
+                    patch.object(brightness, 'run', side_effect=error):
+                self.assertEqual(brightness.status(), {'available': False, 'kind': '',
+                    'name': 'Brightness unavailable', 'value': 0, 'error': str(error)})

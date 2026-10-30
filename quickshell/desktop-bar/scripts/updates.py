@@ -65,7 +65,9 @@ def aur_updates(strict=False):
     if not shutil.which("yay"):
         return []
     result = run(["yay", "-Qua"])
-    if strict and (result is None or result.returncode != 0):
+    # Query mode exits 1 without output when there are no AUR upgrades.
+    empty = result is not None and result.returncode == 1 and not result.stdout.strip() and not getattr(result, "stderr", "").strip()
+    if strict and (result is None or (result.returncode != 0 and not empty)):
         raise RuntimeError(failure(result))
     if strict and result.stdout.strip() and not package_names(result.stdout):
         raise RuntimeError("unavailable")

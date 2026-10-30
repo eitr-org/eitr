@@ -1276,3 +1276,81 @@ class UpdatesSchedulingTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(broker.states['updates.status']['due'], broker.started + 45)
         finally:
             await broker.close()
+
+
+class VmAcceptanceRegressionTests(unittest.IsolatedAsyncioTestCase):
+    async def test_real_update_adapter_retains_repo_updates_after_slow_check_and_empty_aur(self):
+        import time
+        broker = broker_module.Broker(lambda frame: None)
+        commands = []
+        entered = threading.Event()
+        def command(arguments, **options):
+            commands.append(arguments)
+            self.assertEqual(options['timeout'], 120)
+            self.assertEqual(options['env']['XDG_RUNTIME_DIR'], '/fixture/session-runtime')
+            self.assertEqual(options['env']['EITR_TEST_SESSION'], 'inherited')
+            self.assertEqual(options['env']['LC_ALL'], 'C')
+            self.assertNotEqual(threading.current_thread(), threading.main_thread())
+            if arguments == ['checkupdates']:
+                self.assertEqual(options['env']['CHECKUPDATES_DB'], '/fixture/session-runtime/eitr-checkupdates-db')
+                entered.set()
+                time.sleep(5.1)
+                return subprocess.CompletedProcess(arguments, 0,
+                    'eitr-desktop 1 -> 2\nlinux 1 -> 2\nmesa 1 -> 2\n', '')
+            if arguments[0] == 'pacman':
+                self.assertEqual(arguments, ['pacman', '--dbpath', '/fixture/session-runtime/eitr-checkupdates-db',
+                                            '-Si', 'eitr-desktop', 'linux', 'mesa'])
+                return subprocess.CompletedProcess(arguments, 0, 'Download Size : 8527667 B\n', '')
+            self.assertEqual(arguments, ['yay', '-Qua'])
+            return subprocess.CompletedProcess(arguments, 1, '', '')
+        try:
+            with patch.dict(os.environ, XDG_RUNTIME_DIR='/fixture/session-runtime', EITR_TEST_SESSION='inherited'), \
+                    patch.object(subprocess, 'run', side_effect=command), \
+                    patch.object(shutil, 'which', return_value='/fixture/bin/yay'):
+                broker.request(dict(v=1, op='subscribe', topic='updates.status', token='shell'))
+                broker.refresh('updates.status')
+                task = broker.states['updates.status']['task']
+                for attempt in range(100):
+                    if entered.is_set():
+                        break
+                    await asyncio.sleep(.005)
+                self.assertTrue(entered.is_set())
+                self.assertFalse(task.done())
+                broker.request(dict(v=1, op='status', id='responsive-during-check'))
+                await asyncio.wait_for(asyncio.shield(task), 10)
+            state = broker.states['updates.status']
+            self.assertEqual(state['status'], 'ready')
+            self.assertEqual(state['error'], '')
+            self.assertIsNotNone(broker.age(state))
+            self.assertEqual(state['data'], {'state': 'ready', 'count': 3, 'repository': 3, 'aur': 0,
+                                            'downloadBytes': 8527667})
+            self.assertEqual(len(commands), 3)
+        finally:
+            await broker.close()
+
+    async def test_imported_brightness_without_backlight_or_ddc_has_no_broker_error(self):
+        broker = broker_module.Broker(lambda frame: None)
+        try:
+            loop = asyncio.get_running_loop()
+            domain = await loop.run_in_executor(broker.executor, broker.load_domain, 'display')
+            brightness = await loop.run_in_executor(broker.executor, domain.adapter, 'brightness')
+            for error in (None, subprocess.CalledProcessError(1, ['ddcutil', 'getvcp', '10', '--brief']),
+                          subprocess.TimeoutExpired('ddcutil', 8)):
+                with self.subTest(error=error), patch.object(brightness, 'backlight', return_value=None), \
+                        patch.object(brightness.shutil, 'which', return_value='/fixture/bin/ddcutil' if error else None), \
+                        patch.object(brightness, 'run', side_effect=error):
+                    broker.request(dict(v=1, op='subscribe', topic='display.brightness', token='panel'))
+                    if broker.states['display.brightness']['task'] is None:
+                        broker.refresh('display.brightness')
+                    await broker.states['display.brightness']['task']
+                    state = broker.states['display.brightness']
+                    self.assertEqual(state['status'], 'ready')
+                    self.assertEqual(state['error'], '')
+                    self.assertEqual(state['data']['available'], False)
+                    self.assertEqual(state['data']['kind'], '')
+                    self.assertEqual(state['data']['value'], 0)
+                    if error:
+                        self.assertEqual(state['data']['name'], 'Brightness unavailable')
+                        self.assertEqual(state['data']['error'], str(error))
+        finally:
+            await broker.close()

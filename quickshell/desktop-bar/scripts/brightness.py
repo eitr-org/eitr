@@ -30,7 +30,7 @@ def backlight():
     return min(devices)[2] if devices else None
 
 
-def status():
+def read_status():
     device = backlight()
     if device:
         current = int((device / 'brightness').read_text())
@@ -47,6 +47,18 @@ def status():
     return {'available': False, 'kind': '', 'name': 'No brightness control available', 'value': 0}
 
 
+def unavailable(error):
+    return {'available': False, 'kind': '', 'name': 'Brightness unavailable',
+            'value': 0, 'error': str(error)}
+
+
+def status():
+    try:
+        return read_status()
+    except (OSError, ValueError, subprocess.SubprocessError, RuntimeError) as error:
+        return unavailable(error)
+
+
 def set_brightness(value, maximum=None):
     value = max(1, min(100, int(value)))
     device = backlight()
@@ -54,12 +66,12 @@ def set_brightness(value, maximum=None):
         if shutil.which('brightnessctl'):
             run('brightnessctl', '--device', device.name, 'set', f'{value}%')
         else:
-            current = status()['value']
+            current = read_status()['value']
             difference = value - current
             if difference:
                 run('swayosd-client', '--brightness', f'{difference:+d}')
     elif shutil.which('ddcutil'):
-        maximum = int(maximum) if maximum else status()['maximum']
+        maximum = int(maximum) if maximum else read_status()['maximum']
         run('ddcutil', 'setvcp', '10', str(round(maximum * value / 100)))
         return {'available': True, 'kind': 'ddc', 'name': 'Display brightness',
                 'value': value, 'maximum': maximum}
@@ -148,6 +160,5 @@ if __name__ == '__main__':
     try:
         result = set_brightness(sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else None) if len(sys.argv) > 2 and sys.argv[1] == 'set' else status()
     except (OSError, ValueError, subprocess.SubprocessError, RuntimeError) as error:
-        result = {'available': False, 'kind': '', 'name': 'Brightness unavailable',
-                  'value': 0, 'error': str(error)}
+        result = unavailable(error)
     print(json.dumps(result))
