@@ -30,15 +30,17 @@ LAN.
 # 2. Smaller items
 
 - **Light themes.** The owner has ideas for more light themes; create them later.
-- **AI install review:** implemented for the installed default assistant when it
-  supports text-only checks without tools (Ratatoskr and Claude). Unsupported
-  defaults get a translated explanation. Reviews keep the advice notice and
-  Install/Cancel choice; see `distro/PLUGINS.md`. There is no Git theme installer.
-- **Performance on weak computers.** The owner's request (2026-10-29): measure what
-  costs the most CPU, GPU, memory, disk and battery (bar, live wallpapers, blur and
-  animations, Elephant/Walker, background services, first-login work), find what
-  would make Eitr feel bad on an old or low-end machine, then optimize those and
-  decide what a lighter setup turns off. Test in a VM with few cores and little RAM.
+- **Performance on weak computers: decide the fixes.** Analysed 2026-10-30 (code review
+  plus live measurements). Main costs: the bar polls with short-lived Python
+  helpers every 2 s, mostly for closed panels (~400 processes a minute); the live
+  wallpaper and blur keep the GPU busy at idle; login starts ~15 programs at once,
+  so the wallpaper and bar appear ~3 s after Hyprland. Proposed order: stop
+  closed-panel polling and use file/compositor events (no visible change), a
+  reversible Light preset, then a startup order that shows the wallpaper first.
+- **Walker menu organisation: decide on the review.** Proposals: System becomes
+  Settings with a Control Center row, Toggle becomes Quick Actions, clearer plugin
+  and calendar names, System Update one level up, Default Assistant inside AI,
+  consistent names, and the rule slips it found (missing descriptions and checks).
 - **Unlock: black screen after Enter.** The owner sees a black screen for about
   2 s after unlocking with the Eitr design, which other designs do not show. Not
   reproduced in the VM (the burn reveals the desktop directly); the owner will
