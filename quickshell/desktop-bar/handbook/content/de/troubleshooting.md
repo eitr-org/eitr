@@ -31,8 +31,7 @@ Die Leiste nutzt für alle Bildschirme einen gemeinsamen WLAN-Leseprozess. Wenn
 er endet, bleiben die letzten gültigen Daten als veraltet markiert, während der
 Prozess mit wachsenden Abständen neu gestartet wird. Nach sechs fehlgeschlagenen
 Versuchen wartet er auf einen ausdrücklichen Wiederholungsaufruf. Native
-Bedienelemente bleiben verfügbar; WLAN-Aktionen und die QR-Erzeugung behalten
-ihre separaten Hilfsprogramme.
+Bedienelemente bleiben verfügbar. WLAN-Aktionen teilen eine geordnete Warteschlange und einen Belegtstatus über alle Bildschirme. Bei Zeitüberschreitung oder Prozessende ist das Ergebnis unbekannt: Aktualisiere den Zustand vor einem ausdrücklichen neuen Versuch. Schreibaktionen werden nie automatisch wiederholt. QR-Erzeugung bleibt ein separates Hilfsprogramm.
 
 Den technischen Status zeigt
 `eitr-shell desktop-bar ipc call -- data status`. Die Ausgabe enthält Datenalter,

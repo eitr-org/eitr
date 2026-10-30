@@ -3,7 +3,7 @@ import asyncio
 import importlib.util
 import json
 import threading
-from unittest.mock import patch
+from unittest.mock import patch, AsyncMock
 import tempfile
 from pathlib import Path
 import sys
@@ -40,6 +40,89 @@ class BrokerTests(unittest.IsolatedAsyncioTestCase):
     def subscribe(self, token, topic='network.details'):
         self.broker.request(dict(v=1, op='subscribe', topic=topic, token=token))
 
+    async def test_actions_order_secrets_errors_and_enterprise_deadline(self):
+        gate = asyncio.Event()
+        processes = []
+        commands = []
+        response = {"ok": True}
+
+        class Process:
+            returncode = None
+            pid = 12345
+            def __init__(self):
+                self.delivered = False
+                self.stdin = type("Input", (), {"write": lambda stream, payload: processes.append(payload),
+                    "drain": AsyncMock(), "close": lambda stream: None})()
+                self.stdout = type("Output", (), {"read": AsyncMock(side_effect=self.read)})()
+            async def read(self, limit):
+                await gate.wait()
+                if self.delivered:
+                    return b""
+                self.delivered = True
+                return json.dumps(response).encode()
+            async def wait(self):
+                self.returncode = 0
+                return 0
+
+        async def spawn(*command, **options):
+            commands.append(command)
+            self.assertEqual(options["stderr"], asyncio.subprocess.DEVNULL)
+            return Process()
+
+        def action(request, name="connect", secret=None):
+            self.broker.request(dict(v=1, op="action", topic="network", id=request,
+                name=name, args={"path": "/fixture", "input": secret or {"password": "secret"}}))
+
+        with patch.object(broker_module.asyncio, "create_subprocess_exec", side_effect=spawn), \
+                patch.object(broker_module.os, "killpg") as kill_group:
+            action("first")
+            action("second", "forget")
+            await asyncio.sleep(.01)
+            self.assertEqual(len(commands), 1)
+            self.assertNotIn("secret", str(commands))
+            self.assertIn(b'"password": "secret"', processes[0])
+            gate.set()
+            await self.settle(lambda: self.broker.action_task is None)
+            self.assertEqual([frame["id"] for frame in self.frames if frame["op"] == "result"], ["first", "second"])
+            self.assertTrue(all(not frame["error"] for frame in self.frames if frame["op"] == "result"))
+            action("first")
+            self.assertEqual(self.frames[-1]["error"], "invalid-request")
+            response = {"error": True, "code": "action-failed", "message": "Enter the WiFi password"}
+            action("refused")
+            await self.settle(lambda: self.broker.action_task is None)
+            refused = next(frame for frame in self.frames if frame.get("id") == "refused")
+            self.assertEqual(refused["error"], "action-failed")
+            self.assertEqual(refused["message"], "Enter the WiFi password")
+            gate.clear()
+            self.broker.action_timeouts["enterprise"] = .01
+            action("enterprise", secret={"identity": "name", "password": "secret"})
+            await self.settle(lambda: self.broker.action_task is None)
+            self.assertEqual(next(frame for frame in self.frames if frame.get("id") == "enterprise")["error"], "outcome-unknown")
+            self.assertEqual(len(commands), 4, "timeout never retries writes")
+            kill_group.assert_called_once_with(12345, broker_module.signal.SIGKILL)
+        self.assertNotIn("secret", json.dumps(self.frames))
+
+    async def test_action_queue_is_bounded_and_close_discards_secrets(self):
+        for number in range(17):
+            self.broker.request(dict(v=1, op="action", topic="network", id=str(number), name="connect",
+                args={"path": "/fixture", "input": {"password": "secret"}}))
+        self.assertEqual(len(self.broker.actions), 16)
+        self.assertEqual(self.frames[-1]["error"], "queue-full")
+        await self.broker.close()
+        self.assertEqual(self.broker.actions, [])
+        self.assertNotIn("secret", json.dumps(self.frames))
+
+    async def test_action_backend_unavailable_and_refused(self):
+        frame = dict(v=1, op="action", topic="network", id="missing", name="power",
+                     args={"path": "/device", "extra": "false"})
+        with patch.object(broker_module.asyncio, "create_subprocess_exec", side_effect=OSError):
+            self.broker.request(frame)
+            await self.settle(lambda: self.broker.action_task is None)
+        self.assertTrue(any(item.get("error") == "backend-unavailable" for item in self.frames))
+        frame = dict(frame, id="bad", name="unknown")
+        self.broker.request(frame)
+        self.assertEqual(self.frames[-1]["error"], "invalid-action")
+
     async def test_screens_share_reader_and_stop_at_zero(self):
         self.subscribe('screen-one')
         self.subscribe('screen-two')
@@ -56,7 +139,7 @@ class BrokerTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_snapshot_coalesce_and_stale(self):
         self.subscribe('first')
-        self.assertEqual(self.frames[0]['status'], 'loading')
+        self.assertEqual(next(frame for frame in self.frames if frame['op'] == 'state')['status'], 'loading')
         for count in range(10):
             self.broker.refresh('network.details')
         self.gate.set()

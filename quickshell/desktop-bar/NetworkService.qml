@@ -16,19 +16,39 @@ Item {
     readonly property string glyph: NetworkStatus.glyph(Object.assign({}, details.updatedAt >= summary.updatedAt ? details.data : summary.data,
         {blocked: summary.data.blocked}))
     readonly property string focusGlyph: summary.data.wired ? "󰈀" : glyph
-    property bool busy: false
-    readonly property string actionKind: operation.command.length > 2 ? operation.command[2] : ""
+    readonly property bool busy: DesktopData.networkDomain.busy
+    readonly property string actionKind: DesktopData.networkDomain.name
     property bool qrBusy: false
-    property string helper: Quickshell.shellDir + "/scripts/wifi-popup.py"
     property string qrHelper: Quickshell.shellDir + "/scripts/wifi-qr.py"
     property var actionOwner: null
-    property var actionInput: ({})
+    property string actionId: ""
     property var qrOwner: null
     property var qrInput: ({})
     property bool qrScheduled: false
     property var observers: ({})
     property string summaryToken: ""
 
+    function actionMessage(source) {
+        switch (source) {
+        case "Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot": return Eitr.I18n.tr("Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot");
+        case "No WiFi backend is running": return Eitr.I18n.tr("No WiFi backend is running");
+        case "Install the Eitr network helper first; see distro/NETWORKING.md": return Eitr.I18n.tr("Install the Eitr network helper first; see distro/NETWORKING.md");
+        case "CA certificate is too large": return Eitr.I18n.tr("CA certificate is too large");
+        case "Enter the WiFi password": return Eitr.I18n.tr("Enter the WiFi password");
+        case "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP": return Eitr.I18n.tr("Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP");
+        case "Enterprise WiFi requires username, password, CA certificate and server domain": return Eitr.I18n.tr("Enterprise WiFi requires username, password, CA certificate and server domain");
+        case "CA certificate file not found": return Eitr.I18n.tr("CA certificate file not found");
+        case "Enter the authentication server domain without wildcards": return Eitr.I18n.tr("Enter the authentication server domain without wildcards");
+        case "This WiFi security type requires advanced network configuration": return Eitr.I18n.tr("This WiFi security type requires advanced network configuration");
+        case "WiFi adapter is unavailable; refresh the panel": return Eitr.I18n.tr("WiFi adapter is unavailable; refresh the panel");
+        case "Connection failed; verify credentials and certificate settings": return Eitr.I18n.tr("Connection failed; verify credentials and certificate settings");
+        case "Connection timed out; check the WiFi panel": return Eitr.I18n.tr("Connection timed out; check the WiFi panel");
+        case "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": return Eitr.I18n.tr("Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.");
+        case "Could not complete request": return Eitr.I18n.tr("Could not complete request");
+        case "Outcome unknown; refresh before retrying.": return Eitr.I18n.tr("Outcome unknown; refresh before retrying.");
+        default: return Eitr.I18n.tr(source);
+        }
+    }
     function topicState(topic) {
         const snapshot = DesktopData.topics["network." + topic] || {status: "loading", data: {}};
         return Object.assign({}, snapshot, {error: snapshot.error ? Eitr.I18n.tr("Could not load") : ""});
@@ -53,13 +73,20 @@ Item {
     function refresh() { DesktopData.refresh("network.details"); }
     function act(owner, kind, path, extra, input) {
         if (busy) return false;
-        busy = true;
         actionOwner = owner;
+        const id = DesktopData.client.act(kind, {path: path, extra: extra, input: input || ({})}, function(code, message) {
+            const target = service.actionOwner;
+            service.actionOwner = null;
+            service.actionId = "";
+            if (target) target.networkActionFinished(code === "outcome-unknown" ? "Outcome unknown; refresh before retrying." : (message || (code ? "Could not complete request" : "")), code);
+        });
+        if (!id) {
+            actionOwner = null;
+            owner.networkActionFinished("Could not complete request", "broker-unavailable");
+            return false;
+        }
+        actionId = id;
         owner.networkActionFinished("");
-        actionInput = input || ({});
-        operation.command = ["python3", helper, kind, path];
-        if (extra !== undefined) operation.command = operation.command.concat([extra]);
-        operation.running = true;
         return true;
     }
     function generateQr(owner, network, password) {
@@ -77,7 +104,7 @@ Item {
     }
     function detach(owner) {
         Object.keys(observers).filter(token => observers[token].owner === owner).forEach(release);
-        if (actionOwner === owner) actionOwner = null;
+        if (actionOwner === owner) { DesktopData.client.detachAction(actionId); actionOwner = null; actionId = ""; }
         if (qrOwner === owner) {
             qrOwner = null;
             qrInput = ({});
@@ -89,22 +116,6 @@ Item {
     Component.onDestruction: {
         Object.keys(observers).forEach(token => DesktopData.release(token));
         DesktopData.release(summaryToken);
-    }
-    Process {
-        id: operation
-        stdinEnabled: true
-        onStarted: { write(JSON.stringify(service.actionInput) + "\n"); service.actionInput = ({}); }
-        stdout: StdioCollector { id: operationOutput }
-        onExited: function(code) {
-            let message = "Could not complete request";
-            try { const result = JSON.parse(operationOutput.text); message = result.error || (code === 0 ? "" : message); } catch (error) {}
-            service.busy = false;
-            if (service.actionOwner) service.actionOwner.networkActionFinished(message);
-            service.actionOwner = null;
-            service.actionInput = ({});
-            service.refresh();
-            DesktopData.refresh("network.summary");
-        }
     }
     Process {
         id: qrQuery

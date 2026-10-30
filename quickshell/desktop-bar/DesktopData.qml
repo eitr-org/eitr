@@ -7,13 +7,14 @@ import "DesktopDataProtocol.js" as Protocol
 QtObject {
     id: facade
     property var topics: ({})
+    property var networkDomain: ({busy: false, name: ""})
     property var diagnostics: ({})
     property int restartCount: 0
     property int failures: 0
     property bool retryAvailable: false
     property var client: Protocol.createClient(send, publish)
     function send(frame) { broker.write(JSON.stringify(frame) + "\n"); }
-    function publish() { topics = Object.assign({}, client.states); }
+    function publish() { topics = Object.assign({}, client.states); networkDomain = Object.assign({}, client.domain); }
     function observe(topic, owner) { return client.observe(topic, owner); }
     function release(token) { client.release(token); }
     function releaseOwner(owner) { client.releaseOwner(owner); }

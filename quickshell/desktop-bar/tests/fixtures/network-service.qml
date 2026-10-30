@@ -18,8 +18,7 @@ ShellRoot {
     function networkQrFinished(result) { check(result.image === "fixture-image", "QR result"); qrResults++; }
     NetworkService {
         id: service
-        helper: Quickshell.shellDir + "/network-reader.py"
-        qrHelper: helper
+        qrHelper: Quickshell.shellDir + "/network-reader.py"
     }
     Component {
         id: screen

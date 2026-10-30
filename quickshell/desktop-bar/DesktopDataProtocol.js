@@ -4,6 +4,20 @@ function createClient(send, changed) {
     let epoch = "";
     let sequence = 0;
     let online = false;
+    const actions = {};
+    let reconcile = true;
+    let reconcileSeq = -1;
+    const domain = {busy: false, name: ""};
+    function act(name, args, callback) {
+        if (reconcile || !online || !states["network.summary"] || states["network.summary"].status !== "ready" || domain.busy) return "";
+        const id = "action-" + (++sequence);
+        actions[id] = callback;
+        domain.busy = true; domain.name = name;
+        send({v: 1, op: "action", topic: "network", id: id, name: name, args: args});
+        changed();
+        return id;
+    }
+    function detachAction(id) { if (actions[id]) actions[id] = function() {}; }
     function request(op, topic, token) {
         if (online) send({v: 1, op: op, topic: topic, token: token || "", id: "read-" + (++sequence)});
     }
@@ -31,6 +45,21 @@ function createClient(send, changed) {
             epoch = frame.epoch;
             online = true;
             Object.keys(tokens).forEach(token => request("subscribe", tokens[token].topic, token));
+        } else if (online && frame.epoch === epoch && frame.topic === "network" && frame.op === "domain") {
+            domain.busy = frame.busy === true || Object.keys(actions).length > 0;
+            if (frame.busy === true || !domain.busy) domain.name = frame.name || "";
+        } else if (online && frame.epoch === epoch && frame.topic === "network" && frame.op === "result") {
+            if (typeof frame.busy === "boolean") {
+                domain.busy = frame.busy;
+                if (!frame.busy) domain.name = "";
+            }
+            const callback = actions[frame.id];
+            delete actions[frame.id];
+            if (frame.error === "outcome-unknown") {
+                reconcile = true;
+                reconcileSeq = states["network.summary"] ? states["network.summary"].seq : -1;
+            }
+            if (callback) callback(frame.error || "", frame.message || "");
         } else if (online && frame.epoch === epoch && frame.op === "state") {
             if (!["network.summary", "network.details", "network.latency"].includes(frame.topic)
                 || !Number.isInteger(frame.seq) || frame.seq < 0
@@ -38,6 +67,7 @@ function createClient(send, changed) {
                 || !frame.data || typeof frame.data !== "object") return;
             const previous = states[frame.topic];
             if (previous && previous.epoch === epoch && previous.seq > frame.seq) return;
+            if (frame.topic === "network.summary" && frame.status === "ready" && frame.seq > reconcileSeq) reconcile = false;
             // A restarted broker's loading snapshot must not erase retained good state.
             if (frame.status === "loading" && previous && previous.updatedAt) return;
             if (frame.status !== "ready" && previous && previous.updatedAt && frame.ageMs === null) {
@@ -55,6 +85,12 @@ function createClient(send, changed) {
     }
     function died() {
         online = false;
+        reconcile = true;
+        reconcileSeq = -1;
+        domain.busy = false; domain.name = "";
+        Object.keys(actions).forEach(id => {
+            const callback = actions[id]; delete actions[id]; callback("outcome-unknown");
+        });
         Object.keys(states).forEach(topic => {
             states[topic] = Object.assign({}, states[topic], {
                 status: states[topic].updatedAt ? "stale" : "unavailable", error: "broker-unavailable"
@@ -62,7 +98,7 @@ function createClient(send, changed) {
         });
         changed();
     }
-    return {epoch: () => epoch, tokens: tokens, states: states, observe: observe, release: release, receive: receive, died: died,
+    return {act: act, detachAction: detachAction, domain: domain, online: () => online, epoch: () => epoch, tokens: tokens, states: states, observe: observe, release: release, receive: receive, died: died,
         refresh: topic => request("refresh", topic),
         releaseOwner: owner => Object.keys(tokens).filter(token => tokens[token].owner === owner).forEach(release),
         count: topic => Object.keys(tokens).filter(token => tokens[token].topic === topic).length};

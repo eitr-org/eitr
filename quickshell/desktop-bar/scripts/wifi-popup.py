@@ -2,6 +2,7 @@
 """Read and control the active WiFi backend without changing network services."""
 import eitr_bootstrap
 from eitr_i18n import tr
+import os
 import importlib.util
 import base64
 import json
@@ -235,9 +236,41 @@ def main():
     return {"ok": True}
 
 
+def action_error(error):
+    """Return only stable codes and approved source messages to the broker."""
+    messages = (
+        'Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot',
+        'No WiFi backend is running',
+        'Install the Eitr network helper first; see distro/NETWORKING.md',
+        'CA certificate is too large',
+        'Enter the WiFi password',
+        'Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP',
+        'Enterprise WiFi requires username, password, CA certificate and server domain',
+        'CA certificate file not found',
+        'Enter the authentication server domain without wildcards',
+        'This WiFi security type requires advanced network configuration',
+        'WiFi adapter is unavailable; refresh the panel',
+        'Connection failed; verify credentials and certificate settings',
+        'Connection timed out; check the WiFi panel',
+    )
+    message = next((message for message in messages if tr(message) == str(error)), "")
+    code = "backend-unavailable" if message == 'No WiFi backend is running' else "action-failed"
+    dbus_timeout = isinstance(error, GLib.Error) and (
+        error.matches(Gio.io_error_quark(), Gio.IOErrorEnum.TIMED_OUT)
+        or any(error.matches(Gio.dbus_error_quark(), code) for code in (
+            Gio.DBusError.TIMEOUT, Gio.DBusError.TIMED_OUT, Gio.DBusError.NO_REPLY,
+            Gio.DBusError.DISCONNECTED)))
+    if dbus_timeout or isinstance(error, subprocess.TimeoutExpired) or message == 'Connection timed out; check the WiFi panel':
+        code = "outcome-unknown"
+    return {"error": True, "code": code, "message": message}
+
+
 if __name__ == "__main__":
     try:
         print(json.dumps(main()))
     except (GLib.Error, RuntimeError, ValueError, IndexError, OSError, subprocess.SubprocessError) as error:
-        print(json.dumps({"error": str(error)}))
+        if os.environ.get("EITR_BAR_ACTION") == "1":
+            print(json.dumps(action_error(error)))
+        else:
+            print(json.dumps({"error": str(error)}))
         sys.exit(1)

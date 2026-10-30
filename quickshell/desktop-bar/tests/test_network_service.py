@@ -20,12 +20,16 @@ class NetworkServiceTests(unittest.TestCase):
             scripts.mkdir()
             shutil.copy(bar / "scripts/bar-data.py", scripts / "bar-data.py")
             (scripts / "wifi-popup.py").write_text(
-                'import json, os, time\nfrom pathlib import Path\n'
+                'import json, os, sys, time\nfrom pathlib import Path\n'
                 'def read_state(action, interface):\n'
                 '    with Path(os.environ["NETWORK_TEST_LOG"]).open("a") as output: output.write(action + "\\n")\n'
                 '    time.sleep(0.15)\n'
                 '    fixtures = json.loads(Path(__file__).with_name("network.json").read_text())\n'
-                '    return fixtures["latency"] if action == "probe" else fixtures["connected"]\n')
+                '    return fixtures["latency"] if action == "probe" else fixtures["connected"]\n'
+                'if __name__ == "__main__":\n'
+                '    read_state(sys.argv[1], "")\n'
+                '    assert json.loads(sys.stdin.readline())["password"] == "fixture-secret"\n'
+                '    print(json.dumps({"ok": True}))\n')
             shutil.copy(bar / "tests/fixtures/network.json", scripts / "network.json")
             for name in ("network-reader.py", "network.json"):
                 shutil.copy(bar / "tests/fixtures" / name, root / name)

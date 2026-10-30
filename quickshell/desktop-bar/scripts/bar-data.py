@@ -3,8 +3,10 @@
 import asyncio
 import json
 import importlib.util
+from collections import deque
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+import os
 import signal
 import sys
 import time
@@ -26,6 +28,12 @@ class Broker:
         self.epoch = uuid.uuid4().hex
         self.latency_interface = None
         self.tokens = {}
+        self.actions = []
+        self.action_task = None
+        self.action_ids = set()
+        self.action_history = deque()
+        self.action_process = None
+        self.action_timeouts = {"enterprise": 120, "connect": 60, "scan": 15, "airplane": 30}
         self.jobs = set()
         self.states = {topic: dict(seq=0, status="loading", data={}, success=None, error="", task=None,
                                    pending=False, due=0, generation=0, durationMs=0, id="") for topic in INTERVALS}
@@ -117,7 +125,7 @@ class Broker:
             state["task"] = None
             state["durationMs"] = int((time.monotonic() - started) * 1000)
             state["due"] = time.monotonic() + INTERVALS[topic]
-            if timed_out and state["pending"] and self.wanted(topic):
+            if (timed_out or generation != state["generation"]) and state["pending"] and self.wanted(topic):
                 state["pending"] = False
                 state["due"] = time.monotonic()
             self.schedule_changed.set()
@@ -136,6 +144,115 @@ class Broker:
             state["pending"] = False
             self.refresh(topic)
 
+    def action_state(self):
+        self.emit(dict(v=1, op="domain", topic="network", epoch=self.epoch,
+                       busy=bool(self.action_task), name=self.actions[0]["name"] if self.actions else ""))
+
+    def action_result(self, request, code="", message=""):
+        self.emit(dict(v=1, op="result", topic="network", epoch=self.epoch,
+                       id=request, error=code, message=message, busy=bool(self.action_task)))
+
+    def enqueue_action(self, frame):
+        request, name, args = frame.get("id"), frame.get("name"), frame.get("args")
+        if not request or request in self.action_ids or not isinstance(args, dict):
+            self.action_result(request or "", "invalid-request")
+            return
+        if name not in ("connect", "disconnect", "forget", "power", "scan", "airplane"):
+            self.action_result(request, "invalid-action")
+            return
+        if not isinstance(args.get("path", ""), str) or args.get("extra") not in (None, "true", "false"):
+            self.action_result(request, "invalid-request")
+            return
+        if len(self.actions) >= 16:
+            self.action_result(request, "queue-full")
+            return
+        secret = args.get("input", {})
+        if not isinstance(secret, dict) or any(not isinstance(value, str) for value in secret.values()):
+            self.action_result(request, "invalid-request")
+            return
+        if len(self.action_history) >= 256:
+            self.action_ids.discard(self.action_history.popleft())
+        self.action_history.append(request)
+        self.action_ids.add(request)
+        self.actions.append(frame)
+        if self.action_task is None:
+            self.action_task = asyncio.create_task(self.run_actions())
+            self.jobs.add(self.action_task)
+            self.action_task.add_done_callback(self.jobs.discard)
+        self.action_state()
+
+    async def run_actions(self):
+        try:
+            while self.actions:
+                frame = self.actions[0]
+                for topic in ("network.summary", "network.details"):
+                    self.states[topic]["generation"] += 1
+                args, name = frame["args"], frame["name"]
+                secret = args.pop("input", {})
+                budget = self.action_timeouts.get("enterprise" if name == "connect" and secret.get("identity") else name, 10)
+                command = [sys.executable, str(Path(__file__).with_name("wifi-popup.py")), name, args.get("path", "")]
+                if name == "airplane":
+                    command = [sys.executable, str(Path(__file__).with_name("airplane.py")), "set"]
+                if args.get("extra") is not None:
+                    command.append(args["extra"])
+                code = ""
+                message = ""
+                process = None
+                try:
+                    process = await asyncio.create_subprocess_exec(*command, stdin=asyncio.subprocess.PIPE,
+                        stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.DEVNULL, start_new_session=True,
+                        limit=MAX_RESULT, env=dict(os.environ, EITR_BAR_ACTION="1"))
+                    self.action_process = process
+                    payload = (json.dumps(secret) + "\n").encode()
+                    secret = None
+                    async def exchange():
+                        process.stdin.write(payload)
+                        await process.stdin.drain()
+                        process.stdin.close()
+                        output = bytearray()
+                        while True:
+                            chunk = await process.stdout.read(min(8192, MAX_RESULT + 1 - len(output)))
+                            if not chunk:
+                                break
+                            output.extend(chunk)
+                            if len(output) > MAX_RESULT:
+                                raise ValueError("oversize-result")
+                        await process.wait()
+                        return json.loads(output)
+                    result = await asyncio.wait_for(exchange(), budget)
+                    payload = None
+                    if not isinstance(result, dict):
+                        code = "outcome-unknown"
+                    elif process.returncode or result.get("error"):
+                        code = result.get("code", "action-failed")
+                        message = result.get("message", "")
+                except TimeoutError:
+                    code = "outcome-unknown"
+                except asyncio.CancelledError:
+                    raise
+                except Exception:
+                    code = "backend-unavailable" if process is None else "outcome-unknown"
+                finally:
+                    secret = None
+                    payload = None
+                    if process is not None and process.returncode is None:
+                        try:
+                            os.killpg(process.pid, signal.SIGKILL)
+                        except ProcessLookupError:
+                            pass
+                        await process.wait()
+                    self.action_process = None
+                self.action_result(frame["id"], code, message)
+                self.actions.pop(0)
+                for topic in ("network.details", "network.summary"):
+                    self.states[topic]["generation"] += 1
+                    self.refresh(topic)
+                self.action_state()
+        finally:
+            self.actions.clear()
+            self.action_task = None
+            self.action_state()
+
     def request(self, frame):
         if not isinstance(frame, dict) or type(frame.get("v")) is not int or frame["v"] != 1:
             raise ValueError("invalid-version")
@@ -147,6 +264,9 @@ class Broker:
         if operation == "status":
             self.emit(dict(v=1, op="status", epoch=self.epoch, id=frame.get("id", ""), data=self.diagnostics()))
             return
+        if operation == "action" and topic == "network":
+            self.enqueue_action(frame)
+            return
         if topic not in self.states:
             raise ValueError("invalid-topic")
         token = frame.get("token")
@@ -157,6 +277,7 @@ class Broker:
                 raise ValueError("token-conflict")
             fresh = token not in self.tokens
             self.tokens[token] = topic
+            self.action_state()
             self.snapshot(topic, token)
             if fresh:
                 self.refresh(topic)
@@ -196,6 +317,8 @@ class Broker:
         for task in tasks:
             task.cancel()
         await asyncio.gather(*tasks, return_exceptions=True)
+        self.actions.clear()
+        self.action_task = None
         self.executor.shutdown(wait=False, cancel_futures=True)
 
 

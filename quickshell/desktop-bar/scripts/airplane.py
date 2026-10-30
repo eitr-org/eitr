@@ -48,5 +48,11 @@ if __name__ == '__main__':
         result = set_enabled(sys.argv[2] == 'true') if len(sys.argv) == 3 and sys.argv[1] == 'set' else status()
         print(json.dumps(result))
     except (OSError, ValueError, subprocess.SubprocessError) as error:
-        print(json.dumps({'error': str(error)}))
+        if os.environ.get("EITR_BAR_ACTION") == "1":
+            message = 'Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.'
+            print(json.dumps({"error": True,
+                              "code": "outcome-unknown" if isinstance(error, subprocess.TimeoutExpired) else "action-failed",
+                              "message": message if str(error) == tr(message) else ""}))
+        else:
+            print(json.dumps({'error': str(error)}))
         sys.exit(1)

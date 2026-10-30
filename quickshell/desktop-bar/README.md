@@ -860,4 +860,4 @@ allows explicit recovery; `eitr-shell desktop-bar ipc call -- data status` retur
 ages, error codes, in-flight/pending counts, observers and restart count, without
 network identities or raw data. Each status call requests diagnostics once and
 returns the diagnostics received from the previous call; there is no status polling. Native desktop controls remain independent.
-Actions and QR still use their existing processes; writes are never replayed.
+Network actions use request IDs and a bounded ordered broker queue, including airplane writes. Busy state is shared across screens; results and error codes return only to the originating panel. Each helper receives credentials on stdin and is killed and reaped at its operation deadline (enterprise: 120 s). Timeout or broker death means outcome unknown: reconcile state and retry explicitly. Writes are never replayed. QR remains an ephemeral helper outside the broker.

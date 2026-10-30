@@ -177,20 +177,6 @@ class FocusTests(unittest.TestCase):
         self.assertNotIn('decoration.rounding', restored)
         self.assertFalse(json.loads(journal.read_text())['pending'])
 
-    def test_wired_status_and_wifi_fallback_are_read_only(self):
-        from eitr_focus import network_status
-        interfaces = Path(self.temporary.name) / 'net'
-        wired = interfaces / 'test-wired'
-        (wired / 'device').mkdir(parents=True)
-        (wired / 'operstate').write_text('up\n')
-        with patch('eitr_focus.subprocess.run') as runner:
-            self.assertEqual(network_status(interfaces), {'text': '󰈀'})
-            runner.assert_not_called()
-        (wired / 'operstate').write_text('down\n')
-        with patch('eitr_focus.subprocess.run', return_value=subprocess.CompletedProcess([], 0, '{"text":"wifi"}')) as runner:
-            self.assertEqual(network_status(interfaces), {'text': 'wifi'})
-            self.assertTrue(runner.call_args.args[0][1].endswith('wifi-status.sh'))
-
     def test_lua_strings_preserve_unicode_and_literal_code(self):
         import shutil
         if not shutil.which('lua'):

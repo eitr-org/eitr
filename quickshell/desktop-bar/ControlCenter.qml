@@ -71,7 +71,7 @@ ThemedPopup {
     leftAligned: true
     function refresh() {
         keyboardControl.refresh(); displayControl.refresh(); displayControl.refreshNightlight(); displayControl.refreshPower(); displayControl.refreshDisplays();
-        if (!airplaneQuery.running && !airplaneOperation.running) airplaneQuery.running = true;
+        if (!airplaneQuery.running && !center.wifiControl.busy) airplaneQuery.running = true;
         if (!crashQuery.running && !crashOperation.running) crashQuery.running = true;
         if (!gameModeQuery.running && !gameModeOperation.running) gameModeQuery.running = true;
     }
@@ -103,7 +103,12 @@ ThemedPopup {
     }
     property string networkToken: ""
     property string networkMessage: ""
-    function networkActionFinished(error) { networkMessage = error; }
+    property string networkErrorCode: ""
+    function networkActionFinished(error, code) { networkErrorCode = code || ""; networkMessage = error; }
+    Connections {
+        target: center.wifiControl
+        function onBusyChanged() { if (center.opened && !center.wifiControl.busy) center.refresh(); }
+    }
     Component.onDestruction: { wifiControl.release(networkToken); wifiControl.detach(center); }
     onOpenedChanged: {
         if (opened) networkToken = wifiControl.observe(center);
@@ -251,14 +256,6 @@ ThemedPopup {
         }
     }
     Process {
-        id: airplaneOperation
-        stdout: StdioCollector { id: airplaneResult }
-        onExited: {
-            try { let result = JSON.parse(airplaneResult.text); center.actionError = result.error || ""; if (!result.error) center.airplane = result; } catch (e) { center.actionError = Eitr.I18n.tr("Could not change airplane mode"); }
-            center.refresh();
-        }
-    }
-    Process {
         id: chatStatus
         command: ["python3", Eitr.Paths.code("quickshell/desktop-bar/scripts/assistant-chat.py"), "status"]
         stdout: StdioCollector { id: chatStatusOutput }
@@ -367,11 +364,11 @@ ThemedPopup {
                             }
                             ToggleTile {
                                 title: Eitr.I18n.tr("Airplane"); glyph: "󰀝"; selected: !!center.airplane.enabled
-                                available: !!center.airplane.available && !airplaneOperation.running
-                                onClicked: { center.actionError = ""; airplaneOperation.command = ["python3", Quickshell.shellDir + "/scripts/airplane.py", "set", center.airplane.enabled ? "false" : "true"]; airplaneOperation.running = true; }
+                                available: !!center.airplane.available && !center.wifiControl.busy
+                                onClicked: { center.wifiControl.act(center, "airplane", "", center.airplane.enabled ? "false" : "true") }
                             }
                         }
-                        Text { visible: (center.networkMessage || center.wifiControl.details.error || "") !== ""; width: parent.width; wrapMode: Text.WordWrap; text: (center.networkMessage || center.wifiControl.details.error || ""); color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                        Text { visible: (center.networkMessage || center.wifiControl.details.error || "") !== ""; width: parent.width; wrapMode: Text.WordWrap; text: center.networkMessage ? center.wifiControl.actionMessage(center.networkMessage) : (center.wifiControl.details.error || ""); color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
                         Section { text: Eitr.I18n.tr("Quick Actions"); width: parent.width }
                         GridLayout {
                             width: parent.width; columns: 2; columnSpacing: PanelStyle.selectionActionGap; rowSpacing: PanelStyle.selectionRowGap

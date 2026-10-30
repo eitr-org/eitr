@@ -17,6 +17,19 @@ except ImportError as error:
     raise unittest.SkipTest(f"wifi-popup.py needs GObject: {error}")
 
 
+class BrokerActionErrorTests(unittest.TestCase):
+    def test_timeout_is_unknown_and_raw_detail_is_not_forwarded(self):
+        error = wifi.GLib.Error.new_literal(wifi.Gio.io_error_quark(), "private detail", wifi.Gio.IOErrorEnum.TIMED_OUT)
+        self.assertEqual(wifi.action_error(error), {"error": True, "code": "outcome-unknown", "message": ""})
+        self.assertNotIn("private detail", json.dumps(wifi.action_error(RuntimeError("private detail"))))
+
+    def test_translated_validation_keeps_its_source_key(self):
+        source = 'Enter the WiFi password'
+        with patch.object(wifi, "tr", side_effect=lambda message: "translated:" + message):
+            self.assertEqual(wifi.action_error(ValueError("translated:" + source)),
+                             {"error": True, "code": "action-failed", "message": source})
+
+
 class KnownNetworkTests(unittest.TestCase):
     def setUp(self):
         self.saved = {"/known": {wifi.PREFIX + "KnownNetwork": {"Name": "Hotspot", "Type": "psk"}}}

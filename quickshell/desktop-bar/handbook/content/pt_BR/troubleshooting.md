@@ -31,7 +31,7 @@ A barra compartilha um único processo de leitura de WiFi entre as telas. Se ele
 encerrar, os últimos dados válidos ficam marcados como desatualizados enquanto o
 processo tenta reiniciar com intervalos crescentes. Após seis tentativas sem
 sucesso, ele aguarda uma nova tentativa explícita. Os controles nativos continuam
-disponíveis; as ações de WiFi e a geração de QR mantêm seus auxiliares separados.
+disponíveis. As ações de WiFi compartilham uma fila ordenada e o estado de ocupado entre as telas. Se uma ação exceder o prazo ou o processo encerrar, o resultado é desconhecido: atualize o estado antes de tentar novamente explicitamente. As escritas nunca são repetidas automaticamente. A geração de QR mantém seu auxiliar separado.
 
 Para consultar o estado técnico, use
 `eitr-shell desktop-bar ipc call -- data status`. A saída informa a idade dos

@@ -1357,11 +1357,6 @@
       "digest": "file:1ae7461faa0592e59cb42df81cacbd17a1ff1a93c3ff46774492a6f301fc9d5f",
       "mode": 420
     },
-    "quickshell/desktop-bar/scripts/wifi-status.sh": {
-      "class": "C",
-      "digest": "file:88e552c4aab67e5791d0da0800d63daca7c32d59dac6a3fa6532fa8f344ea56a",
-      "mode": 493
-    },
     "quickshell/desktop-bar/scripts/workspace-color.py": {
       "class": "C",
       "digest": "file:b00c4542d4f57fa8d48aa0e77a5adafd4d42747e0e1506fd43c09072b40ddf09",

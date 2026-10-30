@@ -37,7 +37,8 @@ ThemedPopup {
         target: menu.networkService
         function onDetailsChanged() { menu.receiveDetails(); }
     }
-    function networkActionFinished(error) { message = error; }
+    property string networkErrorCode: ""
+    function networkActionFinished(error, code) { networkErrorCode = code || ""; message = error; }
     function networkQrFinished(result) {
         if (!sharing) return;
         qrImage = result.image || "";
@@ -54,7 +55,7 @@ ThemedPopup {
     ]
     property var selectedNetwork: null
     property string message: ""
-    readonly property string displayMessage: message || networkService.details.error || ""
+    readonly property string displayMessage: message ? networkService.actionMessage(message) : (networkService.details.error || "")
     property string secret: ""
     property string backend: "iwd"
     property string connectDevicePath: ""

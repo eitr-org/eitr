@@ -31,8 +31,7 @@ La barre partage un seul processus de lecture WiFi entre les écrans. S’il se
 termine, les dernières données valides restent marquées comme périmées pendant
 les tentatives de redémarrage, de plus en plus espacées. Après six tentatives
 infructueuses, il attend une relance explicite. Les commandes natives restent
-disponibles ; les actions WiFi et la génération de QR gardent leurs auxiliaires
-séparés.
+disponibles. Les actions WiFi partagent une file ordonnée et un état occupé entre les écrans. Si une action dépasse son délai ou si le processus s’arrête, son résultat est inconnu : actualisez l’état avant de réessayer explicitement. Les écritures ne sont jamais répétées automatiquement. La génération de QR conserve son auxiliaire séparé.
 
 Pour consulter l’état technique, utilisez
 `eitr-shell desktop-bar ipc call -- data status`. La sortie indique l’âge des

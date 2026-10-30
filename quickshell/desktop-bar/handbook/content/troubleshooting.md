@@ -44,7 +44,7 @@ the generator as well as generated output if a change disappears later.
 The bar shares one WiFi read broker across screens. If it exits, the last good
 network data remains marked stale while the broker retries with increasing delays.
 After six failed retries it waits for an explicit retry. Native controls remain
-available; WiFi actions and QR generation retain their separate helpers.
+available. WiFi actions share an ordered queue and busy state across screens. If an action times out or the broker exits, its outcome is unknown: refresh the state before explicitly retrying. Writes are never replayed automatically. QR generation remains a separate helper.
 
 For a technical status snapshot, use
 `eitr-shell desktop-bar ipc call -- data status`. It reports topic ages,
