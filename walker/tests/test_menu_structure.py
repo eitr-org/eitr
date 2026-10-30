@@ -135,7 +135,7 @@ class MenuStructureTests(unittest.TestCase):
             self.assertIn(".submenu .submenu-marker {", css, source)
 
     def test_marked_rows_become_submenu_rows(self):
-        for source in ("elephant/scoped-menu.lua", "elephant/search-index-entries.lua"):
+        for source in ("elephant/row-entry.lua",):
             code = (ROOT / source).read_text()
             self.assertIn('State = submenu and {"submenu"} or nil', code, source)
             self.assertIn("Subtext = not submenu and", code, source)

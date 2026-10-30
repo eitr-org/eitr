@@ -5,6 +5,7 @@ local paths = dofile((os.getenv("EITR_LIBRARY_ROOT") or "/usr/share/eitr/lib") .
 -- inside submenus. jsonDecode exists only once Elephant queries the menu, so the
 -- rows are read then, not when the file loads.
 local search = dofile(paths.code("elephant/search-index-entries.lua"))
+local row_entry = dofile(paths.code("elephant/row-entry.lua"))
 local i18n = dofile(paths.code("elephant/i18n.lua"))
 
 return function(name, configure)
@@ -20,12 +21,10 @@ return function(name, configure)
         local battery = (name == "system-devices" or name == "battery-limit") and dofile(paths.code("elephant/battery-state.lua"))() or {}
         for _, row in ipairs(ok and rows or {}) do
             if (row.submenu ~= "battery-limit" and name ~= "battery-limit") or battery.available then
-                -- A ">" subtext marks a row that opens a submenu: the layout draws the
-                -- marker on the right, leaving the subtitle line for descriptions.
-                local submenu = row.subtext == ">"
-                table.insert(entries, {Text = row.text, Subtext = not submenu and row.subtext or nil,
-                    State = submenu and {"submenu"} or nil, Keywords = row.keywords,
-                    Icon = row.icon, SubMenu = row.submenu, Actions = row.actions})
+                local entry = row_entry(row)
+                entry.SubMenu = row.submenu
+                entry.Actions = row.actions
+                table.insert(entries, entry)
             end
         end
         if configure then entries = configure(entries) end

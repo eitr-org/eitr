@@ -4,6 +4,7 @@ local paths = dofile((os.getenv("EITR_LIBRARY_ROOT") or "/usr/share/eitr/lib") .
 -- own rows are left out: its definition already lists them.
 local quote = dofile(paths.code("elephant/shell-quote.lua"))
 local helper = paths.code("walker/scripts/menus/search-index.py")
+local row_entry = dofile(paths.code("elephant/row-entry.lua"))
 local runtime = os.getenv("XDG_RUNTIME_DIR")
 
 local function in_scope(row, scope)
@@ -28,10 +29,9 @@ return function(scope)
     local battery = dofile(paths.code("elephant/battery-state.lua"))()
     for _, row in ipairs(index.rows) do
         if in_scope(row, scope) and (battery.available or (row.submenu ~= "battery-limit" and row.provider ~= "menus:battery-limit")) then
-            local submenu = row.subtext == ">"
-            local entry = {Text = row.text, Subtext = not submenu and row.subtext or nil,
-                State = submenu and {"submenu"} or nil, Icon = row.icon, Value = row.key,
-                Keywords = row.keywords, Provider = row.provider}
+            local entry = row_entry(row)
+            entry.Value = row.key
+            entry.Provider = row.provider
             if row.submenu then
                 -- Walker opens it like any submenu row, so Shift+Backspace leads to its parent.
                 entry.SubMenu = row.submenu

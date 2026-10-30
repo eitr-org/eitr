@@ -6,7 +6,6 @@
 MENU is a static Elephant menu (elephant/menus/MENU.toml) or a scoped menu's rows
 (elephant/menu-rows/MENU.json). The command starts detached and the helper exits.
 """
-import json
 import os
 from pathlib import Path
 import subprocess
@@ -21,19 +20,8 @@ for _eitr_parent in Path(__file__).resolve().parents:
         sys.path.insert(0, str(_eitr_lib))
         break
 from eitr_paths import code  # noqa: E402
+from eitr_menu import rows
 from eitr_i18n import tr
-
-
-def rows(menu):
-    if not menu.replace("-", "").isalnum():
-        raise ValueError('Invalid menu name')
-    static = code(f"elephant/menus/{menu}.toml")
-    if static.is_file():
-        return tomllib.loads(static.read_text()).get("entries", [])
-    scoped = code(f"elephant/menu-rows/{menu}.json")
-    if scoped.is_file():
-        return json.loads(scoped.read_text())
-    raise ValueError('No menu named {menu}'.format(menu=f'{menu}'))
 
 
 def command(menu, text):

@@ -216,6 +216,7 @@
     {"pattern": "walker/config.toml", "class": "D", "runtime": true},
     {"pattern": "elephant/**/*.toml", "class": "C", "runtime": true},
     {"pattern": "elephant/**/*.lua", "class": "C", "runtime": true},
+    {"pattern": "elephant/shortcut-reference.json", "class": "C", "runtime": true},
     {"pattern": "elephant/menu-rows/*.json", "class": "C", "runtime": true},
     {"pattern": "themes/**", "class": "D", "runtime": true},
     {"pattern": "distro/ASSISTANTS.md", "class": "D", "runtime": false},

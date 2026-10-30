@@ -61,8 +61,7 @@ class ContextTests(unittest.TestCase):
                     self.assertLessEqual(len(context.chat_excerpts(turns, locale=locale, budget=budget).encode()), budget)
 
     def test_primer_reads_shortcuts(self):
-        with patch.object(context, 'code') as source:
-            source.return_value.read_text.return_value = '  SUPER + A                 Example assistant'
+        with patch('eitr_menu.shortcut_options', return_value='  SUPER + A                 Example assistant'):
             self.assertIn('SUPER + A: Example assistant', context.primer())
         self.assertIn('SUPER + F1: Toggle EITR handbook', context.primer())
         self.assertIn('SUPER + Print: Frozen selection', context.primer())

@@ -7,7 +7,6 @@ import hashlib
 import json
 import os
 from pathlib import Path
-import re
 
 import sys
 for _eitr_parent in Path(__file__).resolve().parents:
@@ -17,16 +16,15 @@ for _eitr_parent in Path(__file__).resolve().parents:
     if (_eitr_lib / "eitr_paths.py").is_file():
         sys.path.insert(0, str(_eitr_lib))
         break
-from eitr_paths import code, config as user_config
+from eitr_paths import code
 from eitr_battery import system_batteries
 from eitr_i18n import tr
 from eitr_i18n import select_locale, table
 import subprocess
 import tempfile
 import time
-import tomllib
+from eitr_menu import definitions, row_files, effective_files, parents as menu_parents
 
-CONFIG = user_config("elephant/menus")
 RUNTIME = Path(os.environ.get('XDG_RUNTIME_DIR', f'/run/user/{os.getuid()}')) / 'eitr-search'
 INDEX = RUNTIME / 'index.json'
 MAX_AGE = 60
@@ -34,21 +32,10 @@ EXCLUDED = {'clipboard', 'search-index', 'plugin-actions', 'plugin-visuals'}
 CLOUD_MENUS = code('walker/scripts/menus/cloud/navigation-menus.json')
 
 
-def effective_files(directory=None):
-    directories = [directory] if directory is not None else [code('elephant/menus'), CONFIG]
-    files = {}
-    for root in directories:
-        if root.is_dir():
-            for path in root.iterdir():
-                if path.suffix in {'.toml', '.lua'}:
-                    files[path.stem] = path
-    return sorted(files.values())
-
 
 # Keyboard layouts are a long list that crowds every search; the Keyboard row that
 # opens them stays findable.
 UNSEARCHED = {'keyboard', 'keyboard-add'}
-PARENT = re.compile(r'^\s*Parent\s*=\s*"([^"]+)"', re.M)
 
 
 def below_cloud_accounts(files):
@@ -56,12 +43,7 @@ def below_cloud_accounts(files):
     keeps the account lists (aws-profiles, *-contexts); what lies below them is
     searched only inside the opened menu."""
     cloud = set(json.loads(CLOUD_MENUS.read_text()))
-    parents = {}
-    for path in files:
-        if path.suffix == '.lua':
-            match = PARENT.search(path.read_text(errors='replace'))
-            if match:
-                parents[path.stem] = match.group(1)
+    parents = menu_parents(files, {})
     below = set()
     for name in parents:
         current, seen = name, set()
@@ -81,37 +63,8 @@ def providers(directory=None):
             if path.suffix in {'.toml', '.lua'} and path.stem not in excluded]
 
 
-def row_files(directory=None):
-    """Lua menus built on elephant/scoped-menu.lua keep their rows in elephant/menu-rows."""
-    rows = (directory.parent if directory is not None else code('elephant')) / 'menu-rows'
-    return sorted(rows.glob('*.json')) if rows.is_dir() else []
-
-
-def definitions(directory=None):
-    """{menu name: definition} for every menu whose rows are data: TOML menus, and the
-    Lua menus whose rows are elephant/menu-rows/<name>.json (their Parent is in the Lua)."""
-    result = {}
-    for path in effective_files(directory):
-        if path.suffix == '.toml':
-            data = tomllib.loads(path.read_text())
-            result[data.get('name', path.stem)] = data
-    for path in row_files(directory):
-        result[path.stem] = {'entries': json.loads(path.read_text())}
-    return result
-
-
 def parents(directory=None):
-    """{menu name: parent menu} from the data menus and the Lua menus' Parent globals."""
-    result = {}
-    for path in effective_files(directory):
-        if path.suffix == '.lua':
-            match = re.search(r'^Parent\s*=\s*"([^"]+)"', path.read_text(), re.M)
-            if match:
-                result[path.stem] = match[1]
-    for name, data in definitions(directory).items():
-        if data.get('parent'):
-            result[name] = data['parent']
-    return result
+    return menu_parents(effective_files(directory), definitions(directory))
 
 
 def ancestors(name, parent_of):
@@ -184,7 +137,8 @@ def read_index():
 def fresh(data):
     if not data or data.get('locale') != select_locale() or time.time() - data.get('updated', 0) > MAX_AGE:
         return False
-    newest = max((path.stat().st_mtime for path in [*effective_files(), *row_files()]), default=0)
+    newest = max((path.stat().st_mtime for path in [*effective_files(), *row_files(),
+                 code('elephant/shortcut-reference.json')]), default=0)
     return data['updated'] >= newest
 
 

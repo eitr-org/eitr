@@ -2,9 +2,8 @@
 """Read local remote-access status and expose the menus' existing actions."""
 import eitr_bootstrap
 from eitr_i18n import tr, table
-import importlib.util
+from eitr_menu import rows
 import json
-from pathlib import Path
 import shutil
 import subprocess
 import sys
@@ -15,15 +14,11 @@ def query(arguments):
 
 
 def menu_actions(menu):
-    path = Path(__file__).with_name('menu-action.py')
-    specification = importlib.util.spec_from_file_location('remote_menu_actions', path)
-    module = importlib.util.module_from_spec(specification)
-    specification.loader.exec_module(module)
     messages = table('menus')
     setup = menu + '-setup'
-    sources = [(menu, row) for row in module.rows(menu)]
+    sources = [(menu, row) for row in rows(menu)]
     if menu in ('remote-away', 'remote-share'):
-        sources += [(setup, row) for row in module.rows(setup)]
+        sources += [(setup, row) for row in rows(setup)]
     return [{'menu': owner, 'source': row['text'], 'title': messages.get(row['text'], row['text']),
              'description': messages.get(row.get('subtext', ''), row.get('subtext', '')),
              'icon': row.get('icon', '')}

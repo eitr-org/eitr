@@ -1,7 +1,7 @@
 """Elephant menu definitions for the tests: TOML menus, and Lua menus (name,
 parent and icon from the Lua file; rows from elephant/menu-rows/<name>.json when
 the menu's rows are data)."""
-import json
+from eitr_menu import rows as menu_rows
 from pathlib import Path
 import re
 import tomllib
@@ -18,7 +18,7 @@ def load(name):
     lua = (MENUS / f"{name}.lua").read_text()
     rows = ROWS / f"{name}.json"
     # Other Lua menus generate their rows; only their metadata is static.
-    data = {"name": name, "entries": json.loads(rows.read_text()) if rows.is_file() else []}
+    data = {"name": name, "entries": menu_rows(name) if rows.is_file() else []}
     for key, field in (("NamePretty", "name_pretty"), ("Parent", "parent"), ("Icon", "icon")):
         match = re.search(rf'^{key} = (?:i18n\.tr\()?"([^"]*)"', lua, re.M)
         if match:

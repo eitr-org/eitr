@@ -67,8 +67,8 @@ def blocks(html):
 
 
 def shortcuts():
-    source = (ROOT / "walker/scripts/menus/shortcuts.sh").read_text()
-    options = re.search(r'^options="(.*?)"$', source, re.MULTILINE | re.DOTALL)[1]
+    from eitr_menu import shortcut_options
+    options = shortcut_options()
     lines = ["# Shortcuts", "", "Keyboard and mouse shortcuts share this reference. SUPER is the Windows/Command-logo key.", "",
              "Open this handbook with **SUPER + F1**. Search chapters with **Ctrl + F**, scroll with **Page Up/Page Down**; Escape closes it.", "",
              "## Keyboard", "", "Local hardware overrides may add bindings.", ""]

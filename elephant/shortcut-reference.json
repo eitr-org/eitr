@@ -1,0 +1,457 @@
+[
+  {
+    "heading": "󰌌  Launchers"
+  },
+  {
+    "description": "Open terminal",
+    "command": "\"$EITR_CODE_ROOT/walker/bin/menu-path/kitty\" &",
+    "row": "Open Terminal"
+  },
+  {
+    "key": "SUPER + Ctrl + Enter",
+    "description": "Open tmux",
+    "command": "\"$EITR_CODE_ROOT/walker/bin/app-launch\" --terminal -e tmux new-session -A -s main &"
+  },
+  {
+    "description": "Search apps",
+    "row": "Search Apps"
+  },
+  {
+    "key": "SUPER + /",
+    "description": "Show shortcuts",
+    "command": "\"$MENUS_DIR/shortcuts.sh\""
+  },
+  {
+    "key": "SUPER + Shift + /",
+    "description": "Show LazyVim commands",
+    "command": "\"$MENUS_DIR/vim.sh\""
+  },
+  {
+    "description": "Open file manager",
+    "row": "File Manager",
+    "background": true
+  },
+  {
+    "key": "SUPER + F",
+    "description": "Open main menu",
+    "command": "\"$EITR_CODE_ROOT/walker/bin/walker\" --provider menus:main"
+  },
+  {
+    "key": "SUPER + F1",
+    "description": "Toggle EITR handbook",
+    "command": "bash \"$EITR_CODE_ROOT/quickshell/desktop-bar/scripts/handbook.sh\" toggle"
+  },
+  {
+    "description": "Toggle control center",
+    "row": "Desktop Control Center"
+  },
+  {
+    "description": "Search Google",
+    "row": "Search Google"
+  },
+  {
+    "key": "SUPER + C",
+    "description": "Copy",
+    "command": "wtype -M ctrl c -m ctrl"
+  },
+  {
+    "key": "SUPER + X",
+    "description": "Cut",
+    "command": "wtype -M ctrl x -m ctrl"
+  },
+  {
+    "key": "SUPER + V",
+    "description": "Paste",
+    "command": "wtype -M ctrl v -m ctrl"
+  },
+  {
+    "description": "Paste clipboard history",
+    "row": "Clipboard History"
+  },
+  {
+    "description": "Fuzzy-find files",
+    "command": "\"$EITR_CODE_ROOT/walker/bin/menu-path/kitty\" --class fif-terminal -e python3 \"$EITR_CODE_ROOT/walker/scripts/actions/task-terminal.py\" zsh -c 'source ~/.zshrc; fif' &",
+    "row": "Fuzzy Find Files"
+  },
+  {
+    "description": "Fuzzy-find text",
+    "command": "\"$EITR_CODE_ROOT/walker/bin/menu-path/kitty\" --class fifs-terminal -e python3 \"$EITR_CODE_ROOT/walker/scripts/actions/task-terminal.py\" zsh -c 'source ~/.zshrc; fifs; exit 0' &",
+    "row": "Fuzzy Find Text"
+  },
+  {
+    "key": "SUPER + D (hold)",
+    "description": "Dictate, release to type",
+    "command": "notify-send --app-name=Dictation \"Offline dictation\" \"Hold SUPER + D in a text field, speak, then release.\""
+  },
+  {
+    "key": "SUPER + Shift + D (hold)",
+    "description": "Voice reminders, release to send",
+    "command": "python3 \"$ACTIONS_DIR/tools/voice-command.py\" typed"
+  },
+  {
+    "heading": "󰖲  Windows"
+  },
+  {
+    "description": "Close active window",
+    "row": "Close Window"
+  },
+  {
+    "description": "Toggle floating and pin",
+    "command": "hyprctl --batch \"dispatch togglefloating; dispatch pin\"",
+    "row": "Toggle Floating And Pin"
+  },
+  {
+    "description": "Toggle fullscreen",
+    "command": "hyprctl dispatch fullscreen",
+    "row": "Toggle Fullscreen"
+  },
+  {
+    "key": "SUPER + Shift + P",
+    "description": "Toggle pseudo tiling",
+    "command": "hyprctl dispatch pseudo"
+  },
+  {
+    "description": "Open default AI assistant (Development)",
+    "row": "Default Assistant"
+  },
+  {
+    "key": "SUPER + R",
+    "description": "Toggle split direction",
+    "command": "hyprctl dispatch layoutmsg togglesplit"
+  },
+  {
+    "key": "SUPER + Shift + R",
+    "description": "Rotate split direction",
+    "command": "hyprctl dispatch layoutmsg rotatesplit"
+  },
+  {
+    "heading": "󰆾  Focus"
+  },
+  {
+    "key": "SUPER + H",
+    "description": "Focus left",
+    "command": "hyprctl dispatch movefocus l"
+  },
+  {
+    "key": "SUPER + J",
+    "description": "Focus down",
+    "command": "hyprctl dispatch movefocus d"
+  },
+  {
+    "key": "SUPER + K",
+    "description": "Focus up",
+    "command": "hyprctl dispatch movefocus u"
+  },
+  {
+    "key": "SUPER + L",
+    "description": "Focus right",
+    "command": "hyprctl dispatch movefocus r"
+  },
+  {
+    "heading": "󰙀  Move And Resize"
+  },
+  {
+    "key": "SUPER + Shift + H",
+    "description": "Resize narrower",
+    "command": "hyprctl dispatch resizeactive -15 0"
+  },
+  {
+    "key": "SUPER + Shift + J",
+    "description": "Resize taller",
+    "command": "hyprctl dispatch resizeactive 0 15"
+  },
+  {
+    "key": "SUPER + Shift + K",
+    "description": "Resize shorter",
+    "command": "hyprctl dispatch resizeactive 0 -15"
+  },
+  {
+    "key": "SUPER + Shift + L",
+    "description": "Resize wider",
+    "command": "hyprctl dispatch resizeactive 15 0"
+  },
+  {
+    "key": "SUPER + Ctrl + U",
+    "description": "Quarter-size window",
+    "command": "\"$EITR_CODE_ROOT/hypr/scripts/window-quarter-size.sh\""
+  },
+  {
+    "key": "SUPER + Ctrl + H",
+    "description": "Move window left",
+    "command": "hyprctl dispatch movewindow l"
+  },
+  {
+    "key": "SUPER + Ctrl + J",
+    "description": "Move window down",
+    "command": "hyprctl dispatch movewindow d"
+  },
+  {
+    "key": "SUPER + Ctrl + K",
+    "description": "Move window up",
+    "command": "hyprctl dispatch movewindow u"
+  },
+  {
+    "key": "SUPER + Ctrl + L",
+    "description": "Move window right",
+    "command": "hyprctl dispatch movewindow r"
+  },
+  {
+    "heading": "󰎤  Workspaces"
+  },
+  {
+    "key": "SUPER + Tab",
+    "description": "Toggle workspace overview",
+    "command": "eitr-shell desktop-bar ipc call -- panels show overview"
+  },
+  {
+    "key": "SUPER + 1",
+    "description": "Go to workspace 1",
+    "command": "hyprctl dispatch workspace 1"
+  },
+  {
+    "key": "SUPER + 2",
+    "description": "Go to workspace 2",
+    "command": "hyprctl dispatch workspace 2"
+  },
+  {
+    "key": "SUPER + 3",
+    "description": "Go to workspace 3",
+    "command": "hyprctl dispatch workspace 3"
+  },
+  {
+    "key": "SUPER + 4",
+    "description": "Go to workspace 4",
+    "command": "hyprctl dispatch workspace 4"
+  },
+  {
+    "key": "SUPER + 5",
+    "description": "Go to workspace 5",
+    "command": "hyprctl dispatch workspace 5"
+  },
+  {
+    "key": "SUPER + 6",
+    "description": "Go to workspace 6",
+    "command": "hyprctl dispatch workspace 6"
+  },
+  {
+    "key": "SUPER + 7",
+    "description": "Go to workspace 7",
+    "command": "hyprctl dispatch workspace 7"
+  },
+  {
+    "key": "SUPER + 8",
+    "description": "Go to workspace 8",
+    "command": "hyprctl dispatch workspace 8"
+  },
+  {
+    "key": "SUPER + 9",
+    "description": "Go to workspace 9",
+    "command": "hyprctl dispatch workspace 9"
+  },
+  {
+    "key": "SUPER + 0",
+    "description": "Go to workspace 10",
+    "command": "hyprctl dispatch workspace 10"
+  },
+  {
+    "key": "SUPER + Shift + 1",
+    "description": "Move window to workspace 1",
+    "command": "hyprctl dispatch movetoworkspace 1"
+  },
+  {
+    "key": "SUPER + Shift + 2",
+    "description": "Move window to workspace 2",
+    "command": "hyprctl dispatch movetoworkspace 2"
+  },
+  {
+    "key": "SUPER + Shift + 3",
+    "description": "Move window to workspace 3",
+    "command": "hyprctl dispatch movetoworkspace 3"
+  },
+  {
+    "key": "SUPER + Shift + 4",
+    "description": "Move window to workspace 4",
+    "command": "hyprctl dispatch movetoworkspace 4"
+  },
+  {
+    "key": "SUPER + Shift + 5",
+    "description": "Move window to workspace 5",
+    "command": "hyprctl dispatch movetoworkspace 5"
+  },
+  {
+    "key": "SUPER + Shift + 6",
+    "description": "Move window to workspace 6",
+    "command": "hyprctl dispatch movetoworkspace 6"
+  },
+  {
+    "key": "SUPER + Shift + 7",
+    "description": "Move window to workspace 7",
+    "command": "hyprctl dispatch movetoworkspace 7"
+  },
+  {
+    "key": "SUPER + Shift + 8",
+    "description": "Move window to workspace 8",
+    "command": "hyprctl dispatch movetoworkspace 8"
+  },
+  {
+    "key": "SUPER + Shift + 9",
+    "description": "Move window to workspace 9",
+    "command": "hyprctl dispatch movetoworkspace 9"
+  },
+  {
+    "key": "SUPER + Shift + 0",
+    "description": "Move window to workspace 10",
+    "command": "hyprctl dispatch movetoworkspace 10"
+  },
+  {
+    "key": "SUPER + S",
+    "description": "Toggle special workspace",
+    "command": "hyprctl dispatch togglespecialworkspace magic"
+  },
+  {
+    "key": "SUPER + Shift + S",
+    "description": "Move window to special workspace",
+    "command": "hyprctl dispatch movetoworkspace special:magic"
+  },
+  {
+    "key": "SUPER + Ctrl + S",
+    "description": "Move window to workspace 1",
+    "command": "hyprctl dispatch movetoworkspace 1"
+  },
+  {
+    "key": "SUPER + Mouse Wheel Down",
+    "description": "Next existing workspace",
+    "command": "hyprctl dispatch workspace e+1"
+  },
+  {
+    "key": "SUPER + Mouse Wheel Up",
+    "description": "Previous existing workspace",
+    "command": "hyprctl dispatch workspace e-1"
+  },
+  {
+    "key": "SUPER + Alt + H",
+    "description": "Previous existing workspace",
+    "command": "hyprctl dispatch workspace e-1"
+  },
+  {
+    "key": "SUPER + Alt + L",
+    "description": "Next existing workspace",
+    "command": "hyprctl dispatch workspace e+1"
+  },
+  {
+    "heading": "  Capture And Desktop"
+  },
+  {
+    "description": "Full screenshot (floating editor)",
+    "row": "Screenshot Full"
+  },
+  {
+    "description": "Frozen selection (floating editor)",
+    "row": "Screenshot Selection"
+  },
+  {
+    "key": "SUPER + Shift + Print",
+    "description": "Window screenshot (floating editor)",
+    "command": "\"$ACTIONS_DIR/capture/screenshot.sh\" window edit"
+  },
+  {
+    "key": "SUPER + Ctrl + Print",
+    "description": "OCR text from selection",
+    "command": "\"$ACTIONS_DIR/capture/text.sh\""
+  },
+  {
+    "key": "SUPER + Alt + Print",
+    "description": "Decode QR from selection",
+    "command": "\"$ACTIONS_DIR/capture/qr.sh\""
+  },
+  {
+    "description": "Next wallpaper",
+    "row": "Next Wallpaper"
+  },
+  {
+    "description": "Wallpaper picker",
+    "row": "Wallpaper Picker"
+  },
+  {
+    "description": "Theme picker",
+    "row": "Theme Picker"
+  },
+  {
+    "description": "Toggle desktop bar",
+    "row": "Toggle Desktop Bar"
+  },
+  {
+    "description": "Notification center",
+    "row": "Notification Center"
+  },
+  {
+    "description": "Color picker",
+    "row": "Color Picker"
+  },
+  {
+    "description": "Lock screen",
+    "row": "Lock Screen"
+  },
+  {
+    "description": "Emoji picker",
+    "row": "Emojis"
+  },
+  {
+    "heading": "  Media And Hardware"
+  },
+  {
+    "key": "F8",
+    "description": "Play or pause media",
+    "command": "playerctl play-pause"
+  },
+  {
+    "key": "F9",
+    "description": "Next media",
+    "command": "playerctl next"
+  },
+  {
+    "key": "Volume Up",
+    "description": "Raise volume",
+    "command": "swayosd-client --output-volume=2 --max-volume=100"
+  },
+  {
+    "key": "Volume Down",
+    "description": "Lower volume",
+    "command": "swayosd-client --output-volume=-2 --max-volume=100"
+  },
+  {
+    "key": "Volume Mute",
+    "description": "Toggle output mute",
+    "command": "swayosd-client --output-volume=mute-toggle --max-volume=100"
+  },
+  {
+    "key": "Mic Mute",
+    "description": "Toggle microphone mute",
+    "command": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+  },
+  {
+    "key": "Brightness Up",
+    "description": "Raise brightness",
+    "command": "swayosd-client --brightness +2"
+  },
+  {
+    "key": "Brightness Down",
+    "description": "Lower brightness",
+    "command": "swayosd-client --brightness -2"
+  },
+  {
+    "key": "Media Previous",
+    "description": "Previous media",
+    "command": "playerctl previous"
+  },
+  {
+    "key": "Media Play/Pause",
+    "description": "Play or pause media",
+    "command": "playerctl play-pause"
+  },
+  {
+    "key": "Media Next",
+    "description": "Next media",
+    "command": "playerctl next"
+  }
+]

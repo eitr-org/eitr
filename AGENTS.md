@@ -140,7 +140,12 @@ existing design and workflows rather than replacing them with upstream defaults.
   location so Shift+Backspace returns correctly. A menu with submenus is a Lua
   menu on `elephant/scoped-menu.lua` with its rows in `elephant/menu-rows/<name>.json`,
   so typing in it searches everything below it. Menus share one row layout
-  (copy item_menus-main.xml to item_menus-<name>.xml for a new menu): the
+  (copy item_menus-main.xml to item_menus-<name>.xml for a new menu).
+  Shared row presentation lives in `elephant/row-entry.lua`; Python consumers
+  use `distro/lib/eitr_menu.py`. Learn's shell shortcut reference uses
+  `elephant/shortcut-reference.json`, referring to indexed shortcut rows for
+  shared bindings/actions; the Handbook uses that projection too. See
+  `walker/MENU-DEFINITIONS.md`. The
   description sits below the title, and rows in the "submenu" state show a
   right-aligned ">" marker. Submenu rows keep `subtext = ">"` in their data,
   which scoped-menu.lua and the search index turn into that state; they carry

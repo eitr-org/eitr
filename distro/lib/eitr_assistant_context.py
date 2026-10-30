@@ -33,9 +33,8 @@ workflow. Sudo needs the user's password; ask before destructive actions.
 def primer():
     """Read shortcut descriptions from Learn rather than maintaining another table."""
     try:
-        source = code('walker/scripts/menus/shortcuts.sh').read_text()
-        listing = source.split('options="', 1)[-1].split('"', 1)[0]
-        lines = listing.splitlines()
+        from eitr_menu import shortcut_options
+        lines = shortcut_options().splitlines()
     except OSError:
         lines = []
     shortcuts = []

@@ -230,7 +230,7 @@ class VoiceProtocolTests(unittest.TestCase):
         release = next(line for line in source.splitlines() if 'hl.bind("D",' in line)
         self.assertIn('" stop voice"', release)
         self.assertIn('release = true, ignore_mods = true, non_consuming = true', release)
-        self.assertIn('SUPER + Shift + D (hold)', (ROOT/'walker/scripts/menus/shortcuts.sh').read_text())
+        self.assertIn('SUPER + Shift + D (hold)', (ROOT/'elephant/shortcut-reference.json').read_text())
 
 
 if __name__ == '__main__':

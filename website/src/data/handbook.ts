@@ -44,7 +44,7 @@ export function chaptersFor(language: Language = 'en') {
     const anchored = anchorHeadings(html, english.blocks.join('\n'));
     html = anchored.html;
     const sections = anchored.sections;
-    const source = 'source' in definition ? definition.source : 'walker/scripts/menus/shortcuts.sh';
+    const source = 'source' in definition ? definition.source : 'elephant/shortcut-reference.json';
     html = html.replaceAll('href="LINUX-VM-TESTING.md"', `href="${repository}distro/LINUX-VM-TESTING.md"`);
     html = html.replaceAll('<pre>', '<pre tabindex="0">');
     html = html.replaceAll('href="https://', 'target="_blank" rel="noopener noreferrer" href="https://');

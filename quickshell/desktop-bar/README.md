@@ -81,7 +81,8 @@ chapters or open HTTP(S) references on an explicit click, never run commands.
 recovery/network/Secure Boot guides. Run `scripts/handbook-build.py` from the
 repository after changing them; `--check` detects a stale bundled catalog.
 The Shortcuts chapter combines keyboard and mouse references generated from
-Learn's `shortcuts.sh` and `mouse-gestures.sh`, not another maintained table.
+Learn's `elephant/shortcut-reference.json` projection (shared with indexed
+shortcut rows) and `mouse-gestures.sh`, not another maintained table.
 Rendering Markdown is a build step using `python-markdown`; the installed reader
 uses bundled HTML/Markdown and needs no Python Markdown dependency at runtime.
 Screenshots must contain only sanitized EITR UI, with no personal screen content.

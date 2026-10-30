@@ -266,7 +266,7 @@ class DictationTests(unittest.TestCase):
         self.assertNotIn('" stop"), { release = true })', hypr)
         packages = (ROOT / "distro/packages.txt").read_text().split()
         self.assertTrue({"whisper-cpp", "wtype"} <= set(packages), "dictation is part of every installation")
-        self.assertIn("SUPER + D (hold)", (ROOT / "walker/scripts/menus/shortcuts.sh").read_text())
+        self.assertIn("SUPER + D (hold)", (ROOT / "elephant/shortcut-reference.json").read_text())
 
 
 if __name__ == "__main__":
