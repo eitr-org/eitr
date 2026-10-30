@@ -4,6 +4,14 @@ function desktopId(value) {
     return String(value || "").replace(/\.desktop$/i, "").toLowerCase();
 }
 
+// Chromium-family --app windows are named <browser>-<site>-<profile>; web app
+// entries record Chrome's spelling, so compare without the browser prefix.
+var webAppClass = /^(brave-browser|chromium|chrome|brave|msedge|vivaldi)-(.+_.*-[^-]+)$/i;
+function webAppKey(value) {
+    var match = webAppClass.exec(String(value || ""));
+    return match ? match[2].toLowerCase() : "";
+}
+
 // Eitr's own task and menu terminals (classes from hyprland.lua and
 // walker/bin/menu-path/kitty) have no desktop entry; they share one Eitr icon.
 var eitrTerminalClass = /^(eitr-.+|(fifs?|cloud|about)-terminal|system-(cleanup|check|mirrors))$/;

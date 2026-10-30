@@ -398,3 +398,26 @@ class WebAppTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class WindowClassTests(unittest.TestCase):
+    def test_window_class_follows_chrome_app_naming(self):
+        webapps = load()
+        self.assertEqual(webapps.window_class("https://music.youtube.com/"), "chrome-music.youtube.com__-Default")
+        self.assertEqual(webapps.window_class("https://music.youtube.com"), "chrome-music.youtube.com__-Default")
+        self.assertEqual(webapps.window_class("https://app.example.com/inbox/today", "Profile 1"),
+                         "chrome-app.example.com__inbox_today-Profile_1")
+
+    def test_older_entries_gain_their_window_class_once(self):
+        webapps = load()
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "eitr-webapp-music.desktop"
+            path.write_text("[Desktop Entry]\nType=Application\nName=Music\nX-Eitr-WebApp=true\n"
+                            "X-Eitr-WebApp-URL=https://music.youtube.com/\n")
+            entry = webapps.read_entry(path)
+            webapps.remember_window_class(path, entry, entry["X-Eitr-WebApp-URL"])
+            lines = path.read_text().splitlines()
+            self.assertEqual(lines[1], "StartupWMClass=chrome-music.youtube.com__-Default")
+            before = path.read_text()
+            webapps.remember_window_class(path, webapps.read_entry(path), "https://music.youtube.com/")
+            self.assertEqual(path.read_text(), before)

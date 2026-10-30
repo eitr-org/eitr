@@ -229,6 +229,27 @@ def save_icon(url, identifier, icon_url=""):
     return None
 
 
+def window_class(url, profile=""):
+    """The window class Chromium-family browsers give an --app window, in Chrome's
+    spelling: chrome-<host>_<path with / as _>-<profile>. The dock ignores the
+    browser prefix, so Chromium, Brave, Edge and Vivaldi windows match too."""
+    parts = urllib.parse.urlsplit(url)
+    path = (parts.path or "/").replace("/", "_")
+    return f"chrome-{parts.hostname}_{path}-{(profile or 'Default').replace(' ', '_')}"
+
+
+def remember_window_class(path, entry, url):
+    """Older web apps lack StartupWMClass; add it so the dock shows their icon."""
+    wanted = window_class(url, entry.get("X-Eitr-WebApp-Profile", ""))
+    if entry.get("StartupWMClass") == wanted:
+        return
+    lines = [line for line in path.read_text().splitlines() if not line.startswith("StartupWMClass=")]
+    lines.insert(lines.index("[Desktop Entry]") + 1, f"StartupWMClass={wanted}")
+    temporary = path.with_suffix(".tmp")
+    temporary.write_text("\n".join(lines) + "\n")
+    temporary.replace(path)
+
+
 def desktop_value(value):
     return value.replace("\\", "\\\\").replace("\n", " ")
 
@@ -252,6 +273,7 @@ def create(name, url, icon_url="", icon_fetch=save_icon, profile=""):
         f"Comment={desktop_value(name)} web app",
         f"Exec=python3 {script} launch {identifier}",
         f"Icon={icon or 'web-browser'}",
+        f"StartupWMClass={window_class(url, profile)}",
         "Terminal=false",
         "Categories=Network;WebBrowser;",
         f"{MARKER}=true",
@@ -315,6 +337,10 @@ def launch(identifier):
     if entry.get(MARKER) != "true":
         raise ValueError(tr('Not an EITR web app'))
     url = clean_url(entry["X-Eitr-WebApp-URL"])
+    try:
+        remember_window_class(desktop_path(identifier), entry, url)
+    except (OSError, ValueError):
+        pass
     command = browser()
     if not command:
         if shutil.which("kitty"):

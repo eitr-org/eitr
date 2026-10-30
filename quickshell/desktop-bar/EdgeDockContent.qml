@@ -49,7 +49,9 @@ Item {
     height: vertical ? axisLength : 52
     function application(appClass) {
         var key = DockModel.desktopId(appClass);
+        var webApp = DockModel.webAppKey(appClass);
         return desktopEntries.find(entry => DockModel.desktopId(entry.id) === key || DockModel.desktopId(entry.startupClass) === key)
+            || (webApp ? desktopEntries.find(entry => DockModel.webAppKey(entry.startupClass) === webApp) : null)
             || DesktopEntries.heuristicLookup(appClass);
     }
     HoverHandler { id: pointer }
