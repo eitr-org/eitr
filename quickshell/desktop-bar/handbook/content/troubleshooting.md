@@ -39,6 +39,32 @@ An Elephant restart reloads menu definitions. Its service must retain
 apps and terminals run in separate application scopes. Themes regenerate styles, so fix
 the generator as well as generated output if a change disappears later.
 
+## WiFi data stops refreshing
+
+The bar shares one WiFi read broker across screens. If it exits, the last good
+network data remains marked stale while the broker retries with increasing delays.
+After six failed retries it waits for an explicit retry. Native controls remain
+available. WiFi actions share an ordered queue and busy state across screens. If an action times out or the broker exits, its outcome is unknown: refresh the state before explicitly retrying. Writes are never replayed automatically. QR generation remains a separate helper.
+
+For a technical status snapshot, use
+`eitr-shell desktop-bar ipc call -- data status`. It reports topic ages,
+error codes, in-flight reads, observers and restarts without network names or
+addresses. Retry with `eitr-shell desktop-bar ipc call -- data retry`.
+
+OBS capture uses the same broker across screens. One shared check runs every
+2 seconds only while an OBS window or process is known to exist. Recording
+details refresh every 2 seconds only while a recording panel is open, and also
+supply the shared status. Unknown status keeps the last known capture state and
+disables controls until a successful refresh. Capture actions and option writes
+share an ordered queue; a timeout or broker exit leaves the outcome unknown and
+never repeats the action automatically. The standalone OBS command remains
+available to Walker and screenshot shortcuts.
+
+Battery, power profiles and airplane status also share this broker. Battery reads run every 30 seconds; profile and radio reads run only while the relevant panels are open. Peripheral batteries do not enable laptop controls. Low-battery hooks and warnings retain their thresholds. Power-profile and airplane actions are ordered, report errors to the requesting panel and are never replayed after an unknown outcome. The standalone commands remain available.
+
+Display topology, brightness and night-light reads also share the broker. Monitor events and main-display preference changes refresh geometry across screens. Brightness and night-light refresh only while observed; DDC brightness is not polled. Display trials keep their independent automatic rollback even if the bar or broker exits. Standalone display and idle dim/restore commands remain available.
+
+
 ## Installation and recovery checks
 
 EITR is still in beta: VM coverage does not prove every WiFi adapter, Bluetooth
@@ -103,3 +129,16 @@ retried at the next login (`~/.local/state/eitr/migrations.log`).
 `eitr-config status` lists the settings and overrides in effect.
 
 Failed task terminals offer **A: ask the AI** when a default assistant is selected; **Esc** closes. Only the last 200 output lines are kept in memory, with ANSI escapes removed and obvious secret lines hidden before sharing: a cloud assistant sends this output to its provider, while Ratatoskr keeps it on this PC.
+
+Hardware uses one broker sampler across screens and the Control Center Hardware action. Opening a hardware panel refreshes immediately, then every two seconds while any hardware panel is open. Closing the last panel stops sampling. CPU, root-drive and GPU identity stay cached for the broker session, including unavailable or timed-out GPU probes. Last good sections remain visible when a read fails. The standalone `system-details.py` CLI remains available; `eitr-shell desktop-bar ipc call -- data status` includes `hardware.details` diagnostics.
+
+Remote access uses the shared broker: Tailscale and Sunshine status refresh on opening and every 10 seconds while any remote panel observes it. Closing the last panel stops status reads. Policy availability is read at startup and on policy changes only. Actions still use the existing Walker helpers; the broker changes no remote settings. The standalone `remote-status.py` CLI remains available. `eitr-shell desktop-bar ipc call -- data status` includes `remote.status` and `remote.availability` diagnostics.
+
+Weather shares one default forecast across screens and panels, using a 15-minute cache and refresh interval. City searches and alternate cities belong only to the requesting panel and do not replace the default forecast. AI usage shares its cache and refreshes on opening, then every five minutes only while a usage panel is open. Closing the last panel stops queued account jobs; active calls finish within their existing timeouts, then the AI adapter is released. Provider cooldowns are respected. The standalone weather and AI commands and the session selection file remain available. `eitr-shell desktop-bar ipc call -- data status` includes `weather.default` and `ai.usage` counters without account names or provider payloads.
+
+Update checks share the bar data broker across screens: 45 seconds after startup,
+every six hours, and after System Update or a manual refresh. A refresh during a
+check queues one follow-up. Offline and unreadable checks never report “Up to
+date”; right-click the update icon to try again. Update notifications and task
+terminals remain owned by the shell. The standalone update-check CLI remains
+available. The data status command above includes `updates.status` diagnostics.

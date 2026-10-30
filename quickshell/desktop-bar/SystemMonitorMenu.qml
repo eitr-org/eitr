@@ -2,7 +2,6 @@ import Eitr as Eitr
 import QtQuick
 import "PanelStyle.js" as PanelStyle
 import Quickshell
-import Quickshell.Io
 
 ThemedPopup {
     id: menu
@@ -18,33 +17,34 @@ ThemedPopup {
     property var expanded: ({})
     function toggle(title) { let next = Object.assign({}, expanded); next[title] = !next[title]; expanded = next; }
 
-    function refresh() {
-        if (!query.running) { query.stdinEnabled = true; query.running = true; }
+    property string hardwareToken: ""
+    readonly property var hardwareSnapshot: DesktopData.topics["hardware.details"]
+    function refresh() { DesktopData.refresh("hardware.details"); }
+    function receiveSnapshot() {
+        const snapshot = hardwareSnapshot;
+        if (!opened || !snapshot) return;
+        menu.updateContent(function() {
+            if (snapshot.data && snapshot.data.sections) {
+                menu.identity = snapshot.data.identity;
+                menu.identityReceived(menu.identity);
+                menu.applySnapshot("sections", snapshot.data.sections);
+            }
+            menu.error = snapshot.status === "stale" || snapshot.status === "unavailable"
+                ? Eitr.I18n.tr("Hardware information unavailable") : "";
+        });
     }
-
+    onHardwareSnapshotChanged: receiveSnapshot()
+    Component.onDestruction: DesktopData.releaseOwner(menu)
     implicitWidth: 468
     implicitHeight: Math.min(content.implicitHeight + verticalContentInset, maximumHeight)
     leftAligned: true
-    onOpenedChanged: if (opened) refresh()
-    Timer { interval: 2000; repeat: true; running: menu.opened; onTriggered: menu.refresh() }
-    Process {
-        id: query
-        command: ["python3", Quickshell.shellDir + "/scripts/system-details.py", "--identity"]
-        stdinEnabled: true
-        onStarted: { write(JSON.stringify(menu.identity) + "\n"); stdinEnabled = false; }
-        stdout: StdioCollector { id: output }
-        onExited: function(code) {
-            const received = output.text;
-            menu.updateContent(function() {
-                try {
-                    if (code !== 0) throw new Error("query failed");
-                    const snapshot = JSON.parse(received);
-                    menu.identityReceived(snapshot.identity);
-                    menu.applySnapshot("sections", snapshot.sections);
-                    menu.error = "";
-                } catch (e) { menu.error = Eitr.I18n.tr("Hardware information unavailable"); }
-
-            });
+    onOpenedChanged: {
+        if (opened) {
+            hardwareToken = DesktopData.observe("hardware.details", menu);
+            receiveSnapshot();
+        } else {
+            DesktopData.release(hardwareToken);
+            hardwareToken = "";
         }
     }
     Flickable {

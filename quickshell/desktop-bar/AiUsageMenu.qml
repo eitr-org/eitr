@@ -43,55 +43,40 @@ ThemedPopup {
         }
     }
     property bool freshReceived: false
-    readonly property bool loading: query.running
+    property string usageToken: ""
+    readonly property var snapshot: DesktopData.topics["ai.usage"]
+    readonly property bool loading: !!(snapshot && snapshot.inFlight)
     property string status: "Checking usage..."
     function refresh() {
-        if (!loading) {
-            status = "Updating...";
-            query.running = true;
-        }
+        status = "Updating...";
+        DesktopData.refresh("ai.usage");
     }
+    function receiveUsage() {
+        if (!opened || !snapshot) return;
+        const received = snapshot;
+        menu.updateContent(function() {
+            if (!menu.opened) return;
+            if (received.data.providers) menu.applySnapshot("usage", received.data);
+            menu.freshReceived = received.status === "ready" && !received.inFlight;
+            menu.status = received.inFlight ? "Updating..." : received.error ? "Could not update usage. Try refreshing." :
+                received.data.updated ? "Last checked " + Qt.formatDateTime(new Date(received.data.updated * 1000), "HH:mm") : "Checking usage...";
+        });
+    }
+    onSnapshotChanged: receiveUsage()
     function resetLabel(timestamp) {
         var seconds = Math.max(0, Math.floor(timestamp - Date.now() / 1000));
         return "Resets " + Qt.formatDateTime(new Date(timestamp * 1000), "ddd MMM dd, HH:mm") + " · " + Math.floor(seconds / 3600) + "h " + Math.floor(seconds % 3600 / 60) + "m";
     }
-    Component.onCompleted: cached.running = true
-    onOpenedChanged: if (opened) {
-        contentViewport.contentY = 0;
-        freshReceived = false;
-        refresh();
-    }
-    Timer { interval: 300000; repeat: true; running: menu.opened; onTriggered: menu.refresh() }
-    Process {
-        id: cached
-        command: ["python3", Quickshell.shellDir + "/scripts/ai-popup.py", "cached"]
-        stdout: StdioCollector { id: cachedOutput }
-        onExited: {
-            const received = cachedOutput.text;
-            menu.updateContent(function() {
-                try {
-                    var data = JSON.parse(received);
-                    if (data.providers && !menu.freshReceived) menu.applySnapshot("usage", data);
-                } catch (e) {}
-
-            });
-        }
-    }
-    Process {
-        id: query
-        command: ["python3", Quickshell.shellDir + "/scripts/ai-popup.py"]
-        stdout: StdioCollector { id: output }
-        onExited: function(code) {
-            const received = output.text;
-            menu.updateContent(function() {
-                try {
-                    if (code !== 0) throw new Error("query failed");
-                    menu.applySnapshot("usage", JSON.parse(received));
-                    menu.freshReceived = true;
-                    menu.status = "Last checked " + Qt.formatDateTime(new Date(menu.usage.updated * 1000), "HH:mm");
-                } catch (e) { menu.status = "Could not update usage. Try refreshing."; }
-
-            });
+    Component.onDestruction: DesktopData.releaseOwner(menu)
+    onOpenedChanged: {
+        if (opened) {
+            contentViewport.contentY = 0;
+            freshReceived = false;
+            usageToken = DesktopData.observe("ai.usage", menu);
+            receiveUsage();
+        } else {
+            DesktopData.releaseOwner(menu);
+            usageToken = "";
         }
     }
     Item {
@@ -132,7 +117,7 @@ ThemedPopup {
                 Text {
                     visible: menu.availableProviders.length === 0
                     width: parent.width; wrapMode: Text.Wrap
-                    text: menu.loading || cached.running ? Eitr.I18n.tr("Detecting configured AI clients…") : Eitr.I18n.tr("No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.")
+                    text: menu.loading ? Eitr.I18n.tr("Detecting configured AI clients…") : Eitr.I18n.tr("No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.")
                     color: menu.foreground; opacity: 0.7
                     font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
                 }

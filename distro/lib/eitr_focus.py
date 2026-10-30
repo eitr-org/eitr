@@ -81,20 +81,6 @@ def restore_options(hypr):
 
 
 
-def network_status(interfaces=Path('/sys/class/net')):
-    for interface in interfaces.iterdir():
-        if interface.name == 'lo' or (interface / 'wireless').exists() or not (interface / 'device').exists():
-            continue
-        try:
-            if (interface / 'operstate').read_text().strip() == 'up':
-                return {'text': '󰈀'}
-        except OSError:
-            continue
-    result = subprocess.run(['bash', str(code('quickshell/desktop-bar/scripts/wifi-status.sh'))],
-                            capture_output=True, text=True, timeout=10)
-    return json.loads(result.stdout) if result.returncode == 0 else {'text': ''}
-
-
 def shortcut_entries(translated=False):
     messages = table("menus") if translated else {}
     return [{'Text': messages.get(entry['label'], entry['label']).replace('{number}', str(entry.get('number', ''))),
@@ -303,14 +289,11 @@ def tab_action(action, value, hypr):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['on', 'off', 'status', 'get', 'set', 'reconcile', 'network', 'tab',
+    parser.add_argument('action', choices=['on', 'off', 'status', 'get', 'set', 'reconcile', 'tab',
                                            'next', 'previous', 'horizontal', 'vertical', 'join', 'bindings', 'entries'])
     parser.add_argument('values', nargs='*')
     arguments = parser.parse_args(argv)
     action = arguments.action
-    if action == 'network':
-        print(json.dumps(network_status()))
-        return 0
     if action == 'bindings':
         print(bindings())
         return 0

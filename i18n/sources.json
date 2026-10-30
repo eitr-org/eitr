@@ -150,11 +150,20 @@
     "Blur": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
+    "Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot": [
+      "quickshell/desktop-bar/NetworkService.qml"
+    ],
     "Bottom": [
       "quickshell/desktop-bar/DisplaySettingsEditor.qml"
     ],
     "Brightness unavailable": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
+    ],
+    "CA certificate file not found": [
+      "quickshell/desktop-bar/NetworkService.qml"
+    ],
+    "CA certificate is too large": [
+      "quickshell/desktop-bar/NetworkService.qml"
     ],
     "CA certificate path (.pem)": [
       "quickshell/desktop-bar/WifiMenu.qml"
@@ -256,6 +265,12 @@
     "Connected": [
       "quickshell/desktop-bar/WifiMenu.qml"
     ],
+    "Connection failed; verify credentials and certificate settings": [
+      "quickshell/desktop-bar/NetworkService.qml"
+    ],
+    "Connection timed out; check the WiFi panel": [
+      "quickshell/desktop-bar/NetworkService.qml"
+    ],
     "Connectivity": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
@@ -272,9 +287,6 @@
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Could not change Cursor Fire": [
-      "quickshell/desktop-bar/ControlCenter.qml"
-    ],
-    "Could not change airplane mode": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Could not change crash notifications": [
@@ -295,10 +307,14 @@
     "Could not change the lockscreen": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
+    "Could not complete request": [
+      "quickshell/desktop-bar/NetworkService.qml"
+    ],
     "Could not delete the reminder": [
       "quickshell/desktop-bar/CalendarMenu.qml"
     ],
     "Could not load": [
+      "quickshell/desktop-bar/NetworkService.qml",
       "quickshell/desktop-bar/PluginComponent.qml"
     ],
     "Could not save recording settings": [
@@ -431,6 +447,15 @@
     "Enter password": [
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
     ],
+    "Enter the WiFi password": [
+      "quickshell/desktop-bar/NetworkService.qml"
+    ],
+    "Enter the authentication server domain without wildcards": [
+      "quickshell/desktop-bar/NetworkService.qml"
+    ],
+    "Enterprise WiFi requires username, password, CA certificate and server domain": [
+      "quickshell/desktop-bar/NetworkService.qml"
+    ],
     "Family": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
@@ -516,6 +541,9 @@
     ],
     "Input level · muted": [
       "quickshell/desktop-bar/MicrophoneMeter.qml"
+    ],
+    "Install the Eitr network helper first; see distro/NETWORKING.md": [
+      "quickshell/desktop-bar/NetworkService.qml"
     ],
     "Invalid assistant response.": [
       "quickshell/desktop-bar/AssistantChat.qml"
@@ -700,6 +728,9 @@
     "No Bluetooth adapter": [
       "quickshell/desktop-bar/BluetoothMenu.qml"
     ],
+    "No WiFi backend is running": [
+      "quickshell/desktop-bar/NetworkService.qml"
+    ],
     "No active displays": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
     ],
@@ -788,7 +819,8 @@
       "quickshell/desktop-bar/Handbook.qml"
     ],
     "Offline": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/WifiMenu.qml",
+      "quickshell/desktop-bar/shell.qml"
     ],
     "Only the next occurrence can be skipped": [
       "quickshell/desktop-bar/CalendarMenu.qml"
@@ -800,6 +832,10 @@
       "quickshell/desktop-bar/SystemMonitorMenu.qml"
     ],
     "Open recordings": [
+      "quickshell/desktop-bar/ObsMenu.qml"
+    ],
+    "Outcome unknown; refresh before retrying.": [
+      "quickshell/desktop-bar/NetworkService.qml",
       "quickshell/desktop-bar/ObsMenu.qml"
     ],
     "Output device": [
@@ -909,6 +945,9 @@
     "RESTART": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml"
     ],
+    "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": [
+      "quickshell/desktop-bar/NetworkService.qml"
+    ],
     "Re-enable": [
       "quickshell/desktop-bar/PluginManagement.qml"
     ],
@@ -936,6 +975,9 @@
     ],
     "Recording paused": [
       "quickshell/desktop-bar/shell.qml"
+    ],
+    "Recording settings unavailable": [
+      "quickshell/desktop-bar/ObsMenu.qml"
     ],
     "Recovery Guide": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -1206,6 +1248,9 @@
     "Style": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
+    "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP": [
+      "quickshell/desktop-bar/NetworkService.qml"
+    ],
     "Suspend": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
@@ -1251,6 +1296,9 @@
     ],
     "Thinking…": [
       "quickshell/desktop-bar/AssistantChat.qml"
+    ],
+    "This WiFi security type requires advanced network configuration": [
+      "quickshell/desktop-bar/NetworkService.qml"
     ],
     "This one": [
       "quickshell/desktop-bar/CalendarMenu.qml"
@@ -1318,6 +1366,9 @@
     "Updates": [
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
+    "Updates unavailable · right-click to check again": [
+      "quickshell/desktop-bar/shell.qml"
+    ],
     "Updating": [
       "quickshell/desktop-bar/PanelLoadingIndicator.qml"
     ],
@@ -1366,6 +1417,9 @@
     "WiFi": [
       "quickshell/desktop-bar/ControlCenter.qml",
       "quickshell/desktop-bar/WifiMenu.qml"
+    ],
+    "WiFi adapter is unavailable; refresh the panel": [
+      "quickshell/desktop-bar/NetworkService.qml"
     ],
     "WiFi password": [
       "quickshell/desktop-bar/WifiMenu.qml"

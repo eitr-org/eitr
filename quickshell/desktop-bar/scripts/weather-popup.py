@@ -1,46 +1,30 @@
 #!/usr/bin/env python3
-"""Session-only city overrides using the existing weather collector."""
+"""CLI entry points for the shared weather implementation."""
+import importlib.util
 import json
 import os
 from pathlib import Path
-import subprocess
 import sys
-import tempfile
-import urllib.parse
-import urllib.request
+
+spec = importlib.util.spec_from_file_location('weather_domain', Path(__file__).with_name('weather-domain.py'))
+backend = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(backend)
+collector = backend.WeatherDomain()
 
 
 def weather(city):
-    with tempfile.TemporaryDirectory(prefix='weather-popup-') as directory:
-        environment = os.environ.copy()
-        environment['WEATHER_FORCE_REFRESH'] = '1'
-        if city:
-            state = Path(directory) / 'location.json'
-            state.write_text(json.dumps({
-                'latitude': city['latitude'], 'longitude': city['longitude'],
-                'country_code': city.get('country_code'),
-                'name': ', '.join(filter(None, [city['name'], city.get('country')])),
-            }))
-            environment['WEATHER_STATE_FILE'] = str(state)
-            environment['WEATHER_CACHE_FILE'] = str(Path(directory) / 'weather.json')
-        raw = subprocess.check_output([str(Path(__file__).with_name('weather-status.sh'))],
-                                      text=True, env=environment, timeout=20)
-        return json.loads(raw.splitlines()[-1])
+    return collector.weather(city, force=True)
 
 
 def search(query):
-    params = urllib.parse.urlencode({'name': query, 'count': 5, 'language': 'en', 'format': 'json'})
-    try:
-        with urllib.request.urlopen('https://geocoding-api.open-meteo.com/v1/search?' + params, timeout=5) as response:
-            cities = json.load(response).get('results', [])
-        cities = [city for city in cities if all(key in city for key in ('name', 'latitude', 'longitude'))]
-        return {'cities': cities, 'error': '' if cities else 'No cities found'}
-    except (OSError, ValueError):
-        return {'cities': [], 'error': 'City search unavailable'}
+    return collector.search(query)
 
 
 if __name__ == '__main__':
     if sys.argv[1] == 'search':
-        print(json.dumps(search(sys.argv[2])))
+        result = search(sys.argv[2])
+    elif sys.argv[1] == 'status':
+        result = collector.weather(force=os.environ.get('WEATHER_FORCE_REFRESH') == '1')
     else:
-        print(json.dumps(weather(json.loads(sys.argv[2]) if len(sys.argv) > 2 else None)))
+        result = weather(json.loads(sys.argv[2]) if len(sys.argv) > 2 else None)
+    print(json.dumps(result, ensure_ascii=False, separators=(',', ':')))

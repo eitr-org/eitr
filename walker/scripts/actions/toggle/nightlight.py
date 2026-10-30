@@ -77,7 +77,7 @@ def desired(current_mode, now=None):
 
 def running():
     return subprocess.run(["pgrep", "-x", "hyprsunset"], stdout=subprocess.DEVNULL,
-                          stderr=subprocess.DEVNULL, check=False).returncode == 0
+                          stderr=subprocess.DEVNULL, check=False, timeout=5).returncode == 0
 
 
 def status():

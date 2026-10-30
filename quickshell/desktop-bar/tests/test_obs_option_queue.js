@@ -33,11 +33,11 @@ assert.equal(queue.takeNext(next.remaining), null);
 assert.equal(queue.takeNext({}), null);
 assert.equal(queue.takeNext(undefined), null);
 
-// ObsMenu keeps using the library and serializes writes behind optionWriter.
+// ObsMenu keeps using the library and serializes writes through the capture domain.
 const menu = fs.readFileSync(path.join(root, 'ObsMenu.qml'), 'utf8');
 assert.ok(menu.includes('import "ObsQueue.js" as ObsQueue'));
 assert.ok(menu.includes('ObsQueue.takeNext(pendingOptionChanges)'));
-assert.ok(menu.includes('if (optionWriter.running) return;'));
-assert.ok(menu.includes('if (!optionWriter.running) beginAction();'));
+assert.ok(menu.includes('if (optionWriting || ObsStatus.busy) return;'));
+assert.ok(menu.includes('if (!optionWriting) beginAction();'));
 assert.ok(menu.includes('readonly property bool controlsReady: obsState.ready && !busy'));
 console.log('OBS option queue tests passed');

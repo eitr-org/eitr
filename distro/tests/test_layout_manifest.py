@@ -48,3 +48,22 @@ class LayoutManifestTests(unittest.TestCase):
             staged = Path(directory) / 'stage'
             module.Layout(exported).stage(staged)
             self.assertTrue((staged / 'nvim-theme/colors/eitr.lua').is_file())
+
+    def test_display_service_runtime_files_stage_from_export(self):
+        import shutil
+        runtime_files = ['quickshell/desktop-bar/DisplayService.qml',
+                         'quickshell/desktop-bar/scripts/display-domain.py']
+        layout = module.Layout(ROOT)
+        for relative in runtime_files:
+            self.assertEqual(layout.classify(relative)['class'], 'C')
+            self.assertTrue(layout.classify(relative)['runtime'])
+        with tempfile.TemporaryDirectory() as directory:
+            exported = Path(directory) / 'source'
+            for relative in runtime_files + ['distro/layout-manifest.json', 'distro/legacy-layout.json']:
+                target = exported / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(ROOT / relative, target)
+            staged = Path(directory) / 'stage'
+            module.Layout(exported).stage(staged)
+            for relative in runtime_files:
+                self.assertEqual((staged / relative).read_bytes(), (ROOT / relative).read_bytes())

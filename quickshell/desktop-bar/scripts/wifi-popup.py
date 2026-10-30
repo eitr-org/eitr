@@ -2,6 +2,7 @@
 """Read and control the active WiFi backend without changing network services."""
 import eitr_bootstrap
 from eitr_i18n import tr
+import os
 import importlib.util
 import base64
 import json
@@ -17,6 +18,10 @@ SERVICE = "net.connman.iwd"
 PREFIX = SERVICE + "."
 NETWORK_HELPER = Path("/usr/lib/eitr/eitr-network")
 bus = Gio.bus_get_sync(Gio.BusType.SYSTEM, None)
+
+spec = importlib.util.spec_from_file_location("wifi_nm", Path(__file__).with_name("wifi-networkmanager.py"))
+NM_ADAPTER = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(NM_ADAPTER)
 
 
 def active_backend():
@@ -36,7 +41,7 @@ def active_backend():
 
 def call(path, interface, method, parameters=None):
     return bus.call_sync(SERVICE, path, interface, method, parameters, None,
-                         Gio.DBusCallFlags.NONE, 10000, None).unpack()
+                         Gio.DBusCallFlags.NONE, 5000, None).unpack()
 
 
 def merge_known(networks, objects):
@@ -177,16 +182,14 @@ def connect_enterprise(path, request):
         time.sleep(0.25)
 
 
-def main():
-    action = sys.argv[1] if len(sys.argv) > 1 else "status"
+def read_state(action="status", interface=""):
+    """Shared read entry point for the CLI and broker."""
     if action == "probe":
-        return probe(sys.argv[2])
+        return probe(interface)
     backend = active_backend()
     if action == "icon":
         if backend == "networkmanager":
-            spec = importlib.util.spec_from_file_location("wifi_nm", Path(__file__).with_name("wifi-networkmanager.py"))
-            adapter = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(adapter)
+            adapter = NM_ADAPTER
             result = adapter.snapshot(bus, lambda interface: {})
         else:
             result = {**snapshot(include_details=False), "backend": "iwd"}
@@ -200,15 +203,20 @@ def main():
             for interface in Path('/sys/class/net').iterdir())
         return result
     if backend == "networkmanager":
-        spec = importlib.util.spec_from_file_location("wifi_nm", Path(__file__).with_name("wifi-networkmanager.py"))
-        adapter = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(adapter)
-        if action == "status":
-            return adapter.snapshot(bus, telemetry)
+        adapter = NM_ADAPTER
+        return adapter.snapshot(bus, telemetry)
+    return {**snapshot(), "backend": "iwd"}
+
+
+def main():
+    action = sys.argv[1] if len(sys.argv) > 1 else "status"
+    if action in ("icon", "status", "probe"):
+        return read_state(action, sys.argv[2] if action == "probe" else "")
+    backend = active_backend()
+    if backend == "networkmanager":
+        adapter = NM_ADAPTER
         request = json.loads(sys.stdin.readline()) if action == "connect" else None
         return adapter.action(bus, action, sys.argv[2], request, sys.argv[3] if len(sys.argv) > 3 else None)
-    if action == "status":
-        return {**snapshot(), "backend": "iwd"}
     path = sys.argv[2]
     if action == "connect":
         request = json.loads(sys.stdin.readline())
@@ -228,9 +236,41 @@ def main():
     return {"ok": True}
 
 
+def action_error(error):
+    """Return only stable codes and approved source messages to the broker."""
+    messages = (
+        'Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot',
+        'No WiFi backend is running',
+        'Install the Eitr network helper first; see distro/NETWORKING.md',
+        'CA certificate is too large',
+        'Enter the WiFi password',
+        'Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP',
+        'Enterprise WiFi requires username, password, CA certificate and server domain',
+        'CA certificate file not found',
+        'Enter the authentication server domain without wildcards',
+        'This WiFi security type requires advanced network configuration',
+        'WiFi adapter is unavailable; refresh the panel',
+        'Connection failed; verify credentials and certificate settings',
+        'Connection timed out; check the WiFi panel',
+    )
+    message = next((message for message in messages if tr(message) == str(error)), "")
+    code = "backend-unavailable" if message == 'No WiFi backend is running' else "action-failed"
+    dbus_timeout = isinstance(error, GLib.Error) and (
+        error.matches(Gio.io_error_quark(), Gio.IOErrorEnum.TIMED_OUT)
+        or any(error.matches(Gio.dbus_error_quark(), code) for code in (
+            Gio.DBusError.TIMEOUT, Gio.DBusError.TIMED_OUT, Gio.DBusError.NO_REPLY,
+            Gio.DBusError.DISCONNECTED)))
+    if dbus_timeout or isinstance(error, subprocess.TimeoutExpired) or message == 'Connection timed out; check the WiFi panel':
+        code = "outcome-unknown"
+    return {"error": True, "code": code, "message": message}
+
+
 if __name__ == "__main__":
     try:
         print(json.dumps(main()))
     except (GLib.Error, RuntimeError, ValueError, IndexError, OSError, subprocess.SubprocessError) as error:
-        print(json.dumps({"error": str(error)}))
+        if os.environ.get("EITR_BAR_ACTION") == "1":
+            print(json.dumps(action_error(error)))
+        else:
+            print(json.dumps({"error": str(error)}))
         sys.exit(1)

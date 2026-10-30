@@ -16,7 +16,7 @@ PROPERTIES = "org.freedesktop.DBus.Properties"
 
 def call(bus, path, interface, method, parameters=None):
     return bus.call_sync(SERVICE, path, interface, method, parameters, None,
-                         Gio.DBusCallFlags.NONE, 45000, None).unpack()
+                         Gio.DBusCallFlags.NONE, 5000, None).unpack()
 
 
 def properties(bus, path, interface):

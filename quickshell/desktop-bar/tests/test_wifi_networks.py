@@ -1,4 +1,5 @@
 import importlib.util
+import json
 from pathlib import Path
 import subprocess
 import tempfile
@@ -9,10 +10,24 @@ from unittest.mock import Mock, patch
 spec = importlib.util.spec_from_file_location("wifi", Path(__file__).parents[1] / "scripts/wifi-popup.py")
 wifi = importlib.util.module_from_spec(spec)
 try:
-    # wifi-popup.py connects to the system D-Bus at import time.
-    spec.loader.exec_module(wifi)
-except Exception as error:  # no gi or no system bus (CI containers, macOS)
-    raise unittest.SkipTest(f"wifi-popup.py needs GObject and a system bus: {error}")
+    from gi.repository import Gio
+    with patch.object(Gio, "bus_get_sync", return_value=Mock()):
+        spec.loader.exec_module(wifi)
+except ImportError as error:
+    raise unittest.SkipTest(f"wifi-popup.py needs GObject: {error}")
+
+
+class BrokerActionErrorTests(unittest.TestCase):
+    def test_timeout_is_unknown_and_raw_detail_is_not_forwarded(self):
+        error = wifi.GLib.Error.new_literal(wifi.Gio.io_error_quark(), "private detail", wifi.Gio.IOErrorEnum.TIMED_OUT)
+        self.assertEqual(wifi.action_error(error), {"error": True, "code": "outcome-unknown", "message": ""})
+        self.assertNotIn("private detail", json.dumps(wifi.action_error(RuntimeError("private detail"))))
+
+    def test_translated_validation_keeps_its_source_key(self):
+        source = 'Enter the WiFi password'
+        with patch.object(wifi, "tr", side_effect=lambda message: "translated:" + message):
+            self.assertEqual(wifi.action_error(ValueError("translated:" + source)),
+                             {"error": True, "code": "action-failed", "message": source})
 
 
 class KnownNetworkTests(unittest.TestCase):
@@ -79,3 +94,38 @@ class PanelDetailsTests(unittest.TestCase):
         self.assertIn('["IP Address", menu.details.ip || "--", "Gateway", menu.details.gateway || "--"]', qml)
         for removed in ("Packet Loss", "Receiving", "Downloaded", "WI-FI BAND", "AUTOMATIC"):
             self.assertNotIn(removed, qml)
+
+
+class SnapshotContractTests(unittest.TestCase):
+    def test_no_adapter_is_a_successful_empty_snapshot(self):
+        with patch.object(wifi, "call", return_value=({},)):
+            self.assertEqual(wifi.snapshot(), {"devices": []})
+
+    def test_iwd_contract_includes_connected_known_and_other(self):
+        fixture = json.loads((Path(__file__).parent / "fixtures/network.json").read_text())["connected"]
+        device = fixture["devices"][0]
+        objects = {
+            device["path"]: {
+                wifi.PREFIX + "Device": {"Name": device["name"], "Mode": "station", "Powered": True},
+                wifi.PREFIX + "Station": {"State": "connected", "ConnectedNetwork": "/net/connected", "Scanning": False},
+            },
+            "/net/connected": {wifi.PREFIX + "Network": {"Name": "Fixture WiFi", "Type": "psk", "KnownNetwork": "/known/connected"}},
+            "/net/guest": {wifi.PREFIX + "Network": {"Name": "Guest", "Type": "open"}},
+            "/known/connected": {wifi.PREFIX + "KnownNetwork": {"Name": "Fixture WiFi", "Type": "psk"}},
+            "/known/offline": {wifi.PREFIX + "KnownNetwork": {"Name": "Saved offline", "Type": "psk"}},
+        }
+        def call(path, interface, method, parameters=None):
+            if method == "GetManagedObjects":
+                return (objects,)
+            if method == "GetOrderedNetworks":
+                return ([("/net/connected", -6000), ("/net/guest", -6000)],)
+            return ({"Frequency": 5180},)
+        with patch.object(wifi, "call", side_effect=call), patch.object(wifi, "telemetry", return_value=dict(device["details"])), \
+                patch.object(wifi, "active_backend", return_value="iwd"), patch.object(wifi.sys, "argv", ["wifi-popup.py", "status"]):
+            result = wifi.main()
+        self.assertEqual(result["backend"], fixture["backend"])
+        actual = result["devices"][0]
+        expected = dict(device)
+        actual["networks"] = sorted(actual["networks"], key=lambda network: network["name"])
+        expected["networks"] = sorted(expected["networks"], key=lambda network: network["name"])
+        self.assertEqual(actual, expected)

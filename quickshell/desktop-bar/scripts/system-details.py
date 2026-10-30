@@ -152,7 +152,12 @@ def storage_usage(name, rows):
 
 def snapshot(identity=None):
     if identity is None:
-        identity = {'cpu': cpu_identity(Path('/proc/cpuinfo').read_text()), 'storage': storage_identity()}
+        identity = {}
+    if 'cpu' not in identity:
+        identity['cpu'] = cpu_identity(Path('/proc/cpuinfo').read_text())
+    if 'storage' not in identity:
+        identity['storage'] = storage_identity()
+    if 'gpu' not in identity:
         graphics = gpu()
         identity['gpu'] = {'available': graphics['usage'] is not None or bool(graphics['rows']),
                            'name': graphics['name']}

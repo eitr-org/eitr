@@ -12,7 +12,6 @@ import "PanelStyle.js" as PanelStyle
 import "WorkspaceModel.js" as WorkspaceModel
 import "BarGeometry.js" as BarGeometry
 import "EdgeSlopes.js" as EdgeSlopes
-import "NetworkStatus.js" as NetworkStatus
 
 ShellRoot {
     Component.onCompleted: {
@@ -21,6 +20,7 @@ ShellRoot {
     }
     id: shell
     signal handbookOpened()
+    NetworkService { id: networkOwner }
     NotificationService { id: notificationsService }
     RemoteAccessService { id: remoteAccessService; observing: shell.remotePanelsOpen }
     Handbook {
@@ -135,11 +135,10 @@ ShellRoot {
     readonly property string idleLockGlyph: idleLockEnabled ? "󱫗" : "󱫖"
     readonly property string idleLockTooltip: idleLockEnabled ? Eitr.I18n.tr("Idle Lock: On") : Eitr.I18n.tr("Idle Lock: Off")
     function switchIdleLock() { if (!toggleIdleLock.running) toggleIdleLock.running = true; }
-    property var hardwareIdentity: null
-    property var battery: ({available: false, percent: 0, status: "", health: 0, hours: 0})
+    property var battery: PowerService.battery
     readonly property string batteryIcon: battery.status === "Charging" ? "󰂄" : battery.percent < 20 ? "󰁻" : battery.percent < 60 ? "󰁾" : "󰁹"
-    property string primaryDisplay: ""
-    property var preferredOutputs: []
+    property string primaryDisplay: DisplayService.topology.primary
+    property var preferredOutputs: DisplayService.topology.preferred
     property string workspaceStyle: "Runes"
     readonly property int workspaceCount: WorkspaceModel.ceiling(WorkspaceModel.occupied(Hyprland.toplevels.values),
         Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.id : 0)
@@ -157,8 +156,8 @@ ShellRoot {
     property string barClock: "12h"
     // "all" puts a bar on every display; the main one keeps notifications.
     property string barScreens: "main"
-    property var windowGaps: [6, 6, 6, 6]
-    property var screenGaps: [12, 12, 12, 12]
+    property var windowGaps: DisplayService.topology.windowGaps
+    property var screenGaps: DisplayService.topology.screenGaps
     readonly property bool islandsLayout: barLayout === "islands"
     readonly property bool notchLayout: barLayout === "notch"
     readonly property real tabStripThickness: 7
@@ -166,55 +165,6 @@ ShellRoot {
     readonly property real tabBendRound: 6
     readonly property bool centeredLayout: barLayout === "centered"
     readonly property bool iconsOpen: centeredLayout || notchLayout || statusOpen
-    Process {
-        id: windowGapQuery
-        command: ["hyprctl", "-j", "getoption", "general:gaps_in"]
-        running: true
-        stdout: StdioCollector {
-            onStreamFinished: {
-                try {
-                    var gaps = JSON.parse(text).css.trim().split(/\s+/).map(Number);
-                    if (gaps.length === 4 && gaps.every(value => isFinite(value) && value >= 0)) shell.windowGaps = gaps;
-                } catch (e) {}
-            }
-        }
-    }
-    Process {
-        id: screenGapQuery
-        command: ["hyprctl", "-j", "getoption", "general:gaps_out"]
-        running: true
-        stdout: StdioCollector {
-            onStreamFinished: {
-                try {
-                    var gaps = JSON.parse(text).css.trim().split(/\s+/).map(Number);
-                    if (gaps.length === 4 && gaps.every(value => isFinite(value) && value >= 0)) shell.screenGaps = gaps;
-                } catch (e) {}
-            }
-        }
-    }
-    Timer {
-        interval: 60000; running: true; repeat: true
-        onTriggered: shell.refreshDisplayState()
-    }
-    function refreshDisplayState() {
-        if (windowGapQuery.running || screenGapQuery.running || primaryDisplayQuery.running) { displayReload.restart(); return; }
-        if (!windowGapQuery.running) windowGapQuery.running = true;
-        if (!screenGapQuery.running) screenGapQuery.running = true;
-        if (!primaryDisplayQuery.running) primaryDisplayQuery.running = true;
-        pluginDesktop.refresh();
-    }
-    Connections {
-        target: Hyprland
-        function onRawEvent(event) {
-            if (["monitoradded", "monitoraddedv2", "monitorremoved", "configreloaded"].indexOf(event.name) !== -1)
-                displayReload.restart();
-        }
-    }
-    Connections {
-        target: Quickshell
-        function onScreensChanged() { displayReload.restart(); }
-    }
-    Timer { id: displayReload; interval: 80; onTriggered: shell.refreshDisplayState() }
     property string barEdge: "top"
     property bool settingsDirty: false
     property string dragCandidate: ""
@@ -372,32 +322,6 @@ ShellRoot {
     }
 
     Process {
-        id: primaryDisplayQuery
-        command: ["python3", Quickshell.shellDir + "/scripts/display-primary.py", "status"]
-        running: true
-        stdout: StdioCollector { id: primaryDisplayOutput }
-        onExited: function(code) {
-            if (code !== 0) return;
-            try {
-                var result = JSON.parse(primaryDisplayOutput.text);
-                shell.primaryDisplay = result.primary || "";
-                var preferred = result.preferred || [];
-                if (JSON.stringify(preferred) !== JSON.stringify(shell.preferredOutputs))
-                    shell.preferredOutputs = preferred;
-            } catch (e) {}
-        }
-    }
-
-    PreferenceWatch {
-        path: Eitr.Paths.config("hypr/primary-display")
-        onChanged: displayReload.restart()
-    }
-    PreferenceWatch {
-        path: Eitr.Paths.config("hypr/preferred-outputs")
-        onChanged: displayReload.restart()
-    }
-
-    Process {
         id: idleLockStatus
         command: ["pgrep", "-x", "hypridle"]
         running: true
@@ -417,18 +341,10 @@ ShellRoot {
         onExited: if (!idleLockStatus.running) idleLockStatus.running = true
     }
 
-    Process {
-        id: batteryQuery
-        command: ["python3", Quickshell.shellDir + "/scripts/battery.py"]
-        running: true
-        stdout: StdioCollector { id: batteryOutput }
-        onExited: {
-            try { shell.battery = JSON.parse(batteryOutput.text); }
-            catch (e) { shell.battery = {available: false, percent: 0}; }
-            shell.checkBatteryLow();
-        }
+    Connections {
+        target: PowerService
+        function onBatteryReceived() { shell.checkBatteryLow(); }
     }
-    Timer { interval: 30000; repeat: true; running: true; onTriggered: if (!batteryQuery.running) batteryQuery.running = true }
     // The user's hooks (distro/lib/run-hook.sh): battery-low once per drop to 15%,
     // post-boot at start (the runner keeps it to once per boot).
     property bool batteryLowHookRan: false
@@ -460,7 +376,11 @@ ShellRoot {
     }
 
     // Checked shortly after login, every six hours, and again after System Update.
-    property var updates: ({checking: true, count: 0, repository: 0, aur: 0, downloadBytes: 0})
+    property string updatesToken: DesktopData.observe("updates.status", "shell-updates")
+    readonly property var updatesState: DesktopData.topics["updates.status"] || {status: "loading", data: {}}
+    readonly property var updates: Object.assign({count: 0, repository: 0, aur: 0, downloadBytes: 0}, updatesState.data,
+        {checking: updatesState.status === "loading" || (!!updatesState.inFlight && updatesState.error !== "broker-unavailable")})
+    onUpdatesStateChanged: if (updatesState.status === "ready" && !updatesState.inFlight) shell.announceUpdates();
     // A notification goes out only when more updates are pending than were last announced.
     property int announcedUpdates: 0
     readonly property string updatesIcon: updates.checking ? "󰁪" : updates.count > 0 ? "󰚰" : "󰗡"
@@ -469,6 +389,8 @@ ShellRoot {
         : Math.max(1, Math.round(updates.downloadBytes / 1048576)) + " MB"
     readonly property string updatesTooltip: {
         if (updates.checking) return "Checking for updates";
+        if (updatesState.error === "offline") return Eitr.I18n.tr("Offline");
+        if (updatesState.status !== "ready") return Eitr.I18n.tr("Updates unavailable · right-click to check again");
         if (updates.count === 0) return "Up to date · right-click to check again";
         return updates.count + (updates.count === 1 ? " update" : " updates") + (updatesSize ? " · " + updatesSize : "");
     }
@@ -480,29 +402,13 @@ ShellRoot {
         announcedUpdates = updates.count;
         Quickshell.execDetached(["bash", Quickshell.shellDir + "/scripts/updates-notify.sh", String(updates.count), updatesSize]);
     }
-    function checkUpdates() {
-        if (updatesQuery.running) return;
-        shell.updates = Object.assign({}, shell.updates, {checking: true});
-        updatesQuery.running = true;
-    }
+    function checkUpdates() { DesktopData.refresh("updates.status"); }
     function openSystemUpdate() {
         var root = Quickshell.env("EITR_CODE_ROOT") || Quickshell.shellDir + "/../..";
         // Floating, with the theme's solid background, like terminals that menus open.
         Quickshell.execDetached([root + "/walker/bin/menu-path/kitty", "-e", "python3", root + "/walker/scripts/actions/task-terminal.py",
             "bash", root + "/walker/scripts/actions/system/update.sh", "system"]);
     }
-    Process {
-        id: updatesQuery
-        command: ["python3", Quickshell.shellDir + "/scripts/updates.py"]
-        stdout: StdioCollector { id: updatesOutput }
-        onExited: {
-            try { shell.updates = Object.assign({checking: false}, JSON.parse(updatesOutput.text)); }
-            catch (e) { shell.updates = {checking: false, count: 0, repository: 0, aur: 0, downloadBytes: 0}; }
-            shell.announceUpdates();
-        }
-    }
-    Timer { interval: 45000; running: true; onTriggered: shell.checkUpdates() }
-    Timer { interval: 6 * 60 * 60 * 1000; repeat: true; running: true; onTriggered: shell.checkUpdates() }
     IpcHandler {
         target: "updates"
         function refresh(): void { shell.checkUpdates(); }
@@ -660,23 +566,8 @@ ShellRoot {
         }
     }
     SystemClock { id: focusClock; precision: SystemClock.Minutes }
-    property string wifiGlyph: ""
-    property string focusNetworkGlyph: ""
-    Process {
-        id: wifiStatusQuery
-        command: ["python3", Quickshell.shellDir + "/scripts/wifi-popup.py", "icon"]
-        running: true
-        stdout: StdioCollector {
-            onStreamFinished: {
-                try {
-                    const snapshot = JSON.parse(text);
-                    shell.wifiGlyph = NetworkStatus.glyph(snapshot, snapshot.blocked);
-                    shell.focusNetworkGlyph = snapshot.wired ? "󰈀" : shell.wifiGlyph;
-                } catch (error) {}
-            }
-        }
-    }
-    Timer { interval: 10000; repeat: true; running: true; onTriggered: if (!wifiStatusQuery.running) wifiStatusQuery.running = true }
+    readonly property string wifiGlyph: networkOwner.glyph
+    readonly property string focusNetworkGlyph: networkOwner.focusGlyph
 
 
     Variants {
@@ -947,7 +838,7 @@ ShellRoot {
                     surfaceColor: shell.barBackground()
                     foreground: shell.fg; background: shell.workspaceMenuBg; accent: shell.activeBg
                     service: notificationsService
-                    wifiControl: wifiMenu; bluetoothControl: bluetoothMenu; displayControl: brightnessMenu
+                    wifiControl: networkOwner; bluetoothControl: bluetoothMenu; displayControl: brightnessMenu
                     keyboardControl: keyboardMenu
                     wifiGlyph: shell.verticalBar ? verticalWifiIcon.text : wifiIcon.text
                     battery: shell.battery; mediaPlayer: mediaStrip.player
@@ -1543,8 +1434,6 @@ ShellRoot {
 
                         SystemMonitorMenu {
                             id: hardwareMenu
-                            identity: shell.hardwareIdentity
-                            onIdentityReceived: identity => shell.hardwareIdentity = identity
                             surfaceColor: shell.barBackground()
                             maximumHeight: bar.screen.height - 70
                             target: shell.verticalBar ? verticalHardwareIcon : hardwareIcon
@@ -1617,8 +1506,7 @@ ShellRoot {
 
                             WifiMenu {
                                 id: wifiMenu
-                                observing: controlCenter.opened
-                                onStatusReceived: snapshot => shell.wifiGlyph = NetworkStatus.glyph(snapshot)
+                                networkService: networkOwner
                                 surfaceColor: shell.barBackground()
                                 target: shell.verticalBar ? verticalWifiIcon : (shell.iconsOpen ? wifiIcon : notificationIcon)
                                 barEdge: shell.barEdge
@@ -1666,7 +1554,7 @@ ShellRoot {
                                 accent: shell.activeBg
                                 foreground: shell.fg
                                 background: shell.workspaceMenuBg
-                                onPrimarySelected: function(name) { shell.primaryDisplay = name }
+                                onPrimarySelected: DisplayService.refresh()
                             }
 
                             StatusIcon {
@@ -1913,14 +1801,12 @@ ShellRoot {
                     WeatherMenu {
                         id: weatherMenu
                         surfaceColor: shell.barBackground()
-                        defaultWeatherData: barWeather.latestData
                         target: shell.verticalBar ? verticalWeatherIcon : centerInfo
                         barEdge: shell.barEdge
                         centered: true
                         accent: shell.activeBg
                         foreground: shell.fg
                         background: shell.workspaceMenuBg
-                        onDefaultWeatherUpdated: function(data) { barWeather.updateData(data); }
                     }
 
                 }
@@ -2267,17 +2153,9 @@ ShellRoot {
         property string forecast: ""
         property var latestData: ({})
         property int dataRevision: 0
-        property int requestedRevision: 0
-
-        function refresh() {
-            if (process.running)
-                return ;
-
-            process.command = ["bash", Quickshell.shellDir + "/scripts/weather-status.sh"];
-            requestedRevision = dataRevision;
-            process.running = true;
-        }
-
+        readonly property var snapshot: DesktopData.topics["weather.default"]
+        function refresh() { DesktopData.refresh("weather.default"); }
+        onSnapshotChanged: if (snapshot && snapshot.data.temp) updateData(snapshot.data)
         function updateData(data) {
             dataRevision++;
             latestData = data;
@@ -2291,27 +2169,12 @@ ShellRoot {
             weather.forecast = String(data.forecast || "");
         }
 
-        function parse(raw) {
-            // A panel refresh may have supplied newer data during this request.
-            if (requestedRevision !== dataRevision) return;
-            var value = String(raw || "").trim();
-            if (value === "")
-                return ;
-
-            try {
-                var data = JSON.parse(value.split("\n").pop());
-                weather.updateData(data);
-            } catch (e) {
-                weather.text = "󰖐";
-                weather.condition = "Weather unavailable";
-            }
-        }
-
         readonly property string temperature: weather.temp || (weather.text.indexOf(" ") >= 0 ? weather.text.slice(weather.text.indexOf(" ") + 1).trim() : "")
         readonly property real contentWidth: Math.max(26, label.implicitWidth + 8)
         width: contentWidth
         height: 24
-        Component.onCompleted: if (autoRefresh) refresh()
+        Component.onCompleted: if (autoRefresh) DesktopData.observe("weather.default", weather)
+        Component.onDestruction: DesktopData.releaseOwner(weather)
 
         Row {
             id: label
@@ -2352,28 +2215,6 @@ ShellRoot {
             hovered: weatherMouse.containsMouse
             // Vertical bars show only the icon; the temperature moves to the tooltip.
             text: weather.compact && weather.temperature ? Eitr.I18n.tr("Weather") + " · " + weather.temperature : Eitr.I18n.tr("Weather")
-        }
-
-        Timer {
-            interval: 900000
-            running: weather.autoRefresh
-            repeat: true
-            onTriggered: weather.refresh()
-        }
-
-        Process {
-            id: process
-
-            running: false
-            command: []
-            onExited: weather.parse(weatherOutput.text)
-
-            stdout: StdioCollector {
-                id: weatherOutput
-
-                waitForEnd: true
-            }
-
         }
 
     }

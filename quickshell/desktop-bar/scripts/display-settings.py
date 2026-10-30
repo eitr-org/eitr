@@ -418,19 +418,22 @@ def edit():
                      start_new_session=True)
 
 
+def list_settings(live):
+    write_generated(saved())
+    anchors = saved_anchors(live)
+    main = main_display(live)
+    anchors.pop(main, None)
+    return {"main": main, "monitors": [{**current(monitor), "name": monitor["name"], "anchor": anchors.get(monitor["name"]),
+                                    "hdr_capable": hdr_capable(monitor["name"]), "modes": monitor["availableModes"]} for monitor in live],
+                      "saved": saved()}
+
+
 def main(argv):
     if argv == ["refresh-hdr"]:
         write_generated(saved())
         return 0
     if argv == ["list"]:
-        live = monitors()
-        write_generated(saved())
-        anchors = saved_anchors(live)
-        main = main_display(live)
-        anchors.pop(main, None)
-        print(json.dumps({"main": main, "monitors": [{**current(monitor), "name": monitor["name"], "anchor": anchors.get(monitor["name"]),
-                                        "hdr_capable": hdr_capable(monitor["name"]), "modes": monitor["availableModes"]} for monitor in live],
-                          "saved": saved()}))
+        print(json.dumps(list_settings(monitors())))
         return 0
     if len(argv) == 4 and argv[0] == "set":
         print(json.dumps(set_setting(*argv[1:])))

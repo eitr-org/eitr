@@ -34,10 +34,11 @@ LAN.
   closed panels stay quiet: idle launches in a 4-core VM fell from ~800 to ~40 a
   minute (CPU 25% to 1% of one core). Still to check on an old laptop, with
   multiple monitors and with OBS started straight into the tray.
-- **Shared data service for the bar (refactor, after the improvements).** One
-  long-running helper instead of ~33 short-lived scripts: one reader per piece of
-  data, one set of tests, consistent timeouts and refresh-on-open, easier to trace.
-  Migrate one panel at a time.
+- **Shared data service for the bar: confirm on the owner's PC.** One broker owns
+  WiFi, capture, power, display, hardware, remote access, weather, AI usage and
+  update reads, with bounded workers, deadlines and shared demand. It passed the VM
+  acceptance and a real-hardware read of every topic; check the panels on the
+  owner's PC after the testing update, then promote it.
 - **Maintainability refactors, after the data service.** In this order:
   1. Split `shell.qml` (about 2,500 lines): data owners first, then one bar section
      at a time, keeping the centred clock, panel anchors and click-through gaps.

@@ -36,7 +36,13 @@ ThemedPopup {
     property string mediaStyle: "bars"
     property string clockFormat: "12h"
     property string workspaceStyle: "Runes"
-    property var airplane: ({available: false, enabled: false})
+    property var airplane: PowerService.radios
+    property var powerTokens: []
+    property string powerActionId: ""
+    Connections {
+        target: PowerService
+        function onRadiosChanged() { center.updateContent(function() { center.airplane = PowerService.radios; }); }
+    }
     property bool crashNotifications: true
     readonly property string crashHelpScript: Eitr.Paths.code("walker/scripts/actions/system/crash-help.py")
     property bool gameMode: false
@@ -70,8 +76,7 @@ ThemedPopup {
     barEdge: barPosition
     leftAligned: true
     function refresh() {
-        wifiControl.refresh(); keyboardControl.refresh(); displayControl.refresh(); displayControl.refreshNightlight(); displayControl.refreshPower(); displayControl.refreshDisplays();
-        if (!airplaneQuery.running && !airplaneOperation.running) airplaneQuery.running = true;
+        keyboardControl.refresh();
         if (!crashQuery.running && !crashOperation.running) crashQuery.running = true;
         if (!gameModeQuery.running && !gameModeOperation.running) gameModeQuery.running = true;
     }
@@ -96,12 +101,31 @@ ThemedPopup {
     // Queries start once the unfold has finished (DockPanel.revealed): their results
     // rebuild lists, which would otherwise stall the animation midway.
     onRevealed: {
+        DisplayService.open(center, 5);
         center.refresh(); chatStatus.running = true;
         if (page === "style") loadStyle();
         if (!organizationQuery.running) organizationQuery.running = true;
         if (page === "settings" && !channelQuery.running) channelQuery.running = true;
     }
-    onOpenedChanged: if (!opened) { chatOpen = false; chatView.reset(); }
+    property string networkToken: ""
+    property string networkMessage: ""
+    property string networkErrorCode: ""
+    function networkActionFinished(error, code) { networkErrorCode = code || ""; networkMessage = error; }
+    Connections {
+        target: center.wifiControl
+        function onBusyChanged() { if (center.opened && !center.wifiControl.busy) center.refresh(); }
+    }
+    Component.onDestruction: { DisplayService.close(center); wifiControl.release(networkToken); wifiControl.detach(center); DesktopData.releaseOwner(center); DesktopData.client.detachAction(powerActionId); }
+    onOpenedChanged: {
+        if (!opened) DisplayService.close(center);
+        PowerService.release(powerTokens);
+        powerTokens = opened ? PowerService.observe(center, 5, true) : [];
+        if (opened) networkToken = wifiControl.observe(center);
+        else {
+            wifiControl.release(networkToken); networkToken = "";
+            chatOpen = false; chatView.reset();
+        }
+    }
     onPageChanged: {
         if (page === "style") loadStyle();
         if (page === "settings" && !channelQuery.running) channelQuery.running = true;
@@ -231,24 +255,6 @@ ThemedPopup {
         onExited: center.updateChannel = channelOutput.text.trim()
     }
     Process {
-        id: airplaneQuery
-        command: ["python3", Quickshell.shellDir + "/scripts/airplane.py", "status"]
-        stdout: StdioCollector { id: airplaneOutput }
-        onExited: {
-            const received = airplaneOutput.text;
-            center.updateContent(function() { let airplane; try { airplane = JSON.parse(received); } catch (e) { airplane = {available: false, enabled: false}; } if (JsonState.changed(center.airplane, airplane)) center.airplane = airplane;
-            });
-        }
-    }
-    Process {
-        id: airplaneOperation
-        stdout: StdioCollector { id: airplaneResult }
-        onExited: {
-            try { let result = JSON.parse(airplaneResult.text); center.actionError = result.error || ""; if (!result.error) center.airplane = result; } catch (e) { center.actionError = Eitr.I18n.tr("Could not change airplane mode"); }
-            center.refresh();
-        }
-    }
-    Process {
         id: chatStatus
         command: ["python3", Eitr.Paths.code("quickshell/desktop-bar/scripts/assistant-chat.py"), "status"]
         stdout: StdioCollector { id: chatStatusOutput }
@@ -345,7 +351,7 @@ ThemedPopup {
                                 detail: center.wifiControl.connected ? center.wifiControl.connected.name : ""
                                 selected: !!center.wifiControl.device && center.wifiControl.device.powered
                                 available: !!center.wifiControl.device && !center.wifiControl.busy && !center.airplane.enabled
-                                onClicked: center.wifiControl.act("power", center.wifiControl.device.path, center.wifiControl.device.powered ? "false" : "true")
+                                onClicked: center.wifiControl.act(center, "power", center.wifiControl.device.path, center.wifiControl.device.powered ? "false" : "true")
                             }
                             ToggleTile {
                                 title: Eitr.I18n.tr("Bluetooth"); glyph: "󰂯"
@@ -357,11 +363,11 @@ ThemedPopup {
                             }
                             ToggleTile {
                                 title: Eitr.I18n.tr("Airplane"); glyph: "󰀝"; selected: !!center.airplane.enabled
-                                available: !!center.airplane.available && !airplaneOperation.running
-                                onClicked: { center.actionError = ""; airplaneOperation.command = ["python3", Quickshell.shellDir + "/scripts/airplane.py", "set", center.airplane.enabled ? "false" : "true"]; airplaneOperation.running = true; }
+                                available: !!center.airplane.available && !PowerService.busy
+                                onClicked: { center.powerActionId = PowerService.act("airplane", center.airplane.enabled ? "false" : "true", function(code, message) { center.networkActionFinished(message || (code ? "Could not complete request" : ""), code); }); if (!center.powerActionId) center.networkActionFinished("Could not complete request", "broker-unavailable"); }
                             }
                         }
-                        Text { visible: center.wifiControl.message !== ""; width: parent.width; wrapMode: Text.WordWrap; text: center.wifiControl.message; color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                        Text { visible: (center.networkMessage || center.wifiControl.details.error || "") !== ""; width: parent.width; wrapMode: Text.WordWrap; text: center.networkMessage ? center.wifiControl.actionMessage(center.networkMessage) : (center.wifiControl.details.error || ""); color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
                         Section { text: Eitr.I18n.tr("Quick Actions"); width: parent.width }
                         GridLayout {
                             width: parent.width; columns: 2; columnSpacing: PanelStyle.selectionActionGap; rowSpacing: PanelStyle.selectionRowGap

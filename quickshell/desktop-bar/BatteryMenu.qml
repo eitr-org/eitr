@@ -8,8 +8,12 @@ ThemedPopup {
     required property var displayControl
     implicitWidth: 400
     implicitHeight: content.implicitHeight + verticalContentInset
-    onOpenedChanged: if (opened) displayControl.refreshPower()
-    Timer { interval: 5000; repeat: true; running: menu.opened; onTriggered: menu.displayControl.refreshPower() }
+    property var powerTokens: []
+    onOpenedChanged: {
+        PowerService.release(powerTokens);
+        powerTokens = opened ? PowerService.observe(menu, 5, false) : [];
+    }
+    Component.onDestruction: DesktopData.releaseOwner(menu)
     Column {
         id: content
         x: 0; y: 0

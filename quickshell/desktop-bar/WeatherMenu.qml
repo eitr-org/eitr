@@ -20,19 +20,39 @@ ThemedPopup {
     property string requestedCity: ""
     property string requestedSearch: ""
     signal defaultWeatherUpdated(var data)
-    readonly property bool loading: weatherQuery.running
+    property string defaultToken: ""
+    property string cityRequest: ""
+    property string searchRequest: ""
+    property bool cityLoading: false
+    readonly property var snapshot: DesktopData.topics["weather.default"]
+    readonly property bool loading: city !== null ? cityLoading : !!(snapshot && snapshot.inFlight)
+    onSnapshotChanged: if (snapshot && snapshot.data.temp) {
+        defaultWeatherData = snapshot.data;
+        if (city === null) menu.updateContent(function() { if (menu.city === null) menu.applySnapshot("weatherData", menu.defaultWeatherData); });
+    }
     readonly property string temperature: String(weatherData.temp || "--").split("°")[0]
     readonly property string unit: String(weatherData.temp || "").indexOf("°") >= 0 ? "°" + String(weatherData.temp).split("°")[1] : ""
     readonly property string alternate: isFinite(Number(temperature)) && temperature !== "" ? unit === "°F" ? Math.round((Number(temperature) - 32) * 5 / 9) + "°C" : unit === "°C" ? Math.round(Number(temperature) * 9 / 5 + 32) + "°F" : "" : ""
 
     function refresh() {
-        if (!weatherQuery.running) {
-            requestedCity = JSON.stringify(city);
-            weatherQuery.command = ["python3", Quickshell.shellDir + "/scripts/weather-popup.py", "weather", requestedCity];
-            weatherQuery.running = true;
-        }
+        if (city === null) { DesktopData.refresh("weather.default"); return; }
+        DesktopData.cancelQuery(cityRequest);
+        requestedCity = JSON.stringify(city);
+        const selectedCity = requestedCity;
+        cityLoading = true;
+        cityRequest = DesktopData.queryWeather("city", {city: city}, menu, function(error, data) {
+            menu.cityRequest = "";
+            menu.cityLoading = false;
+            menu.updateContent(function() {
+                if (!menu.opened || selectedCity !== JSON.stringify(menu.city)) return;
+                if (!error) menu.applySnapshot("weatherData", data);
+                else menu.weatherData = {temp: "--", condition: "Unavailable", location: menu.city.name};
+            });
+        });
     }
     function cancelSearch() {
+        DesktopData.cancelQuery(searchRequest);
+        searchRequest = "";
         searching = false;
         cities = [];
         searchError = "";
@@ -45,6 +65,9 @@ ThemedPopup {
         refresh();
     }
     function restoreDefault() {
+        DesktopData.cancelQuery(cityRequest);
+        cityRequest = "";
+        cityLoading = false;
         city = null;
         cancelSearch();
         weatherData = defaultWeatherData;
@@ -57,58 +80,33 @@ ThemedPopup {
         if (opened) {
             city = null;
             weatherData = defaultWeatherData;
-            refresh();
+            if (!defaultToken) defaultToken = DesktopData.observe("weather.default", menu);
         } else {
+            DesktopData.releaseOwner(menu);
+            defaultToken = "";
+            cityRequest = "";
+            searchRequest = "";
+            cityLoading = false;
             city = null;
             cancelSearch();
         }
     }
-    Timer { interval: 900000; running: menu.opened; repeat: true; onTriggered: menu.refresh() }
+    Component.onDestruction: DesktopData.releaseOwner(menu)
+    Timer { interval: 900000; running: menu.opened && menu.city !== null; repeat: true; onTriggered: menu.refresh() }
     Timer {
         id: debounce
         interval: 300
         onTriggered: {
-            if (searchQuery.running || !menu.searching || cityInput.text.trim().length < 2) return;
+            if (!menu.searching || cityInput.text.trim().length < 2) return;
+            DesktopData.cancelQuery(menu.searchRequest);
             menu.requestedSearch = cityInput.text.trim();
-            searchQuery.command = ["python3", Quickshell.shellDir + "/scripts/weather-popup.py", "search", menu.requestedSearch];
-            searchQuery.running = true;
-        }
-    }
-    Process {
-        id: weatherQuery
-        stdout: StdioCollector { id: weatherOutput }
-        onExited: function(code) {
-            const received = weatherOutput.text;
-            menu.updateContent(function() {
-                if (!menu.opened && menu.city !== null) return;
-                if (menu.requestedCity !== JSON.stringify(menu.city)) {
-                    menu.refresh();
-                    return;
-                }
-                try {
-                    if (code !== 0) throw new Error("weather unavailable");
-                    menu.applySnapshot("weatherData", JSON.parse(received));
-                    if (menu.city === null) menu.defaultWeatherUpdated(menu.weatherData);
-                } catch (e) {
-                    if (menu.city === null && menu.weatherData.temp) return;
-                    menu.weatherData = {temp: "--", condition: "Unavailable", location: menu.city ? menu.city.name : "Weather"};
-                }
-
+            const query = menu.requestedSearch;
+            menu.searchRequest = DesktopData.queryWeather("search", {query: query}, menu, function(error, result) {
+                menu.searchRequest = "";
+                if (!menu.searching || query !== cityInput.text.trim()) return;
+                menu.cities = result.cities || [];
+                menu.searchError = error ? "City search unavailable" : result.error;
             });
-        }
-    }
-    Process {
-        id: searchQuery
-        stdout: StdioCollector { id: searchOutput }
-        onExited: function(code) {
-            if (!menu.searching) return;
-            if (menu.requestedSearch !== cityInput.text.trim()) { debounce.restart(); return; }
-            try {
-                if (code !== 0) throw new Error("search unavailable");
-                var result = JSON.parse(searchOutput.text);
-                menu.cities = result.cities;
-                menu.searchError = result.error;
-            } catch (e) { menu.searchError = "City search unavailable"; }
         }
     }
     Item {

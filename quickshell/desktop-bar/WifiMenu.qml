@@ -3,27 +3,59 @@ import QtQuick
 import "PanelStyle.js" as PanelStyle
 import QtQuick.Controls.Basic
 import Quickshell
-import Quickshell.Io
 
 ThemedPopup {
     id: menu
     waitForFreshData: true
     implicitWidth: 468
     implicitHeight: 528
-    property bool observing: false
-    onObservingChanged: if (observing) refresh()
-    signal statusReceived(var snapshot)
+    required property var networkService
+    property string detailsToken: ""
+    property string latencyToken: ""
+    function syncDemand() {
+        if (opened && !detailsToken) detailsToken = networkService.observe(menu);
+        if (!opened && detailsToken) { networkService.release(detailsToken); detailsToken = ""; }
+        if (opened && visible && !latencyToken) latencyToken = networkService.observe(menu, "latency");
+        if ((!opened || !visible) && latencyToken) { networkService.release(latencyToken); latencyToken = ""; }
+    }
+    onVisibleChanged: syncDemand()
+    Component.onDestruction: {
+        networkService.release(detailsToken);
+        networkService.release(latencyToken);
+        networkService.detach(menu);
+    }
+    function receiveDetails() {
+        const state = networkService.details;
+        updateContent(function() {
+            if (state.updatedAt) {
+                menu.applySnapshot("devices", state.data.devices);
+                menu.backend = state.data.backend || "iwd";
+            }
+        });
+    }
+    Connections {
+        target: menu.networkService
+        function onDetailsChanged() { menu.receiveDetails(); }
+    }
+    property string networkErrorCode: ""
+    function networkActionFinished(error, code) { networkErrorCode = code || ""; message = error; }
+    function networkQrFinished(result) {
+        if (!sharing) return;
+        qrImage = result.image || "";
+        qrError = result.error || "";
+    }
     property var devices: []
     readonly property var device: devices.length ? devices[0] : null
     readonly property var details: device ? device.details : ({})
-    readonly property var connected: device ? device.networks.find(n => n.connected) : null
+    readonly property var connected: device ? device.networks.find(network => network.connected) : null
     readonly property var groups: [
-        {title: Eitr.I18n.tr("CONNECTED"), networks: device ? device.networks.filter(n => n.connected) : []},
-        {title: Eitr.I18n.tr("KNOWN NETWORKS"), networks: device ? device.networks.filter(n => n.known && !n.connected) : []},
-        {title: Eitr.I18n.tr("OTHER NETWORKS"), networks: device ? device.networks.filter(n => !n.known && !n.connected) : []}
+        {title: Eitr.I18n.tr("CONNECTED"), networks: device ? device.networks.filter(network => network.connected) : []},
+        {title: Eitr.I18n.tr("KNOWN NETWORKS"), networks: device ? device.networks.filter(network => network.known && !network.connected) : []},
+        {title: Eitr.I18n.tr("OTHER NETWORKS"), networks: device ? device.networks.filter(network => !network.known && !network.connected) : []}
     ]
     property var selectedNetwork: null
     property string message: ""
+    readonly property string displayMessage: message ? networkService.actionMessage(message) : (networkService.details.error || "")
     property string secret: ""
     property string backend: "iwd"
     property string connectDevicePath: ""
@@ -39,9 +71,10 @@ ThemedPopup {
     property var shareNetwork: null
     property string qrImage: ""
     property string qrError: ""
-    property string qrSecret: ""
-    function closeShare() { sharing = false; qrImage = ""; qrSecret = ""; qrPassword.text = ""; shareNetwork = null; }
-    function generateQr() { if (!qrQuery.running && shareNetwork) { qrSecret = qrPassword.text; qrQuery.running = true; } }
+    function closeShare() { sharing = false; qrImage = ""; qrPassword.text = ""; shareNetwork = null; }
+    function generateQr() {
+        if (shareNetwork && networkService.generateQr(menu, shareNetwork, qrPassword.text)) qrPassword.text = "";
+    }
     function openShare() {
         shareNetwork = connected;
         qrImage = ""; qrError = ""; qrPassword.text = "";
@@ -49,16 +82,16 @@ ThemedPopup {
         if (shareNetwork.type === "open") generateQr();
         else qrPassword.forceActiveFocus();
     }
-    property bool busy: operation ? operation.running : false
-    property var latency: ({})
-    property string helper: Quickshell.shellDir + "/scripts/wifi-popup.py"
-    function refresh() { if (!query.running) query.running = true; }
+    readonly property bool busy: networkService.busy
+    readonly property var latency: networkService.latency.data
+    function refresh() { networkService.refresh(); }
     function act(kind, path, extra) {
-        if (busy) return;
-        message = "";
-        operation.command = ["python3", helper, kind, path];
-        if (extra !== undefined) operation.command = operation.command.concat([extra]);
-        operation.running = true;
+        if (networkService.act(menu, kind, path, extra,
+            Object.assign({password: secret, devicePath: connectDevicePath}, credentials))) {
+            message = "";
+            secret = "";
+            clearEnterprise();
+        }
     }
     function choose(network) {
         if (network.connected || network.available === false) return;
@@ -70,64 +103,10 @@ ThemedPopup {
             if (enterprise) identity.forceActiveFocus(); else password.forceActiveFocus();
         }
     }
-    function probe() { if (visible && device && device.state === "connected" && !pingQuery.running) { pingQuery.command = ["python3", helper, "probe", device.name]; pingQuery.running = true; } }
     onOpenedChanged: {
-        if (opened) { message = ""; latency = ({}); refresh(); }
-        else { selectedNetwork = null; secret = ""; pendingRemoval = ""; password.text = ""; clearEnterprise(); closeShare(); }
-    }
-    Timer { interval: 2000; running: menu.opened || menu.observing; repeat: true; onTriggered: menu.refresh() }
-    Timer { interval: 15000; running: menu.opened; repeat: true; onTriggered: menu.probe() }
-    Process {
-        id: query
-        command: ["python3", menu.helper, "status"]
-        stdout: StdioCollector { id: snapshot }
-        onExited: {
-            const received = snapshot.text;
-            menu.updateContent(function() {
-                try {
-                    var result = JSON.parse(received);
-                    if (result.error) menu.message = result.error;
-                    else {
-                        menu.applySnapshot("devices", result.devices);
-                        menu.backend = result.backend || "iwd";
-                        menu.statusReceived(result);
-                        if (menu.device && menu.latency.ping === undefined) menu.probe();
-                    }
-                } catch (e) { menu.message = "WiFi unavailable"; }
-
-            });
-        }
-    }
-    Process {
-        id: operation
-        stdinEnabled: true
-        onStarted: {
-            write(JSON.stringify(Object.assign({password: menu.secret, devicePath: menu.connectDevicePath}, menu.credentials)) + "\n");
-            menu.secret = ""; menu.clearEnterprise();
-        }
-        stdout: StdioCollector { id: operationOutput }
-        onExited: {
-            try { var result = JSON.parse(operationOutput.text); menu.message = result.error || ""; }
-            catch (e) { menu.message = "Could not complete request"; }
-            menu.refresh();
-        }
-    }
-    Process {
-        id: qrQuery
-        command: ["python3", Quickshell.shellDir + "/scripts/wifi-qr.py"]
-        stdinEnabled: true
-        onStarted: { write(JSON.stringify({network: menu.shareNetwork, password: menu.qrSecret}) + "\n"); menu.qrSecret = ""; qrPassword.text = ""; }
-        stdout: StdioCollector { id: qrOutput }
-        onExited: {
-            if (!menu.sharing) return;
-            try { var result = JSON.parse(qrOutput.text); menu.qrImage = result.image || ""; menu.qrError = result.error || ""; }
-            catch (e) { menu.qrError = "Could not generate QR code"; }
-        }
-    }
-    Process {
-        id: pingQuery
-        stdout: StdioCollector { id: pingOutput }
-        onExited: { try { menu.latency = JSON.parse(pingOutput.text); } catch (e) {} }
+        syncDemand();
+        if (opened) { message = ""; receiveDetails(); }
+        else { selectedNetwork = null; secret = ""; pendingRemoval = ""; password.text = ""; clearEnterprise(); closeShare(); networkService.detach(menu); }
     }
     Item {
         anchors.fill: parent
@@ -153,7 +132,7 @@ ThemedPopup {
                     spacing: 12
                     // While a scan runs, its own icon spins here; the "…" button stays still.
                     PanelLoadingIndicator {
-                        busy: (operation.running && operation.command[2] === "scan") || (!!menu.device && menu.device.scanning)
+                        busy: (menu.busy && menu.networkService.actionKind === "scan") || (!!menu.device && menu.device.scanning)
                         label: Eitr.I18n.tr("Scanning")
                         foreground: menu.foreground; background: menu.background
                     }
@@ -161,7 +140,7 @@ ThemedPopup {
                         foreground: menu.foreground; background: menu.background
                         actions: [
                             {title: Eitr.I18n.tr("Scan"), glyph: "\uF021", available: !!menu.device && menu.device.powered && !menu.busy && !menu.device.scanning, run: () => menu.act("scan", menu.device.path)},
-                            {title: Eitr.I18n.tr("Share WiFi"), glyph: "󰐲", available: !!menu.connected && ["open", "psk"].indexOf(menu.connected.type) >= 0 && !qrQuery.running, run: () => menu.openShare()}
+                            {title: Eitr.I18n.tr("Share WiFi"), glyph: "󰐲", available: !!menu.connected && ["open", "psk"].indexOf(menu.connected.type) >= 0 && !menu.networkService.qrBusy, run: () => menu.openShare()}
                         ]
                     }
                     PanelSwitch { checked: !!menu.device && menu.device.powered; enabled: !!menu.device && !menu.busy; foreground: menu.foreground; accent: menu.accent; onClicked: menu.act("power", menu.device.path, checked ? "true" : "false") }
@@ -201,7 +180,7 @@ ThemedPopup {
                     PanelButton { text: Eitr.I18n.tr("Cancel"); foreground: menu.foreground; onClicked: { menu.selectedNetwork = null; password.text = ""; } }
                 }
             }
-            Text { visible: menu.message !== ""; width: parent.width; text: menu.message; wrapMode: Text.Wrap; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.secondarySize }
+            Text { visible: menu.displayMessage !== ""; width: parent.width; text: menu.displayMessage; wrapMode: Text.Wrap; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.secondarySize }
             PanelDivider { width: parent.width; height: 8; foreground: menu.foreground }
         }
         PanelFooterLink {
@@ -384,7 +363,7 @@ ThemedPopup {
                 HoverHandler { cursorShape: Qt.IBeamCursor }
                 onAccepted: if (text.length > 0) menu.generateQr()
             }
-            PanelButton { visible: qrPassword.visible; text: Eitr.I18n.tr("Show QR"); width: 100; foreground: menu.foreground; available: qrPassword.text.length > 0 && !qrQuery.running; onClicked: menu.generateQr() }
+            PanelButton { visible: qrPassword.visible; text: Eitr.I18n.tr("Show QR"); width: 100; foreground: menu.foreground; available: qrPassword.text.length > 0 && !menu.networkService.qrBusy; onClicked: menu.generateQr() }
             Image { visible: menu.qrImage !== ""; anchors.horizontalCenter: parent.horizontalCenter; width: 300; height: 300; source: menu.qrImage; fillMode: Image.PreserveAspectFit; smooth: false }
             Text { width: parent.width; text: menu.qrError; visible: text !== ""; color: menu.foreground; wrapMode: Text.Wrap; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
         }

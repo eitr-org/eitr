@@ -54,3 +54,56 @@ class UpdatesTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class BrokerUpdateResultsTests(unittest.TestCase):
+    def test_offline_and_unknown_failure_are_not_successful_zero(self):
+        offline = Completed(1)
+        offline.stderr = 'Could not resolve host: mirror.example'
+        for result, expected in ((Completed(2), 'ready'), (offline, 'offline'), (None, 'unavailable')):
+            with self.subTest(expected=expected), patch.object(updates, 'run', return_value=result), \
+                    patch.object(updates.shutil, 'which', return_value=None):
+                data = updates.UpdatesDomain().read('updates.status')
+                self.assertEqual(data['state'], expected)
+                if expected == 'ready':
+                    self.assertEqual(data['count'], 0)
+                else:
+                    self.assertNotIn('count', data)
+
+    def test_command_timeout_retains_deadline_and_cli_fallback(self):
+        with patch.object(updates.subprocess, 'run', side_effect=updates.subprocess.TimeoutExpired('checkupdates', 120)) as execute:
+            self.assertIsNone(updates.run(['checkupdates']))
+            self.assertEqual(execute.call_args.kwargs['timeout'], 120)
+        with patch.object(updates, 'run', return_value=None):
+            self.assertEqual(updates.repository_updates(Path('/run/private-db')), ([], 0))
+            with self.assertRaises(RuntimeError):
+                updates.repository_updates(Path('/run/private-db'), strict=True)
+
+    def test_failed_size_or_aur_read_is_unavailable(self):
+        with patch.object(updates, 'run', side_effect=[Completed(0, 'linux 1 -> 2'), None]):
+            self.assertEqual(updates.UpdatesDomain().read('updates.status'), {'state': 'unavailable'})
+        with patch.object(updates, 'run', side_effect=[Completed(2), None]), \
+                patch.object(updates.shutil, 'which', return_value='/usr/bin/yay'):
+            self.assertEqual(updates.UpdatesDomain().read('updates.status'), {'state': 'unavailable'})
+
+    def test_unreadable_success_is_not_zero(self):
+        with patch.object(updates, 'run', return_value=Completed(0, 'unreadable output')):
+            self.assertEqual(updates.UpdatesDomain().read('updates.status'), {'state': 'unavailable'})
+
+    def test_no_aur_upgrades_preserves_repository_updates(self):
+        commands = [Completed(0, 'eitr-desktop 1 -> 2\nlinux 1 -> 2\nmesa 1 -> 2\n'),
+                    Completed(0, 'Download Size : 8527667 B\n'), Completed(1)]
+        with patch.object(updates, 'run', side_effect=commands), \
+                patch.object(updates.shutil, 'which', return_value='/usr/bin/yay'):
+            self.assertEqual(updates.UpdatesDomain().read('updates.status'),
+                             {'state': 'ready', 'count': 3, 'repository': 3, 'aur': 0,
+                              'downloadBytes': 8527667})
+
+    def test_aur_exit_one_with_diagnostic_remains_failure(self):
+        for diagnostic in ('Could not resolve host: aur.archlinux.org', 'invalid configuration'):
+            result = Completed(1)
+            result.stderr = diagnostic
+            with self.subTest(diagnostic=diagnostic), patch.object(updates, 'run', return_value=result), \
+                    patch.object(updates.shutil, 'which', return_value='/usr/bin/yay'):
+                with self.assertRaises(RuntimeError):
+                    updates.aur_updates(strict=True)

@@ -1,0 +1,541 @@
+{
+  "network.summary": [
+    {
+      "devices": [],
+      "backend": "iwd",
+      "blocked": false,
+      "wired": false
+    },
+    {
+      "devices": [
+        {
+          "path": "/device/0",
+          "name": "wlan-fixture",
+          "powered": false,
+          "state": "off",
+          "scanning": false,
+          "networks": [
+            {
+              "path": "",
+              "name": "Saved offline",
+              "type": "psk",
+              "known": true,
+              "connected": false,
+              "available": false,
+              "strength": null,
+              "knownPath": "/known/offline"
+            }
+          ],
+          "details": {}
+        }
+      ],
+      "backend": "iwd",
+      "blocked": true,
+      "wired": false
+    },
+    {
+      "devices": [],
+      "backend": "iwd",
+      "blocked": false,
+      "wired": true
+    },
+    {
+      "devices": [
+        {
+          "path": "/device/0",
+          "name": "wlan-fixture",
+          "powered": true,
+          "state": "connected",
+          "scanning": false,
+          "networks": [
+            {
+              "path": "/net/connected",
+              "name": "Fixture WiFi",
+              "type": "psk",
+              "known": true,
+              "connected": true,
+              "available": true,
+              "strength": 80,
+              "knownPath": "/known/connected"
+            },
+            {
+              "path": "",
+              "name": "Saved offline",
+              "type": "psk",
+              "known": true,
+              "connected": false,
+              "available": false,
+              "strength": null,
+              "knownPath": "/known/offline"
+            },
+            {
+              "path": "/net/guest",
+              "name": "Guest",
+              "type": "open",
+              "known": false,
+              "connected": false,
+              "available": true,
+              "strength": 80,
+              "knownPath": ""
+            }
+          ],
+          "details": {
+            "ip": "192.0.2.10",
+            "gateway": "192.0.2.1",
+            "band": "5 GHz"
+          }
+        }
+      ],
+      "backend": "iwd"
+    }
+  ],
+  "network.details": [
+    {
+      "devices": [],
+      "backend": "iwd",
+      "blocked": false,
+      "wired": false
+    },
+    {
+      "devices": [
+        {
+          "path": "/device/0",
+          "name": "wlan-fixture",
+          "powered": false,
+          "state": "off",
+          "scanning": false,
+          "networks": [
+            {
+              "path": "",
+              "name": "Saved offline",
+              "type": "psk",
+              "known": true,
+              "connected": false,
+              "available": false,
+              "strength": null,
+              "knownPath": "/known/offline"
+            }
+          ],
+          "details": {}
+        }
+      ],
+      "backend": "iwd",
+      "blocked": true,
+      "wired": false
+    },
+    {
+      "devices": [
+        {
+          "path": "/device/0",
+          "name": "wlan-fixture",
+          "powered": true,
+          "state": "connected",
+          "scanning": false,
+          "networks": [
+            {
+              "path": "/net/connected",
+              "name": "Fixture WiFi",
+              "type": "psk",
+              "known": true,
+              "connected": true,
+              "available": true,
+              "strength": 80,
+              "knownPath": "/known/connected"
+            },
+            {
+              "path": "",
+              "name": "Saved offline",
+              "type": "psk",
+              "known": true,
+              "connected": false,
+              "available": false,
+              "strength": null,
+              "knownPath": "/known/offline"
+            },
+            {
+              "path": "/net/guest",
+              "name": "Guest",
+              "type": "open",
+              "known": false,
+              "connected": false,
+              "available": true,
+              "strength": 80,
+              "knownPath": ""
+            }
+          ],
+          "details": {
+            "ip": "192.0.2.10",
+            "gateway": "192.0.2.1",
+            "band": "5 GHz"
+          }
+        }
+      ],
+      "backend": "iwd"
+    }
+  ],
+  "network.latency": [
+    {
+      "ping": null,
+      "loss": null
+    },
+    {
+      "ping": null,
+      "loss": 100.0
+    },
+    {
+      "ping": 12.5,
+      "loss": 0.0
+    }
+  ],
+  "capture.summary": [
+    {
+      "running": false,
+      "ready": true,
+      "recording": false,
+      "paused": false,
+      "streaming": false
+    },
+    {
+      "running": true,
+      "ready": false,
+      "recording": false,
+      "paused": false,
+      "streaming": false,
+      "error": "Could not read OBS status"
+    }
+  ],
+  "capture.details": [
+    {
+      "running": false,
+      "ready": true,
+      "recording": false,
+      "paused": false,
+      "streaming": false
+    },
+    {
+      "running": true,
+      "ready": true,
+      "recording": true,
+      "paused": false,
+      "streaming": false,
+      "recordingSeconds": 1.2,
+      "recordingBytes": 2048,
+      "scenes": [],
+      "scene": "",
+      "mic": {
+        "available": false,
+        "muted": false
+      },
+      "webcam": {
+        "available": false,
+        "enabled": false
+      }
+    }
+  ],
+  "capture.options": [
+    {
+      "audio": {
+        "enabled": false,
+        "available": false,
+        "sources": []
+      },
+      "mic": {
+        "enabled": false,
+        "available": false,
+        "sources": []
+      },
+      "webcam": {
+        "enabled": false,
+        "available": false,
+        "sources": []
+      }
+    }
+  ],
+  "power.battery": [
+    {
+      "available": false,
+      "percent": 0,
+      "status": "",
+      "health": 0,
+      "hours": 0
+    },
+    {
+      "available": true,
+      "percent": 62.5,
+      "status": "Discharging",
+      "health": 95.4,
+      "hours": 2.1
+    }
+  ],
+  "power.profile": [
+    {
+      "available": false,
+      "active": "",
+      "profiles": []
+    },
+    {
+      "available": true,
+      "active": "balanced",
+      "profiles": [
+        "power-saver",
+        "balanced",
+        "performance"
+      ]
+    }
+  ],
+  "power.radios": [
+    {
+      "available": false,
+      "enabled": false
+    },
+    {
+      "available": true,
+      "enabled": true
+    }
+  ],
+  "display.topology": [
+    {
+      "monitors": [],
+      "primary": "",
+      "preferred": [],
+      "windowGaps": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "screenGaps": [
+        12,
+        12,
+        12,
+        12
+      ]
+    }
+  ],
+  "display.settings": [
+    {
+      "main": "",
+      "monitors": [],
+      "saved": {}
+    },
+    {
+      "main": "DP-1",
+      "monitors": [
+        {
+          "name": "DP-1",
+          "mode": "2560x1080@144.00",
+          "position": "0x0",
+          "scale": "1",
+          "mirror": null,
+          "anchor": null,
+          "hdr": false,
+          "sdr_brightness": 1.0,
+          "hdr_capable": true,
+          "modes": [
+            "2560x1080@144.00Hz"
+          ]
+        }
+      ],
+      "saved": {}
+    },
+    {
+      "main": "DP-1",
+      "monitors": [
+        {
+          "name": "DP-2",
+          "mode": "1920x1080@60.00",
+          "position": "2560x0",
+          "scale": "1.25",
+          "mirror": null,
+          "anchor": {
+            "side": "right-of",
+            "of": "DP-1",
+            "align": "start"
+          },
+          "hdr_capable": false,
+          "modes": []
+        }
+      ]
+    }
+  ],
+  "display.brightness": [
+    {
+      "available": false,
+      "kind": "",
+      "name": "Brightness unavailable",
+      "value": 0,
+      "error": "No DDC displays found"
+    },
+    {
+      "available": true,
+      "kind": "ddc",
+      "name": "Display brightness",
+      "value": 50,
+      "maximum": 150
+    }
+  ],
+  "display.nightlight": [
+    {
+      "mode": "auto",
+      "enabled": false,
+      "scheduled": false,
+      "start": "18:00",
+      "end": "09:00",
+      "available": false
+    }
+  ],
+  "hardware.details": [
+    {
+      "identity": {},
+      "sections": []
+    },
+    {
+      "identity": {
+        "gpu": {
+          "available": false
+        }
+      },
+      "sections": [
+        {
+          "title": "GPU",
+          "name": "GPU telemetry unavailable",
+          "usage": null,
+          "rows": []
+        },
+        {
+          "title": "RAM",
+          "name": "System memory",
+          "usage": 22,
+          "rows": [
+            [
+              "Available",
+              "12.0 GiB"
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "remote.availability": [
+    {
+      "allowed": false
+    },
+    {
+      "allowed": true
+    }
+  ],
+  "remote.status": [
+    {
+      "allowed": false,
+      "tailscale": {},
+      "streaming": {}
+    },
+    {
+      "allowed": true,
+      "tailscale": {
+        "installed": false,
+        "connected": false,
+        "signedOut": false,
+        "addresses": [],
+        "peers": [],
+        "facts": [],
+        "actions": [],
+        "status": "Tailscale is not installed."
+      },
+      "streaming": {
+        "installed": false,
+        "running": false,
+        "facts": [],
+        "actions": [],
+        "status": "Sunshine is not installed."
+      }
+    }
+  ],
+  "weather.default": [
+    {
+      "source": "open-meteo-v4-auto",
+      "text": " --",
+      "location": "Weather",
+      "condition": "Unavailable",
+      "temp": "--",
+      "feels": "--",
+      "wind": "--",
+      "humidity": "--",
+      "forecast": "--",
+      "forecastDays": []
+    },
+    {
+      "source": "fixture",
+      "text": " 20°C",
+      "location": "Fixture",
+      "condition": "Clear",
+      "temp": "20°C",
+      "feels": "20°C",
+      "wind": "4 km/h",
+      "humidity": "50%",
+      "forecast": "21°",
+      "forecastDays": [
+        {
+          "day": "SAT",
+          "icon": "63",
+          "high": "21",
+          "low": "11"
+        }
+      ]
+    }
+  ],
+  "ai.usage": [
+    {
+      "providers": [],
+      "updated": 1.0
+    },
+    {
+      "providers": []
+    },
+    {
+      "providers": [
+        {
+          "name": "Claude",
+          "accounts": [
+            {
+              "id": "default",
+              "label": "Default",
+              "name": "Claude",
+              "plan": null,
+              "windows": [
+                {
+                  "label": "5 hours",
+                  "used": 0,
+                  "reset": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "updated": 1.0
+    }
+  ],
+  "updates.status": [
+    {
+      "state": "ready",
+      "count": 0,
+      "repository": 0,
+      "aur": 0,
+      "downloadBytes": 0
+    },
+    {
+      "state": "ready",
+      "count": 3,
+      "repository": 3,
+      "aur": 0,
+      "downloadBytes": 8527667
+    },
+    {
+      "state": "offline"
+    },
+    {
+      "state": "unavailable"
+    }
+  ]
+}

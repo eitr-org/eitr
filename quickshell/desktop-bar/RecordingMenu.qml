@@ -2,11 +2,10 @@ import Eitr as Eitr
 import QtQuick
 import "PanelStyle.js" as PanelStyle
 import Quickshell
-import Quickshell.Io
 
 // The recording dot's popup while OBS records or streams: elapsed time and size,
 // pause/stop/chapter, the OBS microphone and camera, and the scene. Actions go
-// through ObsMenu (the controller); details come from obs-control.py details.
+// through ObsMenu (the controller); details come from the shared capture domain.
 ThemedPopup {
     id: menu
     waitForFreshData: true
@@ -35,46 +34,38 @@ ThemedPopup {
         return bytes >= 1e9 ? (bytes / 1e9).toFixed(2) + " GB" : Math.max(1, Math.round(bytes / 1e6)) + " MB";
     }
     function refresh() {
-        if (!detailsQuery.running) detailsQuery.running = true;
+        ObsStatus.refresh();
     }
 
     onOpenedChanged: {
         ObsStatus.detailObservers += opened ? 1 : -1;
-        if (opened) refresh();
+        if (opened && ObsStatus.details && ObsStatus.details.status === "ready")
+            acceptDetails(ObsStatus.details.data);
     }
     Component.onDestruction: if (opened) ObsStatus.detailObservers--
-    Timer { interval: 2000; repeat: true; running: menu.opened; onTriggered: menu.refresh() }
     Timer { interval: 500; repeat: true; running: menu.opened; onTriggered: menu.now = Date.now() }
-    Process {
-        id: detailsQuery
-        command: ["python3", menu.controller.controlScript, "details"]
-        stdout: StdioCollector { id: detailsOutput }
-        onExited: function(code) {
-            const received = detailsOutput.text;
-            menu.updateContent(function() {
-                try {
-                    if (code === 0) {
-                        const snapshot = JSON.parse(received);
-                        ObsStatus.state = snapshot;
-                        ObsStatus.received(snapshot);
-                        menu.applySnapshot("details", snapshot);
-                        menu.fetchedAt = Date.now();
-                        menu.now = menu.fetchedAt;
-                    }
-                } catch (error) {}
-
-            });
-        }
+    function acceptDetails(snapshot) {
+        if (!opened) return;
+        const receivedAt = ObsStatus.details.updatedAt;
+        menu.updateContent(function() {
+            menu.applySnapshot("details", snapshot);
+            menu.fetchedAt = receivedAt;
+            menu.now = Date.now();
+        });
+    }
+    Connections {
+        target: ObsStatus
+        function onDetailsReceived(snapshot) { menu.acceptDetails(snapshot); }
     }
     Connections {
         target: menu.controller
         function onObsStateChanged() {
-            if (!menu.controller.obsState.recording && !menu.controller.obsState.streaming && !menu.controller.busy)
+            if (menu.controller.obsState.ready && !menu.controller.obsState.recording && !menu.controller.obsState.streaming && !menu.controller.busy)
                 menu.opened = false;
         }
         function onBusyChanged() {
             if (menu.controller.busy) return;
-            if (!menu.controller.obsState.recording && !menu.controller.obsState.streaming) menu.opened = false;
+            if (menu.controller.obsState.ready && !menu.controller.obsState.recording && !menu.controller.obsState.streaming) menu.opened = false;
             else if (menu.opened) menu.refresh();
         }
     }

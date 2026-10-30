@@ -25,6 +25,33 @@ O Quickshell mostra um erro de recarga legível e, quando possível, mantém a c
 
 Reiniciar o Elephant recarrega os menus. Seu serviço deve manter `KillMode=process` para auxiliares e inicializações sem uwsm. Em uma sessão uwsm, aplicativos e terminais lançados usam escopos de aplicação separados. Temas regeneram estilos: se uma alteração desaparecer, corrija o gerador e o arquivo gerado.
 
+## Os dados de WiFi pararam de atualizar
+
+A barra compartilha um único processo de leitura de WiFi entre as telas. Se ele
+encerrar, os últimos dados válidos ficam marcados como desatualizados enquanto o
+processo tenta reiniciar com intervalos crescentes. Após seis tentativas sem
+sucesso, ele aguarda uma nova tentativa explícita. Os controles nativos continuam
+disponíveis. As ações de WiFi compartilham uma fila ordenada e o estado de ocupado entre as telas. Se uma ação exceder o prazo ou o processo encerrar, o resultado é desconhecido: atualize o estado antes de tentar novamente explicitamente. As escritas nunca são repetidas automaticamente. A geração de QR mantém seu auxiliar separado.
+
+Para consultar o estado técnico, use
+`eitr-shell desktop-bar ipc call -- data status`. A saída informa a idade dos
+dados, códigos de erro, leituras em andamento, observadores e reinícios, sem nomes
+ou endereços de rede. Tente novamente com
+`eitr-shell desktop-bar ipc call -- data retry`.
+
+A captura do OBS usa o mesmo processo compartilhado entre as telas. Uma única
+verificação é executada a cada 2 segundos somente enquanto uma janela ou um
+processo do OBS é conhecido. Os detalhes da gravação são atualizados a cada
+2 segundos somente enquanto um painel de gravação está aberto e também fornecem
+o estado compartilhado. Um estado desconhecido mantém o último estado de captura
+conhecido e desativa os controles até uma atualização bem-sucedida. As ações de
+captura e as alterações de opções compartilham uma fila ordenada; se o prazo
+expirar ou o processo encerrar, o resultado fica desconhecido e a ação nunca é
+repetida automaticamente. O comando independente do OBS continua disponível para
+o Walker e os atalhos de captura de tela.
+
+Bateria, perfis de energia e modo avião também compartilham este processo. A bateria é lida a cada 30 segundos; perfis e rádios são lidos somente enquanto os painéis correspondentes estão abertos. Baterias de periféricos não ativam controles de notebook. Os ganchos e avisos de bateria fraca mantêm seus limites. As ações de perfil e modo avião são ordenadas, informam erros ao painel solicitante e nunca são repetidas após um resultado desconhecido. Os comandos independentes continuam disponíveis.
+
 ## Verificações de instalação e recuperação
 
 O EITR ainda está em beta: testes em VMs não comprovam cada adaptador WiFi, agente Bluetooth, TPM, GPU, leitor de impressão digital ou configuração de Secure Boot. O código atual dos serviços WiFi e da autenticação corporativa é testado com simulações; teste a autenticação real antes de depender dela. Mudar manifestos do repositório não muda ISOs existentes: reconstrua o payload e a ISO para levar essas alterações a novas instalações.
@@ -63,3 +90,14 @@ O código do EITR fica em `/usr/share/eitr` e é atualizado pelo pacote `eitr-de
 Arquivos como `kitty/theme.conf` e o estilo do Walker são regenerados ao trocar temas e uma vez após cada atualização do pacote. As cópias anteriores ficam em `~/.local/state/eitr/generated-backups`. Se uma atualização muda o formato de uma preferência, ela é convertida uma vez no login; uma falha é informada e tentada novamente no próximo login (`~/.local/state/eitr/migrations.log`). `eitr-config status` lista configurações e substituições ativas.
 
 Terminais de tarefas que falharam oferecem **A: perguntar à IA** quando há um assistente padrão; **Esc** fecha. Só as últimas 200 linhas ficam na memória, sem sequências ANSI e com linhas de segredos evidentes ocultadas antes do envio: um assistente na nuvem envia essa saída ao provedor, enquanto Ratatoskr a mantém neste PC.
+
+
+A topologia das telas, o brilho e a luz noturna também compartilham o broker. Eventos dos monitores e mudanças na preferência de tela principal atualizam a geometria em todas as telas. O brilho e a luz noturna são atualizados apenas enquanto observados; o brilho DDC não é consultado periodicamente. Os testes de tela mantêm a reversão automática independente mesmo se a barra ou o broker encerrar. Os comandos de tela e de redução/restauração do brilho por inatividade continuam disponíveis.
+
+Hardware usa um único amostrador do broker em todas as telas e na ação Hardware do Centro de Controle. Ao abrir um painel, os dados são atualizados imediatamente e depois a cada dois segundos enquanto algum painel de hardware estiver aberto. Fechar o último painel encerra a amostragem. A identidade da CPU, do disco raiz e da GPU fica em memória durante a sessão do broker, incluindo consultas de GPU indisponíveis ou que excedam o tempo limite. Em caso de falha na leitura, as últimas seções válidas continuam visíveis. A CLI independente `system-details.py` permanece disponível; `eitr-shell desktop-bar ipc call -- data status` inclui o diagnóstico de `hardware.details`.
+
+O acesso remoto usa o broker compartilhado: o estado do Tailscale e Sunshine atualiza ao abrir e a cada 10 segundos enquanto algum painel remoto o observa. Fechar o último painel encerra as leituras. A disponibilidade da política é lida apenas na inicialização e quando muda. As ações continuam nos auxiliares do Walker; o broker não altera configurações remotas. A CLI `remote-status.py` continua disponível. `eitr-shell desktop-bar ipc call -- data status` inclui diagnósticos de `remote.status` e `remote.availability`.
+
+O clima compartilha uma previsão padrão entre telas e painéis, com cache e atualização a cada 15 minutos. Buscas e cidades alternativas pertencem apenas ao painel solicitante e não substituem a previsão padrão. O uso de IA compartilha o cache e atualiza ao abrir, depois a cada cinco minutos apenas enquanto algum painel de uso estiver aberto. Fechar o último painel impede novos trabalhos de contas na fila; chamadas em andamento terminam nos limites existentes e o adaptador de IA é liberado. Os períodos de espera dos provedores são respeitados. Os comandos independentes de clima e IA e o arquivo de seleção da sessão continuam disponíveis. `eitr-shell desktop-bar ipc call -- data status` inclui contadores de `weather.default` e `ai.usage`, sem nomes de contas ou respostas dos provedores.
+
+As verificações de atualização compartilham o broker de dados da barra entre telas: 45 segundos após iniciar, a cada seis horas e após a Atualização do Sistema ou uma atualização manual da consulta. Uma solicitação durante uma verificação agenda uma nova verificação ao terminar. Consultas sem rede ou ilegíveis nunca indicam “Em dia”; clique com o botão direito no ícone de atualização para tentar novamente. Notificações e terminais de tarefas continuam sob responsabilidade do shell. A CLI independente de consulta continua disponível. O comando de diagnóstico acima inclui `updates.status`.

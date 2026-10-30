@@ -1,4 +1,5 @@
 import importlib.util
+import json
 from pathlib import Path
 import tempfile
 import unittest
@@ -13,6 +14,25 @@ except ImportError as error:
 
 
 class NetworkManagerTests(unittest.TestCase):
+    def test_recorded_contract_matches_adapter(self):
+        fixture = json.loads((Path(__file__).parent / "fixtures/network.json").read_text())["networkmanager"]
+        device = fixture["devices"][0]
+        visible = [network for network in device["networks"] if network["available"]]
+        saved = {(network["name"], network["type"]): network["knownPath"]
+                 for network in device["networks"] if network["known"]}
+        def properties(bus, path, interface):
+            if path == nm.ROOT:
+                return {"Devices": [device["path"]], "WirelessEnabled": device["powered"]}
+            if interface.endswith(".Device"):
+                return {"DeviceType": 2, "Interface": device["name"], "State": 100}
+            if interface.endswith(".Wireless"):
+                return {"AccessPoints": [network["path"] for network in visible], "ActiveAccessPoint": "/net/connected"}
+            network = next(network for network in visible if network["path"] == path)
+            return {"Ssid": network["name"].encode(), "RsnFlags": 0x100 if network["type"] == "psk" else 0,
+                    "Strength": network["strength"], "Frequency": 5180}
+        with patch.object(nm, "profiles", return_value=saved), patch.object(nm, "properties", side_effect=properties):
+            self.assertEqual(nm.snapshot(None, lambda interface: dict(device["details"])), fixture)
+
     def test_security_types_do_not_treat_encrypted_networks_as_open(self):
         for flags, kind in ((0, "open"), (0x100, "psk"), (0x200, "8021x"), (0x400, "sae"), (0x800, "unsupported")):
             self.assertEqual(nm.security({"RsnFlags": flags}), kind)

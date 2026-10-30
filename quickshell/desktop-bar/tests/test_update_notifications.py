@@ -43,7 +43,9 @@ class UpdateNotificationTests(unittest.TestCase):
         source = (BAR / "shell.qml").read_text()
         self.assertIn("if (updates.count <= announcedUpdates)", source)
         self.assertIn("shell.announceUpdates();", source)
-        self.assertIn("interval: 6 * 60 * 60 * 1000; repeat: true", source)
+        self.assertNotIn("id: updatesQuery", source)
+        self.assertIn('updatesState.status === "ready"', source)
+        self.assertIn('!updatesState.inFlight', source)
 
 
 if __name__ == "__main__":

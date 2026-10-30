@@ -8,14 +8,13 @@ Battery stays at 30 s. WiFi glyphs and Focus share one 10 s status query without
 IP/route telemetry; network details refresh only while WiFi or Control Center is
 open. Hardware and recording details refresh immediately on opening, then every
 2 s while open. Hardware identity and unsupported GPU detection are cached for
-the bar session; utilization, frequency, temperatures and disk usage remain live.
+the broker session; utilization, frequency, temperatures and disk usage remain live.
 One OBS status source refreshes every 2 s while an OBS window/process exists;
 open recording details supply that snapshot instead. A startup probe discovers
 an existing tray instance; subsequent OBS window events activate observation.
-Remote details refresh on opening and every 10 s while observed; closed panels
-only read policy availability at startup and policy changes. AI and weather
-popup refresh timers run only while open; the weather glyph keeps its 15 min
-schedule.
+Remote details share the broker’s `remote.status` topic and refresh on opening and every 10 s while observed; closed panels
+only read policy availability at startup and policy changes. Weather shares one default forecast across screens with a 15 min cache and schedule.
+AI usage refreshes on opening and every 5 min only while a usage menu is open.
 
 Live artwork decodes at the output's pixel dimensions. Aurora runs at 20 Hz on
 an empty workspace and 5 Hz behind ordinary windows, retaining fullscreen and
@@ -174,7 +173,7 @@ the resulting status refresh finish. Starting capture first prepares OBS in
 the background, then closes the panel before recording or streaming starts.
 The recording dot (just left of the clock while OBS records or streams, where dictation
 also shows its level bars) opens RecordingMenu: elapsed
-time and size from `obs-control.py details`, Pause/Resume, Chapter and Stop, a LIVE
+time and size from the shared broker capture details, Pause/Resume, Chapter and Stop, a LIVE
 row with Stop for streams, OBS microphone and camera toggles and the scene list.
 Stopping a recording sends an Open folder / Copy path notification. During
 SUPER+D dictation the dot becomes a red waveform fed by the default microphone's
@@ -468,7 +467,7 @@ retains up to 100 notifications, with periodic pruning. `notifications` IPC
 provides `toggle`, `dnd`, `clear`, `clearApp`, and `status`.
 
 Click the Hardware icon to open the shared CPU/GPU/RAM/Storage popup. It refreshes every
-two seconds while visible and closes on an outside click or Escape. CPU load,
+two seconds while any hardware panel is visible and closes on an outside click or Escape. CPU load,
 cores, frequency and temperature, GPU usage, VRAM and power, and RAM/swap totals
 are read locally. Storage identifies only the drive backing `/`, including
 encrypted device stacks, and shows installation used/free space. Other drives
@@ -741,8 +740,8 @@ compositor blur, D-Bus, GPU capture, DDC or real hardware performance.
 | Control Center — Plugins and details | Installed registry model, icon/preview decoding | Registry already prefetches and guards changes; fixed icon slots now decode asynchronously; source URL/folder shown | needs live check |
 | Control Center — Quick chat | Assistant status; conversation delegates | Status query immediate and guarded; no request until Send; closing still clears memory | needs live check |
 | AI Usage (`ai`) | Cache + fresh query replaced provider model on every open | Startup cache; immediate fresh query/results; guarded usage assignment | needs live check |
-| Hardware (`hardware`) | Telemetry process replaced all section delegates | Warm background prefetch; immediate refresh/parse; guarded section snapshot | needs live check |
-| WiFi (`wifi`) | Status process replaced devices; ping could follow during reveal | Warm background status; immediate open query/parse and ping; guarded device snapshot; QR generated only after explicit Share | needs live check |
+| Hardware (`hardware`) | Shared broker telemetry snapshot | Subscribe on open; immediate refresh; guarded section snapshot | needs live check |
+| WiFi (`wifi`) | Status process replaced devices; ping could follow during reveal | Shared cached status; refresh on open and visible-only ping; guarded device snapshot; QR generated only after explicit Share | needs live check |
 | Bluetooth (`bluetooth`) | Service-backed section arrays recreated when devices changed | Apply sections immediately and compare device identities; scan remains explicit and stops on close | needs live check |
 | Display (`brightness`, `display`) and monitor editor | Status/monitor/settings/nightlight/power JSON; slow DDC read | Existing prefetch/JsonState retained; immediate query parsers and open DDC read; shared size retargeting | needs live check |
 | Audio (`volume`, `mic`) and device picker | PipeWire node list, scroll positioning, microphone peak monitor | Apply node-list identity changes and initial scroll immediately; peak monitor activates after reveal; no recording is started | needs live check |
@@ -823,3 +822,190 @@ share a machine-local preference. Focus uses native Hyprland groups with up to
 four panes per monitor and a thin Quickshell tab strip. Turning it off restores
 the normal bar and effects, spreading windows two per workspace. See the
 [Focus Handbook chapter](handbook/content/focus.md) for keys, monitor behavior and recovery.
+
+### Desktop data ownership
+
+One `NetworkService` in the shell supplies every screen, bar layout and Focus
+strip. The registered `DesktopData` singleton owns one `scripts/bar-data.py` child
+for the entire shell. The broker imports the existing WiFi CLI adapters once into a pool of at most three
+threads and schedules the summary at startup and every
+10 seconds. WiFi menus and Control Center hold detail observer tokens while
+open; one shared reader refreshes on opening and every 2 seconds. Only visible
+WiFi menus hold latency tokens, for one probe on opening/connection and every
+15 seconds. Closing or destroying a consumer releases its tokens idempotently;
+zero demand stops the corresponding reader and timer. Cached details appear
+immediately, with fresh panel content applied through the popup reveal guard.
+Refreshes coalesce to one running read and one pending refresh. Each topic keeps
+its last good data, timestamp, and loading/ready/unavailable/stale/error status.
+Network actions share a busy guard across screens. QR generation has its own
+guard; credentials and QR results go only to the requesting panel and are not
+part of shared snapshots. The existing iwd and NetworkManager readers and action
+helpers remain the backend authority.
+
+The version 1 transport uses bounded newline-delimited JSON on stdin/stdout;
+Adapter logs never enter protocol stdout. Requests use `subscribe`/`unsubscribe`
+with a topic and unique observer token, or `refresh` with a request ID. Topics are
+`network.summary`, `network.details`, `network.latency`, `capture.summary`,
+`capture.details`, `capture.options`, `power.battery`, `power.profile`,
+`power.radios`, `display.topology`, `display.settings`, `display.brightness`,
+`display.nightlight`, `hardware.details`, `remote.availability`, `remote.status`,
+`weather.default`, `ai.usage` and `updates.status`. State snapshots carry
+`v`, `op`, `topic`, `token`, `id`, `epoch`, per-topic `seq`, `status`, `data`, and
+`ageMs` (null before a successful read). A `hello` establishes the epoch; reconnect
+replays current tokens and sends full snapshots. Old epoch/sequence results are
+ignored. Reads have deadlines and D-Bus calls time out within 5 seconds. A timed-out
+read keeps its topic occupied until its thread returns. Scheduling sleeps until
+the next due read or a demand change. Output retains only the newest queued
+snapshot per topic/token and domain. Reliable replies retain their order; input
+pauses at the output high-water mark and yields between frames so startup and
+restart subscription bursts cannot starve the writer. Already-admitted actions
+and queries are bounded, keeping queued output bounded while stdout is stalled.
+Domain busy/name frames are emitted initially and only when those values change.
+
+Broker exit retains good data as stale and retries with capped exponential delay
+and jitter, stopping after six retries. `eitr-shell desktop-bar ipc call -- data retry`
+allows explicit recovery; `eitr-shell desktop-bar ipc call -- data status` returns topic
+ages, error codes, in-flight/pending counts, observers and restart count, without
+network identities or raw data. Each status call requests diagnostics once and
+returns the diagnostics received from the previous call; there is no status polling. Native desktop controls remain independent.
+Network actions use request IDs and a bounded ordered broker queue and share serialization with power/radio writes. Busy state is shared across screens; results and error codes return only to the originating panel. Each helper receives credentials on stdin and is killed and reaped at its operation deadline (enterprise: 120 s). Timeout or broker death means outcome unknown: reconcile state and retry explicitly. Writes are never replayed. QR remains an ephemeral helper outside the broker.
+
+### Capture data ownership
+
+The singleton `ObsStatus` adapts `capture.summary`, `capture.details`, and
+`capture.options` from the same `DesktopData` broker. Imported OBS reads run in
+the bounded worker pool; they do not launch Python per refresh. Summary checks
+run at startup, on window changes and explicit refresh, then every 2 seconds
+only while an OBS window or process is known to exist. Recording panels share
+one 2-second details reader while open; details also update the summary, so no
+parallel summary check runs. Options refresh on open or after writes, without
+periodic polling. Unavailable reads retain last-good data with controls disabled;
+unknown status never becomes a confirmed stopped state.
+
+Capture actions, including option writes and preparation, use request IDs and
+one bounded ordered domain queue. Busy state is shared across screens; results
+return to the requesting controller. The existing prepare/close/reveal delay
+before starting capture is preserved. The OBS stop command keeps its 30-second
+deadline, within a 45-second total budget for notification and idle cleanup.
+Timeouts and broker death leave an unknown outcome, require state reconciliation,
+and never replay writes. `obs-control.py` remains the standalone CLI for Walker,
+screenshots and shortcuts, with the same output and translation behavior.
+`eitr-shell desktop-bar ipc call -- data status` includes capture topic diagnostics
+without recording paths, scene names or raw OBS data.
+
+### Shared battery, power and radios
+
+`PowerService` consumes `power.battery`, `power.profile` and `power.radios` from
+DesktopData. Imported adapters share the bounded worker pool and per-call deadlines;
+the standalone battery, power-profile and airplane CLIs retain their output.
+The broker derives system-battery capability once with `eitr_battery`; peripheral
+batteries do not enable laptop controls. Battery reads retain the 30-second cadence.
+Profile reads run every 3 seconds while Brightness is open, otherwise every 5 seconds
+while Battery or Control Center is open. Radio reads run every 5 seconds only while
+Control Center is open. Multiple screens share these reads and release demand on
+close/destruction. One shared read preserves the existing 8-second startup warmup. The shell alone presents the existing low-battery hook at 15%
+and warnings at 10% and 5%, including after suspend gaps.
+Profile and airplane writes have request IDs, ordered serialization with network
+writes and originating-panel results. They keep the existing helpers and privilege
+boundaries. Unknown outcomes require a successful refresh and explicit retry;
+writes are never replayed. Data status includes all three power topics.
+
+
+`DisplayService` shares `display.topology`, `display.settings`,
+`display.brightness` and `display.nightlight` through the same broker. The display
+domain loads on first demand inside the bounded worker pool; import and read
+failures affect the requested topic without preventing other domains from starting. Hyprland
+monitor/configuration events and the watched primary/preferred output files
+refresh topology; shell geometry, desktop widgets and display controls use one
+monitor snapshot, including reserved edges. The saved main display, preferred
+connected output and largest-display fallback order is unchanged.
+Brightness and night-light reads retain their three-second interval only while
+observed; startup warms each once. DDC brightness is never periodically polled.
+Brightness reads share the CLI fallback for missing backlight/DDC controls:
+`ready` with `available: false`, without a broker error.
+Slider writes keep the latest pending value and suspend read demand until the
+write queue drains. Panel actions and display trials still use their existing
+helpers; the independent trial rollback survives bar or broker exit. The
+standalone display and hypridle brightness commands remain available. Settings
+can initialize the shared monitor snapshot with a bounded read when topology has
+not arrived yet; a gaps-query failure does not invalidate usable monitor data.
+
+
+Hardware read ownership
+-----------------------
+
+`hardware.details` owns the hardware sampler and session identity in the broker.
+The Hardware popup, including Control Center's Hardware entry, subscribes on open
+and releases on close or destruction. Opening refreshes immediately; multiple
+screens share one 2-second sampler, with no periodic sampling after the last
+observer closes. An already-admitted read may finish; a closed generation cannot
+publish its result. Identity discovery is retained across opens, including failed or timed-out
+GPU probes. The popup keeps its last good sections on failure and uses the existing
+translated unavailable message. `system-details.py` remains an independent CLI with
+its existing JSON and optional stdin identity contract.
+
+All domain adapters load lazily on demand inside the bounded worker pool, under
+the read deadline. Each domain can occupy at most two of the three pool
+workers, so one slow domain cannot fill the pool with sibling topics. A failed or slow import marks only that topic unavailable;
+it cannot prevent broker startup or another domain's reads. Capture's ordered
+action controller belongs to the broker, separate from its lazy read adapter.
+`eitr-shell desktop-bar ipc call -- data status` includes hardware demand,
+freshness and read errors without scheduling periodic diagnostics.
+
+### Weather and AI data ownership
+
+`weather.default` shares the weather calculation and compatible disk cache with
+`weather-status.sh` and `weather-popup.py`. All bar screens and default-location
+panels consume it; the broker schedules one 15-minute reader. Opening a panel
+checks the same 15-minute cache. City search and alternate forecasts use bounded
+`query`/`reply` requests addressed to the requesting panel, cancelled on close or
+replacement. They never replace the default forecast or its disk cache. Alternate
+cities remain session-only. HTTP calls have five-second limits within a total
+17-second budget; provider 429 responses establish cooldowns.
+
+`ai.usage` refreshes on opening and every five minutes only while observed.
+The shared adapter reconciles cached accounts before refreshing; at most two
+account jobs use the three-thread broker pool, leaving room for other domains.
+Closing the last menu prevents queued accounts from starting; active calls drain
+under their existing command/HTTP timeouts. The AI adapter is then released, so
+its provider implementation is not retained at idle. Account cooldown deadlines
+survive adapter release without retaining provider payloads. `ai-popup.py` and
+`ai-usage.py` retain their standalone interfaces and compatible cache; the popup's
+session selection file is unchanged. Diagnostics expose only topic-level codes
+and counters, never account identifiers or provider responses. Adapter imports
+and reads run lazily in the bounded pool; an import failure affects only its domain.
+
+### Update data ownership
+
+The broker lazily imports `updates.py` in its bounded worker pool. It checks
+45 seconds after startup, every six hours, and on the existing `updates refresh`
+IPC after System Update or a manual check. Concurrent refreshes coalesce into one
+follow-up check. Each external command retains its 120-second timeout; the read
+budget is 365 seconds for the three sequential commands. Private checkupdates
+package databases remain separate from the system database. Successful zero,
+offline and unreadable results are distinct; failed checks never report up to date.
+The shell retains presentation, count-based notification deduplication and task
+terminal launching. A silent `yay -Qua` exit 1 is a successful empty AUR query, so it does not
+discard repository updates. The standalone CLI retains its output and updater actions
+remain outside the broker. All domains initialize lazily inside the worker pool;
+an import failure remains local to its domain. Screen/VM acceptance is pending.
+
+### CLI result contracts
+
+`tests/fixtures/domain-results.json` covers every topic's CLI shape. Validation
+preserves nullable fields and optional keys, rejects incorrect field types,
+non-finite numbers and oversized results, and runs before publishing AI cache data.
+An invalid AI cache never prevents fresh collection. Installed assistants without
+a usage reader are omitted from cached usage just as fresh CLI collection omits them.
+
+| Domain | Valid empty/unavailable results |
+| --- | --- |
+| Network | Empty devices, offline saved networks with null strength, null ping/loss, ping exit 1 with packet loss |
+| Capture | OBS absent (pgrep exit 1), empty scene/source lists; `ready: false` retains the explicit unavailable status |
+| Power | No system battery, no profiles/daemon, empty radios; capabilities stay false without a broker error |
+| Display | Empty monitors; null mirror/anchor; optional HDR fields; empty modes; absent brightness/night-light capabilities |
+| Hardware | Empty sections and rows; null GPU usage when telemetry is missing or a command fails |
+| Remote | Policy denied with empty service objects, missing clients/services, empty peers and addresses |
+| Weather | Empty forecast days, formatted forecast temperatures as strings, existing cached/unavailable fallback; city search may return no results |
+| AI usage | Empty providers/accounts/windows, optional updated/error keys, null plan and reset timestamps; unavailable accounts are omitted |
+| Updates | checkupdates exit 2 and silent yay exit 1 are successful empty results; offline/unreadable results remain distinct from zero |

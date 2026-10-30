@@ -3,7 +3,6 @@ import QtQuick
 import "ObsQueue.js" as ObsQueue
 import "PanelStyle.js" as PanelStyle
 import Quickshell
-import Quickshell.Io
 
 ThemedPopup {
     id: menu
@@ -16,21 +15,34 @@ ThemedPopup {
     property string pendingArgument: ""
     // Actions the recording popup runs on live capture; their errors stay in that popup.
     readonly property var liveActions: ["chapter", "mic-mute", "mic-unmute", "camera-on", "camera-off", "scene"]
+    property bool optionWriting: false
+    property string optionToken: ""
+    property string actionId: ""
+    property string optionId: ""
+    readonly property string optionsError: optionSnapshot && ["stale", "unavailable", "error"].includes(optionSnapshot.status)
+        ? Eitr.I18n.tr("Recording settings unavailable") : ""
+    onOptionsErrorChanged: status = actionError || optionsError || (!obsState.ready ? Eitr.I18n.tr("OBS status unavailable") : "")
+    readonly property var optionSnapshot: DesktopData.topics["capture.options"]
+    onOptionSnapshotChanged: {
+        if (!optionSnapshot || optionSnapshot.status !== "ready") return;
+        const snapshot = optionSnapshot.data;
+        updateContent(function() {
+            if (!menu.optionWriting && !Object.keys(menu.pendingOptionChanges).length)
+                menu.applySnapshot("captureOptions", snapshot);
+        });
+    }
     property bool preparingStart: false
     property bool awaitingState: false
     property bool editing: false
     property var captureOptions: ({})
     property var pendingOptionChanges: ({})
     signal captureStarting()
-    readonly property bool busy: pendingAction !== ""
+    readonly property bool busy: pendingAction !== "" || (ObsStatus.busy && !optionWriting)
     property var obsState: ({ready: false, recording: false, paused: false, streaming: false})
     readonly property bool controlsReady: obsState.ready && !busy
     readonly property string controlScript: Quickshell.shellDir + "/scripts/obs-control.py"
 
-    function refresh() {
-        if (busy && !awaitingState) return;
-        if (!actionProcess.running) ObsStatus.refresh();
-    }
+    function refresh() { ObsStatus.refresh(); }
     function run(action, argument) {
         if (busy) return;
         status = "";
@@ -40,15 +52,36 @@ ThemedPopup {
         preparingStart = action === "record" || action === "stream";
         if (preparingStart) editing = false;
         awaitingState = false;
-        if (!optionWriter.running) beginAction();
+        if (!optionWriting) beginAction();
     }
     function beginAction() {
-        actionProcess.command = ["python3", menu.controlScript, preparingStart ? "prepare" : pendingAction]
-            .concat(!preparingStart && pendingArgument ? [pendingArgument] : []);
-        actionProcess.running = true;
+        const id = ObsStatus.act(preparingStart ? "prepare" : pendingAction, preparingStart ? "" : pendingArgument,
+            function(code, message) { menu.actionFinished(code, message); });
+        if (id) actionId = id;
+        else actionFinished("backend-unavailable", "");
+    }
+    function actionFinished(code, message) {
+        actionId = "";
+        if (code) {
+            actionError = code === "outcome-unknown" ? Eitr.I18n.tr("Outcome unknown; refresh before retrying.") : (message || Eitr.I18n.tr("OBS command failed"));
+            status = actionError;
+            if (liveActions.indexOf(pendingAction) < 0) opened = true;
+            pendingAction = "";
+            preparingStart = false;
+        } else if (preparingStart) {
+            preparingStart = false;
+            opened = false;
+            captureStarting();
+            startDelay.restart();
+        } else {
+            awaitingState = true;
+            refresh();
+        }
     }
     function loadOptions() {
-        if (!optionQuery.running && !optionWriter.running) optionQuery.running = true;
+        if (!opened) return;
+        if (!optionToken) optionToken = DesktopData.observe("capture.options", menu);
+        else DesktopData.refresh("capture.options");
     }
     function saveOption(key, enabled) {
         if (busy) return;
@@ -57,43 +90,47 @@ ThemedPopup {
         writeNextOption();
     }
     function writeNextOption() {
-        if (optionWriter.running) return;
+        if (optionWriting || ObsStatus.busy) return;
         const next = ObsQueue.takeNext(pendingOptionChanges);
         if (!next) return;
         pendingOptionChanges = next.remaining;
-        optionWriter.command = ["python3", menu.controlScript].concat(ObsQueue.optionArguments(next.key, next.enabled));
-        optionWriter.running = true;
-    }
-    onOpenedChanged: if (opened) { refresh(); loadOptions(); }
-    Component.onCompleted: obsState = ObsStatus.state
-    Process {
-        id: optionQuery
-        command: ["python3", menu.controlScript, "options"]
-        stdout: StdioCollector { id: optionOutput }
-        onExited: function(code) {
-            const received = optionOutput.text;
-            menu.updateContent(function() {
-                if (optionWriter.running || Object.keys(menu.pendingOptionChanges).length) return;
-                try { if (code === 0) menu.applySnapshot("captureOptions", JSON.parse(received)); }
-                catch (error) { menu.status = "Recording settings unavailable"; }
-
-            });
-        }
-    }
-    Process {
-        id: optionWriter
-        stdout: StdioCollector { id: optionResult }
-        onExited: function(code) {
-            if (code !== 0) {
-                menu.actionError = optionResult.text.trim() || Eitr.I18n.tr("Could not save recording settings");
+        optionWriting = true;
+        const id = DesktopData.client.actCapture("set-option", {key: next.key, enabled: next.enabled}, function(code, message) {
+            menu.optionWriting = false;
+            menu.optionId = "";
+            if (code) {
+                menu.actionError = code === "outcome-unknown" ? Eitr.I18n.tr("Outcome unknown; refresh before retrying.") : (message || Eitr.I18n.tr("Could not save recording settings"));
                 menu.status = menu.actionError;
                 menu.pendingOptionChanges = ({});
                 menu.pendingAction = "";
                 menu.preparingStart = false;
                 menu.loadOptions();
-            } else {
-                menu.writeNextOption();
-                if (!optionWriter.running && menu.busy) menu.beginAction();
+            }
+        });
+        if (id) optionId = id;
+        else {
+            optionWriting = false;
+            pendingOptionChanges = ({});
+            actionError = Eitr.I18n.tr("Could not save recording settings");
+        }
+    }
+    onOpenedChanged: {
+        if (opened) { refresh(); loadOptions(); }
+        else if (optionToken) { DesktopData.release(optionToken); optionToken = ""; }
+    }
+    Component.onCompleted: obsState = ObsStatus.state
+    Component.onDestruction: {
+        DesktopData.releaseOwner(menu);
+        DesktopData.client.detachAction(actionId);
+        DesktopData.client.detachAction(optionId);
+    }
+    Connections {
+        target: ObsStatus
+        function onBusyChanged() {
+            if (!ObsStatus.busy && !menu.optionWriting) {
+                if (Object.keys(menu.pendingOptionChanges).length) menu.writeNextOption();
+                else if (menu.pendingAction !== "" && !menu.awaitingState && !startDelay.running)
+                    menu.beginAction();
             }
         }
     }
@@ -101,41 +138,19 @@ ThemedPopup {
         id: startDelay
         interval: menu.transitionDuration + 50
         onTriggered: {
-            actionProcess.command = ["python3", menu.controlScript, menu.pendingAction];
-            actionProcess.running = true;
+            menu.beginAction();
         }
     }
     Connections {
         target: ObsStatus
         function onReceived(snapshot) {
             menu.updateContent(function() {
-                if (actionProcess.running || (menu.busy && !menu.awaitingState)) return;
+                if (menu.pendingAction !== "" && !menu.awaitingState) return;
                 menu.applySnapshot("obsState", snapshot);
-                menu.status = menu.actionError || snapshot.error || (!snapshot.ready ? Eitr.I18n.tr("OBS status unavailable") : "");
+                menu.status = menu.actionError || menu.optionsError || snapshot.error || (!snapshot.ready ? Eitr.I18n.tr("OBS status unavailable") : "");
                 menu.pendingAction = "";
                 menu.awaitingState = false;
             });
-        }
-    }
-    Process {
-        id: actionProcess
-        stdout: StdioCollector { id: output }
-        onExited: function(code) {
-            if (code !== 0) {
-                menu.actionError = output.text.trim() || Eitr.I18n.tr("OBS command failed");
-                menu.status = menu.actionError;
-                if (menu.liveActions.indexOf(menu.pendingAction) < 0) menu.opened = true;
-                menu.pendingAction = "";
-                menu.preparingStart = false;
-            } else if (menu.preparingStart) {
-                menu.preparingStart = false;
-                menu.opened = false;
-                menu.captureStarting();
-                startDelay.restart();
-            } else {
-                menu.awaitingState = true;
-                menu.refresh();
-            }
         }
     }
     Column {
