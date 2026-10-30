@@ -43,9 +43,6 @@ LAN.
   2 s after unlocking with the Eitr design, which other designs do not show. Not
   reproduced in the VM (the burn reveals the desktop directly); the owner will
   record it.
-- **Ghostty live verification.** Terminal choice, generated colours, font, zsh and
-  fallback are implemented. Verify the Arch package's config parsing, rendering,
-  pointer, theme/font reload, Walker open-in-terminal and install/cancel in a VM.
 - **Website evidence and screenshots.** Keep the public pages in step with verified
   desktop behavior. A feature gets a screenshot when it has a screen people look
   for (a panel, menu or wizard) shown on the website or in the Handbook;
