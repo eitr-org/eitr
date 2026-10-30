@@ -19,7 +19,7 @@ Chaque fournisseur détecté possède sa propre section avec son forfait, ses li
 
 Cliquez sur l’horloge ou la date pour ouvrir le calendrier. Il conserve six lignes de semaines et affiche la progression de l’année sous la grille. Naviguez avec précédent/suivant, Aujourd’hui, les flèches ou T. Si la barre est masquée, recherchez Calendrier dans Walker.
 
-Cliquez sur l’égaliseur animé pour voir pochette, titre et artiste, utiliser précédent/lecture/suivant et vous déplacer dans la piste si possible. Il disparaît sans lecteur compatible et exclut les réunions reconnues. Les quatre barres suivent le son du système via un processus cava privé uniquement pendant la lecture et lorsque la zone est visible. Si cava est indisponible, elles utilisent une animation douce de lecture.
+Cliquez sur l’égaliseur animé pour voir pochette, titre et artiste, utiliser précédent/lecture/suivant et vous déplacer dans la piste si possible. Il disparaît sans lecteur compatible et exclut les réunions reconnues. Les dix barres suivent le son du système via un processus cava privé uniquement pendant la lecture et lorsque la zone est visible. Si cava est indisponible, elles utilisent une animation douce de lecture.
 
 ## Notifications
 

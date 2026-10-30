@@ -34,7 +34,7 @@ class CavaBarTests(unittest.TestCase):
             self.assertEqual(list(directory.iterdir()), [target])
 
     def test_process_lifecycle_offscreen(self):
-        for style, count in (("bars", 8), ("line", 16)):
+        for style, count in (("bars", 10), ("line", 16)):
             with self.subTest(style=style):
                 self.check_process_lifecycle_offscreen(style, count)
 

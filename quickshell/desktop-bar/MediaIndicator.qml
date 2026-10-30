@@ -6,6 +6,7 @@ import "AudioLevels.js" as AudioLevels
 Item {
     id: indicator
     property string style: "bars"
+    readonly property int barCount: 10
     property bool playing: false
     property bool active: true
     required property color foreground
@@ -26,7 +27,7 @@ Item {
     SpectrumConsumer {
         id: audio
         active: indicator.audioActive
-        bars: indicator.style === "line" ? 16 : 8
+        bars: indicator.style === "line" ? 16 : indicator.barCount
         frameRate: 30
         smoothing: false
         onSpectrumChanged: if (wave.visible && indicator.active) wave.requestPaint()
@@ -39,13 +40,14 @@ Item {
         anchors.centerIn: parent
         visible: indicator.style !== "line"
         height: 14
-        spacing: 1
+        spacing: 0.8
         Repeater {
-            model: indicator.style === "line" ? 0 : 8
+            model: indicator.style === "line" ? 0 : indicator.barCount
             Rectangle {
                 required property int index
                 anchors.verticalCenter: parent.verticalCenter
-                width: 2.75
+                // Ten bars share the indicator's fixed 30 px, so neighbours never shift.
+                width: (30 - (indicator.barCount - 1) * 0.8) / indicator.barCount
                 height: AudioLevels.height(indicator.level(index))
                 radius: 1
                 color: indicator.foreground

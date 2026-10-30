@@ -19,7 +19,7 @@ Cada proveedor detectado tiene su propia sección con plan, límites y errores. 
 
 Haz clic en el reloj o la fecha para abrir el calendario. Mantiene seis filas de semanas y muestra el progreso del año bajo la cuadrícula. Navega con anterior/siguiente, Hoy, las flechas o T. Si la barra está oculta, busca Calendario en Walker.
 
-Haz clic en el ecualizador animado para ver portada, título y artista, usar anterior/reproducir/siguiente y desplazarte por la pista cuando sea posible. Se oculta si no hay un reproductor compatible y excluye las reuniones reconocidas. Las cuatro barras siguen el audio del sistema mediante un proceso cava privado solo durante la reproducción y mientras la franja está visible. Si cava no está disponible, usan una animación suave de reproducción.
+Haz clic en el ecualizador animado para ver portada, título y artista, usar anterior/reproducir/siguiente y desplazarte por la pista cuando sea posible. Se oculta si no hay un reproductor compatible y excluye las reuniones reconocidas. Las diez barras siguen el audio del sistema mediante un proceso cava privado solo durante la reproducción y mientras la franja está visible. Si cava no está disponible, usan una animación suave de reproducción.
 
 ## Notificaciones
 
