@@ -2,12 +2,16 @@
 # Give visible surfaces the first turn at login; optional work follows them.
 set -uo pipefail
 
-eitr-hyprpaper &
-# Hyprpaper's configured still frame precedes construction of the bar.
-for ((attempt = 0; attempt < 5; attempt++)); do
-  if hyprctl hyprpaper listactive >/dev/null 2>&1; then break; fi
-  sleep 0.1
-done
+# Without a GPU, hyprpaper crashes at start (hyprwm/hyprtoolkit#144); the bar then
+# draws the still wallpaper itself, so do not start it there.
+if eitr-run quickshell/desktop-bar/scripts/rendering.py 2>/dev/null | grep -q '"software": false'; then
+  eitr-hyprpaper &
+  # Hyprpaper's configured still frame precedes construction of the bar.
+  for ((attempt = 0; attempt < 5; attempt++)); do
+    if hyprctl hyprpaper listactive >/dev/null 2>&1; then break; fi
+    sleep 0.1
+  done
+fi
 eitr-shell desktop-bar --daemonize
 sleep 4
 systemctl --user start --no-block elephant.service eitr-crash-help.service

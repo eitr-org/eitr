@@ -117,6 +117,12 @@ ShellRoot {{
         transition['active_wallpapers'] = lambda: {'DP-1': '/tmp/wide.jpg', 'DP-2': '/tmp/still.png'}
         self.assertTrue(all(rendering['wallpaper_status'](transition, '/tmp/still.png')['healthy'].values()))
 
+    def test_login_skips_hyprpaper_without_a_gpu(self):
+        startup = (ROOT / "hypr/scripts/session-start.sh").read_text()
+        guard = startup.index('rendering.py 2>/dev/null | grep -q \'"software": false\'')
+        self.assertLess(guard, startup.index("eitr-hyprpaper &"))
+        self.assertLess(startup.index("eitr-hyprpaper &"), startup.index("eitr-shell desktop-bar --daemonize"))
+
     def test_fallback_is_not_suspended_by_focus_or_transitions(self):
         source = (BAR / 'LiveWallpaper.qml').read_text()
         self.assertIn('visible: stillFallback || (animate && scene.ready)', source)
