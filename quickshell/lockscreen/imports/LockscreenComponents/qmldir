@@ -3,3 +3,4 @@ LoginController 1.0 LoginController.qml
 MaterialYouDesign 1.0 MaterialYouDesign.qml
 EitrClockworkDesign 1.0 EitrClockworkDesign.qml
 EitrDotTime 1.0 EitrDotTime.qml
+UserPicker 1.0 UserPicker.qml

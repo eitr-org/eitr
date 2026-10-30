@@ -200,6 +200,9 @@
     "Choose a theme": [
       "quickshell/desktop-bar/Handbook.qml"
     ],
+    "Choose user · Ctrl+Left / Ctrl+Right": [
+      "quickshell/lockscreen/imports/LockscreenComponents/UserPicker.qml"
+    ],
     "Claude Code": [
       "quickshell/desktop-bar/AiUsageMenu.qml"
     ],
@@ -597,6 +600,9 @@
     ],
     "Lock the screen automatically when you're away.": [
       "quickshell/desktop-bar/ControlCenter.qml"
+    ],
+    "Locked session · %1": [
+      "quickshell/lockscreen/shell.qml"
     ],
     "Lockscreen": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -1198,6 +1204,9 @@
     ],
     "Suspend": [
       "quickshell/desktop-bar/ControlCenter.qml"
+    ],
+    "Switch user": [
+      "quickshell/lockscreen/shell.qml"
     ],
     "System": [
       "quickshell/desktop-bar/ControlCenter.qml"

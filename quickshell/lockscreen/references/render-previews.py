@@ -17,7 +17,12 @@ def main():
     designs = sorted((ROOT / "themes").rglob("Main.qml"))
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("designs", nargs="*", help="optional design IDs; default: all")
-    requested = parser.parse_args().designs
+    parser.add_argument("--output-dir", type=Path, help="write renders here instead of theme previews")
+    parser.add_argument("--all-modes", action="store_true", help="render dark and light for configurable designs")
+    arguments = parser.parse_args()
+    requested = arguments.designs
+    if arguments.output_dir:
+        arguments.output_dir.mkdir(parents=True, exist_ok=True)
     known = {str(design.parent.relative_to(ROOT / "themes")) for design in designs}
     if set(requested) - known:
         parser.error("Unknown design ID")
@@ -36,21 +41,25 @@ def main():
             settings = dict(parser["General"])
             if design.parent.name == "theme-wallpaper":
                 settings['background'] = (ROOT.parents[1] / 'themes/eitr/backgrounds/02-eitr-runestone.png').as_uri()
-            environment = dict(os.environ, QT_QPA_PLATFORM=f"offscreen:configfile={screen}",
-                               QSG_RHI_BACKEND="opengl", LIBGL_ALWAYS_SOFTWARE="1",
-                               QML_IMPORT_PATH=os.pathsep.join((str(ROOT.parent), str(ROOT / "imports"))),
-                               LC_ALL="C.UTF-8",
-                               EITR_RENDER_CONFIG=json.dumps(settings),
-                               EITR_RENDER_DESIGN=design.as_uri(),
-                               EITR_RENDER_OUTPUT=str(design.parent / "preview.png"))
-            if design.parent.name == 'eitr':
-                environment['EITR_RENDER_AURORA'] = aurora.render(settings, 3840, 2160)
-            environment.pop("QT_QUICK_BACKEND", None)
-            result = subprocess.run(["quickshell", "-n", "-p", str(HERE / "render-preview.qml")],
-                                    env=environment, capture_output=True, text=True, timeout=30)
-            if result.returncode:
-                raise RuntimeError(result.stdout + result.stderr)
-            print(design.parent.relative_to(ROOT / "themes"), flush=True)
+            modes = ['dark', 'light'] if arguments.all_modes and design.parent.name in ('eitr', 'tape', 'neo-orbital') else [settings.get('themeMode', 'light')]
+            for mode in modes:
+                settings['themeMode'] = mode
+                output = (arguments.output_dir / (str(design.parent.relative_to(ROOT / "themes")).replace('/', '-') + '-' + mode + '.png')) if arguments.output_dir else design.parent / 'preview.png'
+                environment = dict(os.environ, QT_QPA_PLATFORM=f"offscreen:configfile={screen}",
+                                   QSG_RHI_BACKEND="opengl", LIBGL_ALWAYS_SOFTWARE="1",
+                                   QML_IMPORT_PATH=os.pathsep.join((str(ROOT.parent), str(ROOT / "imports"))),
+                                   LC_ALL="C.UTF-8",
+                                   EITR_RENDER_CONFIG=json.dumps(settings),
+                                   EITR_RENDER_DESIGN=design.as_uri(),
+                                   EITR_RENDER_OUTPUT=str(output))
+                if design.parent.name == 'eitr':
+                    environment['EITR_RENDER_AURORA'] = aurora.render(settings, 3840, 2160)
+                environment.pop("QT_QUICK_BACKEND", None)
+                result = subprocess.run(["quickshell", "-n", "-p", str(HERE / "render-preview.qml")],
+                                        env=environment, capture_output=True, text=True, timeout=30)
+                if result.returncode:
+                    raise RuntimeError(result.stdout + result.stderr)
+                print(output, flush=True)
 
 
 if __name__ == "__main__":

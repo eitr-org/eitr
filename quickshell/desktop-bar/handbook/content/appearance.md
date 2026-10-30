@@ -118,3 +118,5 @@ preview; Ctrl+P previews the full layout without locking. The login screen canno
 read your home folder, so it shows a copy of the wallpaper that Eitr stores when
 you choose this design and again whenever you change wallpaper. If the saved image
 is unavailable it uses another current-theme wallpaper or the Eitr default.
+
+On PCs with several accounts, the login screen shows the selected user. Click the left or right half of the user picker, or press Ctrl+Left / Ctrl+Right, to choose another account; Enter still submits the password and Escape keeps its existing behavior. With one account the login layout is unchanged. The lockscreen shows the locked session’s real name when available and only accepts that account’s password. Switch user (Ctrl+Alt+U) opens SDDM’s login screen while keeping the original session locked. Back in the locked session, click the password field once before typing. It appears only when several eligible accounts exist and SDDM reports that switching is available. Previews and the gallery use three fictional accounts and never authenticate.

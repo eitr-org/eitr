@@ -459,5 +459,8 @@
   "Eitr": "Eitr",
   "Unable to unlock. Try again.": "Não foi possível desbloquear. Tente novamente.",
   "Distraction-free tabbed desktop": "Área de trabalho com abas, sem distrações",
-  "Focus": "Focus"
+  "Focus": "Focus",
+  "Choose user · Ctrl+Left / Ctrl+Right": "Escolher usuário · Ctrl+Left / Ctrl+Right",
+  "Locked session · %1": "Sessão bloqueada · %1",
+  "Switch user": "Trocar usuário"
 }

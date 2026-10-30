@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Services.Pam
+import Quickshell.Io
 
 Item {
     id: auth
@@ -11,6 +12,36 @@ Item {
     readonly property var sddm: bridge
     readonly property var userModel: users
     readonly property var sessionModel: sessions
+
+    property string lockedName: Quickshell.env("USER")
+    property bool switchAvailable: false
+    readonly property bool authenticating: pam.active
+    readonly property string switchHelper: decodeURIComponent(Qt.resolvedUrl("scripts/switch-user.py").toString().replace("file://", ""))
+    function switchUser() {
+        if (!preview && switchAvailable && !pam.active && !switchProcess.running) {
+            password = "";
+            switchProcess.running = true;
+        }
+    }
+    Process {
+        running: !auth.preview
+        command: ["python3", auth.switchHelper]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                try {
+                    const state = JSON.parse(text);
+                    auth.lockedName = state.name;
+                    users.setProperty(0, "realName", state.name);
+                    auth.switchAvailable = state.available;
+                } catch (error) { auth.switchAvailable = false; }
+            }
+        }
+    }
+    Process {
+        id: switchProcess
+        command: ["python3", auth.switchHelper, "--switch"]
+        onExited: (exitCode, exitStatus) => { if (exitCode !== 0) auth.switchAvailable = false; }
+    }
 
     ListModel {
         id: users

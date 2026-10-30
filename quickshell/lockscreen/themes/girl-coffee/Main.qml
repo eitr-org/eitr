@@ -4,6 +4,7 @@ import Qt5Compat.GraphicalEffects
 import QtQuick
 import QtQuick.Window
 import SddmComponents 2.0
+import LockscreenComponents
 
 // Theme
 Rectangle {
@@ -15,10 +16,23 @@ Rectangle {
     }
     id: root
 
+    readonly property var loginAuth: typeof sddm !== "undefined" ? sddm : null
+    readonly property var loginUsers: typeof userModel !== "undefined" ? userModel : null
+    readonly property var loginSessions: typeof sessionModel !== "undefined" ? sessionModel : null
+    LoginController {
+        id: login
+        onUserIndexChanged: pwd.text = ""
+        sddm: root.loginAuth
+        userModel: root.loginUsers
+        sessionModel: root.loginSessions
+        sessionIndex: root.sessionIndex
+    }
+
+
     readonly property real s: Screen.height / 768
     property bool isQuickshell: typeof sddm === "undefined" || sddm.hostName === undefined
     property int sessionIndex: (typeof sessionModel !== "undefined" && sessionModel.lastIndex >= 0) ? sessionModel.lastIndex : 0
-    property int userIndex: userModel.lastIndex >= 0 ? userModel.lastIndex : 0
+    readonly property int userIndex: login.userIndex
     property real ui: 0
     // Palette
     readonly property color cPink: "#da9ead"
@@ -32,9 +46,8 @@ Rectangle {
     readonly property color cField: "#f8f4ef"
 
     function doLogin() {
-        var u = (userHelper.currentItem && userHelper.currentItem.uLogin) ? userHelper.currentItem.uLogin : (typeof userModel !== "undefined" ? userModel.lastUser : "");
         if (typeof sddm !== "undefined")
-            sddm.login(u, pwd.text, root.sessionIndex);
+            login.login(pwd.text);
 
     }
 
@@ -244,8 +257,15 @@ Rectangle {
                 height: 24 * s
             }
 
+            UserPicker {
+                controller: login
+                unit: root.s
+                width: parent.width
+                ink: root.cInk; surface: root.cCream
+            }
             // Username
             Row {
+                visible: !login.canPickUser
                 anchors.left: parent.left
                 spacing: 10 * s
 
@@ -275,7 +295,7 @@ Rectangle {
                         hoverEnabled: true
                         onClicked: {
                             if (typeof userModel !== "undefined" && userModel.rowCount() > 0)
-                                root.userIndex = (root.userIndex + 1) % userModel.rowCount();
+                                login.cycleUser();
 
                         }
                     }

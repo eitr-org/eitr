@@ -24,6 +24,9 @@ Item {
         ? users.currentItem.uName : userLogin
     readonly property string sessionName: sessions.currentItem ? sessions.currentItem.sName : ""
 
+    readonly property int userCount: users.count
+    readonly property bool canPickUser: !isQuickshell && userCount > 1
+
     // Empty passwords are ignored; the bridge itself refuses logins in previews.
     function login(password) {
         if (sddm && password !== "")
@@ -31,9 +34,9 @@ Item {
     }
 
     // Quickshell locks only the current user and session.
-    function cycleUser() {
+    function cycleUser(direction = 1) {
         if (!isQuickshell && userModel && userModel.rowCount() > 0)
-            userIndex = (userIndex + 1) % userModel.rowCount();
+            userIndex = (userIndex + direction + userCount) % userCount;
     }
 
     function cycleSession() {

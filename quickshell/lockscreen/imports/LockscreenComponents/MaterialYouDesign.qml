@@ -8,6 +8,7 @@ import Qt5Compat.GraphicalEffects
 // theme.conf selects `themeMode=light|dark` and the `background` image.
 Rectangle {
     id: root
+
     width: Screen.width
     height: Screen.height
     color: root.colors.background
@@ -95,6 +96,7 @@ Rectangle {
 
     LoginController {
         id: login
+        onUserIndexChanged: pwd.text = ""
         sddm: root.auth
         userModel: root.users
         sessionModel: root.sessions
@@ -673,8 +675,17 @@ Rectangle {
                         width: parent.width
                         spacing: 12 * s
 
+                        UserPicker {
+                            controller: login
+                            unit: root.s
+                            showHint: false
+                            height: 38 * root.s
+                            width: parent.width * 0.62
+                            ink: root.colors.chipButtonText; surface: root.colors.chipButton
+                        }
                         // User Switch
                         Rectangle {
+                            visible: !login.canPickUser
                             width: userText.implicitWidth + 32 * s
                             height: 38 * s
                             radius: 19 * s
@@ -707,7 +718,7 @@ Rectangle {
 
                         // Unlock Pill
                         Item {
-                            width: parent.width - (userText.implicitWidth + 32 * s) - 12 * s
+                            width: parent.width - (login.canPickUser ? parent.width * 0.62 : userText.implicitWidth + 32 * s) - 12 * s
                             height: 38 * s
 
                             Rectangle {

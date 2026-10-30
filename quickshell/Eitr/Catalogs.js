@@ -484,7 +484,10 @@ var qml = {
     "Eitr": "Eitr",
     "Unable to unlock. Try again.": "Unable to unlock. Try again.",
     "Distraction-free tabbed desktop": "Distraction-free tabbed desktop",
-    "Focus": "Focus"
+    "Focus": "Focus",
+    "Choose user · Ctrl+Left / Ctrl+Right": "Choose user · Ctrl+Left / Ctrl+Right",
+    "Locked session · %1": "Locked session · %1",
+    "Switch user": "Switch user"
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -947,7 +950,10 @@ var qml = {
     "Eitr": "Eitr",
     "Unable to unlock. Try again.": "Não foi possível desbloquear. Tente novamente.",
     "Distraction-free tabbed desktop": "Área de trabalho com abas, sem distrações",
-    "Focus": "Focus"
+    "Focus": "Focus",
+    "Choose user · Ctrl+Left / Ctrl+Right": "Escolher usuário · Ctrl+Left / Ctrl+Right",
+    "Locked session · %1": "Sessão bloqueada · %1",
+    "Switch user": "Trocar usuário"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1410,7 +1416,10 @@ var qml = {
     "Eitr": "Eitr",
     "Unable to unlock. Try again.": "No se pudo desbloquear. Inténtalo de nuevo.",
     "Distraction-free tabbed desktop": "Escritorio con pestañas sin distracciones",
-    "Focus": "Focus"
+    "Focus": "Focus",
+    "Choose user · Ctrl+Left / Ctrl+Right": "Elegir usuario · Ctrl+Left / Ctrl+Right",
+    "Locked session · %1": "Sesión bloqueada · %1",
+    "Switch user": "Cambiar de usuario"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1873,7 +1882,10 @@ var qml = {
     "Eitr": "Eitr",
     "Unable to unlock. Try again.": "Entsperren fehlgeschlagen. Versuche es erneut.",
     "Distraction-free tabbed desktop": "Ablenkungsfreier Desktop mit Tabs",
-    "Focus": "Focus"
+    "Focus": "Focus",
+    "Choose user · Ctrl+Left / Ctrl+Right": "Benutzer wählen · Ctrl+Left / Ctrl+Right",
+    "Locked session · %1": "Gesperrte Sitzung · %1",
+    "Switch user": "Benutzer wechseln"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2336,6 +2348,9 @@ var qml = {
     "Eitr": "Eitr",
     "Unable to unlock. Try again.": "Impossible de déverrouiller. Réessayez.",
     "Distraction-free tabbed desktop": "Bureau à onglets sans distractions",
-    "Focus": "Focus"
+    "Focus": "Focus",
+    "Choose user · Ctrl+Left / Ctrl+Right": "Choisir un utilisateur · Ctrl+Left / Ctrl+Right",
+    "Locked session · %1": "Session verrouillée · %1",
+    "Switch user": "Changer d’utilisateur"
   }
 };

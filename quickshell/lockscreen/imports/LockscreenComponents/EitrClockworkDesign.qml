@@ -4,6 +4,7 @@ import QtQuick.Window
 
 Rectangle {
     id: root
+
     width: Screen.width
     height: Screen.height
     property var settings: ({})
@@ -31,6 +32,7 @@ Rectangle {
     onActiveFocusChanged: if (activeFocus) password.forceActiveFocus()
     LoginController {
         id: login
+        onUserIndexChanged: password.text = ""
         sddm: root.auth; userModel: root.users; sessionModel: root.sessions
         onLoginFailed: { error.text = "Unable to unlock. Try again."; password.forceActiveFocus(); }
         onLoginSucceeded: { password.text = ""; error.text = ""; }
@@ -222,7 +224,13 @@ Rectangle {
             y: composition.stacked ? composition.height * 0.58 : (composition.height - height) / 2
             spacing: 20 * root.unit
             Text { text: Eitr.I18n.tr("WELCOME BACK"); font.family: root.family; font.pixelSize: 10 * root.unit; font.letterSpacing: 3 * root.unit; color: root.accent }
-            Text { width: parent.width; elide: Text.ElideRight; text: login.userName || Eitr.I18n.tr("EITR"); font.family: root.family; font.pixelSize: 32 * root.unit; color: root.ink }
+            UserPicker {
+                controller: login
+                unit: root.unit
+                width: parent.width
+                ink: root.ink; surface: root.surface
+            }
+            Text { visible: !login.canPickUser; width: parent.width; elide: Text.ElideRight; text: login.userName || Eitr.I18n.tr("EITR"); font.family: root.family; font.pixelSize: 32 * root.unit; color: root.ink }
             Text { text: Eitr.I18n.tr("Your workspace awaits."); font.family: root.family; font.pixelSize: 12 * root.unit; color: root.muted }
             Rectangle {
                 width: parent.width; height: 50 * root.unit; radius: 5 * root.unit

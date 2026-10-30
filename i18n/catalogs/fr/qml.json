@@ -459,5 +459,8 @@
   "Eitr": "Eitr",
   "Unable to unlock. Try again.": "Impossible de déverrouiller. Réessayez.",
   "Distraction-free tabbed desktop": "Bureau à onglets sans distractions",
-  "Focus": "Focus"
+  "Focus": "Focus",
+  "Choose user · Ctrl+Left / Ctrl+Right": "Choisir un utilisateur · Ctrl+Left / Ctrl+Right",
+  "Locked session · %1": "Session verrouillée · %1",
+  "Switch user": "Changer d’utilisateur"
 }

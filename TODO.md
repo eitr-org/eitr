@@ -45,11 +45,6 @@ LAN.
   animations, Elephant/Walker, background services, first-login work), find what
   would make Eitr feel bad on an old or low-end machine, then optimize those and
   decide what a lighter setup turns off. Test in a VM with few cores and little RAM.
-- **Several user accounts.** The owner's request (2026-10-29): the login screen
-  shows which account logs in and lets the user pick another one in every design
-  when the PC has more than one; the lockscreen shows whose session is locked and
-  offers Switch user, which keeps it locked and opens the login screen. No unlock
-  effect on the login screen.
 - **Unlock: black screen after Enter.** The owner sees a black screen for about
   2 s after unlocking with the Eitr design, which other designs do not show. Not
   reproduced in the VM (the burn reveals the desktop directly); the owner will

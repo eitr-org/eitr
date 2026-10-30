@@ -5,6 +5,7 @@ import "Spectrum.js" as Spectrum
 
 Item {
     id: root
+
     readonly property var auth: typeof sddm !== "undefined" ? sddm : null
     readonly property var users: typeof userModel !== "undefined" ? userModel : null
     readonly property var sessions: typeof sessionModel !== "undefined" ? sessionModel : null
@@ -56,6 +57,7 @@ Item {
     onActiveFocusChanged: if (activeFocus) password.forceActiveFocus()
     LoginController {
         id: login
+        onUserIndexChanged: password.text = ""
         sddm: root.auth; userModel: root.users; sessionModel: root.sessions
         onLoginFailed: { feedback.text = Eitr.I18n.tr("Unable to unlock. Try again."); password.text = ""; password.forceActiveFocus(); }
         onLoginSucceeded: { password.text = ""; feedback.text = ""; }
@@ -115,6 +117,12 @@ Item {
             text: Qt.formatDateTime(root.now, root.settings.clock === "12h" ? "h:mm AP" : "HH:mm")
             color: root.ink
             glyphHeight: 62 * root.unit
+        }
+        UserPicker {
+            controller: login
+            unit: root.unit
+            width: parent.width
+            ink: root.ink; surface: Qt.alpha(root.ink, 0.08)
         }
         Rectangle {
             id: field
@@ -178,7 +186,7 @@ Item {
         Row {
             anchors.horizontalCenter: parent.horizontalCenter; spacing: 20 * root.unit
             visible: !login.isQuickshell
-            Text { text: login.userName; color: root.muted; MouseArea { anchors.fill: parent; onClicked: login.cycleUser() } }
+            Text { visible: !login.canPickUser; text: login.userName; color: root.muted; MouseArea { anchors.fill: parent; onClicked: login.cycleUser() } }
             Text { text: login.sessionName; color: root.muted; MouseArea { anchors.fill: parent; onClicked: login.cycleSession() } }
         }
             }

@@ -53,7 +53,7 @@ ShellRoot {
     Timer { interval: 1200000; running: true; onTriggered: gallery.stop() }
     QtObject {
         id: mockAuth
-        readonly property bool quickshellLock: true
+        readonly property bool quickshellLock: false
         signal loginFailed()
         signal loginSucceeded()
         function login(user, password, session) {}
@@ -61,7 +61,7 @@ ShellRoot {
         function powerOff() {}
         function suspend() {}
     }
-    ListModel { id: users; property int lastIndex: 0; property string lastUser: "EITR"; function rowCount() { return count; } ListElement { name: "EITR"; realName: "EITR" } }
+    ListModel { id: users; property int lastIndex: 0; property string lastUser: "EITR"; function rowCount() { return count; } ListElement { name: "astrid"; realName: "Astrid Solberg" } ListElement { name: "bjorn"; realName: "Bjørn Lund" } ListElement { name: "freya"; realName: "Freya Lind" } }
     ListModel { id: sessions; property int lastIndex: 0; function rowCount() { return count; } ListElement { name: "Current session" } }
     PanelWindow {
         id: window
@@ -100,8 +100,8 @@ ShellRoot {
             color: gallery.light ? "#302d3b" : "#e9e1d5"; font.family: "JetBrainsMono Nerd Font"; font.pixelSize: 11
         }
         Shortcut { sequence: "Escape"; onActivated: gallery.stop() }
-        Shortcut { sequence: "Ctrl+Right"; onActivated: gallery.choose((gallery.selectedIndex + 1) % gallery.designs.length) }
-        Shortcut { sequence: "Ctrl+Left"; onActivated: gallery.choose((gallery.selectedIndex + gallery.designs.length - 1) % gallery.designs.length) }
+        Shortcut { sequence: "Alt+Right"; onActivated: gallery.choose((gallery.selectedIndex + 1) % gallery.designs.length) }
+        Shortcut { sequence: "Alt+Left"; onActivated: gallery.choose((gallery.selectedIndex + gallery.designs.length - 1) % gallery.designs.length) }
     }
     IpcHandler {
         target: "gallery"

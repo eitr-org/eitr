@@ -71,7 +71,7 @@ it does not decode video or run a frame-rate JavaScript timer.
 
 For the full gallery, run `bash quickshell/lockscreen/scripts/gallery.sh` from the
 repository root. It uses mock authentication and generic user data, never a real
-session lock. Escape dismisses it; Ctrl+Left/Right browse all nine designs.
+session lock. Escape dismisses it; Alt+Left/Right browse all nine designs.
 This preview does not select a design or install SDDM files. Artwork prompts
 and reference/provenance notes are in `ARTWORK.md`. All designs use system fonts
 and still or procedural backgrounds; no bundled fonts or videos are needed.
@@ -222,3 +222,23 @@ Escape exits immediately. Offscreen mocks exercise the safety gates, capture
 failures and preview flow. Actual compositor handoff and hardware shader/GPU
 performance still require a live-session review; offscreen software results do
 not establish them.
+
+## Multiple accounts
+
+On PCs with several accounts, the login screen shows the selected user. Click the left or right half of the user picker, or press Ctrl+Left / Ctrl+Right, to choose another account; Enter still submits the password and Escape keeps its existing behavior. With one account the login layout is unchanged. The lockscreen shows the locked session’s real name when available and only accepts that account’s password. Switch user (Ctrl+Alt+U) opens SDDM’s login screen while keeping the original session locked. Back in the locked session, click the password field once: Hyprland returns keyboard input to the lock only after a click. It appears only when several eligible accounts exist and SDDM reports that switching is available. Previews and the gallery use three fictional accounts and never authenticate.
+
+All designs use LoginController.userIndex/cycleUser through UserPicker. Changing
+accounts clears the password. The picker does not take password focus. Gallery
+design navigation uses Alt+Left / Alt+Right; Ctrl+Left / Ctrl+Right selects users.
+
+The lock uses scripts/switch-user.py to read SDDM’s Seats, introspect the selected
+org.freedesktop.DisplayManager.Seat interface and check CanSwitch. XDG_SEAT_PATH
+selects a seat when present; otherwise only an unambiguous single seat is accepted.
+Account eligibility follows SDDM’s Users UID limits, HideUsers and HideShells.
+Only an explicit action calls the no-argument SwitchToGreeter method on the system
+bus. The helper rechecks availability before calling; failure hides the action.
+It never releases WlSessionLock or emits authenticated. PAM remains tied to the
+original user. Installed /usr/bin/sddm introspection metadata and the installed
+SDDM bus policy verify the interface; live bus introspection was sandbox-blocked.
+Actual VT switching, concurrent login and return to the still-locked session need
+a real multi-user test. No switch call is made by automated tests.

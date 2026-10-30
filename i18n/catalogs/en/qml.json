@@ -459,5 +459,8 @@
   "Eitr": "Eitr",
   "Unable to unlock. Try again.": "Unable to unlock. Try again.",
   "Distraction-free tabbed desktop": "Distraction-free tabbed desktop",
-  "Focus": "Focus"
+  "Focus": "Focus",
+  "Choose user · Ctrl+Left / Ctrl+Right": "Choose user · Ctrl+Left / Ctrl+Right",
+  "Locked session · %1": "Locked session · %1",
+  "Switch user": "Switch user"
 }

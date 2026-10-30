@@ -459,5 +459,8 @@
   "Eitr": "Eitr",
   "Unable to unlock. Try again.": "Entsperren fehlgeschlagen. Versuche es erneut.",
   "Distraction-free tabbed desktop": "Ablenkungsfreier Desktop mit Tabs",
-  "Focus": "Focus"
+  "Focus": "Focus",
+  "Choose user · Ctrl+Left / Ctrl+Right": "Benutzer wählen · Ctrl+Left / Ctrl+Right",
+  "Locked session · %1": "Gesperrte Sitzung · %1",
+  "Switch user": "Benutzer wechseln"
 }

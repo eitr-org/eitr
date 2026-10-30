@@ -8,6 +8,19 @@ import LockscreenComponents
 
 Rectangle {
     id: root
+
+    readonly property var loginAuth: typeof sddm !== "undefined" ? sddm : null
+    readonly property var loginUsers: typeof userModel !== "undefined" ? userModel : null
+    readonly property var loginSessions: typeof sessionModel !== "undefined" ? sessionModel : null
+    LoginController {
+        id: login
+        onUserIndexChanged: pwd.text = ""
+        sddm: root.loginAuth
+        userModel: root.loginUsers
+        sessionModel: root.loginSessions
+        sessionIndex: root.sessionIndex
+    }
+
     width: Screen.width
     height: Screen.height
     Rectangle {
@@ -22,7 +35,7 @@ Rectangle {
     readonly property real s: Screen.height / 768
     property bool isQuickshell: typeof sddm === "undefined" || sddm.hostName === undefined
     property int sessionIndex: (typeof sessionModel !== "undefined" && sessionModel.lastIndex >= 0) ? sessionModel.lastIndex : 0
-    property int userIndex: (typeof userModel !== "undefined" && userModel.lastIndex >= 0) ? userModel.lastIndex : 0
+    readonly property int userIndex: login.userIndex
     
     // UI States
     property real ui1: 0
@@ -224,8 +237,15 @@ Rectangle {
                 spacing: 24 * s
                 width: 250 * s
 
+                UserPicker {
+                    controller: login
+                    unit: root.s
+                    width: parent.width
+                    ink: "#111111"; surface: "#e8ebed"
+                }
                 // Username
                 Rectangle {
+                    visible: !login.canPickUser
                     anchors.horizontalCenter: parent.horizontalCenter
                     width: Math.min(parent.width, (userNameText.implicitWidth + 48 * s))
                     height: 40 * s
@@ -277,8 +297,8 @@ Rectangle {
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
-                            if (!root.isQuickshell && typeof userModel !== "undefined" && userModel.rowCount() > 0) {
-                                root.userIndex = (root.userIndex + 1) % userModel.rowCount();
+                            if (login.canPickUser) {
+                                login.cycleUser();
                             }
                         }
                     }
@@ -357,8 +377,7 @@ Rectangle {
                         
                         onAccepted: {
                             if (pwd.text !== "") {
-                                let currentUser = userHelper.currentItem ? userHelper.currentItem.uLogin : userModel.lastUser;
-                                sddm.login(currentUser, pwd.text, root.sessionIndex);
+                                login.login(pwd.text);
                             }
                         }
                     }

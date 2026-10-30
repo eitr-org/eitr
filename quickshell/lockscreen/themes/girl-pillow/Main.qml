@@ -4,6 +4,7 @@ import QtQuick.Window
 import Qt5Compat.GraphicalEffects
 
 import SddmComponents 2.0
+import LockscreenComponents
 
 // Theme
 Rectangle {
@@ -14,6 +15,19 @@ Rectangle {
         z: -1
     }
     id: root
+
+    readonly property var loginAuth: typeof sddm !== "undefined" ? sddm : null
+    readonly property var loginUsers: typeof userModel !== "undefined" ? userModel : null
+    readonly property var loginSessions: typeof sessionModel !== "undefined" ? sessionModel : null
+    LoginController {
+        id: login
+        onUserIndexChanged: pwd.text = ""
+        sddm: root.loginAuth
+        userModel: root.loginUsers
+        sessionModel: root.loginSessions
+        sessionIndex: root.sessionIndex
+    }
+
     width: Screen.width; height: Screen.height
     readonly property real s: height / 768
     color: "#ccd4da"
@@ -27,7 +41,7 @@ Rectangle {
     // State
     property bool isQuickshell: typeof sddm === "undefined" || sddm.hostName === undefined
     property int sessionIndex: (typeof sessionModel !== "undefined" && sessionModel.lastIndex >= 0) ? sessionModel.lastIndex : 0
-    property int userIndex: (typeof userModel !== "undefined" && userModel.lastIndex >= 0) ? userModel.lastIndex : 0
+    readonly property int userIndex: login.userIndex
     property real ui: 0
 
     // Assets
@@ -87,13 +101,20 @@ Rectangle {
         Column {
             id: loginCol; width: parent.width; spacing: 20 * s
 
+            UserPicker {
+                controller: login
+                unit: root.s
+                width: parent.width
+                ink: root.cText; surface: root.cGlass
+            }
             // User
             Text {
+                visible: !login.canPickUser
                 id: userDisp; anchors.horizontalCenter: parent.horizontalCenter
                 text: ((userHelper.currentItem && userHelper.currentItem.uName) ? userHelper.currentItem.uName : (typeof userModel !== "undefined" ? userModel.lastUser : Eitr.I18n.tr("user"))).toUpperCase()
                 color: userMa.containsMouse ? root.cAccent : root.cText; font.family: mainFont.name; font.pixelSize: 18 * s; font.letterSpacing: 4 * s
                 Behavior on color { ColorAnimation { duration: 200 } }
-                MouseArea { id: userMa; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: { if (typeof userModel !== "undefined") root.userIndex = (root.userIndex + 1) % userModel.rowCount() } }
+                MouseArea { id: userMa; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: { if (typeof userModel !== "undefined") login.cycleUser(); } }
             }
 
             // Input
@@ -182,7 +203,6 @@ Rectangle {
     }
 
     function doLogin() {
-        var u = (userHelper.currentItem && userHelper.currentItem.uLogin) ? userHelper.currentItem.uLogin : (typeof userModel !== "undefined" ? userModel.lastUser : "")
-        if (typeof sddm !== "undefined") sddm.login(u, pwd.text, root.sessionIndex)
+        if (typeof sddm !== "undefined") login.login(pwd.text)
     }
 }

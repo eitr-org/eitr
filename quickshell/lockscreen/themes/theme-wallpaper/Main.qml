@@ -14,6 +14,19 @@ Rectangle {
         z: -1
     }
     id: root
+
+    readonly property var loginAuth: typeof sddm !== "undefined" ? sddm : null
+    readonly property var loginUsers: typeof userModel !== "undefined" ? userModel : null
+    readonly property var loginSessions: typeof sessionModel !== "undefined" ? sessionModel : null
+    LoginController {
+        id: login
+        onUserIndexChanged: passwordField.text = ""
+        sddm: root.loginAuth
+        userModel: root.loginUsers
+        sessionModel: root.loginSessions
+        sessionIndex: root.sessionIndex
+    }
+
     width: Screen.width; height: Screen.height
     color: "#050810"
     readonly property real s: height / 768
@@ -26,7 +39,7 @@ Rectangle {
 
     // State
     property int sessionIndex: (typeof sessionModel !== "undefined" && sessionModel.lastIndex >= 0) ? sessionModel.lastIndex : 0
-    property int userIndex: (typeof userModel !== "undefined" && userModel.lastIndex >= 0) ? userModel.lastIndex : 0
+    readonly property int userIndex: login.userIndex
     property real ui: 0
 
     TextConstants { id: textConstants }
@@ -114,7 +127,15 @@ Rectangle {
         id: loginPanel
         anchors.right: parent.right; anchors.bottom: parent.bottom; anchors.rightMargin: 40 * s; anchors.bottomMargin: 110 * s; width: 280 * s; spacing: 0 * s; opacity: root.ui
 
+        UserPicker {
+            controller: login
+            unit: root.s
+            width: parent.width
+            ink: "white"; surface: "#dd18232c"
+        }
+        Item { visible: login.canPickUser; width: 1; height: 22 * root.s }
         Text {
+            visible: !login.canPickUser
             id: userDisplay; anchors.right: parent.right
             text: (userHelper.currentItem && userHelper.currentItem.uName) ? userHelper.currentItem.uName : (typeof userModel !== "undefined" ? (userModel.lastUser || Eitr.I18n.tr("User")) : Eitr.I18n.tr("User"))
             color: "white"; font.family: bodyFont.name; font.pixelSize: 22 * s; font.letterSpacing: 2 * s
@@ -126,7 +147,7 @@ Rectangle {
             }
             SequentialAnimation {
                 id: uToggleAnim; ParallelAnimation { NumberAnimation { target: userDisplay; property: "opacity"; to: 0; duration: 120 } NumberAnimation { target: uTrans; property: "x"; to: 15 * s; duration: 120 } }
-                ScriptAction { script: root.userIndex = (root.userIndex + 1) % userModel.rowCount() }
+                ScriptAction { script: login.cycleUser(); }
                 ParallelAnimation { NumberAnimation { target: userDisplay; property: "opacity"; to: 1; duration: 180 } NumberAnimation { target: uTrans; property: "x"; to: 0; duration: 180 } }
             }
         }
@@ -214,8 +235,7 @@ Rectangle {
 
     // Action
     function doLogin() {
-        var uname = (userHelper.currentItem && userHelper.currentItem.uLogin) ? userHelper.currentItem.uLogin : (typeof userModel !== "undefined" ? userModel.lastUser : "")
-        if (typeof sddm !== "undefined") sddm.login(uname, passwordField.text, root.sessionIndex)
+        if (typeof sddm !== "undefined") login.login(passwordField.text)
     }
 
     Connections {

@@ -13,7 +13,7 @@ ShellRoot {
     QtObject { id: keyboardState; property bool numLock: false }
     QtObject {
         id: mockAuth
-        readonly property bool quickshellLock: true
+        property bool quickshellLock: false
         signal loginFailed()
         signal loginSucceeded()
         function login(user, password, session) {}
@@ -21,7 +21,8 @@ ShellRoot {
         function powerOff() {}
         function suspend() {}
     }
-    ListModel { id: users; property int lastIndex: 0; property string lastUser: "EITR"; function rowCount() { return count; } ListElement { name: "EITR"; realName: "EITR" } }
+    Component.onCompleted: { if (Quickshell.env("EITR_RENDER_USERS") === "1") users.remove(1, 2); }
+    ListModel { id: users; property int lastIndex: 0; property string lastUser: "EITR"; function rowCount() { return count; } ListElement { name: "astrid"; realName: "Astrid Solberg" } ListElement { name: "bjorn"; realName: "Bjørn Lund" } ListElement { name: "freya"; realName: "Freya Lind" } }
     ListModel { id: sessions; property int lastIndex: 0; function rowCount() { return count; } ListElement { name: "Current session" } }
     Window {
         id: renderWindow
@@ -44,7 +45,7 @@ ShellRoot {
                     Qt.createQmlObject('import QtQuick; Image { anchors.fill: parent; source: '
                         + JSON.stringify(auroraFrame) + '; smooth: false }', aurora, "CanonicalAuroraReference");
                 }
-                if (Quickshell.env("EITR_RENDER_SWEEP") !== "") item.sweepProgress = Number(Quickshell.env("EITR_RENDER_SWEEP"));
+                if (!!Quickshell.env("EITR_RENDER_SWEEP")) item.sweepProgress = Number(Quickshell.env("EITR_RENDER_SWEEP"));
                 if (Quickshell.env("EITR_RENDER_STATE") === "wrong") failureDelay.start();
                 if (Quickshell.env("EITR_RENDER_STATE") === "typed") {
                     const field = findChild(item, "eitrPassword");
@@ -66,7 +67,22 @@ ShellRoot {
             interval: Number(Quickshell.env("EITR_RENDER_DELAY")) || 3200; running: true
             onTriggered: {
                 if (design.status !== Loader.Ready) { console.error("Design did not load"); Qt.exit(1); return; }
-                const target = Quickshell.env("EITR_RENDER_SWEEP") !== "" ? renderWindow.contentItem : design;
+                const picker = design.findChild(design.item, "userPicker");
+                if (!picker || picker.visible !== (users.count > 1)) { console.error("Incorrect picker visibility"); Qt.exit(1); return; }
+                const controller = picker.controller;
+                const original = controller.userIndex;
+                if (controller.userName !== "Astrid Solberg") { console.error("Real name missing"); Qt.exit(1); return; }
+                for (let index = 0; index < users.count; index++) controller.cycleUser();
+                if (controller.userIndex !== original) { console.error("User wrap failed"); Qt.exit(1); return; }
+                mockAuth.quickshellLock = true;
+                controller.cycleUser();
+                if (controller.userIndex !== original) { console.error("Lock changed account"); Qt.exit(1); return; }
+                mockAuth.quickshellLock = false;
+                controller.cycleUser();
+                if (controller.userIndex !== (original + 1) % users.count) { console.error("User cycle failed"); Qt.exit(1); return; }
+                controller.cycleUser(-1);
+                if (controller.userIndex !== original) { console.error("Reverse cycle failed"); Qt.exit(1); return; }
+                const target = !!Quickshell.env("EITR_RENDER_SWEEP") ? renderWindow.contentItem : design;
                 target.grabToImage(function(result) {
                     if (!result.saveToFile(Quickshell.env("EITR_RENDER_OUTPUT"))) Qt.exit(1);
                     else Qt.quit();
