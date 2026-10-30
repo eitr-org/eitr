@@ -5,12 +5,16 @@ const vm = require('node:vm');
 const policy = {};
 vm.createContext(policy);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '..', 'UnlockPolicy.js'), 'utf8').replace(/^\.pragma library\s*/, ''), policy);
-for (let bits = 0; bits < 64; bits++) {
-    const [authenticated, locked, secure, reduced, snapshotReady, expired] = Array.from({length: 6}, (unusedValue, index) => Boolean(bits & (1 << index)));
-    const expected = authenticated && !locked && !secure && !reduced && snapshotReady && !expired;
-    assert.equal(policy.eligible(authenticated, locked, secure, reduced, snapshotReady, expired), expected);
+for (let bits = 0; bits < 16; bits++) {
+    const [authenticated, reduced, snapshotReady, expired] = Array.from({length: 4}, (unusedValue, index) => Boolean(bits & (1 << index)));
+    const expected = authenticated && !reduced && snapshotReady && !expired;
+    assert.equal(policy.eligible(authenticated, reduced, snapshotReady, expired), expected);
 }
-console.log('All 64 authentication, lock, snapshot, accessibility and deadline combinations passed.');
+for (let bits = 0; bits < 4; bits++) {
+    const [locked, secure] = [Boolean(bits & 1), Boolean(bits & 2)];
+    assert.equal(policy.released(locked, secure), !locked && !secure);
+}
+console.log('All authentication, snapshot, accessibility, deadline and release combinations passed.');
 
 const palette = {};
 vm.createContext(palette);

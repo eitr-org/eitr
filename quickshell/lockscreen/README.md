@@ -201,15 +201,17 @@ software OpenGL reference, not a separate approximation or a hardware GPU test.
 
 ### Eitr unlock effect
 
-PAM success releases the session lock immediately. A separate normal layer
-surface can then play the unlock effect over the most recent in-memory lockscreen
-capture for 820 ms: by default lightning strikes the centre and the capture burns
-away from there (`unlockEffect=lightning` in `themes/eitr/theme.conf`; `bifrost`
-opens it like a gate instead). It is eligible only after successful
-authentication, with both lock states released, a ready snapshot and Reduce
-motion off. It takes no keyboard or pointer input, hides on animation completion
-or its independent 1050 ms deadline, and the lockscreen process exits after at
-most 1200 ms. This wait is after lock release, not an authentication delay.
+After PAM success the Eitr design holds the session lock 150 ms longer, so a
+separate normal layer surface is already drawn beneath it. Once both lock states
+report the screen released, that surface plays the unlock effect over the most
+recent in-memory lockscreen capture for 820 ms: by default lightning strikes the
+centre and the capture burns away from there (`unlockEffect=lightning` in
+`themes/eitr/theme.conf`; `bifrost` opens it like a gate instead). It needs
+successful authentication, a ready snapshot and Reduce motion off. The capture is
+taken as the password is submitted and named after the lock surface's own screen.
+It takes no keyboard or pointer input, hides on animation completion or its
+independent 1250 ms deadline, and the lockscreen process exits at most 1200 ms
+after release. Other designs and Reduce motion release the lock immediately.
 Missing/late captures, loader errors or an unavailable compositor state skip the
 cosmetic effect. Captures cover only the design, clear the active password field
 first, stay in memory, and are never written to a file. Other designs keep their

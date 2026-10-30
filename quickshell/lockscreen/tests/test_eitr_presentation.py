@@ -13,13 +13,18 @@ class EitrPresentationTests(unittest.TestCase):
     def test_authentication_releases_lock_before_any_cosmetic_wait(self):
         source = (ROOT / 'shell.qml').read_text()
         callback = source.split('onAuthenticated: {', 1)[1].split('}', 1)[0]
-        self.assertLess(callback.index('shell.unlocked = true'), callback.index('quitTimer.start()'))
+        self.assertIn('shell.authenticated = true', callback)
+        self.assertIn('releaseTimer.start()', callback)
         self.assertNotIn('grabToImage', callback)
         self.assertNotIn('animation', callback.lower())
+        # The lock is held at most 150 ms for the effect, then released before the process quits.
+        release = source.split('id: releaseTimer', 1)[1].split('Timer { id: quitTimer', 1)[0]
+        self.assertIn('interval: shell.sweepEnabled ? 150 : 0', release)
+        self.assertLess(release.index('shell.unlocked = true'), release.index('quitTimer.start()'))
         overlay = (ROOT / 'UnlockOverlay.qml').read_text()
         self.assertIn('WlrKeyboardFocus.None', overlay)
         self.assertIn('mask: Region {}', overlay)
-        self.assertIn('interval: 1050', overlay)
+        self.assertIn('interval: 1250', overlay)
         self.assertIn('effect.expired = true', overlay)
 
     @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell is needed for offscreen mock verification')
@@ -88,7 +93,10 @@ ShellRoot {
                     effect.capture(source, "mock");
                     effect.authenticated = true;
                     source.callback({url: "file:///mock"});
-                    host.require(Object.keys(effect.snapshots).length === 0, "Late captures must be ignored");
+                    // PAM usually answers before the grab finishes; that capture is the one the effect shows.
+                    host.require(Object.keys(effect.snapshots).length === 1, "A capture started before authentication must be kept");
+                    effect.capture(source, "mock");
+                    host.require(source.grabs === 1, "No new capture may start after authentication");
                     effect.authenticated = false;
                     effect.capture(source, "mock");
                     source.callback({url: "file:///mock"});

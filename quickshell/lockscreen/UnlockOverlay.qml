@@ -23,7 +23,7 @@ Scope {
     function resetCapture() { captures.resetCapture(); }
     function capture(sourceItem, screenName) { captures.capture(sourceItem, screenName); }
     // This deadline does not depend on shader loading or animation completion.
-    Timer { interval: 1050; running: effect.authenticated; onTriggered: effect.expired = true }
+    Timer { interval: 1250; running: effect.authenticated; onTriggered: effect.expired = true }
     Variants {
         model: effect.screens
         PanelWindow {
@@ -34,15 +34,16 @@ Scope {
             property real progress: 0
             screen: modelData
             color: "transparent"
-            visible: !finished && Policy.eligible(effect.authenticated, effect.locked, effect.secure,
-                                                 effect.reduced, frame.status === Image.Ready, effect.expired)
+            visible: !finished && Policy.eligible(effect.authenticated, effect.reduced,
+                                                 frame.status === Image.Ready, effect.expired)
+            readonly property bool running: visible && Policy.released(effect.locked, effect.secure)
             anchors { top: true; bottom: true; left: true; right: true }
             exclusionMode: ExclusionMode.Ignore
             WlrLayershell.namespace: "eitr-unlock-sweep"
             WlrLayershell.layer: WlrLayer.Overlay
             WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
             mask: Region {}
-            onVisibleChanged: if (visible) animation.start()
+            onRunningChanged: if (running) animation.start()
             // The last lockscreen frame, shown only outside the opening Bifröst gate.
             Image {
                 id: frame
