@@ -49,9 +49,6 @@ LAN.
   2 s after unlocking with the Eitr design, which other designs do not show. Not
   reproduced in the VM (the burn reveals the desktop directly); the owner will
   record it.
-- **Lofi Radio plugin.** An official plugin in `eitr-org/eitr-plugins` playing lofi
-  music through `lowfi` (AUR), with a start/stop row; it never installs packages
-  itself.
 - **Choice of terminal: Kitty or Ghostty.** The owner's idea (2026-10-29): offer
   Ghostty beside Kitty as the default terminal, keeping everything Eitr sets up
   today: theme colours and their regeneration on theme changes, fonts, cursor
