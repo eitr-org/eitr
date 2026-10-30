@@ -209,7 +209,10 @@ def main():
             optional = [line.strip() for line in (ROOT / "distro/optional-local-packages.txt").read_text().splitlines()
                         if line.strip() and not line.lstrip().startswith("#")]
             for name in optional:
-                if package_file(name) not in assets:
+                if package_file(name) in testing_assets:
+                    reuse_published_packages([package_file(name)], repo, work, download=TESTING_DOWNLOAD)
+                    built.append(repo / package_file(name))
+                elif package_file(name) not in assets:
                     built.append(build(name, work))
             for package in built:
                 if package != repo / package.name:

@@ -243,6 +243,30 @@ class ReleaseDesktopTests(unittest.TestCase):
             self.assertEqual(built, expected)
             self.assertEqual(reused, ["linux-1-1-x86_64.pkg.tar.zst", *([artwork] if published else [])])
 
+    def test_testing_reuses_optional_packages_it_already_carries(self):
+        release = self.load()
+        sunshine = "eitr-sunshine-9-2-x86_64.pkg.tar.zst"
+        artwork = "eitr-artwork-20261014.211144.gea4111e-1-any.pkg.tar.zst"
+        built, reused = [], []
+
+        def build(name, work):
+            built.append(name)
+            path = Path(work) / f"{name}-9-1-any.pkg.tar.zst"
+            path.write_bytes(b"")
+            return path
+
+        with patch.object(release, "require_pushed_head", return_value="abc1234"), \
+                patch.object(release, "published_assets", return_value=["eitr.db", artwork, sunshine]), \
+                patch.object(release, "package_file", side_effect=lambda name: artwork if name == "eitr-artwork" else sunshine), \
+                patch.object(release, "build", side_effect=build), \
+                patch.object(release, "reuse_published_packages",
+                             side_effect=lambda names, repo, work, **options: reused.extend(names)), \
+                patch.object(release, "run"), \
+                patch.object(sys, "argv", ["release", "--channel", "testing", "--dry-run", "/tmp/x"]):
+            release.main()
+        self.assertEqual(built, ["eitr-desktop"])
+        self.assertIn(sunshine, reused)
+
     def test_testing_mirrors_the_desktop_but_not_the_artwork(self):
         release = self.load()
         desktop = Path("eitr-desktop-1:0.6.3.20261018.120000.gabc1234-1-any.pkg.tar.zst")
