@@ -55,6 +55,9 @@ LAN.
   Web Apps (for example YouTube Music) shows a generic grid icon in the dock
   instead of its app icon; match the web app's window class to its desktop entry
   and icon.
+- **Media indicator: 10 bars instead of 8.** The bar's media equalizer (Bars style,
+  `MediaIndicator.qml`) draws 8 bars; make it 10, keeping its width stable so
+  neighbouring items do not shift. The Line style currently samples 16 points.
 - **hyprpaper crash without a GPU: follow upstream.** hyprpaper segfaults in VMs
   without 3D acceleration (hyprwm/hyprtoolkit#144); the bar now draws the still
   wallpaper on any screen hyprpaper does not answer for. Drop the note once a fixed
