@@ -130,14 +130,18 @@ def snapshot(output, keywords=None, parent_of=None, menus=None):
             titles[destination] = next(iter(labels))
     # A folder a live menu did not list this time (an assistant that is not
     # installed) cannot be browsed to, so nothing below it is searchable.
-    live = {name for name, data in (menus or {}).items() if not data.get('entries')}
+    listing = {(response.get('item') or {}).get('provider', '').removeprefix('menus:') for response in responses}
+
+    def live(name):
+        # A generated menu has no fixed rows; it lists its folders in this snapshot.
+        return name in listing and not (menus or {}).get(name, {}).get('entries')
     fixed_folders = {entry['submenu'] for data in (menus or {}).values()
                      for entry in data.get('entries', []) if entry.get('submenu')}
 
     def reachable(menu, chain):
         for folder in [menu, *chain]:
             parent = (parent_of or {}).get(folder)
-            if parent in live and folder not in folder_titles and folder not in fixed_folders:
+            if live(parent) and folder not in folder_titles and folder not in fixed_folders:
                 return False
         return True
     rows = {}

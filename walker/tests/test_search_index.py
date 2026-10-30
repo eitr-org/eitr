@@ -192,7 +192,8 @@ class SearchIndexTests(unittest.TestCase):
                      'ai-claude': 'ai-tools', 'ai-codex': 'ai-tools',
                      'ai-claude-accounts': 'ai-claude', 'ai-codex-accounts': 'ai-codex',
                      'ai-copilot': 'ai-tools', 'ai-copilot-accounts': 'ai-copilot'}
-        menus = {'ai-tools': {'entries': []}, 'ai-copilot': {'entries': [
+        # Like the real definitions, generated menus such as ai-tools have no entry here.
+        menus = {'ai-copilot': {'entries': [
                     {'text': 'Accounts', 'subtext': '>', 'submenu': 'ai-copilot-accounts'}]},
                  'ai-claude': {'entries': [
                     {'text': 'Accounts', 'subtext': '>', 'submenu': 'ai-claude-accounts'},
