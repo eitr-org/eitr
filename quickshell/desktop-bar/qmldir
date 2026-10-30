@@ -100,3 +100,4 @@ WeatherWidget WeatherWidget.qml
 NotificationWidget NotificationWidget.qml
 ClockButton ClockButton.qml
 WelcomeSession WelcomeSession.qml
+BarPreferences BarPreferences.qml

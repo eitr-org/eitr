@@ -129,8 +129,9 @@ class ControlCenterContracts(unittest.TestCase):
         shell = (Path(__file__).parents[1] / 'shell.qml').read_text()
         self.assertIn('onWorkspaceStyleRequested: function(value) { shell.setWorkspaceStyle(value); }', shell)
         self.assertIn('shell.setWorkspaceStyle(style);', shell)
-        setter = shell.split('function setWorkspaceStyle(style) {', 1)[1].split('\n    }', 1)[0]
-        self.assertLess(setter.index('shell.workspaceStyle = style;'),
+        preferences = (Path(__file__).parents[1] / 'BarPreferences.qml').read_text()
+        setter = preferences.split('function setWorkspaceStyle(style) {', 1)[1].split('\n    }', 1)[0]
+        self.assertLess(setter.index('host.workspaceStyle = style;'),
                         setter.index('saveWorkspaceStyle.running = true;'))
 
     def test_shared_surface_and_edge_animation(self):

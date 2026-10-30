@@ -91,7 +91,7 @@ class DesktopStyleTests(unittest.TestCase):
                 result = subprocess.run(["python3", str(ROOT / "scripts/workspace-color.py")], capture_output=True,
                                         text=True, check=True, env=dict(os.environ, HOME=home))
                 self.assertEqual(json.loads(result.stdout)["critical"], expected)
-        self.assertIn("DesktopStyle.criticalColor = palette.critical", (ROOT / "shell.qml").read_text())
+        self.assertIn("DesktopStyle.criticalColor = palette.critical", (ROOT / "BarPreferences.qml").read_text())
 
     def test_theme_panel_surface_is_separate_from_terminal_background(self):
         import json

@@ -105,7 +105,8 @@ class BarSettingsTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 bar_settings.save_settings({"screens": "some"})
         shell = (Path(__file__).parents[1] / "shell.qml").read_text()
-        self.assertIn('"set-all", barAppearance, barLayout, barEdge, barPinned ? "yes" : "no", barScreens, barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no", barMediaStyle, barDock ? "yes" : "no", barClock]', shell)
+        preferences = (Path(__file__).parents[1] / "BarPreferences.qml").read_text()
+        self.assertIn('"set-all", host.barAppearance, host.barLayout, host.barEdge, host.barPinned ? "yes" : "no", host.barScreens, host.barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no", host.barMediaStyle, host.barDock ? "yes" : "no", host.barClock]', preferences)
         self.assertIn("enabled: bar.isMainBar", shell, "only the main bar receives shortcuts")
         self.assertIn("shell.activeBar(bar).showKind(kind)", shell, "and hands them to the bar of the display in use")
         self.assertIn("shown: bar.isMainBar", shell, "notifications pop up on the main display only")
