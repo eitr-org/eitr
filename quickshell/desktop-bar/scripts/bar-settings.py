@@ -82,7 +82,11 @@ def refresh_walker_appearance():
 
 def main():
     try:
-        if sys.argv[1:] == ["status"]:
+        if sys.argv[1:] == ["summary"]:
+            result = {"current": read_settings(), "available": True,
+                      "choices": {key: [{"value": value, "label": value, "available": True}
+                                        for value in sorted(values)] for key, values in OPTIONS.items()}}
+        elif sys.argv[1:] == ["status"]:
             result = read_settings()
         elif len(sys.argv) == 3 and sys.argv[1] == "get" and sys.argv[2] in OPTIONS:
             print(read_settings()[sys.argv[2]])

@@ -16,11 +16,20 @@ from eitr_i18n import tr
 STYLES = ('Dots', 'Glyph', 'Numbers', 'Runes')
 STATE = user_config("quickshell/desktop-bar/workspace-style.json")
 
-if len(sys.argv) == 2 and sys.argv[1] == 'current':
+def current():
     style = read_settings(STATE).get('style', 'Runes')
     if style == 'Aurora':
         style = 'Dots'
-    print(style if style in STYLES else 'Runes')
+    return style if style in STYLES else 'Runes'
+
+
+if sys.argv[1:] == ['summary']:
+    print(json.dumps({"current": current(), "available": True,
+                      "choices": [{"value": value, "label": value, "available": True} for value in STYLES]}))
+    raise SystemExit(0)
+
+if sys.argv[1:] == ['current']:
+    print(current())
     raise SystemExit(0)
 
 if len(sys.argv) != 2 or sys.argv[1] not in STYLES:

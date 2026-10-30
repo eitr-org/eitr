@@ -47,6 +47,15 @@ ThemedPopup {
     readonly property string crashHelpScript: Eitr.Paths.code("walker/scripts/actions/system/crash-help.py")
     property bool gameMode: false
     readonly property string gameModeScript: Eitr.Paths.code("walker/scripts/actions/toggle/game-mode.sh")
+    property var styleErrors: ({})
+    function styleResult(key, text, code, fields) {
+        const result = JsonState.parse(text, code, fields);
+        let errors = Object.assign({}, styleErrors);
+        if (result.ok) delete errors[key];
+        else errors[key] = result.error;
+        styleErrors = errors;
+        return result.data;
+    }
     property string actionError: ""
     property var pendingCommand: []
     // Sections the user folded or unfolded this session (title -> open).
@@ -55,6 +64,7 @@ ThemedPopup {
     property var lockscreens: []
     property string lockscreen: ""
     property string terminalChoice: "kitty"
+    property var terminalChoices: []
     readonly property string terminalScript: Eitr.Paths.code("walker/scripts/actions/style/terminal.py")
     property bool cursorFire: false
     property string updateChannel: ""
@@ -171,34 +181,27 @@ ThemedPopup {
     }
     Process {
         id: cursorQuery
-        command: ["sh", "-c", 'for group in family size color; do python3 "$1" entries "$group"; done', "sh", center.cursorScript]
+        command: ["python3", center.cursorScript, "summary"]
         stdout: StdioCollector { id: cursorOutput }
-        onExited: {
-            const received = cursorOutput.text;
+        onExited: function(code) {
+            const data = center.styleResult("cursor", cursorOutput.text, code, {choices: {family: [{id: "string", label: "string", selected: "boolean"}], size: [{id: "string", label: "string", selected: "boolean"}], color: [{id: "string", label: "string", selected: "boolean"}]}, current: "object", available: "boolean"});
             center.updateContent(function() {
-                try {
-                    let lines = received.trim().split("\n");
-                    let choices = {family: JSON.parse(lines[0]), size: JSON.parse(lines[1]), color: JSON.parse(lines[2])};
-                    if (JsonState.changed(center.cursorChoices, choices)) center.cursorChoices = choices;
-                } catch (error) {}
-
+                const choices = data ? data.choices : {family: [], size: [], color: []};
+                if (JsonState.changed(center.cursorChoices, choices)) center.cursorChoices = choices;
             });
         }
     }
     Process { id: cursorWrite; onExited: function(code) { if (code !== 0) center.actionError = Eitr.I18n.tr("Could not change the cursor"); cursorQuery.running = true; } }
     Process {
         id: lockscreenQuery
-        command: ["sh", "-c", 'python3 "$1" list; echo "@current"; python3 "$1" current', "sh", center.lockscreenScript]
+        command: ["python3", center.lockscreenScript, "summary"]
         stdout: StdioCollector { id: lockscreenOutput }
-        onExited: {
-            const received = lockscreenOutput.text;
+        onExited: function(code) {
+            const data = center.styleResult("lockscreen", lockscreenOutput.text, code, {choices: [{value: "string", label: "string"}], current: "string", available: "boolean"});
             center.updateContent(function() {
-                let parts = received.split("@current");
-                let lockscreens = parts[0].trim().split("\n").filter(line => line.includes("\t"))
-                    .map(line => ({value: line.split("\t")[0], label: line.split("\t")[1]}));
-                if (JsonState.changed(center.lockscreens, lockscreens)) center.lockscreens = lockscreens;
-                center.lockscreen = (parts[1] || "").trim();
-
+                const choices = data ? data.choices : [];
+                if (JsonState.changed(center.lockscreens, choices)) center.lockscreens = choices;
+                center.lockscreen = data ? data.current : "";
             });
         }
     }
@@ -209,15 +212,25 @@ ThemedPopup {
     }
     Process {
         id: fireQuery
-        command: ["python3", center.effectsScript, "get", "cursor-fire"]
+        command: ["python3", center.effectsScript, "summary"]
         stdout: StdioCollector { id: fireOutput }
-        onExited: center.cursorFire = fireOutput.text.trim() === "on"
+        onExited: function(code) {
+            const data = center.styleResult("effects", fireOutput.text, code, {current: "boolean", choices: "array", available: "boolean"});
+            center.cursorFire = data ? data.current : false;
+        }
     }
     Process {
         id: terminalQuery
-        command: ["python3", center.terminalScript, "get", "terminal"]
+        command: ["python3", center.terminalScript, "summary"]
         stdout: StdioCollector { id: terminalOutput }
-        onExited: center.terminalChoice = terminalOutput.text.trim()
+        onExited: function(code) {
+            const data = center.styleResult("terminal", terminalOutput.text, code, {current: "string", choices: [{value: "string", label: "string"}], available: "boolean"});
+            center.updateContent(function() {
+                const choices = data ? data.choices : [];
+                if (JsonState.changed(center.terminalChoices, choices)) center.terminalChoices = choices;
+                center.terminalChoice = data ? data.current : "";
+            });
+        }
     }
     Process {
         id: terminalWrite
@@ -433,6 +446,12 @@ ThemedPopup {
                     }
                     Column {
                         visible: center.page === "style"; width: parent.width; spacing: 12
+                        Text {
+                            visible: Object.keys(center.styleErrors).length > 0
+                            width: parent.width; wrapMode: Text.WordWrap
+                            text: Object.keys(center.styleErrors).map(key => key + ": " + center.styleErrors[key]).join("\n")
+                            color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
+                        }
                         Fold {
                         title: Eitr.I18n.tr("Theme & Wallpaper"); startOpen: true
                         GridLayout { width: parent.width; columns: 2; columnSpacing: 8; rowSpacing: 8
@@ -613,15 +632,15 @@ ThemedPopup {
                         title: Eitr.I18n.tr("Terminal")
                         Column { width: parent.width; spacing: 6
                         Flow { width: parent.width; spacing: 6
-                            Repeater { model: ["kitty", "ghostty"]
+                            Repeater { model: center.terminalChoices
                                 PanelButton {
-                                    required property string modelData
+                                    required property var modelData
                                     width: (parent.width - 6) / 2
-                                    text: modelData === "kitty" ? "Kitty" : "Ghostty"
-                                    foreground: center.foreground; selected: center.terminalChoice === modelData
+                                    text: modelData.label
+                                    foreground: center.foreground; selected: center.terminalChoice === modelData.value
                                     leadingIcon: selected ? "\u{F00C}" : ""
                                     available: !terminalWrite.running
-                                    onClicked: if (!selected) center.run(terminalWrite, ["python3", center.terminalScript, "set", "terminal", modelData])
+                                    onClicked: if (!selected) center.run(terminalWrite, ["python3", center.terminalScript, "set", "terminal", modelData.value])
                                 }
                             }
                         }
@@ -629,7 +648,7 @@ ThemedPopup {
                             Label { id: terminalLabel; width: parent.width - 60; anchors.verticalCenter: parent.verticalCenter; wrapMode: Text.WordWrap; text: Eitr.I18n.tr("Cursor Fire: a blazing trail behind Kitty's cursor") }
                             PanelSwitch {
                                 anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter
-                                checked: center.cursorFire; enabled: !fireWrite.running
+                                checked: center.cursorFire; enabled: !fireWrite.running && !center.styleErrors.effects
                                 foreground: center.foreground; accent: center.accent
                                 onToggled: center.run(fireWrite, ["python3", center.effectsScript, "set", "cursor-fire", checked ? "on" : "off"])
                             }

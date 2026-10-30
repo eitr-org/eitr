@@ -116,8 +116,8 @@ def preview(theme):
         return ""
 
 
-def entries(group):
-    choice = read()
+def entries(group, choice=None, previews=True):
+    choice = read() if choice is None else choice
     rows = []
     values = (LABELS if group == "family" else
               {size: f"{size} px" + (" (Default)" if size == 24 else "") for size in SIZES}
@@ -127,7 +127,7 @@ def entries(group):
         theme = resolve(candidate)
         selected = choice[group] == value
         rows.append({"id": str(value), "label": label, "selected": selected,
-                     "icon": "\uf00c" if selected else preview(theme),
+                     "icon": "\uf00c" if selected else preview(theme) if previews else "",
                      "detail": menu_mark("Set the cursor size") if group == "size" else theme})
     return rows if group == "size" else sorted(rows, key=lambda row: row["label"].casefold())
 
@@ -165,6 +165,11 @@ def main(args):
     choice = read()
     if len(args) == 2 and args[0] == "entries" and args[1] in ("family", "color", "size"):
         return entries(args[1])
+    if args == ["summary"]:
+        return {"current": choice, "available": True,
+                "choices": {group: [{**row, "available": installed(resolve({**choice, group: int(row["id"]) if group == "size" else row["id"]}))}
+                                    for row in entries(group, choice, previews=False)]
+                            for group in ("family", "size", "color")}}
     if args == ["status"]:
         return {**choice, "theme": resolve(choice)}
     if args == ["sync"]:
@@ -188,6 +193,6 @@ if __name__ == "__main__":
         print(json.dumps(main(sys.argv[1:])))
     except (OSError, ValueError, configparser.Error) as error:
         # Walker runs choices without a terminal; show why nothing changed.
-        if shutil.which("notify-send"):
+        if sys.argv[1:] != ["summary"] and shutil.which("notify-send"):
             subprocess.run(["notify-send", tr('Cursor'), str(error)], check=False)
         raise SystemExit(str(error))

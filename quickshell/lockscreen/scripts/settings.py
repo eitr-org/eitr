@@ -158,6 +158,13 @@ def main():
     if command == "current":
         print(selected())
         return
+    if command == "summary":
+        print(json.dumps({"current": selected(), "available": True,
+                          "choices": [{"value": value, "label": label, "available": True}
+                                      for value, label in designs().items()] +
+                                     [{"value": value, "label": mine['name'], "available": True}
+                                      for value, mine in own_designs().items()]}))
+        return
     if command == "list":
         for value, label in designs().items():
             print(f"{value}\t{label}")

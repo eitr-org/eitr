@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Manage the optional built-in Kitty cursor fire effect without touching themes."""
 import argparse
+import json
 import os
 from pathlib import Path
 import re
@@ -90,12 +91,16 @@ def set_enabled(enabled):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=('get', 'set', 'sync'))
+    parser.add_argument('action', choices=('get', 'set', 'sync', 'summary'))
     parser.add_argument('key', nargs='?', choices=('cursor-fire',))
     parser.add_argument('value', nargs='?', choices=('off', 'on'))
     args = parser.parse_args()
     try:
-        if args.action == 'get':
+        if args.action == 'summary':
+            print(json.dumps({"current": read()['cursor_fire'],
+                              "available": bool(shutil.which('kitty') and shutil.which('slangc') and LOADER.is_file()),
+                              "choices": [{"value": False, "label": "Off"}, {"value": True, "label": "On"}]}))
+        elif args.action == 'get':
             print('on' if read()['cursor_fire'] else 'off')
         elif args.action == 'set':
             if args.key != 'cursor-fire' or args.value is None:

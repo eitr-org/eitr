@@ -67,6 +67,10 @@ def main():
     if len(arguments) == 2 and arguments[0] == "set":
         select(arguments[1])
         print(current())
+    elif arguments == ["summary"]:
+        print(json.dumps({"current": current(), "available": True,
+                          "choices": [{"value": value, "label": details["label"], "available": True}
+                                      for value, details in definitions()[1].items()]}))
     elif arguments == ["get"]:
         print(current())
     elif len(arguments) == 2 and arguments[0] == "get" and arguments[1] in ("scale", "windowRounding"):

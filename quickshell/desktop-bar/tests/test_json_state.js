@@ -29,3 +29,28 @@ for (const [filename, properties] of Object.entries({
     }
     assert.ok(!source.includes('afterReveal('), `${filename}: results must not wait for reveal`);
 }
+
+const validStyle = state.parse('{"choices":[],"current":"kitty","available":true}', 0,
+    {choices: 'array', current: 'string', available: 'boolean'});
+assert.equal(validStyle.ok, true);
+assert.equal(validStyle.data.current, 'kitty');
+for (const [text, code] of [['{', 0], ['', 0], ['null', 0], ['[]', 0],
+    ['{"error":"unavailable"}', 0], ['{"choices":[]}', 1], ['{"choices":null}', 0]]) {
+    const result = state.parse(text, code, {choices: 'array'});
+    assert.equal(result.ok, false);
+    assert.equal(result.data, null);
+    assert.ok(result.error.length > 0);
+}
+const centerSource = fs.readFileSync(path.join(__dirname, '..', 'ControlCenter.qml'), 'utf8');
+assert.ok(!centerSource.includes('@current'));
+assert.ok(!centerSource.includes('for group in'));
+for (const helper of ['cursor', 'lockscreen', 'terminal', 'effects']) {
+    assert.equal(centerSource.split(`center.${helper}Script, "summary"`).length - 1, 1);
+    assert.ok(!centerSource.includes(`center.${helper}Script, "get"`));
+    assert.ok(!centerSource.includes(`center.${helper}Script, "entries"`));
+}
+assert.ok(centerSource.includes('property var styleErrors:'));
+
+assert.equal(state.parse('{"choices":{}}', 0, {choices: {family: 'array'}}).ok, false);
+assert.equal(state.parse('{"items":[{"name":3}]}', 0, {items: [{name: 'string'}]}).ok, false);
+assert.equal(state.parse('{"items":[{"name":"Theme"}]}', 0, {items: [{name: 'string'}]}).ok, true);

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Choose the user's terminal; Eitr utility terminals remain on Kitty."""
 import argparse
+import json
 import os
 from pathlib import Path
 import shutil
@@ -136,11 +137,15 @@ def launch(arguments):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=('get', 'set', 'install', 'sync', 'launch'))
+    parser.add_argument('action', choices=('get', 'set', 'install', 'sync', 'launch', 'summary'))
     parser.add_argument('arguments', nargs=argparse.REMAINDER)
     args = parser.parse_args()
     try:
-        if args.action == 'get':
+        if args.action == 'summary':
+            print(json.dumps({"current": selected(), "available": True,
+                              "choices": [{"value": value, "label": label, "available": bool(shutil.which(value))}
+                                          for value, label in (("kitty", "Kitty"), ("ghostty", "Ghostty"))]}))
+        elif args.action == 'get':
             print(selected())
         elif args.action == 'set':
             if args.arguments not in (['terminal', 'kitty'], ['terminal', 'ghostty']):

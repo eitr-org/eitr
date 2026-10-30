@@ -77,23 +77,24 @@ Item {
         id: loader
         stdout: StdioCollector { id: output }
         onExited: function(code) {
-            try {
-                if (code !== 0)
-                    throw new Error("load failed");
-                var data = JSON.parse(output.text);
+            const result = JsonState.parse(output.text, code, {items: [{name: "string", value: "string", image: "string", current: "boolean"}], accent: "string", foreground: "string"});
+            const data = result.data;
+            if (result.ok) {
                 if (JsonState.changed(picker.items, data.items)) picker.items = data.items;
                 if (JsonState.changed(picker.allItems, data.items)) picker.allItems = data.items;
                 picker.catalogs[picker.mode] = data.items;
                 picker.accent = data.accent;
                 picker.foreground = data.foreground;
                 picker.selectedIndex = 0;
-                for (var i = 0; i < data.items.length; i++) {
-                    if (data.items[i].current)
-                        picker.selectedIndex = i;
+                for (var index = 0; index < data.items.length; index++) {
+                    if (data.items[index].current)
+                        picker.selectedIndex = index;
                 }
-                if (!data.items.length)
-                    picker.error = Eitr.I18n.tr("No images found");
-            } catch (e) {
+                picker.error = data.items.length ? "" : Eitr.I18n.tr("No images found");
+            } else {
+                picker.items = [];
+                picker.allItems = [];
+                picker.catalogs[picker.mode] = [];
                 picker.error = Eitr.I18n.tr("Images unavailable");
             }
             Qt.callLater(function() { content.forceActiveFocus(); });

@@ -246,13 +246,19 @@ def remove(family):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['list', 'get', 'css', 'select', 'delete', 'remove', 'sync'])
+    parser.add_argument('action', choices=['list', 'get', 'css', 'select', 'delete', 'remove', 'sync', 'summary'])
     parser.add_argument('family', nargs='?')
     args = parser.parse_args()
     if args.action in {'select', 'delete', 'remove'} and args.family is None:
         parser.error('A font family is required')
     try:
-        if args.action == 'list':
+        if args.action == 'summary':
+            selected = current()
+            families = installed()
+            print(json.dumps({"current": selected, "available": bool(families),
+                              "choices": [{"value": name, "label": name, "available": name in families}
+                                          for name in sorted(picker_families(families, selected), key=str.casefold)]}))
+        elif args.action == 'list':
             selected = current()
             families = installed()
             print(json.dumps([{'family': name, 'current': name == selected,
@@ -266,7 +272,7 @@ def main():
             globals()[args.action](args.family) if args.family is not None else sync()
     except (OSError, ValueError, subprocess.SubprocessError) as error:
         print(str(error), file=sys.stderr)
-        if shutil.which('notify-send'):
+        if args.action != 'summary' and shutil.which('notify-send'):
             subprocess.run(['notify-send', tr('Fonts'), str(error)], check=False)
         return 1
     return 0

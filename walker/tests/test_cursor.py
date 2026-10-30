@@ -89,3 +89,17 @@ class CursorTests(unittest.TestCase):
         from PIL import Image
         with Image.open(cursor.preview("Bibata-Modern-Classic")) as image:
             self.assertEqual(image.getpixel((0, 0)), (255, 0, 0, 255))
+
+class CursorSummaryTests(unittest.TestCase):
+    def test_summary_reads_once_and_does_not_generate_previews(self):
+        choice = {"family": "breeze", "size": 32, "color": "light"}
+        with patch.object(cursor, 'read', return_value=choice) as read, \
+                patch.object(cursor, 'installed', return_value=False), \
+                patch.object(cursor, 'preview') as preview:
+            result = cursor.main(['summary'])
+        read.assert_called_once()
+        preview.assert_not_called()
+        self.assertEqual(result['current'], choice)
+        for group, rows in result['choices'].items():
+            self.assertEqual([row['id'] for row in rows if row['selected']], [str(choice[group])])
+            self.assertTrue(all(not row['available'] for row in rows))

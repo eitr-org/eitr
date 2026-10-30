@@ -158,3 +158,74 @@ class DesktopStyleTests(unittest.TestCase):
         for name in ("NotificationCenter", "ControlCenter", "AudioMenu", "WifiMenu"):
             panel = (ROOT / (name + ".qml")).read_text()
             self.assertIn("anchors.margins: 0", panel)
+
+class StyleSummaryContractTests(unittest.TestCase):
+    def test_helper_summaries_with_missing_optional_configuration(self):
+        import json
+        import os
+        import subprocess
+        import sys
+        repo = ROOT.parents[1]
+        helpers = {
+            'walker/scripts/actions/style/terminal.py': 'kitty',
+            'walker/scripts/actions/style/terminal-effects.py': False,
+            'walker/scripts/actions/style/fonts.py': 'JetBrainsMono Nerd Font',
+            'quickshell/desktop-bar/scripts/desktop-style.py': 'rounded',
+            'quickshell/desktop-bar/scripts/workspace-style.py': 'Runes',
+            'quickshell/lockscreen/scripts/settings.py': 'hyprlock',
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            environment = {**os.environ, 'HOME': directory, 'EITR_NO_SESSION': '1',
+                           'XDG_CONFIG_HOME': directory + '/config',
+                           'XDG_CACHE_HOME': directory + '/cache',
+                           'XDG_STATE_HOME': directory + '/state',
+                           'XDG_DATA_HOME': directory + '/data'}
+            for helper, default in helpers.items():
+                with self.subTest(helper=helper):
+                    result = subprocess.run([sys.executable, str(repo / helper), 'summary'],
+                                            env=environment, capture_output=True, text=True, check=True)
+                    data = json.loads(result.stdout)
+                    self.assertEqual(data['current'], default)
+                    self.assertIsInstance(data['available'], bool)
+                    self.assertTrue(data['choices'])
+                    self.assertTrue(all('label' in row and 'value' in row for row in data['choices']))
+            bar = repo / 'quickshell/desktop-bar/scripts/bar-settings.py'
+            def query(helper, *arguments):
+                return subprocess.run([sys.executable, str(helper), *arguments], env=environment,
+                                      capture_output=True, text=True, check=True).stdout
+            bar_summary = json.loads(query(bar, 'summary'))
+            self.assertEqual(bar_summary['current'], json.loads(query(bar, 'status')))
+            self.assertEqual(set(bar_summary['choices']), set(bar_summary['current']) - {'version'})
+            fixtures = [
+                ('eitr/font.json', '{"family":"Example Font"}', 'walker/scripts/actions/style/fonts.py', 'get', 'Example Font'),
+                ('eitr/style.json', '{"corners":"square"}', 'quickshell/desktop-bar/scripts/desktop-style.py', 'get', 'square'),
+                ('quickshell/desktop-bar/workspace-style.json', '{"style":"Numbers"}', 'quickshell/desktop-bar/scripts/workspace-style.py', 'current', 'Numbers'),
+            ]
+            for relative, content, helper, legacy, expected in fixtures:
+                preference_file = Path(directory) / 'config' / relative
+                preference_file.parent.mkdir(parents=True, exist_ok=True)
+                preference_file.write_text(content)
+                self.assertEqual(query(repo / helper, legacy).strip(), expected)
+                self.assertEqual(json.loads(query(repo / helper, 'summary'))['current'], expected)
+            lockscreen = repo / 'quickshell/lockscreen/scripts/settings.py'
+            choices = json.loads(query(lockscreen, 'summary'))['choices']
+            self.assertEqual(query(lockscreen, 'list'),
+                             ''.join(row['value'] + '\t' + row['label'] + '\n' for row in choices))
+            terminal = repo / 'walker/scripts/actions/style/terminal.py'
+            preference = Path(directory) / 'config/eitr/terminal.json'
+            preference.parent.mkdir(parents=True, exist_ok=True)
+            preference.write_text('{"terminal":"ghostty","cursor_fire":true}')
+            result = subprocess.run([sys.executable, str(terminal), 'summary'], env=environment,
+                                    capture_output=True, text=True, check=True)
+            data = json.loads(result.stdout)
+            ghostty = next(row for row in data['choices'] if row['value'] == 'ghostty')
+            self.assertEqual(data['current'], 'ghostty' if ghostty['available'] else 'kitty')
+            effects = repo / 'walker/scripts/actions/style/terminal-effects.py'
+            result = subprocess.run([sys.executable, str(effects), 'summary'], env=environment,
+                                    capture_output=True, text=True, check=True)
+            self.assertTrue(json.loads(result.stdout)['current'])
+            preference.write_text('{"terminal":"invalid"}')
+            result = subprocess.run([sys.executable, str(terminal), 'summary'], env=environment,
+                                    capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertEqual(result.stdout, '')
