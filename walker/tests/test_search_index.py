@@ -190,15 +190,18 @@ class SearchIndexTests(unittest.TestCase):
 
         parent_of = {'ai-tools': 'development', 'development': 'main',
                      'ai-claude': 'ai-tools', 'ai-codex': 'ai-tools',
-                     'ai-claude-accounts': 'ai-claude', 'ai-codex-accounts': 'ai-codex'}
-        menus = {'ai-claude': {'entries': [
+                     'ai-claude-accounts': 'ai-claude', 'ai-codex-accounts': 'ai-codex',
+                     'ai-copilot': 'ai-tools', 'ai-copilot-accounts': 'ai-copilot'}
+        menus = {'ai-tools': {'entries': []}, 'ai-copilot': {'entries': [
+                    {'text': 'Accounts', 'subtext': '>', 'submenu': 'ai-copilot-accounts'}]},
+                 'ai-claude': {'entries': [
                     {'text': 'Accounts', 'subtext': '>', 'submenu': 'ai-claude-accounts'},
                     {'text': 'New', 'subtext': 'Start a Claude session'}]},
                  'ai-codex': {'entries': [
                     {'text': 'Accounts', 'subtext': '>', 'submenu': 'ai-codex-accounts'}]}}
         accounts = [dict(provider='menus:' + menu + '-accounts', identifier=menu + ':add',
                          text='Add Account…', subtext='Accounts: Sign in to a separate account', actions=['open'])
-                    for menu in ('ai-claude', 'ai-codex')]
+                    for menu in ('ai-claude', 'ai-codex', 'ai-copilot')]
         folders = [dict(provider='menus:ai-tools', identifier='menus:' + menu + ':ai-tools:folder',
                         text=title, actions=['menus:open'])
                    for menu, title in (('ai-claude', 'Claude'), ('ai-codex', 'Codex'))]
@@ -209,6 +212,8 @@ class SearchIndexTests(unittest.TestCase):
         by_identifier = {row['identifier']: row for row in rows}
         self.assertEqual(by_identifier['ai-claude:add']['path'][-2:], [
             {'menu': 'ai-claude', 'title': 'Claude'}, {'menu': 'ai-claude-accounts', 'title': 'Accounts'}])
+        # Copilot is not installed: the AI menu does not list it, so its rows cannot be browsed to.
+        self.assertNotIn('ai-copilot:add', by_identifier)
         fixed_row = by_identifier['ai-claude:new']
         self.assertNotIn('path', fixed_row)
         self.assertEqual(fixed_row['subtext'], fixed['subtext'])

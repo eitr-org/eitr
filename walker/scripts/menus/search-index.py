@@ -91,6 +91,16 @@ def keyword_index(directory=None):
     return result
 
 
+def menu_title(name, messages):
+    """A menu's own NamePretty, for folders no listed row names."""
+    try:
+        source = code(f'elephant/menus/{name}.lua').read_text()
+    except OSError:
+        return ''
+    match = re.search(r'^NamePretty\s*=\s*(?:i18n\.tr\()?"([^"]*)"', source, re.MULTILINE)
+    return messages.get(match[1], match[1]) if match else ''
+
+
 def snapshot(output, keywords=None, parent_of=None, menus=None):
     """Rows of the query OUTPUT. Each row lists its menu's ancestors, so a menu can
     search the menus below it; a data menu's submenu row names that submenu."""
@@ -118,6 +128,18 @@ def snapshot(output, keywords=None, parent_of=None, menus=None):
     for destination, labels in folder_titles.items():
         if len(labels) == 1:
             titles[destination] = next(iter(labels))
+    # A folder a live menu did not list this time (an assistant that is not
+    # installed) cannot be browsed to, so nothing below it is searchable.
+    live = {name for name, data in (menus or {}).items() if not data.get('entries')}
+    fixed_folders = {entry['submenu'] for data in (menus or {}).values()
+                     for entry in data.get('entries', []) if entry.get('submenu')}
+
+    def reachable(menu, chain):
+        for folder in [menu, *chain]:
+            parent = (parent_of or {}).get(folder)
+            if parent in live and folder not in folder_titles and folder not in fixed_folders:
+                return False
+        return True
     rows = {}
     battery_available = bool(system_batteries())
     for response in responses:
@@ -128,6 +150,8 @@ def snapshot(output, keywords=None, parent_of=None, menus=None):
         if not provider.startswith('menus:') or provider.removeprefix('menus:') in EXCLUDED:
             continue
         menu = provider.removeprefix('menus:')
+        if not reachable(menu, ancestors(menu, parent_of or {})):
+            continue
         if not battery_available and (menu == 'battery-limit' or submenus.get((provider, item['text'])) == 'battery-limit'):
             continue
         key = hashlib.sha256((provider + '\0' + item['identifier']).encode()).hexdigest()
@@ -139,7 +163,7 @@ def snapshot(output, keywords=None, parent_of=None, menus=None):
                    keywords=(keywords or {}).get((provider, item['text']), []),
                    menus=ancestors(menu, parent_of or {}))
         if (provider, item['text']) not in fixed:
-            row['path'] = [{'menu': ancestor, 'title': titles.get(ancestor, '')}
+            row['path'] = [{'menu': ancestor, 'title': titles.get(ancestor) or menu_title(ancestor, messages)}
                            for ancestor in reversed([menu, *row['menus']])]
         # Generated menus' submenus may depend on the selected row's value; those keep
         # their activation through this helper.
@@ -182,7 +206,7 @@ def refresh():
         fd, temporary = tempfile.mkstemp(prefix='.index-', dir=RUNTIME)
         try:
             with os.fdopen(fd, 'w') as handle:
-                json.dump({'updated': time.time(), 'locale': select_locale(), 'rows': rows}, handle)
+                json.dump({'updated': time.time(), 'locale': select_locale(), 'battery': bool(system_batteries()), 'rows': rows}, handle)
             os.replace(temporary, INDEX)
         finally:
             if os.path.exists(temporary):

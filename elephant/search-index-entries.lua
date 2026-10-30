@@ -47,7 +47,8 @@ return function(scope)
     local ok, index = pcall(jsonDecode, raw)
     if not ok or not index.rows then return {} end
     local entries = {}
-    local battery = dofile(paths.code("elephant/battery-state.lua"))()
+    -- The index records battery presence when it is built; typing starts no helper.
+    local battery = index.battery ~= nil and {available = index.battery} or dofile(paths.code("elephant/battery-state.lua"))()
     for _, row in ipairs(index.rows) do
         if in_scope(row, scope) and (battery.available or (row.submenu ~= "battery-limit" and row.provider ~= "menus:battery-limit")) then
             local entry = row_entry(row)
