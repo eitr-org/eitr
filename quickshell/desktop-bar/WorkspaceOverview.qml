@@ -124,7 +124,7 @@ PanelWindow {
                                         anchors.fill: parent
                                         workspace: cell.modelData
                                         foreground: overview.foreground; background: overview.background; accent: overview.accent
-                                        capturing: overview.visible && overview.entranceElapsed >= 755
+                                        capturing: overview.visible
                                         selected: overview.selectedIndex === cell.index
                                         current: Hyprland.focusedWorkspace !== null && Hyprland.focusedWorkspace.id === cell.modelData.id
                                         onChosen: id => overview.choose(id)
