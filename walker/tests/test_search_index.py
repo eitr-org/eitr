@@ -1,5 +1,7 @@
 import importlib.util
 import json
+import os
+import shutil
 from pathlib import Path
 import re
 import subprocess
@@ -181,6 +183,82 @@ class SearchIndexTests(unittest.TestCase):
         # A generated menu's submenu needs the selected row's value; it keeps the helper.
         self.assertNotIn('submenu', rows['Work'])
         self.assertEqual(rows['Work']['menus'], ['development'])
+
+    @unittest.skipUnless(shutil.which('lua'), 'Lua is required for search presentation tests')
+    def test_live_accounts_show_assistant_path_and_fixed_rows_keep_their_description(self):
+        from test_menu_translations import lua_value
+
+        parent_of = {'ai-tools': 'development', 'development': 'main',
+                     'ai-claude': 'ai-tools', 'ai-codex': 'ai-tools',
+                     'ai-claude-accounts': 'ai-claude', 'ai-codex-accounts': 'ai-codex'}
+        menus = {'ai-claude': {'entries': [
+                    {'text': 'Accounts', 'subtext': '>', 'submenu': 'ai-claude-accounts'},
+                    {'text': 'New', 'subtext': 'Start a Claude session'}]},
+                 'ai-codex': {'entries': [
+                    {'text': 'Accounts', 'subtext': '>', 'submenu': 'ai-codex-accounts'}]}}
+        accounts = [dict(provider='menus:' + menu + '-accounts', identifier=menu + ':add',
+                         text='Add Account…', subtext='Accounts: Sign in to a separate account', actions=['open'])
+                    for menu in ('ai-claude', 'ai-codex')]
+        folders = [dict(provider='menus:ai-tools', identifier='menus:' + menu + ':ai-tools:folder',
+                        text=title, actions=['menus:open'])
+                   for menu, title in (('ai-claude', 'Claude'), ('ai-codex', 'Codex'))]
+        fixed = dict(provider='menus:ai-claude', identifier='ai-claude:new', text='New',
+                     subtext='Claude: Start a Claude session', actions=['open'])
+        # Account rows precede folder rows to exercise the two-pass label lookup.
+        rows = search.snapshot(self.output(*accounts, fixed, *folders), parent_of=parent_of, menus=menus)
+        by_identifier = {row['identifier']: row for row in rows}
+        self.assertEqual(by_identifier['ai-claude:add']['path'][-2:], [
+            {'menu': 'ai-claude', 'title': 'Claude'}, {'menu': 'ai-claude-accounts', 'title': 'Accounts'}])
+        fixed_row = by_identifier['ai-claude:new']
+        self.assertNotIn('path', fixed_row)
+        self.assertEqual(fixed_row['subtext'], fixed['subtext'])
+        root = Path(__file__).resolve().parents[2]
+        script = 'local index = ' + lua_value({'rows': rows}) + '\n' + r'''
+local root = os.getenv('EITR_CODE_ROOT')
+local original_dofile = dofile
+dofile = function(path)
+    if path == root .. '/elephant/battery-state.lua' then return function() return {available=true} end end
+    if path == root .. '/elephant/policies.lua' then return {row=function() return true end} end
+    return original_dofile(path)
+end
+io.popen = function() error('Search must not run provider commands') end
+os.execute = io.popen
+io.open = function(path)
+    assert(path == os.getenv('XDG_RUNTIME_DIR') .. '/eitr-search/index.json')
+    return {read=function() return 'index' end, close=function() end}
+end
+jsonDecode = function(raw) assert(raw == 'index'); return index end
+local search = dofile(root .. '/elephant/search-index-entries.lua')
+local rows = search('ai-tools')
+local expected = {['menus:ai-claude-accounts']='Claude › Accounts: Sign in to a separate account',
+                  ['menus:ai-codex-accounts']='Codex › Accounts: Sign in to a separate account'}
+local found=0
+for _, entry in ipairs(rows) do
+    if expected[entry.Provider] then
+        assert(entry.Text == 'Add Account…')
+        assert(entry.Subtext == expected[entry.Provider], tostring(entry.Subtext))
+        assert(entry.Actions.open:find('activate',1,true))
+        found=found+1
+    elseif entry.Text == 'New' then
+        assert(entry.Subtext == 'Claude: Start a Claude session')
+        assert(entry.Provider == 'menus:ai-claude')
+    end
+end
+assert(found == 2)
+-- The path is relative to the searched menu, not a global breadcrumb.
+for _, entry in ipairs(search('ai-claude')) do
+    if entry.Text == 'Add Account…' then
+        assert(entry.Subtext == 'Accounts: Sign in to a separate account')
+    end
+end
+-- Search must not mutate the cached index or its fixed-row presentation.
+assert(search('ai-tools')[1].Subtext == rows[1].Subtext)
+'''
+        with tempfile.TemporaryDirectory() as temporary:
+            result = subprocess.run(['lua', '-'], input=script, text=True, capture_output=True,
+                                    env=dict(os.environ, EITR_CODE_ROOT=str(root),
+                                             EITR_LIBRARY_ROOT=str(root / 'distro/lib'), XDG_RUNTIME_DIR=temporary))
+        self.assertEqual(result.returncode, 0, result.stderr)
 
     def test_every_menu_with_submenus_searches_below_itself(self):
         root = Path(__file__).parents[2] / 'elephant'

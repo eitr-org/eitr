@@ -16,6 +16,27 @@ local function in_scope(row, scope)
     return false
 end
 
+-- Only live rows carry a path. Their immediate folder names may repeat under
+-- different assistants/accounts; fixed rows retain their prepared descriptions.
+local function live_description(row, scope)
+    if not row.path or #row.path == 0 or row.path[#row.path].title == "" then return row.subtext end
+    local titles, below = {}, scope == "main"
+    for _, folder in ipairs(row.path) do
+        if folder.menu == scope then
+            below = true
+            titles = {}
+        elseif below and folder.title ~= "" then
+            table.insert(titles, folder.title)
+        end
+    end
+    if #titles < 2 then return row.subtext end
+    local description = row.subtext or ""
+    local parent = titles[#titles] .. ": "
+    if description:sub(1, #parent) == parent then description = description:sub(#parent + 1) end
+    local breadcrumb = table.concat(titles, " › ")
+    return description ~= "" and breadcrumb .. ": " .. description or breadcrumb
+end
+
 return function(scope)
     scope = scope or "main"
     if not runtime then return {} end
@@ -30,6 +51,7 @@ return function(scope)
     for _, row in ipairs(index.rows) do
         if in_scope(row, scope) and (battery.available or (row.submenu ~= "battery-limit" and row.provider ~= "menus:battery-limit")) then
             local entry = row_entry(row)
+            if row.subtext ~= ">" then entry.Subtext = live_description(row, scope) end
             entry.Value = row.key
             entry.Provider = row.provider
             if row.submenu then

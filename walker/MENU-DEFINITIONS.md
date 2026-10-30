@@ -31,7 +31,12 @@ Keep the destination's real `Parent` for Shift+Backspace.
 An empty query refreshes the snapshot. The adapter stores it as JSON in Elephant's
 per-menu string state because every query runs in a fresh Lua VM. Typing reuses
 that snapshot and appends prepared scoped-index rows, leaving matching to Elephant
-as `scoped-menu.lua` does. Child results show their parent as the description.
+as `scoped-menu.lua` does. Locally supplied child results show their parent as
+the description. Prepared live rows retain the folder labels from that same
+snapshot and prefix their description with the path below the searched menu,
+using ` › ` between levels (for example `Claude › Accounts: Sign in to a separate
+account`). This distinguishes repeated live folder names; fixed-row descriptions
+remain unchanged. Shortcut links do not rename a destination's real parent.
 The optional context function reads only local state and invalidates a snapshot
 when the selection changes; a cold or invalidated typed query returns no rows
 until the menu is opened again. Locale changes also invalidate the snapshot.

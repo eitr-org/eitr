@@ -6,6 +6,7 @@ import fcntl
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 
 import sys
@@ -97,10 +98,29 @@ def snapshot(output, keywords=None, parent_of=None, menus=None):
     submenus = {('menus:' + name, title): entry['submenu']
                 for name, data in (menus or {}).items() for entry in data.get('entries', []) if entry.get('submenu')
                 for title in (entry['text'], messages.get(entry['text'], entry['text']))}
+    responses = [json.loads(line) for line in output.splitlines()]
+    fixed = {('menus:' + name, title)
+             for name, data in (menus or {}).items() for entry in data.get('entries', [])
+             for title in (entry['text'], messages.get(entry['text'], entry['text']))}
+    titles = {entry['submenu']: messages.get(entry['text'], entry['text'])
+              for name, data in (menus or {}).items() for entry in data.get('entries', [])
+              if entry.get('submenu') and (parent_of or {}).get(entry['submenu'], name) == name}
+    # Dynamic folder labels (such as installed assistants) come from the same
+    # snapshot, not another provider read or a second list of menu names.
+    folder_titles = {}
+    for response in responses:
+        item = response.get('item') or {}
+        destination = re.match(r'^menus:([^:]+):', item.get('identifier', ''))
+        if destination and item.get('text'):
+            parent = (parent_of or {}).get(destination[1])
+            if parent is None or item.get('provider') == 'menus:' + parent:
+                folder_titles.setdefault(destination[1], set()).add(item['text'])
+    for destination, labels in folder_titles.items():
+        if len(labels) == 1:
+            titles[destination] = next(iter(labels))
     rows = {}
     battery_available = bool(system_batteries())
-    for line in output.splitlines():
-        response = json.loads(line)
+    for response in responses:
         item = response.get('item')
         if not item or not item.get('text') or not item.get('identifier'):
             continue
@@ -118,6 +138,9 @@ def snapshot(output, keywords=None, parent_of=None, menus=None):
                    actions=[action for action in actions if action == 'open'] if provider == 'menus:apps' else actions,
                    keywords=(keywords or {}).get((provider, item['text']), []),
                    menus=ancestors(menu, parent_of or {}))
+        if (provider, item['text']) not in fixed:
+            row['path'] = [{'menu': ancestor, 'title': titles.get(ancestor, '')}
+                           for ancestor in reversed([menu, *row['menus']])]
         # Generated menus' submenus may depend on the selected row's value; those keep
         # their activation through this helper.
         if (provider, item['text']) in submenus:
