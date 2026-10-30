@@ -19,12 +19,19 @@ class AiDomain:
             data = json.loads(self.cache.read_text())
         except (OSError, ValueError):
             data = {}
-        previous = {provider['name']: provider for provider in data.get('providers', [])}
+        if not isinstance(data, dict):
+            data = {}
+        cached = data.get('providers')
+        previous = {provider['name']: provider for provider in cached
+                    if isinstance(provider, dict) and isinstance(provider.get('name'), str)} if isinstance(cached, list) else {}
         providers = {}
-        self.accounts = self.backend.usage_accounts()
+        self.accounts = [(identifier, account) for identifier, account in self.backend.usage_accounts()
+                         if identifier in self.backend.LABELS]
         for identifier, account in self.accounts:
             name = self.backend.LABELS[identifier]
-            accounts = {entry.get('id'): entry for entry in previous.get(name, {}).get('accounts', [])}
+            cached_accounts = previous.get(name, {}).get('accounts')
+            accounts = {entry.get('id'): entry for entry in cached_accounts
+                        if isinstance(entry, dict) and isinstance(entry.get('id'), str)} if isinstance(cached_accounts, list) else {}
             entry = dict(accounts.get(account['id'], {}))
             if entry.get('error') or not entry.get('windows'):
                 continue

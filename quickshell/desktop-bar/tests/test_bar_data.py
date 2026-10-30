@@ -1354,3 +1354,301 @@ class VmAcceptanceRegressionTests(unittest.IsolatedAsyncioTestCase):
                         self.assertEqual(state['data']['error'], str(error))
         finally:
             await broker.close()
+
+
+class OutputPressureTests(unittest.IsolatedAsyncioTestCase):
+    async def test_snapshots_coalesce_by_topic_and_token_without_losing_replies(self):
+        output = broker_module.OutputBuffer()
+        for sequence in range(1000):
+            for token in ('', 'first', 'second'):
+                output.emit(dict(op='state', topic='network.summary', token=token, seq=sequence))
+            output.emit(dict(op='domain', topic='network', busy=bool(sequence % 2)))
+        self.assertEqual(len(output.frames), 4)
+        for request in range(60):
+            output.emit(dict(op='result', id=str(request)))
+        self.assertEqual(len(output.frames), 64)
+        waiter = asyncio.create_task(output.writable())
+        await asyncio.sleep(0)
+        self.assertFalse(waiter.done())
+        states = [json.loads(await output.get())]
+        await asyncio.wait_for(waiter, 1)
+        while output.frames:
+            states.append(json.loads(await output.get()))
+        self.assertEqual([frame['seq'] for frame in states if frame['op'] == 'state'], [999] * 3)
+        self.assertEqual([frame['id'] for frame in states if frame['op'] == 'result'],
+                         [str(request) for request in range(60)])
+
+    async def test_subscriptions_emit_domains_only_on_initial_state_or_change(self):
+        frames = []
+        broker = broker_module.Broker(frames.append, lambda topic: {'devices': []})
+        try:
+            with patch.object(broker, 'refresh'):
+                for index in range(50):
+                    broker.request(dict(v=1, op='subscribe', topic='network.summary', token=str(index)))
+            domains = [frame for frame in frames if frame['op'] == 'domain']
+            self.assertEqual([frame['topic'] for frame in domains], ['network', 'power', 'capture'])
+            broker.domain_state('capture', True, 'record')
+            broker.domain_state('capture', True, 'record')
+            broker.domain_state('capture', False, '')
+            self.assertEqual(len([frame for frame in frames if frame['op'] == 'domain']), 5)
+        finally:
+            await broker.close()
+
+    async def start_fixture(self, large=False):
+        # Run the real transport and scheduler; only adapter reads are fixtures.
+        code = '''
+import asyncio, json, runpy, sys
+from pathlib import Path
+module = runpy.run_path(sys.argv[1])
+Original = module['Broker']
+fixtures = json.loads((Path(sys.argv[1]).parents[1] / 'tests/fixtures/domain-results.json').read_text())
+def read(topic):
+    return dict(fixtures[topic][0], padding='x' * int(sys.argv[2]))
+class FixtureBroker(Original):
+    def __init__(self, emit):
+        super().__init__(emit, reader=read)
+module['main'].__globals__['Broker'] = FixtureBroker
+asyncio.run(module['main']())
+'''
+        return await asyncio.create_subprocess_exec(sys.executable, '-c', code, str(SCRIPT),
+            '50000' if large else '0', stdin=asyncio.subprocess.PIPE,
+            stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE, limit=broker_module.MAX_FRAME)
+
+    def subscriptions(self, count):
+        topics = list(broker_module.INTERVALS)
+        return [dict(v=1, op='subscribe', topic=topics[index % len(topics)], token='token-' + str(index))
+                for index in range(count)]
+
+    async def send(self, process, frames):
+        process.stdin.write((''.join(json.dumps(frame) + '\n' for frame in frames)).encode())
+        await process.stdin.drain()
+
+    async def until(self, process, predicate, slow=False):
+        frames = []
+        async def read():
+            while not predicate(frames):
+                line = await process.stdout.readline()
+                if not line:
+                    self.fail((await process.stderr.read()).decode() or 'broker closed stdout')
+                frames.append(json.loads(line))
+                if slow:
+                    await asyncio.sleep(.001)
+        await asyncio.wait_for(read(), 10)
+        return frames
+
+    async def stop_fixture(self, process):
+        drain = asyncio.create_task(process.stdout.read())
+        if process.returncode is None:
+            process.stdin.close()
+        await asyncio.wait_for(process.wait(), 3)
+        await asyncio.wait_for(drain, 3)
+        errors = (await process.stderr.read()).decode()
+        self.assertNotIn('output-backpressure', errors)
+        self.assertNotIn('Traceback', errors)
+
+    async def test_all_topics_burst_and_fifty_token_restart_replay_stay_alive(self):
+        subscriptions = self.subscriptions(50)
+        for replay in range(2):
+            process = await self.start_fixture()
+            try:
+                frames = subscriptions if replay else self.subscriptions(len(broker_module.INTERVALS))
+                await self.send(process, frames + [dict(v=1, op='refresh', topic='updates.status')])
+                expected_tokens = {frame['token'] for frame in frames}
+                expected_topics = {frame['topic'] for frame in frames}
+                received = await self.until(process, lambda output: expected_tokens <= {
+                    frame.get('token') for frame in output if frame['op'] == 'state'} and expected_topics <= {
+                    frame.get('topic') for frame in output if frame['op'] == 'state' and frame['status'] == 'ready'})
+                self.assertEqual(len([frame for frame in received if frame['op'] == 'domain']), 3)
+                await self.send(process, [dict(v=1, op='status', id='still-alive')])
+                await self.until(process, lambda output: any(frame.get('id') == 'still-alive' for frame in output))
+                self.assertIsNone(process.returncode)
+            finally:
+                await self.stop_fixture(process)
+
+    async def test_stalled_then_slow_stdout_reader_delivers_latest_states_and_all_tokens(self):
+        process = await self.start_fixture(large=True)
+        try:
+            await self.send(process, self.subscriptions(len(broker_module.INTERVALS)) +
+                            [dict(v=1, op='refresh', topic='updates.status')])
+            await asyncio.sleep(.2)
+            self.assertIsNone(process.returncode)
+            subscriptions = self.subscriptions(50)
+            # Replay while the output pipe is full, then resume consuming slowly.
+            await self.send(process, subscriptions + [dict(v=1, op='status', id='after-pressure')])
+            expected = {frame['token'] for frame in subscriptions}
+            topics = set(broker_module.INTERVALS)
+            received = await self.until(process, lambda output: expected <= {
+                frame.get('token') for frame in output if frame['op'] == 'state'} and topics <= {
+                frame.get('topic') for frame in output if frame['op'] == 'state' and frame['status'] == 'ready'} and
+                any(frame.get('id') == 'after-pressure' for frame in output), slow=True)
+            self.assertTrue(any(len(frame.get('data', {}).get('padding', '')) == 50000 for frame in received))
+            self.assertIsNone(process.returncode)
+        finally:
+            await self.stop_fixture(process)
+
+
+class DomainResultContractTests(unittest.IsolatedAsyncioTestCase):
+    def fixtures(self):
+        return json.loads((SCRIPT.parents[1] / 'tests/fixtures/domain-results.json').read_text())
+
+    async def test_every_topic_accepts_real_cli_shapes_and_rejects_malformed_fields(self):
+        import copy
+        fixtures = self.fixtures()
+        self.assertEqual(set(fixtures), set(broker_module.INTERVALS))
+        invalid_fields = {'network.summary': ('devices', None), 'network.details': ('devices', {}),
+            'network.latency': ('ping', 'unknown'), 'capture.summary': ('ready', 1),
+            'capture.details': ('recording', None), 'capture.options': ('mic', []),
+            'power.battery': ('percent', '50'), 'power.profile': ('profiles', {}),
+            'power.radios': ('enabled', 0), 'display.topology': ('monitors', {}),
+            'display.settings': ('monitors', None), 'display.brightness': ('available', 0),
+            'display.nightlight': ('scheduled', 'false'), 'hardware.details': ('sections', [None]),
+            'remote.availability': ('allowed', 'false'), 'remote.status': ('tailscale', []),
+            'weather.default': ('forecastDays', {}), 'ai.usage': ('providers', None),
+            'updates.status': ('count', True)}
+        for topic, variants in fixtures.items():
+            for data in variants:
+                with self.subTest(topic=topic, data=data):
+                    broker_module.validate_result(topic, data)
+                    broker = broker_module.Broker(lambda frame: None, lambda current: copy.deepcopy(data))
+                    try:
+                        if topic == 'network.latency':
+                            broker.states['network.details']['success'] = 0
+                        broker.request(dict(v=1, op='subscribe', topic=topic, token='fixture'))
+                        if broker.states[topic]['task'] is None:
+                            broker.refresh(topic)
+                        await broker.states[topic]['task']
+                        failed = (topic.startswith('capture.') and data.get('ready') is False or
+                                  topic == 'updates.status' and data['state'] != 'ready')
+                        self.assertEqual(broker.states[topic]['status'], 'unavailable' if failed else 'ready')
+                        if not failed:
+                            self.assertEqual(broker.states[topic]['data'], data)
+                            self.assertEqual(broker.states[topic]['error'], '')
+                    finally:
+                        await broker.close()
+            key, value = invalid_fields[topic]
+            malformed = dict(variants[0], **{key: value})
+            for data in (malformed, [], None, dict(variants[0], extra=float('nan'))):
+                with self.subTest(topic=topic, malformed=data), self.assertRaises(ValueError):
+                    broker_module.validate_result(topic, data)
+
+    async def test_display_settings_before_topology_matches_cli_with_nullable_fields(self):
+        import contextlib
+        import io
+        raw = [dict(name='DP-1', width=2560, height=1080, refreshRate=144.0, x=0, y=0,
+                    scale=1.0, mirrorOf=None, availableModes=['2560x1080@144.00Hz'])]
+        broker = broker_module.Broker(lambda frame: None)
+        try:
+            loop = asyncio.get_running_loop()
+            domain = await loop.run_in_executor(broker.executor, broker.load_domain, 'display')
+            backend = await loop.run_in_executor(broker.executor, domain.adapter, 'display-settings')
+            with tempfile.TemporaryDirectory() as temporary, \
+                    patch.object(backend, 'config_dir', return_value=Path(temporary)), \
+                    patch.object(backend, 'DRM_ROOT', Path(temporary) / 'no-drm'), \
+                    patch.object(backend, 'main_display', return_value='DP-1'), \
+                    patch.object(backend, 'monitors', return_value=raw), \
+                    patch.object(subprocess, 'run', return_value=subprocess.CompletedProcess([], 0, json.dumps(raw))) as command:
+                output = io.StringIO()
+                with contextlib.redirect_stdout(output):
+                    self.assertEqual(backend.main(['list']), 0)
+                expected = json.loads(output.getvalue())
+                self.assertIsNone(expected['monitors'][0]['anchor'])
+                self.assertIsNone(expected['monitors'][0]['mirror'])
+                self.assertNotIn('hdr', expected['monitors'][0])
+                broker.request(dict(v=1, op='subscribe', topic='display.settings', token='panel'))
+                await broker.states['display.settings']['task']
+                state = broker.states['display.settings']
+                self.assertEqual(state['status'], 'ready')
+                self.assertEqual(state['error'], '')
+                self.assertEqual(state['data'], expected)
+                self.assertEqual(command.call_args.kwargs['timeout'], 5)
+                self.assertEqual(command.call_args.args[0], ['hyprctl', 'monitors', 'all', '-j'])
+                broker.refresh('display.settings')
+                await state['task']
+                self.assertEqual(command.call_count, 1, 'settings reuses the domain monitor snapshot')
+        finally:
+            await broker.close()
+
+    async def test_ai_real_backend_with_unsupported_assistants_matches_cli_collection(self):
+        broker = broker_module.Broker(lambda frame: None)
+        try:
+            loop = asyncio.get_running_loop()
+            domain = await loop.run_in_executor(broker.executor, broker.load_domain, 'ai')
+            backend = domain.backend
+            accounts = [(identifier, dict(id='default', label='Default')) for identifier in ('pi', 'opencode', 'claude')]
+            account_data = self.fixtures()['ai.usage'][2]['providers'][0]['accounts'][0]
+            def collect(identifier, account):
+                return dict(account_data) if identifier == 'claude' else None
+            with tempfile.TemporaryDirectory() as temporary, patch.object(backend, 'usage_accounts', return_value=accounts), \
+                    patch.object(backend, 'collect_account', side_effect=collect):
+                domain.cache = Path(temporary) / 'ai.json'
+                expected = domain.save(backend.collect())
+                broker.request(dict(v=1, op='subscribe', topic='ai.usage', token='panel'))
+                await broker.states['ai.usage']['task']
+                state = broker.states['ai.usage']
+                self.assertEqual(state['status'], 'ready')
+                self.assertEqual(state['error'], '')
+                self.assertEqual(state['data']['providers'], expected['providers'])
+                self.assertEqual([identifier for identifier, account in domain.accounts], ['claude'])
+                self.assertNotIn('error', state['data'])
+        finally:
+            await broker.close()
+
+    async def test_ai_corrupt_cache_cannot_block_fresh_valid_results(self):
+        broker = broker_module.Broker(lambda frame: None)
+        try:
+            domain = await asyncio.get_running_loop().run_in_executor(broker.executor, broker.load_domain, 'ai')
+            with tempfile.TemporaryDirectory() as temporary, patch.object(domain.backend, 'usage_accounts', return_value=[]):
+                domain.cache = Path(temporary) / 'ai.json'
+                for cached in ([], {'providers': None}, {'providers': [None, {'name': 'Claude', 'accounts': None}]},
+                               {'providers': [], 'updated': None}):
+                    domain.cache.write_text(json.dumps(cached))
+                    broker.request(dict(v=1, op='subscribe', topic='ai.usage', token='panel'))
+                    if broker.states['ai.usage']['task'] is None:
+                        broker.refresh('ai.usage')
+                    await broker.states['ai.usage']['task']
+                    self.assertEqual(broker.states['ai.usage']['status'], 'ready')
+                    self.assertEqual(broker.states['ai.usage']['error'], '')
+                    self.assertEqual(broker.states['ai.usage']['data']['providers'], [])
+        finally:
+            await broker.close()
+
+    async def test_nonzero_nothing_found_exits_keep_valid_cli_fallbacks(self):
+        from gi.repository import Gio
+        from types import SimpleNamespace
+        broker = broker_module.Broker(lambda frame: None)
+        loop = asyncio.get_running_loop()
+        try:
+            capture = await loop.run_in_executor(broker.executor, broker.load_domain, 'capture')
+            with patch.object(subprocess, 'run', return_value=subprocess.CompletedProcess(['pgrep'], 1, '', '')):
+                absent = await loop.run_in_executor(broker.executor, capture.read, 'capture.summary')
+            self.assertEqual(absent, self.fixtures()['capture.summary'][0])
+            broker_module.validate_result('capture.summary', absent)
+
+            with patch.object(Gio, 'bus_get_sync', return_value=Mock()):
+                network = await loop.run_in_executor(broker.executor, broker.load_domain, 'network')
+            with patch.object(network.subprocess, 'run', return_value=SimpleNamespace(returncode=1,
+                    stdout='2 packets transmitted, 0 received, 100% packet loss\n')):
+                latency = await loop.run_in_executor(broker.executor, network.read_state, 'probe', 'fixture-wlan')
+            self.assertEqual(latency, {'ping': None, 'loss': 100.0})
+            broker_module.validate_result('network.latency', latency)
+
+            display = await loop.run_in_executor(broker.executor, broker.load_domain, 'display')
+            night = await loop.run_in_executor(broker.executor, display.adapter, 'nightlight')
+            with tempfile.TemporaryDirectory() as temporary:
+                applied = Path(temporary) / 'applied'
+                applied.touch()
+                with patch.object(night, 'APPLIED_FILE', applied), patch.object(night, 'mode', return_value='auto'), \
+                        patch.object(night, 'schedule', return_value=dict(start='18:00', end='09:00')), \
+                        patch.object(night.shutil, 'which', return_value='/fixture/bin/tool'), \
+                        patch.object(subprocess, 'run', return_value=subprocess.CompletedProcess(['pgrep'], 1, '', '')):
+                    state = await loop.run_in_executor(broker.executor, display.read, 'display.nightlight')
+                self.assertFalse(state['enabled'])
+                broker_module.validate_result('display.nightlight', state)
+
+            hardware = await loop.run_in_executor(broker.executor, broker.load_domain, 'hardware')
+            with patch.object(subprocess, 'check_output', side_effect=subprocess.CalledProcessError(1, 'nvidia-smi')):
+                gpu = hardware.adapter.gpu()
+            self.assertIsNone(gpu['usage'])
+            broker_module.validate_result('hardware.details', dict(sections=[gpu]))
+        finally:
+            await broker.close()

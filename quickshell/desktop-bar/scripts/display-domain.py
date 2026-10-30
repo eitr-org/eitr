@@ -13,6 +13,7 @@ class DisplayDomain:
         self.adapters = {}
         self.lock = threading.Lock()
         self.live = None
+        self.monitor_lock = threading.Lock()
 
     def adapter(self, name):
         with self.lock:
@@ -27,11 +28,20 @@ class DisplayDomain:
                 self.adapters[name] = module
             return self.adapters[name]
 
+    def monitors(self, refresh=False):
+        with self.monitor_lock:
+            if refresh or self.live is None:
+                live = json.loads(subprocess.run(["hyprctl", "monitors", "all", "-j"],
+                                                capture_output=True, text=True, check=True, timeout=5).stdout)
+                if not isinstance(live, list) or any(not isinstance(monitor, dict) for monitor in live):
+                    raise ValueError("invalid-monitors")
+                self.live = live
+            return list(self.live)
+
     def read(self, topic):
         if topic == 'display.topology':
             primary = self.adapter('display-primary')
-            live = json.loads(subprocess.run(["hyprctl", "monitors", "all", "-j"],
-                                            capture_output=True, text=True, check=True, timeout=5).stdout)
+            live = self.monitors(refresh=True)
             active = [monitor for monitor in live if not monitor.get("disabled", False)]
             preferred = primary.preferred_outputs()
             gaps = {}
@@ -42,14 +52,8 @@ class DisplayDomain:
                 if len(values) != 4 or any(value < 0 or not math.isfinite(value) for value in values):
                     raise ValueError('invalid-gaps')
                 gaps[key] = values
-            with self.lock:
-                self.live = live
             return dict(monitors=active, primary=primary.choose_primary(active, primary.saved_primary(), preferred),
                         preferred=preferred, **gaps)
         if topic == 'display.settings':
-            with self.lock:
-                if self.live is None:
-                    raise ValueError("topology-unavailable")
-                live = list(self.live)
-            return self.adapter('display-settings').list_settings(live)
+            return self.adapter('display-settings').list_settings(self.monitors())
         return self.adapter('brightness' if topic == 'display.brightness' else 'nightlight').status()

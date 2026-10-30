@@ -855,7 +855,12 @@ with a topic and unique observer token, or `refresh` with a request ID. Topics a
 replays current tokens and sends full snapshots. Old epoch/sequence results are
 ignored. Reads have deadlines and D-Bus calls time out within 5 seconds. A timed-out
 read keeps its topic occupied until its thread returns. Scheduling sleeps until
-the next due read or a demand change.
+the next due read or a demand change. Output retains only the newest queued
+snapshot per topic/token and domain. Reliable replies retain their order; input
+pauses at the output high-water mark and yields between frames so startup and
+restart subscription bursts cannot starve the writer. Already-admitted actions
+and queries are bounded, keeping queued output bounded while stdout is stalled.
+Domain busy/name frames are emitted initially and only when those values change.
 
 Broker exit retains good data as stale and retries with capped exponential delay
 and jitter, stopping after six retries. `eitr-shell desktop-bar ipc call -- data retry`
@@ -921,7 +926,9 @@ Brightness reads share the CLI fallback for missing backlight/DDC controls:
 Slider writes keep the latest pending value and suspend read demand until the
 write queue drains. Panel actions and display trials still use their existing
 helpers; the independent trial rollback survives bar or broker exit. The
-standalone display and hypridle brightness commands remain available.
+standalone display and hypridle brightness commands remain available. Settings
+can initialize the shared monitor snapshot with a bounded read when topology has
+not arrived yet; a gaps-query failure does not invalidate usable monitor data.
 
 
 Hardware read ownership
@@ -982,3 +989,23 @@ terminal launching. A silent `yay -Qua` exit 1 is a successful empty AUR query, 
 discard repository updates. The standalone CLI retains its output and updater actions
 remain outside the broker. All domains initialize lazily inside the worker pool;
 an import failure remains local to its domain. Screen/VM acceptance is pending.
+
+### CLI result contracts
+
+`tests/fixtures/domain-results.json` covers every topic's CLI shape. Validation
+preserves nullable fields and optional keys, rejects incorrect field types,
+non-finite numbers and oversized results, and runs before publishing AI cache data.
+An invalid AI cache never prevents fresh collection. Installed assistants without
+a usage reader are omitted from cached usage just as fresh CLI collection omits them.
+
+| Domain | Valid empty/unavailable results |
+| --- | --- |
+| Network | Empty devices, offline saved networks with null strength, null ping/loss, ping exit 1 with packet loss |
+| Capture | OBS absent (pgrep exit 1), empty scene/source lists; `ready: false` retains the explicit unavailable status |
+| Power | No system battery, no profiles/daemon, empty radios; capabilities stay false without a broker error |
+| Display | Empty monitors; null mirror/anchor; optional HDR fields; empty modes; absent brightness/night-light capabilities |
+| Hardware | Empty sections and rows; null GPU usage when telemetry is missing or a command fails |
+| Remote | Policy denied with empty service objects, missing clients/services, empty peers and addresses |
+| Weather | Empty forecast days, formatted forecast temperatures as strings, existing cached/unavailable fallback; city search may return no results |
+| AI usage | Empty providers/accounts/windows, optional updated/error keys, null plan and reset timestamps; unavailable accounts are omitted |
+| Updates | checkupdates exit 2 and silent yay exit 1 are successful empty results; offline/unreadable results remain distinct from zero |

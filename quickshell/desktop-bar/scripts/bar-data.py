@@ -3,7 +3,7 @@
 import asyncio
 import json
 import importlib.util
-from collections import deque
+from collections import OrderedDict, deque
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 import os
@@ -21,6 +21,133 @@ INTERVALS = {"updates.status": 21600, "weather.default": 900, "ai.usage": 300, "
              "capture.summary": 2, "capture.details": 2, "capture.options": float("inf")}
 
 
+def validate_result(topic, result):
+    """Validate CLI data without confusing absent capabilities with read failures."""
+    if not isinstance(result, dict):
+        raise ValueError("invalid-result")
+    if len(json.dumps(result, allow_nan=False).encode()) > MAX_RESULT:
+        raise ValueError("oversize-result")
+
+    def fields(value, schema):
+        if not isinstance(value, dict):
+            raise ValueError("invalid-result")
+        for key, types in schema.items():
+            if key in value and type(value[key]) not in types:
+                raise ValueError("invalid-result")
+
+    def objects(value):
+        if not isinstance(value, list) or any(not isinstance(entry, dict) for entry in value):
+            raise ValueError("invalid-result")
+        return value
+
+    number = (int, float)
+    nullable_number = (int, float, type(None))
+    if topic in {"network.summary", "network.details"}:
+        fields(result, {"blocked": (bool,), "wired": (bool,), "backend": (str,)})
+        for device in objects(result.get("devices")):
+            fields(device, {"name": (str,), "state": (str,), "powered": (bool,), "scanning": (bool,), "details": (dict,)})
+            for network in objects(device.get("networks", [])):
+                fields(network, {"strength": nullable_number, "available": (bool,), "known": (bool,),
+                                 "connected": (bool,), "name": (str,)})
+    elif topic == "network.latency":
+        if "ping" not in result:
+            raise ValueError("invalid-result")
+        fields(result, {"ping": nullable_number, "loss": nullable_number})
+    elif topic in {"capture.summary", "capture.details"}:
+        if any(type(result.get(key)) is not bool for key in ("running", "ready", "recording", "paused", "streaming")):
+            raise ValueError("invalid-result")
+        fields(result, {"recordingSeconds": number, "recordingBytes": number, "streamingSeconds": number,
+                        "scenes": (list,), "mic": (dict,), "webcam": (dict,)})
+    elif topic == "capture.options":
+        for key in ("audio", "mic", "webcam"):
+            if key in result:
+                fields(result[key], {"enabled": (bool,), "available": (bool,), "sources": (list,)})
+    elif topic.startswith("power."):
+        fields(result, {"available": (bool,), "enabled": (bool,), "percent": number,
+                        "health": number, "hours": number, "status": (str,), "active": (str,), "profiles": (list,)})
+    elif topic == "display.settings":
+        if not isinstance(result.get("main"), str):
+            raise ValueError("invalid-result")
+        fields(result, {"saved": (dict,)})
+        for monitor in objects(result.get("monitors")):
+            if not isinstance(monitor.get("name"), str):
+                raise ValueError("invalid-result")
+            fields(monitor, {"mode": (str,), "position": (str,), "scale": (str,), "mirror": (str, type(None)),
+                             "anchor": (dict, type(None)), "hdr": (bool,), "hdr_capable": (bool,),
+                             "sdr_brightness": number, "modes": (list,)})
+            if any(not isinstance(mode, str) for mode in monitor.get("modes", [])):
+                raise ValueError("invalid-result")
+    elif topic == "display.topology":
+        fields(result, {"primary": (str,), "preferred": (list,), "windowGaps": (list,), "screenGaps": (list,)})
+        if "monitors" in result:
+            objects(result["monitors"])
+    elif topic in {"display.brightness", "display.nightlight"}:
+        fields(result, {"available": (bool,), "enabled": (bool,), "scheduled": (bool,), "value": number,
+                        "maximum": number, "kind": (str,), "name": (str,), "mode": (str,), "start": (str,), "end": (str,)})
+    elif topic == "hardware.details":
+        fields(result, {"identity": (dict,)})
+        for section in objects(result.get("sections", [])):
+            fields(section, {"usage": nullable_number, "rows": (list,), "title": (str,), "name": (str,)})
+    elif topic.startswith("remote."):
+        fields(result, {"allowed": (bool,), "tailscale": (dict,), "streaming": (dict,)})
+    elif topic == "weather.default":
+        fields(result, {key: (str,) for key in ("text", "source", "location", "condition", "temp", "feels", "wind", "humidity", "forecast")})
+        for day in objects(result.get("forecastDays", [])):
+            fields(day, {"day": (str,), "icon": (str,), "high": (str,), "low": (str,)})
+    elif topic == "ai.usage":
+        fields(result, {"updated": number})
+        for provider in objects(result.get("providers")):
+            fields(provider, {"name": (str,)})
+            for account in objects(provider.get("accounts", [])):
+                fields(account, {"id": (str,), "label": (str,), "plan": (str, type(None))})
+                for window in objects(account.get("windows", [])):
+                    fields(window, {"label": (str,), "used": number, "reset": nullable_number})
+    elif topic == "updates.status":
+        fields(result, {"state": (str,), "count": (int,), "repository": (int,), "aur": (int,), "downloadBytes": (int,)})
+        if any(result.get(key, 0) < 0 for key in ("count", "repository", "aur", "downloadBytes")):
+            raise ValueError("invalid-result")
+
+
+
+class OutputBuffer:
+    """Coalesce snapshots; pause input while reliable replies drain.
+
+    Above the input high-water mark only already-admitted work can emit:
+    at most 16 network/power results, 16 capture results, 8 weather replies,
+    one broadcast per topic and three domain states. No producer tasks are
+    created for output, and the pipe writer holds only one additional frame.
+    """
+    def __init__(self):
+        self.frames = OrderedDict()
+        self.sequence = 0
+        self.available = asyncio.Event()
+        self.room = asyncio.Event()
+        self.room.set()
+
+    def emit(self, frame):
+        if frame["op"] in {"state", "domain"}:
+            key = (frame["op"], frame.get("topic", ""), frame.get("token", ""))
+        else:
+            self.sequence += 1
+            key = self.sequence
+        self.frames[key] = (json.dumps(frame, separators=(",", ":")) + "\n").encode()
+        self.available.set()
+        if len(self.frames) >= 64:
+            self.room.clear()
+
+    async def get(self):
+        await self.available.wait()
+        _, frame = self.frames.popitem(last=False)
+        if not self.frames:
+            self.available.clear()
+        if len(self.frames) < 64:
+            self.room.set()
+        return frame
+
+    async def writable(self):
+        await self.room.wait()
+
+
 class CaptureController:
     def __init__(self, broker):
         self.broker = broker
@@ -30,8 +157,7 @@ class CaptureController:
         self.task = None
 
     def state(self):
-        self.broker.emit(dict(v=1, op="domain", topic="capture", epoch=self.broker.epoch,
-                              busy=bool(self.task), name=self.queue[0]["name"] if self.queue else ""))
+        self.broker.domain_state("capture", bool(self.task), self.queue[0]["name"] if self.queue else "")
 
     def result(self, request, error="", message=""):
         self.broker.emit(dict(v=1, op="result", topic="capture", epoch=self.broker.epoch,
@@ -155,6 +281,7 @@ class Broker:
         self.executor = ThreadPoolExecutor(max_workers=3, thread_name_prefix="bar-data")
         self.schedule_changed = asyncio.Event()
         self.epoch = uuid.uuid4().hex
+        self.domain_states = {}
         self.latency_interface = None
         self.tokens = {}
         self.actions = []
@@ -230,10 +357,15 @@ class Broker:
             adapter = self.domains["ai"]
             cached = await loop.run_in_executor(self.executor, adapter.cached)
             state = self.states[topic]
-            if self.wanted(topic) and generation == state["generation"] and loop.time() < deadline:
-                state.update(data=cached, status="ready", success=time.monotonic())
-                state["seq"] += 1
-                self.snapshot(topic)
+            try:
+                validate_result(topic, cached)
+            except ValueError:
+                pass
+            else:
+                if self.wanted(topic) and generation == state["generation"] and loop.time() < deadline:
+                    state.update(data=cached, status="ready", success=time.monotonic())
+                    state["seq"] += 1
+                    self.snapshot(topic)
             return cached
         async with self.read_slots[domain]:
             # refresh() already admitted this read while observed. A later close
@@ -324,7 +456,7 @@ class Broker:
         started = time.monotonic()
         timed_out = False
         try:
-            budget = 365 if topic == "updates.status" else 17 if topic == "weather.default" else 10 if topic == "remote.status" else 16 if topic == "display.topology" else 9 if topic == "display.brightness" else 25 if topic == "capture.details" else 10 if topic == "capture.summary" else self.timeout
+            budget = 365 if topic == "updates.status" else 17 if topic == "weather.default" else 10 if topic == "remote.status" else 16 if topic == "display.topology" else 6 if topic == "display.settings" else 9 if topic == "display.brightness" else 25 if topic == "capture.details" else 10 if topic == "capture.summary" else self.timeout
             if self.timeout < 5:
                 budget = min(budget, self.timeout)
             future = asyncio.create_task(self.read_in_pool(topic, asyncio.get_running_loop().time() + budget))
@@ -364,14 +496,7 @@ class Broker:
                 return
             if generation != state["generation"]:
                 return
-            if not isinstance(result, dict) or (topic.endswith("latency") and "ping" not in result) or (
-                    topic.startswith("network.") and not topic.endswith("latency") and not isinstance(result.get("devices"), list)):
-                raise ValueError("invalid-result")
-            if len(json.dumps(result).encode()) > MAX_RESULT:
-                raise ValueError("oversize-result")
-            if topic in {"capture.summary", "capture.details"} and any(
-                    type(result.get(key)) is not bool for key in ("running", "ready", "recording", "paused", "streaming")):
-                raise ValueError("invalid-result")
+            validate_result(topic, result)
             if topic in {"capture.summary", "capture.details"} and not result.get("ready"):
                 state["data"] = dict(state["data"], running=result.get("running", True))
                 raise ValueError("capture-unavailable")
@@ -422,10 +547,16 @@ class Broker:
             state["pending"] = False
             self.refresh(topic)
 
+    def domain_state(self, topic, busy, name):
+        current = (busy, name)
+        if self.domain_states.get(topic) == current:
+            return
+        self.domain_states[topic] = current
+        self.emit(dict(v=1, op="domain", topic=topic, epoch=self.epoch, busy=busy, name=name))
+
     def action_state(self):
         for domain in ("network", "power"):
-            self.emit(dict(v=1, op="domain", topic=domain, epoch=self.epoch,
-                           busy=bool(self.action_task), name=self.actions[0]["name"] if self.actions else ""))
+            self.domain_state(domain, bool(self.action_task), self.actions[0]["name"] if self.actions else "")
 
     def action_result(self, request, code="", message="", topic="network"):
         self.emit(dict(v=1, op="result", topic=topic, epoch=self.epoch,
@@ -716,12 +847,8 @@ class Broker:
 
 
 async def main():
-    queue = asyncio.Queue(maxsize=64)
-    def emit(frame):
-        try:
-            queue.put_nowait((json.dumps(frame, separators=(",", ":")) + "\n").encode())
-        except asyncio.QueueFull:
-            raise SystemExit("output-backpressure")
+    queue = OutputBuffer()
+    emit = queue.emit
     loop = asyncio.get_running_loop()
     transport, protocol = await loop.connect_write_pipe(asyncio.streams.FlowControlMixin, sys.stdout.buffer)
     writer = asyncio.StreamWriter(transport, protocol, None, loop)
@@ -745,6 +872,7 @@ async def main():
                 break
             for byte in chunk:
                 if byte == 10:
+                    await queue.writable()
                     if discarding:
                         discarding = False
                     else:
@@ -753,6 +881,7 @@ async def main():
                         except (ValueError, UnicodeError, TypeError, RecursionError):
                             emit(dict(v=1, op="error", epoch=broker.epoch, error="invalid-frame"))
                     buffer.clear()
+                    await asyncio.sleep(0)
                 elif not discarding:
                     buffer.append(byte)
                     if len(buffer) > MAX_FRAME:
