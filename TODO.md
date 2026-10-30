@@ -30,12 +30,13 @@ LAN.
 # 2. Smaller items
 
 - **Light themes.** The owner has ideas for more light themes; create them later.
-- **A full security review of the distro.** The owner's request (2026-10-29): review
-  the whole system, not one feature: installer and first login, root helpers and
-  `eitr-system` actions, sudo/polkit rules, services and their permissions, update
-  and package signing, plugins, remote access, browsers and assistants with full
-  access, secrets and file permissions. Report findings by severity, fix them, and
-  record what was checked.
+- **Security review: what is left.** The review (2026-10-29) is done; fixed so far:
+  release signatures and package names, Sunshine limited to the sharing account,
+  website security headers. Left: the home-snapshot conversion race (convert as the
+  folder's owner instead of root, tested in a VM), enforcing the website's content
+  policy once its report-only mode shows no violations, and the owner's choice on
+  Cloudflare Web Analytics, which the policy currently reports. Vendor installers
+  and assistants' full access are accepted as the user's choice.
 - **AI install review:** implemented for the installed default assistant when it
   supports text-only checks without tools (Ratatoskr and Claude). Unsupported
   defaults get a translated explanation. Reviews keep the advice notice and
@@ -50,6 +51,12 @@ LAN.
   are implemented with offline coverage. Validate actual Hyprland group behavior,
   monitor hotplug, reload/reboot persistence and strip-crash recovery in a live
   test session before describing those as verified.
+- **Choice of terminal: Kitty or Ghostty.** The owner's idea (2026-10-29): offer
+  Ghostty beside Kitty as the default terminal, keeping everything Eitr sets up
+  today: theme colours and their regeneration on theme changes, fonts, cursor
+  settings, opacity and blur, zsh and its prompt. Eitr's task, menu and status
+  terminals pass Kitty options (`--class`, `--hold`, the window rules that float
+  them), so those need an equivalent per terminal or stay on Kitty.
 - **Website evidence and screenshots.** Keep the public pages in step with verified
   desktop behavior. A feature gets a screenshot when it has a screen people look
   for (a panel, menu or wizard) shown on the website or in the Handbook;
