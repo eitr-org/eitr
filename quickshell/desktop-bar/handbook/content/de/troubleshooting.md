@@ -50,6 +50,8 @@ oder Beendigung des Brokers ist das Ergebnis unbekannt; die Aktion wird niemals
 automatisch wiederholt. Der eigenständige OBS-Befehl bleibt für Walker und
 Screenshot-Tastenkürzel verfügbar.
 
+Akku, Energieprofile und Flugmodus verwenden ebenfalls diesen Broker. Akkudaten werden alle 30 Sekunden gelesen; Profile und Funkstatus nur bei geöffneten zugehörigen Panels. Geräteakkus aktivieren keine Laptop-Steuerung. Akku-Hooks und Warnungen behalten ihre Schwellenwerte. Energieprofil- und Flugmodusaktionen werden geordnet ausgeführt und melden Fehler im anfordernden Panel. Bei unbekanntem Ergebnis werden sie niemals automatisch wiederholt. Die eigenständigen Befehle bleiben verfügbar.
+
 ## Installation und Wiederherstellung prüfen
 
 EITR ist weiterhin Beta. VM-Tests belegen nicht die Funktion jedes WiFi-Adapters, Bluetooth-Agenten, TPMs, GPUs, Fingerabdrucklesers oder Secure-Boot-Aufbaus. Aktueller WiFi-Dienst- und Unternehmensauthentifizierungscode wird mit Nachbildungen getestet. Prüfe echte Authentifizierung, bevor du dich darauf verlässt. Bestehende ISOs ändern sich nicht mit den Repository-Manifesten; baue Payload und ISO für neue Installationen neu.

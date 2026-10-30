@@ -50,6 +50,8 @@ ordonnée. Si le délai expire ou si le processus s’arrête, le résultat rest
 inconnu et l’action n’est jamais répétée automatiquement. La commande OBS
 autonome reste disponible pour Walker et les raccourcis de capture d’écran.
 
+La batterie, les profils d’énergie et le mode avion partagent aussi ce processus. La batterie est lue toutes les 30 secondes ; les profils et les radios uniquement lorsque les panneaux correspondants sont ouverts. Les batteries de périphériques n’activent pas les commandes pour portable. Les hooks et alertes de batterie faible conservent leurs seuils. Les actions de profil et de mode avion sont ordonnées, signalent les erreurs au panneau demandeur et ne sont jamais répétées après un résultat inconnu. Les commandes autonomes restent disponibles.
+
 ## Vérifications d’installation et de récupération
 
 EITR reste en bêta. Les tests en VM ne prouvent pas le fonctionnement de chaque adaptateur WiFi, agent Bluetooth, TPM, GPU, lecteur d’empreintes ou configuration Secure Boot. Le code actuel des services WiFi et de l’authentification d’entreprise est testé par simulation. Vérifiez l’authentification réelle avant d’en dépendre. Modifier les manifestes ne change pas les ISO existantes : reconstruisez le payload et l’ISO pour intégrer les changements aux nouvelles installations.

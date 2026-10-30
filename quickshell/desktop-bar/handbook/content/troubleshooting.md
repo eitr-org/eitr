@@ -60,6 +60,8 @@ share an ordered queue; a timeout or broker exit leaves the outcome unknown and
 never repeats the action automatically. The standalone OBS command remains
 available to Walker and screenshot shortcuts.
 
+Battery, power profiles and airplane status also share this broker. Battery reads run every 30 seconds; profile and radio reads run only while the relevant panels are open. Peripheral batteries do not enable laptop controls. Low-battery hooks and warnings retain their thresholds. Power-profile and airplane actions are ordered, report errors to the requesting panel and are never replayed after an unknown outcome. The standalone commands remain available.
+
 ## Installation and recovery checks
 
 EITR is still in beta: VM coverage does not prove every WiFi adapter, Bluetooth

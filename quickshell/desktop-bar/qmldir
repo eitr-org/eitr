@@ -94,3 +94,5 @@ singleton ObsStatus 1.0 ObsStatus.qml
 PreferenceWatch PreferenceWatch.qml
 NetworkService NetworkService.qml
 singleton DesktopData DesktopData.qml
+
+singleton PowerService 1.0 PowerService.qml

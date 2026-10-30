@@ -11,9 +11,10 @@ def number(path, name):
     except (OSError, ValueError):
         return 0
 
-def status(root=Path('/sys/class/power_supply')):
+def status(root=Path('/sys/class/power_supply'), batteries=None):
+    paths = system_batteries(root) if batteries is None else batteries
     batteries = []
-    for path in system_batteries(root):
+    for path in paths:
         try:
             full = number(path, 'energy_full') or number(path, 'charge_full')
             now = number(path, 'energy_now') or number(path, 'charge_now')

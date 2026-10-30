@@ -861,7 +861,7 @@ allows explicit recovery; `eitr-shell desktop-bar ipc call -- data status` retur
 ages, error codes, in-flight/pending counts, observers and restart count, without
 network identities or raw data. Each status call requests diagnostics once and
 returns the diagnostics received from the previous call; there is no status polling. Native desktop controls remain independent.
-Network actions use request IDs and a bounded ordered broker queue, including airplane writes. Busy state is shared across screens; results and error codes return only to the originating panel. Each helper receives credentials on stdin and is killed and reaped at its operation deadline (enterprise: 120 s). Timeout or broker death means outcome unknown: reconcile state and retry explicitly. Writes are never replayed. QR remains an ephemeral helper outside the broker.
+Network actions use request IDs and a bounded ordered broker queue and share serialization with power/radio writes. Busy state is shared across screens; results and error codes return only to the originating panel. Each helper receives credentials on stdin and is killed and reaped at its operation deadline (enterprise: 120 s). Timeout or broker death means outcome unknown: reconcile state and retry explicitly. Writes are never replayed. QR remains an ephemeral helper outside the broker.
 
 ### Capture data ownership
 
@@ -885,3 +885,20 @@ and never replay writes. `obs-control.py` remains the standalone CLI for Walker,
 screenshots and shortcuts, with the same output and translation behavior.
 `eitr-shell desktop-bar ipc call -- data status` includes capture topic diagnostics
 without recording paths, scene names or raw OBS data.
+
+### Shared battery, power and radios
+
+`PowerService` consumes `power.battery`, `power.profile` and `power.radios` from
+DesktopData. Imported adapters share the bounded worker pool and per-call deadlines;
+the standalone battery, power-profile and airplane CLIs retain their output.
+The broker derives system-battery capability once with `eitr_battery`; peripheral
+batteries do not enable laptop controls. Battery reads retain the 30-second cadence.
+Profile reads run every 3 seconds while Brightness is open, otherwise every 5 seconds
+while Battery or Control Center is open. Radio reads run every 5 seconds only while
+Control Center is open. Multiple screens share these reads and release demand on
+close/destruction. One shared read preserves the existing 8-second startup warmup. The shell alone presents the existing low-battery hook at 15%
+and warnings at 10% and 5%, including after suspend gaps.
+Profile and airplane writes have request IDs, ordered serialization with network
+writes and originating-panel results. They keep the existing helpers and privilege
+boundaries. Unknown outcomes require a successful refresh and explicit retry;
+writes are never replayed. Data status includes all three power topics.

@@ -40,10 +40,17 @@ ThemedPopup {
     readonly property int trialLength: 15
     // Laptop-only: the helper reports unavailable without a system battery
     // or power-profiles-daemon, which hides the whole Power Profile section.
-    property var power: ({available: false, active: "", profiles: []})
+    property var power: PowerService.profile
     property string powerError: ""
-    readonly property bool powerBusy: powerOperation.running
-    readonly property string powerHelper: Quickshell.shellDir + "/scripts/power-profile.py"
+    readonly property bool powerBusy: PowerService.busy
+    property var powerTokens: []
+    property string powerActionId: ""
+    property string powerRequested: ""
+    Component.onDestruction: { DesktopData.releaseOwner(menu); DesktopData.client.detachAction(powerActionId); }
+    Connections {
+        target: PowerService
+        function onProfileChanged() { menu.updateContent(function() { menu.power = PowerService.profile; }); }
+    }
     readonly property var powerProfiles: [
         {name: "power-saver", label: "Power Saver"},
         {name: "balanced", label: "Balanced"},
@@ -96,14 +103,15 @@ ThemedPopup {
         Quickshell.execDetached(["python3", settingsHelper, action]);
         afterTrial.restart();
     }
-    function refreshPower() {
-        if (!powerQuery.running && !powerOperation.running) powerQuery.running = true;
-    }
+    function refreshPower() { PowerService.refresh(); }
     function setPowerProfile(name) {
-        if (powerOperation.running || name === power.active) return;
+        if (powerBusy || name === power.active) return;
         powerError = "";
-        powerOperation.command = ["python3", powerHelper, "set", name];
-        powerOperation.running = true;
+        powerRequested = name;
+        powerActionId = PowerService.act("profile", name, function(code) {
+            menu.powerError = code ? "Could not change power profile" : "";
+        });
+        if (!powerActionId) powerError = "Could not change power profile";
     }
     function selectPrimary(name) {
         if (setPrimary.running || name === primaryDisplay) return;
@@ -151,9 +159,11 @@ ThemedPopup {
     // Fetch once in the background after the bar starts, so the first opening already
     // has its data; later openings query only after the unfold (DockPanel.revealed),
     // since starting the helpers during it stalls the animation.
-    Timer { interval: 8000; running: true; onTriggered: { menu.refresh(); menu.refreshNightlight(); menu.refreshDisplays(); menu.refreshPower(); } }
-    onRevealed: { refresh(); refreshNightlight(); refreshDisplays(); refreshPower(); }
+    Timer { interval: 8000; running: true; onTriggered: { menu.refresh(); menu.refreshNightlight(); menu.refreshDisplays(); } }
+    onRevealed: { refresh(); refreshNightlight(); refreshDisplays(); }
     onOpenedChanged: {
+        PowerService.release(powerTokens);
+        powerTokens = opened ? PowerService.observe(menu, 3, false) : [];
         if (!opened) {
             editingSchedule = false;
             settingsFor = "";
@@ -161,7 +171,7 @@ ThemedPopup {
         }
     }
     // DDC monitors are not polled: only this panel changes their brightness.
-    Timer { interval: 3000; repeat: true; running: menu.opened; onTriggered: { if (menu.state.kind !== "ddc") menu.refresh(); menu.refreshNightlight(); menu.refreshPower(); } }
+    Timer { interval: 3000; repeat: true; running: menu.opened; onTriggered: { if (menu.state.kind !== "ddc") menu.refresh(); menu.refreshNightlight(); } }
     Timer { interval: 6000; repeat: true; running: menu.opened; onTriggered: menu.refreshDisplays() }
     Timer { id: scheduleSettle; interval: 650; onTriggered: if (menu.scheduleDirty && !nightOperation.running) menu.configureNightlight(menu.nightlight.mode) }
     Timer { id: settle; interval: 80; onTriggered: menu.applyValue(Math.round(slider.value)) }
@@ -241,34 +251,6 @@ ThemedPopup {
         }
     }
     Process { id: brightnessOsd; command: ["swayosd-client", "--custom-icon", "display-brightness-symbolic", "--custom-progress", "0"] }
-    Process {
-        id: powerQuery
-        command: ["python3", menu.powerHelper, "status"]
-        stdout: StdioCollector { id: powerQueryOutput }
-        onExited: {
-            const received = powerQueryOutput.text;
-            menu.updateContent(function() {
-                let power;
-                try { power = JSON.parse(received); }
-                catch (e) { power = {available: false, active: "", profiles: []}; }
-                if (JsonState.changed(menu.power, power)) menu.power = power;
-
-            });
-        }
-    }
-    Process {
-        id: powerOperation
-        stdout: StdioCollector { id: powerOperationOutput }
-        onExited: function(code) {
-            if (code !== 0) {
-                menu.powerError = "Could not change power profile";
-                menu.refreshPower();
-                return;
-            }
-            try { menu.power = JSON.parse(powerOperationOutput.text); }
-            catch (e) { menu.refreshPower(); }
-        }
-    }
     Process {
         id: displayQuery
         command: ["python3", menu.displayHelper, "status"]
@@ -401,7 +383,7 @@ ThemedPopup {
                                 text: modelData.label
                                 foreground: menu.foreground
                                 available: menu.power.profiles.indexOf(modelData.name) >= 0
-                                loading: powerOperation.running && powerOperation.command[3] === modelData.name
+                                loading: powerBusy && menu.powerRequested === modelData.name
                                 selected: menu.power.active === modelData.name
                                 onClicked: menu.setPowerProfile(modelData.name)
                             }

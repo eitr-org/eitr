@@ -4,6 +4,7 @@ import eitr_bootstrap
 from eitr_i18n import tr
 from eitr_battery import system_batteries
 
+import os
 import json
 from pathlib import Path
 import re
@@ -26,8 +27,8 @@ def unavailable():
     return {'available': False, 'active': '', 'profiles': []}
 
 
-def status():
-    if not has_battery() or not shutil.which('powerprofilesctl'):
+def status(battery_available=None):
+    if not (has_battery() if battery_available is None else battery_available) or not shutil.which('powerprofilesctl'):
         return unavailable()
     try:
         listing = subprocess.run(['powerprofilesctl', 'list'], capture_output=True, text=True,
@@ -69,5 +70,8 @@ if __name__ == '__main__':
     try:
         sys.exit(main(sys.argv))
     except (OSError, ValueError, subprocess.SubprocessError) as error:
-        print(str(error), file=sys.stderr)
+        if os.environ.get("EITR_BAR_ACTION") == "1":
+            print(json.dumps({"error": True, "code": "outcome-unknown" if isinstance(error, subprocess.TimeoutExpired) else "action-failed"}))
+        else:
+            print(str(error), file=sys.stderr)
         sys.exit(1)

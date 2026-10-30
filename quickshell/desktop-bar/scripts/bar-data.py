@@ -15,6 +15,7 @@ import uuid
 MAX_FRAME = 262144
 MAX_RESULT = MAX_FRAME // 2
 INTERVALS = {"network.summary": 10, "network.details": 2, "network.latency": 15,
+             "power.battery": 30, "power.profile": 5, "power.radios": 5,
              "capture.summary": 2, "capture.details": 2, "capture.options": float("inf")}
 
 
@@ -25,6 +26,11 @@ class Broker:
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
         self.capture = module.CaptureDomain(self)
+        spec = importlib.util.spec_from_file_location("power_domain", Path(__file__).with_name("power-domain.py"))
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        self.power = module.PowerDomain()
+        self.periods = {}
         self.adapter = None
         self.reader = reader or self.read
         self.timeout = timeout
@@ -38,12 +44,14 @@ class Broker:
         self.action_ids = set()
         self.action_history = deque()
         self.action_process = None
-        self.action_timeouts = {"enterprise": 120, "connect": 60, "scan": 15, "airplane": 30}
+        self.action_timeouts = {"enterprise": 120, "connect": 60, "scan": 15, "airplane": 30, "profile": 20}
         self.jobs = set()
         self.states = {topic: dict(seq=0, status="loading", data={}, success=None, error="", task=None,
                                    pending=False, due=0, generation=0, durationMs=0, id="") for topic in INTERVALS}
 
     def read(self, topic):
+        if topic.startswith("power."):
+            return self.power.read(topic)
         if topic.startswith("capture."):
             return self.capture.read(topic)
         interface = ""
@@ -63,6 +71,8 @@ class Broker:
             return False
         if topic == "capture.summary":
             return not self.wanted("capture.details") and (self.capture.has_window or self.states[topic]["data"].get("running", False))
+        if topic in {"power.profile", "power.radios"} and self.action_task:
+            return False
         return True
 
     def age(self, state):
@@ -94,6 +104,9 @@ class Broker:
             self.refresh("capture.details", request)
             return
         if topic.startswith("capture.") and self.capture.task:
+            state["pending"] = True
+            return
+        if topic.startswith("power.") and topic != "power.battery" and self.action_task:
             state["pending"] = True
             return
         if topic == "network.latency" and self.states["network.details"]["success"] is None:
@@ -172,7 +185,7 @@ class Broker:
         finally:
             state["task"] = None
             state["durationMs"] = int((time.monotonic() - started) * 1000)
-            state["due"] = time.monotonic() + INTERVALS[topic]
+            state["due"] = time.monotonic() + min([self.periods.get(token, INTERVALS[topic]) for token, subscribed in self.tokens.items() if subscribed == topic] or [INTERVALS[topic]])
             if (timed_out or generation != state["generation"]) and state["pending"] and self.wanted(topic):
                 state["pending"] = False
                 state["due"] = time.monotonic()
@@ -197,35 +210,45 @@ class Broker:
             self.refresh(topic)
 
     def action_state(self):
-        self.emit(dict(v=1, op="domain", topic="network", epoch=self.epoch,
-                       busy=bool(self.action_task), name=self.actions[0]["name"] if self.actions else ""))
+        for domain in ("network", "power"):
+            self.emit(dict(v=1, op="domain", topic=domain, epoch=self.epoch,
+                           busy=bool(self.action_task), name=self.actions[0]["name"] if self.actions else ""))
 
-    def action_result(self, request, code="", message=""):
-        self.emit(dict(v=1, op="result", topic="network", epoch=self.epoch,
+    def action_result(self, request, code="", message="", topic="network"):
+        self.emit(dict(v=1, op="result", topic=topic, epoch=self.epoch,
                        id=request, error=code, message=message, busy=bool(self.action_task)))
 
     def enqueue_action(self, frame):
         request, name, args = frame.get("id"), frame.get("name"), frame.get("args")
+        def reject(request, code):
+            self.action_result(request, code, topic=frame.get("topic", "network"))
         if not request or request in self.action_ids or not isinstance(args, dict):
-            self.action_result(request or "", "invalid-request")
+            reject(request or "", "invalid-request")
             return
-        if name not in ("connect", "disconnect", "forget", "power", "scan", "airplane"):
-            self.action_result(request, "invalid-action")
+        allowed = ("profile", "airplane") if frame.get("topic") == "power" else ("connect", "disconnect", "forget", "power", "scan")
+        if name not in allowed:
+            reject(request, "invalid-action")
             return
         if not isinstance(args.get("path", ""), str) or args.get("extra") not in (None, "true", "false"):
-            self.action_result(request, "invalid-request")
+            reject(request, "invalid-request")
+            return
+        if name == "airplane" and args.get("extra") not in ("true", "false"):
+            reject(request, "invalid-request")
             return
         if len(self.actions) >= 16:
-            self.action_result(request, "queue-full")
+            reject(request, "queue-full")
             return
         secret = args.get("input", {})
         if not isinstance(secret, dict) or any(not isinstance(value, str) for value in secret.values()):
-            self.action_result(request, "invalid-request")
+            reject(request, "invalid-request")
             return
         if len(self.action_history) >= 256:
             self.action_ids.discard(self.action_history.popleft())
         self.action_history.append(request)
         self.action_ids.add(request)
+        if name == "profile" and args.get("path") not in ("power-saver", "balanced", "performance"):
+            self.action_result(request, "invalid-request", topic=frame.get("topic", "network"))
+            return
         self.actions.append(frame)
         if self.action_task is None:
             self.action_task = asyncio.create_task(self.run_actions())
@@ -237,12 +260,14 @@ class Broker:
         try:
             while self.actions:
                 frame = self.actions[0]
-                for topic in ("network.summary", "network.details"):
+                for topic in ("network.summary", "network.details", "power.profile", "power.radios"):
                     self.states[topic]["generation"] += 1
                 args, name = frame["args"], frame["name"]
                 secret = args.pop("input", {})
                 budget = self.action_timeouts.get("enterprise" if name == "connect" and secret.get("identity") else name, 10)
                 command = [sys.executable, str(Path(__file__).with_name("wifi-popup.py")), name, args.get("path", "")]
+                if name == "profile":
+                    command = [sys.executable, str(Path(__file__).with_name("power-profile.py")), "set", args["path"]]
                 if name == "airplane":
                     command = [sys.executable, str(Path(__file__).with_name("airplane.py")), "set"]
                 if args.get("extra") is not None:
@@ -294,15 +319,18 @@ class Broker:
                             pass
                         await process.wait()
                     self.action_process = None
-                self.action_result(frame["id"], code, message)
+                self.action_result(frame["id"], code, message, frame.get("topic", "network"))
                 self.actions.pop(0)
-                for topic in ("network.details", "network.summary"):
+                for topic in ("network.details", "network.summary", "power.profile", "power.radios"):
                     self.states[topic]["generation"] += 1
                     self.refresh(topic)
                 self.action_state()
         finally:
             self.actions.clear()
             self.action_task = None
+            for topic in ("power.profile", "power.radios"):
+                self.states[topic]["due"] = 0
+            self.schedule_changed.set()
             self.action_state()
 
     def request(self, frame):
@@ -325,6 +353,9 @@ class Broker:
         if operation == "action" and topic == "capture":
             self.capture.enqueue(frame)
             return
+        if operation == "action" and topic == "power":
+            self.enqueue_action(frame)
+            return
         if operation == "action" and topic == "network":
             self.enqueue_action(frame)
             return
@@ -338,6 +369,8 @@ class Broker:
                 raise ValueError("token-conflict")
             fresh = token not in self.tokens
             self.tokens[token] = topic
+            if topic == "power.profile":
+                self.periods[token] = 3 if frame.get("interval") == 3 else 5
             self.action_state()
             self.capture.state()
             self.snapshot(topic, token)
@@ -346,6 +379,7 @@ class Broker:
         elif operation == "unsubscribe":
             if self.tokens.get(token) == topic:
                 del self.tokens[token]
+                self.periods.pop(token, None)
             if not self.wanted(topic):
                 state = self.states[topic]
                 state["generation"] += 1

@@ -273,7 +273,7 @@ class PackagingTests(unittest.TestCase):
         from layout import Layout
         root = SCRIPT.parents[3]
         files = ['quickshell/desktop-bar/' + name for name in [
-            'DesktopData.qml', 'DesktopDataProtocol.js', 'ObsStatus.qml', 'scripts/bar-data.py', 'scripts/capture-domain.py']]
+            'PowerService.qml', 'scripts/power-domain.py', 'DesktopData.qml', 'DesktopDataProtocol.js', 'ObsStatus.qml', 'scripts/bar-data.py', 'scripts/capture-domain.py']]
         layout = Layout(root)
         layout.files = lambda: files
         with tempfile.TemporaryDirectory() as directory:
@@ -466,7 +466,7 @@ Item {
             (root / "qmldir").write_text("singleton DesktopData DesktopData.qml\nsingleton ObsStatus ObsStatus.qml\nObsMenu ObsMenu.qml\nRecordingMenu RecordingMenu.qml\nThemedPopup ThemedPopup.qml\n")
             scripts = root / "scripts"
             scripts.mkdir()
-            for name in ("bar-data.py", "capture-domain.py"):
+            for name in ("bar-data.py", "capture-domain.py", "power-domain.py"):
                 shutil.copy(bar / "scripts" / name, scripts / name)
             (scripts / "state.json").write_text(json.dumps(dict(
                 running=False, ready=True, recording=False, paused=False, streaming=False)))
@@ -590,3 +590,127 @@ ShellRoot {
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class PowerTests(unittest.IsolatedAsyncioTestCase):
+    async def test_shared_demand_cadence_and_suspend_gap(self):
+        frames, calls = [], []
+        def read(topic):
+            calls.append(topic)
+            return {'available': True, 'percent': 9, 'status': 'Discharging'}
+        broker = broker_module.Broker(frames.append, read)
+        scheduler = None
+        try:
+            for token in ('screen1', 'screen2'):
+                broker.request(dict(v=1, op='subscribe', topic='power.battery', token=token))
+            await asyncio.sleep(.03)
+            self.assertEqual(calls, ['power.battery'])
+            broker.states['power.battery']['due'] = asyncio.get_running_loop().time() - 3600
+            scheduler = asyncio.create_task(broker.schedule())
+            await asyncio.sleep(.03)
+            self.assertEqual(calls, ['power.battery'] * 2, 'resume must not catch up every missed tick')
+            for token in ('screen1', 'screen2'):
+                broker.request(dict(v=1, op='unsubscribe', topic='power.battery', token=token))
+            self.assertFalse(broker.scheduled('power.battery'))
+            self.assertFalse(broker.scheduled('power.profile'))
+            self.assertFalse(broker.scheduled('power.radios'))
+        finally:
+            if scheduler:
+                scheduler.cancel()
+                await asyncio.gather(scheduler, return_exceptions=True)
+            await broker.close()
+
+    async def test_system_capability_once_and_cli_parity(self):
+        from types import SimpleNamespace
+        broker = broker_module.Broker(lambda frame: None)
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                for name, percent, scope in [('BAT0', 40, 'System'), ('BAT1', 80, 'System'), ('mouse', 1, 'Device')]:
+                    supply = root / name
+                    supply.mkdir()
+                    for key, value in dict(type='Battery', scope=scope, capacity=percent, status='Discharging',
+                                           energy_full=100, energy_now=percent, energy_full_design=100, power_now=20).items():
+                        (supply / key).write_text(str(value))
+                from eitr_battery import system_batteries
+                with patch.dict(broker.power.read.__globals__, system_batteries=lambda: system_batteries(root)):
+                    snapshot = broker.power.read('power.battery')
+                    self.assertEqual(snapshot['percent'], 60)
+                    battery = broker.power.adapters['battery']
+                    self.assertEqual(snapshot, battery.status(root))
+                    (root / 'BAT0' / 'capacity').write_text('20')
+                    with patch.dict(broker.power.read.__globals__, system_batteries=lambda: self.fail('capability re-read')):
+                        self.assertEqual(broker.power.read('power.battery')['percent'], 50)
+                        broker.power.read('power.profile')
+                    profile = broker.power.adapters['power-profile']
+                    with patch.object(profile.shutil, 'which', return_value='powerprofilesctl'), patch.object(
+                            profile.subprocess, 'run', side_effect=subprocess.CalledProcessError(1, 'powerprofilesctl')):
+                        self.assertEqual(broker.power.read('power.profile'), profile.unavailable())
+                for name in ('BAT0', 'BAT1'):
+                    (root / name / 'present').write_text('0')
+                broker.power.batteries = None
+                with patch.dict(broker.power.read.__globals__, system_batteries=lambda: system_batteries(root)):
+                    self.assertFalse(broker.power.read('power.battery')['available'])
+                    self.assertFalse(broker.power.read('power.profile')['available'])
+        finally:
+            await broker.close()
+
+    async def test_power_action_rejects_invalid_requests_at_source(self):
+        frames = []
+        broker = broker_module.Broker(frames.append, lambda topic: {})
+        try:
+            broker.request(dict(v=1, op='action', topic='power', id='invalid', name='profile', args={'path': 'turbo'}))
+            self.assertEqual(frames[-1]['topic'], 'power')
+            self.assertEqual(frames[-1]['error'], 'invalid-request')
+            self.assertFalse(broker.actions)
+        finally:
+            await broker.close()
+
+    def test_warning_thresholds_once_across_suspend_and_repeated_snapshots(self):
+        source = (SCRIPT.parents[1] / 'shell.qml').read_text()
+        start = source.index('    function checkBatteryLow()')
+        end = source.index('\n    }', start) + 6
+        function = source[start:end]
+        code = '''const assert = require('assert');
+const hooks = [], notifications = [];
+let batteryLowHookRan = false, batteryWarned = 0;
+const shell = {battery: {available:true, status:'Discharging', percent:50}};
+const runHook = args => hooks.push(args);
+const Quickshell = {execDetached: args => notifications.push(args)};
+''' + function + '''
+[50,15,15,9,9,4,4].forEach(percent => {shell.battery.percent = percent; checkBatteryLow();});
+assert.equal(hooks.length,1); assert.equal(notifications.length,2);
+shell.battery.status = 'Charging'; checkBatteryLow();
+shell.battery.status = 'Discharging'; shell.battery.percent = 4;
+checkBatteryLow(); checkBatteryLow();
+assert.equal(hooks.length,2); assert.equal(notifications.length,3);
+'''
+        subprocess.run(['node', '-e', code], check=True, capture_output=True, timeout=5)
+
+    async def test_power_helpers_order_results_and_radio_reconciliation(self):
+        from types import SimpleNamespace
+        frames = []
+        broker = broker_module.Broker(frames.append, lambda topic: {})
+        processes = []
+        for output in (b'{"active":"balanced"}', b'{"error":true,"code":"action-failed"}'):
+            processes.append(SimpleNamespace(
+                returncode=0, stdin=SimpleNamespace(write=lambda payload: None, drain=AsyncMock(), close=lambda: None),
+                stdout=SimpleNamespace(read=AsyncMock(side_effect=[output, b''])), wait=AsyncMock()))
+        start = AsyncMock(side_effect=processes)
+        try:
+            with patch.object(broker_module.asyncio, 'create_subprocess_exec', start):
+                broker.request(dict(v=1, op='action', topic='power', id='profile1', name='profile', args={'path': 'balanced'}))
+                broker.request(dict(v=1, op='action', topic='power', id='radio1', name='airplane', args={'extra': 'true'}))
+                await broker.action_task
+            commands = [call.args for call in start.call_args_list]
+            self.assertEqual(commands[0][-3:], (str(SCRIPT.with_name('power-profile.py')), 'set', 'balanced'))
+            self.assertEqual(commands[1][-3:], (str(SCRIPT.with_name('airplane.py')), 'set', 'true'))
+            results = [frame for frame in frames if frame['op'] == 'result']
+            self.assertEqual([(frame['topic'], frame['id'], frame['error']) for frame in results],
+                             [('power', 'profile1', ''), ('power', 'radio1', 'action-failed')])
+            self.assertEqual(broker.states['power.radios']['due'], 0)
+            broker.request(dict(v=1, op='action', topic='power', id='radio1', name='airplane', args={'extra': 'true'}))
+            self.assertEqual(frames[-1]['error'], 'invalid-request')
+            self.assertEqual(start.call_count, 2, 'duplicate writes must not replay')
+        finally:
+            await broker.close()

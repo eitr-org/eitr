@@ -2,6 +2,8 @@
   "version": 1,
   "layout_version": 2,
   "rules": [
+    {"pattern": "quickshell/desktop-bar/PowerService.qml", "class": "C", "runtime": true},
+    {"pattern": "quickshell/desktop-bar/scripts/power-domain.py", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/scripts/capture-domain.py", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/DesktopData.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/DesktopDataProtocol.js", "class": "C", "runtime": true},

@@ -136,7 +136,7 @@ ShellRoot {
     readonly property string idleLockTooltip: idleLockEnabled ? Eitr.I18n.tr("Idle Lock: On") : Eitr.I18n.tr("Idle Lock: Off")
     function switchIdleLock() { if (!toggleIdleLock.running) toggleIdleLock.running = true; }
     property var hardwareIdentity: null
-    property var battery: ({available: false, percent: 0, status: "", health: 0, hours: 0})
+    property var battery: PowerService.battery
     readonly property string batteryIcon: battery.status === "Charging" ? "󰂄" : battery.percent < 20 ? "󰁻" : battery.percent < 60 ? "󰁾" : "󰁹"
     property string primaryDisplay: ""
     property var preferredOutputs: []
@@ -417,18 +417,10 @@ ShellRoot {
         onExited: if (!idleLockStatus.running) idleLockStatus.running = true
     }
 
-    Process {
-        id: batteryQuery
-        command: ["python3", Quickshell.shellDir + "/scripts/battery.py"]
-        running: true
-        stdout: StdioCollector { id: batteryOutput }
-        onExited: {
-            try { shell.battery = JSON.parse(batteryOutput.text); }
-            catch (e) { shell.battery = {available: false, percent: 0}; }
-            shell.checkBatteryLow();
-        }
+    Connections {
+        target: PowerService
+        function onBatteryReceived() { shell.checkBatteryLow(); }
     }
-    Timer { interval: 30000; repeat: true; running: true; onTriggered: if (!batteryQuery.running) batteryQuery.running = true }
     // The user's hooks (distro/lib/run-hook.sh): battery-low once per drop to 15%,
     // post-boot at start (the runner keeps it to once per boot).
     property bool batteryLowHookRan: false

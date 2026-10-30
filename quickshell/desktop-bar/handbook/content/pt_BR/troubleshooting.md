@@ -50,6 +50,8 @@ expirar ou o processo encerrar, o resultado fica desconhecido e a ação nunca �
 repetida automaticamente. O comando independente do OBS continua disponível para
 o Walker e os atalhos de captura de tela.
 
+Bateria, perfis de energia e modo avião também compartilham este processo. A bateria é lida a cada 30 segundos; perfis e rádios são lidos somente enquanto os painéis correspondentes estão abertos. Baterias de periféricos não ativam controles de notebook. Os ganchos e avisos de bateria fraca mantêm seus limites. As ações de perfil e modo avião são ordenadas, informam erros ao painel solicitante e nunca são repetidas após um resultado desconhecido. Os comandos independentes continuam disponíveis.
+
 ## Verificações de instalação e recuperação
 
 O EITR ainda está em beta: testes em VMs não comprovam cada adaptador WiFi, agente Bluetooth, TPM, GPU, leitor de impressão digital ou configuração de Secure Boot. O código atual dos serviços WiFi e da autenticação corporativa é testado com simulações; teste a autenticação real antes de depender dela. Mudar manifestos do repositório não muda ISOs existentes: reconstrua o payload e a ISO para levar essas alterações a novas instalações.

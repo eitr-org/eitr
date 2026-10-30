@@ -36,7 +36,13 @@ ThemedPopup {
     property string mediaStyle: "bars"
     property string clockFormat: "12h"
     property string workspaceStyle: "Runes"
-    property var airplane: ({available: false, enabled: false})
+    property var airplane: PowerService.radios
+    property var powerTokens: []
+    property string powerActionId: ""
+    Connections {
+        target: PowerService
+        function onRadiosChanged() { center.updateContent(function() { center.airplane = PowerService.radios; }); }
+    }
     property bool crashNotifications: true
     readonly property string crashHelpScript: Eitr.Paths.code("walker/scripts/actions/system/crash-help.py")
     property bool gameMode: false
@@ -70,8 +76,7 @@ ThemedPopup {
     barEdge: barPosition
     leftAligned: true
     function refresh() {
-        keyboardControl.refresh(); displayControl.refresh(); displayControl.refreshNightlight(); displayControl.refreshPower(); displayControl.refreshDisplays();
-        if (!airplaneQuery.running && !center.wifiControl.busy) airplaneQuery.running = true;
+        keyboardControl.refresh(); displayControl.refresh(); displayControl.refreshNightlight(); displayControl.refreshDisplays();
         if (!crashQuery.running && !crashOperation.running) crashQuery.running = true;
         if (!gameModeQuery.running && !gameModeOperation.running) gameModeQuery.running = true;
     }
@@ -109,8 +114,10 @@ ThemedPopup {
         target: center.wifiControl
         function onBusyChanged() { if (center.opened && !center.wifiControl.busy) center.refresh(); }
     }
-    Component.onDestruction: { wifiControl.release(networkToken); wifiControl.detach(center); }
+    Component.onDestruction: { wifiControl.release(networkToken); wifiControl.detach(center); DesktopData.releaseOwner(center); DesktopData.client.detachAction(powerActionId); }
     onOpenedChanged: {
+        PowerService.release(powerTokens);
+        powerTokens = opened ? PowerService.observe(center, 5, true) : [];
         if (opened) networkToken = wifiControl.observe(center);
         else {
             wifiControl.release(networkToken); networkToken = "";
@@ -246,16 +253,6 @@ ThemedPopup {
         onExited: center.updateChannel = channelOutput.text.trim()
     }
     Process {
-        id: airplaneQuery
-        command: ["python3", Quickshell.shellDir + "/scripts/airplane.py", "status"]
-        stdout: StdioCollector { id: airplaneOutput }
-        onExited: {
-            const received = airplaneOutput.text;
-            center.updateContent(function() { let airplane; try { airplane = JSON.parse(received); } catch (e) { airplane = {available: false, enabled: false}; } if (JsonState.changed(center.airplane, airplane)) center.airplane = airplane;
-            });
-        }
-    }
-    Process {
         id: chatStatus
         command: ["python3", Eitr.Paths.code("quickshell/desktop-bar/scripts/assistant-chat.py"), "status"]
         stdout: StdioCollector { id: chatStatusOutput }
@@ -364,8 +361,8 @@ ThemedPopup {
                             }
                             ToggleTile {
                                 title: Eitr.I18n.tr("Airplane"); glyph: "󰀝"; selected: !!center.airplane.enabled
-                                available: !!center.airplane.available && !center.wifiControl.busy
-                                onClicked: { center.wifiControl.act(center, "airplane", "", center.airplane.enabled ? "false" : "true") }
+                                available: !!center.airplane.available && !PowerService.busy
+                                onClicked: { center.powerActionId = PowerService.act("airplane", center.airplane.enabled ? "false" : "true", function(code, message) { center.networkActionFinished(message || (code ? "Could not complete request" : ""), code); }); if (!center.powerActionId) center.networkActionFinished("Could not complete request", "broker-unavailable"); }
                             }
                         }
                         Text { visible: (center.networkMessage || center.wifiControl.details.error || "") !== ""; width: parent.width; wrapMode: Text.WordWrap; text: center.networkMessage ? center.wifiControl.actionMessage(center.networkMessage) : (center.wifiControl.details.error || ""); color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
