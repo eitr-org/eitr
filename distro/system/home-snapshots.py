@@ -18,11 +18,14 @@ subvolumes across (factory-reset.py).
 import eitr_bootstrap
 from eitr_i18n import tr
 import argparse
+import errno
+from contextlib import contextmanager
 import json
 import os
 from pathlib import Path
 import pwd
 import shutil
+import stat
 import subprocess
 import sys
 
@@ -53,8 +56,12 @@ def run(args, **kwargs):
 
 
 def is_subvolume(path):
-    return path.is_dir() and subprocess.run(["btrfs", "subvolume", "show", str(path)],
-                                            capture_output=True).returncode == 0
+    """A Btrfs subvolume's top directory is always inode 256; this needs no root."""
+    try:
+        info = Path(path).lstat()
+    except FileNotFoundError:
+        return False
+    return stat.S_ISDIR(info.st_mode) and info.st_ino == 256
 
 
 def snapper_has_config():
@@ -116,40 +123,162 @@ def turn_off():
     print(tr('Home snapshots are off, and the existing ones were deleted. The excluded folders stay as they are.'))
 
 
-def convert(path):
-    """Turn a folder into a subvolume in place, keeping its files (reflinked, not copied)."""
+@contextmanager
+def directory(path, device=None):
+    """Pin every ancestor without following symlinks, optionally on one device."""
+    path = Path(path)
+    descriptor = os.open("/" if path.is_absolute() else ".", os.O_RDONLY | os.O_DIRECTORY)
+    try:
+        for component in path.parts:
+            if component == "/":
+                continue
+            if component == "..":
+                raise RuntimeError("Parent traversal is not allowed")
+            child = os.open(component, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW,
+                            dir_fd=descriptor)
+            os.close(descriptor)
+            descriptor = child
+            if device is not None and os.fstat(descriptor).st_dev != device:
+                raise RuntimeError(f"{path} leaves the home's filesystem")
+        yield descriptor
+    finally:
+        os.close(descriptor)
+
+
+def check_tree(path, device):
+    """Refuse nested mounts rather than silently omit their data from the copy."""
+    def failed(error):
+        raise error
+
+    for parent, folders, files in os.walk(path, followlinks=False, onerror=failed):
+        for name in folders + files:
+            if os.lstat(Path(parent) / name).st_dev != device:
+                raise RuntimeError(f"{path} leaves the home's filesystem")
+
+
+def check_leftovers(path):
     staging = path.with_name(path.name + ".eitr-subvolume")
     old = path.with_name(path.name + ".eitr-old")
-    if staging.exists() or old.exists():
+    if os.path.lexists(staging) or os.path.lexists(old):
         raise RuntimeError(tr('{staging} or {old} is left over from an earlier attempt; check and remove it', staging=f'{staging}', old=f'{old}'))
-    run(["btrfs", "subvolume", "create", str(staging)], stdout=subprocess.DEVNULL)
+    return staging, old
+
+
+def convert(path):
+    """Convert as the home owner; failed copies are left for manual inspection."""
+    if os.geteuid() == 0:
+        raise RuntimeError("Home conversion must not run as root")
+    staging, old = check_leftovers(path)
     try:
-        info = path.stat()
-        os.chown(staging, info.st_uid, info.st_gid)
-        os.chmod(staging, info.st_mode & 0o7777)
-        run(["cp", "-a", "--reflink=always", f"{path}/.", f"{staging}/"])
-        path.rename(old)
-    except BaseException:
-        run(["btrfs", "subvolume", "delete", str(staging)], stdout=subprocess.DEVNULL)
-        raise
-    staging.rename(path)
-    shutil.rmtree(old)
+        with directory(path) as source:
+            source_info = os.fstat(source)
+            check_tree(path, source_info.st_dev)
+            run(["btrfs", "subvolume", "create", str(staging)], stdout=subprocess.DEVNULL)
+            # A new Btrfs subvolume has its own st_dev. Creation in this pinned
+            # parent keeps it on the same filesystem; do not compare device numbers.
+            with directory(staging) as destination:
+                # Pin both copy endpoints so concurrent symlink swaps cannot redirect cp.
+                # cp preserves metadata as this user, without privileged ownership changes.
+                destination_info = os.fstat(destination)
+                run(["cp", "-a", "--one-file-system", "--reflink=always",
+                     f"/proc/self/fd/{source}/.", f"/proc/self/fd/{destination}/"],
+                    pass_fds=(source, destination))
+                for candidate, expected in ((path, source_info), (staging, destination_info)):
+                    actual = candidate.lstat()
+                    if (actual.st_dev, actual.st_ino) != (expected.st_dev, expected.st_ino):
+                        raise RuntimeError(f"{candidate} changed during conversion")
+                path.rename(old)
+                staging.rename(path)
+        shutil.rmtree(old)
+    except BaseException as error:
+        # Subvolume deletion normally needs root or user_subvol_rm_allowed.
+        # Never ask the privileged parent to clean up a user-controlled pathname.
+        raise RuntimeError(f"{error}; conversion stopped; check {staging} and {old}; "
+                           "original files remain at the original path or in .eitr-old") from error
+
+
+def exclude_home(home_descriptor):
+    """All home mutations happen after the child permanently drops privileges."""
+    if os.geteuid() == 0:
+        raise RuntimeError("Home exclusions must not run as root")
+    device = os.fstat(home_descriptor).st_dev
+    previous = os.open(".", os.O_RDONLY | os.O_DIRECTORY)
+    try:
+        for relative, create in EXCLUDED.items():
+            os.fchdir(home_descriptor)
+            target = Path(relative)
+            try:
+                with directory(target.parent, device) as parent:
+                    os.fchdir(parent)
+                    path = Path(target.name)
+                    check_leftovers(path)
+                    try:
+                        info = path.lstat()
+                    except FileNotFoundError:
+                        if create:
+                            # Restrictive umask applies during creation, before chmod.
+                            run(["btrfs", "subvolume", "create", str(path)], stdout=subprocess.DEVNULL)
+                            with directory(path) as created:
+                                os.fchmod(created, 0o755 if relative == "Downloads" else 0o700)
+                        continue
+                    if stat.S_ISLNK(info.st_mode):
+                        # A symlinked folder (for example Downloads on another disk) is left as it is.
+                        print(f"eitr-home-snapshots: leaving symlinked {relative} as it is", file=sys.stderr)
+                        continue
+                    if not stat.S_ISDIR(info.st_mode):
+                        continue
+                    if info.st_uid != os.geteuid():
+                        raise RuntimeError(f"Excluded folder is not owned by the home owner: {relative}")
+                    # Existing nested subvolumes have distinct st_dev values and
+                    # need no conversion or writes, including on subsequent boots.
+                    if is_subvolume(path):
+                        continue
+                    if info.st_dev != device:
+                        raise RuntimeError(f"{relative} leaves the home's filesystem")
+                    convert(path)
+            except FileNotFoundError:
+                # Optional folders may have missing ancestors.
+                if create:
+                    raise
+            except OSError as error:
+                if error.errno not in (errno.ELOOP, errno.ENOTDIR):
+                    raise
+                # A symlinked parent folder is never followed; the folder is left as it is.
+                print(f"eitr-home-snapshots: leaving {relative} as it is: a parent folder is a symlink", file=sys.stderr)
+    finally:
+        os.fchdir(previous)
+        os.close(previous)
+
+
+def drop_privileges(owner):
+    account = pwd.getpwuid(owner.st_uid)
+    if owner.st_uid == 0:
+        raise RuntimeError("Refusing a root-owned home")
+    os.setgroups(os.getgrouplist(account.pw_name, account.pw_gid))
+    os.setgid(account.pw_gid)
+    os.setuid(owner.st_uid)
+    os.umask(0o077)
 
 
 def exclude(homes=None):
-    """Make the excluded folders of every home nested subvolumes. Runs before login."""
+    """Root retains Snapper state; a separate unprivileged child handles each home."""
     for home in homes if homes is not None else login_homes():
-        owner = home.stat()
-        for relative, create in EXCLUDED.items():
-            path = home / relative
-            if is_subvolume(path):
-                continue
-            if path.is_dir() and not path.is_symlink():
-                convert(path)
-            elif create and not path.exists():
-                run(["btrfs", "subvolume", "create", str(path)], stdout=subprocess.DEVNULL)
-                os.chown(path, owner.st_uid, owner.st_gid)
-                os.chmod(path, 0o755 if relative == "Downloads" else 0o700)
+        with directory(home) as descriptor:
+            owner = os.fstat(descriptor)
+            sys.stdout.flush()
+            sys.stderr.flush()
+            child = os.fork()
+            if child == 0:
+                try:
+                    drop_privileges(owner)
+                    exclude_home(descriptor)
+                except BaseException as error:
+                    print(f"eitr-home-snapshots: {home}: {error}", file=sys.stderr, flush=True)
+                    os._exit(1)
+                os._exit(0)
+            _, status = os.waitpid(child, 0)
+            if status != 0:
+                raise RuntimeError(f"Home exclusions failed for {home}; pending setup retained")
     PENDING.unlink(missing_ok=True)
     subprocess.run(["systemctl", "disable", UNIT], capture_output=True)
 

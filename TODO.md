@@ -30,12 +30,6 @@ LAN.
 # 2. Smaller items
 
 - **Light themes.** The owner has ideas for more light themes; create them later.
-- **Security review: what is left.** The review (2026-10-29) is done; fixed so far:
-  release signatures and package names, Sunshine limited to the sharing account,
-  website security headers with an enforced content policy (it allows Cloudflare
-  Web Analytics, which the owner keeps). Left: the home-snapshot conversion race
-  (convert as the folder's owner instead of root, tested in a VM). Vendor
-  installers and assistants' full access are accepted as the user's choice.
 - **AI install review:** implemented for the installed default assistant when it
   supports text-only checks without tools (Ratatoskr and Claude). Unsupported
   defaults get a translated explanation. Reviews keep the advice notice and

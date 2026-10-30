@@ -2,6 +2,7 @@ import importlib.machinery
 import importlib.util
 import json
 import os
+import pwd
 from pathlib import Path
 import shutil
 import subprocess
@@ -50,7 +51,7 @@ class ExclusionTests(unittest.TestCase):
             elif args[:3] == ["btrfs", "subvolume", "delete"]:
                 shutil.rmtree(args[3])
             elif args[0] == "cp":
-                REAL_RUN(["cp", "-a", args[3], args[4]], check=True)
+                REAL_RUN(["cp", "-a", args[4], args[5]], check=True, **kwargs)
             return subprocess.CompletedProcess(args, 0)
         for name, value in (("run", run), ("PENDING", self.pending)):
             patcher = patch.object(home_snapshots, name, value) if name == "PENDING" else \
@@ -67,21 +68,198 @@ class ExclusionTests(unittest.TestCase):
         patcher.start()
         self.addCleanup(patcher.stop)
 
+    def apply_exclusions(self):
+        with home_snapshots.directory(self.home) as descriptor:
+            home_snapshots.exclude_home(descriptor)
+
+    def test_symlinked_home_ancestor_is_refused(self):
+        alias = self.home.parent / "alias"
+        alias.symlink_to(self.home.parent, target_is_directory=True)
+        with self.assertRaises(OSError):
+            with home_snapshots.directory(alias / self.home.name):
+                self.fail("symlinked ancestor accepted")
+
+    def test_symlinked_exclusion_ancestor_is_left_alone(self):
+        shutil.rmtree(self.home / ".local")
+        (self.home / ".local").symlink_to(self.home / "Downloads", target_is_directory=True)
+        before = sorted(path.name for path in (self.home / "Downloads").iterdir())
+        self.apply_exclusions()
+        self.assertTrue((self.home / ".local").is_symlink())
+        self.assertEqual(sorted(path.name for path in (self.home / "Downloads").iterdir()), before)
+
+    def test_symlinked_exclusion_is_left_alone(self):
+        # Downloads on another disk is common; it must neither block the run nor be followed.
+        shutil.rmtree(self.home / "Downloads")
+        (self.home / "Downloads").symlink_to(self.home / ".local", target_is_directory=True)
+        before = sorted(path.name for path in (self.home / ".local").iterdir())
+        self.apply_exclusions()
+        self.assertTrue((self.home / "Downloads").is_symlink())
+        self.assertEqual(sorted(path.name for path in (self.home / ".local").iterdir()), before)
+
+    def test_dangling_staging_symlink_keeps_leftover_message(self):
+        path = self.home / "Downloads"
+        path.with_name("Downloads.eitr-subvolume").symlink_to(self.home / "absent")
+        with self.assertRaisesRegex(RuntimeError, "left over from an earlier attempt"):
+            home_snapshots.convert(path)
+
+    def test_leftovers_prevent_recreating_missing_original(self):
+        (self.home / "Downloads").rename(self.home / "Downloads.eitr-old")
+        with self.assertRaisesRegex(RuntimeError, "left over from an earlier attempt"):
+            self.apply_exclusions()
+        self.assertFalse((self.home / "Downloads").exists())
+        self.assertEqual((self.home / "Downloads.eitr-old/video.mkv").read_text(), "big file")
+
+    def test_staging_symlink_swap_never_reaches_copy_or_chown(self):
+        path = self.home / "Downloads"
+        victim = self.home.parent / "victim"
+        victim.write_text("unchanged")
+
+        def swap_staging(args, **kwargs):
+            if args[:3] == ["btrfs", "subvolume", "create"]:
+                Path(args[3]).symlink_to(victim)
+            else:
+                self.fail("copy must not run after a staging symlink swap")
+
+        with patch.object(home_snapshots, "run", side_effect=swap_staging), \
+                patch.object(home_snapshots.os, "chown") as chown:
+            with self.assertRaisesRegex(RuntimeError, "conversion stopped"):
+                home_snapshots.convert(path)
+            chown.assert_not_called()
+        self.assertEqual(victim.read_text(), "unchanged")
+        self.assertEqual((path / "video.mkv").read_text(), "big file")
+
+    def test_nested_filesystem_is_refused_before_copy(self):
+        original_lstat = os.lstat
+
+        def foreign_device(path, **kwargs):
+            info = original_lstat(path, **kwargs)
+            if Path(path).name == "video.mkv":
+                fields = list(info)
+                fields[2] = -1
+                return os.stat_result(fields)
+            return info
+
+        with patch.object(home_snapshots.os, "lstat", side_effect=foreign_device):
+            with self.assertRaisesRegex(RuntimeError, "filesystem"):
+                home_snapshots.convert(self.home / "Downloads")
+        self.assertFalse((self.home / "Downloads.eitr-subvolume").exists())
+
+    def test_failed_copy_leaves_source_and_staging_without_root_cleanup(self):
+        original_run = home_snapshots.run.side_effect
+
+        def fail_copy(args, **kwargs):
+            if args[0] == "cp":
+                raise subprocess.CalledProcessError(1, args)
+            return original_run(args, **kwargs)
+
+        with patch.object(home_snapshots, "run", side_effect=fail_copy) as command:
+            with self.assertRaisesRegex(RuntimeError, "conversion stopped"):
+                home_snapshots.convert(self.home / "Downloads")
+        self.assertEqual((self.home / "Downloads/video.mkv").read_text(), "big file")
+        self.assertTrue((self.home / "Downloads.eitr-subvolume").is_dir())
+        self.assertFalse(any(call.args[0][:3] == ["btrfs", "subvolume", "delete"]
+                             for call in command.call_args_list))
+
+    def test_failed_publish_preserves_original_in_old_folder(self):
+        original_rename = Path.rename
+
+        def fail_publish(path, destination):
+            if path.name.endswith(".eitr-subvolume"):
+                raise OSError("publish failed")
+            return original_rename(path, destination)
+
+        with patch.object(Path, "rename", autospec=True, side_effect=fail_publish):
+            with self.assertRaisesRegex(RuntimeError, "conversion stopped"):
+                home_snapshots.convert(self.home / "Downloads")
+        self.assertEqual((self.home / "Downloads.eitr-old/video.mkv").read_text(), "big file")
+        self.assertTrue((self.home / "Downloads.eitr-subvolume").exists())
+
+    def test_filesystem_boundary_is_refused(self):
+        with self.assertRaisesRegex(RuntimeError, "filesystem"):
+            with home_snapshots.directory(self.home, device=-1):
+                self.fail("foreign filesystem accepted")
+
+    def test_root_cannot_mutate_home(self):
+        with patch.object(home_snapshots.os, "geteuid", return_value=0), \
+                patch.object(home_snapshots.os, "chown") as chown, \
+                patch.object(home_snapshots.os, "chmod") as chmod:
+            with self.assertRaisesRegex(RuntimeError, "root"):
+                home_snapshots.convert(self.home / "Downloads")
+            with home_snapshots.directory(self.home) as descriptor:
+                with self.assertRaisesRegex(RuntimeError, "root"):
+                    home_snapshots.exclude_home(descriptor)
+            chown.assert_not_called()
+            chmod.assert_not_called()
+
+    def test_child_drops_privileges_before_touching_home(self):
+        events = []
+        with patch.object(home_snapshots.os, "fork", return_value=0), \
+                patch.object(home_snapshots.os, "_exit", side_effect=SystemExit) as terminate, \
+                patch.object(home_snapshots, "drop_privileges", side_effect=lambda owner: events.append("drop")), \
+                patch.object(home_snapshots, "exclude_home", side_effect=lambda descriptor: events.append("write")):
+            with self.assertRaises(SystemExit):
+                home_snapshots.exclude([self.home])
+            terminate.assert_called_once_with(0)
+        self.assertEqual(events, ["drop", "write"])
+        self.assertTrue(self.pending.exists())
+
+    def test_failed_privilege_drop_never_touches_home(self):
+        with patch.object(home_snapshots.os, "fork", return_value=0), \
+                patch.object(home_snapshots.os, "_exit", side_effect=SystemExit) as terminate, \
+                patch.object(home_snapshots, "drop_privileges", side_effect=PermissionError("denied")), \
+                patch.object(home_snapshots, "exclude_home") as worker:
+            with self.assertRaises(SystemExit):
+                home_snapshots.exclude([self.home])
+            terminate.assert_called_once_with(1)
+            worker.assert_not_called()
+        self.assertTrue(self.pending.exists())
+
+    def test_parent_waits_and_retains_pending_on_failure(self):
+        for child_status in (0, 256):
+            self.pending.touch()
+            with patch.object(home_snapshots.os, "fork", return_value=123), \
+                    patch.object(home_snapshots.os, "waitpid", return_value=(123, child_status)), \
+                    patch.object(home_snapshots, "exclude_home") as worker, \
+                    patch.object(home_snapshots, "drop_privileges") as drop:
+                if child_status:
+                    with self.assertRaisesRegex(RuntimeError, "pending setup retained"):
+                        home_snapshots.exclude([self.home])
+                else:
+                    home_snapshots.exclude([self.home])
+                worker.assert_not_called()
+                drop.assert_not_called()
+            self.assertEqual(self.pending.exists(), bool(child_status))
+
+    def test_privilege_drop_sets_supplementary_groups_before_gid_and_uid(self):
+        owner = self.home.stat()
+        calls = []
+        with patch.object(home_snapshots.os, "setgroups", side_effect=lambda groups: calls.append(("groups", groups))), \
+                patch.object(home_snapshots.os, "setgid", side_effect=lambda gid: calls.append(("gid", gid))), \
+                patch.object(home_snapshots.os, "setuid", side_effect=lambda uid: calls.append(("uid", uid))), \
+                patch.object(home_snapshots.os, "umask"):
+            home_snapshots.drop_privileges(owner)
+        self.assertEqual([call[0] for call in calls], ["groups", "gid", "uid"])
+        account = pwd.getpwuid(owner.st_uid)
+        self.assertIn(account.pw_gid, calls[0][1])
+        self.assertEqual(calls[1:], [("gid", account.pw_gid), ("uid", owner.st_uid)])
+
     def test_existing_folders_keep_their_files_and_become_subvolumes(self):
-        home_snapshots.exclude([self.home])
+        self.apply_exclusions()
         self.assertEqual((self.home / "Downloads/video.mkv").read_text(), "big file")
         self.assertEqual((self.home / ".local/share/Steam/game").read_text(), "game")
         names = {path.name for path in self.subvolumes}
         self.assertTrue({"Downloads.eitr-subvolume", "Steam.eitr-subvolume"} <= names)
         self.assertFalse((self.home / "Downloads.eitr-old").exists())
-        self.assertFalse(self.pending.exists(), "the start-up job runs once")
+
 
     def test_caches_and_downloads_are_created_excluded_but_not_optional_folders(self):
         shutil.rmtree(self.home / "Downloads")
-        home_snapshots.exclude([self.home])
+        self.apply_exclusions()
         self.assertTrue((self.home / ".cache").is_dir())
         self.assertTrue((self.home / "Downloads").is_dir())
         self.assertFalse((self.home / "VirtualBox VMs").exists())
+        self.assertEqual((self.home / "Downloads").stat().st_mode & 0o777, 0o755)
+        self.assertEqual((self.home / ".cache").stat().st_mode & 0o777, 0o700)
 
     def test_the_policy_limits_space(self):
         policy = " ".join(home_snapshots.POLICY)

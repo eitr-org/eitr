@@ -153,6 +153,16 @@ Files carries these subvolumes into the restored home: hidden ones into the
 "Settings before reset" folder, caches are dropped. If one cannot be moved, the
 previous home is kept for review instead of deleted.
 
+Conversion and creation of missing excluded folders run as the home owner, including
+that account's supplementary groups. Symlinked homes and paths on another
+filesystem are refused; an excluded folder that is a symlink, or sits below a
+symlinked folder (such as Downloads on another disk), is left as it is and never
+followed. A failed conversion keeps the setup
+pending and leaves any `NAME.eitr-subvolume` or `NAME.eitr-old` folders for inspection;
+the original files remain at `NAME` or `NAME.eitr-old`. Check these before removing
+leftovers and retrying. No privileged automatic cleanup is attempted: deleting a
+nonempty Btrfs subvolume as its owner normally requires `user_subvol_rm_allowed`.
+
 **Snapshots > Restore a File or Folder** (or `eitr restore PATH`) lists the
 snapshots that have the path and copies the chosen version beside the current
 one as `NAME (restored DATE)`, or back in place when it was deleted. Nothing is
