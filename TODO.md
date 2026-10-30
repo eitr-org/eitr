@@ -75,9 +75,9 @@ LAN.
   through a secret iCal address are done (Tools > Calendar Sources). Two-way sync
   (creating or editing provider events) needs account sign-in (OAuth, with
   Google's app verification) and remains later.
-- **The Eitr logo drawn with runes.** For About (and maybe the welcome banner):
-  fill the emblem's shape with Elder Futhark runes in the theme accent, like
-  Arch's logo drawn with characters, leaving the inner E cut-out empty.
+- **The Eitr logo drawn with runes.** Previews of the emblem filled with Elder
+  Futhark runes are ready and kept outside the repository; the owner likes the
+  36-row versions and will decide later where (if anywhere) to use them.
 
 # 4. 0.8 release candidate and 1.0.0
 
