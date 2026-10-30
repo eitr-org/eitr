@@ -3,6 +3,8 @@
 import ctypes
 import json
 import os
+import sys
+from pathlib import Path
 
 
 def software_renderer(renderer, backend="", forced=""):
@@ -73,5 +75,41 @@ def detect(probe=renderer_name, environment=None):
         return {'software': True, 'detected': False}
 
 
+def wallpaper_status(transition, wallpaper, publish=None):
+    """Use the same output variants as Hyprpaper; an output is healthy while Hyprpaper
+    answers and lists it (not a path comparison, which a transition would trip)."""
+    images = transition['monitor_images'](wallpaper) if wallpaper else {}
+    uris = {monitor: Path(image).as_uri() for monitor, image in images.items()}
+    if publish:
+        publish({'images': uris, 'wallpaper': wallpaper})
+    active = transition['active_wallpapers']()
+    healthy = {monitor: active is not None and monitor in active
+               for monitor in images if monitor != '*'}
+    return {'images': uris,
+            'healthy': healthy, 'wallpaper': wallpaper}
+
+
+def saved_wallpaper_status(publish=None):
+    import runpy
+    for parent in Path(__file__).resolve().parents:
+        library = parent / 'lib'
+        if not (library / 'eitr_paths.py').is_file():
+            library = parent / 'distro/lib'
+        if (library / 'eitr_paths.py').is_file():
+            sys.path.insert(0, str(library))
+            break
+    from eitr_paths import code, config, read_settings, cache
+    wallpaper = read_settings(config('eitr/appearance.json')).get('wallpaper', '')
+    if not wallpaper:
+        try:
+            wallpaper = (cache() / 'current-wallpaper').read_text().strip()
+        except OSError:
+            pass
+    transition = runpy.run_path(str(code('walker/scripts/actions/wallpaper/transition.py')))
+    return wallpaper_status(transition, wallpaper, publish)
+
+
 if __name__ == '__main__':
-    print(json.dumps(detect()))
+    def publish(result):
+        print(json.dumps(result), flush=True)
+    publish(saved_wallpaper_status(publish) if '--wallpaper' in sys.argv else detect())

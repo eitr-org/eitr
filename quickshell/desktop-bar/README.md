@@ -21,7 +21,13 @@ Live artwork decodes at the output's pixel dimensions. Aurora runs at 20 Hz on
 an empty workspace and 5 Hz behind ordinary windows, retaining fullscreen and
 Focus pauses. A one-shot Wayland EGL renderer probe detects llvmpipe/softpipe
 and explicit software rendering. Software or unavailable EGL keeps Hyprpaper's
-selected still image and skips the live scene. No machine preference is added.
+selected still image and skips the live scene. At startup and wallpaper preference
+changes, bounded Hyprpaper IPC checks compare each output with its selected image,
+with one follow-up check after 3 s. Outputs with missing, failed or stale replies
+get the same still image from the bar on the background layer, cropped to fill
+and decoded at screen size, including ultrawide variants. This fallback follows
+Walker and carousel choices and remains visible in Focus mode and during
+transitions; it does not animate the reveal. No polling or machine preference is added.
 
 Login starts Hyprpaper, waits up to 2 s for its IPC endpoint, then starts the bar.
 Optional session preparation, Elephant, crash help, cursor sync, nightlight, OSD

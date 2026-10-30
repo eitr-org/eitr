@@ -10,6 +10,8 @@ O Eitr tem quatro papéis de parede: Primordial Drop (padrão), Runestone, Éliv
 
 Os 24 temas incluídos oferecem dez paletas escuras dos reinos: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim e Vanaheim. Cada tema dos reinos tem de dois a cinco papéis de parede originais, com estilos variados de tinta, guache, cel shading e pintura, nas duas proporções. O primeiro papel de parede é a prévia do tema.
 
+Se o Hyprpaper não conseguir exibir o papel de parede selecionado, a barra desenha a mesma imagem estática em cada tela afetada, incluindo as versões ultrawide. As escolhas de papel de parede e tema continuam valendo no modo Focus; a alternativa troca a imagem sem a animação de revelação.
+
 ## Seus próprios papéis de parede, temas e telas de bloqueio
 
 Suas imagens, temas e telas de bloqueio ficam neste computador, em `~/.local/share/eitr/` (`wallpapers`, `themes` e `lockscreens`). O Eitr nunca os envia nem compartilha, e as atualizações nunca os alteram. Eles aparecem ao lado dos distribuídos, marcados como **Seu**, e só eles podem ser excluídos: selecione um, pressione **Delete** e depois Enter para confirmar ou Esc para mantê-lo.

@@ -10,6 +10,8 @@ Eitr propose quatre fonds : Primordial Drop (par défaut), Runestone, Élivágar
 
 Les 24 thèmes fournis comprennent dix palettes sombres des royaumes : Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim et Vanaheim. Chaque thème des royaumes comprend de deux à cinq fonds originaux, dans des styles variés : encre, gouache, cel-shading et peinture, dans les deux formats. Le premier fond sert d’aperçu du thème.
 
+Si Hyprpaper ne peut pas afficher le fond choisi, la barre dessine la même image fixe sur chaque écran concerné, y compris les variantes ultralarges. Les choix de fond et de thème restent appliqués en mode Focus ; cet affichage de secours change sans animation de dévoilement.
+
 ## Vos propres fonds d’écran, thèmes et écrans de verrouillage
 
 Vos images, thèmes et écrans de verrouillage restent sur cet ordinateur, dans `~/.local/share/eitr/` (`wallpapers`, `themes` et `lockscreens`). Eitr ne les envoie ni ne les partage jamais, et les mises à jour ne les modifient jamais. Ils apparaissent à côté de ceux distribués, marqués **Le vôtre**, et eux seuls peuvent être supprimés : sélectionnez-en un, appuyez sur **Suppr**, puis Entrée pour confirmer ou Échap pour le garder.

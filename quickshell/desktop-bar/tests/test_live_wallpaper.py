@@ -86,12 +86,50 @@ ShellRoot {{
         self.assertIn('"/motion/" + match[2] + "/"', source)
         self.assertIn("mask: Region {}", source)
         self.assertIn("WlrKeyboardFocus.None", source)
-        self.assertIn("running: window.visible && !window.covered", source)
+        self.assertIn("running: window.visible && window.animate && !window.covered", source)
         self.assertIn("LiveWallpaper {}", (BAR / "shell.qml").read_text())
 
     def test_wallpaper_changes_suspend_the_layers_for_their_transition(self):
         script = (ROOT / "walker/scripts/actions/wallpaper/transition.py").read_text()
         self.assertLess(script.index('"liveWallpaper", "suspend"'), script.index('"eitr-shell", "wallpaper-transition"'))
+
+    def test_still_fallback_uses_output_health_and_shared_variants(self):
+        import runpy
+        rendering = runpy.run_path(str(BAR / 'scripts/rendering.py'))
+        images = {'DP-1': '/tmp/wide.jpg', 'DP-2': '/tmp/still.png', '*': '/tmp/still.png'}
+        transition = {'monitor_images': lambda wallpaper: images,
+                      'active_wallpapers': lambda: {'DP-1': '/tmp/wide.jpg'}}
+        result = rendering['wallpaper_status'](transition, '/tmp/still.png')
+        self.assertEqual(result['healthy'], {'DP-1': True, 'DP-2': False})
+        # A different path (a transition in progress) is still a drawing Hyprpaper.
+        transition['active_wallpapers'] = lambda: {'DP-1': '/tmp/old.jpg', 'DP-2': '/tmp/old.png'}
+        self.assertTrue(all(rendering['wallpaper_status'](transition, '/tmp/still.png')['healthy'].values()))
+        self.assertEqual(result['images']['DP-1'], 'file:///tmp/wide.jpg')
+        published = []
+        def unresponsive():
+            self.assertEqual(published[0]['images']['DP-1'], 'file:///tmp/wide.jpg')
+            self.assertNotIn('healthy', published[0])
+            return None
+        transition['active_wallpapers'] = unresponsive
+        rendering['wallpaper_status'](transition, '/tmp/still.png', published.append)
+        transition['active_wallpapers'] = lambda: None
+        self.assertFalse(any(rendering['wallpaper_status'](transition, '/tmp/still.png')['healthy'].values()))
+        transition['active_wallpapers'] = lambda: {'DP-1': '/tmp/wide.jpg', 'DP-2': '/tmp/still.png'}
+        self.assertTrue(all(rendering['wallpaper_status'](transition, '/tmp/still.png')['healthy'].values()))
+
+    def test_fallback_is_not_suspended_by_focus_or_transitions(self):
+        source = (BAR / 'LiveWallpaper.qml').read_text()
+        self.assertIn('visible: stillFallback || (animate && scene.ready)', source)
+        self.assertIn('visible: window.stillFallback', source)
+        self.assertIn('stillFallback: live.healthyOutputs[modelData.name] === false', source)
+        self.assertIn('source: window.stillFallback ?', source)
+        self.assertIn('fillMode: Image.PreserveAspectCrop', source)
+        self.assertIn('sourceSize: Qt.size(Math.ceil(width *', source)
+        self.assertIn('WlrLayershell.layer: window.animate ? WlrLayer.Bottom : WlrLayer.Background', source)
+        self.assertIn('PreferenceWatch {', source)
+        self.assertIn('/eitr/appearance.json', source)
+        self.assertIn('interval: 3000; running: true; onTriggered: live.checkWallpaper()', source)
+        self.assertNotIn('repeat: true', source[source.index('property var stillImages'):source.index('    FileView {')])
 
     def test_artwork_package_owns_the_layers(self):
         self.assertIn("':(glob)themes/*/motion/**'", (ROOT / "distro/pkg/eitr-artwork/PKGBUILD").read_text())

@@ -10,6 +10,8 @@ Eitr hat vier Hintergrundbilder: Primordial Drop (Standard), Runestone, Élivág
 
 Die 24 mitgelieferten Themes enthalten zehn dunkle Paletten der Welten: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim und Vanaheim. Jedes Welten-Theme hat zwei bis fünf Originalhintergründe in verschiedenen Tusche-, Gouache-, Cel-Shading- und Malstilen, in beiden Bildformaten. Der erste Hintergrund ist die Vorschau des Themes.
 
+Wenn Hyprpaper das gewählte Hintergrundbild nicht anzeigen kann, zeichnet die Leiste dasselbe Standbild auf jedem betroffenen Bildschirm, einschließlich der Ultrawide-Varianten. Die Auswahl von Hintergrundbild und Theme gilt auch im Focus-Modus; die Ersatzanzeige wechselt ohne die Enthüllungsanimation.
+
 ## Eigene Hintergrundbilder, Designs und Sperrbildschirme
 
 Eigene Bilder, Designs und Sperrbildschirme bleiben auf diesem Computer, in `~/.local/share/eitr/` (`wallpapers`, `themes` und `lockscreens`). Eitr lädt sie nie hoch und teilt sie nie, und Updates verändern sie nicht. Sie erscheinen neben den ausgelieferten, markiert mit **Eigenes**, und nur sie lassen sich löschen: auswählen, **Entf** drücken, dann Enter zum Bestätigen oder Escape zum Behalten.

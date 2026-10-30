@@ -34,16 +34,14 @@ LAN.
   closed panels stay quiet: idle launches in a 4-core VM fell from ~800 to ~40 a
   minute (CPU 25% to 1% of one core). Still to check on an old laptop, with
   multiple monitors and with OBS started straight into the tray.
-- **Live wallpaper at lower resolution.** Render the aurora into a smaller target
-  and scale it up; worthwhile on weak integrated GPUs.
 - **Shared data service for the bar (refactor, after the improvements).** One
-  long-running helper instead of short-lived scripts per panel.
-- **Wallpaper missing without a GPU.** hyprpaper 0.8.4 crashes at every login in a
-  VM without 3D acceleration (`CWaylandBuffer` in hyprtoolkit), leaving a plain
-  background. Report upstream and show the still wallpaper another way meanwhile.
-- **Login time before Eitr starts.** In the VM, ~6 s of the ~8.5 s from password
-  to bar pass in uwsm, `start-hyprland` and Hyprland's own start-up, before any Eitr
-  program runs. Investigate where that time goes.
+  long-running helper instead of ~33 short-lived scripts: one reader per piece of
+  data, one set of tests, consistent timeouts and refresh-on-open, easier to trace.
+  Migrate one panel at a time.
+- **hyprpaper crash without a GPU: follow upstream.** hyprpaper segfaults in VMs
+  without 3D acceleration (hyprwm/hyprtoolkit#144); the bar now draws the still
+  wallpaper on any screen hyprpaper does not answer for. Drop the note once a fixed
+  hyprtoolkit ships.
 - **Website evidence and screenshots.** Keep the public pages in step with verified
   desktop behavior. A feature gets a screenshot when it has a screen people look
   for (a panel, menu or wizard) shown on the website or in the Handbook;
