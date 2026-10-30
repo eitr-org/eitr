@@ -74,7 +74,7 @@ LAN.
 # 3. Later
 
 - **Voice reminders, next steps.** Read-only Google/Outlook/iCal subscriptions
-  through a secret iCal address are done (Tools > Calendars). Two-way sync
+  through a secret iCal address are done (Tools > Calendar Sources). Two-way sync
   (creating or editing provider events) needs account sign-in (OAuth, with
   Google's app verification) and remains later.
 - **The Eitr logo drawn with runes.** For About (and maybe the welcome banner):
