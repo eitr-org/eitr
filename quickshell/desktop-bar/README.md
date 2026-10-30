@@ -827,7 +827,9 @@ the normal bar and effects, spreading windows two per workspace. See the
 ### Network data ownership
 
 One `NetworkService` in the shell supplies every screen, bar layout and Focus
-strip. It reads the existing `wifi-popup.py icon` summary at startup and every
+strip. The registered `DesktopData` singleton owns one `scripts/bar-data.py` child
+for the entire shell. The broker imports the existing WiFi CLI adapters once into a pool of at most three
+threads and schedules the summary at startup and every
 10 seconds. WiFi menus and Control Center hold detail observer tokens while
 open; one shared reader refreshes on opening and every 2 seconds. Only visible
 WiFi menus hold latency tokens, for one probe on opening/connection and every
@@ -840,3 +842,22 @@ Network actions share a busy guard across screens. QR generation has its own
 guard; credentials and QR results go only to the requesting panel and are not
 part of shared snapshots. The existing iwd and NetworkManager readers and action
 helpers remain the backend authority.
+
+The version 1 transport uses bounded newline-delimited JSON on stdin/stdout;
+Adapter logs never enter protocol stdout. Requests use `subscribe`/`unsubscribe`
+with a topic and unique observer token, or `refresh` with a request ID. Topics are
+`network.summary`, `network.details`, and `network.latency`. State snapshots carry
+`v`, `op`, `topic`, `token`, `id`, `epoch`, per-topic `seq`, `status`, `data`, and
+`ageMs` (null before a successful read). A `hello` establishes the epoch; reconnect
+replays current tokens and sends full snapshots. Old epoch/sequence results are
+ignored. Reads have deadlines and D-Bus calls time out within 5 seconds. A timed-out
+read keeps its topic occupied until its thread returns. Scheduling sleeps until
+the next due read or a demand change.
+
+Broker exit retains good data as stale and retries with capped exponential delay
+and jitter, stopping after six retries. `eitr-shell desktop-bar ipc call -- data retry`
+allows explicit recovery; `eitr-shell desktop-bar ipc call -- data status` returns topic
+ages, error codes, in-flight/pending counts, observers and restart count, without
+network identities or raw data. Each status call requests diagnostics once and
+returns the diagnostics received from the previous call; there is no status polling. Native desktop controls remain independent.
+Actions and QR still use their existing processes; writes are never replayed.

@@ -299,6 +299,7 @@
       "quickshell/desktop-bar/CalendarMenu.qml"
     ],
     "Could not load": [
+      "quickshell/desktop-bar/NetworkService.qml",
       "quickshell/desktop-bar/PluginComponent.qml"
     ],
     "Could not save recording settings": [

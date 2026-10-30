@@ -39,6 +39,18 @@ An Elephant restart reloads menu definitions. Its service must retain
 apps and terminals run in separate application scopes. Themes regenerate styles, so fix
 the generator as well as generated output if a change disappears later.
 
+## WiFi data stops refreshing
+
+The bar shares one WiFi read broker across screens. If it exits, the last good
+network data remains marked stale while the broker retries with increasing delays.
+After six failed retries it waits for an explicit retry. Native controls remain
+available; WiFi actions and QR generation retain their separate helpers.
+
+For a technical status snapshot, use
+`eitr-shell desktop-bar ipc call -- data status`. It reports topic ages,
+error codes, in-flight reads, observers and restarts without network names or
+addresses. Retry with `eitr-shell desktop-bar ipc call -- data retry`.
+
 ## Installation and recovery checks
 
 EITR is still in beta: VM coverage does not prove every WiFi adapter, Bluetooth

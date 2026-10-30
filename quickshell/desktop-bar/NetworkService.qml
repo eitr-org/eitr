@@ -1,13 +1,14 @@
 import QtQuick
+import Eitr as Eitr
 import Quickshell
 import Quickshell.Io
 import "NetworkStatus.js" as NetworkStatus
 
 Item {
     id: service
-    property var summary: ({status: "loading", data: {}})
-    property var details: ({status: "loading", data: {}})
-    property var latency: ({status: "loading", data: {}})
+    property var summary: topicState("summary")
+    property var details: topicState("details")
+    property var latency: topicState("latency")
     property int detailObservers: 0
     property int latencyObservers: 0
     readonly property var device: details.data.devices && details.data.devices.length ? details.data.devices[0] : null
@@ -24,44 +25,32 @@ Item {
     property var actionInput: ({})
     property var qrOwner: null
     property var qrInput: ({})
-    property int readSequence: 0
-    property var scheduledReads: ({})
     property bool qrScheduled: false
-    property var model: NetworkStatus.createOwner(startRead, stopRead, publish)
+    property var observers: ({})
+    property string summaryToken: ""
 
-    function publish() {
-        summary = Object.assign({}, model.topics.summary);
-        details = Object.assign({}, model.topics.details);
-        latency = Object.assign({}, model.topics.latency);
-        detailObservers = model.count("details");
-        latencyObservers = model.count("latency");
+    function topicState(topic) {
+        const snapshot = DesktopData.topics["network." + topic] || {status: "loading", data: {}};
+        return Object.assign({}, snapshot, {error: snapshot.error ? Eitr.I18n.tr("Could not load") : ""});
     }
-    function observe(owner, topic) { return model.observe(owner, topic); }
-    function release(token) { model.release(token); }
-    function refresh() { model.refresh("details"); }
-    function reader(topic) {
-        return topic === "summary" ? summaryQuery : topic === "details" ? detailsQuery : pingQuery;
+    function observe(owner, topic) {
+        topic = topic || "details";
+        if (topic !== "details" && topic !== "latency") throw new Error("Unknown network topic");
+        const token = DesktopData.observe("network." + topic, owner);
+        observers[token] = {owner: owner, topic: topic};
+        updateObservers();
+        return token;
     }
-    function startRead(topic) {
-        if (topic === "latency") {
-            if (!device || device.state !== "connected") return false;
-            pingQuery.command = ["python3", helper, "probe", device.name];
-        }
-        const request = ++readSequence;
-        scheduledReads[topic] = request;
-        Qt.callLater(function() {
-            if (scheduledReads[topic] !== request) return;
-            delete scheduledReads[topic];
-            reader(topic).running = true;
-        });
-        return true;
+    function release(token) {
+        DesktopData.release(token);
+        delete observers[token];
+        updateObservers();
     }
-    function stopRead(topic) {
-        if (scheduledReads[topic]) {
-            delete scheduledReads[topic];
-            model.finish(topic, "", 1);
-        } else reader(topic).running = false;
+    function updateObservers() {
+        detailObservers = Object.keys(observers).filter(token => observers[token].topic === "details").length;
+        latencyObservers = Object.keys(observers).filter(token => observers[token].topic === "latency").length;
     }
+    function refresh() { DesktopData.refresh("network.details"); }
     function act(owner, kind, path, extra, input) {
         if (busy) return false;
         busy = true;
@@ -87,7 +76,7 @@ Item {
         return true;
     }
     function detach(owner) {
-        model.releaseOwner(owner);
+        Object.keys(observers).filter(token => observers[token].owner === owner).forEach(release);
         if (actionOwner === owner) actionOwner = null;
         if (qrOwner === owner) {
             qrOwner = null;
@@ -96,29 +85,10 @@ Item {
             else qrQuery.running = false;
         }
     }
-    Component.onCompleted: model.refresh("summary")
-    Timer { interval: 10000; running: true; repeat: true; onTriggered: service.model.refresh("summary") }
-    Timer { interval: 2000; running: service.detailObservers > 0; repeat: true; onTriggered: service.refresh() }
-    Timer { interval: 15000; running: service.latencyObservers > 0; repeat: true; onTriggered: service.model.refresh("latency") }
-    Process {
-        id: summaryQuery
-        command: ["python3", service.helper, "icon"]
-        stdout: StdioCollector { id: summaryOutput }
-        onExited: function(code) { service.model.finish("summary", summaryOutput.text, code); }
-    }
-    Process {
-        id: detailsQuery
-        command: ["python3", service.helper, "status"]
-        stdout: StdioCollector { id: detailsOutput }
-        onExited: function(code) {
-            service.model.finish("details", detailsOutput.text, code);
-            if (service.latency.status === "loading" && !service.model.topics.latency.running) service.model.refresh("latency");
-        }
-    }
-    Process {
-        id: pingQuery
-        stdout: StdioCollector { id: pingOutput }
-        onExited: function(code) { service.model.finish("latency", pingOutput.text, code); }
+    Component.onCompleted: summaryToken = DesktopData.observe("network.summary", service)
+    Component.onDestruction: {
+        Object.keys(observers).forEach(token => DesktopData.release(token));
+        DesktopData.release(summaryToken);
     }
     Process {
         id: operation
@@ -133,7 +103,7 @@ Item {
             service.actionOwner = null;
             service.actionInput = ({});
             service.refresh();
-            service.model.refresh("summary");
+            DesktopData.refresh("network.summary");
         }
     }
     Process {

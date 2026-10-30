@@ -25,6 +25,21 @@ Quickshell affiche une erreur de rechargement lisible et garde si possible la de
 
 Redémarrer Elephant recharge les menus. Son service doit conserver `KillMode=process` pour les auxiliaires et les lancements sans uwsm. Dans une session uwsm, les applications et terminaux lancés utilisent des scopes d’application distincts. Les thèmes régénèrent les styles : si un changement disparaît, corrigez le générateur et le résultat produit.
 
+## Les données WiFi ne s’actualisent plus
+
+La barre partage un seul processus de lecture WiFi entre les écrans. S’il se
+termine, les dernières données valides restent marquées comme périmées pendant
+les tentatives de redémarrage, de plus en plus espacées. Après six tentatives
+infructueuses, il attend une relance explicite. Les commandes natives restent
+disponibles ; les actions WiFi et la génération de QR gardent leurs auxiliaires
+séparés.
+
+Pour consulter l’état technique, utilisez
+`eitr-shell desktop-bar ipc call -- data status`. La sortie indique l’âge des
+données, les codes d’erreur, les lectures en cours, les observateurs et les
+redémarrages, sans noms ni adresses réseau. Réessayez avec
+`eitr-shell desktop-bar ipc call -- data retry`.
+
 ## Vérifications d’installation et de récupération
 
 EITR reste en bêta. Les tests en VM ne prouvent pas le fonctionnement de chaque adaptateur WiFi, agent Bluetooth, TPM, GPU, lecteur d’empreintes ou configuration Secure Boot. Le code actuel des services WiFi et de l’authentification d’entreprise est testé par simulation. Vérifiez l’authentification réelle avant d’en dépendre. Modifier les manifestes ne change pas les ISO existantes : reconstruisez le payload et l’ISO pour intégrer les changements aux nouvelles installations.

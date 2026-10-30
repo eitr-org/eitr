@@ -25,6 +25,21 @@ Quickshell zeigt verständliche Neuladefehler und behält möglichst die letzte 
 
 Ein Elephant-Neustart lädt Menüdefinitionen neu. Sein Dienst muss `KillMode=process` behalten, für Helfer und Starts ohne uwsm. In einer uwsm-Sitzung laufen gestartete Anwendungen und Terminals in eigenen Anwendungs-Scopes. Designs erzeugen Stile neu: Verschwindet eine Änderung, korrigiere Generator und erzeugte Ausgabe.
 
+## WLAN-Daten werden nicht mehr aktualisiert
+
+Die Leiste nutzt für alle Bildschirme einen gemeinsamen WLAN-Leseprozess. Wenn
+er endet, bleiben die letzten gültigen Daten als veraltet markiert, während der
+Prozess mit wachsenden Abständen neu gestartet wird. Nach sechs fehlgeschlagenen
+Versuchen wartet er auf einen ausdrücklichen Wiederholungsaufruf. Native
+Bedienelemente bleiben verfügbar; WLAN-Aktionen und die QR-Erzeugung behalten
+ihre separaten Hilfsprogramme.
+
+Den technischen Status zeigt
+`eitr-shell desktop-bar ipc call -- data status`. Die Ausgabe enthält Datenalter,
+Fehlercodes, laufende Lesevorgänge, Beobachter und Neustarts, aber keine
+Netzwerknamen oder Adressen. Ein neuer Versuch erfolgt mit
+`eitr-shell desktop-bar ipc call -- data retry`.
+
 ## Installation und Wiederherstellung prüfen
 
 EITR ist weiterhin Beta. VM-Tests belegen nicht die Funktion jedes WiFi-Adapters, Bluetooth-Agenten, TPMs, GPUs, Fingerabdrucklesers oder Secure-Boot-Aufbaus. Aktueller WiFi-Dienst- und Unternehmensauthentifizierungscode wird mit Nachbildungen getestet. Prüfe echte Authentifizierung, bevor du dich darauf verlässt. Bestehende ISOs ändern sich nicht mit den Repository-Manifesten; baue Payload und ISO für neue Installationen neu.

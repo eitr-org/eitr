@@ -18,6 +18,10 @@ PREFIX = SERVICE + "."
 NETWORK_HELPER = Path("/usr/lib/eitr/eitr-network")
 bus = Gio.bus_get_sync(Gio.BusType.SYSTEM, None)
 
+spec = importlib.util.spec_from_file_location("wifi_nm", Path(__file__).with_name("wifi-networkmanager.py"))
+NM_ADAPTER = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(NM_ADAPTER)
+
 
 def active_backend():
     def owns(service):
@@ -36,7 +40,7 @@ def active_backend():
 
 def call(path, interface, method, parameters=None):
     return bus.call_sync(SERVICE, path, interface, method, parameters, None,
-                         Gio.DBusCallFlags.NONE, 10000, None).unpack()
+                         Gio.DBusCallFlags.NONE, 5000, None).unpack()
 
 
 def merge_known(networks, objects):
@@ -177,16 +181,14 @@ def connect_enterprise(path, request):
         time.sleep(0.25)
 
 
-def main():
-    action = sys.argv[1] if len(sys.argv) > 1 else "status"
+def read_state(action="status", interface=""):
+    """Shared read entry point for the CLI and broker."""
     if action == "probe":
-        return probe(sys.argv[2])
+        return probe(interface)
     backend = active_backend()
     if action == "icon":
         if backend == "networkmanager":
-            spec = importlib.util.spec_from_file_location("wifi_nm", Path(__file__).with_name("wifi-networkmanager.py"))
-            adapter = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(adapter)
+            adapter = NM_ADAPTER
             result = adapter.snapshot(bus, lambda interface: {})
         else:
             result = {**snapshot(include_details=False), "backend": "iwd"}
@@ -200,15 +202,20 @@ def main():
             for interface in Path('/sys/class/net').iterdir())
         return result
     if backend == "networkmanager":
-        spec = importlib.util.spec_from_file_location("wifi_nm", Path(__file__).with_name("wifi-networkmanager.py"))
-        adapter = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(adapter)
-        if action == "status":
-            return adapter.snapshot(bus, telemetry)
+        adapter = NM_ADAPTER
+        return adapter.snapshot(bus, telemetry)
+    return {**snapshot(), "backend": "iwd"}
+
+
+def main():
+    action = sys.argv[1] if len(sys.argv) > 1 else "status"
+    if action in ("icon", "status", "probe"):
+        return read_state(action, sys.argv[2] if action == "probe" else "")
+    backend = active_backend()
+    if backend == "networkmanager":
+        adapter = NM_ADAPTER
         request = json.loads(sys.stdin.readline()) if action == "connect" else None
         return adapter.action(bus, action, sys.argv[2], request, sys.argv[3] if len(sys.argv) > 3 else None)
-    if action == "status":
-        return {**snapshot(), "backend": "iwd"}
     path = sys.argv[2]
     if action == "connect":
         request = json.loads(sys.stdin.readline())
