@@ -2566,6 +2566,9 @@
     "Off": [
       "elephant/menus/focus.lua"
     ],
+    "Official Eitr plugin": [
+      "elephant/plugin-entries.lua"
+    ],
     "On": [
       "elephant/menus/focus.lua"
     ],
@@ -6232,6 +6235,12 @@
     ],
     "Object storage buckets": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Official Eitr plugin": [
+      "walker/scripts/actions/install/plugins.py"
+    ],
+    "Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr project. Like every plugin, it runs with your account’s full permissions.": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Ollama could not be installed. Your default assistant is unchanged.": [
       "distro/lib/eitr_local_assistant.py"

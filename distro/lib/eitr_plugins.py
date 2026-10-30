@@ -312,6 +312,14 @@ def repository_url(value, *, allow_file=False):
     raise ValueError('Plugin repository must be an HTTPS or SSH Git URL without credentials')
 
 
+# Eitr's own plugin repository; trust follows its address, never a manifest's author field.
+OFFICIAL_REPOSITORY = 'github.com/eitr-org/eitr-plugins'
+
+
+def official(url):
+    return normalized_url(url) == OFFICIAL_REPOSITORY
+
+
 ALREADY_INSTALLED = mark('This plugin is already installed. Update or remove it from Control Center > Plugins.')
 ALL_INSTALLED = mark('Every plugin in this repository is already installed. Update or remove them from Control Center > Plugins.')
 
@@ -828,6 +836,7 @@ class Plugins:
             if spec.get('schemaVersion') == 2 and 'icon' not in spec:
                 raise ValueError('Schema version 2 requires a plugin icon')
             changes = update_changes(candidate / entry['path'], target, record['commit'], revision, old_spec, spec)
+            changes['official'] = official(record['url'])
             if not approve(changes):
                 return False
             snapshot = self.keep_snapshot(candidate, record['url'], revision)
@@ -879,7 +888,9 @@ class Plugins:
             old_spec = manifest(target)
             if spec.get('schemaVersion') == 2 and 'icon' not in spec and (old_spec.get('schemaVersion', 1) != 2 or old_spec.get('icon')):
                 raise ValueError('Schema version 2 requires a plugin icon')
-            if not approve(update_changes(candidate, target, record['commit'], new_commit, old_spec, spec)):
+            changes = update_changes(candidate, target, record['commit'], new_commit, old_spec, spec)
+            changes['official'] = official(record['url'])
+            if not approve(changes):
                 return False
             replacement = self.folder / ('.' + plugin_id + '-new')
             backup = self.folder / ('.' + plugin_id + '-previous')
@@ -984,7 +995,7 @@ class Plugins:
             spec = self.spec(plugin_id)
             checked = updates.get(plugin_id, {})
             count = checked.get('count', 0) if checked.get('commit') == record['commit'] else 0
-            rows.append(dict(id=plugin_id, updateCount=count,
+            rows.append(dict(id=plugin_id, updateCount=count, official=official(record['url']),
                              name=printable(spec['name']) if spec else plugin_id,
                              author=printable(spec['author']) if spec else '?', blocked=blocked.get(plugin_id, ('',))[0],
                              repository=printable(record['url']), repositoryPath=record.get('path', ''),
@@ -1008,7 +1019,8 @@ class Plugins:
                 spec = manifest(root)
                 for index, row in enumerate(spec['rows']):
                     rows.append(dict(id=plugin_id, index=index, title=row['title'], description=row['description'],
-                                     author=short_author(spec), icon=row.get('icon', '󰏖')))
+                                     author=short_author(spec), official=official(record['url']),
+                                     icon=row.get('icon', '󰏖')))
             except (OSError, ValueError, subprocess.SubprocessError):
                 continue
         return sorted(rows, key=lambda row: row['title'].casefold())

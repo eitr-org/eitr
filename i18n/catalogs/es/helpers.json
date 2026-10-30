@@ -1411,5 +1411,7 @@
   "Installed": "Instalado",
   "PgUp/PgDn: scroll  Enter: install  Left: back  Esc: cancel": "RePág/AvPág: desplazar  Enter: instalar  Izquierda: volver  Esc: cancelar",
   "PgUp/PgDn: scroll  Enter: download for review  Left: back  Esc: cancel": "RePág/AvPág: desplazar  Enter: descargar para revisar  Izquierda: volver  Esc: cancelar",
-  "Arrows: move  Space: select  Enter: review  Left: back  Esc: cancel": "Flechas: mover  Espacio: seleccionar  Intro: revisar  Izquierda: volver  Esc: cancelar"
+  "Arrows: move  Space: select  Enter: review  Left: back  Esc: cancel": "Flechas: mover  Espacio: seleccionar  Intro: revisar  Izquierda: volver  Esc: cancelar",
+  "Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr project. Like every plugin, it runs with your account’s full permissions.": "Plugin oficial de Eitr de eitr-org/eitr-plugins, revisado por el proyecto Eitr. Como todo plugin, se ejecuta con todos los permisos de tu cuenta.",
+  "Official Eitr plugin": "Plugin oficial de Eitr"
 }

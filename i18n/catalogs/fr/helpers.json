@@ -1411,5 +1411,7 @@
   "Installed": "Installé",
   "PgUp/PgDn: scroll  Enter: install  Left: back  Esc: cancel": "PgPréc/PgSuiv : défiler  Entrée : installer  Gauche : retour  Échap : annuler",
   "PgUp/PgDn: scroll  Enter: download for review  Left: back  Esc: cancel": "PgPréc/PgSuiv : défiler  Entrée : télécharger pour vérifier  Gauche : retour  Échap : annuler",
-  "Arrows: move  Space: select  Enter: review  Left: back  Esc: cancel": "Flèches : déplacer  Espace : sélectionner  Entrée : examiner  Gauche : retour  Échap : annuler"
+  "Arrows: move  Space: select  Enter: review  Left: back  Esc: cancel": "Flèches : déplacer  Espace : sélectionner  Entrée : examiner  Gauche : retour  Échap : annuler",
+  "Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr project. Like every plugin, it runs with your account’s full permissions.": "Plugin officiel d’Eitr issu de eitr-org/eitr-plugins, vérifié par le projet Eitr. Comme tout plugin, il s’exécute avec tous les droits de votre compte.",
+  "Official Eitr plugin": "Plugin officiel d’Eitr"
 }

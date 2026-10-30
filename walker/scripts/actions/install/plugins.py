@@ -20,6 +20,7 @@ for parent in Path(__file__).resolve().parents:
 
 import eitr_policy
 import eitr_plugin_review
+import eitr_plugins
 from eitr_forms import Terminal
 from eitr_paths import code
 from eitr_i18n import tr, mark
@@ -33,6 +34,14 @@ HELPER = Path(__file__).resolve()
 PRESENTER = HELPER.parents[1] / 'task-terminal.py'
 WARNING = '⚠ '
 TRUST = mark('Plugins run with your account’s full permissions. Eitr has not reviewed this code. Install only if you trust its author and repository.')
+OFFICIAL_TRUST = mark('Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr project. Like every plugin, it runs with your account’s full permissions.')
+OFFICIAL = mark('Official Eitr plugin')
+
+
+def origin_line(spec, url):
+    if eitr_plugins.official(url):
+        return tr(OFFICIAL)
+    return tr('Plugin by {author} · not reviewed by Eitr', author=short_author(spec))
 menu_mark('Plugins')
 menu_mark('Add Plugin…')
 menu_mark('Review a Git repository before installing')
@@ -49,6 +58,7 @@ def safety_lines(url):
     return [tr('Repository: {url}', url=printable(url)), '',
             tr('A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background.'),
             '',
+            tr(OFFICIAL_TRUST) if eitr_plugins.official(url) else
             tr('Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust.'),
             '',
             tr('Eitr asks for your password only in a terminal it opened for a step you started, such as System Update, never in a pop-up window. If a plugin asks for your password, it is not Eitr: do not type it.'),
@@ -74,8 +84,8 @@ def review_lines(root, spec, url):
     author = printable(git(root, 'show', '-s', '--format=%an <%ae> · %aI', 'HEAD'))
     flags = add_flags(root, spec)
     # The trust warning comes first, then the warnings, so both are read before any detail.
-    lines = [tr(TRUST), '', tr('Plugin: {name}', name=printable(spec['name'])),
-             tr('Plugin by {author} · not reviewed by Eitr', author=short_author(spec)), '']
+    lines = [tr(OFFICIAL_TRUST if eitr_plugins.official(url) else TRUST), '', tr('Plugin: {name}', name=printable(spec['name'])),
+             origin_line(spec, url), '']
     if flags:
         lines += [tr('Warnings:')] + [WARNING + flag for flag in flags] + ['']
     lines += [printable(spec['description']),
@@ -301,7 +311,8 @@ def count_text(change):
 
 def summary_lines(changes, limit=20):
     spec = changes['spec']
-    lines = [tr('Plugin by {author} · not reviewed by Eitr', author=short_author(spec)),
+    lines = [tr(OFFICIAL) if changes.get('official') else
+             tr('Plugin by {author} · not reviewed by Eitr', author=short_author(spec)),
              tr('Commit: {old} → {new}', old=changes['old'][:12], new=changes['new'][:12]), '',
              tr('Commits:')]
     lines += ['  ' + subject for subject in changes['subjects'][:limit]]

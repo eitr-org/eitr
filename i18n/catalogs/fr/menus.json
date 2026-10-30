@@ -609,5 +609,6 @@
   "Return pane to a tab": "Réunir le volet dans les onglets",
   "Select tab {number}": "Choisir l’onglet {number}",
   "Split side by side": "Diviser côte à côte",
-  "Split stacked": "Diviser verticalement"
+  "Split stacked": "Diviser verticalement",
+  "Official Eitr plugin": "Plugin officiel d’Eitr"
 }

@@ -2086,6 +2086,12 @@ msgstr "Âge du système"
 msgid "Object storage buckets"
 msgstr "Buckets de stockage d’objets"
 
+msgid "Official Eitr plugin"
+msgstr "Plugin officiel d’Eitr"
+
+msgid "Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr project. Like every plugin, it runs with your account’s full permissions."
+msgstr "Plugin officiel d’Eitr issu de eitr-org/eitr-plugins, vérifié par le projet Eitr. Comme tout plugin, il s’exécute avec tous les droits de votre compte."
+
 msgid "Ollama could not be installed. Your default assistant is unchanged."
 msgstr "Ollama n’a pas pu être installé. Votre assistant par défaut reste inchangé."
 

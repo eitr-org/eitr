@@ -224,6 +224,25 @@ class PluginTests(unittest.TestCase):
         # The second visit keeps the address typed before, ready to be corrected.
         self.assertEqual(addresses, ['', 'https://example.com/wrong.git'])
 
+    def test_only_the_official_repository_address_is_official(self):
+        for url in ('https://github.com/eitr-org/eitr-plugins.git', 'git@github.com:eitr-org/eitr-plugins.git',
+                    'https://github.com/Eitr-Org/eitr-plugins'):
+            self.assertTrue(plugins.official(url), url)
+        for url in ('https://github.com/eitr-org/eitr-plugins-extra.git', 'https://github.com/someone/eitr-plugins.git',
+                    'https://gitlab.com/eitr-org/eitr-plugins.git', self.url):
+            self.assertFalse(plugins.official(url), url)
+        cli = self.cli()
+        spec = {'name': 'Example', 'author': 'The Eitr project'}
+        self.assertEqual(cli.origin_line(spec, 'https://github.com/eitr-org/eitr-plugins.git'), 'Official Eitr plugin')
+        # A manifest claiming Eitr as its author is not enough.
+        self.assertIn('not reviewed by Eitr', cli.origin_line(spec, 'https://github.com/someone/plugin.git'))
+
+    def test_ai_report_markdown_becomes_plain_text(self):
+        import eitr_plugin_review
+        self.assertEqual(eitr_plugin_review.plain('## Summary'), 'Summary')
+        self.assertEqual(eitr_plugin_review.plain('- **radio.py** runs `lowfi`'), '• radio.py runs lowfi')
+        self.assertEqual(eitr_plugin_review.plain('2*3 stays'), '2*3 stays')
+
     def test_repository_picker_lists_metadata_and_selects_multiple(self):
         self.make_index()
         entries = plugins.repository_plugins(self.source)

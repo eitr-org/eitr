@@ -27,6 +27,15 @@ control characters. `run` names an executable file inside the repository, never
 an absolute path or a path containing `..`. Symlinks anywhere in a plugin are
 refused. Submodules are not initialized.
 
+## Official plugins
+
+Plugins from Eitr's own repository, `github.com/eitr-org/eitr-plugins`, are shown as
+**Official Eitr plugin** in Walker rows, the safety page, reviews and update
+summaries. Trust follows the repository address (HTTPS or SSH spelling), never a
+manifest's author field: any repository can claim to be by "The Eitr project". Official
+plugins still run with your account's full permissions and go through the same
+commit review.
+
 ## AI advice before installation
 
 Press **A: Ask the AI to check** in the install review when your installed default
