@@ -157,6 +157,24 @@ existing design and workflows rather than replacing them with upstream defaults.
   as `"\239\128\140"` in Lua: Elephant's Lua 5.1 has no `\u{}` escape and would
   send the text `u{F00C}`, which Walker draws as a missing icon. Use
   `elephant/choice-entries.lua` for small fixed choices.
+- The bar's data has one owner per kind. `quickshell/desktop-bar/DesktopData.qml` starts
+  one `scripts/bar-data.py` for every screen and talks to it in JSON lines; its domains
+  (network, capture, power, display, hardware, remote, weather, AI usage, updates) own
+  the reads and actions, and panels only display state and send requests. Add new bar
+  data as a domain there, not as a `Process` or timer in a panel. Domains load lazily
+  inside the bounded thread pool, every read and command has a deadline, nothing reads
+  on a fixed timer while no one observes it, the broker never starts a Python process
+  per read, and an action interrupted by a crash or timeout is never replayed. A domain's
+  validation accepts every shape its CLI really prints (null fields, empty lists,
+  "nothing found" exits). Helper scripts keep their CLI for Walker, hypridle and
+  shortcuts and share the domain's code. Debug with
+  `eitr-shell desktop-bar ipc call -- data status`; see the README's ownership section.
+- Settings helpers that a panel reads (Style: cursor, fonts, terminal, lockscreen,
+  desktop and workspace style, bar settings) answer with one JSON `summary`; panels ask
+  each helper once and parse through `JsonState.js`, never positional text. Keep the
+  helpers' menu subcommands unchanged for Walker.
+- Notification images decode at the size cards show them and share a byte budget
+  (`NotificationLogic.js`); visible images are never evicted and history is not shortened.
 - Walker system actions should open the same native panels as bar clicks. Use
   the existing `panels` IPC interface, including `call -- panels show <kind>`.
 - Settings groups Connectivity, Devices & Input, Language, Security, Style and System,
@@ -388,5 +406,10 @@ Check these before committing; reviews keep catching them.
   The whole bucket (ISO plus the `repo/` and `repo-testing/` package folders)
   must stay under R2's free 10 GB. Check its total before and after every ISO
   upload and every package publish, and stop to ask if a step would pass it.
+- Build and release tools (`handbook-build.py`, `i18n-build.py`, the package `check()`)
+  read the tree they build, never `/usr/share/eitr`: the package check runs before
+  anything is installed. Build packages only from committed code (`git archive HEAD`).
+- Check real hardware, not just the VM, for shared-data changes: a burst of requests,
+  real result shapes and slow commands only showed up there.
 - Another agent may be editing this checkout. Read `git status` and stage
   explicit paths; never stage website build output.
