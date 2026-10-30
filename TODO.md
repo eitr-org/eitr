@@ -30,18 +30,20 @@ LAN.
 # 2. Smaller items
 
 - **Light themes.** The owner has ideas for more light themes; create them later.
-- **Performance on weak computers: verify on target hardware.** Implemented
-  event-driven bar settings/palette/display updates, 30–60 s recovery checks,
-  open-only panel telemetry, shared WiFi/OBS status, session-cached hardware
-  identity, screen-sized wallpaper decoding, 5 Hz motion behind windows and
-  a still wallpaper on software renderers. Login stages wallpaper and bar before
-  optional helpers. Blur and desktop styling stay unchanged; no extra preset.
-  Remaining: measure idle process launches and cold login on a slow VM and real
-  hardware, including multi-monitor changes and OBS tray-only launches.
-- **Walker menu organisation: decide on the review.** Proposals: System becomes
-  Settings with a Control Center row, Toggle becomes Quick Actions, clearer plugin
-  and calendar names, System Update one level up, Default Assistant inside AI,
-  consistent names, and the rule slips it found (missing descriptions and checks).
+- **Performance: measure on real weak hardware.** Polling now follows events and
+  closed panels stay quiet: idle launches in a 4-core VM fell from ~800 to ~40 a
+  minute (CPU 25% to 1% of one core). Still to check on an old laptop, with
+  multiple monitors and with OBS started straight into the tray.
+- **Live wallpaper at lower resolution.** Render the aurora into a smaller target
+  and scale it up; worthwhile on weak integrated GPUs.
+- **Shared data service for the bar (refactor, after the improvements).** One
+  long-running helper instead of short-lived scripts per panel.
+- **Wallpaper missing without a GPU.** hyprpaper 0.8.4 crashes at every login in a
+  VM without 3D acceleration (`CWaylandBuffer` in hyprtoolkit), leaving a plain
+  background. Report upstream and show the still wallpaper another way meanwhile.
+- **Login time before Eitr starts.** In the VM, ~6 s of the ~8.5 s from password
+  to bar pass in uwsm, `start-hyprland` and Hyprland's own start-up, before any Eitr
+  program runs. Investigate where that time goes.
 - **Website evidence and screenshots.** Keep the public pages in step with verified
   desktop behavior. A feature gets a screenshot when it has a screen people look
   for (a panel, menu or wizard) shown on the website or in the Handbook;
