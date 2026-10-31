@@ -59,14 +59,9 @@ if mode.startswith("theme"):
     def is_light(directory):
         return (directory / "light.mode").is_file()
 
-    if mode == "theme":
-        active = next((directory for directory in theme_paths().values() if directory.name == current),
-                      config / "theme/current")
-        mode = "theme-light" if is_light(active) else "theme-dark"
-    if mode in {"theme-dark", "theme-light"}:
-        light = mode == "theme-light"
+    if mode in {"theme", "theme-dark", "theme-light"}:
         for directory in directories:
-            if is_light(directory) == light:
+            if mode == "theme" or is_light(directory) == (mode == "theme-light"):
                 mine = directory.parent == own("themes")
                 entries.append({"name": tr('{name} (yours)', name=display_name(directory)) if mine else display_name(directory),
                                 "value": directory.name,

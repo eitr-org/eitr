@@ -25,6 +25,6 @@ assert.equal(context.items.length, 0);
 search('');
 assert.equal(context.items.length, 3);
 assert.equal(context.allItems.length, 3);
-assert.ok(source.includes('mode === "theme-dark" || mode === "theme-light"'));
+assert.ok(source.includes('readonly property bool searchable: mode.startsWith("theme")'));
 assert.ok(source.includes('visible: picker.searchable && picker.searchText.length > 0'));
 console.log('Theme carousel search checks passed');

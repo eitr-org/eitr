@@ -4,9 +4,10 @@
 
 Open **Settings > Style > Theme** or **SUPER + Ctrl + Shift + N** for Walker's
 Dark/Light theme menus. The desktop theme carousel (desktop right double-click,
-Control Center > Style > Theme or appearance IPC) opens directly on the current
-theme's light or dark mode. Use the Sun for light themes and Moon for dark themes;
-Ctrl+Tab switches modes. Start typing to search within the shown mode; arrows/Tab
+Control Center > Style > Theme or appearance IPC) shows every theme. The Sun
+above the selected card shows only light themes and the Moon only dark ones; click
+the selected one again to show all. Ctrl+Tab cycles all, dark and light. Start
+typing to search the shown themes; arrows/Tab
 move and Enter applies. Backspace edits search or closes when empty; Escape
 clears search before closing. The wallpaper carousel has no theme search.
 

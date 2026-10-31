@@ -19,7 +19,7 @@ Item {
     property var allItems: []
     property var catalogs: ({})
     property string searchText: ""
-    readonly property bool searchable: mode === "theme-dark" || mode === "theme-light"
+    readonly property bool searchable: mode.startsWith("theme")
     property int selectedIndex: 0
     property color accent: "#cdd6f4"
     property color foreground: "#ffffff"
@@ -58,15 +58,16 @@ Item {
     function apply() {
         if (!items.length || applyProcess.running)
             return;
-        var script = mode.startsWith("theme-") ? "style/apply.sh" : "wallpaper/apply.sh";
+        var script = mode.startsWith("theme") ? "style/apply.sh" : "wallpaper/apply.sh";
         applyProcess.command = [Eitr.Paths.code("walker/scripts/actions/") + script, items[selectedIndex].value];
         opened = false;
         applyProcess.running = true;
     }
 
-    function switchThemeMode() {
+    // All themes by default; a Sun or Moon click shows only that mode, a second click all again.
+    function filterThemes(target) {
         if (!loader.running && searchable)
-            open(mode === "theme-light" ? "theme-dark" : "theme-light", targetScreen);
+            open(mode === target ? "theme" : target, targetScreen);
     }
 
     Process {
@@ -172,7 +173,7 @@ Item {
                     if (picker.searchText) picker.search(picker.searchText.slice(0, -1));
                     else picker.opened = false;
                 }
-                else if (picker.searchable && event.key === Qt.Key_Tab && (event.modifiers & Qt.ControlModifier)) picker.switchThemeMode();
+                else if (picker.searchable && event.key === Qt.Key_Tab && (event.modifiers & Qt.ControlModifier)) picker.filterThemes(picker.mode === "theme" ? "theme-dark" : picker.mode === "theme-dark" ? "theme-light" : "theme");
                 else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) picker.apply();
                 else if (event.key === Qt.Key_Left || (!picker.searchable && event.key === Qt.Key_H)) picker.navigate(-1);
                 else if (event.key === Qt.Key_Right || (!picker.searchable && event.key === Qt.Key_L) || event.key === Qt.Key_Tab) picker.navigate(1);
@@ -188,7 +189,8 @@ Item {
             }
             Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
-                y: PanelStyle.padding
+                // Just above the selected card.
+                y: Math.max(PanelStyle.padding, (content.height - content.previewHeight) / 2 - 36 - height)
                 width: filters.implicitWidth + 12
                 height: PanelStyle.selectionRowHeight + 12
                 radius: DesktopStyle.radius(PanelStyle.controlRadius)
@@ -217,7 +219,7 @@ Item {
                             border.color: Qt.rgba(foreground.r, foreground.g, foreground.b, PanelStyle.selectionBorderAlpha)
                             Accessible.name: modelData.label
                             onClicked: {
-                                if (!selected) picker.switchThemeMode();
+                                picker.filterThemes(modelData.mode);
                                 content.forceActiveFocus();
                             }
                             MouseArea {
@@ -233,7 +235,7 @@ Item {
             Text {
                 visible: picker.searchable && picker.searchText.length > 0
                 anchors.horizontalCenter: parent.horizontalCenter
-                y: Math.max(PanelStyle.padding, (content.height - content.previewHeight) / 2 - 70)
+                y: Math.max(PanelStyle.padding, (content.height - content.previewHeight) / 2 - 36 - PanelStyle.selectionRowHeight - 12 - 40)
                 width: content.previewWidth
                 horizontalAlignment: Text.AlignHCenter
                 elide: Text.ElideLeft

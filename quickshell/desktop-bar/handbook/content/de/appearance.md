@@ -2,7 +2,7 @@
 
 ## Designs und Hintergrundbilder
 
-Öffne **Einstellungen > Stil > Design** oder **SUPER + Ctrl + Shift + N** für Walkers Dunkel/Hell-Menüs. Das Designkarussell des Desktops (rechter Doppelklick auf den Desktop, Kontrollzentrum > Stil > Design oder appearance-IPC) öffnet direkt im hellen oder dunklen Modus des aktuellen Designs. Die Sonne zeigt helle Designs, der Mond dunkle; Ctrl+Tab wechselt den Modus. Tippe zum Suchen im angezeigten Modus; Pfeiltasten/Tab wechseln die Auswahl, Enter wendet sie an. Backspace bearbeitet die Suche oder schließt bei leerer Suche; Escape leert die Suche vor dem Schließen. Das Hintergrundbildkarussell hat keine Designsuche.
+Öffne **Einstellungen > Stil > Design** oder **SUPER + Ctrl + Shift + N** für Walkers Dunkel/Hell-Menüs. Das Designkarussell des Desktops (rechter Doppelklick auf den Desktop, Kontrollzentrum > Stil > Design oder appearance-IPC) zeigt alle Designs. Die Sonne über der ausgewählten Karte zeigt nur helle Designs, der Mond nur dunkle; ein zweiter Klick auf die ausgewählte zeigt wieder alle. Ctrl+Tab wechselt zwischen allen, dunklen und hellen. Tippe zum Suchen in den angezeigten Designs; Pfeiltasten/Tab wechseln die Auswahl, Enter wendet sie an. Backspace bearbeitet die Suche oder schließt bei leerer Suche; Escape leert die Suche vor dem Schließen. Das Hintergrundbildkarussell hat keine Designsuche.
 
 **SUPER + Ctrl + N** öffnet die Hintergrundbilder, **SUPER + Shift + N** wechselt zum nächsten. Ein Häkchen markiert die aktive Wahl in Walker. Änderungen zeigen keine Erfolgsbenachrichtigungen. Ultrawide-Monitore, deren Breite mindestens das Doppelte der Höhe beträgt, verwenden die 21:9-Version mit weniger Beschnitt; andere verwenden 4K in 16:9.
 

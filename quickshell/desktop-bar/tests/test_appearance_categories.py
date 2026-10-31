@@ -36,9 +36,7 @@ class AppearanceThemeTests(unittest.TestCase):
                 )
                 return json.loads(result.stdout)["items"]
 
-            self.assertEqual([item["value"] for item in load("theme")], ["dark-a", "dark-b"])
-            (cache / "current-theme").write_text("light-a\n")
-            self.assertEqual([item["value"] for item in load("theme")], ["light-a"])
+            self.assertEqual(sorted(item["value"] for item in load("theme")), ["dark-a", "dark-b", "light-a"])
             (cache / "current-theme").write_text("dark-b\n")
             self.assertEqual([item["name"] for item in load("theme-dark")], ["Dark A", "Dark B"])
             self.assertEqual([item["value"] for item in load("theme-dark")], ["dark-a", "dark-b"])
