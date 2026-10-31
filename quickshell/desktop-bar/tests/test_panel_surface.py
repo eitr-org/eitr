@@ -257,3 +257,141 @@ ShellRoot {
     }
 }
 '''
+
+
+class PanelPlacementTests(unittest.TestCase):
+    @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')
+    def test_real_popup_edge_contact_has_no_binding_loops(self):
+        bar = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = Path(temporary) / 'shell.qml'
+            fixture.write_text(PLACEMENT_FIXTURE.replace('BAR', bar.as_uri()))
+            environment = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
+                QML_IMPORT_PATH=str(bar.parent), EITR_CODE_ROOT=temporary,
+                HOME=temporary, XDG_CONFIG_HOME=temporary, XDG_STATE_HOME=temporary,
+                XDG_DATA_HOME=temporary, XDG_CACHE_HOME=temporary, XDG_RUNTIME_DIR=temporary,
+                DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent', HYPRLAND_INSTANCE_SIGNATURE='')
+            result = subprocess.run(['quickshell', '-p', str(fixture)], env=environment,
+                text=True, capture_output=True, timeout=30)
+            output = result.stdout + result.stderr
+            self.assertEqual(result.returncode, 0, output)
+            self.assertIn('PLACEMENT_OK 294', output)
+            self.assertNotIn('Binding loop detected', output)
+            self.assertNotIn('ReferenceError', output)
+            self.assertNotIn('TypeError', output)
+
+
+PLACEMENT_FIXTURE = '''import QtQuick
+import Quickshell
+import "BAR" as Bar
+ShellRoot {
+    FloatingWindow {
+        id: window
+        visible: true; implicitWidth: 600; implicitHeight: 600
+        property string layout: "full"
+        property bool centeredLayout: layout === "centered"
+        property bool notchLayout: layout === "tabs"
+        property bool islandsLayout: layout === "islands"
+        property real islandGap: 6
+        property real panelGap: 24
+        property var outerGaps: [12, 12, 12, 12]
+        property Item stripItem: strip
+        property string edge: "top"
+        property bool vertical: edge === "left" || edge === "right"
+        Item {
+            id: strip
+            width: window.vertical ? 30 : 600
+            height: window.vertical ? 600 : 30
+            x: window.edge === "right" ? 570 : 0
+            y: window.edge === "bottom" ? 570 : 0
+        }
+        Bar.WorkspaceStyleMenu {
+            id: workspaceMenu
+            target: window.stripItem
+            currentStyle: "Numbers"; selectedForeground: "black"
+            foreground: "white"; background: "black"; accent: "cyan"
+        }
+        Component {
+            id: popupComponent
+            Bar.ThemedPopup {
+                id: popup
+                parent: window.contentItem
+                target: window.stripItem; barEdge: window.edge
+                foreground: "white"; background: "black"; accent: "cyan"
+                property real baseExtent: 260
+                property real offset: 0
+                leadingOffset: offset
+                // The same size feedback as a content-sized menu, on either axis.
+                edgeContactWidth: window.vertical ? 200 : baseExtent
+                edgeContactHeight: window.vertical ? baseExtent : 200
+                implicitWidth: window.vertical ? 200 : baseExtent + horizontalContentInset - 48
+                implicitHeight: window.vertical ? baseExtent + surface.leadingBodyInset + surface.trailingBodyInset : 200
+                property var surface: children.find(child => child.toString().startsWith("PanelSurface"))
+            }
+        }
+        property var cases: []
+        property var panel: null
+        property int current: 0
+        Component.onCompleted: {
+            Bar.DesktopStyle.reduceMotion = true;
+            for (var edge of ["top", "bottom", "left", "right"])
+                for (var layout of ["full", "centered", "tabs", "islands"])
+                    for (var alignment of ["left", "center", "right"])
+                        for (var extent of [260, 600, 640])
+                            for (var light of [false, true])
+                                cases.push({edge: edge, layout: layout, alignment: alignment, extent: extent, light: light, offset: 0});
+            // A vertical leading offset must survive until the screen clamp wins.
+            for (var edge of ["left", "right"])
+                for (var extent of [260, 600, 640])
+                    cases.push({edge: edge, layout: "full", alignment: "left", extent: extent, light: false, offset: 17});
+            tick.start();
+        }
+        Timer {
+            id: tick; interval: 5; repeat: true
+            onTriggered: {
+                if (window.panel) {
+                    var panel = window.panel;
+                    var surface = panel.surface;
+                    var position = window.vertical ? panel.y : panel.x;
+                    var extent = window.vertical ? panel.height : panel.width;
+                    var leading = position <= 0;
+                    var trailing = position + extent >= 600;
+                    function check(condition, message) {
+                        if (!condition) { console.error(JSON.stringify(window.cases[window.current - 1]) + ": " + message); Qt.exit(1); }
+                    }
+                    check(surface.flushLeading === leading, "leading contact");
+                    check(surface.flushTrailing === trailing, "trailing contact " + [panel.placementExtent, panel.availableExtent, panel.placementStart, panel.touchesTrailingEdge, surface.flushTrailing]);
+                    check(surface.leadingBodyInset === (panel.detached || leading ? 0 : 14), "leading inset");
+                    check(surface.trailingBodyInset === (panel.detached || trailing ? 0 : 14), "trailing inset");
+                    var expectedExtent = panel.detached ? Math.min(panel.baseExtent, 576)
+                        : panel.baseExtent + (leading ? 0 : 14) + (trailing ? 0 : 14);
+                    check(extent === expectedExtent, "size " + extent + " vs " + expectedExtent);
+                    var desired = panel.centeredPlacement || panel.alignment === "center" ? (600 - extent) / 2
+                        : panel.alignment === "left" ? (window.vertical ? panel.offset : 0) : 600 - extent;
+                    var inset = panel.detached ? 12 : 0;
+                    check(position === Math.max(inset, Math.min(600 - extent - inset, desired)), "position " + [position, desired, panel.hostWindow, panel.strip, panel.attachmentTarget]);
+                    var frame = surface.children[0].children.find(child => child.objectName === "panelContentFrame");
+                    check((window.vertical ? frame.y : frame.x) === 24 + surface.leadingBodyInset, "content start");
+                    check((window.vertical ? frame.height : frame.width) === extent - 48
+                        - surface.leadingBodyInset - surface.trailingBodyInset, "content extent");
+                    var crossPosition = window.vertical ? panel.x : panel.y;
+                    var expectedCross = window.edge === "top" || window.edge === "left"
+                        ? 30 + panel.attachmentGap : 570 - 200 - panel.attachmentGap;
+                    check(crossPosition === expectedCross, "attachment position");
+                    check(workspaceMenu.width > 0 && workspaceMenu.horizontalContentInset >= 48, "workspace menu size");
+                    panel.destroy(); window.panel = null;
+                }
+                if (window.current === window.cases.length) {
+                    console.log("PLACEMENT_OK " + window.cases.length); Qt.quit(); return;
+                }
+                var data = window.cases[window.current++];
+                window.edge = data.edge; window.layout = data.layout;
+                window.panel = popupComponent.createObject(window.contentItem, {
+                    parent: window.contentItem, alignment: data.alignment, baseExtent: data.extent, offset: data.offset,
+                    background: data.light ? "#eeeeee" : "#202020"
+                });
+            }
+        }
+    }
+}
+'''

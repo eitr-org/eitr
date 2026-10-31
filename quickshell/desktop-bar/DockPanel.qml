@@ -89,6 +89,25 @@ Item {
             easing.type: panel.opened ? Easing.OutCubic : Easing.InCubic
         }
     }
+    // Placement inputs exclude any trailing join that edge contact itself removes.
+    property real edgeContactWidth: implicitWidth
+    property real edgeContactHeight: implicitHeight
+    readonly property bool verticalAttachment: attachmentEdge === "left" || attachmentEdge === "right"
+    readonly property real placementExtent: {
+        var desired = verticalAttachment ? edgeContactHeight : edgeContactWidth;
+        return detached ? Math.min(desired, availableExtent - (verticalAttachment
+            ? edgeInsets[0] + edgeInsets[2] : edgeInsets[1] + edgeInsets[3])) : desired;
+    }
+    readonly property real availableExtent: parent ? (verticalAttachment ? parent.height : parent.width) : 0
+    readonly property real placementStart: {
+        if (!strip || !parent || !attachmentTarget) return 0;
+        var desired = centeredPlacement || alignment === "center" ? (availableExtent - placementExtent) / 2
+            : alignment === "left" ? (verticalAttachment ? leadingOffset : 0) : availableExtent - placementExtent;
+        return Math.max(verticalAttachment ? edgeInsets[0] : edgeInsets[3],
+            Math.min(availableExtent - placementExtent - (verticalAttachment ? edgeInsets[2] : edgeInsets[1]), desired));
+    }
+    readonly property bool touchesLeadingEdge: placementStart <= 0
+    readonly property bool touchesTrailingEdge: !!parent && placementStart + placementExtent >= availableExtent
     readonly property real desiredWidth: implicitWidth
     readonly property real desiredHeight: implicitHeight
     readonly property var hostWindow: attachmentTarget ? attachmentTarget.QsWindow.window : null

@@ -582,7 +582,11 @@ popups and history.
 Attached panel backgrounds retain the fluid bar join. Their inner content uses
 twice the live Hyprland outer gaps on all four sides; per-panel content containers do
 not add a second outer margin. Bottom bars mirror the same content inset without
-detaching the panel from the bar.
+detaching the panel from the bar. `DockPanel` supplies screen-edge contact from
+placement inputs rather than its resulting geometry. Content-sized panels whose
+join insets affect implicit size supply `edgeContactWidth` or `edgeContactHeight`
+without the trailing join inset, keeping the contact decision independent of it.
+Other surface hosts retain geometric edge detection.
 
 `PanelStyle.js` defines the shared font family, utility heading (16 px),
 body/control text (13 px), secondary text and captions (12 px), padding, corner radii

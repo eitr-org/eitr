@@ -8,10 +8,11 @@ ThemedPopup {
     required property color selectedForeground
     signal selected(string style)
 
-    implicitWidth: Math.max(296, PanelStyle.selectionTextInset + labelMetrics.advanceWidth
-                           + 12 + 5 * 23 + 4 * 4 + 10
-                           + horizontalContentInset)
+    readonly property real rowWidth: PanelStyle.selectionTextInset + labelMetrics.advanceWidth + 12 + 5 * 23 + 4 * 4 + 10
+    implicitWidth: Math.max(296, rowWidth + horizontalContentInset)
     implicitHeight: styles.length * PanelStyle.selectionRowHeight + (styles.length - 1) * PanelStyle.selectionRowGap + verticalContentInset
+    // Without the join insets, which depend on edge contact.
+    edgeContactWidth: Math.max(296, rowWidth + (contentGaps[1] + contentGaps[3]) * PanelStyle.contentGapMultiplier)
     leftAligned: true
     readonly property var styles: ["Dots", "Glyph", "Numbers", "Runes"]
 

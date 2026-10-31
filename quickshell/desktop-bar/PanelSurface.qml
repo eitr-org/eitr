@@ -11,10 +11,12 @@ Item {
     readonly property bool vertical: edge === "left" || edge === "right"
     readonly property real progress: hostWindow.revealProgress
     readonly property bool detached: !!hostWindow.detached
-    readonly property bool flushLeading: vertical ? hostWindow.y <= 0 : hostWindow.x <= 0
-    readonly property bool flushTrailing: hostWindow.parent && (vertical
-        ? hostWindow.y + hostWindow.height >= hostWindow.parent.height
-        : hostWindow.x + hostWindow.width >= hostWindow.parent.width)
+    readonly property bool flushLeading: hostWindow.touchesLeadingEdge !== undefined
+        ? hostWindow.touchesLeadingEdge : vertical ? hostWindow.y <= 0 : hostWindow.x <= 0
+    readonly property bool flushTrailing: hostWindow.touchesTrailingEdge !== undefined
+        ? hostWindow.touchesTrailingEdge : !!hostWindow.parent && (vertical
+            ? hostWindow.y + hostWindow.height >= hostWindow.parent.height
+            : hostWindow.x + hostWindow.width >= hostWindow.parent.width)
     // Concave joins inset the painted body except at a flush screen edge, or
     // when the host meets its edge with straight sides (edgeJoins: false).
     // Pad relative to that body, not the larger rectangular attachment area.
