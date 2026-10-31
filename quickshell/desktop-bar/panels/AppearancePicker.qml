@@ -227,6 +227,7 @@ Item {
                                 anchors.fill: parent
                                 acceptedButtons: Qt.NoButton
                                 hoverEnabled: true
+                                cursorShape: Qt.PointingHandCursor
                             }
                         }
                     }
