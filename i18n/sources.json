@@ -22,8 +22,8 @@
     "AI Usage": [
       "quickshell/desktop-bar/AiUsageMenu.qml",
       "quickshell/desktop-bar/BarLeftGroup.qml",
-      "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/BarWindow.qml",
+      "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "AUTHENTICATE": [
       "quickshell/lockscreen/themes/nothing/Main.qml"
@@ -499,8 +499,8 @@
     ],
     "Hardware": [
       "quickshell/desktop-bar/BarLeftGroup.qml",
-      "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/BarWindow.qml",
+      "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Hardware information unavailable": [
       "quickshell/desktop-bar/SystemMonitorMenu.qml"
@@ -852,8 +852,8 @@
     ],
     "Overview": [
       "quickshell/desktop-bar/BarLeftGroup.qml",
-      "quickshell/desktop-bar/WorkspaceOverview.qml",
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/BarWindow.qml",
+      "quickshell/desktop-bar/WorkspaceOverview.qml"
     ],
     "PASSWORD": [
       "quickshell/lockscreen/themes/nothing/Main.qml"

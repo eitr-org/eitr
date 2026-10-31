@@ -1,4 +1,5 @@
 """Load the extracted per-screen sections offscreen with inert data and panel controls."""
+from bar_frame_source import frame_source
 import json
 import os
 from pathlib import Path
@@ -16,7 +17,7 @@ SECTIONS = ('BarHorizontalCenter', 'BarHorizontalStatus', 'BarVerticalCenter', '
 
 class BarSectionTests(unittest.TestCase):
     def test_dependencies_cannot_shadow_the_outside_ids(self):
-        shell = (BAR / 'shell.qml').read_text()
+        shell = frame_source(BAR)
         for name in SECTIONS:
             source = (BAR / (name + '.qml')).read_text()
             instance = qml_block(shell, name + ' {')
@@ -29,7 +30,7 @@ class BarSectionTests(unittest.TestCase):
 
     @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')
     def test_sections_bind_and_keep_the_clock_centred_on_each_screen(self):
-        shell = (BAR / 'shell.qml').read_text()
+        shell = frame_source(BAR)
         aliases = shell.split('                // Centre and status items remain available', 1)[1]
         aliases = aliases.split('                NotificationPopups {', 1)[0]
         aliases = '\n'.join(line for line in aliases.splitlines() if 'property alias' in line)

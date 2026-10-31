@@ -1,4 +1,5 @@
 """Render the production notch geometry and surfaces without a desktop connection."""
+from bar_frame_source import frame_source
 import itertools
 from concurrent.futures import ThreadPoolExecutor
 import json
@@ -16,7 +17,7 @@ BAR = ROOT / 'quickshell/desktop-bar'
 @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')
 class NotchLayoutTests(unittest.TestCase):
     def test_notch_edges_and_themes(self):
-        shell_source = (BAR / 'shell.qml').read_text()
+        shell_source = ((BAR / 'shell.qml').read_text() + frame_source(BAR))
         tab = shell_source.split('                    Item {\n                        id: tabStrip\n                        visible: shell.notchLayout', 1)[1].split('                    HoverHandler {\n                        id: barHover', 1)[0]
         outline = tab.split('id: tabsOutline', 1)[1]
         self.assertNotIn('DesktopStyle', outline)

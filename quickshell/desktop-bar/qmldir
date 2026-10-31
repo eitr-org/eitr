@@ -110,3 +110,4 @@ BarVerticalCenter BarVerticalCenter.qml
 BarVerticalStatus BarVerticalStatus.qml
 BarHorizontalStatus BarHorizontalStatus.qml
 BarHorizontalCenter BarHorizontalCenter.qml
+BarWindow BarWindow.qml

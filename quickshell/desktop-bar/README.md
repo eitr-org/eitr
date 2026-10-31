@@ -716,7 +716,11 @@ button effects and meters use it. Infinite indicators stop under reduced motion;
 loading state remains visible. Realm screenshot flashes and Fenrir are suppressed.
 Data refresh, focus, notification-expiry and pointer-leave timers are unchanged.
 
-Inventory: `shell.qml`'s `dockPanels`, `showKind()`/`panels` IPC, Control Center
+`shell.qml` owns shared state and service wiring. Each `BarWindow.qml` owns one
+screen's frame, input regions, bar sections and panel routing, receiving its shell
+host and service dependencies explicitly.
+
+Inventory: `BarWindow.qml`'s `dockPanels`, `showKind()`/`panels` IPC, Control Center
 page routing, `qmldir`, and auxiliary popup/overlay types. `brightness`/`display`
 and `volume`/`mic` are aliases of the same panels. Walker uses these same IPC
 kinds; it does not instantiate another copy.

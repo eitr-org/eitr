@@ -1,7 +1,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
-const source = fs.readFileSync(`${__dirname}/../shell.qml`, 'utf8');
+const source = fs.readFileSync(`${__dirname}/../BarWindow.qml`, 'utf8').replace(/^/gm, '            ').replace(/\bhost\b/g, 'shell');
 const context = {pendingPanel: null, pendingOverview: false, overview: {opened: false, visible: false}, dockPanels: []};
 vm.createContext(context);
 for (const name of ['closePanels', 'showPanel', 'togglePanel', 'toggleOverview', 'finishPanelSwitch']) {

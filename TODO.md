@@ -38,10 +38,8 @@ LAN.
   index answer in milliseconds after login, so the delay is elsewhere (Walker's
   window, or what else starts then). The owner will record the next reboot.
 - **Maintainability refactors.** In this order (the owner's):
-  1. Split `shell.qml` (about 2,500 lines): data owners first, then one bar section
-     at a time, keeping the centred clock, panel anchors and click-through gaps.
-  2. Retire the older VS Code / LazyVim project providers once nothing uses them.
-  3. Organize the whole repository once `shell.qml` is split, so it is mature and easy
+  1. Retire the older VS Code / LazyVim project providers once nothing uses them.
+  2. Organize the whole repository so it is mature and easy
      to work in. Start with a full overview (every top-level folder, what lives where,
      what installs where, naming, docs) and agree the target layout before moving
      anything; the overview also lists refactoring candidates it finds (duplicated

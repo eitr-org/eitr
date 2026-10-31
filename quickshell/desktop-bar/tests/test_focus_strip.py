@@ -1,4 +1,5 @@
 """Render the production Focus view with sanitized fixtures."""
+from bar_frame_source import frame_source
 import json
 import os
 from pathlib import Path
@@ -71,7 +72,7 @@ ShellRoot {
 class FocusStripTests(unittest.TestCase):
     def test_focus_keeps_the_bar_window_mapped(self):
         # Unmapping the bar's layer window while Focus starts crashes Quickshell 0.3.2.
-        shell = (BAR / 'shell.qml').read_text()
+        shell = frame_source(BAR)
         self.assertIn('visible: shell.barVisible || panelOpen', shell)
         self.assertIn('Region { item: FocusMode.enabled ? null :', shell)
         self.assertIn('visible: shell.centeredLayout && !FocusMode.enabled', shell)

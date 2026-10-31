@@ -1,4 +1,5 @@
 """Exercise production Islands surfaces and their rounded input regions offscreen."""
+from bar_frame_source import frame_source
 import json
 import os
 import re
@@ -27,7 +28,7 @@ def qml_block(source, marker):
 @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')
 class IslandsLayoutTests(unittest.TestCase):
     def test_pills_edges_corners_players_and_input(self):
-        source = (BAR / 'shell.qml').read_text()
+        source = frame_source(BAR)
         surfaces = qml_block(source, '                Item {\n                    id: islandSurfaces')
         targets = ('verticalControlCenterLogo', 'controlCenterLogo', 'verticalOverviewIcon', 'overviewIcon',
                    'verticalWorkspaces', 'verticalHardware', 'hardwareStatus',

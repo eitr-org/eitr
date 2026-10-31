@@ -1,4 +1,5 @@
 """Render the actual plugin host with trusted example and failed components."""
+from bar_frame_source import frame_source
 import json
 import os
 from pathlib import Path
@@ -374,7 +375,7 @@ ShellRoot {
             }))
             clock = next(entry for entry in entries if entry['kind'] == 'widgets')
             dot = next(entry for entry in entries if entry['kind'] == 'barItems')
-            shell_source = (BAR / 'shell.qml').read_text()
+            shell_source = frame_source(BAR)
             tabs = shell_source.split('                    Item {\n                        id: tabStrip\n                        visible: shell.notchLayout', 1)[1].split('                    HoverHandler {\n                        id: barHover', 1)[0]
             tabs = 'Item {\n visible: shell.notchLayout' + tabs
             for mode in ('widget-dark', 'widget-light', 'widget-edit', 'bar-full', 'bar-tabs', 'management', 'management-disabled'):

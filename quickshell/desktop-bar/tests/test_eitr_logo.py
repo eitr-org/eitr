@@ -1,4 +1,5 @@
 """Keep the Control Center launcher first in both bar orientations."""
+from bar_frame_source import frame_source
 from pathlib import Path
 import unittest
 
@@ -7,7 +8,7 @@ BAR = Path(__file__).resolve().parents[1]
 
 class EitrLogoTests(unittest.TestCase):
     def test_logo_precedes_overview_and_toggles_control_center(self):
-        shell = (BAR / 'shell.qml').read_text()
+        shell = frame_source(BAR)
         left = (BAR / 'BarLeftGroup.qml').read_text()
         for source, group, identifier, owner, window in ((shell, 'verticalWorkspaces', 'verticalControlCenterLogo', 'shell', 'bar'),
                                                          (left, 'workspaceRow', 'logo', 'host', 'barWindow')):

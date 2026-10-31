@@ -1,9 +1,10 @@
+from bar_frame_source import frame_source
 from pathlib import Path
 import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SHELL = (ROOT / "shell.qml").read_text()
+SHELL = (ROOT / "shell.qml").read_text() + frame_source(ROOT)
 
 
 class IdleLockBindingsTests(unittest.TestCase):

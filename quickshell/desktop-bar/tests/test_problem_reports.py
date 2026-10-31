@@ -1,3 +1,4 @@
+from bar_frame_source import frame_source
 import importlib.util
 import json
 import os
@@ -24,6 +25,6 @@ class ProblemReportTests(unittest.TestCase):
             self.assertTrue(json.loads((Path(directory) / "eitr/crash-help.json").read_text())["enabled"])
 
     def test_bar_does_not_start_a_second_crash_watcher(self):
-        shell = (BAR / "shell.qml").read_text()
+        shell = ((BAR / "shell.qml").read_text() + frame_source(BAR))
         self.assertNotIn('id: problemCheck', shell)
         self.assertNotIn('problem-notify.sh', shell)

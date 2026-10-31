@@ -1,4 +1,5 @@
 """Render the production Centered silhouette on every edge and expansion state."""
+from bar_frame_source import frame_source
 import json
 import os
 from pathlib import Path
@@ -15,7 +16,7 @@ BAR = Path(__file__).resolve().parents[1]
 @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')
 class CenteredSlopesTests(unittest.TestCase):
     def test_edges_collapsed_and_expanded(self):
-        source = (BAR / 'shell.qml').read_text()
+        source = frame_source(BAR)
         outline = 'Shape {' + source.split('                Shape {\n                    id: centeredOutline', 1)[1].split('                Item {\n                    id: barContents', 1)[0]
         outline = outline.replace('\n                    visible:', '\n                    id: centeredOutline\n                    visible:', 1)
         self.assertNotIn('DesktopStyle.radius', outline)

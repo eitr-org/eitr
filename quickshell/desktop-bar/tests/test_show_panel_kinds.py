@@ -1,3 +1,4 @@
+from bar_frame_source import frame_source
 from pathlib import Path
 import re
 import unittest
@@ -17,15 +18,15 @@ def show_panel_allowlist():
 
 
 def ipc_show_kinds():
-    shell = (ROOT / "shell.qml").read_text()
+    shell = frame_source(ROOT)
     # The panels IPC forwards show() to the bar's showKind(), which holds the kind map.
     match = re.search(r"function showKind\(kind\) \{(.*?)\n\s*\}\n", shell, re.S)
     if not match:
-        raise AssertionError("showKind() not found in shell.qml")
+        raise AssertionError("showKind() not found in BarWindow.qml")
     body = match.group(1)
     mapping = re.search(r"var panels = \{(.*?)\};", body, re.S)
     if not mapping:
-        raise AssertionError("panels kind map not found in shell.qml")
+        raise AssertionError("panels kind map not found in BarWindow.qml")
     kinds = set(re.findall(r"(\w+):\s*\w+", mapping.group(1)))
     kinds.update(re.findall(r'kind === "(\w+)"', body))
     return kinds

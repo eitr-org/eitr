@@ -1,3 +1,4 @@
+from bar_frame_source import frame_source
 import importlib.util
 import os
 import shutil
@@ -126,7 +127,7 @@ class ControlCenterContracts(unittest.TestCase):
                          (root.parents[1] / 'branding/svg/eitr-logo-white.svg').read_bytes())
 
     def test_workspace_style_updates_immediately_from_both_menus(self):
-        shell = (Path(__file__).parents[1] / 'shell.qml').read_text()
+        shell = ((Path(__file__).parents[1] / 'shell.qml').read_text() + frame_source(Path(__file__).parents[1]))
         self.assertIn('onWorkspaceStyleRequested: function(value) { shell.setWorkspaceStyle(value); }', shell)
         self.assertIn('shell.setWorkspaceStyle(style);', shell)
         preferences = (Path(__file__).parents[1] / 'BarPreferences.qml').read_text()
@@ -142,7 +143,7 @@ class ControlCenterContracts(unittest.TestCase):
         self.assertNotIn('\n    x:', center)
         self.assertNotIn('\n    y:', center)
         self.assertIn('MediaCard {', center)
-        shell = (root / 'shell.qml').read_text()
+        shell = ((root / 'shell.qml').read_text() + frame_source(root))
         self.assertIn('Region { item: controlCenter.opened ? controlCenter : null }', shell)
         center_section = (root / 'BarHorizontalCenter.qml').read_text()
         self.assertIn('onDetailsRequested: barHost.togglePanel(mediaMenuRef)', center_section)
@@ -156,7 +157,7 @@ class HardwareSubscriberTests(unittest.TestCase):
     def test_panel_demand_lifetime_retained_errors_and_control_center_entry(self):
         bar = Path(__file__).parents[1]
         self.assertIn('center.panelRequested("hardware")', (bar / 'ControlCenter.qml').read_text())
-        self.assertNotIn('hardwareIdentity', (bar / 'shell.qml').read_text())
+        self.assertNotIn('hardwareIdentity', ((bar / 'shell.qml').read_text() + frame_source(bar)))
         panel = (bar / 'SystemMonitorMenu.qml').read_text()
         self.assertNotIn('Process {', panel)
         self.assertNotIn('Timer {', panel)

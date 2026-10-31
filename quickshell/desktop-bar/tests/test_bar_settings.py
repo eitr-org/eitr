@@ -1,3 +1,4 @@
+from bar_frame_source import frame_source
 import importlib.util
 import os
 import shutil
@@ -104,7 +105,7 @@ class BarSettingsTests(unittest.TestCase):
             self.assertEqual(bar_settings.read_settings()["screens"], "all")
             with self.assertRaises(ValueError):
                 bar_settings.save_settings({"screens": "some"})
-        shell = (Path(__file__).parents[1] / "shell.qml").read_text()
+        shell = ((Path(__file__).parents[1] / "shell.qml").read_text() + frame_source(Path(__file__).parents[1]))
         preferences = (Path(__file__).parents[1] / "BarPreferences.qml").read_text()
         self.assertIn('"set-all", host.barAppearance, host.barLayout, host.barEdge, host.barPinned ? "yes" : "no", host.barScreens, host.barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no", host.barMediaStyle, host.barDock ? "yes" : "no", host.barClock]', preferences)
         self.assertIn("enabled: bar.isMainBar", shell, "only the main bar receives shortcuts")
@@ -251,7 +252,7 @@ ShellRoot {
 
     def test_reveal_hold_delay_and_release_on_every_edge(self):
         bar = Path(__file__).resolve().parents[1]
-        source = (bar / "shell.qml").read_text()
+        source = ((bar / "shell.qml").read_text() + frame_source(bar))
         transform = source.split("id: barContents\n", 1)[1].split("                    width:", 1)[0].replace("FocusMode.", "Bar.FocusMode.")
         self.assertIn("exclusiveZone: !FocusMode.enabled && shell.barVisible && !shell.barAutoHide ? bar.reservedThickness : 0", source)
         self.assertIn("bar.panelOpen || bar.pendingPanel !== null || bar.pendingOverview || overview.visible || shell.barPointerHeld || notificationPopups.visible", source)
