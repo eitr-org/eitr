@@ -108,20 +108,14 @@ black ground (dark themes), so an OLED leaves those pixels off.
   the field and cools to gold. Arrows, Home and End move the caret; Backspace and
   Delete crumble the rune beside it into falling pieces. Selection is off, so every
   edit is a plain insert or delete.
-- **Unlock:** `unlockEffect` in `theme.conf` picks `lightning` (default) or
-  `bifrost`. Lightning is the website's hold-to-strike bolt
-  (`website/src/scripts/realm/mjolnir-charge.ts`): a jagged bolt from the top to
-  the centre, re-rolled once at 140 ms and faded by 420 ms, a faint 90 ms flash and
-  a small burst where it lands; then `shaders/burn.frag` burns the lockscreen away
-  from the centre like paper, a ragged circle with a glowing ember rim and charred
-  edge. Bifröst drops a spectrum beam down the middle that splits and opens like a
-  gate.
+- **Unlock:** successful authentication unlocks immediately. Enter and Escape
+  dismiss previews immediately. Submission, a failed login and changing accounts
+  clear the runes without crumbling.
 
-Reduce motion holds every layer still and skips the strike, crumbling and unlock
-effect. The caret blinks on a timer, never a looping animation, so the scene
+Reduce motion holds every layer still and skips the strike and crumbling.
+The caret blinks on a timer, never a looping animation, so the scene
 redraws about twenty times a second instead of at the monitor's refresh rate.
-`shaders/build.sh` regenerates the brand, sky and burn shaders; the desktop owns
+`shaders/build.sh` regenerates the brand and sky shaders; the desktop owns
 the aurora source and bytecode. Offscreen review executes the canonical aurora
 GLSL through surfaceless Mesa OpenGL; it does not establish hardware GPU cost.
-Preview unlock frames reveal only a synthetic desktop, and real unlock snapshots
-stay in memory. No photos, new generated artwork, bundled fonts or video are used.
+No photos, new generated artwork, bundled fonts or video are used.

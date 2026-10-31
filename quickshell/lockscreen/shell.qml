@@ -3,7 +3,6 @@ import QtQuick
 import QtQuick.Window
 import Quickshell
 import Quickshell.Wayland
-import "themes/eitr/Spectrum.js" as Spectrum
 
 ShellRoot {
     Component.onCompleted: Quickshell.watchFiles = Quickshell.env("EITR_LIVE_RELOAD") === "1"
@@ -16,27 +15,6 @@ ShellRoot {
     readonly property var keyboard: keyboardState
     property bool authenticated: false
     property bool unlocked: false
-    readonly property bool sweepEnabled: themePath.endsWith("/eitr") && config.reduceMotion !== true
-    signal snapshotAll()
-    Loader {
-        id: exitEffect
-        active: shell.sweepEnabled
-        asynchronous: true
-        source: "UnlockOverlay.qml"
-        onLoaded: {
-            item.authenticated = Qt.binding(function() { return shell.authenticated; });
-            // WlSessionLock.locked still reads true after release; secure reports the compositor's state.
-            item.locked = Qt.binding(function() { return !shell.unlocked; });
-            item.secure = Qt.binding(function() { return sessionLock.secure; });
-            item.reduced = !shell.sweepEnabled;
-            item.spectrum = Spectrum.colors(config.themeMode === "light");
-            item.style = config.unlockEffect || "bifrost";
-        }
-    }
-    function capture(item, screenName) {
-        if (exitEffect.item) exitEffect.item.capture(item, screenName);
-    }
-
     QtObject { id: keyboardState; property bool numLock: false }
     AuthAdapter {
         id: auth
@@ -44,36 +22,21 @@ ShellRoot {
         preview: false
         onAuthenticated: {
             shell.authenticated = true;
-            releaseTimer.start();
-        }
-    }
-
-    // With the unlock effect, the lock is held 150 ms longer so the effect's
-    // surface is already drawn beneath it when the desktop is revealed.
-    Timer {
-        id: releaseTimer
-        interval: shell.sweepEnabled ? 150 : 0
-        onTriggered: {
             shell.unlocked = true;
             Quickshell.execDetached(["loginctl", "unlock-session"]);
             quitTimer.start();
         }
     }
-    Timer { id: quitTimer; interval: shell.sweepEnabled ? 1200 : 200; onTriggered: Qt.quit() }
+
+    Timer { id: quitTimer; interval: 200; onTriggered: Qt.quit() }
 
     Component {
         id: themeSurface
         Item {
-            // Session-lock surfaces report no Window.screen; the surface passes its own.
-            property string screenName: ""
             // Returning from another account's login screen (Switch user) leaves the
             // lock without keyboard focus; give it back to the design when active again.
             readonly property bool windowActive: Window.active
             onWindowActiveChanged: if (windowActive && theme.item) theme.item.forceActiveFocus()
-            Connections {
-                target: shell
-                function onSnapshotAll() { shell.capture(theme.item, screenName); }
-            }
             Loader {
                 id: theme
                 anchors.fill: parent
@@ -82,14 +45,7 @@ ShellRoot {
                 Component.onCompleted: Qt.callLater(function() {
                     theme.source = "file://" + shell.themePath + "/Main.qml";
                 })
-                onLoaded: {
-                    item.forceActiveFocus();
-                    if (shell.sweepEnabled && item.captureRequested)
-                        item.captureRequested.connect(function() {
-                            if (exitEffect.item) exitEffect.item.resetCapture();
-                            shell.snapshotAll();
-                        });
-                }
+                onLoaded: item.forceActiveFocus()
             }
             Column {
                 id: lockedControls
@@ -148,7 +104,6 @@ ShellRoot {
             Loader {
                 anchors.fill: parent
                 sourceComponent: themeSurface
-                onLoaded: item.screenName = Qt.binding(function() { return lockSurface.screen ? lockSurface.screen.name : ""; })
             }
         }
     }

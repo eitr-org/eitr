@@ -29,6 +29,8 @@ GPUs, may still need fixes; please [report problems](https://github.com/eitr-org
 - A custom Quickshell bar with joined, animated panels: audio, network,
   Bluetooth, display (brightness, nightlight, resolution, refresh rate and scale),
   calendar, weather, hardware, AI usage limits and a control center.
+- The Eitr lockscreen unlocks immediately after successful authentication. Password
+  runes crumble only with Backspace or Delete; previews close instantly.
 - Native notifications with grouped stacks, history and Do Not Disturb.
 - Workspace Overview with live previews; 25 dark and light themes with matching
   wallpapers, lockscreens and application colors. Each realm theme has two to

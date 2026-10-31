@@ -1,7 +1,6 @@
 import Eitr as Eitr
 import QtQuick
 import LockscreenComponents
-import "Spectrum.js" as Spectrum
 
 Item {
     id: root
@@ -17,8 +16,7 @@ Item {
     readonly property color ink: settings.foreground || (light ? "#292521" : "#f2ecdf")
     readonly property color accent: settings.accent || "#a3bd79"
     readonly property color muted: settings.muted || (light ? "#625b53" : "#a99b90")
-    readonly property bool motion: visible && settings.reduceMotion !== true && sweepProgress < 0
-    readonly property var spectrum: Spectrum.colors(light)
+    readonly property bool motion: visible && settings.reduceMotion !== true
     // The wordmark is filled with the current theme's accent, still.
     readonly property var wordmarkFill: [accent, accent, accent, accent, accent, accent, accent]
     // A green northern-lights sky on every theme: the wallpaper's lime and green at
@@ -28,22 +26,15 @@ Item {
     property real elapsed: 0
     property real ringAngle: 0
     Component.onCompleted: ringAngle = now.getSeconds() * 6
-    property real sweepProgress: -1
-    signal captureRequested()
     signal previewFinished()
-    function dismissPreview() {
-        if (settings.reduceMotion === true) { previewFinished(); return; }
-        sweepProgress = 0;
-        previewSweep.start();
-    }
+    function dismissPreview() { previewFinished(); }
     function submit() {
         if (typeof isLockPreview !== "undefined" && isLockPreview) { dismissPreview(); return; }
         const value = password.text;
         password.text = "";
         feedback.text = "";
-        try { captureRequested(); } finally { login.login(value); }
+        login.login(value);
     }
-    NumberAnimation { id: previewSweep; target: root; property: "sweepProgress"; to: 1; duration: 820; onFinished: root.previewFinished() }
     // The live wallpaper's pace: smooth curtains and twinkling.
     Timer { interval: 50; running: root.motion; repeat: true; onTriggered: root.elapsed += interval / 1000 }
     Timer {
@@ -62,7 +53,6 @@ Item {
         onLoginFailed: { feedback.text = Eitr.I18n.tr("Unable to unlock. Try again."); password.text = ""; password.forceActiveFocus(); }
         onLoginSucceeded: { password.text = ""; feedback.text = ""; }
     }
-    // The lockscreen itself; while the Bifröst opens, the two halves below show it.
     Item {
         id: scene
         width: root.width; height: root.height
@@ -160,9 +150,17 @@ Item {
                 focus: true; selectByMouse: false
                 // No selection: every edit is a plain insert or delete at the caret.
                 onSelectedTextChanged: if (selectedText.length) deselect()
+                Keys.onPressed: event => {
+                    if (event.key === Qt.Key_Backspace || event.key === Qt.Key_Delete) {
+                        carved.deleteRune(event.key === Qt.Key_Backspace);
+                        event.accepted = true;
+                    }
+                }
                 onAccepted: root.submit()
             }
             CarvedRunes {
+                id: carved
+                objectName: "eitrCarvedRunes"
                 anchors.fill: password
                 input: password
                 gold: root.light ? "#8a6431" : "#c4914f"
@@ -191,27 +189,5 @@ Item {
         }
             }
         }
-    }
-    ShaderEffectSource {
-        visible: root.sweepProgress >= 0
-        width: sweep.leftEdge; height: root.height
-        sourceItem: scene; hideSource: root.sweepProgress >= 0
-        sourceRect: Qt.rect(0, 0, width, height)
-    }
-    ShaderEffectSource {
-        visible: root.sweepProgress >= 0
-        x: sweep.rightEdge; width: root.width - x; height: root.height
-        sourceItem: scene; hideSource: root.sweepProgress >= 0
-        sourceRect: Qt.rect(x, 0, width, height)
-    }
-    ShaderEffectSource {
-        id: sceneTexture
-        visible: false
-        sourceItem: scene; hideSource: root.sweepProgress >= 0
-    }
-    Sweep {
-        id: sweep; anchors.fill: parent; progress: Math.max(0, root.sweepProgress)
-        spectrum: root.spectrum; style: root.settings.unlockEffect || "bifrost"; source: sceneTexture
-        visible: root.sweepProgress >= 0
     }
 }

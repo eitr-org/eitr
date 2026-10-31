@@ -26,8 +26,6 @@ ShellRoot {
     ListModel { id: sessions; property int lastIndex: 0; function rowCount() { return count; } ListElement { name: "Current session" } }
     Window {
         id: renderWindow
-        Rectangle { anchors.fill: parent; color: "#293b49" }
-        Text { anchors.centerIn: parent; text: "Mock desktop"; color: "#c1d4dd"; font.pixelSize: 36 }
         width: Number(Quickshell.env("EITR_RENDER_WIDTH")) || 3840; height: Number(Quickshell.env("EITR_RENDER_HEIGHT")) || 2160; visible: true
         Loader {
             id: design
@@ -45,7 +43,6 @@ ShellRoot {
                     Qt.createQmlObject('import QtQuick; Image { anchors.fill: parent; source: '
                         + JSON.stringify(auroraFrame) + '; smooth: false }', aurora, "CanonicalAuroraReference");
                 }
-                if (!!Quickshell.env("EITR_RENDER_SWEEP")) item.sweepProgress = Number(Quickshell.env("EITR_RENDER_SWEEP"));
                 if (Quickshell.env("EITR_RENDER_STATE") === "wrong") failureDelay.start();
                 if (Quickshell.env("EITR_RENDER_STATE") === "typed") {
                     const field = findChild(item, "eitrPassword");
@@ -82,8 +79,7 @@ ShellRoot {
                 if (controller.userIndex !== (original + 1) % users.count) { console.error("User cycle failed"); Qt.exit(1); return; }
                 controller.cycleUser(-1);
                 if (controller.userIndex !== original) { console.error("Reverse cycle failed"); Qt.exit(1); return; }
-                const target = !!Quickshell.env("EITR_RENDER_SWEEP") ? renderWindow.contentItem : design;
-                target.grabToImage(function(result) {
+                design.grabToImage(function(result) {
                     if (!result.saveToFile(Quickshell.env("EITR_RENDER_OUTPUT"))) Qt.exit(1);
                     else Qt.quit();
                 }, Qt.size(design.width, design.height));

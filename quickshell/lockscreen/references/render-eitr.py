@@ -51,24 +51,6 @@ def main():
             if result.returncode:
                 raise RuntimeError(result.stdout + result.stderr)
             print(target.name, flush=True)
-        palette = tomllib.loads((REPOSITORY / 'themes/eitr/colors.toml').read_text())
-        settings = {key: palette[key] for key in ('accent', 'foreground', 'muted', 'alert') if key in palette}
-        settings.update(themeMode='dark', eitrTheme=True, reduceMotion=True, clock='12h',
-                        backgroundColor=palette['background'])
-        for progress in (0.15, 0.40, 0.65, 0.90):
-            # The synthetic desktop beneath the clipped scene is privacy-safe.
-            target = output / f'sweep-{round(progress * 100):02d}.png'
-            environment.update(EITR_RENDER_AURORA=aurora.render(settings, 2560, 1080),
-                               EITR_RENDER_CONFIG=json.dumps(settings), EITR_RENDER_WIDTH='2560',
-                               EITR_RENDER_HEIGHT='1080', EITR_RENDER_STATE='empty',
-                               EITR_RENDER_SWEEP=str(progress), EITR_RENDER_OUTPUT=str(target))
-            screen.write_text(json.dumps({'screens': [{'name': 'Sweep', 'width': 2560, 'height': 1080,
-                                                       'x': 0, 'y': 0, 'logicalDpi': 96, 'dpr': 1}]}))
-            result = subprocess.run(['quickshell', '-n', '-p', str(ROOT / 'references/render-preview.qml')],
-                                    env=environment, capture_output=True, text=True, timeout=30)
-            if result.returncode:
-                raise RuntimeError(result.stdout + result.stderr)
-            print(target.name, flush=True)
         aurora.write_report(output / 'render-method.json')
 
 

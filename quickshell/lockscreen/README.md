@@ -50,8 +50,8 @@ Theme Wallpaper. Eitr, the default for fresh installations, shows the EITR
 wordmark in the theme's accent inside the boot splash's gold rune ring, which
 ticks once a second, over a starry sky with the Milky Way, shooting stars and
 the desktop's aurora on black. The clock uses Eitr's Norse glyphs, typed
-characters carve runes into the password field and deleted ones crumble, and the
-unlock strikes with lightning and burns the lockscreen away (ARTWORK.md has the
+characters carve runes into the password field; only Backspace and Delete crumble them.
+Successful authentication unlocks immediately (ARTWORK.md has the
 details). The current light/dark theme, clock format and Reduce motion
 preference are read at launch; Reduce motion holds every layer still and skips
 the effects.
@@ -177,12 +177,11 @@ Its bundled 4K preview uses public Norse artwork, never an owner's wallpaper.
 `python3 quickshell/lockscreen/references/render-eitr.py` writes 18 offscreen
 mock previews to `../eitr-lockscreen-renders/`: ultrawide, landscape and portrait,
 Eitr dark and Daylight light palettes, and empty, typed and rejected passwords.
-Use `--output DIRECTORY` for a sandbox-writable destination. It also writes four
-unlock-effect frames over a synthetic desktop, never the owner's desktop. The wordmark
+Use `--output DIRECTORY` for a sandbox-writable destination. The wordmark
 SVG is a byte-identical copy of the branding master; the rune ring is the boot
 splash's 24 Noto Sans Runic letters, drawn as text. Native rendering uses
 precompiled Qt shaders; `bash quickshell/lockscreen/themes/eitr/shaders/build.sh`
-regenerates the brand, sky and burn shaders with Qt's `qsb` (qt6-shadertools). Aurora uses
+regenerates the brand and sky shaders with Qt's `qsb` (qt6-shadertools). Aurora uses
 `quickshell/desktop-bar/shaders/aurora.frag.qsb` directly, drawn as the live
 wallpaper draws it: half resolution scaled twice, advancing every 50 ms. The
 checkout resolves that relative path; SDDM staging points to the same asset under
@@ -199,29 +198,14 @@ records the canonical source hash, renderer and timings. This is a full-resoluti
 software OpenGL reference, not a separate approximation or a hardware GPU test.
 
 
-### Eitr unlock effect
+### Unlock and preview dismissal
 
-After PAM success the Eitr design holds the session lock 150 ms longer, so a
-separate normal layer surface is already drawn beneath it. Once both lock states
-report the screen released, that surface plays the unlock effect over the most
-recent in-memory lockscreen capture for 820 ms: by default lightning strikes the
-centre and the capture burns away from there (`unlockEffect=lightning` in
-`themes/eitr/theme.conf`; `bifrost` opens it like a gate instead). It needs
-successful authentication, a ready snapshot and Reduce motion off. The capture is
-taken as the password is submitted and named after the lock surface's own screen.
-It takes no keyboard or pointer input, hides on animation completion or its
-independent 1250 ms deadline, and the lockscreen process exits at most 1200 ms
-after release. Other designs and Reduce motion release the lock immediately.
-Missing/late captures, loader errors or an unavailable compositor state skip the
-cosmetic effect. Captures cover only the design, clear the active password field
-first, stay in memory, and are never written to a file. Other designs keep their
-existing exit.
-
-Enter dismisses an Eitr preview with the same effect, without authentication;
-Escape exits immediately. Offscreen mocks exercise the safety gates, capture
-failures and preview flow. Actual compositor handoff and hardware shader/GPU
-performance still require a live-session review; offscreen software results do
-not establish them.
+Successful authentication releases the session immediately through the existing
+session-lock and loginctl paths; a 200 ms quit timer lets release finish before
+process exit. No capture or unlock animation delays release. Enter and Escape
+close the Eitr preview immediately without authentication. Submitting a password,
+a failed login and switching accounts clear runes without crumbling; only
+Backspace and Delete crumble a rune.
 
 ## Multiple accounts
 

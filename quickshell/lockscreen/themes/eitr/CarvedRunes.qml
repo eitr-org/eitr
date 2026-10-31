@@ -40,13 +40,21 @@ Item {
         // Text and caret update separately; read both once the edit has settled.
         function onTextChanged() { Qt.callLater(carved.sync); }
     }
-    function sync() {
+    function deleteRune(backward) {
+        sync();
+        const position = input.cursorPosition;
+        const start = backward ? position - 1 : position;
+        if (start < 0 || start >= count) return;
+        input.remove(start, start + 1);
+        sync(true);
+    }
+    function sync(deleting = false) {
         const delta = count - runes.count;
         // Selection is off in the field, so an edit is a pure insert or delete at the caret.
         if (delta < 0) {
             const start = Math.min(cursor, runes.count + delta);
             for (let index = start - delta - 1; index >= start; index--) {
-                if (animated && index >= first && index < first + visibleCount)
+                if (deleting && animated && index >= first && index < first + visibleCount)
                     crumble.createObject(carved, {rune: runes.get(index).glyph,
                                                   x: (index - first) * step, delay: (index - start) * 25});
                 runes.remove(index);
@@ -131,6 +139,7 @@ Item {
         id: crumble
         Item {
             id: rubble
+            objectName: "eitrRuneRubble"
             property string rune
             property int delay: 0
             property real progress: 0
