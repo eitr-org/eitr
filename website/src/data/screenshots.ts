@@ -25,6 +25,20 @@ export const screenshotGroups = [
         "height": 1080
       },
       {
+        "file": "islands",
+        "caption": "islands_caption",
+        "alt": "islands_alt",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "focus",
+        "caption": "focus_caption",
+        "alt": "focus_alt",
+        "width": 1280,
+        "height": 800
+      },
+      {
         "file": "center-style",
         "caption": "style_bar_workspaces_corners_themes_cursor_and_fonts",
         "alt": "style_bar_workspaces_corners_themes_cursor_and_fonts",
@@ -90,6 +104,13 @@ export const screenshotGroups = [
         "file": "themes",
         "caption": "choosing_a_theme",
         "alt": "choosing_a_theme",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "lockscreen-eitr",
+        "caption": "lockscreen_eitr_caption",
+        "alt": "lockscreen_eitr_alt",
         "width": 1920,
         "height": 1080
       },

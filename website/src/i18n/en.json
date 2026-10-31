@@ -159,7 +159,7 @@
     "keyboard_first": "Keyboard-first.",
     "graphical_when_you_need_it": "Graphical when you need it.",
     "the_custom_quickshell_desktop_includes_native_notificat": "The custom Quickshell desktop includes native notifications, a workspace Overview with live previews, and panels for audio, WiFi, Bluetooth, displays, calendar, weather and hardware. The Eitr logo or Super + comma opens Control Center, including a disposable, read-only quick chat that knows Eitr through the Handbook. Walker searches applications, menus, settings and actions. Install > VPN offers Tailscale, WireGuard configuration import and NetworkManager VPN plugins, with reviewed imports and explicit connection choices.",
-    "choose_full_centered_with_evenly_packed_icons_around_a_": "Choose Full, Centered with evenly packed icons around a centered clock, or Tabs: three content-sized tabs joined by slopes on a thin strip, floating panels and weather on hover. Active workspace glyphs use the accent color; AI Usage has its own icon.",
+    "choose_full_centered_with_evenly_packed_icons_around_a_": "Choose Full, Centered, Tabs or Islands. Centered packs icons around a centered clock. Tabs joins three tabs with slopes on a thin strip. Islands uses content-sized floating pills that follow your corner choice, with the clock always centered.",
     "place_monitors_beside_one_another_choose_a_main_display": "Place monitors beside one another, choose a main display, and show the bar on one or all screens. HDR monitors get an HDR switch with SDR content brightness.",
     "adjust_per_application_audio_and_microphone_controls_in": "Adjust per-application audio and microphone controls in one panel; choose Bars or Line for the media equalizer.",
     "choose_from": "Choose from",
@@ -169,7 +169,7 @@
     "see_the_real_desktop": "See the real desktop →",
     "tools_for_the_work": "Tools for the work.",
     "assistance_by_choice": "Assistance by choice.",
-    "kitty_zsh_tmux_neovim_with_lazyvim_docker_lazygit_and_l": "Kitty, Zsh, tmux, Neovim with LazyVim, Docker, Lazygit and Lazydocker form the development workspace. Menus offer additional editors, language environments, database clients, API tools and monitoring dashboards. Schema v2 plugins add tools, tiles, panels, desktop widgets and bar items from reviewed Git commits. Control Center’s Plugins page manages them;",
+    "kitty_zsh_tmux_neovim_with_lazyvim_docker_lazygit_and_l": "Kitty (or optional Ghostty), Zsh, tmux, Neovim with LazyVim, Docker, Lazygit and Lazydocker form the development workspace. Menus offer additional editors, language environments, database clients, API tools and monitoring dashboards. Schema v2 plugins add tools, tiles, panels, desktop widgets and bar items from reviewed Git commits. Control Center’s Plugins page manages them;",
     "update_plugins": "Update Plugins",
     "reviews_updates_separately_from_system_update": "reviews updates separately from System Update.",
     "claude_code_codex_github_copilot_cli_grok_and_gemini_cl": "Claude Code, Codex, GitHub Copilot CLI, Grok and Gemini CLI are available through first-use installation. Antigravity, OpenCode and Pi are also available as standalone assistants. Super + A opens your default assistant trusted in the home folder, with full access and offline Handbook guidance where supported. Settings > Security > Assistant Access restores permission prompts. Development > AI opens normal sessions in a picked folder, with account switching and session options where supported. Ratatoskr is the experimental offline assistant. The bar shows supported usage information.",
@@ -210,7 +210,11 @@
     "remote_access": "Remote access.",
     "share_by_choice": "Share by choice.",
     "moonlight_sunshine_sharing_and_tailscale_away_access_ha": "Moonlight, Sunshine sharing and Tailscale away access have setup workflows and native status panels. Sharing remains inactive until explicitly configured. It controls a signed-in, awake desktop. Real-device checks are recorded, but final validation remains open; headless use, access before login and wake on LAN are future work. Stop sharing before locking when privacy matters.",
-    "read_the_setup_and_security_boundaries": "Read the setup and security boundaries ↗"
+    "read_the_setup_and_security_boundaries": "Read the setup and security boundaries ↗",
+    "islands_groups": "Islands floats off the screen edge. Separate pills hold the logo, Overview and workspaces, AI Usage, hardware and Idle Lock, clock, weather and status. Media and capture pills appear when active.",
+    "focus_preset": "Focus replaces the bar with a thin tab strip. Windows become tabs with up to four panes per monitor, without gaps, blur or animations. Turn it on or off in Settings > Style > Focus, Control Center > Style > Focus or with eitr focus on|off. Your normal bar settings are kept.",
+    "clock_format": "Choose 12-hour time with AM/PM or 24-hour time under Settings > Style > Desktop Bar > Clock or Control Center > Style > Bar > Clock.",
+    "lockscreen_accounts": "The Eitr lockscreen design is the default on fresh installs. Choose an account at login. When multiple eligible accounts and SDDM support are available, Switch user opens the login screen while keeping your session locked. Unlocking still requires the original account’s password."
   },
   "development": {
     "development_part_of_the_same_desktop": "Development / Part of the same desktop",
@@ -231,7 +235,7 @@
     "availability": "Availability",
     "workflow": "Workflow",
     "included": "Included",
-    "open_kitty_with": "Open Kitty with",
+    "open_kitty_with": "Open your chosen terminal with",
     "or_tmux_with": ", or tmux with",
     "use_learn_s_lazyvim_tmux_and_cmux_references_without_le": ". Use Learn’s LazyVim, tmux and cmux references without leaving the desktop.",
     "curated_optional_installs": "Curated optional installs",
@@ -301,7 +305,9 @@
     "the_same_desktop_manages_displays_sound_capture_and_app": "The same desktop manages displays, sound, capture and appearance. System Update checks news and packages before taking a Btrfs snapshot when an upgrade is needed on supported setups. The Handbook covers recovery boundaries and independent backups.",
     "explore_the_rest_of_eitr": "Explore the rest of Eitr →",
     "installation_validation_scope": "Installation & validation scope →",
-    "inspect_git": "Inspect the current Git identity and account-aware CLI"
+    "inspect_git": "Inspect the current Git identity and account-aware CLI",
+    "terminal_choice": "Choose Kitty or optional Ghostty in Settings > Style > Terminal or Control Center > Style > Terminal. Both use Eitr’s colors, fonts and zsh. Kitty remains the default. Choosing Ghostty offers installation if needed.",
+    "live_menu_search": "Typing in menus with live contents also searches the available actions below them, using the snapshot loaded when the menu opens. Cloud account contents stay inside the opened account; deeper resource pickers load only when opened."
   },
   "installation": {
     "installation_hardware_eitr_linux": "Installation & hardware / Eitr Linux",
@@ -445,7 +451,7 @@
     "your_desktop_should_feel_like_home": "Your desktop should feel like home.",
     "shape_the_desktop_through_its_own_preferences_with_pers": "Shape the desktop through its own preferences, with personal choices that survive theme changes.",
     "square_rounded_or_extra_rounded_corners": "Square, Rounded or Extra Rounded corners",
-    "bar_position_transparency_full_centered_and_tabs_layout": "Bar position, transparency, Full, Centered and Tabs layouts",
+    "bar_position_transparency_full_centered_and_tabs_layout": "Bar position, transparency, Full, Centered, Tabs and Islands layouts",
     "workspaces_as_runes_numbers_glyphs_or_dots": "Workspaces as runes, numbers, glyphs or dots",
     "see_the_possibilities": "See the possibilities",
     "arch_updates": "Arch & updates",
@@ -646,7 +652,13 @@
     "learn": "Learn",
     "the_eitr_handbook_s_welcome": "The EITR Handbook's welcome",
     "the_eitr_handbook_open_on_the_desktop": "The EITR Handbook open on the desktop",
-    "shortcuts_in_the_handbook": "Shortcuts in the Handbook"
+    "shortcuts_in_the_handbook": "Shortcuts in the Handbook",
+    "islands_caption": "Islands: floating desktop pills",
+    "islands_alt": "An empty Eitr desktop with the Islands bar floating off the screen edge",
+    "focus_caption": "Focus: two panes beneath the tab strip",
+    "focus_alt": "Focus mode with two panes side by side beneath a thin tab strip",
+    "lockscreen_eitr_caption": "The Eitr lockscreen with the account chooser",
+    "lockscreen_eitr_alt": "The Eitr lockscreen preview showing its account chooser and rune ring"
   },
   "roadmap": {
     "Desktop code shipped by the package; offline installer, signed package repository, factory reset, dual boot": "Desktop code shipped by the package; offline installer, signed package repository, factory reset, dual boot",
@@ -660,11 +672,11 @@
     "Real-desktop screenshots on the site, smaller downloads (JPEG wallpapers), check marks in Install lists": "Real-desktop screenshots on the site, smaller downloads (JPEG wallpapers), check marks in Install lists",
     "Translations (Portuguese, Spanish, German, French), multi-monitor arrangement, Control Center, AI assistants, crash help, OBS defaults": "Translations (Portuguese, Spanish, German, French), multi-monitor arrangement, Control Center, AI assistants, crash help, OBS defaults",
     "HDR switch and HDR games, Tabs bar, assistants (SUPER+A, quick chat, accounts), calendars, your own themes, faster disk unlock, stronger disk passphrases": "HDR switch and HDR games, Tabs bar, assistants (SUPER+A, quick chat, accounts), calendars, your own themes, faster disk unlock, stronger disk passphrases",
-    "Plugins with widgets and panels, the Eitr theme with matching Neovim and VS Code colours, realm palettes, media equalizer styles, reminder snooze, auto-hide bar and Reduce motion, the new website, and fixes from early users' real-hardware installs": "Plugins with widgets and panels, the Eitr theme with matching Neovim and VS Code colours, realm palettes, media equalizer styles, reminder snooze, auto-hide bar and Reduce motion, the new website, and fixes from early users' real-hardware installs",
     "The exact ISO intended for 1.0: repeated clean installs, upgrades from earlier public releases and destructive recovery tests in isolated environments, until installation, maintenance and recovery are reproducible on the declared supported configurations": "The exact ISO intended for 1.0: repeated clean installs, upgrades from earlier public releases and destructive recovery tests in isolated environments, until installation, maintenance and recovery are reproducible on the declared supported configurations",
     "release candidate": "release candidate",
     "A supported hardware matrix, tested upgrade paths, documented rollback limitations, a security-update process and a clear compatibility policy": "A supported hardware matrix, tested upgrade paths, documented rollback limitations, a security-update process and a clear compatibility policy",
-    "stable": "stable"
+    "stable": "stable",
+    "Plugins with widgets and panels, the Eitr theme with matching Neovim and VS Code colours, realm palettes, media equalizer styles, reminder snooze, auto-hide bar and Reduce motion, the new website, and fixes from early users' real-hardware installs; Islands layout, Focus mode, optional Ghostty, clock formats, Eitr lockscreen with account switching, and live menu branch search": "Plugins with widgets and panels, the Eitr theme with matching Neovim and VS Code colours, realm palettes, media equalizer styles, reminder snooze, auto-hide bar and Reduce motion, the new website, and fixes from early users' real-hardware installs; Islands layout, Focus mode, optional Ghostty, clock formats, Eitr lockscreen with account switching, and live menu branch search"
   },
   "client": {
     "day": "Day",
