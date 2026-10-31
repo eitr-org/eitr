@@ -1,0 +1,133 @@
+{
+  "batch": "2026-10-original-10",
+  "generator": "built-in image generation",
+  "generation": "Three independently generated 16:9 images and three separate panoramic compositions, from written briefs only.",
+  "status": "Agent-inspected; awaiting owner visual review.",
+  "owner_requested_exception": "The brief explicitly requests batch 09 painterly cinematic Norse primordial subjects recomposed on a light ground, including scenic primordial terrain.",
+  "resolution": [
+    3840,
+    2160
+  ],
+  "ultrawide_resolution": [
+    3440,
+    1440
+  ],
+  "processing": "Lanczos crop-to-fill JPEG exports from recorded native masters, never stretched or padded. Separate panoramic compositions; exported dimensions do not imply native 4K detail.",
+  "runestone_note": "Not included: the existing renderer produces a rune-lettered ring and Eitr emblem with a multicolored night aurora. It has no clean light, lettering-free, logo-free mode compatible with this batch's constraints. No live wallpaper layers are needed for the three still images.",
+  "images": [
+    {
+      "theme": "eitr-light",
+      "name": "01-primordial-drop",
+      "rendering_style": "Painterly cinematic Norse primordial fantasy on pale mist, bone and parchment greens; restrained jade and venom yellow-green light.",
+      "file": "themes/eitr-light/backgrounds/01-primordial-drop.jpg",
+      "ultrawide_file": "themes/eitr-light/backgrounds-ultrawide/01-primordial-drop.jpg",
+      "prompt": "Create one original desktop wallpaper, native 16:9 landscape 3840x2160 if supported. Subject: Primordial Drop, one complete small translucent venom teardrop suspended at x64% y54%, fully enclosed with generous margins, no long stem, no ground or pool. Pale mist and bone/parchment green void, broad quiet negative space especially left and upper quarter. Painterly cinematic Norse primordial fantasy with visible fine brushwork, elegant jade liquid currents within the drop and sparse yellow-green venom light as the only chromatic accent. Light counterpart of dark Eitr Primordial Venom: pale warm green ground, restrained emerald, no black void. Calm upper 8% for desktop bar. No text, letters, runes, logos, watermarks, borders, sun, moon, neon or 3D render. No emblem or icon.",
+      "ultrawide_prompt": "Create one original desktop wallpaper, true panoramic 2.39:1 landscape, native widest aspect supported ideally 3440x1440. NEW panoramic composition, not an expanded or cropped image. Subject: Primordial Drop, a small complete translucent jade venom teardrop suspended at x64% y54%, only 18% image width and 38% height, fully enclosed with generous margins, short tip below upper quarter, no stem, no ground, terrain or pool. Empty pale bone and parchment green mist void with broad quiet negative space especially left and upper quarter. Painterly cinematic Norse primordial fantasy with visible fine brushwork; subtle jade liquid currents within drop, sparse yellow-green venom light as only chromatic accent. Pale light ground, never black void. Calm low-detail upper 8% for desktop bar. No text, letters, runes, logos, emblems, watermarks, borders, sun, moon, neon, 3D render.",
+      "status": "Agent-inspected; awaiting owner visual review.",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "input_images": [],
+      "input_role": "Written brief only; no reference images.",
+      "native_source": "branding/sources/wallpapers/batch-10/eitr-light-01-primordial-drop.png",
+      "native_sha256": "4d78d5833f4a69be056ea7bb4126fd77d25ee789e34c6b437c3874b8a7ce8050",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-10/eitr-light-01-primordial-drop-ultrawide.png",
+      "ultrawide_native_sha256": "9a708b3c52af4855c7bd576cb52f8c1193c4d604ead323a94fe55d7a693b49df",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ],
+      "file_sha256": "d860e8b47026aee9e96b8a0c15f491719b5d1cde9712e6cb3b62d41c8166b817",
+      "ultrawide_file_sha256": "2c1940f5f06d75843700dbd965e6c67133b6bcd540752b06586c9a5ba52e30e6"
+    },
+    {
+      "theme": "eitr-light",
+      "name": "02-elivagar",
+      "rendering_style": "Painterly cinematic Norse primordial fantasy on pale mist, bone and parchment greens; restrained jade and venom yellow-green light.",
+      "file": "themes/eitr-light/backgrounds/02-elivagar.jpg",
+      "ultrawide_file": "themes/eitr-light/backgrounds-ultrawide/02-elivagar.jpg",
+      "prompt": "Use case: stylized-concept. One original Eitr Light desktop wallpaper, native 16:9 landscape ideally 3840x2160. Élivágar, primordial rivers before the Nine Realms: narrow winding jade venom rivers through pale weathered mineral stone, bone and parchment green terrain dissolving into endless light mist. Painterly cinematic Norse primordial fantasy with visible fine brushwork, not 3D or photographic. Delicate leading river lines in lower half, distant vague rock formations barely visible in upper half, calm low-detail pale upper 8% for desktop bar. Venom yellow-green glow is the only vivid accent, restrained emerald and jade, no other illumination or bright torrents. Broad pale quiet negative space. No buildings, characters, vegetation, sun, moon, stars, text, letters, runes, logos, borders, watermark, neon or black sky. Light counterpart of Eitr dark volcanic Élivágar, separately composed on a light ground.",
+      "ultrawide_prompt": "Use case: stylized-concept. One original Eitr Light desktop wallpaper, TRUE PANORAMIC 2.39:1 landscape, native widest aspect supported ideally 3440x1440. NEW panoramic composition from written brief, no earlier image crop or stretch. Élivágar, primordial rivers before the Nine Realms: narrow winding jade venom rivers through pale weathered mineral stone, bone and parchment green terrain dissolving into endless light mist. Painterly cinematic Norse primordial fantasy with visible fine brushwork, not 3D or photographic. Delicate leading river lines in lower half, distant vague rock formations barely visible in upper half, calm low-detail pale upper 8% for desktop bar. Extra width is calm misty negative space. Venom yellow-green glow is the only vivid accent, restrained emerald and jade, no other illumination or bright torrents. No buildings, characters, vegetation, sun, moon, stars, text, letters, runes, logos, borders, signature, watermark, neon or black sky.",
+      "status": "Agent-inspected; awaiting owner visual review.",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "input_images": [],
+      "input_role": "Written brief only; no reference images.",
+      "edit_prompt": "Edit this generated Élivágar wallpaper. Remove the faint signature-like squiggle near the top right corner entirely, replacing it with uninterrupted pale mist matching its surroundings. Keep composition, rivers, rocks, palette, size, painterly brushwork and every other detail unchanged. Absolutely no signatures, glyphs, letters, text or watermark anywhere.",
+      "edit_note": "Built-in edit removed a faint signature-like mark from the first generated image; the edited native master is the retained source.",
+      "native_source": "branding/sources/wallpapers/batch-10/eitr-light-02-elivagar.png",
+      "native_sha256": "65e09a2d5a54832aab78e15fc58d1fe94284dbe157648ebbf820e60dd54de95f",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-10/eitr-light-02-elivagar-ultrawide.png",
+      "ultrawide_native_sha256": "5876e3773b54272f1b772eeeeaa4990083838335453197754b48aee61a00d2f1",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ],
+      "file_sha256": "02a86c0ba8742c12babf94aede1e78c3b5708f97cbd7d2b651204d92ad73c079",
+      "ultrawide_file_sha256": "b4bc2e9400105af9c153e25330ecc31486d3dc0e8e47b3d8b7b9136f7acd4b89"
+    },
+    {
+      "theme": "eitr-light",
+      "name": "03-venom-rootlight",
+      "rendering_style": "Painterly cinematic Norse primordial fantasy on pale mist, bone and parchment greens; restrained jade and venom yellow-green light.",
+      "file": "themes/eitr-light/backgrounds/03-venom-rootlight.jpg",
+      "ultrawide_file": "themes/eitr-light/backgrounds-ultrawide/03-venom-rootlight.jpg",
+      "prompt": "Use case: stylized-concept. Original Eitr Light desktop wallpaper, native 16:9 landscape ideally 3840x2160. Venom Rootlight, the first spark of life before the Norse realms. One extremely fine vertical thread of yellow-green venom descends from pale mist at x66%, starts BELOW upper quarter, touches rough pale bone-green mineral stone at y78%, branching into delicate asymmetrical hairline jade and venom light veins across lower third. Mineral light veins, NOT roots or vegetation. Painterly cinematic primordial fantasy with fine visible brushwork and restrained detail around the light. Broad pale parchment-green mist in upper two thirds and left, calm upper 8% for desktop bar. Venom light is only vivid accent. No floating droplet, plant, leaves, rivers, landscape horizon, spotlight, impact splash, neon, black void, sun, moon, text, letters, runes, signatures, logos, watermark or border. Not 3D or photographic.",
+      "ultrawide_prompt": "Use case: stylized-concept. Original Eitr Light desktop wallpaper, TRUE PANORAMIC 2.39:1 landscape, native widest aspect supported ideally 3440x1440. NEW separately composed panoramic image from written brief. Venom Rootlight, first spark of life before the Norse realms. One extremely fine vertical thread of yellow-green venom descends from pale mist at x66%, begins BELOW upper quarter, touches rough pale bone-green mineral stone at y78%, branching into delicate asymmetrical hairline jade and venom light veins across lower third. Mineral light veins, NOT roots or vegetation. Painterly cinematic primordial fantasy with fine visible brushwork and restrained detail around the light. Broad pale parchment-green mist in upper two thirds and left; generous quiet extra horizontal negative space, calm upper 8% for desktop bar. Venom light is only vivid accent. No floating droplet, plant, leaves, rivers, horizon, spotlight, impact splash, neon, black void, sun, moon, text, letters, runes, signatures, logos, watermark or border. Not 3D or photographic.",
+      "status": "Agent-inspected; awaiting owner visual review.",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "input_images": [],
+      "input_role": "Written brief only; no reference images.",
+      "native_source": "branding/sources/wallpapers/batch-10/eitr-light-03-venom-rootlight.png",
+      "native_sha256": "e03df29d345bcd013969fbab09c9a0a4fc1be47519c20266073d86fc64c236d3",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-10/eitr-light-03-venom-rootlight-ultrawide.png",
+      "ultrawide_native_sha256": "47025e1ee2c5a38fbcf9fe8536bc3d4e6c6c865d43be4c60f5829bec835a6e0b",
+      "ultrawide_native_size": [
+        1935,
+        812
+      ],
+      "file_sha256": "1a4bea70d3a2a99d96f2ed75fa96285ef4920ec3cb15a8b0b9c5f784f5d34a41",
+      "ultrawide_file_sha256": "5fd6f6c0a0ca9ee6da02df513723ceca16558ec7cb2099eb95b10bec149c1626"
+    }
+  ],
+  "preview": {
+    "file": "themes/eitr-light/preview.png",
+    "size": [
+      1280,
+      1000
+    ],
+    "sha256": "0e006b91ac6e75c982f8c514d686b2631968766deade30b387bedd4a0f1e172b",
+    "origin": "Isolated offscreen production Calendar panel capture over Primordial Drop, with inert data and temporary XDG roots. No live desktop content.",
+    "reproduce": "EITR_PANEL_REVIEW_RENDERS=/tmp/eitr-light-review python3 quickshell/desktop-bar/tests/render_panel_motion.py --theme eitr-light --panels CalendarMenu --desktop-preview"
+  }
+}

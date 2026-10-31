@@ -1,13 +1,29 @@
 """Render isolated production panels and reject a second opening size motion.
 
 Set EITR_PANEL_REVIEW_RENDERS to a directory outside the checkout.
+Use --theme ID and --panels NAME [NAME ...] to review a shipped palette.
+Use --desktop-preview to capture the panel over that theme's first wallpaper.
 """
 from pathlib import Path
+import argparse
+import json
 import os
 import shutil
 import subprocess
 import tempfile
+import tomllib
 bar=Path(__file__).resolve().parents[1]
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--theme')
+parser.add_argument('--panels', nargs='+')
+parser.add_argument('--desktop-preview', action='store_true')
+arguments = parser.parse_args()
+palette = None
+if arguments.theme:
+    theme_directory = bar.parents[1] / 'themes' / arguments.theme
+    palette = tomllib.loads((theme_directory / 'colors.toml').read_text())
+if arguments.desktop_preview and palette is None:
+    parser.error('--desktop-preview requires --theme')
 shots=Path(os.environ['EITR_PANEL_REVIEW_RENDERS'])
 shots.mkdir(parents=True, exist_ok=True)
 panels={
@@ -136,8 +152,13 @@ panels['RemoteAccessMenu-streaming'] = ('service: mock; kind: "streaming"', '')
 for page in ['general', 'tools', 'settings']:
  panels['ControlCenter-'+page] = (panels['ControlCenter-style'][0].replace('page: "style"', 'page: "'+page+'"'), 'panel.page="'+page+'";')
 panels['PluginPanel'] = ('', 'panel.entry={kind:"panels",plugin:"preview",id:"preview",qml:"FixturePlugin.qml",source:Qt.resolvedUrl("FixturePlugin.qml").toString(),title:"Preview",disabled:false,surface:"panel"};')
+unknown_panels = set(arguments.panels or []) - panels.keys()
+if unknown_panels:
+    parser.error('Unknown panels: ' + ', '.join(sorted(unknown_panels)))
 for name, (extra, data) in panels.items():
-    for theme in ['dark', 'light']:
+    if arguments.panels and name not in arguments.panels:
+        continue
+    for theme in ([arguments.theme] if palette else ['dark', 'light']):
         with tempfile.TemporaryDirectory() as temporary:
             folder = Path(temporary)
             for source in bar.rglob("*"):
@@ -149,8 +170,20 @@ for name, (extra, data) in panels.items():
                 'import QtQuick; Item { required property var api; implicitHeight: 280; '
                 'Text { text: "Plugin preview"; color: parent.api.foreground } }')
             background, foreground = ('#18212b', '#e9eef1') if theme == 'dark' else ('#f5f0e7', '#252936')
+            if palette:
+                background, foreground = palette['background'], palette['foreground']
             capture = shots / (name + '-' + theme + '.png')
             fixture = template.replace('NAME', name).replace('TYPE', name.split('-')[0])
+            if palette:
+                fixture = fixture.replace('#509475', palette['accent'])
+            if arguments.desktop_preview:
+                wallpaper = sorted((theme_directory / 'backgrounds').glob('*'))[0]
+                fixture = fixture.replace('implicitWidth: 760; implicitHeight: 1000',
+                                          'implicitWidth: 1280; implicitHeight: 1000')
+                fixture = fixture.replace('id: sample; anchors.fill: parent; color: "BG"',
+                    'id: sample; anchors.fill: parent; color: "BG"; '
+                    'Image { anchors.fill: parent; fillMode: Image.PreserveAspectCrop; source: '
+                    + json.dumps(wallpaper.as_uri()) + ' }')
             for key, value in {'EXTRA': extra, 'DATA': data, 'BG': background,
                                'FG': foreground, 'CAPTURE': str(capture)}.items():
                 fixture = fixture.replace(key, value)

@@ -25,7 +25,7 @@ class DesktopThemeTests(unittest.TestCase):
         import json
         integrations = json.loads((root / "themes/integrations.json").read_text())
         themes = [name for name, entry in integrations.items() if entry["neovim"].get("eitr")]
-        self.assertEqual(len(themes), 13)
+        self.assertEqual(len(themes), 14)
         script = '''
 vim.opt.rtp:prepend(os.getenv("EITR_CODE_ROOT") .. "/nvim-theme")
 vim.cmd.colorscheme("eitr")
@@ -36,7 +36,9 @@ assert(spec.main == "eitr_theme")
 require(spec.main).setup(spec.opts)
 vim.cmd.colorscheme("eitr")
 assert(vim.o.background == spec.opts.background)
-if os.getenv("TEST_THEME") == "daylight" then assert(vim.o.background == "light") end
+if os.getenv("TEST_THEME") == "daylight" or os.getenv("TEST_THEME") == "eitr-light" then
+  assert(vim.o.background == "light")
+end
 local function hl(name) return vim.api.nvim_get_hl(0, {name=name, link=false}) end
 local function hex(value) return tonumber(value:sub(2), 16) end
 assert(hl("Normal").fg == hex(spec.opts.colors.role_fg))

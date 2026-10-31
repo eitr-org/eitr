@@ -103,3 +103,16 @@ Exact prompts, hashes, sizes and framing: `themes/artwork-batch-09.json`.
 Masters and reproducible exports: `branding/sources/wallpapers/batch-09/`.
 Eitr’s order is Drop (default), Runestone, Élivágar, Rootlight; the existing
 preview is preserved. Runestone and its live layers are now numbered 02.
+
+## Eitr Light batch 10
+
+The owner requests batch 09's painterly cinematic Norse primordial style and
+three subjects on a light ground: pale mist, bone and parchment greens replace
+black void, with restrained venom yellow-green light and jade/emerald currents.
+This explicitly permits painterly rendering and primordial scenery for batch 10.
+Keep the upper 6–8% calm for the bar, preserve complete subjects and create
+separate panoramic compositions. No letters, runes, logos or watermarks.
+Written briefs only; no image references. Exact prompts, edits, native sizes,
+hashes and export framing: `themes/artwork-batch-10.json`. Masters and exporter:
+`branding/sources/wallpapers/batch-10/`. Selected images have passed agent
+inspection and await owner visual review.

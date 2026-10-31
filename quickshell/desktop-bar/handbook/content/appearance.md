@@ -25,7 +25,9 @@ Software rendering (for example, a VM without 3D acceleration) uses the selected
 still wallpaper; the same fallback applies if the renderer cannot be detected. Graphite has been retired; saved Graphite
 selections switch to Eitr and its default wallpaper.
 
-The 24 shipped themes include ten dark realm palettes: Alfheim, Asgard, Helheim,
+Eitr Light is the light counterpart of Primordial Venom, with pale green surfaces, dark green text, venom yellow-green accents and jade/emerald highlights. Its three still wallpapers are Primordial Drop, Élivágar and Venom Rootlight, each with a separate panoramic composition. Select it in the Light category; Eitr remains the default. Theme Wallpaper uses the selected still image on the lockscreen.
+
+The 25 shipped themes include ten dark realm palettes: Alfheim, Asgard, Helheim,
 Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim and Vanaheim.
 Each realm theme has two to five original wallpapers in varied ink,
 gouache, cel-shaded and painted styles, in both aspect ratios. The first

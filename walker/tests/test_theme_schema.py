@@ -44,6 +44,73 @@ def active(records):
 
 
 class ThemeSchemaTests(unittest.TestCase):
+    def test_eitr_light_palette_and_generated_light_editors(self):
+        theme = THEMES / 'eitr-light'
+        colors = palette.load(theme)
+        dark = palette.load(THEMES / 'eitr')
+        self.assertFalse(set(dark) - set(colors))
+        self.assertTrue(palette.is_light(theme))
+        self.assertEqual(tomllib.loads((theme / 'colors.toml').read_text())['mode'], 'light')
+        self.assertEqual((theme / 'display-name').read_text().strip(), 'Eitr Light')
+        self.assertEqual((theme / 'rgb.color').read_text().strip(), colors['accent'][1:])
+        text_roles = ['foreground', 'muted', 'accent', 'second', 'alert',
+                      *(f'color{index}' for index in range(1, 16))]
+        for surface in ('background', 'surface', 'raised'):
+            for role in text_roles:
+                with self.subTest(surface=surface, role=role):
+                    self.assertGreaterEqual(palette.contrast(colors[role], colors[surface]), 4.5)
+        self.assertGreaterEqual(palette.contrast(colors['selection_foreground'],
+                                                colors['selection_background']), 4.5)
+        sys.path.insert(0, str(THEMES))
+        from editor_roles import roles, blend
+        editor = roles(colors)
+        style = (ROOT / 'quickshell/desktop-bar/PanelStyle.js').read_text()
+        secondary_alpha = float(re.search(r'var secondaryTextOpacity = ([0-9.]+)', style)[1])
+        selected_alpha = float(re.search(r'return selected \? ([0-9.]+)', style)[1])
+        surfaces = [colors[name] for name in ('background', 'surface', 'raised')]
+        surfaces.append(blend(colors['foreground'], colors['background'], selected_alpha))
+        for surface in surfaces:
+            self.assertGreaterEqual(palette.contrast(blend(colors['foreground'], surface, secondary_alpha),
+                                                    surface), 4.5)
+        for surface in ('bg', 'surface', 'raised', 'line', 'visual', 'search'):
+            for role in ('fg', 'muted', 'accent', 'second', 'alert', 'keyword', 'function',
+                         'type', 'string', 'number', 'constant', 'builtin', 'property',
+                         'parameter', 'comment'):
+                self.assertGreaterEqual(palette.contrast(editor[role], editor[surface]),
+                                        4.5, (surface, role))
+        integration = json.loads((THEMES / 'integrations.json').read_text())['eitr-light']
+        self.assertTrue(integration['neovim']['eitr'])
+        self.assertIn('background = "light"', (theme / 'neovim.lua').read_text())
+        import zipfile
+        with zipfile.ZipFile(theme / 'vscode.vsix') as bundle:
+            package = json.loads(bundle.read('extension/package.json'))
+            document = json.loads(bundle.read('extension/themes/colors.json'))
+        self.assertEqual(package['contributes']['themes'][0]['uiTheme'], 'vs')
+        self.assertEqual(document['type'], 'light')
+
+    def test_eitr_light_batch_10_provenance_and_exports(self):
+        batch = json.loads((THEMES / 'artwork-batch-10.json').read_text())
+        names = ['01-primordial-drop', '02-elivagar', '03-venom-rootlight']
+        self.assertEqual([record['name'] for record in batch['images']], names)
+        for record in batch['images']:
+            self.assertEqual(record['theme'], 'eitr-light')
+            self.assertEqual(record['input_images'], [])
+            self.assertTrue(record['prompt'])
+            self.assertTrue(record['ultrawide_prompt'])
+            self.assertNotEqual(record['native_sha256'], record['ultrawide_native_sha256'])
+            for prefix in ('native', 'ultrawide_native'):
+                source = ROOT / record[prefix + '_source']
+                self.assertEqual(hashlib.sha256(source.read_bytes()).hexdigest(),
+                                 record[prefix + '_sha256'])
+                with Image.open(source) as image:
+                    self.assertEqual(list(image.size), record[prefix + '_size'])
+            for key, size in (('file', (3840, 2160)), ('ultrawide_file', (3440, 1440))):
+                with Image.open(ROOT / record[key]) as image:
+                    self.assertEqual(image.size, size)
+                    self.assertEqual(image.format, 'JPEG')
+        for folder in ('backgrounds', 'backgrounds-ultrawide'):
+            self.assertEqual(sorted(path.stem for path in (THEMES / 'eitr-light' / folder).iterdir()), names)
+
     def test_eitr_runestone_and_ragnarok_fenrir_collections(self):
         for folder, runestone in (("backgrounds", "02-eitr-runestone.png"),
                                    ("backgrounds-ultrawide", "02-eitr-runestone.jpg")):
@@ -273,7 +340,7 @@ class ThemeSchemaTests(unittest.TestCase):
             for index, ansi in enumerate(('Black', 'Red', 'Green', 'Yellow', 'Blue', 'Magenta', 'Cyan', 'White', 'BrightBlack', 'BrightRed', 'BrightGreen', 'BrightYellow', 'BrightBlue', 'BrightMagenta', 'BrightCyan', 'BrightWhite')):
                 self.assertEqual(document['colors']['terminal.ansi' + ansi], palette['color' + str(index)])
             identities.add(document['colors']['button.background'])
-        self.assertEqual(len(identities), 11)
+        self.assertEqual(len(identities), 12)
         result = subprocess.run([sys.executable, str(THEMES / "build-vscode-themes.py"), "--check"], capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
 

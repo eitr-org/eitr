@@ -64,7 +64,7 @@ try {
         await page.keyboard.press('Escape');
       }
       if(path==='/' && view.name==='desktop') {
-        for(const theme of ['catppuccin-latte','eitr']) {
+        for(const theme of ['catppuccin-latte','eitr-light','eitr']) {
           await page.locator(`[data-theme="${theme}"]`).hover();
           await page.waitForTimeout(900);
           const hovered=await page.evaluate(()=>window.axe.run(document,{

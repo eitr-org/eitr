@@ -8,7 +8,9 @@
 
 Eitr hat vier Hintergrundbilder: Primordial Drop (Standard), Runestone, Élivágar und Venom Rootlight. Die Auswahl erfolgt über dieselben Steuerelemente; die Palette bleibt gleich. Das zweite Bild, Runestone, ist animiert: Polarlichter bewegen sich langsam hinter dem Runenring, aktualisieren sich hinter normalen Fenstern seltener, pausieren hinter Vollbildanwendungen und bleiben auf dem Sperrbildschirm still. Bei Software-Rendering (etwa in einer VM ohne 3D-Beschleunigung) wird das ausgewählte Standbild verwendet; dasselbe gilt, wenn der Renderer nicht erkannt werden kann. Graphite wurde entfernt; gespeicherte Graphite-Auswahlen wechseln zu Eitr und dessen Standardbild.
 
-Die 24 mitgelieferten Themes enthalten zehn dunkle Paletten der Welten: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim und Vanaheim. Jedes Welten-Theme hat zwei bis fünf Originalhintergründe in verschiedenen Tusche-, Gouache-, Cel-Shading- und Malstilen, in beiden Bildformaten. Der erste Hintergrund ist die Vorschau des Themes.
+Die 25 mitgelieferten Themes enthalten zehn dunkle Paletten der Welten: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim und Vanaheim. Jedes Welten-Theme hat zwei bis fünf Originalhintergründe in verschiedenen Tusche-, Gouache-, Cel-Shading- und Malstilen, in beiden Bildformaten. Der erste Hintergrund ist die Vorschau des Themes.
+
+Eitr Light ist die helle Variante von Primordial Venom, mit blassgrünen Flächen, dunkelgrünem Text, giftgelbgrünen Akzenten und Jade-/Smaragdtönen. Die drei statischen Hintergründe sind Primordial Drop, Élivágar und Venom Rootlight, jeweils mit einer eigenen Panoramakomposition. Wähle es in der Kategorie Hell; Eitr bleibt der Standard. Design-Hintergrundbild verwendet das ausgewählte Standbild auf dem Sperrbildschirm.
 
 Wenn Hyprpaper das gewählte Hintergrundbild nicht anzeigen kann, zeichnet die Leiste dasselbe Standbild auf jedem betroffenen Bildschirm, einschließlich der Ultrawide-Varianten. Die Auswahl von Hintergrundbild und Theme gilt auch im Focus-Modus; die Ersatzanzeige wechselt ohne die Enthüllungsanimation.
 

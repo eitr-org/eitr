@@ -196,6 +196,42 @@
       }
     },
     {
+      "file": "themes/eitr-light/backgrounds-ultrawide/01-primordial-drop.jpg",
+      "wallpaper": "themes/eitr-light/backgrounds/01-primordial-drop.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-10/eitr-light-01-primordial-drop-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "file": "themes/eitr-light/backgrounds-ultrawide/02-elivagar.jpg",
+      "wallpaper": "themes/eitr-light/backgrounds/02-elivagar.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-10/eitr-light-02-elivagar-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "file": "themes/eitr-light/backgrounds-ultrawide/03-venom-rootlight.jpg",
+      "wallpaper": "themes/eitr-light/backgrounds/03-venom-rootlight.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-10/eitr-light-03-venom-rootlight-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
       "file": "themes/eitr/backgrounds-ultrawide/01-primordial-drop.jpg",
       "wallpaper": "themes/eitr/backgrounds/01-primordial-drop.jpg",
       "source": {

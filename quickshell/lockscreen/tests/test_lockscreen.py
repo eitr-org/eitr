@@ -200,6 +200,20 @@ class ThemeWallpaperTests(unittest.TestCase):
         fallback.unlink()
         self.assertEqual(self.settings.design_config('theme-wallpaper')['background'], '')
 
+    def test_eitr_light_wallpapers_follow_the_existing_lock_and_login_path(self):
+        theme = self.home / 'config/theme/current'
+        shipped = ROOT.parents[1] / 'themes/eitr-light'
+        theme.parent.mkdir(parents=True)
+        theme.symlink_to(shipped, target_is_directory=True)
+        expected = shipped / 'backgrounds/01-primordial-drop.jpg'
+        self.assertEqual(self.settings.theme_wallpaper(), expected)
+        self.assertEqual(self.settings.design_config('theme-wallpaper')['background'], expected.as_uri())
+        self.assertEqual(self.settings.eitr_config()['themeMode'], 'light')
+        selected = shipped / 'backgrounds-ultrawide/03-venom-rootlight.jpg'
+        (self.cache / 'current-wallpaper').write_text(str(selected))
+        self.assertEqual(self.settings.theme_wallpaper(), selected)
+        self.assertEqual(self.settings.design_config('theme-wallpaper')['background'], selected.as_uri())
+
     def test_cached_image_link_is_supported(self):
         wallpaper = self.home / 'selected.png'
         wallpaper.touch()

@@ -1,0 +1,6 @@
+{
+  "batch": "themes/artwork-batch-10.json",
+  "exporter": "branding/sources/wallpapers/batch-10/export.py",
+  "inputs": "Written briefs only; no image references.",
+  "runestone": "Omitted: existing renderer embeds lettering and a logo and has no compatible light mode."
+}

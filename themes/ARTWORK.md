@@ -1,6 +1,6 @@
 # Wallpaper Collection
 
-The collection spans 24 themes. The Eitr theme combines procedural and generated illustration (see themes/eitr/artwork.md). Batches 01-03 originally generated 95 images and the Witcher batch four more, 99 in all. The owner's curation removes and reorders wallpapers; wallpaper names remain stable during review, and manifest entries for removed wallpapers are marked removed with their prompts kept as history.
+The collection spans 25 themes. The Eitr theme combines procedural and generated illustration (see themes/eitr/artwork.md). Batches 01-03 originally generated 95 images and the Witcher batch four more, 99 in all. The owner's curation removes and reorders wallpapers; wallpaper names remain stable during review, and manifest entries for removed wallpapers are marked removed with their prompts kept as history.
 
 At the end of Batch 03, Batch 02's former 03 images were promoted to 01, Batch 01's original pair became 02 and 03, and Batch 03 occupied 04 and 05. Later curation changed that order. One Dark Pro (named Witcher for a time) keeps its two owner-supplied wallpapers; its Witcher fan art was removed before public distribution. Historical manifest entries for archived images include an explicit file path.
 
@@ -112,4 +112,24 @@ Masters and reproducible exports: `branding/sources/wallpapers/batch-09/`.
 Eitr’s order is Drop (default), Runestone, Élivágar, Rootlight; the existing
 preview is preserved. Runestone and its live layers are now numbered 02.
 
-The ten realms and Eitr use local Neovim and VS Code themes from the same contrast-corrected palette roles. Run `python3 themes/build-vscode-themes.py` and its `--check` after palette changes; VSIX archives use fixed timestamps and content-derived versions. Afterglow and Wisteria retain their existing VS Code integrations.
+The ten realms, Eitr and Eitr Light use local Neovim and VS Code themes from the same contrast-corrected palette roles. Run `python3 themes/build-vscode-themes.py` and its `--check` after palette changes; VSIX archives use fixed timestamps and content-derived versions. Afterglow and Wisteria retain their existing VS Code integrations.
+
+## Eitr Light batch 10
+
+Eitr Light is the pale Primordial Venom counterpart, with green-tinted neutrals,
+venom yellow-green accents and jade/emerald secondary roles. Batch 10 recomposes
+Primordial Drop, Élivágar and Venom Rootlight on pale mist, bone and parchment
+greens, in the painterly cinematic style explicitly requested by the owner.
+All six compositions use written briefs only, with no reference images, logos
+or lettering. Exact prompts, native sizes and hashes: `artwork-batch-10.json`.
+Masters and the reproducible JPEG exporter live in
+`branding/sources/wallpapers/batch-10/`. The 3840×2160 and 3440×1440 exports do
+not imply native 4K detail. The optional Runestone is omitted because the
+existing renderer embeds rune lettering and a logo and has no compatible light
+mode. Eitr remains the default theme.
+
+Eitr Light's preview is an isolated offscreen capture of the production Calendar
+panel over Primordial Drop, rather than a live desktop capture. Reproduce with
+`EITR_PANEL_REVIEW_RENDERS=/tmp/eitr-light-review python3 quickshell/desktop-bar/tests/render_panel_motion.py --theme eitr-light --panels CalendarMenu --desktop-preview`.
+Copy the resulting `CalendarMenu-eitr-light.png` to its `preview.png`
+after visual inspection. The artwork exporter does not rewrite panel captures.

@@ -1,5 +1,9 @@
 # Releases
 
+Eitr Light adds the light Primordial Venom palette, local light Neovim and VS Code
+themes, and three painterly primordial wallpapers with separate panoramic
+compositions. The collection contains 25 themes; Eitr remains the default.
+
 Walker groups desktop preferences under Settings, with System information and
 maintenance inside Settings > System. Main includes Quick Actions and Plugins;
 plugin installation, updates and installed actions now share the Plugins menu.
@@ -290,7 +294,7 @@ carousel now shows resting Hati/Sköll with a glowing full moon/sun on black.
 Translations: cloud account setup subtitles and menu search use the session
 language; Spanish Install and French Development labels are corrected.
 
-The theme collection now contains 24 themes; Graphite, Moonveil and Obsidian have been
+The theme collection contains 25 themes; Graphite, Moonveil and Obsidian have been
 removed at the owner’s request. Their generation prompts remain archived in the artwork batches.
 Batch 04 replaces the approved Stillwater, Catppuccin Latte, Rose Pine and
 Wisteria wallpapers with fresh written-brief illustrations. Wallpapers have 4K

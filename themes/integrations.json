@@ -236,6 +236,18 @@
       "eitr": true
     }
   },
+  "eitr-light": {
+    "icons": "Yaru-prussiangreen",
+    "vscode": {
+      "name": "Eitr Light",
+      "extension": "local.eitr-eitr-light-theme",
+      "vsix": "vscode.vsix"
+    },
+    "neovim": {
+      "colorscheme": "eitr",
+      "eitr": true
+    }
+  },
   "one-dark-pro": {
     "icons": "Yaru-blue",
     "vscode": {

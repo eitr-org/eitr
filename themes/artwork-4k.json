@@ -321,6 +321,57 @@
       ]
     },
     {
+      "file": "themes/eitr-light/backgrounds/01-primordial-drop.jpg",
+      "source": "branding/sources/wallpapers/batch-10/eitr-light-01-primordial-drop.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "4d78d5833f4a69be056ea7bb4126fd77d25ee789e34c6b437c3874b8a7ce8050",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/eitr-light/backgrounds/02-elivagar.jpg",
+      "source": "branding/sources/wallpapers/batch-10/eitr-light-02-elivagar.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "65e09a2d5a54832aab78e15fc58d1fe94284dbe157648ebbf820e60dd54de95f",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/eitr-light/backgrounds/03-venom-rootlight.jpg",
+      "source": "branding/sources/wallpapers/batch-10/eitr-light-03-venom-rootlight.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "e03df29d345bcd013969fbab09c9a0a4fc1be47519c20266073d86fc64c236d3",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
       "file": "themes/eitr/backgrounds/01-primordial-drop.jpg",
       "source": "branding/sources/wallpapers/batch-09/eitr-01-primordial-drop.png",
       "source_size": [
