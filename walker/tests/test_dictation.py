@@ -245,13 +245,15 @@ class DictationTests(unittest.TestCase):
         bar = ROOT / "quickshell/desktop-bar"
         shell = (bar / "shell.qml").read_text() + (bar / "CaptureIndicator.qml").read_text() + (bar / "DictationState.qml").read_text()
         self.assertIn('target: "dictation"', shell)
-        for binding in ("dictating: shell.dictating", "transcribing: shell.transcribing", "dictationLevels: shell.dictationLevels"):
-            self.assertEqual(shell.count(binding), 2, "horizontal and vertical bars: " + binding)
+        sections = [(bar / name).read_text() for name in ("BarHorizontalCenter.qml", "BarVerticalCenter.qml")]
+        for source, owner in zip(sections, ("centerSection", "verticalMiddle")):
+            for field in ("dictating", "transcribing", "dictationLevels"):
+                self.assertIn(f"{field}: {owner}.host.{field}", source)
         self.assertIn('text: capture.dictating ? Eitr.I18n.tr("Dictating") : capture.transcribing ? Eitr.I18n.tr("Transcribing")', shell)
         # The indicator sits just before the clock on both bar orientations.
         self.assertTrue((bar / "CaptureIndicator.qml").read_text().startswith("import QtQuick"))
-        self.assertIn("id: barCapture\n                        anchors.right: centerInfo.left", shell)
-        self.assertIn("id: verticalCapture\n                            anchors.bottom: verticalCalendarIcon.top", shell)
+        self.assertRegex(sections[0], r"id: barCapture\s+anchors.right: centerInfo.left")
+        self.assertRegex(sections[1], r"id: verticalCapture\s+anchors.bottom: verticalCalendarIcon.top")
         self.assertIn("node: Pipewire.defaultAudioSource", shell, "the waveform follows the microphone dictation records")
         self.assertIn("enabled: dictation.dictating && node !== null", shell, "the microphone is only metered while listening")
         self.assertIn("Behavior on height { enabled: !capture.transcribing;", shell,

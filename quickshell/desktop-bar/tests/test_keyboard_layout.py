@@ -42,8 +42,10 @@ class KeyboardLayoutTests(unittest.TestCase):
         self.assertIn('--notify remove', menu)
         self.assertIn('elephant/keyboard-catalog.lua', (repo / 'elephant/menus/keyboard-add.lua').read_text())
         self.assertIn('--notify add', (repo / 'elephant/keyboard-catalog.lua').read_text())
-        shell = (root / 'shell.qml').read_text()
-        self.assertEqual(shell.count('keyboardMenu.layouts.length > 1'), 2)
+        horizontal = (root / 'BarHorizontalStatus.qml').read_text()
+        vertical = (root / 'BarVerticalStatus.qml').read_text()
+        self.assertIn('keyboardMenu.layouts.length > 1', horizontal)
+        self.assertIn('keyboardMenuRef.layouts.length > 1', vertical)
 
     def test_removal_keeps_variant_alignment(self):
         with patch.object(module, 'apply_pairs') as apply:

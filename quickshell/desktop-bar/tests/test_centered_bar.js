@@ -1,7 +1,8 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
-const source = fs.readFileSync(`${__dirname}/../shell.qml`, 'utf8');
+const source = ['shell', 'BarHorizontalCenter', 'BarVerticalCenter', 'BarHorizontalStatus', 'BarVerticalStatus']
+    .map(name => fs.readFileSync(`${__dirname}/../${name}.qml`, 'utf8')).join('\n');
 const expression = source.match(/readonly property bool expanded: ([^\n]+)/)[1];
 const context = {centeredLayout: true, shell: {barPinned: false, barPointerHeld: false},
     hoverExpanded: false, panelOpen: false, pendingPanel: null};
@@ -20,10 +21,10 @@ for (const reason of ['barPinned', 'barPointerHeld']) {
 context.centeredLayout = false;
 assert.equal(expanded(), true);
 assert.ok(source.includes('interval: 350'));
-assert.ok(source.includes('anchors.right: bar.centeredLayout ? barPin.left : barCapture.left'));
+assert.ok(source.includes('anchors.right: barHost.centeredLayout ? barPin.left : barCapture.left'));
 // The recording/dictation indicator sits between the pin (or media) and the clock.
-assert.ok(source.includes('id: barCapture\n                        anchors.right: centerInfo.left'));
-assert.ok(source.includes('id: barPin\n                        visible: bar.centeredLayout && bar.expanded\n                        anchors.right: barCapture.left'));
+assert.ok(/id: barCapture\s+anchors.right: centerInfo.left/.test(source));
+assert.ok(/id: barPin\s+visible: barHost.centeredLayout && barHost.expanded\s+anchors.right: barCapture.left/.test(source));
 assert.ok(source.includes('id: barPin'));
 assert.equal((source.match(/BarSection \{/g) || []).length, 2);
 const corners = fs.readFileSync(`${__dirname}/../BarSection.qml`, 'utf8');
@@ -59,8 +60,8 @@ assert.ok(panels.includes('centeredPlacement ? (parent.width - width) / 2'));
 assert.ok(panels.includes('centeredPlacement ? (parent.height - height) / 2'));
 assert.ok(panels.includes('strip.x + strip.width + attachmentGap'));
 assert.ok(panels.includes('strip.y + strip.height + attachmentGap'));
-assert.ok(source.includes('anchors.horizontalCenterOffset: bar.centeredLayout ? (bar.leadingReveal - bar.trailingReveal) / 2 : 0'));
-assert.ok(source.includes('anchors.verticalCenterOffset: bar.centeredLayout ? (bar.leadingReveal - bar.trailingReveal) / 2 : 0'));
+assert.ok(source.includes('anchors.horizontalCenterOffset: barHost.centeredLayout ? (barHost.leadingReveal - barHost.trailingReveal) / 2 : 0'));
+assert.ok(source.includes('anchors.verticalCenterOffset: barHost.centeredLayout ? (barHost.leadingReveal - barHost.trailingReveal) / 2 : 0'));
 // Measure the packed strip using the production extent and margin expressions.
 // Check the production anchors as well as the extent arithmetic: a changed margin
 // must not leave the fixture passing with an unrelated, idealised row.
@@ -69,6 +70,7 @@ function itemProperty(id, property) {
     return item.match(new RegExp(`^ +${property.replaceAll('.', '\\.')}:+ ([^\\n]+)`, 'm'))[1];
 }
 const centeredContext = {bar: {centeredLayout: true, itemGap: 4, endPadding: 12}, shown: true};
+centeredContext.barHost = centeredContext.bar;
 for (const [id, property] of [['barPin', 'anchors.rightMargin'], ['barCapture', 'anchors.rightMargin'],
     ['mediaStrip', 'anchors.rightMargin'], ['verticalPin', 'anchors.bottomMargin'],
     ['verticalCapture', 'anchors.bottomMargin'], ['verticalMedia', 'anchors.bottomMargin'],

@@ -427,19 +427,19 @@ ShellRoot {
                     Region { item: shell.notchLayout && !FocusMode.enabled ? leadingTab : null }
                     Region { item: shell.notchLayout && !FocusMode.enabled ? notchTab : null }
                     Region { item: shell.notchLayout && !FocusMode.enabled ? trailingTab : null }
-                    Region { item: wifiMenu.opened ? wifiMenu : null }
-                    Region { item: bluetoothMenu.opened ? bluetoothMenu : null }
-                    Region { item: brightnessMenu.opened ? brightnessMenu : null }
-                    Region { item: volumeMenu.opened ? volumeMenu : null }
-                    Region { item: tailscaleMenu.opened ? tailscaleMenu : null }
-                    Region { item: streamingMenu.opened ? streamingMenu : null }
-                    Region { item: keyboardMenu.opened ? keyboardMenu : null }
-                    Region { item: calendarMenu.opened ? calendarMenu : null }
-                    Region { item: weatherMenu.opened ? weatherMenu : null }
+                    Region { item: bar.wifiMenu.opened ? bar.wifiMenu : null }
+                    Region { item: bar.bluetoothMenu.opened ? bar.bluetoothMenu : null }
+                    Region { item: bar.brightnessMenu.opened ? bar.brightnessMenu : null }
+                    Region { item: bar.volumeMenu.opened ? bar.volumeMenu : null }
+                    Region { item: bar.tailscaleMenu.opened ? bar.tailscaleMenu : null }
+                    Region { item: bar.streamingMenu.opened ? bar.streamingMenu : null }
+                    Region { item: bar.keyboardMenu.opened ? bar.keyboardMenu : null }
+                    Region { item: bar.calendarMenu.opened ? bar.calendarMenu : null }
+                    Region { item: bar.weatherMenu.opened ? bar.weatherMenu : null }
                     Region { item: hardwareMenu.opened ? hardwareMenu : null }
                     Region { item: aiMenu.opened ? aiMenu : null }
-                    Region { item: obsMenu.opened ? obsMenu : null }
-                    Region { item: recordingMenu.opened ? recordingMenu : null }
+                    Region { item: bar.obsMenu.opened ? bar.obsMenu : null }
+                    Region { item: bar.recordingMenu.opened ? bar.recordingMenu : null }
                     Region { item: workspaceMenu.opened ? workspaceMenu : null }
                     Region { item: notificationCenter.opened ? notificationCenter : null }
                     Region { item: controlCenter.opened ? controlCenter : null }
@@ -462,6 +462,54 @@ ShellRoot {
                     }
                 }
 
+                // Centre and status items remain available to the bar geometry and panel frame.
+                readonly property alias verticalMiddle: barVerticalCenter.verticalMiddleItem
+                readonly property alias verticalMedia: barVerticalCenter.verticalMediaItem
+                readonly property alias verticalCapture: barVerticalCenter.verticalCaptureItem
+                readonly property alias verticalPin: barVerticalCenter.verticalPinItem
+                readonly property alias verticalCalendarIcon: barVerticalCenter.verticalCalendarIconItem
+                readonly property alias verticalWeatherIcon: barVerticalCenter.verticalWeatherIconItem
+                readonly property alias verticalEnd: barVerticalStatus.verticalEndItem
+                readonly property alias verticalWifiIcon: barVerticalStatus.verticalWifiIconItem
+                readonly property alias verticalBluetoothIcon: barVerticalStatus.verticalBluetoothIconItem
+                readonly property alias verticalDisplayIcon: barVerticalStatus.verticalDisplayIconItem
+                readonly property alias verticalVolumeIcon: barVerticalStatus.verticalVolumeIconItem
+                readonly property alias verticalTailscaleIcon: barVerticalStatus.verticalTailscaleIconItem
+                readonly property alias verticalStreamingIcon: barVerticalStatus.verticalStreamingIconItem
+                readonly property alias verticalObsIcon: barVerticalStatus.verticalObsIconItem
+                readonly property alias verticalKeyboardIcon: barVerticalStatus.verticalKeyboardIconItem
+                readonly property alias verticalUpdatesIcon: barVerticalStatus.verticalUpdatesIconItem
+                readonly property alias verticalBatteryIcon: barVerticalStatus.verticalBatteryIconItem
+                readonly property alias verticalNotificationIcon: barVerticalStatus.verticalNotificationIconItem
+                readonly property alias rightSide: barHorizontalStatus.rightSideItem
+                readonly property alias statusToggle: barHorizontalStatus.statusToggleItem
+                readonly property alias wifiIcon: barHorizontalStatus.wifiIconItem
+                readonly property alias wifiMenu: barHorizontalStatus.wifiMenuItem
+                readonly property alias bluetoothIcon: barHorizontalStatus.bluetoothIconItem
+                readonly property alias bluetoothMenu: barHorizontalStatus.bluetoothMenuItem
+                readonly property alias brightnessIcon: barHorizontalStatus.brightnessIconItem
+                readonly property alias brightnessMenu: barHorizontalStatus.brightnessMenuItem
+                readonly property alias volumeIcon: barHorizontalStatus.volumeIconItem
+                readonly property alias volumeMenu: barHorizontalStatus.volumeMenuItem
+                readonly property alias tailscaleIcon: barHorizontalStatus.tailscaleIconItem
+                readonly property alias tailscaleMenu: barHorizontalStatus.tailscaleMenuItem
+                readonly property alias streamingIcon: barHorizontalStatus.streamingIconItem
+                readonly property alias streamingMenu: barHorizontalStatus.streamingMenuItem
+                readonly property alias obsIcon: barHorizontalStatus.obsIconItem
+                readonly property alias keyboardIcon: barHorizontalStatus.keyboardIconItem
+                readonly property alias keyboardMenu: barHorizontalStatus.keyboardMenuItem
+                readonly property alias updatesIcon: barHorizontalStatus.updatesIconItem
+                readonly property alias batteryBarIcon: barHorizontalStatus.batteryBarIconItem
+                readonly property alias obsMenu: barHorizontalStatus.obsMenuItem
+                readonly property alias recordingMenu: barHorizontalStatus.recordingMenuItem
+                readonly property alias centerInfo: barHorizontalCenter.centerInfoItem
+                readonly property alias barCapture: barHorizontalCenter.barCaptureItem
+                readonly property alias barPin: barHorizontalCenter.barPinItem
+                readonly property alias mediaStrip: barHorizontalCenter.mediaStripItem
+                readonly property alias barWeather: barHorizontalCenter.barWeatherItem
+                readonly property alias calendarMenu: barHorizontalCenter.calendarMenuItem
+                readonly property alias weatherMenu: barHorizontalCenter.weatherMenuItem
+
                 NotificationPopups {
                     id: notificationPopups
                     screen: bar.screen
@@ -477,7 +525,7 @@ ShellRoot {
                     id: notificationCenter
                     service: notificationsService
                     maximumHeight: bar.screen.height - 70
-                    target: shell.verticalBar ? verticalNotificationIcon : notificationIcon
+                    target: shell.verticalBar ? bar.verticalNotificationIcon : notificationIcon
                     barEdge: shell.barEdge
                     surfaceColor: shell.barBackground()
                     foreground: shell.fg
@@ -505,10 +553,10 @@ ShellRoot {
                     surfaceColor: shell.barBackground()
                     foreground: shell.fg; background: shell.workspaceMenuBg; accent: shell.activeBg
                     service: notificationsService
-                    wifiControl: networkOwner; bluetoothControl: bluetoothMenu; displayControl: brightnessMenu
-                    keyboardControl: keyboardMenu
-                    wifiGlyph: shell.verticalBar ? verticalWifiIcon.text : wifiIcon.text
-                    battery: shell.battery; mediaPlayer: mediaStrip.player
+                    wifiControl: networkOwner; bluetoothControl: bar.bluetoothMenu; displayControl: bar.brightnessMenu
+                    keyboardControl: bar.keyboardMenu
+                    wifiGlyph: shell.verticalBar ? bar.verticalWifiIcon.text : bar.wifiIcon.text
+                    battery: shell.battery; mediaPlayer: bar.mediaStrip.player
                     idleEnabled: shell.idleLockEnabled; idleBusy: toggleIdleLock.running
                     barPosition: shell.barEdge; appearance: shell.barAppearance; layout: shell.barLayout; barScreens: shell.barScreens; barAutoHide: shell.barAutoHide; barDock: shell.barDock; mediaStyle: shell.barMediaStyle; clockFormat: shell.barClock; workspaceStyle: shell.workspaceStyle
                     onIdleToggleRequested: if (!toggleIdleLock.running) toggleIdleLock.running = true
@@ -520,17 +568,17 @@ ShellRoot {
                 }
                 MediaMenu {
                     id: mediaMenu
-                    target: shell.verticalBar ? verticalCalendarIcon : mediaStrip
+                    target: shell.verticalBar ? bar.verticalCalendarIcon : bar.mediaStrip
                     barEdge: shell.barEdge; surfaceColor: shell.barBackground()
                     foreground: shell.fg; background: shell.workspaceMenuBg; accent: shell.activeBg
-                    player: mediaStrip.player
+                    player: bar.mediaStrip.player
                 }
                 BatteryMenu {
                     id: batteryMenu
-                    target: shell.verticalBar ? verticalBatteryIcon : batteryBarIcon
+                    target: shell.verticalBar ? bar.verticalBatteryIcon : bar.batteryBarIcon
                     barEdge: shell.barEdge; surfaceColor: shell.barBackground()
                     foreground: shell.fg; background: shell.workspaceMenuBg; accent: shell.activeBg
-                    battery: shell.battery; displayControl: brightnessMenu
+                    battery: shell.battery; displayControl: bar.brightnessMenu
                 }
                 function showControlCenter(page) {
                     // Accept the System and Capture aliases for Settings and Tools.
@@ -710,11 +758,11 @@ ShellRoot {
                     IslandSurface { first: shell.verticalBar ? verticalControlCenterLogo : leftGroup.controlCenterLogo }
                     IslandSurface { first: shell.verticalBar ? verticalOverviewIcon : leftGroup.overviewIcon; last: shell.verticalBar ? verticalWorkspaces : leftGroup.workspaces }
                     IslandSurface { first: shell.verticalBar ? verticalHardware : leftGroup.hardwareStatus }
-                    IslandSurface { first: shell.verticalBar ? verticalCalendarIcon : centerInfo }
-                    IslandSurface { first: shell.verticalBar ? verticalWeatherIcon : barWeather }
-                    IslandSurface { first: shell.verticalBar ? verticalMedia : mediaStrip; shown: shell.verticalBar ? verticalMedia.visible : mediaStrip.visible }
-                    IslandSurface { first: shell.verticalBar ? verticalCapture : barCapture; shown: shell.verticalBar ? verticalCapture.shown : barCapture.shown }
-                    IslandSurface { first: shell.verticalBar ? verticalEnd : rightSide; last: shell.verticalBar ? verticalEnd : notificationIcon }
+                    IslandSurface { first: shell.verticalBar ? bar.verticalCalendarIcon : bar.centerInfo }
+                    IslandSurface { first: shell.verticalBar ? bar.verticalWeatherIcon : bar.barWeather }
+                    IslandSurface { first: shell.verticalBar ? bar.verticalMedia : bar.mediaStrip; shown: shell.verticalBar ? bar.verticalMedia.visible : bar.mediaStrip.visible }
+                    IslandSurface { first: shell.verticalBar ? bar.verticalCapture : bar.barCapture; shown: shell.verticalBar ? bar.verticalCapture.shown : bar.barCapture.shown }
+                    IslandSurface { first: shell.verticalBar ? bar.verticalEnd : bar.rightSide; last: shell.verticalBar ? bar.verticalEnd : notificationIcon }
                 }
                 component IslandSurface: Rectangle {
                     required property Item first
@@ -815,169 +863,35 @@ ShellRoot {
                         }
                     }
 
-                    Item {
-                        id: verticalMiddle
-                        anchors.alignWhenCentered: false
-                        anchors.horizontalCenterOffset: 0
-                        anchors.centerIn: parent
-                        anchors.verticalCenterOffset: bar.centeredLayout ? (bar.leadingReveal - bar.trailingReveal) / 2 : 0
-                        width: parent.width
-                        height: 40
-                        Column {
-                            id: verticalMedia
-                            anchors.horizontalCenterOffset: 0
-                            anchors.bottom: bar.centeredLayout ? verticalPin.top : verticalCapture.top
-                            anchors.bottomMargin: bar.islandsLayout ? bar.islandSpacing : bar.centeredLayout ? bar.itemGap : 3
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            spacing: bar.centeredLayout ? bar.itemGap : 2
-                            visible: mediaStrip.player !== null && bar.expanded
-                            MediaIndicator {
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                rotation: 90
-                                style: shell.barMediaStyle
-                                playing: mediaStrip.playing
-                                active: shell.barVisible && shell.verticalBar && bar.expanded
-                                foreground: shell.fg
-                                background: shell.workspaceMenuBg
-                                title: mediaStrip.title
-                                onDetailsRequested: bar.togglePanel(mediaMenu)
-                            }
-                            VerticalBarIcon {
-                                host: shell
-                                icon: "󰒮"; tooltip: Eitr.I18n.tr("Previous"); open: true
-                                clickable: !!mediaStrip.player && mediaStrip.player.canGoPrevious
-                                onClicked: mediaStrip.player.previous()
-                            }
-                            VerticalBarIcon {
-                                host: shell
-                                icon: mediaStrip.playing ? "󰏤" : "󰐊"; tooltip: mediaStrip.title; open: true
-                                clickable: !!mediaStrip.player && mediaStrip.player.canTogglePlaying
-                                onClicked: mediaStrip.player.togglePlaying()
-                            }
-                            VerticalBarIcon {
-                                host: shell
-                                icon: "󰒭"; tooltip: Eitr.I18n.tr("Next"); open: true
-                                clickable: !!mediaStrip.player && mediaStrip.player.canGoNext
-                                onClicked: mediaStrip.player.next()
-                            }
-                            VerticalBarIcon {
-                                host: shell
-                                icon: "󰝚"; tooltip: Eitr.I18n.tr("Media"); open: true; clickable: true
-                                onClicked: bar.togglePanel(mediaMenu)
-                            }
-                        }
-                        CaptureIndicator {
-                            host: shell
-                            id: verticalCapture
-                            anchors.bottom: verticalCalendarIcon.top
-                            anchors.horizontalCenterOffset: 0
-                            anchors.bottomMargin: shown ? (bar.islandsLayout ? bar.islandSpacing : bar.centeredLayout ? bar.itemGap : 3) : 0
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            height: shown ? 24 : 0
-                            recording: obsMenu.obsState.recording || obsMenu.obsState.streaming
-                            recordingPaused: obsMenu.obsState.paused && !obsMenu.obsState.streaming
-                            streaming: obsMenu.obsState.streaming
-                            dictating: shell.dictating
-                            transcribing: shell.transcribing
-                            dictationLevels: shell.dictationLevels
-                            onRecordingClicked: bar.togglePanel(recordingMenu)
-                        }
-                        VerticalBarIcon {
-                            host: shell
-                            id: verticalPin
-                            anchors.horizontalCenterOffset: 0
-                            anchors.bottom: verticalCapture.top
-                            anchors.bottomMargin: bar.islandsLayout ? bar.islandSpacing : bar.centeredLayout ? bar.itemGap : 3
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            icon: shell.barPinned ? "󰐃" : "󰐄"
-                            tooltip: shell.barPinned ? Eitr.I18n.tr("Unpin bar") : Eitr.I18n.tr("Pin bar open")
-                            visible: bar.centeredLayout && bar.expanded
-                            open: true; clickable: true
-                            onClicked: shell.updateBarSetting("pinned", shell.barPinned ? "no" : "yes")
-                        }
-                        ClockButton {
-                            host: shell
-                            id: verticalCalendarIcon
-                            anchors.centerIn: parent
-                            compact: true
-                            onClicked: bar.togglePanel(calendarMenu)
-                        }
-                        Item {
-                            anchors.top: verticalCalendarIcon.bottom
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            width: parent.width
-                            height: bar.notchLayout ? bar.weatherReveal : (bar.islandsLayout ? bar.islandSpacing : bar.centeredLayout ? bar.itemGap : 3) + verticalWeatherIcon.height
-                            clip: bar.notchLayout
-                            WeatherWidget {
-                                host: shell
-                                id: verticalWeatherIcon
-                                visible: bar.expanded
-                                enabled: !bar.notchLayout || bar.weatherExpanded
-                                y: parent.height - height
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                autoRefresh: false
-                                compact: true
-                                text: barWeather.text
-                                temp: barWeather.temp
-                                onClicked: bar.togglePanel(weatherMenu)
-                            }
-                        }
+                    BarVerticalCenter {
+                        id: barVerticalCenter
+                        host: shell
+                        barHost: bar
+                        barWeatherRef: bar.barWeather
+                        calendarMenuRef: bar.calendarMenu
+                        mediaMenuRef: mediaMenu
+                        mediaStripRef: bar.mediaStrip
+                        obsMenuRef: bar.obsMenu
+                        recordingMenuRef: bar.recordingMenu
+                        weatherMenuRef: bar.weatherMenu
                     }
 
-                    Column {
-                        id: verticalEnd
-                        opacity: bar.expanded ? 1 : 0
-                        enabled: bar.expanded
-                        Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: bar.islandsLayout ? shell.screenGaps[2] + 4 : bar.centeredLayout ? bar.endPadding : 8
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        spacing: shell.workspaceItemSpacing
-                        VerticalBarIcon {
-                            host: shell
-                            icon: shell.statusOpen ? "⌄" : "⌃"
-                            visible: !bar.centeredLayout && !shell.notchLayout
-                            tooltip: shell.statusOpen ? Eitr.I18n.tr("Hide icons") : Eitr.I18n.tr("Show icons")
-                            open: true; clickable: true
-                            onClicked: shell.statusOpen = !shell.statusOpen
-                        }
-                        PluginBarItems {
-                            foreground: shell.fg; background: shell.barBackground(); accent: shell.activeBg
-                            vertical: true; open: shell.iconsOpen; slotSize: shell.workspaceItemSize; slotSpacing: shell.workspaceItemSpacing
-                            onPanelRequested: function(plugin, panel, target) { bar.openPluginPanel(plugin, panel, target); }
-                        }
-                        StatusCommand {
-                            host: shell
-                            id: verticalWifiIcon
-                            text: shell.wifiGlyph
-                            hoverLabel: "WiFi"; fontSize: 16
-                            open: shell.iconsOpen; height: open ? 24 : 0; fixedWidth: 56; clickable: true
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            onClicked: bar.togglePanel(wifiMenu)
-                            onOpenChanged: if (!open) wifiMenu.opened = false
-                        }
-                        VerticalBarIcon { host: shell; id: verticalBluetoothIcon; icon: "󰂯"; tooltip: Eitr.I18n.tr("Bluetooth"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(bluetoothMenu); onOpenChanged: if (!open) bluetoothMenu.opened = false }
-                        VerticalBarIcon { host: shell; id: verticalDisplayIcon; icon: "󰍹"; tooltip: Eitr.I18n.tr("Display"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(brightnessMenu); onOpenChanged: if (!open) brightnessMenu.opened = false }
-                        VerticalBarIcon { host: shell; id: verticalVolumeIcon; icon: "\u{F02CE}"; tooltip: Eitr.I18n.tr("Audio/Mic"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(volumeMenu); onOpenChanged: if (!open) volumeMenu.opened = false }
-                        VerticalBarIcon { host: shell; id: verticalTailscaleIcon; visible: remoteAccessService.allowed; icon: "󰌘"; tooltip: "Tailscale"; open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(tailscaleMenu); onOpenChanged: if (!open) tailscaleMenu.opened = false }
-                        VerticalBarIcon { host: shell; id: verticalStreamingIcon; visible: remoteAccessService.allowed; icon: "󰢹"; tooltip: Eitr.I18n.tr("Streaming"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(streamingMenu); onOpenChanged: if (!open) streamingMenu.opened = false }
-                        VerticalBarIcon { host: shell; id: verticalObsIcon; icon: obsMenu.obsState.recording ? (obsMenu.obsState.paused ? "󰏤" : "󰑋") : "󰻂"; iconSize: obsMenu.obsState.recording && !obsMenu.obsState.paused ? 22 : 16; tooltip: obsMenu.obsState.recording ? (obsMenu.obsState.paused ? Eitr.I18n.tr("Recording paused") : Eitr.I18n.tr("Recording")) : Eitr.I18n.tr("OBS Studio"); open: shell.iconsOpen; clickable: true; onClicked: bar.togglePanel(obsMenu); onOpenChanged: if (!open) obsMenu.opened = false }
-                        VerticalBarIcon { host: shell; id: verticalKeyboardIcon; icon: keyboardMenu.activeCode || "󰌌"; iconSize: 11; tooltip: keyboardMenu.activeLabel ? Eitr.I18n.tr("Keyboard · {layout}", {layout: keyboardMenu.activeLabel}) : Eitr.I18n.tr("Keyboard"); open: shell.iconsOpen && keyboardMenu.layouts.length > 1; clickable: true; onClicked: bar.togglePanel(keyboardMenu); onOpenChanged: if (!open) keyboardMenu.opened = false }
-                        VerticalBarIcon {
-                            host: shell
-                            id: verticalUpdatesIcon
-                            icon: shell.updatesIcon; iconSize: 17; spinning: shell.updates.checking
-                            tooltip: shell.updatesTooltip; open: shell.iconsOpen
-                            clickable: true; rightClickable: true
-                            onClicked: function(button) { if (button === Qt.RightButton) shell.checkUpdates(); else shell.openSystemUpdate(); }
-                        }
-                        VerticalBarIcon { host: shell; id: verticalBatteryIcon; icon: shell.batteryIcon; tooltip: Math.round(shell.battery.percent) + "% · " + shell.battery.status; open: shell.battery.available; visible: shell.battery.available; clickable: true; onClicked: bar.togglePanel(batteryMenu) }
-                        VerticalBarIcon {
-                            host: shell
-                            id: verticalNotificationIcon
-                            icon: notificationIcon.text; tooltip: Eitr.I18n.tr("Notifications"); open: true; clickable: true
-                            onClicked: bar.togglePanel(notificationCenter)
-                        }
+                    BarVerticalStatus {
+                        id: barVerticalStatus
+                        host: shell
+                        barHost: bar
+                        batteryMenuRef: batteryMenu
+                        bluetoothMenuRef: bar.bluetoothMenu
+                        brightnessMenuRef: bar.brightnessMenu
+                        keyboardMenuRef: bar.keyboardMenu
+                        notificationCenterRef: notificationCenter
+                        notificationIconRef: notificationIcon
+                        obsMenuRef: bar.obsMenu
+                        remoteAccessServiceRef: remoteAccessService
+                        streamingMenuRef: bar.streamingMenu
+                        tailscaleMenuRef: bar.tailscaleMenu
+                        volumeMenuRef: bar.volumeMenu
+                        wifiMenuRef: bar.wifiMenu
                     }
                 }
 
@@ -1059,271 +973,24 @@ ShellRoot {
 
                     }
 
-                        Row {
-                            id: rightSide
-                            opacity: bar.expanded ? 1 : 0
-                            enabled: bar.expanded
-                            Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
-
-                            spacing: shell.workspaceItemSpacing
-                            anchors.right: notificationIcon.left
-                            anchors.rightMargin: shell.workspaceItemSpacing
-                            anchors.verticalCenter: parent.verticalCenter
-
-                            StatusIcon {
-
-                                host: shell
-                                id: statusToggle
-                                visible: !bar.centeredLayout && !shell.notchLayout
-                                tooltip: shell.statusOpen ? Eitr.I18n.tr("Hide icons") : Eitr.I18n.tr("Show icons")
-
-                                icon: shell.statusOpen ? "›" : "‹"
-                                open: true
-                                clickable: true
-                                iconSize: 21
-                                glyphOffsetY: -1
-                                onClicked: shell.statusOpen = !shell.statusOpen
-                            }
-
-                            PluginBarItems {
-                                foreground: shell.fg; background: shell.barBackground(); accent: shell.activeBg
-                                open: shell.iconsOpen; slotSize: shell.workspaceItemSize; slotSpacing: shell.workspaceItemSpacing
-                                onPanelRequested: function(plugin, panel, target) { bar.openPluginPanel(plugin, panel, target); }
-                            }
-
-                            StatusCommand {
-
-                                host: shell
-                                id: wifiIcon
-                                text: shell.wifiGlyph
-                                hoverLabel: "WiFi"
-                                fontSize: 16
-                                open: shell.iconsOpen
-                                slotWidth: shell.workspaceItemSize
-                                fixedWidth: shell.workspaceItemSize
-                                clickable: true
-                                onClicked: bar.togglePanel(wifiMenu)
-                                onOpenChanged: if (!open) wifiMenu.opened = false
-                            }
-
-                            WifiMenu {
-                                id: wifiMenu
-                                networkService: networkOwner
-                                surfaceColor: shell.barBackground()
-                                target: shell.verticalBar ? verticalWifiIcon : (shell.iconsOpen ? wifiIcon : notificationIcon)
-                                barEdge: shell.barEdge
-                                accent: shell.activeBg
-                                foreground: shell.fg
-                                background: shell.workspaceMenuBg
-                            }
-
-                            StatusIcon {
-
-                                host: shell
-                                id: bluetoothIcon
-                                icon: "󰂯"
-                                tooltip: Eitr.I18n.tr("Bluetooth")
-                                open: shell.iconsOpen
-                                clickable: true
-                                onClicked: bar.togglePanel(bluetoothMenu)
-                                onOpenChanged: if (!open) bluetoothMenu.opened = false
-                            }
-
-                            BluetoothMenu {
-                                id: bluetoothMenu
-                                surfaceColor: shell.barBackground()
-                                target: shell.verticalBar ? verticalBluetoothIcon : (shell.iconsOpen ? bluetoothIcon : notificationIcon)
-                                barEdge: shell.barEdge
-                                accent: shell.activeBg
-                                foreground: shell.fg
-                                background: shell.workspaceMenuBg
-                            }
-
-                            StatusIcon {
-
-                                host: shell
-                                id: brightnessIcon
-                                icon: "󰍹"
-                                tooltip: Eitr.I18n.tr("Display")
-                                open: shell.iconsOpen
-                                clickable: true
-                                onClicked: bar.togglePanel(brightnessMenu)
-                                onOpenChanged: if (!open) brightnessMenu.opened = false
-                            }
-
-                            BrightnessMenu {
-                                id: brightnessMenu
-                                maximumHeight: bar.screen.height - 70
-                                surfaceColor: shell.barBackground()
-                                target: shell.verticalBar ? verticalDisplayIcon : (shell.iconsOpen ? brightnessIcon : notificationIcon)
-                                barEdge: shell.barEdge
-                                accent: shell.activeBg
-                                foreground: shell.fg
-                                background: shell.workspaceMenuBg
-                                onPrimarySelected: DisplayService.refresh()
-                            }
-
-                            StatusIcon {
-
-                                host: shell
-                                id: volumeIcon
-                                icon: "\u{F02CE}"
-                                tooltip: Eitr.I18n.tr("Audio/Mic")
-                                open: shell.iconsOpen
-                                clickable: true
-                                onClicked: bar.togglePanel(volumeMenu)
-                                onOpenChanged: if (!open) volumeMenu.opened = false
-                            }
-
-                            AudioMenu {
-                                id: volumeMenu
-                                surfaceColor: shell.barBackground()
-                                maximumHeight: bar.screen.height - 70
-                                target: shell.verticalBar ? verticalVolumeIcon : (shell.iconsOpen ? volumeIcon : notificationIcon)
-                                barEdge: shell.barEdge
-                                accent: shell.activeBg
-                                foreground: shell.fg
-                                background: shell.workspaceMenuBg
-                            }
-
-                            StatusIcon {
-
-                                host: shell
-                                id: tailscaleIcon
-                                visible: remoteAccessService.allowed
-                                icon: "󰌘"
-                                tooltip: "Tailscale"
-                                open: shell.iconsOpen
-                                clickable: true
-                                onClicked: bar.togglePanel(tailscaleMenu)
-                                onOpenChanged: if (!open) tailscaleMenu.opened = false
-                            }
-                            RemoteAccessMenu {
-                                id: tailscaleMenu
-                                kind: "tailscale"
-                                service: remoteAccessService
-                                onObservationChanged: observing => shell.remoteObservers += observing ? 1 : -1
-                                maximumHeight: bar.screen.height - 70
-                                surfaceColor: shell.barBackground()
-                                target: shell.verticalBar ? verticalTailscaleIcon : tailscaleIcon
-                                barEdge: shell.barEdge
-                                accent: shell.activeBg
-                                foreground: shell.fg
-                                background: shell.workspaceMenuBg
-                            }
-                            StatusIcon {
-                                host: shell
-                                id: streamingIcon
-                                visible: remoteAccessService.allowed
-                                icon: "󰢹"
-                                tooltip: Eitr.I18n.tr("Streaming")
-                                open: shell.iconsOpen
-                                clickable: true
-                                onClicked: bar.togglePanel(streamingMenu)
-                                onOpenChanged: if (!open) streamingMenu.opened = false
-                            }
-                            RemoteAccessMenu {
-                                id: streamingMenu
-                                kind: "streaming"
-                                service: remoteAccessService
-                                onObservationChanged: observing => shell.remoteObservers += observing ? 1 : -1
-                                maximumHeight: bar.screen.height - 70
-                                surfaceColor: shell.barBackground()
-                                target: shell.verticalBar ? verticalStreamingIcon : streamingIcon
-                                barEdge: shell.barEdge
-                                accent: shell.activeBg
-                                foreground: shell.fg
-                                background: shell.workspaceMenuBg
-                            }
-
-                            StatusIcon {
-
-                                host: shell
-                                id: obsIcon
-                                icon: obsMenu.obsState.recording ? (obsMenu.obsState.paused ? "󰏤" : "󰑋") : "󰻂"
-                                iconSize: obsMenu.obsState.recording && !obsMenu.obsState.paused ? 22 : 16
-                                tooltip: obsMenu.obsState.recording ? (obsMenu.obsState.paused ? Eitr.I18n.tr("Recording paused") : Eitr.I18n.tr("Recording")) : Eitr.I18n.tr("OBS Studio")
-                                open: shell.iconsOpen
-                                clickable: true
-                                onClicked: bar.togglePanel(obsMenu)
-                                onOpenChanged: if (!open) obsMenu.opened = false
-                            }
-
-                            StatusIcon {
-
-                                host: shell
-                                id: keyboardIcon
-                                // Like macOS's input menu: the active layout's code, shown
-                                // only when there is more than one layout to switch between.
-                                icon: keyboardMenu.activeCode || "󰌌"
-                                iconSize: 11
-                                tooltip: keyboardMenu.activeLabel ? Eitr.I18n.tr("Keyboard · {layout}", {layout: keyboardMenu.activeLabel}) : Eitr.I18n.tr("Keyboard")
-                                open: shell.iconsOpen && keyboardMenu.layouts.length > 1
-                                clickable: true
-                                onClicked: bar.togglePanel(keyboardMenu)
-                                onOpenChanged: if (!open) keyboardMenu.opened = false
-                            }
-
-                            KeyboardLayoutMenu {
-                                id: keyboardMenu
-                                surfaceColor: shell.barBackground()
-                                target: shell.verticalBar ? verticalKeyboardIcon : (shell.iconsOpen ? keyboardIcon : notificationIcon)
-                                barEdge: shell.barEdge
-                                accent: shell.activeBg
-                                foreground: shell.fg
-                                background: shell.workspaceMenuBg
-                            }
-
-                            StatusIcon {
-
-                                host: shell
-                                id: updatesIcon
-                                icon: shell.updatesIcon
-                                iconSize: 17
-                                spinning: shell.updates.checking
-                                tooltip: shell.updatesTooltip
-                                open: shell.iconsOpen
-                                clickable: true
-                                rightClickable: true
-                                onClicked: function(button) {
-                                    if (button === Qt.RightButton) shell.checkUpdates();
-                                    else shell.openSystemUpdate();
-                                }
-                            }
-
-                            StatusIcon {
-
-                                host: shell
-                                id: batteryBarIcon
-                                icon: shell.batteryIcon
-                                tooltip: Math.round(shell.battery.percent) + "% · " + shell.battery.status
-                                open: shell.battery.available; visible: shell.battery.available
-                                clickable: true; onClicked: bar.togglePanel(batteryMenu)
-                            }
-
-                            ObsMenu {
-                                id: obsMenu
-                                surfaceColor: shell.barBackground()
-                                onCaptureStarting: recordingMenu.opened = false
-                                target: shell.verticalBar ? verticalObsIcon : obsIcon
-                                barEdge: shell.barEdge
-                                accent: shell.activeBg
-                                foreground: shell.fg
-                                background: shell.workspaceMenuBg
-                            }
-
-                            RecordingMenu {
-                                id: recordingMenu
-                                surfaceColor: shell.barBackground()
-                                controller: obsMenu
-                                target: shell.verticalBar ? verticalCapture : barCapture
-                                barEdge: shell.barEdge
-                                centered: true
-                                accent: shell.activeBg
-                                foreground: shell.fg
-                                background: shell.workspaceMenuBg
-                            }
-
+                        BarHorizontalStatus {
+                            id: barHorizontalStatus
+                            host: shell
+                            barHost: bar
+                            barCaptureRef: bar.barCapture
+                            batteryMenuRef: batteryMenu
+                            networkOwnerRef: networkOwner
+                            notificationIconRef: notificationIcon
+                            remoteAccessServiceRef: remoteAccessService
+                            verticalBluetoothIconRef: bar.verticalBluetoothIcon
+                            verticalCaptureRef: bar.verticalCapture
+                            verticalDisplayIconRef: bar.verticalDisplayIcon
+                            verticalKeyboardIconRef: bar.verticalKeyboardIcon
+                            verticalObsIconRef: bar.verticalObsIcon
+                            verticalStreamingIconRef: bar.verticalStreamingIcon
+                            verticalTailscaleIconRef: bar.verticalTailscaleIcon
+                            verticalVolumeIconRef: bar.verticalVolumeIcon
+                            verticalWifiIconRef: bar.verticalWifiIcon
                         }
 
                     NotificationWidget {
@@ -1341,104 +1008,18 @@ ShellRoot {
                         anchors.verticalCenter: parent.verticalCenter
                     }
 
-                    ClockButton {
-
+                    BarHorizontalCenter {
+                        id: barHorizontalCenter
                         host: shell
-                        id: centerInfo
-                        anchors.alignWhenCentered: false
-                        anchors.centerIn: parent
-                        anchors.horizontalCenterOffset: bar.centeredLayout ? (bar.leadingReveal - bar.trailingReveal) / 2 : 0
-                        anchors.verticalCenterOffset: 0
-                        onClicked: bar.togglePanel(calendarMenu)
+                        barHost: bar
+                        hardwareStatusRef: leftGroup.hardwareStatus
+                        mediaMenuRef: mediaMenu
+                        obsMenuRef: bar.obsMenu
+                        recordingMenuRef: bar.recordingMenu
+                        verticalCalendarIconRef: bar.verticalCalendarIcon
+                        verticalWeatherIconRef: bar.verticalWeatherIcon
+                        workspacesRef: leftGroup.workspaces
                     }
-
-                    CaptureIndicator {
-
-                        host: shell
-                        id: barCapture
-                        anchors.right: centerInfo.left
-                        anchors.rightMargin: shown ? (bar.islandsLayout ? bar.islandSpacing : bar.centeredLayout ? bar.itemGap : 6) : 0
-                        anchors.verticalCenter: parent.verticalCenter
-                        recording: obsMenu.obsState.recording || obsMenu.obsState.streaming
-                        recordingPaused: obsMenu.obsState.paused && !obsMenu.obsState.streaming
-                        streaming: obsMenu.obsState.streaming
-                        dictating: shell.dictating
-                        transcribing: shell.transcribing
-                        dictationLevels: shell.dictationLevels
-                        onRecordingClicked: bar.togglePanel(recordingMenu)
-                    }
-
-                    StatusIcon {
-
-                        host: shell
-                        id: barPin
-                        visible: bar.centeredLayout && bar.expanded
-                        anchors.right: barCapture.left
-                        anchors.rightMargin: bar.islandsLayout ? bar.islandSpacing : bar.centeredLayout ? bar.itemGap : 6
-                        anchors.verticalCenter: parent.verticalCenter
-                        icon: shell.barPinned ? "󰐃" : "󰐄"
-                        tooltip: shell.barPinned ? Eitr.I18n.tr("Unpin bar") : Eitr.I18n.tr("Pin bar open")
-                        open: true; clickable: true
-                        onClicked: shell.updateBarSetting("pinned", shell.barPinned ? "no" : "yes")
-                    }
-
-                    MediaStrip {
-                        id: mediaStrip
-                        mediaStyle: shell.barMediaStyle
-                        audioEnabled: shell.barVisible && !shell.verticalBar && bar.expanded
-                        opacity: bar.expanded ? 1 : 0
-                        enabled: bar.expanded
-                        anchors.right: bar.centeredLayout ? barPin.left : barCapture.left
-                        anchors.rightMargin: bar.islandsLayout ? bar.islandSpacing : bar.centeredLayout ? bar.itemGap : 12
-                        anchors.verticalCenter: parent.verticalCenter
-                        itemSpacing: bar.centeredLayout ? bar.itemGap : 1
-                        indicatorSpacing: bar.centeredLayout ? bar.itemGap : 6
-                        availableWidth: bar.centeredLayout
-                            ? Math.max(0, bar.width / 2 - centerInfo.width / 2 - leftGroup.workspaces.width - leftGroup.hardwareStatus.width - barPin.width - barCapture.width - bar.itemGap * (barCapture.shown ? 5 : 4) - bar.endPadding)
-                            : Math.max(0, centerInfo.x - leftGroup.hardwareStatus.mapToItem(centerInfo.parent, leftGroup.hardwareStatus.width, 0).x - (bar.islandsLayout ? 2 * bar.islandSpacing + (barCapture.shown ? barCapture.width + bar.islandSpacing : 0) : 24))
-                        foreground: shell.fg
-                        background: shell.workspaceMenuBg
-                        onDetailsRequested: bar.togglePanel(mediaMenu)
-                    }
-
-                    Item {
-                        anchors.left: centerInfo.right
-                        anchors.verticalCenter: centerInfo.verticalCenter
-                        width: bar.notchLayout ? bar.weatherReveal : (bar.islandsLayout ? bar.islandSpacing : bar.centeredLayout ? bar.itemGap : 6) + barWeather.width
-                        height: barWeather.height
-                        clip: bar.notchLayout
-                        WeatherWidget {
-                            host: shell
-                            id: barWeather
-                            x: parent.width - width
-                            opacity: bar.expanded ? 1 : 0
-                            enabled: bar.expanded && (!bar.notchLayout || bar.weatherExpanded)
-                            onClicked: bar.togglePanel(weatherMenu)
-                        }
-                    }
-
-                    CalendarMenu {
-                        id: calendarMenu
-                        surfaceColor: shell.barBackground()
-                        target: shell.verticalBar ? verticalCalendarIcon : centerInfo
-                        barEdge: shell.barEdge
-                        centered: true
-                        accent: shell.activeBg
-                        foreground: shell.fg
-                        background: shell.workspaceMenuBg
-                    }
-
-                    WeatherMenu {
-                        id: weatherMenu
-                        surfaceColor: shell.barBackground()
-                        target: shell.verticalBar ? verticalWeatherIcon : centerInfo
-                        barEdge: shell.barEdge
-                        centered: true
-                        accent: shell.activeBg
-                        foreground: shell.fg
-                        background: shell.workspaceMenuBg
-                    }
-
                 }
 
                 }

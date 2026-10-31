@@ -43,7 +43,7 @@ class UpdatesTests(unittest.TestCase):
             self.assertEqual(updates.aur_updates(), ["yay-bin"])
 
     def test_bar_icon_sits_between_obs_and_notifications_and_refreshes_after_updates(self):
-        shell = (ROOT / "shell.qml").read_text()
+        shell = (ROOT / "BarHorizontalStatus.qml").read_text() + (ROOT / "shell.qml").read_text() + (ROOT / "BarVerticalStatus.qml").read_text()
         self.assertLess(shell.index("id: obsIcon"), shell.index("id: updatesIcon"))
         self.assertLess(shell.index("id: updatesIcon"), shell.index("id: notificationIcon"))
         self.assertLess(shell.index("id: verticalObsIcon"), shell.index("id: verticalUpdatesIcon"))

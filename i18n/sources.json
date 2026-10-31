@@ -87,7 +87,8 @@
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Audio/Mic": [
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/BarVerticalStatus.qml"
     ],
     "Authentication server domain": [
       "quickshell/desktop-bar/WifiMenu.qml"
@@ -141,9 +142,10 @@
       "quickshell/desktop-bar/PluginManager.qml"
     ],
     "Bluetooth": [
+      "quickshell/desktop-bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/BarVerticalStatus.qml",
       "quickshell/desktop-bar/BluetoothMenu.qml",
-      "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Bluetooth is off": [
       "quickshell/desktop-bar/BluetoothMenu.qml"
@@ -371,9 +373,10 @@
       "quickshell/desktop-bar/WifiMenu.qml"
     ],
     "Display": [
+      "quickshell/desktop-bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/BarVerticalStatus.qml",
       "quickshell/desktop-bar/BrightnessMenu.qml",
-      "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Displays": [
       "quickshell/desktop-bar/BrightnessMenu.qml"
@@ -509,7 +512,8 @@
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Hide icons": [
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/BarVerticalStatus.qml"
     ],
     "Hide the bar; press SUPER + Shift + Space to restore it.": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -575,14 +579,16 @@
       "quickshell/desktop-bar/BrightnessMenu.qml"
     ],
     "Keyboard": [
-      "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Keyboard Layout": [
       "quickshell/desktop-bar/KeyboardLayoutMenu.qml"
     ],
     "Keyboard · {layout}": [
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/BarVerticalStatus.qml"
     ],
     "LIVE": [
       "quickshell/desktop-bar/RecordingMenu.qml"
@@ -666,9 +672,9 @@
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Media": [
+      "quickshell/desktop-bar/BarVerticalCenter.qml",
       "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/MediaMenu.qml",
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/MediaMenu.qml"
     ],
     "Media style": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -712,9 +718,9 @@
       "quickshell/desktop-bar/AssistantChat.qml"
     ],
     "Next": [
+      "quickshell/desktop-bar/BarVerticalCenter.qml",
       "quickshell/desktop-bar/Handbook.qml",
       "quickshell/desktop-bar/MediaStrip.qml",
-      "quickshell/desktop-bar/shell.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Night Light": [
@@ -789,8 +795,8 @@
       "quickshell/desktop-bar/Handbook.qml"
     ],
     "Notifications": [
-      "quickshell/desktop-bar/NotificationList.qml",
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/NotificationList.qml"
     ],
     "Numbers": [
       "quickshell/desktop-bar/WorkspaceStyleMenu.qml"
@@ -799,8 +805,9 @@
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "OBS Studio": [
-      "quickshell/desktop-bar/ObsMenu.qml",
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/ObsMenu.qml"
     ],
     "OBS command failed": [
       "quickshell/desktop-bar/ObsMenu.qml"
@@ -889,7 +896,8 @@
       "quickshell/desktop-bar/Handbook.qml"
     ],
     "Pin bar open": [
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/BarHorizontalCenter.qml",
+      "quickshell/desktop-bar/BarVerticalCenter.qml"
     ],
     "Play": [
       "quickshell/desktop-bar/MediaStrip.qml"
@@ -921,9 +929,9 @@
       "quickshell/desktop-bar/PluginManager.qml"
     ],
     "Previous": [
+      "quickshell/desktop-bar/BarVerticalCenter.qml",
       "quickshell/desktop-bar/Handbook.qml",
       "quickshell/desktop-bar/MediaStrip.qml",
-      "quickshell/desktop-bar/shell.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "QR Code": [
@@ -970,14 +978,16 @@
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Recording": [
-      "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Recording options": [
       "quickshell/desktop-bar/ObsMenu.qml"
     ],
     "Recording paused": [
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/BarVerticalStatus.qml"
     ],
     "Recording settings unavailable": [
       "quickshell/desktop-bar/ObsMenu.qml"
@@ -1168,7 +1178,8 @@
       "quickshell/desktop-bar/ControlCenter.qml"
     ],
     "Show icons": [
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/BarVerticalStatus.qml"
     ],
     "Show on": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -1245,8 +1256,9 @@
       "quickshell/desktop-bar/RecordingMenu.qml"
     ],
     "Streaming": [
-      "quickshell/desktop-bar/RemoteAccessContent.qml",
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/RemoteAccessContent.qml"
     ],
     "Style": [
       "quickshell/desktop-bar/ControlCenter.qml"
@@ -1352,7 +1364,8 @@
       "quickshell/desktop-bar/RecordingMenu.qml"
     ],
     "Unpin bar": [
-      "quickshell/desktop-bar/shell.qml"
+      "quickshell/desktop-bar/BarHorizontalCenter.qml",
+      "quickshell/desktop-bar/BarVerticalCenter.qml"
     ],
     "Upcoming": [
       "quickshell/desktop-bar/ControlCenter.qml"

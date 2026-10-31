@@ -26,7 +26,9 @@ class NotchLayoutTests(unittest.TestCase):
         self.assertIn('EdgeSlopes.outline', outline)
         self.assertNotIn('PanelSurface {', tab)
         icon_visibility = shell_source.split('readonly property bool iconsOpen: ', 1)[1].split('\n', 1)[0]
-        toggle_visibility = shell_source.split('id: statusToggle', 1)[1].split('visible: ', 1)[1].split('\n', 1)[0]
+        status_source = (BAR / 'BarHorizontalStatus.qml').read_text()
+        toggle_visibility = status_source.split('id: statusToggle', 1)[1].split('visible: ', 1)[1].split('\n', 1)[0]
+        toggle_visibility = toggle_visibility.replace('barHost.', 'bar.').replace('rightSide.host.', 'shell.')
         corner_styles = json.loads((BAR / 'corner-styles.json').read_text())['styles']
         geometry = 'readonly property real tabsPadding:' + shell_source.split(
             '                readonly property real tabsPadding:', 1)[1].split(

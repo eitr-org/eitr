@@ -144,7 +144,8 @@ class ControlCenterContracts(unittest.TestCase):
         self.assertIn('MediaCard {', center)
         shell = (root / 'shell.qml').read_text()
         self.assertIn('Region { item: controlCenter.opened ? controlCenter : null }', shell)
-        self.assertIn('onDetailsRequested: bar.togglePanel(mediaMenu)', shell)
+        center_section = (root / 'BarHorizontalCenter.qml').read_text()
+        self.assertIn('onDetailsRequested: barHost.togglePanel(mediaMenuRef)', center_section)
 
 if __name__ == '__main__':
     unittest.main()
