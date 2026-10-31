@@ -194,5 +194,11 @@
   "Tabbed desktop, split panes, monitor behavior and recovery": "Tabbed desktop, split panes, monitor behavior and recovery",
   "These keys replace workspace controls while Focus is on. See the Focus chapter for recovery and monitor behavior.": "These keys replace workspace controls while Focus is on. See the Focus chapter for recovery and monitor behavior.",
   "Connectivity, Devices & Input, Language, Security, Style and System": "Connectivity, Devices & Input, Language, Security, Style and System",
-  "Settings Menu": "Settings Menu"
+  "Settings Menu": "Settings Menu",
+  "Open Audio panel": "Open Audio panel",
+  "Open Bluetooth panel": "Open Bluetooth panel",
+  "Open Calendar panel": "Open Calendar panel",
+  "Open Display panel": "Open Display panel",
+  "Open WiFi panel": "Open WiFi panel",
+  "Toggle Focus": "Toggle Focus"
 }

@@ -6,7 +6,9 @@ Focus replaces the desktop bar with a 28 px tab strip at the top of every monito
 Open **Settings > Style > Focus** or **Control Center > Style > Focus**, or run
 `eitr focus on`. `eitr focus status` prints `on` or `off` without contacting
 Hyprland. `eitr focus off` restores the normal desktop, including its bar layout,
-effects and shortcuts. There is no dedicated toggle shortcut.
+effects and shortcuts. **SUPER + Shift + F** or `eitr focus toggle` toggles Focus.
+**SUPER + Shift + A/B/C/W/M** opens Audio/Bluetooth/Calendar/WiFi/Display panels
+in both normal and Focus modes.
 
 The preference lives in `~/.config/eitr/focus.json` (under `$XDG_CONFIG_HOME`
 when set). Reboots, package updates and theme changes preserve it. Normal bar

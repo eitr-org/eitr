@@ -153,7 +153,7 @@ docker run --rm --platform linux/amd64 -v "$PWD":/repo:ro archlinux:latest bash 
 
 ## Focus preset
 
-Settings > Style > Focus, Control Center > Style > Focus and `eitr focus on|off|status`
+Settings > Style > Focus, Control Center > Style > Focus and `eitr focus on|off|toggle|status`
 share a machine-local preference. Focus uses native Hyprland groups with up to
 four panes per monitor and a thin Quickshell tab strip. Turning it off restores
 the normal bar and effects, spreading windows two per workspace. See the

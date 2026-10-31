@@ -22,6 +22,30 @@
     "submenu": "remote-access"
   },
   {
+    "text": "Audio Panel",
+    "subtext": "SUPER + Shift + A",
+    "icon": "󰍹",
+    "actions": {
+      "open": "eitr-shell desktop-bar ipc call -- panels show volume"
+    }
+  },
+  {
+    "text": "Bluetooth Panel",
+    "subtext": "SUPER + Shift + B",
+    "icon": "󰍹",
+    "actions": {
+      "open": "eitr-shell desktop-bar ipc call -- panels show bluetooth"
+    }
+  },
+  {
+    "text": "Calendar Panel",
+    "subtext": "SUPER + Shift + C",
+    "icon": "󰍹",
+    "actions": {
+      "open": "eitr-shell desktop-bar ipc call -- panels show calendar"
+    }
+  },
+  {
     "text": "Clipboard History",
     "subtext": "SUPER + Ctrl + V",
     "icon": "",
@@ -72,6 +96,14 @@
     "icon": "󰕮",
     "actions": {
       "open": "eitr-shell desktop-bar ipc call -- controlCenter toggle"
+    }
+  },
+  {
+    "text": "Display Panel",
+    "subtext": "SUPER + Shift + M",
+    "icon": "󰍹",
+    "actions": {
+      "open": "eitr-shell desktop-bar ipc call -- panels show display"
     }
   },
   {
@@ -195,6 +227,14 @@
     }
   },
   {
+    "text": "Toggle Focus",
+    "subtext": "SUPER + Shift + F",
+    "icon": "󰍹",
+    "actions": {
+      "open": "eitr focus toggle"
+    }
+  },
+  {
     "text": "Toggle Fullscreen",
     "subtext": "SUPER + Ctrl + F",
     "icon": "󰊓",
@@ -221,6 +261,14 @@
     "icon": "🖻",
     "actions": {
       "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/appearance-picker.sh wallpaper"
+    }
+  },
+  {
+    "text": "WiFi Panel",
+    "subtext": "SUPER + Shift + W",
+    "icon": "󰍹",
+    "actions": {
+      "open": "eitr-shell desktop-bar ipc call -- panels show wifi"
     }
   }
 ]

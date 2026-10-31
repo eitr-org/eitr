@@ -82,6 +82,12 @@ class EitrCommandTests(unittest.TestCase):
         self.assertEqual(self.plan("theme", "set", "Rose Pine"),
                          ["bash", str(self.code / "walker/scripts/actions/style/apply.sh"), "Rose Pine"])
 
+    def test_focus_toggle_routes_to_the_controller(self):
+        checkout = DISTRO.parent
+        arguments = eitr.parser().parse_args(['focus', 'toggle'])
+        self.assertEqual(eitr.plan(arguments, code=checkout),
+                         ['python3', str(DISTRO / 'lib/eitr_focus.py'), 'toggle'])
+
     def test_about_reuses_the_focus_or_open_action(self):
         self.assertEqual(self.plan("about"), ["bash", str(self.code / "walker/scripts/actions/about.sh")])
         self.assertIn("about", eitr.overview())

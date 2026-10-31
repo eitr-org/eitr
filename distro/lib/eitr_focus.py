@@ -289,7 +289,7 @@ def tab_action(action, value, hypr):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['on', 'off', 'status', 'get', 'set', 'reconcile', 'tab',
+    parser.add_argument('action', choices=['on', 'off', 'toggle', 'status', 'get', 'set', 'reconcile', 'tab',
                                            'next', 'previous', 'horizontal', 'vertical', 'join', 'bindings', 'entries'])
     parser.add_argument('values', nargs='*')
     arguments = parser.parse_args(argv)
@@ -314,6 +314,8 @@ def main(argv=None):
     with lock.open('w') as handle:
         fcntl.flock(handle, fcntl.LOCK_EX)
         hypr = Hypr()
+        if action == 'toggle':
+            action = 'off' if enabled() else 'on'
         if action in ('on', 'off'):
             change(action, hypr)
         elif action == 'reconcile':

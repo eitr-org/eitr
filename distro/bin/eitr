@@ -163,7 +163,7 @@ def parser():
     theme_set.add_argument("name", help="a name from 'eitr theme list', such as eitr or 'Rose Pine'")
 
     focus = commands.add_parser("focus", help="distraction-free tabbed desktop")
-    focus.add_argument("action", nargs="?", default="status", choices=["on", "off", "status"])
+    focus.add_argument("action", nargs="?", default="status", choices=["on", "off", "toggle", "status"])
 
     handbook = commands.add_parser("handbook", help='open the Handbook')
     handbook.add_argument("chapter", nargs="?", help='a chapter id, such as troubleshooting')

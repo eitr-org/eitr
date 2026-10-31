@@ -6,7 +6,9 @@ O Focus troca a barra por uma faixa de abas de 28 px no topo de cada monitor.
 Abra **Configurações > Estilo > Focus** ou **Central de controle > Estilo > Focus**, ou execute
 `eitr focus on`. `eitr focus status` mostra `on` ou `off` sem consultar o
 Hyprland. `eitr focus off` restaura a barra, os efeitos e os atalhos normais.
-Não há atalho exclusivo para alternar o modo.
+**SUPER + Shift + F** ou `eitr focus toggle` alterna o Focus.
+**SUPER + Shift + A/B/C/W/M** abre os painéis de Áudio/Bluetooth/Calendário/WiFi/Tela
+tanto no modo normal quanto no Focus.
 
 A preferência fica em `~/.config/eitr/focus.json` (sob `$XDG_CONFIG_HOME`, quando
 definido). Reinicializações, atualizações e mudanças de tema a preservam. As

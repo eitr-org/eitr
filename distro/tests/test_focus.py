@@ -66,6 +66,15 @@ class FocusTests(unittest.TestCase):
         self.environment.start()
         self.addCleanup(self.environment.stop)
 
+    def test_toggle_uses_saved_preference(self):
+        from eitr_focus import main
+        hypr = FakeHypr()
+        with patch('eitr_focus.Hypr', return_value=hypr):
+            for expected in (True, False, True):
+                self.assertEqual(main(['toggle']), 0)
+                self.assertEqual(enabled(), expected)
+        self.assertEqual(hypr.commands.count(('reload', 'config-only')), 3)
+
     def test_preference_and_off_recovery(self):
         hypr = FakeHypr([client(1), client(2, 1)])
         self.assertFalse(enabled())

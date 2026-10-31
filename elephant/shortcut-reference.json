@@ -385,6 +385,30 @@
     "row": "Notification Center"
   },
   {
+    "description": "Toggle Focus",
+    "row": "Toggle Focus"
+  },
+  {
+    "description": "Open Audio panel",
+    "row": "Audio Panel"
+  },
+  {
+    "description": "Open Bluetooth panel",
+    "row": "Bluetooth Panel"
+  },
+  {
+    "description": "Open Calendar panel",
+    "row": "Calendar Panel"
+  },
+  {
+    "description": "Open WiFi panel",
+    "row": "WiFi Panel"
+  },
+  {
+    "description": "Open Display panel",
+    "row": "Display Panel"
+  },
+  {
     "description": "Color picker",
     "row": "Color Picker"
   },

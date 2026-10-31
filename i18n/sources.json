@@ -1704,6 +1704,9 @@
     "Audio": [
       "elephant/menu-rows/system-devices.json"
     ],
+    "Audio Panel": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
     "Aurora / RDS": [
       "elephant/menus/aws-rds.lua"
     ],
@@ -1731,6 +1734,9 @@
     ],
     "Bluetooth": [
       "elephant/menu-rows/system-connectivity.json"
+    ],
+    "Bluetooth Panel": [
+      "elephant/menu-rows/shortcuts.json"
     ],
     "Blur": [
       "elephant/menu-rows/terminal.json",
@@ -1760,6 +1766,9 @@
     ],
     "Calendar": [
       "elephant/menus/system-shortcuts.lua"
+    ],
+    "Calendar Panel": [
+      "elephant/menu-rows/shortcuts.json"
     ],
     "Calendar Sources": [
       "elephant/menu-rows/tools.json",
@@ -2111,6 +2120,9 @@
     ],
     "Display": [
       "elephant/menu-rows/system-devices.json"
+    ],
+    "Display Panel": [
+      "elephant/menu-rows/shortcuts.json"
     ],
     "Displays": [
       "elephant/menu-rows/bar.json",
@@ -3145,10 +3157,28 @@
     "SUPER + Print": [
       "elephant/menu-rows/shortcuts.json"
     ],
+    "SUPER + Shift + A": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
+    "SUPER + Shift + B": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
+    "SUPER + Shift + C": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
+    "SUPER + Shift + F": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
+    "SUPER + Shift + M": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
     "SUPER + Shift + N": [
       "elephant/menu-rows/shortcuts.json"
     ],
     "SUPER + Shift + Space": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
+    "SUPER + Shift + W": [
       "elephant/menu-rows/shortcuts.json"
     ],
     "SUPER + Space": [
@@ -3594,6 +3624,9 @@
     "Toggle Floating And Pin": [
       "elephant/menu-rows/shortcuts.json"
     ],
+    "Toggle Focus": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
     "Toggle Fullscreen": [
       "elephant/menu-rows/shortcuts.json"
     ],
@@ -3745,6 +3778,9 @@
     ],
     "WiFi": [
       "elephant/menu-rows/system-connectivity.json"
+    ],
+    "WiFi Panel": [
+      "elephant/menu-rows/shortcuts.json"
     ],
     "WiFi and VPN tools; applies after a restart": [
       "elephant/menu-rows/network-backend.json"
@@ -4106,6 +4142,21 @@
     "OCR text from selection": [
       "tools/handbook-build.py"
     ],
+    "Open Audio panel": [
+      "tools/handbook-build.py"
+    ],
+    "Open Bluetooth panel": [
+      "tools/handbook-build.py"
+    ],
+    "Open Calendar panel": [
+      "tools/handbook-build.py"
+    ],
+    "Open Display panel": [
+      "tools/handbook-build.py"
+    ],
+    "Open WiFi panel": [
+      "tools/handbook-build.py"
+    ],
     "Open default AI assistant (Development)": [
       "tools/handbook-build.py"
     ],
@@ -4294,6 +4345,9 @@
       "tools/handbook-build.py"
     ],
     "Toggle EITR handbook": [
+      "tools/handbook-build.py"
+    ],
+    "Toggle Focus": [
       "tools/handbook-build.py"
     ],
     "Toggle automatic locking.": [

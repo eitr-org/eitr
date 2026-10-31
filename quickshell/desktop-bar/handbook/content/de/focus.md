@@ -6,7 +6,9 @@ Focus ersetzt die Leiste durch einen 28 px hohen Tabstreifen oben auf jedem
 Bildschirm. Öffne **Einstellungen > Stil > Focus** oder **Kontrollzentrum > Stil > Focus**, oder
 starte `eitr focus on`. `eitr focus status` zeigt `on` oder `off`, ohne Hyprland
 abzufragen. `eitr focus off` stellt die normale Leiste, Effekte und Tastenkürzel
-wieder her. Es gibt kein eigenes Tastenkürzel zum Umschalten.
+wieder her. **SUPER + Shift + F** oder `eitr focus toggle` schaltet Focus um.
+**SUPER + Shift + A/B/C/W/M** öffnet die Panels für Audio/Bluetooth/Kalender/WiFi/Bildschirm
+im normalen Modus und in Focus.
 
 Die Einstellung liegt in `~/.config/eitr/focus.json` (unter `$XDG_CONFIG_HOME`,
 falls gesetzt). Sie bleibt nach Neustarts, Updates und Themewechseln erhalten.

@@ -309,8 +309,15 @@ hl.bind(mainMod .. " + CTRL + j", hl.dsp.window.move({ direction = "d" }))
 hl.bind(mainMod .. " + CTRL + k", hl.dsp.window.move({ direction = "u" }))
 hl.bind(mainMod .. " + CTRL + l", hl.dsp.window.move({ direction = "r" }))
 
--- Workspaces 1-10. The bar starts at 1-5 and expands sequentially on demand.
+-- Desktop panels and Focus
 hl.bind(mainMod .. " + TAB", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show overview"))
+hl.bind(mainMod .. " + SHIFT + F", hl.dsp.exec_cmd("eitr focus toggle"))
+hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show volume"))
+hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show bluetooth"))
+hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show calendar"))
+hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show wifi"))
+hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show display"))
+-- Workspaces 1-10. The bar starts at 1-5 and expands sequentially on demand.
 for i = 1, 10 do
 	local key = tostring(i % 10)
 	hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))

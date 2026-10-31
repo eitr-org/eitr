@@ -34,7 +34,13 @@ local function namespace(prefix)
 end
 hl = setmetatable({
     dsp=namespace("dsp"),
-    bind=function(key, action) keys[key:lower()]=action end,
+    bind=function(key, action)
+        local normalized = key:lower()
+        if normalized:match("^super %+ shift %+ [fabcwm]$") then
+            assert(not keys[normalized], "shortcut collision: " .. key)
+        end
+        keys[normalized]=action
+    end,
     unbind=function(key) keys[key:lower()]=nil end,
     on=function(name, callback) events[name]=callback end,
     config=function(values) for key,value in pairs(values) do options[key]=value end end,
@@ -44,6 +50,17 @@ hl = setmetatable({
 }, {__index=function() return function() end end})
 dofile(arg[1])
 assert(keys["super + return"], "terminal key must stay available")
+local function check_shared_shortcuts()
+    local commands = {f="eitr focus toggle", a="eitr-shell desktop-bar ipc call -- panels show volume",
+        b="eitr-shell desktop-bar ipc call -- panels show bluetooth", c="eitr-shell desktop-bar ipc call -- panels show calendar",
+        w="eitr-shell desktop-bar ipc call -- panels show wifi", m="eitr-shell desktop-bar ipc call -- panels show display"}
+    for key, command in pairs(commands) do
+        local binding = keys["super + shift + " .. key]
+        assert(binding and binding.kind == "dsp.exec_cmd" and binding.arguments == command,
+            "shared shortcut must survive Focus: " .. key)
+    end
+end
+check_shared_shortcuts()
 if not mode then
     assert(gestures == 1 and provider == nil)
     assert(keys["super + 1"].kind == "dsp.focus")
@@ -67,6 +84,7 @@ assert(not options.group.groupbar.enabled)
 options.general.gaps_in = 20
 keys["super + 1"] = {kind="local-override"}
 events["config.reloaded"]()
+check_shared_shortcuts()
 assert(options.general.gaps_in == 0 and keys["super + 1"].arguments:match("tab 1$"))
 local function context(count, monitor)
     local ctx = {area={x=0,y=28,w=1000,h=800},targets={}}
