@@ -104,6 +104,30 @@ class LockscreenRenameTests(unittest.TestCase):
         self.assertIn('desktop-lockscreen-sandstone', hook)
 
 
+class SwayncActivationRemovalTests(unittest.TestCase):
+    MIGRATION = ROOT / 'distro/migrations/20261030220000-remove-swaync-activation.py'
+
+    def run_migration(self, text):
+        with tempfile.TemporaryDirectory() as directory:
+            service = Path(directory) / 'dbus-1/services/org.erikreider.swaync.service'
+            if text is not None:
+                service.parent.mkdir(parents=True)
+                service.write_text(text)
+            environment = dict(os.environ, XDG_DATA_HOME=directory,
+                               PYTHONPATH=str(ROOT / 'distro/lib'))
+            subprocess.run([sys.executable, str(self.MIGRATION)], env=environment, check=True)
+            return service.exists()
+
+    def test_the_shipped_file_is_removed(self):
+        self.assertFalse(self.run_migration('[D-BUS Service]\nName=org.freedesktop.Notifications\n'
+                                            'Exec=/usr/bin/eitr-shell desktop-bar --daemonize\n'))
+
+    def test_a_real_swaync_service_or_no_file_is_left_alone(self):
+        self.assertTrue(self.run_migration('[D-BUS Service]\nName=org.freedesktop.Notifications\n'
+                                           'Exec=/usr/bin/swaync\n'))
+        self.assertFalse(self.run_migration(None))
+
+
 class ZshrcLoaderTests(unittest.TestCase):
     MIGRATION = ROOT / 'distro/migrations/20261014190000-zshrc-local-loader-status.py'
 

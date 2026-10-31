@@ -1,6 +1,7 @@
 import importlib.machinery
 import importlib.util
 from pathlib import Path
+import tempfile
 import unittest
 import unittest.mock
 from unittest.mock import patch
@@ -26,12 +27,26 @@ class LauncherTests(unittest.TestCase):
         self.assertEqual(command[-2:], ['--provider', 'menus:main'])
 
     def test_shell_options_and_ipc_reach_quickshell(self):
-        command, _ = self.run_launcher('eitr-shell', ['desktop-bar', '--daemonize'])
+        command, _ = self.run_launcher('eitr-shell', ['desktop-bar', '--no-color'])
         self.assertEqual(command[:3], ['quickshell', '-n', '-p'])
-        self.assertEqual(command[-1], '--daemonize')
+        self.assertEqual(command[-1], '--no-color')
         command, _ = self.run_launcher('eitr-shell', ['desktop-bar', 'ipc', 'call', '--', 'panels', 'show', 'wifi'])
         self.assertEqual(command[:3], ['quickshell', 'ipc', '-p'])
         self.assertEqual(command[-5:], ['call', '--', 'panels', 'show', 'wifi'])
+
+    def test_daemonized_starts_wait_for_each_other(self):
+        with tempfile.TemporaryDirectory() as runtime, \
+                patch.dict(launch.os.environ, {'XDG_RUNTIME_DIR': runtime}), \
+                patch.object(launch.fcntl, 'flock') as flock, \
+                patch.object(launch.subprocess, 'run', return_value=unittest.mock.Mock(returncode=0)) as run, \
+                patch.object(launch.os, 'execvpe') as execute:
+            self.assertEqual(launch.main(['desktop-bar', '--daemonize'], 'eitr-shell'), 0)
+        execute.assert_not_called()
+        flock.assert_called_once_with(unittest.mock.ANY, launch.fcntl.LOCK_EX)
+        self.assertEqual(flock.call_args.args[0].name, f'{runtime}/eitr/shell-desktop-bar.lock')
+        command = run.call_args.args[0]
+        self.assertEqual(command[:3], ['quickshell', '-n', '-p'])
+        self.assertEqual(command[-1], '--daemonize')
 
     def test_ipc_reaches_a_running_checkout_when_the_package_is_not_running(self):
         packaged = Path('/usr/share/eitr/quickshell/desktop-bar')

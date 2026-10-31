@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Launch EITR package components with separate code and preference roots."""
+import fcntl
 import json
 import os
 from pathlib import Path
@@ -28,6 +29,18 @@ def running_instance(component, selected):
         return selected
     matches = {config for config in configs if config.parts[-2:] == ('quickshell', component)}
     return str(matches.pop()) if len(matches) == 1 else selected
+
+
+def start_once(component, command, environment):
+    """Run a daemonized start while holding the component's start lock. Quickshell's
+    -n check only sees an instance once it has registered, which happens before the
+    daemonizing parent exits, so racing starts (session start and an early D-Bus
+    notification) wait here and the later one then finds the running bar."""
+    runtime = Path(os.environ.get('XDG_RUNTIME_DIR') or f'/run/user/{os.getuid()}') / 'eitr'
+    runtime.mkdir(parents=True, exist_ok=True)
+    with open(runtime / f'shell-{component}.lock', 'w') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        return subprocess.run(command, env=environment).returncode
 
 
 def main(argv=None, executable=None):
@@ -81,6 +94,8 @@ def main(argv=None, executable=None):
             command = ['quickshell', rest[0], '-p', selected, *rest[1:]]
         else:
             command = ['quickshell', '-n', '-p', selected, *rest]
+            if {'-d', '--daemonize'} & set(rest):
+                return start_once(component, command, environment)
     elif executable in {'eitr-hypridle', 'eitr-hyprpaper', 'eitr-hyprlock'}:
         tool = executable.removeprefix('eitr-')
         preference = config(f'hypr/{tool}.conf')
