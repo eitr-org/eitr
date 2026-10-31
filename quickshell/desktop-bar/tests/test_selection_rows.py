@@ -22,7 +22,7 @@ class SelectionRows(unittest.TestCase):
         self.assertNotIn("PanelStyle.dividerAlpha", source)
 
     def test_shared_keyboard_actions(self):
-        for name in ("KeyboardLayoutMenu", "ControlCenter"):
+        for name in ("KeyboardLayoutMenu", "ControlCenterSettings"):
             source = (ROOT / qml_path(name + ".qml")).read_text()
             self.assertIn("KeyboardLayoutRow {", source)
             # Layouts are removed only in Walker's Keyboard menu.

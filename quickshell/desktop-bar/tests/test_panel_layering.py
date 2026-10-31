@@ -1,3 +1,4 @@
+from qml_source import control_center_source
 from qml_test_paths import qml_path
 from bar_frame_source import frame_source
 from pathlib import Path
@@ -33,7 +34,7 @@ class PanelLayeringTests(unittest.TestCase):
         themed = (ROOT / "components/ThemedPopup.qml").read_text()
         self.assertIn("popup.keyTarget.forceActiveFocus();", themed)
         self.assertIn("Keys.onEscapePressed: if (!popup.escapeHandler || !popup.escapeHandler()) popup.opened = false", themed)
-        center = (ROOT / "panels/ControlCenter.qml").read_text()
+        center = control_center_source(ROOT)
         self.assertIn('escapeHandler: () => center.page === "plugins" ? pluginManager.back() : plugins.back()', center)
         for filename in ("AudioMenu.qml", "SystemMonitorMenu.qml", "WorkspaceStyleMenu.qml"):
             with self.subTest(filename=filename):

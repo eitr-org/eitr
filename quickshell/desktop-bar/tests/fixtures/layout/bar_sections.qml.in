@@ -1,0 +1,127 @@
+import QtQuick
+import Quickshell
+ShellRoot {
+    id: shell
+    property bool verticalBar: false
+    property string barEdge: "top"
+    property bool notchLayout: false
+    property bool centeredLayout: false
+    property bool islandsLayout: false
+    property bool iconsOpen: true
+    property bool statusOpen: true
+    property bool barVisible: true
+    property bool barPinned: false
+    property bool dictating: false
+    property bool transcribing: false
+    property var dictationLevels: []
+    property string barMediaStyle: "wave"
+    property string wifiGlyph: "WiFi"
+    property real workspaceItemSize: 24
+    property real workspaceItemSpacing: 4
+    property var screenGaps: [8, 8, 8, 8]
+    property color fg: "white"
+    property color activeBg: "cyan"
+    property color workspaceMenuBg: "black"
+    property string updatesIcon: "U"
+    property string updatesTooltip: "Updates"
+    property var updates: ({checking: false})
+    property var battery: ({available: true, percent: 80, status: "Discharging"})
+    property string batteryIcon: "B"
+    property int remoteObservers: 0
+    function barBackground() { return "black"; }
+    function updateBarSetting(key, value) {}
+    function checkUpdates() {}
+    function openSystemUpdate() {}
+    QtObject { id: networkOwner }
+    QtObject { id: remoteAccessService; property bool allowed: true }
+    QtObject { id: notificationCenter; property bool opened: false }
+    QtObject { id: batteryMenu; property bool opened: false }
+    QtObject { id: mediaMenu; property bool opened: false }
+    FloatingWindow {
+        visible: true; implicitWidth: 1920; implicitHeight: 1080
+        Item {
+            id: bar; anchors.fill: parent
+            property bool centeredLayout: shell.centeredLayout
+            property bool islandsLayout: shell.islandsLayout
+            property bool notchLayout: shell.notchLayout
+            property bool expanded: true
+            property real leadingReveal: 320
+            property real trailingReveal: 240
+            property real endPadding: shell.verticalBar ? 8 : 12
+            property real itemGap: 4
+            property real islandSpacing: 16
+            property real weatherReveal: 27
+            property bool weatherExpanded: true
+            property var screen: ({height: 1080})
+            function togglePanel(panel) { panel.opened = !panel.opened; }
+            function openPluginPanel(plugin, panel, target) {}
+ALIASES
+            Item {
+                id: strip
+                width: shell.verticalBar ? 56 : (bar.centeredLayout ? 800 : bar.width)
+                height: shell.verticalBar ? (bar.centeredLayout ? 700 : bar.height) : 32
+                x: shell.verticalBar ? (shell.barEdge === "right" ? bar.width - width : 0) : (bar.width - width) / 2 - (bar.centeredLayout ? 40 : 0)
+                y: shell.verticalBar ? (bar.height - height) / 2 - (bar.centeredLayout ? 40 : 0) : (shell.barEdge === "bottom" ? bar.height - height : 0)
+                Item { id: mockWorkspaces; width: 180; height: 24 }
+                Item { id: mockStatus; x: 200; width: 80; height: 24 }
+                // The bar exposes its left items through BarLeftGroup; the fixture mirrors that.
+                QtObject { id: leftGroup; readonly property Item workspaces: mockWorkspaces; readonly property Item hardwareStatus: mockStatus }
+                Item {
+                    anchors.fill: parent; visible: !shell.verticalBar
+                    Stub { id: notificationIcon; anchors.right: parent.right; text: "N" }
+HORIZONTAL
+                }
+                Item { anchors.fill: parent; visible: shell.verticalBar
+VERTICAL
+                }
+            }
+            property int step: 0
+            Timer {
+                interval: 30; running: true; repeat: true
+                onTriggered: {
+                    const edges = EDGES;
+                    const mode = Math.floor(bar.step / 8) % 4;
+                    shell.barEdge = edges[bar.step % 4];
+                    shell.verticalBar = shell.barEdge === "left" || shell.barEdge === "right";
+                    shell.centeredLayout = mode === 1;
+                    shell.notchLayout = mode === 2;
+                    shell.islandsLayout = mode === 3;
+                    shell.iconsOpen = bar.step % 8 < 4;
+                    bar.width = bar.step < 32 ? 1920 : 1366;
+                    bar.height = bar.step < 32 ? 1080 : 768;
+                    Qt.callLater(function() {
+                        try {
+                        const clock = shell.verticalBar ? bar.verticalCalendarIcon : bar.centerInfo;
+                        const position = clock.mapToItem(bar, clock.width / 2, clock.height / 2);
+                        const actual = shell.verticalBar ? position.y : position.x;
+                        const expected = (shell.verticalBar ? bar.height : bar.width) / 2;
+                        if (Math.abs(actual - expected) > 0.01) throw new Error("Clock displaced: " + actual + " / " + expected);
+                        for (const item of [bar.centerInfo, bar.barCapture, bar.barPin, bar.barWeather,
+                                bar.verticalCalendarIcon, bar.verticalCapture, bar.verticalWeatherIcon,
+                                bar.wifiIcon, bar.bluetoothIcon, bar.obsIcon, bar.keyboardIcon,
+                                bar.verticalWifiIcon, bar.verticalBluetoothIcon, bar.verticalObsIcon]) {
+                            if (item.host !== shell) throw new Error("Missing host: " + item);
+                        }
+                        const calendarTarget = shell.verticalBar ? bar.verticalCalendarIcon : bar.centerInfo;
+                        if (bar.calendarMenu.target !== calendarTarget || bar.weatherMenu.target !== (shell.verticalBar ? bar.verticalWeatherIcon : bar.centerInfo))
+                            throw new Error("Centre panel target changed");
+                        const statusTargets = [[bar.wifiMenu, bar.verticalWifiIcon, bar.wifiIcon],
+                            [bar.bluetoothMenu, bar.verticalBluetoothIcon, bar.bluetoothIcon],
+                            [bar.brightnessMenu, bar.verticalDisplayIcon, bar.brightnessIcon],
+                            [bar.volumeMenu, bar.verticalVolumeIcon, bar.volumeIcon],
+                            [bar.keyboardMenu, bar.verticalKeyboardIcon, bar.keyboardIcon]];
+                        for (const entry of statusTargets) {
+                            const expectedTarget = shell.verticalBar ? entry[1] : shell.iconsOpen ? entry[2] : notificationIcon;
+                            if (entry[0].target !== expectedTarget) throw new Error("Status panel target changed");
+                        }
+                        if (bar.recordingMenu.target !== (shell.verticalBar ? bar.verticalCapture : bar.barCapture)
+                                || bar.recordingMenu.controller !== bar.obsMenu)
+                            throw new Error("Recording panel wiring changed");
+                        if (++bar.step === 64) { console.log("BAR_SECTIONS_OK"); Qt.quit(); }
+                        } catch (error) { console.error(error); Qt.exit(1); }
+                    });
+                }
+            }
+        }
+    }
+}

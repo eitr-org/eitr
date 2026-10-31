@@ -83,7 +83,8 @@ class GameModeTests(unittest.TestCase):
         names = [entry["text"] for entry in menu["entries"]]
         self.assertIn("Game Mode", names)
         self.assertEqual(names, sorted(names, key=str.casefold))
-        center = (ROOT / "quickshell/desktop-bar/panels/ControlCenter.qml").read_text()
+        panels = ROOT / "quickshell/desktop-bar/panels"
+        center = (panels / "ControlCenter.qml").read_text() + (panels / "ControlCenterConnectivity.qml").read_text()
         self.assertIn('title: Eitr.I18n.tr("Game Mode")', center)
         self.assertIn('command: ["bash", center.gameModeScript, "toggle"]', center)
         self.assertIn('command: ["bash", center.gameModeScript, "status"]', center)

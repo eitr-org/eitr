@@ -1,0 +1,66 @@
+import QtQuick
+Item {
+    property var host
+    property bool compact: false
+    property bool open: true
+    property bool opened: false
+    property bool shown: recording || dictating
+    property bool recording: false
+    property bool recordingPaused: false
+    property bool streaming: false
+    property bool dictating: false
+    property bool transcribing: false
+    property var dictationLevels: []
+    property string icon: ""
+    property string tooltip: ""
+    property string text: "WiFi"
+    property string hoverLabel: ""
+    property string title: ""
+    property string activeCode: "US"
+    property string activeLabel: "English"
+    property var layouts: ["us", "br"]
+    property var obsState: ({recording: false, paused: false, streaming: false})
+    property int iconSize: 16
+    property int fontSize: 16
+    property int glyphOffsetY: 0
+    property real slotWidth: 24
+    property real fixedWidth: 24
+    property real slotSize: 24
+    property real slotSpacing: 4
+    property bool clickable: false
+    property bool rightClickable: false
+    property bool spinning: false
+    property bool vertical: false
+    property bool autoRefresh: false
+    property real temp: 21
+    property var player: null
+    property bool playing: false
+    property bool active: false
+    property bool audioEnabled: false
+    property string mediaStyle: "wave"
+    property string style: "wave"
+    property real itemSpacing: 4
+    property real indicatorSpacing: 4
+    property real availableWidth: 100
+    property var networkService
+    property var service
+    property var controller
+    property Item target
+    property string barEdge: "top"
+    property string kind: ""
+    property bool centered: false
+    property real maximumHeight: 1000
+    property color surfaceColor: "black"
+    property color foreground: "white"
+    property color background: "black"
+    property color accent: "cyan"
+    width: open ? (compact ? 30 : slotWidth) : 0
+    height: 24
+    signal clicked(int button)
+    signal recordingClicked()
+    signal detailsRequested()
+    signal panelRequested(var plugin, var panel, var target)
+    signal primarySelected()
+    signal observationChanged(bool observing)
+    signal captureStarting()
+}

@@ -1,3 +1,4 @@
+from qml_source import control_center_source
 from bar_frame_source import frame_source
 import importlib.util
 import os
@@ -83,7 +84,7 @@ class AirplaneTests(unittest.TestCase):
 
 class ControlCenterContracts(unittest.TestCase):
     def test_notifications_have_only_the_dedicated_panel(self):
-        center = (Path(__file__).parents[1] / 'panels/ControlCenter.qml').read_text()
+        center = control_center_source(Path(__file__).parents[1])
         self.assertNotIn('key: "notifications"', center)
         self.assertNotIn('NotificationList {', center)
         self.assertNotIn('service.centerOpen =', center)
@@ -94,7 +95,7 @@ class ControlCenterContracts(unittest.TestCase):
         self.assertIn('slider.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor', slider)
 
     def test_general_controls_have_ordered_groups(self):
-        center = (Path(__file__).parents[1] / 'panels/ControlCenter.qml').read_text()
+        center = control_center_source(Path(__file__).parents[1])
         names = ['Connectivity', 'Quick Actions', 'Sound', 'Display', 'Media', 'Power']
         positions = [center.index('text: Eitr.I18n.tr("' + name + '"); width: parent.width') for name in names]
         self.assertEqual(positions, sorted(positions))
@@ -110,7 +111,7 @@ class ControlCenterContracts(unittest.TestCase):
 
     def test_control_center_groups_and_reset(self):
         root = Path(__file__).parents[1]
-        center = (root / 'panels/ControlCenter.qml').read_text()
+        center = control_center_source(root)
         self.assertIn('onVisibleChanged: if (!visible)', center)
         self.assertNotIn('key: "toggles"', center)
         self.assertNotIn('details: true', center)
@@ -137,7 +138,7 @@ class ControlCenterContracts(unittest.TestCase):
 
     def test_shared_surface_and_edge_animation(self):
         root = Path(__file__).parents[1]
-        center = (root / 'panels/ControlCenter.qml').read_text()
+        center = control_center_source(root)
         self.assertIn('ThemedPopup {', center)
         self.assertIn('barEdge: barPosition', center)
         self.assertNotIn('\n    x:', center)
@@ -156,7 +157,7 @@ class HardwareSubscriberTests(unittest.TestCase):
     @unittest.skipUnless(shutil.which("quickshell"), "Quickshell unavailable")
     def test_panel_demand_lifetime_retained_errors_and_control_center_entry(self):
         bar = Path(__file__).parents[1]
-        self.assertIn('center.panelRequested("hardware")', (bar / 'panels/ControlCenter.qml').read_text())
+        self.assertIn('center.panelRequested("hardware")', control_center_source(bar))
         self.assertNotIn('hardwareIdentity', ((bar / 'shell.qml').read_text() + frame_source(bar)))
         panel = (bar / 'panels/SystemMonitorMenu.qml').read_text()
         self.assertNotIn('Process {', panel)

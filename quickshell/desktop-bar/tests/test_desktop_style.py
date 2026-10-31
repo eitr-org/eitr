@@ -1,3 +1,4 @@
+from qml_source import control_center_source
 from qml_test_paths import qml_path
 import importlib.util
 from pathlib import Path
@@ -51,7 +52,7 @@ class DesktopStyleTests(unittest.TestCase):
         self.assertIn("corner-styles.json", desktop)
         self.assertNotIn("extra-rounded", desktop)
         self.assertNotIn("Timer", desktop)
-        self.assertIn("model: DesktopStyle.options", (ROOT / "panels/ControlCenter.qml").read_text())
+        self.assertIn("model: DesktopStyle.options", control_center_source(ROOT))
         menu = (repo / "elephant/menus/corners.lua").read_text()
         self.assertIn('"quickshell/desktop-bar/corner-styles.json"', menu, "the menu lists the styles from the file")
         self.assertIn('choices(script, "corners", options)', menu, "the current style is checked")

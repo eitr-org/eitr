@@ -1,3 +1,4 @@
+from qml_source import control_center_source
 from bar_frame_source import frame_source
 import importlib.util
 import os
@@ -83,7 +84,7 @@ class BarSettingsTests(unittest.TestCase):
         root = Path(__file__).resolve().parents[3]
         menu = (root / "elephant/menus/bar-layout.lua").read_text()
         self.assertLess(menu.index('"notch"'), menu.index('"islands"'))
-        controls = (root / "quickshell/desktop-bar/panels/ControlCenter.qml").read_text()
+        controls = control_center_source(root / 'quickshell/desktop-bar')
         self.assertLess(controls.index('tr("Tabs")'), controls.index('tr("Islands")'))
 
     def test_defaults_and_persistence(self):
@@ -185,7 +186,7 @@ class AutoHideLayoutTests(unittest.TestCase):
 
     def render_setting(self, reduce_motion, dock=False):
         bar = Path(__file__).resolve().parents[1]
-        source = (bar / "panels/ControlCenter.qml").read_text()
+        source = control_center_source(bar)
         control = source.index("id: dockSwitch" if dock else "id: reduceMotionSwitch" if reduce_motion else "id: autoHideSwitch")
         start = source.rfind("                        Row {", 0, control)
         end = source.index("\n                        }", control) + len("\n                        }")

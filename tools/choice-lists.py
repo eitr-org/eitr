@@ -36,10 +36,10 @@ def projections(catalog):
     names = {row['id']: row['label'] for row in catalog['lockscreen_designs']}
     bar = 'quickshell/desktop-bar/'
     for name, prefix in (('panels/WorkspaceStyleMenu.qml', 'readonly property var styles: '),
-                         ('panels/ControlCenter.qml', 'Repeater { model: '),
+                         ('panels/ControlCenterStyle.qml', 'Repeater { model: '),
                          ('handbook-controls-preview.qml', 'model: ')):
         pattern = re.escape(prefix) + r'\[[^\]\n]*\]'
-        if name == 'panels/ControlCenter.qml':
+        if name == 'panels/ControlCenterStyle.qml':
             pattern += r'(?=\s+PanelButton \{\s+textSize: 12; iconSize: 16\s+id: workspaceChoice)'
         yield bar + name, pattern, prefix + json.dumps(styles)
     yield 'elephant/menus/workspaces.lua', r'local choices = \{[^\n]*\}', 'local choices = {' + ', '.join(json.dumps(style) for style in styles) + '}'

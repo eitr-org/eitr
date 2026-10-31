@@ -1,16 +1,53 @@
 import ".."
 import QtQuick
-import QtQuick.Shapes
-import Eitr as Eitr
-import QtQuick.Layouts
 import Quickshell
-import Quickshell.Io
 import Quickshell.Wayland
-import "../PanelStyle.js" as PanelStyle
-import "../EdgeSlopes.js" as EdgeSlopes
 
 PanelWindow {
     id: bar
+
+    readonly property alias barVerticalCenter: barVerticalPlacement.barVerticalCenterItem
+    readonly property alias barVerticalStatus: barVerticalPlacement.barVerticalStatusItem
+    readonly property alias verticalAiIcon: barVerticalPlacement.verticalAiIconItem
+    readonly property alias verticalControlCenterLogo: barVerticalPlacement.verticalControlCenterLogoItem
+    readonly property alias verticalHardware: barVerticalPlacement.verticalHardwareItem
+    readonly property alias verticalHardwareIcon: barVerticalPlacement.verticalHardwareIconItem
+    readonly property alias verticalIdleLockIcon: barVerticalPlacement.verticalIdleLockIconItem
+    readonly property alias verticalOverviewIcon: barVerticalPlacement.verticalOverviewIconItem
+    readonly property alias verticalStart: barVerticalPlacement.verticalStartItem
+    readonly property alias verticalSurface: barVerticalPlacement
+    readonly property alias verticalWorkspaces: barVerticalPlacement.verticalWorkspacesItem
+
+    readonly property alias aiMenu: barHorizontalPlacement.aiMenuItem
+    readonly property alias barGestures: barHorizontalPlacement.barGesturesItem
+    readonly property alias barHorizontalCenter: barHorizontalPlacement.barHorizontalCenterItem
+    readonly property alias barHorizontalStatus: barHorizontalPlacement.barHorizontalStatusItem
+    readonly property alias hardwareMenu: barHorizontalPlacement.hardwareMenuItem
+    readonly property alias leftGroup: barHorizontalPlacement.leftGroupItem
+    readonly property alias notificationIcon: barHorizontalPlacement.notificationIconItem
+    readonly property alias surface: barHorizontalPlacement
+    readonly property alias workspaceMenu: barHorizontalPlacement.workspaceMenuItem
+
+    readonly property alias islandSurfaces: barIslands
+
+    readonly property alias centeredHover: barCenteredOutline.centeredHoverItem
+    readonly property alias centeredOutline: barCenteredOutline
+
+    readonly property alias batteryMenu: barPanels.batteryMenuItem
+    readonly property alias controlCenter: barPanels.controlCenterItem
+    readonly property alias mediaMenu: barPanels.mediaMenuItem
+    readonly property alias notificationCenter: barPanels.notificationCenterItem
+    readonly property alias notificationPopups: barPanels.notificationPopupsItem
+    readonly property alias panelIpc: barPanels.panelIpcItem
+    readonly property alias pluginPanel: barPanels.pluginPanelItem
+
+    readonly property alias autoHideRef: autoHide
+
+    readonly property alias tabStrip: barTabs.tabStripItem
+    readonly property alias leadingTab: barTabs.leadingTabItem
+    readonly property alias notchTab: barTabs.notchTabItem
+    readonly property alias trailingTab: barTabs.trailingTabItem
+    readonly property alias tabsOutline: barTabs.tabsOutlineItem
 
     required property var host
     required property var networkServiceRef
@@ -190,37 +227,16 @@ PanelWindow {
         visible: host.barAutoHide
         HoverHandler { id: edgeHover }
     }
-    Region {
+    BarInputMask {
         id: dockInput
-        width: 0; height: 0
-        // Focus hides the bar but keeps its window: hiding the window crashes Quickshell.
-        Region { item: edgeSensor.visible && !FocusMode.enabled ? edgeSensor : null }
-        Region { item: host.barPointerHeld && !FocusMode.enabled ? bar.contentItem : null }
-        Region { item: FocusMode.enabled ? null : host.notchLayout ? tabStrip : host.centeredLayout || host.islandsLayout ? null : barContents }
-        IslandMask { surfaces: islandSurfaces.children }
-        CenteredBarMask { surface: centeredOutline; edge: host.barEdge; depth: bar.normalThickness; bendRound: host.tabBendRound }
-        Region { item: host.notchLayout && !FocusMode.enabled ? leadingTab : null }
-        Region { item: host.notchLayout && !FocusMode.enabled ? notchTab : null }
-        Region { item: host.notchLayout && !FocusMode.enabled ? trailingTab : null }
-        Region { item: bar.wifiMenu.opened ? bar.wifiMenu : null }
-        Region { item: bar.bluetoothMenu.opened ? bar.bluetoothMenu : null }
-        Region { item: bar.brightnessMenu.opened ? bar.brightnessMenu : null }
-        Region { item: bar.volumeMenu.opened ? bar.volumeMenu : null }
-        Region { item: bar.tailscaleMenu.opened ? bar.tailscaleMenu : null }
-        Region { item: bar.streamingMenu.opened ? bar.streamingMenu : null }
-        Region { item: bar.keyboardMenu.opened ? bar.keyboardMenu : null }
-        Region { item: bar.calendarMenu.opened ? bar.calendarMenu : null }
-        Region { item: bar.weatherMenu.opened ? bar.weatherMenu : null }
-        Region { item: hardwareMenu.opened ? hardwareMenu : null }
-        Region { item: aiMenu.opened ? aiMenu : null }
-        Region { item: bar.obsMenu.opened ? bar.obsMenu : null }
-        Region { item: bar.recordingMenu.opened ? bar.recordingMenu : null }
-        Region { item: workspaceMenu.opened ? workspaceMenu : null }
-        Region { item: notificationCenter.opened ? notificationCenter : null }
-        Region { item: controlCenter.opened ? controlCenter : null }
-        Region { item: mediaMenu.opened ? mediaMenu : null }
-        Region { item: batteryMenu.opened ? batteryMenu : null }
-        Region { item: pluginPanel.opened ? pluginPanel : null }
+        host: bar.host
+        barHost: bar
+        edgeSensorRef: edgeSensor
+        tabStripRef: tabStrip
+        barContentsRef: barContents
+        leadingTabRef: leadingTab
+        notchTabRef: notchTab
+        trailingTabRef: trailingTab
     }
 
     Connections {
@@ -238,167 +254,65 @@ PanelWindow {
     }
 
     // Centre and status items remain available to the bar geometry and panel frame.
-    readonly property alias verticalMiddle: barVerticalCenter.verticalMiddleItem
-    readonly property alias verticalMedia: barVerticalCenter.verticalMediaItem
-    readonly property alias verticalCapture: barVerticalCenter.verticalCaptureItem
-    readonly property alias verticalPin: barVerticalCenter.verticalPinItem
-    readonly property alias verticalCalendarIcon: barVerticalCenter.verticalCalendarIconItem
-    readonly property alias verticalWeatherIcon: barVerticalCenter.verticalWeatherIconItem
-    readonly property alias verticalEnd: barVerticalStatus.verticalEndItem
-    readonly property alias verticalWifiIcon: barVerticalStatus.verticalWifiIconItem
-    readonly property alias verticalBluetoothIcon: barVerticalStatus.verticalBluetoothIconItem
-    readonly property alias verticalDisplayIcon: barVerticalStatus.verticalDisplayIconItem
-    readonly property alias verticalVolumeIcon: barVerticalStatus.verticalVolumeIconItem
-    readonly property alias verticalTailscaleIcon: barVerticalStatus.verticalTailscaleIconItem
-    readonly property alias verticalStreamingIcon: barVerticalStatus.verticalStreamingIconItem
-    readonly property alias verticalObsIcon: barVerticalStatus.verticalObsIconItem
-    readonly property alias verticalKeyboardIcon: barVerticalStatus.verticalKeyboardIconItem
-    readonly property alias verticalUpdatesIcon: barVerticalStatus.verticalUpdatesIconItem
-    readonly property alias verticalBatteryIcon: barVerticalStatus.verticalBatteryIconItem
-    readonly property alias verticalNotificationIcon: barVerticalStatus.verticalNotificationIconItem
-    readonly property alias rightSide: barHorizontalStatus.rightSideItem
-    readonly property alias statusToggle: barHorizontalStatus.statusToggleItem
-    readonly property alias wifiIcon: barHorizontalStatus.wifiIconItem
-    readonly property alias wifiMenu: barHorizontalStatus.wifiMenuItem
-    readonly property alias bluetoothIcon: barHorizontalStatus.bluetoothIconItem
-    readonly property alias bluetoothMenu: barHorizontalStatus.bluetoothMenuItem
-    readonly property alias brightnessIcon: barHorizontalStatus.brightnessIconItem
-    readonly property alias brightnessMenu: barHorizontalStatus.brightnessMenuItem
-    readonly property alias volumeIcon: barHorizontalStatus.volumeIconItem
-    readonly property alias volumeMenu: barHorizontalStatus.volumeMenuItem
-    readonly property alias tailscaleIcon: barHorizontalStatus.tailscaleIconItem
-    readonly property alias tailscaleMenu: barHorizontalStatus.tailscaleMenuItem
-    readonly property alias streamingIcon: barHorizontalStatus.streamingIconItem
-    readonly property alias streamingMenu: barHorizontalStatus.streamingMenuItem
-    readonly property alias obsIcon: barHorizontalStatus.obsIconItem
-    readonly property alias keyboardIcon: barHorizontalStatus.keyboardIconItem
-    readonly property alias keyboardMenu: barHorizontalStatus.keyboardMenuItem
-    readonly property alias updatesIcon: barHorizontalStatus.updatesIconItem
-    readonly property alias batteryBarIcon: barHorizontalStatus.batteryBarIconItem
-    readonly property alias obsMenu: barHorizontalStatus.obsMenuItem
-    readonly property alias recordingMenu: barHorizontalStatus.recordingMenuItem
-    readonly property alias centerInfo: barHorizontalCenter.centerInfoItem
-    readonly property alias barCapture: barHorizontalCenter.barCaptureItem
-    readonly property alias barPin: barHorizontalCenter.barPinItem
-    readonly property alias mediaStrip: barHorizontalCenter.mediaStripItem
-    readonly property alias barWeather: barHorizontalCenter.barWeatherItem
-    readonly property alias calendarMenu: barHorizontalCenter.calendarMenuItem
-    readonly property alias weatherMenu: barHorizontalCenter.weatherMenuItem
+    readonly property alias verticalMiddle: barVerticalPlacement.verticalMiddleItem
+    readonly property alias verticalMedia: barVerticalPlacement.verticalMediaItem
+    readonly property alias verticalCapture: barVerticalPlacement.verticalCaptureItem
+    readonly property alias verticalPin: barVerticalPlacement.verticalPinItem
+    readonly property alias verticalCalendarIcon: barVerticalPlacement.verticalCalendarIconItem
+    readonly property alias verticalWeatherIcon: barVerticalPlacement.verticalWeatherIconItem
+    readonly property alias verticalEnd: barVerticalPlacement.verticalEndItem
+    readonly property alias verticalWifiIcon: barVerticalPlacement.verticalWifiIconItem
+    readonly property alias verticalBluetoothIcon: barVerticalPlacement.verticalBluetoothIconItem
+    readonly property alias verticalDisplayIcon: barVerticalPlacement.verticalDisplayIconItem
+    readonly property alias verticalVolumeIcon: barVerticalPlacement.verticalVolumeIconItem
+    readonly property alias verticalTailscaleIcon: barVerticalPlacement.verticalTailscaleIconItem
+    readonly property alias verticalStreamingIcon: barVerticalPlacement.verticalStreamingIconItem
+    readonly property alias verticalObsIcon: barVerticalPlacement.verticalObsIconItem
+    readonly property alias verticalKeyboardIcon: barVerticalPlacement.verticalKeyboardIconItem
+    readonly property alias verticalUpdatesIcon: barVerticalPlacement.verticalUpdatesIconItem
+    readonly property alias verticalBatteryIcon: barVerticalPlacement.verticalBatteryIconItem
+    readonly property alias verticalNotificationIcon: barVerticalPlacement.verticalNotificationIconItem
+    readonly property alias rightSide: barHorizontalPlacement.rightSideItem
+    readonly property alias statusToggle: barHorizontalPlacement.statusToggleItem
+    readonly property alias wifiIcon: barHorizontalPlacement.wifiIconItem
+    readonly property alias wifiMenu: barHorizontalPlacement.wifiMenuItem
+    readonly property alias bluetoothIcon: barHorizontalPlacement.bluetoothIconItem
+    readonly property alias bluetoothMenu: barHorizontalPlacement.bluetoothMenuItem
+    readonly property alias brightnessIcon: barHorizontalPlacement.brightnessIconItem
+    readonly property alias brightnessMenu: barHorizontalPlacement.brightnessMenuItem
+    readonly property alias volumeIcon: barHorizontalPlacement.volumeIconItem
+    readonly property alias volumeMenu: barHorizontalPlacement.volumeMenuItem
+    readonly property alias tailscaleIcon: barHorizontalPlacement.tailscaleIconItem
+    readonly property alias tailscaleMenu: barHorizontalPlacement.tailscaleMenuItem
+    readonly property alias streamingIcon: barHorizontalPlacement.streamingIconItem
+    readonly property alias streamingMenu: barHorizontalPlacement.streamingMenuItem
+    readonly property alias obsIcon: barHorizontalPlacement.obsIconItem
+    readonly property alias keyboardIcon: barHorizontalPlacement.keyboardIconItem
+    readonly property alias keyboardMenu: barHorizontalPlacement.keyboardMenuItem
+    readonly property alias updatesIcon: barHorizontalPlacement.updatesIconItem
+    readonly property alias batteryBarIcon: barHorizontalPlacement.batteryBarIconItem
+    readonly property alias obsMenu: barHorizontalPlacement.obsMenuItem
+    readonly property alias recordingMenu: barHorizontalPlacement.recordingMenuItem
+    readonly property alias centerInfo: barHorizontalPlacement.centerInfoItem
+    readonly property alias barCapture: barHorizontalPlacement.barCaptureItem
+    readonly property alias barPin: barHorizontalPlacement.barPinItem
+    readonly property alias mediaStrip: barHorizontalPlacement.mediaStripItem
+    readonly property alias barWeather: barHorizontalPlacement.barWeatherItem
+    readonly property alias calendarMenu: barHorizontalPlacement.calendarMenuItem
+    readonly property alias weatherMenu: barHorizontalPlacement.weatherMenuItem
 
-    NotificationPopups {
-        id: notificationPopups
-        screen: bar.screen
-        shown: bar.isMainBar
-        service: notificationsRef
-        foreground: host.fg
-        background: host.barBackground()
-        accent: host.activeBg
-        barEdge: host.barEdge
-    }
-
-    NotificationCenter {
-        id: notificationCenter
-        service: notificationsRef
-        maximumHeight: bar.screen.height - 70
-        target: host.verticalBar ? bar.verticalNotificationIcon : notificationIcon
-        barEdge: host.barEdge
-        surfaceColor: host.barBackground()
-        foreground: host.fg
-        background: host.workspaceMenuBg
-        accent: host.activeBg
-    }
-
-    PluginPanel {
-        id: pluginPanel
-        target: notificationIcon
-        barEdge: host.barEdge; surfaceColor: host.barBackground()
-        foreground: host.fg; background: host.workspaceMenuBg; accent: host.activeBg
-    }
-    function openPluginPanel(plugin, panel, target) {
-        var entry = PluginRegistry.entries.find(entry => entry.plugin === plugin && entry.id === panel && entry.kind === "panels");
-        if (!entry) return;
-        pluginPanel.target = target;
-        pluginPanel.entry = entry;
-        showPanel(pluginPanel);
-    }
-    ControlCenter {
-        id: controlCenter
-        screenMargins: host.screenGaps
-        target: barContents
-        surfaceColor: host.barBackground()
-        foreground: host.fg; background: host.workspaceMenuBg; accent: host.activeBg
-        service: notificationsRef
-        wifiControl: networkServiceRef; bluetoothControl: bar.bluetoothMenu; displayControl: bar.brightnessMenu
-        keyboardControl: bar.keyboardMenu
-        wifiGlyph: host.verticalBar ? bar.verticalWifiIcon.text : bar.wifiIcon.text
-        battery: host.battery; mediaPlayer: bar.mediaStrip.player
-        idleEnabled: host.idleLockEnabled; idleBusy: idleLockProcessRef.running
-        barPosition: host.barEdge; appearance: host.barAppearance; layout: host.barLayout; barScreens: host.barScreens; barAutoHide: host.barAutoHide; barDock: host.barDock; mediaStyle: host.barMediaStyle; clockFormat: host.barClock; workspaceStyle: host.workspaceStyle
-        onIdleToggleRequested: if (!idleLockProcessRef.running) idleLockProcessRef.running = true
-        onLockRequested: runAfterClose(["bash", Eitr.Paths.code("hypr/scripts/manual-lock.sh")])
-        onSettingRequested: function(key, value) { host.updateBarSetting(key, value); }
-        onWorkspaceStyleRequested: function(value) { host.setWorkspaceStyle(value); }
-        onPanelRequested: function(kind) { panelIpc.show(kind); }
-        onPickerRequested: function(kind) { runAfterClose(["bash", Quickshell.shellDir + "/scripts/appearance-picker.sh", kind]); }
-    }
-    MediaMenu {
-        id: mediaMenu
-        target: host.verticalBar ? bar.verticalCalendarIcon : bar.mediaStrip
-        barEdge: host.barEdge; surfaceColor: host.barBackground()
-        foreground: host.fg; background: host.workspaceMenuBg; accent: host.activeBg
-        player: bar.mediaStrip.player
-    }
-    BatteryMenu {
-        id: batteryMenu
-        target: host.verticalBar ? bar.verticalBatteryIcon : bar.batteryBarIcon
-        barEdge: host.barEdge; surfaceColor: host.barBackground()
-        foreground: host.fg; background: host.workspaceMenuBg; accent: host.activeBg
-        battery: host.battery; displayControl: bar.brightnessMenu
-    }
-    function showControlCenter(page) {
-        // Accept the System and Capture aliases for Settings and Tools.
-        page = ({system: "settings", capture: "tools"})[page] || page;
-        if (["general", "plugins", "style", "tools", "settings"].indexOf(page) === -1) return;
-        controlCenter.page = page;
-        showPanel(controlCenter);
-    }
-    function toggleControlCenter() { togglePanel(controlCenter); }
-    function showKind(kind) {
-        var panels = {wifi: wifiMenu, bluetooth: bluetoothMenu, brightness: brightnessMenu, display: brightnessMenu, volume: volumeMenu,
-            mic: volumeMenu, tailscale: tailscaleMenu, streaming: streamingMenu, keyboard: keyboardMenu, calendar: calendarMenu,
-            weather: weatherMenu, hardware: hardwareMenu, ai: aiMenu, obs: obsMenu,
-            workspace: workspaceMenu, recording: recordingMenu, notifications: notificationCenter,
-            center: controlCenter, media: mediaMenu, battery: batteryMenu};
-        if (kind === "overview") { toggleOverview(); return; }
-        if (!panels[kind]) return;
-        if (kind === "mic" || kind === "volume") volumeMenu.microphone = kind === "mic";
-        showPanel(panels[kind]);
-    }
-    function inspectPanels() {
-        return JSON.stringify(dockPanels.map(panel => ({name: panel.toString(), visible: panel.visible,
-            x: panel.x, y: panel.y, width: panel.width, height: panel.height,
-            progress: panel.revealProgress, opened: panel.opened, screen: bar.modelData.name,
-            parent: String(panel.parent), host: String(panel.hostWindow)})));
+    BarPanels {
+        id: barPanels
+        host: bar.host
+        barHost: bar
     }
     Component.onCompleted: host.registerBar(bar)
     Component.onDestruction: host.unregisterBar(bar)
-
-    // The main bar receives shortcuts and forwards them to the bar of the display in use.
-    IpcHandler {
-        enabled: bar.isMainBar
-        target: "controlCenter"
-        function toggle(): void { host.activeBar(bar).toggleControlCenter(); }
-        function show(page: string): void { host.activeBar(bar).showControlCenter(page); }
-    }
-
-    IpcHandler {
-        id: panelIpc
-        enabled: bar.isMainBar
-        target: "panels"
-        function inspect(): string { return host.activeBar(bar).inspectPanels(); }
-        function close(): void { host.activeBar(bar).closePanels(); }
-        function show(kind: string): void { host.activeBar(bar).showKind(kind); }
-    }
+    function openPluginPanel(plugin, panel, target) { return barPanels.openPluginPanel(plugin, panel, target); }
+    function showControlCenter(page) { return barPanels.showControlCenter(page); }
+    function toggleControlCenter() { return barPanels.toggleControlCenter(); }
+    function showKind(kind) { return barPanels.showKind(kind); }
+    function inspectPanels() { return barPanels.inspectPanels(); }
 
     anchors {
         top: host.barEdge === "top" || host.verticalBar
@@ -407,33 +321,10 @@ PanelWindow {
         right: host.barEdge === "top" || host.barEdge === "bottom" || host.barEdge === "right"
     }
 
-    Shape {
-        id: centeredOutline
-        visible: host.centeredLayout && !FocusMode.enabled
-        readonly property real slope: bar.normalThickness + host.tabBendRound
-        x: barContents.x - (host.verticalBar ? 0 : slope) + (host.verticalBar ? (host.barEdge === "left" ? -1 : 1) * bar.normalThickness * (1 - autoHide.progress) : 0)
-        y: barContents.y - (host.verticalBar ? slope : 0) + (!host.verticalBar ? (host.barEdge === "top" ? -1 : 1) * bar.normalThickness * (1 - autoHide.progress) : 0)
-        width: barContents.width + (host.verticalBar ? 0 : 2 * slope)
-        height: barContents.height + (host.verticalBar ? 2 * slope : 0)
-        HoverHandler { id: centeredHover }
-        BarGestureArea {
-            anchors.fill: parent
-            hostWindow: bar
-            edge: host.barEdge
-            onCandidateChanged: host.dragCandidate = candidate
-            onPointerHeld: function(held) { host.barPointerHeld = held }
-            onDoubleTapped: function(button) { host.barDoubleClick(button) }
-            onDropped: function(edge) { host.updateBarSetting("edge", edge) }
-        }
-        antialiasing: true
-        ShapePath {
-            strokeWidth: -1
-            fillColor: host.barBackground()
-            PathSvg { path: EdgeSlopes.outline(host.barEdge,
-                host.verticalBar ? centeredOutline.height : centeredOutline.width,
-                bar.normalThickness, 0, host.tabBendRound,
-                [[centeredOutline.slope, (host.verticalBar ? centeredOutline.height : centeredOutline.width) - centeredOutline.slope]]) }
-        }
+    BarCenteredOutline {
+        id: barCenteredOutline
+        host: bar.host
+        barHost: bar
     }
 
     Item {
@@ -448,46 +339,10 @@ PanelWindow {
         x: host.verticalBar ? (host.barEdge === "right" ? bar.width - width - (bar.islandsLayout ? bar.islandGap : 0) : (bar.islandsLayout ? bar.islandGap : 0)) : bar.centeredLayout ? (bar.width - bar.centerExtent) / 2 - bar.leadingReveal : 0
         y: host.verticalBar ? (bar.centeredLayout ? (bar.height - bar.centerExtent) / 2 - bar.leadingReveal : 0) : (host.barEdge === "bottom" ? bar.height - height - (bar.islandsLayout ? bar.islandGap : 0) : (bar.islandsLayout ? bar.islandGap : 0))
         clip: bar.centeredLayout
-        Item {
-            id: tabStrip
-            visible: host.notchLayout
-            width: host.verticalBar ? host.tabStripThickness : parent.width
-            height: host.verticalBar ? parent.height : host.tabStripThickness
-            x: host.barEdge === "right" ? parent.width - width : 0
-            y: host.barEdge === "bottom" ? parent.height - height : 0
-        }
-        TabSurface { id: leadingTab; start: 0; end: bar.tabLeadingEnd }
-        TabSurface { id: notchTab; start: bar.tabCenterStart; end: bar.tabCenterEnd }
-        TabSurface { id: trailingTab; start: bar.tabTrailingStart; end: host.verticalBar ? barContents.height : barContents.width }
-        component TabSurface: Item {
-            property real start
-            property real end
-            readonly property string barEdge: host.barEdge
-            readonly property real revealProgress: 1
-            readonly property bool detached: false
-            visible: host.notchLayout
-            width: host.verticalBar ? bar.normalThickness - host.tabStripThickness : end - start
-            height: host.verticalBar ? end - start : bar.normalThickness - host.tabStripThickness
-            x: host.verticalBar ? (host.barEdge === "right" ? 0 : host.tabStripThickness) : start
-            y: host.verticalBar ? start : (host.barEdge === "bottom" ? 0 : host.tabStripThickness)
-
-        }
-        Shape {
-            id: tabsOutline
-            anchors.fill: parent
-            visible: host.notchLayout
-            antialiasing: true
-            // One alpha silhouette also defines Hyprland's blur coverage.
-            ShapePath {
-                strokeWidth: -1
-                fillColor: host.barBackground()
-                PathSvg { path: {
-                    return EdgeSlopes.outline(host.barEdge,
-                        host.verticalBar ? tabsOutline.height : tabsOutline.width,
-                        bar.normalThickness, host.tabStripThickness, host.tabBendRound,
-                        [[0, bar.tabLeadingEnd], [bar.tabCenterStart, bar.tabCenterEnd], [bar.tabTrailingStart, host.verticalBar ? tabsOutline.height : tabsOutline.width]]);
-                } }
-            }
+        BarTabs {
+            id: barTabs
+            host: bar.host
+            barHost: bar
         }
         HoverHandler {
             id: barHover
@@ -526,275 +381,22 @@ PanelWindow {
         }
     }
 
-    Item {
-        id: islandSurfaces
-        visible: !FocusMode.enabled
-        anchors.fill: parent
-        IslandSurface { first: host.verticalBar ? verticalControlCenterLogo : leftGroup.controlCenterLogo }
-        IslandSurface { first: host.verticalBar ? verticalOverviewIcon : leftGroup.overviewIcon; last: host.verticalBar ? verticalWorkspaces : leftGroup.workspaces }
-        IslandSurface { first: host.verticalBar ? verticalHardware : leftGroup.hardwareStatus }
-        IslandSurface { first: host.verticalBar ? bar.verticalCalendarIcon : bar.centerInfo }
-        IslandSurface { first: host.verticalBar ? bar.verticalWeatherIcon : bar.barWeather }
-        IslandSurface { first: host.verticalBar ? bar.verticalMedia : bar.mediaStrip; shown: host.verticalBar ? bar.verticalMedia.visible : bar.mediaStrip.visible }
-        IslandSurface { first: host.verticalBar ? bar.verticalCapture : bar.barCapture; shown: host.verticalBar ? bar.verticalCapture.shown : bar.barCapture.shown }
-        IslandSurface { first: host.verticalBar ? bar.verticalEnd : bar.rightSide; last: host.verticalBar ? bar.verticalEnd : notificationIcon }
-    }
-    component IslandSurface: Rectangle {
-        required property Item first
-        property Item last: first
-        property bool shown: true
-        visible: bar.islandsLayout && shown
-        readonly property point leading: itemPosition(first)
-        readonly property point trailing: itemPosition(last)
-        function itemPosition(item) {
-            var horizontal = 0;
-            var vertical = 0;
-            while (item && item !== barContents) {
-                horizontal += item.x;
-                vertical += item.y;
-                item = item.parent;
-            }
-            return Qt.point(horizontal, vertical);
-        }
-        x: host.verticalBar ? 0 : leading.x - 4
-        y: host.verticalBar ? leading.y - 4 : 0
-        width: host.verticalBar ? bar.normalThickness : trailing.x + last.width - leading.x + 8
-        height: host.verticalBar ? trailing.y + last.height - leading.y + 8 : bar.normalThickness
-        radius: DesktopStyle.radius(PanelStyle.cornerRadius)
-        color: host.barBackground()
-        BarGestureArea {
-            anchors.fill: parent
-            hostWindow: bar
-            edge: host.barEdge
-            onCandidateChanged: host.dragCandidate = candidate
-            onPointerHeld: function(held) { host.barPointerHeld = held }
-            onDoubleTapped: function(button) { host.barDoubleClick(button) }
-            onDropped: function(edge) { host.updateBarSetting("edge", edge) }
-        }
+    BarIslands {
+        id: barIslands
+        host: bar.host
+        barHost: bar
     }
 
-    BarSection {
-        id: verticalSurface
-        anchors.fill: parent
-        visible: host.verticalBar
-        edge: host.barEdge
-        background: host.notchLayout || host.centeredLayout || host.islandsLayout ? "transparent" : host.barBackground()
-        radius: 0
-
-        BarGestureArea {
-            anchors.fill: parent
-            hostWindow: bar
-            edge: host.barEdge
-            onCandidateChanged: host.dragCandidate = candidate
-            onPointerHeld: function(held) { host.barPointerHeld = held }
-            onDoubleTapped: function(button) { host.barDoubleClick(button) }
-            onDropped: function(edge) { host.updateBarSetting("edge", edge) }
-        }
-
-        Column {
-            id: verticalStart
-            opacity: bar.expanded ? 1 : 0
-            enabled: bar.expanded
-            Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
-            y: bar.islandsLayout ? host.screenGaps[0] + 4 : bar.centeredLayout ? bar.endPadding : 8
-            anchors.horizontalCenter: parent.horizontalCenter
-            spacing: host.workspaceItemSpacing
-            Column {
-                id: verticalWorkspaces
-                anchors.horizontalCenter: parent.horizontalCenter
-                spacing: host.workspaceItemSpacing
-                EitrLogo {
-                    id: verticalControlCenterLogo
-                    foreground: host.fg; background: host.workspaceMenuBg
-                    slotWidth: host.workspaceItemSize
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: bar.toggleControlCenter()
-                }
-                Item { width: 1; height: bar.islandsLayout ? bar.islandSpacing - 2 * host.workspaceItemSpacing : 0; visible: bar.islandsLayout }
-                VerticalBarIcon { host: bar.host; id: verticalOverviewIcon; icon: "󰕮"; tooltip: Eitr.I18n.tr("Overview"); open: true; clickable: true; onClicked: bar.toggleOverview() }
-                Repeater {
-                    model: host.workspaceCount
-                    BarButton {
-                        host: bar.host
-                        text: host.workspaceLabel(index, bar.screen)
-                        tooltip: active ? "" : host.workspaceApps(index + 1)
-                        visualStyle: host.workspaceStyle
-                        active: host.workspaceActive(index + 1, bar.screen)
-                        width: host.workspaceItemSize; buttonHeight: host.workspaceItemSize; fontSize: 14; cornerRadius: 6; textOffsetY: 0
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: host.focusWorkspace(index + 1)
-                        onRightClicked: bar.togglePanel(workspaceMenu)
-                    }
-                }
-            }
-            Item { width: 1; height: bar.islandsLayout ? bar.islandSpacing - 2 * host.workspaceItemSpacing : 0; visible: bar.islandsLayout }
-            Column {
-                id: verticalHardware
-                anchors.horizontalCenter: parent.horizontalCenter
-                spacing: host.workspaceItemSpacing
-                VerticalBarIcon { host: bar.host; id: verticalAiIcon; icon: ""; iconSize: 16; tooltip: Eitr.I18n.tr("AI Usage"); open: true; clickable: true; onClicked: bar.togglePanel(aiMenu) }
-                VerticalBarIcon { host: bar.host; id: verticalHardwareIcon; icon: "󰍛"; iconSize: 18; tooltip: Eitr.I18n.tr("Hardware"); open: true; clickable: true; onClicked: bar.togglePanel(hardwareMenu) }
-                VerticalBarIcon { host: bar.host; id: verticalIdleLockIcon; icon: host.idleLockGlyph; iconSize: 17; tooltip: host.idleLockTooltip; open: true; clickable: true; onClicked: host.switchIdleLock() }
-            }
-        }
-
-        BarVerticalCenter {
-            id: barVerticalCenter
-            host: bar.host
-            barHost: bar
-            barWeatherRef: bar.barWeather
-            calendarMenuRef: bar.calendarMenu
-            mediaMenuRef: mediaMenu
-            mediaStripRef: bar.mediaStrip
-            obsMenuRef: bar.obsMenu
-            recordingMenuRef: bar.recordingMenu
-            weatherMenuRef: bar.weatherMenu
-        }
-
-        BarVerticalStatus {
-            id: barVerticalStatus
-            host: bar.host
-            barHost: bar
-            batteryMenuRef: batteryMenu
-            bluetoothMenuRef: bar.bluetoothMenu
-            brightnessMenuRef: bar.brightnessMenu
-            keyboardMenuRef: bar.keyboardMenu
-            notificationCenterRef: notificationCenter
-            notificationIconRef: notificationIcon
-            obsMenuRef: bar.obsMenu
-            remoteAccessServiceRef: remoteServiceRef
-            streamingMenuRef: bar.streamingMenu
-            tailscaleMenuRef: bar.tailscaleMenu
-            volumeMenuRef: bar.volumeMenu
-            wifiMenuRef: bar.wifiMenu
-        }
+    BarVerticalPlacement {
+        id: barVerticalPlacement
+        host: bar.host
+        barHost: bar
     }
 
-    BarSection {
-        id: surface
-        anchors.fill: parent
-        visible: !host.verticalBar
-        edge: host.barEdge
-        background: host.notchLayout || host.centeredLayout || host.islandsLayout ? "transparent" : host.barBackground()
-        radius: 0
-
-        BarGestureArea {
-            id: barGestures
-            anchors.fill: parent
-            hostWindow: bar
-            edge: host.barEdge
-            onCandidateChanged: host.dragCandidate = candidate
-            onPointerHeld: function(held) { host.barPointerHeld = held }
-            onDoubleTapped: function(button) { host.barDoubleClick(button) }
-            onDropped: function(edge) { host.updateBarSetting("edge", edge) }
-        }
-
-        RowLayout {
-            anchors.fill: parent
-            anchors.leftMargin: bar.islandsLayout ? host.screenGaps[3] + 4 : bar.centeredLayout ? bar.endPadding : 12
-            anchors.rightMargin: 9
-            spacing: 0
-
-            BarLeftGroup {
-                id: leftGroup
-                host: bar.host
-                barWindow: bar
-                styleMenu: workspaceMenu
-                aiPanel: aiMenu
-                hardwarePanel: hardwareMenu
-                Layout.alignment: Qt.AlignVCenter
-            }
-            WorkspaceStyleMenu {
-                id: workspaceMenu
-                surfaceColor: host.barBackground()
-                target: host.verticalBar ? verticalWorkspaces : leftGroup.workspaces
-                barEdge: host.barEdge
-                currentStyle: host.workspaceStyle
-                accent: host.activeBg
-                foreground: host.workspaceMenuFg
-                background: host.workspaceMenuBg
-                selectedForeground: host.activeFg
-                onSelected: function(style) {
-                    host.setWorkspaceStyle(style);
-                }
-            }
-
-            SystemMonitorMenu {
-                id: hardwareMenu
-                surfaceColor: host.barBackground()
-                maximumHeight: bar.screen.height - 70
-                target: host.verticalBar ? verticalHardwareIcon : leftGroup.hardwareIcon
-                barEdge: host.barEdge
-                accent: host.activeBg
-                foreground: host.fg
-                background: host.workspaceMenuBg
-            }
-
-            AiUsageMenu {
-                id: aiMenu
-                surfaceColor: host.barBackground()
-                maximumHeight: bar.screen.height - 70
-                leftAligned: true
-                target: host.verticalBar ? verticalAiIcon : leftGroup.aiIcon
-                barEdge: host.barEdge
-                accent: host.activeBg
-                foreground: host.fg
-                background: host.workspaceMenuBg
-            }
-
-            Item {
-                Layout.fillWidth: true
-            }
-
-        }
-
-            BarHorizontalStatus {
-                id: barHorizontalStatus
-                host: bar.host
-                barHost: bar
-                barCaptureRef: bar.barCapture
-                batteryMenuRef: batteryMenu
-                networkOwnerRef: networkServiceRef
-                notificationIconRef: notificationIcon
-                remoteAccessServiceRef: remoteServiceRef
-                verticalBluetoothIconRef: bar.verticalBluetoothIcon
-                verticalCaptureRef: bar.verticalCapture
-                verticalDisplayIconRef: bar.verticalDisplayIcon
-                verticalKeyboardIconRef: bar.verticalKeyboardIcon
-                verticalObsIconRef: bar.verticalObsIcon
-                verticalStreamingIconRef: bar.verticalStreamingIcon
-                verticalTailscaleIconRef: bar.verticalTailscaleIcon
-                verticalVolumeIconRef: bar.verticalVolumeIcon
-                verticalWifiIconRef: bar.verticalWifiIcon
-            }
-
-        NotificationWidget {
-
-            host: bar.host
-
-            notificationService: notificationsRef
-            id: notificationIcon
-            onOpenRequested: bar.togglePanel(notificationCenter)
-            opacity: bar.expanded ? 1 : 0
-            enabled: bar.expanded
-            visible: !host.verticalBar
-            anchors.right: parent.right
-            anchors.rightMargin: bar.islandsLayout ? host.screenGaps[1] + 4 : bar.centeredLayout ? bar.endPadding : 13
-            anchors.verticalCenter: parent.verticalCenter
-        }
-
-        BarHorizontalCenter {
-            id: barHorizontalCenter
-            host: bar.host
-            barHost: bar
-            hardwareStatusRef: leftGroup.hardwareStatus
-            mediaMenuRef: mediaMenu
-            obsMenuRef: bar.obsMenu
-            recordingMenuRef: bar.recordingMenu
-            verticalCalendarIconRef: bar.verticalCalendarIcon
-            verticalWeatherIconRef: bar.verticalWeatherIcon
-            workspacesRef: leftGroup.workspaces
-        }
+    BarHorizontalPlacement {
+        id: barHorizontalPlacement
+        host: bar.host
+        barHost: bar
     }
 
     }

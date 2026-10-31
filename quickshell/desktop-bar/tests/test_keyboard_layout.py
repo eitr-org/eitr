@@ -1,3 +1,4 @@
+from qml_source import control_center_source
 import importlib.util
 from pathlib import Path
 import subprocess
@@ -30,7 +31,7 @@ class KeyboardLayoutTests(unittest.TestCase):
         root = Path(__file__).parents[1]
         repo = root.parents[1]
         panel = (root / 'panels/KeyboardLayoutMenu.qml').read_text()
-        center = (root / 'panels/ControlCenter.qml').read_text()
+        center = control_center_source(root)
         for name, source in (('panel', panel), ('control center', center)):
             with self.subTest(source=name):
                 self.assertNotIn('"add"', source)

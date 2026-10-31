@@ -752,9 +752,14 @@ Data refresh, focus, notification-expiry and pointer-leave timers are unchanged.
 
 `shell.qml` owns shared state and service wiring. Each `bar/BarWindow.qml` owns one
 screen's frame, input regions, bar sections and panel routing, receiving its shell
-host and service dependencies explicitly.
+host and service dependencies explicitly. `BarPanels` retains the panel instances
+and IPC handlers; `BarInputMask`, `BarTabs`, `BarIslands` and `BarCenteredOutline`
+provide the layout surfaces and input regions. Horizontal and vertical placement
+components retain the existing centre/status sections. Control Center keeps its
+query lifecycle in `ControlCenter.qml` and passes its controller explicitly to
+navigation, connectivity, sliders, style, settings, tools and power views.
 
-Inventory: `bar/BarWindow.qml`'s `dockPanels`, `showKind()`/`panels` IPC, Control Center
+Inventory: `bar/BarWindow.qml`'s `dockPanels`, `BarPanels.showKind()`/`panels` IPC, Control Center
 page routing, `qmldir`, and auxiliary popup/overlay types. `brightness`/`display`
 and `volume`/`mic` are aliases of the same panels. Walker uses these same IPC
 kinds; it does not instantiate another copy.
