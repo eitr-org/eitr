@@ -21,11 +21,13 @@ class AiUsageLayoutTests(unittest.TestCase):
             legacy.parent.mkdir(parents=True)
             legacy.write_text(json.dumps({'version': 2, 'foldedProviders': ['Claude']}))
 
-            for source in BAR.iterdir():
+            for source in BAR.rglob("*"):
                 if source.suffix in ('.qml', '.js') or source.name == 'qmldir':
-                    shutil.copy(source, folder / source.name)
-            (folder / 'ThemedPopup.qml').write_text('''import QtQuick
-import "JsonState.js" as JsonState
+                    destination = folder / source.relative_to(BAR)
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy(source, destination)
+            (folder / 'components/ThemedPopup.qml').write_text('''import QtQuick
+import "../JsonState.js" as JsonState
 Item {
     id: popup
     property bool waitForFreshData: false

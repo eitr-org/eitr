@@ -11,8 +11,8 @@ STYLES = ["Dots", "Glyph", "Numbers", "Runes"]
 class WorkspaceStyleTests(unittest.TestCase):
     def test_every_style_list_offers_the_same_styles(self):
         lists = {
-            "ControlCenter.qml": BAR / "ControlCenter.qml",
-            "WorkspaceStyleMenu.qml": BAR / "WorkspaceStyleMenu.qml",
+            "ControlCenter.qml": BAR / "panels/ControlCenter.qml",
+            "WorkspaceStyleMenu.qml": BAR / "panels/WorkspaceStyleMenu.qml",
             "handbook-controls-preview.qml": BAR / "handbook-controls-preview.qml",
         }
         for name, path in lists.items():
@@ -25,12 +25,12 @@ class WorkspaceStyleTests(unittest.TestCase):
 
     def test_styles_are_alphabetical_and_the_menu_fits_them_all(self):
         self.assertEqual(STYLES, sorted(STYLES))
-        menu = (BAR / "WorkspaceStyleMenu.qml").read_text()
+        menu = (BAR / "panels/WorkspaceStyleMenu.qml").read_text()
         self.assertIn("implicitHeight: styles.length * PanelStyle.selectionRowHeight", menu)
         self.assertIn("model: menu.styles", menu)
 
     def test_active_markers_use_accent_ink_without_a_filled_background(self):
-        marker = (BAR / "WorkspaceMarker.qml").read_text()
+        marker = (BAR / "bar/WorkspaceMarker.qml").read_text()
         self.assertIn("color: marker.active ? marker.accent : marker.foreground", marker)
         self.assertNotIn("color: marker.accent\n", marker)
         self.assertIn('marker.active ? "transparent"', marker)
@@ -39,7 +39,7 @@ class WorkspaceStyleTests(unittest.TestCase):
         self.assertIn("box-shadow: none", css)
 
     def test_runes_cover_all_ten_workspaces_in_futhark_order(self):
-        marker = (BAR / "WorkspaceMarker.qml").read_text()
+        marker = (BAR / "bar/WorkspaceMarker.qml").read_text()
         runes = re.search(r'readonly property var runes: \[(.*?)\]', marker)[1]
         self.assertEqual(re.findall(r'"(.)"', runes), list("ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾ"))
         self.assertIn('"Noto Sans Runic"', marker)

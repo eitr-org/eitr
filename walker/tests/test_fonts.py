@@ -136,7 +136,7 @@ class FontTests(unittest.TestCase):
             self.assertIn('gtk-font-name=Example 11', (root / 'gtk-4.0/settings.ini').read_text())
 
     def test_style_and_system_are_separate_tabs(self):
-        center = (ROOT / 'quickshell/desktop-bar/ControlCenter.qml').read_text()
+        center = (ROOT / 'quickshell/desktop-bar/panels/ControlCenter.qml').read_text()
         self.assertIn('key: "style"', center)
         self.assertLess(center.index('visible: center.page === "style"'), center.index('title: Eitr.I18n.tr("Bar")'))
         self.assertLess(center.index('visible: center.page === "settings"'), center.index('title: Eitr.I18n.tr("Keyboard")'))

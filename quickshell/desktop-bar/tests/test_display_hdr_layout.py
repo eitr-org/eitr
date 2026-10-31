@@ -14,9 +14,11 @@ class DisplayHdrLayoutTests(unittest.TestCase):
     def test_hdr_controls_in_both_themes(self):
         with tempfile.TemporaryDirectory(dir=ROOT) as temporary:
             folder = Path(temporary)
-            for source in BAR.iterdir():
+            for source in BAR.rglob("*"):
                 if source.suffix in ('.qml', '.js') or source.name == 'qmldir':
-                    shutil.copy(source, folder / source.name)
+                    destination = folder / source.relative_to(BAR)
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy(source, destination)
             for theme in ('dark', 'light'):
                 renders = Path(os.environ.get('EITR_REVIEW_RENDERS') or folder)
                 renders.mkdir(parents=True, exist_ok=True)

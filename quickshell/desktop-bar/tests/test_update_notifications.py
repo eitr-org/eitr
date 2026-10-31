@@ -40,7 +40,7 @@ class UpdateNotificationTests(unittest.TestCase):
         self.assertIsNone(updated)
 
     def test_bar_announces_only_new_updates(self):
-        source = (BAR / "shell.qml").read_text() + (BAR / "UpdatesStatus.qml").read_text()
+        source = (BAR / "shell.qml").read_text() + (BAR / "services/UpdatesStatus.qml").read_text()
         self.assertIn("if (updates.count <= announcedUpdates)", source)
         self.assertIn("status.announceUpdates();", source)
         self.assertNotIn("id: updatesQuery", source)

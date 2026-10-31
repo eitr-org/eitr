@@ -83,18 +83,18 @@ class AirplaneTests(unittest.TestCase):
 
 class ControlCenterContracts(unittest.TestCase):
     def test_notifications_have_only_the_dedicated_panel(self):
-        center = (Path(__file__).parents[1] / 'ControlCenter.qml').read_text()
+        center = (Path(__file__).parents[1] / 'panels/ControlCenter.qml').read_text()
         self.assertNotIn('key: "notifications"', center)
         self.assertNotIn('NotificationList {', center)
         self.assertNotIn('service.centerOpen =', center)
 
     def test_shared_sliders_use_pointer_when_enabled(self):
-        slider = (Path(__file__).parents[1] / 'PanelSlider.qml').read_text()
+        slider = (Path(__file__).parents[1] / 'components/PanelSlider.qml').read_text()
         self.assertIn('HoverHandler {', slider)
         self.assertIn('slider.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor', slider)
 
     def test_general_controls_have_ordered_groups(self):
-        center = (Path(__file__).parents[1] / 'ControlCenter.qml').read_text()
+        center = (Path(__file__).parents[1] / 'panels/ControlCenter.qml').read_text()
         names = ['Connectivity', 'Quick Actions', 'Sound', 'Display', 'Media', 'Power']
         positions = [center.index('text: Eitr.I18n.tr("' + name + '"); width: parent.width') for name in names]
         self.assertEqual(positions, sorted(positions))
@@ -105,12 +105,12 @@ class ControlCenterContracts(unittest.TestCase):
 
     def test_single_background_media_popup(self):
         root = Path(__file__).parents[1]
-        self.assertIn('property bool cardBackground: true', (root / 'MediaCard.qml').read_text())
-        self.assertIn('cardBackground: false', (root / 'MediaMenu.qml').read_text())
+        self.assertIn('property bool cardBackground: true', (root / 'media/MediaCard.qml').read_text())
+        self.assertIn('cardBackground: false', (root / 'media/MediaMenu.qml').read_text())
 
     def test_control_center_groups_and_reset(self):
         root = Path(__file__).parents[1]
-        center = (root / 'ControlCenter.qml').read_text()
+        center = (root / 'panels/ControlCenter.qml').read_text()
         self.assertIn('onVisibleChanged: if (!visible)', center)
         self.assertNotIn('key: "toggles"', center)
         self.assertNotIn('details: true', center)
@@ -130,14 +130,14 @@ class ControlCenterContracts(unittest.TestCase):
         shell = ((Path(__file__).parents[1] / 'shell.qml').read_text() + frame_source(Path(__file__).parents[1]))
         self.assertIn('onWorkspaceStyleRequested: function(value) { shell.setWorkspaceStyle(value); }', shell)
         self.assertIn('shell.setWorkspaceStyle(style);', shell)
-        preferences = (Path(__file__).parents[1] / 'BarPreferences.qml').read_text()
+        preferences = (Path(__file__).parents[1] / 'services/BarPreferences.qml').read_text()
         setter = preferences.split('function setWorkspaceStyle(style) {', 1)[1].split('\n    }', 1)[0]
         self.assertLess(setter.index('host.workspaceStyle = style;'),
                         setter.index('saveWorkspaceStyle.running = true;'))
 
     def test_shared_surface_and_edge_animation(self):
         root = Path(__file__).parents[1]
-        center = (root / 'ControlCenter.qml').read_text()
+        center = (root / 'panels/ControlCenter.qml').read_text()
         self.assertIn('ThemedPopup {', center)
         self.assertIn('barEdge: barPosition', center)
         self.assertNotIn('\n    x:', center)
@@ -145,7 +145,7 @@ class ControlCenterContracts(unittest.TestCase):
         self.assertIn('MediaCard {', center)
         shell = ((root / 'shell.qml').read_text() + frame_source(root))
         self.assertIn('Region { item: controlCenter.opened ? controlCenter : null }', shell)
-        center_section = (root / 'BarHorizontalCenter.qml').read_text()
+        center_section = (root / 'bar/BarHorizontalCenter.qml').read_text()
         self.assertIn('onDetailsRequested: barHost.togglePanel(mediaMenuRef)', center_section)
 
 if __name__ == '__main__':
@@ -156,14 +156,14 @@ class HardwareSubscriberTests(unittest.TestCase):
     @unittest.skipUnless(shutil.which("quickshell"), "Quickshell unavailable")
     def test_panel_demand_lifetime_retained_errors_and_control_center_entry(self):
         bar = Path(__file__).parents[1]
-        self.assertIn('center.panelRequested("hardware")', (bar / 'ControlCenter.qml').read_text())
+        self.assertIn('center.panelRequested("hardware")', (bar / 'panels/ControlCenter.qml').read_text())
         self.assertNotIn('hardwareIdentity', ((bar / 'shell.qml').read_text() + frame_source(bar)))
-        panel = (bar / 'SystemMonitorMenu.qml').read_text()
+        panel = (bar / 'panels/SystemMonitorMenu.qml').read_text()
         self.assertNotIn('Process {', panel)
         self.assertNotIn('Timer {', panel)
         with tempfile.TemporaryDirectory(prefix="eitr-hardware-test-") as directory:
             root = Path(directory)
-            (root / 'SystemMonitorMenu.qml').write_text(panel[:panel.index('    Flickable {')] + '}\n')
+            (root / 'SystemMonitorMenu.qml').write_text((panel[:panel.index('    Flickable {')] + '}\n').replace('import ".."\n', '').replace('"../', '"'))
             shutil.copy(bar / 'PanelStyle.js', root / 'PanelStyle.js')
             (root / 'ThemedPopup.qml').write_text("""
 import QtQuick

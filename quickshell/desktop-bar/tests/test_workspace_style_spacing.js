@@ -1,8 +1,8 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
-const menu = fs.readFileSync(`${__dirname}/../WorkspaceStyleMenu.qml`, 'utf8');
-const popup = fs.readFileSync(`${__dirname}/../ThemedPopup.qml`, 'utf8');
+const menu = fs.readFileSync(`${__dirname}/../panels/WorkspaceStyleMenu.qml`, 'utf8');
+const popup = fs.readFileSync(`${__dirname}/../components/ThemedPopup.qml`, 'utf8');
 const row = menu.match(/readonly property real rowWidth: (.*)\n/)[1];
 const width = menu.match(/implicitWidth: ([\s\S]*?)\n    implicitHeight:/)[1];
 const inset = popup.match(/readonly property real horizontalContentInset: ([\s\S]*?)\n    property Item/)[1];

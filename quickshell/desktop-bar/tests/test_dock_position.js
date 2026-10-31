@@ -1,7 +1,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
-const source = fs.readFileSync(`${__dirname}/../DockPanel.qml`, 'utf8');
+const source = fs.readFileSync(`${__dirname}/../components/DockPanel.qml`, 'utf8');
 const x = source.match(/\n    x: \{([\s\S]*?)\n    \}/)[1];
 const y = source.match(/\n    y: \{([\s\S]*?)\n    \}/)[1];
 for (const edge of ['top', 'bottom', 'left', 'right']) {

@@ -1,5 +1,35 @@
 # Desktop Bar
 
+## Source layout
+
+The root `qmldir` is the public type registry. Its relative paths export the same
+unqualified type names and retain every `singleton` declaration. Components in
+subfolders use `import ".."` to resolve that registry, including shared singletons;
+JavaScript imports and asset URLs point back to the root. Consumers and plugins
+continue to import the shell root. Plugin manifest QML paths still refer to files
+inside the plugin, independently of this layout.
+
+| Folder | Responsibility |
+| --- | --- |
+| `bar/` | Bar window, sections, icons, masks, gestures and Focus strips |
+| `panels/` | Settings and status popups, Control Center, chat and Handbook reader |
+| `components/` | Shared panel surfaces, controls and presentation primitives |
+| `services/` | Data owners, preferences, session state and shared singletons |
+| `notifications/` | Notification service, cards, lists, center and popups |
+| `plugins/` | Plugin registry, loaders, placements and management UI |
+| `dock/` | Edge dock window and content |
+| `overview/` | Workspace overview and preview tiles |
+| `wallpaper/` | Live wallpaper scenes and realm effects |
+| `media/` | Media indicator, strip, card and menu |
+
+`shell.qml` remains the entry point. The preview entry points and
+`ReloadPopupSmokeTest.qml` remain at the root to preserve their launch paths.
+JavaScript helpers, scripts, assets, shaders, Handbook content and tests retain
+their existing directories. No preference, shortcut, unit or IPC path changes.
+The package stages these subfolders recursively as shipped code; historical
+layout entries continue to describe old home copies. Whole-shell overrides keep
+their own tree. Direct component URLs use the paths in `qmldir`.
+
 Settings and workspace colours follow file/directory watches, including atomic
 writes and theme symlink replacement. Monitor/configuration events refresh primary
 output and gaps, with a 60 s recovery check. The dock also uses window events and
@@ -720,11 +750,11 @@ button effects and meters use it. Infinite indicators stop under reduced motion;
 loading state remains visible. Realm screenshot flashes and Fenrir are suppressed.
 Data refresh, focus, notification-expiry and pointer-leave timers are unchanged.
 
-`shell.qml` owns shared state and service wiring. Each `BarWindow.qml` owns one
+`shell.qml` owns shared state and service wiring. Each `bar/BarWindow.qml` owns one
 screen's frame, input regions, bar sections and panel routing, receiving its shell
 host and service dependencies explicitly.
 
-Inventory: `BarWindow.qml`'s `dockPanels`, `showKind()`/`panels` IPC, Control Center
+Inventory: `bar/BarWindow.qml`'s `dockPanels`, `showKind()`/`panels` IPC, Control Center
 page routing, `qmldir`, and auxiliary popup/overlay types. `brightness`/`display`
 and `volume`/`mic` are aliases of the same panels. Walker uses these same IPC
 kinds; it does not instantiate another copy.

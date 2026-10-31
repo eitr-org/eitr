@@ -32,7 +32,7 @@ class MenuActionTests(unittest.TestCase):
 
     def test_every_control_center_button_names_a_real_menu_row(self):
         # A renamed Walker row must not silently break a Control Center button.
-        center = (ROOT / "quickshell/desktop-bar/ControlCenter.qml").read_text()
+        center = (ROOT / "quickshell/desktop-bar/panels/ControlCenter.qml").read_text()
         calls = re.findall(r'menuAction\("([^"]+)", "([^"]+)"\)', center)
         calls += re.findall(r'"menu-action\.py", "([^"]+)", "([^"]+)"', center)
         self.assertGreater(len(calls), 20)

@@ -198,6 +198,10 @@ stage_shellcheck() {
 stage_qml() {
   local qml_files
   collect qml_files '*.qml'
+  local new_qml
+  while IFS= read -r -d '' new_qml; do
+    [[ -f "$new_qml" && ! -L "$new_qml" ]] && qml_files+=("$new_qml")
+  done < <(git ls-files --others --exclude-standard -z -- '*.qml')
   if [[ ! -x "$qmllint_bin" ]]; then
     echo "Qt 6 qmllint not found at $qmllint_bin (install qt6-declarative)"
     return 1

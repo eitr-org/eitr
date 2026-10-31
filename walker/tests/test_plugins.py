@@ -133,7 +133,7 @@ class PluginTests(unittest.TestCase):
         self.assertIn('Subtext = i18n.tr("Review and update installed plugins")', menu)
         self.assertIn('Actions = {open = task("update")}', menu)
         self.assertIn('table.sort(entries, function(first, second)', menu)
-        page = (ROOT / 'quickshell/desktop-bar/PluginManager.qml').read_text()
+        page = (ROOT / 'quickshell/desktop-bar/plugins/PluginManager.qml').read_text()
         self.assertIn('text: Eitr.I18n.tr("Update Plugins")', page)
         self.assertIn('PluginRegistry.review("update", "")', page)
         self.assertIn('pluginRow.modelData.updateCount > 0', page)
@@ -1011,7 +1011,7 @@ class PluginTests(unittest.TestCase):
                 self.assertIn('hooks ' + event, trace.read_text())
         wallpaper = (ROOT / 'walker/scripts/actions/wallpaper/transition.py').read_text()
         self.assertIn('dispatch_hooks("wallpaper-changed", EITR_WALLPAPER=path)', wallpaper)
-        bar = (ROOT / 'quickshell/desktop-bar/WelcomeSession.qml').read_text()
+        bar = (ROOT / 'quickshell/desktop-bar/services/WelcomeSession.qml').read_text()
         self.assertIn('Quickshell.execDetached(["python3", Eitr.Paths.code("walker/scripts/actions/install/plugins.py"), "hooks", "login"])', bar)
         if shutil.which('node'):
             handler = bar.split('running: !pluginSession.dispatched', 1)[1].split('onTriggered: {', 1)[1].split('        }', 1)[0]

@@ -5,7 +5,7 @@ live layers into ../motion/02-eitr-runestone.
 The EITR emblem sits inside a ring of carved runes. Runes are drawn as straight
 strokes, so no font is needed. The output is deterministic. The live layers are
 the starry sky and the ring with the emblem; the desktop draws the website's
-moving aurora between them (see quickshell/desktop-bar/LiveWallpaperScene.qml).
+moving aurora between them (see quickshell/desktop-bar/wallpaper/LiveWallpaperScene.qml).
 Auxiliary renderers retain the source for the theme's procedural aurora preview
 and rune artwork.
 """

@@ -331,14 +331,14 @@ class DisplaySettingsTests(unittest.TestCase):
         self.assertLess(loader.index('"/hypr/displays.lua")'), loader.index('"/hypr/local.lua")'))
 
     def test_the_display_panel_offers_it(self):
-        panel = (BAR / "BrightnessMenu.qml").read_text()
+        panel = (BAR / "panels/BrightnessMenu.qml").read_text()
         self.assertIn('trialOperation.command = ["python3", settingsHelper, "set", name, key, value]', panel)
         self.assertIn("if (result.trial)", panel, "the countdown appears for settings being tried")
         self.assertIn('menu.finishTrial("keep")', panel)
         self.assertIn('menu.finishTrial("revert")', panel)
         self.assertIn("readonly property int trialLength: 15", panel)
         self.assertEqual(display.REVERT_SECONDS, 15, "the panel's countdown matches the revert timer")
-        self.assertIn("DisplaySettingsEditor DisplaySettingsEditor.qml", (BAR / "qmldir").read_text())
+        self.assertIn("DisplaySettingsEditor panels/DisplaySettingsEditor.qml", (BAR / "qmldir").read_text())
         rows = json.loads((REPO / "elephant/menu-rows/system-devices.json").read_text())
         names = [row["text"] for row in rows]
         self.assertNotIn("Display Settings", names, "the Display panel holds them")

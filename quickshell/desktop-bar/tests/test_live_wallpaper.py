@@ -15,12 +15,12 @@ class LiveWallpaperTests(unittest.TestCase):
     def test_runestone_ships_every_live_layer(self):
         for layer in ("sky.png", "ring.png"):
             self.assertTrue((MOTION / layer).is_file(), layer)
-            self.assertIn(f'"{layer}"', (BAR / "LiveWallpaperScene.qml").read_text())
+            self.assertIn(f'"{layer}"', (BAR / "wallpaper/LiveWallpaperScene.qml").read_text())
         self.assertEqual(sorted(path.name for path in MOTION.iterdir()), ["ring.png", "sky.png"])
 
     def test_the_scene_covers_the_screen_at_the_layers_size(self):
         from PIL import Image
-        scene = (BAR / "LiveWallpaperScene.qml").read_text()
+        scene = (BAR / "wallpaper/LiveWallpaperScene.qml").read_text()
         for layer in ("sky.png", "ring.png"):
             with Image.open(MOTION / layer) as image:
                 width, height = image.size
@@ -66,8 +66,8 @@ ShellRoot {{
 
     def test_aurora_shader_is_compiled_from_its_source(self):
         import hashlib, shutil, subprocess, tempfile
-        scene = (BAR / "LiveWallpaperScene.qml").read_text()
-        self.assertIn('Qt.resolvedUrl("shaders/aurora.frag.qsb")', scene)
+        scene = (BAR / "wallpaper/LiveWallpaperScene.qml").read_text()
+        self.assertIn('Qt.resolvedUrl("../shaders/aurora.frag.qsb")', scene)
         qsb = Path("/usr/lib/qt6/bin/qsb")
         if not qsb.exists():
             self.skipTest("qt6-shadertools is not installed")
@@ -81,7 +81,7 @@ ShellRoot {{
         self.assertTrue((ROOT / "themes/eitr/backgrounds/02-eitr-runestone.png").is_file())
 
     def test_layers_follow_the_saved_wallpaper_and_never_take_input(self):
-        source = (BAR / "LiveWallpaper.qml").read_text()
+        source = (BAR / "wallpaper/LiveWallpaper.qml").read_text()
         self.assertIn('"/.cache/current-wallpaper"', source)
         self.assertIn('"/motion/" + match[2] + "/"', source)
         self.assertIn("mask: Region {}", source)
@@ -124,7 +124,7 @@ ShellRoot {{
         self.assertLess(startup.index("eitr-hyprpaper &"), startup.index("eitr-shell desktop-bar --daemonize"))
 
     def test_fallback_is_not_suspended_by_focus_or_transitions(self):
-        source = (BAR / 'LiveWallpaper.qml').read_text()
+        source = (BAR / 'wallpaper/LiveWallpaper.qml').read_text()
         self.assertIn('visible: stillFallback || (animate && scene.ready)', source)
         self.assertIn('visible: window.stillFallback', source)
         self.assertIn('stillFallback: live.healthyOutputs[modelData.name] === false', source)

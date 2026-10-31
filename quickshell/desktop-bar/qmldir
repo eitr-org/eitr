@@ -1,113 +1,113 @@
-singleton DesktopFonts 1.0 DesktopFonts.qml
-singleton DesktopStyle 1.0 DesktopStyle.qml
-singleton AudioDevices 1.0 AudioDevices.qml
-singleton PluginRegistry 1.0 PluginRegistry.qml
-singleton SpectrumProvider 1.0 SpectrumProvider.qml
-singleton FocusMode 1.0 FocusMode.qml
-singleton ObsStatus 1.0 ObsStatus.qml
-singleton DesktopData DesktopData.qml
-singleton PowerService 1.0 PowerService.qml
-singleton DisplayService 1.0 DisplayService.qml
-AiUsageMenu AiUsageMenu.qml
-AppearancePicker AppearancePicker.qml
-AudioLevelControl AudioLevelControl.qml
-AudioMenu AudioMenu.qml
-BarGestureArea BarGestureArea.qml
-BarSection BarSection.qml
-BarTooltip BarTooltip.qml
-BatteryMenu BatteryMenu.qml
-BluetoothMenu BluetoothMenu.qml
-BrightnessMenu BrightnessMenu.qml
-CalendarMenu CalendarMenu.qml
-ControlCenter ControlCenter.qml
-ControlCenterTile ControlCenterTile.qml
-DisplaySettingsEditor DisplaySettingsEditor.qml
-DockPanel DockPanel.qml
-Handbook Handbook.qml
-KeyboardLayoutMenu KeyboardLayoutMenu.qml
-KeyboardLayoutRow KeyboardLayoutRow.qml
-LiveWallpaper LiveWallpaper.qml
-LiveWallpaperScene LiveWallpaperScene.qml
-MediaCard MediaCard.qml
-MediaMenu MediaMenu.qml
-MediaStrip MediaStrip.qml
-MicrophoneMeter MicrophoneMeter.qml
-NotificationCard NotificationCard.qml
-NotificationCenter NotificationCenter.qml
-NotificationGroup NotificationGroup.qml
-NotificationList NotificationList.qml
-NotificationPopups NotificationPopups.qml
-NotificationPriorityGlow NotificationPriorityGlow.qml
-NotificationService NotificationService.qml
-ObsActionButton ObsActionButton.qml
-ObsMenu ObsMenu.qml
-OverviewTileReveal OverviewTileReveal.qml
-PanelButton PanelButton.qml
-PanelFooterLink PanelFooterLink.qml
-PanelLoadingIndicator PanelLoadingIndicator.qml
-PanelMoreButton PanelMoreButton.qml
-PanelDivider PanelDivider.qml
-PanelHeading PanelHeading.qml
-PanelSizeBehavior PanelSizeBehavior.qml
-PanelSlider PanelSlider.qml
-PanelSurface PanelSurface.qml
-PanelSwitch PanelSwitch.qml
-PowerControls PowerControls.qml
-RecordingMenu RecordingMenu.qml
-RealmEffects RealmEffects.qml
-ReloadErrorPopup ReloadErrorPopup.qml
+singleton DesktopFonts 1.0 services/DesktopFonts.qml
+singleton DesktopStyle 1.0 services/DesktopStyle.qml
+singleton AudioDevices 1.0 services/AudioDevices.qml
+singleton PluginRegistry 1.0 plugins/PluginRegistry.qml
+singleton SpectrumProvider 1.0 services/SpectrumProvider.qml
+singleton FocusMode 1.0 services/FocusMode.qml
+singleton ObsStatus 1.0 services/ObsStatus.qml
+singleton DesktopData services/DesktopData.qml
+singleton PowerService 1.0 services/PowerService.qml
+singleton DisplayService 1.0 services/DisplayService.qml
+AiUsageMenu panels/AiUsageMenu.qml
+AppearancePicker panels/AppearancePicker.qml
+AudioLevelControl components/AudioLevelControl.qml
+AudioMenu panels/AudioMenu.qml
+BarGestureArea bar/BarGestureArea.qml
+BarSection bar/BarSection.qml
+BarTooltip components/BarTooltip.qml
+BatteryMenu panels/BatteryMenu.qml
+BluetoothMenu panels/BluetoothMenu.qml
+BrightnessMenu panels/BrightnessMenu.qml
+CalendarMenu panels/CalendarMenu.qml
+ControlCenter panels/ControlCenter.qml
+ControlCenterTile panels/ControlCenterTile.qml
+DisplaySettingsEditor panels/DisplaySettingsEditor.qml
+DockPanel components/DockPanel.qml
+Handbook panels/Handbook.qml
+KeyboardLayoutMenu panels/KeyboardLayoutMenu.qml
+KeyboardLayoutRow components/KeyboardLayoutRow.qml
+LiveWallpaper wallpaper/LiveWallpaper.qml
+LiveWallpaperScene wallpaper/LiveWallpaperScene.qml
+MediaCard media/MediaCard.qml
+MediaMenu media/MediaMenu.qml
+MediaStrip media/MediaStrip.qml
+MicrophoneMeter components/MicrophoneMeter.qml
+NotificationCard notifications/NotificationCard.qml
+NotificationCenter notifications/NotificationCenter.qml
+NotificationGroup notifications/NotificationGroup.qml
+NotificationList notifications/NotificationList.qml
+NotificationPopups notifications/NotificationPopups.qml
+NotificationPriorityGlow notifications/NotificationPriorityGlow.qml
+NotificationService notifications/NotificationService.qml
+ObsActionButton components/ObsActionButton.qml
+ObsMenu panels/ObsMenu.qml
+OverviewTileReveal overview/OverviewTileReveal.qml
+PanelButton components/PanelButton.qml
+PanelFooterLink components/PanelFooterLink.qml
+PanelLoadingIndicator components/PanelLoadingIndicator.qml
+PanelMoreButton components/PanelMoreButton.qml
+PanelDivider components/PanelDivider.qml
+PanelHeading components/PanelHeading.qml
+PanelSizeBehavior components/PanelSizeBehavior.qml
+PanelSlider components/PanelSlider.qml
+PanelSurface components/PanelSurface.qml
+PanelSwitch components/PanelSwitch.qml
+PowerControls components/PowerControls.qml
+RecordingMenu panels/RecordingMenu.qml
+RealmEffects wallpaper/RealmEffects.qml
+ReloadErrorPopup components/ReloadErrorPopup.qml
 ReloadPopupSmokeTest ReloadPopupSmokeTest.qml
-SystemMonitorMenu SystemMonitorMenu.qml
-ThemedPopup ThemedPopup.qml
-WeatherMenu WeatherMenu.qml
-WifiMenu WifiMenu.qml
-WorkspaceMarker WorkspaceMarker.qml
-WorkspaceOverview WorkspaceOverview.qml
-WorkspaceOverviewTile WorkspaceOverviewTile.qml
-WorkspaceStyleMenu WorkspaceStyleMenu.qml
-RemoteAccessService RemoteAccessService.qml
-RemoteAccessContent RemoteAccessContent.qml
-RemoteAccessMenu RemoteAccessMenu.qml
-TimePicker 1.0 TimePicker.qml
-EitrLogo EitrLogo.qml
-AssistantChat AssistantChat.qml
-PluginArea PluginArea.qml
-PluginComponent PluginComponent.qml
-PluginWidget PluginWidget.qml
-PluginDesktop PluginDesktop.qml
-PluginBarItems PluginBarItems.qml
-PluginPanel PluginPanel.qml
-PluginManagement PluginManagement.qml
-SpectrumConsumer SpectrumConsumer.qml
-PluginManager 1.0 PluginManager.qml
-PluginWidgetMenu 1.0 PluginWidgetMenu.qml
-BarAutoHide 1.0 BarAutoHide.qml
-MediaIndicator 1.0 MediaIndicator.qml
-CenteredBarMask CenteredBarMask.qml
-DockClients DockClients.qml
-EdgeDock EdgeDock.qml
-EdgeDockContent EdgeDockContent.qml
-IslandMask IslandMask.qml
-FocusStrip FocusStrip.qml
-PreferenceWatch PreferenceWatch.qml
-NetworkService NetworkService.qml
-BarButton BarButton.qml
-StatusIcon StatusIcon.qml
-VerticalBarIcon VerticalBarIcon.qml
-StatusCommand StatusCommand.qml
-CaptureIndicator CaptureIndicator.qml
-WeatherWidget WeatherWidget.qml
-NotificationWidget NotificationWidget.qml
-ClockButton ClockButton.qml
-WelcomeSession WelcomeSession.qml
-BarPreferences BarPreferences.qml
-DictationState DictationState.qml
-SessionHooks SessionHooks.qml
-UpdatesStatus UpdatesStatus.qml
-FocusStrips FocusStrips.qml
-BarLeftGroup BarLeftGroup.qml
-BarVerticalCenter BarVerticalCenter.qml
-BarVerticalStatus BarVerticalStatus.qml
-BarHorizontalStatus BarHorizontalStatus.qml
-BarHorizontalCenter BarHorizontalCenter.qml
-BarWindow BarWindow.qml
+SystemMonitorMenu panels/SystemMonitorMenu.qml
+ThemedPopup components/ThemedPopup.qml
+WeatherMenu panels/WeatherMenu.qml
+WifiMenu panels/WifiMenu.qml
+WorkspaceMarker bar/WorkspaceMarker.qml
+WorkspaceOverview overview/WorkspaceOverview.qml
+WorkspaceOverviewTile overview/WorkspaceOverviewTile.qml
+WorkspaceStyleMenu panels/WorkspaceStyleMenu.qml
+RemoteAccessService services/RemoteAccessService.qml
+RemoteAccessContent panels/RemoteAccessContent.qml
+RemoteAccessMenu panels/RemoteAccessMenu.qml
+TimePicker 1.0 panels/TimePicker.qml
+EitrLogo bar/EitrLogo.qml
+AssistantChat panels/AssistantChat.qml
+PluginArea plugins/PluginArea.qml
+PluginComponent plugins/PluginComponent.qml
+PluginWidget plugins/PluginWidget.qml
+PluginDesktop plugins/PluginDesktop.qml
+PluginBarItems plugins/PluginBarItems.qml
+PluginPanel plugins/PluginPanel.qml
+PluginManagement plugins/PluginManagement.qml
+SpectrumConsumer components/SpectrumConsumer.qml
+PluginManager 1.0 plugins/PluginManager.qml
+PluginWidgetMenu 1.0 plugins/PluginWidgetMenu.qml
+BarAutoHide 1.0 bar/BarAutoHide.qml
+MediaIndicator 1.0 media/MediaIndicator.qml
+CenteredBarMask bar/CenteredBarMask.qml
+DockClients services/DockClients.qml
+EdgeDock dock/EdgeDock.qml
+EdgeDockContent dock/EdgeDockContent.qml
+IslandMask bar/IslandMask.qml
+FocusStrip bar/FocusStrip.qml
+PreferenceWatch services/PreferenceWatch.qml
+NetworkService services/NetworkService.qml
+BarButton bar/BarButton.qml
+StatusIcon bar/StatusIcon.qml
+VerticalBarIcon bar/VerticalBarIcon.qml
+StatusCommand bar/StatusCommand.qml
+CaptureIndicator bar/CaptureIndicator.qml
+WeatherWidget bar/WeatherWidget.qml
+NotificationWidget bar/NotificationWidget.qml
+ClockButton bar/ClockButton.qml
+WelcomeSession services/WelcomeSession.qml
+BarPreferences services/BarPreferences.qml
+DictationState services/DictationState.qml
+SessionHooks services/SessionHooks.qml
+UpdatesStatus services/UpdatesStatus.qml
+FocusStrips bar/FocusStrips.qml
+BarLeftGroup bar/BarLeftGroup.qml
+BarVerticalCenter bar/BarVerticalCenter.qml
+BarVerticalStatus bar/BarVerticalStatus.qml
+BarHorizontalStatus bar/BarHorizontalStatus.qml
+BarHorizontalCenter bar/BarHorizontalCenter.qml
+BarWindow bar/BarWindow.qml

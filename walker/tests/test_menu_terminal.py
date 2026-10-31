@@ -52,7 +52,7 @@ class MenuTerminalTests(unittest.TestCase):
         bar = ROOT / "quickshell/desktop-bar"
         for source in ("scripts/updates-notify.sh",):
             self.assertIn('exec "$root/walker/bin/menu-path/kitty"', (bar / source).read_text(), source)
-        self.assertIn('Quickshell.execDetached([root + "/walker/bin/menu-path/kitty"', (bar / "UpdatesStatus.qml").read_text())
+        self.assertIn('Quickshell.execDetached([root + "/walker/bin/menu-path/kitty"', (bar / "services/UpdatesStatus.qml").read_text())
 
     def test_elephant_and_hyprland_use_it(self):
         service = (ROOT / "systemd/user/elephant.service").read_text()

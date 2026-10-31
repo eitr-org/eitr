@@ -2,7 +2,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 const source = ['BarWindow', 'BarHorizontalCenter', 'BarVerticalCenter', 'BarHorizontalStatus', 'BarVerticalStatus']
-    .map(name => fs.readFileSync(`${__dirname}/../${name}.qml`, 'utf8').replace(/^/gm, name === 'BarWindow' ? '            ' : '')).join('\n').replace(/\bhost\b/g, 'shell');
+    .map(name => fs.readFileSync(`${__dirname}/../bar/${name}.qml`, 'utf8').replace(/^/gm, name === 'BarWindow' ? '            ' : '')).join('\n').replace(/\bhost\b/g, 'shell');
 const expression = source.match(/readonly property bool expanded: ([^\n]+)/)[1];
 const context = {centeredLayout: true, shell: {barPinned: false, barPointerHeld: false},
     hoverExpanded: false, panelOpen: false, pendingPanel: null};
@@ -27,7 +27,7 @@ assert.ok(/id: barCapture\s+anchors.right: centerInfo.left/.test(source));
 assert.ok(/id: barPin\s+visible: barHost.centeredLayout && barHost.expanded\s+anchors.right: barCapture.left/.test(source));
 assert.ok(source.includes('id: barPin'));
 assert.equal((source.match(/BarSection \{/g) || []).length, 2);
-const corners = fs.readFileSync(`${__dirname}/../BarSection.qml`, 'utf8');
+const corners = fs.readFileSync(`${__dirname}/../bar/BarSection.qml`, 'utf8');
 for (const edge of ['top', 'bottom', 'left', 'right']) {
     const radius = corner => vm.runInNewContext(corners.match(new RegExp(`${corner}: ([^\\n]+)`))[1], {edge, radius: 6});
     assert.equal(radius('topLeftRadius'), edge === 'top' || edge === 'left' ? 0 : 6);
@@ -55,7 +55,7 @@ for (const edge of ['top', 'bottom', 'left', 'right']) {
 }
 assert.ok(!source.includes('sideExtent'));
 // Centered layout panels center on the screen axis, independently of the strip midpoint.
-const panels = fs.readFileSync(`${__dirname}/../DockPanel.qml`, 'utf8');
+const panels = fs.readFileSync(`${__dirname}/../components/DockPanel.qml`, 'utf8');
 assert.ok(panels.includes('centeredPlacement ? (parent.width - width) / 2'));
 assert.ok(panels.includes('centeredPlacement ? (parent.height - height) / 2'));
 assert.ok(panels.includes('strip.x + strip.width + attachmentGap'));

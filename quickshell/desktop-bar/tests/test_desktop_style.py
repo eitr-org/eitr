@@ -1,3 +1,4 @@
+from qml_test_paths import qml_path
 import importlib.util
 from pathlib import Path
 import tempfile
@@ -42,7 +43,7 @@ class DesktopStyleTests(unittest.TestCase):
         repo = ROOT.parents[1]
         walker = (repo / "walker/scripts/themes/walker.sh").read_text()
         hyprland = (repo / "hypr/hyprland.lua").read_text()
-        desktop = (ROOT / "DesktopStyle.qml").read_text()
+        desktop = (ROOT / "services/DesktopStyle.qml").read_text()
         self.assertIn("desktop-style.py\" get scale", walker)
         self.assertNotIn("extra-rounded", walker)
         self.assertIn("corner-styles.json", hyprland)
@@ -50,7 +51,7 @@ class DesktopStyleTests(unittest.TestCase):
         self.assertIn("corner-styles.json", desktop)
         self.assertNotIn("extra-rounded", desktop)
         self.assertNotIn("Timer", desktop)
-        self.assertIn("model: DesktopStyle.options", (ROOT / "ControlCenter.qml").read_text())
+        self.assertIn("model: DesktopStyle.options", (ROOT / "panels/ControlCenter.qml").read_text())
         menu = (repo / "elephant/menus/corners.lua").read_text()
         self.assertIn('"quickshell/desktop-bar/corner-styles.json"', menu, "the menu lists the styles from the file")
         self.assertIn('choices(script, "corners", options)', menu, "the current style is checked")
@@ -91,7 +92,7 @@ class DesktopStyleTests(unittest.TestCase):
                 result = subprocess.run(["python3", str(ROOT / "scripts/workspace-color.py")], capture_output=True,
                                         text=True, check=True, env=dict(os.environ, HOME=home))
                 self.assertEqual(json.loads(result.stdout)["critical"], expected)
-        self.assertIn("DesktopStyle.criticalColor = palette.critical", (ROOT / "BarPreferences.qml").read_text())
+        self.assertIn("DesktopStyle.criticalColor = palette.critical", (ROOT / "services/BarPreferences.qml").read_text())
 
     def test_theme_panel_surface_is_separate_from_terminal_background(self):
         import json
@@ -110,12 +111,12 @@ class DesktopStyleTests(unittest.TestCase):
                 self.assertEqual(values["palette"][f"color{index}"], f"#{index:06x}")
 
     def test_weather_slot_only_grows_for_wide_glyphs(self):
-        source = (ROOT / "WeatherMenu.qml").read_text()
+        source = (ROOT / "panels/WeatherMenu.qml").read_text()
         self.assertIn("Math.max(76, paintedWidth)", source)
         self.assertIn("spacing: 12", source)
 
     def test_calendar_year_footer_matches_grid_edges(self):
-        source = (ROOT / "CalendarMenu.qml").read_text()
+        source = (ROOT / "panels/CalendarMenu.qml").read_text()
         self.assertIn("implicitWidth: grid.implicitWidth", source)
         self.assertIn("(contentGaps[1] + contentGaps[3]) * PanelStyle.contentGapMultiplier", source)
         self.assertIn('!detached && (barEdge === "top" || barEdge === "bottom")', source)
@@ -125,8 +126,8 @@ class DesktopStyleTests(unittest.TestCase):
         self.assertIn("width: grid.width", footer)
 
     def test_notification_priority_is_shared_by_popups_and_history(self):
-        card = (ROOT / "NotificationCard.qml").read_text()
-        popup = (ROOT / "NotificationPopups.qml").read_text()
+        card = (ROOT / "notifications/NotificationCard.qml").read_text()
+        popup = (ROOT / "notifications/NotificationPopups.qml").read_text()
         self.assertIn("urgency === 0 ? 0.8 : 1", card)
         self.assertIn("NotificationPriorityGlow {", card)
         self.assertIn("NotificationPriorityGlow {", popup)
@@ -134,7 +135,7 @@ class DesktopStyleTests(unittest.TestCase):
         self.assertNotIn("border.width:", popup.split("id: popupCard", 1)[1])
 
     def test_priority_glow_is_inside_and_does_not_intercept_clicks(self):
-        glow = (ROOT / "NotificationPriorityGlow.qml").read_text()
+        glow = (ROOT / "notifications/NotificationPriorityGlow.qml").read_text()
         self.assertIn("glow.width - index * 2", glow)
         self.assertIn("glow.height - index * 2", glow)
         self.assertIn("Math.max(0, glow.cornerRadius - index)", glow)
@@ -143,20 +144,20 @@ class DesktopStyleTests(unittest.TestCase):
         self.assertIn("urgency === 2 ? DesktopStyle.criticalColor : accent", glow)
         self.assertIn("shown && urgency >= 1", glow)
         for name in ("NotificationCard.qml", "NotificationPopups.qml"):
-            self.assertIn("urgency:", (ROOT / name).read_text().split("NotificationPriorityGlow {", 1)[1].split("}", 1)[0])
+            self.assertIn("urgency:", (ROOT / qml_path(name)).read_text().split("NotificationPriorityGlow {", 1)[1].split("}", 1)[0])
         self.assertNotIn("MouseArea", glow)
         self.assertNotIn("MultiEffect", glow)
 
     def test_content_respects_live_gaps_while_surface_stays_attached(self):
-        source = (ROOT / "PanelSurface.qml").read_text()
+        source = (ROOT / "components/PanelSurface.qml").read_text()
         self.assertIn("topPadding: outerGaps[0]", source)
         self.assertIn("bottomPadding: outerGaps[2]", source)
         self.assertIn("leftPadding: outerGaps[3]", source)
         self.assertIn("rightPadding: outerGaps[1]", source)
-        dock = (ROOT / "DockPanel.qml").read_text()
+        dock = (ROOT / "components/DockPanel.qml").read_text()
         self.assertIn("attachmentGap: detached ? hostWindow.panelGap : 0", dock)
         for name in ("NotificationCenter", "ControlCenter", "AudioMenu", "WifiMenu"):
-            panel = (ROOT / (name + ".qml")).read_text()
+            panel = (ROOT / qml_path(name + ".qml")).read_text()
             self.assertIn("anchors.margins: 0", panel)
 
 class StyleSummaryContractTests(unittest.TestCase):

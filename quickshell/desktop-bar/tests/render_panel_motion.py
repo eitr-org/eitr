@@ -140,9 +140,11 @@ for name, (extra, data) in panels.items():
     for theme in ['dark', 'light']:
         with tempfile.TemporaryDirectory() as temporary:
             folder = Path(temporary)
-            for source in bar.iterdir():
+            for source in bar.rglob("*"):
                 if source.suffix in ('.qml', '.js', '.json') or source.name == 'qmldir':
-                    shutil.copy(source, folder / source.name)
+                    destination = folder / source.relative_to(bar)
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy(source, destination)
             (folder / 'FixturePlugin.qml').write_text(
                 'import QtQuick; Item { required property var api; implicitHeight: 280; '
                 'Text { text: "Plugin preview"; color: parent.api.foreground } }')

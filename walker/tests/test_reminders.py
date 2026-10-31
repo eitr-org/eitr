@@ -174,7 +174,7 @@ class ReminderCommandTests(unittest.TestCase):
         tools_row = next(row for row in main if row["text"] == "Tools")
         self.assertEqual(tools_row["submenu"], "tools")
         self.assertIn('/walker/scripts/actions/tools/reminders.py", "restore"',
-                      (ROOT / "quickshell/desktop-bar/SessionHooks.qml").read_text())
+                      (ROOT / "quickshell/desktop-bar/services/SessionHooks.qml").read_text())
         self.assertIn('"tools/reminders.py"', (ROOT / "distro/bin/eitr").read_text())
 
 

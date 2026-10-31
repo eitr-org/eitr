@@ -39,7 +39,7 @@ class HandbookTests(unittest.TestCase):
         self.assertIn("| Gesture | Action |", text)
 
     def test_runtime_reader_is_read_only_and_offline(self):
-        source = (ROOT / "quickshell/desktop-bar/Handbook.qml").read_text()
+        source = (ROOT / "quickshell/desktop-bar/panels/Handbook.qml").read_text()
         self.assertIn("readOnly: true", source)
         self.assertIn("WlrLayer.Overlay", source)
         self.assertIn("ExclusionMode.Ignore", source)

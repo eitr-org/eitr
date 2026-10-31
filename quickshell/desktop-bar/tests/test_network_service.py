@@ -13,8 +13,8 @@ class NetworkServiceTests(unittest.TestCase):
         bar = Path(__file__).resolve().parents[1]
         with tempfile.TemporaryDirectory(prefix="eitr-network-test-") as directory:
             root = Path(directory)
-            for name in ("NetworkService.qml", "NetworkStatus.js", "DesktopData.qml", "DesktopDataProtocol.js"):
-                shutil.copy(bar / name, root / name)
+            for name in ("services/NetworkService.qml", "NetworkStatus.js", "services/DesktopData.qml", "DesktopDataProtocol.js"):
+                (root / Path(name).name).write_text((bar / name).read_text().replace('import ".."\n', '').replace('"../', '"'))
             (root / "qmldir").write_text("singleton DesktopData DesktopData.qml\nNetworkService NetworkService.qml\n")
             scripts = root / "scripts"
             scripts.mkdir()
@@ -33,7 +33,7 @@ class NetworkServiceTests(unittest.TestCase):
                 '    print(json.dumps({"ok": True}))\n')
             shutil.copy(bar / "tests/fixtures/network.json", scripts / "network.json")
             for name in ("network-reader.py", "network.json"):
-                shutil.copy(bar / "tests/fixtures" / name, root / name)
+                shutil.copy(bar / "tests/fixtures" / name, root / Path(name).name)
             shutil.copy(bar / "tests/fixtures/network-service.qml", root / "shell.qml")
             runtime = root / "runtime"
             runtime.mkdir(mode=0o700)

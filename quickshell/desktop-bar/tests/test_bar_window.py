@@ -11,7 +11,7 @@ BAR = Path(__file__).resolve().parents[1]
 class BarWindowTests(unittest.TestCase):
     def test_frame_dependencies_are_explicit_and_do_not_shadow_instance_ids(self):
         shell = (BAR / 'shell.qml').read_text()
-        frame = (BAR / 'BarWindow.qml').read_text()
+        frame = (BAR / 'bar/BarWindow.qml').read_text()
         instance = qml_block(shell, 'BarWindow {')
         dependencies = {
             'host': 'shell',
@@ -35,4 +35,4 @@ class BarWindowTests(unittest.TestCase):
         self.assertIn('target: host\n', frame)
         self.assertIn('function onHandbookOpened() { bar.closePanels(); }', frame)
         self.assertNotIn('PanelWindow {', shell)
-        self.assertIn('BarWindow BarWindow.qml', (BAR / 'qmldir').read_text())
+        self.assertIn('BarWindow bar/BarWindow.qml', (BAR / 'qmldir').read_text())

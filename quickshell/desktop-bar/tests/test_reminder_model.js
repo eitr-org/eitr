@@ -11,7 +11,7 @@ const text = JSON.stringify([{id:'1', text:'Dentist', due:day.getTime()/1000}, {
 assert.equal(context.parse(text).length, 2);
 assert.equal(context.forDay(context.parse(text), day)[0].text, 'Dentist');
 assert.equal(context.forDay(context.parse('[]'), day).length, 0);
-const qml = fs.readFileSync(path.join(__dirname, '../CalendarMenu.qml'), 'utf8');
+const qml = fs.readFileSync(path.join(__dirname, '../panels/CalendarMenu.qml'), 'utf8');
 assert.match(qml, /watchChanges: true/);
 assert.match(qml, /onFileChanged: reload\(\)/);
 assert.match(qml, /menu\.updateContent\(function\(\) \{ menu\.applySnapshot\("reminders", ReminderModel\.parse\(snapshot\)\)/);

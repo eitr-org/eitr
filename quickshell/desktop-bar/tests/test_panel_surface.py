@@ -9,7 +9,7 @@ import json
 
 class PanelSurfaceTests(unittest.TestCase):
     def test_background_uses_reactive_geometry_not_cached_canvas(self):
-        source = (Path(__file__).resolve().parents[1] / "PanelSurface.qml").read_text()
+        source = (Path(__file__).resolve().parents[1] / "components/PanelSurface.qml").read_text()
         self.assertIn("import QtQuick.Shapes", source)
         self.assertIn("fillColor: surface.color", source)
         self.assertIn("data: [Item {", source)
@@ -77,9 +77,11 @@ ShellRoot {
         for reduced, first_result in ((False, 20), (False, 180), (True, 20)):
             with self.subTest(reduced=reduced, first_result=first_result), tempfile.TemporaryDirectory() as temporary:
                 folder = Path(temporary)
-                for source in bar.iterdir():
+                for source in bar.rglob("*"):
                     if source.suffix in ('.qml', '.js', '.json') or source.name == 'qmldir':
-                        shutil.copy(source, folder / source.name)
+                        destination = folder / source.relative_to(bar)
+                        destination.parent.mkdir(parents=True, exist_ok=True)
+                        shutil.copy(source, destination)
                 captures = Path(os.environ.get('EITR_PANEL_REVIEW_RENDERS', temporary))
                 captures.mkdir(parents=True, exist_ok=True)
                 stem = 'motion-reduced' if reduced else ('motion-cap' if first_result > 100 else 'motion-full')

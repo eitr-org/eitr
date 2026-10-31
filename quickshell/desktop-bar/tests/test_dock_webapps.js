@@ -10,6 +10,6 @@ for (const windowClass of ['chrome-music.youtube.com__-Default', 'chromium-music
     assert.equal(context.webAppKey(windowClass), site, windowClass);
 for (const ordinary of ['google-chrome', 'kitty', 'org.gnome.Nautilus', 'eitr-menu-terminal'])
     assert.equal(context.webAppKey(ordinary), '', ordinary);
-const dock = fs.readFileSync(`${__dirname}/../EdgeDockContent.qml`, 'utf8');
+const dock = fs.readFileSync(`${__dirname}/../dock/EdgeDockContent.qml`, 'utf8');
 assert.ok(dock.includes('DockModel.webAppKey(entry.startupClass) === webApp'));
 console.log('Dock web app matching passed');

@@ -42,12 +42,14 @@ class IslandsLayoutTests(unittest.TestCase):
         geometry = source.split('                    id: barContents\n', 1)[1].split('                    Item {', 1)[0]
         self.assertIn('shell.centeredLayout || shell.islandsLayout ? null : barContents', source)
         self.assertIn('IslandMask { surfaces: islandSurfaces.children }', source)
-        self.assertIn('!!hostWindow.islandsLayout', (BAR / 'DockPanel.qml').read_text())
+        self.assertIn('!!hostWindow.islandsLayout', (BAR / 'components/DockPanel.qml').read_text())
         with tempfile.TemporaryDirectory(prefix='eitr-islands-') as directory:
             folder = Path(directory)
-            for filename in BAR.iterdir():
+            for filename in BAR.rglob("*"):
                 if filename.suffix in ('.qml', '.js') or filename.name in ('qmldir', 'corner-styles.json'):
-                    shutil.copy(filename, folder / filename.name)
+                    destination = folder / filename.relative_to(BAR)
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy(filename, destination)
             for edge in ('top', 'bottom', 'left', 'right'):
                 for corners in ('square', 'rounded', 'extra-rounded'):
                     capture_folder = Path(os.environ.get('EITR_ISLANDS_RENDERS', directory))

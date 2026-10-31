@@ -27,9 +27,9 @@ client.receive('broken');
 client.releaseOwner('screen-two');
 assert.equal(client.count('network.details'), 0);
 const bar = path.resolve(__dirname, '..');
-const service = fs.readFileSync(path.join(bar, 'NetworkService.qml'), 'utf8');
+const service = fs.readFileSync(path.join(bar, 'services/NetworkService.qml'), 'utf8');
 assert.equal((service.match(/Process\s*\{/g) || []).length, 1, 'only QR worker remains');
-const facade = fs.readFileSync(path.join(bar, 'DesktopData.qml'), 'utf8');
+const facade = fs.readFileSync(path.join(bar, 'services/DesktopData.qml'), 'utf8');
 assert.ok(facade.startsWith('pragma Singleton'));
 assert.equal((facade.match(/Process\s*\{/g) || []).length, 1);
 console.log('broker epoch, crash, token replay and single reader wiring passed');
@@ -93,7 +93,7 @@ assert.ok(!sent.some(frame => frame.op === 'action'), 'capture writes never repl
 assert.equal(client.states['capture.summary'].status, 'stale');
 assert.equal(client.states['capture.summary'].data.recording, true);
 assert.equal(client.actCapture('stop', {}, () => {}), '', 'capture must reconcile');
-for (const filename of ['ObsStatus.qml', 'RecordingMenu.qml', 'ObsMenu.qml']) {
+for (const filename of ['services/ObsStatus.qml', 'panels/RecordingMenu.qml', 'panels/ObsMenu.qml']) {
     assert.ok(!/Process\s*\{/.test(fs.readFileSync(path.join(bar, filename), 'utf8')), filename + ' has no per-panel readers or actions');
 }
 receive({op: 'state', epoch: 'capture-restart', topic: 'capture.summary', seq: 1, status: 'ready',
@@ -143,7 +143,7 @@ assert.equal(powerClient.count('power.profile'), 0);
 
 // Exercise demand transitions with two screens and overlapping slider writes.
 const vm = require('node:vm');
-const displaySource = fs.readFileSync(path.join(bar, 'DisplayService.qml'), 'utf8');
+const displaySource = fs.readFileSync(path.join(bar, 'services/DisplayService.qml'), 'utf8');
 function displayFunction(name) {
     const start = displaySource.indexOf('function ' + name + '(');
     assert.ok(start >= 0, name);
@@ -245,7 +245,7 @@ receiveRemote({op: 'hello', epoch: 'remote-two'});
 assert.deepEqual(remoteFrames.filter(frame => frame.op === 'subscribe').map(frame => frame.topic), ['remote.availability']);
 remoteClient.releaseOwner('remote-service');
 assert.equal(remoteClient.count('remote.availability'), 0);
-const remoteService = fs.readFileSync(path.join(bar, 'RemoteAccessService.qml'), 'utf8');
+const remoteService = fs.readFileSync(path.join(bar, 'services/RemoteAccessService.qml'), 'utf8');
 assert.doesNotMatch(remoteService, /\b(?:Process|Timer)\s*\{/);
 assert.match(remoteService, /Component.onDestruction: DesktopData.releaseOwner\(service\)/);
 console.log('remote state, read activity, restart and closed-panel replay passed');
@@ -265,15 +265,15 @@ assert.equal(cityReply.temp, 'new');
 scoped.queryWeather('search', {query: 'city'}, 'open', error => { cityReply = error; });
 scoped.died();
 assert.equal(cityReply, 'broker-unavailable');
-const weatherMenu = fs.readFileSync(path.join(bar, 'WeatherMenu.qml'), 'utf8');
-const aiMenu = fs.readFileSync(path.join(bar, 'AiUsageMenu.qml'), 'utf8');
+const weatherMenu = fs.readFileSync(path.join(bar, 'panels/WeatherMenu.qml'), 'utf8');
+const aiMenu = fs.readFileSync(path.join(bar, 'panels/AiUsageMenu.qml'), 'utf8');
 assert.doesNotMatch(weatherMenu, /\bProcess\s*\{/);
 assert.doesNotMatch(aiMenu, /\b(?:Process|Timer)\s*\{/);
 assert.match(aiMenu, /if \(opened\)[\s\S]*DesktopData.observe\("ai.usage", menu\)/);
 console.log('weather request ownership and AI open-only demand passed');
 
 // Exercise the shell-owned notification guard through repeated shared snapshots.
-const updateShell = fs.readFileSync(path.join(bar, 'UpdatesStatus.qml'), 'utf8');
+const updateShell = fs.readFileSync(path.join(bar, 'services/UpdatesStatus.qml'), 'utf8');
 const announcementBody = updateShell.match(/function announceUpdates\(\) \{([\s\S]*?)\n    \}/)[1];
 const announcementContext = {updates: {count: 0}, announcedUpdates: 0, updatesSize: '',
     Quickshell: {shellDir: '/fixture', execDetached: command => announcements.push(command)}};

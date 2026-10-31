@@ -83,7 +83,7 @@ class BarSettingsTests(unittest.TestCase):
         root = Path(__file__).resolve().parents[3]
         menu = (root / "elephant/menus/bar-layout.lua").read_text()
         self.assertLess(menu.index('"notch"'), menu.index('"islands"'))
-        controls = (root / "quickshell/desktop-bar/ControlCenter.qml").read_text()
+        controls = (root / "quickshell/desktop-bar/panels/ControlCenter.qml").read_text()
         self.assertLess(controls.index('tr("Tabs")'), controls.index('tr("Islands")'))
 
     def test_defaults_and_persistence(self):
@@ -106,7 +106,7 @@ class BarSettingsTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 bar_settings.save_settings({"screens": "some"})
         shell = ((Path(__file__).parents[1] / "shell.qml").read_text() + frame_source(Path(__file__).parents[1]))
-        preferences = (Path(__file__).parents[1] / "BarPreferences.qml").read_text()
+        preferences = (Path(__file__).parents[1] / "services/BarPreferences.qml").read_text()
         self.assertIn('"set-all", host.barAppearance, host.barLayout, host.barEdge, host.barPinned ? "yes" : "no", host.barScreens, host.barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no", host.barMediaStyle, host.barDock ? "yes" : "no", host.barClock]', preferences)
         self.assertIn("enabled: bar.isMainBar", shell, "only the main bar receives shortcuts")
         self.assertIn("shell.activeBar(bar).showKind(kind)", shell, "and hands them to the bar of the display in use")
@@ -185,7 +185,7 @@ class AutoHideLayoutTests(unittest.TestCase):
 
     def render_setting(self, reduce_motion, dock=False):
         bar = Path(__file__).resolve().parents[1]
-        source = (bar / "ControlCenter.qml").read_text()
+        source = (bar / "panels/ControlCenter.qml").read_text()
         control = source.index("id: dockSwitch" if dock else "id: reduceMotionSwitch" if reduce_motion else "id: autoHideSwitch")
         start = source.rfind("                        Row {", 0, control)
         end = source.index("\n                        }", control) + len("\n                        }")

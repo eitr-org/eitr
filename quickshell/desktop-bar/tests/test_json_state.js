@@ -13,14 +13,14 @@ assert.equal(state.changed([{name: 'DP-3'}], [{name: 'DP-3'}, {name: 'HDMI-A-1'}
 
 // Refresh-driven list owners must use the shared guarded snapshot path.
 for (const [filename, properties] of Object.entries({
-    'AiUsageMenu.qml': ['usage'],
-    'SystemMonitorMenu.qml': ['sections'],
-    'WifiMenu.qml': ['devices'],
-    'KeyboardLayoutMenu.qml': ['layouts'],
-    'ObsMenu.qml': ['captureOptions', 'obsState'],
-    'RecordingMenu.qml': ['details'],
-    'WeatherMenu.qml': ['weatherData'],
-    'CalendarMenu.qml': ['reminders', 'events'],
+    'panels/AiUsageMenu.qml': ['usage'],
+    'panels/SystemMonitorMenu.qml': ['sections'],
+    'panels/WifiMenu.qml': ['devices'],
+    'panels/KeyboardLayoutMenu.qml': ['layouts'],
+    'panels/ObsMenu.qml': ['captureOptions', 'obsState'],
+    'panels/RecordingMenu.qml': ['details'],
+    'panels/WeatherMenu.qml': ['weatherData'],
+    'panels/CalendarMenu.qml': ['reminders', 'events'],
 })) {
     const source = fs.readFileSync(path.join(__dirname, '..', filename), 'utf8');
     for (const property of properties) {
@@ -41,7 +41,7 @@ for (const [text, code] of [['{', 0], ['', 0], ['null', 0], ['[]', 0],
     assert.equal(result.data, null);
     assert.ok(result.error.length > 0);
 }
-const centerSource = fs.readFileSync(path.join(__dirname, '..', 'ControlCenter.qml'), 'utf8');
+const centerSource = fs.readFileSync(path.join(__dirname, '..', 'panels/ControlCenter.qml'), 'utf8');
 assert.ok(!centerSource.includes('@current'));
 assert.ok(!centerSource.includes('for group in'));
 for (const helper of ['cursor', 'lockscreen', 'terminal', 'effects']) {

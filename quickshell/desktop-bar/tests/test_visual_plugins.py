@@ -279,9 +279,11 @@ ShellRoot {
     def test_example_and_load_failure_in_both_themes(self):
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory)
-            for source in BAR.iterdir():
+            for source in BAR.rglob("*"):
                 if source.suffix in ('.qml', '.js') or source.name == 'qmldir':
-                    shutil.copy(source, folder / source.name)
+                    destination = folder / source.relative_to(BAR)
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy(source, destination)
             broken = folder / 'Broken.qml'
             broken.write_text('import QtQuick\nItem { invalid syntax }\n')
             entries = []
@@ -359,9 +361,11 @@ ShellRoot {
     def test_round_two_review_surfaces(self):
         with tempfile.TemporaryDirectory(prefix='eitr-plugin-placement-') as directory:
             folder = Path(directory)
-            for source in BAR.iterdir():
+            for source in BAR.rglob("*"):
                 if source.suffix in ('.qml', '.js') or source.name == 'qmldir':
-                    shutil.copy(source, folder / source.name)
+                    destination = folder / source.relative_to(BAR)
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy(source, destination)
             spec = json.loads((ROOT / 'distro/plugins/example/eitr-plugin.json').read_text())
             entries = [dict(entry, plugin='example', pluginName='Example plugin', kind=kind, commit='a' * 40, disabled=False,
                             source=(ROOT / 'distro/plugins/example' / entry['qml']).as_uri())

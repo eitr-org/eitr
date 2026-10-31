@@ -270,7 +270,7 @@ class FlowTests(unittest.TestCase):
                 calendars.main(['refresh', '--if-older', '60'])
             refresh.assert_called_once_with()
         self.assertEqual(calendars.main(['refresh', '--if-older', 'soon']), 2)
-        panel = (ROOT / 'quickshell/desktop-bar/CalendarMenu.qml').read_text()
+        panel = (ROOT / 'quickshell/desktop-bar/panels/CalendarMenu.qml').read_text()
         self.assertIn('calendars.py"), "refresh", "--if-older", "60"]', panel)
 
     def test_enter_refreshes_and_reports_without_the_address(self):

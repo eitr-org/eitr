@@ -23,8 +23,8 @@ class CenteredSlopesTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix='eitr-centered-slopes-') as directory:
             folder = Path(directory)
             shutil.copy(BAR / 'EdgeSlopes.js', folder)
-            shutil.copy(BAR / 'CenteredBarMask.qml', folder)
-            shutil.copy(BAR / 'BarGestureArea.qml', folder)
+            (folder / Path('bar/CenteredBarMask.qml').name).write_text((BAR / 'bar/CenteredBarMask.qml').read_text().replace('import ".."\n', '').replace('"../', '"'))
+            (folder / Path('bar/BarGestureArea.qml').name).write_text((BAR / 'bar/BarGestureArea.qml').read_text().replace('import ".."\n', '').replace('"../', '"'))
             shutil.copy(BAR / 'BarGeometry.js', folder)
             for edge in ('top', 'bottom', 'left', 'right'):
                 for expanded in (False, True):

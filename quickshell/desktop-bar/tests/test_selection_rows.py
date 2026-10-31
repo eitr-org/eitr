@@ -1,3 +1,4 @@
+from qml_test_paths import qml_path
 import pathlib
 import unittest
 
@@ -9,24 +10,24 @@ class SelectionRows(unittest.TestCase):
         for name in ("WifiMenu", "BluetoothMenu", "AudioMenu", "BrightnessMenu",
                      "KeyboardLayoutRow", "ControlCenterTile"):
             with self.subTest(panel=name):
-                source = (ROOT / (name + ".qml")).read_text()
+                source = (ROOT / qml_path(name + ".qml")).read_text()
                 self.assertIn("PanelStyle.selectionAlpha(", source)
                 self.assertIn("PanelStyle.selectionBorderWidth(", source)
                 self.assertIn("PanelStyle.selectionBorderAlpha", source)
 
     def test_workspace_choices_have_no_outlines_or_dividers(self):
-        source = (ROOT / "WorkspaceStyleMenu.qml").read_text()
+        source = (ROOT / "panels/WorkspaceStyleMenu.qml").read_text()
         self.assertIn("PanelStyle.selectionAlpha(", source)
         self.assertNotIn("border.width", source)
         self.assertNotIn("PanelStyle.dividerAlpha", source)
 
     def test_shared_keyboard_actions(self):
         for name in ("KeyboardLayoutMenu", "ControlCenter"):
-            source = (ROOT / (name + ".qml")).read_text()
+            source = (ROOT / qml_path(name + ".qml")).read_text()
             self.assertIn("KeyboardLayoutRow {", source)
             # Layouts are removed only in Walker's Keyboard menu.
             self.assertIn("showRemove: false", source)
-        row = (ROOT / "KeyboardLayoutRow.qml").read_text()
+        row = (ROOT / "components/KeyboardLayoutRow.qml").read_text()
         self.assertIn("anchors.verticalCenter: parent.verticalCenter", row)
         self.assertIn("anchors.rightMargin: PanelStyle.selectionActionInset", row)
         self.assertIn("available: row.available && row.removable", row)
@@ -35,7 +36,7 @@ class SelectionRows(unittest.TestCase):
         for name in ("WifiMenu", "BluetoothMenu", "AudioMenu", "BrightnessMenu",
                      "WorkspaceStyleMenu", "KeyboardLayoutRow", "ControlCenterTile"):
             with self.subTest(panel=name):
-                self.assertIn("PanelStyle.selectionRowHeight", (ROOT / (name + ".qml")).read_text())
+                self.assertIn("PanelStyle.selectionRowHeight", (ROOT / qml_path(name + ".qml")).read_text())
         style = (ROOT / "PanelStyle.js").read_text()
         for constant, value in (("selectionRowHeight", 36), ("selectionRowGap", 6),
                                 ("selectionActionWidth", 24), ("selectionActionHeight", 24)):

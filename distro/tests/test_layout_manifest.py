@@ -73,7 +73,7 @@ class LayoutManifestTests(unittest.TestCase):
 
     def test_display_service_runtime_files_stage_from_export(self):
         import shutil
-        runtime_files = ['quickshell/desktop-bar/DisplayService.qml',
+        runtime_files = ['quickshell/desktop-bar/services/DisplayService.qml',
                          'quickshell/desktop-bar/scripts/display-domain.py']
         layout = module.Layout(ROOT)
         for relative in runtime_files:

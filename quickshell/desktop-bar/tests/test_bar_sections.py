@@ -19,14 +19,14 @@ class BarSectionTests(unittest.TestCase):
     def test_dependencies_cannot_shadow_the_outside_ids(self):
         shell = frame_source(BAR)
         for name in SECTIONS:
-            source = (BAR / (name + '.qml')).read_text()
+            source = (BAR / 'bar' / (name + '.qml')).read_text()
             instance = qml_block(shell, name + ' {')
             self.assertIn('host: shell', instance)
             self.assertIn('barHost: bar', instance)
             for property_name in re.findall(r'required property var (\w+)', source):
                 self.assertNotRegex(instance, rf'\b{property_name}:\s*{property_name}\b')
             self.assertNotIn('host: host', source)
-            self.assertIn(name + ' ' + name + '.qml', (BAR / 'qmldir').read_text())
+            self.assertIn(name + ' bar/' + name + '.qml', (BAR / 'qmldir').read_text())
 
     @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')
     def test_sections_bind_and_keep_the_clock_centred_on_each_screen(self):
@@ -37,7 +37,7 @@ class BarSectionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix='eitr-bar-sections-') as directory:
             folder = Path(directory)
             for name in SECTIONS:
-                shutil.copy(BAR / (name + '.qml'), folder)
+                (folder / (name + '.qml')).write_text((BAR / 'bar' / (name + '.qml')).read_text().replace('import ".."\n', ''))
             # All dependencies are inert; this test never loads the desktop or starts a data service.
             (folder / 'qmldir').write_text('singleton DesktopStyle DesktopStyle.qml\n'
                                           'singleton DisplayService DisplayService.qml\n')
@@ -112,7 +112,7 @@ Item {
 ''')
             kinds = set()
             for name in SECTIONS:
-                kinds.update(re.findall(r'^\s*([A-Z]\w+)\s*\{', (BAR / (name + '.qml')).read_text(), re.M))
+                kinds.update(re.findall(r'^\s*([A-Z]\w+)\s*\{', (BAR / 'bar' / (name + '.qml')).read_text(), re.M))
             for kind in kinds - {'Item', 'Row', 'Column', 'Behavior', 'NumberAnimation'}:
                 (folder / (kind + '.qml')).write_text('import QtQuick\nStub {}\n')
             with (folder / 'qmldir').open('a') as registry:

@@ -1,7 +1,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
-const source = fs.readFileSync(`${__dirname}/../ControlCenter.qml`, 'utf8');
+const source = fs.readFileSync(`${__dirname}/../panels/ControlCenter.qml`, 'utf8');
 const clearance = source.match(/readonly property real edgeClearance: ([^\n]+)/)[1];
 const height = source.match(/\n    implicitHeight: ([^\n]+)/)[1];
 const offset = source.match(/\n    leadingOffset: ([^\n]+)/)[1];

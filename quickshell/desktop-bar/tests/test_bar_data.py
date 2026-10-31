@@ -291,7 +291,7 @@ class PackagingTests(unittest.TestCase):
         from layout import Layout
         root = SCRIPT.parents[3]
         files = ['quickshell/desktop-bar/' + name for name in [
-            'scripts/remote-domain.py', 'scripts/hardware-domain.py', 'scripts/system-details.py', 'PowerService.qml', 'scripts/power-domain.py', 'DesktopData.qml', 'DesktopDataProtocol.js', 'ObsStatus.qml', 'scripts/bar-data.py', 'scripts/bar_data_topics.py', 'scripts/capture-domain.py']]
+            'scripts/remote-domain.py', 'scripts/hardware-domain.py', 'scripts/system-details.py', 'services/PowerService.qml', 'scripts/power-domain.py', 'services/DesktopData.qml', 'DesktopDataProtocol.js', 'services/ObsStatus.qml', 'scripts/bar-data.py', 'scripts/bar_data_topics.py', 'scripts/capture-domain.py']]
         layout = Layout(root)
         layout.files = lambda: files
         with tempfile.TemporaryDirectory() as directory:
@@ -462,13 +462,13 @@ class CaptureServiceTests(unittest.TestCase):
         bar = SCRIPT.parent.parent
         with tempfile.TemporaryDirectory(prefix="eitr-capture-test-") as directory:
             root = Path(directory)
-            for name in ("DesktopData.qml", "DesktopDataProtocol.js", "ObsStatus.qml", "ObsQueue.js", "PanelStyle.js"):
-                shutil.copy(bar / name, root / name)
+            for name in ("services/DesktopData.qml", "DesktopDataProtocol.js", "services/ObsStatus.qml", "ObsQueue.js", "PanelStyle.js"):
+                (root / Path(name).name).write_text((bar / name).read_text().replace('import ".."\n', '').replace('"../', '"'))
             # Exercise production controller/demand logic without Wayland surfaces.
-            for name, boundary in (("ObsMenu.qml", "    Column {"), ("RecordingMenu.qml", "    component Toggle:")):
+            for name, boundary in (("panels/ObsMenu.qml", "    Column {"), ("panels/RecordingMenu.qml", "    component Toggle:")):
                 source = (bar / name).read_text()
                 source = source[:source.index(boundary)] + "}\n"
-                (root / name).write_text(source)
+                (root / Path(name).name).write_text(source.replace('import ".."\n', '').replace('"../', '"'))
             (root / "ThemedPopup.qml").write_text("""
 import QtQuick
 Item {
@@ -685,7 +685,7 @@ class PowerTests(unittest.IsolatedAsyncioTestCase):
             await broker.close()
 
     def test_warning_thresholds_once_across_suspend_and_repeated_snapshots(self):
-        source = (SCRIPT.parents[1] / 'SessionHooks.qml').read_text()
+        source = (SCRIPT.parents[1] / 'services/SessionHooks.qml').read_text()
         start = source.index('    function checkBatteryLow()')
         end = source.index('\n    }', start) + 6
         function = source[start:end]

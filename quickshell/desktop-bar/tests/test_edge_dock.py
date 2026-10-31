@@ -13,13 +13,13 @@ ROOT = BAR.parents[1]
 
 class DockClientRefreshTests(unittest.TestCase):
     def test_title_changes_refresh_only_title_consumers(self):
-        source = (BAR / 'DockClients.qml').read_text()
+        source = (BAR / 'services/DockClients.qml').read_text()
         immediate = source[source.index('["openwindow"'):source.index('].indexOf')]
         self.assertNotIn('windowtitlev2', immediate)
         self.assertNotIn('activewindowv2', immediate)
         self.assertIn('event.data === model.activeAddress', source)
         self.assertIn('event.name === "windowtitlev2" && model.followTitles', source)
-        self.assertIn('followTitles: true', (BAR / 'FocusMode.qml').read_text())
+        self.assertIn('followTitles: true', (BAR / 'services/FocusMode.qml').read_text())
         self.assertNotIn('followTitles', (BAR / 'shell.qml').read_text())
 
 
@@ -32,7 +32,7 @@ class EdgeDockTests(unittest.TestCase):
             dict(address='0x3', **{'class': 'browser'}, workspace={'id': 2}, focusHistoryID=0),
             dict(address='0x4', **{'class': 'Hidden'}, mapped=False, workspace={'id': 1}),
         ]
-        source = (BAR / 'EdgeDock.qml').read_text()
+        source = (BAR / 'dock/EdgeDock.qml').read_text()
         self.assertIn('exclusiveZone: 0', source)
         self.assertIn('exclusionMode: ExclusionMode.Ignore', source)
         self.assertIn('WlrLayershell.layer: WlrLayer.Overlay', source)
@@ -45,6 +45,7 @@ class EdgeDockTests(unittest.TestCase):
         self.assertIn('dockEnabled && !fullscreen', source)
         # Only the platform window and compositor lookup are replaced; render and
         # exercise the production content, geometry, mask and auto-hide controller.
+        source = source.replace('import ".."\n', '').replace('"../', '"')
         source = source.replace('PanelWindow {', 'FloatingWindow {', 1)
         source = '\n'.join(line for line in source.splitlines() if not any(token in line for token in (
             '    anchors {', '    exclusionMode:', '    exclusiveZone:', '    WlrLayershell.')))
@@ -54,9 +55,11 @@ class EdgeDockTests(unittest.TestCase):
         source = source.replace('    id: dock', '    id: dock\n    property var actions: []\n    implicitWidth: 800; implicitHeight: 600', 1)
         with tempfile.TemporaryDirectory(prefix='eitr-dock-') as directory:
             folder = Path(directory)
-            for path in BAR.iterdir():
+            for path in BAR.rglob("*"):
                 if path.suffix in ('.qml', '.js') or path.name == 'qmldir':
-                    shutil.copy(path, folder / path.name)
+                    destination = folder / path.relative_to(BAR)
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy(path, destination)
             for name, color in [('browser', '#d98a38'), ('editor', '#508db8'), ('files', '#72a470')]:
                 (folder / f'{name}.svg').write_text(
                     f'<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32">'

@@ -7,225 +7,225 @@
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
     "12-hour": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "24-hour": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "ACCESS DENIED": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml",
       "quickshell/lockscreen/themes/nothing/Main.qml"
     ],
     "AI Assistants…": [
-      "quickshell/desktop-bar/AiUsageMenu.qml"
+      "quickshell/desktop-bar/panels/AiUsageMenu.qml"
     ],
     "AI Usage": [
-      "quickshell/desktop-bar/AiUsageMenu.qml",
-      "quickshell/desktop-bar/BarLeftGroup.qml",
-      "quickshell/desktop-bar/BarWindow.qml",
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/bar/BarLeftGroup.qml",
+      "quickshell/desktop-bar/bar/BarWindow.qml",
+      "quickshell/desktop-bar/panels/AiUsageMenu.qml",
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "AUTHENTICATE": [
       "quickshell/lockscreen/themes/nothing/Main.qml"
     ],
     "About": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Above": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Above-window widgets are click-through. Use this page or Edit widgets for their options.": [
-      "quickshell/desktop-bar/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Add": [
-      "quickshell/desktop-bar/PluginManagement.qml"
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Add Plugins": [
-      "quickshell/desktop-bar/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Add a chapter marker": [
-      "quickshell/desktop-bar/RecordingMenu.qml"
+      "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "Add keyboard layouts": [
-      "quickshell/desktop-bar/Handbook.qml"
+      "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Add or Remove Layouts…": [
-      "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/KeyboardLayoutMenu.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml",
+      "quickshell/desktop-bar/panels/KeyboardLayoutMenu.qml"
     ],
     "Airplane": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Align with %1": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "All": [
-      "quickshell/desktop-bar/CalendarMenu.qml"
+      "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "All Displays": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "All day": [
-      "quickshell/desktop-bar/CalendarMenu.qml"
+      "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "Anonymous identity (optional)": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Appearance": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Applications": [
-      "quickshell/desktop-bar/AudioMenu.qml"
+      "quickshell/desktop-bar/panels/AudioMenu.qml"
     ],
     "Ask anything…": [
-      "quickshell/desktop-bar/AssistantChat.qml"
+      "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
     "At %1": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Audio": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Audio/Mic": [
-      "quickshell/desktop-bar/BarHorizontalStatus.qml",
-      "quickshell/desktop-bar/BarVerticalStatus.qml"
+      "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/bar/BarVerticalStatus.qml"
     ],
     "Authentication server domain": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Auto": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Auto-hide": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Automatic · {start} - {end}": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Back": [
-      "quickshell/desktop-bar/AssistantChat.qml",
-      "quickshell/desktop-bar/PluginArea.qml",
-      "quickshell/desktop-bar/PluginManager.qml",
-      "quickshell/desktop-bar/PluginPanel.qml"
+      "quickshell/desktop-bar/panels/AssistantChat.qml",
+      "quickshell/desktop-bar/plugins/PluginArea.qml",
+      "quickshell/desktop-bar/plugins/PluginManager.qml",
+      "quickshell/desktop-bar/plugins/PluginPanel.qml"
     ],
     "Background: Panel": [
-      "quickshell/desktop-bar/PluginWidgetMenu.qml"
+      "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
     "Background: Transparent": [
-      "quickshell/desktop-bar/PluginWidgetMenu.qml"
+      "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
     "Bar": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Bars": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Battery & Power": [
-      "quickshell/desktop-bar/BatteryMenu.qml"
+      "quickshell/desktop-bar/panels/BatteryMenu.qml"
     ],
     "Battery Limit": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Battery health: {percent}%": [
-      "quickshell/desktop-bar/BatteryMenu.qml"
+      "quickshell/desktop-bar/panels/BatteryMenu.qml"
     ],
     "Behavior": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Below": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Beside %1": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Blocked": [
-      "quickshell/desktop-bar/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Bluetooth": [
-      "quickshell/desktop-bar/BarHorizontalStatus.qml",
-      "quickshell/desktop-bar/BarVerticalStatus.qml",
-      "quickshell/desktop-bar/BluetoothMenu.qml",
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/panels/BluetoothMenu.qml",
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Bluetooth is off": [
-      "quickshell/desktop-bar/BluetoothMenu.qml"
+      "quickshell/desktop-bar/panels/BluetoothMenu.qml"
     ],
     "Blur": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot": [
-      "quickshell/desktop-bar/NetworkService.qml"
+      "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Bottom": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Brightness unavailable": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "CA certificate file not found": [
-      "quickshell/desktop-bar/NetworkService.qml"
+      "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "CA certificate is too large": [
-      "quickshell/desktop-bar/NetworkService.qml"
+      "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "CA certificate path (.pem)": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "CONNECTED": [
-      "quickshell/desktop-bar/BluetoothMenu.qml",
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/BluetoothMenu.qml",
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Calculator": [
       "quickshell/calculator/CalculatorView.qml"
     ],
     "Calendar": [
-      "quickshell/desktop-bar/ClockButton.qml"
+      "quickshell/desktop-bar/bar/ClockButton.qml"
     ],
     "Cancel": [
-      "quickshell/desktop-bar/TimePicker.qml",
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/TimePicker.qml",
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Center": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Centered": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Change": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Channel: Stable": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Channel: Testing": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Channel: unknown": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Chat with %1": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Checking status…": [
-      "quickshell/desktop-bar/RemoteAccessContent.qml"
+      "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
     ],
     "Choose a theme": [
-      "quickshell/desktop-bar/Handbook.qml"
+      "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Choose user · Ctrl+Left / Ctrl+Right": [
       "quickshell/lockscreen/imports/LockscreenComponents/UserPicker.qml"
     ],
     "Claude Code": [
-      "quickshell/desktop-bar/AiUsageMenu.qml"
+      "quickshell/desktop-bar/panels/AiUsageMenu.qml"
     ],
     "Cleanup": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Clear all": [
-      "quickshell/desktop-bar/NotificationList.qml"
+      "quickshell/desktop-bar/notifications/NotificationList.qml"
     ],
     "Clock": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Clockwork Neo Orbital": [
       "quickshell/lockscreen/design-gallery.qml"
@@ -234,173 +234,173 @@
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Close": [
-      "quickshell/desktop-bar/EdgeDock.qml",
+      "quickshell/desktop-bar/dock/EdgeDock.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Close All Windows": [
-      "quickshell/desktop-bar/EdgeDock.qml"
+      "quickshell/desktop-bar/dock/EdgeDock.qml"
     ],
     "Close handbook": [
-      "quickshell/desktop-bar/Handbook.qml"
+      "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Close its settings": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Color": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Color Picker": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Configure this source in OBS": [
-      "quickshell/desktop-bar/ObsMenu.qml"
+      "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "Confirm removal": [
-      "quickshell/desktop-bar/BluetoothMenu.qml",
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/BluetoothMenu.qml",
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Connect": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Connect to WiFi": [
-      "quickshell/desktop-bar/Handbook.qml"
+      "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Connected": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Connection failed; verify credentials and certificate settings": [
-      "quickshell/desktop-bar/NetworkService.qml"
+      "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Connection timed out; check the WiFi panel": [
-      "quickshell/desktop-bar/NetworkService.qml"
+      "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Connectivity": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Control Center": [
-      "quickshell/desktop-bar/EitrLogo.qml"
+      "quickshell/desktop-bar/bar/EitrLogo.qml"
     ],
     "Copied": [
-      "quickshell/desktop-bar/AssistantChat.qml"
+      "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
     "Copy reply": [
-      "quickshell/desktop-bar/AssistantChat.qml"
+      "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
     "Corners": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Could not change Cursor Fire": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Could not change crash notifications": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Could not change display settings": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Could not change game mode": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Could not change layout": [
-      "quickshell/desktop-bar/KeyboardLayoutMenu.qml"
+      "quickshell/desktop-bar/panels/KeyboardLayoutMenu.qml"
     ],
     "Could not change the cursor": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Could not change the lockscreen": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Could not complete request": [
-      "quickshell/desktop-bar/NetworkService.qml"
+      "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Could not delete the reminder": [
-      "quickshell/desktop-bar/CalendarMenu.qml"
+      "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "Could not load": [
-      "quickshell/desktop-bar/NetworkService.qml",
-      "quickshell/desktop-bar/PluginComponent.qml"
+      "quickshell/desktop-bar/plugins/PluginComponent.qml",
+      "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Could not save recording settings": [
-      "quickshell/desktop-bar/ObsMenu.qml"
+      "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "Could not set the main display": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Crash Notifications": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Cursor": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Cursor Fire: a blazing trail behind Kitty's cursor": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "DEVICES": [
-      "quickshell/desktop-bar/RemoteAccessContent.qml"
+      "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
     ],
     "Dark": [
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Delete every occurrence": [
-      "quickshell/desktop-bar/CalendarMenu.qml"
+      "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "Delete reminder": [
-      "quickshell/desktop-bar/CalendarMenu.qml"
+      "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "Delete?": [
-      "quickshell/desktop-bar/CalendarMenu.qml"
+      "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "Desktop audio": [
-      "quickshell/desktop-bar/ObsMenu.qml"
+      "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "Detecting configured AI clients…": [
-      "quickshell/desktop-bar/AiUsageMenu.qml"
+      "quickshell/desktop-bar/panels/AiUsageMenu.qml"
     ],
     "Devices": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Dictating": [
-      "quickshell/desktop-bar/CaptureIndicator.qml"
+      "quickshell/desktop-bar/bar/CaptureIndicator.qml"
     ],
     "Disable effects and popups; use the performance profile.": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Disabled": [
-      "quickshell/desktop-bar/PluginComponent.qml",
-      "quickshell/desktop-bar/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginComponent.qml",
+      "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Disconnect": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Display": [
-      "quickshell/desktop-bar/BarHorizontalStatus.qml",
-      "quickshell/desktop-bar/BarVerticalStatus.qml",
-      "quickshell/desktop-bar/BrightnessMenu.qml",
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml",
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Displays": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Distraction-free tabbed desktop": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Do Not Disturb": [
-      "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/NotificationList.qml",
-      "quickshell/desktop-bar/NotificationWidget.qml"
+      "quickshell/desktop-bar/bar/NotificationWidget.qml",
+      "quickshell/desktop-bar/notifications/NotificationList.qml",
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Dock": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Done": [
-      "quickshell/desktop-bar/PluginWidget.qml"
+      "quickshell/desktop-bar/plugins/PluginWidget.qml"
     ],
     "Done editing widgets": [
-      "quickshell/desktop-bar/PluginManagement.qml",
-      "quickshell/desktop-bar/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginManagement.qml",
+      "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Dotfiles": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "E I T R  /  CLOCKWORK": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
@@ -415,23 +415,23 @@
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "EITR Handbook": [
-      "quickshell/desktop-bar/Handbook.qml"
+      "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "ENTERPRISE WI-FI": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Edit layout by hand…": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Edit position": [
-      "quickshell/desktop-bar/PluginManagement.qml",
-      "quickshell/desktop-bar/PluginWidgetMenu.qml"
+      "quickshell/desktop-bar/plugins/PluginManagement.qml",
+      "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
     "Edit schedule": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Edit widgets": [
-      "quickshell/desktop-bar/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Eitr": [
       "quickshell/lockscreen/design-gallery.qml"
@@ -440,53 +440,53 @@
       "quickshell/calculator/shell.qml"
     ],
     "Enable plugin": [
-      "quickshell/desktop-bar/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Enabled": [
-      "quickshell/desktop-bar/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "End": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Enter password": [
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
     ],
     "Enter the WiFi password": [
-      "quickshell/desktop-bar/NetworkService.qml"
+      "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Enter the authentication server domain without wildcards": [
-      "quickshell/desktop-bar/NetworkService.qml"
+      "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Enterprise WiFi requires username, password, CA certificate and server domain": [
-      "quickshell/desktop-bar/NetworkService.qml"
+      "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Family": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Focus": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Follows the system locale (LC_MESSAGES / LANG). Sign out and back in after changing it.": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Fonts": [
-      "quickshell/desktop-bar/AppearancePicker.qml",
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/AppearancePicker.qml",
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Full": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Full Screen": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Full width": [
-      "quickshell/desktop-bar/PluginWidgetMenu.qml"
+      "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
     "Game Mode": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "General": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Girl · Coffee": [
       "quickshell/lockscreen/design-gallery.qml"
@@ -495,37 +495,37 @@
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "HDR": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Hardware": [
-      "quickshell/desktop-bar/BarLeftGroup.qml",
-      "quickshell/desktop-bar/BarWindow.qml",
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/bar/BarLeftGroup.qml",
+      "quickshell/desktop-bar/bar/BarWindow.qml",
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Hardware information unavailable": [
-      "quickshell/desktop-bar/SystemMonitorMenu.qml"
+      "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
     ],
     "Hello from an Eitr plugin": [
       "distro/plugins/example/HelloPanel.qml"
     ],
     "Hide Bar": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Hide icons": [
-      "quickshell/desktop-bar/BarHorizontalStatus.qml",
-      "quickshell/desktop-bar/BarVerticalStatus.qml"
+      "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/bar/BarVerticalStatus.qml"
     ],
     "Hide the bar; press SUPER + Shift + Space to restore it.": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Hide the camera": [
-      "quickshell/desktop-bar/RecordingMenu.qml"
+      "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "Home Snapshots": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Idle Lock": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Idle Lock: Off": [
       "quickshell/desktop-bar/shell.qml"
@@ -534,64 +534,64 @@
       "quickshell/desktop-bar/shell.qml"
     ],
     "Images unavailable": [
-      "quickshell/desktop-bar/AppearancePicker.qml"
+      "quickshell/desktop-bar/panels/AppearancePicker.qml"
     ],
     "Information": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Input device": [
-      "quickshell/desktop-bar/AudioMenu.qml"
+      "quickshell/desktop-bar/panels/AudioMenu.qml"
     ],
     "Input level": [
-      "quickshell/desktop-bar/MicrophoneMeter.qml"
+      "quickshell/desktop-bar/components/MicrophoneMeter.qml"
     ],
     "Input level · muted": [
-      "quickshell/desktop-bar/MicrophoneMeter.qml"
+      "quickshell/desktop-bar/components/MicrophoneMeter.qml"
     ],
     "Install the Eitr network helper first; see distro/NETWORKING.md": [
-      "quickshell/desktop-bar/NetworkService.qml"
+      "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Invalid assistant response.": [
-      "quickshell/desktop-bar/AssistantChat.qml"
+      "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
     "Islands": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "KNOWN DEVICES": [
-      "quickshell/desktop-bar/BluetoothMenu.qml"
+      "quickshell/desktop-bar/panels/BluetoothMenu.qml"
     ],
     "KNOWN NETWORKS": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Keep": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Keep in Dock": [
-      "quickshell/desktop-bar/EdgeDock.qml"
+      "quickshell/desktop-bar/dock/EdgeDock.qml"
     ],
     "Keep reminder": [
-      "quickshell/desktop-bar/CalendarMenu.qml"
+      "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "Keep these settings? Reverting in {seconds} second": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Keep these settings? Reverting in {seconds} seconds": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Keyboard": [
-      "quickshell/desktop-bar/BarHorizontalStatus.qml",
-      "quickshell/desktop-bar/BarVerticalStatus.qml",
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Keyboard Layout": [
-      "quickshell/desktop-bar/KeyboardLayoutMenu.qml"
+      "quickshell/desktop-bar/panels/KeyboardLayoutMenu.qml"
     ],
     "Keyboard · {layout}": [
-      "quickshell/desktop-bar/BarHorizontalStatus.qml",
-      "quickshell/desktop-bar/BarVerticalStatus.qml"
+      "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/bar/BarVerticalStatus.qml"
     ],
     "LIVE": [
-      "quickshell/desktop-bar/RecordingMenu.qml"
+      "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "LOCAL / TIME": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
@@ -600,70 +600,70 @@
       "quickshell/lockscreen/themes/girl-coffee/Main.qml"
     ],
     "Language": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Language · %1": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Layout": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Layouts unavailable": [
-      "quickshell/desktop-bar/KeyboardLayoutMenu.qml"
+      "quickshell/desktop-bar/panels/KeyboardLayoutMenu.qml"
     ],
     "Learn shortcuts and gestures": [
-      "quickshell/desktop-bar/Handbook.qml"
+      "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Left": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Left of": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Light": [
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Lighting": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Line": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Loading...": [
-      "quickshell/desktop-bar/AppearancePicker.qml",
-      "quickshell/desktop-bar/KeyboardLayoutMenu.qml",
-      "quickshell/desktop-bar/SystemMonitorMenu.qml"
+      "quickshell/desktop-bar/panels/AppearancePicker.qml",
+      "quickshell/desktop-bar/panels/KeyboardLayoutMenu.qml",
+      "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
     ],
     "Lock": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Lock the screen automatically when you're away.": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Locked session · %1": [
       "quickshell/lockscreen/shell.qml"
     ],
     "Lockscreen": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Logout": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Main": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Main Display": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Main display": [
-      "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml",
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Main display · others go around it": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Manual": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Material Dark": [
       "quickshell/lockscreen/design-gallery.qml"
@@ -672,188 +672,188 @@
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Media": [
-      "quickshell/desktop-bar/BarVerticalCenter.qml",
-      "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/MediaMenu.qml"
+      "quickshell/desktop-bar/bar/BarVerticalCenter.qml",
+      "quickshell/desktop-bar/media/MediaMenu.qml",
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Media style": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Messages go to %1; nothing is saved": [
-      "quickshell/desktop-bar/AssistantChat.qml"
+      "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
     "Microphone": [
-      "quickshell/desktop-bar/AudioMenu.qml",
-      "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/ObsMenu.qml"
+      "quickshell/desktop-bar/panels/AudioMenu.qml",
+      "quickshell/desktop-bar/panels/ControlCenter.qml",
+      "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "Middle": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Mirror": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "More actions": [
-      "quickshell/desktop-bar/PanelMoreButton.qml"
+      "quickshell/desktop-bar/components/PanelMoreButton.qml"
     ],
     "Mute": [
-      "quickshell/desktop-bar/AudioLevelControl.qml"
+      "quickshell/desktop-bar/components/AudioLevelControl.qml"
     ],
     "Mute the OBS microphone": [
-      "quickshell/desktop-bar/RecordingMenu.qml"
+      "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "NO ADAPTER": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Network Settings…": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "New Reminder": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "New Window": [
-      "quickshell/desktop-bar/EdgeDock.qml"
+      "quickshell/desktop-bar/dock/EdgeDock.qml"
     ],
     "New chat": [
-      "quickshell/desktop-bar/AssistantChat.qml"
+      "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
     "Next": [
-      "quickshell/desktop-bar/BarVerticalCenter.qml",
-      "quickshell/desktop-bar/Handbook.qml",
-      "quickshell/desktop-bar/MediaStrip.qml",
+      "quickshell/desktop-bar/bar/BarVerticalCenter.qml",
+      "quickshell/desktop-bar/media/MediaStrip.qml",
+      "quickshell/desktop-bar/panels/Handbook.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Night Light": [
-      "quickshell/desktop-bar/BrightnessMenu.qml",
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml",
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Night Light & Main Display": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Night Light schedule": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "No Bluetooth adapter": [
-      "quickshell/desktop-bar/BluetoothMenu.qml"
+      "quickshell/desktop-bar/panels/BluetoothMenu.qml"
     ],
     "No WiFi backend is running": [
-      "quickshell/desktop-bar/NetworkService.qml"
+      "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "No active displays": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "No device available": [
-      "quickshell/desktop-bar/AudioLevelControl.qml",
-      "quickshell/desktop-bar/AudioMenu.qml"
+      "quickshell/desktop-bar/components/AudioLevelControl.qml",
+      "quickshell/desktop-bar/panels/AudioMenu.qml"
     ],
     "No devices": [
-      "quickshell/desktop-bar/BluetoothMenu.qml"
+      "quickshell/desktop-bar/panels/BluetoothMenu.qml"
     ],
     "No devices available": [
-      "quickshell/desktop-bar/AudioMenu.qml"
+      "quickshell/desktop-bar/panels/AudioMenu.qml"
     ],
     "No images found": [
-      "quickshell/desktop-bar/AppearancePicker.qml"
+      "quickshell/desktop-bar/panels/AppearancePicker.qml"
     ],
     "No matches": [
       "quickshell/emoji-picker/shell.qml"
     ],
     "No matching chapters": [
-      "quickshell/desktop-bar/Handbook.qml"
+      "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "No matching themes": [
-      "quickshell/desktop-bar/AppearancePicker.qml"
+      "quickshell/desktop-bar/panels/AppearancePicker.qml"
     ],
     "No media playing": [
-      "quickshell/desktop-bar/MediaCard.qml"
+      "quickshell/desktop-bar/media/MediaCard.qml"
     ],
     "No networks": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "No notifications": [
-      "quickshell/desktop-bar/NotificationWidget.qml"
+      "quickshell/desktop-bar/bar/NotificationWidget.qml"
     ],
     "No occupied workspaces": [
-      "quickshell/desktop-bar/WorkspaceOverview.qml"
+      "quickshell/desktop-bar/overview/WorkspaceOverview.qml"
     ],
     "No playback applications": [
-      "quickshell/desktop-bar/AudioMenu.qml"
+      "quickshell/desktop-bar/panels/AudioMenu.qml"
     ],
     "No plugins installed": [
-      "quickshell/desktop-bar/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": [
-      "quickshell/desktop-bar/AiUsageMenu.qml"
+      "quickshell/desktop-bar/panels/AiUsageMenu.qml"
     ],
     "No reminders": [
-      "quickshell/desktop-bar/CalendarMenu.qml"
+      "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "Nothing": [
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Nothing is sent automatically. You read each report first and choose whether to email it or open a GitHub issue; your name, computer name and network addresses are removed.": [
-      "quickshell/desktop-bar/Handbook.qml"
+      "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Notifications": [
-      "quickshell/desktop-bar/BarVerticalStatus.qml",
-      "quickshell/desktop-bar/NotificationList.qml"
+      "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/notifications/NotificationList.qml"
     ],
     "Numbers": [
-      "quickshell/desktop-bar/WorkspaceStyleMenu.qml"
+      "quickshell/desktop-bar/panels/WorkspaceStyleMenu.qml"
     ],
     "OBS Controls": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "OBS Studio": [
-      "quickshell/desktop-bar/BarHorizontalStatus.qml",
-      "quickshell/desktop-bar/BarVerticalStatus.qml",
-      "quickshell/desktop-bar/ObsMenu.qml"
+      "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "OBS command failed": [
-      "quickshell/desktop-bar/ObsMenu.qml"
+      "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "OBS status unavailable": [
-      "quickshell/desktop-bar/ObsMenu.qml"
+      "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "OCR Text": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "OTHER NETWORKS": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Off": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Offer to report problems when something breaks": [
-      "quickshell/desktop-bar/Handbook.qml"
+      "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Offline": [
-      "quickshell/desktop-bar/UpdatesStatus.qml",
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml",
+      "quickshell/desktop-bar/services/UpdatesStatus.qml"
     ],
     "Only the next occurrence can be skipped": [
-      "quickshell/desktop-bar/CalendarMenu.qml"
+      "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "Open OBS": [
-      "quickshell/desktop-bar/ObsMenu.qml"
+      "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "Open System Monitor": [
-      "quickshell/desktop-bar/SystemMonitorMenu.qml"
+      "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
     ],
     "Open recordings": [
-      "quickshell/desktop-bar/ObsMenu.qml"
+      "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "Outcome unknown; refresh before retrying.": [
-      "quickshell/desktop-bar/NetworkService.qml",
-      "quickshell/desktop-bar/ObsMenu.qml"
+      "quickshell/desktop-bar/panels/ObsMenu.qml",
+      "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Output device": [
-      "quickshell/desktop-bar/AudioMenu.qml"
+      "quickshell/desktop-bar/panels/AudioMenu.qml"
     ],
     "Overview": [
-      "quickshell/desktop-bar/BarLeftGroup.qml",
-      "quickshell/desktop-bar/BarWindow.qml",
-      "quickshell/desktop-bar/WorkspaceOverview.qml"
+      "quickshell/desktop-bar/bar/BarLeftGroup.qml",
+      "quickshell/desktop-bar/bar/BarWindow.qml",
+      "quickshell/desktop-bar/overview/WorkspaceOverview.qml"
     ],
     "PASSWORD": [
       "quickshell/lockscreen/themes/nothing/Main.qml"
@@ -862,10 +862,10 @@
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml"
     ],
     "PAUSED · {size}": [
-      "quickshell/desktop-bar/RecordingMenu.qml"
+      "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "PEAP / MSCHAPv2": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "PLASMA": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml",
@@ -876,209 +876,209 @@
       "quickshell/lockscreen/themes/nothing/Main.qml"
     ],
     "Pair Bluetooth devices": [
-      "quickshell/desktop-bar/Handbook.qml"
+      "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Password": [
-      "quickshell/desktop-bar/WifiMenu.qml",
+      "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
     "Pause": [
-      "quickshell/desktop-bar/MediaStrip.qml"
+      "quickshell/desktop-bar/media/MediaStrip.qml"
     ],
     "Pause recording": [
-      "quickshell/desktop-bar/ObsMenu.qml",
-      "quickshell/desktop-bar/RecordingMenu.qml"
+      "quickshell/desktop-bar/panels/ObsMenu.qml",
+      "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "PgUp/PgDn to scroll · Escape or × to close": [
-      "quickshell/desktop-bar/Handbook.qml"
+      "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Pick a wallpaper": [
-      "quickshell/desktop-bar/Handbook.qml"
+      "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Pin bar open": [
-      "quickshell/desktop-bar/BarHorizontalCenter.qml",
-      "quickshell/desktop-bar/BarVerticalCenter.qml"
+      "quickshell/desktop-bar/bar/BarHorizontalCenter.qml",
+      "quickshell/desktop-bar/bar/BarVerticalCenter.qml"
     ],
     "Play": [
-      "quickshell/desktop-bar/MediaStrip.qml"
+      "quickshell/desktop-bar/media/MediaStrip.qml"
     ],
     "Plugin": [
-      "quickshell/desktop-bar/PluginManagement.qml"
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Plugins": [
-      "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/PluginArea.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml",
+      "quickshell/desktop-bar/plugins/PluginArea.qml"
     ],
     "Position": [
-      "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml",
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Power": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Power Profile": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Power profiles unavailable on this hardware": [
-      "quickshell/desktop-bar/PowerControls.qml"
+      "quickshell/desktop-bar/components/PowerControls.qml"
     ],
     "Power…": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Preview": [
-      "quickshell/desktop-bar/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Previous": [
-      "quickshell/desktop-bar/BarVerticalCenter.qml",
-      "quickshell/desktop-bar/Handbook.qml",
-      "quickshell/desktop-bar/MediaStrip.qml",
+      "quickshell/desktop-bar/bar/BarVerticalCenter.qml",
+      "quickshell/desktop-bar/media/MediaStrip.qml",
+      "quickshell/desktop-bar/panels/Handbook.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "QR Code": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "QUICK SETTINGS": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml"
     ],
     "Quick Actions": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Quickshell reload failed": [
-      "quickshell/desktop-bar/ReloadErrorPopup.qml"
+      "quickshell/desktop-bar/components/ReloadErrorPopup.qml"
     ],
     "REBOOT": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml",
       "quickshell/lockscreen/themes/nothing/Main.qml"
     ],
     "RECORDING · {size}": [
-      "quickshell/desktop-bar/RecordingMenu.qml"
+      "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "RESTART": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml"
     ],
     "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": [
-      "quickshell/desktop-bar/NetworkService.qml"
+      "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Re-enable": [
-      "quickshell/desktop-bar/PluginManagement.qml"
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Re-enable with eitr plugin enable-ui {plugin}": [
-      "quickshell/desktop-bar/PluginComponent.qml"
+      "quickshell/desktop-bar/plugins/PluginComponent.qml"
     ],
     "Ready": [
       "distro/plugins/example/HelloTile.qml"
     ],
     "Reboot": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Record": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Record + Audio": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Recording": [
-      "quickshell/desktop-bar/BarHorizontalStatus.qml",
-      "quickshell/desktop-bar/BarVerticalStatus.qml",
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Recording options": [
-      "quickshell/desktop-bar/ObsMenu.qml"
+      "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "Recording paused": [
-      "quickshell/desktop-bar/BarHorizontalStatus.qml",
-      "quickshell/desktop-bar/BarVerticalStatus.qml"
+      "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/bar/BarVerticalStatus.qml"
     ],
     "Recording settings unavailable": [
-      "quickshell/desktop-bar/ObsMenu.qml"
+      "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "Recovery Guide": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Recovery Snapshots": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Reduce motion": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Refresh rate": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Reminders & Sharing": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Remote Access Settings…": [
-      "quickshell/desktop-bar/RemoteAccessContent.qml"
+      "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
     ],
     "Remove": [
-      "quickshell/desktop-bar/BluetoothMenu.qml",
-      "quickshell/desktop-bar/PluginManagement.qml",
-      "quickshell/desktop-bar/PluginManager.qml",
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/BluetoothMenu.qml",
+      "quickshell/desktop-bar/panels/WifiMenu.qml",
+      "quickshell/desktop-bar/plugins/PluginManagement.qml",
+      "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Remove from Dock": [
-      "quickshell/desktop-bar/EdgeDock.qml"
+      "quickshell/desktop-bar/dock/EdgeDock.qml"
     ],
     "Remove from desktop": [
-      "quickshell/desktop-bar/PluginWidgetMenu.qml"
+      "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
     "Remove layout": [
-      "quickshell/desktop-bar/KeyboardLayoutRow.qml"
+      "quickshell/desktop-bar/components/KeyboardLayoutRow.qml"
     ],
     "Rename": [
-      "quickshell/desktop-bar/AudioMenu.qml"
+      "quickshell/desktop-bar/panels/AudioMenu.qml"
     ],
     "Reopen to retry; disabled after 3 failures": [
-      "quickshell/desktop-bar/PluginComponent.qml"
+      "quickshell/desktop-bar/plugins/PluginComponent.qml"
     ],
     "Reply…": [
-      "quickshell/desktop-bar/NotificationCard.qml"
+      "quickshell/desktop-bar/notifications/NotificationCard.qml"
     ],
     "Report a Problem": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Repository: {url}": [
-      "quickshell/desktop-bar/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Resolution": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Resolution, position and more": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Restart": [
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
     ],
     "Restore a File": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Resume recording": [
-      "quickshell/desktop-bar/ObsMenu.qml",
-      "quickshell/desktop-bar/RecordingMenu.qml"
+      "quickshell/desktop-bar/panels/ObsMenu.qml",
+      "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "Revert": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Right": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Right of": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Rotation, pixel offsets and more in local.lua": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Runs on this PC; nothing is saved": [
-      "quickshell/desktop-bar/AssistantChat.qml"
+      "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
     "SCANNED DEVICES": [
-      "quickshell/desktop-bar/BluetoothMenu.qml"
+      "quickshell/desktop-bar/panels/BluetoothMenu.qml"
     ],
     "SCENE": [
-      "quickshell/desktop-bar/RecordingMenu.qml"
+      "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "SDR content brightness": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "SESSION": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml",
@@ -1101,240 +1101,240 @@
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml"
     ],
     "Save": [
-      "quickshell/desktop-bar/AudioMenu.qml"
+      "quickshell/desktop-bar/panels/AudioMenu.qml"
     ],
     "Scale": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Scan": [
-      "quickshell/desktop-bar/BluetoothMenu.qml",
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/BluetoothMenu.qml",
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Scanning": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Scanning...": [
-      "quickshell/desktop-bar/BluetoothMenu.qml",
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/BluetoothMenu.qml",
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Scheduled": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Screenshots": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Search city": [
-      "quickshell/desktop-bar/WeatherMenu.qml"
+      "quickshell/desktop-bar/panels/WeatherMenu.qml"
     ],
     "Search emojis": [
       "quickshell/emoji-picker/shell.qml"
     ],
     "Search the handbook…": [
-      "quickshell/desktop-bar/Handbook.qml"
+      "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Selection": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Selection: Copy": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Send": [
-      "quickshell/desktop-bar/AssistantChat.qml",
-      "quickshell/desktop-bar/NotificationCard.qml"
+      "quickshell/desktop-bar/notifications/NotificationCard.qml",
+      "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
     "Session": [
-      "quickshell/desktop-bar/AiUsageMenu.qml",
+      "quickshell/desktop-bar/panels/AiUsageMenu.qml",
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
     ],
     "Set": [
-      "quickshell/desktop-bar/TimePicker.qml"
+      "quickshell/desktop-bar/panels/TimePicker.qml"
     ],
     "Set the main display": [
-      "quickshell/desktop-bar/Handbook.qml"
+      "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Settings": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Share Clipboard": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Share File": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Share Folder": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Share WiFi": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Show QR": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Show above windows": [
-      "quickshell/desktop-bar/PluginManagement.qml",
-      "quickshell/desktop-bar/PluginWidgetMenu.qml"
+      "quickshell/desktop-bar/plugins/PluginManagement.qml",
+      "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
     "Show help notifications when a program crashes.": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Show icons": [
-      "quickshell/desktop-bar/BarHorizontalStatus.qml",
-      "quickshell/desktop-bar/BarVerticalStatus.qml"
+      "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/bar/BarVerticalStatus.qml"
     ],
     "Show on": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Show the camera": [
-      "quickshell/desktop-bar/RecordingMenu.qml"
+      "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "Show this welcome at the next login": [
-      "quickshell/desktop-bar/Handbook.qml"
+      "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Shows the desktop in HDR. Games can use HDR even when this is off.": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Shut Down": [
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
     ],
     "Shutdown": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Silence popups while keeping notification history.": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Size": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Size: Larger": [
-      "quickshell/desktop-bar/PluginWidgetMenu.qml"
+      "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
     "Size: Smaller": [
-      "quickshell/desktop-bar/PluginWidgetMenu.qml"
+      "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
     "Skip this occurrence": [
-      "quickshell/desktop-bar/CalendarMenu.qml"
+      "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "Snapshots & Cleanup": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Sound": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Start": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Start Screensaver": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Start at login": [
-      "quickshell/desktop-bar/RemoteAccessContent.qml"
+      "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
     ],
     "Start recording": [
-      "quickshell/desktop-bar/ObsMenu.qml"
+      "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "Start streaming": [
-      "quickshell/desktop-bar/ObsMenu.qml"
+      "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "Start the screensaver now.": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Status unavailable": [
-      "quickshell/desktop-bar/RemoteAccessContent.qml"
+      "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
     ],
     "Stop Recording": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Stop recording": [
-      "quickshell/desktop-bar/ObsMenu.qml",
-      "quickshell/desktop-bar/RecordingMenu.qml"
+      "quickshell/desktop-bar/panels/ObsMenu.qml",
+      "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "Stop scan": [
-      "quickshell/desktop-bar/BluetoothMenu.qml"
+      "quickshell/desktop-bar/panels/BluetoothMenu.qml"
     ],
     "Stop streaming": [
-      "quickshell/desktop-bar/ObsMenu.qml",
-      "quickshell/desktop-bar/RecordingMenu.qml"
+      "quickshell/desktop-bar/panels/ObsMenu.qml",
+      "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "Streaming": [
-      "quickshell/desktop-bar/BarHorizontalStatus.qml",
-      "quickshell/desktop-bar/BarVerticalStatus.qml",
-      "quickshell/desktop-bar/RemoteAccessContent.qml"
+      "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
+      "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
     ],
     "Style": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP": [
-      "quickshell/desktop-bar/NetworkService.qml"
+      "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Suspend": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Switch user": [
       "quickshell/lockscreen/shell.qml"
     ],
     "System Update": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "TTLS / PAP": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Tabs": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Terminal": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Text & Color": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "The handbook catalog is invalid.": [
-      "quickshell/desktop-bar/Handbook.qml"
+      "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "The handbook is missing. Reinstall or update the Eitr desktop files.": [
-      "quickshell/desktop-bar/Handbook.qml"
+      "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "The main display holds the bar, panels and notifications. Position only sets where a screen sits next to the others.": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Theme": [
-      "quickshell/desktop-bar/AppearancePicker.qml",
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/AppearancePicker.qml",
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Theme & Wallpaper": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Theme Color": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Theme Wallpaper": [
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Thinking…": [
-      "quickshell/desktop-bar/AssistantChat.qml"
+      "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
     "This WiFi security type requires advanced network configuration": [
-      "quickshell/desktop-bar/NetworkService.qml"
+      "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "This one": [
-      "quickshell/desktop-bar/CalendarMenu.qml"
+      "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "This plugin has errors": [
-      "quickshell/desktop-bar/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Today": [
-      "quickshell/desktop-bar/CalendarMenu.qml"
+      "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "Tools": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Top": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Transcode": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Transcribing": [
-      "quickshell/desktop-bar/CaptureIndicator.qml"
+      "quickshell/desktop-bar/bar/CaptureIndicator.qml"
     ],
     "UNLOCK": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml",
@@ -1344,7 +1344,7 @@
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
     "UPDATING...": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "USER": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml",
@@ -1358,115 +1358,115 @@
       "quickshell/lockscreen/shell.qml"
     ],
     "Unmute": [
-      "quickshell/desktop-bar/AudioLevelControl.qml"
+      "quickshell/desktop-bar/components/AudioLevelControl.qml"
     ],
     "Unmute the OBS microphone": [
-      "quickshell/desktop-bar/RecordingMenu.qml"
+      "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "Unpin bar": [
-      "quickshell/desktop-bar/BarHorizontalCenter.qml",
-      "quickshell/desktop-bar/BarVerticalCenter.qml"
+      "quickshell/desktop-bar/bar/BarHorizontalCenter.qml",
+      "quickshell/desktop-bar/bar/BarVerticalCenter.qml"
     ],
     "Upcoming": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Update": [
-      "quickshell/desktop-bar/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Update Plugins": [
-      "quickshell/desktop-bar/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Update available": [
-      "quickshell/desktop-bar/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Updates": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Updates unavailable · right-click to check again": [
-      "quickshell/desktop-bar/UpdatesStatus.qml"
+      "quickshell/desktop-bar/services/UpdatesStatus.qml"
     ],
     "Updating": [
-      "quickshell/desktop-bar/PanelLoadingIndicator.qml"
+      "quickshell/desktop-bar/components/PanelLoadingIndicator.qml"
     ],
     "Use the certificate and server domain supplied by your network administrator. Certificate validation is required.": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Use warmer screen colors.": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "User": [
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
     ],
     "Username": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "View error details": [
-      "quickshell/desktop-bar/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Visuals disabled": [
-      "quickshell/desktop-bar/PluginManagement.qml"
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Visuals disabled after failures": [
-      "quickshell/desktop-bar/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Volume": [
-      "quickshell/desktop-bar/AudioMenu.qml"
+      "quickshell/desktop-bar/panels/AudioMenu.qml"
     ],
     "WELCOME BACK": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
     "Wallpaper": [
-      "quickshell/desktop-bar/AppearancePicker.qml",
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/AppearancePicker.qml",
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Weather": [
-      "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/WeatherMenu.qml",
-      "quickshell/desktop-bar/WeatherWidget.qml"
+      "quickshell/desktop-bar/bar/WeatherWidget.qml",
+      "quickshell/desktop-bar/panels/ControlCenter.qml",
+      "quickshell/desktop-bar/panels/WeatherMenu.qml"
     ],
     "Webcam": [
-      "quickshell/desktop-bar/ObsMenu.qml"
+      "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "What Changed": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "WiFi": [
-      "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml",
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "WiFi adapter is unavailable; refresh the panel": [
-      "quickshell/desktop-bar/NetworkService.qml"
+      "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "WiFi password": [
-      "quickshell/desktop-bar/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Widget options": [
-      "quickshell/desktop-bar/PluginManagement.qml"
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Window": [
-      "quickshell/desktop-bar/ControlCenter.qml",
-      "quickshell/desktop-bar/WorkspaceOverviewTile.qml"
+      "quickshell/desktop-bar/overview/WorkspaceOverviewTile.qml",
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Workspaces": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "YEAR": [
-      "quickshell/desktop-bar/CalendarMenu.qml"
+      "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "Your last working configuration is still running.": [
-      "quickshell/desktop-bar/ReloadErrorPopup.qml"
+      "quickshell/desktop-bar/components/ReloadErrorPopup.qml"
     ],
     "Your workspace awaits.": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
     "ddd MMM dd": [
-      "quickshell/desktop-bar/ClockButton.qml"
+      "quickshell/desktop-bar/bar/ClockButton.qml"
     ],
     "ddd MMM dd HH:mm": [
-      "quickshell/desktop-bar/ClockButton.qml"
+      "quickshell/desktop-bar/bar/ClockButton.qml"
     ],
     "ddd MMM dd hh:mm AP": [
-      "quickshell/desktop-bar/ClockButton.qml"
+      "quickshell/desktop-bar/bar/ClockButton.qml"
     ],
     "good afternoon": [
       "quickshell/lockscreen/themes/girl-coffee/Main.qml"
@@ -1498,42 +1498,42 @@
       "quickshell/lockscreen/themes/girl-coffee/Main.qml"
     ],
     "{count} devices": [
-      "quickshell/desktop-bar/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "{count} notification": [
-      "quickshell/desktop-bar/NotificationGroup.qml",
-      "quickshell/desktop-bar/NotificationWidget.qml"
+      "quickshell/desktop-bar/bar/NotificationWidget.qml",
+      "quickshell/desktop-bar/notifications/NotificationGroup.qml"
     ],
     "{count} notifications": [
-      "quickshell/desktop-bar/NotificationGroup.qml",
-      "quickshell/desktop-bar/NotificationWidget.qml"
+      "quickshell/desktop-bar/bar/NotificationWidget.qml",
+      "quickshell/desktop-bar/notifications/NotificationGroup.qml"
     ],
     "{day} · WEEK {week} · {year}": [
-      "quickshell/desktop-bar/CalendarMenu.qml"
+      "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "{percent}% used": [
-      "quickshell/desktop-bar/AiUsageMenu.qml"
+      "quickshell/desktop-bar/panels/AiUsageMenu.qml"
     ],
     "{percent}% · {status}": [
-      "quickshell/desktop-bar/PowerControls.qml"
+      "quickshell/desktop-bar/components/PowerControls.qml"
     ],
     "{percent}% · {status} · ~{hours}h {minutes}m": [
-      "quickshell/desktop-bar/PowerControls.qml"
+      "quickshell/desktop-bar/components/PowerControls.qml"
     ],
     "{rate} Hz": [
-      "quickshell/desktop-bar/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "{width}×{height} · {rate} Hz": [
-      "quickshell/desktop-bar/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "•  now": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml"
     ],
     "󰂚  No notifications": [
-      "quickshell/desktop-bar/NotificationList.qml"
+      "quickshell/desktop-bar/notifications/NotificationList.qml"
     ],
     "󰂛  Do Not Disturb\n\nNo notifications": [
-      "quickshell/desktop-bar/NotificationList.qml"
+      "quickshell/desktop-bar/notifications/NotificationList.qml"
     ]
   },
   "menus": {

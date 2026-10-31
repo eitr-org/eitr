@@ -5,7 +5,7 @@ import textwrap
 
 
 def frame_source(directory):
-    source = (Path(directory) / "BarWindow.qml").read_text()
+    source = (Path(directory) / "bar/BarWindow.qml").read_text()
     names = {
         'host': 'shell',
         'networkServiceRef': 'networkOwner',

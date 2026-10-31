@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[3]
 BAR = ROOT / 'quickshell/desktop-bar'
 THEMES = {'dark': ('#18212b', '#e9eef1'), 'light': ('#f5f0e7', '#252936')}
 POPUP_STUB = '''import QtQuick
-import "JsonState.js" as JsonState
+import "../JsonState.js" as JsonState
 Item {
     id: popup
     function updateContent(action) { action(); }
@@ -85,10 +85,12 @@ def keep_renders(captures):
 
 
 def copy_bar(folder):
-    for source in BAR.iterdir():
+    for source in BAR.rglob("*"):
         if source.suffix in ('.qml', '.js') or source.name == 'qmldir':
-            shutil.copy(source, folder / source.name)
-    (folder/'ThemedPopup.qml').write_text(POPUP_STUB)
+            destination = folder / source.relative_to(BAR)
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy(source, destination)
+    (folder/'components/ThemedPopup.qml').write_text(POPUP_STUB)
 
 
 @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')

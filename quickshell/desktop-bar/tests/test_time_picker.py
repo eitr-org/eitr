@@ -16,16 +16,18 @@ class TimePickerTests(unittest.TestCase):
         for background, foreground in (('#202024', '#ffffff'), ('#eeeeee', '#202024')):
             with self.subTest(background=background), tempfile.TemporaryDirectory() as directory:
                 folder = Path(directory)
-                for source in BAR.iterdir():
+                for source in BAR.rglob("*"):
                     if source.suffix in ('.qml', '.js') or source.name == 'qmldir':
-                        shutil.copy(source, folder / source.name)
-                source = (folder / 'TimePicker.qml').read_text()
+                        destination = folder / source.relative_to(BAR)
+                        destination.parent.mkdir(parents=True, exist_ok=True)
+                        shutil.copy(source, destination)
+                source = (folder / 'panels/TimePicker.qml').read_text()
                 # FloatingWindow supplies the offscreen surface in place of a Wayland layer.
                 source = source.replace('id: picker', 'id: picker\n    property alias keyTarget: content', 1)
                 source = source.replace('PanelWindow {', 'FloatingWindow {\n        implicitWidth: 800; implicitHeight: 600')
                 source = '\n'.join(line for line in source.splitlines() if not any(
                     token in line for token in ('anchors { top:', 'exclusionMode:', 'WlrLayershell.')))
-                (folder / 'TimePicker.qml').write_text(source)
+                (folder / 'panels/TimePicker.qml').write_text(source)
                 fixture = '''import QtQuick
 import QtTest
 import Quickshell

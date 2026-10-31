@@ -75,7 +75,7 @@ class WelcomeStateTests(unittest.TestCase):
 
 class HandbookWelcomeTests(unittest.TestCase):
     def setUp(self):
-        self.source = (ROOT / "Handbook.qml").read_text()
+        self.source = (ROOT / "panels/Handbook.qml").read_text()
 
     def test_welcome_uses_shared_components_and_text_roles(self):
         for name in ("PanelButton {", "PanelSwitch {", "PanelStyle.bodySize", "PanelStyle.dividerAlpha",
@@ -92,7 +92,7 @@ class HandbookWelcomeTests(unittest.TestCase):
         icons = re.findall(r'kind: "\w+", icon: "([^"]*)"', self.source)
         self.assertEqual(len(icons), len(kinds))
         self.assertTrue(all(icons), "every setup button needs its glyph")
-        shell = (ROOT / "shell.qml").read_text() + (ROOT / "WelcomeSession.qml").read_text()
+        shell = (ROOT / "shell.qml").read_text() + (ROOT / "services/WelcomeSession.qml").read_text()
         self.assertIn('"appearance-picker.sh" : "show-panel.sh"', shell)
         self.assertIn('if (kind === "learn") { choose("shortcuts"); return; }', self.source)
         allowlist = re.search(r'case "\$\{1:-\}" in\s*\n\s*([a-z|]+)\)',
@@ -107,7 +107,7 @@ class HandbookWelcomeTests(unittest.TestCase):
         first = chapters[0]["id"] if isinstance(chapters, list) else chapters["chapters"][0]["id"]
         self.assertEqual(first, "getting-started")
         self.assertIn('welcomeChapter: "getting-started"', self.source)
-        shell = (ROOT / "shell.qml").read_text() + (ROOT / "WelcomeSession.qml").read_text()
+        shell = (ROOT / "shell.qml").read_text() + (ROOT / "services/WelcomeSession.qml").read_text()
         self.assertIn('reloadableId: "handbookWelcomeSession"', shell)
         self.assertIn('command: session.welcomeCommand("status")', shell)
         self.assertIn("if (state.show) handbook.showWelcome(state.pending);", shell)

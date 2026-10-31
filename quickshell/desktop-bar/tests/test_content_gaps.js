@@ -1,7 +1,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
-const source = fs.readFileSync(`${__dirname}/../PanelSurface.qml`, 'utf8');
+const source = fs.readFileSync(`${__dirname}/../components/PanelSurface.qml`, 'utf8');
 const style = fs.readFileSync(`${__dirname}/../PanelStyle.js`, 'utf8');
 const multiplier = Number(style.match(/var contentGapMultiplier = (\d+);/)[1]);
 assert.equal(multiplier, 2);

@@ -29,8 +29,8 @@ class KeyboardLayoutTests(unittest.TestCase):
     def test_layouts_are_added_and_removed_only_in_walker(self):
         root = Path(__file__).parents[1]
         repo = root.parents[1]
-        panel = (root / 'KeyboardLayoutMenu.qml').read_text()
-        center = (root / 'ControlCenter.qml').read_text()
+        panel = (root / 'panels/KeyboardLayoutMenu.qml').read_text()
+        center = (root / 'panels/ControlCenter.qml').read_text()
         for name, source in (('panel', panel), ('control center', center)):
             with self.subTest(source=name):
                 self.assertNotIn('"add"', source)
@@ -42,8 +42,8 @@ class KeyboardLayoutTests(unittest.TestCase):
         self.assertIn('--notify remove', menu)
         self.assertIn('elephant/keyboard-catalog.lua', (repo / 'elephant/menus/keyboard-add.lua').read_text())
         self.assertIn('--notify add', (repo / 'elephant/keyboard-catalog.lua').read_text())
-        horizontal = (root / 'BarHorizontalStatus.qml').read_text()
-        vertical = (root / 'BarVerticalStatus.qml').read_text()
+        horizontal = (root / 'bar/BarHorizontalStatus.qml').read_text()
+        vertical = (root / 'bar/BarVerticalStatus.qml').read_text()
         self.assertIn('keyboardMenu.layouts.length > 1', horizontal)
         self.assertIn('keyboardMenuRef.layouts.length > 1', vertical)
 

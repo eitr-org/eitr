@@ -88,7 +88,7 @@ class EnterpriseConnectTests(unittest.TestCase):
 
 class PanelDetailsTests(unittest.TestCase):
     def test_the_panel_shows_ping_band_address_and_gateway_only(self):
-        qml = (Path(__file__).parents[1] / "WifiMenu.qml").read_text()
+        qml = (Path(__file__).parents[1] / "panels/WifiMenu.qml").read_text()
         self.assertIn('["Ping", menu.latency.ping != null', qml)
         self.assertIn('"Wi-Fi Band", menu.details.band', qml)
         self.assertIn('["IP Address", menu.details.ip || "--", "Gateway", menu.details.gateway || "--"]', qml)

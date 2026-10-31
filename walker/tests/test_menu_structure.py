@@ -445,7 +445,7 @@ class ShutdownBroadcastTests(unittest.TestCase):
     def test_desktop_power_actions_skip_the_console_broadcast(self):
         """A wall message would show on the text console before the shutdown splash."""
         import re
-        sources = ['elephant/menu-rows/power.json', 'quickshell/desktop-bar/ControlCenter.qml',
+        sources = ['elephant/menu-rows/power.json', 'quickshell/desktop-bar/panels/ControlCenter.qml',
                    'quickshell/lockscreen/AuthAdapter.qml', 'walker/scripts/actions/system/restart-check.py',
                    'walker/scripts/actions/system/network-backend.py']
         for source in sources:

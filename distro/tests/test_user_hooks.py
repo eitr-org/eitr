@@ -65,7 +65,7 @@ class UserHookTests(unittest.TestCase):
         update = (ROOT / "walker/scripts/actions/system/update.sh").read_text()
         self.assertIn('bash "$runner" post-update "$update_kind"', update)
         self.assertIn('theme-set "$THEME_NAME"', (ROOT / "walker/scripts/actions/style/apply.sh").read_text())
-        shell = (ROOT / "quickshell/desktop-bar/SessionHooks.qml").read_text()
+        shell = (ROOT / "quickshell/desktop-bar/services/SessionHooks.qml").read_text()
         self.assertIn('runHook(["battery-low", String(host.battery.percent)])', shell)
         self.assertIn('hooks.runHook(["post-boot"])', shell)
         command = (ROOT / "distro/bin/eitr").read_text()

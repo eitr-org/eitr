@@ -99,7 +99,7 @@ const shell = fs.readFileSync(path.join(bar, 'shell.qml'), 'utf8');
 assert.equal((shell.match(/NetworkService\s*\{/g) || []).length, 1);
 assert.ok(shell.indexOf('NetworkService {') < shell.indexOf('    Variants {'));
 for (const name of ['WifiMenu', 'ControlCenter']) {
-    const qml = fs.readFileSync(path.join(bar, name + '.qml'), 'utf8');
+    const qml = fs.readFileSync(path.join(bar, 'panels', name + '.qml'), 'utf8');
     assert.ok(qml.includes('Component.onDestruction:'));
     assert.ok(qml.includes('.release('));
     assert.ok(qml.includes('.observe('));

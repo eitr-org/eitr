@@ -27,7 +27,7 @@ class NotchLayoutTests(unittest.TestCase):
         self.assertIn('EdgeSlopes.outline', outline)
         self.assertNotIn('PanelSurface {', tab)
         icon_visibility = shell_source.split('readonly property bool iconsOpen: ', 1)[1].split('\n', 1)[0]
-        status_source = (BAR / 'BarHorizontalStatus.qml').read_text()
+        status_source = (BAR / 'bar/BarHorizontalStatus.qml').read_text()
         toggle_visibility = status_source.split('id: statusToggle', 1)[1].split('visible: ', 1)[1].split('\n', 1)[0]
         toggle_visibility = toggle_visibility.replace('barHost.', 'bar.').replace('rightSide.host.', 'shell.')
         corner_styles = json.loads((BAR / 'corner-styles.json').read_text())['styles']
@@ -42,9 +42,11 @@ class NotchLayoutTests(unittest.TestCase):
         tab = 'Item {\n visible: shell.notchLayout' + tab
         with tempfile.TemporaryDirectory(prefix="eitr-notch-fixture-") as directory:
             folder = Path(directory)
-            for source in BAR.iterdir():
+            for source in BAR.rglob("*"):
                 if source.suffix in ('.qml', '.js') or source.name == 'qmldir':
-                    shutil.copy(source, folder / source.name)
+                    destination = folder / source.relative_to(BAR)
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy(source, destination)
             cases = [(*case, False) for case in itertools.product(
                 ('top', 'bottom', 'left', 'right'), (False, True),
                 ('left', 'center', 'right'), ('square', 'rounded', 'extra-rounded'), (5, 10))]

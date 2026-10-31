@@ -36,7 +36,7 @@ class ClaudeLimitsTests(unittest.TestCase):
                                                       {"kind": "weekly_scoped", "percent": None}]}), [])
 
     def test_the_panel_shows_only_limits(self):
-        qml = (ROOT / "AiUsageMenu.qml").read_text()
+        qml = (ROOT / "panels/AiUsageMenu.qml").read_text()
         for removed in ("TOKEN", "ai-local-stats", "detailsExpanded"):
             self.assertNotIn(removed, qml)
         self.assertFalse((ROOT / "scripts/ai-local-stats.py").exists())
@@ -143,7 +143,7 @@ class ProviderDetectionTests(unittest.TestCase):
         self.assertEqual(data["windows"][0]["used"], 15)
 
     def test_all_detected_providers_have_foldable_sections(self):
-        qml = (ROOT / "AiUsageMenu.qml").read_text()
+        qml = (ROOT / "panels/AiUsageMenu.qml").read_text()
         self.assertIn("model: menu.shownProviders", qml)
         self.assertIn("model: section.folded ? [] : (section.modelData.accounts || [])", qml)
         self.assertIn("onClicked: menu.toggleProvider(section.modelData.name)", qml)

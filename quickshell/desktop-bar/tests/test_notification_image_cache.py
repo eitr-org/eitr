@@ -35,7 +35,7 @@ class NotificationImageCacheTests(unittest.TestCase):
             self.assertNotIn('FAIL!', output)
 
     def test_bulk_dismiss_publishes_one_history_update(self):
-        source = (ROOT / "quickshell/desktop-bar/NotificationService.qml").read_text()
+        source = (ROOT / "quickshell/desktop-bar/notifications/NotificationService.qml").read_text()
         state = source[source.index("    readonly property var tracked:"):source.index("    readonly property var history:")]
         state = state.replace("readonly property var tracked: server.trackedNotifications.values", "property var tracked: []")
         clear = re.search(r"    function clear\(\) \{.*?\n    \}", source, re.S).group()
@@ -75,7 +75,7 @@ TestCase {
     def test_large_image_burst_respects_byte_budget(self):
         # Exercise the production QML retain/evict code with real decoded fixtures.
         bar = ROOT / "quickshell/desktop-bar"
-        source = (bar / "NotificationService.qml").read_text()
+        source = (bar / "notifications/NotificationService.qml").read_text()
         retention = source[source.index("    Component {\n        id: retainedImageComponent"):source.index("    onPopupIdsChanged:")]
         receipt = re.search(r"        onNotification: function\(notification\) \{.*?\n        \}", source, re.S).group()
         receipt = receipt.replace("onNotification: function", "function receiveNotification", 1)

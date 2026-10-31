@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 
-const source = fs.readFileSync(path.join(__dirname, '../AppearancePicker.qml'), 'utf8');
+const source = fs.readFileSync(path.join(__dirname, '../panels/AppearancePicker.qml'), 'utf8');
 const body = source.split('function search(value) {')[1].split('\n    }')[0];
 const context = {
     allItems: [{name: 'Jade'}, {name: 'Afterglow'}, {name: 'Daylight'}],
