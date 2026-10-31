@@ -37,18 +37,21 @@ LAN.
 - **Walker slow to open after a reboot.** Reported 2026-10-30. Elephant and the search
   index answer in milliseconds after login, so the delay is elsewhere (Walker's
   window, or what else starts then). The owner will record the next reboot.
-- **Maintainability refactors.** In this order (the owner's):
-  1. Retire the older VS Code / LazyVim project providers once nothing uses them.
-  2. Organize the whole repository so it is mature and easy
-     to work in. Start with a full overview (every top-level folder, what lives where,
-     what installs where, naming, docs) and agree the target layout before moving
-     anything; the overview also lists refactoring candidates it finds (duplicated
-     logic, oversized files, unclear ownership), ranked like the earlier review. Known spots: `quickshell/desktop-bar/` (about 135 files side by side:
-     services, panels, widgets, models), its `scripts/` (bar helpers, broker domains and
-     CLIs mixed), `elephant/menus/` (200 menus, 90 of them generated cloud menus),
-     `distro/` (docs, manifests and scripts at one level) and `distro/lib/`. The repo
-     mirrors `/usr/share/eitr`, so each move updates `qmldir`, the layout manifest,
-     packaging, existing installs, tests, the Handbook and AGENTS.md together.
+- **Maintainability refactors.** Organize the repository so it is mature and easy to
+  work in, following the overview's order (each step one green, shippable commit):
+  1. Panel surfaces decide whether they touch the screen edge from their placement,
+     ending the startup binding loop.
+  2. Walker's identical menu-row XML files come from one template, generated and checked.
+  3. The Handbook builder moves to `tools/`; the logo masters join `branding/sources/`.
+  4. `quickshell/desktop-bar/` groups its 117 QML files into subfolders by
+     responsibility, one group at a time, keeping every type name in `qmldir`.
+  5. `bar-data.py` separates topic validation; `eitr_plugins.py` separates manifest
+     validation, installation and execution.
+  6. Choice lists that must match (workspace styles, lockscreen designs) get one owner.
+  7. `ControlCenter.qml` and `BarWindow.qml` split into sections; the layout render
+     tests share their setup.
+  Each move updates `qmldir`, the layout manifest, packaging, tests, the Handbook and
+  AGENTS.md together.
 
 - **hyprpaper crash without a GPU: follow upstream.** hyprpaper segfaults in VMs
   without 3D acceleration (hyprwm/hyprtoolkit#144); the bar now draws the still
