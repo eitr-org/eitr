@@ -18,6 +18,7 @@ import themes from "../data/themes.json";
 import release from "../data/release.json";
 import download from "../data/download.json";
 import roadmap from "../data/roadmap.json";
+import previewVideo from "../data/preview-video.json";
 
 const roadText = (text: string) => translator(Astro.url.pathname, 'roadmap')(text);
 const futhark = "ᚠᚢᚦᚨᚱᚲᚷᚹ ᚺᚾᛁᛃᛇᛈᛉᛊ ᛏᛒᛖᛗᛚᛜᛞᛟ";
@@ -137,6 +138,22 @@ const faq = [
 
   <Ravens />
 
+  <section id="preview" class="wrap section preview-video">
+    <div class="section-heading">
+      <p class="eyebrow">{t('preview_eyebrow')}</p>
+      <h2>{t('preview_title')}</h2>
+      <p>{t('preview_body')}</p>
+    </div>
+    <!-- Nothing loads from YouTube until the visitor presses play. -->
+    <div class="preview-video-frame" data-youtube={previewVideo.youtube} data-title={t('preview_label')}>
+      <button type="button" class="preview-play" aria-label={t('preview_play')}>
+        <img src={previewVideo.poster} alt={t('preview_label')} width={previewVideo.width} height={previewVideo.height} loading="lazy" />
+        <span class="preview-play-icon" aria-hidden="true"></span>
+      </button>
+    </div>
+    <p class="fine preview-note">{t('preview_note')}</p>
+  </section>
+
   {homepageFeatures.map(feature => {
     const shot = screenshots.find(shot => shot.file === feature.file)!;
     return <section id={feature.id} class="wrap section homepage-feature">
@@ -218,6 +235,19 @@ sudo dd if=${download.file} of=/dev/sdX bs=4M status=progress oflag=sync`}</code
       </div>
     </div>
   </section>
+
+  <script>
+    for (const frame of document.querySelectorAll<HTMLElement>('.preview-video-frame')) {
+      frame.querySelector('button')?.addEventListener('click', () => {
+        const player = document.createElement('iframe');
+        player.src = `https://www.youtube-nocookie.com/embed/${frame.dataset.youtube}?autoplay=1&rel=0`;
+        player.title = frame.dataset.title ?? '';
+        player.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        player.allowFullscreen = true;
+        frame.replaceChildren(player);
+      }, { once: true });
+    }
+  </script>
 
   <section id="road" class="wrap section">
     <div class="section-heading">

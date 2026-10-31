@@ -107,7 +107,13 @@
     "theme_wallpaper": "{name} theme wallpaper",
     "see_more_feature": "See more: {name}",
     "current_now": "now · ",
-    "iso_commands": "Commands to check and write the ISO"
+    "iso_commands": "Commands to check and write the ISO",
+    "preview_eyebrow": "Preview",
+    "preview_title": "See it in motion.",
+    "preview_body": "Two minutes on the real desktop: workspaces, panels, the launcher and themes changing live.",
+    "preview_label": "A preview of the Eitr desktop",
+    "preview_play": "Play the preview",
+    "preview_note": "Plays from YouTube in privacy-enhanced mode, only after you press play."
   },
   "about": {
     "about_eitr_linux": "About / Eitr Linux",
@@ -382,7 +388,7 @@
     "your_choices": "Your choices",
     "reply_to_your_report_email_or_write_to_contact_eitr_inf": "Reply to your report email, or write to contact@eitr.info, to have your report deleted at any time. You can turn crash offers off in the welcome chapter of the Handbook. Optional cloud assistants receive messages and context you share; Control Center quick chat is read-only and keeps its conversation only in memory until closed.",
     "this_website": "This website",
-    "the_site_sets_no_cookies_iso_download_starts_are_counte": "The site sets no cookies. ISO download starts are counted by UTC day and filename without storing visitor data; the website displays the aggregate total. Your day/night and language preferences are saved only in this browser’s local storage. It is served by Cloudflare, which processes visitors' network addresses to deliver and protect it.",
+    "the_site_sets_no_cookies_iso_download_starts_are_counte": "The site sets no cookies. ISO download starts are counted by UTC day and filename without storing visitor data; the website displays the aggregate total. Your day/night and language preferences are saved only in this browser’s local storage. It is served by Cloudflare, which processes visitors' network addresses to deliver and protect it. The home page video loads from YouTube (privacy-enhanced mode) only when you press play.",
     "privacy": "Privacy",
     "your_machine": "Your machine.",
     "your_choice": "Your choice.",

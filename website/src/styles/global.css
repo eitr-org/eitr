@@ -176,6 +176,14 @@ em { font-style: italic; color: var(--accent); }
 .feature-image, .screenshot-link { display: block; border: 1px solid var(--line-strong); border-radius: 6px; overflow: hidden; }
 .feature-image img, .screenshot-link img { display: block; width: 100%; height: auto; }
 .screenshots-cta { padding-block: 32px 80px; text-align: center; }
+.preview-video-frame { position: relative; aspect-ratio: 16 / 9; border: 1px solid var(--line-strong); border-radius: 6px; overflow: hidden; background: #000; }
+.preview-video-frame iframe, .preview-play, .preview-play img { display: block; width: 100%; height: 100%; border: 0; }
+.preview-play { position: relative; padding: 0; background: none; cursor: pointer; }
+.preview-play img { object-fit: cover; }
+.preview-play-icon { position: absolute; inset: 50% auto auto 50%; width: 84px; height: 84px; translate: -50% -50%; border-radius: 50%; background: rgb(0 0 0 / .6); border: 2px solid rgb(255 255 255 / .85); transition: transform .2s ease, background .2s ease; }
+.preview-play-icon::after { content: ""; position: absolute; inset: 50% auto auto 54%; translate: -50% -50%; border-style: solid; border-width: 15px 0 15px 25px; border-color: transparent transparent transparent #fff; }
+.preview-play:hover .preview-play-icon, .preview-play:focus-visible .preview-play-icon { transform: scale(1.08); background: rgb(0 0 0 / .78); }
+.preview-note { margin-top: 12px; }
 .screenshot-groups { display: flex; flex-wrap: wrap; gap: 16px 28px; margin-bottom: 64px; }
 .screenshot-group { padding-block: 40px; scroll-margin-top: 110px; }
 .screenshot-group h2 { font-size: clamp(26px, 3vw, 38px); margin-bottom: 32px; }

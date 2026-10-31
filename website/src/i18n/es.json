@@ -107,7 +107,13 @@
     "theme_wallpaper": "Fondo del tema {name}",
     "see_more_feature": "Ver más: {name}",
     "current_now": "ahora · ",
-    "iso_commands": "Comandos para verificar y grabar la ISO"
+    "iso_commands": "Comandos para verificar y grabar la ISO",
+    "preview_eyebrow": "Vista previa",
+    "preview_title": "Míralo en movimiento.",
+    "preview_body": "Dos minutos en el escritorio real: espacios de trabajo, paneles, el lanzador y temas que cambian en vivo.",
+    "preview_label": "Una vista previa del escritorio de Eitr",
+    "preview_play": "Reproducir la vista previa",
+    "preview_note": "Se reproduce desde YouTube en modo de privacidad mejorada, solo después de pulsar reproducir."
   },
   "about": {
     "about_eitr_linux": "Acerca de / Eitr Linux",
@@ -382,7 +388,7 @@
     "your_choices": "Tus opciones",
     "reply_to_your_report_email_or_write_to_contact_eitr_inf": "Responde al correo del informe o escribe a contact@eitr.info para pedir su eliminación en cualquier momento. Puedes desactivar las ofertas de ayuda por fallos en la bienvenida del Manual. Los asistentes cloud opcionales reciben los mensajes y contexto que compartes; el chat rápido del Centro de control es de solo lectura y conserva la conversación solo en memoria hasta cerrarlo.",
     "this_website": "Este sitio",
-    "the_site_sets_no_cookies_iso_download_starts_are_counte": "El sitio no usa cookies. Los inicios de descarga de la ISO se cuentan por día UTC y nombre de archivo sin guardar datos de visitantes; el sitio muestra el total agregado. Las preferencias de día/noche e idioma solo se guardan en el almacenamiento local del navegador. Cloudflare sirve el sitio y procesa direcciones de red para entregarlo y protegerlo.",
+    "the_site_sets_no_cookies_iso_download_starts_are_counte": "El sitio no usa cookies. Los inicios de descarga de la ISO se cuentan por día UTC y nombre de archivo sin guardar datos de visitantes; el sitio muestra el total agregado. Las preferencias de día/noche e idioma solo se guardan en el almacenamiento local del navegador. Cloudflare sirve el sitio y procesa direcciones de red para entregarlo y protegerlo. El video de la página de inicio se carga desde YouTube (modo de privacidad mejorada) solo cuando pulsas reproducir.",
     "privacy": "Privacidad",
     "your_machine": "Tu máquina.",
     "your_choice": "Tu elección.",

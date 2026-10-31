@@ -107,7 +107,13 @@
     "theme_wallpaper": "Papel de parede do tema {name}",
     "see_more_feature": "Veja mais: {name}",
     "current_now": "agora · ",
-    "iso_commands": "Comandos para verificar e gravar a ISO"
+    "iso_commands": "Comandos para verificar e gravar a ISO",
+    "preview_eyebrow": "Prévia",
+    "preview_title": "Veja em movimento.",
+    "preview_body": "Dois minutos no desktop real: áreas de trabalho, painéis, o lançador e temas mudando ao vivo.",
+    "preview_label": "Uma prévia do desktop Eitr",
+    "preview_play": "Reproduzir a prévia",
+    "preview_note": "Reproduz pelo YouTube no modo de privacidade aprimorada, só depois que você clicar em reproduzir."
   },
   "about": {
     "about_eitr_linux": "Sobre / Eitr Linux",
@@ -382,7 +388,7 @@
     "your_choices": "Suas escolhas",
     "reply_to_your_report_email_or_write_to_contact_eitr_inf": "Responda ao email do relato ou escreva para contact@eitr.info para pedir a exclusão a qualquer momento. Você pode desligar as ofertas de ajuda de falhas nas boas-vindas do Manual. Assistentes de nuvem opcionais recebem mensagens e contexto que você compartilha; o chat rápido da Central de controle é somente leitura e mantém a conversa só na memória até fechar.",
     "this_website": "Este site",
-    "the_site_sets_no_cookies_iso_download_starts_are_counte": "O site não usa cookies. Inícios de download da ISO são contados por dia UTC e nome do arquivo sem armazenar dados de visitantes; o site exibe o total agregado. Suas preferências de dia/noite e idioma ficam só no armazenamento local deste navegador. O site é servido pela Cloudflare, que processa endereços de rede para entregá-lo e protegê-lo.",
+    "the_site_sets_no_cookies_iso_download_starts_are_counte": "O site não usa cookies. Inícios de download da ISO são contados por dia UTC e nome do arquivo sem armazenar dados de visitantes; o site exibe o total agregado. Suas preferências de dia/noite e idioma ficam só no armazenamento local deste navegador. O site é servido pela Cloudflare, que processa endereços de rede para entregá-lo e protegê-lo. O vídeo da página inicial é carregado do YouTube (modo de privacidade aprimorada) somente quando você clica em reproduzir.",
     "privacy": "Privacidade",
     "your_machine": "Sua máquina.",
     "your_choice": "Sua escolha.",

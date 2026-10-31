@@ -107,7 +107,13 @@
     "theme_wallpaper": "Hintergrundbild zum Theme {name}",
     "see_more_feature": "Mehr ansehen: {name}",
     "current_now": "jetzt · ",
-    "iso_commands": "Befehle zum Prüfen und Schreiben der ISO"
+    "iso_commands": "Befehle zum Prüfen und Schreiben der ISO",
+    "preview_eyebrow": "Vorschau",
+    "preview_title": "In Bewegung sehen.",
+    "preview_body": "Zwei Minuten auf dem echten Desktop: Arbeitsbereiche, Panels, der Starter und Designs, die sich live ändern.",
+    "preview_label": "Eine Vorschau des Eitr-Desktops",
+    "preview_play": "Vorschau abspielen",
+    "preview_note": "Wird erst nach dem Klick auf Abspielen von YouTube im erweiterten Datenschutzmodus geladen."
   },
   "about": {
     "about_eitr_linux": "Über / Eitr Linux",
@@ -382,7 +388,7 @@
     "your_choices": "Deine Entscheidungen",
     "reply_to_your_report_email_or_write_to_contact_eitr_inf": "Antworte auf die Berichts-E-Mail oder schreibe an contact@eitr.info, um ihn jederzeit löschen zu lassen. Absturzhilfe lässt sich im Willkommenskapitel abschalten. Optionale Cloud-Assistenten erhalten Nachrichten und Kontext, die du teilst. Der schreibgeschützte Kurzchat im Kontrollzentrum hält die Unterhaltung nur bis zum Schließen im Arbeitsspeicher.",
     "this_website": "Diese Website",
-    "the_site_sets_no_cookies_iso_download_starts_are_counte": "Die Website setzt keine Cookies. ISO-Downloadstarts werden nach UTC-Tag und Dateiname ohne Besucherdaten gezählt; die Website zeigt die Gesamtsumme. Tag-/Nacht- und Sprachwahl bleiben nur im lokalen Browserspeicher. Cloudflare liefert und schützt die Website und verarbeitet dafür Netzwerkadressen der Besucher.",
+    "the_site_sets_no_cookies_iso_download_starts_are_counte": "Die Website setzt keine Cookies. ISO-Downloadstarts werden nach UTC-Tag und Dateiname ohne Besucherdaten gezählt; die Website zeigt die Gesamtsumme. Tag-/Nacht- und Sprachwahl bleiben nur im lokalen Browserspeicher. Cloudflare liefert und schützt die Website und verarbeitet dafür Netzwerkadressen der Besucher. Das Video auf der Startseite wird erst beim Klick auf Abspielen von YouTube (erweiterter Datenschutzmodus) geladen.",
     "privacy": "Datenschutz",
     "your_machine": "Dein Rechner.",
     "your_choice": "Deine Entscheidung.",

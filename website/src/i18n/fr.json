@@ -107,7 +107,13 @@
     "theme_wallpaper": "Fond du thème {name}",
     "see_more_feature": "Voir plus : {name}",
     "current_now": "maintenant · ",
-    "iso_commands": "Commandes pour vérifier et écrire l’ISO"
+    "iso_commands": "Commandes pour vérifier et écrire l’ISO",
+    "preview_eyebrow": "Aperçu",
+    "preview_title": "Voyez-le en mouvement.",
+    "preview_body": "Deux minutes sur le vrai bureau : espaces de travail, panneaux, le lanceur et des thèmes qui changent en direct.",
+    "preview_label": "Un aperçu du bureau Eitr",
+    "preview_play": "Lire l’aperçu",
+    "preview_note": "Lu depuis YouTube en mode de confidentialité renforcée, seulement après avoir appuyé sur lecture."
   },
   "about": {
     "about_eitr_linux": "À propos / Eitr Linux",
@@ -382,7 +388,7 @@
     "your_choices": "Vos choix",
     "reply_to_your_report_email_or_write_to_contact_eitr_inf": "Répondez à l’e-mail du rapport ou écrivez à contact@eitr.info pour le faire supprimer à tout moment. Les offres d’aide après plantage se désactivent dans l’accueil du Manuel. Les assistants cloud facultatifs reçoivent les messages et le contexte partagés ; le chat rapide du Centre de contrôle est en lecture seule et garde la conversation seulement en mémoire jusqu’à fermeture.",
     "this_website": "Ce site",
-    "the_site_sets_no_cookies_iso_download_starts_are_counte": "Le site n’utilise pas de cookies. Les débuts de téléchargement de l’ISO sont comptés par jour UTC et nom de fichier sans données de visiteurs ; le site affiche le total agrégé. Vos choix jour/nuit et langue restent seulement dans le stockage local du navigateur. Cloudflare sert le site et traite les adresses réseau pour le distribuer et le protéger.",
+    "the_site_sets_no_cookies_iso_download_starts_are_counte": "Le site n’utilise pas de cookies. Les débuts de téléchargement de l’ISO sont comptés par jour UTC et nom de fichier sans données de visiteurs ; le site affiche le total agrégé. Vos choix jour/nuit et langue restent seulement dans le stockage local du navigateur. Cloudflare sert le site et traite les adresses réseau pour le distribuer et le protéger. La vidéo de la page d’accueil ne se charge depuis YouTube (mode de confidentialité renforcée) que lorsque vous appuyez sur lecture.",
     "privacy": "Confidentialité",
     "your_machine": "Votre machine.",
     "your_choice": "Votre choix.",
