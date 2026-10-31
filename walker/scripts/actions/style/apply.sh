@@ -65,6 +65,15 @@ if [[ "${EITR_NO_SESSION:-}" != 1 ]]; then
   nohup "$THEME_SCRIPTS_DIR/rgb.sh" >"$LOG_DIR/eitr-rgb.log" 2>&1 &
 fi
 
+mapfile -t wallpapers < <(python3 "$WALLPAPER_HELPER" list "$CURRENT_DIR/backgrounds")
+FIRST_WALLPAPER="${wallpapers[0]:-}"
+if [[ -n "$FIRST_WALLPAPER" ]]; then
+  python3 "$WALLPAPER_HELPER" apply "$FIRST_WALLPAPER" --previous "$previous_wallpaper" &
+else
+  true &
+fi
+wallpaper_pid=$!
+
 failed_modules=()
 if ! failed="$("$THEME_SCRIPTS_DIR/generate.sh")"; then
   read -r -a failed_modules <<< "$failed"
@@ -87,12 +96,8 @@ fi
 
 fi
 
-mapfile -t wallpapers < <(python3 "$WALLPAPER_HELPER" list "$CURRENT_DIR/backgrounds")
-FIRST_WALLPAPER="${wallpapers[0]:-}"
-
-if [[ -n "$FIRST_WALLPAPER" ]]; then
-  python3 "$WALLPAPER_HELPER" apply "$FIRST_WALLPAPER" --previous "$previous_wallpaper"
-fi
+# The wallpaper transition needs none of the generated files: it plays while they are written.
+wait "$wallpaper_pid"
 
 if [[ "${EITR_NO_SESSION:-}" == 1 ]]; then
   (( ${#failed_modules[@]} == 0 ))
