@@ -13,100 +13,8 @@ import time
 import threading
 import uuid
 
-MAX_FRAME = 262144
-MAX_RESULT = MAX_FRAME // 2
-INTERVALS = {"updates.status": 21600, "weather.default": 900, "ai.usage": 300, "remote.availability": float("inf"), "remote.status": 10, "hardware.details": 2, "display.topology": float("inf"), "display.settings": float("inf"),
-             "display.brightness": 3, "display.nightlight": 3, "network.summary": 10, "network.details": 2, "network.latency": 15,
-             "power.battery": 30, "power.profile": 5, "power.radios": 5,
-             "capture.summary": 2, "capture.details": 2, "capture.options": float("inf")}
-
-
-def validate_result(topic, result):
-    """Validate CLI data without confusing absent capabilities with read failures."""
-    if not isinstance(result, dict):
-        raise ValueError("invalid-result")
-    if len(json.dumps(result, allow_nan=False).encode()) > MAX_RESULT:
-        raise ValueError("oversize-result")
-
-    def fields(value, schema):
-        if not isinstance(value, dict):
-            raise ValueError("invalid-result")
-        for key, types in schema.items():
-            if key in value and type(value[key]) not in types:
-                raise ValueError("invalid-result")
-
-    def objects(value):
-        if not isinstance(value, list) or any(not isinstance(entry, dict) for entry in value):
-            raise ValueError("invalid-result")
-        return value
-
-    number = (int, float)
-    nullable_number = (int, float, type(None))
-    if topic in {"network.summary", "network.details"}:
-        fields(result, {"blocked": (bool,), "wired": (bool,), "backend": (str,)})
-        for device in objects(result.get("devices")):
-            fields(device, {"name": (str,), "state": (str,), "powered": (bool,), "scanning": (bool,), "details": (dict,)})
-            for network in objects(device.get("networks", [])):
-                fields(network, {"strength": nullable_number, "available": (bool,), "known": (bool,),
-                                 "connected": (bool,), "name": (str,)})
-    elif topic == "network.latency":
-        if "ping" not in result:
-            raise ValueError("invalid-result")
-        fields(result, {"ping": nullable_number, "loss": nullable_number})
-    elif topic in {"capture.summary", "capture.details"}:
-        if any(type(result.get(key)) is not bool for key in ("running", "ready", "recording", "paused", "streaming")):
-            raise ValueError("invalid-result")
-        fields(result, {"recordingSeconds": number, "recordingBytes": number, "streamingSeconds": number,
-                        "scenes": (list,), "mic": (dict,), "webcam": (dict,)})
-    elif topic == "capture.options":
-        for key in ("audio", "mic", "webcam"):
-            if key in result:
-                fields(result[key], {"enabled": (bool,), "available": (bool,), "sources": (list,)})
-    elif topic.startswith("power."):
-        fields(result, {"available": (bool,), "enabled": (bool,), "percent": number,
-                        "health": number, "hours": number, "status": (str,), "active": (str,), "profiles": (list,)})
-    elif topic == "display.settings":
-        if not isinstance(result.get("main"), str):
-            raise ValueError("invalid-result")
-        fields(result, {"saved": (dict,)})
-        for monitor in objects(result.get("monitors")):
-            if not isinstance(monitor.get("name"), str):
-                raise ValueError("invalid-result")
-            fields(monitor, {"mode": (str,), "position": (str,), "scale": (str,), "mirror": (str, type(None)),
-                             "anchor": (dict, type(None)), "hdr": (bool,), "hdr_capable": (bool,),
-                             "sdr_brightness": number, "modes": (list,)})
-            if any(not isinstance(mode, str) for mode in monitor.get("modes", [])):
-                raise ValueError("invalid-result")
-    elif topic == "display.topology":
-        fields(result, {"primary": (str,), "preferred": (list,), "windowGaps": (list,), "screenGaps": (list,)})
-        if "monitors" in result:
-            objects(result["monitors"])
-    elif topic in {"display.brightness", "display.nightlight"}:
-        fields(result, {"available": (bool,), "enabled": (bool,), "scheduled": (bool,), "value": number,
-                        "maximum": number, "kind": (str,), "name": (str,), "mode": (str,), "start": (str,), "end": (str,)})
-    elif topic == "hardware.details":
-        fields(result, {"identity": (dict,)})
-        for section in objects(result.get("sections", [])):
-            fields(section, {"usage": nullable_number, "rows": (list,), "title": (str,), "name": (str,)})
-    elif topic.startswith("remote."):
-        fields(result, {"allowed": (bool,), "tailscale": (dict,), "streaming": (dict,)})
-    elif topic == "weather.default":
-        fields(result, {key: (str,) for key in ("text", "source", "location", "condition", "temp", "feels", "wind", "humidity", "forecast")})
-        for day in objects(result.get("forecastDays", [])):
-            fields(day, {"day": (str,), "icon": (str,), "high": (str,), "low": (str,)})
-    elif topic == "ai.usage":
-        fields(result, {"updated": number})
-        for provider in objects(result.get("providers")):
-            fields(provider, {"name": (str,)})
-            for account in objects(provider.get("accounts", [])):
-                fields(account, {"id": (str,), "label": (str,), "plan": (str, type(None))})
-                for window in objects(account.get("windows", [])):
-                    fields(window, {"label": (str,), "used": number, "reset": nullable_number})
-    elif topic == "updates.status":
-        fields(result, {"state": (str,), "count": (int,), "repository": (int,), "aur": (int,), "downloadBytes": (int,)})
-        if any(result.get(key, 0) < 0 for key in ("count", "repository", "aur", "downloadBytes")):
-            raise ValueError("invalid-result")
-
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from bar_data_topics import INTERVALS, MAX_FRAME, MAX_RESULT, TOPICS, validate_result
 
 
 class OutputBuffer:
@@ -321,7 +229,7 @@ class Broker:
         self.domains["display"] = value
 
     def read(self, topic):
-        domain = topic.split(".")[0]
+        domain = TOPICS[topic].domain
         if domain != "network":
             return self.load_domain(domain).read(topic)
         if self.adapter is None:
@@ -339,7 +247,7 @@ class Broker:
         if self.closing:
             return {}
         loop = asyncio.get_running_loop()
-        domain = topic.split(".")[0]
+        domain = TOPICS[topic].domain
         if self.reader == self.read and domain not in self.domains and not (domain == "network" and self.adapter is not None):
             # Share initialization before submitting reads, so sibling topics cannot
             # occupy pool threads waiting for a slow domain's import lock.
@@ -456,9 +364,7 @@ class Broker:
         started = time.monotonic()
         timed_out = False
         try:
-            budget = 365 if topic == "updates.status" else 17 if topic == "weather.default" else 10 if topic == "remote.status" else 16 if topic == "display.topology" else 6 if topic == "display.settings" else 9 if topic == "display.brightness" else 25 if topic == "capture.details" else 10 if topic == "capture.summary" else self.timeout
-            if self.timeout < 5:
-                budget = min(budget, self.timeout)
+            budget = TOPICS[topic].budget(self.timeout)
             future = asyncio.create_task(self.read_in_pool(topic, asyncio.get_running_loop().time() + budget))
             future.add_done_callback(lambda completed: completed.exception() if not completed.cancelled() else None)
             try:

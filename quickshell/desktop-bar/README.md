@@ -1005,6 +1005,10 @@ an import failure remains local to its domain. Screen/VM acceptance is pending.
 
 ### CLI result contracts
 
+`scripts/bar_data_topics.py` owns the pure topic registry: names, domains, refresh
+intervals, read budgets and result validators. It imports no domain adapters;
+`bar-data.py` retains transport, demand scheduling and lazy domain initialization.
+
 `tests/fixtures/domain-results.json` covers every topic's CLI shape. Validation
 preserves nullable fields and optional keys, rejects incorrect field types,
 non-finite numbers and oversized results, and runs before publishing AI cache data.

@@ -21,6 +21,8 @@
     {"pattern": "quickshell/desktop-bar/scripts/capture-domain.py", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/DesktopData.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/DesktopDataProtocol.js", "class": "C", "runtime": true},
+    {"pattern": "quickshell/desktop-bar/scripts/bar_data_topics.py", "class": "C", "runtime": true},
+    {"pattern": "quickshell/desktop-bar/tests/test_bar_data_topics.py", "class": "C", "runtime": false},
     {"pattern": "quickshell/desktop-bar/scripts/bar-data.py", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/NetworkService.qml", "class": "C", "runtime": true},
     {"pattern": "distro/lib/eitr_battery.py", "class": "C", "runtime": true},

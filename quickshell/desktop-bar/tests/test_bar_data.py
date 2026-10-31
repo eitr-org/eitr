@@ -291,7 +291,7 @@ class PackagingTests(unittest.TestCase):
         from layout import Layout
         root = SCRIPT.parents[3]
         files = ['quickshell/desktop-bar/' + name for name in [
-            'scripts/remote-domain.py', 'scripts/hardware-domain.py', 'scripts/system-details.py', 'PowerService.qml', 'scripts/power-domain.py', 'DesktopData.qml', 'DesktopDataProtocol.js', 'ObsStatus.qml', 'scripts/bar-data.py', 'scripts/capture-domain.py']]
+            'scripts/remote-domain.py', 'scripts/hardware-domain.py', 'scripts/system-details.py', 'PowerService.qml', 'scripts/power-domain.py', 'DesktopData.qml', 'DesktopDataProtocol.js', 'ObsStatus.qml', 'scripts/bar-data.py', 'scripts/bar_data_topics.py', 'scripts/capture-domain.py']]
         layout = Layout(root)
         layout.files = lambda: files
         with tempfile.TemporaryDirectory() as directory:
@@ -484,7 +484,7 @@ Item {
             (root / "qmldir").write_text("singleton DesktopData DesktopData.qml\nsingleton ObsStatus ObsStatus.qml\nObsMenu ObsMenu.qml\nRecordingMenu RecordingMenu.qml\nThemedPopup ThemedPopup.qml\n")
             scripts = root / "scripts"
             scripts.mkdir()
-            for name in ("bar-data.py", "capture-domain.py", "power-domain.py"):
+            for name in ("bar-data.py", "bar_data_topics.py", "capture-domain.py", "power-domain.py"):
                 shutil.copy(bar / "scripts" / name, scripts / name)
             (scripts / "state.json").write_text(json.dumps(dict(
                 running=False, ready=True, recording=False, paused=False, streaming=False)))
