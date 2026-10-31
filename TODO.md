@@ -44,7 +44,8 @@ LAN.
   3. Organize the whole repository once `shell.qml` is split, so it is mature and easy
      to work in. Start with a full overview (every top-level folder, what lives where,
      what installs where, naming, docs) and agree the target layout before moving
-     anything. Known spots: `quickshell/desktop-bar/` (about 135 files side by side:
+     anything; the overview also lists refactoring candidates it finds (duplicated
+     logic, oversized files, unclear ownership), ranked like the earlier review. Known spots: `quickshell/desktop-bar/` (about 135 files side by side:
      services, panels, widgets, models), its `scripts/` (bar helpers, broker domains and
      CLIs mixed), `elephant/menus/` (200 menus, 90 of them generated cloud menus),
      `distro/` (docs, manifests and scripts at one level) and `distro/lib/`. The repo
