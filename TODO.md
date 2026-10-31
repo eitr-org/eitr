@@ -41,12 +41,16 @@ LAN.
   1. Split `shell.qml` (about 2,500 lines): data owners first, then one bar section
      at a time, keeping the centred clock, panel anchors and click-through gaps.
   2. Retire the older VS Code / LazyVim project providers once nothing uses them.
-  3. Organize the folders once `shell.qml` is split: group `quickshell/desktop-bar/`
-     (about 120 files side by side) into services, panels and widgets, and review the
-     rest of the tree the same way. Update `qmldir`, the layout manifest, packaging,
-     tests and AGENTS.md together, and keep the installed tree mirroring the repo.
-  Only if profiling shows a need: sharing plugin data between copies of the same
-  widget, and one shared window list for the dock, Focus and OBS.
+  3. Organize the whole repository once `shell.qml` is split, so it is mature and easy
+     to work in. Start with a full overview (every top-level folder, what lives where,
+     what installs where, naming, docs) and agree the target layout before moving
+     anything. Known spots: `quickshell/desktop-bar/` (about 135 files side by side:
+     services, panels, widgets, models), its `scripts/` (bar helpers, broker domains and
+     CLIs mixed), `elephant/menus/` (200 menus, 90 of them generated cloud menus),
+     `distro/` (docs, manifests and scripts at one level) and `distro/lib/`. The repo
+     mirrors `/usr/share/eitr`, so each move updates `qmldir`, the layout manifest,
+     packaging, existing installs, tests, the Handbook and AGENTS.md together.
+
 - **hyprpaper crash without a GPU: follow upstream.** hyprpaper segfaults in VMs
   without 3D acceleration (hyprwm/hyprtoolkit#144); the bar now draws the still
   wallpaper on any screen hyprpaper does not answer for. Drop the note once a fixed
