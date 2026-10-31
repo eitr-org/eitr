@@ -52,7 +52,7 @@ Item {
                     color: "#e05c68"
                     height: capture.transcribing
                         ? 3 + 9 * (0.5 + 0.5 * Math.sin((capture.transcribePhase - index / 7) * 2 * Math.PI))
-                        : 3 + 11 * (capture.dictationLevels[Math.abs(index - 3)] || 0)
+                        : 3 + 11 * ((capture.dictationLevels || [])[Math.abs(index - 3)] || 0)
                     // Smooths the 70 ms microphone samples only: the pulse changes every
                     // frame, and a Behavior restarted each frame never leaves its start.
                     Behavior on height { enabled: !capture.transcribing; NumberAnimation { duration: DesktopStyle.motionDuration(70) } }

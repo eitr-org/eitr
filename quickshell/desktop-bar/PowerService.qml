@@ -27,13 +27,13 @@ QtObject {
     onProfileSnapshotChanged: {
         if (profileSnapshot && profileSnapshot.status === "ready") profile = profileSnapshot.data;
         if (warmProfile && profileSnapshot && profileSnapshot.status !== "loading") {
-            const token = warmProfile; warmProfile = ""; DesktopData.release(token);
+            const token = warmProfile; warmProfile = ""; Qt.callLater(() => DesktopData.release(token));
         }
     }
     onRadioSnapshotChanged: {
         if (radioSnapshot && radioSnapshot.status === "ready") radios = radioSnapshot.data;
         if (warmRadios && radioSnapshot && radioSnapshot.status !== "loading") {
-            const token = warmRadios; warmRadios = ""; DesktopData.release(token);
+            const token = warmRadios; warmRadios = ""; Qt.callLater(() => DesktopData.release(token));
         }
     }
     function observe(owner, interval, radios) {

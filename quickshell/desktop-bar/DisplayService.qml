@@ -82,7 +82,10 @@ QtObject {
         const remaining = Object.assign({}, warmTokens);
         Object.keys(remaining).forEach(topic => {
             if (snapshots[topic] && snapshots[topic].status !== "loading") {
-                DesktopData.release(remaining[topic]);
+                // Released later: releasing changes DesktopData.topics, which this handler is
+                // reacting to. One closure per token, since Qt.callLater merges repeated calls.
+                const token = remaining[topic];
+                Qt.callLater(() => DesktopData.release(token));
                 delete remaining[topic];
             }
         });
