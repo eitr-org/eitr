@@ -83,3 +83,25 @@ Handbook builder. The shell reference remains English as before; the indexed vie
 continues through menu translations. `walker/tests/fixtures/menu-parity.json`
 records the pre-refactor fixed rows, parents and shell reference for regression
 checks, not runtime consumption.
+
+## Walker row XML
+
+After adding a provider in `elephant/menus/`, run `python3 tools/walker-xml.py`.
+The generator discovers the menu filenames, including scoped and live providers,
+and writes their `item_menus-<name>.xml` layouts. Edit the canonical
+`walker/themes/current/item_menus-main.xml` for rows with descriptions and submenu
+markers, or `walker/themes/current/item.xml` for single-line rows, then regenerate.
+Do not edit generated copies. `python3 tools/walker-xml.py --check` validates
+bytes and provider coverage; `bash tools/check.sh` runs it in the data stage.
+
+The generator's single-line classification preserves existing provider layouts,
+including explicit copies for menus that previously used Walker's default row.
+New menus use the description layout. Workspaces retains its custom XML.
+The old AWS development/production filenames remain compatibility copies.
+Native desktopapplications, providerlist and websearch use the single-line row.
+
+XML files remain checked in and are staged unchanged by `eitr-config stage`.
+Theme switches call `distro/lib/generated.py`'s `walker_view()` to link these
+package layouts into the user's theme directory while preserving deliberate
+user overrides; they do not generate XML. The generator is a development tool
+and is excluded from the runtime payload by the existing `tools/**` layout rule.

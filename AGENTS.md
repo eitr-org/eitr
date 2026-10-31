@@ -149,7 +149,8 @@ existing design and workflows rather than replacing them with upstream defaults.
   contents only inside the opened account menu. Skip deeper resource selectors
   or external providers requiring new CLI/network reads. Global app search keeps
   launch actions only. Menus share one row layout
-  (copy item_menus-main.xml to item_menus-<name>.xml for a new menu).
+  (edit item_menus-main.xml, then run `python3 tools/walker-xml.py`;
+  run the generator after adding a menu too).
   Shared row presentation lives in `elephant/row-entry.lua`; Python consumers
   use `distro/lib/eitr_menu.py`. Learn's shell shortcut reference uses
   `elephant/shortcut-reference.json`, referring to indexed shortcut rows for
