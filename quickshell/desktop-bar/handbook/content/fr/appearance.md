@@ -2,7 +2,7 @@
 
 ## Thèmes et fonds d’écran
 
-Ouvrez **Paramètres > Style > Thème** ou **SUPER + Ctrl + Shift + N**. Choisissez sombre ou clair, puis un thème. Saisissez du texte dans le carrousel de thèmes pour filtrer ; flèches ou Tab déplacent la sélection, Enter l’applique. Backspace modifie d’abord la recherche ; Escape l’efface avant de fermer. Le choix de catégorie et le carrousel de fonds n’ont pas de recherche de thèmes.
+Ouvrez **Paramètres > Style > Thème** ou **SUPER + Ctrl + Shift + N** pour les menus Sombre/Clair de Walker. Le carrousel de thèmes du bureau (double clic droit sur le bureau, Centre de contrôle > Style > Thème ou IPC appearance) ouvre directement le mode clair ou sombre du thème actuel. Le Soleil affiche les thèmes clairs et la Lune les thèmes sombres ; Ctrl+Tab change de mode. Saisissez du texte pour chercher dans le mode affiché ; flèches/Tab déplacent la sélection, Enter l’applique. Backspace modifie la recherche ou ferme si elle est vide ; Escape efface la recherche avant de fermer. Le carrousel de fonds n’a pas de recherche de thèmes.
 
 **SUPER + Ctrl + N** ouvre les fonds et **SUPER + Shift + N** passe au suivant. Une coche indique le choix actif dans Walker. Les changements n’affichent aucune notification de réussite. Les écrans ultrawide, au moins deux fois plus larges que hauts, utilisent la version 21:9 pour réduire le recadrage ; les autres utilisent la version 4K 16:9.
 

@@ -11,7 +11,7 @@ for _eitr_parent in Path(__file__).resolve().parents:
     if (_eitr_lib / "eitr_paths.py").is_file():
         sys.path.insert(0, str(_eitr_lib))
         break
-from eitr_paths import code, config as user_config, own, theme_paths
+from eitr_paths import config as user_config, own, theme_paths
 from eitr_i18n import tr
 import eitr_own_style
 import tomllib
@@ -59,24 +59,11 @@ if mode.startswith("theme"):
     def is_light(directory):
         return (directory / "light.mode").is_file()
 
-    if mode in {"theme", "theme-category"}:
-        for category, light in (("Dark", False), ("Light", True)):
-            matching = [directory for directory in directories if is_light(directory) == light]
-            if not matching:
-                continue
-            representative = next((directory for directory in matching if directory.name == current), None)
-            if representative is None:
-                preferred = "catppuccin-latte" if light else "catppuccin"
-                representative = next((directory for directory in matching if directory.name == preferred), matching[0])
-            category_image = code("quickshell/desktop-bar/assets/appearance") / f"{category.lower()}.png"
-            if not category_image.is_file():
-                category_image = category_image.with_suffix(".jpg")
-            if not category_image.is_file():
-                category_image = representative / "preview.png"
-            entries.append({"name": category, "value": category.lower(),
-                            "image": category_image.as_uri(),
-                            "current": representative.name == current})
-    elif mode in {"theme-dark", "theme-light"}:
+    if mode == "theme":
+        active = next((directory for directory in theme_paths().values() if directory.name == current),
+                      config / "theme/current")
+        mode = "theme-light" if is_light(active) else "theme-dark"
+    if mode in {"theme-dark", "theme-light"}:
         light = mode == "theme-light"
         for directory in directories:
             if is_light(directory) == light:
@@ -102,5 +89,6 @@ try:
     palette = tomllib.loads((config / "theme/current/colors.toml").read_text())
 except (OSError, ValueError):
     palette = {}
-print(json.dumps({"items": entries, "accent": palette.get("accent", "#cdd6f4"),
+print(json.dumps({"mode": mode, "items": entries, "accent": palette.get("accent", "#cdd6f4"),
+                  "background": palette.get("background", "#202024"),
                   "foreground": palette.get("foreground", "#ffffff")}))

@@ -23,12 +23,13 @@ Item {
     property int selectedIndex: 0
     property color accent: "#cdd6f4"
     property color foreground: "#ffffff"
+    property color background: "#202024"
     property string error: ""
 
     function open(kind, screen) {
         if (loader.running)
             return;
-        mode = kind === "theme" ? "theme-category" : kind;
+        mode = kind;
         targetScreen = screen;
         const cached = catalogs[mode] || [];
         if (JsonState.changed(items, cached)) items = cached;
@@ -57,40 +58,37 @@ Item {
     function apply() {
         if (!items.length || applyProcess.running)
             return;
-        if (mode === "theme-category") {
-            open("theme-" + items[selectedIndex].value, targetScreen);
-            return;
-        }
         var script = mode.startsWith("theme-") ? "style/apply.sh" : "wallpaper/apply.sh";
         applyProcess.command = [Eitr.Paths.code("walker/scripts/actions/") + script, items[selectedIndex].value];
         opened = false;
         applyProcess.running = true;
     }
 
-    function back() {
-        if (mode === "theme-dark" || mode === "theme-light")
-            open("theme", targetScreen);
-        else
-            opened = false;
+    function switchThemeMode() {
+        if (!loader.running && searchable)
+            open(mode === "theme-light" ? "theme-dark" : "theme-light", targetScreen);
     }
 
     Process {
         id: loader
         stdout: StdioCollector { id: output }
         onExited: function(code) {
-            const result = JsonState.parse(output.text, code, {items: [{name: "string", value: "string", image: "string", current: "boolean"}], accent: "string", foreground: "string"});
+            const result = JsonState.parse(output.text, code, {mode: "string", items: [{name: "string", value: "string", image: "string", current: "boolean"}], accent: "string", foreground: "string", background: "string"});
             const data = result.data;
             if (result.ok) {
+                picker.mode = data.mode;
                 if (JsonState.changed(picker.items, data.items)) picker.items = data.items;
                 if (JsonState.changed(picker.allItems, data.items)) picker.allItems = data.items;
                 picker.catalogs[picker.mode] = data.items;
                 picker.accent = data.accent;
                 picker.foreground = data.foreground;
+                picker.background = data.background;
                 picker.selectedIndex = 0;
                 for (var index = 0; index < data.items.length; index++) {
                     if (data.items[index].current)
                         picker.selectedIndex = index;
                 }
+                if (picker.searchText) picker.search(picker.searchText);
                 picker.error = data.items.length ? "" : Eitr.I18n.tr("No images found");
             } else {
                 picker.items = [];
@@ -145,7 +143,10 @@ Item {
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
-        Rectangle { anchors.fill: parent; color: "#b3000000" }
+        Rectangle {
+            anchors.fill: parent
+            color: picker.searchable ? Qt.rgba(picker.background.r, picker.background.g, picker.background.b, 0.9) : "#b3000000"
+        }
         MouseArea {
             anchors.fill: parent
             onClicked: picker.opened = false
@@ -156,7 +157,7 @@ Item {
             id: content
             anchors.fill: parent
             focus: true
-            // Theme previews and the Dark/Light images are 16:9, so theme cards are 16:9 on every screen shape.
+            // Theme previews keep their 16:9 aspect on every screen shape.
             readonly property real previewAspect: 16 / 9
             readonly property real previewWidth: picker.mode !== "wallpaper" ? previewHeight * previewAspect : Math.min(768, width * 0.55)
             readonly property real previewHeight: picker.mode !== "wallpaper" ? Math.min(560, height * 0.58, width * 0.68 / previewAspect) : Math.min(475, height * 0.58)
@@ -169,8 +170,9 @@ Item {
                 }
                 else if (event.key === Qt.Key_Backspace) {
                     if (picker.searchText) picker.search(picker.searchText.slice(0, -1));
-                    else picker.back();
+                    else picker.opened = false;
                 }
+                else if (picker.searchable && event.key === Qt.Key_Tab && (event.modifiers & Qt.ControlModifier)) picker.switchThemeMode();
                 else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) picker.apply();
                 else if (event.key === Qt.Key_Left || (!picker.searchable && event.key === Qt.Key_H)) picker.navigate(-1);
                 else if (event.key === Qt.Key_Right || (!picker.searchable && event.key === Qt.Key_L) || event.key === Qt.Key_Tab) picker.navigate(1);
@@ -183,6 +185,50 @@ Item {
                 width: parent.width - 2 * PanelStyle.padding
                 text: picker.mode === "wallpaper" ? Eitr.I18n.tr("Wallpaper") : picker.mode === "font" ? Eitr.I18n.tr("Fonts") : Eitr.I18n.tr("Theme")
                 foreground: picker.foreground; accent: picker.accent; rune: "style"
+            }
+            Rectangle {
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: PanelStyle.padding
+                width: filters.implicitWidth + 12
+                height: PanelStyle.selectionRowHeight + 12
+                radius: DesktopStyle.radius(PanelStyle.controlRadius)
+                color: picker.background
+                visible: picker.searchable
+                Row {
+                    id: filters
+                    anchors.centerIn: parent
+                    spacing: PanelStyle.selectionRowGap
+                    Repeater {
+                        model: [{mode: "theme-light", glyph: "󰖙", label: Eitr.I18n.tr("Light")},
+                                {mode: "theme-dark", glyph: "󰖔", label: Eitr.I18n.tr("Dark")}]
+                        delegate: PanelButton {
+                            required property var modelData
+                            icon: true
+                            width: PanelStyle.selectionRowHeight
+                            height: PanelStyle.selectionRowHeight
+                            text: modelData.glyph
+                            foreground: picker.foreground
+                            selected: picker.mode === modelData.mode
+                            activeFocusOnTab: false
+                            available: !loader.running
+                            color: Qt.rgba(foreground.r, foreground.g, foreground.b,
+                                               PanelStyle.selectionAlpha(selected, filterHover.containsMouse))
+                            border.width: PanelStyle.selectionBorderWidth(selected)
+                            border.color: Qt.rgba(foreground.r, foreground.g, foreground.b, PanelStyle.selectionBorderAlpha)
+                            Accessible.name: modelData.label
+                            onClicked: {
+                                if (!selected) picker.switchThemeMode();
+                                content.forceActiveFocus();
+                            }
+                            MouseArea {
+                                id: filterHover
+                                anchors.fill: parent
+                                acceptedButtons: Qt.NoButton
+                                hoverEnabled: true
+                            }
+                        }
+                    }
+                }
             }
             Text {
                 visible: picker.searchable && picker.searchText.length > 0

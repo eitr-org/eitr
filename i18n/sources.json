@@ -340,6 +340,7 @@
       "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
     ],
     "Dark": [
+      "quickshell/desktop-bar/panels/AppearancePicker.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Delete every occurrence": [
@@ -623,6 +624,7 @@
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Light": [
+      "quickshell/desktop-bar/panels/AppearancePicker.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Lighting": [

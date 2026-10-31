@@ -2,10 +2,13 @@
 
 ## Themes and wallpapers
 
-Open **Settings > Style > Theme** or **SUPER + Ctrl + Shift + N**. Pick Dark/Light, then a
-theme. Start typing inside the theme carousel to filter; arrows/Tab move and
-Enter applies. Backspace edits search first; Escape clears search before closing.
-The category picker and wallpaper carousel do not have theme search.
+Open **Settings > Style > Theme** or **SUPER + Ctrl + Shift + N** for Walker's
+Dark/Light theme menus. The desktop theme carousel (desktop right double-click,
+Control Center > Style > Theme or appearance IPC) opens directly on the current
+theme's light or dark mode. Use the Sun for light themes and Moon for dark themes;
+Ctrl+Tab switches modes. Start typing to search within the shown mode; arrows/Tab
+move and Enter applies. Backspace edits search or closes when empty; Escape
+clears search before closing. The wallpaper carousel has no theme search.
 
 **SUPER + Ctrl + N** opens wallpapers, and **SUPER + Shift + N** advances to
 the next one. A checkmark marks the active choice in Walker. Theme/wallpaper

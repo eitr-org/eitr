@@ -2,7 +2,7 @@
 
 ## Temas e papéis de parede
 
-Abra **Configurações > Estilo > Tema** ou **SUPER + Ctrl + Shift + N**. Escolha escuro ou claro e depois um tema. Digite no carrossel de temas para filtrar; setas ou Tab navegam e Enter aplica. Backspace primeiro edita a busca; Escape a limpa antes de fechar. O seletor de categoria e o carrossel de papéis de parede não têm busca de temas.
+Abra **Configurações > Estilo > Tema** ou **SUPER + Ctrl + Shift + N** para os menus Escuro/Claro do Walker. O carrossel de temas da área de trabalho (clique duplo direito na área de trabalho, Central de Controle > Estilo > Tema ou IPC appearance) abre diretamente no modo claro ou escuro do tema atual. Use o Sol para temas claros e a Lua para escuros; Ctrl+Tab alterna os modos. Digite para buscar no modo exibido; setas/Tab navegam e Enter aplica. Backspace edita a busca ou fecha quando vazia; Escape limpa a busca antes de fechar. O carrossel de papéis de parede não tem busca de temas.
 
 **SUPER + Ctrl + N** abre os papéis de parede e **SUPER + Shift + N** avança para o próximo. Uma marca indica a escolha ativa no Walker. As trocas não exibem notificações de sucesso. Monitores ultrawide, com largura de pelo menos duas vezes a altura, usam a versão 21:9 de cada imagem para reduzir o recorte; os demais usam a versão 4K 16:9.
 

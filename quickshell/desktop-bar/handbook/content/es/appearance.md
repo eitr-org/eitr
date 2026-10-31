@@ -2,7 +2,7 @@
 
 ## Temas y fondos de pantalla
 
-Abre **Configuración > Estilo > Tema** o **SUPER + Ctrl + Shift + N**. Elige oscuro o claro y después un tema. Escribe dentro del carrusel de temas para filtrar; las flechas o Tab navegan y Enter aplica. Backspace edita primero la búsqueda; Escape la borra antes de cerrar. El selector de categoría y el carrusel de fondos no tienen búsqueda de temas.
+Abre **Configuración > Estilo > Tema** o **SUPER + Ctrl + Shift + N** para los menús Oscuro/Claro de Walker. El carrusel de temas del escritorio (doble clic derecho en el escritorio, Centro de control > Estilo > Tema o IPC appearance) abre directamente en el modo claro u oscuro del tema actual. Usa el Sol para temas claros y la Luna para oscuros; Ctrl+Tab cambia de modo. Escribe para buscar dentro del modo mostrado; flechas/Tab navegan y Enter aplica. Backspace edita la búsqueda o cierra si está vacía; Escape borra la búsqueda antes de cerrar. El carrusel de fondos no tiene búsqueda de temas.
 
 **SUPER + Ctrl + N** abre los fondos y **SUPER + Shift + N** pasa al siguiente. Una marca señala la elección activa en Walker. Los cambios no muestran notificaciones de éxito. Los monitores ultrawide, al menos el doble de anchos que de altos, usan la versión 21:9 para recortar menos; los demás usan la versión 4K 16:9.
 
