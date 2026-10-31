@@ -1527,8 +1527,11 @@ time.sleep(60)
                     getattr(supervisor, shutdown)()
                     supervisor.wait(timeout=3)
                     for attempt in range(30):
-                        status = Path(f'/proc/{child_pid}/stat')
-                        if not status.exists() or status.read_text().split()[2] == 'Z':
+                        try:
+                            # The child may exit between any two reads of /proc.
+                            if Path(f'/proc/{child_pid}/stat').read_text().split()[2] == 'Z':
+                                break
+                        except FileNotFoundError:
                             break
                         time.sleep(.02)
                     else:
