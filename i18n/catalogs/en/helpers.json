@@ -1423,5 +1423,18 @@
   "Tailscale sign-in failed. Try again from Access This PC Remotely.": "Tailscale sign-in failed. Try again from Access This PC Remotely.",
   "VPN profiles need NetworkManager. Choose it in Settings > Connectivity > Network Backend, then reboot.": "VPN profiles need NetworkManager. Choose it in Settings > Connectivity > Network Backend, then reboot.",
   "{count} plugin updates available: Control Center > Plugins or Plugins > Update Plugins": "{count} plugin updates available: Control Center > Plugins or Plugins > Update Plugins",
-  "checkupdates (pacman-contrib) is required to install safely. Run Settings → System → System Update, then install pacman-contrib.": "checkupdates (pacman-contrib) is required to install safely. Run Settings → System → System Update, then install pacman-contrib."
+  "checkupdates (pacman-contrib) is required to install safely. Run Settings → System → System Update, then install pacman-contrib.": "checkupdates (pacman-contrib) is required to install safely. Run Settings → System → System Update, then install pacman-contrib.",
+  "Comfortable": "Comfortable",
+  "Default (75%)": "Default (75%)",
+  "Light (90%)": "Light (90%)",
+  "Medium": "Medium",
+  "Medium (80%)": "Medium (80%)",
+  "None": "None",
+  "Off": "Off",
+  "On": "On",
+  "Small": "Small",
+  "Solid (100%)": "Solid (100%)",
+  "Strong": "Strong",
+  "Strong (70%)": "Strong (70%)",
+  "Gentle": "Gentle"
 }

@@ -42,6 +42,34 @@ auch `eitr-menu-terminal`, `eitr-plugins` und `fif-terminal`: Optionen wie
 Die Ghostty-Auswahl ändert sie nicht.
 
 
+## Terminaldarstellung und gemeinsame Unschärfe
+
+Einstellungen > Stil > Terminal und Kontrollzentrum > Stil > Terminal stellen
+Deckkraft, Innenabstand und Unschärfe für Kitty und Ghostty ein. Die Deckkraft bietet
+Undurchsichtig (100%), Sanft (90%), Mittel (80%), Standard (75%) und Stark (70%).
+Innenabstand bietet Keiner, Klein (4 Punkt) und Komfortabel (8 Punkt). Standard
+bleiben 75% Deckkraft, kein Innenabstand und eingeschaltete Unschärfe.
+Hilfsterminals behalten ihren undurchsichtigen Hintergrund und Aufgabenabstand.
+
+Aus deaktiviert Unschärfe für normale Kitty- und Ghostty-Fenster, ohne sie
+undurchsichtig zu machen. Die Unschärfestärke gilt gemeinsam: Sanft (Größe 2,
+ein Durchlauf), Mittel (Größe 3, zwei Durchläufe, Standard) und Stark (Größe 5,
+drei Durchläufe). Dieselbe Auswahl steht bei Desktop-Leiste in Walker und Leiste
+im Kontrollzentrum neben der Darstellung. Hyprland 0.57 unterstützt nur globale
+Stärke; betroffen sind alle bereits unscharfen Flächen, auch Panels,
+Benachrichtigungen, Übersicht und andere Anwendungen. Eine Stärkeauswahl schaltet
+Terminalunschärfe nicht ein. Stärkere Unschärfe beansprucht die GPU stärker.
+Themenfarbe behält ihre undurchsichtige Darstellung.
+
+Terminaleinstellungen stehen in `eitr/terminal.json`; die gemeinsame
+`blur-strength` steht in `quickshell/desktop-bar/bar-settings.json` (Version 1).
+Daraus werden `kitty/appearance.conf`, `ghostty/eitr.conf` und `hypr/appearance.lua`
+erzeugt. Der Compositor lädt die Darstellung vor `hypr/local.lua`, damit persönliche
+Regeln Vorrang haben. `kitty/local.conf` und `ghostty/local.conf` überschreiben die
+Vorgaben. Themenwechsel und Paketaktualisierungen erzeugen die Dateien neu. Kitty
+erhält SIGUSR1, unterstützte Ghostty-Sitzungen SIGUSR2; nicht nachladbare Optionen
+gelten für neue Fenster.
+
 ## Der Befehl eitr
 
 `eitr` bündelt Eitrs Werkzeuge. Ohne Argumente zeigt es die Liste. Es verwendet dieselben Skripte wie die Menüs und verhält sich deshalb genauso.

@@ -16,7 +16,12 @@ Settings > Style > Terminal and Control Center > Style offer Kitty (unchanged de
 optional Ghostty. Theme/font generation and user terminal launchers follow the
 choice; missing Ghostty offers the normal official-package install and keeps Kitty
 until successful. Eitr utility terminals retain Kitty-specific options and rules.
-Ghostty is excluded from the ISO payload. Live package verification is pending.
+Ghostty is excluded from the ISO payload. Terminal settings also offer opacity,
+padding and a blur toggle for both terminals, keeping 75% opacity, no padding and
+blur enabled by default. Gentle, Medium and Strong blur strength is shared with
+Desktop Bar settings because Hyprland uses one global strength; Medium preserves
+the existing compositor settings. Personal terminal overrides remain last.
+Live package verification is pending.
 
 Settings > Style > Lockscreen adds Eitr, the new default for fresh installations: the EITR
 wordmark in the theme's accent inside the boot splash's gold rune ring, a starry

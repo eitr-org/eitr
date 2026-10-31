@@ -189,20 +189,23 @@ class TerminalChoiceTests(unittest.TestCase):
                                      '--working-directory=/tmp/two words', '-e', 'zsh', '-ic', 'printf "$HOME"'])
 
     def test_launcher_executes_choice_and_keeps_utility_on_kitty(self):
+        binaries = self.home / 'bin'
+        binaries.mkdir()
         for name in ('kitty', 'ghostty'):
-            executable = self.home / name
+            executable = binaries / name
             executable.write_text('#!/usr/bin/python3\nimport json,sys\nprint(json.dumps(sys.argv))\n')
             executable.chmod(0o755)
         self.preference.parent.mkdir()
         self.preference.write_text('{"version":1,"terminal":"ghostty"}')
         environment = dict(os.environ, XDG_CONFIG_HOME=str(self.home),
-                           PATH=str(self.home) + ':/usr/bin', EITR_CODE_ROOT=str(ROOT))
+                           PATH=str(binaries) + ':/usr/bin', EITR_CODE_ROOT=str(ROOT))
         for launcher, arguments, expected in (
                 ('app-launch', ['--terminal', '-e', 'tmux', 'two words'], 'ghostty'),
                 ('menu-path/kitty', [], 'ghostty'),
                 ('menu-path/kitty', ['--class', 'eitr-plugins', '-e', 'setup'], 'kitty')):
             result = subprocess.run([str(ROOT / 'walker/bin' / launcher), *arguments], env=environment,
-                                    capture_output=True, text=True, check=True)
+                                    capture_output=True, text=True, check=False)
+            self.assertEqual(result.returncode, 0, result.stderr)
             command = json.loads(result.stdout)
             self.assertEqual(Path(command[0]).name, expected)
             if expected == 'kitty':
@@ -215,6 +218,92 @@ class TerminalChoiceTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             terminal.choose('kitty')
         self.assertEqual(self.preference.read_text(), '{"version":2}')
+
+
+TERMINAL = ROOT / 'walker/scripts/actions/style/terminal.py'
+BAR = ROOT / 'quickshell/desktop-bar/scripts/bar-settings.py'
+
+
+class TerminalAppearanceTests(unittest.TestCase):
+    def setUp(self):
+        directory = tempfile.TemporaryDirectory()
+        self.addCleanup(directory.cleanup)
+        self.folder = Path(directory.name)
+        self.environment = dict(os.environ, HOME=directory.name, XDG_CONFIG_HOME=directory.name,
+                                XDG_STATE_HOME=directory.name, XDG_CACHE_HOME=directory.name,
+                                EITR_NO_SESSION='1', EITR_CODE_ROOT=str(ROOT))
+        self.preference = self.folder / 'eitr/terminal.json'
+        self.preference.parent.mkdir()
+        theme = self.folder / 'theme/current'
+        theme.mkdir(parents=True)
+        (theme / 'colors.toml').write_text((ROOT / 'themes/eitr/colors.toml').read_text())
+        kitty = self.folder / 'kitty'
+        kitty.mkdir()
+        (kitty / 'kitty.conf').write_text('include /usr/share/eitr/kitty/kitty.conf\nglobinclude local.conf\n')
+        (kitty / 'local.conf').write_text('background_opacity 0.95\n')
+        ghostty = self.folder / 'ghostty'
+        ghostty.mkdir()
+        (ghostty / 'local.conf').write_text('background-opacity = 0.95\n')
+
+    def run_helper(self, script, *arguments, success=True):
+        result = subprocess.run(['python3', str(script), *arguments], env=self.environment,
+                                text=True, capture_output=True, timeout=15)
+        self.assertEqual(result.returncode == 0, success, result.stderr)
+        return result
+
+    def test_defaults_and_local_override_order_survive_theme_sync(self):
+        data = json.loads(self.run_helper(TERMINAL, 'summary').stdout)
+        self.assertEqual(data['appearance'], {'opacity': 'default', 'padding': 'none',
+                                            'blur': 'on', 'blur-strength': 'medium'})
+        self.run_helper(TERMINAL, 'sync')
+        kitty = (self.folder / 'kitty/appearance.conf').read_text()
+        self.assertIn('background_opacity 0.75', kitty)
+        loader = (self.folder / 'kitty/kitty.conf').read_text()
+        self.assertLess(loader.index('appearance.conf'), loader.index('local.conf'))
+        self.assertIn('background-opacity = 0.75', (self.folder / 'ghostty/eitr.conf').read_text())
+        self.assertTrue((self.folder / 'ghostty/eitr.conf').read_text().endswith('config-file = ?local.conf\n'))
+        self.run_helper(TERMINAL, 'set', 'opacity', 'solid')
+        self.run_helper(TERMINAL, 'set', 'padding', 'comfortable')
+        self.run_helper(TERMINAL, 'sync')
+        text = (self.folder / 'kitty/appearance.conf').read_text()
+        self.assertIn('background_opacity 1.0', text)
+        self.assertIn('window_padding_width 8', text)
+        self.assertEqual((self.folder / 'kitty/local.conf').read_text(), 'background_opacity 0.95\n')
+        self.assertEqual((self.folder / 'ghostty/local.conf').read_text(), 'background-opacity = 0.95\n')
+
+    def test_shared_strength_and_terminal_off_are_independent(self):
+        self.preference.write_text('{"version":1,"cursor_fire":true,"future":42}')
+        self.run_helper(TERMINAL, 'set', 'blur', 'off')
+        self.run_helper(TERMINAL, 'set', 'blur-strength', 'strong')
+        lua = (self.folder / 'hypr/appearance.lua').read_text()
+        self.assertIn('size = 5, passes = 3', lua)
+        self.assertIn('no_blur = true', lua)
+        self.assertIn('kitty|com', lua)
+        harness = ('hl = { config = function(value) assert(value.decoration.blur.size == 5) end, '
+                   'window_rule = function(value) assert(value.no_blur == true); '
+                   'assert(value.match.class == [[^(kitty|com\\.mitchellh\\.ghostty|ghostty)$]]) end }; '
+                   'dofile(' + json.dumps(str(self.folder / 'hypr/appearance.lua')) + ')')
+        result = subprocess.run(['lua', '-'], input=harness, text=True, capture_output=True, timeout=5)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(self.run_helper(BAR, 'get', 'blur-strength').stdout.strip(), 'strong')
+        self.assertEqual(json.loads(self.preference.read_text())['future'], 42)
+        self.assertTrue(json.loads(self.preference.read_text())['cursor_fire'])
+        self.run_helper(BAR, 'set-all', 'transparent', 'unified', 'top')
+        self.assertEqual(self.run_helper(BAR, 'get', 'blur-strength').stdout.strip(), 'strong')
+        self.run_helper(TERMINAL, 'generate-blur')
+        self.assertEqual((self.folder / 'hypr/appearance.lua').read_text(), lua)
+        self.run_helper(TERMINAL, 'set', 'blur', 'on')
+        self.assertIn('no_blur = false', (self.folder / 'hypr/appearance.lua').read_text())
+
+    def test_invalid_choices_and_future_versions_do_not_overwrite(self):
+        self.run_helper(TERMINAL, 'set', 'opacity', 'invalid', success=False)
+        self.assertFalse(self.preference.exists())
+        self.preference.write_text('{"version":999,"opacity":"strong"}')
+        self.run_helper(TERMINAL, 'set', 'padding', 'small', success=False)
+        self.assertEqual(json.loads(self.preference.read_text())['version'], 999)
+        self.preference.write_text('{"version":1,"opacity":[],"padding":null,"blur":false}')
+        data = json.loads(self.run_helper(TERMINAL, 'summary').stdout)
+        self.assertEqual(data['appearance']['opacity'], 'default')
 
 
 if __name__ == '__main__':

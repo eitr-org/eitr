@@ -40,7 +40,7 @@ the ISO payload.
 Theme switches regenerate `~/.config/ghostty/eitr.conf` with the theme's sixteen
 ANSI colours, background, foreground, selection and text cursor colours. Font
 changes regenerate the selected family; the default size is 10 points. Ghostty
-runs the same zsh and prompt, with 75% opacity and zero ordinary-window padding.
+runs the same zsh and prompt, defaulting to 75% opacity and zero ordinary-window padding.
 Hyprland supplies blur and the same normal window decorations/rules. The pointer
 family, size and Auto/Light/Dark choice in `eitr/cursor.json` continue through
 GTK and the compositor; they are separate from the terminal's text cursor.
@@ -57,6 +57,32 @@ Eitr's task, menu, status and setup terminals always use Kitty, including
 `--title` options and floating-window rules remain Kitty-specific. They do not
 change when selecting Ghostty.
 
+
+## Terminal appearance and shared blur
+
+Settings > Style > Terminal and Control Center > Style > Terminal apply opacity,
+padding and blur presets to both Kitty and Ghostty. Opacity offers Solid (100%),
+Light (90%), Medium (80%), Default (75%) and Strong (70%). Padding offers None,
+Small (4 points) and Comfortable (8 points). Defaults preserve 75% opacity, no
+padding and blur On. Utility terminals retain their solid background and task padding.
+
+Blur Off disables compositor blur for ordinary Kitty and Ghostty windows; it does
+not make them opaque. Blur strength is shared across the desktop: Gentle (size 2,
+one pass), Medium (size 3, two passes, the default) and Strong (size 5, three passes).
+The same choice appears under Desktop Bar in Walker and Bar in Control Center,
+next to appearance. Hyprland 0.57 has global blur strength, so this affects all
+surfaces already using blur, including panels, notifications and Overview, and
+other blurred applications. Selecting a strength does not enable terminal blur.
+Stronger blur costs more GPU work. Theme Color keeps its existing solid appearance.
+
+Terminal choices live in `eitr/terminal.json`; shared `blur-strength` lives in
+`quickshell/desktop-bar/bar-settings.json` (version 1). Generated
+`kitty/appearance.conf`, `ghostty/eitr.conf` and `hypr/appearance.lua` survive
+regeneration through those preferences. The compositor loads generated appearance
+before `hypr/local.lua`, so personal compositor rules win. Terminal settings in
+`kitty/local.conf` and `ghostty/local.conf` override presets. Theme switches and
+package updates regenerate settings. Kitty receives SIGUSR1 and supported Ghostty
+sessions receive SIGUSR2; options that cannot reload apply to new windows.
 
 ## The eitr command
 

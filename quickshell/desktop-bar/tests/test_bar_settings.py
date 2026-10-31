@@ -93,7 +93,7 @@ class BarSettingsTests(unittest.TestCase):
             self.assertEqual(bar_settings.read_settings(), {**bar_settings.DEFAULTS, 'version': 1})
             bar_settings.save_settings({"appearance": "solid", "edge": "left"})
             self.assertEqual(bar_settings.read_settings(), {
-                "appearance": "solid", "layout": "unified", "edge": "left", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "version": 1
+                "appearance": "solid", "layout": "unified", "edge": "left", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "blur-strength": "medium", "version": 1
             })
             bar_settings.save_settings({"layout": "centered"})
             self.assertEqual(bar_settings.read_settings()["appearance"], "solid")

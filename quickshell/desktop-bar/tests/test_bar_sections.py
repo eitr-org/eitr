@@ -1,5 +1,5 @@
 """Load the extracted per-screen sections offscreen with inert data and panel controls."""
-from layout_render import layout_fixture, render_environment, render, copy_runtime, EDGES
+from layout_render import layout_fixture, render_environment, render, copy_runtime, EDGES, capture_path
 from bar_frame_source import frame_source
 import json
 from pathlib import Path
@@ -98,3 +98,71 @@ ShellRoot {
             returncode, output = render(folder / 'fixture.qml', render_environment(directory), timeout=15)
             self.assertEqual(returncode, 0, output)
             self.assertIn('SECTION_LOAD_OK', output)
+
+
+@unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')
+class TerminalAppearanceLayoutTests(unittest.TestCase):
+    def test_choices_fit_and_render_in_both_themes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            copy_runtime(folder)
+            registry = (folder / 'qmldir').read_text()
+            for name, body in [('DesktopStyle', 'function radius(value) { return value; }'),
+                               ('DesktopFonts', 'property string family: "sans-serif"')]:
+                line = next(line for line in registry.splitlines() if line.startswith('singleton '+name+' '))
+                target = folder / line.split()[-1]
+                target.write_text('pragma Singleton\nimport QtQuick\nQtObject { '+body+' }\n')
+            choices = {'opacity': [{'value': value, 'label': label} for value, label in
+                                  [('solid', 'Solid (100%)'), ('light', 'Light (90%)'), ('medium', 'Medium (80%)'),
+                                   ('default', 'Default (75%)'), ('strong', 'Strong (70%)')]],
+                       'padding': [{'value': value, 'label': label} for value, label in
+                                   [('none', 'None'), ('small', 'Small'), ('comfortable', 'Comfortable')]],
+                       'blur': [{'value': 'off', 'label': 'Off'}, {'value': 'on', 'label': 'On'}],
+                       'blur-strength': [{'value': value, 'label': label} for value, label in
+                                         [('light', 'Gentle'), ('medium', 'Medium'), ('strong', 'Strong')]]}
+            for theme in ('light', 'dark'):
+                capture = capture_path('TERMINAL', directory, theme+'.png')
+                fixture = '''import QtQuick
+import Quickshell
+import "." as Bar
+ShellRoot {
+    FloatingWindow {
+        visible: true; implicitWidth: 400; implicitHeight: 620
+        Rectangle {
+            id: sample; anchors.fill: parent; color: "BACKGROUND"
+            QtObject {
+                id: center
+                property color foreground: "FOREGROUND"
+                property var terminalAppearanceChoices: CHOICES
+                property var terminalAppearance: ({opacity: "default", padding: "none", blur: "on", "blur-strength": "medium"})
+                property var terminalWriteRef: ({running: false})
+            }
+            Column {
+                id: rows; x: 20; y: 16; width: 360; spacing: 12
+                Bar.ControlCenterAppearanceChoices { centerRef: center; settingKey: "opacity"; title: "Opacity" }
+                Bar.ControlCenterAppearanceChoices { centerRef: center; settingKey: "padding"; title: "Padding" }
+                Bar.ControlCenterAppearanceChoices { centerRef: center; settingKey: "blur"; title: "Blur" }
+                Bar.ControlCenterAppearanceChoices { centerRef: center; settingKey: "blur-strength"; title: "Blur strength (shared)" }
+            }
+            Timer {
+                interval: 300; running: true
+                onTriggered: {
+                    if (rows.height > sample.height - 32) throw new Error("Rows clipped");
+                    function check(item) {
+                        if (item.text !== undefined && item.contentWidth > item.width) throw new Error("Text clipped: " + item.text);
+                        for (const child of item.children || []) check(child);
+                    }
+                    check(rows);
+                    sample.grabToImage(function(result) { result.saveToFile("CAPTURE"); console.log("TERMINAL_LAYOUT_OK"); Qt.quit(); });
+                }
+            }
+        }
+    }
+}'''.replace('CHOICES', json.dumps(choices)).replace('CAPTURE', str(capture)).replace('BACKGROUND', '#f5f0e7' if theme == 'light' else '#18212b').replace('FOREGROUND', '#252936' if theme == 'light' else '#e9eef1')
+                (folder / 'fixture.qml').write_text(fixture)
+                returncode, output = render(folder / 'fixture.qml', render_environment(directory), 15)
+                self.assertEqual(returncode, 0, output)
+                self.assertIn('TERMINAL_LAYOUT_OK', output)
+                for error in ('ReferenceError', 'TypeError', 'Binding loop', 'Unable to assign'):
+                    self.assertNotIn(error, output)
+                self.assertTrue(capture.is_file())

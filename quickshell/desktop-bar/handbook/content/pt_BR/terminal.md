@@ -23,7 +23,7 @@ Ghostty é opcional e não faz parte do conteúdo da ISO.
 
 Trocar o tema regenera `~/.config/ghostty/eitr.conf` com as 16 cores ANSI e as cores
 de fundo, texto, seleção e cursor de texto. Alterar a fonte atualiza a família
-escolhida; o tamanho padrão é 10 pontos. Ghostty usa o mesmo zsh e prompt, com
+escolhida; o tamanho padrão é 10 pontos. Ghostty usa o mesmo zsh e prompt, por padrão com
 75% de opacidade e sem espaçamento interno em janelas normais. Hyprland fornece
 desfoque, decorações e regras normais de janela. Família, tamanho e escolha
 Auto/Claro/Escuro do ponteiro em `eitr/cursor.json` continuam valendo pelo GTK e
@@ -41,6 +41,33 @@ incluindo `eitr-menu-terminal`, `eitr-plugins` e `fif-terminal`: suas opções
 `--class`, `--hold`, `--title` e regras de janelas flutuantes dependem do Kitty.
 Escolher Ghostty não os altera.
 
+
+## Aparência do terminal e desfoque compartilhado
+
+Configurações > Estilo > Terminal e Central de controle > Estilo > Terminal aplicam
+opacidade, espaçamento interno e desfoque ao Kitty e ao Ghostty. A opacidade oferece
+Sólido (100%), Leve (90%), Médio (80%), Padrão (75%) e Forte (70%). O espaçamento
+oferece Nenhum, Pequeno (4 pontos) e Confortável (8 pontos). Os padrões mantêm 75%
+de opacidade, nenhum espaçamento e desfoque ativado. Terminais utilitários mantêm
+seu fundo sólido e espaçamento de tarefas.
+
+Desativar o desfoque o remove das janelas normais do Kitty e do Ghostty, sem torná-las
+opacas. A intensidade é compartilhada por toda a área de trabalho: Leve (tamanho 2,
+uma passagem), Média (tamanho 3, duas passagens, padrão) e Forte (tamanho 5, três
+passagens). A mesma escolha aparece em Barra da área de trabalho no Walker e Barra
+na Central de controle, junto da aparência. O Hyprland 0.57 só oferece intensidade
+global; a escolha afeta painéis, notificações, Visão geral e outros aplicativos que
+já usam desfoque. Escolher uma intensidade não ativa o desfoque do terminal.
+Desfoque mais forte exige mais da GPU. Cor do tema mantém a aparência sólida.
+
+As escolhas do terminal ficam em `eitr/terminal.json`; `blur-strength` compartilhado
+fica em `quickshell/desktop-bar/bar-settings.json` (versão 1). Essas preferências
+regeneram `kitty/appearance.conf`, `ghostty/eitr.conf` e `hypr/appearance.lua`.
+O compositor carrega a aparência antes de `hypr/local.lua`, preservando a prioridade
+das regras pessoais. `kitty/local.conf` e `ghostty/local.conf` têm prioridade sobre
+os presets. Trocas de tema e atualizações do pacote regeneram os arquivos. Kitty
+recebe SIGUSR1 e sessões compatíveis do Ghostty recebem SIGUSR2; opções sem suporte
+a recarregamento valem para novas janelas.
 
 ## O comando eitr
 

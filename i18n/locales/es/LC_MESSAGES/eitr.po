@@ -718,6 +718,9 @@ msgstr "Colores"
 msgid "Colors of {name}"
 msgstr "Colores de {name}"
 
+msgid "Comfortable"
+msgstr "Cómodo"
+
 msgid "Command failed (exit {status})"
 msgstr "El comando falló (código {status})"
 
@@ -957,6 +960,9 @@ msgstr "Fecha"
 
 msgid "Default"
 msgstr "Predeterminado"
+
+msgid "Default (75%)"
+msgstr "Predeterminado (75%)"
 
 msgid "Default account"
 msgstr "Cuenta predeterminada"
@@ -1356,6 +1362,9 @@ msgstr "Clústeres GKE"
 
 msgid "GRUB now lists Snapper snapshots in its 'Arch Linux snapshots' submenu. Backup: {backup}"
 msgstr "GRUB ahora muestra las instantáneas de Snapper en el submenú 'Arch Linux snapshots'. Copia de seguridad: {backup}"
+
+msgid "Gentle"
+msgstr "Suave"
 
 msgid "Git Accounts"
 msgstr "Cuentas de Git"
@@ -1768,6 +1777,9 @@ msgstr "Permitir que los asistentes trabajen juntos"
 msgid "Light"
 msgstr "Claro"
 
+msgid "Light (90%)"
+msgstr "Ligero (90%)"
+
 msgid "Light or dark"
 msgstr "Claro u oscuro"
 
@@ -1851,6 +1863,12 @@ msgstr "Autor del manifiesto: {author}"
 
 msgid "Manifest changed: {path}"
 msgstr "Manifiesto modificado: {path}"
+
+msgid "Medium"
+msgstr "Medio"
+
+msgid "Medium (80%)"
+msgstr "Medio (80%)"
 
 msgid "Memory"
 msgstr "Memoria"
@@ -2020,6 +2038,9 @@ msgstr "No se ha encontrado ese recordatorio."
 msgid "No update snapshots yet."
 msgstr "Aún no hay instantáneas de actualizaciones."
 
+msgid "None"
+msgstr "Ninguno"
+
 msgid "Not a user-owned regular file: {path}"
 msgstr "No es un archivo normal propiedad del usuario: {path}"
 
@@ -2101,6 +2122,9 @@ msgstr "Edad del sistema"
 msgid "Object storage buckets"
 msgstr "Buckets de almacenamiento de objetos"
 
+msgid "Off"
+msgstr "Desactivado"
+
 msgid "Official Eitr plugin"
 msgstr "Plugin oficial de Eitr"
 
@@ -2109,6 +2133,9 @@ msgstr "Plugin oficial de Eitr de eitr-org/eitr-plugins, revisado por el proyect
 
 msgid "Ollama could not be installed. Your default assistant is unchanged."
 msgstr "No se pudo instalar Ollama. Tu asistente predeterminado no cambió."
+
+msgid "On"
+msgstr "Activado"
 
 msgid "Only files in the home folders have snapshots."
 msgstr "Solo los archivos de las carpetas personales tienen instantáneas."
@@ -2947,6 +2974,9 @@ msgstr "Se omitió {pattern}: solo se pueden importar carpetas existentes sin pa
 msgid "Skipping {command}: command not found"
 msgstr "Se omite {command}: comando no encontrado"
 
+msgid "Small"
+msgstr "Pequeño"
+
 msgid "Snapper returned an invalid snapshot number"
 msgstr "Snapper devolvió un número de instantánea no válido"
 
@@ -2997,6 +3027,9 @@ msgstr "Posponer 5 min"
 
 msgid "Software"
 msgstr "Software"
+
+msgid "Solid (100%)"
+msgstr "Sólido (100%)"
 
 msgid "Some calendars could not be reached; their previous events stay."
 msgstr "No se pudo acceder a algunos calendarios; sus eventos anteriores se mantienen."
@@ -3063,6 +3096,12 @@ msgstr "Buckets de almacenamiento"
 
 msgid "Storage volumes"
 msgstr "Volúmenes de almacenamiento"
+
+msgid "Strong"
+msgstr "Fuerte"
+
+msgid "Strong (70%)"
+msgstr "Fuerte (70%)"
 
 msgid "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}"
 msgstr "Menú de arranque en {config} adaptado a los colores de {source}. Copia de seguridad: {backup}"

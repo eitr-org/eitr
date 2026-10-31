@@ -43,6 +43,34 @@ opciones `--class`, `--hold`, `--title` y reglas de ventanas flotantes.
 Elegir Ghostty no los cambia.
 
 
+## Apariencia del terminal y desenfoque compartido
+
+Configuración > Estilo > Terminal y Centro de control > Estilo > Terminal aplican
+opacidad, relleno y desenfoque a Kitty y Ghostty. La opacidad ofrece Sólido (100%),
+Ligero (90%), Medio (80%), Predeterminado (75%) y Fuerte (70%). El relleno ofrece
+Ninguno, Pequeño (4 puntos) y Cómodo (8 puntos). Los valores predeterminados conservan
+75% de opacidad, sin relleno y desenfoque activado. Los terminales de utilidades
+conservan su fondo sólido y su relleno de tareas.
+
+Desactivar el desenfoque lo elimina de las ventanas normales de Kitty y Ghostty,
+sin volverlas opacas. La intensidad es compartida: Suave (tamaño 2, una pasada),
+Media (tamaño 3, dos pasadas, predeterminada) y Fuerte (tamaño 5, tres pasadas).
+La misma opción aparece en Barra del escritorio de Walker y Barra del Centro de
+control, junto a apariencia. Hyprland 0.57 solo permite intensidad global: afecta
+a paneles, notificaciones, Vista general y otras aplicaciones que ya usan desenfoque.
+Elegir una intensidad no activa el desenfoque del terminal. Mayor intensidad exige
+más trabajo de GPU. Color del tema conserva su apariencia sólida.
+
+Las preferencias del terminal están en `eitr/terminal.json`; `blur-strength`
+compartido está en `quickshell/desktop-bar/bar-settings.json` (versión 1). Estas
+preferencias regeneran `kitty/appearance.conf`, `ghostty/eitr.conf` y
+`hypr/appearance.lua`. El compositor carga la apariencia antes de `hypr/local.lua`,
+por lo que prevalecen las reglas personales. `kitty/local.conf` y
+`ghostty/local.conf` prevalecen sobre los ajustes predefinidos. Cambios de tema y
+actualizaciones del paquete regeneran los archivos. Kitty recibe SIGUSR1 y las
+sesiones compatibles de Ghostty reciben SIGUSR2; las opciones que no se pueden
+recargar se aplican a ventanas nuevas.
+
 ## El comando eitr
 
 `eitr` reúne las herramientas de Eitr; ejecútalo sin argumentos para ver la lista. Usa los mismos scripts que los menús para mantener el mismo comportamiento.

@@ -154,6 +154,9 @@
     "Blur": [
       "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
     ],
+    "Blur strength (shared)": [
+      "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
+    ],
     "Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot": [
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
@@ -838,6 +841,9 @@
     "Only the next occurrence can be skipped": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
+    "Opacity": [
+      "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
+    ],
     "Open OBS": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
@@ -878,6 +884,9 @@
     "POWER": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml",
       "quickshell/lockscreen/themes/nothing/Main.qml"
+    ],
+    "Padding": [
+      "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
     ],
     "Pair Bluetooth devices": [
       "quickshell/desktop-bar/panels/Handbook.qml"
@@ -1723,6 +1732,16 @@
     "Bluetooth": [
       "elephant/menu-rows/system-connectivity.json"
     ],
+    "Blur": [
+      "elephant/menu-rows/terminal.json",
+      "elephant/menus/terminal-blur.lua"
+    ],
+    "Blur strength": [
+      "elephant/menu-rows/bar.json",
+      "elephant/menu-rows/terminal.json",
+      "elephant/menus/bar-blur-strength.lua",
+      "elephant/menus/terminal-blur-strength.lua"
+    ],
     "Bootable Snapshot Status": [
       "elephant/menu-rows/snapshots.json"
     ],
@@ -1884,6 +1903,9 @@
     "Color Picker": [
       "elephant/menu-rows/shortcuts.json"
     ],
+    "Comfortable": [
+      "elephant/menus/terminal-padding.lua"
+    ],
     "Commit author shown in history": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
@@ -2019,6 +2041,9 @@
     ],
     "Default": [
       "elephant/menus/git-accounts.lua"
+    ],
+    "Default (75%)": [
+      "elephant/menus/terminal-opacity.lua"
     ],
     "Default Assistant": [
       "elephant/menu-rows/development.json",
@@ -2277,6 +2302,10 @@
       "elephant/menus/ai-gemini.lua",
       "elephant/menus/ai-tools.lua"
     ],
+    "Gentle": [
+      "elephant/menus/bar-blur-strength.lua",
+      "elephant/menus/terminal-blur-strength.lua"
+    ],
     "Ghostty": [
       "elephant/menus/terminal.lua"
     ],
@@ -2481,6 +2510,9 @@
       "elephant/menu-rows/theme.json",
       "elephant/menus/theme-light.lua"
     ],
+    "Light (90%)": [
+      "elephant/menus/terminal-opacity.lua"
+    ],
     "Lighting": [
       "elephant/menu-rows/system-devices.json",
       "elephant/menus/lighting.lua"
@@ -2555,6 +2587,13 @@
     "Media style": [
       "elephant/menu-rows/bar.json",
       "elephant/menus/bar-media.lua"
+    ],
+    "Medium": [
+      "elephant/menus/bar-blur-strength.lua",
+      "elephant/menus/terminal-blur-strength.lua"
+    ],
+    "Medium (80%)": [
+      "elephant/menus/terminal-opacity.lua"
     ],
     "Microphone": [
       "elephant/menu-rows/system-devices.json"
@@ -2643,6 +2682,9 @@
       "elephant/plugin-entries.lua",
       "walker/scripts/actions/install/plugins.py"
     ],
+    "None": [
+      "elephant/menus/terminal-padding.lua"
+    ],
     "Not allowed by your organization · select to remove": [
       "elephant/plugin-entries.lua"
     ],
@@ -2656,13 +2698,19 @@
       "elephant/menu-rows/capture.json"
     ],
     "Off": [
-      "elephant/menus/focus.lua"
+      "elephant/menus/focus.lua",
+      "elephant/menus/terminal-blur.lua"
     ],
     "Official Eitr plugin": [
       "elephant/menus/plugin-actions.lua"
     ],
     "On": [
-      "elephant/menus/focus.lua"
+      "elephant/menus/focus.lua",
+      "elephant/menus/terminal-blur.lua"
+    ],
+    "Opacity": [
+      "elephant/menu-rows/terminal.json",
+      "elephant/menus/terminal-opacity.lua"
     ],
     "Open Development": [
       "elephant/project-entries.lua"
@@ -2733,6 +2781,10 @@
     ],
     "Pacman": [
       "elephant/menu-rows/packages.json"
+    ],
+    "Padding": [
+      "elephant/menu-rows/terminal.json",
+      "elephant/menus/terminal-padding.lua"
     ],
     "Pair a Device": [
       "elephant/menu-rows/remote-share.json"
@@ -3204,6 +3256,48 @@
     "Set Up Sharing": [
       "elephant/menu-rows/remote-share-setup.json"
     ],
+    "Set blur strength: Gentle": [
+      "elephant/menus/bar-blur-strength.lua",
+      "elephant/menus/terminal-blur-strength.lua"
+    ],
+    "Set blur strength: Medium": [
+      "elephant/menus/bar-blur-strength.lua",
+      "elephant/menus/terminal-blur-strength.lua"
+    ],
+    "Set blur strength: Strong": [
+      "elephant/menus/bar-blur-strength.lua",
+      "elephant/menus/terminal-blur-strength.lua"
+    ],
+    "Set blur: Off": [
+      "elephant/menus/terminal-blur.lua"
+    ],
+    "Set blur: On": [
+      "elephant/menus/terminal-blur.lua"
+    ],
+    "Set opacity: Default (75%)": [
+      "elephant/menus/terminal-opacity.lua"
+    ],
+    "Set opacity: Light (90%)": [
+      "elephant/menus/terminal-opacity.lua"
+    ],
+    "Set opacity: Medium (80%)": [
+      "elephant/menus/terminal-opacity.lua"
+    ],
+    "Set opacity: Solid (100%)": [
+      "elephant/menus/terminal-opacity.lua"
+    ],
+    "Set opacity: Strong (70%)": [
+      "elephant/menus/terminal-opacity.lua"
+    ],
+    "Set padding: Comfortable": [
+      "elephant/menus/terminal-padding.lua"
+    ],
+    "Set padding: None": [
+      "elephant/menus/terminal-padding.lua"
+    ],
+    "Set padding: Small": [
+      "elephant/menus/terminal-padding.lua"
+    ],
     "Set the Sunshine password and configure streaming": [
       "elephant/menu-rows/remote-share-setup.json"
     ],
@@ -3316,12 +3410,18 @@
     "Size": [
       "elephant/menu-rows/cursor.json"
     ],
+    "Small": [
+      "elephant/menus/terminal-padding.lua"
+    ],
     "Snapshot, then update Arch, AUR, Flatpak and Eitr": [
       "elephant/menu-rows/system.json"
     ],
     "Snapshots": [
       "elephant/menu-rows/system-maintenance.json",
       "elephant/menus/snapshots.lua"
+    ],
+    "Solid (100%)": [
+      "elephant/menus/terminal-opacity.lua"
     ],
     "Split side by side": [
       "distro/lib/eitr_focus.py"
@@ -3397,6 +3497,13 @@
     ],
     "Stream games and desktops from another PC": [
       "elephant/menu-rows/gaming.json"
+    ],
+    "Strong": [
+      "elephant/menus/bar-blur-strength.lua",
+      "elephant/menus/terminal-blur-strength.lua"
+    ],
+    "Strong (70%)": [
+      "elephant/menus/terminal-opacity.lua"
     ],
     "Style": [
       "elephant/menu-rows/settings.json",
@@ -5002,6 +5109,9 @@
     "Colors of {name}": [
       "walker/scripts/actions/style/own.py"
     ],
+    "Comfortable": [
+      "distro/lib/eitr_appearance.py"
+    ],
     "Command failed (exit {status})": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -5250,6 +5360,9 @@
     "Default": [
       "distro/lib/eitr_ai_accounts.py",
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Default (75%)": [
+      "distro/lib/eitr_appearance.py"
     ],
     "Default account": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -5657,6 +5770,9 @@
     ],
     "GRUB now lists Snapper snapshots in its 'Arch Linux snapshots' submenu. Backup: {backup}": [
       "distro/system/eitr-system.py"
+    ],
+    "Gentle": [
+      "distro/lib/eitr_appearance.py"
     ],
     "Git Accounts": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -6079,6 +6195,9 @@
     "Light": [
       "walker/scripts/actions/style/own.py"
     ],
+    "Light (90%)": [
+      "distro/lib/eitr_appearance.py"
+    ],
     "Light or dark": [
       "walker/scripts/actions/style/own.py"
     ],
@@ -6163,6 +6282,12 @@
     ],
     "Manifest changed: {path}": [
       "distro/lib/eitr_plugin_install.py"
+    ],
+    "Medium": [
+      "distro/lib/eitr_appearance.py"
+    ],
+    "Medium (80%)": [
+      "distro/lib/eitr_appearance.py"
     ],
     "Memory": [
       "fastfetch/eitr.py"
@@ -6342,6 +6467,9 @@
     "No update snapshots yet.": [
       "distro/system/eitr-system.py"
     ],
+    "None": [
+      "distro/lib/eitr_appearance.py"
+    ],
     "Not a user-owned regular file: {path}": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
@@ -6427,6 +6555,9 @@
     "Object storage buckets": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Off": [
+      "distro/lib/eitr_appearance.py"
+    ],
     "Official Eitr plugin": [
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -6435,6 +6566,9 @@
     ],
     "Ollama could not be installed. Your default assistant is unchanged.": [
       "distro/lib/eitr_local_assistant.py"
+    ],
+    "On": [
+      "distro/lib/eitr_appearance.py"
     ],
     "Only files in the home folders have snapshots.": [
       "walker/scripts/actions/system/restore-file.py"
@@ -7287,6 +7421,9 @@
     "Skipping {command}: command not found": [
       "walker/scripts/actions/system/cleanup.sh"
     ],
+    "Small": [
+      "distro/lib/eitr_appearance.py"
+    ],
     "Snapper returned an invalid snapshot number": [
       "distro/system/eitr-system.py"
     ],
@@ -7337,6 +7474,9 @@
     ],
     "Software": [
       "fastfetch/eitr.py"
+    ],
+    "Solid (100%)": [
+      "distro/lib/eitr_appearance.py"
     ],
     "Some calendars could not be reached; their previous events stay.": [
       "walker/scripts/actions/tools/calendars.py"
@@ -7403,6 +7543,12 @@
     ],
     "Storage volumes": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Strong": [
+      "distro/lib/eitr_appearance.py"
+    ],
+    "Strong (70%)": [
+      "distro/lib/eitr_appearance.py"
     ],
     "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}": [
       "distro/system/eitr-system.py"

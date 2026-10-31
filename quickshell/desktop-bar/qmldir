@@ -131,3 +131,4 @@ BarPanels bar/BarPanels.qml
 BarTabs bar/BarTabs.qml
 BarInputMask bar/BarInputMask.qml
 ControlCenterNavigation panels/ControlCenterNavigation.qml
+ControlCenterAppearanceChoices panels/ControlCenterAppearanceChoices.qml

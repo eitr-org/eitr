@@ -63,4 +63,7 @@ end
 local display_helper = paths.code("quickshell/desktop-bar/scripts/display-settings.py")
 os.execute("python3 '" .. display_helper:gsub("'", "'\\''") .. "' refresh-hdr")
 load_local_config(paths.config .. "/hypr/displays.lua")
+local appearance_helper = paths.code("walker/scripts/actions/style/terminal.py")
+os.execute("python3 '" .. appearance_helper:gsub("'", "'\\''") .. "' generate-blur")
+load_local_config(paths.config .. "/hypr/appearance.lua")
 load_local_config(paths.config .. "/hypr/local.lua")

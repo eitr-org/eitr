@@ -44,6 +44,33 @@ options `--class`, `--hold`, `--title` et règles de fenêtres flottantes dépen
 de Kitty. Choisir Ghostty ne les modifie pas.
 
 
+## Apparence du terminal et flou partagé
+
+Paramètres > Style > Terminal et Centre de contrôle > Style > Terminal règlent
+l’opacité, les marges internes et le flou de Kitty et Ghostty. L’opacité propose
+Opaque (100%), Léger (90%), Moyen (80%), Par défaut (75%) et Fort (70%). Les marges
+proposent Aucune, Petites (4 points) et Confortables (8 points). Les valeurs par
+défaut conservent 75% d’opacité, aucune marge et le flou activé. Les terminaux
+utilitaires conservent leur fond opaque et leurs marges de tâche.
+
+Désactiver le flou le supprime des fenêtres ordinaires de Kitty et Ghostty, sans
+les rendre opaques. L’intensité est partagée : Doux (taille 2, une passe),
+Moyenne (taille 3, deux passes, valeur par défaut) et Forte (taille 5, trois passes).
+Le même choix apparaît dans Barre du bureau de Walker et Barre du Centre de
+contrôle, près de l’apparence. Hyprland 0.57 ne propose qu’une intensité globale :
+elle affecte les panneaux, notifications, Vue d’ensemble et autres applications
+utilisant déjà le flou. Choisir une intensité n’active pas le flou du terminal.
+Un flou plus fort sollicite davantage le GPU. Couleur du thème conserve son fond opaque.
+
+Les préférences du terminal sont dans `eitr/terminal.json` ; `blur-strength`
+partagé est dans `quickshell/desktop-bar/bar-settings.json` (version 1). Ces réglages
+régénèrent `kitty/appearance.conf`, `ghostty/eitr.conf` et `hypr/appearance.lua`.
+Le compositeur charge l’apparence avant `hypr/local.lua`, donnant priorité aux
+règles personnelles. `kitty/local.conf` et `ghostty/local.conf` remplacent les
+préréglages. Changements de thème et mises à jour du paquet régénèrent les fichiers.
+Kitty reçoit SIGUSR1 et les sessions Ghostty compatibles SIGUSR2 ; les options
+sans rechargement s’appliquent aux nouvelles fenêtres.
+
 ## La commande eitr
 
 `eitr` rassemble les outils d’Eitr ; lancez-le sans argument pour les lister. Il utilise les mêmes scripts que les menus pour garder le même comportement.

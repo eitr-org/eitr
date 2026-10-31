@@ -718,6 +718,9 @@ msgstr "Farben"
 msgid "Colors of {name}"
 msgstr "Farben von {name}"
 
+msgid "Comfortable"
+msgstr "Komfortabel"
+
 msgid "Command failed (exit {status})"
 msgstr "Befehl fehlgeschlagen (Exit {status})"
 
@@ -957,6 +960,9 @@ msgstr "Datum"
 
 msgid "Default"
 msgstr "Standard"
+
+msgid "Default (75%)"
+msgstr "Standard (75%)"
 
 msgid "Default account"
 msgstr "Standardkonto"
@@ -1356,6 +1362,9 @@ msgstr "GKE-Cluster"
 
 msgid "GRUB now lists Snapper snapshots in its 'Arch Linux snapshots' submenu. Backup: {backup}"
 msgstr "GRUB listet Snapper-Snapshots jetzt im Untermenü 'Arch Linux snapshots'. Sicherung: {backup}"
+
+msgid "Gentle"
+msgstr "Sanft"
 
 msgid "Git Accounts"
 msgstr "Git-Konten"
@@ -1768,6 +1777,9 @@ msgstr "Assistenten zusammenarbeiten lassen"
 msgid "Light"
 msgstr "Hell"
 
+msgid "Light (90%)"
+msgstr "Leicht (90%)"
+
 msgid "Light or dark"
 msgstr "Hell oder dunkel"
 
@@ -1851,6 +1863,12 @@ msgstr "Manifest-Autor: {author}"
 
 msgid "Manifest changed: {path}"
 msgstr "Manifest geändert: {path}"
+
+msgid "Medium"
+msgstr "Mittel"
+
+msgid "Medium (80%)"
+msgstr "Mittel (80%)"
 
 msgid "Memory"
 msgstr "Arbeitsspeicher"
@@ -2020,6 +2038,9 @@ msgstr "Erinnerung nicht gefunden."
 msgid "No update snapshots yet."
 msgstr "Noch keine Update-Snapshots vorhanden."
 
+msgid "None"
+msgstr "Keiner"
+
 msgid "Not a user-owned regular file: {path}"
 msgstr "Keine reguläre Datei im Besitz des Benutzers: {path}"
 
@@ -2101,6 +2122,9 @@ msgstr "Systemalter"
 msgid "Object storage buckets"
 msgstr "Objektspeicher-Buckets"
 
+msgid "Off"
+msgstr "Aus"
+
 msgid "Official Eitr plugin"
 msgstr "Offizielles Eitr-Plugin"
 
@@ -2109,6 +2133,9 @@ msgstr "Offizielles Eitr-Plugin aus eitr-org/eitr-plugins, vom Eitr-Projekt gepr
 
 msgid "Ollama could not be installed. Your default assistant is unchanged."
 msgstr "Ollama konnte nicht installiert werden. Dein Standardassistent bleibt unverändert."
+
+msgid "On"
+msgstr "Ein"
 
 msgid "Only files in the home folders have snapshots."
 msgstr "Nur Dateien in persönlichen Ordnern haben Snapshots."
@@ -2947,6 +2974,9 @@ msgstr "{pattern} übersprungen: Nur vorhandene Ordner ohne Muster können impor
 msgid "Skipping {command}: command not found"
 msgstr "{command} wird übersprungen: Befehl nicht gefunden"
 
+msgid "Small"
+msgstr "Klein"
+
 msgid "Snapper returned an invalid snapshot number"
 msgstr "Snapper hat eine ungültige Snapshot-Nummer zurückgegeben"
 
@@ -2997,6 +3027,9 @@ msgstr "5 Min. schlummern"
 
 msgid "Software"
 msgstr "Software"
+
+msgid "Solid (100%)"
+msgstr "Undurchsichtig (100%)"
 
 msgid "Some calendars could not be reached; their previous events stay."
 msgstr "Einige Kalender waren nicht erreichbar; ihre bisherigen Termine bleiben."
@@ -3063,6 +3096,12 @@ msgstr "Speicher-Buckets"
 
 msgid "Storage volumes"
 msgstr "Speichervolumes"
+
+msgid "Strong"
+msgstr "Stark"
+
+msgid "Strong (70%)"
+msgstr "Stark (70%)"
 
 msgid "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}"
 msgstr "Bootmenü in {config} mit den Farben von {source} gestaltet. Sicherung: {backup}"

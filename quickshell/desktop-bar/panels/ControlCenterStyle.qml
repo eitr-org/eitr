@@ -69,6 +69,7 @@ Column {
         PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Blur"); selected: section.centerRef.appearance === "transparent"; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("appearance", "transparent") }
         PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Theme Color"); selected: section.centerRef.appearance === "solid"; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("appearance", "solid") }
     }
+    ControlCenterAppearanceChoices { centerRef: section.centerRef; settingKey: "blur-strength"; title: Eitr.I18n.tr("Blur strength (shared)") }
     ControlCenterOptionHeading { centerRef: section.centerRef; text: Eitr.I18n.tr("Show on") }
     Row { width: parent.width; spacing: 8
         PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Main Display"); selected: section.centerRef.barScreens === "main"; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("screens", "main") }
@@ -207,6 +208,10 @@ Column {
             }
         }
     }
+    ControlCenterAppearanceChoices { centerRef: section.centerRef; settingKey: "opacity"; title: Eitr.I18n.tr("Opacity") }
+    ControlCenterAppearanceChoices { centerRef: section.centerRef; settingKey: "padding"; title: Eitr.I18n.tr("Padding") }
+    ControlCenterAppearanceChoices { centerRef: section.centerRef; settingKey: "blur"; title: Eitr.I18n.tr("Blur") }
+    ControlCenterAppearanceChoices { centerRef: section.centerRef; settingKey: "blur-strength"; title: Eitr.I18n.tr("Blur strength (shared)") }
     Item { width: parent.width; height: Math.max(32, terminalLabel.implicitHeight)
         ControlCenterLabel { centerRef: section.centerRef; id: terminalLabel; width: parent.width - 60; anchors.verticalCenter: parent.verticalCenter; wrapMode: Text.WordWrap; text: Eitr.I18n.tr("Cursor Fire: a blazing trail behind Kitty's cursor") }
         PanelSwitch {

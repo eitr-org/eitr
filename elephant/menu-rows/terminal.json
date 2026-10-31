@@ -1,9 +1,55 @@
 [
   {
+    "text": "Blur",
+    "subtext": ">",
+    "icon": "󰐾",
+    "keywords": [
+      "blur",
+      "appearance"
+    ],
+    "submenu": "terminal-blur"
+  },
+  {
+    "text": "Blur strength",
+    "subtext": ">",
+    "icon": "󰐾",
+    "keywords": [
+      "blur-strength",
+      "appearance"
+    ],
+    "submenu": "terminal-blur-strength"
+  },
+  {
     "text": "Cursor Fire",
     "subtext": ">",
-    "keywords": ["kitty", "cursor", "fire", "flame", "trail"],
+    "keywords": [
+      "kitty",
+      "cursor",
+      "fire",
+      "flame",
+      "trail"
+    ],
     "icon": "󰈸",
     "submenu": "terminal-cursor-fire"
+  },
+  {
+    "text": "Opacity",
+    "subtext": ">",
+    "icon": "󰐾",
+    "keywords": [
+      "opacity",
+      "appearance"
+    ],
+    "submenu": "terminal-opacity"
+  },
+  {
+    "text": "Padding",
+    "subtext": ">",
+    "icon": "󰐾",
+    "keywords": [
+      "padding",
+      "appearance"
+    ],
+    "submenu": "terminal-padding"
   }
 ]

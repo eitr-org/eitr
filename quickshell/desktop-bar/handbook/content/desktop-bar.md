@@ -84,3 +84,5 @@ Pinned apps stay at full opacity with no dots when closed; click one to launch i
 Drag icons along the dock to reorder pins. Drag a running app into the pinned section to keep it there, or drag a pin past that section to remove it. Other icons make room with a short animation (instant with Reduce motion); unpinned apps retain Hyprland’s window order. A thin divider separates pins from other running apps only when both sections contain apps. Menus and drags keep the dock revealed.
 
 Pins are desktop-entry IDs stored in order in the machine-local `quickshell/desktop-bar/dock-pins.json` under `$XDG_CONFIG_HOME` (normally `~/.config`), written atomically. Fresh installs have no pins. Window matching uses desktop-entry IDs, StartupWMClass and application classes.
+
+Blur strength is shared with terminals. Choose Gentle, Medium (default) or Strong under Desktop Bar in Walker or Bar in Control Center. See [Terminal and editors](terminal.md) for the global blur limitation and personal overrides.

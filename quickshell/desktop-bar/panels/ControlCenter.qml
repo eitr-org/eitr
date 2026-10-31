@@ -69,6 +69,8 @@ ThemedPopup {
     property string lockscreen: ""
     property string terminalChoice: "kitty"
     property var terminalChoices: []
+    property var terminalAppearance: ({})
+    property var terminalAppearanceChoices: ({})
     readonly property string terminalScript: Eitr.Paths.code("walker/scripts/actions/style/terminal.py")
     property bool cursorFire: false
     property string updateChannel: ""
@@ -228,11 +230,15 @@ ThemedPopup {
         command: ["python3", center.terminalScript, "summary"]
         stdout: StdioCollector { id: terminalOutput }
         onExited: function(code) {
-            const data = center.styleResult("terminal", terminalOutput.text, code, {current: "string", choices: [{value: "string", label: "string"}], available: "boolean"});
+            const data = center.styleResult("terminal", terminalOutput.text, code, {current: "string", choices: [{value: "string", label: "string"}], appearance: "object", appearanceChoices: "object", available: "boolean"});
             center.updateContent(function() {
                 const choices = data ? data.choices : [];
                 if (JsonState.changed(center.terminalChoices, choices)) center.terminalChoices = choices;
                 center.terminalChoice = data ? data.current : "";
+                const appearance = data ? data.appearance : {};
+                if (JsonState.changed(center.terminalAppearance, appearance)) center.terminalAppearance = appearance;
+                const appearanceChoices = data ? data.appearanceChoices : {};
+                if (JsonState.changed(center.terminalAppearanceChoices, appearanceChoices)) center.terminalAppearanceChoices = appearanceChoices;
             });
         }
     }

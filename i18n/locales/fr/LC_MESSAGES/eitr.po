@@ -718,6 +718,9 @@ msgstr "Couleurs"
 msgid "Colors of {name}"
 msgstr "Couleurs de {name}"
 
+msgid "Comfortable"
+msgstr "Confortables"
+
 msgid "Command failed (exit {status})"
 msgstr "Échec de la commande (code {status})"
 
@@ -957,6 +960,9 @@ msgstr "Date"
 
 msgid "Default"
 msgstr "Valeur par défaut"
+
+msgid "Default (75%)"
+msgstr "Par défaut (75%)"
 
 msgid "Default account"
 msgstr "Compte par défaut"
@@ -1356,6 +1362,9 @@ msgstr "Clusters GKE"
 
 msgid "GRUB now lists Snapper snapshots in its 'Arch Linux snapshots' submenu. Backup: {backup}"
 msgstr "GRUB affiche désormais les instantanés Snapper dans le sous-menu 'Arch Linux snapshots'. Sauvegarde : {backup}"
+
+msgid "Gentle"
+msgstr "Doux"
 
 msgid "Git Accounts"
 msgstr "Comptes Git"
@@ -1768,6 +1777,9 @@ msgstr "Permettre aux assistants de travailler ensemble"
 msgid "Light"
 msgstr "Clair"
 
+msgid "Light (90%)"
+msgstr "Léger (90%)"
+
 msgid "Light or dark"
 msgstr "Clair ou sombre"
 
@@ -1851,6 +1863,12 @@ msgstr "Auteur du manifeste : {author}"
 
 msgid "Manifest changed: {path}"
 msgstr "Manifeste modifié : {path}"
+
+msgid "Medium"
+msgstr "Moyen"
+
+msgid "Medium (80%)"
+msgstr "Moyen (80%)"
 
 msgid "Memory"
 msgstr "Mémoire"
@@ -2020,6 +2038,9 @@ msgstr "Rappel introuvable."
 msgid "No update snapshots yet."
 msgstr "Aucun instantané de mise à jour pour le moment."
 
+msgid "None"
+msgstr "Aucune"
+
 msgid "Not a user-owned regular file: {path}"
 msgstr "Ce n’est pas un fichier ordinaire appartenant à l’utilisateur : {path}"
 
@@ -2101,6 +2122,9 @@ msgstr "Âge du système"
 msgid "Object storage buckets"
 msgstr "Buckets de stockage d’objets"
 
+msgid "Off"
+msgstr "Désactivé"
+
 msgid "Official Eitr plugin"
 msgstr "Plugin officiel d’Eitr"
 
@@ -2109,6 +2133,9 @@ msgstr "Plugin officiel d’Eitr issu de eitr-org/eitr-plugins, vérifié par le
 
 msgid "Ollama could not be installed. Your default assistant is unchanged."
 msgstr "Ollama n’a pas pu être installé. Votre assistant par défaut reste inchangé."
+
+msgid "On"
+msgstr "Activé"
 
 msgid "Only files in the home folders have snapshots."
 msgstr "Seuls les fichiers des dossiers personnels ont des instantanés."
@@ -2947,6 +2974,9 @@ msgstr "{pattern} ignoré : seuls les dossiers existants sans motif peuvent êtr
 msgid "Skipping {command}: command not found"
 msgstr "{command} ignoré : commande introuvable"
 
+msgid "Small"
+msgstr "Petites"
+
 msgid "Snapper returned an invalid snapshot number"
 msgstr "Snapper a renvoyé un numéro d’instantané invalide"
 
@@ -2997,6 +3027,9 @@ msgstr "Reporter de 5 min"
 
 msgid "Software"
 msgstr "Logiciels"
+
+msgid "Solid (100%)"
+msgstr "Opaque (100%)"
 
 msgid "Some calendars could not be reached; their previous events stay."
 msgstr "Certains calendriers sont injoignables ; leurs événements précédents restent affichés."
@@ -3063,6 +3096,12 @@ msgstr "Buckets de stockage"
 
 msgid "Storage volumes"
 msgstr "Volumes de stockage"
+
+msgid "Strong"
+msgstr "Fort"
+
+msgid "Strong (70%)"
+msgstr "Fort (70%)"
 
 msgid "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}"
 msgstr "Menu de démarrage dans {config} adapté aux couleurs de {source}. Sauvegarde : {backup}"

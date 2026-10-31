@@ -15,13 +15,15 @@ for _eitr_parent in Path(__file__).resolve().parents:
         break
 from eitr_paths import code, config as user_config, read_settings as read_json, write_settings
 from eitr_i18n import tr
+import eitr_appearance
 import tempfile
 import subprocess
 
 
 SETTINGS = user_config("quickshell/desktop-bar/bar-settings.json")
-DEFAULTS = {"appearance": "solid", "layout": "unified", "edge": "top", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h"}
+DEFAULTS = {"appearance": "solid", "layout": "unified", "edge": "top", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "blur-strength": "medium"}
 OPTIONS = {
+    "blur-strength": {"light", "medium", "strong"},
     "appearance": {"transparent", "solid"},
     "layout": {"unified", "centered", "notch", "islands"},
     "edge": {"top", "bottom", "left", "right"},
@@ -66,6 +68,9 @@ def save_settings(data):
             os.unlink(temp_name)
     if settings["appearance"] != previous_appearance:
         refresh_walker_appearance()
+    if 'blur-strength' in data:
+        eitr_appearance.generate_blur()
+        eitr_appearance.reload_compositor()
     return settings
 
 
@@ -105,7 +110,7 @@ def main():
         else:
             raise ValueError("Usage: bar-settings.py status|set KEY VALUE|set-all APPEARANCE LAYOUT EDGE [PINNED [SCREENS [AUTOHIDE [REDUCE_MOTION [MEDIA_STYLE [DOCK [CLOCK]]]]]]]")
         print(json.dumps(result))
-    except (OSError, ValueError) as error:
+    except (OSError, ValueError, subprocess.SubprocessError) as error:
         print(error, file=sys.stderr)
         return 1
     return 0

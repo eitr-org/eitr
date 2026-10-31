@@ -23,6 +23,17 @@
     "submenu": "bar-autohide"
   },
   {
+    "text": "Blur strength",
+    "subtext": ">",
+    "icon": "󰐾",
+    "keywords": [
+      "shared",
+      "terminal",
+      "blur"
+    ],
+    "submenu": "bar-blur-strength"
+  },
+  {
     "text": "Clock",
     "subtext": ">",
     "icon": "󰥔",

@@ -56,3 +56,5 @@ Aplicativos fixados permanecem totalmente opacos e sem pontos quando fechados; c
 Arraste os ícones ao longo do dock para organizar os fixados. Arraste um aplicativo aberto para a seção de fixados para mantê-lo ali ou arraste um fixado para fora dessa seção para removê-lo. Os outros ícones abrem espaço com uma animação curta (instantânea com Reduzir movimento); os não fixados mantêm a ordem das janelas do Hyprland. Um divisor fino separa as seções apenas quando ambas contêm aplicativos. Menus e arrastos mantêm o dock visível.
 
 Os IDs das entradas de desktop são salvos em ordem no arquivo local `quickshell/desktop-bar/dock-pins.json`, sob `$XDG_CONFIG_HOME` (normalmente `~/.config`), com gravação atômica. Instalações novas não têm aplicativos fixados. As janelas são associadas pelos IDs das entradas de desktop, por StartupWMClass e pelas classes dos aplicativos.
+
+A intensidade do desfoque é compartilhada com os terminais. Escolha Leve, Média (padrão) ou Forte em Barra da área de trabalho no Walker ou Barra na Central de controle. Veja [Terminal e editores](terminal.md) para a limitação global e as configurações pessoais.

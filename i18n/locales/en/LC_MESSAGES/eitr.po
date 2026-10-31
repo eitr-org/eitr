@@ -718,6 +718,9 @@ msgstr "Colors"
 msgid "Colors of {name}"
 msgstr "Colors of {name}"
 
+msgid "Comfortable"
+msgstr "Comfortable"
+
 msgid "Command failed (exit {status})"
 msgstr "Command failed (exit {status})"
 
@@ -957,6 +960,9 @@ msgstr "Date"
 
 msgid "Default"
 msgstr "Default"
+
+msgid "Default (75%)"
+msgstr "Default (75%)"
 
 msgid "Default account"
 msgstr "Default account"
@@ -1356,6 +1362,9 @@ msgstr "GKE Clusters"
 
 msgid "GRUB now lists Snapper snapshots in its 'Arch Linux snapshots' submenu. Backup: {backup}"
 msgstr "GRUB now lists Snapper snapshots in its 'Arch Linux snapshots' submenu. Backup: {backup}"
+
+msgid "Gentle"
+msgstr "Gentle"
 
 msgid "Git Accounts"
 msgstr "Git Accounts"
@@ -1768,6 +1777,9 @@ msgstr "Let assistants work together"
 msgid "Light"
 msgstr "Light"
 
+msgid "Light (90%)"
+msgstr "Light (90%)"
+
 msgid "Light or dark"
 msgstr "Light or dark"
 
@@ -1851,6 +1863,12 @@ msgstr "Manifest author: {author}"
 
 msgid "Manifest changed: {path}"
 msgstr "Manifest changed: {path}"
+
+msgid "Medium"
+msgstr "Medium"
+
+msgid "Medium (80%)"
+msgstr "Medium (80%)"
 
 msgid "Memory"
 msgstr "Memory"
@@ -2020,6 +2038,9 @@ msgstr "No such reminder."
 msgid "No update snapshots yet."
 msgstr "No update snapshots yet."
 
+msgid "None"
+msgstr "None"
+
 msgid "Not a user-owned regular file: {path}"
 msgstr "Not a user-owned regular file: {path}"
 
@@ -2101,6 +2122,9 @@ msgstr "OS age"
 msgid "Object storage buckets"
 msgstr "Object storage buckets"
 
+msgid "Off"
+msgstr "Off"
+
 msgid "Official Eitr plugin"
 msgstr "Official Eitr plugin"
 
@@ -2109,6 +2133,9 @@ msgstr "Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr pr
 
 msgid "Ollama could not be installed. Your default assistant is unchanged."
 msgstr "Ollama could not be installed. Your default assistant is unchanged."
+
+msgid "On"
+msgstr "On"
 
 msgid "Only files in the home folders have snapshots."
 msgstr "Only files in the home folders have snapshots."
@@ -2947,6 +2974,9 @@ msgstr "Skipped {pattern}: only plain existing folders can be imported."
 msgid "Skipping {command}: command not found"
 msgstr "Skipping {command}: command not found"
 
+msgid "Small"
+msgstr "Small"
+
 msgid "Snapper returned an invalid snapshot number"
 msgstr "Snapper returned an invalid snapshot number"
 
@@ -2997,6 +3027,9 @@ msgstr "Snooze 5 min"
 
 msgid "Software"
 msgstr "Software"
+
+msgid "Solid (100%)"
+msgstr "Solid (100%)"
 
 msgid "Some calendars could not be reached; their previous events stay."
 msgstr "Some calendars could not be reached; their previous events stay."
@@ -3063,6 +3096,12 @@ msgstr "Storage Buckets"
 
 msgid "Storage volumes"
 msgstr "Storage volumes"
+
+msgid "Strong"
+msgstr "Strong"
+
+msgid "Strong (70%)"
+msgstr "Strong (70%)"
 
 msgid "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}"
 msgstr "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}"

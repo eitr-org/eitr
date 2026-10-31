@@ -458,6 +458,17 @@
         "submenu": "bar-autohide"
       },
       {
+        "text": "Blur strength",
+        "subtext": ">",
+        "icon": "󰐾",
+        "keywords": [
+          "shared",
+          "terminal",
+          "blur"
+        ],
+        "submenu": "bar-blur-strength"
+      },
+      {
         "text": "Clock",
         "subtext": ">",
         "icon": "󰥔",
@@ -2610,6 +2621,26 @@
     ],
     "terminal": [
       {
+        "text": "Blur",
+        "subtext": ">",
+        "icon": "󰐾",
+        "keywords": [
+          "blur",
+          "appearance"
+        ],
+        "submenu": "terminal-blur"
+      },
+      {
+        "text": "Blur strength",
+        "subtext": ">",
+        "icon": "󰐾",
+        "keywords": [
+          "blur-strength",
+          "appearance"
+        ],
+        "submenu": "terminal-blur-strength"
+      },
+      {
         "text": "Cursor Fire",
         "subtext": ">",
         "keywords": [
@@ -2621,6 +2652,26 @@
         ],
         "icon": "󰈸",
         "submenu": "terminal-cursor-fire"
+      },
+      {
+        "text": "Opacity",
+        "subtext": ">",
+        "icon": "󰐾",
+        "keywords": [
+          "opacity",
+          "appearance"
+        ],
+        "submenu": "terminal-opacity"
+      },
+      {
+        "text": "Padding",
+        "subtext": ">",
+        "icon": "󰐾",
+        "keywords": [
+          "padding",
+          "appearance"
+        ],
+        "submenu": "terminal-padding"
       }
     ],
     "theme": [
@@ -2948,6 +2999,7 @@
     "azure-logs-minutes": "azure-account",
     "bar-appearance": "bar",
     "bar-autohide": "bar",
+    "bar-blur-strength": "bar",
     "bar-clock": "bar",
     "bar-dock": "bar",
     "bar-layout": "bar",
@@ -3033,7 +3085,11 @@
     "system-information": "system",
     "system-maintenance": "system",
     "system": "settings",
+    "terminal-blur-strength": "terminal",
+    "terminal-blur": "terminal",
     "terminal-cursor-fire": "terminal",
+    "terminal-opacity": "terminal",
+    "terminal-padding": "terminal",
     "terminal": "style",
     "theme-dark": "theme",
     "theme-light": "theme",
@@ -4525,6 +4581,28 @@
       "key": "82fb411828c17150512f1ddf6e7f30cb798a224130942f73e32b6f44c8f1f6fa",
       "provider": "menus:bar",
       "identifier": "bar:2",
+      "text": "Blur strength",
+      "subtext": ">",
+      "icon": "󰐾",
+      "actions": [],
+      "keywords": [
+        "shared",
+        "terminal",
+        "blur",
+        "Blur strength",
+        "Blur strength"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "bar-blur-strength"
+    },
+    {
+      "key": "ed778d688a22c40dc9eeaf97891231406cf36264de4199d93e1294ad6ce80105",
+      "provider": "menus:bar",
+      "identifier": "bar:3",
       "text": "Clock",
       "subtext": ">",
       "icon": "󰥔",
@@ -4546,9 +4624,9 @@
       "submenu": "bar-clock"
     },
     {
-      "key": "ed778d688a22c40dc9eeaf97891231406cf36264de4199d93e1294ad6ce80105",
+      "key": "64a4e3a1b1a43eacff2cac82a9796e63a0f6b28cd2bb930a33c07f39177f9f22",
       "provider": "menus:bar",
-      "identifier": "bar:3",
+      "identifier": "bar:4",
       "text": "Displays",
       "subtext": ">",
       "icon": "󰍹",
@@ -4570,9 +4648,9 @@
       "submenu": "bar-screens"
     },
     {
-      "key": "64a4e3a1b1a43eacff2cac82a9796e63a0f6b28cd2bb930a33c07f39177f9f22",
+      "key": "64b588dc2abe7105cf6e17f965b87c01bb2cf48955aa356f90564109b7ebf999",
       "provider": "menus:bar",
-      "identifier": "bar:4",
+      "identifier": "bar:5",
       "text": "Dock",
       "subtext": ">",
       "icon": "󰀻",
@@ -4592,9 +4670,9 @@
       "submenu": "bar-dock"
     },
     {
-      "key": "64b588dc2abe7105cf6e17f965b87c01bb2cf48955aa356f90564109b7ebf999",
+      "key": "838235f99b2d426995f4faadd2b0b9038c11e37d07cf0bcec5ac32f1a0b2c30e",
       "provider": "menus:bar",
-      "identifier": "bar:5",
+      "identifier": "bar:6",
       "text": "Layout",
       "subtext": ">",
       "icon": "󰕰",
@@ -4617,9 +4695,9 @@
       "submenu": "bar-layout"
     },
     {
-      "key": "838235f99b2d426995f4faadd2b0b9038c11e37d07cf0bcec5ac32f1a0b2c30e",
+      "key": "56983b251b1cc27cf4e01d52e4dde09c5ac233c9ac17f55cf5c07e4e613ee947",
       "provider": "menus:bar",
-      "identifier": "bar:6",
+      "identifier": "bar:7",
       "text": "Media style",
       "subtext": ">",
       "icon": "󰍜",
@@ -4640,9 +4718,9 @@
       "submenu": "bar-media"
     },
     {
-      "key": "56983b251b1cc27cf4e01d52e4dde09c5ac233c9ac17f55cf5c07e4e613ee947",
+      "key": "83db68e2ed19b519813505f5df88663aa6de81d1b6417248f7db465741bd818e",
       "provider": "menus:bar",
-      "identifier": "bar:7",
+      "identifier": "bar:8",
       "text": "Position",
       "subtext": ">",
       "icon": "󰆾",
@@ -4664,9 +4742,9 @@
       "submenu": "bar-position"
     },
     {
-      "key": "83db68e2ed19b519813505f5df88663aa6de81d1b6417248f7db465741bd818e",
+      "key": "fc95814ddcee8c946ae099852acaa629762493f46ba6e819967c60ea5ceb5887",
       "provider": "menus:bar",
-      "identifier": "bar:8",
+      "identifier": "bar:9",
       "text": "Reduce motion",
       "subtext": ">",
       "icon": "󰍜",
@@ -9024,6 +9102,48 @@
       "key": "f36aeaaaa43f05c086806c1b6bc4581adeac9405325b34630b3903f336974d85",
       "provider": "menus:terminal",
       "identifier": "terminal:0",
+      "text": "Blur",
+      "subtext": ">",
+      "icon": "󰐾",
+      "actions": [],
+      "keywords": [
+        "blur",
+        "appearance",
+        "Blur",
+        "Blur"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "terminal-blur"
+    },
+    {
+      "key": "17ba4af307fa707c9f1eb116cf9c422cedf4c4269bb798769757f2418f9edee2",
+      "provider": "menus:terminal",
+      "identifier": "terminal:1",
+      "text": "Blur strength",
+      "subtext": ">",
+      "icon": "󰐾",
+      "actions": [],
+      "keywords": [
+        "blur-strength",
+        "appearance",
+        "Blur strength",
+        "Blur strength"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "terminal-blur-strength"
+    },
+    {
+      "key": "07c66afe70bc98e90c1d98f13610cdf7298a02adb808b3d3771cd19d1358f0b3",
+      "provider": "menus:terminal",
+      "identifier": "terminal:2",
       "text": "Cursor Fire",
       "subtext": ">",
       "icon": "󰈸",
@@ -9043,6 +9163,48 @@
         "main"
       ],
       "submenu": "terminal-cursor-fire"
+    },
+    {
+      "key": "7a0e46c205eeb88f168aa7fd9a4b94abcbbd21362aef694bfeddb3186f90b813",
+      "provider": "menus:terminal",
+      "identifier": "terminal:3",
+      "text": "Opacity",
+      "subtext": ">",
+      "icon": "󰐾",
+      "actions": [],
+      "keywords": [
+        "opacity",
+        "appearance",
+        "Opacity",
+        "Opacity"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "terminal-opacity"
+    },
+    {
+      "key": "f53cdd5256b054700f9f697ce66ed1e7ec2654708a40ebf25e0bf69064d9f178",
+      "provider": "menus:terminal",
+      "identifier": "terminal:4",
+      "text": "Padding",
+      "subtext": ">",
+      "icon": "󰐾",
+      "actions": [],
+      "keywords": [
+        "padding",
+        "appearance",
+        "Padding",
+        "Padding"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "terminal-padding"
     },
     {
       "key": "bb49c303130bcc209c044a22bfad96278c23f970812264958cc870704a975f80",

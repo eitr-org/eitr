@@ -718,6 +718,9 @@ msgstr "Cores"
 msgid "Colors of {name}"
 msgstr "Cores de {name}"
 
+msgid "Comfortable"
+msgstr "Confortável"
+
 msgid "Command failed (exit {status})"
 msgstr "O comando falhou (código {status})"
 
@@ -957,6 +960,9 @@ msgstr "Data"
 
 msgid "Default"
 msgstr "Padrão"
+
+msgid "Default (75%)"
+msgstr "Padrão (75%)"
 
 msgid "Default account"
 msgstr "Conta padrão"
@@ -1356,6 +1362,9 @@ msgstr "Clusters GKE"
 
 msgid "GRUB now lists Snapper snapshots in its 'Arch Linux snapshots' submenu. Backup: {backup}"
 msgstr "O GRUB agora lista os snapshots do Snapper no submenu 'Arch Linux snapshots'. Backup: {backup}"
+
+msgid "Gentle"
+msgstr "Leve"
 
 msgid "Git Accounts"
 msgstr "Contas Git"
@@ -1768,6 +1777,9 @@ msgstr "Permitir que assistentes trabalhem juntos"
 msgid "Light"
 msgstr "Claro"
 
+msgid "Light (90%)"
+msgstr "Leve (90%)"
+
 msgid "Light or dark"
 msgstr "Claro ou escuro"
 
@@ -1851,6 +1863,12 @@ msgstr "Autor do manifesto: {author}"
 
 msgid "Manifest changed: {path}"
 msgstr "Manifesto alterado: {path}"
+
+msgid "Medium"
+msgstr "Médio"
+
+msgid "Medium (80%)"
+msgstr "Médio (80%)"
 
 msgid "Memory"
 msgstr "Memória"
@@ -2020,6 +2038,9 @@ msgstr "Lembrete não encontrado."
 msgid "No update snapshots yet."
 msgstr "Ainda não há snapshots de atualizações."
 
+msgid "None"
+msgstr "Nenhum"
+
 msgid "Not a user-owned regular file: {path}"
 msgstr "Não é um arquivo comum pertencente ao usuário: {path}"
 
@@ -2101,6 +2122,9 @@ msgstr "Idade do sistema"
 msgid "Object storage buckets"
 msgstr "Buckets de armazenamento de objetos"
 
+msgid "Off"
+msgstr "Desativado"
+
 msgid "Official Eitr plugin"
 msgstr "Plugin oficial do Eitr"
 
@@ -2109,6 +2133,9 @@ msgstr "Plugin oficial do Eitr de eitr-org/eitr-plugins, revisado pelo projeto E
 
 msgid "Ollama could not be installed. Your default assistant is unchanged."
 msgstr "Não foi possível instalar o Ollama. Seu assistente padrão não foi alterado."
+
+msgid "On"
+msgstr "Ativado"
 
 msgid "Only files in the home folders have snapshots."
 msgstr "Apenas arquivos das pastas pessoais têm snapshots."
@@ -2947,6 +2974,9 @@ msgstr "{pattern} ignorado: só é possível importar pastas existentes sem padr
 msgid "Skipping {command}: command not found"
 msgstr "Ignorando {command}: comando não encontrado"
 
+msgid "Small"
+msgstr "Pequeno"
+
 msgid "Snapper returned an invalid snapshot number"
 msgstr "O Snapper retornou um número de snapshot inválido"
 
@@ -2997,6 +3027,9 @@ msgstr "Adiar 5 min"
 
 msgid "Software"
 msgstr "Software"
+
+msgid "Solid (100%)"
+msgstr "Sólido (100%)"
 
 msgid "Some calendars could not be reached; their previous events stay."
 msgstr "Alguns calendários não puderam ser acessados; os eventos anteriores continuam."
@@ -3063,6 +3096,12 @@ msgstr "Buckets de armazenamento"
 
 msgid "Storage volumes"
 msgstr "Volumes de armazenamento"
+
+msgid "Strong"
+msgstr "Forte"
+
+msgid "Strong (70%)"
+msgstr "Forte (70%)"
 
 msgid "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}"
 msgstr "Menu de boot em {config} estilizado com as cores de {source}. Backup: {backup}"
