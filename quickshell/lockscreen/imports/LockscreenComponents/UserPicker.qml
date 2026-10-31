@@ -11,7 +11,8 @@ Rectangle {
     visible: controller.canPickUser
     width: Math.min(parent.width - 48, 380)
     height: visible ? (showHint ? 56 : 38) * unit : 0
-    radius: 12 * unit
+    property real cornerRadius: 12 * unit
+    radius: cornerRadius
     color: surface
     border.color: Qt.alpha(ink, 0.3)
     objectName: "userPicker"

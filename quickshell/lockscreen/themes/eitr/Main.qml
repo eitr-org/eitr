@@ -112,12 +112,14 @@ Item {
             controller: login
             unit: root.unit
             width: parent.width
-            ink: root.ink; surface: Qt.alpha(root.ink, 0.08)
+            ink: root.ink; surface: Qt.alpha(root.ground, root.light ? 0.55 : 0.42)
+            cornerRadius: height / 2
         }
         Rectangle {
             id: field
-            width: parent.width; height: 60 * root.unit; radius: 5 * root.unit
-            color: Qt.alpha(root.ink, 0.045); border.color: password.activeFocus ? root.accent : root.muted
+            // The disk-unlock field's pill, filled like the circle behind the wordmark.
+            width: parent.width; height: 60 * root.unit; radius: height / 2
+            color: Qt.alpha(root.ground, root.light ? 0.55 : 0.42); border.color: password.activeFocus ? root.accent : root.muted
             // Each carved rune jolts the field and flares its border.
             property real jolt: 0
             transform: Translate { x: field.jolt * 5 * root.unit; y: Math.abs(field.jolt) * 2 * root.unit }
@@ -142,7 +144,7 @@ Item {
             TextInput {
                 id: password
                 objectName: "eitrPassword"
-                anchors.fill: parent; anchors.leftMargin: 18 * root.unit; anchors.rightMargin: 55 * root.unit
+                anchors.fill: parent; anchors.leftMargin: 30 * root.unit; anchors.rightMargin: 62 * root.unit
                 verticalAlignment: TextInput.AlignVCenter; echoMode: TextInput.Password
                 // The typed characters stay hidden; CarvedRunes shows one rune per character instead.
                 font.pixelSize: 18 * root.unit; color: "transparent"; selectionColor: "transparent"
@@ -170,7 +172,7 @@ Item {
                 onStruck: joltAnimation.restart()
             }
             Text {
-                anchors.right: parent.right; anchors.rightMargin: 18 * root.unit; anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right; anchors.rightMargin: 26 * root.unit; anchors.verticalCenter: parent.verticalCenter
                 text: "→"; font.pixelSize: 25 * root.unit; color: root.accent
                 MouseArea { anchors.fill: parent; anchors.margins: -10 * root.unit; cursorShape: Qt.PointingHandCursor; onClicked: root.submit() }
             }

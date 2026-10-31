@@ -102,7 +102,9 @@ black ground (dark themes), so an OLED leaves those pixels off.
   scaled twice, with time advancing every 50 ms at twice the wallpaper's drift, in
   fixed northern-lights greens rising to teal and violet, with a gentle saturation
   boost. Pale themes tint the curtain alpha with a ColorOverlay instead.
-- **Password field:** no placeholder; a block caret in the accent. Each typed
+- **Password field:** a pill like the disk-unlock field, filled like the circle behind
+  the wordmark, as is the account picker above it; no placeholder; a block caret in
+  the accent. Each typed
   character carves one rune in typing order (never derived from the character, so
   only the length shows): it falls, lands white-hot with a flash and sparks, jolts
   the field and cools to gold. Arrows, Home and End move the caret; Backspace and
