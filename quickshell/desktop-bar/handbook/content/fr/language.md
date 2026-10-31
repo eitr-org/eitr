@@ -20,7 +20,7 @@ Le texte anglais est la source. Les catalogues se trouvent dans `i18n/catalogs/<
 
 Les chapitres du manuel se trouvent dans `quickshell/desktop-bar/handbook/content/<locale>/<chapter-id>.md`. Conservez les liens `handbook:`, les blocs de code et les commandes. Les tableaux du clavier et de la souris sont générés à partir des sources de référence des raccourcis ; traduisez leurs messages dans le catalogue du manuel plutôt que de maintenir une seconde liste de touches.
 
-Exécutez `python3 tools/i18n-build.py --check`, générez le manuel avec `python3 quickshell/desktop-bar/scripts/handbook-build.py`, puis exécutez son option `--check` et `bash tools/check.sh`. Les vérifications énumèrent les messages manquants et les paramètres modifiés. Vérifiez les traductions longues dans des aperçus rendus hors écran avant de proposer votre contribution.
+Exécutez `python3 tools/i18n-build.py --check`, générez le manuel avec `python3 tools/handbook-build.py`, puis exécutez son option `--check` et `bash tools/check.sh`. Les vérifications énumèrent les messages manquants et les paramètres modifiés. Vérifiez les traductions longues dans des aperçus rendus hors écran avant de proposer votre contribution.
 
 Après avoir traduit intégralement un chapitre modifié, mettez à jour son entrée dans `source-hashes.json` avec le SHA-256 de la source anglaise. La vérification signale les sources modifiées ou non enregistrées ; régénérer les catalogues ne valide jamais un changement de source.
 

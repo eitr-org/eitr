@@ -66,7 +66,7 @@ def extract(root=ROOT):
     for chapter in json.loads(book.read_text()):
         for field in ("title", "summary"):
             add("handbook", chapter.get(field), book)
-    shortcut_builder = root / "quickshell/desktop-bar/scripts/handbook-build.py"
+    shortcut_builder = root / "tools/handbook-build.py"
     specification = importlib.util.spec_from_file_location("i18n_handbook_build", shortcut_builder)
     handbook_builder = importlib.util.module_from_spec(specification)
     specification.loader.exec_module(handbook_builder)

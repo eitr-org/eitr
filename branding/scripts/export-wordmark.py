@@ -13,7 +13,7 @@ WIDTHS = (512, 1024, 2048)
 
 
 def main():
-    master = ROOT / "source/eitr-wordmark-master.svg"
+    master = ROOT / "sources/logos/eitr-wordmark-master.svg"
     tree = ET.parse(master)
     document = tree.getroot()
     x, y, width, height = map(float, document.get("viewBox").split())

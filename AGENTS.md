@@ -19,7 +19,7 @@ existing design and workflows rather than replacing them with upstream defaults.
 - Keep the EITR Handbook current whenever changing documented shortcuts, menus,
   panels, preferences, installers, security/recovery procedures or limitations.
   Update the relevant Markdown chapters and privacy-safe screenshots, then run
-  `python3 quickshell/desktop-bar/scripts/handbook-build.py` and its `--check`.
+  `python3 tools/handbook-build.py` and its `--check`.
   The catalog bundles canonical distro guides rather than duplicating them;
   keyboard/mouse tables are generated from Learn's shortcut/gesture sources. Secure Boot docs
   belong only in the Handbook, without a separate Learn or Security menu entry.

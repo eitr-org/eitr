@@ -10,7 +10,7 @@ from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[3]
 BOOK = ROOT / "quickshell/desktop-bar/handbook"
-spec = importlib.util.spec_from_file_location("localized_handbook", ROOT / "quickshell/desktop-bar/scripts/handbook-build.py")
+spec = importlib.util.spec_from_file_location("localized_handbook", ROOT / "tools/handbook-build.py")
 builder = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(builder)
 

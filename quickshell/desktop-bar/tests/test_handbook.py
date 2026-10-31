@@ -7,7 +7,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[3]
 BOOK = ROOT / "quickshell/desktop-bar/handbook"
-spec = importlib.util.spec_from_file_location("handbook_build", ROOT / "quickshell/desktop-bar/scripts/handbook-build.py")
+spec = importlib.util.spec_from_file_location("handbook_build", ROOT / "tools/handbook-build.py")
 builder = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(builder)
 

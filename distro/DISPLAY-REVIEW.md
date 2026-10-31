@@ -146,7 +146,7 @@ their existing behavior.
 - `bash tools/check.sh`: all seven stages passed (existing skips retained), plus Node, syntax, ShellCheck, Qt 6 QML lint,
   whitespace and structured-data checks.
 - `python3 tools/i18n-build.py --check`: passed for all five languages.
-- `python3 quickshell/desktop-bar/scripts/handbook-build.py --check`: passed.
+- `python3 tools/handbook-build.py --check`: passed.
 - New untracked provider Python/JSON files were also parsed explicitly, since
   the syntax/data stages discover tracked files. Provider tests run through the
   normal Walker test discovery, with mocks and temporary account directories.
@@ -415,7 +415,7 @@ Final results for this conversion:
 - `bash tools/check.sh`: all seven stages passed; 1,097 Python tests across
   eight suites, with the existing skips retained, plus the Node checks.
 - `python3 tools/i18n-build.py` and `--check`: passed.
-- `python3 quickshell/desktop-bar/scripts/handbook-build.py` and `--check`: passed.
+- `python3 tools/handbook-build.py` and `--check`: passed.
 - Both new Python files were parsed explicitly; `git diff --check` passed.
 - No commit, staging or push was performed.
 

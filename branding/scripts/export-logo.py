@@ -16,7 +16,7 @@ COLORS = {"black": "#000000", "white": "#ffffff", "green": "#32644c"}
 
 
 def trace():
-    with Image.open(ROOT / "source/eitr-logo-master.png") as source:
+    with Image.open(ROOT / "sources/logos/eitr-logo-master.png") as source:
         alpha = source.getchannel("A")
         alpha = alpha.crop(alpha.getbbox())
         padding = round(max(alpha.size) * 0.06)

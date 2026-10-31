@@ -3682,7 +3682,7 @@
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Action": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Apps & Installation": [
       "quickshell/desktop-bar/handbook/chapters.json"
@@ -3691,22 +3691,22 @@
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Bar: double left-click": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Bar: double right-click": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Bar: left-click and drag": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Blur / Theme Color": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Brightness Down": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Brightness Up": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Btrfs, Snapper, boot backups, authentication recovery and TPM": [
       "quickshell/desktop-bar/handbook/chapters.json"
@@ -3715,16 +3715,16 @@
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Capture And Desktop": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Click a bar icon": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Close active window": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Color picker": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Connecting, known networks, enterprise credentials, pairing and airplane mode": [
       "quickshell/desktop-bar/handbook/chapters.json"
@@ -3736,22 +3736,22 @@
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Copy": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Cut": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Decode QR from selection": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Desktop Bar": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Desktop: double left-click": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Desktop: double right-click": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Development Tools": [
       "quickshell/desktop-bar/handbook/chapters.json"
@@ -3760,16 +3760,16 @@
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Dictate, release to type": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Emoji picker": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "F8": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "F9": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Factory Reset": [
       "quickshell/desktop-bar/handbook/chapters.json"
@@ -3781,44 +3781,44 @@
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Focus": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Focus down": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Focus left": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Focus mode": [
       "quickshell/desktop-bar/handbook/chapters.json",
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Focus right": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Focus up": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Frozen selection (floating editor)": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Full / Centered / Tabs / Islands": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Full screenshot (floating editor)": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Fuzzy-find files": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Fuzzy-find text": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "General, Style, Settings, Capture and OCR": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Gesture": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Getting Started": [
       "quickshell/desktop-bar/handbook/chapters.json"
@@ -3830,34 +3830,34 @@
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Go to workspace 1": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Go to workspace 10": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Go to workspace 2": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Go to workspace 3": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Go to workspace 4": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Go to workspace 5": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Go to workspace 6": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Go to workspace 7": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Go to workspace 8": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Go to workspace 9": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Icons, positioning, centered layout, pin and mouse gestures": [
       "quickshell/desktop-bar/handbook/chapters.json"
@@ -3866,10 +3866,10 @@
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Keyboard": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Keyboard and mouse shortcuts share this reference. SUPER is the Windows/Command-logo key.": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Keyboard and mouse: windows, workspaces, launchers, capture and bar gestures": [
       "quickshell/desktop-bar/handbook/chapters.json"
@@ -3881,139 +3881,139 @@
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Launchers": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Local hardware overrides may add bindings.": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Lock screen": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Lower brightness": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Lower volume": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Manual sbctl workflow, firmware keys, bootloader risks and undo": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Media And Hardware": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Media Next": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Media Play/Pause": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Media Previous": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Mic Mute": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Missing helpers, service restarts, dependencies, installation checks and backups": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Mouse": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Move And Resize": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Move a floating window.": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Move to a screen edge": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Move window down": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Move window left": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Move window right": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Move window to special workspace": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Move window to workspace 1": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Move window to workspace 10": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Move window to workspace 2": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Move window to workspace 3": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Move window to workspace 4": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Move window to workspace 5": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Move window to workspace 6": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Move window to workspace 7": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Move window to workspace 8": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Move window to workspace 9": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Move window up": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Network Backends": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Next existing workspace": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Next media": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Next tab": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Next wallpaper": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Notification center": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "OCR text from selection": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Open default AI assistant (Development)": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Open file manager": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Open main menu": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Open terminal": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Open this handbook with **SUPER + F1**. Search chapters with **Ctrl + F**, scroll with **Page Up/Page Down**; Escape closes it.": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Open tmux": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Open/toggle its panel; outside click or Escape dismisses it.": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Organization Profiles": [
       "quickshell/desktop-bar/handbook/chapters.json"
@@ -4022,37 +4022,37 @@
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Paste": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Paste clipboard history": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Play or pause media": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Previous existing workspace": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Previous media": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Previous tab": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Print": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Projects, AI CLIs, Cloud, Grafana, optional languages and databases": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Quarter-size window": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Raise brightness": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Raise volume": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Recovery & Snapshots": [
       "quickshell/desktop-bar/handbook/chapters.json"
@@ -4061,40 +4061,40 @@
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Resize a window.": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Resize narrower": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Resize shorter": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Resize taller": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Resize wider": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Return pane to a tab": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Reviewed installation software, defaults and organization policies": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Right-click Idle Lock": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Rotate split direction": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Screenshots, OCR, QR codes, color picker, OBS recording and LocalSend": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Search Google": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Search apps": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Secure Boot": [
       "quickshell/desktop-bar/handbook/chapters.json"
@@ -4103,53 +4103,53 @@
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Select tab 1": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Select tab 2": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Select tab 3": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Select tab 4": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Select tab 5": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Select tab 6": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Select tab 7": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Select tab 8": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Select tab 9": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Settings Menu": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Shortcut": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Shortcuts": [
       "quickshell/desktop-bar/handbook/chapters.json",
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Show LazyVim commands": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Show shortcuts": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Split side by side": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Split stacked": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Sunshine on Eitr, Moonlight on a Mac and Tailscale away from home": [
       "quickshell/desktop-bar/handbook/chapters.json"
@@ -4167,55 +4167,55 @@
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Theme carousel": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Theme carousel, wallpapers, fonts, cursors, corners and lockscreen": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Theme picker": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Themes & Style": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "These keys replace workspace controls while Focus is on. See the Focus chapter for recovery and monitor behavior.": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Toggle EITR handbook": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Toggle automatic locking.": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Toggle control center": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Toggle desktop bar": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Toggle floating and pin": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Toggle fullscreen": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Toggle microphone mute": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Toggle output mute": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Toggle pseudo tiling": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Toggle special workspace": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Toggle split direction": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Toggle workspace overview": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Troubleshooting": [
       "quickshell/desktop-bar/handbook/chapters.json"
@@ -4224,46 +4224,46 @@
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Use empty desktop or bar space for desktop/bar gestures, not an application's content.": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Voice reminders, release to send": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Volume Down": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Volume Mute": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Volume Up": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Walker, global search, uninstall, pacman, AUR and optional tools": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Wallpaper carousel": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Wallpaper picker": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "WiFi & Bluetooth": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Window screenshot (floating editor)": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Windows": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Workspace style": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Workspace: right-click": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "Workspaces": [
-      "quickshell/desktop-bar/scripts/handbook-build.py"
+      "tools/handbook-build.py"
     ],
     "iwd, NetworkManager, reboot-only switching and enterprise configuration": [
       "quickshell/desktop-bar/handbook/chapters.json"

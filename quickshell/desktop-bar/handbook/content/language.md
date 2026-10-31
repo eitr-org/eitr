@@ -47,7 +47,7 @@ are generated from the canonical shortcut sources; translate their messages in
 the Handbook catalog rather than maintaining a second list of bindings.
 
 Run `python3 tools/i18n-build.py --check`, rebuild the Handbook with
-`python3 quickshell/desktop-bar/scripts/handbook-build.py`, then run its `--check`
+`python3 tools/handbook-build.py`, then run its `--check`
 and `bash tools/check.sh`. Catalog checks list missing messages and changed
 placeholders. Check long translations in offscreen previews before submitting.
 

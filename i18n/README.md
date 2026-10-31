@@ -64,7 +64,7 @@ and payload/repository build tooling stay outside the helper catalogs.
 
 Handbook source freshness is tracked separately from generated catalogs in each
 locale’s `source-hashes.json`. Each chapter records the SHA-256 of its English
-source revision. `handbook-build.py --check` reports changed or unrecorded
+source revision. `python3 tools/handbook-build.py --check` reports changed or unrecorded
 sources, even after someone rebuilds the catalogs. After translating the entire
 changed chapter, update only its hash to the reviewed English source’s SHA-256.
 Rebuilding never acknowledges source changes automatically. Initial hashes

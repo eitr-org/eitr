@@ -337,7 +337,7 @@ Keep included packages distinct from optional software recipes and configured se
 
 The public reader consumes `quickshell/desktop-bar/handbook/catalog.json` at build
 time. Edit its canonical Markdown, rebuild with
-`python3 quickshell/desktop-bar/scripts/handbook-build.py`, and run `--check`;
+`python3 tools/handbook-build.py`, and run `--check`;
 never edit a second copy under the website. The adapter changes links and makes
 code blocks keyboard-focusable; it retains commands, tables and body text.
 The web reader uses the desktop’s reviewed pt_BR, es, de and fr catalogs (pt_BR maps to `/pt-br/`). Missing or stale chapter translations fall back to English with a localized note; freshness is checked against canonical source bytes and `source-hashes.json`.

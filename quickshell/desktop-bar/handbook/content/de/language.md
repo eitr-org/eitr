@@ -20,7 +20,7 @@ Der englische Text ist die Quelle. Die Kataloge liegen unter `i18n/catalogs/<loc
 
 Handbuchkapitel liegen unter `quickshell/desktop-bar/handbook/content/<locale>/<chapter-id>.md`. Behalte `handbook:`-Links, Codeblöcke und Befehle bei. Die Tastatur- und Maustabellen werden aus den maßgeblichen Quellen der Tastenkürzel erzeugt. Übersetze ihre Nachrichten im Handbuchkatalog, statt eine zweite Liste der Tastenbelegungen zu pflegen.
 
-Führe `python3 tools/i18n-build.py --check` aus, erzeuge das Handbuch mit `python3 quickshell/desktop-bar/scripts/handbook-build.py` und führe anschließend dessen Option `--check` sowie `bash tools/check.sh` aus. Die Prüfungen listen fehlende Nachrichten und veränderte Platzhalter auf. Prüfe lange Übersetzungen vor dem Einreichen in einer außerhalb des Bildschirms gerenderten Vorschau.
+Führe `python3 tools/i18n-build.py --check` aus, erzeuge das Handbuch mit `python3 tools/handbook-build.py` und führe anschließend dessen Option `--check` sowie `bash tools/check.sh` aus. Die Prüfungen listen fehlende Nachrichten und veränderte Platzhalter auf. Prüfe lange Übersetzungen vor dem Einreichen in einer außerhalb des Bildschirms gerenderten Vorschau.
 
 Aktualisiere nach der vollständigen Übersetzung eines geänderten Kapitels dessen Eintrag in `source-hashes.json` mit dem SHA-256 der englischen Quelle. Die Prüfung meldet geänderte oder nicht erfasste Quellen; das bloße Neugenerieren der Kataloge bestätigt keine Quelländerung.
 

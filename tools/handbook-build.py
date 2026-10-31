@@ -10,7 +10,7 @@ import re
 import sys
 import markdown
 
-ROOT = Path(__file__).resolve().parents[3]
+ROOT = Path(__file__).resolve().parents[1]
 BOOK = ROOT / "quickshell/desktop-bar/handbook"
 sys.path.insert(0, str(ROOT / ("distro/lib" if (ROOT / "distro/lib").is_dir() else "lib")))
 from eitr_i18n import languages, table
@@ -225,4 +225,4 @@ if __name__ == "__main__":
         sys.exit("Handbook translations need source review: " + ", ".join(source_changes)
                  + "; translate the changed chapters before updating source-hashes.json")
     if stale:
-        sys.exit("Handbook catalogs are stale: " + ", ".join(stale) + "; run python3 quickshell/desktop-bar/scripts/handbook-build.py")
+        sys.exit("Handbook catalogs are stale: " + ", ".join(stale) + "; run python3 tools/handbook-build.py")

@@ -6,7 +6,7 @@ The approved EITR wordmark preserves the original E rune and adds a narrow I,
 arrow-shaped T, and open angular R. These are custom rune-inspired letters,
 rather than a historical alphabet transcription. There is no liquid pool.
 
-- `source/eitr-wordmark-master.svg`: approved vector master.
+- `sources/logos/eitr-wordmark-master.svg`: approved vector master.
 - `svg/eitr-wordmark.svg`: themeable `currentColor` export.
 - `svg/eitr-wordmark-{black,white,green}.svg`: fixed-color vectors.
 - `png/eitr-wordmark-{black,white,green}-{512,1024,2048}.png`: transparent
@@ -25,8 +25,8 @@ when editing it so both vector and raster exports stay synchronized.
 ## Desktop mark
 
 The Eitr logo, the **Eitr rune mark**, is an angular E in negative space inside
-an organic liquid pool. `source/eitr-logo-master.png` is the transparent raster
-source; `source/eitr-logo-concept.png` preserves the selected concept presentation.
+an organic liquid pool. `sources/logos/eitr-logo-master.png` is the transparent raster
+source; `sources/logos/eitr-logo-concept.png` preserves the selected concept presentation.
 
 The transparent asset was extracted with the built-in image-generation tool.
 Prompt: Extract the exact black liquid-pool logo and angular rune E; remove the
@@ -35,7 +35,7 @@ transparent negative space. Preserve the contours and rune geometry; no redesign
 bubbles, drips, text, shadows or glow.
 
 The installed copy is `fastfetch/assets/eitr-logo.png`. Keep it identical to
-`source/eitr-logo-master.png`.
+`sources/logos/eitr-logo-master.png`.
 Walker Settings → System → About renders the alpha silhouette as theme-colored terminal
 half-blocks, so the mark follows the active accent on both light and dark themes.
 

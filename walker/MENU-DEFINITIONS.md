@@ -70,7 +70,7 @@ in Visuals. Global app search keeps launch actions only; uninstall remains in Ap
 | Remote panel rows loaded indirectly through menu-action | eitr_menu rows; remote-status only filters and translates the panel view |
 | Learn shell shortcut labels/bindings/actions and indexed shortcuts | Indexed rows remain in menu-rows/shortcuts.json; shortcut-reference.json references their titles and derives bindings/actions from them |
 | Assistant primer parsing Learn shell text | eitr_assistant_context uses the shared shortcut projection |
-| Shell-only shortcut groups and bindings | shortcut-reference.json; shortcut-reference.py renders the shell chooser; handbook-build renders tables from the same projection |
+| Shell-only shortcut groups and bindings | shortcut-reference.json; shortcut-reference.py renders the shell chooser; tools/handbook-build.py renders tables from the same projection |
 | Focus shortcuts in chooser/provider/Handbook | Existing eitr_focus shortcut_entries and focus-mode entries adapter remain authoritative |
 | Current marks and fixed setting choices | Existing choice-entries, bar-settings-entries and setting owners remain authoritative; index consumes their provider output |
 | Identical destinations exposed in different menu locations | Each placement retains its own description, icon and parent; these are separate rows, not alternative definitions of one row |

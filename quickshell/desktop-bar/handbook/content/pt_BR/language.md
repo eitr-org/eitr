@@ -20,7 +20,7 @@ O texto em inglês é a fonte. Os catálogos ficam em `i18n/catalogs/<locale>/`;
 
 Os capítulos do manual ficam em `quickshell/desktop-bar/handbook/content/<locale>/<chapter-id>.md`. Preserve os links `handbook:`, os blocos de código e os comandos. As tabelas de teclado e mouse são geradas a partir das fontes oficiais dos atalhos; traduza suas mensagens no catálogo do manual em vez de manter uma segunda lista de teclas.
 
-Execute `python3 tools/i18n-build.py --check`, gere o manual com `python3 quickshell/desktop-bar/scripts/handbook-build.py` e execute sua opção `--check`, além de `bash tools/check.sh`. As verificações listam mensagens ausentes e marcadores alterados. Confira traduções longas em prévias fora da tela antes de enviar sua contribuição.
+Execute `python3 tools/i18n-build.py --check`, gere o manual com `python3 tools/handbook-build.py` e execute sua opção `--check`, além de `bash tools/check.sh`. As verificações listam mensagens ausentes e marcadores alterados. Confira traduções longas em prévias fora da tela antes de enviar sua contribuição.
 
 Depois de traduzir integralmente um capítulo alterado, atualize sua entrada em `source-hashes.json` com o SHA-256 da fonte em inglês. A verificação aponta fontes alteradas ou não registradas; apenas gerar os catálogos nunca confirma uma alteração da fonte.
 

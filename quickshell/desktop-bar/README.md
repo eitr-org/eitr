@@ -78,7 +78,7 @@ Blur/Theme Color surface follow desktop preferences. Document links can navigate
 chapters or open HTTP(S) references on an explicit click, never run commands.
 
 `handbook/chapters.json` selects Markdown sources, including canonical distro
-recovery/network/Secure Boot guides. Run `scripts/handbook-build.py` from the
+recovery/network/Secure Boot guides. Run `python3 tools/handbook-build.py` from the
 repository after changing them; `--check` detects a stale bundled catalog.
 The Shortcuts chapter combines keyboard and mouse references generated from
 Learn's `elephant/shortcut-reference.json` projection (shared with indexed

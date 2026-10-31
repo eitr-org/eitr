@@ -29,6 +29,28 @@ class LayoutManifestTests(unittest.TestCase):
             self.assertIn('walker/scripts/menus/search-index.py', paths)
             self.assertFalse(any(path.startswith('config/') for path in paths))
 
+    def test_build_inputs_are_excluded_from_exported_runtime(self):
+        import shutil
+        inputs = ['tools/handbook-build.py',
+                  'branding/sources/logos/eitr-logo-concept.png',
+                  'branding/sources/logos/eitr-logo-master.png',
+                  'branding/sources/logos/eitr-wordmark-master.svg']
+        layout = module.Layout(ROOT)
+        for relative in inputs:
+            self.assertFalse(layout.classify(relative)['runtime'], relative)
+        self.assertEqual(layout.classify(inputs[0])['class'], 'C')
+        with tempfile.TemporaryDirectory() as directory:
+            exported = Path(directory) / 'source'
+            for relative in inputs + ['distro/layout-manifest.json', 'distro/legacy-layout.json']:
+                target = exported / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(ROOT / relative, target)
+            staged = Path(directory) / 'stage'
+            staged.mkdir()
+            module.Layout(exported).stage(staged)
+            for relative in inputs:
+                self.assertFalse((staged / relative).exists(), relative)
+
     def test_preferences_are_not_shipped_code(self):
         layout = module.Layout(ROOT)
         for path in ['nvim/init.lua', 'hypr/local.lua', 'quickshell/desktop-bar/bar-settings.json']:
