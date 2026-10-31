@@ -42,7 +42,7 @@ Eitr zeigt die EITR-Wortmarke in der Akzentfarbe deines Themas im goldenen Runen
 
 Die Bilder sind für 4K (3840×2160, 16:9) vorgesehen. Coffee und Pillow behalten ihren ruhigen Anime-Stil mit nordischer Kleidung; Material und Clockwork verwenden dezente Runenornamente. Nothing behält sein Design. QML und SVG bleiben skalierbar.
 
-Vergleiche die acht Designs mit `bash quickshell/lockscreen/scripts/gallery.sh`. Dies ändert die Auswahl nicht; Anmeldung und Energieaktionen sind in der Galerie deaktiviert. Clockwork nutzt prozedurales QML. Coffee, Pillow, Material und Nothing behalten ihre lizenzierten Anordnungen mit neuen Bildern und installierter JetBrainsMono Nerd Font. Zusätzliche mitgelieferte Schriften oder Videos sind nicht erforderlich.
+Vergleiche die neun Designs mit `bash quickshell/lockscreen/scripts/gallery.sh`. Dies ändert die Auswahl nicht; Anmeldung und Energieaktionen sind in der Galerie deaktiviert. Clockwork nutzt prozedurales QML. Coffee, Pillow, Material und Nothing behalten ihre lizenzierten Anordnungen mit neuen Bildern und installierter JetBrainsMono Nerd Font. Zusätzliche mitgelieferte Schriften oder Videos sind nicht erforderlich.
 
 **Design-Hintergrundbild** zeigt das aktuelle Hintergrundbild mit Uhr oben links und Passworteingabe unten rechts. Die Walker-Vorschau zeigt das aktuelle Bild. Spätere Änderungen erscheinen beim nächsten Sperren oder Öffnen der Vorschau; Ctrl+P zeigt das gesamte Design ohne Sperren. Der Anmeldebildschirm kann deinen persönlichen Ordner nicht lesen. Er nutzt eine Kopie, die Eitr beim Auswählen dieses Designs und bei jedem Bildwechsel speichert. Fehlt sie, wird ein anderes Bild des aktuellen Designs oder der Eitr-Standard verwendet.
 

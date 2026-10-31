@@ -391,9 +391,12 @@ Check these before committing; reviews keep catching them.
 - A new QML type under `quickshell/desktop-bar`, including its subfolders, must be
   listed with its relative path in the root `qmldir`,
   or the running bar cannot find it even though `qmllint` passes.
-- Lists repeated across files change together: workspace styles (QML menus,
-  Elephant, both scripts, tests) and lockscreen designs (settings `NAMES`,
-  gallery, README count, Handbook, tests). Keep style lists alphabetical.
+- Workspace styles and lockscreen designs are owned by `tools/choice-lists.json`
+  (ids, alphabetical order and translation labels). Run `python3 tools/choice-lists.py`
+  to update the Python, QML and Elephant projections, then update enumerations and
+  counts in the README and Handbook. `tools/choice-lists.py --check` verifies these
+  copies, documentation and shipped designs; `tools/check.sh` runs it. Keep renderer
+  behavior separate from the catalog and regenerate i18n if translation keys change.
 - After editing `handbook/content/*.md`, rebuild `catalog.json` with
   `handbook-build.py`; `--check` fails otherwise.
 - A new folder inside a theme needs `test_theme_schema.py`, the `eitr-artwork`

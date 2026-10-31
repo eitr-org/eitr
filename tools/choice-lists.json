@@ -1,0 +1,82 @@
+{
+  "workspace_styles": [
+    {
+      "id": "Dots",
+      "label": "Dots",
+      "handbook_labels": {
+        "de": "Punkte",
+        "es": "Puntos",
+        "fr": "Points",
+        "pt_BR": "Pontos"
+      }
+    },
+    {
+      "id": "Glyph",
+      "label": "Glyph",
+      "handbook_labels": {
+        "de": "Glyphe",
+        "es": "Glifo",
+        "fr": "Glyphe",
+        "pt_BR": "Glifo"
+      }
+    },
+    {
+      "id": "Numbers",
+      "label": "Numbers",
+      "handbook_labels": {
+        "de": "Zahlen",
+        "es": "Números",
+        "fr": "Nombres",
+        "pt_BR": "Números"
+      }
+    },
+    {
+      "id": "Runes",
+      "label": "Runes",
+      "handbook_labels": {
+        "de": "Runen",
+        "es": "Runas",
+        "fr": "Runes",
+        "pt_BR": "Runas"
+      }
+    }
+  ],
+  "lockscreen_designs": [
+    {
+      "id": "clockwork/neo-orbital",
+      "label": "Clockwork Neo Orbital"
+    },
+    {
+      "id": "clockwork/tape",
+      "label": "Clockwork Tape"
+    },
+    {
+      "id": "eitr",
+      "label": "Eitr"
+    },
+    {
+      "id": "girl-coffee",
+      "label": "Girl · Coffee"
+    },
+    {
+      "id": "girl-pillow",
+      "label": "Girl · Pillow"
+    },
+    {
+      "id": "material-you-dark",
+      "label": "Material Dark"
+    },
+    {
+      "id": "material-you",
+      "label": "Material Light"
+    },
+    {
+      "id": "nothing",
+      "label": "Nothing"
+    },
+    {
+      "id": "theme-wallpaper",
+      "label": "Theme Wallpaper"
+    }
+  ]
+}

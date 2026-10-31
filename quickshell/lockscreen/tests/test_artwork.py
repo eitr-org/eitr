@@ -1,5 +1,6 @@
 from pathlib import Path
 import re
+import json
 import struct
 import subprocess
 import tempfile
@@ -10,10 +11,10 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class ArtworkTests(unittest.TestCase):
-    def test_nine_designs_are_shipped(self):
+    def test_catalog_designs_are_shipped(self):
         designs = {str(path.parent.relative_to(ROOT / 'themes')) for path in (ROOT / 'themes').rglob('Main.qml')}
-        self.assertEqual(designs, {'clockwork/neo-orbital', 'clockwork/tape', 'eitr', 'girl-coffee',
-                                  'girl-pillow', 'material-you', 'material-you-dark', 'nothing', 'theme-wallpaper'})
+        catalog = json.loads((ROOT.parents[1] / 'tools/choice-lists.json').read_text())
+        self.assertEqual(designs, {row['id'] for row in catalog['lockscreen_designs']})
         self.assertFalse((ROOT / 'drafts').exists())
 
     def test_eitr_reuses_the_unmodified_wordmark(self):

@@ -42,7 +42,7 @@ Eitr affiche le mot-symbole EITR dans la couleur d’accent de votre thème, au 
 
 Les images visent 4K (3840×2160, 16:9). Coffee et Pillow gardent leur style anime paisible avec des vêtements nordiques ; Material et Clockwork utilisent des ornements runiques discrets. Nothing garde son modèle. QML et SVG restent redimensionnables.
 
-Comparez les huit modèles avec `bash quickshell/lockscreen/scripts/gallery.sh`. Cela ne change pas le choix actuel ; l’authentification et les actions d’alimentation sont désactivées dans la galerie. Clockwork utilise du QML procédural ; Coffee, Pillow, Material et Nothing gardent leurs dispositions sous licence avec de nouvelles images et JetBrainsMono Nerd Font installée. Aucune vidéo ni police fournie séparément n’est nécessaire.
+Comparez les neuf modèles avec `bash quickshell/lockscreen/scripts/gallery.sh`. Cela ne change pas le choix actuel ; l’authentification et les actions d’alimentation sont désactivées dans la galerie. Clockwork utilise du QML procédural ; Coffee, Pillow, Material et Nothing gardent leurs dispositions sous licence avec de nouvelles images et JetBrainsMono Nerd Font installée. Aucune vidéo ni police fournie séparément n’est nécessaire.
 
 **Fond d’écran du thème** utilise le fond actuel, avec l’horloge en haut à gauche et la saisie du mot de passe en bas à droite. L’aperçu Walker montre l’image actuelle. Les changements suivants apparaissent au prochain verrouillage ou aperçu ; Ctrl+P montre l’ensemble sans verrouiller. L’écran de connexion ne peut pas lire votre dossier personnel. Il montre une copie qu’Eitr enregistre au choix de ce modèle puis à chaque changement de fond. Si elle manque, un autre fond du thème actuel ou le fond Eitr par défaut est utilisé.
 

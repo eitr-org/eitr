@@ -236,6 +236,7 @@ stage_whitespace() {
 
 stage_data() {
   python3 tools/walker-xml.py --check || return 1
+  python3 tools/choice-lists.py --check || return 1
   local data_files
   collect data_files '*.json' '*.toml'
   python3 - "${data_files[@]}" <<'PY'
