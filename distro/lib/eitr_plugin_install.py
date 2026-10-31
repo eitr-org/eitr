@@ -15,6 +15,17 @@ from urllib.parse import urlsplit
 import eitr_policy
 from eitr_i18n import mark, tr
 from eitr_paths import config, data, state
+from eitr_plugin_manifest import (
+    identifier,
+    manifest,
+    object_keys,
+    plugin_files,
+    printable,
+    qml_files,
+    repository_plugins,
+    string,
+    unique_object,
+)
 
 
 COMMIT = re.compile(r'[0-9a-f]{40}(?:[0-9a-f]{24})?\Z')
@@ -29,15 +40,14 @@ SSH_SHORT = re.compile(r'[A-Za-z0-9_][A-Za-z0-9_.-]*@[A-Za-z0-9][A-Za-z0-9.-]*:[
 
 
 def repository_url(value, *, allow_file=False):
-    import eitr_plugins as plugins
-    plugins.string(value, 4096)
+    string(value, 4096)
     parsed = urlsplit(value)
     if parsed.scheme == 'https' and parsed.hostname and not parsed.username and not parsed.password and not parsed.fragment and not parsed.query:
         return value
     if (parsed.scheme == 'ssh' and parsed.hostname and not parsed.password and not parsed.fragment and not parsed.query
             and not parsed.hostname.startswith('-') and parsed.path.startswith('/') and '..' not in parsed.path.split('/')):
         return value
-    if '://' not in value and plugins.SSH_SHORT.fullmatch(value) and '..' not in value.split(':', 1)[1].split('/'):
+    if '://' not in value and SSH_SHORT.fullmatch(value) and '..' not in value.split(':', 1)[1].split('/'):
         return value
     if allow_file and parsed.scheme == 'file' and not parsed.netloc and parsed.path.startswith('/'):
         return value
@@ -49,8 +59,7 @@ OFFICIAL_REPOSITORY = 'github.com/eitr-org/eitr-plugins'
 
 
 def official(url):
-    import eitr_plugins as plugins
-    return plugins.normalized_url(url) == plugins.OFFICIAL_REPOSITORY
+    return normalized_url(url) == OFFICIAL_REPOSITORY
 
 
 ALREADY_INSTALLED = mark('This plugin is already installed. Update or remove it from Control Center > Plugins.')
@@ -58,8 +67,7 @@ ALL_INSTALLED = mark('Every plugin in this repository is already installed. Upda
 
 def normalized_url(value):
     """One spelling per repository: host and path, without scheme, user, port, .git or case."""
-    import eitr_plugins as plugins
-    if '://' not in value and plugins.SSH_SHORT.fullmatch(value):
+    if '://' not in value and SSH_SHORT.fullmatch(value):
         host, path = value.split('@', 1)[1].split(':', 1)
     else:
         parsed = urlsplit(value)
@@ -68,13 +76,8 @@ def normalized_url(value):
     return (host + '/' + path).casefold()
 
 
-def printable(text):
-    return ''.join(character if character.isprintable() else '?' for character in text)
-
-
 def short_author(spec, limit=24):
-    import eitr_plugins as plugins
-    author = plugins.printable(spec['author'])
+    author = printable(spec['author'])
     return author if len(author) <= limit else author[:limit - 1] + '…'
 
 
@@ -91,26 +94,22 @@ def git(root, *arguments, allow_file=False):
 
 
 def clone(url, destination, *, allow_file=False):
-    import eitr_plugins as plugins
-    plugins.repository_url(url, allow_file=allow_file)
-    plugins.git(None, 'clone', '--template=', '--no-recurse-submodules', '--', url, str(destination), allow_file=allow_file)
+    repository_url(url, allow_file=allow_file)
+    git(None, 'clone', '--template=', '--no-recurse-submodules', '--', url, str(destination), allow_file=allow_file)
 
 
 def commit(root):
-    import eitr_plugins as plugins
-    return plugins.git(root, 'rev-parse', 'HEAD')
+    return git(root, 'rev-parse', 'HEAD')
 
 
 def executable_files(root):
-    import eitr_plugins as plugins
-    return sorted(str(path.relative_to(root)) for path in plugins.plugin_files(root) if path.stat().st_mode & 0o111)
+    return sorted(str(path.relative_to(root)) for path in plugin_files(root) if path.stat().st_mode & 0o111)
 
 
 def binary_files(root):
     # Git's own rule: a NUL byte in the first 8000 bytes means binary.
-    import eitr_plugins as plugins
     binary = []
-    for path in plugins.plugin_files(root):
+    for path in plugin_files(root):
         with path.open('rb') as stream:
             if b'\0' in stream.read(8000):
                 binary.append(str(path.relative_to(root)))
@@ -118,23 +117,20 @@ def binary_files(root):
 
 
 def service_text(spec):
-    import eitr_plugins as plugins
     service = spec['service']
-    return plugins.printable(' '.join([service['run'], *service.get('arguments', [])]))
+    return printable(' '.join([service['run'], *service.get('arguments', [])]))
 
 
 def add_flags(root, spec):
-    import eitr_plugins as plugins
-    flags = [tr('QML runs inside the bar: {path}', path=plugins.printable(str(path.relative_to(root)))) for path in plugins.qml_files(root)]
+    flags = [tr('QML runs inside the bar: {path}', path=printable(str(path.relative_to(root)))) for path in qml_files(root)]
     if 'service' in spec:
-        flags.append(tr('Starts a background service at every login: {command}', command=plugins.service_text(spec)))
-    flags.extend(tr('Binary file: {path}', path=plugins.printable(path)) for path in plugins.binary_files(root))
-    flags.extend(plugins.live_flags(spec))
+        flags.append(tr('Starts a background service at every login: {command}', command=service_text(spec)))
+    flags.extend(tr('Binary file: {path}', path=printable(path)) for path in binary_files(root))
+    flags.extend(live_flags(spec))
     return flags
 
 
 def live_flags(spec, previous=None):
-    import eitr_plugins as plugins
     flags = []
     if 'audio-spectrum' in spec.get('capabilities', []) and 'audio-spectrum' not in (previous or {}).get('capabilities', []):
         flags.append(tr('Reads the system audio spectrum (levels only, no audio is recorded or sent)'))
@@ -143,34 +139,33 @@ def live_flags(spec, previous=None):
             old = next((item for item in (previous or {}).get('ui', {}).get(kind, []) if item['id'] == entry['id']), {})
             for field in ('dataCommand', 'dataStream'):
                 if field in entry and entry[field] != old.get(field):
-                    flags.append(tr('Live data command added or changed: {kind} · {id} · {command}', kind=field, id=entry['id'], command=plugins.printable(' '.join([entry[field]['run'], *entry[field].get('arguments', [])]))))
+                    flags.append(tr('Live data command added or changed: {kind} · {id} · {command}', kind=field, id=entry['id'], command=printable(' '.join([entry[field]['run'], *entry[field].get('arguments', [])]))))
     return flags
 
 
 def update_changes(candidate, target, old, new, old_spec, spec):
     """What an update changes and the risks worth a second look, read from the Git history."""
-    import eitr_plugins as plugins
-    subjects = [plugins.printable(line) for line in plugins.git(candidate, 'log', '--format=%h %s', old + '..' + new).splitlines()]
+    subjects = [printable(line) for line in git(candidate, 'log', '--format=%h %s', old + '..' + new).splitlines()]
     counts = {}
-    for item in plugins.git(candidate, 'diff', '--numstat', '--relative', '-z', '--no-renames', '--no-ext-diff', '--no-textconv', old, new).split('\0'):
+    for item in git(candidate, 'diff', '--numstat', '--relative', '-z', '--no-renames', '--no-ext-diff', '--no-textconv', old, new).split('\0'):
         if item:
             added, removed, path = item.split('\t', 2)
             counts[path] = (added, removed)
-    raw = plugins.git(candidate, 'diff', '--raw', '--relative', '-z', '--no-renames', '--no-abbrev', old, new).split('\0')
+    raw = git(candidate, 'diff', '--raw', '--relative', '-z', '--no-renames', '--no-abbrev', old, new).split('\0')
     files = []
     for header, path in zip(raw[0::2], raw[1::2]):
         old_mode, new_mode, _, _, status = header.lstrip(':').split(' ')
         added, removed = counts.get(path, ('0', '0'))
-        files.append(dict(path=plugins.printable(path), status=status, old_mode=old_mode, new_mode=new_mode,
+        files.append(dict(path=printable(path), status=status, old_mode=old_mode, new_mode=new_mode,
                           added=added, removed=removed, binary=added == '-'))
-    flags = plugins.live_flags(spec, old_spec)
+    flags = live_flags(spec, old_spec)
     if old_spec.get('service') != spec.get('service'):
         if 'service' not in old_spec:
-            flags.append(tr('Background service added: {command}', command=plugins.service_text(spec)))
+            flags.append(tr('Background service added: {command}', command=service_text(spec)))
         elif 'service' not in spec:
             flags.append(tr('Background service removed'))
         else:
-            flags.append(tr('Background service changed: {command}', command=plugins.service_text(spec)))
+            flags.append(tr('Background service changed: {command}', command=service_text(spec)))
     for event, hook in spec.get('hooks', {}).items():
         if old_spec.get('hooks', {}).get(event) != hook:
             flags.append(tr('Event hook added or changed: {event}', event=event))
@@ -188,11 +183,11 @@ def update_changes(candidate, target, old, new, old_spec, spec):
                 flags.append(tr('Changed executable file: {path}', path=change['path']))
         if change['binary']:
             flags.append(tr('Binary file: {path}', path=change['path']))
-    approved_author = plugins.git(target, 'show', '-s', '--format=%ae', 'HEAD').casefold()
+    approved_author = git(target, 'show', '-s', '--format=%ae', 'HEAD').casefold()
     authors = []
-    for line in plugins.git(candidate, 'log', '--format=%ae%x09%an', old + '..' + new).splitlines():
+    for line in git(candidate, 'log', '--format=%ae%x09%an', old + '..' + new).splitlines():
         email, _, name = line.partition('\t')
-        author = plugins.printable(f'{name} <{email}>')
+        author = printable(f'{name} <{email}>')
         if email.casefold() != approved_author and author not in authors:
             authors.append(author)
     flags.extend(tr('Commit by a different author than the approved one: {author}', author=author) for author in authors)
@@ -201,29 +196,28 @@ def update_changes(candidate, target, old, new, old_spec, spec):
 
 def blocklist(path=None):
     """The kill switch shipped, and signed, with eitr-desktop. Anything unexpected refuses plugins."""
-    import eitr_plugins as plugins
     try:
-        value = json.loads(Path(path or plugins.BLOCKLIST).read_text(), object_pairs_hook=plugins.unique_object)
-        plugins.object_keys(value, ('version', 'entries'))
+        value = json.loads(Path(path or BLOCKLIST).read_text(), object_pairs_hook=unique_object)
+        object_keys(value, ('version', 'entries'))
         if type(value['version']) is not int or value['version'] != 1 or not isinstance(value['entries'], list):
             raise ValueError('Unsupported plugin blocklist')
         entries = []
         for entry in value['entries']:
-            plugins.object_keys(entry, ('reason', 'date'), ('url', 'commit', 'id'))
+            object_keys(entry, ('reason', 'date'), ('url', 'commit', 'id'))
             kinds = [kind for kind in ('url', 'commit', 'id') if kind in entry]
             if len(kinds) != 1:
                 raise ValueError('A blocklist entry names exactly one url, commit or id')
-            plugins.string(entry['reason'], 300)
+            string(entry['reason'], 300)
             if not isinstance(entry['date'], str) or not re.fullmatch(r'\d{4}-\d{2}-\d{2}', entry['date']):
                 raise ValueError('Blocklist dates use YYYY-MM-DD')
             datetime.date.fromisoformat(entry['date'])
             kind, match = kinds[0], entry[kinds[0]]
             if kind == 'url':
-                match = plugins.normalized_url(plugins.repository_url(match))
-            elif kind == 'commit' and (not isinstance(match, str) or not plugins.COMMIT.fullmatch(match)):
+                match = normalized_url(repository_url(match))
+            elif kind == 'commit' and (not isinstance(match, str) or not COMMIT.fullmatch(match)):
                 raise ValueError('Blocklist commits are full lowercase hashes')
             elif kind == 'id':
-                plugins.identifier(match)
+                identifier(match)
             entries.append((kind, match, entry['reason']))
         return entries
     except (OSError, ValueError, TypeError) as error:
@@ -231,17 +225,15 @@ def blocklist(path=None):
 
 
 def blocked_reason(entries, url=None, commit=None, plugin_id=None):
-    import eitr_plugins as plugins
-    wanted = dict(url=plugins.normalized_url(url) if url else None, commit=commit, id=plugin_id)
+    wanted = dict(url=normalized_url(url) if url else None, commit=commit, id=plugin_id)
     return next((reason for kind, match, reason in entries if wanted[kind] == match), None)
 
 
 def policy_reason(url):
-    import eitr_plugins as plugins
     value = eitr_policy.load().get('plugins', True)
     if value is False:
         return tr('Plugins are turned off by your organization.')
-    if isinstance(value, dict) and plugins.normalized_url(url) not in {plugins.normalized_url(item) for item in value.get('allow', [])}:
+    if isinstance(value, dict) and normalized_url(url) not in {normalized_url(item) for item in value.get('allow', [])}:
         return tr('Your organization allows plugins only from its approved repositories.')
     return None
 
@@ -272,15 +264,14 @@ class PluginInstall:
             yield True
 
     def records(self):
-        import eitr_plugins as plugins
         if not self.state.exists():
             return {}
         value = json.loads(self.state.read_text())
         if not isinstance(value, dict):
             raise ValueError('Invalid plugin state')
         for plugin_id, record in value.items():
-            plugins.identifier(plugin_id)
-            plugins.object_keys(record, ('url', 'id', 'commit', 'installed'), ('enabled', 'path'))
+            identifier(plugin_id)
+            object_keys(record, ('url', 'id', 'commit', 'installed'), ('enabled', 'path'))
             if 'path' in record:
                 relative = record['path']
                 if not isinstance(relative, str) or not relative or PurePosixPath(relative).is_absolute() or '..' in PurePosixPath(relative).parts or '\\' in relative or str(PurePosixPath(relative)) != relative:
@@ -312,8 +303,7 @@ class PluginInstall:
                 (Path(runtime) / 'eitr-search/index.json').unlink(missing_ok=True)
 
     def snapshot(self, url, revision):
-        import eitr_plugins as plugins
-        source = hashlib.sha256(plugins.normalized_url(url).encode()).hexdigest()
+        source = hashlib.sha256(normalized_url(url).encode()).hexdigest()
         return self.folder / '.repositories' / source / revision
 
     def root(self, plugin_id):
@@ -323,12 +313,11 @@ class PluginInstall:
         return self.folder / plugin_id
 
     def keep_snapshot(self, candidate, url, revision):
-        import eitr_plugins as plugins
         target = self.snapshot(url, revision)
         if not target.exists():
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copytree(candidate, target, symlinks=True)
-        if target.is_symlink() or plugins.commit(target) != revision:
+        if target.is_symlink() or commit(target) != revision:
             raise ValueError('Repository snapshot differs from its approved commit')
         return target
 
@@ -349,13 +338,12 @@ class PluginInstall:
 
     def refusal(self, url, commit=None, plugin_id=None, *, include_disabled=True):
         """('policy' or 'blocklist', reason) when this repository, commit or id may not be used."""
-        import eitr_plugins as plugins
         if include_disabled and plugin_id and not self.records().get(plugin_id, {}).get('enabled', True):
             return 'disabled', 'Plugin disabled'
-        reason = plugins.policy_reason(url)
+        reason = policy_reason(url)
         if reason:
             return 'policy', reason
-        reason = plugins.blocked_reason(plugins.blocklist(), url, commit, plugin_id)
+        reason = blocked_reason(blocklist(), url, commit, plugin_id)
         return ('blocklist', reason) if reason else None
 
     def check(self, url, commit=None, plugin_id=None):
@@ -374,15 +362,13 @@ class PluginInstall:
         return result
 
     def spec(self, plugin_id):
-        import eitr_plugins as plugins
         try:
-            return plugins.manifest(self.root(plugin_id))
+            return manifest(self.root(plugin_id))
         except (OSError, ValueError):
             return None
 
     def enforce(self, blocking=True):
         """Stop the services of blocked plugins, keep their files and tell the person once."""
-        import eitr_plugins as plugins
         blocked = self.blocked()
         with self.lock(blocking) as locked:
             if not locked:
@@ -403,7 +389,7 @@ class PluginInstall:
                     notice = dict(kind=kind, reason=reason, notified=False)
                 if not notice.get('notified') and self.notify:
                     spec = self.spec(plugin_id)
-                    if self.notify(plugin_id, plugins.printable(spec['name']) if spec else plugin_id, kind, reason):
+                    if self.notify(plugin_id, printable(spec['name']) if spec else plugin_id, kind, reason):
                         notice = {**notice, 'notified': True}
                 updated[plugin_id] = notice
             if updated != notices:
@@ -411,22 +397,20 @@ class PluginInstall:
         return blocked
 
     def prepare(self, url, temporary):
-        import eitr_plugins as plugins
         candidate = temporary / 'candidate'
-        plugins.clone(url, candidate, allow_file=self.allow_file)
-        list(plugins.plugin_files(candidate))
-        entries = plugins.repository_plugins(candidate)
+        clone(url, candidate, allow_file=self.allow_file)
+        list(plugin_files(candidate))
+        entries = repository_plugins(candidate)
         return candidate, entries if entries[0]["path"] else entries[0]["spec"]
 
     def add(self, url, consent, approve, pick=None):
         """consent(url) accepts the risk before anything is downloaded; approve() the exact commit."""
-        import eitr_plugins as plugins
-        plugins.repository_url(url, allow_file=self.allow_file)
+        repository_url(url, allow_file=self.allow_file)
         self.check(url)
         # A single-plugin repository installed earlier is recognised before anything is downloaded.
-        if any(plugins.normalized_url(record['url']) == plugins.normalized_url(url) and not record.get('path')
+        if any(normalized_url(record['url']) == normalized_url(url) and not record.get('path')
                for record in self.records().values()):
-            raise ValueError(tr(plugins.ALREADY_INSTALLED))
+            raise ValueError(tr(ALREADY_INSTALLED))
         if not consent(url):
             return False
         with self.lock(), tempfile.TemporaryDirectory(prefix='eitr-plugin-') as temporary:
@@ -439,17 +423,17 @@ class PluginInstall:
             plugin_id = spec['id']
             target = self.root(plugin_id)
             if plugin_id in records:
-                raise ValueError(tr(plugins.ALREADY_INSTALLED))
+                raise ValueError(tr(ALREADY_INSTALLED))
             if target.exists() or target.is_symlink() or self.unit(plugin_id).exists():
                 raise ValueError('Plugin id or service already exists')
-            approved = plugins.commit(candidate)
+            approved = commit(candidate)
             self.check(url, approved, plugin_id)
             if not approve(candidate, spec, url):
                 return False
             self.folder.mkdir(parents=True, exist_ok=True)
             try:
                 shutil.copytree(candidate, target, symlinks=True)
-                if plugins.manifest(target) != spec:
+                if manifest(target) != spec:
                     raise ValueError('Plugin manifest changed after approval')
                 if 'service' in spec:
                     self.service(plugin_id, spec)
@@ -466,12 +450,11 @@ class PluginInstall:
             return True
 
     def add_indexed(self, candidate, entries, url, records, approve, pick):
-        import eitr_plugins as plugins
         if pick is None:
             raise ValueError('Choose plugins from this repository before installing')
         entries = [{**entry, 'installed': entry['spec']['id'] in records} for entry in entries]
         if all(entry['installed'] for entry in entries):
-            raise ValueError(tr(plugins.ALL_INSTALLED))
+            raise ValueError(tr(ALL_INSTALLED))
         choices = pick(entries)
         if not isinstance(choices, list) or any(not isinstance(choice, str) for choice in choices) or len(choices) != len(set(choices)):
             raise ValueError('Invalid plugin selection')
@@ -479,8 +462,8 @@ class PluginInstall:
         if set(choices) - available.keys():
             raise ValueError('Unknown plugin selection')
         if any(available[choice]['installed'] for choice in choices):
-            raise ValueError(tr(plugins.ALREADY_INSTALLED))
-        revision = plugins.commit(candidate)
+            raise ValueError(tr(ALREADY_INSTALLED))
+        revision = commit(candidate)
         installed = False
         try:
             for plugin_id in choices:
@@ -495,7 +478,7 @@ class PluginInstall:
                     continue
                 snapshot = self.keep_snapshot(candidate, url, revision)
                 root = snapshot / entry['path']
-                if plugins.manifest(root) != spec:
+                if manifest(root) != spec:
                     raise ValueError('Plugin manifest changed after approval')
                 record = dict(url=url, id=plugin_id, commit=revision, path=entry['path'],
                               installed=datetime.datetime.now(datetime.timezone.utc).isoformat())
@@ -515,9 +498,8 @@ class PluginInstall:
         return installed
 
     def update_indexed(self, plugin_id, record, records, approve):
-        import eitr_plugins as plugins
         target = self.root(plugin_id)
-        if target.is_symlink() or plugins.commit(target) != record['commit']:
+        if target.is_symlink() or commit(target) != record['commit']:
             raise ValueError('Installed plugin differs from its approved commit')
         with tempfile.TemporaryDirectory(prefix='eitr-plugin-') as temporary:
             candidate, entries = self.prepare(record['url'], Path(temporary))
@@ -526,28 +508,28 @@ class PluginInstall:
             entry = next((entry for entry in entries if entry['spec']['id'] == plugin_id), None)
             if entry is None or entry['path'] != record['path']:
                 raise ValueError('Installed plugin path cannot change during update')
-            revision = plugins.commit(candidate)
+            revision = commit(candidate)
             if revision == record['commit']:
                 return False
             self.check(record['url'], revision, plugin_id)
             try:
-                plugins.git(candidate, 'merge-base', '--is-ancestor', record['commit'], revision)
+                git(candidate, 'merge-base', '--is-ancestor', record['commit'], revision)
             except subprocess.CalledProcessError:
                 raise ValueError('Plugin repository history was rewritten') from None
-            if (plugins.git(candidate, 'rev-parse', record['commit'] + ':' + record['path'])
-                    == plugins.git(candidate, 'rev-parse', revision + ':' + record['path'])):
+            if (git(candidate, 'rev-parse', record['commit'] + ':' + record['path'])
+                    == git(candidate, 'rev-parse', revision + ':' + record['path'])):
                 return False
-            old_spec, spec = plugins.manifest(target), entry['spec']
+            old_spec, spec = manifest(target), entry['spec']
             if spec.get('schemaVersion') == 2 and 'icon' not in spec:
                 raise ValueError('Schema version 2 requires a plugin icon')
-            changes = plugins.update_changes(candidate / entry['path'], target, record['commit'], revision, old_spec, spec)
-            changes['official'] = plugins.official(record['url'])
+            changes = update_changes(candidate / entry['path'], target, record['commit'], revision, old_spec, spec)
+            changes['official'] = official(record['url'])
             if not approve(changes):
                 return False
             snapshot = self.keep_snapshot(candidate, record['url'], revision)
             root = snapshot / entry['path']
             try:
-                if plugins.manifest(root) != spec:
+                if manifest(root) != spec:
                     raise ValueError('Plugin manifest changed after approval')
                 if 'service' in spec or 'service' in old_spec:
                     self.service(plugin_id, spec if record.get('enabled', True) else None, root=root)
@@ -563,8 +545,7 @@ class PluginInstall:
 
     def update(self, plugin_id, approve):
         """approve(changes) sees update_changes(); a rewritten history is refused before it."""
-        import eitr_plugins as plugins
-        plugins.identifier(plugin_id)
+        identifier(plugin_id)
         with self.lock(), tempfile.TemporaryDirectory(prefix='eitr-plugin-') as temporary:
             records = self.records()
             record = records[plugin_id]
@@ -572,30 +553,30 @@ class PluginInstall:
             if record.get('path'):
                 return self.update_indexed(plugin_id, record, records, approve)
             target = self.root(plugin_id)
-            if target.is_symlink() or plugins.commit(target) != record['commit']:
+            if target.is_symlink() or commit(target) != record['commit']:
                 raise ValueError('Installed plugin differs from its approved commit')
             # Fetch into a disposable clone: hooks and unapproved worktree never run.
             candidate, spec = self.prepare(record['url'], Path(temporary))
             if isinstance(spec, list):
                 raise ValueError('Single-plugin repository changed to an index; remove and add it again')
-            plugins.git(candidate, 'fetch', '--no-recurse-submodules', 'origin', allow_file=self.allow_file)
-            new_commit = plugins.commit(candidate)
+            git(candidate, 'fetch', '--no-recurse-submodules', 'origin', allow_file=self.allow_file)
+            new_commit = commit(candidate)
             if new_commit == record['commit']:
                 return False
             if spec['id'] != plugin_id:
                 raise ValueError('Plugin id cannot change during update')
             self.check(record['url'], new_commit, plugin_id)
             try:
-                plugins.git(candidate, 'merge-base', '--is-ancestor', record['commit'], new_commit)
+                git(candidate, 'merge-base', '--is-ancestor', record['commit'], new_commit)
             except subprocess.CalledProcessError:
                 raise ValueError(tr('The history of {id} was rewritten: the approved commit {commit} is not part of the new one. '
                                     'Eitr does not update it automatically. If you still trust its author, remove the plugin and add it again.',
                                     id=plugin_id, commit=record['commit'][:12])) from None
-            old_spec = plugins.manifest(target)
+            old_spec = manifest(target)
             if spec.get('schemaVersion') == 2 and 'icon' not in spec and (old_spec.get('schemaVersion', 1) != 2 or old_spec.get('icon')):
                 raise ValueError('Schema version 2 requires a plugin icon')
-            changes = plugins.update_changes(candidate, target, record['commit'], new_commit, old_spec, spec)
-            changes['official'] = plugins.official(record['url'])
+            changes = update_changes(candidate, target, record['commit'], new_commit, old_spec, spec)
+            changes['official'] = official(record['url'])
             if not approve(changes):
                 return False
             replacement = self.folder / ('.' + plugin_id + '-new')
@@ -604,7 +585,7 @@ class PluginInstall:
                 raise ValueError('An interrupted plugin update needs recovery')
             try:
                 shutil.copytree(candidate, replacement, symlinks=True)
-                if plugins.manifest(replacement) != spec:
+                if manifest(replacement) != spec:
                     raise ValueError('Plugin manifest changed after approval')
                 if 'service' in old_spec and self.unit(plugin_id).exists():
                     self.systemctl('stop', self.unit(plugin_id).name)
@@ -631,8 +612,7 @@ class PluginInstall:
             return True
 
     def remove(self, plugin_id, approve):
-        import eitr_plugins as plugins
-        plugins.identifier(plugin_id)
+        identifier(plugin_id)
         with self.lock():
             records = self.records()
             record = records[plugin_id]
@@ -651,17 +631,16 @@ class PluginInstall:
             return True
 
     def set_enabled(self, plugin_id, enabled):
-        import eitr_plugins as plugins
-        plugins.identifier(plugin_id)
+        identifier(plugin_id)
         with self.lock():
             records = self.records()
             record = records[plugin_id]
             if enabled:
                 self.check(record['url'], record['commit'], plugin_id)
                 root = self.root(plugin_id)
-                if root.is_symlink() or plugins.commit(root) != record['commit']:
+                if root.is_symlink() or commit(root) != record['commit']:
                     raise ValueError('Plugin differs from its approved commit')
-                spec = plugins.manifest(root)
+                spec = manifest(root)
                 self.service(plugin_id, spec)
             elif self.unit(plugin_id).exists():
                 self.service(plugin_id)
@@ -670,18 +649,17 @@ class PluginInstall:
 
     def check_updates(self):
         """Fetch metadata into installed repositories without checking out or running code."""
-        import eitr_plugins as plugins
         counts = {}
         checked = {}
         with self.lock():
             for plugin_id, record in self.records().items():
                 try:
                     root = self.root(plugin_id)
-                    plugins.git(root, 'fetch', '--no-recurse-submodules', '--', record['url'],
+                    git(root, 'fetch', '--no-recurse-submodules', '--', record['url'],
                         'HEAD', allow_file=self.allow_file)
                     # A plugin from an indexed repository counts only commits that touch its own folder.
                     scope = ['--', ':(top)' + record['path']] if record.get('path') else []
-                    count = int(plugins.git(root, 'rev-list', '--count', record['commit'] + '..FETCH_HEAD', *scope))
+                    count = int(git(root, 'rev-list', '--count', record['commit'] + '..FETCH_HEAD', *scope))
                     checked[plugin_id] = dict(commit=record['commit'], count=count)
                     counts[plugin_id] = count
                 except (OSError, ValueError, subprocess.SubprocessError):
@@ -697,7 +675,6 @@ class PluginInstall:
 
     def installed(self):
         """Plugins > Installed Plugins: every plugin, with its manifest author and whether it is blocked."""
-        import eitr_plugins as plugins
         blocked = self.blocked()
         updates = self.update_counts()
         rows = []
@@ -705,10 +682,10 @@ class PluginInstall:
             spec = self.spec(plugin_id)
             checked = updates.get(plugin_id, {})
             count = checked.get('count', 0) if checked.get('commit') == record['commit'] else 0
-            rows.append(dict(id=plugin_id, updateCount=count, official=plugins.official(record['url']),
-                             name=plugins.printable(spec['name']) if spec else plugin_id,
-                             author=plugins.printable(spec['author']) if spec else '?', blocked=blocked.get(plugin_id, ('',))[0],
-                             repository=plugins.printable(record['url']), repositoryPath=record.get('path', ''),
+            rows.append(dict(id=plugin_id, updateCount=count, official=official(record['url']),
+                             name=printable(spec['name']) if spec else plugin_id,
+                             author=printable(spec['author']) if spec else '?', blocked=blocked.get(plugin_id, ('',))[0],
+                             repository=printable(record['url']), repositoryPath=record.get('path', ''),
                              enabled=record.get('enabled', True), version=spec['version'] if spec else '',
                              description=spec['description'] if spec else '',
                              visualsDisabled=bool(self.ui_state().get(plugin_id, {}).get('disabled')),

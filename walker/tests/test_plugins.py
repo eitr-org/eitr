@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import signal
 import subprocess
 import sys
 import tempfile
@@ -18,6 +19,8 @@ from home_isolation import setUpModule, tearDownModule
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'distro/lib'))
 import eitr_plugins as plugins
+import eitr_plugin_install as install_owner
+from eitr_paths import config, state
 
 
 class PluginTests(unittest.TestCase):
@@ -30,7 +33,7 @@ class PluginTests(unittest.TestCase):
         self.environment = patch.dict(os.environ, environment)
         self.environment.start()
         self.addCleanup(self.environment.stop)
-        self.root_user = patch('eitr_plugins.os.geteuid', return_value=1000)
+        self.root_user = patch('eitr_plugin_install.os.geteuid', return_value=1000)
         self.root_user.start()
         self.addCleanup(self.root_user.stop)
         self.source = self.home / 'source'
@@ -53,7 +56,7 @@ class PluginTests(unittest.TestCase):
         self.addCleanup(policy.stop)
         self.blocklist = self.home / 'plugin-blocklist.json'
         self.block()
-        blocklist = patch.object(plugins, 'BLOCKLIST', self.blocklist)
+        blocklist = patch.object(install_owner, 'BLOCKLIST', self.blocklist)
         blocklist.start()
         self.addCleanup(blocklist.stop)
         self.notices = []
@@ -122,7 +125,7 @@ class PluginTests(unittest.TestCase):
         self.publish()
         self.manager.check_updates()
         output, errors = io.StringIO(), io.StringIO()
-        with patch('eitr_plugins.git', side_effect=subprocess.CalledProcessError(1, 'git')), redirect_stdout(output), redirect_stderr(errors):
+        with patch('eitr_plugin_install.git', side_effect=subprocess.CalledProcessError(1, 'git')), redirect_stdout(output), redirect_stderr(errors):
             self.assertEqual(self.manager.check_updates(), {})
         self.assertEqual(output.getvalue() + errors.getvalue(), '')
         self.assertEqual(self.manager.installed()[0]['updateCount'], 0)
@@ -281,7 +284,7 @@ class PluginTests(unittest.TestCase):
         def approve(root, spec, url):
             reviews.append((root, spec['id'], plugins.commit(root)))
             return True
-        with patch.object(plugins, 'clone', wraps=plugins.clone) as clone:
+        with patch.object(install_owner, 'clone', wraps=plugins.clone) as clone:
             self.assertTrue(self.manager.add(self.url, lambda url: True, approve, pick))
             self.assertEqual(clone.call_count, 1)
         self.assertEqual([entry['spec']['name'] for entry in offered], ['Example', 'Second'])
@@ -485,7 +488,7 @@ class PluginTests(unittest.TestCase):
         self.assertEqual(self.manager.records()['example']['commit'], old)
 
     def test_root_mutations_refused(self):
-        with patch('eitr_plugins.os.geteuid', return_value=0), self.assertRaises(ValueError):
+        with patch('eitr_plugin_install.os.geteuid', return_value=0), self.assertRaises(ValueError):
             self.manager.add(self.url, lambda url: True, lambda *details: True)
 
     def test_menu_parents_and_scoped_search(self):
@@ -542,7 +545,7 @@ class PluginTests(unittest.TestCase):
         self.publish(spec)
         with self.assertRaises(ValueError):
             self.manager.update('example', lambda *details: self.fail('Changed id reached review'))
-        with patch('eitr_plugins.clone', side_effect=subprocess.CalledProcessError(1, 'git')):
+        with patch('eitr_plugin_install.clone', side_effect=subprocess.CalledProcessError(1, 'git')):
             with self.assertRaises(subprocess.CalledProcessError):
                 self.manager.update('example', lambda *details: True)
         self.assertEqual(plugins.commit(self.manager.folder / 'example'), old)
@@ -622,7 +625,7 @@ class PluginTests(unittest.TestCase):
             destination.mkdir(parents=True)
             (destination / 'partial').touch()
             raise OSError('disk full')
-        with patch('eitr_plugins.shutil.copytree', side_effect=partial_copy):
+        with patch('eitr_plugin_install.shutil.copytree', side_effect=partial_copy):
             with self.assertRaises(OSError):
                 self.manager.add(self.url, lambda url: True, lambda *details: True)
         self.assertFalse((self.manager.folder / 'example').exists())
@@ -653,14 +656,14 @@ class PluginTests(unittest.TestCase):
         self.assertEqual(self.manager.records()['example']['commit'], old)
 
     def test_nothing_is_cloned_before_the_safety_confirmation(self):
-        with patch('eitr_plugins.clone') as clone:
+        with patch('eitr_plugin_install.clone') as clone:
             self.assertFalse(self.manager.add(self.url, lambda url: False, lambda *details: self.fail('reviewed')))
         clone.assert_not_called()
         self.assertFalse(self.manager.folder.exists())
         cli = self.cli()
         # Escape or Ctrl+C declines; other keys (y, n) do nothing until one of them.
         for keys in (['\x1b'], ['\x03'], ['y', 'n', '\x1b']):
-            with self.subTest(keys=keys), patch('eitr_plugins.clone') as clone, \
+            with self.subTest(keys=keys), patch('eitr_plugin_install.clone') as clone, \
                     patch.object(cli, 'read_key', side_effect=keys), redirect_stdout(io.StringIO()) as output:
                 self.assertFalse(cli.add_in_terminal(self.manager, self.url))
             clone.assert_not_called()
@@ -684,7 +687,7 @@ class PluginTests(unittest.TestCase):
         # Other keys do nothing; Enter confirms both steps.
         with patch.object(cli, 'read_key', side_effect=['y', '\r', 'n', '\r']), redirect_stdout(io.StringIO()):
             self.assertTrue(cli.add_in_terminal(self.manager, self.url))
-        with patch.object(cli.sys.stdin, 'isatty', return_value=False), patch('eitr_plugins.clone') as clone:
+        with patch.object(cli.sys.stdin, 'isatty', return_value=False), patch('eitr_plugin_install.clone') as clone:
             with self.assertRaises(ValueError):
                 cli.add(self.manager, self.url)
         clone.assert_not_called()
@@ -797,7 +800,7 @@ class PluginTests(unittest.TestCase):
                 self.block(**entry)
                 with self.assertRaisesRegex(ValueError, 'blocklist: Test entry'):
                     self.manager.add(self.url, consent, lambda *details: self.fail('Blocked plugin reached review'))
-        with patch.object(plugins, 'normalized_url', side_effect=lambda value: 'blocked/repo'):
+        with patch.object(install_owner, 'normalized_url', side_effect=lambda value: 'blocked/repo'):
             self.block(url='https://blocked.example/repo')
             consent.reset_mock()
             with self.assertRaisesRegex(ValueError, 'blocklist'):
@@ -827,7 +830,7 @@ class PluginTests(unittest.TestCase):
         self.assertTrue((self.manager.folder / 'example/notify.sh').exists())
         self.assertEqual(self.notices, [('example', 'Example plugin', 'blocklist', 'Test entry: sends SSH keys away')])
         self.assertEqual(self.manager.rows(), [])
-        with patch('eitr_plugins.subprocess.Popen') as popen, self.assertRaisesRegex(ValueError, 'blocklist'):
+        with patch('eitr_plugin_runtime.subprocess.Popen') as popen, self.assertRaisesRegex(ValueError, 'blocklist'):
             self.manager.launch('example', 0)
         popen.assert_not_called()
         self.assertEqual(len(self.notices), 1)
@@ -871,7 +874,7 @@ class PluginTests(unittest.TestCase):
         self.assertEqual(self.notices[-1][2], 'policy')
         with self.assertRaisesRegex(ValueError, 'organization'):
             self.manager.update('example', lambda changes: True)
-        with patch('eitr_plugins.subprocess.Popen'), self.assertRaisesRegex(ValueError, 'organization'):
+        with patch('eitr_plugin_runtime.subprocess.Popen'), self.assertRaisesRegex(ValueError, 'organization'):
             self.manager.launch('example', 0)
         cli = self.cli()
         with patch.object(cli.sys.stdin, 'isatty', return_value=True), self.assertRaisesRegex(ValueError, 'organization'):
@@ -930,10 +933,10 @@ class PluginTests(unittest.TestCase):
 
     def test_hook_runner_context_timeout_and_failures(self):
         approved = self.install()
-        commit_mock = patch('eitr_plugins.commit', return_value=approved)
+        commit_mock = patch('eitr_plugin_runtime.commit', return_value=approved)
         commit_mock.start()
         self.addCleanup(commit_mock.stop)
-        with patch('eitr_plugins.subprocess.Popen') as popen, patch.dict(os.environ, {'EITR_THEME': 'forest', 'EITR_WALLPAPER': 'stale'}):
+        with patch('eitr_plugin_runtime.subprocess.Popen') as popen, patch.dict(os.environ, {'EITR_THEME': 'forest', 'EITR_WALLPAPER': 'stale'}):
             popen.return_value.wait.return_value = 0
             self.manager.hooks('theme-changed')
             argv = popen.call_args.args[0]
@@ -946,26 +949,26 @@ class PluginTests(unittest.TestCase):
             self.assertTrue(options['start_new_session'])
             popen.return_value.wait.assert_called_once_with(timeout=30)
         for failure in (OSError('cannot launch'), None):
-            with patch('eitr_plugins.subprocess.Popen', side_effect=failure) as popen:
+            with patch('eitr_plugin_runtime.subprocess.Popen', side_effect=failure) as popen:
                 if failure is None:
                     popen.return_value.wait.return_value = 7
                 self.manager.hooks('theme-changed')
-        with patch('eitr_plugins.subprocess.Popen') as popen, patch('eitr_plugins.os.killpg') as kill:
+        with patch('eitr_plugin_runtime.subprocess.Popen') as popen, patch('eitr_plugin_runtime.os.killpg') as kill:
             popen.return_value.pid = 123
             popen.return_value.wait.side_effect = [subprocess.TimeoutExpired('hook', 30), 0]
             self.manager.hooks('theme-changed')
-            kill.assert_called_once_with(123, plugins.signal.SIGKILL)
-        log = plugins.state('eitr/plugin-hooks.log').read_text()
+            kill.assert_called_once_with(123, signal.SIGKILL)
+        log = state('eitr/plugin-hooks.log').read_text()
         for message in ('cannot launch', 'exited with 7', 'timeout after 30 seconds'):
             self.assertIn(message, log)
         for policy in ({'plugins': False}, {'plugins': {'allow': []}}):
             self.policies = policy
-            with patch('eitr_plugins.subprocess.Popen') as popen:
+            with patch('eitr_plugin_runtime.subprocess.Popen') as popen:
                 self.manager.hooks('theme-changed')
                 popen.assert_not_called()
         self.policies = {}
         self.block(id='example')
-        with patch('eitr_plugins.subprocess.Popen') as popen:
+        with patch('eitr_plugin_runtime.subprocess.Popen') as popen:
             self.manager.hooks('theme-changed')
             popen.assert_not_called()
 
@@ -981,12 +984,12 @@ class PluginTests(unittest.TestCase):
             self.assertTrue(any('RISK: Event hook' in line for line in self.cli().summary_lines(changes)))
             return False
         self.manager.update('example', approve)
-        with patch('eitr_plugins.subprocess.Popen') as popen:
+        with patch('eitr_plugin_runtime.subprocess.Popen') as popen:
             plugins.dispatch_hooks('wallpaper-changed', EITR_WALLPAPER='/example/image.png')
             self.assertEqual(popen.call_args.args[0][-2:], ['hooks', 'wallpaper-changed'])
             self.assertTrue(popen.call_args.kwargs['start_new_session'])
             popen.return_value.wait.assert_not_called()
-        with patch('eitr_plugins.subprocess.Popen', side_effect=OSError('missing')):
+        with patch('eitr_plugin_runtime.subprocess.Popen', side_effect=OSError('missing')):
             plugins.dispatch_hooks('login')
 
     def test_after_update_fires_only_when_updates_were_installed(self):
@@ -1031,16 +1034,16 @@ class PluginTests(unittest.TestCase):
         spec['hooks'] = {'login': {'run': 'notify.sh'}}
         self.publish(spec)
         approved = self.install()
-        commit_mock = patch('eitr_plugins.commit', return_value=approved)
+        commit_mock = patch('eitr_plugin_runtime.commit', return_value=approved)
         commit_mock.start()
         self.addCleanup(commit_mock.stop)
         Path(os.environ['XDG_RUNTIME_DIR']).mkdir(parents=True)
-        with patch.dict(os.environ, {'HYPRLAND_INSTANCE_SIGNATURE': 'fixture-session'}), patch('eitr_plugins.subprocess.Popen') as popen:
+        with patch.dict(os.environ, {'HYPRLAND_INSTANCE_SIGNATURE': 'fixture-session'}), patch('eitr_plugin_runtime.subprocess.Popen') as popen:
             popen.return_value.wait.return_value = 0
             self.manager.hooks('login')
             self.manager.hooks('login')
             popen.assert_called_once()
-        with patch.dict(os.environ, {'HYPRLAND_INSTANCE_SIGNATURE': 'next-session'}), patch('eitr_plugins.subprocess.Popen') as popen:
+        with patch.dict(os.environ, {'HYPRLAND_INSTANCE_SIGNATURE': 'next-session'}), patch('eitr_plugin_runtime.subprocess.Popen') as popen:
             popen.return_value.wait.return_value = 0
             self.manager.hooks('login')
             popen.assert_called_once()
@@ -1049,10 +1052,10 @@ class PluginTests(unittest.TestCase):
         self.install()
         record = self.manager.records()['example']
         with patch.object(self.manager, 'records', return_value={'example': record, 'second': record}), \
-                patch('eitr_plugins.commit', return_value=record['commit']), \
-                patch('eitr_plugins.manifest', return_value=self.spec()), \
-                patch('eitr_plugins.command', return_value=['fixture-script']), \
-                patch('eitr_plugins.subprocess.Popen') as popen:
+                patch('eitr_plugin_runtime.commit', return_value=record['commit']), \
+                patch('eitr_plugin_runtime.manifest', return_value=self.spec()), \
+                patch('eitr_plugin_runtime.command', return_value=['fixture-script']), \
+                patch('eitr_plugin_runtime.subprocess.Popen') as popen:
             popen.return_value.wait.side_effect = [7, 0]
             self.manager.hooks('theme-changed')
             self.assertEqual(popen.call_count, 2)
@@ -1167,7 +1170,7 @@ class VisualPluginTests(unittest.TestCase):
             outcome = self.manager.ui_failure('example', approved, 'broken\x1b')
             self.assertEqual(outcome, {'failures': count, 'disabled': count == 3})
         self.assertTrue(all(entry['disabled'] for entry in self.manager.ui()))
-        self.assertIn('broken?', plugins.state('eitr/plugin-ui.log').read_text())
+        self.assertIn('broken?', state('eitr/plugin-ui.log').read_text())
         with self.assertRaises(ValueError):
             self.manager.ui_failure('example', '0' * 40)
         cli = self.cli()
@@ -1183,7 +1186,7 @@ class VisualPluginTests(unittest.TestCase):
         entries = self.manager.ui()
         self.assertTrue(entries)
         self.assertTrue(all(entry['pluginName'] == self.visual()['name'] for entry in entries))
-        with patch.object(self.manager, 'ui', return_value=entries), patch('eitr_plugins.subprocess.Popen') as process:
+        with patch.object(self.manager, 'ui', return_value=entries), patch('eitr_plugin_runtime.subprocess.Popen') as process:
             process.return_value.wait.return_value = 0
             self.assertEqual(self.manager.ui_data('example', 'hello'), '')
             self.assertEqual(process.call_args.args[0][0], str(self.manager.folder / 'example/notify.sh'))
@@ -1280,7 +1283,7 @@ class LivePluginTests(unittest.TestCase):
         self.assertEqual(self.manager.placements(), placements)
         self.assertFalse(self.manager.installed()[0]['enabled'])
         self.assertIn(unittest.mock.call('disable', '--now', 'eitr-plugin-example.service'), self.commands.call_args_list)
-        with patch('eitr_plugins.subprocess.Popen') as process:
+        with patch('eitr_plugin_runtime.subprocess.Popen') as process:
             self.manager.hooks('theme-changed')
             process.assert_not_called()
             with self.assertRaises(ValueError):
@@ -1467,7 +1470,7 @@ class LivePluginTests(unittest.TestCase):
     def test_layer_migration_and_toggle(self):
         self.publish(self.visual())
         self.install()
-        path = plugins.config('eitr/plugin-placements.json')
+        path = config('eitr/plugin-placements.json')
         path.parent.mkdir(parents=True, exist_ok=True)
         old = dict(version=1, widgets=[dict(plugin='example', id='clock', monitor='test', x=24, y=24, width=240, height=144)], barItems=[])
         path.write_text(json.dumps(old))

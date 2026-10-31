@@ -9,16 +9,32 @@ import tempfile
 
 import eitr_policy
 from eitr_paths import config, state
+from eitr_plugin_install import (
+    PluginInstall as _PluginInstall,
+    commit,
+    official,
+    short_author,
+)
+from eitr_plugin_manifest import (
+    HOOK_EVENTS,
+    command,
+    identifier,
+    manifest,
+    object_keys,
+    plugin_files,
+    printable,
+    string,
+    unique_object,
+)
 
 
 HOOK_TIMEOUT = 30
 UI_FAILURE_LIMIT = 3
 
 def unit_content(root, spec):
-    import eitr_plugins as plugins
     def quote(value):
         return '"' + value.replace('\\', '\\\\').replace('"', '\\"').replace('%', '%%').replace('$', '$$') + '"'
-    argv = plugins.command(root, spec['service'])
+    argv = command(root, spec['service'])
     return ('[Unit]\nDescription=Eitr plugin ' + spec['id'] + '\n\n[Service]\nType=simple\nExecStart='
             + ' '.join(quote(argument) for argument in argv)
             + '\nNoNewPrivileges=yes'
@@ -28,21 +44,19 @@ def unit_content(root, spec):
 
 class PluginRuntime:
     def unit(self, plugin_id):
-        import eitr_plugins as plugins
-        return self.units / f'eitr-plugin-{plugins.identifier(plugin_id)}.service'
+        return self.units / f'eitr-plugin-{identifier(plugin_id)}.service'
 
     def systemctl(self, *arguments):
         subprocess.run(['systemctl', '--user', *arguments], check=True, capture_output=True, text=True)
 
     def service(self, plugin_id, spec=None, *, root=None):
-        import eitr_plugins as plugins
         unit = self.unit(plugin_id)
         if unit.exists():
             self.systemctl('disable', '--now', unit.name)
             unit.unlink()
         if spec and 'service' in spec:
             self.units.mkdir(parents=True, exist_ok=True)
-            unit.write_text(plugins.unit_content(root if root is not None else self.root(plugin_id), spec))
+            unit.write_text(unit_content(root if root is not None else self.root(plugin_id), spec))
         self.systemctl('daemon-reload')
         if spec and 'service' in spec:
             self.systemctl('enable', '--now', unit.name)
@@ -58,7 +72,6 @@ class PluginRuntime:
             (self.units / 'default.target.wants' / unit.name).unlink(missing_ok=True)
 
     def rows(self):
-        import eitr_plugins as plugins
         blocked = self.enforce(blocking=False)
         rows = []
         for plugin_id, record in self.records().items():
@@ -66,52 +79,49 @@ class PluginRuntime:
                 continue
             root = self.root(plugin_id)
             try:
-                if root.is_symlink() or plugins.commit(root) != record['commit']:
+                if root.is_symlink() or commit(root) != record['commit']:
                     continue
-                spec = plugins.manifest(root)
+                spec = manifest(root)
                 for index, row in enumerate(spec['rows']):
                     rows.append(dict(id=plugin_id, index=index, title=row['title'], description=row['description'],
-                                     author=plugins.short_author(spec), official=plugins.official(record['url']),
+                                     author=short_author(spec), official=official(record['url']),
                                      icon=row.get('icon', '󰏖')))
             except (OSError, ValueError, subprocess.SubprocessError):
                 continue
         return sorted(rows, key=lambda row: row['title'].casefold())
 
     def ui_state(self):
-        import eitr_plugins as plugins
         path = state('eitr/plugin-ui.json')
         try:
             value = json.loads(path.read_text())
             if not isinstance(value, dict):
                 raise ValueError('Invalid plugin UI state')
             for plugin_id, record in value.items():
-                plugins.identifier(plugin_id)
-                plugins.object_keys(record, ('failures', 'disabled'))
-                if type(record['failures']) is not int or not 0 <= record['failures'] <= plugins.UI_FAILURE_LIMIT or type(record['disabled']) is not bool:
+                identifier(plugin_id)
+                object_keys(record, ('failures', 'disabled'))
+                if type(record['failures']) is not int or not 0 <= record['failures'] <= UI_FAILURE_LIMIT or type(record['disabled']) is not bool:
                     raise ValueError('Invalid plugin UI state')
             return value
         except FileNotFoundError:
             return {}
 
     def ui_failure(self, plugin_id, approved, message='Component load error'):
-        import eitr_plugins as plugins
-        plugins.identifier(plugin_id)
+        identifier(plugin_id)
         with self.lock():
             if self.records()[plugin_id]['commit'] != approved:
                 raise ValueError('Stale plugin UI failure')
             values = self.ui_state()
             previous = values.get(plugin_id, {})
-            count = min(plugins.UI_FAILURE_LIMIT, previous.get('failures', 0) + 1)
-            values[plugin_id] = dict(failures=count, disabled=count >= plugins.UI_FAILURE_LIMIT)
+            count = min(UI_FAILURE_LIMIT, previous.get('failures', 0) + 1)
+            values[plugin_id] = dict(failures=count, disabled=count >= UI_FAILURE_LIMIT)
             self.write(state('eitr/plugin-ui.json'), values)
             log = state('eitr/plugin-ui.log')
             with log.open('a') as output:
-                output.write(f'{plugin_id}: {plugins.printable(message)[:2048]} ({count}/{plugins.UI_FAILURE_LIMIT})\n')
+                output.write(f'{plugin_id}: {printable(message)[:2048]} ({count}/{UI_FAILURE_LIMIT})\n')
             return values[plugin_id]
 
     def enable_ui(self, plugin_id):
-        import eitr_plugins as plugins
-        plugins.identifier(plugin_id)
+        identifier(plugin_id)
         with self.lock():
             if plugin_id not in self.records():
                 raise ValueError('Unknown plugin')
@@ -121,7 +131,6 @@ class PluginRuntime:
 
     def ui(self):
         """Approved declarations; widgets and bar items need a separate user placement."""
-        import eitr_plugins as plugins
         blocked = self.blocked()
         failures = self.ui_state()
         result = []
@@ -130,10 +139,10 @@ class PluginRuntime:
                 continue
             root = self.root(plugin_id)
             try:
-                if root.is_symlink() or plugins.commit(root) != record['commit']:
+                if root.is_symlink() or commit(root) != record['commit']:
                     continue
-                list(plugins.plugin_files(root))
-                spec = plugins.manifest(root)
+                list(plugin_files(root))
+                spec = manifest(root)
                 for kind in ('tiles', 'panels', 'widgets', 'barItems'):
                     for entry in spec.get('ui', {}).get(kind, []):
                         result.append(dict(plugin=plugin_id, pluginName=spec['name'], commit=record['commit'], kind=kind,
@@ -144,12 +153,11 @@ class PluginRuntime:
         return result
 
     def placements(self):
-        import eitr_plugins as plugins
         try:
-            value = json.loads(config('eitr/plugin-placements.json').read_text(), object_pairs_hook=plugins.unique_object)
+            value = json.loads(config('eitr/plugin-placements.json').read_text(), object_pairs_hook=unique_object)
         except FileNotFoundError:
             return dict(version=2, widgets=[], barItems=[])
-        plugins.object_keys(value, ('version', 'widgets', 'barItems'))
+        object_keys(value, ('version', 'widgets', 'barItems'))
         if type(value['version']) is not int or value['version'] not in (1, 2):
             raise ValueError('Invalid plugin placement version')
         seen = set()
@@ -157,9 +165,9 @@ class PluginRuntime:
             if not isinstance(value[kind], list) or len(value[kind]) > 256:
                 raise ValueError('Invalid plugin placements')
             for placement in value[kind]:
-                plugins.object_keys(placement, ('plugin', 'id') + (('monitor', 'x', 'y', 'width', 'height') if kind == 'widgets' else ()), ('aboveWindows', 'surface') if kind == 'widgets' else ())
-                plugins.identifier(placement['plugin'])
-                plugins.identifier(placement['id'])
+                object_keys(placement, ('plugin', 'id') + (('monitor', 'x', 'y', 'width', 'height') if kind == 'widgets' else ()), ('aboveWindows', 'surface') if kind == 'widgets' else ())
+                identifier(placement['plugin'])
+                identifier(placement['id'])
                 key = (kind, placement['plugin'], placement['id'], placement.get('monitor'))
                 if key in seen:
                     raise ValueError('Duplicate plugin placement')
@@ -170,7 +178,7 @@ class PluginRuntime:
                     if 'surface' in placement and placement['surface'] not in ('panel', 'none'):
                         raise ValueError('Invalid widget surface')
                     placement.setdefault('aboveWindows', False)
-                    plugins.string(placement['monitor'])
+                    string(placement['monitor'])
                     for field in ('x', 'y', 'width', 'height'):
                         if type(placement[field]) is not int or not 0 <= placement[field] <= 65536 or (field in ('width', 'height') and placement[field] < 24):
                             raise ValueError('Invalid widget geometry')
@@ -178,9 +186,8 @@ class PluginRuntime:
         return value
 
     def place(self, plugin_id, entry_id, monitor=None, *, remove=False, geometry=None, toggle_layer=False, surface=None):
-        import eitr_plugins as plugins
-        plugins.identifier(plugin_id)
-        plugins.identifier(entry_id)
+        identifier(plugin_id)
+        identifier(entry_id)
         with self.lock():
             values = self.placements()
             entry = next((entry for entry in self.ui() if entry['plugin'] == plugin_id and entry['id'] == entry_id and entry['kind'] in ('widgets', 'barItems')), None)
@@ -188,7 +195,7 @@ class PluginRuntime:
                 raise ValueError('Unknown plugin visual')
             kind = entry['kind'] if entry else ('widgets' if monitor is not None else 'barItems')
             if kind == 'widgets':
-                plugins.string(monitor)
+                string(monitor)
             def matches(placement):
                 return placement['plugin'] == plugin_id and placement['id'] == entry_id and (kind != 'widgets' or placement['monitor'] == monitor)
             previous = next((placement for placement in values[kind] if matches(placement)), None)
@@ -206,7 +213,7 @@ class PluginRuntime:
                     if toggle_layer:
                         placement['aboveWindows'] = not placement['aboveWindows']
                     if geometry is not None:
-                        plugins.object_keys(geometry, ('x', 'y', 'width', 'height'))
+                        object_keys(geometry, ('x', 'y', 'width', 'height'))
                         for field, number in geometry.items():
                             if type(number) is not int or not 0 <= number <= 65536:
                                 raise ValueError('Invalid widget geometry')
@@ -221,14 +228,13 @@ class PluginRuntime:
             self.write(path, values)
 
     def ui_data(self, plugin_id, entry_id):
-        import eitr_plugins as plugins
         entry = next((entry for entry in self.ui() if entry['plugin'] == plugin_id and entry['id'] == entry_id), None)
         if not entry or entry['disabled'] or 'dataCommand' not in entry:
             raise ValueError('Plugin data command is unavailable')
         root = self.root(plugin_id)
         # A temporary file bounds memory even when a command writes excessive output.
         with tempfile.TemporaryFile() as output:
-            process = subprocess.Popen(plugins.command(root, entry['dataCommand']), cwd=root, start_new_session=True,
+            process = subprocess.Popen(command(root, entry['dataCommand']), cwd=root, start_new_session=True,
                                        stdin=subprocess.DEVNULL, stdout=output, stderr=subprocess.DEVNULL)
             try:
                 status = process.wait(timeout=10)
@@ -244,8 +250,7 @@ class PluginRuntime:
 
     def hooks(self, event):
         """Called in a detached dispatcher; each approved hook has its own timeout."""
-        import eitr_plugins as plugins
-        if event not in plugins.HOOK_EVENTS:
+        if event not in HOOK_EVENTS:
             raise ValueError('Unknown plugin event')
         if os.geteuid() == 0 or eitr_policy.load().get('plugins', True) is False:
             return
@@ -268,9 +273,9 @@ class PluginRuntime:
                     if self.refusal(record['url'], record['commit'], plugin_id):
                         continue
                     root = self.root(plugin_id)
-                    if root.is_symlink() or plugins.commit(root) != record['commit']:
+                    if root.is_symlink() or commit(root) != record['commit']:
                         continue
-                    spec = plugins.manifest(root)
+                    spec = manifest(root)
                     hook = spec.get('hooks', {}).get(event)
                     if hook is None:
                         continue
@@ -280,11 +285,11 @@ class PluginRuntime:
                     context = {'theme-changed': 'EITR_THEME', 'wallpaper-changed': 'EITR_WALLPAPER'}.get(event)
                     if context and context in os.environ:
                         environment[context] = os.environ[context]
-                    process = subprocess.Popen(plugins.command(root, hook), cwd=root, env=environment,
+                    process = subprocess.Popen(command(root, hook), cwd=root, env=environment,
                                                start_new_session=True, stdin=subprocess.DEVNULL,
                                                stdout=output, stderr=output)
                     try:
-                        status = process.wait(timeout=plugins.HOOK_TIMEOUT)
+                        status = process.wait(timeout=HOOK_TIMEOUT)
                     except subprocess.TimeoutExpired:
                         os.killpg(process.pid, signal.SIGKILL)
                         process.wait()
@@ -292,14 +297,13 @@ class PluginRuntime:
                     if status:
                         raise ValueError(f'exited with {status}')
                 except (OSError, ValueError, subprocess.SubprocessError) as error:
-                    output.write(f'{plugin_id} {event}: {plugins.printable(str(error))}\n')
+                    output.write(f'{plugin_id} {event}: {printable(str(error))}\n')
                     output.flush()
 
     def launch(self, plugin_id, index):
-        import eitr_plugins as plugins
         if os.geteuid() == 0:
             raise ValueError('Plugins are per-user; do not run as root')
-        record = self.records()[plugins.identifier(plugin_id)]
+        record = self.records()[identifier(plugin_id)]
         refused = self.refusal(record['url'], record['commit'], plugin_id)
         if refused:
             self.enforce()
@@ -307,10 +311,14 @@ class PluginRuntime:
                 raise ValueError(refused[1])
             self.check(record['url'], record['commit'], plugin_id)
         root = self.root(plugin_id)
-        if root.is_symlink() or plugins.commit(root) != record['commit']:
+        if root.is_symlink() or commit(root) != record['commit']:
             raise ValueError('Plugin differs from its approved commit')
-        spec = plugins.manifest(root)
-        subprocess.Popen(plugins.command(root, spec['rows'][index]), cwd=root, start_new_session=True)
+        spec = manifest(root)
+        subprocess.Popen(command(root, spec['rows'][index]), cwd=root, start_new_session=True)
+
+
+class Plugins(_PluginInstall, PluginRuntime):
+    """Per-user approved installations and their runtime operations."""
 
 
 def dispatch_hooks(event, **context):

@@ -1,26 +1,4 @@
-"""Public plugin API; validation, installation and execution have separate owners.
-
-Owner modules resolve shared calls here so public overrides keep applying.
-"""
-import contextlib
-import datetime
-import fcntl
-import hashlib
-import json
-import os
-from pathlib import Path, PurePosixPath
-import re
-import shutil
-import signal
-import subprocess
-import tempfile
-import xml.etree.ElementTree as ET
-from urllib.parse import urlsplit
-
-import eitr_policy
-from eitr_i18n import mark, tr
-from eitr_paths import config, data, state
-
+"""Public plugin API re-exporting validation, installation and runtime owners."""
 from eitr_plugin_manifest import (
     HOOK_EVENTS,
     SLUG,
@@ -30,6 +8,7 @@ from eitr_plugin_manifest import (
     manifest,
     object_keys,
     plugin_files,
+    printable,
     qml_files,
     repository_plugins,
     string,
@@ -41,7 +20,7 @@ from eitr_plugin_runtime import (
     UI_FAILURE_LIMIT,
     dispatch_hooks,
     unit_content,
-    PluginRuntime as _PluginRuntime,
+    Plugins,
 )
 from eitr_plugin_install import (
     ALL_INSTALLED,
@@ -63,14 +42,8 @@ from eitr_plugin_install import (
     normalized_url,
     official,
     policy_reason,
-    printable,
     repository_url,
     service_text,
     short_author,
     update_changes,
-    PluginInstall as _PluginInstall,
 )
-
-
-class Plugins(_PluginInstall, _PluginRuntime):
-    """Per-user approved installations and their runtime operations."""

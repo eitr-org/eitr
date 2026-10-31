@@ -9,8 +9,13 @@ from urllib.parse import urlsplit
 from eitr_i18n import tr
 
 
+
 SLUG = re.compile(r'[a-z0-9]+(?:-[a-z0-9]+)*\Z')
 HOOK_EVENTS = ('theme-changed', 'wallpaper-changed', 'after-update', 'login')
+
+def printable(text):
+    return ''.join(character if character.isprintable() else '?' for character in text)
+
 
 def object_keys(value, required, optional=()):
     if not isinstance(value, dict) or not set(required) <= value.keys() or value.keys() - set(required) - set(optional):
@@ -24,15 +29,13 @@ def string(value, limit=256):
 
 
 def identifier(value):
-    import eitr_plugins as plugins
-    if not isinstance(value, str) or len(value) > 64 or not plugins.SLUG.fullmatch(value):
+    if not isinstance(value, str) or len(value) > 64 or not SLUG.fullmatch(value):
         raise ValueError('Invalid plugin id')
     return value
 
 
 def command(root, entry):
-    import eitr_plugins as plugins
-    relative = PurePosixPath(plugins.string(entry['run']))
+    relative = PurePosixPath(string(entry['run']))
     if relative.is_absolute() or '..' in relative.parts or not relative.parts or relative.parts[0] == '.git':
         raise ValueError('Plugin command must stay inside its folder')
     target = (root / relative).resolve(strict=True)
@@ -58,8 +61,7 @@ def unique_object(pairs):
 
 def image_asset(root, relative, *, preview=False):
     """Validate local artwork before passing its URL to Qt's image loader."""
-    import eitr_plugins as plugins
-    path = PurePosixPath(plugins.string(relative))
+    path = PurePosixPath(string(relative))
     if path.is_absolute() or '..' in path.parts or not path.parts or path.parts[0] == '.git':
         raise ValueError('Plugin image must stay inside its folder')
     target = root / path
@@ -105,11 +107,10 @@ def image_asset(root, relative, *, preview=False):
 
 
 def manifest(root):
-    import eitr_plugins as plugins
     path = root / 'eitr-plugin.json'
     if path.is_symlink() or path.stat().st_size > 65536:
         raise ValueError('Invalid plugin manifest file')
-    value = json.loads(path.read_text(), object_pairs_hook=plugins.unique_object)
+    value = json.loads(path.read_text(), object_pairs_hook=unique_object)
     if not isinstance(value, dict):
         raise ValueError('Invalid plugin manifest fields')
     version = value.get('schemaVersion', 1)
@@ -117,12 +118,12 @@ def manifest(root):
         raise ValueError(tr('Invalid plugin schemaVersion; expected 1 or 2'))
     if version > 2:
         raise ValueError(tr('This plugin needs a newer Eitr'))
-    plugins.object_keys(value, ('id', 'name', 'description', 'author', 'version', 'rows'), ('service', 'schemaVersion', 'hooks', 'icon', 'preview', 'homepage') + (('ui', 'capabilities') if version == 2 else ()))
+    object_keys(value, ('id', 'name', 'description', 'author', 'version', 'rows'), ('service', 'schemaVersion', 'hooks', 'icon', 'preview', 'homepage') + (('ui', 'capabilities') if version == 2 else ()))
     for field in ('icon', 'preview'):
         if field in value:
-            plugins.image_asset(root, value[field], preview=field == 'preview')
+            image_asset(root, value[field], preview=field == 'preview')
     if 'homepage' in value:
-        homepage_text = plugins.string(value['homepage'], 2048)
+        homepage_text = string(value['homepage'], 2048)
         homepage = urlsplit(homepage_text)
         homepage.port
         if any(character.isspace() for character in homepage_text) or '\\' in homepage_text:
@@ -132,46 +133,45 @@ def manifest(root):
     capabilities = value.get('capabilities', [])
     if not isinstance(capabilities, list) or any(not isinstance(capability, str) or capability != 'audio-spectrum' for capability in capabilities) or len(capabilities) != len(set(capabilities)):
         raise ValueError('Invalid plugin capabilities')
-    plugins.identifier(value['id'])
+    identifier(value['id'])
     for field in ('name', 'author', 'version'):
-        plugins.string(value[field])
-    plugins.string(value['description'], 72)
+        string(value[field])
+    string(value['description'], 72)
     # A visual-only plugin (schema 2 with ui components) needs no Walker rows.
     visual = version == 2 and isinstance(value.get('ui'), dict) and any(value['ui'].values())
     if not isinstance(value['rows'], list) or not (0 if visual else 1) <= len(value['rows']) <= 20:
         raise ValueError('A plugin must declare 1..20 rows' if not visual else 'A plugin may declare at most 20 rows')
     for row in value['rows']:
-        plugins.object_keys(row, ('title', 'description', 'run'), ('icon', 'arguments'))
-        plugins.string(row['title'], 72)
-        plugins.string(row['description'], 72)
+        object_keys(row, ('title', 'description', 'run'), ('icon', 'arguments'))
+        string(row['title'], 72)
+        string(row['description'], 72)
         if 'icon' in row:
-            plugins.string(row['icon'], 64)
-        plugins.command(root, row)
+            string(row['icon'], 64)
+        command(root, row)
     if 'service' in value:
-        plugins.object_keys(value['service'], ('run',), ('arguments',))
-        plugins.command(root, value['service'])
+        object_keys(value['service'], ('run',), ('arguments',))
+        command(root, value['service'])
     hooks = value.get('hooks', {})
-    if not isinstance(hooks, dict) or hooks.keys() - set(plugins.HOOK_EVENTS):
+    if not isinstance(hooks, dict) or hooks.keys() - set(HOOK_EVENTS):
         raise ValueError(tr('Invalid plugin hooks; unknown event'))
     for hook in hooks.values():
-        plugins.object_keys(hook, ('run',), ('arguments',))
-        plugins.command(root, hook)
+        object_keys(hook, ('run',), ('arguments',))
+        command(root, hook)
     if 'ui' in value:
-        plugins.validate_ui(root, value['ui'])
+        validate_ui(root, value['ui'])
     return value
 
 
 def repository_plugins(root):
     """Validate the entire index before offering any entry for review."""
-    import eitr_plugins as plugins
     index = root / 'eitr-plugins.json'
     if not index.exists() and not index.is_symlink():
-        return [dict(path='', spec=plugins.manifest(root))]
-    list(plugins.plugin_files(root))
+        return [dict(path='', spec=manifest(root))]
+    list(plugin_files(root))
     if index.is_symlink() or not index.is_file() or index.stat().st_size > 65536:
         raise ValueError('Invalid plugin index file')
-    value = json.loads(index.read_text(), object_pairs_hook=plugins.unique_object)
-    plugins.object_keys(value, ('schemaVersion', 'plugins'))
+    value = json.loads(index.read_text(), object_pairs_hook=unique_object)
+    object_keys(value, ('schemaVersion', 'plugins'))
     if type(value['schemaVersion']) is not int or value['schemaVersion'] != 1:
         raise ValueError('Invalid plugin index schemaVersion')
     entries = value['plugins']
@@ -179,9 +179,9 @@ def repository_plugins(root):
         raise ValueError('A plugin index must declare 1..100 plugins')
     result, ids, paths = [], set(), set()
     for entry in entries:
-        plugins.object_keys(entry, ('id', 'path'))
-        plugin_id = plugins.identifier(entry['id'])
-        relative = plugins.string(entry['path'], 512)
+        object_keys(entry, ('id', 'path'))
+        plugin_id = identifier(entry['id'])
+        relative = string(entry['path'], 512)
         parts = PurePosixPath(relative)
         if (parts.is_absolute() or '..' in parts.parts or '.' in relative.split('/')
                 or '\\' in relative or str(parts) != relative or not parts.parts):
@@ -193,7 +193,7 @@ def repository_plugins(root):
             raise ValueError('Duplicate plugin index id or path')
         if any(folder.is_relative_to(root / previous) or (root / previous).is_relative_to(folder) for previous in paths):
             raise ValueError('Plugin index folders may not overlap')
-        spec = plugins.manifest(folder)
+        spec = manifest(folder)
         if spec['id'] != plugin_id:
             raise ValueError('Plugin index id does not match its manifest')
         if spec.get('schemaVersion') == 2 and 'icon' not in spec:
@@ -205,8 +205,7 @@ def repository_plugins(root):
 
 
 def qml_files(root):
-    import eitr_plugins as plugins
-    files = sorted(path for path in plugins.plugin_files(root) if path.suffix.casefold() == '.qml')
+    files = sorted(path for path in plugin_files(root) if path.suffix.casefold() == '.qml')
     if len(files) > 32:
         raise ValueError('A plugin may contain at most 32 QML files')
     for path in files:
@@ -219,11 +218,10 @@ def qml_files(root):
 
 
 def validate_ui(root, ui):
-    import eitr_plugins as plugins
-    plugins.object_keys(ui, (), ('tiles', 'panels', 'widgets', 'barItems'))
+    object_keys(ui, (), ('tiles', 'panels', 'widgets', 'barItems'))
     if not isinstance(ui.get('panels', []), list):
         raise ValueError('Plugin panels must be a list')
-    files = plugins.qml_files(root)
+    files = qml_files(root)
     ids = set()
     for kind in ('tiles', 'panels', 'widgets', 'barItems'):
         entries = ui.get(kind, [])
@@ -239,9 +237,9 @@ def validate_ui(root, ui):
                 optional += ('surface', 'header')
             elif kind == 'widgets':
                 optional += ('minWidth', 'minHeight', 'defaultWidth', 'defaultHeight', 'surface')
-            plugins.object_keys(entry, ('id', 'title', 'qml'), optional)
+            object_keys(entry, ('id', 'title', 'qml'), optional)
             if 'panel' in entry:
-                panel_id = plugins.identifier(entry['panel'])
+                panel_id = identifier(entry['panel'])
                 if panel_id not in [panel.get('id') for panel in ui.get('panels', []) if isinstance(panel, dict)]:
                     raise ValueError('Visual panel must name a declared panel')
             if kind == 'tiles' and entry.get('look', 'eitr') not in ('eitr', 'custom'):
@@ -256,14 +254,14 @@ def validate_ui(root, ui):
                     default = entry.get('default' + dimension, 192)
                     if type(minimum) is not int or type(default) is not int or not 24 <= minimum <= default <= 4096:
                         raise ValueError('Widget sizes must be integers: 24 <= min <= default <= 4096')
-            key = plugins.identifier(entry['id'])
+            key = identifier(entry['id'])
             if key in ids:
                 raise ValueError('Duplicate plugin UI id')
             ids.add(key)
-            plugins.string(entry['title'], 72)
+            string(entry['title'], 72)
             if 'icon' in entry:
-                plugins.string(entry['icon'], 8)
-            relative = PurePosixPath(plugins.string(entry['qml'], 256))
+                string(entry['icon'], 8)
+            relative = PurePosixPath(string(entry['qml'], 256))
             if relative.is_absolute() or '..' in relative.parts or not relative.parts or relative.parts[0] == '.git':
                 raise ValueError('Plugin QML must stay inside its folder')
             target = root / relative
@@ -276,12 +274,11 @@ def validate_ui(root, ui):
                 raise ValueError('Plugin refreshInterval needs a dataCommand')
             for field in ('dataCommand', 'dataStream'):
                 if field in entry:
-                    plugins.object_keys(entry[field], ('run',), ('arguments',))
-                    plugins.command(root, entry[field])
+                    object_keys(entry[field], ('run',), ('arguments',))
+                    command(root, entry[field])
 
 def plugin_files(root):
     """Every file outside Git's metadata; a symlink anywhere is refused."""
-    import eitr_plugins as plugins
     root = Path(root)
     for folder, directories, files in os.walk(root):
         current = Path(folder)
@@ -290,5 +287,5 @@ def plugin_files(root):
         for name in directories + files:
             path = current / name
             if path.is_symlink():
-                raise ValueError(tr('Plugins may not contain symlinks: {path}', path=plugins.printable(str(path.relative_to(root)))))
+                raise ValueError(tr('Plugins may not contain symlinks: {path}', path=printable(str(path.relative_to(root)))))
         yield from (current / name for name in files)
