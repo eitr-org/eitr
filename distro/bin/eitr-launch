@@ -101,6 +101,11 @@ def main(argv=None, executable=None):
         preference = config(f'hypr/{tool}.conf')
         selected = preference if preference.is_file() else code(f'hypr/{tool}.conf', root)
         command = [tool, '-c', str(selected), *values]
+        if tool == 'hyprpaper':
+            # The shipped config sources this file, and Hyprpaper refuses a missing one.
+            monitors = Path.home() / '.cache/eitr/hyprpaper-monitors.conf'
+            monitors.parent.mkdir(parents=True, exist_ok=True)
+            monitors.touch()
     else:
         if executable == 'eitr-walker':
             values.insert(0, 'walker/bin/walker')

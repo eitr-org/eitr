@@ -112,6 +112,25 @@ def for_monitor(path, monitor):
     return str(path)
 
 
+def write_monitor_wallpapers(path, monitors):
+    """Name each monitor whose version of the wallpaper at path differs from it.
+
+    Hyprpaper's config sources this file, so each monitor starts on its own
+    version at login instead of switching to it once restore() runs.
+    """
+    entries = []
+    for monitor in monitors:
+        image = for_monitor(path, monitor)
+        if image != str(path):
+            entries.append(f"wallpaper {{\n    monitor = {monitor.get('name', '?')}\n"
+                           f"    path = {image}\n    fit_mode = cover\n}}\n")
+    target = cache_dir() / "eitr/hyprpaper-monitors.conf"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    temporary = target.with_suffix(".new")
+    temporary.write_text("\n".join(entries))
+    temporary.replace(target)
+
+
 class CommitError(RuntimeError):
     """Hyprpaper rejected the wallpaper on one or more monitors."""
 
@@ -135,6 +154,8 @@ def commit(path):
     listing.replace(cache / "current-wallpaper")
     write_settings(user_config('eitr/appearance.json'), {'wallpaper': path})
     if os.environ.get("EITR_NO_SESSION") == "1":
+        # No monitors to ask; the login restore names them.
+        write_monitor_wallpapers(path, [])
         return
     # The Theme Wallpaper login design shows a copy of the wallpaper; keep it current.
     login = code("quickshell/lockscreen/scripts/settings.py")
@@ -145,6 +166,7 @@ def commit(path):
         monitors = json.loads(subprocess.check_output(["hyprctl", "monitors", "-j"], text=True))
     except (OSError, subprocess.SubprocessError, ValueError) as error:
         raise CommitError(tr('cannot list monitors: {error}', error=f'{error}')) from error
+    write_monitor_wallpapers(path, monitors)
     failed = []
     for monitor in monitors:
         name = monitor.get("name", "?")

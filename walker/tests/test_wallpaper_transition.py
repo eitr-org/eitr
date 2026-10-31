@@ -115,6 +115,11 @@ class WallpaperTests(unittest.TestCase):
             self.assertEqual(calls, [f"DP-3,{theme}/backgrounds-ultrawide/01-first.jpg", f"HDMI-A-1,{image}"])
             self.assertEqual((Path(directory) / ".cache/current-wallpaper").read_text().strip(), str(image),
                              "the saved choice stays the theme's wallpaper")
+            self.assertEqual((Path(directory) / ".cache/eitr/hyprpaper-monitors.conf").read_text(),
+                             f"wallpaper {{\n    monitor = DP-3\n    path = {theme}/backgrounds-ultrawide/01-first.jpg\n"
+                             "    fit_mode = cover\n}\n", "Hyprpaper starts the ultrawide on its version")
+            config = (ROOT / "hypr/hyprpaper.conf").read_text()
+            self.assertIn("source = ~/.cache/eitr/hyprpaper-monitors.conf", config)
             refresh = self.refresh_login.call_args.args[0]
             self.assertEqual(refresh[-2:], [str(transition.code("quickshell/lockscreen/scripts/settings.py")),
                                             "refresh-login"], "the login copy follows the wallpaper")

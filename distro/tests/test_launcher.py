@@ -48,6 +48,12 @@ class LauncherTests(unittest.TestCase):
         self.assertEqual(command[:3], ['quickshell', '-n', '-p'])
         self.assertEqual(command[-1], '--daemonize')
 
+    def test_hyprpaper_always_finds_the_monitor_file_its_config_sources(self):
+        with tempfile.TemporaryDirectory() as home, patch.object(launch.Path, 'home', return_value=Path(home)):
+            command, _ = self.run_launcher('eitr-hyprpaper', [])
+            self.assertEqual(command[0], 'hyprpaper')
+            self.assertEqual((Path(home) / '.cache/eitr/hyprpaper-monitors.conf').read_text(), '')
+
     def test_ipc_reaches_a_running_checkout_when_the_package_is_not_running(self):
         packaged = Path('/usr/share/eitr/quickshell/desktop-bar')
         checkout = '/home/me/eitr/quickshell/desktop-bar'
