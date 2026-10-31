@@ -262,7 +262,7 @@ ShellRoot {
                 }
                 readonly property real tabLeadingEnd: (shell.verticalBar
                     ? tabItemStart(verticalStart) + verticalStart.height
-                    : tabItemStart(hardwareStatus) + hardwareStatus.width) + tabsPadding
+                    : tabItemStart(leftGroup.hardwareStatus) + leftGroup.hardwareStatus.width) + tabsPadding
                 readonly property real tabTrailingStart: tabItemStart(shell.verticalBar ? verticalEnd : rightSide) - tabsPadding
                 readonly property real tabCenterStart: (shell.verticalBar
                     ? tabItemStart(verticalMedia.visible ? verticalMedia : verticalCapture.shown ? verticalCapture : verticalCalendarIcon)
@@ -291,7 +291,7 @@ ShellRoot {
                 readonly property real centerPadding: (centerExtent - (shell.verticalBar ? verticalCalendarIcon.height : centerInfo.width)) / 2
                 readonly property real leadingExtent: endPadding - centerPadding + (shell.verticalBar
                     ? verticalStart.height + itemGap + (mediaStrip.player ? verticalMedia.height + itemGap : 0) + verticalPin.height + itemGap + (verticalCapture.shown ? verticalCapture.height + itemGap : 0)
-                    : workspaces.width + itemGap + hardwareStatus.width + itemGap + (mediaStrip.visible ? mediaStrip.width + itemGap : 0) + barPin.width + itemGap + (barCapture.shown ? barCapture.width + itemGap : 0))
+                    : leftGroup.workspaces.width + itemGap + leftGroup.hardwareStatus.width + itemGap + (mediaStrip.visible ? mediaStrip.width + itemGap : 0) + barPin.width + itemGap + (barCapture.shown ? barCapture.width + itemGap : 0))
                 readonly property real trailingExtent: endPadding - centerPadding + (shell.verticalBar
                     ? itemGap + verticalWeatherIcon.height + itemGap + verticalEnd.height
                     : itemGap + barWeather.width + itemGap + rightSide.width + itemGap + notificationIcon.width)
@@ -707,9 +707,9 @@ ShellRoot {
                     id: islandSurfaces
                     visible: !FocusMode.enabled
                     anchors.fill: parent
-                    IslandSurface { first: shell.verticalBar ? verticalControlCenterLogo : controlCenterLogo }
-                    IslandSurface { first: shell.verticalBar ? verticalOverviewIcon : overviewIcon; last: shell.verticalBar ? verticalWorkspaces : workspaces }
-                    IslandSurface { first: shell.verticalBar ? verticalHardware : hardwareStatus }
+                    IslandSurface { first: shell.verticalBar ? verticalControlCenterLogo : leftGroup.controlCenterLogo }
+                    IslandSurface { first: shell.verticalBar ? verticalOverviewIcon : leftGroup.overviewIcon; last: shell.verticalBar ? verticalWorkspaces : leftGroup.workspaces }
+                    IslandSurface { first: shell.verticalBar ? verticalHardware : leftGroup.hardwareStatus }
                     IslandSurface { first: shell.verticalBar ? verticalCalendarIcon : centerInfo }
                     IslandSurface { first: shell.verticalBar ? verticalWeatherIcon : barWeather }
                     IslandSurface { first: shell.verticalBar ? verticalMedia : mediaStrip; shown: shell.verticalBar ? verticalMedia.visible : mediaStrip.visible }
@@ -1006,116 +1006,27 @@ ShellRoot {
                         anchors.rightMargin: 9
                         spacing: 0
 
-                        Row {
-                            id: workspaces
-                            opacity: bar.expanded ? 1 : 0
-                            enabled: bar.expanded
-                            Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
-
-                            spacing: shell.workspaceItemSpacing
+                        BarLeftGroup {
+                            id: leftGroup
+                            host: shell
+                            barWindow: bar
+                            styleMenu: workspaceMenu
+                            aiPanel: aiMenu
+                            hardwarePanel: hardwareMenu
                             Layout.alignment: Qt.AlignVCenter
-
-                            EitrLogo {
-                                id: controlCenterLogo
-                                foreground: shell.fg; background: shell.workspaceMenuBg
-                                slotWidth: shell.workspaceItemSize
-                                anchors.verticalCenter: parent.verticalCenter
-                                onClicked: bar.toggleControlCenter()
-                            }
-                            Item { width: bar.islandsLayout ? bar.islandSpacing - 2 * shell.workspaceItemSpacing : 0; height: 1; visible: bar.islandsLayout }
-                            StatusIcon {
-                                host: shell
-                                id: overviewIcon
-                                icon: "󰕮"; tooltip: Eitr.I18n.tr("Overview"); open: true; clickable: true
-                                slotWidth: shell.workspaceItemSize
-                                anchors.verticalCenter: parent.verticalCenter
-                                onClicked: bar.toggleOverview()
-                            }
-                            Repeater {
-                                model: shell.workspaceCount
-
-                                BarButton {
-
-                                    host: shell
-                                    text: shell.workspaceLabel(index, bar.screen)
-                                    tooltip: active ? "" : shell.workspaceApps(index + 1)
-                                    visualStyle: shell.workspaceStyle
-                                    active: shell.workspaceActive(index + 1, bar.screen)
-                                    width: shell.workspaceItemSize
-                                    buttonHeight: shell.workspaceItemSize
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    fontSize: 14
-                                    cornerRadius: 6
-                                    textOffsetY: 0
-                                    onClicked: shell.focusWorkspace(index + 1)
-                                    onRightClicked: bar.togglePanel(workspaceMenu)
-                                }
-
-                            }
-
-                            WorkspaceStyleMenu {
-                                id: workspaceMenu
-                                surfaceColor: shell.barBackground()
-                                target: shell.verticalBar ? verticalWorkspaces : workspaces
-                                barEdge: shell.barEdge
-                                currentStyle: shell.workspaceStyle
-                                accent: shell.activeBg
-                                foreground: shell.workspaceMenuFg
-                                background: shell.workspaceMenuBg
-                                selectedForeground: shell.activeFg
-                                onSelected: function(style) {
-                                    shell.setWorkspaceStyle(style);
-                                }
-                            }
-
                         }
-
-                        Row {
-                            id: hardwareStatus
-                            opacity: bar.expanded ? 1 : 0
-                            enabled: bar.expanded
-                            Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
-                            Layout.alignment: Qt.AlignVCenter
-                            Layout.leftMargin: bar.islandsLayout ? bar.islandSpacing : shell.workspaceItemSpacing
-                            spacing: shell.workspaceItemSpacing
-
-                            StatusIcon {
-
-                                host: shell
-                                id: aiIcon
-                                slotWidth: shell.workspaceItemSize
-                                icon: ""
-                                iconSize: 16
-                                tooltip: Eitr.I18n.tr("AI Usage")
-                                open: true
-                                clickable: true
-                                onClicked: bar.togglePanel(aiMenu)
-                            }
-
-                            StatusIcon {
-
-                                host: shell
-                                id: hardwareIcon
-                                slotWidth: shell.workspaceItemSize
-                                icon: "󰍛"
-                                iconSize: 18
-                                tooltip: Eitr.I18n.tr("Hardware")
-                                open: true
-                                clickable: true
-                                onClicked: bar.togglePanel(hardwareMenu)
-                            }
-
-                            // A plain switch: a click turns automatic idle locking on or off.
-                            StatusIcon {
-                                host: shell
-                                id: idleLockIcon
-                                slotWidth: shell.workspaceItemSize
-                                icon: shell.idleLockGlyph
-                                iconSize: 17
-                                tooltip: shell.idleLockTooltip
-                                open: true
-                                clickable: true
-                                onClicked: shell.switchIdleLock()
+                        WorkspaceStyleMenu {
+                            id: workspaceMenu
+                            surfaceColor: shell.barBackground()
+                            target: shell.verticalBar ? verticalWorkspaces : leftGroup.workspaces
+                            barEdge: shell.barEdge
+                            currentStyle: shell.workspaceStyle
+                            accent: shell.activeBg
+                            foreground: shell.workspaceMenuFg
+                            background: shell.workspaceMenuBg
+                            selectedForeground: shell.activeFg
+                            onSelected: function(style) {
+                                shell.setWorkspaceStyle(style);
                             }
                         }
 
@@ -1123,7 +1034,7 @@ ShellRoot {
                             id: hardwareMenu
                             surfaceColor: shell.barBackground()
                             maximumHeight: bar.screen.height - 70
-                            target: shell.verticalBar ? verticalHardwareIcon : hardwareIcon
+                            target: shell.verticalBar ? verticalHardwareIcon : leftGroup.hardwareIcon
                             barEdge: shell.barEdge
                             accent: shell.activeBg
                             foreground: shell.fg
@@ -1135,7 +1046,7 @@ ShellRoot {
                             surfaceColor: shell.barBackground()
                             maximumHeight: bar.screen.height - 70
                             leftAligned: true
-                            target: shell.verticalBar ? verticalAiIcon : aiIcon
+                            target: shell.verticalBar ? verticalAiIcon : leftGroup.aiIcon
                             barEdge: shell.barEdge
                             accent: shell.activeBg
                             foreground: shell.fg
@@ -1483,8 +1394,8 @@ ShellRoot {
                         itemSpacing: bar.centeredLayout ? bar.itemGap : 1
                         indicatorSpacing: bar.centeredLayout ? bar.itemGap : 6
                         availableWidth: bar.centeredLayout
-                            ? Math.max(0, bar.width / 2 - centerInfo.width / 2 - workspaces.width - hardwareStatus.width - barPin.width - barCapture.width - bar.itemGap * (barCapture.shown ? 5 : 4) - bar.endPadding)
-                            : Math.max(0, centerInfo.x - hardwareStatus.mapToItem(centerInfo.parent, hardwareStatus.width, 0).x - (bar.islandsLayout ? 2 * bar.islandSpacing + (barCapture.shown ? barCapture.width + bar.islandSpacing : 0) : 24))
+                            ? Math.max(0, bar.width / 2 - centerInfo.width / 2 - leftGroup.workspaces.width - leftGroup.hardwareStatus.width - barPin.width - barCapture.width - bar.itemGap * (barCapture.shown ? 5 : 4) - bar.endPadding)
+                            : Math.max(0, centerInfo.x - leftGroup.hardwareStatus.mapToItem(centerInfo.parent, leftGroup.hardwareStatus.width, 0).x - (bar.islandsLayout ? 2 * bar.islandSpacing + (barCapture.shown ? barCapture.width + bar.islandSpacing : 0) : 24))
                         foreground: shell.fg
                         background: shell.workspaceMenuBg
                         onDetailsRequested: bar.togglePanel(mediaMenu)

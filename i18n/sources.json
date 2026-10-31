@@ -21,6 +21,7 @@
     ],
     "AI Usage": [
       "quickshell/desktop-bar/AiUsageMenu.qml",
+      "quickshell/desktop-bar/BarLeftGroup.qml",
       "quickshell/desktop-bar/ControlCenter.qml",
       "quickshell/desktop-bar/shell.qml"
     ],
@@ -494,6 +495,7 @@
       "quickshell/desktop-bar/DisplaySettingsEditor.qml"
     ],
     "Hardware": [
+      "quickshell/desktop-bar/BarLeftGroup.qml",
       "quickshell/desktop-bar/ControlCenter.qml",
       "quickshell/desktop-bar/shell.qml"
     ],
@@ -842,6 +844,7 @@
       "quickshell/desktop-bar/AudioMenu.qml"
     ],
     "Overview": [
+      "quickshell/desktop-bar/BarLeftGroup.qml",
       "quickshell/desktop-bar/WorkspaceOverview.qml",
       "quickshell/desktop-bar/shell.qml"
     ],

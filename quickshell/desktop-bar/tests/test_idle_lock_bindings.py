@@ -8,19 +8,20 @@ SHELL = (ROOT / "shell.qml").read_text()
 
 class IdleLockBindingsTests(unittest.TestCase):
     def test_left_group_icons_toggle_without_a_panel(self):
-        horizontal = SHELL.split("id: idleLockIcon", 1)[1].split("}", 1)[0]
+        left = (ROOT / "BarLeftGroup.qml").read_text()
+        horizontal = left.split("id: idleLockButton", 1)[1].split("}", 1)[0]
         vertical = SHELL.split("id: verticalIdleLockIcon", 1)[1].split("\n", 1)[0]
-        for name, block in (("horizontal", horizontal), ("vertical", vertical)):
+        for name, block, owner in (("horizontal", horizontal, "host"), ("vertical", vertical, "shell")):
             with self.subTest(icon=name):
-                self.assertIn("onClicked: shell.switchIdleLock()", block)
-                self.assertIn("shell.idleLockTooltip", block)
+                self.assertIn("onClicked: " + owner + ".switchIdleLock()", block)
+                self.assertIn(owner + ".idleLockTooltip", block)
         self.assertIn("function switchIdleLock() { if (!toggleIdleLock.running) toggleIdleLock.running = true; }", SHELL)
         self.assertNotIn("idleLockMenu", SHELL)
         self.assertFalse((ROOT / "IdleLockMenu.qml").exists())
 
     def test_icons_follow_ai_usage_on_the_left(self):
-        left = SHELL.split("id: hardwareStatus", 1)[1].split("SystemMonitorMenu {", 1)[0]
-        self.assertLess(left.index("id: aiIcon"), left.index("id: idleLockIcon"))
+        left = (ROOT / "BarLeftGroup.qml").read_text().split("id: statusRow", 1)[1]
+        self.assertLess(left.index("id: aiButton"), left.index("id: idleLockButton"))
         vertical = SHELL.split("id: verticalHardware", 1)[1].split("Item {", 1)[0]
         self.assertLess(vertical.index("id: verticalAiIcon"), vertical.index("id: verticalIdleLockIcon"))
 

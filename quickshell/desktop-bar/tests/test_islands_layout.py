@@ -34,6 +34,8 @@ class IslandsLayoutTests(unittest.TestCase):
                    'verticalCalendarIcon', 'centerInfo', 'verticalWeatherIcon', 'barWeather',
                    'verticalMedia', 'mediaStrip', 'verticalCapture', 'barCapture', 'verticalEnd',
                    'rightSide', 'notificationIcon')
+        # The left group's items are reached through BarLeftGroup in the bar; the fixture names them directly.
+        surfaces = surfaces.replace('leftGroup.', '')
         surfaces = re.sub(r'\b(' + '|'.join(targets) + r')\b', lambda match: 'barContents.' + match[0], surfaces)
         component = qml_block(source, '                component IslandSurface: Rectangle')
         geometry = source.split('                    id: barContents\n', 1)[1].split('                    Item {', 1)[0]

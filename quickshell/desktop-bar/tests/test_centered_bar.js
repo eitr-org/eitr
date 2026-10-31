@@ -104,7 +104,7 @@ try {
                     const rightSizes = [verticalBar ? 24 : 50, ...slots(9), 24];
                     const centerExtent = verticalBar ? 56 : clockSize + 24;
                     const context = {shell, endPadding: padding, centerPadding: (centerExtent - clockSize) / 2, itemGap: gap,
-                        workspaces: {width: span(workspaceSizes)}, hardwareStatus: {width: span(hardwareSizes)},
+                        leftGroup: {workspaces: {width: span(workspaceSizes)}, hardwareStatus: {width: span(hardwareSizes)}},
                         mediaStrip: {player: withMedia ? {} : null, visible: withMedia, width: span(mediaSizes)},
                         barPin: {width: 24}, barCapture: {width: shown ? 22 : 0, shown},
                         barWeather: {width: 50}, rightSide: {width: span(slots(9))}, notificationIcon: {width: 24},

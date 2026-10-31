@@ -105,3 +105,4 @@ DictationState DictationState.qml
 SessionHooks SessionHooks.qml
 UpdatesStatus UpdatesStatus.qml
 FocusStrips FocusStrips.qml
+BarLeftGroup BarLeftGroup.qml

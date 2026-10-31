@@ -8,14 +8,15 @@ BAR = Path(__file__).resolve().parents[1]
 class EitrLogoTests(unittest.TestCase):
     def test_logo_precedes_overview_and_toggles_control_center(self):
         shell = (BAR / 'shell.qml').read_text()
-        for group, identifier in (('verticalWorkspaces', 'verticalControlCenterLogo'),
-                                  ('workspaces', 'controlCenterLogo')):
+        left = (BAR / 'BarLeftGroup.qml').read_text()
+        for source, group, identifier, owner, window in ((shell, 'verticalWorkspaces', 'verticalControlCenterLogo', 'shell', 'bar'),
+                                                         (left, 'workspaceRow', 'logo', 'host', 'barWindow')):
             with self.subTest(group=group):
-                contents = shell.split('id: ' + group + '\n', 1)[1].split('Repeater {', 1)[0]
+                contents = source.split('id: ' + group + '\n', 1)[1].split('Repeater {', 1)[0]
                 self.assertLess(contents.index('EitrLogo {'), contents.index('icon: "󰕮"'))
-                self.assertIn('slotWidth: shell.workspaceItemSize', contents)
+                self.assertIn('slotWidth: ' + owner + '.workspaceItemSize', contents)
                 self.assertIn('id: ' + identifier, contents)
-                self.assertIn('onClicked: bar.toggleControlCenter()', contents)
+                self.assertIn('onClicked: ' + window + '.toggleControlCenter()', contents)
         self.assertIn('target: barContents', shell)
         self.assertIn('EitrLogo EitrLogo.qml', (BAR / 'qmldir').read_text())
 

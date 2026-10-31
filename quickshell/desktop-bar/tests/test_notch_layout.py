@@ -142,7 +142,7 @@ FloatingWindow {
                     spacing: shell.workspaceItemSpacing
                     Grid {
                         columns: shell.verticalBar ? 1 : WORKSPACES + 2
-                        id: workspaces; spacing: shell.workspaceItemSpacing
+                        id: mockWorkspaces; spacing: shell.workspaceItemSpacing
                         Repeater { model: WORKSPACES + 2
                             Text { required property int index; text: index === 0 ? "ᛖ" : index === 1 ? "▦" : String(index - 1)
                                 width: 24; height: 24; color: centerInfo.color; horizontalAlignment: Text.AlignHCenter }
@@ -150,12 +150,14 @@ FloatingWindow {
                     }
                     Grid {
                         columns: shell.verticalBar ? 1 : 3
-                        id: hardwareStatus; spacing: shell.workspaceItemSpacing
+                        id: mockStatus; spacing: shell.workspaceItemSpacing
                         Repeater { model: ["◉", "AI", "▣"]
                             Text { required property string modelData; text: modelData; width: 24; height: 24; color: centerInfo.color }
                         }
                     }
                 }
+                // The bar exposes its left items through BarLeftGroup; the fixture mirrors that.
+                QtObject { id: leftGroup; readonly property Item workspaces: mockWorkspaces; readonly property Item hardwareStatus: mockStatus }
 
         }
     }
@@ -184,7 +186,7 @@ Timer {
             DesktopStyle.corners = "CORNERS";
             if (!shell.iconsOpen || statusToggle.visible) throw new Error("Tabs status controls are collapsed or toggle is visible");
             var leadingEnd = shell.verticalBar ? verticalStart.mapToItem(barContents, 0, verticalStart.height).y
-                : hardwareStatus.mapToItem(barContents, hardwareStatus.width, 0).x;
+                : leftGroup.hardwareStatus.mapToItem(barContents, leftGroup.hardwareStatus.width, 0).x;
             var centerStart = shell.verticalBar ? (MEDIA ? verticalMedia.mapToItem(barContents, 0, 0).y : verticalCalendarIcon.y)
                 : (MEDIA ? mediaStrip.x : centerInfo.x);
             var clockEnd = shell.verticalBar ? verticalCalendarIcon.y + verticalCalendarIcon.height : centerInfo.x + centerInfo.width;
