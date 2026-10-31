@@ -4685,13 +4685,13 @@
       "walker/scripts/actions/style/own.py"
     ],
     "Background service added: {command}": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_install.py"
     ],
     "Background service changed: {command}": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_install.py"
     ],
     "Background service removed": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_install.py"
     ],
     "Background service: {service}": [
       "walker/scripts/actions/install/plugins.py"
@@ -4715,7 +4715,7 @@
       "walker/scripts/actions/install/plugins.py"
     ],
     "Binary file: {path}": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_install.py"
     ],
     "BitLocker: keep the Windows recovery key at hand": [
       "distro/archinstall/installer-ui.py"
@@ -4832,7 +4832,7 @@
       "walker/scripts/actions/install/plugins.py"
     ],
     "Changed executable file: {path}": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_install.py"
     ],
     "Changed files:": [
       "walker/scripts/actions/install/plugins.py"
@@ -5007,7 +5007,7 @@
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Commit by a different author than the approved one: {author}": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_install.py"
     ],
     "Commit: {commit}": [
       "walker/scripts/actions/install/plugins.py"
@@ -5509,13 +5509,13 @@
       "distro/archinstall/installer-ui.py"
     ],
     "Event hook added or changed: {event}": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_install.py"
     ],
     "Event hook: {event} — {command}": [
       "walker/scripts/actions/install/plugins.py"
     ],
     "Every plugin in this repository is already installed. Update or remove them from Control Center > Plugins.": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_install.py"
     ],
     "Everything is up to date.": [
       "walker/scripts/actions/system/update.sh"
@@ -5551,7 +5551,7 @@
       "distro/system/factory-reset.py"
     ],
     "File became executable: {path}": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_install.py"
     ],
     "File or folder to restore (for example ~/Documents/report.odt)": [
       "walker/scripts/actions/system/restore-file.py"
@@ -5923,10 +5923,10 @@
       "walker/scripts/actions/system/remote-access.py"
     ],
     "Invalid plugin hooks; unknown event": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_manifest.py"
     ],
     "Invalid plugin schemaVersion; expected 1 or 2": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_manifest.py"
     ],
     "Invalid project ID": [
       "walker/scripts/menus/cloud/contexts.py",
@@ -6099,7 +6099,7 @@
       "walker/scripts/menus/cloud/navigation.py"
     ],
     "Live data command added or changed: {kind} · {id} · {command}": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_install.py"
     ],
     "Load Balancers": [
       "walker/scripts/menus/cloud/providers.py"
@@ -6157,7 +6157,7 @@
       "walker/scripts/actions/install/plugins.py"
     ],
     "Manifest changed: {path}": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_install.py"
     ],
     "Memory": [
       "fastfetch/eitr.py"
@@ -6220,7 +6220,7 @@
       "walker/scripts/actions/tools/calendars.py"
     ],
     "New executable file: {path}": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_install.py"
     ],
     "New name": [
       "walker/scripts/menus/cloud/accounts.py"
@@ -6599,11 +6599,11 @@
       "walker/scripts/actions/install/plugins.py"
     ],
     "Plugins are turned off by your organization.": [
-      "distro/lib/eitr_plugins.py",
+      "distro/lib/eitr_plugin_install.py",
       "walker/scripts/actions/install/plugins.py"
     ],
     "Plugins may not contain symlinks: {path}": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_manifest.py"
     ],
     "Plugins run with your account’s full permissions. Eitr has not reviewed this code. Install only if you trust its author and repository.": [
       "walker/scripts/actions/install/plugins.py"
@@ -6709,10 +6709,10 @@
       "walker/scripts/menus/cloud/providers.py"
     ],
     "QML added, changed or removed: {path}": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_install.py"
     ],
     "QML runs inside the bar: {path}": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_install.py"
     ],
     "Queues": [
       "walker/scripts/menus/cloud/providers.py"
@@ -6764,7 +6764,7 @@
       "walker/scripts/actions/install/plugins.py"
     ],
     "Reads the system audio spectrum (levels only, no audio is recorded or sent)": [
-      "distro/lib/eitr_plugins.py",
+      "distro/lib/eitr_plugin_install.py",
       "walker/scripts/actions/install/plugins.py"
     ],
     "Ready. Both resets restart the computer immediately.": [
@@ -7355,7 +7355,7 @@
       "walker/scripts/actions/system/remote-access.py"
     ],
     "Starts a background service at every login: {command}": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_install.py"
     ],
     "Static IPs": [
       "walker/scripts/menus/cloud/navigation.py"
@@ -7608,7 +7608,7 @@
       "distro/archinstall/eitr-guided-install"
     ],
     "The history of {id} was rewritten: the approved commit {commit} is not part of the new one. Eitr does not update it automatically. If you still trust its author, remove the plugin and add it again.": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_install.py"
     ],
     "The initramfs cannot use TPM2 unlock yet. Nothing was changed.": [
       "distro/system/eitr-system.py"
@@ -7648,7 +7648,7 @@
       "distro/lib/eitr_own_style.py"
     ],
     "The plugin blocklist could not be read; plugins are refused until it is fixed.": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_install.py"
     ],
     "The previous system is still running; see {MANUAL}": [
       "distro/system/factory-reset.py"
@@ -7788,16 +7788,16 @@
       "walker/scripts/actions/tools/reminders.py"
     ],
     "This plugin is already installed. Update or remove it from Control Center > Plugins.": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_install.py"
     ],
     "This plugin is blocked: {reason}": [
       "walker/scripts/actions/install/plugins.py"
     ],
     "This plugin is on the Eitr blocklist: {reason}": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_install.py"
     ],
     "This plugin needs a newer Eitr": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_manifest.py"
     ],
     "This removes TPM unlock from {device}; the passphrase is required at every boot again.": [
       "walker/scripts/actions/system/security.py"
@@ -8254,7 +8254,7 @@
       "walker/scripts/actions/system/report-problem.py"
     ],
     "Your organization allows plugins only from its approved repositories.": [
-      "distro/lib/eitr_plugins.py"
+      "distro/lib/eitr_plugin_install.py"
     ],
     "Your wallpapers, the current theme's wallpapers, or another picture.": [
       "walker/scripts/actions/style/own.py"
