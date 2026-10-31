@@ -7,17 +7,19 @@ import tty
 from eitr_i18n import tr
 
 
-def wait_for_escape():
-    print(tr('Press Esc to close.'), flush=True)
+def wait_for_escape(hint=True, close_on_q=False):
+    if hint:
+        print(tr('Press Esc to close.'), flush=True)
     if not sys.stdin.isatty():
         return
+    closing = {b'\x1b', b''} | ({b'q', b'Q'} if close_on_q else set())
     descriptor = sys.stdin.fileno()
     previous = termios.tcgetattr(descriptor)
     try:
         tty.setraw(descriptor)
         while True:
             key = os.read(descriptor, 1)
-            if key in (b'\x1b', b''):
+            if key in closing:
                 return
     finally:
         termios.tcsetattr(descriptor, termios.TCSADRAIN, previous)
@@ -70,4 +72,5 @@ def read_key():
 
 
 if __name__ == '__main__':
-    wait_for_escape()
+    # About passes --no-hint --close-on-q: it closes with Esc or Q without saying so.
+    wait_for_escape(hint='--no-hint' not in sys.argv[1:], close_on_q='--close-on-q' in sys.argv[1:])

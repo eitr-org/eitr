@@ -16,7 +16,13 @@ class TerminalCloseTests(unittest.TestCase):
         read.assert_not_called()
         output.assert_called_once_with('Press Esc to close.', flush=True)
 
-    def wait(self, keys):
+    def test_no_hint_prints_nothing(self):
+        with patch.object(eitr_terminal.sys, 'stdin', io.StringIO()), \
+                patch.object(eitr_terminal, 'print') as output:
+            eitr_terminal.wait_for_escape(hint=False)
+        output.assert_not_called()
+
+    def wait(self, keys, **options):
         stream = Mock()
         stream.isatty.return_value = True
         stream.fileno.return_value = 7
@@ -27,7 +33,7 @@ class TerminalCloseTests(unittest.TestCase):
                 patch.object(eitr_terminal.tty, 'setraw') as raw, \
                 patch.object(eitr_terminal.os, 'read', side_effect=keys) as read:
             try:
-                eitr_terminal.wait_for_escape()
+                eitr_terminal.wait_for_escape(**options)
             finally:
                 raw.assert_called_once_with(7)
                 restore.assert_called_once_with(7, eitr_terminal.termios.TCSADRAIN, ['saved'])
@@ -35,6 +41,11 @@ class TerminalCloseTests(unittest.TestCase):
 
     def test_enter_and_other_keys_do_not_close(self):
         self.assertEqual(self.wait([b'\r', b'\n', b'x', b'\x1b']), 4)
+
+    def test_q_closes_only_when_asked(self):
+        self.assertEqual(self.wait([b'q', b'\x1b']), 2)
+        self.assertEqual(self.wait([b'x', b'q'], close_on_q=True), 2)
+        self.assertEqual(self.wait([b'Q'], close_on_q=True), 1)
 
     def test_eof_returns(self):
         self.assertEqual(self.wait([b'']), 1)
