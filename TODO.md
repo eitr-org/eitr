@@ -37,22 +37,9 @@ LAN.
 - **Walker slow to open after a reboot.** Reported 2026-10-30. Elephant and the search
   index answer in milliseconds after login, so the delay is elsewhere (Walker's
   window, or what else starts then). The owner will record the next reboot.
-- **Maintainability refactors.** Organize the repository so it is mature and easy to
-  work in, following the overview's order (each step one green, shippable commit):
-  1. Panel surfaces decide whether they touch the screen edge from their placement,
-     ending the startup binding loop.
-  2. Walker's identical menu-row XML files come from one template, generated and checked.
-  3. The Handbook builder moves to `tools/`; the logo masters join `branding/sources/`.
-  4. `quickshell/desktop-bar/` groups its 117 QML files into subfolders by
-     responsibility, one group at a time, keeping every type name in `qmldir`.
-  5. `bar-data.py` separates topic validation; `eitr_plugins.py` separates manifest
-     validation, installation and execution.
-  6. Choice lists that must match (workspace styles, lockscreen designs) get one owner.
-  7. `ControlCenter.qml` and `BarWindow.qml` split into sections; the layout render
-     tests share their setup.
-  Each move updates `qmldir`, the layout manifest, packaging, tests, the Handbook and
-  AGENTS.md together.
-
+- **Choice lists: remaining copies.** Bar layouts and update channels still repeat
+  their option lists across files; move them into `tools/choice-lists.json` when
+  next touched.
 - **hyprpaper crash without a GPU: follow upstream.** hyprpaper segfaults in VMs
   without 3D acceleration (hyprwm/hyprtoolkit#144); the bar now draws the still
   wallpaper on any screen hyprpaper does not answer for. Drop the note once a fixed
