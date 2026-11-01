@@ -73,12 +73,9 @@ LAN.
 
 # 3. Later
 
-- **Reproducible performance measurements.** Add a baseline tool with repeatable
-  idle, music, panel-use and startup scenarios. Record hardware, power profile,
-  settle time and sampling duration alongside CPU, proportional memory (PSS),
-  wakeups, process launches and, where available, per-surface frames, GPU usage
-  and power. Save comparable before/after results; measure instrumented frame
-  runs separately because tracing adds overhead. Include real weak hardware.
+- **Performance baselines on weak hardware.** Use `tools/perf-baseline.py`
+  ([guide](distro/PERFORMANCE.md)) for comparable before/after measurements on
+  real weak hardware; collect instrumented frame runs separately.
 - **Service subscription lifetimes.** Review broker consumers in panels and
   plugins: release subscriptions when closed, destroyed or disconnected, and
   stop observation-driven work after the last consumer leaves. Add regression

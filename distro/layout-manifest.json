@@ -2,6 +2,9 @@
   "version": 1,
   "layout_version": 2,
   "rules": [
+    {"pattern": "tools/perf-baseline.py", "class": "C", "runtime": false},
+    {"pattern": "tools/tests/test_perf_baseline.py", "class": "C", "runtime": false},
+    {"pattern": "distro/PERFORMANCE.md", "class": "D", "runtime": false},
     {"pattern": "distro/lib/eitr_appearance.py", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/panels/ControlCenterAppearanceChoices.qml", "class": "C", "runtime": true},
     {"pattern": "elephant/menus/terminal-blur.lua", "class": "C", "runtime": true},
