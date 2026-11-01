@@ -294,3 +294,112 @@ updateClient.receive(JSON.stringify({v: 1, op: 'state', topic: 'updates.status',
     status: 'stale', error: 'offline', data: {state: 'ready', count: 0}, ageMs: 1, inFlight: false}));
 assert.equal(updateClient.states['updates.status'].error, 'offline');
 assert.equal(updateClient.states['updates.status'].status, 'stale');
+
+// Execute production lifetime handlers with view-only dependencies replaced.
+// QML Loader destruction is exercised separately by the offscreen harness.
+function lifetimeBody(source, marker) {
+    const start = source.indexOf(marker);
+    assert.notEqual(start, -1, marker);
+    const tail = source.slice(start + marker.length).trimStart();
+    if (!tail.startsWith('{')) return tail.split('\n')[0];
+    let depth = 0;
+    for (let cursor = 0; cursor < tail.length; cursor++) {
+        if (tail[cursor] === '{') depth++;
+        if (tail[cursor] === '}' && --depth === 0) return tail.slice(1, cursor);
+    }
+    assert.fail('unclosed handler ' + marker);
+}
+function lifetimeContext(relative, values, functions = []) {
+    const source = fs.readFileSync(path.join(bar, relative), 'utf8');
+    const context = vm.createContext(values);
+    for (const name of functions) {
+        const signature = source.match(new RegExp('function ' + name + '\\(([^)]*)\\)'));
+        assert.ok(signature, name);
+        vm.runInContext('function ' + name + '(' + signature[1] + ') {' +
+            lifetimeBody(source, signature[0]) + '}', context);
+    }
+    return {context, run(marker) { vm.runInContext(lifetimeBody(source, marker), context); }};
+}
+{
+    let epoch = 0;
+    const wire = new Map();
+    const frames = [];
+    const data = createClient(frame => {
+        frames.push(frame);
+        if (frame.op === 'subscribe') {
+            assert.equal(wire.has(frame.token), false, 'subscribe exactly once per epoch');
+            wire.set(frame.token, frame.topic);
+        }
+        if (frame.op === 'unsubscribe') assert.equal(wire.delete(frame.token), true, 'unsubscribe exactly once');
+    }, () => {});
+    const facade = {...data, client: data};
+    function hello() {
+        data.receive(JSON.stringify({v: 1, op: 'hello', epoch: String(++epoch)}));
+        assert.equal(wire.size, Object.keys(data.tokens).length, 'replay has no duplicates');
+    }
+    function restart() { data.died(); wire.clear(); hello(); hello(); }
+    hello();
+    const noop = () => {};
+    const display = lifetimeContext('services/DisplayService.qml', {
+        DesktopData: facade, observers: [], readInterval: 3, brightnessToken: '', nightToken: '', settingsToken: '',
+        brightnessPaused: false, nightPaused: false, brightnessWriters: [], nightWriters: [], warmTokens: {},
+    }, ['open', 'close', 'updateDemand', 'resumeBrightness', 'resumeNightlight', 'refreshBrightness']);
+    display.context.service = display.context;
+    const power = lifetimeContext('services/PowerService.qml', {DesktopData: facade}, ['observe', 'release']).context;
+    const network = lifetimeContext('services/NetworkService.qml', {
+        DesktopData: facade, observers: {}, actionOwner: null, qrOwner: null,
+    }, ['observe', 'release', 'updateObservers', 'detach']).context;
+    const baseline = data.observe('network.summary', 'shell');
+    const pages = ['general', 'style', 'settings', 'tools', 'plugins'];
+    for (const name of ['BatteryMenu', 'BrightnessMenu', 'ControlCenter', 'WifiMenu', 'WeatherMenu', 'SystemMonitorMenu', 'AiUsageMenu', 'ObsMenu']) {
+        const owner = {};
+        const panel = lifetimeContext('panels/' + name + '.qml', {
+            DesktopData: facade, PowerService: power, DisplayService: display.context,
+            menu: owner, center: owner, opened: false, visible: true,
+            powerTokens: [], powerActionId: '', networkToken: '', detailsToken: '', latencyToken: '',
+            defaultToken: '', hardwareToken: '', usageToken: '', optionToken: '', actionId: '', optionId: '',
+            wifiControl: network, networkService: network, chatOpen: false, chatView: {reset: noop},
+            scheduleDirty: false, editingSchedule: false, settingsFor: '',
+            defaultWeatherData: {}, city: null, contentViewport: {contentY: 0},
+            password: {text: ''}, clearEnterprise: noop, closeShare: noop, cancelSearch: noop,
+            refresh: noop, receiveUsage: noop, receiveSnapshot: noop, receiveDetails: noop,
+            refreshDisplays: noop, chatStatus: {}, organizationQuery: {}, channelQuery: {}, loadStyle: noop,
+            loadOptions() { if (!panel.context.optionToken) panel.context.optionToken = data.observe('capture.options', owner); },
+        }, name === 'WifiMenu' ? ['syncDemand'] : []);
+        Object.assign(owner, {refresh: noop, loadStyle: noop});
+        for (let cycle = 0; cycle < 20; cycle++) {
+            panel.context.opened = true;
+            panel.run('onOpenedChanged:');
+            if (name === 'BrightnessMenu') display.context.open(owner);
+            if (name === 'ControlCenter') {
+                display.context.open(owner, 5);
+                const demand = Object.keys(data.tokens).length;
+                for (const page of pages) {
+                    panel.context.page = page;
+                    panel.run('onPageChanged:');
+                    assert.equal(Object.keys(data.tokens).length, demand, 'Control Center page ' + page);
+                }
+            }
+            restart();
+            // Pending replies never arrive before close/destruction.
+            const query = data.queryWeather('search', {query: 'fixture'}, owner, error => assert.equal(error, 'broker-unavailable'));
+            if (name !== 'WeatherMenu') data.cancelQuery(query);
+            if (cycle % 2 === 0) {
+                panel.context.opened = false;
+                panel.run('onOpenedChanged:');
+                assert.equal(Object.keys(data.tokens).length, 1, name + ' closes to baseline');
+            } else {
+                data.died(); wire.clear();
+            }
+            panel.run('Component.onDestruction:');
+            hello();
+            assert.equal(Object.keys(data.tokens).length, 1, name + ' destroys to baseline');
+            assert.equal(wire.size, 1, name + ' wire baseline');
+            assert.equal(Object.keys(network.observers).length, 0, 'network service releases owner');
+            assert.equal(display.context.observers.length, 0, 'display service releases owner');
+        }
+    }
+    data.release(baseline);
+    assert.equal(wire.size, 0);
+    console.log('production panel and Control Center lifetime handlers: 20 cycles, pending queries, destruction and reconnect passed');
+}

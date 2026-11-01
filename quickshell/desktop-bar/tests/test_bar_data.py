@@ -43,6 +43,48 @@ class BrokerTests(unittest.IsolatedAsyncioTestCase):
     def subscribe(self, token, topic='network.details'):
         self.broker.request(dict(v=1, op='subscribe', topic=topic, token=token))
 
+    async def test_all_topics_stop_after_repeated_last_unsubscribe(self):
+        self.gate.set()
+        scheduler = asyncio.create_task(self.broker.schedule())
+        try:
+            for cycle in range(5):
+                for topic in self.broker.states:
+                    token = f"{cycle}-{topic}"
+                    self.subscribe(token, topic)
+                    self.broker.refresh(topic)
+                    self.broker.request(dict(v=1, op="unsubscribe", topic=topic, token=token))
+                    self.broker.request(dict(v=1, op="unsubscribe", topic=topic, token=token))
+                    self.broker.refresh(topic)
+                await self.settle(lambda: all(state["task"] is None for state in self.broker.states.values()))
+                self.assertEqual(self.calls, [], "closed topics must not dispatch reads")
+                self.assertTrue(all(state["observers"] == 0 and state["pending"] == 0
+                                    for state in self.broker.diagnostics().values()))
+                self.assertFalse(any(self.broker.scheduled(topic) for topic in self.broker.states))
+        finally:
+            scheduler.cancel()
+            await asyncio.gather(scheduler, return_exceptions=True)
+
+    async def test_last_unsubscribe_while_waiting_for_domain_slot(self):
+        slot = asyncio.Semaphore(0)
+        self.broker.read_slots["network"] = slot
+        self.subscribe("waiting")
+        await asyncio.sleep(.02)
+        self.broker.request(dict(v=1, op="unsubscribe", topic="network.details", token="waiting"))
+        slot.release()
+        await self.settle(lambda: self.broker.states["network.details"]["task"] is None)
+        self.assertEqual(self.calls, [])
+
+    async def test_last_unsubscribe_while_waiting_for_executor_worker(self):
+        loop = asyncio.get_running_loop()
+        blockers = [loop.run_in_executor(self.broker.executor, self.gate.wait, 2) for worker in range(3)]
+        self.subscribe("queued")
+        await asyncio.sleep(.02)
+        self.broker.request(dict(v=1, op="unsubscribe", topic="network.details", token="queued"))
+        self.gate.set()
+        await asyncio.gather(*blockers)
+        await self.settle(lambda: self.broker.states["network.details"]["task"] is None)
+        self.assertEqual(self.calls, [])
+
     async def test_actions_order_secrets_errors_and_enterprise_deadline(self):
         gate = asyncio.Event()
         processes = []
@@ -168,22 +210,22 @@ class BrokerTests(unittest.IsolatedAsyncioTestCase):
         await self.settle(lambda: self.broker.states['network.details']['task'] is None)
         self.assertEqual(self.broker.states['network.details']['data'], {})
 
-    async def test_admitted_refresh_survives_close_before_worker_dispatch(self):
+    async def test_closed_refresh_never_starts_before_worker_dispatch(self):
         # Deliver open and close in one event-loop turn, as the QML transport can.
         self.subscribe('brief-open')
         self.broker.request(dict(v=1, op='unsubscribe', topic='network.details', token='brief-open'))
         self.assertEqual(self.calls, [])
         self.gate.set()
         await self.settle(lambda: self.broker.states['network.details']['task'] is None)
-        self.assertEqual(self.calls, ['network.details'])
+        self.assertEqual(self.calls, [])
         self.assertEqual(self.broker.states['network.details']['data'], {}, 'closed generation cannot publish')
         self.assertFalse(self.broker.scheduled('network.details'), 'closing stops periodic sampling')
         self.broker.refresh('network.details')
         await asyncio.sleep(.02)
-        self.assertEqual(self.calls, ['network.details'], 'no new refresh without demand')
+        self.assertEqual(self.calls, [], 'no new refresh without demand')
         self.subscribe('reopen')
         await self.settle(lambda: self.broker.states['network.details']['task'] is None)
-        self.assertEqual(self.calls, ['network.details', 'network.details'])
+        self.assertEqual(self.calls, ['network.details'])
         self.assertEqual(self.broker.states['network.details']['status'], 'ready')
 
     async def test_hung_read_blocks_only_its_topic(self):

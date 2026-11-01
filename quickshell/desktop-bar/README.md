@@ -881,7 +881,11 @@ threads and schedules the summary at startup and every
 open; one shared reader refreshes on opening and every 2 seconds. Only visible
 WiFi menus hold latency tokens, for one probe on opening/connection and every
 15 seconds. Closing or destroying a consumer releases its tokens idempotently;
-zero demand stops the corresponding reader and timer. Cached details appear
+zero demand stops the corresponding reader and timer. Reads waiting for domain
+capacity or a pool worker recheck demand and the subscription generation before
+calling an adapter. An already-running read retains its deadline and discards a
+result from a closed generation. Shell update observers also release on owner
+destruction. Cached details appear
 immediately, with fresh panel content applied through the popup reveal guard.
 Refreshes coalesce to one running read and one pending refresh. Each topic keeps
 its last good data, timestamp, and loading/ready/unavailable/stale/error status.
@@ -917,6 +921,16 @@ ages, error codes, in-flight/pending counts, observers and restart count, withou
 network identities or raw data. Each status call requests diagnostics once and
 returns the diagnostics received from the previous call; there is no status polling. Native desktop controls remain independent.
 Network actions use request IDs and a bounded ordered broker queue and share serialization with power/radio writes. Busy state is shared across screens; results and error codes return only to the originating panel. Each helper receives credentials on stdin and is killed and reaped at its operation deadline (enterprise: 120 s). Timeout or broker death means outcome unknown: reconcile state and retry explicitly. Writes are never replayed. QR remains an ephemeral helper outside the broker.
+
+Subscription regression checks execute production panel and Control Center lifetime
+handlers against the protocol client for 20 open/close or destroy cycles, including
+reconnection and pending queries. An offscreen QML harness exercises the production
+plugin Loader, spectrum consumer and update observer through unload, asynchronous
+load cancellation and owner destruction. Broker tests cover every topic at zero
+demand and closing while queued for a domain slot or executor worker. These tests
+use isolated view dependencies and fake transports/adapters; they do not verify
+physical monitor hotplug, complete rendered Control Center navigation or plugin
+installation/removal on a running desktop.
 
 ### Capture data ownership
 

@@ -243,10 +243,13 @@ class Broker:
         return self.adapter.read_state({"network.summary": "icon", "network.details": "status",
                                         "network.latency": "probe"}[topic], interface)
 
-    async def read_in_pool(self, topic, deadline):
-        if self.closing:
-            return {}
+    async def read_in_pool(self, topic, deadline, generation):
+        def current():
+            return not self.closing and self.wanted(topic) and generation == self.states[topic]["generation"] and loop.time() < deadline
+
         loop = asyncio.get_running_loop()
+        if not current():
+            return {}
         domain = TOPICS[topic].domain
         if self.reader == self.read and domain not in self.domains and not (domain == "network" and self.adapter is not None):
             # Share initialization before submitting reads, so sibling topics cannot
@@ -260,10 +263,11 @@ class Broker:
             finally:
                 if future.done():
                     self.domain_jobs.pop(domain, None)
+        if not current():
+            return {}
         if topic == "ai.usage" and self.reader == self.read:
-            generation = self.states[topic]["generation"]
             adapter = self.domains["ai"]
-            cached = await loop.run_in_executor(self.executor, adapter.cached)
+            cached = await loop.run_in_executor(self.executor, lambda: adapter.cached() if current() else {})
             state = self.states[topic]
             try:
                 validate_result(topic, cached)
@@ -276,11 +280,10 @@ class Broker:
                     self.snapshot(topic)
             return cached
         async with self.read_slots[domain]:
-            # refresh() already admitted this read while observed. A later close
-            # invalidates its result in update(), without retracting the read.
-            if self.closing or loop.time() >= deadline:
+            # Recheck after waiting for a domain slot and inside the worker queue.
+            if not current():
                 return {}
-            return await loop.run_in_executor(self.executor, self.reader, topic)
+            return await loop.run_in_executor(self.executor, lambda: self.reader(topic) if current() else {})
 
     def wanted(self, topic):
         return topic in self.tokens.values()
@@ -365,7 +368,7 @@ class Broker:
         timed_out = False
         try:
             budget = TOPICS[topic].budget(self.timeout)
-            future = asyncio.create_task(self.read_in_pool(topic, asyncio.get_running_loop().time() + budget))
+            future = asyncio.create_task(self.read_in_pool(topic, asyncio.get_running_loop().time() + budget, generation))
             future.add_done_callback(lambda completed: completed.exception() if not completed.cancelled() else None)
             try:
                 done, _ = await asyncio.wait([future], timeout=budget)
@@ -702,6 +705,7 @@ class Broker:
             self.snapshot(topic, token)
             if fresh and topic != "updates.status" and (not self.states[topic]["task"] or not was_wanted):
                 self.refresh(topic)
+            self.schedule_changed.set()
         elif operation == "unsubscribe":
             if self.tokens.get(token) == topic:
                 del self.tokens[token]
@@ -711,6 +715,7 @@ class Broker:
                 state["generation"] += 1
                 state["pending"] = False
                 self.release_ai()
+            self.schedule_changed.set()
         elif operation == "refresh":
             request = frame.get("id", "")
             if not isinstance(request, str) or len(request) > 128:

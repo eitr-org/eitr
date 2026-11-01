@@ -7,7 +7,9 @@ import Eitr as Eitr
 Scope {
     id: status
     // Checked shortly after login, every six hours, and again after System Update.
-    property string updatesToken: DesktopData.observe("updates.status", "shell-updates")
+    property string updatesToken: ""
+    Component.onCompleted: updatesToken = DesktopData.observe("updates.status", status)
+    Component.onDestruction: DesktopData.releaseOwner(status)
     readonly property var updatesState: DesktopData.topics["updates.status"] || {status: "loading", data: {}}
     readonly property var updates: Object.assign({count: 0, repository: 0, aur: 0, downloadBytes: 0}, updatesState.data,
         {checking: updatesState.status === "loading" || (!!updatesState.inFlight && updatesState.error !== "broker-unavailable")})

@@ -76,11 +76,12 @@ LAN.
 - **Performance baselines on weak hardware.** Use `tools/perf-baseline.py`
   ([guide](distro/PERFORMANCE.md)) for comparable before/after measurements on
   real weak hardware; collect instrumented frame runs separately.
-- **Service subscription lifetimes.** Review broker consumers in panels and
-  plugins: release subscriptions when closed, destroyed or disconnected, and
-  stop observation-driven work after the last consumer leaves. Add regression
-  checks for repeated opening, plugin removal and reconnection so observers do
-  not accumulate; retain existing deadlines and never replay interrupted actions.
+- **Service subscription lifetimes: live lifecycle validation.** Automated checks
+  cover panel and Control Center subscription handlers, asynchronous plugin
+  load/unload, screen-owner destruction, pending queries and broker reconnection.
+  Verify complete Control Center navigation, plugin installation/removal and
+  physical monitor hotplug on the desktop; isolated tests do not exercise those
+  full live workflows. Preserve deadlines and never replay interrupted actions.
 - **Move expensive work off the UI thread selectively.** Profile interactions
   first, then move demonstrated image-processing, audio-analysis or other costly
   work into bounded asynchronous workers. Keep results tied to the current
