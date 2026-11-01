@@ -73,6 +73,30 @@ LAN.
 
 # 3. Later
 
+- **Reproducible performance measurements.** Add a baseline tool with repeatable
+  idle, music, panel-use and startup scenarios. Record hardware, power profile,
+  settle time and sampling duration alongside CPU, proportional memory (PSS),
+  wakeups, process launches and, where available, per-surface frames, GPU usage
+  and power. Save comparable before/after results; measure instrumented frame
+  runs separately because tracing adds overhead. Include real weak hardware.
+- **Service subscription lifetimes.** Review broker consumers in panels and
+  plugins: release subscriptions when closed, destroyed or disconnected, and
+  stop observation-driven work after the last consumer leaves. Add regression
+  checks for repeated opening, plugin removal and reconnection so observers do
+  not accumulate; retain existing deadlines and never replay interrupted actions.
+- **Move expensive work off the UI thread selectively.** Profile interactions
+  first, then move demonstrated image-processing, audio-analysis or other costly
+  work into bounded asynchronous workers. Keep results tied to the current
+  request so stale work cannot overwrite newer state. Consider a native helper
+  only when measured benefits justify its build and maintenance cost; retain the
+  existing broker and shared ownership model.
+- **Wallpaper preview and monitor/workspace assignments.** Preview still images
+  temporarily without changing saved choices or the committed palette; cancel
+  or closing the picker restores the saved wallpaper. Add assignments with the
+  precedence workspace, monitor, global choice, then shipped default. Define
+  restore behavior for login, monitor disconnect/reconnect and removed
+  workspaces; rapid workspace switches should settle on the latest choice
+  without restarting unrelated outputs. Preserve existing theme workflows.
 - **Voice reminders, next steps.** Read-only Google/Outlook/iCal subscriptions
   through a secret iCal address are done (Tools > Calendar Sources). Two-way sync
   (creating or editing provider events) needs account sign-in (OAuth, with
