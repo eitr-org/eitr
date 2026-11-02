@@ -75,18 +75,31 @@ def detect(probe=renderer_name, environment=None):
         return {'software': True, 'detected': False}
 
 
+def motion_folder(wallpaper):
+    """theme/<name>/backgrounds/<image> has live layers in theme/<name>/motion/<image stem>/;
+    only a folder holding both layers counts, so the bar never asks for missing files."""
+    path = Path(wallpaper) if wallpaper else None
+    if not path or path.parent.name != 'backgrounds':
+        return ''
+    folder = path.parent.parent / 'motion' / path.stem
+    if all((folder / layer).is_file() for layer in ('sky.png', 'ring.png')):
+        return folder.as_uri() + '/'
+    return ''
+
+
 def wallpaper_status(transition, wallpaper, publish=None):
     """Use the same output variants as Hyprpaper; an output is healthy while Hyprpaper
     answers and lists it (not a path comparison, which a transition would trip)."""
     images = transition['monitor_images'](wallpaper) if wallpaper else {}
     uris = {monitor: Path(image).as_uri() for monitor, image in images.items()}
+    motion = motion_folder(wallpaper)
     if publish:
-        publish({'images': uris, 'wallpaper': wallpaper})
+        publish({'images': uris, 'wallpaper': wallpaper, 'motion': motion})
     active = transition['active_wallpapers']()
     healthy = {monitor: active is not None and monitor in active
                for monitor in images if monitor != '*'}
     return {'images': uris,
-            'healthy': healthy, 'wallpaper': wallpaper}
+            'healthy': healthy, 'wallpaper': wallpaper, 'motion': motion}
 
 
 def saved_wallpaper_status(publish=None):

@@ -83,7 +83,7 @@ ShellRoot {{
     def test_layers_follow_the_saved_wallpaper_and_never_take_input(self):
         source = (BAR / "wallpaper/LiveWallpaper.qml").read_text()
         self.assertIn('"/.cache/current-wallpaper"', source)
-        self.assertIn('"/motion/" + match[2] + "/"', source)
+        self.assertIn('live.motion = typeof result.motion === "string" ? result.motion : ""', source)
         self.assertIn("mask: Region {}", source)
         self.assertIn("WlrKeyboardFocus.None", source)
         self.assertIn("running: window.visible && window.animate && !window.covered", source)
@@ -116,6 +116,25 @@ ShellRoot {{
         self.assertFalse(any(rendering['wallpaper_status'](transition, '/tmp/still.png')['healthy'].values()))
         transition['active_wallpapers'] = lambda: {'DP-1': '/tmp/wide.jpg', 'DP-2': '/tmp/still.png'}
         self.assertTrue(all(rendering['wallpaper_status'](transition, '/tmp/still.png')['healthy'].values()))
+
+    def test_motion_folder_only_when_both_layers_exist(self):
+        import runpy
+        import tempfile
+        rendering = runpy.run_path(str(BAR / 'scripts/rendering.py'))
+        with tempfile.TemporaryDirectory() as directory:
+            theme = Path(directory) / 'theme'
+            (theme / 'backgrounds').mkdir(parents=True)
+            live = theme / 'motion' / '02-runestone'
+            live.mkdir(parents=True)
+            (live / 'sky.png').write_bytes(b'')
+            (live / 'ring.png').write_bytes(b'')
+            (theme / 'motion' / '03-partial').mkdir()
+            (theme / 'motion' / '03-partial' / 'sky.png').write_bytes(b'')
+            self.assertEqual(rendering['motion_folder'](str(theme / 'backgrounds/02-runestone.png')), live.as_uri() + '/')
+            self.assertEqual(rendering['motion_folder'](str(theme / 'backgrounds/01-still.jpg')), '')
+            self.assertEqual(rendering['motion_folder'](str(theme / 'backgrounds/03-partial.jpg')), '')
+            self.assertEqual(rendering['motion_folder'](str(theme / 'backgrounds-ultrawide/02-runestone.png')), '')
+            self.assertEqual(rendering['motion_folder'](''), '')
 
     def test_login_skips_hyprpaper_without_a_gpu(self):
         startup = (ROOT / "hypr/scripts/session-start.sh").read_text()

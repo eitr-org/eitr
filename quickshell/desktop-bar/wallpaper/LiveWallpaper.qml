@@ -15,11 +15,8 @@ import "../Performance.js" as Performance
 Scope {
     id: live
     property string wallpaper: ""
-    // theme/current/backgrounds/<name>.png has its layers in theme/current/motion/<name>/.
-    readonly property string motion: {
-        var match = /^(.*)\/backgrounds\/([^/]+)\.(png|jpe?g|webp)$/i.exec(wallpaper);
-        return match ? "file://" + match[1] + "/motion/" + match[2] + "/" : "";
-    }
+    // The wallpaper's live-layer folder, reported by rendering.py only when it holds the layers.
+    property string motion: ""
     property bool suspended: false
     property bool softwareRendering: true
     Process {
@@ -53,6 +50,7 @@ Scope {
                     if (result.healthy !== undefined) live.healthyOutputs = result.healthy;
                     if (live.wallpaper !== result.wallpaper) live.suspended = false;
                     live.wallpaper = result.wallpaper;
+                    live.motion = typeof result.motion === "string" ? result.motion : "";
                 } catch (error) {}
             }
         }
