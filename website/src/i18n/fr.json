@@ -49,7 +49,7 @@
     "sowilo_themes": "Sowilo / Thèmes",
     "worlds": "mondes,",
     "one_desktop": "un bureau.",
-    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr est le thème par défaut. Chaque thème colore barre, terminal, lanceur, verrouillage, éditeurs et applications ; Eitr et chaque royaume ont leurs propres couleurs Neovim et VS Code. Chacun vient avec ses fonds d’écran.",
+    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr est le thème par défaut. Eitr Light est sa variante claire. Chaque thème colore barre, terminal, lanceur, verrouillage, éditeurs et applications ; Eitr et chaque royaume ont leurs propres couleurs Neovim et VS Code. Chacun vient avec ses fonds d’écran.",
     "light": "clair",
     "previous_theme": "Thème précédent",
     "next_theme": "Thème suivant",
@@ -169,7 +169,7 @@
     "place_monitors_beside_one_another_choose_a_main_display": "Placez les écrans côte à côte, choisissez le principal et affichez la barre sur un seul ou tous les écrans. Les écrans HDR disposent d’un interrupteur HDR avec réglage de luminosité du contenu SDR.",
     "adjust_per_application_audio_and_microphone_controls_in": "Réglez le son par application et les microphones dans un panneau ; choisissez Barres ou Ligne pour l’égaliseur multimédia.",
     "choose_from": "Choisissez parmi",
-    "themes_with_matching_application_colors_lockscreens_4k_": "thèmes, avec couleurs d’applications assorties, écrans de verrouillage, fonds 4K et illustrations ultralarges. Eitr est le thème par défaut ; lui et chaque royaume ont leurs propres couleurs Neovim et VS Code. Les assistants de configuration suivent le thème actuel.",
+    "themes_with_matching_application_colors_lockscreens_4k_": "thèmes, avec couleurs d’applications assorties, écrans de verrouillage, fonds 4K et illustrations ultralarges. Eitr est le thème par défaut ; lui et chaque royaume ont leurs propres couleurs Neovim et VS Code. Les assistants de configuration suivent le thème actuel. Eitr Light est sa variante claire.",
     "add_wallpapers_from_a_file_or_link_for_all_themes_or_on": "Ajoutez des fonds depuis un fichier ou un lien pour tous les thèmes ou un seul ; générez un thème à partir d’une image, modifiez les couleurs en direct et créez votre écran de verrouillage.",
     "keep_your_preferred_bar_position_corners_cursor_and_fon": "Gardez la position de la barre, les coins, le curseur et les polices en changeant de thème. Masquage automatique révèle la barre au bord de l’écran ; Réduire les animations rend les transitions instantanées.",
     "see_the_real_desktop": "Voir le véritable bureau →",
@@ -218,9 +218,10 @@
     "moonlight_sunshine_sharing_and_tailscale_away_access_ha": "Moonlight, le partage Sunshine et l’accès extérieur Tailscale disposent de parcours de configuration et de panneaux d’état natifs. Le partage reste inactif avant configuration explicite. Il contrôle un bureau connecté et éveillé. Des vérifications sur appareils réels sont consignées, mais la validation finale reste ouverte ; usage sans écran, accès avant connexion et wake on LAN sont à venir. Arrêtez le partage avant de verrouiller si la confidentialité compte.",
     "read_the_setup_and_security_boundaries": "Lire la configuration et les limites de sécurité ↗",
     "islands_groups": "Islands flotte à distance du bord de l’écran. Des îlots distincts accueillent le logo, la vue d’ensemble et les espaces de travail, l’usage de l’IA, le matériel et le verrouillage automatique, l’horloge, la météo et les états. Les médias et la capture apparaissent lorsqu’ils sont actifs.",
-    "focus_preset": "Focus remplace la barre par une fine bande d’onglets. Les fenêtres deviennent des onglets avec jusqu’à quatre volets par écran, sans espaces, flou ni animations. Activez-le ou désactivez-le dans Paramètres > Style > Focus, Centre de contrôle > Style > Focus ou avec eitr focus on|off. Vos réglages habituels de barre sont conservés.",
+    "focus_preset": "Focus remplace la barre par une fine bande d’onglets. Les fenêtres deviennent des onglets avec jusqu’à quatre volets par écran, sans espaces, flou ni animations. Activez-le ou désactivez-le dans Paramètres > Style > Focus, Centre de contrôle > Style > Focus ou avec eitr focus on|off. Vos réglages habituels de barre sont conservés. SUPER + Shift + F active ou désactive Focus.",
     "clock_format": "Choisissez le format 12 heures avec AM/PM ou 24 heures dans Paramètres > Style > Barre du bureau > Horloge ou Centre de contrôle > Style > Barre > Horloge.",
-    "lockscreen_accounts": "Le verrouillage Eitr est le design par défaut des nouvelles installations. Choisissez un compte à la connexion. Avec plusieurs comptes admissibles et la prise en charge de SDDM, Changer d’utilisateur ouvre l’écran de connexion en gardant votre session verrouillée. Le déverrouillage exige toujours le mot de passe du compte d’origine."
+    "lockscreen_accounts": "Le verrouillage Eitr est le design par défaut des nouvelles installations. Choisissez un compte à la connexion. Avec plusieurs comptes admissibles et la prise en charge de SDDM, Changer d’utilisateur ouvre l’écran de connexion en gardant votre session verrouillée. Le déverrouillage exige toujours le mot de passe du compte d’origine. Le déverrouillage est immédiat dès que le mot de passe est accepté. Les runes ne s’effritent qu’avec Retour arrière ou Suppr.",
+    "theme_picker_filters": "Le sélecteur de thèmes du bureau affiche tous les thèmes. Le Soleil et la Lune au-dessus de la carte sélectionnée filtrent les thèmes clairs ou sombres. Cliquez à nouveau sur le filtre actif pour tout afficher."
   },
   "development": {
     "development_part_of_the_same_desktop": "Développement / Dans le même bureau",
@@ -313,7 +314,8 @@
     "installation_validation_scope": "Installation et portée de la validation →",
     "inspect_git": "Examiner l’identité Git actuelle et la CLI qui choisit le compte",
     "terminal_choice": "Choisissez Kitty ou Ghostty en option dans Paramètres > Style > Terminal ou Centre de contrôle > Style > Terminal. Tous deux utilisent les couleurs, polices et zsh d’Eitr. Kitty reste le choix par défaut. Le choix de Ghostty propose son installation si nécessaire.",
-    "live_menu_search": "La saisie dans les menus à contenu dynamique recherche aussi les actions disponibles en dessous, à partir de l’instantané chargé à l’ouverture du menu. Le contenu des comptes cloud reste dans le compte ouvert ; les sélecteurs de ressources plus profonds ne se chargent qu’à leur ouverture."
+    "live_menu_search": "La saisie dans les menus à contenu dynamique recherche aussi les actions disponibles en dessous, à partir de l’instantané chargé à l’ouverture du menu. Le contenu des comptes cloud reste dans le compte ouvert ; les sélecteurs de ressources plus profonds ne se chargent qu’à leur ouverture.",
+    "terminal_appearance": "Ces mêmes menus proposent des préréglages d’opacité, de marges intérieures et de flou pour Kitty et Ghostty. Léger, Moyen et Fort règlent une intensité de flou commune aux terminaux, à la barre transparente et à ses panneaux. Ce choix figure aussi dans Paramètres > Style > Barre du bureau et Centre de contrôle > Style > Barre."
   },
   "installation": {
     "installation_hardware_eitr_linux": "Installation et matériel / Eitr Linux",
@@ -620,7 +622,7 @@
     "workspace_styles_runes_included": "Styles d’espaces de travail, runes comprises",
     "the_eitr_desktop": "Le bureau Eitr",
     "themes_style": "Thèmes et style",
-    "choosing_a_theme": "Choix d’un thème",
+    "choosing_a_theme": "Le sélecteur de thèmes avec les filtres Soleil et Lune",
     "the_clockwork_lockscreen": "L’écran de verrouillage Clockwork",
     "everyday_tools": "Outils du quotidien",
     "walker_the_main_menu": "Walker, le menu principal",
@@ -664,7 +666,11 @@
     "focus_caption": "Focus : deux volets sous la bande d’onglets",
     "focus_alt": "Mode Focus avec deux volets côte à côte sous une fine bande d’onglets",
     "lockscreen_eitr_caption": "Le verrouillage Eitr avec le sélecteur de comptes",
-    "lockscreen_eitr_alt": "Aperçu du verrouillage Eitr avec sélecteur de comptes et anneau runique"
+    "lockscreen_eitr_alt": "Aperçu du verrouillage Eitr avec sélecteur de comptes et anneau runique",
+    "eitr_light_caption": "Eitr Light",
+    "eitr_light_alt": "Le bureau Eitr Light avec Neovim et À propos",
+    "terminal_settings_caption": "Apparence du terminal",
+    "terminal_settings_alt": "Le menu Terminal de Walker avec flou, intensité du flou, feu du curseur, opacité, marges intérieures, Ghostty et Kitty"
   },
   "roadmap": {
     "Desktop code shipped by the package; offline installer, signed package repository, factory reset, dual boot": "Code du bureau livré par paquet ; installateur hors ligne, dépôt signé, réinitialisation d’usine et double démarrage",

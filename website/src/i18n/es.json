@@ -49,7 +49,7 @@
     "sowilo_themes": "Sowilo / Temas",
     "worlds": "mundos,",
     "one_desktop": "un escritorio.",
-    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr es el tema predeterminado. Cada tema cambia los colores de la barra, terminal, lanzador, bloqueo, editores y aplicaciones; Eitr y cada reino tienen colores propios para Neovim y VS Code. Cada uno incluye sus fondos.",
+    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr es el tema predeterminado. Eitr Light es su variante clara. Cada tema cambia los colores de la barra, terminal, lanzador, bloqueo, editores y aplicaciones; Eitr y cada reino tienen colores propios para Neovim y VS Code. Cada uno incluye sus fondos.",
     "light": "claro",
     "previous_theme": "Tema anterior",
     "next_theme": "Siguiente tema",
@@ -169,7 +169,7 @@
     "place_monitors_beside_one_another_choose_a_main_display": "Coloca monitores uno junto a otro, elige el principal y muestra la barra en una o todas las pantallas. Los monitores HDR tienen un interruptor HDR con brillo del contenido SDR.",
     "adjust_per_application_audio_and_microphone_controls_in": "Ajusta el audio por aplicación y los micrófonos en un panel; elige Barras o Línea para el ecualizador multimedia.",
     "choose_from": "Elige entre",
-    "themes_with_matching_application_colors_lockscreens_4k_": "temas con colores de aplicaciones a juego, pantallas de bloqueo, fondos 4K e ilustraciones ultrapanorámicas. Eitr es el predeterminado; tanto él como cada reino tienen colores propios para Neovim y VS Code, y los asistentes de configuración siguen el tema actual.",
+    "themes_with_matching_application_colors_lockscreens_4k_": "temas con colores de aplicaciones a juego, pantallas de bloqueo, fondos 4K e ilustraciones ultrapanorámicas. Eitr es el predeterminado; tanto él como cada reino tienen colores propios para Neovim y VS Code, y los asistentes de configuración siguen el tema actual. Eitr Light es su variante clara.",
     "add_wallpapers_from_a_file_or_link_for_all_themes_or_on": "Añade fondos desde un archivo o enlace para todos los temas o solo uno; genera un tema desde una imagen, edita los colores en directo y crea tu propia pantalla de bloqueo.",
     "keep_your_preferred_bar_position_corners_cursor_and_fon": "Conserva la posición de la barra, las esquinas, el cursor y las fuentes al cambiar de tema. Ocultar automáticamente revela la barra en su borde; Reducir movimiento hace instantáneas las transiciones.",
     "see_the_real_desktop": "Mira el escritorio real →",
@@ -218,9 +218,10 @@
     "moonlight_sunshine_sharing_and_tailscale_away_access_ha": "Moonlight, compartir con Sunshine y acceso externo por Tailscale tienen flujos de configuración y paneles nativos de estado. Compartir permanece inactivo hasta configurarlo expresamente. Controla un escritorio con sesión iniciada y despierto. Hay comprobaciones registradas con dispositivos reales, pero la validación final sigue abierta; el uso sin monitor, el acceso antes de iniciar sesión y wake on LAN son futuros. Deja de compartir antes de bloquear cuando importe la privacidad.",
     "read_the_setup_and_security_boundaries": "Lee la configuración y los límites de seguridad ↗",
     "islands_groups": "Islands flota separado del borde de la pantalla. Sus bloques muestran el logo, la vista general y los espacios de trabajo, uso de IA, hardware y bloqueo por inactividad, reloj, tiempo y estado. Los bloques de medios y captura aparecen al estar activos.",
-    "focus_preset": "Focus sustituye la barra por una fina franja de pestañas. Las ventanas se convierten en pestañas con hasta cuatro paneles por monitor, sin espacios, desenfoque ni animaciones. Actívalo o desactívalo en Ajustes > Estilo > Focus, Centro de control > Estilo > Focus o con eitr focus on|off. Se conservan los ajustes normales de la barra.",
+    "focus_preset": "Focus sustituye la barra por una fina franja de pestañas. Las ventanas se convierten en pestañas con hasta cuatro paneles por monitor, sin espacios, desenfoque ni animaciones. Actívalo o desactívalo en Ajustes > Estilo > Focus, Centro de control > Estilo > Focus o con eitr focus on|off. Se conservan los ajustes normales de la barra. SUPER + Shift + F activa o desactiva Focus.",
     "clock_format": "Elige el formato de 12 horas con AM/PM o de 24 horas en Ajustes > Estilo > Barra del escritorio > Reloj o Centro de control > Estilo > Barra > Reloj.",
-    "lockscreen_accounts": "El diseño Eitr es el predeterminado en instalaciones nuevas. Elige una cuenta al iniciar sesión. Con varias cuentas aptas y compatibilidad con SDDM, Cambiar de usuario abre la pantalla de inicio de sesión y mantiene tu sesión bloqueada. Para desbloquearla sigue siendo necesaria la contraseña de la cuenta original."
+    "lockscreen_accounts": "El diseño Eitr es el predeterminado en instalaciones nuevas. Elige una cuenta al iniciar sesión. Con varias cuentas aptas y compatibilidad con SDDM, Cambiar de usuario abre la pantalla de inicio de sesión y mantiene tu sesión bloqueada. Para desbloquearla sigue siendo necesaria la contraseña de la cuenta original. El desbloqueo es inmediato al aceptar la contraseña. Las runas solo se deshacen al pulsar Retroceso o Supr.",
+    "theme_picker_filters": "El selector de temas del escritorio muestra todos los temas. El Sol y la Luna sobre la tarjeta seleccionada filtran los temas claros u oscuros. Pulsa de nuevo el filtro activo para verlos todos."
   },
   "development": {
     "development_part_of_the_same_desktop": "Desarrollo / Parte del mismo escritorio",
@@ -313,7 +314,8 @@
     "installation_validation_scope": "Instalación y alcance de la validación →",
     "inspect_git": "Inspecciona la identidad Git actual y la CLI que selecciona la cuenta",
     "terminal_choice": "Elige Kitty o Ghostty opcional en Ajustes > Estilo > Terminal o Centro de control > Estilo > Terminal. Ambos usan los colores, fuentes y zsh de Eitr. Kitty sigue siendo el predeterminado. Al elegir Ghostty se ofrece instalarlo si hace falta.",
-    "live_menu_search": "Al escribir en menús con contenido dinámico también se buscan las acciones disponibles debajo, usando la instantánea cargada al abrir el menú. El contenido de una cuenta de nube queda dentro de la cuenta abierta; los selectores de recursos más profundos solo se cargan al abrirlos."
+    "live_menu_search": "Al escribir en menús con contenido dinámico también se buscan las acciones disponibles debajo, usando la instantánea cargada al abrir el menú. El contenido de una cuenta de nube queda dentro de la cuenta abierta; los selectores de recursos más profundos solo se cargan al abrirlos.",
+    "terminal_appearance": "Los mismos menús ofrecen ajustes de opacidad, margen interior y desenfoque para Kitty y Ghostty. Suave, Medio e Intenso establecen una intensidad de desenfoque compartida por los terminales, la barra transparente y sus paneles. También está en Configuración > Estilo > Barra del escritorio y Centro de control > Estilo > Barra."
   },
   "installation": {
     "installation_hardware_eitr_linux": "Instalación y hardware / Eitr Linux",
@@ -620,7 +622,7 @@
     "workspace_styles_runes_included": "Estilos de espacios de trabajo, incluidas las runas",
     "the_eitr_desktop": "El escritorio Eitr",
     "themes_style": "Temas y estilo",
-    "choosing_a_theme": "Eligiendo un tema",
+    "choosing_a_theme": "El selector de temas con filtros de Sol y Luna",
     "the_clockwork_lockscreen": "La pantalla de bloqueo Clockwork",
     "everyday_tools": "Herramientas cotidianas",
     "walker_the_main_menu": "Walker, el menú principal",
@@ -664,7 +666,11 @@
     "focus_caption": "Focus: dos paneles bajo la franja de pestañas",
     "focus_alt": "Modo Focus con dos paneles uno al lado del otro bajo una fina franja de pestañas",
     "lockscreen_eitr_caption": "La pantalla de bloqueo Eitr con el selector de cuentas",
-    "lockscreen_eitr_alt": "Vista previa de la pantalla de bloqueo Eitr con selector de cuentas y anillo de runas"
+    "lockscreen_eitr_alt": "Vista previa de la pantalla de bloqueo Eitr con selector de cuentas y anillo de runas",
+    "eitr_light_caption": "Eitr Light",
+    "eitr_light_alt": "El escritorio Eitr Light con Neovim y Acerca de",
+    "terminal_settings_caption": "Apariencia del terminal",
+    "terminal_settings_alt": "El menú Terminal de Walker con desenfoque, intensidad, fuego del cursor, opacidad, margen interior, Ghostty y Kitty"
   },
   "roadmap": {
     "Desktop code shipped by the package; offline installer, signed package repository, factory reset, dual boot": "Código del escritorio entregado por paquete; instalador sin conexión, repositorio firmado, restablecimiento de fábrica y arranque dual",

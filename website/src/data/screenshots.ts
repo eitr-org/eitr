@@ -108,6 +108,13 @@ export const screenshotGroups = [
         "height": 1080
       },
       {
+        "file": "eitr-light",
+        "caption": "eitr_light_caption",
+        "alt": "eitr_light_alt",
+        "width": 1920,
+        "height": 1080
+      },
+      {
         "file": "lockscreen-eitr",
         "caption": "lockscreen_eitr_caption",
         "alt": "lockscreen_eitr_alt",
@@ -175,6 +182,13 @@ export const screenshotGroups = [
     "id": "development",
     "title": "install_development",
     "shots": [
+      {
+        "file": "terminal-settings",
+        "caption": "terminal_settings_caption",
+        "alt": "terminal_settings_alt",
+        "width": 1920,
+        "height": 1080
+      },
       {
         "file": "install",
         "caption": "install",

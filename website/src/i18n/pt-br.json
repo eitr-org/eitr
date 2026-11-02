@@ -49,7 +49,7 @@
     "sowilo_themes": "Sowilo / Temas",
     "worlds": "mundos,",
     "one_desktop": "um desktop.",
-    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr é o tema padrão. Cada tema muda as cores da barra, terminal, lançador, tela de bloqueio, editores e aplicativos; Eitr e cada reino têm suas próprias cores para Neovim e VS Code. Cada um traz seus papéis de parede.",
+    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr é o tema padrão. Eitr Light é sua versão clara. Cada tema muda as cores da barra, terminal, lançador, tela de bloqueio, editores e aplicativos; Eitr e cada reino têm suas próprias cores para Neovim e VS Code. Cada um traz seus papéis de parede.",
     "light": "claro",
     "previous_theme": "Tema anterior",
     "next_theme": "Próximo tema",
@@ -169,7 +169,7 @@
     "place_monitors_beside_one_another_choose_a_main_display": "Posicione monitores lado a lado, escolha o principal e mostre a barra em uma ou em todas as telas. Monitores HDR recebem um controle HDR com brilho do conteúdo SDR.",
     "adjust_per_application_audio_and_microphone_controls_in": "Ajuste o áudio por aplicativo e os microfones em um painel; escolha Barras ou Linha para o equalizador de mídia.",
     "choose_from": "Escolha entre",
-    "themes_with_matching_application_colors_lockscreens_4k_": "temas com cores de aplicativos combinando, telas de bloqueio, papéis de parede 4K e arte ultrawide. Eitr é o padrão; ele e cada reino têm cores próprias para Neovim e VS Code, e os assistentes de configuração seguem o tema atual.",
+    "themes_with_matching_application_colors_lockscreens_4k_": "temas com cores de aplicativos combinando, telas de bloqueio, papéis de parede 4K e arte ultrawide. Eitr é o padrão; ele e cada reino têm cores próprias para Neovim e VS Code, e os assistentes de configuração seguem o tema atual. Eitr Light é sua versão clara.",
     "add_wallpapers_from_a_file_or_link_for_all_themes_or_on": "Adicione papéis de parede de um arquivo ou link para todos os temas ou só um; gere um tema a partir de uma imagem, edite cores ao vivo e crie sua própria tela de bloqueio.",
     "keep_your_preferred_bar_position_corners_cursor_and_fon": "Mantenha a posição da barra, os cantos, o cursor e as fontes ao trocar de tema. Ocultar automaticamente revela a barra na borda da tela; Reduzir movimento torna as transições do desktop instantâneas.",
     "see_the_real_desktop": "Veja o desktop real →",
@@ -218,9 +218,10 @@
     "moonlight_sunshine_sharing_and_tailscale_away_access_ha": "Moonlight, compartilhamento Sunshine e acesso externo Tailscale têm fluxos de configuração e painéis nativos de status. O compartilhamento fica inativo até ser configurado explicitamente. Ele controla um desktop com sessão iniciada e acordado. Há verificações registradas em dispositivos reais, mas a validação final continua aberta; uso sem monitor, acesso antes do login e wake on LAN são planos futuros. Pare o compartilhamento antes de bloquear quando a privacidade importar.",
     "read_the_setup_and_security_boundaries": "Leia a configuração e os limites de segurança ↗",
     "islands_groups": "Islands flutua afastado da borda da tela. Ilhas separadas mostram o logo, a visão geral e as áreas de trabalho, uso de IA, hardware e bloqueio por inatividade, relógio, clima e status. As ilhas de mídia e captura aparecem quando estão ativas.",
-    "focus_preset": "Focus substitui a barra por uma faixa fina de abas. As janelas viram abas com até quatro painéis por monitor, sem espaços, desfoque ou animações. Ative ou desative em Configurações > Estilo > Focus, Central de controle > Estilo > Focus ou com eitr focus on|off. As configurações normais da barra são mantidas.",
+    "focus_preset": "Focus substitui a barra por uma faixa fina de abas. As janelas viram abas com até quatro painéis por monitor, sem espaços, desfoque ou animações. Ative ou desative em Configurações > Estilo > Focus, Central de controle > Estilo > Focus ou com eitr focus on|off. As configurações normais da barra são mantidas. SUPER + Shift + F ativa ou desativa o Focus.",
     "clock_format": "Escolha o formato de 12 horas com AM/PM ou de 24 horas em Configurações > Estilo > Barra da área de trabalho > Relógio ou Central de controle > Estilo > Barra > Relógio.",
-    "lockscreen_accounts": "O design Eitr é o padrão da tela de bloqueio em novas instalações. Escolha uma conta ao entrar. Com várias contas elegíveis e suporte do SDDM, Trocar de usuário abre a tela de login e mantém sua sessão bloqueada. O desbloqueio continua exigindo a senha da conta original."
+    "lockscreen_accounts": "O design Eitr é o padrão da tela de bloqueio em novas instalações. Escolha uma conta ao entrar. Com várias contas elegíveis e suporte do SDDM, Trocar de usuário abre a tela de login e mantém sua sessão bloqueada. O desbloqueio continua exigindo a senha da conta original. O desbloqueio é imediato quando a senha é aceita. As runas só se desfazem com Backspace ou Delete.",
+    "theme_picker_filters": "O seletor de temas do desktop mostra todos os temas. O Sol e a Lua acima do cartão selecionado filtram temas claros ou escuros. Clique novamente no filtro ativo para mostrar todos."
   },
   "development": {
     "development_part_of_the_same_desktop": "Desenvolvimento / Parte do mesmo desktop",
@@ -313,7 +314,8 @@
     "installation_validation_scope": "Instalação e alcance da validação →",
     "inspect_git": "Inspecione a identidade Git atual e a CLI que seleciona a conta",
     "terminal_choice": "Escolha Kitty ou Ghostty opcional em Configurações > Estilo > Terminal ou Central de controle > Estilo > Terminal. Ambos usam as cores, fontes e zsh do Eitr. Kitty continua sendo o padrão. Ao escolher Ghostty, a instalação é oferecida se necessário.",
-    "live_menu_search": "Ao digitar em menus com conteúdo dinâmico, a busca também encontra as ações disponíveis abaixo deles, usando os dados carregados ao abrir o menu. O conteúdo de contas de nuvem fica dentro da conta aberta; seletores de recursos mais profundos só carregam ao serem abertos."
+    "live_menu_search": "Ao digitar em menus com conteúdo dinâmico, a busca também encontra as ações disponíveis abaixo deles, usando os dados carregados ao abrir o menu. O conteúdo de contas de nuvem fica dentro da conta aberta; seletores de recursos mais profundos só carregam ao serem abertos.",
+    "terminal_appearance": "Os mesmos menus oferecem predefinições de opacidade, espaçamento interno e desfoque para Kitty e Ghostty. Suave, Médio e Forte definem uma intensidade de desfoque compartilhada pelos terminais, pela barra transparente e por seus painéis. A opção também aparece em Configurações > Estilo > Barra do desktop e Central de controle > Estilo > Barra."
   },
   "installation": {
     "installation_hardware_eitr_linux": "Instalação e hardware / Eitr Linux",
@@ -620,7 +622,7 @@
     "workspace_styles_runes_included": "Estilos de áreas de trabalho, incluindo runas",
     "the_eitr_desktop": "O desktop Eitr",
     "themes_style": "Temas e estilo",
-    "choosing_a_theme": "Escolhendo um tema",
+    "choosing_a_theme": "O seletor de temas com filtros de Sol e Lua",
     "the_clockwork_lockscreen": "A tela de bloqueio Clockwork",
     "everyday_tools": "Ferramentas do dia a dia",
     "walker_the_main_menu": "Walker, o menu principal",
@@ -664,7 +666,11 @@
     "focus_caption": "Focus: dois painéis sob a faixa de abas",
     "focus_alt": "Modo Focus com dois painéis lado a lado sob uma faixa fina de abas",
     "lockscreen_eitr_caption": "A tela de bloqueio Eitr com o seletor de contas",
-    "lockscreen_eitr_alt": "Prévia da tela de bloqueio Eitr com seletor de contas e anel de runas"
+    "lockscreen_eitr_alt": "Prévia da tela de bloqueio Eitr com seletor de contas e anel de runas",
+    "eitr_light_caption": "Eitr Light",
+    "eitr_light_alt": "O desktop Eitr Light com Neovim e Sobre",
+    "terminal_settings_caption": "Aparência do terminal",
+    "terminal_settings_alt": "O menu Terminal do Walker com desfoque, intensidade do desfoque, fogo do cursor, opacidade, espaçamento, Ghostty e Kitty"
   },
   "roadmap": {
     "Desktop code shipped by the package; offline installer, signed package repository, factory reset, dual boot": "Código do desktop entregue por pacote; instalador offline, repositório assinado, restauração de fábrica e dual boot",

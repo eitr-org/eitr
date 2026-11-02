@@ -49,7 +49,7 @@
     "sowilo_themes": "Sowilo / Themes",
     "worlds": "worlds,",
     "one_desktop": "one desktop.",
-    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr is the default theme. Every theme recolors the bar, terminal, launcher, lockscreen, editors and apps; Eitr and each realm have their own Neovim and VS Code colors. Each comes with its own wallpapers.",
+    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr is the default theme. Eitr Light is its light counterpart. Every theme recolors the bar, terminal, launcher, lockscreen, editors and apps; Eitr and each realm have their own Neovim and VS Code colors. Each comes with its own wallpapers.",
     "light": "light",
     "previous_theme": "Previous theme",
     "next_theme": "Next theme",
@@ -169,7 +169,7 @@
     "place_monitors_beside_one_another_choose_a_main_display": "Place monitors beside one another, choose a main display, and show the bar on one or all screens. HDR monitors get an HDR switch with SDR content brightness.",
     "adjust_per_application_audio_and_microphone_controls_in": "Adjust per-application audio and microphone controls in one panel; choose Bars or Line for the media equalizer.",
     "choose_from": "Choose from",
-    "themes_with_matching_application_colors_lockscreens_4k_": "themes, with matching application colors, lockscreens, 4K wallpapers and ultrawide artwork. Eitr is the default; it and each realm have their own Neovim and VS Code colors, and setup wizards follow the current theme.",
+    "themes_with_matching_application_colors_lockscreens_4k_": "themes, with matching application colors, lockscreens, 4K wallpapers and ultrawide artwork. Eitr is the default; it and each realm have their own Neovim and VS Code colors, and setup wizards follow the current theme. Eitr Light is its light counterpart.",
     "add_wallpapers_from_a_file_or_link_for_all_themes_or_on": "Add wallpapers from a file or link for all themes or one theme; generate a theme from a picture, edit colors live, and create your own lockscreen.",
     "keep_your_preferred_bar_position_corners_cursor_and_fon": "Keep your preferred bar position, corners, cursor and fonts when switching themes. Auto-hide reveals the bar at its screen edge; Reduce motion makes desktop transitions instant.",
     "see_the_real_desktop": "See the real desktop →",
@@ -218,9 +218,10 @@
     "moonlight_sunshine_sharing_and_tailscale_away_access_ha": "Moonlight, Sunshine sharing and Tailscale away access have setup workflows and native status panels. Sharing remains inactive until explicitly configured. It controls a signed-in, awake desktop. Real-device checks are recorded, but final validation remains open; headless use, access before login and wake on LAN are future work. Stop sharing before locking when privacy matters.",
     "read_the_setup_and_security_boundaries": "Read the setup and security boundaries ↗",
     "islands_groups": "Islands floats off the screen edge. Separate pills hold the logo, Overview and workspaces, AI Usage, hardware and Idle Lock, clock, weather and status. Media and capture pills appear when active.",
-    "focus_preset": "Focus replaces the bar with a thin tab strip. Windows become tabs with up to four panes per monitor, without gaps, blur or animations. Turn it on or off in Settings > Style > Focus, Control Center > Style > Focus or with eitr focus on|off. Your normal bar settings are kept.",
+    "focus_preset": "Focus replaces the bar with a thin tab strip. Windows become tabs with up to four panes per monitor, without gaps, blur or animations. Turn it on or off in Settings > Style > Focus, Control Center > Style > Focus or with eitr focus on|off. Your normal bar settings are kept. SUPER + Shift + F toggles Focus.",
     "clock_format": "Choose 12-hour time with AM/PM or 24-hour time under Settings > Style > Desktop Bar > Clock or Control Center > Style > Bar > Clock.",
-    "lockscreen_accounts": "The Eitr lockscreen design is the default on fresh installs. Choose an account at login. When multiple eligible accounts and SDDM support are available, Switch user opens the login screen while keeping your session locked. Unlocking still requires the original account’s password."
+    "lockscreen_accounts": "The Eitr lockscreen design is the default on fresh installs. Choose an account at login. When multiple eligible accounts and SDDM support are available, Switch user opens the login screen while keeping your session locked. Unlocking still requires the original account’s password. Unlocking is immediate once the password is accepted. Runes crumble only on Backspace or Delete.",
+    "theme_picker_filters": "The desktop theme picker shows all themes. Sun and Moon above the selected card filter light or dark themes. Click the active filter again to show all."
   },
   "development": {
     "development_part_of_the_same_desktop": "Development / Part of the same desktop",
@@ -313,7 +314,8 @@
     "installation_validation_scope": "Installation & validation scope →",
     "inspect_git": "Inspect the current Git identity and account-aware CLI",
     "terminal_choice": "Choose Kitty or optional Ghostty in Settings > Style > Terminal or Control Center > Style > Terminal. Both use Eitr’s colors, fonts and zsh. Kitty remains the default. Choosing Ghostty offers installation if needed.",
-    "live_menu_search": "Typing in menus with live contents also searches the available actions below them, using the snapshot loaded when the menu opens. Cloud account contents stay inside the opened account; deeper resource pickers load only when opened."
+    "live_menu_search": "Typing in menus with live contents also searches the available actions below them, using the snapshot loaded when the menu opens. Cloud account contents stay inside the opened account; deeper resource pickers load only when opened.",
+    "terminal_appearance": "The same menus offer opacity, padding and blur presets for Kitty and Ghostty. Gentle, Medium and Strong set one shared blur strength for terminals, the transparent bar and its panels. This choice also appears in Settings > Style > Desktop Bar and Control Center > Style > Bar."
   },
   "installation": {
     "installation_hardware_eitr_linux": "Installation & hardware / Eitr Linux",
@@ -620,7 +622,7 @@
     "workspace_styles_runes_included": "Workspace styles, runes included",
     "the_eitr_desktop": "The Eitr desktop",
     "themes_style": "Themes & style",
-    "choosing_a_theme": "Choosing a theme",
+    "choosing_a_theme": "The theme picker with Sun and Moon filters",
     "the_clockwork_lockscreen": "The Clockwork lockscreen",
     "everyday_tools": "Everyday tools",
     "walker_the_main_menu": "Walker, the main menu",
@@ -664,7 +666,11 @@
     "focus_caption": "Focus: two panes beneath the tab strip",
     "focus_alt": "Focus mode with two panes side by side beneath a thin tab strip",
     "lockscreen_eitr_caption": "The Eitr lockscreen with the account chooser",
-    "lockscreen_eitr_alt": "The Eitr lockscreen preview showing its account chooser and rune ring"
+    "lockscreen_eitr_alt": "The Eitr lockscreen preview showing its account chooser and rune ring",
+    "eitr_light_caption": "Eitr Light",
+    "eitr_light_alt": "The Eitr Light desktop with Neovim and About",
+    "terminal_settings_caption": "Terminal appearance settings",
+    "terminal_settings_alt": "Walker’s Terminal menu with blur, blur strength, Cursor Fire, opacity, padding, Ghostty and Kitty"
   },
   "roadmap": {
     "Desktop code shipped by the package; offline installer, signed package repository, factory reset, dual boot": "Desktop code shipped by the package; offline installer, signed package repository, factory reset, dual boot",

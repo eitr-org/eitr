@@ -49,7 +49,7 @@
     "sowilo_themes": "Sowilo / Themes",
     "worlds": "Welten,",
     "one_desktop": "ein Desktop.",
-    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr ist das Standard-Theme. Jedes Theme färbt Leiste, Terminal, Starter, Sperrbildschirm, Editoren und Apps. Eitr und jedes Reich haben eigene Neovim- und VS-Code-Farben sowie eigene Hintergrundbilder.",
+    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr ist das Standard-Theme. Eitr Light ist die helle Variante. Jedes Theme färbt Leiste, Terminal, Starter, Sperrbildschirm, Editoren und Apps. Eitr und jedes Reich haben eigene Neovim- und VS-Code-Farben sowie eigene Hintergrundbilder.",
     "light": "hell",
     "previous_theme": "Vorheriges Theme",
     "next_theme": "Nächstes Theme",
@@ -169,7 +169,7 @@
     "place_monitors_beside_one_another_choose_a_main_display": "Ordne Monitore nebeneinander an, wähle einen Hauptbildschirm und zeige die Leiste auf einem oder allen Bildschirmen. HDR-Monitore erhalten einen HDR-Schalter mit SDR-Inhaltshelligkeit.",
     "adjust_per_application_audio_and_microphone_controls_in": "Regle Audio pro Anwendung und Mikrofone in einem Panel; wähle Balken oder Linie für den Medien-Equalizer.",
     "choose_from": "Wähle aus",
-    "themes_with_matching_application_colors_lockscreens_4k_": "Themes mit passenden Anwendungsfarben, Sperrbildschirmen, 4K-Hintergründen und Ultrawide-Grafiken. Eitr ist die Vorgabe; es und jedes Reich haben eigene Neovim- und VS-Code-Farben. Einrichtungsassistenten folgen dem aktuellen Theme.",
+    "themes_with_matching_application_colors_lockscreens_4k_": "Themes mit passenden Anwendungsfarben, Sperrbildschirmen, 4K-Hintergründen und Ultrawide-Grafiken. Eitr ist die Vorgabe; es und jedes Reich haben eigene Neovim- und VS-Code-Farben. Einrichtungsassistenten folgen dem aktuellen Theme. Eitr Light ist die helle Variante.",
     "add_wallpapers_from_a_file_or_link_for_all_themes_or_on": "Füge Hintergründe aus Dateien oder Links für alle oder einzelne Themes hinzu, erzeuge ein Theme aus einem Bild, bearbeite Farben live und gestalte deinen Sperrbildschirm.",
     "keep_your_preferred_bar_position_corners_cursor_and_fon": "Leistenposition, Ecken, Mauszeiger und Schriften bleiben beim Theme-Wechsel erhalten. Automatisch ausblenden zeigt die Leiste am Bildschirmrand; Bewegung reduzieren macht Desktop-Übergänge sofortig.",
     "see_the_real_desktop": "Den echten Desktop ansehen →",
@@ -218,9 +218,10 @@
     "moonlight_sunshine_sharing_and_tailscale_away_access_ha": "Moonlight, Sunshine-Freigabe und Tailscale-Fernzugriff haben Einrichtungsabläufe und native Statuspanels. Die Freigabe bleibt bis zur ausdrücklichen Einrichtung inaktiv und steuert einen angemeldeten, wachen Desktop. Prüfungen mit echten Geräten sind erfasst; die abschließende Validierung steht noch aus. Betrieb ohne Bildschirm, Zugriff vor der Anmeldung und Wake on LAN sind Zukunftsarbeit. Beende Freigaben vor dem Sperren, wenn Privatsphäre zählt.",
     "read_the_setup_and_security_boundaries": "Einrichtung und Sicherheitsgrenzen lesen ↗",
     "islands_groups": "Islands schwebt mit Abstand zum Bildschirmrand. Eigene Elemente zeigen Logo, Übersicht und Arbeitsflächen, KI-Nutzung, Hardware und Bildschirmsperre bei Inaktivität, Uhr, Wetter und Status. Medien und Aufnahme erscheinen bei Aktivität.",
-    "focus_preset": "Focus ersetzt die Leiste durch einen dünnen Tabstreifen. Fenster werden zu Tabs mit bis zu vier Bereichen pro Monitor, ohne Abstände, Unschärfe oder Animationen. Ein- und ausschalten unter Einstellungen > Stil > Focus, Kontrollzentrum > Stil > Focus oder mit eitr focus on|off. Deine normalen Leisteneinstellungen bleiben erhalten.",
+    "focus_preset": "Focus ersetzt die Leiste durch einen dünnen Tabstreifen. Fenster werden zu Tabs mit bis zu vier Bereichen pro Monitor, ohne Abstände, Unschärfe oder Animationen. Ein- und ausschalten unter Einstellungen > Stil > Focus, Kontrollzentrum > Stil > Focus oder mit eitr focus on|off. Deine normalen Leisteneinstellungen bleiben erhalten. SUPER + Shift + F schaltet Focus ein oder aus.",
     "clock_format": "Wähle das 12-Stunden-Format mit AM/PM oder das 24-Stunden-Format unter Einstellungen > Stil > Desktop-Leiste > Uhr oder Kontrollzentrum > Stil > Leiste > Uhr.",
-    "lockscreen_accounts": "Das Eitr-Sperrbildschirmdesign ist bei Neuinstallationen Standard. Wähle beim Anmelden ein Konto. Bei mehreren geeigneten Konten und SDDM-Unterstützung öffnet Benutzer wechseln den Anmeldebildschirm, während deine Sitzung gesperrt bleibt. Zum Entsperren brauchst du weiterhin das Passwort des ursprünglichen Kontos."
+    "lockscreen_accounts": "Das Eitr-Sperrbildschirmdesign ist bei Neuinstallationen Standard. Wähle beim Anmelden ein Konto. Bei mehreren geeigneten Konten und SDDM-Unterstützung öffnet Benutzer wechseln den Anmeldebildschirm, während deine Sitzung gesperrt bleibt. Zum Entsperren brauchst du weiterhin das Passwort des ursprünglichen Kontos. Nach Annahme des Passworts wird sofort entsperrt. Runen zerfallen nur bei Backspace oder Delete.",
+    "theme_picker_filters": "Die Themenauswahl auf dem Desktop zeigt alle Themen. Sonne und Mond über der ausgewählten Karte filtern helle oder dunkle Themen. Ein erneuter Klick auf den aktiven Filter zeigt wieder alle."
   },
   "development": {
     "development_part_of_the_same_desktop": "Entwicklung / Teil desselben Desktops",
@@ -313,7 +314,8 @@
     "installation_validation_scope": "Installation und Prüfungsumfang →",
     "inspect_git": "Aktuelle Git-Identität und kontobewusste CLI prüfen",
     "terminal_choice": "Wähle Kitty oder das optionale Ghostty unter Einstellungen > Stil > Terminal oder Kontrollzentrum > Stil > Terminal. Beide nutzen Eitrs Farben, Schriften und zsh. Kitty bleibt Standard. Bei Bedarf bietet die Auswahl von Ghostty die Installation an.",
-    "live_menu_search": "Die Eingabe in Menüs mit dynamischen Inhalten durchsucht auch darunter verfügbare Aktionen anhand des beim Öffnen geladenen Stands. Cloud-Kontoinhalte bleiben im geöffneten Konto; tiefere Ressourcenauswahlen werden erst beim Öffnen geladen."
+    "live_menu_search": "Die Eingabe in Menüs mit dynamischen Inhalten durchsucht auch darunter verfügbare Aktionen anhand des beim Öffnen geladenen Stands. Cloud-Kontoinhalte bleiben im geöffneten Konto; tiefere Ressourcenauswahlen werden erst beim Öffnen geladen.",
+    "terminal_appearance": "Dieselben Menüs bieten Vorgaben für Deckkraft, Innenabstand und Unschärfe für Kitty und Ghostty. Sanft, Mittel und Stark legen eine gemeinsame Unschärfestärke für Terminals, die transparente Leiste und ihre Panels fest. Diese Auswahl gibt es auch unter Einstellungen > Stil > Desktop-Leiste und Kontrollzentrum > Stil > Leiste."
   },
   "installation": {
     "installation_hardware_eitr_linux": "Installation und Hardware / Eitr Linux",
@@ -620,7 +622,7 @@
     "workspace_styles_runes_included": "Arbeitsflächenstile, auch mit Runen",
     "the_eitr_desktop": "Der Eitr-Desktop",
     "themes_style": "Themes und Stil",
-    "choosing_a_theme": "Ein Theme auswählen",
+    "choosing_a_theme": "Die Themenauswahl mit Sonnen- und Mondfiltern",
     "the_clockwork_lockscreen": "Der Clockwork-Sperrbildschirm",
     "everyday_tools": "Alltagswerkzeuge",
     "walker_the_main_menu": "Walker, das Hauptmenü",
@@ -664,7 +666,11 @@
     "focus_caption": "Focus: zwei Bereiche unter dem Tabstreifen",
     "focus_alt": "Focus-Modus mit zwei Bereichen nebeneinander unter einem dünnen Tabstreifen",
     "lockscreen_eitr_caption": "Der Eitr-Sperrbildschirm mit Kontoauswahl",
-    "lockscreen_eitr_alt": "Vorschau des Eitr-Sperrbildschirms mit Kontoauswahl und Runenring"
+    "lockscreen_eitr_alt": "Vorschau des Eitr-Sperrbildschirms mit Kontoauswahl und Runenring",
+    "eitr_light_caption": "Eitr Light",
+    "eitr_light_alt": "Der Eitr-Light-Desktop mit Neovim und Über",
+    "terminal_settings_caption": "Terminal-Darstellung",
+    "terminal_settings_alt": "Walkers Terminal-Menü mit Unschärfe, Unschärfestärke, Cursorfeuer, Deckkraft, Innenabstand, Ghostty und Kitty"
   },
   "roadmap": {
     "Desktop code shipped by the package; offline installer, signed package repository, factory reset, dual boot": "Desktop-Code aus Paketen; Offline-Installer, signiertes Repository, Werksreset und Dual-Boot",
