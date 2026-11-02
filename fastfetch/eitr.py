@@ -258,36 +258,84 @@ def align_boxes(output):
     return "\n".join(lines)
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--config-only", action="store_true")
-    parser.add_argument("--no-logo", action="store_true")
-    args = parser.parse_args()
-    config_home = Path(os.environ.get("XDG_CONFIG_HOME", user_config()))
-    cache_home = Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache"))
-    config = build_config(config_home, cache_home, not args.no_logo)
-    if args.config_only:
-        print(json.dumps(config, ensure_ascii=False, indent=2))
-        return
+def render(config_home, cache_home, image):
+    """The About text and fastfetch's exit code."""
+    config = build_config(config_home, cache_home, image)
     # Private, per-invocation config: no shared mutable generated state or stale themes.
     with tempfile.NamedTemporaryFile(mode="w", suffix=".json", encoding="utf-8") as output:
         json.dump(config, output, ensure_ascii=False)
         output.flush()
-        try:
-            # Capturing output lets us normalize only outer blank lines. Keep
-            # terminal colors enabled when the final destination is a terminal.
-            import sys
-            result = subprocess.run(
-                ["fastfetch", "--config", output.name, "--pipe",
-                 "false" if sys.stdout.isatty() else "true"],
-                check=False, stdout=subprocess.PIPE, text=True)
-        except FileNotFoundError:
-            parser.exit(1, "Fastfetch is not installed. Install the distro's fastfetch package.\n")
-        rendered = align_boxes(result.stdout.strip("\n"))
-        if not sys.stdout.isatty():
-            rendered = ANSI.sub("", rendered)
-        print("\n" + rendered + "\n", flush=True)
-        raise SystemExit(result.returncode)
+        # Capturing output lets us normalize only outer blank lines. Keep
+        # terminal colors enabled when the final destination is a terminal.
+        result = subprocess.run(
+            ["fastfetch", "--config", output.name, "--pipe",
+             "false" if sys.stdout.isatty() else "true"],
+            check=False, stdout=subprocess.PIPE, text=True)
+    rendered = align_boxes(result.stdout.strip("\n"))
+    if not sys.stdout.isatty():
+        rendered = ANSI.sub("", rendered)
+    return "\n" + rendered + "\n", result.returncode
+
+
+def theme_marker(cache_home):
+    """Changes whenever a theme switch rewrites the current theme name."""
+    path = cache_home / "current-theme"
+    try:
+        return path.read_text(), path.stat().st_mtime_ns
+    except OSError:
+        return None
+
+
+def follow_theme(draw, cache_home, keys=None, interval=0.25):
+    """Keep About open: Esc or Q closes it; a theme switch clears the screen and
+    scrollback and draws it again, so the logo, colors and Theme line follow."""
+    import select
+    import tty
+    descriptor = sys.stdin.fileno()
+    previous = termios.tcgetattr(descriptor)
+    marker = theme_marker(cache_home)
+    try:
+        tty.setcbreak(descriptor)
+        while True:
+            ready, _, _ = select.select([descriptor], [], [], interval)
+            if ready:
+                key = os.read(descriptor, 1)
+                if key in (b"\x1b", b"q", b"Q", b""):
+                    return
+            current = theme_marker(cache_home)
+            if current != marker:
+                marker = current
+                sys.stdout.write("\x1b[H\x1b[2J\x1b[3J")
+                draw()
+    finally:
+        termios.tcsetattr(descriptor, termios.TCSADRAIN, previous)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--config-only", action="store_true")
+    parser.add_argument("--no-logo", action="store_true")
+    parser.add_argument("--follow-theme", action="store_true",
+                        help="stay open until Esc or Q, redrawing after a theme switch")
+    args = parser.parse_args()
+    config_home = Path(os.environ.get("XDG_CONFIG_HOME", user_config()))
+    cache_home = Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache"))
+    if args.config_only:
+        print(json.dumps(build_config(config_home, cache_home, not args.no_logo), ensure_ascii=False, indent=2))
+        return
+    if not shutil.which("fastfetch"):
+        parser.exit(1, "Fastfetch is not installed. Install the distro's fastfetch package.\n")
+
+    def draw():
+        text, code = render(config_home, cache_home, not args.no_logo)
+        print(text, flush=True)
+        return code
+
+    code = draw()
+    if args.follow_theme and sys.stdin.isatty() and sys.stdout.isatty():
+        follow_theme(draw, cache_home)
+        return
+    raise SystemExit(code)
 
 
 if __name__ == "__main__":

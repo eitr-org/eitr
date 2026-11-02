@@ -179,3 +179,38 @@ class LayoutTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class FollowThemeTests(unittest.TestCase):
+    def test_theme_switch_clears_and_redraws_and_q_closes(self):
+        import io
+        import os
+        import pty
+        import threading
+        import time
+        from unittest.mock import patch
+        module = load(FakeImage((1, 1), (0, 0, 1, 1)))
+        with tempfile.TemporaryDirectory() as directory:
+            cache = Path(directory)
+            (cache / "current-theme").write_text("eitr\n")
+            controller, terminal = pty.openpty()
+            output = io.StringIO()
+            draws = []
+            with os.fdopen(terminal, "r") as stdin, patch.object(module.sys, "stdin", stdin), \
+                    patch.object(module.sys, "stdout", output):
+                worker = threading.Thread(target=module.follow_theme,
+                                          args=(lambda: draws.append(1), cache), kwargs={"interval": 0.02})
+                worker.start()
+                time.sleep(0.1)
+                self.assertEqual(draws, [])
+                (cache / "current-theme").write_text("afterglow\n")
+                for _ in range(100):
+                    if draws:
+                        break
+                    time.sleep(0.02)
+                self.assertEqual(draws, [1])
+                self.assertIn("\x1b[2J\x1b[3J", output.getvalue())
+                os.write(controller, b"q")
+                worker.join(2)
+                self.assertFalse(worker.is_alive())
+            os.close(controller)
