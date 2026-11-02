@@ -76,12 +76,17 @@ LAN.
 - **Performance baselines on weak hardware.** Use `tools/perf-baseline.py`
   ([guide](distro/PERFORMANCE.md)) for comparable before/after measurements on
   real weak hardware; collect instrumented frame runs separately.
-- **Service subscription lifetimes: live lifecycle validation.** Automated checks
-  cover panel and Control Center subscription handlers, asynchronous plugin
-  load/unload, screen-owner destruction, pending queries and broker reconnection.
-  Verify complete Control Center navigation, plugin installation/removal and
-  physical monitor hotplug on the desktop; isolated tests do not exercise those
-  full live workflows. Preserve deadlines and never replay interrupted actions.
+- **Bar crashes when panels or screens go away quickly.** Live checks (2026-11-02,
+  VM): cycling every Control Center page, a plugin install/removal and three
+  monitor hotplugs all left data subscriptions at their baseline. But Quickshell
+  segfaults inside Qt in about half the runs of: open the Settings sections, switch
+  to Style, open its sections, then `panels close` (`QQuickWindowPrivate::dirtyItem`
+  from `setVisible`); and once while a hotplugged monitor was removed
+  (`QQuickItemPrivate::derefWindow`). Focus on/off in the VM crashed it the same way
+  (`QMetaObject::cast`). The owner's PC has three such crashes since 2026-10-19.
+  Find the QML item involved (debug-symbol Quickshell), then fix it here or report
+  it upstream. Hotplug also logs binding loops in DisplayService `snapshot` and
+  DisplaySettingsEditor `width`.
 - **Move expensive work off the UI thread selectively.** Profile interactions
   first, then move demonstrated image-processing, audio-analysis or other costly
   work into bounded asynchronous workers. Keep results tied to the current
