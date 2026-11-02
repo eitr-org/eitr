@@ -61,7 +61,10 @@ LAN.
   tested configurations and known limitations. Publish installation walkthroughs
   and a video, a hardware test matrix, and suitable GitHub feedback templates.
   Keep beta and untested-hardware limits explicit.
-- **Public discovery: announce the release right after the video.** With the owner's
+- **Public discovery: announce the release right after the video.** Status
+  (2026-11-02): the preview video is on YouTube and the website; the DistroWatch
+  submission was emailed (expect a long waiting list); r/unixporn needs more account
+  karma before posting, so build it with genuinely helpful comments first. With the owner's
   approval, post the release on Linux community sites and forums and on Reddit (for
   example r/linux, r/archlinux's rules permitting, r/hyprland and r/unixporn), each
   written for that community and following its self-promotion rules. Invite
