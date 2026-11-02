@@ -326,16 +326,28 @@ def main():
     if not shutil.which("fastfetch"):
         parser.exit(1, "Fastfetch is not installed. Install the distro's fastfetch package.\n")
 
+    following = args.follow_theme and sys.stdin.isatty() and sys.stdout.isatty()
+
     def draw():
         text, code = render(config_home, cache_home, not args.no_logo)
-        print(text, flush=True)
+        if following:
+            # No trailing lines, so nothing scrolls into Kitty's scrollback (and its scrollbar).
+            sys.stdout.write(text.rstrip("\n"))
+            sys.stdout.flush()
+        else:
+            print(text, flush=True)
         return code
 
-    code = draw()
-    if args.follow_theme and sys.stdin.isatty() and sys.stdout.isatty():
-        follow_theme(draw, cache_home)
+    if following:
+        sys.stdout.write("\x1b[?25l")
+        try:
+            draw()
+            follow_theme(draw, cache_home)
+        finally:
+            sys.stdout.write("\x1b[?25h")
+            sys.stdout.flush()
         return
-    raise SystemExit(code)
+    raise SystemExit(draw())
 
 
 if __name__ == "__main__":
