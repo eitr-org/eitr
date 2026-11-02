@@ -104,6 +104,11 @@ LAN.
   through a secret iCal address are done (Tools > Calendar Sources). Two-way sync
   (creating or editing provider events) needs account sign-in (OAuth, with
   Google's app verification) and remains later.
+- **`eitr matrix`: falling runes in the terminal.** A fun command that rains Elder
+  Futhark runes down the terminal in the current theme's colors, like the Matrix,
+  until a key is pressed. A working prototype exists outside the repository
+  (used for the 0.7 preview video); give it a home under `distro/bin/eitr`, a test
+  for resize and clean exit, and a Learn/Handbook mention.
 - **The Eitr logo drawn with runes.** Previews of the emblem filled with Elder
   Futhark runes are ready and kept outside the repository; the owner likes the
   36-row versions and will decide later where (if anywhere) to use them.
