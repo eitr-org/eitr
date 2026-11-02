@@ -249,7 +249,14 @@ em { font-style: italic; color: var(--accent); }
 
 /* Road to Bifröst */
 .road { list-style: none; padding: 0; border-left: 1px solid; border-image: linear-gradient(180deg, var(--accent), var(--violet), var(--bronze)) 1; margin-left: 22px; }
-.road li { position: relative; display: grid; grid-template-columns: 70px 1fr; gap: 24px; padding: 22px 0 22px 34px; }
+.road li { position: relative; padding: 22px 0 22px 34px; }
+.road-release > summary { display: grid; grid-template-columns: 70px 1fr; gap: 24px; align-items: baseline; cursor: pointer; list-style: none; }
+.road-release > summary::-webkit-details-marker { display: none; }
+.road-release > summary h3::after { content: "›"; margin-left: auto; color: var(--muted); font-family: var(--sans, inherit); font-size: 22px; transition: transform .2s ease; }
+.road-release[open] > summary h3::after { transform: rotate(90deg); }
+.road-release > summary:hover h3, .road-release > summary:focus-visible h3 { color: var(--accent); }
+.road-release > .road-body { padding-left: 94px; }
+@media (max-width: 600px) { .road-release > summary { grid-template-columns: 54px 1fr; gap: 14px; } .road-release > .road-body { padding-left: 0; margin-top: 8px; } }
 .road li::before { content: ""; position: absolute; left: -7px; top: 30px; width: 13px; height: 13px; border-radius: 999px 999px 3px 3px; background: var(--bg); border: 1px solid var(--line-strong); }
 .road li.current::before { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 6px var(--glow), 0 0 20px var(--accent); }
 .road-version { font-family: var(--serif); font-size: 32px; line-height: 1; color: var(--muted); }
@@ -673,8 +680,8 @@ a.version-badge:hover { border-color: var(--bronze); }
 .language-menu a{display:block;padding:10px;color:var(--fg)}
 .language-menu a:hover,.language-menu a:focus-visible,.language-menu a[aria-current]{background:var(--surface);text-decoration:underline}
 html:not([lang="en"]) h1,html:not([lang="en"]) h2{overflow-wrap:anywhere}
-html:not([lang="en"]) .road > li { grid-template-columns: 70px minmax(0, 1fr); }
-html:not([lang="en"]) .road > li > div { min-width: 0; overflow-wrap: anywhere; }
+html:not([lang="en"]) .road-release > summary { grid-template-columns: 70px minmax(0, 1fr); }
+html:not([lang="en"]) .road-release > .road-body { min-width: 0; overflow-wrap: anywhere; }
 @media (max-width: 760px) {
   html:not([lang="en"]) .hero-details { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   html:not([lang="en"]) .hero-details a { white-space: normal; overflow-wrap: anywhere; }
