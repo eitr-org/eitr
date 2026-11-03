@@ -378,6 +378,9 @@
     "Data-only themes · Review selected sources": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
+    "Delete": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Delete every occurrence": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
@@ -551,6 +554,9 @@
       "distro/plugins/example/HelloPanel.qml"
     ],
     "Hidden": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Hide": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Hide Bar": [

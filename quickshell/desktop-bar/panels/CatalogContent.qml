@@ -231,6 +231,7 @@ Item {
         property bool icon: false
         property bool flat: false
         property int textAlignment: Text.AlignHCenter
+        readonly property bool hovered: hover.containsMouse
         signal clicked()
         height: 32; radius: 3
         activeFocusOnTab: true
@@ -362,12 +363,15 @@ Item {
             Label { anchors.centerIn: parent; text: "\uF00C"; color: PanelStyle.readableInk(catalog.accent, catalog.foreground, catalog.background); font.pixelSize: 18 }
         }
         SiteButton {
+            id: removeButton
             anchors.right: parent.right; anchors.top: parent.top; anchors.margins: 8
             width: 28; height: 28; icon: true; text: "󰆴"; foreground: SiteStyle.fg
             color: SiteStyle.night
             visible: catalog.tab === "installed" && tile.local && !tile.item.current && tile.item.id !== "eitr" && tile.item.kind !== "own" && !tile.item.hidden
             Accessible.name: Eitr.I18n.tr("Remove %1").arg(tile.item.name || "")
             onClicked: { catalog.removing = tile.item; catalog.forceActiveFocus(); }
+            // Built-in themes cannot be deleted; removing one hides it.
+            BarTooltip { target: removeButton; hovered: removeButton.hovered; text: tile.item.kind === "builtin" ? Eitr.I18n.tr("Hide") : Eitr.I18n.tr("Delete"); foreground: SiteStyle.fg; background: SiteStyle.raised }
         }
 
     }
