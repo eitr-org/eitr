@@ -345,7 +345,7 @@ Item {
         readonly property real round: 8
         readonly property real start: PanelStyle.padding
         readonly property real tabWidth: catalog.compact ? 108 : 140
-        readonly property var tabs: ["official", "community", "installed"]
+        readonly property var tabs: ["installed", "official", "community"]
         readonly property int selectedIndex: tabs.indexOf(catalog.tab)
         property int hoveredIndex: -1
         Shape {
