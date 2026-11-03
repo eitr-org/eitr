@@ -15,12 +15,15 @@ spec.loader.exec_module(nightlight)
 
 class NightlightTests(unittest.TestCase):
     def test_schedule_boundaries_and_manual_modes(self):
-        for hour, expected in ((8, True), (9, False), (17, False), (18, True)):
-            with self.subTest(hour=hour):
-                now = dt.datetime(2026, 10, 7, hour)
-                self.assertEqual(nightlight.desired("auto", now), expected)
-                self.assertTrue(nightlight.desired("on", now))
-                self.assertFalse(nightlight.desired("off", now))
+        # The default schedule, not the machine's saved one.
+        with tempfile.TemporaryDirectory() as directory, \
+                patch.object(nightlight, "SCHEDULE_FILE", Path(directory) / "schedule.json"):
+            for hour, expected in ((8, True), (9, False), (17, False), (18, True)):
+                with self.subTest(hour=hour):
+                    now = dt.datetime(2026, 10, 7, hour)
+                    self.assertEqual(nightlight.desired("auto", now), expected)
+                    self.assertTrue(nightlight.desired("on", now))
+                    self.assertFalse(nightlight.desired("off", now))
 
     def test_custom_schedule_handles_minutes_and_daytime(self):
         overnight = {"start": "18:30", "end": "09:15"}
