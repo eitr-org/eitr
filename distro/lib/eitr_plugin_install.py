@@ -82,12 +82,14 @@ def short_author(spec, limit=24):
     return author if len(author) <= limit else author[:limit - 1] + '…'
 
 
-def git(root, *arguments, allow_file=False, binary=False):
+def git(root, *arguments, allow_file=False, binary=False, lazy_fetch=True):
     environment = {key: value for key, value in os.environ.items() if not key.startswith('GIT_')}
     environment.update(GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL='/dev/null', GIT_TERMINAL_PROMPT='0',
                        GIT_ALLOW_PROTOCOL='https:ssh:file' if allow_file else 'https:ssh',
                        # A passphrase prompt would break the install screen; keys come from the agent.
                        GIT_SSH_COMMAND='ssh -o BatchMode=yes')
+    if not lazy_fetch:
+        environment['GIT_NO_LAZY_FETCH'] = '1'
     output = subprocess.check_output(['git', '-c', 'core.hooksPath=/dev/null', '-c', 'core.fsmonitor=false',
                                     '-c', 'submodule.recurse=false', '-c', 'credential.helper=',
                                     *arguments], cwd=root, env=environment, text=not binary, stdin=subprocess.DEVNULL,

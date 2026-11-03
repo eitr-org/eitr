@@ -74,7 +74,11 @@ channel first; the website changes only once it reaches stable.
   it, and Sun/Moon filter light or dark themes (all by default, like the theme
   carousel). Opening loads installed items and both indexes for themes and plugins
   once; tabs only switch views, and cards render in pages of 24 as you scroll.
-  Multi-select theme installs, updates checked on open, and removal.
+  Multi-select theme installs, updates checked on open, and removal. Official and
+  Community cards open detail sheets with source metadata, palette tooltips and
+  wallpaper browsing; card Install buttons toggle selection. Detail Install reviews
+  only that theme. Official indexes ship checked wallpaper thumbnails; community
+  galleries discover names and sizes without fetching image blobs.
   Removing a built-in theme hides it (Show hidden restores; Eitr and the current
   theme cannot be hidden). Plugin cards share the picture grid, with screenshots,
   centered icons or a generic glyph, source/status badges and removal. Artwork

@@ -22,16 +22,32 @@ Réappliquez un thème actif mis à jour pour actualiser le bureau. Supprimer de
 confirmation dans la fenêtre et refuse le thème actif : appliquez-en un autre d’abord.
 Les thèmes intégrés et personnels sont conservés.
 
-En obtenir plus affiche le dépôt officiel `eitr-org/eitr-themes`. Sélectionnez plusieurs
-thèmes en cliquant sur leurs aperçus. La barre d’installation en bas ouvre la
-vérification avec aperçus, source et taille totale ; Effacer vide la sélection.
-Les flèches parcourent les cartes et Espace sélectionne les téléchargements. Entrée
-applique un thème installé ou ouvre la vérification si des téléchargements sont
-sélectionnés. Entrée ou Installer confirme ; Échap ferme d’abord la vérification,
-puis la fenêtre. Téléchargements, progression et erreurs restent dans la
-fenêtre. Les aperçus sont téléchargés uniquement pour les cartes visibles et utilisent
-le cache utilisateur. Si le dépôt est inaccessible, Réessayer le recharge ; Installés
-reste disponible hors ligne.
+Officiel réunit les thèmes intégrés et le dépôt `eitr-org/eitr-themes` ;
+Communauté affiche les thèmes communautaires. Cliquez sur une carte de ces onglets
+pour ouvrir ses détails : aperçu, description, palette (survolez pour les valeurs
+hexadécimales), source, taille, responsable et licence. Les fonds apparaissent en
+miniatures ; ceux de la communauté utilisent des cartes avec nom et taille.
+Cliquez pour agrandir, utilisez Précédent/Suivant pour parcourir et Retour pour
+revenir. Échap, le bouton de fermeture ou un clic à l’extérieur ferme les détails
+et rend le focus à la carte. Les fonds distants complets sont téléchargés seulement
+à l’ouverture ; les images installées sont lues localement.
+
+Installer sur la carte bascule la sélection et affiche Sélectionné avec une coche.
+Les cartes installées affichent Installé et Actuel si nécessaire. Sélectionnez
+plusieurs thèmes, puis utilisez Installer dans la barre inférieure pour vérifier
+aperçus, sources et taille totale ; Effacer vide la sélection. Les flèches naviguent,
+Espace bascule la sélection et Entrée ouvre les détails dans Officiel ou Communauté.
+Avec Tab, atteignez Installer dans la barre inférieure, puis Entrée ouvre la
+vérification. Entrée applique toujours un thème dans Installés et confirme une
+vérification ouverte. Installer dans les détails vérifie uniquement ce thème ;
+après installation, Appliquer ou Actuel apparaît. Échap annule d’abord la
+vérification, puis ferme les détails ou la fenêtre. Téléchargements, progression
+et erreurs restent dans la fenêtre. Aperçus visibles et galeries ouvertes utilisent
+le cache. Si le dépôt est inaccessible, Réessayer le recharge ; Installés reste
+disponible hors ligne.
+
+Les tailles des fonds communautaires absents du cache affichent Taille indisponible
+jusqu’à l’ouverture : Git téléchargerait tout le fichier pour les connaître. Les tailles en cache sont affichées.
 
 La page Plugins affiche les plugins installés et le dépôt officiel
 `eitr-org/eitr-plugins` sous forme de cartes avec capture, icône centrée ou symbole

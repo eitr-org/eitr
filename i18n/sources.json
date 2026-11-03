@@ -80,6 +80,9 @@
     "Applications": [
       "quickshell/desktop-bar/panels/AudioMenu.qml"
     ],
+    "Apply": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Applying changes…": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
@@ -110,6 +113,7 @@
     ],
     "Back": [
       "quickshell/desktop-bar/panels/AssistantChat.qml",
+      "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/plugins/PluginArea.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml",
       "quickshell/desktop-bar/plugins/PluginPanel.qml"
@@ -255,6 +259,7 @@
     ],
     "Close": [
       "quickshell/desktop-bar/dock/EdgeDock.qml",
+      "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Close All Windows": [
@@ -791,6 +796,7 @@
     "Next": [
       "quickshell/desktop-bar/bar/BarVerticalCenter.qml",
       "quickshell/desktop-bar/media/MediaStrip.qml",
+      "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/panels/Handbook.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
@@ -863,6 +869,9 @@
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "No themes available. Try again shortly.": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "No wallpapers": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Nothing": [
@@ -1018,6 +1027,7 @@
     "Previous": [
       "quickshell/desktop-bar/bar/BarVerticalCenter.qml",
       "quickshell/desktop-bar/media/MediaStrip.qml",
+      "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/panels/Handbook.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
@@ -1235,6 +1245,9 @@
     "Search the handbook…": [
       "quickshell/desktop-bar/panels/Handbook.qml"
     ],
+    "Selected": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Selection": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
@@ -1396,6 +1409,9 @@
     "Text & Color": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
+    "The Eitr project": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "The handbook catalog is invalid.": [
       "quickshell/desktop-bar/panels/Handbook.qml"
     ],
@@ -1540,6 +1556,9 @@
     "Wallpaper": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
       "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
+    ],
+    "Wallpapers": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Weather": [
       "quickshell/desktop-bar/bar/WeatherWidget.qml",

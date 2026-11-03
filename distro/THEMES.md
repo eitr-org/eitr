@@ -63,7 +63,7 @@ the built-in themes.
 ## Repository index
 
 Run `python3 tools/theme-catalog-index.py REPOSITORY` and commit the resulting
-root `eitr-catalog.json`. CI runs the same command with `--check`. It discovers
+root `eitr-catalog.json` and `thumbnails/`. CI runs the same command with `--check`. It discovers
 package manifests recursively, validates each with the installer owner, and
 writes a sorted JSON list. Each entry contains `id`, `name`, `description`,
 `light`, `folder`, `size` (total file bytes), and `preview` (repository-relative
@@ -104,7 +104,7 @@ lookup path already. Only `own-theme.json` enables the pickers' user-created
 editing/deleting controls.
 
 Catalog rows may include a `palette` object with exactly `background`, `foreground`,
-`accent`, and `color1` through `color6`, each a six-digit `#RRGGBB` string.
+`accent`, and `color0` through `color15`, each a six-digit `#RRGGBB` string.
 `tools/theme-catalog-index.py` emits these from `colors.toml`; `--check` compares
 that complete generated index. Older indexes without `palette` remain accepted,
 and their cards omit swatches. Installed cards read `colors.toml` locally.
@@ -116,3 +116,40 @@ resolver. Eitr and the current theme are protected. Catalog Installed offers
 Show hidden and Restore; hiding never deletes shipped files.
 
 Community installs record `community: true` in their local source record so their badge survives an index cache cleanup. This provenance never grants official status: official trust still depends only on the repository address.
+
+## Catalog details and artwork
+
+Official and Community theme cards open a website-style detail sheet. Their Install
+buttons toggle the existing multi-selection; Installed cards keep their apply action.
+Enter opens details on discovery tabs, Space toggles selection, and the bottom
+Install button opens the multi-theme review (Tab to it, then Enter). The detail
+sheet's Install reviews only that theme, preserving the gallery selection until
+installation succeeds. Escape, its close button or the area outside dismisses
+it and restores the card cursor. Installed themes offer Apply unless current.
+
+Index rows may have `wallpapers`, a list of objects with `path`, `thumbnail` and
+`size` (original bytes). Only JPEG/PNG files directly under `backgrounds/` are
+listed, never ultrawide assets. The generator writes deterministic 480-pixel-wide
+JPEGs at `thumbnails/<id>/<wallpaper-stem>.jpg`, reducing quality to keep each
+below 48 KiB. Wallpaper stems must be unique per theme. `--check` compares generated
+bytes and rejects missing, stale and extra thumbnails and changed wallpaper metadata.
+Older indexes without wallpapers remain valid and show no gallery. Older nine-color
+palettes remain valid; new indexes include the complete nineteen-color palette.
+
+The `artwork` domain request takes a row id and a listed path only: its preview,
+thumbnail or wallpaper. A cache miss reads one regular Git blob, checks its size
+before fetching and validates the decoded image before publishing atomically.
+Limits are 128 KiB for thumbnails, 2 MiB for previews, 16 MiB for wallpapers;
+previews stay PNG with at most 2048 pixels per dimension. Wallpaper and thumbnail
+images accept PNG/JPEG up to 16384 pixels per dimension and 64 megapixels.
+Artwork is cached by commit and path. Thumbnails load only on opening details,
+and full remote wallpapers only on selection. Installed assets use local file URLs
+and bounded QML source sizes. Community details fetch Git trees for names and sizes
+without wallpaper blobs; the overview reads only bounded manifest and palette metadata
+and its preview. Git lazy fetching is disabled for tree listings: uncached blob
+sizes are unknown, since Git cannot report those sizes without fetching content.
+Tiles show Size unavailable until the image is opened (or its blob is already
+cached). Unknown totals remain unavailable rather than adding only known sizes.
+Name tiles fetch a wallpaper only when clicked. Repository
+and folder, download size, maintainer and license appear when available; official
+themes credit The Eitr project under GPL-3.0.

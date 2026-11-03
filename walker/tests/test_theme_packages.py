@@ -134,6 +134,22 @@ class ThemePackagesTest(unittest.TestCase):
         command = [sys.executable, str(ROOT / 'tools/theme-catalog-index.py'), str(self.repo)]
         subprocess.run(command, check=True)
         subprocess.run([*command, '--check'], check=True)
+        from eitr_theme_packages import validate_index
+        rows = json.loads((self.repo / 'eitr-catalog.json').read_text())
+        self.assertEqual(validate_index([{key: value for key, value in row.items() if key != 'wallpapers'} for row in rows])[0]['id'], 'alpha')
+        thumbnail = self.repo / rows[0]['wallpapers'][0]['thumbnail']
+        original = thumbnail.read_bytes()
+        for damage in ('missing', 'stale', 'extra', 'changed-source'):
+            with self.subTest(damage=damage):
+                if damage == 'missing': thumbnail.unlink()
+                if damage == 'stale': thumbnail.write_bytes(b'bad')
+                if damage == 'extra': (thumbnail.parent / 'extra.jpg').write_bytes(original)
+                if damage == 'changed-source':
+                    from PIL import Image
+                    Image.new('RGB', (16, 16), 'purple').save(self.repo / rows[0]['wallpapers'][0]['path'])
+                self.assertNotEqual(subprocess.run([*command, '--check'], capture_output=True).returncode, 0)
+                subprocess.run(command, check=True)
+                subprocess.run([*command, '--check'], check=True)
         (self.repo / 'eitr-catalog.json').write_text('[]')
         self.assertNotEqual(subprocess.run([*command, '--check'], capture_output=True).returncode, 0)
 
@@ -223,7 +239,7 @@ class ThemePackagesTest(unittest.TestCase):
         rows = {row['id']: row for row in self.backend.installed()}
         self.assertEqual(rows['alpha']['palette'], {key: tomllib.loads(
             (self.backend.folder / 'alpha/colors.toml').read_text())[key]
-            for key in ('background', 'foreground', 'accent', 'color1', 'color2', 'color3', 'color4', 'color5', 'color6')})
+            for key in ('background', 'foreground', 'accent', *(f'color{number}' for number in range(16)))})
         self.assertTrue(rows['alpha']['current'])
         self.assertFalse(rows['builtin']['current'])
         self.assertEqual(rows['alpha']['previewUrl'], (self.backend.folder / 'alpha/preview.png').as_uri())
@@ -304,12 +320,26 @@ class ThemePackagesTest(unittest.TestCase):
     def test_palette_optional_and_strict(self):
         from eitr_theme_packages import validate_index
         rows = catalog(self.repo)
-        self.assertEqual(len(rows[0]['palette']), 9)
+        self.assertEqual(len(rows[0]['palette']), 19)
         legacy = [{key: value for key, value in row.items() if key != 'palette'} for row in rows]
         self.assertEqual(validate_index(legacy), legacy)
-        for palette in ({'accent': '#ffffff'}, dict(rows[0]['palette'], accent='red'), dict(rows[0]['palette'], extra='#ffffff')):
+        old_palette = {key: rows[0]['palette'][key] for key in ('background', 'foreground', 'accent', *(f'color{number}' for number in range(1, 7)))}
+        validate_index([dict(rows[0], palette=old_palette)])
+        for palette in (None, [], {'accent': '#ffffff'}, dict(rows[0]['palette'], accent='red'), dict(rows[0]['palette'], extra='#ffffff')):
             with self.assertRaises(ValueError):
                 validate_index([dict(rows[0], palette=palette)])
+
+    def test_wallpaper_index_rejects_unscoped_or_malformed_assets(self):
+        from eitr_theme_packages import validate_index
+        row = catalog(self.repo)[0]
+        wallpaper = dict(path='themes/alpha/backgrounds/wall.png', thumbnail='thumbnails/alpha/wall.jpg', size=80)
+        validate_index([dict(row, wallpapers=[wallpaper])])
+        for changes in ({'path': 'themes/beta/backgrounds/wall.png'}, {'path': 'themes/alpha/backgrounds-ultrawide/wall.png'},
+                        {'thumbnail': '../wall.jpg'}, {'thumbnail': 'thumbnails/beta/wall.jpg'}, {'size': True}, {'size': 0}):
+            with self.subTest(changes=changes), self.assertRaises(ValueError):
+                validate_index([dict(row, wallpapers=[wallpaper | changes])])
+        with self.assertRaises(ValueError):
+            validate_index([dict(row, wallpapers=[wallpaper, wallpaper])])
 
     def test_hide_restore_and_all_picker_paths(self):
         import shutil

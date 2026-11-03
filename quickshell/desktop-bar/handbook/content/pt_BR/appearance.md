@@ -21,14 +21,29 @@ Instalados atualiza ao abrir a janela e após cada ação. Ao abrir, os metadado
 um tema ativo atualizado para renovar a área de trabalho. Remover pede confirmação
 na janela e recusa o tema ativo: aplique outro antes. Temas integrados e seus são preservados.
 
-Obter mais lista o repositório oficial `eitr-org/eitr-themes`. Selecione vários
-temas clicando nas prévias. A barra de instalação inferior abre a revisão com
-prévias, origem e tamanho total; Limpar desfaz a seleção. As setas navegam entre
-cartões e Espaço seleciona downloads. Enter aplica um tema instalado ou abre a
-revisão quando há downloads selecionados. Enter ou Instalar confirma; Escape
-fecha primeiro a revisão e depois a janela. Downloads, progresso e erros ficam na janela. Prévias são baixadas
-somente para cartões visíveis e usam o cache do usuário. Se o repositório estiver
-inacessível, Tentar novamente o recarrega; Instalados funciona sem conexão.
+Oficial reúne temas integrados e o repositório `eitr-org/eitr-themes`; Comunidade
+lista temas da comunidade. Clique num cartão nessas abas para abrir os detalhes:
+prévia, descrição, paleta (passe o ponteiro para ver os valores hexadecimais),
+origem, tamanho, responsável e licença. Papéis de parede aparecem em miniaturas;
+os da comunidade usam cartões com nome e tamanho. Clique para ampliar, use
+Anterior/Próximo para navegar e Voltar para retornar. Escape, o botão de fechar ou
+um clique fora fecha os detalhes e devolve o foco ao cartão. Imagens remotas
+completas só são baixadas ao abrir; imagens instaladas são lidas localmente.
+
+O botão Instalar no cartão alterna a seleção e mostra Selecionado com uma marca.
+Cartões instalados mostram Instalado e, quando aplicável, Atual. Selecione vários
+temas e use Instalar na barra inferior para revisar prévias, origens e tamanho
+total; Limpar desfaz a seleção. Setas navegam, Espaço alterna a seleção e Enter
+abre detalhes em Oficial ou Comunidade. Use Tab até Instalar na barra inferior e
+Enter para revisar. Em Instalados, Enter continua aplicando o tema; numa revisão,
+confirma a instalação. Instalar nos detalhes revisa somente aquele tema; depois
+oferece Aplicar, ou Atual se já ativo. Escape cancela a revisão antes de fechar
+detalhes ou janela. Downloads, progresso e erros ficam na janela. Prévias visíveis
+e galerias abertas usam o cache do usuário. Se o repositório estiver inacessível,
+Tentar novamente recarrega; Instalados permanece disponível sem conexão.
+
+Tamanhos de imagens da comunidade fora do cache mostram Tamanho indisponível até
+abrir: obter esse valor pelo Git baixaria o arquivo completo. Tamanhos em cache aparecem.
 
 A página Plugins lista os plugins instalados e o repositório oficial
 `eitr-org/eitr-plugins` em cartões com captura de tela, ícone centralizado ou símbolo

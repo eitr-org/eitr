@@ -22,14 +22,30 @@ Instalados se actualiza al abrir la ventana y después de cada acción. Al abrir
 activo actualizado para refrescar el escritorio. Eliminar pide confirmación en
 la ventana y rechaza el tema activo: aplica otro primero. Los integrados y tuyos se conservan.
 
-Obtener más muestra el repositorio oficial `eitr-org/eitr-themes`. Selecciona varios
-temas pulsando sus vistas previas. La barra inferior abre la revisión con vistas
-previas, origen y tamaño total; Limpiar borra la selección. Las flechas navegan
-entre tarjetas y Espacio selecciona descargas. Enter aplica un tema instalado o
-abre la revisión si hay descargas seleccionadas. Enter o Instalar confirma;
-Escape cierra primero la revisión y después la ventana. Descargas, progreso y errores aparecen en la ventana. Las vistas previas
-solo se descargan para tarjetas visibles y usan la caché del usuario. Si el repositorio
-no responde, Reintentar lo recarga; Instalados funciona sin conexión.
+Oficial reúne los temas integrados y el repositorio `eitr-org/eitr-themes`;
+Comunidad muestra temas de la comunidad. Pulsa una tarjeta de estas pestañas
+para ver sus detalles: vista previa, descripción, paleta (pasa el puntero para
+ver valores hexadecimales), origen, tamaño, responsable y licencia. Los fondos
+aparecen como miniaturas; los comunitarios usan tarjetas con nombre y tamaño.
+Pulsa uno para ampliarlo, usa Anterior/Siguiente para recorrerlos y Atrás para
+volver. Escape, el botón de cierre o un clic fuera cierra los detalles y devuelve
+el foco a la tarjeta. Los fondos remotos completos solo se descargan al abrirlos;
+las imágenes instaladas se leen localmente.
+
+Instalar en la tarjeta alterna la selección y muestra Seleccionado con una marca.
+Las tarjetas instaladas muestran Instalado y Actual cuando corresponde. Selecciona
+varios temas y usa Instalar en la barra inferior para revisar vistas previas,
+orígenes y tamaño total; Limpiar borra la selección. Las flechas navegan, Espacio
+alterna la selección y Enter abre detalles en Oficial o Comunidad. Usa Tab hasta
+Instalar en la barra inferior y Enter para revisar. Enter sigue aplicando temas
+en Instalados y confirma una revisión abierta. Instalar en los detalles revisa
+solo ese tema; después ofrece Aplicar, o Actual si está activo. Escape cancela la
+revisión antes de cerrar detalles o ventana. Descargas, progreso y errores quedan
+en la ventana. Las vistas previas visibles y galerías abiertas usan la caché.
+Si el repositorio no responde, Reintentar lo recarga; Instalados funciona sin conexión.
+
+Los tamaños de fondos comunitarios fuera de la caché aparecen como Tamaño no disponible
+hasta abrirlos: obtenerlos con Git descargaría el archivo completo. Los tamaños en caché se muestran.
 
 La página Plugins muestra los plugins instalados y el repositorio oficial
 `eitr-org/eitr-plugins` en tarjetas con captura, icono centrado o símbolo genérico.

@@ -229,7 +229,7 @@ ShellRoot {
     onTriggered: {
      if (Bar.SiteStyle.light !== SITE_LIGHT) throw new Error("light.mode detection");
      if (panel.background !== Bar.SiteStyle.card || panel.accent !== Bar.SiteStyle.accent) throw new Error("site palette binding");
-     const names = ["official-themes", "selected-themes", "review", "installing", "community-empty", "installed-hidden", "plugins-official", "plugins-installed", "remove"];
+     const names = ["official-themes", "selected-themes", "detail-overview", "detail-wallpaper", "review", "installing", "community-detail", "installed-hidden", "plugins-official", "plugins-installed", "remove"];
      if (sample.phase === 0) {
       panel.installed = [{id:"eitr",name:"Eitr",kind:"builtin",current:true,description:"Primordial venom",previewUrl:"PREVIEW"},{id:"nord",name:"Nord",kind:"official",description:"Cool northern blues",previewUrl:"PREVIEW2"},{id:"mine",name:"My theme",kind:"own",light:true,description:"A quiet light palette",previewUrl:"PREVIEW3"}];
       panel.availableItems = [{id:"moss",name:"Moss",kind:"official",description:"Deep forest greens",size:3145728},{id:"jade",name:"Jade",kind:"official",light:true,description:"Warm jade and cream",size:2097152},{id:"asgard",name:"Asgard",kind:"official",description:"Gold in the halls of the gods",size:2097152}];
@@ -266,34 +266,71 @@ ShellRoot {
       keys.keyClick(Qt.Key_Right);
       keys.keyClick(Qt.Key_Space);
       if (panel.selected.length !== 2) throw new Error("keyboard selection");
+      function find(root, name) { if (root.objectName === name) return root; for (const child of root.children || []) { const found = find(child, name); if (found) return found; } return null; }
+      keys.wait(50);
+      const install = find(panel, "install-jade");
+      const viewport = find(panel, "catalog-scroll");
+      const bottom = install.mapToItem(viewport, 0, install.height).y;
+      viewport.contentY = Math.max(0, Math.min(viewport.contentHeight - viewport.height, viewport.contentY + Math.max(0, bottom - viewport.height)));
+      keys.wait(20);
+      keys.mouseClick(install, install.width / 2, install.height / 2);
+      if (panel.selected.includes("jade")) throw new Error("Install toggles off");
+      keys.mouseClick(install, install.width / 2, install.height / 2);
+      if (!panel.selected.includes("jade")) throw new Error("Install toggles on");
+      const card = install.parent.parent.parent;
+      keys.mouseClick(card, card.width / 2, 50);
+      if (!panel.detail || panel.detail.id !== "jade") throw new Error("card click opens detail");
+      keys.keyClick(Qt.Key_Escape);
      } else if (sample.phase === 2) {
+      panel.availableItems = panel.availableItems.map(item => Object.assign({}, item, {wallpapers:[{path:"backgrounds/wall.jpg", thumbnail:"thumbnails/wall.jpg", imageUrl:"WALLPAPER", size:345678}]}));
       keys.keyClick(Qt.Key_Return);
-      if (!panel.reviewing) throw new Error("Enter opens review");
-      if (panel.chosen.length !== 2 || panel.totalSize !== 5242880) throw new Error("selection/total");
+      if (!panel.detail || panel.detail.id !== "jade" || panel.reviewing) throw new Error("Enter opens focused detail with selection");
+      if (panel.wallpapers.length !== 1) throw new Error("detail gallery");
      } else if (sample.phase === 3) {
-      panel.busy = true; panel.progress = "Installing 1 of 2 themes…";
+      function find(root, name) { if (root.objectName === name) return root; for (const child of root.children || []) { const found = find(child, name); if (found) return found; } return null; }
+      const scroller = find(panel, "detail-scroll");
+      scroller.contentY = Math.max(0, scroller.contentHeight - scroller.height);
+      const wallpaper = find(panel, "wallpaper-0");
+      keys.mouseClick(wallpaper, wallpaper.width / 2, 30);
+      if (panel.wallpaperIndex !== 0) throw new Error("large wallpaper");
      } else if (sample.phase === 4) {
+      keys.keyClick(Qt.Key_Escape);
+      if (panel.detail || panel.cursor !== 3 || !panel.activeFocus) throw new Error("detail Escape restores card focus");
+      function find(root, name) { if (root.objectName === name) return root; for (const child of root.children || []) { const found = find(child, name); if (found) return found; } return null; }
+      const button = find(panel, "review-selection");
+      button.forceActiveFocus(); keys.keyClick(Qt.Key_Return);
+      if (!panel.reviewing) throw new Error("bottom Enter opens review");
+      if (panel.chosen.length !== 2 || panel.totalSize !== 5242880) throw new Error("selection/total");
+     } else if (sample.phase === 5) {
+      panel.busy = true; panel.progress = "Installing 1 of 2 themes…";
+     } else if (sample.phase === 6) {
       panel.busy = false; panel.progress = "";
 
       panel.forceActiveFocus(); keys.keyClick(Qt.Key_Escape);
       if (panel.reviewing || !panel.opened) throw new Error("Escape must cancel review");
-      panel.tab = "community"; panel.availableItems = []; panel.selected = [];
-      panel.repositoryError = "Repository unavailable; retry";
-     } else if (sample.phase === 5) {
-      panel.tab = "installed"; panel.showHidden = true;
+      panel.tab = "community"; panel.selected = [];
+      panel.availableItems = [{id:"community-dusk", name:"Community Dusk", kind:"community", description:"Indigo and warm stone", maintainer:"Example artist", license:"MIT", repository:"https://example.invalid/themes", folder:"themes/dusk", size:4567890, wallpapers:[{path:"themes/dusk/backgrounds/dusk.jpg",size:456789},{path:"themes/dusk/backgrounds/stone.png",size:null}]}];
+      panel.openDetail(panel.availableItems[0]);
+      if (panel.wallpapers[0].thumbnail || panel.wallpapers[0].imageUrl) throw new Error("community uses name tiles");
+     } else if (sample.phase === 7) {
+      panel.closeDetail(); panel.tab = "installed"; panel.showHidden = true;
       panel.installed = [{id:"eitr",name:"Eitr",kind:"builtin",current:true,description:"Primordial venom",previewUrl:"PREVIEW"},{id:"nord",name:"Nord",kind:"builtin",hidden:true,description:"Cool northern blues",previewUrl:"PREVIEW2"}];
       panel.availableItems = [{id:"notes",name:"Notes",description:"Notes on the desktop",size:12345}];
-     } else if (sample.phase === 6) {
+     } else if (sample.phase === 8) {
+      let applies = 0;
+      panel.transport = function(name, args, callback) { if (name === "apply") applies++; callback("", {items:[]}); };
+      panel.activate({id:"nord", name:"Nord"}, true);
+      if (applies !== 1 || panel.detail) throw new Error("Installed still applies");
       panel.kind = "plugins";
       panel.tab = "official";
       panel.installed = [];
       panel.availableItems = [{id:"clock",name:"Clock",kind:"official",description:"A desktop clock",previewUrl:"PREVIEW",preview:"preview.png"},{id:"notes",name:"Notes",kind:"official",description:"Notes on the desktop",icon:"ICON",previewUrl:"ICON"},{id:"plain",name:"Plain",kind:"official",description:"A plugin without artwork"}];
       panel.activate(panel.availableItems[0], false);
       if (panel.progress !== "Installing plugins from the catalog is coming soon; use Walker > Plugins for now") throw new Error("plugin coming-soon note");
-     } else if (sample.phase === 7) {
+     } else if (sample.phase === 9) {
       panel.tab = "installed";
       panel.installed = [{id:"clock",name:"Clock",kind:"official",description:"A desktop clock",preview:"PREVIEW"},{id:"notes",name:"Notes",kind:"community",description:"Notes on the desktop",icon:"ICON",enabled:false},{id:"plain",name:"Plain",kind:"third-party",description:"A plugin without artwork"}];
-     } else if (sample.phase === 8) {
+     } else if (sample.phase === 10) {
       let requests = 0;
       panel.transport = function(name, args, callback) { requests++; callback("", {}); };
       panel.activate(panel.installed[0], true);
@@ -306,8 +343,13 @@ ShellRoot {
       panel.forceActiveFocus(); keys.keyClick(Qt.Key_Escape);
       if (panel.removing || !panel.opened) throw new Error("Escape cancels removal");
       panel.kind = "themes";
-      panel.availableItems = [{id:"new",name:"New",size:1024}]; panel.selected = ["new"];
-      panel.reviewing = true;
+      panel.tab = "official";
+      panel.availableItems = [{id:"new",name:"New",size:1024},{id:"other",name:"Other",size:2048}]; panel.selected = ["other"];
+      panel.openDetail(panel.availableItems[0]);
+      function find(root, name) { if (root.objectName === name) return root; for (const child of root.children || []) { const found = find(child, name); if (found) return found; } return null; }
+      const install = find(panel, "detail-install");
+      keys.mouseClick(install, install.width / 2, install.height / 2);
+      if (panel.chosen.length !== 1 || panel.chosen[0].id !== "new" || panel.selected[0] !== "other") throw new Error("detail review isolates theme and preserves selection");
       panel.transport = function(name, args, callback) {
        if (name === "install") sample.installReply = callback;
        else callback("", {items:[{id:"new",name:"New",kind:"official"}]});
@@ -319,6 +361,10 @@ ShellRoot {
       panel.confirm();
       sample.installReply("", {});
       if (panel.busy || panel.reviewing || panel.selected.length || panel.installed[0].id !== "new") throw new Error("install returns to refreshed gallery");
+      if (!panel.detail || !panel.isInstalled(panel.detailItem)) throw new Error("detail reflects successful install");
+      const apply = find(panel, "detail-install");
+      if (apply.text !== "Apply") throw new Error("detail offers Apply after install");
+      panel.closeDetail();
       panel.tone = "light"; panel.kind = "plugins";
       panel.installed = [{id:"clock",name:"Clock",kind:"official"}];
       if (panel.locals.length !== 1) throw new Error("theme filter must not hide plugins");
@@ -330,6 +376,27 @@ ShellRoot {
       panel.tab = "community"; panel.kind = "themes"; panel.tab = "installed"; panel.tab = "official";
       if (calls.length !== 6) throw new Error("switching tabs must not reload: " + calls);
       if (panel.availableItems[0].id !== "official-themes" || panel.installed[0].id !== "installed-themes") throw new Error("views come from the loaded store");
+      panel.tab = "community";
+      const replies = [];
+      const artworkPaths = [];
+      panel.transport = function(name, args, callback) {
+       if (name === "detail") replies.push(callback);
+       if (name === "artwork") { artworkPaths.push(args.path); callback("", {image:""}); }
+      };
+      panel.openDetail({id:"fresh",kind:"community",name:"Original"});
+      panel.closeDetail();
+      panel.openDetail({id:"fresh",kind:"community",name:"Original"});
+      replies[0]("", {item:{name:"Stale"}});
+      if (panel.detail.name !== "Original") throw new Error("stale detail must not replace reopened sheet");
+      replies[1]("", {item:{name:"Fresh"}});
+      if (panel.detail.name !== "Fresh") throw new Error("current detail reply");
+      panel.closeDetail(); panel.tab = "official";
+      panel.openDetail({id:"lazy",kind:"official",name:"Lazy",wallpapers:[{path:"themes/lazy/backgrounds/wall.png",thumbnail:"thumbnails/lazy/wall.jpg",size:123} ]});
+      if (artworkPaths.length !== 1 || artworkPaths[0] !== "thumbnails/lazy/wall.jpg") throw new Error("opening details fetches thumbnail only");
+      panel.showWallpaper(0);
+      if (artworkPaths.length !== 2 || artworkPaths[1] !== "themes/lazy/backgrounds/wall.png") throw new Error("wallpaper loads only on selection");
+      keys.mouseClick(panel, 2, panel.height / 2);
+      if (panel.detail || !panel.activeFocus) throw new Error("outside click closes detail and restores focus");
       panel.live = false;
       console.log("CATALOG_OK"); Qt.quit(); return;
      }
@@ -370,7 +437,7 @@ ShellRoot {
                 fixture = fixture.replace('INSTALLED_PALETTES', json.dumps(installed_palettes)).replace('INDEX_PALETTES', json.dumps(index_palettes))
                 icon = folder / 'plugin-icon.svg'
                 icon.write_text('<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect x="4" y="4" width="56" height="56" rx="12" fill="#759456"/><circle cx="32" cy="32" r="15" fill="#181824"/></svg>')
-                fixture = fixture.replace('ICON', icon.as_uri())
+                fixture = fixture.replace('ICON', icon.as_uri()).replace('WALLPAPER', next((themes / 'nord/backgrounds').glob('*')).as_uri())
                 fixture = fixture.replace('TARGET', str(target)).replace('VARIANT', variant).replace('WIDTH', width).replace('PREVIEW3', (BAR.parents[1] / 'themes/eitr-light/preview.png').as_uri()).replace('PREVIEW2', (BAR.parents[1] / 'themes/nord/preview.png').as_uri()).replace('PREVIEW', (BAR.parents[1] / 'themes/eitr/preview.png').as_uri())
                 (folder / 'fixture.qml').write_text(fixture)
                 environment = render_environment(folder)
@@ -384,7 +451,7 @@ ShellRoot {
                 self.assertNotIn('TypeError', output)
                 self.assertNotIn('Cannot open:', output)
                 self.assertNotIn('Unable to assign', output)
-                for state in ('official-themes', 'selected-themes', 'review', 'installing', 'community-empty', 'installed-hidden', 'plugins-official', 'plugins-installed', 'remove'):
+                for state in ('official-themes', 'selected-themes', 'detail-overview', 'detail-wallpaper', 'review', 'installing', 'community-detail', 'installed-hidden', 'plugins-official', 'plugins-installed', 'remove'):
                     self.assertGreater((target / f'{state}-{variant}.png').stat().st_size, 10000)
 
     def test_handbook_uses_shared_native_window(self):
@@ -453,6 +520,82 @@ class CatalogBackendTests(unittest.TestCase):
         with patch.object(Themes, 'remove', side_effect=ValueError('Cannot remove the current theme; apply eitr first')):
             with self.assertRaisesRegex(ValueError, 'Cannot remove the current theme'):
                 DOMAIN.worker('remove', {'kind': 'themes', 'id': 'eitr'})
+
+    def test_theme_artwork_is_row_scoped_and_single_blob(self):
+        from eitr_theme_packages import Themes, catalog
+        from eitr_plugin_install import git as theme_git
+        from eitr_paths import cache
+        from PIL import Image
+        with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {
+                'XDG_CACHE_HOME': directory + '/cache', 'XDG_STATE_HOME': directory + '/state'}):
+            root = Path(directory) / 'repository'
+            package = root / 'themes/alpha'
+            package.mkdir(parents=True)
+            (package / 'backgrounds').mkdir()
+            (package / 'colors.toml').write_text((BAR.parents[1] / 'themes/eitr/colors.toml').read_text())
+            (package / 'display-name').write_text('Alpha')
+            (package / 'eitr-theme.json').write_text(json.dumps(dict(schemaVersion=1, id='alpha', name='Alpha', description='Fixture', version='1', light=False)))
+            Image.new('RGB', (160, 90), 'green').save(package / 'preview.png')
+            Image.new('RGB', (1920, 1080), 'red').save(package / 'backgrounds/wall.jpg')
+            subprocess.run([sys.executable, str(BAR.parents[1] / 'tools/theme-catalog-index.py'), str(root)], check=True)
+            for arguments in (['init', '-q'], ['config', 'uploadpack.allowFilter', 'true'], ['add', '.'],
+                              ['-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-qm', 'fixture']):
+                subprocess.run(['git', '-C', str(root), *arguments], check=True)
+            backend = Themes(allow_file=True)
+            url = root.as_uri()
+            index = backend.index(url)
+            target = cache('eitr/catalog-previews/index.json')
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(json.dumps(index))
+            row = index['themes'][0]
+            for asset in (row['preview'], row['wallpapers'][0]['thumbnail'], row['wallpapers'][0]['path']):
+                with patch.object(DOMAIN, 'THEMES', url), patch('eitr_plugin_install.git', wraps=theme_git) as reads:
+                    result = DOMAIN.artwork_preview('themes', 'alpha', backend, asset)
+                    self.assertTrue(Path(result['image'].removeprefix('file://')).is_file())
+                    blobs = [call for call in reads.call_args_list if call.args[1:3] == ('cat-file', 'blob')]
+                    self.assertEqual(len(blobs), 1)
+                    DOMAIN.artwork_preview('themes', 'alpha', backend, asset)
+                    self.assertEqual(len([call for call in reads.call_args_list if call.args[1:3] == ('cat-file', 'blob')]), 1)
+            with patch.object(DOMAIN, 'THEMES', url), patch('eitr_plugin_install.git', wraps=theme_git) as reads:
+                for asset in ('themes/alpha/colors.toml', 'themes/beta/preview.png', '../preview.png'):
+                    with self.assertRaises(ValueError):
+                        DOMAIN.artwork_preview('themes', 'alpha', backend, asset)
+                self.assertFalse(reads.called)
+            wallpaper_blob = theme_git(root, 'rev-parse', index['commit'] + ':themes/alpha/backgrounds/wall.jpg')
+            # Use a separate sparse cache so earlier artwork requests cannot hide eager downloads.
+            isolated = Themes(allow_file=True)
+            isolated.cache = Path(directory) / 'community-repositories'
+            community_index = {'themes': [dict(id='alpha', repository=url, folder='themes/alpha', maintainer='Fixture', license='MIT', description='Fixture')]}
+            cache('eitr/community-index.json').write_text(json.dumps(community_index))
+            with patch('eitr_community.validate_index', side_effect=lambda value: value), patch('eitr_plugin_install.git', wraps=theme_git) as reads:
+                detail = DOMAIN.community_detail('alpha', isolated)['item']
+                self.assertEqual(detail['wallpapers'], [dict(path='themes/alpha/backgrounds/wall.jpg', size=None)])
+                self.assertEqual(detail['preview'], 'themes/alpha/preview.png')
+                community_repository = next(asset for asset in isolated.cache.iterdir() if asset.is_dir())
+                missing = theme_git(community_repository, 'rev-list', '--objects', '--missing=print', detail['commit'])
+                self.assertIn('?' + wallpaper_blob, missing)
+                self.assertEqual(detail['name'], 'Alpha')
+                self.assertFalse(detail['light'])
+                self.assertEqual(len(detail['palette']), 19)
+                blobs = [call for call in reads.call_args_list if call.args[1:3] == ('cat-file', 'blob')]
+                self.assertEqual(len(blobs), 2)
+                self.assertEqual({call.args[3] for call in blobs}, {
+                    theme_git(root, 'rev-parse', index['commit'] + ':themes/alpha/' + filename)
+                    for filename in ('eitr-theme.json', 'colors.toml')})
+                DOMAIN.artwork_preview('themes', 'alpha', isolated, detail['wallpapers'][0]['path'], 'community')
+                with self.assertRaisesRegex(ValueError, 'not listed'):
+                    DOMAIN.artwork_preview('themes', 'alpha', isolated, 'themes/alpha/colors.toml', 'community')
+            # Size checks reject before reading the blob, for each artwork class.
+            for asset in (row['preview'], row['wallpapers'][0]['thumbnail'], row['wallpapers'][0]['path']):
+                for cached in target.parent.glob('*'):
+                    if cached.suffix != '.json': cached.unlink()
+                def oversized(repository, *arguments, **options):
+                    if arguments[:2] == ('cat-file', '-s'): return str(17 * 1024 * 1024)
+                    return theme_git(repository, *arguments, **options)
+                with patch.object(DOMAIN, 'THEMES', url), patch('eitr_plugin_install.git', side_effect=oversized) as reads:
+                    with self.assertRaisesRegex(ValueError, 'size limit'):
+                        DOMAIN.artwork_preview('themes', 'alpha', backend, asset)
+                    self.assertFalse(any(call.args[1:3] == ('cat-file', 'blob') for call in reads.call_args_list))
 
     def test_plugin_catalog_reads_only_metadata(self):
         from eitr_plugin_install import PluginInstall

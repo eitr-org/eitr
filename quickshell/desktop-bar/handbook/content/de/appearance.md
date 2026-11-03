@@ -21,14 +21,31 @@ und Hell filtern die Galerie. Installiert wird beim Öffnen und nach Aktionen ak
 erneut an, um den Desktop zu erneuern. Entfernen fragt im Fenster nach und verweigert
 das aktive Theme: wende zuerst ein anderes an. Integrierte und eigene Themes bleiben erhalten.
 
-Weitere entdecken zeigt das offizielle Repository `eitr-org/eitr-themes`. Wähle mehrere
-Themes durch Klick auf ihre Vorschaubilder. Die untere Installationsleiste öffnet
-die Prüfung mit Vorschauen, Quelle und Gesamtgröße; Leeren hebt die Auswahl auf.
-Pfeiltasten bewegen die Auswahl, die Leertaste wählt Downloads aus. Enter wendet ein
-installiertes Theme an oder öffnet bei ausgewählten Downloads die Prüfung. Enter
-oder Installieren bestätigt sie; Escape schließt zuerst die Prüfung, dann das Fenster. Downloads, Fortschritt und Fehler bleiben im Fenster. Vorschaubilder
-werden nur für sichtbare Karten geladen und im Benutzer-Cache gespeichert. Ist das
-Repository nicht erreichbar, lädt Erneut versuchen es neu; Installiert funktioniert offline.
+Offiziell vereint integrierte Themes und das Repository `eitr-org/eitr-themes`;
+Community zeigt Themes aus der Community. Ein Klick auf eine Karte dieser Tabs
+öffnet Details: Vorschau, Beschreibung, Palette (Hexwerte beim Überfahren), Quelle,
+Größe, Betreuung und Lizenz. Hintergrundbilder erscheinen als Miniaturen;
+Community-Bilder als Namenskarten mit Größenangabe. Ein Klick vergrößert das Bild,
+Zurück/Weiter blättert und die Rücktaste im Fenster führt zur Übersicht.
+Escape, die Schließen-Schaltfläche oder ein Klick außerhalb schließt die Details
+und gibt den Fokus an die Karte zurück. Vollständige entfernte Bilder werden erst
+beim Öffnen geladen, installierte Bilder lokal gelesen.
+
+Installieren auf der Karte schaltet die Auswahl um und zeigt Ausgewählt mit Haken.
+Installierte Karten zeigen Installiert und gegebenenfalls Aktuell. Wähle mehrere
+Themes und öffne mit Installieren in der unteren Leiste die Prüfung mit Vorschauen,
+Quellen und Gesamtgröße; Leeren hebt die Auswahl auf. Pfeiltasten navigieren,
+Leertaste schaltet die Auswahl um, Enter öffnet Details in Offiziell oder Community.
+Mit Tab zu Installieren in der unteren Leiste und Enter öffnet sich die Prüfung.
+In Installiert wendet Enter weiterhin ein Theme an; eine offene Prüfung wird
+bestätigt. Installieren in den Details prüft nur dieses Theme; danach erscheint
+Anwenden oder Aktuell. Escape schließt zuerst die Prüfung, dann Details oder Fenster.
+Downloads, Fortschritt und Fehler bleiben im Fenster. Sichtbare Vorschauen und
+geöffnete Galerien nutzen den Benutzer-Cache. Bei nicht erreichbarem Repository
+lädt Erneut versuchen neu; Installiert bleibt offline verfügbar.
+
+Nicht zwischengespeicherte Community-Bilder zeigen bis zum Öffnen Größe unbekannt:
+Git würde für die Größenabfrage die gesamte Datei laden. Bekannte Größen werden angezeigt.
 
 Die Plugin-Seite zeigt installierte Plugins und das offizielle Repository
 `eitr-org/eitr-plugins` als Bildkarten mit Screenshot, zentriertem Symbol oder

@@ -27,14 +27,30 @@ finishes. There is no periodic network check. Update replaces a catalog theme. R
 active theme to refresh the desktop. Remove asks inside the window and refuses
 the active theme: apply another theme first. Built-in and Yours items stay here.
 
-Get more lists the official `eitr-org/eitr-themes` repository. Select several
-themes by clicking their previews, then open the bottom installation bar to
-review previews, source and total size. Clear removes the selection. Arrows move
-between cards, Space toggles a download selection and Enter applies an installed
-theme or opens the review when themes are selected. Enter or Install confirms
-the review; Escape cancels it before closing the window. Downloads, progress and errors stay in the window. Previews
-download only for visible cards and use the user cache. If a repository is
-unreachable, Retry loads it again; Installed remains available offline.
+Official combines built-in themes and the official `eitr-org/eitr-themes`
+repository. Community lists community themes. Click a card on either tab to open
+its details: preview, description, palette (hover for hex values), source, size,
+maintainer and license. Wallpapers appear as thumbnails; community wallpapers
+use name tiles with sizes. Click one to view it large, use Previous/Next to browse,
+and Back to return. Escape, the close button or clicking outside closes details
+and returns focus to the card. Full remote wallpapers download only when opened;
+installed artwork is read locally.
+
+A card's Install button toggles its download selection and shows Selected with a
+check. Installed cards show Installed and retain Current where appropriate.
+Select several themes, then use the bottom Install button to review their previews,
+sources and total size; Clear removes the selection. Arrows move between cards,
+Space toggles selection, and Enter opens details on Official or Community. Tab to
+the bottom Install button and press Enter to review the selection. Enter still
+applies a theme on Installed and confirms an open review. The detail sheet's
+Install reviews just that theme; after installation it offers Apply, or Current
+when active. Escape cancels a review before closing details or the window.
+Downloads, progress and errors stay in the window. Visible card previews and
+opened galleries use the user cache. If a repository is unreachable, Retry loads
+it again; Installed remains available offline.
+
+Uncached community wallpaper sizes show Size unavailable until opened: obtaining
+those sizes from Git would download the full files. Already cached sizes are shown.
 
 The Plugins page lists installed plugins and the official `eitr-org/eitr-plugins`
 repository as picture cards, using a screenshot, centered icon or generic glyph.

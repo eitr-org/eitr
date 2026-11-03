@@ -26,7 +26,7 @@ ASSET_FOLDERS = {'backgrounds', 'backgrounds-ultrawide', 'motion'}
 HYPRLAND_COLORS = r'(?:rgba\([0-9a-fA-F]{8}\)|rgb\([0-9a-fA-F]{6}\))(?: (?:rgba\([0-9a-fA-F]{8}\)|rgb\([0-9a-fA-F]{6}\)))*(?: [0-9]{1,3}deg)?'
 ASSET_EXTENSIONS = {'.jpg', '.png', '.json'}
 GENERATED = {'icons.theme', 'vscode.json', 'neovim.lua', 'btop.theme', 'dolphin.theme'}
-PALETTE_KEYS = ('background', 'foreground', 'accent', *(f'color{number}' for number in range(1, 7)))
+PALETTE_KEYS = ('background', 'foreground', 'accent', *(f'color{number}' for number in range(16)))
 
 def palette(root):
     colors = tomllib.loads((Path(root) / 'colors.toml').read_text())
@@ -165,9 +165,10 @@ def validate_index(rows):
         raise ValueError('Catalog must be a bounded list')
     ids, folders = set(), []
     for row in rows:
-        keys(row, ('id', 'name', 'description', 'light', 'folder', 'size', 'preview', *(['palette'] if 'palette' in row else [])))
+        keys(row, ('id', 'name', 'description', 'light', 'folder', 'size', 'preview', *(field for field in ('palette', 'wallpapers') if field in row)))
         if 'palette' in row:
-            keys(row['palette'], PALETTE_KEYS)
+            if not isinstance(row['palette'], dict) or set(row['palette']) not in (set(PALETTE_KEYS), {'background', 'foreground', 'accent', *(f'color{number}' for number in range(1, 7))}):
+                raise ValueError('Invalid catalog palette')
             if any(not isinstance(color, str) or not re.fullmatch(r'#[0-9a-fA-F]{6}', color) for color in row['palette'].values()):
                 raise ValueError('Invalid catalog palette')
         identifier(row['id'])
@@ -179,6 +180,19 @@ def validate_index(rows):
                 or preview != folder + '/preview.png' or type(row['light']) is not bool
                 or type(row['size']) is not int or not 0 < row['size'] <= MAX_BYTES):
             raise ValueError('Invalid or duplicate catalog entry')
+        if 'wallpapers' in row:
+            if not isinstance(row['wallpapers'], list) or len(row['wallpapers']) > MAX_FILES:
+                raise ValueError('Invalid catalog wallpapers')
+            seen = set()
+            for wallpaper in row['wallpapers']:
+                keys(wallpaper, ('path', 'thumbnail', 'size'))
+                asset = PurePosixPath(relative(wallpaper['path']))
+                thumbnail = relative(wallpaper['thumbnail'])
+                if (asset.parent.as_posix() != folder + '/backgrounds' or asset.suffix.lower() not in {'.png', '.jpg'}
+                        or thumbnail != f"thumbnails/{row['id']}/{asset.stem}.jpg" or thumbnail in seen
+                        or type(wallpaper['size']) is not int or not 0 < wallpaper['size'] <= MAX_BYTES):
+                    raise ValueError('Invalid catalog wallpaper')
+                seen.add(thumbnail)
         ids.add(row['id'])
         folders.append(folder)
     return sorted(rows, key=lambda row: row['id'])
@@ -342,6 +356,10 @@ class Themes:
                              light=(root / 'light.mode').exists(), kind=kind, source=source,
                              description=manifest(root)['description'] if (root / MANIFEST).is_file() else '',
                              palette=palette(root), hidden=theme_id in hidden,
+                             wallpapers=[dict(path=asset.name, imageUrl=asset.as_uri(), size=asset.stat().st_size)
+                                         for asset in sorted((root / 'backgrounds').glob('*'))
+                                         if asset.is_file() and not asset.is_symlink() and asset.suffix.lower() in {'.png', '.jpg'}],
+                             size=sum(asset.stat().st_size for asset in root.rglob('*') if asset.is_file() and not asset.is_symlink()),
                              previewUrl=(root / 'preview.png').as_uri(), current=theme_id == active_id or root.resolve() == active.resolve()))
         return rows
 

@@ -26,7 +26,7 @@ MUTATIONS = {'install', 'update', 'remove', 'apply', 'unhide'}
 
 
 def validate(name, args):
-    if name not in {'installed', 'index', 'preview', 'check', *MUTATIONS} or not isinstance(args, dict):
+    if name not in {'installed', 'index', 'preview', 'artwork', 'detail', 'check', *MUTATIONS} or not isinstance(args, dict):
         raise ValueError('invalid-request')
     if args.get('kind') not in {'themes', 'plugins'}:
         raise ValueError('invalid-kind')
@@ -34,10 +34,18 @@ def validate(name, args):
         raise ValueError('invalid-channel')
     if args['kind'] == 'plugins' and name in {'install', 'update', 'apply', 'unhide'}:
         raise ValueError(tr('Plugin installation and update review are not available yet'))
-    ids = args.get('ids', []) if name == 'install' else [args.get('id')] if name in {'update', 'remove', 'apply', 'unhide', 'preview'} else []
+    ids = args.get('ids', []) if name == 'install' else [args.get('id')] if name in {'update', 'remove', 'apply', 'unhide', 'preview', 'artwork', 'detail'} else []
     if not isinstance(ids, list) or (name == 'install' and not ids) or len(ids) > 1000 or any(
             not isinstance(theme_id, str) or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', theme_id) or len(theme_id) > 64 for theme_id in ids):
         raise ValueError('invalid-id')
+
+    if name == 'detail' and (args['kind'] != 'themes' or args.get('channel') != 'community'):
+        raise ValueError('invalid-detail-request')
+    if name == 'artwork' and args['kind'] != 'themes':
+        raise ValueError('invalid-artwork-request')
+    if name == 'artwork':
+        from eitr_theme_packages import relative
+        relative(args.get('path'))
 
 
 class CatalogDomain:
@@ -192,7 +200,75 @@ def installed_badges(rows, kind):
     return rows
 
 
-def artwork_preview(kind, item_id, backend):
+def community_detail(item_id, backend):
+    """Discover wallpaper names and sizes from trees without materializing images."""
+    import hashlib
+    from eitr_paths import cache
+    from eitr_community import validate_index
+    from eitr_plugin_install import git, normalized_url, repository_url
+    from eitr_theme_packages import relative, MAX_FILES, MAX_BYTES
+    index = validate_index(json.loads(cache('eitr/community-index.json').read_text()))
+    row = next(row for row in index['themes'] if row['id'] == item_id)
+    url = repository_url(row['repository'], allow_file=backend.allow_file)
+    repository = backend.cache / hashlib.sha256(normalized_url(url).encode()).hexdigest()
+    options = dict(allow_file=backend.allow_file)
+    with backend.lock():
+        if not repository.exists():
+            git(None, 'clone', '--template=', '--filter=blob:none', '--sparse', '--no-checkout',
+                '--no-recurse-submodules', '--', url, str(repository), **options)
+        git(repository, 'fetch', '--filter=blob:none', '--no-recurse-submodules', '--', url, 'HEAD', **options)
+        revision = git(repository, 'rev-parse', 'FETCH_HEAD', **options)
+        tree = git(repository, 'ls-tree', '-rlz', revision + ':' + row['folder'], lazy_fetch=False, **options)
+        records = [record.split('\t', 1) for record in tree.split('\0') if record]
+        if len(records) > MAX_FILES:
+            raise ValueError('Community package exceeds file limit')
+        wallpapers, size, preview = [], 0, None
+        size_known = True
+        for header, filename in records:
+            mode, object_kind, blob, length = header.split()
+            relative(filename)
+            if mode != '100644' or object_kind != 'blob':
+                raise ValueError('Artwork must be a regular file')
+            length = int(length) if length != 'BAD' else None
+            size_known = size_known and length is not None
+            size += length or 0
+            if filename == 'preview.png':
+                preview = row['folder'] + '/' + filename
+            asset = Path(filename)
+            if asset.parent.as_posix() == 'backgrounds' and asset.suffix.lower() in {'.jpg', '.png'}:
+                wallpapers.append(dict(path=row['folder'] + '/' + filename, size=length))
+        if size > MAX_BYTES:
+            raise ValueError('Community package exceeds size limit')
+        result = dict(row, commit=revision, wallpapers=wallpapers, size=size if size_known else None)
+        # Read bounded data metadata for the overview; gallery discovery above
+        # never requests a wallpaper or thumbnail blob.
+        from eitr_theme_packages import manifest, palette, MANIFEST, PALETTE_KEYS
+        entries = {filename: header.split() for header, filename in records}
+        with tempfile.TemporaryDirectory(prefix='eitr-theme-detail-') as directory:
+            metadata = Path(directory)
+            for filename in (MANIFEST, 'colors.toml'):
+                entry = entries.get(filename)
+                if entry is None or int(git(repository, 'cat-file', '-s', entry[2], **options)) > 64 * 1024:
+                    raise ValueError('Missing or oversized theme metadata')
+                payload = git(repository, 'cat-file', 'blob', entry[2], binary=True, **options)
+                if len(payload) > 64 * 1024:
+                    raise ValueError('Theme metadata exceeds size limit')
+                (metadata / filename).write_bytes(payload)
+            spec = manifest(metadata)
+            colors = palette(metadata)
+            if spec['id'] != item_id or set(colors) != set(PALETTE_KEYS) or any(
+                    not isinstance(color, str) or not re.fullmatch(r'#[0-9a-fA-F]{6}', color) for color in colors.values()):
+                raise ValueError('Invalid theme overview metadata')
+            result.update(name=spec['name'], light=spec['light'], palette=colors)
+        if preview:
+            result['preview'] = preview
+        target = cache('eitr/catalog-previews/community-' + item_id + '.json')
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(json.dumps(result))
+        return {'item': result}
+
+
+def artwork_preview(kind, item_id, backend, requested=None, channel="official"):
     """Materialize one regular Git blob, validate it, then publish atomically."""
     import hashlib
     import io
@@ -208,6 +284,15 @@ def artwork_preview(kind, item_id, backend):
             row = next(row for row in rows if row['id'] == item_id)
             revision = row['commit']
             repository = cache('eitr/plugin-repositories') / hashlib.sha256(normalized_url(PLUGINS).encode()).hexdigest()
+        elif channel == 'community':
+            from eitr_community import validate_index
+            index = validate_index(json.loads(cache('eitr/community-index.json').read_text()))
+            source = next(row for row in index['themes'] if row['id'] == item_id)
+            row = json.loads(cache('eitr/catalog-previews/community-' + item_id + '.json').read_text())
+            if any(source[field] != row[field] for field in source):
+                raise ValueError('Community metadata changed; reopen details')
+            revision = row['commit']
+            repository = backend.cache / hashlib.sha256(normalized_url(source['repository']).encode()).hexdigest()
         else:
             from eitr_theme_packages import validate_index
             index = json.loads(cache('eitr/catalog-previews/index.json').read_text())
@@ -217,7 +302,15 @@ def artwork_preview(kind, item_id, backend):
         if not isinstance(revision, str) or not COMMIT.fullmatch(revision):
             raise ValueError('Invalid catalog revision')
         screenshot = bool(row.get('preview'))
-        relative = row.get('preview') or (row.get('icon') if plugin else '')
+        default = row.get('preview') or (row.get('icon') if plugin else '')
+        allowed = {default: 512 * 1024 if plugin and not screenshot else 2 * 1024 * 1024} if default else {}
+        for wallpaper in row.get('wallpapers', []):
+            allowed[wallpaper['path']] = 16 * 1024 * 1024
+            if wallpaper.get('thumbnail'):
+                allowed[wallpaper['thumbnail']] = 128 * 1024
+        relative = default if requested is None else requested
+        if requested is not None and requested not in allowed:
+            raise ValueError('Artwork path is not listed by this theme')
         if not relative:
             return {'image': ''}
         path = PurePosixPath(relative)
@@ -230,7 +323,7 @@ def artwork_preview(kind, item_id, backend):
             if not entry.startswith('100644 blob '):
                 raise ValueError('Artwork must be a regular file')
             blob = git(repository, 'rev-parse', revision + ':' + relative, **options)
-            limit = 512 * 1024 if plugin and not screenshot else 2 * 1024 * 1024
+            limit = allowed[relative]
             if int(git(repository, 'cat-file', '-s', blob, **options)) > limit:
                 raise ValueError('Artwork exceeds size limit')
             payload = git(repository, 'cat-file', 'blob', blob, binary=True, **options)
@@ -244,11 +337,14 @@ def artwork_preview(kind, item_id, backend):
                     image_asset(Path(directory), temporary.name, preview=screenshot)
                 else:
                     with Image.open(io.BytesIO(payload)) as image:
-                        if image.format != 'PNG' or max(image.size) > 2048:
-                            raise ValueError('Invalid preview')
+                        maximum = 2048 if relative == default else 16384
+                        if (image.format not in {'PNG', 'JPEG'} or max(image.size) > maximum
+                                or image.width * image.height > 64 * 1024 * 1024
+                                or relative == default and image.format != 'PNG'):
+                            raise ValueError('Invalid artwork')
                         image.verify()
                 temporary.replace(target)
-        return {'image': target.as_uri()}
+        return {'image': target.as_uri(), 'size': target.stat().st_size}
 
 
 def worker(name, args):
@@ -272,8 +368,10 @@ def worker(name, args):
                 json.dump(result, handle)
             temporary.replace(target)
             return {'items': result['themes']}
-        if name == 'preview':
-            return artwork_preview(kind, args['id'], backend)
+        if name == 'detail' and args.get('channel') == 'community':
+            return community_detail(args['id'], backend)
+        if name in {'preview', 'artwork'}:
+            return artwork_preview(kind, args['id'], backend, args.get('path'), args.get('channel', 'official'))
         if name == 'install':
             return {'result': backend.install(THEMES, args['ids'])}
         if name == 'check':

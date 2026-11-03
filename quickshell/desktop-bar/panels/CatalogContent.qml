@@ -31,6 +31,63 @@ Item {
     property bool busy: false
     property bool loading: false
     property bool reviewing: false
+    property var detail: null
+    property int detailGeneration: 0
+    property int wallpaperIndex: -1
+    property var artwork: ({})
+    property var artworkRequests: ({})
+    property string detailError: ""
+    readonly property var detailItem: detail ? Object.assign({}, detail, installed.find(item => item.id === detail.id) || {}) : ({})
+    readonly property var wallpapers: detailItem.wallpapers || []
+    function closeDetail() { detailGeneration++; detail = null; wallpaperIndex = -1; forceActiveFocus(); }
+    function artworkKey(path) { return tab + ":" + detailItem.id + ":" + path; }
+    function artworkFor(asset, thumbnail) {
+        if (asset.imageUrl) return asset.imageUrl;
+        const path = thumbnail ? asset.thumbnail : asset.path;
+        return path ? artwork[artworkKey(path)] || "" : "";
+    }
+    function fetchArtwork(asset, thumbnail) {
+        const path = thumbnail ? asset.thumbnail : asset.path;
+        if (!path || asset.imageUrl || !detail || !live) return;
+        const key = artworkKey(path), id = detail.id, serial = detailGeneration;
+        if (artwork[key] || artworkRequests[key]) return;
+        artworkRequests = Object.assign({}, artworkRequests, {[key]: true});
+        request("artwork", {id: id, path: path}, function(failure, data) {
+            if (!failure) {
+                artwork = Object.assign({}, artwork, {[key]: data.image});
+                if (!thumbnail && data.size && detail && detailGeneration === serial)
+                    detail = Object.assign({}, detail, {wallpapers: wallpapers.map(wallpaper => wallpaper.path === path ? Object.assign({}, wallpaper, {size: data.size}) : wallpaper)});
+            }
+            else { artworkRequests = Object.assign({}, artworkRequests, {[key]: false}); if (detail && detail.id === id) detailError = failure; }
+        });
+    }
+    function showWallpaper(index) {
+        wallpaperIndex = index; detailError = ""; detailScroll.contentY = 0;
+        if (index >= 0 && index < wallpapers.length) fetchArtwork(wallpapers[index], false);
+    }
+    function openDetail(item) {
+        const serial = ++detailGeneration;
+        detail = item; wallpaperIndex = -1; detailError = ""; detailScroll.contentY = 0;
+        if (tab === "community" && !isInstalled(item) && live) {
+            request("detail", {id: item.id}, function(failure, data) {
+                if (!detail || detailGeneration !== serial) return;
+                detailError = failure;
+                if (!failure) {
+                    detail = Object.assign({}, item, data.item);
+                    if (data.item.preview) {
+                        const key = previewKey(item);
+                        request("artwork", {id: item.id, path: data.item.preview}, function(problem, artworkData) {
+                            if (!problem) previews = Object.assign({}, previews, {[key]: artworkData.image});
+                        });
+                    }
+                }
+            });
+        }
+        for (const asset of wallpapers) fetchArtwork(asset, true);
+        sidebarFocus = false; forceActiveFocus();
+    }
+    property var reviewIds: null
+    function reviewDetail() { reviewIds = [detail.id]; reviewing = true; forceActiveFocus(); }
     property var removing: null
     property int generation: 0
     property var transport: function(name, args, callback, owner) { return DesktopData.queryCatalog(name, args, owner || catalog, callback); }
@@ -76,7 +133,8 @@ Item {
     function activate(item, local) {
         if (item.hidden) return;
         if (busy) return;
-        if (local && kind === "themes" && !item.current) act("apply", {id: item.id});
+        if (getMore && kind === "themes") openDetail(item);
+        else if (local && kind === "themes" && !item.current) act("apply", {id: item.id});
         else if (!local && kind === "plugins") progress = pluginNote;
         else if (!local) toggle(item);
         sidebarFocus = false; forceActiveFocus();
@@ -84,8 +142,8 @@ Item {
     readonly property string pluginNote: Eitr.I18n.tr("Installing plugins from the catalog is coming soon; use Walker > Plugins for now")
     function previewKey(item) { return kind + ":" + (tab === "community" ? "community" : "official") + ":" + item.id; }
     function imageFor(item) { return item.previewUrl || (kind === "plugins" && isInstalled(item) ? item.preview || item.icon : "") || previews[previewKey(item)] || previews[item.id] || ""; }
-    readonly property var chosen: more.filter(item => selected.includes(item.id))
-    readonly property real totalSize: chosen.reduce((total, item) => total + (item.size || 0), 0)
+    readonly property var chosen: more.filter(item => (reviewIds || selected).includes(item.id)).map(item => reviewIds && detail && detail.id === item.id ? Object.assign({}, item, detail) : item)
+    readonly property real totalSize: chosen.some(item => !item.size) ? 0 : chosen.reduce((total, item) => total + item.size, 0)
     function sizeText(bytes) { if (!bytes) return Eitr.I18n.tr("Size unavailable"); return bytes < 1048576 ? Math.ceil(bytes / 1024) + " KiB" : (bytes / 1048576).toFixed(1) + " MiB"; }
     function badge(item) {
         return ({builtin: Eitr.I18n.tr("Built in"), official: Eitr.I18n.tr("Official"), community: Eitr.I18n.tr("Community"), "third-party": Eitr.I18n.tr("Third-party"), own: Eitr.I18n.tr("Yours")})[item.kind] || Eitr.I18n.tr("Official");
@@ -122,13 +180,13 @@ Item {
     function load() {
         generation++;
         store = ({}); installed = []; availableItems = []; selected = []; updates = updateCache[kind] || ({}); previews = ({}); previewRequests = ({});
-        indexLoaded = false; reviewing = false; removing = null; busy = false; error = ""; repositoryError = ""; installedError = ""; progress = "";
+        detail = null; reviewIds = null; artwork = ({}); artworkRequests = ({}); indexLoaded = false; reviewing = false; removing = null; busy = false; error = ""; repositoryError = ""; installedError = ""; progress = "";
         if (!live || !opened) return;
         for (const catalogKind of [kind, kind === "themes" ? "plugins" : "themes"])
             for (const source of sources) fetch(catalogKind, source);
     }
     function switchView() {
-        cursor = -1; scroll.contentY = 0; shown = pageSize; selected = []; error = ""; progress = "";
+        detail = null; cursor = -1; scroll.contentY = 0; shown = pageSize; selected = []; error = ""; progress = "";
         updates = updateCache[kind] || ({});
         if (live && opened) sync();
     }
@@ -148,7 +206,7 @@ Item {
         progress = Eitr.I18n.tr("Applying changes…");
         request(name, args, function(failure, data) {
             busy = false; progress = ""; error = failure;
-            if (!failure) { selected = []; reviewing = false; removing = null; }
+            if (!failure) { selected = []; reviewing = false; reviewIds = null; removing = null; }
             refreshInstalled();
         });
     }
@@ -156,13 +214,14 @@ Item {
     function preview(item) {
         const key = previewKey(item);
         if (!live || !opened || previews[key] || previewRequests[key]) return;
+        if (kind === "themes" && tab === "community") return;
         if (kind === "plugins" && !item.preview && !item.icon) return;
         previewRequests = Object.assign({}, previewRequests, {[key]: true});
-        request("preview", {id: item.id}, function(failure, data) {
+        request(kind === "themes" ? "artwork" : "preview", kind === "themes" ? {id: item.id, path: item.preview} : {id: item.id}, function(failure, data) {
             if (!failure) previews = Object.assign({}, previews, {[key]: data.image});
         });
     }
-    function cancelSheet() { if (!busy) { reviewing = false; removing = null; } }
+    function cancelSheet() { if (!busy) { reviewing = false; reviewIds = null; removing = null; forceActiveFocus(); } }
     function confirm() {
         if (busy) return;
         if (reviewing) act("install", {ids: chosen.map(item => item.id)});
@@ -178,14 +237,14 @@ Item {
     }
     Component.onDestruction: { DesktopData.releaseOwner(catalog); DesktopData.releaseOwner(updateOwner); }
     focus: opened
-    Keys.priority: Keys.BeforeItem
+    Keys.priority: Keys.AfterItem
     Keys.onPressed: event => {
         if (event.key === Qt.Key_Escape) {
-            if (reviewing || removing) cancelSheet(); else closeRequested();
+            if (reviewing || removing) cancelSheet(); else if (detail) closeDetail(); else closeRequested();
             event.accepted = true;
         } else if ((event.key === Qt.Key_Return || event.key === Qt.Key_Enter) && (reviewing || removing)) {
             confirm(); event.accepted = true;
-        } else if (!reviewing && !removing && !busy) {
+        } else if (!reviewing && !removing && !detail && !busy) {
             if (sidebarFocus) {
                 if (event.key === Qt.Key_Up || event.key === Qt.Key_Down) {
                     navigate(Math.max(0, Math.min(1, navigationIndex + (event.key === Qt.Key_Down ? 1 : -1))));
@@ -207,8 +266,7 @@ Item {
             if (delta && count) { cursor = Math.max(0, Math.min(count - 1, cursor < 0 ? 0 : cursor + delta)); event.accepted = true; }
             else if (event.key === Qt.Key_Space && getMore && cursor >= 0 && cursor < count) { toggle(navigable[cursor]); event.accepted = true; }
             else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                if (chosen.length) reviewing = true;
-                else if (cursor >= 0 && cursor < count) activate(navigable[cursor], isInstalled(navigable[cursor]));
+                if (cursor >= 0 && cursor < count) activate(navigable[cursor], isInstalled(navigable[cursor]));
                 event.accepted = true;
             }
         }
@@ -295,8 +353,7 @@ Item {
         required property bool local
         readonly property bool picked: catalog.getMore && !local && catalog.selected.includes(item.id)
         readonly property bool focused: catalog.cursor >= 0 && !!catalog.navigable[catalog.cursor] && catalog.navigable[catalog.cursor].id === item.id
-        // Installed plugins, the current theme and hidden themes have no click action.
-        readonly property bool actionable: !item.hidden && !(local && (catalog.kind === "plugins" || item.current))
+        readonly property bool actionable: !item.hidden && (catalog.getMore && catalog.kind === "themes" || !(local && (catalog.kind === "plugins" || item.current)))
         readonly property real viewportY: parent.parent.y + parent.y + y - scroll.contentY
         readonly property bool inViewport: viewportY + height > 0 && viewportY < scroll.height
         implicitHeight: details.y + details.height + 12
@@ -333,7 +390,7 @@ Item {
             }
             Flow { width: parent.width; spacing: 6
                 Pill { text: catalog.badge(tile.item) }
-                Pill { visible: catalog.kind === "plugins" && tile.local && catalog.getMore; text: Eitr.I18n.tr("Installed") }
+                Pill { visible: tile.local && catalog.getMore; text: Eitr.I18n.tr("Installed") }
                 Pill { visible: catalog.kind === "plugins" && tile.item.enabled === false; text: Eitr.I18n.tr("Disabled") }
                 Pill { visible: !!tile.item.hidden; text: Eitr.I18n.tr("Hidden") }
                 Pill { visible: !!tile.item.current; current: true; text: Eitr.I18n.tr("Current") }
@@ -341,7 +398,15 @@ Item {
             Item {
                 width: parent.width
                 height: 32
-                visible: !!tile.item.hidden || (catalog.updates[tile.item.id] || 0) > 0
+                visible: catalog.getMore && catalog.kind === "themes" && !tile.local || !!tile.item.hidden || (catalog.updates[tile.item.id] || 0) > 0
+                SiteButton {
+                    objectName: "install-" + tile.item.id
+                    anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter
+                    width: 110; visible: catalog.getMore && catalog.kind === "themes" && !tile.local
+                    text: tile.picked ? "\uF00C " + Eitr.I18n.tr("Selected") : Eitr.I18n.tr("Install")
+                    selected: tile.picked; available: !catalog.busy
+                    onClicked: { catalog.toggle(tile.item); catalog.cursor = catalog.navigable.findIndex(item => item.id === tile.item.id); catalog.sidebarFocus = false; catalog.forceActiveFocus(); }
+                }
                 SiteButton {
                     anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter
                     width: 86; foreground: catalog.foreground
@@ -356,7 +421,7 @@ Item {
                 }
             }
         }
-        MouseArea { id: cardMouse; anchors.fill: parent; hoverEnabled: true; enabled: tile.actionable && !catalog.busy && !catalog.reviewing && !catalog.removing
+        MouseArea { id: cardMouse; anchors.fill: parent; hoverEnabled: true; enabled: tile.actionable && !catalog.busy && !catalog.reviewing && !catalog.removing && !catalog.detail
             cursorShape: Qt.PointingHandCursor
             onClicked: { catalog.cursor = catalog.navigable.findIndex(theme => theme.id === tile.item.id); catalog.activate(tile.item, tile.local); }
         }
@@ -380,7 +445,7 @@ Item {
     Item {
         id: sidebar
         width: catalog.sidebarWidth; height: parent.height
-        enabled: !catalog.reviewing && !catalog.removing
+        enabled: !catalog.reviewing && !catalog.removing && !catalog.detail
         Rectangle { anchors.right: parent.right; width: 1; height: parent.height; color: SiteStyle.line }
         Label {
             id: windowTitle
@@ -411,7 +476,7 @@ Item {
         }
     }
 
-    SiteButton { z: 1; anchors.right: parent.right; anchors.top: parent.top; anchors.topMargin: 5; anchors.rightMargin: 8; width: 34; height: 34; text: "󰅖"; icon: true; foreground: catalog.foreground; Accessible.name: Eitr.I18n.tr("Close catalog"); onClicked: catalog.closeRequested() }
+    SiteButton { z: 1; enabled: !catalog.detail && !catalog.reviewing && !catalog.removing; anchors.right: parent.right; anchors.top: parent.top; anchors.topMargin: 5; anchors.rightMargin: 8; width: 34; height: 34; text: "󰅖"; icon: true; foreground: catalog.foreground; Accessible.name: Eitr.I18n.tr("Close catalog"); onClicked: catalog.closeRequested() }
     // Source tabs like browser tabs: the strip is tinted and the selected tab
     // is cut out of it, joining the page below with curved feet.
     Item {
@@ -488,7 +553,7 @@ Item {
                 MouseArea {
                     id: tabMouse
                     anchors.fill: parent
-                    hoverEnabled: true; enabled: !catalog.busy && !catalog.reviewing && !catalog.removing
+                    hoverEnabled: true; enabled: !catalog.busy && !catalog.reviewing && !catalog.removing && !catalog.detail
                     cursorShape: Qt.PointingHandCursor
                     Accessible.role: Accessible.PageTab; Accessible.name: sourceTab.label
                     onContainsMouseChanged: if (containsMouse) sourceTabs.hoveredIndex = sourceTab.index; else if (sourceTabs.hoveredIndex === sourceTab.index) sourceTabs.hoveredIndex = -1
@@ -499,7 +564,7 @@ Item {
     }
     Column {
         id: contentLayout
-        enabled: !catalog.reviewing && !catalog.removing
+        enabled: !catalog.reviewing && !catalog.removing && !catalog.detail
         x: catalog.sidebarWidth + PanelStyle.padding; y: sourceTabs.height + 14
         width: catalog.width - x - PanelStyle.padding; spacing: 12
         Item {
@@ -532,6 +597,7 @@ Item {
         Label { width: parent.width; visible: text !== ""; text: (!catalog.reviewing && !catalog.removing ? catalog.error || catalog.progress : "") || (catalog.loading ? Eitr.I18n.tr("Loading…") : ""); Accessible.role: Accessible.AlertMessage }
         Flickable {
             id: scroll
+            objectName: "catalog-scroll"
             width: parent.width; height: Math.max(1, catalog.height - contentLayout.y - y - PanelStyle.padding - (selectionBar.visible ? selectionBar.height + 12 : 0))
             contentWidth: width; contentHeight: sections.height; clip: true; boundsBehavior: Flickable.StopAtBounds
             function more() { if (contentY + height > contentHeight - 600 && catalog.shown < catalog.navigable.length) catalog.shown += catalog.pageSize; }
@@ -570,12 +636,116 @@ Item {
         Rectangle {
             id: selectionBar; visible: catalog.getMore && catalog.chosen.length > 0 && catalog.kind === "themes"; width: parent.width; height: 48
             radius: 3; color: SiteStyle.raised
-            SiteButton { x: 8; anchors.verticalCenter: parent.verticalCenter; width: parent.width - 108; primary: true; textAlignment: Text.AlignLeft; flat: true; text: catalog.chosen.length === 1 ? Eitr.I18n.tr("Install 1 theme · %1").arg(catalog.sizeText(catalog.totalSize)) : Eitr.I18n.tr("Install %1 themes · %2").arg(catalog.chosen.length).arg(catalog.sizeText(catalog.totalSize)); foreground: catalog.foreground; onClicked: { catalog.reviewing = true; catalog.forceActiveFocus(); } }
+            SiteButton { objectName: "review-selection"; x: 8; anchors.verticalCenter: parent.verticalCenter; width: parent.width - 108; primary: true; textAlignment: Text.AlignLeft; flat: true; text: catalog.chosen.length === 1 ? Eitr.I18n.tr("Install 1 theme · %1").arg(catalog.sizeText(catalog.totalSize)) : Eitr.I18n.tr("Install %1 themes · %2").arg(catalog.chosen.length).arg(catalog.sizeText(catalog.totalSize)); foreground: catalog.foreground; onClicked: { catalog.reviewing = true; catalog.forceActiveFocus(); } }
             SiteButton { anchors.right: parent.right; anchors.rightMargin: 8; anchors.verticalCenter: parent.verticalCenter; width: 80; flat: true; text: Eitr.I18n.tr("Clear"); foreground: catalog.foreground; onClicked: catalog.selected = [] }
         }
     }
     Rectangle {
-        anchors.fill: parent; visible: catalog.reviewing || catalog.removing !== null
+        id: detailSheet
+        enabled: !catalog.reviewing && !catalog.removing
+        z: 2
+        objectName: "theme-detail"
+        anchors.fill: parent; visible: catalog.detail !== null
+        color: Qt.alpha(SiteStyle.night, 0.90); radius: 4
+        MouseArea { anchors.fill: parent; onClicked: catalog.closeDetail() }
+        Rectangle {
+            anchors.centerIn: parent; width: parent.width - (catalog.compact ? 32 : 100); height: parent.height - 40
+            color: SiteStyle.surface; radius: 4; border.width: 1; border.color: SiteStyle.line
+            MouseArea { anchors.fill: parent }
+            Flickable {
+                id: detailScroll
+                objectName: "detail-scroll"
+                anchors.fill: parent; anchors.margins: 22; anchors.topMargin: 52; anchors.bottomMargin: 70
+                contentWidth: width; contentHeight: detailColumn.height; clip: true
+                boundsBehavior: Flickable.StopAtBounds; ScrollBar.vertical: ScrollBar {}
+                Column {
+                    id: detailColumn
+                    width: parent.width - 12; spacing: 16
+                    Image {
+                        width: parent.width; height: source.toString() ? Math.min(catalog.wallpaperIndex >= 0 ? 480 : 260, width * 9 / 16) : 0
+                        source: catalog.wallpaperIndex >= 0 && catalog.wallpaperIndex < catalog.wallpapers.length ? catalog.artworkFor(catalog.wallpapers[catalog.wallpaperIndex], false) : catalog.imageFor(catalog.detailItem)
+                        sourceSize: Qt.size(1200, 700); fillMode: Image.PreserveAspectFit; asynchronous: true
+                    }
+                    Row {
+                        visible: catalog.wallpaperIndex >= 0; spacing: 10
+                        SiteButton { objectName: "wallpaper-back"; width: 100; text: Eitr.I18n.tr("Back"); onClicked: catalog.wallpaperIndex = -1 }
+                        SiteButton { width: 100; text: Eitr.I18n.tr("Previous"); available: catalog.wallpaperIndex > 0; onClicked: catalog.showWallpaper(catalog.wallpaperIndex - 1) }
+                        SiteButton { width: 100; text: Eitr.I18n.tr("Next"); available: catalog.wallpaperIndex < catalog.wallpapers.length - 1; onClicked: catalog.showWallpaper(catalog.wallpaperIndex + 1) }
+                    }
+                    Label { visible: catalog.wallpaperIndex >= 0; width: parent.width; text: catalog.wallpaperIndex >= 0 && catalog.wallpaperIndex < catalog.wallpapers.length ? catalog.wallpapers[catalog.wallpaperIndex].path.split("/").pop() : ""; color: SiteStyle.muted }
+                    Column {
+                        width: parent.width; spacing: 16; visible: catalog.wallpaperIndex < 0
+                    Label { width: parent.width; text: catalog.detailItem.name || ""; font.family: SiteStyle.carved; font.pixelSize: 24; font.letterSpacing: 1 }
+                    Label { width: parent.width; text: catalog.detailItem.description || ""; color: SiteStyle.muted }
+                    Flow {
+                        width: parent.width; spacing: 8
+                        Repeater {
+                            model: Object.keys(catalog.detailItem.palette || {})
+                            Rectangle {
+                                id: swatch
+                                required property string modelData
+                                width: 24; height: 24; radius: 12; color: catalog.detailItem.palette[modelData]
+                                border.width: 1; border.color: SiteStyle.lineStrong
+                                MouseArea { id: swatchMouse; anchors.fill: parent; hoverEnabled: true; acceptedButtons: Qt.NoButton }
+                                BarTooltip { target: swatch; hovered: swatchMouse.containsMouse; text: swatch.modelData + " " + catalog.detailItem.palette[swatch.modelData]; foreground: SiteStyle.fg; background: SiteStyle.raised }
+                            }
+                        }
+                    }
+                    Flow {
+                        width: parent.width; spacing: 8
+                        Pill { text: catalog.badge(catalog.detailItem) }
+                        Pill { visible: typeof catalog.detailItem.light === "boolean"; text: catalog.detailItem.light ? Eitr.I18n.tr("Light") : Eitr.I18n.tr("Dark") }
+                        Pill { visible: catalog.isInstalled(catalog.detailItem); text: Eitr.I18n.tr("Installed") }
+                        Pill { visible: !!catalog.detailItem.current; current: true; text: Eitr.I18n.tr("Current") }
+                    }
+                    Label {
+                        width: parent.width
+                        text: [catalog.detailItem.maintainer || (["builtin", "official"].includes(catalog.detailItem.kind) ? Eitr.I18n.tr("The Eitr project") : ""), catalog.detailItem.license || (["builtin", "official"].includes(catalog.detailItem.kind) ? "GPL-3.0" : "")].filter(value => value).join(" · ")
+                        color: SiteStyle.muted
+                    }
+                    Label { width: parent.width; text: catalog.sizeText(catalog.detailItem.size || 0); color: SiteStyle.muted }
+                    Label { width: parent.width; text: (catalog.detailItem.repository || (catalog.detailItem.source || {}).url || (catalog.detailItem.kind === "builtin" ? "eitr-org/eitr" : catalog.detailItem.kind === "official" ? "eitr-org/eitr-themes" : "")) + " / " + (catalog.detailItem.folder || (catalog.detailItem.source || {}).folder || "themes/" + (catalog.detailItem.id || "")); color: SiteStyle.muted; font.pixelSize: 11; wrapMode: Text.WrapAnywhere }
+                    Rectangle { width: parent.width; height: 1; color: SiteStyle.line }
+                    Label { text: Eitr.I18n.tr("Wallpapers"); font.family: SiteStyle.carved; font.pixelSize: 18 }
+                    Label { visible: catalog.wallpapers.length === 0; text: Eitr.I18n.tr("No wallpapers"); color: SiteStyle.muted }
+                    Flow {
+                        width: parent.width; spacing: 10
+                        Repeater {
+                            model: catalog.wallpapers
+                            Rectangle {
+                                id: wallpaperTile
+                                required property var modelData
+                                required property int index
+                                objectName: "wallpaper-" + index
+                                width: Math.min(210, detailColumn.width); height: modelData.thumbnail || modelData.imageUrl ? 146 : 76
+                                color: SiteStyle.raised; radius: 3; border.width: 1; border.color: SiteStyle.line
+                                Image { x: 1; y: 1; width: parent.width - 2; height: 100; visible: !!wallpaperTile.modelData.thumbnail || !!wallpaperTile.modelData.imageUrl; source: catalog.artworkFor(wallpaperTile.modelData, true); sourceSize: Qt.size(480, 270); asynchronous: true; fillMode: Image.PreserveAspectCrop }
+                                Column { x: 8; y: wallpaperTile.height - 42; width: parent.width - 16; spacing: 3
+                                    Label { width: parent.width; text: wallpaperTile.modelData.path.split("/").pop(); maximumLineCount: 1; elide: Text.ElideMiddle; font.pixelSize: 11 }
+                                    Label { text: catalog.sizeText(wallpaperTile.modelData.size); color: SiteStyle.muted; font.pixelSize: 11 }
+                                }
+                                MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: catalog.showWallpaper(wallpaperTile.index) }
+                            }
+                        }
+                    }
+                    Label { width: parent.width; visible: text !== ""; text: catalog.detailError || catalog.error; color: SiteStyle.muted }
+                    }
+
+                }
+            }
+                    SiteButton {
+                        objectName: "detail-install"
+                        anchors.right: parent.right; anchors.bottom: parent.bottom; anchors.margins: 22
+                        width: 150; primary: true; available: !catalog.busy
+                        visible: !catalog.detailItem.current
+                        text: catalog.isInstalled(catalog.detailItem) ? Eitr.I18n.tr("Apply") : Eitr.I18n.tr("Install")
+                        onClicked: { if (catalog.isInstalled(catalog.detailItem)) catalog.act("apply", {id: catalog.detailItem.id}); else catalog.reviewDetail(); }
+                    }
+            SiteButton { objectName: "detail-close"; anchors.right: parent.right; anchors.top: parent.top; anchors.margins: 10; width: 32; icon: true; text: "󰅖"; Accessible.name: Eitr.I18n.tr("Close"); onClicked: catalog.closeDetail() }
+        }
+    }
+    Rectangle {
+        z: 3; anchors.fill: parent; visible: catalog.reviewing || catalog.removing !== null
         color: SiteStyle.night; radius: 4
         MouseArea { anchors.fill: parent }
         Rectangle {
