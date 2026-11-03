@@ -67,7 +67,8 @@ class MachineLocalConfigTests(unittest.TestCase):
         script = (ROOT / 'hypr/scripts/session-start.sh').read_text()
         self.assertLess(script.index('eitr-hyprpaper &'), script.index('eitr-shell desktop-bar --daemonize'))
         self.assertLess(script.index('eitr-shell desktop-bar --daemonize'), script.index('sleep 4'))
-        self.assertLess(script.index('sleep 4'), script.index('start --no-block elephant.service'))
+        self.assertLess(script.index('start --no-block elephant.service'), script.index('sleep 4'))
+        self.assertLess(script.index('sleep 4'), script.index('start --no-block eitr-crash-help.service'))
         self.assertIn('(eitr-session && eitr-walker --gapplication-service) &', script)
         self.assertIn('systemctl --user start elephant.service', (ROOT / 'walker/bin/walker').read_text())
 

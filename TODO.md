@@ -98,13 +98,10 @@ channel first; the website changes only once it reaches stable.
 # 3. Smaller items
 
 - **Light themes.** The owner has ideas for more light themes; create them later.
-- **Performance: measure on real weak hardware.** Polling now follows events and
-  closed panels stay quiet: idle launches in a 4-core VM fell from ~800 to ~40 a
-  minute (CPU 25% to 1% of one core). Still to check on an old laptop, with
-  multiple monitors and with OBS started straight into the tray.
-- **Walker slow to open after a reboot.** Reported 2026-10-30. Elephant and the search
-  index answer in milliseconds after login, so the delay is elsewhere (Walker's
-  window, or what else starts then). The owner will record the next reboot.
+- **Walker slow to open after login: confirm the fix.** Login started Elephant 4 s
+  after the bar, then it spent ~3.6 s loading menus, so SUPER shortcuts did nothing
+  for ~12 s after the desktop appeared. Elephant now starts with the bar; the owner
+  checks SUPER+F right after the next login.
 - **Choice lists: remaining copies.** Bar layouts and update channels still repeat
   their option lists across files; move them into `tools/choice-lists.json` when
   next touched.
@@ -154,9 +151,6 @@ channel first; the website changes only once it reaches stable.
   keeping the shared panel geometry, join curves and text sizes; decide with the owner
   whether it also takes the carved fonts for headings and labels. Render every panel
   in dark and light for the owner before shipping.
-- **Performance baselines on weak hardware.** Use `tools/perf-baseline.py`
-  ([guide](distro/PERFORMANCE.md)) for comparable before/after measurements on
-  real weak hardware; collect instrumented frame runs separately.
 - **Bar crashes when panels or screens go away quickly.** Live checks (2026-11-02,
   VM): cycling every Control Center page, a plugin install/removal and three
   monitor hotplugs all left data subscriptions at their baseline. But Quickshell

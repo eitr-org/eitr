@@ -13,8 +13,11 @@ if eitr-run quickshell/desktop-bar/scripts/rendering.py 2>/dev/null | grep -q '"
   done
 fi
 eitr-shell desktop-bar --daemonize
+# Walker cannot open before its Elephant backend is ready (about 3 s of menu loading),
+# so it starts with the bar; the rest is optional and waits.
+systemctl --user start --no-block elephant.service
 sleep 4
-systemctl --user start --no-block elephant.service eitr-crash-help.service
+systemctl --user start --no-block eitr-crash-help.service
 (eitr-session && eitr-walker --gapplication-service) &
 python3 /usr/share/eitr/walker/scripts/actions/style/cursor.py sync &
 hyprsunset &
