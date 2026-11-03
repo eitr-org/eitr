@@ -69,8 +69,10 @@ channel first; the website changes only once it reaches stable.
   Which designs stay built in is still open.
 - **Catalog window (built, owner reviewing).** A movable, resizable window the
   shortcut toggles; the Handbook shares its window component. Sidebar: Themes,
-  Plugins; tabs: Official, Community, Installed, with palette swatches from the
-  index, multi-select theme installs, updates checked on open, and removal.
+  Plugins; tabs hanging from the top edge like the Tabs bar: Official, Community,
+  Installed. Theme cards show palette swatches; clicking an installed theme applies
+  it, and Sun/Moon filter light or dark themes (all by default, like the theme
+  carousel). Multi-select theme installs, updates checked on open, and removal.
   Removing a built-in theme hides it (Show hidden restores; Eitr and the current
   theme cannot be hidden).
 - **Community index `eitr-org/eitr-community`.** Pointers only, one JSON file per

@@ -80,9 +80,6 @@
     "Applications": [
       "quickshell/desktop-bar/panels/AudioMenu.qml"
     ],
-    "Apply": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
-    ],
     "Applying changes…": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
@@ -375,6 +372,7 @@
     ],
     "Dark": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
+      "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Data-only themes · Review selected sources": [
@@ -680,6 +678,7 @@
     ],
     "Light": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
+      "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Lighting": [

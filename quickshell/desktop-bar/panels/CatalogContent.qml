@@ -3,8 +3,10 @@ import QtQuick
 import QtQuick.Controls.Basic
 import QtQuick.Effects
 import QtQuick.Layouts
+import QtQuick.Shapes
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
+import "../EdgeSlopes.js" as EdgeSlopes
 
 Item {
     id: catalog
@@ -268,13 +270,13 @@ Item {
             Item {
                 width: parent.width
                 height: 32
-                visible: (tile.local && !tile.item.current) || (!tile.item.hidden && (catalog.updates[tile.item.id] || 0) > 0)
+                visible: !!tile.item.hidden || (catalog.updates[tile.item.id] || 0) > 0
                 PanelButton {
                     anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter
                     width: 86; foreground: catalog.foreground
-                    visible: tile.local && !tile.item.current
-                    text: tile.item.hidden ? Eitr.I18n.tr("Restore") : Eitr.I18n.tr("Apply")
-                    onClicked: catalog.act(tile.item.hidden ? "unhide" : "apply", {id: tile.item.id})
+                    visible: !!tile.item.hidden
+                    text: Eitr.I18n.tr("Restore")
+                    onClicked: catalog.act("unhide", {id: tile.item.id})
                 }
                 Pill {
                     anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter
@@ -334,24 +336,72 @@ Item {
     }
 
     PanelButton { anchors.right: parent.right; anchors.top: parent.top; anchors.margins: 14; width: 34; height: 34; text: "󰅖"; icon: true; foreground: catalog.foreground; Accessible.name: Eitr.I18n.tr("Close catalog"); onClicked: catalog.closeRequested() }
+    // Source tabs hang from the window's top edge like the Tabs bar layout.
+    Row {
+        id: sourceTabs
+        x: catalog.sidebarWidth + PanelStyle.padding - 4
+        spacing: 6 - 2 * round
+        readonly property real depth: 34
+        readonly property real slope: depth
+        readonly property real round: 6
+        Repeater { model: ["official", "community", "installed"]
+            Item {
+                id: sourceTab
+                required property string modelData
+                readonly property bool selected: catalog.tab === modelData
+                readonly property real body: catalog.compact ? 96 : 116
+                readonly property real inset: sourceTabs.slope + sourceTabs.round
+                readonly property string label: ({official:Eitr.I18n.tr("Official"), community:Eitr.I18n.tr("Community"), installed:Eitr.I18n.tr("Installed")})[modelData]
+                objectName: "sourceTab-" + modelData
+                width: body + 2 * inset; height: sourceTabs.depth
+                Shape {
+                    anchors.fill: parent; antialiasing: true
+                    ShapePath {
+                        strokeWidth: sourceTab.selected ? -1 : 1
+                        strokeColor: Qt.alpha(catalog.foreground, PanelStyle.selectionBorderAlpha)
+                        fillColor: Qt.alpha(catalog.foreground, PanelStyle.selectionAlpha(sourceTab.selected, tabMouse.containsMouse))
+                        PathSvg { path: EdgeSlopes.outline("top", sourceTab.width, sourceTabs.depth, 0, sourceTabs.round, [[sourceTab.inset, sourceTab.inset + sourceTab.body]]) }
+                    }
+                }
+                Label {
+                    anchors.centerIn: parent; wrapMode: Text.NoWrap
+                    text: sourceTab.label
+                    font.bold: sourceTab.selected
+                    opacity: sourceTab.selected ? 1 : PanelStyle.secondaryTextOpacity
+                }
+                MouseArea {
+                    id: tabMouse
+                    x: sourceTab.inset - sourceTabs.slope / 2; width: sourceTab.body + sourceTabs.slope; height: parent.height
+                    hoverEnabled: true; enabled: !catalog.busy && !catalog.reviewing && !catalog.removing
+                    cursorShape: Qt.PointingHandCursor
+                    Accessible.role: Accessible.PageTab; Accessible.name: sourceTab.label
+                    onClicked: catalog.tab = sourceTab.modelData
+                }
+            }
+        }
+    }
     Column {
         id: contentLayout
         enabled: !catalog.reviewing && !catalog.removing
-        x: catalog.sidebarWidth + PanelStyle.padding; y: 60
+        x: catalog.sidebarWidth + PanelStyle.padding; y: sourceTabs.depth + 14
         width: catalog.width - x - PanelStyle.padding; spacing: 12
         Item {
-            width: parent.width; height: catalog.tab === "installed" ? 88 : 40
-            Row { spacing: 2
-                Repeater { model: ["official", "community", "installed"]
-                    PanelButton { required property string modelData; width: catalog.compact ? 92 : 108; text: ({official:Eitr.I18n.tr("Official"), community:Eitr.I18n.tr("Community"), installed:Eitr.I18n.tr("Installed")})[modelData]; selected: catalog.tab === modelData; available: !catalog.busy; foreground: catalog.foreground; onClicked: catalog.tab = modelData }
+            width: parent.width; height: 36
+            visible: catalog.kind === "themes" || catalog.tab === "installed"
+            // All themes by default; Sun or Moon shows only that mode, a second click all again.
+            Row { anchors.right: parent.right; spacing: PanelStyle.selectionRowGap; visible: catalog.kind === "themes"
+                Repeater { model: [{tone: "light", glyph: "󰖙", label: Eitr.I18n.tr("Light")}, {tone: "dark", glyph: "󰖔", label: Eitr.I18n.tr("Dark")}]
+                    PanelButton {
+                        required property var modelData
+                        width: PanelStyle.selectionRowHeight; height: PanelStyle.selectionRowHeight
+                        icon: true; text: modelData.glyph; foreground: catalog.foreground
+                        selected: catalog.tone === modelData.tone; available: !catalog.busy
+                        Accessible.name: modelData.label
+                        onClicked: { catalog.tone = catalog.tone === modelData.tone ? "all" : modelData.tone; catalog.cursor = -1; }
+                    }
                 }
             }
-            Row { anchors.right: parent.right; y: 0; spacing: 2; visible: catalog.kind === "themes"
-                Repeater { model: ["all", "dark", "light"]
-                    PanelButton { required property string modelData; width: catalog.compact ? 56 : 66; text: Eitr.I18n.tr(({all:"All",dark:"Dark",light:"Light"})[modelData]); selected: catalog.tone === modelData; available: !catalog.busy; foreground: catalog.foreground; onClicked: { catalog.tone = modelData; catalog.cursor = -1; } }
-                }
-            }
-            Row { y: 44; spacing: 12; visible: catalog.tab === "installed"
+            Row { spacing: 12; visible: catalog.tab === "installed"
                 Item {
                     id: addAddress; width: 228; height: 32
                     PanelButton { anchors.fill: parent; available: false; text: Eitr.I18n.tr("Add from a Git address"); foreground: catalog.foreground }
