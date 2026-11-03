@@ -62,6 +62,11 @@ channel first; the website changes only once it reaches stable.
   install/update/remove backend are implemented; see `distro/THEMES.md`. The
   app/editor files are generated locally from trusted official integrations or
   palette defaults; downloaded packages contain data only.
+- **Lockscreens (owner deciding).** Lockscreen designs are QML that runs in the
+  screen reading the password, so only official designs from an
+  `eitr-org/eitr-lockscreens` repository would be offered; third-party designs are
+  refused and the owner's own lockscreens stay settings on an installed design.
+  Which designs stay built in is still open.
 - **Order:** catalog window, then the
   native install review, then move the 12 themes (they stay here until the
   installer works).
