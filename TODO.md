@@ -148,14 +148,16 @@ channel first; the website changes only once it reaches stable.
 
 # 4. Later
 
-- **Website style in the large windows.** Bring the site's feel, not its fixed
-  palette, to the Catalog and Handbook windows first: carved Cinzel headings for
-  window and section titles (packaged, open license; body and controls keep the
-  chosen font), hairline dividers with fewer filled boxes, a soft glow in the
-  theme accent for selected cards, tabs and primary buttons instead of hard
-  borders, sparing rune dividers, and aurora gradients from theme colors in empty
-  states. Render before/after in dark and light for the owner; decide on the small
-  bar panels only after that.
+- **Website style for the bar and panels.** The Catalog and Handbook windows already
+  use the site's environment (`SiteStyle`/`SiteBackdrop`: site palettes by light or
+  dark theme, opaque card surface with grain, carved headings). Next, offer it to the
+  bar and its panels as a third appearance: empty-bar double-left-click cycles theme
+  color, transparent with blur, and **website**; the same choice in Settings > Style >
+  Desktop Bar and Control Center > Style, saved in `bar-settings.json`. Website mode
+  uses the site palette and surface for the bar, panels, notifications and popups,
+  keeping the shared panel geometry, join curves and text sizes; decide with the owner
+  whether it also takes the carved fonts for headings and labels. Render every panel
+  in dark and light for the owner before shipping.
 - **Performance baselines on weak hardware.** Use `tools/perf-baseline.py`
   ([guide](distro/PERFORMANCE.md)) for comparable before/after measurements on
   real weak hardware; collect instrumented frame runs separately.
