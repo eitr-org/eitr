@@ -60,13 +60,16 @@ Item {
     onIndexLoadedChanged: rememberCounts()
     property string tone: "all"
     property int cursor: -1
+    readonly property int pageSize: 24
+    property int shown: pageSize
+    onCursorChanged: if (cursor >= shown - columns) shown = Math.ceil((cursor + columns + 1) / pageSize) * pageSize
     readonly property int columns: Math.max(1, Math.min(3, Math.floor((width - sidebarWidth - 48) / 250)))
     function filtered(items) { return kind !== "themes" ? items : items.filter(item => tone === "all" || item.light === (tone === "light")); }
     readonly property var locals: filtered(installed.filter(item => showHidden || !item.hidden))
     readonly property var discoveries: filtered(tab === "community" ? availableItems.map(item => Object.assign({}, item, installed.find(local => local.id === item.id) || {}, {kind: "community"})) : installed.filter(item => !item.hidden && ["builtin", "official"].includes(item.kind)).concat(more.map(item => Object.assign({kind: "official"}, item))))
     readonly property var navigable: getMore ? discoveries : locals
     function toggle(item) {
-        if (kind !== "themes" || busy) return;
+        if (kind !== "themes" || busy || isInstalled(item)) return;
         selected = selected.includes(item.id) ? selected.filter(themeId => themeId !== item.id) : selected.concat([item.id]);
     }
     function isInstalled(item) { return installed.some(local => local.id === item.id); }
@@ -79,7 +82,8 @@ Item {
         sidebarFocus = false; forceActiveFocus();
     }
     readonly property string pluginNote: Eitr.I18n.tr("Installing plugins from the catalog is coming soon; use Walker > Plugins for now")
-    function imageFor(item) { return item.previewUrl || (kind === "plugins" && isInstalled(item) ? item.preview || item.icon : "") || previews[item.id] || ""; }
+    function previewKey(item) { return kind + ":" + (tab === "community" ? "community" : "official") + ":" + item.id; }
+    function imageFor(item) { return item.previewUrl || (kind === "plugins" && isInstalled(item) ? item.preview || item.icon : "") || previews[previewKey(item)] || previews[item.id] || ""; }
     readonly property var chosen: more.filter(item => selected.includes(item.id))
     readonly property real totalSize: chosen.reduce((total, item) => total + (item.size || 0), 0)
     function sizeText(bytes) { if (!bytes) return Eitr.I18n.tr("Size unavailable"); return bytes < 1048576 ? Math.ceil(bytes / 1024) + " KiB" : (bytes / 1048576).toFixed(1) + " MiB"; }
@@ -93,35 +97,40 @@ Item {
             callback(failure || data.error || "", data);
         });
     }
-    function refreshInstalled() {
-        installedError = "";
-        loading = true;
-        request("installed", {}, function(failure, data) {
-            loading = false;
-            installedError = failure;
-            if (!failure) installed = data.items || [];
+    // Everything loads once per opening; tabs and the sidebar only switch views.
+    property var store: ({})
+    readonly property var sources: ["installed", "official", "community"]
+    function fetch(catalogKind, source) {
+        const key = catalogKind + ":" + source;
+        store = Object.assign({}, store, {[key]: Object.assign({}, store[key] || {items: []}, {pending: true, error: ""})});
+        sync();
+        request(source === "installed" ? "installed" : "index", {kind: catalogKind, channel: source}, function(failure, data) {
+            store = Object.assign({}, store, {[key]: {items: failure ? (store[key].items || []) : data.items || [], error: failure, pending: false, loaded: !failure}});
+            if (source === "installed" && !failure)
+                counts = Object.assign({}, counts, {[catalogKind]: Object.assign({}, counts[catalogKind] || {}, {installed: (data.items || []).length})});
+            sync();
         });
     }
-    function refreshIndex() {
-        repositoryError = "";
-        if (tab === "installed") return;
-        request("index", {}, function(failure, data) {
-            repositoryError = failure;
-            if (!failure) { availableItems = data.items || []; indexLoaded = true; }
-        });
+    function sync() {
+        const local = store[kind + ":installed"] || {items: []};
+        const index = tab === "installed" ? {items: [], loaded: true} : store[kind + ":" + tab] || {items: []};
+        installed = local.items; installedError = local.error || ""; loading = !!local.pending;
+        availableItems = index.items; repositoryError = index.error || ""; indexLoaded = !!index.loaded;
     }
+    function refreshInstalled() { fetch(kind, "installed"); }
+    function refreshIndex() { if (tab !== "installed") fetch(kind, tab); }
     function load() {
         generation++;
-        indexLoaded = false;
-        installed = []; availableItems = []; selected = []; updates = updateCache[kind] || ({}); previews = ({}); previewRequests = ({});
-        reviewing = false; removing = null; busy = false; error = ""; repositoryError = ""; installedError = ""; progress = "";
-        if (live && opened) {
-            refreshInstalled(); refreshIndex();
-            const other = kind === "themes" ? "plugins" : "themes";
-            request("installed", {kind: other}, function(failure, data) {
-                if (!failure) counts = Object.assign({}, counts, {[other]: Object.assign({}, counts[other] || {}, {installed: (data.items || []).length})});
-            });
-        }
+        store = ({}); installed = []; availableItems = []; selected = []; updates = updateCache[kind] || ({}); previews = ({}); previewRequests = ({});
+        indexLoaded = false; reviewing = false; removing = null; busy = false; error = ""; repositoryError = ""; installedError = ""; progress = "";
+        if (!live || !opened) return;
+        for (const catalogKind of [kind, kind === "themes" ? "plugins" : "themes"])
+            for (const source of sources) fetch(catalogKind, source);
+    }
+    function switchView() {
+        cursor = -1; scroll.contentY = 0; shown = pageSize; selected = []; error = ""; progress = "";
+        updates = updateCache[kind] || ({});
+        if (live && opened) sync();
     }
     function checkUpdates() {
         const currentOpening = opening;
@@ -145,11 +154,12 @@ Item {
     }
 
     function preview(item) {
-        if (!live || !opened || previews[item.id] || previewRequests[item.id]) return;
+        const key = previewKey(item);
+        if (!live || !opened || previews[key] || previewRequests[key]) return;
         if (kind === "plugins" && !item.preview && !item.icon) return;
-        previewRequests = Object.assign({}, previewRequests, {[item.id]: true});
+        previewRequests = Object.assign({}, previewRequests, {[key]: true});
         request("preview", {id: item.id}, function(failure, data) {
-            if (!failure) previews = Object.assign({}, previews, {[item.id]: data.image});
+            if (!failure) previews = Object.assign({}, previews, {[key]: data.image});
         });
     }
     function cancelSheet() { if (!busy) { reviewing = false; removing = null; } }
@@ -158,8 +168,10 @@ Item {
         if (reviewing) act("install", {ids: chosen.map(item => item.id)});
         else if (removing) act("remove", {id: removing.id});
     }
-    onTabChanged: { cursor = -1; scroll.contentY = 0; DesktopData.releaseOwner(catalog); load(); }
-    onKindChanged: { DesktopData.releaseOwner(catalog); load(); }
+    onTabChanged: switchView()
+    onKindChanged: switchView()
+    onToneChanged: { shown = pageSize; scroll.contentY = 0; }
+    onShowHiddenChanged: shown = pageSize
     onOpenedChanged: {
         if (opened) { opening++; updateCache = ({}); load(); if (live) checkUpdates(); forceActiveFocus(); }
         else { generation++; DesktopData.releaseOwner(catalog); DesktopData.releaseOwner(updateOwner); busy = false; }
@@ -456,6 +468,10 @@ Item {
             id: scroll
             width: parent.width; height: Math.max(1, catalog.height - contentLayout.y - y - PanelStyle.padding - (selectionBar.visible ? selectionBar.height + 12 : 0))
             contentWidth: width; contentHeight: sections.height; clip: true; boundsBehavior: Flickable.StopAtBounds
+            function more() { if (contentY + height > contentHeight - 600 && catalog.shown < catalog.navigable.length) catalog.shown += catalog.pageSize; }
+            onContentYChanged: more()
+            onContentHeightChanged: Qt.callLater(more)
+            onHeightChanged: Qt.callLater(more)
             ScrollBar.vertical: ScrollBar {}
             Column {
                 id: sections; width: scroll.width - 12; spacing: 14
@@ -469,7 +485,7 @@ Item {
                         width: sections.width; spacing: 12
                         GridLayout {
                             columns: catalog.columns; columnSpacing: 14; rowSpacing: 14
-                            Repeater { model: section.items
+                            Repeater { model: section.items.slice(0, catalog.shown)
                                 CatalogCard { required property var modelData; item: modelData; local: catalog.isInstalled(modelData); Layout.preferredWidth: (section.width - 14 * (catalog.columns - 1)) / catalog.columns; Layout.fillHeight: true }
                             }
                         }

@@ -221,6 +221,9 @@ ShellRoot {
       keys.keyClick(Qt.Key_Right);
       if (panel.sidebarFocus || panel.cursor !== 0) throw new Error("Right enters content");
       keys.keyClick(Qt.Key_Space);
+      if (panel.selected.length) throw new Error("installed themes cannot be selected for install");
+      keys.keyClick(Qt.Key_Right); keys.keyClick(Qt.Key_Right);
+      keys.keyClick(Qt.Key_Space);
       keys.keyClick(Qt.Key_Right);
       keys.keyClick(Qt.Key_Space);
       if (panel.selected.length !== 2) throw new Error("keyboard selection");
@@ -280,6 +283,15 @@ ShellRoot {
       panel.tone = "light"; panel.kind = "plugins";
       panel.installed = [{id:"clock",name:"Clock",kind:"official"}];
       if (panel.locals.length !== 1) throw new Error("theme filter must not hide plugins");
+      const calls = [];
+      panel.live = true;
+      panel.transport = function(name, args, callback) { calls.push(name + ":" + args.kind + ":" + args.channel); callback("", {items: [{id: args.channel + "-" + args.kind, name: "Row"}]}); };
+      panel.load();
+      if (calls.length !== 6 || !calls.includes("index:themes:community") || !calls.includes("installed:plugins:installed")) throw new Error("opening loads every source once: " + calls);
+      panel.tab = "community"; panel.kind = "themes"; panel.tab = "installed"; panel.tab = "official";
+      if (calls.length !== 6) throw new Error("switching tabs must not reload: " + calls);
+      if (panel.availableItems[0].id !== "official-themes" || panel.installed[0].id !== "installed-themes") throw new Error("views come from the loaded store");
+      panel.live = false;
       console.log("CATALOG_OK"); Qt.quit(); return;
      }
      panel.installed = panel.installed.map(item => Object.assign({}, item, {palette: sample.installedPalettes[item.id]}));

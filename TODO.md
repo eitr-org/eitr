@@ -72,7 +72,9 @@ channel first; the website changes only once it reaches stable.
   Plugins; browser-style tabs (the selected one joins the page): Installed, Official,
   Community. Theme cards show palette swatches; clicking an installed theme applies
   it, and Sun/Moon filter light or dark themes (all by default, like the theme
-  carousel). Multi-select theme installs, updates checked on open, and removal.
+  carousel). Opening loads installed items and both indexes for themes and plugins
+  once; tabs only switch views, and cards render in pages of 24 as you scroll.
+  Multi-select theme installs, updates checked on open, and removal.
   Removing a built-in theme hides it (Show hidden restores; Eitr and the current
   theme cannot be hidden). Plugin cards share the picture grid, with screenshots,
   centered icons or a generic glyph, source/status badges and removal. Artwork
