@@ -3,10 +3,6 @@ import { translator } from '../i18n';
 const t = translator(Astro.url.pathname, 'development');
 import Layout from '../layouts/Layout.astro';
 import { sitePages } from '../data/site-pages';
-import software from '../../../distro/software.json';
-const editors = Object.values(software['developer-apps']).map(tool => tool.label).join(', ');
-const languages = Object.values(software.languages).map(tool => tool.label).join(', ');
-const databases = Object.values(software.databases).map(tool => tool.label).join(', ');
 ---
 <Layout {...sitePages.development}>
   <section class="wrap guide-intro">
@@ -29,12 +25,11 @@ const databases = Object.values(software.databases).map(tool => tool.label).join
         <thead><tr><th scope="col">{t('availability')}</th><th scope="col">{t('workflow')}</th></tr></thead>
         <tbody>
           <tr><th scope="row">{t('included')}</th><td>{t('open_kitty_with')} <kbd>Super + Enter</kbd>{t('or_tmux_with')} <kbd>Super + Ctrl + Enter</kbd>{t('use_learn_s_lazyvim_tmux_and_cmux_references_without_le')}</td></tr>
-          <tr><th scope="row">{t('curated_optional_installs')}</th><td>{t('install_developer_apps_offers')} {editors}{t('official_packages_aur_builds_and_managed_installers_kee')}</td></tr>
-          <tr><th scope="row">{t('optional_toolchains')}</th><td>{t('install_development_languages_offers')} {languages}{t('javascript_tools_adds_pnpm_yarn_bun_and_deno_languages_')}</td></tr>
+          <tr><th scope="row">{t('curated_optional_installs')}</th><td>{t('install_developer_apps_offers')}</td></tr>
+          <tr><th scope="row">{t('optional_toolchains')}</th><td>{t('install_development_languages_offers')}</td></tr>
           <tr><th scope="row">{t('your_existing_projects')}</th><td>{t('development_lazyvim_projects_or_vs_code_projects_asks_f')}</td></tr>
         </tbody>
       </table></div>
-      <p>{t('installation_terminals_explain_what_is_happening_and_re')}</p>
       <div class="info-links"><a class="text-link" href="/guide/apps/">{t('applications_installation')}</a><a class="text-link" href="/guide/terminal/">{t('terminal_editors')}</a></div>
     </section>
     <section class="info-section" id="keyboard" aria-labelledby="keyboard-title">
@@ -50,9 +45,7 @@ const databases = Object.values(software.databases).map(tool => tool.label).join
       <h2 id="agents-title">{t('an_assistant_by_choice')}<br /><em>{t('a_boundary_by_design')}</em></h2>
       <p>{t('install_ai_clis_offers_claude_code_codex_github_copilot')}</p>
       <p>{t('choose_a_machine_local_default_in_development_default_a')} <kbd>Super + A</kbd>{t('it_starts_trusted_in_your_home_folder_with_full_access_')}</p>
-      <p>{t('ratatoskr_is_the_experimental_local_assistant_after_one')}</p>
       <p>{t('let_assistants_work_together_is_off_by_default_supporte')}</p>
-      <p>{t('availability_is_distinct_from_validation_the_handbook_r')}</p>
       <a class="text-link" href="/guide/development/#ai-assistants">{t('ai_setup_permissions_current_limitations')}</a>
     </section>
     <section class="info-section" id="accounts" aria-labelledby="accounts-title">
@@ -63,14 +56,13 @@ const databases = Object.values(software.databases).map(tool => tool.label).join
 eitr-git cli auth status
 eitr-git cli repo view`}</code></pre>
       <p>{t('development_cloud_selects_an_account_before_opening_res')}</p>
-      <p>{t('additional_menus_cover_cloudflare_digitalocean_hetzner_')}</p>
       <p>{t('cloud_operations_use_your_provider_permissions_some_act')}</p>
       <div class="info-links"><a class="text-link" href="/guide/git-accounts/">{t('git_identity_ssh_cli_setup')}</a><a class="text-link" href="/guide/development/#accounts-and-cloud-workflows">{t('cloud_account_workflows')}</a></div>
     </section>
     <section class="info-section" id="data" aria-labelledby="data-title">
       <p class="eyebrow">{t('optional_local_tools_and_your_services')}</p>
       <h2 id="data-title">{t('inspect_the_system')}<br /><em>{t('follow_the_signal')}</em></h2>
-      <p>{t('install_databases_offers')} {databases}{t('client_installation_does_not_provision_a_remote_databas')}</p>
+      <p>{t('install_databases_offers')}</p>
       <p>{t('development_monitoring_saves_named_dashboard_links_for_')}</p>
       <p>{t('accounts_service_configuration_and_permissions_remain_y')}</p>
       <a class="text-link" href="/guide/development/">{t('read_the_complete_development_handbook_chapter')}</a>
@@ -78,9 +70,8 @@ eitr-git cli repo view`}</code></pre>
     <section class="info-section" id="plugins" aria-labelledby="plugins-title">
       <p class="eyebrow">{t('plugins_your_code_your_trust')}</p>
       <h2 id="plugins-title">{t('bring_your_own_tools')}<br /><em>{t('approve_every_commit')}</em></h2>
-      <p>{t('plugins_come_from_git_repositories_including_the_offici')} <a href="https://github.com/eitr-org/eitr-plugins" target="_blank" rel="noopener noreferrer">{t('eitr_org_eitr_plugins')}</a> {t('collection_install_plugins_add_plugin_accepts_https_or_')} <code>eitr-plugin.json</code> {t('manifest_and_review_two_confirmations_cover_the_risks_a')}</p>
-      <p>{t('schema_v2_adds_control_center_tiles_and_panels_desktop_')}</p>
-      <p>{t('plugins_stay_pinned_per_user_to_the_approved_commit_and')} <code>eitr plugin update</code> {t('does_the_same_from_a_terminal_eitr_has_not_reviewed_thi')}</p>
+      <p>{t('plugins_come_from_git_repositories_including_the_offici')} <a href="https://github.com/eitr-org/eitr-plugins" target="_blank" rel="noopener noreferrer">{t('eitr_org_eitr_plugins')}</a> {t('collection_install_plugins_add_plugin_accepts_https_or_')}</p>
+      <p>{t('plugins_stay_pinned_per_user_to_the_approved_commit_and')}</p>
       <div class="info-links"><a class="text-link" href="https://github.com/eitr-org/eitr/tree/main/distro/plugins/example" target="_blank" rel="noopener noreferrer">{t('start_from_the_example_plugin')}</a><a class="text-link" href="/guide/apps/#plugins">{t('plugin_manifest_reference')}</a></div>
     </section>
     <section class="info-section" aria-labelledby="development-system">
