@@ -76,6 +76,12 @@ channel first; the website changes only once it reaches stable.
 - **Walker slow to open after a reboot.** Reported 2026-10-30. Elephant and the search
   index answer in milliseconds after login, so the delay is elsewhere (Walker's
   window, or what else starts then). The owner will record the next reboot.
+- **Dock: magnify on hover.** Hovering a dock icon enlarges it and its neighbours
+  on a smooth falloff (the hovered icon largest, the next ones a little), like
+  macOS, growing away from the screen edge on all four dock edges without moving
+  the dock's base or shifting other bar items. Off with Reduce motion; keep icon
+  hit areas, tooltips and running indicators aligned. Owner's reference: a macOS
+  dock screenshot (2026-11-03).
 - **Choice lists: remaining copies.** Bar layouts and update channels still repeat
   their option lists across files; move them into `tools/choice-lists.json` when
   next touched.
