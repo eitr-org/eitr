@@ -478,7 +478,7 @@ floating_window_rule("menu-terminal-float", "^(eitr-menu-terminal|eitr-cloud|eit
 -- Library windows restore their screen-bounded size.
 hl.window_rule({
 	name = "eitr-catalog",
-	match = { class = "^(eitr-catalog)$", title = "^(Themes & Plugins|EITR Handbook)$" },
+	match = { class = "^(eitr-catalog)$" },
 	float = true,
 	center = true,
 	opacity = "1 1",
