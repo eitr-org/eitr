@@ -448,7 +448,6 @@ Item {
                 Pill { visible: tile.local && catalog.getMore; text: Eitr.I18n.tr("Installed") }
                 Pill { visible: catalog.kind === "plugins" && tile.item.enabled === false; text: Eitr.I18n.tr("Disabled") }
                 Pill { visible: !!tile.item.hidden; text: Eitr.I18n.tr("Hidden") }
-                Pill { visible: !!tile.item.current; current: true; text: Eitr.I18n.tr("Current") }
             }
             Item {
                 width: parent.width
@@ -839,7 +838,7 @@ Item {
                         width: 150; primary: true; available: !catalog.busy
                         visible: !catalog.detailItem.current && (catalog.kind === "themes" || !catalog.isInstalled(catalog.detailItem) || (catalog.updates[catalog.detailItem.id] || catalog.detailItem.updateCount || 0) > 0)
                         text: catalog.isInstalled(catalog.detailItem) ? (catalog.kind === "plugins" ? Eitr.I18n.tr("Update") : Eitr.I18n.tr("Apply")) : Eitr.I18n.tr("Install")
-                        onClicked: { if (catalog.kind === "plugins") catalog.reviewDetail(); else if (catalog.isInstalled(catalog.detailItem)) catalog.act("apply", {id: catalog.detailItem.id}); else catalog.reviewDetail(); }
+                        onClicked: { if (catalog.kind === "plugins") catalog.reviewDetail(); else if (catalog.isInstalled(catalog.detailItem)) { const themeId = catalog.detailItem.id; catalog.closeDetail(); catalog.act("apply", {id: themeId}); } else catalog.reviewDetail(); }
                     }
             SiteButton { objectName: "detail-close"; anchors.right: parent.right; anchors.top: parent.top; anchors.margins: 10; width: 32; icon: true; text: "󰅖"; Accessible.name: Eitr.I18n.tr("Close"); onClicked: catalog.closeDetail() }
         }

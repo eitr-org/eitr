@@ -402,7 +402,10 @@ ShellRoot {
       if (!panel.detail || !panel.isInstalled(panel.detailItem)) throw new Error("detail reflects successful install");
       const apply = find(panel, "detail-install");
       if (apply.text !== "Apply") throw new Error("detail offers Apply after install");
-      panel.closeDetail();
+      const applied = [];
+      panel.transport = function(name, args, callback) { if (name === "apply") applied.push(args.id); callback("", {items: panel.installed}); };
+      apply.clicked();
+      if (panel.detail || applied[0] !== "new") throw new Error("Apply closes the pop-up and applies the theme");
       panel.tone = "light"; panel.kind = "plugins";
       panel.installed = [{id:"clock",name:"Clock",kind:"official"}];
       if (panel.locals.length !== 1) throw new Error("theme filter must not hide plugins");
