@@ -48,9 +48,9 @@ abrir: obter esse valor pelo Git baixaria o arquivo completo. Tamanhos em cache 
 A página Plugins lista os plugins instalados e o repositório oficial
 `eitr-org/eitr-plugins` em cartões com captura de tela, ícone centralizado ou símbolo
 genérico. Os selos indicam plugins instalados e desativados. A remoção tem confirmação
-na janela. Para instalar, use **Walker > Plugins**. A instalação e as atualizações
-ainda usam os fluxos de revisão existentes; o catálogo ainda não instala plugins
-nem aceita endereços de repositórios de terceiros.
+na janela.
+
+O catálogo instala e atualiza plugins na própria janela. Os cartões Oficial e Comunidade abrem detalhes com imagens, vídeos e componentes. Vídeos começam sem som e param ao fechar. Instalar e Atualizar mostram fonte, commit completo, autor, arquivos, comandos, avisos e alterações; a verificação opcional por IA aparece como texto. Plugins têm todas as permissões da sua conta. Enter confirma e Escape cancela. A instalação usa exatamente o commit revisado; na Comunidade, usa o commit fixado pelo índice. A revisão expira em 15 minutos e é descartada ao fechar o catálogo. Instalados > Adicionar de um endereço Git aceita HTTPS ou SSH para plugins e temas de dados, sem terminal.
 
 ## Temas e papéis de parede
 
@@ -102,6 +102,6 @@ Compare os nove desenhos com `bash quickshell/lockscreen/scripts/gallery.sh`. Is
 
 Em PCs com várias contas, a tela de login mostra o usuário selecionado. Clique na metade esquerda ou direita do seletor, ou pressione Ctrl+Left / Ctrl+Right, para escolher outra conta; Enter continua enviando a senha e Escape mantém seu comportamento. Com uma conta, o layout de login não muda. A tela de bloqueio mostra o nome real da sessão bloqueada quando disponível e só aceita a senha dessa conta. Trocar usuário (Ctrl+Alt+U) abre o login do SDDM e mantém a sessão original bloqueada. Ao voltar para a sessão bloqueada, clique uma vez no campo de senha antes de digitar. A ação só aparece quando há várias contas elegíveis e o SDDM permite a troca. As prévias e a galeria usam três contas fictícias e nunca autenticam.
 
-A barra lateral do catálogo alterna entre Temas e Plugins. A aba Oficial reúne os itens integrados e os repositórios Eitr; Comunidade lista o índice comunitário. Instalados mostra os itens locais e seus selos de origem. Os cartões de temas mostram amostras da paleta quando disponíveis. Selecione temas, revise suas fontes e o tamanho total e instale-os juntos. Plugins comunitários aparecem na lista; sua instalação e a adição de um endereço Git chegarão depois.
+O catálogo instala e atualiza plugins na própria janela. Os cartões Oficial e Comunidade abrem detalhes com imagens, vídeos e componentes. Vídeos começam sem som e param ao fechar. Instalar e Atualizar mostram fonte, commit completo, autor, arquivos, comandos, avisos e alterações; a verificação opcional por IA aparece como texto. Plugins têm todas as permissões da sua conta. Enter confirma e Escape cancela. A instalação usa exatamente o commit revisado; na Comunidade, usa o commit fixado pelo índice. A revisão expira em 15 minutos e é descartada ao fechar o catálogo. Instalados > Adicionar de um endereço Git aceita HTTPS ou SSH para plugins e temas de dados, sem terminal.
 
 Remover um tema integrado o oculta dos seletores nesta máquina. Em Instalados, ative Mostrar ocultos e escolha Restaurar. Eitr e o tema atual não podem ser ocultados. Remover um tema baixado exclui o pacote instalado.

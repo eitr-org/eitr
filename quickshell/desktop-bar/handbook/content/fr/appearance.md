@@ -52,10 +52,9 @@ jusqu’à l’ouverture : Git téléchargerait tout le fichier pour les connaî
 La page Plugins affiche les plugins installés et le dépôt officiel
 `eitr-org/eitr-plugins` sous forme de cartes avec capture, icône centrée ou symbole
 générique. Les badges indiquent les plugins installés et désactivés. La suppression
-est confirmée dans la fenêtre. Pour installer, utilisez **Walker > Plugins**.
-Installation et mises à jour utilisent encore les procédures de vérification
-existantes ; le catalogue n’installe pas encore de plugins et n’accepte pas
-d’adresses de dépôts tiers.
+est confirmée dans la fenêtre.
+
+Le catalogue installe et met à jour les plugins dans la fenêtre. Les cartes Officiel et Communauté ouvrent les détails avec images, vidéos et composants. Les vidéos démarrent sans son et s’arrêtent à la fermeture. Installer et Mettre à jour présentent source, commit complet, auteur, fichiers, commandes, avertissements et changements ; la vérification facultative par IA apparaît sous forme de texte. Les plugins disposent de toutes les permissions du compte. Entrée confirme et Échap annule. Le commit installé est exactement celui vérifié ; Communauté utilise le commit fixé dans l’index. La vérification expire après 15 minutes et est supprimée à la fermeture du catalogue. Installés > Ajouter depuis une adresse Git accepte HTTPS ou SSH pour les plugins et les thèmes de données, sans terminal.
 
 ## Thèmes et fonds d’écran
 
@@ -107,6 +106,6 @@ Comparez les neuf modèles avec `bash quickshell/lockscreen/scripts/gallery.sh`.
 
 Sur les PC avec plusieurs comptes, l’écran de connexion affiche l’utilisateur sélectionné. Cliquez sur la moitié gauche ou droite du sélecteur, ou utilisez Ctrl+Left / Ctrl+Right, pour choisir un autre compte ; Entrée envoie toujours le mot de passe et Échap conserve son comportement. Avec un seul compte, la présentation ne change pas. L’écran verrouillé affiche le nom réel de la session si disponible et accepte uniquement le mot de passe de ce compte. Changer d’utilisateur (Ctrl+Alt+U) ouvre la connexion SDDM en gardant la session initiale verrouillée. De retour dans la session verrouillée, cliquez une fois dans le champ du mot de passe avant de taper. Cette action apparaît seulement avec plusieurs comptes admissibles et si SDDM autorise le changement. Les aperçus et la galerie utilisent trois comptes fictifs sans authentification.
 
-La barre latérale du catalogue permet de choisir Thèmes ou Plugins. L’onglet Officiel réunit les éléments intégrés et les dépôts Eitr ; Communauté affiche l’index communautaire. Installés affiche les éléments locaux et leur origine. Les cartes montrent les couleurs de la palette disponibles. Sélectionnez des thèmes, vérifiez leurs sources et la taille totale, puis installez-les ensemble. Les plugins communautaires sont répertoriés ; leur installation et l’ajout d’une adresse Git arriveront plus tard.
+Le catalogue installe et met à jour les plugins dans la fenêtre. Les cartes Officiel et Communauté ouvrent les détails avec images, vidéos et composants. Les vidéos démarrent sans son et s’arrêtent à la fermeture. Installer et Mettre à jour présentent source, commit complet, auteur, fichiers, commandes, avertissements et changements ; la vérification facultative par IA apparaît sous forme de texte. Les plugins disposent de toutes les permissions du compte. Entrée confirme et Échap annule. Le commit installé est exactement celui vérifié ; Communauté utilise le commit fixé dans l’index. La vérification expire après 15 minutes et est supprimée à la fermeture du catalogue. Installés > Ajouter depuis une adresse Git accepte HTTPS ou SSH pour les plugins et les thèmes de données, sans terminal.
 
 Supprimer un thème intégré le masque dans les sélecteurs de cette machine. Dans Installés, activez Afficher les thèmes masqués puis choisissez Restaurer. Eitr et le thème actuel ne peuvent pas être masqués. Supprimer un thème téléchargé efface le paquet installé.

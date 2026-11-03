@@ -3,6 +3,7 @@ import QtQuick
 import QtQuick.Controls.Basic
 import QtQuick.Effects
 import QtQuick.Layouts
+import QtMultimedia
 import QtQuick.Shapes
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
@@ -39,6 +40,57 @@ Item {
     property string detailError: ""
     readonly property var detailItem: detail ? Object.assign({}, detail, installed.find(item => item.id === detail.id) || {}) : ({})
     readonly property var wallpapers: detailItem.wallpapers || []
+    property var nativeReview: null
+    property bool nativeReviewing: false
+    property bool confirmingReview: false
+    property bool addingAddress: false
+    property string advice: ""
+    property string reviewSourcePath: ""
+    property string reviewSourceText: ""
+    property int reviewSourceOffset: 0
+    property int reviewSourceTotal: 0
+    function loadReviewSource(path, offset) {
+        reviewSourcePath = path; reviewSourceOffset = offset;
+        request("source", {token: nativeReview.token, path: path, offset: offset}, function(failure, data) {
+            reviewSourceText = failure || data.text || ""; reviewSourceTotal = data.total || 0;
+        });
+    }
+    property bool videoPosterOnly: false
+    property alias videoPlayer: pluginVideo
+    property int mediaIndex: 0
+    readonly property var pluginMedia: (detailItem.preview ? [{type: "image", path: detailItem.preview, imageUrl: detailItem.preview.startsWith("file:") ? detailItem.preview : "", caption: ""}] : []).concat(detailItem.media || [])
+    readonly property var currentMedia: pluginMedia[mediaIndex] || ({})
+    function selectMedia(index) { mediaIndex = index; if (pluginMedia[index]) fetchArtwork(pluginMedia[index], false); }
+    function discardReview() {
+        if (live) transport("discard", {kind: kind}, function() {}, cleanupOwner);
+        nativeReview = null; nativeReviewing = false; advice = "";
+    }
+    function prepareReview(args) {
+        nativeReviewing = true; nativeReview = null; reviewSourcePath = ""; reviewSourceText = ""; addingAddress = false; advice = ""; error = ""; busy = true;
+        request("prepare", args, function(failure, data) {
+            if (!nativeReviewing) return;
+            busy = false; error = failure; nativeReview = failure ? null : data.review;
+        });
+        forceActiveFocus();
+    }
+    function nativeConfirm() {
+        if (!nativeReview || !nativeReview.token || busy) return;
+        confirmingReview = true; act("confirm", {token: nativeReview.token});
+    }
+    function componentsText(spec) {
+        const lines = [];
+        for (const componentKind of Object.keys(spec.ui || {}))
+            for (const entry of spec.ui[componentKind]) {
+                lines.push(componentKind + " · " + entry.title + " · " + entry.qml);
+                for (const field of ["dataCommand", "dataStream"])
+                    if (entry[field]) lines.push(field + " · " + [entry[field].run].concat(entry[field].arguments || []).join(" "));
+            }
+        for (const entry of spec.rows || []) lines.push(entry.title + " · " + [entry.run].concat(entry.arguments || []).join(" "));
+        for (const event of Object.keys(spec.hooks || {})) lines.push(event + " · " + [spec.hooks[event].run].concat(spec.hooks[event].arguments || []).join(" "));
+        if (spec.service) lines.push(Eitr.I18n.tr("Background service") + " · " + [spec.service.run].concat(spec.service.arguments || []).join(" "));
+        for (const capability of spec.capabilities || []) lines.push(capability);
+        return lines.join("\n");
+    }
     function closeDetail() { detailGeneration++; detail = null; wallpaperIndex = -1; forceActiveFocus(); }
     function artworkKey(path) { return tab + ":" + detailItem.id + ":" + path; }
     function artworkFor(asset, thumbnail) {
@@ -67,7 +119,7 @@ Item {
     }
     function openDetail(item) {
         const serial = ++detailGeneration;
-        detail = item; wallpaperIndex = -1; detailError = ""; detailScroll.contentY = 0;
+        detail = item; mediaIndex = 0; wallpaperIndex = -1; detailError = ""; detailScroll.contentY = 0;
         if (tab === "community" && !isInstalled(item) && live) {
             request("detail", {id: item.id}, function(failure, data) {
                 if (!detail || detailGeneration !== serial) return;
@@ -83,15 +135,17 @@ Item {
                 }
             });
         }
+        if (kind === "plugins" && pluginMedia.length) selectMedia(0);
         for (const asset of wallpapers) fetchArtwork(asset, true);
         sidebarFocus = false; forceActiveFocus();
     }
     property var reviewIds: null
-    function reviewDetail() { reviewIds = [detail.id]; reviewing = true; forceActiveFocus(); }
+    function reviewDetail() { if (kind === "plugins") { prepareReview({id: detail.id, updating: isInstalled(detailItem)}); return; } reviewIds = [detail.id]; reviewing = true; forceActiveFocus(); }
     property var removing: null
     property int generation: 0
     property var transport: function(name, args, callback, owner) { return DesktopData.queryCatalog(name, args, owner || catalog, callback); }
     Item { id: updateOwner }
+    Item { id: cleanupOwner }
     signal closeRequested()
     readonly property var more: availableItems.filter(item => !installed.some(local => local.id === item.id))
     property string tab: "official"
@@ -133,13 +187,11 @@ Item {
     function activate(item, local) {
         if (item.hidden) return;
         if (busy) return;
-        if (getMore && kind === "themes") openDetail(item);
+        if (getMore) openDetail(item);
         else if (local && kind === "themes" && !item.current) act("apply", {id: item.id});
-        else if (!local && kind === "plugins") progress = pluginNote;
         else if (!local) toggle(item);
         sidebarFocus = false; forceActiveFocus();
     }
-    readonly property string pluginNote: Eitr.I18n.tr("Installing plugins from the catalog is coming soon; use Walker > Plugins for now")
     function previewKey(item) { return kind + ":" + (tab === "community" ? "community" : "official") + ":" + item.id; }
     function imageFor(item) { return item.previewUrl || (kind === "plugins" && isInstalled(item) ? item.preview || item.icon : "") || previews[previewKey(item)] || previews[item.id] || ""; }
     readonly property var chosen: more.filter(item => (reviewIds || selected).includes(item.id)).map(item => reviewIds && detail && detail.id === item.id ? Object.assign({}, item, detail) : item)
@@ -205,8 +257,9 @@ Item {
         busy = true; error = "";
         progress = Eitr.I18n.tr("Applying changes…");
         request(name, args, function(failure, data) {
-            busy = false; progress = ""; error = failure;
-            if (!failure) { selected = []; reviewing = false; reviewIds = null; removing = null; }
+            busy = false; confirmingReview = false; progress = ""; error = failure;
+            if (name === "confirm" && failure) nativeReview = null;
+            if (!failure) { nativeReview = null; nativeReviewing = false; selected = []; reviewing = false; reviewIds = null; removing = null; }
             refreshInstalled();
         });
     }
@@ -233,18 +286,19 @@ Item {
     onShowHiddenChanged: shown = pageSize
     onOpenedChanged: {
         if (opened) { opening++; updateCache = ({}); load(); if (live) checkUpdates(); forceActiveFocus(); }
-        else { generation++; DesktopData.releaseOwner(catalog); DesktopData.releaseOwner(updateOwner); busy = false; }
+        else { discardReview(); mediaIndex = -1; generation++; DesktopData.releaseOwner(catalog); DesktopData.releaseOwner(updateOwner); busy = false; }
     }
     Component.onDestruction: { DesktopData.releaseOwner(catalog); DesktopData.releaseOwner(updateOwner); }
     focus: opened
     Keys.priority: Keys.AfterItem
     Keys.onPressed: event => {
         if (event.key === Qt.Key_Escape) {
-            if (reviewing || removing) cancelSheet(); else if (detail) closeDetail(); else closeRequested();
+            if (nativeReviewing && confirmingReview) { event.accepted = true; return; }
+            if (nativeReviewing) { DesktopData.releaseOwner(catalog); busy = false; discardReview(); } else if (addingAddress) { addingAddress = false; forceActiveFocus(); } else if (reviewing || removing) cancelSheet(); else if (detail) closeDetail(); else closeRequested();
             event.accepted = true;
-        } else if ((event.key === Qt.Key_Return || event.key === Qt.Key_Enter) && (reviewing || removing)) {
-            confirm(); event.accepted = true;
-        } else if (!reviewing && !removing && !detail && !busy) {
+        } else if ((event.key === Qt.Key_Return || event.key === Qt.Key_Enter) && (nativeReviewing || reviewing || removing)) {
+            if (nativeReviewing) nativeConfirm(); else confirm(); event.accepted = true;
+        } else if (!nativeReviewing && !addingAddress && !reviewing && !removing && !detail && !busy) {
             if (sidebarFocus) {
                 if (event.key === Qt.Key_Up || event.key === Qt.Key_Down) {
                     navigate(Math.max(0, Math.min(1, navigationIndex + (event.key === Qt.Key_Down ? 1 : -1))));
@@ -353,7 +407,7 @@ Item {
         required property bool local
         readonly property bool picked: catalog.getMore && !local && catalog.selected.includes(item.id)
         readonly property bool focused: catalog.cursor >= 0 && !!catalog.navigable[catalog.cursor] && catalog.navigable[catalog.cursor].id === item.id
-        readonly property bool actionable: !item.hidden && (catalog.getMore && catalog.kind === "themes" || !(local && (catalog.kind === "plugins" || item.current)))
+        readonly property bool actionable: !item.hidden && (catalog.getMore || !(local && (catalog.kind === "plugins" || item.current)))
         readonly property real viewportY: parent.parent.y + parent.y + y - scroll.contentY
         readonly property bool inViewport: viewportY + height > 0 && viewportY < scroll.height
         implicitHeight: details.y + details.height + 12
@@ -398,14 +452,14 @@ Item {
             Item {
                 width: parent.width
                 height: 32
-                visible: catalog.getMore && catalog.kind === "themes" && !tile.local || !!tile.item.hidden || (catalog.updates[tile.item.id] || 0) > 0
+                visible: catalog.getMore && !tile.local || !!tile.item.hidden || (catalog.updates[tile.item.id] || 0) > 0
                 SiteButton {
                     objectName: "install-" + tile.item.id
                     anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter
-                    width: 110; visible: catalog.getMore && catalog.kind === "themes" && !tile.local
+                    width: 110; visible: catalog.getMore && !tile.local
                     text: tile.picked ? "\uF00C " + Eitr.I18n.tr("Selected") : Eitr.I18n.tr("Install")
                     selected: tile.picked; available: !catalog.busy
-                    onClicked: { catalog.toggle(tile.item); catalog.cursor = catalog.navigable.findIndex(item => item.id === tile.item.id); catalog.sidebarFocus = false; catalog.forceActiveFocus(); }
+                    onClicked: { if (catalog.kind === "plugins") { catalog.openDetail(tile.item); catalog.reviewDetail(); } else catalog.toggle(tile.item); catalog.cursor = catalog.navigable.findIndex(item => item.id === tile.item.id); catalog.sidebarFocus = false; catalog.forceActiveFocus(); }
                 }
                 SiteButton {
                     anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter
@@ -417,11 +471,11 @@ Item {
                 Pill {
                     anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter
                     visible: !tile.item.hidden && (catalog.updates[tile.item.id] || 0) > 0; text: Eitr.I18n.tr("Update"); current: true
-                    MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: { if (catalog.kind === "themes") catalog.act("update", {id: tile.item.id}); else catalog.progress = catalog.pluginNote; } }
+                    MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: { if (catalog.kind === "themes") catalog.act("update", {id: tile.item.id}); else { catalog.openDetail(tile.item); catalog.prepareReview({id: tile.item.id, updating: true}); } } }
                 }
             }
         }
-        MouseArea { id: cardMouse; anchors.fill: parent; hoverEnabled: true; enabled: tile.actionable && !catalog.busy && !catalog.reviewing && !catalog.removing && !catalog.detail
+        MouseArea { id: cardMouse; anchors.fill: parent; hoverEnabled: true; enabled: tile.actionable && !catalog.busy && !catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing && !catalog.detail
             cursorShape: Qt.PointingHandCursor
             onClicked: { catalog.cursor = catalog.navigable.findIndex(theme => theme.id === tile.item.id); catalog.activate(tile.item, tile.local); }
         }
@@ -445,7 +499,7 @@ Item {
     Item {
         id: sidebar
         width: catalog.sidebarWidth; height: parent.height
-        enabled: !catalog.reviewing && !catalog.removing && !catalog.detail
+        enabled: !catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing && !catalog.detail
         Rectangle { anchors.right: parent.right; width: 1; height: parent.height; color: SiteStyle.line }
         Label {
             id: windowTitle
@@ -476,7 +530,7 @@ Item {
         }
     }
 
-    SiteButton { z: 1; enabled: !catalog.detail && !catalog.reviewing && !catalog.removing; anchors.right: parent.right; anchors.top: parent.top; anchors.topMargin: 5; anchors.rightMargin: 8; width: 34; height: 34; text: "󰅖"; icon: true; foreground: catalog.foreground; Accessible.name: Eitr.I18n.tr("Close catalog"); onClicked: catalog.closeRequested() }
+    SiteButton { z: 1; enabled: !catalog.detail && !catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing; anchors.right: parent.right; anchors.top: parent.top; anchors.topMargin: 5; anchors.rightMargin: 8; width: 34; height: 34; text: "󰅖"; icon: true; foreground: catalog.foreground; Accessible.name: Eitr.I18n.tr("Close catalog"); onClicked: catalog.closeRequested() }
     // Source tabs like browser tabs: the strip is tinted and the selected tab
     // is cut out of it, joining the page below with curved feet.
     Item {
@@ -553,7 +607,7 @@ Item {
                 MouseArea {
                     id: tabMouse
                     anchors.fill: parent
-                    hoverEnabled: true; enabled: !catalog.busy && !catalog.reviewing && !catalog.removing && !catalog.detail
+                    hoverEnabled: true; enabled: !catalog.busy && !catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing && !catalog.detail
                     cursorShape: Qt.PointingHandCursor
                     Accessible.role: Accessible.PageTab; Accessible.name: sourceTab.label
                     onContainsMouseChanged: if (containsMouse) sourceTabs.hoveredIndex = sourceTab.index; else if (sourceTabs.hoveredIndex === sourceTab.index) sourceTabs.hoveredIndex = -1
@@ -564,7 +618,7 @@ Item {
     }
     Column {
         id: contentLayout
-        enabled: !catalog.reviewing && !catalog.removing && !catalog.detail
+        enabled: !catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing && !catalog.detail
         x: catalog.sidebarWidth + PanelStyle.padding; y: sourceTabs.height + 14
         width: catalog.width - x - PanelStyle.padding; spacing: 12
         Item {
@@ -587,14 +641,13 @@ Item {
             Row { spacing: 12; visible: catalog.tab === "installed"
                 Item {
                     id: addAddress; width: 228; height: 32
-                    SiteButton { anchors.fill: parent; available: false; text: Eitr.I18n.tr("Add from a Git address"); foreground: catalog.foreground }
+                    SiteButton { anchors.fill: parent; available: !catalog.busy; text: Eitr.I18n.tr("Add from a Git address"); foreground: catalog.foreground; onClicked: { catalog.addingAddress = true; catalog.error = ""; addressInput.forceActiveFocus(); } }
                     MouseArea { id: addHover; anchors.fill: parent; hoverEnabled: true; acceptedButtons: Qt.NoButton }
-                    BarTooltip { target: addAddress; hovered: addHover.containsMouse; text: Eitr.I18n.tr("Coming soon"); foreground: catalog.foreground; background: catalog.background }
                 }
                 SiteButton { width: 136; visible: catalog.kind === "themes"; selected: catalog.showHidden; text: Eitr.I18n.tr("Show hidden"); foreground: catalog.foreground; activeFocusOnTab: false; onClicked: { catalog.showHidden = !catalog.showHidden; catalog.forceActiveFocus(); } }
             }
         }
-        Label { width: parent.width; visible: text !== ""; text: (!catalog.reviewing && !catalog.removing ? catalog.error || catalog.progress : "") || (catalog.loading ? Eitr.I18n.tr("Loading…") : ""); Accessible.role: Accessible.AlertMessage }
+        Label { width: parent.width; visible: text !== ""; text: (!catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing ? catalog.error || catalog.progress : "") || (catalog.loading ? Eitr.I18n.tr("Loading…") : ""); Accessible.role: Accessible.AlertMessage }
         Flickable {
             id: scroll
             objectName: "catalog-scroll"
@@ -642,9 +695,9 @@ Item {
     }
     Rectangle {
         id: detailSheet
-        enabled: !catalog.reviewing && !catalog.removing
+        enabled: !catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing
         z: 2
-        objectName: "theme-detail"
+        objectName: catalog.kind === "plugins" ? "plugin-detail" : "theme-detail"
         anchors.fill: parent; visible: catalog.detail !== null
         color: Qt.alpha(SiteStyle.night, 0.90); radius: 4
         MouseArea { anchors.fill: parent; onClicked: catalog.closeDetail() }
@@ -662,9 +715,52 @@ Item {
                     id: detailColumn
                     width: parent.width - 12; spacing: 16
                     Image {
-                        width: parent.width; height: source.toString() ? Math.min(catalog.wallpaperIndex >= 0 ? 480 : 260, width * 9 / 16) : 0
+                        visible: catalog.kind === "themes"
+                        width: parent.width; height: !visible ? 0 : source.toString() ? Math.min(catalog.wallpaperIndex >= 0 ? 480 : 260, width * 9 / 16) : 0
                         source: catalog.wallpaperIndex >= 0 && catalog.wallpaperIndex < catalog.wallpapers.length ? catalog.artworkFor(catalog.wallpapers[catalog.wallpaperIndex], false) : catalog.imageFor(catalog.detailItem)
                         sourceSize: Qt.size(1200, 700); fillMode: Image.PreserveAspectFit; asynchronous: true
+                    }
+                    Column {
+                        visible: catalog.kind === "plugins"; width: parent.width; spacing: 10
+                        Item {
+                            width: parent.width; height: Math.min(300, width * 9 / 16)
+                            readonly property bool video: catalog.currentMedia.type === "video"
+                            Image { anchors.fill: parent; visible: !parent.video || catalog.videoPosterOnly; source: parent.video ? catalog.imageFor(catalog.detailItem) : catalog.pluginMedia.length ? catalog.artworkFor(catalog.currentMedia, false) : catalog.imageFor(catalog.detailItem); fillMode: Image.PreserveAspectFit; sourceSize: Qt.size(1200, 700); asynchronous: true }
+                            Label { anchors.centerIn: parent; visible: !catalog.pluginMedia.length && !catalog.imageFor(catalog.detailItem); text: "󰏗"; font.pixelSize: 80 }
+                            VideoOutput { id: videoOutput; objectName: "plugin-video-output"; anchors.fill: parent; visible: parent.video && !catalog.videoPosterOnly; fillMode: VideoOutput.PreserveAspectFit }
+                            Component { id: audioFactory; AudioOutput { muted: false } }
+                            MediaPlayer {
+                                id: pluginVideo; objectName: "plugin-video-player"
+                                source: catalog.opened && catalog.detail && catalog.kind === "plugins" && catalog.currentMedia.type === "video" ? catalog.artworkFor(catalog.currentMedia, false) : ""
+                                videoOutput: videoOutput
+                                property bool muted: !audioOutput || audioOutput.muted
+                                loops: MediaPlayer.Infinite; autoPlay: true
+                                onSourceChanged: { if (audioOutput) audioOutput.muted = true; }
+                                onErrorOccurred: catalog.detailError = errorString
+                            }
+                        }
+                        Row {
+                            visible: catalog.currentMedia.type === "video"; spacing: 10
+                            SiteButton { width: 110; text: pluginVideo.playbackState === MediaPlayer.PlayingState ? Eitr.I18n.tr("Pause") : Eitr.I18n.tr("Play"); onClicked: { if (pluginVideo.playbackState === MediaPlayer.PlayingState) pluginVideo.pause(); else pluginVideo.play(); } }
+                            SiteButton { width: 110; text: pluginVideo.muted ? Eitr.I18n.tr("Unmute") : Eitr.I18n.tr("Mute"); onClicked: { if (!pluginVideo.audioOutput) pluginVideo.audioOutput = audioFactory.createObject(pluginVideo); else pluginVideo.audioOutput.muted = !pluginVideo.audioOutput.muted; } }
+                        }
+                        Flickable {
+                            width: parent.width; height: 76; contentWidth: mediaStrip.width; clip: true
+                            Row { id: mediaStrip; spacing: 8
+                                Repeater { model: catalog.pluginMedia
+                                    Rectangle {
+                                        required property var modelData
+                                        required property int index
+                                        width: 110; height: 70; radius: 3; color: SiteStyle.raised
+                                        border.width: 1; border.color: catalog.mediaIndex === index ? catalog.accent : SiteStyle.line
+                                        Image { anchors.fill: parent; anchors.margins: 2; visible: parent.modelData.type === "image"; source: parent.modelData.type === "image" ? catalog.artworkFor(parent.modelData, false) : ""; sourceSize: Qt.size(220, 140); fillMode: Image.PreserveAspectCrop }
+                                        Label { anchors.centerIn: parent; text: parent.modelData.type === "video" ? "▶" : String(parent.index + 1) }
+                                        MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: catalog.selectMedia(parent.index) }
+                                    }
+                                }
+                            }
+                        }
+                        Label { width: parent.width; text: catalog.currentMedia.caption || ""; color: SiteStyle.muted }
                     }
                     Row {
                         visible: catalog.wallpaperIndex >= 0; spacing: 10
@@ -696,18 +792,21 @@ Item {
                         Pill { text: catalog.badge(catalog.detailItem) }
                         Pill { visible: typeof catalog.detailItem.light === "boolean"; text: catalog.detailItem.light ? Eitr.I18n.tr("Light") : Eitr.I18n.tr("Dark") }
                         Pill { visible: catalog.isInstalled(catalog.detailItem); text: Eitr.I18n.tr("Installed") }
+                        Pill { visible: catalog.detailItem.enabled === false; text: Eitr.I18n.tr("Disabled") }
                         Pill { visible: !!catalog.detailItem.current; current: true; text: Eitr.I18n.tr("Current") }
                     }
                     Label {
                         width: parent.width
-                        text: [catalog.detailItem.maintainer || (["builtin", "official"].includes(catalog.detailItem.kind) ? Eitr.I18n.tr("The Eitr project") : ""), catalog.detailItem.license || (["builtin", "official"].includes(catalog.detailItem.kind) ? "GPL-3.0" : "")].filter(value => value).join(" · ")
+                        text: [catalog.detailItem.author || "", catalog.detailItem.maintainer || (["builtin", "official"].includes(catalog.detailItem.kind) ? Eitr.I18n.tr("The Eitr project") : ""), catalog.detailItem.license || (catalog.kind === "themes" && ["builtin", "official"].includes(catalog.detailItem.kind) ? "GPL-3.0" : "")].filter(value => value).join(" · ")
                         color: SiteStyle.muted
                     }
-                    Label { width: parent.width; text: catalog.sizeText(catalog.detailItem.size || 0); color: SiteStyle.muted }
-                    Label { width: parent.width; text: (catalog.detailItem.repository || (catalog.detailItem.source || {}).url || (catalog.detailItem.kind === "builtin" ? "eitr-org/eitr" : catalog.detailItem.kind === "official" ? "eitr-org/eitr-themes" : "")) + " / " + (catalog.detailItem.folder || (catalog.detailItem.source || {}).folder || "themes/" + (catalog.detailItem.id || "")); color: SiteStyle.muted; font.pixelSize: 11; wrapMode: Text.WrapAnywhere }
+                    Label { visible: catalog.kind === "plugins"; width: parent.width; text: (catalog.detailItem.version || "") + (catalog.tab === "community" ? " · " + (catalog.detailItem.commit || "").slice(0, 12) : ""); color: SiteStyle.muted }
+                    Label { visible: catalog.kind === "plugins"; width: parent.width; text: catalog.componentsText(catalog.detailItem.components || {}); color: SiteStyle.muted }
+                    Label { visible: catalog.kind === "themes"; width: parent.width; text: catalog.sizeText(catalog.detailItem.size || 0); color: SiteStyle.muted }
+                    Label { width: parent.width; text: (catalog.detailItem.repository || (catalog.detailItem.source || {}).url || (catalog.detailItem.kind === "builtin" ? "eitr-org/eitr" : catalog.detailItem.kind === "official" ? "eitr-org/eitr-themes" : "")) + " / " + (catalog.detailItem.folder || catalog.detailItem.repositoryPath || (catalog.detailItem.source || {}).folder || (catalog.kind === "plugins" ? "." : "themes/" + (catalog.detailItem.id || ""))); color: SiteStyle.muted; font.pixelSize: 11; wrapMode: Text.WrapAnywhere }
                     Rectangle { width: parent.width; height: 1; color: SiteStyle.line }
-                    Label { text: Eitr.I18n.tr("Wallpapers"); font.family: SiteStyle.carved; font.pixelSize: 18 }
-                    Label { visible: catalog.wallpapers.length === 0; text: Eitr.I18n.tr("No wallpapers"); color: SiteStyle.muted }
+                    Label { visible: catalog.kind === "themes"; text: Eitr.I18n.tr("Wallpapers"); font.family: SiteStyle.carved; font.pixelSize: 18 }
+                    Label { visible: catalog.kind === "themes" && catalog.wallpapers.length === 0; text: Eitr.I18n.tr("No wallpapers"); color: SiteStyle.muted }
                     Flow {
                         width: parent.width; spacing: 10
                         Repeater {
@@ -737,9 +836,9 @@ Item {
                         objectName: "detail-install"
                         anchors.right: parent.right; anchors.bottom: parent.bottom; anchors.margins: 22
                         width: 150; primary: true; available: !catalog.busy
-                        visible: !catalog.detailItem.current
-                        text: catalog.isInstalled(catalog.detailItem) ? Eitr.I18n.tr("Apply") : Eitr.I18n.tr("Install")
-                        onClicked: { if (catalog.isInstalled(catalog.detailItem)) catalog.act("apply", {id: catalog.detailItem.id}); else catalog.reviewDetail(); }
+                        visible: !catalog.detailItem.current && (catalog.kind === "themes" || !catalog.isInstalled(catalog.detailItem) || (catalog.updates[catalog.detailItem.id] || catalog.detailItem.updateCount || 0) > 0)
+                        text: catalog.isInstalled(catalog.detailItem) ? (catalog.kind === "plugins" ? Eitr.I18n.tr("Update") : Eitr.I18n.tr("Apply")) : Eitr.I18n.tr("Install")
+                        onClicked: { if (catalog.kind === "plugins") catalog.reviewDetail(); else if (catalog.isInstalled(catalog.detailItem)) catalog.act("apply", {id: catalog.detailItem.id}); else catalog.reviewDetail(); }
                     }
             SiteButton { objectName: "detail-close"; anchors.right: parent.right; anchors.top: parent.top; anchors.margins: 10; width: 32; icon: true; text: "󰅖"; Accessible.name: Eitr.I18n.tr("Close"); onClicked: catalog.closeDetail() }
         }
@@ -776,4 +875,63 @@ Item {
             }
         }
     }
+    Rectangle {
+        objectName: "native-review"; z: 4; anchors.fill: parent
+        visible: catalog.nativeReviewing || catalog.addingAddress
+        color: Qt.alpha(SiteStyle.night, 0.94)
+        MouseArea { anchors.fill: parent }
+        Rectangle {
+            anchors.centerIn: parent; width: parent.width - (catalog.compact ? 32 : 100); height: parent.height - 40
+            color: SiteStyle.surface; radius: 4; border.width: 1; border.color: SiteStyle.line
+            Column {
+                anchors.fill: parent; anchors.margins: 24; spacing: 16
+                Label { width: parent.width; font.family: SiteStyle.carved; font.pixelSize: 22; text: catalog.addingAddress ? Eitr.I18n.tr("Add from a Git address") : catalog.nativeReview && catalog.nativeReview.changes && catalog.nativeReview.changes.new ? Eitr.I18n.tr("Review plugin update") : catalog.kind === "themes" ? Eitr.I18n.tr("Review theme installation") : Eitr.I18n.tr("Review plugin installation") }
+                Column {
+                    visible: catalog.addingAddress; width: parent.width; spacing: 14
+                    Label { width: parent.width; text: Eitr.I18n.tr("HTTPS or SSH Git address"); color: SiteStyle.muted }
+                    TextField { id: addressInput; objectName: "git-address"; width: parent.width; color: SiteStyle.fg; placeholderText: "https://…"; placeholderTextColor: SiteStyle.muted; font.family: SiteStyle.mono; selectionColor: catalog.accent; selectedTextColor: SiteStyle.fg; background: Rectangle { color: SiteStyle.raised; radius: 4; border.width: 1; border.color: SiteStyle.lineStrong } selectByMouse: true; onAccepted: catalog.prepareReview({url: text.trim()}) }
+                    Label { width: parent.width; text: catalog.kind === "plugins" ? Eitr.I18n.tr("Plugins run with your account's full permissions") : Eitr.I18n.tr("Data-only themes · Review selected sources"); color: SiteStyle.muted }
+                    SiteButton { width: 140; text: Eitr.I18n.tr("Review"); onClicked: catalog.prepareReview({url: addressInput.text.trim()}) }
+                }
+                Flickable {
+                    width: parent.width; height: Math.max(40, parent.height - 150); visible: !catalog.addingAddress
+                    contentWidth: width; contentHeight: reviewColumn.height; clip: true; boundsBehavior: Flickable.StopAtBounds
+                    ScrollBar.vertical: ScrollBar {}
+                    Column {
+                        id: reviewColumn; width: parent.width - 12; spacing: 14
+                        readonly property var facts: catalog.nativeReview || ({})
+                        Label { width: parent.width; text: catalog.busy ? Eitr.I18n.tr("Loading…") : catalog.error; color: SiteStyle.muted }
+                        Label { width: parent.width; visible: !!catalog.nativeReview; text: reviewColumn.facts.dataOnly ? Eitr.I18n.tr("Data-only themes · Review selected sources") : Eitr.I18n.tr("Plugins run with your account's full permissions"); font.bold: true }
+                        Label { width: parent.width; visible: !!catalog.nativeReview && !reviewColumn.facts.dataOnly; text: reviewColumn.facts.official ? Eitr.I18n.tr("Official Eitr plugin") : Eitr.I18n.tr("Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust."); color: reviewColumn.facts.official ? SiteStyle.muted : SiteStyle.accent; font.bold: !reviewColumn.facts.official }
+                        Label { width: parent.width; text: (reviewColumn.facts.spec || {}).name || ""; font.family: SiteStyle.carved; font.pixelSize: 22 }
+                        Label { width: parent.width; text: [reviewColumn.facts.url, reviewColumn.facts.folder, reviewColumn.facts.commit, reviewColumn.facts.author, (reviewColumn.facts.spec || {}).author, (reviewColumn.facts.spec || {}).version, reviewColumn.facts.license].filter(value => value).join("\n"); wrapMode: Text.WrapAnywhere; color: SiteStyle.muted }
+                        Repeater { model: reviewColumn.facts.choices || []
+                            SiteButton { required property var modelData; width: reviewColumn.width; text: modelData.name; onClicked: catalog.prepareReview({url: reviewColumn.facts.url, id: modelData.id}) }
+                        }
+                        Label { width: parent.width; text: catalog.componentsText(reviewColumn.facts.spec || {}); wrapMode: Text.WrapAnywhere }
+                        Label { width: parent.width; text: (reviewColumn.facts.flags || []).join("\n"); color: SiteStyle.accent; wrapMode: Text.WrapAnywhere }
+                        Label { width: parent.width; text: Eitr.I18n.tr("Files"); font.bold: true; visible: !!catalog.nativeReview }
+                        Label { width: parent.width; text: (reviewColumn.facts.files || []).join("\n"); wrapMode: Text.WrapAnywhere; color: SiteStyle.muted }
+                        Label { width: parent.width; text: reviewColumn.facts.changes && reviewColumn.facts.changes.new ? [reviewColumn.facts.changes.old + " → " + reviewColumn.facts.changes.new].concat(reviewColumn.facts.changes.subjects || [], (reviewColumn.facts.changes.files || []).map(file => file.status + " " + file.path + " +" + file.added + " −" + file.removed), reviewColumn.facts.changes.flags || []).join("\n") : ""; wrapMode: Text.WrapAnywhere }
+                        Repeater { model: reviewColumn.facts.qml || []
+                            SiteButton { required property var modelData; width: reviewColumn.width; text: modelData.path; onClicked: catalog.loadReviewSource(modelData.path, 0) }
+                        }
+                        Label { width: parent.width; visible: !!catalog.reviewSourcePath; text: catalog.reviewSourcePath + "\n" + catalog.reviewSourceText; font.family: SiteStyle.mono; font.pixelSize: 11; wrapMode: Text.WrapAnywhere }
+                        Row { spacing: 10; visible: !!catalog.reviewSourcePath
+                            SiteButton { width: 100; text: Eitr.I18n.tr("Previous"); available: catalog.reviewSourceOffset > 0; onClicked: catalog.loadReviewSource(catalog.reviewSourcePath, Math.max(0, catalog.reviewSourceOffset - 16384)) }
+                            SiteButton { width: 100; text: Eitr.I18n.tr("Next"); available: catalog.reviewSourceOffset + 16384 < catalog.reviewSourceTotal; onClicked: catalog.loadReviewSource(catalog.reviewSourcePath, catalog.reviewSourceOffset + 16384) }
+                        }
+                        SiteButton { width: 220; visible: !!reviewColumn.facts.assistant; available: !catalog.busy; text: Eitr.I18n.tr("Ask the AI to check"); onClicked: { catalog.busy = true; catalog.request("advice", {token: catalog.nativeReview.token}, function(failure, data) { catalog.busy = false; catalog.advice = failure || (data.answer || []).join("\n"); }); } }
+                        Label { width: parent.width; text: catalog.advice; wrapMode: Text.WrapAnywhere }
+                    }
+                }
+                Row {
+                    spacing: 12
+                    SiteButton { width: 110; text: Eitr.I18n.tr("Cancel"); available: !catalog.confirmingReview; onClicked: { DesktopData.releaseOwner(catalog); catalog.busy = false; catalog.addingAddress = false; catalog.discardReview(); catalog.forceActiveFocus(); } }
+                    SiteButton { objectName: "native-confirm"; width: 110; visible: !!catalog.nativeReview && !!catalog.nativeReview.token; available: !catalog.busy; primary: true; text: Eitr.I18n.tr("Confirm"); onClicked: catalog.nativeConfirm() }
+                }
+            }
+        }
+    }
+
 }

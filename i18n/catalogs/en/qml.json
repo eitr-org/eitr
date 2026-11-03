@@ -86,7 +86,6 @@
   "Close its settings": "Close its settings",
   "Color": "Color",
   "Color Picker": "Color Picker",
-  "Coming soon": "Coming soon",
   "Community": "Community",
   "Configure this source in OBS": "Configure this source in OBS",
   "Confirm removal": "Confirm removal",
@@ -193,7 +192,6 @@
   "Install 1 theme · %1": "Install 1 theme · %1",
   "Install the Eitr network helper first; see distro/NETWORKING.md": "Install the Eitr network helper first; see distro/NETWORKING.md",
   "Installed": "Installed",
-  "Installing plugins from the catalog is coming soon; use Walker > Plugins for now": "Installing plugins from the catalog is coming soon; use Walker > Plugins for now",
   "Invalid assistant response.": "Invalid assistant response.",
   "Islands": "Islands",
   "KNOWN DEVICES": "KNOWN DEVICES",
@@ -521,5 +519,16 @@
   "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
   "•  now": "•  now",
   "󰂚  No notifications": "󰂚  No notifications",
-  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Do Not Disturb\n\nNo notifications"
+  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Do Not Disturb\n\nNo notifications",
+  "Ask the AI to check": "Ask the AI to check",
+  "Background service": "Background service",
+  "Confirm": "Confirm",
+  "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust.": "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust.",
+  "Files": "Files",
+  "HTTPS or SSH Git address": "HTTPS or SSH Git address",
+  "Official Eitr plugin": "Official Eitr plugin",
+  "Plugins run with your account's full permissions": "Plugins run with your account's full permissions",
+  "Review": "Review",
+  "Review plugin installation": "Review plugin installation",
+  "Review plugin update": "Review plugin update"
 }

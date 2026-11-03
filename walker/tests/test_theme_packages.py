@@ -68,6 +68,29 @@ class ThemePackagesTest(unittest.TestCase):
         self.run_git('add', '.')
         self.run_git('commit', '-qm', 'Fixture')
 
+    def test_git_address_review_stages_data_only_and_pins_commit(self):
+        choices = self.backend.prepare_review(self.url)
+        self.assertEqual(len(choices['choices']), 3)
+        review = self.backend.prepare_review(self.url, 'alpha')
+        self.assertTrue(review['dataOnly'])
+        self.assertFalse((self.backend.folder / 'alpha').exists())
+        (self.repo / 'themes/alpha/artwork.md').write_text('New upstream description')
+        self.save()
+        self.assertEqual(self.backend.confirm_review(review['token']), ['alpha'])
+        installed = self.backend.folder / 'alpha'
+        self.assertEqual((installed / 'display-name').read_text(), 'alpha\n')
+        self.assertEqual(json.loads((installed / SOURCE).read_text())['commit'], review['commit'])
+        with self.assertRaisesRegex(ValueError, 'expired'):
+            self.backend.confirm_review(review['token'])
+
+    def test_git_address_review_refuses_stage_tampering(self):
+        review = self.backend.prepare_review(self.url, 'alpha')
+        stage = Path(self.backend._reviews[review['token']]['stage'].name)
+        (stage / 'alpha/display-name').write_text('Tampered')
+        with self.assertRaisesRegex(ValueError, 'changed'):
+            self.backend.confirm_review(review['token'])
+        self.assertFalse((self.backend.folder / 'alpha').exists())
+
     def test_manifest(self):
         folder = self.repo / 'themes/alpha'
         original = (folder / 'eitr-theme.json').read_text()

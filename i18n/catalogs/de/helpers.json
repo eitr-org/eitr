@@ -763,7 +763,6 @@
   "Plugin blocked: {name}": "Plugin gesperrt: {name}",
   "Plugin by {author} · not reviewed by Eitr": "Plugin von {author} · nicht von Eitr geprüft",
   "Plugin icon: {icon}": "Plugin-Symbol: {icon}",
-  "Plugin installation and update review are not available yet": "Die Prüfung von Plugin-Installationen und Updates ist noch nicht verfügbar",
   "Plugin installed": "Plugin installiert",
   "Plugin turned off: {name}": "Plugin ausgeschaltet: {name}",
   "Plugin update: {name}": "Plugin-Aktualisierung: {name}",

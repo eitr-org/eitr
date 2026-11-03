@@ -22,27 +22,27 @@ from eitr_i18n import tr
 
 THEMES = 'https://github.com/eitr-org/eitr-themes'
 PLUGINS = 'https://github.com/eitr-org/eitr-plugins'
-MUTATIONS = {'install', 'update', 'remove', 'apply', 'unhide'}
+MUTATIONS = {'prepare', 'confirm', 'discard', 'advice', 'install', 'update', 'remove', 'apply', 'unhide'}
 
 
 def validate(name, args):
-    if name not in {'installed', 'index', 'preview', 'artwork', 'detail', 'check', *MUTATIONS} or not isinstance(args, dict):
+    if name not in {'installed', 'index', 'preview', 'artwork', 'detail', 'source', 'check', *MUTATIONS} or not isinstance(args, dict):
         raise ValueError('invalid-request')
     if args.get('kind') not in {'themes', 'plugins'}:
         raise ValueError('invalid-kind')
     if args.get('channel', 'official') not in {'official', 'community', 'installed'}:
         raise ValueError('invalid-channel')
     if args['kind'] == 'plugins' and name in {'install', 'update', 'apply', 'unhide'}:
-        raise ValueError(tr('Plugin installation and update review are not available yet'))
+        raise ValueError('Use the plugin prepare/confirm review')
     ids = args.get('ids', []) if name == 'install' else [args.get('id')] if name in {'update', 'remove', 'apply', 'unhide', 'preview', 'artwork', 'detail'} else []
     if not isinstance(ids, list) or (name == 'install' and not ids) or len(ids) > 1000 or any(
             not isinstance(theme_id, str) or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', theme_id) or len(theme_id) > 64 for theme_id in ids):
         raise ValueError('invalid-id')
 
-    if name == 'detail' and (args['kind'] != 'themes' or args.get('channel') != 'community'):
+    if name == 'detail' and args['kind'] == 'themes' and args.get('channel') != 'community':
         raise ValueError('invalid-detail-request')
-    if name == 'artwork' and args['kind'] != 'themes':
-        raise ValueError('invalid-artwork-request')
+    if name in {'confirm', 'advice', 'source'} and (not isinstance(args.get('token'), str) or len(args['token']) > 128):
+        raise ValueError('invalid-review-token')
     if name == 'artwork':
         from eitr_theme_packages import relative
         relative(args.get('path'))
@@ -53,6 +53,7 @@ class CatalogDomain:
         self.action_lock = threading.Lock()
         self.transport_lock = threading.Lock()
         self.process = None
+        self.review_stage = None
         self.command = command or [sys.executable, str(Path(__file__).resolve()), '--worker', str(os.getpid())]
 
     def close(self):
@@ -63,14 +64,22 @@ class CatalogDomain:
             except ProcessLookupError:
                 pass
             process.communicate()
+        if self.review_stage is not None:
+            self.review_stage.cleanup()
+            self.review_stage = None
 
     def exchange(self, name, args, cancelled):
         # One persistent backend worker for the domain, not a Python process per
         # read. A cancelled operation destroys it; the next explicit request may
         # start a fresh worker, but the interrupted request is never resent.
         if self.process is None:
+            from eitr_paths import cache
+            parent = cache('eitr/catalog-reviews')
+            parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+            self.review_stage = tempfile.TemporaryDirectory(prefix='session-', dir=parent)
+            environment = dict(os.environ, EITR_CATALOG_REVIEW_CACHE=self.review_stage.name)
             self.process = subprocess.Popen(self.command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                stderr=subprocess.DEVNULL, start_new_session=True, bufsize=0)
+                stderr=subprocess.DEVNULL, start_new_session=True, bufsize=0, env=environment)
         process = self.process
         deadline = time.monotonic() + (300 if name in MUTATIONS else 60)
         frame = memoryview((json.dumps(dict(name=name, args=args)) + '\n').encode())
@@ -143,6 +152,15 @@ def community(name, args):
         index = validate_index(json.loads(payload, object_pairs_hook=unique_object))
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(json.dumps(index))
+        if args['kind'] == 'plugins':
+            from eitr_plugins import Plugins
+            backend = plugin_backend()
+            rows = []
+            for row in index['plugins']:
+                metadata = backend.catalog(row['repository'], revision=row['commit'], folder=row['folder'], plugin_id=row['id'])[0]
+                rows.append(dict(metadata, **{key: value for key, value in row.items() if key != 'description'}, kind='community'))
+            save_plugin_rows(rows, 'community')
+            return {'items': rows}
         return {'items': [dict(row, name=row['id'].replace('-', ' ').title(), kind='community') for row in index[args['kind']]]}
     # Install exactly the reviewed metadata, not an upstream catalog or branch's index.
     index = validate_index(json.loads(target.read_text()))
@@ -275,15 +293,15 @@ def artwork_preview(kind, item_id, backend, requested=None, channel="official"):
     from pathlib import PurePosixPath
     from eitr_paths import cache
     from eitr_plugin_install import git, normalized_url, COMMIT
-    from eitr_plugin_manifest import image_asset
+    from eitr_plugin_manifest import image_asset, media_asset
     from PIL import Image
     plugin = kind == 'plugins'
     with backend.lock():
         if plugin:
-            rows = json.loads(cache('eitr/catalog-previews/plugins.json').read_text())
+            rows = json.loads(cache('eitr/catalog-previews/plugins' + ('-community' if channel == 'community' else '') + '.json').read_text())
             row = next(row for row in rows if row['id'] == item_id)
             revision = row['commit']
-            repository = cache('eitr/plugin-repositories') / hashlib.sha256(normalized_url(PLUGINS).encode()).hexdigest()
+            repository = cache('eitr/plugin-repositories') / hashlib.sha256(normalized_url(row['repository']).encode()).hexdigest()
         elif channel == 'community':
             from eitr_community import validate_index
             index = validate_index(json.loads(cache('eitr/community-index.json').read_text()))
@@ -304,6 +322,8 @@ def artwork_preview(kind, item_id, backend, requested=None, channel="official"):
         screenshot = bool(row.get('preview'))
         default = row.get('preview') or (row.get('icon') if plugin else '')
         allowed = {default: 512 * 1024 if plugin and not screenshot else 2 * 1024 * 1024} if default else {}
+        for media in row.get('media', []):
+            allowed[media['path']] = 24 * 1024 * 1024 if media['type'] == 'video' else 2 * 1024 * 1024
         for wallpaper in row.get('wallpapers', []):
             allowed[wallpaper['path']] = 16 * 1024 * 1024
             if wallpaper.get('thumbnail'):
@@ -334,7 +354,11 @@ def artwork_preview(kind, item_id, backend, requested=None, channel="official"):
                 temporary = Path(directory) / ('image' + path.suffix.lower())
                 temporary.write_bytes(payload)
                 if plugin:
-                    image_asset(Path(directory), temporary.name, preview=screenshot)
+                    media = next((asset for asset in row.get('media', []) if asset['path'] == relative), None)
+                    if media:
+                        media_asset(Path(directory), dict(media, path=temporary.name))
+                    else:
+                        image_asset(Path(directory), temporary.name, preview=screenshot)
                 else:
                     with Image.open(io.BytesIO(payload)) as image:
                         maximum = 2048 if relative == default else 16384
@@ -347,6 +371,28 @@ def artwork_preview(kind, item_id, backend, requested=None, channel="official"):
         return {'image': target.as_uri(), 'size': target.stat().st_size}
 
 
+_PLUGIN_BACKEND = None
+_THEME_BACKEND = None
+
+
+def plugin_backend():
+    global _PLUGIN_BACKEND
+    if _PLUGIN_BACKEND is None:
+        from eitr_plugins import Plugins
+        _PLUGIN_BACKEND = Plugins()
+    return _PLUGIN_BACKEND
+
+
+def save_plugin_rows(rows, channel='official'):
+    from eitr_paths import cache
+    target = cache('eitr/catalog-previews/plugins' + ('-community' if channel == 'community' else '') + '.json')
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(mode='w', dir=target.parent, delete=False) as handle:
+        temporary = Path(handle.name)
+        json.dump(rows, handle)
+    temporary.replace(target)
+
+
 def worker(name, args):
     from eitr_paths import code_root, cache
     from eitr_theme_packages import Themes
@@ -356,7 +402,17 @@ def worker(name, args):
     if args.get('channel') == 'community' and name in {'index', 'install'}:
         return community(name, args)
     if kind == 'themes':
-        backend = Themes()
+        global _THEME_BACKEND
+        if _THEME_BACKEND is None:
+            _THEME_BACKEND = Themes()
+        backend = _THEME_BACKEND
+        if name == 'discard':
+            backend.discard_reviews()
+            return {}
+        if name == 'prepare':
+            return {'review': backend.prepare_review(args['url'], theme_id=args.get('id'))}
+        if name == 'confirm':
+            return {'result': backend.confirm_review(args['token'])}
         if name == 'installed':
             return {'items': installed_badges(backend.installed(), kind)}
         if name == 'index':
@@ -381,22 +437,56 @@ def worker(name, args):
                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=90)
             return {}
         return {'result': getattr(backend, name)(args['id'])}
-    backend = Plugins()
+    backend = plugin_backend()
     if name == 'installed':
         return {'items': installed_badges([dict(row, kind='official' if row['official'] else 'third-party') for row in backend.installed()], kind)}
     if name == 'check':
         return {'updates': backend.check_updates()}
     if name == 'remove':
         return {'result': backend.remove(args['id'], lambda record: True)}
-    if name == 'preview':
-        return artwork_preview(kind, args['id'], backend)
+    if name == 'discard':
+        backend.discard_reviews()
+        return {}
+    if name == 'confirm':
+        return {'result': backend.confirm_review(args['token'])}
+    if name == 'advice':
+        return {'answer': backend.review_advice(args['token'])}
+    if name == 'source':
+        return backend.review_source(args['token'], args.get('path'), args.get('offset', 0))
+    if name == 'prepare':
+        if args.get('url'):
+            return {'review': backend.prepare_review(args['url'], plugin_id=args.get('id'))}
+        item_id = args['id']
+        if args.get('updating'):
+            from eitr_community import validate_index
+            from eitr_plugin_install import normalized_url
+            record = backend.records()[item_id]
+            try:
+                index = validate_index(json.loads(cache('eitr/community-index.json').read_text()))
+            except (OSError, ValueError):
+                index = {'plugins': []}
+            row = next((row for row in index['plugins'] if row['id'] == item_id and
+                        normalized_url(record['url']) == normalized_url(row['repository']) and
+                        record.get('path', '') == row['folder']), None)
+            if row is not None:
+                review = backend.prepare_review(plugin_id=item_id, folder=row['folder'], revision=row['commit'], updating=True)
+                return {'review': dict(review, license=row['license'], maintainer=row['maintainer'])}
+            if args.get('channel') == 'community':
+                raise ValueError('Community source differs from installed plugin')
+            return {'review': backend.prepare_review(plugin_id=item_id, updating=True)}
+        channel = args.get('channel', 'official')
+        rows = json.loads(cache('eitr/catalog-previews/plugins' + ('-community' if channel == 'community' else '') + '.json').read_text())
+        row = next(row for row in rows if row['id'] == item_id)
+        review = backend.prepare_review(row['repository'], plugin_id=item_id, folder=row['folder'],
+                                        revision=row['commit'] if channel == 'community' else None)
+        return {'review': dict(review, license=row.get('license', ''), maintainer=row.get('maintainer', ''))}
+    if name in {'preview', 'artwork'}:
+        return artwork_preview(kind, args['id'], backend, args.get('path'), args.get('channel', 'official'))
+    if name == 'detail':
+        rows = json.loads(cache('eitr/catalog-previews/plugins' + ('-community' if args.get('channel') == 'community' else '') + '.json').read_text())
+        return {'item': next(row for row in rows if row['id'] == args['id'])}
     rows = backend.catalog(PLUGINS)
-    target = cache('eitr/catalog-previews/plugins.json')
-    target.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.NamedTemporaryFile(mode='w', dir=target.parent, delete=False) as handle:
-        temporary = Path(handle.name)
-        json.dump(rows, handle)
-    temporary.replace(target)
+    save_plugin_rows(rows)
     return {'items': rows}
 
 

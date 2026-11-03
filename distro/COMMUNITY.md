@@ -44,3 +44,9 @@ plugins are browse-only until the native plugin review is available.
 
 `distro/lib/spdx-license-ids.json` is the SPDX identifier set shipped by Python
 packaging's SPDX data, kept locally so catalog validation needs no extra package.
+
+The desktop catalog reads plugin manifest metadata, including optional pictures
+and videos, from the entry's pinned commit. Browsing never downloads media blobs.
+Selected media uses the same bounded artwork loader as official plugins. Native
+install and update reviews stage that exact commit; a newer upstream HEAD is
+never substituted for the community pin. See [PLUGINS.md](PLUGINS.md).

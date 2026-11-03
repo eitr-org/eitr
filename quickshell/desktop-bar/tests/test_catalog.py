@@ -59,6 +59,13 @@ class SitePaletteTests(unittest.TestCase):
 
 
 class CatalogDomainTests(unittest.TestCase):
+    def setUp(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        environment = patch.dict(os.environ, dict(HOME=temporary.name, XDG_CACHE_HOME=temporary.name))
+        environment.start()
+        self.addCleanup(environment.stop)
+
     def test_results_and_errors_are_preserved(self):
         domain = DOMAIN.CatalogDomain()
         for result in ({'items': []}, {'updates': {}}, {'error': 'offline'},
@@ -219,7 +226,8 @@ ShellRoot {
      if (capture.name === "plugins-official") {
       panel.progress = "";
       keys.mouseClick(panel, panel.sidebarWidth + 50, 160);
-      if (panel.progress !== "Installing plugins from the catalog is coming soon; use Walker > Plugins for now") throw new Error("click shows plugin coming-soon note");
+      if (!panel.detail) throw new Error("click opens plugin details");
+      panel.closeDetail();
      }
      sample.grabToImage(function(result) { result.saveToFile("TARGET/" + capture.name + "-VARIANT.png"); });
     }
@@ -229,7 +237,7 @@ ShellRoot {
     onTriggered: {
      if (Bar.SiteStyle.light !== SITE_LIGHT) throw new Error("light.mode detection");
      if (panel.background !== Bar.SiteStyle.card || panel.accent !== Bar.SiteStyle.accent) throw new Error("site palette binding");
-     const names = ["official-themes", "selected-themes", "detail-overview", "detail-wallpaper", "review", "installing", "community-detail", "installed-hidden", "plugins-official", "plugins-installed", "remove"];
+     const names = ["official-themes", "selected-themes", "detail-overview", "detail-wallpaper", "review", "installing", "community-detail", "installed-hidden", "plugins-official", "plugins-installed", "remove", "plugin-cards-install", "plugin-images", "plugin-video", "plugin-review-official", "plugin-review-third-party", "plugin-update-review", "git-address"];
      if (sample.phase === 0) {
       panel.installed = [{id:"eitr",name:"Eitr",kind:"builtin",current:true,description:"Primordial venom",previewUrl:"PREVIEW"},{id:"nord",name:"Nord",kind:"official",description:"Cool northern blues",previewUrl:"PREVIEW2"},{id:"mine",name:"My theme",kind:"own",light:true,description:"A quiet light palette",previewUrl:"PREVIEW3"}];
       panel.availableItems = [{id:"moss",name:"Moss",kind:"official",description:"Deep forest greens",size:3145728},{id:"jade",name:"Jade",kind:"official",light:true,description:"Warm jade and cream",size:2097152},{id:"asgard",name:"Asgard",kind:"official",description:"Gold in the halls of the gods",size:2097152}];
@@ -326,7 +334,8 @@ ShellRoot {
       panel.installed = [];
       panel.availableItems = [{id:"clock",name:"Clock",kind:"official",description:"A desktop clock",previewUrl:"PREVIEW",preview:"preview.png"},{id:"notes",name:"Notes",kind:"official",description:"Notes on the desktop",icon:"ICON",previewUrl:"ICON"},{id:"plain",name:"Plain",kind:"official",description:"A plugin without artwork"}];
       panel.activate(panel.availableItems[0], false);
-      if (panel.progress !== "Installing plugins from the catalog is coming soon; use Walker > Plugins for now") throw new Error("plugin coming-soon note");
+      if (!panel.detail || panel.detail.id !== "clock") throw new Error("plugin opens detail");
+      panel.closeDetail();
      } else if (sample.phase === 9) {
       panel.tab = "installed";
       panel.installed = [{id:"clock",name:"Clock",kind:"official",description:"A desktop clock",preview:"PREVIEW"},{id:"notes",name:"Notes",kind:"community",description:"Notes on the desktop",icon:"ICON",enabled:false},{id:"plain",name:"Plain",kind:"third-party",description:"A plugin without artwork"}];
@@ -339,9 +348,38 @@ ShellRoot {
       keys.keyClick(Qt.Key_Down);
       if (panel.cursor !== Math.min(panel.columns, panel.locals.length - 1)) throw new Error("plugin grid Down");
       panel.removing = panel.installed[0];
+     } else if (sample.phase === 11) {
+      panel.cancelSheet(); panel.tab = "official"; panel.installed = [];
+      panel.availableItems = [{id:"gallery",name:"Gallery plugin",kind:"official",author:"Example author",version:"1.2",description:"A plugin with pictures and video",repository:"https://example.invalid/plugins",folder:"plugins/gallery",preview:"preview.png",previewUrl:"PREVIEW",components:{rows:[{title:"Open notes",run:"notes.sh"}],ui:{widgets:[{title:"Desktop notes",qml:"Notes.qml"}]}},media:[{type:"image",path:"picture.png",caption:"Desktop picture"},{type:"video",path:"clip.webm",caption:"A short demonstration"}]}];
+     } else if (sample.phase === 12) {
+      panel.openDetail(panel.availableItems[0]);
+      panel.artwork = {[panel.artworkKey("preview.png")]:"PREVIEW",[panel.artworkKey("picture.png")]:"PREVIEW2",[panel.artworkKey("clip.webm")]:"VIDEO"};
+      panel.selectMedia(1);
+      if (panel.currentMedia.caption !== "Desktop picture") throw new Error("selected image");
+     } else if (sample.phase === 13) {
+      panel.videoPosterOnly = true; panel.selectMedia(2);
+      function find(root, name) { if (root.objectName === name) return root; for (const child of root.children || []) { const found = find(child, name); if (found) return found; } return null; }
+      const player = panel.videoPlayer;
+      if (!player || !player.source.toString().endsWith("clip.webm") || !player.muted || player.loops !== -1) throw new Error("video state/source/muted/loop");
+     } else if (sample.phase === 14) {
+      panel.mediaIndex = 0;
+      panel.transport = function(name,args,callback) {
+       if (name === "prepare") callback("",{review:{token:"fixture-token",spec:{name:"Gallery plugin",author:"Example author",version:"1.2",rows:[{title:"Open notes",run:"notes.sh"}],ui:{widgets:[{title:"Desktop notes",qml:"Notes.qml"}]}},url:"https://github.com/eitr-org/eitr-plugins",folder:"plugins/gallery",commit:"0123456789abcdef0123456789abcdef01234567",official:true,author:"Example author · 2026-11-03",files:["eitr-plugin.json","Notes.qml","notes.sh"],flags:[]}});
+       else callback("",{});
+      };
+      panel.prepareReview({id:"gallery"});
+      if (!panel.nativeReviewing || !panel.nativeReview.token || panel.busy) throw new Error("native prepare");
+     } else if (sample.phase === 15) {
+      panel.nativeReview = Object.assign({},panel.nativeReview,{official:false,url:"https://example.invalid/plugin"});
+     } else if (sample.phase === 16) {
+      panel.nativeReview = Object.assign({},panel.nativeReview,{changes:{old:"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",new:"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",subjects:["b123456 Add desktop notes"],files:[{status:"M",path:"Notes.qml",added:"12",removed:"3"}],flags:["Commit by a different author than the approved one: Example author"]}});
+     } else if (sample.phase === 17) {
+      panel.discardReview(); panel.closeDetail(); panel.addingAddress = true;
      } else {
+      panel.addingAddress = false;
       panel.forceActiveFocus(); keys.keyClick(Qt.Key_Escape);
-      if (panel.removing || !panel.opened) throw new Error("Escape cancels removal");
+      if (panel.removing) throw new Error("Escape cancels removal");
+      panel.opened = true;
       panel.kind = "themes";
       panel.tab = "official";
       panel.availableItems = [{id:"new",name:"New",size:1024},{id:"other",name:"Other",size:2048}]; panel.selected = ["other"];
@@ -437,12 +475,15 @@ ShellRoot {
                 fixture = fixture.replace('INSTALLED_PALETTES', json.dumps(installed_palettes)).replace('INDEX_PALETTES', json.dumps(index_palettes))
                 icon = folder / 'plugin-icon.svg'
                 icon.write_text('<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect x="4" y="4" width="56" height="56" rx="12" fill="#759456"/><circle cx="32" cy="32" r="15" fill="#181824"/></svg>')
+                video = folder / 'clip.webm'
+                subprocess.run(['ffmpeg', '-v', 'error', '-f', 'lavfi', '-i', 'color=c=0x53664a:s=160x90:d=0.3', '-c:v', 'libvpx-vp9', '-an', str(video)], check=True)
+                fixture = fixture.replace('VIDEO', video.as_uri())
                 fixture = fixture.replace('ICON', icon.as_uri()).replace('WALLPAPER', next((themes / 'nord/backgrounds').glob('*')).as_uri())
                 fixture = fixture.replace('TARGET', str(target)).replace('VARIANT', variant).replace('WIDTH', width).replace('PREVIEW3', (BAR.parents[1] / 'themes/eitr-light/preview.png').as_uri()).replace('PREVIEW2', (BAR.parents[1] / 'themes/nord/preview.png').as_uri()).replace('PREVIEW', (BAR.parents[1] / 'themes/eitr/preview.png').as_uri())
                 (folder / 'fixture.qml').write_text(fixture)
                 environment = render_environment(folder)
                 environment.pop('QT_QUICK_BACKEND', None)
-                environment.update(QSG_RHI_BACKEND='opengl', LIBGL_ALWAYS_SOFTWARE='1')
+                environment.update(QSG_RHI_BACKEND='opengl', LIBGL_ALWAYS_SOFTWARE='1', QT_AUDIO_BACKEND='null', PULSE_SERVER='unix:/nonexistent')
                 code, output = render(folder / 'fixture.qml', environment, 30)
                 (target / f'{variant}.log').write_text(output)
                 self.assertEqual(code, 0, output)
@@ -450,8 +491,9 @@ ShellRoot {
                 self.assertNotIn('ReferenceError', output)
                 self.assertNotIn('TypeError', output)
                 self.assertNotIn('Cannot open:', output)
+                self.assertNotIn('Error decoding:', output)
                 self.assertNotIn('Unable to assign', output)
-                for state in ('official-themes', 'selected-themes', 'detail-overview', 'detail-wallpaper', 'review', 'installing', 'community-detail', 'installed-hidden', 'plugins-official', 'plugins-installed', 'remove'):
+                for state in ('official-themes', 'selected-themes', 'detail-overview', 'detail-wallpaper', 'review', 'installing', 'community-detail', 'installed-hidden', 'plugins-official', 'plugins-installed', 'remove', 'plugin-cards-install', 'plugin-images', 'plugin-video', 'plugin-review-official', 'plugin-review-third-party', 'plugin-update-review', 'git-address'):
                     self.assertGreater((target / f'{state}-{variant}.png').stat().st_size, 10000)
 
     def test_handbook_uses_shared_native_window(self):
@@ -499,7 +541,7 @@ ShellRoot {
                 (folder / 'fixture.qml').write_text(fixture)
                 environment = render_environment(folder)
                 environment.pop('QT_QUICK_BACKEND', None)
-                environment.update(QSG_RHI_BACKEND='opengl', LIBGL_ALWAYS_SOFTWARE='1')
+                environment.update(QSG_RHI_BACKEND='opengl', LIBGL_ALWAYS_SOFTWARE='1', QT_AUDIO_BACKEND='null', PULSE_SERVER='unix:/nonexistent')
                 code, output = render(folder / 'fixture.qml', environment, 15)
                 (target / f'handbook-{variant}.log').write_text(output)
                 self.assertEqual(code, 0, output)
@@ -618,10 +660,10 @@ class CatalogBackendTests(unittest.TestCase):
             if arguments[:2] == ('cat-file', '-s'):
                 return '120'
             if arguments[:2] == ('cat-file', 'blob'):
-                return json.dumps({'schemaVersion': 1, 'plugins': [{'id': 'clock', 'path': 'plugins/clock'}]}) if arguments[2] == 'index-blob' else json.dumps({'id': 'clock', 'name': 'Clock', 'description': 'A desktop clock', 'icon': 'icon.svg', 'preview': 'preview.png'})
+                return json.dumps({'schemaVersion': 1, 'plugins': [{'id': 'clock', 'path': 'plugins/clock'}]}) if arguments[2] == 'index-blob' else json.dumps({'id': 'clock', 'name': 'Clock', 'description': 'A desktop clock', 'author': 'Fixture', 'version': '1', 'media': [{'type': 'video', 'path': 'clip.webm', 'caption': 'Demo'}], 'icon': 'icon.svg', 'preview': 'preview.png'})
             raise AssertionError(arguments)
         with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {'XDG_CACHE_HOME': directory, 'XDG_STATE_HOME': directory}), patch('eitr_plugin_install.git', side_effect=git):
-            self.assertEqual(PluginInstall().catalog(DOMAIN.PLUGINS), [{'id': 'clock', 'name': 'Clock', 'description': 'A desktop clock', 'size': 0, 'commit': 'a' * 40, 'icon': 'plugins/clock/icon.svg', 'preview': 'plugins/clock/preview.png'}])
+            self.assertEqual(PluginInstall().catalog(DOMAIN.PLUGINS), [{'id': 'clock', 'name': 'Clock', 'description': 'A desktop clock', 'size': 0, 'author': 'Fixture', 'version': '1', 'components': {}, 'repository': DOMAIN.PLUGINS, 'folder': 'plugins/clock', 'media': [{'type': 'video', 'path': 'plugins/clock/clip.webm', 'caption': 'Demo'}], 'commit': 'a' * 40, 'icon': 'plugins/clock/icon.svg', 'preview': 'plugins/clock/preview.png'}])
         self.assertEqual(sum(arguments[:2] == ('cat-file', 'blob') for arguments in calls), 2)
 
     def test_plugin_artwork_from_local_repository(self):
@@ -636,11 +678,13 @@ class CatalogBackendTests(unittest.TestCase):
             package = root / 'plugins/clock'
             package.mkdir(parents=True)
             (root / 'eitr-plugins.json').write_text(json.dumps({'schemaVersion': 1, 'plugins': [{'id': 'clock', 'path': 'plugins/clock'}]}))
-            spec = dict(id='clock', name='Clock', description='A desktop clock', icon='icon.svg')
+            spec = dict(id='clock', name='Clock', author='Fixture', version='1', description='A desktop clock', icon='icon.svg')
             icon = '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect width="64" height="64"/></svg>'
             (package / 'icon.svg').write_text(icon)
             Image.new('RGB', (160, 90), 'green').save(package / 'preview.png')
             (package / 'bad.png').write_text('not an image')
+            (package / 'clip.webm').write_bytes(bytes.fromhex('1a45dfa3') + b'fixture')
+            spec['media'] = [dict(type='video', path='clip.webm', caption='Demo')]
             (package / 'script.svg').write_text(icon.replace('</svg>', '<script>alert(1)</script></svg>'))
             (package / 'large.png').write_bytes(b'x' * (2 * 1024 * 1024 + 1))
             (package / 'link.png').symlink_to('preview.png')
@@ -689,6 +733,15 @@ class CatalogBackendTests(unittest.TestCase):
                         self.assertLessEqual(before - missing_blobs(), {expected_blob})
                         if artwork in (None, 'preview.png'):
                             self.assertEqual(len(blobs), 1)
+            with patch('eitr_plugin_install.git', wraps=plugin_git) as reads:
+                result = DOMAIN.artwork_preview('plugins', 'clock', backend, 'plugins/clock/clip.webm')
+                self.assertTrue(result['image'].endswith('.webm'))
+                self.assertEqual(sum(call.args[1:3] == ('cat-file', 'blob') for call in reads.call_args_list), 1)
+            with patch('eitr_plugin_install.git', wraps=plugin_git) as reads:
+                self.assertEqual(DOMAIN.artwork_preview('plugins', 'clock', backend, 'plugins/clock/clip.webm'), result)
+                self.assertFalse(reads.called)
+            with self.assertRaisesRegex(ValueError, 'not listed'):
+                DOMAIN.artwork_preview('plugins', 'clock', backend, 'plugins/clock/unlisted.webm')
             spec.pop('preview', None)
             spec['icon'] = 'script.svg'
             commit_spec()

@@ -89,6 +89,9 @@
     "Ask anything…": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
+    "Ask the AI to check": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "At %1": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
@@ -117,6 +120,9 @@
       "quickshell/desktop-bar/plugins/PluginArea.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml",
       "quickshell/desktop-bar/plugins/PluginPanel.qml"
+    ],
+    "Background service": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Background: Panel": [
       "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
@@ -280,14 +286,14 @@
     "Color Picker": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
-    "Coming soon": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
-    ],
     "Community": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Configure this source in OBS": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
+    ],
+    "Confirm": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Confirm removal": [
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
@@ -489,6 +495,9 @@
     "Eitr Calculator": [
       "quickshell/calculator/shell.qml"
     ],
+    "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust.": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Enable plugin": [
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
@@ -512,6 +521,9 @@
     ],
     "Family": [
       "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
+    ],
+    "Files": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Focus": [
       "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
@@ -546,6 +558,9 @@
     ],
     "HDR": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+    ],
+    "HTTPS or SSH Git address": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Hardware": [
       "quickshell/desktop-bar/bar/BarLeftGroup.qml",
@@ -617,9 +632,6 @@
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Installed": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
-    ],
-    "Installing plugins from the catalog is coming soon; use Walker > Plugins for now": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Invalid assistant response.": [
@@ -773,7 +785,8 @@
       "quickshell/desktop-bar/components/PanelMoreButton.qml"
     ],
     "Mute": [
-      "quickshell/desktop-bar/components/AudioLevelControl.qml"
+      "quickshell/desktop-bar/components/AudioLevelControl.qml",
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Mute the OBS microphone": [
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
@@ -916,6 +929,9 @@
     "Official": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
+    "Official Eitr plugin": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Offline": [
       "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/desktop-bar/services/UpdatesStatus.qml"
@@ -978,7 +994,8 @@
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
     "Pause": [
-      "quickshell/desktop-bar/media/MediaStrip.qml"
+      "quickshell/desktop-bar/media/MediaStrip.qml",
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Pause recording": [
       "quickshell/desktop-bar/panels/ObsMenu.qml",
@@ -995,7 +1012,8 @@
       "quickshell/desktop-bar/bar/BarVerticalCenter.qml"
     ],
     "Play": [
-      "quickshell/desktop-bar/media/MediaStrip.qml"
+      "quickshell/desktop-bar/media/MediaStrip.qml",
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Plugin": [
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
@@ -1004,6 +1022,9 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/panels/ControlCenter.qml",
       "quickshell/desktop-bar/plugins/PluginArea.qml"
+    ],
+    "Plugins run with your account's full permissions": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Position": [
       "quickshell/desktop-bar/panels/ControlCenterStyle.qml",
@@ -1168,6 +1189,15 @@
     ],
     "Revert": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+    ],
+    "Review": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Review plugin installation": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Review plugin update": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Review theme installation": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -1495,7 +1525,8 @@
       "quickshell/lockscreen/shell.qml"
     ],
     "Unmute": [
-      "quickshell/desktop-bar/components/AudioLevelControl.qml"
+      "quickshell/desktop-bar/components/AudioLevelControl.qml",
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Unmute the OBS microphone": [
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
@@ -6921,9 +6952,6 @@
     ],
     "Plugin icon: {icon}": [
       "walker/scripts/actions/install/plugins.py"
-    ],
-    "Plugin installation and update review are not available yet": [
-      "quickshell/desktop-bar/scripts/catalog-domain.py"
     ],
     "Plugin installed": [
       "walker/scripts/actions/install/plugins.py"

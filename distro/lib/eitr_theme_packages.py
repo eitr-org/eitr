@@ -9,6 +9,8 @@ from pathlib import Path, PurePosixPath
 import shutil
 import stat
 import tempfile
+import secrets
+import time
 import tomllib
 
 from eitr_paths import cache, code_root, config, data, state, theme_paths
@@ -203,6 +205,7 @@ class Themes:
         self.allow_file = allow_file
         self.folder = data('eitr/themes')
         self.cache = cache('eitr/theme-repositories')
+        self._reviews = {}
 
     @contextlib.contextmanager
     def lock(self):
@@ -257,7 +260,7 @@ class Themes:
             raise ValueError('Invalid installed commit')
         return record
 
-    def install(self, url, ids, *, updating=False):
+    def install(self, url, ids, *, updating=False, review=None):
         if not ids or len(set(ids)) != len(ids):
             raise ValueError('Choose distinct theme IDs')
         with self.lock():
@@ -317,6 +320,8 @@ class Themes:
                     builder.write_theme_files(destination, official=official(url),
                                               integrations_path=code_root() / 'themes/integrations.json')
                     (destination / SOURCE).write_text(json.dumps(dict(url=url, commit=revision, folder=row['folder'], official=official(url))) + '\n')
+                if review is not None:
+                    return review(stage, revision, selected)
                 moved, backups = [], []
                 try:
                     for theme_id in ids:
@@ -334,6 +339,70 @@ class Themes:
                         backup.rename(target)
                     raise
             return ids
+
+    def discard_reviews(self):
+        for review in self._reviews.values():
+            review['stage'].cleanup()
+        self._reviews.clear()
+
+    def prepare_review(self, url, theme_id=None):
+        repository_url(url, allow_file=self.allow_file)
+        with self.lock():
+            _, _, rows = self.repository(url)
+        if theme_id is None and len(rows) != 1:
+            return dict(choices=[dict(id=row['id'], name=row['name'], description=row['description']) for row in rows], url=url, dataOnly=True)
+        theme_id = theme_id or rows[0]['id']
+        parent = (Path(os.environ['EITR_CATALOG_REVIEW_CACHE']) / 'themes' if os.environ.get('EITR_CATALOG_REVIEW_CACHE') else cache('eitr/theme-reviews'))
+        parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+        stage = tempfile.TemporaryDirectory(prefix='review-', dir=parent)
+
+        def capture(package, revision, selected):
+            shutil.copytree(package / theme_id, Path(stage.name) / theme_id)
+            files = {str(path.relative_to(Path(stage.name))): (hashlib.sha256(path.read_bytes()).hexdigest(), bool(path.stat().st_mode & 0o111))
+                     for path in (Path(stage.name) / theme_id).rglob('*') if path.is_file()}
+            token = secrets.token_urlsafe(32)
+            facts = dict(token=token, url=url, official=official(url), commit=revision,
+                         spec=manifest(package / theme_id), files=list(files), dataOnly=True)
+            self._reviews[token] = dict(stage=stage, expires=time.monotonic() + 900, files=files, id=theme_id)
+            return facts
+        try:
+            return self.install(url, [theme_id], review=capture)
+        except BaseException:
+            stage.cleanup()
+            raise
+
+    def confirm_review(self, token):
+        review = self._reviews.pop(token, None)
+        if review is None:
+            raise ValueError('Review expired; prepare it again')
+        try:
+            if review['expires'] <= time.monotonic():
+                raise ValueError('Review expired; prepare it again')
+            root = Path(review['stage'].name)
+            files = {}
+            for path in root.rglob('*'):
+                if path.is_symlink():
+                    raise ValueError('Theme review changed')
+                if path.is_file():
+                    files[str(path.relative_to(root))] = (hashlib.sha256(path.read_bytes()).hexdigest(), bool(path.stat().st_mode & 0o111))
+            if files != review['files']:
+                raise ValueError('Theme review changed')
+            theme_id = review['id']
+            with self.lock():
+                if any((parent / theme_id).exists() for parent in (self.folder, code_root() / 'themes', config('themes'))):
+                    raise ValueError('Theme ID already exists')
+                self.folder.mkdir(parents=True, exist_ok=True)
+                with tempfile.TemporaryDirectory(prefix='.review-', dir=self.folder) as directory:
+                    prepared = Path(directory) / theme_id
+                    shutil.copytree(root / theme_id, prepared)
+                    copied = {str(path.relative_to(Path(directory))): (hashlib.sha256(path.read_bytes()).hexdigest(), bool(path.stat().st_mode & 0o111))
+                              for path in prepared.rglob('*') if path.is_file() and not path.is_symlink()}
+                    if copied != review['files']:
+                        raise ValueError('Theme review changed')
+                    prepared.rename(self.folder / theme_id)
+            return [theme_id]
+        finally:
+            review['stage'].cleanup()
 
     def installed(self):
         rows = []

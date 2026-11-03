@@ -463,4 +463,42 @@ Catalog cards show the manifest’s `preview` screenshot, falling back to a cent
 `icon` on a tinted surface, or a generic plugin glyph when neither is declared.
 Listing reads only index and manifest blobs; visible cards request artwork on demand.
 Plugin download size is unavailable without fetching the remaining blobs.
-Catalog installation is coming soon; use **Walker > Plugins** for now.
+Catalog installation and updates use the native review described below.
+
+## Catalog media and native reviews
+
+Optional `media` is an ordered array of at most eight objects, each with exactly
+`type` (`image` or `video`), `path` and `caption`. Captions may be empty and are
+limited to 80 printable characters. Paths must be unique, normalized, relative
+regular files inside the plugin folder, without symlinks or parent traversal.
+Images use the preview rules: PNG/JPEG, at most 2 MiB and 3840 pixels per axis.
+Videos are MP4 (H.264/AAC family) or WebM, at most 24 MiB. Python checks the MP4
+`ftyp` box or WebM EBML signature as well as the suffix, without probing codecs
+or executing a media tool. Authors must encode a supported codec; container
+validation does not establish codec compatibility.
+
+Official and Community cards open a detail sheet with preview then media in
+manifest order, components, commands, source and status. The metadata list does
+not fetch media blobs. A selected asset alone is downloaded, size-checked and
+validated, then cached by commit and path. Video uses Qt Multimedia, loops muted
+by default, and stops when selecting another asset or closing details.
+
+Install and Update open a native review, without a terminal. It shows the exact
+commit, Git and manifest authors, files, QML source, components, commands and risk
+flags; updates also list commits and changed files. Non-official sources show a
+stronger trust warning. Optional AI advice uses the same text-only reviewer as
+Walker. Confirm (Enter) installs; Cancel (Escape) keeps the existing version.
+Policy and blocklist refusals have no confirmation button.
+
+Prepare validates through the installer approval boundary and stores a candidate
+under the user cache. The opaque, single-use review token binds its URL, folder,
+plugin ID and commit, expires after 15 minutes and is discarded on catalog close.
+Confirm rechecks policy, installed state, every file byte, executable bit and
+file list against that commit, then uses the existing installation and rollback
+transaction. It never resolves HEAD again. Community installs and updates use
+only the index's pinned commit. Nothing from a plugin runs before confirmation.
+
+Installed > Add from a Git address accepts HTTPS or SSH, then opens the same
+review. An indexed address offers a choice of one available plugin per review. Theme Git
+addresses use the data-only theme package validation and their own review.
+Official status always follows the address, never the author field.

@@ -2293,9 +2293,6 @@ msgstr "Plugin von {author} · nicht von Eitr geprüft"
 msgid "Plugin icon: {icon}"
 msgstr "Plugin-Symbol: {icon}"
 
-msgid "Plugin installation and update review are not available yet"
-msgstr "Die Prüfung von Plugin-Installationen und Updates ist noch nicht verfügbar"
-
 msgid "Plugin installed"
 msgstr "Plugin installiert"
 

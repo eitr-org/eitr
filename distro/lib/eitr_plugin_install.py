@@ -10,6 +10,8 @@ import re
 import shutil
 import subprocess
 import tempfile
+import secrets
+import time
 from urllib.parse import urlsplit
 
 import eitr_policy
@@ -26,6 +28,7 @@ from eitr_plugin_manifest import (
     repository_plugins,
     string,
     unique_object,
+    media_entries,
 )
 
 
@@ -90,7 +93,7 @@ def git(root, *arguments, allow_file=False, binary=False, lazy_fetch=True):
                        GIT_SSH_COMMAND='ssh -o BatchMode=yes')
     if not lazy_fetch:
         environment['GIT_NO_LAZY_FETCH'] = '1'
-    output = subprocess.check_output(['git', '-c', 'core.hooksPath=/dev/null', '-c', 'core.fsmonitor=false',
+    output = subprocess.check_output(['git', '--no-replace-objects', '-c', 'core.hooksPath=/dev/null', '-c', 'core.fsmonitor=false',
                                     '-c', 'submodule.recurse=false', '-c', 'credential.helper=',
                                     *arguments], cwd=root, env=environment, text=not binary, stdin=subprocess.DEVNULL,
                                    stderr=subprocess.PIPE, timeout=120)
@@ -104,6 +107,33 @@ def clone(url, destination, *, allow_file=False):
 
 def commit(root):
     return git(root, 'rev-parse', 'HEAD')
+
+
+def verify_tree(root, revision):
+    """Compare every worktree byte and executable bit with the reviewed Git tree."""
+    if (root / '.git').is_symlink() or not (root / '.git').is_dir():
+        raise ValueError('Plugin Git metadata must stay inside its stage')
+    list(plugin_files(root))
+    git(root, 'fsck', '--strict', '--full', '--no-reflogs')
+    if commit(root) != revision:
+        raise ValueError('Plugin differs from its reviewed commit')
+    expected = {}
+    for record in git(root, 'ls-tree', '-rz', revision).split('\0'):
+        if not record:
+            continue
+        header, filename = record.split('\t', 1)
+        mode, kind, object_id = header.split()
+        if kind != 'blob' or mode not in ('100644', '100755'):
+            raise ValueError('Plugins may not contain links or submodules')
+        expected[filename] = (mode, object_id)
+    actual = {str(path.relative_to(root)): path for path in plugin_files(root)}
+    if actual.keys() != expected.keys():
+        raise ValueError('Plugin files differ from the reviewed commit')
+    for filename, path in actual.items():
+        mode, object_id = expected[filename]
+        if (bool(path.stat().st_mode & 0o111) != (mode == '100755') or
+                git(root, 'hash-object', '--no-filters', '--', str(path)) != object_id):
+            raise ValueError('Plugin files differ from the reviewed commit')
 
 
 def executable_files(root):
@@ -253,6 +283,8 @@ class PluginInstall:
         self.allow_file = allow_file
         # notify(plugin_id, name, kind, reason) tells the person about a blocked plugin; True once shown.
         self.notify = notify
+        self._reviews = {}
+        self._review_revision = None
 
     @contextlib.contextmanager
     def lock(self, blocking=True):
@@ -321,8 +353,9 @@ class PluginInstall:
         if not target.exists():
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copytree(candidate, target, symlinks=True)
-        if target.is_symlink() or commit(target) != revision:
+        if target.is_symlink():
             raise ValueError('Repository snapshot differs from its approved commit')
+        verify_tree(target, revision)
         return target
 
     def clean_snapshots(self):
@@ -400,9 +433,10 @@ class PluginInstall:
                 self.write(self.notices, updated)
         return blocked
 
-    def catalog(self, url):
+    def catalog(self, url, *, revision=None, folder=None, plugin_id=None):
         """Read index/card metadata only; installation still validates all files."""
         repository_url(url, allow_file=self.allow_file)
+        pinned = revision
         with self.lock():
             candidate = cache('eitr/plugin-repositories') / hashlib.sha256(normalized_url(url).encode()).hexdigest()
             candidate.parent.mkdir(parents=True, exist_ok=True)
@@ -412,10 +446,18 @@ class PluginInstall:
                     git(None, 'clone', '--template=', '--filter=blob:none', '--sparse', '--no-checkout',
                         '--no-recurse-submodules', '--', url, str(staging), allow_file=self.allow_file)
                     staging.rename(candidate)
-                revision = commit(candidate)
-            else:
+                revision = pinned or commit(candidate)
+            elif pinned is None:
                 git(candidate, 'fetch', '--filter=blob:none', '--no-recurse-submodules', '--', url, 'HEAD', allow_file=self.allow_file)
                 revision = git(candidate, 'rev-parse', 'FETCH_HEAD', allow_file=self.allow_file)
+
+            if pinned is not None:
+                revision = pinned
+                if not COMMIT.fullmatch(revision):
+                    raise ValueError('Invalid pinned commit')
+                git(candidate, 'fetch', '--no-recurse-submodules', '--', url, revision, allow_file=self.allow_file)
+            else:
+                revision = commit(candidate) if not revision else revision
 
             def blob(path):
                 entry = git(candidate, 'ls-tree', revision, '--', path, allow_file=self.allow_file)
@@ -426,10 +468,10 @@ class PluginInstall:
                     raise ValueError('Catalog metadata exceeds size limit')
                 return json.loads(git(candidate, 'cat-file', 'blob', object_id, allow_file=self.allow_file), object_pairs_hook=unique_object)
 
-            entries = index_entries(blob('eitr-plugins.json'))
+            entries = [dict(id=plugin_id, path=folder)] if folder is not None else index_entries(blob('eitr-plugins.json'))
             rows = []
             for entry in entries:
-                spec = blob(entry['path'] + '/eitr-plugin.json')
+                spec = blob((entry['path'] + '/' if entry['path'] else '') + 'eitr-plugin.json')
                 if not isinstance(spec, dict) or spec.get('id') != entry['id']:
                     raise ValueError('Plugin index id does not match its manifest')
                 name = string(spec.get('name'))
@@ -441,18 +483,28 @@ class PluginInstall:
                         if relative.is_absolute() or '..' in relative.parts or not relative.parts or relative.parts[0] == '.git' or '\\' in spec[field]:
                             raise ValueError('Plugin image must stay inside its folder')
                         artwork[field] = str(PurePosixPath(entry['path']) / relative)
+                media = [dict(asset, path=str(PurePosixPath(entry['path']) / asset['path']))
+                         for asset in media_entries(spec.get('media', []))]
                 rows.append(dict(id=entry['id'], name=name, description=description, size=0,
-                                 commit=revision, **artwork))
+                                 author=string(spec.get('author')), version=string(spec.get('version')),
+                                 components={key: spec[key] for key in ('rows', 'ui', 'hooks', 'service', 'capabilities') if key in spec},
+                                 repository=url, folder=entry['path'], media=media, commit=revision, **artwork))
             return rows
 
     def prepare(self, url, temporary):
         candidate = temporary / 'candidate'
-        clone(url, candidate, allow_file=self.allow_file)
-        list(plugin_files(candidate))
+        if self._review_revision:
+            git(None, 'init', '--template=', str(candidate), allow_file=self.allow_file)
+            git(candidate, 'remote', 'add', 'origin', url, allow_file=self.allow_file)
+            git(candidate, 'fetch', '--no-recurse-submodules', '--', url, self._review_revision, allow_file=self.allow_file)
+            git(candidate, 'checkout', '--detach', self._review_revision, allow_file=self.allow_file)
+        else:
+            clone(url, candidate, allow_file=self.allow_file)
+        verify_tree(candidate, commit(candidate))
         entries = repository_plugins(candidate)
         return candidate, entries if entries[0]["path"] else entries[0]["spec"]
 
-    def add(self, url, consent, approve, pick=None):
+    def _add(self, url, consent, approve, pick=None):
         """consent(url) accepts the risk before anything is downloaded; approve() the exact commit."""
         repository_url(url, allow_file=self.allow_file)
         self.check(url)
@@ -479,9 +531,11 @@ class PluginInstall:
             self.check(url, approved, plugin_id)
             if not approve(candidate, spec, url):
                 return False
+            verify_tree(candidate, approved)
             self.folder.mkdir(parents=True, exist_ok=True)
             try:
                 shutil.copytree(candidate, target, symlinks=True)
+                verify_tree(target, approved)
                 if manifest(target) != spec:
                     raise ValueError('Plugin manifest changed after approval')
                 if 'service' in spec:
@@ -525,6 +579,7 @@ class PluginInstall:
                 self.check(url, revision, plugin_id)
                 if not approve(candidate / entry['path'], spec, url):
                     continue
+                verify_tree(candidate, revision)
                 snapshot = self.keep_snapshot(candidate, url, revision)
                 root = snapshot / entry['path']
                 if manifest(root) != spec:
@@ -575,6 +630,7 @@ class PluginInstall:
             changes['official'] = official(record['url'])
             if not approve(changes):
                 return False
+            verify_tree(candidate, changes['new'])
             snapshot = self.keep_snapshot(candidate, record['url'], revision)
             root = snapshot / entry['path']
             try:
@@ -592,7 +648,7 @@ class PluginInstall:
                 self.clean_snapshots()
             return True
 
-    def update(self, plugin_id, approve):
+    def _update(self, plugin_id, approve):
         """approve(changes) sees update_changes(); a rewritten history is refused before it."""
         identifier(plugin_id)
         with self.lock(), tempfile.TemporaryDirectory(prefix='eitr-plugin-') as temporary:
@@ -608,7 +664,6 @@ class PluginInstall:
             candidate, spec = self.prepare(record['url'], Path(temporary))
             if isinstance(spec, list):
                 raise ValueError('Single-plugin repository changed to an index; remove and add it again')
-            git(candidate, 'fetch', '--no-recurse-submodules', 'origin', allow_file=self.allow_file)
             new_commit = commit(candidate)
             if new_commit == record['commit']:
                 return False
@@ -628,12 +683,14 @@ class PluginInstall:
             changes['official'] = official(record['url'])
             if not approve(changes):
                 return False
+            verify_tree(candidate, changes['new'])
             replacement = self.folder / ('.' + plugin_id + '-new')
             backup = self.folder / ('.' + plugin_id + '-previous')
             if replacement.exists() or backup.exists():
                 raise ValueError('An interrupted plugin update needs recovery')
             try:
                 shutil.copytree(candidate, replacement, symlinks=True)
+                verify_tree(replacement, new_commit)
                 if manifest(replacement) != spec:
                     raise ValueError('Plugin manifest changed after approval')
                 if 'service' in old_spec and self.unit(plugin_id).exists():
@@ -659,6 +716,187 @@ class PluginInstall:
                 raise
             shutil.rmtree(backup)
             return True
+
+    def discard_reviews(self):
+        for review in self._reviews.values():
+            review['stage'].cleanup()
+        self._reviews.clear()
+
+    def _capture_review(self, root, spec, url, *, updating=False, changes=None, folder=None):
+        repository = Path(git(root, 'rev-parse', '--show-toplevel'))
+        selected = root.relative_to(repository).as_posix()
+        selected = '' if selected == '.' else selected
+        if folder is not None and selected != folder:
+            raise ValueError('Plugin folder differs from catalog')
+        approved = commit(repository)
+        verify_tree(repository, approved)
+        parent = (Path(os.environ['EITR_CATALOG_REVIEW_CACHE']) / 'plugins'
+                  if os.environ.get('EITR_CATALOG_REVIEW_CACHE') else cache('eitr/plugin-reviews'))
+        parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+        stage = tempfile.TemporaryDirectory(prefix='review-', dir=parent)
+        try:
+            shutil.copytree(repository, Path(stage.name) / 'candidate')
+            import eitr_plugin_review
+            facts = dict(spec=spec, url=url, folder=selected, commit=approved,
+                         official=official(url), author=git(root, 'show', '-s', '--format=%an <%ae> · %aI', approved),
+                         files=sorted(str(path.relative_to(root)) for path in plugin_files(root)),
+                         flags=add_flags(root, spec), assistant=eitr_plugin_review.available(),
+                         qml=[dict(path=str(path.relative_to(root)), size=path.stat().st_size) for path in qml_files(root)],
+                         changes={key: value for key, value in (changes or {}).items() if key != 'root'})
+            token = secrets.token_urlsafe(32)
+            self._reviews[token] = dict(facts=facts, spec=spec, url=url, folder=selected, commit=approved,
+                                       id=spec['id'], updating=updating, old=self.records().get(spec['id']),
+                                       stage=stage, expires=time.monotonic() + 900)
+            return dict(facts, token=token)
+        except BaseException:
+            stage.cleanup()
+            raise
+
+    def prepare_review(self, url=None, *, plugin_id=None, folder=None, revision=None, updating=False):
+        """Run the normal validation transaction, stopping at its approval boundary."""
+        self.expire_reviews()
+        if revision is not None and not COMMIT.fullmatch(revision):
+            raise ValueError('Invalid pinned commit')
+        captured = []
+        offered = []
+
+        def capture(root, spec, source, changes=None):
+            captured.append(self._capture_review(root, spec, source, updating=updating, changes=changes, folder=folder))
+            return False
+
+        def pick(entries):
+            choices = [entry for entry in entries if not entry['installed'] and
+                       (plugin_id is None or entry['spec']['id'] == plugin_id) and
+                       (folder is None or entry['path'] == folder)]
+            if len(choices) > 1 and plugin_id is None:
+                offered.extend(dict(id=entry['spec']['id'], name=entry['spec']['name'], description=entry['spec']['description']) for entry in choices)
+                return []
+            if len(choices) != 1:
+                raise ValueError('Choose one plugin from this repository')
+            return [choices[0]['spec']['id']]
+
+        try:
+            self._review_revision = revision
+            if updating:
+                self._update(plugin_id, lambda changes: capture(changes['root'], changes['spec'], self.records()[plugin_id]['url'], changes))
+            else:
+                self._add(url, lambda source: True, capture, pick)
+            if offered:
+                return dict(choices=offered, url=url, official=official(url))
+            if not captured:
+                raise ValueError('No plugin changes to review')
+            return captured[0]
+        finally:
+            self._review_revision = None
+
+    def add(self, url, consent, approve, pick=None):
+        """Terminal adapter: preserve consent/selection and use the native tokens."""
+        tokens = []
+
+        def capture(root, spec, source):
+            facts = self._capture_review(root, spec, source)
+            tokens.append(facts['token'])
+            return False
+
+        try:
+            self._add(url, consent, capture, pick)
+            installed = False
+            for token in tokens:
+                review = self._reviews[token]
+                root = Path(review['stage'].name) / 'candidate' / review['folder']
+                if approve(root, review['spec'], review['url']):
+                    installed = self.confirm_review(token) or installed
+            return installed
+        finally:
+            for token in tokens:
+                review = self._reviews.pop(token, None)
+                if review:
+                    review['stage'].cleanup()
+
+    def update(self, plugin_id, approve):
+        try:
+            facts = self.prepare_review(plugin_id=plugin_id, updating=True)
+        except ValueError as error:
+            if str(error) == 'No plugin changes to review':
+                return False
+            raise
+        token = facts['token']
+        review = self._reviews[token]
+        root = Path(review['stage'].name) / 'candidate' / review['folder']
+        try:
+            if not approve(dict(facts['changes'], root=root)):
+                return False
+            return self.confirm_review(token)
+        finally:
+            review = self._reviews.pop(token, None)
+            if review:
+                review['stage'].cleanup()
+
+    def expire_reviews(self):
+        for token, review in list(self._reviews.items()):
+            if review['expires'] <= time.monotonic():
+                self._reviews.pop(token)['stage'].cleanup()
+
+    def review_advice(self, token):
+        self.expire_reviews()
+        review = self._reviews.get(token)
+        if review is None:
+            raise ValueError('Review expired; prepare it again')
+        candidate = Path(review['stage'].name) / 'candidate'
+        verify_tree(candidate, review['commit'])
+        import eitr_plugin_review
+        return eitr_plugin_review.check(candidate, review['folder'] or '.')
+
+    def review_source(self, token, path, offset=0):
+        self.expire_reviews()
+        review = self._reviews.get(token)
+        if review is None:
+            raise ValueError('Review expired; prepare it again')
+        if type(offset) is not int or offset < 0:
+            raise ValueError('Invalid review offset')
+        candidate = Path(review['stage'].name) / 'candidate'
+        verify_tree(candidate, review['commit'])
+        root = candidate / review['folder']
+        files = {str(source.relative_to(root)): source for source in qml_files(root)}
+        if path not in files:
+            raise ValueError('Source is not listed by this review')
+        text = files[path].read_text()
+        return dict(text=text[offset:offset + 16384], offset=offset, total=len(text))
+
+    def confirm_review(self, token):
+        self.expire_reviews()
+        review = self._reviews.pop(token, None)
+        if review is None:
+            raise ValueError('Review expired; prepare it again')
+        candidate = Path(review['stage'].name) / 'candidate'
+        original_prepare = self.prepare
+
+        def prepared(url, temporary):
+            if self.records().get(review['id']) != review['old']:
+                raise ValueError('Installed plugin changed; prepare it again')
+            if url != review['url']:
+                raise ValueError('Review source changed')
+            verify_tree(candidate, review['commit'])
+            entries = repository_plugins(candidate)
+            return candidate, entries if entries[0]['path'] else entries[0]['spec']
+
+        def approve(root, spec, url):
+            if (spec != review['spec'] or spec['id'] != review['id'] or
+                    root != candidate / review['folder'] or url != review['url']):
+                raise ValueError('Review candidate changed')
+            verify_tree(candidate, review['commit'])
+            return True
+
+        try:
+            if self.records().get(review['id']) != review['old']:
+                raise ValueError('Installed plugin changed; prepare it again')
+            self.prepare = prepared
+            if review['updating']:
+                return self._update(review['id'], lambda changes: approve(changes['root'], changes['spec'], review['url']))
+            return self._add(review['url'], lambda source: True, approve, lambda entries: [review['id']])
+        finally:
+            self.prepare = original_prepare
+            review['stage'].cleanup()
 
     def remove(self, plugin_id, approve):
         identifier(plugin_id)
@@ -736,7 +974,9 @@ class PluginInstall:
                              author=printable(spec['author']) if spec else '?', blocked=blocked.get(plugin_id, ('',))[0],
                              repository=printable(record['url']), repositoryPath=record.get('path', ''),
                              enabled=record.get('enabled', True), version=spec['version'] if spec else '',
-                             description=spec['description'] if spec else '',
+                             description=spec['description'] if spec else '', commit=record['commit'],
+                             components={key: spec[key] for key in ('rows', 'ui', 'hooks', 'service', 'capabilities') if spec and key in spec},
+                             media=[dict(asset, imageUrl=(self.root(plugin_id) / asset['path']).as_uri()) for asset in spec.get('media', [])] if spec else [],
                              visualsDisabled=bool(self.ui_state().get(plugin_id, {}).get('disabled')),
                              icon=(self.root(plugin_id) / spec['icon']).as_uri() if spec and spec.get('icon') else '',
                              preview=(self.root(plugin_id) / spec['preview']).as_uri() if spec and spec.get('preview') else ''))

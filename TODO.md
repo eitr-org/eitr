@@ -82,7 +82,8 @@ channel first; the website changes only once it reaches stable.
   Removing a built-in theme hides it (Show hidden restores; Eitr and the current
   theme cannot be hidden). Plugin cards share the picture grid, with screenshots,
   centered icons or a generic glyph, source/status badges and removal. Artwork
-  downloads on demand; plugin installation still opens a coming-soon note.
+  downloads on demand. Plugin detail sheets support pictures and muted video; native
+  install/update reviews and Add from a Git address are implemented.
 - **Community index `eitr-org/eitr-community`.** Pointers only, one JSON file per
   entry under `themes/` and `plugins/` (plugins pin an exact commit),
   `removed.json`, a generated `index.json`, and CI running
@@ -90,7 +91,7 @@ channel first; the website changes only once it reaches stable.
   Community themes follow their author's repository; community plugin updates are
   new pull requests the owner reviews. Lockscreens stay official-only.
 - **Order:** the owner's review of the catalog window, then the
-  native install review, then move the 12 themes (they stay here until the
+  native install review (done), then move the 12 themes (they stay here until the
   installer works).
 
 # 3. Smaller items

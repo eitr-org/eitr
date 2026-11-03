@@ -55,9 +55,23 @@ those sizes from Git would download the full files. Already cached sizes are sho
 The Plugins page lists installed plugins and the official `eitr-org/eitr-plugins`
 repository as picture cards, using a screenshot, centered icon or generic glyph.
 Badges show installed and disabled plugins. Removal has an in-window confirmation.
-To install plugins, use **Walker > Plugins**. Plugin installation and
-updates still use the existing reviewed flows; the catalog does not yet install
-plugins or accept third-party repository addresses.
+Click an Official or Community plugin to see its author, version, source,
+components and a gallery of pictures and videos. Select a thumbnail to load that
+asset. Videos loop muted; Play/Pause and Unmute/Mute stay inside the sheet.
+Selecting another asset or closing details stops playback. Installed plugin cards
+on the Installed tab keep their existing behavior.
+
+Install opens an in-window review of the source, full commit, author, files,
+commands and permissions. Update shows new commits, changed files and risk flags.
+Plugins run with your account's full permissions; third-party and community
+sources carry a stronger warning. Optional Ask the AI to check shows advice in
+the window. Enter confirms; Escape cancels. Nothing installs before confirmation,
+and the reviewed commit is preserved even if upstream changes. Reviews expire
+after 15 minutes and are discarded when the catalog closes.
+
+Installed > Add from a Git address accepts an HTTPS or SSH repository address for
+a plugin or a data-only theme package, then shows its review. No terminal opens.
+Walker and Control Center retain their terminal workflows.
 
 ## Themes and wallpapers
 
@@ -194,8 +208,7 @@ The catalog sidebar switches between Themes and Plugins. Its Official tab combin
 built-in items and Eitr's repositories; Community lists the community index.
 Installed lists local items and their source badges. Theme cards show palette
 swatches when available. Select themes, review their sources and total size, then
-install them together. Community plugins are listed; their installation and adding
-a Git address will arrive later.
+install them together. Community plugins use the native commit review; Installed also accepts a Git address.
 
 Removing a built-in theme hides it from theme pickers on this machine. In Installed,
 turn on Show hidden and choose Restore to bring it back. Eitr and the current theme

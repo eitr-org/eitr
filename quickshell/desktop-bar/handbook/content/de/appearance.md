@@ -50,10 +50,9 @@ Git würde für die Größenabfrage die gesamte Datei laden. Bekannte Größen w
 Die Plugin-Seite zeigt installierte Plugins und das offizielle Repository
 `eitr-org/eitr-plugins` als Bildkarten mit Screenshot, zentriertem Symbol oder
 allgemeinem Plugin-Symbol. Kennzeichnungen zeigen installierte und deaktivierte
-Plugins. Das Entfernen wird im Fenster bestätigt. Zum Installieren verwende
-**Walker > Plugins**. Installation und Updates verwenden weiterhin die vorhandenen
-Prüfabläufe; der Katalog installiert noch keine Plugins und akzeptiert keine
-Repository-Adressen von Drittanbietern.
+Plugins. Das Entfernen wird im Fenster bestätigt.
+
+Der Katalog installiert und aktualisiert Plugins im Fenster. Karten unter Offiziell und Community öffnen Details mit Bildern, Videos und Komponenten. Videos starten stumm und stoppen beim Schließen. Installieren und Update zeigen Quelle, vollständigen Commit, Autor, Dateien, Befehle, Warnungen und Änderungen; die optionale KI-Prüfung erscheint als Text. Plugins haben alle Berechtigungen deines Kontos. Enter bestätigt, Escape bricht ab. Installiert wird genau der geprüfte Commit; Community verwendet den im Index festgelegten Commit. Die Prüfung läuft nach 15 Minuten ab und wird beim Schließen verworfen. Installiert > Von einer Git-Adresse hinzufügen akzeptiert HTTPS oder SSH für Plugins und datenbasierte Themes, ohne Terminal.
 
 ## Designs und Hintergrundbilder
 
@@ -105,6 +104,6 @@ Vergleiche die neun Designs mit `bash quickshell/lockscreen/scripts/gallery.sh`.
 
 Auf PCs mit mehreren Konten zeigt der Anmeldebildschirm den ausgewählten Benutzer. Ein Klick auf die linke oder rechte Hälfte der Benutzerauswahl oder Ctrl+Left / Ctrl+Right wählt ein anderes Konto; Enter sendet weiterhin das Passwort und Escape behält seine bisherige Funktion. Mit einem Konto bleibt die Anmeldung optisch unverändert. Der Sperrbildschirm zeigt nach Möglichkeit den echten Namen der gesperrten Sitzung und akzeptiert nur das Passwort dieses Kontos. Benutzer wechseln (Ctrl+Alt+U) öffnet die SDDM-Anmeldung und lässt die ursprüngliche Sitzung gesperrt. Zurück in der gesperrten Sitzung klicken Sie einmal in das Passwortfeld, bevor Sie tippen. Die Aktion erscheint nur bei mehreren geeigneten Konten und wenn SDDM den Wechsel unterstützt. Vorschau und Galerie verwenden drei fiktive Konten und authentifizieren nie.
 
-Die Seitenleiste des Katalogs wechselt zwischen Themen und Plugins. Offiziell zeigt integrierte Elemente und die Eitr-Repositories; Community zeigt den Community-Index. Installiert zeigt lokale Elemente mit Herkunftskennzeichnung. Themenkarten zeigen verfügbare Palettenfarben. Themen auswählen, Quellen und Gesamtgröße prüfen und gemeinsam installieren. Community-Plugins werden aufgelistet; Installation und das Hinzufügen einer Git-Adresse folgen später.
+Der Katalog installiert und aktualisiert Plugins im Fenster. Karten unter Offiziell und Community öffnen Details mit Bildern, Videos und Komponenten. Videos starten stumm und stoppen beim Schließen. Installieren und Update zeigen Quelle, vollständigen Commit, Autor, Dateien, Befehle, Warnungen und Änderungen; die optionale KI-Prüfung erscheint als Text. Plugins haben alle Berechtigungen deines Kontos. Enter bestätigt, Escape bricht ab. Installiert wird genau der geprüfte Commit; Community verwendet den im Index festgelegten Commit. Die Prüfung läuft nach 15 Minuten ab und wird beim Schließen verworfen. Installiert > Von einer Git-Adresse hinzufügen akzeptiert HTTPS oder SSH für Plugins und datenbasierte Themes, ohne Terminal.
 
 Das Entfernen eines integrierten Themas blendet es auf diesem Rechner in allen Auswahllisten aus. Unter Installiert Ausgeblendete anzeigen aktivieren und Wiederherstellen wählen. Eitr und das aktuelle Thema können nicht ausgeblendet werden. Bei heruntergeladenen Themen wird das installierte Paket gelöscht.

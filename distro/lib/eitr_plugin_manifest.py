@@ -106,6 +106,53 @@ def image_asset(root, relative, *, preview=False):
     return target
 
 
+def media_entries(value):
+    """Validate metadata without opening or fetching any media."""
+    if not isinstance(value, list) or len(value) > 8:
+        raise ValueError('Plugin media must contain at most 8 entries')
+    seen = set()
+    for entry in value:
+        object_keys(entry, ('type', 'path', 'caption'))
+        if entry['type'] not in ('image', 'video'):
+            raise ValueError('Invalid plugin media type')
+        relative = string(entry['path'], 512)
+        path = PurePosixPath(relative)
+        if (path.is_absolute() or '..' in path.parts or not path.parts or path.parts[0] == '.git'
+                or str(path) != relative or '.' in relative.split('/') or '\\' in relative):
+            raise ValueError('Plugin media must stay inside its folder')
+        if relative in seen:
+            raise ValueError('Duplicate plugin media path')
+        seen.add(relative)
+        caption = entry['caption']
+        if not isinstance(caption, str) or len(caption) > 80 or any(not character.isprintable() for character in caption):
+            raise ValueError('Invalid plugin media caption')
+    return value
+
+
+def media_asset(root, entry):
+    media_entries([entry])
+    if entry['type'] == 'image':
+        return image_asset(root, entry['path'], preview=True)
+    target = root / entry['path']
+    if any(parent.is_symlink() for parent in [target, *target.parents] if parent.is_relative_to(root)):
+        raise ValueError('Plugin media may not be symlinks')
+    if not target.resolve(strict=True).is_relative_to(root.resolve()) or not target.is_file():
+        raise ValueError('Plugin media must be a regular file inside its folder')
+    if target.stat().st_size > 24 * 1024 * 1024:
+        raise ValueError('Plugin video exceeds size limit')
+    with target.open('rb') as stream:
+        header = stream.read(64)
+    suffix = target.suffix.lower()
+    webm = suffix == '.webm' and header.startswith(b'\x1a\x45\xdf\xa3')
+    brands = (b'isom', b'iso2', b'avc1', b'mp41', b'mp42', b'M4V ')
+    box_size = int.from_bytes(header[:4], 'big')
+    mp4 = (suffix == '.mp4' and len(header) >= 16 and header[4:8] == b'ftyp'
+           and 16 <= box_size <= target.stat().st_size and header[8:12] in brands)
+    if not (webm or mp4):
+        raise ValueError('Plugin video must have an MP4 or WebM container signature')
+    return target
+
+
 def manifest(root):
     path = root / 'eitr-plugin.json'
     if path.is_symlink() or path.stat().st_size > 65536:
@@ -118,10 +165,12 @@ def manifest(root):
         raise ValueError(tr('Invalid plugin schemaVersion; expected 1 or 2'))
     if version > 2:
         raise ValueError(tr('This plugin needs a newer Eitr'))
-    object_keys(value, ('id', 'name', 'description', 'author', 'version', 'rows'), ('service', 'schemaVersion', 'hooks', 'icon', 'preview', 'homepage') + (('ui', 'capabilities') if version == 2 else ()))
+    object_keys(value, ('id', 'name', 'description', 'author', 'version', 'rows'), ('service', 'schemaVersion', 'hooks', 'icon', 'preview', 'homepage', 'media') + (('ui', 'capabilities') if version == 2 else ()))
     for field in ('icon', 'preview'):
         if field in value:
             image_asset(root, value[field], preview=field == 'preview')
+    for entry in media_entries(value.get('media', [])):
+        media_asset(root, entry)
     if 'homepage' in value:
         homepage_text = string(value['homepage'], 2048)
         homepage = urlsplit(homepage_text)

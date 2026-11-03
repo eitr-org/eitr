@@ -24,6 +24,103 @@ from eitr_paths import config, state
 
 
 class PluginTests(unittest.TestCase):
+    def test_native_review_pins_commit_and_is_single_use(self):
+        review = self.manager.prepare_review(self.url)
+        self.assertFalse(self.manager.records())
+        self.publish()
+        self.assertTrue(self.manager.confirm_review(review['token']))
+        self.assertEqual(self.manager.records()['example']['commit'], review['commit'])
+        with self.assertRaisesRegex(ValueError, 'expired'):
+            self.manager.confirm_review(review['token'])
+
+    def test_native_review_refuses_tampering_and_expiry(self):
+        review = self.manager.prepare_review(self.url)
+        stage = Path(self.manager._reviews[review['token']]['stage'].name) / 'candidate'
+        (stage / 'notify.sh').write_text('tampered')
+        with self.assertRaisesRegex(ValueError, 'reviewed commit'):
+            self.manager.confirm_review(review['token'])
+        self.assertFalse(self.manager.records())
+        self.assertFalse(stage.exists())
+        review = self.manager.prepare_review(self.url)
+        self.manager._reviews[review['token']]['expires'] = 0
+        with self.assertRaisesRegex(ValueError, 'expired'):
+            self.manager.confirm_review(review['token'])
+
+    def test_native_review_refuses_changed_install_state_and_policy(self):
+        self.install()
+        self.publish()
+        review = self.manager.prepare_review(plugin_id='example', updating=True)
+        self.manager.set_enabled('example', False)
+        with self.assertRaisesRegex(ValueError, 'Installed plugin changed'):
+            self.manager.confirm_review(review['token'])
+        self.manager.set_enabled('example', True)
+        review = self.manager.prepare_review(plugin_id='example', updating=True)
+        self.policies = {'plugins': False}
+        with self.assertRaises(ValueError):
+            self.manager.confirm_review(review['token'])
+
+    def test_community_catalog_uses_pin_and_never_reads_media_blobs(self):
+        from eitr_plugin_install import git as real_git
+        revision = self.git(self.source, 'rev-parse', 'HEAD')
+        self.publish()
+        with patch('eitr_plugin_install.git', wraps=real_git) as reads:
+            row = self.manager.catalog(self.url, revision=revision, folder='', plugin_id='example')[0]
+        self.assertEqual(row['commit'], revision)
+        blobs = [call for call in reads.call_args_list if call.args[1:3] == ('cat-file', 'blob')]
+        self.assertEqual(len(blobs), 1)
+        self.assertEqual(row['media'], [])
+        fetches = [call.args for call in reads.call_args_list if call.args[1] == 'fetch']
+        self.assertTrue(fetches)
+        self.assertTrue(all(call[-1] == revision for call in fetches))
+
+    def test_native_update_review_reports_changes(self):
+        self.install()
+        self.publish()
+        review = self.manager.prepare_review(plugin_id='example', updating=True)
+        self.assertTrue(review['changes']['subjects'])
+        self.assertIn('revision', [entry['path'] for entry in review['changes']['files']])
+        self.assertTrue(self.manager.confirm_review(review['token']))
+        self.assertEqual(self.manager.records()['example']['commit'], review['commit'])
+
+    def test_native_community_review_uses_pinned_commit(self):
+        revision = self.git(self.source, 'rev-parse', 'HEAD')
+        self.publish()
+        review = self.manager.prepare_review(self.url, plugin_id='example', folder='', revision=revision)
+        self.assertEqual(review['commit'], revision)
+        self.assertTrue(self.manager.confirm_review(review['token']))
+        self.assertEqual(self.manager.records()['example']['commit'], revision)
+
+    def test_media_validation(self):
+        from eitr_plugin_manifest import media_asset, media_entries
+        from PIL import Image
+        Image.new('RGB', (32, 24), '#123456').save(self.source / 'picture.png')
+        (self.source / 'clip.webm').write_bytes(bytes.fromhex('1a45dfa3') + b'fixture')
+        (self.source / 'clip.mp4').write_bytes((24).to_bytes(4, 'big') + b'ftypisom' + bytes(4) + b'isomavc1')
+        assets = [dict(type='image', path='picture.png', caption='Picture'),
+                  dict(type='video', path='clip.webm', caption=''),
+                  dict(type='video', path='clip.mp4', caption='Clip')]
+        for asset in assets:
+            self.assertTrue(media_asset(self.source, asset).exists())
+        spec = self.spec()
+        spec['media'] = assets
+        self.write_spec(spec)
+        self.assertEqual(plugins.manifest(self.source)['media'], assets)
+        for invalid in ([assets[0]] * 9, [assets[0], assets[0]], [dict(assets[0], path='../picture.png')],
+                        [dict(assets[0], caption='x' * 81)], [dict(assets[0], extra=True)]):
+            with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                media_entries(invalid)
+        (self.source / 'clip.webm').write_bytes(b'not a video')
+        with self.assertRaisesRegex(ValueError, 'signature'):
+            media_asset(self.source, assets[1])
+        with (self.source / 'clip.webm').open('wb') as stream:
+            stream.truncate(24 * 1024 * 1024 + 1)
+        with self.assertRaisesRegex(ValueError, 'size limit'):
+            media_asset(self.source, assets[1])
+        (self.source / 'clip.webm').unlink()
+        (self.source / 'clip.webm').symlink_to('clip.mp4')
+        with self.assertRaisesRegex(ValueError, 'symlinks'):
+            media_asset(self.source, assets[1])
+
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)
