@@ -415,8 +415,15 @@ Item {
         readonly property real round: 8
         readonly property real start: PanelStyle.padding
         readonly property real tabWidth: Math.max(catalog.compact ? 108 : 140, Math.ceil(tabLabelWidth) + 36)
-        readonly property real tabLabelWidth: Math.max(...tabs.map(tab => { tabMetrics.text = ({official:Eitr.I18n.tr("Official"), community:Eitr.I18n.tr("Community"), installed:Eitr.I18n.tr("Installed")})[tab]; return tabMetrics.advanceWidth + tabMetrics.text.length * 1.5; }))
-        TextMetrics { id: tabMetrics; font.family: SiteStyle.carved; font.capitalization: Font.AllUppercase; font.weight: Font.Bold; font.pixelSize: PanelStyle.bodySize }
+        readonly property real tabLabelWidth: Math.max(installedMetrics.labelWidth, officialMetrics.labelWidth, communityMetrics.labelWidth)
+        component TabMetrics: Text {
+            readonly property real labelWidth: implicitWidth
+            visible: false
+            font.family: SiteStyle.carved; font.capitalization: Font.AllUppercase; font.letterSpacing: 1.5; font.weight: Font.Bold; font.pixelSize: PanelStyle.bodySize
+        }
+        TabMetrics { id: installedMetrics; text: Eitr.I18n.tr("Installed") }
+        TabMetrics { id: officialMetrics; text: Eitr.I18n.tr("Official") }
+        TabMetrics { id: communityMetrics; text: Eitr.I18n.tr("Community") }
         readonly property var tabs: ["installed", "official", "community"]
         readonly property int selectedIndex: tabs.indexOf(catalog.tab)
         property int hoveredIndex: -1
