@@ -11,7 +11,7 @@ import "../EdgeSlopes.js" as EdgeSlopes
 Item {
     id: catalog
     property color foreground: SiteStyle.fg
-    property color background: SiteStyle.bg
+    property color background: SiteStyle.card
     property color accent: SiteStyle.accent
     property bool opened: false
     property bool live: true

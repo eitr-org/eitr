@@ -27,6 +27,9 @@ Scope {
         onLoadFailed: style.light = false
     }
     readonly property color bg: light ? "#f2ecdf" : "#000000"
+    // The website's Install card: warm near-black under a film grain.
+    readonly property color card: light ? "#fbf6ed" : "#130f0f"
+    readonly property real grainOpacity: light ? 0.05 : 0.06
     readonly property color night: light ? "#e8e0d2" : "#0a0909"
     readonly property color surface: light ? "#fbf6ed" : "#131111"
     readonly property color raised: light ? "#e5daca" : "#1e1a1a"

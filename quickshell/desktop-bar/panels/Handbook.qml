@@ -17,7 +17,7 @@ LibraryWindow {
     required property color background
     required property color accent
     readonly property real reveal: opened ? 1 : 0
-    color: SiteStyle.bg
+    color: SiteStyle.card
     stateName: "handbook"
     title: "EITR Handbook"
     property var chapters: []
@@ -172,11 +172,12 @@ LibraryWindow {
             id: surface
             anchors.fill: parent
             radius: 4
-            color: SiteStyle.bg
+            color: SiteStyle.card
             opacity: book.reveal
             border.width: 1
             border.color: SiteStyle.line
             MouseArea { anchors.fill: parent; onClicked: {} }
+            SiteBackdrop { anchors.fill: parent; anchors.margins: 1 }
             Item {
                 id: header
                 x: PanelStyle.padding; y: PanelStyle.padding
@@ -239,7 +240,7 @@ LibraryWindow {
                         required property int index
                         width: chapterList.width - 8; height: PanelStyle.selectionRowHeight
                         radius: 4
-                        color: book.selectedId === modelData.id ? SiteStyle.raised : chapterMouse.containsMouse || search.activeFocus && book.query !== "" && chapterList.currentIndex === index ? SiteStyle.surface : SiteStyle.bg
+                        color: book.selectedId === modelData.id ? SiteStyle.raised : chapterMouse.containsMouse || search.activeFocus && book.query !== "" && chapterList.currentIndex === index ? SiteStyle.surface : "transparent"
                         border.width: 1
                         border.color: book.selectedId === modelData.id ? SiteStyle.accent : SiteStyle.line
                         RectangularShadow {
@@ -359,7 +360,7 @@ LibraryWindow {
                                 readonly property bool framed: /^<(pre|table)>/.test(modelData)
                                 width: parent.width
                                 height: blockText.contentHeight + (framed ? 28 : 0)
-                                color: framed ? SiteStyle.surface : SiteStyle.bg
+                                color: framed ? SiteStyle.surface : "transparent"
                                 border.width: framed ? 1 : 0
                                 border.color: SiteStyle.line
                                 radius: 3

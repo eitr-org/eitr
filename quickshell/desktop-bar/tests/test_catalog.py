@@ -145,7 +145,7 @@ ShellRoot {
   interval: 200; running: true; repeat: true
   property int phase: 0
   onTriggered: {
-   const content = catalog.contentItem.children[0].children[0];
+   const content = catalog.contentItem.children[0].children[1];
    content.live = false;
    if (phase === 0) {
     if (catalog.opened || catalog.visible) throw new Error("initially closed");
@@ -202,10 +202,10 @@ ShellRoot {
  FloatingWindow {
   visible: true; implicitWidth: WIDTH; implicitHeight: 800
   Rectangle {
-   id: sample; anchors.fill: parent; color: Bar.SiteStyle.bg
+   id: sample; anchors.fill: parent; color: Bar.SiteStyle.card
    Bar.CatalogContent {
     id: panel; anchors.fill: parent; live: false; opened: true
-    foreground: Bar.SiteStyle.fg; background: Bar.SiteStyle.bg; accent: Bar.SiteStyle.accent
+    foreground: Bar.SiteStyle.fg; background: Bar.SiteStyle.card; accent: Bar.SiteStyle.accent
     transport: function(name, args, callback) { callback("", {items: []}); }
    }
    TestCase { id: keys; name: "CatalogKeys"; when: false }
@@ -228,7 +228,7 @@ ShellRoot {
     interval: 650; running: true; repeat: true
     onTriggered: {
      if (Bar.SiteStyle.light !== SITE_LIGHT) throw new Error("light.mode detection");
-     if (panel.background !== Bar.SiteStyle.bg || panel.accent !== Bar.SiteStyle.accent) throw new Error("site palette binding");
+     if (panel.background !== Bar.SiteStyle.card || panel.accent !== Bar.SiteStyle.accent) throw new Error("site palette binding");
      const names = ["official-themes", "selected-themes", "review", "installing", "community-empty", "installed-hidden", "plugins-official", "plugins-installed", "remove"];
      if (sample.phase === 0) {
       panel.installed = [{id:"eitr",name:"Eitr",kind:"builtin",current:true,description:"Primordial venom",previewUrl:"PREVIEW"},{id:"nord",name:"Nord",kind:"official",description:"Cool northern blues",previewUrl:"PREVIEW2"},{id:"mine",name:"My theme",kind:"own",light:true,description:"A quiet light palette",previewUrl:"PREVIEW3"}];
@@ -411,7 +411,7 @@ ShellRoot {
  Timer { interval: 150; running: true; onTriggered: { Bar.SiteStyle.light = LIGHT; book.show("getting-started"); book.implicitWidth = WIDTH; book.implicitHeight = 800; } }
  property int stage: 0
  Timer { interval: 650; running: true; repeat: true; onTriggered: {
-  if (book.color !== Bar.SiteStyle.bg || Bar.SiteStyle.light !== LIGHT) throw new Error("Handbook site palette");
+  if (book.color !== Bar.SiteStyle.card || Bar.SiteStyle.light !== LIGHT) throw new Error("Handbook site palette");
   if (!book.opened || book.title !== "EITR Handbook" || book.chapters.length === 0 || book.loadError) throw new Error("Handbook window/load");
   book.contentItem.children[0].grabToImage(function(result) {
    if (!result.saveToFile("TARGET/handbook-VARIANT-" + stage + ".png")) throw new Error("Handbook capture");

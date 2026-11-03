@@ -8,6 +8,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
+KEY_NAMES = {"Delete"}
 ROOT = Path(__file__).resolve().parents[3]
 BOOK = ROOT / "quickshell/desktop-bar/handbook"
 spec = importlib.util.spec_from_file_location("localized_handbook", ROOT / "tools/handbook-build.py")
@@ -183,7 +184,8 @@ class LocalizedHandbookTests(unittest.TestCase):
                         for key, label in zip(original_parts, localized_parts):
                             key = key.removesuffix(":")
                             key = {"Show Icons": "Show icons"}.get(key, key)
-                            if key in catalog:
+                            # Bold key names (press **Delete**) are keys, not interface labels.
+                            if key in catalog and key not in KEY_NAMES:
                                 self.assertEqual(label.removesuffix(":").strip(), catalog[key],
                                                  f"{original}: use the {primary} interface label for {key!r}")
 

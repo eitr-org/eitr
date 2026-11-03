@@ -136,3 +136,4 @@ ControlCenterAppearanceChoices panels/ControlCenterAppearanceChoices.qml
 Catalog 1.0 panels/Catalog.qml
 CatalogContent 1.0 panels/CatalogContent.qml
 LibraryWindow 1.0 components/LibraryWindow.qml
+SiteBackdrop 1.0 components/SiteBackdrop.qml
