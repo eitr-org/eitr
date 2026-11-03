@@ -1,3 +1,4 @@
+singleton SiteStyle 1.0 services/SiteStyle.qml
 singleton DesktopFonts 1.0 services/DesktopFonts.qml
 singleton DesktopStyle 1.0 services/DesktopStyle.qml
 singleton AudioDevices 1.0 services/AudioDevices.qml

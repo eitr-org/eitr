@@ -2,6 +2,11 @@
 
 ## Catalogue de thèmes et plugins
 
+Le catalogue utilise la palette opaque Blood & Iron ou parchemin du site et les
+polices Cinzel et Cormorant Garamond incluses. Seul le mode clair/sombre du thème
+actuel change son apparence ; les couleurs du bureau, la transparence de la barre
+et le flou ne l’affectent pas.
+
 La barre latérale regroupe Thèmes et Plugins sous Installés et En obtenir plus,
 avec leurs nombres. À droite, le
 titre, la description et les filtres précèdent une liste à défilement indépendant.

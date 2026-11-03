@@ -11,16 +11,17 @@ LibraryWindow {
     required property color background
     required property color accent
     title: "Themes & Plugins"
+    color: SiteStyle.bg
     function show() { showWindow(); }
     Rectangle {
         anchors.fill: parent
-        color: window.background
-        radius: DesktopStyle.radius(PanelStyle.cornerRadius)
-        border.width: 1; border.color: Qt.alpha(window.foreground, 0.12)
+        color: SiteStyle.bg
+        radius: 4
+        border.width: 1; border.color: SiteStyle.line
         CatalogContent {
             id: content
-            anchors.fill: parent
-            foreground: window.foreground; background: window.background; accent: window.accent
+            anchors.fill: parent; anchors.margins: 1
+            foreground: SiteStyle.fg; background: SiteStyle.bg; accent: SiteStyle.accent
             opened: window.opened
             onCloseRequested: { window.rememberSize(); window.opened = false; }
         }

@@ -2,6 +2,10 @@
 
 ## Themes & Plugins catalog
 
+The catalog uses the website’s opaque Blood & Iron or parchment palette and bundled
+Cinzel and Cormorant Garamond fonts. Only the current theme’s light/dark mode changes
+its appearance; desktop colors, bar transparency and blur do not affect it.
+
 The left sidebar groups Themes and Plugins under Installed and Get more, with
 item counts. The right side has the page
 title, description and theme filters above an independently scrolling list.

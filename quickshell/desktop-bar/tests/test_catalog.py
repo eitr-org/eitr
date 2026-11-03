@@ -1,6 +1,7 @@
 import importlib.util
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -19,6 +20,42 @@ BAR = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location('catalog_domain', BAR / 'scripts/catalog-domain.py')
 DOMAIN = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(DOMAIN)
+
+
+class SitePaletteTests(unittest.TestCase):
+    def test_site_palette_matches_css(self):
+        root = BAR.parents[1]
+        dark = (root / 'website/src/styles/global.css').read_text().split(':root {', 1)[1].split('}', 1)[0]
+        light = (root / 'website/src/styles/appearance.css').read_text().split(':root[data-appearance="light"]{', 1)[1].split('}', 1)[0]
+        source = (BAR / 'services/SiteStyle.qml').read_text()
+        def qml_color(value):
+            if len(value) == 4:
+                value = '#' + ''.join(character * 2 for character in value[1:])
+            return '#' + value[7:9] + value[1:7] if len(value) == 9 else value
+        for key in ('bg', 'night', 'surface', 'raised', 'fg', 'muted', 'accent', 'aurora', 'violet', 'bronze', 'line', 'line-strong', 'glow'):
+            name = re.sub(r'-([a-z])', lambda match: match[1].upper(), key)
+            values = [qml_color(re.search(r'--' + key + r':\s*(#[0-9a-f]+)', block)[1]) for block in (light, dark)]
+            with self.subTest(token=key):
+                self.assertIn('property color ' + name + ': light ? "' + values[0] + '" : "' + values[1] + '"', source)
+
+
+    def test_bundled_fonts_stage_with_their_licenses(self):
+        from layout import Layout
+        with tempfile.TemporaryDirectory() as directory:
+            exported = Path(directory) / 'export'
+            staged = Path(directory) / 'stage'
+            fonts = 'quickshell/desktop-bar/assets/fonts'
+            shutil.copytree(BAR / 'assets/fonts', exported / fonts, ignore=shutil.ignore_patterns('__pycache__'))
+            for name in ('layout-manifest.json', 'legacy-layout.json'):
+                destination = exported / 'distro' / name
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(BAR.parents[1] / 'distro' / name, destination)
+            Layout(exported).stage(staged)
+            for name in ('Cinzel-500.ttf', 'Cinzel-700.ttf', 'CormorantGaramond-500.ttf'):
+                self.assertEqual((staged / fonts / name).read_bytes()[:4], b'\x00\x01\x00\x00')
+            for name in ('Cinzel-OFL.txt', 'CormorantGaramond-OFL.txt'):
+                self.assertIn('SIL OPEN FONT LICENSE Version 1.1', (staged / fonts / name).read_text())
+            self.assertFalse((staged / fonts / 'export.py').exists())
 
 
 class CatalogDomainTests(unittest.TestCase):
@@ -165,10 +202,10 @@ ShellRoot {
  FloatingWindow {
   visible: true; implicitWidth: WIDTH; implicitHeight: 800
   Rectangle {
-   id: sample; anchors.fill: parent; color: "BACKGROUND"
+   id: sample; anchors.fill: parent; color: Bar.SiteStyle.bg
    Bar.CatalogContent {
     id: panel; anchors.fill: parent; live: false; opened: true
-    foreground: "FOREGROUND"; background: "BACKGROUND"; accent: "#759456"
+    foreground: Bar.SiteStyle.fg; background: Bar.SiteStyle.bg; accent: Bar.SiteStyle.accent
     transport: function(name, args, callback) { callback("", {items: []}); }
    }
    TestCase { id: keys; name: "CatalogKeys"; when: false }
@@ -190,6 +227,8 @@ ShellRoot {
    Timer {
     interval: 650; running: true; repeat: true
     onTriggered: {
+     if (Bar.SiteStyle.light !== SITE_LIGHT) throw new Error("light.mode detection");
+     if (panel.background !== Bar.SiteStyle.bg || panel.accent !== Bar.SiteStyle.accent) throw new Error("site palette binding");
      const names = ["official-themes", "selected-themes", "review", "installing", "community-empty", "installed-hidden", "plugins-official", "plugins-installed", "remove"];
      if (sample.phase === 0) {
       panel.installed = [{id:"eitr",name:"Eitr",kind:"builtin",current:true,description:"Primordial venom",previewUrl:"PREVIEW"},{id:"nord",name:"Nord",kind:"official",description:"Cool northern blues",previewUrl:"PREVIEW2"},{id:"mine",name:"My theme",kind:"own",light:true,description:"A quiet light palette",previewUrl:"PREVIEW3"}];
@@ -304,6 +343,11 @@ ShellRoot {
  }
 }
 '''
+                if theme == 'light':
+                    marker = folder / 'theme/current/light.mode'
+                    marker.parent.mkdir(parents=True)
+                    marker.touch()
+                fixture = fixture.replace('SITE_LIGHT', 'true' if theme == 'light' else 'false')
                 fixture = fixture.replace('BACKGROUND', '#181824' if theme == 'dark' else '#f4f2e8').replace('FOREGROUND', '#cdd6f4' if theme == 'dark' else '#202824')
                 from eitr_theme_packages import catalog, palette
                 themes = BAR.parents[1] / 'themes'
@@ -351,7 +395,7 @@ ShellRoot {
                 copy_runtime(folder)
                 shutil.copytree(BAR / 'handbook', folder / 'handbook', dirs_exist_ok=True)
                 shutil.copytree(BAR / 'assets', folder / 'assets', dirs_exist_ok=True)
-                target = Path(os.environ.get('EITR_CATALOG_RENDERS', directory))
+                target = Path(os.environ.get('EITR_HANDBOOK_RENDERS', directory))
                 target.mkdir(parents=True, exist_ok=True)
                 fixture = '''//@ pragma AppId eitr-catalog
 import QtQuick
@@ -364,11 +408,15 @@ ShellRoot {
   opened: true; implicitWidth: WIDTH; implicitHeight: 800
   savedSize: Qt.size(WIDTH, 800)
  }
- Timer { interval: 150; running: true; onTriggered: { book.show("getting-started"); book.implicitWidth = WIDTH; book.implicitHeight = 800; } }
- Timer { interval: 850; running: true; onTriggered: {
+ Timer { interval: 150; running: true; onTriggered: { Bar.SiteStyle.light = LIGHT; book.show("getting-started"); book.implicitWidth = WIDTH; book.implicitHeight = 800; } }
+ property int stage: 0
+ Timer { interval: 650; running: true; repeat: true; onTriggered: {
+  if (book.color !== Bar.SiteStyle.bg || Bar.SiteStyle.light !== LIGHT) throw new Error("Handbook site palette");
   if (!book.opened || book.title !== "EITR Handbook" || book.chapters.length === 0 || book.loadError) throw new Error("Handbook window/load");
   book.contentItem.children[0].grabToImage(function(result) {
-   if (!result.saveToFile("TARGET/handbook-VARIANT.png")) throw new Error("Handbook capture");
+   if (!result.saveToFile("TARGET/handbook-VARIANT-" + stage + ".png")) throw new Error("Handbook capture");
+   if (stage === 0) { book.chapters = book.chapters.map(chapter => chapter.id === "terminal" ? Object.assign({}, chapter, {blocks: chapter.blocks.slice(0, 1).concat(chapter.blocks.slice(21, 25))}) : chapter); book.choose("terminal"); stage++; return; }
+   if (stage === 1) { book.choose("getting-started"); book.query = "keyboard"; stage++; return; }
    book.closed();
    if (book.opened) throw new Error("Compositor close");
    book.showWelcome(true);
@@ -379,6 +427,7 @@ ShellRoot {
 }
 '''
                 fixture = fixture.replace('BACKGROUND', '#181824' if theme == 'dark' else '#f4f2e8').replace('FOREGROUND', '#cdd6f4' if theme == 'dark' else '#202824')
+                fixture = fixture.replace('LIGHT', 'true' if theme == 'light' else 'false')
                 fixture = fixture.replace('WIDTH', width).replace('TARGET', str(target)).replace('VARIANT', variant)
                 (folder / 'fixture.qml').write_text(fixture)
                 environment = render_environment(folder)

@@ -1098,3 +1098,11 @@ metadata clone; listing downloads no plugin code, icons or previews. Full plugin
 validation remains in the existing install/review path.
 
 Catalog and Handbook share `LibraryWindow`: native focus/toggle behavior and separate remembered sizes under the machine-local state directory. Both use the shared Hyprland floating/centering rule. Clicking outside leaves either window open.
+
+The Themes & Plugins window uses `SiteStyle` for the website palettes, selected by
+the current theme’s `light.mode` marker (watched across theme symlink replacement).
+Its opaque canvas ignores bar appearance. `test_catalog.py` checks all palette tokens
+against the website CSS and renders both modes. Bundled OFL fonts live in
+`assets/fonts`; see their README for reproducible conversion. The Handbook uses the
+same opaque site palettes and fonts, including its chapter list, search, setup
+controls and document frames; desktop accent and transparency settings do not affect it.

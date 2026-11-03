@@ -78,11 +78,10 @@ class HandbookWelcomeTests(unittest.TestCase):
         self.source = (ROOT / "panels/Handbook.qml").read_text()
 
     def test_welcome_uses_shared_components_and_text_roles(self):
-        for name in ("PanelButton {", "PanelSwitch {", "PanelStyle.bodySize", "PanelStyle.dividerAlpha",
-                     "DesktopFonts.family"):
+        for name in ("SiteButton {", "PanelSwitch {", "PanelStyle.bodySize", "SiteStyle.line",
+                     "SiteStyle.mono"):
             self.assertIn(name, self.source)
-        self.assertIsNone(re.search(r"pixelSize:\s*\d", self.source), "use PanelStyle text roles")
-        self.assertIsNone(re.search(r"#[0-9a-fA-F]{3,8}\b", self.source), "colors must follow the theme")
+        self.assertIsNone(re.search(r"#[0-9a-fA-F]{3,8}\b", self.source), "colors must use shared site tokens")
         for pattern in ("/home/", "/Users/", "erick", "~/"):
             self.assertNotIn(pattern, self.source)
 

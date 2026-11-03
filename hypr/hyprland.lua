@@ -482,6 +482,7 @@ hl.window_rule({
 	float = true,
 	center = true,
 	opacity = "1 1",
+	no_blur = true,
 })
 
 -- App opacity

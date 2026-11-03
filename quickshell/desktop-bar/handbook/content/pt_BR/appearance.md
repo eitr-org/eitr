@@ -2,6 +2,11 @@
 
 ## Catálogo de temas e plugins
 
+O catálogo usa a paleta opaca Blood & Iron ou pergaminho do site e as fontes
+Cinzel e Cormorant Garamond incluídas. Apenas o modo claro/escuro do tema atual
+altera sua aparência; as cores da área de trabalho, a transparência da barra
+e o desfoque não o afetam.
+
 A barra lateral agrupa Temas e Plugins em Instalados e Obter mais, com suas
 contagens. À direita, o título, a descrição
 e os filtros precedem a lista com rolagem independente. Cima/Baixo percorre a

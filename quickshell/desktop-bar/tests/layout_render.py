@@ -15,7 +15,7 @@ def layout_fixture(name):
 
 def copy_runtime(folder):
     for source in BAR.rglob('*'):
-        if source.suffix in ('.qml', '.js') or source.name in ('qmldir', 'corner-styles.json'):
+        if source.suffix in ('.qml', '.js', '.ttf') or source.name in ('qmldir', 'corner-styles.json'):
             destination = folder / source.relative_to(BAR)
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy(source, destination)

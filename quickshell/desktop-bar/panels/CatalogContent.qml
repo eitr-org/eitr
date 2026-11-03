@@ -10,9 +10,9 @@ import "../EdgeSlopes.js" as EdgeSlopes
 
 Item {
     id: catalog
-    required property color foreground
-    required property color background
-    required property color accent
+    property color foreground: SiteStyle.fg
+    property color background: SiteStyle.bg
+    property color accent: SiteStyle.accent
     property bool opened: false
     property bool live: true
     property string kind: "themes"
@@ -213,27 +213,69 @@ Item {
             }
         }
     }
+    Rectangle { anchors.fill: parent; color: catalog.background; z: -1 }
     component Label: Text {
         color: catalog.foreground
-        font.family: DesktopFonts.family
+        font.family: SiteStyle.mono
         font.pixelSize: PanelStyle.bodySize
         wrapMode: Text.Wrap
         textFormat: Text.PlainText
+    }
+    component SiteButton: Rectangle {
+        id: button
+        property color foreground: catalog.foreground
+        property string text: ""
+        property bool available: true
+        property bool selected: false
+        property bool primary: false
+        property bool icon: false
+        property bool flat: false
+        property int textAlignment: Text.AlignHCenter
+        signal clicked()
+        height: 32; radius: 3
+        activeFocusOnTab: true
+        enabled: available
+        opacity: available ? 1 : 0.45
+        color: primary ? SiteStyle.primaryStart : selected ? SiteStyle.raised : hover.containsMouse ? SiteStyle.raised : flat ? catalog.background : SiteStyle.surface
+        gradient: primary ? primaryGradient : null
+        border.width: 1
+        border.color: primary ? SiteStyle.primaryStart : selected || activeFocus ? catalog.accent : hover.containsMouse ? SiteStyle.lineStrong : SiteStyle.line
+        Gradient { id: primaryGradient; orientation: Gradient.Horizontal
+            GradientStop { position: 0; color: SiteStyle.primaryStart }
+            GradientStop { position: 1; color: SiteStyle.primaryEnd }
+        }
+        Text {
+            anchors.fill: parent; anchors.margins: 8
+            verticalAlignment: Text.AlignVCenter; horizontalAlignment: button.textAlignment
+            text: button.text; elide: Text.ElideRight
+            color: button.primary ? SiteStyle.primaryInk : button.foreground
+            font.family: button.icon ? SiteStyle.mono : button.primary ? SiteStyle.carved : SiteStyle.mono
+            font.pixelSize: button.icon ? 20 : 13
+            font.capitalization: button.primary ? Font.AllUppercase : Font.MixedCase
+            font.letterSpacing: button.primary ? 1.3 : 0
+        }
+        Keys.onReturnPressed: if (enabled) clicked()
+        Keys.onEnterPressed: if (enabled) clicked()
+        Keys.onSpacePressed: if (enabled) clicked()
+        MouseArea { id: hover; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
+            onClicked: { button.forceActiveFocus(); button.clicked(); }
+        }
     }
     component Pill: Rectangle {
         property string text: ""
         property bool current: false
         implicitWidth: pillLabel.implicitWidth + 16; height: 22
         radius: 11
-        color: Qt.alpha(catalog.foreground, current ? 0.18 : 0.08)
-        Label { id: pillLabel; anchors.centerIn: parent; text: parent.text; font.pixelSize: PanelStyle.captionSize; font.bold: parent.current }
+        color: SiteStyle.night
+        border.width: 1; border.color: current ? catalog.accent : SiteStyle.lineStrong
+        Label { id: pillLabel; anchors.centerIn: parent; text: parent.text; font.family: SiteStyle.carved; font.capitalization: Font.AllUppercase; font.letterSpacing: 1; font.pixelSize: 11; color: parent.current ? catalog.accent : SiteStyle.muted }
     }
     component Preview: Rectangle {
         property string source: ""
         property bool iconOnly: false
         property bool plugin: false
-        radius: DesktopStyle.radius(PanelStyle.cornerRadius)
-        color: Qt.alpha(catalog.foreground, 0.08)
+        radius: 4
+        color: SiteStyle.raised
         Image {
             anchors.centerIn: parent; width: parent.iconOnly ? 64 : parent.width; height: parent.iconOnly ? 64 : parent.height
             source: parent.source; fillMode: parent.iconOnly ? Image.PreserveAspectFit : Image.PreserveAspectCrop
@@ -241,7 +283,7 @@ Item {
             layer.enabled: GraphicsInfo.api !== GraphicsInfo.Software
             layer.effect: MultiEffect { maskEnabled: true; maskSource: imageMask }
         }
-        Label { anchors.centerIn: parent; visible: parent.plugin && !parent.source; text: "󰏗"; font.pixelSize: 48; opacity: PanelStyle.secondaryTextOpacity }
+        Label { anchors.centerIn: parent; visible: parent.plugin && !parent.source; text: "󰏗"; font.pixelSize: 48; color: SiteStyle.muted }
         Item { id: imageMask; anchors.fill: parent; layer.enabled: true; visible: false
             Rectangle { anchors.fill: parent; radius: parent.parent.radius; color: "white" }
         }
@@ -256,10 +298,15 @@ Item {
         readonly property bool inViewport: viewportY + height > 0 && viewportY < scroll.height
         implicitHeight: details.y + details.height + 12
         opacity: item.hidden ? 0.55 : 1
-        radius: DesktopStyle.radius(PanelStyle.cornerRadius)
-        color: Qt.alpha(catalog.foreground, PanelStyle.selectionAlpha(item.current || picked, cardMouse.containsMouse))
-        border.width: picked || focused ? 2 : 1
-        border.color: picked || focused ? catalog.accent : Qt.alpha(catalog.foreground, PanelStyle.selectionBorderAlpha)
+        radius: 4
+        color: SiteStyle.surface
+        border.width: 1
+        border.color: picked || focused ? catalog.accent : cardMouse.containsMouse ? SiteStyle.lineStrong : SiteStyle.line
+        RectangularShadow {
+            anchors.fill: parent; z: -1
+            visible: tile.picked || tile.focused
+            radius: tile.radius; blur: 18; spread: 2; color: SiteStyle.glow
+        }
         onFocusedChanged: {
             if (!focused) return;
             const top = mapToItem(scroll, 0, 0).y;
@@ -273,12 +320,12 @@ Item {
             id: details
             z: 1
             x: 12; y: art.y + art.height + 10; width: parent.width - 24; spacing: 5
-            Label { width: parent.width; text: tile.item.name || ""; font.bold: true; maximumLineCount: 1; elide: Text.ElideRight }
-            Label { width: parent.width; text: tile.item.description || (catalog.kind === "themes" ? Eitr.I18n.tr("Desktop theme") : ""); font.pixelSize: PanelStyle.captionSize; opacity: PanelStyle.secondaryTextOpacity; maximumLineCount: 1; elide: Text.ElideRight }
+            Label { width: parent.width; text: tile.item.name || ""; font.family: SiteStyle.carved; font.weight: Font.Medium; font.letterSpacing: 0.7; maximumLineCount: 1; elide: Text.ElideRight }
+            Label { width: parent.width; text: tile.item.description || (catalog.kind === "themes" ? Eitr.I18n.tr("Desktop theme") : ""); font.pixelSize: 13; color: SiteStyle.muted; maximumLineCount: 1; elide: Text.ElideRight }
             Row { spacing: 4; visible: catalog.kind === "themes"
                 Repeater {
                     model: catalog.kind === "themes" && tile.item.palette ? ["background", "foreground", "accent", "color1", "color2", "color3", "color4", "color5", "color6"] : []
-                    Rectangle { required property string modelData; width: 14; height: 14; radius: 7; color: tile.item.palette[modelData]; border.width: 1; border.color: Qt.alpha(catalog.foreground, 0.2) }
+                    Rectangle { required property string modelData; width: 14; height: 14; radius: 7; color: tile.item.palette[modelData]; border.width: 1; border.color: SiteStyle.lineStrong }
                 }
             }
             Flow { width: parent.width; spacing: 6
@@ -292,7 +339,7 @@ Item {
                 width: parent.width
                 height: 32
                 visible: !!tile.item.hidden || (catalog.updates[tile.item.id] || 0) > 0
-                PanelButton {
+                SiteButton {
                     anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter
                     width: 86; foreground: catalog.foreground
                     visible: !!tile.item.hidden
@@ -314,10 +361,10 @@ Item {
             visible: tile.picked; x: 10; y: 10; width: 30; height: 30; radius: 15; color: catalog.accent
             Label { anchors.centerIn: parent; text: "\uF00C"; color: PanelStyle.readableInk(catalog.accent, catalog.foreground, catalog.background); font.pixelSize: 18 }
         }
-        PanelButton {
+        SiteButton {
             anchors.right: parent.right; anchors.top: parent.top; anchors.margins: 8
-            width: 28; height: 28; icon: true; text: "󰆴"; foreground: "white"
-            color: Qt.rgba(0, 0, 0, 0.72)
+            width: 28; height: 28; icon: true; text: "󰆴"; foreground: SiteStyle.fg
+            color: SiteStyle.night
             visible: catalog.tab === "installed" && tile.local && !tile.item.current && tile.item.id !== "eitr" && tile.item.kind !== "own" && !tile.item.hidden
             Accessible.name: Eitr.I18n.tr("Remove %1").arg(tile.item.name || "")
             onClicked: { catalog.removing = tile.item; catalog.forceActiveFocus(); }
@@ -328,15 +375,16 @@ Item {
         id: sidebar
         width: catalog.sidebarWidth; height: parent.height
         enabled: !catalog.reviewing && !catalog.removing
-        Rectangle { anchors.right: parent.right; width: 1; height: parent.height; color: Qt.alpha(catalog.foreground, PanelStyle.dividerAlpha) }
+        Rectangle { anchors.right: parent.right; width: 1; height: parent.height; color: SiteStyle.line }
         Label {
-            x: 18; y: 24; width: parent.width - 36
+            id: windowTitle
+            x: 18; y: 22; width: parent.width - 36
             text: catalog.compact ? "󰏘" : Eitr.I18n.tr("Themes & Plugins")
-            font.bold: true; font.pixelSize: catalog.compact ? 22 : PanelStyle.bodySize
+            font.family: catalog.compact ? SiteStyle.mono : SiteStyle.serif; font.weight: Font.Medium; font.pixelSize: 22
             horizontalAlignment: catalog.compact ? Text.AlignHCenter : Text.AlignLeft
         }
         Column {
-            x: 10; y: 88; width: parent.width - 20; spacing: 6
+            x: 10; y: Math.max(72, windowTitle.y + windowTitle.height + 18); width: parent.width - 20; spacing: 6
             Repeater {
                 model: ["themes", "plugins"]
                 Rectangle {
@@ -345,18 +393,19 @@ Item {
                     required property string modelData
                     readonly property bool selected: catalog.navigationIndex === index
                     width: parent.width; height: 40
-                    radius: DesktopStyle.radius(PanelStyle.controlRadius)
-                    color: Qt.alpha(catalog.foreground, PanelStyle.selectionAlpha(selected, navigationMouse.containsMouse))
+                    radius: 3
+                    color: selected ? SiteStyle.raised : navigationMouse.containsMouse ? SiteStyle.surface : SiteStyle.night
+                    border.width: 1; border.color: selected ? catalog.accent : SiteStyle.line
                     Label { x: 10; anchors.verticalCenter: parent.verticalCenter; text: navigationRow.modelData === "themes" ? "󰏘" : "󰏗"; font.pixelSize: 18 }
-                    Label { visible: !catalog.compact; x: 42; anchors.verticalCenter: parent.verticalCenter; text: navigationRow.modelData === "themes" ? Eitr.I18n.tr("Themes") : Eitr.I18n.tr("Plugins") }
-                    Label { visible: !catalog.compact; anchors.right: parent.right; anchors.rightMargin: 10; anchors.verticalCenter: parent.verticalCenter; opacity: PanelStyle.secondaryTextOpacity; text: (catalog.counts[navigationRow.modelData] || {}).installed || "" }
+                    Label { visible: !catalog.compact; x: 42; anchors.verticalCenter: parent.verticalCenter; text: navigationRow.modelData === "themes" ? Eitr.I18n.tr("Themes") : Eitr.I18n.tr("Plugins"); font.family: SiteStyle.carved; font.capitalization: Font.AllUppercase; font.letterSpacing: 1 }
+                    Label { visible: !catalog.compact; anchors.right: parent.right; anchors.rightMargin: 10; anchors.verticalCenter: parent.verticalCenter; color: SiteStyle.muted; text: (catalog.counts[navigationRow.modelData] || {}).installed || "" }
                     MouseArea { id: navigationMouse; cursorShape: Qt.PointingHandCursor; anchors.fill: parent; hoverEnabled: true; enabled: !catalog.busy; onClicked: catalog.navigate(navigationRow.index) }
                 }
             }
         }
     }
 
-    PanelButton { z: 1; anchors.right: parent.right; anchors.top: parent.top; anchors.topMargin: 5; anchors.rightMargin: 8; width: 34; height: 34; text: "󰅖"; icon: true; foreground: catalog.foreground; Accessible.name: Eitr.I18n.tr("Close catalog"); onClicked: catalog.closeRequested() }
+    SiteButton { z: 1; anchors.right: parent.right; anchors.top: parent.top; anchors.topMargin: 5; anchors.rightMargin: 8; width: 34; height: 34; text: "󰅖"; icon: true; foreground: catalog.foreground; Accessible.name: Eitr.I18n.tr("Close catalog"); onClicked: catalog.closeRequested() }
     // Source tabs like browser tabs: the strip is tinted and the selected tab
     // is cut out of it, joining the page below with curved feet.
     Item {
@@ -365,7 +414,9 @@ Item {
         readonly property real tabTop: 8
         readonly property real round: 8
         readonly property real start: PanelStyle.padding
-        readonly property real tabWidth: catalog.compact ? 108 : 140
+        readonly property real tabWidth: Math.max(catalog.compact ? 108 : 140, Math.ceil(tabLabelWidth) + 36)
+        readonly property real tabLabelWidth: Math.max(...tabs.map(tab => { tabMetrics.text = ({official:Eitr.I18n.tr("Official"), community:Eitr.I18n.tr("Community"), installed:Eitr.I18n.tr("Installed")})[tab]; return tabMetrics.advanceWidth + tabMetrics.text.length * 1.5; }))
+        TextMetrics { id: tabMetrics; font.family: SiteStyle.carved; font.capitalization: Font.AllUppercase; font.weight: Font.Bold; font.pixelSize: PanelStyle.bodySize }
         readonly property var tabs: ["installed", "official", "community"]
         readonly property int selectedIndex: tabs.indexOf(catalog.tab)
         property int hoveredIndex: -1
@@ -373,10 +424,10 @@ Item {
             anchors.fill: parent; antialiasing: true
             ShapePath {
                 strokeWidth: -1
-                fillColor: Qt.alpha(catalog.foreground, 0.06)
+                fillColor: SiteStyle.night
                 PathSvg { path: {
                     const width = sourceTabs.width, height = sourceTabs.height, round = sourceTabs.round, top = sourceTabs.tabTop;
-                    const corner = DesktopStyle.radius(PanelStyle.cornerRadius);
+                    const corner = 4;
                     const from = sourceTabs.start + sourceTabs.selectedIndex * sourceTabs.tabWidth, to = from + sourceTabs.tabWidth;
                     let path = "M 0 0 L " + (width - corner) + " 0 Q " + width + " 0 " + width + " " + corner + " L " + width + " " + height;
                     if (sourceTabs.selectedIndex >= 0)
@@ -404,19 +455,21 @@ Item {
                 Rectangle {
                     visible: sourceTab.hovered && !sourceTab.selected
                     anchors { fill: parent; topMargin: 2; bottomMargin: 6; leftMargin: 4; rightMargin: 4 }
-                    radius: sourceTabs.round; color: Qt.alpha(catalog.foreground, 0.08)
+                    radius: sourceTabs.round; color: SiteStyle.raised
                 }
                 // Dividers sit only between two unselected, unhovered tabs.
                 Rectangle {
                     visible: sourceTab.index < sourceTabs.tabs.length - 1
                         && ![sourceTab.index, sourceTab.index + 1].some(index => index === sourceTabs.selectedIndex || index === sourceTabs.hoveredIndex)
                     x: parent.width - 0.5; anchors.verticalCenter: parent.verticalCenter; anchors.verticalCenterOffset: -2
-                    width: 1; height: 16; color: Qt.alpha(catalog.foreground, 0.2)
+                    width: 1; height: 16; color: SiteStyle.lineStrong
                 }
                 Label {
                     anchors.centerIn: parent; anchors.verticalCenterOffset: -2; wrapMode: Text.NoWrap
                     text: sourceTab.label
-                    font.bold: sourceTab.selected
+                    color: sourceTab.selected ? catalog.foreground : SiteStyle.muted
+                    font.family: SiteStyle.carved; font.capitalization: Font.AllUppercase; font.letterSpacing: 1.5
+                    font.weight: sourceTab.selected ? Font.Bold : Font.Medium
                     opacity: sourceTab.selected ? 1 : PanelStyle.secondaryTextOpacity
                 }
                 MouseArea {
@@ -442,7 +495,7 @@ Item {
             // All themes by default; Sun or Moon shows only that mode, a second click all again.
             Row { anchors.right: parent.right; spacing: PanelStyle.selectionRowGap; visible: catalog.kind === "themes"
                 Repeater { model: [{tone: "light", glyph: "󰖙", label: Eitr.I18n.tr("Light")}, {tone: "dark", glyph: "󰖔", label: Eitr.I18n.tr("Dark")}]
-                    PanelButton {
+                    SiteButton {
                         required property var modelData
                         width: PanelStyle.selectionRowHeight; height: PanelStyle.selectionRowHeight
                         icon: true; text: modelData.glyph; foreground: catalog.foreground
@@ -456,11 +509,11 @@ Item {
             Row { spacing: 12; visible: catalog.tab === "installed"
                 Item {
                     id: addAddress; width: 228; height: 32
-                    PanelButton { anchors.fill: parent; available: false; text: Eitr.I18n.tr("Add from a Git address"); foreground: catalog.foreground }
+                    SiteButton { anchors.fill: parent; available: false; text: Eitr.I18n.tr("Add from a Git address"); foreground: catalog.foreground }
                     MouseArea { id: addHover; anchors.fill: parent; hoverEnabled: true; acceptedButtons: Qt.NoButton }
                     BarTooltip { target: addAddress; hovered: addHover.containsMouse; text: Eitr.I18n.tr("Coming soon"); foreground: catalog.foreground; background: catalog.background }
                 }
-                PanelButton { width: 136; visible: catalog.kind === "themes"; selected: catalog.showHidden; text: Eitr.I18n.tr("Show hidden"); foreground: catalog.foreground; activeFocusOnTab: false; onClicked: { catalog.showHidden = !catalog.showHidden; catalog.forceActiveFocus(); } }
+                SiteButton { width: 136; visible: catalog.kind === "themes"; selected: catalog.showHidden; text: Eitr.I18n.tr("Show hidden"); foreground: catalog.foreground; activeFocusOnTab: false; onClicked: { catalog.showHidden = !catalog.showHidden; catalog.forceActiveFocus(); } }
             }
         }
         Label { width: parent.width; visible: text !== ""; text: (!catalog.reviewing && !catalog.removing ? catalog.error || catalog.progress : "") || (catalog.loading ? Eitr.I18n.tr("Loading…") : ""); Accessible.role: Accessible.AlertMessage }
@@ -493,8 +546,8 @@ Item {
                             visible: !section.items.length
                             width: parent.width; height: scroll.height
                             Column { anchors.centerIn: parent; width: parent.width - 40; spacing: 14
-                                Label { width: parent.width; horizontalAlignment: Text.AlignHCenter; text: section.pageError || (section.modelData.local ? Eitr.I18n.tr("No installed items match this filter.") : Eitr.I18n.tr("No themes available. Try again shortly.")); opacity: PanelStyle.secondaryTextOpacity }
-                                PanelButton { anchors.horizontalCenter: parent.horizontalCenter; visible: !section.modelData.local || catalog.installedError !== ""; width: 90; text: Eitr.I18n.tr("Retry"); foreground: catalog.foreground; onClicked: { catalog.previewRequests = ({}); if (section.modelData.local) catalog.refreshInstalled(); else catalog.refreshIndex(); } }
+                                Label { width: parent.width; horizontalAlignment: Text.AlignHCenter; text: section.pageError || (section.modelData.local ? Eitr.I18n.tr("No installed items match this filter.") : Eitr.I18n.tr("No themes available. Try again shortly.")); color: SiteStyle.muted }
+                                SiteButton { anchors.horizontalCenter: parent.horizontalCenter; visible: !section.modelData.local || catalog.installedError !== ""; width: 90; text: Eitr.I18n.tr("Retry"); foreground: catalog.foreground; onClicked: { catalog.previewRequests = ({}); if (section.modelData.local) catalog.refreshInstalled(); else catalog.refreshIndex(); } }
                             }
                         }
                     }
@@ -503,23 +556,23 @@ Item {
         }
         Rectangle {
             id: selectionBar; visible: catalog.getMore && catalog.chosen.length > 0 && catalog.kind === "themes"; width: parent.width; height: 48
-            radius: DesktopStyle.radius(PanelStyle.controlRadius); color: Qt.alpha(catalog.foreground, 0.08)
-            PanelButton { x: 8; anchors.verticalCenter: parent.verticalCenter; width: parent.width - 108; textAlignment: Text.AlignLeft; flat: true; text: catalog.chosen.length === 1 ? Eitr.I18n.tr("Install 1 theme · %1").arg(catalog.sizeText(catalog.totalSize)) : Eitr.I18n.tr("Install %1 themes · %2").arg(catalog.chosen.length).arg(catalog.sizeText(catalog.totalSize)); foreground: catalog.foreground; onClicked: { catalog.reviewing = true; catalog.forceActiveFocus(); } }
-            PanelButton { anchors.right: parent.right; anchors.rightMargin: 8; anchors.verticalCenter: parent.verticalCenter; width: 80; flat: true; text: Eitr.I18n.tr("Clear"); foreground: catalog.foreground; onClicked: catalog.selected = [] }
+            radius: 3; color: SiteStyle.raised
+            SiteButton { x: 8; anchors.verticalCenter: parent.verticalCenter; width: parent.width - 108; primary: true; textAlignment: Text.AlignLeft; flat: true; text: catalog.chosen.length === 1 ? Eitr.I18n.tr("Install 1 theme · %1").arg(catalog.sizeText(catalog.totalSize)) : Eitr.I18n.tr("Install %1 themes · %2").arg(catalog.chosen.length).arg(catalog.sizeText(catalog.totalSize)); foreground: catalog.foreground; onClicked: { catalog.reviewing = true; catalog.forceActiveFocus(); } }
+            SiteButton { anchors.right: parent.right; anchors.rightMargin: 8; anchors.verticalCenter: parent.verticalCenter; width: 80; flat: true; text: Eitr.I18n.tr("Clear"); foreground: catalog.foreground; onClicked: catalog.selected = [] }
         }
     }
     Rectangle {
         anchors.fill: parent; visible: catalog.reviewing || catalog.removing !== null
-        color: Qt.alpha(catalog.background, 0.88); radius: DesktopStyle.radius(PanelStyle.cornerRadius)
+        color: SiteStyle.night; radius: 4
         MouseArea { anchors.fill: parent }
         Rectangle {
             anchors.centerIn: parent; width: parent.width - 72; height: 420
-            radius: DesktopStyle.radius(PanelStyle.cornerRadius); color: catalog.background
-            border.width: 1; border.color: Qt.alpha(catalog.foreground, PanelStyle.dividerAlpha)
+            radius: 4; color: SiteStyle.surface
+            border.width: 1; border.color: SiteStyle.line
             Column {
                 anchors.fill: parent; anchors.margins: 24; spacing: 18
-                Label { width: parent.width; font.pixelSize: PanelStyle.headingSize; font.bold: true; text: catalog.reviewing ? Eitr.I18n.tr("Review theme installation") : Eitr.I18n.tr("Remove %1?").arg(catalog.removing ? catalog.removing.name : "") }
-                Label { width: parent.width; text: catalog.reviewing ? Eitr.I18n.tr("Data-only themes · Review selected sources") : Eitr.I18n.tr("Built-in themes are hidden and can be restored with Show hidden. Other installed themes are removed."); opacity: PanelStyle.secondaryTextOpacity }
+                Label { width: parent.width; font.family: SiteStyle.carved; font.pixelSize: PanelStyle.headingSize; font.weight: Font.Medium; text: catalog.reviewing ? Eitr.I18n.tr("Review theme installation") : Eitr.I18n.tr("Remove %1?").arg(catalog.removing ? catalog.removing.name : "") }
+                Label { width: parent.width; text: catalog.reviewing ? Eitr.I18n.tr("Data-only themes · Review selected sources") : Eitr.I18n.tr("Built-in themes are hidden and can be restored with Show hidden. Other installed themes are removed."); color: SiteStyle.muted }
                 ListView {
                     width: parent.width; height: 190; orientation: ListView.Horizontal; spacing: 12; clip: true
                     model: catalog.reviewing ? catalog.chosen : []; boundsBehavior: Flickable.StopAtBounds
@@ -527,7 +580,7 @@ Item {
                         Preview { width: 200; height: 112; source: catalog.imageFor(parent.modelData) }
                         Label { width: parent.width; text: parent.modelData.repository || "eitr-org/eitr-themes"; font.pixelSize: 11; elide: Text.ElideMiddle }
                         Label { width: parent.width; text: parent.modelData.name; maximumLineCount: 1; elide: Text.ElideRight; font.bold: true }
-                        Label { text: catalog.sizeText(parent.modelData.size || 0); font.pixelSize: PanelStyle.captionSize; opacity: PanelStyle.secondaryTextOpacity }
+                        Label { text: catalog.sizeText(parent.modelData.size || 0); font.pixelSize: PanelStyle.captionSize; color: SiteStyle.muted }
                     }
                 }
                 Label { text: catalog.busy ? catalog.progress : catalog.error || (catalog.reviewing ? Eitr.I18n.tr("Total download: %1").arg(catalog.sizeText(catalog.totalSize)) : ""); width: parent.width }
@@ -535,8 +588,8 @@ Item {
             }
             Row {
                 anchors.right: parent.right; anchors.bottom: parent.bottom; anchors.margins: 24; spacing: 8
-                PanelButton { width: 100; available: !catalog.busy; text: Eitr.I18n.tr("Cancel"); foreground: catalog.foreground; onClicked: catalog.cancelSheet() }
-                PanelButton { width: 100; available: !catalog.busy; selected: true; text: catalog.reviewing ? Eitr.I18n.tr("Install") : Eitr.I18n.tr("Remove"); foreground: catalog.foreground; onClicked: catalog.confirm() }
+                SiteButton { width: 100; available: !catalog.busy; text: Eitr.I18n.tr("Cancel"); foreground: catalog.foreground; onClicked: catalog.cancelSheet() }
+                SiteButton { width: 100; available: !catalog.busy; primary: true; text: catalog.reviewing ? Eitr.I18n.tr("Install") : Eitr.I18n.tr("Remove"); foreground: catalog.foreground; onClicked: catalog.confirm() }
             }
         }
     }

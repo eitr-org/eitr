@@ -2,6 +2,11 @@
 
 ## Katalog für Themes und Plugins
 
+Der Katalog verwendet die deckende Blood-&-Iron- oder Pergamentpalette der Website
+und die mitgelieferten Schriften Cinzel und Cormorant Garamond. Nur der Hell-/Dunkelmodus
+des aktuellen Themes ändert sein Aussehen; Desktopfarben, Leistentransparenz
+und Unschärfe haben keinen Einfluss darauf.
+
 Die linke Seitenleiste gruppiert Themes und Plugins unter Installiert und Weitere
 entdecken und zeigt die Anzahl. Rechts stehen
 Seitentitel, Beschreibung und Theme-Filter über der separat scrollbaren Liste.
