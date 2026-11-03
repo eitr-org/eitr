@@ -44,6 +44,19 @@ Item {
     property bool nativeReviewing: false
     property bool confirmingReview: false
     property bool addingAddress: false
+    // Themes a Git address offers: chosen as cards, then reviewed together.
+    property var gitSelected: []
+    property var gitArtwork: ({})
+    function gitArtworkFor(row) {
+        if (!live || !opened || !row.preview || gitArtwork[row.id] !== undefined || !nativeReview) return;
+        gitArtwork = Object.assign({}, gitArtwork, {[row.id]: ""});
+        request("artwork", {kind: "themes", channel: "git", url: nativeReview.url, id: row.id, path: row.preview}, function(failure, data) {
+            if (!failure) gitArtwork = Object.assign({}, gitArtwork, {[row.id]: data.image});
+        });
+    }
+    function toggleGitTheme(themeId) {
+        gitSelected = gitSelected.includes(themeId) ? gitSelected.filter(selectedId => selectedId !== themeId) : gitSelected.concat([themeId]);
+    }
     property string advice: ""
     property string reviewSourcePath: ""
     property string reviewSourceText: ""
@@ -66,6 +79,7 @@ Item {
         nativeReview = null; nativeReviewing = false; advice = "";
     }
     function prepareReview(args) {
+        if (!args.ids) { gitSelected = []; gitArtwork = ({}); }
         nativeReviewing = true; nativeReview = null; reviewSourcePath = ""; reviewSourceText = ""; addingAddress = false; advice = ""; error = ""; busy = true;
         request("prepare", args, function(failure, data) {
             if (!nativeReviewing) return;
@@ -401,6 +415,40 @@ Item {
             Rectangle { anchors.fill: parent; radius: parent.parent.radius; color: "white" }
         }
     }
+    component GitThemeCard: Rectangle {
+        id: gitCard
+        required property var row
+        property bool selectable: true
+        readonly property bool chosen: selectable && catalog.gitSelected.includes(row.id)
+        height: gitDetails.y + gitDetails.height + 12
+        radius: 4; color: SiteStyle.surface
+        border.width: 1; border.color: chosen ? catalog.accent : selectable && gitMouse.containsMouse ? SiteStyle.lineStrong : SiteStyle.line
+        Component.onCompleted: catalog.gitArtworkFor(row)
+        RectangularShadow { anchors.fill: parent; z: -1; visible: gitCard.chosen; radius: gitCard.radius; blur: 18; spread: 2; color: SiteStyle.glow }
+        Preview { id: gitArt; x: 2; y: 2; width: parent.width - 4; height: width * 9 / 16; source: catalog.gitArtwork[gitCard.row.id] || "" }
+        Column {
+            id: gitDetails
+            x: 12; y: gitArt.y + gitArt.height + 10; width: parent.width - 24; spacing: 5
+            Label { width: parent.width; text: gitCard.row.name || ""; font.family: SiteStyle.carved; font.weight: Font.Medium; font.letterSpacing: 0.7; maximumLineCount: 1; elide: Text.ElideRight }
+            Label { width: parent.width; text: gitCard.row.description || ""; font.pixelSize: 13; color: SiteStyle.muted; maximumLineCount: 1; elide: Text.ElideRight }
+            Row { spacing: 4
+                Repeater {
+                    model: gitCard.row.palette ? ["background", "foreground", "accent", "color1", "color2", "color3", "color4", "color5", "color6"] : []
+                    Rectangle { required property string modelData; width: 14; height: 14; radius: 7; color: gitCard.row.palette[modelData]; border.width: 1; border.color: SiteStyle.lineStrong }
+                }
+            }
+            Row { spacing: 6
+                Pill { text: gitCard.row.light ? Eitr.I18n.tr("Light") : Eitr.I18n.tr("Dark") }
+                Pill { text: catalog.sizeText(gitCard.row.size || 0) }
+            }
+        }
+        MouseArea { id: gitMouse; anchors.fill: parent; hoverEnabled: true; enabled: gitCard.selectable && !catalog.busy
+            cursorShape: Qt.PointingHandCursor; onClicked: catalog.toggleGitTheme(gitCard.row.id) }
+        Rectangle {
+            visible: gitCard.chosen; x: 10; y: 10; width: 30; height: 30; radius: 15; color: catalog.accent
+            Label { anchors.centerIn: parent; text: "\uF00C"; color: SiteStyle.primaryInk; font.pixelSize: 18 }
+        }
+    }
     component CatalogCard: Rectangle {
         id: tile
         required property var item
@@ -639,11 +687,7 @@ Item {
                 }
             }
             Row { spacing: 12; visible: catalog.tab === "installed"
-                Item {
-                    id: addAddress; width: 228; height: 32
-                    SiteButton { anchors.fill: parent; available: !catalog.busy; text: Eitr.I18n.tr("Add from a Git address"); foreground: catalog.foreground; onClicked: { catalog.addingAddress = true; catalog.error = ""; addressInput.forceActiveFocus(); } }
-                    MouseArea { id: addHover; anchors.fill: parent; hoverEnabled: true; acceptedButtons: Qt.NoButton }
-                }
+                SiteButton { width: 100; available: !catalog.busy; text: Eitr.I18n.tr("Add"); foreground: catalog.foreground; Accessible.name: Eitr.I18n.tr("Add from a Git address"); onClicked: { catalog.addingAddress = true; catalog.error = ""; addressInput.forceActiveFocus(); } }
                 SiteButton { width: 136; visible: catalog.kind === "themes"; selected: catalog.showHidden; text: Eitr.I18n.tr("Show hidden"); foreground: catalog.foreground; activeFocusOnTab: false; onClicked: { catalog.showHidden = !catalog.showHidden; catalog.forceActiveFocus(); } }
             }
         }
@@ -885,13 +929,12 @@ Item {
             color: SiteStyle.surface; radius: 4; border.width: 1; border.color: SiteStyle.line
             Column {
                 anchors.fill: parent; anchors.margins: 24; spacing: 16
-                Label { width: parent.width; font.family: SiteStyle.carved; font.pixelSize: 22; text: catalog.addingAddress ? Eitr.I18n.tr("Add from a Git address") : catalog.nativeReview && catalog.nativeReview.changes && catalog.nativeReview.changes.new ? Eitr.I18n.tr("Review plugin update") : catalog.kind === "themes" ? Eitr.I18n.tr("Review theme installation") : Eitr.I18n.tr("Review plugin installation") }
+                Label { width: parent.width; font.family: SiteStyle.carved; font.pixelSize: 22; text: catalog.addingAddress ? Eitr.I18n.tr("Add from a Git address") : catalog.nativeReview && catalog.nativeReview.changes && catalog.nativeReview.changes.new ? Eitr.I18n.tr("Review plugin update") : catalog.kind === "themes" && catalog.nativeReview && catalog.nativeReview.choices ? Eitr.I18n.tr("Choose themes") : catalog.kind === "themes" ? Eitr.I18n.tr("Review theme installation") : Eitr.I18n.tr("Review plugin installation") }
                 Column {
                     visible: catalog.addingAddress; width: parent.width; spacing: 14
                     Label { width: parent.width; text: Eitr.I18n.tr("HTTPS or SSH Git address"); color: SiteStyle.muted }
                     TextField { id: addressInput; objectName: "git-address"; width: parent.width; color: SiteStyle.fg; placeholderText: "https://…"; placeholderTextColor: SiteStyle.muted; font.family: SiteStyle.mono; selectionColor: catalog.accent; selectedTextColor: SiteStyle.fg; background: Rectangle { color: SiteStyle.raised; radius: 4; border.width: 1; border.color: SiteStyle.lineStrong } selectByMouse: true; onAccepted: catalog.prepareReview({url: text.trim()}) }
                     Label { width: parent.width; text: catalog.kind === "plugins" ? Eitr.I18n.tr("Plugins run with your account's full permissions") : Eitr.I18n.tr("Data-only themes · Review selected sources"); color: SiteStyle.muted }
-                    SiteButton { width: 140; text: Eitr.I18n.tr("Review"); onClicked: catalog.prepareReview({url: addressInput.text.trim()}) }
                 }
                 Flickable {
                     width: parent.width; height: Math.max(40, parent.height - 150); visible: !catalog.addingAddress
@@ -900,19 +943,26 @@ Item {
                     Column {
                         id: reviewColumn; width: parent.width - 12; spacing: 14
                         readonly property var facts: catalog.nativeReview || ({})
-                        Label { width: parent.width; text: catalog.busy ? Eitr.I18n.tr("Loading…") : catalog.error; color: SiteStyle.muted }
+                        Label { width: parent.width; visible: text !== ""; text: catalog.busy ? Eitr.I18n.tr("Loading…") : catalog.error; color: SiteStyle.muted }
                         Label { width: parent.width; visible: !!catalog.nativeReview; text: reviewColumn.facts.dataOnly ? Eitr.I18n.tr("Data-only themes · Review selected sources") : Eitr.I18n.tr("Plugins run with your account's full permissions"); font.bold: true }
                         Label { width: parent.width; visible: !!catalog.nativeReview && !reviewColumn.facts.dataOnly; text: reviewColumn.facts.official ? Eitr.I18n.tr("Official Eitr plugin") : Eitr.I18n.tr("Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust."); color: reviewColumn.facts.official ? SiteStyle.muted : SiteStyle.accent; font.bold: !reviewColumn.facts.official }
-                        Label { width: parent.width; text: (reviewColumn.facts.spec || {}).name || ""; font.family: SiteStyle.carved; font.pixelSize: 22 }
+                        Label { width: parent.width; visible: !reviewColumn.facts.themes && text !== ""; text: (reviewColumn.facts.spec || {}).name || ""; font.family: SiteStyle.carved; font.pixelSize: 22 }
                         Label { width: parent.width; text: [reviewColumn.facts.url, reviewColumn.facts.folder, reviewColumn.facts.commit, reviewColumn.facts.author, (reviewColumn.facts.spec || {}).author, (reviewColumn.facts.spec || {}).version, reviewColumn.facts.license].filter(value => value).join("\n"); wrapMode: Text.WrapAnywhere; color: SiteStyle.muted }
-                        Repeater { model: reviewColumn.facts.choices || []
+                        Flow {
+                            width: reviewColumn.width; spacing: 14
+                            visible: catalog.kind === "themes" && (!!reviewColumn.facts.choices || !!reviewColumn.facts.themes)
+                            Repeater { model: catalog.kind === "themes" ? (reviewColumn.facts.choices || reviewColumn.facts.themes || []) : []
+                                GitThemeCard { required property var modelData; row: modelData; selectable: !!reviewColumn.facts.choices; width: Math.floor((reviewColumn.width - 14 * (catalog.columns - 1)) / catalog.columns) }
+                            }
+                        }
+                        Repeater { model: catalog.kind === "plugins" ? (reviewColumn.facts.choices || []) : []
                             SiteButton { required property var modelData; width: reviewColumn.width; text: modelData.name; onClicked: catalog.prepareReview({url: reviewColumn.facts.url, id: modelData.id}) }
                         }
-                        Label { width: parent.width; text: catalog.componentsText(reviewColumn.facts.spec || {}); wrapMode: Text.WrapAnywhere }
-                        Label { width: parent.width; text: (reviewColumn.facts.flags || []).join("\n"); color: SiteStyle.accent; wrapMode: Text.WrapAnywhere }
-                        Label { width: parent.width; text: Eitr.I18n.tr("Files"); font.bold: true; visible: !!catalog.nativeReview }
-                        Label { width: parent.width; text: (reviewColumn.facts.files || []).join("\n"); wrapMode: Text.WrapAnywhere; color: SiteStyle.muted }
-                        Label { width: parent.width; text: reviewColumn.facts.changes && reviewColumn.facts.changes.new ? [reviewColumn.facts.changes.old + " → " + reviewColumn.facts.changes.new].concat(reviewColumn.facts.changes.subjects || [], (reviewColumn.facts.changes.files || []).map(file => file.status + " " + file.path + " +" + file.added + " −" + file.removed), reviewColumn.facts.changes.flags || []).join("\n") : ""; wrapMode: Text.WrapAnywhere }
+                        Label { width: parent.width; visible: text !== ""; text: catalog.componentsText(reviewColumn.facts.spec || {}); wrapMode: Text.WrapAnywhere }
+                        Label { width: parent.width; visible: text !== ""; text: (reviewColumn.facts.flags || []).join("\n"); color: SiteStyle.accent; wrapMode: Text.WrapAnywhere }
+                        Label { width: parent.width; text: Eitr.I18n.tr("Files"); font.bold: true; visible: (reviewColumn.facts.files || []).length > 0 }
+                        Label { width: parent.width; visible: text !== ""; text: (reviewColumn.facts.files || []).join("\n"); wrapMode: Text.WrapAnywhere; color: SiteStyle.muted }
+                        Label { width: parent.width; visible: text !== ""; text: reviewColumn.facts.changes && reviewColumn.facts.changes.new ? [reviewColumn.facts.changes.old + " → " + reviewColumn.facts.changes.new].concat(reviewColumn.facts.changes.subjects || [], (reviewColumn.facts.changes.files || []).map(file => file.status + " " + file.path + " +" + file.added + " −" + file.removed), reviewColumn.facts.changes.flags || []).join("\n") : ""; wrapMode: Text.WrapAnywhere }
                         Repeater { model: reviewColumn.facts.qml || []
                             SiteButton { required property var modelData; width: reviewColumn.width; text: modelData.path; onClicked: catalog.loadReviewSource(modelData.path, 0) }
                         }
@@ -922,12 +972,16 @@ Item {
                             SiteButton { width: 100; text: Eitr.I18n.tr("Next"); available: catalog.reviewSourceOffset + 16384 < catalog.reviewSourceTotal; onClicked: catalog.loadReviewSource(catalog.reviewSourcePath, catalog.reviewSourceOffset + 16384) }
                         }
                         SiteButton { width: 220; visible: !!reviewColumn.facts.assistant; available: !catalog.busy; text: Eitr.I18n.tr("Ask the AI to check"); onClicked: { catalog.busy = true; catalog.request("advice", {token: catalog.nativeReview.token}, function(failure, data) { catalog.busy = false; catalog.advice = failure || (data.answer || []).join("\n"); }); } }
-                        Label { width: parent.width; text: catalog.advice; wrapMode: Text.WrapAnywhere }
+                        Label { width: parent.width; visible: text !== ""; text: catalog.advice; wrapMode: Text.WrapAnywhere }
                     }
                 }
                 Row {
                     spacing: 12
                     SiteButton { width: 110; text: Eitr.I18n.tr("Cancel"); available: !catalog.confirmingReview; onClicked: { DesktopData.releaseOwner(catalog); catalog.busy = false; catalog.addingAddress = false; catalog.discardReview(); catalog.forceActiveFocus(); } }
+                    SiteButton { objectName: "address-review"; width: 110; visible: catalog.addingAddress; primary: true; text: Eitr.I18n.tr("Review"); onClicked: catalog.prepareReview({url: addressInput.text.trim()}) }
+                    SiteButton { objectName: "git-continue"; width: 150; visible: catalog.kind === "themes" && !!catalog.nativeReview && !!catalog.nativeReview.choices; primary: true; available: catalog.gitSelected.length > 0 && !catalog.busy
+                        text: catalog.gitSelected.length > 1 ? Eitr.I18n.tr("Continue · %1").arg(catalog.gitSelected.length) : Eitr.I18n.tr("Continue")
+                        onClicked: catalog.prepareReview({url: catalog.nativeReview.url, ids: catalog.gitSelected}) }
                     SiteButton { objectName: "native-confirm"; width: 110; visible: !!catalog.nativeReview && !!catalog.nativeReview.token; available: !catalog.busy; primary: true; text: Eitr.I18n.tr("Confirm"); onClicked: catalog.nativeConfirm() }
                 }
             }

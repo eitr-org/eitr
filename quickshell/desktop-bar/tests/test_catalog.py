@@ -402,6 +402,14 @@ ShellRoot {
       if (!panel.detail || !panel.isInstalled(panel.detailItem)) throw new Error("detail reflects successful install");
       const apply = find(panel, "detail-install");
       if (apply.text !== "Apply") throw new Error("detail offers Apply after install");
+      const prepared = [];
+      panel.transport = function(name, args, callback) { if (name === "prepare") prepared.push(args); callback("", {}); };
+      panel.nativeReviewing = true;
+      panel.nativeReview = {url: "https://example.invalid/themes", choices: [{id: "alpha", name: "Alpha", description: "First", light: false, size: 2048}, {id: "beta", name: "Beta", description: "Second", light: true, size: 4096}], dataOnly: true};
+      panel.toggleGitTheme("alpha"); panel.toggleGitTheme("beta"); panel.toggleGitTheme("alpha");
+      find(panel, "git-continue").clicked();
+      if (prepared.length !== 1 || JSON.stringify(prepared[0].ids) !== JSON.stringify(["beta"])) throw new Error("Continue reviews the chosen Git themes: " + JSON.stringify(prepared));
+      panel.nativeReviewing = false; panel.nativeReview = null; panel.busy = false;
       const applied = [];
       panel.transport = function(name, args, callback) { if (name === "apply") applied.push(args.id); callback("", {items: panel.installed}); };
       apply.clicked();

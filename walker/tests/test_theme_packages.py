@@ -83,6 +83,17 @@ class ThemePackagesTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'expired'):
             self.backend.confirm_review(review['token'])
 
+    def test_git_address_choices_list_rows_and_review_several_themes(self):
+        choices = self.backend.prepare_review(self.url)
+        self.assertEqual({row['id'] for row in choices['choices']}, {'alpha', 'beta', 'gamma'})
+        self.assertTrue(all('size' in row and 'folder' in row for row in choices['choices']))
+        review = self.backend.prepare_review(self.url, theme_ids=['alpha', 'gamma'])
+        self.assertEqual([spec['id'] for spec in review['specs']], ['alpha', 'gamma'])
+        self.assertEqual(self.backend.confirm_review(review['token']), ['alpha', 'gamma'])
+        self.assertTrue((self.backend.folder / 'alpha').is_dir())
+        self.assertTrue((self.backend.folder / 'gamma').is_dir())
+        self.assertFalse((self.backend.folder / 'beta').exists())
+
     def test_git_address_review_refuses_stage_tampering(self):
         review = self.backend.prepare_review(self.url, 'alpha')
         stage = Path(self.backend._reviews[review['token']]['stage'].name)

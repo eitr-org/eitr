@@ -38,6 +38,7 @@
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Add": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Add Plugins": [
@@ -239,6 +240,9 @@
     "Choose a theme": [
       "quickshell/desktop-bar/panels/Handbook.qml"
     ],
+    "Choose themes": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Choose user · Ctrl+Left / Ctrl+Right": [
       "quickshell/lockscreen/imports/LockscreenComponents/UserPicker.qml"
     ],
@@ -316,6 +320,12 @@
     ],
     "Connectivity": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
+    ],
+    "Continue": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Continue · %1": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Control Center": [
       "quickshell/desktop-bar/bar/EitrLogo.qml"

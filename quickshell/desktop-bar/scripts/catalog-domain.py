@@ -30,11 +30,11 @@ def validate(name, args):
         raise ValueError('invalid-request')
     if args.get('kind') not in {'themes', 'plugins'}:
         raise ValueError('invalid-kind')
-    if args.get('channel', 'official') not in {'official', 'community', 'installed'}:
+    if args.get('channel', 'official') not in {'official', 'community', 'installed', 'git'}:
         raise ValueError('invalid-channel')
     if args['kind'] == 'plugins' and name in {'install', 'update', 'apply', 'unhide'}:
         raise ValueError('Use the plugin prepare/confirm review')
-    ids = args.get('ids', []) if name == 'install' else [args.get('id')] if name in {'update', 'remove', 'apply', 'unhide', 'preview', 'artwork', 'detail'} else []
+    ids = args.get('ids', []) if name == 'install' or name == 'prepare' and 'ids' in args else [args.get('id')] if name in {'update', 'remove', 'apply', 'unhide', 'preview', 'artwork', 'detail'} else []
     if not isinstance(ids, list) or (name == 'install' and not ids) or len(ids) > 1000 or any(
             not isinstance(theme_id, str) or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', theme_id) or len(theme_id) > 64 for theme_id in ids):
         raise ValueError('invalid-id')
@@ -46,6 +46,8 @@ def validate(name, args):
     if name == 'artwork':
         from eitr_theme_packages import relative
         relative(args.get('path'))
+    if args.get('channel') == 'git' and (name != 'artwork' or args['kind'] != 'themes' or not isinstance(args.get('url'), str)):
+        raise ValueError('invalid-git-request')
 
 
 class CatalogDomain:
@@ -286,7 +288,7 @@ def community_detail(item_id, backend):
         return {'item': result}
 
 
-def artwork_preview(kind, item_id, backend, requested=None, channel="official"):
+def artwork_preview(kind, item_id, backend, requested=None, channel="official", git_url=None):
     """Materialize one regular Git blob, validate it, then publish atomically."""
     import hashlib
     import io
@@ -302,6 +304,17 @@ def artwork_preview(kind, item_id, backend, requested=None, channel="official"):
             row = next(row for row in rows if row['id'] == item_id)
             revision = row['commit']
             repository = cache('eitr/plugin-repositories') / hashlib.sha256(normalized_url(row['repository']).encode()).hexdigest()
+        elif channel == 'git':
+            # Rows a Git address listed for selection, cached by prepare_review.
+            from eitr_theme_packages import validate_index
+            from eitr_plugin_install import repository_url
+            url = repository_url(git_url, allow_file=backend.allow_file)
+            listing = json.loads((cache('eitr/catalog-previews') / ('git-' + hashlib.sha256(normalized_url(url).encode()).hexdigest() + '.json')).read_text())
+            if normalized_url(listing['url']) != normalized_url(url):
+                raise ValueError('Repository listing changed; add the address again')
+            revision = listing['commit']
+            row = next(row for row in validate_index(listing['themes']) if row['id'] == item_id)
+            repository = backend.cache / hashlib.sha256(normalized_url(url).encode()).hexdigest()
         elif channel == 'community':
             from eitr_community import validate_index
             index = validate_index(json.loads(cache('eitr/community-index.json').read_text()))
@@ -410,7 +423,7 @@ def worker(name, args):
             backend.discard_reviews()
             return {}
         if name == 'prepare':
-            return {'review': backend.prepare_review(args['url'], theme_id=args.get('id'))}
+            return {'review': backend.prepare_review(args['url'], theme_id=args.get('id'), theme_ids=args.get('ids'))}
         if name == 'confirm':
             return {'result': backend.confirm_review(args['token'])}
         if name == 'installed':
@@ -427,7 +440,7 @@ def worker(name, args):
         if name == 'detail' and args.get('channel') == 'community':
             return community_detail(args['id'], backend)
         if name in {'preview', 'artwork'}:
-            return artwork_preview(kind, args['id'], backend, args.get('path'), args.get('channel', 'official'))
+            return artwork_preview(kind, args['id'], backend, args.get('path'), args.get('channel', 'official'), args.get('url'))
         if name == 'install':
             return {'result': backend.install(THEMES, args['ids'])}
         if name == 'check':
@@ -481,7 +494,7 @@ def worker(name, args):
                                         revision=row['commit'] if channel == 'community' else None)
         return {'review': dict(review, license=row.get('license', ''), maintainer=row.get('maintainer', ''))}
     if name in {'preview', 'artwork'}:
-        return artwork_preview(kind, args['id'], backend, args.get('path'), args.get('channel', 'official'))
+        return artwork_preview(kind, args['id'], backend, args.get('path'), args.get('channel', 'official'), args.get('url'))
     if name == 'detail':
         rows = json.loads(cache('eitr/catalog-previews/plugins' + ('-community' if args.get('channel') == 'community' else '') + '.json').read_text())
         return {'item': next(row for row in rows if row['id'] == args['id'])}

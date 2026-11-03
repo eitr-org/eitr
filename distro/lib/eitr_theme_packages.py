@@ -345,28 +345,37 @@ class Themes:
             review['stage'].cleanup()
         self._reviews.clear()
 
-    def prepare_review(self, url, theme_id=None):
+    def prepare_review(self, url, theme_id=None, theme_ids=None):
         repository_url(url, allow_file=self.allow_file)
         with self.lock():
-            _, _, rows = self.repository(url)
-        if theme_id is None and len(rows) != 1:
-            return dict(choices=[dict(id=row['id'], name=row['name'], description=row['description']) for row in rows], url=url, dataOnly=True)
-        theme_id = theme_id or rows[0]['id']
+            _, revision, rows = self.repository(url)
+        ids = list(theme_ids) if theme_ids else [theme_id] if theme_id else None
+        if ids is None and len(rows) != 1:
+            # The window shows these rows as cards; artwork requests read them back
+            # from this cache, so only paths this index lists can be fetched.
+            listing = cache('eitr/catalog-previews') / ('git-' + hashlib.sha256(normalized_url(url).encode()).hexdigest() + '.json')
+            listing.parent.mkdir(parents=True, exist_ok=True)
+            listing.write_text(json.dumps(dict(url=url, commit=revision, themes=rows)))
+            return dict(choices=rows, url=url, commit=revision, official=official(url), dataOnly=True)
+        ids = ids or [rows[0]['id']]
         parent = (Path(os.environ['EITR_CATALOG_REVIEW_CACHE']) / 'themes' if os.environ.get('EITR_CATALOG_REVIEW_CACHE') else cache('eitr/theme-reviews'))
         parent.mkdir(parents=True, exist_ok=True, mode=0o700)
         stage = tempfile.TemporaryDirectory(prefix='review-', dir=parent)
 
         def capture(package, revision, selected):
-            shutil.copytree(package / theme_id, Path(stage.name) / theme_id)
+            for selected_id in ids:
+                shutil.copytree(package / selected_id, Path(stage.name) / selected_id)
             files = {str(path.relative_to(Path(stage.name))): (hashlib.sha256(path.read_bytes()).hexdigest(), bool(path.stat().st_mode & 0o111))
-                     for path in (Path(stage.name) / theme_id).rglob('*') if path.is_file()}
+                     for path in Path(stage.name).rglob('*') if path.is_file()}
             token = secrets.token_urlsafe(32)
+            specs = [manifest(package / selected_id) for selected_id in ids]
             facts = dict(token=token, url=url, official=official(url), commit=revision,
-                         spec=manifest(package / theme_id), files=list(files), dataOnly=True)
-            self._reviews[token] = dict(stage=stage, expires=time.monotonic() + 900, files=files, id=theme_id)
+                         spec=specs[0], specs=specs, themes=[selected[selected_id] for selected_id in ids],
+                         files=list(files), dataOnly=True)
+            self._reviews[token] = dict(stage=stage, expires=time.monotonic() + 900, files=files, ids=ids)
             return facts
         try:
-            return self.install(url, [theme_id], review=capture)
+            return self.install(url, ids, review=capture)
         except BaseException:
             stage.cleanup()
             raise
@@ -387,20 +396,21 @@ class Themes:
                     files[str(path.relative_to(root))] = (hashlib.sha256(path.read_bytes()).hexdigest(), bool(path.stat().st_mode & 0o111))
             if files != review['files']:
                 raise ValueError('Theme review changed')
-            theme_id = review['id']
+            ids = review['ids']
             with self.lock():
-                if any((parent / theme_id).exists() for parent in (self.folder, code_root() / 'themes', config('themes'))):
+                if any((parent / theme_id).exists() for theme_id in ids for parent in (self.folder, code_root() / 'themes', config('themes'))):
                     raise ValueError('Theme ID already exists')
                 self.folder.mkdir(parents=True, exist_ok=True)
                 with tempfile.TemporaryDirectory(prefix='.review-', dir=self.folder) as directory:
-                    prepared = Path(directory) / theme_id
-                    shutil.copytree(root / theme_id, prepared)
+                    for theme_id in ids:
+                        shutil.copytree(root / theme_id, Path(directory) / theme_id)
                     copied = {str(path.relative_to(Path(directory))): (hashlib.sha256(path.read_bytes()).hexdigest(), bool(path.stat().st_mode & 0o111))
-                              for path in prepared.rglob('*') if path.is_file() and not path.is_symlink()}
+                              for path in Path(directory).rglob('*') if path.is_file() and not path.is_symlink()}
                     if copied != review['files']:
                         raise ValueError('Theme review changed')
-                    prepared.rename(self.folder / theme_id)
-            return [theme_id]
+                    for theme_id in ids:
+                        (Path(directory) / theme_id).rename(self.folder / theme_id)
+            return ids
         finally:
             review['stage'].cleanup()
 
