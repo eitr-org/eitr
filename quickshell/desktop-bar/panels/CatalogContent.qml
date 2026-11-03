@@ -295,6 +295,8 @@ Item {
         required property bool local
         readonly property bool picked: catalog.getMore && !local && catalog.selected.includes(item.id)
         readonly property bool focused: catalog.cursor >= 0 && !!catalog.navigable[catalog.cursor] && catalog.navigable[catalog.cursor].id === item.id
+        // Installed plugins, the current theme and hidden themes have no click action.
+        readonly property bool actionable: !item.hidden && !(local && (catalog.kind === "plugins" || item.current))
         readonly property real viewportY: parent.parent.y + parent.y + y - scroll.contentY
         readonly property bool inViewport: viewportY + height > 0 && viewportY < scroll.height
         implicitHeight: details.y + details.height + 12
@@ -302,7 +304,7 @@ Item {
         radius: 4
         color: SiteStyle.surface
         border.width: 1
-        border.color: picked || focused ? catalog.accent : cardMouse.containsMouse ? SiteStyle.lineStrong : SiteStyle.line
+        border.color: picked || focused ? catalog.accent : tile.actionable && cardMouse.containsMouse ? SiteStyle.lineStrong : SiteStyle.line
         RectangularShadow {
             anchors.fill: parent; z: -1
             visible: tile.picked || tile.focused
@@ -354,7 +356,7 @@ Item {
                 }
             }
         }
-        MouseArea { id: cardMouse; anchors.fill: parent; hoverEnabled: true; enabled: !catalog.busy && !catalog.reviewing && !catalog.removing
+        MouseArea { id: cardMouse; anchors.fill: parent; hoverEnabled: true; enabled: tile.actionable && !catalog.busy && !catalog.reviewing && !catalog.removing
             cursorShape: Qt.PointingHandCursor
             onClicked: { catalog.cursor = catalog.navigable.findIndex(theme => theme.id === tile.item.id); catalog.activate(tile.item, tile.local); }
         }
