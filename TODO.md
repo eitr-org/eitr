@@ -107,6 +107,10 @@ LAN.
   through a secret iCal address are done (Tools > Calendar Sources). Two-way sync
   (creating or editing provider events) needs account sign-in (OAuth, with
   Google's app verification) and remains later.
+- **`eitr check`: plain-language findings.** `eitr check` (Settings > System >
+  Maintenance > Check This PC) already runs read-only checks and copies a redacted
+  report. Next: add GPU driver, displays and audio, open it from the Control Center,
+  and lead each problem with one plain sentence on what it means and what to try.
 - **`eitr matrix`: falling runes in the terminal.** A fun command that rains Elder
   Futhark runes down the terminal in the current theme's colors, like the Matrix,
   until a key is pressed. A working prototype exists outside the repository

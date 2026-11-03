@@ -82,11 +82,11 @@ problem report and the ISO name and boot menu all read it.
 | 0.5.0 | Yggdrasil | beta | Automated VM install, upgrade and reset tests |
 | 0.6.0 | Mimir | beta | First public preview: a download for early users |
 | 0.6.1 | Mimir | beta | The public preview's everyday features: dictation, package search, Tools menu, display settings, ultrawide wallpapers |
-| 0.6.2 | Mimir | beta | Updates served from download.eitr.info; Clipboard History newest first |
-| 0.6.3 | Mimir | beta | Real-desktop screenshots on the site, smaller downloads (JPEG wallpapers), check marks in Install lists |
+| 0.6.2 | Mimir | beta | Updates served from download.eitr.info |
+| 0.6.3 | Mimir | beta | Real-desktop screenshots on the site and smaller downloads |
 | 0.6.4 | Mimir | beta | Translations (Portuguese, Spanish, German, French), multi-monitor arrangement, Control Center, AI assistants, crash help, OBS defaults |
 | 0.6.5 | Mimir | beta | HDR switch and HDR games, Tabs bar, assistants (SUPER+A, quick chat, accounts), calendars, your own themes, faster disk unlock, stronger disk passphrases |
-| 0.7.0 | Huginn | beta | Plugins with widgets and panels, the Eitr theme with matching Neovim and VS Code colours, realm palettes, media equalizer styles, reminder snooze, auto-hide bar and Reduce motion, the new website, and fixes from early users' real-hardware installs; Islands layout, Focus mode, optional Ghostty, clock formats, Eitr lockscreen with account switching, and live menu branch search |
+| 0.7.0 | Huginn | beta | Plugins, the Eitr theme with its own Neovim and VS Code colours, Focus mode and the Islands bar layout |
 | 0.8.0 | Muninn | release candidate | The exact ISO intended for 1.0: repeated clean installs, upgrades from earlier public releases and destructive recovery tests in isolated environments, until installation, maintenance and recovery are reproducible on the declared supported configurations |
 | 1.0.0 | Bifröst | stable | A supported hardware matrix, tested upgrade paths, documented rollback limitations, a security-update process and a clear compatibility policy |
 

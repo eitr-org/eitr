@@ -96,6 +96,15 @@ const homepageFeatures = [
   }
 ];
 
+const moreThanATheme = [
+  [t('more_recovery_title'), t('more_recovery_body')],
+  [t('more_check_title'), t('more_check_body')],
+  [t('more_crash_title'), t('more_crash_body')],
+  [t('more_assistants_title'), t('more_assistants_body')],
+  [t('more_plugins_title'), t('more_plugins_body')],
+  [t('more_accounts_title'), t('more_accounts_body')],
+];
+
 const faq = [
   [t('is_it_free'), t('yes_free_to_download_use_and_share_with_no_account_subs')],
   [t('how_long_does_installation_take'), t('about_two_minutes_in_a_virtual_machine_on_a_fast_comput')],
@@ -151,7 +160,6 @@ const faq = [
         <span class="preview-play-icon" aria-hidden="true"></span>
       </button>
     </div>
-    <p class="fine preview-note">{t('preview_note')}</p>
   </section>
 
   {homepageFeatures.map(feature => {
@@ -168,6 +176,17 @@ const faq = [
     </section>;
   })}
   <div class="wrap screenshots-cta"><a class="button" href="/screenshots/">{t('see_all_screenshots')}</a></div>
+
+  <section id="more" class="wrap section more-than-a-theme">
+    <div class="section-heading">
+      <p class="eyebrow">{t('more_eyebrow')}</p>
+      <h2>{t('more_title')}</h2>
+      <p>{t('more_intro')}</p>
+    </div>
+    <div class="more-grid">
+      {moreThanATheme.map(([title, body]) => <article class="install-card"><h3>{title}</h3><p>{body}</p></article>)}
+    </div>
+  </section>
 
   <WorldTree />
 

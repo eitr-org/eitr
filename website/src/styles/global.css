@@ -183,7 +183,6 @@ em { font-style: italic; color: var(--accent); }
 .preview-play-icon { position: absolute; inset: 50% auto auto 50%; width: 84px; height: 84px; translate: -50% -50%; border-radius: 50%; background: rgb(0 0 0 / .6); border: 2px solid rgb(255 255 255 / .85); transition: transform .2s ease, background .2s ease; }
 .preview-play-icon::after { content: ""; position: absolute; inset: 50% auto auto 54%; translate: -50% -50%; border-style: solid; border-width: 15px 0 15px 25px; border-color: transparent transparent transparent #fff; }
 .preview-play:hover .preview-play-icon, .preview-play:focus-visible .preview-play-icon { transform: scale(1.08); background: rgb(0 0 0 / .78); }
-.preview-note { margin-top: 12px; }
 .screenshot-groups { display: flex; flex-wrap: wrap; gap: 16px 28px; margin-bottom: 64px; }
 .screenshot-group { padding-block: 40px; scroll-margin-top: 110px; }
 .screenshot-group h2 { font-size: clamp(26px, 3vw, 38px); margin-bottom: 32px; }
@@ -239,6 +238,10 @@ em { font-style: italic; color: var(--accent); }
 .install { position: relative; padding: 140px 0 60px; }
 .install-art { background-image: url("/art/ragnarok.webp"); position: absolute; inset: 60px 0 auto 40%; height: 520px; z-index: -1; background-size: cover; background-position: 50% 45%; opacity: 0.5; mask-image: radial-gradient(closest-side, #000 30%, transparent); }
 .install-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.more-grid .install-card h3 { font-size: 24px; }
+@media (max-width: 960px) { .more-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .more-grid { grid-template-columns: 1fr; } }
 .install-card { padding: 30px; border: 1px solid var(--line); border-radius: 4px; background: #130f0fdd; backdrop-filter: blur(8px); display: grid; gap: 14px; align-content: start; }
 .download-button { justify-self: start; }
 .download-checksum { font-size: 11px; }
