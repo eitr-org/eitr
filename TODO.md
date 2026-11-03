@@ -67,7 +67,25 @@ channel first; the website changes only once it reaches stable.
   `eitr-org/eitr-lockscreens` repository would be offered; third-party designs are
   refused and the owner's own lockscreens stay settings on an installed design.
   Which designs stay built in is still open.
-- **Order:** catalog window, then the
+- **Layout (owner, 2026-11-03).** A normal, movable and resizable window that the
+  shortcut toggles (the Handbook becomes a window too, sharing one window
+  component). Sidebar: Themes, Plugins (Lockscreens later). Tabs above the content:
+  Official (everything from eitr-org, built-in included, installed items marked),
+  Community, Installed (every source; Remove lives here, plus "Add from a Git
+  address" for third-party items). Theme cards show the palette as swatches,
+  taken from the index so nothing is downloaded to show them.
+- **Removing built-in themes** hides them from every picker (package files stay,
+  pacman owns them), with Show hidden to restore; Eitr and the current theme
+  cannot be hidden.
+- **Community index `eitr-org/eitr-community`.** Pointers only, no theme or plugin
+  files: one JSON file per entry under `themes/` and `plugins/` (repository,
+  folder, maintainer, license, description; plugins also pin an exact commit),
+  `removed.json` for pulled entries (installed copies get a warning), a generated
+  `index.json` the catalog reads, CONTRIBUTING, a PR template and CI that runs
+  Eitr's own validators. Community themes follow their author's repository;
+  community plugin updates are new pull requests the owner reviews. Lockscreens
+  stay official-only.
+- **Order:** window and tabs layout with the community index, then the
   native install review, then move the 12 themes (they stay here until the
   installer works).
 
