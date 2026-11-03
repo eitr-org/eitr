@@ -335,46 +335,76 @@ Item {
         }
     }
 
-    PanelButton { anchors.right: parent.right; anchors.top: parent.top; anchors.margins: 14; width: 34; height: 34; text: "󰅖"; icon: true; foreground: catalog.foreground; Accessible.name: Eitr.I18n.tr("Close catalog"); onClicked: catalog.closeRequested() }
-    // Source tabs hang from the window's top edge like the Tabs bar layout.
-    Row {
+    PanelButton { z: 1; anchors.right: parent.right; anchors.top: parent.top; anchors.topMargin: 5; anchors.rightMargin: 8; width: 34; height: 34; text: "󰅖"; icon: true; foreground: catalog.foreground; Accessible.name: Eitr.I18n.tr("Close catalog"); onClicked: catalog.closeRequested() }
+    // Source tabs like browser tabs: the strip is tinted and the selected tab
+    // is cut out of it, joining the page below with curved feet.
+    Item {
         id: sourceTabs
-        x: catalog.sidebarWidth + PanelStyle.padding - 4
-        spacing: 6 - 2 * round
-        readonly property real depth: 34
-        readonly property real slope: depth
-        readonly property real round: 6
-        Repeater { model: ["official", "community", "installed"]
+        x: catalog.sidebarWidth; width: catalog.width - x; height: 44
+        readonly property real tabTop: 8
+        readonly property real round: 8
+        readonly property real start: PanelStyle.padding
+        readonly property real tabWidth: catalog.compact ? 108 : 140
+        readonly property var tabs: ["official", "community", "installed"]
+        readonly property int selectedIndex: tabs.indexOf(catalog.tab)
+        property int hoveredIndex: -1
+        Shape {
+            anchors.fill: parent; antialiasing: true
+            ShapePath {
+                strokeWidth: -1
+                fillColor: Qt.alpha(catalog.foreground, 0.06)
+                PathSvg { path: {
+                    const width = sourceTabs.width, height = sourceTabs.height, round = sourceTabs.round, top = sourceTabs.tabTop;
+                    const corner = DesktopStyle.radius(PanelStyle.cornerRadius);
+                    const from = sourceTabs.start + sourceTabs.selectedIndex * sourceTabs.tabWidth, to = from + sourceTabs.tabWidth;
+                    let path = "M 0 0 L " + (width - corner) + " 0 Q " + width + " 0 " + width + " " + corner + " L " + width + " " + height;
+                    if (sourceTabs.selectedIndex >= 0)
+                        path += " L " + (to + round) + " " + height + " Q " + to + " " + height + " " + to + " " + (height - round)
+                            + " L " + to + " " + (top + round) + " Q " + to + " " + top + " " + (to - round) + " " + top
+                            + " L " + (from + round) + " " + top + " Q " + from + " " + top + " " + from + " " + (top + round)
+                            + " L " + from + " " + (height - round) + " Q " + from + " " + height + " " + (from - round) + " " + height;
+                    return path + " L 0 " + height + " Z";
+                } }
+            }
+        }
+        Repeater {
+            id: tabRepeater
+            model: sourceTabs.tabs
             Item {
                 id: sourceTab
                 required property string modelData
+                required property int index
                 readonly property bool selected: catalog.tab === modelData
-                readonly property real body: catalog.compact ? 96 : 116
-                readonly property real inset: sourceTabs.slope + sourceTabs.round
+                readonly property bool hovered: sourceTabs.hoveredIndex === index
                 readonly property string label: ({official:Eitr.I18n.tr("Official"), community:Eitr.I18n.tr("Community"), installed:Eitr.I18n.tr("Installed")})[modelData]
                 objectName: "sourceTab-" + modelData
-                width: body + 2 * inset; height: sourceTabs.depth
-                Shape {
-                    anchors.fill: parent; antialiasing: true
-                    ShapePath {
-                        strokeWidth: sourceTab.selected ? -1 : 1
-                        strokeColor: Qt.alpha(catalog.foreground, PanelStyle.selectionBorderAlpha)
-                        fillColor: Qt.alpha(catalog.foreground, PanelStyle.selectionAlpha(sourceTab.selected, tabMouse.containsMouse))
-                        PathSvg { path: EdgeSlopes.outline("top", sourceTab.width, sourceTabs.depth, 0, sourceTabs.round, [[sourceTab.inset, sourceTab.inset + sourceTab.body]]) }
-                    }
+                x: sourceTabs.start + index * sourceTabs.tabWidth; y: sourceTabs.tabTop
+                width: sourceTabs.tabWidth; height: sourceTabs.height - sourceTabs.tabTop
+                Rectangle {
+                    visible: sourceTab.hovered && !sourceTab.selected
+                    anchors { fill: parent; topMargin: 2; bottomMargin: 6; leftMargin: 4; rightMargin: 4 }
+                    radius: sourceTabs.round; color: Qt.alpha(catalog.foreground, 0.08)
+                }
+                // Dividers sit only between two unselected, unhovered tabs.
+                Rectangle {
+                    visible: sourceTab.index < sourceTabs.tabs.length - 1
+                        && ![sourceTab.index, sourceTab.index + 1].some(index => index === sourceTabs.selectedIndex || index === sourceTabs.hoveredIndex)
+                    x: parent.width - 0.5; anchors.verticalCenter: parent.verticalCenter; anchors.verticalCenterOffset: -2
+                    width: 1; height: 16; color: Qt.alpha(catalog.foreground, 0.2)
                 }
                 Label {
-                    anchors.centerIn: parent; wrapMode: Text.NoWrap
+                    anchors.centerIn: parent; anchors.verticalCenterOffset: -2; wrapMode: Text.NoWrap
                     text: sourceTab.label
                     font.bold: sourceTab.selected
                     opacity: sourceTab.selected ? 1 : PanelStyle.secondaryTextOpacity
                 }
                 MouseArea {
                     id: tabMouse
-                    x: sourceTab.inset - sourceTabs.slope / 2; width: sourceTab.body + sourceTabs.slope; height: parent.height
+                    anchors.fill: parent
                     hoverEnabled: true; enabled: !catalog.busy && !catalog.reviewing && !catalog.removing
                     cursorShape: Qt.PointingHandCursor
                     Accessible.role: Accessible.PageTab; Accessible.name: sourceTab.label
+                    onContainsMouseChanged: if (containsMouse) sourceTabs.hoveredIndex = sourceTab.index; else if (sourceTabs.hoveredIndex === sourceTab.index) sourceTabs.hoveredIndex = -1
                     onClicked: catalog.tab = sourceTab.modelData
                 }
             }
@@ -383,7 +413,7 @@ Item {
     Column {
         id: contentLayout
         enabled: !catalog.reviewing && !catalog.removing
-        x: catalog.sidebarWidth + PanelStyle.padding; y: sourceTabs.depth + 14
+        x: catalog.sidebarWidth + PanelStyle.padding; y: sourceTabs.height + 14
         width: catalog.width - x - PanelStyle.padding; spacing: 12
         Item {
             width: parent.width; height: 36
@@ -397,7 +427,8 @@ Item {
                         icon: true; text: modelData.glyph; foreground: catalog.foreground
                         selected: catalog.tone === modelData.tone; available: !catalog.busy
                         Accessible.name: modelData.label
-                        onClicked: { catalog.tone = catalog.tone === modelData.tone ? "all" : modelData.tone; catalog.cursor = -1; }
+                        activeFocusOnTab: false
+                        onClicked: { catalog.tone = catalog.tone === modelData.tone ? "all" : modelData.tone; catalog.cursor = -1; catalog.forceActiveFocus(); }
                     }
                 }
             }
@@ -408,7 +439,7 @@ Item {
                     MouseArea { id: addHover; anchors.fill: parent; hoverEnabled: true; acceptedButtons: Qt.NoButton }
                     BarTooltip { target: addAddress; hovered: addHover.containsMouse; text: Eitr.I18n.tr("Coming soon"); foreground: catalog.foreground; background: catalog.background }
                 }
-                PanelButton { width: 136; visible: catalog.kind === "themes"; selected: catalog.showHidden; text: Eitr.I18n.tr("Show hidden"); foreground: catalog.foreground; onClicked: catalog.showHidden = !catalog.showHidden }
+                PanelButton { width: 136; visible: catalog.kind === "themes"; selected: catalog.showHidden; text: Eitr.I18n.tr("Show hidden"); foreground: catalog.foreground; activeFocusOnTab: false; onClicked: { catalog.showHidden = !catalog.showHidden; catalog.forceActiveFocus(); } }
             }
         }
         Label { width: parent.width; visible: text !== ""; text: (!catalog.reviewing && !catalog.removing ? catalog.error || catalog.progress : "") || (catalog.loading ? Eitr.I18n.tr("Loading…") : ""); Accessible.role: Accessible.AlertMessage }
