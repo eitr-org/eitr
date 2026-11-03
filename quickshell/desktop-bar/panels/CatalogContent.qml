@@ -316,8 +316,8 @@ Item {
         }
         PanelButton {
             anchors.right: parent.right; anchors.top: parent.top; anchors.margins: 8
-            width: 28; height: 28; icon: true; text: "󰆴"; foreground: catalog.foreground
-            color: catalog.background
+            width: 28; height: 28; icon: true; text: "󰆴"; foreground: "white"
+            color: Qt.rgba(0, 0, 0, 0.72)
             visible: catalog.tab === "installed" && tile.local && !tile.item.current && tile.item.id !== "eitr" && tile.item.kind !== "own" && !tile.item.hidden
             Accessible.name: Eitr.I18n.tr("Remove %1").arg(tile.item.name || "")
             onClicked: { catalog.removing = tile.item; catalog.forceActiveFocus(); }
