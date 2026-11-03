@@ -10,7 +10,7 @@ Das Updatesymbol rechts vor Benachrichtigungen prüft kurz nach der Anmeldung un
 
 ## Position und Erscheinungsbild
 
-- Doppelklicke mit links auf **leere Leistenfläche**, um zwischen Unschärfe/Designfarbe zu wechseln; Neuinstallationen beginnen mit Designfarbe.
+- Doppelklicke mit links auf **leere Leistenfläche**, um Designfarbe → Unschärfe → Website zu durchlaufen; Neuinstallationen beginnen mit Designfarbe. Website verwendet die Farben der Eitr-Website, hell oder dunkel passend zum Thema.
 - Ein rechter Doppelklick auf leere Fläche wechselt Voll → Zentriert → Laschen → Inseln → Voll.
 - Ziehe leere Fläche nach oben, unten, links oder rechts, um die Leiste zu verschieben. Links und rechts ist die Leiste so schmal wie oben und unten: Die Uhr zeigt Stunde über Minuten mit einem Kalendersymbol, das Wetter nur sein Symbol; Datum und Temperatur erscheinen beim Darüberfahren.
 - **Uhr** unter Stil > Desktopleiste und Kontrollzentrum > Stil > Leiste zeigt die Zeit im 12-Stunden-Format mit AM/PM (Standard) oder im 24-Stunden-Format, an jedem Leistenrand.

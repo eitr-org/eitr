@@ -283,7 +283,8 @@ existing design and workflows rather than replacing them with upstream defaults.
   fold them back on dismissal. Keep content padded inside the curved surface.
   Hardware uses one icon, with CPU/GPU/RAM and only the root-drive Storage data
   inside the popup. Growing content must stay within the usable screen.
-- Empty-bar double-left-click toggles transparency, double-right-click cycles
+- Empty-bar double-left-click cycles Theme Color, Blur and Website (the site palette
+  with its gold labels), double-right-click cycles
   the Full, Centered, Tabs and Islands layouts, and left drag changes the screen edge. These settings
   persist in `bar-settings.json` and also appear under Settings > Style > Desktop Bar.
   Centered mode shows only the clock until hovered or pinned. Expansion preserves

@@ -80,7 +80,7 @@ Eigene Bilder, Designs und Sperrbildschirme bleiben auf diesem Computer, in `~/.
 
 ## Leiste und Ecken
 
-**Einstellungen > Stil > Desktopleiste** wählt Unschärfe oder Designfarbe, vollständige oder zentrierte Anordnung und Bildschirmkante. Walker folgt dieser Darstellung. **Einstellungen > Stil > Ecken** wählt eckige, abgerundete oder stark abgerundete Ecken für EITR-Flächen und Fensterdekorationen. Fremdanwendungen können eigene Bedienelemente behalten; runde Statuspunkte bleiben rund.
+**Einstellungen > Stil > Desktopleiste** wählt Unschärfe, Designfarbe oder Website, vollständige oder zentrierte Anordnung und Bildschirmkante. Walker folgt dieser Darstellung. **Einstellungen > Stil > Ecken** wählt eckige, abgerundete oder stark abgerundete Ecken für EITR-Flächen und Fensterdekorationen. Fremdanwendungen können eigene Bedienelemente behalten; runde Statuspunkte bleiben rund.
 
 ## Schriftarten
 

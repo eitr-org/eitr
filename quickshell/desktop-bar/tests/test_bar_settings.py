@@ -87,6 +87,22 @@ class BarSettingsTests(unittest.TestCase):
         controls = control_center_source(root / 'quickshell/desktop-bar')
         self.assertLess(controls.index('tr("Tabs")'), controls.index('tr("Islands")'))
 
+    def test_appearance_cycles_theme_color_blur_and_website_everywhere(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(bar_settings, "SETTINGS", Path(directory) / "bar.json"), patch.object(bar_settings, "apply_live"):
+            for expected in ("transparent", "website", "solid"):
+                with patch("sys.argv", ["bar-settings.py", "toggle", "appearance"]), patch("builtins.print"):
+                    bar_settings.main()
+                self.assertEqual(bar_settings.read_settings()["appearance"], expected)
+        root = Path(__file__).resolve().parents[3]
+        bar = root / 'quickshell/desktop-bar'
+        preferences = (bar / 'services/BarPreferences.qml').read_text()
+        self.assertIn('current === "solid" ? "transparent" : current === "transparent" ? "website" : "solid"', preferences)
+        self.assertIn('preferences.nextAppearance(barAppearance)', (bar / 'shell.qml').read_text())
+        self.assertIn('"website"', (root / 'elephant/menus/bar-appearance.lua').read_text())
+        self.assertIn('settingRequested("appearance", "website")', control_center_source(bar))
+        # Walker stays opaque for every appearance except Blur.
+        self.assertIn('if [[ "$bar_appearance" != "transparent" ]]; then', (root / 'walker/scripts/themes/walker.sh').read_text())
+
     def test_defaults_and_persistence(self):
         with tempfile.TemporaryDirectory() as directory, \
                 patch.object(bar_settings, "SETTINGS", Path(directory) / "bar.json"):

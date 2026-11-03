@@ -9,8 +9,10 @@ import Eitr as Eitr
 Scope {
     id: preferences
     property var host
+    // Empty-bar double-left-click order: theme color, blurred transparency, website.
+    function nextAppearance(current) { return current === "solid" ? "transparent" : current === "transparent" ? "website" : "solid"; }
     function updateBarSetting(key, value) {
-        var choices = {appearance: ["transparent", "solid"], layout: ["unified", "centered", "notch", "islands"], edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], dock: ["yes", "no"], reduceMotion: ["yes", "no"], mediaStyle: ["bars", "line"], clock: ["12h", "24h"]};
+        var choices = {appearance: ["transparent", "solid", "website"], layout: ["unified", "centered", "notch", "islands"], edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], dock: ["yes", "no"], reduceMotion: ["yes", "no"], mediaStyle: ["bars", "line"], clock: ["12h", "24h"]};
         if (!choices[key] || choices[key].indexOf(value) === -1) return;
         if (key === "appearance") host.barAppearance = value;
         else if (key === "layout") host.barLayout = value;
@@ -33,7 +35,7 @@ Scope {
         function visibility(): void { host.barVisible = !host.barVisible; }
         function update(key: string, value: string): void { preferences.updateBarSetting(key, value) }
         function toggle(kind: string): void {
-            if (kind === "appearance") preferences.updateBarSetting(kind, host.barAppearance === "solid" ? "transparent" : "solid");
+            if (kind === "appearance") preferences.updateBarSetting(kind, preferences.nextAppearance(host.barAppearance));
             else if (kind === "layout") preferences.updateBarSetting(kind, host.barLayout === "unified" ? "centered" : host.barLayout === "centered" ? "notch" : host.barLayout === "notch" ? "islands" : "unified");
         }
     }
@@ -116,16 +118,13 @@ Scope {
                 try {
                     var palette = JSON.parse(text);
                     PluginRegistry.palette = palette.palette || ({});
-                    host.activeBg = palette.background;
-                    host.activeFg = palette.foreground;
+                    host.themeActiveBg = palette.background;
+                    host.themeActiveFg = palette.foreground;
                     if (!saveWorkspaceStyle.running) host.workspaceStyle = palette.style;
-                    host.workspaceMenuBg = palette.menuBackground;
-                    host.workspaceMenuFg = palette.menuForeground;
-                    host.fg = palette.menuForeground;
+                    host.themeMenuBg = palette.menuBackground;
+                    host.themeMenuFg = palette.menuForeground;
+                    host.themeFg = palette.menuForeground;
                     DesktopStyle.criticalColor = palette.critical;
-                    var background = host.workspaceMenuBg;
-                    host.bg = Qt.rgba(background.r, background.g, background.b, 0.38);
-                    host.hoverBg = Qt.rgba(host.fg.r, host.fg.g, host.fg.b, 0.15);
                 } catch (e) {}
             }
         }

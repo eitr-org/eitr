@@ -8,5 +8,7 @@ ControlCenterLabel {
     width: parent.width
     topPadding: PanelStyle.selectionRowGap
     wrapMode: Text.WordWrap
-    opacity: PanelStyle.secondaryTextOpacity
+    // Small labels are gold on the website; otherwise a dimmed foreground.
+    color: DesktopStyle.website ? SiteStyle.bronze : centerRef.foreground
+    opacity: DesktopStyle.website ? 1 : PanelStyle.secondaryTextOpacity
 }

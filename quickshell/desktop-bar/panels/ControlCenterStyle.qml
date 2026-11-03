@@ -67,8 +67,9 @@ Column {
     }
     ControlCenterOptionHeading { centerRef: section.centerRef; text: Eitr.I18n.tr("Appearance") }
     Row { width: parent.width; spacing: 8
-        PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Blur"); selected: section.centerRef.appearance === "transparent"; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("appearance", "transparent") }
-        PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Theme Color"); selected: section.centerRef.appearance === "solid"; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("appearance", "solid") }
+        PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 16) / 3; text: Eitr.I18n.tr("Blur"); selected: section.centerRef.appearance === "transparent"; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("appearance", "transparent") }
+        PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 16) / 3; text: Eitr.I18n.tr("Theme Color"); selected: section.centerRef.appearance === "solid"; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("appearance", "solid") }
+        PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 16) / 3; text: Eitr.I18n.tr("Website"); selected: section.centerRef.appearance === "website"; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("appearance", "website") }
     }
     ControlCenterAppearanceChoices { centerRef: section.centerRef; settingKey: "blur-strength"; title: Eitr.I18n.tr("Blur strength (shared)") }
     ControlCenterOptionHeading { centerRef: section.centerRef; text: Eitr.I18n.tr("Show on") }

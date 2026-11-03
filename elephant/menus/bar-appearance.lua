@@ -11,6 +11,7 @@ function GetEntries()
     return entries("appearance", {
         {"Blur", "transparent", "󰐾", i18n.mark("Use a blurred transparent bar")},
         {"Theme Color", "solid", "󰏘", i18n.mark("Use the current theme colour")},
+        {"Website", "website", "󰖟", i18n.mark("Use the Eitr website's colours")},
     })
 end
 

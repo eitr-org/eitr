@@ -78,7 +78,7 @@ Suas imagens, temas e telas de bloqueio ficam neste computador, em `~/.local/sha
 
 ## Barra e cantos
 
-**Configurações > Estilo > Barra da área de trabalho** escolhe desfoque ou cor do tema, layout completo ou centralizado e borda. O Walker acompanha essa aparência. **Configurações > Estilo > Cantos** escolhe cantos quadrados, arredondados ou muito arredondados para as superfícies do EITR e decorações do compositor. Aplicativos de terceiros podem manter seus controles próprios; pontos de estado circulares continuam circulares.
+**Configurações > Estilo > Barra da área de trabalho** escolhe desfoque, cor do tema ou site, layout completo ou centralizado e borda. O Walker acompanha essa aparência. **Configurações > Estilo > Cantos** escolhe cantos quadrados, arredondados ou muito arredondados para as superfícies do EITR e decorações do compositor. Aplicativos de terceiros podem manter seus controles próprios; pontos de estado circulares continuam circulares.
 
 ## Fontes
 

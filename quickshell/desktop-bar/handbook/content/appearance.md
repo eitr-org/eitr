@@ -146,7 +146,7 @@ press **Delete**, then Enter to confirm or Escape to keep it.
 
 ## Bar and corners
 
-**Settings > Style > Desktop Bar** selects Blur/Theme Color, full/centered layout and edge.
+**Settings > Style > Desktop Bar** selects Blur, Theme Color or Website, full/centered layout and edge.
 Walker follows that appearance. **Settings > Style > Corners** selects Square, Rounded or
 Extra Rounded for EITR surfaces and compositor decorations. Third-party apps
 may retain their own internal widget style; circular status dots remain circular.

@@ -221,8 +221,8 @@ LibraryWindow {
                 Text {
                     id: chapterGroup
                     anchors.top: search.bottom; anchors.topMargin: 16
-                    text: book.query ? search.placeholderText.replace("…", "").toUpperCase() : Eitr.I18n.tr("EITR Handbook").toUpperCase()
-                    color: SiteStyle.muted; font.family: SiteStyle.carved; font.pixelSize: 11; font.letterSpacing: 2
+                    text: (book.query ? Eitr.I18n.tr("Results") : Eitr.I18n.tr("Chapters")).toUpperCase()
+                    color: SiteStyle.bronze; font.family: SiteStyle.carved; font.pixelSize: 11; font.letterSpacing: 2
                 }
                 ListView {
                     id: chapterList
@@ -242,7 +242,7 @@ LibraryWindow {
                         radius: 4
                         color: book.selectedId === modelData.id ? SiteStyle.raised : chapterMouse.containsMouse || search.activeFocus && book.query !== "" && chapterList.currentIndex === index ? SiteStyle.surface : "transparent"
                         border.width: 1
-                        border.color: book.selectedId === modelData.id ? SiteStyle.accent : SiteStyle.line
+                        border.color: book.selectedId === modelData.id ? SiteStyle.accent : chapterMouse.containsMouse ? SiteStyle.bronze : SiteStyle.line
                         RectangularShadow {
                             anchors.fill: parent
                             radius: 4; blur: 18; spread: 2; color: SiteStyle.glow

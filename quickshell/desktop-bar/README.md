@@ -222,8 +222,10 @@ OBS camera source. The active scene must include visible full-screen monitor
 capture. OBS's saved Wayland capture permission still determines the monitor;
 changing the primary display may require selecting it again in OBS.
 
-Double-left-click empty bar space to switch between the current transparent
-background and opaque theme color. Double-right-click empty space to switch
+Double-left-click empty bar space to cycle the opaque theme color, the transparent
+background with blur, and Website: the Eitr website's palette (`SiteStyle`, light or
+dark by the theme) for the bar, panels and popups, with the site's gold on heading
+runes and Control Center labels. Double-right-click empty space to switch
 through Full, Centered, Tabs and Islands layouts. Centered mode shows only the clock
 until hovered, then unfolds both icon groups in their existing order. Centered meets the screen edge with square edge ends and the same softly rounded 45° slopes as Tabs on both sides. These slopes rotate with the bar on all four edges and ignore the corner preference; its detached panels still follow that preference. Each side
 packs toward the clock with the same 4 px gap between every item and group.
@@ -244,7 +246,7 @@ Tabs uses a continuous 7 px strip and three content-sized tabs for the left, cen
 Drag empty bar space toward top, bottom, left, or right to change its edge; a
 preview highlights the destination. The choices persist in `bar-settings.json`.
 Walker exposes the same settings under Settings > Style > Desktop Bar > Appearance,
-Displays, Layout, and Position. Appearance offers Blur and Theme Color. Displays
+Displays, Layout, and Position. Appearance offers Blur, Theme Color and Website. Displays
 shows the bar on the main display only (default) or on every display; then the
 focused display's bar answers IPC and shortcuts, each bar highlights its own
 display's workspace, and only the main bar shows notification popups.
@@ -338,7 +340,7 @@ AI provider changes, OBS editing, keyboard additions, schedule editing, and
 other dynamic panels grow or shrink while staying attached to the bar. Hidden
 panels update immediately so resizing does not compete with opening/closing.
 Their surface follows the bar's current appearance, including live changes
-between the solid theme color and transparency with blur.
+between the solid theme color, transparency with blur and the website palette.
 Calendar retains its fixed six-row
 grid, bottom navigation, year progress, and Left/Right/Up/Down/bracket/T keys.
 AI Usage retains the existing backend/cache, refresh-on-open and five-minute

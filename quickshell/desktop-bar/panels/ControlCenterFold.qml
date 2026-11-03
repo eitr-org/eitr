@@ -26,7 +26,7 @@ Item {
         Text {
             x: 12; width: parent.width - 42; anchors.verticalCenter: parent.verticalCenter
             elide: Text.ElideRight
-            text: fold.title.toUpperCase(); color: fold.centerRef.foreground
+            text: fold.title.toUpperCase(); color: DesktopStyle.website ? SiteStyle.bronze : fold.centerRef.foreground
             font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize; font.bold: true; font.letterSpacing: 0.6
         }
         Text {

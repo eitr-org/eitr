@@ -80,7 +80,7 @@ Tus imágenes, temas y pantallas de bloqueo se quedan en este equipo, en `~/.loc
 
 ## Barra y esquinas
 
-**Configuración > Estilo > Barra del escritorio** elige desenfoque o color del tema, disposición completa o centrada y borde. Walker sigue esa apariencia. **Configuración > Estilo > Esquinas** elige esquinas cuadradas, redondeadas o muy redondeadas para las superficies EITR y las decoraciones del compositor. Las aplicaciones externas pueden conservar sus controles propios; los indicadores circulares siguen siendo circulares.
+**Configuración > Estilo > Barra del escritorio** elige desenfoque, color del tema o sitio web, disposición completa o centrada y borde. Walker sigue esa apariencia. **Configuración > Estilo > Esquinas** elige esquinas cuadradas, redondeadas o muy redondeadas para las superficies EITR y las decoraciones del compositor. Las aplicaciones externas pueden conservar sus controles propios; los indicadores circulares siguen siendo circulares.
 
 ## Fuentes
 

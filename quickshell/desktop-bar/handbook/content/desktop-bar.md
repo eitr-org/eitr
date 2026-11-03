@@ -18,8 +18,9 @@ never leaves the system partially upgraded.
 
 ## Position and appearance
 
-- Double-left-click **empty bar space** to switch Blur/Theme Color (new
-  installations start with Theme Color).
+- Double-left-click **empty bar space** to cycle Theme Color → Blur → Website (new
+  installations start with Theme Color). Website uses the Eitr website's colors,
+  light or dark with the theme.
 - Double-right-click empty space to cycle Full → Centered → Tabs → Islands → Full.
 - Drag empty space toward the top, bottom, left or right to move the bar. Left and right bars are as thin as top and bottom ones: the clock shows the hour over the minutes with a calendar icon, and the weather shows its icon; hover them for the date and temperature.
 - **Clock** under Settings > Style > Desktop Bar and Control Center > Style > Bar shows 12-hour time with AM/PM (the default) or 24-hour time, on every bar edge.

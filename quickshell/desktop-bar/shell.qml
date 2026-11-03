@@ -45,11 +45,21 @@ ShellRoot {
     property bool statusOpen: false
     property bool barVisible: true
     property int barHeight: 30
-    property color bg: Qt.rgba(24 / 255, 24 / 255, 36 / 255, 0.38)
-    property color fg: "#cdd6f4"
-    property color activeFg: "#11111b"
-    property color activeBg: "#cdd6f4"
-    property color hoverBg: Qt.rgba(180 / 255, 190 / 255, 254 / 255, 0.15)
+    // The theme's colors; the Website appearance swaps in the website's palette.
+    property color themeFg: "#cdd6f4"
+    property color themeActiveFg: "#11111b"
+    property color themeActiveBg: "#cdd6f4"
+    property color themeMenuBg: "#181824"
+    property color themeMenuFg: "#cdd6f4"
+    readonly property bool websiteAppearance: barAppearance === "website"
+    Binding { target: DesktopStyle; property: "website"; value: shell.websiteAppearance }
+    readonly property color fg: websiteAppearance ? SiteStyle.fg : themeFg
+    readonly property color activeFg: websiteAppearance ? SiteStyle.primaryInk : themeActiveFg
+    readonly property color activeBg: websiteAppearance ? SiteStyle.accent : themeActiveBg
+    readonly property color workspaceMenuBg: websiteAppearance ? SiteStyle.card : themeMenuBg
+    readonly property color workspaceMenuFg: websiteAppearance ? SiteStyle.fg : themeMenuFg
+    readonly property color bg: Qt.rgba(workspaceMenuBg.r, workspaceMenuBg.g, workspaceMenuBg.b, 0.38)
+    readonly property color hoverBg: Qt.rgba(fg.r, fg.g, fg.b, 0.15)
     property bool idleLockEnabled: false
     readonly property string idleLockGlyph: idleLockEnabled ? "󱫗" : "󱫖"
     readonly property string idleLockTooltip: idleLockEnabled ? Eitr.I18n.tr("Idle Lock: On") : Eitr.I18n.tr("Idle Lock: Off")
@@ -63,8 +73,6 @@ ShellRoot {
         Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.id : 0)
     readonly property int workspaceItemSize: 24
     readonly property int workspaceItemSpacing: 4
-    property color workspaceMenuBg: "#181824"
-    property color workspaceMenuFg: "#cdd6f4"
     property string barAppearance: "solid"
     property string barLayout: "unified"
     property bool barPinned: false
@@ -92,11 +100,11 @@ ShellRoot {
     readonly property var desktopApplications: DesktopEntries.applications.values
 
     function barBackground() {
-        return barAppearance === "solid" ? workspaceMenuBg : bg;
+        return barAppearance === "transparent" ? bg : workspaceMenuBg;
     }
 
     function barDoubleClick(button) {
-        if (button === Qt.LeftButton) updateBarSetting("appearance", barAppearance === "solid" ? "transparent" : "solid");
+        if (button === Qt.LeftButton) updateBarSetting("appearance", preferences.nextAppearance(barAppearance));
         else if (button === Qt.RightButton) updateBarSetting("layout", barLayout === "unified" ? "centered" : barLayout === "centered" ? "notch" : barLayout === "notch" ? "islands" : "unified");
     }
 

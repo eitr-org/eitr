@@ -82,7 +82,7 @@ Vos images, thèmes et écrans de verrouillage restent sur cet ordinateur, dans 
 
 ## Barre et coins
 
-**Paramètres > Style > Barre de bureau** choisit flou ou couleur du thème, disposition complète ou centrée et bord d’écran. Walker suit cette apparence. **Paramètres > Style > Coins** choisit des coins carrés, arrondis ou très arrondis pour les surfaces EITR et les décorations du compositeur. Les applications tierces peuvent garder leurs propres contrôles ; les points d’état circulaires restent ronds.
+**Paramètres > Style > Barre de bureau** choisit flou, couleur du thème ou site web, disposition complète ou centrée et bord d’écran. Walker suit cette apparence. **Paramètres > Style > Coins** choisit des coins carrés, arrondis ou très arrondis pour les surfaces EITR et les décorations du compositeur. Les applications tierces peuvent garder leurs propres contrôles ; les points d’état circulaires restent ronds.
 
 ## Polices
 

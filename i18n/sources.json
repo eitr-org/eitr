@@ -231,6 +231,9 @@
     "Channel: unknown": [
       "quickshell/desktop-bar/panels/ControlCenterSettings.qml"
     ],
+    "Chapters": [
+      "quickshell/desktop-bar/panels/Handbook.qml"
+    ],
     "Chat with %1": [
       "quickshell/desktop-bar/panels/ControlCenterNavigation.qml"
     ],
@@ -1184,6 +1187,9 @@
     "Restore a File": [
       "quickshell/desktop-bar/panels/ControlCenterSettings.qml"
     ],
+    "Results": [
+      "quickshell/desktop-bar/panels/Handbook.qml"
+    ],
     "Resume recording": [
       "quickshell/desktop-bar/panels/ObsMenu.qml",
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
@@ -1615,6 +1621,9 @@
     ],
     "Webcam": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
+    ],
+    "Website": [
+      "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
     ],
     "What Changed": [
       "quickshell/desktop-bar/panels/ControlCenterSettings.qml"
@@ -3878,6 +3887,9 @@
     ],
     "Use it in folders without their own account": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Use the Eitr website's colours": [
+      "elephant/menus/bar-appearance.lua"
     ],
     "Use the assistant's normal permission prompts": [
       "elephant/menus/assistant-access.lua"

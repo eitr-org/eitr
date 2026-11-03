@@ -34,7 +34,8 @@ Item {
         }
         ShapePath {
             fillColor: "transparent"
-            strokeColor: Qt.alpha(heading.accent, 0.75)
+            // The website draws heading symbols in its gold.
+            strokeColor: DesktopStyle.website ? SiteStyle.bronze : Qt.alpha(heading.accent, 0.75)
             strokeWidth: 1.5
             capStyle: ShapePath.RoundCap
             joinStyle: ShapePath.MiterJoin

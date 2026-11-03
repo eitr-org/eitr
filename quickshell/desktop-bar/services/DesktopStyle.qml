@@ -19,6 +19,8 @@ QtObject {
     readonly property real scale: styles[corners] ? styles[corners].scale : 1
 
     property bool reduceMotion: false
+    // Set by the bar: the Website appearance (site palette and gold labels).
+    property bool website: false
     function motionDuration(milliseconds) { return reduceMotion || FocusMode.enabled ? 0 : milliseconds; }
 
     function radius(value) { return value * scale; }

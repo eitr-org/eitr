@@ -428,7 +428,7 @@ Item {
         radius: 11
         color: SiteStyle.night
         border.width: 1; border.color: current ? catalog.accent : SiteStyle.lineStrong
-        Label { id: pillLabel; anchors.centerIn: parent; text: parent.text; font.family: SiteStyle.carved; font.capitalization: Font.AllUppercase; font.letterSpacing: 1; font.pixelSize: 11; color: parent.current ? catalog.accent : SiteStyle.muted }
+        Label { id: pillLabel; anchors.centerIn: parent; text: parent.text; font.family: SiteStyle.carved; font.capitalization: Font.AllUppercase; font.letterSpacing: 1; font.pixelSize: 11; color: parent.current ? catalog.accent : SiteStyle.bronze }
     }
     component Preview: Rectangle {
         property string source: ""
@@ -498,7 +498,7 @@ Item {
         radius: 4
         color: SiteStyle.surface
         border.width: 1
-        border.color: picked || focused || item.current ? catalog.accent : tile.actionable && cardMouse.containsMouse ? SiteStyle.lineStrong : SiteStyle.line
+        border.color: picked || focused || item.current ? catalog.accent : tile.actionable && cardMouse.containsMouse ? SiteStyle.bronze : SiteStyle.line
         RectangularShadow {
             anchors.fill: parent; z: -1
             // The current theme keeps the selected border and glow.
@@ -595,8 +595,8 @@ Item {
                     width: parent.width; height: 40
                     radius: 3
                     color: selected ? SiteStyle.raised : navigationMouse.containsMouse ? SiteStyle.surface : SiteStyle.night
-                    border.width: 1; border.color: selected ? catalog.accent : SiteStyle.line
-                    Label { x: 10; anchors.verticalCenter: parent.verticalCenter; text: navigationRow.modelData === "themes" ? "󰏘" : "󰏗"; font.pixelSize: 18 }
+                    border.width: 1; border.color: selected ? catalog.accent : navigationMouse.containsMouse ? SiteStyle.bronze : SiteStyle.line
+                    Label { x: 10; anchors.verticalCenter: parent.verticalCenter; text: navigationRow.modelData === "themes" ? "󰏘" : "󰏗"; font.pixelSize: 18; color: SiteStyle.bronze }
                     Label { visible: !catalog.compact; x: 42; anchors.verticalCenter: parent.verticalCenter; text: navigationRow.modelData === "themes" ? Eitr.I18n.tr("Themes") : Eitr.I18n.tr("Plugins"); font.family: SiteStyle.carved; font.capitalization: Font.AllUppercase; font.letterSpacing: 1 }
                     Label { visible: !catalog.compact; anchors.right: parent.right; anchors.rightMargin: 10; anchors.verticalCenter: parent.verticalCenter; color: SiteStyle.muted; text: (catalog.counts[navigationRow.modelData] || {}).installed || "" }
                     MouseArea { id: navigationMouse; cursorShape: Qt.PointingHandCursor; anchors.fill: parent; hoverEnabled: true; enabled: !catalog.busy; onClicked: catalog.navigate(navigationRow.index) }

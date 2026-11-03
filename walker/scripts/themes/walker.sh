@@ -109,7 +109,7 @@ scaled_radius() { awk -v base="$1" -v scale="$corner_scale" 'BEGIN { printf "%gp
 surface_radius="$(scaled_radius 8)"
 row_radius="$(scaled_radius 6)"
 input_radius="$(scaled_radius 5)"
-if [[ "$bar_appearance" == "solid" ]]; then
+if [[ "$bar_appearance" != "transparent" ]]; then
   window_alpha="1"
 fi
 

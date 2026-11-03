@@ -24,7 +24,7 @@ SETTINGS = user_config("quickshell/desktop-bar/bar-settings.json")
 DEFAULTS = {"appearance": "solid", "layout": "unified", "edge": "top", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "blur-strength": "medium"}
 OPTIONS = {
     "blur-strength": {"light", "medium", "strong"},
-    "appearance": {"transparent", "solid"},
+    "appearance": {"transparent", "solid", "website"},
     "layout": {"unified", "centered", "notch", "islands"},
     "edge": {"top", "bottom", "left", "right"},
     "pinned": {"yes", "no"},
@@ -104,7 +104,7 @@ def main():
         elif len(sys.argv) == 3 and sys.argv[1] == "toggle" and sys.argv[2] in {"appearance", "layout"}:
             key = sys.argv[2]
             current = read_settings()[key]
-            value = ("transparent" if current == "solid" else "solid") if key == "appearance" else ({"unified": "centered", "centered": "notch", "notch": "islands", "islands": "unified"}[current])
+            value = {"solid": "transparent", "transparent": "website", "website": "solid"}[current] if key == "appearance" else ({"unified": "centered", "centered": "notch", "notch": "islands", "islands": "unified"}[current])
             result = save_settings({key: value})
             apply_live(key, value)
         else:

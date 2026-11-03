@@ -141,16 +141,6 @@ channel first; the website changes only once it reaches stable.
 
 # 4. Later
 
-- **Website style for the bar and panels.** The Catalog and Handbook windows already
-  use the site's environment (`SiteStyle`/`SiteBackdrop`: site palettes by light or
-  dark theme, opaque card surface with grain, carved headings). Next, offer it to the
-  bar and its panels as a third appearance: empty-bar double-left-click cycles theme
-  color, transparent with blur, and **website**; the same choice in Settings > Style >
-  Desktop Bar and Control Center > Style, saved in `bar-settings.json`. Website mode
-  uses the site palette and surface for the bar, panels, notifications and popups,
-  keeping the shared panel geometry, join curves and text sizes; decide with the owner
-  whether it also takes the carved fonts for headings and labels. Render every panel
-  in dark and light for the owner before shipping.
 - **Bar crashes when panels or screens go away quickly.** Live checks (2026-11-02,
   VM): cycling every Control Center page, a plugin install/removal and three
   monitor hotplugs all left data subscriptions at their baseline. But Quickshell

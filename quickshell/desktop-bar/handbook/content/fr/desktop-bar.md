@@ -10,7 +10,7 @@ L’icône de mises à jour du groupe droit, avant Notifications, vérifie les p
 
 ## Position et apparence
 
-- Double-cliquez à gauche sur un **espace vide de la barre** pour alterner Flou/Couleur du thème ; les nouvelles installations démarrent avec Couleur du thème.
+- Double-cliquez à gauche sur un **espace vide de la barre** pour passer de Couleur du thème à Flou puis à Site web ; les nouvelles installations démarrent avec Couleur du thème. Site web utilise les couleurs du site d’Eitr, claires ou sombres selon le thème.
 - Double-cliquez à droite sur un espace vide pour faire défiler Complète → Centrée → Onglets → Îlots → Complète.
 - Faites glisser un espace vide vers le haut, le bas, la gauche ou la droite pour déplacer la barre. À gauche et à droite, la barre est aussi fine qu’en haut et en bas : l’horloge affiche l’heure au-dessus des minutes avec une icône de calendrier, et la météo seulement son icône ; survolez-les pour la date et la température.
 - **Horloge** dans Style > Barre de bureau et Centre de contrôle > Style > Barre affiche l’heure sur 12 heures avec AM/PM (par défaut) ou sur 24 heures, sur chaque bord.

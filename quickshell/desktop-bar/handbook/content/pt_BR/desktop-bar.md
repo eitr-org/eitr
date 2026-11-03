@@ -10,7 +10,7 @@ O ícone de atualizações fica no grupo da direita, antes de Notificações, e 
 
 ## Posição e aparência
 
-- Dê dois cliques com o botão esquerdo no **espaço vazio da barra** para alternar Desfoque/Cor do tema; novas instalações começam com Cor do tema.
+- Dê dois cliques com o botão esquerdo no **espaço vazio da barra** para alternar entre Cor do tema → Desfoque → Site; novas instalações começam com Cor do tema. Site usa as cores do site do Eitr, claras ou escuras conforme o tema.
 - Dê dois cliques com o botão direito no espaço vazio para alternar Completa → Centralizada → Abas → Ilhas → Completa.
 - Arraste um espaço vazio para cima, baixo, esquerda ou direita para mover a barra. À esquerda e à direita, a barra é tão fina quanto em cima e embaixo: o relógio mostra a hora acima dos minutos com um ícone de calendário, e o clima só o ícone; passe o ponteiro para ver a data e a temperatura.
 - **Relógio** em Estilo > Barra da área de trabalho e Central de controle > Estilo > Barra mostra a hora no formato de 12 horas com AM/PM (padrão) ou de 24 horas, em qualquer borda.
