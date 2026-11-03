@@ -4,9 +4,10 @@ Open work in priority order. Each item lists what decides the next step.
 Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 
 1. Remote access: test with the owner
-2. Smaller items
-3. Later
-4. 0.8 release candidate and 1.0.0
+2. Catalog: official themes and plugins
+3. Smaller items
+4. Later
+5. 0.8 release candidate and 1.0.0
 
 # 1. Remote access: test with the owner
 
@@ -27,7 +28,41 @@ Fresh installs include them; existing machines install missing apps on demand
 Afterwards, each tested separately: headless use, access before login, wake on
 LAN.
 
-# 2. Smaller items
+# 2. Catalog: official themes and plugins
+
+A Handbook-style catalog window that lists every theme and plugin: what is
+installed and what the official repositories offer. Tested on the testing
+channel first; the website changes only once it reaches stable.
+
+- **Built in (13):** the nine realms, Eitr, Eitr Light, Afterglow and Ragnarok.
+- **Moved to `eitr-org/eitr-themes` (12):** Catppuccin, Catppuccin Latte,
+  Daylight, Gruvbox, Jade, Kanagawa, Moss, Nord, One Dark Pro, Rosé Pine,
+  Stillwater and Wisteria. Eitr Light stays the only built-in light theme until
+  new light themes are made.
+- **Installed** lists everything on the machine as Built in, Official
+  (`eitr-org/eitr-themes` or `eitr-org/eitr-plugins`, decided by repository
+  address only) or Third-party, each with use/open, update check and remove.
+  **Get more** lists official items not yet installed. Eitr never lists
+  repositories it does not own; third-party items appear only once installed.
+- **Download only what is chosen.** Each repository carries a small index (id,
+  name, description, size, small preview). The catalog fetches the index and
+  visible previews only while open; installing several selected items shows one
+  review with the total size and fetches only their folders. Updates are checked
+  in System Update, never on a timer.
+- **No terminal inside the catalog.** Pasting a third-party Git address, the
+  review, the AI check, progress and errors all happen in the window. Walker and
+  the Control Center keep their terminal flows; both front ends call the same
+  install code, so the safety checks cannot drift. Network reads and installs go
+  through a bar data domain.
+- **Themes are data.** A versioned theme format (like the plugins'
+  `schemaVersion`); themes containing executables are refused.
+- **Existing users.** Someone using a moved theme gets it installed from the
+  official repository by the update, so their desktop does not change.
+- **Order:** theme format and installer, then the catalog window, then the
+  native install review, then move the 12 themes (they stay here until the
+  installer works).
+
+# 3. Smaller items
 
 - **Light themes.** The owner has ideas for more light themes; create them later.
 - **Performance: measure on real weak hardware.** Polling now follows events and
@@ -74,7 +109,7 @@ LAN.
   description, README and website), and never present features common to other
   Arch or Hyprland setups as exclusive to Eitr.
 
-# 3. Later
+# 4. Later
 
 - **Performance baselines on weak hardware.** Use `tools/perf-baseline.py`
   ([guide](distro/PERFORMANCE.md)) for comparable before/after measurements on
@@ -120,7 +155,7 @@ LAN.
   Futhark runes are ready and kept outside the repository; the owner likes the
   36-row versions and will decide later where (if anywhere) to use them.
 
-# 4. 0.8 release candidate and 1.0.0
+# 5. 0.8 release candidate and 1.0.0
 
 0.8 (Muninn) is the exact ISO intended for 1.0; 1.0 (Bifröst) publishes the
 promises below. The roadmap table in `distro/RELEASES.md` has the wording.
