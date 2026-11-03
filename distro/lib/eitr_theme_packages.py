@@ -22,6 +22,8 @@ MAX_FILES = 1000
 MAX_PREVIEW = 2 * 1024 * 1024
 ROOT_FILES = {'colors.toml', 'display-name', 'light.mode', 'preview.png', 'artwork.md', 'rgb.color', MANIFEST}
 ASSET_FOLDERS = {'backgrounds', 'backgrounds-ultrawide', 'motion'}
+# Hyprland border values: rgb()/rgba() colors, optionally a gradient angle.
+HYPRLAND_COLORS = r'(?:rgba\([0-9a-fA-F]{8}\)|rgb\([0-9a-fA-F]{6}\))(?: (?:rgba\([0-9a-fA-F]{8}\)|rgb\([0-9a-fA-F]{6}\)))*(?: [0-9]{1,3}deg)?'
 ASSET_EXTENSIONS = {'.jpg', '.png', '.json'}
 GENERATED = {'icons.theme', 'vscode.json', 'neovim.lua', 'btop.theme', 'dolphin.theme'}
 OFFICIAL = 'github.com/eitr-org/eitr-themes'
@@ -107,7 +109,8 @@ def validate(root):
         if key == 'mode':
             if value != ('light' if spec['light'] else 'dark'):
                 raise ValueError('Palette mode must match light flag')
-        elif not isinstance(value, str) or not re.fullmatch(r'#[0-9a-fA-F]{6}', value):
+        elif not isinstance(value, str) or not re.fullmatch(
+                HYPRLAND_COLORS if key.startswith('hyprland_') else r'#[0-9a-fA-F]{6}', value):
             raise ValueError('Palette values must be hex colors')
     if (root / 'display-name').read_text().strip() != spec['name']:
         raise ValueError('display-name must match manifest name')

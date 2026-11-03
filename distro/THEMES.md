@@ -32,7 +32,9 @@ Required files are `colors.toml`, `display-name`, `preview.png`, and a nonempty
 `backgrounds/` directory. `display-name` matches `name`. Light themes contain
 `light.mode`; dark themes do not. Palettes require background, foreground, accent
 and color0 through color15 as six-digit hex colors. Additional palette values
-are hex colors, except optional `mode`, which matches the light flag.
+are hex colors, except optional `mode`, which matches the light flag, and
+`hyprland_*` border values, which use Hyprland's `rgb(...)`/`rgba(...)` colors
+(several for a gradient, optionally followed by an angle such as `45deg`).
 Previews are PNG, at most 2 MiB and 2048 pixels per dimension.
 
 Packages contain only `colors.toml`, `display-name`, `light.mode`, `preview.png`,

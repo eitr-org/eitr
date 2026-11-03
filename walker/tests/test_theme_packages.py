@@ -107,6 +107,28 @@ class ThemePackagesTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate(folder)
 
+    def test_every_shipped_theme_is_a_valid_package(self):
+        import shutil
+        generated = {'icons.theme', 'vscode.json', 'neovim.lua', 'btop.theme', 'dolphin.theme', 'vscode.vsix'}
+        for source in sorted(folder for folder in (ROOT / 'themes').iterdir() if (folder / 'eitr-theme.json').is_file()):
+            with self.subTest(theme=source.name):
+                package = self.root / 'packages' / source.name
+                shutil.copytree(source, package, ignore=lambda folder, names: [name for name in names
+                    if name in generated or (Path(folder) == source and name == 'references')])
+                self.assertEqual(validate(package)[0]['id'], source.name)
+
+    def test_palette_accepts_hyprland_borders_only_in_their_keys(self):
+        palette = self.repo / 'themes/alpha/colors.toml'
+        original = palette.read_text()
+        palette.write_text(original + 'hyprland_active_border = "rgba(798186ee) rgba(caccccee) 45deg"\n'
+                           'hyprland_inactive_border = "rgb(1e1e1e)"\n')
+        validate(self.repo / 'themes/alpha')
+        for line in ('hyprland_active_border = "rgba(798186ee); exec"', 'accent2 = "rgb(1e1e1e)"'):
+            with self.subTest(line=line):
+                palette.write_text(original + line + '\n')
+                with self.assertRaises(ValueError):
+                    validate(self.repo / 'themes/alpha')
+
     def test_index_generator(self):
         command = [sys.executable, str(ROOT / 'tools/theme-catalog-index.py'), str(self.repo)]
         subprocess.run(command, check=True)
