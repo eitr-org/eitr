@@ -1,5 +1,9 @@
+import json
+import os
 from pathlib import Path
 import shlex
+import subprocess
+import tempfile
 import unittest
 
 
@@ -35,6 +39,45 @@ class ScreenshotTests(unittest.TestCase):
         flash = script.index('ipc call -- realm lightning "${monitor:-}" "${geometry:-}" >/dev/null 2>&1 &')
         self.assertLess(script.rindex('grim '), flash)
         self.assertLess(flash, script.index('satty '))
+
+
+    def window_boxes(self, monitors, clients):
+        with tempfile.TemporaryDirectory() as folder:
+            bin_dir = Path(folder)
+            (bin_dir / "monitors.json").write_text(json.dumps(monitors))
+            (bin_dir / "clients.json").write_text(json.dumps(clients))
+            stubs = {
+                "hyprctl": f'case "$1" in monitors) cat {bin_dir}/monitors.json ;; clients) cat {bin_dir}/clients.json ;; esac',
+                "slurp": f"cat > {bin_dir}/boxes; exit 1",
+                "hyprpicker": "exec /usr/bin/sleep 5",
+                "sleep": "exit 0",
+                "notify-send": "exit 0",
+            }
+            for name, body in stubs.items():
+                stub = bin_dir / name
+                stub.write_text("#!/bin/bash\n" + body + "\n")
+                stub.chmod(0o755)
+            environment = dict(os.environ, PATH=f"{bin_dir}:/usr/bin")
+            subprocess.run(["bash", str(CAPTURE / "screenshot.sh"), "window", "copy"], env=environment,
+                           check=True, timeout=20, stdin=subprocess.DEVNULL)
+            boxes = bin_dir / "boxes"
+            return boxes.read_text().split("\n")[:-1] if boxes.exists() else []
+
+    def client(self, workspace, at, size):
+        return {"mapped": True, "hidden": False, "workspace": workspace, "at": at, "size": size}
+
+    def test_window_mode_ignores_hidden_special_workspaces(self):
+        normal = {"id": 2, "name": "2"}
+        special = {"name": "special:magic"}
+        clients = [self.client(special, [1288, 44], [1258, 1022]),
+                   self.client(normal, [883, 44], [1663, 1022]),
+                   self.client(normal, [14, 44], [853, 1022]),
+                   self.client({"id": 1, "name": "1"}, [0, 0], [100, 100])]
+        hidden = [{"activeWorkspace": normal, "specialWorkspace": {"name": ""}}]
+        self.assertEqual(self.window_boxes(hidden, clients), ["883,44 1663x1022", "14,44 853x1022"])
+        shown = [{"activeWorkspace": normal, "specialWorkspace": special}]
+        self.assertEqual(self.window_boxes(shown, clients),
+                         ["1288,44 1258x1022", "883,44 1663x1022", "14,44 853x1022"])
 
 
 if __name__ == '__main__':

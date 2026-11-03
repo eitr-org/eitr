@@ -24,9 +24,14 @@ else
     if [[ "$mode" == window ]]; then
         monitors="$(hyprctl monitors -j)"
         boxes="$(hyprctl clients -j | jq -r --argjson monitors "$monitors" '
-            .[] | select(.mapped and (.hidden | not)) |
-            select(.workspace.id as $id | any($monitors[];
-                .activeWorkspace.id == $id or .specialWorkspace.id == $id)) |
+            # Match by name: special workspaces have no id, and a monitor with
+            # none open reports an empty name, so hidden scratchpads never match.
+            # An open special workspace covers the normal one, so it is listed first.
+            [.[] | select(.mapped and (.hidden | not)) |
+             select(.workspace.name as $name | any($monitors[];
+                 .activeWorkspace.name == $name or
+                 ((.specialWorkspace.name // "") != "" and .specialWorkspace.name == $name)))] |
+            sort_by(.workspace.name | startswith("special:") | not) | .[] |
             "\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')"
         [[ -n "$boxes" ]] || { notify-send "Screenshot" "No visible windows"; exit 0; }
     fi
