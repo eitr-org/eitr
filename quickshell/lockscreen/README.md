@@ -176,7 +176,7 @@ Its bundled 4K preview uses public Norse artwork, never an owner's wallpaper.
 
 `python3 quickshell/lockscreen/references/render-eitr.py` writes 18 offscreen
 mock previews to `../eitr-lockscreen-renders/`: ultrawide, landscape and portrait,
-Eitr dark and Daylight light palettes, and empty, typed and rejected passwords.
+Eitr dark and Eitr Light palettes, and empty, typed and rejected passwords.
 Use `--output DIRECTORY` for a sandbox-writable destination. The wordmark
 SVG is a byte-identical copy of the branding master; the rune ring is the boot
 splash's 24 Noto Sans Runic letters, drawn as text. Native rendering uses

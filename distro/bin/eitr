@@ -87,14 +87,11 @@ def overview():
 
 def themes(code, config):
     """Theme folder name -> display name; your own themes override Eitr's."""
+    from eitr_paths import theme_paths
     found = {}
-    for directory in (code / "themes", config / "themes"):
-        if not directory.is_dir():
-            continue
-        for theme in sorted(directory.iterdir()):
-            if (theme / "colors.toml").is_file():
-                label = theme / "display-name"
-                found[theme.name] = label.read_text().strip() if label.is_file() else theme.name
+    for theme_id, directory in theme_paths(code, config_root=config).items():
+        label = directory / "display-name"
+        found[theme_id] = label.read_text().strip() if label.is_file() else theme_id
     return dict(sorted(found.items(), key=lambda item: item[1].casefold()))
 
 
@@ -160,7 +157,7 @@ def parser():
     theme_actions.add_parser("list", help='list the installed themes')
     theme_actions.add_parser("current", help='show the current theme')
     theme_set = theme_actions.add_parser("set", help='switch to a theme')
-    theme_set.add_argument("name", help="a name from 'eitr theme list', such as eitr or 'Rose Pine'")
+    theme_set.add_argument("name", help="a name from 'eitr theme list', such as eitr or 'Eitr Light'")
 
     focus = commands.add_parser("focus", help="distraction-free tabbed desktop")
     focus.add_argument("action", nargs="?", default="status", choices=["on", "off", "toggle", "status"])

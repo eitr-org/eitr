@@ -78,7 +78,7 @@ into something debuggable.
 - [x] Top-level LICENSE chosen (GPL-3.0-or-later)
 - [x] Third-party licenses and NOTICE complete
 - [x] Franchise artwork removed or renamed
-- [x] Brand marks replaced with neutral icons; One Dark Pro preview retaken
+- [x] Brand marks replaced with neutral icons
 - [x] Full-history secret scan clean (2026-10-16)
 - [x] Owner identity and AGENTS identity rules out of the repository (hooks read local Git config)
 - [x] Diagnostics action available for bug reports (Settings > System > Information > Report a Problem)

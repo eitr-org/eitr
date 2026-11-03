@@ -1,6 +1,7 @@
 """Data-only theme packages, sparse Git catalog and per-user transactions."""
 import contextlib
 import fcntl
+from functools import partial
 import hashlib
 import json
 import os
@@ -192,8 +193,9 @@ def validate_index(rows):
 
 
 class Themes:
-    def __init__(self, *, allow_file=False):
+    def __init__(self, *, allow_file=False, git_timeout=120):
         self.allow_file = allow_file
+        self.git = partial(git, timeout=git_timeout)
         self.folder = data('eitr/themes')
         self.cache = cache('eitr/theme-repositories')
         self._reviews = {}
@@ -211,21 +213,21 @@ class Themes:
         if not target.exists():
             temporary = Path(tempfile.mkdtemp(dir=self.cache))
             try:
-                git(None, 'clone', '--template=', '--filter=blob:none', '--sparse', '--no-checkout',
+                self.git(None, 'clone', '--template=', '--filter=blob:none', '--sparse', '--no-checkout',
                     '--no-recurse-submodules', '--', url, str(temporary / 'repo'), allow_file=self.allow_file)
                 (temporary / 'repo').rename(target)
             finally:
                 shutil.rmtree(temporary)
-        git(target, 'fetch', '--filter=blob:none', '--no-recurse-submodules', '--', url, 'HEAD', allow_file=self.allow_file)
-        revision = git(target, 'rev-parse', 'FETCH_HEAD')
+        self.git(target, 'fetch', '--filter=blob:none', '--no-recurse-submodules', '--', url, 'HEAD', allow_file=self.allow_file)
+        revision = self.git(target, 'rev-parse', 'FETCH_HEAD')
         # Reading one blob avoids sparse-checkout's implicit root-file downloads.
-        entry = git(target, 'ls-tree', revision, '--', 'eitr-catalog.json', allow_file=self.allow_file)
+        entry = self.git(target, 'ls-tree', revision, '--', 'eitr-catalog.json', allow_file=self.allow_file)
         if not entry.startswith('100644 blob '):
             raise ValueError('Catalog must be a regular non-executable file')
-        blob = git(target, 'rev-parse', revision + ':eitr-catalog.json', allow_file=self.allow_file)
-        if int(git(target, 'cat-file', '-s', blob, allow_file=self.allow_file)) > 1024 * 1024:
+        blob = self.git(target, 'rev-parse', revision + ':eitr-catalog.json', allow_file=self.allow_file)
+        if int(self.git(target, 'cat-file', '-s', blob, allow_file=self.allow_file)) > 1024 * 1024:
             raise ValueError('Catalog exceeds size limit')
-        raw = git(target, 'cat-file', 'blob', blob, allow_file=self.allow_file)
+        raw = self.git(target, 'cat-file', 'blob', blob, allow_file=self.allow_file)
         rows = validate_index(json.loads(raw, object_pairs_hook=unique_object))
         return target, revision, rows
 
@@ -269,7 +271,7 @@ class Themes:
             selected = {row['id']: row for row in rows if row['id'] in ids}
             if set(selected) != set(ids):
                 raise ValueError('Theme is absent from catalog')
-            git(repository, 'update-ref', 'refs/eitr/pins/' + revision, revision, allow_file=self.allow_file)
+            self.git(repository, 'update-ref', 'refs/eitr/pins/' + revision, revision, allow_file=self.allow_file)
             self.folder.mkdir(parents=True, exist_ok=True)
             with tempfile.TemporaryDirectory(prefix='.install-', dir=self.folder) as staging:
                 stage = Path(staging)
@@ -279,7 +281,7 @@ class Themes:
                     destination.mkdir()
                     # Enumerate only the chosen tree. Read each regular blob directly;
                     # no checkout filters, attributes, hooks or repository code can run.
-                    tree = git(repository, 'ls-tree', '-rz', revision + ':' + row['folder'], allow_file=self.allow_file)
+                    tree = self.git(repository, 'ls-tree', '-rz', revision + ':' + row['folder'], allow_file=self.allow_file)
                     entries = [entry for entry in tree.split('\0') if entry]
                     if len(entries) > MAX_FILES:
                         raise ValueError('Theme exceeds file-count limit')
@@ -291,11 +293,11 @@ class Themes:
                         package_path(filename)
                         if mode != '100644' or kind != 'blob':
                             raise ValueError('Theme contains executable, link or submodule')
-                        size = int(git(repository, 'cat-file', '-s', blob, allow_file=self.allow_file))
+                        size = int(self.git(repository, 'cat-file', '-s', blob, allow_file=self.allow_file))
                         total += size
                         if total > MAX_BYTES:
                             raise ValueError('Theme exceeds size limit')
-                        payload = git(repository, 'cat-file', 'blob', blob, allow_file=self.allow_file, binary=True)
+                        payload = self.git(repository, 'cat-file', 'blob', blob, allow_file=self.allow_file, binary=True)
                         output = destination / filename
                         output.parent.mkdir(parents=True, exist_ok=True)
                         output.write_bytes(payload)
@@ -443,7 +445,7 @@ class Themes:
                     if address not in repositories:
                         repositories[address] = self.repository(source['url'])
                     repository, revision, _ = repositories[address]
-                    counts[row['id']] = int(git(repository, 'rev-list', '--count', source['commit'] + '..' + revision,
+                    counts[row['id']] = int(self.git(repository, 'rev-list', '--count', source['commit'] + '..' + revision,
                                                 '--', ':(top,literal)' + source['folder']))
         return counts
 

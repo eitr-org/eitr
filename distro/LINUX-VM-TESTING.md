@@ -235,7 +235,7 @@ Verified:
 - Installer preflight accepts the completed installation without overwriting it.
 - SDDM password login starts the Hyprland UWSM session.
 - Elephant and Walker's background service start at login.
-- Wallpaper rendering, Jade/Daylight application and theme style generation.
+- Wallpaper rendering, Eitr/Eitr Light application and theme style generation.
 - Apps and global search launch Kitty; uninstall is shown only inside Apps.
 - Control Center and calendar rendering; unavailable VM radios are disabled.
 - A notification stays above the Idle panel and dismisses without locking.

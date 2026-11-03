@@ -9,7 +9,7 @@ Open editors follow `theme/current/neovim.lua` automatically, including changes
 made by swapping the active theme directory. A one-second content check and a
 focus hook reload the colorscheme and its options without touching buffers.
 The existing ColorScheme hooks retain transparent backgrounds and icon styling.
-Eitr, the realms, Afterglow and Wisteria use Eitr’s original colorscheme, shipped
+Eitr, Eitr Light, the realms and Afterglow use Eitr’s original colorscheme, shipped
 in `/usr/share/eitr/nvim-theme`; these themes require no theme download. Other
 colorschemes use lazy.nvim’s normal installation flow. Bundled plugins, including
 local directories, are registered lazily at startup. The live reload itself never installs

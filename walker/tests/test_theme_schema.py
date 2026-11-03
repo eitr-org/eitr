@@ -320,13 +320,13 @@ class ThemeSchemaTests(unittest.TestCase):
         integrations = json.loads((THEMES / "integrations.json").read_text())
         identities = set()
         for name, integration in integrations.items():
-            if not integration["neovim"].get("eitr"):
+            if not integration["neovim"].get("eitr") or not (THEMES / name / "colors.toml").is_file():
                 continue
             palette = tomllib.loads((THEMES / name / "colors.toml").read_text())
             mapped = roles(palette)
             for role in ("accent", "second", "keyword", "function", "type", "string", "number", "constant", "builtin", "property", "parameter", "comment"):
                 self.assertGreaterEqual(contrast(mapped[role], palette["background"]), 4.5, (name, role))
-            if name in ("afterglow", "wisteria"):
+            if name == "afterglow":
                 continue
             data = builder.archive(name, integration["vscode"]["name"], palette)
             self.assertEqual(data, (THEMES / name / "vscode.vsix").read_bytes())
@@ -370,7 +370,10 @@ class ThemeSchemaTests(unittest.TestCase):
                         self.assertEqual(image.size, (3440, 1440))
 
     def test_every_theme_has_required_and_only_known_files(self):
-        self.assertTrue(theme_dirs())
+        self.assertEqual({theme.name for theme in theme_dirs()}, {
+            'afterglow', 'alfheim', 'asgard', 'eitr', 'eitr-light', 'helheim',
+            'jotunheim', 'midgard', 'muspelheim', 'niflheim', 'ragnarok',
+            'svartalfheim', 'vanaheim'})
         for theme in theme_dirs():
             with self.subTest(theme=theme.name):
                 from eitr_theme_packages import manifest

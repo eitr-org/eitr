@@ -32,8 +32,8 @@ GPUs, may still need fixes; please [report problems](https://github.com/eitr-org
 - The Eitr lockscreen unlocks immediately after successful authentication. Password
   runes crumble only with Backspace or Delete; previews close instantly.
 - Native notifications with grouped stacks, history and Do Not Disturb.
-- Workspace Overview with live previews; 25 dark and light themes with matching
-  wallpapers, lockscreens and application colors. Each realm theme has two to
+- Workspace Overview with live previews; 13 built-in dark and light themes, plus
+  official catalog themes with matching wallpapers, lockscreens and application colors. Each realm theme has two to
   four original wallpapers, from ink and gouache to painted environments, in
   both aspect ratios.
 - Walker menus for apps, tools, settings and installs; typing searches every menu.
@@ -116,7 +116,7 @@ Before installing a Git plugin, the review offers **Ask the AI to check** when
 Ratatoskr or Claude is the installed default assistant. It reviews text from a temporary
 copy without tools (locally with Ratatoskr, through its provider with Claude). The report is advice, never approval;
 the full-permissions warning and Enter/Install or Esc/Cancel remain. Decisions
-stay available during the check. Unsupported defaults get an explanation instead of an AI action. Eitr currently has no Git theme installer. See
+stay available during the check. Unsupported defaults get an explanation instead of an AI action. Install extra data-only themes through Themes & Plugins. See
 [distro/PLUGINS.md](distro/PLUGINS.md#ai-advice-before-installation) for limits
 and [assistant qualification](distro/ASSISTANT-STARTUP.md#advice-before-git-plugin-installation).
 

@@ -178,7 +178,7 @@ class TerminalChoiceTests(unittest.TestCase):
         colors = load(theme)
         self.assertIn('background = ' + colors['background'], text)
         self.assertIn('cursor-color = ' + colors.get('cursor', colors['foreground']), text)
-        (theme / 'colors.toml').write_text((ROOT / 'themes/daylight/colors.toml').read_text())
+        (theme / 'colors.toml').write_text((ROOT / 'themes/eitr-light/colors.toml').read_text())
         terminal.sync()
         self.assertNotEqual((self.home / 'ghostty/eitr.conf').read_text(), text)
 

@@ -141,9 +141,11 @@ def main():
     integrations = json.loads((THEMES / 'integrations.json').read_text())
     stale = []
     for identifier, integration in integrations.items():
-        if not integration['neovim'].get('eitr') or identifier in ('afterglow', 'wisteria'):
+        if not integration['neovim'].get('eitr') or identifier == 'afterglow':
             continue
         directory = THEMES / identifier
+        if not (directory / 'colors.toml').is_file():
+            continue
         display = integration['vscode']['name']
         palette = tomllib.loads((directory / 'colors.toml').read_text())
         outputs = {'vscode.vsix': archive(identifier, display, palette), 'vscode.json': (json.dumps(integration['vscode'], indent=2, ensure_ascii=False) + '\n').encode()}

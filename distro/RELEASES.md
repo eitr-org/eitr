@@ -2,7 +2,12 @@
 
 Eitr Light adds the light Primordial Venom palette, local light Neovim and VS Code
 themes, and three painterly primordial wallpapers with separate panoramic
-compositions. The collection contains 25 themes; Eitr remains the default.
+compositions. Eitr remains the default among 13 built-in themes. The 12 extra
+themes are official packages from `eitr-org/eitr-themes`: Catppuccin, Catppuccin
+Latte, Daylight, Gruvbox, Jade, Kanagawa, Moss, Nord, One Dark Pro, Rosé Pine,
+Stillwater and Wisteria. Existing accounts receive all 12 in the background,
+current theme first; failed downloads retry on later logins without changing
+the current desktop or wallpaper. Fresh accounts receive only the built-ins.
 
 Walker groups desktop preferences under Settings, with System information and
 maintenance inside Settings > System. Main includes Quick Actions and Plugins;
@@ -116,7 +121,7 @@ also offers mise without activating it or replacing existing language managers.
 
 ## Realm themes (unreleased)
 
-Ten dark themes join the collection, bringing it to 25: Alfheim, Asgard, Helheim,
+The 13 built-ins include ten dark realm palettes: Alfheim, Asgard, Helheim,
 Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim and Vanaheim.
 Each has two to four original wallpapers chosen by the owner, from hand-inked
 Norse illustrations to oil, gouache, cel-shaded, ink-wash, graphic and painted

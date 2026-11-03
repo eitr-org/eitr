@@ -24,7 +24,7 @@ def main():
         aurora = AuroraReference(runtime)
         for (width, height), theme, state in itertools.product(
                 ((2560, 1080), (1920, 1080), (1080, 1920)),
-                ('eitr', 'daylight'), ('empty', 'typed', 'wrong')):
+                ('eitr', 'eitr-light'), ('empty', 'typed', 'wrong')):
             folder = REPOSITORY / 'themes' / theme
             palette = tomllib.loads((folder / 'colors.toml').read_text())
             settings = {key: palette[key] for key in ('accent', 'foreground', 'muted', 'alert') if key in palette}

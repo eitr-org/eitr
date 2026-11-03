@@ -49,16 +49,22 @@ packages containing any of them are refused. The installer and
 `themes/build-theme-files.py` share `themes/theme_files.py`.
 Official themes with an entry in Eitr's package-owned
 `/usr/share/eitr/themes/integrations.json` use that trusted integration, including
-editor plugins and extensions. The 12 themes planned for migration retain their
-entries there even after their folders move. Other themes use palette-driven
+editor plugins and extensions. The 12 official extra themes retain their entries there. Other themes use palette-driven
 Neovim colors, built-in VS Code defaults and local application defaults, without
 installing any editor plugin or extension. A matching ID in another repository
 never grants access to trusted integrations. Dolphin selections are generated
 from trusted integration metadata or the default light/dark flavor.
 
-Existing built-ins retain their generated editor artifacts. Export only the
-allowed data files when publishing one as a package. This step does not move
-the built-in themes.
+Built-ins retain their generated editor artifacts. Export only the allowed
+data files when publishing one as a package.
+
+Eitr ships 13 themes: the nine realms, Eitr, Eitr Light, Afterglow and Ragnarok.
+Catppuccin, Catppuccin Latte, Daylight, Gruvbox, Jade, Kanagawa, Moss, Nord,
+One Dark Pro, Rosé Pine, Stillwater and Wisteria are official extra packages
+from `eitr-org/eitr-themes`. Existing accounts receive all 12 automatically,
+current theme first, without applying a theme or changing the saved wallpaper.
+Offline downloads retry at later logins; installed packages can be updated or
+removed normally. New accounts receive only the built-ins.
 
 ## Repository index
 

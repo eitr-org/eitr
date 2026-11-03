@@ -30,22 +30,22 @@ class VSCodeThemeTests(unittest.TestCase):
         self.assertEqual(updated, COMMENTED.replace('"Old Theme"', '"New \\"Theme\\""'))
 
     def test_inserts_missing_key(self):
-        updated = vscode_theme.set_top_level_string('{\n  // only comment\n}\n', "workbench.colorTheme", "Nord")
-        self.assertIn('"workbench.colorTheme": "Nord"\n', updated)
+        updated = vscode_theme.set_top_level_string('{\n  // only comment\n}\n', "workbench.colorTheme", "Eitr")
+        self.assertIn('"workbench.colorTheme": "Eitr"\n', updated)
         self.assertIn("// only comment", updated)
-        updated = vscode_theme.set_top_level_string('{"a": 1}', "workbench.colorTheme", "Nord")
-        self.assertEqual(json.loads(updated), {"workbench.colorTheme": "Nord", "a": 1})
+        updated = vscode_theme.set_top_level_string('{"a": 1}', "workbench.colorTheme", "Eitr")
+        self.assertEqual(json.loads(updated), {"workbench.colorTheme": "Eitr", "a": 1})
 
     def test_cli_reads_theme_and_updates_settings_in_place(self):
         with tempfile.TemporaryDirectory() as directory:
             theme = Path(directory) / "vscode.json"
-            theme.write_text('{"name": "Nord", "extension": "arcticicestudio.nord-visual-studio-code"}')
+            theme.write_text('{"name": "Eitr", "extension": "local.eitr-eitr"}')
             read = subprocess.run([sys.executable, str(SCRIPT), "read", str(theme)], capture_output=True, text=True)
-            self.assertEqual(read.stdout.split("\n")[:3], ["Nord", "arcticicestudio.nord-visual-studio-code", ""])
+            self.assertEqual(read.stdout.split("\n")[:3], ["Eitr", "local.eitr-eitr", ""])
             settings = Path(directory) / "settings.json"
             settings.write_text(COMMENTED)
-            subprocess.run([sys.executable, str(SCRIPT), "set", str(settings), "Nord"], check=True)
-            self.assertIn('"workbench.colorTheme": "Nord", // theme comment', settings.read_text())
+            subprocess.run([sys.executable, str(SCRIPT), "set", str(settings), "Eitr"], check=True)
+            self.assertIn('"workbench.colorTheme": "Eitr", // theme comment', settings.read_text())
             self.assertIn("/* editor */", settings.read_text())
 
     def test_cli_reads_local_realm_bundle(self):
@@ -77,7 +77,7 @@ class VSCodeThemeTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             settings = Path(directory) / "settings.json"
             settings.write_text('{"a": "unterminated}')
-            result = subprocess.run([sys.executable, str(SCRIPT), "set", str(settings), "Nord"],
+            result = subprocess.run([sys.executable, str(SCRIPT), "set", str(settings), "Eitr"],
                                     capture_output=True, text=True)
             self.assertEqual(result.returncode, 1)
             self.assertEqual(settings.read_text(), '{"a": "unterminated}')

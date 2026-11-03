@@ -15,7 +15,8 @@
       "reference": "stillwater/references/originals/",
       "status": "removed",
       "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
-      "replacement": "01-ashen-stag"
+      "replacement": "01-ashen-stag",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "stillwater",
@@ -24,7 +25,8 @@
       "reference": "stillwater/references/originals/",
       "status": "removed",
       "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
-      "replacement": "04-silent-wings"
+      "replacement": "04-silent-wings",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "catppuccin",
@@ -32,7 +34,8 @@
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Stylized conceptual illustration, matte midnight #1e1e2e, lavender #cba6f7, blue #89b4fa, pale pink #f5c2e7 and mint #a6e3a1; sparse balanced composition. New artwork: An original small astronaut with rounded helmet sitting on a suspended ivory crescent-shaped sculptural seat in a dark studio-like void, trailing pale pastel ribbons and tiny geometric fragments; polished hand-painted 2D drawing, not realistic space photography.",
       "reference": "catppuccin/references/originals/",
       "status": "removed",
-      "note": "Not in the owner-curated wallpaper collection; prompt retained for provenance."
+      "note": "Not in the owner-curated wallpaper collection; prompt retained for provenance.",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "catppuccin",
@@ -40,7 +43,8 @@
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Stylized conceptual illustration, matte midnight #1e1e2e, lavender #cba6f7, blue #89b4fa, pale pink #f5c2e7 and mint #a6e3a1; sparse balanced composition. New artwork: A single unusual translucent faceted toroidal sculpture floating over a matte midnight surface, inner lavender and mint facets, pink refracted edges, small crisp shadow and spacious black surroundings, refined prismatic abstract 3D still life.",
       "reference": "catppuccin/references/originals/",
       "status": "removed",
-      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history.",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "afterglow",
@@ -65,16 +69,18 @@
       "name": "04-golden-oath",
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Original fantasy character concept illustration, ink #282c34, steel gray #abb2bf, blue #61afef, gold #e5c07b and restrained crimson #e06c75; dramatic crisp silhouettes. New artwork: A solitary masked traveler in a weathered cloak holding a small glowing gold geometric relic in gloved hands, waist-up on right side, cloak edges caught by fine blue rim light, empty charcoal studio void left, fine etched armor details, no franchise character or landscape.",
       "reference": "one-dark-pro/references/originals/",
-      "status": "archived",
-      "file": "one-dark-pro/references/previous-generated/04-golden-oath.png"
+      "status": "removed",
+      "file": "one-dark-pro/references/previous-generated/04-golden-oath.png",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "one-dark-pro",
       "name": "05-ashes-and-steel",
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Original fantasy character concept illustration, ink #282c34, steel gray #abb2bf, blue #61afef, gold #e5c07b and restrained crimson #e06c75; dramatic crisp silhouettes. New artwork: An original elegant mechanical raven perched on a broken brass circular device over a slate pedestal, feathers made of brushed dark metal, small crimson eye, gold dust flecks, refined illustrated object study in large dark negative space; not a landscape.",
       "reference": "one-dark-pro/references/originals/",
-      "status": "archived",
-      "file": "one-dark-pro/references/previous-generated/05-ashes-and-steel.png"
+      "status": "removed",
+      "file": "one-dark-pro/references/previous-generated/05-ashes-and-steel.png",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "tokyo-night",
@@ -98,7 +104,8 @@
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Minimal playful 2D graphic print, Rose Pine Dawn pale #faf4ed, dusty rose #b4637a, teal #56949f, mauve #907aa9 and coral #d7827e; tactile paper grain. New artwork: Asymmetric oversized curved cut-paper fragments and open semicircles arranged in a spacious horizontal rhythm, sparse hand-drawn dashed lines, thin teal looping strokes and mauve solid shapes, original flat graphic composition.",
       "reference": "rose-pine/references/originals/",
       "status": "removed",
-      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history.",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "rose-pine",
@@ -106,7 +113,8 @@
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Minimal playful 2D graphic print, Rose Pine Dawn pale #faf4ed, dusty rose #b4637a, teal #56949f, mauve #907aa9 and coral #d7827e; tactile paper grain. New artwork: An airy abstract print of irregular pebble-like pastel forms linked by delicate crooked contour lines, coral elongated oval, rose block, teal arcs and sparse tiny dash clusters; thoughtful playful balance, not representational objects.",
       "reference": "rose-pine/references/originals/",
       "status": "removed",
-      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history.",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "graphite",
@@ -131,7 +139,8 @@
       "reference": "moss/references/originals/",
       "status": "removed",
       "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
-      "replacement": "02-silent-oath"
+      "replacement": "02-silent-oath",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "moss",
@@ -140,7 +149,8 @@
       "reference": "moss/references/originals/",
       "status": "removed",
       "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
-      "replacement": "03-candlelit-relics"
+      "replacement": "03-candlelit-relics",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "obsidian",
@@ -163,14 +173,16 @@
       "name": "02-paper-orbit",
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Bright white-on-white sculptural abstract art, white #ffffff pearl #eeeeee gray #c0c0c0; subtle fine paper texture and soft precise shadows. New artwork: Overlapping white curved paper rings suspended above a white plane, off-center broad composition with partially cropped rings, subtle soft gray depth, abstract sculptural relief, no scene or literal architecture.",
       "reference": "daylight/references/originals/",
-      "status": "installed"
+      "status": "removed",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "daylight",
       "name": "03-quiet-pleats",
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Bright white-on-white sculptural abstract art, white #ffffff pearl #eeeeee gray #c0c0c0; subtle fine paper texture and soft precise shadows. New artwork: An elegant asymmetric fan of broad folded ivory paper strips intersecting two flat white sheets, shallow sculptural relief with precise soft shadows and luminous white empty areas; no mountains or landscape.",
       "reference": "daylight/references/originals/",
-      "status": "installed"
+      "status": "removed",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "wisteria",
@@ -178,7 +190,8 @@
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: High-key airy abstract macro art, luminous #fafafa, translucent pale blue, lavender #9f85e0 and delicate #3264eb accents, refined layering. New artwork: A wide flowing translucent glass sheet folding back on itself in loose angular waves, frosted blue highlights and thin lavender refractions, hovering over a pure white plane with subtle gray shadow, no horizon or nature.",
       "reference": "wisteria/references/originals/",
       "status": "removed",
-      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history.",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "wisteria",
@@ -186,21 +199,24 @@
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: High-key airy abstract macro art, luminous #fafafa, translucent pale blue, lavender #9f85e0 and delicate #3264eb accents, refined layering. New artwork: Several oversized asymmetric pale-blue glossy porcelain loops intertwining into a graceful abstract horizontal sculpture, soft lavender reflections, spacious white background and refined tactile surface, no flower or scenery.",
       "reference": "wisteria/references/originals/",
       "status": "removed",
-      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history.",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "jade",
       "name": "03-tea-and-static",
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Hand-painted cel animation intimate interior/object illustration, Jade #111c18 #23372b #509475 muted #c1c497 and restrained turquoise #2dd5b7, fine outlines and subtle grain. New artwork: Close still life of a dark jade ceramic teapot, small porcelain cup and an unmarked vintage cassette player on a wooden shelf, warm lantern side-light, shadowed green wall with spacious blank left half, quiet nighttime drawing, no window vista or text.",
       "reference": "jade/references/originals/",
-      "status": "installed"
+      "status": "removed",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "jade",
       "name": "04-night-shift",
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Hand-painted cel animation intimate interior/object illustration, Jade #111c18 #23372b #509475 muted #c1c497 and restrained turquoise #2dd5b7, fine outlines and subtle grain. New artwork: A solitary original young adult seated at a small worktable, green cardigan, headphones around neck, studying an unmarked folded paper model under a round warm lamp; close interior character vignette, deep jade wall and empty horizontal space, no exterior landscape.",
       "reference": "jade/references/originals/",
-      "status": "installed"
+      "status": "removed",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "catppuccin-latte",
@@ -208,7 +224,8 @@
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: High-key minimalist pastel abstract matte paper art; #eff1f5, rose #dc8a78, soft lavender, mint #179299 and diluted blue #1e66f5; gentle shadows. New artwork: Wide softly overlapping elliptical paper rings, each partially cropped and gently tilted, pale peach, pink, mint and lilac on white, original airy abstract arrangement with large breathing spaces, no representational scene.",
       "reference": "catppuccin-latte/references/originals/",
       "status": "removed",
-      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history.",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "catppuccin-latte",
@@ -216,7 +233,8 @@
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: High-key minimalist pastel abstract matte paper art; #eff1f5, rose #dc8a78, soft lavender, mint #179299 and diluted blue #1e66f5; gentle shadows. New artwork: Broad horizontal gently undulating matte pastel planes with a few irregular cutouts revealing lower color layers, soft rounded edges and subtle paper grain, predominantly white and restrained pale colors, pure abstraction.",
       "reference": "catppuccin-latte/references/originals/",
       "status": "removed",
-      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history.",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "everforest",
@@ -255,28 +273,32 @@
       "name": "01-violin-and-pear",
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Old-master-style oil painted still life, real brushwork and canvas texture, charcoal #282828, straw #d4be98, olive #a9b665 brass #d8a657 teal #7daea3 tiny red #ea6962. New artwork: An original warm still life of a weathered violin resting diagonally beside two pears and a folded muted teal cloth on a dark table, rich oil paint, quiet large left negative space and soft side lighting, no writing or existing painting reproduction.",
       "reference": "gruvbox/references/originals/",
-      "status": "installed"
+      "status": "removed",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "gruvbox",
       "name": "05-candle-and-ceramic",
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Old-master-style oil painted still life, real brushwork and canvas texture, charcoal #282828, straw #d4be98, olive #a9b665 brass #d8a657 teal #7daea3 tiny red #ea6962. New artwork: An original aged ochre ceramic jug with a sprig of olive leaves, a short unlit beeswax candle and cracked brass dish on dark tabletop, carefully balanced painterly objects and deep charcoal negative space, classical oil painting texture.",
       "reference": "gruvbox/references/originals/",
-      "status": "installed"
+      "status": "removed",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "kanagawa",
       "name": "03-crane-and-ribbon",
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Original traditional Japanese woodblock-style graphic illustration, finely carved contours, tactile cream #dcd7ba paper, indigo #7e9cd8 dark #1f1f28 sea #2d4f67 and small red #c34043 accent. New artwork: Two elegant cranes with elongated feathers shown in opposing flowing flight arcs through decorative indigo wind strokes, cream negative space, asymmetric horizontal ornament composition, not a landscape, no calligraphy, seal or Great Wave reproduction.",
       "reference": "kanagawa/references/originals/",
-      "status": "installed"
+      "status": "removed",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "kanagawa",
       "name": "04-indigo-fan",
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Original traditional Japanese woodblock-style graphic illustration, finely carved contours, tactile cream #dcd7ba paper, indigo #7e9cd8 dark #1f1f28 sea #2d4f67 and small red #c34043 accent. New artwork: An original ornamental still life of an open folding fan decorated with graphic abstract water curls, a closed indigo umbrella and one red cord, arranged on cream paper, finely carved woodblock strokes, no writing, labels, seals or nature panorama.",
       "reference": "kanagawa/references/originals/",
-      "status": "installed"
+      "status": "removed",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "moonveil",
@@ -299,14 +321,16 @@
       "name": "03-last-track",
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Original hand-drawn animation illustration, fine penciled outlines and blue-gray cel shading, print grain, Nord #2e3440 #4c566a #81a1c1 #88c0d0 #eceff4 tiny red #bf616a. New artwork: An original young adult in a blue knit sweater listening to headphones while seated beside an unmarked turntable at a small desk, thoughtful profile and warm pale lamp glow, quiet dark blue interior and large empty left wall, no city window or logos.",
       "reference": "nord/references/originals/",
-      "status": "installed"
+      "status": "removed",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "nord",
       "name": "04-window-seat",
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Original hand-drawn animation illustration, fine penciled outlines and blue-gray cel shading, print grain, Nord #2e3440 #4c566a #81a1c1 #88c0d0 #eceff4 tiny red #bf616a. New artwork: A young adult curled up on a padded bench holding a pale ceramic cup, frosted pale-blue window behind with no visible exterior, soft folded blanket, intimate quiet character illustration, spacious calm left side, no scenery or existing character.",
       "reference": "nord/references/originals/",
-      "status": "installed"
+      "status": "removed",
+      "location": "https://github.com/eitr-org/eitr-themes"
     }
   ]
 }

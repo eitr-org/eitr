@@ -85,7 +85,7 @@ def short_author(spec, limit=24):
     return author if len(author) <= limit else author[:limit - 1] + '…'
 
 
-def git(root, *arguments, allow_file=False, binary=False, lazy_fetch=True):
+def git(root, *arguments, allow_file=False, binary=False, lazy_fetch=True, timeout=120):
     environment = {key: value for key, value in os.environ.items() if not key.startswith('GIT_')}
     environment.update(GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL='/dev/null', GIT_TERMINAL_PROMPT='0',
                        GIT_ALLOW_PROTOCOL='https:ssh:file' if allow_file else 'https:ssh',
@@ -96,7 +96,7 @@ def git(root, *arguments, allow_file=False, binary=False, lazy_fetch=True):
     output = subprocess.check_output(['git', '--no-replace-objects', '-c', 'core.hooksPath=/dev/null', '-c', 'core.fsmonitor=false',
                                     '-c', 'submodule.recurse=false', '-c', 'credential.helper=',
                                     *arguments], cwd=root, env=environment, text=not binary, stdin=subprocess.DEVNULL,
-                                   stderr=subprocess.PIPE, timeout=120)
+                                   stderr=subprocess.PIPE, timeout=timeout)
     return output if binary else output.strip()
 
 

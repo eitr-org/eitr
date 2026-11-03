@@ -14,7 +14,8 @@
       "reference": "stillwater/references/originals/",
       "status": "removed",
       "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
-      "replacement": "02-the-iron-key"
+      "replacement": "02-the-iron-key",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "catppuccin",
@@ -22,7 +23,8 @@
       "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. Minimal sculptural abstract object: an irregular floating assembly of razor-edged faceted crystal shards, offset slightly right of center, coherent interlocking form with tiny detached shards. Near-black matte void #1e1e2e with huge negative space, crisp lilac #cba6f7, pale blue #89b4fa, dusty pink #f5c2e7 and small mint reflections. Elegant angular 3D illustration with graphic edges, not flowers, not landscape. Inspired by the geometric dark-star reference rather than scenery.",
       "reference": "catppuccin/references/originals/",
       "status": "removed",
-      "note": "Not in the owner-curated wallpaper collection; prompt retained for provenance."
+      "note": "Not in the owner-curated wallpaper collection; prompt retained for provenance.",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "afterglow",
@@ -39,7 +41,8 @@
       "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. Original fantasy character portrait: a weary dark-haired female armored sentinel with a short silver hair streak, weathered asymmetric plate armor, an unusual broad spear held horizontally in lower foreground. Waist-up figure right of center, dark painterly background with faint drifting embers, no landscape, no existing game character. Rich detailed concept painting with visible brushwork, charcoal #282c34, blue #61afef steel edges, muted violet #c678dd cloth, restrained #e5c07b gold and #e06c75 ember accents. Bold silhouette and calm left space.",
       "reference": "one-dark-pro/references/originals/",
       "status": "removed",
-      "note": "Removed from the live collection before the Witcher rename; original generation prompt retained as history."
+      "note": "Removed from the live collection before the Witcher rename; original generation prompt retained as history.",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "tokyo-night",
@@ -56,7 +59,8 @@
       "reference": "rose-pine/references/originals/",
       "status": "removed",
       "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
-      "replacement": "01-heron-and-thread"
+      "replacement": "01-heron-and-thread",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "graphite",
@@ -73,7 +77,8 @@
       "reference": "moss/references/originals/",
       "status": "removed",
       "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
-      "replacement": "01-smokehole-seeress"
+      "replacement": "01-smokehole-seeress",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "obsidian",
@@ -89,7 +94,8 @@
       "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. Pure abstract white-on-white geometric relief: multiple broad overlapping folded sheets with offset angular cutouts and a single sweeping curved edge, softly directional gray shadows, subtle fine paper texture. Bright neutral white #ffffff with pearl and gray #c0c0c0. Asymmetric full-width modern sculptural composition, no landscape or identifiable architecture, no objects or lettering. Clean detailed paper relief inspired by original white geometry, not mountains.",
       "reference": "daylight/references/originals/",
       "status": "removed",
-      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history.",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "wisteria",
@@ -98,14 +104,16 @@
       "reference": "wisteria/references/originals/",
       "status": "removed",
       "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
-      "replacement": "01-indigo-bellflowers"
+      "replacement": "01-indigo-bellflowers",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "jade",
       "name": "01-midnight-study",
       "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. Original hand-drawn intimate interior still life: a worn wooden desk at right with a small unmarked analog radio, porcelain tea cup and blank notebook, translucent green paper lantern hanging above; heavy curtains and dark wall extending into spacious empty left side. Cel-painted animation background with clear stylized contours and subtle grain, no view of city or nature, no lettering on objects. Deep Jade #111c18 #23372b, jade #509475, muted #c1c497 warm lantern light and tiny #2dd5b7 reflections. Quiet nighttime warmth inspired by the original shaded-entrance lighting rather than scenery.",
       "reference": "jade/references/originals/",
-      "status": "installed"
+      "status": "removed",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "catppuccin-latte",
@@ -114,7 +122,8 @@
       "reference": "catppuccin-latte/references/originals/",
       "status": "removed",
       "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
-      "replacement": "01-ribbon-hare"
+      "replacement": "01-ribbon-hare",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "everforest",
@@ -137,7 +146,8 @@
       "name": "04-brass-and-petals",
       "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. An original old-master-style oil painted still life on a broad dark tabletop: a weathered brass pitcher, small ochre ceramic bowl, scattered pale flowers and a folded muted teal cloth, grouped toward right third with large charcoal negative space left. Rich real painted brushwork and canvas grain, dramatic soft side lighting. Gruvbox #282828 shadows #d4be98 straw #a9b665 olive #d8a657 brass #7daea3 cloth tiny #ea6962 petals. Reflect classical flower-basket artwork category, not another rustic landscape, no reproduction of its basket arrangement.",
       "reference": "gruvbox/references/originals/",
-      "status": "installed"
+      "status": "removed",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "kanagawa",
@@ -145,7 +155,8 @@
       "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. Original ornamental woodblock-style illustration of two elegantly curved koi fish moving in opposing arcs through a broad flowing indigo water pattern, seen directly from above, asymmetric placement and cream negative space, no boats or mountain scenery. Finely carved contour strokes, cream foam motifs and tactile traditional paper grain, indigo #7e9cd8 dark #1f1f28 sea #2d4f67 cream #dcd7ba one restrained red #c34043 koi accent. Preserve the reference's woodblock linework and graphic wave rhythm without recreating the Great Wave. No seal, stamp, signature or calligraphy.",
       "reference": "kanagawa/references/originals/",
       "status": "removed",
-      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
+      "note": "Removed in the owner's wallpaper curation; prompt retained as history.",
+      "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
       "theme": "moonveil",
@@ -160,7 +171,8 @@
       "name": "01-blue-hour-reader",
       "prompt": "Create ONE new original ultrawide 21:9 desktop wallpaper. The attached contact sheet is ONLY a reference for the theme's visual language, texture, subject category and palette, not an edit target. Do not copy its compositions, characters, logos or writing. Output a single full-bleed artwork, NOT a contact sheet, poster, screenshot or mockup. No lettering, text, signatures, watermarks, logos or border. Avoid city panoramas, mountain landscapes, forests, lakes, sunsets, architecture vistas and generic scenery. Spacious balanced desktop composition. Original 2D hand-drawn animation illustration of a solitary young adult reading a blank-covered book at an empty late-night diner booth, profile on right third, large pale blue frosted window behind with no visible city, geometric table edge and small cup, quiet empty left side. Flat blue-gray cel shading, fine penciled outlines, subtle print grain, restrained Nord #2e3440 #4c566a #81a1c1 #88c0d0 #eceff4, tiny red #bf616a accent. Character-focused quiet interior recalling the original reading silhouette and night diner, not scenery, no writing, no existing painting reproduction.",
       "reference": "nord/references/originals/",
-      "status": "installed"
+      "status": "removed",
+      "location": "https://github.com/eitr-org/eitr-themes"
     }
   ],
   "status": "complete"

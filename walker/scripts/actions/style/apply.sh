@@ -17,7 +17,7 @@ THEME_SCRIPTS_DIR="$EITR_CODE_ROOT/walker/scripts/themes"
 WALLPAPER_HELPER="$EITR_CODE_ROOT/walker/scripts/actions/wallpaper/transition.py"
 LOG_DIR="${XDG_RUNTIME_DIR:-$HOME/.cache}"
 
-# Accept display labels such as "Rose Pine" as well as folder names.
+# Accept display labels such as "Eitr Light" as well as folder names.
 THEME_NAME="$(
   printf '%s\n' "$1" |
     sed -E 's/<[^>]+>//g' |

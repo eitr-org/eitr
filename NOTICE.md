@@ -18,9 +18,9 @@ package is missing from it.
 | Catalog fonts Cinzel (500, 700) and Cormorant Garamond (500) | `quickshell/desktop-bar/assets/fonts/` | Website @fontsource packages; Latin and Latin Extended WOFF sources converted to TTF with fontTools | OFL-1.1, [Cinzel license](quickshell/desktop-bar/assets/fonts/Cinzel-OFL.txt), [Cormorant Garamond license](quickshell/desktop-bar/assets/fonts/CormorantGaramond-OFL.txt) |
 | Website music and sound effects | `website/public/audio/` | Alexander Nakarada, NaturesTemper, TRP, Darsycho | CC BY 4.0 and CC0, [`website/public/audio/CREDITS.md`](website/public/audio/CREDITS.md) |
 
-Colour palettes named after their projects (Catppuccin, Gruvbox, Kanagawa, Nord,
-One Dark Pro, Rosé Pine) follow those projects' published colours; all of them
-are MIT licensed. Themes name the Neovim colorscheme plugins and VS Code themes
+The official extra palettes (Catppuccin, Gruvbox, Kanagawa, Nord, One Dark Pro
+and Rosé Pine) live in `eitr-org/eitr-themes` and follow their upstream MIT
+licenses. Themes name the Neovim colorscheme plugins and VS Code themes
 they use (`themes/integrations.json`); those download from their authors when
 installed and keep their own licenses.
 

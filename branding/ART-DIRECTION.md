@@ -60,7 +60,7 @@ native masters and their export script live in
 `branding/sources/wallpapers/batch-04/`. Light themes retain their own pale
 paper ground and limited palettes. Ultrawide exports crop to fill without stretched pixels or side padding.
 Choose the crop around the main subject; when its silhouette cannot fit,
-create a separately composed ultrawide version rather than stretching edges. For Afterglow and Moss only, the owner explicitly overrides the flat ink style:
+create a separately composed ultrawide version rather than stretching edges. For Afterglow (and the official extra theme Moss in `eitr-org/eitr-themes`), the owner explicitly overrides the flat ink style:
 Afterglow uses soft, richly lit painterly Norse portraits in amber, ember and
 rose on near-black; Moss uses dark chiaroscuro Norse oil painting in olive,
 moss, bone and umber. They retain original written-brief subjects, no franchise

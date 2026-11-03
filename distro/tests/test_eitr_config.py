@@ -201,10 +201,10 @@ class EitrConfigTests(unittest.TestCase):
 
     def test_whole_entries_never_add_files_to_an_existing_target(self):
         # theme/current holds the selected theme; Afterglow's files must not join it.
-        self.write(self.home / ".config/theme/current/colors", "moss\n")
+        self.write(self.home / ".config/theme/current/colors", "afterglow\n")
         self.write(self.repo / "themes/basic/backgrounds/01.png", "afterglow\n")
         self.run_tool("seed")
-        self.assertEqual((self.home / ".config/theme/current/colors").read_text(), "moss\n")
+        self.assertEqual((self.home / ".config/theme/current/colors").read_text(), "afterglow\n")
         self.assertFalse((self.home / ".config/theme/current/backgrounds").exists())
 
     def test_seed_only_entries_are_never_updated(self):

@@ -15,3 +15,22 @@ current shape.
 A migration must be safe to rerun after a partial failure, keep unknown fields,
 write files atomically (`eitr_paths.write_settings`) and never touch credentials.
 Add a focused test with it.
+
+## Deferred extra-theme installation
+
+`20261103120000-extra-theme-packages.py` only writes a pending list and succeeds,
+so offline downloads never stop later settings migrations. Fresh adoption marks
+the migration done without creating this list. After login settings are ready,
+`eitr-session` starts `eitr_theme_migration.py` in the background when pending.
+A nonblocking per-user lock prevents duplicate workers. Git runs with its usual
+deadlines and prompting disabled; network failures keep the pending list for the
+next login, without notifications. The worker uses one sparse
+repository and the catalog's validated data-only multi-theme install, ordered
+with the current theme first. It never applies a theme, regenerates output or
+writes appearance/wallpaper preferences. While the current extra theme is
+pending, session upgrade regeneration is deferred, preserving generated output.
+
+Each retry removes already installed package IDs from the pending list before
+fetching; installation validates all remaining themes before publishing any.
+After the first full success the list is deleted. Neither later removals nor
+new logins recreate it.

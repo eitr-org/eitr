@@ -297,12 +297,12 @@ class CommandTests(SandboxTest):
             self.cli.delete_wallpaper(str(self.backgrounds / "01-first.png"), ask_first=lambda *arguments: True)
 
     def test_deleting_the_current_theme_switches_to_a_shipped_one_first(self):
-        directory = own_style.create_theme("Mine", str(picture(self.pictures / "lake.png")), previous="jade")
+        directory = own_style.create_theme("Mine", str(picture(self.pictures / "lake.png")), previous="afterglow")
         (self.cache / "current-theme").write_text("mine\n")
         applied = []
         with patch.object(self.cli, "apply_theme", side_effect=applied.append):
             self.cli.delete_theme("mine", ask_first=lambda *arguments: True)
-        self.assertEqual(applied, ["jade"])
+        self.assertEqual(applied, ["afterglow"])
         self.assertFalse(directory.exists())
         with self.assertRaises(ValueError):
             self.cli.delete_theme("eitr", ask_first=lambda *arguments: True)

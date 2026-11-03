@@ -13,12 +13,17 @@ sys.path.insert(0, str(source))
 from eitr_paths import code
 from generated import refresh_after_upgrade, walker_view
 from migrations import run_pending
+from eitr_theme_migration import current_theme, pending, start_retry, THEMES
 
 walker_view()
 # Settings migrations first: regenerated theme output reads the migrated preferences.
 run_pending()
-refresh_after_upgrade()
+if not (pending().exists() and current_theme() in THEMES):
+    refresh_after_upgrade()
 subprocess.run(['python3', str(code('quickshell/desktop-bar/scripts/appearance-state.py')), 'adopt'], check=True)
 # Hyprpaper starts in parallel with this script; checking it must not hold up Walker.
 subprocess.Popen(['python3', str(code('walker/scripts/actions/wallpaper/transition.py')), 'restore'],
                  stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+
+# Network work starts after login settings are ready and never blocks the session.
+start_retry()

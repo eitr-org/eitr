@@ -343,13 +343,16 @@ class ThemePackagesTest(unittest.TestCase):
         for theme_id, integration in integrations.items():
             temporary = self.root / 'generated' / theme_id
             temporary.mkdir(parents=True)
-            shutil.copy(ROOT / 'themes' / theme_id / 'colors.toml', temporary)
+            shipped = ROOT / 'themes' / theme_id
+            palette = shipped / 'colors.toml' if shipped.is_dir() else ROOT / 'themes/eitr/colors.toml'
+            shutil.copy(palette, temporary)
             if (ROOT / 'themes' / theme_id / 'light.mode').exists():
                 (temporary / 'light.mode').touch()
             builder.write_theme_files(temporary, official=True, integrations_path=ROOT / 'themes/integrations.json')
-            for name, contents in builder.files_for(theme_id, integration).items():
+            for name, contents in builder.files_for(theme_id, integration, directory=temporary).items():
                 self.assertEqual((temporary / name).read_text(), contents)
-                self.assertEqual((ROOT / 'themes' / theme_id / name).read_text(), contents)
+                if shipped.is_dir():
+                    self.assertEqual((shipped / name).read_text(), contents)
 
     def test_palette_optional_and_strict(self):
         from eitr_theme_packages import validate_index

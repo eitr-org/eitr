@@ -65,10 +65,11 @@ def own(kind):
     return data('eitr') / kind
 
 
-def theme_paths(root=None):
+def theme_paths(root=None, *, config_root=None):
     """One directory per theme ID: shipped, then the user's own, then a whole-theme override."""
+    selected_config = Path(config_root) if config_root is not None else config()
     merged = {}
-    for directory in (code_root(root) / 'themes', own('themes'), config('themes')):
+    for directory in (code_root(root) / 'themes', own('themes'), selected_config / 'themes'):
         if directory.is_dir():
             for entry in directory.iterdir():
                 if entry.is_dir() and (entry / 'colors.toml').is_file():

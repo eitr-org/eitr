@@ -415,7 +415,7 @@ function lifetimeContext(relative, values, functions = []) {
     assert.equal(frames.at(-1).topic, 'catalog');
     data.receive(JSON.stringify({v: 1, op: 'reply', topic: 'catalog', id: query, epoch: 'catalog-one', data: {items: []}}));
     assert.equal(replies, 0);
-    data.queryCatalog('install', {kind: 'themes', ids: ['moss']}, 'catalog-window', error => assert.equal(error, 'broker-unavailable'));
+    data.queryCatalog('install', {kind: 'themes', ids: ['fixture-theme']}, 'catalog-window', error => assert.equal(error, 'broker-unavailable'));
     const count = frames.length;
     data.died();
     data.receive(JSON.stringify({v: 1, op: 'hello', epoch: 'catalog-two'}));

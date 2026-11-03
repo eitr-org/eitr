@@ -78,7 +78,7 @@ class AppearancePickerLayoutTests(unittest.TestCase):
                 source = source.replace('layer.effect: MultiEffect { maskEnabled: true; maskSource: roundedMask }', '')
                 source = source.replace('id: content', 'id: content\n            Rectangle { anchors.fill: parent; z: -1; color: picker.background }', 1)
                 (folder / 'panels/AppearancePicker.qml').write_text(source)
-                for name in ('catppuccin', 'catppuccin-latte'):
+                for name in ('eitr', 'eitr-light'):
                     shutil.copy(ROOT / 'themes' / name / 'preview.png', folder / f'{name}.png')
                 scripts = folder / 'scripts'
                 scripts.mkdir()
@@ -86,7 +86,7 @@ class AppearancePickerLayoutTests(unittest.TestCase):
 mode = sys.argv[1]
 if mode == "theme": mode = "theme-dark"
 from pathlib import Path
-preview = Path(__file__).parent.parent / ("catppuccin-latte.png" if mode == "theme-light" else "catppuccin.png")
+preview = Path(__file__).parent.parent / ("eitr-light.png" if mode == "theme-light" else "eitr.png")
 print(json.dumps({"mode": mode, "items": [{"name": mode, "value": mode, "image": preview.as_uri(), "current": True}], "accent": "#89b4fa", "foreground": "FOREGROUND", "background": "BACKGROUND"}))
 '''.replace('FOREGROUND', foreground).replace('BACKGROUND', '#202024' if foreground == '#cdd6f4' else '#eeeeee'))
                 fixture = '''import QtQuick

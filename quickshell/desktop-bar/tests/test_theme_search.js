@@ -6,7 +6,7 @@ const vm = require('node:vm');
 const source = fs.readFileSync(path.join(__dirname, '../panels/AppearancePicker.qml'), 'utf8');
 const body = source.split('function search(value) {')[1].split('\n    }')[0];
 const context = {
-    allItems: [{name: 'Jade'}, {name: 'Afterglow'}, {name: 'Daylight'}],
+    allItems: [{name: 'Asgard'}, {name: 'Afterglow'}, {name: 'Eitr Light'}],
     selectedIndex: 2,
 };
 vm.createContext(context);
@@ -14,12 +14,12 @@ function search(value) {
     context.value = value;
     vm.runInContext(body, context);
 }
-search('JA');
+search('AS');
 assert.equal(context.items.length, 1);
-assert.equal(context.items[0].name, 'Jade');
+assert.equal(context.items[0].name, 'Asgard');
 assert.equal(context.selectedIndex, 0);
 search('light');
-assert.equal(context.items[0].name, 'Daylight');
+assert.equal(context.items[0].name, 'Eitr Light');
 search('missing');
 assert.equal(context.items.length, 0);
 search('');

@@ -3,6 +3,7 @@ import importlib.machinery
 import importlib.util
 import io
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -21,14 +22,18 @@ class EitrCommandTests(unittest.TestCase):
         self.addCleanup(directory.cleanup)
         base = Path(directory.name)
         self.code, self.config = base / "code", base / "config"
-        for root, name, label in ((self.code, "eitr", "Eitr"), (self.code, "nord", "Nord"),
+        environment = patch.dict(os.environ, {"XDG_DATA_HOME": str(base / "data"),
+            "XDG_STATE_HOME": str(base / "state"), "XDG_CACHE_HOME": str(base / "cache")})
+        environment.start()
+        self.addCleanup(environment.stop)
+        for root, name, label in ((self.code, "eitr", "Eitr"), (self.code, "afterglow", "Afterglow"),
                                   (self.config, "mine", "My Theme")):
             theme = root / "themes" / name
             theme.mkdir(parents=True)
             (theme / "colors.toml").write_text("")
             (theme / "display-name").write_text(label + "\n")
         (self.config / "theme/current").mkdir(parents=True)
-        (self.config / "theme/current/display-name").write_text("Nord\n")
+        (self.config / "theme/current/display-name").write_text("Afterglow\n")
         (self.code / "version").write_text("0.5.0.20261016.120000.gabc1234\n")
         (self.code / "release.json").write_text(json.dumps({"version": "0.5.0", "codename": "Yggdrasil",
                                                             "stage": "beta"}))
@@ -76,11 +81,11 @@ class EitrCommandTests(unittest.TestCase):
 
     def test_themes_are_listed_with_the_current_one_marked(self):
         listing = self.plan("theme", "list").splitlines()
-        self.assertEqual([line[2:].split("  ")[0] for line in listing], ["Eitr", "My Theme", "Nord"])
-        self.assertEqual([line[0] for line in listing], [" ", " ", "*"], "the current theme is marked")
-        self.assertEqual(self.plan("theme", "current"), "Nord")
-        self.assertEqual(self.plan("theme", "set", "Rose Pine"),
-                         ["bash", str(self.code / "walker/scripts/actions/style/apply.sh"), "Rose Pine"])
+        self.assertEqual([line[2:].split("  ")[0] for line in listing], ["Afterglow", "Eitr", "My Theme"])
+        self.assertEqual([line[0] for line in listing], ["*", " ", " "], "the current theme is marked")
+        self.assertEqual(self.plan("theme", "current"), "Afterglow")
+        self.assertEqual(self.plan("theme", "set", "Eitr Light"),
+                         ["bash", str(self.code / "walker/scripts/actions/style/apply.sh"), "Eitr Light"])
 
     def test_focus_toggle_routes_to_the_controller(self):
         checkout = DISTRO.parent

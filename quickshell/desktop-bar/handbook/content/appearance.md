@@ -103,7 +103,9 @@ selections switch to Eitr and its default wallpaper.
 
 Eitr Light is the light counterpart of Primordial Venom, with pale green surfaces, dark green text, venom yellow-green accents and jade/emerald highlights. Its three still wallpapers are Primordial Drop, Élivágar and Venom Rootlight, each with a separate panoramic composition. Select it in the Light category; Eitr remains the default. Theme Wallpaper uses the selected still image on the lockscreen.
 
-The 25 shipped themes include ten dark realm palettes: Alfheim, Asgard, Helheim,
+The 13 built-in themes remain available offline. Install the 12 extra themes from the official `eitr-org/eitr-themes` catalog. Existing accounts receive all 12 in the background, with offline retries; their current theme and saved wallpaper stay unchanged. New accounts receive only built-ins.
+
+The 13 shipped themes include ten dark realm palettes: Alfheim, Asgard, Helheim,
 Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim and Vanaheim.
 Each realm theme has two to five original wallpapers in varied ink,
 gouache, cel-shaded and painted styles, in both aspect ratios. The first

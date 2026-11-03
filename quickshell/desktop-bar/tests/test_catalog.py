@@ -239,17 +239,17 @@ ShellRoot {
      if (panel.background !== Bar.SiteStyle.card || panel.accent !== Bar.SiteStyle.accent) throw new Error("site palette binding");
      const names = ["official-themes", "selected-themes", "detail-overview", "detail-wallpaper", "review", "installing", "community-detail", "installed-search", "plugins-official", "plugins-installed", "remove", "plugin-cards-install", "plugin-images", "plugin-video", "plugin-review-official", "plugin-review-third-party", "plugin-update-review", "git-address"];
      if (sample.phase === 0) {
-      panel.installed = [{id:"eitr",name:"Eitr",kind:"builtin",current:true,description:"Primordial venom",previewUrl:"PREVIEW"},{id:"nord",name:"Nord",kind:"official",description:"Cool northern blues",previewUrl:"PREVIEW2"},{id:"mine",name:"My theme",kind:"own",light:true,description:"A quiet light palette",previewUrl:"PREVIEW3"}];
+      panel.installed = [{id:"eitr",name:"Eitr",kind:"builtin",current:true,description:"Primordial venom",previewUrl:"PREVIEW"},{id:"afterglow",name:"Afterglow",kind:"official",description:"Warm ember colors",previewUrl:"PREVIEW2"},{id:"mine",name:"My theme",kind:"own",light:true,description:"A quiet light palette",previewUrl:"PREVIEW3"}];
       panel.availableItems = [{id:"moss",name:"Moss",kind:"official",description:"Deep forest greens",size:3145728},{id:"jade",name:"Jade",kind:"official",light:true,description:"Warm jade and cream",size:2097152},{id:"asgard",name:"Asgard",kind:"official",description:"Gold in the halls of the gods",size:2097152}];
       panel.selected = ["moss"];
       panel.previews = {moss: "PREVIEW2", jade: "PREVIEW3", asgard: "PREVIEW"};
       let checks = 0;
       panel.transport = function(name, args, callback) {
-       if (name === "check") { checks++; callback("", {updates:{nord:1}}); }
+       if (name === "check") { checks++; callback("", {updates:{afterglow:1}}); }
        else callback("", {items:[]});
       };
       panel.checkUpdates();
-      if (checks !== 2 || panel.updates.nord !== 1) throw new Error("background update checks");
+      if (checks !== 2 || panel.updates.afterglow !== 1) throw new Error("background update checks");
       panel.live = true;
       panel.transport = function(name, args, callback) { callback("Preview unavailable", {}); };
       panel.preview({id:"missing"});
@@ -340,7 +340,7 @@ ShellRoot {
       if (!builtinRemove || !officialRemove || builtinRemove.visible || !officialRemove.visible) throw new Error("Only non built-in themes have a remove button");
       let applies = 0;
       panel.transport = function(name, args, callback) { if (name === "apply") applies++; callback("", {items:[]}); };
-      panel.activate({id:"nord", name:"Nord"}, true);
+      panel.activate({id:"afterglow", name:"Afterglow"}, true);
       if (applies !== 1 || panel.detail) throw new Error("Installed still applies");
       panel.kind = "plugins";
       panel.tab = "official";
@@ -497,7 +497,7 @@ ShellRoot {
                 from eitr_theme_packages import catalog, palette
                 themes = BAR.parents[1] / 'themes'
                 package_root = folder / 'packages'
-                for theme_id in ('eitr', 'nord', 'eitr-light'):
+                for theme_id in ('eitr', 'afterglow', 'eitr-light'):
                     source = themes / theme_id
                     destination = package_root / theme_id
                     destination.mkdir(parents=True)
@@ -509,17 +509,17 @@ ShellRoot {
                     shutil.copyfile(wallpaper, destination / 'backgrounds' / wallpaper.name)
                 index = catalog(package_root)
                 installed_palettes = {theme_id: palette(themes / folder_name) for theme_id, folder_name in
-                                      [('eitr', 'eitr'), ('nord', 'nord'), ('mine', 'eitr-light')]}
+                                      [('eitr', 'eitr'), ('afterglow', 'afterglow'), ('mine', 'eitr-light')]}
                 index_palettes = {theme_id: next(row['palette'] for row in index if row['id'] == source_id)
-                                  for theme_id, source_id in [('moss', 'nord'), ('jade', 'eitr-light'), ('asgard', 'eitr')]}
+                                  for theme_id, source_id in [('moss', 'afterglow'), ('jade', 'eitr-light'), ('asgard', 'eitr')]}
                 fixture = fixture.replace('INSTALLED_PALETTES', json.dumps(installed_palettes)).replace('INDEX_PALETTES', json.dumps(index_palettes))
                 icon = folder / 'plugin-icon.svg'
                 icon.write_text('<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect x="4" y="4" width="56" height="56" rx="12" fill="#759456"/><circle cx="32" cy="32" r="15" fill="#181824"/></svg>')
                 video = folder / 'clip.webm'
                 subprocess.run(['ffmpeg', '-v', 'error', '-f', 'lavfi', '-i', 'color=c=0x53664a:s=160x90:d=0.3', '-c:v', 'libvpx-vp9', '-an', str(video)], check=True)
                 fixture = fixture.replace('VIDEO', video.as_uri())
-                fixture = fixture.replace('ICON', icon.as_uri()).replace('WALLPAPER', next((themes / 'nord/backgrounds').glob('*')).as_uri())
-                fixture = fixture.replace('TARGET', str(target)).replace('VARIANT', variant).replace('WIDTH', width).replace('PREVIEW3', (BAR.parents[1] / 'themes/eitr-light/preview.png').as_uri()).replace('PREVIEW2', (BAR.parents[1] / 'themes/nord/preview.png').as_uri()).replace('PREVIEW', (BAR.parents[1] / 'themes/eitr/preview.png').as_uri())
+                fixture = fixture.replace('ICON', icon.as_uri()).replace('WALLPAPER', next((themes / 'afterglow/backgrounds').glob('*')).as_uri())
+                fixture = fixture.replace('TARGET', str(target)).replace('VARIANT', variant).replace('WIDTH', width).replace('PREVIEW3', (BAR.parents[1] / 'themes/eitr-light/preview.png').as_uri()).replace('PREVIEW2', (BAR.parents[1] / 'themes/afterglow/preview.png').as_uri()).replace('PREVIEW', (BAR.parents[1] / 'themes/eitr/preview.png').as_uri())
                 (folder / 'fixture.qml').write_text(fixture)
                 environment = render_environment(folder)
                 environment.pop('QT_QUICK_BACKEND', None)

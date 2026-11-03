@@ -35,7 +35,7 @@ installed and what the official repositories offer. Tested on the testing
 channel first; the website changes only once it reaches stable.
 
 - **Built in (13):** the nine realms, Eitr, Eitr Light, Afterglow and Ragnarok.
-- **Moved to `eitr-org/eitr-themes` (12):** Catppuccin, Catppuccin Latte,
+- **Official extra themes (12), installed from `eitr-org/eitr-themes`:** Catppuccin, Catppuccin Latte,
   Daylight, Gruvbox, Jade, Kanagawa, Moss, Nord, One Dark Pro, Rosé Pine,
   Stillwater and Wisteria. Eitr Light stays the only built-in light theme until
   new light themes are made.
@@ -56,8 +56,9 @@ channel first; the website changes only once it reaches stable.
   through a bar data domain.
 - **Themes are data.** A versioned theme format (like the plugins'
   `schemaVersion`); themes containing executables are refused.
-- **Existing users.** Someone using a moved theme gets it installed from the
-  official repository by the update, so their desktop does not change.
+- **Existing users.** Every existing account gets all 12 extra themes installed from the
+  official repository in the background, current theme first. Offline logins
+  retry later without changing the desktop; new accounts keep the 13 built-ins.
 - **Backend:** the versioned data-only theme format, sparse Git index and JSON
   install/update/remove backend are implemented; see `distro/THEMES.md`. The
   app/editor files are generated locally from trusted official integrations or
@@ -90,9 +91,9 @@ channel first; the website changes only once it reaches stable.
   `tools/community-index.py --check --verify` (format: `distro/COMMUNITY.md`).
   Community themes follow their author's repository; community plugin updates are
   new pull requests the owner reviews. Lockscreens stay official-only.
-- **Order:** the owner's review of the catalog window, then the
-  native install review (done), then move the 12 themes (they stay here until the
-  installer works).
+- **Remaining:** owner review on the testing channel, lockscreen decisions and
+  stable-release website changes. The native install review and extra-theme
+  migration are implemented.
 
 # 3. Smaller items
 

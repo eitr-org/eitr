@@ -251,7 +251,7 @@ class EitrThemeRenameTests(unittest.TestCase):
             paths.config = paths.cache = paths.data = lambda relative: base / relative
             with patch.dict(sys.modules, eitr_paths=paths):
                 exec(compile(migration.read_text().split("update_json(config('eitr/appearance.json')")[0], str(migration), 'exec'), names)
-            for theme in ('norse', 'eitr', 'ragnarok', 'nord'):
+            for theme in ('norse', 'eitr', 'ragnarok', 'afterglow'):
                 names['THEME'] = theme
                 for old_theme in ('norse', 'eitr'):
                     for folder in ('backgrounds', 'backgrounds-ultrawide'):
@@ -302,9 +302,9 @@ class EitrThemeRenameTests(unittest.TestCase):
                 self.assertEqual((cache / 'current-theme').read_text(), 'eitr\n')
                 self.assertEqual(os.readlink(cache / 'current-wallpaper-image'), values['wallpaper'])
                 self.assertEqual(json.loads(marker.read_text())['previous'], 'eitr')
-            preference.write_text(json.dumps({'theme': 'nord', 'wallpaper': '/pictures/mine.jpg'}))
+            preference.write_text(json.dumps({'theme': 'afterglow', 'wallpaper': '/pictures/mine.jpg'}))
             subprocess.run([sys.executable, str(migration)], env=environment, check=True)
-            self.assertEqual(json.loads(preference.read_text()), {'theme': 'nord', 'wallpaper': '/pictures/mine.jpg'})
+            self.assertEqual(json.loads(preference.read_text()), {'theme': 'afterglow', 'wallpaper': '/pictures/mine.jpg'})
 
 
 class NeovimLocalThemeMigrationTests(NeovimShippedThemesMigrationTests):
@@ -335,8 +335,8 @@ class GraphiteRemovalTests(unittest.TestCase):
             environment = dict(HOME=str(home), XDG_CONFIG_HOME=str(home / '.config'),
                                XDG_CACHE_HOME=str(home / '.cache'), EITR_CODE_ROOT=str(ROOT))
             with patch.dict(os.environ, environment), patch('subprocess.run') as switch:
-                for saved in ('graphite', 'eitr', 'nord', None):
-                    for cached in ('graphite', 'nord', None):
+                for saved in ('graphite', 'eitr', 'afterglow', None):
+                    for cached in ('graphite', 'afterglow', None):
                         for path in (preference, cache):
                             path.unlink(missing_ok=True)
                         if saved:

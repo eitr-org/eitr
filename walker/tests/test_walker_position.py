@@ -64,7 +64,7 @@ class WalkerPositionTests(unittest.TestCase):
                            env=environment, check=True, capture_output=True)
             css = (temporary / "theme/style.css").read_text()
             self.assertTrue(css.rstrip().endswith(".box-wrapper { margin-top: 212px; }"))
-            for theme in ("daylight", "catppuccin"):
+            for theme in ("eitr-light", "eitr"):
                 with self.subTest(theme=theme):
                     environment["CURRENT_DIR"] = str(REPO / "themes" / theme)
                     subprocess.run(["bash", str(REPO / "walker/scripts/themes/walker.sh")],

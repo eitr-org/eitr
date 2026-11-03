@@ -22,7 +22,7 @@ import urllib.parse
 import urllib.request
 
 from eitr_i18n import tr
-from eitr_paths import cache, code, code_root, own, read_settings, write_settings
+from eitr_paths import cache, code, code_root, own, read_settings, theme_paths, write_settings
 
 MAX_BYTES = 50 * 1024 * 1024
 MAX_PIXELS = 120_000_000
@@ -31,7 +31,7 @@ TIMEOUT = 20
 FORMATS = {"JPEG": ".jpg", "PNG": ".png", "WEBP": ".webp"}
 SUFFIXES = {".jpg", ".jpeg", ".png", ".webp"}
 MARKER = "own-theme.json"
-# A shipped theme to return to when the current own theme is deleted: the one used
+# An installed theme to return to when the current own theme is deleted: the one used
 # before it was created, else the fresh-install default (distro/user-defaults.json).
 DEFAULT_THEME = "eitr"
 # Lockscreen designs that show a picture and accept an accent and a greeting.
@@ -401,7 +401,8 @@ def reference_integration(light):
     for theme, integration in sorted(integrations.items()):
         driven = integration["neovim"].get("eitr") or any(
             plugin.get("palette") for plugin in integration["neovim"].get("plugins", []))
-        if driven and (code_root() / "themes" / theme / "light.mode").is_file() == light:
+        directory = code_root() / "themes" / theme
+        if driven and (directory / "colors.toml").is_file() and (directory / "light.mode").is_file() == light:
             return integration
     raise ValueError(tr('No palette-driven theme integration is installed.'))
 
@@ -450,9 +451,9 @@ def write_theme_files(directory, colors, light):
 
 # Themes
 
-def shipped_themes():
-    root = code_root() / "themes"
-    return {path.name for path in root.iterdir() if (path / "colors.toml").is_file()} if root.is_dir() else set()
+def base_themes():
+    return {theme_id for theme_id, directory in theme_paths().items()
+            if not (directory / MARKER).is_file()}
 
 
 def own_themes():
@@ -470,7 +471,7 @@ def theme_dir(identifier):
 
 def free_theme_name(name):
     identifier = slug(name)
-    if identifier in shipped_themes() or (own("themes") / identifier).exists():
+    if identifier in base_themes() or (own("themes") / identifier).exists():
         raise ValueError(tr('A theme named {name} already exists.', name=f'{name}'))
     return identifier
 
@@ -487,7 +488,7 @@ def create_theme(name, source, mode=None, previous="", opener=None):
         colors, mode = generate_palette(picture, mode)
         (staging / "display-name").write_text(name + "\n")
         write_theme_files(staging, colors, mode == "light")
-        previous = previous if previous in shipped_themes() else ""
+        previous = previous if previous in base_themes() else ""
         (staging / MARKER).write_text(json.dumps({"version": 1, "name": name, "mode": mode,
                                                   "previous": previous}, indent=2) + "\n")
         os.chmod(staging, 0o755)
@@ -543,7 +544,7 @@ def fallback_theme(identifier):
         previous = json.loads((theme_dir(identifier) / MARKER).read_text()).get("previous", "")
     except (OSError, ValueError, AttributeError):
         previous = ""
-    return previous if previous in shipped_themes() else DEFAULT_THEME
+    return previous if previous in base_themes() else DEFAULT_THEME
 
 
 # Lockscreens
