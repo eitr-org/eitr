@@ -415,10 +415,11 @@ Item {
         radius: 4
         color: SiteStyle.surface
         border.width: 1
-        border.color: picked || focused ? catalog.accent : tile.actionable && cardMouse.containsMouse ? SiteStyle.lineStrong : SiteStyle.line
+        border.color: picked || focused || item.current ? catalog.accent : tile.actionable && cardMouse.containsMouse ? SiteStyle.lineStrong : SiteStyle.line
         RectangularShadow {
             anchors.fill: parent; z: -1
-            visible: tile.picked || tile.focused
+            // The current theme keeps the selected border and glow.
+            visible: tile.picked || tile.focused || !!tile.item.current
             radius: tile.radius; blur: 18; spread: 2; color: SiteStyle.glow
         }
         onFocusedChanged: {
