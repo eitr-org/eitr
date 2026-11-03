@@ -375,31 +375,15 @@ class ThemePackagesTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_index([dict(row, wallpapers=[wallpaper, wallpaper])])
 
-    def test_hide_restore_and_all_picker_paths(self):
+    def test_builtin_themes_cannot_be_removed(self):
         import shutil
         builtin = self.root / 'builtin/themes'
-        for name in ('alpha', 'beta', 'eitr'):
-            shutil.copytree(self.repo / 'themes/alpha', builtin / name)
-        self.backend.hide('alpha')
-        self.assertNotIn('alpha', theme_paths())
-        self.assertIn('alpha', theme_paths(include_hidden=True))
-        self.assertTrue(next(row for row in self.backend.installed() if row['id'] == 'alpha')['hidden'])
-        picker = subprocess.check_output([sys.executable, str(ROOT / 'quickshell/desktop-bar/scripts/appearance-items.py'), 'theme'], text=True)
-        self.assertNotIn('"id": "alpha"', picker)
-        self.backend.unhide('alpha')
-        self.assertIn('alpha', theme_paths())
-        with self.assertRaisesRegex(ValueError, 'Eitr or the current'):
-            self.backend.hide('eitr')
-        marker = self.home / '.cache/current-theme'
-        marker.parent.mkdir(parents=True, exist_ok=True)
-        marker.write_text('beta')
-        with self.assertRaisesRegex(ValueError, 'Eitr or the current'):
-            self.backend.hide('beta')
-        self.backend.remove('alpha')
+        shutil.copytree(self.repo / 'themes/alpha', builtin / 'alpha')
+        with self.assertRaisesRegex(ValueError, 'Built-in themes cannot be removed'):
+            self.backend.remove('alpha')
         self.assertTrue((builtin / 'alpha').exists())
-        self.assertNotIn('alpha', theme_paths())
-        marker.write_text('alpha')
         self.assertIn('alpha', theme_paths())
+        self.assertNotIn('hidden', next(row for row in self.backend.installed() if row['id'] == 'alpha'))
 
     def test_official(self):
         for url in ('https://github.com/eitr-org/eitr-themes.git','git@github.com:eitr-org/eitr-themes.git',

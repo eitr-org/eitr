@@ -84,7 +84,7 @@ Item {
     function resetTransient() {
         addingAddress = false; addressInput.text = ""; gitSelected = []; gitArtwork = ({});
         detail = null; reviewing = false; removing = null; selected = []; error = ""; progress = "";
-        showHidden = false; tone = "all"; cursor = -1; shown = pageSize; scroll.contentY = 0;
+        query = ""; tone = "all"; cursor = -1; shown = pageSize; scroll.contentY = 0;
     }
     function discardReview() {
         if (live) transport("discard", {kind: kind}, function() {}, cleanupOwner);
@@ -180,7 +180,7 @@ Item {
     signal closeRequested()
     readonly property var more: availableItems.filter(item => !installed.some(local => local.id === item.id))
     property string tab: "official"
-    property bool showHidden: false
+    property string query: ""
     readonly property bool getMore: tab !== "installed"
     property bool sidebarFocus: true
     property var counts: ({})
@@ -206,9 +206,14 @@ Item {
     property int shown: pageSize
     onCursorChanged: if (cursor >= shown - columns) shown = Math.ceil((cursor + columns + 1) / pageSize) * pageSize
     readonly property int columns: Math.max(1, Math.min(3, Math.floor((width - sidebarWidth - 48) / 250)))
-    function filtered(items) { return kind !== "themes" ? items : items.filter(item => tone === "all" || item.light === (tone === "light")); }
-    readonly property var locals: filtered(installed.filter(item => showHidden || !item.hidden))
-    readonly property var discoveries: filtered(tab === "community" ? availableItems.map(item => Object.assign({}, item, installed.find(local => local.id === item.id) || {}, {kind: "community"})) : installed.filter(item => !item.hidden && ["builtin", "official"].includes(item.kind)).concat(more.map(item => Object.assign({kind: "official"}, item))))
+    function matches(item) {
+        const words = query.trim().toLowerCase().split(/\s+/).filter(word => word);
+        const text = [item.name, item.id, item.description, item.author].filter(value => value).join(" ").toLowerCase();
+        return words.every(word => text.includes(word));
+    }
+    function filtered(items) { return items.filter(item => matches(item) && (kind !== "themes" || tone === "all" || item.light === (tone === "light"))); }
+    readonly property var locals: filtered(installed)
+    readonly property var discoveries: filtered(tab === "community" ? availableItems.map(item => Object.assign({}, item, installed.find(local => local.id === item.id) || {}, {kind: "community"})) : installed.filter(item => ["builtin", "official"].includes(item.kind)).concat(more.map(item => Object.assign({kind: "official"}, item))))
     readonly property var navigable: getMore ? discoveries : locals
     function toggle(item) {
         if (kind !== "themes" || busy || isInstalled(item)) return;
@@ -216,7 +221,6 @@ Item {
     }
     function isInstalled(item) { return installed.some(local => local.id === item.id); }
     function activate(item, local) {
-        if (item.hidden) return;
         if (busy) return;
         if (getMore) openDetail(item);
         else if (local && kind === "themes" && !item.current) act("apply", {id: item.id});
@@ -319,7 +323,7 @@ Item {
     onTabChanged: switchView()
     onKindChanged: switchView()
     onToneChanged: { shown = pageSize; scroll.contentY = 0; }
-    onShowHiddenChanged: shown = pageSize
+    onQueryChanged: { shown = pageSize; cursor = -1; scroll.contentY = 0; }
     onOpenedChanged: {
         if (opened) { opening++; updateCache = ({}); load(); if (live) checkUpdates(); forceActiveFocus(); }
         else { resetTransient(); discardReview(); mediaIndex = -1; generation++; DesktopData.releaseOwner(catalog); DesktopData.releaseOwner(updateOwner); busy = false; }
@@ -330,7 +334,7 @@ Item {
     Keys.onPressed: event => {
         if (event.key === Qt.Key_Escape) {
             if (nativeReviewing && confirmingReview) { event.accepted = true; return; }
-            if (nativeReviewing) { DesktopData.releaseOwner(catalog); busy = false; discardReview(); } else if (addingAddress) { addingAddress = false; forceActiveFocus(); } else if (reviewing || removing) cancelSheet(); else if (detail) closeDetail(); else closeRequested();
+            if (nativeReviewing) { DesktopData.releaseOwner(catalog); busy = false; discardReview(); } else if (addingAddress) { addingAddress = false; forceActiveFocus(); } else if (reviewing || removing) cancelSheet(); else if (detail) closeDetail(); else if (query) query = ""; else closeRequested();
             event.accepted = true;
         } else if ((event.key === Qt.Key_Return || event.key === Qt.Key_Enter) && (nativeReviewing || reviewing || removing)) {
             if (nativeReviewing) nativeConfirm(); else confirm(); event.accepted = true;
@@ -346,6 +350,13 @@ Item {
                 }
             } else if (event.key === Qt.Key_Left && (cursor < 0 || cursor % columns === 0)) {
                 sidebarFocus = true; cursor = -1; event.accepted = true; return;
+            }
+            if ((event.key === Qt.Key_F && (event.modifiers & Qt.ControlModifier)) || (event.key === Qt.Key_Slash && !event.modifiers)) {
+                searchField.forceActiveFocus(); searchField.selectAll(); event.accepted = true; return;
+            }
+            if (event.text && event.text !== " " && !(event.modifiers & (Qt.ControlModifier | Qt.AltModifier | Qt.MetaModifier)) && !/[\x00-\x1f\x7f]/.test(event.text)) {
+                query += event.text; sidebarFocus = false; searchField.forceActiveFocus(); searchField.cursorPosition = searchField.text.length;
+                event.accepted = true; return;
             }
             const count = navigable.length;
             let delta = 0;
@@ -480,11 +491,10 @@ Item {
         required property bool local
         readonly property bool picked: catalog.getMore && !local && catalog.selected.includes(item.id)
         readonly property bool focused: catalog.cursor >= 0 && !!catalog.navigable[catalog.cursor] && catalog.navigable[catalog.cursor].id === item.id
-        readonly property bool actionable: !item.hidden && (catalog.getMore || !(local && (catalog.kind === "plugins" || item.current)))
+        readonly property bool actionable: (catalog.getMore || !(local && (catalog.kind === "plugins" || item.current)))
         readonly property real viewportY: parent.parent.y + parent.y + y - scroll.contentY
         readonly property bool inViewport: viewportY + height > 0 && viewportY < scroll.height
         implicitHeight: details.y + details.height + 12
-        opacity: item.hidden ? 0.55 : 1
         radius: 4
         color: SiteStyle.surface
         border.width: 1
@@ -520,12 +530,11 @@ Item {
                 Pill { text: catalog.badge(tile.item) }
                 Pill { visible: tile.local && catalog.getMore; text: Eitr.I18n.tr("Installed") }
                 Pill { visible: catalog.kind === "plugins" && tile.item.enabled === false; text: Eitr.I18n.tr("Disabled") }
-                Pill { visible: !!tile.item.hidden; text: Eitr.I18n.tr("Hidden") }
             }
             Item {
                 width: parent.width
                 height: 32
-                visible: catalog.getMore && !tile.local || !!tile.item.hidden || (catalog.updates[tile.item.id] || 0) > 0
+                visible: catalog.getMore && !tile.local || (catalog.updates[tile.item.id] || 0) > 0
                 SiteButton {
                     objectName: "install-" + tile.item.id
                     anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter
@@ -534,16 +543,9 @@ Item {
                     selected: tile.picked; available: !catalog.busy
                     onClicked: { if (catalog.kind === "plugins") { catalog.openDetail(tile.item); catalog.reviewDetail(); } else catalog.toggle(tile.item); catalog.cursor = catalog.navigable.findIndex(item => item.id === tile.item.id); catalog.sidebarFocus = false; catalog.forceActiveFocus(); }
                 }
-                SiteButton {
-                    anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter
-                    width: 86; foreground: catalog.foreground
-                    visible: !!tile.item.hidden
-                    text: Eitr.I18n.tr("Restore")
-                    onClicked: catalog.act("unhide", {id: tile.item.id})
-                }
                 Pill {
                     anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter
-                    visible: !tile.item.hidden && (catalog.updates[tile.item.id] || 0) > 0; text: Eitr.I18n.tr("Update"); current: true
+                    visible: (catalog.updates[tile.item.id] || 0) > 0; text: Eitr.I18n.tr("Update"); current: true
                     MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: { if (catalog.kind === "themes") catalog.act("update", {id: tile.item.id}); else { catalog.openDetail(tile.item); catalog.prepareReview({id: tile.item.id, updating: true}); } } }
                 }
             }
@@ -558,14 +560,14 @@ Item {
         }
         SiteButton {
             id: removeButton
+            objectName: "remove-" + tile.item.id
             anchors.right: parent.right; anchors.top: parent.top; anchors.margins: 8
             width: 28; height: 28; icon: true; text: "󰆴"; foreground: SiteStyle.fg
             color: SiteStyle.night
-            visible: catalog.tab === "installed" && tile.local && !tile.item.current && tile.item.id !== "eitr" && tile.item.kind !== "own" && !tile.item.hidden
+            visible: catalog.tab === "installed" && tile.local && !tile.item.current && tile.item.kind !== "builtin" && tile.item.kind !== "own"
             Accessible.name: Eitr.I18n.tr("Remove %1").arg(tile.item.name || "")
             onClicked: { catalog.removing = tile.item; catalog.forceActiveFocus(); }
-            // Built-in themes cannot be deleted; removing one hides it.
-            BarTooltip { target: removeButton; hovered: removeButton.hovered; text: tile.item.kind === "builtin" ? Eitr.I18n.tr("Hide") : Eitr.I18n.tr("Delete"); foreground: SiteStyle.fg; background: SiteStyle.raised }
+            BarTooltip { target: removeButton; hovered: removeButton.hovered; text: Eitr.I18n.tr("Delete"); foreground: SiteStyle.fg; background: SiteStyle.raised }
         }
 
     }
@@ -696,10 +698,26 @@ Item {
         width: catalog.width - x - PanelStyle.padding; spacing: 12
         Item {
             width: parent.width; height: 36
-            visible: catalog.kind === "themes" || catalog.tab === "installed"
             // All themes by default; Sun or Moon shows only that mode, a second click all again.
-            Row { anchors.right: parent.right; spacing: PanelStyle.selectionRowGap; visible: catalog.kind === "themes"
-                Repeater { model: [{tone: "light", glyph: "󰖙", label: Eitr.I18n.tr("Light")}, {tone: "dark", glyph: "󰖔", label: Eitr.I18n.tr("Dark")}]
+            Row { anchors.right: parent.right; spacing: PanelStyle.selectionRowGap
+                TextField {
+                    id: searchField
+                    objectName: "catalog-search"
+                    width: catalog.compact ? 150 : 220; height: PanelStyle.selectionRowHeight
+                    color: SiteStyle.fg; font.family: SiteStyle.mono; font.pixelSize: 13
+                    placeholderText: "\uF002  " + (catalog.kind === "themes" ? Eitr.I18n.tr("Search themes") : Eitr.I18n.tr("Search plugins"))
+                    placeholderTextColor: SiteStyle.muted; selectionColor: catalog.accent; selectedTextColor: SiteStyle.fg
+                    leftPadding: 10; rightPadding: 10; topPadding: 0; bottomPadding: 0; verticalAlignment: TextInput.AlignVCenter
+                    background: Rectangle { color: SiteStyle.raised; radius: 4; border.width: 1; border.color: searchField.activeFocus ? catalog.accent : SiteStyle.lineStrong }
+                    selectByMouse: true
+                    Accessible.name: placeholderText
+                    text: catalog.query
+                    onTextEdited: catalog.query = text
+                    Keys.onEscapePressed: event => { if (text !== "") catalog.query = ""; else catalog.forceActiveFocus(); event.accepted = true; }
+                    Keys.onDownPressed: event => { catalog.forceActiveFocus(); if (catalog.navigable.length) catalog.cursor = 0; event.accepted = true; }
+                    onAccepted: { catalog.forceActiveFocus(); if (catalog.navigable.length) catalog.cursor = 0; }
+                }
+                Repeater { model: catalog.kind === "themes" ? [{tone: "light", glyph: "󰖙", label: Eitr.I18n.tr("Light")}, {tone: "dark", glyph: "󰖔", label: Eitr.I18n.tr("Dark")}] : []
                     SiteButton {
                         required property var modelData
                         width: PanelStyle.selectionRowHeight; height: PanelStyle.selectionRowHeight
@@ -713,7 +731,6 @@ Item {
             }
             Row { spacing: 12; visible: catalog.tab === "installed"
                 SiteButton { width: 100; available: !catalog.busy; text: Eitr.I18n.tr("Add"); foreground: catalog.foreground; Accessible.name: Eitr.I18n.tr("Add from a Git address"); onClicked: { catalog.addingAddress = true; catalog.error = ""; addressInput.forceActiveFocus(); } }
-                SiteButton { width: 136; visible: catalog.kind === "themes"; selected: catalog.showHidden; text: Eitr.I18n.tr("Show hidden"); foreground: catalog.foreground; activeFocusOnTab: false; onClicked: { catalog.showHidden = !catalog.showHidden; catalog.forceActiveFocus(); } }
             }
         }
         Label { width: parent.width; visible: text !== ""; text: (!catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing ? catalog.error || catalog.progress : "") || (catalog.loading ? Eitr.I18n.tr("Loading…") : ""); Accessible.role: Accessible.AlertMessage }
@@ -927,7 +944,7 @@ Item {
                 id: sheetColumn
                 anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; anchors.margins: 24; spacing: 18
                 Label { width: parent.width; font.family: SiteStyle.carved; font.pixelSize: PanelStyle.headingSize; font.weight: Font.Medium; text: catalog.reviewing ? Eitr.I18n.tr("Review theme installation") : Eitr.I18n.tr("Remove %1?").arg(catalog.removing ? catalog.removing.name : "") }
-                Label { width: parent.width; text: catalog.reviewing ? Eitr.I18n.tr("Data-only themes · Review selected sources") : catalog.kind === "plugins" ? Eitr.I18n.tr("The plugin and its files are deleted from this computer.") : catalog.removing && catalog.removing.kind === "builtin" ? Eitr.I18n.tr("Built-in themes are hidden. Show hidden brings them back.") : Eitr.I18n.tr("The theme is deleted from this computer."); color: SiteStyle.muted }
+                Label { width: parent.width; text: catalog.reviewing ? Eitr.I18n.tr("Data-only themes · Review selected sources") : catalog.kind === "plugins" ? Eitr.I18n.tr("The plugin and its files are deleted from this computer.") : Eitr.I18n.tr("The theme is deleted from this computer."); color: SiteStyle.muted }
                 ListView {
                     visible: catalog.reviewing
                     width: parent.width; height: 190; orientation: ListView.Horizontal; spacing: 12; clip: true

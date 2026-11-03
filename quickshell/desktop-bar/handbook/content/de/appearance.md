@@ -106,4 +106,6 @@ Auf PCs mit mehreren Konten zeigt der Anmeldebildschirm den ausgewählten Benutz
 
 Der Katalog installiert und aktualisiert Plugins im Fenster. Karten unter Offiziell und Community öffnen Details mit Bildern, Videos und Komponenten. Videos starten stumm und stoppen beim Schließen. Installieren und Update zeigen Quelle, vollständigen Commit, Autor, Dateien, Befehle, Warnungen und Änderungen; die optionale KI-Prüfung erscheint als Text. Plugins haben alle Berechtigungen deines Kontos. Enter bestätigt, Escape bricht ab. Installiert wird genau der geprüfte Commit; Community verwendet den im Index festgelegten Commit. Die Prüfung läuft nach 15 Minuten ab und wird beim Schließen verworfen. Installiert > Von einer Git-Adresse hinzufügen akzeptiert HTTPS oder SSH für Plugins und datenbasierte Themes, ohne Terminal.
 
-Das Entfernen eines integrierten Themas blendet es auf diesem Rechner in allen Auswahllisten aus. Unter Installiert Ausgeblendete anzeigen aktivieren und Wiederherstellen wählen. Eitr und das aktuelle Thema können nicht ausgeblendet werden. Bei heruntergeladenen Themen wird das installierte Paket gelöscht.
+Integrierte Themen gehören zu Eitr und können nicht entfernt werden. Der Papierkorb bei einem heruntergeladenen Thema löscht dessen installiertes Paket; das aktuelle Thema kann nicht entfernt werden.
+
+Tippe irgendwo im Katalog oder drücke Ctrl+F oder /, um den aktuellen Reiter nach Name oder Beschreibung zu durchsuchen. Die Wörter können in beliebiger Reihenfolge stehen; Escape leert zuerst die Suche.

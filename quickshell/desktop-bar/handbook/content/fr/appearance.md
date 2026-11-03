@@ -108,4 +108,6 @@ Sur les PC avec plusieurs comptes, l’écran de connexion affiche l’utilisate
 
 Le catalogue installe et met à jour les plugins dans la fenêtre. Les cartes Officiel et Communauté ouvrent les détails avec images, vidéos et composants. Les vidéos démarrent sans son et s’arrêtent à la fermeture. Installer et Mettre à jour présentent source, commit complet, auteur, fichiers, commandes, avertissements et changements ; la vérification facultative par IA apparaît sous forme de texte. Les plugins disposent de toutes les permissions du compte. Entrée confirme et Échap annule. Le commit installé est exactement celui vérifié ; Communauté utilise le commit fixé dans l’index. La vérification expire après 15 minutes et est supprimée à la fermeture du catalogue. Installés > Ajouter depuis une adresse Git accepte HTTPS ou SSH pour les plugins et les thèmes de données, sans terminal.
 
-Supprimer un thème intégré le masque dans les sélecteurs de cette machine. Dans Installés, activez Afficher les thèmes masqués puis choisissez Restaurer. Eitr et le thème actuel ne peuvent pas être masqués. Supprimer un thème téléchargé efface le paquet installé.
+Les thèmes intégrés font partie d’Eitr et ne peuvent pas être supprimés. La corbeille d’un thème téléchargé efface son paquet installé ; le thème actuel ne peut pas être supprimé.
+
+Tapez n’importe où dans le catalogue, ou appuyez sur Ctrl+F ou /, pour chercher dans l’onglet actuel par nom ou description. Les mots peuvent être dans n’importe quel ordre ; Échap efface d’abord la recherche.

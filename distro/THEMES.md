@@ -109,11 +109,9 @@ Catalog rows may include a `palette` object with exactly `background`, `foregrou
 that complete generated index. Older indexes without `palette` remain accepted,
 and their cards omit swatches. Installed cards read `colors.toml` locally.
 
-`themes.py hide ID` hides a built-in theme; `unhide ID` restores it. The sorted
-machine-local list is `$XDG_STATE_HOME/eitr/hidden-themes.json` (default
-`~/.local/state/eitr/hidden-themes.json`). Every picker uses the shared path
-resolver. Eitr and the current theme are protected. Catalog Installed offers
-Show hidden and Restore; hiding never deletes shipped files.
+Built-in themes cannot be removed: `themes.py remove ID` refuses them, and the
+catalog shows no trash button on them. Removing a downloaded theme deletes its
+package; the current theme is protected.
 
 Community installs record `community: true` in their local source record so their badge survives an index cache cleanup. This provenance never grants official status: official trust still depends only on the repository address.
 

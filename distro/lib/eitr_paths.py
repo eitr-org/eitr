@@ -65,7 +65,7 @@ def own(kind):
     return data('eitr') / kind
 
 
-def theme_paths(root=None, *, include_hidden=False):
+def theme_paths(root=None):
     """One directory per theme ID: shipped, then the user's own, then a whole-theme override."""
     merged = {}
     for directory in (code_root(root) / 'themes', own('themes'), config('themes')):
@@ -73,13 +73,6 @@ def theme_paths(root=None, *, include_hidden=False):
             for entry in directory.iterdir():
                 if entry.is_dir() and (entry / 'colors.toml').is_file():
                     merged[entry.name] = entry
-    if not include_hidden:
-        from eitr_theme_packages import hidden_themes
-        hidden = hidden_themes()
-        markers = (cache('current-theme'), Path.home() / '.cache/current-theme')
-        current = {marker.read_text().strip() for marker in markers if marker.is_file()}
-        merged = {name: directory for name, directory in merged.items()
-                  if name not in hidden or name in current or directory.resolve() == config('theme/current').resolve()}
     return dict(sorted(merged.items()))
 
 

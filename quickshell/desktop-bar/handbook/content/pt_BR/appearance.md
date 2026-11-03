@@ -104,4 +104,6 @@ Em PCs com várias contas, a tela de login mostra o usuário selecionado. Clique
 
 O catálogo instala e atualiza plugins na própria janela. Os cartões Oficial e Comunidade abrem detalhes com imagens, vídeos e componentes. Vídeos começam sem som e param ao fechar. Instalar e Atualizar mostram fonte, commit completo, autor, arquivos, comandos, avisos e alterações; a verificação opcional por IA aparece como texto. Plugins têm todas as permissões da sua conta. Enter confirma e Escape cancela. A instalação usa exatamente o commit revisado; na Comunidade, usa o commit fixado pelo índice. A revisão expira em 15 minutos e é descartada ao fechar o catálogo. Instalados > Adicionar de um endereço Git aceita HTTPS ou SSH para plugins e temas de dados, sem terminal.
 
-Remover um tema integrado o oculta dos seletores nesta máquina. Em Instalados, ative Mostrar ocultos e escolha Restaurar. Eitr e o tema atual não podem ser ocultados. Remover um tema baixado exclui o pacote instalado.
+Os temas integrados vêm com o Eitr e não podem ser removidos. A lixeira de um tema baixado exclui o pacote instalado; o tema atual não pode ser removido.
+
+Digite em qualquer lugar do catálogo, ou pressione Ctrl+F ou /, para pesquisar na aba atual por nome ou descrição. As palavras podem estar em qualquer ordem; Escape limpa a pesquisa primeiro.

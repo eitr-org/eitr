@@ -13,7 +13,7 @@ import secrets
 import time
 import tomllib
 
-from eitr_paths import cache, code_root, config, data, state, theme_paths
+from eitr_paths import cache, code_root, config, data, theme_paths
 from eitr_plugin_install import git, normalized_url, repository_url, COMMIT
 from eitr_plugin_manifest import identifier, string, unique_object
 
@@ -33,15 +33,6 @@ PALETTE_KEYS = ('background', 'foreground', 'accent', *(f'color{number}' for num
 def palette(root):
     colors = tomllib.loads((Path(root) / 'colors.toml').read_text())
     return {key: colors[key] for key in PALETTE_KEYS} if all(key in colors for key in PALETTE_KEYS) else {}
-
-def hidden_themes():
-    try:
-        value = read_json(state('eitr/hidden-themes.json'))
-    except FileNotFoundError:
-        return set()
-    if not isinstance(value, list) or len(value) > 1000:
-        raise ValueError('Invalid hidden themes list')
-    return {identifier(theme_id) for theme_id in value} - {'eitr'}
 
 OFFICIAL = 'github.com/eitr-org/eitr-themes'
 
@@ -416,13 +407,12 @@ class Themes:
 
     def installed(self):
         rows = []
-        hidden = hidden_themes()
         active = config('theme/current')
         active_id = manifest(active)['id'] if (active / MANIFEST).is_file() else None
         for current in (Path.home() / '.cache/current-theme', cache('current-theme')):
             if current.is_file():
                 active_id = current.read_text().strip()
-        for theme_id, root in theme_paths(include_hidden=True).items():
+        for theme_id, root in theme_paths().items():
             source = None
             if (root / 'own-theme.json').exists():
                 kind = 'own'
@@ -434,38 +424,13 @@ class Themes:
             rows.append(dict(id=theme_id, name=(root / 'display-name').read_text().strip(),
                              light=(root / 'light.mode').exists(), kind=kind, source=source,
                              description=manifest(root)['description'] if (root / MANIFEST).is_file() else '',
-                             palette=palette(root), hidden=theme_id in hidden,
+                             palette=palette(root),
                              wallpapers=[dict(path=asset.name, imageUrl=asset.as_uri(), size=asset.stat().st_size)
                                          for asset in sorted((root / 'backgrounds').glob('*'))
                                          if asset.is_file() and not asset.is_symlink() and asset.suffix.lower() in {'.png', '.jpg'}],
                              size=sum(asset.stat().st_size for asset in root.rglob('*') if asset.is_file() and not asset.is_symlink()),
                              previewUrl=(root / 'preview.png').as_uri(), current=theme_id == active_id or root.resolve() == active.resolve()))
         return rows
-
-    def hide(self, theme_id):
-        identifier(theme_id)
-        with self.lock():
-            row = next((row for row in self.installed() if row['id'] == theme_id), None)
-            if not row or row['kind'] != 'builtin':
-                raise ValueError('Only built-in themes can be hidden')
-            if theme_id == 'eitr' or row['current']:
-                raise ValueError('Cannot hide Eitr or the current theme')
-            self.save_hidden(hidden_themes() | {theme_id})
-        return theme_id
-
-    def unhide(self, theme_id):
-        identifier(theme_id)
-        with self.lock():
-            self.save_hidden(hidden_themes() - {theme_id})
-        return theme_id
-
-    def save_hidden(self, ids):
-        target = state('eitr/hidden-themes.json')
-        target.parent.mkdir(parents=True, exist_ok=True)
-        with tempfile.NamedTemporaryFile(mode='w', dir=target.parent, delete=False) as output:
-            temporary = Path(output.name)
-            output.write(json.dumps(sorted(ids)) + '\n')
-        temporary.replace(target)
 
     def check(self):
         counts = {}
@@ -488,7 +453,7 @@ class Themes:
 
     def remove(self, theme_id):
         if any(row['id'] == theme_id and row['kind'] == 'builtin' for row in self.installed()):
-            return self.hide(theme_id)
+            raise ValueError('Built-in themes cannot be removed')
         with self.lock():
             self.source(theme_id)
             # apply.sh and existing pickers use this legacy cache location.

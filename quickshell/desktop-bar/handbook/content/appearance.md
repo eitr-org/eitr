@@ -212,6 +212,8 @@ Installed lists local items and their source badges. Theme cards show palette
 swatches when available. Select themes, review their sources and total size, then
 install them together. Community plugins use the native commit review; Installed also accepts a Git address.
 
-Removing a built-in theme hides it from theme pickers on this machine. In Installed,
-turn on Show hidden and choose Restore to bring it back. Eitr and the current theme
-cannot be hidden. Removing a downloaded theme deletes that installed package.
+Built-in themes ship with Eitr and cannot be removed. The trash button on a
+downloaded theme deletes that installed package; the current theme cannot be removed.
+
+Type anywhere in the catalog, or press Ctrl+F or /, to search the current tab by
+name or description. Words can appear in any order; Escape clears the search first.

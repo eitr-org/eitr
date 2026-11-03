@@ -237,7 +237,7 @@ ShellRoot {
     onTriggered: {
      if (Bar.SiteStyle.light !== SITE_LIGHT) throw new Error("light.mode detection");
      if (panel.background !== Bar.SiteStyle.card || panel.accent !== Bar.SiteStyle.accent) throw new Error("site palette binding");
-     const names = ["official-themes", "selected-themes", "detail-overview", "detail-wallpaper", "review", "installing", "community-detail", "installed-hidden", "plugins-official", "plugins-installed", "remove", "plugin-cards-install", "plugin-images", "plugin-video", "plugin-review-official", "plugin-review-third-party", "plugin-update-review", "git-address"];
+     const names = ["official-themes", "selected-themes", "detail-overview", "detail-wallpaper", "review", "installing", "community-detail", "installed-search", "plugins-official", "plugins-installed", "remove", "plugin-cards-install", "plugin-images", "plugin-video", "plugin-review-official", "plugin-review-third-party", "plugin-update-review", "git-address"];
      if (sample.phase === 0) {
       panel.installed = [{id:"eitr",name:"Eitr",kind:"builtin",current:true,description:"Primordial venom",previewUrl:"PREVIEW"},{id:"nord",name:"Nord",kind:"official",description:"Cool northern blues",previewUrl:"PREVIEW2"},{id:"mine",name:"My theme",kind:"own",light:true,description:"A quiet light palette",previewUrl:"PREVIEW3"}];
       panel.availableItems = [{id:"moss",name:"Moss",kind:"official",description:"Deep forest greens",size:3145728},{id:"jade",name:"Jade",kind:"official",light:true,description:"Warm jade and cream",size:2097152},{id:"asgard",name:"Asgard",kind:"official",description:"Gold in the halls of the gods",size:2097152}];
@@ -321,10 +321,23 @@ ShellRoot {
       panel.openDetail(panel.availableItems[0]);
       if (panel.wallpapers[0].thumbnail || panel.wallpapers[0].imageUrl) throw new Error("community uses name tiles");
      } else if (sample.phase === 7) {
-      panel.closeDetail(); panel.tab = "installed"; panel.showHidden = true;
-      panel.installed = [{id:"eitr",name:"Eitr",kind:"builtin",current:true,description:"Primordial venom",previewUrl:"PREVIEW"},{id:"nord",name:"Nord",kind:"builtin",hidden:true,description:"Cool northern blues",previewUrl:"PREVIEW2"}];
+      panel.closeDetail(); panel.tab = "installed";
+      panel.installed = [{id:"eitr",name:"Eitr",kind:"builtin",current:true,description:"Primordial venom",previewUrl:"PREVIEW"},{id:"afterglow",name:"Afterglow",kind:"builtin",description:"Warm dusk",previewUrl:"PREVIEW3"},{id:"nord",name:"Nord",kind:"official",description:"Cool northern blues",previewUrl:"PREVIEW2"}];
+      panel.forceActiveFocus(); keys.keyClick("n"); keys.keyClick("o"); keys.keyClick("r");
+      if (panel.query !== "nor" || panel.locals.length !== 1 || panel.locals[0].id !== "nord") throw new Error("Typing searches installed themes: " + JSON.stringify(panel.query) + " " + panel.locals.length);
+      panel.query = "northern BLUES";
+      if (panel.locals.length !== 1) throw new Error("Search matches descriptions, any case");
+      panel.query = "warm";
+      if (panel.locals.length !== 1 || panel.locals[0].id !== "afterglow") throw new Error("Search by description");
+      panel.forceActiveFocus(); keys.keyClick(Qt.Key_Escape);
+      if (panel.query !== "" || !panel.opened) throw new Error("Escape clears search before closing");
+      panel.query = "nord";
       panel.availableItems = [{id:"notes",name:"Notes",description:"Notes on the desktop",size:12345}];
      } else if (sample.phase === 8) {
+      function find(root, name) { if (root.objectName === name) return root; for (const child of root.children || []) { const found = find(child, name); if (found) return found; } return null; }
+      panel.query = "";
+      const builtinRemove = find(panel, "remove-afterglow"), officialRemove = find(panel, "remove-nord");
+      if (!builtinRemove || !officialRemove || builtinRemove.visible || !officialRemove.visible) throw new Error("Only non built-in themes have a remove button");
       let applies = 0;
       panel.transport = function(name, args, callback) { if (name === "apply") applies++; callback("", {items:[]}); };
       panel.activate({id:"nord", name:"Nord"}, true);
@@ -520,7 +533,7 @@ ShellRoot {
                 self.assertNotIn('Cannot open:', output)
                 self.assertNotIn('Error decoding:', output)
                 self.assertNotIn('Unable to assign', output)
-                for state in ('official-themes', 'selected-themes', 'detail-overview', 'detail-wallpaper', 'review', 'installing', 'community-detail', 'installed-hidden', 'plugins-official', 'plugins-installed', 'remove', 'plugin-cards-install', 'plugin-images', 'plugin-video', 'plugin-review-official', 'plugin-review-third-party', 'plugin-update-review', 'git-address'):
+                for state in ('official-themes', 'selected-themes', 'detail-overview', 'detail-wallpaper', 'review', 'installing', 'community-detail', 'installed-search', 'plugins-official', 'plugins-installed', 'remove', 'plugin-cards-install', 'plugin-images', 'plugin-video', 'plugin-review-official', 'plugin-review-third-party', 'plugin-update-review', 'git-address'):
                     self.assertGreater((target / f'{state}-{variant}.png').stat().st_size, 10000)
 
     def test_handbook_uses_shared_native_window(self):

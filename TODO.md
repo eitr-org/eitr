@@ -79,8 +79,8 @@ channel first; the website changes only once it reaches stable.
   wallpaper browsing; card Install buttons toggle selection. Detail Install reviews
   only that theme. Official indexes ship checked wallpaper thumbnails; community
   galleries discover names and sizes without fetching image blobs.
-  Removing a built-in theme hides it (Show hidden restores; Eitr and the current
-  theme cannot be hidden). Plugin cards share the picture grid, with screenshots,
+  Built-in themes cannot be removed; a search field filters the current tab by name
+  and description. Plugin cards share the picture grid, with screenshots,
   centered icons or a generic glyph, source/status badges and removal. Artwork
   downloads on demand. Plugin detail sheets support pictures and muted video; native
   install/update reviews and Add from a Git address are implemented.

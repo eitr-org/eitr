@@ -25,7 +25,7 @@ def main():
         command.add_argument('url')
         if name == 'install':
             command.add_argument('ids', nargs='+')
-    for name in ('update', 'remove', 'hide', 'unhide'):
+    for name in ('update', 'remove'):
         commands.add_parser(name).add_argument('id')
     for name in ('list', 'check'):
         commands.add_parser(name)
@@ -36,7 +36,7 @@ def main():
             result = backend.install(arguments.url, arguments.ids)
         elif arguments.command == 'index':
             result = backend.index(arguments.url)
-        elif arguments.command in ('update', 'remove', 'hide', 'unhide'):
+        elif arguments.command in ('update', 'remove'):
             result = getattr(backend, arguments.command)(arguments.id)
         else:
             result = getattr(backend, 'installed' if arguments.command == 'list' else 'check')()

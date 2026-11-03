@@ -22,7 +22,7 @@ from eitr_i18n import tr
 
 THEMES = 'https://github.com/eitr-org/eitr-themes'
 PLUGINS = 'https://github.com/eitr-org/eitr-plugins'
-MUTATIONS = {'prepare', 'confirm', 'discard', 'advice', 'install', 'update', 'remove', 'apply', 'unhide'}
+MUTATIONS = {'prepare', 'confirm', 'discard', 'advice', 'install', 'update', 'remove', 'apply'}
 
 
 def validate(name, args):
@@ -32,9 +32,9 @@ def validate(name, args):
         raise ValueError('invalid-kind')
     if args.get('channel', 'official') not in {'official', 'community', 'installed', 'git'}:
         raise ValueError('invalid-channel')
-    if args['kind'] == 'plugins' and name in {'install', 'update', 'apply', 'unhide'}:
+    if args['kind'] == 'plugins' and name in {'install', 'update', 'apply'}:
         raise ValueError('Use the plugin prepare/confirm review')
-    ids = args.get('ids', []) if name == 'install' or name == 'prepare' and 'ids' in args else [args.get('id')] if name in {'update', 'remove', 'apply', 'unhide', 'preview', 'artwork', 'detail'} else []
+    ids = args.get('ids', []) if name == 'install' or name == 'prepare' and 'ids' in args else [args.get('id')] if name in {'update', 'remove', 'apply', 'preview', 'artwork', 'detail'} else []
     if not isinstance(ids, list) or (name == 'install' and not ids) or len(ids) > 1000 or any(
             not isinstance(theme_id, str) or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', theme_id) or len(theme_id) > 64 for theme_id in ids):
         raise ValueError('invalid-id')
@@ -174,7 +174,7 @@ def community(name, args):
         destinations = []
         from eitr_paths import theme_paths, code_root, config
         for theme_id in args['ids']:
-            if (theme_id in theme_paths(include_hidden=True) or theme_id not in rows
+            if (theme_id in theme_paths() or theme_id not in rows
                     or any((parent / theme_id).exists() for parent in (backend.folder, code_root() / 'themes', config('themes')))):
                 raise ValueError('Theme ID already exists or is absent from community index')
             destination = stage / theme_id

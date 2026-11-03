@@ -189,9 +189,6 @@
     "Built in": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
-    "Built-in themes are hidden. Show hidden brings them back.": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
-    ],
     "CA certificate file not found": [
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
@@ -588,12 +585,6 @@
     ],
     "Hello from an Eitr plugin": [
       "distro/plugins/example/HelloPanel.qml"
-    ],
-    "Hidden": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
-    ],
-    "Hide": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Hide Bar": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
@@ -1190,9 +1181,6 @@
     "Restart": [
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
     ],
-    "Restore": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
-    ],
     "Restore a File": [
       "quickshell/desktop-bar/panels/ControlCenterSettings.qml"
     ],
@@ -1291,8 +1279,14 @@
     "Search emojis": [
       "quickshell/emoji-picker/shell.qml"
     ],
+    "Search plugins": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Search the handbook…": [
       "quickshell/desktop-bar/panels/Handbook.qml"
+    ],
+    "Search themes": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Selected": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -1341,9 +1335,6 @@
     ],
     "Show help notifications when a program crashes.": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
-    ],
-    "Show hidden": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Show icons": [
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
