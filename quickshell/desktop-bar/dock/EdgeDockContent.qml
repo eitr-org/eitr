@@ -14,7 +14,7 @@ Item {
     property var desktopEntries: DesktopEntries.applications.values
     property real availableLength: 1000
     readonly property bool vertical: barEdge === "left" || barEdge === "right"
-    readonly property real axisLength: Math.min(availableLength, 16 + Math.max(0, apps.length * 42 - 6) + (dividerVisible ? 12 : 0))
+    readonly property real axisLength: Math.min(availableLength, 16 + baseLength + magnifiedExtra)
     readonly property QtObject hostWindow: QtObject { readonly property var outerGaps: [4, 4, 4, 4] }
     readonly property bool detached: false
     // Straight sides meet the screen edge, without the panels' inward curves.
@@ -29,23 +29,22 @@ Item {
     readonly property var orderedApps: dragging ? DockModel.orderWithPins(apps, previewPins) : apps
     readonly property int pinCount: dragging ? previewPins.length : pins.length
     readonly property bool dividerVisible: pinCount > 0 && pinCount < apps.length
-    // Magnify on hover: icons near the pointer grow away from the screen edge on a
-    // cosine falloff and neighbours shift apart; the surface itself never moves.
-    // The pointer is measured against the unscaled slots, so growth cannot feed back.
-    readonly property real magnification: 1.6
+    // Magnify on hover: icons near the pointer grow from their centres on a cosine
+    // falloff, and the surface lengthens (still centred) so they stay inside it.
+    // The pointer is measured from the dock's fixed centre against the unscaled
+    // slots, so neither the growth nor the longer surface can feed back into it.
+    readonly property real magnification: 1.35
     readonly property real magnifyReach: 2.5 * 42
-    readonly property bool overflowing: (vertical ? icons.height : icons.width) > (vertical ? height : width) - 16
+    readonly property real baseLength: Math.max(0, apps.length * 42 - 6) + (dividerVisible ? 12 : 0)
+    readonly property bool overflowing: 16 + baseLength + 48 > availableLength
     readonly property bool magnifying: pointer.hovered && !dragging && !menuOpen && !overflowing
         && revealProgress >= 1 && !DesktopStyle.reduceMotion
     property real magnifyStrength: magnifying ? 1 : 0
     Behavior on magnifyStrength { NumberAnimation { duration: 120; easing.type: Easing.OutCubic } }
-    readonly property bool clipsContent: overflowing || magnifyStrength === 0
     property real lastPointerAxis: 0
     readonly property point pointerPosition: pointer.point.position
     onPointerPositionChanged: {
-        if (!pointer.hovered) return;
-        var local = icons.mapFromItem(dock, pointerPosition.x, pointerPosition.y);
-        lastPointerAxis = vertical ? local.y : local.x;
+        if (pointer.hovered) lastPointerAxis = baseLength / 2 + (vertical ? pointerPosition.y : pointerPosition.x) - axisLength / 2;
     }
     function slotScale(entry) {
         if (magnifyStrength === 0) return 1;
@@ -53,20 +52,18 @@ Item {
         if (distance >= magnifyReach) return 1;
         return 1 + (magnification - 1) * magnifyStrength * (1 + Math.cos(Math.PI * distance / magnifyReach)) / 2;
     }
-    // Extra length every grown slot adds, spread so the point under the pointer stays put.
-    function slotShift(entry) {
+    // Length added by grown slots before a position (all of it for the surface).
+    function extraBefore(position) {
         if (magnifyStrength === 0) return 0;
-        var shift = 0;
-        var own = slotPosition(entry);
-        for (var candidate of orderedApps) {
-            var start = slotPosition(candidate);
-            var extra = 36 * (slotScale(candidate) - 1);
-            if (start < own) shift += extra;
-            else if (candidate.id === entry.id) shift += extra / 2;
-            shift -= extra * Math.max(0, Math.min(1, (lastPointerAxis - start) / 36));
-        }
-        return shift;
+        var extra = 0;
+        for (var candidate of orderedApps)
+            if (slotPosition(candidate) < position) extra += 36 * (slotScale(candidate) - 1);
+        return extra;
     }
+    function slotShift(entry) {
+        return magnifyStrength === 0 ? 0 : extraBefore(slotPosition(entry)) + 18 * (slotScale(entry) - 1);
+    }
+    readonly property real magnifiedExtra: extraBefore(Infinity)
     function slotPosition(entry) {
         var index = orderedApps.findIndex(candidate => candidate.id === entry.id);
         return index * 42 + (dividerVisible && index >= pinCount ? 12 : 0);
@@ -117,6 +114,10 @@ Item {
                     width: dock.vertical ? 26 : 1
                     height: dock.vertical ? 1 : 26
                     color: Qt.alpha(dock.foreground, PanelStyle.dividerAlpha)
+                    transform: Translate {
+                        x: dock.vertical ? 0 : dock.extraBefore(dock.pinCount * 42)
+                        y: dock.vertical ? dock.extraBefore(dock.pinCount * 42) : 0
+                    }
                 }
                 Repeater {
                     model: dock.apps
@@ -137,8 +138,7 @@ Item {
                         z: magnifiedScale
                         transform: [
                             Scale {
-                                origin.x: dock.barEdge === "left" ? 0 : dock.barEdge === "right" ? 36 : 18
-                                origin.y: dock.barEdge === "top" ? 0 : dock.barEdge === "bottom" ? 36 : 18
+                                origin.x: 18; origin.y: 18
                                 xScale: slot.magnifiedScale; yScale: slot.magnifiedScale
                             },
                             Translate {
@@ -159,7 +159,7 @@ Item {
                             width: 28; height: 28
                             source: slot.application && slot.application.icon ? Quickshell.iconPath(slot.application.icon, true) : ""
                             // Drawn sharp at the largest magnified size.
-                            sourceSize.width: 48; sourceSize.height: 48
+                            sourceSize.width: 40; sourceSize.height: 40
                             smooth: true; mipmap: true
                             asynchronous: true
                         }

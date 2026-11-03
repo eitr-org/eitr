@@ -143,7 +143,7 @@ class EdgeDockTests(unittest.TestCase):
                 var closed = findAction(surface, "dockSlot-other");
                 var browser = findAction(surface, "dockSlot-browser");
                 var editor = findAction(surface, "dockSlot-editor");
-                if (!surface.clipsContent || closed.magnifiedScale !== 1) throw new Error("Magnified at rest");
+                if (closed.magnifiedScale !== 1 || surface.magnifiedExtra !== 0) throw new Error("Magnified at rest");
                 surface.lastPointerAxis = 60;
                 surface.magnifyStrength = 1;
                 surface.parent = magnifyFrame;
@@ -151,10 +151,23 @@ class EdgeDockTests(unittest.TestCase):
                 var closed = findAction(surface, "dockSlot-other");
                 var browser = findAction(surface, "dockSlot-browser");
                 var editor = findAction(surface, "dockSlot-editor");
-                if (Math.abs(browser.magnifiedScale - surface.magnification) > 0.001 || Math.abs(browser.magnifiedShift) > 0.001) throw new Error("Hovered icon: " + browser.magnifiedScale + " " + browser.magnifiedShift);
-                if (!(closed.magnifiedScale > 1 && closed.magnifiedScale < browser.magnifiedScale && closed.magnifiedShift < 0)) throw new Error("Leading neighbour");
-                if (!(editor.magnifiedScale > 1 && editor.magnifiedScale < browser.magnifiedScale && editor.magnifiedShift > 0)) throw new Error("Trailing neighbour");
-                if (surface.clipsContent || (dock.vertical ? browser.y : browser.x) !== 42) throw new Error("Magnified clip/base");
+                if (Math.abs(browser.magnifiedScale - surface.magnification) > 0.001) throw new Error("Hovered icon: " + browser.magnifiedScale);
+                if (!(closed.magnifiedScale > 1 && closed.magnifiedScale < browser.magnifiedScale)) throw new Error("Leading neighbour");
+                if (!(editor.magnifiedScale > 1 && editor.magnifiedScale < browser.magnifiedScale)) throw new Error("Trailing neighbour");
+                var length = dock.vertical ? surface.height : surface.width;
+                if (!(surface.magnifiedExtra > 0) || Math.abs(length - (16 + surface.baseLength + surface.magnifiedExtra)) > 0.001) throw new Error("Surface did not lengthen");
+                var middle = dock.vertical ? surface.y + surface.height / 2 : surface.x + surface.width / 2;
+                if (Math.abs(middle - (dock.vertical ? dock.height : dock.width) / 2) > 0.001) throw new Error("Magnified dock not centered");
+                var previousEnd = -1;
+                for (var slot of [closed, browser, editor]) {
+                    var base = dock.vertical ? slot.y : slot.x;
+                    var start = base + slot.magnifiedShift + 18 - 18 * slot.magnifiedScale;
+                    var end = base + slot.magnifiedShift + 18 + 18 * slot.magnifiedScale;
+                    if (start < -0.001 || end > surface.baseLength + surface.magnifiedExtra + 0.001 || start < previousEnd - 0.001) throw new Error("Icon outside the dock or overlapping");
+                    if (18 * slot.magnifiedScale * 2 > (dock.vertical ? surface.width : surface.height) - 2) throw new Error("Icon deeper than the dock");
+                    previousEnd = end;
+                }
+                if ((dock.vertical ? browser.y : browser.x) !== 42) throw new Error("Magnified base");
                 var grabbed = magnifyFrame.grabToImage(function(result) {
                     if (!result.saveToFile(CAPTURE.replace(".png", "-magnified.png"))) console.error("Magnified capture");
                 });
