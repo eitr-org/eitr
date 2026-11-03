@@ -9,6 +9,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class PanelLayeringTests(unittest.TestCase):
+    def test_popup_stack_layers_peek_only_below_the_translucent_front_card(self):
+        source = (ROOT / "notifications/NotificationPopups.qml").read_text()
+        layer = source[source.index('objectName: "popupStackLayer"'):source.index("id: popupCard")]
+        self.assertIn("y: popupCard.height", layer)
+        self.assertIn("clip: true", layer)
+        self.assertIn("y: parent.depth * 7 - popupCard.height", layer)
+
     def test_open_and_closing_panels_use_foreground_layer(self):
         shell = frame_source(ROOT)
         self.assertIn("readonly property bool panelOpen: dockPanels.some(panel => panel.visible)", shell)

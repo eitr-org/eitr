@@ -34,17 +34,26 @@ PanelWindow {
                 height: popupCard.height + Math.max(0, Math.min(3, modelData.notifications.length) - 1) * 7
                 Repeater {
                     model: Math.max(0, Math.min(3, stack.modelData.notifications.length) - 1)
-                    Rectangle {
+                    // The front card is translucent, so each layer behind it draws only
+                    // the strip that peeks out below it; otherwise its outline shows
+                    // through the front card.
+                    Item {
                         required property int index
                         readonly property int depth: index + 1
-                        x: depth * 8; y: depth * 7
-                        width: stack.width - depth * 16; height: popupCard.height
-                        radius: DesktopStyle.radius(PanelStyle.cornerRadius)
-                        color: Qt.rgba(window.background.r * 0.92 + window.foreground.r * 0.08,
-                            window.background.g * 0.92 + window.foreground.g * 0.08,
-                            window.background.b * 0.92 + window.foreground.b * 0.08, 1)
-                        border.width: 1; border.color: Qt.alpha(window.foreground, 0.12)
+                        objectName: "popupStackLayer" + depth
+                        y: popupCard.height
+                        width: stack.width; height: depth * 7
+                        clip: true
                         z: 2 - depth
+                        Rectangle {
+                            x: parent.depth * 8; y: parent.depth * 7 - popupCard.height
+                            width: stack.width - parent.depth * 16; height: popupCard.height
+                            radius: DesktopStyle.radius(PanelStyle.cornerRadius)
+                            color: Qt.rgba(window.background.r * 0.92 + window.foreground.r * 0.08,
+                                window.background.g * 0.92 + window.foreground.g * 0.08,
+                                window.background.b * 0.92 + window.foreground.b * 0.08, 1)
+                            border.width: 1; border.color: Qt.alpha(window.foreground, 0.12)
+                        }
                     }
                 }
                 Rectangle {
