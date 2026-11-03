@@ -32,7 +32,7 @@ def validate(name, args):
         raise ValueError('invalid-kind')
     if args.get('channel', 'official') not in {'official', 'community', 'installed'}:
         raise ValueError('invalid-channel')
-    if args['kind'] == 'plugins' and name in {'install', 'update', 'apply', 'preview', 'unhide'}:
+    if args['kind'] == 'plugins' and name in {'install', 'update', 'apply', 'unhide'}:
         raise ValueError(tr('Plugin installation and update review are not available yet'))
     ids = args.get('ids', []) if name == 'install' else [args.get('id')] if name in {'update', 'remove', 'apply', 'unhide', 'preview'} else []
     if not isinstance(ids, list) or (name == 'install' and not ids) or len(ids) > 1000 or any(
@@ -192,6 +192,65 @@ def installed_badges(rows, kind):
     return rows
 
 
+def artwork_preview(kind, item_id, backend):
+    """Materialize one regular Git blob, validate it, then publish atomically."""
+    import hashlib
+    import io
+    from pathlib import PurePosixPath
+    from eitr_paths import cache
+    from eitr_plugin_install import git, normalized_url, COMMIT
+    from eitr_plugin_manifest import image_asset
+    from PIL import Image
+    plugin = kind == 'plugins'
+    with backend.lock():
+        if plugin:
+            rows = json.loads(cache('eitr/catalog-previews/plugins.json').read_text())
+            row = next(row for row in rows if row['id'] == item_id)
+            revision = row['commit']
+            repository = cache('eitr/plugin-repositories') / hashlib.sha256(normalized_url(PLUGINS).encode()).hexdigest()
+        else:
+            from eitr_theme_packages import validate_index
+            index = json.loads(cache('eitr/catalog-previews/index.json').read_text())
+            revision = index['commit']
+            row = next(row for row in validate_index(index['themes']) if row['id'] == item_id)
+            repository = backend.cache / hashlib.sha256(normalized_url(THEMES).encode()).hexdigest()
+        if not isinstance(revision, str) or not COMMIT.fullmatch(revision):
+            raise ValueError('Invalid catalog revision')
+        screenshot = bool(row.get('preview'))
+        relative = row.get('preview') or (row.get('icon') if plugin else '')
+        if not relative:
+            return {'image': ''}
+        path = PurePosixPath(relative)
+        if path.is_absolute() or '..' in path.parts or not path.parts or '\\' in relative:
+            raise ValueError('Invalid artwork path')
+        target = cache('eitr/catalog-previews') / (hashlib.sha256((revision + relative).encode()).hexdigest() + path.suffix.lower())
+        if not target.exists():
+            options = dict(allow_file=backend.allow_file)
+            entry = git(repository, 'ls-tree', revision, '--', relative, **options)
+            if not entry.startswith('100644 blob '):
+                raise ValueError('Artwork must be a regular file')
+            blob = git(repository, 'rev-parse', revision + ':' + relative, **options)
+            limit = 512 * 1024 if plugin and not screenshot else 2 * 1024 * 1024
+            if int(git(repository, 'cat-file', '-s', blob, **options)) > limit:
+                raise ValueError('Artwork exceeds size limit')
+            payload = git(repository, 'cat-file', 'blob', blob, binary=True, **options)
+            if len(payload) > limit:
+                raise ValueError('Artwork exceeds size limit')
+            target.parent.mkdir(parents=True, exist_ok=True)
+            with tempfile.TemporaryDirectory(dir=target.parent) as directory:
+                temporary = Path(directory) / ('image' + path.suffix.lower())
+                temporary.write_bytes(payload)
+                if plugin:
+                    image_asset(Path(directory), temporary.name, preview=screenshot)
+                else:
+                    with Image.open(io.BytesIO(payload)) as image:
+                        if image.format != 'PNG' or max(image.size) > 2048:
+                            raise ValueError('Invalid preview')
+                        image.verify()
+                temporary.replace(target)
+        return {'image': target.as_uri()}
+
+
 def worker(name, args):
     from eitr_paths import code_root, cache
     from eitr_theme_packages import Themes
@@ -214,36 +273,7 @@ def worker(name, args):
             temporary.replace(target)
             return {'items': result['themes']}
         if name == 'preview':
-            # Only the selected preview blob is materialized, never a checkout.
-            from eitr_theme_packages import git
-            from PIL import Image
-            import hashlib
-            with backend.lock():
-                from eitr_theme_packages import validate_index, COMMIT
-                from eitr_plugin_install import normalized_url
-                index = json.loads(cache('eitr/catalog-previews/index.json').read_text())
-                revision, rows = index['commit'], validate_index(index['themes'])
-                if not isinstance(revision, str) or not COMMIT.fullmatch(revision):
-                    raise ValueError('Invalid catalog revision')
-                repository = backend.cache / hashlib.sha256(normalized_url(THEMES).encode()).hexdigest()
-                row = next(row for row in rows if row['id'] == args['id'])
-                target = cache('eitr/catalog-previews') / (hashlib.sha256((revision + row['preview']).encode()).hexdigest() + '.png')
-                if not target.exists():
-                    blob = git(repository, 'rev-parse', revision + ':' + row['preview'])
-                    if int(git(repository, 'cat-file', '-s', blob)) > 2 * 1024 * 1024:
-                        raise ValueError('Preview exceeds size limit')
-                    payload = git(repository, 'cat-file', 'blob', blob, binary=True)
-                    import io
-                    with Image.open(io.BytesIO(payload)) as image:
-                        if image.format != 'PNG' or max(image.size) > 2048:
-                            raise ValueError('Invalid preview')
-                        image.verify()
-                    target.parent.mkdir(parents=True, exist_ok=True)
-                    with tempfile.NamedTemporaryFile(dir=target.parent, delete=False) as handle:
-                        temporary = Path(handle.name)
-                        handle.write(payload)
-                    temporary.replace(target)
-                return {'image': target.as_uri()}
+            return artwork_preview(kind, args['id'], backend)
         if name == 'install':
             return {'result': backend.install(THEMES, args['ids'])}
         if name == 'check':
@@ -260,7 +290,16 @@ def worker(name, args):
         return {'updates': backend.check_updates()}
     if name == 'remove':
         return {'result': backend.remove(args['id'], lambda record: True)}
-    return {'items': backend.catalog(PLUGINS)}
+    if name == 'preview':
+        return artwork_preview(kind, args['id'], backend)
+    rows = backend.catalog(PLUGINS)
+    target = cache('eitr/catalog-previews/plugins.json')
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(mode='w', dir=target.parent, delete=False) as handle:
+        temporary = Path(handle.name)
+        json.dump(rows, handle)
+    temporary.replace(target)
+    return {'items': rows}
 
 
 def response(name, args):

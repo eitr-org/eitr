@@ -74,7 +74,9 @@ channel first; the website changes only once it reaches stable.
   it, and Sun/Moon filter light or dark themes (all by default, like the theme
   carousel). Multi-select theme installs, updates checked on open, and removal.
   Removing a built-in theme hides it (Show hidden restores; Eitr and the current
-  theme cannot be hidden).
+  theme cannot be hidden). Plugin cards share the picture grid, with screenshots,
+  centered icons or a generic glyph, source/status badges and removal. Artwork
+  downloads on demand; plugin installation still opens a coming-soon note.
 - **Community index `eitr-org/eitr-community`.** Pointers only, one JSON file per
   entry under `themes/` and `plugins/` (plugins pin an exact commit),
   `removed.json`, a generated `index.json`, and CI running

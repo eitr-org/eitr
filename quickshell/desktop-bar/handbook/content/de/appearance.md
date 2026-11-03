@@ -25,10 +25,13 @@ oder Installieren bestätigt sie; Escape schließt zuerst die Prüfung, dann das
 werden nur für sichtbare Karten geladen und im Benutzer-Cache gespeichert. Ist das
 Repository nicht erreichbar, lädt Erneut versuchen es neu; Installiert funktioniert offline.
 
-Die Plugin-Seiten zeigt installierte Plugins und das offizielle Repository
-`eitr-org/eitr-plugins`; Entfernen wird im Fenster bestätigt. Installation und Updates
-von Plugins verwenden weiterhin die vorhandenen Prüfabläufe. Der Katalog installiert
-noch keine Plugins und akzeptiert keine Repository-Adressen von Drittanbietern.
+Die Plugin-Seite zeigt installierte Plugins und das offizielle Repository
+`eitr-org/eitr-plugins` als Bildkarten mit Screenshot, zentriertem Symbol oder
+allgemeinem Plugin-Symbol. Kennzeichnungen zeigen installierte und deaktivierte
+Plugins. Das Entfernen wird im Fenster bestätigt. Zum Installieren verwende
+**Walker > Plugins**. Installation und Updates verwenden weiterhin die vorhandenen
+Prüfabläufe; der Katalog installiert noch keine Plugins und akzeptiert keine
+Repository-Adressen von Drittanbietern.
 
 ## Designs und Hintergrundbilder
 

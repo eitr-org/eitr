@@ -14,7 +14,7 @@ from urllib.parse import urlsplit
 
 import eitr_policy
 from eitr_i18n import mark, tr
-from eitr_paths import config, data, state
+from eitr_paths import cache, config, data, state
 from eitr_plugin_manifest import (
     identifier,
     index_entries,
@@ -401,11 +401,19 @@ class PluginInstall:
     def catalog(self, url):
         """Read index/card metadata only; installation still validates all files."""
         repository_url(url, allow_file=self.allow_file)
-        with tempfile.TemporaryDirectory() as temporary:
-            candidate = Path(temporary) / 'repository'
-            git(None, 'clone', '--template=', '--filter=blob:none', '--sparse', '--no-checkout',
-                '--no-recurse-submodules', '--', url, str(candidate), allow_file=self.allow_file)
-            revision = commit(candidate)
+        with self.lock():
+            candidate = cache('eitr/plugin-repositories') / hashlib.sha256(normalized_url(url).encode()).hexdigest()
+            candidate.parent.mkdir(parents=True, exist_ok=True)
+            if not candidate.exists():
+                with tempfile.TemporaryDirectory(dir=candidate.parent) as temporary:
+                    staging = Path(temporary) / 'repository'
+                    git(None, 'clone', '--template=', '--filter=blob:none', '--sparse', '--no-checkout',
+                        '--no-recurse-submodules', '--', url, str(staging), allow_file=self.allow_file)
+                    staging.rename(candidate)
+                revision = commit(candidate)
+            else:
+                git(candidate, 'fetch', '--filter=blob:none', '--no-recurse-submodules', '--', url, 'HEAD', allow_file=self.allow_file)
+                revision = git(candidate, 'rev-parse', 'FETCH_HEAD', allow_file=self.allow_file)
 
             def blob(path):
                 entry = git(candidate, 'ls-tree', revision, '--', path, allow_file=self.allow_file)
@@ -424,9 +432,15 @@ class PluginInstall:
                     raise ValueError('Plugin index id does not match its manifest')
                 name = string(spec.get('name'))
                 description = string(spec.get('description'), 72)
-                tree = git(candidate, 'ls-tree', '-rlz', revision + ':' + entry['path'], allow_file=self.allow_file)
-                size = sum(int(record.split('\t', 1)[0].split()[3]) for record in tree.split('\0') if record)
-                rows.append(dict(id=entry['id'], name=name, description=description, size=size))
+                artwork = {}
+                for field in ('icon', 'preview'):
+                    if field in spec:
+                        relative = PurePosixPath(string(spec[field]))
+                        if relative.is_absolute() or '..' in relative.parts or not relative.parts or relative.parts[0] == '.git' or '\\' in spec[field]:
+                            raise ValueError('Plugin image must stay inside its folder')
+                        artwork[field] = str(PurePosixPath(entry['path']) / relative)
+                rows.append(dict(id=entry['id'], name=name, description=description, size=0,
+                                 commit=revision, **artwork))
             return rows
 
     def prepare(self, url, temporary):

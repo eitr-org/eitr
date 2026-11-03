@@ -28,10 +28,13 @@ fenêtre. Les aperçus sont téléchargés uniquement pour les cartes visibles e
 le cache utilisateur. Si le dépôt est inaccessible, Réessayer le recharge ; Installés
 reste disponible hors ligne.
 
-Les pages Plugins affiche les plugins installés et le dépôt officiel
-`eitr-org/eitr-plugins`, avec confirmation de suppression dans la fenêtre. Installation
-et mises à jour des plugins utilisent encore les procédures de vérification existantes ;
-le catalogue n’installe pas encore de plugins et n’accepte pas d’adresses de dépôts tiers.
+La page Plugins affiche les plugins installés et le dépôt officiel
+`eitr-org/eitr-plugins` sous forme de cartes avec capture, icône centrée ou symbole
+générique. Les badges indiquent les plugins installés et désactivés. La suppression
+est confirmée dans la fenêtre. Pour installer, utilisez **Walker > Plugins**.
+Installation et mises à jour utilisent encore les procédures de vérification
+existantes ; le catalogue n’installe pas encore de plugins et n’accepte pas
+d’adresses de dépôts tiers.
 
 ## Thèmes et fonds d’écran
 

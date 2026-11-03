@@ -32,8 +32,10 @@ the review; Escape cancels it before closing the window. Downloads, progress and
 download only for visible cards and use the user cache. If a repository is
 unreachable, Retry loads it again; Installed remains available offline.
 
-The Plugins pages lists installed plugins and the official `eitr-org/eitr-plugins`
-repository, with an in-window removal confirmation. Plugin installation and
+The Plugins page lists installed plugins and the official `eitr-org/eitr-plugins`
+repository as picture cards, using a screenshot, centered icon or generic glyph.
+Badges show installed and disabled plugins. Removal has an in-window confirmation.
+To install plugins, use **Walker > Plugins**. Plugin installation and
 updates still use the existing reviewed flows; the catalog does not yet install
 plugins or accept third-party repository addresses.
 

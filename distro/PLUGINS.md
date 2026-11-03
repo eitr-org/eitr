@@ -458,3 +458,9 @@ Quickshell 0.3.2 exposes no QML engine warning signal to QML. The host follows o
 A `Qt.createComponent()` failure returned silently to plugin code is not observable by the host: the installed API provides no engine warning signal or interception hook for that call. The author must log `errorString()` or call `api.reportError()`. Exceptions caught by plugin code and messages without a file URL likewise have no reliable host attribution.
 
 The bar explicitly starts the registry at startup. Its log reader starts after 500 ms and retries failed launches or exits with exponential back-off (500 ms–30 s), resetting after ten seconds running. Both output channels are consumed; the last stderr message and exit code remain available on the registry for diagnosis. The QML-owned process and retry timers stop when the registry is destroyed, including bar shutdown or reload.
+
+Catalog cards show the manifest’s `preview` screenshot, falling back to a centered
+`icon` on a tinted surface, or a generic plugin glyph when neither is declared.
+Listing reads only index and manifest blobs; visible cards request artwork on demand.
+Plugin download size is unavailable without fetching the remaining blobs.
+Catalog installation is coming soon; use **Walker > Plugins** for now.

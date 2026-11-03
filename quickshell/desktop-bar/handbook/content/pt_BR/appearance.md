@@ -25,10 +25,12 @@ fecha primeiro a revisão e depois a janela. Downloads, progresso e erros ficam 
 somente para cartões visíveis e usam o cache do usuário. Se o repositório estiver
 inacessível, Tentar novamente o recarrega; Instalados funciona sem conexão.
 
-As páginas Plugins lista plugins instalados e o repositório oficial
-`eitr-org/eitr-plugins`, com confirmação de remoção na janela. Instalar e atualizar
-plugins ainda usa os fluxos de revisão existentes; o catálogo ainda não instala
-plugins nem aceita endereços de repositórios de terceiros.
+A página Plugins lista os plugins instalados e o repositório oficial
+`eitr-org/eitr-plugins` em cartões com captura de tela, ícone centralizado ou símbolo
+genérico. Os selos indicam plugins instalados e desativados. A remoção tem confirmação
+na janela. Para instalar, use **Walker > Plugins**. A instalação e as atualizações
+ainda usam os fluxos de revisão existentes; o catálogo ainda não instala plugins
+nem aceita endereços de repositórios de terceiros.
 
 ## Temas e papéis de parede
 

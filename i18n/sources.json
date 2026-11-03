@@ -406,6 +406,7 @@
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
     "Disabled": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/plugins/PluginComponent.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
@@ -605,6 +606,9 @@
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Installed": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Installing plugins from the catalog is coming soon; use Walker > Plugins for now": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Invalid assistant response.": [

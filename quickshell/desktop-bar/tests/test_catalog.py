@@ -9,6 +9,10 @@ import threading
 import unittest
 from unittest.mock import Mock, patch
 
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "walker/tests"))
+from home_isolation import setUpModule, tearDownModule
+
 from layout_render import copy_runtime, render_environment, render
 
 BAR = Path(__file__).resolve().parents[1]
@@ -174,12 +178,19 @@ ShellRoot {
    property var installReply: null
    Timer {
     id: capture; property string name: ""; interval: 130
-    onTriggered: sample.grabToImage(function(result) { result.saveToFile("TARGET/" + capture.name + "-VARIANT.png"); })
+    onTriggered: {
+     if (capture.name === "plugins-official") {
+      panel.progress = "";
+      keys.mouseClick(panel, panel.sidebarWidth + 50, 160);
+      if (panel.progress !== "Installing plugins from the catalog is coming soon; use Walker > Plugins for now") throw new Error("click shows plugin coming-soon note");
+     }
+     sample.grabToImage(function(result) { result.saveToFile("TARGET/" + capture.name + "-VARIANT.png"); });
+    }
    }
    Timer {
     interval: 650; running: true; repeat: true
     onTriggered: {
-     const names = ["official-themes", "selected-themes", "review", "installing", "community-empty", "installed-hidden", "plugins-official", "remove"];
+     const names = ["official-themes", "selected-themes", "review", "installing", "community-empty", "installed-hidden", "plugins-official", "plugins-installed", "remove"];
      if (sample.phase === 0) {
       panel.installed = [{id:"eitr",name:"Eitr",kind:"builtin",current:true,description:"Primordial venom",previewUrl:"PREVIEW"},{id:"nord",name:"Nord",kind:"official",description:"Cool northern blues",previewUrl:"PREVIEW2"},{id:"mine",name:"My theme",kind:"own",light:true,description:"A quiet light palette",previewUrl:"PREVIEW3"}];
       panel.availableItems = [{id:"moss",name:"Moss",kind:"official",description:"Deep forest greens",size:3145728},{id:"jade",name:"Jade",kind:"official",light:true,description:"Warm jade and cream",size:2097152},{id:"asgard",name:"Asgard",kind:"official",description:"Gold in the halls of the gods",size:2097152}];
@@ -233,11 +244,21 @@ ShellRoot {
      } else if (sample.phase === 6) {
       panel.kind = "plugins";
       panel.tab = "official";
-      panel.installed = [{id:"clock",name:"Clock",kind:"official",description:"A desktop clock"}];
-      panel.availableItems = [{id:"notes",name:"Notes",kind:"official",description:"Notes on the desktop",size:12345}];
+      panel.installed = [];
+      panel.availableItems = [{id:"clock",name:"Clock",kind:"official",description:"A desktop clock",previewUrl:"PREVIEW",preview:"preview.png"},{id:"notes",name:"Notes",kind:"official",description:"Notes on the desktop",icon:"ICON",previewUrl:"ICON"},{id:"plain",name:"Plain",kind:"official",description:"A plugin without artwork"}];
+      panel.activate(panel.availableItems[0], false);
+      if (panel.progress !== "Installing plugins from the catalog is coming soon; use Walker > Plugins for now") throw new Error("plugin coming-soon note");
      } else if (sample.phase === 7) {
       panel.tab = "installed";
-      panel.installed = [{id:"clock",name:"Clock",kind:"official",description:"A desktop clock"}];
+      panel.installed = [{id:"clock",name:"Clock",kind:"official",description:"A desktop clock",preview:"PREVIEW"},{id:"notes",name:"Notes",kind:"community",description:"Notes on the desktop",icon:"ICON",enabled:false},{id:"plain",name:"Plain",kind:"third-party",description:"A plugin without artwork"}];
+     } else if (sample.phase === 8) {
+      let requests = 0;
+      panel.transport = function(name, args, callback) { requests++; callback("", {}); };
+      panel.activate(panel.installed[0], true);
+      if (requests) throw new Error("installed plugin has no Apply action");
+      panel.sidebarFocus = false; panel.cursor = 0;
+      keys.keyClick(Qt.Key_Down);
+      if (panel.cursor !== Math.min(panel.columns, panel.locals.length - 1)) throw new Error("plugin grid Down");
       panel.removing = panel.installed[0];
      } else {
       panel.forceActiveFocus(); keys.keyClick(Qt.Key_Escape);
@@ -291,6 +312,9 @@ ShellRoot {
                 index_palettes = {theme_id: next(row['palette'] for row in index if row['id'] == source_id)
                                   for theme_id, source_id in [('moss', 'nord'), ('jade', 'eitr-light'), ('asgard', 'eitr')]}
                 fixture = fixture.replace('INSTALLED_PALETTES', json.dumps(installed_palettes)).replace('INDEX_PALETTES', json.dumps(index_palettes))
+                icon = folder / 'plugin-icon.svg'
+                icon.write_text('<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect x="4" y="4" width="56" height="56" rx="12" fill="#759456"/><circle cx="32" cy="32" r="15" fill="#181824"/></svg>')
+                fixture = fixture.replace('ICON', icon.as_uri())
                 fixture = fixture.replace('TARGET', str(target)).replace('VARIANT', variant).replace('WIDTH', width).replace('PREVIEW3', (BAR.parents[1] / 'themes/eitr-light/preview.png').as_uri()).replace('PREVIEW2', (BAR.parents[1] / 'themes/nord/preview.png').as_uri()).replace('PREVIEW', (BAR.parents[1] / 'themes/eitr/preview.png').as_uri())
                 (folder / 'fixture.qml').write_text(fixture)
                 environment = render_environment(folder)
@@ -304,7 +328,7 @@ ShellRoot {
                 self.assertNotIn('TypeError', output)
                 self.assertNotIn('Cannot open:', output)
                 self.assertNotIn('Unable to assign', output)
-                for state in ('official-themes', 'selected-themes', 'review', 'installing', 'community-empty', 'installed-hidden', 'plugins-official', 'remove'):
+                for state in ('official-themes', 'selected-themes', 'review', 'installing', 'community-empty', 'installed-hidden', 'plugins-official', 'plugins-installed', 'remove'):
                     self.assertGreater((target / f'{state}-{variant}.png').stat().st_size, 10000)
 
     def test_handbook_uses_shared_native_window(self):
@@ -377,6 +401,7 @@ class CatalogBackendTests(unittest.TestCase):
             if arguments[0] == 'clone':
                 self.assertIn('--filter=blob:none', arguments)
                 self.assertIn('--no-checkout', arguments)
+                Path(arguments[-1]).mkdir(parents=True)
                 return ''
             if arguments[0] == 'rev-parse':
                 if len(arguments) == 2 and ':' not in arguments[1]:
@@ -389,11 +414,89 @@ class CatalogBackendTests(unittest.TestCase):
             if arguments[:2] == ('cat-file', '-s'):
                 return '120'
             if arguments[:2] == ('cat-file', 'blob'):
-                return json.dumps({'schemaVersion': 1, 'plugins': [{'id': 'clock', 'path': 'plugins/clock'}]}) if arguments[2] == 'index-blob' else json.dumps({'id': 'clock', 'name': 'Clock', 'description': 'A desktop clock'})
+                return json.dumps({'schemaVersion': 1, 'plugins': [{'id': 'clock', 'path': 'plugins/clock'}]}) if arguments[2] == 'index-blob' else json.dumps({'id': 'clock', 'name': 'Clock', 'description': 'A desktop clock', 'icon': 'icon.svg', 'preview': 'preview.png'})
             raise AssertionError(arguments)
-        with patch('eitr_plugin_install.git', side_effect=git):
-            self.assertEqual(PluginInstall().catalog(DOMAIN.PLUGINS), [{'id': 'clock', 'name': 'Clock', 'description': 'A desktop clock', 'size': 120}])
+        with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {'XDG_CACHE_HOME': directory, 'XDG_STATE_HOME': directory}), patch('eitr_plugin_install.git', side_effect=git):
+            self.assertEqual(PluginInstall().catalog(DOMAIN.PLUGINS), [{'id': 'clock', 'name': 'Clock', 'description': 'A desktop clock', 'size': 0, 'commit': 'a' * 40, 'icon': 'plugins/clock/icon.svg', 'preview': 'plugins/clock/preview.png'}])
         self.assertEqual(sum(arguments[:2] == ('cat-file', 'blob') for arguments in calls), 2)
+
+    def test_plugin_artwork_from_local_repository(self):
+        from eitr_plugin_install import PluginInstall, git as plugin_git
+        from PIL import Image
+        with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {
+                'XDG_CACHE_HOME': directory + '/cache', 'XDG_STATE_HOME': directory + '/state'}):
+            root = Path(directory) / 'repository'
+            root.mkdir()
+            subprocess.run(['git', 'init', '-q', str(root)], check=True)
+            subprocess.run(['git', '-C', str(root), 'config', 'uploadpack.allowFilter', 'true'], check=True)
+            package = root / 'plugins/clock'
+            package.mkdir(parents=True)
+            (root / 'eitr-plugins.json').write_text(json.dumps({'schemaVersion': 1, 'plugins': [{'id': 'clock', 'path': 'plugins/clock'}]}))
+            spec = dict(id='clock', name='Clock', description='A desktop clock', icon='icon.svg')
+            icon = '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect width="64" height="64"/></svg>'
+            (package / 'icon.svg').write_text(icon)
+            Image.new('RGB', (160, 90), 'green').save(package / 'preview.png')
+            (package / 'bad.png').write_text('not an image')
+            (package / 'script.svg').write_text(icon.replace('</svg>', '<script>alert(1)</script></svg>'))
+            (package / 'large.png').write_bytes(b'x' * (2 * 1024 * 1024 + 1))
+            (package / 'link.png').symlink_to('preview.png')
+            backend = PluginInstall(allow_file=True)
+            url = root.as_uri()
+
+            def commit_spec():
+                (package / 'eitr-plugin.json').write_text(json.dumps(spec))
+                subprocess.run(['git', '-C', str(root), 'add', '.'], check=True)
+                subprocess.run(['git', '-C', str(root), '-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-qm', 'fixture'], check=True)
+
+            for artwork, failure in [(None, None), ('preview.png', None), ('large.png', 'size limit'),
+                                     ('link.png', 'regular file'), ('script.svg', 'image'), ('bad.png', 'image')]:
+                with self.subTest(artwork=artwork):
+                    spec.pop('preview', None)
+                    if artwork:
+                        spec['preview'] = artwork
+                    commit_spec()
+                    with patch('eitr_plugin_install.git', wraps=plugin_git) as reads:
+                        rows = backend.catalog(url)
+                        blobs = [call.args for call in reads.call_args_list if call.args[1:3] == ('cat-file', 'blob')]
+                        self.assertEqual(len(blobs), 2)
+                    target = Path(directory) / 'cache/eitr/catalog-previews/plugins.json'
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    target.write_text(json.dumps(rows))
+                    import hashlib
+                    from eitr_plugin_install import normalized_url
+                    repository = Path(directory) / 'cache/eitr/plugin-repositories' / hashlib.sha256(normalized_url(url).encode()).hexdigest()
+                    def missing_blobs():
+                        output = subprocess.check_output(['git', '-C', str(repository), 'rev-list', '--objects', '--missing=print', rows[0]['commit']], text=True)
+                        return {line[1:] for line in output.splitlines() if line.startswith('?')}
+                    before = missing_blobs()
+                    requested = 'plugins/clock/' + (artwork or 'icon.svg')
+                    expected_blob = plugin_git(root, 'rev-parse', rows[0]['commit'] + ':' + requested)
+                    if artwork in (None, 'preview.png'):
+                        self.assertIn(expected_blob, before)
+                    with patch.object(DOMAIN, 'PLUGINS', url), patch('eitr_plugin_install.git', wraps=plugin_git) as reads:
+                        if failure:
+                            with self.assertRaisesRegex(ValueError, failure):
+                                DOMAIN.artwork_preview('plugins', 'clock', backend)
+                        else:
+                            result = DOMAIN.artwork_preview('plugins', 'clock', backend)
+                            self.assertTrue(Path(result['image'].removeprefix('file://')).is_file())
+                        blobs = [call.args for call in reads.call_args_list if call.args[1:3] == ('cat-file', 'blob')]
+                        self.assertLessEqual(len(blobs), 1)
+                        self.assertLessEqual(before - missing_blobs(), {expected_blob})
+                        if artwork in (None, 'preview.png'):
+                            self.assertEqual(len(blobs), 1)
+            spec.pop('preview', None)
+            spec['icon'] = 'script.svg'
+            commit_spec()
+            rows = backend.catalog(url)
+            target.write_text(json.dumps(rows))
+            with patch.object(DOMAIN, 'PLUGINS', url), self.assertRaisesRegex(ValueError, 'shapes'):
+                DOMAIN.artwork_preview('plugins', 'clock', backend)
+            for escape in ('../outside.png', '/tmp/outside.png'):
+                spec['icon'] = escape
+                commit_spec()
+                with self.assertRaisesRegex(ValueError, 'inside'):
+                    backend.catalog(url)
 
     def test_plugin_index_rejects_overlaps_and_empty_accepts_installed(self):
         from eitr_plugin_manifest import index_entries

@@ -26,10 +26,12 @@ Escape cierra primero la revisión y después la ventana. Descargas, progreso y 
 solo se descargan para tarjetas visibles y usan la caché del usuario. Si el repositorio
 no responde, Reintentar lo recarga; Instalados funciona sin conexión.
 
-Las páginas Plugins muestra los instalados y el repositorio oficial
-`eitr-org/eitr-plugins`, con confirmación de eliminación dentro de la ventana.
-Instalar y actualizar plugins sigue usando los flujos de revisión existentes;
-el catálogo todavía no instala plugins ni acepta repositorios de terceros.
+La página Plugins muestra los plugins instalados y el repositorio oficial
+`eitr-org/eitr-plugins` en tarjetas con captura, icono centrado o símbolo genérico.
+Las etiquetas indican los plugins instalados y desactivados. La eliminación se
+confirma en la ventana. Para instalar, usa **Walker > Plugins**. La instalación y
+las actualizaciones siguen usando los flujos de revisión existentes; el catálogo
+todavía no instala plugins ni acepta repositorios de terceros.
 
 ## Temas y fondos de pantalla
 

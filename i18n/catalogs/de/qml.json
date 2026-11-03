@@ -190,6 +190,7 @@
   "Install 1 theme · %1": "1 Theme installieren · %1",
   "Install the Eitr network helper first; see distro/NETWORKING.md": "Installieren Sie zuerst den Eitr-Netzwerkhelfer; siehe distro/NETWORKING.md",
   "Installed": "Installiert",
+  "Installing plugins from the catalog is coming soon; use Walker > Plugins for now": "Plugins können bald aus dem Katalog installiert werden; verwende vorerst Walker > Plugins",
   "Invalid assistant response.": "Ungültige Assistentenantwort.",
   "Islands": "Inseln",
   "KNOWN DEVICES": "BEKANNTE GERÄTE",

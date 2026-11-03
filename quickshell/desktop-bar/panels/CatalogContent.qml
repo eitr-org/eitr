@@ -74,10 +74,12 @@ Item {
         if (item.hidden) return;
         if (busy) return;
         if (local && kind === "themes" && !item.current) act("apply", {id: item.id});
+        else if (!local && kind === "plugins") progress = pluginNote;
         else if (!local) toggle(item);
         sidebarFocus = false; forceActiveFocus();
     }
-    function imageFor(item) { return item.previewUrl || previews[item.id] || ""; }
+    readonly property string pluginNote: Eitr.I18n.tr("Installing plugins from the catalog is coming soon; use Walker > Plugins for now")
+    function imageFor(item) { return item.previewUrl || (kind === "plugins" && isInstalled(item) ? item.preview || item.icon : "") || previews[item.id] || ""; }
     readonly property var chosen: more.filter(item => selected.includes(item.id))
     readonly property real totalSize: chosen.reduce((total, item) => total + (item.size || 0), 0)
     function sizeText(bytes) { if (!bytes) return Eitr.I18n.tr("Size unavailable"); return bytes < 1048576 ? Math.ceil(bytes / 1024) + " KiB" : (bytes / 1048576).toFixed(1) + " MiB"; }
@@ -143,7 +145,8 @@ Item {
     }
 
     function preview(item) {
-        if (!live || !opened || kind !== "themes" || previews[item.id] || previewRequests[item.id]) return;
+        if (!live || !opened || previews[item.id] || previewRequests[item.id]) return;
+        if (kind === "plugins" && !item.preview && !item.icon) return;
         previewRequests = Object.assign({}, previewRequests, {[item.id]: true});
         request("preview", {id: item.id}, function(failure, data) {
             if (!failure) previews = Object.assign({}, previews, {[item.id]: data.image});
@@ -180,15 +183,15 @@ Item {
                     sidebarFocus = false; cursor = navigable.length ? 0 : -1;
                     event.accepted = true; return;
                 }
-            } else if (event.key === Qt.Key_Left && (cursor < 0 || cursor % (kind === "themes" ? columns : 1) === 0)) {
+            } else if (event.key === Qt.Key_Left && (cursor < 0 || cursor % columns === 0)) {
                 sidebarFocus = true; cursor = -1; event.accepted = true; return;
             }
             const count = navigable.length;
             let delta = 0;
             if (event.key === Qt.Key_Right) delta = 1;
             if (event.key === Qt.Key_Left) delta = -1;
-            if (event.key === Qt.Key_Down) delta = kind === "themes" ? columns : 1;
-            if (event.key === Qt.Key_Up) delta = kind === "themes" ? -columns : -1;
+            if (event.key === Qt.Key_Down) delta = columns;
+            if (event.key === Qt.Key_Up) delta = -columns;
             if (delta && count) { cursor = Math.max(0, Math.min(count - 1, cursor < 0 ? 0 : cursor + delta)); event.accepted = true; }
             else if (event.key === Qt.Key_Space && getMore && cursor >= 0 && cursor < count) { toggle(navigable[cursor]); event.accepted = true; }
             else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
@@ -215,19 +218,23 @@ Item {
     }
     component Preview: Rectangle {
         property string source: ""
+        property bool iconOnly: false
+        property bool plugin: false
         radius: DesktopStyle.radius(PanelStyle.cornerRadius)
         color: Qt.alpha(catalog.foreground, 0.08)
         Image {
-            anchors.fill: parent; source: parent.source; fillMode: Image.PreserveAspectCrop
-            sourceSize: Qt.size(640, 360); asynchronous: true
+            anchors.centerIn: parent; width: parent.iconOnly ? 64 : parent.width; height: parent.iconOnly ? 64 : parent.height
+            source: parent.source; fillMode: parent.iconOnly ? Image.PreserveAspectFit : Image.PreserveAspectCrop
+            sourceSize: parent.iconOnly ? Qt.size(128, 128) : Qt.size(640, 360); asynchronous: true
             layer.enabled: GraphicsInfo.api !== GraphicsInfo.Software
             layer.effect: MultiEffect { maskEnabled: true; maskSource: imageMask }
         }
+        Label { anchors.centerIn: parent; visible: parent.plugin && !parent.source; text: "󰏗"; font.pixelSize: 48; opacity: PanelStyle.secondaryTextOpacity }
         Item { id: imageMask; anchors.fill: parent; layer.enabled: true; visible: false
             Rectangle { anchors.fill: parent; radius: parent.parent.radius; color: "white" }
         }
     }
-    component ThemeCard: Rectangle {
+    component CatalogCard: Rectangle {
         id: tile
         required property var item
         required property bool local
@@ -249,21 +256,23 @@ Item {
         }
         onInViewportChanged: if (inViewport && !local) catalog.preview(item)
         Component.onCompleted: if (inViewport && !local) catalog.preview(item)
-        Preview { id: art; x: 2; y: 2; width: parent.width - 4; height: width * 9 / 16; source: catalog.imageFor(tile.item) }
+        Preview { id: art; x: 2; y: 2; width: parent.width - 4; height: width * 9 / 16; source: catalog.imageFor(tile.item); plugin: catalog.kind === "plugins"; iconOnly: plugin && !tile.item.preview && !(tile.item.previewUrl && !tile.item.icon) }
         Column {
             id: details
             z: 1
             x: 12; y: art.y + art.height + 10; width: parent.width - 24; spacing: 5
             Label { width: parent.width; text: tile.item.name || ""; font.bold: true; maximumLineCount: 1; elide: Text.ElideRight }
-            Label { width: parent.width; text: tile.item.description || Eitr.I18n.tr("Desktop theme"); font.pixelSize: PanelStyle.captionSize; opacity: PanelStyle.secondaryTextOpacity; maximumLineCount: 1; elide: Text.ElideRight }
-            Row { spacing: 4
+            Label { width: parent.width; text: tile.item.description || (catalog.kind === "themes" ? Eitr.I18n.tr("Desktop theme") : ""); font.pixelSize: PanelStyle.captionSize; opacity: PanelStyle.secondaryTextOpacity; maximumLineCount: 1; elide: Text.ElideRight }
+            Row { spacing: 4; visible: catalog.kind === "themes"
                 Repeater {
-                    model: tile.item.palette ? ["background", "foreground", "accent", "color1", "color2", "color3", "color4", "color5", "color6"] : []
+                    model: catalog.kind === "themes" && tile.item.palette ? ["background", "foreground", "accent", "color1", "color2", "color3", "color4", "color5", "color6"] : []
                     Rectangle { required property string modelData; width: 14; height: 14; radius: 7; color: tile.item.palette[modelData]; border.width: 1; border.color: Qt.alpha(catalog.foreground, 0.2) }
                 }
             }
-            Row { spacing: 6
+            Flow { width: parent.width; spacing: 6
                 Pill { text: catalog.badge(tile.item) }
+                Pill { visible: catalog.kind === "plugins" && tile.local && catalog.getMore; text: Eitr.I18n.tr("Installed") }
+                Pill { visible: catalog.kind === "plugins" && tile.item.enabled === false; text: Eitr.I18n.tr("Disabled") }
                 Pill { visible: !!tile.item.hidden; text: Eitr.I18n.tr("Hidden") }
                 Pill { visible: !!tile.item.current; current: true; text: Eitr.I18n.tr("Current") }
             }
@@ -281,7 +290,7 @@ Item {
                 Pill {
                     anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter
                     visible: !tile.item.hidden && (catalog.updates[tile.item.id] || 0) > 0; text: Eitr.I18n.tr("Update"); current: true
-                    MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: catalog.act("update", {id: tile.item.id}) }
+                    MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: { if (catalog.kind === "themes") catalog.act("update", {id: tile.item.id}); else catalog.progress = catalog.pluginNote; } }
                 }
             }
         }
@@ -459,28 +468,9 @@ Item {
                         readonly property var items: pageError ? [] : modelData.local ? catalog.locals : catalog.discoveries
                         width: sections.width; spacing: 12
                         GridLayout {
-                            visible: catalog.kind === "themes"; columns: catalog.columns; columnSpacing: 14; rowSpacing: 14
-                            Repeater { model: catalog.kind === "themes" ? section.items : []
-                                ThemeCard { required property var modelData; item: modelData; local: catalog.isInstalled(modelData); Layout.preferredWidth: (section.width - 14 * (catalog.columns - 1)) / catalog.columns; Layout.fillHeight: true }
-                            }
-                        }
-                        Column {
-                            width: parent.width; spacing: PanelStyle.selectionRowGap; visible: catalog.kind === "plugins"
-                            Repeater { model: catalog.kind === "plugins" ? section.items : []
-                                Rectangle {
-                                    id: pluginRow; required property var modelData
-                                    width: section.width; height: PanelStyle.selectionRowHeight
-                                    radius: DesktopStyle.radius(PanelStyle.controlRadius)
-                                    color: Qt.alpha(catalog.foreground, PanelStyle.selectionAlpha(catalog.isInstalled(pluginRow.modelData), false))
-                                    border.width: PanelStyle.selectionBorderWidth(catalog.isInstalled(pluginRow.modelData)); border.color: Qt.alpha(catalog.foreground, PanelStyle.selectionBorderAlpha)
-                                    Label { x: PanelStyle.selectionInset; anchors.verticalCenter: parent.verticalCenter; text: catalog.isInstalled(pluginRow.modelData) ? "\uF00C" : "󰏗"; font.pixelSize: PanelStyle.selectionIconSize }
-                                    Column { x: PanelStyle.selectionTextInset; anchors.verticalCenter: parent.verticalCenter; width: parent.width - x - pluginBadge.width - 54; spacing: PanelStyle.selectionDetailGap
-                                        Label { width: parent.width; text: pluginRow.modelData.name || ""; font.pixelSize: PanelStyle.bodySize; maximumLineCount: 1; elide: Text.ElideRight }
-                                        Label { width: parent.width; text: pluginRow.modelData.description || ""; font.pixelSize: 11; maximumLineCount: 1; elide: Text.ElideRight; opacity: PanelStyle.secondaryTextOpacity }
-                                    }
-                                    Pill { id: pluginBadge; anchors.right: removePlugin.left; anchors.rightMargin: PanelStyle.selectionActionGap; anchors.verticalCenter: parent.verticalCenter; text: catalog.badge(pluginRow.modelData) }
-                                    PanelButton { id: removePlugin; anchors.right: parent.right; anchors.rightMargin: PanelStyle.selectionActionInset; anchors.verticalCenter: parent.verticalCenter; width: 24; height: 24; icon: true; text: "󰆴"; foreground: catalog.foreground; visible: section.modelData.local && ["official", "third-party", "community"].includes(pluginRow.modelData.kind); Accessible.name: Eitr.I18n.tr("Remove %1").arg(pluginRow.modelData.name || ""); onClicked: { catalog.removing = pluginRow.modelData; catalog.forceActiveFocus(); } }
-                                }
+                            columns: catalog.columns; columnSpacing: 14; rowSpacing: 14
+                            Repeater { model: section.items
+                                CatalogCard { required property var modelData; item: modelData; local: catalog.isInstalled(modelData); Layout.preferredWidth: (section.width - 14 * (catalog.columns - 1)) / catalog.columns; Layout.fillHeight: true }
                             }
                         }
                         Item {
