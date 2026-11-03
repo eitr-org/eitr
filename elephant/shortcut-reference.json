@@ -42,6 +42,11 @@
     "command": "bash \"$EITR_CODE_ROOT/quickshell/desktop-bar/scripts/handbook.sh\" toggle"
   },
   {
+    "key": "SUPER + F2",
+    "description": "Toggle Themes & Plugins",
+    "command": "eitr-shell desktop-bar ipc call -- catalog toggle"
+  },
+  {
     "description": "Toggle control center",
     "row": "Desktop Control Center"
   },

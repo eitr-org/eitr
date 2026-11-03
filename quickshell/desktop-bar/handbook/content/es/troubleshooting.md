@@ -13,7 +13,7 @@ Las unidades fallidas muestran hasta tres nombres y un comando de estado. Las de
 
 Las instalaciones nuevas incluyen las dependencias del escritorio, pero un Arch existente puede carecer de algunas. Lee el error e instala el paquete correspondiente desde Instalar > Paquetes > Pacman o con una actualización completa normal. No elimines BlueZ/iwd/PipeWire/WirePlumber solo porque los ajustes estén en paneles nativos: estos siguen necesitando esos servicios.
 
-Este manual no necesita `less`: es Markdown incluido en una superposición nativa. Si indica un catálogo ausente o desactualizado, actualiza los archivos del escritorio EITR.
+Este manual no necesita `less`: es Markdown incluido en una ventana nativa. Si indica un catálogo ausente o desactualizado, actualiza los archivos del escritorio EITR.
 
 ## Falta un auxiliar propiedad de root
 

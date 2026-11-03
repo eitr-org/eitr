@@ -5,6 +5,7 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+import tomllib
 import unittest
 from unittest.mock import patch
 
@@ -23,7 +24,7 @@ class ThemePackagesTest(unittest.TestCase):
         self.home = self.root / 'home'
         self.home.mkdir()
         self.environment = patch.dict(os.environ, dict(HOME=str(self.home), XDG_CONFIG_HOME=str(self.home / '.config'),
-            XDG_DATA_HOME=str(self.home / '.local/share'), XDG_CACHE_HOME=str(self.home / '.cache'),
+            XDG_STATE_HOME=str(self.home / '.local/state'), XDG_DATA_HOME=str(self.home / '.local/share'), XDG_CACHE_HOME=str(self.home / '.cache'),
             EITR_CODE_ROOT=str(self.root / 'builtin')))
         self.environment.start()
         self.addCleanup(self.environment.stop)
@@ -216,6 +217,18 @@ class ThemePackagesTest(unittest.TestCase):
         (own / 'own-theme.json').write_text('{}')
         self.assertEqual({row['id']: row['kind'] for row in self.backend.installed()},
                          {'alpha':'third-party', 'builtin':'builtin', 'mine':'own'})
+        current = self.home / '.cache/current-theme'
+        current.parent.mkdir(parents=True, exist_ok=True)
+        current.write_text('alpha')
+        rows = {row['id']: row for row in self.backend.installed()}
+        self.assertEqual(rows['alpha']['palette'], {key: tomllib.loads(
+            (self.backend.folder / 'alpha/colors.toml').read_text())[key]
+            for key in ('background', 'foreground', 'accent', 'color1', 'color2', 'color3', 'color4', 'color5', 'color6')})
+        self.assertTrue(rows['alpha']['current'])
+        self.assertFalse(rows['builtin']['current'])
+        self.assertEqual(rows['alpha']['previewUrl'], (self.backend.folder / 'alpha/preview.png').as_uri())
+        self.assertEqual(rows['alpha']['description'], manifest(self.backend.folder / 'alpha')['description'])
+        self.assertEqual(rows['mine']['description'], '')
         with patch('eitr_theme_packages.official', return_value=True):
             self.assertEqual(self.backend.installed()[0]['kind'], 'official')
         with self.assertRaises(ValueError):
@@ -287,6 +300,42 @@ class ThemePackagesTest(unittest.TestCase):
             for name, contents in builder.files_for(theme_id, integration).items():
                 self.assertEqual((temporary / name).read_text(), contents)
                 self.assertEqual((ROOT / 'themes' / theme_id / name).read_text(), contents)
+
+    def test_palette_optional_and_strict(self):
+        from eitr_theme_packages import validate_index
+        rows = catalog(self.repo)
+        self.assertEqual(len(rows[0]['palette']), 9)
+        legacy = [{key: value for key, value in row.items() if key != 'palette'} for row in rows]
+        self.assertEqual(validate_index(legacy), legacy)
+        for palette in ({'accent': '#ffffff'}, dict(rows[0]['palette'], accent='red'), dict(rows[0]['palette'], extra='#ffffff')):
+            with self.assertRaises(ValueError):
+                validate_index([dict(rows[0], palette=palette)])
+
+    def test_hide_restore_and_all_picker_paths(self):
+        import shutil
+        builtin = self.root / 'builtin/themes'
+        for name in ('alpha', 'beta', 'eitr'):
+            shutil.copytree(self.repo / 'themes/alpha', builtin / name)
+        self.backend.hide('alpha')
+        self.assertNotIn('alpha', theme_paths())
+        self.assertIn('alpha', theme_paths(include_hidden=True))
+        self.assertTrue(next(row for row in self.backend.installed() if row['id'] == 'alpha')['hidden'])
+        picker = subprocess.check_output([sys.executable, str(ROOT / 'quickshell/desktop-bar/scripts/appearance-items.py'), 'theme'], text=True)
+        self.assertNotIn('"id": "alpha"', picker)
+        self.backend.unhide('alpha')
+        self.assertIn('alpha', theme_paths())
+        with self.assertRaisesRegex(ValueError, 'Eitr or the current'):
+            self.backend.hide('eitr')
+        marker = self.home / '.cache/current-theme'
+        marker.parent.mkdir(parents=True, exist_ok=True)
+        marker.write_text('beta')
+        with self.assertRaisesRegex(ValueError, 'Eitr or the current'):
+            self.backend.hide('beta')
+        self.backend.remove('alpha')
+        self.assertTrue((builtin / 'alpha').exists())
+        self.assertNotIn('alpha', theme_paths())
+        marker.write_text('alpha')
+        self.assertIn('alpha', theme_paths())
 
     def test_official(self):
         for url in ('https://github.com/eitr-org/eitr-themes.git','git@github.com:eitr-org/eitr-themes.git',

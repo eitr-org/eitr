@@ -22,7 +22,7 @@ class OutputBuffer:
 
     Above the input high-water mark only already-admitted work can emit:
     at most 16 network/power results, 16 capture results, 8 weather replies,
-    one broadcast per topic and three domain states. No producer tasks are
+    256 catalog replies, one broadcast per topic and three domain states. No producer tasks are
     created for output, and the pipe writer holds only one additional frame.
     """
     def __init__(self):
@@ -176,11 +176,12 @@ class Broker:
         self.capture = CaptureController(self)
         self.domains = {}
         self.domain_jobs = {}
-        self.read_slots = {name: asyncio.Semaphore(2) for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates")}
-        self.domain_locks = {name: threading.Lock() for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates")}
+        self.read_slots = {name: asyncio.Semaphore(2) for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog")}
+        self.domain_locks = {name: threading.Lock() for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog")}
         self.read_slots["weather"] = asyncio.Semaphore(1)
         self.ai_cooldowns = {}
         self.queries = {}
+        self.catalog_queries = set()
         self.query_history = deque(maxlen=256)
         self.periods = {}
         self.adapter = None
@@ -590,6 +591,26 @@ class Broker:
         if not self.wanted("ai.usage") and not self.states["ai.usage"]["task"]:
             self.domains.pop("ai", None)
 
+    async def query_catalog(self, frame, cancelled):
+        request = frame["id"]
+        result, error = {}, ""
+        try:
+            loop = asyncio.get_running_loop()
+            async with self.read_slots["catalog"]:
+                if not cancelled.is_set():
+                    result = await loop.run_in_executor(self.executor,
+                        lambda: self.load_domain("catalog").request(frame["name"], frame["args"], cancelled))
+                    if len(json.dumps(result).encode()) > MAX_RESULT:
+                        raise ValueError("oversize-result")
+        except Exception:
+            error = "Catalog backend unavailable"
+        finally:
+            if not cancelled.is_set():
+                self.emit(dict(v=1, op="reply", topic="catalog", id=request, epoch=self.epoch,
+                               error=error, data=result))
+            self.queries.pop(request, None)
+            self.catalog_queries.discard(request)
+
     async def query_weather(self, frame, cancelled):
         request = frame["id"]
         error, result = "", {}
@@ -657,13 +678,32 @@ class Broker:
         if operation == "action" and topic == "network":
             self.enqueue_action(frame)
             return
+        if operation == "cancel" and topic == "catalog":
+            if request in self.queries:
+                self.queries[request].set()
+            return
+        if operation == "query" and topic == "catalog":
+            if len(self.catalog_queries) >= 256:
+                self.emit(dict(v=1, op="reply", topic="catalog", id=request, epoch=self.epoch,
+                               error="Catalog busy; retry", data={}))
+                return
+            if not request or request in self.query_history or not isinstance(frame.get("args"), dict):
+                raise ValueError("invalid-query")
+            self.query_history.append(request)
+            cancelled = threading.Event()
+            self.queries[request] = cancelled
+            self.catalog_queries.add(request)
+            task = asyncio.create_task(self.query_catalog(frame, cancelled))
+            self.jobs.add(task)
+            task.add_done_callback(self.jobs.discard)
+            return
         if operation == "cancel" and topic == "weather":
             if request in self.queries:
                 self.queries[request].set()
             return
         if operation == "query" and topic == "weather":
             args, name = frame.get("args"), frame.get("name")
-            if len(self.queries) >= 8:
+            if len(self.queries) - len(self.catalog_queries) >= 8:
                 self.emit(dict(v=1, op="reply", topic="weather", id=request, epoch=self.epoch,
                                error="busy", data={}))
                 return
@@ -754,6 +794,8 @@ class Broker:
         await asyncio.gather(*tasks, return_exceptions=True)
         self.actions.clear()
         self.action_task = None
+        if "catalog" in self.domains:
+            self.domains["catalog"].close()
         self.executor.shutdown(wait=False, cancel_futures=True)
 
 

@@ -9,8 +9,6 @@ ShellRoot {
     Eitr.Handbook {
         id: book
         opened: true
-        mask: Region {}
-        WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
         foreground: "#ddd9bd"
         background: "#20202b"
         accent: "#85a1dc"

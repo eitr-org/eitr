@@ -354,6 +354,7 @@ hl.bind(mainMod .. " + SHIFT + space", hl.dsp.exec_cmd(actionsDir .. "/toggle/de
 
 -- Desktop utilities
 hl.bind(mainMod .. " + F1", hl.dsp.exec_cmd("bash /usr/share/eitr/quickshell/desktop-bar/scripts/handbook.sh toggle"))
+hl.bind(mainMod .. " + F2", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- catalog toggle"))
 hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- controlCenter toggle"))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- notifications toggle"))
 hl.bind(mainMod .. " + equal", hl.dsp.exec_cmd("hyprpicker -a"))
@@ -474,6 +475,15 @@ floating_window_rule("about-terminal-float", "^(about-terminal)$", { 1000, 600 }
 -- Terminals opened from Walker menus (walker/bin/menu-path/kitty).
 floating_window_rule("menu-terminal-float", "^(eitr-menu-terminal|eitr-cloud|eitr-git-accounts|eitr-software|eitr-plugins|system-cleanup|system-check|system-mirrors)$", { 1100, 700 })
 
+-- Library windows restore their screen-bounded size.
+hl.window_rule({
+	name = "eitr-catalog",
+	match = { class = "^(eitr-catalog)$", title = "^(Themes & Plugins|EITR Handbook)$" },
+	float = true,
+	center = true,
+	opacity = "1 1",
+})
+
 -- App opacity
 opacity_rule("set-dolphin-transparency", "^(org.kde.dolphin)$", "1 0.94")
 opacity_rule("set-google-chrome-transparency", "^(google-chrome)$", "1 0.96")
@@ -535,8 +545,6 @@ hl.layer_rule({
 blurred_layer("desktop-notifications", 0.2)
 blurred_layer("desktop-reload-error", 0.2)
 blurred_layer("desktop-overview", 0.2)
-blurred_layer("desktop-handbook", 0.2)
-hl.layer_rule({ match = { namespace = "desktop-handbook" }, no_anim = true })
 -- The overview owns its preview animation; keep its blur and workspace jumps instant.
 hl.layer_rule({ match = { namespace = "desktop-overview" }, no_anim = true })
 blurred_layer("swayosd", 0.3)

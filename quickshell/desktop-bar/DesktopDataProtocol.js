@@ -69,14 +69,22 @@ function createClient(send, changed) {
     function queryWeather(name, args, owner, callback) {
         if (!online) { callback("broker-unavailable", {}); return ""; }
         const id = "query-" + (++sequence);
-        queries[id] = {owner: owner, callback: callback};
+        queries[id] = {owner: owner, callback: callback, topic: "weather"};
         send({v: 1, op: "query", topic: "weather", name: name, args: args, id: id});
+        return id;
+    }
+    function queryCatalog(name, args, owner, callback) {
+        if (!online) { callback("Catalog backend unavailable", {}); return ""; }
+        const id = "catalog-" + (++sequence);
+        queries[id] = {owner: owner, callback: callback, topic: "catalog"};
+        send({v: 1, op: "query", topic: "catalog", name: name, args: args, id: id});
         return id;
     }
     function cancelQuery(id) {
         if (!queries[id]) return;
+        const topic = queries[id].topic;
         delete queries[id];
-        if (online) send({v: 1, op: "cancel", topic: "weather", id: id});
+        if (online) send({v: 1, op: "cancel", topic: topic, id: id});
     }
     function receive(text) {
         if (text.length > 262144) return;
@@ -89,7 +97,7 @@ function createClient(send, changed) {
             online = true;
             if (capturePresent) send({v: 1, op: "presence", topic: "capture", present: true});
             Object.keys(tokens).forEach(token => request("subscribe", tokens[token].topic, token));
-        } else if (online && frame.epoch === epoch && frame.op === "reply" && frame.topic === "weather") {
+        } else if (online && frame.epoch === epoch && frame.op === "reply" && ["weather", "catalog"].includes(frame.topic)) {
             const query = queries[frame.id];
             delete queries[frame.id];
             if (query) query.callback(frame.error || "", frame.data || {});
@@ -181,7 +189,7 @@ function createClient(send, changed) {
         });
         changed();
     }
-    return {queryWeather: queryWeather, cancelQuery: cancelQuery, setCapturePresence: present => {
+    return {queryCatalog: queryCatalog, queryWeather: queryWeather, cancelQuery: cancelQuery, setCapturePresence: present => {
             capturePresent = present;
             if (online) send({v: 1, op: "presence", topic: "capture", present: present});
         }, actPower: actPower, powerDomain: powerDomain, actCapture: actCapture, captureDomain: captureDomain, act: act, detachAction: detachAction, domain: domain, online: () => online, epoch: () => epoch, tokens: tokens, states: states, observe: observe, release: release, receive: receive, died: died,

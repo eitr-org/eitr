@@ -1,5 +1,38 @@
 # Thèmes, fonds d’écran et style
 
+## Catalogue de thèmes et plugins
+
+La barre latérale regroupe Thèmes et Plugins sous Installés et En obtenir plus,
+avec leurs nombres. À droite, le
+titre, la description et les filtres précèdent une liste à défilement indépendant.
+Haut/Bas parcourt la barre ; Droite ou Tab entre dans le contenu. Gauche depuis
+la première colonne revient à la barre. Sous 760 px, elle affiche des icônes avec
+infobulles, sans titres de groupe ni texte.
+
+Ouvrez **Paramètres > Style > Thèmes et plugins** ou **SUPER + F2**. Le catalogue est une fenêtre qui mémorise sa taille. Maintiens SUPER et fais glisser avec le bouton gauche pour la déplacer ou le bouton droit pour la redimensionner. Les raccourcis habituels permettent de la disposer en mosaïque ou de l’envoyer sur un autre espace de travail. La rouvrir active la fenêtre existante, même sur un autre espace. SUPER + F2 la ferme si elle est active. Son bouton de fermeture, Échap (après avoir fermé toute confirmation) ou le raccourci habituel de fermeture la ferment aussi. Installés affiche chaque thème comme Intégré, Officiel, Tiers ou Les vôtres.
+La galerie affiche leurs aperçus. Cliquez sur un thème installé pour l’appliquer
+avec le fonctionnement habituel ; une coche indique le thème actuel. Tous, Sombres
+et Clairs filtrent la galerie. Installés se rafraîchit à l’ouverture et après chaque action. L’ouverture vérifie les métadonnées en arrière-plan et affiche ensuite les indicateurs de mise à jour. Aucune vérification réseau périodique ; Mettre à jour remplace un thème du catalogue.
+Réappliquez un thème actif mis à jour pour actualiser le bureau. Supprimer demande
+confirmation dans la fenêtre et refuse le thème actif : appliquez-en un autre d’abord.
+Les thèmes intégrés et personnels sont conservés.
+
+En obtenir plus affiche le dépôt officiel `eitr-org/eitr-themes`. Sélectionnez plusieurs
+thèmes en cliquant sur leurs aperçus. La barre d’installation en bas ouvre la
+vérification avec aperçus, source et taille totale ; Effacer vide la sélection.
+Les flèches parcourent les cartes et Espace sélectionne les téléchargements. Entrée
+applique un thème installé ou ouvre la vérification si des téléchargements sont
+sélectionnés. Entrée ou Installer confirme ; Échap ferme d’abord la vérification,
+puis la fenêtre. Téléchargements, progression et erreurs restent dans la
+fenêtre. Les aperçus sont téléchargés uniquement pour les cartes visibles et utilisent
+le cache utilisateur. Si le dépôt est inaccessible, Réessayer le recharge ; Installés
+reste disponible hors ligne.
+
+Les pages Plugins affiche les plugins installés et le dépôt officiel
+`eitr-org/eitr-plugins`, avec confirmation de suppression dans la fenêtre. Installation
+et mises à jour des plugins utilisent encore les procédures de vérification existantes ;
+le catalogue n’installe pas encore de plugins et n’accepte pas d’adresses de dépôts tiers.
+
 ## Thèmes et fonds d’écran
 
 Ouvrez **Paramètres > Style > Thème** ou **SUPER + Ctrl + Shift + N** pour les menus Sombre/Clair de Walker. Le carrousel de thèmes du bureau (double clic droit sur le bureau, Centre de contrôle > Style > Thème ou IPC appearance) affiche tous les thèmes. Le Soleil au-dessus de la carte sélectionnée n’affiche que les thèmes clairs et la Lune que les thèmes sombres ; un second clic sur celui qui est sélectionné les affiche tous à nouveau. Ctrl+Tab passe de tous aux sombres puis aux clairs. Saisissez du texte pour chercher parmi les thèmes affichés ; flèches/Tab déplacent la sélection, Enter l’applique. Backspace modifie la recherche ou ferme si elle est vide ; Escape efface la recherche avant de fermer. Le carrousel de fonds n’a pas de recherche de thèmes.
@@ -49,3 +82,7 @@ Comparez les neuf modèles avec `bash quickshell/lockscreen/scripts/gallery.sh`.
 **Fond d’écran du thème** utilise le fond actuel, avec l’horloge en haut à gauche et la saisie du mot de passe en bas à droite. L’aperçu Walker montre l’image actuelle. Les changements suivants apparaissent au prochain verrouillage ou aperçu ; Ctrl+P montre l’ensemble sans verrouiller. L’écran de connexion ne peut pas lire votre dossier personnel. Il montre une copie qu’Eitr enregistre au choix de ce modèle puis à chaque changement de fond. Si elle manque, un autre fond du thème actuel ou le fond Eitr par défaut est utilisé.
 
 Sur les PC avec plusieurs comptes, l’écran de connexion affiche l’utilisateur sélectionné. Cliquez sur la moitié gauche ou droite du sélecteur, ou utilisez Ctrl+Left / Ctrl+Right, pour choisir un autre compte ; Entrée envoie toujours le mot de passe et Échap conserve son comportement. Avec un seul compte, la présentation ne change pas. L’écran verrouillé affiche le nom réel de la session si disponible et accepte uniquement le mot de passe de ce compte. Changer d’utilisateur (Ctrl+Alt+U) ouvre la connexion SDDM en gardant la session initiale verrouillée. De retour dans la session verrouillée, cliquez une fois dans le champ du mot de passe avant de taper. Cette action apparaît seulement avec plusieurs comptes admissibles et si SDDM autorise le changement. Les aperçus et la galerie utilisent trois comptes fictifs sans authentification.
+
+La barre latérale du catalogue permet de choisir Thèmes ou Plugins. L’onglet Officiel réunit les éléments intégrés et les dépôts Eitr ; Communauté affiche l’index communautaire. Installés affiche les éléments locaux et leur origine. Les cartes montrent les couleurs de la palette disponibles. Sélectionnez des thèmes, vérifiez leurs sources et la taille totale, puis installez-les ensemble. Les plugins communautaires sont répertoriés ; leur installation et l’ajout d’une adresse Git arriveront plus tard.
+
+Supprimer un thème intégré le masque dans les sélecteurs de cette machine. Dans Installés, activez Afficher les thèmes masqués puis choisissez Restaurer. Eitr et le thème actuel ne peuvent pas être masqués. Supprimer un thème téléchargé efface le paquet installé.

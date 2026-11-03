@@ -46,6 +46,9 @@
     "Add a chapter marker": [
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
+    "Add from a Git address": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Add keyboard layouts": [
       "quickshell/desktop-bar/panels/Handbook.qml"
     ],
@@ -76,6 +79,12 @@
     ],
     "Applications": [
       "quickshell/desktop-bar/panels/AudioMenu.qml"
+    ],
+    "Apply": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Applying changes…": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Ask anything…": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
@@ -166,6 +175,12 @@
     "Brightness unavailable": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
+    "Built in": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Built-in themes are hidden and can be restored with Show hidden. Other installed themes are removed.": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "CA certificate file not found": [
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
@@ -186,6 +201,7 @@
       "quickshell/desktop-bar/bar/ClockButton.qml"
     ],
     "Cancel": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/panels/TimePicker.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
@@ -225,6 +241,9 @@
     "Cleanup": [
       "quickshell/desktop-bar/panels/ControlCenterSettings.qml"
     ],
+    "Clear": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Clear all": [
       "quickshell/desktop-bar/notifications/NotificationList.qml"
     ],
@@ -244,6 +263,9 @@
     "Close All Windows": [
       "quickshell/desktop-bar/dock/EdgeDock.qml"
     ],
+    "Close catalog": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Close handbook": [
       "quickshell/desktop-bar/panels/Handbook.qml"
     ],
@@ -255,6 +277,12 @@
     ],
     "Color Picker": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
+    ],
+    "Coming soon": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Community": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Configure this source in OBS": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
@@ -333,6 +361,9 @@
     "Crash Notifications": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
+    "Current": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Cursor": [
       "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
     ],
@@ -346,6 +377,9 @@
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
+    "Data-only themes · Review selected sources": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Delete every occurrence": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
@@ -357,6 +391,9 @@
     ],
     "Desktop audio": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
+    ],
+    "Desktop theme": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Detecting configured AI clients…": [
       "quickshell/desktop-bar/panels/AiUsageMenu.qml"
@@ -514,6 +551,9 @@
     "Hello from an Eitr plugin": [
       "distro/plugins/example/HelloPanel.qml"
     ],
+    "Hidden": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Hide Bar": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
@@ -554,8 +594,20 @@
     "Input level · muted": [
       "quickshell/desktop-bar/components/MicrophoneMeter.qml"
     ],
+    "Install": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Install %1 themes · %2": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Install 1 theme · %1": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Install the Eitr network helper first; see distro/NETWORKING.md": [
       "quickshell/desktop-bar/services/NetworkService.qml"
+    ],
+    "Installed": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Invalid assistant response.": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
@@ -640,6 +692,9 @@
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
       "quickshell/desktop-bar/panels/KeyboardLayoutMenu.qml",
       "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
+    ],
+    "Loading…": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Lock": [
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
@@ -762,6 +817,9 @@
     "No images found": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml"
     ],
+    "No installed items match this filter.": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "No matches": [
       "quickshell/emoji-picker/shell.qml"
     ],
@@ -794,6 +852,9 @@
     ],
     "No reminders": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
+    ],
+    "No themes available. Try again shortly.": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Nothing": [
       "quickshell/lockscreen/design-gallery.qml"
@@ -833,6 +894,9 @@
     ],
     "Offer to report problems when something breaks": [
       "quickshell/desktop-bar/panels/Handbook.qml"
+    ],
+    "Official": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Offline": [
       "quickshell/desktop-bar/panels/WifiMenu.qml",
@@ -919,6 +983,7 @@
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Plugins": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/panels/ControlCenter.qml",
       "quickshell/desktop-bar/plugins/PluginArea.qml"
     ],
@@ -1025,9 +1090,16 @@
     ],
     "Remove": [
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
+      "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/desktop-bar/plugins/PluginManagement.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml"
+    ],
+    "Remove %1": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Remove %1?": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Remove from Dock": [
       "quickshell/desktop-bar/dock/EdgeDock.qml"
@@ -1062,6 +1134,9 @@
     "Restart": [
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
     ],
+    "Restore": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Restore a File": [
       "quickshell/desktop-bar/panels/ControlCenterSettings.qml"
     ],
@@ -1069,8 +1144,14 @@
       "quickshell/desktop-bar/panels/ObsMenu.qml",
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
+    "Retry": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Revert": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+    ],
+    "Review theme installation": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Right": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
@@ -1190,6 +1271,9 @@
     "Show help notifications when a program crashes.": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
+    "Show hidden": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Show icons": [
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml"
@@ -1217,6 +1301,9 @@
     ],
     "Size": [
       "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
+    ],
+    "Size unavailable": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Size: Larger": [
       "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
@@ -1322,8 +1409,17 @@
     "Theme Wallpaper": [
       "quickshell/lockscreen/design-gallery.qml"
     ],
+    "Themes": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Themes & Plugins": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Thinking…": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
+    ],
+    "Third-party": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "This WiFi security type requires advanced network configuration": [
       "quickshell/desktop-bar/services/NetworkService.qml"
@@ -1342,6 +1438,9 @@
     ],
     "Top": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+    ],
+    "Total download: %1": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Transcode": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
@@ -1384,6 +1483,7 @@
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
     "Update": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Update Plugins": [
@@ -1472,6 +1572,9 @@
     ],
     "Your workspace awaits.": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
+    ],
+    "Yours": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "ddd MMM dd": [
       "quickshell/desktop-bar/bar/ClockButton.qml"
@@ -1756,6 +1859,9 @@
     ],
     "Browse bucket": [
       "elephant/menus/aws-s3-browse-bucket-1.lua"
+    ],
+    "Browse installed and official themes and plugins": [
+      "elephant/menu-rows/style.json"
     ],
     "Browsers": [
       "elephant/menu-rows/install.json",
@@ -3606,6 +3712,9 @@
     "Theme changes do not touch device lighting": [
       "elephant/menus/lighting.lua"
     ],
+    "Themes & Plugins": [
+      "elephant/menu-rows/style.json"
+    ],
     "This CLI has no supported isolated account folder": [
       "elephant/ai-account-entries.lua"
     ],
@@ -4350,6 +4459,9 @@
     "Toggle Focus": [
       "tools/handbook-build.py"
     ],
+    "Toggle Themes & Plugins": [
+      "tools/handbook-build.py"
+    ],
     "Toggle automatic locking.": [
       "tools/handbook-build.py"
     ],
@@ -4993,6 +5105,15 @@
     ],
     "Capture": [
       "quickshell/desktop-bar/scripts/remote-status.py"
+    ],
+    "Catalog action already running": [
+      "quickshell/desktop-bar/scripts/catalog-domain.py"
+    ],
+    "Catalog backend unavailable": [
+      "quickshell/desktop-bar/scripts/catalog-domain.py"
+    ],
+    "Catalog operation failed": [
+      "quickshell/desktop-bar/scripts/catalog-domain.py"
     ],
     "Change this visual placement": [
       "walker/scripts/actions/install/plugins.py"
@@ -6696,6 +6817,9 @@
     "Other picture": [
       "walker/scripts/actions/style/own.py"
     ],
+    "Outcome unknown; refresh Installed before trying again": [
+      "quickshell/desktop-bar/scripts/catalog-domain.py"
+    ],
     "Outlook": [
       "walker/scripts/actions/tools/calendars.py"
     ],
@@ -6769,6 +6893,9 @@
     ],
     "Plugin icon: {icon}": [
       "walker/scripts/actions/install/plugins.py"
+    ],
+    "Plugin installation and update review are not available yet": [
+      "quickshell/desktop-bar/scripts/catalog-domain.py"
     ],
     "Plugin installed": [
       "walker/scripts/actions/install/plugins.py"
@@ -7129,6 +7256,9 @@
     ],
     "Repository server must use HTTPS without credentials, query or fragment": [
       "distro/lib/eitr_profile.py"
+    ],
+    "Repository unavailable; retry": [
+      "quickshell/desktop-bar/scripts/catalog-domain.py"
     ],
     "Repository: {url}": [
       "walker/scripts/actions/install/plugins.py"

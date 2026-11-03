@@ -1436,5 +1436,11 @@
   "Solid (100%)": "Solid (100%)",
   "Strong": "Strong",
   "Strong (70%)": "Strong (70%)",
-  "Gentle": "Gentle"
+  "Gentle": "Gentle",
+  "Catalog action already running": "Catalog action already running",
+  "Catalog backend unavailable": "Catalog backend unavailable",
+  "Catalog operation failed": "Catalog operation failed",
+  "Outcome unknown; refresh Installed before trying again": "Outcome unknown; refresh Installed before trying again",
+  "Plugin installation and update review are not available yet": "Plugin installation and update review are not available yet",
+  "Repository unavailable; retry": "Repository unavailable; retry"
 }

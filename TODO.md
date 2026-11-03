@@ -30,7 +30,7 @@ LAN.
 
 # 2. Catalog: official themes and plugins
 
-A Handbook-style catalog window that lists every theme and plugin: what is
+A movable, resizable catalog window that lists every theme and plugin: what is
 installed and what the official repositories offer. Tested on the testing
 channel first; the website changes only once it reaches stable.
 
@@ -42,8 +42,8 @@ channel first; the website changes only once it reaches stable.
 - **Installed** lists everything on the machine as Built in, Official
   (`eitr-org/eitr-themes` or `eitr-org/eitr-plugins`, decided by repository
   address only) or Third-party, each with use/open, update check and remove.
-  **Get more** lists official items not yet installed. Eitr never lists
-  repositories it does not own; third-party items appear only once installed.
+  The **Official** tab combines built-ins and official repositories; **Community**
+  reads the community index. Themes and Plugins are the two sidebar rows.
 - **Download only what is chosen.** Each repository carries a small index (id,
   name, description, size, small preview). The catalog fetches the index and
   visible previews only while open; installing several selected items shows one
@@ -67,25 +67,19 @@ channel first; the website changes only once it reaches stable.
   `eitr-org/eitr-lockscreens` repository would be offered; third-party designs are
   refused and the owner's own lockscreens stay settings on an installed design.
   Which designs stay built in is still open.
-- **Layout (owner, 2026-11-03).** A normal, movable and resizable window that the
-  shortcut toggles (the Handbook becomes a window too, sharing one window
-  component). Sidebar: Themes, Plugins (Lockscreens later). Tabs above the content:
-  Official (everything from eitr-org, built-in included, installed items marked),
-  Community, Installed (every source; Remove lives here, plus "Add from a Git
-  address" for third-party items). Theme cards show the palette as swatches,
-  taken from the index so nothing is downloaded to show them.
-- **Removing built-in themes** hides them from every picker (package files stay,
-  pacman owns them), with Show hidden to restore; Eitr and the current theme
-  cannot be hidden.
-- **Community index `eitr-org/eitr-community`.** Pointers only, no theme or plugin
-  files: one JSON file per entry under `themes/` and `plugins/` (repository,
-  folder, maintainer, license, description; plugins also pin an exact commit),
-  `removed.json` for pulled entries (installed copies get a warning), a generated
-  `index.json` the catalog reads, CONTRIBUTING, a PR template and CI that runs
-  Eitr's own validators. Community themes follow their author's repository;
-  community plugin updates are new pull requests the owner reviews. Lockscreens
-  stay official-only.
-- **Order:** window and tabs layout with the community index, then the
+- **Catalog window (built, owner reviewing).** A movable, resizable window the
+  shortcut toggles; the Handbook shares its window component. Sidebar: Themes,
+  Plugins; tabs: Official, Community, Installed, with palette swatches from the
+  index, multi-select theme installs, updates checked on open, and removal.
+  Removing a built-in theme hides it (Show hidden restores; Eitr and the current
+  theme cannot be hidden).
+- **Community index `eitr-org/eitr-community`.** Pointers only, one JSON file per
+  entry under `themes/` and `plugins/` (plugins pin an exact commit),
+  `removed.json`, a generated `index.json`, and CI running
+  `tools/community-index.py --check --verify` (format: `distro/COMMUNITY.md`).
+  Community themes follow their author's repository; community plugin updates are
+  new pull requests the owner reviews. Lockscreens stay official-only.
+- **Order:** the owner's review of the catalog window, then the
   native install review, then move the 12 themes (they stay here until the
   installer works).
 

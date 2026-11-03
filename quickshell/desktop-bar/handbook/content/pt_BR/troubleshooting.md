@@ -13,7 +13,7 @@ Unidades com falha mostram até três nomes e um comando de estado. Descrições
 
 Novas instalações incluem as dependências do desktop, mas uma instalação Arch existente pode não ter todas. Leia o erro e instale o pacote correspondente em Instalar > Pacotes > Pacman ou por uma atualização completa normal. Não remova BlueZ/iwd/PipeWire/WirePlumber só porque os controles estão em painéis nativos: os painéis ainda dependem desses serviços.
 
-Este manual não precisa de `less`: é Markdown incluído em uma sobreposição nativa. Se informar um catálogo ausente ou desatualizado, atualize os arquivos do desktop EITR.
+Este manual não precisa de `less`: é Markdown incluído em uma janela nativa. Se informar um catálogo ausente ou desatualizado, atualize os arquivos do desktop EITR.
 
 ## Falta um auxiliar pertencente ao root
 

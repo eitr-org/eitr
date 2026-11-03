@@ -96,14 +96,14 @@ built-in fallback, since the custom popup cannot run yet.
 
 ## EITR Handbook
 
-Learn > EITR Handbook and SUPER+F1 toggle a centered, non-tiled overlay.
+Learn > EITR Handbook and SUPER+F1 toggle a centered, movable and resizable window.
 Secure Boot is a chapter inside the Handbook; Security contains actions, not a
 terminal documentation viewer. The reader has instant chapter/full-text search,
 selectable Markdown, local screenshots, Previous/Next and Alt+Left/Right chapter
 navigation. Ctrl+F focuses search; Up/Down and Enter pick a match. Page Up/Down
 and Ctrl+Home/End scroll the chapter. Code blocks sit on a foreground-tinted
-background. Escape, the close button or SUPER+F1
-dismiss it with the shared 320 ms effect; a click beside it does nothing. Its font, corners and
+background. Escape, the close button, the compositor close or SUPER+F1 while focused
+dismiss it; a click beside it does nothing. Its font, corners and
 Blur/Theme Color surface follow desktop preferences. Document links can navigate
 chapters or open HTTP(S) references on an explicit click, never run commands.
 
@@ -1075,3 +1075,26 @@ a usage reader are omitted from cached usage just as fresh CLI collection omits 
 | Weather | Empty forecast days, formatted forecast temperatures as strings, existing cached/unavailable fallback; city search may return no results |
 | AI usage | Empty providers/accounts/windows, optional updated/error keys, null plan and reset timestamps; unavailable accounts are omitted |
 | Updates | checkupdates exit 2 and silent yay exit 1 are successful empty results; offline/unreadable results remain distinct from zero |
+
+### Catalog data ownership
+
+`Catalog` is a single `FloatingWindow` in the bar process, with app id `eitr-catalog`
+and title Themes & Plugins. `panels show catalog` opens or focuses it; SUPER+F2
+closes it when focused and otherwise opens or focuses it across workspaces.
+Its button, Escape or compositor close closes it. Window size persists in
+`$XDG_STATE_HOME/eitr/catalog-window.json` (default 1100×800, bounded by the screen).
+The Handbook shares the native window component. `CatalogContent`
+sends explicit `catalog` queries through DesktopData: `installed`, `index`,
+`preview`, `check`, `install`, `update`, `remove`, `unhide`, and `apply`, with `kind`
+(`themes` or `plugins`), `channel` (`official`, `community`, `installed`) and IDs where needed. Plugins expose only installed,
+index, check and remove in this step. There is no polling or terminal UI.
+`catalog-domain.py` loads lazily in the bounded broker pool; one persistent backend worker calls
+existing theme/plugin owners with a 60-second read or 300-second action deadline.
+Closing cancels owned queries; broker restarts never replay actions. An interrupted
+mutation has an unknown outcome: refresh Installed before retrying. Theme preview
+blobs are validated and cached below XDG_CACHE_HOME/eitr/catalog-previews.
+The plugin owner reads its index, manifest labels and Git tree sizes in a sparse
+metadata clone; listing downloads no plugin code, icons or previews. Full plugin
+validation remains in the existing install/review path.
+
+Catalog and Handbook share `LibraryWindow`: native focus/toggle behavior and separate remembered sizes under the machine-local state directory. Both use the shared Hyprland floating/centering rule. Clicking outside leaves either window open.

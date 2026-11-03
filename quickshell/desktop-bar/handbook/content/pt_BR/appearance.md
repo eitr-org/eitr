@@ -1,5 +1,35 @@
 # Temas, papéis de parede e estilo
 
+## Catálogo de temas e plugins
+
+A barra lateral agrupa Temas e Plugins em Instalados e Obter mais, com suas
+contagens. À direita, o título, a descrição
+e os filtros precedem a lista com rolagem independente. Cima/Baixo percorre a
+barra; Direita ou Tab entra no conteúdo. Esquerda na primeira coluna volta à
+barra. Abaixo de 760 px, ela mostra ícones com dicas ao passar o ponteiro, sem
+títulos de grupo nem texto.
+
+Abra **Configurações > Estilo > Temas e plugins** ou **SUPER + F2**. O catálogo é uma janela que lembra seu tamanho. Segure SUPER e arraste com o botão esquerdo para mover ou com o direito para redimensionar. Os atalhos normais permitem organizar em mosaico ou enviar para outro espaço de trabalho. Abrir novamente foca a janela existente, mesmo em outro espaço. SUPER + F2 fecha quando ela está focada. O botão de fechar, Escape (após dispensar qualquer confirmação) ou o atalho normal de fechar janelas também fecham o catálogo. Instalados mostra cada tema como Integrado, Oficial, De terceiros ou
+Seus numa galeria de prévias. Clique num tema instalado para aplicar pelo fluxo
+normal; uma marca indica o tema atual. Todos, Escuros e Claros filtram a galeria.
+Instalados atualiza ao abrir a janela e após cada ação. Ao abrir, os metadados são verificados em segundo plano e os indicadores de atualização aparecem ao terminar. Não há verificações periódicas de rede; Atualizar substitui um tema do catálogo. Reaplique
+um tema ativo atualizado para renovar a área de trabalho. Remover pede confirmação
+na janela e recusa o tema ativo: aplique outro antes. Temas integrados e seus são preservados.
+
+Obter mais lista o repositório oficial `eitr-org/eitr-themes`. Selecione vários
+temas clicando nas prévias. A barra de instalação inferior abre a revisão com
+prévias, origem e tamanho total; Limpar desfaz a seleção. As setas navegam entre
+cartões e Espaço seleciona downloads. Enter aplica um tema instalado ou abre a
+revisão quando há downloads selecionados. Enter ou Instalar confirma; Escape
+fecha primeiro a revisão e depois a janela. Downloads, progresso e erros ficam na janela. Prévias são baixadas
+somente para cartões visíveis e usam o cache do usuário. Se o repositório estiver
+inacessível, Tentar novamente o recarrega; Instalados funciona sem conexão.
+
+As páginas Plugins lista plugins instalados e o repositório oficial
+`eitr-org/eitr-plugins`, com confirmação de remoção na janela. Instalar e atualizar
+plugins ainda usa os fluxos de revisão existentes; o catálogo ainda não instala
+plugins nem aceita endereços de repositórios de terceiros.
+
 ## Temas e papéis de parede
 
 Abra **Configurações > Estilo > Tema** ou **SUPER + Ctrl + Shift + N** para os menus Escuro/Claro do Walker. O carrossel de temas da área de trabalho (clique duplo direito na área de trabalho, Central de Controle > Estilo > Tema ou IPC appearance) mostra todos os temas. O Sol acima do cartão selecionado mostra só os temas claros e a Lua só os escuros; clique de novo no selecionado para voltar a ver todos. Ctrl+Tab alterna entre todos, escuros e claros. Digite para buscar entre os temas exibidos; setas/Tab navegam e Enter aplica. Backspace edita a busca ou fecha quando vazia; Escape limpa a busca antes de fechar. O carrossel de papéis de parede não tem busca de temas.
@@ -49,3 +79,7 @@ Compare os nove desenhos com `bash quickshell/lockscreen/scripts/gallery.sh`. Is
 **Papel de parede do tema** usa o papel de parede atual com relógio no alto à esquerda e senha no canto inferior direito. A prévia do Walker mostra a imagem atual. Mudanças posteriores aparecem no próximo bloqueio ou prévia; Ctrl+P mostra o layout inteiro sem bloquear. A tela de login não pode ler sua pasta pessoal, então usa uma cópia salva pelo Eitr ao escolher esse desenho e a cada troca de papel de parede. Se ela estiver indisponível, usa outro papel do tema atual ou o padrão Eitr.
 
 Em PCs com várias contas, a tela de login mostra o usuário selecionado. Clique na metade esquerda ou direita do seletor, ou pressione Ctrl+Left / Ctrl+Right, para escolher outra conta; Enter continua enviando a senha e Escape mantém seu comportamento. Com uma conta, o layout de login não muda. A tela de bloqueio mostra o nome real da sessão bloqueada quando disponível e só aceita a senha dessa conta. Trocar usuário (Ctrl+Alt+U) abre o login do SDDM e mantém a sessão original bloqueada. Ao voltar para a sessão bloqueada, clique uma vez no campo de senha antes de digitar. A ação só aparece quando há várias contas elegíveis e o SDDM permite a troca. As prévias e a galeria usam três contas fictícias e nunca autenticam.
+
+A barra lateral do catálogo alterna entre Temas e Plugins. A aba Oficial reúne os itens integrados e os repositórios Eitr; Comunidade lista o índice comunitário. Instalados mostra os itens locais e seus selos de origem. Os cartões de temas mostram amostras da paleta quando disponíveis. Selecione temas, revise suas fontes e o tamanho total e instale-os juntos. Plugins comunitários aparecem na lista; sua instalação e a adição de um endereço Git chegarão depois.
+
+Remover um tema integrado o oculta dos seletores nesta máquina. Em Instalados, ative Mostrar ocultos e escolha Restaurar. Eitr e o tema atual não podem ser ocultados. Remover um tema baixado exclui o pacote instalado.

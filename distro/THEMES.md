@@ -3,7 +3,7 @@
 The JSON backend is `python3 walker/scripts/actions/install/themes.py` with
 `index URL`, `install URL ID [ID ...]`, `list`, `check`, `update ID` and
 `remove ID`. Each response has `ok` and `result`, or `ok: false` and `error`
-with exit status 1. There is no catalog UI yet. HTTPS and SSH Git addresses
+with exit status 1. The Themes & Plugins catalog opens from Settings > Style or SUPER + F2. HTTPS and SSH Git addresses
 are accepted; file URLs are reserved for library tests. No repository code,
 checkout filters, hooks, installers or submodules run.
 
@@ -102,3 +102,17 @@ files; reapply it to refresh the copied current theme and generated styles.
 Existing Walker and bar pickers, apply.sh and regeneration use the user-data
 lookup path already. Only `own-theme.json` enables the pickers' user-created
 editing/deleting controls.
+
+Catalog rows may include a `palette` object with exactly `background`, `foreground`,
+`accent`, and `color1` through `color6`, each a six-digit `#RRGGBB` string.
+`tools/theme-catalog-index.py` emits these from `colors.toml`; `--check` compares
+that complete generated index. Older indexes without `palette` remain accepted,
+and their cards omit swatches. Installed cards read `colors.toml` locally.
+
+`themes.py hide ID` hides a built-in theme; `unhide ID` restores it. The sorted
+machine-local list is `$XDG_STATE_HOME/eitr/hidden-themes.json` (default
+`~/.local/state/eitr/hidden-themes.json`). Every picker uses the shared path
+resolver. Eitr and the current theme are protected. Catalog Installed offers
+Show hidden and Restore; hiding never deletes shipped files.
+
+Community installs record `community: true` in their local source record so their badge survives an index cache cleanup. This provenance never grants official status: official trust still depends only on the repository address.

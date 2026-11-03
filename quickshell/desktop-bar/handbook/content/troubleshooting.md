@@ -17,7 +17,7 @@ package through Install > Packages > Pacman or a normal full-system update. Do n
 BlueZ/iwd/PipeWire/WirePlumber merely because their settings are in native panels:
 the panels still need those backends.
 
-This handbook does not need `less`. It is bundled Markdown in a native overlay.
+This handbook does not need `less`. It is bundled Markdown in a native window.
 If the reader reports a missing/stale catalog, update the EITR desktop files.
 
 ## Root-owned helper missing

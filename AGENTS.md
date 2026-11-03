@@ -23,9 +23,9 @@ existing design and workflows rather than replacing them with upstream defaults.
   The catalog bundles canonical distro guides rather than duplicating them;
   keyboard/mouse tables are generated from Learn's shortcut/gesture sources. Secure Boot docs
   belong only in the Handbook, without a separate Learn or Security menu entry.
-  The reader is an offline, read-only overlay: never
+  The reader is an offline, read-only window: never
   execute commands from document links or include secrets/private screen content.
-  It closes only from its close button, Escape or its shortcut, never from a click
+  It closes only from its close button, Escape, its shortcut or the compositor close, never from a click
   beside it. Its Getting Started chapter is the first-login welcome; its setup
   buttons are reader controls that open existing panels, not document links.
 

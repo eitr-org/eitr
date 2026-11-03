@@ -17,6 +17,7 @@ from eitr_i18n import mark, tr
 from eitr_paths import config, data, state
 from eitr_plugin_manifest import (
     identifier,
+    index_entries,
     manifest,
     object_keys,
     plugin_files,
@@ -396,6 +397,37 @@ class PluginInstall:
             if updated != notices:
                 self.write(self.notices, updated)
         return blocked
+
+    def catalog(self, url):
+        """Read index/card metadata only; installation still validates all files."""
+        repository_url(url, allow_file=self.allow_file)
+        with tempfile.TemporaryDirectory() as temporary:
+            candidate = Path(temporary) / 'repository'
+            git(None, 'clone', '--template=', '--filter=blob:none', '--sparse', '--no-checkout',
+                '--no-recurse-submodules', '--', url, str(candidate), allow_file=self.allow_file)
+            revision = commit(candidate)
+
+            def blob(path):
+                entry = git(candidate, 'ls-tree', revision, '--', path, allow_file=self.allow_file)
+                if not entry.startswith('100644 blob '):
+                    raise ValueError('Catalog metadata must be a regular file')
+                object_id = git(candidate, 'rev-parse', revision + ':' + path, allow_file=self.allow_file)
+                if int(git(candidate, 'cat-file', '-s', object_id, allow_file=self.allow_file)) > 65536:
+                    raise ValueError('Catalog metadata exceeds size limit')
+                return json.loads(git(candidate, 'cat-file', 'blob', object_id, allow_file=self.allow_file), object_pairs_hook=unique_object)
+
+            entries = index_entries(blob('eitr-plugins.json'))
+            rows = []
+            for entry in entries:
+                spec = blob(entry['path'] + '/eitr-plugin.json')
+                if not isinstance(spec, dict) or spec.get('id') != entry['id']:
+                    raise ValueError('Plugin index id does not match its manifest')
+                name = string(spec.get('name'))
+                description = string(spec.get('description'), 72)
+                tree = git(candidate, 'ls-tree', '-rlz', revision + ':' + entry['path'], allow_file=self.allow_file)
+                size = sum(int(record.split('\t', 1)[0].split()[3]) for record in tree.split('\0') if record)
+                rows.append(dict(id=entry['id'], name=name, description=description, size=size))
+            return rows
 
     def prepare(self, url, temporary):
         candidate = temporary / 'candidate'

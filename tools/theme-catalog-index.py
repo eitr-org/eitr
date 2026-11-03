@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate or verify a data-only theme repository's catalog."""
+"""Generate or verify a data-only theme catalog, including palette swatches."""
 import argparse
 import json
 from pathlib import Path

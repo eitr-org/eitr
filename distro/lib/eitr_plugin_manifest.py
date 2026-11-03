@@ -162,22 +162,15 @@ def manifest(root):
     return value
 
 
-def repository_plugins(root):
-    """Validate the entire index before offering any entry for review."""
-    index = root / 'eitr-plugins.json'
-    if not index.exists() and not index.is_symlink():
-        return [dict(path='', spec=manifest(root))]
-    list(plugin_files(root))
-    if index.is_symlink() or not index.is_file() or index.stat().st_size > 65536:
-        raise ValueError('Invalid plugin index file')
-    value = json.loads(index.read_text(), object_pairs_hook=unique_object)
+def index_entries(value):
+    """Validate repository index metadata without downloading plugin contents."""
     object_keys(value, ('schemaVersion', 'plugins'))
     if type(value['schemaVersion']) is not int or value['schemaVersion'] != 1:
         raise ValueError('Invalid plugin index schemaVersion')
     entries = value['plugins']
     if not isinstance(entries, list) or not 1 <= len(entries) <= 100:
         raise ValueError('A plugin index must declare 1..100 plugins')
-    result, ids, paths = [], set(), set()
+    ids, paths = set(), set()
     for entry in entries:
         object_keys(entry, ('id', 'path'))
         plugin_id = identifier(entry['id'])
@@ -186,21 +179,35 @@ def repository_plugins(root):
         if (parts.is_absolute() or '..' in parts.parts or '.' in relative.split('/')
                 or '\\' in relative or str(parts) != relative or not parts.parts):
             raise ValueError('Plugin index paths must be normalized repository-relative folders')
-        folder = root / relative
-        if not folder.is_dir() or not folder.resolve().is_relative_to(root.resolve()):
-            raise ValueError('Plugin index path escapes the repository or is missing')
         if plugin_id in ids or relative in paths:
             raise ValueError('Duplicate plugin index id or path')
-        if any(folder.is_relative_to(root / previous) or (root / previous).is_relative_to(folder) for previous in paths):
+        if any(parts.is_relative_to(PurePosixPath(previous)) or PurePosixPath(previous).is_relative_to(parts) for previous in paths):
             raise ValueError('Plugin index folders may not overlap')
+        ids.add(plugin_id)
+        paths.add(relative)
+    return entries
+
+
+def repository_plugins(root):
+    """Validate the entire index before offering any entry for review."""
+    index = root / 'eitr-plugins.json'
+    if not index.exists() and not index.is_symlink():
+        return [dict(path='', spec=manifest(root))]
+    list(plugin_files(root))
+    if index.is_symlink() or not index.is_file() or index.stat().st_size > 65536:
+        raise ValueError('Invalid plugin index file')
+    entries = index_entries(json.loads(index.read_text(), object_pairs_hook=unique_object))
+    result = []
+    for entry in entries:
+        folder = root / entry['path']
+        if not folder.is_dir() or not folder.resolve().is_relative_to(root.resolve()):
+            raise ValueError('Plugin index path escapes the repository or is missing')
         spec = manifest(folder)
-        if spec['id'] != plugin_id:
+        if spec['id'] != entry['id']:
             raise ValueError('Plugin index id does not match its manifest')
         if spec.get('schemaVersion') == 2 and 'icon' not in spec:
             raise ValueError('Schema version 2 requires a plugin icon')
-        ids.add(plugin_id)
-        paths.add(relative)
-        result.append(dict(path=relative, spec=spec))
+        result.append(dict(path=entry['path'], spec=spec))
     return result
 
 

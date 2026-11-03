@@ -99,6 +99,7 @@ Item {
             weather: barHost.weatherMenu, hardware: barHost.hardwareMenu, ai: barHost.aiMenu, obs: barHost.obsMenu,
             workspace: barHost.workspaceMenu, recording: barHost.recordingMenu, notifications: notificationCenter,
             center: controlCenter, media: mediaMenu, battery: batteryMenu};
+        if (kind === "catalog") { host.showCatalog(); return; }
         if (kind === "overview") { barHost.toggleOverview(); return; }
         if (!panels[kind]) return;
         if (kind === "mic" || kind === "volume") barHost.volumeMenu.microphone = kind === "mic";

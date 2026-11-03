@@ -2385,6 +2385,12 @@
         ],
         "icon": "󰍹",
         "submenu": "workspaces"
+      },
+      {
+        "text": "Themes & Plugins",
+        "subtext": "Browse installed and official themes and plugins",
+        "icon": "󰸌",
+        "command": "eitr-shell desktop-bar ipc call -- panels show catalog"
       }
     ],
     "system-connectivity": [
@@ -3205,6 +3211,12 @@
       "description": "Toggle EITR handbook",
       "line": "  SUPER + F1                Toggle EITR handbook",
       "command": "bash \"$EITR_CODE_ROOT/quickshell/desktop-bar/scripts/handbook.sh\" toggle"
+    },
+    {
+      "key": "SUPER + F2",
+      "description": "Toggle Themes & Plugins",
+      "command": "eitr-shell desktop-bar ipc call -- catalog toggle",
+      "line": "  SUPER + F2                Toggle Themes & Plugins"
     },
     {
       "key": "SUPER + ,",
@@ -8762,6 +8774,24 @@
         "main"
       ],
       "submenu": "workspaces"
+    },
+    {
+      "key": "59a3cafea575680fd37eab2733609f52ee9d7365a20172847c58561ad125bf86",
+      "provider": "menus:style",
+      "identifier": "style:10",
+      "text": "Themes & Plugins",
+      "subtext": "Browse installed and official themes and plugins",
+      "icon": "󰸌",
+      "actions": [],
+      "keywords": [
+        "Themes & Plugins",
+        "Themes & Plugins",
+        "Browse installed and official themes and plugins"
+      ],
+      "menus": [
+        "settings",
+        "main"
+      ]
     },
     {
       "key": "0185bc4d27bd9e6c9c0ab7a0417a36b77f45d9af4b561f6c961d174741506d7a",

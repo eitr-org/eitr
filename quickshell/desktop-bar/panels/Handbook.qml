@@ -10,17 +10,15 @@ import Quickshell.Wayland
 import "../PanelStyle.js" as PanelStyle
 import "../HandbookModel.js" as Model
 
-// The handbook overlay. It closes only from its close button, Escape or its
-// shortcut, never from a click beside it. Its first chapter doubles as the
-// first-login welcome: reader controls above the text ask the shell to open
-// existing setup workflows. The reader itself runs nothing.
-PanelWindow {
+// Offline, read-only reader and first-login welcome in a remembered native window.
+LibraryWindow {
     id: book
     required property color foreground
     required property color background
     required property color accent
-    property bool opened: false
-    property real reveal: opened ? 1 : 0
+    readonly property real reveal: opened ? 1 : 0
+    stateName: "handbook"
+    title: "EITR Handbook"
     property var chapters: []
     property string selectedId: "getting-started"
     property string query: ""
@@ -46,14 +44,6 @@ PanelWindow {
     signal setupRequested(string kind)
     signal welcomeChoice(string action)
     signal problemReportsChoice(bool offer)
-    visible: opened || reveal > 0
-    color: "transparent"
-    anchors { top: true; bottom: true; left: true; right: true }
-    exclusionMode: ExclusionMode.Ignore
-    WlrLayershell.namespace: "desktop-handbook"
-    WlrLayershell.layer: WlrLayer.Overlay
-    WlrLayershell.keyboardFocus: opened ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
-    Behavior on reveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     onOpenedChanged: {
         if (opened) { focusDelay.restart(); return; }
         // Closing the automatic welcome without asking to see it again dismisses it for good.
@@ -73,13 +63,13 @@ PanelWindow {
     }
     function show(id) {
         if (id) { query = ""; selectedId = id; }
-        opened = true;
+        showWindow();
         articleScroll.contentY = 0;
     }
     function scrollBy(distance) {
         articleScroll.contentY = Math.max(0, Math.min(articleScroll.contentY + distance, articleScroll.contentHeight - articleScroll.height));
     }
-    // A setup step closes the handbook, then opens its workflow once the overlay is gone.
+    // A setup step closes the handbook, then opens its workflow once the window is gone.
     function openStep(kind) {
         if (kind === "learn") { choose("shortcuts"); return; }
         pendingStep = kind;
@@ -122,7 +112,7 @@ PanelWindow {
     Timer { id: focusDelay; interval: 80; onTriggered: if (book.opened) search.forceActiveFocus() }
     IpcHandler {
         target: "handbook"
-        function toggle(): void { book.opened = !book.opened; }
+        function toggle(): void { book.toggle(); }
         function open(chapter: string): void { book.show(chapter); }
         function close(): void { book.opened = false; }
         function scroll(y: int): void { articleScroll.contentY = Math.max(0, Math.min(y, articleScroll.contentHeight - articleScroll.height)); }
@@ -146,14 +136,10 @@ PanelWindow {
         }
         Rectangle {
             id: surface
-            anchors.centerIn: parent
-            width: Math.max(1, Math.min(1100, parent.width - 48))
-            height: Math.max(1, Math.min(800, parent.height - 64))
+            anchors.fill: parent
             radius: DesktopStyle.radius(PanelStyle.cornerRadius)
             color: book.background
             opacity: book.reveal
-            scale: 0.97 + 0.03 * book.reveal
-            transform: Translate { y: 18 * (1 - book.reveal) }
             border.width: 1
             border.color: Qt.alpha(book.foreground, 0.12)
             MouseArea { anchors.fill: parent; onClicked: {} }
@@ -364,7 +350,7 @@ PanelWindow {
                 spacing: 8
                 PanelButton { width: 100; height: 32; text: Eitr.I18n.tr("Previous"); foreground: book.foreground; available: book.selectedIndex > 0; onClicked: book.choose(book.chapters[book.selectedIndex - 1].id) }
                 PanelButton { width: 100; height: 32; text: Eitr.I18n.tr("Next"); foreground: book.foreground; available: book.selectedIndex >= 0 && book.selectedIndex + 1 < book.chapters.length; onClicked: book.choose(book.chapters[book.selectedIndex + 1].id) }
-                Text { visible: articleScroll.width > 400; height: 32; verticalAlignment: Text.AlignVCenter; text: Eitr.I18n.tr("PgUp/PgDn to scroll · Escape or × to close"); color: book.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                Text { visible: articleScroll.width > 620; height: 32; verticalAlignment: Text.AlignVCenter; text: Eitr.I18n.tr("PgUp/PgDn to scroll · Escape or × to close"); color: book.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
             }
         }
     }

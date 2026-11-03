@@ -1,5 +1,35 @@
 # Designs, Hintergrundbilder und Darstellung
 
+## Katalog für Themes und Plugins
+
+Die linke Seitenleiste gruppiert Themes und Plugins unter Installiert und Weitere
+entdecken und zeigt die Anzahl. Rechts stehen
+Seitentitel, Beschreibung und Theme-Filter über der separat scrollbaren Liste.
+Auf/Ab wechselt die Seitenleistenzeile; Rechts oder Tab öffnet den Inhalt. Links
+in der ersten Spalte kehrt zurück. Unter 760 px zeigt die Leiste Symbole mit
+Hover-Beschriftungen statt Gruppenüberschriften und Text.
+
+Öffne **Einstellungen > Stil > Themes und Plugins** oder **SUPER + F2**. Der Katalog ist ein verschiebbares Fenster mit gespeicherter Größe. Halte SUPER und ziehe mit der linken Maustaste zum Verschieben oder mit der rechten zum Ändern der Größe. Normale Fensterkürzel kacheln es oder verschieben es auf eine andere Arbeitsfläche. Erneutes Öffnen fokussiert das vorhandene Fenster auch auf einer anderen Arbeitsfläche. SUPER + F2 schließt es, wenn es fokussiert ist. Auch die Schließen-Schaltfläche, Escape (nach dem Schließen eines Bestätigungsdialogs) oder das normale Fenster-Schließen-Kürzel schließen es. Installiert zeigt jedes Theme als Integriert, Offiziell, Drittanbieter oder
+Eigene in einer Vorschaugalerie. Ein Klick auf ein installiertes Theme wendet es
+über den normalen Ablauf an; ein Häkchen markiert das aktuelle Theme. Alle, Dunkel
+und Hell filtern die Galerie. Installiert wird beim Öffnen und nach Aktionen aktualisiert. Beim Öffnen werden Metadaten im Hintergrund geprüft; danach erscheinen Update-Markierungen. Es gibt keine regelmäßige Netzwerkprüfung; Update ersetzt ein Katalog-Theme. Wende ein aktualisiertes aktives Theme
+erneut an, um den Desktop zu erneuern. Entfernen fragt im Fenster nach und verweigert
+das aktive Theme: wende zuerst ein anderes an. Integrierte und eigene Themes bleiben erhalten.
+
+Weitere entdecken zeigt das offizielle Repository `eitr-org/eitr-themes`. Wähle mehrere
+Themes durch Klick auf ihre Vorschaubilder. Die untere Installationsleiste öffnet
+die Prüfung mit Vorschauen, Quelle und Gesamtgröße; Leeren hebt die Auswahl auf.
+Pfeiltasten bewegen die Auswahl, die Leertaste wählt Downloads aus. Enter wendet ein
+installiertes Theme an oder öffnet bei ausgewählten Downloads die Prüfung. Enter
+oder Installieren bestätigt sie; Escape schließt zuerst die Prüfung, dann das Fenster. Downloads, Fortschritt und Fehler bleiben im Fenster. Vorschaubilder
+werden nur für sichtbare Karten geladen und im Benutzer-Cache gespeichert. Ist das
+Repository nicht erreichbar, lädt Erneut versuchen es neu; Installiert funktioniert offline.
+
+Die Plugin-Seiten zeigt installierte Plugins und das offizielle Repository
+`eitr-org/eitr-plugins`; Entfernen wird im Fenster bestätigt. Installation und Updates
+von Plugins verwenden weiterhin die vorhandenen Prüfabläufe. Der Katalog installiert
+noch keine Plugins und akzeptiert keine Repository-Adressen von Drittanbietern.
+
 ## Designs und Hintergrundbilder
 
 Öffne **Einstellungen > Stil > Design** oder **SUPER + Ctrl + Shift + N** für Walkers Dunkel/Hell-Menüs. Das Designkarussell des Desktops (rechter Doppelklick auf den Desktop, Kontrollzentrum > Stil > Design oder appearance-IPC) zeigt alle Designs. Die Sonne über der ausgewählten Karte zeigt nur helle Designs, der Mond nur dunkle; ein zweiter Klick auf die ausgewählte zeigt wieder alle. Ctrl+Tab wechselt zwischen allen, dunklen und hellen. Tippe zum Suchen in den angezeigten Designs; Pfeiltasten/Tab wechseln die Auswahl, Enter wendet sie an. Backspace bearbeitet die Suche oder schließt bei leerer Suche; Escape leert die Suche vor dem Schließen. Das Hintergrundbildkarussell hat keine Designsuche.
@@ -49,3 +79,7 @@ Vergleiche die neun Designs mit `bash quickshell/lockscreen/scripts/gallery.sh`.
 **Design-Hintergrundbild** zeigt das aktuelle Hintergrundbild mit Uhr oben links und Passworteingabe unten rechts. Die Walker-Vorschau zeigt das aktuelle Bild. Spätere Änderungen erscheinen beim nächsten Sperren oder Öffnen der Vorschau; Ctrl+P zeigt das gesamte Design ohne Sperren. Der Anmeldebildschirm kann deinen persönlichen Ordner nicht lesen. Er nutzt eine Kopie, die Eitr beim Auswählen dieses Designs und bei jedem Bildwechsel speichert. Fehlt sie, wird ein anderes Bild des aktuellen Designs oder der Eitr-Standard verwendet.
 
 Auf PCs mit mehreren Konten zeigt der Anmeldebildschirm den ausgewählten Benutzer. Ein Klick auf die linke oder rechte Hälfte der Benutzerauswahl oder Ctrl+Left / Ctrl+Right wählt ein anderes Konto; Enter sendet weiterhin das Passwort und Escape behält seine bisherige Funktion. Mit einem Konto bleibt die Anmeldung optisch unverändert. Der Sperrbildschirm zeigt nach Möglichkeit den echten Namen der gesperrten Sitzung und akzeptiert nur das Passwort dieses Kontos. Benutzer wechseln (Ctrl+Alt+U) öffnet die SDDM-Anmeldung und lässt die ursprüngliche Sitzung gesperrt. Zurück in der gesperrten Sitzung klicken Sie einmal in das Passwortfeld, bevor Sie tippen. Die Aktion erscheint nur bei mehreren geeigneten Konten und wenn SDDM den Wechsel unterstützt. Vorschau und Galerie verwenden drei fiktive Konten und authentifizieren nie.
+
+Die Seitenleiste des Katalogs wechselt zwischen Themen und Plugins. Offiziell zeigt integrierte Elemente und die Eitr-Repositories; Community zeigt den Community-Index. Installiert zeigt lokale Elemente mit Herkunftskennzeichnung. Themenkarten zeigen verfügbare Palettenfarben. Themen auswählen, Quellen und Gesamtgröße prüfen und gemeinsam installieren. Community-Plugins werden aufgelistet; Installation und das Hinzufügen einer Git-Adresse folgen später.
+
+Das Entfernen eines integrierten Themas blendet es auf diesem Rechner in allen Auswahllisten aus. Unter Installiert Ausgeblendete anzeigen aktivieren und Wiederherstellen wählen. Eitr und das aktuelle Thema können nicht ausgeblendet werden. Bei heruntergeladenen Themen wird das installierte Paket gelöscht.

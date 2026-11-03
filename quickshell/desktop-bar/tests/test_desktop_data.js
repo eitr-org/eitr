@@ -403,3 +403,21 @@ function lifetimeContext(relative, values, functions = []) {
     assert.equal(wire.size, 0);
     console.log('production panel and Control Center lifetime handlers: 20 cycles, pending queries, destruction and reconnect passed');
 }
+
+{
+    const frames = [];
+    const data = createClient(frame => frames.push(frame), () => {});
+    data.receive(JSON.stringify({v: 1, op: 'hello', epoch: 'catalog-one'}));
+    let replies = 0;
+    const query = data.queryCatalog('index', {kind: 'themes'}, 'catalog-window', () => replies++);
+    data.releaseOwner('catalog-window');
+    assert.equal(frames.at(-1).op, 'cancel');
+    assert.equal(frames.at(-1).topic, 'catalog');
+    data.receive(JSON.stringify({v: 1, op: 'reply', topic: 'catalog', id: query, epoch: 'catalog-one', data: {items: []}}));
+    assert.equal(replies, 0);
+    data.queryCatalog('install', {kind: 'themes', ids: ['moss']}, 'catalog-window', error => assert.equal(error, 'broker-unavailable'));
+    const count = frames.length;
+    data.died();
+    data.receive(JSON.stringify({v: 1, op: 'hello', epoch: 'catalog-two'}));
+    assert.equal(frames.length, count, 'catalog actions are never replayed after reconnect');
+}

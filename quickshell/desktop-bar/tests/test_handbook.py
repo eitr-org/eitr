@@ -41,8 +41,11 @@ class HandbookTests(unittest.TestCase):
     def test_runtime_reader_is_read_only_and_offline(self):
         source = (ROOT / "quickshell/desktop-bar/panels/Handbook.qml").read_text()
         self.assertIn("readOnly: true", source)
-        self.assertIn("WlrLayer.Overlay", source)
-        self.assertIn("ExclusionMode.Ignore", source)
+        self.assertIn("LibraryWindow {", source)
+        shared = (ROOT / "quickshell/desktop-bar/components/LibraryWindow.qml").read_text()
+        self.assertIn("FloatingWindow {", shared)
+        self.assertIn("onClosed:", shared)
+        self.assertIn('stateName: "handbook"', source)
         self.assertNotIn("execDetached", source)
         self.assertNotIn("Process {", source)
         self.assertNotIn("XMLHttpRequest", source)

@@ -50,6 +50,8 @@ Las respuestas ofrecen Markdown seleccionable y Copiar. La conversación permane
 
 ## Plugins
 
+**Configuración > Estilo > Temas y plugins** o **SUPER + F2** abre la ventana del catálogo. La pestaña Plugins muestra los instalados y oficiales, busca actualizaciones y elimina plugins instalados tras confirmar en la ventana. La instalación y la revisión de actualizaciones siguen en los flujos siguientes.
+
 **Centro de control > Plugins** muestra una fila compacta por plugin instalado, con icono, nombre e interruptor de activación. Selecciona una fila para ver autor, versión, descripción, acciones de actualización y eliminación, widgets, elementos de la barra y vista previa. Usa Atrás o Escape para volver a la lista. Activar/Desactivar conserva posiciones y detiene o restaura servicios, filas de Walker, hooks y elementos visuales; usa `eitr plugin enable ID` o `eitr plugin disable ID`. Añadir plugins, Actualizar y Eliminar abren los flujos revisados del terminal; eliminar pide confirmación. General conserva solo los bloques de plugins. Los fallos visuales tienen una acción independiente para reactivar.
 
 Añadir plugins también acepta repositorios con varios plugins. El índice raíz `eitr-plugins.json` enumera sus IDs y carpetas, cada una con su propio `eitr-plugin.json`. Selecciona uno o más por nombre, descripción e icono y revisa cada plugin por separado. Rechazar uno no aprueba los demás. Los seleccionados comparten una copia del repositorio y quedan fijados individualmente al commit exacto; actualizar uno mantiene los demás en sus commits aprobados. Los detalles muestran la URL del repositorio y la carpeta del plugin. Un único `eitr-plugin.json` en la raíz sigue funcionando como antes.

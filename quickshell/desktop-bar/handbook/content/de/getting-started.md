@@ -18,7 +18,7 @@ Neue EITR-Installationen verwenden **Eitr** und den Sperrbildschirm **Clockwork 
 
 ## Im eigenen Tempo lernen
 
-Öffne **Lernen > EITR-Handbuch** oder drücke **SUPER + F1**. Derselbe Kurzbefehl, Escape oder die Schließen-Schaltfläche schließt das Handbuch. Ein Klick daneben lässt es offen. Es wird nicht als Kachel neben Anwendungen angeordnet. Die Suche findet Kapiteltitel und Text; Up/Down wählen einen Treffer, Enter öffnet ihn. **Ctrl + F** fokussiert die Suche. **Page Up/Page Down** scrollen, **Ctrl + Home/End** springen zum Anfang oder Ende und **Alt + Left/Right** wechseln Kapitel. Zurück und Weiter leisten dasselbe mit der Maus.
+Öffne **Lernen > EITR-Handbuch** oder drücke **SUPER + F1**. Das Handbuch ist ein verschiebbares Fenster mit anpassbarer, gespeicherter Größe. Das Tastenkürzel aktiviert das offene Fenster; ist es bereits aktiv, schließt es das Fenster. Escape, die Schließen-Schaltfläche und der Schließen-Befehl des Compositors schließen es ebenfalls. Ein Klick daneben schließt es nicht. Die Suche findet Kapiteltitel und Text; Up/Down wählen einen Treffer, Enter öffnet ihn. **Ctrl + F** fokussiert die Suche. **Page Up/Page Down** scrollen, **Ctrl + Home/End** springen zum Anfang oder Ende und **Alt + Left/Right** wechseln Kapitel. Zurück und Weiter leisten dasselbe mit der Maus.
 
 Das Handbuch führt keine Befehle aus. Codeblöcke sind Beispiele zum bewussten Prüfen und Kopieren. Externe Links öffnen sich nur beim Anklicken.
 

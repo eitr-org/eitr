@@ -18,7 +18,7 @@ Novas instalações do EITR usam **Eitr** e a tela de bloqueio **Clockwork Tape*
 
 ## Aprenda no seu ritmo
 
-Abra **Aprender > Manual do EITR** ou pressione **SUPER + F1**. O mesmo atalho, Escape ou o botão de fechar dispensa o manual; clicar ao lado o mantém aberto. Ele não ocupa um bloco ao lado dos aplicativos. A busca encontra títulos e textos; Up/Down escolhem um resultado e Enter o abre. **Ctrl + F** foca a busca. **Page Up/Page Down** rolam o capítulo, **Ctrl + Home/End** vão ao início ou fim e **Alt + Left/Right** mudam de capítulo. Os botões anterior e próximo fazem o mesmo com o mouse.
+Abra **Aprender > Manual do EITR** ou pressione **SUPER + F1**. O Manual é uma janela móvel e redimensionável que lembra seu tamanho. O atalho traz a janela aberta para o foco; quando ela está em foco, o mesmo atalho a fecha. Escape, o botão de fechar ou o comando de fechar do compositor também a fecham. Clicar fora não fecha a janela. A busca encontra títulos e textos; Up/Down escolhem um resultado e Enter o abre. **Ctrl + F** foca a busca. **Page Up/Page Down** rolam o capítulo, **Ctrl + Home/End** vão ao início ou fim e **Alt + Left/Right** mudam de capítulo. Os botões anterior e próximo fazem o mesmo com o mouse.
 
 O manual não executa comandos. Os blocos de código são exemplos para você conferir e copiar conscientemente. Links externos só abrem quando clicados.
 

@@ -550,6 +550,15 @@ msgstr "Impossible de valider le dépôt Flatpak {remote} : {reason}"
 msgid "Capture"
 msgstr "Capture"
 
+msgid "Catalog action already running"
+msgstr "Une action du catalogue est déjà en cours"
+
+msgid "Catalog backend unavailable"
+msgstr "Service du catalogue indisponible"
+
+msgid "Catalog operation failed"
+msgstr "Échec de l’opération du catalogue"
+
 msgid "Change this visual placement"
 msgstr "Changer l’emplacement de cet élément"
 
@@ -2209,6 +2218,9 @@ msgstr "Autre dossier…"
 msgid "Other picture"
 msgstr "Autre image"
 
+msgid "Outcome unknown; refresh Installed before trying again"
+msgstr "Résultat inconnu ; actualisez Installés avant de réessayer"
+
 msgid "Outlook"
 msgstr "Outlook"
 
@@ -2280,6 +2292,9 @@ msgstr "Plugin de {author} · non vérifié par Eitr"
 
 msgid "Plugin icon: {icon}"
 msgstr "Icône du plugin : {icon}"
+
+msgid "Plugin installation and update review are not available yet"
+msgstr "La vérification des installations et mises à jour de plugins n’est pas encore disponible"
 
 msgid "Plugin installed"
 msgstr "Plugin installé"
@@ -2631,6 +2646,9 @@ msgstr "Le nom du dépôt existe déjà avec des paramètres différents"
 
 msgid "Repository server must use HTTPS without credentials, query or fragment"
 msgstr "Le serveur du dépôt doit utiliser HTTPS sans identifiants, requête ni fragment"
+
+msgid "Repository unavailable; retry"
+msgstr "Dépôt indisponible ; réessayez"
 
 msgid "Repository: {url}"
 msgstr "Dépôt : {url}"

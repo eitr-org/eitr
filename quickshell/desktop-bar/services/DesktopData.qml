@@ -23,6 +23,7 @@ QtObject {
     function releaseOwner(owner) { client.releaseOwner(owner); }
     function refresh(topic) { client.refresh(topic); }
     function queryWeather(name, args, owner, callback) { return client.queryWeather(name, args, owner, callback); }
+    function queryCatalog(name, args, owner, callback) { return client.queryCatalog(name, args, owner, callback); }
     function cancelQuery(id) { client.cancelQuery(id); }
     function retry() {
         if (broker.running) return;

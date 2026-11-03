@@ -13,7 +13,7 @@ Fehlgeschlagene Units zeigen bis zu drei Namen und einen Statusbefehl. Snapshot-
 
 Neue Installationen enthalten die Desktop-Abhängigkeiten; auf einem bestehenden Arch können einige fehlen. Lies die genaue Meldung und installiere das Paket über Installieren > Pakete > Pacman oder eine normale vollständige Systemaktualisierung. Entferne BlueZ/iwd/PipeWire/WirePlumber nicht wegen nativer Panels: Diese benötigen die Dienste weiterhin.
 
-Dieses Handbuch braucht kein `less`. Es ist mitgeliefertes Markdown in einer nativen Überlagerung. Bei fehlendem oder veraltetem Katalog aktualisierst du die EITR-Desktop-Dateien.
+Dieses Handbuch braucht kein `less`. Es ist mitgeliefertes Markdown in einem nativen Fenster. Bei fehlendem oder veraltetem Katalog aktualisierst du die EITR-Desktop-Dateien.
 
 ## Root-eigenes Hilfsprogramm fehlt
 

@@ -27,7 +27,7 @@ Existing desktops keep their saved choices.
 ## Learn at your own pace
 
 Open **Learn > EITR Handbook** or press **SUPER + F1**. Press the same shortcut
-again, Escape, or the close button to dismiss this overlay; clicking beside it
+again while the window is focused, Escape, the close button or the compositor close to dismiss this window; clicking beside it
 keeps it open. It does not tile beside your apps. Search matches chapter titles and text;
 Up/Down pick a match and Enter opens it. **Ctrl + F** focuses search.
 **Page Up/Page Down** scroll the chapter, **Ctrl + Home/End** jump to its start
@@ -51,3 +51,5 @@ Steam comes installed with GameMode, MangoHud and gamescope; Install > Gaming of
 
 Calendars and reminders help plan the day. Dictation turns speech into text after setup. Remote-access tools include Moonlight, Sunshine and Tailscale; install and configure the tools you need. Plugins extend Eitr through its plugin workflow. Desktop translations support English, Brazilian Portuguese, Spanish, French and German. The offline Handbook explains shortcuts, settings, setup and recovery without sending your questions anywhere. Control Center quick chat uses your selected assistant and sends its conversation plus a limited machine summary and Handbook context; it cannot run commands or change settings.
 <!-- /eitr-overview -->
+
+The Handbook is a movable, resizable window. It remembers its size; the shortcut brings an open window back into focus.

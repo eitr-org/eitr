@@ -13,7 +13,7 @@ Les unités en échec affichent trois noms au maximum et une commande d’état.
 
 Les nouvelles installations incluent les dépendances du bureau ; un Arch existant peut ne pas toutes les avoir. Lisez l’erreur et installez le paquet depuis Installer > Paquets > Pacman ou par une mise à jour complète normale. Ne supprimez pas BlueZ/iwd/PipeWire/WirePlumber au seul motif que leurs réglages sont dans des panneaux natifs : ces panneaux utilisent toujours ces services.
 
-Ce manuel n’a pas besoin de `less` : il s’agit de Markdown fourni dans une superposition native. Si le catalogue manque ou est périmé, actualisez les fichiers du bureau EITR.
+Ce manuel n’a pas besoin de `less` : il s’agit de Markdown fourni dans une fenêtre native. Si le catalogue manque ou est périmé, actualisez les fichiers du bureau EITR.
 
 ## Un utilitaire appartenant à root manque
 

@@ -18,7 +18,7 @@ Las instalaciones nuevas de EITR usan **Eitr** y la pantalla de bloqueo **Clockw
 
 ## Aprende a tu ritmo
 
-Abre **Aprender > Manual de EITR** o pulsa **SUPER + F1**. El mismo atajo, Escape o el botón de cierre cierra el manual; hacer clic al lado lo mantiene abierto. No ocupa un mosaico junto a las aplicaciones. La búsqueda encuentra títulos y texto; Up/Down eligen un resultado y Enter lo abre. **Ctrl + F** enfoca la búsqueda. **Page Up/Page Down** desplazan el capítulo, **Ctrl + Home/End** saltan al inicio o al final y **Alt + Left/Right** cambian de capítulo. Los botones anterior y siguiente hacen lo mismo con el ratón.
+Abre **Aprender > Manual de EITR** o pulsa **SUPER + F1**. El Manual es una ventana que puedes mover y redimensionar y que recuerda su tamaño. El atajo enfoca la ventana abierta; si ya tiene el foco, la cierra. Escape, el botón de cierre o el cierre del compositor también la cierran. Hacer clic fuera no la cierra. La búsqueda encuentra títulos y texto; Up/Down eligen un resultado y Enter lo abre. **Ctrl + F** enfoca la búsqueda. **Page Up/Page Down** desplazan el capítulo, **Ctrl + Home/End** saltan al inicio o al final y **Alt + Left/Right** cambian de capítulo. Los botones anterior y siguiente hacen lo mismo con el ratón.
 
 El manual no ejecuta comandos. Los bloques de código son ejemplos que puedes revisar y copiar conscientemente. Los enlaces externos solo se abren al hacer clic.
 

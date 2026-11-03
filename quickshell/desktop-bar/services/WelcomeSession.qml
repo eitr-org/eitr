@@ -4,7 +4,7 @@ import Quickshell
 import Quickshell.Io
 import Eitr as Eitr
 
-// The Handbook overlay and what a login starts around it: the first-login welcome,
+// The Handbook window and what a login starts around it: the first-login welcome,
 // the problem-report choice, the boot-guard notice and plugins' login hooks.
 Scope {
     id: session

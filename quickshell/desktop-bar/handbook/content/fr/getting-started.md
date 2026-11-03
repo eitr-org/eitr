@@ -18,7 +18,7 @@ Les nouvelles installations EITR utilisent **Eitr** et l’écran de verrouillag
 
 ## Apprendre à votre rythme
 
-Ouvrez **Apprendre > Manuel EITR** ou appuyez sur **SUPER + F1**. Le même raccourci, Escape ou le bouton de fermeture ferme le manuel ; cliquer à côté le laisse ouvert. Il ne forme pas une tuile à côté des applications. La recherche trouve les titres et le texte ; Up/Down sélectionnent un résultat, Enter l’ouvre. **Ctrl + F** active la recherche. **Page Up/Page Down** font défiler le chapitre, **Ctrl + Home/End** vont au début ou à la fin et **Alt + Left/Right** changent de chapitre. Précédent et Suivant font la même chose avec la souris.
+Ouvrez **Apprendre > Manuel EITR** ou appuyez sur **SUPER + F1**. Le Manuel est une fenêtre déplaçable et redimensionnable qui mémorise sa taille. Le raccourci ramène la fenêtre ouverte au premier plan ; si elle est déjà active, il la ferme. Échap, le bouton de fermeture ou la fermeture du compositeur la ferment aussi. Cliquer à côté ne la ferme pas. La recherche trouve les titres et le texte ; Up/Down sélectionnent un résultat, Enter l’ouvre. **Ctrl + F** active la recherche. **Page Up/Page Down** font défiler le chapitre, **Ctrl + Home/End** vont au début ou à la fin et **Alt + Left/Right** changent de chapitre. Précédent et Suivant font la même chose avec la souris.
 
 Le manuel n’exécute aucune commande. Les blocs de code sont des exemples à examiner et copier volontairement. Les liens externes ne s’ouvrent qu’au clic.
 

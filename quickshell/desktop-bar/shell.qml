@@ -1,3 +1,4 @@
+//@ pragma AppId eitr-catalog
 import QtQuick
 import Eitr as Eitr
 import Quickshell
@@ -16,6 +17,12 @@ ShellRoot {
     NotificationService { id: notificationsService }
     RemoteAccessService { id: remoteAccessService; observing: shell.remotePanelsOpen }
     WelcomeSession { host: shell }
+    Catalog {
+        id: catalogWindow
+        foreground: shell.fg; background: shell.barBackground(); accent: shell.activeBg
+        onOpenedChanged: if (opened) shell.handbookOpened()
+    }
+    function showCatalog() { catalogWindow.show(); }
     LiveWallpaper {}
     PluginDesktop {
         id: pluginDesktop

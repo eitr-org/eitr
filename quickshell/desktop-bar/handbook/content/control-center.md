@@ -73,6 +73,8 @@ Replies support selectable Markdown and Copy. The conversation stays in memory; 
 
 ## Plugins
 
+**Settings > Style > Themes & Plugins** or **SUPER + F2** opens the catalog window. Its Plugins tab lists installed and official plugins, checks for updates, and removes installed plugins after confirmation inside the window. Installation and update review remain in the existing flows below.
+
 **Control Center > Plugins** shows a compact row for each installed plugin: icon, name and enable switch. Select a row to see its author, version, description, Update/Remove actions, widgets, bar items and Preview. Use Back or Escape to return to the list. Enable/Disable preserves placements and stops or restores services, Walker rows, hooks and visuals; the CLI is `eitr plugin enable ID` or `eitr plugin disable ID`. Add Plugins, Update and Remove open the reviewed terminal flows; removal asks for confirmation. General keeps only plugin tiles. Visual failures have an independent Re-enable action.
 
 Add Plugins also accepts repositories containing several plugins. A root `eitr-plugins.json` index lists their IDs and folders, each with its own `eitr-plugin.json`. Select one or more entries by name, description and icon, then review each plugin separately. Declining one does not approve the others. Selected plugins share one downloaded repository snapshot and are pinned individually to its exact commit; updating one leaves the others at their approved commits. The Plugins details show the repository URL and plugin folder. A single root `eitr-plugin.json` continues to work unchanged.

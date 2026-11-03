@@ -1,5 +1,42 @@
 # Themes, wallpapers and style
 
+## Themes & Plugins catalog
+
+The left sidebar groups Themes and Plugins under Installed and Get more, with
+item counts. The right side has the page
+title, description and theme filters above an independently scrolling list.
+Up/Down moves between sidebar rows; Right or Tab enters the content. Left from
+the first column returns to the sidebar. Below 760 px, the sidebar shows icons
+with hover labels instead of group headings and text.
+
+Open **Settings > Style > Themes & Plugins** or **SUPER + F2**. The catalog opens as a movable, resizable window. Hold SUPER and drag with the
+left mouse button to move it, or the right button to resize it. Its last size is
+remembered. Normal window shortcuts can tile it or send it to another workspace.
+Opening it again focuses the existing window, including on another workspace.
+SUPER + F2 closes it when focused. Its close button, Escape (after dismissing any
+review sheet), or the normal window close shortcut also closes it. Installed lists every theme as Built in, Official, Third-party
+or Yours in a preview gallery. Click an installed card to apply it through the
+normal theme workflow; a check marks the current theme. All, Dark and Light
+filter the gallery. Installed refreshes when the window opens and after actions. Opening the window
+also checks package metadata in the background; update pills appear when it
+finishes. There is no periodic network check. Update replaces a catalog theme. Reapply an updated
+active theme to refresh the desktop. Remove asks inside the window and refuses
+the active theme: apply another theme first. Built-in and Yours items stay here.
+
+Get more lists the official `eitr-org/eitr-themes` repository. Select several
+themes by clicking their previews, then open the bottom installation bar to
+review previews, source and total size. Clear removes the selection. Arrows move
+between cards, Space toggles a download selection and Enter applies an installed
+theme or opens the review when themes are selected. Enter or Install confirms
+the review; Escape cancels it before closing the window. Downloads, progress and errors stay in the window. Previews
+download only for visible cards and use the user cache. If a repository is
+unreachable, Retry loads it again; Installed remains available offline.
+
+The Plugins pages lists installed plugins and the official `eitr-org/eitr-plugins`
+repository, with an in-window removal confirmation. Plugin installation and
+updates still use the existing reviewed flows; the catalog does not yet install
+plugins or accept third-party repository addresses.
+
 ## Themes and wallpapers
 
 Open **Settings > Style > Theme** or **SUPER + Ctrl + Shift + N** for Walker's
@@ -130,3 +167,14 @@ you choose this design and again whenever you change wallpaper. If the saved ima
 is unavailable it uses another current-theme wallpaper or the Eitr default.
 
 On PCs with several accounts, the login screen shows the selected user. Click the left or right half of the user picker, or press Ctrl+Left / Ctrl+Right, to choose another account; Enter still submits the password and Escape keeps its existing behavior. With one account the login layout is unchanged. The lockscreen shows the locked session’s real name when available and only accepts that account’s password. Switch user (Ctrl+Alt+U) opens SDDM’s login screen while keeping the original session locked. Back in the locked session, click the password field once before typing. It appears only when several eligible accounts exist and SDDM reports that switching is available. Previews and the gallery use three fictional accounts and never authenticate.
+
+The catalog sidebar switches between Themes and Plugins. Its Official tab combines
+built-in items and Eitr's repositories; Community lists the community index.
+Installed lists local items and their source badges. Theme cards show palette
+swatches when available. Select themes, review their sources and total size, then
+install them together. Community plugins are listed; their installation and adding
+a Git address will arrive later.
+
+Removing a built-in theme hides it from theme pickers on this machine. In Installed,
+turn on Show hidden and choose Restore to bring it back. Eitr and the current theme
+cannot be hidden. Removing a downloaded theme deletes that installed package.
