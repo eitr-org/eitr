@@ -29,6 +29,44 @@ Item {
     readonly property var orderedApps: dragging ? DockModel.orderWithPins(apps, previewPins) : apps
     readonly property int pinCount: dragging ? previewPins.length : pins.length
     readonly property bool dividerVisible: pinCount > 0 && pinCount < apps.length
+    // Magnify on hover: icons near the pointer grow away from the screen edge on a
+    // cosine falloff and neighbours shift apart; the surface itself never moves.
+    // The pointer is measured against the unscaled slots, so growth cannot feed back.
+    readonly property real magnification: 1.6
+    readonly property real magnifyReach: 2.5 * 42
+    readonly property bool overflowing: (vertical ? icons.height : icons.width) > (vertical ? height : width) - 16
+    readonly property bool magnifying: pointer.hovered && !dragging && !menuOpen && !overflowing
+        && revealProgress >= 1 && !DesktopStyle.reduceMotion
+    property real magnifyStrength: magnifying ? 1 : 0
+    Behavior on magnifyStrength { NumberAnimation { duration: 120; easing.type: Easing.OutCubic } }
+    readonly property bool clipsContent: overflowing || magnifyStrength === 0
+    property real lastPointerAxis: 0
+    readonly property point pointerPosition: pointer.point.position
+    onPointerPositionChanged: {
+        if (!pointer.hovered) return;
+        var local = icons.mapFromItem(dock, pointerPosition.x, pointerPosition.y);
+        lastPointerAxis = vertical ? local.y : local.x;
+    }
+    function slotScale(entry) {
+        if (magnifyStrength === 0) return 1;
+        var distance = Math.abs(lastPointerAxis - (slotPosition(entry) + 18));
+        if (distance >= magnifyReach) return 1;
+        return 1 + (magnification - 1) * magnifyStrength * (1 + Math.cos(Math.PI * distance / magnifyReach)) / 2;
+    }
+    // Extra length every grown slot adds, spread so the point under the pointer stays put.
+    function slotShift(entry) {
+        if (magnifyStrength === 0) return 0;
+        var shift = 0;
+        var own = slotPosition(entry);
+        for (var candidate of orderedApps) {
+            var start = slotPosition(candidate);
+            var extra = 36 * (slotScale(candidate) - 1);
+            if (start < own) shift += extra;
+            else if (candidate.id === entry.id) shift += extra / 2;
+            shift -= extra * Math.max(0, Math.min(1, (lastPointerAxis - start) / 36));
+        }
+        return shift;
+    }
     function slotPosition(entry) {
         var index = orderedApps.findIndex(candidate => candidate.id === entry.id);
         return index * 42 + (dividerVisible && index >= pinCount ? 12 : 0);
@@ -66,7 +104,7 @@ Item {
             flickableDirection: dock.vertical ? Flickable.VerticalFlick : Flickable.HorizontalFlick
             interactive: !dock.dragging
             boundsBehavior: Flickable.StopAtBounds
-            clip: true
+            clip: dock.overflowing
             Item {
                 id: icons
                 width: dock.vertical ? 36 : Math.max(0, dock.apps.length * 42 - 6) + (dock.dividerVisible ? 12 : 0)
@@ -94,6 +132,20 @@ Item {
                         y: dock.vertical ? dock.slotPosition(modelData) : 0
                         Behavior on x { NumberAnimation { duration: DesktopStyle.motionDuration(140) } }
                         Behavior on y { NumberAnimation { duration: DesktopStyle.motionDuration(140) } }
+                        readonly property real magnifiedScale: dock.slotScale(modelData)
+                        readonly property real magnifiedShift: dock.slotShift(modelData)
+                        z: magnifiedScale
+                        transform: [
+                            Scale {
+                                origin.x: dock.barEdge === "left" ? 0 : dock.barEdge === "right" ? 36 : 18
+                                origin.y: dock.barEdge === "top" ? 0 : dock.barEdge === "bottom" ? 36 : 18
+                                xScale: slot.magnifiedScale; yScale: slot.magnifiedScale
+                            },
+                            Translate {
+                                x: dock.vertical ? 0 : slot.magnifiedShift
+                                y: dock.vertical ? slot.magnifiedShift : 0
+                            }
+                        ]
                         Rectangle {
                             anchors.fill: parent
                             radius: DesktopStyle.radius(6)
@@ -106,7 +158,9 @@ Item {
                             anchors.centerIn: parent
                             width: 28; height: 28
                             source: slot.application && slot.application.icon ? Quickshell.iconPath(slot.application.icon, true) : ""
-                            sourceSize.width: 28; sourceSize.height: 28
+                            // Drawn sharp at the largest magnified size.
+                            sourceSize.width: 48; sourceSize.height: 48
+                            smooth: true; mipmap: true
                             asynchronous: true
                         }
                         Image {

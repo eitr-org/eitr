@@ -43,6 +43,8 @@ class EdgeDockTests(unittest.TestCase):
         self.assertIn('Region { item: dock.available && reveal.progress > 0 ? surfaceArea : null', source)
         self.assertNotIn('? surface : null', source)
         self.assertIn('dockEnabled && !fullscreen', source)
+        content = (BAR / 'dock/EdgeDockContent.qml').read_text()
+        self.assertIn('!DesktopStyle.reduceMotion', content[content.index('magnifying:'):content.index('magnifyStrength:')])
         # Only the platform window and compositor lookup are replaced; render and
         # exercise the production content, geometry, mask and auto-hide controller.
         source = source.replace('import ".."\n', '').replace('"../', '"')
@@ -77,6 +79,7 @@ class EdgeDockTests(unittest.TestCase):
         return null;
     }
     property int phase: 0
+    Item { id: magnifyFrame; width: dock.width; height: dock.height }
     Timer {
         interval: 450; running: true; repeat: true
         onTriggered: {
@@ -136,20 +139,42 @@ class EdgeDockTests(unittest.TestCase):
                 surface.grabToImage(function(result) {
                     if (!result.saveToFile(CAPTURE)) throw new Error("Dock capture");
                 }, Qt.size(surface.width * 3, surface.height * 3));
-                reveal.pointerInside = false;
+            } else if (dock.phase === 3) {
+                var closed = findAction(surface, "dockSlot-other");
+                var browser = findAction(surface, "dockSlot-browser");
+                var editor = findAction(surface, "dockSlot-editor");
+                if (!surface.clipsContent || closed.magnifiedScale !== 1) throw new Error("Magnified at rest");
+                surface.lastPointerAxis = 60;
+                surface.magnifyStrength = 1;
+                surface.parent = magnifyFrame;
             } else if (dock.phase === 4) {
+                var closed = findAction(surface, "dockSlot-other");
+                var browser = findAction(surface, "dockSlot-browser");
+                var editor = findAction(surface, "dockSlot-editor");
+                if (Math.abs(browser.magnifiedScale - surface.magnification) > 0.001 || Math.abs(browser.magnifiedShift) > 0.001) throw new Error("Hovered icon: " + browser.magnifiedScale + " " + browser.magnifiedShift);
+                if (!(closed.magnifiedScale > 1 && closed.magnifiedScale < browser.magnifiedScale && closed.magnifiedShift < 0)) throw new Error("Leading neighbour");
+                if (!(editor.magnifiedScale > 1 && editor.magnifiedScale < browser.magnifiedScale && editor.magnifiedShift > 0)) throw new Error("Trailing neighbour");
+                if (surface.clipsContent || (dock.vertical ? browser.y : browser.x) !== 42) throw new Error("Magnified clip/base");
+                var grabbed = magnifyFrame.grabToImage(function(result) {
+                    if (!result.saveToFile(CAPTURE.replace(".png", "-magnified.png"))) console.error("Magnified capture");
+                });
+                if (!grabbed) throw new Error("Magnified grab");
+            } else if (dock.phase === 5) {
+                surface.magnifyStrength = 0;
+                reveal.pointerInside = false;
+            } else if (dock.phase === 7) {
                 if (reveal.progress !== 0) throw new Error("Leave delay did not hide dock");
                 DesktopStyle.reduceMotion = true;
                 reveal.pointerInside = true;
-            } else if (dock.phase === 5) {
+            } else if (dock.phase === 8) {
                 if (reveal.progress !== 1) throw new Error("Reduce motion reveal");
                 dock.monitor = {activeWorkspace: {id: 2, hasFullscreen: true}};
                 reveal.pointerInside = false;
-            } else if (dock.phase === 6) {
+            } else if (dock.phase === 9) {
                 if (dock.available || dock.visible || reveal.progress !== 0) throw new Error("Fullscreen did not suppress dock");
                 dock.monitor = {activeWorkspace: {id: 2, hasFullscreen: false}};
                 dock.dockEnabled = false;
-            } else if (dock.phase === 7) {
+            } else if (dock.phase === 10) {
                 if (dock.visible) throw new Error("Disabled dock visible");
                 console.log("DOCK_OK"); Qt.quit();
             }

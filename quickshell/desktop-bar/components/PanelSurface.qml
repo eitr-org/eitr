@@ -12,6 +12,8 @@ Item {
     readonly property bool vertical: edge === "left" || edge === "right"
     readonly property real progress: hostWindow.revealProgress
     readonly property bool detached: !!hostWindow.detached
+    // A fully revealed host may draw past the surface (the dock's magnified icons).
+    readonly property bool clipsContent: hostWindow.clipsContent !== false
     readonly property bool flushLeading: hostWindow.touchesLeadingEdge !== undefined
         ? hostWindow.touchesLeadingEdge : vertical ? hostWindow.y <= 0 : hostWindow.x <= 0
     readonly property bool flushTrailing: hostWindow.touchesTrailingEdge !== undefined
@@ -39,7 +41,7 @@ Item {
         height: surface.vertical ? surface.height : surface.height * surface.progress
         x: surface.edge === "right" ? surface.width - width : 0
         y: surface.edge === "bottom" ? surface.height - height : 0
-        clip: true
+        clip: surface.clipsContent || surface.progress < 1
 
         Shape {
             id: outline
