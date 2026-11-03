@@ -75,7 +75,7 @@ Replies support selectable Markdown and Copy. The conversation stays in memory; 
 
 ## Plugins
 
-**Settings > Style > Themes & Plugins** or **SUPER + F2** opens the catalog window. Its Plugins tab lists installed and official plugins, checks for updates, and removes installed plugins after confirmation inside the window. Installation and update review remain in the existing flows below.
+**Settings > Style > Themes & Plugins**, **Control Center > Style > Themes & Plugins** or **SUPER + F2** opens the catalog window. Its Plugins tab lists installed, official and community plugins, installs and updates them after a review inside the window, checks for updates, and removes installed plugins after confirmation. The terminal flows below remain available.
 
 **Control Center > Plugins** shows a compact row for each installed plugin: icon, name and enable switch. Select a row to see its author, version, description, Update/Remove actions, widgets, bar items and Preview. Use Back or Escape to return to the list. Enable/Disable preserves placements and stops or restores services, Walker rows, hooks and visuals; the CLI is `eitr plugin enable ID` or `eitr plugin disable ID`. Add Plugins, Update and Remove open the reviewed terminal flows; removal asks for confirmation. General keeps only plugin tiles. Visual failures have an independent Re-enable action.
 

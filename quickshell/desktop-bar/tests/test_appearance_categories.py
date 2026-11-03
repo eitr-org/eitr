@@ -65,7 +65,7 @@ class AppearancePickerLayoutTests(unittest.TestCase):
                         destination.parent.mkdir(parents=True, exist_ok=True)
                         shutil.copy(source, destination)
                 source = (folder / 'panels/AppearancePicker.qml').read_text()
-                source = source.replace('id: picker', 'id: picker\n    property alias keyTarget: content', 1)
+                source = source.replace('id: picker', 'id: picker\n    property alias keyTarget: content\n    property alias addButton: addThemes', 1)
                 # Replace Wayland surfaces with one isolated offscreen window.
                 start = source.index('    Variants {')
                 end = source.index('    PanelWindow {\n        id: overlay', start)
@@ -94,7 +94,8 @@ import QtTest
 import Quickshell
 import "." as Bar
 ShellRoot {
-    Bar.AppearancePicker { id: picker }
+    property string requestedTone: ""
+    Bar.AppearancePicker { id: picker; onCatalogRequested: tone => requestedTone = tone }
     TestCase { id: keyboard; parent: picker.keyTarget; name: "ThemeKeyboard"; when: false }
     Timer {
         interval: 400; running: true
@@ -122,8 +123,8 @@ ShellRoot {
             if (picker.mode !== "theme-light" || picker.items[0].name !== "theme-light") { Qt.exit(4); return; }
             picker.keyTarget.grabToImage(function(result) {
                 result.saveToFile("LIGHT_CAPTURE");
-                keyboard.keyClick(Qt.Key_Escape);
-                if (picker.opened) { Qt.exit(5); return; }
+                picker.addButton.clicked();
+                if (picker.opened || requestedTone !== "light") { Qt.exit(5); return; }
                 console.log("APPEARANCE_OK"); Qt.quit();
             });
         }

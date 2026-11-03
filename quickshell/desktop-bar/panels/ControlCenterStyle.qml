@@ -21,6 +21,7 @@ Column {
         ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("Theme"); glyph: "󰏘"; onClicked: section.centerRef.pickerRequested("theme") }
         ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("Wallpaper"); glyph: "󰸉"; onClicked: section.centerRef.pickerRequested("wallpaper") }
         ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("Fonts"); glyph: "󰛖"; onClicked: section.centerRef.walkerMenu("fonts") }
+        ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("Themes & Plugins"); glyph: "󰏗"; onClicked: section.centerRef.panelRequested("catalog") }
     }
     }
     ControlCenterFold { centerRef: section.centerRef;

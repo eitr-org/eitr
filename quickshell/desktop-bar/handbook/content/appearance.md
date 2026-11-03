@@ -13,7 +13,8 @@ Up/Down moves between sidebar rows; Right or Tab enters the content. Left from
 the first column returns to the sidebar. Below 760 px, the sidebar shows icons
 with hover labels instead of group headings and text.
 
-Open **Settings > Style > Themes & Plugins** or **SUPER + F2**. The catalog opens as a movable, resizable window. Hold SUPER and drag with the
+Open **Settings > Style > Themes & Plugins**, **Control Center > Style > Themes &
+Plugins**, the **+** beside the theme carousel's Sun and Moon, or **SUPER + F2**. The catalog opens as a movable, resizable window. Hold SUPER and drag with the
 left mouse button to move it, or the right button to resize it. Its last size is
 remembered. Normal window shortcuts can tile it or send it to another workspace.
 Opening it again focuses the existing window, including on another workspace.
@@ -79,7 +80,8 @@ Open **Settings > Style > Theme** or **SUPER + Ctrl + Shift + N** for Walker's
 Dark/Light theme menus. The desktop theme carousel (desktop right double-click,
 Control Center > Style > Theme or appearance IPC) shows every theme. The Sun
 above the selected card shows only light themes and the Moon only dark ones; click
-the selected one again to show all. Ctrl+Tab cycles all, dark and light. Start
+the selected one again to show all. The **+** beside them opens the Themes & Plugins
+catalog on its Official themes, keeping the same light or dark filter. Ctrl+Tab cycles all, dark and light. Start
 typing to search the shown themes; arrows/Tab
 move and Enter applies. Backspace edits search or closes when empty; Escape
 clears search before closing. The wallpaper carousel has no theme search.

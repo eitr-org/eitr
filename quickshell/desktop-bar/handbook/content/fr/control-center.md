@@ -50,7 +50,7 @@ Les réponses proposent du Markdown sélectionnable et Copier. La conversation r
 
 ## Plugins
 
-**Paramètres > Style > Thèmes et plugins** ou **SUPER + F2** ouvre la fenêtre du catalogue. L’onglet Plugins affiche les plugins installés et officiels, recherche les mises à jour et supprime les plugins installés après confirmation dans la fenêtre. L’installation et la vérification des mises à jour restent dans les procédures ci-dessous.
+**Paramètres > Style > Thèmes et plugins**, **Centre de contrôle > Style > Thèmes et plugins** ou **SUPER + F2** ouvre la fenêtre du catalogue. L’onglet Plugins affiche les plugins installés, officiels et de la communauté, les installe et les met à jour après une vérification dans la fenêtre, recherche les mises à jour et supprime les plugins installés après confirmation. Les procédures en terminal ci-dessous restent disponibles.
 
 **Centre de contrôle > Plugins** affiche une ligne compacte par plugin installé avec icône, nom et interrupteur d’activation. Sélectionnez une ligne pour voir l’auteur, la version, la description, les actions de mise à jour et de suppression, les widgets, les éléments de barre et l’aperçu. Utilisez Retour ou Échap pour revenir à la liste. Activer/Désactiver conserve les positions et arrête ou rétablit services, lignes Walker, hooks et composants visuels ; utilisez `eitr plugin enable ID` ou `eitr plugin disable ID`. Ajouter des plugins, Mettre à jour et Supprimer ouvrent les parcours de vérification du terminal ; la suppression demande confirmation. Général conserve uniquement les tuiles. Les erreurs visuelles ont une action indépendante de réactivation.
 

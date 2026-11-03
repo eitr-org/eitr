@@ -13,6 +13,10 @@ LibraryWindow {
     title: "Themes & Plugins"
     color: SiteStyle.card
     function show() { showWindow(); }
+    function showThemes(tone) {
+        content.kind = "themes"; content.tab = "official"; content.tone = tone;
+        showWindow();
+    }
     Rectangle {
         anchors.fill: parent
         color: SiteStyle.card

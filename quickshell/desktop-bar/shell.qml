@@ -141,7 +141,10 @@ ShellRoot {
     readonly property alias dictationLevels: dictation.dictationLevels
 
     TimePicker { defaultScreen: shell.targetScreens()[0] || null; foreground: shell.fg; background: shell.barBackground() }
-    AppearancePicker { defaultScreen: shell.targetScreens()[0] || null }
+    AppearancePicker {
+        defaultScreen: shell.targetScreens()[0] || null
+        onCatalogRequested: tone => catalogWindow.showThemes(tone)
+    }
 
     function focusWorkspace(id) {
         var command = WorkspaceModel.focusCommand(id);

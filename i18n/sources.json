@@ -57,6 +57,9 @@
       "quickshell/desktop-bar/panels/ControlCenterSettings.qml",
       "quickshell/desktop-bar/panels/KeyboardLayoutMenu.qml"
     ],
+    "Add themes": [
+      "quickshell/desktop-bar/panels/AppearancePicker.qml"
+    ],
     "Airplane": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
@@ -1490,7 +1493,8 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Themes & Plugins": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/panels/CatalogContent.qml",
+      "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
     ],
     "Thinking…": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"

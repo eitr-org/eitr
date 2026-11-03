@@ -50,7 +50,7 @@ As respostas permitem selecionar Markdown e copiar. A conversa fica na memória;
 
 ## Plugins
 
-**Configurações > Estilo > Temas e plugins** ou **SUPER + F2** abre a janela do catálogo. A aba Plugins lista os instalados e oficiais, verifica atualizações e remove plugins instalados após confirmação na janela. A instalação e a revisão de atualizações permanecem nos fluxos abaixo.
+**Configurações > Estilo > Temas e plugins**, **Central de controle > Estilo > Temas e plugins** ou **SUPER + F2** abre a janela do catálogo. A aba Plugins lista os plugins instalados, oficiais e da comunidade, instala e atualiza após uma revisão na janela, verifica atualizações e remove plugins instalados após confirmação. Os fluxos de terminal abaixo continuam disponíveis.
 
 **Central de controle > Plugins** mostra uma linha compacta por plugin instalado, com ícone, nome e interruptor de ativação. Selecione uma linha para ver autor, versão, descrição, ações de atualização e remoção, widgets, itens da barra e prévia. Use Voltar ou Escape para retornar à lista. Ativar/Desativar preserva posições e interrompe ou restaura serviços, itens do Walker, hooks e elementos visuais; use `eitr plugin enable ID` ou `eitr plugin disable ID`. Adicionar plugins, Atualizar e Remover abrem os fluxos revisados no terminal; remover pede confirmação. Geral mantém apenas os blocos de plugins. Falhas visuais têm uma ação independente para reativar.
 

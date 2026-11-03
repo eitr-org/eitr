@@ -50,7 +50,7 @@ Las respuestas ofrecen Markdown seleccionable y Copiar. La conversación permane
 
 ## Plugins
 
-**Configuración > Estilo > Temas y plugins** o **SUPER + F2** abre la ventana del catálogo. La pestaña Plugins muestra los instalados y oficiales, busca actualizaciones y elimina plugins instalados tras confirmar en la ventana. La instalación y la revisión de actualizaciones siguen en los flujos siguientes.
+**Configuración > Estilo > Temas y plugins**, **Centro de control > Estilo > Temas y plugins** o **SUPER + F2** abre la ventana del catálogo. La pestaña Plugins muestra los plugins instalados, oficiales y de la comunidad, los instala y actualiza tras una revisión en la ventana, busca actualizaciones y elimina plugins instalados tras confirmar. Los flujos de terminal siguientes siguen disponibles.
 
 **Centro de control > Plugins** muestra una fila compacta por plugin instalado, con icono, nombre e interruptor de activación. Selecciona una fila para ver autor, versión, descripción, acciones de actualización y eliminación, widgets, elementos de la barra y vista previa. Usa Atrás o Escape para volver a la lista. Activar/Desactivar conserva posiciones y detiene o restaura servicios, filas de Walker, hooks y elementos visuales; usa `eitr plugin enable ID` o `eitr plugin disable ID`. Añadir plugins, Actualizar y Eliminar abren los flujos revisados del terminal; eliminar pide confirmación. General conserva solo los bloques de plugins. Los fallos visuales tienen una acción independiente para reactivar.
 

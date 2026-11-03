@@ -50,7 +50,7 @@ Antworten bieten auswählbares Markdown und Kopieren. Die Unterhaltung bleibt im
 
 ## Plugins
 
-**Einstellungen > Stil > Themes und Plugins** oder **SUPER + F2** öffnet das Katalogfenster. Der Reiter Plugins zeigt installierte und offizielle Plugins, sucht nach Updates und entfernt installierte Plugins nach Bestätigung im Fenster. Installation und Update-Prüfung bleiben in den folgenden Abläufen.
+**Einstellungen > Stil > Themes und Plugins**, **Kontrollzentrum > Stil > Themes und Plugins** oder **SUPER + F2** öffnet das Katalogfenster. Der Reiter Plugins zeigt installierte, offizielle und Community-Plugins, installiert und aktualisiert sie nach einer Prüfung im Fenster, sucht nach Updates und entfernt installierte Plugins nach Bestätigung. Die folgenden Terminal-Abläufe bleiben verfügbar.
 
 **Kontrollzentrum > Plugins** zeigt für jedes installierte Plugin eine kompakte Zeile mit Symbol, Namen und Aktivierungsschalter. Wähle eine Zeile, um Autor, Version, Beschreibung, Aktualisieren/Entfernen, Widgets, Leistenelemente und Vorschau zu sehen. Mit Zurück oder Escape kehrst du zur Liste zurück. Aktivieren/Deaktivieren erhält Positionen und stoppt oder startet Dienste, Walker-Einträge, Hooks und visuelle Komponenten; per CLI: `eitr plugin enable ID` oder `eitr plugin disable ID`. Plugins hinzufügen, Aktualisieren und Entfernen öffnen die geprüften Terminalabläufe; Entfernen verlangt Bestätigung. Allgemein behält nur Plugin-Kacheln. Visuelle Fehler haben eine unabhängige Aktion zum erneuten Aktivieren.
 

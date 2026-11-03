@@ -25,6 +25,7 @@ Item {
     property color foreground: "#ffffff"
     property color background: "#202024"
     property string error: ""
+    signal catalogRequested(string tone)
 
     function open(kind, screen) {
         if (loader.running)
@@ -231,6 +232,38 @@ Item {
                             }
                         }
                     }
+                    PanelButton {
+                        id: addThemes
+                        icon: true
+                        width: PanelStyle.selectionRowHeight
+                        height: PanelStyle.selectionRowHeight
+                        text: "󰐕"
+                        foreground: picker.foreground
+                        activeFocusOnTab: false
+                        color: Qt.rgba(foreground.r, foreground.g, foreground.b, PanelStyle.selectionAlpha(false, addHover.containsMouse))
+                        border.width: PanelStyle.selectionBorderWidth(false)
+                        border.color: Qt.rgba(foreground.r, foreground.g, foreground.b, PanelStyle.selectionBorderAlpha)
+                        Accessible.name: Eitr.I18n.tr("Add themes")
+                        onClicked: {
+                            const tone = picker.mode === "theme-light" ? "light" : picker.mode === "theme-dark" ? "dark" : "all";
+                            picker.opened = false;
+                            picker.catalogRequested(tone);
+                        }
+                        MouseArea {
+                            id: addHover
+                            anchors.fill: parent
+                            acceptedButtons: Qt.NoButton
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                        }
+                    }
+                }
+                BarTooltip {
+                    target: addThemes
+                    hovered: addHover.containsMouse
+                    text: Eitr.I18n.tr("Add themes")
+                    foreground: picker.foreground
+                    background: picker.background
                 }
             }
             Text {
