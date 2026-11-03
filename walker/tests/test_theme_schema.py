@@ -21,7 +21,7 @@ import palette  # noqa: E402
 
 REQUIRED = {"backgrounds", "btop.theme", "colors.toml", "display-name", "dolphin.theme",
             "icons.theme", "neovim.lua", "preview.png", "rgb.color", "vscode.json"}
-OPTIONAL = {"artwork.md", "backgrounds-ultrawide", "light.mode", "motion", "references", "vscode.vsix"}
+OPTIONAL = {"eitr-theme.json", "artwork.md", "backgrounds-ultrawide", "light.mode", "motion", "references", "vscode.vsix"}
 COLOR_KEYS = {"accent", "background", "foreground", "cursor", "selection_background",
               "selection_foreground", *(f"color{index}" for index in range(16))}
 # Base themes shipped by kvantum-theme-catppuccin-git.
@@ -373,6 +373,8 @@ class ThemeSchemaTests(unittest.TestCase):
         self.assertTrue(theme_dirs())
         for theme in theme_dirs():
             with self.subTest(theme=theme.name):
+                from eitr_theme_packages import manifest
+                self.assertEqual(manifest(theme)["id"], theme.name)
                 names = {path.name for path in theme.iterdir() if path.name != ".DS_Store"}
                 self.assertEqual(REQUIRED - names, set())
                 self.assertEqual(names - REQUIRED - OPTIONAL, set())

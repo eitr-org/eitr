@@ -8,7 +8,8 @@
     "neovim": {
       "colorscheme": "eitr",
       "eitr": true
-    }
+    },
+    "dolphin": "catppuccin-mocha-mauve"
   },
   "alfheim": {
     "icons": "Yaru-blue",
@@ -20,7 +21,8 @@
     "neovim": {
       "colorscheme": "eitr",
       "eitr": true
-    }
+    },
+    "dolphin": "catppuccin-mocha-pink"
   },
   "asgard": {
     "icons": "Yaru-olive",
@@ -32,7 +34,8 @@
     "neovim": {
       "colorscheme": "eitr",
       "eitr": true
-    }
+    },
+    "dolphin": "catppuccin-mocha-yellow"
   },
   "catppuccin": {
     "icons": "Yaru-blue",
@@ -49,7 +52,8 @@
           "repo": "catppuccin/nvim"
         }
       ]
-    }
+    },
+    "dolphin": "catppuccin-mocha-mauve"
   },
   "catppuccin-latte": {
     "icons": "Yaru-blue",
@@ -69,7 +73,8 @@
           "repo": "catppuccin/nvim"
         }
       ]
-    }
+    },
+    "dolphin": "catppuccin-latte-mauve"
   },
   "daylight": {
     "icons": "Yaru-grey",
@@ -85,7 +90,8 @@
           "repo": "bjarneo/white.nvim"
         }
       ]
-    }
+    },
+    "dolphin": "catppuccin-latte-blue"
   },
   "gruvbox": {
     "icons": "Yaru-olive",
@@ -100,7 +106,8 @@
           "repo": "ellisonleao/gruvbox.nvim"
         }
       ]
-    }
+    },
+    "dolphin": "catppuccin-mocha-yellow"
   },
   "helheim": {
     "icons": "Yaru",
@@ -112,7 +119,8 @@
     "neovim": {
       "colorscheme": "eitr",
       "eitr": true
-    }
+    },
+    "dolphin": "catppuccin-mocha-rosewater"
   },
   "jade": {
     "icons": "Yaru-prussiangreen",
@@ -128,7 +136,8 @@
           "repo": "ribru17/bamboo.nvim"
         }
       ]
-    }
+    },
+    "dolphin": "catppuccin-mocha-teal"
   },
   "jotunheim": {
     "icons": "Yaru-gray",
@@ -140,7 +149,8 @@
     "neovim": {
       "colorscheme": "eitr",
       "eitr": true
-    }
+    },
+    "dolphin": "catppuccin-mocha-lavender"
   },
   "kanagawa": {
     "icons": "Yaru-blue",
@@ -155,7 +165,8 @@
           "repo": "rebelot/kanagawa.nvim"
         }
       ]
-    }
+    },
+    "dolphin": "catppuccin-mocha-blue"
   },
   "midgard": {
     "icons": "Yaru-prussiangreen",
@@ -167,7 +178,8 @@
     "neovim": {
       "colorscheme": "eitr",
       "eitr": true
-    }
+    },
+    "dolphin": "catppuccin-mocha-teal"
   },
   "moss": {
     "icons": "Yaru-wartybrown",
@@ -183,7 +195,8 @@
           "repo": "OldJobobo/miasma.nvim"
         }
       ]
-    }
+    },
+    "dolphin": "catppuccin-mocha-green"
   },
   "muspelheim": {
     "icons": "Yaru-blue",
@@ -195,7 +208,8 @@
     "neovim": {
       "colorscheme": "eitr",
       "eitr": true
-    }
+    },
+    "dolphin": "catppuccin-mocha-maroon"
   },
   "niflheim": {
     "icons": "Yaru-gray",
@@ -207,7 +221,8 @@
     "neovim": {
       "colorscheme": "eitr",
       "eitr": true
-    }
+    },
+    "dolphin": "catppuccin-mocha-sapphire"
   },
   "nord": {
     "icons": "Yaru-gray",
@@ -222,7 +237,8 @@
           "repo": "EdenEast/nightfox.nvim"
         }
       ]
-    }
+    },
+    "dolphin": "catppuccin-frappe-blue"
   },
   "eitr": {
     "icons": "Yaru-prussiangreen",
@@ -234,7 +250,8 @@
     "neovim": {
       "colorscheme": "eitr",
       "eitr": true
-    }
+    },
+    "dolphin": "catppuccin-mocha-green"
   },
   "eitr-light": {
     "icons": "Yaru-prussiangreen",
@@ -246,7 +263,8 @@
     "neovim": {
       "colorscheme": "eitr",
       "eitr": true
-    }
+    },
+    "dolphin": "catppuccin-latte-green"
   },
   "one-dark-pro": {
     "icons": "Yaru-blue",
@@ -268,7 +286,8 @@
           "repo": "olimorris/onedarkpro.nvim"
         }
       ]
-    }
+    },
+    "dolphin": "catppuccin-mocha-blue"
   },
   "ragnarok": {
     "icons": "Yaru-olive",
@@ -280,7 +299,8 @@
     "neovim": {
       "colorscheme": "eitr",
       "eitr": true
-    }
+    },
+    "dolphin": "catppuccin-mocha-red"
   },
   "rose-pine": {
     "icons": "Yaru-magenta",
@@ -296,7 +316,8 @@
           "repo": "rose-pine/neovim"
         }
       ]
-    }
+    },
+    "dolphin": "catppuccin-latte-rosewater"
   },
   "stillwater": {
     "icons": "Yaru-sage-dark",
@@ -311,7 +332,8 @@
           "repo": "ficcdaf/ashen.nvim"
         }
       ]
-    }
+    },
+    "dolphin": "catppuccin-mocha-mauve"
   },
   "svartalfheim": {
     "icons": "Yaru-olive",
@@ -323,7 +345,8 @@
     "neovim": {
       "colorscheme": "eitr",
       "eitr": true
-    }
+    },
+    "dolphin": "catppuccin-mocha-peach"
   },
   "vanaheim": {
     "icons": "Yaru-wartybrown",
@@ -335,7 +358,8 @@
     "neovim": {
       "colorscheme": "eitr",
       "eitr": true
-    }
+    },
+    "dolphin": "catppuccin-mocha-green"
   },
   "wisteria": {
     "icons": "Yaru-purple",
@@ -346,6 +370,7 @@
     "neovim": {
       "colorscheme": "eitr",
       "eitr": true
-    }
+    },
+    "dolphin": "catppuccin-latte-blue"
   }
 }

@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "id": "daylight",
+  "name": "Daylight",
+  "description": "Pure white and charcoal with quiet, minimal artwork",
+  "version": "1.0.0",
+  "light": true
+}

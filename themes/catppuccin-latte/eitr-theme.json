@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "id": "catppuccin-latte",
+  "name": "Catppuccin Latte",
+  "description": "Catppuccin Latte: bright pastels on a soft cream base",
+  "version": "1.0.0",
+  "light": true
+}

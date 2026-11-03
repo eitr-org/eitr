@@ -470,7 +470,7 @@ def theme_dir(identifier):
 
 def free_theme_name(name):
     identifier = slug(name)
-    if identifier in shipped_themes() or identifier in own_themes():
+    if identifier in shipped_themes() or (own("themes") / identifier).exists():
         raise ValueError(tr('A theme named {name} already exists.', name=f'{name}'))
     return identifier
 

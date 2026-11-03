@@ -68,7 +68,7 @@ still applies.** This translated notice comes from Eitr, not the model. Enter
 installs and Esc cancels, including while checking; either decision kills and
 reaps a pending worker and deletes its temporary copy. Errors, empty answers and
 a 180-second timeout return to the same review. Nothing installs automatically.
-Eitr currently has no Git theme installer.
+The JSON Git theme backend is documented in [THEMES.md](THEMES.md). Themes are data-only packages and do not use plugin execution or approval flows.
 
 ## Checking and updating plugins
 

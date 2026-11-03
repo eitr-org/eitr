@@ -62,7 +62,7 @@ if mode.startswith("theme"):
     if mode in {"theme", "theme-dark", "theme-light"}:
         for directory in directories:
             if mode == "theme" or is_light(directory) == (mode == "theme-light"):
-                mine = directory.parent == own("themes")
+                mine = (directory / "own-theme.json").is_file()
                 entries.append({"name": tr('{name} (yours)', name=display_name(directory)) if mine else display_name(directory),
                                 "value": directory.name,
                                 "image": (directory / "preview.png").as_uri(),

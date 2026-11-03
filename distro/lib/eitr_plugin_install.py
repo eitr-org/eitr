@@ -81,16 +81,17 @@ def short_author(spec, limit=24):
     return author if len(author) <= limit else author[:limit - 1] + '…'
 
 
-def git(root, *arguments, allow_file=False):
+def git(root, *arguments, allow_file=False, binary=False):
     environment = {key: value for key, value in os.environ.items() if not key.startswith('GIT_')}
     environment.update(GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL='/dev/null', GIT_TERMINAL_PROMPT='0',
                        GIT_ALLOW_PROTOCOL='https:ssh:file' if allow_file else 'https:ssh',
                        # A passphrase prompt would break the install screen; keys come from the agent.
                        GIT_SSH_COMMAND='ssh -o BatchMode=yes')
-    return subprocess.check_output(['git', '-c', 'core.hooksPath=/dev/null', '-c', 'core.fsmonitor=false',
+    output = subprocess.check_output(['git', '-c', 'core.hooksPath=/dev/null', '-c', 'core.fsmonitor=false',
                                     '-c', 'submodule.recurse=false', '-c', 'credential.helper=',
-                                    *arguments], cwd=root, env=environment, text=True, stdin=subprocess.DEVNULL,
-                                   stderr=subprocess.PIPE, timeout=120).strip()
+                                    *arguments], cwd=root, env=environment, text=not binary, stdin=subprocess.DEVNULL,
+                                   stderr=subprocess.PIPE, timeout=120)
+    return output if binary else output.strip()
 
 
 def clone(url, destination, *, allow_file=False):

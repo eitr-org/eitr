@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "id": "kanagawa",
+  "name": "Kanagawa",
+  "description": "Kanagawa: ink-dark blues and muted gold with Japanese artwork",
+  "version": "1.0.0",
+  "light": false
+}

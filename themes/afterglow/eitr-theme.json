@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "id": "afterglow",
+  "name": "Afterglow",
+  "description": "Near-black and dusty rose with ember-lit Norse portraits",
+  "version": "1.0.0",
+  "light": false
+}

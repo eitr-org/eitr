@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "id": "catppuccin",
+  "name": "Catppuccin",
+  "description": "Catppuccin Mocha: soft pastels on a deep blue-purple base",
+  "version": "1.0.0",
+  "light": false
+}

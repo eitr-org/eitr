@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "id": "nord",
+  "name": "Nord",
+  "description": "The popular Nord palette: cool arctic blues and soft snow",
+  "version": "1.0.0",
+  "light": false
+}

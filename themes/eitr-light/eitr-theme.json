@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "id": "eitr-light",
+  "name": "Eitr Light",
+  "description": "Pale green and deep moss with primordial venom artwork",
+  "version": "1.0.0",
+  "light": true
+}

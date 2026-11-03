@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "id": "gruvbox",
+  "name": "Gruvbox",
+  "description": "Gruvbox: warm charcoal, earthy greens and muted amber",
+  "version": "1.0.0",
+  "light": false
+}

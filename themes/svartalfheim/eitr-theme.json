@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "id": "svartalfheim",
+  "name": "Svartalfheim",
+  "description": "Copper and dark stone in the cavern forges of the dwarves",
+  "version": "1.0.0",
+  "light": false
+}

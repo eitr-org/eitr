@@ -4,7 +4,6 @@ local home = os.getenv("HOME")
 local shell_quote = dofile(paths.code("elephant/shell-quote.lua"))
 local i18n = dofile(paths.code("elephant/i18n.lua"))
 local own = paths.code("walker/scripts/actions/style/own.py")
-local own_dir = paths.own("themes") .. "/"
 local presenter = paths.code("walker/scripts/actions/task-terminal.py")
 local yours = i18n.mark("Yours")
 
@@ -42,7 +41,9 @@ return function(category)
             local is_light = marker ~= nil
             if marker then marker:close() end
             if (category == "light") == is_light then
-                local mine = theme_dir:sub(1, #own_dir) == own_dir
+                local own_marker = io.open(theme_dir .. "/own-theme.json", "r")
+                local mine = own_marker ~= nil
+                if own_marker then own_marker:close() end
                 table.insert(entries, {
                     Text = display_name(theme, theme_dir),
                     Subtext = (mine and yours .. " · " or "") .. i18n.tr("Apply or preview this theme"),

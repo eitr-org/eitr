@@ -58,7 +58,11 @@ channel first; the website changes only once it reaches stable.
   `schemaVersion`); themes containing executables are refused.
 - **Existing users.** Someone using a moved theme gets it installed from the
   official repository by the update, so their desktop does not change.
-- **Order:** theme format and installer, then the catalog window, then the
+- **Backend:** the versioned data-only theme format, sparse Git index and JSON
+  install/update/remove backend are implemented; see `distro/THEMES.md`. The
+  app/editor files are generated locally from trusted official integrations or
+  palette defaults; downloaded packages contain data only.
+- **Order:** catalog window, then the
   native install review, then move the 12 themes (they stay here until the
   installer works).
 
