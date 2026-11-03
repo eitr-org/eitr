@@ -186,7 +186,7 @@
     "Built in": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
-    "Built-in themes are hidden and can be restored with Show hidden. Other installed themes are removed.": [
+    "Built-in themes are hidden. Show hidden brings them back.": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "CA certificate file not found": [
@@ -239,6 +239,9 @@
     ],
     "Choose a theme": [
       "quickshell/desktop-bar/panels/Handbook.qml"
+    ],
+    "Choose plugins": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Choose themes": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -1203,6 +1206,9 @@
     "Review": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
+    "Review plugin %1 of %2": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Review plugin installation": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
@@ -1460,6 +1466,12 @@
     ],
     "The main display holds the bar, panels and notifications. Position only sets where a screen sits next to the others.": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+    ],
+    "The plugin and its files are deleted from this computer.": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "The theme is deleted from this computer.": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Theme": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
