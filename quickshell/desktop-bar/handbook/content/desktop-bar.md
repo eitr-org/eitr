@@ -46,6 +46,7 @@ Tabs uses a continuous 7 px strip and three content-sized tabs for the left, cen
 The bar starts with 1–5 and expands through the current/highest occupied
 workspace, up to 10. Empty higher markers disappear when no longer needed.
 Right-click a marker to choose Dots, Glyph, Numbers or Runes, with live examples.
+All four choices fit in the popup on every bar edge without scrolling.
 Runes is the default. The active marker uses the accent-colored glyph without a filled background.
 Runes shows workspaces 1 to 10 as the first ten Elder Futhark runes (ᚠ ᚢ ᚦ ᚨ ᚱ
 ᚲ ᚷ ᚹ ᚺ ᚾ).

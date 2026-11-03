@@ -23,7 +23,7 @@ Laschen zeigt einen durchgehenden 7-px-Streifen und drei inhaltsgroße Laschen f
 
 ## Arbeitsflächen
 
-Die Leiste beginnt mit 1–5 und wächst bis zur aktuellen beziehungsweise höchsten belegten Arbeitsfläche, höchstens bis 10. Höhere leere Markierungen verschwinden, sobald sie nicht mehr gebraucht werden. Ein Rechtsklick auf eine Markierung bietet Punkte, Glyphe, Zahlen oder Runen mit Live-Beispielen. Runen ist Standard und stellt 1 bis 10 durch die ersten zehn Runen des älteren Futhark dar (ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ). Die aktive Markierung zeigt das Zeichen in der Akzentfarbe ohne gefüllten Hintergrund.
+Die Leiste beginnt mit 1–5 und wächst bis zur aktuellen beziehungsweise höchsten belegten Arbeitsfläche, höchstens bis 10. Höhere leere Markierungen verschwinden, sobald sie nicht mehr gebraucht werden. Ein Rechtsklick auf eine Markierung bietet Punkte, Glyphe, Zahlen oder Runen mit Live-Beispielen. Runen ist Standard und stellt 1 bis 10 durch die ersten zehn Runen des älteren Futhark dar (ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ). Die aktive Markierung zeigt das Zeichen in der Akzentfarbe ohne gefüllten Hintergrund. Alle vier Optionen passen an jedem Leistenrand ohne Scrollen in das Menü.
 
 **SUPER + 1–9/0** wechselt die Arbeitsfläche; **SUPER + Shift + 1–9/0** verschiebt ein Fenster. **SUPER + Tab** öffnet die Übersicht. Klicke eine Vorschau oder verwende Pfeile und Enter; 1–9/0 wechselt direkt. Nur belegte nummerierte Arbeitsflächen erscheinen, ihre Vorschauen bleiben im Arbeitsspeicher. Escape oder ein Klick außerhalb schließt die Übersicht.
 

@@ -1,7 +1,9 @@
 # Control Center
 
 Press **SUPER + ,** to toggle the Control Center. It opens from the bar's current
-edge and closes on Escape or an outside click. Closing returns it to General.
+edge and closes on Escape or an outside click. With a Full bar on the left or
+right, it starts at the top of the screen, with content padded inside the joined
+surface. Closing returns it to General.
 
 Its five pages hold everything outside Development, Apps, Install, Learn and
 Gaming, so most settings never need Walker. Folding sections usually start closed; click

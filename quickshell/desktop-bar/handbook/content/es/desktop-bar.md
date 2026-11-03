@@ -23,7 +23,7 @@ Pestañas muestra una franja continua de 7 px y tres pestañas ajustadas al cont
 
 ## Espacios de trabajo
 
-La barra empieza en 1–5 y crece hasta el espacio actual o el mayor ocupado, con un máximo de 10. Los marcadores superiores vacíos desaparecen cuando dejan de necesitarse. Pulsa un marcador con el botón derecho para elegir Puntos, Glifo, Números o Runas, con ejemplos en vivo. Runas es el valor predeterminado y representa los espacios 1 a 10 con las diez primeras runas del Futhark antiguo (ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ). El marcador activo muestra el símbolo en el color de acento, sin fondo relleno.
+La barra empieza en 1–5 y crece hasta el espacio actual o el mayor ocupado, con un máximo de 10. Los marcadores superiores vacíos desaparecen cuando dejan de necesitarse. Pulsa un marcador con el botón derecho para elegir Puntos, Glifo, Números o Runas, con ejemplos en vivo. Runas es el valor predeterminado y representa los espacios 1 a 10 con las diez primeras runas del Futhark antiguo (ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ). El marcador activo muestra el símbolo en el color de acento, sin fondo relleno. Las cuatro opciones caben en el menú en cualquier borde de la barra, sin desplazamiento.
 
 **SUPER + 1–9/0** cambia de espacio; **SUPER + Shift + 1–9/0** mueve una ventana. **SUPER + Tab** abre Vista general. Pulsa una vista previa o usa flechas y Enter; 1–9/0 cambia directamente. Solo aparecen espacios numerados ocupados y sus vistas previas quedan en memoria. Escape o un clic fuera cierra Vista general.
 

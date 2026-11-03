@@ -23,7 +23,7 @@ Abas mostra uma faixa contínua de 7 px e três abas ajustadas ao conteúdo dos 
 
 ## Espaços de trabalho
 
-A barra começa em 1–5 e cresce até o espaço atual ou o maior ocupado, com limite de 10. Marcadores superiores vazios desaparecem quando não são mais necessários. Clique com o botão direito em um marcador para escolher Pontos, Glifo, Números ou Runas, com exemplos ao vivo. Runas é o padrão e representa os espaços de 1 a 10 pelas primeiras dez runas do Futhark Antigo (ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ). O marcador ativo usa o símbolo na cor de destaque, sem fundo preenchido.
+A barra começa em 1–5 e cresce até o espaço atual ou o maior ocupado, com limite de 10. Marcadores superiores vazios desaparecem quando não são mais necessários. Clique com o botão direito em um marcador para escolher Pontos, Glifo, Números ou Runas, com exemplos ao vivo. Runas é o padrão e representa os espaços de 1 a 10 pelas primeiras dez runas do Futhark Antigo (ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ). O marcador ativo usa o símbolo na cor de destaque, sem fundo preenchido. As quatro opções cabem no menu em qualquer borda da barra, sem rolagem.
 
 **SUPER + 1–9/0** muda de espaço; **SUPER + Shift + 1–9/0** move uma janela. **SUPER + Tab** abre a Visão geral. Clique em uma prévia ou use setas e Enter; 1–9/0 muda diretamente. Só aparecem espaços numerados ocupados, com prévias mantidas em memória. Escape ou um clique fora fecha a Visão geral.
 

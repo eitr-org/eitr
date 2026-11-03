@@ -150,7 +150,8 @@ bar panels. It attaches to the current bar edge (top, bottom, left, or right),
 with scrolling when content exceeds the screen. Escape and outside clicks close
 it; switching to an existing detail panel closes it before opening that panel.
 In full-bar mode it leaves Hyprland's live outer window gap at the opposite
-screen edge; vertical bars leave both top and bottom outer gaps.
+screen edge. On vertical bars it starts flush at the top and uses the screen
+height, with the shared surface padding keeping content inset on every side.
 
 General includes WiFi/Bluetooth power toggles using the bar's WiFi indicator,
 Airplane mode, Idle Lock, Do Not Disturb and Game Mode.
@@ -326,7 +327,9 @@ gap at the screen boundary. Calendar and Weather remain screen-centered along
 the bar's axis in all four positions.
 Panels render inside the bar's Wayland surface, joining it with inward-curved
 corners and continuous blur. They unfold over 320 ms from the selected edge
-and fold back on outside click, Escape, or icon toggle.
+and fold back on outside click, Escape, or icon toggle. Content-sized popups
+reserve room for vertical joins as well as content padding, so small menus
+show every row on side bars without scrolling.
 Switching controls finishes the current panel's closing animation before opening
 the next panel; rapid clicks select the latest requested panel without overlap.
 Content-driven width and height changes use the same 320 ms cubic animation:

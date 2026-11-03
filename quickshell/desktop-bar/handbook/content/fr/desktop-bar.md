@@ -23,7 +23,7 @@ Onglets affiche une bande continue de 7 px et trois onglets adaptés au contenu 
 
 ## Espaces de travail
 
-La barre commence à 1–5 et s’étend jusqu’à l’espace courant ou au plus grand occupé, au maximum 10. Les marqueurs supérieurs vides disparaissent lorsqu’ils ne servent plus. Un clic droit sur un marqueur propose Points, Glyphe, Nombres ou Runes, avec exemples en direct. Runes est le choix par défaut et représente 1 à 10 par les dix premières runes du Futhark ancien (ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ). Le marqueur actif affiche le symbole dans la couleur d’accent, sans fond rempli.
+La barre commence à 1–5 et s’étend jusqu’à l’espace courant ou au plus grand occupé, au maximum 10. Les marqueurs supérieurs vides disparaissent lorsqu’ils ne servent plus. Un clic droit sur un marqueur propose Points, Glyphe, Nombres ou Runes, avec exemples en direct. Runes est le choix par défaut et représente 1 à 10 par les dix premières runes du Futhark ancien (ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ). Le marqueur actif affiche le symbole dans la couleur d’accent, sans fond rempli. Les quatre choix tiennent dans le menu sur chaque bord de la barre, sans défilement.
 
 **SUPER + 1–9/0** change d’espace ; **SUPER + Shift + 1–9/0** déplace une fenêtre. **SUPER + Tab** ouvre la Vue d’ensemble. Cliquez sur un aperçu ou utilisez flèches et Enter ; 1–9/0 change directement. Seuls les espaces numérotés occupés apparaissent et leurs aperçus restent en mémoire. Escape ou un clic à l’extérieur ferme la Vue d’ensemble.
 

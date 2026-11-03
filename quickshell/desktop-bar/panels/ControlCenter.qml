@@ -79,7 +79,7 @@ ThemedPopup {
     readonly property string lockscreenScript: Eitr.Paths.code("quickshell/lockscreen/scripts/settings.py")
     readonly property string effectsScript: Eitr.Paths.code("walker/scripts/actions/style/terminal-effects.py")
     property var screenMargins: [12, 12, 12, 12]
-    readonly property real edgeClearance: barPosition === "top" ? screenMargins[2] : barPosition === "bottom" ? screenMargins[0] : screenMargins[0] + screenMargins[2]
+    readonly property real edgeClearance: barPosition === "top" ? screenMargins[2] : barPosition === "bottom" ? screenMargins[0] : 0
     signal idleToggleRequested()
     signal lockRequested()
     signal settingRequested(string key, string value)
@@ -88,7 +88,6 @@ ThemedPopup {
     signal pickerRequested(string kind)
     implicitWidth: Math.min(520, hostWindow ? hostWindow.width - ((barPosition === "left" || barPosition === "right") && strip ? strip.width : 0) : 520)
     implicitHeight: hostWindow ? hostWindow.height - (barPosition === "top" || barPosition === "bottom" ? (strip ? strip.height : 30) : 0) - (detached ? 0 : edgeClearance) : 800
-    leadingOffset: !detached && (barPosition === "left" || barPosition === "right") ? screenMargins[0] : 0
     barEdge: barPosition
     leftAligned: true
     function refresh() {

@@ -1,6 +1,6 @@
 # Central de controle
 
-Pressione **SUPER + ,** para abrir ou fechar a Central de controle. Ele abre pela borda atual da barra e fecha com Escape ou um clique fora. Ao fechar, volta à página Geral.
+Pressione **SUPER + ,** para abrir ou fechar a Central de controle. Ele abre pela borda atual da barra e fecha com Escape ou um clique fora. Ao fechar, volta à página Geral. Com a barra no modo Full à esquerda ou à direita, a Central começa no topo da tela, com o conteúdo espaçado dentro da superfície unida à barra.
 
 Suas cinco páginas reúnem tudo que fica fora de Desenvolvimento, Aplicativos, Instalar, Aprender e Jogos; assim, a maioria das configurações dispensa o Walker. As seções recolhíveis geralmente começam fechadas; clique no título para abrir ou fechar, com a escolha lembrada até sair da sessão. Quando há um painel próprio na barra (OBS, WiFi, Bluetooth, Áudio, Tela, Hardware, Uso de IA ou Clima), a Central de controle abre esse painel.
 

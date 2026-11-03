@@ -19,7 +19,12 @@ DockPanel {
     property string barEdge: "top"
     property color surfaceColor: background
     readonly property var contentGaps: hostWindow && hostWindow.outerGaps ? hostWindow.outerGaps : [12, 12, 12, 12]
-    readonly property real verticalContentInset: (contentGaps[0] + contentGaps[2]) * PanelStyle.contentGapMultiplier
+    // Reserve joins independently of edge contact: content-sized height must not
+    // feed back through placementExtent and the surface's flush-edge detection.
+    // A panel reaching both screen ends may leave this reserve unused.
+    readonly property real verticalJoinInset: !verticalAttachment || detached ? 0
+        : PanelStyle.surfaceInset * (alignment === "center" || (alignment === "left" && leadingOffset > 0) ? 2 : 1)
+    readonly property real verticalContentInset: panelSurface.topPadding + panelSurface.bottomPadding + verticalJoinInset
     readonly property real horizontalContentInset: panelSurface.leftPadding + panelSurface.rightPadding
         + (panelSurface.vertical ? 0 : panelSurface.leadingBodyInset + panelSurface.trailingBodyInset)
     property Item keyTarget: body
