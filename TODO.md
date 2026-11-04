@@ -34,16 +34,25 @@ The Themes & Plugins catalog, the 12 extra themes in `eitr-org/eitr-themes`, the
 native install review and the community index `eitr-org/eitr-community` shipped to
 stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
 
-- **Lockscreens (owner deciding).** Lockscreen designs are QML that runs in the
-  screen reading the password, so only official designs from an
-  `eitr-org/eitr-lockscreens` repository would be offered; third-party designs are
-  refused and the owner's own lockscreens stay settings on an installed design.
-  Which designs stay built in is still open.
+- **Lockscreens tab in the catalog (decided 2026-11-04).** A Lockscreens tab in
+  Themes & Plugins, working like themes and plugins. Every design shipped today stays
+  built in and cannot be uninstalled (no trash icon). New designs come only from an
+  official `eitr-org/eitr-lockscreens` repository at a pinned, reviewed version; there
+  is no community or third-party source, since a design runs on the screen that reads
+  the password. Removing a design that is in use, or that one of your own lockscreens
+  is built on, warns first and then falls back to Eitr. Fresh offline installs have
+  the built-in designs only.
 - **Plugin media.** Real screenshots and short clips for Visualizer and Lofi Radio
   (`media`/`preview` in `eitr-org/eitr-plugins`), captured only with the owner's go.
 
 # 3. Smaller items
 
+- **Profile pictures.** Let each user choose a picture for their account and show it
+  where the account appears: the lockscreen, the SDDM login screen and the Control
+  Center or About. Nothing reads one today. The usual places are AccountsService's
+  `/var/lib/AccountsService/icons/USER` (root-owned, so it needs the Eitr system
+  helper) and `~/.face`; decide which one Eitr owns, add a picker with a crop
+  preview, and keep a default when none is set.
 - **Light themes.** The owner has ideas for more light themes; create them later.
 - **Walker at login: start Elephant earlier.** After the fix, Walker is usable about
   7.4 s after login (was ~12.5 s; measured 2026-11-04). Elephant still starts ~3 s
