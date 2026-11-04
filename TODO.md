@@ -45,6 +45,11 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
   Uninstalling uses the catalog's usual confirmation sheet; when some of your own
   lockscreens (Walker > Style) are built on that design, the sheet says so, and they
   are hidden rather than deleted, coming back if the design is reinstalled.
+  Open question (paused 2026-11-04): designs also draw the SDDM login screen, which
+  runs as its own user and reads only system files (`/usr/share/sddm/themes/
+  desktop-lockscreen-*`, staged by `install-login.py`). Per-user installs like themes
+  could not reach it, so designs would likely become signed packages in Eitr's
+  repository, installed and removed with one password prompt, for every account.
 - **Plugin media.** Real screenshots and short clips for Visualizer and Lofi Radio
   (`media`/`preview` in `eitr-org/eitr-plugins`), captured only with the owner's go.
 
