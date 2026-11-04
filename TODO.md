@@ -100,8 +100,9 @@ channel first; the website changes only once it reaches stable.
 - **Light themes.** The owner has ideas for more light themes; create them later.
 - **Walker slow to open after login: confirm the fix.** Login started Elephant 4 s
   after the bar, then it spent ~3.6 s loading menus, so SUPER shortcuts did nothing
-  for ~12 s after the desktop appeared. Elephant now starts with the bar; the owner
-  checks SUPER+F right after the next login.
+  for ~12 s after the desktop appeared. Elephant now starts with the bar, and the rest
+  of login waits for the bar to answer instead of a fixed 4 s; the owner checks
+  SUPER+F right after the next login.
 - **Choice lists: remaining copies.** Bar layouts and update channels still repeat
   their option lists across files; move them into `tools/choice-lists.json` when
   next touched.

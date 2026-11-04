@@ -16,7 +16,12 @@ eitr-shell desktop-bar --daemonize
 # Walker cannot open before its Elephant backend is ready (about 3 s of menu loading),
 # so it starts with the bar; the rest is optional and waits.
 systemctl --user start --no-block elephant.service
-sleep 4
+# The rest starts as soon as the bar answers on its IPC socket (it has loaded and
+# draws its first frame), not after a fixed pause; at most 8 s if it never answers.
+for ((attempt = 0; attempt < 80; attempt++)); do
+  if eitr-shell desktop-bar ipc call -- bar workspaces >/dev/null 2>&1; then break; fi
+  sleep 0.1
+done
 systemctl --user start --no-block eitr-crash-help.service
 (eitr-session && eitr-walker --gapplication-service) &
 python3 /usr/share/eitr/walker/scripts/actions/style/cursor.py sync &

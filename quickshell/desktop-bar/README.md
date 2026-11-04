@@ -58,9 +58,10 @@ and decoded at screen size, including ultrawide variants. This fallback follows
 Walker and carousel choices and remains visible in Focus mode and during
 transitions; it does not animate the reveal. No polling or machine preference is added.
 
-Login starts Hyprpaper, waits up to 2 s for its IPC endpoint, then starts the bar.
-Optional session preparation, Elephant, crash help, cursor sync, nightlight, OSD
-and clipboard watchers follow after 4 s. Authentication agents and idle locking
+Login starts Hyprpaper, waits up to 0.5 s for its IPC endpoint, then starts the bar
+and Elephant together (Walker needs Elephant). Session preparation, crash help, cursor
+sync, nightlight, OSD and clipboard watchers start once the bar answers on its IPC
+socket (at most 8 s). Authentication agents and idle locking
 keep their existing startup path. Walker starts/waits for the same Elephant
 service when invoked early; its KillMode remains process. Plugin login hooks
 start after 12 s and the first automatic update check after 45 s.
