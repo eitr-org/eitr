@@ -35,15 +35,16 @@ native install review and the community index `eitr-org/eitr-community` shipped 
 stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
 
 - **Lockscreens tab in the catalog (decided 2026-11-04).** A Lockscreens tab in
-  Themes & Plugins, working like themes and plugins. Only the Eitr design is
+  Themes & Plugins, working like themes and plugins. Eitr and Theme Wallpaper are
   permanent (no trash icon). The other designs shipped today move to an official
   `eitr-org/eitr-lockscreens` repository, stay installed by default on fresh and
-  existing desktops, and can be uninstalled and reinstalled from the tab. New designs
-  come only from that repository at a pinned, reviewed version; there is no community
-  or third-party source, since a design runs on the screen that reads the password.
-  The design in use shows no trash icon. Uninstalling a design that some of your own
-  lockscreens are built on warns that they go with it. Fresh offline installs keep
-  every default design.
+  existing desktops (as the extra themes did), and can be uninstalled and
+  reinstalled from the tab. New designs come only from that repository at a pinned,
+  reviewed version; there is no community or third-party source, since a design runs
+  on the screen that reads the password. The design in use shows no trash icon.
+  Uninstalling uses the catalog's usual confirmation sheet; when some of your own
+  lockscreens (Walker > Style) are built on that design, the sheet says so, and they
+  are hidden rather than deleted, coming back if the design is reinstalled.
 - **Plugin media.** Real screenshots and short clips for Visualizer and Lofi Radio
   (`media`/`preview` in `eitr-org/eitr-plugins`), captured only with the owner's go.
 
