@@ -224,6 +224,8 @@ PanelWindow {
         pointerInside: bar.pointerInside || edgeHover.hovered
         held: bar.panelOpen || bar.pendingPanel !== null || bar.pendingOverview || overview.visible || host.barPointerHeld || notificationPopups.visible
     }
+    // An empty item the input mask adds and drops as the auto-hide slide settles.
+    Item { id: slideSettled; width: 0; height: 0 }
     Item {
         id: edgeSensor
         // A 1 px trigger at the edge; once revealed it spans the bar's depth, so moving
@@ -243,6 +245,7 @@ PanelWindow {
         edgeSensorRef: edgeSensor
         tabStripRef: tabStrip
         barContentsRef: barContents
+        slideSettledRef: slideSettled
         leadingTabRef: leadingTab
         notchTabRef: notchTab
         trailingTabRef: trailingTab

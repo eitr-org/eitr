@@ -7,6 +7,7 @@ Region {
     required property var edgeSensorRef
     required property var tabStripRef
     required property var barContentsRef
+    required property var slideSettledRef
     required property var leadingTabRef
     required property var notchTabRef
     required property var trailingTabRef
@@ -14,6 +15,9 @@ Region {
     id: dockInput
     width: 0; height: 0
     // Focus hides the bar but keeps its window: hiding the window crashes Quickshell.
+    // The mask follows item geometry but not the auto-hide slide's transform; changing this
+    // empty region when the slide starts and settles rebuilds the mask at the final position.
+    Region { item: barHost.autoHideRef.progress === 0 || barHost.autoHideRef.progress === 1 ? slideSettledRef : null }
     Region { item: edgeSensorRef.visible && !FocusMode.enabled ? edgeSensorRef : null }
     Region { item: host.barPointerHeld && !FocusMode.enabled ? barHost.contentItem : null }
     Region { item: FocusMode.enabled ? null : host.notchLayout ? tabStripRef : host.centeredLayout || host.islandsLayout || host.dynamicLayout ? null : barContentsRef }
