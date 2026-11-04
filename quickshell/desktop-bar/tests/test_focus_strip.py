@@ -71,9 +71,13 @@ ShellRoot {
 @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required for offscreen rendering')
 class FocusStripTests(unittest.TestCase):
     def test_focus_keeps_the_bar_window_mapped(self):
-        # Unmapping the bar's layer window while Focus starts crashes Quickshell 0.3.2.
+        # Quickshell 0.3.2 deletes a hidden layer window, and the panels it hosted then
+        # crash Qt on the stale window: hiding the bar keeps the window and draws nothing.
         shell = frame_source(BAR)
-        self.assertIn('visible: shell.barVisible || panelOpen', shell)
+        self.assertNotIn('visible: shell.barVisible || panelOpen', shell)
+        self.assertIn('readonly property bool shown: shell.barVisible || panelOpen', shell)
+        self.assertIn('contentItem.opacity: shown ? 1 : 0', shell)
+        self.assertIn('mask: shown ? dockInput : hiddenInput', shell)
         self.assertIn('Region { item: FocusMode.enabled ? null :', shell)
         self.assertIn('visible: shell.centeredLayout && !FocusMode.enabled', shell)
 

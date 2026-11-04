@@ -155,6 +155,7 @@ ShellRoot {
             }
             Bar.DockPanel {
                 id: panel
+                parent: window.contentItem
                 attachmentTarget: shell.verticalBar ? clockVertical : clock
                 attachmentEdge: shell.barEdge
                 implicitWidth: 330; implicitHeight: 250

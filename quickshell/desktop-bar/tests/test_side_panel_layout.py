@@ -133,7 +133,7 @@ ShellRoot {
         PANEL
         }
         Bar.ThemedPopup {
-            id: reference; target: strip; barEdge: window.edge; leftAligned: true
+            id: reference; parent: sample; target: strip; barEdge: window.edge; leftAligned: true
             foreground: "white"; background: "black"; accent: "cyan"
             implicitWidth: 200; implicitHeight: 200
         }

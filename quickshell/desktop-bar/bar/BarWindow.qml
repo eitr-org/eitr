@@ -204,7 +204,12 @@ PanelWindow {
     }
 
     screen: modelData
-    visible: host.barVisible || panelOpen
+    // The window stays mapped while the bar is hidden: Quickshell deletes a hidden layer
+    // window, and panels it hosted crashed Qt on the stale window. Hiding draws nothing
+    // and passes every click through instead. Opacity, not visible: panelOpen reads the
+    // panels' visibility, and they live under this content item.
+    readonly property bool shown: host.barVisible || panelOpen
+    contentItem.opacity: shown ? 1 : 0
     implicitWidth: modelData.width
     implicitHeight: modelData.height
     color: "transparent"
@@ -215,7 +220,8 @@ PanelWindow {
     // Notification popups must have a strictly higher layer than
     // panels, rather than depending on same-layer mapping order.
     WlrLayershell.layer: panelOpen && !notificationPopups.visible ? WlrLayer.Overlay : WlrLayer.Top
-    mask: dockInput
+    mask: shown ? dockInput : hiddenInput
+    Region { id: hiddenInput }
     WlrLayershell.keyboardFocus: panelOpen ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
     BarAutoHide {

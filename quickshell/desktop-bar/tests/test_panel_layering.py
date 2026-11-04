@@ -24,6 +24,11 @@ class PanelLayeringTests(unittest.TestCase):
         dock = (ROOT / "components/DockPanel.qml").read_text()
         self.assertIn("visible: opened || revealProgress > 0", dock)
 
+    def test_closed_panels_leave_the_bar_window(self):
+        # A closed panel left in the bar window crashed Qt when the bar's screen was unplugged.
+        dock = (ROOT / "components/DockPanel.qml").read_text()
+        self.assertIn("parent: hostWindow && (opened || revealProgress > 0) ? hostWindow.contentItem : null", dock)
+
     def test_notification_popups_also_use_overlay(self):
         shell = frame_source(ROOT)
         self.assertIn("id: notificationPopups", shell)

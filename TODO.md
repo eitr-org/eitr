@@ -96,17 +96,12 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
 
 # 4. Later
 
-- **Bar crashes when panels or screens go away quickly.** Live checks (2026-11-02,
-  VM): cycling every Control Center page, a plugin install/removal and three
-  monitor hotplugs all left data subscriptions at their baseline. But Quickshell
-  segfaults inside Qt in about half the runs of: open the Settings sections, switch
-  to Style, open its sections, then `panels close` (`QQuickWindowPrivate::dirtyItem`
-  from `setVisible`); and once while a hotplugged monitor was removed
-  (`QQuickItemPrivate::derefWindow`). Focus on/off in the VM crashed it the same way
-  (`QMetaObject::cast`). The owner's PC has three such crashes since 2026-10-19.
-  Find the QML item involved (debug-symbol Quickshell), then fix it here or report
-  it upstream. Hotplug also logs binding loops in DisplayService `snapshot` and
-  DisplaySettingsEditor `width`.
+- **Bar crash leftovers.** The VM crashes (hidden bar plus a panel closing, the bar's
+  screen unplugged) are fixed: the bar window stays mapped and closed panels leave it.
+  Still open: the owner's two crashes of 2026-10-29 at bar start, a PipeWire event
+  rebuilding a Repeater (`QQuickItem::polish` from `QQuickRepeater::setModel`), not
+  reproduced since; and the binding loops a hotplug logs in DisplayService `snapshot`
+  and DisplaySettingsEditor `width`.
 - **Move expensive work off the UI thread selectively.** Profile interactions
   first, then move demonstrated image-processing, audio-analysis or other costly
   work into bounded asynchronous workers. Keep results tied to the current

@@ -88,6 +88,7 @@ ShellRoot {
         }
         DockPanel {
             id: panel
+            parent: bar.contentItem
             attachmentTarget: clock
             attachmentEdge: shell.barEdge
             implicitWidth: 4000; implicitHeight: 4000
