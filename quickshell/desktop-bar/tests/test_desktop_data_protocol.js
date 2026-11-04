@@ -1,0 +1,18 @@
+const assert = require('assert');
+const { createClient } = require('../DesktopDataProtocol.js');
+const frames = [];
+const client = createClient(frame => frames.push(frame), () => {});
+client.receive(JSON.stringify({v: 1, op: 'hello', epoch: 'first'}));
+const token = client.observe('account.picture', 'sheet');
+client.receive(JSON.stringify({v: 1, op: 'state', epoch: 'first', topic: 'account.picture', seq: 1, status: 'ready', data: {path: null, initial: 'A', name: 'Astrid'}, ageMs: 0}));
+assert.strictEqual(client.states['account.picture'].data.path, null);
+let error = '';
+client.accountAction('save', {source: '/mock/image.png'}, 'sheet', message => { error = message; });
+client.died();
+assert.strictEqual(error, 'outcome-unknown');
+const actions = frames.filter(frame => frame.op === 'action').length;
+client.receive(JSON.stringify({v: 1, op: 'hello', epoch: 'second'}));
+assert.strictEqual(frames.filter(frame => frame.op === 'action').length, actions);
+client.release(token);
+assert.strictEqual(client.count('account.picture'), 0);
+console.log('account actions never replay');

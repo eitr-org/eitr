@@ -88,12 +88,13 @@ Item {
     function showControlCenter(page) {
         // Accept the System and Capture aliases for Settings and Tools.
         page = ({system: "settings", capture: "tools"})[page] || page;
-        if (["general", "plugins", "style", "tools", "settings"].indexOf(page) === -1) return;
+        if (["picture", "general", "plugins", "style", "tools", "settings"].indexOf(page) === -1) return;
         controlCenter.page = page;
         barHost.showPanel(controlCenter);
     }
     function toggleControlCenter() { barHost.togglePanel(controlCenter); }
     function showKind(kind) {
+        if (kind === "picture") { showControlCenter(kind); return; }
         var panels = {wifi: barHost.wifiMenu, bluetooth: barHost.bluetoothMenu, brightness: barHost.brightnessMenu, display: barHost.brightnessMenu, volume: barHost.volumeMenu,
             mic: barHost.volumeMenu, tailscale: barHost.tailscaleMenu, streaming: barHost.streamingMenu, keyboard: barHost.keyboardMenu, calendar: barHost.calendarMenu,
             weather: barHost.weatherMenu, hardware: barHost.hardwareMenu, ai: barHost.aiMenu, obs: barHost.obsMenu,

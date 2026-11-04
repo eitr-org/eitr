@@ -224,6 +224,12 @@ Rectangle {
             y: composition.stacked ? composition.height * 0.58 : (composition.height - height) / 2
             spacing: 20 * root.unit
             Text { text: Eitr.I18n.tr("WELCOME BACK"); font.family: root.family; font.pixelSize: 10 * root.unit; font.letterSpacing: 3 * root.unit; color: root.accent }
+            Eitr.Avatar {
+                anchors.horizontalCenter: parent.horizontalCenter
+                size: 64 * root.unit
+                source: login.userIcon; initial: login.userInitial
+                accent: root.accent; background: root.surface
+            }
             UserPicker {
                 controller: login
                 unit: root.unit

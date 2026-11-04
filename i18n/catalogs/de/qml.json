@@ -73,6 +73,7 @@
   "Chapters": "Kapitel",
   "Chat with %1": "Mit %1 chatten",
   "Checking status…": "Status wird geprüft…",
+  "Choose Picture…": "Bild auswählen…",
   "Choose a theme": "Wählen Sie ein Thema",
   "Choose plugins": "Plugins auswählen",
   "Choose themes": "Themes auswählen",
@@ -330,6 +331,8 @@
   "Preview": "Vorschau",
   "Previous": "Zurück",
   "Previous panel": "Vorheriges Panel",
+  "Profile Picture": "Profilbild",
+  "Profile picture": "Profilbild",
   "QR Code": "QR-Code",
   "QUICK SETTINGS": "SCHNELLEINSTELLUNGEN",
   "Quick Actions": "Schnellaktionen",
@@ -541,5 +544,6 @@
   "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
   "•  now": "•  jetzt",
   "󰂚  No notifications": "󰂚  Keine Benachrichtigungen",
-  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen"
+  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen",
+  "No pictures in this folder": "Keine Bilder in diesem Ordner"
 }

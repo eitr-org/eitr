@@ -33,3 +33,7 @@ Lies [Wiederherstellung und Snapshots](handbook:recovery), bevor du Authentifizi
 **Einstellungen > Sicherheit > Benutzer > Benutzer erstellen…** erstellt eine eigene Anmeldung. Gib Benutzername, optionalen vollständigen Namen, Kontotyp und Passwort ein, prüfe die Angaben und drücke Enter zum Erstellen. Esc bricht vor dem Anwenden ab. Standardkonten können sudo nicht verwenden; Administratorkonten treten wheel bei und erhalten eine passwortgeschützte sudo-Regel. Vorhandene Benutzerkonten (UID 1000–65533) erscheinen darunter in Benutzer als schreibgeschützte Zeilen.
 
 Das neue Home enthält keine Dateien deines Kontos. Bei der ersten Hyprland-Anmeldung über UWSM führt Eitr die benutzerspezifische Desktop-Einrichtung des Installers aus und übernimmt das Paketlayout unter der Identität des neuen Benutzers. Die Shell-Einrichtung kann Internetzugang benötigen. Nach einem Fehler bleibt die Markierung für die nächste Anmeldung erhalten; nach Erfolg läuft die Einrichtung nicht erneut. Fehler beim Erstellen lassen ein unvollständiges Konto für die manuelle Prüfung gesperrt und abgelaufen zurück. Das Löschen von Benutzern wird nicht angeboten.
+
+## Profilbilder
+
+Einstellungen > Sicherheit > Benutzer > Profilbild öffnet das runde Bild, das im Kontrollzentrum, auf dem Sperrbildschirm und bei der Anmeldung erscheint; der Zuschneide-Editor und was Eitr speichert stehen unter [Kontrollzentrum](handbook:control-center).

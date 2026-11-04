@@ -257,6 +257,12 @@ Rectangle {
                 height: 24 * s
             }
 
+            Eitr.Avatar {
+                anchors.horizontalCenter: parent.horizontalCenter
+                size: 56 * root.s
+                source: login.userIcon; initial: login.userInitial
+                accent: root.cPink; background: root.cCream
+            }
             UserPicker {
                 controller: login
                 unit: root.s

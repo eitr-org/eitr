@@ -2,6 +2,7 @@
 """Bounded JSON-lines transport. Blocking domain adapters share a bounded thread pool."""
 import asyncio
 import json
+import math
 import importlib.util
 from collections import OrderedDict, deque
 from concurrent.futures import ThreadPoolExecutor
@@ -176,12 +177,13 @@ class Broker:
         self.capture = CaptureController(self)
         self.domains = {}
         self.domain_jobs = {}
-        self.read_slots = {name: asyncio.Semaphore(2) for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog")}
-        self.domain_locks = {name: threading.Lock() for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog")}
+        self.read_slots = {name: asyncio.Semaphore(2) for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog", "account")}
+        self.domain_locks = {name: threading.Lock() for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog", "account")}
         self.read_slots["weather"] = asyncio.Semaphore(1)
         self.ai_cooldowns = {}
         self.queries = {}
         self.catalog_queries = set()
+        self.account_action = None
         self.query_history = deque(maxlen=256)
         self.periods = {}
         self.adapter = None
@@ -591,6 +593,45 @@ class Broker:
         if not self.wanted("ai.usage") and not self.states["ai.usage"]["task"]:
             self.domains.pop("ai", None)
 
+    async def run_account(self, frame):
+        process = None
+        result, error = {}, ""
+        try:
+            import eitr_bootstrap
+            import eitr_paths
+            command = [sys.executable, str(eitr_paths.code("distro/lib/eitr_avatar.py")),
+                       frame["name"]]
+            args = frame["args"]
+            if frame["name"] in ("save", "preview"):
+                command.append(args["source"])
+            if frame["name"] == "browse" and args.get("folder"):
+                command.append(args["folder"])
+            if frame["name"] == "save" and "size" in args:
+                command.extend(str(args[key]) for key in ("x", "y", "size"))
+            process = await asyncio.create_subprocess_exec(*command, stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.DEVNULL, limit=MAX_RESULT, start_new_session=True)
+            output, _ = await asyncio.wait_for(process.communicate(), 25)
+            payload = json.loads(output)
+            if process.returncode or not payload.get("ok"):
+                error = payload.get("error", "Picture update failed")
+            else:
+                result = payload["result"] or {}
+        except TimeoutError:
+            error = "outcome-unknown"
+        except asyncio.CancelledError:
+            raise
+        except Exception:
+            error = "Picture update failed"
+        finally:
+            if process and process.returncode is None:
+                process.kill()
+                await process.wait()
+            self.account_action = None
+            self.states["account.picture"]["generation"] += 1
+            self.refresh("account.picture")
+            self.emit(dict(v=1, op="reply", topic="account", id=frame["id"], epoch=self.epoch,
+                           error=error, data=result))
+
     async def query_catalog(self, frame, cancelled):
         request = frame["id"]
         result, error = {}, ""
@@ -677,6 +718,26 @@ class Broker:
             return
         if operation == "action" and topic == "network":
             self.enqueue_action(frame)
+            return
+        if operation == "cancel" and topic == "account":
+            return
+        if operation == "action" and topic == "account":
+            args, name = frame.get("args"), frame.get("name")
+            if not request or request in self.query_history or not isinstance(args, dict) or name not in ("browse", "preview", "save", "remove"):
+                raise ValueError("invalid-action")
+            if name == "browse" and not isinstance(args.get("folder", ""), str):
+                raise ValueError("invalid-folder")
+            if name in ("save", "preview") and (not isinstance(args.get("source"), str) or
+                    any(type(args.get(key)) not in (int, float) or not math.isfinite(args[key]) for key in ("x", "y", "size") if "size" in args)):
+                raise ValueError("invalid-crop")
+            self.query_history.append(request)
+            if self.account_action:
+                self.emit(dict(v=1, op="reply", topic="account", id=request, epoch=self.epoch,
+                               error="Picture update busy", data={}))
+                return
+            self.account_action = asyncio.create_task(self.run_account(frame))
+            self.jobs.add(self.account_action)
+            self.account_action.add_done_callback(self.jobs.discard)
             return
         if operation == "cancel" and topic == "catalog":
             if request in self.queries:

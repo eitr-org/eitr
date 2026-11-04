@@ -65,6 +65,10 @@ Package defaults are recorded in [distro/](distro/README.md). Credentials and
 account state are never part of the installation.
 
 `eitr` lists the available terminal commands; `eitr version` prints the release,
+`eitr picture` shows your picture status; `eitr picture set FILE` saves a centred crop and
+`eitr picture remove` clears it. The round avatar at the top of Control Center opens
+the crop editor (also Settings > Security > Users > Profile Picture).
+
 `eitr about` opens or focuses the About window, and `eitr matrix` rains runes in
 the theme's colours until a key is pressed (Walker > Tools > Rune Rain).
 

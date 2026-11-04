@@ -41,6 +41,15 @@ class EitrCommandTests(unittest.TestCase):
     def plan(self, *argv):
         return eitr.plan(eitr.parser().parse_args(list(argv)), code=self.code, config=self.config)
 
+    def test_picture_routing(self):
+        checkout = DISTRO.parent
+        helper = str(checkout / "distro/lib/eitr_avatar.py")
+        for arguments, expected in (([], ["status"]), (["show"], ["status"]),
+                                    (["set", "/tmp/example.png"], ["save", "/tmp/example.png"]),
+                                    (["remove"], ["remove"])):
+            parsed = eitr.parser().parse_args(["picture", *arguments])
+            self.assertEqual(eitr.plan(parsed, code=checkout), ["python3", helper, *expected])
+
     def test_package_arguments_and_validation(self):
         checkout = DISTRO.parent
         for argv, source in [(["install", "lowfi"], "pacman"), (["install", "--aur", "lowfi"], "aur"), (["remove", "lowfi"], "pacman")]:

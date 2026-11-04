@@ -21,8 +21,10 @@ ShellRoot {
         function powerOff() {}
         function suspend() {}
     }
-    Component.onCompleted: { if (Quickshell.env("EITR_RENDER_USERS") === "1") users.remove(1, 2); }
-    ListModel { id: users; property int lastIndex: 0; property string lastUser: "EITR"; function rowCount() { return count; } ListElement { name: "astrid"; realName: "Astrid Solberg" } ListElement { name: "bjorn"; realName: "Bjørn Lund" } ListElement { name: "freya"; realName: "Freya Lind" } }
+    Component.onCompleted: {
+        for (let index = 0; index < users.count; index++) users.setProperty(index, "icon", Quickshell.env("EITR_RENDER_ICON") || "");
+        if (Quickshell.env("EITR_RENDER_USERS") === "1") users.remove(1, 2); }
+    ListModel { id: users; property int lastIndex: 0; property string lastUser: "EITR"; function rowCount() { return count; } ListElement { name: "astrid"; realName: "Astrid Solberg"; icon: "" } ListElement { name: "bjorn"; realName: "Bjørn Lund"; icon: "" } ListElement { name: "freya"; realName: "Freya Lind"; icon: "" } }
     ListModel { id: sessions; property int lastIndex: 0; function rowCount() { return count; } ListElement { name: "Current session" } }
     Window {
         id: renderWindow

@@ -211,6 +211,7 @@
     ],
     "Cancel": [
       "quickshell/desktop-bar/panels/CatalogContent.qml",
+      "quickshell/desktop-bar/panels/ProfilePicture.qml",
       "quickshell/desktop-bar/panels/TimePicker.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
@@ -240,6 +241,9 @@
     ],
     "Checking status…": [
       "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
+    ],
+    "Choose Picture…": [
+      "quickshell/desktop-bar/panels/ProfilePicture.qml"
     ],
     "Choose a theme": [
       "quickshell/desktop-bar/panels/Handbook.qml"
@@ -886,6 +890,9 @@
     "No occupied workspaces": [
       "quickshell/desktop-bar/overview/WorkspaceOverview.qml"
     ],
+    "No pictures in this folder": [
+      "quickshell/desktop-bar/panels/ProfilePicture.qml"
+    ],
     "No playback applications": [
       "quickshell/desktop-bar/panels/AudioMenu.qml"
     ],
@@ -1072,6 +1079,12 @@
     "Previous panel": [
       "quickshell/desktop-bar/components/ThemedPopup.qml"
     ],
+    "Profile Picture": [
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
+    ],
+    "Profile picture": [
+      "quickshell/desktop-bar/panels/ControlCenterNavigation.qml"
+    ],
     "QR Code": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
@@ -1151,6 +1164,7 @@
     "Remove": [
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
       "quickshell/desktop-bar/panels/CatalogContent.qml",
+      "quickshell/desktop-bar/panels/ProfilePicture.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/desktop-bar/plugins/PluginManagement.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml"
@@ -1267,7 +1281,8 @@
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml"
     ],
     "Save": [
-      "quickshell/desktop-bar/panels/AudioMenu.qml"
+      "quickshell/desktop-bar/panels/AudioMenu.qml",
+      "quickshell/desktop-bar/panels/ProfilePicture.qml"
     ],
     "Scale": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
@@ -2050,6 +2065,9 @@
     ],
     "Choose and join networks": [
       "elephant/menu-rows/system-connectivity.json"
+    ],
+    "Choose the round picture shown on the lockscreen and login screen": [
+      "elephant/menu-rows/users.json"
     ],
     "Classic consoles · NES to Dreamcast, PS1, N64, DS and PSP": [
       "elephant/menu-rows/gaming.json"
@@ -3077,6 +3095,9 @@
     "Productivity": [
       "elephant/menu-rows/install.json",
       "elephant/menus/productivity.lua"
+    ],
+    "Profile Picture": [
+      "elephant/menu-rows/users.json"
     ],
     "QR Code": [
       "elephant/menu-rows/capture.json"

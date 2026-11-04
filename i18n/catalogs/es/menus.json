@@ -85,6 +85,7 @@
   "Choose a terminal assistant to install": "Elige un asistente de terminal para instalar",
   "Choose an earlier session to continue": "Elige una sesión anterior para continuar",
   "Choose and join networks": "Elige y únete a las redes",
+  "Choose the round picture shown on the lockscreen and login screen": "Elige la foto redonda del bloqueo y del inicio de sesión",
   "Classic consoles · NES to Dreamcast, PS1, N64, DS and PSP": "Consolas clásicas · NES a Dreamcast, PS1, N64, DS y PSP",
   "Claude": "Claude",
   "Claude and Codex usage limits": "Claude y Codex límites de uso",
@@ -392,6 +393,7 @@
   "Print": "Print",
   "Print and copy it for GitHub or GitLab": "Mostrar y copiar para GitHub o GitLab",
   "Productivity": "Productividad",
+  "Profile Picture": "Foto de perfil",
   "QR Code": "Código QR",
   "Quick Actions": "Acciones rápidas",
   "Ragnarök": "Ragnarök",
@@ -463,6 +465,8 @@
   "Review screen capture and input permissions": "Revisar permisos de captura de pantalla y entrada",
   "Route 53": "Route 53",
   "Route tables": "Tablas de rutas",
+  "Rune Rain": "Lluvia de runas",
+  "Runes falling in the theme's colours; any key stops them": "Runas que caen con los colores del tema; cualquier tecla las detiene",
   "Running tasks": "Tareas en ejecución",
   "Runs only on this PC; less reliable than cloud assistants": "Solo en este PC; menos fiable que los asistentes en la nube",
   "S3": "S3",
@@ -629,6 +633,7 @@
   "Time from 00:00 to 23:59, like 21:30": "Hora de 00:00 a 23:59, como 21:30",
   "Time with AM or PM, like 09:30 PM": "Hora con AM o PM, como 09:30 PM",
   "Tmux Commands": "Tmux Commands",
+  "Toggle Bar Auto-Hide": "Alternar ocultamiento automático de la barra",
   "Toggle Floating And Pin": "Toggle Floating and Pin",
   "Toggle Focus": "Alternar Focus",
   "Toggle Fullscreen": "Toggle Fullscreen",
@@ -692,8 +697,5 @@
   "Zone details": "Detalles de la zona",
   "gh or glab for this account only": "gh o glab solo para esta cuenta",
   "iwd": "iwd",
-  "{service} · {url}": "{service} · {url}",
-  "Rune Rain": "Lluvia de runas",
-  "Runes falling in the theme's colours; any key stops them": "Runas que caen con los colores del tema; cualquier tecla las detiene",
-  "Toggle Bar Auto-Hide": "Alternar ocultamiento automático de la barra"
+  "{service} · {url}": "{service} · {url}"
 }

@@ -158,3 +158,7 @@ Der Verlauf kann Token oder Zugangsdaten enthalten; kopiere ihn nicht in Fehlerb
 ## Darstellung der Editoren
 
 Designwechsel aktualisieren erzeugte Einstellungen für VS Code und LazyVim. Unterstützte laufende LazyVim-Sitzungen aktualisieren sich ohne erneutes Öffnen. Eigene Vorgaben und Plugins können andere Farben wählen. Prüfe ihre Konfiguration, wenn der Editor nicht dem Desktop folgt. Die Schriftarten wird nur in unterstützten Anwendungen übernommen.
+
+## Profilbilder
+
+`eitr picture` oder `eitr picture show` zeigt den Bildstatus als JSON. `eitr picture set FILE` speichert den größten mittigen quadratischen Ausschnitt; `eitr picture remove` entfernt das Bild. Der Ausschnitt lässt sich im Kontrollzentrum anpassen.

@@ -356,7 +356,7 @@ function lifetimeContext(relative, values, functions = []) {
         const panel = lifetimeContext('panels/' + name + '.qml', {
             DesktopData: facade, PowerService: power, DisplayService: display.context,
             menu: owner, center: owner, opened: false, visible: true,
-            powerTokens: [], powerActionId: '', networkToken: '', detailsToken: '', latencyToken: '',
+            powerTokens: [], powerActionId: '', networkToken: '', accountToken: '', detailsToken: '', latencyToken: '',
             defaultToken: '', hardwareToken: '', usageToken: '', optionToken: '', actionId: '', optionId: '',
             wifiControl: network, networkService: network, chatOpen: false, chatView: {reset: noop},
             scheduleDirty: false, editingSchedule: false, settingsFor: '',

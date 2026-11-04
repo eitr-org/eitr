@@ -33,3 +33,7 @@ Lisez [Récupération et instantanés](handbook:recovery) avant de modifier l’
 **Paramètres > Sécurité > Utilisateurs > Créer un utilisateur…** crée une connexion distincte. Saisissez le nom d’utilisateur, le nom complet facultatif, le type de compte et le mot de passe, puis vérifiez et appuyez sur Entrée pour créer le compte. Échap annule avant toute application. Les comptes standard ne peuvent pas utiliser sudo ; les administrateurs rejoignent wheel et reçoivent une règle sudo protégée par mot de passe. Les comptes existants (UID 1000–65533) figurent en dessous, dans Utilisateurs, en lecture seule.
 
 Le nouveau dossier personnel ne contient aucun fichier de votre compte. À la première connexion Hyprland via UWSM, Eitr exécute la configuration du bureau par utilisateur de l’installateur et adopte la structure du paquet sous l’identité du nouvel utilisateur. La configuration du shell peut nécessiter internet. Un échec conserve le marqueur pour la connexion suivante ; après réussite, elle ne se répète pas. Un échec de création laisse le compte incomplet verrouillé et expiré pour examen manuel. La suppression d’utilisateurs n’est pas proposée.
+
+## Photos de profil
+
+Paramètres > Sécurité > Utilisateurs > Photo de profil ouvre la photo ronde affichée dans le Centre de contrôle, au verrouillage et à la connexion ; l’éditeur de cadrage et ce qu’Eitr enregistre sont décrits dans [Centre de contrôle](handbook:control-center).

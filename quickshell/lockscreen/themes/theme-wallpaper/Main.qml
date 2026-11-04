@@ -127,6 +127,12 @@ Rectangle {
         id: loginPanel
         anchors.right: parent.right; anchors.bottom: parent.bottom; anchors.rightMargin: 40 * s; anchors.bottomMargin: 110 * s; width: 280 * s; spacing: 0 * s; opacity: root.ui
 
+        Eitr.Avatar {
+            anchors.horizontalCenter: parent.horizontalCenter
+            size: 64 * root.s
+            source: login.userIcon; initial: login.userInitial
+            accent: root.accent; background: "#18232c"
+        }
         UserPicker {
             controller: login
             unit: root.s

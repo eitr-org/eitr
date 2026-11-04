@@ -913,7 +913,7 @@ with a topic and unique observer token, or `refresh` with a request ID. Topics a
 `capture.details`, `capture.options`, `power.battery`, `power.profile`,
 `power.radios`, `display.topology`, `display.settings`, `display.brightness`,
 `display.nightlight`, `hardware.details`, `remote.availability`, `remote.status`,
-`weather.default`, `ai.usage` and `updates.status`. State snapshots carry
+`weather.default`, `ai.usage`, `updates.status` and `account.picture`. State snapshots carry
 `v`, `op`, `topic`, `token`, `id`, `epoch`, per-topic `seq`, `status`, `data`, and
 `ageMs` (null before a successful read). A `hello` establishes the epoch; reconnect
 replays current tokens and sends full snapshots. Old epoch/sequence results are
@@ -1118,3 +1118,18 @@ against the website CSS and renders both modes. Bundled OFL fonts live in
 `assets/fonts`; see their README for reproducible conversion. The Handbook uses the
 same opaque site palettes and fonts, including its chapter list, search, setup
 controls and document frames; desktop accent and transparency settings do not affect it.
+
+### Profile pictures
+
+Control Center’s round navigation avatar opens the Profile Picture sheet, also
+available through `panels show picture`. Choose Picture… browses folders inside the
+sheet (starting in the XDG Pictures folder, folders first, at most 500 of each),
+so no separate window takes focus from the panel. Drag or use arrow keys to move;
+wheel, slider and +/− zoom from 1× to 4×. Enter saves; Escape or Cancel discards
+the pending crop. The shared `Eitr.Avatar` draws a circular image or an accent-filled
+initial. `account.picture` reads on observation and after actions, without a timer.
+The lazy account domain uses `distro/lib/eitr_avatar.py`; browse/preview/save/remove
+actions run as bounded helpers (25 seconds each), are killed and reaped on timeout, and
+are never replayed. Failures retain `.face` when AccountsService cannot update SDDM.
+Snapshots carry the file mtime so replacing the image reloads the navigation avatar.
+Official and offline installation both consume `distro/packages.txt`, including AccountsService.

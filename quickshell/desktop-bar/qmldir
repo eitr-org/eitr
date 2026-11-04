@@ -139,3 +139,4 @@ LibraryWindow 1.0 components/LibraryWindow.qml
 SiteBackdrop 1.0 components/SiteBackdrop.qml
 BarDynamic bar/BarDynamic.qml
 DynamicIsland bar/DynamicIsland.qml
+ProfilePicture 1.0 panels/ProfilePicture.qml

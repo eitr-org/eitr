@@ -101,6 +101,12 @@ Rectangle {
         Column {
             id: loginCol; width: parent.width; spacing: 20 * s
 
+            Eitr.Avatar {
+                anchors.horizontalCenter: parent.horizontalCenter
+                size: 64 * root.s
+                source: login.userIcon; initial: login.userInitial
+                accent: root.cAccent; background: root.cText
+            }
             UserPicker {
                 controller: login
                 unit: root.s

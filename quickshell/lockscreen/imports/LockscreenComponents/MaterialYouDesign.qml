@@ -542,7 +542,7 @@ Rectangle {
             Rectangle {
                 id: notificationCard
                 width: 376 * s
-                height: 180 * s
+                height: 248 * s
                 radius: 32 * s
                 color: root.colors.card
                 transform: Translate { id: shakeTranslate }
@@ -670,6 +670,12 @@ Rectangle {
                         }
                     }
 
+                    Eitr.Avatar {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        size: 56 * root.s
+                        source: login.userIcon; initial: login.userInitial
+                        accent: root.colors.focus; background: root.colors.background
+                    }
                     // Bottom Row
                     Row {
                         width: parent.width

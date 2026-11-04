@@ -32,6 +32,7 @@ Item {
                     const state = JSON.parse(text);
                     auth.lockedName = state.name;
                     users.setProperty(0, "realName", state.name);
+                    users.setProperty(0, "icon", state.icon || "");
                     auth.switchAvailable = state.available;
                 } catch (error) { auth.switchAvailable = false; }
             }

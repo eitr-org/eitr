@@ -33,3 +33,7 @@ Lee [Recuperación e instantáneas](handbook:recovery) antes de cambiar la auten
 **Configuración > Seguridad > Usuarios > Crear usuario…** crea un acceso independiente. Introduce el nombre de usuario, el nombre completo opcional, el tipo de cuenta y la contraseña; revisa los datos y pulsa Enter para crearla. Esc cancela antes de aplicar. Las cuentas estándar no pueden usar sudo; las de administrador se añaden a wheel y reciben una regla de sudo protegida por contraseña. Las cuentas existentes (UID 1000–65533) aparecen debajo, en Usuarios, como filas de solo lectura.
 
 La carpeta personal nueva no contiene archivos de tu cuenta. En el primer inicio de Hyprland mediante UWSM, Eitr ejecuta la configuración de escritorio por usuario del instalador y adopta la estructura del paquete con la identidad del nuevo usuario. La configuración de la shell puede necesitar internet. Si falla, conserva el marcador para el siguiente inicio; si termina correctamente, no vuelve a ejecutarse. Los errores de creación dejan la cuenta incompleta bloqueada y caducada para su revisión manual. No se ofrece eliminar usuarios.
+
+## Fotos de perfil
+
+Ajustes > Seguridad > Usuarios > Foto de perfil abre la foto redonda que aparece en el Centro de control, el bloqueo y el inicio de sesión; el editor de recorte y lo que guarda Eitr se explican en [Centro de control](handbook:control-center).

@@ -148,7 +148,7 @@ Rectangle {
         // Clock
         Rectangle {
             width: 280 * s
-            height: 280 * s
+            height: 356 * s
             radius: 48 * s
             color: "#111111"
             opacity: root.ui1
@@ -222,7 +222,7 @@ Rectangle {
         Rectangle {
             id: loginWidget
             width: 320 * s
-            height: 280 * s
+            height: 356 * s
             radius: 48 * s
             color: "#111111"
             opacity: root.ui2
@@ -237,6 +237,12 @@ Rectangle {
                 spacing: 24 * s
                 width: 250 * s
 
+                Eitr.Avatar {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    size: 52 * root.s
+                    source: login.userIcon; initial: login.userInitial
+                    accent: "#e8ebed"; background: "#111111"
+                }
                 UserPicker {
                     controller: login
                     unit: root.s
@@ -433,7 +439,7 @@ Rectangle {
         // Actions
         Rectangle {
             width: 280 * s
-            height: 280 * s
+            height: 356 * s
             radius: 48 * s
             color: "#111111"
             opacity: root.ui3

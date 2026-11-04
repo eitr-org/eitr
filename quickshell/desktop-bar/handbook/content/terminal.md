@@ -208,3 +208,7 @@ Theme changes update generated VS Code and LazyVim preferences. Supported live
 LazyVim sessions refresh without reopening. User overrides/plugins can choose
 their own colors; verify their configuration if an editor does not follow the
 desktop. Default-font integration is applied only where the app supports it.
+
+## Profile pictures
+
+`eitr picture` (or `eitr picture show`) shows the current picture status as JSON. `eitr picture set FILE` saves the largest centred square; `eitr picture remove` removes it. Use Control Center to adjust the crop.

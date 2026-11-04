@@ -91,13 +91,13 @@ def stage(package_root):
         shutil.copytree(SHARED_MODULE, destination / SHARED_MODULE.name)
         module = destination / "Eitr"
         module.mkdir()
-        for filename in ("I18n.qml", "Locale.js", "Catalogs.js"):
+        for filename in ("I18n.qml", "Locale.js", "Catalogs.js", "Avatar.qml"):
             shutil.copyfile(I18N_MODULE / filename, module / filename)
         greeter_i18n = module / "I18n.qml"
         greeter_i18n.write_text(greeter_i18n.read_text().replace("import Quickshell\n", "").replace(
             '({LC_ALL: Quickshell.env("LC_ALL"), LC_MESSAGES: Quickshell.env("LC_MESSAGES"), LANG: Quickshell.env("LANG")})',
             '({LANG: Qt.locale().name})'))
-        (module / "qmldir").write_text("module Eitr\nsingleton I18n 1.0 I18n.qml\n")
+        (module / "qmldir").write_text("module Eitr\nsingleton I18n 1.0 I18n.qml\nAvatar 1.0 Avatar.qml\n")
         use_bundled_module(destination)
         for path in [destination, *destination.rglob('*')]:
             path.chmod(0o755 if path.is_dir() else 0o644)

@@ -50,6 +50,7 @@ HOOKS = {
 GROUPS = [
     ("Everyday", [
         ("update", "update the system (with a snapshot) or only pacman/AUR packages"),
+        ("picture", "show, set or remove your round profile picture"),
         ("focus", "turn the distraction-free tabbed desktop on or off, or show its status"),
         ("theme", "list themes, show the current one, or switch"),
         ("handbook", "open the Handbook, optionally at a chapter"),
@@ -162,6 +163,12 @@ def parser():
     theme_set = theme_actions.add_parser("set", help='switch to a theme')
     theme_set.add_argument("name", help="a name from 'eitr theme list', such as eitr or 'Eitr Light'")
 
+    picture = commands.add_parser("picture", help="round profile picture")
+    picture_actions = picture.add_subparsers(dest="action")
+    picture_actions.add_parser("show")
+    picture_actions.add_parser("remove")
+    picture_actions.add_parser("set").add_argument("file")
+
     focus = commands.add_parser("focus", help="distraction-free tabbed desktop")
     focus.add_argument("action", nargs="?", default="status", choices=["on", "off", "toggle", "status"])
 
@@ -255,6 +262,9 @@ def plan(arguments, code=None, config=None):
         found = themes(code, config)
         active = current_theme(config)
         return "\n".join(f"{'*' if label == active else ' '} {label:<20} {name}" for name, label in found.items())
+    if command == "picture":
+        action = {None: "status", "show": "status", "set": "save", "remove": "remove"}[arguments.action]
+        return ["python3", str(library_script(code, "eitr_avatar.py")), action, *([arguments.file] if action == "save" else [])]
     if command == "focus":
         return ["python3", str(library_script(code, "eitr_focus.py")), arguments.action]
     if command == "matrix":

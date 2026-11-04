@@ -159,3 +159,7 @@ El historial puede contener tokens o credenciales: no lo copies en un informe de
 ## Apariencia de los editores
 
 Cambiar de tema actualiza las preferencias generadas de VS Code y LazyVim. Las sesiones LazyVim compatibles se actualizan sin reabrirlas. Tus ajustes o plugins pueden elegir colores propios; compruébalos si el editor no sigue al escritorio. La fuente predeterminada se integra solo donde la aplicación lo admite.
+
+## Fotos de perfil
+
+`eitr picture` o `eitr picture show` muestra el estado como JSON. `eitr picture set FILE` guarda el mayor cuadrado centrado; `eitr picture remove` elimina la foto. Usa el Centro de control para ajustar el recorte.

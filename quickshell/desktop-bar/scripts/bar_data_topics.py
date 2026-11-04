@@ -115,6 +115,12 @@ def _validate_updates(result):
         raise ValueError("invalid-result")
 
 
+def _validate_account(result):
+    if any(key not in result for key in ("path", "initial", "name")):
+        raise ValueError("invalid-result")
+    fields(result, {"path": (str, type(None)), "initial": (str,), "name": (str,), "version": (int,)})
+
+
 class TopicDefinition(NamedTuple):
     name: str
     domain: str
@@ -128,6 +134,7 @@ class TopicDefinition(NamedTuple):
 
 
 _DEFINITIONS = (
+    TopicDefinition("account.picture", "account", float("inf"), 16, _validate_account),
     TopicDefinition("updates.status", "updates", 21600, 365, _validate_updates),
     TopicDefinition("weather.default", "weather", 900, 17, _validate_weather),
     TopicDefinition("ai.usage", "ai", 300, None, _validate_ai),

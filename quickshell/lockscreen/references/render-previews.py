@@ -18,6 +18,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("designs", nargs="*", help="optional design IDs; default: all")
     parser.add_argument("--output-dir", type=Path, help="write renders here instead of theme previews")
+    parser.add_argument("--icon", type=Path, help="test profile picture for the mock users")
     parser.add_argument("--all-modes", action="store_true", help="render dark and light for configurable designs")
     arguments = parser.parse_args()
     requested = arguments.designs
@@ -50,6 +51,7 @@ def main():
                                    QML_IMPORT_PATH=os.pathsep.join((str(ROOT.parent), str(ROOT / "imports"))),
                                    LC_ALL="C.UTF-8",
                                    EITR_RENDER_CONFIG=json.dumps(settings),
+                                   EITR_RENDER_ICON=str(arguments.icon.resolve()) if arguments.icon else "",
                                    EITR_RENDER_DESIGN=design.as_uri(),
                                    EITR_RENDER_OUTPUT=str(output))
                 if design.parent.name == 'eitr':

@@ -14,6 +14,21 @@ Column {
     Layout.alignment: Qt.AlignTop
     Layout.preferredWidth: 34
     spacing: 10
+    PanelButton {
+        id: pictureButton
+        width: 34; height: 34; text: ""; icon: true
+        foreground: navigation.centerRef.foreground
+        selected: navigation.centerRef.page === "picture"
+        Eitr.Avatar {
+            anchors.centerIn: parent; size: 28
+            source: navigation.centerRef.accountPicture.path ? "file://" + navigation.centerRef.accountPicture.path + "?v=" + (navigation.centerRef.accountPicture.version || 0) : ""
+            initial: navigation.centerRef.accountPicture.initial || ""
+            accent: navigation.centerRef.accent; background: navigation.centerRef.background
+        }
+        onClicked: navigation.pageSelected("picture")
+        HoverHandler { id: pictureHover }
+        BarTooltip { target: pictureButton; hovered: pictureHover.hovered; text: Eitr.I18n.tr("Profile picture"); foreground: navigation.centerRef.foreground; background: navigation.centerRef.background }
+    }
     Repeater {
         model: [{key: "general", icon: "󰕮", name: "General"},
             {key: "plugins", icon: "󰏖", name: "Plugins"},

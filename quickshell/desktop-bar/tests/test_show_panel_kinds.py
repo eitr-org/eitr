@@ -11,7 +11,7 @@ SHOW_PANEL = ROOT / "scripts" / "show-panel.sh"
 
 def show_panel_allowlist():
     text = SHOW_PANEL.read_text()
-    match = re.search(r'case "\$\{1:-\}" in\s*\n\s*([a-z|]+)\)', text)
+    match = re.search(r'case "\$\{1:-\}" in\s*\n\s*([a-z|\-]+)\)', text)
     if not match:
         raise AssertionError("show-panel.sh allowlist pattern not found")
     return set(match.group(1).split("|"))
@@ -28,7 +28,7 @@ def ipc_show_kinds():
     if not mapping:
         raise AssertionError("panels kind map not found in BarWindow.qml")
     kinds = set(re.findall(r"(\w+):\s*\w+", mapping.group(1)))
-    kinds.update(re.findall(r'kind === "(\w+)"', body))
+    kinds.update(re.findall(r'kind === "([\w-]+)"', body))
     return kinds
 
 
@@ -41,9 +41,9 @@ def show_panel_uses():
             text = path.read_text()
         except (UnicodeDecodeError, OSError):
             continue
-        for kind in re.findall(r"show-panel\.sh\"?\s+([a-z]+)", text):
+        for kind in re.findall(r"show-panel\.sh\"?\s+([a-z-]+)", text):
             uses.setdefault(kind, set()).add(str(path.relative_to(REPO)))
-        for kind in re.findall(r"call -- panels show ([a-z]+)", text):
+        for kind in re.findall(r"call -- panels show ([a-z-]+)", text):
             uses.setdefault(kind, set()).add(str(path.relative_to(REPO)))
     return uses
 

@@ -537,5 +537,18 @@
     {
       "state": "unavailable"
     }
+  ],
+  "account.picture": [
+    {
+      "path": null,
+      "initial": "A",
+      "name": "Astrid"
+    },
+    {
+      "path": "/mock/.face",
+      "initial": "A",
+      "name": "Astrid",
+      "version": 123
+    }
   ]
 }

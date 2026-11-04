@@ -374,7 +374,7 @@ class MenuStructureTests(unittest.TestCase):
         self.assertFalse(any("Create User" in item["text"] for item in entries))
         users = menu("users")
         self.assertEqual(users["parent"], "security")
-        self.assertEqual([item["text"] for item in users["entries"]], ["Create User…"])
+        self.assertEqual([item["text"] for item in users["entries"]], ["Create User…", "Profile Picture"])
         self.assertIn("users.py", users["entries"][0]["actions"]["open"])
         layout = ROOT / "walker/themes/current"
         self.assertEqual((layout / "item_menus-users.xml").read_text(), (layout / "item_menus-security.xml").read_text())

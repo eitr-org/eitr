@@ -18,7 +18,14 @@ spec.loader.exec_module(helper)
 
 
 class SwitchUserTests(unittest.TestCase):
+    def test_current_user_picture_role(self):
+        with patch.object(helper, 'picture', return_value='/mock/.face'), patch.object(helper, 'discover', return_value=''):
+            self.assertEqual(helper.status()['icon'], '/mock/.face')
+
     def setUp(self):
+        mocked = patch.object(helper, 'picture', return_value='')
+        mocked.start()
+        self.addCleanup(mocked.stop)
         self.config_read = patch.object(helper.configparser.ConfigParser, 'read', return_value=[])
         self.config_read.start()
         self.addCleanup(self.config_read.stop)
@@ -46,7 +53,7 @@ class SwitchUserTests(unittest.TestCase):
     def test_unavailable_bus_hides_switch(self):
         user = SimpleNamespace(pw_name='astrid', pw_gecos='', pw_uid=1000, pw_shell='/bin/bash')
         with patch.object(helper.pwd, 'getpwuid', return_value=user), patch.object(helper.pwd, 'getpwall', return_value=[user] * 3), patch.object(helper, 'discover', side_effect=OSError):
-            self.assertEqual(helper.status(), {'name': 'astrid', 'available': False, 'seat': ''})
+            self.assertEqual(helper.status(), {'name': 'astrid', 'available': False, 'seat': '', 'icon': ''})
 
     def test_explicit_switch_rechecks_and_never_calls_an_unavailable_seat(self):
         for available in [False, True]:

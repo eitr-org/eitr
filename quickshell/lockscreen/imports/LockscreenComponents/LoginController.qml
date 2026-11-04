@@ -22,6 +22,12 @@ Item {
         ? users.currentItem.uLogin : (userModel && userModel.lastUser ? userModel.lastUser : "")
     readonly property string userName: users.currentItem && users.currentItem.uName
         ? users.currentItem.uName : userLogin
+    readonly property string userIcon: {
+        const icon = users.currentItem ? users.currentItem.uIcon : "";
+        if (!isQuickshell && /^(file:\/\/)?\/usr\/share\/sddm\/faces\//.test(icon)) return "";
+        return icon && icon.indexOf(":") === -1 ? "file://" + icon : icon;
+    }
+    readonly property string userInitial: (userName || userLogin).charAt(0).toUpperCase()
     readonly property string sessionName: sessions.currentItem ? sessions.currentItem.sName : ""
 
     readonly property int userCount: users.count
@@ -62,6 +68,7 @@ Item {
         enabled: false
         delegate: Item {
             property string uName: model.realName || model.name || ""
+            property string uIcon: model.icon || ""
             property string uLogin: model.name || ""
         }
     }

@@ -566,7 +566,11 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  now",
     "󰂚  No notifications": "󰂚  No notifications",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Do Not Disturb\n\nNo notifications"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Do Not Disturb\n\nNo notifications",
+    "Choose Picture…": "Choose Picture…",
+    "Profile Picture": "Profile Picture",
+    "Profile picture": "Profile picture",
+    "No pictures in this folder": "No pictures in this folder"
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -643,6 +647,7 @@ var qml = {
     "Chapters": "Capítulos",
     "Chat with %1": "Conversar com %1",
     "Checking status…": "Verificando status…",
+    "Choose Picture…": "Escolher imagem…",
     "Choose a theme": "Escolha um tema",
     "Choose plugins": "Escolher plugins",
     "Choose themes": "Escolher temas",
@@ -900,6 +905,8 @@ var qml = {
     "Preview": "Prévia",
     "Previous": "Anterior",
     "Previous panel": "Painel anterior",
+    "Profile Picture": "Foto de perfil",
+    "Profile picture": "Foto de perfil",
     "QR Code": "Código QR",
     "QUICK SETTINGS": "CONFIGURAÇÕES RÁPIDAS",
     "Quick Actions": "Ações rápidas",
@@ -1111,7 +1118,8 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  agora",
     "󰂚  No notifications": "󰂚  Nenhuma notificação",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Não perturbe\n\nNenhuma notificação"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Não perturbe\n\nNenhuma notificação",
+    "No pictures in this folder": "Nenhuma imagem nesta pasta"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1188,6 +1196,7 @@ var qml = {
     "Chapters": "Capítulos",
     "Chat with %1": "Chatear con %1",
     "Checking status…": "Comprobando estado…",
+    "Choose Picture…": "Elegir imagen…",
     "Choose a theme": "Elija un tema",
     "Choose plugins": "Elegir plugins",
     "Choose themes": "Elegir temas",
@@ -1445,6 +1454,8 @@ var qml = {
     "Preview": "Vista previa",
     "Previous": "Anterior",
     "Previous panel": "Panel anterior",
+    "Profile Picture": "Foto de perfil",
+    "Profile picture": "Foto de perfil",
     "QR Code": "Código QR",
     "QUICK SETTINGS": "AJUSTES RÁPIDOS",
     "Quick Actions": "Acciones rápidas",
@@ -1656,7 +1667,8 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  ahora",
     "󰂚  No notifications": "󰂚  No hay notificaciones",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones",
+    "No pictures in this folder": "No hay imágenes en esta carpeta"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1733,6 +1745,7 @@ var qml = {
     "Chapters": "Kapitel",
     "Chat with %1": "Mit %1 chatten",
     "Checking status…": "Status wird geprüft…",
+    "Choose Picture…": "Bild auswählen…",
     "Choose a theme": "Wählen Sie ein Thema",
     "Choose plugins": "Plugins auswählen",
     "Choose themes": "Themes auswählen",
@@ -1990,6 +2003,8 @@ var qml = {
     "Preview": "Vorschau",
     "Previous": "Zurück",
     "Previous panel": "Vorheriges Panel",
+    "Profile Picture": "Profilbild",
+    "Profile picture": "Profilbild",
     "QR Code": "QR-Code",
     "QUICK SETTINGS": "SCHNELLEINSTELLUNGEN",
     "Quick Actions": "Schnellaktionen",
@@ -2201,7 +2216,8 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  jetzt",
     "󰂚  No notifications": "󰂚  Keine Benachrichtigungen",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen",
+    "No pictures in this folder": "Keine Bilder in diesem Ordner"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2278,6 +2294,7 @@ var qml = {
     "Chapters": "Chapitres",
     "Chat with %1": "Discuter avec %1",
     "Checking status…": "Vérification de l’état…",
+    "Choose Picture…": "Choisir une image…",
     "Choose a theme": "Choisir un thème",
     "Choose plugins": "Choisir des plugins",
     "Choose themes": "Choisir des thèmes",
@@ -2535,6 +2552,8 @@ var qml = {
     "Preview": "Aperçu",
     "Previous": "Précédent",
     "Previous panel": "Panneau précédent",
+    "Profile Picture": "Photo de profil",
+    "Profile picture": "Photo de profil",
     "QR Code": "Code QR",
     "QUICK SETTINGS": "RÉGLAGES RAPIDES",
     "Quick Actions": "Actions rapides",
@@ -2746,6 +2765,7 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  maintenant",
     "󰂚  No notifications": "󰂚  Aucune notification",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification",
+    "No pictures in this folder": "Aucune image dans ce dossier"
   }
 };

@@ -10,6 +10,8 @@ import pwd
 import subprocess
 import xml.etree.ElementTree as ET
 
+import eitr_bootstrap  # noqa: F401
+
 SERVICE = 'org.freedesktop.DisplayManager'
 INTERFACE = SERVICE + '.Seat'
 
@@ -41,6 +43,15 @@ def discover():
     return seat if property_value(seat, INTERFACE, 'CanSwitch') is True else ''
 
 
+def picture():
+    """The current user's profile picture, or "" so the design shows the initial."""
+    try:
+        from eitr_avatar import status as avatar_status
+        return avatar_status()['path'] or ''
+    except Exception:
+        return ''
+
+
 def status():
     current = pwd.getpwuid(os.getuid())
     settings = configparser.ConfigParser(interpolation=None, strict=False)
@@ -59,7 +70,7 @@ def status():
         except (OSError, subprocess.SubprocessError, ValueError, KeyError, ET.ParseError):
             pass
     return {'name': current.pw_gecos.split(',')[0] or current.pw_name,
-            'available': bool(seat), 'seat': seat}
+            'available': bool(seat), 'seat': seat, 'icon': picture()}
 
 
 def main():

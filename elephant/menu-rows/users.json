@@ -6,5 +6,13 @@
     "actions": {
       "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/users.py"
     }
+  },
+  {
+    "text": "Profile Picture",
+    "subtext": "Choose the round picture shown on the lockscreen and login screen",
+    "icon": "󰡉",
+    "actions": {
+      "open": "eitr-shell desktop-bar ipc call -- panels show picture"
+    }
   }
 ]

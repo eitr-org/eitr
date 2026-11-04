@@ -2941,6 +2941,14 @@
         "actions": {
           "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/users.py"
         }
+      },
+      {
+        "text": "Profile Picture",
+        "subtext": "Choose the round picture shown on the lockscreen and login screen",
+        "icon": "󰡉",
+        "actions": {
+          "open": "eitr-shell desktop-bar ipc call -- panels show picture"
+        }
       }
     ],
     "vpn": [
@@ -9863,6 +9871,27 @@
         "Create User…",
         "Create User…",
         "Create a separate login and desktop"
+      ],
+      "menus": [
+        "security",
+        "settings",
+        "main"
+      ]
+    },
+    {
+      "key": "7f0b18aefb44c3f3f5173f4533c1f75add9b44550673230c3e264cbe868372ca",
+      "provider": "menus:users",
+      "identifier": "users:1",
+      "text": "Profile Picture",
+      "subtext": "Choose the round picture shown on the lockscreen and login screen",
+      "icon": "󰡉",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "Profile Picture",
+        "Profile Picture",
+        "Choose the round picture shown on the lockscreen and login screen"
       ],
       "menus": [
         "security",

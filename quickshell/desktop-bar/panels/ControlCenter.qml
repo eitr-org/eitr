@@ -11,7 +11,11 @@ import "../JsonState.js" as JsonState
 ThemedPopup {
     id: center
     waitForFreshData: true
-    escapeHandler: () => center.page === "plugins" ? pluginManager.back() : plugins.back()
+    keyTarget: page === "picture" ? profileSheet : content
+    escapeHandler: () => {
+        if (center.page === "picture") { profileSheet.close(); return true; }
+        return center.page === "plugins" ? pluginManager.back() : plugins.back();
+    }
     required property var service
     required property var wifiControl
     required property var bluetoothControl
@@ -24,6 +28,8 @@ ThemedPopup {
     required property bool idleBusy
     property bool chatOpen: false
     property var chatAssistant: ({})
+    property string accountToken: ""
+    readonly property var accountPicture: DesktopData.topics["account.picture"] ? DesktopData.topics["account.picture"].data : ({})
     property string page: "general"
     property string barPosition: "top"
     property string appearance: "solid"
@@ -132,6 +138,8 @@ ThemedPopup {
     }
     Component.onDestruction: { DisplayService.close(center); wifiControl.release(networkToken); wifiControl.detach(center); DesktopData.releaseOwner(center); DesktopData.client.detachAction(powerActionId); }
     onOpenedChanged: {
+        if (accountToken) DesktopData.release(accountToken);
+        accountToken = opened ? DesktopData.observe("account.picture", center) : "";
         if (!opened) DisplayService.close(center);
         PowerService.release(powerTokens);
         powerTokens = opened ? PowerService.observe(center, 5, true) : [];
@@ -142,6 +150,7 @@ ThemedPopup {
         }
     }
     onPageChanged: {
+        if (page === "picture") { chatOpen = false; profileSheet.reset(); profileSheet.forceActiveFocus(); }
         if (page === "style") loadStyle();
         if (page === "settings" && !channelQuery.running) channelQuery.running = true;
     }
@@ -321,11 +330,12 @@ ThemedPopup {
                     id: content
                     width: scroll.width; spacing: 12
                     PanelHeading {
-                        text: ({plugins: Eitr.I18n.tr("Plugins"), general: Eitr.I18n.tr("General"), style: Eitr.I18n.tr("Style"), tools: Eitr.I18n.tr("Tools"), settings: Eitr.I18n.tr("Settings")})[center.page]
+                        text: ({"picture": Eitr.I18n.tr("Profile Picture"), plugins: Eitr.I18n.tr("Plugins"), general: Eitr.I18n.tr("General"), style: Eitr.I18n.tr("Style"), tools: Eitr.I18n.tr("Tools"), settings: Eitr.I18n.tr("Settings")})[center.page]
                         rune: center.page
                         foreground: center.foreground; accent: center.accent
                     }
                     Text { visible: center.actionError !== ""; width: parent.width; wrapMode: Text.WordWrap; text: center.actionError; color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                    ProfilePicture { id: profileSheet; width: parent.width; visible: center.page === "picture"; centerRef: center }
                     ControlCenterConnectivity { centerRef: center }
                     ControlCenterSliders { centerRef: center }
                     PluginArea {

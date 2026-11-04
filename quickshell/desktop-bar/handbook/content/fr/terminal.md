@@ -159,3 +159,7 @@ L’historique peut contenir des tokens ou identifiants ; ne le copiez pas dans 
 ## Apparence des éditeurs
 
 Changer de thème actualise les préférences générées de VS Code et LazyVim. Les sessions LazyVim compatibles s’actualisent sans réouverture. Vos réglages et plugins peuvent imposer leurs couleurs ; vérifiez-les si l’éditeur ne suit pas le bureau. La police par défaut est intégrée uniquement là où l’application le permet.
+
+## Photos de profil
+
+`eitr picture` ou `eitr picture show` affiche l’état au format JSON. `eitr picture set FILE` enregistre le plus grand carré centré ; `eitr picture remove` supprime la photo. Le Centre de contrôle permet d’ajuster le cadrage.

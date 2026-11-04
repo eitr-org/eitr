@@ -73,6 +73,13 @@ function createClient(send, changed) {
         send({v: 1, op: "query", topic: "weather", name: name, args: args, id: id});
         return id;
     }
+    function accountAction(name, args, owner, callback) {
+        if (!online) { callback("broker-unavailable", {}); return ""; }
+        const id = "account-" + (++sequence);
+        queries[id] = {owner: owner, callback: callback, topic: "account"};
+        send({v: 1, op: "action", topic: "account", name: name, args: args, id: id});
+        return id;
+    }
     function queryCatalog(name, args, owner, callback) {
         if (!online) { callback("Catalog backend unavailable", {}); return ""; }
         const id = "catalog-" + (++sequence);
@@ -97,7 +104,7 @@ function createClient(send, changed) {
             online = true;
             if (capturePresent) send({v: 1, op: "presence", topic: "capture", present: true});
             Object.keys(tokens).forEach(token => request("subscribe", tokens[token].topic, token));
-        } else if (online && frame.epoch === epoch && frame.op === "reply" && ["weather", "catalog"].includes(frame.topic)) {
+        } else if (online && frame.epoch === epoch && frame.op === "reply" && ["weather", "catalog", "account"].includes(frame.topic)) {
             const query = queries[frame.id];
             delete queries[frame.id];
             if (query) query.callback(frame.error || "", frame.data || {});
@@ -140,7 +147,7 @@ function createClient(send, changed) {
             }
             if (callback) callback(frame.error || "", frame.message || "");
         } else if (online && frame.epoch === epoch && frame.op === "state") {
-            if (!["updates.status", "weather.default", "ai.usage", "remote.availability", "remote.status", "hardware.details", "display.topology", "display.settings", "display.brightness", "display.nightlight", "power.battery", "power.profile", "power.radios", "network.summary", "network.details", "network.latency", "capture.summary", "capture.details", "capture.options"].includes(frame.topic)
+            if (!["account.picture", "updates.status", "weather.default", "ai.usage", "remote.availability", "remote.status", "hardware.details", "display.topology", "display.settings", "display.brightness", "display.nightlight", "power.battery", "power.profile", "power.radios", "network.summary", "network.details", "network.latency", "capture.summary", "capture.details", "capture.options"].includes(frame.topic)
                 || !Number.isInteger(frame.seq) || frame.seq < 0
                 || !["loading", "ready", "unavailable", "stale", "error"].includes(frame.status)
                 || !frame.data || typeof frame.data !== "object") return;
@@ -167,7 +174,7 @@ function createClient(send, changed) {
     function died() {
         online = false;
         Object.keys(queries).forEach(id => {
-            const query = queries[id]; delete queries[id]; query.callback("broker-unavailable", {});
+            const query = queries[id]; delete queries[id]; query.callback(query.topic === "account" ? "outcome-unknown" : "broker-unavailable", {});
         });
         powerReconcile = {"power.profile": true, "power.radios": true}; powerReconcileSeq = {"power.profile": -1, "power.radios": -1};
         powerDomain.busy = false; powerDomain.name = "";
@@ -189,7 +196,7 @@ function createClient(send, changed) {
         });
         changed();
     }
-    return {queryCatalog: queryCatalog, queryWeather: queryWeather, cancelQuery: cancelQuery, setCapturePresence: present => {
+    return {accountAction: accountAction, queryCatalog: queryCatalog, queryWeather: queryWeather, cancelQuery: cancelQuery, setCapturePresence: present => {
             capturePresent = present;
             if (online) send({v: 1, op: "presence", topic: "capture", present: present});
         }, actPower: actPower, powerDomain: powerDomain, actCapture: actCapture, captureDomain: captureDomain, act: act, detachAction: detachAction, domain: domain, online: () => online, epoch: () => epoch, tokens: tokens, states: states, observe: observe, release: release, receive: receive, died: died,
