@@ -32,6 +32,13 @@ export const screenshotGroups = [
         "height": 1080
       },
       {
+        "file": "dynamic",
+        "caption": "dynamic_caption",
+        "alt": "dynamic_alt",
+        "width": 1920,
+        "height": 1080
+      },
+      {
         "file": "focus",
         "caption": "focus_caption",
         "alt": "focus_alt",
@@ -104,6 +111,13 @@ export const screenshotGroups = [
         "file": "themes",
         "caption": "choosing_a_theme",
         "alt": "choosing_a_theme",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "catalog",
+        "caption": "catalog_caption",
+        "alt": "catalog_alt",
         "width": 1920,
         "height": 1080
       },
