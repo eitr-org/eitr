@@ -1,18 +1,21 @@
 import QtQuick
 
-// A profile picture drawn as a circle, or the initial on an accent circle when there is
-// none or it cannot be read. Canvas clipping works with every scene graph renderer,
-// including software rendering on the login screen of machines without 3D drivers.
+// A profile picture drawn as a circle. Without one (or when it cannot be read) it shows the
+// initial on an accent circle, or nothing at all when showInitial is off, as on the
+// lockscreen. Canvas clipping works with every scene graph renderer, including software
+// rendering on the login screen of machines without 3D drivers.
 Item {
     id: avatar
     property url source: ""
     property string initial: ""
+    property bool showInitial: true
     property color accent: "white"
     property color background: "black"
     property real size: 64
     width: size
     height: size
     readonly property bool hasImage: canvas.loaded
+    visible: hasImage || showInitial
     Rectangle {
         anchors.fill: parent
         radius: width / 2

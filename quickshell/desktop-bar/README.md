@@ -1127,7 +1127,7 @@ sheet (starting in the XDG Pictures folder, folders first, at most 500 of each),
 so no separate window takes focus from the panel. Drag or use arrow keys to move;
 wheel, slider and +/− zoom from 1× to 4×. Enter saves; Escape or Cancel discards
 the pending crop. The shared `Eitr.Avatar` draws a circular image or an accent-filled
-initial. `account.picture` reads on observation and after actions, without a timer.
+initial; lockscreen designs set `showInitial: false` and show nothing without a picture. `account.picture` reads on observation and after actions, without a timer.
 The lazy account domain uses `distro/lib/eitr_avatar.py`; browse/preview/save/remove
 actions run as bounded helpers (25 seconds each), are killed and reaped on timeout, and
 are never replayed. Failures retain `.face` when AccountsService cannot update SDDM.

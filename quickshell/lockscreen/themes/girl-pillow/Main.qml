@@ -104,7 +104,7 @@ Rectangle {
             Eitr.Avatar {
                 anchors.horizontalCenter: parent.horizontalCenter
                 size: 64 * root.s
-                source: login.userIcon; initial: login.userInitial
+                source: login.userIcon; showInitial: false
                 accent: root.cAccent; background: root.cText
             }
             UserPicker {

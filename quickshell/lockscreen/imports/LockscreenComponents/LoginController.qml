@@ -27,7 +27,6 @@ Item {
         if (!isQuickshell && /^(file:\/\/)?\/usr\/share\/sddm\/faces\//.test(icon)) return "";
         return icon && icon.indexOf(":") === -1 ? "file://" + icon : icon;
     }
-    readonly property string userInitial: (userName || userLogin).charAt(0).toUpperCase()
     readonly property string sessionName: sessions.currentItem ? sessions.currentItem.sName : ""
 
     readonly property int userCount: users.count

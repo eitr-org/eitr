@@ -673,7 +673,7 @@ Rectangle {
                     Eitr.Avatar {
                         anchors.horizontalCenter: parent.horizontalCenter
                         size: 56 * root.s
-                        source: login.userIcon; initial: login.userInitial
+                        source: login.userIcon; showInitial: false
                         accent: root.colors.focus; background: root.colors.background
                     }
                     // Bottom Row
