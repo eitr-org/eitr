@@ -106,7 +106,7 @@ ShellRoot {
 
     function barDoubleClick(button) {
         if (button === Qt.LeftButton) updateBarSetting("appearance", preferences.nextAppearance(barAppearance));
-        else if (button === Qt.RightButton) updateBarSetting("layout", barLayout === "unified" ? "centered" : barLayout === "centered" ? "notch" : barLayout === "notch" ? "islands" : barLayout === "islands" ? "dynamic" : "unified");
+        else if (button === Qt.RightButton) updateBarSetting("layout", preferences.nextLayout(barLayout));
     }
 
     BarPreferences { id: preferences; host: shell }

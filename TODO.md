@@ -49,9 +49,6 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
   7.4 s after login (was ~12.5 s; measured 2026-11-04). Elephant still starts ~3 s
   after the bar process, behind the wallpaper check and the bar launch; starting it
   first in `hypr/scripts/session-start.sh` should bring Walker to ~4 s.
-- **Choice lists: remaining copies.** Bar layouts and update channels still repeat
-  their option lists across files; move them into `tools/choice-lists.json` when
-  next touched.
 - **hyprpaper crash without a GPU: follow upstream.** hyprpaper segfaults in VMs
   without 3D acceleration (hyprwm/hyprtoolkit#144); the bar now draws the still
   wallpaper on any screen hyprpaper does not answer for. Drop the note once a fixed

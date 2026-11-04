@@ -7,14 +7,14 @@ Icon = "󰕰"
 FixedOrder = true
 
 local entries = dofile(paths.code("elephant/bar-settings-entries.lua"))
+-- The layouts, their icons and descriptions come from tools/choice-lists.json.
+local layouts = dofile(paths.code("elephant/choice-lists.lua")).bar_layouts
 function GetEntries()
-    return entries("layout", {
-        {"Full", "unified", "󰍜", i18n.mark("Show the full desktop bar"), {"Full"}},
-        {"Centered", "centered", "󰕰", i18n.mark("Show the clock and expand on hover"), {"Centered"}},
-        {i18n.mark("Tabs"), "notch", "󰍜", i18n.mark("Show three compact edge tabs")},
-        {i18n.mark("Islands"), "islands", "󰍜", i18n.mark("Show separate floating pills")},
-        {i18n.mark("Dynamic"), "dynamic", "󰍜", i18n.mark("Expand three floating islands on hover")},
-    })
+    local options = {}
+    for _, layout in ipairs(layouts) do
+        table.insert(options, {layout.label, layout.id, layout.icon, layout.description, layout.keywords})
+    end
+    return entries("layout", options)
 end
 
 dofile(paths.code("walker/scripts/menus/alphabetical.lua"))

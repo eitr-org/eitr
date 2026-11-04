@@ -15,6 +15,7 @@ for _eitr_parent in Path(__file__).resolve().parents:
         sys.path.insert(0, str(_eitr_lib))
         break
 from eitr_paths import code, config as user_config
+from eitr_choice_lists import UPDATE_CHANNELS, label
 import re
 import struct
 import subprocess
@@ -92,7 +93,8 @@ def update_channel():
                                 text=True, timeout=3)
     except (OSError, subprocess.SubprocessError):
         return None
-    return {"stable": tr("Stable"), "testing": tr("Testing")}.get(result.stdout.strip())
+    name = label(UPDATE_CHANNELS, result.stdout.strip())
+    return tr(name) if name else None
 
 
 

@@ -74,9 +74,25 @@ class UpdateChannelTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "no \\[eitr\\] repository"):
             system.channel_set("testing", self.conf, reachable=lambda: True)
 
+    def test_channel_lists_come_from_the_shared_choice_list(self):
+        # The pacman.conf block the system helper writes must stay exactly what it was.
+        self.assertEqual(system.TESTING_BLOCK,
+                         system.TESTING_MARKER + "\n[eitr-testing]\nSigLevel = Required\n"
+                         "Server = https://download.eitr.info/repo-testing\n\n")
+        self.assertEqual(system.TESTING_DATABASE, "https://download.eitr.info/repo-testing/eitr-testing.db")
+        for source in ("bin/eitr", "../walker/scripts/actions/system/update-channel.py", "../fastfetch/eitr.py"):
+            self.assertIn("from eitr_choice_lists import UPDATE_CHANNELS", (DISTRO / source).read_text())
+        helper = (DISTRO / "../walker/scripts/actions/system/update-channel.py").read_text()
+        import re
+        explained = set(re.findall(r'^    "([a-z]+)": "', helper, re.M))
+        self.assertEqual(explained, set(system.ids(system.UPDATE_CHANNELS)), "every channel has its explanation")
+
     def test_publishing_targets_each_channels_repository(self):
-        publish = (DISTRO / "repo/publish.py").read_text()
-        self.assertIn('CHANNELS = {"stable": ("repo", "eitr"), "testing": ("repo-testing", "eitr-testing")}', publish)
+        # The folders and databases come from tools/choice-lists.json; check what publish.py builds.
+        specification = importlib.util.spec_from_file_location("publish_under_test", DISTRO / "repo/publish.py")
+        publish = importlib.util.module_from_spec(specification)
+        specification.loader.exec_module(publish)
+        self.assertEqual(publish.CHANNELS, {"stable": ("repo", "eitr"), "testing": ("repo-testing", "eitr-testing")})
         release = (DISTRO / "repo/release-desktop.py").read_text()
         self.assertIn('"--channel", channel]', release)
         self.assertIn("--promote", release)

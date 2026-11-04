@@ -19,6 +19,7 @@ if not (source_lib / 'eitr_i18n.py').is_file():
 if (source_lib / 'eitr_i18n.py').is_file():
     sys.path.insert(0, str(source_lib))
 from eitr_i18n import tr  # noqa: E402
+from eitr_choice_lists import UPDATE_CHANNELS, ids  # noqa: E402
 
 
 def code_root():
@@ -169,7 +170,7 @@ def parser():
     commands.add_parser("about", help='open About Eitr')
 
     channel = commands.add_parser("channel", help='the update channel')
-    channel.add_argument("name", nargs="?", choices=["stable", "testing"], help='switch to this channel')
+    channel.add_argument("name", nargs="?", choices=ids(UPDATE_CHANNELS), help='switch to this channel')
 
     remind = commands.add_parser("remind", help="reminders")
     remind.add_argument("when", nargs="?", help='10m, 18:30, or "every Monday 09:30"; cancel ID [occurrence|series]; omit to list')

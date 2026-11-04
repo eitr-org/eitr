@@ -7,6 +7,7 @@ import shutil
 import subprocess
 from pathlib import Path
 import tempfile
+import sys
 import unittest
 from unittest.mock import patch
 
@@ -16,6 +17,8 @@ spec = importlib.util.spec_from_file_location(
 )
 bar_settings = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(bar_settings)
+# bar-settings.py put Eitr's library on sys.path while loading.
+import eitr_choice_lists as choice_lists  # noqa: E402
 
 
 class BarSettingsTests(unittest.TestCase):
@@ -74,51 +77,64 @@ class BarSettingsTests(unittest.TestCase):
             bar_settings.SETTINGS.write_text('{"layout": "unknown"}')
             self.assertEqual(bar_settings.read_settings()["layout"], "unified")
 
-    def test_islands_persists_and_layout_cycle_matches_menus(self):
+    def cycle(self, key, start):
+        """Toggle KEY through a full turn from START; the values bar-settings.py saved."""
+        seen = []
         with tempfile.TemporaryDirectory() as directory, patch.object(bar_settings, "SETTINGS", Path(directory) / "bar.json"), patch.object(bar_settings, "apply_live"):
-            bar_settings.save_settings({"layout": "islands"})
-            self.assertEqual(bar_settings.read_settings()["layout"], "islands")
-            for expected in ("dynamic", "unified", "centered", "notch", "islands"):
-                with patch("sys.argv", ["bar-settings.py", "toggle", "layout"]):
+            bar_settings.save_settings({key: start})
+            for _ in bar_settings.OPTIONS[key]:
+                with patch("sys.argv", ["bar-settings.py", "toggle", key]), patch("builtins.print"):
                     bar_settings.main()
-                self.assertEqual(bar_settings.read_settings()["layout"], expected)
-        root = Path(__file__).resolve().parents[3]
-        menu = (root / "elephant/menus/bar-layout.lua").read_text()
-        self.assertLess(menu.index('"notch"'), menu.index('"islands"'))
-        self.assertLess(menu.index('"islands"'), menu.index('"dynamic"'))
-        controls = control_center_source(root / 'quickshell/desktop-bar')
-        self.assertLess(controls.index('tr("Tabs")'), controls.index('tr("Islands")'))
-        self.assertLess(controls.index('tr("Islands")'), controls.index('tr("Dynamic")'))
+                seen.append(bar_settings.read_settings()[key])
+        return seen
 
-    def test_dynamic_is_available_to_ipc_and_every_frontend_and_locale(self):
+    def test_double_click_cycles_follow_the_choice_lists(self):
+        layouts, appearances = choice_lists.ids(choice_lists.BAR_LAYOUTS), choice_lists.ids(choice_lists.BAR_APPEARANCES)
+        start = layouts.index("islands")
+        self.assertEqual(self.cycle("layout", "islands"), [layouts[(start + step) % len(layouts)] for step in range(1, len(layouts) + 1)])
+        self.assertEqual(self.cycle("appearance", "solid"), ["transparent", "website", "solid"])
+        self.assertEqual(bar_settings.OPTIONS["layout"], set(layouts))
+        self.assertEqual(bar_settings.OPTIONS["appearance"], set(appearances))
+
+    def test_every_frontend_reads_the_generated_choice_lists(self):
         root = Path(__file__).resolve().parents[3]
         bar = root / 'quickshell/desktop-bar'
         preferences = (bar / 'services/BarPreferences.qml').read_text()
-        self.assertEqual(preferences.count('["unified", "centered", "notch", "islands", "dynamic"]'), 2)
-        self.assertIn('host.barLayout === "islands" ? "dynamic" : "unified"', preferences)
-        self.assertIn('dynamic', bar_settings.OPTIONS['layout'])
-        for locale in ('en', 'de', 'es', 'fr', 'pt_BR'):
-            for domain in ('qml', 'menus'):
-                catalog = json.loads((root / 'i18n/catalogs' / locale / (domain + '.json')).read_text())
-                self.assertTrue(catalog['Dynamic'])
-                if domain == 'menus':
-                    self.assertTrue(catalog['Expand three floating islands on hover'])
-
-    def test_appearance_cycles_theme_color_blur_and_website_everywhere(self):
-        with tempfile.TemporaryDirectory() as directory, patch.object(bar_settings, "SETTINGS", Path(directory) / "bar.json"), patch.object(bar_settings, "apply_live"):
-            for expected in ("transparent", "website", "solid"):
-                with patch("sys.argv", ["bar-settings.py", "toggle", "appearance"]), patch("builtins.print"):
-                    bar_settings.main()
-                self.assertEqual(bar_settings.read_settings()["appearance"], expected)
-        root = Path(__file__).resolve().parents[3]
-        bar = root / 'quickshell/desktop-bar'
-        preferences = (bar / 'services/BarPreferences.qml').read_text()
-        self.assertIn('current === "solid" ? "transparent" : current === "transparent" ? "website" : "solid"', preferences)
-        self.assertIn('preferences.nextAppearance(barAppearance)', (bar / 'shell.qml').read_text())
-        self.assertIn('"website"', (root / 'elephant/menus/bar-appearance.lua').read_text())
-        self.assertIn('settingRequested("appearance", "website")', control_center_source(bar))
+        self.assertIn('appearance: ChoiceLists.ids(ChoiceLists.barAppearances), layout: ChoiceLists.ids(ChoiceLists.barLayouts)', preferences)
+        self.assertIn('preferences.updateBarSetting(kind, preferences.nextLayout(host.barLayout))', preferences)
+        self.assertIn('preferences.updateBarSetting(kind, preferences.nextAppearance(host.barAppearance))', preferences)
+        shell = (bar / 'shell.qml').read_text()
+        self.assertIn('updateBarSetting("appearance", preferences.nextAppearance(barAppearance))', shell)
+        self.assertIn('updateBarSetting("layout", preferences.nextLayout(barLayout))', shell)
+        controls = control_center_source(bar)
+        self.assertIn('Repeater { model: ChoiceLists.barLayouts', controls)
+        self.assertIn('Repeater { model: ChoiceLists.barAppearances', controls)
+        for menu, group in (('bar-layout', 'bar_layouts'), ('bar-appearance', 'bar_appearances'), ('update-channel', 'update_channels')):
+            self.assertIn(f'dofile(paths.code("elephant/choice-lists.lua")).{group}', (root / f'elephant/menus/{menu}.lua').read_text())
+        # No front end keeps its own copy of the lists.
+        menus = [(root / f'elephant/menus/{menu}.lua').read_text() for menu in ('bar-layout', 'bar-appearance', 'update-channel')]
+        # A front end may test one id (barLayout === "notch"), but never list or cycle several.
+        layouts = '|'.join(choice_lists.ids(choice_lists.BAR_LAYOUTS))
+        appearances = '|'.join(choice_lists.ids(choice_lists.BAR_APPEARANCES))
+        for source in (preferences, shell, controls, (bar / 'scripts/bar-settings.py').read_text(), *menus):
+            for names in (layouts, appearances):
+                self.assertNotRegex(source, rf'"(?:{names})"\s*[,:?]\s*"(?:{names})"')
         # Walker stays opaque for every appearance except Blur.
         self.assertIn('if [[ "$bar_appearance" != "transparent" ]]; then', (root / 'walker/scripts/themes/walker.sh').read_text())
+
+    def test_every_choice_label_and_description_is_translated(self):
+        root = Path(__file__).resolve().parents[3]
+        catalog = json.loads((root / 'tools/choice-lists.json').read_text())
+        for locale in ('en', 'de', 'es', 'fr', 'pt_BR'):
+            qml = json.loads((root / 'i18n/catalogs' / locale / 'qml.json').read_text())
+            menus = json.loads((root / 'i18n/catalogs' / locale / 'menus.json').read_text())
+            for group in ('bar_layouts', 'bar_appearances'):
+                for row in catalog[group]:
+                    self.assertTrue(qml[row['label']], (locale, row['label']))
+                    self.assertTrue(menus[row['label']], (locale, row['label']))
+                    self.assertTrue(menus[row['description']], (locale, row['description']))
+            for row in catalog['update_channels']:
+                self.assertTrue(menus[row['label']] and menus[row['description']], (locale, row['id']))
 
     def test_defaults_and_persistence(self):
         with tempfile.TemporaryDirectory() as directory, \

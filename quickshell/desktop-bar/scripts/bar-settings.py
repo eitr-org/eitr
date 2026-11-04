@@ -16,6 +16,7 @@ for _eitr_parent in Path(__file__).resolve().parents:
 from eitr_paths import code, config as user_config, read_settings as read_json, write_settings
 from eitr_i18n import tr
 import eitr_appearance
+from eitr_choice_lists import BAR_APPEARANCES, BAR_LAYOUTS, ids, next_choice
 import tempfile
 import subprocess
 
@@ -24,8 +25,8 @@ SETTINGS = user_config("quickshell/desktop-bar/bar-settings.json")
 DEFAULTS = {"appearance": "solid", "layout": "unified", "edge": "top", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "blur-strength": "medium"}
 OPTIONS = {
     "blur-strength": {"light", "medium", "strong"},
-    "appearance": {"transparent", "solid", "website"},
-    "layout": {"unified", "centered", "notch", "islands", "dynamic"},
+    "appearance": set(ids(BAR_APPEARANCES)),
+    "layout": set(ids(BAR_LAYOUTS)),
     "edge": {"top", "bottom", "left", "right"},
     "pinned": {"yes", "no"},
     # The bar on the main display only, or one bar on every display.
@@ -104,7 +105,7 @@ def main():
         elif len(sys.argv) == 3 and sys.argv[1] == "toggle" and sys.argv[2] in {"appearance", "layout"}:
             key = sys.argv[2]
             current = read_settings()[key]
-            value = {"solid": "transparent", "transparent": "website", "website": "solid"}[current] if key == "appearance" else ({"unified": "centered", "centered": "notch", "notch": "islands", "islands": "dynamic", "dynamic": "unified"}[current])
+            value = next_choice(BAR_APPEARANCES if key == "appearance" else BAR_LAYOUTS, current)
             result = save_settings({key: value})
             apply_live(key, value)
         else:

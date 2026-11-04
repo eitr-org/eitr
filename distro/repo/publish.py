@@ -20,13 +20,15 @@ import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "distro/lib"))
+from eitr_choice_lists import UPDATE_CHANNELS  # noqa: E402
 BUCKET = "eitr-downloads"
 PUBLIC = "https://download.eitr.info"
 R2_PROFILE = "eitr-r2"
 TAG = "repo"
 NAME = "eitr"
-# Folder and pacman database of each update channel (distro/REPOSITORY.md).
-CHANNELS = {"stable": ("repo", "eitr"), "testing": ("repo-testing", "eitr-testing")}
+# Folder and pacman database of each update channel (tools/choice-lists.json, distro/REPOSITORY.md).
+CHANNELS = {channel["id"]: (channel["repository"], channel["database"]) for channel in UPDATE_CHANNELS}
 
 
 def run(command, **kwargs):

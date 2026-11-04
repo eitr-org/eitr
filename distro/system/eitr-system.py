@@ -5,6 +5,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import eitr_bootstrap
 from eitr_i18n import tr
+from eitr_choice_lists import UPDATE_CHANNELS, ids
 import argparse
 import datetime
 import io
@@ -891,14 +892,16 @@ def snapshot_changes(number=None):
 
 
 PACMAN_CONF = Path("/etc/pacman.conf")
+# Channel names, repository folders and pacman sections come from tools/choice-lists.json.
+STABLE, TESTING = (next(channel for channel in UPDATE_CHANNELS if channel["id"] == name) for name in ("stable", "testing"))
 TESTING_MARKER = "# Eitr testing channel: newer Eitr builds first (eitr channel stable switches back)"
-TESTING_BLOCK = (TESTING_MARKER + "\n[eitr-testing]\nSigLevel = Required\n"
-                 "Server = https://download.eitr.info/repo-testing\n\n")
+TESTING_BLOCK = (TESTING_MARKER + f"\n[{TESTING['database']}]\nSigLevel = Required\n"
+                 f"Server = https://download.eitr.info/{TESTING['repository']}\n\n")
 
 
 def channel_status(conf=None):
     text = (conf or PACMAN_CONF).read_text()
-    return "testing" if "\n[eitr-testing]\n" in "\n" + text else "stable"
+    return TESTING["id"] if f"\n[{TESTING['database']}]\n" in "\n" + text else STABLE["id"]
 
 
 def with_channel(text, channel):
@@ -906,13 +909,13 @@ def with_channel(text, channel):
     without = text.replace(TESTING_BLOCK, "")
     if channel == "stable":
         return without
-    if "\n[eitr]\n" not in "\n" + without:
+    if f"\n[{STABLE['database']}]\n" not in "\n" + without:
         raise RuntimeError(tr('pacman.conf has no [eitr] repository to add the testing channel before'))
-    index = ("\n" + without).index("\n[eitr]\n")
+    index = ("\n" + without).index(f"\n[{STABLE['database']}]\n")
     return without[:index] + TESTING_BLOCK + without[index:]
 
 
-TESTING_DATABASE = "https://download.eitr.info/repo-testing/eitr-testing.db"
+TESTING_DATABASE = f"https://download.eitr.info/{TESTING['repository']}/{TESTING['database']}.db"
 
 
 def testing_reachable(url=TESTING_DATABASE):
@@ -932,7 +935,7 @@ def channel_set(channel, conf=None, reachable=testing_reachable):
         from eitr_policy import require
         require("update_channel")
     conf = conf or PACMAN_CONF
-    if channel not in ("stable", "testing"):
+    if channel not in ids(UPDATE_CHANNELS):
         raise ValueError(tr('The channel is stable or testing'))
     if channel == "testing" and channel_status(conf) != "testing" and not reachable():
         raise RuntimeError(tr('The testing repository cannot be reached right now, so nothing was changed. Check the connection and try again.'))

@@ -227,7 +227,9 @@ Double-left-click empty bar space to cycle the opaque theme color, the transpare
 background with blur, and Website: the Eitr website's palette (`SiteStyle`, light or
 dark by the theme) for the bar, panels and popups, with the site's gold on heading
 runes and Control Center labels. Double-right-click empty space to switch
-through Full, Centered, Tabs, Islands and Dynamic layouts. Centered mode shows only the clock
+through Full, Centered, Tabs, Islands and Dynamic layouts. Both cycles, the Control Center buttons and
+Walker's menus read the layout and appearance lists from `tools/choice-lists.json`,
+through the generated `ChoiceLists.js` (and its Python and Lua twins). Centered mode shows only the clock
 until hovered, then unfolds both icon groups in their existing order. Centered meets the screen edge with square edge ends and the same softly rounded 45° slopes as Tabs on both sides. These slopes rotate with the bar on all four edges and ignore the corner preference; its detached panels still follow that preference. Each side
 packs toward the clock with the same 4 px gap between every item and group.
 The surface has equal end padding (12 px horizontally, 8 px vertically), so it can be

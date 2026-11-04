@@ -405,7 +405,11 @@ Check these before committing; reviews keep catching them.
 - Workspace styles and lockscreen designs are owned by `tools/choice-lists.json`
   (ids, alphabetical order and translation labels). Run `python3 tools/choice-lists.py`
   to update the Python, QML and Elephant projections, then update enumerations and
-  counts in the README and Handbook. `tools/choice-lists.py --check` verifies these
+  counts in the README and Handbook. Bar layouts, bar appearances and update channels
+  live there too, in their double-click/menu order, with labels, icons (hex code points)
+  and descriptions; the tool generates `quickshell/desktop-bar/ChoiceLists.js`,
+  `distro/lib/eitr_choice_lists.py` and `elephant/choice-lists.lua`, which every front end
+  reads. Never write those lists inline; `i18n-build.py` collects their labels. `tools/choice-lists.py --check` verifies these
   copies, documentation and shipped designs; `tools/check.sh` runs it. Keep renderer
   behavior separate from the catalog and regenerate i18n if translation keys change.
 - After editing `handbook/content/*.md`, rebuild `catalog.json` with

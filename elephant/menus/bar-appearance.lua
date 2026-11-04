@@ -7,12 +7,14 @@ Icon = "󰏘"
 FixedOrder = true
 
 local entries = dofile(paths.code("elephant/bar-settings-entries.lua"))
+-- The appearances, their icons and descriptions come from tools/choice-lists.json.
+local appearances = dofile(paths.code("elephant/choice-lists.lua")).bar_appearances
 function GetEntries()
-    return entries("appearance", {
-        {"Blur", "transparent", "󰐾", i18n.mark("Use a blurred transparent bar")},
-        {"Theme Color", "solid", "󰏘", i18n.mark("Use the current theme colour")},
-        {"Website", "website", "󰖟", i18n.mark("Use the Eitr website's colours")},
-    })
+    local options = {}
+    for _, appearance in ipairs(appearances) do
+        table.insert(options, {appearance.label, appearance.id, appearance.icon, appearance.description})
+    end
+    return entries("appearance", options)
 end
 
 dofile(paths.code("walker/scripts/menus/alphabetical.lua"))

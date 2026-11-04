@@ -18,9 +18,13 @@ assert.equal(context.nearestEdge({x: 1280, y: 150}, 2560, 1080), 'top');
 console.log('Bar geometry checks passed');
 
 const shell = (fs.readFileSync(path.join(__dirname, '../shell.qml'), 'utf8') + fs.readFileSync(path.join(__dirname, '../bar/BarWindow.qml'), 'utf8') + fs.readFileSync(path.join(__dirname, '../bar/BarTabs.qml'), 'utf8')).replace(/\bhost\b/g, 'shell');
-const cycle = shell.match(/else if \(button === Qt.RightButton\) updateBarSetting\("layout", ([^;]+)\);/)[1];
+// Double-right-click follows the generated layout list from tools/choice-lists.json.
+assert.match(shell, /else if \(button === Qt.RightButton\) updateBarSetting\("layout", preferences.nextLayout\(barLayout\)\);/);
+const choices = {};
+vm.createContext(choices);
+vm.runInContext(fs.readFileSync(path.join(__dirname, '../ChoiceLists.js'), 'utf8').replace(/^\.pragma library\s*/, ''), choices);
 for (const [barLayout, expected] of [['unified', 'centered'], ['centered', 'notch'], ['notch', 'islands'], ['islands', 'dynamic'], ['dynamic', 'unified']]) {
-    assert.equal(vm.runInNewContext(cycle, {barLayout}), expected);
+    assert.equal(choices.next(choices.barLayouts, barLayout), expected);
 }
 
 assert.match(shell, /tabStripThickness: 7/);

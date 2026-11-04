@@ -3,6 +3,9 @@
   "layout_version": 2,
   "rules": [
     {"pattern": "distro/lib/eitr_theme_migration.py", "class": "C", "runtime": true},
+    {"pattern": "distro/lib/eitr_choice_lists.py", "class": "C", "runtime": true},
+    {"pattern": "elephant/choice-lists.lua", "class": "C", "runtime": true},
+    {"pattern": "quickshell/desktop-bar/ChoiceLists.js", "class": "C", "runtime": true},
     {"pattern": "walker/tests/test_theme_migration.py", "class": "C", "runtime": false},
     {"pattern": "quickshell/desktop-bar/services/SiteStyle.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/assets/fonts/export.py", "class": "C", "runtime": false},

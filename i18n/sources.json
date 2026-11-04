@@ -172,7 +172,8 @@
       "quickshell/desktop-bar/panels/BluetoothMenu.qml"
     ],
     "Blur": [
-      "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
+      "quickshell/desktop-bar/panels/ControlCenterStyle.qml",
+      "tools/choice-lists.json"
     ],
     "Blur strength (shared)": [
       "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
@@ -217,7 +218,7 @@
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Centered": [
-      "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
+      "tools/choice-lists.json"
     ],
     "Change": [
       "quickshell/desktop-bar/panels/ControlCenterSettings.qml"
@@ -475,7 +476,7 @@
       "quickshell/desktop-bar/panels/ControlCenterSettings.qml"
     ],
     "Dynamic": [
-      "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
+      "tools/choice-lists.json"
     ],
     "E I T R  /  CLOCKWORK": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
@@ -555,7 +556,7 @@
       "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
     ],
     "Full": [
-      "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
+      "tools/choice-lists.json"
     ],
     "Full Screen": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
@@ -651,7 +652,7 @@
       "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
     "Islands": [
-      "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
+      "tools/choice-lists.json"
     ],
     "KNOWN DEVICES": [
       "quickshell/desktop-bar/panels/BluetoothMenu.qml"
@@ -1456,7 +1457,7 @@
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Tabs": [
-      "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
+      "tools/choice-lists.json"
     ],
     "Terminal": [
       "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
@@ -1490,7 +1491,7 @@
       "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
     ],
     "Theme Color": [
-      "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
+      "tools/choice-lists.json"
     ],
     "Theme Wallpaper": [
       "quickshell/lockscreen/design-gallery.qml"
@@ -1632,7 +1633,7 @@
       "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "Website": [
-      "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
+      "tools/choice-lists.json"
     ],
     "What Changed": [
       "quickshell/desktop-bar/panels/ControlCenterSettings.qml"
@@ -1937,7 +1938,8 @@
     ],
     "Blur": [
       "elephant/menu-rows/terminal.json",
-      "elephant/menus/terminal-blur.lua"
+      "elephant/menus/terminal-blur.lua",
+      "tools/choice-lists.json"
     ],
     "Blur strength": [
       "elephant/menu-rows/bar.json",
@@ -1998,6 +2000,9 @@
     ],
     "Capture the whole screen to Pictures and the clipboard": [
       "elephant/menu-rows/screenshot.json"
+    ],
+    "Centered": [
+      "tools/choice-lists.json"
     ],
     "Change your account's password": [
       "elephant/menu-rows/security.json"
@@ -2348,7 +2353,7 @@
       "elephant/menu-rows/settings.json"
     ],
     "Dynamic": [
-      "elephant/menus/bar-layout.lua"
+      "tools/choice-lists.json"
     ],
     "EC2": [
       "elephant/menus/aws-ec2.lua"
@@ -2373,7 +2378,7 @@
       "elephant/menu-rows/toggle.json"
     ],
     "Eitr builds once they have been tried on testing": [
-      "elephant/menus/update-channel.lua"
+      "tools/choice-lists.json"
     ],
     "Eitr version, hardware and system details": [
       "elephant/menu-rows/system.json"
@@ -2415,7 +2420,7 @@
       "elephant/menu-rows/learn.json"
     ],
     "Expand three floating islands on hover": [
-      "elephant/menus/bar-layout.lua"
+      "tools/choice-lists.json"
     ],
     "FIDO2 Security Key": [
       "elephant/menu-rows/security.json",
@@ -2481,6 +2486,9 @@
     ],
     "From a picture, with colors you can adjust; kept on this computer": [
       "elephant/menu-rows/theme.json"
+    ],
+    "Full": [
+      "tools/choice-lists.json"
     ],
     "Full Screen": [
       "elephant/menu-rows/screenshot.json"
@@ -2637,7 +2645,7 @@
       "elephant/menus/aws-cloudfront-invalidations-1.lua"
     ],
     "Islands": [
-      "elephant/menus/bar-layout.lua"
+      "tools/choice-lists.json"
     ],
     "JavaScript Tools": [
       "elephant/menu-rows/install.json",
@@ -2877,7 +2885,7 @@
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "New Eitr builds first; less tested, snapshots still protect updates": [
-      "elephant/menus/update-channel.lua"
+      "tools/choice-lists.json"
     ],
     "New Named": [
       "elephant/menu-rows/ai-claude.json",
@@ -3596,7 +3604,7 @@
       "elephant/menus/bar-motion.lua"
     ],
     "Show separate floating pills": [
-      "elephant/menus/bar-layout.lua"
+      "tools/choice-lists.json"
     ],
     "Show the bar on every display": [
       "elephant/menus/bar-screens.lua"
@@ -3608,16 +3616,16 @@
       "elephant/menu-rows/battery-limit.json"
     ],
     "Show the clock and expand on hover": [
-      "elephant/menus/bar-layout.lua"
+      "tools/choice-lists.json"
     ],
     "Show the full desktop bar": [
-      "elephant/menus/bar-layout.lua"
+      "tools/choice-lists.json"
     ],
     "Show this PC’s address and peer connection paths": [
       "elephant/menu-rows/remote-away.json"
     ],
     "Show three compact edge tabs": [
-      "elephant/menus/bar-layout.lua"
+      "tools/choice-lists.json"
     ],
     "Show whether Sunshine is running": [
       "elephant/menu-rows/remote-share.json"
@@ -3666,7 +3674,7 @@
       "distro/lib/eitr_focus.py"
     ],
     "Stable": [
-      "elephant/menus/update-channel.lua"
+      "tools/choice-lists.json"
     ],
     "Start Screensaver": [
       "elephant/menu-rows/toggle.json"
@@ -3778,7 +3786,7 @@
       "elephant/menus/tpm-unlock.lua"
     ],
     "Tabs": [
-      "elephant/menus/bar-layout.lua"
+      "tools/choice-lists.json"
     ],
     "Tailscale": [
       "elephant/menu-rows/vpn.json"
@@ -3794,7 +3802,7 @@
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Testing": [
-      "elephant/menus/update-channel.lua"
+      "tools/choice-lists.json"
     ],
     "The full guide to Eitr, offline": [
       "elephant/menu-rows/learn.json"
@@ -3805,6 +3813,9 @@
     "Theme": [
       "elephant/menu-rows/style.json",
       "elephant/menus/theme.lua"
+    ],
+    "Theme Color": [
+      "tools/choice-lists.json"
     ],
     "Theme Picker": [
       "elephant/menu-rows/shortcuts.json"
@@ -3898,19 +3909,19 @@
       "elephant/menus/terminal-cursor-fire.lua"
     ],
     "Use a blurred transparent bar": [
-      "elephant/menus/bar-appearance.lua"
+      "tools/choice-lists.json"
     ],
     "Use it in folders without their own account": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Use the Eitr website's colours": [
-      "elephant/menus/bar-appearance.lua"
+      "tools/choice-lists.json"
     ],
     "Use the assistant's normal permission prompts": [
       "elephant/menus/assistant-access.lua"
     ],
     "Use the current theme colour": [
-      "elephant/menus/bar-appearance.lua"
+      "tools/choice-lists.json"
     ],
     "Use these workspace markers": [
       "elephant/menus/workspaces.lua"
@@ -3978,6 +3989,9 @@
     ],
     "Web app · opens in your browser": [
       "walker/scripts/menus/software-menu.lua"
+    ],
+    "Website": [
+      "tools/choice-lists.json"
     ],
     "What Each Update Changed": [
       "elephant/menu-rows/snapshots.json"
@@ -7766,7 +7780,7 @@
       "walker/scripts/actions/tools/calendars.py"
     ],
     "Stable": [
-      "fastfetch/eitr.py"
+      "tools/choice-lists.json"
     ],
     "Stable channel. Eitr packages already newer than stable stay until stable catches up.": [
       "distro/system/eitr-system.py"
@@ -7943,7 +7957,7 @@
       "walker/scripts/menus/cloud/common.sh"
     ],
     "Testing": [
-      "fastfetch/eitr.py"
+      "tools/choice-lists.json"
     ],
     "Testing channel: System Update now installs new Eitr builds as soon as they are published, before everyone else. Everything else still comes from the stable repositories.": [
       "distro/system/eitr-system.py"

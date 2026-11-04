@@ -5,12 +5,14 @@
 """
 import eitr_bootstrap
 from eitr_i18n import tr
+from eitr_choice_lists import UPDATE_CHANNELS, ids, label
 from pathlib import Path
 import subprocess
 import sys
 
 HELPER = "/usr/lib/eitr/eitr-system"
 
+# One explanation per channel in tools/choice-lists.json (a test keeps them in step).
 EXPLANATION = {
     "testing": "Testing gets new Eitr builds as soon as they are published, before everyone else, so you can "
                "try changes early. They are less tested; a snapshot still protects every System Update.",
@@ -19,14 +21,14 @@ EXPLANATION = {
 
 
 def main(argv):
-    if len(argv) != 2 or argv[0] != "set" or argv[1] not in EXPLANATION:
+    if len(argv) != 2 or argv[0] != "set" or argv[1] not in ids(UPDATE_CHANNELS):
         sys.exit(__doc__)
     if not Path(HELPER).is_file():
         raise RuntimeError(tr('The root-owned Eitr helper is not installed; update the eitr-desktop package.'))
     channel = argv[1]
-    print(tr('Switching to the {channel} channel.\n\n{explanation}\n', channel=f'{channel}', explanation=f'{EXPLANATION[channel]}'))
+    print(tr('Switching to the {channel} channel.\n\n{explanation}\n', channel=tr(label(UPDATE_CHANNELS, channel)), explanation=f'{EXPLANATION[channel]}'))
     subprocess.run(["sudo", HELPER, "channel-set", channel], check=True)
-    print(tr('\nUpdate channel: {channel}. The next System Update uses it.', channel=f'{channel}'))
+    print(tr('\nUpdate channel: {channel}. The next System Update uses it.', channel=tr(label(UPDATE_CHANNELS, channel))))
 
 
 if __name__ == "__main__":

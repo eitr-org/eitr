@@ -10,10 +10,11 @@ FixedOrder = true
 
 local quote = dofile(paths.code("elephant/shell-quote.lua"))
 local script = paths.code("walker/scripts/actions/system/update-channel.py")
-local channels = {
-    {name = "stable", text = i18n.mark("Stable"), subtext = i18n.mark("Eitr builds once they have been tried on testing")},
-    {name = "testing", text = i18n.mark("Testing"), subtext = i18n.mark("New Eitr builds first; less tested, snapshots still protect updates")},
-}
+-- The channels, their names and descriptions come from tools/choice-lists.json.
+local channels = {}
+for _, channel in ipairs(dofile(paths.code("elephant/choice-lists.lua")).update_channels) do
+    table.insert(channels, {name = channel.id, text = channel.label, subtext = channel.description})
+end
 
 function GetEntries()
     local current = "stable"

@@ -4,6 +4,7 @@ import QtQuick
 import Eitr as Eitr
 import QtQuick.Layouts
 import "../PanelStyle.js" as PanelStyle
+import "../ChoiceLists.js" as ChoiceLists
 
 Column {
     id: section
@@ -54,11 +55,10 @@ Column {
     title: Eitr.I18n.tr("Bar")
     ControlCenterOptionHeading { centerRef: section.centerRef; text: Eitr.I18n.tr("Layout") }
     Grid { width: parent.width; columns: 2; spacing: 8
-        PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Full"); selected: section.centerRef.layout === "unified"; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("layout", "unified") }
-        PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Centered"); selected: section.centerRef.layout === "centered"; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("layout", "centered") }
-        PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Tabs"); selected: section.centerRef.layout === "notch"; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("layout", "notch") }
-        PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Islands"); selected: section.centerRef.layout === "islands"; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("layout", "islands") }
-        PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Dynamic"); selected: section.centerRef.layout === "dynamic"; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("layout", "dynamic") }
+        // Layouts and appearances come from tools/choice-lists.json, in their double-click order.
+        Repeater { model: ChoiceLists.barLayouts
+            PanelButton { required property var modelData; textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr(modelData.label); selected: section.centerRef.layout === modelData.id; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("layout", modelData.id) }
+        }
     }
     ControlCenterOptionHeading { centerRef: section.centerRef; text: Eitr.I18n.tr("Position") }
     GridLayout { width: parent.width; columns: 2; columnSpacing: 8; rowSpacing: 8
@@ -68,9 +68,9 @@ Column {
     }
     ControlCenterOptionHeading { centerRef: section.centerRef; text: Eitr.I18n.tr("Appearance") }
     Row { width: parent.width; spacing: 8
-        PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 16) / 3; text: Eitr.I18n.tr("Blur"); selected: section.centerRef.appearance === "transparent"; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("appearance", "transparent") }
-        PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 16) / 3; text: Eitr.I18n.tr("Theme Color"); selected: section.centerRef.appearance === "solid"; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("appearance", "solid") }
-        PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 16) / 3; text: Eitr.I18n.tr("Website"); selected: section.centerRef.appearance === "website"; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("appearance", "website") }
+        Repeater { model: ChoiceLists.barAppearances
+            PanelButton { required property var modelData; textSize: 12; iconSize: 16; width: (parent.width - 8 * (ChoiceLists.barAppearances.length - 1)) / ChoiceLists.barAppearances.length; text: Eitr.I18n.tr(modelData.label); selected: section.centerRef.appearance === modelData.id; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("appearance", modelData.id) }
+        }
     }
     ControlCenterAppearanceChoices { centerRef: section.centerRef; settingKey: "blur-strength"; title: Eitr.I18n.tr("Blur strength (shared)") }
     ControlCenterOptionHeading { centerRef: section.centerRef; text: Eitr.I18n.tr("Show on") }

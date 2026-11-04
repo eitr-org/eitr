@@ -62,6 +62,16 @@ def extract(root=ROOT):
             # Lua byte escapes belong to glyphs, never to translatable labels.
             if not re.search(r"\\[0-9]", match[1]):
                 add("menus", ast.literal_eval(match[1]), path)
+    # Choice lists read by the bar, Walker and helpers through generated modules: their
+    # labels are shown in all three, descriptions only in Walker rows.
+    choice_lists = root / "tools/choice-lists.json"
+    choices = json.loads(choice_lists.read_text())
+    for group, layers in (("bar_layouts", ("qml", "menus")), ("bar_appearances", ("qml", "menus")),
+                          ("update_channels", ("menus", "helpers"))):
+        for row in choices.get(group, []):
+            for layer in layers:
+                add(layer, row["label"], choice_lists)
+            add("menus", row["description"], choice_lists)
     book = root / "quickshell/desktop-bar/handbook/chapters.json"
     for chapter in json.loads(book.read_text()):
         for field in ("title", "summary"):
