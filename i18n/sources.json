@@ -474,6 +474,9 @@
     "Dotfiles": [
       "quickshell/desktop-bar/panels/ControlCenterSettings.qml"
     ],
+    "Dynamic": [
+      "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
+    ],
     "E I T R  /  CLOCKWORK": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
@@ -823,6 +826,9 @@
       "quickshell/desktop-bar/panels/Handbook.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
+    "Next panel": [
+      "quickshell/desktop-bar/components/ThemedPopup.qml"
+    ],
     "Night Light": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
@@ -1061,6 +1067,9 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/panels/Handbook.qml",
       "quickshell/lockscreen/design-gallery.qml"
+    ],
+    "Previous panel": [
+      "quickshell/desktop-bar/components/ThemedPopup.qml"
     ],
     "QR Code": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
@@ -2338,6 +2347,9 @@
     "Dotfiles": [
       "elephant/menu-rows/settings.json"
     ],
+    "Dynamic": [
+      "elephant/menus/bar-layout.lua"
+    ],
     "EC2": [
       "elephant/menus/aws-ec2.lua"
     ],
@@ -2401,6 +2413,9 @@
     ],
     "Every keyboard shortcut, and run one from the list": [
       "elephant/menu-rows/learn.json"
+    ],
+    "Expand three floating islands on hover": [
+      "elephant/menus/bar-layout.lua"
     ],
     "FIDO2 Security Key": [
       "elephant/menu-rows/security.json",
@@ -4044,9 +4059,6 @@
     "Bar: left-click and drag": [
       "tools/handbook-build.py"
     ],
-    "Blur / Theme Color": [
-      "tools/handbook-build.py"
-    ],
     "Brightness Down": [
       "tools/handbook-build.py"
     ],
@@ -4147,7 +4159,7 @@
     "Frozen selection (floating editor)": [
       "tools/handbook-build.py"
     ],
-    "Full / Centered / Tabs / Islands": [
+    "Full / Centered / Tabs / Islands / Dynamic": [
       "tools/handbook-build.py"
     ],
     "Full screenshot (floating editor)": [
@@ -4525,6 +4537,9 @@
     ],
     "Terminal & Editors": [
       "quickshell/desktop-bar/handbook/chapters.json"
+    ],
+    "Theme Color / Blur / Website": [
+      "tools/handbook-build.py"
     ],
     "Theme carousel": [
       "tools/handbook-build.py"

@@ -46,6 +46,7 @@ Item {
     property var service
     property var controller
     property Item target
+    property Item morphAnchor
     property string barEdge: "top"
     property string kind: ""
     property bool centered: false

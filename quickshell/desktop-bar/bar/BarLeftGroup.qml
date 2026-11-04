@@ -36,7 +36,7 @@ RowLayout {
             anchors.verticalCenter: parent.verticalCenter
             onClicked: barWindow.toggleControlCenter()
         }
-        Item { width: barWindow.islandsLayout ? barWindow.islandSpacing - 2 * host.workspaceItemSpacing : 0; height: 1; visible: barWindow.islandsLayout }
+        Item { width: barWindow.islandsLayout ? barWindow.islandSpacing - 2 * host.workspaceItemSpacing + barWindow.islandSurfaces.afterLogo : 0; height: 1; visible: barWindow.islandsLayout }
         StatusIcon {
             host: group.host
             id: overview
@@ -76,7 +76,7 @@ RowLayout {
         enabled: barWindow.expanded
         Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
         Layout.alignment: Qt.AlignVCenter
-        Layout.leftMargin: barWindow.islandsLayout ? barWindow.islandSpacing : host.workspaceItemSpacing
+        Layout.leftMargin: barWindow.islandsLayout ? barWindow.islandSpacing + barWindow.islandSurfaces.afterWorkspaces : host.workspaceItemSpacing
         spacing: host.workspaceItemSpacing
 
         StatusIcon {

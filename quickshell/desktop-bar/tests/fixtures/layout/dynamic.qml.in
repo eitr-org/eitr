@@ -1,0 +1,320 @@
+import QtQuick
+import QtQuick.Layouts
+import Quickshell
+import "." as Bar
+ShellRoot {
+    id: shell
+    property string barEdge: EDGE
+    property bool verticalBar: barEdge === "left" || barEdge === "right"
+    property bool barPointerHeld: false
+    property int workspaceCount: 5
+    property string workspaceStyle: "Runes"
+    property string barClock: "24h"
+    property int barHeight: 30
+    property string idleLockGlyph: "󰒲"
+    property string idleLockTooltip: "Idle Lock"
+    property color activeBg: "#70ba9a"
+    property color activeFg: "#111111"
+    property color hoverBg: "#404040"
+    function workspaceLabel(index, screen) { return ["ᚠ", "ᚢ", "ᚦ", "ᚨ", "ᚱ", "ᚲ"][index]; }
+    function workspaceApps(index) { return ""; }
+    function workspaceActive(index, screen) { return index === 1; }
+    function focusWorkspace(index) {}
+    function switchIdleLock() {}
+    property string dragCandidate: ""
+    property real workspaceItemSize: 24
+    property real workspaceItemSpacing: 4
+    property var screenGaps: [12, 12, 12, 12]
+    property var battery: ({available: true, percent: 80, status: "Discharging"})
+    property string wifiGlyph: "󰤨"
+    property string focusNetworkGlyph: wifiGlyph
+    property string batteryIcon: "󰁹"
+    property color fg: WEBSITE ? Bar.SiteStyle.fg : (LIGHT ? "#252936" : "#e9eef1")
+    property color workspaceMenuBg: WEBSITE ? Bar.SiteStyle.card : (LIGHT ? "#f5f0e7" : "#18212b")
+    function barBackground() { return workspaceMenuBg; }
+    function barDoubleClick(button) {}
+    function updateBarSetting(key, value) {}
+    FloatingWindow {
+        id: window
+        visible: true
+        implicitWidth: shell.verticalBar ? 240 : 1920
+        implicitHeight: shell.verticalBar ? 1920 : 240
+        property bool dynamicLayout: true
+        property bool centeredLayout: false
+        property bool notchLayout: false
+        property bool islandsLayout: false
+        property var outerGaps: shell.screenGaps
+        property real panelGap: 12
+        property real islandGap: 6
+        property Item stripItem: strip
+        color: LIGHT ? "#e2ddcf" : "#0c1119"
+        Item {
+            id: bar
+            anchors.fill: parent
+            property bool expanded: true
+            property bool statusOpen: true
+            property bool islandsLayout: false
+            property var screen: ({height: 1920})
+            function toggleControlCenter() { control.visible = !control.visible; }
+            function toggleOverview() { overviewOpen = !overviewOpen; }
+            property bool dynamicLayout: true
+            property real normalThickness: 30
+            property real islandGap: 6
+            property bool floatingIslands: dynamicLayout
+            property bool centeredLayout: false
+            property real thinThickness: normalThickness
+            property real reservedThickness: RESERVED
+            property var pendingPanel: null
+            property bool pendingOverview: false
+            property bool overviewOpen: false
+            property var aiMenu: ai
+            property var hardwareMenu: hardware
+            property var workspaceMenu: workspaces
+            property var calendarMenu: calendar
+            property var mediaMenu: mediaPanel
+            property var recordingMenu: recordingPanel
+            property var weatherMenu: weatherPanel
+            property var controlCenter: control
+            property var wifiMenu: wifi
+            property var batteryMenu: batteryPanel
+            property var dockPanels: [ai, hardware, workspaces, calendar, weatherPanel, control, wifi, batteryPanel]
+            property var leftGroup: left
+            property var barHorizontalCenter: center
+            property var rightSide: right
+            property var notificationIcon: notification
+            property var mediaStrip: media
+            property var barCapture: capture
+            property var centerInfo: clock
+            property var barWeather: weather
+            property var verticalStart: leftVertical
+            property var verticalMiddle: centerVertical
+            property var verticalEnd: rightVertical
+            property var verticalMedia: mediaVertical
+            property var verticalCapture: captureVertical
+            property var verticalCalendarIcon: clockVertical
+            property var verticalWeatherIcon: weatherVertical
+            function togglePanel(panel) { panel.visible = !panel.visible; }
+            QtObject { id: ai; property bool visible: false; property bool opened: false; property real width: 1200; property real height: 1200; property var attachmentTarget: null; property var morphAnchor: null }
+            QtObject { id: hardware; property bool visible: false }
+            QtObject { id: workspaces; property bool visible: false }
+            QtObject { id: calendar; property bool visible: false; property bool opened: false; property real width: 520; property real height: 400; property var attachmentTarget: null; property var morphAnchor: null }
+            QtObject { id: mediaPanel; property bool visible: false }
+            QtObject { id: recordingPanel; property bool visible: false }
+            QtObject { id: weatherPanel; property bool visible: false }
+            QtObject { id: control; property bool visible: false }
+            QtObject { id: wifi; property bool visible: false }
+            QtObject { id: batteryPanel; property bool visible: false }
+            component Slot: Item {
+                property string label: ""
+                width: 24; height: 24
+                Text { anchors.centerIn: parent; text: parent.label; color: shell.fg; font.family: Bar.DesktopFonts.family; font.pixelSize: 14 }
+            }
+            Item {
+                id: strip
+                GEOMETRY
+                Item {
+                    visible: !shell.verticalBar
+                    anchors.fill: parent
+                    // Like the real bar: the left group in a RowLayout, aligned left in its cell.
+                    RowLayout { anchors.fill: parent; anchors.leftMargin: 12; spacing: 0
+                        Bar.BarLeftGroup { id: left; host: shell; barWindow: bar; styleMenu: workspaces; aiPanel: ai; hardwarePanel: hardware; Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter }
+                    }
+                    Item { id: center; anchors.fill: parent
+                        Bar.ClockButton { id: clock; host: shell; anchors.centerIn: parent }
+                        Slot { id: capture; property bool shown: true; label: "󰑋"; anchors.right: clock.left; anchors.rightMargin: 6; anchors.verticalCenter: parent.verticalCenter }
+                        Slot { id: media; property real availableWidth: 160; property var player: ({}); label: "󰐊"; anchors.right: capture.left; anchors.rightMargin: 12; anchors.verticalCenter: parent.verticalCenter }
+                        Item { anchors.left: clock.right; anchors.verticalCenter: parent.verticalCenter; width: dynamic.weatherReveal; height: 24; clip: true
+                            Slot { id: weather; width: 65; label: "󰖙 24°"; x: 4 }
+                        }
+                    }
+                    Slot { id: notification; label: "󰂚"; anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter }
+                    Row { id: right; anchors.right: notification.left; anchors.rightMargin: 4; anchors.verticalCenter: parent.verticalCenter; spacing: 4
+                        Repeater { model: ["󰤨", "󰂯", "󰍹", "󰕾", "󰻂", "󰁹"]; Slot { required property string modelData; label: modelData; width: bar.statusOpen ? 24 : 0; clip: true } }
+                    }
+                }
+                Item {
+                    visible: shell.verticalBar
+                    anchors.fill: parent
+                    Column { id: leftVertical; anchors.horizontalCenter: parent.horizontalCenter; spacing: 4
+                        Bar.EitrLogo { foreground: shell.fg; background: shell.workspaceMenuBg; slotWidth: 24 }
+                        Repeater { model: ["󰕮", "ᚠ", "ᚢ", "ᚦ", "ᚨ", "ᚱ", "", "󰍛", "󰒲"]; Slot { required property string modelData; label: modelData } }
+                    }
+                    Item { id: centerVertical; anchors.centerIn: parent; width: parent.width; height: 40
+                        Bar.ClockButton { id: clockVertical; host: shell; compact: true; anchors.centerIn: parent }
+                        Slot { id: captureVertical; property bool shown: true; label: "󰑋"; anchors.bottom: clockVertical.top; anchors.bottomMargin: 3; anchors.horizontalCenter: parent.horizontalCenter }
+                        Slot { id: mediaVertical; label: "󰐊"; anchors.bottom: captureVertical.top; anchors.bottomMargin: 3; anchors.horizontalCenter: parent.horizontalCenter }
+                        Item { anchors.top: clockVertical.bottom; width: 30; height: dynamic.weatherReveal; clip: true
+                            Slot { id: weatherVertical; label: "󰖙"; y: 4 }
+                        }
+                    }
+                    Column { id: rightVertical; anchors.bottom: parent.bottom; anchors.horizontalCenter: parent.horizontalCenter; spacing: 4
+                        Repeater { model: ["󰤨", "󰂯", "󰍹", "󰕾", "󰻂", "󰁹", "󰂚"]; Slot { required property string modelData; label: modelData } }
+                    }
+                }
+                Bar.BarDynamic { id: dynamic; host: shell; barHost: bar }
+            }
+            Bar.DockPanel {
+                id: panel
+                attachmentTarget: shell.verticalBar ? clockVertical : clock
+                attachmentEdge: shell.barEdge
+                implicitWidth: 330; implicitHeight: 250
+            }
+            Bar.IslandMask { id: mask; surfaces: dynamic.surfaces }
+            property int stage: 0
+            function inside(item, ancestor) { for (let current = item; current; current = current.parent) if (current === ancestor) return true; return false; }
+            function verify() {
+                const islands = dynamic.surfaces;
+                const clockItem = shell.verticalBar ? clockVertical : clock;
+                const point = clockItem.mapToItem(bar, clockItem.width / 2, clockItem.height / 2);
+                const actual = shell.verticalBar ? point.y : point.x;
+                const expected = (shell.verticalBar ? height : width) / 2;
+                // At rest the clock is exactly centred; expanded, the whole clock island is.
+                const middle = dynamic.middleIsland;
+                const islandCentre = middle.mapToItem(bar, middle.width / 2, middle.height / 2);
+                if (Math.abs((shell.verticalBar ? islandCentre.y : islandCentre.x) - expected) > 0.01) throw new Error("Clock island not centred");
+                if (dynamic.clockShift === 0 && Math.abs(actual - expected) > 0.01) throw new Error("Clock moved: " + actual + " vs " + expected);
+                // Capture shows at rest beside the clock; media only when the clock island is expanded.
+                const captureItem = shell.verticalBar ? captureVertical : capture;
+                if (!captureItem.visible || captureItem.opacity === 0) throw new Error("Capture hidden at rest");
+                if (!shell.verticalBar && (media.opacity === 1) !== dynamic.middleIsland.expanded) throw new Error("Media must show only with the expanded clock island");
+                if (shell.verticalBar && mediaVertical.visible !== dynamic.middleIsland.expanded) throw new Error("Media must show only with the expanded clock island");
+                if (!inside(captureItem, dynamic.middleIsland)) throw new Error("Capture belongs to the clock island");
+                if (!panel.detached || !panel.centeredPlacement) throw new Error("Panels must open at the centre");
+                if (clockItem.timeOnly === dynamic.middleIsland.expanded) throw new Error("Clock shows only the time at rest and everything when expanded");
+                if (panel.x < 0 || panel.y < 0 || panel.x + panel.width > bar.width || panel.y + panel.height > bar.height)
+                    throw new Error("Panel outside screen");
+                if (reservedThickness !== 36) throw new Error("Reserved depth changed");
+                if (mask.regions.length !== 3) throw new Error("Mask is not three islands");
+                let end = 0;
+                for (let index = 0; index < 3; index++) {
+                    const island = islands[index];
+                    const start = shell.verticalBar ? island.y : island.x;
+                    const extent = shell.verticalBar ? island.height : island.width;
+                    if (index && Math.abs(start - end - dynamic.spacing) > 0.01) throw new Error("Islands are not together at the centre: " + (start - end));
+                    if (mask.regions[index].item !== island) throw new Error("Mask does not follow surface");
+                    if ((shell.verticalBar ? island.width : island.height) !== 30) throw new Error("Expansion changed depth");
+                    end = start + extent;
+                }
+            }
+            function advance() {
+                        if (bar.stage === 0) dynamic.leadingIsland.hoverExpanded = true;
+                        else if (bar.stage === 1) { dynamic.leadingIsland.hoverExpanded = false; dynamic.middleIsland.hoverExpanded = true; }
+                        else if (bar.stage === 2) { dynamic.middleIsland.hoverExpanded = false; dynamic.trailingIsland.hoverExpanded = true; }
+                        else if (bar.stage === 3) { dynamic.trailingIsland.hoverExpanded = false; ai.visible = true; }
+                        else if (bar.stage === 4) {
+                            if (!dynamic.leadingIsland.expanded || dynamic.trailingIsland.expanded) throw new Error("Panel holds wrong island");
+                            ai.visible = false; calendar.visible = true;
+                        } else if (bar.stage === 5) {
+                            if (!dynamic.middleIsland.expanded || dynamic.leadingIsland.expanded) throw new Error("Calendar hold failed");
+                            calendar.visible = false; wifi.visible = true;
+                        } else if (bar.stage === 6) {
+                            if (!dynamic.trailingIsland.expanded) throw new Error("Status hold failed");
+                            wifi.visible = false; shell.barPointerHeld = true;
+                        } else if (bar.stage === 7) {
+                            if (!dynamic.surfaces.every(island => island.expanded)) throw new Error("Drag hold failed");
+                            shell.barPointerHeld = false; Bar.DesktopStyle.reduceMotion = true;
+                            dynamic.middleIsland.hoverExpanded = true;
+                        } else if (bar.stage === 8) {
+                            if (dynamic.middleIsland.extent !== dynamic.middleIsland.fullExtent) throw new Error("Reduced motion failed");
+                            dynamic.middleIsland.hoverExpanded = false;
+                            dynamic.trackPointer(true, Qt.point(dynamic.leadingIsland.x + 10, dynamic.leadingIsland.y + 10));
+                        } else if (bar.stage === 9) {
+                            if (!dynamic.leadingIsland.expanded) throw new Error("Hover failed");
+                            dynamic.trackPointer(true, Qt.point(dynamic.leadingIsland.x + (shell.verticalBar ? 15 : dynamic.leadingIsland.width - 5), dynamic.leadingIsland.y + (shell.verticalBar ? dynamic.leadingIsland.height - 5 : 15)));
+                        } else if (bar.stage === 10) {
+                            if (!dynamic.leadingIsland.expanded) throw new Error("Expanded hover lost");
+                            dynamic.trackPointer(false, Qt.point(100, 100));
+                        } else {
+                            if (dynamic.leadingIsland.expanded) throw new Error("Hover collapse failed");
+                            shell.battery = {available: false, percent: 0, status: ""};
+                            if (dynamic.trailingIsland.restingExtent !== 32) throw new Error("Missing battery still reserves a slot");
+                            // Regressions found live: these run while Dynamic is still active.
+                            shell.workspaceCount = 6;
+                            calendar.opened = true;
+                            inDynamic.start();
+                        }
+                        bar.stage++;
+            }
+            Timer {
+                id: inDynamic; interval: 150
+                onTriggered: {
+                    try {
+                        // WiFi alone (no battery) sits exactly in the middle of its pill.
+                        const grid = bar.find(dynamic, "dynamicRestingStatus");
+                        const centre = grid.mapToItem(dynamic.trailingIsland, grid.width / 2, grid.height / 2);
+                        const islandCentre = shell.verticalBar ? dynamic.trailingIsland.height / 2 : dynamic.trailingIsland.width / 2;
+                        if (Math.abs((shell.verticalBar ? centre.y : centre.x) - islandCentre) > 0.5) throw new Error("Resting WiFi off centre without a battery");
+                        // The left group follows its contents inside Dynamic (no frozen width, no gap).
+                        if (!shell.verticalBar && Math.abs(left.width - left.implicitWidth) > 0.5) throw new Error("Left group width frozen: " + left.width + " vs " + left.implicitWidth);
+                        // Media and recording belong to the clock island.
+                        if (dynamic.islandFor(mediaPanel) !== dynamic.middleIsland || dynamic.islandFor(recordingPanel) !== dynamic.middleIsland) throw new Error("Media/recording not in the clock island");
+                        // A card grows its island; neighbours only expand into the space left beside it.
+                        if (!dynamic.middleIsland.morphed) throw new Error("Calendar did not grow the clock island");
+                        const room = (dynamic.length - dynamic.middleIsland.targetExtent) / 2 - dynamic.insetStart - dynamic.spacing;
+                        if (dynamic.leadingIsland.fullExtent > Math.max(dynamic.leadingIsland.restingExtent, room) + 0.5) throw new Error("Left island would overlap the card");
+                        // A side card larger than half the bar moves the clock island along instead of covering it.
+                        calendar.opened = false; ai.opened = true;
+                        const leadingEnd = dynamic.settledStart(dynamic.leadingIsland) + dynamic.leadingIsland.targetExtent;
+                        const middleStart = dynamic.settledStart(dynamic.middleIsland);
+                        const middleEnd = middleStart + dynamic.middleIsland.targetExtent;
+                        if (middleStart < leadingEnd + dynamic.spacing - 0.5) throw new Error("Side card covers the clock island");
+                        if (dynamic.settledStart(dynamic.trailingIsland) < middleEnd + dynamic.spacing - 0.5) throw new Error("Clock island covers the right island");
+                        ai.opened = false;
+                        // 12-hour time at rest shows the 12-hour number without AM/PM.
+                        shell.barClock = "12h";
+                        const clockItem = shell.verticalBar ? clockVertical : clock;
+                        clockItem.now = new Date(2026, 10, 3, 23, 5);
+                        const shown = bar.textOf(clockItem);
+                        if (shell.verticalBar ? shown.indexOf("23") >= 0 : shown !== "11:05") throw new Error("12-hour resting clock shows " + JSON.stringify(shown));
+                        shell.barClock = "24h"; calendar.opened = false; shell.workspaceCount = 5;
+                        bar.dynamicLayout = false;
+                            Qt.callLater(function() {
+                                if (left.parent === dynamic.leadingIsland.content || center.parent === dynamic.middleIsland.content)
+                                    throw new Error("Layout switch did not restore controls");
+                                // Leaving Dynamic must not freeze sizes or reorder: fold and unfold
+                                // the status icons like Full does, then check the row follows them.
+                                bar.statusOpen = false;
+                                afterLeaving.start();
+                            });
+                    } catch (error) { console.error(error); Qt.exit(1); }
+                }
+            }
+            function find(root, name) { if (root.objectName === name) return root; for (const child of root.children || []) { const found = find(child, name); if (found) return found; } return null; }
+            function textOf(root) {
+                let texts = [];
+                (function walk(item) { if (item.visible === false) return; if (item.text !== undefined && typeof item.text === "string" && item.text !== "" && item.font !== undefined) texts.push(item.text); for (const child of item.children || []) walk(child); })(root);
+                return texts.join(" ");
+            }
+            Timer {
+                id: afterLeaving; interval: 120
+                property int step: 0
+                onTriggered: {
+                    try {
+                        if (shell.verticalBar) { console.log("DYNAMIC_OK"); Qt.quit(); return; }
+                        if (step === 0) {
+                            if (right.width > 0.5) throw new Error("Status row frozen after leaving Dynamic: " + right.width);
+                            bar.statusOpen = true; step = 1; restart();
+                        } else {
+                            if (right.width < 100 || Math.abs(right.width - right.implicitWidth) > 0.5) throw new Error("Status row did not regrow: " + right.width);
+                            if (right.x + right.width > notification.x + 0.5) throw new Error("Status icons overlap the bell");
+                            if (left.mapToItem(bar, 0, 0).x > 40) throw new Error("Left group lost its place in its row");
+                            console.log("DYNAMIC_OK"); Qt.quit();
+                        }
+                    } catch (error) { console.error(error); Qt.exit(1); }
+                }
+            }
+            Timer {
+                interval: 750; running: true; repeat: true
+                onTriggered: {
+                    try {
+                        bar.verify();
+                        if (bar.stage < 4) {
+                            const filename = CAPTURE + "-" + bar.stage + ".png";
+                            bar.grabToImage(function(result) { result.saveToFile(filename); bar.advance(); });
+                        } else bar.advance();
+                    } catch (error) { console.error(error); Qt.exit(1); }
+                }
+            }
+        }
+    }
+}

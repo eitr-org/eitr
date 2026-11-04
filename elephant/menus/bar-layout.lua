@@ -13,6 +13,7 @@ function GetEntries()
         {"Centered", "centered", "󰕰", i18n.mark("Show the clock and expand on hover"), {"Centered"}},
         {i18n.mark("Tabs"), "notch", "󰍜", i18n.mark("Show three compact edge tabs")},
         {i18n.mark("Islands"), "islands", "󰍜", i18n.mark("Show separate floating pills")},
+        {i18n.mark("Dynamic"), "dynamic", "󰍜", i18n.mark("Expand three floating islands on hover")},
     })
 end
 

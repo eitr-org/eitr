@@ -45,7 +45,7 @@ BarSection {
     anchors.fill: parent
     visible: !host.verticalBar
     edge: host.barEdge
-    background: host.notchLayout || host.centeredLayout || host.islandsLayout ? "transparent" : host.barBackground()
+    background: host.notchLayout || host.centeredLayout || host.islandsLayout || host.dynamicLayout ? "transparent" : host.barBackground()
     radius: 0
 
     BarGestureArea {
@@ -72,7 +72,9 @@ BarSection {
             styleMenu: workspaceMenu
             aiPanel: aiMenu
             hardwarePanel: hardwareMenu
-            Layout.alignment: Qt.AlignVCenter
+            // Left-aligned in its own cell, without a filler after it: Dynamic moves the group
+            // out and back, which would otherwise land it after the filler.
+            Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
         }
         WorkspaceStyleMenu {
             id: workspaceMenu
@@ -110,10 +112,6 @@ BarSection {
             accent: host.activeBg
             foreground: host.fg
             background: host.workspaceMenuBg
-        }
-
-        Item {
-            Layout.fillWidth: true
         }
 
     }

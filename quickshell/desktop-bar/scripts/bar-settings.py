@@ -25,7 +25,7 @@ DEFAULTS = {"appearance": "solid", "layout": "unified", "edge": "top", "pinned":
 OPTIONS = {
     "blur-strength": {"light", "medium", "strong"},
     "appearance": {"transparent", "solid", "website"},
-    "layout": {"unified", "centered", "notch", "islands"},
+    "layout": {"unified", "centered", "notch", "islands", "dynamic"},
     "edge": {"top", "bottom", "left", "right"},
     "pinned": {"yes", "no"},
     # The bar on the main display only, or one bar on every display.
@@ -104,7 +104,7 @@ def main():
         elif len(sys.argv) == 3 and sys.argv[1] == "toggle" and sys.argv[2] in {"appearance", "layout"}:
             key = sys.argv[2]
             current = read_settings()[key]
-            value = {"solid": "transparent", "transparent": "website", "website": "solid"}[current] if key == "appearance" else ({"unified": "centered", "centered": "notch", "notch": "islands", "islands": "unified"}[current])
+            value = {"solid": "transparent", "transparent": "website", "website": "solid"}[current] if key == "appearance" else ({"unified": "centered", "centered": "notch", "notch": "islands", "islands": "dynamic", "dynamic": "unified"}[current])
             result = save_settings({key: value})
             apply_live(key, value)
         else:

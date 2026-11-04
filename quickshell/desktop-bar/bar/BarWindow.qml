@@ -63,7 +63,8 @@ PanelWindow {
     readonly property real normalThickness: host.barHeight
     readonly property real thinThickness: normalThickness
     // Space between a tab's outermost item and its slope, the same on every tab.
-    readonly property real tabsPadding: 4
+    // The tab slopes start right at the outermost icons.
+    readonly property real tabsPadding: 0
     function tabItemStart(item) {
         var start = 0;
         while (item && item !== barContents) {
@@ -85,10 +86,13 @@ PanelWindow {
     readonly property var outerGaps: host.screenGaps
     readonly property bool centeredLayout: host.centeredLayout
     readonly property bool islandsLayout: host.islandsLayout
+    readonly property bool dynamicLayout: host.dynamicLayout
+    readonly property bool floatingIslands: islandsLayout || dynamicLayout
+    readonly property alias dynamicSurfaces: barDynamic
     // Islands float half the outer gap off the screen edge; pills keep the full gap between them.
     readonly property real islandGap: outerGaps[({top: 0, right: 1, bottom: 2, left: 3})[host.barEdge]] / 2
     readonly property real islandSpacing: islandGap * 2 + 8
-    readonly property real reservedThickness: normalThickness + (islandsLayout ? islandGap : 0)
+    readonly property real reservedThickness: normalThickness + (floatingIslands ? islandGap : 0)
     readonly property bool notchLayout: host.notchLayout
     readonly property real panelGap: host.verticalBar ? host.windowGaps[1] + host.windowGaps[3] : host.windowGaps[0] + host.windowGaps[2]
     property bool hoverExpanded: false
@@ -99,7 +103,7 @@ PanelWindow {
     }
     readonly property bool expanded: !centeredLayout || host.barPinned || hoverExpanded || panelOpen || pendingPanel !== null || host.barPointerHeld
     readonly property real itemGap: host.workspaceItemSpacing
-    readonly property real endPadding: host.verticalBar ? 8 : 12
+    readonly property real endPadding: host.verticalBar ? 8 : 4
     readonly property real centerPadding: (centerExtent - (host.verticalBar ? verticalCalendarIcon.height : centerInfo.width)) / 2
     readonly property real leadingExtent: endPadding - centerPadding + (host.verticalBar
         ? verticalStart.height + itemGap + (mediaStrip.player ? verticalMedia.height + itemGap : 0) + verticalPin.height + itemGap + (verticalCapture.shown ? verticalCapture.height + itemGap : 0)
@@ -121,7 +125,8 @@ PanelWindow {
         interval: collapseDelay.interval
         onTriggered: bar.weatherHovered = false
     }
-    readonly property real centerExtent: host.verticalBar ? 56 : centerInfo.width + 24
+    // Centered: the slopes start right at the clock (its button keeps 8 px of padding).
+    readonly property real centerExtent: host.verticalBar ? 56 : centerInfo.width
     Timer {
         id: collapseDelay
         interval: 350
@@ -133,6 +138,7 @@ PanelWindow {
     readonly property var panelFocusWindows: notificationPopups.visible ? [bar, notificationPopups] : [bar]
     property var pendingPanel: null
     property bool pendingOverview: false
+    readonly property bool overviewOpen: overview.visible
 
     function closePanels() {
         pendingPanel = null;
@@ -220,8 +226,11 @@ PanelWindow {
     }
     Item {
         id: edgeSensor
-        width: host.verticalBar ? 1 : bar.width
-        height: host.verticalBar ? bar.height : 1
+        // A 1 px trigger at the edge; once revealed it spans the bar's depth, so moving
+        // along the bar toward an island across click-through gaps keeps it shown.
+        readonly property real depth: autoHide.progress > 0 ? bar.reservedThickness : 1
+        width: host.verticalBar ? depth : bar.width
+        height: host.verticalBar ? bar.height : depth
         x: host.barEdge === "right" ? bar.width - width : 0
         y: host.barEdge === "bottom" ? bar.height - height : 0
         visible: host.barAutoHide
@@ -331,13 +340,13 @@ PanelWindow {
         id: barContents
         visible: !FocusMode.enabled
         transform: Translate {
-            x: host.verticalBar ? (host.barEdge === "left" ? -1 : 1) * (bar.normalThickness + (host.islandsLayout ? bar.islandGap : 0)) * (1 - autoHide.progress) : 0
-            y: !host.verticalBar ? (host.barEdge === "top" ? -1 : 1) * (bar.normalThickness + (host.islandsLayout ? bar.islandGap : 0)) * (1 - autoHide.progress) : 0
+            x: host.verticalBar ? (host.barEdge === "left" ? -1 : 1) * (bar.normalThickness + (bar.floatingIslands ? bar.islandGap : 0)) * (1 - autoHide.progress) : 0
+            y: !host.verticalBar ? (host.barEdge === "top" ? -1 : 1) * (bar.normalThickness + (bar.floatingIslands ? bar.islandGap : 0)) * (1 - autoHide.progress) : 0
         }
         width: host.verticalBar ? bar.thinThickness : (bar.centeredLayout ? bar.centerExtent + bar.leadingReveal + bar.trailingReveal : bar.width)
         height: host.verticalBar ? (bar.centeredLayout ? bar.centerExtent + bar.leadingReveal + bar.trailingReveal : bar.height) : bar.thinThickness
-        x: host.verticalBar ? (host.barEdge === "right" ? bar.width - width - (bar.islandsLayout ? bar.islandGap : 0) : (bar.islandsLayout ? bar.islandGap : 0)) : bar.centeredLayout ? (bar.width - bar.centerExtent) / 2 - bar.leadingReveal : 0
-        y: host.verticalBar ? (bar.centeredLayout ? (bar.height - bar.centerExtent) / 2 - bar.leadingReveal : 0) : (host.barEdge === "bottom" ? bar.height - height - (bar.islandsLayout ? bar.islandGap : 0) : (bar.islandsLayout ? bar.islandGap : 0))
+        x: host.verticalBar ? (host.barEdge === "right" ? bar.width - width - (bar.floatingIslands ? bar.islandGap : 0) : (bar.floatingIslands ? bar.islandGap : 0)) : bar.centeredLayout ? (bar.width - bar.centerExtent) / 2 - bar.leadingReveal : 0
+        y: host.verticalBar ? (bar.centeredLayout ? (bar.height - bar.centerExtent) / 2 - bar.leadingReveal : 0) : (host.barEdge === "bottom" ? bar.height - height - (bar.floatingIslands ? bar.islandGap : 0) : (bar.floatingIslands ? bar.islandGap : 0))
         clip: bar.centeredLayout
         BarTabs {
             id: barTabs
@@ -383,6 +392,12 @@ PanelWindow {
 
     BarIslands {
         id: barIslands
+        host: bar.host
+        barHost: bar
+    }
+
+    BarDynamic {
+        id: barDynamic
         host: bar.host
         barHost: bar
     }

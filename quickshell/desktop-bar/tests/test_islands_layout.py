@@ -31,7 +31,7 @@ class IslandsLayoutTests(unittest.TestCase):
         surfaces = re.sub(r'\b(?:bar\.)?(' + '|'.join(targets) + r')\b', lambda match: 'barContents.' + match[1], surfaces)
         component = qml_block(source, '                component IslandSurface: Rectangle')
         geometry = source.split('                    id: barContents\n', 1)[1].split('                    Item {', 1)[0]
-        self.assertIn('shell.centeredLayout || shell.islandsLayout ? null : barContents', source)
+        self.assertIn('shell.centeredLayout || shell.islandsLayout || shell.dynamicLayout ? null : barContents', source)
         self.assertIn('IslandMask { surfaces: islandSurfaces.children }', source)
         self.assertIn('!!hostWindow.islandsLayout', (BAR / 'components/DockPanel.qml').read_text())
         with tempfile.TemporaryDirectory(prefix='eitr-islands-') as directory:

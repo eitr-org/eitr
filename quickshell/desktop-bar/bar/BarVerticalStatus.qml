@@ -41,7 +41,7 @@ Column {
     VerticalBarIcon {
         host: verticalEnd.host
         icon: verticalEnd.host.statusOpen ? "⌄" : "⌃"
-        visible: !barHost.centeredLayout && !verticalEnd.host.notchLayout
+        visible: !barHost.centeredLayout && !verticalEnd.host.notchLayout && !barHost.dynamicLayout
         tooltip: verticalEnd.host.statusOpen ? Eitr.I18n.tr("Hide icons") : Eitr.I18n.tr("Show icons")
         open: true; clickable: true
         onClicked: verticalEnd.host.statusOpen = !verticalEnd.host.statusOpen

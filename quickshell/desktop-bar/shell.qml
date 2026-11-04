@@ -85,13 +85,14 @@ ShellRoot {
     property string barScreens: "main"
     property var windowGaps: DisplayService.topology.windowGaps
     property var screenGaps: DisplayService.topology.screenGaps
+    readonly property bool dynamicLayout: barLayout === "dynamic"
     readonly property bool islandsLayout: barLayout === "islands"
     readonly property bool notchLayout: barLayout === "notch"
     readonly property real tabStripThickness: 7
     // Radius of the four bends on each Tabs slope.
     readonly property real tabBendRound: 6
     readonly property bool centeredLayout: barLayout === "centered"
-    readonly property bool iconsOpen: centeredLayout || notchLayout || statusOpen
+    readonly property bool iconsOpen: centeredLayout || notchLayout || dynamicLayout || statusOpen
     property string barEdge: "top"
     property bool settingsDirty: false
     property string dragCandidate: ""
@@ -105,7 +106,7 @@ ShellRoot {
 
     function barDoubleClick(button) {
         if (button === Qt.LeftButton) updateBarSetting("appearance", preferences.nextAppearance(barAppearance));
-        else if (button === Qt.RightButton) updateBarSetting("layout", barLayout === "unified" ? "centered" : barLayout === "centered" ? "notch" : barLayout === "notch" ? "islands" : "unified");
+        else if (button === Qt.RightButton) updateBarSetting("layout", barLayout === "unified" ? "centered" : barLayout === "centered" ? "notch" : barLayout === "notch" ? "islands" : barLayout === "islands" ? "dynamic" : "unified");
     }
 
     BarPreferences { id: preferences; host: shell }

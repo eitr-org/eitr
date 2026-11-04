@@ -74,7 +74,8 @@ Item {
         id: verticalCapture
         anchors.bottom: verticalCalendarIcon.top
         anchors.horizontalCenterOffset: 0
-        anchors.bottomMargin: shown ? (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 3) : 0
+        anchors.bottomMargin: (shown ? (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 3) : 0)
+            + (barHost.islandsLayout ? barHost.islandSurfaces.aroundClock : 0)
         anchors.horizontalCenter: parent.horizontalCenter
         height: shown ? 24 : 0
         recording: obsMenuRef.obsState.recording || obsMenuRef.obsState.streaming
@@ -107,10 +108,11 @@ Item {
     }
     Item {
         anchors.top: verticalCalendarIcon.bottom
+        anchors.topMargin: barHost.islandsLayout ? barHost.islandSurfaces.aroundClock : 0
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width
-        height: barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 3) + verticalWeatherIcon.height
-        clip: barHost.notchLayout
+        height: barHost.dynamicLayout ? barHost.dynamicSurfaces.weatherReveal : barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 3) + verticalWeatherIcon.height
+        clip: barHost.notchLayout || barHost.dynamicLayout
         WeatherWidget {
             host: verticalMiddle.host
             id: verticalWeatherIcon

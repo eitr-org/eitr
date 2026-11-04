@@ -8,7 +8,7 @@ for (const edge of ['top', 'bottom', 'left', 'right']) {
     for (const alignment of ['left', 'center', 'right']) {
         const vertical = edge === 'left' || edge === 'right';
         const context = {
-            detached: false, centeredPlacement: false, edgeInsets: [0, 0, 0, 0], attachmentGap: 0, leadingOffset: 0,
+            morphIsland: null, morphPill: null, detached: false, centeredPlacement: false, edgeInsets: [0, 0, 0, 0], attachmentGap: 0, leadingOffset: 0,
             parent: {width: 1920, height: 1080}, width: 468, height: 740,
             attachmentTarget: {}, attachmentEdge: edge, alignment,
             strip: {x: edge === 'right' ? 1878 : 0,
@@ -23,7 +23,7 @@ for (const edge of ['top', 'bottom', 'left', 'right']) {
 }
 for (const edge of ['top', 'bottom', 'left', 'right']) {
     const context = {
-        detached: true, centeredPlacement: true, edgeInsets: [12, 12, 12, 12], attachmentGap: 12,
+        morphIsland: null, morphPill: null, detached: true, centeredPlacement: true, edgeInsets: [12, 12, 12, 12], attachmentGap: 12,
         parent: {width: 1920, height: 1080}, width: 468, height: 740,
         attachmentTarget: {}, attachmentEdge: edge, alignment: 'right',
         strip: {x: edge === 'right' ? 1860 : 0, y: edge === 'bottom' ? 1050 : 0,
@@ -33,4 +33,11 @@ for (const edge of ['top', 'bottom', 'left', 'right']) {
     assert.equal(position(x), edge === 'left' ? 72 : edge === 'right' ? 1380 : 726);
     assert.equal(position(y), edge === 'top' ? 42 : edge === 'bottom' ? 298 : 170);
 }
-console.log('Dock positioning: all four edges and three alignments passed');
+// Dynamic: a panel sits exactly where its island settles.
+{
+    const context = {morphPill: null, morphIsland: {}, morphOrigin: {x: 700, y: 6}, strip: {}, parent: {}, attachmentTarget: {}};
+    const position = code => vm.runInNewContext(`(function(){${code}})()`, context);
+    assert.equal(position(x), 700);
+    assert.equal(position(y), 6);
+}
+console.log('Dock positioning: all four edges, three alignments and Dynamic islands passed');

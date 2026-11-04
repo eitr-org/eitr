@@ -179,14 +179,14 @@ channel first; the website changes only once it reaches stable.
   until a key is pressed. A working prototype exists outside the repository
   (used for the 0.7 preview video); give it a home under `distro/bin/eitr`, a test
   for resize and clean exit, and a Learn/Handbook mention.
-- **Dynamic island.** The clock pill grows into a live surface for what is
-  happening now, then shrinks back: media with controls, volume/brightness
-  changes, an incoming notification, a running screen recording (with a stop
-  button and the chosen area), timers and reminders. One event at a time with a
-  clear priority; it never adds bar icons and keeps the clock screen-centred.
-  Start from the Islands layout's clock pill; decide whether it is its own layout
-  or an option of Islands, Centered and Full. Owner's reference: a Hyprland
-  "dynamic island" video with area screen recording (2026-11-03).
+- **Dynamic island, next.** Shipped on testing: the Dynamic layout (three centred
+  islands that expand on hover, grow into their panels with ‹ › to step through an
+  island's panels, and slide aside for each other) and Islands cards growing from
+  their pills and pushing neighbours. Next: live activities in the clock island beyond
+  the capture indicator (volume/brightness replacing swayosd only in Dynamic,
+  notification previews, media title), a hover card for the clock (large time and week
+  strip), and the wallpaper/theme carousel growing out of the clock island. Islands
+  arrows (‹ ›) like Dynamic if the owner wants them.
 - **The Eitr logo drawn with runes.** Previews of the emblem filled with Elder
   Futhark runes are ready and kept outside the repository; the owner likes the
   36-row versions and will decide later where (if anywhere) to use them.

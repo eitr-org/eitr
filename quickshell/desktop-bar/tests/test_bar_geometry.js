@@ -19,7 +19,7 @@ console.log('Bar geometry checks passed');
 
 const shell = (fs.readFileSync(path.join(__dirname, '../shell.qml'), 'utf8') + fs.readFileSync(path.join(__dirname, '../bar/BarWindow.qml'), 'utf8') + fs.readFileSync(path.join(__dirname, '../bar/BarTabs.qml'), 'utf8')).replace(/\bhost\b/g, 'shell');
 const cycle = shell.match(/else if \(button === Qt.RightButton\) updateBarSetting\("layout", ([^;]+)\);/)[1];
-for (const [barLayout, expected] of [['unified', 'centered'], ['centered', 'notch'], ['notch', 'islands'], ['islands', 'unified']]) {
+for (const [barLayout, expected] of [['unified', 'centered'], ['centered', 'notch'], ['notch', 'islands'], ['islands', 'dynamic'], ['dynamic', 'unified']]) {
     assert.equal(vm.runInNewContext(cycle, {barLayout}), expected);
 }
 

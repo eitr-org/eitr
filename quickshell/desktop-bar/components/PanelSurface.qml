@@ -12,6 +12,8 @@ Item {
     readonly property bool vertical: edge === "left" || edge === "right"
     readonly property real progress: hostWindow.revealProgress
     readonly property bool detached: !!hostWindow.detached
+    // A Dynamic island draws this panel's surface; content appears once it has grown.
+    readonly property bool morphed: !!hostWindow.morphIsland || !!hostWindow.morphPill
     readonly property bool flushLeading: hostWindow.touchesLeadingEdge !== undefined
         ? hostWindow.touchesLeadingEdge : vertical ? hostWindow.y <= 0 : hostWindow.x <= 0
     readonly property bool flushTrailing: hostWindow.touchesTrailingEdge !== undefined
@@ -27,10 +29,12 @@ Item {
     readonly property var outerGaps: hostWindow.hostWindow && hostWindow.hostWindow.outerGaps
         ? hostWindow.hostWindow.outerGaps : [12, 12, 12, 12]
     // Keep the sheet attached to the bar; only its content gains the window gap.
-    readonly property real leftPadding: outerGaps[3] * PanelStyle.contentGapMultiplier
-    readonly property real rightPadding: outerGaps[1] * PanelStyle.contentGapMultiplier
-    readonly property real topPadding: outerGaps[0] * PanelStyle.contentGapMultiplier
-    readonly property real bottomPadding: outerGaps[2] * PanelStyle.contentGapMultiplier
+    // A Dynamic card keeps a strip on its bar side for the previous/next panel buttons.
+    readonly property real navigationBand: hostWindow.morphIsland ? 24 : 0
+    readonly property real leftPadding: outerGaps[3] * PanelStyle.contentGapMultiplier + (edge === "left" ? navigationBand : 0)
+    readonly property real rightPadding: outerGaps[1] * PanelStyle.contentGapMultiplier + (edge === "right" ? navigationBand : 0)
+    readonly property real topPadding: outerGaps[0] * PanelStyle.contentGapMultiplier + (edge === "top" ? navigationBand : 0)
+    readonly property real bottomPadding: outerGaps[2] * PanelStyle.contentGapMultiplier + (edge === "bottom" ? navigationBand : 0)
     default property alias panelContent: contents.data
 
     data: [Item {
@@ -78,7 +82,7 @@ Item {
 
         Rectangle {
             anchors.fill: parent
-            visible: surface.detached
+            visible: surface.detached && !surface.morphed
             radius: DesktopStyle.radius(PanelStyle.cornerRadius)
             color: surface.color
         }
@@ -90,7 +94,7 @@ Item {
             height: Math.max(0, surface.height - surface.topPadding - surface.bottomPadding - (surface.vertical ? surface.leadingBodyInset + surface.trailingBodyInset : 0))
             x: surface.leftPadding + (surface.vertical ? 0 : surface.leadingBodyInset) + (surface.edge === "right" ? reveal.width - surface.width : 0)
             y: surface.topPadding + (surface.vertical ? surface.leadingBodyInset : 0) + (surface.edge === "bottom" ? reveal.height - surface.height : 0)
-            opacity: Math.min(1, surface.progress * 2)
+            opacity: surface.morphed ? Math.max(0, surface.progress * 2 - 1) : Math.min(1, surface.progress * 2)
         }
     }]
 }

@@ -37,7 +37,7 @@ BarSection {
     anchors.fill: parent
     visible: host.verticalBar
     edge: host.barEdge
-    background: host.notchLayout || host.centeredLayout || host.islandsLayout ? "transparent" : host.barBackground()
+    background: host.notchLayout || host.centeredLayout || host.islandsLayout || host.dynamicLayout ? "transparent" : host.barBackground()
     radius: 0
 
     BarGestureArea {
@@ -69,7 +69,7 @@ BarSection {
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: barHost.toggleControlCenter()
             }
-            Item { width: 1; height: barHost.islandsLayout ? barHost.islandSpacing - 2 * host.workspaceItemSpacing : 0; visible: barHost.islandsLayout }
+            Item { width: 1; height: barHost.islandsLayout ? barHost.islandSpacing - 2 * host.workspaceItemSpacing + barHost.islandSurfaces.afterLogo : 0; visible: barHost.islandsLayout }
             VerticalBarIcon { host: verticalSurface.host; id: verticalOverviewIcon; icon: "󰕮"; tooltip: Eitr.I18n.tr("Overview"); open: true; clickable: true; onClicked: barHost.toggleOverview() }
             Repeater {
                 model: host.workspaceCount
@@ -86,7 +86,7 @@ BarSection {
                 }
             }
         }
-        Item { width: 1; height: barHost.islandsLayout ? barHost.islandSpacing - 2 * host.workspaceItemSpacing : 0; visible: barHost.islandsLayout }
+        Item { width: 1; height: barHost.islandsLayout ? barHost.islandSpacing - 2 * host.workspaceItemSpacing + barHost.islandSurfaces.afterWorkspaces : 0; visible: barHost.islandsLayout }
         Column {
             id: verticalHardware
             anchors.horizontalCenter: parent.horizontalCenter

@@ -8,6 +8,8 @@ Rectangle {
 
     property date now: new Date()
     property bool compact: false
+    // Only hours and minutes, without date or AM/PM (Dynamic's resting clock island).
+    property bool timeOnly: false
 
     signal clicked()
 
@@ -29,7 +31,11 @@ Rectangle {
 
         anchors.centerIn: parent
         visible: !clock.compact
-        text: Qt.formatDateTime(clock.now, host.barClock === "24h" ? Eitr.I18n.tr("ddd MMM dd HH:mm") : Eitr.I18n.tr("ddd MMM dd hh:mm AP"))
+        // Qt counts hours 0-23 in any format without AP, so the 12-hour time-only clock
+        // computes its hour itself.
+        text: clock.timeOnly ? (host.barClock === "24h" ? Qt.formatDateTime(clock.now, "HH:mm")
+                : ((clock.now.getHours() + 11) % 12 + 1) + Qt.formatDateTime(clock.now, ":mm"))
+            : Qt.formatDateTime(clock.now, host.barClock === "24h" ? Eitr.I18n.tr("ddd MMM dd HH:mm") : Eitr.I18n.tr("ddd MMM dd hh:mm AP"))
         horizontalAlignment: Text.AlignHCenter
         color: host.fg
         font.family: DesktopFonts.family
@@ -46,7 +52,8 @@ Rectangle {
         spacing: 2
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
-            text: Qt.formatDateTime(clock.now, host.barClock === "24h" ? "HH\nmm" : "hh\nmm")
+            text: host.barClock === "24h" ? Qt.formatDateTime(clock.now, "HH\nmm")
+                : String((clock.now.getHours() + 11) % 12 + 1).padStart(2, "0") + Qt.formatDateTime(clock.now, "\nmm")
             horizontalAlignment: Text.AlignHCenter
             lineHeight: 0.9
             color: host.fg
@@ -56,7 +63,7 @@ Rectangle {
         }
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
-            visible: host.barClock !== "24h"
+            visible: host.barClock !== "24h" && !clock.timeOnly
             text: Qt.formatDateTime(clock.now, "AP")
             color: host.fg
             font.family: DesktopFonts.family
@@ -65,6 +72,7 @@ Rectangle {
         }
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
+            visible: !clock.timeOnly
             text: "\u{F00ED}"
             color: host.fg
             font.family: DesktopFonts.family

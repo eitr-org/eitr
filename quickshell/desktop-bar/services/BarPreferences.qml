@@ -12,7 +12,7 @@ Scope {
     // Empty-bar double-left-click order: theme color, blurred transparency, website.
     function nextAppearance(current) { return current === "solid" ? "transparent" : current === "transparent" ? "website" : "solid"; }
     function updateBarSetting(key, value) {
-        var choices = {appearance: ["transparent", "solid", "website"], layout: ["unified", "centered", "notch", "islands"], edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], dock: ["yes", "no"], reduceMotion: ["yes", "no"], mediaStyle: ["bars", "line"], clock: ["12h", "24h"]};
+        var choices = {appearance: ["transparent", "solid", "website"], layout: ["unified", "centered", "notch", "islands", "dynamic"], edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], dock: ["yes", "no"], reduceMotion: ["yes", "no"], mediaStyle: ["bars", "line"], clock: ["12h", "24h"]};
         if (!choices[key] || choices[key].indexOf(value) === -1) return;
         if (key === "appearance") host.barAppearance = value;
         else if (key === "layout") host.barLayout = value;
@@ -36,7 +36,7 @@ Scope {
         function update(key: string, value: string): void { preferences.updateBarSetting(key, value) }
         function toggle(kind: string): void {
             if (kind === "appearance") preferences.updateBarSetting(kind, preferences.nextAppearance(host.barAppearance));
-            else if (kind === "layout") preferences.updateBarSetting(kind, host.barLayout === "unified" ? "centered" : host.barLayout === "centered" ? "notch" : host.barLayout === "notch" ? "islands" : "unified");
+            else if (kind === "layout") preferences.updateBarSetting(kind, host.barLayout === "unified" ? "centered" : host.barLayout === "centered" ? "notch" : host.barLayout === "notch" ? "islands" : host.barLayout === "islands" ? "dynamic" : "unified");
         }
     }
 
@@ -50,7 +50,7 @@ Scope {
             try {
                 var settings = JSON.parse(barSettingsOutput.text);
                 host.barAppearance = settings.appearance;
-                host.barLayout = ["unified", "centered", "notch", "islands"].indexOf(settings.layout) >= 0 ? settings.layout : "unified";
+                host.barLayout = ["unified", "centered", "notch", "islands", "dynamic"].indexOf(settings.layout) >= 0 ? settings.layout : "unified";
                 host.barEdge = settings.edge;
                 host.barPinned = settings.pinned === "yes";
                 host.barMediaStyle = settings.mediaStyle === "line" ? "line" : "bars";

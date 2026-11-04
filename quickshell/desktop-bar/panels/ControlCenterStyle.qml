@@ -58,6 +58,7 @@ Column {
         PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Centered"); selected: section.centerRef.layout === "centered"; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("layout", "centered") }
         PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Tabs"); selected: section.centerRef.layout === "notch"; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("layout", "notch") }
         PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Islands"); selected: section.centerRef.layout === "islands"; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("layout", "islands") }
+        PanelButton { textSize: 12; iconSize: 16; width: (parent.width - 8) / 2; text: Eitr.I18n.tr("Dynamic"); selected: section.centerRef.layout === "dynamic"; foreground: section.centerRef.foreground; onClicked: section.centerRef.settingRequested("layout", "dynamic") }
     }
     ControlCenterOptionHeading { centerRef: section.centerRef; text: Eitr.I18n.tr("Position") }
     GridLayout { width: parent.width; columns: 2; columnSpacing: 8; rowSpacing: 8

@@ -37,7 +37,8 @@ Item {
         host: centerSection.host
         id: barCapture
         anchors.right: centerInfo.left
-        anchors.rightMargin: shown ? (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 6) : 0
+        anchors.rightMargin: (shown ? (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 6) : 0)
+            + (barHost.islandsLayout ? barHost.islandSurfaces.aroundClock : 0)
         anchors.verticalCenter: parent.verticalCenter
         recording: obsMenuRef.obsState.recording || obsMenuRef.obsState.streaming
         recordingPaused: obsMenuRef.obsState.paused && !obsMenuRef.obsState.streaming
@@ -83,10 +84,11 @@ Item {
 
     Item {
         anchors.left: centerInfo.right
+        anchors.leftMargin: barHost.islandsLayout ? barHost.islandSurfaces.aroundClock : 0
         anchors.verticalCenter: centerInfo.verticalCenter
-        width: barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 6) + barWeather.width
+        width: barHost.dynamicLayout ? barHost.dynamicSurfaces.weatherReveal : barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 6) + barWeather.width
         height: barWeather.height
-        clip: barHost.notchLayout
+        clip: barHost.notchLayout || barHost.dynamicLayout
         WeatherWidget {
             host: centerSection.host
             id: barWeather
@@ -112,6 +114,7 @@ Item {
         id: weatherMenu
         surfaceColor: centerSection.host.barBackground()
         target: centerSection.host.verticalBar ? verticalWeatherIconRef : centerInfo
+        morphAnchor: centerSection.host.verticalBar ? verticalWeatherIconRef : barWeather
         barEdge: centerSection.host.barEdge
         centered: true
         accent: centerSection.host.activeBg

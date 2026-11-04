@@ -285,7 +285,7 @@ existing design and workflows rather than replacing them with upstream defaults.
   inside the popup. Growing content must stay within the usable screen.
 - Empty-bar double-left-click cycles Theme Color, Blur and Website (the site palette
   with its gold labels), double-right-click cycles
-  the Full, Centered, Tabs and Islands layouts, and left drag changes the screen edge. These settings
+  the Full, Centered, Tabs, Islands and Dynamic layouts, and left drag changes the screen edge. These settings
   persist in `bar-settings.json` and also appear under Settings > Style > Desktop Bar.
   Centered mode shows only the clock until hovered or pinned. Expansion preserves
   icon order and the clock's exact screen center on all four edges; pin sits
@@ -300,7 +300,8 @@ existing design and workflows rather than replacing them with upstream defaults.
   surface. Do not align glyph centers at the expense of button backgrounds or
   add duplicate per-panel padding above the shared content frame.
 - Keep the right-side icon group hidden by default, with its manual toggle and
-  no auto-close timer, except in Tabs, which always shows it without the toggle.
+  no auto-close timer. Tabs and Dynamic’s expanded right island show it without
+  the toggle.
   Preserve the existing arrow direction and icon order.
 - Focus is a separate Style preset, controlled by `eitr focus on|off|toggle|status`,
   Settings > Style > Focus and Control Center > Style. Its machine-local preference preserves
@@ -315,8 +316,17 @@ existing design and workflows rather than replacing them with upstream defaults.
   Full spacing. Pills follow DesktopStyle corners and float half the live outer gap
   off the screen edge, with the full gap between pills. Reserve pill depth plus that
   half gap; gaps pass clicks through.
-  Clock remains screen-centred. Panels use Tabs’ detached Full-layout positions.
+  Clock remains screen-centred. Opening a panel grows a card out of its pill toward
+  the pill's free side and pushes neighbouring pills aside; the pill hides under the
+  card until it has shrunk back.
   Status controls keep Full’s manual toggle.
+- Dynamic: three full-pill islands side by side at the screen centre (always fully
+  rounded, ignoring the corner preference): logo, time-only clock exactly centred at
+  rest, network/battery. Hover expands one island along the bar (the clock island then
+  shows date, AM/PM and weather and stays centred as a whole); 320 ms, instant with
+  Reduce motion, collapse after 350 ms. Opening a panel grows its island into the panel
+  (no separate surface) and the other islands slide aside. Reserve resting depth plus
+  half the outer gap; empty space passes clicks through.
 - Keep calendar height fixed with six week rows. Weather city choices are
   session-only; the city close button restores the default geolocation.
 - Media is hidden when no eligible player exists; meetings are excluded. Keep

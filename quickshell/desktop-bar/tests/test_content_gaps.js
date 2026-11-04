@@ -9,7 +9,9 @@ for (const [name, index] of [['top', 0], ['right', 1], ['bottom', 2], ['left', 3
     const code = source.match(new RegExp(`readonly property real ${name}Padding: ([^\\n]+)`))[1];
     for (const gap of [0, 4, 12, 20]) {
         const gaps = [7, 9, 11, 13]; gaps[index] = gap;
-        assert.equal(vm.runInNewContext(code, {outerGaps: gaps, PanelStyle: {contentGapMultiplier: multiplier}}), gap * 2);
+        assert.equal(vm.runInNewContext(code, {outerGaps: gaps, PanelStyle: {contentGapMultiplier: multiplier}, edge: 'top', navigationBand: 0}), gap * 2);
+        // A Dynamic card adds its previous/next strip on the bar side only.
+        assert.equal(vm.runInNewContext(code, {outerGaps: gaps, PanelStyle: {contentGapMultiplier: multiplier}, edge: name, navigationBand: 24}), gap * 2 + 24);
     }
 }
 const contents = source.split('objectName: "panelContentFrame"')[1];

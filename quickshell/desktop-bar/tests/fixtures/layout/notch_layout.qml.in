@@ -141,7 +141,7 @@ Timer {
             var trailingStart = shell.verticalBar ? verticalEnd.y : rightSide.x;
             var paddings = [bar.tabLeadingEnd - leadingEnd, centerStart - bar.tabCenterStart,
                 bar.tabCenterEnd - centerEnd, trailingStart - bar.tabTrailingStart];
-            if (bar.tabsPadding !== 4 || paddings.some(padding => Math.abs(padding - bar.tabsPadding) > 0.01))
+            if (bar.tabsPadding !== 0 || paddings.some(padding => Math.abs(padding - bar.tabsPadding) > 0.01))
                 throw new Error("Unequal Tabs padding: " + JSON.stringify(paddings));
             var point = centerInfo.mapToItem(sample, centerInfo.width / 2, centerInfo.height / 2);
             if (Math.abs((shell.verticalBar ? point.y : point.x) - (shell.verticalBar ? sample.height : sample.width) / 2) > 0.01)

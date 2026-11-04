@@ -1,6 +1,7 @@
 from qml_source import control_center_source
 from bar_frame_source import frame_source
 import importlib.util
+import json
 import os
 import shutil
 import subprocess
@@ -77,15 +78,31 @@ class BarSettingsTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory, patch.object(bar_settings, "SETTINGS", Path(directory) / "bar.json"), patch.object(bar_settings, "apply_live"):
             bar_settings.save_settings({"layout": "islands"})
             self.assertEqual(bar_settings.read_settings()["layout"], "islands")
-            for expected in ("unified", "centered", "notch", "islands"):
+            for expected in ("dynamic", "unified", "centered", "notch", "islands"):
                 with patch("sys.argv", ["bar-settings.py", "toggle", "layout"]):
                     bar_settings.main()
                 self.assertEqual(bar_settings.read_settings()["layout"], expected)
         root = Path(__file__).resolve().parents[3]
         menu = (root / "elephant/menus/bar-layout.lua").read_text()
         self.assertLess(menu.index('"notch"'), menu.index('"islands"'))
+        self.assertLess(menu.index('"islands"'), menu.index('"dynamic"'))
         controls = control_center_source(root / 'quickshell/desktop-bar')
         self.assertLess(controls.index('tr("Tabs")'), controls.index('tr("Islands")'))
+        self.assertLess(controls.index('tr("Islands")'), controls.index('tr("Dynamic")'))
+
+    def test_dynamic_is_available_to_ipc_and_every_frontend_and_locale(self):
+        root = Path(__file__).resolve().parents[3]
+        bar = root / 'quickshell/desktop-bar'
+        preferences = (bar / 'services/BarPreferences.qml').read_text()
+        self.assertEqual(preferences.count('["unified", "centered", "notch", "islands", "dynamic"]'), 2)
+        self.assertIn('host.barLayout === "islands" ? "dynamic" : "unified"', preferences)
+        self.assertIn('dynamic', bar_settings.OPTIONS['layout'])
+        for locale in ('en', 'de', 'es', 'fr', 'pt_BR'):
+            for domain in ('qml', 'menus'):
+                catalog = json.loads((root / 'i18n/catalogs' / locale / (domain + '.json')).read_text())
+                self.assertTrue(catalog['Dynamic'])
+                if domain == 'menus':
+                    self.assertTrue(catalog['Expand three floating islands on hover'])
 
     def test_appearance_cycles_theme_color_blur_and_website_everywhere(self):
         with tempfile.TemporaryDirectory() as directory, patch.object(bar_settings, "SETTINGS", Path(directory) / "bar.json"), patch.object(bar_settings, "apply_live"):

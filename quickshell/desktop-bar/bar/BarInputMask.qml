@@ -16,8 +16,9 @@ Region {
     // Focus hides the bar but keeps its window: hiding the window crashes Quickshell.
     Region { item: edgeSensorRef.visible && !FocusMode.enabled ? edgeSensorRef : null }
     Region { item: host.barPointerHeld && !FocusMode.enabled ? barHost.contentItem : null }
-    Region { item: FocusMode.enabled ? null : host.notchLayout ? tabStripRef : host.centeredLayout || host.islandsLayout ? null : barContentsRef }
+    Region { item: FocusMode.enabled ? null : host.notchLayout ? tabStripRef : host.centeredLayout || host.islandsLayout || host.dynamicLayout ? null : barContentsRef }
     IslandMask { surfaces: barHost.islandSurfaces.children }
+    IslandMask { surfaces: barHost.dynamicSurfaces.surfaces }
     CenteredBarMask { surface: barHost.centeredOutline; edge: host.barEdge; depth: barHost.normalThickness; bendRound: host.tabBendRound }
     Region { item: host.notchLayout && !FocusMode.enabled ? leadingTabRef : null }
     Region { item: host.notchLayout && !FocusMode.enabled ? notchTabRef : null }

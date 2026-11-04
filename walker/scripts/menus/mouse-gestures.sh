@@ -6,8 +6,8 @@ elif [[ -f "$EITR_CODE_ROOT/distro/lib/paths.sh" ]]; then source "$EITR_CODE_ROO
 
 options="Desktop: double left-click       Wallpaper carousel
 Desktop: double right-click      Theme carousel
-Bar: double left-click           Blur / Theme Color
-Bar: double right-click          Full / Centered / Tabs / Islands
+Bar: double left-click           Theme Color / Blur / Website
+Bar: double right-click          Full / Centered / Tabs / Islands / Dynamic
 Bar: left-click and drag         Move to a screen edge
 Workspace: right-click           Workspace style"
 

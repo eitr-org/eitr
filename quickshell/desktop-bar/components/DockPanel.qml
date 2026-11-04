@@ -6,6 +6,8 @@ import Quickshell
 Item {
     id: panel
     property Item attachmentTarget
+    // The bar item a Dynamic/Islands card grows from, when it is not the attachment target.
+    property Item morphAnchor: null
     property string attachmentEdge: "top"
     property string alignment: "right"
     property real leadingOffset: 0
@@ -112,20 +114,43 @@ Item {
     readonly property real desiredWidth: implicitWidth
     readonly property real desiredHeight: implicitHeight
     readonly property var hostWindow: attachmentTarget ? attachmentTarget.QsWindow.window : null
-    readonly property bool detached: !!hostWindow && (!!hostWindow.centeredLayout || !!hostWindow.notchLayout || !!hostWindow.islandsLayout)
-    readonly property bool centeredPlacement: !!hostWindow && !!hostWindow.centeredLayout
+    readonly property bool detached: !!hostWindow && (!!hostWindow.centeredLayout || !!hostWindow.notchLayout || !!hostWindow.islandsLayout || !!hostWindow.dynamicLayout)
+    // Centered and Dynamic gather the bar at the centre, so their panels open there too.
+    readonly property bool centeredPlacement: !!hostWindow && (!!hostWindow.centeredLayout || !!hostWindow.dynamicLayout)
     readonly property var edgeInsets: detached ? (!centeredPlacement && hostWindow.outerGaps ? hostWindow.outerGaps : [12, 12, 12, 12]) : [0, 0, 0, 0]
     readonly property real attachmentGap: detached ? hostWindow.panelGap : 0
     readonly property var focusWindows: hostWindow ? (hostWindow.panelFocusWindows || [hostWindow]) : []
     readonly property Item strip: hostWindow ? hostWindow.stripItem : null
+    // Dynamic: the owning island grows into this panel, which then draws no surface of its own.
+    readonly property Item morphIsland: hostWindow && hostWindow.dynamicLayout && !FocusMode.enabled && hostWindow.dynamicSurfaces
+        ? hostWindow.dynamicSurfaces.islandFor(panel) : null
+    readonly property point morphOrigin: morphIsland && strip ? hostWindow.dynamicSurfaces.panelOrigin(panel, strip.x, strip.y) : Qt.point(0, 0)
+    // Islands: a card grows out of the pill holding this panel's icon, from the pill's
+    // edge toward the panel's usual side, covering the bar row while open.
+    readonly property Item morphPill: hostWindow && hostWindow.islandsLayout && !FocusMode.enabled && hostWindow.islandSurfaces
+        ? hostWindow.islandSurfaces.pillFor(morphAnchor || attachmentTarget) : null
+    readonly property rect pillRect: {
+        if (!morphPill || !parent || !strip) return Qt.rect(0, 0, 0, 0);
+        var moved = morphPill.x + morphPill.y + morphPill.width + morphPill.height + strip.x + strip.y;
+        var at = morphPill.mapToItem(parent, 0, 0);
+        return Qt.rect(at.x, at.y, morphPill.width, morphPill.height);
+    }
+    function pillStart(start, length, size, limit) {
+        var grow = morphPill ? morphPill.grow : "center";
+        var desired = grow === "start" ? start : grow === "end" ? start + length - size : start + (length - size) / 2;
+        return Math.max(0, Math.min(limit - size, desired));
+    }
     parent: hostWindow ? hostWindow.contentItem : null
     z: 100
-    width: detached && parent && strip ? Math.min(desiredWidth, parent.width - (attachmentEdge === "left" || attachmentEdge === "right" ? strip.width + attachmentGap + (hostWindow.islandsLayout ? hostWindow.islandGap : 0) + (attachmentEdge === "left" ? edgeInsets[1] : edgeInsets[3]) : edgeInsets[1] + edgeInsets[3])) : desiredWidth
-    height: detached && parent && strip ? Math.min(desiredHeight, parent.height - (attachmentEdge === "top" || attachmentEdge === "bottom" ? strip.height + attachmentGap + (hostWindow.islandsLayout ? hostWindow.islandGap : 0) + (attachmentEdge === "top" ? edgeInsets[2] : edgeInsets[0]) : edgeInsets[0] + edgeInsets[2])) : desiredHeight
+    width: detached && parent && strip ? Math.min(desiredWidth, parent.width - (attachmentEdge === "left" || attachmentEdge === "right" ? strip.width + attachmentGap + ((hostWindow.islandsLayout || hostWindow.dynamicLayout) ? hostWindow.islandGap : 0) + (attachmentEdge === "left" ? edgeInsets[1] : edgeInsets[3]) : edgeInsets[1] + edgeInsets[3])) : desiredWidth
+    height: detached && parent && strip ? Math.min(desiredHeight, parent.height - (attachmentEdge === "top" || attachmentEdge === "bottom" ? strip.height + attachmentGap + ((hostWindow.islandsLayout || hostWindow.dynamicLayout) ? hostWindow.islandGap : 0) + (attachmentEdge === "top" ? edgeInsets[2] : edgeInsets[0]) : edgeInsets[0] + edgeInsets[2])) : desiredHeight
     PanelSizeBehavior on width { ownerPanel: panel }
     PanelSizeBehavior on height { ownerPanel: panel }
     x: {
         if (!strip || !parent || !attachmentTarget) return 0;
+        if (morphIsland) return morphOrigin.x;
+        if (morphPill) return attachmentEdge === "left" ? pillRect.x : attachmentEdge === "right" ? pillRect.x + pillRect.width - width
+            : pillStart(pillRect.x, pillRect.width, width, parent.width);
         if (attachmentEdge === "left") return strip.x + strip.width + attachmentGap;
         if (attachmentEdge === "right") return strip.x - width - attachmentGap;
         var desired = centeredPlacement ? (parent.width - width) / 2 : alignment === "left" ? 0 : alignment === "right" ? parent.width - width : (parent.width - width) / 2;
@@ -133,6 +158,9 @@ Item {
     }
     y: {
         if (!strip || !parent || !attachmentTarget) return 0;
+        if (morphIsland) return morphOrigin.y;
+        if (morphPill) return attachmentEdge === "top" ? pillRect.y : attachmentEdge === "bottom" ? pillRect.y + pillRect.height - height
+            : pillStart(pillRect.y, pillRect.height, height, parent.height);
         if (attachmentEdge === "top") return strip.y + strip.height + attachmentGap;
         if (attachmentEdge === "bottom") return strip.y - height - attachmentGap;
         var desired = centeredPlacement ? (parent.height - height) / 2 : alignment === "left" ? leadingOffset : alignment === "right" ? parent.height - height : (parent.height - height) / 2;
