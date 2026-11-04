@@ -166,7 +166,8 @@ def run(speed="normal", seconds=None, stdin=None, stdout=None):
                 signal.SIGHUP: signal.signal(signal.SIGHUP, on_stop)}
     deadline = time.monotonic() + seconds if seconds else None
     try:
-        tty.setcbreak(descriptor)
+        # TCSANOW keeps a key pressed while the rain was starting, so it still stops it.
+        tty.setcbreak(descriptor, termios.TCSANOW)
         stdout.write(ENTER)
         size = shutil.get_terminal_size()
         rain = Rain(size.columns, size.lines, colours, truecolour)

@@ -32,6 +32,14 @@ def run_in_terminal(arguments, columns=80, rows=30, key=None, after=1.0, resize=
         os.execvp(sys.executable, [sys.executable, str(DISTRO / "lib/eitr_matrix.py"), *arguments])
     fcntl.ioctl(descriptor, termios.TIOCSWINSZ, struct.pack("HHHH", rows, columns, 0, 0))
     output = b""
+    # Timing starts once the rain is on screen, however slowly a busy machine starts it.
+    startup = time.monotonic() + 15
+    while b"\x1b[?1049h" not in output and time.monotonic() < startup:
+        if select.select([descriptor], [], [], 0.05)[0]:
+            try:
+                output += os.read(descriptor, 65536)
+            except OSError:
+                break
     started = time.monotonic()
     resized = False
     while time.monotonic() - started < after:
@@ -48,7 +56,8 @@ def run_in_terminal(arguments, columns=80, rows=30, key=None, after=1.0, resize=
                 break
     if key is not None:
         os.write(descriptor, key)
-    while True:
+    deadline = time.monotonic() + 15
+    while time.monotonic() < deadline:
         ready, _, _ = select.select([descriptor], [], [], 3)
         if not ready:
             break
@@ -59,7 +68,11 @@ def run_in_terminal(arguments, columns=80, rows=30, key=None, after=1.0, resize=
         if not chunk:
             break
         output += chunk
-    _, status = os.waitpid(pid, 0)
+    finished, status = os.waitpid(pid, os.WNOHANG)
+    if not finished:
+        # Still raining after the deadline: stop it so the failure shows instead of a hang.
+        os.kill(pid, signal.SIGKILL)
+        _, status = os.waitpid(pid, 0)
     after_mode = termios.tcgetattr(descriptor)
     os.close(descriptor)
     return os.waitstatus_to_exitcode(status), output.decode(errors="replace"), after_mode
