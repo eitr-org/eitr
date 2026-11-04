@@ -4,7 +4,7 @@ Open work in priority order. Each item lists what decides the next step.
 Remove an item when it ships; `distro/RELEASES.md` tracks releases.
 
 1. Remote access: test with the owner
-2. Catalog: official themes and plugins
+2. Catalog: what is left
 3. Smaller items
 4. Later
 5. 0.8 release candidate and 1.0.0
@@ -28,81 +28,27 @@ Fresh installs include them; existing machines install missing apps on demand
 Afterwards, each tested separately: headless use, access before login, wake on
 LAN.
 
-# 2. Catalog: official themes and plugins
+# 2. Catalog: what is left
 
-A movable, resizable catalog window that lists every theme and plugin: what is
-installed and what the official repositories offer. Tested on the testing
-channel first; the website changes only once it reaches stable.
+The Themes & Plugins catalog, the 12 extra themes in `eitr-org/eitr-themes`, the
+native install review and the community index `eitr-org/eitr-community` shipped to
+stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
 
-- **Built in (13):** the nine realms, Eitr, Eitr Light, Afterglow and Ragnarok.
-- **Official extra themes (12), installed from `eitr-org/eitr-themes`:** Catppuccin, Catppuccin Latte,
-  Daylight, Gruvbox, Jade, Kanagawa, Moss, Nord, One Dark Pro, Rosé Pine,
-  Stillwater and Wisteria. Eitr Light stays the only built-in light theme until
-  new light themes are made.
-- **Installed** lists everything on the machine as Built in, Official
-  (`eitr-org/eitr-themes` or `eitr-org/eitr-plugins`, decided by repository
-  address only) or Third-party, each with use/open, update check and remove.
-  The **Official** tab combines built-ins and official repositories; **Community**
-  reads the community index. Themes and Plugins are the two sidebar rows.
-- **Download only what is chosen.** Each repository carries a small index (id,
-  name, description, size, small preview). The catalog fetches the index and
-  visible previews only while open; installing several selected items shows one
-  review with the total size and fetches only their folders. Updates are checked
-  in System Update, never on a timer.
-- **No terminal inside the catalog.** Pasting a third-party Git address, the
-  review, the AI check, progress and errors all happen in the window. Walker and
-  the Control Center keep their terminal flows; both front ends call the same
-  install code, so the safety checks cannot drift. Network reads and installs go
-  through a bar data domain.
-- **Themes are data.** A versioned theme format (like the plugins'
-  `schemaVersion`); themes containing executables are refused.
-- **Existing users.** Every existing account gets all 12 extra themes installed from the
-  official repository in the background, current theme first. Offline logins
-  retry later without changing the desktop; new accounts keep the 13 built-ins.
-- **Backend:** the versioned data-only theme format, sparse Git index and JSON
-  install/update/remove backend are implemented; see `distro/THEMES.md`. The
-  app/editor files are generated locally from trusted official integrations or
-  palette defaults; downloaded packages contain data only.
 - **Lockscreens (owner deciding).** Lockscreen designs are QML that runs in the
   screen reading the password, so only official designs from an
   `eitr-org/eitr-lockscreens` repository would be offered; third-party designs are
   refused and the owner's own lockscreens stay settings on an installed design.
   Which designs stay built in is still open.
-- **Catalog window (built, owner reviewing).** A movable, resizable window the
-  shortcut toggles; the Handbook shares its window component. Sidebar: Themes,
-  Plugins; browser-style tabs (the selected one joins the page): Installed, Official,
-  Community. Theme cards show palette swatches; clicking an installed theme applies
-  it, and Sun/Moon filter light or dark themes (all by default, like the theme
-  carousel). Opening loads installed items and both indexes for themes and plugins
-  once; tabs only switch views, and cards render in pages of 24 as you scroll.
-  Multi-select theme installs, updates checked on open, and removal. Official and
-  Community cards open detail sheets with source metadata, palette tooltips and
-  wallpaper browsing; card Install buttons toggle selection. Detail Install reviews
-  only that theme. Official indexes ship checked wallpaper thumbnails; community
-  galleries discover names and sizes without fetching image blobs.
-  Built-in themes cannot be removed; a search field filters the current tab by name
-  and description. Plugin cards share the picture grid, with screenshots,
-  centered icons or a generic glyph, source/status badges and removal. Artwork
-  downloads on demand. Plugin detail sheets support pictures and muted video; native
-  install/update reviews and Add from a Git address are implemented.
-- **Community index `eitr-org/eitr-community`.** Pointers only, one JSON file per
-  entry under `themes/` and `plugins/` (plugins pin an exact commit),
-  `removed.json`, a generated `index.json`, and CI running
-  `tools/community-index.py --check --verify` (format: `distro/COMMUNITY.md`).
-  Community themes follow their author's repository; community plugin updates are
-  new pull requests the owner reviews. Lockscreens stay official-only.
-- **Remaining:** owner review on the testing channel, lockscreen decisions and
-  stable-release website changes. The native install review and extra-theme
-  migration are implemented.
+- **Plugin media.** Real screenshots and short clips for Visualizer and Lofi Radio
+  (`media`/`preview` in `eitr-org/eitr-plugins`), captured only with the owner's go.
 
 # 3. Smaller items
 
 - **Light themes.** The owner has ideas for more light themes; create them later.
-- **Walker slow to open after login: confirm the fix.** Login started Elephant 4 s
-  after the bar, then it spent ~3.6 s loading menus, so SUPER shortcuts did nothing
-  for ~12 s after the desktop appeared. Elephant now starts with the bar, and the rest
-  of login waits for the bar to answer instead of a fixed 4 s; the owner checks
-  SUPER+F right after the next login.
+- **Walker at login: start Elephant earlier.** After the fix, Walker is usable about
+  7.4 s after login (was ~12.5 s; measured 2026-11-04). Elephant still starts ~3 s
+  after the bar process, behind the wallpaper check and the bar launch; starting it
+  first in `hypr/scripts/session-start.sh` should bring Walker to ~4 s.
 - **Choice lists: remaining copies.** Bar layouts and update channels still repeat
   their option lists across files; move them into `tools/choice-lists.json` when
   next touched.
