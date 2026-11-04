@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { existsSync, readdirSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { chromium } from 'playwright-core';
 
 const executablePath = process.env.EITR_BROWSER_EXECUTABLE || [
@@ -10,7 +10,9 @@ if (!executablePath) throw new Error('Set EITR_BROWSER_EXECUTABLE to Chrome/Chro
 const site = process.env.EITR_SITE_URL || 'http://127.0.0.1:4321/';
 const browser = await chromium.launch({ executablePath, headless: true });
 try {
-  const files = readdirSync(new URL('../public/shots/', import.meta.url)).filter(file => file.endsWith('.webp')).sort();
+  // The preview video's cover shares the folder but is not a screenshot.
+  const poster = JSON.parse(readFileSync(new URL('../src/data/preview-video.json', import.meta.url), 'utf8')).poster.split('/').pop();
+  const files = readdirSync(new URL('../public/shots/', import.meta.url)).filter(file => file.endsWith('.webp') && file !== poster).sort();
   for (const appearance of ['dark', 'light']) {
     const context = await browser.newContext({ reducedMotion: 'reduce' });
     await context.addInitScript(appearance => localStorage.setItem('eitr-appearance', appearance), appearance);

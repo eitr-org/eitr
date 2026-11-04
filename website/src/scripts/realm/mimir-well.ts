@@ -14,8 +14,11 @@ const announce = () => document.dispatchEvent(new CustomEvent(PALETTE));
 function recolor(card: HTMLElement) {
   for (const role of roles) {
     const color = card.dataset[role];
+    // Keep text readable: a light page darkens every theme's colors; a dark page lightens
+    // a light theme's, which are dark enough for light backgrounds only.
     if (color) root.style.setProperty(`--${role}`, root.dataset.appearance === 'light'
-      ? `color-mix(in srgb, ${color} 30%, #292521)` : color);
+      ? `color-mix(in srgb, ${color} 30%, #292521)`
+      : card.dataset.light ? `color-mix(in srgb, ${color} 40%, #e4dcd2)` : color);
   }
   announce();
 }

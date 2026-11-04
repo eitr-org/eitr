@@ -146,7 +146,7 @@ With Chrome, Chromium or Google Chrome installed and the site served
 (`npm run build && npm run preview`), run the browser tests:
 
 ```sh
-npm test                # every browser suite, including day/night and all-page accessibility
+npm test                # every test script, four at a time (EITR_TEST_JOBS); accessibility runs alone last
 npm run test:browser    # effects, navigation, music, responsive widths
 npm run test:sky        # day/night, persistence, keyboard, motion and light-mode accessibility
 npm run test:a11y       # axe-core: core pages and representative Handbook chapters, both themes and screen sizes

@@ -50,8 +50,8 @@ try {
       await page.keyboard.press('Enter');
       await page.waitForURL('**/development/');
       assert.match(await page.locator('h1').innerText(), /From a keystroke/);
-      assert.match(await page.locator('#environment').innerText(), /Included.*Curated optional installs.*Cursor/s);
-      assert.match(await page.locator('#agents').innerText(), /off by default/);
+      assert.match(await page.locator('#environment').innerText(), /Included.*Curated optional installs.*Optional toolchains.*Your existing projects/s);
+      assert.match(await page.locator('#agents').innerText(), /permission prompts can be restored/);
       if (width >= 1100) {
         const outline = page.getByRole('navigation', { name: 'On this page', exact: true });
         assert.ok(await outline.isVisible());
