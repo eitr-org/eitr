@@ -35,24 +35,28 @@ native install review and the community index `eitr-org/eitr-community` shipped 
 stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
 
 - **Lockscreens tab in the catalog (decided 2026-11-04).** A Lockscreens tab in
-  Themes & Plugins, working like themes and plugins. Every design shipped today stays
-  built in and cannot be uninstalled (no trash icon). New designs come only from an
-  official `eitr-org/eitr-lockscreens` repository at a pinned, reviewed version; there
-  is no community or third-party source, since a design runs on the screen that reads
-  the password. Removing a design that is in use, or that one of your own lockscreens
-  is built on, warns first and then falls back to Eitr. Fresh offline installs have
-  the built-in designs only.
+  Themes & Plugins, working like themes and plugins. Only the Eitr design is
+  permanent (no trash icon). The other designs shipped today move to an official
+  `eitr-org/eitr-lockscreens` repository, stay installed by default on fresh and
+  existing desktops, and can be uninstalled and reinstalled from the tab. New designs
+  come only from that repository at a pinned, reviewed version; there is no community
+  or third-party source, since a design runs on the screen that reads the password.
+  The design in use shows no trash icon. Uninstalling a design that some of your own
+  lockscreens are built on warns that they go with it. Fresh offline installs keep
+  every default design.
 - **Plugin media.** Real screenshots and short clips for Visualizer and Lofi Radio
   (`media`/`preview` in `eitr-org/eitr-plugins`), captured only with the owner's go.
 
 # 3. Smaller items
 
-- **Profile pictures.** Let each user choose a picture for their account and show it
-  where the account appears: the lockscreen, the SDDM login screen and the Control
-  Center or About. Nothing reads one today. The usual places are AccountsService's
-  `/var/lib/AccountsService/icons/USER` (root-owned, so it needs the Eitr system
-  helper) and `~/.face`; decide which one Eitr owns, add a picker with a crop
-  preview, and keep a default when none is set.
+- **Profile pictures (decided 2026-11-04).** Each user picks a picture for their
+  account, shown on the lockscreen, the SDDM login screen and in the Control Center
+  and About. Use the standard: AccountsService's `SetIconFile` over D-Bus, which lets
+  users change their own picture without root (stored as
+  `/var/lib/AccountsService/icons/USER`, which SDDM reads), and also write `~/.face`
+  for applications that look there. List `accountsservice` in the official package
+  manifest (it is only a dependency today). A picker with a square crop preview,
+  a remove option, and the user's initial on a theme-coloured circle when none is set.
 - **Light themes.** The owner has ideas for more light themes; create them later.
 - **Walker at login: start Elephant earlier.** After the fix, Walker is usable about
   7.4 s after login (was ~12.5 s; measured 2026-11-04). Elephant still starts ~3 s
