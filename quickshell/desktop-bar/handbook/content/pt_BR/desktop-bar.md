@@ -29,7 +29,7 @@ A barra começa em 1–5 e cresce até o espaço atual ou o maior ocupado, com l
 
 **SUPER + 1–9/0** muda de espaço; **SUPER + Shift + 1–9/0** move uma janela. **SUPER + Tab** abre a Visão geral. Clique em uma prévia ou use setas e Enter; 1–9/0 muda diretamente. Só aparecem espaços numerados ocupados, com prévias mantidas em memória. Escape ou um clique fora fecha a Visão geral.
 
-**SUPER + S** alterna o espaço especial, separado da Visão geral. **SUPER + Shift + Space** oculta/exibe a barra, sem interromper o serviço de notificações.
+**SUPER + S** alterna o espaço especial, separado da Visão geral. **SUPER + Shift + Space** liga ou desliga a ocultação automática da barra; se a barra foi ocultada pelo Centro de Controle, ela volta primeiro. As notificações continuam funcionando.
 
 Os gestos de mouse para papéis de parede e temas no espaço vazio da área de trabalho estão em **Aprender > Gestos do mouse**. Em caso de dúvida, use os atalhos de teclado dos carrosséis.
 

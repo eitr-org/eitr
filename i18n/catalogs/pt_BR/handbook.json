@@ -176,7 +176,6 @@
   "Toggle Themes & Plugins": "Alternar Temas e plugins",
   "Toggle automatic locking.": "Activa ou desactiva o bloqueio automático.",
   "Toggle control center": "Alternar o centro de controle",
-  "Toggle desktop bar": "Alternar a barra de área de trabalho",
   "Toggle floating and pin": "Alternar a flutuação e o pino",
   "Toggle fullscreen": "Alternar a tela cheia",
   "Toggle microphone mute": "Alternar o silenciamento do microfone",
@@ -201,5 +200,6 @@
   "Workspace style": "Estilo de espaço de trabalho",
   "Workspace: right-click": "Espaço de trabalho: clique com o botão direito",
   "Workspaces": "Espaços de trabalho",
-  "iwd, NetworkManager, reboot-only switching and enterprise configuration": "iwd, NetworkManager, comutação só de reinicialização e configuração empresarial"
+  "iwd, NetworkManager, reboot-only switching and enterprise configuration": "iwd, NetworkManager, comutação só de reinicialização e configuração empresarial",
+  "Bar auto-hide on/off, or show a hidden bar": "Ocultação automática da barra liga/desliga, ou mostrar a barra oculta"
 }

@@ -29,7 +29,7 @@ La barre commence à 1–5 et s’étend jusqu’à l’espace courant ou au plu
 
 **SUPER + 1–9/0** change d’espace ; **SUPER + Shift + 1–9/0** déplace une fenêtre. **SUPER + Tab** ouvre la Vue d’ensemble. Cliquez sur un aperçu ou utilisez flèches et Enter ; 1–9/0 change directement. Seuls les espaces numérotés occupés apparaissent et leurs aperçus restent en mémoire. Escape ou un clic à l’extérieur ferme la Vue d’ensemble.
 
-**SUPER + S** bascule l’espace spécial, distinct de la Vue d’ensemble. **SUPER + Shift + Space** masque/affiche la barre, pas le service de notifications.
+**SUPER + S** bascule l’espace spécial, distinct de la Vue d’ensemble. **SUPER + Shift + Space** active ou désactive le masquage automatique de la barre ; si la barre a été masquée depuis le Centre de contrôle, il la réaffiche d’abord. Les notifications continuent de fonctionner.
 
 Les gestes de souris pour fond d’écran et thème sur le bureau vide figurent dans **Apprendre > Gestes de la souris**. En cas de doute, utilisez les raccourcis des carrousels.
 

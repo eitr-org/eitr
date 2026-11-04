@@ -382,8 +382,8 @@
     "row": "Theme Picker"
   },
   {
-    "description": "Toggle desktop bar",
-    "row": "Toggle Desktop Bar"
+    "description": "Bar auto-hide on/off, or show a hidden bar",
+    "row": "Toggle Bar Auto-Hide"
   },
   {
     "description": "Notification center",

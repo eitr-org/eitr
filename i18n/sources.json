@@ -3844,7 +3844,7 @@
     "Tmux Commands": [
       "elephant/menu-rows/learn.json"
     ],
-    "Toggle Desktop Bar": [
+    "Toggle Bar Auto-Hide": [
       "elephant/menu-rows/shortcuts.json"
     ],
     "Toggle Floating And Pin": [
@@ -4069,6 +4069,9 @@
     ],
     "Audio, microphone, brightness, displays, keyboard, battery and power profiles": [
       "quickshell/desktop-bar/handbook/chapters.json"
+    ],
+    "Bar auto-hide on/off, or show a hidden bar": [
+      "tools/handbook-build.py"
     ],
     "Bar: double left-click": [
       "tools/handbook-build.py"
@@ -4589,9 +4592,6 @@
       "tools/handbook-build.py"
     ],
     "Toggle control center": [
-      "tools/handbook-build.py"
-    ],
-    "Toggle desktop bar": [
       "tools/handbook-build.py"
     ],
     "Toggle floating and pin": [

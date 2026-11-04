@@ -176,7 +176,6 @@
   "Toggle Themes & Plugins": "Themes und Plugins ein-/ausblenden",
   "Toggle automatic locking.": "Automatische Verriegelung umschalten.",
   "Toggle control center": "Umschaltzentrale",
-  "Toggle desktop bar": "Desktop-Leiste umschalten",
   "Toggle floating and pin": "Toggle Floating und Pin",
   "Toggle fullscreen": "Umschalten Vollbild",
   "Toggle microphone mute": "Kippmikrofon Mute",
@@ -201,5 +200,6 @@
   "Workspace style": "Art des Arbeitsbereichs",
   "Workspace: right-click": "Workspace: Rechtsklick",
   "Workspaces": "Arbeitsbereiche",
-  "iwd, NetworkManager, reboot-only switching and enterprise configuration": "iwd, NetworkManager, Reboot-Only Switching und Unternehmenskonfiguration"
+  "iwd, NetworkManager, reboot-only switching and enterprise configuration": "iwd, NetworkManager, Reboot-Only Switching und Unternehmenskonfiguration",
+  "Bar auto-hide on/off, or show a hidden bar": "Leiste automatisch ausblenden an/aus oder ausgeblendete Leiste zeigen"
 }

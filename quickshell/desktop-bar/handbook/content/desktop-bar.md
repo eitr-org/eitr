@@ -60,7 +60,7 @@ Runes shows workspaces 1 to 10 as the first ten Elder Futhark runes (ᚠ ᚢ ᚦ
 previews stay in memory. Escape/outside click closes Overview.
 
 **SUPER + S** toggles the special workspace, which is separate from Overview.
-**SUPER + Shift + Space** hides/shows the bar, not the notification service.
+**SUPER + Shift + Space** switches the bar's auto-hide on or off; if the bar was hidden from the Control Center, it brings it back first. Notifications keep working either way.
 
 On empty desktop space, the wallpaper/theme mouse gestures are listed under
 **Learn > Mouse Gestures**. Use the keyboard carousel shortcuts when in doubt.

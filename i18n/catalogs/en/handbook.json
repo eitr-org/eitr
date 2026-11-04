@@ -176,7 +176,6 @@
   "Toggle Themes & Plugins": "Toggle Themes & Plugins",
   "Toggle automatic locking.": "Toggle automatic locking.",
   "Toggle control center": "Toggle control center",
-  "Toggle desktop bar": "Toggle desktop bar",
   "Toggle floating and pin": "Toggle floating and pin",
   "Toggle fullscreen": "Toggle fullscreen",
   "Toggle microphone mute": "Toggle microphone mute",
@@ -201,5 +200,6 @@
   "Workspace style": "Workspace style",
   "Workspace: right-click": "Workspace: right-click",
   "Workspaces": "Workspaces",
-  "iwd, NetworkManager, reboot-only switching and enterprise configuration": "iwd, NetworkManager, reboot-only switching and enterprise configuration"
+  "iwd, NetworkManager, reboot-only switching and enterprise configuration": "iwd, NetworkManager, reboot-only switching and enterprise configuration",
+  "Bar auto-hide on/off, or show a hidden bar": "Bar auto-hide on/off, or show a hidden bar"
 }

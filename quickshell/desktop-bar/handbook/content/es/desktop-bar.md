@@ -29,7 +29,7 @@ La barra empieza en 1–5 y crece hasta el espacio actual o el mayor ocupado, co
 
 **SUPER + 1–9/0** cambia de espacio; **SUPER + Shift + 1–9/0** mueve una ventana. **SUPER + Tab** abre Vista general. Pulsa una vista previa o usa flechas y Enter; 1–9/0 cambia directamente. Solo aparecen espacios numerados ocupados y sus vistas previas quedan en memoria. Escape o un clic fuera cierra Vista general.
 
-**SUPER + S** alterna el espacio especial, independiente de Vista general. **SUPER + Shift + Space** oculta/muestra la barra, sin detener el servicio de notificaciones.
+**SUPER + S** alterna el espacio especial, independiente de Vista general. **SUPER + Shift + Space** activa o desactiva el ocultamiento automático de la barra; si la barra se ocultó desde el Centro de control, primero la muestra. Las notificaciones siguen funcionando.
 
 Los gestos de ratón para fondo y tema en el escritorio vacío están en **Aprender > Gestos del ratón**. Si tienes dudas, usa los atajos de teclado de los carruseles.
 

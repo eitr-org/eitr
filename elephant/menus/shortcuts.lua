@@ -15,7 +15,7 @@ GetEntries = dofile(paths.code("elephant/scoped-menu.lua"))("shortcuts", functio
     if not focused then return entries end
     local kept = {}
     for _, entry in ipairs(entries) do
-        if entry.Text ~= "Toggle Floating And Pin" and entry.Text ~= "Toggle Fullscreen" and entry.Text ~= "Toggle Desktop Bar" then
+        if entry.Text ~= "Toggle Floating And Pin" and entry.Text ~= "Toggle Fullscreen" and entry.Text ~= "Toggle Bar Auto-Hide" then
             table.insert(kept, entry)
         end
     end

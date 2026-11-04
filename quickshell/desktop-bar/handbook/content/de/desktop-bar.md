@@ -29,7 +29,7 @@ Die Leiste beginnt mit 1–5 und wächst bis zur aktuellen beziehungsweise höch
 
 **SUPER + 1–9/0** wechselt die Arbeitsfläche; **SUPER + Shift + 1–9/0** verschiebt ein Fenster. **SUPER + Tab** öffnet die Übersicht. Klicke eine Vorschau oder verwende Pfeile und Enter; 1–9/0 wechselt direkt. Nur belegte nummerierte Arbeitsflächen erscheinen, ihre Vorschauen bleiben im Arbeitsspeicher. Escape oder ein Klick außerhalb schließt die Übersicht.
 
-**SUPER + S** schaltet die spezielle Arbeitsfläche um, unabhängig von der Übersicht. **SUPER + Shift + Space** blendet die Leiste ein/aus, nicht den Benachrichtigungsdienst.
+**SUPER + S** schaltet die spezielle Arbeitsfläche um, unabhängig von der Übersicht. **SUPER + Shift + Space** schaltet das automatische Ausblenden der Leiste ein oder aus; wurde die Leiste im Kontrollzentrum ausgeblendet, holt es sie zuerst zurück. Benachrichtigungen funktionieren weiter.
 
 Mausgesten für Hintergrundbilder und Themen auf leerem Desktop stehen unter **Lernen > Mausgesten**. Verwende im Zweifel die Tastenkürzel der Karussells.
 

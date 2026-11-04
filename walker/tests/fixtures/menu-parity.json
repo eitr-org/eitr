@@ -2118,11 +2118,11 @@
         }
       },
       {
-        "text": "Toggle Desktop Bar",
+        "text": "Toggle Bar Auto-Hide",
         "subtext": "SUPER + Shift + Space",
         "icon": "󰍜",
         "actions": {
-          "open": "/usr/share/eitr/walker/scripts/actions/toggle/desktop-bar.sh"
+          "open": "/usr/share/eitr/walker/scripts/actions/toggle/desktop-bar.sh autohide"
         }
       },
       {
@@ -3644,9 +3644,9 @@
     },
     {
       "key": "SUPER + Shift + Space",
-      "description": "Toggle desktop bar",
-      "line": "  SUPER + Shift + Space     Toggle desktop bar",
-      "command": "\"$ACTIONS_DIR/toggle/desktop-bar.sh\""
+      "description": "Bar auto-hide on/off, or show a hidden bar",
+      "line": "  SUPER + Shift + Space     Bar auto-hide on/off, or show a hidden bar",
+      "command": "\"$ACTIONS_DIR/toggle/desktop-bar.sh\" autohide"
     },
     {
       "key": "SUPER + N",
@@ -8255,15 +8255,15 @@
       "key": "2afe92cac5ca2d5591fd4ad1c54209b025ce8b11cd780fb8ffa5d4bd398669e7",
       "provider": "menus:shortcuts",
       "identifier": "shortcuts:26",
-      "text": "Toggle Desktop Bar",
+      "text": "Toggle Bar Auto-Hide",
       "subtext": "SUPER + Shift + Space",
       "icon": "󰍜",
       "actions": [
         "open"
       ],
       "keywords": [
-        "Toggle Desktop Bar",
-        "Toggle Desktop Bar",
+        "Toggle Bar Auto-Hide",
+        "Toggle Bar Auto-Hide",
         "SUPER + Shift + Space"
       ],
       "menus": [

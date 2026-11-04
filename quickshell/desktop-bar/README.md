@@ -592,10 +592,11 @@ Run the preview:
 eitr-shell desktop-bar --daemonize
 ```
 
-Toggle the bar:
+Show or hide the bar, or (with `autohide`, as SUPER + Shift + Space does) switch
+auto-hide, bringing a hidden bar back first:
 
 ```sh
-eitr-run walker/scripts/actions/toggle/desktop-bar.sh
+eitr-run walker/scripts/actions/toggle/desktop-bar.sh [autohide]
 ```
 
 Stop the bar:

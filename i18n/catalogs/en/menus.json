@@ -629,7 +629,6 @@
   "Time from 00:00 to 23:59, like 21:30": "Time from 00:00 to 23:59, like 21:30",
   "Time with AM or PM, like 09:30 PM": "Time with AM or PM, like 09:30 PM",
   "Tmux Commands": "Tmux Commands",
-  "Toggle Desktop Bar": "Toggle Desktop Bar",
   "Toggle Floating And Pin": "Toggle Floating And Pin",
   "Toggle Focus": "Toggle Focus",
   "Toggle Fullscreen": "Toggle Fullscreen",
@@ -695,5 +694,6 @@
   "iwd": "iwd",
   "{service} · {url}": "{service} · {url}",
   "Rune Rain": "Rune Rain",
-  "Runes falling in the theme's colours; any key stops them": "Runes falling in the theme's colours; any key stops them"
+  "Runes falling in the theme's colours; any key stops them": "Runes falling in the theme's colours; any key stops them",
+  "Toggle Bar Auto-Hide": "Toggle Bar Auto-Hide"
 }

@@ -211,11 +211,11 @@
     }
   },
   {
-    "text": "Toggle Desktop Bar",
+    "text": "Toggle Bar Auto-Hide",
     "subtext": "SUPER + Shift + Space",
     "icon": "󰍜",
     "actions": {
-      "open": "/usr/share/eitr/walker/scripts/actions/toggle/desktop-bar.sh"
+      "open": "/usr/share/eitr/walker/scripts/actions/toggle/desktop-bar.sh autohide"
     }
   },
   {

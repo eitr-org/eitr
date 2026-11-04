@@ -39,6 +39,11 @@ Scope {
         function toggle(kind: string): void {
             if (kind === "appearance") preferences.updateBarSetting(kind, preferences.nextAppearance(host.barAppearance));
             else if (kind === "layout") preferences.updateBarSetting(kind, preferences.nextLayout(host.barLayout));
+            // A bar hidden from the Control Center comes back first; otherwise auto-hide switches.
+            else if (kind === "autohide") {
+                if (!host.barVisible) host.barVisible = true;
+                else preferences.updateBarSetting(kind, host.barAutoHide ? "no" : "yes");
+            }
         }
     }
 
