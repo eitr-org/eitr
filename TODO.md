@@ -125,7 +125,7 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
   until a key is pressed. A working prototype exists outside the repository
   (used for the 0.7 preview video); give it a home under `distro/bin/eitr`, a test
   for resize and clean exit, and a Learn/Handbook mention.
-- **Dynamic island, next.** Shipped on testing: the Dynamic layout (three centred
+- **Dynamic island, next.** Shipped to stable: the Dynamic layout (three centred
   islands that expand on hover, grow into their panels with ‹ › to step through an
   island's panels, and slide aside for each other) and Islands cards growing from
   their pills and pushing neighbours. Next: live activities in the clock island beyond
