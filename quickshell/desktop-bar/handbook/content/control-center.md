@@ -51,7 +51,8 @@ closes before a selection or recording starts.
 - **Keyboard:** layouts can be selected, added and removed, with at least one kept.
 - **Night Light & Main Display:** Night Light's mode and schedule (distinct
   from its manual switch) and the main display, which holds the bar.
-- **Information:** About, Hardware, AI Usage, Weather and Report a Problem.
+- **Information:** About, Hardware, AI Usage, Weather, Check This PC and
+  Report a Problem.
 - **Updates:** the update channel, System Update, what each update changed, and
   Pacman-only or AUR-only updates.
 - **Snapshots & Cleanup:** restore a file, home snapshots, recovery snapshots and

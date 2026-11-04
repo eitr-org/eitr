@@ -32,7 +32,7 @@ Captures d’écran (sélection, écran entier, fenêtre ou sélection directeme
 - **Périphériques:** panneaux Audio, Microphone, Écran (résolution, fréquence, échelle), Bluetooth et WiFi, Éclairage et limite de charge sur portable.
 - **Clavier:** sélectionner, ajouter ou supprimer des dispositions en conservant au moins une.
 - **Éclairage nocturne et écran principal:** mode et programmation de l’éclairage nocturne, distincts de l’interrupteur manuel, et écran principal accueillant la barre.
-- **Informations:** À propos, Matériel, Utilisation IA, Météo et Signaler un problème.
+- **Informations:** À propos, Matériel, Utilisation IA, Météo, Vérifier ce PC et Signaler un problème.
 - **Mises à jour:** canal, Mise à jour du système, changements de chaque mise à jour et mises à jour Pacman seules ou AUR seules.
 - **Instantanés et nettoyage:** restaurer un fichier, instantanés personnels et de récupération avec leur guide, Nettoyage et Dotfiles.
 

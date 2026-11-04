@@ -72,6 +72,7 @@
   "Channel: unknown": "Canal: desconocido",
   "Chapters": "Capítulos",
   "Chat with %1": "Chatear con %1",
+  "Check This PC": "Comprobar este PC",
   "Checking status…": "Comprobando estado…",
   "Choose Picture…": "Elegir imagen…",
   "Choose a theme": "Elija un tema",
@@ -276,6 +277,7 @@
   "No networks": "No hay redes",
   "No notifications": "No hay notificaciones",
   "No occupied workspaces": "No hay espacios de trabajo ocupados",
+  "No pictures in this folder": "No hay imágenes en esta carpeta",
   "No playback applications": "No hay aplicaciones reproduciendo audio",
   "No plugins installed": "No hay plugins instalados",
   "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "No hay datos de uso de IA legibles. Inicia sesión en Claude Code, Codex o Grok, o vuelve a actualizar más tarde.",
@@ -544,6 +546,5 @@
   "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
   "•  now": "•  ahora",
   "󰂚  No notifications": "󰂚  No hay notificaciones",
-  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones",
-  "No pictures in this folder": "No hay imágenes en esta carpeta"
+  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones"
 }

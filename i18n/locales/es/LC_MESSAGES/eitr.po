@@ -112,11 +112,23 @@ msgstr "==> Instalado en {total} s; apagando"
 msgid "A PEM CA certificate is required"
 msgstr "Se necesita un certificado de CA en formato PEM"
 
+msgid "A background service failed, so a feature may not work; restart the PC, and report a problem if it fails again."
+msgstr "Un servicio en segundo plano falló, así que alguna función puede no funcionar; reinicia el PC e informa de un problema si vuelve a fallar."
+
+msgid "A desktop component is not running, so menus or the bar may not work; log out and back in, and report a problem if it continues."
+msgstr "Un componente del escritorio no se está ejecutando, así que los menús o la barra pueden no funcionar; cierra la sesión y vuelve a entrar, e informa de un problema si continúa."
+
 msgid "A factory reset point already exists; it is never replaced"
 msgstr "Ya existe un punto de restablecimiento de fábrica; nunca se sustituye"
 
 msgid "A file such as ~/Pictures/lake.jpg, or an https address. Eitr downloads it (up to 50 MB) and checks that it is a picture."
 msgstr "Un archivo como ~/Pictures/lake.jpg o una dirección https. Eitr lo descarga (hasta 50 MB) y comprueba que sea una imagen."
+
+msgid "A graphics card has no driver, so the screen may be slow or limited; run System Update, restart, and report a problem if it stays."
+msgstr "Una tarjeta gráfica no tiene controlador, así que la pantalla puede ir lenta o limitada; ejecuta la Actualización del sistema, reinicia e informa de un problema si sigue igual."
+
+msgid "A leftover package lock can block updates; make sure no installer is open, then report a problem if it stays."
+msgstr "Un bloqueo de paquetes que quedó atrás puede impedir las actualizaciones; asegúrate de que no haya ningún instalador abierto e informa de un problema si sigue."
 
 msgid "A lockscreen named {name} already exists."
 msgstr "Ya existe una pantalla de bloqueo llamada {name}."
@@ -127,6 +139,12 @@ msgstr "Solo puede haber cuatro distribuciones activas a la vez"
 msgid "A network service is masked; review your custom configuration before switching."
 msgstr "Hay un servicio de red enmascarado; revisa la configuración personalizada antes de cambiar."
 
+msgid "A package signing key is missing or expired, so updates may be refused; run System Update."
+msgstr "Falta una clave de firma de paquetes o ha caducado, así que las actualizaciones pueden rechazarse; ejecuta la Actualización del sistema."
+
+msgid "A plugin reported errors; review it in Installed Plugins."
+msgstr "Un plugin informó de errores; revísalo en Plugins instalados."
+
 msgid "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background."
 msgstr "Un plugin se ejecuta como tú, con todos los permisos de tu cuenta. Puede leer tus archivos, claves SSH y datos del navegador, enviarlos a cualquier lugar y mantenerse en ejecución en segundo plano."
 
@@ -135,6 +153,9 @@ msgstr "Un programa ha fallado"
 
 msgid "A regular desktop user is required"
 msgstr "Se requiere un usuario normal del escritorio"
+
+msgid "A screen runs at a lower refresh rate than it supports, so motion looks less smooth; choose the higher rate in Display settings."
+msgstr "Una pantalla funciona a una frecuencia de actualización menor de la que admite, así que el movimiento se ve menos fluido; elige la frecuencia más alta en los ajustes de Pantalla."
 
 msgid "A selection is required"
 msgstr "Debes seleccionar una opción"
@@ -348,6 +369,9 @@ msgstr "Aplicando…"
 
 msgid "Apps"
 msgstr "Aplicaciones"
+
+msgid "Apps were closed because memory ran out; close apps you are not using, and report a problem if it keeps happening."
+msgstr "Se cerraron aplicaciones porque se acabó la memoria; cierra las aplicaciones que no uses e informa de un problema si sigue pasando."
 
 msgid "Arch posted news since your last update:"
 msgstr "Arch ha publicado noticias desde tu última actualización:"
@@ -1399,6 +1423,9 @@ msgstr "Google: Configuración > tu calendario > «Dirección secreta en formato
 msgid "Grafana"
 msgstr "Grafana"
 
+msgid "Graphics acceleration is unavailable, so the desktop draws with the processor and feels slow; in a virtual machine turn on 3D acceleration, otherwise check the graphics driver."
+msgstr "La aceleración gráfica no está disponible, así que el procesador dibuja el escritorio y va lento; en una máquina virtual activa la aceleración 3D; si no, revisa el controlador gráfico."
+
 msgid "Green"
 msgstr "Verde"
 
@@ -2035,11 +2062,17 @@ msgstr "No hay recordatorios."
 msgid "No risk flags. Read the changes anyway before you trust them."
 msgstr "Sin señales de riesgo. Lee los cambios de todos modos antes de confiar en ellos."
 
+msgid "No screen is turned on; turn one on in Display settings."
+msgstr "No hay ninguna pantalla encendida; enciende una en los ajustes de Pantalla."
+
 msgid "No sessions found."
 msgstr "No se encontraron sesiones."
 
 msgid "No snapshot has {path}."
 msgstr "Ninguna instantánea contiene {path}."
+
+msgid "No speakers or headphones were found; connect them, or choose an output in Audio settings."
+msgstr "No se encontraron altavoces ni auriculares; conéctalos o elige una salida en los ajustes de Audio."
 
 msgid "No such reminder."
 msgstr "No se ha encontrado ese recordatorio."
@@ -2242,11 +2275,17 @@ msgstr "Las acciones de paquetes requieren una terminal."
 msgid "Package picker failed"
 msgstr "Falló el selector de paquetes"
 
+msgid "Package signature errors were logged and can stop updates; run System Update again and report a problem if it fails."
+msgstr "Se registraron errores de firma de paquetes que pueden detener las actualizaciones; vuelve a ejecutar la Actualización del sistema e informa de un problema si falla."
+
 msgid "Packages"
 msgstr "Paquetes"
 
 msgid "Pages Projects"
 msgstr "Proyectos Pages"
+
+msgid "Part of the system was updated after the PC started; restart to start using it."
+msgstr "Parte del sistema se actualizó después de iniciar el PC; reinicia para empezar a usarla."
 
 msgid "Password"
 msgstr "Contraseña"
@@ -3049,6 +3088,15 @@ msgstr "Sólido (100%)"
 msgid "Some calendars could not be reached; their previous events stay."
 msgstr "No se pudo acceder a algunos calendarios; sus eventos anteriores se mantienen."
 
+msgid "Some installed plugins are blocked and do not run; review them in Installed Plugins."
+msgstr "Algunos plugins instalados están bloqueados y no se ejecutan; revísalos en Plugins instalados."
+
+msgid "Some programs crashed in the last week; report a problem if one keeps crashing."
+msgstr "Algunos programas se cerraron por un fallo en la última semana; informa de un problema si alguno sigue fallando."
+
+msgid "Sound is muted or at zero, so you will hear nothing; raise the volume."
+msgstr "El sonido está silenciado o a cero, así que no oirás nada; sube el volumen."
+
 msgid "Stable"
 msgstr "Estable"
 
@@ -3262,6 +3310,9 @@ msgstr "La partición EFI cambió desde la instalación; no es seguro restablece
 msgid "The Ollama package is still installed; remove it with: sudo pacman -R ollama"
 msgstr "El paquete de Ollama sigue instalado; quítalo con: sudo pacman -R ollama"
 
+msgid "The PC is short on memory and may feel slow; close apps you are not using."
+msgstr "Al PC le falta memoria y puede ir lento; cierra las aplicaciones que no uses."
+
 msgid "The URL must not contain spaces, control characters or backslashes."
 msgstr "La URL no puede contener espacios, caracteres de control ni barras inversas."
 
@@ -3289,6 +3340,12 @@ msgstr "La entrada assistants cambió; se dejó sin cambios."
 msgid "The boot menu style needs Limine; this system uses {loader}. Nothing was changed."
 msgstr "El estilo del menú de arranque requiere Limine; este sistema usa {loader}. No se cambió nada."
 
+msgid "The boot partition has filesystem errors that can stop the PC from starting; follow the recovery guide to repair it."
+msgstr "La partición de arranque tiene errores en el sistema de archivos que pueden impedir que el PC arranque; sigue la guía de recuperación para repararla."
+
+msgid "The boot partition is almost full, so the next kernel update may not fit; free space with Cleanup."
+msgstr "La partición de arranque está casi llena, así que la próxima actualización del kernel puede no caber; libera espacio con Limpieza."
+
 msgid "The browser opened a new GitHub issue. Describe what happened and attach {path}."
 msgstr "El navegador abrió una nueva incidencia de GitHub. Describe lo ocurrido y adjunta {path}."
 
@@ -3297,6 +3354,9 @@ msgstr "El servidor del calendario redirigió a una dirección insegura."
 
 msgid "The channel is stable or testing"
 msgstr "El canal debe ser stable o testing"
+
+msgid "The clock is not synchronized, which can break secure websites and updates; connect to the internet and wait a minute."
+msgstr "El reloj no está sincronizado, lo que puede romper sitios web seguros y actualizaciones; conéctate a internet y espera un minuto."
 
 msgid "The collaboration state is invalid; settings were left unchanged."
 msgstr "El estado de colaboración no es válido; los ajustes se dejaron sin cambios."
@@ -3309,6 +3369,9 @@ msgstr "El grupo eitr-sharing debe contener solo la cuenta de uso compartido"
 
 msgid "The factory reset helper is missing beside the boot guard"
 msgstr "Falta el asistente de restablecimiento de fábrica junto a la protección de arranque"
+
+msgid "The firewall is off, so other devices can reach more of this PC; turn it on in Firewall settings."
+msgstr "El cortafuegos está desactivado, así que otros dispositivos pueden acceder a más partes de este PC; actívalo en los ajustes de Cortafuegos."
 
 msgid "The firewall is off: every incoming connection reaches the apps listening for it."
 msgstr "El cortafuegos está desactivado: todas las conexiones entrantes llegan a las aplicaciones que las escuchan."
@@ -3400,8 +3463,14 @@ msgstr "El script de configuración {value} no terminó la última vez que se ej
 msgid "The site refused the download (HTTP {code}). {hint}"
 msgstr "El sitio rechazó la descarga (HTTP {code}). {hint}"
 
+msgid "The sound system is not running, so no app can play sound; log out and back in, and report a problem if it continues."
+msgstr "El sistema de sonido no se está ejecutando, así que ninguna aplicación puede reproducir sonido; cierra la sesión y vuelve a entrar, e informa de un problema si continúa."
+
 msgid "The speech model could not transcribe this recording."
 msgstr "El modelo de voz no pudo transcribir esta grabación."
+
+msgid "The system disk is almost full, so updates and apps can fail; free space with Cleanup."
+msgstr "El disco del sistema está casi lleno, así que las actualizaciones y las aplicaciones pueden fallar; libera espacio con Limpieza."
 
 msgid "The template must not name a disk"
 msgstr "The template must not name a disk"
@@ -3418,8 +3487,14 @@ msgstr "No se pudo aplicar el tema."
 msgid "The user service could not be loaded."
 msgstr "No se pudo cargar el servicio de usuario."
 
+msgid "The window manager found errors in its settings, so some shortcuts or layouts may not apply; undo recent changes to your own settings or report a problem."
+msgstr "El gestor de ventanas encontró errores en sus ajustes, así que algunos atajos o diseños pueden no aplicarse; deshaz tus cambios recientes o informa de un problema."
+
 msgid "Theme"
 msgstr "Tema"
+
+msgid "There is no update snapshot to go back to; the next System Update creates one."
+msgstr "No hay ninguna instantánea de actualización a la que volver; la próxima Actualización del sistema creará una."
 
 msgid "This ISO has no complete offline payload ({amount} is missing)"
 msgstr "Esta ISO no incluye todos los paquetes para instalar sin conexión (falta {amount})"
@@ -3754,6 +3829,9 @@ msgstr "Paquetes actualizados: {packages}. El escritorio usará las nuevas versi
 msgid "Updates are still waiting after System Update, so nothing was installed."
 msgstr "Siguen pendientes actualizaciones después de la Actualización del sistema, así que no se instaló nada."
 
+msgid "Updates are waiting; run System Update to get the latest fixes and security patches."
+msgstr "Hay actualizaciones pendientes; ejecuta la Actualización del sistema para obtener las últimas correcciones y parches de seguridad."
+
 msgid "Updates with snapshots (pass a 'before' number to see every package):\n"
 msgstr "Actualizaciones con instantáneas (indica un número 'before' para ver todos los paquetes):\n"
 
@@ -3891,6 +3969,9 @@ msgstr "La app web necesita un navegador basado en Chromium"
 
 msgid "Web apps need a Chromium-based browser. Install Chromium now? Enter installs · Esc skips"
 msgstr "Las aplicaciones web necesitan un navegador basado en Chromium. ¿Instalar Chromium ahora? Enter instala · Esc omite"
+
+msgid "Website names cannot be looked up, so the internet may not work; check your network connection."
+msgstr "No se pueden resolver los nombres de los sitios web, así que internet puede no funcionar; comprueba tu conexión de red."
 
 msgid "Website projects"
 msgstr "Proyectos de sitios web"

@@ -94,6 +94,7 @@ Column {
         ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("Hardware"); glyph: "󰍛"; onClicked: section.centerRef.panelRequested("hardware") }
         ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("AI Usage"); glyph: ""; onClicked: section.centerRef.panelRequested("ai") }
         ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("Weather"); glyph: "󰖐"; onClicked: section.centerRef.panelRequested("weather") }
+        ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("Check This PC"); glyph: "󰓣"; onClicked: section.centerRef.menuAction("system-maintenance", "Check This PC") }
         ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("Report a Problem"); glyph: "󰃤"; onClicked: section.centerRef.menuAction("system-information", "Report a Problem") }
     }
     }

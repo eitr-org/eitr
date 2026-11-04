@@ -30,6 +30,8 @@ REPORT = 'Settings > System > Information > Report a Problem'
 RESTART = 'Main > Power > Reboot'
 CLEANUP = 'Settings > System > Maintenance > Cleanup'
 FIREWALL = 'Settings > Security > Firewall'
+DISPLAY = 'Settings > Devices & Input > Display'
+AUDIO = 'Settings > Devices & Input > Audio'
 
 
 class Unavailable(Exception):
@@ -44,6 +46,8 @@ class Result:
     message: str
     source: str
     fix: str = ''
+    # One plain sentence leading a warning or problem: what it means and what to try.
+    meaning: str = ''
 
 
 class Context:
@@ -82,6 +86,15 @@ class Context:
         import glob
         return glob.glob(pattern)
 
+    def link(self, path):
+        """A symlink's target, or '' when there is no link."""
+        try:
+            return os.readlink(path)
+        except FileNotFoundError:
+            return ''
+        except OSError:
+            raise Unavailable(f'{path} cannot be inspected') from None
+
     def run(self, *arguments, allowed=(0,), timeout=5, env=None):
         try:
             result = subprocess.run(arguments, capture_output=True, text=True, timeout=timeout,
@@ -111,17 +124,24 @@ class Context:
         return time.time()
 
 
-def result(status, message, fix=''):
-    return status, message, fix
+def result(status, message, fix='', meaning=''):
+    return status, message, fix, meaning
+
+
+def restart_meaning():
+    return tr('Part of the system was updated after the PC started; restart to start using it.')
+
+
+def display_controllers(context):
+    """(sysfs device, vendor) for every PCI display controller."""
+    for device in sorted(context.glob('/sys/bus/pci/devices/*')):
+        if context.read(device + '/class').strip().startswith('0x03'):
+            vendor = context.read(device + '/vendor').strip().lower()
+            yield device, {'0x1002': 'amd', '0x8086': 'intel', '0x10de': 'nvidia'}.get(vendor, 'other')
 
 
 def gpu_vendors(context):
-    vendors = set()
-    for device in context.glob('/sys/bus/pci/devices/*'):
-        if context.read(device + '/class').strip().startswith('0x03'):
-            vendor = context.read(device + '/vendor').strip().lower()
-            vendors.add({'0x1002': 'amd', '0x8086': 'intel', '0x10de': 'nvidia'}.get(vendor, 'other'))
-    return vendors
+    return {vendor for _, vendor in display_controllers(context)}
 
 
 def check_kernel(context):
@@ -131,7 +151,7 @@ def check_kernel(context):
         raise Unavailable('installed kernel module metadata missing')
     current = f'/usr/lib/modules/{release}/pkgbase'
     if current not in kernels:
-        return result('warning', 'Running kernel modules were replaced; restart needed (all GPUs).', RESTART)
+        return result('warning', 'Running kernel modules were replaced; restart needed (all GPUs).', RESTART, restart_meaning())
     return result('ok', 'Running kernel has installed modules (all GPUs).')
 
 
@@ -144,7 +164,7 @@ def check_nvidia(context):
         raise Unavailable('NVIDIA version evidence missing')
     version = installed[1].split(':')[-1].rsplit('-', 1)[0]
     if loaded != version:
-        return result('warning', 'Loaded NVIDIA driver differs from installed nvidia-utils.', RESTART)
+        return result('warning', 'Loaded NVIDIA driver differs from installed nvidia-utils.', RESTART, restart_meaning())
     return result('ok', 'Loaded NVIDIA driver matches nvidia-utils.')
 
 
@@ -156,21 +176,21 @@ def check_graphics(context):
     for line in context.read('/var/log/pacman.log').splitlines():
         matched = re.match(r'\[([^]]+)\] \[ALPM\] upgraded (mesa|lib32-mesa|linux-firmware[^ ]*) ', line)
         if matched and datetime.datetime.fromisoformat(matched[1]).timestamp() > boot:
-            return result('warning', 'Mesa or firmware changed since boot; restart needed.', RESTART)
+            return result('warning', 'Mesa or firmware changed since boot; restart needed.', RESTART, restart_meaning())
     return result('ok', 'No Mesa or firmware upgrade recorded since boot.')
 
 
-def space(context, path, threshold, minimum=0):
+def space(context, path, threshold, meaning, minimum=0):
     total, used, free = context.disk(path)
     if total <= 0:
         raise Unavailable('filesystem size unavailable')
     percent = free * 100 / total
     message = f'{percent:.1f}% free; {free / 1048576:.0f} MiB available.'
-    return result('warning', message, CLEANUP) if percent < threshold or free < minimum else result('ok', message)
+    return result('warning', message, CLEANUP, meaning) if percent < threshold or free < minimum else result('ok', message)
 
 
 def check_root_space(context):
-    return space(context, '/', 10)
+    return space(context, '/', 10, tr('The system disk is almost full, so updates and apps can fail; free space with Cleanup.'))
 
 
 def check_snapshot_space(context):
@@ -192,7 +212,7 @@ def check_esp_space(context):
     for mount in ('/boot', '/efi', '/boot/efi'):
         status, kind = context.run('findmnt', '-n', '-o', 'FSTYPE', '-M', mount, allowed=(0, 1))
         if status == 0 and kind == 'vfat':
-            return space(context, mount, 15, 100 * 1048576)
+            return space(context, mount, 15, tr('The boot partition is almost full, so the next kernel update may not fit; free space with Cleanup.'), 100 * 1048576)
     raise Unavailable('no mounted, readable ESP at /boot, /efi or /boot/efi')
 
 
@@ -215,7 +235,8 @@ def check_updates(context):
                                      env={'CHECKUPDATES_DB': str(database)})
     count = len(output.splitlines()) if output else 0
     if status == 0 and count:
-        return result('warning', f'{count} pending updates in cached package lists (no mirror refresh).', UPDATE)
+        return result('warning', f'{count} pending updates in cached package lists (no mirror refresh).', UPDATE,
+                      tr('Updates are waiting; run System Update to get the latest fixes and security patches.'))
     return result('ok', 'No pending updates in cached package lists (freshness unknown).')
 
 
@@ -251,7 +272,8 @@ def check_pacman_lock(context):
         return result('ok', 'No pacman lock found.')
     status, _ = context.run('pgrep', '-x', 'pacman', allowed=(0, 1))
     if status == 1:
-        return result('warning', 'Pacman lock exists without a pacman process; do not remove it before checking package managers.', REPORT)
+        return result('warning', 'Pacman lock exists without a pacman process; do not remove it before checking package managers.', REPORT,
+                      tr('A leftover package lock can block updates; make sure no installer is open, then report a problem if it stays.'))
     return result('info', 'Pacman is running and holds a database lock.')
 
 
@@ -259,7 +281,8 @@ def check_signatures(context):
     log = context.read('/var/log/pacman.log').splitlines()[-500:]
     errors = [line for line in log if re.search(r'(database.*signature|signature.*database).*(invalid|corrupt|unknown)|invalid.*signature', line, re.I)]
     if errors:
-        return result('warning', 'Signature errors in the retained pacman log; may be historical.', UPDATE)
+        return result('warning', 'Signature errors in the retained pacman log; may be historical.', UPDATE,
+                      tr('Package signature errors were logged and can stop updates; run System Update again and report a problem if it fails.'))
     raise Unavailable('no logged signature errors; offline log inspection cannot validate current database signatures')
 
 
@@ -273,7 +296,8 @@ def check_snapshot_pair(context):
     before = {row[0] for row in rows if len(row) == 4 and not row[1].isdigit()}
     pairs = [row for row in rows if len(row) == 4 and row[1] in before]
     if not pairs:
-        return result('warning', 'No retained pre/post pair found.', RECOVERY)
+        return result('warning', 'No retained pre/post pair found.', RECOVERY,
+                      tr('There is no update snapshot to go back to; the next System Update creates one.'))
     latest = pairs[-1]
     return result('ok', f'Last retained pair: {latest[1]} / {latest[0]} ({latest[2]}).')
 
@@ -316,7 +340,8 @@ def failed_units(context, user=False):
     units = [line.split()[0] for line in output.splitlines()]
     names = ', '.join(units[:3]) + (f' and {count - 3} more' if count > 3 else '')
     command = 'systemctl ' + ('--user ' if user else '') + 'status ' + units[0]
-    return result('problem', f'{count} failed unit' + ('s' if count != 1 else '') + f': {names}.', command + '; ' + REPORT)
+    return result('problem', f'{count} failed unit' + ('s' if count != 1 else '') + f': {names}.', command + '; ' + REPORT,
+                  tr('A background service failed, so a feature may not work; restart the PC, and report a problem if it fails again.'))
 
 
 def check_system_units(context):
@@ -327,9 +352,13 @@ def check_user_units(context):
     return failed_units(context, user=True)
 
 
+def session_meaning():
+    return tr('A desktop component is not running, so menus or the bar may not work; log out and back in, and report a problem if it continues.')
+
+
 def process(context, name):
     status, _ = context.run('pgrep', '-x', name, allowed=(0, 1))
-    return result('ok', f'{name} is running.') if status == 0 else result('problem', f'{name} is not running.', REPORT)
+    return result('ok', f'{name} is running.') if status == 0 else result('problem', f'{name} is not running.', REPORT, session_meaning())
 
 
 def check_bar(context):
@@ -350,7 +379,7 @@ def check_walker(context):
     # Hyprland starts Walker's GApplication service, not a systemd walker unit.
     status, output = context.run('pgrep', '-x', 'walker', allowed=(0, 1))
     if status == 1:
-        return result('problem', 'Walker application service is not running.', REPORT)
+        return result('problem', 'Walker application service is not running.', REPORT, session_meaning())
     processes = [identifier for identifier in output.splitlines() if identifier.isdigit()]
     if not processes:
         raise Unavailable('Walker process IDs unavailable')
@@ -358,7 +387,7 @@ def check_walker(context):
         arguments = context.read_bytes(f'/proc/{identifier}/cmdline').split(b'\x00')
         if b'--gapplication-service' in arguments:
             return result('ok', 'Walker application service is running.')
-    return result('problem', 'Walker is running without its application service.', REPORT)
+    return result('problem', 'Walker is running without its application service.', REPORT, session_meaning())
 
 
 def check_elephant(context):
@@ -376,7 +405,12 @@ def check_pressure(context):
     if not matched:
         raise Unavailable('memory PSI format unavailable')
     pressure = float(matched[1])
-    return result('warning', f'Memory stalled {pressure:.2f}% over 10 seconds.', REPORT) if pressure >= 10 else result('ok', f'Memory stalled {pressure:.2f}% over 10 seconds.')
+    message = f'Memory stalled {pressure:.2f}% over 10 seconds.'
+    return result('warning', message, REPORT, memory_meaning()) if pressure >= 10 else result('ok', message)
+
+
+def memory_meaning():
+    return tr('The PC is short on memory and may feel slow; close apps you are not using.')
 
 
 def check_swap(context):
@@ -392,7 +426,7 @@ def check_swap(context):
     if not total:
         return result('info', 'No active swap or zram.')
     message = f'Swap {used / 1024:.0f}/{total / 1024:.0f} MiB; zram used {zram / 1024:.0f} MiB.'
-    return result('warning', message, REPORT) if used / total >= .9 else result('ok', message)
+    return result('warning', message, REPORT, memory_meaning()) if used / total >= .9 else result('ok', message)
 
 
 def check_oom(context):
@@ -400,7 +434,10 @@ def check_oom(context):
     if not output:
         raise Unavailable('kernel journal empty or not readable by this user')
     count = len(re.findall(r'Killed process \d+|oom-kill:', output))
-    return result('problem', f'{count} OOM kill records this boot.', REPORT) if count else result('ok', 'No OOM kills in readable kernel journal this boot.')
+    if count:
+        return result('problem', f'{count} OOM kill records this boot.', REPORT,
+                      tr('Apps were closed because memory ran out; close apps you are not using, and report a problem if it keeps happening.'))
+    return result('ok', 'No OOM kills in readable kernel journal this boot.')
 
 
 def check_coredumps(context):
@@ -408,13 +445,17 @@ def check_coredumps(context):
     if status == 1:
         raise Unavailable('no readable coredump records; absence and journal access cannot be distinguished')
     count = len(output.splitlines()) if output else 0
-    return result('warning', f'{count} readable core dumps in the last 7 days.', REPORT) if count else result('ok', 'No readable core dumps in the last 7 days.')
+    if count:
+        return result('warning', f'{count} readable core dumps in the last 7 days.', REPORT,
+                      tr('Some programs crashed in the last week; report a problem if one keeps crashing.'))
+    return result('ok', 'No readable core dumps in the last 7 days.')
 
 
 def check_dns(context):
     status, output = context.run('getent', 'ahosts', 'archlinux.org', allowed=(0, 2), timeout=3)
     if status == 2 or not output:
-        return result('problem', 'DNS lookup failed for archlinux.org.', 'eitr handbook network-backends')
+        return result('problem', 'DNS lookup failed for archlinux.org.', 'eitr handbook network-backends',
+                      tr('Website names cannot be looked up, so the internet may not work; check your network connection.'))
     return result('ok', 'DNS resolves archlinux.org (no HTTP request).')
 
 
@@ -422,7 +463,10 @@ def check_clock(context):
     value = context.run('timedatectl', 'show', '--property=NTPSynchronized', '--value')[1]
     if value not in ('yes', 'no'):
         raise Unavailable('clock synchronization state unavailable')
-    return result('ok', 'Clock synchronized.') if value == 'yes' else result('warning', 'Clock is not synchronized.', REPORT)
+    if value == 'yes':
+        return result('ok', 'Clock synchronized.')
+    return result('warning', 'Clock is not synchronized.', REPORT,
+                  tr('The clock is not synchronized, which can break secure websites and updates; connect to the internet and wait a minute.'))
 
 
 def firewall_state(context):
@@ -434,13 +478,17 @@ def firewall_state(context):
 
 def check_firewall(context):
     status = firewall_state(context)
-    return result('ok', 'Eitr firewall active.') if status == 0 else result('warning', 'Eitr firewall inactive.', FIREWALL)
+    if status == 0:
+        return result('ok', 'Eitr firewall active.')
+    return result('warning', 'Eitr firewall inactive.', FIREWALL,
+                  tr('The firewall is off, so other devices can reach more of this PC; turn it on in Firewall settings.'))
 
 
 def check_hyprland(context):
     output = context.run('hyprctl', 'configerrors')[1]
     if output and output != 'ok':
-        return result('problem', 'Hyprland reports configuration errors.', REPORT)
+        return result('problem', 'Hyprland reports configuration errors.', REPORT,
+                      tr('The window manager found errors in its settings, so some shortcuts or layouts may not apply; undo recent changes to your own settings or report a problem.'))
     return result('ok', 'Hyprland reports no configuration errors.')
 
 
@@ -448,14 +496,104 @@ def check_bar_errors(context):
     raise Unavailable('desktop bar has no structured load-error query; use Report a Problem for journal details')
 
 
+def check_gpu_driver(context):
+    controllers = list(display_controllers(context))
+    if not controllers:
+        raise Unavailable('no PCI display controller found')
+    names = []
+    missing = []
+    for device, vendor in controllers:
+        driver = Path(context.link(device + '/driver')).name
+        label = f'{vendor.upper() if vendor != "other" else "GPU"} {Path(device).name}'
+        names.append(f'{label}: {driver or "no driver"}')
+        if not driver:
+            missing.append(label)
+    message = '; '.join(names) + '.'
+    if missing:
+        return result('problem', message, UPDATE,
+                      tr('A graphics card has no driver, so the screen may be slow or limited; run System Update, restart, and report a problem if it stays.'))
+    return result('ok', message)
+
+
+def acceleration_meaning():
+    return tr('Graphics acceleration is unavailable, so the desktop draws with the processor and feels slow; in a virtual machine turn on 3D acceleration, otherwise check the graphics driver.')
+
+
+def check_acceleration(context):
+    # A display device without a render node is a basic framebuffer, such as a
+    # virtual machine without 3D acceleration or a GPU whose driver did not load.
+    if not context.glob('/dev/dri/card*'):
+        raise Unavailable('no DRM display device under /dev/dri')
+    nodes = context.glob('/dev/dri/renderD*')
+    if not nodes:
+        detail = 'No DRM render node under /dev/dri; apps fall back to software rendering.'
+        return result('problem', detail, REPORT, acceleration_meaning())
+    return result('ok', f'{len(nodes)} DRM render node' + ('s' if len(nodes) != 1 else '') + ' available.')
+
+
+def check_displays(context):
+    monitors = json.loads(context.run('hyprctl', 'monitors', 'all', '-j')[1])
+    if not isinstance(monitors, list):
+        raise ValueError('unexpected monitor list')
+    active = [monitor for monitor in monitors if not monitor.get('disabled')]
+    if not active:
+        return result('problem', 'Hyprland reports no enabled display.', DISPLAY,
+                      tr('No screen is turned on; turn one on in Display settings.'))
+    described = []
+    slow = []
+    for monitor in active:
+        width, height, rate = monitor['width'], monitor['height'], float(monitor['refreshRate'])
+        described.append(f'{monitor["name"]} {width}x{height} at {rate:.0f} Hz')
+        rates = [float(mode.split('@', 1)[1].removesuffix('Hz')) for mode in monitor.get('availableModes', [])
+                 if mode.startswith(f'{width}x{height}@')]
+        if rates and max(rates) - rate > 1:
+            slow.append(f'{monitor["name"]} runs at {rate:.0f} Hz but supports {max(rates):.0f} Hz at {width}x{height}')
+    off = [monitor['name'] for monitor in monitors if monitor.get('disabled')]
+    message = f'{len(active)} display' + ('s' if len(active) != 1 else '') + ': ' + ', '.join(described) + '.'
+    if off:
+        message += ' Turned off: ' + ', '.join(off) + '.'
+    if slow:
+        return result('warning', '; '.join(slow) + '.', DISPLAY,
+                      tr('A screen runs at a lower refresh rate than it supports, so motion looks less smooth; choose the higher rate in Display settings.'))
+    return result('info' if off else 'ok', message)
+
+
 def check_audio(context):
-    status, _ = context.run('pgrep', '-x', 'pipewire', allowed=(0, 1))
-    if status == 1:
-        return result('problem', 'PipeWire is not running.', REPORT)
+    for name in ('pipewire', 'wireplumber'):
+        status, _ = context.run('pgrep', '-x', name, allowed=(0, 1))
+        if status == 1:
+            return result('problem', f'{name} is not running.', REPORT,
+                          tr('The sound system is not running, so no app can play sound; log out and back in, and report a problem if it continues.'))
     status, output = context.run('wpctl', 'inspect', '@DEFAULT_AUDIO_SINK@', allowed=(0, 1))
-    if status or 'Audio/Sink' not in output:
-        return result('problem', 'PipeWire has no default output device.', REPORT)
-    return result('ok', 'PipeWire running with a default output device.')
+    if status or 'Audio/Sink' not in output or 'node.name = "auto_null"' in output:
+        return result('problem', 'PipeWire has no default output device.', AUDIO,
+                      tr('No speakers or headphones were found; connect them, or choose an output in Audio settings.'))
+    described = re.search(r'node\.description = "([^"]*)"', output)
+    return result('ok', 'PipeWire running with default output' + (f': {described[1]}.' if described else '.'))
+
+
+def volume(context, target):
+    output = context.run('wpctl', 'get-volume', target)[1]
+    matched = re.match(r'Volume: ([\d.]+)( \[MUTED\])?', output)
+    if not matched:
+        raise Unavailable('wpctl volume format unavailable')
+    return float(matched[1]), bool(matched[2])
+
+
+def check_volume(context):
+    level, muted = volume(context, '@DEFAULT_AUDIO_SINK@')
+    message = f'Output volume {level * 100:.0f}%' + (', muted.' if muted else '.')
+    if muted or level == 0:
+        return result('warning', message, AUDIO, tr('Sound is muted or at zero, so you will hear nothing; raise the volume.'))
+    return result('ok', message)
+
+
+def check_microphone(context):
+    status, output = context.run('wpctl', 'inspect', '@DEFAULT_AUDIO_SOURCE@', allowed=(0, 1))
+    if status or 'Audio/Source' not in output:
+        return result('info', 'No default microphone.')
+    level, muted = volume(context, '@DEFAULT_AUDIO_SOURCE@')
+    return result('info', f'Default microphone at {level * 100:.0f}%' + (', muted.' if muted else '.'))
 
 
 def check_secure_boot(context):
@@ -506,7 +644,8 @@ def check_plugins(context):
     context.read(context.state / 'eitr/plugins.json')
     blocked = Plugins().blocked()
     if blocked:
-        return result('warning', f'{len(blocked)} installed plugins are blocked.', 'Plugins > Installed Plugins')
+        return result('warning', f'{len(blocked)} installed plugin' + (' is' if len(blocked) == 1 else 's are') + ' blocked.', 'Plugins > Installed Plugins',
+                      tr('Some installed plugins are blocked and do not run; review them in Installed Plugins.'))
     return result('ok', 'No installed plugins are blocked.')
 
 
@@ -514,7 +653,8 @@ def check_plugin_hooks(context):
     lines = context.read(context.state / 'eitr/plugin-hooks.log').splitlines()[-100:]
     failures = [line for line in lines if re.search(r'^[a-z0-9][a-z0-9-]* (after-update|login|theme-changed|wallpaper-changed): ', line)]
     if failures:
-        return result('warning', f'{len(failures)} hook failures in last 100 log lines; log has no timestamps, age unknown.', 'Plugins > Installed Plugins')
+        return result('warning', f'{len(failures)} hook failures in last 100 log lines; log has no timestamps, age unknown.', 'Plugins > Installed Plugins',
+                      tr('A plugin reported errors; review it in Installed Plugins.'))
     return result('ok', 'No hook failure records in last 100 log lines; age unknown.')
 
 
@@ -550,7 +690,12 @@ CHECKS = [
     ('Network', 'firewall', check_firewall, 'eitr-system firewall-status'),
     ('Desktop', 'hyprland', check_hyprland, 'hyprctl configerrors'),
     ('Desktop', 'bar-errors', check_bar_errors, 'no structured bar error API available'),
-    ('Desktop', 'audio', check_audio, 'pgrep pipewire; wpctl inspect @DEFAULT_AUDIO_SINK@'),
+    ('Desktop', 'displays', check_displays, 'hyprctl monitors all -j; refresh rate vs availableModes'),
+    ('Graphics', 'gpu-driver', check_gpu_driver, 'PCI sysfs display controllers; bound driver link'),
+    ('Graphics', 'acceleration', check_acceleration, '/dev/dri/card* and renderD* device nodes'),
+    ('Audio', 'audio', check_audio, 'pgrep pipewire/wireplumber; wpctl inspect @DEFAULT_AUDIO_SINK@'),
+    ('Audio', 'volume', check_volume, 'wpctl get-volume @DEFAULT_AUDIO_SINK@'),
+    ('Audio', 'microphone', check_microphone, 'wpctl inspect/get-volume @DEFAULT_AUDIO_SOURCE@'),
     ('Security', 'secure-boot', check_secure_boot, 'SecureBoot EFI variable'),
     ('Security', 'encryption', check_encryption, 'findmnt; lsblk inverse block ancestry for root/home'),
     ('Security', 'firewall-info', check_security_firewall, 'eitr-system firewall-status'),
@@ -565,10 +710,10 @@ def collect(context=None):
     checks = []
     for group, name, function, source in CHECKS:
         try:
-            status, message, fix = function(context)
+            status, message, fix, meaning = function(context)
         except (Unavailable, OSError, ValueError, KeyError, IndexError, TypeError) as error:
-            status, message, fix = 'skipped', str(error) or 'evidence unavailable', ''
-        checks.append(Result(group, name, status, message, source, fix))
+            status, message, fix, meaning = 'skipped', str(error) or 'evidence unavailable', '', ''
+        checks.append(Result(group, name, status, message, source, fix, meaning))
     return checks
 
 
@@ -583,15 +728,19 @@ def check_keyring(context):
         for fingerprint in fingerprints:
             status, output = context.run('pacman-key', '--list-keys', fingerprint, allowed=(0, 1), timeout=15)
             if status or fingerprint.upper() not in re.sub(r'\s', '', output).upper():
-                return result('warning', f'{ring} signing key missing.', UPDATE)
+                return result('warning', f'{ring} signing key missing.', UPDATE, keyring_meaning())
             primary = next((line for line in output.splitlines() if line.startswith('pub ')), '')
             expires = re.search(r'\[expires: (\d{4}-\d{2}-\d{2})\]', primary)
             expired = expires and datetime.date.fromisoformat(expires[1]) <= datetime.datetime.fromtimestamp(context.now(), datetime.UTC).date()
             if not primary:
                 raise Unavailable(f'{ring} key listing format unavailable')
             if expired or re.search(r'\[(expired|revoked|disabled)', primary):
-                return result('warning', f'{ring} signing key expired, revoked or disabled.', UPDATE)
+                return result('warning', f'{ring} signing key expired, revoked or disabled.', UPDATE, keyring_meaning())
     return result('ok', 'Arch Linux and Eitr trusted signing keys present and not expired (offline sanity only).')
+
+
+def keyring_meaning():
+    return tr('A package signing key is missing or expired, so updates may be refused; run System Update.')
 
 
 def check_esp_filesystem(context):
@@ -611,7 +760,10 @@ def check_esp_filesystem(context):
     if status == 0 and (not mounts or any('ro' not in line.split(',') or 'rw' in line.split(',') for line in mounts.splitlines())):
         raise Unavailable('ESP filesystem check needs it unmounted; currently mounted read-write')
     status, _ = context.run('fsck.vfat', '-n', device, allowed=(0, 1), timeout=30)
-    return result('ok', 'ESP read-only filesystem check passed.') if status == 0 else result('warning', 'ESP filesystem errors found; use recovery to inspect it unmounted.', RECOVERY)
+    if status == 0:
+        return result('ok', 'ESP read-only filesystem check passed.')
+    return result('warning', 'ESP filesystem errors found; use recovery to inspect it unmounted.', RECOVERY,
+                  tr('The boot partition has filesystem errors that can stop the PC from starting; follow the recovery guide to repair it.'))
 
 
 def collect_deeper(context=None):
@@ -622,10 +774,10 @@ def collect_deeper(context=None):
     checks = []
     for group, name, function, source in registry:
         try:
-            status, message, fix = function(context)
+            status, message, fix, meaning = function(context)
         except (Unavailable, OSError, ValueError, KeyError, IndexError, TypeError) as error:
-            status, message, fix = 'skipped', str(error), ''
-        checks.append(Result(group, name, status, message, source, fix))
+            status, message, fix, meaning = 'skipped', str(error), '', ''
+        checks.append(Result(group, name, status, message, source, fix, meaning))
     return {'checks': [asdict(entry) for entry in checks]}
 
 
@@ -673,7 +825,12 @@ def plain(checks, color=False, width=120):
         prefix = f'  {label}  {check.name:<20}  '
         human = 'needs your password: run deeper checks' if check.message.startswith('needs your password:') else check.message
         message = human + (f' Fix: {check.fix}.' if check.fix else '')
-        wrapped = textwrap.wrap(message, width=max(25, width - 33)) or ['']
+        wrap = max(25, width - 33)
+        # A problem leads with its plain sentence; the technical evidence follows it.
+        if check.meaning and check.status in ('warning', 'problem'):
+            wrapped = textwrap.wrap(check.meaning, width=wrap) + textwrap.wrap('Details: ' + message, width=wrap)
+        else:
+            wrapped = textwrap.wrap(message, width=wrap) or ['']
         lines.append(prefix + wrapped[0])
         lines.extend(' ' * 33 + line for line in wrapped[1:])
     return '\n'.join(lines) + '\n\n' + summary(checks) + '\n'

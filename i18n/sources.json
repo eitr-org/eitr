@@ -239,6 +239,9 @@
     "Chat with %1": [
       "quickshell/desktop-bar/panels/ControlCenterNavigation.qml"
     ],
+    "Check This PC": [
+      "quickshell/desktop-bar/panels/ControlCenterSettings.qml"
+    ],
     "Checking status…": [
       "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
     ],
@@ -4805,11 +4808,23 @@
     "A PEM CA certificate is required": [
       "distro/system/network-backend.py"
     ],
+    "A background service failed, so a feature may not work; restart the PC, and report a problem if it fails again.": [
+      "distro/lib/eitr_selfcheck.py"
+    ],
+    "A desktop component is not running, so menus or the bar may not work; log out and back in, and report a problem if it continues.": [
+      "distro/lib/eitr_selfcheck.py"
+    ],
     "A factory reset point already exists; it is never replaced": [
       "distro/system/factory-reset.py"
     ],
     "A file such as ~/Pictures/lake.jpg, or an https address. Eitr downloads it (up to 50 MB) and checks that it is a picture.": [
       "walker/scripts/actions/style/own.py"
+    ],
+    "A graphics card has no driver, so the screen may be slow or limited; run System Update, restart, and report a problem if it stays.": [
+      "distro/lib/eitr_selfcheck.py"
+    ],
+    "A leftover package lock can block updates; make sure no installer is open, then report a problem if it stays.": [
+      "distro/lib/eitr_selfcheck.py"
     ],
     "A lockscreen named {name} already exists.": [
       "distro/lib/eitr_own_style.py",
@@ -4821,6 +4836,12 @@
     "A network service is masked; review your custom configuration before switching.": [
       "distro/system/network-backend.py"
     ],
+    "A package signing key is missing or expired, so updates may be refused; run System Update.": [
+      "distro/lib/eitr_selfcheck.py"
+    ],
+    "A plugin reported errors; review it in Installed Plugins.": [
+      "distro/lib/eitr_selfcheck.py"
+    ],
     "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background.": [
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -4830,6 +4851,9 @@
     "A regular desktop user is required": [
       "distro/lib/eitr_profile_apply.py",
       "distro/system/eitr_remote.py"
+    ],
+    "A screen runs at a lower refresh rate than it supports, so motion looks less smooth; choose the higher rate in Display settings.": [
+      "distro/lib/eitr_selfcheck.py"
     ],
     "A selection is required": [
       "quickshell/desktop-bar/scripts/appearance-state.py"
@@ -5045,6 +5069,9 @@
     ],
     "Apps": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Apps were closed because memory ran out; close apps you are not using, and report a problem if it keeps happening.": [
+      "distro/lib/eitr_selfcheck.py"
     ],
     "Arch posted news since your last update:": [
       "walker/scripts/actions/system/arch-news.py"
@@ -6117,6 +6144,9 @@
     "Grafana": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
+    "Graphics acceleration is unavailable, so the desktop draws with the processor and feels slow; in a virtual machine turn on 3D acceleration, otherwise check the graphics driver.": [
+      "distro/lib/eitr_selfcheck.py"
+    ],
     "Green": [
       "walker/scripts/actions/style/own.py"
     ],
@@ -6773,11 +6803,17 @@
     "No risk flags. Read the changes anyway before you trust them.": [
       "walker/scripts/actions/install/plugins.py"
     ],
+    "No screen is turned on; turn one on in Display settings.": [
+      "distro/lib/eitr_selfcheck.py"
+    ],
     "No sessions found.": [
       "walker/scripts/actions/ai-assistant.py"
     ],
     "No snapshot has {path}.": [
       "walker/scripts/actions/system/restore-file.py"
+    ],
+    "No speakers or headphones were found; connect them, or choose an output in Audio settings.": [
+      "distro/lib/eitr_selfcheck.py"
     ],
     "No such reminder.": [
       "walker/scripts/actions/tools/reminders.py",
@@ -6986,11 +7022,17 @@
     "Package picker failed": [
       "walker/scripts/actions/install/software.py"
     ],
+    "Package signature errors were logged and can stop updates; run System Update again and report a problem if it fails.": [
+      "distro/lib/eitr_selfcheck.py"
+    ],
     "Packages": [
       "fastfetch/eitr.py"
     ],
     "Pages Projects": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Part of the system was updated after the PC started; restart to start using it.": [
+      "distro/lib/eitr_selfcheck.py"
     ],
     "Password": [
       "distro/archinstall/installer-ui.py",
@@ -7806,6 +7848,15 @@
     "Some calendars could not be reached; their previous events stay.": [
       "walker/scripts/actions/tools/calendars.py"
     ],
+    "Some installed plugins are blocked and do not run; review them in Installed Plugins.": [
+      "distro/lib/eitr_selfcheck.py"
+    ],
+    "Some programs crashed in the last week; report a problem if one keeps crashing.": [
+      "distro/lib/eitr_selfcheck.py"
+    ],
+    "Sound is muted or at zero, so you will hear nothing; raise the volume.": [
+      "distro/lib/eitr_selfcheck.py"
+    ],
     "Stable": [
       "tools/choice-lists.json"
     ],
@@ -8019,6 +8070,9 @@
     "The Ollama package is still installed; remove it with: sudo pacman -R ollama": [
       "distro/lib/eitr_local_assistant.py"
     ],
+    "The PC is short on memory and may feel slow; close apps you are not using.": [
+      "distro/lib/eitr_selfcheck.py"
+    ],
     "The URL must not contain spaces, control characters or backslashes.": [
       "walker/scripts/actions/install/webapps.py"
     ],
@@ -8050,6 +8104,12 @@
     "The boot menu style needs Limine; this system uses {loader}. Nothing was changed.": [
       "distro/system/eitr-system.py"
     ],
+    "The boot partition has filesystem errors that can stop the PC from starting; follow the recovery guide to repair it.": [
+      "distro/lib/eitr_selfcheck.py"
+    ],
+    "The boot partition is almost full, so the next kernel update may not fit; free space with Cleanup.": [
+      "distro/lib/eitr_selfcheck.py"
+    ],
     "The browser opened a new GitHub issue. Describe what happened and attach {path}.": [
       "walker/scripts/actions/system/report-problem.py"
     ],
@@ -8058,6 +8118,9 @@
     ],
     "The channel is stable or testing": [
       "distro/system/eitr-system.py"
+    ],
+    "The clock is not synchronized, which can break secure websites and updates; connect to the internet and wait a minute.": [
+      "distro/lib/eitr_selfcheck.py"
     ],
     "The collaboration state is invalid; settings were left unchanged.": [
       "distro/lib/eitr_collaboration.py"
@@ -8070,6 +8133,9 @@
     ],
     "The factory reset helper is missing beside the boot guard": [
       "distro/system/boot-guard.py"
+    ],
+    "The firewall is off, so other devices can reach more of this PC; turn it on in Firewall settings.": [
+      "distro/lib/eitr_selfcheck.py"
     ],
     "The firewall is off: every incoming connection reaches the apps listening for it.": [
       "distro/system/eitr-system.py"
@@ -8167,8 +8233,14 @@
     "The site refused the download (HTTP {code}). {hint}": [
       "distro/lib/eitr_own_style.py"
     ],
+    "The sound system is not running, so no app can play sound; log out and back in, and report a problem if it continues.": [
+      "distro/lib/eitr_selfcheck.py"
+    ],
     "The speech model could not transcribe this recording.": [
       "walker/scripts/actions/tools/voice-command.py"
+    ],
+    "The system disk is almost full, so updates and apps can fail; free space with Cleanup.": [
+      "distro/lib/eitr_selfcheck.py"
     ],
     "The template must not name a disk": [
       "distro/archinstall/eitr-guided-install"
@@ -8185,8 +8257,14 @@
     "The user service could not be loaded.": [
       "distro/lib/eitr_local_assistant.py"
     ],
+    "The window manager found errors in its settings, so some shortcuts or layouts may not apply; undo recent changes to your own settings or report a problem.": [
+      "distro/lib/eitr_selfcheck.py"
+    ],
     "Theme": [
       "fastfetch/eitr.py"
+    ],
+    "There is no update snapshot to go back to; the next System Update creates one.": [
+      "distro/lib/eitr_selfcheck.py"
     ],
     "This ISO has no complete offline payload ({amount} is missing)": [
       "distro/archinstall/eitr-guided-install"
@@ -8522,6 +8600,9 @@
     "Updates are still waiting after System Update, so nothing was installed.": [
       "walker/scripts/actions/install/software.py"
     ],
+    "Updates are waiting; run System Update to get the latest fixes and security patches.": [
+      "distro/lib/eitr_selfcheck.py"
+    ],
     "Updates with snapshots (pass a 'before' number to see every package):\n": [
       "distro/system/eitr-system.py"
     ],
@@ -8663,6 +8744,9 @@
     ],
     "Web apps need a Chromium-based browser. Install Chromium now? Enter installs · Esc skips": [
       "walker/scripts/actions/install/webapps.py"
+    ],
+    "Website names cannot be looked up, so the internet may not work; check your network connection.": [
+      "distro/lib/eitr_selfcheck.py"
     ],
     "Website projects": [
       "walker/scripts/menus/cloud/providers.py"

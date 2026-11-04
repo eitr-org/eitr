@@ -570,7 +570,8 @@ var qml = {
     "Choose Picture…": "Choose Picture…",
     "Profile Picture": "Profile Picture",
     "Profile picture": "Profile picture",
-    "No pictures in this folder": "No pictures in this folder"
+    "No pictures in this folder": "No pictures in this folder",
+    "Check This PC": "Check This PC"
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -646,6 +647,7 @@ var qml = {
     "Channel: unknown": "Canal: desconhecido",
     "Chapters": "Capítulos",
     "Chat with %1": "Conversar com %1",
+    "Check This PC": "Verificar este PC",
     "Checking status…": "Verificando status…",
     "Choose Picture…": "Escolher imagem…",
     "Choose a theme": "Escolha um tema",
@@ -850,6 +852,7 @@ var qml = {
     "No networks": "Nenhuma rede",
     "No notifications": "Nenhuma notificação",
     "No occupied workspaces": "Nenhum espaço de trabalho ocupado",
+    "No pictures in this folder": "Nenhuma imagem nesta pasta",
     "No playback applications": "Nenhum aplicativo reproduzindo áudio",
     "No plugins installed": "Nenhum plugin instalado",
     "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "Nenhum dado de uso de IA legível disponível. Entre no Claude Code, Codex ou Grok, ou tente atualizar mais tarde.",
@@ -1118,8 +1121,7 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  agora",
     "󰂚  No notifications": "󰂚  Nenhuma notificação",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Não perturbe\n\nNenhuma notificação",
-    "No pictures in this folder": "Nenhuma imagem nesta pasta"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Não perturbe\n\nNenhuma notificação"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1195,6 +1197,7 @@ var qml = {
     "Channel: unknown": "Canal: desconocido",
     "Chapters": "Capítulos",
     "Chat with %1": "Chatear con %1",
+    "Check This PC": "Comprobar este PC",
     "Checking status…": "Comprobando estado…",
     "Choose Picture…": "Elegir imagen…",
     "Choose a theme": "Elija un tema",
@@ -1399,6 +1402,7 @@ var qml = {
     "No networks": "No hay redes",
     "No notifications": "No hay notificaciones",
     "No occupied workspaces": "No hay espacios de trabajo ocupados",
+    "No pictures in this folder": "No hay imágenes en esta carpeta",
     "No playback applications": "No hay aplicaciones reproduciendo audio",
     "No plugins installed": "No hay plugins instalados",
     "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "No hay datos de uso de IA legibles. Inicia sesión en Claude Code, Codex o Grok, o vuelve a actualizar más tarde.",
@@ -1667,8 +1671,7 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  ahora",
     "󰂚  No notifications": "󰂚  No hay notificaciones",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones",
-    "No pictures in this folder": "No hay imágenes en esta carpeta"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -1744,6 +1747,7 @@ var qml = {
     "Channel: unknown": "Kanal: unbekannt",
     "Chapters": "Kapitel",
     "Chat with %1": "Mit %1 chatten",
+    "Check This PC": "Diesen PC prüfen",
     "Checking status…": "Status wird geprüft…",
     "Choose Picture…": "Bild auswählen…",
     "Choose a theme": "Wählen Sie ein Thema",
@@ -1948,6 +1952,7 @@ var qml = {
     "No networks": "Keine Netzwerke",
     "No notifications": "Keine Benachrichtigungen",
     "No occupied workspaces": "Keine belegten Arbeitsflächen",
+    "No pictures in this folder": "Keine Bilder in diesem Ordner",
     "No playback applications": "Keine Anwendungen mit Audiowiedergabe",
     "No plugins installed": "Keine Plugins installiert",
     "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "Keine lesbaren KI-Nutzungsdaten verfügbar. Melde dich bei Claude Code, Codex oder Grok an oder aktualisiere später erneut.",
@@ -2216,8 +2221,7 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  jetzt",
     "󰂚  No notifications": "󰂚  Keine Benachrichtigungen",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen",
-    "No pictures in this folder": "Keine Bilder in diesem Ordner"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2293,6 +2297,7 @@ var qml = {
     "Channel: unknown": "Canal : inconnu",
     "Chapters": "Chapitres",
     "Chat with %1": "Discuter avec %1",
+    "Check This PC": "Vérifier ce PC",
     "Checking status…": "Vérification de l’état…",
     "Choose Picture…": "Choisir une image…",
     "Choose a theme": "Choisir un thème",
@@ -2497,6 +2502,7 @@ var qml = {
     "No networks": "Aucun réseau",
     "No notifications": "Aucune notification",
     "No occupied workspaces": "Aucun espace de travail occupé",
+    "No pictures in this folder": "Aucune image dans ce dossier",
     "No playback applications": "Aucune application en lecture audio",
     "No plugins installed": "Aucun plugin installé",
     "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": "Aucune donnée d’utilisation de l’IA lisible. Connectez-vous à Claude Code, Codex ou Grok, ou réessayez d’actualiser plus tard.",
@@ -2765,7 +2771,6 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  maintenant",
     "󰂚  No notifications": "󰂚  Aucune notification",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification",
-    "No pictures in this folder": "Aucune image dans ce dossier"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification"
   }
 };

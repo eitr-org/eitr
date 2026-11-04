@@ -16,9 +16,10 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 class Evidence(check.Context):
-    def __init__(self, files=None, commands=None, globs=None, disks=None):
+    def __init__(self, files=None, commands=None, globs=None, disks=None, links=None):
         self.state = Path('/fixture-state')
         self.files = files or {}
+        self.links = links or {}
         self.commands = commands or {}
         self.globs = globs or {}
         self.disks = disks or {}
@@ -37,6 +38,9 @@ class Evidence(check.Context):
 
     def glob(self, pattern):
         return self.globs.get(pattern, [])
+
+    def link(self, path):
+        return self.links.get(str(path), '')
 
     def disk(self, path):
         if path not in self.disks:
@@ -70,6 +74,8 @@ class SelfcheckTests(unittest.TestCase):
         self.assertEqual(actual[0], expected, actual)
         if expected in ('warning', 'problem'):
             self.assertTrue(actual[2], actual)
+            # Every warning and problem leads with a plain sentence.
+            self.assertTrue(actual[3], actual)
         return actual
 
     def test_all_missing_checks_skip_independently(self):
@@ -84,7 +90,7 @@ class SelfcheckTests(unittest.TestCase):
         for error in (OSError('unreadable'), ValueError('bad format'), KeyError('missing field')):
             with self.subTest(error=error), patch.object(check, 'CHECKS', [
                 ('Fixture', 'bad', Mock(side_effect=error), 'fixture'),
-                ('Fixture', 'good', Mock(return_value=('ok', 'healthy', '')), 'fixture')
+                ('Fixture', 'good', Mock(return_value=('ok', 'healthy', '', '')), 'fixture')
             ]):
                 checks = check.collect(Evidence())
                 self.assertEqual([item.status for item in checks[:2]], ['skipped', 'ok'])
@@ -349,10 +355,75 @@ class SelfcheckTests(unittest.TestCase):
             self.assert_status(check.check_security_firewall, fixture, 'info')
         for output, expected in (('', 'ok'), ('bad option', 'problem')):
             self.assert_status(check.check_hyprland, Evidence(commands={('hyprctl', 'configerrors'): (0, output)}), expected)
-        for status, output, expected in ((0, 'media.class = "Audio/Sink"', 'ok'), (1, '', 'problem')):
-            fixture = Evidence(commands={('pgrep', '-x', 'pipewire'): (0, ''),
-                                         ('wpctl', 'inspect', '@DEFAULT_AUDIO_SINK@'): (status, output)})
-            self.assert_status(check.check_audio, fixture, expected)
+
+    def test_audio_output_volume_and_microphone(self):
+        sink = ('wpctl', 'inspect', '@DEFAULT_AUDIO_SINK@')
+        speakers = 'media.class = "Audio/Sink"\nnode.name = "alsa_output.fixture"\nnode.description = "Fixture Speakers"'
+        dummy = 'media.class = "Audio/Sink"\nnode.name = "auto_null"'
+        for status, output, expected in ((0, speakers, 'ok'), (1, '', 'problem'), (0, dummy, 'problem')):
+            fixture = Evidence(commands={('pgrep', '-x', 'pipewire'): (0, ''), ('pgrep', '-x', 'wireplumber'): (0, ''),
+                                         sink: (status, output)})
+            answer = self.assert_status(check.check_audio, fixture, expected)
+            if expected == 'problem':
+                self.assertEqual(answer[2], check.AUDIO)
+            else:
+                self.assertIn('Fixture Speakers', answer[1])
+        for name in ('pipewire', 'wireplumber'):
+            fixture = Evidence(commands={('pgrep', '-x', 'pipewire'): (int(name == 'pipewire'), ''),
+                                         ('pgrep', '-x', 'wireplumber'): (int(name == 'wireplumber'), '')})
+            self.assertIn(name, self.assert_status(check.check_audio, fixture, 'problem')[1])
+        level = ('wpctl', 'get-volume', '@DEFAULT_AUDIO_SINK@')
+        for output, expected in (('Volume: 0.40', 'ok'), ('Volume: 0.40 [MUTED]', 'warning'), ('Volume: 0.00', 'warning')):
+            self.assert_status(check.check_volume, Evidence(commands={level: (0, output)}), expected)
+        with self.assertRaises(check.Unavailable):
+            check.check_volume(Evidence(commands={level: (0, 'unexpected')}))
+        source = ('wpctl', 'inspect', '@DEFAULT_AUDIO_SOURCE@')
+        self.assertIn('No default microphone', self.assert_status(check.check_microphone, Evidence(commands={source: (1, '')}), 'info')[1])
+        fixture = Evidence(commands={source: (0, 'media.class = "Audio/Source"'),
+                                     ('wpctl', 'get-volume', '@DEFAULT_AUDIO_SOURCE@'): (0, 'Volume: 0.50 [MUTED]')})
+        self.assertIn('50%, muted', self.assert_status(check.check_microphone, fixture, 'info')[1])
+
+    def test_gpu_driver_and_acceleration_for_any_vendor(self):
+        for vendor in ('0x1002', '0x8086', '0x10de', '0x1af4'):
+            fixture = self.graphics_fixture(vendor)
+            self.assert_status(check.check_gpu_driver, fixture, 'problem')
+            fixture.links['/pci/driver'] = '../../../bus/pci/drivers/fixture-driver'
+            self.assertIn('fixture-driver', self.assert_status(check.check_gpu_driver, fixture, 'ok')[1])
+        with self.assertRaises(check.Unavailable):
+            check.check_gpu_driver(Evidence())
+        card = {'/dev/dri/card*': ['/dev/dri/card0']}
+        self.assert_status(check.check_acceleration, Evidence(globs={**card, '/dev/dri/renderD*': ['/dev/dri/renderD128']}), 'ok')
+        self.assert_status(check.check_acceleration, Evidence(globs=card), 'problem')
+        with self.assertRaises(check.Unavailable):
+            check.check_acceleration(Evidence())
+
+    def test_displays_refresh_rate_and_turned_off_screens(self):
+        def monitor(name, rate, modes, disabled=False):
+            return {'name': name, 'width': 2560, 'height': 1440, 'refreshRate': rate, 'disabled': disabled,
+                    'availableModes': modes}
+        query = ('hyprctl', 'monitors', 'all', '-j')
+        modes = ['2560x1440@143.97Hz', '2560x1440@59.95Hz', '1920x1080@240.00Hz']
+        for monitors, expected in (([monitor('A', 143.97, modes)], 'ok'),
+                                   ([monitor('A', 59.95, modes)], 'warning'),
+                                   ([monitor('A', 60.0, ['2560x1440@60.00Hz', '1920x1080@240.00Hz'])], 'ok'),
+                                   ([monitor('A', 143.97, modes), monitor('B', 60.0, [], disabled=True)], 'info'),
+                                   ([monitor('B', 60.0, [], disabled=True)], 'problem')):
+            answer = self.assert_status(check.check_displays, Evidence(commands={query: (0, json.dumps(monitors))}), expected)
+            if expected == 'warning':
+                self.assertIn('supports 144 Hz', answer[1])
+                self.assertEqual(answer[2], check.DISPLAY)
+        with self.assertRaises(ValueError):
+            check.check_displays(Evidence(commands={query: (0, '{}')}))
+
+    def test_plain_output_leads_problems_with_their_meaning(self):
+        entry = check.Result('Fixture', 'fixture', 'problem', 'Technical evidence.', 'mock', check.REPORT,
+                             'Plain meaning first.')
+        lines = check.plain([entry]).splitlines()
+        first = next(index for index, line in enumerate(lines) if 'fixture ' in line)
+        self.assertTrue(lines[first].endswith('Plain meaning first.'))
+        self.assertIn('Details: Technical evidence. Fix:', lines[first + 1])
+        info = check.Result('Fixture', 'fixture', 'info', 'Technical evidence.', 'mock', '', 'Unused.')
+        self.assertNotIn('Unused.', check.plain([info]))
 
     def test_security_information(self):
         for value in ('\x00', '\x01'):
@@ -425,7 +496,8 @@ class SelfcheckTests(unittest.TestCase):
         rules = json.loads((ROOT / 'distro/layout-manifest.json').read_text())['rules']
         self.assertTrue(any(rule['pattern'] == 'distro/lib/eitr_selfcheck.py' and rule['runtime'] for rule in rules))
         # Every menu fix is resolved by following the real menu tree.
-        for path in (check.UPDATE, check.REPORT, check.RESTART, check.CLEANUP, check.FIREWALL, 'Plugins > Installed Plugins'):
+        for path in (check.UPDATE, check.REPORT, check.RESTART, check.CLEANUP, check.FIREWALL, check.DISPLAY, check.AUDIO,
+                     'Plugins > Installed Plugins'):
             parts = path.removeprefix('Main > ').split(' > ')
             menu = 'main'
             for title in parts:

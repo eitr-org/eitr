@@ -2,7 +2,9 @@
 
 ## Check This PC
 
-Open **Settings > System > Maintenance > Check This PC**, or run `eitr check`. Checks are read-only and never repair or restart anything. Cached update lists are not refreshed; DNS resolution uses the network. `eitr check --json` prints technical evidence without prompts.
+Open **Settings > System > Maintenance > Check This PC**, the same button under Information in the Control Center, or run `eitr check`. Checks are read-only and never repair or restart anything. Cached update lists are not refreshed; DNS resolution uses the network. `eitr check --json` prints technical evidence without prompts.
+
+Besides restarts, disk space, updates, recovery, services, memory, network and security, it checks displays (a screen running below the best refresh rate for its resolution), graphics (a driver for each graphics card and hardware acceleration) and audio (the sound system, an output device, the volume and the microphone). Each warning and problem starts with one plain sentence on what it means and what to try, followed by **Details:** with the technical evidence and where to fix it.
 
 **Run deeper checks (asks for your password)**: press Enter to run `sudo /usr/lib/eitr/eitr-system selfcheck-deeper` in the same terminal, or Esc to skip. Results replace matching skipped checks. This reads root Snapper configuration, retained pre/post pairs, the last successful package upgrade description, existing Btrfs qgroups, boot guard JSON, an already mounted factory manifest, and trusted Arch Linux/Eitr keys with `pacman-key --list-keys`. It never enables quotas or mounts the factory point. Missing evidence is skipped with a reason. The factory manifest alone does not verify archive integrity. ESP checking uses `fsck.vfat -n` only on a uniquely identified FAT ESP not mounted read-write; otherwise it asks for an unmounted filesystem and skips.
 

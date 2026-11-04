@@ -119,10 +119,6 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
   through a secret iCal address are done (Tools > Calendar Sources). Two-way sync
   (creating or editing provider events) needs account sign-in (OAuth, with
   Google's app verification) and remains later.
-- **`eitr check`: plain-language findings.** `eitr check` (Settings > System >
-  Maintenance > Check This PC) already runs read-only checks and copies a redacted
-  report. Next: add GPU driver, displays and audio, open it from the Control Center,
-  and lead each problem with one plain sentence on what it means and what to try.
 - **Dynamic island, next.** Shipped to stable: the Dynamic layout (three centred
   islands that expand on hover, grow into their panels with ‹ › to step through an
   island's panels, and slide aside for each other) and Islands cards growing from

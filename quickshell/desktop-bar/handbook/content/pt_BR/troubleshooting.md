@@ -2,7 +2,9 @@
 
 ## Verificar este PC
 
-Abra **Configurações > Sistema > Manutenção > Verificar este PC** ou `eitr check`. As verificações só leem, sem reparar ou reiniciar nada. Não atualizam listas de pacotes. DNS usa a rede. `eitr check --json` mostra detalhes técnicos sem perguntas.
+Abra **Configurações > Sistema > Manutenção > Verificar este PC**, o mesmo botão em Informações na Central de controle, ou `eitr check`. As verificações só leem, sem reparar ou reiniciar nada. Não atualizam listas de pacotes. DNS usa a rede. `eitr check --json` mostra detalhes técnicos sem perguntas.
+
+Além de reinícios, espaço em disco, atualizações, recuperação, serviços, memória, rede e segurança, verifica as telas (uma tela abaixo da melhor taxa de atualização para sua resolução), os gráficos (um driver para cada placa de vídeo e a aceleração por hardware) e o áudio (o sistema de som, um dispositivo de saída, o volume e o microfone). Cada aviso e cada problema começa com uma frase simples sobre o que significa e o que tentar, seguida de **Details:** com os dados técnicos e onde corrigir.
 
 **Verificações aprofundadas (pede sua senha)**: Para verificações aprofundadas pressione Enter; Esc pula esta etapa. `sudo /usr/lib/eitr/eitr-system selfcheck-deeper` pede sua senha no mesmo terminal. Os resultados substituem as verificações correspondentes que foram puladas. Lê Snapper, pares pré/pós, a última atualização de pacotes bem-sucedida, qgroups Btrfs existentes, JSON da proteção de boot, um manifesto de fábrica já montado e chaves Arch Linux/Eitr com `pacman-key --list-keys`. Nunca ativa cotas nem monta o ponto de fábrica. Dados ausentes são pulados com motivo; o manifesto não verifica a integridade do arquivo. `fsck.vfat -n` verifica somente uma ESP FAT identificada sem ambiguidade e não montada para escrita; caso contrário pede que seja desmontada e pula a verificação.
 

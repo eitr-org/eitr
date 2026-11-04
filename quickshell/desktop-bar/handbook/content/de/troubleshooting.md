@@ -2,7 +2,9 @@
 
 ## Diesen PC prüfen
 
-Öffnen Sie **Einstellungen > System > Instandhaltung > Diesen PC prüfen** oder `eitr check`. Die Prüfungen lesen nur; sie reparieren nichts und starten nichts neu. Paketlisten werden nicht aktualisiert. DNS verwendet das Netzwerk. `eitr check --json` zeigt technische Details ohne Rückfragen.
+Öffnen Sie **Einstellungen > System > Instandhaltung > Diesen PC prüfen**, dieselbe Schaltfläche unter Informationen im Kontrollzentrum, oder `eitr check`. Die Prüfungen lesen nur; sie reparieren nichts und starten nichts neu. Paketlisten werden nicht aktualisiert. DNS verwendet das Netzwerk. `eitr check --json` zeigt technische Details ohne Rückfragen.
+
+Neben Neustarts, Speicherplatz, Updates, Wiederherstellung, Diensten, Arbeitsspeicher, Netzwerk und Sicherheit prüft es Bildschirme (ein Bildschirm unter der besten Bildwiederholrate für seine Auflösung), Grafik (ein Treiber für jede Grafikkarte und Hardwarebeschleunigung) und Audio (Soundsystem, Ausgabegerät, Lautstärke und Mikrofon). Jede Warnung und jedes Problem beginnt mit einem einfachen Satz, was es bedeutet und was Sie versuchen können, gefolgt von **Details:** mit den technischen Angaben und wo es sich beheben lässt.
 
 **Tiefere Prüfungen (Passwort erforderlich)**: Für tiefere Prüfungen drücken Sie Enter; Esc überspringt sie. Im selben Terminal fragt `sudo /usr/lib/eitr/eitr-system selfcheck-deeper` nach Ihrem Passwort. Ergebnisse ersetzen passende übersprungene Prüfungen. Gelesen werden Snapper-Konfiguration, Vorher/Nachher-Paare, die letzte erfolgreiche Paketaktualisierung, vorhandene Btrfs-Qgroups, Boot-Guard-JSON, ein bereits eingehängtes Werksmanifest und Arch-Linux/Eitr-Schlüssel mit `pacman-key --list-keys`. Quoten werden nie aktiviert und das Werksabbild wird nicht eingehängt. Fehlende Daten werden begründet übersprungen; das Manifest bestätigt nicht die Archivintegrität. `fsck.vfat -n` prüft nur eine eindeutig bestimmte FAT-ESP, die nicht schreibbar eingehängt ist; andernfalls muss sie ausgehängt werden und die Prüfung entfällt.
 

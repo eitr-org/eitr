@@ -32,7 +32,7 @@ Screenshots (Auswahl, Vollbild, Fenster oder Auswahl direkt in die Zwischenablag
 - **Geräte:** Panels für Audio, Mikrofon, Bildschirm (Auflösung, Bildwiederholrate, Skalierung), Bluetooth und WiFi, Beleuchtung und Akkuladelimit auf Laptops.
 - **Tastatur:** Belegungen wählen, hinzufügen und entfernen; mindestens eine bleibt erhalten.
 - **Nachtlicht und Hauptbildschirm:** Nachtlichtmodus und Zeitplan, getrennt vom manuellen Schalter, sowie der Hauptbildschirm mit der Leiste.
-- **Informationen:** Über, Hardware, KI-Nutzung, Wetter und Problem melden.
+- **Informationen:** Über, Hardware, KI-Nutzung, Wetter, Diesen PC prüfen und Problem melden.
 - **Aktualisierungen:** Kanal, Systemaktualisierung, Änderungen jeder Aktualisierung sowie reine Pacman- oder AUR-Updates.
 - **Snapshots und Bereinigung:** Datei wiederherstellen, persönliche und System-Wiederherstellungs-Snapshots samt Anleitung, Bereinigung und Dotfiles.
 

@@ -2,7 +2,9 @@
 
 ## Vérifier ce PC
 
-Ouvrez **Paramètres > Système > Entretien > Vérifier ce PC** ou `eitr check`. Les vérifications lisent seulement, sans réparation ni redémarrage. Les listes de paquets ne sont pas actualisées. DNS utilise le réseau. `eitr check --json` affiche les détails techniques sans invite.
+Ouvrez **Paramètres > Système > Entretien > Vérifier ce PC**, le même bouton sous Informations dans le Centre de contrôle, ou `eitr check`. Les vérifications lisent seulement, sans réparation ni redémarrage. Les listes de paquets ne sont pas actualisées. DNS utilise le réseau. `eitr check --json` affiche les détails techniques sans invite.
+
+En plus des redémarrages, de l’espace disque, des mises à jour, de la récupération, des services, de la mémoire, du réseau et de la sécurité, il vérifie les écrans (un écran en dessous de la meilleure fréquence de rafraîchissement pour sa résolution), le graphisme (un pilote pour chaque carte graphique et l’accélération matérielle) et l’audio (le système audio, une sortie, le volume et le micro). Chaque avertissement et chaque problème commence par une phrase simple sur ce qu’il signifie et ce qu’il faut essayer, suivie de **Details:** avec les éléments techniques et l’endroit où corriger.
 
 **Vérifications approfondies (mot de passe requis)**: Pour les vérifications approfondies, appuyez sur Entrée ; Échap les ignore. `sudo /usr/lib/eitr/eitr-system selfcheck-deeper` demande votre mot de passe dans le même terminal. Les résultats remplacent les vérifications ignorées correspondantes. Cela lit Snapper, les paires pré/post, la dernière mise à jour réussie, les qgroups Btrfs existants, le JSON de protection du démarrage, un manifeste d’usine déjà monté et les clés Arch Linux/Eitr avec `pacman-key --list-keys`. Aucun quota n’est activé et aucun point d’usine n’est monté. Les données absentes sont ignorées avec une raison ; le manifeste ne vérifie pas l’intégrité des archives. `fsck.vfat -n` vérifie uniquement une ESP FAT identifiée sans ambiguïté et non montée en écriture ; sinon la vérification demande son démontage et est ignorée.
 

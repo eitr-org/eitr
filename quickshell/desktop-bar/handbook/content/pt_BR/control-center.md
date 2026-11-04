@@ -32,7 +32,7 @@ Capturas (seleção, tela inteira, janela ou seleção direto para a área de tr
 - **Dispositivos:** painéis de Áudio, Microfone, Tela (resolução, taxa de atualização e escala), Bluetooth e WiFi, Iluminação e limite de carga em notebooks.
 - **Teclado:** selecionar, adicionar e remover layouts, mantendo pelo menos um.
 - **Luz noturna e tela principal:** modo e programação da Luz noturna, separados do botão manual, e o monitor principal que recebe a barra.
-- **Informações:** Sobre, Hardware, Uso de IA, Clima e Relatar um problema.
+- **Informações:** Sobre, Hardware, Uso de IA, Clima, Verificar este PC e Relatar um problema.
 - **Atualizações:** canal, Atualização do sistema, mudanças de cada atualização e atualizações só de Pacman ou AUR.
 - **Snapshots e limpeza:** restaurar arquivo, snapshots pessoais e de recuperação, o guia correspondente, Limpeza e Dotfiles.
 

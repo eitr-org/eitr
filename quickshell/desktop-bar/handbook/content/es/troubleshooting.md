@@ -2,7 +2,9 @@
 
 ## Comprobar este PC
 
-Abra **Configuración > Sistema > Mantenimiento > Comprobar este PC** o `eitr check`. Las comprobaciones solo leen; no reparan ni reinician nada. No actualizan listas de paquetes. DNS usa la red. `eitr check --json` muestra detalles técnicos sin preguntas.
+Abra **Configuración > Sistema > Mantenimiento > Comprobar este PC**, el mismo botón en Información del Centro de control, o `eitr check`. Las comprobaciones solo leen; no reparan ni reinician nada. No actualizan listas de paquetes. DNS usa la red. `eitr check --json` muestra detalles técnicos sin preguntas.
+
+Además de reinicios, espacio en disco, actualizaciones, recuperación, servicios, memoria, red y seguridad, comprueba las pantallas (una pantalla por debajo de la mejor frecuencia de actualización para su resolución), los gráficos (un controlador para cada tarjeta gráfica y la aceleración por hardware) y el audio (el sistema de sonido, un dispositivo de salida, el volumen y el micrófono). Cada advertencia y cada problema empieza con una frase sencilla sobre qué significa y qué probar, seguida de **Details:** con los datos técnicos y dónde corregirlo.
 
 **Comprobaciones profundas (requiere contraseña)**: Para comprobaciones profundas pulse Enter; Esc las omite. `sudo /usr/lib/eitr/eitr-system selfcheck-deeper` pide su contraseña en el mismo terminal. Los resultados sustituyen las comprobaciones omitidas correspondientes. Lee Snapper, pares pre/post, la última actualización de paquetes correcta, qgroups Btrfs existentes, JSON de protección de arranque, un manifiesto de fábrica ya montado y claves Arch Linux/Eitr con `pacman-key --list-keys`. Nunca activa cuotas ni monta el punto de fábrica. Los datos ausentes se omiten con un motivo; el manifiesto no verifica la integridad del archivo. `fsck.vfat -n` solo comprueba una ESP FAT identificada sin ambigüedad que no esté montada con escritura; de lo contrario pide desmontarla y omite la prueba.
 

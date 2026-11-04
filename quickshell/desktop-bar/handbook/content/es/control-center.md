@@ -32,7 +32,7 @@ Capturas (selección, pantalla completa, ventana o selección directa al portapa
 - **Dispositivos:** paneles de Audio, Micrófono, Pantalla (resolución, frecuencia y escala), Bluetooth y WiFi, Iluminación y límite de carga en portátiles.
 - **Teclado:** seleccionar, añadir y eliminar distribuciones, conservando al menos una.
 - **Luz nocturna y pantalla principal:** modo y horario de Luz nocturna, independientes del interruptor manual, y pantalla principal que contiene la barra.
-- **Información:** Acerca de, Hardware, Uso de IA, Tiempo e Informar de un problema.
+- **Información:** Acerca de, Hardware, Uso de IA, Tiempo, Comprobar este PC e Informar de un problema.
 - **Actualizaciones:** canal, Actualización del sistema, cambios de cada actualización y actualizaciones solo de Pacman o AUR.
 - **Instantáneas y limpieza:** restaurar archivo, instantáneas personales y de recuperación, su guía, Limpieza y Dotfiles.
 
