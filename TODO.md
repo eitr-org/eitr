@@ -56,8 +56,10 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
   users change their own picture without root (stored as
   `/var/lib/AccountsService/icons/USER`, which SDDM reads), and also write `~/.face`
   for applications that look there. List `accountsservice` in the official package
-  manifest (it is only a dependency today). A picker with a square crop preview,
-  a remove option, and the user's initial on a theme-coloured circle when none is set.
+  manifest (it is only a dependency today). The picture is always shown fully
+  round (a circle) everywhere, never square; the picker crops with a round preview,
+  has a remove option, and shows the user's initial on a theme-coloured circle when
+  none is set. The stored file stays a square image, as AccountsService expects.
 - **Light themes.** The owner has ideas for more light themes; create them later.
 - **Walker at login: start Elephant earlier.** After the fix, Walker is usable about
   7.4 s after login (was ~12.5 s; measured 2026-11-04). Elephant still starts ~3 s
