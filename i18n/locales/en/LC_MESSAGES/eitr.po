@@ -3094,9 +3094,6 @@ msgstr "Some installed plugins are blocked and do not run; review them in Instal
 msgid "Some programs crashed in the last week; report a problem if one keeps crashing."
 msgstr "Some programs crashed in the last week; report a problem if one keeps crashing."
 
-msgid "Sound is muted or at zero, so you will hear nothing; raise the volume."
-msgstr "Sound is muted or at zero, so you will hear nothing; raise the volume."
-
 msgid "Stable"
 msgstr "Stable"
 

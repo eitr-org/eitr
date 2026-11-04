@@ -732,7 +732,7 @@ Plugin appearance belongs to its author. Widgets and panels default to no host s
 
 Auto-hide is optional in Settings > Style > Desktop Bar and Control Center > Style. The
 strip slides out in 320 ms, retaining a one-pixel edge input region. Panels,
-pending popups, notification toasts, Overview and dragging hold it open; a 350 ms leave delay precedes
+pending popups, Overview and dragging hold it open (notification toasts do not); a 350 ms leave delay precedes
 hiding. A hidden bar reserves no space. The preference is separate from the
 Centered pin and applies independently to each displayed bar.
 

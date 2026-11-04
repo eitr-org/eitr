@@ -7854,9 +7854,6 @@
     "Some programs crashed in the last week; report a problem if one keeps crashing.": [
       "distro/lib/eitr_selfcheck.py"
     ],
-    "Sound is muted or at zero, so you will hear nothing; raise the volume.": [
-      "distro/lib/eitr_selfcheck.py"
-    ],
     "Stable": [
       "tools/choice-lists.json"
     ],

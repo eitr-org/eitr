@@ -583,9 +583,8 @@ def volume(context, target):
 def check_volume(context):
     level, muted = volume(context, '@DEFAULT_AUDIO_SINK@')
     message = f'Output volume {level * 100:.0f}%' + (', muted.' if muted else '.')
-    if muted or level == 0:
-        return result('warning', message, AUDIO, tr('Sound is muted or at zero, so you will hear nothing; raise the volume.'))
-    return result('ok', message)
+    # Muting is often deliberate, so it is reported, not flagged.
+    return result('info' if muted or level == 0 else 'ok', message)
 
 
 def check_microphone(context):

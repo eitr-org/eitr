@@ -1030,7 +1030,6 @@
   "Some calendars could not be reached; their previous events stay.": "Certains calendriers sont injoignables ; leurs événements précédents restent affichés.",
   "Some installed plugins are blocked and do not run; review them in Installed Plugins.": "Certains plugins installés sont bloqués et ne s’exécutent pas ; vérifiez-les dans Plugins installés.",
   "Some programs crashed in the last week; report a problem if one keeps crashing.": "Certains programmes ont planté la semaine dernière ; signalez un problème si l’un d’eux plante encore.",
-  "Sound is muted or at zero, so you will hear nothing; raise the volume.": "Le son est coupé ou à zéro, vous n’entendrez donc rien ; augmentez le volume.",
   "Stable": "Stable",
   "Stable channel. Eitr packages already newer than stable stay until stable catches up.": "Canal stable. Les paquets Eitr plus récents restent en place jusqu’à ce que le canal stable les rattrape.",
   "Staging destination already exists: {destination}": "Le dossier de préparation existe déjà : {destination}",

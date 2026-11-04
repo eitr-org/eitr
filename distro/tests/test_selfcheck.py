@@ -373,7 +373,7 @@ class SelfcheckTests(unittest.TestCase):
                                          ('pgrep', '-x', 'wireplumber'): (int(name == 'wireplumber'), '')})
             self.assertIn(name, self.assert_status(check.check_audio, fixture, 'problem')[1])
         level = ('wpctl', 'get-volume', '@DEFAULT_AUDIO_SINK@')
-        for output, expected in (('Volume: 0.40', 'ok'), ('Volume: 0.40 [MUTED]', 'warning'), ('Volume: 0.00', 'warning')):
+        for output, expected in (('Volume: 0.40', 'ok'), ('Volume: 0.40 [MUTED]', 'info'), ('Volume: 0.00', 'info')):
             self.assert_status(check.check_volume, Evidence(commands={level: (0, output)}), expected)
         with self.assertRaises(check.Unavailable):
             check.check_volume(Evidence(commands={level: (0, 'unexpected')}))

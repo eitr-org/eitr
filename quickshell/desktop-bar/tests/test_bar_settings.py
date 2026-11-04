@@ -305,7 +305,8 @@ ShellRoot {
         source = ((bar / "shell.qml").read_text() + frame_source(bar))
         transform = source.split("id: barContents\n", 1)[1].split("                    width:", 1)[0].replace("FocusMode.", "Bar.FocusMode.")
         self.assertIn("exclusiveZone: !FocusMode.enabled && shell.barVisible && !shell.barAutoHide ? bar.reservedThickness : 0", source)
-        self.assertIn("bar.panelOpen || bar.pendingPanel !== null || bar.pendingOverview || overview.visible || shell.barPointerHeld || notificationPopups.visible", source)
+        self.assertIn("bar.panelOpen || bar.pendingPanel !== null || bar.pendingOverview || overview.visible || shell.barPointerHeld\n", source)
+        self.assertNotIn("barPointerHeld || notificationPopups.visible", source)
         with tempfile.TemporaryDirectory(prefix="eitr-autohide-") as directory:
             folder = Path(directory)
             captures = Path(os.environ.get("EITR_PLUGIN_REVIEW_RENDERS", directory))

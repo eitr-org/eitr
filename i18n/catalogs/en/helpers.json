@@ -1457,7 +1457,6 @@
   "Part of the system was updated after the PC started; restart to start using it.": "Part of the system was updated after the PC started; restart to start using it.",
   "Some installed plugins are blocked and do not run; review them in Installed Plugins.": "Some installed plugins are blocked and do not run; review them in Installed Plugins.",
   "Some programs crashed in the last week; report a problem if one keeps crashing.": "Some programs crashed in the last week; report a problem if one keeps crashing.",
-  "Sound is muted or at zero, so you will hear nothing; raise the volume.": "Sound is muted or at zero, so you will hear nothing; raise the volume.",
   "The PC is short on memory and may feel slow; close apps you are not using.": "The PC is short on memory and may feel slow; close apps you are not using.",
   "The boot partition has filesystem errors that can stop the PC from starting; follow the recovery guide to repair it.": "The boot partition has filesystem errors that can stop the PC from starting; follow the recovery guide to repair it.",
   "The boot partition is almost full, so the next kernel update may not fit; free space with Cleanup.": "The boot partition is almost full, so the next kernel update may not fit; free space with Cleanup.",
