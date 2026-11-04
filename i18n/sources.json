@@ -3313,6 +3313,12 @@
     "Route tables": [
       "elephant/menus/aws-vpc-route-tables-1.lua"
     ],
+    "Rune Rain": [
+      "elephant/menu-rows/tools.json"
+    ],
+    "Runes falling in the theme's colours; any key stops them": [
+      "elephant/menu-rows/tools.json"
+    ],
     "Running tasks": [
       "elephant/menus/aws-ecs-running-tasks-1.lua",
       "elephant/menus/aws-ecs-running-tasks-2.lua"

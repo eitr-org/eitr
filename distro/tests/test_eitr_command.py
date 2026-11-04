@@ -93,6 +93,14 @@ class EitrCommandTests(unittest.TestCase):
         self.assertEqual(eitr.plan(arguments, code=checkout),
                          ['python3', str(DISTRO / 'lib/eitr_focus.py'), 'toggle'])
 
+    def test_matrix_runs_the_rune_rain_with_its_options(self):
+        checkout = DISTRO.parent
+        library = str(DISTRO / "lib/eitr_matrix.py")
+        self.assertEqual(eitr.plan(eitr.parser().parse_args(["matrix"]), code=checkout),
+                         ["python3", library, "--speed", "normal"])
+        arguments = eitr.parser().parse_args(["matrix", "--speed", "slow", "--seconds", "30"])
+        self.assertEqual(eitr.plan(arguments, code=checkout), ["python3", library, "--speed", "slow", "--seconds", "30.0"])
+
     def test_about_reuses_the_focus_or_open_action(self):
         self.assertEqual(self.plan("about"), ["bash", str(self.code / "walker/scripts/actions/about.sh")])
         self.assertIn("about", eitr.overview())

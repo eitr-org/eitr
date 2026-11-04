@@ -88,6 +88,7 @@ eitr report                  # prepare a problem report
 eitr handbook troubleshooting
 eitr version
 eitr about
+eitr matrix                  # rune rain; any key stops it
 ```
 
 `eitr about` abre la ventana de información de Eitr o enfoca la ventana existente.

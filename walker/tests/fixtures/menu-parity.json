@@ -2892,6 +2892,19 @@
         "actions": {
           "open": "/usr/share/eitr/walker/scripts/actions/tools/music-visualizer.sh"
         }
+      },
+      {
+        "text": "Rune Rain",
+        "subtext": "Runes falling in the theme's colours; any key stops them",
+        "keywords": [
+          "matrix",
+          "runes",
+          "screensaver"
+        ],
+        "icon": "󰖖",
+        "actions": {
+          "open": "/usr/share/eitr/walker/scripts/actions/tools/rune-rain.sh"
+        }
       }
     ],
     "tpm-unlock": [
@@ -9746,6 +9759,28 @@
         "Music Visualizer",
         "Music Visualizer",
         "Watch music dance in a theme-coloured terminal"
+      ],
+      "menus": [
+        "main"
+      ]
+    },
+    {
+      "key": "bef1ab9e7ff488c2cbaa2d0963a1af4885de94616661fcbc8578966c84c5c0e1",
+      "provider": "menus:tools",
+      "identifier": "tools:5",
+      "text": "Rune Rain",
+      "subtext": "Runes falling in the theme's colours; any key stops them",
+      "icon": "󰖖",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "matrix",
+        "runes",
+        "screensaver",
+        "Rune Rain",
+        "Rune Rain",
+        "Runes falling in the theme's colours; any key stops them"
       ],
       "menus": [
         "main"

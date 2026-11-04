@@ -28,7 +28,7 @@ Idle Lock is not the same as preventing sleep; be mindful of screen privacy.
 
 ## Style
 
-Style groups its settings into Theme & Wallpaper (open initially), Corners, Bar, Workspaces, Lockscreen, Cursor and Terminal. Click a group header to fold it; its surface encloses all its options. Bar groups Layout, Position, Appearance, Show on, Clock, Media style and Behavior. Behavior contains Auto-hide, Dock and Reduce motion.
+Style groups its settings into Theme & Wallpaper, Corners, Bar, Workspaces, Lockscreen, Cursor and Terminal. Every group starts folded; click its header to open or fold it, and the Control Center remembers that until you log out; its surface encloses all its options. Bar groups Layout, Position, Appearance, Show on, Clock, Media style and Behavior. Behavior contains Auto-hide, Dock and Reduce motion.
 
 Theme and Wallpaper open their carousels; Fonts opens the font list. The
 lockscreen design, cursor (family, size and color), bar appearance, layout,

@@ -117,11 +117,6 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
   Maintenance > Check This PC) already runs read-only checks and copies a redacted
   report. Next: add GPU driver, displays and audio, open it from the Control Center,
   and lead each problem with one plain sentence on what it means and what to try.
-- **`eitr matrix`: falling runes in the terminal.** A fun command that rains Elder
-  Futhark runes down the terminal in the current theme's colors, like the Matrix,
-  until a key is pressed. A working prototype exists outside the repository
-  (used for the 0.7 preview video); give it a home under `distro/bin/eitr`, a test
-  for resize and clean exit, and a Learn/Handbook mention.
 - **Dynamic island, next.** Shipped to stable: the Dynamic layout (three centred
   islands that expand on hover, grow into their panels with ‹ › to step through an
   island's panels, and slide aside for each other) and Islands cards growing from

@@ -65,7 +65,8 @@ Package defaults are recorded in [distro/](distro/README.md). Credentials and
 account state are never part of the installation.
 
 `eitr` lists the available terminal commands; `eitr version` prints the release,
-and `eitr about` opens or focuses the About window.
+`eitr about` opens or focuses the About window, and `eitr matrix` rains runes in
+the theme's colours until a key is pressed (Walker > Tools > Rune Rain).
 
 ## Everyday shortcuts
 

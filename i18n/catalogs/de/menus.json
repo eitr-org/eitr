@@ -693,5 +693,7 @@
   "Zone details": "Zonendetails",
   "gh or glab for this account only": "gh oder glab nur für dieses Konto",
   "iwd": "iwd",
-  "{service} · {url}": "{service} · {url}"
+  "{service} · {url}": "{service} · {url}",
+  "Rune Rain": "Runenregen",
+  "Runes falling in the theme's colours; any key stops them": "Fallende Runen in den Theme-Farben; jede Taste beendet sie"
 }

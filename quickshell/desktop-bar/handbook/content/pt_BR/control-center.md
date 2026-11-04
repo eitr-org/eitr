@@ -17,7 +17,7 @@ O Modo avião lembra quais conexões bloqueou e restaura apenas essas. Não pert
 
 ## Estilo
 
-Estilo organiza as configurações em Tema e papel de parede (aberto inicialmente), Cantos, Barra, Espaços de trabalho, Tela de bloqueio, Cursor e Terminal. Clique no título de um grupo para recolhê-lo; sua superfície delimita todas as opções. Barra reúne Layout, Posição, Aparência, Mostrar em, Relógio, Estilo de mídia e Comportamento. Comportamento contém Ocultar automaticamente, Dock e Reduzir movimento.
+Estilo organiza as configurações em Tema e papel de parede, Cantos, Barra, Espaços de trabalho, Tela de bloqueio, Cursor e Terminal. Todos os grupos começam recolhidos; clique no título de um grupo para abri-lo ou recolhê-lo, e a Central de controle se lembra disso até você sair da sessão; sua superfície delimita todas as opções. Barra reúne Layout, Posição, Aparência, Mostrar em, Relógio, Estilo de mídia e Comportamento. Comportamento contém Ocultar automaticamente, Dock e Reduzir movimento.
 
 Tema e Papel de parede abrem seus carrosséis; Fontes abre a lista de fontes. O tema da tela de bloqueio, cursor (família, tamanho e cor), aparência, layout, borda e monitores da barra, marcadores de espaços, cantos e Cursor Fire do Kitty mudam diretamente no painel e compartilham suas preferências com o Walker.
 

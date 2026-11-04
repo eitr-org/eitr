@@ -17,7 +17,7 @@ Le Mode avion mémorise les radios bloquées et ne restaure que celles-ci. Ne pa
 
 ## Style
 
-Style regroupe les réglages dans Thème et fond d’écran (ouvert au départ), Coins, Barre, Espaces de travail, Écran de verrouillage, Curseur et Terminal. Cliquez sur le titre d’un groupe pour le replier ; sa surface délimite toutes ses options. Barre regroupe Disposition, Position, Apparence, Afficher sur, Horloge, Style multimédia et Comportement. Comportement contient Masquage automatique, Dock et Réduire les animations.
+Style regroupe les réglages dans Thème et fond d’écran, Coins, Barre, Espaces de travail, Écran de verrouillage, Curseur et Terminal. Tous les groupes sont repliés au départ ; cliquez sur le titre d’un groupe pour l’ouvrir ou le replier, et le Centre de contrôle s’en souvient jusqu’à la déconnexion ; sa surface délimite toutes ses options. Barre regroupe Disposition, Position, Apparence, Afficher sur, Horloge, Style multimédia et Comportement. Comportement contient Masquage automatique, Dock et Réduire les animations.
 
 Thème et Fond d’écran ouvrent leurs carrousels ; Polices ouvre la liste des polices. Thème de verrouillage, curseur (famille, taille, couleur), apparence, disposition, bord et écrans de la barre, marqueurs d’espaces, coins et Cursor Fire de Kitty se règlent directement dans le panneau et partagent leurs préférences avec Walker.
 

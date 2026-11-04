@@ -167,7 +167,7 @@ external blocks are never silently overridden. Opening the panel never changes
 radio state or starts scanning/audio capture.
 
 Notifications remain exclusively in the dedicated notification panel.
-Style groups its settings into Theme & Wallpaper (open initially), Corners, Bar,
+Style groups its settings into Theme & Wallpaper, Corners, Bar,
 Workspaces, Lockscreen, Cursor and Terminal folds. Each open fold encloses its
 header and padded options in one subtle surface. Bar groups Layout, Position,
 Appearance, Show on, Clock, Media style and Behavior; Behavior holds Auto-hide,

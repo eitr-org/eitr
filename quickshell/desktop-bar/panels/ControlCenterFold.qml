@@ -7,9 +7,9 @@ Item {
     required property var centerRef
     id: fold
     required property string title
-    property bool startOpen: false
     default property alias body: foldBody.data
-    readonly property bool open: fold.centerRef.folds[title] === undefined ? startOpen : fold.centerRef.folds[title]
+    // Every group starts folded; what you open or fold is remembered for the session.
+    readonly property bool open: fold.centerRef.folds[title] === true
     width: parent ? parent.width : 0
     implicitHeight: foldHeader.height + (open ? foldBody.implicitHeight + PanelStyle.selectionInset * 2 : 0)
     Rectangle {

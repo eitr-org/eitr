@@ -17,7 +17,7 @@ Der Flugmodus merkt sich gesperrte Funkverbindungen und stellt nur diese wieder 
 
 ## Stil
 
-Stil gliedert die Einstellungen in Theme & Hintergrundbild (anfangs geöffnet), Ecken, Leiste, Arbeitsflächen, Sperrbildschirm, Mauszeiger und Terminal. Ein Klick auf den Gruppentitel klappt die Gruppe ein; ihre Fläche umfasst alle zugehörigen Optionen. Leiste enthält Anordnung, Position, Erscheinungsbild, Anzeigen auf, Uhr, Medienstil und Verhalten. Verhalten umfasst Automatisch ausblenden, Dock und Bewegung reduzieren.
+Stil gliedert die Einstellungen in Theme & Hintergrundbild, Ecken, Leiste, Arbeitsflächen, Sperrbildschirm, Mauszeiger und Terminal. Alle Gruppen beginnen eingeklappt; ein Klick auf den Gruppentitel öffnet oder schließt sie, und das Kontrollzentrum merkt sich das bis zur Abmeldung; ihre Fläche umfasst alle zugehörigen Optionen. Leiste enthält Anordnung, Position, Erscheinungsbild, Anzeigen auf, Uhr, Medienstil und Verhalten. Verhalten umfasst Automatisch ausblenden, Dock und Bewegung reduzieren.
 
 Design und Hintergrundbild öffnen ihre Karussells; Schriftarten öffnet die Schriftliste. Sperrbildschirmdesign, Mauszeiger (Familie, Größe, Farbe), Leistenerscheinung, Layout, Rand und Bildschirme, Arbeitsflächenmarkierungen, Ecken und Kittys Cursor Fire ändere direkt im Panel. Die Einstellungen werden mit Walker geteilt.
 

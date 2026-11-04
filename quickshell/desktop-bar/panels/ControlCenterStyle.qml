@@ -17,7 +17,7 @@ Column {
         color: section.centerRef.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
     }
     ControlCenterFold { centerRef: section.centerRef;
-    title: Eitr.I18n.tr("Theme & Wallpaper"); startOpen: true
+    title: Eitr.I18n.tr("Theme & Wallpaper")
     GridLayout { width: parent.width; columns: 2; columnSpacing: 8; rowSpacing: 8
         ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("Theme"); glyph: "󰏘"; onClicked: section.centerRef.pickerRequested("theme") }
         ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("Wallpaper"); glyph: "󰸉"; onClicked: section.centerRef.pickerRequested("wallpaper") }

@@ -20,6 +20,7 @@ if (source_lib / 'eitr_i18n.py').is_file():
     sys.path.insert(0, str(source_lib))
 from eitr_i18n import tr  # noqa: E402
 from eitr_choice_lists import UPDATE_CHANNELS, ids  # noqa: E402
+from eitr_matrix import SPEEDS  # noqa: E402
 
 
 def code_root():
@@ -55,6 +56,7 @@ GROUPS = [
         ("remind", "a reminder later or at a time (eitr remind 25m Tea), or the list"),
         ("version", "show the installed Eitr version"),
         ("about", "open About Eitr, or focus its existing window"),
+        ("matrix", "rune rain in the theme's colours; any key stops it"),
         ("channel", "the update channel: stable, or testing for new builds first"),
     ]),
     ("Safety", [
@@ -168,6 +170,9 @@ def parser():
 
     commands.add_parser("version", help='show the installed Eitr version')
     commands.add_parser("about", help='open About Eitr')
+    matrix = commands.add_parser("matrix", help="rune rain in the theme's colours")
+    matrix.add_argument("--speed", choices=sorted(SPEEDS), default="normal")
+    matrix.add_argument("--seconds", type=float, help="stop by itself after this many seconds")
 
     channel = commands.add_parser("channel", help='the update channel')
     channel.add_argument("name", nargs="?", choices=ids(UPDATE_CHANNELS), help='switch to this channel')
@@ -210,6 +215,12 @@ def parser():
     return top
 
 
+def library_script(code, name):
+    """A module in the installed lib folder, or in distro/lib when running from a checkout."""
+    library = code / "lib" / name
+    return library if library.is_file() else code / "distro/lib" / name
+
+
 def plan(arguments, code=None, config=None):
     """The command to run for these arguments, or a text to print."""
     code, config = code or code_root(), config or config_root()
@@ -245,10 +256,10 @@ def plan(arguments, code=None, config=None):
         active = current_theme(config)
         return "\n".join(f"{'*' if label == active else ' '} {label:<20} {name}" for name, label in found.items())
     if command == "focus":
-        library = code / "lib/eitr_focus.py"
-        if not library.is_file():
-            library = code / "distro/lib/eitr_focus.py"
-        return ["python3", str(library), arguments.action]
+        return ["python3", str(library_script(code, "eitr_focus.py")), arguments.action]
+    if command == "matrix":
+        seconds = ["--seconds", str(arguments.seconds)] if arguments.seconds else []
+        return ["python3", str(library_script(code, "eitr_matrix.py")), "--speed", arguments.speed, *seconds]
     if command == "handbook":
         script = str(code / "quickshell/desktop-bar/scripts/handbook.sh")
         return ["bash", script, "open", arguments.chapter] if arguments.chapter else ["bash", script, "toggle"]
