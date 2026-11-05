@@ -580,7 +580,17 @@ var qml = {
     "Upside down": "Upside down",
     "Pixel offsets, flipped screens and more in local.lua": "Pixel offsets, flipped screens and more in local.lua",
     "Charger sounds": "Charger sounds",
-    "Notification sounds": "Notification sounds"
+    "Notification sounds": "Notification sounds",
+    "Accent": "Accent",
+    "Beautify screenshot": "Beautify screenshot",
+    "Close pin": "Close pin",
+    "Copied, ready to paste": "Copied, ready to paste",
+    "Could not save the picture": "Could not save the picture",
+    "None": "None",
+    "Saved as {name}": "Saved as {name}",
+    "Shadow": "Shadow",
+    "Copy picture": "Copy picture",
+    "Save picture": "Save picture"
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -1139,7 +1149,17 @@ var qml = {
     "Turned left": "Girado para a esquerda",
     "Pixel offsets, flipped screens and more in local.lua": "Deslocamentos em pixels, telas espelhadas e mais no local.lua",
     "Notification sounds": "Sons de notificação",
-    "Charger sounds": "Sons do carregador"
+    "Charger sounds": "Sons do carregador",
+    "Accent": "Destaque",
+    "Beautify screenshot": "Embelezar captura",
+    "Close pin": "Fechar captura fixada",
+    "Copied, ready to paste": "Copiada, pronta para colar",
+    "Could not save the picture": "Não foi possível salvar a imagem",
+    "None": "Nenhum",
+    "Saved as {name}": "Salva como {name}",
+    "Shadow": "Sombra",
+    "Copy picture": "Copiar imagem",
+    "Save picture": "Salvar imagem"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1698,7 +1718,17 @@ var qml = {
     "Turned left": "Girada a la izquierda",
     "Pixel offsets, flipped screens and more in local.lua": "Desplazamientos en píxeles, pantallas reflejadas y más en local.lua",
     "Notification sounds": "Sonidos de notificación",
-    "Charger sounds": "Sonidos del cargador"
+    "Charger sounds": "Sonidos del cargador",
+    "Accent": "Acento",
+    "Beautify screenshot": "Embellecer captura",
+    "Close pin": "Cerrar captura fijada",
+    "Copied, ready to paste": "Copiada, lista para pegar",
+    "Could not save the picture": "No se pudo guardar la imagen",
+    "None": "Ninguno",
+    "Saved as {name}": "Guardada como {name}",
+    "Shadow": "Sombra",
+    "Copy picture": "Copiar imagen",
+    "Save picture": "Guardar imagen"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -2257,7 +2287,17 @@ var qml = {
     "Turned left": "Nach links gedreht",
     "Pixel offsets, flipped screens and more in local.lua": "Pixelversatz, gespiegelte Bildschirme und mehr in local.lua",
     "Notification sounds": "Benachrichtigungstöne",
-    "Charger sounds": "Ladetöne"
+    "Charger sounds": "Ladetöne",
+    "Accent": "Akzent",
+    "Beautify screenshot": "Bildschirmfoto verschönern",
+    "Close pin": "Anheftung schließen",
+    "Copied, ready to paste": "Kopiert, bereit zum Einfügen",
+    "Could not save the picture": "Das Bild konnte nicht gespeichert werden",
+    "None": "Keiner",
+    "Saved as {name}": "Gespeichert als {name}",
+    "Shadow": "Schatten",
+    "Copy picture": "Bild kopieren",
+    "Save picture": "Bild speichern"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2816,6 +2856,16 @@ var qml = {
     "Turned left": "Tournée à gauche",
     "Pixel offsets, flipped screens and more in local.lua": "Décalages en pixels, écrans inversés et plus dans local.lua",
     "Notification sounds": "Sons de notification",
-    "Charger sounds": "Sons du chargeur"
+    "Charger sounds": "Sons du chargeur",
+    "Accent": "Accent",
+    "Beautify screenshot": "Embellir la capture",
+    "Close pin": "Fermer l’épingle",
+    "Copied, ready to paste": "Copiée, prête à coller",
+    "Could not save the picture": "Impossible d’enregistrer l’image",
+    "None": "Aucun",
+    "Saved as {name}": "Enregistrée sous {name}",
+    "Shadow": "Ombre",
+    "Copy picture": "Copier l’image",
+    "Save picture": "Enregistrer l’image"
   }
 };

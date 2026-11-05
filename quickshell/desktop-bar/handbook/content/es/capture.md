@@ -15,7 +15,11 @@ Tras una captura, un breve relámpago ilumina la región capturada. Empieza desp
 
 Revisa el contenido antes de guardar o compartir. El OCR puede equivocarse; los códigos QR pueden contener credenciales privadas o URL no fiables. Usar un editor no garantiza que se haya eliminado el texto sensible del fondo.
 
-Las capturas guardadas ofrecen acciones en la notificación para abrir la imagen, editarla en el editor de capturas (se guarda encima) o abrir su carpeta de capturas.
+Las capturas guardadas ofrecen acciones en la notificación para abrir la imagen, editarla en el editor de capturas (se guarda encima), embellecerla, fijarla en pantalla o abrir su carpeta de capturas.
+
+**Embellecer** coloca la captura sobre un fondo (el degradado del tema, algunos predefinidos, el color de acento o ninguno) con margen, esquinas redondeadas y sombra ajustables; **Copiar imagen** pone la imagen a tamaño completo en el portapapeles y **Guardar imagen** la escribe junto al original como `NAME-beautified.png`.
+
+**Fijar en pantalla** deja la captura flotando sobre todas las ventanas y en todos los espacios de trabajo como referencia. Arrástrala para moverla y desplaza la rueda encima para cambiar su tamaño; ciérrala con su botón ×, Escape o un clic central.
 
 ## Grabación y transmisión
 

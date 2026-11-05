@@ -15,7 +15,11 @@ Após a captura, um breve relâmpago atinge a região capturada. O efeito começ
 
 Revise o conteúdo antes de salvar ou compartilhar. O OCR pode errar; códigos QR podem conter credenciais privadas ou URLs não confiáveis. Usar um editor não garante que textos sensíveis ao fundo tenham sido removidos.
 
-As capturas salvas oferecem ações na notificação para abrir a imagem, editá-la no editor de capturas (salvando por cima) ou abrir a pasta de capturas.
+As capturas salvas oferecem ações na notificação para abrir a imagem, editá-la no editor de capturas (salvando por cima), embelezá-la, fixá-la na tela ou abrir a pasta de capturas.
+
+**Embelezar** coloca a captura sobre um fundo (o degradê do tema, alguns predefinidos, a cor de destaque ou nenhum) com margem, cantos arredondados e sombra ajustáveis; **Copiar imagem** coloca a imagem em tamanho real na área de transferência e **Salvar imagem** grava ao lado do original como `NAME-beautified.png`.
+
+**Fixar na tela** deixa a captura flutuando acima de todas as janelas e em todos os espaços de trabalho, como referência. Arraste para mover e role sobre ela para redimensionar; feche com o botão ×, Esc ou um clique do meio.
 
 ## Gravação e transmissão
 

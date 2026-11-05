@@ -555,5 +555,15 @@
   "Upside down": "Upside down",
   "Pixel offsets, flipped screens and more in local.lua": "Pixel offsets, flipped screens and more in local.lua",
   "Charger sounds": "Charger sounds",
-  "Notification sounds": "Notification sounds"
+  "Notification sounds": "Notification sounds",
+  "Accent": "Accent",
+  "Beautify screenshot": "Beautify screenshot",
+  "Close pin": "Close pin",
+  "Copied, ready to paste": "Copied, ready to paste",
+  "Could not save the picture": "Could not save the picture",
+  "None": "None",
+  "Saved as {name}": "Saved as {name}",
+  "Shadow": "Shadow",
+  "Copy picture": "Copy picture",
+  "Save picture": "Save picture"
 }

@@ -555,5 +555,15 @@
   "Turned left": "Tournée à gauche",
   "Pixel offsets, flipped screens and more in local.lua": "Décalages en pixels, écrans inversés et plus dans local.lua",
   "Notification sounds": "Sons de notification",
-  "Charger sounds": "Sons du chargeur"
+  "Charger sounds": "Sons du chargeur",
+  "Accent": "Accent",
+  "Beautify screenshot": "Embellir la capture",
+  "Close pin": "Fermer l’épingle",
+  "Copied, ready to paste": "Copiée, prête à coller",
+  "Could not save the picture": "Impossible d’enregistrer l’image",
+  "None": "Aucun",
+  "Saved as {name}": "Enregistrée sous {name}",
+  "Shadow": "Ombre",
+  "Copy picture": "Copier l’image",
+  "Save picture": "Enregistrer l’image"
 }

@@ -18,7 +18,11 @@ Review the selected content before saving or sharing. OCR results may be wrong;
 QR codes can contain private credentials or untrusted URLs. A screenshot editor
 is not a guarantee that sensitive background text has been removed.
 
-Saved screenshots offer notification actions to open the image, edit it in the screenshot editor (saving over it) or open its screenshots folder.
+Saved screenshots offer notification actions to open the image, edit it in the screenshot editor (saving over it), beautify it, pin it on screen or open its screenshots folder.
+
+**Beautify** sets the screenshot on a background (the theme's gradient, a few presets, the accent colour or none) with adjustable padding, rounded corners and a shadow; **Copy picture** puts the full-size picture on the clipboard and **Save picture** writes it beside the original as `NAME-beautified.png`.
+
+**Pin on screen** floats the screenshot above every window and on every workspace as a reference. Drag it to move it and scroll over it to resize it; close it with its × button, Escape or a middle click.
 
 ## Recording and streaming
 

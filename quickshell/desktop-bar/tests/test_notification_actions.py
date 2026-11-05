@@ -34,7 +34,11 @@ class NotificationActionTests(unittest.TestCase):
 
     def test_saved_screenshots_and_recordings_offer_their_actions(self):
         source = (BAR / 'scripts/obs-control.py').read_text()
-        self.assertIn('[("open", tr(\'Open image\')), ("edit", tr(\'Edit image\')), ("folder", tr(\'Open folder\'))]', source)
+        self.assertIn('[("open", tr(\'Open image\')), ("edit", tr(\'Edit image\')), ("beautify", tr(\'Beautify\')), ("pin", tr(\'Pin on screen\')),', source)
+        self.assertIn('call = ["beautify", "open"] if chosen == "beautify" else ["pins", "add"]', source)
+        bar_dir = (BAR / 'qmldir').read_text()
+        self.assertIn('ScreenshotPins capture/ScreenshotPins.qml', bar_dir)
+        self.assertIn('BeautifyWindow capture/BeautifyWindow.qml', bar_dir)
         self.assertIn('[("open", tr(\'Play recording\')), ("folder", tr(\'Open folder\')), ("copy", tr(\'Copy path\'))]', source)
         # Editing saves over the screenshot it opened.
         self.assertIn('["satty", "-f", str(path), "-o", str(path)', source)

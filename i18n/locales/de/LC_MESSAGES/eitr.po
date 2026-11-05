@@ -460,6 +460,9 @@ msgstr "Ladelimit entfernt; Akkus werden bis 100 % geladen."
 msgid "Battery limit must be a whole number from 60 to 100, or off"
 msgstr "Das Ladelimit muss eine ganze Zahl von 60 bis 100 oder off sein"
 
+msgid "Beautify"
+msgstr "Verschönern"
+
 msgid "Before you download a plugin"
 msgstr "Bevor du ein Plugin herunterlädst"
 
@@ -2322,6 +2325,9 @@ msgstr "Erinnerung zum Abbrechen auswählen"
 
 msgid "Picture"
 msgstr "Bild"
+
+msgid "Pin on screen"
+msgstr "Auf dem Bildschirm anheften"
 
 msgid "Play recording"
 msgstr "Aufnahme abspielen"

@@ -555,5 +555,15 @@
   "Turned left": "Girada a la izquierda",
   "Pixel offsets, flipped screens and more in local.lua": "Desplazamientos en píxeles, pantallas reflejadas y más en local.lua",
   "Notification sounds": "Sonidos de notificación",
-  "Charger sounds": "Sonidos del cargador"
+  "Charger sounds": "Sonidos del cargador",
+  "Accent": "Acento",
+  "Beautify screenshot": "Embellecer captura",
+  "Close pin": "Cerrar captura fijada",
+  "Copied, ready to paste": "Copiada, lista para pegar",
+  "Could not save the picture": "No se pudo guardar la imagen",
+  "None": "Ninguno",
+  "Saved as {name}": "Guardada como {name}",
+  "Shadow": "Sombra",
+  "Copy picture": "Copiar imagen",
+  "Save picture": "Guardar imagen"
 }

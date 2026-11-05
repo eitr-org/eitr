@@ -460,6 +460,9 @@ msgstr "Se eliminó el límite de carga; las baterías cargan al 100 %."
 msgid "Battery limit must be a whole number from 60 to 100, or off"
 msgstr "El límite debe ser un entero de 60 a 100, u off"
 
+msgid "Beautify"
+msgstr "Embellecer"
+
 msgid "Before you download a plugin"
 msgstr "Antes de descargar un plugin"
 
@@ -2322,6 +2325,9 @@ msgstr "Elige un recordatorio para cancelar"
 
 msgid "Picture"
 msgstr "Imagen"
+
+msgid "Pin on screen"
+msgstr "Fijar en pantalla"
 
 msgid "Play recording"
 msgstr "Reproducir grabación"

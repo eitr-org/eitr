@@ -555,5 +555,15 @@
   "Turned left": "Nach links gedreht",
   "Pixel offsets, flipped screens and more in local.lua": "Pixelversatz, gespiegelte Bildschirme und mehr in local.lua",
   "Notification sounds": "Benachrichtigungstöne",
-  "Charger sounds": "Ladetöne"
+  "Charger sounds": "Ladetöne",
+  "Accent": "Akzent",
+  "Beautify screenshot": "Bildschirmfoto verschönern",
+  "Close pin": "Anheftung schließen",
+  "Copied, ready to paste": "Kopiert, bereit zum Einfügen",
+  "Could not save the picture": "Das Bild konnte nicht gespeichert werden",
+  "None": "Keiner",
+  "Saved as {name}": "Gespeichert als {name}",
+  "Shadow": "Schatten",
+  "Copy picture": "Bild kopieren",
+  "Save picture": "Bild speichern"
 }

@@ -452,10 +452,11 @@ def announce_saved(command, stopped_at):
 
 
 def notify_saved(path, screenshot=False, copied=False):
-    """A saved screenshot offers Open, Edit and its folder; a recording Open, its folder and its path."""
+    """A saved screenshot offers Open, Edit, Beautify, Pin and its folder; a recording Open, its folder and its path."""
     path = Path(path)
     title = tr('Screenshot saved and copied') if copied else tr('Screenshot saved')
-    actions = ([("open", tr('Open image')), ("edit", tr('Edit image')), ("folder", tr('Open folder'))] if screenshot
+    actions = ([("open", tr('Open image')), ("edit", tr('Edit image')), ("beautify", tr('Beautify')), ("pin", tr('Pin on screen')),
+                ("folder", tr('Open folder'))] if screenshot
                else [("open", tr('Play recording')), ("folder", tr('Open folder')), ("copy", tr('Copy path'))])
     chosen = subprocess.run(["notify-send", "--app-name=" + ("Screenshot" if screenshot else "OBS Studio"),
                              "--icon=" + (str(path) if screenshot else "com.obsproject.Studio"), "--wait",
@@ -472,6 +473,9 @@ def notify_saved(path, screenshot=False, copied=False):
                                       "--app-id", "dev.local.ScreenshotEditor", "--title", "Screenshot",
                                       "--disable-notifications"]),
                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+    elif chosen in {"beautify", "pin"}:
+        call = ["beautify", "open"] if chosen == "beautify" else ["pins", "add"]
+        subprocess.run(["eitr-shell", "desktop-bar", "ipc", "call", "--", *call, str(path)], capture_output=True, timeout=5)
     elif chosen == "copy":
         subprocess.run(["wl-copy", "--", str(path)], check=False)
 

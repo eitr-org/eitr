@@ -1471,5 +1471,7 @@
   "Edit image": "Editar imagem",
   "Play recording": "Reproduzir gravação",
   "Copy path": "Copiar caminho",
-  "Unknown rotation {value}": "Rotação desconhecida {value}"
+  "Unknown rotation {value}": "Rotação desconhecida {value}",
+  "Beautify": "Embelezar",
+  "Pin on screen": "Fixar na tela"
 }

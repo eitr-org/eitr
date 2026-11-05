@@ -15,7 +15,11 @@ Nach einem Screenshot trifft ein kurzer Blitz die erfasste Fläche. Der Effekt b
 
 Prüfe den Inhalt vor dem Speichern oder Teilen. OCR kann Fehler machen; QR-Codes können private Zugangsdaten oder nicht vertrauenswürdige URLs enthalten. Ein Bildeditor garantiert nicht, dass vertraulicher Hintergrundtext entfernt wurde.
 
-Gespeicherte Bildschirmfotos bieten Benachrichtigungsaktionen zum Öffnen des Bildes, zum Bearbeiten im Screenshot-Editor (das Bild wird überschrieben) oder zum Öffnen des Bildschirmfotoordners.
+Gespeicherte Bildschirmfotos bieten Benachrichtigungsaktionen zum Öffnen des Bildes, zum Bearbeiten im Screenshot-Editor (das Bild wird überschrieben), zum Verschönern, zum Anheften auf dem Bildschirm oder zum Öffnen des Bildschirmfotoordners.
+
+**Verschönern** setzt das Bildschirmfoto auf einen Hintergrund (den Verlauf des Themas, einige Vorlagen, die Akzentfarbe oder keinen) mit einstellbarem Abstand, abgerundeten Ecken und Schatten; **Bild kopieren** legt das Bild in voller Größe in die Zwischenablage, **Bild speichern** schreibt es neben das Original als `NAME-beautified.png`.
+
+**Auf dem Bildschirm anheften** lässt das Bildschirmfoto als Referenz über allen Fenstern und auf allen Arbeitsflächen schweben. Ziehe es zum Verschieben, scrolle darüber zum Vergrößern oder Verkleinern; schließe es mit seiner ×-Schaltfläche, Escape oder einem Mittelklick.
 
 ## Aufnahme und Streaming
 

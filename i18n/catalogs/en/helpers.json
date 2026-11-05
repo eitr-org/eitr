@@ -1471,5 +1471,7 @@
   "Copy path": "Copy path",
   "Edit image": "Edit image",
   "Play recording": "Play recording",
-  "Unknown rotation {value}": "Unknown rotation {value}"
+  "Unknown rotation {value}": "Unknown rotation {value}",
+  "Beautify": "Beautify",
+  "Pin on screen": "Pin on screen"
 }

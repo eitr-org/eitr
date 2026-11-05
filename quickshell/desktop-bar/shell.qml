@@ -24,6 +24,8 @@ ShellRoot {
     }
     function showCatalog() { catalogWindow.show(); }
     LiveWallpaper {}
+    ScreenshotPins { foreground: shell.fg; background: shell.barBackground() }
+    BeautifyWindow { foreground: shell.fg; background: shell.barBackground(); accent: shell.activeBg }
     PluginDesktop {
         id: pluginDesktop
         foreground: shell.fg; background: shell.barBackground(); accent: shell.activeBg

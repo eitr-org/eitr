@@ -37,6 +37,9 @@
     "Above-window widgets are click-through. Use this page or Edit widgets for their options.": [
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
+    "Accent": [
+      "quickshell/desktop-bar/capture/BeautifyWindow.qml"
+    ],
     "Add": [
       "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
@@ -148,6 +151,9 @@
     ],
     "Battery health: {percent}%": [
       "quickshell/desktop-bar/panels/BatteryMenu.qml"
+    ],
+    "Beautify screenshot": [
+      "quickshell/desktop-bar/capture/BeautifyWindow.qml"
     ],
     "Behavior": [
       "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
@@ -285,6 +291,7 @@
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Close": [
+      "quickshell/desktop-bar/capture/BeautifyWindow.qml",
       "quickshell/desktop-bar/dock/EdgeDock.qml",
       "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/lockscreen/design-gallery.qml"
@@ -300,6 +307,9 @@
     ],
     "Close its settings": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+    ],
+    "Close pin": [
+      "quickshell/desktop-bar/capture/ScreenshotPins.qml"
     ],
     "Color": [
       "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
@@ -350,10 +360,17 @@
     "Copied": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
+    "Copied, ready to paste": [
+      "quickshell/desktop-bar/capture/BeautifyWindow.qml"
+    ],
+    "Copy picture": [
+      "quickshell/desktop-bar/capture/BeautifyWindow.qml"
+    ],
     "Copy reply": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
     "Corners": [
+      "quickshell/desktop-bar/capture/BeautifyWindow.qml",
       "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
     ],
     "Could not change Cursor Fire": [
@@ -389,6 +406,9 @@
     ],
     "Could not save recording settings": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
+    ],
+    "Could not save the picture": [
+      "quickshell/desktop-bar/capture/BeautifyWindow.qml"
     ],
     "Could not set the main display": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
@@ -919,6 +939,9 @@
     "No wallpapers": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
+    "None": [
+      "quickshell/desktop-bar/capture/BeautifyWindow.qml"
+    ],
     "Normal": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
@@ -1022,6 +1045,7 @@
       "quickshell/lockscreen/themes/nothing/Main.qml"
     ],
     "Padding": [
+      "quickshell/desktop-bar/capture/BeautifyWindow.qml",
       "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
     ],
     "Pair Bluetooth devices": [
@@ -1306,6 +1330,12 @@
       "quickshell/desktop-bar/panels/AudioMenu.qml",
       "quickshell/desktop-bar/panels/ProfilePicture.qml"
     ],
+    "Save picture": [
+      "quickshell/desktop-bar/capture/BeautifyWindow.qml"
+    ],
+    "Saved as {name}": [
+      "quickshell/desktop-bar/capture/BeautifyWindow.qml"
+    ],
     "Scale": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
@@ -1366,6 +1396,9 @@
     ],
     "Settings": [
       "quickshell/desktop-bar/panels/ControlCenter.qml"
+    ],
+    "Shadow": [
+      "quickshell/desktop-bar/capture/BeautifyWindow.qml"
     ],
     "Share Clipboard": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
@@ -1521,6 +1554,7 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Theme": [
+      "quickshell/desktop-bar/capture/BeautifyWindow.qml",
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
       "quickshell/desktop-bar/panels/ControlCenterStyle.qml"
     ],
@@ -5206,6 +5240,9 @@
     "Battery limit must be a whole number from 60 to 100, or off": [
       "distro/system/eitr-system.py"
     ],
+    "Beautify": [
+      "quickshell/desktop-bar/scripts/obs-control.py"
+    ],
     "Before you download a plugin": [
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -7116,6 +7153,9 @@
     ],
     "Picture": [
       "walker/scripts/actions/style/own.py"
+    ],
+    "Pin on screen": [
+      "quickshell/desktop-bar/scripts/obs-control.py"
     ],
     "Play recording": [
       "quickshell/desktop-bar/scripts/obs-control.py"

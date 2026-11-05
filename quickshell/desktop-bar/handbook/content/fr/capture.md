@@ -15,7 +15,11 @@ Après une capture, un bref éclair frappe la zone capturée. L’effet commence
 
 Vérifiez le contenu avant d’enregistrer ou de partager. L’OCR peut se tromper ; les QR codes peuvent contenir des identifiants privés ou des URL non fiables. Un éditeur d’images ne garantit pas la suppression du texte sensible en arrière-plan.
 
-Les captures enregistrées proposent des actions de notification pour ouvrir l’image, la modifier dans l’éditeur de captures (elle est enregistrée par-dessus) ou ouvrir son dossier de captures.
+Les captures enregistrées proposent des actions de notification pour ouvrir l’image, la modifier dans l’éditeur de captures (elle est enregistrée par-dessus), l’embellir, l’épingler à l’écran ou ouvrir son dossier de captures.
+
+**Embellir** pose la capture sur un fond (le dégradé du thème, quelques préréglages, la couleur d’accent ou aucun) avec marge, coins arrondis et ombre réglables ; **Copier l’image** met l’image en taille réelle dans le presse-papiers et **Enregistrer l’image** l’écrit à côté de l’original sous `NAME-beautified.png`.
+
+**Épingler à l’écran** fait flotter la capture au-dessus de toutes les fenêtres et sur tous les espaces de travail, comme référence. Faites-la glisser pour la déplacer et faites défiler dessus pour la redimensionner ; fermez-la avec son bouton ×, Échap ou un clic du milieu.
 
 ## Enregistrement et diffusion
 
