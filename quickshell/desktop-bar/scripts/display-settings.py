@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Mode, HDR, scale, position and mirroring for each display.
+"""Mode, HDR, scale, rotation, position and mirroring for each display.
 
   display-settings.py list               monitors and their saved settings, as JSON
   display-settings.py set NAME KEY VALUE apply a change and save it; a mode or HDR toggle is only tried
@@ -9,7 +9,8 @@
   display-settings.py edit               open ~/.config/hypr/local.lua, seeded with examples
 
 KEY is hdr (on/off), sdr_brightness (1.0–2.0), mode (2560x1080@144), scale
-(1.25), position or mirror (another output, or none). A position is either pixels (0x0) or SIDE:OTHER[:ALIGN], where SIDE is
+(1.25), rotation (0, 90, 180 or 270: how far the screen
+itself is turned clockwise, so the picture is drawn upright on it), position or mirror (another output, or none). A position is either pixels (0x0) or SIDE:OTHER[:ALIGN], where SIDE is
 left-of, right-of, above or below, and ALIGN is start, center or end along the
 shared edge. That arrangement is saved, so when OTHER later changes resolution or
 scale, the displays beside it move with it. Any number of displays can be
@@ -18,8 +19,8 @@ arranged this way; a change that would make two displays overlap is refused.
 Saved settings live in the machine-local ~/.config/hypr/displays.json, and
 displays.lua (generated from it) is loaded before ~/.config/hypr/local.lua, so
 hand-written settings there still win. Position, scale and mirroring apply live
-through hyprctl and are saved at once. A new resolution, refresh rate or HDR toggle
-could leave a screen black, so it is only tried: unless kept, a systemd user timer that does
+through hyprctl and are saved at once. A new resolution, refresh rate, rotation or HDR
+toggle could leave a screen black or hard to use, so it is only tried: unless kept, a systemd user timer that does
 not depend on the bar undoes it after 15 s.
 """
 import eitr_bootstrap
@@ -40,6 +41,9 @@ DRM_ROOT = Path("/sys/class/drm")
 HDR_ENV = ("PROTON_ENABLE_WAYLAND", "PROTON_ENABLE_HDR", "DXVK_HDR")
 
 REVERT_SECONDS = 15
+# How far the screen is physically turned clockwise, to the Hyprland transform that draws
+# the picture upright on it (transform 1 draws it a quarter counter-clockwise).
+ROTATIONS = {"0": 0, "90": 1, "180": 2, "270": 3}
 REVERT_UNIT = "eitr-display-revert"
 
 
@@ -119,7 +123,7 @@ def current(monitor):
         brightness = saved().get(monitor.get("name"), {}).get("sdr_brightness", brightness)
     settings = {"mode": f"{monitor['width']}x{monitor['height']}@{monitor['refreshRate']:.2f}",
                 "position": f"{monitor['x']}x{monitor['y']}", "scale": f"{monitor['scale']:g}",
-                "mirror": None if mirror == "none" else mirror}
+                "mirror": None if mirror == "none" else mirror, "transform": int(monitor.get("transform", 0))}
     # Only HDR monitors carry an HDR state, so SDR-only ones keep Hyprland's defaults.
     if hdr or hdr_capable(monitor.get("name", "")):
         settings.update(hdr=hdr, sdr_brightness=brightness)
@@ -147,7 +151,8 @@ def parse_anchor(value):
 def mode_size(settings, monitor):
     """Logical width and height of a monitor with these settings."""
     width, height = (int(part) for part in settings["mode"].split("@")[0].split("x"))
-    if monitor.get("transform", 0) % 2:
+    # A display turned a quarter (90 or 270 degrees) is as wide as it was tall.
+    if settings.get("transform", monitor.get("transform", 0)) % 2:
         width, height = height, width
     scale = float(settings["scale"])
     return width / scale, height / scale
@@ -228,7 +233,7 @@ def check_overlaps(settings, live):
 
 def lua_call(name, settings):
     fields = [f'output = "{name}"', f'mode = "{settings["mode"]}"', f'position = "{settings["position"]}"',
-              f'scale = {settings["scale"]}']
+              f'scale = {settings["scale"]}', f'transform = {int(settings.get("transform", 0))}']
     if settings.get("mirror"):
         fields.append(f'mirror = "{settings["mirror"]}"')
     # hdredid takes the monitor's own peak and black levels from its EDID, so games
@@ -313,7 +318,7 @@ def saved_anchors(live):
 
 
 def set_setting(name, key, value):
-    if key not in ("mode", "scale", "position", "mirror", "hdr", "sdr_brightness"):
+    if key not in ("mode", "scale", "rotation", "position", "mirror", "hdr", "sdr_brightness"):
         raise ValueError(tr('Unknown setting {key}', key=key))
     if trial_file().exists():
         revert()
@@ -353,6 +358,11 @@ def set_setting(name, key, value):
         if not math.isfinite(brightness) or not 1 <= brightness <= 2:
             raise ValueError(tr('SDR content brightness must be between 1 and 2.'))
         after[name][key] = brightness
+    elif key == "rotation":
+        if value not in ROTATIONS:
+            raise ValueError(tr('Unknown rotation {value}', value=value))
+        # Keeps a mirror-image flip someone set by hand (transforms 4 to 7).
+        after[name]["transform"] = (after[name].get("transform", 0) & 4) | ROTATIONS[value]
     elif key == "mirror":
         value = None if value == "none" else value
         if value is not None and value not in {display for display in before if display != name}:
@@ -364,7 +374,7 @@ def set_setting(name, key, value):
         after[name][key] = value
     arrange(after, anchors, live)
     normalize(after)
-    if key in ("mode", "hdr"):
+    if key in ("mode", "rotation", "hdr"):
         trial_file().write_text(json.dumps({"before": before, "after": after, "anchors": anchors}) + "\n")
         subprocess.run(["systemctl", "--user", "stop", f"{REVERT_UNIT}.timer"], capture_output=True)
         subprocess.run(["systemd-run", "--user", "--quiet", f"--unit={REVERT_UNIT}", f"--on-active={REVERT_SECONDS}s",

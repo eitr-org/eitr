@@ -29,7 +29,7 @@ Capturas (selección, pantalla completa, ventana o selección directa al portapa
 
 ## Configuración
 
-- **Dispositivos:** paneles de Audio, Micrófono, Pantalla (resolución, frecuencia y escala), Bluetooth y WiFi, Iluminación y límite de carga en portátiles.
+- **Dispositivos:** paneles de Audio, Micrófono, Pantalla (resolución, frecuencia, escala y rotación), Bluetooth y WiFi, Iluminación y límite de carga en portátiles.
 - **Teclado:** seleccionar, añadir y eliminar distribuciones, conservando al menos una.
 - **Luz nocturna y pantalla principal:** modo y horario de Luz nocturna, independientes del interruptor manual, y pantalla principal que contiene la barra.
 - **Información:** Acerca de, Hardware, Uso de IA, Tiempo, Comprobar este PC e Informar de un problema.

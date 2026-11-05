@@ -29,7 +29,7 @@ Screenshots (Auswahl, Vollbild, Fenster oder Auswahl direkt in die Zwischenablag
 
 ## Einstellungen
 
-- **Geräte:** Panels für Audio, Mikrofon, Bildschirm (Auflösung, Bildwiederholrate, Skalierung), Bluetooth und WiFi, Beleuchtung und Akkuladelimit auf Laptops.
+- **Geräte:** Panels für Audio, Mikrofon, Bildschirm (Auflösung, Bildwiederholrate, Skalierung, Drehung), Bluetooth und WiFi, Beleuchtung und Akkuladelimit auf Laptops.
 - **Tastatur:** Belegungen wählen, hinzufügen und entfernen; mindestens eine bleibt erhalten.
 - **Nachtlicht und Hauptbildschirm:** Nachtlichtmodus und Zeitplan, getrennt vom manuellen Schalter, sowie der Hauptbildschirm mit der Leiste.
 - **Informationen:** Über, Hardware, KI-Nutzung, Wetter, Diesen PC prüfen und Problem melden.

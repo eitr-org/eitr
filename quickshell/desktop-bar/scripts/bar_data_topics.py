@@ -67,7 +67,7 @@ def _validate_display_settings(result):
             raise ValueError("invalid-result")
         fields(monitor, {"mode": (str,), "position": (str,), "scale": (str,), "mirror": (str, type(None)),
                          "anchor": (dict, type(None)), "hdr": (bool,), "hdr_capable": (bool,),
-                         "sdr_brightness": number, "modes": (list,)})
+                         "sdr_brightness": number, "transform": number, "modes": (list,)})
         if any(not isinstance(mode, str) for mode in monitor.get("modes", [])):
             raise ValueError("invalid-result")
 

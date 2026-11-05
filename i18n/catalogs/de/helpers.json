@@ -1470,5 +1470,6 @@
   "… and {count} more": "… und {count} weitere",
   "Edit image": "Bild bearbeiten",
   "Play recording": "Aufnahme abspielen",
-  "Copy path": "Pfad kopieren"
+  "Copy path": "Pfad kopieren",
+  "Unknown rotation {value}": "Unbekannte Drehung {value}"
 }

@@ -46,7 +46,7 @@ closes before a selection or recording starts.
 
 ## Settings
 
-- **Devices:** Audio, Microphone, Display (resolution, refresh rate and scale),
+- **Devices:** Audio, Microphone, Display (resolution, refresh rate, scale and rotation),
   Bluetooth and WiFi panels, Lighting, and the battery charge limit on laptops.
 - **Keyboard:** layouts can be selected, added and removed, with at least one kept.
 - **Night Light & Main Display:** Night Light's mode and schedule (distinct

@@ -385,7 +385,6 @@
   "Review theme installation": "Vérifier l’installation des thèmes",
   "Right": "Droite",
   "Right of": "À droite de",
-  "Rotation, pixel offsets and more in local.lua": "Rotation, décalages en pixels et plus dans local.lua",
   "Runs on this PC; nothing is saved": "Sur ce PC ; rien n’est enregistré",
   "SCANNED DEVICES": "PÉRIPHÉRIQUES DÉTECTÉS",
   "SCENE": "SCÈNE",
@@ -548,5 +547,11 @@
   "󰂚  No notifications": "󰂚  Aucune notification",
   "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification",
   "Previous track": "Piste précédente",
-  "Next track": "Piste suivante"
+  "Next track": "Piste suivante",
+  "Normal": "Normale",
+  "Rotation": "Rotation",
+  "Upside down": "À l’envers",
+  "Turned right": "Tournée à droite",
+  "Turned left": "Tournée à gauche",
+  "Pixel offsets, flipped screens and more in local.lua": "Décalages en pixels, écrans inversés et plus dans local.lua"
 }

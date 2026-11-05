@@ -24,14 +24,15 @@ panels and notifications: turn on **Main display** in another monitor's settings
 to move them there. If the main monitor disconnects, another display shows as
 **Main** and takes the bar until it returns; your choice is kept.
 
-A monitor's settings are its resolution, refresh rate, scale and, with more than
+A monitor's settings are its resolution, refresh rate, scale, rotation (Normal,
+Upside down, Turned right or Turned left, for a screen turned on its stand) and, with more than
 one monitor, its position beside another or mirroring. The main display stays
 where it is and the others are placed around it, so its Position just says so;
 a monitor can be placed beside any display except one already placed beside it.
 
 Each setting is one row showing its current value; click it to see the choices.
 Position, alignment, scale, mirroring and the main display apply and are saved at
-once. A new **resolution or refresh rate** could leave a screen black, so for
+once. A new **resolution, refresh rate or rotation** could leave a screen black or hard to use, so for
 those the panel asks **Keep these settings?** at its bottom edge: without
 **Keep** within 15 seconds it goes back by itself, even if the panel is closed.
 Settings are saved for this computer in `~/.config/hypr/displays.json`.
@@ -45,7 +46,7 @@ connected monitor is given its exact place, so changing one never makes Hyprland
 move the others.
 
 **Edit layout by hand** opens `~/.config/hypr/local.lua` for what the panel does
-not cover, such as rotated screens or workspaces pinned to a monitor. A new file
+not cover, such as mirrored-image (flipped) screens or workspaces pinned to a monitor. A new file
 starts with commented examples (three monitors, portrait, stacked, mirroring,
 a docked laptop); nothing changes until you uncomment one and run
 `hyprctl reload`. Monitors set there take precedence over the panel; remove

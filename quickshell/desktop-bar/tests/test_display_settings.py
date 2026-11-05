@@ -285,7 +285,7 @@ class DisplaySettingsTests(unittest.TestCase):
     def test_a_new_mode_is_live_but_reverts_unless_kept(self):
         # A mode the screen cannot show leaves it black, so the change is tried.
         self.assertTrue(display.set_setting("DP-3", "mode", "1920x1080@60.00")["trial"])
-        self.assertIn('hl.monitor({ output = "DP-3", mode = "1920x1080@60.00", position = "0x0", scale = 1 })',
+        self.assertIn('hl.monitor({ output = "DP-3", mode = "1920x1080@60.00", position = "0x0", scale = 1, transform = 0 })',
                       self.evaluated())
         timer = next(command for command in self.commands if command[0] == "systemd-run")
         self.assertIn("--on-active=15s", timer)
@@ -295,12 +295,26 @@ class DisplaySettingsTests(unittest.TestCase):
         evaluated = len(self.evaluated())
         display.revert()
         self.assertEqual(sum(command[-1] == "refresh-walker" for command in self.commands), 2)
-        self.assertIn('hl.monitor({ output = "DP-3", mode = "2560x1080@144.00", position = "0x0", scale = 1 })',
+        self.assertIn('hl.monitor({ output = "DP-3", mode = "2560x1080@144.00", position = "0x0", scale = 1, transform = 0 })',
                       self.evaluated()[evaluated:])
         self.assertFalse(display.trial_file().exists())
         display.set_setting("DP-3", "mode", "1920x1080@60.00")
         self.assertTrue(display.keep())
         self.assertEqual(json.loads((self.base / "config/hypr/displays.json").read_text())["DP-3"]["mode"], "1920x1080@60.00")
+
+    def test_rotation_is_tried_swaps_the_layout_size_and_is_saved_once_kept(self):
+        # An upside-down or sideways screen is hard to use, so rotating is only tried.
+        result = display.set_setting("DP-3", "rotation", "90")
+        self.assertTrue(result["trial"])
+        self.assertEqual(result["transform"], 1)
+        self.assertIn('transform = 1 })', next(rule for rule in self.evaluated() if '"DP-3"' in rule and 'transform = 1' in rule))
+        self.assertTrue(display.keep())
+        self.assertEqual(json.loads((self.base / "config/hypr/displays.json").read_text())["DP-3"]["transform"], 1)
+        self.assertIn('transform = 1 })', (self.base / "config/hypr/displays.lua").read_text())
+        # Sideways, a 2560x1080 display is 1080 wide.
+        self.assertEqual(display.mode_size({"mode": "2560x1080@144", "scale": "1", "transform": 1}, {}), (1080.0, 2560.0))
+        with self.assertRaises(ValueError):
+            display.set_setting("DP-3", "rotation", "45")
 
     def test_scale_applies_and_is_saved_at_once(self):
         self.assertNotIn("trial", display.set_setting("DP-3", "scale", "1.25"))

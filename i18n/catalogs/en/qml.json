@@ -380,7 +380,6 @@
   "Review theme installation": "Review theme installation",
   "Right": "Right",
   "Right of": "Right of",
-  "Rotation, pixel offsets and more in local.lua": "Rotation, pixel offsets and more in local.lua",
   "Runs on this PC; nothing is saved": "Runs on this PC; nothing is saved",
   "SCANNED DEVICES": "SCANNED DEVICES",
   "SCENE": "SCENE",
@@ -548,5 +547,11 @@
   "No pictures in this folder": "No pictures in this folder",
   "Check This PC": "Check This PC",
   "Next track": "Next track",
-  "Previous track": "Previous track"
+  "Previous track": "Previous track",
+  "Normal": "Normal",
+  "Rotation": "Rotation",
+  "Turned left": "Turned left",
+  "Turned right": "Turned right",
+  "Upside down": "Upside down",
+  "Pixel offsets, flipped screens and more in local.lua": "Pixel offsets, flipped screens and more in local.lua"
 }

@@ -405,7 +405,6 @@ var qml = {
     "Review theme installation": "Review theme installation",
     "Right": "Right",
     "Right of": "Right of",
-    "Rotation, pixel offsets and more in local.lua": "Rotation, pixel offsets and more in local.lua",
     "Runs on this PC; nothing is saved": "Runs on this PC; nothing is saved",
     "SCANNED DEVICES": "SCANNED DEVICES",
     "SCENE": "SCENE",
@@ -573,7 +572,13 @@ var qml = {
     "No pictures in this folder": "No pictures in this folder",
     "Check This PC": "Check This PC",
     "Next track": "Next track",
-    "Previous track": "Previous track"
+    "Previous track": "Previous track",
+    "Normal": "Normal",
+    "Rotation": "Rotation",
+    "Turned left": "Turned left",
+    "Turned right": "Turned right",
+    "Upside down": "Upside down",
+    "Pixel offsets, flipped screens and more in local.lua": "Pixel offsets, flipped screens and more in local.lua"
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -962,7 +967,6 @@ var qml = {
     "Review theme installation": "Revisar instalação de temas",
     "Right": "Direita",
     "Right of": "À direita de",
-    "Rotation, pixel offsets and more in local.lua": "Rotação, deslocamentos em pixels e mais no local.lua",
     "Runs on this PC; nothing is saved": "Executa neste PC; nada é salvo",
     "SCANNED DEVICES": "DISPOSITIVOS ENCONTRADOS",
     "SCENE": "CENA",
@@ -1125,7 +1129,13 @@ var qml = {
     "󰂚  No notifications": "󰂚  Nenhuma notificação",
     "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Não perturbe\n\nNenhuma notificação",
     "Previous track": "Faixa anterior",
-    "Next track": "Próxima faixa"
+    "Next track": "Próxima faixa",
+    "Normal": "Normal",
+    "Rotation": "Rotação",
+    "Upside down": "De cabeça para baixo",
+    "Turned right": "Girado para a direita",
+    "Turned left": "Girado para a esquerda",
+    "Pixel offsets, flipped screens and more in local.lua": "Deslocamentos em pixels, telas espelhadas e mais no local.lua"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1514,7 +1524,6 @@ var qml = {
     "Review theme installation": "Revisar instalación de temas",
     "Right": "Derecha",
     "Right of": "A la derecha de",
-    "Rotation, pixel offsets and more in local.lua": "Rotación, desplazamientos en píxeles y más en local.lua",
     "Runs on this PC; nothing is saved": "Se ejecuta en este PC; no se guarda nada",
     "SCANNED DEVICES": "DISPOSITIVOS DETECTADOS",
     "SCENE": "ESCENA",
@@ -1677,7 +1686,13 @@ var qml = {
     "󰂚  No notifications": "󰂚  No hay notificaciones",
     "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones",
     "Previous track": "Pista anterior",
-    "Next track": "Pista siguiente"
+    "Next track": "Pista siguiente",
+    "Normal": "Normal",
+    "Rotation": "Rotación",
+    "Upside down": "Al revés",
+    "Turned right": "Girada a la derecha",
+    "Turned left": "Girada a la izquierda",
+    "Pixel offsets, flipped screens and more in local.lua": "Desplazamientos en píxeles, pantallas reflejadas y más en local.lua"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -2066,7 +2081,6 @@ var qml = {
     "Review theme installation": "Theme-Installation prüfen",
     "Right": "Rechts",
     "Right of": "Rechts von",
-    "Rotation, pixel offsets and more in local.lua": "Drehung, Pixelversatz und mehr in local.lua",
     "Runs on this PC; nothing is saved": "Läuft auf diesem PC; nichts wird gespeichert",
     "SCANNED DEVICES": "GEFUNDENE GERÄTE",
     "SCENE": "SZENE",
@@ -2229,7 +2243,13 @@ var qml = {
     "󰂚  No notifications": "󰂚  Keine Benachrichtigungen",
     "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen",
     "Previous track": "Vorheriger Titel",
-    "Next track": "Nächster Titel"
+    "Next track": "Nächster Titel",
+    "Normal": "Normal",
+    "Rotation": "Drehung",
+    "Upside down": "Auf dem Kopf",
+    "Turned right": "Nach rechts gedreht",
+    "Turned left": "Nach links gedreht",
+    "Pixel offsets, flipped screens and more in local.lua": "Pixelversatz, gespiegelte Bildschirme und mehr in local.lua"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2618,7 +2638,6 @@ var qml = {
     "Review theme installation": "Vérifier l’installation des thèmes",
     "Right": "Droite",
     "Right of": "À droite de",
-    "Rotation, pixel offsets and more in local.lua": "Rotation, décalages en pixels et plus dans local.lua",
     "Runs on this PC; nothing is saved": "Sur ce PC ; rien n’est enregistré",
     "SCANNED DEVICES": "PÉRIPHÉRIQUES DÉTECTÉS",
     "SCENE": "SCÈNE",
@@ -2781,6 +2800,12 @@ var qml = {
     "󰂚  No notifications": "󰂚  Aucune notification",
     "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification",
     "Previous track": "Piste précédente",
-    "Next track": "Piste suivante"
+    "Next track": "Piste suivante",
+    "Normal": "Normale",
+    "Rotation": "Rotation",
+    "Upside down": "À l’envers",
+    "Turned right": "Tournée à droite",
+    "Turned left": "Tournée à gauche",
+    "Pixel offsets, flipped screens and more in local.lua": "Décalages en pixels, écrans inversés et plus dans local.lua"
   }
 };

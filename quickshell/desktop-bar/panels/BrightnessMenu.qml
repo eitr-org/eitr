@@ -537,7 +537,7 @@ ThemedPopup {
                     foreground: menu.foreground
                     onClicked: Quickshell.execDetached(["python3", menu.settingsHelper, "edit"])
                     HoverHandler { id: handEditHover }
-                    BarTooltip { target: handEditButton; hovered: handEditHover.hovered; text: Eitr.I18n.tr("Rotation, pixel offsets and more in local.lua"); background: menu.background; foreground: menu.foreground }
+                    BarTooltip { target: handEditButton; hovered: handEditHover.hovered; text: Eitr.I18n.tr("Pixel offsets, flipped screens and more in local.lua"); background: menu.background; foreground: menu.foreground }
                 }
             }
         }

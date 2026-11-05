@@ -29,7 +29,7 @@ Captures d’écran (sélection, écran entier, fenêtre ou sélection directeme
 
 ## Paramètres
 
-- **Périphériques:** panneaux Audio, Microphone, Écran (résolution, fréquence, échelle), Bluetooth et WiFi, Éclairage et limite de charge sur portable.
+- **Périphériques:** panneaux Audio, Microphone, Écran (résolution, fréquence, échelle, rotation), Bluetooth et WiFi, Éclairage et limite de charge sur portable.
 - **Clavier:** sélectionner, ajouter ou supprimer des dispositions en conservant au moins une.
 - **Éclairage nocturne et écran principal:** mode et programmation de l’éclairage nocturne, distincts de l’interrupteur manuel, et écran principal accueillant la barre.
 - **Informations:** À propos, Matériel, Utilisation IA, Météo, Vérifier ce PC et Signaler un problème.

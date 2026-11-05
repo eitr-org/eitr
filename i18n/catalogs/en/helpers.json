@@ -1470,5 +1470,6 @@
   "Website names cannot be looked up, so the internet may not work; check your network connection.": "Website names cannot be looked up, so the internet may not work; check your network connection.",
   "Copy path": "Copy path",
   "Edit image": "Edit image",
-  "Play recording": "Play recording"
+  "Play recording": "Play recording",
+  "Unknown rotation {value}": "Unknown rotation {value}"
 }

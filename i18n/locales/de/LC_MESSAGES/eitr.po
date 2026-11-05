@@ -3772,6 +3772,9 @@ msgstr "Unknown position {value}"
 msgid "Unknown recipe: {name}"
 msgstr "Unbekanntes Rezept: {name}"
 
+msgid "Unknown rotation {value}"
+msgstr "Unbekannte Drehung {value}"
+
 msgid "Unknown setting {key}"
 msgstr "Unknown setting {key}"
 

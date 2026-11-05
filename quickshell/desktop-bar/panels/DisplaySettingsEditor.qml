@@ -3,7 +3,7 @@ import QtQuick
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 
-// Resolution, refresh rate, HDR, scale, position and mirroring for one display, inside
+// Resolution, refresh rate, HDR, scale, rotation, position and mirroring for one display, inside
 // the Display panel. Each setting is one row showing its current value; clicking
 // it opens its choices. Choosing a value asks the panel to apply it
 // (scripts/display-settings.py set); a new mode or HDR toggle reverts on its own unless kept.
@@ -35,6 +35,12 @@ Column {
         .filter((rate, index, all) => all.indexOf(rate) === index)
         .sort((first, second) => Number(second) - Number(first))
     readonly property var scales: ["1", "1.25", "1.5", "1.75", "2"]
+    // How the screen itself is turned; the picture is drawn upright on it.
+    readonly property var rotations: [
+        {value: "0", label: Eitr.I18n.tr("Normal")}, {value: "180", label: Eitr.I18n.tr("Upside down")},
+        {value: "90", label: Eitr.I18n.tr("Turned right")}, {value: "270", label: Eitr.I18n.tr("Turned left")}
+    ]
+    readonly property string rotation: ["0", "90", "180", "270"][Number(monitor.transform || 0) % 4]
     readonly property var sides: [{key: "left-of", label: Eitr.I18n.tr("Left of")}, {key: "right-of", label: Eitr.I18n.tr("Right of")},
                                   {key: "above", label: Eitr.I18n.tr("Above")}, {key: "below", label: Eitr.I18n.tr("Below")}]
     // Where this display is saved beside another one; the helper keeps it there when that one changes.
@@ -257,6 +263,30 @@ Column {
                 text: Math.round(Number(modelData) * 100) + "%"
                 selected: Math.abs(Number(modelData) - Number(editor.monitor.scale)) < 0.01
                 onClicked: if (!selected) editor.choose("scale", modelData)
+            }
+        }
+    }
+    SettingRow {
+        label: Eitr.I18n.tr("Rotation"); value: editor.rotations.find(choice => choice.value === editor.rotation).label
+        tint: editor.foreground; chevron: editor.accent
+        open: editor.openSetting === "rotation"; onToggled: editor.toggle("rotation")
+    }
+    Grid {
+        id: rotationGrid
+        visible: editor.openSetting === "rotation"
+        width: parent.width
+        columns: 2
+        spacing: 6
+        Repeater {
+            model: editor.rotations
+            Choice {
+                foreground: editor.foreground
+                available: !editor.busy
+                required property var modelData
+                width: (rotationGrid.width - rotationGrid.spacing) / 2
+                text: modelData.label
+                selected: modelData.value === editor.rotation
+                onClicked: if (!selected) editor.choose("rotation", modelData.value)
             }
         }
     }

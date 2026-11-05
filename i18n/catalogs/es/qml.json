@@ -385,7 +385,6 @@
   "Review theme installation": "Revisar instalación de temas",
   "Right": "Derecha",
   "Right of": "A la derecha de",
-  "Rotation, pixel offsets and more in local.lua": "Rotación, desplazamientos en píxeles y más en local.lua",
   "Runs on this PC; nothing is saved": "Se ejecuta en este PC; no se guarda nada",
   "SCANNED DEVICES": "DISPOSITIVOS DETECTADOS",
   "SCENE": "ESCENA",
@@ -548,5 +547,11 @@
   "󰂚  No notifications": "󰂚  No hay notificaciones",
   "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones",
   "Previous track": "Pista anterior",
-  "Next track": "Pista siguiente"
+  "Next track": "Pista siguiente",
+  "Normal": "Normal",
+  "Rotation": "Rotación",
+  "Upside down": "Al revés",
+  "Turned right": "Girada a la derecha",
+  "Turned left": "Girada a la izquierda",
+  "Pixel offsets, flipped screens and more in local.lua": "Desplazamientos en píxeles, pantallas reflejadas y más en local.lua"
 }

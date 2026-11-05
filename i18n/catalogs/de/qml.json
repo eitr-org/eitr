@@ -385,7 +385,6 @@
   "Review theme installation": "Theme-Installation prüfen",
   "Right": "Rechts",
   "Right of": "Rechts von",
-  "Rotation, pixel offsets and more in local.lua": "Drehung, Pixelversatz und mehr in local.lua",
   "Runs on this PC; nothing is saved": "Läuft auf diesem PC; nichts wird gespeichert",
   "SCANNED DEVICES": "GEFUNDENE GERÄTE",
   "SCENE": "SZENE",
@@ -548,5 +547,11 @@
   "󰂚  No notifications": "󰂚  Keine Benachrichtigungen",
   "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen",
   "Previous track": "Vorheriger Titel",
-  "Next track": "Nächster Titel"
+  "Next track": "Nächster Titel",
+  "Normal": "Normal",
+  "Rotation": "Drehung",
+  "Upside down": "Auf dem Kopf",
+  "Turned right": "Nach rechts gedreht",
+  "Turned left": "Nach links gedreht",
+  "Pixel offsets, flipped screens and more in local.lua": "Pixelversatz, gespiegelte Bildschirme und mehr in local.lua"
 }

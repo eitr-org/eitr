@@ -916,6 +916,9 @@
     "No wallpapers": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
+    "Normal": [
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+    ],
     "Nothing": [
       "quickshell/lockscreen/design-gallery.qml"
     ],
@@ -1040,6 +1043,9 @@
     "Pin bar open": [
       "quickshell/desktop-bar/bar/BarHorizontalCenter.qml",
       "quickshell/desktop-bar/bar/BarVerticalCenter.qml"
+    ],
+    "Pixel offsets, flipped screens and more in local.lua": [
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Play": [
       "quickshell/desktop-bar/media/MediaCard.qml",
@@ -1255,8 +1261,8 @@
     "Right of": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
-    "Rotation, pixel offsets and more in local.lua": [
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+    "Rotation": [
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Runs on this PC; nothing is saved": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
@@ -1561,6 +1567,12 @@
     "Transcribing": [
       "quickshell/desktop-bar/bar/CaptureIndicator.qml"
     ],
+    "Turned left": [
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+    ],
+    "Turned right": [
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+    ],
     "UNLOCK": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml",
       "quickshell/lockscreen/themes/nothing/Main.qml"
@@ -1614,6 +1626,9 @@
     ],
     "Updating": [
       "quickshell/desktop-bar/components/PanelLoadingIndicator.qml"
+    ],
+    "Upside down": [
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Use the certificate and server domain supplied by your network administrator. Certificate validation is required.": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
@@ -8567,6 +8582,9 @@
     ],
     "Unknown recipe: {name}": [
       "distro/lib/eitr_profile.py"
+    ],
+    "Unknown rotation {value}": [
+      "quickshell/desktop-bar/scripts/display-settings.py"
     ],
     "Unknown setting {key}": [
       "quickshell/desktop-bar/scripts/display-settings.py"

@@ -29,7 +29,7 @@ Capturas (seleção, tela inteira, janela ou seleção direto para a área de tr
 
 ## Configurações
 
-- **Dispositivos:** painéis de Áudio, Microfone, Tela (resolução, taxa de atualização e escala), Bluetooth e WiFi, Iluminação e limite de carga em notebooks.
+- **Dispositivos:** painéis de Áudio, Microfone, Tela (resolução, taxa de atualização, escala e rotação), Bluetooth e WiFi, Iluminação e limite de carga em notebooks.
 - **Teclado:** selecionar, adicionar e remover layouts, mantendo pelo menos um.
 - **Luz noturna e tela principal:** modo e programação da Luz noturna, separados do botão manual, e o monitor principal que recebe a barra.
 - **Informações:** Sobre, Hardware, Uso de IA, Clima, Verificar este PC e Relatar um problema.
