@@ -55,6 +55,25 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
 
 # 3. Smaller items
 
+- **Desktop ideas (agreed 2026-11-05).** Each is Eitr's own design and code.
+  In progress, in this order:
+  - Notification actions: a saved screenshot offers Open and Edit, a recording Open;
+    a shortcut acts on or dismisses the newest notification; identical notifications
+    from one sender collapse into one.
+  - Display rotation: rotate any monitor (portrait, upside down) from its Display
+    settings, saved per monitor with the rest of its layout.
+  - Event sounds: optional sounds for notifications and charger plug/unplug, quiet in
+    Do Not Disturb and Game Mode.
+  - Screenshot extras: pin a capture on screen as a floating reference, and a
+    "Beautify" step that puts it on a gradient or solid background with padding.
+  Then:
+  - Taildrop: send files to the user's other Tailscale machines from a menu; incoming
+    files arrive as a notification.
+  - Kernel picker: show the installed kernels and choose which one boots by default
+    (fall back to LTS after a bad update), within Eitr's bootloader and Secure Boot setup.
+  - Window rules and keybinds editors: "always float this app" and rebinding shortcuts
+    from Settings, without editing Lua by hand.
+  - First-run welcome that previews the bar layouts and lets the user pick one.
 - **Light themes.** The owner has ideas for more light themes; create them later.
 - **hyprpaper crash without a GPU: follow upstream.** hyprpaper segfaults in VMs
   without 3D acceleration (hyprwm/hyprtoolkit#144); the bar now draws the still
@@ -72,7 +91,8 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
   queries and clicks there without
   adding site analytics. Periodically spot-check whether search/AI answers
   identify Eitr accurately; inclusion and recommendations are not guaranteed.
-- **Releases and public evidence.** After the owner records the video, add a website Releases page and prepare
+- **Releases and public evidence.** After the owner records the video, add a website Releases page (generated
+  from the same release notes as the GitHub Release, kept per area as they land) and prepare
   consistent GitHub Release notes with version, date, changes, checksums,
   tested configurations and known limitations. Publish installation walkthroughs
   and a video, a hardware test matrix, and suitable GitHub feedback templates.
@@ -92,6 +112,8 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
 
 # 4. Later
 
+- **World clock, as a plugin.** Other cities and people's local time beside the clock;
+  not built in.
 - **Bar crash leftovers.** The VM crashes (hidden bar plus a panel closing, the bar's
   screen unplugged) are fixed: the bar window stays mapped and closed panels leave it.
   Still open: the owner's two crashes of 2026-10-29 at bar start, a PipeWire event

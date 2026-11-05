@@ -23,6 +23,8 @@ on [GitHub Sponsors](https://github.com/sponsors/erickbatistaprado).
 desktop and every ISO is tested in virtual machines (offline install, updates and
 both factory resets). Hardware we have not tested yet, such as other laptops and
 GPUs, may still need fixes; please [report problems](https://github.com/eitr-org/eitr/issues).
+Contributions are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md); security problems go
+privately through [SECURITY.md](SECURITY.md).
 
 ## Desktop
 
