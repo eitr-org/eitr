@@ -17,6 +17,13 @@ class DynamicLayoutTests(unittest.TestCase):
         self.assertIn('radius: Math.min(width, height, depth > thickness + 0.5 ? 40 : Infinity) / 2', island)
         self.assertNotIn('DesktopStyle.radius', island)
 
+    def test_open_island_follows_panel_resizes_without_its_own_easing(self):
+        # Easing behind the panel's own resize left the panel's content outside the card.
+        island = (BAR / 'bar/DynamicIsland.qml').read_text()
+        self.assertIn('readonly property bool followsPanel: morphed && panel.opened && panel.revealProgress >= 1', island)
+        self.assertIn('Behavior on depth { enabled: !island.followsPanel;', island)
+        self.assertIn('Behavior on extent { enabled: !island.followsPanel;', island)
+
     def test_edges_appearances_motion_and_panel_holds(self):
         with tempfile.TemporaryDirectory(prefix='eitr-dynamic-') as directory:
             folder = Path(directory)

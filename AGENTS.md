@@ -313,7 +313,7 @@ existing design and workflows rather than replacing them with upstream defaults.
   weather shows only while the centre tab is hovered.
 - Islands: content-sized pills for logo, Overview/workspaces, AI/Hardware/Idle Lock,
   clock, weather, conditional media/capture and status, preserving icon order and
-  Full spacing. Pills follow DesktopStyle corners and float half the live outer gap
+  Full spacing. Pills are always fully rounded (ignoring the corner preference) and float half the live outer gap
   off the screen edge, with the full gap between pills. Reserve pill depth plus that
   half gap; gaps pass clicks through.
   Clock remains screen-centred. Opening a panel grows a card out of its pill toward

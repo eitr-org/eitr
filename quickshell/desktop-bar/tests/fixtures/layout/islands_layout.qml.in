@@ -121,7 +121,7 @@ ShellRoot {
                 if (input.regions[index].item !== (expected ? pill : null)) throw new Error("Hidden pill captured input " + index);
                 if (!expected) continue;
                 if (Math.abs(pill.color.a - shell.surfaceAlpha) > .01) throw new Error("Appearance ignored");
-                if (pill.radius !== DesktopStyle.radius(PanelStyle.cornerRadius)) throw new Error("Corner preference ignored");
+                if (pill.radius !== Math.min(pill.width, pill.height) / 2) throw new Error("Pills must be fully rounded");
                 const point = pill.mapToItem(bar.contentItem, 0, 0);
                 if (!contains(point.x + pill.width / 2, point.y + pill.height / 2)) throw new Error("Pill missing input");
                 if (contains(point.x - 2, point.y - 2)) throw new Error("Gap captured input");

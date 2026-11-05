@@ -79,7 +79,8 @@ Item {
         y: host.verticalBar ? leading.y - 4 : 0
         width: host.verticalBar ? barHost.normalThickness : trailing.x + last.width - leading.x + 8
         height: host.verticalBar ? trailing.y + last.height - leading.y + 8 : barHost.normalThickness
-        radius: DesktopStyle.radius(PanelStyle.cornerRadius)
+        // Pills are always fully rounded, whatever the corner preference.
+        radius: Math.min(width, height) / 2
         color: host.barBackground()
         BarGestureArea {
             anchors.fill: parent
