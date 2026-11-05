@@ -56,17 +56,8 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
 # 3. Smaller items
 
 - **Desktop ideas (agreed 2026-11-05).** Each is Eitr's own design and code.
-  In progress, in this order:
-  - Notification actions: a saved screenshot offers Open and Edit, a recording Open;
-    a shortcut acts on or dismisses the newest notification; identical notifications
-    from one sender collapse into one.
-  - Display rotation: rotate any monitor (portrait, upside down) from its Display
-    settings, saved per monitor with the rest of its layout.
-  - Event sounds: optional sounds for notifications and charger plug/unplug, quiet in
-    Do Not Disturb and Game Mode.
-  - Screenshot extras: pin a capture on screen as a floating reference, and a
-    "Beautify" step that puts it on a gradient or solid background with padding.
-  Then:
+  Done: notification actions, display rotation, event sounds, screenshot pin and beautify.
+  Next:
   - Taildrop: send files to the user's other Tailscale machines from a menu; incoming
     files arrive as a notification.
   - Kernel picker: show the installed kernels and choose which one boots by default
