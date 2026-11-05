@@ -52,9 +52,12 @@ BarSection {
 
     Column {
         id: verticalStart
-        opacity: barHost.expanded ? 1 : 0
+        // The fade lives in shownOpacity, so an Islands pill hiding this item under its card
+        // overrides a plain binding and gets it back intact.
+        property real shownOpacity: barHost.expanded ? 1 : 0
+        opacity: shownOpacity
         enabled: barHost.expanded
-        Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
+        Behavior on shownOpacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
         y: barHost.islandsLayout ? host.screenGaps[0] + 4 : barHost.centeredLayout ? barHost.endPadding : 8
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: host.workspaceItemSpacing

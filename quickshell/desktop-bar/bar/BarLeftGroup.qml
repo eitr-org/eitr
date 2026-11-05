@@ -13,6 +13,7 @@ RowLayout {
     property var aiPanel
     property var hardwarePanel
     readonly property alias workspaces: workspaceRow
+    readonly property alias workspaceButtonRow: workspaceButtons
     readonly property alias hardwareStatus: statusRow
     readonly property alias controlCenterLogo: logo
     readonly property alias overviewIcon: overview
@@ -22,9 +23,12 @@ RowLayout {
     spacing: 0
     Row {
         id: workspaceRow
-        opacity: barWindow.expanded ? 1 : 0
+        // The fade lives in shownOpacity, so an Islands pill hiding this row under its card
+        // overrides a plain binding and gets it back intact.
+        property real shownOpacity: barWindow.expanded ? 1 : 0
+        opacity: shownOpacity
         enabled: barWindow.expanded
-        Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
+        Behavior on shownOpacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
 
         spacing: host.workspaceItemSpacing
         Layout.alignment: Qt.AlignVCenter
@@ -45,26 +49,33 @@ RowLayout {
             anchors.verticalCenter: parent.verticalCenter
             onClicked: barWindow.toggleOverview()
         }
-        Repeater {
-            model: host.workspaceCount
+        // The workspace buttons alone: an Islands workspaces pill hides these under its
+        // card without hiding the logo, which shares this row.
+        Row {
+            id: workspaceButtons
+            spacing: host.workspaceItemSpacing
+            anchors.verticalCenter: parent.verticalCenter
+            Repeater {
+                model: host.workspaceCount
 
-            BarButton {
+                BarButton {
 
-                host: group.host
-                text: host.workspaceLabel(index, barWindow.screen)
-                tooltip: active ? "" : host.workspaceApps(index + 1)
-                visualStyle: host.workspaceStyle
-                active: host.workspaceActive(index + 1, barWindow.screen)
-                width: host.workspaceItemSize
-                buttonHeight: host.workspaceItemSize
-                anchors.verticalCenter: parent.verticalCenter
-                fontSize: 14
-                cornerRadius: 6
-                textOffsetY: 0
-                onClicked: host.focusWorkspace(index + 1)
-                onRightClicked: barWindow.togglePanel(styleMenu)
+                    host: group.host
+                    text: host.workspaceLabel(index, barWindow.screen)
+                    tooltip: active ? "" : host.workspaceApps(index + 1)
+                    visualStyle: host.workspaceStyle
+                    active: host.workspaceActive(index + 1, barWindow.screen)
+                    width: host.workspaceItemSize
+                    buttonHeight: host.workspaceItemSize
+                    anchors.verticalCenter: parent.verticalCenter
+                    fontSize: 14
+                    cornerRadius: 6
+                    textOffsetY: 0
+                    onClicked: host.focusWorkspace(index + 1)
+                    onRightClicked: barWindow.togglePanel(styleMenu)
+                }
+
             }
-
         }
 
 
@@ -72,9 +83,12 @@ RowLayout {
 
     Row {
         id: statusRow
-        opacity: barWindow.expanded ? 1 : 0
+        // The fade lives in shownOpacity, so an Islands pill hiding this row under its card
+        // overrides a plain binding and gets it back intact.
+        property real shownOpacity: barWindow.expanded ? 1 : 0
+        opacity: shownOpacity
         enabled: barWindow.expanded
-        Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
+        Behavior on shownOpacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
         Layout.alignment: Qt.AlignVCenter
         Layout.leftMargin: barWindow.islandsLayout ? barWindow.islandSpacing + barWindow.islandSurfaces.afterWorkspaces : host.workspaceItemSpacing
         spacing: host.workspaceItemSpacing

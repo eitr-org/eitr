@@ -22,7 +22,7 @@ class IslandsLayoutTests(unittest.TestCase):
         source = frame_source(BAR)
         surfaces = qml_block(source, '                Item {\n                    id: islandSurfaces')
         targets = ('verticalControlCenterLogo', 'controlCenterLogo', 'verticalOverviewIcon', 'overviewIcon',
-                   'verticalWorkspaces', 'verticalHardware', 'hardwareStatus',
+                   'verticalWorkspaces', 'workspaceButtonRow', 'verticalHardware', 'hardwareStatus',
                    'verticalCalendarIcon', 'centerInfo', 'verticalWeatherIcon', 'barWeather',
                    'verticalMedia', 'mediaStrip', 'verticalCapture', 'barCapture', 'verticalEnd',
                    'rightSide', 'notificationIcon')

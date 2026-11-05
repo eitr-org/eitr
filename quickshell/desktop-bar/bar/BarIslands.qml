@@ -11,7 +11,7 @@ Item {
     anchors.fill: parent
     // grow: where a pill's card extends, toward the free space ("start", "end" or "center").
     IslandSurface { id: logoPill; first: host.verticalBar ? barHost.verticalControlCenterLogo : barHost.leftGroup.controlCenterLogo }
-    IslandSurface { id: workspacesPill; first: host.verticalBar ? barHost.verticalOverviewIcon : barHost.leftGroup.overviewIcon; last: host.verticalBar ? barHost.verticalWorkspaces : barHost.leftGroup.workspaces }
+    IslandSurface { id: workspacesPill; first: host.verticalBar ? barHost.verticalOverviewIcon : barHost.leftGroup.overviewIcon; last: host.verticalBar ? barHost.verticalWorkspaces : barHost.leftGroup.workspaceButtonRow }
     IslandSurface { first: host.verticalBar ? barHost.verticalHardware : barHost.leftGroup.hardwareStatus }
     IslandSurface { id: clockPill; first: host.verticalBar ? barHost.verticalCalendarIcon : barHost.centerInfo; grow: "center" }
     IslandSurface { first: host.verticalBar ? barHost.verticalWeatherIcon : barHost.barWeather }

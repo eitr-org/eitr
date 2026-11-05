@@ -31,9 +31,12 @@ Column {
     readonly property alias verticalNotificationIconItem: verticalNotificationIcon
 
     id: verticalEnd
-    opacity: barHost.expanded ? 1 : 0
+    // The fade lives in shownOpacity, so an Islands pill hiding this item under its card
+    // overrides a plain binding and gets it back intact.
+    property real shownOpacity: barHost.expanded ? 1 : 0
+    opacity: shownOpacity
     enabled: barHost.expanded
-    Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
+    Behavior on shownOpacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
     anchors.bottom: parent.bottom
     anchors.bottomMargin: barHost.islandsLayout ? verticalEnd.host.screenGaps[2] + 4 : barHost.centeredLayout ? barHost.endPadding : 8
     anchors.horizontalCenter: parent.horizontalCenter

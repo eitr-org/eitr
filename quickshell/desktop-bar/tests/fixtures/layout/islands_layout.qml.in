@@ -53,6 +53,7 @@ ShellRoot {
             property Item overviewIcon: workspaces
             property Item verticalOverviewIcon: workspaces
             property Item verticalWorkspaces: workspaces
+            property Item workspaceButtonRow: workspaces
             property Item hardwareStatus: hardware
             property Item verticalHardware: hardware
             property Item centerInfo: clock

@@ -22,7 +22,10 @@ Item {
 
     width: open ? slotWidth : 0
     height: 24
-    opacity: open ? 1 : 0
+    // The fade lives in shownOpacity, so an Islands pill hiding this icon under its card
+    // overrides a plain binding and gets it back intact.
+    property real shownOpacity: open ? 1 : 0
+    opacity: shownOpacity
     clip: true
 
     Row {
@@ -104,7 +107,7 @@ Item {
 
     }
 
-    Behavior on opacity {
+    Behavior on shownOpacity {
         NumberAnimation {
             duration: DesktopStyle.motionDuration(120)
             easing.type: Easing.InOutCubic
