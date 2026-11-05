@@ -5,6 +5,7 @@ singleton AudioDevices 1.0 services/AudioDevices.qml
 singleton PluginRegistry 1.0 plugins/PluginRegistry.qml
 singleton SpectrumProvider 1.0 services/SpectrumProvider.qml
 singleton FocusMode 1.0 services/FocusMode.qml
+singleton EventSounds 1.0 services/EventSounds.qml
 singleton ObsStatus 1.0 services/ObsStatus.qml
 singleton DesktopData services/DesktopData.qml
 singleton PowerService 1.0 services/PowerService.qml

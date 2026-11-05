@@ -13,6 +13,29 @@ Column {
     ControlCenterSection { centerRef: section.centerRef; text: Eitr.I18n.tr("Sound"); width: parent.width }
     AudioLevelControl { width: parent.width; node: Pipewire.defaultAudioSink; showName: false; textSize: 12; iconSize: 16; foreground: section.centerRef.foreground; background: section.centerRef.background; accent: section.centerRef.accent }
     AudioLevelControl { width: parent.width; node: Pipewire.defaultAudioSource; microphone: true; showName: false; textSize: 12; iconSize: 16; foreground: section.centerRef.foreground; background: section.centerRef.background; accent: section.centerRef.accent }
+    // Optional event sounds; the charger row only on PCs with a battery.
+    Repeater {
+        model: [{setting: "notifications", label: Eitr.I18n.tr("Notification sounds")},
+                {setting: "charger", label: Eitr.I18n.tr("Charger sounds"), battery: true}]
+        Row {
+            id: soundRow
+            required property var modelData
+            visible: !modelData.battery || !!(section.centerRef.battery && section.centerRef.battery.available)
+            width: section.width; spacing: PanelStyle.selectionActionGap
+            Text {
+                width: parent.width - soundSwitch.width - parent.spacing; height: 32
+                verticalAlignment: Text.AlignVCenter; text: soundRow.modelData.label
+                color: section.centerRef.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
+            }
+            PanelSwitch {
+                id: soundSwitch
+                anchors.verticalCenter: parent.verticalCenter
+                checked: EventSounds[soundRow.modelData.setting]; foreground: section.centerRef.foreground; accent: section.centerRef.accent
+                Accessible.name: soundRow.modelData.label
+                onClicked: EventSounds.setEnabled(soundRow.modelData.setting, checked)
+            }
+        }
+    }
     ControlCenterSection { centerRef: section.centerRef; visible: section.centerRef.displayControl.state.kind === "backlight"; text: Eitr.I18n.tr("Display"); width: parent.width }
     Row {
         visible: section.centerRef.displayControl.state.kind === "backlight"

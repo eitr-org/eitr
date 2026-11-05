@@ -553,5 +553,7 @@
   "Upside down": "Auf dem Kopf",
   "Turned right": "Nach rechts gedreht",
   "Turned left": "Nach links gedreht",
-  "Pixel offsets, flipped screens and more in local.lua": "Pixelversatz, gespiegelte Bildschirme und mehr in local.lua"
+  "Pixel offsets, flipped screens and more in local.lua": "Pixelversatz, gespiegelte Bildschirme und mehr in local.lua",
+  "Notification sounds": "Benachrichtigungstöne",
+  "Charger sounds": "Ladetöne"
 }

@@ -553,5 +553,7 @@
   "Turned left": "Turned left",
   "Turned right": "Turned right",
   "Upside down": "Upside down",
-  "Pixel offsets, flipped screens and more in local.lua": "Pixel offsets, flipped screens and more in local.lua"
+  "Pixel offsets, flipped screens and more in local.lua": "Pixel offsets, flipped screens and more in local.lua",
+  "Charger sounds": "Charger sounds",
+  "Notification sounds": "Notification sounds"
 }

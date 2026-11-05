@@ -156,6 +156,7 @@ Item {
         return doNotDisturb;
     }
     onDoNotDisturbChanged: if (doNotDisturb) popupIds = []
+    Binding { target: EventSounds; property: "doNotDisturb"; value: service.doNotDisturb }
     onCenterOpenChanged: { if (centerOpen) popupIds = []; trimImages(); Qt.callLater(pruneHistory); }
     function pruneHistory() {
         // Keep the existing history length, but never dismiss a displayed card.
@@ -246,6 +247,7 @@ Item {
                 twin.dismiss();
             }
             service.retainImage(notification);
+            if (!notification.lastGeneration) EventSounds.notificationArrived(notification);
             var times = Object.assign({}, service.timestamps);
             times[notification.id] = Date.now();
             service.timestamps = times;

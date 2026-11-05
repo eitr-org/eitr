@@ -10,7 +10,7 @@ Scope {
     property var host
     Connections {
         target: PowerService
-        function onBatteryReceived() { hooks.checkBatteryLow(); }
+        function onBatteryReceived() { hooks.checkBatteryLow(); hooks.checkCharger(); }
     }
     // The user's hooks (distro/lib/run-hook.sh): battery-low once per drop to 15%,
     // post-boot at start (the runner keeps it to once per boot).
@@ -18,6 +18,14 @@ Scope {
     function runHook(args) {
         var library = Quickshell.env("EITR_LIBRARY_ROOT") || (Eitr.Paths.codeRoot + "/lib");
         Quickshell.execDetached(["bash", library + "/run-hook.sh"].concat(args));
+    }
+    // Whether the charger was connected at the last battery reading (null before the first).
+    property var chargerConnected: null
+    function checkCharger() {
+        if (!host.battery.available) return;
+        var connected = host.battery.status !== "Discharging";
+        if (chargerConnected !== null && connected !== chargerConnected) EventSounds.chargerPlugged(connected);
+        chargerConnected = connected;
     }
     // The lowest battery warning already given during this discharge (0 = none).
     property int batteryWarned: 0

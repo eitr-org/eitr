@@ -40,5 +40,23 @@ class NotificationActionTests(unittest.TestCase):
         self.assertIn('["satty", "-f", str(path), "-o", str(path)', source)
 
 
+    def test_event_sounds_are_optional_quiet_in_do_not_disturb_and_skip_low_priority(self):
+        sounds = (BAR / 'services/EventSounds.qml').read_text()
+        self.assertIn('property bool notifications: false', sounds)
+        self.assertIn('property bool charger: false', sounds)
+        self.assertIn('if (doNotDisturb) return;', sounds)
+        self.assertIn('if (urgency === 0) return;', sounds)
+        self.assertIn('notification.hints["suppress-sound"]', sounds)
+        self.assertIn('play(urgency === 2 ? "dialog-warning" : "message-new-instant")', sounds)
+        self.assertIn('play(pluggedIn ? "power-plug" : "power-unplug")', sounds)
+        self.assertIn('singleton EventSounds 1.0 services/EventSounds.qml', (BAR / 'qmldir').read_text())
+        service = (BAR / 'notifications/NotificationService.qml').read_text()
+        self.assertIn('Binding { target: EventSounds; property: "doNotDisturb"; value: service.doNotDisturb }', service)
+        self.assertIn('if (!notification.lastGeneration) EventSounds.notificationArrived(notification);', service)
+        hooks = (BAR / 'services/SessionHooks.qml').read_text()
+        self.assertIn('EventSounds.chargerPlugged(connected)', hooks)
+        self.assertIn('sound-theme-freedesktop', (ROOT / 'distro/packages.txt').read_text().split())
+
+
 if __name__ == '__main__':
     unittest.main()

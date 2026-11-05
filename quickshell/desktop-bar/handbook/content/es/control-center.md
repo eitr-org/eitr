@@ -8,7 +8,7 @@ Sus cinco páginas reúnen todo lo que queda fuera de Desarrollo, Aplicaciones, 
 
 - **Conectividad:** interruptores de WiFi y Bluetooth y Modo avión.
 - **Acciones rápidas:** Bloqueo automático, Notificaciones de fallos, No molestar, Modo juego (desactiva efectos, desenfoque y ventanas emergentes y activa el perfil de rendimiento hasta apagarlo) y Luz nocturna. Un control activado se rellena con el color de acento del tema. Debajo, Ocultar barra (SUPER+Shift+Space la recupera) y Salvapantallas se ejecutan una vez.
-- **Sonido:** volumen y ganancia/silencio del micrófono.
+- **Sonido:** volumen y ganancia/silencio del micrófono, y dos interruptores opcionales, desactivados por defecto: **Sonidos de notificación** (un aviso, otro distinto para las urgentes; las de baja prioridad no suenan) y, en equipos con batería, **Sonidos del cargador** al conectarlo o desconectarlo. Ninguno suena en No molestar ni en Modo juego.
 - **Pantalla:** brillo, en portátiles con pantalla integrada.
 - **Multimedia:** portada, artista, reproducción y desplazamiento por la pista cuando se admite.
 - **Energía:** Bloquear y **Energía…**, que despliega Cerrar sesión, Suspender, Reiniciar y Apagar.

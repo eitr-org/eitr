@@ -236,6 +236,9 @@
     "Chapters": [
       "quickshell/desktop-bar/panels/Handbook.qml"
     ],
+    "Charger sounds": [
+      "quickshell/desktop-bar/panels/ControlCenterSliders.qml"
+    ],
     "Chat with %1": [
       "quickshell/desktop-bar/panels/ControlCenterNavigation.qml"
     ],
@@ -924,6 +927,9 @@
     ],
     "Nothing is sent automatically. You read each report first and choose whether to email it or open a GitHub issue; your name, computer name and network addresses are removed.": [
       "quickshell/desktop-bar/panels/Handbook.qml"
+    ],
+    "Notification sounds": [
+      "quickshell/desktop-bar/panels/ControlCenterSliders.qml"
     ],
     "Notifications": [
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml",

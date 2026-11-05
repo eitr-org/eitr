@@ -578,7 +578,9 @@ var qml = {
     "Turned left": "Turned left",
     "Turned right": "Turned right",
     "Upside down": "Upside down",
-    "Pixel offsets, flipped screens and more in local.lua": "Pixel offsets, flipped screens and more in local.lua"
+    "Pixel offsets, flipped screens and more in local.lua": "Pixel offsets, flipped screens and more in local.lua",
+    "Charger sounds": "Charger sounds",
+    "Notification sounds": "Notification sounds"
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -1135,7 +1137,9 @@ var qml = {
     "Upside down": "De cabeça para baixo",
     "Turned right": "Girado para a direita",
     "Turned left": "Girado para a esquerda",
-    "Pixel offsets, flipped screens and more in local.lua": "Deslocamentos em pixels, telas espelhadas e mais no local.lua"
+    "Pixel offsets, flipped screens and more in local.lua": "Deslocamentos em pixels, telas espelhadas e mais no local.lua",
+    "Notification sounds": "Sons de notificação",
+    "Charger sounds": "Sons do carregador"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1692,7 +1696,9 @@ var qml = {
     "Upside down": "Al revés",
     "Turned right": "Girada a la derecha",
     "Turned left": "Girada a la izquierda",
-    "Pixel offsets, flipped screens and more in local.lua": "Desplazamientos en píxeles, pantallas reflejadas y más en local.lua"
+    "Pixel offsets, flipped screens and more in local.lua": "Desplazamientos en píxeles, pantallas reflejadas y más en local.lua",
+    "Notification sounds": "Sonidos de notificación",
+    "Charger sounds": "Sonidos del cargador"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -2249,7 +2255,9 @@ var qml = {
     "Upside down": "Auf dem Kopf",
     "Turned right": "Nach rechts gedreht",
     "Turned left": "Nach links gedreht",
-    "Pixel offsets, flipped screens and more in local.lua": "Pixelversatz, gespiegelte Bildschirme und mehr in local.lua"
+    "Pixel offsets, flipped screens and more in local.lua": "Pixelversatz, gespiegelte Bildschirme und mehr in local.lua",
+    "Notification sounds": "Benachrichtigungstöne",
+    "Charger sounds": "Ladetöne"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2806,6 +2814,8 @@ var qml = {
     "Upside down": "À l’envers",
     "Turned right": "Tournée à droite",
     "Turned left": "Tournée à gauche",
-    "Pixel offsets, flipped screens and more in local.lua": "Décalages en pixels, écrans inversés et plus dans local.lua"
+    "Pixel offsets, flipped screens and more in local.lua": "Décalages en pixels, écrans inversés et plus dans local.lua",
+    "Notification sounds": "Sons de notification",
+    "Charger sounds": "Sons du chargeur"
   }
 };

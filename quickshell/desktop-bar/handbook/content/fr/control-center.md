@@ -8,7 +8,7 @@ Ses cinq pages regroupent tout ce qui est hors Développement, Applications, Ins
 
 - **Connectivité:** interrupteurs WiFi et Bluetooth, et Mode avion.
 - **Actions rapides:** Verrouillage automatique, Notifications de plantage, Ne pas déranger, Mode jeu (effets, flou et notifications contextuelles désactivés, profil de performances activé jusqu’à désactivation) et Éclairage nocturne. Une commande activée se remplit de la couleur d’accent du thème. En dessous, Masquer la barre (SUPER+Shift+Space la réaffiche) et Économiseur d’écran s’exécutent une fois.
-- **Son:** volume et gain/sourdine du microphone.
+- **Son:** volume et gain/sourdine du microphone, et deux interrupteurs facultatifs, désactivés par défaut : **Sons de notification** (un signal, un autre pour les notifications urgentes ; celles de faible priorité restent silencieuses) et, sur les PC avec batterie, **Sons du chargeur** au branchement et au débranchement. Aucun ne sonne en Ne pas déranger ni en Mode jeu.
 - **Écran:** luminosité, sur les ordinateurs portables avec écran intégré.
 - **Média:** pochette, artiste, lecture et déplacement dans la piste si disponible.
 - **Alimentation:** Verrouiller, et **Alimentation…**, qui déplie Déconnexion, Veille, Redémarrer et Éteindre.

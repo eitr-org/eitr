@@ -553,5 +553,7 @@
   "Upside down": "Al revés",
   "Turned right": "Girada a la derecha",
   "Turned left": "Girada a la izquierda",
-  "Pixel offsets, flipped screens and more in local.lua": "Desplazamientos en píxeles, pantallas reflejadas y más en local.lua"
+  "Pixel offsets, flipped screens and more in local.lua": "Desplazamientos en píxeles, pantallas reflejadas y más en local.lua",
+  "Notification sounds": "Sonidos de notificación",
+  "Charger sounds": "Sonidos del cargador"
 }

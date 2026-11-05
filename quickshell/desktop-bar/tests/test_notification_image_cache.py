@@ -79,6 +79,8 @@ TestCase {
         retention = source[source.index("    Component {\n        id: retainedImageComponent"):source.index("    onPopupIdsChanged:")]
         receipt = re.search(r"        onNotification: function\(notification\) \{.*?\n        \}", source, re.S).group()
         receipt = receipt.replace("onNotification: function", "function receiveNotification", 1)
+        # Event sounds are their own singleton, outside this budget check.
+        receipt = receipt.replace("            if (!notification.lastGeneration) EventSounds.notificationArrived(notification);\n", "")
         scheduling = re.search(r"    function scheduleExpiry\(\) \{.*?\n    \}", source, re.S).group()
         with tempfile.TemporaryDirectory() as directory:
             target = Path(directory)

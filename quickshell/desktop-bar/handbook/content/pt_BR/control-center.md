@@ -8,7 +8,7 @@ Suas cinco páginas reúnem tudo que fica fora de Desenvolvimento, Aplicativos, 
 
 - **Conectividade:** ligar/desligar WiFi e Bluetooth, além do Modo avião.
 - **Ações rápidas:** Bloqueio automático, Notificações de falhas, Não perturbe, Modo jogo (desativa efeitos, desfoque e pop-ups e ativa o perfil de desempenho até você desligá-lo) e Luz noturna. Um controle ligado fica preenchido com a cor de destaque do tema. Abaixo, Ocultar barra (SUPER+Shift+Space a traz de volta) e Protetor de tela executam uma vez.
-- **Som:** volume e ganho/mudo do microfone.
+- **Som:** volume e ganho/mudo do microfone, e dois interruptores opcionais, desligados por padrão: **Sons de notificação** (um aviso, outro para notificações urgentes; as de baixa prioridade ficam em silêncio) e, em PCs com bateria, **Sons do carregador** ao conectar ou desconectar. Nenhum toca em Não perturbe nem no Modo jogo.
 - **Tela:** brilho, em notebooks com tela integrada.
 - **Mídia:** capa, artista, reprodução e avanço na faixa quando compatível.
 - **Energia:** Bloquear e **Energia…**, que abre Sair, Suspender, Reiniciar e Desligar.

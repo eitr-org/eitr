@@ -17,7 +17,11 @@ Bluetooth, Audio, Display, Hardware, AI Usage, Weather), the Control Center open
   and popups off and the performance profile on, until you turn it off) and Night
   Light. A toggle that is on fills with the theme accent. Below them, Hide Bar
   (SUPER+Shift+Space brings it back) and Screensaver run once.
-- **Sound:** volume and microphone gain/mute.
+- **Sound:** volume and microphone gain/mute, and two optional switches, off by
+  default: **Notification sounds** (a chime, a different one for urgent
+  notifications; low-priority ones stay silent) and, on PCs with a battery,
+  **Charger sounds** when the charger connects or disconnects. Neither plays during
+  Do Not Disturb or Game Mode.
 - **Display:** brightness, on laptops with a built-in screen.
 - **Media:** cover, artist, playback controls and seeking when supported.
 - **Power:** Lock, plus **Power…**, which unfolds Logout, Suspend, Reboot and Shutdown.

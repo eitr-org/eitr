@@ -8,7 +8,7 @@ Seine fünf Seiten enthalten alles außerhalb von Entwicklung, Apps, Installiere
 
 - **Verbindungen:** WiFi- und Bluetooth-Schalter sowie Flugmodus.
 - **Schnellaktionen:** automatische Bildschirmsperre, Absturzbenachrichtigungen, Nicht stören, Spielmodus (Effekte, Unschärfe und Popups aus, Leistungsprofil an, bis du ihn ausschaltest) und Nachtlicht. Ein eingeschalteter Schalter füllt sich mit der Akzentfarbe des Designs. Darunter führen Leiste ausblenden (SUPER+Shift+Space holt sie zurück) und Bildschirmschoner einmalig eine Aktion aus.
-- **Ton:** Lautstärke sowie Mikrofonverstärkung und Stummschaltung.
+- **Ton:** Lautstärke sowie Mikrofonverstärkung und Stummschaltung, dazu zwei optionale, standardmäßig ausgeschaltete Schalter: **Benachrichtigungstöne** (ein Klang, ein anderer für dringende Benachrichtigungen; unwichtige bleiben still) und auf PCs mit Akku **Ladetöne** beim An- und Abstecken des Ladegeräts. Beide schweigen bei Nicht stören und im Spielmodus.
 - **Bildschirm:** Helligkeit, auf Laptops mit eingebautem Bildschirm.
 - **Medien:** Cover, Interpret, Wiedergabesteuerung und Positionswahl, sofern unterstützt.
 - **Energie:** Sperren sowie **Ein/Aus…**, das Abmelden, Bereitschaft, Neustart und Ausschalten aufklappt.
