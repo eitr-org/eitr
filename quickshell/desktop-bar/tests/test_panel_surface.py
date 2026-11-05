@@ -11,7 +11,10 @@ class PanelSurfaceTests(unittest.TestCase):
     def test_background_uses_reactive_geometry_not_cached_canvas(self):
         source = (Path(__file__).resolve().parents[1] / "components/PanelSurface.qml").read_text()
         self.assertIn("import QtQuick.Shapes", source)
-        self.assertIn("fillColor: surface.color", source)
+        outline = (Path(__file__).resolve().parents[1] / "components/PanelOutline.qml").read_text()
+        self.assertIn("property color fill: surface.color", outline)
+        self.assertIn("fillColor: outline.fill", outline)
+        self.assertIn("PanelOutline { surface: surface; frame: reveal }", source)
         self.assertIn("data: [Item {", source)
         self.assertNotIn("Canvas {", source)
         self.assertNotIn("requestPaint()", source)

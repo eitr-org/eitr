@@ -25,7 +25,7 @@ Item {
     // It stays centred as a whole, so the clock shifts by half the difference of its sides.
     readonly property bool captureShown: vertical ? barHost.verticalCapture.shown : barHost.barCapture.shown
     readonly property real captureLength: captureShown ? (vertical ? barHost.verticalCapture.height + 3 : barHost.barCapture.width + 6) : 0
-    readonly property bool mediaAvailable: !!barHost.mediaStrip.player
+    readonly property bool mediaAvailable: barHost.mediaStrip.present
     readonly property real mediaLength: mediaAvailable ? (vertical ? barHost.verticalMedia.implicitHeight + 3 : barHost.mediaStrip.width + 12) : 0
     readonly property real weatherLength: host.workspaceItemSpacing + weatherExtent
     readonly property real middleExtent: clockExtent + 8 + captureLength + mediaLength + weatherLength

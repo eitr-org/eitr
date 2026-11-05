@@ -34,6 +34,7 @@ Item {
     property bool autoRefresh: false
     property real temp: 21
     property var player: null
+    property bool present: player !== null
     property bool playing: false
     property bool active: false
     property bool audioEnabled: false

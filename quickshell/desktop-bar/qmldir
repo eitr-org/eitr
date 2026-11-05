@@ -51,6 +51,7 @@ PanelDivider components/PanelDivider.qml
 PanelHeading components/PanelHeading.qml
 PanelSizeBehavior components/PanelSizeBehavior.qml
 PanelSlider components/PanelSlider.qml
+PanelOutline components/PanelOutline.qml
 PanelSurface components/PanelSurface.qml
 PanelSwitch components/PanelSwitch.qml
 PowerControls components/PowerControls.qml

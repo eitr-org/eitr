@@ -15,6 +15,18 @@ Item {
     property var players: Mpris.players.values
     readonly property var eligiblePlayers: players.filter(player => player && MediaModel.eligible(player))
     readonly property var player: eligiblePlayers.find(player => player.isPlaying) || eligiblePlayers[0] || null
+    // Between songs a player clears its track, and Chromium even drops its player and
+    // registers a new one. The strip (and a media panel attached to it) stays for that
+    // gap instead of vanishing on Next or Previous.
+    // Shown at once when a player appears; hidden only after it has been gone for 3 s.
+    property bool present: false
+    readonly property bool between: present && !player
+    onPlayerChanged: {
+        if (player) { gap.stop(); present = true; }
+        else if (present) gap.restart();
+    }
+    Component.onCompleted: present = !!player
+    Timer { id: gap; interval: 3000; onTriggered: media.present = !!media.player }
     readonly property bool playing: !!player && player.isPlaying
     readonly property string title: player ? [player.trackArtist, player.trackTitle].filter(Boolean).join(" - ") || player.identity : ""
     property string mediaStyle: "bars"
@@ -24,7 +36,7 @@ Item {
     readonly property bool cavaFailed: SpectrumProvider.failed
     signal detailsRequested()
 
-    visible: player !== null && availableWidth >= controls.width + indicatorSpacing + playbackIndicator.width
+    visible: present && availableWidth >= controls.width + indicatorSpacing + playbackIndicator.width
     width: visible ? controls.width + indicatorSpacing + playbackIndicator.width : 0
     height: 24
 
@@ -75,17 +87,55 @@ Item {
         enabled: available
         Keys.onReturnPressed: if (available) triggered()
         Keys.onSpacePressed: if (available) triggered()
-        Text {
-            anchors.fill: parent
-            text: control.text
-            color: media.foreground
-            opacity: control.available ? 1 : 0.4
-            font.family: DesktopFonts.family
-            font.pixelSize: 15
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
+        readonly property bool motion: !DesktopStyle.reduceMotion
+        // A press flashes a soft light behind the icon, which sinks and springs back.
+        Rectangle {
+            id: flash
+            anchors.centerIn: parent
+            width: 22 * spread; height: width; radius: width / 2
+            property real spread: 0
+            color: Qt.alpha(media.foreground, 0.3)
+            opacity: 0
+            ParallelAnimation {
+                id: flashAnimation
+                NumberAnimation { target: flash; property: "spread"; from: 0.3; to: 1; duration: 360; easing.type: Easing.OutCubic }
+                NumberAnimation { target: flash; property: "opacity"; from: 1; to: 0; duration: 460; easing.type: Easing.InQuad }
+            }
         }
-        MouseArea { id: controlMouse; anchors.fill: parent; hoverEnabled: true; enabled: control.available; cursorShape: Qt.PointingHandCursor; onClicked: control.triggered() }
+        Item {
+            anchors.fill: parent
+            scale: controlMouse.pressed && control.available ? 0.8 : 1
+            Behavior on scale { enabled: control.motion; NumberAnimation { duration: 160; easing.type: Easing.OutBack } }
+            Text {
+                id: glyph
+                anchors.fill: parent
+                property string shown: control.text
+                text: shown
+                color: media.foreground
+                opacity: control.available ? 1 : 0.4
+                font.family: DesktopFonts.family
+                font.pixelSize: 15
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                // Play and pause swap by shrinking away while the new icon grows in.
+                SequentialAnimation {
+                    id: swap
+                    NumberAnimation { target: glyph; property: "scale"; to: 0.3; duration: 90; easing.type: Easing.InQuad }
+                    ScriptAction { script: glyph.shown = control.text }
+                    NumberAnimation { target: glyph; property: "scale"; from: 0.3; to: 1; duration: 180; easing.type: Easing.OutBack }
+                }
+            }
+        }
+        onTextChanged: {
+            if (!motion || !visible) { swap.stop(); glyph.shown = text; return; }
+            swap.restart();
+        }
+        MouseArea {
+            id: controlMouse
+            anchors.fill: parent; hoverEnabled: true; enabled: control.available; cursorShape: Qt.PointingHandCursor
+            onPressed: if (control.motion) flashAnimation.restart()
+            onClicked: control.triggered()
+        }
         BarTooltip { target: control; hovered: controlMouse.containsMouse; text: control.tooltip; foreground: media.foreground; background: media.background }
     }
 }

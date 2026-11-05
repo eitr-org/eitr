@@ -782,7 +782,6 @@
     ],
     "Media": [
       "quickshell/desktop-bar/bar/BarVerticalCenter.qml",
-      "quickshell/desktop-bar/media/MediaMenu.qml",
       "quickshell/desktop-bar/panels/ControlCenterSliders.qml"
     ],
     "Media style": [
@@ -836,6 +835,9 @@
     ],
     "Next panel": [
       "quickshell/desktop-bar/components/ThemedPopup.qml"
+    ],
+    "Next track": [
+      "quickshell/desktop-bar/media/MediaCard.qml"
     ],
     "Night Light": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml",
@@ -1021,6 +1023,7 @@
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
     "Pause": [
+      "quickshell/desktop-bar/media/MediaCard.qml",
       "quickshell/desktop-bar/media/MediaStrip.qml",
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
@@ -1039,6 +1042,7 @@
       "quickshell/desktop-bar/bar/BarVerticalCenter.qml"
     ],
     "Play": [
+      "quickshell/desktop-bar/media/MediaCard.qml",
       "quickshell/desktop-bar/media/MediaStrip.qml",
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
@@ -1081,6 +1085,9 @@
     ],
     "Previous panel": [
       "quickshell/desktop-bar/components/ThemedPopup.qml"
+    ],
+    "Previous track": [
+      "quickshell/desktop-bar/media/MediaCard.qml"
     ],
     "Profile Picture": [
       "quickshell/desktop-bar/panels/ControlCenter.qml"

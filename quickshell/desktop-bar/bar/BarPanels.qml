@@ -77,6 +77,7 @@ Item {
         barEdge: host.barEdge; surfaceColor: host.barBackground()
         foreground: host.fg; background: host.workspaceMenuBg; accent: host.activeBg
         player: barHost.mediaStrip.player
+        hold: barHost.mediaStrip.between
     }
     BatteryMenu {
         id: batteryMenu

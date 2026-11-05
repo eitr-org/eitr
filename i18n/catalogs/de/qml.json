@@ -546,5 +546,7 @@
   "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
   "•  now": "•  jetzt",
   "󰂚  No notifications": "󰂚  Keine Benachrichtigungen",
-  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen"
+  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen",
+  "Previous track": "Vorheriger Titel",
+  "Next track": "Nächster Titel"
 }

@@ -33,7 +33,7 @@ Item {
         anchors.bottomMargin: barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 3
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: barHost.centeredLayout ? barHost.itemGap : 2
-        visible: mediaStripRef.player !== null && barHost.expanded
+        visible: mediaStripRef.present && barHost.expanded
         MediaIndicator {
             anchors.horizontalCenter: parent.horizontalCenter
             rotation: 90

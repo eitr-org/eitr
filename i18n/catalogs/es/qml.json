@@ -546,5 +546,7 @@
   "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
   "•  now": "•  ahora",
   "󰂚  No notifications": "󰂚  No hay notificaciones",
-  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones"
+  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones",
+  "Previous track": "Pista anterior",
+  "Next track": "Pista siguiente"
 }

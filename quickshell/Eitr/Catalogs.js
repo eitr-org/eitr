@@ -571,7 +571,9 @@ var qml = {
     "Profile Picture": "Profile Picture",
     "Profile picture": "Profile picture",
     "No pictures in this folder": "No pictures in this folder",
-    "Check This PC": "Check This PC"
+    "Check This PC": "Check This PC",
+    "Next track": "Next track",
+    "Previous track": "Previous track"
   },
   "pt_BR": {
     "01 / TAPE": "01 / TAPE",
@@ -1121,7 +1123,9 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  agora",
     "󰂚  No notifications": "󰂚  Nenhuma notificação",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Não perturbe\n\nNenhuma notificação"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Não perturbe\n\nNenhuma notificação",
+    "Previous track": "Faixa anterior",
+    "Next track": "Próxima faixa"
   },
   "es": {
     "01 / TAPE": "01 / TAPE",
@@ -1671,7 +1675,9 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  ahora",
     "󰂚  No notifications": "󰂚  No hay notificaciones",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones",
+    "Previous track": "Pista anterior",
+    "Next track": "Pista siguiente"
   },
   "de": {
     "01 / TAPE": "01 / TAPE",
@@ -2221,7 +2227,9 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  jetzt",
     "󰂚  No notifications": "󰂚  Keine Benachrichtigungen",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen",
+    "Previous track": "Vorheriger Titel",
+    "Next track": "Nächster Titel"
   },
   "fr": {
     "01 / TAPE": "01 / TAPE",
@@ -2771,6 +2779,8 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  maintenant",
     "󰂚  No notifications": "󰂚  Aucune notification",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification",
+    "Previous track": "Piste précédente",
+    "Next track": "Piste suivante"
   }
 };

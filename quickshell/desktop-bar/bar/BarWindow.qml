@@ -106,7 +106,7 @@ PanelWindow {
     readonly property real endPadding: host.verticalBar ? 8 : 4
     readonly property real centerPadding: (centerExtent - (host.verticalBar ? verticalCalendarIcon.height : centerInfo.width)) / 2
     readonly property real leadingExtent: endPadding - centerPadding + (host.verticalBar
-        ? verticalStart.height + itemGap + (mediaStrip.player ? verticalMedia.height + itemGap : 0) + verticalPin.height + itemGap + (verticalCapture.shown ? verticalCapture.height + itemGap : 0)
+        ? verticalStart.height + itemGap + (mediaStrip.present ? verticalMedia.height + itemGap : 0) + verticalPin.height + itemGap + (verticalCapture.shown ? verticalCapture.height + itemGap : 0)
         : leftGroup.workspaces.width + itemGap + leftGroup.hardwareStatus.width + itemGap + (mediaStrip.visible ? mediaStrip.width + itemGap : 0) + barPin.width + itemGap + (barCapture.shown ? barCapture.width + itemGap : 0))
     readonly property real trailingExtent: endPadding - centerPadding + (host.verticalBar
         ? itemGap + verticalWeatherIcon.height + itemGap + verticalEnd.height

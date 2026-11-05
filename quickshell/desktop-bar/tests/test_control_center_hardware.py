@@ -104,10 +104,16 @@ class ControlCenterContracts(unittest.TestCase):
         self.assertIn('title: Eitr.I18n.tr("Night Light")', center)
         self.assertIn('title: Eitr.I18n.tr("Night Light & Main Display")', center)
 
-    def test_single_background_media_popup(self):
+    def test_media_popup_is_the_cover_card_alone(self):
         root = Path(__file__).parents[1]
-        self.assertIn('property bool cardBackground: true', (root / 'media/MediaCard.qml').read_text())
-        self.assertIn('cardBackground: false', (root / 'media/MediaMenu.qml').read_text())
+        card = (root / 'media/MediaCard.qml').read_text()
+        menu = (root / 'media/MediaMenu.qml').read_text()
+        self.assertNotIn('PanelHeading', menu)
+        self.assertIn('implicitHeight: card.implicitHeight + verticalContentInset', menu)
+        self.assertIn('fillMode: Image.PreserveAspectCrop', card)
+        # Only previous, play/pause and next; the waves follow real audio frames only.
+        self.assertEqual(card.count('allowed: "can'), 3)
+        self.assertIn('readonly property bool live: audio.active && SpectrumProvider.hasFrame', card)
 
     def test_control_center_groups_and_reset(self):
         root = Path(__file__).parents[1]

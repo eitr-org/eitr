@@ -183,10 +183,17 @@ selection/capture commands wait for the panel to finish closing first.
 DesktopFonts reads the machine-local `~/.config/eitr/font.json` and updates bar
 and panel text when it changes. Nerd Font icons retain their dedicated fallback.
 
-Media shows cover art, title/artist, previous/play/next, and elapsed/total time.
-Seeking is enabled only when the player supports it. Clicking the bar's animated
-indicator (or Media icon on vertical bars) opens a single-background media popup;
-the card background is retained only inside the control center. Player selection retains the bar's
+Media shows the player's name, title • artist (scrolling when too long), a seek bar,
+elapsed/total time and previous/play/next over the darkened cover. Seeking is enabled
+only when the player supports it. The played part of the seek bar carries soft hills
+whose height follows the real bass, middle and treble levels (flat when quiet or
+paused); they read the shared analyzer with no more bands than the bar's indicator, so
+opening the card never restarts it. Buttons press in with a spreading light and
+play/pause morphs its icon (instant with Reduce motion). Clicking the bar's animated
+indicator (or Media icon on vertical bars) opens the media popup, whose cover fills the
+whole sheet (PanelSurface `backdrop`, 3 px rim, half padding); the Control Center keeps
+the card with its own cover. Between songs a player may vanish briefly (Chromium
+re-registers it), so the strip and popup keep the last song for 3 s. Player selection retains the bar's
 existing meeting exclusions and playing-player preference. Media style
 (`mediaStyle: bars/line` in `bar-settings.json`) selects eight bars or a smooth
 16-point line before the playback controls. Both use a fixed 26 px indicator and

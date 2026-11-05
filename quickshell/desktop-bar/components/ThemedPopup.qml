@@ -29,6 +29,10 @@ DockPanel {
     readonly property real horizontalContentInset: panelSurface.leftPadding + panelSurface.rightPadding
         + (panelSurface.vertical ? 0 : panelSurface.leadingBodyInset + panelSurface.trailingBodyInset)
     property Item keyTarget: body
+    // A picture filling the whole panel sheet, under the content (PanelSurface.backdrop).
+    property Item backdrop: null
+    property real paddingScale: 1
+    property real backdropInset: 0
     default property alias panelContent: body.data
     opened: false
     attachmentTarget: target
@@ -108,6 +112,7 @@ DockPanel {
             anchors.fill: parent
             hostWindow: popup
             color: popup.surfaceColor
+            backdrop: popup.backdrop
             Item {
                 id: body
                 anchors.fill: parent
