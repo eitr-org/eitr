@@ -15,7 +15,7 @@ Après une capture, un bref éclair frappe la zone capturée. L’effet commence
 
 Vérifiez le contenu avant d’enregistrer ou de partager. L’OCR peut se tromper ; les QR codes peuvent contenir des identifiants privés ou des URL non fiables. Un éditeur d’images ne garantit pas la suppression du texte sensible en arrière-plan.
 
-Les captures enregistrées proposent des actions de notification pour ouvrir l’image ou son dossier de captures.
+Les captures enregistrées proposent des actions de notification pour ouvrir l’image, la modifier dans l’éditeur de captures (elle est enregistrée par-dessus) ou ouvrir son dossier de captures.
 
 ## Enregistrement et diffusion
 
@@ -23,7 +23,7 @@ Enregistrement d’écran ouvre les commandes OBS. Elles utilisent votre scène 
 
 Les enregistrements vont dans **Videos/Records** de votre dossier personnel. OBS utilise par défaut le dossier personnel lui-même ; Eitr ne change que cette valeur et conserve un dossier choisi dans OBS > Paramètres > Sortie.
 
-Pendant un enregistrement ou une diffusion OBS, un point rouge apparaît à gauche de l’horloge. Cliquez pour voir durée, taille du fichier, pause/reprise, arrêt, marqueur de chapitre (nécessite le format Hybrid MP4 d’OBS), microphone et caméra OBS, et scène. Une diffusion affiche un compteur LIVE avec son propre arrêt. À la fin d’un enregistrement, une notification propose Ouvrir le dossier et Copier le chemin. Vérifiez les choix audio/micro et le moniteur avant de commencer. La webcam nécessite une source caméra dans OBS. Les interrupteurs audio de capture agissent sur les entrées OBS, pas sur le volume système.
+Pendant un enregistrement ou une diffusion OBS, un point rouge apparaît à gauche de l’horloge. Cliquez pour voir durée, taille du fichier, pause/reprise, arrêt, marqueur de chapitre (nécessite le format Hybrid MP4 d’OBS), microphone et caméra OBS, et scène. Une diffusion affiche un compteur LIVE avec son propre arrêt. À la fin d’un enregistrement, une notification propose Lire l’enregistrement, Ouvrir le dossier et Copier le chemin. Vérifiez les choix audio/micro et le moniteur avant de commencer. La webcam nécessite une source caméra dans OBS. Les interrupteurs audio de capture agissent sur les entrées OBS, pas sur le volume système.
 
 Le manuel ne démarre jamais d’enregistrement ni de diffusion. Partage d’écran et capture restent des actions explicites. Transcoder ouvre la conversion d’images et vidéos existante ; vérifiez les chemins de sortie avant de remplacer un fichier.
 

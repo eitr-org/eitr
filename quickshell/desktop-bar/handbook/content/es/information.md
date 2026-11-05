@@ -23,7 +23,7 @@ Haz clic en el ecualizador animado para ver portada, título y artista, usar ant
 
 ## Notificaciones
 
-**SUPER + N** o la campana abre el centro de notificaciones. Se agrupan por aplicación. La tarjeta más reciente queda delante de la pila; expándela para ver las anteriores. Puedes descartar una tarjeta, borrar un grupo o borrarlas todas. Los avisos emergentes también se apilan por aplicación, con el más reciente delante; mantener el puntero encima pausa su caducidad.
+**SUPER + N** o la campana abre el centro de notificaciones. Se agrupan por aplicación. La tarjeta más reciente queda delante de la pila; expándela para ver las anteriores. Puedes descartar una tarjeta, borrar un grupo o borrarlas todas. Los avisos emergentes también se apilan por aplicación, con el más reciente delante; mantener el puntero encima pausa su caducidad. **SUPER + Alt + N** ejecuta la acción principal de la notificación más reciente (lo mismo que pulsarla) y **SUPER + Alt + Shift + N** la descarta. Una notificación repetida (misma aplicación, título y texto) sustituye a la anterior y muestra un contador como ×3 en lugar de apilar otra tarjeta.
 
 Las notificaciones tienen un brillo interior suave con el color de acento del tema. Las críticas usan el rojo del tema y las de baja prioridad son discretas, sin brillo. No molestar oculta los avisos emergentes sin borrar el historial. Este permanece en memoria al recargar la configuración, pero no al reiniciar el proceso. No se guarda el contenido de las notificaciones en un registro.
 

@@ -357,6 +357,8 @@ hl.bind(mainMod .. " + F1", hl.dsp.exec_cmd("bash /usr/share/eitr/quickshell/des
 hl.bind(mainMod .. " + F2", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- catalog toggle"))
 hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- controlCenter toggle"))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- notifications toggle"))
+hl.bind(mainMod .. " + ALT + N", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- notifications act"))
+hl.bind(mainMod .. " + ALT + SHIFT + N", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- notifications dismissNewest"))
 hl.bind(mainMod .. " + equal", hl.dsp.exec_cmd("hyprpicker -a"))
 hl.bind(mainMod .. " + m", hl.dsp.exec_cmd(hyprScriptsDir .. "/manual-lock.sh"))
 hl.bind(mainMod .. " + SEMICOLON", hl.dsp.exec_cmd(actionsDir .. "/emoji-picker.sh"))

@@ -99,6 +99,14 @@
     }
   },
   {
+    "text": "Dismiss Newest Notification",
+    "subtext": "SUPER + Alt + Shift + N",
+    "icon": "󰂜",
+    "actions": {
+      "open": "eitr-shell desktop-bar ipc call -- notifications dismissNewest"
+    }
+  },
+  {
     "text": "Display Panel",
     "subtext": "SUPER + Shift + M",
     "icon": "󰍹",
@@ -160,6 +168,14 @@
     "icon": "󰂛",
     "actions": {
       "open": "eitr-shell desktop-bar ipc call -- notifications toggle"
+    }
+  },
+  {
+    "text": "Open Newest Notification",
+    "subtext": "SUPER + Alt + N",
+    "icon": "󰂞",
+    "actions": {
+      "open": "eitr-shell desktop-bar ipc call -- notifications act"
     }
   },
   {

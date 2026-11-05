@@ -79,6 +79,7 @@ PanelWindow {
                         x: 10; y: 10; width: parent.width - 20
                         notification: parent.modelData
                         receivedAt: notification ? window.service.timestamps[notification.id] || 0 : 0
+                        repeats: notification ? window.service.repeats[notification.id] || 1 : 1
                         compact: true
                         filled: false
                         foreground: window.foreground

@@ -850,6 +850,9 @@ msgstr "Copied the report."
 msgid "Copied to the clipboard."
 msgstr "Copied to the clipboard."
 
+msgid "Copy path"
+msgstr "Copy path"
+
 msgid "Copying needs wl-copy."
 msgstr "Copying needs wl-copy."
 
@@ -1143,6 +1146,9 @@ msgstr "Each change applies at once. Text must stay readable on the background."
 
 msgid "Each hand-off uses the helper’s subscription and counts toward its limits."
 msgstr "Each hand-off uses the helper’s subscription and counts toward its limits."
+
+msgid "Edit image"
+msgstr "Edit image"
 
 msgid "Edit widgets"
 msgstr "Edit widgets"
@@ -2316,6 +2322,9 @@ msgstr "Pick a reminder to cancel"
 
 msgid "Picture"
 msgstr "Picture"
+
+msgid "Play recording"
+msgstr "Play recording"
 
 msgid "Please enlarge the console to at least 80 columns and 24 rows."
 msgstr "Please enlarge the console to at least 80 columns and 24 rows."

@@ -201,5 +201,7 @@
   "Workspace: right-click": "Espace de travail : clic droit",
   "Workspaces": "Espaces de travail",
   "iwd, NetworkManager, reboot-only switching and enterprise configuration": "iwd, NetworkManager, redémarrage uniquement de la commutation et de la configuration d'entreprise",
-  "Bar auto-hide on/off, or show a hidden bar": "Masquage automatique de la barre on/off, ou réafficher une barre masquée"
+  "Bar auto-hide on/off, or show a hidden bar": "Masquage automatique de la barre on/off, ou réafficher une barre masquée",
+  "Open the newest notification (its main action)": "Ouvrir la notification la plus récente (son action principale)",
+  "Dismiss the newest notification": "Fermer la notification la plus récente"
 }

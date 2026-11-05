@@ -452,16 +452,25 @@ def announce_saved(command, stopped_at):
 
 
 def notify_saved(path, screenshot=False, copied=False):
+    """A saved screenshot offers Open, Edit and its folder; a recording Open, its folder and its path."""
     path = Path(path)
     title = tr('Screenshot saved and copied') if copied else tr('Screenshot saved')
-    actions = (["--action=open=" + tr('Open image'), "--action=folder=" + tr('Open folder')]
-               if screenshot else ["--action=folder=Open folder", "--action=copy=Copy path"])
+    actions = ([("open", tr('Open image')), ("edit", tr('Edit image')), ("folder", tr('Open folder'))] if screenshot
+               else [("open", tr('Play recording')), ("folder", tr('Open folder')), ("copy", tr('Copy path'))])
     chosen = subprocess.run(["notify-send", "--app-name=" + ("Screenshot" if screenshot else "OBS Studio"),
                              "--icon=" + (str(path) if screenshot else "com.obsproject.Studio"), "--wait",
-                             *actions, title if screenshot else tr('Recording saved'), path.name],
+                             *[f"--action={key}={label}" for key, label in actions],
+                             title if screenshot else tr('Recording saved'), path.name],
                             capture_output=True, text=True).stdout.strip()
     if chosen in {"folder", "open"}:
         subprocess.Popen(app_command(["xdg-open", str(path.parent if chosen == "folder" else path)]),
+                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+    elif chosen == "edit":
+        # The editor saves over the screenshot it opened, like editing right after capture.
+        subprocess.Popen(app_command(["satty", "-f", str(path), "-o", str(path), "--early-exit",
+                                      "--copy-command", "wl-copy --type image/png", "--actions-on-escape", "exit",
+                                      "--app-id", "dev.local.ScreenshotEditor", "--title", "Screenshot",
+                                      "--disable-notifications"]),
                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
     elif chosen == "copy":
         subprocess.run(["wl-copy", "--", str(path)], check=False)

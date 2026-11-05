@@ -7,6 +7,7 @@ Column {
     id: group
     required property var notifications
     property var timestamps: ({})
+    property var repeats: ({})
     required property color foreground
     required property color accent
     property color background: "transparent"
@@ -105,6 +106,7 @@ Column {
             width: parent.width
             notification: group.notifications.length ? group.notifications[0] : null
             receivedAt: notification ? group.timestamps[notification.id] || 0 : 0
+            repeats: notification ? group.repeats[notification.id] || 1 : 1
             compact: false
             expandOnClick: group.multiple && !group.expanded
             onExpansionRequested: group.toggleRequested()
@@ -126,6 +128,7 @@ Column {
                     width: group.width
                     notification: modelData
                     receivedAt: group.timestamps[modelData.id] || 0
+                    repeats: group.repeats[modelData.id] || 1
                     foreground: group.foreground; accent: group.accent
                     onActivated: notificationId => group.activated(notificationId)
                 }

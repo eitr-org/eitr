@@ -2351,6 +2351,9 @@
     "Disconnect this PC from Tailscale": [
       "elephant/menu-rows/remote-away.json"
     ],
+    "Dismiss Newest Notification": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
     "Display": [
       "elephant/menu-rows/system-devices.json"
     ],
@@ -2972,6 +2975,9 @@
     "Open Moonlight to stream another PC": [
       "elephant/menu-rows/remote-access.json"
     ],
+    "Open Newest Notification": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
     "Open OBS": [
       "elephant/menu-rows/screenrecord.json"
     ],
@@ -3370,6 +3376,12 @@
       "elephant/menu-rows/shortcuts.json"
     ],
     "SUPER + A": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
+    "SUPER + Alt + N": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
+    "SUPER + Alt + Shift + N": [
       "elephant/menu-rows/shortcuts.json"
     ],
     "SUPER + Ctrl + F": [
@@ -4173,6 +4185,9 @@
     "Dictate, release to type": [
       "tools/handbook-build.py"
     ],
+    "Dismiss the newest notification": [
+      "tools/handbook-build.py"
+    ],
     "Emoji picker": [
       "tools/handbook-build.py"
     ],
@@ -4430,6 +4445,9 @@
       "tools/handbook-build.py"
     ],
     "Open terminal": [
+      "tools/handbook-build.py"
+    ],
+    "Open the newest notification (its main action)": [
       "tools/handbook-build.py"
     ],
     "Open this handbook with **SUPER + F1**. Search chapters with **Ctrl + F**, scroll with **Page Up/Page Down**; Escape closes it.": [
@@ -5568,6 +5586,9 @@
     "Copied to the clipboard.": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Copy path": [
+      "quickshell/desktop-bar/scripts/obs-control.py"
+    ],
     "Copying needs wl-copy.": [
       "distro/lib/eitr_selfcheck.py"
     ],
@@ -5868,6 +5889,9 @@
     ],
     "Each hand-off uses the helper’s subscription and counts toward its limits.": [
       "walker/scripts/actions/assistant-collaboration.py"
+    ],
+    "Edit image": [
+      "quickshell/desktop-bar/scripts/obs-control.py"
     ],
     "Edit widgets": [
       "walker/scripts/actions/install/plugins.py"
@@ -7071,6 +7095,9 @@
     ],
     "Picture": [
       "walker/scripts/actions/style/own.py"
+    ],
+    "Play recording": [
+      "quickshell/desktop-bar/scripts/obs-control.py"
     ],
     "Please enlarge the console to at least 80 columns and 24 rows.": [
       "distro/lib/eitr_wizard.py"

@@ -23,7 +23,7 @@ Clique no equalizador animado para ver capa, título e artista, controlar anteri
 
 ## Notificações
 
-**SUPER + N** ou o sino abre a central de notificações. As notificações são agrupadas por aplicativo. O cartão mais recente fica à frente da pilha; expanda-a para ver os anteriores. Você pode dispensar um cartão, limpar um grupo ou limpar tudo. Os popups também se empilham por aplicativo, com a mensagem mais recente à frente; passar o ponteiro pausa o tempo de exibição.
+**SUPER + N** ou o sino abre a central de notificações. As notificações são agrupadas por aplicativo. O cartão mais recente fica à frente da pilha; expanda-a para ver os anteriores. Você pode dispensar um cartão, limpar um grupo ou limpar tudo. Os popups também se empilham por aplicativo, com a mensagem mais recente à frente; passar o ponteiro pausa o tempo de exibição. **SUPER + Alt + N** executa a ação principal da notificação mais recente (o mesmo que clicar nela) e **SUPER + Alt + Shift + N** a dispensa. Uma notificação repetida (mesmo app, título e texto) substitui a anterior e mostra um contador como ×3, em vez de empilhar outro cartão.
 
 As notificações têm um brilho interno suave na cor de destaque do tema. As críticas usam o vermelho do tema; as de baixa prioridade ficam discretas, sem brilho. Não perturbe oculta os popups sem apagar o histórico. O histórico permanece na memória durante recargas da configuração, mas não ao reiniciar o processo. O conteúdo das notificações não é salvo em logs.
 

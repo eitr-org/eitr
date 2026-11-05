@@ -71,6 +71,7 @@ Item {
                         width: groups.width
                         notifications: modelData.notifications
                         timestamps: center.service.timestamps
+                        repeats: center.service.repeats
                         background: center.background
                         expanded: !!center.expandedApps[modelData.name]
                         foreground: center.foreground

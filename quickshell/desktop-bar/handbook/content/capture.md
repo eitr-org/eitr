@@ -18,7 +18,7 @@ Review the selected content before saving or sharing. OCR results may be wrong;
 QR codes can contain private credentials or untrusted URLs. A screenshot editor
 is not a guarantee that sensitive background text has been removed.
 
-Saved screenshots offer notification actions to open the image or its screenshots folder.
+Saved screenshots offer notification actions to open the image, edit it in the screenshot editor (saving over it) or open its screenshots folder.
 
 ## Recording and streaming
 
@@ -35,7 +35,7 @@ While OBS records or streams, a red dot sits just left of the clock. Click it fo
 elapsed time and file size, pause/resume, stop, a chapter marker (needs OBS's
 Hybrid MP4 format), the OBS microphone and camera, and the scene; a stream shows
 a LIVE timer with its own stop. When a recording stops, a notification offers
-Open folder and Copy path. Check audio/mic choices
+Play recording, Open folder and Copy path. Check audio/mic choices
 and the selected monitor before starting. Webcam requires an OBS camera source.
 Recording audio switches affect OBS inputs, not your system volume.
 

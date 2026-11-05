@@ -74,6 +74,10 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
   - Window rules and keybinds editors: "always float this app" and rebinding shortcuts
     from Settings, without editing Lua by hand.
   - First-run welcome that previews the bar layouts and lets the user pick one.
+  - Window gaps preference: four sizes, None, Small, Default (today's 6 px inner and
+    12 px outer, the default) and Large, chosen like Corners under Style, kept across
+    theme switches; the bar's islands, panels and padding already follow Hyprland's live
+    gaps, so check every layout at None and Large.
 - **Light themes.** The owner has ideas for more light themes; create them later.
 - **hyprpaper crash without a GPU: follow upstream.** hyprpaper segfaults in VMs
   without 3D acceleration (hyprwm/hyprtoolkit#144); the bar now draws the still

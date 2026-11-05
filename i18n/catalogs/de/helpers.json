@@ -1467,5 +1467,8 @@
   "{subscription_count} subscription(s) are ready in the Azure menu.": "{subscription_count} Abonnement(s) sind im Azure-Menü bereit.",
   "{unit} is enabled; snapshot entries are written to {entries_path} from the next boot.": "{unit} ist aktiviert; Snapshot-Einträge werden ab dem nächsten Start nach {entries_path} geschrieben.",
   "{unit} manages networking; review that custom setup first.": "{unit} verwaltet das Netzwerk; prüfen Sie zuerst diese eigene Konfiguration.",
-  "… and {count} more": "… und {count} weitere"
+  "… and {count} more": "… und {count} weitere",
+  "Edit image": "Bild bearbeiten",
+  "Play recording": "Aufnahme abspielen",
+  "Copy path": "Pfad kopieren"
 }

@@ -201,5 +201,7 @@
   "Workspace: right-click": "Workspace: Rechtsklick",
   "Workspaces": "Arbeitsbereiche",
   "iwd, NetworkManager, reboot-only switching and enterprise configuration": "iwd, NetworkManager, Reboot-Only Switching und Unternehmenskonfiguration",
-  "Bar auto-hide on/off, or show a hidden bar": "Leiste automatisch ausblenden an/aus oder ausgeblendete Leiste zeigen"
+  "Bar auto-hide on/off, or show a hidden bar": "Leiste automatisch ausblenden an/aus oder ausgeblendete Leiste zeigen",
+  "Open the newest notification (its main action)": "Neueste Benachrichtigung öffnen (ihre Hauptaktion)",
+  "Dismiss the newest notification": "Neueste Benachrichtigung schließen"
 }

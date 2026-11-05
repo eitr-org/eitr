@@ -2006,6 +2006,14 @@
         }
       },
       {
+        "text": "Dismiss Newest Notification",
+        "subtext": "SUPER + Alt + Shift + N",
+        "icon": "󰂜",
+        "actions": {
+          "open": "eitr-shell desktop-bar ipc call -- notifications dismissNewest"
+        }
+      },
+      {
         "text": "Display Panel",
         "subtext": "SUPER + Shift + M",
         "icon": "󰍹",
@@ -2067,6 +2075,14 @@
         "icon": "󰂛",
         "actions": {
           "open": "eitr-shell desktop-bar ipc call -- notifications toggle"
+        }
+      },
+      {
+        "text": "Open Newest Notification",
+        "subtext": "SUPER + Alt + N",
+        "icon": "󰂞",
+        "actions": {
+          "open": "eitr-shell desktop-bar ipc call -- notifications act"
         }
       },
       {
@@ -3661,6 +3677,18 @@
       "description": "Notification center",
       "line": "  SUPER + N                 Notification center",
       "command": "eitr-shell desktop-bar ipc call -- notifications toggle"
+    },
+    {
+      "key": "SUPER + Alt + N",
+      "description": "Open the newest notification (its main action)",
+      "line": "  SUPER + Alt + N           Open the newest notification (its main action)",
+      "command": "eitr-shell desktop-bar ipc call -- notifications act"
+    },
+    {
+      "key": "SUPER + Alt + Shift + N",
+      "description": "Dismiss the newest notification",
+      "line": "  SUPER + Alt + Shift + N   Dismiss the newest notification",
+      "command": "eitr-shell desktop-bar ipc call -- notifications dismissNewest"
     },
     {
       "description": "Toggle Focus",
@@ -7983,6 +8011,26 @@
       "key": "380779fbf0ddb8ab0ff46b38e287ae039f0838ff6c4115bfda2bb52c5eedecc4",
       "provider": "menus:shortcuts",
       "identifier": "shortcuts:12",
+      "text": "Dismiss Newest Notification",
+      "subtext": "SUPER + Alt + Shift + N",
+      "icon": "󰂜",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "Dismiss Newest Notification",
+        "Dismiss Newest Notification",
+        "SUPER + Alt + Shift + N"
+      ],
+      "menus": [
+        "learn",
+        "main"
+      ]
+    },
+    {
+      "key": "d1b6ac00df493c3c706f8ef784444b67df784e664ed861e04cf1cefadea8d23f",
+      "provider": "menus:shortcuts",
+      "identifier": "shortcuts:13",
       "text": "Display Panel",
       "subtext": "SUPER + Shift + M",
       "icon": "󰍹",
@@ -8000,9 +8048,9 @@
       ]
     },
     {
-      "key": "d1b6ac00df493c3c706f8ef784444b67df784e664ed861e04cf1cefadea8d23f",
+      "key": "98b8944a0803df2a6cedfbbdd27e1bb1cbc4632d107224d2c66249602d8c550d",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:13",
+      "identifier": "shortcuts:14",
       "text": "Emojis",
       "subtext": "SUPER + ;",
       "icon": "󰊄",
@@ -8020,9 +8068,9 @@
       ]
     },
     {
-      "key": "98b8944a0803df2a6cedfbbdd27e1bb1cbc4632d107224d2c66249602d8c550d",
+      "key": "dd6d6807c550b14a2c6c6a91f119d2551ada93cda04143436cf055fa0c325a42",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:14",
+      "identifier": "shortcuts:15",
       "text": "File Manager",
       "subtext": "SUPER + E",
       "icon": "",
@@ -8040,9 +8088,9 @@
       ]
     },
     {
-      "key": "dd6d6807c550b14a2c6c6a91f119d2551ada93cda04143436cf055fa0c325a42",
+      "key": "dccd55cbdfc9842f1db42ffc4e4f0d28d221fe0ed36374d857fae6880928704d",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:15",
+      "identifier": "shortcuts:16",
       "text": "Fuzzy Find Files",
       "subtext": "SUPER + P",
       "icon": "󰈞",
@@ -8060,9 +8108,9 @@
       ]
     },
     {
-      "key": "dccd55cbdfc9842f1db42ffc4e4f0d28d221fe0ed36374d857fae6880928704d",
+      "key": "2f51e71b9758da976be88883be0eeac4edec84c10d0f1302b95016d11ef68896",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:16",
+      "identifier": "shortcuts:17",
       "text": "Fuzzy Find Text",
       "subtext": "SUPER + Ctrl + P",
       "icon": "󰈞",
@@ -8080,9 +8128,9 @@
       ]
     },
     {
-      "key": "2f51e71b9758da976be88883be0eeac4edec84c10d0f1302b95016d11ef68896",
+      "key": "1f54c9f59b36d05a6bf445a1b649bc6d3c39f3c538f177d7f691de1670840061",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:17",
+      "identifier": "shortcuts:18",
       "text": "Lock Screen",
       "subtext": "SUPER + M",
       "icon": "",
@@ -8100,9 +8148,9 @@
       ]
     },
     {
-      "key": "1f54c9f59b36d05a6bf445a1b649bc6d3c39f3c538f177d7f691de1670840061",
+      "key": "bb94bb8e42250686a36a7362d8bba9e41724c47be3ac4feb3a10914cbf2395cc",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:18",
+      "identifier": "shortcuts:19",
       "text": "Next Wallpaper",
       "subtext": "SUPER + Shift + N",
       "icon": "🖻",
@@ -8120,9 +8168,9 @@
       ]
     },
     {
-      "key": "bb94bb8e42250686a36a7362d8bba9e41724c47be3ac4feb3a10914cbf2395cc",
+      "key": "6521b392d1552424cd6b27f854bb80aaa777a82fe876a41a14e7e8ae9a17faf8",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:19",
+      "identifier": "shortcuts:20",
       "text": "Notification Center",
       "subtext": "SUPER + N",
       "icon": "󰂛",
@@ -8140,9 +8188,29 @@
       ]
     },
     {
-      "key": "6521b392d1552424cd6b27f854bb80aaa777a82fe876a41a14e7e8ae9a17faf8",
+      "key": "252f12905fa8500e81789eab83bf51703099830ed3f38e850e86a9f0937004be",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:20",
+      "identifier": "shortcuts:21",
+      "text": "Open Newest Notification",
+      "subtext": "SUPER + Alt + N",
+      "icon": "󰂞",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "Open Newest Notification",
+        "Open Newest Notification",
+        "SUPER + Alt + N"
+      ],
+      "menus": [
+        "learn",
+        "main"
+      ]
+    },
+    {
+      "key": "c854a74673848e1fffb56b2d3f220140c6fddda2e420d25fb68a22e7c8dbbc2d",
+      "provider": "menus:shortcuts",
+      "identifier": "shortcuts:22",
       "text": "Open Terminal",
       "subtext": "SUPER + Enter",
       "icon": "",
@@ -8160,9 +8228,9 @@
       ]
     },
     {
-      "key": "252f12905fa8500e81789eab83bf51703099830ed3f38e850e86a9f0937004be",
+      "key": "b0e2100e82a81cf09e9e4b1e156a6e27833e536aad46c797c8b901255431d724",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:21",
+      "identifier": "shortcuts:23",
       "text": "Screenshot Full",
       "subtext": "Print",
       "icon": "",
@@ -8180,9 +8248,9 @@
       ]
     },
     {
-      "key": "c854a74673848e1fffb56b2d3f220140c6fddda2e420d25fb68a22e7c8dbbc2d",
+      "key": "8541c9a2842b905906c96d9c38e9be85b82af88df3544e2cba5a76e70f653bc1",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:22",
+      "identifier": "shortcuts:24",
       "text": "Screenshot Selection",
       "subtext": "SUPER + Print",
       "icon": "󰄀",
@@ -8200,9 +8268,9 @@
       ]
     },
     {
-      "key": "b0e2100e82a81cf09e9e4b1e156a6e27833e536aad46c797c8b901255431d724",
+      "key": "f132cda0db2d3cb20de70ca3586825244c689fb1253ee5d0faad740ee5adeba8",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:23",
+      "identifier": "shortcuts:25",
       "text": "Search Apps",
       "subtext": "SUPER + Space",
       "icon": "󰍉",
@@ -8220,9 +8288,9 @@
       ]
     },
     {
-      "key": "8541c9a2842b905906c96d9c38e9be85b82af88df3544e2cba5a76e70f653bc1",
+      "key": "2afe92cac5ca2d5591fd4ad1c54209b025ce8b11cd780fb8ffa5d4bd398669e7",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:24",
+      "identifier": "shortcuts:26",
       "text": "Search Google",
       "subtext": "SUPER + G",
       "icon": "",
@@ -8240,9 +8308,9 @@
       ]
     },
     {
-      "key": "f132cda0db2d3cb20de70ca3586825244c689fb1253ee5d0faad740ee5adeba8",
+      "key": "1c8f4e239fa5e8c07d91c9273c3afcccb9836b08cb0861aadb2211cdfdee18c3",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:25",
+      "identifier": "shortcuts:27",
       "text": "Theme Picker",
       "subtext": "SUPER + Ctrl + Shift + N",
       "icon": "󰏘",
@@ -8260,9 +8328,9 @@
       ]
     },
     {
-      "key": "2afe92cac5ca2d5591fd4ad1c54209b025ce8b11cd780fb8ffa5d4bd398669e7",
+      "key": "2c9651b8fb835db45c2ad9b33a795b184d34ba2cbd70373d2d8db115af5979ca",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:26",
+      "identifier": "shortcuts:28",
       "text": "Toggle Bar Auto-Hide",
       "subtext": "SUPER + Shift + Space",
       "icon": "󰍜",
@@ -8280,9 +8348,9 @@
       ]
     },
     {
-      "key": "1c8f4e239fa5e8c07d91c9273c3afcccb9836b08cb0861aadb2211cdfdee18c3",
+      "key": "bec9465f67411bbf1fc6a6533d4fd35a25a3d7b81c85c3a21daa1788fcbfc71d",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:27",
+      "identifier": "shortcuts:29",
       "text": "Toggle Floating And Pin",
       "subtext": "SUPER + T",
       "icon": "󰖲",
@@ -8300,9 +8368,9 @@
       ]
     },
     {
-      "key": "2c9651b8fb835db45c2ad9b33a795b184d34ba2cbd70373d2d8db115af5979ca",
+      "key": "a94f52803acc4fa3d4ba5e1fe89f17584198eaaade8cd3ff249b74ab4b69a23f",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:28",
+      "identifier": "shortcuts:30",
       "text": "Toggle Focus",
       "subtext": "SUPER + Shift + F",
       "icon": "󰍹",
@@ -8320,9 +8388,9 @@
       ]
     },
     {
-      "key": "bec9465f67411bbf1fc6a6533d4fd35a25a3d7b81c85c3a21daa1788fcbfc71d",
+      "key": "815d407fd4a91eda78bcf705aba59155c7f62e30e1ba5a90e167a96688a39c51",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:29",
+      "identifier": "shortcuts:31",
       "text": "Toggle Fullscreen",
       "subtext": "SUPER + Ctrl + F",
       "icon": "󰊓",
@@ -8340,9 +8408,9 @@
       ]
     },
     {
-      "key": "a94f52803acc4fa3d4ba5e1fe89f17584198eaaade8cd3ff249b74ab4b69a23f",
+      "key": "9aa7ae680f44af8d833988685984bd409fac86d3383e3ee7e02edd29f8902fd3",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:30",
+      "identifier": "shortcuts:32",
       "text": "Uninstall Selected App",
       "subtext": "Delete in Apps / SUPER + Space · confirmation required",
       "icon": "󰆴",
@@ -8360,9 +8428,9 @@
       ]
     },
     {
-      "key": "815d407fd4a91eda78bcf705aba59155c7f62e30e1ba5a90e167a96688a39c51",
+      "key": "356ca3b1e5b539f66746eca8b2c7f541205f62649de6304a5c778b3ad60a9be1",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:31",
+      "identifier": "shortcuts:33",
       "text": "Wallpaper Picker",
       "subtext": "SUPER + Ctrl + N",
       "icon": "🖻",
@@ -8383,9 +8451,9 @@
       ]
     },
     {
-      "key": "9aa7ae680f44af8d833988685984bd409fac86d3383e3ee7e02edd29f8902fd3",
+      "key": "da59893b838032800111073e2015d5a88a052c69ff2b1f6050bdb4c5ea2c6c6d",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:32",
+      "identifier": "shortcuts:34",
       "text": "WiFi Panel",
       "subtext": "SUPER + Shift + W",
       "icon": "󰍹",

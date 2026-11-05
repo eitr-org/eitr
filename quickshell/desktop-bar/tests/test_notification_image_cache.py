@@ -103,6 +103,7 @@ TestCase {
     property var all: []
     property var tracked: []
     property var timestamps: ({})
+    property var repeats: ({})
     property var popupDeadlines: ({})
     property var pausedPopupIds: []
     Timer { id: expiry }

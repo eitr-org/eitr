@@ -697,5 +697,9 @@
   "Zone details": "Detalhes da zona",
   "gh or glab for this account only": "gh ou glab somente para esta conta",
   "iwd": "iwd",
-  "{service} · {url}": "{service} · {url}"
+  "{service} · {url}": "{service} · {url}",
+  "Open Newest Notification": "Abrir a notificação mais recente",
+  "Dismiss Newest Notification": "Dispensar a notificação mais recente",
+  "SUPER + Alt + N": "SUPER + Alt + N",
+  "SUPER + Alt + Shift + N": "SUPER + Alt + Shift + N"
 }

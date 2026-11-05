@@ -8,6 +8,8 @@ import "../NotificationLogic.js" as NotificationLogic
 Rectangle {
     id: card
     required property var notification
+    // Identical notifications collapsed into this card.
+    property int repeats: 1
     required property color foreground
     required property color accent
     property bool compact: false
@@ -108,7 +110,7 @@ Rectangle {
                 Text {
                     objectName: "notificationTitle"
                     width: parent.width
-                    text: card.notification ? card.notification.summary : ""
+                    text: card.notification ? card.notification.summary + (card.repeats > 1 ? "  ×" + card.repeats : "") : ""
                     textFormat: Text.PlainText
                     color: card.foreground
                     font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize

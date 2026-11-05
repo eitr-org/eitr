@@ -850,6 +850,9 @@ msgstr "Bericht kopiert."
 msgid "Copied to the clipboard."
 msgstr "In die Zwischenablage kopiert."
 
+msgid "Copy path"
+msgstr "Pfad kopieren"
+
 msgid "Copying needs wl-copy."
 msgstr "Kopieren benötigt wl-copy."
 
@@ -1143,6 +1146,9 @@ msgstr "Jede Änderung gilt sofort. Text muss auf dem Hintergrund lesbar bleiben
 
 msgid "Each hand-off uses the helper’s subscription and counts toward its limits."
 msgstr "Jede Übergabe nutzt das Abonnement des helfenden Assistenten und zählt zu dessen Limits."
+
+msgid "Edit image"
+msgstr "Bild bearbeiten"
 
 msgid "Edit widgets"
 msgstr "Widgets bearbeiten"
@@ -2316,6 +2322,9 @@ msgstr "Erinnerung zum Abbrechen auswählen"
 
 msgid "Picture"
 msgstr "Bild"
+
+msgid "Play recording"
+msgstr "Aufnahme abspielen"
 
 msgid "Please enlarge the console to at least 80 columns and 24 rows."
 msgstr "Bitte die Konsole auf mindestens 80 Spalten und 24 Zeilen vergrößern."

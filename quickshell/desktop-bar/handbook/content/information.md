@@ -38,6 +38,10 @@ recognized meetings. The ten bars follow live system audio through a private cav
 application. The newest card fronts a stack; expand it to see older cards.
 Dismiss one card or clear a group/all deliberately. Popups also stack by app,
 showing the newest message over backing layers; hover pauses their expiry.
+**SUPER + Alt + N** runs the newest notification's main action (what clicking it
+does), and **SUPER + Alt + Shift + N** dismisses it. A repeated notification (same
+app, title and text) replaces the earlier one and shows a count such as ×3 instead
+of stacking another card.
 
 Notifications have a soft inward glow in the theme's accent colour; critical
 ones glow in the theme's red instead, and low-priority ones are subdued with

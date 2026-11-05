@@ -19,6 +19,8 @@ Item {
     property int retainedImageBudget: 32 * 1024 * 1024
     property int retainedImageBytes: 0
     property var imageOrder: []
+    // How many identical notifications (same sender, title and text) each card stands for.
+    property var repeats: ({})
     signal toggleRequested()
     readonly property var tracked: server.trackedNotifications.values
     property var all: []
@@ -115,6 +117,30 @@ Item {
             popupDeadlines = deadlines;
         }
     }
+    // The newest notification still on screen, else the newest in history.
+    function newest() {
+        var pool = popups.length ? popups : history;
+        return pool.reduce((best, item) => !best || (timestamps[item.id] || 0) >= (timestamps[best.id] || 0) ? item : best, null);
+    }
+    // Runs what clicking the newest notification would: its default action, else its
+    // first button; without either it opens the notification center.
+    function actOnNewest() {
+        var notification = newest();
+        if (!notification) return false;
+        var action = notification.actions.find(candidate => candidate.identifier === "default")
+            || notification.actions.find(candidate => candidate.identifier !== "inline-reply");
+        if (!action) { toggleRequested(); return false; }
+        hidePopup(notification.id);
+        action.invoke();
+        return true;
+    }
+    function dismissNewest() {
+        var notification = newest();
+        if (!notification) return false;
+        hidePopup(notification.id);
+        notification.dismiss();
+        return true;
+    }
     function clear() {
         all.slice().forEach(notification => notification.dismiss());
         popupIds = [];
@@ -146,13 +172,15 @@ Item {
         });
         popupIds = popupIds.filter(id => ids.indexOf(id) !== -1);
         pausedPopupIds = pausedPopupIds.filter(id => ids.indexOf(id) !== -1);
-        var times = {}, deadlines = {};
+        var times = {}, deadlines = {}, counts = {};
         ids.forEach(id => {
             if (timestamps[id] !== undefined) times[id] = timestamps[id];
             if (popupDeadlines[id] !== undefined) deadlines[id] = popupDeadlines[id];
+            if (repeats[id] !== undefined) counts[id] = repeats[id];
         });
         timestamps = times;
         popupDeadlines = deadlines;
+        repeats = counts;
         pruneHistory();
         trimImages();
         scheduleExpiry();
@@ -164,6 +192,8 @@ Item {
         function clear(): void { service.clear(); }
         function clearApp(appName: string): void { service.clearApp(appName); }
         function dnd(): bool { return service.toggleDnd(); }
+        function act(): bool { return service.actOnNewest(); }
+        function dismissNewest(): bool { return service.dismissNewest(); }
         function status(): string { return JSON.stringify({count: service.count, doNotDisturb: service.doNotDisturb, popups: service.popups.length}); }
         function imageStatus(): string {
             return JSON.stringify(Object.keys(service.retainedImages).map(id => ({
@@ -204,6 +234,17 @@ Item {
         onNotification: function(notification) {
             if (Logic.ignored(notification.appName)) return;
             notification.tracked = true;
+            // A repeat of a notification still listed replaces it and counts it instead
+            // of stacking an identical card.
+            var twin = !notification.summary ? null : service.tracked.find(other => other !== notification && other.appName === notification.appName
+                && other.summary === notification.summary && other.body === notification.body);
+            var counts = Object.assign({}, service.repeats);
+            counts[notification.id] = twin ? (counts[twin.id] || 1) + 1 : 1;
+            service.repeats = counts;
+            if (twin) {
+                service.hidePopup(twin.id);
+                twin.dismiss();
+            }
             service.retainImage(notification);
             var times = Object.assign({}, service.timestamps);
             times[notification.id] = Date.now();

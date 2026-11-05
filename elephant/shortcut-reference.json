@@ -390,6 +390,14 @@
     "row": "Notification Center"
   },
   {
+    "description": "Open the newest notification (its main action)",
+    "row": "Open Newest Notification"
+  },
+  {
+    "description": "Dismiss the newest notification",
+    "row": "Dismiss Newest Notification"
+  },
+  {
     "description": "Toggle Focus",
     "row": "Toggle Focus"
   },

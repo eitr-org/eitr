@@ -850,6 +850,9 @@ msgstr "Relatório copiado."
 msgid "Copied to the clipboard."
 msgstr "Copiado para a área de transferência."
 
+msgid "Copy path"
+msgstr "Copiar caminho"
+
 msgid "Copying needs wl-copy."
 msgstr "A cópia exige wl-copy."
 
@@ -1143,6 +1146,9 @@ msgstr "Cada alteração é aplicada na hora. O texto precisa continuar legível
 
 msgid "Each hand-off uses the helper’s subscription and counts toward its limits."
 msgstr "Cada transferência usa a assinatura do assistente auxiliar e conta para os limites dele."
+
+msgid "Edit image"
+msgstr "Editar imagem"
 
 msgid "Edit widgets"
 msgstr "Editar widgets"
@@ -2316,6 +2322,9 @@ msgstr "Escolha um lembrete para cancelar"
 
 msgid "Picture"
 msgstr "Imagem"
+
+msgid "Play recording"
+msgstr "Reproduzir gravação"
 
 msgid "Please enlarge the console to at least 80 columns and 24 rows."
 msgstr "Amplie o console para pelo menos 80 colunas e 24 linhas."
