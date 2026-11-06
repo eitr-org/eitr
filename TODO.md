@@ -63,11 +63,21 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
   - Window rules and keybinds editors: "always float this app" and rebinding shortcuts
     from Settings, without editing Lua by hand.
   - First-run welcome that previews the bar layouts and lets the user pick one.
-  - A Settings app: one window like the Handbook, with every setting grouped by area
-    (appearance, bar, displays, sound, notifications, input, network, security,
-    system), each with a short explanation and screenshots where it helps. Then slim
-    the Control Center down to quick actions, a few style choices and quick toggles,
-    with a link into the matching Settings page for the rest.
+  - **Settings app (next, decided 2026-11-05).** One window with a grouped sidebar and a
+    search that finds individual settings: Overview (You, System); Devices (Displays,
+    Sound, Network & Bluetooth, Input); Desktop (Appearance, Desktop Bar, Windows,
+    Lockscreen, Notifications, Focus); Apps & Keys (Keybinds, Default apps, Themes &
+    Plugins, which moves in from its own window); Accounts & Security; System (Updates &
+    Channel, Check This PC, About); an Advanced switch hides rarely used options. The
+    Overview shows the profile picture and name, live CPU/GPU/RAM/network from the bar's
+    existing data, version and channel, resolution, uptime, the theme palette and a large
+    illustration per theme (to be drawn; the wallpaper until then). It follows the theme's
+    colours but is always opaque (no transparency or blur). Each setting has one plain
+    line and a "Learn more" link into the Handbook, which stays a separate window.
+    SUPER + , opens Settings; the Control Center moves to SUPER + I and keeps quick
+    toggles, sliders, media and a few style choices, with an "All settings" button.
+    Walker's Settings rows open the matching page. Build in phases: the frame with
+    Overview and Themes & Plugins, then one area at a time, then the slimmer Control Center.
   - Window gaps preference: four sizes, None, Small, Default (today's 6 px inner and
     12 px outer, the default) and Large, chosen like Corners under Style, kept across
     theme switches; the bar's islands, panels and padding already follow Hyprland's live
