@@ -60,8 +60,6 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
   Next:
   - Taildrop: send files to the user's other Tailscale machines from a menu; incoming
     files arrive as a notification.
-  - Kernel picker: show the installed kernels and choose which one boots by default
-    (fall back to LTS after a bad update), within Eitr's bootloader and Secure Boot setup.
   - Window rules and keybinds editors: "always float this app" and rebinding shortcuts
     from Settings, without editing Lua by hand.
   - First-run welcome that previews the bar layouts and lets the user pick one.
