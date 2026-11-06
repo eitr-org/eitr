@@ -85,6 +85,8 @@ Item {
         transcribing: verticalMiddle.host.transcribing
         dictationLevels: verticalMiddle.host.dictationLevels
         onRecordingClicked: barHost.togglePanel(recordingMenuRef)
+        // Stacked in the vertical bar's column, the dot is centred in every layout.
+        centered: true
     }
     VerticalBarIcon {
         host: verticalMiddle.host

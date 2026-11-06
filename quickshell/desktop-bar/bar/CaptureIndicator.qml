@@ -13,6 +13,8 @@ Item {
     property bool transcribing: false
     property var dictationLevels: [0, 0, 0, 0]
     readonly property bool listening: dictating || transcribing
+    // In a pill of its own (Islands, Dynamic) the dot sits in the middle; beside the clock it hugs it.
+    property bool centered: false
     readonly property bool shown: recording || listening
     property real transcribePhase: 0
     NumberAnimation on transcribePhase {
@@ -28,8 +30,9 @@ Item {
         height: 24
         Rectangle {
             visible: !capture.listening
-            anchors.right: parent.right
+            anchors.right: capture.centered ? undefined : parent.right
             anchors.rightMargin: 2
+            anchors.horizontalCenter: capture.centered ? parent.horizontalCenter : undefined
             anchors.verticalCenter: parent.verticalCenter
             width: 6
             height: 6
@@ -40,7 +43,8 @@ Item {
         // microphone while listening and pulsing while transcribing.
         Row {
             visible: capture.listening
-            anchors.right: parent.right
+            anchors.right: capture.centered ? undefined : parent.right
+            anchors.horizontalCenter: capture.centered ? parent.horizontalCenter : undefined
             anchors.verticalCenter: parent.verticalCenter
             spacing: 1
             Repeater {

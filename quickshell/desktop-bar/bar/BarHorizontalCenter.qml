@@ -47,6 +47,7 @@ Item {
         transcribing: centerSection.host.transcribing
         dictationLevels: centerSection.host.dictationLevels
         onRecordingClicked: barHost.togglePanel(recordingMenuRef)
+        centered: barHost.islandsLayout || barHost.dynamicLayout
     }
 
     StatusIcon {

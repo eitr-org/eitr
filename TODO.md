@@ -65,6 +65,11 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
   - Window rules and keybinds editors: "always float this app" and rebinding shortcuts
     from Settings, without editing Lua by hand.
   - First-run welcome that previews the bar layouts and lets the user pick one.
+  - A Settings app: one window like the Handbook, with every setting grouped by area
+    (appearance, bar, displays, sound, notifications, input, network, security,
+    system), each with a short explanation and screenshots where it helps. Then slim
+    the Control Center down to quick actions, a few style choices and quick toggles,
+    with a link into the matching Settings page for the rest.
   - Window gaps preference: four sizes, None, Small, Default (today's 6 px inner and
     12 px outer, the default) and Large, chosen like Corners under Style, kept across
     theme switches; the bar's islands, panels and padding already follow Hyprland's live

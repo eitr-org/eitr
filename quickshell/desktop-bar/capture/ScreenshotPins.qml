@@ -9,8 +9,8 @@ import "../PanelStyle.js" as PanelStyle
 
 // Screenshots pinned on screen as floating references, above every window and on every
 // workspace. Drag one to move it, scroll over it to resize it, and close it with its ×
-// button, Escape or a middle click. Each pin is its own small overlay window, created
-// and destroyed with its entry (never hidden and shown again).
+// button, Escape or a middle click. Each pin is a screen-sized overlay that only takes
+// input on its card, created and destroyed with its entry (never hidden and shown again).
 Scope {
     id: pins
     required property color foreground
@@ -46,22 +46,25 @@ Scope {
             screen: modelData.screen
             color: "transparent"
             exclusionMode: ExclusionMode.Ignore
-            anchors { top: true; left: true }
-            margins { left: Math.round(position.x); top: Math.round(position.y) }
+            // The pin's window always covers its screen and only the card moves inside it, with
+            // the input region on the card alone: moving or resizing the window lags a frame
+            // behind the pointer, which made the card jitter and jump on press and release.
+            property bool dragging: false
+            anchors { top: true; left: true; right: true; bottom: true }
+            mask: Region { item: card }
             property point position: Qt.point(modelData.x, modelData.y)
             // Fits a 420 px wide card at first, never larger than half the screen.
             readonly property real baseWidth: image.status === Image.Ready ? Math.min(420, image.sourceSize.width, (screen ? screen.width : 1920) / 2) : 0
             readonly property real cardWidth: Math.max(80, baseWidth * zoom)
             readonly property real cardHeight: image.sourceSize.width > 0 ? cardWidth * image.sourceSize.height / image.sourceSize.width : 0
-            implicitWidth: Math.max(1, cardWidth + 16)
-            implicitHeight: Math.max(1, cardHeight + 16)
             WlrLayershell.namespace: "eitr-pin"
             WlrLayershell.layer: WlrLayer.Overlay
             WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
 
             Rectangle {
                 id: card
-                x: 8; y: 8
+                x: Math.round(pin.position.x) + 8
+                y: Math.round(pin.position.y) + 8
                 width: pin.cardWidth; height: pin.cardHeight
                 radius: DesktopStyle.radius(PanelStyle.cornerRadius)
                 color: pins.background
@@ -84,19 +87,24 @@ Scope {
                     anchors.fill: parent
                     acceptedButtons: Qt.LeftButton | Qt.MiddleButton
                     cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
+                    // Where the card was grabbed, in card coordinates.
                     property point grab: Qt.point(0, 0)
                     onPressed: function(mouse) {
                         card.forceActiveFocus();
                         if (mouse.button === Qt.MiddleButton) { pins.remove(pin.modelData.id); return; }
                         grab = Qt.point(mouse.x, mouse.y);
+                        pin.dragging = true;
                     }
+                    onReleased: pin.dragging = false
+                    onCanceled: pin.dragging = false
                     onPositionChanged: function(mouse) {
-                        if (!pressed || pressedButtons !== Qt.LeftButton) return;
+                        if (!pin.dragging) return;
+                        // The window stays still while dragging, so window coordinates are screen ones.
+                        var at = mapToItem(pin.contentItem, mouse.x, mouse.y);
                         var area = pin.screen;
-                        var nextX = pin.position.x + mouse.x - grab.x;
-                        var nextY = pin.position.y + mouse.y - grab.y;
+                        var nextX = at.x - grab.x - 8, nextY = at.y - grab.y - 8;
                         // Keep a corner of the pin on screen so it can always be reached.
-                        pin.position = Qt.point(Math.max(48 - pin.implicitWidth, Math.min(area.width - 48, nextX)),
+                        pin.position = Qt.point(Math.max(48 - pin.cardWidth - 16, Math.min(area.width - 48, nextX)),
                                                 Math.max(0, Math.min(area.height - 48, nextY)));
                     }
                     onWheel: function(wheel) {
