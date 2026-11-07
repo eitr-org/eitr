@@ -7,6 +7,8 @@ import "../JsonState.js" as JsonState
 
 Column {
     id: view
+    // Layout names are short: the list keeps a compact width instead of filling the card.
+    readonly property real listWidth: Math.min(width, 480)
     objectName: "settings-input-content"
     required property color foreground
     required property color background
@@ -61,7 +63,7 @@ Column {
         KeyboardLayoutRow {
             required property var modelData
             required property int index
-            width: view.width
+            width: view.listWidth
             label: modelData.label
             foreground: view.foreground; tooltipBackground: view.background
             selected: modelData.index === view.selected
@@ -78,7 +80,7 @@ Column {
     // Choosing a layout from the floating list adds it; the catalog loads with the page.
     ChoiceDropdown {
         objectName: "settings-add-layout"
-        width: Math.min(parent.width, 320)
+        width: view.listWidth
         gold: SettingsInk.gold; background: SettingsInk.background
         foreground: view.foreground
         label: Eitr.I18n.tr("Add Layout")

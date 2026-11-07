@@ -17,11 +17,11 @@ FamilyWindow {
         anchors.fill: parent
         foreground: SettingsPalette.foreground; background: window.color; accent: SettingsPalette.accent
         opened: window.opened
-        onCloseRequested: { window.rememberSize(); window.opened = false; }
+        onCloseRequested: window.opened = false
     }
     IpcHandler {
         target: "catalog"
         function toggle(): void { window.toggle(); }
-        function close(): void { window.rememberSize(); window.opened = false; }
+        function close(): void { window.opened = false; }
     }
 }

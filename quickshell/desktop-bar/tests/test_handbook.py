@@ -46,7 +46,7 @@ class HandbookTests(unittest.TestCase):
         shared = (ROOT / "quickshell/desktop-bar/components/LibraryWindow.qml").read_text()
         self.assertIn("FloatingWindow {", shared)
         self.assertIn("onClosed:", shared)
-        self.assertIn('stateName: "handbook"', source)
+        self.assertNotIn('stateName', source)
         self.assertNotIn("execDetached", source)
         self.assertNotIn("Process {", source)
         self.assertNotIn("XMLHttpRequest", source)

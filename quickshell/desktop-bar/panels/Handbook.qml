@@ -13,7 +13,6 @@ import "../HandbookModel.js" as Model
 FamilyWindow {
     id: book
     readonly property real reveal: opened ? 1 : 0
-    stateName: "handbook"
     title: "EITR Handbook"
     property var chapters: []
     property string selectedId: "getting-started"

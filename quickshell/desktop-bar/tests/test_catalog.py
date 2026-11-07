@@ -132,13 +132,11 @@ class CatalogDomainTests(unittest.TestCase):
 
 @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')
 class CatalogRenderTests(unittest.TestCase):
-    def test_window_lifecycle_and_saved_size(self):
+    def test_window_lifecycle_and_default_size(self):
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory)
             copy_runtime(folder)
             (folder / 'services/DesktopData.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { function releaseOwner(owner) {} }\n')
-            (folder / "eitr").mkdir()
-            (folder / "eitr/catalog-window.json").write_text(json.dumps({"width": 610, "height": 510}))
             fixture = r'''//@ pragma AppId eitr-catalog
 import QtQuick
 import Quickshell
@@ -151,24 +149,27 @@ ShellRoot {
  Timer {
   interval: 200; running: true; repeat: true
   property int phase: 0
+  property real openedWidth: 0
   onTriggered: {
    const find = function(item, name) { if (item.objectName === name) return item; for (const child of item.children || []) { const found = find(child, name); if (found) return found; } return null; };
    const content = find(catalog.contentItem, "catalog-content");
    content.live = false;
    if (phase === 0) {
     if (catalog.opened || catalog.visible) throw new Error("initially closed");
-    if (catalog.title !== "Themes & Plugins" || !catalog.stateReady) throw new Error("window metadata/state");
+    if (catalog.title !== "Themes & Plugins") throw new Error("window metadata");
     catalog.show();
    } else if (phase === 1) {
     if (!catalog.opened || !catalog.visible) throw new Error("show");
-    if (catalog.width !== 610 || catalog.height !== 510) throw new Error("restored size");
+    openedWidth = catalog.implicitWidth;
+    if (openedWidth <= 0 || openedWidth > catalog.defaultSize.width) throw new Error("default size");
+    catalog.implicitWidth = 610; catalog.implicitHeight = 510;
    } else if (phase === 2) {
-    catalog.rememberSize();
     catalog.closed();
     if (catalog.opened || catalog.visible) throw new Error("compositor close");
     catalog.show(); catalog.show();
    } else if (phase === 3) {
     if (!catalog.opened || !catalog.visible) throw new Error("reopen");
+    if (catalog.implicitWidth !== openedWidth) throw new Error("reopened at the resized width");
     content.closeRequested();
     if (catalog.opened) throw new Error("content close");
     console.log("CATALOG_WINDOW_OK"); Qt.quit();
@@ -184,8 +185,7 @@ ShellRoot {
             self.assertIn('CATALOG_WINDOW_OK', output)
             self.assertNotIn('Error:', output)
             self.assertNotIn('Unable to assign', output)
-            self.assertEqual(json.loads((folder / 'eitr/catalog-window.json').read_text()),
-                             {'width': 610, 'height': 510})
+            self.assertFalse((folder / 'eitr/catalog-window.json').exists())
 
     def test_empty_community_index_shows_the_welcome_card(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -608,7 +608,7 @@ ShellRoot {
   id: book
   foreground: "FOREGROUND"; background: "BACKGROUND"; accent: "#759456"
   opened: true; implicitWidth: WIDTH; implicitHeight: 800
-  savedSize: Qt.size(WIDTH, 800)
+  defaultSize: Qt.size(WIDTH, 800)
  }
  Timer { interval: 150; running: true; onTriggered: { Bar.SiteStyle.light = LIGHT; book.show("getting-started"); book.implicitWidth = WIDTH; book.implicitHeight = 800; } }
  property int stage: 0

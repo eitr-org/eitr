@@ -470,7 +470,7 @@
     ],
     "Corners": [
       "quickshell/desktop-bar/capture/BeautifyWindow.qml",
-      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+      "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
     "Could not change Cursor Fire": [
       "quickshell/desktop-bar/settings/SettingsStyleState.qml"
@@ -1946,7 +1946,7 @@
     "Theme palette": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
-    "Theme, wallpaper, fonts and corners.": [
+    "Theme, wallpaper, fonts and cursor.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Themes": [
@@ -2006,7 +2006,7 @@
     "Turned right": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
-    "Typography & Shape": [
+    "Typography": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "UNLOCK": [
@@ -2168,10 +2168,13 @@
       "quickshell/desktop-bar/overview/WorkspaceOverviewTile.qml",
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
-    "Window effects and gaps.": [
+    "Window gaps": [
+      "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
+    ],
+    "Window gaps, corners and motion.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
-    "Window gaps": [
+    "Window shape": [
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
     "Windows": [
@@ -2228,7 +2231,7 @@
     "ddd MMM dd hh:mm AP": [
       "quickshell/desktop-bar/bar/ClockButton.qml"
     ],
-    "gaps animations effects": [
+    "gaps corners rounded square shape animations effects": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "github gitlab aws azure google identities folder rules accounts contexts": [
@@ -2295,7 +2298,7 @@
     "streaming sunshine moonlight remote game desktop sharing": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
-    "style colors palette cursor fonts terminal opacity corners wallpaper": [
+    "style colors palette cursor fonts terminal opacity wallpaper": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "user": [

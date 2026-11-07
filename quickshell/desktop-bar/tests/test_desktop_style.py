@@ -84,7 +84,7 @@ class DesktopStyleTests(unittest.TestCase):
         self.assertIn("corner-styles.json", desktop)
         self.assertNotIn("extra-rounded", desktop)
         self.assertNotIn("Timer", desktop)
-        self.assertIn("choices: DesktopStyle.options", (ROOT / "settings/SettingsAppearancePage.qml").read_text())
+        self.assertIn("choices: DesktopStyle.options", (ROOT / "settings/SettingsWindowsPage.qml").read_text())
         menu = (repo / "elephant/menus/corners.lua").read_text()
         self.assertIn('"quickshell/desktop-bar/corner-styles.json"', menu, "the menu lists the styles from the file")
         self.assertIn('choices(script, "corners", options)', menu, "the current style is checked")

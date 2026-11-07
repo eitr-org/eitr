@@ -1106,10 +1106,10 @@ follow the theme or, when Settings chooses it, the website palette. They share
 search field, rune group captions, rows with a rune that turns gold when selected and the
 sliding gold marker; entries are `{id, title, rune, group, groupRune}`),
 `FamilyPageHeader` (gold rune breadcrumb, Cinzel title and description), `ControlCard`,
-`ControlRow` and `PanelButton`. `SettingsWindow` uses stateName `settings`, the bar's
-`eitr-catalog` app id and a translated Settings title. SUPER+comma toggles it;
-SUPER+I toggles Control Center. Its opaque theme canvas has no blur and persists
-its size in `$XDG_STATE_HOME/eitr/settings-window.json`. Outside clicks leave it
+`ControlRow` and `PanelButton`. `SettingsWindow` uses the bar's `eitr-catalog` app id
+and a translated Settings title. SUPER+comma toggles it; SUPER+I toggles Control
+Center. Its opaque theme canvas has no blur. Like the Handbook and Themes & Plugins,
+it opens at its default size every time; a resize lasts until it closes. Outside clicks leave it
 open. `settings toggle`, `settings show <page/tab>` and `settings close` control it.
 Themes and Plugins have their own catalog window in the same family: its sidebar
 lists Installed, Official and Community under Themes and Plugins, the page header names

@@ -97,7 +97,7 @@ assert.equal(filter('traduit', text => text === 'Displays' ? 'traduit' : text)[0
 
     def test_routes_opacity_and_demand(self):
         window = (BAR / 'settings/SettingsWindow.qml').read_text()
-        self.assertIn('stateName: "settings"', window)
+        self.assertNotIn('stateName', window)
         self.assertIn('FamilyWindow {', window)
         family = (BAR / 'settings/FamilyWindow.qml').read_text()
         self.assertIn('Qt.rgba(SettingsPalette.background.r, SettingsPalette.background.g, SettingsPalette.background.b, 1)', family)

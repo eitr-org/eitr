@@ -12,14 +12,13 @@ FamilyWindow {
     signal idleToggleRequested()
     signal themesRequested()
     property alias live: content.live
-    stateName: "settings"
     title: Eitr.I18n.tr("Settings")
 
     function show(page) {
         content.navigate(page || "system");
         showWindow();
     }
-    function closeSettings() { rememberSize(); opened = false; }
+    function closeSettings() { opened = false; }
     SettingsContent {
         id: content
         anchors.fill: parent

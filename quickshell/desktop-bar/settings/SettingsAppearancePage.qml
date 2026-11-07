@@ -101,7 +101,7 @@ Column {
         }
     }
     ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
-        title: Eitr.I18n.tr("Typography & Shape")
+        title: Eitr.I18n.tr("Typography")
         foreground: view.foreground
         visible: view.page === "appearance" && view.tab === "fonts"
         ControlRow {
@@ -115,24 +115,6 @@ Column {
                 onChosen: value => {
                     if (view.live) {
                         fontHelper.change(["select", value]);
-                    }
-                }
-            }
-        }
-        Column {
-            width: parent.width
-            spacing: 8
-            SettingsText { text: Eitr.I18n.tr("Corners"); color: SettingsInk.gold }
-            PictureChoices { foreground: SettingsPalette.foreground; background: SettingsPalette.background; accent: SettingsPalette.accent; gold: SettingsPalette.gold; raised: SettingsPalette.raised; surface: SettingsPalette.surface; line: SettingsPalette.line; muted: SettingsPalette.muted; carved: true;
-                kind: "corners"
-                edge: styleModel.barPosition
-                appearance: styleModel.appearance
-                compact: true
-                choices: DesktopStyle.options
-                current: DesktopStyle.corners
-                onChosen: value => {
-                    if (view.live) {
-                        DesktopStyle.select(value);
                     }
                 }
             }
