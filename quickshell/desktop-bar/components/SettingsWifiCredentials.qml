@@ -25,11 +25,11 @@ ControlCard {
         current: "peap"
         onChosen: value => current = value
     }
-    TextField { id: identity; visible: form.enterprise; width: Math.min(320, parent.width); placeholderText: Eitr.I18n.tr("Username"); color: form.foreground }
-    TextField { id: anonymous; visible: form.enterprise; width: Math.min(320, parent.width); placeholderText: Eitr.I18n.tr("Anonymous identity (optional)"); color: form.foreground }
-    TextField { id: domain; visible: form.enterprise; width: Math.min(320, parent.width); placeholderText: Eitr.I18n.tr("Server domain"); color: form.foreground }
-    TextField { id: certificate; visible: form.enterprise; width: Math.min(320, parent.width); placeholderText: Eitr.I18n.tr("CA certificate path"); color: form.foreground }
-    TextField { id: password; width: Math.min(320, parent.width); placeholderText: Eitr.I18n.tr("Password"); color: form.foreground; echoMode: TextInput.Password; Accessible.name: placeholderText }
+    PanelTextField { id: identity; foreground: form.foreground; accent: form.accent; visible: form.enterprise; width: Math.min(320, parent.width); placeholderText: Eitr.I18n.tr("Username") }
+    PanelTextField { id: anonymous; foreground: form.foreground; accent: form.accent; visible: form.enterprise; width: Math.min(320, parent.width); placeholderText: Eitr.I18n.tr("Anonymous identity (optional)") }
+    PanelTextField { id: domain; foreground: form.foreground; accent: form.accent; visible: form.enterprise; width: Math.min(320, parent.width); placeholderText: Eitr.I18n.tr("Server domain") }
+    PanelTextField { id: certificate; foreground: form.foreground; accent: form.accent; visible: form.enterprise; width: Math.min(320, parent.width); placeholderText: Eitr.I18n.tr("CA certificate path") }
+    PanelTextField { id: password; foreground: form.foreground; accent: form.accent; width: Math.min(320, parent.width); placeholderText: Eitr.I18n.tr("Password"); echoMode: TextInput.Password; Accessible.name: placeholderText }
     Row {
         spacing: 8
         PanelButton { width: 100; text: Eitr.I18n.tr("Cancel"); foreground: form.foreground; onClicked: form.cancelled() }

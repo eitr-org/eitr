@@ -12,6 +12,8 @@ Rectangle {
     property string title: ""
     required property color foreground
     default property alias body: contents.data
+    // Compact controls shown at the right end of the title line, such as a Scan button.
+    property alias headerActions: headerSlot.data
     implicitHeight: contents.implicitHeight + 72
     width: parent ? parent.width : 0
     height: visible ? implicitHeight : 0
@@ -22,7 +24,7 @@ Rectangle {
     Text {
         x: 16
         y: 14
-        width: parent.width - 32
+        width: parent.width - 32 - (headerSlot.childrenRect.width > 0 ? headerSlot.childrenRect.width + 12 : 0)
         text: card.title
         color: card.gold
         font.family: card.carved ? SiteStyle.carved : DesktopFonts.family
@@ -30,6 +32,14 @@ Rectangle {
         font.capitalization: Font.AllUppercase
         font.letterSpacing: 1.3
         elide: Text.ElideRight
+    }
+    Item {
+        id: headerSlot
+        anchors.right: parent.right
+        anchors.rightMargin: 16
+        y: 8
+        width: childrenRect.width
+        height: 26
     }
     Rectangle {
         x: 16

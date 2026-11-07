@@ -1141,9 +1141,12 @@ embedded device panels retain ownership of their reads and writes.
 Desktop pages use `SettingsStyleState` for helper
 summaries and guarded writes. `SettingsAppearanceModel` supplies both the carousel
 and inline theme/wallpaper selection. Event sound controls are shared through
-`EventSoundSettings`. Devices embed the existing audio, display, WiFi and Bluetooth
-panels through `DockPanel.inlineParent`, without focus grabs or detached surfaces;
-closing their Loader releases the panels' existing observer owners. Input uses
+`EventSoundSettings`. Displays embed the existing display panel through
+`DockPanel.inlineParent`, without focus grabs or detached surfaces; closing its Loader
+releases the panel's observer owners. Sound, Wi-Fi and Bluetooth are Settings pages
+built on the panels' services: `ConnectionRow` rows connect when clicked and show
+progress and errors inline, `ControlCard.headerActions` holds each tab's single Scan
+action, and `BluetoothDiscovery` is the scan run shared with the Bluetooth panel. Input uses
 `KeyboardLayoutRow` and the keyboard helper for selecting, adding, removing and
 ordering layouts. Streaming sits beside Connections in Devices, reuses remote.status and the shared Sunshine controls, and gives Moonlight its own install/open row. Git, Cloud and Security expose direct helper actions inside Settings; interactive forms retain task terminals. AI Assistants manages installation, accounts and collaboration without opening Walker. Panel footer links open Settings directly through the owning shell. Embedded panels hide return links and ignore popup focus/review dismissal.
 

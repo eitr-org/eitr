@@ -137,10 +137,9 @@ assert.equal(filter('traduit', text => text === 'Displays' ? 'traduit' : text)[0
         self.assertIn('ChoiceDropdown {', desktop)
         self.assertIn('ChoiceSegmented {', desktop)
         self.assertIn('SettingsAppearanceModel {', (BAR / 'panels/AppearancePicker.qml').read_text())
-        for panel in ('BluetoothMenu', 'BrightnessMenu'):
-            self.assertIn(panel + ' {', devices)
-        for slot in ('displaySlot', 'bluetoothSlot'):
-            self.assertIn('inlineParent: ' + slot, devices)
+        self.assertIn('BrightnessMenu {', devices)
+        self.assertIn('inlineParent: displaySlot', devices)
+        self.assertIn('SettingsBluetoothPage {', devices)
         popup = (BAR / 'components/ThemedPopup.qml').read_text()
         self.assertIn('active: !popup.embedded && popup.grabReady', popup)
         self.assertIn('parent: popup.embedded ? popup : panelSurface.contentItem', popup)

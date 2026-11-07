@@ -19,6 +19,8 @@ Rectangle {
     property bool flat: false
     property bool selected: false
     property string leadingIcon: ""
+    // Spins the leading glyph to show work in progress while the button stays usable.
+    property bool leadingSpin: false
     // An SVG shown instead of the leading glyph, tinted with the foreground.
     property url leadingImage: ""
     property int textAlignment: Text.AlignHCenter
@@ -87,6 +89,7 @@ Rectangle {
         layer.effect: MultiEffect { colorization: 1; colorizationColor: button.foreground }
     }
     Text {
+        id: leadingGlyph
         visible: button.leadingIcon !== "" && !button.loading
         x: 8
         width: 18
@@ -96,6 +99,14 @@ Rectangle {
         color: button.foreground
         font.family: PanelStyle.fontFamily
         font.pixelSize: 16
+        RotationAnimator on rotation {
+            from: 0
+            to: 360
+            duration: 900
+            loops: Animation.Infinite
+            running: !DesktopStyle.reduceMotion && button.visible && button.leadingSpin
+            onStopped: leadingGlyph.rotation = 0
+        }
     }
     Text {
         anchors.centerIn: parent

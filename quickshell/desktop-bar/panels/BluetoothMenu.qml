@@ -10,7 +10,6 @@ ThemedPopup {
     implicitWidth: 468
     implicitHeight: Math.min(508, Math.max(248, groups.height + 122))
     property var adapter: Bluetooth.defaultAdapter
-    property var scanningAdapter: null
     property var sections: []
     onAvailableSectionsChanged: menu.updateContent(function() {
         const next = menu.availableSections;
@@ -26,20 +25,8 @@ ThemedPopup {
         {title: Eitr.I18n.tr("KNOWN DEVICES"), devices: adapter ? adapter.devices.values.filter(device => !device.connected && device.paired) : []},
         {title: Eitr.I18n.tr("SCANNED DEVICES"), devices: adapter ? adapter.devices.values.filter(device => !device.connected && !device.paired) : []}
     ]
-    function scan() {
-        if (!adapter) return;
-        if (scanningAdapter) { scanningAdapter.discovering = false; scanningAdapter = null; }
-        else { scanningAdapter = adapter; adapter.discovering = true; scanTimer.restart(); }
-    }
-    onOpenedChanged: if (!opened && scanningAdapter) {
-        scanningAdapter.discovering = false;
-        scanningAdapter = null;
-    }
-    Timer {
-        id: scanTimer
-        interval: 20000
-        onTriggered: if (menu.scanningAdapter) { menu.scanningAdapter.discovering = false; menu.scanningAdapter = null; }
-    }
+    BluetoothDiscovery { id: discovery; adapter: menu.adapter }
+    onOpenedChanged: if (!opened) discovery.stop()
     Item {
         anchors.fill: parent
         anchors.margins: 0
@@ -55,11 +42,11 @@ ThemedPopup {
                 PanelButton {
                     id: scanButton
                     width: 34; height: 32
-                    text: menu.scanningAdapter ? "\uF04D" : "\uF021"; icon: true; compactIconBackground: true
+                    text: discovery.scanning ? "\uF04D" : "\uF021"; icon: true; compactIconBackground: true
                     foreground: menu.foreground
                     available: !!menu.adapter && menu.adapter.enabled
-                    Accessible.name: menu.scanningAdapter ? Eitr.I18n.tr("Stop scan") : Eitr.I18n.tr("Scan")
-                    onClicked: menu.scan()
+                    Accessible.name: discovery.scanning ? Eitr.I18n.tr("Stop scan") : Eitr.I18n.tr("Scan")
+                    onClicked: discovery.toggle()
                     HoverHandler { id: scanHover }
                     BarTooltip { target: scanButton; hovered: scanHover.hovered; text: scanButton.Accessible.name; foreground: menu.foreground; background: menu.background }
                 }
@@ -87,7 +74,7 @@ ThemedPopup {
                         spacing: PanelStyle.selectionRowGap
                         PanelDivider { width: parent.width; height: 8; foreground: menu.foreground }
                         Text { text: parent.modelData.title; color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
-                        Text { visible: parent.modelData.devices.length === 0; text: parent.modelData.title === "SCANNED DEVICES" && menu.scanningAdapter ? Eitr.I18n.tr("Scanning...") : Eitr.I18n.tr("No devices"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.secondarySize }
+                        Text { visible: parent.modelData.devices.length === 0; text: parent.modelData.title === "SCANNED DEVICES" && discovery.scanning ? Eitr.I18n.tr("Scanning...") : Eitr.I18n.tr("No devices"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.secondarySize }
                         Repeater {
                             model: parent.modelData.devices
                             Item {

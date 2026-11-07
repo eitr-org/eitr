@@ -21,7 +21,7 @@ Flickable {
     boundsBehavior: Flickable.StopAtBounds
     onPageChanged: contentY = 0
     function dismiss() {
-        if (page === "connections") return wifiPage.dismiss();
+        if (page === "connections") return tab === "bluetooth" ? bluetoothPage.dismiss() : wifiPage.dismiss();
         return false;
     }
     Column {
@@ -79,28 +79,12 @@ Flickable {
             networkService: view.networkService
             foreground: view.foreground; background: view.background; accent: view.accent
         }
-        ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
-            title: Eitr.I18n.tr("Bluetooth")
-            foreground: view.foreground
-            visible: bluetoothSlot.active
-            Loader {
-                id: bluetoothSlot
-                width: parent.width
-                height: active && item ? item.implicitHeight : 0
-                active: view.active && view.page === "connections" && view.tab === "bluetooth"
-                sourceComponent: Component {
-                    BluetoothMenu {
-                        objectName: "settings-bluetoothSlot"
-                        inlineParent: bluetoothSlot
-                        target: null
-                        anchors.fill: parent
-                        foreground: view.foreground
-                        background: view.background
-                        accent: view.accent
-                        opened: view.active
-                    }
-                }
-            }
+        SettingsBluetoothPage {
+            id: bluetoothPage
+            width: parent.width
+            visible: view.page === "connections" && view.tab === "bluetooth"
+            active: view.active && visible; live: view.live
+            foreground: view.foreground; background: view.background; accent: view.accent
         }
         ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
             title: Eitr.I18n.tr("Keyboard Layout")

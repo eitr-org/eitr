@@ -196,5 +196,9 @@ SettingsSoundPage settings/SettingsSoundPage.qml
 SettingsAudioDeviceCard components/SettingsAudioDeviceCard.qml
 SettingsWifiPage settings/SettingsWifiPage.qml
 SettingsWifiCredentials components/SettingsWifiCredentials.qml
+SettingsBluetoothPage settings/SettingsBluetoothPage.qml
+ConnectionRow components/ConnectionRow.qml
+BluetoothDiscovery components/BluetoothDiscovery.qml
 SettingsSummaryEntry components/SettingsSummaryEntry.qml
 CatalogEmptyState components/CatalogEmptyState.qml
+PanelTextField components/PanelTextField.qml

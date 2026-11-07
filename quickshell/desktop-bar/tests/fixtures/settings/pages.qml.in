@@ -23,8 +23,12 @@ ShellRoot {
  QtObject {
   id: adapter
   property bool enabled: true
-  property var devices: ({values: [{name: "Example keyboard", connected: true, paired: true, pairing: false, state: BluetoothDeviceState.Connected, batteryAvailable: true, battery: 0.75}]})
+  property var devices: ({values: [keyboard, headset, speaker, unnamed]})
  }
+ QtObject { id: keyboard; property string name: "Example keyboard"; property string address: "02:00:00:00:00:10"; property string icon: "input-keyboard"; property bool connected: true; property bool paired: true; property bool pairing: false; property int state: BluetoothDeviceState.Connected; property bool batteryAvailable: true; property real battery: 0.75 }
+ QtObject { id: headset; property string name: "Example headset"; property string address: "02:00:00:00:00:11"; property string icon: "audio-headset"; property bool connected: false; property bool paired: true; property bool pairing: false; property int state: BluetoothDeviceState.Disconnected; property bool batteryAvailable: false; property real battery: 0 }
+ QtObject { id: speaker; property string name: "Example speaker"; property string address: "02:00:00:00:00:12"; property string icon: "audio-card"; property bool connected: false; property bool paired: false; property bool pairing: false; property int state: BluetoothDeviceState.Disconnected; property bool batteryAvailable: false; property real battery: 0 }
+ QtObject { id: unnamed; property string name: "02-00-00-00-00-13"; property string address: "02:00:00:00:00:13"; property string icon: ""; property bool connected: false; property bool paired: false; property bool pairing: false; property int state: BluetoothDeviceState.Disconnected; property bool batteryAvailable: false; property real battery: 0 }
  Bar.SettingsWindow {
   id: window; live: false
   networkService: network
@@ -62,8 +66,8 @@ ShellRoot {
     const appearance = [{name: "Eitr", value: "eitr", image: "file://ARTWORK", current: true}, {name: "Vanaheim", value: "vanaheim", image: "file://ARTWORK", current: false}];
     fixture.find(content, "settings-theme-model").items = appearance;
     fixture.find(content, "settings-wallpaper-model").items = appearance;
-    const bluetooth = fixture.find(content, "settings-bluetoothSlot");
-    if (bluetooth) bluetooth.adapter = adapter;
+    const bluetooth = fixture.find(content, "settings-bluetooth-page");
+    bluetooth.adapter = adapter;
     const keyboard = fixture.find(content, "settings-input-content");
     keyboard.layouts = [{index: 0, label: "English (US)"}, {index: 1, label: "Portuguese (Brazil)"}]; keyboard.selected = 0;
     const system = fixture.find(content, "settings-system-page");
@@ -88,6 +92,11 @@ ShellRoot {
      const wifi = fixture.find(content, "settings-wifi-page");
      if (!wifi || !wifi.visible || wifi.devices.length !== 1) throw new Error("Settings Wi-Fi missing");
      if (wifi.fields.length !== 14 || wifi.fields[1].value !== "WPA2-Personal") throw new Error("Wi-Fi details: " + JSON.stringify(wifi.fields));
+    }
+    if (pages[current] === "connections/bluetooth") {
+     const bluetooth = fixture.find(content, "settings-bluetooth-page");
+     if (!bluetooth || !bluetooth.visible) throw new Error("Settings Bluetooth missing");
+     if (bluetooth.groups.connected.length !== 1 || bluetooth.groups.known.length !== 1 || bluetooth.groups.other.length !== 1 || bluetooth.groups.unnamed.length !== 1) throw new Error("Bluetooth groups");
     }
     if (pages[current] === "assistants") {
      const assistant = fixture.find(content, "settings-default-assistant");

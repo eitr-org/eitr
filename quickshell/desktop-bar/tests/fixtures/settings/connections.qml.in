@@ -1,0 +1,204 @@
+import QtQuick
+import QtTest
+import Quickshell
+import Quickshell.Bluetooth
+import "." as Bar
+ShellRoot {
+ id: fixture
+ property var calls: []
+ // A failed compare ends its test function early, so each one records that it finished.
+ property var finished: []
+ function record(entry) { calls = calls.concat([entry]); }
+ function find(item, test) {
+  if (test(item)) return item;
+  for (const child of item.children || []) { const result = find(child, test); if (result) return result; }
+  return null;
+ }
+ function findAll(item, test, found) {
+  found = found || [];
+  if (test(item)) found.push(item);
+  for (const child of item.children || []) findAll(child, test, found);
+  return found;
+ }
+ function named(item, name) { return find(item, candidate => candidate.objectName === name); }
+ function row(page, text) { return find(page, candidate => candidate.visible && candidate.hasOwnProperty("activatable") && candidate.text === text); }
+ function button(item, text) { return find(item, candidate => candidate.visible && candidate.hasOwnProperty("leadingIcon") && candidate.text === text); }
+ component Device: QtObject {
+  property string name
+  property string address
+  property string icon: ""
+  property bool connected: false
+  property bool paired: false
+  property bool pairing: false
+  property int state: BluetoothDeviceState.Disconnected
+  property bool batteryAvailable: false
+  property real battery: 0
+  function pair() { fixture.record(name + ":pair"); pairing = true; }
+  function cancelPair() { fixture.record(name + ":cancel"); pairing = false; }
+  function connect() { fixture.record(name + ":connect"); state = BluetoothDeviceState.Connecting; }
+  function disconnect() { fixture.record(name + ":disconnect"); }
+  function forget() { fixture.record(name + ":forget"); }
+ }
+ Device { id: keyboard; name: "Example keyboard"; address: "02:00:00:00:00:10"; icon: "input-keyboard"; connected: true; paired: true; state: BluetoothDeviceState.Connected; batteryAvailable: true; battery: 0.8 }
+ Device { id: headset; name: "Example headset"; address: "02:00:00:00:00:11"; icon: "audio-headset"; paired: true }
+ Device { id: speaker; name: "Example speaker"; address: "02:00:00:00:00:12"; icon: "audio-card" }
+ Device { id: unnamed; name: "02-00-00-00-00-13"; address: "02:00:00:00:00:13" }
+ QtObject {
+  id: adapter
+  property string name: "fixture-adapter"
+  property bool enabled: true
+  property bool discovering: false
+  property var devices: ({values: [unnamed, speaker, headset, keyboard]})
+ }
+ QtObject {
+  id: network
+  property bool busy: false
+  property string actionKind: ""
+  property var details: ({updatedAt: 1, error: "", data: {backend: "iwd", devices: [{path: "/fixture", name: "wlan-fixture", state: "connected", powered: true, scanning: false, details: {interface: "wlan-fixture", ip: "192.0.2.10", security: "WPA2-Personal"}, networks: [
+   {name: "Example WiFi", path: "/example", connected: true, known: true, strength: 75, type: "psk"},
+   {name: "Saved network", path: "/saved", connected: false, known: true, available: true, strength: 40, type: "psk", knownPath: "/known/saved"},
+   {name: "Cafe guest", path: "/guest", connected: false, known: false, available: true, strength: 55, type: "open"},
+   {name: "Locked network", path: "/locked", connected: false, known: false, available: true, strength: 30, type: "psk"}]}]}})
+  property var latency: ({data: {ping: 18.4}})
+  function observe(owner, topic) { return topic || "details"; }
+  function detach(owner) {}
+  function refresh() { fixture.record("refresh"); }
+  function actionMessage(message) { return message; }
+  function act(owner, kind, path, extra, input) { fixture.record(kind + ":" + path); owner.networkActionFinished(""); return true; }
+ }
+ FloatingWindow {
+  id: window; visible: true; implicitWidth: 1760; implicitHeight: 1000
+  color: "BACKGROUND"
+  Rectangle {
+   id: canvas
+   width: 1760; height: 1000
+   color: "BACKGROUND"
+  Row {
+   x: 20; y: 20; spacing: 40
+   Bar.SettingsBluetoothPage { id: bluetooth; width: 840; adapter: adapter; active: true; foreground: "FOREGROUND"; background: "BACKGROUND"; accent: "#9a815c" }
+   Bar.SettingsWifiPage { id: wifi; width: 840; networkService: network; active: true; foreground: "FOREGROUND"; background: "BACKGROUND"; accent: "#9a815c" }
+  }
+  }
+ }
+ TestCase {
+  name: "SettingsConnections"; when: window.visible
+  function initTestCase() {
+   Bar.SiteStyle.light = "PALETTE" === "light";
+   Bar.SettingsPalette.themeBackground = "BACKGROUND";
+   Bar.SettingsPalette.themeForeground = "FOREGROUND";
+   Bar.SettingsPalette.select("theme", false);
+   wait(250);
+  }
+  function test_bluetooth_rows() {
+   try { bluetoothRows(); } catch (error) { console.log("FAILED bluetooth rows: " + error + " " + JSON.stringify(error)); throw error; }
+  }
+  function bluetoothRows() {
+   // Unnamed devices stay collapsed under their toggle row, after the named ones.
+   verify(!row(bluetooth, "Unnamed device"));
+   const unnamedToggle = named(bluetooth, "settings-bluetooth-unnamed");
+   verify(unnamedToggle.visible);
+   mouseClick(find(unnamedToggle, candidate => candidate.hasOwnProperty("checkable")));
+   tryVerify(() => !!row(bluetooth, "Unnamed device"));
+   wait(100);
+   const speakerRow = row(bluetooth, "Example speaker");
+   verify(speakerRow.mapToItem(null, 0, 0).y < row(bluetooth, "Unnamed device").mapToItem(null, 0, 0).y);
+   compare(row(bluetooth, "Unnamed device").detail, "02:00:00:00:00:13");
+   // The whole row is the connect target: pointer cursor, and no separate connect icon.
+   const area = named(speakerRow, "connection-row-area");
+   compare(area.cursorShape, Qt.PointingHandCursor);
+   verify(area.enabled && area.hoverEnabled);
+   for (const label of ["Connect", "Pair", "󰂱", "󰂯"]) verify(!button(speakerRow, label), label);
+   compare(row(bluetooth, "Example keyboard").detail, "Connected · 80%");
+   verify(button(row(bluetooth, "Example keyboard"), "Disconnect"));
+   verify(button(row(bluetooth, "Example headset"), "Forget"));
+   verify(!row(bluetooth, "Example keyboard").activatable);
+   // A new device pairs, then connects, from one click on its row.
+   mouseClick(speakerRow, 300, speakerRow.height / 2);
+   compare(calls, ["Example speaker:pair"]);
+   verify(speakerRow.loading);
+   compare(speakerRow.detail, "Pairing...");
+   verify(!row(bluetooth, "Example headset").activatable);
+   speaker.paired = true; speaker.pairing = false;
+   tryCompare(bluetooth, "pendingStep", "connect");
+   compare(calls, ["Example speaker:pair", "Example speaker:connect"]);
+   speaker.state = BluetoothDeviceState.Connected; speaker.connected = true;
+   compare(bluetooth.pendingDevice, null);
+   tryVerify(() => !!row(bluetooth, "Example speaker") && row(bluetooth, "Example speaker").selected);
+   // A paired device connects; a drop back to disconnected shows the failure on its row.
+   const headsetRow = row(bluetooth, "Example headset");
+   mouseClick(headsetRow, 300, headsetRow.height / 2);
+   compare(calls[calls.length - 1], "Example headset:connect");
+   compare(headsetRow.detail, "Connecting...");
+   headset.state = BluetoothDeviceState.Disconnected;
+   verify(headsetRow.error.indexOf("Could not connect") === 0);
+   verify(!headsetRow.loading && headsetRow.activatable);
+   // Forget asks once more on the same button.
+   mouseClick(button(headsetRow, "Forget"));
+   verify(button(headsetRow, "Confirm"));
+   verify(calls.indexOf("Example headset:forget") < 0);
+   verify(bluetooth.dismiss());
+   verify(button(headsetRow, "Forget"));
+   fixture.finished.push("bluetooth rows");
+  }
+  function test_bluetooth_scan() {
+   const scan = named(bluetooth, "settings-bluetooth-scan");
+   verify(scan.visible);
+   mouseClick(scan);
+   verify(adapter.discovering);
+   compare(scan.text, "Stop");
+   verify(scan.leadingSpin);
+   mouseClick(scan);
+   verify(!adapter.discovering);
+   compare(scan.text, "Scan");
+   finished.push("bluetooth scan");
+  }
+  function test_wifi_rows() {
+   // One labelled power row and one Scan action in the Other networks header.
+   const power = named(wifi, "settings-wifi-power");
+   compare(power.text, "Wi-Fi");
+   verify(power.checked);
+   verify(!button(wifi, "Refresh"));
+   compare(findAll(wifi, candidate => candidate.visible && candidate.hasOwnProperty("leadingIcon") && candidate.text === "Scan").length, 1);
+   const scan = named(named(wifi, "settings-wifi-other"), "settings-wifi-scan");
+   verify(scan && scan.visible);
+   mouseClick(scan);
+   compare(calls[calls.length - 1], "scan:/fixture");
+   network.actionKind = "scan"; network.busy = true;
+   verify(scan.leadingSpin && !scan.available);
+   network.busy = false; network.actionKind = "";
+   // An open network connects from a row click, with progress and errors on that row.
+   const guest = row(wifi, "Cafe guest");
+   compare(named(guest, "connection-row-area").cursorShape, Qt.PointingHandCursor);
+   verify(!button(guest, "Connect"));
+   mouseClick(guest, 300, guest.height / 2);
+   compare(calls[calls.length - 1], "connect:/guest");
+   network.actionKind = "connect"; network.busy = true;
+   verify(guest.loading);
+   wifi.networkActionFinished("Could not complete request", "failed");
+   network.busy = false; network.actionKind = "";
+   compare(guest.error, "Could not complete request");
+   compare(wifi.message, "");
+   // A secured network asks for its password with the shared credentials form.
+   const locked = row(wifi, "Locked network");
+   const before = calls.length;
+   mouseClick(locked, 300, locked.height / 2);
+   compare(calls.length, before);
+   compare(wifi.selectedNetwork.name, "Locked network");
+   verify(find(wifi, candidate => candidate.visible && candidate.hasOwnProperty("enterprise")));
+   verify(button(row(wifi, "Saved network"), "Forget"));
+   mouseClick(row(wifi, "Saved network"), 300, 20);
+   compare(calls[calls.length - 1], "connect:/saved");
+   mouseMove(guest, 300, guest.height / 2);
+   wait(150);
+   finished.push("wifi rows");
+  }
+  function test_zz_render() {
+   let saved = false;
+   canvas.grabToImage(result => { saved = result.saveToFile("OUTPUT/connections-PALETTE.png"); });
+   tryVerify(() => saved, 3000);
+   if (finished.length === 3) console.log("CONNECTIONS_OK");
+   else console.log("CONNECTIONS_INCOMPLETE " + JSON.stringify(finished) + " " + JSON.stringify(calls));
+   Qt.quit();
+  }
+ }
+}

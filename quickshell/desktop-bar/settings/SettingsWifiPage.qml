@@ -19,6 +19,10 @@ Column {
     property string message: ""
     property var selectedNetwork: null
     property string pendingRemoval: ""
+    // The network a row click is connecting to, and the row that shows a failure.
+    property string connectingPath: ""
+    property string failedPath: ""
+    property string failure: ""
     readonly property var snapshot: networkService ? networkService.details.data || {} : {}
     readonly property var devices: snapshot.devices || []
     readonly property var device: devices[0] || null
@@ -26,6 +30,7 @@ Column {
     readonly property var details: device ? device.details || {} : {}
     readonly property var latency: networkService ? networkService.latency.data || {} : {}
     readonly property bool busy: !!networkService && networkService.busy
+    readonly property bool scanning: (busy && networkService.actionKind === "scan") || (!!device && !!device.scanning)
     readonly property var securityLabels: ({open: Eitr.I18n.tr("Open"), psk: Eitr.I18n.tr("WPA Personal"), sae: Eitr.I18n.tr("WPA3 Personal"), "8021x": Eitr.I18n.tr("Enterprise (802.1X)")})
     readonly property var fields: connected ? [
         {label: Eitr.I18n.tr("Signal"), value: connected.strength == null ? "" : NetworkStatus.signalGlyph(connected.strength, snapshot.backend) + "  " + Math.round(connected.strength) + "%"},
@@ -52,15 +57,31 @@ Column {
     }
     onActiveChanged: demand()
     Component.onDestruction: if (networkService) networkService.detach(page)
-    function networkActionFinished(error, code) { message = error ? networkService.actionMessage(error) : ""; }
-    function act(kind, path, extra, input) {
-        if (live && networkService) networkService.act(page, kind, path, extra || "", input || {});
+    function networkActionFinished(error, code) {
+        const text = error ? networkService.actionMessage(error) : "";
+        if (connectingPath !== "") {
+            failedPath = text ? connectingPath : "";
+            failure = text;
+            message = "";
+        } else message = text;
     }
+    function act(kind, path, extra, input) {
+        if (!live || !networkService) return;
+        connectingPath = kind === "connect" ? path : "";
+        if (kind === "connect") { failedPath = ""; failure = ""; }
+        networkService.act(page, kind, path, extra || "", input || {});
+    }
+    function connect(network, input) {
+        act("connect", network.path, "", Object.assign({devicePath: network.devicePath || ""}, input || {}));
+    }
+    // A row click: known and open networks connect at once; others ask for credentials first.
     function choose(network) {
-        if (network.available === false || busy) return;
-        if (network.known || network.type === "open") act("connect", network.path, "", {devicePath: network.devicePath || ""});
+        if (network.connected || network.available === false || busy) return;
+        if (network.known || network.type === "open") connect(network);
         else selectedNetwork = network;
     }
+    function connecting(network) { return busy && connectingPath === network.path; }
+    function scan() { if (device && device.powered && !scanning && !busy) act("scan", device.path); }
     function dismiss() {
         if (selectedNetwork) { selectedNetwork = null; return true; }
         if (pendingRemoval) { pendingRemoval = ""; return true; }
@@ -69,18 +90,16 @@ Column {
     function backendAction(title) {
         if (live) Quickshell.execDetached(["python3", Eitr.Paths.code("quickshell/desktop-bar/scripts/menu-action.py"), "network-backend", title]);
     }
-    ControlRow {
+    ToggleRow {
+        objectName: "settings-wifi-power"
         text: Eitr.I18n.tr("Wi-Fi")
-        description: page.device ? page.device.name || page.device.state : Eitr.I18n.tr("No WiFi adapter")
+        description: !page.device ? Eitr.I18n.tr("No WiFi adapter")
+            : Eitr.I18n.tr("Turn Wi-Fi on or off") + (page.details.interface || page.device.name ? " · " + (page.details.interface || page.device.name) : "")
         foreground: page.foreground
-        controlWidth: 260
-        Row {
-            anchors.right: parent.right
-            spacing: 8
-            PanelButton { width: 90; text: Eitr.I18n.tr("Refresh"); foreground: page.foreground; onClicked: if (page.live && page.networkService) page.networkService.refresh() }
-            PanelButton { width: 80; text: Eitr.I18n.tr("Scan"); foreground: page.foreground; available: !!page.device && page.device.powered && !page.busy; onClicked: page.act("scan", page.device.path) }
-            PanelSwitch { anchors.verticalCenter: parent.verticalCenter; checked: !!page.device && page.device.powered; enabled: !!page.device && !page.busy; foreground: page.foreground; accent: page.accent; onClicked: page.act("power", page.device.path, checked ? "true" : "false") }
-        }
+        accent: page.accent
+        checked: !!page.device && page.device.powered
+        available: !!page.device && !page.busy
+        onToggled: checked => page.act("power", page.device.path, checked ? "true" : "false")
     }
     ControlCard {
         title: Eitr.I18n.tr("Connected network")
@@ -145,39 +164,49 @@ Column {
             id: group
             required property var modelData
             readonly property var networks: page.device ? (page.device.networks || []).filter(network => !network.connected && !!network.known === modelData.known) : []
+            objectName: modelData.known ? "settings-wifi-known" : "settings-wifi-other"
             width: page.width
             title: modelData.title
             foreground: page.foreground
             surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
             spacing: PanelStyle.selectionRowGap
+            headerActions: PanelButton {
+                objectName: "settings-wifi-scan"
+                visible: !group.modelData.known
+                width: 84; height: 26
+                text: Eitr.I18n.tr("Scan"); leadingIcon: "\uF021"
+                textSize: PanelStyle.captionSize
+                foreground: page.foreground
+                leadingSpin: page.scanning
+                available: !!page.device && page.device.powered && !page.busy && !page.scanning
+                Accessible.name: page.scanning ? Eitr.I18n.tr("Scanning...") : Eitr.I18n.tr("Scan")
+                onClicked: page.scan()
+            }
             Repeater {
                 model: group.networks
-                ControlRow {
+                ConnectionRow {
                     id: networkRow
                     required property var modelData
-                    text: (modelData.type === "open" ? "" : "󰌾  ") + modelData.name
-                    description: modelData.available === false ? Eitr.I18n.tr("Offline")
-                        : modelData.strength == null ? "" : NetworkStatus.signalGlyph(modelData.strength, page.snapshot.backend) + "  " + Math.round(modelData.strength) + "%"
+                    text: modelData.name
+                    glyph: modelData.available === false ? "󰤮" : NetworkStatus.signalGlyph(modelData.strength || 0, page.snapshot.backend)
+                    detail: modelData.available === false ? Eitr.I18n.tr("Offline")
+                        : [modelData.strength == null ? "" : Math.round(modelData.strength) + "%", page.securityLabels[modelData.type] || ""].filter(part => part !== "").join(" · ")
+                    error: page.failedPath === modelData.path ? page.failure : ""
+                    loading: page.connecting(modelData)
+                    activatable: !page.busy && modelData.available !== false
                     foreground: page.foreground
-                    controlWidth: 200
-                    Row {
-                        anchors.right: parent.right; spacing: 6
-                        PanelButton {
-                            width: 90; text: Eitr.I18n.tr("Connect"); foreground: page.foreground
-                            available: !page.busy && networkRow.modelData.available !== false
-                            onClicked: page.choose(networkRow.modelData)
-                        }
-                        PanelButton {
-                            visible: !!networkRow.modelData.known; width: 90; foreground: page.foreground
-                            text: Eitr.I18n.tr("Forget"); available: !page.busy && !!networkRow.modelData.knownPath
-                            onClicked: page.pendingRemoval = networkRow.modelData.knownPath
-                        }
+                    onActivated: page.choose(modelData)
+                    PanelButton {
+                        visible: !!networkRow.modelData.known
+                        width: 80; height: 28; foreground: page.foreground
+                        text: Eitr.I18n.tr("Forget"); available: !page.busy && !!networkRow.modelData.knownPath
+                        onClicked: page.pendingRemoval = networkRow.modelData.knownPath
                     }
                 }
             }
             SettingsText {
                 visible: !group.networks.length
-                text: Eitr.I18n.tr("No networks")
+                text: !group.modelData.known && page.scanning ? Eitr.I18n.tr("Scanning...") : Eitr.I18n.tr("No networks")
                 opacity: PanelStyle.secondaryTextOpacity
             }
         }
@@ -190,7 +219,7 @@ Column {
         busy: page.busy
         onCancelled: page.selectedNetwork = null
         onSubmitted: input => {
-            page.act("connect", page.selectedNetwork.path, "", Object.assign({devicePath: page.selectedNetwork.devicePath || ""}, input));
+            page.connect(page.selectedNetwork, input);
             page.selectedNetwork = null;
         }
     }
