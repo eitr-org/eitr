@@ -263,12 +263,12 @@
       "quickshell/desktop-bar/bar/ClockButton.qml"
     ],
     "Cancel": [
+      "quickshell/desktop-bar/components/BluetoothDeviceRow.qml",
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml",
       "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/panels/ProfilePicture.qml",
       "quickshell/desktop-bar/panels/TimePicker.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml",
-      "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml",
       "quickshell/desktop-bar/settings/SettingsSystemHost.qml",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
@@ -411,14 +411,13 @@
       "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "Confirm": [
+      "quickshell/desktop-bar/components/BluetoothDeviceRow.qml",
       "quickshell/desktop-bar/panels/CatalogContent.qml",
-      "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml",
       "quickshell/desktop-bar/settings/SettingsSystemHost.qml"
     ],
     "Confirm removal": [
-      "quickshell/desktop-bar/panels/BluetoothMenu.qml",
-      "quickshell/desktop-bar/panels/WifiMenu.qml",
-      "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
+      "quickshell/desktop-bar/components/BluetoothDeviceRow.qml",
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Connect": [
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml",
@@ -431,8 +430,8 @@
       "quickshell/desktop-bar/settings/SettingsStreamingPage.qml"
     ],
     "Connected": [
-      "quickshell/desktop-bar/panels/WifiMenu.qml",
-      "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
+      "quickshell/desktop-bar/components/BluetoothConnector.qml",
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Connected devices": [
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
@@ -441,7 +440,7 @@
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Connecting...": [
-      "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
+      "quickshell/desktop-bar/components/BluetoothConnector.qml"
     ],
     "Connection failed; verify credentials and certificate settings": [
       "quickshell/desktop-bar/services/NetworkService.qml"
@@ -511,7 +510,7 @@
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Could not connect. Make sure the device is on and in range.": [
-      "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
+      "quickshell/desktop-bar/components/BluetoothConnector.qml"
     ],
     "Could not delete the reminder": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
@@ -614,6 +613,7 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Devices without a name: %1": [
+      "quickshell/desktop-bar/panels/BluetoothMenu.qml",
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
     ],
     "Diagnostics and checks for this computer.": [
@@ -634,8 +634,8 @@
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Disconnect": [
+      "quickshell/desktop-bar/components/BluetoothDeviceRow.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml",
-      "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Display": [
@@ -762,7 +762,7 @@
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Forget": [
-      "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml",
+      "quickshell/desktop-bar/components/BluetoothDeviceRow.qml",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Forget network?": [
@@ -1227,7 +1227,7 @@
       "quickshell/desktop-bar/settings/SettingsStreamingPage.qml"
     ],
     "Not paired": [
-      "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
+      "quickshell/desktop-bar/components/BluetoothConnector.qml"
     ],
     "Nothing": [
       "quickshell/lockscreen/design-gallery.qml"
@@ -1368,16 +1368,16 @@
       "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Paired": [
-      "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
+      "quickshell/desktop-bar/components/BluetoothConnector.qml"
     ],
     "Pairing failed. Put the device in pairing mode and try again.": [
-      "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
+      "quickshell/desktop-bar/components/BluetoothConnector.qml"
     ],
     "Pairing timed out.": [
-      "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
+      "quickshell/desktop-bar/components/BluetoothConnector.qml"
     ],
     "Pairing...": [
-      "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
+      "quickshell/desktop-bar/components/BluetoothConnector.qml"
     ],
     "Password": [
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml",
@@ -1570,7 +1570,6 @@
       "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
     ],
     "Remove": [
-      "quickshell/desktop-bar/panels/BluetoothMenu.qml",
       "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/desktop-bar/plugins/PluginManagement.qml",
@@ -1840,6 +1839,7 @@
       "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Show unnamed devices": [
+      "quickshell/desktop-bar/panels/BluetoothMenu.qml",
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
     ],
     "Shows the desktop in HDR. Games can use HDR even when this is off.": [
@@ -2106,7 +2106,7 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Unnamed device": [
-      "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
+      "quickshell/desktop-bar/components/BluetoothDeviceRow.qml"
     ],
     "Unpin bar": [
       "quickshell/desktop-bar/bar/BarHorizontalCenter.qml",

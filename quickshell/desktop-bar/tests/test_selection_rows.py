@@ -9,7 +9,7 @@ class SelectionRows(unittest.TestCase):
     def test_shared_selection_style(self):
         # Audio devices are listed by ChoiceDropdown, which owns the same row style.
         self.assertIn("ChoiceDropdown {", (ROOT / qml_path("AudioMenu.qml")).read_text())
-        for name in ("WifiMenu", "BluetoothMenu", "AudioMenu", "BrightnessMenu",
+        for name in ("WifiMenu", "ConnectionRow", "AudioMenu", "BrightnessMenu",
                      "KeyboardLayoutRow", "ControlCenterTile", "ChoiceDropdown"):
             with self.subTest(panel=name):
                 source = (ROOT / qml_path(name + ".qml")).read_text()
@@ -37,7 +37,7 @@ class SelectionRows(unittest.TestCase):
         self.assertIn("available: row.available && row.removable", row)
 
     def test_shared_dimensions(self):
-        for name in ("WifiMenu", "BluetoothMenu", "AudioMenu", "BrightnessMenu",
+        for name in ("WifiMenu", "ConnectionRow", "AudioMenu", "BrightnessMenu",
                      "KeyboardLayoutRow", "ControlCenterTile"):
             with self.subTest(panel=name):
                 self.assertIn("PanelStyle.selectionRowHeight", (ROOT / qml_path(name + ".qml")).read_text())

@@ -1,4 +1,4 @@
-// Grouping, glyphs and status lines for Settings > Connections > Bluetooth.
+// Grouping, glyphs and status lines for Bluetooth devices, in Settings and the bar panel.
 // Devices are Quickshell BluetoothDevice objects (or fixtures with the same fields).
 
 // BlueZ names a device without a broadcast name after its address ("AA-BB-CC-DD-EE-FF").

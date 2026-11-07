@@ -9,7 +9,7 @@ from layout_render import BAR, copy_runtime, render_environment, render, capture
 
 class SettingsConnectionsTests(unittest.TestCase):
     def test_bluetooth_device_model(self):
-        script = (BAR / 'settings/BluetoothDevices.js').read_text() + '''
+        script = (BAR / 'components/BluetoothDevices.js').read_text() + '''
 const assert = require('node:assert/strict');
 const device = (name, fields) => Object.assign({name: name, address: '02:00:00:00:00:01', connected: false, paired: false, pairing: false}, fields || {});
 const result = groups([device('zeta'), device('02-00-00-00-00-01'), device(''), device('Alpha', {paired: true}), device('Phone', {connected: true, paired: true}), device('Beta'), device('AA:BB:CC:DD:EE:FF')]);
@@ -32,6 +32,17 @@ assert.equal(batteryText({batteryAvailable: true, battery: 0.456}), '46%');
 '''
         subprocess.run(['node', '-e', script], check=True, capture_output=True)
 
+    def test_spinning_icons_turn_around_their_own_centre(self):
+        # A Text turns around its line box, taller than the glyph, so the icon bobbed.
+        spinner = (BAR / 'components/SpinningGlyph.qml').read_text()
+        self.assertIn('height: width', spinner)
+        self.assertIn('anchors.fill: parent', spinner)
+        self.assertIn('verticalAlignment: Text.AlignVCenter', spinner)
+        for name in ('components/PanelButton.qml', 'components/ConnectionRow.qml'):
+            source = (BAR / name).read_text()
+            self.assertIn('SpinningGlyph {', source)
+            self.assertNotIn('RotationAnimator', source)
+
     def test_sources_share_the_panel_service_and_rows(self):
         devices = (BAR / 'settings/SettingsDevicesPage.qml').read_text()
         self.assertIn('SettingsBluetoothPage {', devices)
@@ -43,8 +54,11 @@ assert.equal(batteryText({batteryAvailable: true, battery: 0.456}), '46%');
         self.assertIn('Bluetooth.defaultAdapter', bluetooth)
         wifi = (BAR / 'settings/SettingsWifiPage.qml').read_text()
         for source in (bluetooth, wifi):
-            self.assertIn('ConnectionRow {', source)
             self.assertIn('headerActions: PanelButton {', source)
+        self.assertIn('ConnectionRow {', wifi)
+        # Settings and the bar panel share one device row and one connect flow.
+        self.assertIn('BluetoothDeviceRow {', bluetooth)
+        self.assertIn('ConnectionRow {', (BAR / 'components/BluetoothDeviceRow.qml').read_text())
         self.assertIn('ToggleRow {', wifi)
         self.assertNotIn('"Refresh"', wifi)
         self.assertIn('SettingsWifiCredentials {', wifi)

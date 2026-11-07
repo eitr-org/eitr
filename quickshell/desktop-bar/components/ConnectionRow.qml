@@ -44,24 +44,14 @@ Rectangle {
             row.activated();
         }
     }
-    Text {
+    SpinningGlyph {
         id: glyphText
-        x: PanelStyle.selectionInset
-        width: PanelStyle.selectionTextInset - PanelStyle.selectionInset - 4
+        x: PanelStyle.selectionInset + (PanelStyle.selectionTextInset - PanelStyle.selectionInset - 4 - width) / 2
         anchors.verticalCenter: parent.verticalCenter
-        horizontalAlignment: Text.AlignHCenter
-        text: row.loading ? "󰑐" : row.glyph
+        glyph: row.loading ? "󰑐" : row.glyph
         color: row.foreground
-        font.family: PanelStyle.fontFamily
-        font.pixelSize: PanelStyle.selectionIconSize
-        RotationAnimator on rotation {
-            from: 0
-            to: 360
-            duration: 900
-            loops: Animation.Infinite
-            running: !DesktopStyle.reduceMotion && row.visible && row.loading
-            onStopped: glyphText.rotation = 0
-        }
+        size: PanelStyle.selectionIconSize
+        spinning: row.loading
     }
     Column {
         id: labels

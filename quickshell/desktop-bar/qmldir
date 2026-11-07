@@ -202,3 +202,6 @@ BluetoothDiscovery components/BluetoothDiscovery.qml
 SettingsSummaryEntry components/SettingsSummaryEntry.qml
 CatalogEmptyState components/CatalogEmptyState.qml
 PanelTextField components/PanelTextField.qml
+SpinningGlyph components/SpinningGlyph.qml
+BluetoothConnector components/BluetoothConnector.qml
+BluetoothDeviceRow components/BluetoothDeviceRow.qml

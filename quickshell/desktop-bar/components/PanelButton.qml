@@ -88,40 +88,23 @@ Rectangle {
         layer.enabled: visible
         layer.effect: MultiEffect { colorization: 1; colorizationColor: button.foreground }
     }
-    Text {
+    SpinningGlyph {
         id: leadingGlyph
         visible: button.leadingIcon !== "" && !button.loading
         x: 8
-        width: 18
         anchors.verticalCenter: parent.verticalCenter
-        horizontalAlignment: Text.AlignHCenter
-        text: button.leadingIcon
+        glyph: button.leadingIcon
         color: button.foreground
-        font.family: PanelStyle.fontFamily
-        font.pixelSize: 16
-        RotationAnimator on rotation {
-            from: 0
-            to: 360
-            duration: 900
-            loops: Animation.Infinite
-            running: !DesktopStyle.reduceMotion && button.visible && button.leadingSpin
-            onStopped: leadingGlyph.rotation = 0
-        }
+        size: 16
+        spinning: button.leadingSpin
     }
-    Text {
+    SpinningGlyph {
         anchors.centerIn: parent
         visible: button.loading && !button.icon
-        text: "󰑐"
+        glyph: "󰑐"
         color: button.foreground
-        font.family: PanelStyle.fontFamily
-        font.pixelSize: 18
-        RotationAnimator on rotation {
-            from: 0
-            to: 360
-            duration: 900
-            loops: Animation.Infinite
-            running: !DesktopStyle.reduceMotion && button.visible && button.loading
-        }
+        size: 18
+        spinning: button.loading
     }
     MouseArea {
         id: mouse

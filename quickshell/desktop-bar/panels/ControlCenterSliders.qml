@@ -14,8 +14,6 @@ Column {
     AudioLevelControl { width: parent.width; node: Pipewire.defaultAudioSink; showName: false; textSize: 12; iconSize: 16; foreground: section.centerRef.foreground; background: section.centerRef.background; accent: section.centerRef.accent }
     AudioLevelControl { width: parent.width; node: Pipewire.defaultAudioSource; microphone: true; showName: false; textSize: 12; iconSize: 16; foreground: section.centerRef.foreground; background: section.centerRef.background; accent: section.centerRef.accent }
     EventSoundSettings {
-        // Keep the indicator’s 2 px overhang inside the shared action inset.
-        controlInset: PanelStyle.selectionActionInset + 2
         width: parent.width
         foreground: section.centerRef.foreground; accent: section.centerRef.accent
         hasBattery: !!(section.centerRef.battery && section.centerRef.battery.available)
