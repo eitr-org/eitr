@@ -7,6 +7,7 @@ Column {
     required property color foreground
     required property color accent
     property bool live: true
+    property real controlInset: 0
     property bool hasBattery: false
     spacing: PanelStyle.selectionRowGap
     // Optional event sounds; the charger row only on PCs with a battery.
@@ -15,6 +16,7 @@ Column {
                 {setting: "charger", label: Eitr.I18n.tr("Charger sounds"), battery: true}]
         ToggleRow {
             required property var modelData
+            controlInset: sounds.controlInset
             visible: !modelData.battery || sounds.hasBattery
             text: modelData.label
             description: modelData.battery ? Eitr.I18n.tr("Play a sound when the charger is connected.") : Eitr.I18n.tr("Play a sound with notification popups.")

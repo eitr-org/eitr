@@ -1,6 +1,8 @@
 # Centre de contrôle
 
-Les Paramètres et les panneaux de la barre partagent les mêmes commandes de choix. Les choix courts utilisent des segments ; les longues listes se déploient dans le panneau et défilent sans fenêtre flottante. Les interrupteurs conservent leurs actions. Les libellés dorés et les lettres gravées appartiennent à la famille de fenêtres des Paramètres : les Paramètres, le Manuel et Thèmes et plugins.
+Les Paramètres et les panneaux de la barre partagent les mêmes commandes de choix. Les choix courts utilisent des segments ; les longues listes s’ouvrent comme des menus déroulants flottants avec défilement. Les interrupteurs conservent leurs actions. Les libellés dorés et les lettres gravées appartiennent à la famille de fenêtres des Paramètres : les Paramètres, le Manuel et Thèmes et plugins.
+
+Les listes déroulantes permettent de naviguer en tapant lorsque le sélecteur ou la liste a le focus. Tapez le début d’un libellé pour surligner la première correspondance ; la casse et les accents sont ignorés. Les touches saisies dans un intervalle de 800 ms forment le préfixe ; après une pause, un nouveau préfixe commence. Répéter une lettre parcourt ses correspondances. Entrée applique le choix surligné et Échap annule. Les listes affichent au plus huit lignes et défilent. Elles s’ouvrent sous le champ, même au-delà du bord d’un panneau de la barre, ou au-dessus si l’écran offre plus de place dans cette direction.
 
 **SUPER + ,** ouvre les paramètres sur **Système**, le profil et la vue du système. Thèmes et Plugins possèdent leur propre fenêtre de catalogue. **SUPER + I** ouvre le Centre de contrôle.
 
@@ -53,7 +55,7 @@ La liste des plugins affiche « Ce plugin a des erreurs » et le premier message
 
 ## Photos de profil
 
-Ouvrez Paramètres > Utilisateur (ou cliquez sur votre photo dans la vue Système des paramètres) et choisissez Changer la photo. Le sélecteur de fichiers du système s’ouvre et n’affiche que des images ; une fois l’image choisie, l’éditeur de recadrage s’ouvre dans une feuille au-dessus des paramètres. Faites glisser l’aperçu rond pour déplacer l’image ; la molette, le curseur ou +/− zooment de 1× à 4×, et les flèches la déplacent. Enregistrer (ou Entrée) applique le recadrage ; Annuler ou Échap ferme la feuille sans l’appliquer. Supprimer, à côté de Changer la photo, retire la photo.
+Ouvrez Paramètres > Utilisateur (ou cliquez sur votre photo dans la vue Système des paramètres) et choisissez Changer la photo. Le sélecteur de fichiers du système s’ouvre dans une fenêtre flottante centrée au-dessus des paramètres et n’affiche que des images ; une fois l’image choisie, l’éditeur de recadrage s’ouvre dans une feuille au-dessus des paramètres. Faites glisser l’aperçu rond pour déplacer l’image ; la molette, le curseur ou +/− zooment de 1× à 4×, et les flèches la déplacent. Enregistrer (ou Entrée) applique le recadrage ; Annuler ou Échap ferme la feuille sans l’appliquer. Supprimer, à côté de Changer la photo, retire la photo.
 
 La photo reste circulaire dans le Centre de contrôle, le verrouillage et l’écran de connexion. Le Centre de contrôle se contente d’afficher la photo en haut de sa navigation ; sans photo, il n’y affiche rien, tout comme le verrouillage et l’écran de connexion. Les paramètres affichent à la place l’initiale de votre nom sur un cercle de la couleur d’accent. PNG, JPEG, WebP, GIF (première image) et BMP sont acceptés jusqu’à 40 Mo et 12000 pixels par côté. Eitr corrige l’orientation, retire les métadonnées, enregistre un PNG de 512×512 dans `~/.face`, puis actualise AccountsService pour SDDM. En cas d’échec, la photo enregistrée fonctionne toujours au verrouillage ; l’interface ou la CLI signale l’erreur de connexion.
 

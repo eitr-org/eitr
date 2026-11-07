@@ -1223,3 +1223,18 @@ negative offsets, centres a single monitor and emits selection without dragging.
 It displays disabled monitors if supplied, and uses dashed trial outlines.
 `tests/test_shared_choices.py` renders changed panels in isolated dark/light
 fixtures; `test_monitor_geometry.js` checks placement, rotation, scaling and bounds.
+
+ChoiceDropdown lists use the window bounds and register their background with the
+bar window's choicePopups while open. BarInputMask includes those surfaces in
+all layouts; closing removes them. Typing highlights a case/accent-insensitive
+prefix without applying it; Enter applies. Dynamic navigation reserves a 40 px
+band on the bar side and adds that space to the panel's requested dimensions.
+
+The profile-picture chooser uses the GTK portal's `xdg-desktop-portal-gtk` app ID
+and a stable ` · Eitr` title suffix to select its floating, centred Hyprland rule.
+The installed Quickshell QML window API has no xdg-foreign handle export, so the
+portal receives an empty parent identifier and placement relies on that rule.
+The portal creates its dialog from the caller's title (see upstream
+[src/filechooser.c](https://github.com/flatpak/xdg-desktop-portal-gtk/blob/main/src/filechooser.c));
+GTK3 derives its Wayland app ID from the program name in
+[gdkwindow-wayland.c](https://github.com/GNOME/gtk/blob/gtk-3-24/gdk/wayland/gdkwindow-wayland.c).

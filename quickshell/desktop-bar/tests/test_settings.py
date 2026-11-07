@@ -445,7 +445,7 @@ ShellRoot {
     onChosen: value => current = value
    }
   }
-  // A bar panel stand-in: the list must stay inside its surface, opening upward here.
+  // A bar panel stand-in near the bottom of the window: its list opens upward.
   Rectangle {
    id: panel; x: 380; y: 40; width: 200; height: 360; color: "#232634"
    property Item attachmentTarget: null
@@ -494,9 +494,9 @@ ShellRoot {
    lower.forceActiveFocus(); keyClick(Qt.Key_Space); wait(200);
    verify(lower.opensUpward);
    verify(lower.popup.height <= 8 * 42 + 8);
-   const lowerTop = lower.popup.background.mapToItem(panel, 0, 0).y;
-   verify(lowerTop >= 0, lowerTop);
-   verify(lowerTop + lower.popup.height <= lower.y, lowerTop);
+   const lowerTop = lower.popup.background.mapToItem(canvas, 0, 0).y;
+   verify(lowerTop >= 8, lowerTop);
+   verify(lowerTop + lower.popup.height <= lower.mapToItem(canvas, 0, 0).y, lowerTop);
    saved = false;
    verify(canvas.grabToImage(result => { saved = result.saveToFile("OUTPUT".replace(".png", "-upward.png")); }));
    tryVerify(() => saved, 3000);

@@ -1,6 +1,8 @@
 # Centro de control
 
-Ajustes y los paneles de la barra comparten controles de selección. Las opciones cortas usan segmentos; las listas largas se despliegan dentro del panel y permiten desplazarse sin abrir una ventana flotante. Los interruptores conservan sus acciones. Las etiquetas doradas y las letras grabadas pertenecen a la familia de ventanas de Ajustes: Ajustes, el Manual y Temas y plugins.
+Ajustes y los paneles de la barra comparten controles de selección. Las opciones cortas usan segmentos; las listas largas se abren como listas desplegables flotantes con desplazamiento. Los interruptores conservan sus acciones. Las etiquetas doradas y las letras grabadas pertenecen a la familia de ventanas de Ajustes: Ajustes, el Manual y Temas y plugins.
+
+Las listas desplegables permiten navegar escribiendo cuando el selector o la lista tiene el foco. Escribe el inicio de una etiqueta para resaltar la primera coincidencia; se ignoran mayúsculas y acentos. Las teclas escritas en un intervalo de 800 ms forman el prefijo; tras una pausa empieza uno nuevo. Repetir una letra recorre sus coincidencias. Enter aplica la opción resaltada y Escape cancela. Las listas muestran como máximo ocho filas y permiten desplazarse. Se abren debajo del campo, incluso fuera del borde de un panel de la barra, o encima cuando hay más espacio en esa dirección.
 
 **SUPER + ,** abre Configuración con **Sistema**, el perfil y el resumen del sistema. Temas y Plugins tienen su propia ventana de catálogo. **SUPER + I** abre el Centro de control.
 
@@ -53,7 +55,7 @@ La lista de Plugins muestra «Este plugin tiene errores» y el primer mensaje. S
 
 ## Fotos de perfil
 
-Abre Configuración > Usuario (o pulsa tu foto en el resumen Sistema de Configuración) y elige Cambiar foto. Se abre el selector de archivos del sistema, que solo muestra imágenes; al elegir una, el editor de recorte se abre en una hoja sobre Configuración. Arrastra la vista circular para mover la imagen; usa la rueda, el deslizador o +/− para ampliar de 1× a 4×, y las flechas para moverla. Guardar (o Enter) aplica el recorte; Cancelar o Escape cierra la hoja sin aplicarlo. Quitar, junto a Cambiar foto, elimina la foto.
+Abre Configuración > Usuario (o pulsa tu foto en el resumen Sistema de Configuración) y elige Cambiar foto. El selector de archivos del sistema se abre flotante y centrado sobre Configuración, mostrando solo imágenes; al elegir una, el editor de recorte se abre en una hoja sobre Configuración. Arrastra la vista circular para mover la imagen; usa la rueda, el deslizador o +/− para ampliar de 1× a 4×, y las flechas para moverla. Guardar (o Enter) aplica el recorte; Cancelar o Escape cierra la hoja sin aplicarlo. Quitar, junto a Cambiar foto, elimina la foto.
 
 La foto siempre aparece como un círculo en el Centro de control, el bloqueo y el inicio de sesión. El Centro de control solo muestra la foto en la parte superior de su navegación; sin foto no muestra nada ahí, igual que el bloqueo y el inicio de sesión. Configuración muestra en su lugar la inicial de tu nombre sobre un círculo del color de acento. Se aceptan PNG, JPEG, WebP, GIF (primer fotograma) y BMP hasta 40 MB y 12000 píxeles por lado. Eitr aplica la orientación, elimina metadatos, guarda un PNG de 512×512 en `~/.face` y actualiza AccountsService para SDDM. Si falla la actualización, la foto guardada sigue funcionando en el bloqueo; la interfaz o CLI muestra el error del inicio de sesión.
 

@@ -31,7 +31,7 @@ Item {
         ? hostWindow.hostWindow.outerGaps : [12, 12, 12, 12]
     // Keep the sheet attached to the bar; only its content gains the window gap.
     // A Dynamic card keeps a strip on its bar side for the previous/next panel buttons.
-    readonly property real navigationBand: hostWindow.morphIsland ? 24 : 0
+    readonly property real navigationBand: hostWindow.navigationBand || 0
     // A panel may ask for less space around its content (the media card uses half).
     property real paddingScale: hostWindow.paddingScale !== undefined ? hostWindow.paddingScale : 1
     readonly property real leftPadding: outerGaps[3] * PanelStyle.contentGapMultiplier * paddingScale + (edge === "left" ? navigationBand : 0)

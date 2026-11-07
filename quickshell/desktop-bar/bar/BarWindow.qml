@@ -220,6 +220,7 @@ PanelWindow {
     // Notification popups must have a strictly higher layer than
     // panels, rather than depending on same-layer mapping order.
     WlrLayershell.layer: panelOpen && !notificationPopups.visible ? WlrLayer.Overlay : WlrLayer.Top
+    property var choicePopups: []
     mask: shown ? dockInput : hiddenInput
     Region { id: hiddenInput }
     WlrLayershell.keyboardFocus: panelOpen ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None

@@ -21,9 +21,9 @@ class SharedChoicesTests(unittest.TestCase):
             self.assertNotIn('SettingsPalette.', source)
             self.assertNotIn('SettingsInk.', source)
         dropdown = (BAR / 'components/ChoiceDropdown.qml').read_text()
-        # The list floats in the window's overlay, inside a bar panel's own surface, and
-        # never resizes its host; every inline selector uses this one dropdown.
-        for contract in ('Popup {', 'Popup.CloseOnPressOutsideParent', 'item.embedded === false',
+        # Lists float in the window overlay and register their surface for bar input.
+        # Every inline selector uses this dropdown without resizing its host.
+        for contract in ('Popup {', 'Popup.CloseOnPressOutsideParent', 'control.registerPopup(true)',
                          'control.Window.contentItem', 'implicitHeight: button.height', 'upward = below < wanted'):
             self.assertIn(contract, dropdown)
         self.assertNotIn('visible: control.expanded', dropdown)

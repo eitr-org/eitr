@@ -6,7 +6,8 @@ ControlRow {
     property bool checked: false
     property bool available: true
     signal toggled(bool checked)
-    controlWidth: 36
+    property real controlInset: 0
+    controlWidth: 36 + controlInset
     PanelSwitch {
         width: 36
         foreground: row.foreground; accent: row.accent

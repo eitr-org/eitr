@@ -1,0 +1,234 @@
+import QtQuick
+import QtQuick.Controls
+import QtTest
+import Quickshell
+import "." as Bar
+ShellRoot {
+ id: fixture
+ function find(item, name) {
+  if (item.objectName === name) return item;
+  for (const child of item.children || []) { const found = find(child, name); if (found) return found; }
+  return null;
+ }
+ QtObject {
+  id: soundCenter
+  property bool opened: false
+  property string page: "general"
+  property color foreground: "#e4e5ef"
+  property color background: "#191b25"
+  property color accent: "#a58c62"
+  property var battery: ({available: false})
+  property var displayControl: ({state: {kind: "none", available: false, value: 0}})
+  property var mediaPlayer: null
+  property var expandedSections: ({})
+  function toggleSection(name) {}
+ }
+ QtObject {
+  id: network
+  property bool busy: false
+  property var details: ({updatedAt: 1, error: "", data: {devices: []}})
+  property var latency: ({data: {}})
+  function observe(owner, topic) { return topic || "details"; }
+  function release(token) {}
+  function detach(owner) {}
+ }
+ FloatingWindow {
+  id: window; visible: true; implicitWidth: 1280; implicitHeight: 1000; color: "#191b25"
+  property var choicePopups: []
+  property bool dynamicLayout: false
+  property bool centeredLayout: false
+  property bool notchLayout: false
+  property bool islandsLayout: false
+  property var outerGaps: [12, 12, 12, 12]
+  property real panelGap: 12
+  property real islandGap: 6
+  property Item stripItem: strip
+  property var dynamicSurfaces: dynamic
+  property var panelFocusWindows: []
+  QtObject {
+   id: dynamic
+   function islandFor(panel) { return strip; }
+   function panelOrigin(panel, stripX, stripY) { return Qt.point(440, 80); }
+   function step(panel, delta) {}
+  }
+  Item { id: strip; width: 30; height: 30 }
+  Rectangle {
+   id: canvas; anchors.fill: parent; color: "#191b25"
+   Rectangle {
+    id: panel; x: 440; y: 80; width: 360; height: 100; color: "#232634"
+    property Item attachmentTarget: null
+    property bool embedded: false
+    Bar.ChoiceDropdown {
+     id: dropdown; x: 12; y: 50; width: 336; foreground: "#e4e5ef"
+     choices: [{value: "alpha", label: "Álpha"}, {value: "alpine", label: "Alpine"}, {value: "disabled", label: "Beta", available: false}, {value: "bravo", label: "Bravo"}].concat(Array.from({length: 100}, (unused, index) => ({value: "row" + index, label: "Row " + index})))
+     current: "alpha"; onChosen: value => current = value
+    }
+   }
+   Bar.FamilySidebar {
+    id: sidebar; x: 18; y: 18; width: 260; height: 860
+    foreground: "#e4e5ef"; background: "#191b25"; accent: "#a58c62"
+    subtitle: "Settings"; placeholder: "Search settings"; currentId: "appearance"
+    entries: ["System", "Appearance", "Fonts & Cursor", "Notifications"].map(title => ({id: title.toLowerCase(), title: title, rune: "ᚠ", group: "Settings", groupRune: "ᚢ"}))
+   }
+   Bar.EventSoundSettings { id: settingsSounds; visible: false; width: 300; foreground: "#e4e5ef"; accent: "#a58c62"; live: false }
+   Bar.ControlCenterSliders { id: sliders; x: 850; y: 40; width: 300; centerRef: soundCenter }
+  }
+  QtObject { id: closedPanel; property bool opened: false }
+  QtObject {
+   id: maskHost
+   property bool barPointerHeld: false
+   property bool notchLayout: window.notchLayout
+   property bool centeredLayout: window.centeredLayout
+   property bool islandsLayout: window.islandsLayout
+   property bool dynamicLayout: window.dynamicLayout
+   property string barEdge: "top"
+   property var autoHideRef: ({progress: 0})
+   property var contentItem: canvas
+   property var choicePopups: window.choicePopups
+   property var islandSurfaces: ({children: []})
+   property var dynamicSurfaces: ({surfaces: []})
+   property var centeredOutline: strip
+   property real normalThickness: 30
+   property real tabBendRound: 3
+   property var wifiMenu: closedPanel
+   property var bluetoothMenu: closedPanel
+   property var brightnessMenu: closedPanel
+   property var volumeMenu: closedPanel
+   property var tailscaleMenu: closedPanel
+   property var streamingMenu: closedPanel
+   property var keyboardMenu: closedPanel
+   property var calendarMenu: closedPanel
+   property var weatherMenu: closedPanel
+   property var hardwareMenu: closedPanel
+   property var aiMenu: closedPanel
+   property var obsMenu: closedPanel
+   property var recordingMenu: closedPanel
+   property var workspaceMenu: closedPanel
+   property var notificationCenter: closedPanel
+   property var controlCenter: closedPanel
+   property var mediaMenu: closedPanel
+   property var batteryMenu: closedPanel
+   property var pluginPanel: closedPanel
+  }
+  Bar.BarInputMask {
+   id: actualMask; host: maskHost; barHost: maskHost
+   edgeSensorRef: strip; tabStripRef: strip; barContentsRef: strip
+   slideSettledRef: strip; leadingTabRef: strip; notchTabRef: strip; trailingTabRef: strip
+  }
+  Bar.IslandMask { id: popupMask; surfaces: window.choicePopups }
+  Bar.BluetoothMenu { id: bluetooth; target: strip; foreground: "#e4e5ef"; background: "#232634"; accent: "#a58c62"; adapter: null }
+  Bar.WifiMenu { id: wifi; target: strip; foreground: "#e4e5ef"; background: "#232634"; accent: "#a58c62"; networkService: network }
+  Bar.AudioMenu { id: audio; target: strip; foreground: "#e4e5ef"; background: "#232634"; accent: "#a58c62" }
+  Bar.CalendarMenu { id: calendar; target: strip; foreground: "#e4e5ef"; background: "#232634"; accent: "#a58c62" }
+ }
+ TestCase {
+  name: "SettingsRegressions"; when: true
+  function equal(actual, expected) { if (actual !== expected) console.error("COMPARE", actual, expected); compare(actual, expected); }
+  function check(condition) { if (!condition) console.error("VERIFY", new Error().stack); verify(condition); }
+  function shot(name) {
+   let saved = false;
+   canvas.Overlay.overlay.parent = canvas;
+   canvas.grabToImage(result => { saved = result.saveToFile("OUTPUT/" + name + ".png"); });
+   tryVerify(() => saved, 3000);
+  }
+  function test_01_typeAhead() {
+   Bar.DesktopStyle.reduceMotion = true;
+   wait(300);
+   dropdown.forceActiveFocus(); keyClick(Qt.Key_A); wait(50);
+   check(dropdown.expanded); equal(dropdown.highlightedIndex, 0); equal(dropdown.current, "alpha");
+   keyClick(Qt.Key_A); equal(dropdown.highlightedIndex, 1); equal(dropdown.current, "alpha");
+   keyClick(Qt.Key_L); equal(dropdown.highlightedIndex, 0);
+   keyClick(Qt.Key_P); keyClick(Qt.Key_I); equal(dropdown.highlightedIndex, 1);
+   keyClick(Qt.Key_Return); wait(50); equal(dropdown.current, "alpine"); check(!dropdown.expanded);
+   dropdown.forceActiveFocus(); keyClick(Qt.Key_B); equal(dropdown.highlightedIndex, 3); equal(dropdown.current, "alpine");
+   wait(850); keyClick(Qt.Key_R); equal(dropdown.highlightedIndex, 4);
+   check(dropdown.keyboardHighlight); equal(dropdown.current, "alpine");
+   keyClick(Qt.Key_Escape); check(!dropdown.expanded);
+  }
+  function test_02_popupGeometry() {
+   for (const layout of ["unified", "centered", "notch", "islands", "dynamic"]) {
+    window.centeredLayout = layout === "centered"; window.notchLayout = layout === "notch";
+    window.islandsLayout = layout === "islands"; window.dynamicLayout = layout === "dynamic";
+    for (const edge of ["top", "bottom", "left", "right"]) {
+     panel.y = edge === "bottom" ? 780 : 80;
+     panel.x = edge === "right" ? 880 : 440;
+     maskHost.barEdge = edge;
+     dropdown.expanded = true; wait(30);
+     const popupRegion = actualMask.regions.find(region => region.surfaces === window.choicePopups);
+     check(popupRegion); equal(popupRegion.regions.length, 1);
+     equal(popupRegion.regions[0].item, dropdown.popup.background);
+     equal(dropdown.opensUpward, edge === "bottom");
+     equal(window.choicePopups.length, 1); equal(popupMask.regions.length, 1);
+     equal(popupMask.regions[0].item, dropdown.popup.background);
+     const position = dropdown.popup.background.mapToItem(canvas, 0, 0);
+     check(position.y >= 0 && position.y + dropdown.popup.height <= canvas.height);
+     if (edge !== "bottom") check(position.y + dropdown.popup.height > panel.y + panel.height);
+     check(dropdown.popup.height <= 8 * 42 + 8);
+     dropdown.highlightedIndex = 90;
+     dropdown.move(1); wait(30);
+     const list = dropdown.popup.contentItem;
+     check(list.contentY > 0);
+     shot("dropdown-" + layout + "-" + edge);
+     const row = list.itemAtIndex(91);
+     check(row); mouseClick(row, 30, row.height / 2); wait(30);
+     equal(dropdown.current, "row87"); check(!dropdown.expanded);
+     equal(window.choicePopups.length, 0); equal(popupMask.regions.length, 0);
+    }
+   }
+   dropdown.expanded = true; wait(30);
+   panel.visible = false; wait(30);
+   check(!dropdown.expanded); equal(window.choicePopups.length, 0);
+  }
+  function test_03_notificationSwitch() {
+   equal(settingsSounds.controlInset, 0);
+   const sounds = sliders.children.find(child => child.hasBattery !== undefined);
+   check(sounds);
+   const toggle = sounds.children.find(child => child.controlInset !== undefined);
+   check(toggle);
+   const slot = toggle.children.find(child => child.width === toggle.controlWidth);
+   const indicator = slot.children[0].indicator;
+   const end = indicator.mapToItem(sounds, indicator.width, 0).x;
+   check(end <= sounds.width - 4); equal(end, sounds.width - 4);
+  }
+  function test_04_sidebarCorners() {
+   const corners = ["square", "rounded", "extra-rounded"];
+   for (const corner of corners) {
+    Bar.DesktopStyle.corners = corner; wait(40);
+    for (const family of ["Settings", "Handbook", "Themes & Plugins"]) {
+     sidebar.subtitle = family;
+     shot("sidebar-" + corner + "-" + family.replace(/[^a-z]/gi, ""));
+    }
+   }
+  }
+  function test_05_dynamicNavigation() {
+   window.dynamicLayout = false; window.centeredLayout = true; wait(50);
+   const panels = [bluetooth, wifi, audio, calendar];
+   for (const popup of panels) {
+    for (const edge of ["top", "bottom", "left", "right"]) {
+     popup.barEdge = edge; popup.opened = true; wait(120);
+     const normalWidth = popup.desiredWidth, normalHeight = popup.desiredHeight;
+     const frame = fixture.find(popup, "panelContentFrame");
+     const normalContentWidth = frame.width, normalContentHeight = frame.height;
+     window.dynamicLayout = true; wait(120);
+     equal(popup.navigationBand, 40);
+     equal(popup.desiredWidth, normalWidth + (popup.verticalAttachment ? 40 : 0));
+     equal(popup.desiredHeight, normalHeight + (popup.verticalAttachment ? 0 : 40));
+     equal(frame.width, normalContentWidth); equal(frame.height, normalContentHeight);
+     const previous = fixture.find(popup, "dynamicPreviousPanel");
+     const next = fixture.find(popup, "dynamicNextPanel");
+     const origin = frame.mapToItem(popup, 0, 0);
+     for (const button of [previous, next]) {
+      check(origin.x >= button.x + button.width || origin.x + frame.width <= button.x
+       || origin.y >= button.y + button.height || origin.y + frame.height <= button.y);
+     }
+     popup.parent = canvas;
+     shot("dynamic-" + panels.indexOf(popup) + "-" + edge);
+     popup.opened = false; window.dynamicLayout = false; wait(40);
+    }
+   }
+  }
+  function cleanupTestCase() {
+   console.log("REGRESSIONS_OK"); Qt.quit();
+  }
+ }
+}

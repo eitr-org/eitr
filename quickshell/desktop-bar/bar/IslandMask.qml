@@ -13,7 +13,7 @@ Region {
         delegate: Region {
             required property var modelData
             item: modelData.visible ? modelData : null
-            radius: Math.min(modelData.radius, modelData.width / 2, modelData.height / 2)
+            radius: Math.min(modelData.radius || 0, modelData.width / 2, modelData.height / 2)
         }
         onObjectAdded: function(index, object) { mask.regions.push(object); }
         onObjectRemoved: function(index, object) {

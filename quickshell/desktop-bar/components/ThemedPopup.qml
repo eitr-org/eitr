@@ -25,8 +25,9 @@ DockPanel {
     // A panel reaching both screen ends may leave this reserve unused.
     readonly property real verticalJoinInset: !verticalAttachment || detached ? 0
         : PanelStyle.surfaceInset * (alignment === "center" || (alignment === "left" && leadingOffset > 0) ? 2 : 1)
-    readonly property real verticalContentInset: panelSurface.topPadding + panelSurface.bottomPadding + verticalJoinInset
-    readonly property real horizontalContentInset: panelSurface.leftPadding + panelSurface.rightPadding
+    // DockPanel adds the navigation band once, outside content-derived dimensions.
+    readonly property real verticalContentInset: panelSurface.topPadding + panelSurface.bottomPadding + verticalJoinInset - (verticalAttachment ? 0 : navigationBand)
+    readonly property real horizontalContentInset: panelSurface.leftPadding + panelSurface.rightPadding - (verticalAttachment ? navigationBand : 0)
         + (panelSurface.vertical ? 0 : panelSurface.leadingBodyInset + panelSurface.trailingBodyInset)
     property Item keyTarget: body
     // A picture filling the whole panel sheet, under the content (PanelSurface.backdrop).

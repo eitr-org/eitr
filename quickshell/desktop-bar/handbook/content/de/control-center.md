@@ -1,6 +1,8 @@
 # Kontrollzentrum
 
-Einstellungen und Leistenpanels verwenden dieselben Auswahlsteuerungen. Kurze Auswahlen erscheinen als Segmente; längere Listen klappen innerhalb des Panels auf und lassen sich ohne schwebendes Menü scrollen. Schalter behalten ihre Aktionen. Goldene Beschriftungen und gravierte Schrift gehören zur Fensterfamilie der Einstellungen: Einstellungen, Handbuch sowie Themes und Plugins.
+Einstellungen und Leistenpanels verwenden dieselben Auswahlsteuerungen. Kurze Auswahlen erscheinen als Segmente; längere Listen öffnen sich als schwebende, scrollbare Auswahllisten. Schalter behalten ihre Aktionen. Goldene Beschriftungen und gravierte Schrift gehören zur Fensterfamilie der Einstellungen: Einstellungen, Handbuch sowie Themes und Plugins.
+
+Auswahllisten unterstützen die Navigation durch Tippen, wenn das Auswahlfeld oder die Liste den Fokus hat. Tippe den Anfang einer Beschriftung, um den ersten Treffer hervorzuheben; Großschreibung und Akzente werden ignoriert. Innerhalb von 800 ms getippte Zeichen bilden das Präfix; nach einer Pause beginnt ein neues. Wiederholtes Tippen desselben Buchstabens wechselt zwischen Treffern. Enter übernimmt die hervorgehobene Auswahl, Escape bricht ab. Listen zeigen höchstens acht Zeilen und lassen sich scrollen. Sie öffnen unter dem Feld, auch über den Rand eines Leistenpanels hinaus, oder nach oben, wenn dort mehr Bildschirmplatz ist.
 
 **SUPER + ,** öffnet Einstellungen mit **System**, Profil und Systemübersicht. Themes und Plugins haben ein eigenes Katalogfenster. **SUPER + I** öffnet das Kontrollzentrum.
 
@@ -53,7 +55,7 @@ Die Plugin-Liste zeigt „Dieses Plugin hat Fehler“ und die erste Meldung an. 
 
 ## Profilbilder
 
-Öffne Einstellungen > Benutzer (oder klicke in der System-Übersicht der Einstellungen auf dein Bild) und wähle „Bild ändern“. Die Dateiauswahl des Systems öffnet sich und zeigt nur Bilder; nach der Auswahl öffnet sich der Zuschneide-Editor als Blatt über den Einstellungen. Ziehe die runde Vorschau zum Verschieben; Mausrad, Schieberegler oder +/− zoomen von 1× bis 4×, die Pfeiltasten verschieben. Speichern (oder Enter) übernimmt den Zuschnitt; Abbrechen oder Escape schließt das Blatt, ohne ihn anzuwenden. „Entfernen“ neben „Bild ändern“ löscht das Bild.
+Öffne Einstellungen > Benutzer (oder klicke in der System-Übersicht der Einstellungen auf dein Bild) und wähle „Bild ändern“. Die Dateiauswahl des Systems öffnet sich schwebend und zentriert über den Einstellungen und zeigt nur Bilder; nach der Auswahl öffnet sich der Zuschneide-Editor als Blatt über den Einstellungen. Ziehe die runde Vorschau zum Verschieben; Mausrad, Schieberegler oder +/− zoomen von 1× bis 4×, die Pfeiltasten verschieben. Speichern (oder Enter) übernimmt den Zuschnitt; Abbrechen oder Escape schließt das Blatt, ohne ihn anzuwenden. „Entfernen“ neben „Bild ändern“ löscht das Bild.
 
 Das Bild erscheint im Kontrollzentrum, auf dem Sperrbildschirm und am Anmeldebildschirm immer rund. Das Kontrollzentrum zeigt das Bild oben in seiner Navigation nur an; ohne Bild zeigt es dort nichts, ebenso Sperr- und Anmeldebildschirm. Die Einstellungen zeigen stattdessen den Anfangsbuchstaben deines Namens auf einem Kreis in der Akzentfarbe. Unterstützt werden PNG, JPEG, WebP, GIF (erstes Bild) und BMP bis 40 MB und 12000 Pixel pro Seite. Eitr korrigiert die Ausrichtung, entfernt Metadaten, speichert ein PNG mit 512×512 Pixeln unter `~/.face` und aktualisiert AccountsService für SDDM. Bei einem Fehler bleibt das Bild für den Sperrbildschirm erhalten; Oberfläche oder CLI melden den Anmeldefehler.
 

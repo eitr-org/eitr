@@ -102,8 +102,13 @@ ColumnLayout {
                         readonly property bool picked: sidebar.highlighted === entry.index
                         width: parent.width; height: PanelStyle.selectionRowHeight
                         radius: DesktopStyle.radius(PanelStyle.controlRadius)
-                        color: Qt.alpha(selected ? sidebar.accent : sidebar.foreground, selected ? 0.13 : pointer.containsMouse || picked ? 0.07 : 0)
-                        gradient: selected ? selectedGlow : null
+                        color: Qt.alpha(sidebar.foreground, !selected && (pointer.containsMouse || picked) ? 0.07 : 0)
+                        Rectangle {
+                            anchors.fill: parent
+                            radius: parent.radius
+                            visible: row.selected
+                            gradient: selectedGlow
+                        }
                         Gradient {
                             id: selectedGlow
                             orientation: Gradient.Horizontal

@@ -95,8 +95,9 @@ Item {
         }
     }
     // Placement inputs exclude any trailing join that edge contact itself removes.
-    property real edgeContactWidth: implicitWidth
-    property real edgeContactHeight: implicitHeight
+    readonly property real navigationBand: morphIsland ? 40 : 0
+    property real edgeContactWidth: desiredWidth
+    property real edgeContactHeight: desiredHeight
     readonly property bool verticalAttachment: attachmentEdge === "left" || attachmentEdge === "right"
     readonly property real placementExtent: {
         var desired = verticalAttachment ? edgeContactHeight : edgeContactWidth;
@@ -113,8 +114,8 @@ Item {
     }
     readonly property bool touchesLeadingEdge: placementStart <= 0
     readonly property bool touchesTrailingEdge: !!parent && placementStart + placementExtent >= availableExtent
-    readonly property real desiredWidth: implicitWidth
-    readonly property real desiredHeight: implicitHeight
+    readonly property real desiredWidth: implicitWidth + (verticalAttachment ? navigationBand : 0)
+    readonly property real desiredHeight: implicitHeight + (verticalAttachment ? 0 : navigationBand)
     readonly property var hostWindow: attachmentTarget ? attachmentTarget.QsWindow.window : null
     readonly property bool detached: !!hostWindow && (!!hostWindow.centeredLayout || !!hostWindow.notchLayout || !!hostWindow.islandsLayout || !!hostWindow.dynamicLayout)
     // Centered and Dynamic gather the bar at the centre, so their panels open there too.

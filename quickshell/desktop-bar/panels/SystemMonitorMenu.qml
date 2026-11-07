@@ -91,12 +91,6 @@ ThemedPopup {
                         Keys.onPressed: function(event) {
                             if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter || event.key === Qt.Key_Space) { menu.toggle(section.modelData.title); event.accepted = true; }
                         }
-                        Rectangle {
-                            anchors.fill: parent
-                            anchors.margins: -4
-                            radius: DesktopStyle.radius(PanelStyle.controlRadius)
-                            color: Qt.alpha(menu.foreground, headerMouse.containsMouse || header.activeFocus ? 0.08 : 0)
-                        }
                         Text {
                             width: 28
                             anchors.verticalCenter: parent.verticalCenter

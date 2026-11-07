@@ -85,7 +85,9 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
     readers and existing confirmed actions. The Control Center is slimmed: its Style
     and Settings pages are gone, and its All settings button opens Settings. The
     Handbook and Themes & Plugins share the Settings frame, sidebar, page header and
-    cards. Next: refine individual-setting search. Network throughput needs a shared
+    cards. Dropdowns support type-ahead and screen-bounded floating lists; Dynamic
+    panels reserve navigation space, and shared sidebars support Square corners.
+    Next: refine individual-setting search. Network throughput needs a shared
     data topic; theme artwork currently uses the wallpaper.
   - **Window gaps preference implemented.** None, Small, Default (6 px inner,
     12 px outer) and Large share the local corner preference and survive theme

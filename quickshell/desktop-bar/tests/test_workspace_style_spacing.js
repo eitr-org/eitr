@@ -11,7 +11,7 @@ for (const vertical of [false, true]) {
         for (const advanceWidth of [59, 84, 110]) {
             const panelSurface = {leftPadding: 24, rightPadding: 24, vertical,
                 leadingBodyInset: 0, trailingBodyInset: detached ? 0 : 14};
-            const horizontalContentInset = vm.runInNewContext(inset, {panelSurface});
+            const horizontalContentInset = vm.runInNewContext(inset, {panelSurface, verticalAttachment: vertical, navigationBand: 0});
             const rowWidth = vm.runInNewContext(row, {PanelStyle: {selectionTextInset: 36}, labelMetrics: {advanceWidth}});
             const actual = vm.runInNewContext(width, {horizontalContentInset, rowWidth});
             const contentWidth = actual - horizontalContentInset;

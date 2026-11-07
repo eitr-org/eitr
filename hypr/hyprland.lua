@@ -488,6 +488,16 @@ floating_window_rule("about-terminal-float", "^(about-terminal)$", { 1000, 600 }
 -- Terminals opened from Walker menus (walker/bin/menu-path/kitty).
 floating_window_rule("menu-terminal-float", "^(eitr-menu-terminal|eitr-cloud|eitr-git-accounts|eitr-software|eitr-plugins|system-cleanup|system-check|system-mirrors)$", { 1100, 700 })
 
+-- GTK portal dialogs share a class; the Eitr picture chooser has a stable title suffix.
+hl.window_rule({
+	name = "eitr-picture-chooser",
+	match = { class = "^(xdg-desktop-portal-gtk)$", title = "^.* · Eitr$" },
+	float = true,
+	center = true,
+	size = { 900, 640 },
+	stay_focused = true,
+})
+
 -- Library windows restore their screen-bounded size.
 hl.window_rule({
 	name = "eitr-catalog",

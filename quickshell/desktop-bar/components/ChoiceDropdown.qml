@@ -1,6 +1,7 @@
 import ".."
 import QtQuick
 import QtQuick.Controls.Basic
+import Quickshell
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 
@@ -29,6 +30,46 @@ Item {
     property int highlightedIndex: currentIndex
     // True after Up/Down moved the highlight, false after the pointer did.
     property bool keyboardHighlight: false
+    property point pointerPosition: Qt.point(-1, -1)
+    property string typeBuffer: ""
+    property double lastTypedAt: 0
+    readonly property var popupHost: control.QsWindow.window
+    property var registeredHost: null
+    function registerPopup(open) {
+        if (registeredHost) {
+            registeredHost.choicePopups = registeredHost.choicePopups.filter(item => item !== menu.background);
+            registeredHost = null;
+        }
+        if (open && popupHost && popupHost.choicePopups !== undefined) {
+            registeredHost = popupHost;
+            registeredHost.choicePopups = registeredHost.choicePopups.concat([menu.background]);
+        }
+    }
+    Component.onDestruction: registerPopup(false)
+    function normalized(text) { return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase(); }
+    function typeAhead(event) {
+        event.accepted = false;
+        if (!event.text || event.modifiers & (Qt.ControlModifier | Qt.AltModifier | Qt.MetaModifier)
+                || !/[^\s\x00-\x1f]/.test(event.text)) return;
+        const typed = normalized(event.text);
+        const now = Date.now();
+        const recent = now - lastTypedAt < 800;
+        const cycle = recent && typeBuffer === typed;
+        typeBuffer = recent && !cycle ? typeBuffer + typed : typed;
+        lastTypedAt = now;
+        expanded = true;
+        const start = cycle ? highlightedIndex + 1 : 0;
+        for (let offset = 0; offset < choices.length; offset++) {
+            const index = (start + offset) % choices.length;
+            if (choices[index].available !== false && normalized(labelOf(choices[index])).startsWith(typeBuffer)) {
+                highlightedIndex = index;
+                keyboardHighlight = true;
+                list.positionViewAtIndex(index, ListView.Contain);
+                break;
+            }
+        }
+        event.accepted = true;
+    }
     property int visibleRows: 8
     readonly property int currentIndex: choices.findIndex(choice => valueOf(choice) === current)
     readonly property alias popup: menu
@@ -42,6 +83,8 @@ Item {
     onActiveFocusChanged: if (activeFocus) button.forceActiveFocus()
     enabled: available && choices.length > 0
     onEnabledChanged: if (!enabled) expanded = false
+    onVisibleChanged: if (!visible) expanded = false
+    onPopupHostChanged: if (expanded) expanded = false
     onExpandedChanged: {
         if (expanded) {
             highlightedIndex = currentIndex;
@@ -76,13 +119,8 @@ Item {
         expanded = false;
         actionTriggered(value);
     }
-    // The area the list must stay inside: a bar panel's own surface (its window only takes
-    // input there), otherwise the whole window, Settings and panels embedded in it included.
-    function bounds() {
-        for (let item = control.parent; item; item = item.parent)
-            if (item.attachmentTarget !== undefined && item.embedded === false) return item;
-        return control.Window.contentItem;
-    }
+    // Lists use the whole window; bar windows include them in their input region.
+    function bounds() { return control.Window.contentItem; }
     PanelButton {
         id: button
         width: parent.width
@@ -98,6 +136,7 @@ Item {
         Accessible.name: control.accessibleName || control.label || text
         Accessible.role: Accessible.ComboBox
         activeFocusOnTab: true
+        Keys.onPressed: event => control.typeAhead(event)
         Keys.onDownPressed: control.move(1)
         Keys.onUpPressed: control.move(-1)
         Keys.onEscapePressed: event => { if (control.expanded) { control.expanded = false; event.accepted = true; } else event.accepted = false; }
@@ -144,7 +183,11 @@ Item {
         height: Math.min(rowsHeight + topPadding + bottomPadding, room)
         padding: 4
         closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
-        onClosed: control.expanded = false
+        focus: true
+        onOpened: list.forceActiveFocus()
+        onAboutToShow: control.registerPopup(true)
+        onAboutToHide: control.registerPopup(false)
+        onClosed: { control.expanded = false; control.typeBuffer = ""; control.lastTypedAt = 0; }
         enter: Transition { NumberAnimation { property: "opacity"; from: 0; to: 1; duration: DesktopStyle.motionDuration(120) } }
         exit: Transition { NumberAnimation { property: "opacity"; from: 1; to: 0; duration: DesktopStyle.motionDuration(90) } }
         background: Rectangle {
@@ -155,6 +198,12 @@ Item {
         }
         contentItem: ListView {
             id: list
+            focus: true
+            Keys.onPressed: event => control.typeAhead(event)
+            Keys.onDownPressed: control.move(1)
+            Keys.onUpPressed: control.move(-1)
+            Keys.onReturnPressed: control.commit(control.highlightedIndex)
+            Keys.onEnterPressed: control.commit(control.highlightedIndex)
             clip: true
             model: control.choices
             spacing: PanelStyle.selectionRowGap
@@ -179,8 +228,23 @@ Item {
                 activeFocusOnTab: false
                 Accessible.role: Accessible.RadioButton
                 Accessible.checked: selected
+                Keys.onReturnPressed: control.commit(control.highlightedIndex)
+                Keys.onEnterPressed: control.commit(control.highlightedIndex)
+                Keys.onSpacePressed: control.commit(control.highlightedIndex)
                 onClicked: control.commit(index)
-                HoverHandler { id: rowHover; onHoveredChanged: if (hovered) { control.highlightedIndex = row.index; control.keyboardHighlight = false; } }
+                HoverHandler {
+                    id: rowHover
+                    onHoveredChanged: if (hovered && !control.keyboardHighlight) control.highlightedIndex = row.index
+                    // Scrolling under a stationary pointer keeps the keyboard highlight.
+                    onPointChanged: {
+                        const position = point.scenePosition;
+                        if (hovered && control.pointerPosition.x >= 0 && (position.x !== control.pointerPosition.x || position.y !== control.pointerPosition.y)) {
+                            control.highlightedIndex = row.index;
+                            control.keyboardHighlight = false;
+                        }
+                        if (hovered) control.pointerPosition = position;
+                    }
+                }
                 Text {
                     visible: row.selected && control.glyphOf(row.modelData) !== ""
                     anchors.right: rowAction.visible ? rowAction.left : parent.right

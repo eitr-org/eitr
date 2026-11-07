@@ -1,6 +1,8 @@
 # Control Center
 
-Settings and the bar panels share choice controls. Short choices use segments; longer lists expand inline within the panel and scroll without opening a floating popup. Switches keep their existing actions. Gold labels and carved lettering belong to the Settings family of windows: Settings, the Handbook and Themes & Plugins.
+Settings and the bar panels share choice controls. Short choices use segments; longer lists open as floating, scrollable dropdowns. Switches keep their existing actions. Gold labels and carved lettering belong to the Settings family of windows: Settings, the Handbook and Themes & Plugins.
+
+Dropdown lists support type-ahead while the selector or list has keyboard focus. Type a label prefix to highlight its first match; accents and case are ignored. Keys typed within 800 ms build the prefix; after a pause a new prefix starts. Repeating one letter cycles its matches. Enter applies the highlighted choice and Escape cancels. Lists show at most eight rows and scroll. They open below the field, including beyond a bar panel’s edge, or upward when the screen has more room above.
 
 **SUPER + ,** opens Settings with **System**, combining your profile and system overview. Themes and Plugins open in their own catalog window. Desktop and Devices pages show their shared controls inline; the Control Center remains available through **SUPER + I**.
 
@@ -79,7 +81,7 @@ The Plugins list shows “This plugin has errors” and its first message. Selec
 
 ## Profile pictures
 
-Open Settings > User (or click your picture on Settings' System overview) and choose Change picture. The system file chooser opens, showing only images; pick one and the crop editor opens in a sheet over Settings. Drag the round preview to move the image; use the wheel, slider or +/− to zoom from 1× to 4×, and arrow keys to move. Save (or Enter) applies the crop; Cancel or Escape closes the sheet without applying it. Remove, beside Change picture, clears the picture.
+Open Settings > User (or click your picture on Settings' System overview) and choose Change picture. The system file chooser floats centred above Settings, showing only images; pick one and the crop editor opens in a sheet over Settings. Drag the round preview to move the image; use the wheel, slider or +/− to zoom from 1× to 4×, and arrow keys to move. Save (or Enter) applies the crop; Cancel or Escape closes the sheet without applying it. Remove, beside Change picture, clears the picture.
 
 Pictures appear as circles in Control Center, the lockscreen and the login screen. Control Center only displays the picture at the top of its navigation; without one it shows nothing there, and neither do the lockscreen and login screen. Settings shows your name’s initial on a theme-accent circle instead. Eitr accepts PNG, JPEG, WebP, GIF (first frame) and BMP up to 40 MB and 12000 pixels per side. It applies orientation, strips metadata and saves a 512×512 PNG at `~/.face`, then updates AccountsService for SDDM. If that update fails, the saved picture still works on the lockscreen; the sheet or CLI reports the login-screen error.
 
