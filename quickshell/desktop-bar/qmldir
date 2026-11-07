@@ -205,3 +205,11 @@ PanelTextField components/PanelTextField.qml
 SpinningGlyph components/SpinningGlyph.qml
 BluetoothConnector components/BluetoothConnector.qml
 BluetoothDeviceRow components/BluetoothDeviceRow.qml
+WallpaperArt components/WallpaperArt.qml
+CurrentWallpaper components/CurrentWallpaper.qml
+WelcomePage welcome/WelcomePage.qml
+WelcomeHero welcome/WelcomeHero.qml
+WelcomeTour welcome/WelcomeTour.qml
+WelcomeTourArt welcome/WelcomeTourArt.qml
+WelcomeSetupCards welcome/WelcomeSetupCards.qml
+WelcomeMore welcome/WelcomeMore.qml

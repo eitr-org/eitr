@@ -40,9 +40,18 @@ function sidebarEntries(chapters, results, resultsLabel) {
 }
 
 // The page header already shows the chapter title, so a leading <h1> is not repeated.
+// The welcome draws its own hero, tour and setup cards in place of the blocks it lists as hidden.
 function articleBlocks(chapter) {
     var blocks = chapter ? chapter.blocks || [] : [];
+    var hidden = chapter && chapter.welcome ? chapter.welcome.hidden || [] : [];
+    if (hidden.length) return blocks.filter((block, index) => hidden.indexOf(index) < 0);
     return blocks.length && /^<h1>/.test(blocks[0]) ? blocks.slice(1) : blocks;
+}
+
+// Plain titles of the level-2 headings among `blocks`, such as the welcome's further reading.
+function sectionTitles(blocks) {
+    return blocks.filter(block => /^<h2>/.test(block))
+        .map(block => block.replace(/<[^>]*>/g, "").replace(/&amp;/g, "&").trim());
 }
 
 // The reader frames code and table blocks as cards in QML; the plain renderer uses a one-cell code table.

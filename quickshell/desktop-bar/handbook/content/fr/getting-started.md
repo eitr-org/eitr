@@ -1,28 +1,42 @@
-# Bienvenue dans EITR
+# Bienvenue dans Eitr
 
-EITR réunit Arch Linux, les fenêtres gérées par Hyprland, la barre Quickshell et les menus Walker. **SUPER** désigne la touche portant le symbole Windows/Command.
+Votre nouveau bureau est prêt. Suivez la courte visite, réglez l’essentiel, puis faites-en le vôtre.
 
-Les boutons au-dessus règlent l’essentiel : chacun ferme le manuel et ouvre le réglage correspondant. Ce chapitre s’ouvre automatiquement à la première connexion. Activez **Afficher cet accueil à la prochaine connexion** pour le revoir, ou ouvrez-le depuis **Apprendre > Manuel EITR**.
+<!-- eitr-welcome:tour -->
+## Une courte visite
 
-**Proposer de signaler les problèmes en cas de panne** est activé par défaut et partage le réglage Notifications de plantage. Si l’un de vos programmes plante, une notification propose de l’aide ou un rapport à vérifier et à envoyer. Voir [Dépannage](handbook:troubleshooting).
+- **Barre de bureau** : Les espaces de travail, l’horloge et les icônes d’état bordent l’écran. Cliquez sur une icône pour ouvrir son panneau.
+- **Le lanceur** : Appuyez sur **SUPER + Space** pour vos applications, ou sur **SUPER + F** pour tous les menus. Tapez pour chercher, puis appuyez sur Enter.
+- **Paramètres** : Appuyez sur **SUPER + ,** pour les écrans, le son, le clavier, l’apparence et plus encore. Chaque page se recherche.
+- **Centre de contrôle** : Appuyez sur **SUPER + I** pour les bascules rapides, la capture d’écran et une discussion rapide avec votre assistant.
+- **Thèmes** : Un thème colore tout le bureau et apporte ses propres fonds d’écran. Changez-en à tout moment ou créez le vôtre.
+<!-- /eitr-welcome:tour -->
 
-## Vos premières minutes
+<!-- eitr-welcome:setup -->
+## Régler l’essentiel
 
-1. Appuyez sur **SUPER + F** pour le menu principal. Saisissez du texte pour chercher des actions dans les sous-menus et les applications installées. Enter ouvre un résultat ; Escape ferme le menu.
-2. **SUPER + Space** ouvre les applications, **SUPER + Enter** un terminal.
-3. **SUPER + I** ouvre les interrupteurs rapides du Centre de contrôle, **SUPER + ,** les Paramètres : clavier, écrans, éclairage nocturne et apparence.
-4. Connectez-vous depuis l’icône WiFi ou Bluetooth. Les icônes de droite peuvent être masquées : utilisez la flèche pour les afficher.
-5. Choisissez un thème dans **Paramètres > Style > Thème**, puis un fond dans **Paramètres > Style > Fond d’écran**.
+Sur le bureau, chacun ouvre sa page dans les Paramètres.
 
-Les nouvelles installations EITR utilisent **Eitr** et l’écran de verrouillage **Clockwork Tape**. Les bureaux existants conservent leurs choix.
+- **Wi-Fi** : Rejoignez un réseau ou associez des appareils Bluetooth.
+- **Thème et fond d’écran** : Choisissez les couleurs et les images que vous verrez chaque jour.
+- **Clavier** : Ajoutez, ordonnez et changez vos dispositions de clavier.
+- **Photo de profil** : Choisissez l’image associée à votre compte.
+- **Écrans** : Réglez la résolution et l’échelle de chaque écran connecté.
+<!-- /eitr-welcome:setup -->
+
+## Bon à savoir
+
+**SUPER** est la touche portant le logo Windows ou Command. **SUPER + Enter** ouvre un terminal. Les icônes de droite de la barre peuvent être masquées : cliquez sur la flèche pour les afficher. Les nouvelles installations commencent avec le thème **Eitr** et l’écran de verrouillage **Clockwork Tape** ; les bureaux existants gardent leurs choix.
+
+Cet accueil s’ouvre de lui-même à la première connexion. Activez **Afficher cet accueil à la prochaine connexion** pour le revoir, ou rouvrez-le depuis **Apprendre > Manuel EITR** ou avec **SUPER + F1**.
+
+**Proposer de signaler les problèmes en cas de panne** est activé par défaut et partage le réglage Notifications de plantage : quand un programme plante, une notification propose de l’aide ou un rapport que vous relisez avant de l’envoyer. Voir [Dépannage](handbook:troubleshooting).
 
 ## Apprendre à votre rythme
 
-Ouvrez **Apprendre > Manuel EITR** ou appuyez sur **SUPER + F1**. Le Manuel est une fenêtre déplaçable et redimensionnable qui mémorise sa taille. Le raccourci ramène la fenêtre ouverte au premier plan ; si elle est déjà active, il la ferme. Échap, le bouton de fermeture ou la fermeture du compositeur la ferment aussi. Cliquer à côté ne la ferme pas. La recherche trouve les titres et le texte ; Up/Down sélectionnent un résultat, Enter l’ouvre. **Ctrl + F** active la recherche. La barre latérale regroupe les chapitres sous des titres runiques, comme dans les Paramètres. **Page Up/Page Down** font défiler le chapitre, **Ctrl + Home/End** vont au début ou à la fin et **Alt + Left/Right** changent de chapitre. Précédent et Suivant font la même chose avec la souris.
+La recherche trouve les titres et le texte des chapitres : **Ctrl + F** la sélectionne, Up/Down choisissent un résultat et Enter l’ouvre. **Page Up/Page Down** font défiler, **Ctrl + Home/End** vont au début ou à la fin et **Alt + Left/Right** changent de chapitre, comme Précédent et Suivant. Escape, le bouton de fermeture ou le raccourci ferment la fenêtre ; un clic à côté ne la ferme pas.
 
-Le manuel n’exécute aucune commande. Les blocs de code sont des exemples à examiner et copier volontairement. Les liens externes ne s’ouvrent qu’au clic.
-
-Continuez avec [Raccourcis](handbook:shortcuts), [Barre du bureau](handbook:desktop-bar) ou [Menu Paramètres](handbook:system).
+Le manuel n’exécute jamais de commandes. Les blocs de code sont des exemples à lire et à copier délibérément, et les liens externes ne s’ouvrent que si vous cliquez dessus. Continuez avec [Raccourcis](handbook:shortcuts), [Barre du bureau](handbook:desktop-bar) ou [Menu Paramètres](handbook:system).
 
 <!-- eitr-overview -->
 ## Ce que propose Eitr

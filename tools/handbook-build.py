@@ -18,17 +18,33 @@ from eitr_focus import shortcut_entries
 
 
 class Blocks(HTMLParser):
-    """Keep top-level rich-text blocks small enough to render independently."""
+    """Keep top-level rich-text blocks small enough to render independently.
+
+    Each block also records the welcome section (`<!-- eitr-welcome:NAME -->`) it sits in."""
     def __init__(self):
         super().__init__(convert_charrefs=False)
         self.depth = 0
         self.buffer = []
         self.blocks = []
+        self.sections = []
+        self.section = None
 
     def flush(self):
         if self.buffer:
             self.blocks.append("".join(self.buffer))
+            self.sections.append(self.section)
             self.buffer = []
+
+    def handle_comment(self, data):
+        marker = re.fullmatch(r"\s*(/?)eitr-welcome:([a-z]+)\s*", data)
+        if not marker:
+            return
+        if self.depth:
+            raise ValueError("Welcome markers belong between top-level blocks")
+        closing, name = marker[1] == "/", marker[2]
+        if closing != (self.section == name) or (not closing and self.section):
+            raise ValueError(f"Unbalanced welcome marker: {name}")
+        self.section = None if closing else name
 
     def handle_starttag(self, tag, attrs):
         self.buffer.append(self.get_starttag_text())
@@ -59,12 +75,59 @@ class Blocks(HTMLParser):
         self.buffer.append("&#" + name + ";")
 
 
-def blocks(html):
+def parse_blocks(html):
     parser = Blocks()
     parser.feed(html)
     if parser.depth:
         raise ValueError("Unbalanced handbook HTML")
-    return parser.blocks
+    if parser.section:
+        raise ValueError(f"Unclosed welcome marker: {parser.section}")
+    return parser
+
+
+def blocks(html):
+    return parse_blocks(html).blocks
+
+
+def inner(block, tag):
+    match = re.fullmatch(rf"<{tag}>(.*)</{tag}>", block.strip(), re.DOTALL)
+    if not match:
+        raise ValueError(f"Expected <{tag}> in the welcome chapter: {block[:60]}")
+    return match[1].strip()
+
+
+def welcome(definition, parser):
+    """The first-login welcome's reader layout, read from its own chapter text.
+
+    chapters.json names each tour step and setup card in order (ids, Settings
+    routes, icons); the chapter's marked sections give their translated words:
+    an h2 title, optional intro paragraphs and one list of `**Title**: text` items.
+    The reader draws these blocks itself and lists their indexes in `hidden`."""
+    pieces, sections = parser.blocks, parser.sections
+    if len(pieces) < 2 or not pieces[0].startswith("<h1>") or not pieces[1].startswith("<p>"):
+        raise ValueError("The welcome chapter starts with its title and one lead paragraph")
+    result = {"title": inner(pieces[0], "h1"), "lead": inner(pieces[1], "p"), "hidden": [0, 1]}
+    for name, entries in definition.items():
+        indexes = [index for index, section in enumerate(sections) if section == name]
+        if not indexes or indexes != list(range(indexes[0], indexes[-1] + 1)):
+            raise ValueError(f"The welcome needs one marked {name} section")
+        marked = [pieces[index] for index in indexes]
+        if len(marked) < 2 or not marked[0].startswith("<h2>") or not marked[-1].startswith("<ul>"):
+            raise ValueError(f"The welcome {name} section is a heading, optional paragraphs and one list")
+        items = re.findall(r"<li>(.*?)</li>", marked[-1], re.DOTALL)
+        if len(items) != len(entries):
+            raise ValueError(f"The welcome {name} list needs {len(entries)} items")
+        parsed = []
+        for entry, item in zip(entries, items):
+            match = re.fullmatch(r"<strong>(.+?)</strong>\s*:\s*(.+)", item.strip(), re.DOTALL)
+            if not match:
+                raise ValueError(f"Welcome {name} items read **Title**: text: {item[:60]}")
+            fields = entry if isinstance(entry, dict) else {"id": entry}
+            parsed.append({**fields, "title": match[1], "text": match[2].strip()})
+        result[name] = {"title": inner(marked[0], "h2"), "intro": " ".join(inner(block, "p") for block in marked[1:-1]),
+                        "items": parsed}
+        result["hidden"].extend(indexes)
+    return result
 
 
 def shortcuts():
@@ -194,13 +257,18 @@ def build(locale="en"):
             if not path.is_relative_to(BOOK.resolve()) or not path.is_file():
                 raise ValueError(f"Missing or unsafe handbook image: {figure['src']}")
         html = markdown.markdown(unnest_fences(text), extensions=["tables", "fenced_code", "sane_lists"])
+        parsed = parse_blocks(html)
         metadata = {key: value for key, value in chapter.items() if key not in ("source", "generated")}
+        if "welcome" in chapter:
+            metadata["welcome"] = welcome(chapter["welcome"], parsed)
+        elif any(parsed.sections):
+            raise ValueError(f"Welcome markers outside the welcome chapter: {chapter['id']}")
         for key in ("title", "summary", "group"):
             if key in metadata:
                 metadata[key] = messages.get(metadata[key], metadata[key])
         if locale != "en":
             metadata["sourceLocale"] = locale if localized.is_file() or chapter.get("generated") else "en"
-        result.append({**metadata, "markdown": text, "blocks": blocks(html)})
+        result.append({**metadata, "markdown": text, "blocks": parsed.blocks})
     return json.dumps({"version": 1, "chapters": result}, ensure_ascii=False, indent=2) + "\n"
 
 

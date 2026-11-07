@@ -388,12 +388,19 @@ debounced city search, country-based units, and smaller alternate temperature.
 City overrides last only until the popup closes; the bar's default is unchanged.
 Escape cancels city search first, then closes Weather. Buttons support Tab/Enter.
 
-The first-login welcome is the Handbook's Getting Started chapter. Above its
-text the reader shows setup buttons that only open existing workflows: the theme
-and wallpaper carousel (`appearance-picker.sh`), the Display, Keyboard, WiFi and
-Bluetooth panels (`show-panel.sh`), and the Shortcuts chapter. A button closes
-the Handbook, then its workflow opens. The reader itself runs nothing: it
-signals `shell.qml`, which opens the workflow and saves the welcome state. Walker > Learn > Welcome reopens it (`handbook.sh open getting-started`).
+The first-login welcome is the Handbook's Getting Started chapter, drawn by
+`welcome/WelcomePage.qml`: a hero over the current wallpaper (`artSource`, read
+from `eitr/appearance.json`), a five-step tour with live drawings in the theme's
+colours (auto-advancing every six seconds, paused on hover, Left/Right keys,
+instant with Reduce motion), large setup cards, the welcome's switches, and the
+rest of the chapter behind "More to read". Its words come from the chapter's
+`<!-- eitr-welcome:tour -->` and `<!-- eitr-welcome:setup -->` sections, so the
+translated chapters translate it; `chapters.json` names each step and card with
+its Settings route and icon, and `tools/handbook-build.py` validates both into
+the catalog's `welcome` object. The website shows those sections as plain lists.
+A setup card asks `WelcomeSession.qml` to open its Settings page
+(`shell.showSettings`), with the welcome still open behind it. The reader itself
+runs nothing; the session also saves the welcome state. Walker > Learn > EITR Handbook reopens it.
 The Handbook closes only from its close button, Escape or SUPER + F1; a click
 beside it does nothing.
 It opens automatically about two seconds after the bar starts, at most once per

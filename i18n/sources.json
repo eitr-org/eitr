@@ -69,9 +69,6 @@
     "Add from a Git address": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
-    "Add keyboard layouts": [
-      "quickshell/desktop-bar/panels/Handbook.qml"
-    ],
     "Add or Remove Layouts…": [
       "quickshell/desktop-bar/panels/KeyboardLayoutMenu.qml"
     ],
@@ -307,9 +304,6 @@
     "Choose a picture": [
       "quickshell/desktop-bar/settings/SettingsSystemHost.qml"
     ],
-    "Choose a theme": [
-      "quickshell/desktop-bar/panels/Handbook.qml"
-    ],
     "Choose an image for your desktop.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
@@ -422,9 +416,6 @@
     "Connect": [
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml"
-    ],
-    "Connect to WiFi": [
-      "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Connect to another PC": [
       "quickshell/desktop-bar/settings/SettingsStreamingPage.qml"
@@ -744,9 +735,6 @@
     "Files": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
-    "First steps": [
-      "quickshell/desktop-bar/panels/Handbook.qml"
-    ],
     "Focus": [
       "quickshell/desktop-bar/settings/SettingsFocusPage.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -983,9 +971,6 @@
       "quickshell/desktop-bar/settings/SettingsStreamingPage.qml",
       "quickshell/desktop-bar/settings/SettingsSystemHost.qml"
     ],
-    "Learn shortcuts and gestures": [
-      "quickshell/desktop-bar/panels/Handbook.qml"
-    ],
     "Left": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
@@ -1088,6 +1073,9 @@
     "More themes": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
+    "More to read": [
+      "quickshell/desktop-bar/welcome/WelcomeMore.qml"
+    ],
     "Move down": [
       "quickshell/desktop-bar/components/KeyboardLayoutRow.qml"
     ],
@@ -1122,6 +1110,9 @@
     ],
     "Next panel": [
       "quickshell/desktop-bar/components/ThemedPopup.qml"
+    ],
+    "Next step": [
+      "quickshell/desktop-bar/welcome/WelcomeTour.qml"
     ],
     "Next track": [
       "quickshell/desktop-bar/media/MediaCard.qml"
@@ -1233,7 +1224,7 @@
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Nothing is sent automatically. You read each report first and choose whether to email it or open a GitHub issue; your name, computer name and network addresses are removed.": [
-      "quickshell/desktop-bar/panels/Handbook.qml"
+      "quickshell/desktop-bar/welcome/WelcomePage.qml"
     ],
     "Notification history and Do Not Disturb.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -1274,7 +1265,7 @@
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Offer to report problems when something breaks": [
-      "quickshell/desktop-bar/panels/Handbook.qml"
+      "quickshell/desktop-bar/welcome/WelcomePage.qml"
     ],
     "Official": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -1364,9 +1355,6 @@
       "quickshell/desktop-bar/capture/BeautifyWindow.qml",
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
-    "Pair Bluetooth devices": [
-      "quickshell/desktop-bar/panels/Handbook.qml"
-    ],
     "Paired": [
       "quickshell/desktop-bar/components/BluetoothConnector.qml"
     ],
@@ -1403,9 +1391,6 @@
       "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml"
     ],
     "PgUp/PgDn to scroll · Escape or × to close": [
-      "quickshell/desktop-bar/panels/Handbook.qml"
-    ],
-    "Pick a wallpaper": [
       "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Pin bar open": [
@@ -1483,6 +1468,9 @@
     ],
     "Previous panel": [
       "quickshell/desktop-bar/components/ThemedPopup.qml"
+    ],
+    "Previous step": [
+      "quickshell/desktop-bar/welcome/WelcomeTour.qml"
     ],
     "Previous track": [
       "quickshell/desktop-bar/media/MediaCard.qml"
@@ -1780,9 +1768,6 @@
     "Set the font used by desktop text.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
-    "Set the main display": [
-      "quickshell/desktop-bar/panels/Handbook.qml"
-    ],
     "Set the space around terminal text.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
@@ -1829,6 +1814,9 @@
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml"
     ],
+    "Show less": [
+      "quickshell/desktop-bar/welcome/WelcomeMore.qml"
+    ],
     "Show on": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
@@ -1836,7 +1824,7 @@
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Show this welcome at the next login": [
-      "quickshell/desktop-bar/panels/Handbook.qml"
+      "quickshell/desktop-bar/welcome/WelcomePage.qml"
     ],
     "Show unnamed devices": [
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
@@ -1903,6 +1891,9 @@
     "Status unavailable": [
       "quickshell/desktop-bar/panels/RemoteAccessContent.qml",
       "quickshell/desktop-bar/settings/SettingsStreamingPage.qml"
+    ],
+    "Step %1": [
+      "quickshell/desktop-bar/welcome/WelcomeTour.qml"
     ],
     "Stop": [
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
@@ -2040,6 +2031,9 @@
     ],
     "This plugin has errors": [
       "quickshell/desktop-bar/plugins/PluginManager.qml"
+    ],
+    "This welcome": [
+      "quickshell/desktop-bar/welcome/WelcomePage.qml"
     ],
     "Today": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"

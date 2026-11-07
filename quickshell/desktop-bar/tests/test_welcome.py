@@ -76,31 +76,53 @@ class WelcomeStateTests(unittest.TestCase):
 class HandbookWelcomeTests(unittest.TestCase):
     def setUp(self):
         self.source = (ROOT / "panels/Handbook.qml").read_text()
+        self.welcome = "\n".join(path.read_text() for path in sorted((ROOT / "welcome").glob("*.qml")))
 
     def test_welcome_uses_shared_components_and_text_roles(self):
-        for name in ("PanelButton {", "PanelSwitch {", "ControlCard {", "ControlRow {", "PanelStyle.bodySize",
-                     "SettingsPalette.line", "FamilyPageHeader {"):
-            self.assertIn(name, self.source)
-        self.assertNotIn("SiteButton", self.source)
-        self.assertIsNone(re.search(r"#[0-9a-fA-F]{3,8}\b", self.source), "colors must use the shared Settings palette")
-        for pattern in ("/home/", "/Users/", "erick", "~/"):
-            self.assertNotIn(pattern, self.source)
+        for name in ("PanelButton {", "PanelSwitch {", "ControlCard {", "ControlRow {", "PanelStyle.captionSize",
+                     "SettingsPalette.line", "SettingsInk.gold", "SiteStyle.carved", "BarPreview {", "PalettePreview {",
+                     "WallpaperArt {", "DesktopStyle.motionDuration("):
+            self.assertIn(name, self.welcome)
+        self.assertIn("FamilyPageHeader {", self.source)
+        self.assertIn("WelcomePage {", self.source)
+        for source in (self.source, self.welcome):
+            self.assertNotIn("SiteButton", source)
+            self.assertIsNone(re.search(r"#[0-9a-fA-F]{3,8}\b", source), "colors must use the shared Settings palette")
+            self.assertNotIn("execDetached", source)
+            self.assertNotIn("Process {", source)
+            for pattern in ("/home/", "/Users/", "erick", "~/"):
+                self.assertNotIn(pattern, source)
+        for name in ("WelcomePage", "WelcomeHero", "WelcomeTour", "WelcomeTourArt", "WelcomeSetupCards", "WelcomeMore"):
+            self.assertIn(f"{name} welcome/{name}.qml", (ROOT / "qmldir").read_text())
 
-    def test_setup_steps_reuse_existing_workflows(self):
-        kinds = re.findall(r'kind: "(\w+)"', self.source)
-        self.assertEqual(kinds, ["theme", "wallpaper", "display", "keyboard", "wifi", "bluetooth", "learn"])
-        icons = re.findall(r'kind: "\w+", icon: "([^"]*)"', self.source)
-        self.assertEqual(len(icons), len(kinds))
-        self.assertTrue(all(icons), "every setup button needs its glyph")
-        shell = (ROOT / "shell.qml").read_text() + (ROOT / "services/WelcomeSession.qml").read_text()
-        self.assertIn('"appearance-picker.sh" : "show-panel.sh"', shell)
-        self.assertIn('if (kind === "learn") { choose("shortcuts"); return; }', self.source)
-        allowlist = re.search(r'case "\$\{1:-\}" in\s*\n\s*([a-z|]+)\)',
-                              (ROOT / "scripts/show-panel.sh").read_text()).group(1).split("|")
-        for kind in set(kinds) - {"theme", "wallpaper", "learn", "keyboard"}:
-            self.assertIn(kind, allowlist)
-        self.assertIn('if (kind === "keyboard") {', shell)
-        self.assertIn('"--provider", "menus:keyboard"', shell)
+    def test_tour_advances_on_its_own_pauses_on_hover_and_follows_the_keyboard(self):
+        tour = (ROOT / "welcome/WelcomeTour.qml").read_text()
+        self.assertIn("interval: 6000; repeat: true", tour)
+        self.assertIn("running: tour.active && tour.visible && !hover.hovered", tour)
+        self.assertIn("HoverHandler { id: hover }", tour)
+        self.assertIn('book.welcomeVisible && !event.modifiers && (event.key === Qt.Key_Left || event.key === Qt.Key_Right)', self.source)
+        self.assertIn("artSource: wallpaper.source", self.source)
+        self.assertIn("CurrentWallpaper { id: wallpaper; live: book.opened }", self.source)
+
+    def test_setup_cards_open_existing_settings_pages(self):
+        chapters = json.loads((ROOT / "handbook/chapters.json").read_text())
+        setup = chapters[0]["welcome"]["setup"]
+        self.assertEqual([card["id"] for card in setup], ["wifi", "appearance", "keyboard", "picture", "displays"])
+        self.assertTrue(all(card["icon"] for card in setup), "every setup card needs its glyph")
+        index = (ROOT / "settings/SettingsIndex.js").read_text()
+        pages = json.JSONDecoder().raw_decode(index.split("\nvar pages = ", 1)[1])[0]
+        page_ids = {page["id"] for page in pages}
+        for card in setup:
+            page, _, tab = card["route"].partition("/")
+            self.assertIn(page, page_ids, card["route"])
+            if tab:
+                tabs = re.search(r"^    " + page + r": \[(.*)\],?$", index, re.MULTILINE)
+                self.assertIn('{id: "' + tab + '"', tabs.group(1), card["route"])
+        session = (ROOT / "services/WelcomeSession.qml").read_text()
+        self.assertIn("onSetupRequested: function(route) { host.showSettings(route); }", session)
+        self.assertIn("function showSettings(page) { settingsWindow.show(page); }", (ROOT / "shell.qml").read_text())
+        self.assertIn("onSetupRequested: route => book.openStep(route)", self.source)
+        self.assertIn("function openStep(route) { setupRequested(route); }", self.source)
 
     def test_welcome_is_the_first_chapter_and_opens_once_per_session(self):
         chapters = json.loads((ROOT / "handbook/chapters.json").read_text())
@@ -115,7 +137,7 @@ class HandbookWelcomeTests(unittest.TestCase):
 
     def test_only_its_own_controls_close_the_handbook(self):
         closers = [line.strip() for line in self.source.splitlines() if "opened = false" in line]
-        expected = ("opened = false;", "function close()", "Key_Escape", "onCloseRequested:")
+        expected = ("function close()", "Key_Escape", "onCloseRequested:")
         self.assertEqual(len(closers), len(expected), closers)
         for line, marker in zip(closers, expected):
             self.assertIn(marker, line)

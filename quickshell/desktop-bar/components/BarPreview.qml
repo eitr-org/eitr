@@ -14,6 +14,10 @@ Canvas {
     property color foreground: "#eeeeee"
     property color accent: foreground
     readonly property real corner: DesktopStyle.radius(3)
+    // Draws the same picture larger: the scene is laid out in width/zoom by height/zoom.
+    property real zoom: 1
+    // Paints its own sky and hill behind the bar; off when a picture sits underneath.
+    property bool scenery: true
     onLayoutChanged: requestPaint()
     onEdgeChanged: requestPaint()
     onAppearanceChanged: requestPaint()
@@ -24,13 +28,20 @@ Canvas {
     onCornerChanged: requestPaint()
     onWidthChanged: requestPaint()
     onHeightChanged: requestPaint()
+    onZoomChanged: requestPaint()
+    onSceneryChanged: requestPaint()
     onPaint: {
         const context = getContext("2d");
         context.reset();
-        context.fillStyle = Qt.tint(background, Qt.alpha(accent, 0.18));
-        context.fillRect(0, 0, width, height);
-        context.fillStyle = Qt.alpha(accent, 0.13);
-        context.beginPath(); context.moveTo(0, height); context.lineTo(width * 0.48, height * 0.22); context.lineTo(width, height); context.fill();
+        context.scale(zoom, zoom);
+        const width = picture.width / zoom;
+        const height = picture.height / zoom;
+        if (scenery) {
+            context.fillStyle = Qt.tint(background, Qt.alpha(accent, 0.18));
+            context.fillRect(0, 0, width, height);
+            context.fillStyle = Qt.alpha(accent, 0.13);
+            context.beginPath(); context.moveTo(0, height); context.lineTo(width * 0.48, height * 0.22); context.lineTo(width, height); context.fill();
+        }
         const vertical = edge === "left" || edge === "right";
         const length = vertical ? Math.max(180, height) : width;
         const depth = 15;

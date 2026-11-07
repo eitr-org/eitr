@@ -1,28 +1,42 @@
-# Willkommen bei EITR
+# Willkommen bei Eitr
 
-EITR verbindet Arch Linux, von Hyprland verwaltete Fenster, die Quickshell-Desktopleiste und Walker-Menüs. **SUPER** bezeichnet die Taste mit dem Windows-/Command-Symbol.
+Dein neuer Desktop ist bereit. Mach die kurze Tour, richte das Wichtigste ein und gestalte ihn dann nach deinem Geschmack.
 
-Die Schaltflächen über diesem Text richten das Wichtigste ein. Jede schließt das Handbuch und öffnet die zugehörige Einstellung. Dieses Kapitel öffnet sich bei der ersten Anmeldung automatisch. Aktiviere **Diese Begrüßung bei der nächsten Anmeldung anzeigen**, um es erneut zu sehen, oder öffne es über **Lernen > EITR-Handbuch**.
+<!-- eitr-welcome:tour -->
+## Eine kurze Tour
 
-**Bei Fehlern einen Problembericht anbieten** ist standardmäßig eingeschaltet und teilt sich die Einstellung mit den Absturzbenachrichtigungen. Stürzt eines deiner Programme ab, bietet eine Benachrichtigung Hilfe oder einen Bericht zum Prüfen und Senden an. Siehe [Fehlerbehebung](handbook:troubleshooting).
+- **Desktopleiste**: Arbeitsflächen, Uhr und Statussymbole liegen am Bildschirmrand. Ein Klick auf ein Symbol öffnet sein Panel.
+- **Der Starter**: **SUPER + Space** öffnet deine Anwendungen, **SUPER + F** alle Menüs. Tippe zum Suchen und drücke Enter.
+- **Einstellungen**: **SUPER + ,** öffnet Bildschirme, Ton, Tastatur, Darstellung und mehr. Jede Seite ist durchsuchbar.
+- **Kontrollzentrum**: **SUPER + I** öffnet Schnellschalter, Bildschirmaufnahme und einen schnellen Chat mit deinem Assistenten.
+- **Themes**: Ein Theme färbt den ganzen Desktop und bringt eigene Hintergrundbilder mit. Wechsle jederzeit oder erstelle dein eigenes.
+<!-- /eitr-welcome:tour -->
 
-## Die ersten Minuten
+<!-- eitr-welcome:setup -->
+## Das Wichtigste einrichten
 
-1. Drücke **SUPER + F** für das Hauptmenü. Tippe, um Aktionen in Untermenüs und installierte Anwendungen zu suchen. Enter öffnet einen Treffer; Escape schließt das Menü.
-2. **SUPER + Space** öffnet die Anwendungen, **SUPER + Enter** ein Terminal.
-3. **SUPER + I** öffnet die Schnellschalter des Kontrollzentrums, **SUPER + ,** die Einstellungen: Tastatur, Bildschirme, Nachtlicht und Darstellung.
-4. Verbinde dich über das WiFi- oder Bluetooth-Symbol. Rechte Leistensymbole können ausgeblendet sein; zeige sie mit dem Pfeil an.
-5. Wähle unter **Einstellungen > Stil > Design** ein Design und unter **Einstellungen > Stil > Hintergrundbild** ein Hintergrundbild.
+Auf dem Desktop öffnet jeder Eintrag seine Seite in den Einstellungen.
 
-Neue EITR-Installationen verwenden **Eitr** und den Sperrbildschirm **Clockwork Tape**. Bestehende Installationen behalten ihre Auswahl.
+- **Wi-Fi**: Verbinde dich mit einem Netzwerk oder kopple Bluetooth-Geräte.
+- **Design und Hintergrundbild**: Wähle die Farben und Bilder, die du jeden Tag sehen möchtest.
+- **Tastatur**: Füge Tastaturlayouts hinzu, ordne sie und wechsle zwischen ihnen.
+- **Profilbild**: Wähle das Bild, das zu deinem Konto gehört.
+- **Bildschirme**: Lege Auflösung und Skalierung jedes angeschlossenen Bildschirms fest.
+<!-- /eitr-welcome:setup -->
+
+## Gut zu wissen
+
+**SUPER** ist die Taste mit dem Windows- oder Command-Symbol. **SUPER + Enter** öffnet ein Terminal. Rechte Leistensymbole können ausgeblendet sein; der Pfeil zeigt sie an. Neue Installationen beginnen mit dem Theme **Eitr** und dem Sperrbildschirm **Clockwork Tape**; bestehende Desktops behalten ihre Auswahl.
+
+Diese Begrüßung öffnet sich bei der ersten Anmeldung von selbst. Aktiviere **Diese Begrüßung bei der nächsten Anmeldung anzeigen**, um sie erneut zu sehen, oder öffne sie über **Lernen > EITR-Handbuch** oder **SUPER + F1**.
+
+**Bei Fehlern einen Problembericht anbieten** ist standardmäßig eingeschaltet und teilt sich die Einstellung mit den Absturzbenachrichtigungen: Stürzt ein Programm ab, bietet eine Benachrichtigung Hilfe oder einen Bericht an, den du vor dem Senden prüfst. Siehe [Fehlerbehebung](handbook:troubleshooting).
 
 ## Im eigenen Tempo lernen
 
-Öffne **Lernen > EITR-Handbuch** oder drücke **SUPER + F1**. Das Handbuch ist ein verschiebbares Fenster mit anpassbarer, gespeicherter Größe. Das Tastenkürzel aktiviert das offene Fenster; ist es bereits aktiv, schließt es das Fenster. Escape, die Schließen-Schaltfläche und der Schließen-Befehl des Compositors schließen es ebenfalls. Ein Klick daneben schließt es nicht. Die Suche findet Kapiteltitel und Text; Up/Down wählen einen Treffer, Enter öffnet ihn. **Ctrl + F** fokussiert die Suche. Die Seitenleiste gruppiert die Kapitel unter Runen-Überschriften, wie in den Einstellungen. **Page Up/Page Down** scrollen, **Ctrl + Home/End** springen zum Anfang oder Ende und **Alt + Left/Right** wechseln Kapitel. Zurück und Weiter leisten dasselbe mit der Maus.
+Die Suche findet Kapiteltitel und Text: **Ctrl + F** fokussiert sie, Up/Down wählen einen Treffer und Enter öffnet ihn. **Page Up/Page Down** scrollen, **Ctrl + Home/End** springen zum Anfang oder Ende und **Alt + Left/Right** wechseln Kapitel, wie Zurück und Weiter. Escape, die Schließen-Schaltfläche oder das Tastenkürzel schließen das Fenster; ein Klick daneben nicht.
 
-Das Handbuch führt keine Befehle aus. Codeblöcke sind Beispiele zum bewussten Prüfen und Kopieren. Externe Links öffnen sich nur beim Anklicken.
-
-Weiter mit [Tastenkürzeln](handbook:shortcuts), [Desktopleiste](handbook:desktop-bar) oder [Einstellungsmenü](handbook:system).
+Das Handbuch führt nie Befehle aus. Codeblöcke sind Beispiele zum bewussten Lesen und Kopieren, und externe Links öffnen sich nur, wenn du sie anklickst. Weiter mit [Tastenkürzeln](handbook:shortcuts), [Desktopleiste](handbook:desktop-bar) oder [Einstellungsmenü](handbook:system).
 
 <!-- eitr-overview -->
 ## Was Eitr bietet

@@ -27,7 +27,7 @@ existing design and workflows rather than replacing them with upstream defaults.
   execute commands from document links or include secrets/private screen content.
   It closes only from its close button, Escape, its shortcut or the compositor close, never from a click
   beside it. Its Getting Started chapter is the first-login welcome; its setup
-  buttons are reader controls that open existing panels, not document links.
+  cards are reader controls that open existing Settings pages, not document links.
 
 - Keep the docs in step, proportionately: a change updates what directly
   describes it (the nearby comments, its menu text or messages, the Handbook or

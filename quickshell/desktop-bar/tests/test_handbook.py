@@ -87,6 +87,36 @@ class HandbookTests(unittest.TestCase):
         for chapter in json.loads(builder.build())["chapters"]:
             self.assertFalse(any("```" in block or "<p><code>sh\n" in block for block in chapter["blocks"]), chapter["id"])
 
+    def test_welcome_layout_comes_from_each_translated_chapter(self):
+        definition = json.loads((BOOK / "chapters.json").read_text())[0]["welcome"]
+        for locale in ("en", "de", "es", "fr", "pt_BR"):
+            with self.subTest(locale=locale):
+                chapter = json.loads(builder.build(locale))["chapters"][0]
+                welcome = chapter["welcome"]
+                self.assertTrue(welcome["title"] and welcome["lead"])
+                self.assertEqual([step["id"] for step in welcome["tour"]["items"]], definition["tour"])
+                self.assertEqual([card["route"] for card in welcome["setup"]["items"]],
+                                 [card["route"] for card in definition["setup"]])
+                for item in welcome["tour"]["items"] + welcome["setup"]["items"]:
+                    self.assertTrue(item["title"] and item["text"], item)
+                # The website reads every block; the reader replaces the hidden ones with its own layout.
+                hidden = [chapter["blocks"][index] for index in welcome["hidden"]]
+                self.assertTrue(hidden[0].startswith("<h1>") and hidden[1].startswith("<p>"))
+                self.assertEqual(sum(block.startswith("<ul>") for block in hidden), 2)
+                self.assertTrue(any(block.startswith("<h2>") for index, block in enumerate(chapter["blocks"])
+                                    if index not in welcome["hidden"]), "further reading stays in the chapter")
+
+    def test_welcome_markers_are_validated(self):
+        definition = {"tour": ["one", "two"]}
+        good = "# Hi\n\nLead.\n\n<!-- eitr-welcome:tour -->\n## Tour\n\n- **One**: First.\n- **Two**: Second.\n<!-- /eitr-welcome:tour -->\n"
+        def parse(text):
+            return builder.welcome(definition, builder.parse_blocks(builder.markdown.markdown(text)))
+        self.assertEqual([item["title"] for item in parse(good)["tour"]["items"]], ["One", "Two"])
+        for broken in (good.replace("- **Two**: Second.\n", ""), good.replace("<!-- /eitr-welcome:tour -->", ""),
+                       good.replace("**Two**: Second.", "Two, second."), good.replace("# Hi\n\nLead.\n\n", "")):
+            with self.assertRaises(ValueError):
+                parse(broken)
+
     def test_toggle_script_does_not_need_a_positional_argument(self):
         source = (ROOT / "quickshell/desktop-bar/scripts/handbook.sh").read_text()
         source = source.replace("sleep 0.2", "true").replace("exec eitr-shell", "printf '%s\\n'")

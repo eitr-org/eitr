@@ -618,7 +618,8 @@ ShellRoot {
   if (!book.opened || book.title !== "EITR Handbook" || book.chapters.length === 0 || book.loadError) throw new Error("Handbook window/load");
   book.contentItem.children[0].grabToImage(function(result) {
    if (!result.saveToFile("TARGET/handbook-VARIANT-" + stage + ".png")) throw new Error("Handbook capture");
-   if (stage === 0) { book.chapters = book.chapters.map(chapter => chapter.id === "terminal" ? Object.assign({}, chapter, {blocks: chapter.blocks.slice(0, 1).concat(chapter.blocks.slice(21, 25))}) : chapter); book.choose("terminal"); stage++; return; }
+   if (stage === 0 && (!book.welcomeVisible || !book.chapter.welcome.tour.items.length)) throw new Error("Welcome layout");
+   if (stage === 0) { book.stepWelcome(1); book.chapters = book.chapters.map(chapter => chapter.id === "terminal" ? Object.assign({}, chapter, {blocks: chapter.blocks.slice(0, 1).concat(chapter.blocks.slice(21, 25))}) : chapter); book.choose("terminal"); stage++; return; }
    if (stage === 1) { book.choose("getting-started"); book.query = "keyboard"; stage++; return; }
    book.closed();
    if (book.opened) throw new Error("Compositor close");

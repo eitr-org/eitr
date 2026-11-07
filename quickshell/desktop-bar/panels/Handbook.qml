@@ -28,20 +28,12 @@ FamilyWindow {
     readonly property var htmlStyle: ({body: DesktopFonts.family, mono: SiteStyle.mono, carved: SiteStyle.carved, fg: String(ink),
         gold: String(SettingsInk.gold), raised: String(SettingsPalette.raised), line: String(line)})
     readonly property string welcomeChapter: "getting-started"
-    readonly property var setupSteps: [
-        {kind: "theme", icon: "󰸌", label: Eitr.I18n.tr("Choose a theme")},
-        {kind: "wallpaper", icon: "󰋩", label: Eitr.I18n.tr("Pick a wallpaper")},
-        {kind: "display", icon: "󰍹", label: Eitr.I18n.tr("Set the main display")},
-        {kind: "keyboard", icon: "󰌌", label: Eitr.I18n.tr("Add keyboard layouts")},
-        {kind: "wifi", icon: "", label: Eitr.I18n.tr("Connect to WiFi")},
-        {kind: "bluetooth", icon: "", label: Eitr.I18n.tr("Pair Bluetooth devices")},
-        {kind: "learn", icon: "󰧑", label: Eitr.I18n.tr("Learn shortcuts and gestures")}
-    ]
     property bool showAtLogin: false
     property bool offerProblemReports: false
     property bool welcomeShown: false
-    property string pendingStep: ""
-    signal setupRequested(string kind)
+    readonly property bool welcomeVisible: selectedId === welcomeChapter && loadError === "" && !!chapter && !!chapter.welcome
+    // Asks the shell to open a Settings page, such as "connections/wifi"; the welcome stays open behind it.
+    signal setupRequested(string route)
     signal welcomeChoice(string action)
     signal problemReportsChoice(bool offer)
     onOpenedChanged: {
@@ -49,11 +41,6 @@ FamilyWindow {
         // Closing the automatic welcome without asking to see it again dismisses it for good.
         if (welcomeShown && !showAtLogin) welcomeChoice("dismiss");
         welcomeShown = false;
-    }
-    onVisibleChanged: {
-        if (visible || pendingStep === "") return;
-        setupRequested(pendingStep);
-        pendingStep = "";
     }
     onSelectedIdChanged: articleScroll.contentY = 0
     function choose(id) {
@@ -69,12 +56,8 @@ FamilyWindow {
     function scrollBy(distance) {
         articleScroll.contentY = Math.max(0, Math.min(articleScroll.contentY + distance, articleScroll.contentHeight - articleScroll.height));
     }
-    // A setup step closes the handbook, then opens its workflow once the window is gone.
-    function openStep(kind) {
-        if (kind === "learn") { choose("shortcuts"); return; }
-        pendingStep = kind;
-        opened = false;
-    }
+    function openStep(route) { setupRequested(route); }
+    function stepWelcome(delta) { welcomePage.step(delta); }
     // The first-login welcome, opened by the shell once it has read the saved state.
     function showWelcome(pending) {
         showAtLogin = pending;
@@ -87,6 +70,7 @@ FamilyWindow {
         if (target.chapter) choose(target.chapter);
         else if (target.external) Qt.openUrlExternally(target.external);
     }
+    CurrentWallpaper { id: wallpaper; live: book.opened }
     FileView {
         id: catalog
         path: Quickshell.shellDir + "/handbook/" + (Eitr.I18n.locale === "en" ? "catalog.json" : "catalogs/" + Eitr.I18n.locale + ".json")
@@ -133,6 +117,7 @@ FamilyWindow {
             else if ((event.modifiers & Qt.ControlModifier) && event.key === Qt.Key_End) { book.scrollBy(articleScroll.contentHeight); event.accepted = true; }
             else if ((event.modifiers & Qt.AltModifier) && event.key === Qt.Key_Left && book.selectedIndex > 0) { book.choose(book.chapters[book.selectedIndex - 1].id); event.accepted = true; }
             else if ((event.modifiers & Qt.AltModifier) && event.key === Qt.Key_Right && book.selectedIndex + 1 < book.chapters.length) { book.choose(book.chapters[book.selectedIndex + 1].id); event.accepted = true; }
+            else if (book.welcomeVisible && !event.modifiers && (event.key === Qt.Key_Left || event.key === Qt.Key_Right)) { book.stepWelcome(event.key === Qt.Key_Left ? -1 : 1); event.accepted = true; }
         }
         Rectangle {
             id: surface
@@ -181,69 +166,31 @@ FamilyWindow {
                     width: articleScroll.width - 16
                     spacing: 16
                     FamilyPageHeader {
-                        visible: !!book.chapter
+                        visible: !!book.chapter && !book.welcomeVisible
                         foreground: book.ink
                         rune: book.chapterGroup.rune
                         group: book.chapterGroup.name
                         title: book.chapter ? book.chapter.title : ""
                         description: book.chapter ? book.chapter.summary || "" : ""
                     }
-                    ControlCard {
-                        id: welcomeSetup
-                        visible: book.selectedId === book.welcomeChapter && book.loadError === ""
-                        surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
-                        title: Eitr.I18n.tr("First steps"); foreground: book.ink
-                        Flow {
-                            width: parent.width
-                            spacing: PanelStyle.selectionRowGap
-                            Repeater {
-                                model: book.setupSteps
-                                PanelButton {
-                                    required property var modelData
-                                    width: welcomeSetup.width < 572 ? parent.width : (parent.width - PanelStyle.selectionRowGap) / 2
-                                    height: 40
-                                    text: modelData.label
-                                    leadingIcon: modelData.icon
-                                    textAlignment: Text.AlignLeft
-                                    outlined: true
-                                    foreground: book.ink
-                                    onClicked: book.openStep(modelData.kind)
-                                }
-                            }
-                        }
-                        ControlRow {
-                            text: Eitr.I18n.tr("Show this welcome at the next login")
-                            description: ""
-                            foreground: book.ink
-                            controlWidth: 48
-                            PanelSwitch {
-                                id: loginSwitch
-                                objectName: "handbookShowAtLoginSwitch"
-                                anchors.right: parent.right
-                                checked: book.showAtLogin
-                                foreground: book.ink
-                                accent: SettingsPalette.accent
-                                onToggled: { book.showAtLogin = checked; book.welcomeChoice(checked ? "remind" : "dismiss"); }
-                            }
-                        }
-                        ControlRow {
-                            text: Eitr.I18n.tr("Offer to report problems when something breaks")
-                            description: Eitr.I18n.tr("Nothing is sent automatically. You read each report first and choose whether to email it or open a GitHub issue; your name, computer name and network addresses are removed.")
-                            foreground: book.ink
-                            controlWidth: 48
-                            PanelSwitch {
-                                id: reportsSwitch
-                                objectName: "handbookProblemReportsSwitch"
-                                anchors.right: parent.right
-                                checked: book.offerProblemReports
-                                foreground: book.ink
-                                accent: SettingsPalette.accent
-                                onToggled: { book.offerProblemReports = checked; book.problemReportsChoice(checked); }
-                            }
-                        }
+                    WelcomePage {
+                        id: welcomePage
+                        visible: book.welcomeVisible
+                        welcome: book.chapter && book.chapter.welcome || ({})
+                        artSource: wallpaper.source
+                        caption: book.chapterGroup.rune + "  " + book.chapterGroup.name.toLocaleUpperCase()
+                        moreTitles: Model.sectionTitles(Model.articleBlocks(book.chapter))
+                        active: book.opened && book.welcomeVisible
+                        foreground: book.ink; background: book.color; accent: SettingsPalette.accent
+                        showAtLogin: book.showAtLogin
+                        offerProblemReports: book.offerProblemReports
+                        onSetupRequested: route => book.openStep(route)
+                        onShowAtLoginToggled: checked => { book.showAtLogin = checked; book.welcomeChoice(checked ? "remind" : "dismiss"); }
+                        onProblemReportsToggled: checked => { book.offerProblemReports = checked; book.problemReportsChoice(checked); }
                     }
                     Text { visible: book.loadError !== ""; width: parent.width; wrapMode: Text.Wrap; text: book.loadError; color: book.ink; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
                     Column {
+                        visible: !book.welcomeVisible || welcomePage.expanded
                         width: parent.width
                         spacing: 12
                         Repeater {

@@ -64,15 +64,10 @@ Flickable {
             catch (error) { console.warn("Invalid release metadata:", error); }
         }
     }
-    FileView {
+    CurrentWallpaper {
         id: appearance
-        path: overview.live ? Eitr.Paths.config("eitr/appearance.json") : ""
-        printErrors: false; watchChanges: overview.observing
-        onFileChanged: if (overview.observing) reload()
-        onLoaded: {
-            try { const path = Eitr.Paths.settings(text()).wallpaper || ""; overview.artSource = path ? "file://" + path : ""; }
-            catch (error) { console.warn("Invalid appearance settings:", error); }
-        }
+        live: overview.live; watching: overview.observing
+        onSourceChanged: overview.artSource = source
     }
     PreferenceWatch {
         path: overview.live ? Eitr.Paths.config("theme/current/colors.toml") : ""
@@ -159,29 +154,10 @@ Flickable {
                 Caption { text: Eitr.I18n.tr("Your desktop, at a glance") }
             }
         }
-        Rectangle {
+        WallpaperArt {
             width: parent.width; height: Math.max(180, Math.min(240, overview.height * 0.28))
-            radius: DesktopStyle.radius(16); color: Qt.tint(overview.background, Qt.alpha(overview.accent, 0.12)); clip: true
-            Image { anchors.fill: parent; source: overview.artSource; fillMode: Image.PreserveAspectCrop; sourceSize: Qt.size(width * Screen.devicePixelRatio, height * Screen.devicePixelRatio) }
-            Canvas {
-                anchors.fill: parent
-                property real corner: parent.radius
-                property color ink: overview.background
-                onCornerChanged: requestPaint()
-                onInkChanged: requestPaint()
-                onWidthChanged: requestPaint()
-                onHeightChanged: requestPaint()
-                onPaint: {
-                    const context = getContext("2d");
-                    context.reset(); context.fillStyle = ink;
-                    context.beginPath(); context.rect(0, 0, width, height);
-                    context.moveTo(corner, 0); context.quadraticCurveTo(0, 0, 0, corner);
-                    context.lineTo(0, height - corner); context.quadraticCurveTo(0, height, corner, height);
-                    context.lineTo(width - corner, height); context.quadraticCurveTo(width, height, width, height - corner);
-                    context.lineTo(width, corner); context.quadraticCurveTo(width, 0, width - corner, 0);
-                    context.closePath(); context.fill();
-                }
-            }
+            radius: DesktopStyle.radius(16); color: Qt.tint(overview.background, Qt.alpha(overview.accent, 0.12))
+            source: overview.artSource; surround: overview.background
             Caption { visible: !overview.artSource.toString(); anchors.centerIn: parent; text: Eitr.I18n.tr("Current wallpaper") }
         }
         Row {

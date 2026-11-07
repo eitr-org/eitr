@@ -45,6 +45,9 @@ const book = [
 assert.deepStrictEqual(Array.from(context.articleBlocks(book[0])), ["<p>Text</p>"], "the page header replaces the leading title");
 assert.deepStrictEqual(Array.from(context.articleBlocks(book[1])), ["<p>Bar</p>"]);
 assert.equal(context.articleBlocks(null).length, 0);
+const welcome = {id: "start", blocks: ["<h1>Welcome</h1>", "<p>Lead</p>", "<h2>Tour</h2>", "<ul><li>Step</li></ul>", "<h2>More</h2>"], welcome: {hidden: [0, 1, 2, 3]}};
+assert.deepStrictEqual(Array.from(context.articleBlocks(welcome)), ["<h2>More</h2>"], "the welcome draws its own hero, tour and setup cards");
+assert.deepStrictEqual(Array.from(context.sectionTitles(["<h2>Good <code>to</code> know</h2>", "<p>Text</p>", "<h2>Q&amp;A</h2>", "<h3>Deep</h3>"])), ["Good to know", "Q&A"]);
 const rows = context.sidebarEntries(book, book, "");
 assert.deepStrictEqual(Array.from(rows, row => row.group), ["Begin", "Desktop", "Desktop"]);
 assert.equal(rows[1].groupRune, rows[2].groupRune, "a group shares one rune");

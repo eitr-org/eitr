@@ -7,31 +7,112 @@
       "icon": "󰋜",
       "group": "Start",
       "summary": "First login, desktop essentials, where to find help",
-      "figures": [
-        {
-          "src": "assets/reader.png",
-          "caption": "The native EITR Handbook overlay, shown with an example dark palette."
+      "welcome": {
+        "title": "Welcome to Eitr",
+        "lead": "Your new desktop is ready. Take the short tour, set up the essentials, then make it your own.",
+        "hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "tour": {
+          "title": "A quick tour",
+          "intro": "",
+          "items": [
+            {
+              "id": "bar",
+              "title": "Desktop Bar",
+              "text": "Workspaces, the clock and your status icons live along the screen edge. Click any icon to open its panel."
+            },
+            {
+              "id": "launcher",
+              "title": "The launcher",
+              "text": "Press <strong>SUPER + Space</strong> for your apps, or <strong>SUPER + F</strong> for every menu. Start typing to search, then press Enter."
+            },
+            {
+              "id": "settings",
+              "title": "Settings",
+              "text": "Press <strong>SUPER + ,</strong> for displays, sound, keyboard, appearance and more. Every page is searchable."
+            },
+            {
+              "id": "control-center",
+              "title": "Control Center",
+              "text": "Press <strong>SUPER + I</strong> for quick toggles, screen capture and a quick chat with your assistant."
+            },
+            {
+              "id": "themes",
+              "title": "Themes",
+              "text": "A theme colors the whole desktop and brings its own wallpapers. Switch any time, or create your own."
+            }
+          ]
+        },
+        "setup": {
+          "title": "Set up the essentials",
+          "intro": "On the desktop, each of these opens its page in Settings.",
+          "items": [
+            {
+              "id": "wifi",
+              "route": "connections/wifi",
+              "icon": "󰖩",
+              "title": "Wi-Fi",
+              "text": "Join a network or pair Bluetooth devices."
+            },
+            {
+              "id": "appearance",
+              "route": "appearance/theme",
+              "icon": "󰸌",
+              "title": "Theme &amp; Wallpaper",
+              "text": "Choose the colors and art you want to see every day."
+            },
+            {
+              "id": "keyboard",
+              "route": "input",
+              "icon": "󰌌",
+              "title": "Keyboard",
+              "text": "Add, order and switch your keyboard layouts."
+            },
+            {
+              "id": "picture",
+              "route": "user",
+              "icon": "󰀄",
+              "title": "Profile picture",
+              "text": "Choose the picture shown with your account."
+            },
+            {
+              "id": "displays",
+              "route": "displays",
+              "icon": "󰍹",
+              "title": "Displays",
+              "text": "Set the resolution and scale of each connected screen."
+            }
+          ]
         }
-      ],
-      "markdown": "# Welcome to EITR\n\nEITR combines an Arch Linux system, Hyprland windows, the Quickshell desktop bar\nand Walker menus. **SUPER** means the Windows/Command-logo key on your keyboard.\n\nThe buttons above this text set up the essentials: each one closes the handbook\nand opens its setting. This chapter opens by itself at the first login; turn on\n**Show this welcome at the next login** to see it again, or reopen it any time\nfrom **Learn > EITR Handbook**.\n\n**Offer to report problems when something breaks** is on by default and shares the Crash Notifications setting. When one of your programs crashes, a notification offers help or a report for you to review and send; see [Troubleshooting](handbook:troubleshooting).\n\n## Your first few minutes\n\n1. Press **SUPER + F** for the main menu. Start typing to search actions across\n   submenus and installed apps. Enter opens a result; Escape closes the menu.\n2. Press **SUPER + Space** for Apps, or **SUPER + Enter** for a terminal.\n3. Open **SUPER + I** for the Control Center's quick toggles, or **SUPER + ,** for\n   Settings: keyboard, displays, night light and appearance.\n4. Connect from the WiFi or Bluetooth icon. Right-side bar icons may be hidden:\n   click the Show Icons arrow to reveal them.\n5. Choose a theme from **Settings > Style > Theme**, then a wallpaper from **Settings > Style > Wallpaper**.\n\nFresh EITR defaults are **Eitr** and the **Clockwork Tape** lockscreen.\nExisting desktops keep their saved choices.\n\n## Learn at your own pace\n\nOpen **Learn > EITR Handbook** or press **SUPER + F1**. Press the same shortcut\nagain while the window is focused, Escape, the close button or the compositor close to dismiss this window; clicking beside it\nkeeps it open. It does not tile beside your apps. Search matches chapter titles and text;\nUp/Down pick a match and Enter opens it. **Ctrl + F** focuses search. The sidebar\ngroups chapters under rune captions, like Settings.\n**Page Up/Page Down** scroll the chapter, **Ctrl + Home/End** jump to its start\nor end, and **Alt + Left/Right** moves between chapters. Previous and Next do\nthe same with the mouse.\n\nThe handbook does not run commands. Code blocks are examples for you to inspect\nand copy deliberately. External reference links open only when clicked.\n\nContinue with [Shortcuts](handbook:shortcuts),\n[Desktop Bar](handbook:desktop-bar), or the [Settings Menu](handbook:system).\n\n<!-- eitr-overview -->\n## What Eitr includes\n\nEitr combines Arch Linux and Hyprland with a desktop designed around Walker's searchable menus and a Quickshell bar. Choose Full, Centered, Tabs, Islands or Dynamic layouts; panels bring together connectivity, audio, displays, hardware, notifications, weather and workspaces. Themes coordinate the desktop, and you can create your own themes.\n\nSystem Update handles official, AUR and Flatpak updates, with snapshots on supported distro installs. The boot guard can recover a failed update before login. Factory reset requires a supported install and its first-login baseline, warnings and typed confirmation. The installer supports an offline package payload; recovery and installation depend on the documented supported layouts.\n\nSteam comes installed with GameMode, MangoHud and gamescope; Install > Gaming offers more. HDR controls appear for capable displays; an installed game client or HDR monitor does not guarantee every game works. Development menus offer editors, runtimes, Docker and AI assistants. Git Accounts separates identities by folder; cloud menus keep provider contexts visible. Availability depends on what is installed and configured.\n\nCalendars and reminders help plan the day. Dictation turns speech into text after setup. Remote-access tools include Moonlight, Sunshine and Tailscale; install and configure the tools you need. Plugins extend Eitr through its plugin workflow. Desktop translations support English, Brazilian Portuguese, Spanish, French and German. The offline Handbook explains shortcuts, settings, setup and recovery without sending your questions anywhere. Control Center quick chat uses your selected assistant and sends its conversation plus a limited machine summary and Handbook context; it cannot run commands or change settings.\n<!-- /eitr-overview -->\n\nThe Handbook is a movable, resizable window. It remembers its size; the shortcut brings an open window back into focus.\n",
+      },
+      "markdown": "# Welcome to Eitr\n\nYour new desktop is ready. Take the short tour, set up the essentials, then make it your own.\n\n<!-- eitr-welcome:tour -->\n## A quick tour\n\n- **Desktop Bar**: Workspaces, the clock and your status icons live along the screen edge. Click any icon to open its panel.\n- **The launcher**: Press **SUPER + Space** for your apps, or **SUPER + F** for every menu. Start typing to search, then press Enter.\n- **Settings**: Press **SUPER + ,** for displays, sound, keyboard, appearance and more. Every page is searchable.\n- **Control Center**: Press **SUPER + I** for quick toggles, screen capture and a quick chat with your assistant.\n- **Themes**: A theme colors the whole desktop and brings its own wallpapers. Switch any time, or create your own.\n<!-- /eitr-welcome:tour -->\n\n<!-- eitr-welcome:setup -->\n## Set up the essentials\n\nOn the desktop, each of these opens its page in Settings.\n\n- **Wi-Fi**: Join a network or pair Bluetooth devices.\n- **Theme & Wallpaper**: Choose the colors and art you want to see every day.\n- **Keyboard**: Add, order and switch your keyboard layouts.\n- **Profile picture**: Choose the picture shown with your account.\n- **Displays**: Set the resolution and scale of each connected screen.\n<!-- /eitr-welcome:setup -->\n\n## Good to know\n\n**SUPER** is the Windows or Command logo key. **SUPER + Enter** opens a terminal. Right-side bar icons may be hidden: click the arrow to reveal them. Fresh installs start with the **Eitr** theme and the **Clockwork Tape** lockscreen; existing desktops keep their choices.\n\nThis welcome opens by itself at the first login. Turn on **Show this welcome at the next login** to see it again, or reopen it from **Learn > EITR Handbook** or **SUPER + F1**.\n\n**Offer to report problems when something breaks** is on by default and shares the Crash Notifications setting: when a program crashes, a notification offers help or a report you review before sending. See [Troubleshooting](handbook:troubleshooting).\n\n## Learn at your own pace\n\nSearch finds chapter titles and text: **Ctrl + F** focuses it, Up/Down pick a match and Enter opens it. **Page Up/Page Down** scroll, **Ctrl + Home/End** jump to the start or end, and **Alt + Left/Right** move between chapters, like Previous and Next. Escape, the close button or the shortcut closes the window; a click beside it does not.\n\nThe handbook never runs commands. Code blocks are examples to read and copy deliberately, and external links open only when you click them. Continue with [Shortcuts](handbook:shortcuts), [Desktop Bar](handbook:desktop-bar) or the [Settings Menu](handbook:system).\n\n<!-- eitr-overview -->\n## What Eitr includes\n\nEitr combines Arch Linux and Hyprland with a desktop designed around Walker's searchable menus and a Quickshell bar. Choose Full, Centered, Tabs, Islands or Dynamic layouts; panels bring together connectivity, audio, displays, hardware, notifications, weather and workspaces. Themes coordinate the desktop, and you can create your own themes.\n\nSystem Update handles official, AUR and Flatpak updates, with snapshots on supported distro installs. The boot guard can recover a failed update before login. Factory reset requires a supported install and its first-login baseline, warnings and typed confirmation. The installer supports an offline package payload; recovery and installation depend on the documented supported layouts.\n\nSteam comes installed with GameMode, MangoHud and gamescope; Install > Gaming offers more. HDR controls appear for capable displays; an installed game client or HDR monitor does not guarantee every game works. Development menus offer editors, runtimes, Docker and AI assistants. Git Accounts separates identities by folder; cloud menus keep provider contexts visible. Availability depends on what is installed and configured.\n\nCalendars and reminders help plan the day. Dictation turns speech into text after setup. Remote-access tools include Moonlight, Sunshine and Tailscale; install and configure the tools you need. Plugins extend Eitr through its plugin workflow. Desktop translations support English, Brazilian Portuguese, Spanish, French and German. The offline Handbook explains shortcuts, settings, setup and recovery without sending your questions anywhere. Control Center quick chat uses your selected assistant and sends its conversation plus a limited machine summary and Handbook context; it cannot run commands or change settings.\n<!-- /eitr-overview -->\n",
       "blocks": [
-        "<h1>Welcome to EITR</h1>",
-        "<p>EITR combines an Arch Linux system, Hyprland windows, the Quickshell desktop bar\nand Walker menus. <strong>SUPER</strong> means the Windows/Command-logo key on your keyboard.</p>",
-        "<p>The buttons above this text set up the essentials: each one closes the handbook\nand opens its setting. This chapter opens by itself at the first login; turn on\n<strong>Show this welcome at the next login</strong> to see it again, or reopen it any time\nfrom <strong>Learn &gt; EITR Handbook</strong>.</p>",
-        "<p><strong>Offer to report problems when something breaks</strong> is on by default and shares the Crash Notifications setting. When one of your programs crashes, a notification offers help or a report for you to review and send; see <a href=\"handbook:troubleshooting\">Troubleshooting</a>.</p>",
-        "<h2>Your first few minutes</h2>",
-        "<ol>\n<li>Press <strong>SUPER + F</strong> for the main menu. Start typing to search actions across\n   submenus and installed apps. Enter opens a result; Escape closes the menu.</li>\n<li>Press <strong>SUPER + Space</strong> for Apps, or <strong>SUPER + Enter</strong> for a terminal.</li>\n<li>Open <strong>SUPER + I</strong> for the Control Center's quick toggles, or <strong>SUPER + ,</strong> for\n   Settings: keyboard, displays, night light and appearance.</li>\n<li>Connect from the WiFi or Bluetooth icon. Right-side bar icons may be hidden:\n   click the Show Icons arrow to reveal them.</li>\n<li>Choose a theme from <strong>Settings &gt; Style &gt; Theme</strong>, then a wallpaper from <strong>Settings &gt; Style &gt; Wallpaper</strong>.</li>\n</ol>",
-        "<p>Fresh EITR defaults are <strong>Eitr</strong> and the <strong>Clockwork Tape</strong> lockscreen.\nExisting desktops keep their saved choices.</p>",
+        "<h1>Welcome to Eitr</h1>",
+        "<p>Your new desktop is ready. Take the short tour, set up the essentials, then make it your own.</p>",
+        "<h2>A quick tour</h2>",
+        "<ul>\n<li><strong>Desktop Bar</strong>: Workspaces, the clock and your status icons live along the screen edge. Click any icon to open its panel.</li>\n<li><strong>The launcher</strong>: Press <strong>SUPER + Space</strong> for your apps, or <strong>SUPER + F</strong> for every menu. Start typing to search, then press Enter.</li>\n<li><strong>Settings</strong>: Press <strong>SUPER + ,</strong> for displays, sound, keyboard, appearance and more. Every page is searchable.</li>\n<li><strong>Control Center</strong>: Press <strong>SUPER + I</strong> for quick toggles, screen capture and a quick chat with your assistant.</li>\n<li><strong>Themes</strong>: A theme colors the whole desktop and brings its own wallpapers. Switch any time, or create your own.</li>\n</ul>",
+        "<h2>Set up the essentials</h2>",
+        "<p>On the desktop, each of these opens its page in Settings.</p>",
+        "<ul>\n<li><strong>Wi-Fi</strong>: Join a network or pair Bluetooth devices.</li>\n<li><strong>Theme &amp; Wallpaper</strong>: Choose the colors and art you want to see every day.</li>\n<li><strong>Keyboard</strong>: Add, order and switch your keyboard layouts.</li>\n<li><strong>Profile picture</strong>: Choose the picture shown with your account.</li>\n<li><strong>Displays</strong>: Set the resolution and scale of each connected screen.</li>\n</ul>",
+        "<h2>Good to know</h2>",
+        "<p><strong>SUPER</strong> is the Windows or Command logo key. <strong>SUPER + Enter</strong> opens a terminal. Right-side bar icons may be hidden: click the arrow to reveal them. Fresh installs start with the <strong>Eitr</strong> theme and the <strong>Clockwork Tape</strong> lockscreen; existing desktops keep their choices.</p>",
+        "<p>This welcome opens by itself at the first login. Turn on <strong>Show this welcome at the next login</strong> to see it again, or reopen it from <strong>Learn &gt; EITR Handbook</strong> or <strong>SUPER + F1</strong>.</p>",
+        "<p><strong>Offer to report problems when something breaks</strong> is on by default and shares the Crash Notifications setting: when a program crashes, a notification offers help or a report you review before sending. See <a href=\"handbook:troubleshooting\">Troubleshooting</a>.</p>",
         "<h2>Learn at your own pace</h2>",
-        "<p>Open <strong>Learn &gt; EITR Handbook</strong> or press <strong>SUPER + F1</strong>. Press the same shortcut\nagain while the window is focused, Escape, the close button or the compositor close to dismiss this window; clicking beside it\nkeeps it open. It does not tile beside your apps. Search matches chapter titles and text;\nUp/Down pick a match and Enter opens it. <strong>Ctrl + F</strong> focuses search. The sidebar\ngroups chapters under rune captions, like Settings.\n<strong>Page Up/Page Down</strong> scroll the chapter, <strong>Ctrl + Home/End</strong> jump to its start\nor end, and <strong>Alt + Left/Right</strong> moves between chapters. Previous and Next do\nthe same with the mouse.</p>",
-        "<p>The handbook does not run commands. Code blocks are examples for you to inspect\nand copy deliberately. External reference links open only when clicked.</p>",
-        "<p>Continue with <a href=\"handbook:shortcuts\">Shortcuts</a>,\n<a href=\"handbook:desktop-bar\">Desktop Bar</a>, or the <a href=\"handbook:system\">Settings Menu</a>.</p>",
+        "<p>Search finds chapter titles and text: <strong>Ctrl + F</strong> focuses it, Up/Down pick a match and Enter opens it. <strong>Page Up/Page Down</strong> scroll, <strong>Ctrl + Home/End</strong> jump to the start or end, and <strong>Alt + Left/Right</strong> move between chapters, like Previous and Next. Escape, the close button or the shortcut closes the window; a click beside it does not.</p>",
+        "<p>The handbook never runs commands. Code blocks are examples to read and copy deliberately, and external links open only when you click them. Continue with <a href=\"handbook:shortcuts\">Shortcuts</a>, <a href=\"handbook:desktop-bar\">Desktop Bar</a> or the <a href=\"handbook:system\">Settings Menu</a>.</p>",
         "<h2>What Eitr includes</h2>",
         "<p>Eitr combines Arch Linux and Hyprland with a desktop designed around Walker's searchable menus and a Quickshell bar. Choose Full, Centered, Tabs, Islands or Dynamic layouts; panels bring together connectivity, audio, displays, hardware, notifications, weather and workspaces. Themes coordinate the desktop, and you can create your own themes.</p>",
         "<p>System Update handles official, AUR and Flatpak updates, with snapshots on supported distro installs. The boot guard can recover a failed update before login. Factory reset requires a supported install and its first-login baseline, warnings and typed confirmation. The installer supports an offline package payload; recovery and installation depend on the documented supported layouts.</p>",
         "<p>Steam comes installed with GameMode, MangoHud and gamescope; Install &gt; Gaming offers more. HDR controls appear for capable displays; an installed game client or HDR monitor does not guarantee every game works. Development menus offer editors, runtimes, Docker and AI assistants. Git Accounts separates identities by folder; cloud menus keep provider contexts visible. Availability depends on what is installed and configured.</p>",
-        "<p>Calendars and reminders help plan the day. Dictation turns speech into text after setup. Remote-access tools include Moonlight, Sunshine and Tailscale; install and configure the tools you need. Plugins extend Eitr through its plugin workflow. Desktop translations support English, Brazilian Portuguese, Spanish, French and German. The offline Handbook explains shortcuts, settings, setup and recovery without sending your questions anywhere. Control Center quick chat uses your selected assistant and sends its conversation plus a limited machine summary and Handbook context; it cannot run commands or change settings.</p>",
-        "<p>The Handbook is a movable, resizable window. It remembers its size; the shortcut brings an open window back into focus.</p>"
+        "<p>Calendars and reminders help plan the day. Dictation turns speech into text after setup. Remote-access tools include Moonlight, Sunshine and Tailscale; install and configure the tools you need. Plugins extend Eitr through its plugin workflow. Desktop translations support English, Brazilian Portuguese, Spanish, French and German. The offline Handbook explains shortcuts, settings, setup and recovery without sending your questions anywhere. Control Center quick chat uses your selected assistant and sends its conversation plus a limited machine summary and Handbook context; it cannot run commands or change settings.</p>"
       ]
     },
     {

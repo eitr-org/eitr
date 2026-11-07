@@ -6,12 +6,16 @@
     "group": "Start",
     "summary": "First login, desktop essentials, where to find help",
     "source": "quickshell/desktop-bar/handbook/content/getting-started.md",
-    "figures": [
-      {
-        "src": "assets/reader.png",
-        "caption": "The native EITR Handbook overlay, shown with an example dark palette."
-      }
-    ]
+    "welcome": {
+      "tour": ["bar", "launcher", "settings", "control-center", "themes"],
+      "setup": [
+        {"id": "wifi", "route": "connections/wifi", "icon": "󰖩"},
+        {"id": "appearance", "route": "appearance/theme", "icon": "󰸌"},
+        {"id": "keyboard", "route": "input", "icon": "󰌌"},
+        {"id": "picture", "route": "user", "icon": "󰀄"},
+        {"id": "displays", "route": "displays", "icon": "󰍹"}
+      ]
+    }
   },
   {
     "id": "shortcuts",

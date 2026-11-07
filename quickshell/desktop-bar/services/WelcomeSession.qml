@@ -16,15 +16,8 @@ Scope {
         accent: host.activeBg
         screen: host.targetScreens()[0] || null
         onOpenedChanged: if (opened) host.handbookOpened()
-        onSetupRequested: function(kind) {
-            // Layouts are added in Walker's Keyboard menu; the bar panel only switches them.
-            if (kind === "keyboard") {
-                Quickshell.execDetached([Eitr.Paths.code("walker/bin/walker"), "--provider", "menus:keyboard"]);
-                return;
-            }
-            var script = kind === "theme" || kind === "wallpaper" ? "appearance-picker.sh" : "show-panel.sh";
-            Quickshell.execDetached(["bash", Quickshell.shellDir + "/scripts/" + script, kind]);
-        }
+        // The welcome's setup cards open their Settings page, such as "connections/wifi".
+        onSetupRequested: function(route) { host.showSettings(route); }
         onWelcomeChoice: function(action) { Quickshell.execDetached(session.welcomeCommand(action)); }
         onProblemReportsChoice: function(offer) {
             Quickshell.execDetached(session.problemReportsCommand(["set", offer ? "on" : "off"]));
