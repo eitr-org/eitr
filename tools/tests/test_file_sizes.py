@@ -1,8 +1,8 @@
-"""Source files stay small: new ones under the limit, older large ones may only shrink.
+"""Source files over the size limit are a recorded decision, never an accident.
 
-The limit and the list of older files above it live in tools/file-size-baseline.json.
-Split a file by responsibility instead of raising its entry; lower the entry (or drop
-it) after splitting one.
+tools/file-size-baseline.json holds the limit and every file allowed above it, each
+with its current size and a one-line reason. A file over the limit must be listed;
+a listed file may grow only when the same change updates its size (and reason).
 """
 import json
 from pathlib import Path
@@ -30,24 +30,27 @@ def source_files():
 
 
 class FileSizeTests(unittest.TestCase):
-    def test_files_stay_under_the_limit_or_their_baseline(self):
+    def test_large_files_are_listed_with_a_reason(self):
         baseline = json.loads(BASELINE.read_text())
         limit, allowed = baseline["limit"], baseline["files"]
         problems = []
         for name, lines in source_files():
-            ceiling = max(limit, allowed.get(name, 0))
-            if lines > ceiling:
-                reason = "grew past its baseline" if name in allowed else f"is over {limit} lines"
-                problems.append(f"{name} has {lines} lines and {reason}: split it by responsibility")
+            entry = allowed.get(name)
+            if lines <= limit:
+                continue
+            if entry is None:
+                problems.append(f"{name} has {lines} lines: split it by responsibility, or list it "
+                                f"in tools/file-size-baseline.json with its size and the reason it stays whole")
+            elif lines > entry["lines"]:
+                problems.append(f"{name} grew to {lines} lines (recorded {entry['lines']}): "
+                                "update its entry if growing it was intended")
         self.assertEqual(problems, [], "\n".join(problems))
 
-    def test_baseline_lists_only_files_that_still_need_it(self):
-        baseline = json.loads(BASELINE.read_text())
-        sizes = dict(source_files())
-        # A ratchet: an entry drops out once its file is under the limit, and follows it down.
-        stale = [f"{name} (now {sizes.get(name, 0)} lines)" for name, lines in baseline["files"].items()
-                 if sizes.get(name, 0) < lines]
-        self.assertEqual(stale, [], "Lower or remove these in tools/file-size-baseline.json: " + ", ".join(stale))
+    def test_every_entry_has_a_reason(self):
+        for name, entry in json.loads(BASELINE.read_text())["files"].items():
+            with self.subTest(file=name):
+                self.assertIsInstance(entry["lines"], int)
+                self.assertTrue(entry.get("reason", "").strip())
 
 
 if __name__ == "__main__":

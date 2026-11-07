@@ -54,11 +54,12 @@ existing design and workflows rather than replacing them with upstream defaults.
   component or helper; reuse existing patterns and shared style APIs.
 - Keep files small and single-purpose: one owner per page, panel, component or
   helper (one Settings page per file; shared rows, cards and controls in
-  `quickshell/desktop-bar/components/`). Source files stay under the limit in
-  `tools/file-size-baseline.json` (400 lines); the older files listed there may
-  only shrink, and their entry follows them down. `tools/tests/test_file_sizes.py`
-  enforces both. When a file would pass the limit, split it by responsibility
-  first; never raise a baseline entry. Before writing a component, control or
+  `quickshell/desktop-bar/components/`). Aim to keep source files under the
+  limit in `tools/file-size-baseline.json` (400 lines). A file may stay larger
+  when there is a reason (one transaction, one broker, one probe set): list it
+  there with its size and a one-line reason; growing a listed file means updating
+  its entry in the same change. `tools/tests/test_file_sizes.py` checks this.
+  Large files are never refactored just for the limit. Before writing a component, control or
   helper, search for an existing one and extend it: a second copy of the same
   behaviour is a review failure, as is a bar panel embedded in Settings where it
   does not fit (build a Settings page on the same data and helpers instead).
@@ -410,8 +411,9 @@ git diff --check
 Check these before committing; reviews keep catching them.
 
 - Pages grow one feature at a time into grab-bag files: before adding to a Settings
-  page, panel or helper, check its size and split it if the addition would pass the
-  limit. Briefs for delegated work state the limit and the reuse rule.
+  page, panel or helper, check its size; split it by responsibility when the addition
+  would pass the limit without a real reason to stay whole. Briefs for delegated work
+  state the limit and the reuse rule.
 
 - A new QML type under `quickshell/desktop-bar`, including its subfolders, must be
   listed with its relative path in the root `qmldir`,

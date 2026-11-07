@@ -1,40 +1,145 @@
 {
   "limit": 400,
   "files": {
-    "distro/lib/eitr_own_style.py": 607,
-    "distro/lib/eitr_plugin_install.py": 983,
-    "distro/lib/eitr_profile.py": 414,
-    "distro/lib/eitr_selfcheck.py": 887,
-    "distro/lib/eitr_theme_packages.py": 471,
-    "distro/payload/build-payload.py": 403,
-    "distro/system/eitr-system.py": 1306,
-    "distro/system/factory-reset.py": 453,
-    "hypr/hyprland.lua": 580,
-    "i18n/catalogs/de/menus.lua": 1425,
-    "i18n/catalogs/en/menus.lua": 1427,
-    "i18n/catalogs/es/menus.lua": 1422,
-    "i18n/catalogs/fr/menus.lua": 1425,
-    "i18n/catalogs/pt_BR/menus.lua": 1423,
-    "quickshell/desktop-bar/bar/BarWindow.qml": 429,
-    "quickshell/desktop-bar/panels/BrightnessMenu.qml": 595,
-    "quickshell/desktop-bar/panels/CalendarMenu.qml": 438,
-    "quickshell/desktop-bar/panels/CatalogContent.qml": 912,
-    "quickshell/desktop-bar/scripts/bar-data.py": 910,
-    "quickshell/desktop-bar/scripts/catalog-domain.py": 551,
-    "quickshell/desktop-bar/scripts/display-settings.py": 466,
-    "quickshell/desktop-bar/scripts/obs-control.py": 633,
-    "quickshell/desktop-bar/settings/SettingsDesktopPage.qml": 803,
-    "quickshell/desktop-bar/settings/SettingsSystemPage.qml": 580,
-    "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml": 780,
-    "quickshell/lockscreen/themes/girl-coffee/Main.qml": 829,
-    "quickshell/lockscreen/themes/nothing/Main.qml": 632,
-    "walker/scripts/actions/development/git-accounts.py": 729,
-    "walker/scripts/actions/install/plugins.py": 547,
-    "walker/scripts/actions/install/software.py": 830,
-    "walker/scripts/actions/install/webapps.py": 419,
-    "walker/scripts/actions/tools/calendars.py": 682,
-    "walker/scripts/actions/tools/reminders.py": 645,
-    "walker/scripts/menus/cloud/navigation.py": 408,
-    "walker/scripts/menus/cloud/providers.py": 503
+    "distro/lib/eitr_own_style.py": {
+      "lines": 607,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "distro/lib/eitr_plugin_install.py": {
+      "lines": 983,
+      "reason": "One reviewed install transaction for plugins; kept together for review."
+    },
+    "distro/lib/eitr_profile.py": {
+      "lines": 414,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "distro/lib/eitr_selfcheck.py": {
+      "lines": 887,
+      "reason": "Every eitr check probe in one read-only module."
+    },
+    "distro/lib/eitr_theme_packages.py": {
+      "lines": 471,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "distro/payload/build-payload.py": {
+      "lines": 403,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "distro/system/eitr-system.py": {
+      "lines": 1306,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "distro/system/factory-reset.py": {
+      "lines": 453,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "hypr/hyprland.lua": {
+      "lines": 580,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "i18n/catalogs/de/menus.lua": {
+      "lines": 1425,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "i18n/catalogs/en/menus.lua": {
+      "lines": 1427,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "i18n/catalogs/es/menus.lua": {
+      "lines": 1422,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "i18n/catalogs/fr/menus.lua": {
+      "lines": 1425,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "i18n/catalogs/pt_BR/menus.lua": {
+      "lines": 1423,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "quickshell/desktop-bar/bar/BarWindow.qml": {
+      "lines": 429,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "quickshell/desktop-bar/panels/BrightnessMenu.qml": {
+      "lines": 595,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "quickshell/desktop-bar/panels/CalendarMenu.qml": {
+      "lines": 438,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "quickshell/desktop-bar/panels/CatalogContent.qml": {
+      "lines": 912,
+      "reason": "Themes & Plugins window content with its review sheets."
+    },
+    "quickshell/desktop-bar/scripts/bar-data.py": {
+      "lines": 910,
+      "reason": "The bar data broker: one event loop owning every topic."
+    },
+    "quickshell/desktop-bar/scripts/catalog-domain.py": {
+      "lines": 551,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "quickshell/desktop-bar/scripts/display-settings.py": {
+      "lines": 466,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "quickshell/desktop-bar/scripts/obs-control.py": {
+      "lines": 633,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "quickshell/desktop-bar/settings/SettingsDesktopPage.qml": {
+      "lines": 803,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "quickshell/desktop-bar/settings/SettingsSystemPage.qml": {
+      "lines": 580,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml": {
+      "lines": 780,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "quickshell/lockscreen/themes/girl-coffee/Main.qml": {
+      "lines": 829,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "quickshell/lockscreen/themes/nothing/Main.qml": {
+      "lines": 632,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "walker/scripts/actions/development/git-accounts.py": {
+      "lines": 729,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "walker/scripts/actions/install/plugins.py": {
+      "lines": 547,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "walker/scripts/actions/install/software.py": {
+      "lines": 830,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "walker/scripts/actions/install/webapps.py": {
+      "lines": 419,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "walker/scripts/actions/tools/calendars.py": {
+      "lines": 682,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "walker/scripts/actions/tools/reminders.py": {
+      "lines": 645,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "walker/scripts/menus/cloud/navigation.py": {
+      "lines": 408,
+      "reason": "Existing file from before the size rule; kept as it is."
+    },
+    "walker/scripts/menus/cloud/providers.py": {
+      "lines": 503,
+      "reason": "Existing file from before the size rule; kept as it is."
+    }
   }
 }

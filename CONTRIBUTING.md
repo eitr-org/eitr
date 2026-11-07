@@ -69,6 +69,12 @@ real home; prefer it over running test files directly.
 - **Translatable text:** wrap new interface text in `Eitr.I18n.tr()` (QML) or `tr()`
   (Python) and run `python3 tools/i18n-build.py` and its `--check`. You do not need
   to translate it yourself.
+- **Reuse before you write:** look for an existing component, control or helper and
+  extend it rather than adding a second one that does the same thing.
+- **Small files:** keep a file to one page, panel, component or helper, ideally under
+  400 lines. If a file really needs to be larger, list it in
+  `tools/file-size-baseline.json` with its size and a one-line reason;
+  `bash tools/check.sh` checks this.
 - **Both light and dark themes** keep working, and nothing assumes a particular user
   name, monitor, GPU, locale or disk layout.
 - **No secrets** (tokens, keys, passwords, clipboard contents), logs from your
