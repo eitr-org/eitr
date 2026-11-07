@@ -11,9 +11,23 @@ Scope {
     Component.onCompleted: updatesToken = DesktopData.observe("updates.status", status)
     Component.onDestruction: DesktopData.releaseOwner(status)
     readonly property var updatesState: DesktopData.topics["updates.status"] || {status: "loading", data: {}}
-    readonly property var updates: Object.assign({count: 0, repository: 0, aur: 0, downloadBytes: 0}, updatesState.data,
-        {checking: updatesState.status === "loading" || (!!updatesState.inFlight && updatesState.error !== "broker-unavailable")})
-    onUpdatesStateChanged: if (updatesState.status === "ready" && !updatesState.inFlight) status.announceUpdates();
+    // After a successful System Update nothing is pending: show up to date until the next
+    // successful scheduled check, instead of checking again right after pacman.
+    property bool updatedNow: false
+    property int updatedSeq: -1
+    function markUpdated() {
+        updatedSeq = updatesState.seq !== undefined ? updatesState.seq : -1;
+        updatedNow = true;
+        announcedUpdates = 0;
+    }
+    readonly property var updates: updatedNow
+        ? {count: 0, repository: 0, aur: 0, downloadBytes: 0, checking: false}
+        : Object.assign({count: 0, repository: 0, aur: 0, downloadBytes: 0}, updatesState.data,
+            {checking: updatesState.status === "loading" || (!!updatesState.inFlight && updatesState.error !== "broker-unavailable")})
+    onUpdatesStateChanged: {
+        if (updatedNow && updatesState.status === "ready" && !updatesState.inFlight && (updatesState.seq || 0) > updatedSeq) updatedNow = false;
+        if (!updatedNow && updatesState.status === "ready" && !updatesState.inFlight) status.announceUpdates();
+    }
     // A notification goes out only when more updates are pending than were last announced.
     property int announcedUpdates: 0
     readonly property string updatesIcon: updates.checking ? "󰁪" : updates.count > 0 ? "󰚰" : "󰗡"
@@ -22,8 +36,8 @@ Scope {
         : Math.max(1, Math.round(updates.downloadBytes / 1048576)) + " MB"
     readonly property string updatesTooltip: {
         if (updates.checking) return "Checking for updates";
-        if (updatesState.error === "offline") return Eitr.I18n.tr("Offline");
-        if (updatesState.status !== "ready") return Eitr.I18n.tr("Updates unavailable · right-click to check again");
+        if (!updatedNow && updatesState.error === "offline") return Eitr.I18n.tr("Offline");
+        if (!updatedNow && updatesState.status !== "ready") return Eitr.I18n.tr("Could not check for updates · right-click to try again");
         if (updates.count === 0) return "Up to date · right-click to check again";
         return updates.count + (updates.count === 1 ? " update" : " updates") + (updatesSize ? " · " + updatesSize : "");
     }
@@ -45,5 +59,6 @@ Scope {
     IpcHandler {
         target: "updates"
         function refresh(): void { status.checkUpdates(); }
+        function updated(): void { status.markUpdated(); }
     }
 }

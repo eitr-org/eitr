@@ -89,11 +89,16 @@ packages="$(mktemp "${XDG_RUNTIME_DIR:-/tmp}/eitr-update-packages.XXXXXX")"
 # hint is lost then.
 run_with_spinner "$(eitr_gettext 'Preparing the update…')" python3 "$restart_check" snapshot "$packages" || eitr_gettext 'Could not record running packages; the update continues without a restart hint.' >&2
 desktop_before="$(pacman -Q eitr-desktop 2>/dev/null || true)"
-# The bar's updates icon re-checks once the update has finished; no bar running is fine.
+# The bar's updates icon learns about the finished update; no bar running is fine.
 # Elephant loads menu files only at start, so a new eitr-desktop restarts it; its
 # KillMode=process keeps apps launched from menus running.
 offer_restart() {
-  eitr-shell desktop-bar ipc call -- updates refresh >/dev/null 2>&1 || true
+  # A full update that just succeeded leaves nothing pending, so the bar shows up to date
+  # without a fresh check (one run right after pacman can fail); partial updates re-check.
+  case "$update_kind" in
+    system|full) eitr-shell desktop-bar ipc call -- updates updated >/dev/null 2>&1 || true ;;
+    *) eitr-shell desktop-bar ipc call -- updates refresh >/dev/null 2>&1 || true ;;
+  esac
   # The user's post-update hook (distro/lib/run-hook.sh); it never fails the update.
   local runner="${EITR_LIBRARY_ROOT:-${EITR_CODE_ROOT:-/usr/share/eitr}/lib}/run-hook.sh"
   [[ -f "$runner" ]] || runner="${EITR_CODE_ROOT:-/usr/share/eitr}/distro/lib/run-hook.sh"

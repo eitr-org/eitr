@@ -446,6 +446,9 @@
     "Could not change the lockscreen": [
       "quickshell/desktop-bar/settings/SettingsStyleState.qml"
     ],
+    "Could not check for updates · right-click to try again": [
+      "quickshell/desktop-bar/services/UpdatesStatus.qml"
+    ],
     "Could not complete request": [
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
@@ -1885,9 +1888,6 @@
     "Updates": [
       "quickshell/desktop-bar/settings/SettingsIndex.js",
       "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
-    ],
-    "Updates unavailable · right-click to check again": [
-      "quickshell/desktop-bar/services/UpdatesStatus.qml"
     ],
     "Updating": [
       "quickshell/desktop-bar/components/PanelLoadingIndicator.qml"

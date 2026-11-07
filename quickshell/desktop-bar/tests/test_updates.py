@@ -50,6 +50,11 @@ class UpdatesTests(unittest.TestCase):
         self.assertLess(shell.index("id: verticalUpdatesIcon"), shell.index("id: verticalNotificationIcon"))
         update = (ROOT.parents[1] / "walker/scripts/actions/system/update.sh").read_text()
         self.assertIn("ipc call -- updates refresh", update)
+        # A full update that succeeded marks the bar up to date without another check.
+        self.assertIn("system|full) eitr-shell desktop-bar ipc call -- updates updated", update)
+        status = (Path(__file__).resolve().parents[1] / "services/UpdatesStatus.qml").read_text()
+        self.assertIn("function updated(): void { status.markUpdated(); }", status)
+        self.assertIn("(updatesState.seq || 0) > updatedSeq) updatedNow = false", status)
 
 
 if __name__ == "__main__":

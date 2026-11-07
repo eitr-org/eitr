@@ -139,7 +139,8 @@ Remote access uses the shared broker: Tailscale and Sunshine status refresh on o
 Weather shares one default forecast across screens and panels, using a 15-minute cache and refresh interval. City searches and alternate cities belong only to the requesting panel and do not replace the default forecast. AI usage shares its cache and refreshes on opening, then every five minutes only while a usage panel is open. Closing the last panel stops queued account jobs; active calls finish within their existing timeouts, then the AI adapter is released. Provider cooldowns are respected. The standalone weather and AI commands and the session selection file remain available. `eitr-shell desktop-bar ipc call -- data status` includes `weather.default` and `ai.usage` counters without account names or provider payloads.
 
 Update checks share the bar data broker across screens: 45 seconds after startup,
-every six hours, and after System Update or a manual refresh. A refresh during a
+every six hours, and after a partial update or a manual refresh; after a successful
+System Update the icon shows up to date until the next check. A refresh during a
 check queues one follow-up. Offline and unreadable checks never report “Up to
 date”; right-click the update icon to try again. Update notifications and task
 terminals remain owned by the shell. The standalone update-check CLI remains

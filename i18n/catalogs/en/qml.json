@@ -581,7 +581,6 @@
   "Update available": "Update available",
   "Update channel: %1": "Update channel: %1",
   "Updates": "Updates",
-  "Updates unavailable · right-click to check again": "Updates unavailable · right-click to check again",
   "Updating": "Updating",
   "Upside down": "Upside down",
   "Uptime": "Uptime",
@@ -661,5 +660,6 @@
   "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
   "•  now": "•  now",
   "󰂚  No notifications": "󰂚  No notifications",
-  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Do Not Disturb\n\nNo notifications"
+  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Do Not Disturb\n\nNo notifications",
+  "Could not check for updates · right-click to try again": "Could not check for updates · right-click to try again"
 }

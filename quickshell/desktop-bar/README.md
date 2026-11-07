@@ -1060,8 +1060,10 @@ and reads run lazily in the bounded pool; an import failure affects only its dom
 ### Update data ownership
 
 The broker lazily imports `updates.py` in its bounded worker pool. It checks
-45 seconds after startup, every six hours, and on the existing `updates refresh`
-IPC after System Update or a manual check. Concurrent refreshes coalesce into one
+45 seconds after startup, every six hours, and on the `updates refresh` IPC after a
+partial (pacman or AUR) update or a manual check. A successful System Update sends
+`updates updated` instead: the icon shows up to date without a fresh check until the
+next successful scheduled one. Concurrent refreshes coalesce into one
 follow-up check. Each external command retains its 120-second timeout; the read
 budget is 365 seconds for the three sequential commands. Private checkupdates
 package databases remain separate from the system database. Successful zero,
