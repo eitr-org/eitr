@@ -16,13 +16,15 @@ class SelectionRows(unittest.TestCase):
                 self.assertIn("PanelStyle.selectionBorderAlpha", source)
 
     def test_workspace_choices_have_no_outlines_or_dividers(self):
+        # Workspace styles are picture cards drawn with the bar's real markers.
         source = (ROOT / "panels/WorkspaceStyleMenu.qml").read_text()
-        self.assertIn("PanelStyle.selectionAlpha(", source)
+        self.assertIn('kind: "workspace"', source)
+        self.assertIn("WorkspaceMarker {", (ROOT / "components/PictureChoices.qml").read_text())
         self.assertNotIn("border.width", source)
         self.assertNotIn("PanelStyle.dividerAlpha", source)
 
     def test_shared_keyboard_actions(self):
-        for name in ("KeyboardLayoutMenu", "ControlCenterSettings"):
+        for name in ("KeyboardLayoutMenu",):
             source = (ROOT / qml_path(name + ".qml")).read_text()
             self.assertIn("KeyboardLayoutRow {", source)
             # Layouts are removed only in Walker's Keyboard menu.
@@ -34,7 +36,7 @@ class SelectionRows(unittest.TestCase):
 
     def test_shared_dimensions(self):
         for name in ("WifiMenu", "BluetoothMenu", "AudioMenu", "BrightnessMenu",
-                     "WorkspaceStyleMenu", "KeyboardLayoutRow", "ControlCenterTile"):
+                     "KeyboardLayoutRow", "ControlCenterTile"):
             with self.subTest(panel=name):
                 self.assertIn("PanelStyle.selectionRowHeight", (ROOT / qml_path(name + ".qml")).read_text())
         style = (ROOT / "PanelStyle.js").read_text()

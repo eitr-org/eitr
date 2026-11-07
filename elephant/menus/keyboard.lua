@@ -6,8 +6,7 @@ Parent = "system-devices"
 Icon = "󰌌"
 FixedOrder = true
 
--- Layouts are added and removed only here: the bar panel and the Control
--- Center just switch between them.
+-- Settings and this menu share the keyboard helper; the bar panel switches layouts.
 local script = paths.code("quickshell/desktop-bar/scripts/keyboard-layout.py")
 local quote = dofile(paths.code("elephant/shell-quote.lua"))
 

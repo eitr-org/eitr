@@ -1,5 +1,7 @@
 # WiFi, Bluetooth e modo avião
 
+Esses controles também estão disponíveis diretamente em Configurações.
+
 Abra pelos ícones da barra ou por **Configurações > Conectividade**. Abrir um painel nunca troca o serviço de rede nem desconecta um dispositivo por conta própria.
 
 ## WiFi

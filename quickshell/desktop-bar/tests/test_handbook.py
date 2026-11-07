@@ -41,7 +41,8 @@ class HandbookTests(unittest.TestCase):
     def test_runtime_reader_is_read_only_and_offline(self):
         source = (ROOT / "quickshell/desktop-bar/panels/Handbook.qml").read_text()
         self.assertIn("readOnly: true", source)
-        self.assertIn("LibraryWindow {", source)
+        self.assertIn("FamilyWindow {", source)
+        self.assertIn("LibraryWindow {", (ROOT / "quickshell/desktop-bar/settings/FamilyWindow.qml").read_text())
         shared = (ROOT / "quickshell/desktop-bar/components/LibraryWindow.qml").read_text()
         self.assertIn("FloatingWindow {", shared)
         self.assertIn("onClosed:", shared)
@@ -49,9 +50,25 @@ class HandbookTests(unittest.TestCase):
         self.assertNotIn("execDetached", source)
         self.assertNotIn("Process {", source)
         self.assertNotIn("XMLHttpRequest", source)
-        self.assertIn("assets/eitr-logo-white.svg", source)
-        self.assertIn("book.chapter.blocks", source)
+        self.assertIn("FamilySidebar {", source)
+        self.assertIn("EitrLogo {", (ROOT / "quickshell/desktop-bar/settings/FamilySidebar.qml").read_text())
+        self.assertIn("Model.articleBlocks(book.chapter)", source)
+        self.assertIn("Model.sidebarEntries(book.chapters, book.filtered", source)
         self.assertIn("enabled: book.opened", source)
+
+    def test_every_chapter_has_a_contiguous_group(self):
+        chapters = json.loads((BOOK / "chapters.json").read_text())
+        groups = [chapter["group"] for chapter in chapters]
+        self.assertTrue(all(groups))
+        seen = []
+        for group in groups:
+            if not seen or seen[-1] != group:
+                self.assertNotIn(group, seen, "chapters of one group stay together")
+                seen.append(group)
+        for locale in ("de", "es", "fr", "pt_BR"):
+            translated = json.loads((BOOK / "catalogs" / (locale + ".json")).read_text())["chapters"]
+            self.assertEqual([chapter["id"] for chapter in translated], [chapter["id"] for chapter in chapters])
+            self.assertTrue(all(chapter["group"] for chapter in translated))
 
     def test_rendering_blocks_preserve_code_entities_and_tables(self):
         html = '<h1>Title</h1>\n<p>Text &amp; more</p>\n<pre><code>&lt;esp&gt;</code></pre><table><tr><td>Key</td></tr></table>'

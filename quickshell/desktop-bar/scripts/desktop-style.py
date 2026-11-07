@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Shared corner preference for Eitr UI and compositor window decorations.
-The styles and their sizes are defined once, in ../corner-styles.json."""
+"""Shared corner and window-gap preferences for Eitr surfaces and Hyprland."""
 import json
 import os
+import tempfile
 from pathlib import Path
 
 import sys
@@ -15,8 +15,8 @@ for _eitr_parent in Path(__file__).resolve().parents:
         break
 from eitr_paths import code, config as user_config, read_settings, write_settings
 from eitr_i18n import tr
+from eitr_choice_lists import WINDOW_GAPS
 import subprocess
-import tempfile
 
 SETTINGS = user_config("eitr/style.json")
 DEFINITIONS = Path(__file__).resolve().parent.parent / "corner-styles.json"
@@ -37,38 +37,63 @@ def current():
         return default
 
 
-def select(value):
-    if value not in definitions()[1]:
-        raise ValueError('Unknown corner style')
-    SETTINGS.parent.mkdir(parents=True, exist_ok=True)
-    fd, name = tempfile.mkstemp(prefix=".style-", dir=SETTINGS.parent)
+def current_gaps():
+    value = read_settings(SETTINGS).get("gaps", "default")
+    return value if any(choice["id"] == value for choice in WINDOW_GAPS) else "default"
+
+
+def generate_gaps():
+    choice = next(choice for choice in WINDOW_GAPS if choice["id"] == current_gaps())
+    target = SETTINGS.with_name("window-gaps.lua")
+    target.parent.mkdir(parents=True, exist_ok=True)
+    descriptor, temporary = tempfile.mkstemp(prefix=".window-gaps-", dir=target.parent)
     try:
-        with os.fdopen(fd, "w") as file:
-            json.dump({**read_settings(SETTINGS), "corners": value, "version": 1}, file)
-            file.write("\n")
-        os.replace(name, SETTINGS)
+        with os.fdopen(descriptor, "w") as output:
+            output.write(f'return {{inner = {int(choice["inner"])}, outer = {int(choice["outer"])}}}\n')
+        os.replace(temporary, target)
     finally:
-        if os.path.exists(name):
-            os.unlink(name)
-    generator = code("walker/scripts/themes/walker.sh")
-    # The bar reads the preference only when told to, instead of polling for it.
-    for command in (["hyprctl", "reload"], ["bash", str(generator)],
-                    ["eitr-shell", "desktop-bar", "ipc", "call", "--", "style", "reload"]):
+        if os.path.exists(temporary):
+            os.unlink(temporary)
+
+
+def select(value, key="corners"):
+    options = definitions()[1] if key == "corners" else {choice["id"] for choice in WINDOW_GAPS}
+    if key not in ("corners", "gaps") or value not in options:
+        raise ValueError('Unknown desktop style')
+    write_settings(SETTINGS, {**read_settings(SETTINGS), key: value, "version": 1})
+    generate_gaps()
+    commands = [["hyprctl", "reload"],
+                ["eitr-shell", "desktop-bar", "ipc", "call", "--", "style", "reload"]]
+    if key == "corners":
+        commands.insert(1, ["bash", str(code("walker/scripts/themes/walker.sh"))])
+    for command in commands:
         try:
             subprocess.run(command, check=True, timeout=20,
                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         except (OSError, subprocess.SubprocessError) as error:
-            print(tr('Saved corner style, but refresh failed: {error}', error=f'{error}'), file=sys.stderr)
+            print(tr('Saved desktop style, but refresh failed: {error}', error=f'{error}'), file=sys.stderr)
 
 
 def main():
+    if sys.argv[1:] == ["generate"]:
+        generate_gaps()
+        return
+    if len(sys.argv) >= 3 and sys.argv[2] == "gaps":
+        if sys.argv[1:] == ["get", "gaps"]:
+            print(current_gaps())
+        elif len(sys.argv) == 4 and sys.argv[1] == "set":
+            select(sys.argv[3], "gaps")
+            print(current_gaps())
+        else:
+            raise ValueError("Usage: desktop-style.py get gaps | set gaps STYLE")
+        return
     # "get corners" and "set corners STYLE" are the forms Walker's choice menus use.
     arguments = [argument for index, argument in enumerate(sys.argv[1:]) if not (index == 1 and argument == "corners")]
     if len(arguments) == 2 and arguments[0] == "set":
         select(arguments[1])
         print(current())
     elif arguments == ["summary"]:
-        print(json.dumps({"current": current(), "available": True,
+        print(json.dumps({"current": current(), "gaps": current_gaps(), "gapChoices": WINDOW_GAPS, "available": True,
                           "choices": [{"value": value, "label": details["label"], "available": True}
                                       for value, details in definitions()[1].items()]}))
     elif arguments == ["get"]:

@@ -1,5 +1,7 @@
 # WiFi, Bluetooth and airplane mode
 
+Settings also provides these controls inline.
+
 Open the bar icons or **Settings > Connectivity**. Opening a panel never changes
 the selected backend or disconnects a device by itself.
 

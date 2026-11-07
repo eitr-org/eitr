@@ -391,6 +391,9 @@ msgstr "Arrows: move  Space: select  Enter: review  Left: back  Esc: cancel"
 msgid "Artifact Registry"
 msgstr "Artifact Registry"
 
+msgid "Ask before changes"
+msgstr "Ask before changes"
+
 msgid "Ask the AI"
 msgstr "Ask the AI"
 
@@ -729,6 +732,9 @@ msgstr "Cluster details"
 
 msgid "Clusters"
 msgstr "Clusters"
+
+msgid "Codename"
+msgstr "Codename"
 
 msgid "Codex CLI is not installed"
 msgstr "Codex CLI is not installed"
@@ -1180,6 +1186,9 @@ msgstr "Elastic IPs"
 msgid "Empty values and control characters are not allowed"
 msgstr "Empty values and control characters are not allowed"
 
+msgid "Enabled for: {services}"
+msgstr "Enabled for: {services}"
+
 msgid "Encrypt with LUKS2: boot passphrase required (recommended)"
 msgstr "Encrypt with LUKS2: boot passphrase required (recommended)"
 
@@ -1200,6 +1209,9 @@ msgstr "Encryption: LUKS2, passphrase at boot"
 
 msgid "English UTF-8 support is missing from the live image"
 msgstr "English UTF-8 support is missing from the live image"
+
+msgid "Enrollment status requires the existing disk-unlock flow"
+msgstr "Enrollment status requires the existing disk-unlock flow"
 
 msgid "Enter a color as six hex digits, for example #2bb87a."
 msgstr "Enter a color as six hex digits, for example #2bb87a."
@@ -1306,6 +1318,9 @@ msgstr "Factory reset point: {created} (accounts: {names})"
 msgid "File became executable: {path}"
 msgstr "File became executable: {path}"
 
+msgid "File manager"
+msgstr "File manager"
+
 msgid "File or folder to restore (for example ~/Documents/report.odt)"
 msgstr "File or folder to restore (for example ~/Documents/report.odt)"
 
@@ -1386,6 +1401,9 @@ msgstr "Found in your Git configuration"
 
 msgid "Friday"
 msgstr "Friday"
+
+msgid "Full access (default)"
+msgstr "Full access (default)"
 
 msgid "Full name"
 msgstr "Full name"
@@ -1512,6 +1530,9 @@ msgstr "Idle; ping to check"
 
 msgid "Ignore"
 msgstr "Ignore"
+
+msgid "Image viewer"
+msgstr "Image viewer"
 
 msgid "Import a VPN file…"
 msgstr "Import a VPN file…"
@@ -1804,6 +1825,9 @@ msgstr "Language saved. Sign out and back in to apply it."
 msgid "Language: {language} / Keyboard: {keyboard}"
 msgstr "Language: {language} / Keyboard: {keyboard}"
 
+msgid "Large"
+msgstr "Large"
+
 msgid "Later"
 msgstr "Later"
 
@@ -1818,6 +1842,9 @@ msgstr "Latest log streams"
 
 msgid "Let assistants work together"
 msgstr "Let assistants work together"
+
+msgid "Licence"
+msgstr "Licence"
 
 msgid "Light"
 msgstr "Light"
@@ -1897,6 +1924,9 @@ msgstr "Lowercase name. This user will have sudo access."
 msgid "Magenta"
 msgstr "Magenta"
 
+msgid "Mail"
+msgstr "Mail"
+
 msgid "Malformed EITR include block; review ~/.gitconfig manually"
 msgstr "Malformed EITR include block; review ~/.gitconfig manually"
 
@@ -1935,6 +1965,9 @@ msgstr "Monthly"
 
 msgid "Move and resize desktop widgets"
 msgstr "Move and resize desktop widgets"
+
+msgid "Music player"
+msgstr "Music player"
 
 msgid "Mute this program"
 msgstr "Mute this program"
@@ -2103,6 +2136,9 @@ msgstr "Not an EITR web app"
 
 msgid "Not available: {error}"
 msgstr "Not available: {error}"
+
+msgid "Not enabled"
+msgstr "Not enabled"
 
 msgid "Not one of your lockscreens"
 msgstr "Not one of your lockscreens"
@@ -2277,6 +2313,9 @@ msgstr "PC"
 
 msgid "PCR policy: {TPM_PCRS} (Secure Boot state). Firmware or Secure Boot key changes require the passphrase once, then re-enrollment."
 msgstr "PCR policy: {TPM_PCRS} (Secure Boot state). Firmware or Secure Boot key changes require the passphrase once, then re-enrollment."
+
+msgid "PDF viewer"
+msgstr "PDF viewer"
 
 msgid "Package actions require a terminal."
 msgstr "Package actions require a terminal."
@@ -2749,6 +2788,9 @@ msgstr "Review /etc/default/limine first, then run: sudo systemctl start {unit}"
 msgid "Review installation"
 msgstr "Review installation"
 
+msgid "Review status and settings"
+msgstr "Review status and settings"
+
 msgid "Roles"
 msgstr "Roles"
 
@@ -2839,8 +2881,8 @@ msgstr "Save this choice for the next boot?"
 msgid "Save your work and close your apps now. The computer restarts as soon as the reset is ready; anything changed after this point is lost. Keep a copy of important files on an external drive: a reset is not a backup, and it is not secure erasure either."
 msgstr "Save your work and close your apps now. The computer restarts as soon as the reset is ready; anything changed after this point is lost. Keep a copy of important files on an external drive: a reset is not a backup, and it is not secure erasure either."
 
-msgid "Saved corner style, but refresh failed: {error}"
-msgstr "Saved corner style, but refresh failed: {error}"
+msgid "Saved desktop style, but refresh failed: {error}"
+msgstr "Saved desktop style, but refresh failed: {error}"
 
 msgid "Saved for the next boot. Your current connection has not changed."
 msgstr "Saved for the next boot. Your current connection has not changed."
@@ -3294,6 +3336,9 @@ msgstr "Testing channel: System Update now installs new Eitr builds as soon as t
 
 msgid "Text"
 msgstr "Text"
+
+msgid "Text editor"
+msgstr "Text editor"
 
 msgid "Text would be hard to read: foreground and background need more contrast."
 msgstr "Text would be hard to read: foreground and background need more contrast."
@@ -3820,6 +3865,9 @@ msgstr "Unsupported uninstall source"
 msgid "Until {date}"
 msgstr "Until {date}"
 
+msgid "Update Channel"
+msgstr "Update Channel"
+
 msgid "Update cancelled; nothing was changed."
 msgstr "Update cancelled; nothing was changed."
 
@@ -3952,6 +4000,9 @@ msgstr "Version"
 msgid "Version: {version}"
 msgstr "Version: {version}"
 
+msgid "Video player"
+msgstr "Video player"
+
 msgid "Virtual Machines"
 msgstr "Virtual Machines"
 
@@ -3984,6 +4035,9 @@ msgstr "Web app needs a Chromium-based browser"
 
 msgid "Web apps need a Chromium-based browser. Install Chromium now? Enter installs · Esc skips"
 msgstr "Web apps need a Chromium-based browser. Install Chromium now? Enter installs · Esc skips"
+
+msgid "Web browser"
+msgstr "Web browser"
 
 msgid "Website names cannot be looked up, so the internet may not work; check your network connection."
 msgstr "Website names cannot be looked up, so the internet may not work; check your network connection."

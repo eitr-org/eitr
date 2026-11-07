@@ -116,14 +116,10 @@ BarHorizontalCenter bar/BarHorizontalCenter.qml
 BarWindow bar/BarWindow.qml
 ControlCenterSection panels/ControlCenterSection.qml
 ControlCenterFold panels/ControlCenterFold.qml
-ControlCenterOptionHeading panels/ControlCenterOptionHeading.qml
 ControlCenterGridAction panels/ControlCenterGridAction.qml
-ControlCenterLabel panels/ControlCenterLabel.qml
 ControlCenterToggleTile panels/ControlCenterToggleTile.qml
 ControlCenterPower panels/ControlCenterPower.qml
 ControlCenterTools panels/ControlCenterTools.qml
-ControlCenterSettings panels/ControlCenterSettings.qml
-ControlCenterStyle panels/ControlCenterStyle.qml
 ControlCenterSliders panels/ControlCenterSliders.qml
 ControlCenterConnectivity panels/ControlCenterConnectivity.qml
 BarVerticalPlacement bar/BarVerticalPlacement.qml
@@ -134,7 +130,6 @@ BarPanels bar/BarPanels.qml
 BarTabs bar/BarTabs.qml
 BarInputMask bar/BarInputMask.qml
 ControlCenterNavigation panels/ControlCenterNavigation.qml
-ControlCenterAppearanceChoices panels/ControlCenterAppearanceChoices.qml
 Catalog 1.0 panels/Catalog.qml
 CatalogContent 1.0 panels/CatalogContent.qml
 LibraryWindow 1.0 components/LibraryWindow.qml
@@ -144,3 +139,38 @@ DynamicIsland bar/DynamicIsland.qml
 ProfilePicture 1.0 panels/ProfilePicture.qml
 ScreenshotPins capture/ScreenshotPins.qml
 BeautifyWindow capture/BeautifyWindow.qml
+SettingsWindow settings/SettingsWindow.qml
+SettingsContent settings/SettingsContent.qml
+SettingsOverview settings/SettingsOverview.qml
+EventSoundSettings settings/EventSoundSettings.qml
+SettingsAppearanceModel settings/SettingsAppearanceModel.qml
+SettingsDesktopPage settings/SettingsDesktopPage.qml
+SettingsDevicesPage settings/SettingsDevicesPage.qml
+SettingsHelper settings/SettingsHelper.qml
+SettingsInputPage settings/SettingsInputPage.qml
+SettingsStyleState settings/SettingsStyleState.qml
+SettingsNotificationState settings/SettingsNotificationState.qml
+ToggleRow components/ToggleRow.qml
+SettingsSystemPage settings/SettingsSystemPage.qml
+singleton SettingsInk settings/SettingsInk.qml
+ControlCard components/ControlCard.qml
+ControlRow components/ControlRow.qml
+SettingsPageHeader settings/SettingsPageHeader.qml
+ChoiceDropdown components/ChoiceDropdown.qml
+ChoiceSegmented components/ChoiceSegmented.qml
+ChoiceLevel components/ChoiceLevel.qml
+singleton SettingsPalette settings/SettingsPalette.qml
+TabStrip components/TabStrip.qml
+PictureChoices components/PictureChoices.qml
+BarPreview components/BarPreview.qml
+PositionPreview components/PositionPreview.qml
+AppearancePreview components/AppearancePreview.qml
+MediaPreview components/MediaPreview.qml
+GapsPreview components/GapsPreview.qml
+CornersPreview components/CornersPreview.qml
+LockscreenPreview components/LockscreenPreview.qml
+PalettePreview components/PalettePreview.qml
+MonitorMap components/MonitorMap.qml
+FamilyWindow settings/FamilyWindow.qml
+FamilySidebar settings/FamilySidebar.qml
+FamilyPageHeader settings/FamilyPageHeader.qml

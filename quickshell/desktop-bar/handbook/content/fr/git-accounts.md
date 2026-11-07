@@ -41,3 +41,5 @@ Le compte par défaut ou de dossier sélectionne `gh` ou `glab`. Les commandes C
 Les réglages versionnés se trouvent dans `~/.config/eitr/git-accounts.json`. Chaque application des réglages sauvegarde le fichier global Git, l’inclusion active et les réglages sous `~/.local/state/eitr/git-account-backups/<id>`, avec des permissions privées. `manifest.json` indique chemins d’origine, noms de sauvegardes et permissions. Clés et tokens CLI ne sont jamais copiés. Pour restaurer manuellement, examinez le manifeste et conservez les changements faits depuis la sauvegarde avant de restaurer. Les inclusions EITR modifiées ou invalides sont refusées plutôt que remplacées silencieusement.
 
 Références : [inclusions conditionnelles Git](https://git-scm.com/docs/git-config), [profils GitHub CLI](https://cli.github.com/manual/gh_help_environment), [profils GitLab CLI](https://docs.gitlab.com/cli/configuration/).
+
+Paramètres > Git et cloud affiche identités, règles de dossiers et contextes en lecture seule. Comptes Git ou Cloud ouvre les parcours existants ; consulter la page ne change aucun réglage par défaut des CLI.

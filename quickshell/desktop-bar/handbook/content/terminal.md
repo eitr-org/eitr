@@ -28,7 +28,7 @@ cell. Fonts, themes and personal config files remain intact.
 
 ## Choosing your terminal
 
-**Settings > Style > Terminal** in Walker and **Control Center > Style > Terminal** offer
+**Settings > Style > Terminal** in Walker and **Settings (SUPER + ,) > Appearance > Terminal** offer
 **Kitty** (the default) and **Ghostty**. The machine-local `terminal` field in
 `~/.config/eitr/terminal.json` controls Super+Enter, tmux, user terminal sessions,
 AI/project terminals and Walker's open-in-terminal actions. If Ghostty is missing,
@@ -60,7 +60,7 @@ change when selecting Ghostty.
 
 ## Terminal appearance and shared blur
 
-Settings > Style > Terminal and Control Center > Style > Terminal apply opacity,
+Settings > Style > Terminal and Settings (SUPER + ,) > Appearance > Terminal apply opacity,
 padding and blur presets to both Kitty and Ghostty. Opacity offers Solid (100%),
 Light (90%), Medium (80%), Default (75%) and Strong (70%). Padding offers None,
 Small (4 points) and Comfortable (8 points). Defaults preserve 75% opacity, no
@@ -69,8 +69,8 @@ padding and blur On. Utility terminals retain their solid background and task pa
 Blur Off disables compositor blur for ordinary Kitty and Ghostty windows; it does
 not make them opaque. Blur strength is shared across the desktop: Gentle (size 2,
 one pass), Medium (size 3, two passes, the default) and Strong (size 5, three passes).
-The same choice appears under Desktop Bar in Walker and Bar in Control Center,
-next to appearance. Hyprland 0.57 has global blur strength, so this affects all
+The same choice appears under Desktop Bar in Walker and Desktop Bar in
+Settings (SUPER + ,), next to appearance. Hyprland 0.57 has global blur strength, so this affects all
 surfaces already using blur, including panels, notifications and Overview, and
 other blurred applications. Selecting a strength does not enable terminal blur.
 Stronger blur costs more GPU work. Theme Color keeps its existing solid appearance.

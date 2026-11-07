@@ -41,13 +41,13 @@ for (const [text, code] of [['{', 0], ['', 0], ['null', 0], ['[]', 0],
     assert.equal(result.data, null);
     assert.ok(result.error.length > 0);
 }
-const centerSource = fs.readFileSync(path.join(__dirname, '..', 'panels/ControlCenter.qml'), 'utf8');
+const centerSource = fs.readFileSync(path.join(__dirname, '..', 'settings/SettingsStyleState.qml'), 'utf8');
 assert.ok(!centerSource.includes('@current'));
 assert.ok(!centerSource.includes('for group in'));
 for (const helper of ['cursor', 'lockscreen', 'terminal', 'effects']) {
-    assert.equal(centerSource.split(`center.${helper}Script, "summary"`).length - 1, 1);
-    assert.ok(!centerSource.includes(`center.${helper}Script, "get"`));
-    assert.ok(!centerSource.includes(`center.${helper}Script, "entries"`));
+    assert.equal(centerSource.split(`state.${helper}Script, "summary"`).length - 1, 1);
+    assert.ok(!centerSource.includes(`state.${helper}Script, "get"`));
+    assert.ok(!centerSource.includes(`state.${helper}Script, "entries"`));
 }
 assert.ok(centerSource.includes('property var styleErrors:'));
 

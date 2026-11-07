@@ -1,20 +1,22 @@
 # Designs, Hintergrundbilder und Darstellung
 
+Diese Steuerelemente sind auch direkt in den Einstellungen verfügbar.
+
+Einstellungen (**SUPER + ,**) enthält Darstellungsoptionen; **Weitere Themes** öffnet den separaten Katalog für Themes und Plugins (**SUPER + F2**).
+
 ## Katalog für Themes und Plugins
 
-Der Katalog verwendet die deckende Blood-&-Iron- oder Pergamentpalette der Website
-und die mitgelieferten Schriften Cinzel und Cormorant Garamond. Nur der Hell-/Dunkelmodus
-des aktuellen Themes ändert sein Aussehen; Desktopfarben, Leistentransparenz
-und Unschärfe haben keinen Einfluss darauf.
+Der Katalog teilt Rahmen, Seitenleiste, Seitenüberschrift und Karten mit dem
+Einstellungsfenster. Er folgt den Theme-Farben oder der Palette der Eitr-Website,
+wenn die Einstellungen sie wählen, mit der mitgelieferten Schrift Cinzel.
 
-Die linke Seitenleiste gruppiert Themes und Plugins unter Installiert und Weitere
-entdecken und zeigt die Anzahl. Rechts stehen
-Seitentitel, Beschreibung und Theme-Filter über der separat scrollbaren Liste.
-Auf/Ab wechselt die Seitenleistenzeile; Rechts oder Tab öffnet den Inhalt. Links
-in der ersten Spalte kehrt zurück. Unter 760 px zeigt die Leiste Symbole mit
-Hover-Beschriftungen statt Gruppenüberschriften und Text.
+Die linke Seitenleiste listet Installiert, Offiziell und Community unter Themes und
+unter Plugins. Rechts stehen Seitentitel, Beschreibung, der Filter Alle, Hell und
+Dunkel für Themes und eine separat scrollbare Galerie. Auf/Ab wechselt die
+Seitenleistenzeile; Rechts oder Tab öffnet den Inhalt. Links in der ersten Spalte
+kehrt zur Seitenleiste zurück.
 
-Öffne **Einstellungen > Stil > Themes und Plugins**, **Kontrollzentrum > Stil > Themes und Plugins**, dem **+** neben Sonne und Mond im Designkarussell oder **SUPER + F2**. Der Katalog ist ein verschiebbares Fenster mit gespeicherter Größe. Halte SUPER und ziehe mit der linken Maustaste zum Verschieben oder mit der rechten zum Ändern der Größe. Normale Fensterkürzel kacheln es oder verschieben es auf eine andere Arbeitsfläche. Erneutes Öffnen fokussiert das vorhandene Fenster auch auf einer anderen Arbeitsfläche. SUPER + F2 schließt es, wenn es fokussiert ist. Auch die Schließen-Schaltfläche, Escape (nach dem Schließen eines Bestätigungsdialogs) oder das normale Fenster-Schließen-Kürzel schließen es. Installiert zeigt jedes Theme als Integriert, Offiziell, Drittanbieter oder
+Öffne **Einstellungen > Stil > Themes und Plugins**, **Weitere Themes** in den Einstellungen (SUPER + ,), dem **+** neben Sonne und Mond im Designkarussell oder **SUPER + F2**. Der Katalog ist ein verschiebbares Fenster mit gespeicherter Größe. Halte SUPER und ziehe mit der linken Maustaste zum Verschieben oder mit der rechten zum Ändern der Größe. Normale Fensterkürzel kacheln es oder verschieben es auf eine andere Arbeitsfläche. Erneutes Öffnen fokussiert das vorhandene Fenster auch auf einer anderen Arbeitsfläche. SUPER + F2 schließt es, wenn es fokussiert ist. Auch die Schließen-Schaltfläche, Escape (nach dem Schließen eines Bestätigungsdialogs) oder das normale Fenster-Schließen-Kürzel schließen es. Installiert zeigt jedes Theme als Integriert, Offiziell, Drittanbieter oder
 Eigene in einer Vorschaugalerie. Ein Klick auf ein installiertes Theme wendet es
 über den normalen Ablauf an; ein Häkchen markiert das aktuelle Theme. Alle, Dunkel
 und Hell filtern die Galerie. Installiert wird beim Öffnen und nach Aktionen aktualisiert. Beim Öffnen werden Metadaten im Hintergrund geprüft; danach erscheinen Update-Markierungen. Es gibt keine regelmäßige Netzwerkprüfung; Update ersetzt ein Katalog-Theme. Wende ein aktualisiertes aktives Theme
@@ -56,7 +58,7 @@ Der Katalog installiert und aktualisiert Plugins im Fenster. Karten unter Offizi
 
 ## Designs und Hintergrundbilder
 
-Öffne **Einstellungen > Stil > Design** oder **SUPER + Ctrl + Shift + N** für Walkers Dunkel/Hell-Menüs. Das Designkarussell des Desktops (rechter Doppelklick auf den Desktop, Kontrollzentrum > Stil > Design oder appearance-IPC) zeigt alle Designs. Die Sonne über der ausgewählten Karte zeigt nur helle Designs, der Mond nur dunkle; ein zweiter Klick auf die ausgewählte zeigt wieder alle. Das **+** daneben öffnet den Katalog Themes und Plugins bei den offiziellen Designs, mit demselben Hell- oder Dunkel-Filter. Ctrl+Tab wechselt zwischen allen, dunklen und hellen. Tippe zum Suchen in den angezeigten Designs; Pfeiltasten/Tab wechseln die Auswahl, Enter wendet sie an. Backspace bearbeitet die Suche oder schließt bei leerer Suche; Escape leert die Suche vor dem Schließen. Das Hintergrundbildkarussell hat keine Designsuche.
+Öffne **Einstellungen > Stil > Design** oder **SUPER + Ctrl + Shift + N** für Walkers Dunkel/Hell-Menüs. Das Designkarussell des Desktops (rechter Doppelklick auf den Desktop, Einstellungen (SUPER + ,) > Erscheinungsbild oder appearance-IPC) zeigt alle Designs. Die Sonne über der ausgewählten Karte zeigt nur helle Designs, der Mond nur dunkle; ein zweiter Klick auf die ausgewählte zeigt wieder alle. Das **+** daneben öffnet den Katalog Themes und Plugins bei den offiziellen Designs, mit demselben Hell- oder Dunkel-Filter. Ctrl+Tab wechselt zwischen allen, dunklen und hellen. Tippe zum Suchen in den angezeigten Designs; Pfeiltasten/Tab wechseln die Auswahl, Enter wendet sie an. Backspace bearbeitet die Suche oder schließt bei leerer Suche; Escape leert die Suche vor dem Schließen. Das Hintergrundbildkarussell hat keine Designsuche.
 
 **SUPER + Ctrl + N** öffnet die Hintergrundbilder, **SUPER + Shift + N** wechselt zum nächsten. Ein Häkchen markiert die aktive Wahl in Walker. Änderungen zeigen keine Erfolgsbenachrichtigungen. Ultrawide-Monitore, deren Breite mindestens das Doppelte der Höhe beträgt, verwenden die 21:9-Version mit weniger Beschnitt; andere verwenden 4K in 16:9.
 
@@ -110,4 +112,7 @@ Der Katalog installiert und aktualisiert Plugins im Fenster. Karten unter Offizi
 
 Integrierte Themen gehören zu Eitr und können nicht entfernt werden. Der Papierkorb bei einem heruntergeladenen Thema löscht dessen installiertes Paket; das aktuelle Thema kann nicht entfernt werden.
 
-Tippe irgendwo im Katalog oder drücke Ctrl+F oder /, um den aktuellen Reiter nach Name oder Beschreibung zu durchsuchen. Die Wörter können in beliebiger Reihenfolge stehen; Escape leert zuerst die Suche.
+Tippe irgendwo im Katalog oder drücke Ctrl+F oder /, um die aktuelle Seite nach Name oder Beschreibung zu durchsuchen. Die Wörter können in beliebiger Reihenfolge stehen; Escape leert zuerst die Suche.
+
+
+Unter **Einstellungen > Fenster > Fensterabstände** oder **Walker > Einstellungen > Stil > Fensterabstände** stehen Keine, Klein, Standard und Groß zur Wahl. Standard behält 6 px innen und 12 px außen bei. Die lokale Auswahl bleibt bei Themewechseln und Neuladen erhalten.

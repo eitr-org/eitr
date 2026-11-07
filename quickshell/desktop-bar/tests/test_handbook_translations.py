@@ -109,7 +109,8 @@ class LocalizedHandbookTests(unittest.TestCase):
             "capture": ("Videos/Records", "Hybrid MP4", "LIVE"),
             "devices": ("~/.config/hypr/local.lua", "hyprctl reload", "US International", "15"),
             "development": ("monitoring.json", "Amazon Managed Grafana", "promtool", "Ctrl+R"),
-            "desktop-bar": ("SUPER + ,", "10", "ᚾ"),
+            "desktop-bar": ("SUPER + I", "10", "ᚾ"),
+            "control-center": ("SUPER + ,", "SUPER + I", "CPU/GPU/RAM", "Plugins"),
         }
         for locale in ("pt_BR", "es", "de", "fr"):
             for chapter, markers in details.items():

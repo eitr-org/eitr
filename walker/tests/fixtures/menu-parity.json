@@ -1851,7 +1851,7 @@
       },
       {
         "text": "Control Center",
-        "subtext": "Open desktop controls and preferences",
+        "subtext": "Open quick toggles, media and tools",
         "icon": "󰒓",
         "actions": {
           "open": "eitr-shell desktop-bar ipc call -- controlCenter toggle"
@@ -1999,7 +1999,7 @@
       },
       {
         "text": "Desktop Control Center",
-        "subtext": "SUPER + ,",
+        "subtext": "SUPER + I",
         "icon": "󰕮",
         "actions": {
           "open": "eitr-shell desktop-bar ipc call -- controlCenter toggle"
@@ -2123,6 +2123,14 @@
         "icon": "",
         "actions": {
           "open": "/usr/share/eitr/walker/scripts/actions/search/google.sh"
+        }
+      },
+      {
+        "text": "Settings",
+        "subtext": "SUPER + ,",
+        "icon": "󰒓",
+        "actions": {
+          "open": "eitr-shell desktop-bar ipc call -- settings toggle"
         }
       },
       {
@@ -2389,6 +2397,17 @@
         ],
         "icon": "🖻",
         "submenu": "wallpaper"
+      },
+      {
+        "text": "Window gaps",
+        "subtext": ">",
+        "keywords": [
+          "windows",
+          "spacing",
+          "gaps"
+        ],
+        "icon": "󰍹",
+        "submenu": "window-gaps"
       },
       {
         "text": "Workspaces",
@@ -3195,6 +3214,7 @@
     "vpn": "install",
     "wallpaper": "style",
     "webapps": "install",
+    "window-gaps": "style",
     "workspaces": "style"
   },
   "shortcuts": [
@@ -3256,10 +3276,18 @@
       "line": "  SUPER + F2                Toggle Themes & Plugins"
     },
     {
+      "description": "Settings",
+      "row": "Settings",
       "key": "SUPER + ,",
+      "command": "eitr-shell desktop-bar ipc call -- settings toggle",
+      "line": "  SUPER + ,                 Settings"
+    },
+    {
       "description": "Toggle control center",
-      "line": "  SUPER + ,                 Toggle control center",
-      "command": "eitr-shell desktop-bar ipc call -- controlCenter toggle"
+      "row": "Desktop Control Center",
+      "key": "SUPER + I",
+      "command": "eitr-shell desktop-bar ipc call -- controlCenter toggle",
+      "line": "  SUPER + I                 Toggle control center"
     },
     {
       "key": "SUPER + G",
@@ -7670,7 +7698,7 @@
       "provider": "menus:settings",
       "identifier": "settings:6",
       "text": "Control Center",
-      "subtext": "Open desktop controls and preferences",
+      "subtext": "Open quick toggles, media and tools",
       "icon": "󰒓",
       "actions": [
         "open"
@@ -7678,7 +7706,7 @@
       "keywords": [
         "Control Center",
         "Control Center",
-        "Open desktop controls and preferences"
+        "Open quick toggles, media and tools"
       ],
       "menus": [
         "main"
@@ -7992,7 +8020,7 @@
       "provider": "menus:shortcuts",
       "identifier": "shortcuts:11",
       "text": "Desktop Control Center",
-      "subtext": "SUPER + ,",
+      "subtext": "SUPER + I",
       "icon": "󰕮",
       "actions": [
         "open"
@@ -8000,7 +8028,7 @@
       "keywords": [
         "Desktop Control Center",
         "Desktop Control Center",
-        "SUPER + ,"
+        "SUPER + I"
       ],
       "menus": [
         "learn",
@@ -8311,6 +8339,26 @@
       "key": "1c8f4e239fa5e8c07d91c9273c3afcccb9836b08cb0861aadb2211cdfdee18c3",
       "provider": "menus:shortcuts",
       "identifier": "shortcuts:27",
+      "text": "Settings",
+      "subtext": "SUPER + ,",
+      "icon": "󰒓",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "Settings",
+        "Settings",
+        "SUPER + ,"
+      ],
+      "menus": [
+        "learn",
+        "main"
+      ]
+    },
+    {
+      "key": "2c9651b8fb835db45c2ad9b33a795b184d34ba2cbd70373d2d8db115af5979ca",
+      "provider": "menus:shortcuts",
+      "identifier": "shortcuts:28",
       "text": "Theme Picker",
       "subtext": "SUPER + Ctrl + Shift + N",
       "icon": "󰏘",
@@ -8328,9 +8376,9 @@
       ]
     },
     {
-      "key": "2c9651b8fb835db45c2ad9b33a795b184d34ba2cbd70373d2d8db115af5979ca",
+      "key": "bec9465f67411bbf1fc6a6533d4fd35a25a3d7b81c85c3a21daa1788fcbfc71d",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:28",
+      "identifier": "shortcuts:29",
       "text": "Toggle Bar Auto-Hide",
       "subtext": "SUPER + Shift + Space",
       "icon": "󰍜",
@@ -8348,9 +8396,9 @@
       ]
     },
     {
-      "key": "bec9465f67411bbf1fc6a6533d4fd35a25a3d7b81c85c3a21daa1788fcbfc71d",
+      "key": "a94f52803acc4fa3d4ba5e1fe89f17584198eaaade8cd3ff249b74ab4b69a23f",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:29",
+      "identifier": "shortcuts:30",
       "text": "Toggle Floating And Pin",
       "subtext": "SUPER + T",
       "icon": "󰖲",
@@ -8368,9 +8416,9 @@
       ]
     },
     {
-      "key": "a94f52803acc4fa3d4ba5e1fe89f17584198eaaade8cd3ff249b74ab4b69a23f",
+      "key": "815d407fd4a91eda78bcf705aba59155c7f62e30e1ba5a90e167a96688a39c51",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:30",
+      "identifier": "shortcuts:31",
       "text": "Toggle Focus",
       "subtext": "SUPER + Shift + F",
       "icon": "󰍹",
@@ -8388,9 +8436,9 @@
       ]
     },
     {
-      "key": "815d407fd4a91eda78bcf705aba59155c7f62e30e1ba5a90e167a96688a39c51",
+      "key": "9aa7ae680f44af8d833988685984bd409fac86d3383e3ee7e02edd29f8902fd3",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:31",
+      "identifier": "shortcuts:32",
       "text": "Toggle Fullscreen",
       "subtext": "SUPER + Ctrl + F",
       "icon": "󰊓",
@@ -8408,9 +8456,9 @@
       ]
     },
     {
-      "key": "9aa7ae680f44af8d833988685984bd409fac86d3383e3ee7e02edd29f8902fd3",
+      "key": "356ca3b1e5b539f66746eca8b2c7f541205f62649de6304a5c778b3ad60a9be1",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:32",
+      "identifier": "shortcuts:33",
       "text": "Uninstall Selected App",
       "subtext": "Delete in Apps / SUPER + Space · confirmation required",
       "icon": "󰆴",
@@ -8428,9 +8476,9 @@
       ]
     },
     {
-      "key": "356ca3b1e5b539f66746eca8b2c7f541205f62649de6304a5c778b3ad60a9be1",
+      "key": "da59893b838032800111073e2015d5a88a052c69ff2b1f6050bdb4c5ea2c6c6d",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:33",
+      "identifier": "shortcuts:34",
       "text": "Wallpaper Picker",
       "subtext": "SUPER + Ctrl + N",
       "icon": "🖻",
@@ -8451,9 +8499,9 @@
       ]
     },
     {
-      "key": "da59893b838032800111073e2015d5a88a052c69ff2b1f6050bdb4c5ea2c6c6d",
+      "key": "3d3426368202215fe25a80b0357ec85d1a3fcf87ff2f36746dff121039bcf929",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:34",
+      "identifier": "shortcuts:35",
       "text": "WiFi Panel",
       "subtext": "SUPER + Shift + W",
       "icon": "󰍹",
@@ -8846,6 +8894,27 @@
       "key": "0088b08638e48ad15e38a2084da00afae7af7b92e24d31b30c416000c388239c",
       "provider": "menus:style",
       "identifier": "style:9",
+      "text": "Window gaps",
+      "subtext": ">",
+      "icon": "󰍹",
+      "actions": [],
+      "keywords": [
+        "windows",
+        "spacing",
+        "gaps",
+        "Window gaps",
+        "Window gaps"
+      ],
+      "menus": [
+        "settings",
+        "main"
+      ],
+      "submenu": "window-gaps"
+    },
+    {
+      "key": "59a3cafea575680fd37eab2733609f52ee9d7365a20172847c58561ad125bf86",
+      "provider": "menus:style",
+      "identifier": "style:10",
       "text": "Workspaces",
       "subtext": ">",
       "icon": "󰍹",
@@ -8865,9 +8934,9 @@
       "submenu": "workspaces"
     },
     {
-      "key": "59a3cafea575680fd37eab2733609f52ee9d7365a20172847c58561ad125bf86",
+      "key": "1db91a564243e617e6e4b53303f3e36aa34bcc0ca8f450836402e251dfd866b0",
       "provider": "menus:style",
-      "identifier": "style:10",
+      "identifier": "style:11",
       "text": "Themes & Plugins",
       "subtext": "Browse installed and official themes and plugins",
       "icon": "󰸌",

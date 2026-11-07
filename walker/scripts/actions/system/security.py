@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Interactive enrollment; policy changes only after separate confirmation."""
 import getpass
+import json
 import os
 from pathlib import Path
 
@@ -112,8 +113,25 @@ def tpm_action(action):
     subprocess.run(["sudo", helper, "luks-tpm-enroll", device], check=True)
 
 
+def authentication_summary(directory=Path("/etc/pam.d")):
+    """Report active PAM modules without enrolling or changing authentication."""
+    services = {}
+    for service in ("hyprlock", "sddm", "sudo"):
+        try:
+            lines = (directory / service).read_text().splitlines()
+            services[service] = [line.split("#", 1)[0].split() for line in lines]
+        except OSError:
+            services[service] = None
+    return {method: {"services": [service for service, lines in services.items()
+                                 if lines and any(module in tokens for tokens in lines)],
+                     "available": any(lines is not None for lines in services.values())}
+            for method, module in (("fingerprint", "pam_fprintd.so"), ("fido2", "pam_u2f.so"))}
+
+
 def main(action):
-    if action in ("tpm-enroll", "tpm-remove", "tpm-status"):
+    if action == "summary":
+        print(json.dumps(authentication_summary()))
+    elif action in ("tpm-enroll", "tpm-remove", "tpm-status"):
         tpm_action(action)
     elif action == "password":
         subprocess.run(["passwd"], check=True)

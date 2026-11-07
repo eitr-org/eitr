@@ -44,6 +44,7 @@ Item {
     // A thin rim of the surface colour left around the backdrop.
     property real backdropInset: hostWindow.backdropInset !== undefined ? hostWindow.backdropInset : 0
     onBackdropChanged: if (backdrop) backdrop.parent = backdropHost
+    readonly property alias contentItem: contents
     default property alias panelContent: contents.data
 
     // The sheet's outline: two inward curves join it to the bar; the outer corners stay

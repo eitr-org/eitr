@@ -84,8 +84,8 @@ class WorkspaceStyleTests(unittest.TestCase):
     def test_styles_are_alphabetical_and_the_menu_fits_them_all(self):
         self.assertEqual(STYLES, sorted(STYLES))
         menu = (BAR / "panels/WorkspaceStyleMenu.qml").read_text()
-        self.assertIn("implicitHeight: styles.length * PanelStyle.selectionRowHeight", menu)
-        self.assertIn("model: menu.styles", menu)
+        self.assertIn("implicitHeight: pictures.implicitHeight", menu)
+        self.assertIn("choices: menu.styles", menu)
 
     def test_active_markers_use_accent_ink_without_a_filled_background(self):
         marker = (BAR / "bar/WorkspaceMarker.qml").read_text()

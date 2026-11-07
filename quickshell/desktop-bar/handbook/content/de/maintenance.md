@@ -49,3 +49,5 @@ Neue Installationen planen zwei Minuten nach jedem Start einen Hintergrundversuc
 Nur lesender Status: `/usr/lib/eitr/eitr-system mirrors-status` gibt JSON mit `last_ranking_time` (UTC oder null vor dem ersten Erfolg), `mirror_count`, `shipped_fallback` und `backup_available` aus. Dabei werden lokale Dateien ohne Netzwerkzugriff oder sudo gelesen.
 
 Die Systemaktualisierung prüft am Ende auf neue Plugin-Commits, ohne bestätigte Versionen zu ändern. Prüfe und installiere sie separat unter **Kontrollzentrum > Plugins > Plugins aktualisieren**, **Plugins > Plugins aktualisieren** oder mit `eitr plugin update`. Netzwerkfehler werden still ignoriert; after-update-Hooks bleiben unverändert.
+
+Einstellungen > Aktualisierungen nutzt den gemeinsamen Paketdienst und die vorhandenen bestätigten Kanal- und Systemaktualisierungen. Das letzte Upgrade erscheint nur mit erfolgreichem Snapshot-Nachweis. Diesen PC prüfen startet eitr check --json nur auf Knopfdruck und zeigt Befunde und Schweregrad ohne Reparaturen.

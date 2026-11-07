@@ -1,14 +1,36 @@
 # Control Center
 
-Press **SUPER + ,** to toggle the Control Center. It opens from the bar's current
+Settings and the bar panels share choice controls. Short choices use segments; longer lists expand inline within the panel and scroll without opening a floating popup. Switches keep their existing actions. Gold labels and carved lettering belong to the Settings family of windows: Settings, the Handbook and Themes & Plugins.
+
+**SUPER + ,** opens Settings with **System**, combining your profile and system overview. Themes and Plugins open in their own catalog window. Desktop and Devices pages show their shared controls inline; the Control Center remains available through **SUPER + I**.
+
+## Settings
+
+Settings groups its pages under Overview, Devices, Desktop, Apps & Keys,
+Accounts & Security, and System. Rune captions and a sliding gold marker help
+navigation; search matches page names and descriptions. Every page has a
+breadcrumb, carved title and description. Bordered cards group related rows.
+The opaque surface supports light and dark palettes. The Handbook and Themes & Plugins use the same frame, sidebar, page header and cards, and follow the same palette choice.
+
+Connections has **Wi-Fi** (including the reboot-only backend choice) and **Bluetooth** tabs. Displays separates **Displays** and **Night Light**; Appearance separates **Theme & Wallpaper**, **Fonts & Cursor** and **Terminal**. Use Left/Right on a focused tab to switch. Search opens the matching tab. IPC accepts `settings show connections/bluetooth`; `network` remains an alias for Connections.
+
+Picture cards preview bar layouts, position, appearance, media style, window gaps and corners using the current colours and geometry. Lockscreen cards use shipped preview images; the native Hyprlock fallback uses a sketch. Cursor family and size show an available theme sample. Select cards with a click, Space or Enter. Reduce motion disables decorative hover transitions.
+
+Appearance > Theme & Wallpaper > **Settings colours** selects **Theme colours** or **Eitr website** for Settings, the Handbook and Themes & Plugins. The website choice follows the light or dark variant of the Eitr website palette. This independent preference is stored in `eitr/settings-app.json` under the configuration directory and defaults to theme colours. IPC also accepts `settings palette theme` or `settings palette website`. It does not change the desktop theme or bar appearance.
+
+Dropdowns retain theme, fonts, cursor, terminal, workspace style, default apps and keyboard layout choices. Switches control booleans; sliders adjust sizes and levels. Wallpaper keeps its thumbnail grid. Sound, Connections and Displays reuse the existing device controls.
+
+System shows an overview with your profile picture, CPU/GPU/RAM usage, main display, uptime, Eitr version, update channel and theme palette. Hardware refreshes only while this page is visible. The large artwork currently shows your wallpaper. Network transfer rates are not available from the shared data service.
+
+**SUPER + F2**, Appearance’s **More themes**, the theme carousel’s **+**, and the catalog actions open the separate **Themes & Plugins** window with its own sidebar and close button. **SUPER + I** opens the Control Center. Settings stays open when you click outside; use its close button, Escape or the compositor’s close shortcut.
+
+Press **SUPER + I** to toggle the Control Center. It opens from the bar's current
 edge and closes on Escape or an outside click. With a Full bar on the left or
 right, it starts at the top of the screen, with content padded inside the joined
 surface. Closing returns it to General.
 
-Its five pages hold everything outside Development, Apps, Install, Learn and
-Gaming, so most settings never need Walker. Folding sections usually start closed; click
-a section's title to open or close it, remembered until you log out. Where the bar has its own panel (OBS, WiFi,
-Bluetooth, Audio, Display, Hardware, AI Usage, Weather), the Control Center opens it.
+Its pages are General, Plugins and Tools. The gear button below them, **All settings**, closes the Control Center and opens Settings, which holds the appearance, bar, device, keyboard, display and system choices. Folding sections usually start closed; click
+a section's title to open or close it, remembered until you log out. Where the bar has its own panel, such as OBS, WiFi or Bluetooth, the Control Center opens it.
 
 ## General
 
@@ -30,47 +52,12 @@ Airplane mode remembers which radios it blocked and restores only those.
 Do Not Disturb suppresses popups without clearing notification history.
 Idle Lock is not the same as preventing sleep; be mindful of screen privacy.
 
-## Style
-
-Style groups its settings into Theme & Wallpaper, Corners, Bar, Workspaces, Lockscreen, Cursor and Terminal. Every group starts folded; click its header to open or fold it, and the Control Center remembers that until you log out; its surface encloses all its options. Bar groups Layout, Position, Appearance, Show on, Clock, Media style and Behavior. Behavior contains Auto-hide, Dock and Reduce motion.
-
-Theme and Wallpaper open their carousels; Fonts opens the font list. The
-lockscreen design, cursor (family, size and color), bar appearance, layout,
-edge and displays, workspace markers, corners and Kitty's Cursor Fire change right in the
-panel and share their preferences with Walker.
-
-Terminal offers Kitty (default) and optional Ghostty; Eitr utility terminals stay on Kitty. See [Terminal and editors](terminal.md) for installation and configuration.
-
 ## Tools
 
 Screenshots (selection, full screen, window, or a selection straight to the
 clipboard), recording (the OBS controls, Record, Record + Audio and Stop), OCR,
 QR codes, the color picker, Transcode, reminders and LocalSend sharing. The panel
 closes before a selection or recording starts.
-
-## Settings
-
-- **Devices:** Audio, Microphone, Display (resolution, refresh rate, scale and rotation),
-  Bluetooth and WiFi panels, Lighting, and the battery charge limit on laptops.
-- **Keyboard:** layouts can be selected, added and removed, with at least one kept.
-- **Night Light & Main Display:** Night Light's mode and schedule (distinct
-  from its manual switch) and the main display, which holds the bar.
-- **Information:** About, Hardware, AI Usage, Weather, Check This PC and
-  Report a Problem.
-- **Updates:** the update channel, System Update, what each update changed, and
-  Pacman-only or AUR-only updates.
-- **Snapshots & Cleanup:** restore a file, home snapshots, recovery snapshots and
-  their guide, Cleanup and Dotfiles.
-
-Security settings, factory reset and the network backend stay in Walker > Settings,
-behind their own confirmations.
-
-## Language
-
-**Settings > Language** shows the current language and follows the system locale.
-Open the picker to choose a language or System default, then sign out and back
-in to apply it. It changes only your user-session message locale, never the
-system locale files. See the [Language guide](handbook:language).
 
 ## Quick chat
 
@@ -80,7 +67,7 @@ Replies support selectable Markdown and Copy. The conversation stays in memory; 
 
 ## Plugins
 
-**Settings > Style > Themes & Plugins**, **Control Center > Style > Themes & Plugins** or **SUPER + F2** opens the catalog window. Its Plugins tab lists installed, official and community plugins, installs and updates them after a review inside the window, checks for updates, and removes installed plugins after confirmation. The terminal flows below remain available.
+**Settings > Style > Themes & Plugins** in Walker, **More themes** on the Settings Appearance page or **SUPER + F2** opens the Themes & Plugins window. Its Plugins group lists installed, official and community plugins, installs and updates them after a review inside the window, checks for updates, and removes installed plugins after confirmation. The terminal flows below remain available.
 
 **Control Center > Plugins** shows a compact row for each installed plugin: icon, name and enable switch. Select a row to see its author, version, description, Update/Remove actions, widgets, bar items and Preview. Use Back or Escape to return to the list. Enable/Disable preserves placements and stops or restores services, Walker rows, hooks and visuals; the CLI is `eitr plugin enable ID` or `eitr plugin disable ID`. Add Plugins, Update and Remove open the reviewed terminal flows; removal asks for confirmation. General keeps only plugin tiles. Visual failures have an independent Re-enable action.
 
@@ -95,3 +82,7 @@ The Plugins list shows “This plugin has errors” and its first message. Selec
 Click the round avatar at the top of the Control Center navigation, or open Settings > Security > Users > Profile Picture. Choose Picture… shows your Pictures folder inside the sheet: click a folder to open it, ‹ or Backspace to go up, and click an image to choose it. Then drag the round preview to move the image; use the wheel, slider or +/− to zoom from 1× to 4×, and arrow keys to move. Save (or Enter) applies the crop; Cancel or Escape closes the sheet without applying a pending crop. Remove clears the picture.
 
 Pictures appear as circles in Control Center, the lockscreen and the login screen. Without a picture, Control Center shows your name’s initial on a theme-accent circle, and the lockscreen and login screen show no picture at all. Eitr accepts PNG, JPEG, WebP, GIF (first frame) and BMP up to 40 MB and 12000 pixels per side. It applies orientation, strips metadata and saves a 512×512 PNG at `~/.face`, then updates AccountsService for SDDM. If that update fails, the saved picture still works on the lockscreen; the sheet or CLI reports the login-screen error.
+
+## More Settings pages
+
+Keybinds lists the complete Learn shortcut reference with a search field. Default apps chooses installed handlers for the browser, files, text, images, video, music, mail and PDF; Terminal uses the same preference as Appearance > Terminal. User shows your display name and the shared profile-picture editor. Git & Cloud shows saved identities, folder rules and provider contexts; its buttons open the existing Walker account flows. Security keeps privileged changes in their existing confirmation flows. Updates shows the channel and pending packages; System Update opens the existing update flow. Check This PC runs read-only diagnostics only when pressed. About shows release, kernel, hardware, licence and project links. Each page scrolls to its final row and links to the Handbook.

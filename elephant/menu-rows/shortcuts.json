@@ -92,7 +92,7 @@
   },
   {
     "text": "Desktop Control Center",
-    "subtext": "SUPER + ,",
+    "subtext": "SUPER + I",
     "icon": "󰕮",
     "actions": {
       "open": "eitr-shell desktop-bar ipc call -- controlCenter toggle"
@@ -216,6 +216,14 @@
     "icon": "",
     "actions": {
       "open": "/usr/share/eitr/walker/scripts/actions/search/google.sh"
+    }
+  },
+  {
+    "text": "Settings",
+    "subtext": "SUPER + ,",
+    "icon": "󰒓",
+    "actions": {
+      "open": "eitr-shell desktop-bar ipc call -- settings toggle"
     }
   },
   {

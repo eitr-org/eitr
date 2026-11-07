@@ -1,9 +1,11 @@
 # Focus
 
+Ces commandes sont également disponibles directement dans les paramètres.
+
 ![Bande d’onglets Focus avec des fenêtres d’exemple et deux volets reliés.](assets/focus-strip.png)
 
 Focus remplace la barre par une bande d’onglets de 28 px en haut de chaque écran.
-Ouvrez **Paramètres > Style > Focus** ou **Centre de contrôle > Style > Focus**, ou lancez
+Ouvrez **Paramètres > Style > Focus** ou **Paramètres (SUPER + ,) > Focus**, ou lancez
 `eitr focus on`. `eitr focus status` affiche `on` ou `off` sans contacter Hyprland.
 `eitr focus off` restaure la barre, les effets et les raccourcis habituels. **SUPER + Shift + F** ou `eitr focus toggle` bascule Focus.
 **SUPER + Shift + A/B/C/W/M** ouvre les panneaux Audio/Bluetooth/Calendrier/WiFi/Écran

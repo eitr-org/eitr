@@ -47,7 +47,7 @@
   },
   {
     "text": "Control Center",
-    "subtext": "Open desktop controls and preferences",
+    "subtext": "Open quick toggles, media and tools",
     "icon": "󰒓",
     "actions": {
       "open": "eitr-shell desktop-bar ipc call -- controlCenter toggle"

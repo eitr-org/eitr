@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / 'tools/choice-lists.json'
 # Ordered groups: their order is the menu and double-click cycle order.
 ORDERED = {
+    'window_gaps': {'id', 'label', 'description', 'inner', 'outer'},
     'bar_layouts': {'id', 'label', 'icon', 'description'},
     'bar_appearances': {'id', 'label', 'icon', 'description'},
     'update_channels': {'id', 'label', 'description', 'repository', 'database'},
@@ -81,7 +82,7 @@ def lua_value(value, indent='    '):
 
 def modules(catalog):
     """Whole generated files for the ordered groups, keyed by repository path."""
-    groups = {'barLayouts': 'bar_layouts', 'barAppearances': 'bar_appearances', 'updateChannels': 'update_channels'}
+    groups = {'workspaceStyles': 'workspace_styles', 'windowGaps': 'window_gaps', 'barLayouts': 'bar_layouts', 'barAppearances': 'bar_appearances', 'updateChannels': 'update_channels'}
     javascript = ['.pragma library', f'// {GENERATED_NOTICE}', '']
     for name, group in groups.items():
         # ASCII escapes keep editors from dropping the icon glyphs.
@@ -132,13 +133,7 @@ def projections(catalog):
     styles = [row['id'] for row in catalog['workspace_styles']]
     names = {row['id']: row['label'] for row in catalog['lockscreen_designs']}
     bar = 'quickshell/desktop-bar/'
-    for name, prefix in (('panels/WorkspaceStyleMenu.qml', 'readonly property var styles: '),
-                         ('panels/ControlCenterStyle.qml', 'Repeater { model: '),
-                         ('handbook-controls-preview.qml', 'model: ')):
-        pattern = re.escape(prefix) + r'\[[^\]\n]*\]'
-        if name == 'panels/ControlCenterStyle.qml':
-            pattern += r'(?=\s+PanelButton \{\s+textSize: 12; iconSize: 16\s+id: workspaceChoice)'
-        yield bar + name, pattern, prefix + json.dumps(styles)
+    yield bar + 'handbook-controls-preview.qml', r'model: \[[^\]\n]*\]', 'model: ' + json.dumps(styles)
     yield 'elephant/menus/workspaces.lua', r'local choices = \{[^\n]*\}', 'local choices = {' + ', '.join(json.dumps(style) for style in styles) + '}'
     yield bar + 'scripts/workspace-style.py', r'^STYLES = [^\n]*$', 'STYLES = ' + repr(tuple(styles))
     yield bar + 'scripts/workspace-color.py', r'^if style not in [^\n]*:$', 'if style not in ' + repr(tuple(styles)) + ':'

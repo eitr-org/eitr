@@ -1,20 +1,22 @@
 # Thèmes, fonds d’écran et style
 
+Ces commandes sont également disponibles directement dans les paramètres.
+
+Les paramètres (**SUPER + ,**) incluent les réglages d’apparence ; **Plus de thèmes** ouvre le catalogue séparé des thèmes et plugins (**SUPER + F2**).
+
 ## Catalogue de thèmes et plugins
 
-Le catalogue utilise la palette opaque Blood & Iron ou parchemin du site et les
-polices Cinzel et Cormorant Garamond incluses. Seul le mode clair/sombre du thème
-actuel change son apparence ; les couleurs du bureau, la transparence de la barre
-et le flou ne l’affectent pas.
+Le catalogue partage le cadre, la barre latérale, l’en-tête de page et les cartes
+de la fenêtre des Paramètres. Il suit les couleurs du thème, ou la palette du site
+web Eitr lorsque les Paramètres la choisissent, avec la police Cinzel incluse.
 
-La barre latérale regroupe Thèmes et Plugins sous Installés et En obtenir plus,
-avec leurs nombres. À droite, le
-titre, la description et les filtres précèdent une liste à défilement indépendant.
-Haut/Bas parcourt la barre ; Droite ou Tab entre dans le contenu. Gauche depuis
-la première colonne revient à la barre. Sous 760 px, elle affiche des icônes avec
-infobulles, sans titres de groupe ni texte.
+La barre latérale liste Installé, Officiel et Communauté sous Thèmes et sous
+Plugins. À droite figurent le titre, la description, le filtre Toutes, Clair et
+Sombre pour les thèmes et une galerie à défilement indépendant. Haut/Bas parcourt
+la barre ; Droite ou Tab entre dans le contenu. Gauche depuis la première colonne
+revient à la barre latérale.
 
-Ouvrez **Paramètres > Style > Thèmes et plugins**, **Centre de contrôle > Style > Thèmes et plugins**, le **+** à côté du Soleil et de la Lune du carrousel de thèmes ou **SUPER + F2**. Le catalogue est une fenêtre qui mémorise sa taille. Maintiens SUPER et fais glisser avec le bouton gauche pour la déplacer ou le bouton droit pour la redimensionner. Les raccourcis habituels permettent de la disposer en mosaïque ou de l’envoyer sur un autre espace de travail. La rouvrir active la fenêtre existante, même sur un autre espace. SUPER + F2 la ferme si elle est active. Son bouton de fermeture, Échap (après avoir fermé toute confirmation) ou le raccourci habituel de fermeture la ferment aussi. Installés affiche chaque thème comme Intégré, Officiel, Tiers ou Les vôtres.
+Ouvrez **Paramètres > Style > Thèmes et plugins**, **Plus de thèmes** dans les Paramètres (SUPER + ,), le **+** à côté du Soleil et de la Lune du carrousel de thèmes ou **SUPER + F2**. Le catalogue est une fenêtre qui mémorise sa taille. Maintiens SUPER et fais glisser avec le bouton gauche pour la déplacer ou le bouton droit pour la redimensionner. Les raccourcis habituels permettent de la disposer en mosaïque ou de l’envoyer sur un autre espace de travail. La rouvrir active la fenêtre existante, même sur un autre espace. SUPER + F2 la ferme si elle est active. Son bouton de fermeture, Échap (après avoir fermé toute confirmation) ou le raccourci habituel de fermeture la ferment aussi. Installés affiche chaque thème comme Intégré, Officiel, Tiers ou Les vôtres.
 La galerie affiche leurs aperçus. Cliquez sur un thème installé pour l’appliquer
 avec le fonctionnement habituel ; une coche indique le thème actuel. Tous, Sombres
 et Clairs filtrent la galerie. Installés se rafraîchit à l’ouverture et après chaque action. L’ouverture vérifie les métadonnées en arrière-plan et affiche ensuite les indicateurs de mise à jour. Aucune vérification réseau périodique ; Mettre à jour remplace un thème du catalogue.
@@ -58,7 +60,7 @@ Le catalogue installe et met à jour les plugins dans la fenêtre. Les cartes Of
 
 ## Thèmes et fonds d’écran
 
-Ouvrez **Paramètres > Style > Thème** ou **SUPER + Ctrl + Shift + N** pour les menus Sombre/Clair de Walker. Le carrousel de thèmes du bureau (double clic droit sur le bureau, Centre de contrôle > Style > Thème ou IPC appearance) affiche tous les thèmes. Le Soleil au-dessus de la carte sélectionnée n’affiche que les thèmes clairs et la Lune que les thèmes sombres ; un second clic sur celui qui est sélectionné les affiche tous à nouveau. Le **+** à côté ouvre le catalogue Thèmes et plugins sur les thèmes officiels, avec le même filtre clair ou sombre. Ctrl+Tab passe de tous aux sombres puis aux clairs. Saisissez du texte pour chercher parmi les thèmes affichés ; flèches/Tab déplacent la sélection, Enter l’applique. Backspace modifie la recherche ou ferme si elle est vide ; Escape efface la recherche avant de fermer. Le carrousel de fonds n’a pas de recherche de thèmes.
+Ouvrez **Paramètres > Style > Thème** ou **SUPER + Ctrl + Shift + N** pour les menus Sombre/Clair de Walker. Le carrousel de thèmes du bureau (double clic droit sur le bureau, Paramètres (SUPER + ,) > Apparence ou IPC appearance) affiche tous les thèmes. Le Soleil au-dessus de la carte sélectionnée n’affiche que les thèmes clairs et la Lune que les thèmes sombres ; un second clic sur celui qui est sélectionné les affiche tous à nouveau. Le **+** à côté ouvre le catalogue Thèmes et plugins sur les thèmes officiels, avec le même filtre clair ou sombre. Ctrl+Tab passe de tous aux sombres puis aux clairs. Saisissez du texte pour chercher parmi les thèmes affichés ; flèches/Tab déplacent la sélection, Enter l’applique. Backspace modifie la recherche ou ferme si elle est vide ; Escape efface la recherche avant de fermer. Le carrousel de fonds n’a pas de recherche de thèmes.
 
 **SUPER + Ctrl + N** ouvre les fonds et **SUPER + Shift + N** passe au suivant. Une coche indique le choix actif dans Walker. Les changements n’affichent aucune notification de réussite. Les écrans ultrawide, au moins deux fois plus larges que hauts, utilisent la version 21:9 pour réduire le recadrage ; les autres utilisent la version 4K 16:9.
 
@@ -112,4 +114,7 @@ Le catalogue installe et met à jour les plugins dans la fenêtre. Les cartes Of
 
 Les thèmes intégrés font partie d’Eitr et ne peuvent pas être supprimés. La corbeille d’un thème téléchargé efface son paquet installé ; le thème actuel ne peut pas être supprimé.
 
-Tapez n’importe où dans le catalogue, ou appuyez sur Ctrl+F ou /, pour chercher dans l’onglet actuel par nom ou description. Les mots peuvent être dans n’importe quel ordre ; Échap efface d’abord la recherche.
+Tapez n’importe où dans le catalogue, ou appuyez sur Ctrl+F ou /, pour chercher dans la page actuelle par nom ou description. Les mots peuvent être dans n’importe quel ordre ; Échap efface d’abord la recherche.
+
+
+Dans **Paramètres > Fenêtres > Espacement des fenêtres** ou **Walker > Paramètres > Style > Espacement des fenêtres**, choisissez Aucun, Petit, Par défaut ou Grand. Par défaut conserve 6 px à l’intérieur et 12 px à l’extérieur. Le choix local résiste aux changements de thème et aux rechargements.

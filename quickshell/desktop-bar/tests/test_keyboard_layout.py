@@ -31,12 +31,12 @@ class KeyboardLayoutTests(unittest.TestCase):
         root = Path(__file__).parents[1]
         repo = root.parents[1]
         panel = (root / 'panels/KeyboardLayoutMenu.qml').read_text()
-        center = control_center_source(root)
-        for name, source in (('panel', panel), ('control center', center)):
-            with self.subTest(source=name):
-                self.assertNotIn('"add"', source)
-                self.assertNotIn('"remove"', source)
-                self.assertIn('Add or Remove Layouts', source)
+        self.assertNotIn('"add"', panel)
+        self.assertNotIn('"remove"', panel)
+        self.assertIn('Add or Remove Layouts', panel)
+        # Layouts are edited in Settings > Input; the Control Center no longer lists them.
+        self.assertNotIn('KeyboardLayoutRow {', control_center_source(root))
+        self.assertIn('KeyboardLayoutRow {', (root / 'settings/SettingsInputPage.qml').read_text())
         menu = (repo / 'elephant/menus/keyboard.lua').read_text()
         self.assertIn('SubMenu = "keyboard-add"', menu)
         self.assertIn('if #layouts > 1 then', menu)
@@ -47,6 +47,18 @@ class KeyboardLayoutTests(unittest.TestCase):
         vertical = (root / 'bar/BarVerticalStatus.qml').read_text()
         self.assertIn('keyboardMenu.layouts.length > 1', horizontal)
         self.assertIn('keyboardMenuRef.layouts.length > 1', vertical)
+
+    def test_reorder_preserves_layout_variant_pairs_and_validates_indices(self):
+        with patch.object(module, 'apply_pairs') as apply:
+            module.move_layout(self.keyboard, 0, 1)
+            apply.assert_called_once_with(self.keyboard, [('us', 'intl'), ('us', '')])
+            apply.reset_mock()
+            module.move_layout(self.keyboard, 1, 1)
+            apply.assert_not_called()
+            for origin, destination in [(-1, 0), (0, 2), (2, 0)]:
+                with self.assertRaises(ValueError):
+                    module.move_layout(self.keyboard, origin, destination)
+            apply.assert_not_called()
 
     def test_removal_keeps_variant_alignment(self):
         with patch.object(module, 'apply_pairs') as apply:

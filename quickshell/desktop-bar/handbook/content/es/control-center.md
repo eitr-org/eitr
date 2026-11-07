@@ -1,8 +1,22 @@
 # Centro de control
 
-Pulsa **SUPER + ,** para abrir o cerrar el Centro de control. Se abre desde el borde actual de la barra y se cierra con Escape o un clic fuera. Al cerrarse vuelve a General. Con la barra en modo Full a la izquierda o a la derecha, el Centro empieza en la parte superior de la pantalla, con espacio interior para el contenido dentro de la superficie unida a la barra.
+Ajustes y los paneles de la barra comparten controles de selección. Las opciones cortas usan segmentos; las listas largas se despliegan dentro del panel y permiten desplazarse sin abrir una ventana flotante. Los interruptores conservan sus acciones. Las etiquetas doradas y las letras grabadas pertenecen a la familia de ventanas de Ajustes: Ajustes, el Manual y Temas y plugins.
 
-Sus cinco páginas reúnen todo lo que queda fuera de Desarrollo, Aplicaciones, Instalar, Aprender y Juegos; la mayoría de los ajustes no necesitan Walker. Las secciones plegables suelen comenzar cerradas; pulsa el título para abrir o cerrar y la elección se conserva hasta cerrar sesión. Si la barra tiene un panel propio (OBS, WiFi, Bluetooth, Audio, Pantalla, Hardware, Uso de IA o Tiempo), el Centro de control abre ese panel.
+**SUPER + ,** abre Configuración con **Sistema**, el perfil y el resumen del sistema. Temas y Plugins tienen su propia ventana de catálogo. **SUPER + I** abre el Centro de control.
+
+## Configuración
+
+Los grupos son Resumen, Dispositivos, Escritorio, Aplicaciones y teclas, Cuentas y seguridad y Sistema. Los títulos con runas y el indicador dorado deslizante facilitan la navegación. Cada página tiene título, descripción y tarjetas de ajustes. La ventana sigue siendo opaca. El Manual y Temas y plugins usan el mismo marco, barra lateral, encabezado de página y tarjetas, y siguen la misma elección de colores.
+
+Conexiones tiene pestañas **Wi-Fi** (con la elección del backend) y **Bluetooth**. Pantallas separa **Pantallas** y **Luz nocturna**. Apariencia separa **Tema y fondo de pantalla**, **Fuentes y cursor** y **Terminal**. Izquierda/Derecha cambia la pestaña enfocada; la búsqueda abre la pestaña correspondiente. `settings show connections/bluetooth` abre Bluetooth; `network` sigue siendo un alias. Las tarjetas muestran diseños de barra, bordes, superficies, visualizadores, espacios, esquinas y pantallas de bloqueo. **Colores de Ajustes** permite elegir **Colores del tema** o **Sitio web de Eitr** para Ajustes, el Manual y Temas y plugins. La preferencia local se guarda en `eitr/settings-app.json`; también se cambia con `settings palette theme` o `settings palette website`, sin cambiar los colores del escritorio.
+
+Sistema muestra un resumen con tu foto de perfil, uso de CPU/GPU/RAM, pantalla principal, tiempo de actividad, versión de Eitr, canal de actualización y paleta del tema. El hardware solo se actualiza mientras esta página está visible. La imagen grande muestra por ahora el fondo de pantalla. El servicio de datos compartido no ofrece velocidades de transferencia de red.
+
+**SUPER + F2**, **Más temas** en Apariencia y el **+** del carrusel abren el catálogo independiente con barra lateral **Temas y plugins** y botón de cierre. Configuración sigue abierta al pulsar fuera; Escape o Cerrar la cierran. **SUPER + I** abre el Centro de control.
+
+Pulsa **SUPER + I** para abrir o cerrar el Centro de control. Se abre desde el borde actual de la barra y se cierra con Escape o un clic fuera. Al cerrarse vuelve a General. Con la barra en modo Full a la izquierda o a la derecha, el Centro empieza en la parte superior de la pantalla, con espacio interior para el contenido dentro de la superficie unida a la barra.
+
+Sus páginas son General, Plugins y Herramientas. El botón con engranaje debajo, **Todos los ajustes**, cierra el Centro de control y abre Ajustes, que reúne apariencia, barra, dispositivos, teclado, pantallas y sistema. Las secciones plegables suelen comenzar cerradas; pulsa el título para abrir o cerrar y la elección se conserva hasta cerrar sesión. Si la barra tiene un panel propio, como OBS, WiFi o Bluetooth, el Centro de control lo abre.
 
 ## General
 
@@ -15,32 +29,9 @@ Sus cinco páginas reúnen todo lo que queda fuera de Desarrollo, Aplicaciones, 
 
 El Modo avión recuerda qué conexiones bloqueó y restaura solo esas. No molestar suprime ventanas emergentes sin borrar el historial. Bloqueo automático no equivale a impedir la suspensión; cuida la privacidad de la pantalla.
 
-## Estilo
-
-Estilo organiza los ajustes en Tema y fondo de pantalla, Esquinas, Barra, Espacios de trabajo, Pantalla de bloqueo, Cursor y Terminal. Todos los grupos empiezan plegados; haz clic en el título de un grupo para abrirlo o plegarlo, y el Centro de control lo recuerda hasta que cierres la sesión; su superficie delimita todas sus opciones. Barra reúne Distribución, Posición, Apariencia, Mostrar en, Reloj, Estilo multimedia y Comportamiento. Comportamiento contiene Ocultar automáticamente, Dock y Reducir movimiento.
-
-Tema y Fondo abren sus carruseles; Fuentes abre la lista de fuentes. Diseño de bloqueo, cursor (familia, tamaño y color), apariencia, disposición, borde y pantallas de la barra, marcadores de espacios, esquinas y Fuego del cursor de Kitty cambian directamente en el panel y comparten preferencias con Walker.
-
-Terminal ofrece Kitty (predeterminado) y Ghostty opcional; los terminales auxiliares de Eitr siguen usando Kitty. Consulta [Terminal y editores](terminal.md) para instalar y configurar.
-
 ## Herramientas
 
 Capturas (selección, pantalla completa, ventana o selección directa al portapapeles), grabación (controles de OBS, Grabar, Grabar + Audio y Detener), OCR, códigos QR, selector de colores, Transcodificar, recordatorios y compartir con LocalSend. El panel se cierra antes de empezar una selección o grabación.
-
-## Configuración
-
-- **Dispositivos:** paneles de Audio, Micrófono, Pantalla (resolución, frecuencia, escala y rotación), Bluetooth y WiFi, Iluminación y límite de carga en portátiles.
-- **Teclado:** seleccionar, añadir y eliminar distribuciones, conservando al menos una.
-- **Luz nocturna y pantalla principal:** modo y horario de Luz nocturna, independientes del interruptor manual, y pantalla principal que contiene la barra.
-- **Información:** Acerca de, Hardware, Uso de IA, Tiempo, Comprobar este PC e Informar de un problema.
-- **Actualizaciones:** canal, Actualización del sistema, cambios de cada actualización y actualizaciones solo de Pacman o AUR.
-- **Instantáneas y limpieza:** restaurar archivo, instantáneas personales y de recuperación, su guía, Limpieza y Dotfiles.
-
-Seguridad, restablecimiento de fábrica y servicio de red siguen en Walker > Sistema, con sus propias confirmaciones.
-
-## Idioma
-
-**Configuración > Idioma** muestra el idioma actual según la configuración regional. Abre el selector, elige un idioma o Predeterminado del sistema y cierra e inicia sesión para aplicarlo. Solo cambia el idioma de mensajes de tu sesión, nunca los archivos regionales del sistema. Consulta la [Guía de idioma](handbook:language).
 
 ## Chat rápido
 
@@ -50,7 +41,7 @@ Las respuestas ofrecen Markdown seleccionable y Copiar. La conversación permane
 
 ## Plugins
 
-**Configuración > Estilo > Temas y plugins**, **Centro de control > Estilo > Temas y plugins** o **SUPER + F2** abre la ventana del catálogo. La pestaña Plugins muestra los plugins instalados, oficiales y de la comunidad, los instala y actualiza tras una revisión en la ventana, busca actualizaciones y elimina plugins instalados tras confirmar. Los flujos de terminal siguientes siguen disponibles.
+**Configuración > Estilo > Temas y plugins** en Walker, **Más temas** en la página Apariencia de Ajustes o **SUPER + F2** abre la ventana Temas y plugins. El grupo Plugins muestra los plugins instalados, oficiales y de la comunidad, los instala y actualiza tras una revisión en la ventana, busca actualizaciones y elimina plugins instalados tras confirmar. Los flujos de terminal siguientes siguen disponibles.
 
 **Centro de control > Plugins** muestra una fila compacta por plugin instalado, con icono, nombre e interruptor de activación. Selecciona una fila para ver autor, versión, descripción, acciones de actualización y eliminación, widgets, elementos de la barra y vista previa. Usa Atrás o Escape para volver a la lista. Activar/Desactivar conserva posiciones y detiene o restaura servicios, filas de Walker, hooks y elementos visuales; usa `eitr plugin enable ID` o `eitr plugin disable ID`. Añadir plugins, Actualizar y Eliminar abren los flujos revisados del terminal; eliminar pide confirmación. General conserva solo los bloques de plugins. Los fallos visuales tienen una acción independiente para reactivar.
 
@@ -65,3 +56,7 @@ La lista de Plugins muestra «Este plugin tiene errores» y el primer mensaje. S
 Pulsa el avatar redondo en la parte superior de la navegación del Centro de control, o abre Ajustes > Seguridad > Usuarios > Foto de perfil. Elegir imagen… muestra tu carpeta Imágenes dentro del panel: pulsa una carpeta para abrirla, ‹ o Retroceso para subir de nivel, y pulsa una imagen para elegirla. Después, arrastra la vista circular para mover la imagen; usa la rueda, el deslizador o +/− para ampliar de 1× a 4×, y las flechas para moverla. Guardar o Intro aplica el recorte; Cancelar o Escape cierra sin aplicar cambios. Eliminar borra la foto.
 
 La foto siempre aparece como un círculo en el Centro de control, el bloqueo y el inicio de sesión. Sin foto, el Centro de control muestra la inicial del nombre sobre el color de acento, y el bloqueo y el inicio de sesión no muestran ninguna imagen. Se aceptan PNG, JPEG, WebP, GIF (primer fotograma) y BMP hasta 40 MB y 12000 píxeles por lado. Eitr aplica la orientación, elimina metadatos, guarda un PNG de 512×512 en `~/.face` y actualiza AccountsService para SDDM. Si falla la actualización, la foto guardada sigue funcionando en el bloqueo; la interfaz o CLI muestra el error del inicio de sesión.
+
+## Más páginas de Configuración
+
+Atajos muestra la referencia completa de Aprender con búsqueda. Aplicaciones predeterminadas permite elegir programas instalados para navegador, archivos, texto, imágenes, vídeo, música, correo y PDF; Terminal usa la preferencia de Apariencia > Terminal. Usuario muestra el nombre y el editor compartido de la foto de perfil. Git y nube muestra identidades, reglas de carpetas y contextos; sus botones abren los flujos existentes de Walker. Seguridad conserva las confirmaciones de cambios privilegiados. Actualizaciones muestra el canal y los paquetes pendientes; Actualizar sistema abre el flujo existente. Comprobar este PC ejecuta diagnósticos de solo lectura únicamente al pulsar el botón. Acerca de muestra versión, núcleo, hardware, licencia y enlaces. Todas las páginas permiten desplazarse hasta la última fila y enlazan al Manual.

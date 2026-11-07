@@ -1,5 +1,9 @@
 # Dispositivos y entrada
 
+La página Pantallas y el panel de pantalla muestran un mapa de monitores sobre el selector. Los rectángulos siguen las posiciones reales y los tamaños lógicos, incluida la escala y la rotación. La pantalla principal tiene un contorno resaltado y una etiqueta Principal; las pantallas desactivadas se atenúan si aparecen en la topología. Haz clic en un monitor para abrir sus ajustes. El mapa no se puede arrastrar. Una prueba actualiza el mapa de inmediato y usa un contorno discontinuo hasta conservarla o revertirla.
+
+Usa **Configuración > Pantallas**, **Configuración > Sonido** e **Configuración > Entrada** para acceder a los controles compartidos dentro de Configuración. Entrada permite añadir, eliminar y reordenar distribuciones de teclado con los botones de flecha.
+
 Estos controles están en **Configuración > Dispositivos y entrada** o en los iconos correspondientes de la barra. El Centro de control también ofrece sus interruptores y deslizadores habituales.
 
 ## Audio y micrófono

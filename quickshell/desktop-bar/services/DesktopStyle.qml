@@ -4,14 +4,20 @@ import QtQuick
 import Eitr as Eitr
 import Quickshell
 import Quickshell.Io
+import "../ChoiceLists.js" as ChoiceLists
 
-// Shared motion policy, corner style and critical-notification color. Styles come from
-// corner-styles.json; desktop-style.py calls `style reload` after a change,
-// and the bar's theme refresh supplies criticalColor, so nothing polls here.
+// Shared motion policy, corners, window gaps and critical-notification color.
+// desktop-style.py reloads the saved preferences; theme refresh supplies criticalColor.
 QtObject {
     id: style
     property var styles: ({})
     property string defaultStyle: "rounded"
+    property string gaps: "default"
+    function selectGaps(value) {
+        if (save.running || !ChoiceLists.ids(ChoiceLists.windowGaps).includes(value)) return;
+        save.command = ["python3", Quickshell.shellDir + "/scripts/desktop-style.py", "set", "gaps", value];
+        save.running = true;
+    }
     property string corners: defaultStyle
     property color criticalColor: "#e05c68"
     property string preferenceText: ""
@@ -25,16 +31,18 @@ QtObject {
 
     function radius(value) { return value * scale; }
     function select(value) {
-        if (!styles[value]) return;
+        if (save.running || !styles[value]) return;
         corners = value;
         save.command = ["python3", Quickshell.shellDir + "/scripts/desktop-style.py", "set", value];
         save.running = true;
     }
     function apply(text) {
         try {
-            let value = JSON.parse(text).corners;
+            const preference = JSON.parse(text);
+            gaps = ChoiceLists.ids(ChoiceLists.windowGaps).includes(preference.gaps) ? preference.gaps : "default";
+            let value = preference.corners;
             corners = styles[value] ? value : defaultStyle;
-        } catch (error) { corners = defaultStyle; }
+        } catch (error) { corners = defaultStyle; gaps = "default"; }
     }
 
     property Process save: Process {}
@@ -61,7 +69,7 @@ QtObject {
                 style.apply(style.preferenceText);
             } catch (error) { console.warn("Invalid corner settings:", error); }
         }
-        onLoadFailed: { style.preferenceText = ""; style.corners = style.defaultStyle; }
+        onLoadFailed: { style.preferenceText = ""; style.corners = style.defaultStyle; style.gaps = "default"; }
     }
     property IpcHandler ipc: IpcHandler {
         target: "style"

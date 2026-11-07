@@ -20,7 +20,6 @@ ThemedPopup {
     required property var wifiControl
     required property var bluetoothControl
     required property var displayControl
-    required property var keyboardControl
     property string wifiGlyph: "󰤨"
     required property var battery
     required property var mediaPlayer
@@ -32,14 +31,6 @@ ThemedPopup {
     readonly property var accountPicture: DesktopData.topics["account.picture"] ? DesktopData.topics["account.picture"].data : ({})
     property string page: "general"
     property string barPosition: "top"
-    property string appearance: "solid"
-    property string layout: "unified"
-    property string barScreens: "main"
-    property bool barAutoHide: false
-    property bool barDock: true
-    property string mediaStyle: "bars"
-    property string clockFormat: "12h"
-    property string workspaceStyle: "Runes"
     property var airplane: PowerService.radios
     property var powerTokens: []
     property string powerActionId: ""
@@ -47,58 +38,29 @@ ThemedPopup {
         target: PowerService
         function onRadiosChanged() { center.updateContent(function() { center.airplane = PowerService.radios; }); }
     }
-    property bool crashNotifications: true
+    property alias crashNotifications: notificationState.enabled
     readonly property string crashHelpScript: Eitr.Paths.code("walker/scripts/actions/system/crash-help.py")
     property bool gameMode: false
     readonly property string gameModeScript: Eitr.Paths.code("walker/scripts/actions/toggle/game-mode.sh")
-    property var styleErrors: ({})
-    function styleResult(key, text, code, fields) {
-        const result = JsonState.parse(text, code, fields);
-        let errors = Object.assign({}, styleErrors);
-        if (result.ok) delete errors[key];
-        else errors[key] = result.error;
-        styleErrors = errors;
-        return result.data;
-    }
-    readonly property var crashOperationRef: crashOperation
+    readonly property var crashOperationRef: notificationState.operation
     readonly property var gameModeOperationRef: gameModeOperation
-    readonly property var cursorWriteRef: cursorWrite
-    readonly property var lockscreenWriteRef: lockscreenWrite
-    readonly property var fireWriteRef: fireWrite
-    readonly property var terminalWriteRef: terminalWrite
     property string actionError: ""
     property var pendingCommand: []
     // Sections the user folded or unfolded this session (title -> open).
     property var folds: ({})
-    property var cursorChoices: ({family: [], size: [], color: []})
-    property var lockscreens: []
-    property string lockscreen: ""
-    property string terminalChoice: "kitty"
-    property var terminalChoices: []
-    property var terminalAppearance: ({})
-    property var terminalAppearanceChoices: ({})
-    readonly property string terminalScript: Eitr.Paths.code("walker/scripts/actions/style/terminal.py")
-    property bool cursorFire: false
-    property string updateChannel: ""
-    property var organizationPolicy: ({})
-    readonly property string cursorScript: Eitr.Paths.code("walker/scripts/actions/style/cursor.py")
-    readonly property string lockscreenScript: Eitr.Paths.code("quickshell/lockscreen/scripts/settings.py")
-    readonly property string effectsScript: Eitr.Paths.code("walker/scripts/actions/style/terminal-effects.py")
     property var screenMargins: [12, 12, 12, 12]
     readonly property real edgeClearance: barPosition === "top" ? screenMargins[2] : barPosition === "bottom" ? screenMargins[0] : 0
     signal idleToggleRequested()
     signal lockRequested()
-    signal settingRequested(string key, string value)
-    signal workspaceStyleRequested(string value)
     signal panelRequested(string kind)
-    signal pickerRequested(string kind)
+    // Opens the Settings window at a page ("" for its overview).
+    signal settingsRequested(string page)
     implicitWidth: Math.min(520, hostWindow ? hostWindow.width - ((barPosition === "left" || barPosition === "right") && strip ? strip.width : 0) : 520)
     implicitHeight: hostWindow ? hostWindow.height - (barPosition === "top" || barPosition === "bottom" ? (strip ? strip.height : 30) : 0) - (detached ? 0 : edgeClearance) : 800
     barEdge: barPosition
     leftAligned: true
     function refresh() {
-        keyboardControl.refresh();
-        if (!crashQuery.running && !crashOperation.running) crashQuery.running = true;
+        notificationState.refresh();
         if (!gameModeQuery.running && !gameModeOperation.running) gameModeQuery.running = true;
     }
     property bool powerOpen: false
@@ -107,26 +69,18 @@ ThemedPopup {
     function runAfterClose(command) { pendingCommand = command; opened = false; }
     // The same command as that Walker menu row (scripts/menu-action.py), after closing.
     function menuAction(menu, row) { runAfterClose(["python3", Quickshell.shellDir + "/scripts/menu-action.py", menu, row]); }
-    function walkerMenu(name) { runAfterClose([Eitr.Paths.code("walker/bin/walker"), "--provider", "menus:" + name]); }
     function setFold(title, open) { let next = Object.assign({}, folds); next[title] = open; folds = next; }
-    function loadStyle() {
-        if (!cursorQuery.running) cursorQuery.running = true;
-        if (!lockscreenQuery.running) lockscreenQuery.running = true;
-        if (!terminalQuery.running) terminalQuery.running = true;
-        if (!fireQuery.running) fireQuery.running = true;
-    }
-    function run(process, command) { if (process.running) return; actionError = ""; process.command = command; process.running = true; }
+    property var organizationPolicy: ({})
+    function openSettings(page) { opened = false; settingsRequested(page); }
     // Fetch once in the background after the bar starts, so even the first opening
     // shows its data instead of rebuilding lists halfway through the animation.
-    Timer { interval: 8000; running: true; onTriggered: { center.refresh(); center.loadStyle(); chatStatus.running = true; } }
+    Timer { interval: 8000; running: true; onTriggered: { center.refresh(); chatStatus.running = true; } }
     // Queries start once the unfold has finished (DockPanel.revealed): their results
     // rebuild lists, which would otherwise stall the animation midway.
     onRevealed: {
         DisplayService.open(center, 5);
         center.refresh(); chatStatus.running = true;
-        if (page === "style") loadStyle();
         if (!organizationQuery.running) organizationQuery.running = true;
-        if (page === "settings" && !channelQuery.running) channelQuery.running = true;
     }
     property string networkToken: ""
     property string networkMessage: ""
@@ -151,8 +105,6 @@ ThemedPopup {
     }
     onPageChanged: {
         if (page === "picture") { chatOpen = false; profileSheet.reset(); profileSheet.forceActiveFocus(); }
-        if (page === "style") loadStyle();
-        if (page === "settings" && !channelQuery.running) channelQuery.running = true;
     }
     onVisibleChanged: if (!visible) {
         powerOpen = false;
@@ -165,19 +117,10 @@ ThemedPopup {
         }
     }
     Timer { interval: 5000; repeat: true; running: center.opened; onTriggered: center.refresh() }
-    Process {
-        id: crashQuery
-        command: ["python3", center.crashHelpScript, "status"]
-        stdout: StdioCollector { id: crashOutput }
-        onExited: center.crashNotifications = crashOutput.text.trim() === "on"
-    }
-    Process {
-        id: crashOperation
-        command: ["python3", center.crashHelpScript, "toggle"]
-        onExited: function(code) {
-            if (code !== 0) center.actionError = Eitr.I18n.tr("Could not change crash notifications");
-            center.refresh();
-        }
+    SettingsNotificationState {
+        id: notificationState
+        active: center.opened
+        onErrorChanged: center.actionError = error
     }
     Process {
         id: gameModeQuery
@@ -193,72 +136,6 @@ ThemedPopup {
             center.refresh();
         }
     }
-    Process {
-        id: cursorQuery
-        command: ["python3", center.cursorScript, "summary"]
-        stdout: StdioCollector { id: cursorOutput }
-        onExited: function(code) {
-            const data = center.styleResult("cursor", cursorOutput.text, code, {choices: {family: [{id: "string", label: "string", selected: "boolean"}], size: [{id: "string", label: "string", selected: "boolean"}], color: [{id: "string", label: "string", selected: "boolean"}]}, current: "object", available: "boolean"});
-            center.updateContent(function() {
-                const choices = data ? data.choices : {family: [], size: [], color: []};
-                if (JsonState.changed(center.cursorChoices, choices)) center.cursorChoices = choices;
-            });
-        }
-    }
-    Process { id: cursorWrite; onExited: function(code) { if (code !== 0) center.actionError = Eitr.I18n.tr("Could not change the cursor"); cursorQuery.running = true; } }
-    Process {
-        id: lockscreenQuery
-        command: ["python3", center.lockscreenScript, "summary"]
-        stdout: StdioCollector { id: lockscreenOutput }
-        onExited: function(code) {
-            const data = center.styleResult("lockscreen", lockscreenOutput.text, code, {choices: [{value: "string", label: "string"}], current: "string", available: "boolean"});
-            center.updateContent(function() {
-                const choices = data ? data.choices : [];
-                if (JsonState.changed(center.lockscreens, choices)) center.lockscreens = choices;
-                center.lockscreen = data ? data.current : "";
-            });
-        }
-    }
-    Process {
-        id: lockscreenWrite
-        stderr: StdioCollector { id: lockscreenError }
-        onExited: function(code) { if (code !== 0) center.actionError = lockscreenError.text.trim() || Eitr.I18n.tr("Could not change the lockscreen"); lockscreenQuery.running = true; }
-    }
-    Process {
-        id: fireQuery
-        command: ["python3", center.effectsScript, "summary"]
-        stdout: StdioCollector { id: fireOutput }
-        onExited: function(code) {
-            const data = center.styleResult("effects", fireOutput.text, code, {current: "boolean", choices: "array", available: "boolean"});
-            center.cursorFire = data ? data.current : false;
-        }
-    }
-    Process {
-        id: terminalQuery
-        command: ["python3", center.terminalScript, "summary"]
-        stdout: StdioCollector { id: terminalOutput }
-        onExited: function(code) {
-            const data = center.styleResult("terminal", terminalOutput.text, code, {current: "string", choices: [{value: "string", label: "string"}], appearance: "object", appearanceChoices: "object", available: "boolean"});
-            center.updateContent(function() {
-                const choices = data ? data.choices : [];
-                if (JsonState.changed(center.terminalChoices, choices)) center.terminalChoices = choices;
-                center.terminalChoice = data ? data.current : "";
-                const appearance = data ? data.appearance : {};
-                if (JsonState.changed(center.terminalAppearance, appearance)) center.terminalAppearance = appearance;
-                const appearanceChoices = data ? data.appearanceChoices : {};
-                if (JsonState.changed(center.terminalAppearanceChoices, appearanceChoices)) center.terminalAppearanceChoices = appearanceChoices;
-            });
-        }
-    }
-    Process {
-        id: terminalWrite
-        stderr: StdioCollector { id: terminalError }
-        onExited: function(code) {
-            if (code !== 0) center.actionError = terminalError.text.trim();
-            terminalQuery.running = true;
-        }
-    }
-    Process { id: fireWrite; onExited: function(code) { if (code !== 0) center.actionError = Eitr.I18n.tr("Could not change Cursor Fire"); fireQuery.running = true; } }
     Process {
         id: organizationQuery
         running: true
@@ -278,12 +155,6 @@ ThemedPopup {
 
             });
         }
-    }
-    Process {
-        id: channelQuery
-        command: ["/usr/lib/eitr/eitr-system", "channel-status"]
-        stdout: StdioCollector { id: channelOutput }
-        onExited: center.updateChannel = channelOutput.text.trim()
     }
     Process {
         id: chatStatus
@@ -309,6 +180,7 @@ ThemedPopup {
             centerRef: center
             onPageSelected: function(page) { center.chatOpen = false; chatView.reset(); center.page = page; }
             onChatRequested: { center.chatOpen = true; chatView.focusInput(); }
+            onSettingsRequested: center.openSettings("")
         }
         Rectangle { Layout.fillHeight: true; Layout.preferredWidth: 1; color: Qt.alpha(center.foreground, PanelStyle.dividerAlpha) }
         Item {
@@ -330,7 +202,7 @@ ThemedPopup {
                     id: content
                     width: scroll.width; spacing: 12
                     PanelHeading {
-                        text: ({"picture": Eitr.I18n.tr("Profile Picture"), plugins: Eitr.I18n.tr("Plugins"), general: Eitr.I18n.tr("General"), style: Eitr.I18n.tr("Style"), tools: Eitr.I18n.tr("Tools"), settings: Eitr.I18n.tr("Settings")})[center.page]
+                        text: ({"picture": Eitr.I18n.tr("Profile Picture"), plugins: Eitr.I18n.tr("Plugins"), general: Eitr.I18n.tr("General"), tools: Eitr.I18n.tr("Tools")})[center.page]
                         rune: center.page
                         foreground: center.foreground; accent: center.accent
                     }
@@ -350,8 +222,6 @@ ThemedPopup {
                         width: parent.width; visible: center.page === "plugins"
                         foreground: center.foreground; background: center.background; accent: center.accent
                     }
-                    ControlCenterStyle { centerRef: center }
-                    ControlCenterSettings { centerRef: center }
                     ControlCenterTools { centerRef: center }
                     ControlCenterPower { centerRef: center }
                 }

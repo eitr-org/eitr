@@ -166,7 +166,7 @@ def main(args):
     if len(args) == 2 and args[0] == "entries" and args[1] in ("family", "color", "size"):
         return entries(args[1])
     if args == ["summary"]:
-        return {"current": choice, "available": True,
+        return {"current": choice, "available": True, "preview": preview(resolve(choice)),
                 "choices": {group: [{**row, "available": installed(resolve({**choice, group: int(row["id"]) if group == "size" else row["id"]}))}
                                     for row in entries(group, choice, previews=False)]
                             for group in ("family", "size", "color")}}

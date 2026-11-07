@@ -37,3 +37,5 @@ La carpeta personal nueva no contiene archivos de tu cuenta. En el primer inicio
 ## Fotos de perfil
 
 Ajustes > Seguridad > Usuarios > Foto de perfil abre la foto redonda que aparece en el Centro de control, el bloqueo y el inicio de sesión; el editor de recorte y lo que guarda Eitr se explican en [Centro de control](handbook:control-center).
+
+Configuración > Usuario reutiliza el editor de foto y muestra el nombre. Seguridad abre los flujos existentes con contraseñas, confirmaciones escritas y límites de administrador.

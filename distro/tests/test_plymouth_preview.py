@@ -3,7 +3,7 @@ import json
 import os
 from pathlib import Path
 import signal
-import socket
+import stat
 import subprocess
 import tempfile
 import time
@@ -85,9 +85,7 @@ class PlymouthPreviewTests(unittest.TestCase):
         (self.runtime / 'untouched').write_text('host state')
         sockets = self.folder / 'sockets'
         sockets.mkdir()
-        connection = socket.socket(socket.AF_UNIX)
-        self.addCleanup(connection.close)
-        connection.bind(str(sockets / 'X987'))
+        os.mknod(sockets / 'X987', stat.S_IFSOCK | 0o600)
         self.script = tools / 'plymouth-preview.sh'
         text = SCRIPT.read_text().replace('/usr/share/plymouth/themes/eitr-preview', str(self.theme))
         text = text.replace('/usr/lib/plymouth/renderers', str(self.renderers)).replace('/run/plymouth', str(self.runtime))

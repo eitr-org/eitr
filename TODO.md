@@ -63,25 +63,35 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
   - Window rules and keybinds editors: "always float this app" and rebinding shortcuts
     from Settings, without editing Lua by hand.
   - First-run welcome that previews the bar layouts and lets the user pick one.
-  - **Settings app (next, decided 2026-11-05).** One window with a grouped sidebar and a
-    search that finds individual settings: Overview (You, System); Devices (Displays,
-    Sound, Network & Bluetooth, Input); Desktop (Appearance, Desktop Bar, Windows,
-    Lockscreen, Notifications, Focus); Apps & Keys (Keybinds, Default apps, Themes &
-    Plugins, which moves in from its own window); Accounts & Security; System (Updates &
-    Channel, Check This PC, About); an Advanced switch hides rarely used options. The
+  - **Shared Settings controls and monitor map:** Shared palette-driven controls now serve Settings, display choices, workspace previews, theme filters, recording scenes and laptop power profiles. Displays and the Display panel share a positioned monitor map with trial outlines and click selection; fixtures cover dark/light, single, unequal and rotated screens.
+  - **Settings presentation:** Connections, Displays and Appearance tabs; tab-aware search/IPC with network alias; reusable visual choice cards and a saved theme/website Settings palette. Offscreen dark/light and website comparisons cover the window and preview controls.
+  - **Settings app (all page groups implemented).** One window with a grouped sidebar and a
+    search that finds individual settings: Overview (System); Devices (Displays,
+    Sound, Connections, Input); Desktop (Appearance, Desktop Bar, Windows,
+    Lockscreen, Notifications, Focus); Apps & Keys (Keybinds, Default apps);
+    Themes and Plugins retain their separate catalog window; Accounts & Security; System (Updates &
+    Channel, Check This PC, About). The
     Overview shows the profile picture and name, live CPU/GPU/RAM/network from the bar's
     existing data, version and channel, resolution, uptime, the theme palette and a large
-    illustration per theme (to be drawn; the wallpaper until then). It follows the theme's
-    colours but is always opaque (no transparency or blur). Each setting has one plain
+    illustration per theme (to be drawn; the wallpaper until then). Settings chooses theme
+    colours or the website palette and stays opaque. Each setting has one plain
     line and a "Learn more" link into the Handbook, which stays a separate window.
     SUPER + , opens Settings; the Control Center moves to SUPER + I and keeps quick
-    toggles, sliders, media and a few style choices, with an "All settings" button.
-    Walker's Settings rows open the matching page. Build in phases: the frame with
-    Overview and Themes & Plugins, then one area at a time, then the slimmer Control Center.
-  - Window gaps preference: four sizes, None, Small, Default (today's 6 px inner and
-    12 px outer, the default) and Large, chosen like Corners under Style, kept across
-    theme switches; the bar's islands, panels and padding already follow Hyprland's live
-    gaps, so check every layout at None and Large.
+    toggles, sliders, media, plugins and tools, with an "All settings" button.
+    Walker's Settings rows will open the matching page. The frame, Overview, embedded
+    separate Themes and Plugins pages and shortcut split are implemented.
+    Desktop and Devices reuse the existing inline controls. Keybinds, Default apps, Users,
+    Git & Cloud, Security, Updates, Check This PC and About are implemented with shared
+    readers and existing confirmed actions. The Control Center is slimmed: its Style
+    and Settings pages are gone, and its All settings button opens Settings. The
+    Handbook and Themes & Plugins share the Settings frame, sidebar, page header and
+    cards. Next: refine individual-setting search. Network throughput needs a shared
+    data topic; theme artwork currently uses the wallpaper.
+  - **Window gaps preference implemented.** None, Small, Default (6 px inner,
+    12 px outer) and Large share the local corner preference and survive theme
+    changes and reloads. Settings and Walker use one catalog.
+    Live hardware acceptance across bar layouts remains pending.
+
 - **Light themes.** The owner has ideas for more light themes; create them later.
 - **hyprpaper crash without a GPU: follow upstream.** hyprpaper segfaults in VMs
   without 3D acceleration (hyprwm/hyprtoolkit#144); the bar now draws the still
@@ -175,3 +185,7 @@ promises below. The roadmap table in `distro/RELEASES.md` has the wording.
 
 Assistant sessions use full access by default; Settings > Security > Assistant Access restores permission prompts. Not planned: the rest of the "Not planned now"
 list in `distro/RELEASES.md`.
+
+- [ ] Settings > Users: an administrator page for other accounts (create, remove, change type or password), separate from the User page for your own account. Reuse Walker's reviewed Create User flow and the root helper behind typed confirmation.
+- [ ] Settings > Git & Cloud for many companies: add, edit and remove Git identities and their folder rules from Settings (any number, e.g. one per employer), and group each company's cloud profiles and contexts with its identity.
+- [ ] Create a separate `eitr-store` repository and app for themes, plugins and other add-ons: catalog index, submissions and listings; replace the built-in catalog window later.

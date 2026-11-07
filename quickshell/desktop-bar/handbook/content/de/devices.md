@@ -1,5 +1,9 @@
 # Geräte und Eingabe
 
+Die Seite Anzeigen und das Anzeigepanel zeigen über der Bildschirmauswahl eine Monitorkarte. Rechtecke folgen den tatsächlichen Positionen und logischen Größen einschließlich Skalierung und Drehung. Der Hauptbildschirm hat eine hervorgehobene Kontur und die Markierung „Haupt“; deaktivierte Bildschirme werden abgeblendet, sofern sie in der Topologie stehen. Ein Klick öffnet die Einstellungen des Monitors. Ziehen ist nicht möglich. Ein Test aktualisiert die Karte sofort und zeigt bis zum Beibehalten oder Zurücksetzen eine gestrichelte Kontur.
+
+Unter **Einstellungen > Bildschirme**, **Einstellungen > Ton** und **Einstellungen > Eingabe** stehen die gemeinsamen Steuerelemente direkt in Einstellungen bereit. Eingabe kann Tastaturlayouts hinzufügen, entfernen und mit den Pfeiltasten umsortieren.
+
 Diese Bedienelemente findest du unter **Einstellungen > Geräte und Eingabe** oder über die entsprechenden Symbole in der Leiste. Das Kontrollzentrum bietet ebenfalls die alltäglichen Schalter und Regler.
 
 ## Audio und Mikrofon

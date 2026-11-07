@@ -1,9 +1,11 @@
 # Focus
 
+Diese Steuerelemente sind auch direkt in den Einstellungen verfügbar.
+
 ![Focus-Tabstreifen mit Beispielfenstern und zwei verbundenen Bereichen.](assets/focus-strip.png)
 
 Focus ersetzt die Leiste durch einen 28 px hohen Tabstreifen oben auf jedem
-Bildschirm. Öffne **Einstellungen > Stil > Focus** oder **Kontrollzentrum > Stil > Focus**, oder
+Bildschirm. Öffne **Einstellungen > Stil > Focus** oder **Einstellungen (SUPER + ,) > Focus**, oder
 starte `eitr focus on`. `eitr focus status` zeigt `on` oder `off`, ohne Hyprland
 abzufragen. `eitr focus off` stellt die normale Leiste, Effekte und Tastenkürzel
 wieder her. **SUPER + Shift + F** oder `eitr focus toggle` schaltet Focus um.

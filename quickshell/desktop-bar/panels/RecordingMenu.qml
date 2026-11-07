@@ -71,20 +71,6 @@ ThemedPopup {
         }
     }
 
-    component Toggle: PanelButton {
-        id: toggle
-        property string description
-        property string glyph
-        icon: true
-        compactIconBackground: true
-        height: 34
-        width: 34
-        text: glyph
-        foreground: menu.foreground
-        HoverHandler { id: toggleHover }
-        BarTooltip { target: toggle; hovered: toggleHover.hovered; text: toggle.description; foreground: menu.foreground; background: menu.background }
-    }
-
     Column {
         id: content
         width: parent.width
@@ -160,24 +146,21 @@ ThemedPopup {
             height: 8
             foreground: menu.foreground
         }
-        Row {
+        Column {
+            width: parent.width
             visible: menu.microphone.available || menu.camera.available
-            spacing: 8
-            Toggle {
+            spacing: 6
+            Row {
+                width: parent.width
                 visible: menu.microphone.available
-                glyph: menu.microphone.muted ? "\u{F036D}" : "\u{F036C}"
-                description: menu.microphone.muted ? Eitr.I18n.tr("Unmute the OBS microphone") : Eitr.I18n.tr("Mute the OBS microphone")
-                available: menu.controller.controlsReady
-                loading: menu.controller.pendingAction === "mic-mute" || menu.controller.pendingAction === "mic-unmute"
-                onClicked: menu.controller.run(menu.microphone.muted ? "mic-unmute" : "mic-mute")
+                Text { width: parent.width - 44; height: 36; verticalAlignment: Text.AlignVCenter; text: Eitr.I18n.tr("Microphone"); color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
+                PanelSwitch { anchors.verticalCenter: parent.verticalCenter; foreground: menu.foreground; accent: menu.accent; checked: !menu.microphone.muted; enabled: menu.controller.controlsReady && !menu.controller.busy; Accessible.name: Eitr.I18n.tr("Microphone"); onClicked: menu.controller.run(checked ? "mic-unmute" : "mic-mute") }
             }
-            Toggle {
+            Row {
+                width: parent.width
                 visible: menu.camera.available
-                glyph: menu.camera.enabled ? "\u{F0100}" : "\u{F05DF}"
-                description: menu.camera.enabled ? Eitr.I18n.tr("Hide the camera") : Eitr.I18n.tr("Show the camera")
-                available: menu.controller.controlsReady
-                loading: menu.controller.pendingAction === "camera-on" || menu.controller.pendingAction === "camera-off"
-                onClicked: menu.controller.run(menu.camera.enabled ? "camera-off" : "camera-on")
+                Text { width: parent.width - 44; height: 36; verticalAlignment: Text.AlignVCenter; text: Eitr.I18n.tr("Webcam"); color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
+                PanelSwitch { anchors.verticalCenter: parent.verticalCenter; foreground: menu.foreground; accent: menu.accent; checked: menu.camera.enabled; enabled: menu.controller.controlsReady && !menu.controller.busy; Accessible.name: Eitr.I18n.tr("Webcam"); onClicked: menu.controller.run(checked ? "camera-on" : "camera-off") }
             }
         }
         Text {
@@ -188,26 +171,7 @@ ThemedPopup {
             font.family: DesktopFonts.family
             font.pixelSize: PanelStyle.captionSize
         }
-        Flow {
-            visible: menu.scenes.length > 1
-            width: parent.width
-            spacing: 6
-            Repeater {
-                model: menu.scenes
-                PanelButton {
-                    required property string modelData
-                    height: 28
-                    outlined: true
-                    textSize: PanelStyle.captionSize
-                    text: modelData
-                    foreground: menu.foreground
-                    selected: modelData === menu.details.scene
-                    available: menu.controller.controlsReady && !selected
-                    loading: menu.controller.pendingAction === "scene" && menu.controller.pendingArgument === modelData
-                    onClicked: menu.controller.run("scene", modelData)
-                }
-            }
-        }
+        ChoiceDropdown { visible: menu.scenes.length > 1; width: parent.width; foreground: menu.foreground; choices: menu.scenes; current: menu.details.scene || ""; available: menu.controller.controlsReady && menu.controller.pendingAction !== "scene"; onChosen: value => menu.controller.run("scene", value) }
         Text {
             visible: menu.controller.actionError !== ""
             width: parent.width

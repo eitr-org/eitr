@@ -2,6 +2,7 @@ import ".."
 import Eitr as Eitr
 import QtQuick
 import "../PanelStyle.js" as PanelStyle
+import "../ChoiceLists.js" as ChoiceLists
 
 ThemedPopup {
     id: menu
@@ -11,11 +12,11 @@ ThemedPopup {
 
     readonly property real rowWidth: PanelStyle.selectionTextInset + labelMetrics.advanceWidth + 12 + 5 * 23 + 4 * 4 + 10
     implicitWidth: Math.max(296, rowWidth + horizontalContentInset)
-    implicitHeight: styles.length * PanelStyle.selectionRowHeight + (styles.length - 1) * PanelStyle.selectionRowGap + verticalContentInset
+    implicitHeight: pictures.implicitHeight + verticalContentInset
     // Without the join insets, which depend on edge contact.
     edgeContactWidth: Math.max(296, rowWidth + (contentGaps[1] + contentGaps[3]) * PanelStyle.contentGapMultiplier)
     leftAligned: true
-    readonly property var styles: ["Dots", "Glyph", "Numbers", "Runes"]
+    readonly property var styles: ChoiceLists.workspaceStyles
 
     TextMetrics {
         id: labelMetrics
@@ -24,69 +25,18 @@ ThemedPopup {
         font.pixelSize: PanelStyle.bodySize
     }
 
+    // The panel's content column, like every side panel's: picture cards with the real markers.
     Column {
-        anchors.fill: parent
-        anchors.margins: 0
-        spacing: PanelStyle.selectionRowGap
-        Repeater {
-            model: menu.styles
-            Rectangle {
-                id: choiceRow
-                required property string modelData
-                required property int index
-                width: parent.width
-                height: PanelStyle.selectionRowHeight
-                radius: DesktopStyle.radius(PanelStyle.controlRadius)
-                color: Qt.alpha(menu.foreground, PanelStyle.selectionAlpha(modelData === menu.currentStyle, mouse.containsMouse))
-                Text {
-                    anchors.left: parent.left
-                    anchors.leftMargin: PanelStyle.selectionTextInset
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: modelData
-                    color: menu.foreground
-                    font.family: DesktopFonts.family
-                    font.pixelSize: PanelStyle.bodySize
-                }
-                Row {
-                    anchors.right: parent.right
-                    anchors.rightMargin: 10
-                    anchors.verticalCenter: parent.verticalCenter
-                    spacing: 4
-                    Repeater {
-                        model: 5
-                        WorkspaceMarker {
-                            required property int index
-                            width: 23
-                            height: 20
-                            style: choiceRow.modelData
-                            label: String(index + 1)
-                            active: index === 1
-                            accent: menu.accent
-                            foreground: menu.foreground
-                            selectedForeground: menu.selectedForeground
-                        }
-                    }
-                }
-                Text {
-                    anchors.left: parent.left
-                    anchors.leftMargin: PanelStyle.selectionInset
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: modelData === menu.currentStyle ? "" : ""
-                    color: menu.accent
-                    font.family: DesktopFonts.family
-                    font.pixelSize: PanelStyle.controlSize
-                }
-                MouseArea {
-                    id: mouse
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        menu.selected(parent.modelData);
-                        menu.opened = false;
-                    }
-                }
-            }
+        width: parent.width
+        PictureChoices {
+            id: pictures
+            width: parent.width
+            compact: true
+            kind: "workspace"
+            choices: menu.styles
+            current: menu.currentStyle
+            foreground: menu.foreground; background: menu.background; accent: menu.accent
+            onChosen: value => { menu.selected(value); menu.opened = false; }
         }
     }
 }

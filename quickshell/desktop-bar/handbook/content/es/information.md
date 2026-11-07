@@ -28,3 +28,5 @@ Haz clic en el ecualizador animado para ver portada, título y artista, usar ant
 Las notificaciones tienen un brillo interior suave con el color de acento del tema. Las críticas usan el rojo del tema y las de baja prioridad son discretas, sin brillo. No molestar oculta los avisos emergentes sin borrar el historial. Este permanece en memoria al recargar la configuración, pero no al reiniciar el proceso. No se guarda el contenido de las notificaciones en un registro.
 
 La retención de miniaturas usa un presupuesto de 32 MiB y decodifica imágenes de hasta 160×120. Las imágenes ocultas más antiguas se liberan primero; el texto permanece en el historial. Las imágenes de los avisos emergentes o del centro abierto se conservan hasta que se ocultan, aunque se supere temporalmente el presupuesto.
+
+Configuración > Acerca de muestra versión, nombre en clave, canal, hardware, núcleo y licencia, con enlaces al sitio, repositorio y Manual.

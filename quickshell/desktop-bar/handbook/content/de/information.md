@@ -28,3 +28,5 @@ Klicke auf den animierten Equalizer für Cover, Titel und Künstler, Zurück/Wie
 Benachrichtigungen leuchten sanft nach innen in der Akzentfarbe des Themes. Kritische verwenden stattdessen dessen Rot; solche mit niedriger Priorität bleiben dezent und ohne Leuchten. Nicht stören unterdrückt Popups, ohne den Verlauf zu löschen. Dieser bleibt bei Konfigurationsneuladungen im Speicher, aber nicht bei einem Prozessneustart. Benachrichtigungsinhalte werden nicht protokolliert.
 
 Für gespeicherte Vorschaubilder gilt ein Speicherbudget von 32 MiB; Bilder werden mit höchstens 160×120 dekodiert. Die ältesten ausgeblendeten Bilder werden zuerst freigegeben; der Text bleibt im Verlauf. Bilder in Popups oder in der geöffneten Benachrichtigungszentrale bleiben bis zum Ausblenden gespeichert, auch wenn das Budget vorübergehend überschritten wird.
+
+Einstellungen > Über zeigt Version, Codename, Aktualisierungskanal, Hardware, Kernel und Lizenz sowie Links zu Website, Repository und Handbuch.

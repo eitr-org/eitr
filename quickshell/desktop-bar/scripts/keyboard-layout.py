@@ -68,6 +68,15 @@ def remove_layout(keyboard, index):
     apply_pairs(keyboard, pairs)
 
 
+def move_layout(keyboard, origin, destination):
+    pairs = layout_pairs(keyboard)
+    if not (0 <= origin < len(pairs) and 0 <= destination < len(pairs)):
+        raise ValueError('Unknown keyboard layout')
+    if origin != destination:
+        pairs.insert(destination, pairs.pop(origin))
+        apply_pairs(keyboard, pairs)
+
+
 def apply_pairs(keyboard, pairs):
     layout_string = ','.join(pair[0] for pair in pairs)
     variant_string = ','.join(pair[1] for pair in pairs)
@@ -209,6 +218,9 @@ def main():
     elif len(sys.argv) == 3 and sys.argv[1] == 'remove':
         remove_layout(keyboard, int(sys.argv[2]))
         print(json.dumps({'ok': True}))
+    elif len(sys.argv) == 4 and sys.argv[1] == 'move':
+        move_layout(keyboard, int(sys.argv[2]), int(sys.argv[3]))
+        print(json.dumps({'ok': True}))
     elif len(sys.argv) == 3 and sys.argv[1] == 'select':
         index = int(sys.argv[2])
         if index not in [entry['index'] for entry in entries]:
@@ -221,10 +233,10 @@ def main():
         active = keyboard.get('active_layout_index', 0)
         for entry in entries:
             print(f"{entry['index']}\t{entry['label']}\t{int(entry['index'] == active)}")
-    elif len(sys.argv) == 1:
+    elif len(sys.argv) == 1 or sys.argv[1:] == ['summary']:
         print(json.dumps({'layouts': entries, 'active': keyboard.get('active_layout_index', 0)}))
     else:
-        raise ValueError('Usage: keyboard-layout.py [--notify] [list | catalog | catalog-rows | seed-from-system | select INDEX | remove INDEX | add LAYOUT VARIANT]')
+        raise ValueError('Usage: keyboard-layout.py [--notify] [list | catalog | catalog-rows | seed-from-system | select INDEX | remove INDEX | move INDEX DESTINATION | add LAYOUT VARIANT]')
 
 
 if __name__ == '__main__':

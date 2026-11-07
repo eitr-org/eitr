@@ -12,7 +12,7 @@ L’effet nécessite Kitty 0.49+ et `shader-slang`, inclus dans les dépendances
 
 ## Choisir son terminal
 
-**Paramètres > Style > Terminal** dans Walker et **Centre de contrôle > Style > Terminal** proposent
+**Paramètres > Style > Terminal** dans Walker et **Paramètres (SUPER + ,) > Apparence > Terminal** proposent
 **Kitty** (par défaut) et **Ghostty**. Le champ local `terminal` de
 `~/.config/eitr/terminal.json` contrôle Super+Entrée, tmux, les sessions utilisateur,
 les terminaux IA/projets et les actions Walker pour ouvrir dans un terminal.
@@ -46,7 +46,7 @@ de Kitty. Choisir Ghostty ne les modifie pas.
 
 ## Apparence du terminal et flou partagé
 
-Paramètres > Style > Terminal et Centre de contrôle > Style > Terminal règlent
+Paramètres > Style > Terminal et Paramètres (SUPER + ,) > Apparence > Terminal règlent
 l’opacité, les marges internes et le flou de Kitty et Ghostty. L’opacité propose
 Opaque (100%), Léger (90%), Moyen (80%), Par défaut (75%) et Fort (70%). Les marges
 proposent Aucune, Petites (4 points) et Confortables (8 points). Les valeurs par
@@ -56,8 +56,8 @@ utilitaires conservent leur fond opaque et leurs marges de tâche.
 Désactiver le flou le supprime des fenêtres ordinaires de Kitty et Ghostty, sans
 les rendre opaques. L’intensité est partagée : Doux (taille 2, une passe),
 Moyenne (taille 3, deux passes, valeur par défaut) et Forte (taille 5, trois passes).
-Le même choix apparaît dans Barre du bureau de Walker et Barre du Centre de
-contrôle, près de l’apparence. Hyprland 0.57 ne propose qu’une intensité globale :
+Le même choix apparaît dans Barre du bureau de Walker et Barre de bureau des
+Paramètres (SUPER + ,), près de l’apparence. Hyprland 0.57 ne propose qu’une intensité globale :
 elle affecte les panneaux, notifications, Vue d’ensemble et autres applications
 utilisant déjà le flou. Choisir une intensité n’active pas le flou du terminal.
 Un flou plus fort sollicite davantage le GPU. Couleur du thème conserve son fond opaque.

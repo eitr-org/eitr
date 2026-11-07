@@ -11,6 +11,7 @@ Column {
     required property var centerRef
     signal pageSelected(string page)
     signal chatRequested()
+    signal settingsRequested()
     Layout.alignment: Qt.AlignTop
     Layout.preferredWidth: 34
     spacing: 10
@@ -32,8 +33,7 @@ Column {
     Repeater {
         model: [{key: "general", icon: "󰕮", name: "General"},
             {key: "plugins", icon: "󰏖", name: "Plugins"},
-            {key: "style", icon: "󰏘", name: "Style"},
-            {key: "tools", icon: "󱁤", name: "Tools"}, {key: "settings", icon: "󰒓", name: "Settings"}]
+            {key: "tools", icon: "󱁤", name: "Tools"}]
         PanelButton {
             textSize: 12; iconSize: 20
             id: tab
@@ -55,6 +55,17 @@ Column {
             HoverHandler { id: tabHover }
             BarTooltip { target: tab; hovered: tabHover.hovered; text: Eitr.I18n.tr(tab.modelData.name); foreground: navigation.centerRef.foreground; background: navigation.centerRef.background }
         }
+    }
+    // Appearance, devices and system settings live in the Settings window.
+    PanelButton {
+        id: settingsButton
+        objectName: "allSettingsButton"
+        width: 34; height: 34; icon: true; text: "󰒓"
+        foreground: navigation.centerRef.foreground
+        Accessible.name: Eitr.I18n.tr("All settings")
+        onClicked: navigation.settingsRequested()
+        HoverHandler { id: settingsHover }
+        BarTooltip { target: settingsButton; hovered: settingsHover.hovered; text: Eitr.I18n.tr("All settings"); foreground: navigation.centerRef.foreground; background: navigation.centerRef.background }
     }
     PanelButton {
         id: chatButton

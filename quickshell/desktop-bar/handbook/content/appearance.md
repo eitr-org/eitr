@@ -1,20 +1,23 @@
 # Themes, wallpapers and style
 
+Settings also provides these controls inline.
+
+Settings (**SUPER + ,**) includes Appearance controls; **More themes** opens
+the separate Themes & Plugins catalog window (**SUPER + F2**).
+
 ## Themes & Plugins catalog
 
-The catalog uses the website’s opaque Blood & Iron or parchment palette and bundled
-Cinzel and Cormorant Garamond fonts. Only the current theme’s light/dark mode changes
-its appearance; desktop colors, bar transparency and blur do not affect it.
+The catalog shares the Settings window's frame, sidebar, page header and cards.
+It follows the theme's colours, or the Eitr website palette when Settings chooses
+it, with the bundled Cinzel lettering.
 
-The left sidebar groups Themes and Plugins under Installed and Get more, with
-item counts. The right side has the page
-title, description and theme filters above an independently scrolling list.
-Up/Down moves between sidebar rows; Right or Tab enters the content. Left from
-the first column returns to the sidebar. Below 760 px, the sidebar shows icons
-with hover labels instead of group headings and text.
+The left sidebar lists Installed, Official and Community under Themes and under
+Plugins. The right side has the page title, description, the All, Light and Dark
+filter for themes and an independently scrolling gallery. Up/Down moves between
+sidebar rows; Right or Tab enters the content. Left from the first column returns
+to the sidebar.
 
-Open **Settings > Style > Themes & Plugins**, **Control Center > Style > Themes &
-Plugins**, the **+** beside the theme carousel's Sun and Moon, or **SUPER + F2**. The catalog opens as a movable, resizable window. Hold SUPER and drag with the
+Open **Settings > Style > Themes & Plugins**, **More themes** in Settings (SUPER + ,), the **+** beside the theme carousel's Sun and Moon, or **SUPER + F2**. The catalog opens as a movable, resizable window. Hold SUPER and drag with the
 left mouse button to move it, or the right button to resize it. Its last size is
 remembered. Normal window shortcuts can tile it or send it to another workspace.
 Opening it again focuses the existing window, including on another workspace.
@@ -78,7 +81,7 @@ Walker and Control Center retain their terminal workflows.
 
 Open **Settings > Style > Theme** or **SUPER + Ctrl + Shift + N** for Walker's
 Dark/Light theme menus. The desktop theme carousel (desktop right double-click,
-Control Center > Style > Theme or appearance IPC) shows every theme. The Sun
+Settings (SUPER + ,) > Appearance or appearance IPC) shows every theme. The Sun
 above the selected card shows only light themes and the Moon only dark ones; click
 the selected one again to show all. The **+** beside them opens the Themes & Plugins
 catalog on its Official themes, keeping the same light or dark filter. Ctrl+Tab cycles all, dark and light. Start
@@ -208,7 +211,7 @@ is unavailable it uses another current-theme wallpaper or the Eitr default.
 
 On PCs with several accounts, the login screen shows the selected user. Click the left or right half of the user picker, or press Ctrl+Left / Ctrl+Right, to choose another account; Enter still submits the password and Escape keeps its existing behavior. With one account the login layout is unchanged. The lockscreen shows the locked session’s real name when available and only accepts that account’s password. Switch user (Ctrl+Alt+U) opens SDDM’s login screen while keeping the original session locked. Back in the locked session, click the password field once before typing. It appears only when several eligible accounts exist and SDDM reports that switching is available. Previews and the gallery use three fictional accounts and never authenticate.
 
-The catalog sidebar switches between Themes and Plugins. Its Official tab combines
+The catalog sidebar switches between Themes and Plugins pages. Official combines
 built-in items and Eitr's repositories; Community lists the community index.
 Installed lists local items and their source badges. Theme cards show palette
 swatches when available. Select themes, review their sources and total size, then
@@ -217,5 +220,8 @@ install them together. Community plugins use the native commit review; Installed
 Built-in themes ship with Eitr and cannot be removed. The trash button on a
 downloaded theme deletes that installed package; the current theme cannot be removed.
 
-Type anywhere in the catalog, or press Ctrl+F or /, to search the current tab by
+Type anywhere in the catalog, or press Ctrl+F or /, to search the current page by
 name or description. Words can appear in any order; Escape clears the search first.
+
+
+Use **Settings > Windows > Window gaps** or **Walker > Settings > Style > Window gaps** to choose None, Small, Default or Large. Default keeps 6 px inner and 12 px outer gaps. The choice is saved locally with Corners and survives theme changes and reloads.

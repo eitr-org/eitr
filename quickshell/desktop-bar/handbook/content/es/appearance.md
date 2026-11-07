@@ -1,20 +1,23 @@
 # Temas, fondos de pantalla y estilo
 
+Estos controles también están disponibles directamente en Configuración.
+
+Configuración (**SUPER + ,**) incluye los controles de Apariencia; **Más temas** abre el catálogo independiente de temas y plugins (**SUPER + F2**).
+
 ## Catálogo de temas y plugins
 
-El catálogo usa la paleta opaca Blood & Iron o pergamino del sitio y las fuentes
-Cinzel y Cormorant Garamond incluidas. Solo el modo claro/oscuro del tema actual
-cambia su apariencia; los colores del escritorio, la transparencia de la barra
-y el desenfoque no lo afectan.
+El catálogo comparte el marco, la barra lateral, el encabezado de página y las
+tarjetas de la ventana de Configuración. Sigue los colores del tema, o la paleta
+del sitio web de Eitr cuando Configuración la elige, con la tipografía Cinzel
+incluida.
 
-La barra lateral agrupa Temas y Plugins en Instalados y Obtener más, con sus
-cantidades. A la derecha, el título, la
-descripción y los filtros preceden una lista con desplazamiento independiente.
-Arriba/Abajo recorre las filas; Derecha o Tab entra al contenido. Izquierda desde
-la primera columna vuelve a la barra. Por debajo de 760 px se muestran iconos
-con etiquetas al pasar el puntero, sin títulos de grupo ni texto.
+La barra lateral enumera Instalado, Oficial y Comunidad bajo Temas y bajo Plugins.
+A la derecha están el título, la descripción, el filtro Todas, Claro y Oscuro para
+los temas y una galería con desplazamiento independiente. Arriba/Abajo recorre las
+filas; Derecha o Tab entra al contenido. Izquierda desde la primera columna vuelve
+a la barra lateral.
 
-Abre **Configuración > Estilo > Temas y plugins**, **Centro de control > Estilo > Temas y plugins**, el **+** junto al Sol y la Luna del carrusel de temas o **SUPER + F2**. El catálogo es una ventana que recuerda su tamaño. Mantén SUPER y arrastra con el botón izquierdo para moverla o con el derecho para cambiar su tamaño. Los atajos normales permiten organizarla en mosaico o enviarla a otro espacio de trabajo. Abrirla de nuevo enfoca la ventana existente, incluso en otro espacio. SUPER + F2 la cierra si tiene el foco. También se cierra con su botón, Escape (tras cerrar cualquier confirmación) o el atajo normal para cerrar ventanas.
+Abre **Configuración > Estilo > Temas y plugins**, **Más temas** en Configuración (SUPER + ,), el **+** junto al Sol y la Luna del carrusel de temas o **SUPER + F2**. El catálogo es una ventana que recuerda su tamaño. Mantén SUPER y arrastra con el botón izquierdo para moverla o con el derecho para cambiar su tamaño. Los atajos normales permiten organizarla en mosaico o enviarla a otro espacio de trabajo. Abrirla de nuevo enfoca la ventana existente, incluso en otro espacio. SUPER + F2 la cierra si tiene el foco. También se cierra con su botón, Escape (tras cerrar cualquier confirmación) o el atajo normal para cerrar ventanas.
 Instalados muestra cada tema como Integrado, Oficial, De terceros o Tuyos en una
 galería de vistas previas. Pulsa un tema instalado para aplicarlo con el flujo
 habitual; una marca indica el actual. Todos, Oscuros y Claros filtran la galería.
@@ -56,7 +59,7 @@ El catálogo instala y actualiza plugins dentro de la ventana. Las tarjetas Ofic
 
 ## Temas y fondos de pantalla
 
-Abre **Configuración > Estilo > Tema** o **SUPER + Ctrl + Shift + N** para los menús Oscuro/Claro de Walker. El carrusel de temas del escritorio (doble clic derecho en el escritorio, Centro de control > Estilo > Tema o IPC appearance) muestra todos los temas. El Sol sobre la tarjeta seleccionada muestra solo los temas claros y la Luna solo los oscuros; pulsa de nuevo el seleccionado para volver a verlos todos. El **+** a su lado abre el catálogo Temas y plugins en los temas oficiales, con el mismo filtro claro u oscuro. Ctrl+Tab alterna entre todos, oscuros y claros. Escribe para buscar entre los temas mostrados; flechas/Tab navegan y Enter aplica. Backspace edita la búsqueda o cierra si está vacía; Escape borra la búsqueda antes de cerrar. El carrusel de fondos no tiene búsqueda de temas.
+Abre **Configuración > Estilo > Tema** o **SUPER + Ctrl + Shift + N** para los menús Oscuro/Claro de Walker. El carrusel de temas del escritorio (doble clic derecho en el escritorio, Configuración (SUPER + ,) > Apariencia o IPC appearance) muestra todos los temas. El Sol sobre la tarjeta seleccionada muestra solo los temas claros y la Luna solo los oscuros; pulsa de nuevo el seleccionado para volver a verlos todos. El **+** a su lado abre el catálogo Temas y plugins en los temas oficiales, con el mismo filtro claro u oscuro. Ctrl+Tab alterna entre todos, oscuros y claros. Escribe para buscar entre los temas mostrados; flechas/Tab navegan y Enter aplica. Backspace edita la búsqueda o cierra si está vacía; Escape borra la búsqueda antes de cerrar. El carrusel de fondos no tiene búsqueda de temas.
 
 **SUPER + Ctrl + N** abre los fondos y **SUPER + Shift + N** pasa al siguiente. Una marca señala la elección activa en Walker. Los cambios no muestran notificaciones de éxito. Los monitores ultrawide, al menos el doble de anchos que de altos, usan la versión 21:9 para recortar menos; los demás usan la versión 4K 16:9.
 
@@ -110,4 +113,7 @@ El catálogo instala y actualiza plugins dentro de la ventana. Las tarjetas Ofic
 
 Los temas integrados vienen con Eitr y no se pueden eliminar. La papelera de un tema descargado borra su paquete instalado; el tema actual no se puede eliminar.
 
-Escribe en cualquier parte del catálogo, o pulsa Ctrl+F o /, para buscar en la pestaña actual por nombre o descripción. Las palabras pueden ir en cualquier orden; Escape borra primero la búsqueda.
+Escribe en cualquier parte del catálogo, o pulsa Ctrl+F o /, para buscar en la página actual por nombre o descripción. Las palabras pueden ir en cualquier orden; Escape borra primero la búsqueda.
+
+
+En **Configuración > Ventanas > Espaciado de ventanas** o **Walker > Configuración > Estilo > Espaciado de ventanas** puedes elegir Ninguno, Pequeño, Predeterminado o Grande. Predeterminado mantiene 6 px interiores y 12 px exteriores. La selección local se conserva al cambiar el tema o recargar.

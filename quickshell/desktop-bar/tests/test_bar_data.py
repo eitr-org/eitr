@@ -507,7 +507,7 @@ class CaptureServiceTests(unittest.TestCase):
             for name in ("services/DesktopData.qml", "DesktopDataProtocol.js", "services/ObsStatus.qml", "ObsQueue.js", "PanelStyle.js"):
                 (root / Path(name).name).write_text((bar / name).read_text().replace('import ".."\n', '').replace('"../', '"'))
             # Exercise production controller/demand logic without Wayland surfaces.
-            for name, boundary in (("panels/ObsMenu.qml", "    Column {"), ("panels/RecordingMenu.qml", "    component Toggle:")):
+            for name, boundary in (("panels/ObsMenu.qml", "    Column {"), ("panels/RecordingMenu.qml", "    Column {\n        id: content")):
                 source = (bar / name).read_text()
                 source = source[:source.index(boundary)] + "}\n"
                 (root / Path(name).name).write_text(source.replace('import ".."\n', '').replace('"../', '"'))

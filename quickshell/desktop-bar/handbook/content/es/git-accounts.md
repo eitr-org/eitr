@@ -41,3 +41,5 @@ La cuenta predeterminada o de carpeta elige `gh` o `glab`. Los comandos normales
 Los ajustes versionados están en `~/.config/eitr/git-accounts.json`. Cada vez que se aplican cambios, se guarda una copia del archivo global de Git, de la inclusión activa y de los ajustes en `~/.local/state/eitr/git-account-backups/<id>`, con permisos privados. `manifest.json` identifica rutas originales, nombres de copias y permisos. Nunca se copian claves ni tokens de las CLI. Para recuperar manualmente, revisa el manifiesto y conserva cualquier cambio posterior a la copia antes de restaurar. Las inclusiones EITR modificadas o inválidas se rechazan en vez de sustituirse silenciosamente.
 
 Referencias: [inclusiones condicionales de Git](https://git-scm.com/docs/git-config), [perfiles de GitHub CLI](https://cli.github.com/manual/gh_help_environment), [perfiles de GitLab CLI](https://docs.gitlab.com/cli/configuration/).
+
+Configuración > Git y nube muestra identidades, reglas de carpetas y contextos en modo de solo lectura. Cuentas Git o Nube abre los flujos existentes; ver la página no cambia valores predeterminados de las CLI.

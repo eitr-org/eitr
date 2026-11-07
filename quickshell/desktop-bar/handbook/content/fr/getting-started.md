@@ -10,7 +10,7 @@ Les boutons au-dessus règlent l’essentiel : chacun ferme le manuel et ouvre l
 
 1. Appuyez sur **SUPER + F** pour le menu principal. Saisissez du texte pour chercher des actions dans les sous-menus et les applications installées. Enter ouvre un résultat ; Escape ferme le menu.
 2. **SUPER + Space** ouvre les applications, **SUPER + Enter** un terminal.
-3. **SUPER + ,** ouvre le Centre de contrôle. Les paramètres regroupent clavier, écran et éclairage nocturne ; Style regroupe l’apparence.
+3. **SUPER + I** ouvre les interrupteurs rapides du Centre de contrôle, **SUPER + ,** les Paramètres : clavier, écrans, éclairage nocturne et apparence.
 4. Connectez-vous depuis l’icône WiFi ou Bluetooth. Les icônes de droite peuvent être masquées : utilisez la flèche pour les afficher.
 5. Choisissez un thème dans **Paramètres > Style > Thème**, puis un fond dans **Paramètres > Style > Fond d’écran**.
 
@@ -18,7 +18,7 @@ Les nouvelles installations EITR utilisent **Eitr** et l’écran de verrouillag
 
 ## Apprendre à votre rythme
 
-Ouvrez **Apprendre > Manuel EITR** ou appuyez sur **SUPER + F1**. Le Manuel est une fenêtre déplaçable et redimensionnable qui mémorise sa taille. Le raccourci ramène la fenêtre ouverte au premier plan ; si elle est déjà active, il la ferme. Échap, le bouton de fermeture ou la fermeture du compositeur la ferment aussi. Cliquer à côté ne la ferme pas. La recherche trouve les titres et le texte ; Up/Down sélectionnent un résultat, Enter l’ouvre. **Ctrl + F** active la recherche. **Page Up/Page Down** font défiler le chapitre, **Ctrl + Home/End** vont au début ou à la fin et **Alt + Left/Right** changent de chapitre. Précédent et Suivant font la même chose avec la souris.
+Ouvrez **Apprendre > Manuel EITR** ou appuyez sur **SUPER + F1**. Le Manuel est une fenêtre déplaçable et redimensionnable qui mémorise sa taille. Le raccourci ramène la fenêtre ouverte au premier plan ; si elle est déjà active, il la ferme. Échap, le bouton de fermeture ou la fermeture du compositeur la ferment aussi. Cliquer à côté ne la ferme pas. La recherche trouve les titres et le texte ; Up/Down sélectionnent un résultat, Enter l’ouvre. **Ctrl + F** active la recherche. La barre latérale regroupe les chapitres sous des titres runiques, comme dans les Paramètres. **Page Up/Page Down** font défiler le chapitre, **Ctrl + Home/End** vont au début ou à la fin et **Alt + Left/Right** changent de chapitre. Précédent et Suivant font la même chose avec la souris.
 
 Le manuel n’exécute aucune commande. Les blocs de code sont des exemples à examiner et copier volontairement. Les liens externes ne s’ouvrent qu’au clic.
 

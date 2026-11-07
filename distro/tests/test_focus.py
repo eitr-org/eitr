@@ -186,6 +186,18 @@ class FocusTests(unittest.TestCase):
         self.assertNotIn('decoration.rounding', restored)
         self.assertFalse(json.loads(journal.read_text())['pending'])
 
+    def test_leaving_focus_keeps_a_new_gap_preference(self):
+        hypr = FakeHypr([client(1)])
+        change('on', hypr)
+        from eitr_paths import write_settings
+        write_settings(Path(self.temporary.name) / 'eitr/style.json', {'gaps': 'large'})
+        hypr.commands.clear()
+        change('off', hypr)
+        restored = next(command for command in hypr.commands if isinstance(command, str) and 'decoration.rounding' in command)
+        self.assertNotIn('general.gaps_in', restored)
+        self.assertNotIn('general.gaps_out', restored)
+        self.assertIn('decoration.rounding', restored)
+
     def test_lua_strings_preserve_unicode_and_literal_code(self):
         import shutil
         if not shutil.which('lua'):

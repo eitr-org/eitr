@@ -15,8 +15,8 @@ from **Learn > EITR Handbook**.
 1. Press **SUPER + F** for the main menu. Start typing to search actions across
    submenus and installed apps. Enter opens a result; Escape closes the menu.
 2. Press **SUPER + Space** for Apps, or **SUPER + Enter** for a terminal.
-3. Open **SUPER + ,** for the Control Center. Its Settings tab contains keyboard
-   and display/night-light controls; Style contains appearance choices.
+3. Open **SUPER + I** for the Control Center's quick toggles, or **SUPER + ,** for
+   Settings: keyboard, displays, night light and appearance.
 4. Connect from the WiFi or Bluetooth icon. Right-side bar icons may be hidden:
    click the Show Icons arrow to reveal them.
 5. Choose a theme from **Settings > Style > Theme**, then a wallpaper from **Settings > Style > Wallpaper**.
@@ -29,7 +29,8 @@ Existing desktops keep their saved choices.
 Open **Learn > EITR Handbook** or press **SUPER + F1**. Press the same shortcut
 again while the window is focused, Escape, the close button or the compositor close to dismiss this window; clicking beside it
 keeps it open. It does not tile beside your apps. Search matches chapter titles and text;
-Up/Down pick a match and Enter opens it. **Ctrl + F** focuses search.
+Up/Down pick a match and Enter opens it. **Ctrl + F** focuses search. The sidebar
+groups chapters under rune captions, like Settings.
 **Page Up/Page Down** scroll the chapter, **Ctrl + Home/End** jump to its start
 or end, and **Alt + Left/Right** moves between chapters. Previous and Next do
 the same with the mouse.

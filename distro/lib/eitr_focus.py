@@ -54,7 +54,8 @@ def snapshot(hypr):
             values[name] = value[kind]
     write_settings(state('eitr/focus-session.json'), {
         'session': os.environ.get('HYPRLAND_INSTANCE_SIGNATURE', ''), 'options': values, 'pending': True,
-        'corners': read_settings(config('eitr/style.json')).get('corners')})
+        'corners': read_settings(config('eitr/style.json')).get('corners'),
+        'gaps': read_settings(config('eitr/style.json')).get('gaps', 'default')})
 
 
 def lua_value(value):
@@ -75,6 +76,9 @@ def restore_options(hypr):
         values = {name: value for name, value in saved.get('options', {}).items() if name in OVERRIDES}
         if saved.get('corners') != read_settings(config('eitr/style.json')).get('corners'):
             values.pop('decoration.rounding', None)
+        if saved.get('gaps', 'default') != read_settings(config('eitr/style.json')).get('gaps', 'default'):
+            values.pop('general.gaps_in', None)
+            values.pop('general.gaps_out', None)
         hypr.evaluate('hl.config(' + lua_value(values) + ')')
     write_settings(state('eitr/focus-session.json'), {'pending': False})
 

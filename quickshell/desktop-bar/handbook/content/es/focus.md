@@ -1,9 +1,11 @@
 # Focus
 
+Estos controles también están disponibles directamente en Configuración.
+
 ![Franja de pestañas de Focus con ventanas de ejemplo y dos paneles unidos.](assets/focus-strip.png)
 
 Focus sustituye la barra por una franja de pestañas de 28 px en la parte superior
-de cada monitor. Abre **Configuración > Estilo > Focus** o **Centro de control > Estilo > Focus**,
+de cada monitor. Abre **Configuración > Estilo > Focus** o **Configuración (SUPER + ,) > Focus**,
 o ejecuta `eitr focus on`. `eitr focus status` muestra `on` u `off` sin consultar
 Hyprland. `eitr focus off` restaura la barra, los efectos y los atajos habituales.
 **SUPER + Shift + F** o `eitr focus toggle` alterna Focus.

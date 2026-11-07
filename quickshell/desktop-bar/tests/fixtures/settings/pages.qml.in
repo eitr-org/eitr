@@ -1,0 +1,122 @@
+import QtQuick
+import Quickshell
+import Quickshell.Bluetooth
+import "." as Bar
+ShellRoot {
+ id: fixture
+ function find(item, name) {
+  if (item.objectName === name) return item;
+  for (const child of item.children || []) { const result = find(child, name); if (result) return result; }
+  return null;
+ }
+ QtObject {
+  id: network
+  property bool busy: false
+  property var details: ({updatedAt: 1, error: "", data: {backend: "iwd", devices: [{path: "/fixture", state: "connected", powered: true, scanning: false, details: {state: "connected"}, networks: [{name: "Example WiFi", path: "/example", connected: true, known: true, strength: 75, type: "psk"}, {name: "Saved network", path: "/saved", connected: false, known: true, available: false, strength: null}]}]}})
+  property var latency: ({data: {}})
+  function observe(owner, topic) { return topic || "details"; }
+  function release(token) {}
+  function detach(owner) {}
+  function refresh() {}
+  function actionMessage(message) { return message; }
+ }
+ QtObject {
+  id: adapter
+  property bool enabled: true
+  property var devices: ({values: [{name: "Example keyboard", connected: true, paired: true, pairing: false, state: BluetoothDeviceState.Connected, batteryAvailable: true, battery: 0.75}]})
+ }
+ Bar.SettingsWindow {
+  id: window; live: false
+  networkService: network
+  foreground: "FOREGROUND"; background: "BACKGROUND"; accent: "#9a815c"
+ }
+ Timer {
+  interval: 180; running: true; repeat: true
+  property var pages: ["system", "appearance", "appearance/fonts", "appearance/terminal", "connections/bluetooth", "displays/nightlight", "bar", "windows", "lockscreen", "notifications", "focus", "displays", "sound", "connections", "input", "keybinds", "default-apps", "user", "git-cloud", "security", "updates", "check-pc", "about"]
+  property int current: 0
+  property int phase: 0
+  property bool saved: false
+  onTriggered: {
+   const content = fixture.find(window.contentItem, "settings-content");
+   if (phase === 0) {
+    Bar.SiteStyle.light = "PALETTE" === "light";
+    Bar.SettingsPalette.select("PALETTE" === "website" ? "website" : "theme", false);
+    window.show(pages[current]);
+    window.implicitWidth = 1100; window.implicitHeight = 800;
+   } else if (phase === 1) {
+    const overview = fixture.find(content, "settings-overview");
+    overview.account = {name: "Eitr Explorer", initial: "E"};
+    overview.artSource = "file://ARTWORK";
+    overview.hardware = {data: {sections: [{title: "CPU", name: "8 cores", usage: 12}, {title: "GPU", name: "Graphics", usage: 8}, {title: "RAM", name: "32 GiB", usage: 36}]}};
+    overview.version = "0.7.0 · Huginn"; overview.channel = "stable"; overview.uptimeSeconds = 18900;
+    overview.themePalette = {background: "BACKGROUND", foreground: "FOREGROUND", accent: "#9a815c", color1: "#ba6472", color2: "#719669", color3: "#d1ad60", color4: "#6a90b9", color5: "#a585b0", color6: "#69a5a0"};
+    const state = fixture.find(content, "settings-style-state");
+    state.cursorChoices = {family: [{id: "bibata", label: "Bibata", selected: true}, {id: "breeze", label: "Breeze", selected: false}], size: [{id: "24", label: "24", selected: true}, {id: "32", label: "32", selected: false}], color: [{id: "auto", label: "Auto", selected: true}, {id: "white", label: "White", selected: false}]};
+    state.lockscreens = [{value: "hyprlock", label: "Hyprlock"}, {value: "eitr", label: "Eitr"}]; state.lockscreen = "eitr";
+    state.terminalChoices = [{value: "kitty", label: "Kitty"}, {value: "ghostty", label: "Ghostty"}];
+    state.terminalAppearance = {opacity: "opaque", padding: "normal", blur: "on", "blur-strength": "medium"};
+    state.terminalAppearanceChoices = {opacity: [{value: "opaque", label: "Opaque"}, {value: "transparent", label: "Transparent"}], padding: [{value: "normal", label: "Normal"}], blur: [{value: "on", label: "On"}], "blur-strength": [{value: "medium", label: "Medium"}]};
+    fixture.find(content, "settings-font-helper").summary = {current: "JetBrainsMono Nerd Font", available: true, choices: [{value: "JetBrainsMono Nerd Font", label: "JetBrainsMono Nerd Font", available: true}, {value: "Inter", label: "Inter", available: true}]};
+    fixture.find(content, "settings-workspace-helper").summary = {current: "Runes", available: true, choices: ["Dots", "Glyph", "Numbers", "Runes"].map(value => ({value: value, label: value}))};
+    fixture.find(content, "settings-bar-helper").summary = {current: {layout: "unified", edge: "top", appearance: "solid", screens: "main", clock: "12h", mediaStyle: "bars", dock: "yes"}, available: true, choices: {}};
+    const appearance = [{name: "Eitr", value: "eitr", image: "file://ARTWORK", current: true}, {name: "Vanaheim", value: "vanaheim", image: "file://ARTWORK", current: false}];
+    fixture.find(content, "settings-theme-model").items = appearance;
+    fixture.find(content, "settings-wallpaper-model").items = appearance;
+    const bluetooth = fixture.find(content, "settings-bluetoothSlot");
+    if (bluetooth) bluetooth.adapter = adapter;
+    const keyboard = fixture.find(content, "settings-input-content");
+    keyboard.layouts = [{index: 0, label: "English (US)"}, {index: 1, label: "Portuguese (Brazil)"}]; keyboard.selected = 0;
+    const system = fixture.find(content, "settings-system-page");
+    system.accountPicture = {name: "Eitr Explorer", initial: "E", path: ""};
+    if (pages[current] === "user") {
+     const editor = fixture.find(content, "settings-profile-picture");
+     for (let attempt = 0; attempt < 2; attempt++) {
+      system.editingPicture = true;
+      if (!editor.visible) throw new Error("profile editor not visible");
+      editor.close();
+      if (system.editingPicture) throw new Error("profile editor did not close");
+     }
+    }
+    system.channel = "stable";
+    system.updates = {status: "ready", data: {count: 7}};
+    system.hardware = {sections: [{title: "CPU", name: "8 cores"}, {title: "RAM", name: "32 GiB"}]};
+    system.checks = [{group: "Updates", status: "info", message: "The cached package list is current."}, {group: "Storage", status: "warning", message: "Free disk space is low.", meaning: "Free some space before updating."}];
+    const summary = pages[current] === "keybinds" ? [{group: "Launchers", title: "Open terminal", detail: "SUPER + Enter"}, {group: "Windows", title: "Close window", detail: "SUPER + Q"}] : pages[current] === "about" ? [{title: "Version", detail: "0.7.0"}, {title: "Codename", detail: "Huginn"}, {title: "Update Channel", detail: "Stable"}, {title: "Kernel", detail: "Linux"}, {title: "Licence", detail: "GPL-3.0-or-later"}] : pages[current] === "security" ? [{title: "Firewall", detail: "Eitr firewall active.", actionMenu: "security"}, {title: "Fingerprint", detail: "Review status and settings", menu: "fingerprint"}] : [{title: "Git Accounts", detail: "Personal identity · Project folder rules", menu: "git-accounts"}, {title: "Cloud", detail: "Example context · Project", menu: "cloud"}];
+    fixture.find(content, "settings-system-helper").summary = {items: summary};
+    fixture.find(content, "settings-default-apps-helper").summary = {items: ["Web browser", "File manager", "Text editor", "Image viewer", "Video player", "Music player", "Mail", "PDF viewer", "Terminal"].map(label => ({kind: "fixture", label: label, current: "fixture.desktop", name: "Example app", choices: [{value: "fixture.desktop", label: "Example app"}, {value: "other.desktop", label: "Other app"}]}))};
+   } else if (phase === 2) {
+    if (pages[current] === "default-apps") {
+     const card = fixture.find(content, "settings-default-app-card");
+     if (!card || card.width < 200 || card.height < 60 || !card.visible) { console.error("DEFAULT_CARD", card ? card.width : -1, card ? card.height : -1); Qt.exit(1); return; }
+    }
+    saved = false;
+    content.grabToImage(result => { if (!result.saveToFile("OUTPUT/PALETTE-" + pages[current].replace("/", "-") + ".png")) throw new Error("render save"); saved = true; });
+   } else if (phase === 3) {
+    if (!saved) return;
+    const desktop = fixture.find(content, "settings-desktop-page");
+    const devices = fixture.find(content, "settings-devices-page");
+    const pageView = desktop.visible ? desktop : devices.visible ? devices : fixture.find(content, "settings-system-page");
+    if (pageView) pageView.contentY = Math.max(0, pageView.contentHeight - pageView.height);
+   } else if (phase === 4) {
+    if (["appearance", "bar", "windows", "lockscreen", "notifications", "focus", "connections", "sound", "displays", "input", "keybinds", "default-apps", "user", "git-cloud", "security", "updates", "check-pc", "about"].includes(pages[current].split("/")[0])) {
+     saved = false;
+     content.grabToImage(result => { if (!result.saveToFile("OUTPUT/PALETTE-" + pages[current].replace("/", "-") + "-bottom.png")) throw new Error("render save"); saved = true; });
+    }
+   } else if (phase === 5) {
+    if (!saved) return;
+    const desktop = fixture.find(content, "settings-desktop-page");
+    const devices = fixture.find(content, "settings-devices-page");
+    const pageView = desktop.visible ? desktop : devices.visible ? devices : fixture.find(content, "settings-system-page");
+    const footer = fixture.find(pageView, "settings-page-handbook");
+    if (pageView.visible && footer) {
+     const position = footer.mapToItem(pageView, 0, 0).y;
+     if (position < -1 || position + footer.height > pageView.height + 1) throw new Error("unreachable final row: " + pages[current]);
+    }
+    current++;
+    if (current === pages.length) { window.closeSettings(); console.log("PAGES_OK"); Qt.quit(); return; }
+    phase = -1;
+   }
+   phase++;
+  }
+ }
+}

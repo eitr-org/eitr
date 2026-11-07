@@ -304,7 +304,7 @@ existing design and workflows rather than replacing them with upstream defaults.
   the toggle.
   Preserve the existing arrow direction and icon order.
 - Focus is a separate Style preset, controlled by `eitr focus on|off|toggle|status`,
-  Settings > Style > Focus and Control Center > Style. Its machine-local preference preserves
+  Walker's Settings > Style > Focus and the Settings window's Focus page. Its machine-local preference preserves
   normal bar settings; native groups provide tabs and up to four panes per monitor.
   Focus strips have square edges and show only tabs, clock and network/battery status.
 - Tabs: a thin edge strip with three content-sized tabs (left, centre, right)

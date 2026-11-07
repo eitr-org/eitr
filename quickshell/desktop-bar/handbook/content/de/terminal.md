@@ -12,7 +12,7 @@ Erforderlich sind Kitty 0.49+ und `shader-slang` aus Eitrs Desktop-Abhängigkeit
 
 ## Terminal auswählen
 
-**Einstellungen > Stil > Terminal** in Walker und **Kontrollzentrum > Stil > Terminal** bieten
+**Einstellungen > Stil > Terminal** in Walker und **Einstellungen (SUPER + ,) > Erscheinungsbild > Terminal** bieten
 **Kitty** (Standard) und **Ghostty**. Das lokale Feld `terminal` in
 `~/.config/eitr/terminal.json` steuert Super+Enter, tmux, eigene Terminals,
 KI-/Projektterminals und Walkers Aktionen zum Öffnen im Terminal. Fehlt Ghostty,
@@ -44,7 +44,7 @@ Die Ghostty-Auswahl ändert sie nicht.
 
 ## Terminaldarstellung und gemeinsame Unschärfe
 
-Einstellungen > Stil > Terminal und Kontrollzentrum > Stil > Terminal stellen
+Einstellungen > Stil > Terminal und Einstellungen (SUPER + ,) > Erscheinungsbild > Terminal stellen
 Deckkraft, Innenabstand und Unschärfe für Kitty und Ghostty ein. Die Deckkraft bietet
 Undurchsichtig (100%), Sanft (90%), Mittel (80%), Standard (75%) und Stark (70%).
 Innenabstand bietet Keiner, Klein (4 Punkt) und Komfortabel (8 Punkt). Standard
@@ -54,8 +54,8 @@ Hilfsterminals behalten ihren undurchsichtigen Hintergrund und Aufgabenabstand.
 Aus deaktiviert Unschärfe für normale Kitty- und Ghostty-Fenster, ohne sie
 undurchsichtig zu machen. Die Unschärfestärke gilt gemeinsam: Sanft (Größe 2,
 ein Durchlauf), Mittel (Größe 3, zwei Durchläufe, Standard) und Stark (Größe 5,
-drei Durchläufe). Dieselbe Auswahl steht bei Desktop-Leiste in Walker und Leiste
-im Kontrollzentrum neben der Darstellung. Hyprland 0.57 unterstützt nur globale
+drei Durchläufe). Dieselbe Auswahl steht bei Desktop-Leiste in Walker und Desktopleiste
+in den Einstellungen (SUPER + ,) neben der Darstellung. Hyprland 0.57 unterstützt nur globale
 Stärke; betroffen sind alle bereits unscharfen Flächen, auch Panels,
 Benachrichtigungen, Übersicht und andere Anwendungen. Eine Stärkeauswahl schaltet
 Terminalunschärfe nicht ein. Stärkere Unschärfe beansprucht die GPU stärker.

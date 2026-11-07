@@ -100,9 +100,15 @@ class ControlCenterContracts(unittest.TestCase):
         positions = [center.index('text: Eitr.I18n.tr("' + name + '"); width: parent.width') for name in names]
         self.assertEqual(positions, sorted(positions))
         self.assertNotIn('text: "Sound & Display"', center)
-        # Night Light is a quick toggle; its schedule lives under System.
+        # Night Light is a quick toggle; its schedule lives in Settings > Displays.
         self.assertIn('title: Eitr.I18n.tr("Night Light")', center)
-        self.assertIn('title: Eitr.I18n.tr("Night Light & Main Display")', center)
+        self.assertNotIn('Night Light & Main Display', center)
+        # Style and Settings moved to the Settings window, opened from one button.
+        for page in ('style: Eitr.I18n.tr("Style")', 'settings: Eitr.I18n.tr("Settings")', 'key: "style"', 'key: "settings"'):
+            self.assertNotIn(page, center)
+        self.assertIn('onSettingsRequested: center.openSettings("")', center)
+        self.assertIn('function openSettings(page) { opened = false; settingsRequested(page); }', center)
+        self.assertIn('Accessible.name: Eitr.I18n.tr("All settings")', center)
 
     def test_media_popup_is_the_cover_card_alone(self):
         root = Path(__file__).parents[1]
@@ -122,21 +128,24 @@ class ControlCenterContracts(unittest.TestCase):
         self.assertNotIn('key: "toggles"', center)
         self.assertNotIn('details: true', center)
         self.assertIn('glyph: center.wifiGlyph', center)
-        self.assertIn('WorkspaceMarker {', center)
+        self.assertNotIn('kind: "workspace"', center)
+        self.assertIn('kind: "workspace"', (root / 'panels/WorkspaceStyleMenu.qml').read_text())
         for title in ('Lock', 'Logout', 'Suspend', 'Reboot', 'Shutdown'):
             self.assertIn('title: Eitr.I18n.tr("' + title + '")', center)
         self.assertNotIn('BIOS', center)
-        # Keyboard layouts stay inline; the Display panel adds what the inline controls lack
-        # (resolution, refresh rate and scale).
+        # Keyboard layouts and displays are Settings pages, not Control Center rows.
         self.assertNotIn('center.panelRequested("keyboard")', center)
-        self.assertIn('center.panelRequested("display")', center)
+        self.assertNotIn('KeyboardLayoutRow {', center)
+        self.assertIn('inlineParent: displaySlot', (root / 'settings/SettingsDevicesPage.qml').read_text())
         self.assertEqual((root / 'assets/eitr-logo-white.svg').read_bytes(),
                          (root.parents[1] / 'branding/svg/eitr-logo-white.svg').read_bytes())
 
     def test_workspace_style_updates_immediately_from_both_menus(self):
         shell = ((Path(__file__).parents[1] / 'shell.qml').read_text() + frame_source(Path(__file__).parents[1]))
-        self.assertIn('onWorkspaceStyleRequested: function(value) { shell.setWorkspaceStyle(value); }', shell)
+        # The bar's workspace menu updates at once; Settings writes through the same helper.
+        self.assertNotIn('onWorkspaceStyleRequested:', shell)
         self.assertIn('shell.setWorkspaceStyle(style);', shell)
+        self.assertIn('workspaceHelper.change([value])', (Path(__file__).parents[1] / 'settings/SettingsDesktopPage.qml').read_text())
         preferences = (Path(__file__).parents[1] / 'services/BarPreferences.qml').read_text()
         setter = preferences.split('function setWorkspaceStyle(style) {', 1)[1].split('\n    }', 1)[0]
         self.assertLess(setter.index('host.workspaceStyle = style;'),
@@ -163,7 +172,7 @@ class HardwareSubscriberTests(unittest.TestCase):
     @unittest.skipUnless(shutil.which("quickshell"), "Quickshell unavailable")
     def test_panel_demand_lifetime_retained_errors_and_control_center_entry(self):
         bar = Path(__file__).parents[1]
-        self.assertIn('center.panelRequested("hardware")', control_center_source(bar))
+        self.assertIn('hardware: barHost.hardwareMenu', (bar / 'bar/BarPanels.qml').read_text())
         self.assertNotIn('hardwareIdentity', ((bar / 'shell.qml').read_text() + frame_source(bar)))
         panel = (bar / 'panels/SystemMonitorMenu.qml').read_text()
         self.assertNotIn('Process {', panel)

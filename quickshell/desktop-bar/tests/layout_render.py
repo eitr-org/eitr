@@ -1,5 +1,6 @@
 """Shared inert runtime, capture paths and process checks for layout fixtures."""
 import os
+import json
 from pathlib import Path
 import shutil
 import subprocess
@@ -15,14 +16,19 @@ def layout_fixture(name):
 
 def copy_runtime(folder):
     for source in BAR.rglob('*'):
-        if source.suffix in ('.qml', '.js', '.ttf') or source.name in ('qmldir', 'corner-styles.json', 'grain.png'):
+        if source.suffix in ('.qml', '.js', '.ttf', '.svg') or source.name in ('qmldir', 'corner-styles.json', 'grain.png'):
             destination = folder / source.relative_to(BAR)
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy(source, destination)
 
 
-def render_environment(directory):
-    return dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
+def render_environment(directory, screen_size=None):
+    platform = 'offscreen'
+    if screen_size:
+        configuration = Path(directory) / 'offscreen.json'
+        configuration.write_text(json.dumps({'screens': [{'name': 'fixture', 'width': screen_size[0], 'height': screen_size[1]}]}))
+        platform += ':configfile=' + str(configuration)
+    return dict(os.environ, QT_QPA_PLATFORM=platform, QT_QUICK_BACKEND='software',
                 QML_IMPORT_PATH=str(BAR.parent), EITR_CODE_ROOT=str(BAR.parents[1]), HOME=str(directory),
                 **{name: str(directory) for name in ('XDG_CONFIG_HOME', 'XDG_STATE_HOME',
                    'XDG_CACHE_HOME', 'XDG_DATA_HOME', 'XDG_RUNTIME_DIR')},

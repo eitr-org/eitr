@@ -18,11 +18,12 @@ def qml_block(source, marker):
 def control_center_source(directory):
     folder = Path(directory) / 'panels'
     source = (folder / 'ControlCenter.qml').read_text()
-    for name in ('Connectivity', 'Sliders', 'Style', 'Settings', 'Tools', 'Power'):
+    for name in ('Connectivity', 'Sliders', 'Tools', 'Power'):
         child = (folder / f'ControlCenter{name}.qml').read_text().split('Column {', 1)[1]
         child = 'Column {' + child
         child = child.replace('section.centerRef', 'center')
         child = re.sub(r'center\.(\w+)Ref', r'\1', child)
         source += '\n' + textwrap.indent(child, ' ' * 20)
     source += '\n' + (folder / 'ControlCenterNavigation.qml').read_text().replace('navigation.centerRef', 'center')
+    source += '\n' + (Path(directory) / 'settings/EventSoundSettings.qml').read_text().replace('sounds.', 'center.')
     return source

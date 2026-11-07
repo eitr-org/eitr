@@ -1,9 +1,7 @@
 # Language
 
-Eitr follows the system's message locale. **Control Center > Settings > Language**
-shows the language Eitr uses for that locale and opens a language picker;
-**Walker > Settings > Language** lists the same choices with the current one
-checked. Choose a language or **System default**,
+Eitr follows the system's message locale. **Walker > Settings > Language**
+lists the available languages with the current one checked. Choose a language or **System default**,
 then sign out and back in. Eitr never signs you out automatically.
 
 Eitr checks **LC_ALL**, then **LC_MESSAGES**, then **LANG**. Empty variables are

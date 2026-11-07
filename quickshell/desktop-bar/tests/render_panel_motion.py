@@ -39,8 +39,8 @@ panels={
 'WorkspaceStyleMenu':('currentStyle: "Runes"; selectedForeground: "#18212b"',''),
 'NotificationCenter':('service: mock',''),
 'PluginPanel':('', ''),
-'ControlCenter-style':('service: mock; wifiControl: mock; bluetoothControl: mock; displayControl: mock; keyboardControl: mock; battery: ({}); mediaPlayer: null; idleEnabled: true; idleBusy: false; page: "style"; folds: ({"Bar":true})','panel.page="style"; panel.folds={"Bar":true};'),
-'ControlCenter-plugins':('service: mock; wifiControl: mock; bluetoothControl: mock; displayControl: mock; keyboardControl: mock; battery: ({}); mediaPlayer: null; idleEnabled: true; idleBusy: false; page: "plugins"','panel.page="plugins"; Bar.PluginRegistry.installed = [{id:"preview",name:"Preview Plugin",author:"Example",version:"1.0",description:"A review fixture",enabled:true,repository:"https://example.invalid/plugins.git",repositoryPath:"plugins/preview",icon:"",preview:""}];'),
+'ControlCenter-general':('service: mock; wifiControl: mock; bluetoothControl: mock; displayControl: mock; battery: ({}); mediaPlayer: null; idleEnabled: true; idleBusy: false; page: "general"','panel.page="general";'),
+'ControlCenter-plugins':('service: mock; wifiControl: mock; bluetoothControl: mock; displayControl: mock; battery: ({}); mediaPlayer: null; idleEnabled: true; idleBusy: false; page: "plugins"','panel.page="plugins"; Bar.PluginRegistry.installed = [{id:"preview",name:"Preview Plugin",author:"Example",version:"1.0",description:"A review fixture",enabled:true,repository:"https://example.invalid/plugins.git",repositoryPath:"plugins/preview",icon:"",preview:""}];'),
 }
 template='''import QtQuick
 import Quickshell
@@ -149,8 +149,7 @@ panels["ControlCenter-plugin-details"] = (panels["ControlCenter-plugins"][0], pa
 panels['MediaMenu'] = ('player: null', '')
 panels['AudioMenu-mic'] = ('microphone: true', '')
 panels['RemoteAccessMenu-streaming'] = ('service: mock; kind: "streaming"', '')
-for page in ['general', 'tools', 'settings']:
- panels['ControlCenter-'+page] = (panels['ControlCenter-style'][0].replace('page: "style"', 'page: "'+page+'"'), 'panel.page="'+page+'";')
+panels['ControlCenter-tools'] = (panels['ControlCenter-general'][0].replace('page: "general"', 'page: "tools"'), 'panel.page="tools";')
 panels['PluginPanel'] = ('', 'panel.entry={kind:"panels",plugin:"preview",id:"preview",qml:"FixturePlugin.qml",source:Qt.resolvedUrl("FixturePlugin.qml").toString(),title:"Preview",disabled:false,surface:"panel"};')
 unknown_panels = set(arguments.panels or []) - panels.keys()
 if unknown_panels:

@@ -1,8 +1,22 @@
 # Kontrollzentrum
 
-**SUPER + ,** öffnet oder schließt das Kontrollzentrum. Es öffnet am aktuellen Leistenrand und schließt mit Escape oder einem Klick außerhalb. Beim Schließen wird auf Allgemein zurückgesetzt. Mit einer Full-Leiste am linken oder rechten Rand beginnt das Kontrollzentrum am oberen Bildschirmrand. Der Inhalt hat Innenabstand innerhalb der mit der Leiste verbundenen Fläche.
+Einstellungen und Leistenpanels verwenden dieselben Auswahlsteuerungen. Kurze Auswahlen erscheinen als Segmente; längere Listen klappen innerhalb des Panels auf und lassen sich ohne schwebendes Menü scrollen. Schalter behalten ihre Aktionen. Goldene Beschriftungen und gravierte Schrift gehören zur Fensterfamilie der Einstellungen: Einstellungen, Handbuch sowie Themes und Plugins.
 
-Seine fünf Seiten enthalten alles außerhalb von Entwicklung, Apps, Installieren, Lernen und Spielen; die meisten Einstellungen brauchen daher keinen Walker. Einklappbare Abschnitte beginnen normalerweise geschlossen; ein Klick auf den Titel schaltet sie um und bleibt bis zur Abmeldung gespeichert. Gibt es ein eigenes Leistenpanel (OBS, WiFi, Bluetooth, Audio, Bildschirm, Hardware, KI-Nutzung, Wetter), öffnet das Kontrollzentrum dieses.
+**SUPER + ,** öffnet Einstellungen mit **System**, Profil und Systemübersicht. Themes und Plugins haben ein eigenes Katalogfenster. **SUPER + I** öffnet das Kontrollzentrum.
+
+## Einstellungen
+
+Die Gruppen heißen Übersicht, Geräte, Desktop, Apps und Tasten, Konten und Sicherheit sowie System. Runen-Überschriften und eine gleitende goldene Markierung erleichtern die Navigation. Jede Seite hat einen Titel, eine Beschreibung und Karten mit beschrifteten Einstellungen. Das Fenster bleibt deckend. Das Handbuch sowie Themes und Plugins nutzen denselben Rahmen, dieselbe Seitenleiste, Seitenüberschrift und Karten und folgen derselben Farbwahl.
+
+Verbindungen hat die Tabs **Wi-Fi** (mit Backend-Auswahl) und **Bluetooth**. Die Anzeige trennt **Bildschirme** und **Nachtlicht**. Erscheinungsbild trennt **Design und Hintergrundbild**, **Schriften & Zeiger** und **Terminal**. Links/Rechts wechselt den fokussierten Tab; die Suche öffnet den passenden Tab. `settings show connections/bluetooth` öffnet Bluetooth; `network` bleibt ein Alias. Bildkarten zeigen Leistenlayouts, Bildschirmkanten, Oberflächen, Medienanzeige, Fensterabstände, Ecken und Sperrbildschirme. Unter Erscheinungsbild wählt **Einstellungsfarben** zwischen **Theme-Farben** und **Eitr-Website** für Einstellungen, Handbuch sowie Themes und Plugins. Die lokale Datei `eitr/settings-app.json` speichert die Auswahl; `settings palette theme` und `settings palette website` ändern sie ebenfalls. Die Desktop-Farben bleiben davon unabhängig.
+
+System zeigt eine Übersicht mit Profilbild, CPU/GPU/RAM-Auslastung, Hauptbildschirm, Betriebszeit, Eitr-Version, Update-Kanal und Theme-Palette. Hardwaredaten werden nur bei sichtbarer Übersicht aktualisiert. Das große Bild zeigt derzeit das Hintergrundbild. Der gemeinsame Datendienst liefert keine Netzwerkübertragungsraten.
+
+**SUPER + F2**, **Weitere Themes** unter Darstellung und das **+** im Karussell öffnen den eigenständigen Katalog mit **Themes und Plugins**-Seitenleiste und Schließen-Schaltfläche. Einstellungen bleibt beim Klick außerhalb geöffnet; Escape oder Schließen beendet es. **SUPER + I** öffnet das Kontrollzentrum.
+
+**SUPER + I** öffnet oder schließt das Kontrollzentrum. Es öffnet am aktuellen Leistenrand und schließt mit Escape oder einem Klick außerhalb. Beim Schließen wird auf Allgemein zurückgesetzt. Mit einer Full-Leiste am linken oder rechten Rand beginnt das Kontrollzentrum am oberen Bildschirmrand. Der Inhalt hat Innenabstand innerhalb der mit der Leiste verbundenen Fläche.
+
+Seine Seiten sind Allgemein, Plugins und Werkzeuge. Die Zahnrad-Schaltfläche darunter, **Alle Einstellungen**, schließt das Kontrollzentrum und öffnet die Einstellungen mit Darstellung, Leiste, Geräten, Tastatur, Bildschirmen und System. Einklappbare Abschnitte beginnen normalerweise geschlossen; ein Klick auf den Titel schaltet sie um und bleibt bis zur Abmeldung gespeichert. Hat die Leiste ein eigenes Panel, etwa OBS, WiFi oder Bluetooth, öffnet das Kontrollzentrum dieses.
 
 ## Allgemein
 
@@ -15,32 +29,9 @@ Seine fünf Seiten enthalten alles außerhalb von Entwicklung, Apps, Installiere
 
 Der Flugmodus merkt sich gesperrte Funkverbindungen und stellt nur diese wieder her. Nicht stören unterdrückt Popups, ohne den Verlauf zu löschen. Automatische Sperre ist nicht dasselbe wie das Verhindern des Schlafmodus; beachte den Schutz deines Bildschirminhalts.
 
-## Stil
-
-Stil gliedert die Einstellungen in Theme & Hintergrundbild, Ecken, Leiste, Arbeitsflächen, Sperrbildschirm, Mauszeiger und Terminal. Alle Gruppen beginnen eingeklappt; ein Klick auf den Gruppentitel öffnet oder schließt sie, und das Kontrollzentrum merkt sich das bis zur Abmeldung; ihre Fläche umfasst alle zugehörigen Optionen. Leiste enthält Anordnung, Position, Erscheinungsbild, Anzeigen auf, Uhr, Medienstil und Verhalten. Verhalten umfasst Automatisch ausblenden, Dock und Bewegung reduzieren.
-
-Design und Hintergrundbild öffnen ihre Karussells; Schriftarten öffnet die Schriftliste. Sperrbildschirmdesign, Mauszeiger (Familie, Größe, Farbe), Leistenerscheinung, Layout, Rand und Bildschirme, Arbeitsflächenmarkierungen, Ecken und Kittys Cursor Fire ändere direkt im Panel. Die Einstellungen werden mit Walker geteilt.
-
-Terminal bietet Kitty (Standard) und optional Ghostty; Eitrs Hilfsterminals bleiben bei Kitty. Installation und Konfiguration stehen unter [Terminal und Editoren](terminal.md).
-
 ## Werkzeuge
 
 Screenshots (Auswahl, Vollbild, Fenster oder Auswahl direkt in die Zwischenablage), Aufnahme (OBS-Steuerung, Aufnehmen, Aufnehmen + Audio und Stopp), OCR, QR-Codes, Farbauswahl, Transkodieren, Erinnerungen und LocalSend-Freigabe. Das Panel schließt vor Beginn einer Auswahl oder Aufnahme.
-
-## Einstellungen
-
-- **Geräte:** Panels für Audio, Mikrofon, Bildschirm (Auflösung, Bildwiederholrate, Skalierung, Drehung), Bluetooth und WiFi, Beleuchtung und Akkuladelimit auf Laptops.
-- **Tastatur:** Belegungen wählen, hinzufügen und entfernen; mindestens eine bleibt erhalten.
-- **Nachtlicht und Hauptbildschirm:** Nachtlichtmodus und Zeitplan, getrennt vom manuellen Schalter, sowie der Hauptbildschirm mit der Leiste.
-- **Informationen:** Über, Hardware, KI-Nutzung, Wetter, Diesen PC prüfen und Problem melden.
-- **Aktualisierungen:** Kanal, Systemaktualisierung, Änderungen jeder Aktualisierung sowie reine Pacman- oder AUR-Updates.
-- **Snapshots und Bereinigung:** Datei wiederherstellen, persönliche und System-Wiederherstellungs-Snapshots samt Anleitung, Bereinigung und Dotfiles.
-
-Sicherheit, Zurücksetzen auf den Werkszustand und Netzwerk-Backend bleiben unter Walker > System mit eigenen Bestätigungen.
-
-## Sprache
-
-**Einstellungen > Sprache** zeigt die aktuelle Sprache entsprechend dem Gebietsschema. Öffne die Auswahl, wähle eine Sprache oder Systemstandard und melde dich zur Anwendung ab und wieder an. Nur die Meldungssprache deiner Sitzung wird geändert, niemals System-Gebietsschemadateien. Siehe [Sprachanleitung](handbook:language).
 
 ## Schnellchat
 
@@ -50,7 +41,7 @@ Antworten bieten auswählbares Markdown und Kopieren. Die Unterhaltung bleibt im
 
 ## Plugins
 
-**Einstellungen > Stil > Themes und Plugins**, **Kontrollzentrum > Stil > Themes und Plugins** oder **SUPER + F2** öffnet das Katalogfenster. Der Reiter Plugins zeigt installierte, offizielle und Community-Plugins, installiert und aktualisiert sie nach einer Prüfung im Fenster, sucht nach Updates und entfernt installierte Plugins nach Bestätigung. Die folgenden Terminal-Abläufe bleiben verfügbar.
+**Einstellungen > Stil > Themes und Plugins** in Walker, **Weitere Themes** auf der Seite Erscheinungsbild der Einstellungen oder **SUPER + F2** öffnet das Fenster Themes und Plugins. Die Gruppe Plugins zeigt installierte, offizielle und Community-Plugins, installiert und aktualisiert sie nach einer Prüfung im Fenster, sucht nach Updates und entfernt installierte Plugins nach Bestätigung. Die folgenden Terminal-Abläufe bleiben verfügbar.
 
 **Kontrollzentrum > Plugins** zeigt für jedes installierte Plugin eine kompakte Zeile mit Symbol, Namen und Aktivierungsschalter. Wähle eine Zeile, um Autor, Version, Beschreibung, Aktualisieren/Entfernen, Widgets, Leistenelemente und Vorschau zu sehen. Mit Zurück oder Escape kehrst du zur Liste zurück. Aktivieren/Deaktivieren erhält Positionen und stoppt oder startet Dienste, Walker-Einträge, Hooks und visuelle Komponenten; per CLI: `eitr plugin enable ID` oder `eitr plugin disable ID`. Plugins hinzufügen, Aktualisieren und Entfernen öffnen die geprüften Terminalabläufe; Entfernen verlangt Bestätigung. Allgemein behält nur Plugin-Kacheln. Visuelle Fehler haben eine unabhängige Aktion zum erneuten Aktivieren.
 
@@ -65,3 +56,7 @@ Die Plugin-Liste zeigt „Dieses Plugin hat Fehler“ und die erste Meldung an. 
 Klicke auf den runden Avatar oben in der Navigation des Kontrollzentrums oder öffne Einstellungen > Sicherheit > Benutzer > Profilbild. „Bild auswählen…“ zeigt deinen Bilder-Ordner direkt im Bereich: Klicke auf einen Ordner, um ihn zu öffnen, ‹ oder Rücktaste geht eine Ebene höher, ein Klick auf ein Bild wählt es aus. Ziehe danach die runde Vorschau zum Verschieben; Mausrad, Schieberegler oder +/− zoomen von 1× bis 4×, Pfeiltasten verschieben. Speichern oder Eingabe übernimmt den Ausschnitt. Abbrechen oder Escape schließt ohne Übernahme. Entfernen löscht das Bild.
 
 Das Bild erscheint im Kontrollzentrum, auf dem Sperrbildschirm und am Anmeldebildschirm immer rund. Ohne Bild zeigt das Kontrollzentrum den Anfangsbuchstaben deines Namens auf einem Kreis in der Akzentfarbe; Sperr- und Anmeldebildschirm zeigen dann kein Bild. Unterstützt werden PNG, JPEG, WebP, GIF (erstes Bild) und BMP bis 40 MB und 12000 Pixel pro Seite. Eitr korrigiert die Ausrichtung, entfernt Metadaten, speichert ein PNG mit 512×512 Pixeln unter `~/.face` und aktualisiert AccountsService für SDDM. Bei einem Fehler bleibt das Bild für den Sperrbildschirm erhalten; Oberfläche oder CLI melden den Anmeldefehler.
+
+## Weitere Einstellungsseiten
+
+Tastenkürzel zeigt die vollständige Referenz aus Lernen mit Suchfeld. Standard-Apps wählt installierte Programme für Browser, Dateien, Text, Bilder, Video, Musik, E-Mail und PDF; Terminal nutzt dieselbe Einstellung wie Erscheinungsbild > Terminal. Benutzer (dein Konto) zeigt Anzeigename und Profilbildeditor. Git & Cloud zeigt gespeicherte Identitäten, Ordnerregeln und Anbieterkontexte; die Schaltflächen öffnen die vorhandenen Walker-Abläufe. Sicherheit behält Bestätigungen für privilegierte Änderungen bei. Aktualisierungen zeigt Kanal und ausstehende Pakete; Systemaktualisierung öffnet den vorhandenen Ablauf. Diesen PC prüfen startet schreibgeschützte Diagnosen nur auf Knopfdruck. Über zeigt Version, Kernel, Hardware, Lizenz und Projektlinks. Jede Seite lässt sich bis zur letzten Zeile scrollen und verlinkt das Handbuch.

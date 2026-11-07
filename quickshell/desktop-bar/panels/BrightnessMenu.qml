@@ -9,6 +9,8 @@ import Quickshell.Io
 ThemedPopup {
     id: menu
     implicitWidth: 428
+    property string settingsSection: "all"
+    property color mapHighlight: accent
     property int maximumHeight: 1000
     implicitHeight: Math.min(contentColumn.implicitHeight + (trialFooter.visible ? trialFooter.height + 8 : 0)
         + verticalContentInset, maximumHeight)
@@ -36,6 +38,9 @@ ThemedPopup {
     readonly property string settingsHelper: Quickshell.shellDir + "/scripts/display-settings.py"
     property var displaySettings: ({monitors: []})
     property string settingsFor: ""
+    onMonitorsChanged: if (settingsFor && !monitors.some(monitor => monitor.name === settingsFor)) settingsFor = ""
+    property string requestedMonitor: ""
+    property var pendingMonitor: null
     property int trialSeconds: 0
     readonly property int trialLength: 15
     // Laptop-only: the helper reports unavailable without a system battery
@@ -108,12 +113,14 @@ ThemedPopup {
     function trySetting(name, key, value) {
         if (trialOperation.running) return;
         displayError = "";
+        requestedMonitor = name;
         trialOperation.command = ["python3", settingsHelper, "set", name, key, value];
         trialOperation.running = true;
     }
     function finishTrial(action) {
         trialCountdown.stop();
         trialSeconds = 0;
+        pendingMonitor = null;
         Quickshell.execDetached(["python3", settingsHelper, action]);
         afterTrial.restart();
     }
@@ -191,7 +198,7 @@ ThemedPopup {
         interval: 1000; repeat: true
         onTriggered: {
             menu.trialSeconds -= 1;
-            if (menu.trialSeconds <= 0) { stop(); afterTrial.restart(); }
+            if (menu.trialSeconds <= 0) { menu.pendingMonitor = null; stop(); afterTrial.restart(); }
         }
     }
     Timer { id: afterTrial; interval: 1200; onTriggered: { menu.refreshDisplays(); menu.refreshDisplaySettings(); } }
@@ -212,6 +219,7 @@ ThemedPopup {
             let result = {};
             try { result = JSON.parse(trialOutput.text); } catch (e) {}
             if (result.trial) {
+                menu.pendingMonitor = Object.assign({name: menu.requestedMonitor}, result);
                 menu.trialSeconds = menu.trialLength;
                 trialCountdown.restart();
                 // The display change takes a moment while the monitor resynchronizes.
@@ -292,10 +300,10 @@ ThemedPopup {
                 id: contentColumn
                 width: parent.width
                 spacing: 12
-                PanelHeading { text: Eitr.I18n.tr("Display"); foreground: menu.foreground; accent: menu.accent; rune: "display" }
+                PanelHeading { compact: menu.embedded; visible: !menu.embedded; text: Eitr.I18n.tr("Display"); foreground: menu.foreground; accent: menu.accent; rune: "display" }
                 // Only built-in laptop screens get a slider; desktop monitors have their own controls.
                 Row {
-                    visible: menu.state.kind === "backlight"
+                    visible: menu.settingsSection !== "nightlight" && menu.state.kind === "backlight"
                     width: parent.width
                     spacing: 10
                     Text { width: 30; height: 30; text: "󰃟"; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: 18 }
@@ -317,29 +325,12 @@ ThemedPopup {
                     Text { width: 50; height: 30; text: Math.round(slider.value) + "%"; horizontalAlignment: Text.AlignRight; verticalAlignment: Text.AlignVCenter; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize; font.features: PanelStyle.tabularFigures }
                 }
                 Column {
-                    visible: menu.power.available
+                    visible: menu.settingsSection !== "nightlight" && menu.power.available
                     width: parent.width
                     spacing: 12
                     PanelDivider { width: parent.width; height: 8; foreground: menu.foreground }
                     Text { text: Eitr.I18n.tr("Power Profile"); color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
-                    Row {
-                        id: powerRow
-                        width: parent.width
-                        spacing: 8
-                        Repeater {
-                            model: menu.powerProfiles
-                            PanelButton {
-                                required property var modelData
-                                width: (powerRow.width - powerRow.spacing * 2) / 3
-                                text: modelData.label
-                                foreground: menu.foreground
-                                available: menu.power.profiles.indexOf(modelData.name) >= 0
-                                loading: powerBusy && menu.powerRequested === modelData.name
-                                selected: menu.power.active === modelData.name
-                                onClicked: menu.setPowerProfile(modelData.name)
-                            }
-                        }
-                    }
+                    ChoiceSegmented { width: parent.width; foreground: menu.foreground; choices: menu.powerProfiles.map(profile => ({id: profile.name, label: profile.label, available: menu.power.profiles.includes(profile.name)})); current: menu.power.active || ""; available: !menu.powerBusy; onChosen: value => menu.setPowerProfile(value) }
                     Text {
                         visible: menu.powerError !== ""
                         text: menu.powerError
@@ -349,116 +340,122 @@ ThemedPopup {
                         font.pixelSize: PanelStyle.captionSize
                     }
                 }
-                PanelDivider { visible: menu.state.kind === "backlight" || menu.power.available; width: parent.width; height: 8; foreground: menu.foreground }
-                Row {
-                    width: parent.width
-                    height: 40
-                    Column {
-                        width: parent.width - 88
-                        anchors.verticalCenter: parent.verticalCenter
-                        spacing: 2
-                        Text { text: Eitr.I18n.tr("Night Light"); color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
-                        Text { width: parent.width; elide: Text.ElideRight; text: menu.nightlight.mode === "auto" ? Eitr.I18n.tr("Automatic · {start} - {end}", {start: menu.displayTime(menu.nightlight.start || "18:00"), end: menu.displayTime(menu.nightlight.end || "09:00")}) : Eitr.I18n.tr("Manual"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
-                    }
-                    PanelButton {
-                        id: editButton
-                        icon: true
-                        width: 28
-                        height: 28
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: "󰏫"
-                        foreground: menu.foreground
-                        available: menu.nightlight.available
-                        selected: menu.editingSchedule
-                        onClicked: {
-                            if (menu.editingSchedule && menu.scheduleDirty) scheduleSettle.restart();
-                            if (!menu.editingSchedule) menu.syncSchedule();
-                            menu.editingSchedule = !menu.editingSchedule;
-                        }
-                        HoverHandler { id: editHover }
-                        BarTooltip { target: editButton; hovered: editHover.hovered; text: Eitr.I18n.tr("Edit schedule"); background: menu.background; foreground: menu.foreground }
-                    }
-                    Item { width: 8; height: 1 }
-                    PanelSwitch {
-                        anchors.verticalCenter: parent.verticalCenter
-                        checked: menu.nightlight.enabled
-                        enabled: menu.nightlight.available && !nightOperation.running
-                        foreground: menu.foreground
-                        accent: menu.accent
-                        onClicked: menu.setNightlight(checked ? "on" : "off")
-                    }
-                }
+                PanelDivider { visible: menu.settingsSection === "all" && (menu.state.kind === "backlight" || menu.power.available); width: parent.width; height: 8; foreground: menu.foreground }
                 Column {
-                    visible: menu.editingSchedule
                     width: parent.width
-                    height: visible ? 58 : 0
-                    spacing: 2
-                    Row {
-                        width: parent.width
-                        height: 16
-                        spacing: 8
-                        Text { width: (parent.width - 68) / 2; height: parent.height; text: Eitr.I18n.tr("Start"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
-                        Text { width: (parent.width - 68) / 2; height: parent.height; text: Eitr.I18n.tr("End"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
-                        Text { width: 52; height: parent.height; text: Eitr.I18n.tr("Auto"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
-                    }
+                    spacing: 12
+                    visible: menu.settingsSection !== "displays"
                     Row {
                         width: parent.width
                         height: 40
-                        spacing: 8
-                        Controls.TextField {
-                            id: startField
-                            width: (parent.width - 68) / 2
-                            height: parent.height
-                            color: menu.foreground
-                            font.family: DesktopFonts.family
-                            font.pixelSize: PanelStyle.bodySize
-                            selectByMouse: true
-                            onTextEdited: { menu.scheduleDirty = true; scheduleSettle.restart(); }
-                            HoverHandler { cursorShape: Qt.IBeamCursor }
-                            background: Rectangle { radius: DesktopStyle.radius(PanelStyle.controlRadius); color: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.08); border.width: 1; border.color: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.2) }
+                        Column {
+                            width: parent.width - 88
+                            anchors.verticalCenter: parent.verticalCenter
+                            spacing: 2
+                            Text { text: Eitr.I18n.tr("Night Light"); color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
+                            Text { width: parent.width; elide: Text.ElideRight; text: menu.nightlight.mode === "auto" ? Eitr.I18n.tr("Automatic · {start} - {end}", {start: menu.displayTime(menu.nightlight.start || "18:00"), end: menu.displayTime(menu.nightlight.end || "09:00")}) : Eitr.I18n.tr("Manual"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
                         }
-                        Controls.TextField {
-                            id: endField
-                            width: (parent.width - 68) / 2
-                            height: parent.height
-                            color: menu.foreground
-                            font.family: DesktopFonts.family
-                            font.pixelSize: PanelStyle.bodySize
-                            selectByMouse: true
-                            onTextEdited: { menu.scheduleDirty = true; scheduleSettle.restart(); }
-                            HoverHandler { cursorShape: Qt.IBeamCursor }
-                            background: Rectangle { radius: DesktopStyle.radius(PanelStyle.controlRadius); color: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.08); border.width: 1; border.color: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.2) }
+                        PanelButton {
+                            id: editButton
+                            icon: true
+                            width: 28
+                            height: 28
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: "󰏫"
+                            foreground: menu.foreground
+                            available: menu.nightlight.available
+                            selected: menu.editingSchedule
+                            onClicked: {
+                                if (menu.editingSchedule && menu.scheduleDirty) scheduleSettle.restart();
+                                if (!menu.editingSchedule) menu.syncSchedule();
+                                menu.editingSchedule = !menu.editingSchedule;
+                            }
+                            HoverHandler { id: editHover }
+                            BarTooltip { target: editButton; hovered: editHover.hovered; text: Eitr.I18n.tr("Edit schedule"); background: menu.background; foreground: menu.foreground }
                         }
+                        Item { width: 8; height: 1 }
                         PanelSwitch {
                             anchors.verticalCenter: parent.verticalCenter
-                            checked: menu.nightlight.mode === "auto"
+                            checked: menu.nightlight.enabled
                             enabled: menu.nightlight.available && !nightOperation.running
                             foreground: menu.foreground
                             accent: menu.accent
-                            onClicked: {
-                                scheduleSettle.stop();
-                                menu.configureNightlight(checked ? "auto" : (menu.nightlight.enabled ? "on" : "off"));
+                            onClicked: menu.setNightlight(checked ? "on" : "off")
+                        }
+                    }
+                    Column {
+                        visible: menu.editingSchedule
+                        width: parent.width
+                        height: visible ? 58 : 0
+                        spacing: 2
+                        Row {
+                            width: parent.width
+                            height: 16
+                            spacing: 8
+                            Text { width: (parent.width - 68) / 2; height: parent.height; text: Eitr.I18n.tr("Start"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                            Text { width: (parent.width - 68) / 2; height: parent.height; text: Eitr.I18n.tr("End"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                            Text { width: 52; height: parent.height; text: Eitr.I18n.tr("Auto"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                        }
+                        Row {
+                            width: parent.width
+                            height: 40
+                            spacing: 8
+                            Controls.TextField {
+                                id: startField
+                                width: (parent.width - 68) / 2
+                                height: parent.height
+                                color: menu.foreground
+                                font.family: DesktopFonts.family
+                                font.pixelSize: PanelStyle.bodySize
+                                selectByMouse: true
+                                onTextEdited: { menu.scheduleDirty = true; scheduleSettle.restart(); }
+                                HoverHandler { cursorShape: Qt.IBeamCursor }
+                                background: Rectangle { radius: DesktopStyle.radius(PanelStyle.controlRadius); color: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.08); border.width: 1; border.color: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.2) }
+                            }
+                            Controls.TextField {
+                                id: endField
+                                width: (parent.width - 68) / 2
+                                height: parent.height
+                                color: menu.foreground
+                                font.family: DesktopFonts.family
+                                font.pixelSize: PanelStyle.bodySize
+                                selectByMouse: true
+                                onTextEdited: { menu.scheduleDirty = true; scheduleSettle.restart(); }
+                                HoverHandler { cursorShape: Qt.IBeamCursor }
+                                background: Rectangle { radius: DesktopStyle.radius(PanelStyle.controlRadius); color: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.08); border.width: 1; border.color: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.2) }
+                            }
+                            PanelSwitch {
+                                anchors.verticalCenter: parent.verticalCenter
+                                checked: menu.nightlight.mode === "auto"
+                                enabled: menu.nightlight.available && !nightOperation.running
+                                foreground: menu.foreground
+                                accent: menu.accent
+                                onClicked: {
+                                    scheduleSettle.stop();
+                                    menu.configureNightlight(checked ? "auto" : (menu.nightlight.enabled ? "on" : "off"));
+                                }
                             }
                         }
                     }
+                    Text {
+                        visible: menu.nightlightError !== ""
+                        text: menu.nightlightError
+                        color: menu.foreground
+                        opacity: PanelStyle.secondaryTextOpacity
+                        font.family: DesktopFonts.family
+                        font.pixelSize: PanelStyle.captionSize
+                    }
                 }
-                Text {
-                    visible: menu.nightlightError !== ""
-                    text: menu.nightlightError
-                    color: menu.foreground
-                    opacity: PanelStyle.secondaryTextOpacity
-                    font.family: DesktopFonts.family
-                    font.pixelSize: PanelStyle.captionSize
-                }
-                PanelDivider { width: parent.width; height: 8; foreground: menu.foreground }
+                PanelDivider { visible: menu.settingsSection === "all"; width: parent.width; height: 8; foreground: menu.foreground }
                 Item {
                     width: content.width
-                    height: 28
+                    height: visible ? 28 : 0
+                    visible: menu.settingsSection !== "nightlight"
                     Text { anchors.verticalCenter: parent.verticalCenter; text: Eitr.I18n.tr("Displays"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
                 }
-                Text { visible: menu.displayError !== ""; text: menu.displayError; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                Text { visible: menu.settingsSection !== "nightlight" && menu.displayError !== ""; text: menu.displayError; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
                 Text {
-                    visible: menu.monitors.length === 0
+                    visible: menu.settingsSection !== "nightlight" && menu.monitors.length === 0
                     height: visible ? 36 : 0
                     text: Eitr.I18n.tr("No active displays")
                     color: menu.foreground
@@ -466,7 +463,23 @@ ThemedPopup {
                     font.family: DesktopFonts.family
                     font.pixelSize: PanelStyle.bodySize
                 }
+                MonitorMap {
+                    width: content.width
+                    height: visible ? implicitHeight : 0
+                    // The map is a Settings view; the bar's Display panel keeps to the list.
+                    visible: menu.embedded && menu.settingsSection !== "nightlight"
+                    compact: false
+                    monitors: menu.monitors
+                    settings: menu.displaySettings.monitors || []
+                    pending: menu.pendingMonitor
+                    primary: menu.primaryDisplay
+                    selected: menu.settingsFor
+                    foreground: menu.foreground; background: menu.background; accent: menu.accent
+                    gold: menu.mapHighlight
+                    onSelectedMonitor: name => { menu.settingsFor = name; menu.refreshDisplaySettings(); }
+                }
                 Column {
+                visible: menu.settingsSection !== "nightlight"
                 width: content.width; spacing: PanelStyle.selectionRowGap
                 Repeater {
                     model: menu.monitors

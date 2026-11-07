@@ -391,6 +391,9 @@ msgstr "Setas: mover  Espaço: selecionar  Enter: revisar  Esquerda: voltar  Esc
 msgid "Artifact Registry"
 msgstr "Artifact Registry"
 
+msgid "Ask before changes"
+msgstr "Perguntar antes de alterar"
+
 msgid "Ask the AI"
 msgstr "Perguntar à IA"
 
@@ -729,6 +732,9 @@ msgstr "Detalhes do cluster"
 
 msgid "Clusters"
 msgstr "Clusters"
+
+msgid "Codename"
+msgstr "Codinome"
 
 msgid "Codex CLI is not installed"
 msgstr "A Codex CLI não está instalada"
@@ -1180,6 +1186,9 @@ msgstr "IPs elásticos"
 msgid "Empty values and control characters are not allowed"
 msgstr "Não são permitidos valores vazios nem caracteres de controle"
 
+msgid "Enabled for: {services}"
+msgstr "Ativado para: {services}"
+
 msgid "Encrypt with LUKS2: boot passphrase required (recommended)"
 msgstr "Criptografar com LUKS2: frase secreta exigida na inicialização (recomendado)"
 
@@ -1200,6 +1209,9 @@ msgstr "Criptografia: LUKS2, frase secreta na inicialização"
 
 msgid "English UTF-8 support is missing from the live image"
 msgstr "A imagem live não inclui suporte a inglês UTF-8"
+
+msgid "Enrollment status requires the existing disk-unlock flow"
+msgstr "Consulte o registro no fluxo existente de desbloqueio de disco"
 
 msgid "Enter a color as six hex digits, for example #2bb87a."
 msgstr "Digite uma cor com seis dígitos hexadecimais, por exemplo #2bb87a."
@@ -1306,6 +1318,9 @@ msgstr "Ponto de redefinição de fábrica: {created} (contas: {names})"
 msgid "File became executable: {path}"
 msgstr "Arquivo se tornou executável: {path}"
 
+msgid "File manager"
+msgstr "Gerenciador de arquivos"
+
 msgid "File or folder to restore (for example ~/Documents/report.odt)"
 msgstr "Arquivo ou pasta a restaurar (por exemplo, ~/Documents/report.odt)"
 
@@ -1386,6 +1401,9 @@ msgstr "Encontrado na sua configuração do Git"
 
 msgid "Friday"
 msgstr "Sexta-feira"
+
+msgid "Full access (default)"
+msgstr "Acesso completo (padrão)"
 
 msgid "Full name"
 msgstr "Nome completo"
@@ -1512,6 +1530,9 @@ msgstr "Ociosa; teste a conexão para verificar"
 
 msgid "Ignore"
 msgstr "Ignorar"
+
+msgid "Image viewer"
+msgstr "Visualizador de imagens"
 
 msgid "Import a VPN file…"
 msgstr "Importar um arquivo VPN…"
@@ -1804,6 +1825,9 @@ msgstr "Idioma salvo. Saia da sessão e entre novamente para aplicar."
 msgid "Language: {language} / Keyboard: {keyboard}"
 msgstr "Idioma: {language} / Teclado: {keyboard}"
 
+msgid "Large"
+msgstr "Grande"
+
 msgid "Later"
 msgstr "Mais tarde"
 
@@ -1818,6 +1842,9 @@ msgstr "Fluxos de logs mais recentes"
 
 msgid "Let assistants work together"
 msgstr "Permitir que assistentes trabalhem juntos"
+
+msgid "Licence"
+msgstr "Licença"
 
 msgid "Light"
 msgstr "Claro"
@@ -1897,6 +1924,9 @@ msgstr "Nome em minúsculas. Este usuário terá acesso sudo."
 msgid "Magenta"
 msgstr "Magenta"
 
+msgid "Mail"
+msgstr "E-mail"
+
 msgid "Malformed EITR include block; review ~/.gitconfig manually"
 msgstr "Bloco include do EITR inválido; revise ~/.gitconfig manualmente"
 
@@ -1935,6 +1965,9 @@ msgstr "Mensalmente"
 
 msgid "Move and resize desktop widgets"
 msgstr "Mover e redimensionar widgets da área de trabalho"
+
+msgid "Music player"
+msgstr "Reprodutor de música"
 
 msgid "Mute this program"
 msgstr "Silenciar este programa"
@@ -2103,6 +2136,9 @@ msgstr "Não é um aplicativo web do EITR"
 
 msgid "Not available: {error}"
 msgstr "Indisponível: {error}"
+
+msgid "Not enabled"
+msgstr "Não ativado"
 
 msgid "Not one of your lockscreens"
 msgstr "Não é uma das suas telas de bloqueio"
@@ -2277,6 +2313,9 @@ msgstr "PC"
 
 msgid "PCR policy: {TPM_PCRS} (Secure Boot state). Firmware or Secure Boot key changes require the passphrase once, then re-enrollment."
 msgstr "Política PCR: {TPM_PCRS} (estado do Secure Boot). Mudanças no firmware ou nas chaves do Secure Boot exigem a senha uma vez e depois um novo cadastro."
+
+msgid "PDF viewer"
+msgstr "Visualizador de PDF"
 
 msgid "Package actions require a terminal."
 msgstr "As ações de pacotes exigem um terminal."
@@ -2749,6 +2788,9 @@ msgstr "Revise /etc/default/limine primeiro e depois execute: sudo systemctl sta
 msgid "Review installation"
 msgstr "Revisar instalação"
 
+msgid "Review status and settings"
+msgstr "Revisar estado e configurações"
+
 msgid "Roles"
 msgstr "Papéis"
 
@@ -2839,8 +2881,8 @@ msgstr "Salvar esta escolha para a próxima inicialização?"
 msgid "Save your work and close your apps now. The computer restarts as soon as the reset is ready; anything changed after this point is lost. Keep a copy of important files on an external drive: a reset is not a backup, and it is not secure erasure either."
 msgstr "Salve seu trabalho e feche os aplicativos agora. O computador reinicia assim que a redefinição estiver pronta; qualquer alteração feita depois deste ponto será perdida. Mantenha uma cópia dos arquivos importantes em uma unidade externa: a redefinição não é um backup nem uma exclusão segura dos dados."
 
-msgid "Saved corner style, but refresh failed: {error}"
-msgstr "Estilo dos cantos salvo, mas a atualização falhou: {error}"
+msgid "Saved desktop style, but refresh failed: {error}"
+msgstr "Estilo da área de trabalho salvo, mas a atualização falhou: {error}"
 
 msgid "Saved for the next boot. Your current connection has not changed."
 msgstr "Salvo para o próximo boot. Sua conexão atual não mudou."
@@ -3294,6 +3336,9 @@ msgstr "Canal de testes: a Atualização do sistema instala novas versões do Ei
 
 msgid "Text"
 msgstr "Texto"
+
+msgid "Text editor"
+msgstr "Editor de texto"
 
 msgid "Text would be hard to read: foreground and background need more contrast."
 msgstr "O texto ficaria difícil de ler: primeiro plano e fundo precisam de mais contraste."
@@ -3820,6 +3865,9 @@ msgstr "Unsupported uninstall source"
 msgid "Until {date}"
 msgstr "Até {date}"
 
+msgid "Update Channel"
+msgstr "Canal de atualização"
+
 msgid "Update cancelled; nothing was changed."
 msgstr "Atualização cancelada; nada foi alterado."
 
@@ -3952,6 +4000,9 @@ msgstr "Versão"
 msgid "Version: {version}"
 msgstr "Versão: {version}"
 
+msgid "Video player"
+msgstr "Reprodutor de vídeo"
+
 msgid "Virtual Machines"
 msgstr "Máquinas virtuais"
 
@@ -3984,6 +4035,9 @@ msgstr "O app web precisa de um navegador baseado no Chromium"
 
 msgid "Web apps need a Chromium-based browser. Install Chromium now? Enter installs · Esc skips"
 msgstr "Aplicativos web precisam de um navegador baseado no Chromium. Instalar o Chromium agora? Enter instala · Esc pula"
+
+msgid "Web browser"
+msgstr "Navegador web"
 
 msgid "Website names cannot be looked up, so the internet may not work; check your network connection."
 msgstr "Os nomes de sites não podem ser resolvidos, então a internet pode não funcionar; confira sua conexão de rede."

@@ -12,7 +12,7 @@ O efeito exige Kitty 0.49+ e `shader-slang`, incluídos nas dependências do Eit
 
 ## Escolher o terminal
 
-**Configurações > Estilo > Terminal** no Walker e **Central de controle > Estilo > Terminal** oferecem
+**Configurações > Estilo > Terminal** no Walker e **Configurações (SUPER + ,) > Aparência > Terminal** oferecem
 **Kitty** (padrão) e **Ghostty**. O campo local `terminal` em
 `~/.config/eitr/terminal.json` controla Super+Enter, tmux, sessões do usuário,
 terminais de IA/projetos e ações do Walker para abrir no terminal. Se Ghostty não
@@ -44,7 +44,7 @@ Escolher Ghostty não os altera.
 
 ## Aparência do terminal e desfoque compartilhado
 
-Configurações > Estilo > Terminal e Central de controle > Estilo > Terminal aplicam
+Configurações > Estilo > Terminal e Configurações (SUPER + ,) > Aparência > Terminal aplicam
 opacidade, espaçamento interno e desfoque ao Kitty e ao Ghostty. A opacidade oferece
 Sólido (100%), Leve (90%), Médio (80%), Padrão (75%) e Forte (70%). O espaçamento
 oferece Nenhum, Pequeno (4 pontos) e Confortável (8 pontos). Os padrões mantêm 75%
@@ -54,8 +54,8 @@ seu fundo sólido e espaçamento de tarefas.
 Desativar o desfoque o remove das janelas normais do Kitty e do Ghostty, sem torná-las
 opacas. A intensidade é compartilhada por toda a área de trabalho: Leve (tamanho 2,
 uma passagem), Média (tamanho 3, duas passagens, padrão) e Forte (tamanho 5, três
-passagens). A mesma escolha aparece em Barra da área de trabalho no Walker e Barra
-na Central de controle, junto da aparência. O Hyprland 0.57 só oferece intensidade
+passagens). A mesma escolha aparece em Barra da área de trabalho no Walker e nas
+Configurações (SUPER + ,), junto da aparência. O Hyprland 0.57 só oferece intensidade
 global; a escolha afeta painéis, notificações, Visão geral e outros aplicativos que
 já usam desfoque. Escolher uma intensidade não ativa o desfoque do terminal.
 Desfoque mais forte exige mais da GPU. Cor do tema mantém a aparência sólida.

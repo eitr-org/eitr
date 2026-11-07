@@ -51,3 +51,5 @@ process restarts. No notification contents are saved as a log. Thumbnail retenti
 budget and decodes at up to 160×120. The oldest hidden images are released first;
 text remains in history. Images shown in popups or the open center stay retained
 until hidden, even if that temporarily exceeds the budget.
+
+Settings > About shows the release version, codename, update channel, hardware, kernel and licence, with links to the website, repository and Handbook.

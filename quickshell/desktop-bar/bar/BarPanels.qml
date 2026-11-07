@@ -1,7 +1,6 @@
 import ".."
 import QtQuick
 import Eitr as Eitr
-import Quickshell
 import Quickshell.Io
 
 Item {
@@ -59,17 +58,14 @@ Item {
         foreground: host.fg; background: host.workspaceMenuBg; accent: host.activeBg
         service: barHost.notificationsRef
         wifiControl: barHost.networkServiceRef; bluetoothControl: barHost.bluetoothMenu; displayControl: barHost.brightnessMenu
-        keyboardControl: barHost.keyboardMenu
         wifiGlyph: host.verticalBar ? barHost.verticalWifiIcon.text : barHost.wifiIcon.text
         battery: host.battery; mediaPlayer: barHost.mediaStrip.player
         idleEnabled: host.idleLockEnabled; idleBusy: barHost.idleLockProcessRef.running
-        barPosition: host.barEdge; appearance: host.barAppearance; layout: host.barLayout; barScreens: host.barScreens; barAutoHide: host.barAutoHide; barDock: host.barDock; mediaStyle: host.barMediaStyle; clockFormat: host.barClock; workspaceStyle: host.workspaceStyle
+        barPosition: host.barEdge
         onIdleToggleRequested: if (!barHost.idleLockProcessRef.running) barHost.idleLockProcessRef.running = true
         onLockRequested: runAfterClose(["bash", Eitr.Paths.code("hypr/scripts/manual-lock.sh")])
-        onSettingRequested: function(key, value) { host.updateBarSetting(key, value); }
-        onWorkspaceStyleRequested: function(value) { host.setWorkspaceStyle(value); }
         onPanelRequested: function(kind) { panelIpc.show(kind); }
-        onPickerRequested: function(kind) { runAfterClose(["bash", Quickshell.shellDir + "/scripts/appearance-picker.sh", kind]); }
+        onSettingsRequested: function(page) { host.showSettings(page); }
     }
     MediaMenu {
         id: mediaMenu
@@ -87,9 +83,11 @@ Item {
         battery: host.battery; displayControl: barHost.brightnessMenu
     }
     function showControlCenter(page) {
-        // Accept the System and Capture aliases for Settings and Tools.
-        page = ({system: "settings", capture: "tools"})[page] || page;
-        if (["picture", "general", "plugins", "style", "tools", "settings"].indexOf(page) === -1) return;
+        // Style and Settings moved to the Settings window; their old names open it there.
+        var moved = {style: "appearance", settings: "system", system: "system"};
+        if (moved[page]) { host.showSettings(moved[page]); return; }
+        page = ({capture: "tools"})[page] || page;
+        if (["picture", "general", "plugins", "tools"].indexOf(page) === -1) return;
         controlCenter.page = page;
         barHost.showPanel(controlCenter);
     }

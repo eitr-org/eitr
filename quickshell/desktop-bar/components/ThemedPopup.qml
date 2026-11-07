@@ -9,7 +9,7 @@ DockPanel {
     id: popup
     property var escapeHandler: null
     property bool grabReady: false
-    onHostWindowChanged: if (!hostWindow && grabReady) opened = false
+    onHostWindowChanged: if (!embedded && !hostWindow && grabReady) opened = false
     onVisibleChanged: if (!visible) grabReady = false
     required property Item target
     required property color foreground
@@ -31,7 +31,7 @@ DockPanel {
     property Item keyTarget: body
     // A picture filling the whole panel sheet, under the content (PanelSurface.backdrop).
     property Item backdrop: null
-    property real paddingScale: 1
+    property real paddingScale: embedded ? 0 : 1
     property real backdropInset: 0
     default property alias panelContent: body.data
     opened: false
@@ -46,7 +46,7 @@ DockPanel {
         Connections {
             target: popup
             function onOpenedChanged() {
-                if (popup.opened) grabDelay.restart();
+                if (popup.opened && !popup.embedded) grabDelay.restart();
                 else {
                     grabDelay.stop();
                     popup.grabReady = false;
@@ -62,7 +62,7 @@ DockPanel {
                 popup.grabReady = true;
             }
         },
-        HyprlandFocusGrab { id: grab; active: popup.grabReady && popup.opened && popup.visible && !!popup.hostWindow && popup.focusWindows.length > 0; windows: popup.focusWindows; onCleared: popup.opened = false },
+        HyprlandFocusGrab { id: grab; active: !popup.embedded && popup.grabReady && popup.opened && popup.visible && !!popup.hostWindow && popup.focusWindows.length > 0; windows: popup.focusWindows; onCleared: popup.opened = false },
         // Islands: the card that grows from the pill's shape into this panel and back.
         Rectangle {
             id: pillCard
@@ -109,16 +109,22 @@ DockPanel {
         },
         PanelSurface {
             id: panelSurface
+            visible: !popup.embedded
             anchors.fill: parent
             hostWindow: popup
             color: popup.surfaceColor
             backdrop: popup.backdrop
             Item {
                 id: body
+                parent: popup.embedded ? popup : panelSurface.contentItem
                 anchors.fill: parent
                 clip: true
                 focus: true
-                Keys.onEscapePressed: if (!popup.escapeHandler || !popup.escapeHandler()) popup.opened = false
+                Keys.onEscapePressed: function(event) {
+                    if (popup.escapeHandler && popup.escapeHandler()) return;
+                    if (popup.embedded) event.accepted = false;
+                    else popup.opened = false;
+                }
             }
         }
     ]

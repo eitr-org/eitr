@@ -5,6 +5,8 @@ import Quickshell
 
 Item {
     id: panel
+    property Item inlineParent: null
+    readonly property bool embedded: !!inlineParent
     property Item attachmentTarget
     // The bar item a Dynamic/Islands card grows from, when it is not the attachment target.
     property Item morphAnchor: null
@@ -150,7 +152,7 @@ Item {
     }
     // Only an open (or folding) panel sits in the bar window. A closed panel left there
     // kept a stale window when the bar's screen was unplugged, and Qt crashed on it.
-    parent: hostWindow && (opened || revealProgress > 0) ? hostWindow.contentItem : null
+    parent: inlineParent || (hostWindow && (opened || revealProgress > 0) ? hostWindow.contentItem : null)
     z: 100
     width: detached && parent && strip ? Math.min(desiredWidth, parent.width - (attachmentEdge === "left" || attachmentEdge === "right" ? strip.width + attachmentGap + ((hostWindow.islandsLayout || hostWindow.dynamicLayout) ? hostWindow.islandGap : 0) + (attachmentEdge === "left" ? edgeInsets[1] : edgeInsets[3]) : edgeInsets[1] + edgeInsets[3])) : desiredWidth
     height: detached && parent && strip ? Math.min(desiredHeight, parent.height - (attachmentEdge === "top" || attachmentEdge === "bottom" ? strip.height + attachmentGap + ((hostWindow.islandsLayout || hostWindow.dynamicLayout) ? hostWindow.islandGap : 0) + (attachmentEdge === "top" ? edgeInsets[2] : edgeInsets[0]) : edgeInsets[0] + edgeInsets[2])) : desiredHeight

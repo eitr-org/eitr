@@ -17,12 +17,24 @@ ShellRoot {
     NotificationService { id: notificationsService }
     RemoteAccessService { id: remoteAccessService; observing: shell.remotePanelsOpen }
     WelcomeSession { host: shell }
+    SettingsWindow {
+        id: settingsWindow
+        onThemesRequested: shell.showThemes("all")
+        networkService: networkOwner
+        notifications: notificationsService
+        idleEnabled: shell.idleLockEnabled
+        onIdleToggleRequested: if (!toggleIdleLock.running) toggleIdleLock.running = true
+        foreground: shell.fg; background: shell.barBackground(); accent: shell.activeBg
+        onOpenedChanged: if (opened) shell.handbookOpened()
+    }
+    function showSettings(page) { settingsWindow.show(page); }
+    function showCatalog() { catalogWindow.show(); }
+    function showThemes(tone) { catalogWindow.showThemes(tone); }
     Catalog {
         id: catalogWindow
         foreground: shell.fg; background: shell.barBackground(); accent: shell.activeBg
         onOpenedChanged: if (opened) shell.handbookOpened()
     }
-    function showCatalog() { catalogWindow.show(); }
     LiveWallpaper {}
     ScreenshotPins { foreground: shell.fg; background: shell.barBackground() }
     BeautifyWindow { foreground: shell.fg; background: shell.barBackground(); accent: shell.activeBg }
@@ -154,7 +166,7 @@ ShellRoot {
     TimePicker { defaultScreen: shell.targetScreens()[0] || null; foreground: shell.fg; background: shell.barBackground() }
     AppearancePicker {
         defaultScreen: shell.targetScreens()[0] || null
-        onCatalogRequested: tone => catalogWindow.showThemes(tone)
+        onCatalogRequested: tone => shell.showThemes(tone)
     }
 
     function focusWorkspace(id) {

@@ -67,6 +67,7 @@ document.
 | `hypr/theme-env.conf` | D baseline | Shipped toolkit defaults; an existing user copy remains P |
 | `distro/defaults/hypr/xdph.conf` | P | Seeded as `~/.config/hypr/xdph.conf` when missing; existing user files win |
 | `hypr/cursor-env.conf` | G | User config; generators never write the shipped tree |
+| `eitr/window-gaps.lua` | G | Generated from the local `eitr/style.json` gap preference on selection and theme regeneration; loaded by Hyprland |
 | `hypr/{local.lua,keyboard-layouts.lua,primary-display,preferred-outputs}` | P | User config; `local.lua` still runs last and guarded |
 | `themes/<id>/` palettes, artwork, app theme definitions | D | `/usr/share/eitr/themes/<id>`; menus, generators, Neovim |
 | `theme/current/` | G | User config; the selection itself is a versioned preference |

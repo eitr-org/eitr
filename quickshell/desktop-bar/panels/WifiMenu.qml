@@ -8,6 +8,13 @@ import Quickshell
 ThemedPopup {
     id: menu
     waitForFreshData: true
+    escapeHandler: () => {
+        if (menu.sharing) menu.closeShare();
+        else if (menu.selectedNetwork) { menu.selectedNetwork = null; menu.secret = ""; password.text = ""; menu.clearEnterprise(); }
+        else if (menu.pendingRemoval) menu.pendingRemoval = "";
+        else return false;
+        return true;
+    }
     implicitWidth: 468
     implicitHeight: 528
     required property var networkService
@@ -120,7 +127,7 @@ ThemedPopup {
             Item {
                 width: parent.width
                 height: 42
-                PanelHeading {
+                PanelHeading { compact: menu.embedded; visible: !menu.embedded;
                     width: parent.width - 156
                     anchors.verticalCenter: parent.verticalCenter
                     text: menu.connected ? menu.connected.name : Eitr.I18n.tr("WiFi")
@@ -167,7 +174,7 @@ ThemedPopup {
             }
             Column {
                 visible: menu.selectedNetwork !== null; width: parent.width; spacing: PanelStyle.selectionRowGap
-                PanelHeading { width: parent.width; elide: Text.ElideRight; text: menu.selectedNetwork ? menu.selectedNetwork.name : ""; foreground: menu.foreground; accent: menu.accent; rune: "connectivity"; }
+                PanelHeading { compact: menu.embedded; visible: !menu.embedded; width: parent.width; elide: Text.ElideRight; text: menu.selectedNetwork ? menu.selectedNetwork.name : ""; foreground: menu.foreground; accent: menu.accent; rune: "connectivity"; }
                 TextField {
                     id: password; width: parent.width; placeholderText: Eitr.I18n.tr("Password"); echoMode: TextInput.Password; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
                     placeholderTextColor: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.5)
@@ -314,7 +321,7 @@ ThemedPopup {
                 id: enterpriseFields
                 width: parent.width
                 spacing: PanelStyle.selectionRowGap
-                PanelHeading { width: parent.width; text: menu.selectedNetwork ? menu.selectedNetwork.name : ""; elide: Text.ElideRight; foreground: menu.foreground; accent: menu.accent; rune: "connectivity"; }
+                PanelHeading { compact: menu.embedded; visible: !menu.embedded; width: parent.width; text: menu.selectedNetwork ? menu.selectedNetwork.name : ""; elide: Text.ElideRight; foreground: menu.foreground; accent: menu.accent; rune: "connectivity"; }
                 Text { width: parent.width; text: Eitr.I18n.tr("ENTERPRISE WI-FI"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
                 Row {
                     spacing: 8
@@ -351,7 +358,7 @@ ThemedPopup {
             spacing: 14
             Row {
                 width: parent.width; spacing: 8
-                PanelHeading { width: parent.width - 42; anchors.verticalCenter: parent.verticalCenter; text: menu.shareNetwork ? menu.shareNetwork.name : ""; elide: Text.ElideRight; textFormat: Text.PlainText; foreground: menu.foreground; accent: menu.accent; rune: "connectivity"; }
+                PanelHeading { compact: menu.embedded; visible: !menu.embedded; width: parent.width - 42; anchors.verticalCenter: parent.verticalCenter; text: menu.shareNetwork ? menu.shareNetwork.name : ""; elide: Text.ElideRight; textFormat: Text.PlainText; foreground: menu.foreground; accent: menu.accent; rune: "connectivity"; }
                 PanelButton { text: "×"; width: 34; height: 34; foreground: menu.foreground; onClicked: menu.closeShare() }
             }
             TextField {

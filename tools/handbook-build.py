@@ -195,7 +195,7 @@ def build(locale="en"):
                 raise ValueError(f"Missing or unsafe handbook image: {figure['src']}")
         html = markdown.markdown(unnest_fences(text), extensions=["tables", "fenced_code", "sane_lists"])
         metadata = {key: value for key, value in chapter.items() if key not in ("source", "generated")}
-        for key in ("title", "summary"):
+        for key in ("title", "summary", "group"):
             if key in metadata:
                 metadata[key] = messages.get(metadata[key], metadata[key])
         if locale != "en":

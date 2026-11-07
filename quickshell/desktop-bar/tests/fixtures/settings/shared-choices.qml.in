@@ -1,0 +1,105 @@
+import QtQuick
+import Quickshell
+import "." as Bar
+ShellRoot {
+ id: fixture
+ property color foreground: "FOREGROUND"
+ property color background: "BACKGROUND"
+ property var monitors: [{name: "DP-1", model: "Wide display", width: 2560, height: 1440, refreshRate: 60, x: 0, y: 0, scale: 1, transform: 0}, {name: "HDMI-A-1", model: "Second display", width: 1920, height: 1080, refreshRate: 60, x: 2560, y: 0, scale: 1, transform: 0}]
+ property var settings: monitors.map(monitor => ({name: monitor.name, mode: monitor.width + "x" + monitor.height + "@60", position: monitor.x + "x" + monitor.y, scale: monitor.scale, transform: monitor.transform, modes: ["2560x1440@60Hz", "1920x1080@60Hz"]}))
+ function find(item, name) {
+  if (item.objectName === name) return item;
+  for (const child of item.children || []) { const found = find(child, name); if (found) return found; }
+  return null;
+ }
+ Bar.SettingsStyleState {
+  id: center; live: false
+  property color foreground: fixture.foreground
+  property color background: fixture.background
+  property color accent: "#879dc0"
+  cursorChoices: ({family: [{id: "bibata", label: "Bibata", selected: true}, {id: "breeze", label: "Breeze"}], size: [{id: "24", label: "24 px", selected: true}], color: [{id: "auto", label: "Auto", selected: true}]})
+  lockscreens: [{value: "eitr", label: "Eitr"}, {value: "hyprlock", label: "Hyprlock"}]
+  lockscreen: "eitr"
+  terminalChoices: [{value: "kitty", label: "Kitty"}, {value: "ghostty", label: "Ghostty"}]
+  terminalAppearance: ({opacity: "opaque", padding: "normal", blur: "on", "blur-strength": "medium"})
+  terminalAppearanceChoices: ({opacity: [{value: "opaque", label: "Opaque"}, {value: "transparent", label: "Transparent"}], padding: [{value: "normal", label: "Normal"}], blur: [{value: "on", label: "On"}], "blur-strength": [{value: "medium", label: "Medium"}]})
+ }
+ QtObject {
+  id: controller
+  property color foreground: fixture.foreground
+  property color background: fixture.background
+  property var obsState: ({recording: true, streaming: false, paused: false})
+  property bool controlsReady: true
+  property bool busy: false
+  property string pendingAction: ""
+  property string pendingArgument: ""
+  property string actionError: ""
+  function run(action, argument) {}
+ }
+ FloatingWindow {
+  id: window; visible: true; implicitWidth: 440; implicitHeight: 900; color: fixture.background
+  Rectangle {
+   color: fixture.background
+   id: frame; x: 18; y: 18; width: 404; height: 864
+   Item { id: displaySlot; anchors.fill: parent; visible: false
+    Bar.BrightnessMenu {
+     id: display; inlineParent: displaySlot; opened: true; target: null; anchors.fill: parent
+     foreground: fixture.foreground; background: fixture.background; accent: center.accent
+     settingsSection: "displays"; monitors: fixture.monitors; primaryDisplay: "DP-1"
+     settingsFor: "DP-1"; displaySettings: ({monitors: fixture.settings})
+    }
+   }
+   Bar.DisplaySettingsEditor { id: editor; visible: false; width: parent.width; foreground: fixture.foreground; background: fixture.background; accent: center.accent; monitor: fixture.settings[0]; others: ["HDMI-A-1"] }
+   Item { id: workspaceSlot; anchors.fill: parent; visible: false
+    Bar.WorkspaceStyleMenu { inlineParent: workspaceSlot; opened: true; target: null; width: parent.width; height: implicitHeight; currentStyle: "Runes"; selectedForeground: fixture.background; foreground: fixture.foreground; background: fixture.background; accent: center.accent }
+   }
+   Item { id: recordingSlot; anchors.fill: parent; visible: false
+    Bar.RecordingMenu { id: recording; inlineParent: recordingSlot; opened: true; target: null; width: parent.width; height: implicitHeight; controller: controller; foreground: fixture.foreground; background: fixture.background; accent: center.accent; details: ({seconds: 120, bytes: 40000000, mic: {available: true, muted: false}, webcam: {available: true, enabled: false}, scenes: ["Desktop", "Presentation", "Camera"], scene: "Desktop"}) }
+   }
+   Bar.PowerControls { id: power; visible: false; width: parent.width; foreground: fixture.foreground; battery: ({available: true, percent: 76, status: "Discharging", hours: 2.5}); displayControl: display }
+   Bar.MonitorMap { id: map; visible: false; width: parent.width; height: 240; monitors: fixture.monitors; settings: fixture.settings; primary: "DP-1"; selected: "DP-1"; foreground: fixture.foreground; accent: center.accent; onSelectedMonitor: name => selected = name }
+  }
+ }
+ Bar.AppearancePicker { id: appearance; foreground: fixture.foreground; background: fixture.background; accent: center.accent }
+ Timer {
+  id: shots; interval: 250; repeat: true; running: true
+  property int index: 0
+  property int phase: 0
+  property var names: ["WorkspaceStyleMenu", "BrightnessMenu", "DisplaySettingsEditor", "RecordingMenu", "PowerControls", "monitor-one", "monitor-two", "monitor-rotated", "monitor-trial", "AppearancePicker"]
+  property bool saved: false
+  onTriggered: {
+   if (phase === 0) {
+    Bar.DesktopStyle.reduceMotion = true;
+    Bar.SiteStyle.light = "THEME" === "light";
+    for (const child of frame.children) child.visible = false;
+    const name = names[index];
+    if (name === "WorkspaceStyleMenu") { workspaceSlot.visible = true; frame.height = 260; }
+    else if (name === "BrightnessMenu") { displaySlot.visible = true; frame.height = 764; }
+    else if (name === "DisplaySettingsEditor") { editor.visible = true; frame.height = 764; for (const child of editor.children) if (child.choices !== undefined && child.expanded !== undefined && child.visible) child.expanded = true; }
+    else if (name === "RecordingMenu") { recordingSlot.visible = true; frame.height = 464; }
+    else if (name === "PowerControls") { power.visible = true; display.power = {available: true, active: "balanced", profiles: ["power-saver", "balanced"]}; frame.height = 174; }
+    else if (name.startsWith("monitor-")) {
+     map.visible = true; frame.height = 240;
+     map.monitors = name === "monitor-one" ? [fixture.monitors[0]] : fixture.monitors;
+     map.settings = fixture.settings;
+     if (name === "monitor-rotated") map.settings = [fixture.settings[0], Object.assign({}, fixture.settings[1], {transform: 1})];
+     if (name === "monitor-trial") map.pending = {name: "HDMI-A-1", mode: "1920x1080@60", scale: 1.25, transform: 1, position: "2560x0"};
+    } else {
+     appearance.targetScreen = Quickshell.screens[0]; appearance.mode = "theme-dark";
+     appearance.items = [{name: "Eitr", value: "eitr", image: "", current: true}];
+     appearance.allItems = appearance.items; appearance.opened = true;
+    }
+    phase = 1;
+   } else if (phase === 1) {
+    saved = false;
+    const item = names[index] === "AppearancePicker" ? appearance.previewItem : frame;
+    if (!item) throw new Error("missing capture target " + names[index]);
+    item.grabToImage(result => { if (!result.saveToFile("OUTPUT/THEME-" + names[index] + ".png")) throw new Error("save"); shots.saved = true; });
+    phase = 2;
+   } else if (saved) {
+    if (++index === names.length) { console.log("SHARED_CHOICES_OK"); Qt.quit(); }
+    phase = 0;
+   }
+  }
+ }
+}

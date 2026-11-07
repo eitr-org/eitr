@@ -42,7 +42,7 @@ ThemedPopup {
             node: section.microphone ? section.currentNode : null
             enabled: section.active && section.microphone && section.currentNode !== null
         }
-        PanelHeading {
+        PanelHeading { compact: menu.embedded; visible: !menu.embedded;
             text: section.microphone ? Eitr.I18n.tr("Microphone") : Eitr.I18n.tr("Volume")
             foreground: section.foreground; accent: section.accent; rune: "audio"
         }

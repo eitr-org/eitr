@@ -41,3 +41,5 @@ Das gewählte Standard- oder Ordnerkonto bestimmt `gh` oder `glab`. Normale CLI-
 Versionierte Einstellungen liegen in `~/.config/eitr/git-accounts.json`. Bei jeder Übernahme werden die globale Git-Datei, das aktive Include und die Einstellungen vertraulich gesichert unter `~/.local/state/eitr/git-account-backups/<id>`. `manifest.json` nennt Originalpfade, Sicherungsdateien und Berechtigungen. Schlüssel und CLI-Token werden nie kopiert. Prüfe zur manuellen Wiederherstellung das Manifest und erhalte alle seit der Sicherung vorgenommenen Änderungen. Veränderte oder fehlerhafte EITR-Include-Blöcke werden abgelehnt statt stillschweigend ersetzt.
 
 Quellen: [bedingte Git-Includes](https://git-scm.com/docs/git-config), [GitHub-CLI-Profile](https://cli.github.com/manual/gh_help_environment), [GitLab-CLI-Profile](https://docs.gitlab.com/cli/configuration/).
+
+Einstellungen > Git & Cloud zeigt Identitäten, Ordnerregeln und konfigurierte Cloud-Kontexte schreibgeschützt. Git-Konten oder Cloud öffnet die vorhandenen Abläufe; das Anzeigen wechselt keine CLI-Standards.

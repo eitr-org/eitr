@@ -12,7 +12,8 @@ Item {
     required property color accent
     property string rune: "general"
     property string subtitle: ""
-    property bool seal: true
+    property bool compact: false
+    property bool seal: !compact
     property int elide: Text.ElideRight
     property int textFormat: Text.PlainText
     readonly property real textX: seal ? 38 : 0
@@ -60,9 +61,10 @@ Item {
             textFormat: heading.textFormat
             text: heading.text
             color: heading.foreground
+            opacity: heading.compact ? PanelStyle.secondaryTextOpacity : 1
             font.family: DesktopFonts.family
-            font.pixelSize: PanelStyle.headingSize
-            font.bold: true
+            font.pixelSize: heading.compact ? PanelStyle.captionSize : PanelStyle.headingSize
+            font.bold: !heading.compact
         }
         Text {
             id: caption

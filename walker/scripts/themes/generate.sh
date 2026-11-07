@@ -26,6 +26,7 @@ start_module assistants python3 "$THEME_SCRIPTS_DIR/../actions/ai-assistant.py" 
 start_module fonts python3 "$THEME_SCRIPTS_DIR/../actions/style/fonts.py" sync
 cursor_sync() { python3 "$THEME_SCRIPTS_DIR/../actions/style/cursor.py" sync >/dev/null; }
 start_module cursor cursor_sync
+start_module window-gaps python3 "$THEME_SCRIPTS_DIR/../../../quickshell/desktop-bar/scripts/desktop-style.py" generate
 
 failed_modules=()
 for index in "${!pids[@]}"; do

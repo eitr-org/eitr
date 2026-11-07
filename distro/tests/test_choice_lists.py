@@ -16,7 +16,7 @@ specification.loader.exec_module(tool)
 sys.path.insert(0, str(ROOT / "distro/lib"))
 import eitr_choice_lists  # noqa: E402
 
-GROUPS = {"bar_layouts": ("barLayouts", "BAR_LAYOUTS"), "bar_appearances": ("barAppearances", "BAR_APPEARANCES"),
+GROUPS = {"window_gaps": ("windowGaps", "WINDOW_GAPS"), "bar_layouts": ("barLayouts", "BAR_LAYOUTS"), "bar_appearances": ("barAppearances", "BAR_APPEARANCES"),
           "update_channels": ("updateChannels", "UPDATE_CHANNELS")}
 
 
@@ -29,12 +29,12 @@ class ChoiceListTests(unittest.TestCase):
 
     def test_every_language_sees_the_same_ids_labels_and_order(self):
         javascript = (ROOT / "quickshell/desktop-bar/ChoiceLists.js").read_text().replace(".pragma library", "")
-        script = javascript + "\nconsole.log(JSON.stringify({barLayouts, barAppearances, updateChannels}));"
+        script = javascript + "\nconsole.log(JSON.stringify({windowGaps, barLayouts, barAppearances, updateChannels}));"
         exported = json.loads(subprocess.run(["node", "-e", script], capture_output=True, text=True, check=True).stdout)
         lua = None
         interpreter = shutil.which("lua") or shutil.which("luajit")
         if interpreter:
-            program = ('local t = dofile("elephant/choice-lists.lua") for _, group in ipairs({"bar_layouts", "bar_appearances", "update_channels"}) do '
+            program = ('local t = dofile("elephant/choice-lists.lua") for _, group in ipairs({"window_gaps", "bar_layouts", "bar_appearances", "update_channels"}) do '
                        'for _, row in ipairs(t[group]) do print(group .. "\\t" .. row.id .. "\\t" .. row.label .. "\\t" .. (row.icon or "")) end end')
             lua = subprocess.run([interpreter, "-e", program], cwd=ROOT, capture_output=True, text=True, check=True).stdout.splitlines()
         rows = []

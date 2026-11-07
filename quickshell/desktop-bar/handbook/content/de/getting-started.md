@@ -10,7 +10,7 @@ Die Schaltflächen über diesem Text richten das Wichtigste ein. Jede schließt 
 
 1. Drücke **SUPER + F** für das Hauptmenü. Tippe, um Aktionen in Untermenüs und installierte Anwendungen zu suchen. Enter öffnet einen Treffer; Escape schließt das Menü.
 2. **SUPER + Space** öffnet die Anwendungen, **SUPER + Enter** ein Terminal.
-3. **SUPER + ,** öffnet das Kontrollzentrum. Die Einstellungen enthalten Tastatur, Bildschirm und Nachtlicht; Stil enthält die Darstellung.
+3. **SUPER + I** öffnet die Schnellschalter des Kontrollzentrums, **SUPER + ,** die Einstellungen: Tastatur, Bildschirme, Nachtlicht und Darstellung.
 4. Verbinde dich über das WiFi- oder Bluetooth-Symbol. Rechte Leistensymbole können ausgeblendet sein; zeige sie mit dem Pfeil an.
 5. Wähle unter **Einstellungen > Stil > Design** ein Design und unter **Einstellungen > Stil > Hintergrundbild** ein Hintergrundbild.
 
@@ -18,7 +18,7 @@ Neue EITR-Installationen verwenden **Eitr** und den Sperrbildschirm **Clockwork 
 
 ## Im eigenen Tempo lernen
 
-Öffne **Lernen > EITR-Handbuch** oder drücke **SUPER + F1**. Das Handbuch ist ein verschiebbares Fenster mit anpassbarer, gespeicherter Größe. Das Tastenkürzel aktiviert das offene Fenster; ist es bereits aktiv, schließt es das Fenster. Escape, die Schließen-Schaltfläche und der Schließen-Befehl des Compositors schließen es ebenfalls. Ein Klick daneben schließt es nicht. Die Suche findet Kapiteltitel und Text; Up/Down wählen einen Treffer, Enter öffnet ihn. **Ctrl + F** fokussiert die Suche. **Page Up/Page Down** scrollen, **Ctrl + Home/End** springen zum Anfang oder Ende und **Alt + Left/Right** wechseln Kapitel. Zurück und Weiter leisten dasselbe mit der Maus.
+Öffne **Lernen > EITR-Handbuch** oder drücke **SUPER + F1**. Das Handbuch ist ein verschiebbares Fenster mit anpassbarer, gespeicherter Größe. Das Tastenkürzel aktiviert das offene Fenster; ist es bereits aktiv, schließt es das Fenster. Escape, die Schließen-Schaltfläche und der Schließen-Befehl des Compositors schließen es ebenfalls. Ein Klick daneben schließt es nicht. Die Suche findet Kapiteltitel und Text; Up/Down wählen einen Treffer, Enter öffnet ihn. **Ctrl + F** fokussiert die Suche. Die Seitenleiste gruppiert die Kapitel unter Runen-Überschriften, wie in den Einstellungen. **Page Up/Page Down** scrollen, **Ctrl + Home/End** springen zum Anfang oder Ende und **Alt + Left/Right** wechseln Kapitel. Zurück und Weiter leisten dasselbe mit der Maus.
 
 Das Handbuch führt keine Befehle aus. Codeblöcke sind Beispiele zum bewussten Prüfen und Kopieren. Externe Links öffnen sich nur beim Anklicken.
 

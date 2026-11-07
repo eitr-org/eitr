@@ -1,4 +1,3 @@
-from qml_source import control_center_source
 from qml_test_paths import qml_path
 import importlib.util
 from pathlib import Path
@@ -36,6 +35,39 @@ class DesktopStyleTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 style.select("unknown")
 
+    def test_gaps_persist_with_corners_and_reload_from_generated_config(self):
+        import json
+        import subprocess
+        repo = ROOT.parents[1]
+        hyprland = (repo / "hypr/hyprland.lua").read_text()
+        loader = hyprland.split("local gaps_inner, gaps_outer", 1)[1].split("local window_rounding", 1)[0]
+        run_lua = subprocess.run
+        with tempfile.TemporaryDirectory() as directory, patch.object(style, "SETTINGS", Path(directory) / "eitr/style.json"), patch.object(style.subprocess, "run") as refresh:
+            style.select("square")
+            for choice in style.WINDOW_GAPS:
+                style.select(choice["id"], "gaps")
+                self.assertEqual(style.current_gaps(), choice["id"])
+                self.assertEqual(style.current(), "square")
+                saved = json.loads(style.SETTINGS.read_text())
+                style.select("rounded")
+                self.assertEqual(style.current_gaps(), choice["id"])
+                style.select("square")
+                self.assertEqual(json.loads(style.SETTINGS.read_text())["gaps"], saved["gaps"])
+                fixture = 'local paths = {config = ' + json.dumps(directory) + ', code = function(relative) return ' + json.dumps(str(repo) + '/') + ' .. relative end}\n'
+                fixture += 'local function read_file(path) local file = io.open(path); if not file then return nil end; local value = file:read("*a"); file:close(); return value end\n'
+                fixture += 'local gaps_inner, gaps_outer' + loader + '\nprint(gaps_inner .. "," .. gaps_outer)'
+                style.generate_gaps()
+                self.assertTrue(style.SETTINGS.with_name("window-gaps.lua").is_file())
+                # Reloading the production config reads the generated, preference-backed values.
+                result = run_lua(["lua", "-"], input=fixture, capture_output=True, text=True, check=True)
+                self.assertEqual(result.stdout.strip(), choice["inner"] + "," + choice["outer"])
+            with self.assertRaises(ValueError):
+                style.select("unknown", "gaps")
+            self.assertTrue(all(call.args[0][0] in ("hyprctl", "bash", "eitr-shell") for call in refresh.call_args_list))
+        self.assertIn('desktop-style.py" generate', (repo / "walker/scripts/themes/generate.sh").read_text())
+        self.assertIn("gaps_in = gaps_inner", hyprland)
+        self.assertIn("gaps_out = gaps_outer", hyprland)
+
     def test_corner_sizes_are_defined_once(self):
         default, styles = style.definitions()
         self.assertEqual(default, "rounded")
@@ -52,7 +84,7 @@ class DesktopStyleTests(unittest.TestCase):
         self.assertIn("corner-styles.json", desktop)
         self.assertNotIn("extra-rounded", desktop)
         self.assertNotIn("Timer", desktop)
-        self.assertIn("model: DesktopStyle.options", control_center_source(ROOT))
+        self.assertIn("choices: DesktopStyle.options", (ROOT / "settings/SettingsDesktopPage.qml").read_text())
         menu = (repo / "elephant/menus/corners.lua").read_text()
         self.assertIn('"quickshell/desktop-bar/corner-styles.json"', menu, "the menu lists the styles from the file")
         self.assertIn('choices(script, "corners", options)', menu, "the current style is checked")

@@ -41,3 +41,5 @@ A conta padrão ou da pasta escolhe `gh` ou `glab`. Os comandos normais dessas C
 As configurações versionadas ficam em `~/.config/eitr/git-accounts.json`. A cada alteração aplicada, é salva uma cópia do arquivo global do Git, da inclusão ativa e das configurações em `~/.local/state/eitr/git-account-backups/<id>`, com permissões privadas. `manifest.json` registra caminhos originais, nomes dos backups e permissões. Chaves e tokens de CLI nunca são copiados. Para recuperar manualmente, confira o manifesto e preserve alterações feitas desde o backup antes de restaurar. Blocos de inclusão do EITR editados ou inválidos são recusados, não substituídos silenciosamente.
 
 Referências: [inclusões condicionais do Git](https://git-scm.com/docs/git-config), [perfis da GitHub CLI](https://cli.github.com/manual/gh_help_environment), [perfis da GitLab CLI](https://docs.gitlab.com/cli/configuration/).
+
+Configurações > Git e nuvem mostra identidades, regras de pastas e contextos somente para leitura. Contas Git ou Nuvem abre os fluxos existentes; visualizar a página não troca padrões das CLIs.

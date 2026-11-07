@@ -46,6 +46,14 @@ def extract(root=ROOT):
             continue
         for match in re.finditer(r"\bI18n\.tr\(\s*(" + LITERAL + ")", path.read_text()):
             add("qml", ast.literal_eval(match[1]), path)
+    settings_index = root / "quickshell/desktop-bar/settings/SettingsIndex.js"
+    if settings_index.is_file():
+        # The index is one JSON array assigned to `pages`; anything else is an error.
+        index_text = settings_index.read_text().split("\nvar pages = ", 1)[1]
+        pages, _ = json.JSONDecoder().raw_decode(index_text)
+        for page in pages:
+            for field in ("title", "description", "group", "keywords"):
+                add("qml", page[field], settings_index)
     for path in sorted((root / "elephant/menu-rows").glob("*.json")):
         for row in json.loads(path.read_text()):
             for field in ("text", "subtext"):
@@ -66,15 +74,15 @@ def extract(root=ROOT):
     # labels are shown in all three, descriptions only in Walker rows.
     choice_lists = root / "tools/choice-lists.json"
     choices = json.loads(choice_lists.read_text())
-    for group, layers in (("bar_layouts", ("qml", "menus")), ("bar_appearances", ("qml", "menus")),
-                          ("update_channels", ("menus", "helpers"))):
+    for group, layers in (("window_gaps", ("qml", "menus", "helpers")), ("bar_layouts", ("qml", "menus")), ("bar_appearances", ("qml", "menus")),
+                          ("update_channels", ("qml", "menus", "helpers"))):
         for row in choices.get(group, []):
             for layer in layers:
                 add(layer, row["label"], choice_lists)
             add("menus", row["description"], choice_lists)
     book = root / "quickshell/desktop-bar/handbook/chapters.json"
     for chapter in json.loads(book.read_text()):
-        for field in ("title", "summary"):
+        for field in ("title", "summary", "group"):
             add("handbook", chapter.get(field), book)
     shortcut_builder = root / "tools/handbook-build.py"
     specification = importlib.util.spec_from_file_location("i18n_handbook_build", shortcut_builder)

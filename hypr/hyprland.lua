@@ -40,6 +40,16 @@ local function read_file(path)
 	return text
 end
 
+local gaps_inner, gaps_outer = 6, 12
+local gaps_loader = loadfile(paths.config .. "/eitr/window-gaps.lua")
+if gaps_loader then
+	local valid, gaps = pcall(gaps_loader)
+	if valid and type(gaps) == "table" and type(gaps.inner) == "number" and type(gaps.outer) == "number"
+		and gaps.inner >= 0 and gaps.outer >= 0 then
+		gaps_inner, gaps_outer = gaps.inner, gaps.outer
+	end
+end
+
 local window_rounding = nil
 local corner_styles = read_file(paths.code("quickshell/desktop-bar/corner-styles.json"))
 if corner_styles then
@@ -128,8 +138,8 @@ hl.config({
 		prefer_hdr = 2,
 	},
 	general = {
-		gaps_in = 6,
-		gaps_out = 12,
+		gaps_in = gaps_inner,
+		gaps_out = gaps_outer,
 		border_size = 2,
 		col = {
 			active_border = {
@@ -355,7 +365,8 @@ hl.bind(mainMod .. " + SHIFT + space", hl.dsp.exec_cmd(actionsDir .. "/toggle/de
 -- Desktop utilities
 hl.bind(mainMod .. " + F1", hl.dsp.exec_cmd("bash /usr/share/eitr/quickshell/desktop-bar/scripts/handbook.sh toggle"))
 hl.bind(mainMod .. " + F2", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- catalog toggle"))
-hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- controlCenter toggle"))
+hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- settings toggle"))
+hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- controlCenter toggle"))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- notifications toggle"))
 hl.bind(mainMod .. " + ALT + N", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- notifications act"))
 hl.bind(mainMod .. " + ALT + SHIFT + N", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- notifications dismissNewest"))

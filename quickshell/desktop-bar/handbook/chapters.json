@@ -3,6 +3,7 @@
     "id": "getting-started",
     "title": "Getting Started",
     "icon": "󰋜",
+    "group": "Start",
     "summary": "First login, desktop essentials, where to find help",
     "source": "quickshell/desktop-bar/handbook/content/getting-started.md",
     "figures": [
@@ -13,23 +14,26 @@
     ]
   },
   {
-    "id": "git-accounts",
-    "title": "Git Accounts",
-    "icon": "󰊢",
-    "summary": "GitHub/GitLab default identity, folder overrides, SSH keys and separate CLI logins",
-    "source": "quickshell/desktop-bar/handbook/content/git-accounts.md"
-  },
-  {
     "id": "shortcuts",
     "title": "Shortcuts",
     "icon": "󰌌",
+    "group": "Start",
     "summary": "Keyboard and mouse: windows, workspaces, launchers, capture and bar gestures",
     "generated": "shortcuts"
+  },
+  {
+    "id": "language",
+    "title": "Language",
+    "icon": "󰗊",
+    "group": "Start",
+    "summary": "System locale, English fallback and contributing translations",
+    "source": "quickshell/desktop-bar/handbook/content/language.md"
   },
   {
     "id": "desktop-bar",
     "title": "Desktop Bar",
     "icon": "󰍜",
+    "group": "Desktop",
     "summary": "Icons, positioning, centered layout, pin and mouse gestures",
     "source": "quickshell/desktop-bar/handbook/content/desktop-bar.md",
     "figures": [
@@ -43,6 +47,7 @@
     "id": "focus",
     "title": "Focus mode",
     "icon": "󰍹",
+    "group": "Desktop",
     "summary": "Tabbed desktop, split panes, monitor behavior and recovery",
     "source": "quickshell/desktop-bar/handbook/content/focus.md"
   },
@@ -50,83 +55,119 @@
     "id": "control-center",
     "title": "Control Center",
     "icon": "󰒓",
+    "group": "Desktop",
     "summary": "General, Style, Settings, Capture and OCR",
     "source": "quickshell/desktop-bar/handbook/content/control-center.md"
-  },
-  {
-    "id": "appearance",
-    "title": "Themes & Style",
-    "icon": "󰸌",
-    "summary": "Theme carousel, wallpapers, fonts, cursors, corners and lockscreen",
-    "source": "quickshell/desktop-bar/handbook/content/appearance.md"
-  },
-  {
-    "id": "apps",
-    "title": "Apps & Installation",
-    "icon": "󰏖",
-    "summary": "Walker, global search, uninstall, pacman, AUR and optional tools",
-    "source": "quickshell/desktop-bar/handbook/content/apps.md"
   },
   {
     "id": "system",
     "title": "Settings Menu",
     "icon": "",
+    "group": "Desktop",
     "summary": "Connectivity, Devices & Input, Language, Security, Style and System",
     "source": "quickshell/desktop-bar/handbook/content/system.md"
   },
   {
-    "id": "connectivity",
-    "title": "WiFi & Bluetooth",
-    "icon": "󰖩",
-    "summary": "Connecting, known networks, enterprise credentials, pairing and airplane mode",
-    "source": "quickshell/desktop-bar/handbook/content/connectivity.md"
-  },
-  {
-    "id": "remote-access",
-    "title": "Remote Access",
-    "icon": "󰖩",
-    "summary": "Sunshine on Eitr, Moonlight on a Mac and Tailscale away from home",
-    "source": "quickshell/desktop-bar/handbook/content/remote-access.md"
-  },
-  {
-    "id": "network-backends",
-    "title": "Network Backends",
-    "icon": "󰖩",
-    "summary": "iwd, NetworkManager, reboot-only switching and enterprise configuration",
-    "source": "distro/NETWORKING.md"
-  },
-  {
-    "id": "devices",
-    "title": "Devices & Input",
-    "icon": "󰍹",
-    "summary": "Audio, microphone, brightness, displays, keyboard, battery and power profiles",
-    "source": "quickshell/desktop-bar/handbook/content/devices.md"
+    "id": "appearance",
+    "title": "Themes & Style",
+    "icon": "󰸌",
+    "group": "Desktop",
+    "summary": "Theme carousel, wallpapers, fonts, cursors, corners and lockscreen",
+    "source": "quickshell/desktop-bar/handbook/content/appearance.md"
   },
   {
     "id": "information",
     "title": "Information & Media",
     "icon": "",
+    "group": "Desktop",
     "summary": "About, hardware, AI usage, weather, calendar, media and notifications",
     "source": "quickshell/desktop-bar/handbook/content/information.md"
+  },
+  {
+    "id": "connectivity",
+    "title": "WiFi & Bluetooth",
+    "icon": "󰖩",
+    "group": "Network & Devices",
+    "summary": "Connecting, known networks, enterprise credentials, pairing and airplane mode",
+    "source": "quickshell/desktop-bar/handbook/content/connectivity.md"
+  },
+  {
+    "id": "network-backends",
+    "title": "Network Backends",
+    "icon": "󰖩",
+    "group": "Network & Devices",
+    "summary": "iwd, NetworkManager, reboot-only switching and enterprise configuration",
+    "source": "distro/NETWORKING.md"
+  },
+  {
+    "id": "remote-access",
+    "title": "Remote Access",
+    "icon": "󰖩",
+    "group": "Network & Devices",
+    "summary": "Sunshine on Eitr, Moonlight on a Mac and Tailscale away from home",
+    "source": "quickshell/desktop-bar/handbook/content/remote-access.md"
+  },
+  {
+    "id": "devices",
+    "title": "Devices & Input",
+    "icon": "󰍹",
+    "group": "Network & Devices",
+    "summary": "Audio, microphone, brightness, displays, keyboard, battery and power profiles",
+    "source": "quickshell/desktop-bar/handbook/content/devices.md"
+  },
+  {
+    "id": "apps",
+    "title": "Apps & Installation",
+    "icon": "󰏖",
+    "group": "Apps & Tools",
+    "summary": "Walker, global search, uninstall, pacman, AUR and optional tools",
+    "source": "quickshell/desktop-bar/handbook/content/apps.md"
+  },
+  {
+    "id": "capture",
+    "title": "Capture & Sharing",
+    "icon": "",
+    "group": "Apps & Tools",
+    "summary": "Screenshots, OCR, QR codes, color picker, OBS recording and LocalSend",
+    "source": "quickshell/desktop-bar/handbook/content/capture.md"
+  },
+  {
+    "id": "terminal",
+    "title": "Terminal & Editors",
+    "icon": "",
+    "group": "Apps & Tools",
+    "summary": "Kitty, tmux, cmux TUI, LazyVim, VS Code, task banners and shell history",
+    "source": "quickshell/desktop-bar/handbook/content/terminal.md"
+  },
+  {
+    "id": "development",
+    "title": "Development Tools",
+    "icon": "󰅩",
+    "group": "Apps & Tools",
+    "summary": "Projects, AI CLIs, Cloud, Grafana, optional languages and databases",
+    "source": "quickshell/desktop-bar/handbook/content/development.md"
+  },
+  {
+    "id": "git-accounts",
+    "title": "Git Accounts",
+    "icon": "󰊢",
+    "group": "Apps & Tools",
+    "summary": "GitHub/GitLab default identity, folder overrides, SSH keys and separate CLI logins",
+    "source": "quickshell/desktop-bar/handbook/content/git-accounts.md"
   },
   {
     "id": "security",
     "title": "Security & Locking",
     "icon": "󰒃",
+    "group": "Security & Recovery",
     "summary": "Password, fingerprint, FIDO2, idle lock, TPM and encryption",
     "source": "quickshell/desktop-bar/handbook/content/security.md"
-  },
-  {
-    "id": "maintenance",
-    "title": "Updates & Cleanup",
-    "icon": "󰃢",
-    "summary": "System Update versus advanced pacman/yay updates, cleanup and snapshots",
-    "source": "quickshell/desktop-bar/handbook/content/maintenance.md"
   },
   {
     "id": "recovery",
     "title": "Recovery & Snapshots",
     "icon": "󰋊",
+    "group": "Security & Recovery",
     "summary": "Btrfs, Snapper, boot backups, authentication recovery and TPM",
     "source": "distro/RECOVERY.md"
   },
@@ -134,6 +175,7 @@
     "id": "factory-reset",
     "title": "Factory Reset",
     "icon": "󰑓",
+    "group": "Security & Recovery",
     "summary": "First-login baseline, Keep My Files, Erase Everything and warnings",
     "source": "distro/FACTORY-RESET.md"
   },
@@ -141,48 +183,31 @@
     "id": "secure-boot",
     "title": "Secure Boot",
     "icon": "󰧑",
+    "group": "Security & Recovery",
     "summary": "Manual sbctl workflow, firmware keys, bootloader risks and undo",
     "source": "distro/SECURE-BOOT.md"
   },
   {
-    "id": "capture",
-    "title": "Capture & Sharing",
-    "icon": "",
-    "summary": "Screenshots, OCR, QR codes, color picker, OBS recording and LocalSend",
-    "source": "quickshell/desktop-bar/handbook/content/capture.md"
-  },
-  {
-    "id": "development",
-    "title": "Development Tools",
-    "icon": "󰅩",
-    "summary": "Projects, AI CLIs, Cloud, Grafana, optional languages and databases",
-    "source": "quickshell/desktop-bar/handbook/content/development.md"
-  },
-  {
-    "id": "terminal",
-    "title": "Terminal & Editors",
-    "icon": "",
-    "summary": "Kitty, tmux, cmux TUI, LazyVim, VS Code, task banners and shell history",
-    "source": "quickshell/desktop-bar/handbook/content/terminal.md"
+    "id": "maintenance",
+    "title": "Updates & Cleanup",
+    "icon": "󰃢",
+    "group": "System",
+    "summary": "System Update versus advanced pacman/yay updates, cleanup and snapshots",
+    "source": "quickshell/desktop-bar/handbook/content/maintenance.md"
   },
   {
     "id": "troubleshooting",
     "title": "Troubleshooting",
     "icon": "󰋗",
+    "group": "System",
     "summary": "Missing helpers, service restarts, dependencies, installation checks and backups",
     "source": "quickshell/desktop-bar/handbook/content/troubleshooting.md"
-  },
-  {
-    "id": "language",
-    "title": "Language",
-    "icon": "󰗊",
-    "summary": "System locale, English fallback and contributing translations",
-    "source": "quickshell/desktop-bar/handbook/content/language.md"
   },
   {
     "id": "organization-profiles",
     "title": "Organization Profiles",
     "icon": "󰒓",
+    "group": "System",
     "summary": "Reviewed installation software, defaults and organization policies",
     "source": "distro/ORGANIZATION-PROFILES.md"
   }

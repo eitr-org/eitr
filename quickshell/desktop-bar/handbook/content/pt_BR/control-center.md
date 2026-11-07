@@ -1,8 +1,22 @@
 # Central de controle
 
-Pressione **SUPER + ,** para abrir ou fechar a Central de controle. Ele abre pela borda atual da barra e fecha com Escape ou um clique fora. Ao fechar, volta à página Geral. Com a barra no modo Full à esquerda ou à direita, a Central começa no topo da tela, com o conteúdo espaçado dentro da superfície unida à barra.
+Configurações e painéis da barra compartilham os controles de seleção. Opções curtas usam segmentos; listas maiores se expandem dentro do painel e permitem rolagem sem abrir uma janela flutuante. Os interruptores mantêm suas ações. Rótulos dourados e letras entalhadas pertencem à família de janelas das Configurações: Configurações, o Manual e Temas e plugins.
 
-Suas cinco páginas reúnem tudo que fica fora de Desenvolvimento, Aplicativos, Instalar, Aprender e Jogos; assim, a maioria das configurações dispensa o Walker. As seções recolhíveis geralmente começam fechadas; clique no título para abrir ou fechar, com a escolha lembrada até sair da sessão. Quando há um painel próprio na barra (OBS, WiFi, Bluetooth, Áudio, Tela, Hardware, Uso de IA ou Clima), a Central de controle abre esse painel.
+**SUPER + ,** abre Configurações em **Sistema**, com perfil e visão geral. Temas e Plugins têm sua própria janela de catálogo. **SUPER + I** abre a Central de controle.
+
+## Configurações
+
+Os grupos são Visão geral, Dispositivos, Área de trabalho, Aplicativos e teclas, Contas e segurança e Sistema. Títulos com runas e um marcador dourado deslizante ajudam na navegação. Cada página tem título, descrição e cartões de ajustes. A janela continua opaca. O Manual e Temas e plugins usam a mesma moldura, barra lateral, cabeçalho de página e cartões, e seguem a mesma escolha de cores.
+
+Conexões tem abas **Wi-Fi** (com a escolha do backend) e **Bluetooth**. Monitores separa **Telas** e **Luz noturna**. Aparência separa **Tema e papel de parede**, **Fontes e cursor** e **Terminal**. Esquerda/Direita muda a aba com foco; a busca abre a aba correspondente. `settings show connections/bluetooth` abre Bluetooth; `network` continua como alias. Os cartões mostram layouts da barra, bordas, superfícies, visualizadores, espaçamentos, cantos e telas de bloqueio. **Cores das configurações** permite escolher **Cores do tema** ou **Site do Eitr** para as Configurações, o Manual e Temas e plugins. A preferência local fica em `eitr/settings-app.json`; `settings palette theme` e `settings palette website` também mudam essa escolha, sem alterar as cores do desktop.
+
+Sistema mostra uma visão geral com sua foto, uso de CPU/GPU/RAM, tela principal, tempo de atividade, versão do Eitr, canal de atualização e paleta do tema. O hardware só é atualizado enquanto esta página está visível. A imagem grande mostra o papel de parede por enquanto. O serviço de dados compartilhado não fornece taxas de transferência de rede.
+
+**SUPER + F2**, **Mais temas** em Aparência e o **+** do carrossel abrem o catálogo separado com barra lateral **Temas e plugins** e botão de fechar. Configurações permanece aberta ao clicar fora; Escape ou Fechar a encerram. **SUPER + I** abre a Central de controle.
+
+Pressione **SUPER + I** para abrir ou fechar a Central de controle. Ele abre pela borda atual da barra e fecha com Escape ou um clique fora. Ao fechar, volta à página Geral. Com a barra no modo Full à esquerda ou à direita, a Central começa no topo da tela, com o conteúdo espaçado dentro da superfície unida à barra.
+
+Suas páginas são Geral, Plugins e Ferramentas. O botão de engrenagem abaixo delas, **Todas as configurações**, fecha a Central de controle e abre as Configurações, que reúnem aparência, barra, dispositivos, teclado, telas e sistema. As seções recolhíveis geralmente começam fechadas; clique no título para abrir ou fechar, com a escolha lembrada até sair da sessão. Quando a barra tem um painel próprio, como OBS, WiFi ou Bluetooth, a Central de controle o abre.
 
 ## Geral
 
@@ -15,32 +29,9 @@ Suas cinco páginas reúnem tudo que fica fora de Desenvolvimento, Aplicativos, 
 
 O Modo avião lembra quais conexões bloqueou e restaura apenas essas. Não perturbe suprime pop-ups sem limpar o histórico de notificações. Bloqueio automático não é o mesmo que impedir suspensão; cuide da privacidade da tela.
 
-## Estilo
-
-Estilo organiza as configurações em Tema e papel de parede, Cantos, Barra, Espaços de trabalho, Tela de bloqueio, Cursor e Terminal. Todos os grupos começam recolhidos; clique no título de um grupo para abri-lo ou recolhê-lo, e a Central de controle se lembra disso até você sair da sessão; sua superfície delimita todas as opções. Barra reúne Layout, Posição, Aparência, Mostrar em, Relógio, Estilo de mídia e Comportamento. Comportamento contém Ocultar automaticamente, Dock e Reduzir movimento.
-
-Tema e Papel de parede abrem seus carrosséis; Fontes abre a lista de fontes. O tema da tela de bloqueio, cursor (família, tamanho e cor), aparência, layout, borda e monitores da barra, marcadores de espaços, cantos e Cursor Fire do Kitty mudam diretamente no painel e compartilham suas preferências com o Walker.
-
-Terminal oferece Kitty (padrão) e Ghostty opcional; os terminais auxiliares do Eitr continuam no Kitty. Veja [Terminal e editores](terminal.md) para instalação e configuração.
-
 ## Ferramentas
 
 Capturas (seleção, tela inteira, janela ou seleção direto para a área de transferência), gravação (controles do OBS, Gravar, Gravar + Áudio e Parar), OCR, códigos QR, seletor de cores, Transcodificar, lembretes e compartilhamento com LocalSend. O painel fecha antes de uma seleção ou gravação começar.
-
-## Configurações
-
-- **Dispositivos:** painéis de Áudio, Microfone, Tela (resolução, taxa de atualização, escala e rotação), Bluetooth e WiFi, Iluminação e limite de carga em notebooks.
-- **Teclado:** selecionar, adicionar e remover layouts, mantendo pelo menos um.
-- **Luz noturna e tela principal:** modo e programação da Luz noturna, separados do botão manual, e o monitor principal que recebe a barra.
-- **Informações:** Sobre, Hardware, Uso de IA, Clima, Verificar este PC e Relatar um problema.
-- **Atualizações:** canal, Atualização do sistema, mudanças de cada atualização e atualizações só de Pacman ou AUR.
-- **Snapshots e limpeza:** restaurar arquivo, snapshots pessoais e de recuperação, o guia correspondente, Limpeza e Dotfiles.
-
-Segurança, redefinição de fábrica e backend de rede continuam em Walker > Sistema, protegidos por suas próprias confirmações.
-
-## Idioma
-
-**Configurações > Idioma** mostra o idioma atual conforme a localidade do sistema. Abra o seletor, escolha um idioma ou Padrão do sistema e saia e entre novamente para aplicar. Ele altera apenas o idioma de mensagens da sua sessão, nunca os arquivos de localidade do sistema. Consulte o [Guia de idioma](handbook:language).
 
 ## Conversa rápida
 
@@ -50,7 +41,7 @@ As respostas permitem selecionar Markdown e copiar. A conversa fica na memória;
 
 ## Plugins
 
-**Configurações > Estilo > Temas e plugins**, **Central de controle > Estilo > Temas e plugins** ou **SUPER + F2** abre a janela do catálogo. A aba Plugins lista os plugins instalados, oficiais e da comunidade, instala e atualiza após uma revisão na janela, verifica atualizações e remove plugins instalados após confirmação. Os fluxos de terminal abaixo continuam disponíveis.
+**Configurações > Estilo > Temas e plugins** no Walker, **Mais temas** na página Aparência das Configurações ou **SUPER + F2** abre a janela Temas e plugins. O grupo Plugins lista os plugins instalados, oficiais e da comunidade, instala e atualiza após uma revisão na janela, verifica atualizações e remove plugins instalados após confirmação. Os fluxos de terminal abaixo continuam disponíveis.
 
 **Central de controle > Plugins** mostra uma linha compacta por plugin instalado, com ícone, nome e interruptor de ativação. Selecione uma linha para ver autor, versão, descrição, ações de atualização e remoção, widgets, itens da barra e prévia. Use Voltar ou Escape para retornar à lista. Ativar/Desativar preserva posições e interrompe ou restaura serviços, itens do Walker, hooks e elementos visuais; use `eitr plugin enable ID` ou `eitr plugin disable ID`. Adicionar plugins, Atualizar e Remover abrem os fluxos revisados no terminal; remover pede confirmação. Geral mantém apenas os blocos de plugins. Falhas visuais têm uma ação independente para reativar.
 
@@ -65,3 +56,7 @@ A lista de Plugins mostra “Este plugin tem erros” e a primeira mensagem. Sel
 Clique no avatar redondo no topo da navegação do Centro de Controle ou abra Configurações > Segurança > Usuários > Foto de perfil. Escolher imagem… mostra sua pasta Imagens dentro do painel: clique em uma pasta para abri-la, ‹ ou Backspace para subir um nível, e clique em uma imagem para escolhê-la. Depois, arraste a prévia circular para mover a imagem; use a roda, o controle deslizante ou +/− para ampliar de 1× a 4×, e as setas para mover. Salvar ou Enter aplica o recorte; Cancelar ou Escape fecha sem aplicar alterações. Remover apaga a foto.
 
 A foto aparece sempre como um círculo no Centro de Controle, no bloqueio e na tela de login. Sem foto, o Centro de Controle mostra a inicial do nome sobre a cor de destaque do tema, e o bloqueio e a tela de login não mostram nenhuma imagem. PNG, JPEG, WebP, GIF (primeiro quadro) e BMP são aceitos até 40 MB e 12000 pixels por lado. O Eitr aplica a orientação, remove metadados, salva um PNG de 512×512 em `~/.face` e atualiza o AccountsService para o SDDM. Se a atualização falhar, a foto salva continua funcionando no bloqueio; a interface ou CLI informa o erro da tela de login.
+
+## Mais páginas de Configurações
+
+Atalhos lista toda a referência de Aprender com busca. Aplicativos padrão permite escolher programas instalados para navegador, arquivos, texto, imagens, vídeo, música, e-mail e PDF; Terminal usa a preferência de Aparência > Terminal. Usuário mostra o nome e o editor compartilhado de foto de perfil. Git e nuvem mostra identidades, regras de pastas e contextos; os botões abrem os fluxos existentes do Walker. Segurança mantém as confirmações para mudanças privilegiadas. Atualizações mostra o canal e os pacotes pendentes; Atualizar sistema abre o fluxo existente. Verificar este PC executa diagnósticos somente de leitura apenas ao pressionar o botão. Sobre mostra versão, kernel, hardware, licença e links. Todas as páginas permitem rolar até a última linha e abrem o Manual.

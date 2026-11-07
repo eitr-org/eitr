@@ -27,7 +27,7 @@ class PanelLayeringTests(unittest.TestCase):
     def test_closed_panels_leave_the_bar_window(self):
         # A closed panel left in the bar window crashed Qt when the bar's screen was unplugged.
         dock = (ROOT / "components/DockPanel.qml").read_text()
-        self.assertIn("parent: hostWindow && (opened || revealProgress > 0) ? hostWindow.contentItem : null", dock)
+        self.assertIn("parent: inlineParent || (hostWindow && (opened || revealProgress > 0) ? hostWindow.contentItem : null)", dock)
 
     def test_notification_popups_also_use_overlay(self):
         shell = frame_source(ROOT)
@@ -45,7 +45,9 @@ class PanelLayeringTests(unittest.TestCase):
     def test_bar_panels_share_themed_popup_grab_and_focus(self):
         themed = (ROOT / "components/ThemedPopup.qml").read_text()
         self.assertIn("popup.keyTarget.forceActiveFocus();", themed)
-        self.assertIn("Keys.onEscapePressed: if (!popup.escapeHandler || !popup.escapeHandler()) popup.opened = false", themed)
+        self.assertIn("if (popup.escapeHandler && popup.escapeHandler()) return;", themed)
+        self.assertIn("if (popup.embedded) event.accepted = false;", themed)
+        self.assertIn("else popup.opened = false;", themed)
         center = control_center_source(ROOT)
         self.assertIn('return center.page === "plugins" ? pluginManager.back() : plugins.back();', center)
         for filename in ("AudioMenu.qml", "SystemMonitorMenu.qml", "WorkspaceStyleMenu.qml"):

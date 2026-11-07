@@ -10,7 +10,7 @@ Los botones de arriba configuran lo esencial: cada uno cierra el manual y abre s
 
 1. Pulsa **SUPER + F** para abrir el menú principal. Escribe para buscar acciones en submenús y aplicaciones instaladas. Enter abre un resultado; Escape cierra el menú.
 2. Pulsa **SUPER + Space** para las aplicaciones o **SUPER + Enter** para un terminal.
-3. Abre **SUPER + ,** para el Centro de control. La pestaña de ajustes contiene teclado, pantalla y luz nocturna; Estilo reúne la apariencia.
+3. Abre **SUPER + I** para los interruptores rápidos del Centro de control, o **SUPER + ,** para Ajustes: teclado, pantallas, luz nocturna y apariencia.
 4. Conéctate desde el icono WiFi o Bluetooth. Los iconos de la derecha pueden estar ocultos: usa la flecha para mostrarlos.
 5. Elige un tema en **Configuración > Estilo > Tema** y un fondo en **Configuración > Estilo > Fondo de pantalla**.
 
@@ -18,7 +18,7 @@ Las instalaciones nuevas de EITR usan **Eitr** y la pantalla de bloqueo **Clockw
 
 ## Aprende a tu ritmo
 
-Abre **Aprender > Manual de EITR** o pulsa **SUPER + F1**. El Manual es una ventana que puedes mover y redimensionar y que recuerda su tamaño. El atajo enfoca la ventana abierta; si ya tiene el foco, la cierra. Escape, el botón de cierre o el cierre del compositor también la cierran. Hacer clic fuera no la cierra. La búsqueda encuentra títulos y texto; Up/Down eligen un resultado y Enter lo abre. **Ctrl + F** enfoca la búsqueda. **Page Up/Page Down** desplazan el capítulo, **Ctrl + Home/End** saltan al inicio o al final y **Alt + Left/Right** cambian de capítulo. Los botones anterior y siguiente hacen lo mismo con el ratón.
+Abre **Aprender > Manual de EITR** o pulsa **SUPER + F1**. El Manual es una ventana que puedes mover y redimensionar y que recuerda su tamaño. El atajo enfoca la ventana abierta; si ya tiene el foco, la cierra. Escape, el botón de cierre o el cierre del compositor también la cierran. Hacer clic fuera no la cierra. La búsqueda encuentra títulos y texto; Up/Down eligen un resultado y Enter lo abre. **Ctrl + F** enfoca la búsqueda. La barra lateral agrupa los capítulos bajo títulos con runas, como en Ajustes. **Page Up/Page Down** desplazan el capítulo, **Ctrl + Home/End** saltan al inicio o al final y **Alt + Left/Right** cambian de capítulo. Los botones anterior y siguiente hacen lo mismo con el ratón.
 
 El manual no ejecuta comandos. Los bloques de código son ejemplos que puedes revisar y copiar conscientemente. Los enlaces externos solo se abren al hacer clic.
 

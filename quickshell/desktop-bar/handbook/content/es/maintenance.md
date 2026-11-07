@@ -49,3 +49,5 @@ Las instalaciones nuevas programan un intento en segundo plano dos minutos despu
 Estado de solo lectura: `/usr/lib/eitr/eitr-system mirrors-status` imprime JSON con `last_ranking_time` (UTC, o null antes del primer éxito), `mirror_count`, `shipped_fallback` y `backup_available`. Lee archivos locales sin red ni sudo.
 
 Actualización del sistema comprueba nuevos commits de plugins al terminar sin cambiar versiones aprobadas. Revísalos e instálalos por separado desde **Centro de control > Plugins > Actualizar plugins**, **Plugins > Actualizar plugins** o `eitr plugin update`. Los errores de red se ignoran en silencio; los hooks after-update no cambian.
+
+Configuración > Actualizaciones usa el servicio compartido y los flujos confirmados de canal y actualización. La última actualización solo aparece si existe un registro de instantánea correcta. Comprobar este PC ejecuta eitr check --json al pulsar el botón y muestra resultados y gravedad sin reparar nada.

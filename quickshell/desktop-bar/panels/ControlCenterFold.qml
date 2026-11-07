@@ -8,7 +8,7 @@ Item {
     id: fold
     required property string title
     default property alias body: foldBody.data
-    // Every group starts folded; what you open or fold is remembered for the session.
+    // Folds stay open or closed for the session.
     readonly property bool open: fold.centerRef.folds[title] === true
     width: parent ? parent.width : 0
     implicitHeight: foldHeader.height + (open ? foldBody.implicitHeight + PanelStyle.selectionInset * 2 : 0)
@@ -20,11 +20,12 @@ Item {
     }
     Rectangle {
         id: foldHeader
-        width: parent.width; height: 34
+        width: parent.width
+        height: 34
         radius: DesktopStyle.radius(PanelStyle.controlRadius)
         color: Qt.alpha(fold.centerRef.foreground, foldMouse.containsMouse ? PanelStyle.selectionAlpha(false, true) : 0)
         Text {
-            x: 12; width: parent.width - 42; anchors.verticalCenter: parent.verticalCenter
+            x: 12; y: (parent.height - height) / 2; width: parent.width - 42
             elide: Text.ElideRight
             text: fold.title.toUpperCase(); color: DesktopStyle.website ? SiteStyle.bronze : fold.centerRef.foreground
             font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize; font.bold: true; font.letterSpacing: 0.6

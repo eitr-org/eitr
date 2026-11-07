@@ -135,16 +135,20 @@ sends an allowlisted system summary only on the first turn and never saves chats
 Native panel headings share a small theme-accent rune seal (PanelHeading), and
 horizontal section dividers carry a subtle carved diamond (PanelDivider). The
 seal replaces a heading's old leading glyph, and a status line under a title is
-the heading's subtitle; the Handbook keeps its Eitr logo instead of a seal.
+the heading's subtitle; the Handbook, like Settings, shows the Eitr logo in its sidebar header instead.
 Compact recording controls use only the seal; Calendar retains its date typography.
 Weather carries a small seal before the city instead of a heading row, Hardware's
 sections show a CPU, GPU, RAM or Storage icon before their titles, and the
 workspace style menu has no heading. Decorations follow the
 current theme and stay static, with no background animation.
 
-SUPER+, toggles the native control center. Its icon rail selects General,
-Plugins, Style, Tools and System; sections fold from their titles (remembered for the
-session). Buttons that match a Walker menu row run that row's own command through
+SUPER+I toggles the native control center. Its icon rail selects General,
+Plugins and Tools; sections fold from their titles (remembered for the
+session). The gear button below them, All settings, closes the Control Center and
+calls `host.showSettings("")` directly, without starting a process; appearance,
+bar, device, keyboard, display and system choices live in the Settings window.
+`controlCenter show style` opens Settings at Appearance, and `controlCenter show
+settings` (or `system`) at its System overview. Buttons that match a Walker menu row run that row's own command through
 `scripts/menu-action.py`, so the two never drift apart. Closing resets it to General. It uses the same DockPanel,
 PanelSurface, 320 ms unfolding/folding, padding, and live Blur/Theme Color as the
 bar panels. It attaches to the current bar edge (top, bottom, left, or right),
@@ -269,7 +273,7 @@ over the minutes (with AM/PM for 12-hour time) above a calendar glyph (the date 
 in its tooltip), the weather
 shows only its icon (the temperature is in its tooltip), and popups open inward.
 The `clock` setting in `bar-settings.json` (`12h`, the default, or `24h`), under
-Settings > Style > Desktop Bar > Clock and Control Center > Style > Bar, picks the time format
+Settings > Style > Desktop Bar > Clock and the Settings window's Desktop Bar page, picks the time format
 for every edge.
 AI Usage, Hardware and Idle Lock sit together after the workspaces; right-hand controls
 retain their manual show/hide toggle in Full, Centered and Islands. Tabs and Dynamic keep them visible without a toggle. Both side groups share 24 px icon slots
@@ -614,7 +618,7 @@ eitr-shell desktop-bar kill
 
 ## Panel Style
 
-Control Center > Style > Corners and Walker > Settings > Style > Corners select Square,
+The Settings window's Appearance page and Walker > Settings > Style > Corners select Square,
 Rounded (1.5× the base radii, halfway to Extra Rounded) or Extra Rounded. The machine-local preference is
 `~/.config/eitr/style.json`. The styles, their radius scale and Hyprland window
 rounding are defined once in `corner-styles.json`, which `desktop-style.py`,
@@ -737,7 +741,7 @@ options in the Plugins page while click-through.
 
 Plugin appearance belongs to its author. Widgets and panels default to no host surface; panel surfaces and theme helpers are opt-in. Tiles default to the Eitr row, with `look: "custom"` providing a full-slot canvas. See `distro/PLUGINS.md`.
 
-Auto-hide is optional in Settings > Style > Desktop Bar and Control Center > Style. The
+Auto-hide is optional in Settings > Style > Desktop Bar and the Settings window's Desktop Bar page. The
 strip slides out in 320 ms, retaining a one-pixel edge input region. Panels,
 pending popups, Overview and dragging hold it open (notification toasts do not); a 350 ms leave delay precedes
 hiding. A hidden bar reserves no space. The preference is separate from the
@@ -749,7 +753,7 @@ Touch the screen edge opposite the bar to reveal the application dock. It unfold
 
 The dock shows pinned apps first, followed by other open applications in Hyprland’s window order. Each 36 px icon slot has a 6 px gap and uses the application’s desktop icon, with a glyph fallback; Eitr’s own task and menu terminals share one Eitr logo icon. Dots below an icon count its windows, up to three, and dim when none is on the current workspace of that screen. Hover for its name and window count. Click to focus its most recently used window (including switching workspace); click again to move to its next window. Middle-click closes the most recent window. Long lists scroll along the dock. The surface follows Blur/Theme Color and the corner preference.
 
-**Dock** in **Settings > Style > Desktop Bar** and **Control Center > Style > Bar** turns it off or on. The `dock` setting in `bar-settings.json` defaults to `"yes"`. There is no dock shortcut.
+**Dock** in **Settings > Style > Desktop Bar** and the Settings window's **Desktop Bar** page turns it off or on. The `dock` setting in `bar-settings.json` defaults to `"yes"`. There is no dock shortcut.
 
 Pinned apps stay at full opacity with no dots when closed; click one to launch it in its own application scope. Right-click an icon for Keep in Dock / Remove from Dock, New Window (when a desktop entry is available), and Close or Close All Windows. Escape or a click outside dismisses the menu. Apps without a desktop entry cannot be pinned.
 
@@ -761,7 +765,7 @@ Pins are desktop-entry IDs stored in order in the machine-local `quickshell/desk
 ## Motion and panel smoothness audit
 
 Reduce motion is off by default. Settings > Style > Desktop Bar > Reduce motion and
-Control Center > Style > Bar share `bar-settings.json` (`reduceMotion: yes/no`).
+the Settings window's Desktop Bar page share `bar-settings.json` (`reduceMotion: yes/no`).
 `DesktopStyle.motionDuration()` owns the policy: normal durations/easing are
 unchanged, reduced durations are zero. DockPanel unfold/fold/resize, notification
 group transitions, Handbook, Overview, carousel, bar expansion/auto-hide, markers,
@@ -801,9 +805,7 @@ compositor blur, D-Bus, GPU capture, DDC or real hardware performance.
 | Panel / popup and routes | Opening work found | Fix / audited decision | Status |
 | --- | --- | --- | --- |
 | Control Center — General (`center`) | Multiple status processes and plugin activation | Warm prefetch; immediate open queries/results; guarded snapshots; plugins activate before reveal | needs live check |
-| Control Center — Style | Cursor/lockscreen list queries; theme/font glyph layout | Prefetch style choices; apply query results before/during the shared reveal; fixed text roles | needs live check |
 | Control Center — Tools | Static action rows; recording routes | Retained content; no open-time model query; actions still run only on click | needs live check |
-| Control Center — System | Channel, keyboard, monitor and policy data | Immediate channel/policy queries; existing display/keyboard guards; retained page content | needs live check |
 | Control Center — Plugins and details | Installed registry model, icon/preview decoding | Registry already prefetches and guards changes; fixed icon slots now decode asynchronously; source URL/folder shown | needs live check |
 | Control Center — Quick chat | Assistant status; conversation delegates | Status query immediate and guarded; no request until Send; closing still clears memory | needs live check |
 | AI Usage (`ai`) | Cache + fresh query replaced provider model on every open | Startup cache; immediate fresh query/results; guarded usage assignment | needs live check |
@@ -872,7 +874,6 @@ measurements, not live provider/hardware latency claims.
 | WorkspaceStyleMenu | 320 / 321 | 1 |
 | NotificationCenter | 321 / 321 | 1 |
 | PluginPanel | 322 / 322 | 1 |
-| ControlCenter-style | 335 / 332 | 1 |
 | ControlCenter-plugins | 329 / 330 | 1 |
 | ControlCenter-plugin-details | 331 / 330 | 1 |
 | MediaMenu | 322 / 321 | 1 |
@@ -880,11 +881,10 @@ measurements, not live provider/hardware latency claims.
 | RemoteAccessMenu-streaming | 422 / 422 | 1 |
 | ControlCenter-general | 332 / 340 | 1 |
 | ControlCenter-tools | 336 / 337 | 1 |
-| ControlCenter-system | 348 / 329 | 1 |
 
 ## Focus preset
 
-Settings > Style > Focus, Control Center > Style > Focus and `eitr focus on|off|status`
+Settings > Style > Focus, the Settings window's Focus page and `eitr focus on|off|status`
 share a machine-local preference. Focus uses native Hyprland groups with up to
 four panes per monitor and a thin Quickshell tab strip. Turning it off restores
 the normal bar and effects, spreading windows two per workspace. See the
@@ -1097,12 +1097,62 @@ a usage reader are omitted from cached usage just as fresh CLI collection omits 
 
 ### Catalog data ownership
 
-`Catalog` is a single `FloatingWindow` in the bar process, with app id `eitr-catalog`
-and title Themes & Plugins. `panels show catalog` opens or focuses it; SUPER+F2
-closes it when focused and otherwise opens or focuses it across workspaces.
-Its button, Escape or compositor close closes it. Window size persists in
-`$XDG_STATE_HOME/eitr/catalog-window.json` (default 1100×800, bounded by the screen).
-The Handbook shares the native window component. `CatalogContent`
+`SettingsWindow`, `Handbook` and `Catalog` are `FamilyWindow`s (`settings/FamilyWindow.qml`):
+a `LibraryWindow` whose opaque colour and roles come from `SettingsPalette`, so all three
+follow the theme or, when Settings chooses it, the website palette. They share
+`FamilySidebar` (the header box with the Eitr logo, a Cinzel title and gold subtitle,
+search field, rune group captions, rows with a rune that turns gold when selected and the
+sliding gold marker; entries are `{id, title, rune, group, groupRune}`),
+`FamilyPageHeader` (gold rune breadcrumb, Cinzel title and description), `ControlCard`,
+`ControlRow` and `PanelButton`. `SettingsWindow` uses stateName `settings`, the bar's
+`eitr-catalog` app id and a translated Settings title. SUPER+comma toggles it;
+SUPER+I toggles Control Center. Its opaque theme canvas has no blur and persists
+its size in `$XDG_STATE_HOME/eitr/settings-window.json`. Outside clicks leave it
+open. `settings toggle`, `settings show <page/tab>` and `settings close` control it.
+Themes and Plugins have their own catalog window in the same family: its sidebar
+lists Installed, Official and Community under Themes and Plugins, the page header names
+the current source, and cards use the Settings card style with an All/Light/Dark
+`ChoiceSegmented` filter. `catalog toggle`,
+SUPER+F2, `panels show catalog`, `host.showCatalog()` and `showThemes(tone)` open
+that window. Plugin review actions retain their existing reviewed terminal flow. Appearance's
+**More themes** button opens the catalog on Themes.
+
+`settings/SettingsIndex.js` owns sidebar groups, page IDs, descriptions, search
+keywords and tab routes. System is the first page and includes the profile
+and system overview; `settings show you` remains an alias. Its nine palette swatches
+match the theme cards: background, foreground, accent and color1 through color6.
+Themes and Plugins are absent from Settings navigation and search.
+
+Settings uses bundled Cinzel titles, Elder Futhark group captions,
+Noto Sans Runic page marks and the light/dark `SiteStyle.bronze` ink owned by
+`SettingsInk`. The canvas stays opaque. `SettingsPalette` owns its theme or website colours and watches the machine-local `eitr/settings-app.json` (version 1, palette theme/website); `settings palette theme|website` changes that preference.
+`SettingsPageHeader`, `ControlCard` and `ControlRow` share headings, borders,
+descriptions and spacing. Cards enter with a short fade/slide; the gold sidebar
+marker slides between rows. Both follow `DesktopStyle.motionDuration`.
+`ChoiceDropdown` provides keyboard navigation and a checked current option;
+`ChoiceSegmented` groups short choices. Booleans use `PanelSwitch`; sizes and
+levels use `PanelSlider`; wallpapers retain their thumbnail grid.
+Connections (legacy alias `network`) separates Wi-Fi/backend and Bluetooth with `TabStrip`; Displays separates monitor controls and Night Light, and Appearance separates theme/wallpaper, fonts/cursor and terminal. Search and IPC resolve page/tab destinations.
+Desktop Bar uses reusable picture cards for layout, position, appearance and media; window gaps and corners use real catalog values. Lockscreens use shipped preview images (Hyprlock falls back to a drawn clock/password sketch); cursor summary supplies a sample when installed theme files can be decoded. Workspace, display and clock choices retain their controls. Settings helpers and
+embedded device panels retain ownership of their reads and writes.
+
+Desktop pages use `SettingsStyleState` for helper
+summaries and guarded writes. `SettingsAppearanceModel` supplies both the carousel
+and inline theme/wallpaper selection. Event sound controls are shared through
+`EventSoundSettings`. Devices embed the existing audio, display, WiFi and Bluetooth
+panels through `DockPanel.inlineParent`, without focus grabs or detached surfaces;
+closing their Loader releases the panels' existing observer owners. Input uses
+`KeyboardLayoutRow` and the keyboard helper for selecting, adding, removing and
+ordering layouts. Remaining sidebar groups retain their current destinations.
+
+Window gaps share `eitr/style.json` with Corners. `tools/choice-lists.json` owns
+None (0/0), Small (3/6), Default (6/12) and Large (12/24); the generator supplies
+QML, Python and Lua choices. The helper parses the saved JSON and atomically
+generates `eitr/window-gaps.lua`, read by Hyprland on reload.
+Changing gaps uses the same config reload path as Corners. DisplayService refreshes
+live topology and gaps on `configreloaded`, including existing island/panel spacing.
+
+`panels/CatalogContent`
 sends explicit `catalog` queries through DesktopData: `installed`, `index`,
 `preview`, `check`, `install`, `update`, `remove`, `unhide`, and `apply`, with `kind`
 (`themes` or `plugins`), `channel` (`official`, `community`, `installed`) and IDs where needed. Plugins expose only installed,
@@ -1116,15 +1166,15 @@ The plugin owner reads its index, manifest labels and Git tree sizes in a sparse
 metadata clone; listing downloads no plugin code, icons or previews. Full plugin
 validation remains in the existing install/review path.
 
-Catalog and Handbook share `LibraryWindow`: native focus/toggle behavior and separate remembered sizes under the machine-local state directory. Both use the shared Hyprland floating/centering rule. Clicking outside leaves either window open.
-
-The Themes & Plugins window uses `SiteStyle` for the website palettes, selected by
-the current theme’s `light.mode` marker (watched across theme symlink replacement).
-Its opaque canvas ignores bar appearance. `test_catalog.py` checks all palette tokens
-against the website CSS and renders both modes. Bundled OFL fonts live in
-`assets/fonts`; see their README for reproducible conversion. The Handbook uses the
-same opaque site palettes and fonts, including its chapter list, search, setup
-controls and document frames; desktop accent and transparency settings do not affect it.
+Settings, the Handbook and the catalog share `LibraryWindow` focus, sizing and Hyprland rules
+through `FamilyWindow`. The Handbook groups chapters by their `group` in `handbook/chapters.json`
+(translated with the chapter titles) and gives each group and chapter a rune from
+`HandbookModel.js`; search results keep their ranking under one Results caption. The page
+header shows the group, chapter title and summary, so the chapter's own first heading is
+not repeated; headings are carved, level 3 in gold small caps, and code blocks and tables
+sit in cards. Catalog backend queries and review
+flows retain their existing ownership and cancellation behavior. Offscreen tests
+render Settings with dark and light theme fixtures and no live services.
 
 ### Profile pictures
 
@@ -1140,3 +1190,23 @@ actions run as bounded helpers (25 seconds each), are killed and reaped on timeo
 are never replayed. Failures retain `.face` when AccountsService cannot update SDDM.
 Snapshots carry the file mtime so replacing the image reloads the navigation avatar.
 Official and offline installation both consume `distro/packages.txt`, including AccountsService.
+
+Shared choices live only in `components/`: `ChoiceSegmented`, `ChoiceDropdown`,
+`PictureChoices`, `TabStrip`, `ChoiceLevel`, `ControlCard`, `ControlRow` and
+`ToggleRow`. Their foreground, background, accent, gold/ink and surface parameters
+keep Settings’ palette independent of panel colours. Carved labels are opt-in.
+`BarPreview`, `PositionPreview`, `AppearancePreview`, `MediaPreview`, `GapsPreview`,
+`CornersPreview`, `LockscreenPreview` and `PalettePreview` draw reusable examples;
+workspace pictures reuse `WorkspaceMarker`. Compact picture cards wrap at panel width.
+Dropdown lists expand inline, with bounded scrolling and keyboard selection, so
+layer-shell hosts need no popup outside their surface.
+
+`MonitorMap` shares `MonitorGeometry.js` between Displays and the Display editor.
+`DisplayService.topology` supplies coordinates, models and the primary output;
+`display.settings` supplies mode, scale, transform and position, and the panel’s
+pending trial result overrides that monitor until kept or reverted. Logical
+sizes swap for odd transforms before division by scale. The fitted map preserves
+negative offsets, centres a single monitor and emits selection without dragging.
+It displays disabled monitors if supplied, and uses dashed trial outlines.
+`tests/test_shared_choices.py` renders changed panels in isolated dark/light
+fixtures; `test_monitor_geometry.js` checks placement, rotation, scaling and bounds.

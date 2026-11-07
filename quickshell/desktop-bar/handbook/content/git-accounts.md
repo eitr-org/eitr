@@ -89,3 +89,5 @@ EITR include blocks are refused instead of silently replaced.
 References: [Git conditional includes](https://git-scm.com/docs/git-config),
 [GitHub CLI profiles](https://cli.github.com/manual/gh_help_environment),
 [GitLab CLI profiles](https://docs.gitlab.com/cli/configuration/).
+
+Settings > Git & Cloud displays identities, folder rules and configured cloud contexts read-only. Open Git Accounts or Cloud to use the existing guided flows; viewing the page never switches CLI defaults.

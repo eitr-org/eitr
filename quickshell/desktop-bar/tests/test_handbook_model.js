@@ -26,11 +26,32 @@ assert.equal((table.match(/width="45%"/g) || []).length, 2);
 const code = context.readableHtml('<p>Run</p><pre><code class="language-sh">sudo true\n</code></pre>', "#85a1dc", false, "#14ffffff");
 assert(code.includes('bgcolor="#14ffffff"><tr><td><pre><code class="language-sh">sudo true\n</code></pre></td></tr></table>'));
 assert(!context.readableHtml('<pre><code>x</code></pre>', "#85a1dc").includes("bgcolor"));
-const site = {mono: "Site Mono", serif: "Site Serif", carved: "Site Carved", fg: "#e4dcd2", muted: "#9a8f86", raised: "#1e1a1a", lineStrong: "#26ffffff"};
-const siteHtml = context.readableHtml('<h1>Title</h1><h3>Section</h3><table><tr><th>Key</th></tr></table><pre><code>&lt;disk&gt;</code></pre>', "#d4545c", false, "#131111", site);
-assert(siteHtml.includes('font-family:"Site Serif"; font-size:36px'));
-assert(siteHtml.includes('font-family:"Site Carved"; font-size:22px'));
-assert(siteHtml.includes('font-family:"Site Mono"'));
-assert(siteHtml.includes('border="1" bordercolor="#26ffffff"'));
-assert(siteHtml.includes('&lt;disk&gt;'));
-assert(!siteHtml.includes('bgcolor='), "QML owns the site code frame");
+const style = {body: "Body Sans", mono: "Site Mono", carved: "Site Carved", fg: "#e4dcd2", gold: "#b08d57", raised: "#1e1a1a", line: "#3a3634"};
+const styled = context.readableHtml('<h1>Title</h1><h2>Part</h2><h3>Section</h3><table><tr><th>Key</th></tr></table><pre><code>&lt;disk&gt;\n</code></pre>', "#d4545c", false, "", style);
+assert(styled.includes('font-family:"Site Carved"; font-size:20px'), "level 2 headings are carved");
+assert(styled.includes('color:#b08d57; font-variant:small-caps'), "level 3 headings are gold small caps");
+assert(styled.includes('font-family:"Site Mono"'));
+assert(styled.includes('font-family:"Body Sans"'));
+assert(styled.includes('border="1" bordercolor="#3a3634"'));
+assert(styled.includes('<th bgcolor="#1e1a1a">Key'));
+assert(styled.includes('&lt;disk&gt;</code></pre>'), "code keeps entities and drops its trailing newline");
+assert(!styled.includes('bgcolor="#14'), "QML owns the code card");
+assert(styled.includes('a { color:#d4545c; }'), "links use the accent");
+const book = [
+    {id: "start", title: "Start", group: "Begin", blocks: ["<h1>Welcome</h1>", "<p>Text</p>"]},
+    {id: "bar", title: "Bar", group: "Desktop", blocks: ["<p>Bar</p>"]},
+    {id: "focus", title: "Focus", group: "Desktop", blocks: []},
+];
+assert.deepStrictEqual(Array.from(context.articleBlocks(book[0])), ["<p>Text</p>"], "the page header replaces the leading title");
+assert.deepStrictEqual(Array.from(context.articleBlocks(book[1])), ["<p>Bar</p>"]);
+assert.equal(context.articleBlocks(null).length, 0);
+const rows = context.sidebarEntries(book, book, "");
+assert.deepStrictEqual(Array.from(rows, row => row.group), ["Begin", "Desktop", "Desktop"]);
+assert.equal(rows[1].groupRune, rows[2].groupRune, "a group shares one rune");
+assert.notEqual(rows[0].groupRune, rows[1].groupRune);
+assert.notEqual(rows[1].rune, rows[2].rune, "each chapter has its own rune");
+const results = context.sidebarEntries(book, [book[2], book[0]], "Results");
+assert.deepStrictEqual(Array.from(results, row => row.id), ["focus", "start"], "search keeps its ranking");
+assert(results.every(row => row.group === "Results"));
+assert.equal(context.groupOf(book, book[2]).name, "Desktop");
+console.log("Handbook rendering and sidebar grouping passed");

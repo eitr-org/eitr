@@ -28,3 +28,5 @@ Cliquez sur l’égaliseur animé pour voir pochette, titre et artiste, utiliser
 Les notifications ont une douce lueur intérieure dans la couleur d’accent du thème. Les critiques utilisent plutôt son rouge ; celles de faible priorité restent discrètes, sans lueur. Ne pas déranger masque les popups sans supprimer l’historique. Celui-ci reste en mémoire lors des rechargements de configuration, mais pas après le redémarrage du processus. Aucun contenu de notification n’est enregistré dans un journal.
 
 La conservation des miniatures utilise un budget de 32 MiB et décode les images jusqu’à 160×120. Les images masquées les plus anciennes sont libérées en premier ; le texte reste dans l’historique. Les images des fenêtres de notification ou du centre ouvert sont conservées jusqu’à leur masquage, même si le budget est temporairement dépassé.
+
+Paramètres > À propos affiche version, nom de code, canal, matériel, noyau et licence, avec des liens vers le site, le dépôt et le Manuel.

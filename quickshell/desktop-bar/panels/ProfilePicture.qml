@@ -194,6 +194,7 @@ Column {
         MouseArea {
             anchors.fill: parent
             enabled: editor.loaded && !sheet.busy
+            cursorShape: Qt.PointingHandCursor
             property real previousX: 0
             property real previousY: 0
             onPressed: mouse => { previousX = mouse.x; previousY = mouse.y; sheet.forceActiveFocus(); }

@@ -160,10 +160,21 @@ docker run --rm --platform linux/amd64 -v "$PWD":/repo:ro archlinux:latest bash 
 
 ## Focus preset
 
-Settings > Style > Focus, Control Center > Style > Focus and `eitr focus on|off|toggle|status`
+Settings > Style > Focus, the Settings window's Focus page and `eitr focus on|off|toggle|status`
 share a machine-local preference. Focus uses native Hyprland groups with up to
 four panes per monitor and a thin Quickshell tab strip. Turning it off restores
 the normal bar and effects, spreading windows two per workspace. See the
 [Focus Handbook chapter](quickshell/desktop-bar/handbook/content/focus.md) for keys, monitor behavior and recovery.
 
 The desktop bar offers Full, Centered, Tabs, Islands and Dynamic layouts. Dynamic has three independently expanding islands with a fixed, screen-centred clock; see [Desktop Bar](quickshell/desktop-bar/README.md).
+
+Settings (**SUPER + ,**) provides System, Desktop and Devices pages with shared
+inline controls, plus Keybinds, Default apps, Users, Git & Cloud, Security, Updates,
+Check This PC and About. Themes and Plugins share their own catalog window; it and the
+Handbook use the Settings frame, sidebar, page header and cards. Default apps uses
+installed MIME handlers and the shared terminal preference; diagnostics run only
+on request. Account and privileged actions retain their existing guided flows. The Control Center
+(**SUPER + I**) keeps quick toggles, sliders, media, plugins and tools; its All settings
+button opens Settings. Window gaps are saved locally alongside Corners.
+
+Connections has Wi-Fi and Bluetooth tabs; Displays and Appearance group separate subjects in tabs. Picture cards preview bar layouts, edges, surfaces, media, gaps, corners and lockscreen designs. Appearance offers Theme colours or Eitr website for Settings, the Handbook and Themes & Plugins; `settings palette theme|website` saves the same choice. Search and `settings show <page/tab>` open the matching tab (`network` remains a Connections alias).

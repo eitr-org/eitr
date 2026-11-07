@@ -12,7 +12,7 @@ Requiere Kitty 0.49+ y `shader-slang`, incluidos en las dependencias de Eitr. Ac
 
 ## Elegir terminal
 
-**Configuración > Estilo > Terminal** en Walker y **Centro de control > Estilo > Terminal** ofrecen
+**Configuración > Estilo > Terminal** en Walker y **Configuración (SUPER + ,) > Apariencia > Terminal** ofrecen
 **Kitty** (predeterminado) y **Ghostty**. El campo local `terminal` de
 `~/.config/eitr/terminal.json` controla Super+Enter, tmux, las sesiones de usuario,
 los terminales de IA/proyectos y las acciones de Walker para abrir en un terminal.
@@ -45,7 +45,7 @@ Elegir Ghostty no los cambia.
 
 ## Apariencia del terminal y desenfoque compartido
 
-Configuración > Estilo > Terminal y Centro de control > Estilo > Terminal aplican
+Configuración > Estilo > Terminal y Configuración (SUPER + ,) > Apariencia > Terminal aplican
 opacidad, relleno y desenfoque a Kitty y Ghostty. La opacidad ofrece Sólido (100%),
 Ligero (90%), Medio (80%), Predeterminado (75%) y Fuerte (70%). El relleno ofrece
 Ninguno, Pequeño (4 puntos) y Cómodo (8 puntos). Los valores predeterminados conservan
@@ -55,8 +55,8 @@ conservan su fondo sólido y su relleno de tareas.
 Desactivar el desenfoque lo elimina de las ventanas normales de Kitty y Ghostty,
 sin volverlas opacas. La intensidad es compartida: Suave (tamaño 2, una pasada),
 Media (tamaño 3, dos pasadas, predeterminada) y Fuerte (tamaño 5, tres pasadas).
-La misma opción aparece en Barra del escritorio de Walker y Barra del Centro de
-control, junto a apariencia. Hyprland 0.57 solo permite intensidad global: afecta
+La misma opción aparece en Barra del escritorio de Walker y Barra del escritorio
+de Configuración (SUPER + ,), junto a apariencia. Hyprland 0.57 solo permite intensidad global: afecta
 a paneles, notificaciones, Vista general y otras aplicaciones que ya usan desenfoque.
 Elegir una intensidad no activa el desenfoque del terminal. Mayor intensidad exige
 más trabajo de GPU. Color del tema conserva su apariencia sólida.

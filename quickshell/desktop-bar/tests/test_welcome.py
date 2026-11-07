@@ -78,10 +78,11 @@ class HandbookWelcomeTests(unittest.TestCase):
         self.source = (ROOT / "panels/Handbook.qml").read_text()
 
     def test_welcome_uses_shared_components_and_text_roles(self):
-        for name in ("SiteButton {", "PanelSwitch {", "PanelStyle.bodySize", "SiteStyle.line",
-                     "SiteStyle.mono"):
+        for name in ("PanelButton {", "PanelSwitch {", "ControlCard {", "ControlRow {", "PanelStyle.bodySize",
+                     "SettingsPalette.line", "FamilyPageHeader {"):
             self.assertIn(name, self.source)
-        self.assertIsNone(re.search(r"#[0-9a-fA-F]{3,8}\b", self.source), "colors must use shared site tokens")
+        self.assertNotIn("SiteButton", self.source)
+        self.assertIsNone(re.search(r"#[0-9a-fA-F]{3,8}\b", self.source), "colors must use the shared Settings palette")
         for pattern in ("/home/", "/Users/", "erick", "~/"):
             self.assertNotIn(pattern, self.source)
 
@@ -114,10 +115,14 @@ class HandbookWelcomeTests(unittest.TestCase):
 
     def test_only_its_own_controls_close_the_handbook(self):
         closers = [line.strip() for line in self.source.splitlines() if "opened = false" in line]
-        expected = ("opened = false;", "function close()", "Key_Escape", 'Accessible.name: Eitr.I18n.tr("Close handbook")')
+        expected = ("opened = false;", "function close()", "Key_Escape", "onCloseRequested:")
         self.assertEqual(len(closers), len(expected), closers)
         for line, marker in zip(closers, expected):
             self.assertIn(marker, line)
+        self.assertIn('closeName: Eitr.I18n.tr("Close handbook")', self.source)
+        sidebar = (ROOT / "settings/FamilySidebar.qml").read_text()
+        self.assertEqual(sidebar.count("sidebar.closeRequested()"), 1, "only the header's close button asks to close")
+        self.assertIn("Accessible.name: sidebar.closeName", sidebar)
 
     def test_the_old_welcome_panel_is_gone(self):
         self.assertFalse((ROOT / "WelcomeMenu.qml").exists())

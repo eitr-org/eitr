@@ -1,5 +1,7 @@
 # WiFi, Bluetooth et mode avion
 
+Ces commandes sont également disponibles directement dans les paramètres.
+
 Ouvrez les icônes de la barre ou **Paramètres > Connectivité**. Ouvrir un panneau ne change jamais le service réseau et ne déconnecte aucun appareil de lui-même.
 
 ## WiFi

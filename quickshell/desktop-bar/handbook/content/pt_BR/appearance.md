@@ -1,20 +1,21 @@
 # Temas, papéis de parede e estilo
 
+Esses controles também estão disponíveis diretamente em Configurações.
+
+Configurações (**SUPER + ,**) inclui os controles de Aparência; **Mais temas** abre o catálogo separado de temas e plugins (**SUPER + F2**).
+
 ## Catálogo de temas e plugins
 
-O catálogo usa a paleta opaca Blood & Iron ou pergaminho do site e as fontes
-Cinzel e Cormorant Garamond incluídas. Apenas o modo claro/escuro do tema atual
-altera sua aparência; as cores da área de trabalho, a transparência da barra
-e o desfoque não o afetam.
+O catálogo compartilha a moldura, a barra lateral, o cabeçalho de página e os
+cartões da janela de Configurações. Ele segue as cores do tema, ou a paleta do site
+do Eitr quando as Configurações a escolhem, com a fonte Cinzel incluída.
 
-A barra lateral agrupa Temas e Plugins em Instalados e Obter mais, com suas
-contagens. À direita, o título, a descrição
-e os filtros precedem a lista com rolagem independente. Cima/Baixo percorre a
-barra; Direita ou Tab entra no conteúdo. Esquerda na primeira coluna volta à
-barra. Abaixo de 760 px, ela mostra ícones com dicas ao passar o ponteiro, sem
-títulos de grupo nem texto.
+A barra lateral lista Instalado, Oficial e Comunidade em Temas e em Plugins. À
+direita ficam o título, a descrição, o filtro Todas, Claro e Escuro para os temas e
+uma galeria com rolagem independente. Cima/Baixo percorre a barra; Direita ou Tab
+entra no conteúdo. Esquerda na primeira coluna volta à barra lateral.
 
-Abra **Configurações > Estilo > Temas e plugins**, **Central de controle > Estilo > Temas e plugins**, o **+** ao lado do Sol e da Lua no carrossel de temas ou **SUPER + F2**. O catálogo é uma janela que lembra seu tamanho. Segure SUPER e arraste com o botão esquerdo para mover ou com o direito para redimensionar. Os atalhos normais permitem organizar em mosaico ou enviar para outro espaço de trabalho. Abrir novamente foca a janela existente, mesmo em outro espaço. SUPER + F2 fecha quando ela está focada. O botão de fechar, Escape (após dispensar qualquer confirmação) ou o atalho normal de fechar janelas também fecham o catálogo. Instalados mostra cada tema como Integrado, Oficial, De terceiros ou
+Abra **Configurações > Estilo > Temas e plugins**, **Mais temas** nas Configurações (SUPER + ,), o **+** ao lado do Sol e da Lua no carrossel de temas ou **SUPER + F2**. O catálogo é uma janela que lembra seu tamanho. Segure SUPER e arraste com o botão esquerdo para mover ou com o direito para redimensionar. Os atalhos normais permitem organizar em mosaico ou enviar para outro espaço de trabalho. Abrir novamente foca a janela existente, mesmo em outro espaço. SUPER + F2 fecha quando ela está focada. O botão de fechar, Escape (após dispensar qualquer confirmação) ou o atalho normal de fechar janelas também fecham o catálogo. Instalados mostra cada tema como Integrado, Oficial, De terceiros ou
 Seus numa galeria de prévias. Clique num tema instalado para aplicar pelo fluxo
 normal; uma marca indica o tema atual. Todos, Escuros e Claros filtram a galeria.
 Instalados atualiza ao abrir a janela e após cada ação. Ao abrir, os metadados são verificados em segundo plano e os indicadores de atualização aparecem ao terminar. Não há verificações periódicas de rede; Atualizar substitui um tema do catálogo. Reaplique
@@ -54,7 +55,7 @@ O catálogo instala e atualiza plugins na própria janela. Os cartões Oficial e
 
 ## Temas e papéis de parede
 
-Abra **Configurações > Estilo > Tema** ou **SUPER + Ctrl + Shift + N** para os menus Escuro/Claro do Walker. O carrossel de temas da área de trabalho (clique duplo direito na área de trabalho, Central de Controle > Estilo > Tema ou IPC appearance) mostra todos os temas. O Sol acima do cartão selecionado mostra só os temas claros e a Lua só os escuros; clique de novo no selecionado para voltar a ver todos. O **+** ao lado abre o catálogo Temas e plugins nos temas oficiais, com o mesmo filtro claro ou escuro. Ctrl+Tab alterna entre todos, escuros e claros. Digite para buscar entre os temas exibidos; setas/Tab navegam e Enter aplica. Backspace edita a busca ou fecha quando vazia; Escape limpa a busca antes de fechar. O carrossel de papéis de parede não tem busca de temas.
+Abra **Configurações > Estilo > Tema** ou **SUPER + Ctrl + Shift + N** para os menus Escuro/Claro do Walker. O carrossel de temas da área de trabalho (clique duplo direito na área de trabalho, Configurações (SUPER + ,) > Aparência ou IPC appearance) mostra todos os temas. O Sol acima do cartão selecionado mostra só os temas claros e a Lua só os escuros; clique de novo no selecionado para voltar a ver todos. O **+** ao lado abre o catálogo Temas e plugins nos temas oficiais, com o mesmo filtro claro ou escuro. Ctrl+Tab alterna entre todos, escuros e claros. Digite para buscar entre os temas exibidos; setas/Tab navegam e Enter aplica. Backspace edita a busca ou fecha quando vazia; Escape limpa a busca antes de fechar. O carrossel de papéis de parede não tem busca de temas.
 
 **SUPER + Ctrl + N** abre os papéis de parede e **SUPER + Shift + N** avança para o próximo. Uma marca indica a escolha ativa no Walker. As trocas não exibem notificações de sucesso. Monitores ultrawide, com largura de pelo menos duas vezes a altura, usam a versão 21:9 de cada imagem para reduzir o recorte; os demais usam a versão 4K 16:9.
 
@@ -108,4 +109,7 @@ O catálogo instala e atualiza plugins na própria janela. Os cartões Oficial e
 
 Os temas integrados vêm com o Eitr e não podem ser removidos. A lixeira de um tema baixado exclui o pacote instalado; o tema atual não pode ser removido.
 
-Digite em qualquer lugar do catálogo, ou pressione Ctrl+F ou /, para pesquisar na aba atual por nome ou descrição. As palavras podem estar em qualquer ordem; Escape limpa a pesquisa primeiro.
+Digite em qualquer lugar do catálogo, ou pressione Ctrl+F ou /, para pesquisar na página atual por nome ou descrição. As palavras podem estar em qualquer ordem; Escape limpa a pesquisa primeiro.
+
+
+Em **Configurações > Janelas > Espaçamento das janelas** ou **Walker > Configurações > Estilo > Espaçamento das janelas**, escolha Nenhum, Pequeno, Padrão ou Grande. Padrão mantém 6 px internos e 12 px externos. A preferência local permanece após trocas de tema e recarregamentos.

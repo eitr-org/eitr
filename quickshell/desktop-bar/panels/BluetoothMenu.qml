@@ -22,9 +22,9 @@ ThemedPopup {
     })
     Component.onCompleted: sections = availableSections
     readonly property var availableSections: [
-        {title: Eitr.I18n.tr("CONNECTED"), devices: adapter ? adapter.devices.values.filter(d => d.connected) : []},
-        {title: Eitr.I18n.tr("KNOWN DEVICES"), devices: adapter ? adapter.devices.values.filter(d => !d.connected && d.paired) : []},
-        {title: Eitr.I18n.tr("SCANNED DEVICES"), devices: adapter ? adapter.devices.values.filter(d => !d.connected && !d.paired) : []}
+        {title: Eitr.I18n.tr("CONNECTED"), devices: adapter ? adapter.devices.values.filter(device => device.connected) : []},
+        {title: Eitr.I18n.tr("KNOWN DEVICES"), devices: adapter ? adapter.devices.values.filter(device => !device.connected && device.paired) : []},
+        {title: Eitr.I18n.tr("SCANNED DEVICES"), devices: adapter ? adapter.devices.values.filter(device => !device.connected && !device.paired) : []}
     ]
     function scan() {
         if (!adapter) return;
@@ -47,7 +47,7 @@ ThemedPopup {
             id: header
             width: parent.width
             height: 40
-            PanelHeading { anchors.verticalCenter: parent.verticalCenter; text: Eitr.I18n.tr("Bluetooth"); foreground: menu.foreground; accent: menu.accent; rune: "connectivity" }
+            PanelHeading { compact: menu.embedded; visible: !menu.embedded; anchors.verticalCenter: parent.verticalCenter; text: Eitr.I18n.tr("Bluetooth"); foreground: menu.foreground; accent: menu.accent; rune: "connectivity" }
             Row {
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter

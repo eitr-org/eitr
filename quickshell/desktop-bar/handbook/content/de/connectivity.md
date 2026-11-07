@@ -1,5 +1,7 @@
 # WiFi, Bluetooth und Flugmodus
 
+Diese Steuerelemente sind auch direkt in den Einstellungen verfügbar.
+
 Öffne die Leistensymbole oder **Einstellungen > Verbindungen**. Ein Panel zu öffnen wechselt niemals selbstständig den Netzwerkdienst oder trennt Geräte.
 
 ## WiFi

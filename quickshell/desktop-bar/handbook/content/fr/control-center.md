@@ -1,8 +1,22 @@
 # Centre de contrôle
 
-**SUPER + ,** ouvre ou ferme le Centre de contrôle. Il s’ouvre depuis le bord actuel de la barre et se ferme avec Escape ou un clic à l’extérieur. Sa fermeture revient à Général. Avec une barre Full à gauche ou à droite, le Centre commence en haut de l’écran, avec des marges intérieures dans la surface reliée à la barre.
+Les Paramètres et les panneaux de la barre partagent les mêmes commandes de choix. Les choix courts utilisent des segments ; les longues listes se déploient dans le panneau et défilent sans fenêtre flottante. Les interrupteurs conservent leurs actions. Les libellés dorés et les lettres gravées appartiennent à la famille de fenêtres des Paramètres : les Paramètres, le Manuel et Thèmes et plugins.
 
-Ses cinq pages regroupent tout ce qui est hors Développement, Applications, Installer, Apprendre et Jeux ; la plupart des réglages ne nécessitent donc pas Walker. Les sections repliables commencent généralement fermées ; cliquez sur le titre pour les ouvrir ou fermer, avec mémorisation jusqu’à déconnexion. Si la barre possède un panneau dédié (OBS, WiFi, Bluetooth, Audio, Écran, Matériel, Utilisation IA, Météo), le Centre de contrôle l’ouvre.
+**SUPER + ,** ouvre les paramètres sur **Système**, le profil et la vue du système. Thèmes et Plugins possèdent leur propre fenêtre de catalogue. **SUPER + I** ouvre le Centre de contrôle.
+
+## Paramètres
+
+Les groupes sont Aperçu, Périphériques, Bureau, Applications et touches, Comptes et sécurité, et Système. Les titres runiques et le repère doré glissant facilitent la navigation. Chaque page possède titre, description et cartes de réglages. La fenêtre reste opaque. Le Manuel et Thèmes et plugins utilisent le même cadre, la même barre latérale, le même en-tête de page et les mêmes cartes, et suivent le même choix de couleurs.
+
+Connexions propose les onglets **Wi-Fi** (avec le choix du moteur réseau) et **Bluetooth**. Écrans sépare **Écrans** et **Éclairage nocturne**. Apparence sépare **Thème et fond d’écran**, **Polices et curseur** et **Terminal**. Gauche/Droite change l’onglet actif au clavier ; la recherche ouvre le bon onglet. `settings show connections/bluetooth` ouvre Bluetooth ; `network` reste un alias. Les cartes illustrent les dispositions de barre, bords, surfaces, visualiseurs, espacements, coins et écrans de verrouillage. **Couleurs des paramètres** permet de choisir **Couleurs du thème** ou **Site web Eitr** pour les Paramètres, le Manuel et Thèmes et plugins. Le fichier local `eitr/settings-app.json` conserve ce choix ; `settings palette theme` et `settings palette website` le modifient aussi, indépendamment des couleurs du bureau.
+
+Système affiche un aperçu avec votre photo, l’utilisation CPU/GPU/RAM, l’écran principal, la durée de fonctionnement, la version d’Eitr, le canal de mise à jour et la palette du thème. Le matériel ne s’actualise que lorsque cette page est visible. La grande image affiche actuellement le fond d’écran. Le service de données partagé ne fournit pas les débits réseau.
+
+**SUPER + F2**, **Plus de thèmes** dans Apparence et le **+** du carrousel ouvrent le catalogue indépendant avec sa barre **Thèmes et plugins** et son bouton de fermeture. Les paramètres restent ouverts après un clic extérieur ; Escape ou Fermer les ferment. **SUPER + I** ouvre le Centre de contrôle.
+
+**SUPER + I** ouvre ou ferme le Centre de contrôle. Il s’ouvre depuis le bord actuel de la barre et se ferme avec Escape ou un clic à l’extérieur. Sa fermeture revient à Général. Avec une barre Full à gauche ou à droite, le Centre commence en haut de l’écran, avec des marges intérieures dans la surface reliée à la barre.
+
+Ses pages sont Général, Plugins et Outils. Le bouton en forme d’engrenage en dessous, **Tous les paramètres**, ferme le Centre de contrôle et ouvre les Paramètres, qui regroupent apparence, barre, périphériques, clavier, écrans et système. Les sections repliables commencent généralement fermées ; cliquez sur le titre pour les ouvrir ou fermer, avec mémorisation jusqu’à déconnexion. Si la barre possède un panneau dédié, comme OBS, WiFi ou Bluetooth, le Centre de contrôle l’ouvre.
 
 ## Général
 
@@ -15,32 +29,9 @@ Ses cinq pages regroupent tout ce qui est hors Développement, Applications, Ins
 
 Le Mode avion mémorise les radios bloquées et ne restaure que celles-ci. Ne pas déranger masque les notifications contextuelles sans vider l’historique. Verrouillage automatique ne signifie pas empêcher la veille ; veillez à la confidentialité de l’écran.
 
-## Style
-
-Style regroupe les réglages dans Thème et fond d’écran, Coins, Barre, Espaces de travail, Écran de verrouillage, Curseur et Terminal. Tous les groupes sont repliés au départ ; cliquez sur le titre d’un groupe pour l’ouvrir ou le replier, et le Centre de contrôle s’en souvient jusqu’à la déconnexion ; sa surface délimite toutes ses options. Barre regroupe Disposition, Position, Apparence, Afficher sur, Horloge, Style multimédia et Comportement. Comportement contient Masquage automatique, Dock et Réduire les animations.
-
-Thème et Fond d’écran ouvrent leurs carrousels ; Polices ouvre la liste des polices. Thème de verrouillage, curseur (famille, taille, couleur), apparence, disposition, bord et écrans de la barre, marqueurs d’espaces, coins et Cursor Fire de Kitty se règlent directement dans le panneau et partagent leurs préférences avec Walker.
-
-Terminal propose Kitty (par défaut) et Ghostty facultatif ; les terminaux utilitaires d’Eitr restent sous Kitty. Consultez [Terminal et éditeurs](terminal.md) pour l’installation et la configuration.
-
 ## Outils
 
 Captures d’écran (sélection, écran entier, fenêtre ou sélection directement dans le presse-papiers), enregistrement (commandes OBS, Enregistrer, Enregistrer + Audio et Arrêter), OCR, QR codes, sélecteur de couleurs, Transcoder, rappels et partage LocalSend. Le panneau se ferme avant le début d’une sélection ou d’un enregistrement.
-
-## Paramètres
-
-- **Périphériques:** panneaux Audio, Microphone, Écran (résolution, fréquence, échelle, rotation), Bluetooth et WiFi, Éclairage et limite de charge sur portable.
-- **Clavier:** sélectionner, ajouter ou supprimer des dispositions en conservant au moins une.
-- **Éclairage nocturne et écran principal:** mode et programmation de l’éclairage nocturne, distincts de l’interrupteur manuel, et écran principal accueillant la barre.
-- **Informations:** À propos, Matériel, Utilisation IA, Météo, Vérifier ce PC et Signaler un problème.
-- **Mises à jour:** canal, Mise à jour du système, changements de chaque mise à jour et mises à jour Pacman seules ou AUR seules.
-- **Instantanés et nettoyage:** restaurer un fichier, instantanés personnels et de récupération avec leur guide, Nettoyage et Dotfiles.
-
-Sécurité, réinitialisation d’usine et service réseau restent dans Walker > Système avec leurs propres confirmations.
-
-## Langue
-
-**Paramètres > Langue** affiche la langue actuelle selon les paramètres régionaux. Ouvrez le sélecteur, choisissez une langue ou Valeur système, puis déconnectez-vous et reconnectez-vous pour l’appliquer. Seule la langue des messages de votre session change, jamais les fichiers régionaux système. Voir le [Guide de langue](handbook:language).
 
 ## Discussion rapide
 
@@ -50,7 +41,7 @@ Les réponses proposent du Markdown sélectionnable et Copier. La conversation r
 
 ## Plugins
 
-**Paramètres > Style > Thèmes et plugins**, **Centre de contrôle > Style > Thèmes et plugins** ou **SUPER + F2** ouvre la fenêtre du catalogue. L’onglet Plugins affiche les plugins installés, officiels et de la communauté, les installe et les met à jour après une vérification dans la fenêtre, recherche les mises à jour et supprime les plugins installés après confirmation. Les procédures en terminal ci-dessous restent disponibles.
+**Paramètres > Style > Thèmes et plugins** dans Walker, **Plus de thèmes** sur la page Apparence des Paramètres ou **SUPER + F2** ouvre la fenêtre Thèmes et plugins. Le groupe Plugins affiche les plugins installés, officiels et de la communauté, les installe et les met à jour après une vérification dans la fenêtre, recherche les mises à jour et supprime les plugins installés après confirmation. Les procédures en terminal ci-dessous restent disponibles.
 
 **Centre de contrôle > Plugins** affiche une ligne compacte par plugin installé avec icône, nom et interrupteur d’activation. Sélectionnez une ligne pour voir l’auteur, la version, la description, les actions de mise à jour et de suppression, les widgets, les éléments de barre et l’aperçu. Utilisez Retour ou Échap pour revenir à la liste. Activer/Désactiver conserve les positions et arrête ou rétablit services, lignes Walker, hooks et composants visuels ; utilisez `eitr plugin enable ID` ou `eitr plugin disable ID`. Ajouter des plugins, Mettre à jour et Supprimer ouvrent les parcours de vérification du terminal ; la suppression demande confirmation. Général conserve uniquement les tuiles. Les erreurs visuelles ont une action indépendante de réactivation.
 
@@ -65,3 +56,7 @@ La liste des plugins affiche « Ce plugin a des erreurs » et le premier message
 Cliquez sur l’avatar rond en haut de la navigation du Centre de contrôle, ou ouvrez Paramètres > Sécurité > Utilisateurs > Photo de profil. Choisir une image… affiche votre dossier Images dans le panneau : cliquez sur un dossier pour l’ouvrir, ‹ ou Retour arrière pour remonter, et cliquez sur une image pour la choisir. Ensuite, faites glisser l’aperçu rond pour déplacer l’image ; la molette, le curseur ou +/− règlent le zoom de 1× à 4×, les flèches déplacent l’image. Enregistrer ou Entrée applique le cadrage ; Annuler ou Échap ferme sans appliquer les modifications. Supprimer efface la photo.
 
 La photo reste circulaire dans le Centre de contrôle, le verrouillage et l’écran de connexion. Sans photo, le Centre de contrôle affiche l’initiale du nom sur un cercle de la couleur d’accent, et le verrouillage et l’écran de connexion n’affichent aucune image. PNG, JPEG, WebP, GIF (première image) et BMP sont acceptés jusqu’à 40 Mo et 12000 pixels par côté. Eitr corrige l’orientation, retire les métadonnées, enregistre un PNG de 512×512 dans `~/.face`, puis actualise AccountsService pour SDDM. En cas d’échec, la photo enregistrée fonctionne toujours au verrouillage ; l’interface ou la CLI signale l’erreur de connexion.
+
+## Autres pages des Paramètres
+
+Raccourcis affiche toute la référence d’Apprendre avec recherche. Applications par défaut permet de choisir les logiciels installés pour le navigateur, les fichiers, le texte, les images, la vidéo, la musique, le courrier et les PDF ; Terminal utilise le réglage d’Apparence > Terminal. Utilisateur affiche le nom et l’éditeur partagé de photo de profil. Git et cloud affiche identités, règles de dossiers et contextes ; ses boutons ouvrent les parcours Walker existants. Sécurité conserve les confirmations des changements privilégiés. Mises à jour affiche le canal et les paquets en attente ; Mise à jour du système ouvre le parcours existant. Vérifier ce PC lance les diagnostics en lecture seule uniquement sur demande. À propos affiche version, noyau, matériel, licence et liens. Chaque page défile jusqu’à sa dernière ligne et renvoie au Manuel.

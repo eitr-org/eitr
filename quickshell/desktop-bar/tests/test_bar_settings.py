@@ -1,4 +1,3 @@
-from qml_source import control_center_source
 from bar_frame_source import frame_source
 import importlib.util
 import json
@@ -106,9 +105,9 @@ class BarSettingsTests(unittest.TestCase):
         shell = (bar / 'shell.qml').read_text()
         self.assertIn('updateBarSetting("appearance", preferences.nextAppearance(barAppearance))', shell)
         self.assertIn('updateBarSetting("layout", preferences.nextLayout(barLayout))', shell)
-        controls = control_center_source(bar)
-        self.assertIn('Repeater { model: ChoiceLists.barLayouts', controls)
-        self.assertIn('Repeater { model: ChoiceLists.barAppearances', controls)
+        controls = (bar / 'settings/SettingsDesktopPage.qml').read_text()
+        self.assertIn('choices: ChoiceLists.barLayouts', controls)
+        self.assertIn('choices: ChoiceLists.barAppearances', controls)
         for menu, group in (('bar-layout', 'bar_layouts'), ('bar-appearance', 'bar_appearances'), ('update-channel', 'update_channels')):
             self.assertIn(f'dofile(paths.code("elephant/choice-lists.lua")).{group}', (root / f'elephant/menus/{menu}.lua').read_text())
         # No front end keeps its own copy of the lists.
@@ -234,16 +233,18 @@ class AutoHideLayoutTests(unittest.TestCase):
         self.render_setting(False, dock=True)
 
     def render_setting(self, reduce_motion, dock=False):
+        # The Settings window's Desktop Bar page owns these switches.
         bar = Path(__file__).resolve().parents[1]
-        source = control_center_source(bar)
-        control = source.index("id: dockSwitch" if dock else "id: reduceMotionSwitch" if reduce_motion else "id: autoHideSwitch")
-        start = source.rfind("                        Row {", 0, control)
-        end = source.index("\n                        }", control) + len("\n                        }")
-        row = source[start:end]
-        if dock:
-            row = row.replace("dockSwitch", "autoHideSwitch").replace("center.barDock", "center.barAutoHide")
-        if reduce_motion:
-            row = row.replace("reduceMotionSwitch", "autoHideSwitch").replace("DesktopStyle.reduceMotion", "center.barAutoHide")
+        source = (bar / "settings/SettingsDesktopPage.qml").read_text()
+        label = "Dock" if dock else "Reduce motion" if reduce_motion else "Auto-hide"
+        control = source.index(f'text: Eitr.I18n.tr("{label}")')
+        start = source.rfind("            ToggleRow {", 0, control)
+        end = source.index("\n            }", control) + len("\n            }")
+        row = source[start:end].replace("ToggleRow {", "Bar.ToggleRow {\n                id: settingRow; width: 380", 1)
+        for old, new in (("view.foreground", "center.foreground"), ("view.accent", "center.accent"), ("view.live", "true"),
+                         ("state.settingRequested", "center.settingRequested"), ("state.barDock", "center.barAutoHide"),
+                         ("state.barAutoHide", "center.barAutoHide"), ("DesktopStyle.reduceMotion", "center.barAutoHide")):
+            row = row.replace(old, new)
         for light in (False, True):
             with tempfile.TemporaryDirectory(prefix="eitr-autohide-control-") as directory:
                 folder = Path(directory)
@@ -253,11 +254,10 @@ class AutoHideLayoutTests(unittest.TestCase):
 import QtTest
 import Quickshell
 import Eitr as Eitr
-import "BAR"
-import "STYLE" as PanelStyle
+import "BAR" as Bar
 ShellRoot {
     FloatingWindow {
-        visible: true; implicitWidth: 420; implicitHeight: 100
+        visible: true; implicitWidth: 420; implicitHeight: 110
         Rectangle {
             id: center; anchors.fill: parent
             property bool barAutoHide: true
@@ -268,23 +268,25 @@ ShellRoot {
             signal settingRequested(string key, string value)
             onSettingRequested: function(key, value) { barAutoHide = value === "yes"; }
             TestEvent { id: pointer }
-            Item { x: 20; y: 30; width: 380; height: 32
+            Column { x: 20; y: 16; width: 380
                 ROW
             }
+            function find(item, test) { if (test(item)) return item; for (const child of item.children || []) { const found = find(child, test); if (found) return found; } return null; }
             Timer {
                 interval: 800; running: true
                 onTriggered: {
-                    const label = autoHideSwitch.parent.children[0];
-                    if (label.contentWidth > label.width) throw new Error("German auto-hide label clips");
-                    if (label.text !== "Automatisch ausblenden") throw new Error("German translation missing");
-                    pointer.mouseClick(autoHideSwitch, autoHideSwitch.width / 2, autoHideSwitch.height / 2, Qt.LeftButton, Qt.NoModifier, 1);
+                    const label = center.find(settingRow, item => item.text === "Automatisch ausblenden");
+                    if (!label) throw new Error("German translation missing");
+                    if (label.contentWidth > label.width) throw new Error("German label clips");
+                    const toggle = center.find(settingRow, item => item !== settingRow && item.checked !== undefined && item.toggled !== undefined);
+                    pointer.mouseClick(toggle, toggle.width / 2, toggle.height / 2, Qt.LeftButton, Qt.NoModifier, 1);
                     if (center.barAutoHide) throw new Error("Switch did not apply setting");
                     center.grabToImage(function(result) { result.saveToFile("CAPTURE"); console.log("AUTOHIDE_CONTROL_OK"); Qt.quit(); });
                 }
             }
         }
     }
-}'''.replace("BAR", bar.as_uri()).replace("STYLE", (bar / "PanelStyle.js").as_uri())
+}'''.replace("BAR", bar.as_uri())
                     .replace("FOREGROUND", "#252936" if light else "#e9eef1")
                     .replace("BACKGROUND", "#f5f0e7" if light else "#18212b").replace("ROW", row)
                     .replace("Automatisch ausblenden", "Dock" if dock else "Bewegung reduzieren" if reduce_motion else "Automatisch ausblenden")

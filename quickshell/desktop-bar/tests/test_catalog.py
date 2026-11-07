@@ -152,7 +152,8 @@ ShellRoot {
   interval: 200; running: true; repeat: true
   property int phase: 0
   onTriggered: {
-   const content = catalog.contentItem.children[0].children[1];
+   const find = function(item, name) { if (item.objectName === name) return item; for (const child of item.children || []) { const found = find(child, name); if (found) return found; } return null; };
+   const content = find(catalog.contentItem, "catalog-content");
    content.live = false;
    if (phase === 0) {
     if (catalog.opened || catalog.visible) throw new Error("initially closed");
@@ -209,10 +210,10 @@ ShellRoot {
  FloatingWindow {
   visible: true; implicitWidth: WIDTH; implicitHeight: 800
   Rectangle {
-   id: sample; anchors.fill: parent; color: Bar.SiteStyle.card
+   id: sample; anchors.fill: parent; color: Bar.SettingsPalette.background
+   Component.onCompleted: { Bar.SettingsPalette.themeBackground = "BACKGROUND"; Bar.SettingsPalette.themeForeground = "FOREGROUND"; Bar.SettingsPalette.themeAccent = "ACCENT"; }
    Bar.CatalogContent {
     id: panel; anchors.fill: parent; live: false; opened: true
-    foreground: Bar.SiteStyle.fg; background: Bar.SiteStyle.card; accent: Bar.SiteStyle.accent
     transport: function(name, args, callback) { callback("", {items: []}); }
    }
    TestCase { id: keys; name: "CatalogKeys"; when: false }
@@ -225,7 +226,9 @@ ShellRoot {
     onTriggered: {
      if (capture.name === "plugins-official") {
       panel.progress = "";
-      keys.mouseClick(panel, panel.sidebarWidth + 50, 160);
+      function find(root, name) { if (root.objectName === name) return root; for (const child of root.children || []) { const found = find(child, name); if (found) return found; } return null; }
+      const firstCard = find(panel, "card-" + panel.navigable[0].id);
+      keys.mouseClick(firstCard, firstCard.width / 2, 40);
       if (!panel.detail) throw new Error("click opens plugin details");
       panel.closeDetail();
      }
@@ -236,7 +239,7 @@ ShellRoot {
     interval: 650; running: true; repeat: true
     onTriggered: {
      if (Bar.SiteStyle.light !== SITE_LIGHT) throw new Error("light.mode detection");
-     if (panel.background !== Bar.SiteStyle.card || panel.accent !== Bar.SiteStyle.accent) throw new Error("site palette binding");
+     if (!Qt.colorEqual(panel.background, "BACKGROUND") || !Qt.colorEqual(panel.foreground, "FOREGROUND") || !Qt.colorEqual(panel.accent, "ACCENT")) throw new Error("Settings palette binding");
      const names = ["official-themes", "selected-themes", "detail-overview", "detail-wallpaper", "review", "installing", "community-detail", "installed-search", "plugins-official", "plugins-installed", "remove", "plugin-cards-install", "plugin-images", "plugin-video", "plugin-review-official", "plugin-review-third-party", "plugin-update-review", "git-address"];
      if (sample.phase === 0) {
       panel.installed = [{id:"eitr",name:"Eitr",kind:"builtin",current:true,description:"Primordial venom",previewUrl:"PREVIEW"},{id:"afterglow",name:"Afterglow",kind:"official",description:"Warm ember colors",previewUrl:"PREVIEW2"},{id:"mine",name:"My theme",kind:"own",light:true,description:"A quiet light palette",previewUrl:"PREVIEW3"}];
@@ -261,9 +264,11 @@ ShellRoot {
       panel.tab = "official"; panel.selected = [];
       panel.forceActiveFocus();
       keys.keyClick(Qt.Key_Down);
-      if (panel.kind !== "plugins") throw new Error("sidebar Down");
-      keys.keyClick(Qt.Key_Up);
-      if (panel.kind !== "themes") throw new Error("sidebar Up");
+      if (panel.kind !== "themes" || panel.tab !== "community") throw new Error("sidebar Down");
+      keys.keyClick(Qt.Key_Down);
+      if (panel.kind !== "plugins" || panel.tab !== "installed") throw new Error("sidebar Down into Plugins");
+      keys.keyClick(Qt.Key_Up); keys.keyClick(Qt.Key_Up);
+      if (panel.kind !== "themes" || panel.tab !== "official") throw new Error("sidebar Up");
       panel.availableItems = [{id:"moss",name:"Moss",kind:"official",description:"Deep forest greens",size:3145728,previewUrl:"PREVIEW2"},{id:"jade",name:"Jade",kind:"official",light:true,description:"Warm jade and cream",size:2097152,previewUrl:"PREVIEW3"}];
       keys.keyClick(Qt.Key_Right);
       if (panel.sidebarFocus || panel.cursor !== 0) throw new Error("Right enters content");
@@ -494,6 +499,7 @@ ShellRoot {
                     marker.touch()
                 fixture = fixture.replace('SITE_LIGHT', 'true' if theme == 'light' else 'false')
                 fixture = fixture.replace('BACKGROUND', '#181824' if theme == 'dark' else '#f4f2e8').replace('FOREGROUND', '#cdd6f4' if theme == 'dark' else '#202824')
+                fixture = fixture.replace('ACCENT', '#9a815c' if theme == 'dark' else '#6f5a2c')
                 from eitr_theme_packages import catalog, palette
                 themes = BAR.parents[1] / 'themes'
                 package_root = folder / 'packages'
@@ -560,7 +566,8 @@ ShellRoot {
  Timer { interval: 150; running: true; onTriggered: { Bar.SiteStyle.light = LIGHT; book.show("getting-started"); book.implicitWidth = WIDTH; book.implicitHeight = 800; } }
  property int stage: 0
  Timer { interval: 650; running: true; repeat: true; onTriggered: {
-  if (book.color !== Bar.SiteStyle.card || Bar.SiteStyle.light !== LIGHT) throw new Error("Handbook site palette");
+  if (book.color.a !== 1 || !Qt.colorEqual(Bar.SettingsPalette.background, "BACKGROUND") || !Qt.colorEqual(Bar.SettingsPalette.foreground, "FOREGROUND")) throw new Error("Handbook follows the Settings palette");
+  if (Bar.SiteStyle.light !== LIGHT) throw new Error("light marker");
   if (!book.opened || book.title !== "EITR Handbook" || book.chapters.length === 0 || book.loadError) throw new Error("Handbook window/load");
   book.contentItem.children[0].grabToImage(function(result) {
    if (!result.saveToFile("TARGET/handbook-VARIANT-" + stage + ".png")) throw new Error("Handbook capture");

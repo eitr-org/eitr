@@ -196,6 +196,8 @@ if __name__ == '__main__':
             raise SystemExit(0)
         signal.signal(signal.SIGTERM, stop)
         sys.exit(watch())
+    elif action == 'summary':
+        print(json.dumps({'enabled': bool(preferences().get('enabled'))}))
     elif action == 'status':
         print('on' if preferences().get('enabled') else 'off')
     elif action == 'toggle':

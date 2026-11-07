@@ -91,3 +91,5 @@ Fresh installations schedule one background attempt two minutes after each boot,
 Read-only status: `/usr/lib/eitr/eitr-system mirrors-status` prints JSON with `last_ranking_time` (UTC, or null before success), `mirror_count`, `shipped_fallback` and `backup_available`. Status reads local files without network access or sudo.
 
 System Update checks plugin availability at the end without changing approved plugin versions. Review and install plugin updates separately from **Control Center > Plugins > Update Plugins**, **Plugins > Update Plugins**, or `eitr plugin update`. Offline check failures are ignored quietly; after-update hooks are unchanged.
+
+Settings > Updates uses the shared pending-updates service and the existing confirmed channel change and System Update flows. The last package upgrade is shown only when a successful snapshot record exists. Check This PC runs eitr check --json only after pressing its button; it shows findings and severity without applying repairs.

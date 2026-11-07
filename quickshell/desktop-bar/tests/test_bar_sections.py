@@ -70,7 +70,7 @@ class ExtractedComponentLoadTests(unittest.TestCase):
         names = ['BarInputMask', 'BarTabs', 'BarIslands', 'BarDynamic', 'DynamicIsland',
                  'BarCenteredOutline', 'BarVerticalPlacement', 'BarHorizontalPlacement',
                  'ControlCenter', 'ControlCenterNavigation', 'ControlCenterConnectivity',
-                 'ControlCenterSliders', 'ControlCenterStyle', 'ControlCenterSettings',
+                 'ControlCenterSliders', 'FamilyWindow', 'FamilySidebar', 'FamilyPageHeader',
                  'ControlCenterTools', 'ControlCenterPower']
         registry = dict(line.split() for line in (BAR / 'qmldir').read_text().splitlines()
                         if len(line.split()) == 2)
@@ -106,12 +106,6 @@ class TerminalAppearanceLayoutTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory)
             copy_runtime(folder)
-            registry = (folder / 'qmldir').read_text()
-            for name, body in [('DesktopStyle', 'function radius(value) { return value; }'),
-                               ('DesktopFonts', 'property string family: "sans-serif"')]:
-                line = next(line for line in registry.splitlines() if line.startswith('singleton '+name+' '))
-                target = folder / line.split()[-1]
-                target.write_text('pragma Singleton\nimport QtQuick\nQtObject { '+body+' }\n')
             choices = {'opacity': [{'value': value, 'label': label} for value, label in
                                   [('solid', 'Solid (100%)'), ('light', 'Light (90%)'), ('medium', 'Medium (80%)'),
                                    ('default', 'Default (75%)'), ('strong', 'Strong (70%)')]],
@@ -127,7 +121,7 @@ import Quickshell
 import "." as Bar
 ShellRoot {
     FloatingWindow {
-        visible: true; implicitWidth: 400; implicitHeight: 620
+        visible: true; implicitWidth: 600; implicitHeight: 360
         Rectangle {
             id: sample; anchors.fill: parent; color: "BACKGROUND"
             QtObject {
@@ -137,12 +131,24 @@ ShellRoot {
                 property var terminalAppearance: ({opacity: "default", padding: "none", blur: "on", "blur-strength": "medium"})
                 property var terminalWriteRef: ({running: false})
             }
+            // The rows Settings > Appearance > Terminal uses for these choices.
             Column {
-                id: rows; x: 20; y: 16; width: 360; spacing: 12
-                Bar.ControlCenterAppearanceChoices { centerRef: center; settingKey: "opacity"; title: "Opacity" }
-                Bar.ControlCenterAppearanceChoices { centerRef: center; settingKey: "padding"; title: "Padding" }
-                Bar.ControlCenterAppearanceChoices { centerRef: center; settingKey: "blur"; title: "Blur" }
-                Bar.ControlCenterAppearanceChoices { centerRef: center; settingKey: "blur-strength"; title: "Blur strength (shared)" }
+                id: rows; x: 20; y: 16; width: 560; spacing: 12
+                Repeater {
+                    model: [["opacity", "Opacity"], ["padding", "Padding"], ["blur-strength", "Blur strength (shared)"]]
+                    Bar.ControlRow {
+                        id: choiceRow
+                        required property var modelData
+                        text: modelData[1]; description: "Terminal appearance"; foreground: center.foreground
+                        Bar.ChoiceLevel {
+                            foreground: center.foreground; accent: "#879dc0"
+                            choices: center.terminalAppearanceChoices[choiceRow.modelData[0]] || []
+                            current: center.terminalAppearance[choiceRow.modelData[0]] || ""
+                            accessibleName: choiceRow.modelData[1]
+                        }
+                    }
+                }
+                Bar.ToggleRow { text: "Blur"; description: "Soften the desktop behind terminal windows."; foreground: center.foreground; accent: "#879dc0"; checked: center.terminalAppearance.blur === "on" }
             }
             Timer {
                 interval: 300; running: true

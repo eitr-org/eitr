@@ -4,7 +4,8 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 const source = fs.readFileSync(path.join(__dirname, '../panels/AppearancePicker.qml'), 'utf8');
-const body = source.split('function search(value) {')[1].split('\n    }')[0];
+const modelSource = fs.readFileSync(path.join(__dirname, '../settings/SettingsAppearanceModel.qml'), 'utf8');
+const body = modelSource.split('function search(value) {')[1].split('\n    }')[0];
 const context = {
     allItems: [{name: 'Asgard'}, {name: 'Afterglow'}, {name: 'Eitr Light'}],
     selectedIndex: 2,
@@ -25,6 +26,6 @@ assert.equal(context.items.length, 0);
 search('');
 assert.equal(context.items.length, 3);
 assert.equal(context.allItems.length, 3);
-assert.ok(source.includes('readonly property bool searchable: mode.startsWith("theme")'));
+assert.ok(modelSource.includes('readonly property bool searchable: mode.startsWith("theme")'));
 assert.ok(source.includes('visible: picker.searchable && picker.searchText.length > 0'));
 console.log('Theme carousel search checks passed');

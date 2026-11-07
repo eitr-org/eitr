@@ -109,6 +109,17 @@
     "submenu": "wallpaper"
   },
   {
+    "text": "Window gaps",
+    "subtext": ">",
+    "keywords": [
+      "windows",
+      "spacing",
+      "gaps"
+    ],
+    "icon": "󰍹",
+    "submenu": "window-gaps"
+  },
+  {
     "text": "Workspaces",
     "subtext": ">",
     "keywords": [

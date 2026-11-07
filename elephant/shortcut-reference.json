@@ -47,6 +47,10 @@
     "command": "eitr-shell desktop-bar ipc call -- catalog toggle"
   },
   {
+    "description": "Settings",
+    "row": "Settings"
+  },
+  {
     "description": "Toggle control center",
     "row": "Desktop Control Center"
   },

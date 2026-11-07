@@ -135,13 +135,15 @@ class FontTests(unittest.TestCase):
             self.assertIn('"window.zoomLevel": 1', settings)
             self.assertIn('gtk-font-name=Example 11', (root / 'gtk-4.0/settings.ini').read_text())
 
-    def test_style_and_system_are_separate_tabs(self):
-        panels = ROOT / 'quickshell/desktop-bar/panels'
-        center = '\n'.join((panels / name).read_text().replace('section.centerRef', 'center')
-                           for name in ('ControlCenterNavigation.qml', 'ControlCenterStyle.qml', 'ControlCenterSettings.qml'))
-        self.assertIn('key: "style"', center)
-        self.assertLess(center.index('visible: center.page === "style"'), center.index('title: Eitr.I18n.tr("Bar")'))
-        self.assertLess(center.index('visible: center.page === "settings"'), center.index('title: Eitr.I18n.tr("Keyboard")'))
+    def test_style_and_system_are_separate_settings_pages(self):
+        # Fonts and keyboard layouts live on separate Settings pages; the Control Center keeps neither.
+        desktop = ROOT / 'quickshell/desktop-bar'
+        index = (desktop / 'settings/SettingsIndex.js').read_text()
+        self.assertLess(index.index('"group": "Devices",\n        "id": "input"'), index.index('"group": "Desktop",\n        "id": "appearance"'))
+        navigation = (desktop / 'panels/ControlCenterNavigation.qml').read_text()
+        self.assertNotIn('key: "style"', navigation)
+        self.assertNotIn('key: "settings"', navigation)
+        self.assertIn('Fonts & Cursor', index)
 
     def test_selection_reloads_kitty_without_terminating_it(self):
         with patch.object(fonts, 'installed', return_value={'Example': set()}), \

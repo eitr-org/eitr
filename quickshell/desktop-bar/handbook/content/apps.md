@@ -205,3 +205,5 @@ process groups; failures retry with backoff. Authoring details are in
 `distro/PLUGINS.md`.
 
 Plugin authors choose their own colors, images, shaders and animation. Theme helpers (`api.palette`, color0–15 and named roles, fonts, sizes, radius and `themeChanged`) are optional. Widgets and panels default to `surface: "none"`; `"panel"` opts into Eitr’s background. Explicit saved widget backgrounds override declarations; otherwise the declaration applies. Control Center keeps its outer page frame, without adding decoration inside the plugin canvas. Panels keep a navigation header unless `header: false`; Back/Escape still work. Tiles default to `look: "eitr"`; `"custom"` draws the whole fixed slot, with only host activation and a focus ring. Bar slots add no hover fill or tint. Relative QML images resolve in the plugin directory. Bounds, centred clock, reviews, capabilities and failure handling remain unchanged. The example demonstrates both tile styles.
+
+Settings > Default apps lists installed MIME handlers and saves your choice with xdg-mime. Terminal shares Eitr’s terminal preference. Settings > Keybinds searches every shortcut in Learn’s reference.

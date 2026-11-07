@@ -19,6 +19,7 @@ Column {
     // The main display holds the bar and stays put; the others are arranged around it.
     property bool isMain: false
     property bool busy: false
+    property var pending: null
     // The setting whose choices are open; one at a time keeps the panel short.
     property string openSetting: ""
     signal tryChange(string key, string value)
@@ -60,7 +61,7 @@ Column {
     }
 
     function toggle(setting) { openSetting = openSetting === setting ? "" : setting; }
-    function choose(key, value) { openSetting = key === "position" ? openSetting : ""; tryChange(key, value); }
+    function choose(key, value) { if (key !== "position") openSetting = ""; tryChange(key, value); }
 
     // Inline components cannot see the editor's id; their colour and state are set where they are used.
     component Caption: Text {
@@ -68,11 +69,7 @@ Column {
         font.family: DesktopFonts.family
         font.pixelSize: PanelStyle.captionSize
     }
-    component Choice: PanelButton {
-        height: 28
-        outlined: true
-        textSize: PanelStyle.captionSize
-    }
+
     component SettingRow: Rectangle {
         id: row
         required property string label
@@ -83,7 +80,7 @@ Column {
         property bool interactive: true
         signal toggled()
         width: parent ? parent.width : 0
-        height: 34
+        height: PanelStyle.selectionRowHeight
         radius: DesktopStyle.radius(PanelStyle.controlRadius)
         color: Qt.alpha(tint, rowMouse.containsMouse ? 0.12 : open ? 0.07 : 0.04)
         Text {
@@ -114,7 +111,7 @@ Column {
     }
 
     Rectangle {
-        width: parent.width; height: 34
+        width: parent.width; height: PanelStyle.selectionRowHeight
         radius: DesktopStyle.radius(PanelStyle.controlRadius)
         color: Qt.alpha(editor.foreground, 0.04)
         Text {
@@ -144,7 +141,7 @@ Column {
         width: parent.width
         spacing: 6
         Rectangle {
-            width: parent.width; height: 34
+            width: parent.width; height: PanelStyle.selectionRowHeight
             radius: DesktopStyle.radius(PanelStyle.controlRadius)
             color: Qt.alpha(editor.foreground, 0.04)
             Text {
@@ -194,102 +191,10 @@ Column {
             }
         }
     }
-    SettingRow {
-        label: Eitr.I18n.tr("Resolution"); value: editor.currentResolution.replace("x", "×")
-        tint: editor.foreground; chevron: editor.accent
-        open: editor.openSetting === "resolution"; onToggled: editor.toggle("resolution")
-    }
-    Flow {
-        id: resolutionFlow
-        visible: editor.openSetting === "resolution"
-        width: parent.width
-        spacing: 6
-        Repeater {
-            model: editor.resolutions
-            Choice {
-                foreground: editor.foreground
-                available: !editor.busy
-                required property string modelData
-                width: (resolutionFlow.width - resolutionFlow.spacing * 2) / 3
-                text: modelData.replace("x", "×")
-                selected: modelData === editor.currentResolution
-                // The new resolution starts at its highest refresh rate.
-                onClicked: if (!selected) editor.choose("mode",
-                    editor.modes.filter(mode => mode.split("@")[0] === modelData)
-                        .sort((first, second) => Number(second.split("@")[1]) - Number(first.split("@")[1]))[0])
-            }
-        }
-    }
-    SettingRow {
-        label: Eitr.I18n.tr("Refresh rate"); value: Eitr.I18n.tr("{rate} Hz", {rate: Math.round(editor.currentRate)})
-        tint: editor.foreground; chevron: editor.accent
-        open: editor.openSetting === "rate"; onToggled: editor.toggle("rate")
-    }
-    Flow {
-        id: rateFlow
-        visible: editor.openSetting === "rate"
-        width: parent.width
-        spacing: 6
-        Repeater {
-            model: editor.rates
-            Choice {
-                foreground: editor.foreground
-                available: !editor.busy
-                required property string modelData
-                width: (rateFlow.width - rateFlow.spacing * 3) / 4
-                text: Eitr.I18n.tr("{rate} Hz", {rate: Math.round(Number(modelData))})
-                selected: Math.abs(Number(modelData) - editor.currentRate) < 0.01
-                onClicked: if (!selected) editor.choose("mode", editor.currentResolution + "@" + modelData)
-            }
-        }
-    }
-    SettingRow {
-        label: Eitr.I18n.tr("Scale"); value: Math.round(Number(editor.monitor.scale || 1) * 100) + "%"
-        tint: editor.foreground; chevron: editor.accent
-        open: editor.openSetting === "scale"; onToggled: editor.toggle("scale")
-    }
-    Row {
-        id: scaleRow
-        visible: editor.openSetting === "scale"
-        width: parent.width
-        spacing: 6
-        Repeater {
-            model: editor.scales
-            Choice {
-                foreground: editor.foreground
-                available: !editor.busy
-                required property string modelData
-                width: (scaleRow.width - scaleRow.spacing * 4) / 5
-                text: Math.round(Number(modelData) * 100) + "%"
-                selected: Math.abs(Number(modelData) - Number(editor.monitor.scale)) < 0.01
-                onClicked: if (!selected) editor.choose("scale", modelData)
-            }
-        }
-    }
-    SettingRow {
-        label: Eitr.I18n.tr("Rotation"); value: editor.rotations.find(choice => choice.value === editor.rotation).label
-        tint: editor.foreground; chevron: editor.accent
-        open: editor.openSetting === "rotation"; onToggled: editor.toggle("rotation")
-    }
-    Grid {
-        id: rotationGrid
-        visible: editor.openSetting === "rotation"
-        width: parent.width
-        columns: 2
-        spacing: 6
-        Repeater {
-            model: editor.rotations
-            Choice {
-                foreground: editor.foreground
-                available: !editor.busy
-                required property var modelData
-                width: (rotationGrid.width - rotationGrid.spacing) / 2
-                text: modelData.label
-                selected: modelData.value === editor.rotation
-                onClicked: if (!selected) editor.choose("rotation", modelData.value)
-            }
-        }
-    }
+    ChoiceDropdown { label: Eitr.I18n.tr("Resolution"); width: parent.width; foreground: editor.foreground; choices: editor.resolutions.map(resolution => ({id: resolution, label: resolution.replace("x", "×")})); current: editor.currentResolution; available: !editor.busy; onChosen: value => editor.choose("mode", editor.modes.filter(mode => mode.split("@")[0] === value).sort((first, second) => Number(second.split("@")[1]) - Number(first.split("@")[1]))[0]) }
+    ChoiceDropdown { label: Eitr.I18n.tr("Refresh rate"); width: parent.width; foreground: editor.foreground; choices: editor.rates.map(rate => ({id: rate, label: Eitr.I18n.tr("{rate} Hz", {rate: Math.round(Number(rate))})})); current: String(editor.rates.find(rate => Math.abs(Number(rate) - editor.currentRate) < 0.01) || ""); available: !editor.busy; onChosen: value => editor.choose("mode", editor.currentResolution + "@" + value) }
+    ChoiceDropdown { label: Eitr.I18n.tr("Scale"); width: parent.width; foreground: editor.foreground; choices: editor.scales.map(scale => ({id: scale, label: Math.round(Number(scale) * 100) + "%"})); current: String(editor.monitor.scale || 1); available: !editor.busy; onChosen: value => editor.choose("scale", value) }
+    ChoiceDropdown { label: Eitr.I18n.tr("Rotation"); width: parent.width; foreground: editor.foreground; choices: editor.rotations; current: editor.rotation; available: !editor.busy; onChosen: value => editor.choose("rotation", value) }
     SettingRow {
         visible: editor.others.length > 0
         label: Eitr.I18n.tr("Position"); value: editor.positionValue
@@ -309,68 +214,11 @@ Column {
                 width: editor.width
                 spacing: 6
                 Caption { color: editor.foreground; text: Eitr.I18n.tr("Beside %1", [neighbour.modelData]) }
-                Row {
-                    id: sideRow
-                    width: parent.width
-                    spacing: 6
-                    Repeater {
-                        model: editor.sides
-                        Choice {
-                            foreground: editor.foreground
-                            available: !editor.busy
-                            required property var modelData
-                            width: (sideRow.width - sideRow.spacing * 3) / 4
-                            text: modelData.label
-                            selected: !!editor.anchor && editor.anchor.of === neighbour.modelData && editor.anchor.side === modelData.key
-                            onClicked: if (!selected) editor.choose("position", modelData.key + ":" + neighbour.modelData
-                                + ":" + (editor.anchor ? editor.anchor.align : "start"))
-                        }
-                    }
-                }
+                ChoiceSegmented { width: parent.width; foreground: editor.foreground; choices: editor.sides; current: editor.anchor && editor.anchor.of === neighbour.modelData ? editor.anchor.side : ""; available: !editor.busy; onChosen: value => editor.choose("position", value + ":" + neighbour.modelData + ":" + (editor.anchor ? editor.anchor.align : "start")) }
             }
         }
         Caption { color: editor.foreground; visible: !!editor.anchor; text: Eitr.I18n.tr("Align with %1", [editor.anchor ? editor.anchor.of : ""]) }
-        Row {
-            id: alignRow
-            visible: !!editor.anchor
-            width: parent.width
-            spacing: 6
-            Repeater {
-                model: editor.aligns
-                Choice {
-                    foreground: editor.foreground
-                    available: !editor.busy
-                    required property var modelData
-                    width: (alignRow.width - alignRow.spacing * 2) / 3
-                    text: modelData.label
-                    selected: !!editor.anchor && editor.anchor.align === modelData.key
-                    onClicked: if (!selected) editor.choose("position", editor.anchor.side + ":" + editor.anchor.of + ":" + modelData.key)
-                }
-            }
-        }
+        ChoiceSegmented { visible: !!editor.anchor; width: parent.width; foreground: editor.foreground; choices: editor.aligns; current: editor.anchor ? editor.anchor.align : ""; available: !editor.busy; onChosen: value => editor.choose("position", editor.anchor.side + ":" + editor.anchor.of + ":" + value) }
     }
-    SettingRow {
-        visible: editor.others.length > 0
-        label: Eitr.I18n.tr("Mirror"); value: editor.monitor.mirror || Eitr.I18n.tr("Off")
-        tint: editor.foreground; chevron: editor.accent
-        open: editor.openSetting === "mirror"; onToggled: editor.toggle("mirror")
-    }
-    Flow {
-        id: mirrorFlow
-        visible: editor.openSetting === "mirror" && editor.others.length > 0
-        width: parent.width
-        spacing: 6
-        Repeater {
-            model: ["none"].concat(editor.others)
-            Choice {
-                foreground: editor.foreground
-                available: !editor.busy
-                required property string modelData
-                width: (mirrorFlow.width - mirrorFlow.spacing * 2) / 3
-                text: modelData === "none" ? Eitr.I18n.tr("Off") : modelData
-                selected: (editor.monitor.mirror || "none") === modelData
-                onClicked: if (!selected) editor.choose("mirror", modelData)
-            }
-        }
-    }
+    ChoiceDropdown { visible: editor.others.length > 0; label: Eitr.I18n.tr("Mirror"); width: parent.width; foreground: editor.foreground; choices: [{id: "none", label: Eitr.I18n.tr("Off")}].concat(editor.others.map(name => ({id: name, label: name}))); current: editor.monitor.mirror || "none"; available: !editor.busy; onChosen: value => editor.choose("mirror", value) }
 }

@@ -28,3 +28,5 @@ Clique no equalizador animado para ver capa, título e artista, controlar anteri
 As notificações têm um brilho interno suave na cor de destaque do tema. As críticas usam o vermelho do tema; as de baixa prioridade ficam discretas, sem brilho. Não perturbe oculta os popups sem apagar o histórico. O histórico permanece na memória durante recargas da configuração, mas não ao reiniciar o processo. O conteúdo das notificações não é salvo em logs.
 
 A retenção de miniaturas usa um orçamento de 32 MiB e decodifica imagens com até 160×120. As imagens ocultas mais antigas são liberadas primeiro; o texto permanece no histórico. Imagens em popups ou na central aberta permanecem retidas até serem ocultadas, mesmo que isso exceda temporariamente o orçamento.
+
+Configurações > Sobre mostra versão, codinome, canal, hardware, kernel e licença, com links para site, repositório e Manual.
