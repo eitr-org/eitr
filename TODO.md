@@ -140,6 +140,13 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
   rebuilding a Repeater (`QQuickItem::polish` from `QQuickRepeater::setModel`), not
   reproduced since; and the binding loops a hotplug logs in DisplayService `snapshot`
   and DisplaySettingsEditor `width`.
+- **Split the large files marked "To improve".** Nine older files hold several jobs at
+  once (listed with their reasons in `tools/file-size-baseline.json`): `eitr-system.py`
+  by area behind the same CLI, the Themes & Plugins content (cards, sheets, Git
+  address flow), software installs, Git Accounts (model vs apply/CLI), calendars and
+  reminders (parsing vs scheduling), OBS control, own-style import, and the Display
+  panel (display list, night light, power). One at a time, when it is next worked on;
+  no behaviour change.
 - **Move expensive work off the UI thread selectively.** Profile interactions
   first, then move demonstrated image-processing, audio-analysis or other costly
   work into bounded asynchronous workers. Keep results tied to the current

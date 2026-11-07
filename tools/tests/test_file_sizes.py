@@ -15,6 +15,8 @@ PATTERNS = ("*.qml", "*.js", "*.py", "*.lua", "*.sh")
 # Files written by generators from their own sources.
 GENERATED = {"quickshell/Eitr/Catalogs.js", "quickshell/desktop-bar/ChoiceLists.js",
              "distro/lib/eitr_choice_lists.py", "elephant/choice-lists.lua"}
+# Translation tables written by tools/i18n-build.py.
+GENERATED_FOLDERS = ("i18n/",)
 
 
 def source_files():
@@ -23,7 +25,7 @@ def source_files():
     for name in listed:
         path = ROOT / name
         # Test runs leave tmp* folders in the checkout while they run.
-        if ("/tests/" in name or name.startswith(("website/", "tmp")) or name in GENERATED
+        if ("/tests/" in name or name.startswith(("website/", "tmp", *GENERATED_FOLDERS)) or name in GENERATED
                 or not path.is_file()):
             continue
         yield name, sum(1 for _ in path.open(errors="ignore"))
