@@ -24,14 +24,36 @@ Flickable {
     property var accountPicture: (DesktopData.topics["account.picture"] || {}).data || ({})
     property var hardware: (DesktopData.topics["hardware.details"] || {}).data || ({})
     property var updates: DesktopData.topics["updates.status"] || ({})
-    property bool editingPicture: false
-    onEditingPictureChanged: if (editingPicture)
-        profileContext.page = "picture"
     function dismiss() {
-        if (!editingPicture)
+        if (!pictureSheet.opened)
             return false;
-        editingPicture = false;
+        profileEditor.cancel();
         return true;
+    }
+    // Change picture: the desktop portal's file chooser (xdg-desktop-portal-gtk), then the
+    // crop editor in a sheet over the window. The chooser waits for the person, so it runs
+    // here rather than under the data broker's action deadline.
+    function choosePicture() {
+        if (!live || chooser.running || profileEditor.busy)
+            return;
+        profileEditor.error = "";
+        chooser.running = true;
+    }
+    function pictureChosen(path) {
+        pictureSheet.open();
+        profileEditor.edit(path);
+    }
+    Process {
+        id: chooser
+        objectName: "settings-picture-chooser"
+        command: ["python3", Eitr.Paths.code("distro/lib/eitr_avatar.py"), "choose", Eitr.I18n.tr("Choose a picture")]
+        stdout: StdioCollector { id: chooserOutput }
+        onExited: function(code) {
+            let reply = null;
+            try { reply = JSON.parse(chooserOutput.text); } catch (error) { reply = null; }
+            if (!reply || !reply.ok) profileEditor.error = reply && reply.error ? reply.error : Eitr.I18n.tr("The file chooser is not available");
+            else if (reply.result && reply.result.path) view.pictureChosen(reply.result.path);
+        }
     }
     Timer {
         interval: 120000
@@ -69,7 +91,8 @@ Flickable {
         };
         contentY = 0;
         query.text = "";
-        editingPicture = false;
+        if (pictureSheet.opened)
+            profileEditor.cancel();
         Qt.callLater(demand);
     }
     Component.onDestruction: DesktopData.releaseOwner(view)
@@ -238,36 +261,90 @@ Flickable {
             visible: view.page === "user"
             width: parent.width
             spacing: 12
-            Eitr.Avatar {
-                width: 80
-                height: 80
-                source: view.accountPicture.path ? "file://" + view.accountPicture.path : ""
-                initial: view.accountPicture.initial || ""
-                accent: view.accent
-                background: view.background
+            Row {
+                spacing: 18
+                Eitr.Avatar {
+                    objectName: "settings-user-avatar"
+                    size: 80
+                    source: view.accountPicture.path ? "file://" + view.accountPicture.path + "?v=" + (view.accountPicture.version || 0) : ""
+                    initial: view.accountPicture.initial || ""
+                    accent: view.accent
+                    background: view.background
+                }
+                Column {
+                    anchors.verticalCenter: parent.verticalCenter
+                    spacing: 10
+                    Label {
+                        text: view.accountPicture.name || Eitr.I18n.tr("Unavailable")
+                        font.pixelSize: PanelStyle.headingSize
+                    }
+                    Row {
+                        spacing: 8
+                        PanelButton {
+                            objectName: "settings-change-picture"
+                            width: 150
+                            foreground: view.foreground
+                            text: Eitr.I18n.tr("Change picture")
+                            loading: chooser.running
+                            available: !profileEditor.busy
+                            onClicked: view.choosePicture()
+                        }
+                        PanelButton {
+                            objectName: "settings-remove-picture"
+                            width: 110
+                            visible: !!view.accountPicture.path
+                            foreground: view.foreground
+                            text: Eitr.I18n.tr("Remove")
+                            available: !profileEditor.busy && !chooser.running
+                            onClicked: profileEditor.remove()
+                        }
+                    }
+                    Label {
+                        visible: !pictureSheet.opened && profileEditor.error !== ""
+                        text: profileEditor.error
+                    }
+                }
             }
-            Label {
-                text: view.accountPicture.name || Eitr.I18n.tr("Unavailable")
+        }
+        // The crop editor, centred over the whole Settings window.
+        Popup {
+            id: pictureSheet
+            objectName: "settings-picture-sheet"
+            parent: Overlay.overlay
+            anchors.centerIn: parent
+            width: 300
+            padding: 24
+            modal: true
+            dim: true
+            focus: true
+            closePolicy: Popup.NoAutoClose
+            onOpened: profileEditor.forceActiveFocus()
+            Overlay.modal: Rectangle { color: Qt.alpha("black", 0.45) }
+            background: Rectangle {
+                radius: DesktopStyle.radius(12)
+                color: Qt.rgba(view.background.r, view.background.g, view.background.b, 1)
+                border.width: 1
+                border.color: Qt.alpha(SettingsInk.gold, 0.4)
             }
-            PanelButton {
-                width: 200
-                foreground: view.foreground
-                text: Eitr.I18n.tr("Profile picture")
-                onClicked: view.editingPicture = !view.editingPicture
-            }
-            ProfilePicture {
-                objectName: "settings-profile-picture"
-                width: parent.width
-                visible: view.editingPicture
-                centerRef: QtObject {
-                    id: profileContext
-                    property var accountPicture: view.accountPicture
-                    property color foreground: view.foreground
-                    property color background: view.background
-                    property color accent: view.accent
-                    property string page: "user"
-                    onPageChanged: if (page === "general")
-                        view.editingPicture = false
+            contentItem: Column {
+                spacing: 16
+                Text {
+                    width: parent.width
+                    horizontalAlignment: Text.AlignHCenter
+                    text: Eitr.I18n.tr("Profile picture")
+                    color: view.foreground
+                    font.family: SiteStyle.carved
+                    font.pixelSize: PanelStyle.headingSize
+                }
+                ProfilePicture {
+                    id: profileEditor
+                    objectName: "settings-profile-picture"
+                    width: parent.width
+                    account: view.accountPicture
+                    foreground: view.foreground
+                    background: view.background
+                    accent: view.accent
+                    onFinished: pictureSheet.close()
                 }
             }
         }

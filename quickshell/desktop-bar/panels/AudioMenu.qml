@@ -32,8 +32,22 @@ ThemedPopup {
         })
         Component.onCompleted: nodes = availableNodes
         property PwNode currentNode: microphone ? Pipewire.defaultAudioSource : Pipewire.defaultAudioSink
-        property bool picking: false
-        onActiveChanged: if (!active) picking = false
+        property PwNode renaming: null
+        onActiveChanged: if (!active) { picker.expanded = false; renaming = null; }
+        function deviceFor(value) { return devices.find(node => String(node.id) === value) || null; }
+        function startRename(node) {
+            if (!node) return;
+            renaming = node;
+            nameInput.text = AudioDevices.label(node);
+            nameInput.forceActiveFocus();
+            nameInput.selectAll();
+        }
+        function finishRename(save) {
+            const node = renaming;
+            renaming = null;
+            if (save && node) AudioDevices.rename(node, nameInput.text);
+            picker.forceActiveFocus();
+        }
         readonly property var devices: nodes.filter(node => node.audio && !node.isStream && node.isSink !== microphone)
         readonly property var streams: microphone ? [] : nodes.filter(node => node.type === PwNodeType.AudioOutStream)
         spacing: 12
@@ -68,153 +82,69 @@ ThemedPopup {
             height: 8
             foreground: section.foreground
         }
-        // The current device, as a compact picker: the full list unfolds on click.
-        Rectangle {
+        // The current device; the other devices float over the panel on click, each with Rename.
+        ChoiceDropdown {
             id: picker
+            visible: section.renaming === null
+            width: parent.width
+            foreground: section.foreground; background: section.background; gold: section.accent
+            accessibleName: section.microphone ? Eitr.I18n.tr("Input device") : Eitr.I18n.tr("Output device")
+            placeholder: Eitr.I18n.tr("No device available")
+            choices: section.devices.map(node => ({value: String(node.id), label: AudioDevices.label(node), glyph: AudioDevices.glyph(node, section.microphone)}))
+            current: section.currentNode ? String(section.currentNode.id) : ""
+            actionGlyph: "\u{F03EB}"; actionName: Eitr.I18n.tr("Rename")
+            onChosen: value => {
+                const node = section.deviceFor(value);
+                if (!node) return;
+                if (section.microphone) Pipewire.preferredDefaultAudioSource = node;
+                else Pipewire.preferredDefaultAudioSink = node;
+            }
+            onActionTriggered: value => section.startRename(section.deviceFor(value))
+        }
+        // Renaming replaces the picker row with a text field: Enter saves, Escape cancels.
+        Rectangle {
+            visible: section.renaming !== null
             width: parent.width
             height: PanelStyle.selectionRowHeight
             radius: DesktopStyle.radius(PanelStyle.controlRadius)
-            color: Qt.alpha(section.foreground, PanelStyle.selectionAlpha(false, pickerMouse.containsMouse || picker.activeFocus))
-            border.width: PanelStyle.selectionBorderWidth(false)
+            color: Qt.alpha(section.foreground, PanelStyle.selectionAlpha(true, false))
+            border.width: PanelStyle.selectionBorderWidth(true)
             border.color: Qt.alpha(section.foreground, PanelStyle.selectionBorderAlpha)
-            activeFocusOnTab: true
-            Accessible.role: Accessible.Button
-            Accessible.name: section.microphone ? Eitr.I18n.tr("Input device") : Eitr.I18n.tr("Output device")
-            Keys.onPressed: function(event) {
-                if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter || event.key === Qt.Key_Space) { section.picking = !section.picking; event.accepted = true; }
-            }
             Text {
                 width: PanelStyle.selectionTextInset
                 anchors.verticalCenter: parent.verticalCenter
                 horizontalAlignment: Text.AlignHCenter
-                text: AudioDevices.glyph(section.currentNode, section.microphone)
+                text: AudioDevices.glyph(section.renaming, section.microphone)
                 color: section.foreground
                 font.family: DesktopFonts.family
                 font.pixelSize: PanelStyle.selectionIconSize
             }
-            Text {
+            TextInput {
+                id: nameInput
+                objectName: "audioDeviceName"
                 x: PanelStyle.selectionTextInset
-                width: parent.width - x - 32
+                width: parent.width - x - PanelStyle.selectionActionWidth - 2 * PanelStyle.selectionActionInset
                 anchors.verticalCenter: parent.verticalCenter
-                text: section.currentNode ? AudioDevices.label(section.currentNode) : Eitr.I18n.tr("No device available")
-                elide: Text.ElideRight
                 color: section.foreground
+                selectionColor: Qt.alpha(section.accent, 0.4)
                 font.family: DesktopFonts.family
                 font.pixelSize: PanelStyle.bodySize
+                clip: true
+                Accessible.name: Eitr.I18n.tr("Rename")
+                Keys.onReturnPressed: section.finishRename(true)
+                Keys.onEnterPressed: section.finishRename(true)
+                Keys.onEscapePressed: function(event) { section.finishRename(false); event.accepted = true; }
+                onActiveFocusChanged: if (!activeFocus && section.renaming !== null) section.finishRename(true)
             }
-            Text {
-                anchors.right: parent.right
-                anchors.rightMargin: PanelStyle.selectionInset
-                anchors.verticalCenter: parent.verticalCenter
-                visible: section.devices.length > 1 || section.picking
-                text: section.picking ? "\u{F0143}" : "\u{F0140}"
-                color: section.foreground
-                opacity: PanelStyle.secondaryTextOpacity
-                font.family: DesktopFonts.family
-                font.pixelSize: 16
-            }
-            MouseArea {
-                id: pickerMouse
-                anchors.fill: parent
-                hoverEnabled: true
-                cursorShape: Qt.PointingHandCursor
-                onClicked: section.picking = !section.picking
-            }
-        }
-        Column {
-            visible: section.picking
-            width: parent.width
-            spacing: PanelStyle.selectionRowGap
-            Repeater {
-                model: section.devices
-                Rectangle {
-                    id: device
-                    required property PwNode modelData
-                    readonly property bool current: section.currentNode === modelData
-                    property bool editing: false
-                    width: section.width
-                    height: PanelStyle.selectionRowHeight
-                    radius: DesktopStyle.radius(PanelStyle.controlRadius)
-                    color: Qt.alpha(section.foreground, PanelStyle.selectionAlpha(current, deviceMouse.containsMouse))
-                    border.width: PanelStyle.selectionBorderWidth(current)
-                    border.color: Qt.alpha(section.foreground, PanelStyle.selectionBorderAlpha)
-                    function finishRename(save) {
-                        if (save) AudioDevices.rename(device.modelData, nameInput.text);
-                        editing = false;
-                    }
-                    Text {
-                        width: PanelStyle.selectionTextInset
-                        anchors.verticalCenter: parent.verticalCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        text: device.current ? "\u{F012C}" : AudioDevices.glyph(device.modelData, section.microphone)
-                        color: device.current ? section.accent : section.foreground
-                        font.family: DesktopFonts.family
-                        font.pixelSize: PanelStyle.selectionIconSize
-                    }
-                    Text {
-                        visible: !device.editing
-                        x: PanelStyle.selectionTextInset
-                        width: parent.width - x - PanelStyle.selectionActionWidth - 2 * PanelStyle.selectionActionInset
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: AudioDevices.label(device.modelData)
-                        elide: Text.ElideRight
-                        color: section.foreground
-                        font.family: DesktopFonts.family
-                        font.pixelSize: PanelStyle.bodySize
-                    }
-                    TextInput {
-                        id: nameInput
-                        visible: device.editing
-                        x: PanelStyle.selectionTextInset
-                        width: parent.width - x - PanelStyle.selectionActionWidth - 2 * PanelStyle.selectionActionInset
-                        anchors.verticalCenter: parent.verticalCenter
-                        color: section.foreground
-                        selectionColor: Qt.alpha(section.accent, 0.4)
-                        font.family: DesktopFonts.family
-                        font.pixelSize: PanelStyle.bodySize
-                        clip: true
-                        Keys.onReturnPressed: device.finishRename(true)
-                        Keys.onEnterPressed: device.finishRename(true)
-                        Keys.onEscapePressed: function(event) { device.finishRename(false); event.accepted = true; }
-                        onActiveFocusChanged: if (!activeFocus && device.editing) device.finishRename(true)
-                    }
-                    MouseArea {
-                        id: deviceMouse
-                        anchors.fill: parent
-                        enabled: !device.editing
-                        hoverEnabled: true
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: {
-                            if (section.microphone) Pipewire.preferredDefaultAudioSource = device.modelData;
-                            else Pipewire.preferredDefaultAudioSink = device.modelData;
-                            section.picking = false;
-                        }
-                    }
-                    PanelButton {
-                        id: renameButton
-                        anchors.right: parent.right; anchors.rightMargin: PanelStyle.selectionActionInset; anchors.verticalCenter: parent.verticalCenter
-                        width: PanelStyle.selectionActionWidth; height: PanelStyle.selectionActionHeight
-                        visible: deviceMouse.containsMouse || renameHover.hovered || device.editing
-                        icon: true; text: device.editing ? "\u{F012C}" : "\u{F03EB}"; iconSize: 14; foreground: section.foreground
-                        Accessible.name: Eitr.I18n.tr("Rename")
-                        onClicked: {
-                            if (device.editing) { device.finishRename(true); return; }
-                            nameInput.text = AudioDevices.label(device.modelData);
-                            device.editing = true;
-                            nameInput.forceActiveFocus();
-                            nameInput.selectAll();
-                        }
-                        HoverHandler { id: renameHover }
-                        BarTooltip { target: renameButton; hovered: renameHover.hovered; text: device.editing ? Eitr.I18n.tr("Save") : Eitr.I18n.tr("Rename"); foreground: section.foreground; background: section.background }
-                    }
-                }
-            }
-            Text {
-                visible: section.devices.length === 0
-                text: Eitr.I18n.tr("No devices available")
-                color: section.foreground
-                font.family: DesktopFonts.family
-                font.pixelSize: PanelStyle.bodySize
+            PanelButton {
+                id: saveName
+                anchors.right: parent.right; anchors.rightMargin: PanelStyle.selectionActionInset; anchors.verticalCenter: parent.verticalCenter
+                width: PanelStyle.selectionActionWidth; height: PanelStyle.selectionActionHeight
+                icon: true; text: "\u{F012C}"; iconSize: 14; foreground: section.foreground
+                Accessible.name: Eitr.I18n.tr("Save")
+                onClicked: section.finishRename(true)
+                HoverHandler { id: saveHover }
+                BarTooltip { target: saveName; hovered: saveHover.hovered; text: Eitr.I18n.tr("Save"); foreground: section.foreground; background: section.background }
             }
         }
         PanelDivider {

@@ -21,8 +21,22 @@ class SharedChoicesTests(unittest.TestCase):
             self.assertNotIn('SettingsPalette.', source)
             self.assertNotIn('SettingsInk.', source)
         dropdown = (BAR / 'components/ChoiceDropdown.qml').read_text()
-        self.assertNotIn('Popup {', dropdown)
-        self.assertIn('Math.min(contentHeight, control.maximumListHeight)', dropdown)
+        # The list floats in the window's overlay, inside a bar panel's own surface, and
+        # never resizes its host; every inline selector uses this one dropdown.
+        for contract in ('Popup {', 'Popup.CloseOnPressOutsideParent', 'item.embedded === false',
+                         'control.Window.contentItem', 'implicitHeight: button.height', 'upward = below < wanted'):
+            self.assertIn(contract, dropdown)
+        self.assertNotIn('visible: control.expanded', dropdown)
+        call_sites = {'panels/AudioMenu.qml': 1, 'panels/DisplaySettingsEditor.qml': 5, 'panels/RecordingMenu.qml': 1,
+                      'settings/SettingsDesktopPage.qml': 6, 'settings/SettingsSystemPage.qml': 1, 'settings/SettingsInputPage.qml': 1}
+        for path, count in call_sites.items():
+            with self.subTest(call_site=path):
+                self.assertEqual((BAR / path).read_text().count('ChoiceDropdown {'), count)
+        audio = (BAR / 'panels/AudioMenu.qml').read_text()
+        self.assertNotIn('picking', audio)
+        self.assertIn('onActionTriggered: value => section.startRename(section.deviceFor(value))', audio)
+        keyboard = (BAR / 'settings/SettingsInputPage.qml').read_text()
+        self.assertNotIn('adding', keyboard)
         panel = (BAR / 'panels/BrightnessMenu.qml').read_text()
         for contract in ('MonitorMap {', 'settings: menu.displaySettings.monitors',
                          'pending: menu.pendingMonitor', 'menu.settingsFor = name'):

@@ -61,6 +61,6 @@ The new home contains no files from your account. At its first Hyprland login th
 
 ## Profile pictures
 
-Settings > Security > Users > Profile Picture opens the round picture shown in the Control Center, on the lockscreen and on the login screen; see [Control Center](handbook:control-center) for the crop editor and what Eitr stores.
+Walker’s Settings > Security > Users > Profile Picture opens Settings > User, where you change the round picture shown in the Control Center, on the lockscreen and on the login screen; see [Control Center](handbook:control-center) for the file chooser, the crop editor and what Eitr stores.
 
-Settings > User reuses the profile-picture crop editor and shows your display name. Settings > Security opens the existing security flows, preserving password prompts, typed confirmations and root boundaries.
+Settings > User shows your picture and display name, with Change picture and Remove. Settings > Security opens the existing security flows, preserving password prompts, typed confirmations and root boundaries.

@@ -36,6 +36,6 @@ La carpeta personal nueva no contiene archivos de tu cuenta. En el primer inicio
 
 ## Fotos de perfil
 
-Ajustes > Seguridad > Usuarios > Foto de perfil abre la foto redonda que aparece en el Centro de control, el bloqueo y el inicio de sesión; el editor de recorte y lo que guarda Eitr se explican en [Centro de control](handbook:control-center).
+Ajustes > Seguridad > Usuarios > Foto de perfil, en Walker, abre Configuración > Usuario, donde cambias la foto redonda que aparece en el Centro de control, el bloqueo y el inicio de sesión; el selector de archivos, el editor de recorte y lo que guarda Eitr se explican en [Centro de control](handbook:control-center).
 
-Configuración > Usuario reutiliza el editor de foto y muestra el nombre. Seguridad abre los flujos existentes con contraseñas, confirmaciones escritas y límites de administrador.
+Configuración > Usuario muestra tu foto y tu nombre, con Cambiar foto y Quitar. Seguridad abre los flujos existentes con contraseñas, confirmaciones escritas y límites de administrador.

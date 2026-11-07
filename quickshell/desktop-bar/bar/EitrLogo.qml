@@ -8,6 +8,7 @@ Item {
     required property color foreground
     required property color background
     property int slotWidth: 24
+    property int iconSize: 22
     signal clicked()
     width: slotWidth
     height: 24
@@ -19,7 +20,7 @@ Item {
         background: null
         display: AbstractButton.IconOnly
         icon.source: "../assets/eitr-logo-white.svg"
-        icon.width: 22; icon.height: 22
+        icon.width: logo.iconSize; icon.height: logo.iconSize
         icon.color: logo.foreground
         hoverEnabled: true
         onClicked: logo.clicked()

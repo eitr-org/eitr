@@ -22,10 +22,6 @@ Flickable {
     boundsBehavior: Flickable.StopAtBounds
     onPageChanged: contentY = 0
     function dismiss() {
-        if (page === "input" && inputContent.adding) {
-            inputContent.adding = false;
-            return true;
-        }
         if (page === "connections" && wifiSlot.item && wifiSlot.item.escapeHandler)
             return wifiSlot.item.escapeHandler();
         return false;

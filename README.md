@@ -68,8 +68,8 @@ account state are never part of the installation.
 
 `eitr` lists the available terminal commands; `eitr version` prints the release,
 `eitr picture` shows your picture status; `eitr picture set FILE` saves a centred crop and
-`eitr picture remove` clears it. The round avatar at the top of Control Center opens
-the crop editor (also Settings > Security > Users > Profile Picture).
+`eitr picture remove` clears it. Settings > User changes it through the system file
+chooser and a crop editor (the avatar on Settings' System overview opens that page).
 
 `eitr about` opens or focuses the About window, and `eitr matrix` rains runes in
 the theme's colours until a key is pressed (Walker > Tools > Rune Rain).

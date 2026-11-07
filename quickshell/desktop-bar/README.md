@@ -71,8 +71,9 @@ only while that panel is open; no audio is written to disk. The meter follows th
 shared panel theme and shows zero when the selected microphone is muted.
 Devices show readable names (`AudioNames.js` turns "GA104 High Definition Audio
 Controller Digital Stereo (HDMI) [34GL750]" into "34GL750") with a type glyph. The
-current device is a compact picker that unfolds the list; a device's pencil button
-renames it, saved by PipeWire node name in the machine-local `eitr/audio-names.json`.
+current device is a `ChoiceDropdown` whose list floats over the panel; a row's pencil
+button turns the picker row into a name field (Enter saves, Escape cancels), saved by
+PipeWire node name in the machine-local `eitr/audio-names.json`.
 
 The desktop bar and its native popups follow the current theme. Shared selectable
 rows are 36 px tall with 24 px inset action buttons and 4 px edge insets. WiFi
@@ -1178,14 +1179,20 @@ render Settings with dark and light theme fixtures and no live services.
 
 ### Profile pictures
 
-Control Center’s round navigation avatar opens the Profile Picture sheet, also
-available through `panels show picture`. Choose Picture… browses folders inside the
-sheet (starting in the XDG Pictures folder, folders first, at most 500 of each),
-so no separate window takes focus from the panel. Drag or use arrow keys to move;
-wheel, slider and +/− zoom from 1× to 4×. Enter saves; Escape or Cancel discards
-the pending crop. The shared `Eitr.Avatar` draws a circular image or an accent-filled
-initial; lockscreen designs set `showInitial: false` and show nothing without a picture. `account.picture` reads on observation and after actions, without a timer.
-The lazy account domain uses `distro/lib/eitr_avatar.py`; browse/preview/save/remove
+Settings > User shows the avatar, the name and **Change picture** (plus **Remove** when a
+picture exists); the Settings System overview's avatar opens that page, as do
+`panels show picture`, `settings show user` and Walker's Users > Profile Picture.
+Change picture runs `eitr_avatar.py choose`, which asks the desktop portal's file chooser
+(`org.freedesktop.portal.FileChooser`, served by xdg-desktop-portal-gtk) for one image and
+waits for the person without a deadline, so it runs from Settings rather than the data
+broker. The chosen file opens in `panels/ProfilePicture.qml`, the one crop editor, shown
+as a modal sheet centred over the Settings window: drag or use arrow keys to move; wheel,
+slider and +/− zoom from 1× to 4×. Enter saves; Escape or Cancel discards the pending crop.
+Control Center's navigation shows the picture for display only (no button, hover or
+tooltip) and shows nothing when there is none. The shared `Eitr.Avatar` draws a circular
+image or an accent-filled initial; the Control Center and lockscreen designs set
+`showInitial: false`. `account.picture` reads on observation and after actions, without a timer.
+The lazy account domain uses `distro/lib/eitr_avatar.py`; preview/save/remove
 actions run as bounded helpers (25 seconds each), are killed and reaped on timeout, and
 are never replayed. Failures retain `.face` when AccountsService cannot update SDDM.
 Snapshots carry the file mtime so replacing the image reloads the navigation avatar.
@@ -1198,8 +1205,14 @@ keep Settings’ palette independent of panel colours. Carved labels are opt-in.
 `BarPreview`, `PositionPreview`, `AppearancePreview`, `MediaPreview`, `GapsPreview`,
 `CornersPreview`, `LockscreenPreview` and `PalettePreview` draw reusable examples;
 workspace pictures reuse `WorkspaceMarker`. Compact picture cards wrap at panel width.
-Dropdown lists expand inline, with bounded scrolling and keyboard selection, so
-layer-shell hosts need no popup outside their surface.
+`ChoiceDropdown` is the one selector for a list of choices: Settings pages, the Display
+editor, the OBS scene, the Audio panel's output and input devices (with a per-row Rename
+action) and Settings > Input's Add Layout. Its list is a `Popup` in the window's overlay,
+directly under the row at the row's width, scrolling past eight rows and opening upward
+when there is more room above; opening it never resizes its card or panel. Inside a bar
+panel it stays within that panel's surface, the only part of the layer-shell window that
+takes input; elsewhere (Settings, panels embedded there) it stays within the window.
+Outside clicks, Escape and choosing close it; Up/Down/Enter work from the row.
 
 `MonitorMap` shares `MonitorGeometry.js` between Displays and the Display editor.
 `DisplayService.topology` supplies coordinates, models and the primary output;

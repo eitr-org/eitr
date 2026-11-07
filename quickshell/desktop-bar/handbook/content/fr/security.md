@@ -36,6 +36,6 @@ Le nouveau dossier personnel ne contient aucun fichier de votre compte. À la pr
 
 ## Photos de profil
 
-Paramètres > Sécurité > Utilisateurs > Photo de profil ouvre la photo ronde affichée dans le Centre de contrôle, au verrouillage et à la connexion ; l’éditeur de cadrage et ce qu’Eitr enregistre sont décrits dans [Centre de contrôle](handbook:control-center).
+Dans Walker, Paramètres > Sécurité > Utilisateurs > Photo de profil ouvre Paramètres > Utilisateur, où vous changez la photo ronde affichée dans le Centre de contrôle, au verrouillage et à la connexion ; le sélecteur de fichiers, l’éditeur de cadrage et ce qu’Eitr enregistre sont décrits dans [Centre de contrôle](handbook:control-center).
 
-Paramètres > Utilisateur reprend l’éditeur de photo et affiche le nom. Sécurité ouvre les parcours existants en conservant mots de passe, confirmations saisies et limites administrateur.
+Paramètres > Utilisateur affiche votre photo et votre nom, avec Changer la photo et Supprimer. Sécurité ouvre les parcours existants en conservant mots de passe, confirmations saisies et limites administrateur.

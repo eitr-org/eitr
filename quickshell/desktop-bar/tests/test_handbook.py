@@ -51,7 +51,10 @@ class HandbookTests(unittest.TestCase):
         self.assertNotIn("Process {", source)
         self.assertNotIn("XMLHttpRequest", source)
         self.assertIn("FamilySidebar {", source)
-        self.assertIn("EitrLogo {", (ROOT / "quickshell/desktop-bar/settings/FamilySidebar.qml").read_text())
+        sidebar = (ROOT / "quickshell/desktop-bar/settings/FamilySidebar.qml").read_text()
+        self.assertIn("EitrLogo {", sidebar)
+        # The header logo matches the height of the EITR title and subtitle lines.
+        self.assertIn("iconSize: 42", sidebar)
         self.assertIn("Model.articleBlocks(book.chapter)", source)
         self.assertIn("Model.sidebarEntries(book.chapters, book.filtered", source)
         self.assertIn("enabled: book.opened", source)

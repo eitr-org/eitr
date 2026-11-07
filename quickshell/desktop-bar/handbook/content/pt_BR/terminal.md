@@ -160,4 +160,4 @@ Trocas de tema atualizam as preferências geradas de VS Code e LazyVim. Sessões
 
 ## Fotos de perfil
 
-`eitr picture` ou `eitr picture show` mostra o estado como JSON. `eitr picture set FILE` salva o maior quadrado centralizado; `eitr picture remove` remove a foto. Use o Centro de Controle para ajustar o recorte.
+`eitr picture` ou `eitr picture show` mostra o estado como JSON. `eitr picture set FILE` salva o maior quadrado centralizado; `eitr picture remove` remove a foto. Use Configurações > Usuário para ajustar o recorte.

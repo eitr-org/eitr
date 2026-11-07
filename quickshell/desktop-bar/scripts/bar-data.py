@@ -604,8 +604,6 @@ class Broker:
             args = frame["args"]
             if frame["name"] in ("save", "preview"):
                 command.append(args["source"])
-            if frame["name"] == "browse" and args.get("folder"):
-                command.append(args["folder"])
             if frame["name"] == "save" and "size" in args:
                 command.extend(str(args[key]) for key in ("x", "y", "size"))
             process = await asyncio.create_subprocess_exec(*command, stdout=asyncio.subprocess.PIPE,
@@ -723,10 +721,8 @@ class Broker:
             return
         if operation == "action" and topic == "account":
             args, name = frame.get("args"), frame.get("name")
-            if not request or request in self.query_history or not isinstance(args, dict) or name not in ("browse", "preview", "save", "remove"):
+            if not request or request in self.query_history or not isinstance(args, dict) or name not in ("preview", "save", "remove"):
                 raise ValueError("invalid-action")
-            if name == "browse" and not isinstance(args.get("folder", ""), str):
-                raise ValueError("invalid-folder")
             if name in ("save", "preview") and (not isinstance(args.get("source"), str) or
                     any(type(args.get(key)) not in (int, float) or not math.isfinite(args[key]) for key in ("x", "y", "size") if "size" in args)):
                 raise ValueError("invalid-crop")

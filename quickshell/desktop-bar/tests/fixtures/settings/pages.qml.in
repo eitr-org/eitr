@@ -69,13 +69,10 @@ ShellRoot {
     const system = fixture.find(content, "settings-system-page");
     system.accountPicture = {name: "Eitr Explorer", initial: "E", path: ""};
     if (pages[current] === "user") {
-     const editor = fixture.find(content, "settings-profile-picture");
-     for (let attempt = 0; attempt < 2; attempt++) {
-      system.editingPicture = true;
-      if (!editor.visible) throw new Error("profile editor not visible");
-      editor.close();
-      if (system.editingPicture) throw new Error("profile editor did not close");
-     }
+     // The crop editor lives in a sheet over the window, never inline on the page.
+     if (fixture.find(content, "settings-profile-picture")) throw new Error("inline profile editor");
+     if (!fixture.find(content, "settings-change-picture").visible) throw new Error("Change picture missing");
+     if (fixture.find(content, "settings-remove-picture").visible) throw new Error("Remove shown without a picture");
     }
     system.channel = "stable";
     system.updates = {status: "ready", data: {count: 7}};

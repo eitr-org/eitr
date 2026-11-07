@@ -31,8 +31,7 @@ class AccountTests(unittest.IsolatedAsyncioTestCase):
         process.communicate = AsyncMock(return_value=(b'{"ok": true, "result": {"path": null, "initial": "A", "name": "Astrid"}}', b''))
         try:
             with patch.object(broker_module.asyncio, 'create_subprocess_exec', AsyncMock(return_value=process)) as spawn:
-                actions = [('browse', {}, []), ('browse', {'folder': '/mock/folder'}, ['/mock/folder']),
-                           ('preview', {'source': '/mock/image'}, ['/mock/image']),
+                actions = [('preview', {'source': '/mock/image'}, ['/mock/image']),
                            ('save', {'source': '/mock/image', 'x': 0, 'y': 0, 'size': 100}, ['/mock/image', '0', '0', '100']),
                            ('remove', {}, [])]
                 for index, (name, args, extra) in enumerate(actions):
@@ -43,8 +42,9 @@ class AccountTests(unittest.IsolatedAsyncioTestCase):
                     self.assertEqual(list(spawn.call_args.args[2:]), [name, *extra])
                     with self.assertRaises(ValueError):
                         broker.request(frame)
-                self.assertEqual(spawn.call_count, 5)
-                for name, args in [('choose', {}), ('browse', {'folder': 5}), ('preview', {})]:
+                self.assertEqual(spawn.call_count, 3)
+                # The file chooser waits for a person, so it never runs under the broker's deadline.
+                for name, args in [('choose', {}), ('browse', {}), ('preview', {})]:
                     with self.assertRaises(ValueError):
                         broker.request(dict(v=1, op='action', topic='account', id='bad-' + name, name=name, args=args))
         finally:

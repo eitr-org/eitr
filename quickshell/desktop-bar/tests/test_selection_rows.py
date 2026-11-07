@@ -7,8 +7,10 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 class SelectionRows(unittest.TestCase):
     def test_shared_selection_style(self):
+        # Audio devices are listed by ChoiceDropdown, which owns the same row style.
+        self.assertIn("ChoiceDropdown {", (ROOT / qml_path("AudioMenu.qml")).read_text())
         for name in ("WifiMenu", "BluetoothMenu", "AudioMenu", "BrightnessMenu",
-                     "KeyboardLayoutRow", "ControlCenterTile"):
+                     "KeyboardLayoutRow", "ControlCenterTile", "ChoiceDropdown"):
             with self.subTest(panel=name):
                 source = (ROOT / qml_path(name + ".qml")).read_text()
                 self.assertIn("PanelStyle.selectionAlpha(", source)

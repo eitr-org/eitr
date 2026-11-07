@@ -36,6 +36,6 @@ A nova pasta pessoal não contém arquivos da sua conta. No primeiro login no Hy
 
 ## Fotos de perfil
 
-Configurações > Segurança > Usuários > Foto de perfil abre a foto redonda mostrada no Centro de Controle, no bloqueio e na tela de login; o editor de recorte e o que o Eitr salva estão em [Centro de Controle](handbook:control-center).
+No Walker, Configurações > Segurança > Usuários > Foto de perfil abre Configurações > Usuário, onde você altera a foto redonda mostrada no Centro de Controle, no bloqueio e na tela de login; o seletor de arquivos, o editor de recorte e o que o Eitr salva estão em [Centro de Controle](handbook:control-center).
 
-Configurações > Usuário reutiliza o editor de foto e mostra o nome. Segurança abre os fluxos existentes, preservando senhas, confirmações digitadas e limites de administrador.
+Configurações > Usuário mostra sua foto e seu nome, com Alterar foto e Remover. Segurança abre os fluxos existentes, preservando senhas, confirmações digitadas e limites de administrador.

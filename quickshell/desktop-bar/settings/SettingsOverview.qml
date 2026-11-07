@@ -14,6 +14,8 @@ Flickable {
     required property color accent
     property bool observing: false
     property bool live: true
+    // Asks Settings to show another page.
+    signal pageRequested(string page)
     property var hardware: DesktopData.topics["hardware.details"] || ({})
     property var account: (DesktopData.topics["account.picture"] || {}).data || ({})
     property var themePalette: ({})
@@ -117,11 +119,39 @@ Flickable {
         SettingsPageHeader { page: "system"; foreground: overview.foreground }
         Row {
             spacing: 18
-            Eitr.Avatar {
-                size: 64
-                source: overview.account.path ? "file://" + overview.account.path + "?v=" + (overview.account.version || 0) : ""
-                initial: overview.account.initial || ""
-                accent: overview.accent; background: overview.background
+            // Opens Settings > User, where the picture is changed.
+            Item {
+                id: avatarButton
+                objectName: "settings-overview-avatar"
+                width: 72; height: 72
+                anchors.verticalCenter: parent.verticalCenter
+                activeFocusOnTab: true
+                Accessible.role: Accessible.Button
+                Accessible.name: Eitr.I18n.tr("Change picture")
+                Keys.onReturnPressed: overview.pageRequested("user")
+                Keys.onEnterPressed: overview.pageRequested("user")
+                Keys.onSpacePressed: overview.pageRequested("user")
+                Rectangle {
+                    anchors.fill: parent
+                    radius: width / 2
+                    color: Qt.alpha(overview.foreground, avatarMouse.containsMouse || avatarButton.activeFocus ? 0.1 : 0)
+                    border.width: avatarMouse.containsMouse || avatarButton.activeFocus ? 1 : 0
+                    border.color: Qt.alpha(SettingsInk.gold, 0.6)
+                }
+                Eitr.Avatar {
+                    anchors.centerIn: parent
+                    size: 64
+                    source: overview.account.path ? "file://" + overview.account.path + "?v=" + (overview.account.version || 0) : ""
+                    initial: overview.account.initial || ""
+                    accent: overview.accent; background: overview.background
+                }
+                MouseArea {
+                    id: avatarMouse
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: overview.pageRequested("user")
+                }
             }
             Column {
                 anchors.verticalCenter: parent.verticalCenter; spacing: 6

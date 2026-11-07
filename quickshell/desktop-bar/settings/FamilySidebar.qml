@@ -36,8 +36,8 @@ ColumnLayout {
         Layout.fillWidth: true; implicitHeight: 76
         color: Qt.alpha(sidebar.foreground, 0.025); radius: DesktopStyle.radius(6)
         border.width: 1; border.color: Qt.alpha(sidebar.gold, 0.3)
-        EitrLogo { x: 12; anchors.verticalCenter: parent.verticalCenter; width: 34; height: 34; foreground: sidebar.gold; background: sidebar.background; enabled: false }
-        Column { x: 58; width: parent.width - x - 36; anchors.verticalCenter: parent.verticalCenter; spacing: 3
+        EitrLogo { x: 10; anchors.verticalCenter: parent.verticalCenter; width: 44; height: 44; iconSize: 42; foreground: sidebar.gold; background: sidebar.background; enabled: false }
+        Column { x: 62; width: parent.width - x - 36; anchors.verticalCenter: parent.verticalCenter; spacing: 3
             Text { text: "EITR"; color: sidebar.foreground; font.family: SiteStyle.carved; font.pixelSize: 23; font.letterSpacing: 3 }
             Text { width: parent.width; text: sidebar.subtitle.toLocaleUpperCase(); color: sidebar.gold; font.family: SiteStyle.carved; font.pixelSize: 11; font.letterSpacing: 2; fontSizeMode: Text.HorizontalFit; minimumPixelSize: 8; elide: Text.ElideRight }
         }

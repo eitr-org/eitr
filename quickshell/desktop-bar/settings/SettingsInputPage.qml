@@ -17,17 +17,20 @@ Column {
     property var layouts: []
     property var catalog: []
     property int selected: -1
-    property bool adding: false
     property string error: ""
     readonly property string helper: Eitr.Paths.code("quickshell/desktop-bar/scripts/keyboard-layout.py")
     spacing: PanelStyle.selectionRowGap
-    function refresh() { if (live && active && !query.running) query.running = true; }
+    function refresh() {
+        if (!live || !active) return;
+        if (!query.running) query.running = true;
+        if (!catalog.length && !catalogQuery.running) catalogQuery.running = true;
+    }
     function change(arguments) {
         if (!live || operation.running) return;
         operation.command = ["python3", helper].concat(arguments);
         operation.running = true;
     }
-    onActiveChanged: { if (!active) adding = false; refresh(); }
+    onActiveChanged: refresh()
     Process {
         id: query
         command: ["python3", view.helper, "summary"]
@@ -74,21 +77,17 @@ Column {
             PanelButton { width: 24; height: 24; anchors.verticalCenter: parent.verticalCenter; icon: true; text: "↓"; foreground: view.foreground; available: parent.index < view.layouts.length - 1 && !operation.running; onClicked: view.change(["move", String(parent.index), String(parent.index + 1)]) }
         }
     }
-    PanelButton {
-        width: 160; text: Eitr.I18n.tr("Add Layout"); foreground: view.foreground
-        available: view.layouts.length < 4
-        onClicked: { view.adding = !view.adding; if (view.adding && view.live && !catalogQuery.running) catalogQuery.running = true; }
-    }
-    ControlRow {
-        visible: view.adding
-        text: Eitr.I18n.tr("Add Layout")
-        description: Eitr.I18n.tr("Choose a keyboard layout to add.")
+    // Choosing a layout from the floating list adds it; the catalog loads with the page.
+    ChoiceDropdown {
+        objectName: "settings-add-layout"
+        width: Math.min(parent.width, 360)
+        gold: SettingsInk.gold; background: SettingsInk.background
         foreground: view.foreground
-        ChoiceDropdown { gold: SettingsInk.gold; background: SettingsInk.background;
-            foreground: view.foreground
-            choices: view.catalog.map(layout => ({value: layout.layout + "|" + layout.variant, label: layout.label}))
-            onChosen: value => { const parts = value.split("|"); view.change(["add", parts[0], parts[1]]); view.adding = false; }
-        }
+        label: Eitr.I18n.tr("Add Layout")
+        placeholder: view.catalog.length ? "" : Eitr.I18n.tr("Loading...")
+        available: view.layouts.length < 4 && !operation.running
+        choices: view.catalog.map(layout => ({value: layout.layout + "|" + layout.variant, label: layout.label}))
+        onChosen: value => { const parts = value.split("|"); view.change(["add", parts[0], parts[1]]); }
     }
     Text { width: parent.width; visible: view.error !== ""; text: view.error; wrapMode: Text.WordWrap; color: view.foreground; font.pixelSize: PanelStyle.captionSize }
 }

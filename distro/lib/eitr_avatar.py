@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The current user's standard profile picture, and the image browser that picks one."""
+"""The current user's standard profile picture, and the system file chooser that picks one."""
 import argparse
 import json
 import math
@@ -15,9 +15,8 @@ SERVICE = 'org.freedesktop.Accounts'
 TIMEOUT = 5000
 LARGEST_SIDE = 12000
 PREVIEW_SIDE = 1024
-IMAGE_SUFFIXES = {'.png', '.jpg', '.jpeg', '.webp', '.gif', '.bmp'}
-# Folders and images listed per folder, so a huge folder cannot flood the panel.
-BROWSE_LIMIT = 500
+PORTAL = 'org.freedesktop.portal.Desktop'
+PORTAL_PATH = '/org/freedesktop/portal/desktop'
 
 
 def imaging():
@@ -173,30 +172,53 @@ def pictures_folder():
     return folder if folder.is_dir() else Path.home()
 
 
-def browse(folder=None):
-    """The visible subfolders and image files of FOLDER (the Pictures folder by default), sorted by name."""
-    folder = Path(folder).expanduser().resolve() if folder else pictures_folder()
-    if not folder.is_dir():
-        raise ValueError('Folder not found')
-    folders, images = [], []
+def choose(title='Choose a picture'):
+    """Ask the desktop portal's file chooser (xdg-desktop-portal-gtk on Eitr) for one image.
+
+    Waits for the person to pick or cancel, without a deadline. Returns {'path': None} when
+    the chooser was cancelled."""
+    Gio, GLib = gio()
+    bus = Gio.bus_get_sync(Gio.BusType.SESSION, None)
+    token = f'eitr_avatar_{os.getpid()}'
+    sender = bus.get_unique_name().lstrip(':').replace('.', '_')
+    expected = f'{PORTAL_PATH}/request/{sender}/{token}'
+    loop = GLib.MainLoop()
+    outcome = {}
+
+    def responded(_connection, _sender, _path, _interface, _signal, parameters):
+        code, results = parameters.unpack()
+        outcome.update(code=code, uris=list(results.get('uris', [])))
+        loop.quit()
+
+    def listen(handle):
+        return bus.signal_subscribe(PORTAL, 'org.freedesktop.portal.Request', 'Response', handle,
+                                    None, Gio.DBusSignalFlags.NONE,
+                                    responded)
+
+    subscription = listen(expected)
+    options = {
+        'handle_token': GLib.Variant('s', token),
+        'modal': GLib.Variant('b', True),
+        'multiple': GLib.Variant('b', False),
+        'filters': GLib.Variant('a(sa(us))', [('Images', [(1, 'image/*')])]),
+        'current_folder': GLib.Variant('ay', os.fsencode(str(pictures_folder())) + b'\0'),
+    }
     try:
-        entries = sorted(os.scandir(folder), key=lambda entry: entry.name.casefold())
-    except OSError as error:
-        raise ValueError('Cannot open this folder') from error
-    for entry in entries:
-        if entry.name.startswith('.'):
-            continue
-        try:
-            if entry.is_dir():
-                folders.append({'name': entry.name, 'path': entry.path})
-            elif entry.is_file() and Path(entry.name).suffix.lower() in IMAGE_SUFFIXES:
-                images.append({'name': entry.name, 'path': entry.path})
-        except OSError:
-            continue
-    return {'folder': str(folder), 'name': folder.name or str(folder),
-            'parent': str(folder.parent) if folder.parent != folder else None,
-            'folders': folders[:BROWSE_LIMIT], 'images': images[:BROWSE_LIMIT],
-            'truncated': len(folders) > BROWSE_LIMIT or len(images) > BROWSE_LIMIT}
+        handle = bus.call_sync(PORTAL, PORTAL_PATH, 'org.freedesktop.portal.FileChooser', 'OpenFile',
+                               GLib.Variant('(ssa{sv})', ('', title, options)), GLib.VariantType.new('(o)'),
+                               Gio.DBusCallFlags.NONE, TIMEOUT, None).unpack()[0]
+        if handle != expected:
+            bus.signal_unsubscribe(subscription)
+            subscription = listen(handle)
+        loop.run()
+    finally:
+        bus.signal_unsubscribe(subscription)
+    if outcome.get('code') != 0 or not outcome.get('uris'):
+        return {'path': None}
+    path = Gio.File.new_for_uri(outcome['uris'][0]).get_path()
+    if not path:
+        raise ValueError('The chosen picture is not a local file')
+    return {'path': path}
 
 
 def main(argv=None):
@@ -204,7 +226,7 @@ def main(argv=None):
     commands = parser.add_subparsers(dest='command', required=True)
     for name in ('status', 'remove'):
         commands.add_parser(name)
-    commands.add_parser('browse').add_argument('folder', nargs='?')
+    commands.add_parser('choose').add_argument('title', nargs='?', default='Choose a picture')
     commands.add_parser('preview').add_argument('file')
     save_parser = commands.add_parser('save')
     save_parser.add_argument('file')
@@ -215,8 +237,8 @@ def main(argv=None):
             if len(arguments.crop) not in (0, 3):
                 raise ValueError('Expected X Y SIZE')
             result = save(arguments.file, *arguments.crop)
-        elif arguments.command == 'browse':
-            result = browse(arguments.folder)
+        elif arguments.command == 'choose':
+            result = choose(arguments.title)
         elif arguments.command == 'preview':
             result = preview(arguments.file)
         else:

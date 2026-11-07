@@ -171,7 +171,7 @@ ThemedPopup {
             font.family: DesktopFonts.family
             font.pixelSize: PanelStyle.captionSize
         }
-        ChoiceDropdown { visible: menu.scenes.length > 1; width: parent.width; foreground: menu.foreground; choices: menu.scenes; current: menu.details.scene || ""; available: menu.controller.controlsReady && menu.controller.pendingAction !== "scene"; onChosen: value => menu.controller.run("scene", value) }
+        ChoiceDropdown { background: menu.background; gold: menu.accent; visible: menu.scenes.length > 1; width: parent.width; foreground: menu.foreground; choices: menu.scenes; current: menu.details.scene || ""; available: menu.controller.controlsReady && menu.controller.pendingAction !== "scene"; onChosen: value => menu.controller.run("scene", value) }
         Text {
             visible: menu.controller.actionError !== ""
             width: parent.width

@@ -36,6 +36,6 @@ Das neue Home enthält keine Dateien deines Kontos. Bei der ersten Hyprland-Anme
 
 ## Profilbilder
 
-Einstellungen > Sicherheit > Benutzer > Profilbild öffnet das runde Bild, das im Kontrollzentrum, auf dem Sperrbildschirm und bei der Anmeldung erscheint; der Zuschneide-Editor und was Eitr speichert stehen unter [Kontrollzentrum](handbook:control-center).
+Walkers Einstellungen > Sicherheit > Benutzer > Profilbild öffnet Einstellungen > Benutzer, wo du das runde Bild änderst, das im Kontrollzentrum, auf dem Sperrbildschirm und bei der Anmeldung erscheint; Dateiauswahl, Zuschneide-Editor und was Eitr speichert stehen unter [Kontrollzentrum](handbook:control-center).
 
-Einstellungen > Benutzer (dein Konto) nutzt den Profilbildeditor und zeigt den Anzeigenamen. Sicherheit öffnet die vorhandenen Abläufe mit Passwortabfragen, getippten Bestätigungen und Root-Grenzen.
+Einstellungen > Benutzer (dein Konto) zeigt Bild und Anzeigenamen mit „Bild ändern“ und „Entfernen“. Sicherheit öffnet die vorhandenen Abläufe mit Passwortabfragen, getippten Bestätigungen und Root-Grenzen.

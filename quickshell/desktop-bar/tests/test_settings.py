@@ -246,25 +246,192 @@ QtObject {
                              'displays', 'sound', 'connections', 'input', 'keybinds', 'default-apps', 'user', 'git-cloud', 'security', 'updates', 'check-pc', 'about'):
                     self.assertTrue((output_folder / f'{theme}-{page}.png').is_file(), page)
 
-    def test_dropdown_keyboard_and_short_choice_controls(self):
+    def test_user_picture_sheet_and_overview_avatar(self):
+        artwork = BAR.parents[1] / 'themes/vanaheim/backgrounds/01-hidden-garden.jpg'
+        for theme, foreground, background in [('dark', '#e4e5ef', '#191b25'), ('light', '#202431', '#f5f3ee')]:
+            with self.subTest(theme=theme), tempfile.TemporaryDirectory() as directory:
+                folder = Path(directory)
+                copy_runtime(folder)
+                (folder / 'services/PowerService.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { property var battery: ({available: false}) }\n')
+                (folder / 'services/DisplayService.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { property var topology: ({primary: "fixture", monitors: [{name: "fixture", width: 2560, height: 1440, refreshRate: 144}]}) }\n')
+                (folder / 'services/DesktopData.qml').write_text('''pragma Singleton
+import QtQuick
+QtObject {
+ property var topics: ({})
+ property var actions: []
+ function observe(topic, owner) { return topic; }
+ function releaseOwner(owner) {}
+ function accountAction(name, args, owner, callback) {
+  actions = actions.concat([name]);
+  if (name === "preview") callback("", {path: args.source, preview: args.source, previewWidth: 960, previewHeight: 540, width: 1920, height: 1080, version: 1});
+  else callback("", {});
+ }
+}
+''')
+                output = capture_path('SETTINGS', directory, theme + '-user-sheet.png')
+                fixture = r'''import QtQuick
+import QtQuick.Controls
+import QtTest
+import Quickshell
+import "." as Bar
+ShellRoot {
+ id: fixture
+ function find(item, name) {
+  if (item.objectName === name) return item;
+  for (const child of item.children || []) { const result = find(child, name); if (result) return result; }
+  return null;
+ }
+ Bar.SettingsWindow { id: window; live: false; foreground: "FOREGROUND"; background: "BACKGROUND"; accent: "#9a815c" }
+ TestCase {
+  name: "UserPicture"; when: windowShown
+  property bool windowShown: false
+  Component.onCompleted: { window.show("system"); window.implicitWidth = 1100; window.implicitHeight = 760; windowShown = true; }
+  function test_flow() {
+   wait(400);
+   const content = fixture.find(window.contentItem, "settings-content");
+   const overview = fixture.find(content, "settings-overview");
+   overview.account = {name: "Eitr Explorer", initial: "E"};
+   const avatar = fixture.find(content, "settings-overview-avatar");
+   verify(avatar && avatar.visible);
+   mouseClick(avatar); wait(200);
+   compare(content.page, "user");
+   const system = fixture.find(content, "settings-system-page");
+   system.accountPicture = {name: "Eitr Explorer", initial: "E", path: "ARTWORK"};
+   wait(100);
+   verify(fixture.find(content, "settings-remove-picture").visible);
+   verify(!fixture.find(content, "settings-profile-picture"));
+   const height = system.contentHeight;
+   system.pictureChosen("ARTWORK");
+   wait(400);
+   const editor = fixture.find(content.Overlay.overlay, "settings-profile-picture");
+   verify(editor && editor.visible);
+   verify(editor.pending);
+   compare(system.contentHeight, height);
+   compare(Bar.DesktopData.actions[0], "preview");
+   content.Overlay.overlay.parent = content;
+   let saved = false;
+   content.grabToImage(result => { saved = result.saveToFile("OUTPUT"); });
+   tryVerify(() => saved, 3000);
+   keyClick(Qt.Key_Escape); wait(300);
+   verify(!editor.visible);
+   compare(content.page, "user");
+   system.pictureChosen("ARTWORK"); wait(300);
+   keyClick(Qt.Key_Return); wait(300);
+   compare(Bar.DesktopData.actions[Bar.DesktopData.actions.length - 1], "save");
+   verify(!editor.visible);
+   mouseClick(fixture.find(content, "settings-remove-picture")); wait(100);
+   compare(Bar.DesktopData.actions[Bar.DesktopData.actions.length - 1], "remove");
+   window.closeSettings();
+   console.log("USER_PICTURE_OK"); Qt.quit();
+  }
+ }
+}
+'''
+                for original, replacement in {'FOREGROUND': foreground, 'BACKGROUND': background, 'ARTWORK': str(artwork), 'OUTPUT': str(output)}.items():
+                    fixture = fixture.replace(original, replacement)
+                (folder / 'fixture.qml').write_text(fixture)
+                code, result = render(folder / 'fixture.qml', render_environment(folder, (1280, 960)), 20)
+                self.assertEqual(code, 0, result)
+                self.assertIn('USER_PICTURE_OK', result)
+                for diagnostic in ('FAIL!', 'TypeError:', 'ReferenceError:'):
+                    self.assertNotIn(diagnostic, result)
+                self.assertTrue(output.is_file())
+
+    def test_control_center_avatar_is_display_only(self):
+        navigation = (BAR / 'panels/ControlCenterNavigation.qml').read_text()
+        center = (BAR / 'panels/ControlCenter.qml').read_text()
+        avatar = navigation.split('Eitr.Avatar {', 1)[1].split('}', 1)[0]
+        self.assertIn('showInitial: false', avatar)
+        self.assertNotIn('pictureButton', navigation)
+        self.assertNotIn('"picture"', navigation + center)
+        self.assertNotIn('ProfilePicture', center)
+        self.assertIn('picture: "user"', (BAR / 'bar/BarPanels.qml').read_text())
+        picture = BAR.parents[1] / 'themes/vanaheim/backgrounds/01-hidden-garden.jpg'
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory)
             copy_runtime(folder)
             fixture = r'''import QtQuick
+import Quickshell
+import "." as Bar
+ShellRoot {
+ FloatingWindow {
+  id: window; visible: true; implicitWidth: 120; implicitHeight: 400; color: "#191b25"
+  QtObject {
+   id: center
+   property var accountPicture: ({initial: "E"})
+   property color foreground: "#e4e5ef"; property color background: "#191b25"; property color accent: "#9a815c"
+   property string page: "general"; property bool chatOpen: false
+   property var chatAssistant: ({}); property var organizationPolicy: ({})
+  }
+  Bar.ControlCenterNavigation { id: navigation; x: 40; y: 10; centerRef: center }
+ }
+ Timer {
+  id: steps; interval: 300; running: true; repeat: true
+  property int step: 0
+  function find(item, name) {
+   if (item.objectName === name) return item;
+   for (const child of item.children || []) { const result = find(child, name); if (result) return result; }
+   return null;
+  }
+  function check(condition, message) { if (!condition) { console.log("AVATAR_FAIL " + message); Qt.exit(1); } return condition; }
+  onTriggered: {
+   const avatar = find(navigation, "controlCenterAvatar");
+   if (step === 0) {
+    if (!check(!avatar.visible, "an initial without a picture")) return;
+    const first = navigation.children.find(child => child.visible && child.height > 0 && child !== avatar);
+    if (!check(first.y === 0, "the header keeps a gap for the missing avatar")) return;
+    center.accountPicture = {initial: "E", path: "PICTURE"};
+   } else if (step < 10) {
+    if (!avatar.visible) { step++; return; }
+    if (!check(avatar.y === 0, "avatar at the top")) return;
+    if (!check(avatar.clicked === undefined && avatar.hoverEnabled === undefined, "the avatar is a button")) return;
+    for (const child of avatar.children) if (!check(child.hoverEnabled === undefined && child.cursorShape === undefined, "pointer handling on the avatar")) return;
+    console.log("AVATAR_OK"); Qt.quit(); return;
+   } else { check(false, "the picture never showed"); return; }
+   step++;
+  }
+ }
+}
+'''.replace('PICTURE', str(picture))
+            (folder / 'fixture.qml').write_text(fixture)
+            code, result = render(folder / 'fixture.qml', render_environment(folder, (1280, 960)), 15)
+            self.assertEqual(code, 0, result)
+            self.assertIn('AVATAR_OK', result)
+            self.assertNotIn('FAIL!', result)
+
+    def test_dropdown_floats_keyboard_and_short_choice_controls(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            copy_runtime(folder)
+            output = capture_path('SETTINGS', directory, 'dropdown-floating.png')
+            fixture = r'''import QtQuick
+import QtQuick.Controls
 import QtTest
 import Quickshell
 import "." as Bar
 ShellRoot {
  FloatingWindow {
-  id: window; visible: true; implicitWidth: 600; implicitHeight: 220
+  id: window; visible: true; implicitWidth: 600; implicitHeight: 420
   color: "#191b25"
-  Column {
-   Bar.ChoiceDropdown {
-    id: dropdown; width: 320; foreground: "#e4e5ef"
-    choices: [{value: "first", label: "First"}, {value: "second", label: "Second"}, {value: "third", label: "Third"}]
-    current: "first"
-    onChosen: value => current = value
+  // Captures need a QML item: the test moves the overlay layer into this one.
+  Rectangle {
+  id: canvas; anchors.fill: parent; color: "#191b25"
+  Rectangle {
+   id: card; x: 16; y: 16; width: 340; color: "#232634"
+   height: cardColumn.implicitHeight + 24
+   Column {
+    id: cardColumn; x: 12; y: 12; width: 316; spacing: 8
+    Bar.ChoiceDropdown {
+     id: dropdown; width: parent.width; foreground: "#e4e5ef"; background: "#2b2f3d"; gold: "#d4b26a"
+     choices: [{value: "first", label: "First"}, {value: "second", label: "Second"}, {value: "third", label: "Third"}]
+     current: "first"
+     onChosen: value => current = value
+    }
+    Text { id: below; text: "Content below"; color: "#e4e5ef" }
    }
+  }
+  Column {
+   x: 16; y: card.y + card.height + 12; width: 320
    Bar.ChoiceSegmented {
     id: segments; width: 320; foreground: "#e4e5ef"
     choices: [{id: "one", label: "One"}, {id: "two", label: "Two"}]
@@ -278,20 +445,62 @@ ShellRoot {
     onChosen: value => current = value
    }
   }
+  // A bar panel stand-in: the list must stay inside its surface, opening upward here.
+  Rectangle {
+   id: panel; x: 380; y: 40; width: 200; height: 360; color: "#232634"
+   property Item attachmentTarget: null
+   property bool embedded: false
+   Bar.ChoiceDropdown {
+    id: lower; x: 10; y: 300; width: 180; foreground: "#e4e5ef"; background: "#2b2f3d"
+    choices: Array.from({length: 20}, (unused, index) => ({value: "row" + index, label: "Row " + index, glyph: "󰓃"}))
+    current: "row3"; actionGlyph: "󰏫"; actionName: "Rename"
+    onChosen: value => current = value
+   }
+  }
+  }
  }
  TestCase {
   name: "SettingsControls"; when: window.visible
   function test_keyboard() {
    wait(100);
+   const cardHeight = card.height, belowY = below.y, rootHeight = dropdown.height;
    dropdown.forceActiveFocus();
-   keyClick(Qt.Key_Space); wait(50);
+   keyClick(Qt.Key_Space); wait(200);
    verify(dropdown.expanded);
-   keyClick(Qt.Key_Down); keyClick(Qt.Key_Return); wait(50);
+   verify(dropdown.popup.opened);
+   compare(card.height, cardHeight);
+   compare(below.y, belowY);
+   compare(dropdown.height, rootHeight);
+   compare(dropdown.popup.width, dropdown.width);
+   verify(!dropdown.opensUpward);
+   const top = dropdown.popup.contentItem.mapToItem(canvas, 0, 0).y;
+   verify(top > dropdown.mapToItem(canvas, 0, 0).y + dropdown.height);
+   let saved = false;
+   const overlay = canvas.Overlay.overlay; overlay.parent = canvas;
+   verify(canvas.grabToImage(result => { saved = result.saveToFile("OUTPUT"); }));
+   tryVerify(() => saved, 3000);
+   keyClick(Qt.Key_Down); keyClick(Qt.Key_Return); wait(150);
    compare(dropdown.current, "second");
-   dropdown.forceActiveFocus(); keyClick(Qt.Key_Space); wait(30);
-   keyClick(Qt.Key_Escape); wait(30);
+   verify(!dropdown.popup.opened);
+   dropdown.forceActiveFocus(); keyClick(Qt.Key_Space); wait(150);
+   keyClick(Qt.Key_Escape); wait(150);
    verify(!dropdown.expanded);
+   verify(!dropdown.popup.opened);
    compare(dropdown.current, "second");
+   mouseClick(dropdown); wait(150);
+   verify(dropdown.popup.opened);
+   mouseClick(canvas, 590, 410); wait(150);
+   verify(!dropdown.popup.opened);
+   lower.forceActiveFocus(); keyClick(Qt.Key_Space); wait(200);
+   verify(lower.opensUpward);
+   verify(lower.popup.height <= 8 * 42 + 8);
+   const lowerTop = lower.popup.background.mapToItem(panel, 0, 0).y;
+   verify(lowerTop >= 0, lowerTop);
+   verify(lowerTop + lower.popup.height <= lower.y, lowerTop);
+   saved = false;
+   verify(canvas.grabToImage(result => { saved = result.saveToFile("OUTPUT".replace(".png", "-upward.png")); }));
+   tryVerify(() => saved, 3000);
+   keyClick(Qt.Key_Escape); wait(150);
    const segment = segments.children[0].children[1];
    segment.forceActiveFocus(); keyClick(Qt.Key_Space);
    compare(segments.current, "two");
@@ -307,12 +516,13 @@ ShellRoot {
   }
  }
 }
-'''
+'''.replace('OUTPUT', str(output))
             (folder / 'fixture.qml').write_text(fixture)
-            code, output = render(folder / 'fixture.qml', render_environment(folder, (1280, 960)), 10)
-            self.assertEqual(code, 0, output)
-            self.assertIn('CONTROLS_OK', output)
-            self.assertNotIn('FAIL!', output)
+            code, result = render(folder / 'fixture.qml', render_environment(folder, (1280, 960)), 15)
+            self.assertEqual(code, 0, result)
+            self.assertIn('CONTROLS_OK', result)
+            self.assertNotIn('FAIL!', result)
+            self.assertTrue(output.is_file())
 
     def test_tab_and_palette_sources(self):
         tabs = (BAR / 'components/TabStrip.qml').read_text()

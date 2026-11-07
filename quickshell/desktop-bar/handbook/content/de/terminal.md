@@ -161,4 +161,4 @@ Designwechsel aktualisieren erzeugte Einstellungen für VS Code und LazyVim. Unt
 
 ## Profilbilder
 
-`eitr picture` oder `eitr picture show` zeigt den Bildstatus als JSON. `eitr picture set FILE` speichert den größten mittigen quadratischen Ausschnitt; `eitr picture remove` entfernt das Bild. Der Ausschnitt lässt sich im Kontrollzentrum anpassen.
+`eitr picture` oder `eitr picture show` zeigt den Bildstatus als JSON. `eitr picture set FILE` speichert den größten mittigen quadratischen Ausschnitt; `eitr picture remove` entfernt das Bild. Der Ausschnitt lässt sich unter Einstellungen > Benutzer anpassen.

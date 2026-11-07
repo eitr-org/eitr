@@ -110,30 +110,44 @@ class AvatarTests(unittest.TestCase):
 
     original_account = staticmethod(avatar.account)
 
-    def test_browse_lists_folders_then_images_by_name(self):
-        folder = self.home / 'Pictures'
-        for name in ('beta', 'Alpha', '.hidden'):
-            (folder / name).mkdir(parents=True)
-        for name in ('b.JPG', 'a.png', 'notes.txt', '.secret.png'):
-            (folder / name).write_bytes(b'')
-        result = avatar.browse(str(folder))
-        self.assertEqual([entry['name'] for entry in result['folders']], ['Alpha', 'beta'])
-        self.assertEqual([entry['name'] for entry in result['images']], ['a.png', 'b.JPG'])
-        self.assertEqual((result['folder'], result['parent'], result['truncated']), (str(folder), str(self.home), False))
-        self.assertIsNone(avatar.browse('/')['parent'])
-        with self.assertRaises(ValueError):
-            avatar.browse(str(self.home / 'missing'))
+    def portal(self, code, uris, handle=None):
+        """A mocked session bus whose file chooser answers with CODE and URIS when the loop runs."""
+        Gio, GLib = Mock(), Mock()
+        GLib.get_user_special_dir.return_value = None
+        bus = Gio.bus_get_sync.return_value
+        bus.get_unique_name.return_value = ':1.42'
+        expected = '/org/freedesktop/portal/desktop/request/1_42/eitr_avatar_' + str(os.getpid())
+        bus.call_sync.return_value.unpack.return_value = (handle or expected,)
+        listeners = []
+        bus.signal_subscribe.side_effect = lambda *arguments: listeners.append(arguments) or len(listeners)
+        parameters = Mock()
+        parameters.unpack.return_value = (code, {'uris': uris})
+        GLib.MainLoop.return_value.run.side_effect = lambda: listeners[-1][6](None, None, None, None, None, parameters)
+        Gio.File.new_for_uri.side_effect = lambda uri: Mock(get_path=Mock(return_value=uri.removeprefix('file://')))
+        return Gio, GLib, bus, expected, listeners
 
-    def test_browse_starts_in_pictures_and_caps_large_folders(self):
-        with patch.object(avatar, 'gio', side_effect=ImportError):
-            self.assertEqual(avatar.browse()['folder'], str(self.home))
-            (self.home / 'Pictures').mkdir()
-            self.assertEqual(avatar.browse()['folder'], str(self.home / 'Pictures'))
-        with patch.object(avatar, 'BROWSE_LIMIT', 2):
-            for index in range(3):
-                (self.home / f'{index}.png').write_bytes(b'')
-            result = avatar.browse(str(self.home))
-        self.assertEqual((len(result['images']), result['truncated']), (2, True))
+    def test_choose_asks_the_portal_for_one_image(self):
+        Gio, GLib, bus, expected, listeners = self.portal(0, ['file:///mock/Pictures/me.png'])
+        with patch.object(avatar, 'gio', return_value=(Gio, GLib)):
+            self.assertEqual(avatar.choose('Choose a picture'), {'path': '/mock/Pictures/me.png'})
+        Gio.bus_get_sync.assert_called_once_with(Gio.BusType.SESSION, None)
+        call = bus.call_sync.call_args.args
+        self.assertEqual(call[:4], ('org.freedesktop.portal.Desktop', '/org/freedesktop/portal/desktop',
+                                    'org.freedesktop.portal.FileChooser', 'OpenFile'))
+        self.assertEqual(listeners[0][3], expected)
+        options = GLib.Variant.call_args_list
+        self.assertIn((('a(sa(us))', [('Images', [(1, 'image/*')])]),), [entry for entry in options])
+        self.assertIn((('b', False),), [entry for entry in options])
+        bus.signal_unsubscribe.assert_called()
+
+    def test_choose_cancelled_or_with_an_older_portal_handle(self):
+        Gio, GLib, bus, expected, listeners = self.portal(1, [])
+        with patch.object(avatar, 'gio', return_value=(Gio, GLib)):
+            self.assertEqual(avatar.choose(), {'path': None})
+        Gio, GLib, bus, expected, listeners = self.portal(0, ['file:///mock/other.jpg'], handle='/mock/request')
+        with patch.object(avatar, 'gio', return_value=(Gio, GLib)):
+            self.assertEqual(avatar.choose(), {'path': '/mock/other.jpg'})
+        self.assertEqual([listener[3] for listener in listeners], [expected, '/mock/request'])
 
     def test_preview_is_small_upright_and_maps_back_to_the_original(self):
         image = Image.new('RGB', (3000, 1500), 'red')

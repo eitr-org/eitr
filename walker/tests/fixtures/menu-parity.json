@@ -2982,7 +2982,7 @@
         "subtext": "Choose the round picture shown on the lockscreen and login screen",
         "icon": "󰡉",
         "actions": {
-          "open": "eitr-shell desktop-bar ipc call -- panels show picture"
+          "open": "eitr-shell desktop-bar ipc call -- settings show user"
         }
       }
     ],

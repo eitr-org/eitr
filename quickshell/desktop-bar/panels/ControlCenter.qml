@@ -11,9 +11,8 @@ import "../JsonState.js" as JsonState
 ThemedPopup {
     id: center
     waitForFreshData: true
-    keyTarget: page === "picture" ? profileSheet : content
+    keyTarget: content
     escapeHandler: () => {
-        if (center.page === "picture") { profileSheet.close(); return true; }
         return center.page === "plugins" ? pluginManager.back() : plugins.back();
     }
     required property var service
@@ -102,9 +101,6 @@ ThemedPopup {
             wifiControl.release(networkToken); networkToken = "";
             chatOpen = false; chatView.reset();
         }
-    }
-    onPageChanged: {
-        if (page === "picture") { chatOpen = false; profileSheet.reset(); profileSheet.forceActiveFocus(); }
     }
     onVisibleChanged: if (!visible) {
         powerOpen = false;
@@ -202,12 +198,11 @@ ThemedPopup {
                     id: content
                     width: scroll.width; spacing: 12
                     PanelHeading {
-                        text: ({"picture": Eitr.I18n.tr("Profile Picture"), plugins: Eitr.I18n.tr("Plugins"), general: Eitr.I18n.tr("General"), tools: Eitr.I18n.tr("Tools")})[center.page]
+                        text: ({plugins: Eitr.I18n.tr("Plugins"), general: Eitr.I18n.tr("General"), tools: Eitr.I18n.tr("Tools")})[center.page]
                         rune: center.page
                         foreground: center.foreground; accent: center.accent
                     }
                     Text { visible: center.actionError !== ""; width: parent.width; wrapMode: Text.WordWrap; text: center.actionError; color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
-                    ProfilePicture { id: profileSheet; width: parent.width; visible: center.page === "picture"; centerRef: center }
                     ControlCenterConnectivity { centerRef: center }
                     ControlCenterSliders { centerRef: center }
                     PluginArea {

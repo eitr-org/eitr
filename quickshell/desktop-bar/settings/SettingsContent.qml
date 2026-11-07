@@ -71,6 +71,7 @@ Rectangle {
             observing: settings.opened && visible && settings.live
             live: settings.live
             foreground: settings.foreground; background: settings.background; accent: settings.accent
+            onPageRequested: page => settings.navigate(page)
         }
         SettingsDesktopPage {
             anchors.fill: parent

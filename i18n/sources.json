@@ -249,6 +249,10 @@
     "Centered": [
       "tools/choice-lists.json"
     ],
+    "Change picture": [
+      "quickshell/desktop-bar/settings/SettingsOverview.qml",
+      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+    ],
     "Charger sounds": [
       "quickshell/desktop-bar/settings/EventSoundSettings.qml"
     ],
@@ -268,11 +272,8 @@
     "Checking status…": [
       "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
     ],
-    "Choose Picture…": [
-      "quickshell/desktop-bar/panels/ProfilePicture.qml"
-    ],
-    "Choose a keyboard layout to add.": [
-      "quickshell/desktop-bar/settings/SettingsInputPage.qml"
+    "Choose a picture": [
+      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
     ],
     "Choose a theme": [
       "quickshell/desktop-bar/panels/Handbook.qml"
@@ -875,7 +876,8 @@
     "Loading...": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
       "quickshell/desktop-bar/panels/KeyboardLayoutMenu.qml",
-      "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
+      "quickshell/desktop-bar/panels/SystemMonitorMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsInputPage.qml"
     ],
     "Loading…": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -1005,9 +1007,6 @@
     "No devices": [
       "quickshell/desktop-bar/panels/BluetoothMenu.qml"
     ],
-    "No devices available": [
-      "quickshell/desktop-bar/panels/AudioMenu.qml"
-    ],
     "No images found": [
       "quickshell/desktop-bar/settings/SettingsAppearanceModel.qml"
     ],
@@ -1040,9 +1039,6 @@
     ],
     "No occupied workspaces": [
       "quickshell/desktop-bar/overview/WorkspaceOverview.qml"
-    ],
-    "No pictures in this folder": [
-      "quickshell/desktop-bar/panels/ProfilePicture.qml"
     ],
     "No playback applications": [
       "quickshell/desktop-bar/panels/AudioMenu.qml"
@@ -1285,11 +1281,7 @@
     "Previous track": [
       "quickshell/desktop-bar/media/MediaCard.qml"
     ],
-    "Profile Picture": [
-      "quickshell/desktop-bar/panels/ControlCenter.qml"
-    ],
     "Profile picture": [
-      "quickshell/desktop-bar/panels/ControlCenterNavigation.qml",
       "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
     ],
     "QR Code": [
@@ -1368,10 +1360,10 @@
     "Remove": [
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
       "quickshell/desktop-bar/panels/CatalogContent.qml",
-      "quickshell/desktop-bar/panels/ProfilePicture.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/desktop-bar/plugins/PluginManagement.qml",
-      "quickshell/desktop-bar/plugins/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginManager.qml",
+      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
     ],
     "Remove %1": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -1738,6 +1730,9 @@
     ],
     "The Eitr project": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "The file chooser is not available": [
+      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
     ],
     "The handbook catalog is invalid.": [
       "quickshell/desktop-bar/panels/Handbook.qml"

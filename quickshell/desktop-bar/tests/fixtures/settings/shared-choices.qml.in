@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls
 import Quickshell
 import "." as Bar
 ShellRoot {
@@ -38,6 +39,9 @@ ShellRoot {
  }
  FloatingWindow {
   id: window; visible: true; implicitWidth: 440; implicitHeight: 900; color: fixture.background
+  // Holds the frame and, for captures of floating lists, the window's overlay layer.
+  Rectangle {
+  id: canvas; anchors.fill: parent; color: fixture.background
   Rectangle {
    color: fixture.background
    id: frame; x: 18; y: 18; width: 404; height: 864
@@ -59,6 +63,7 @@ ShellRoot {
    Bar.PowerControls { id: power; visible: false; width: parent.width; foreground: fixture.foreground; battery: ({available: true, percent: 76, status: "Discharging", hours: 2.5}); displayControl: display }
    Bar.MonitorMap { id: map; visible: false; width: parent.width; height: 240; monitors: fixture.monitors; settings: fixture.settings; primary: "DP-1"; selected: "DP-1"; foreground: fixture.foreground; accent: center.accent; onSelectedMonitor: name => selected = name }
   }
+  }
  }
  Bar.AppearancePicker { id: appearance; foreground: fixture.foreground; background: fixture.background; accent: center.accent }
  Timer {
@@ -75,7 +80,14 @@ ShellRoot {
     const name = names[index];
     if (name === "WorkspaceStyleMenu") { workspaceSlot.visible = true; frame.height = 260; }
     else if (name === "BrightnessMenu") { displaySlot.visible = true; frame.height = 764; }
-    else if (name === "DisplaySettingsEditor") { editor.visible = true; frame.height = 764; for (const child of editor.children) if (child.choices !== undefined && child.expanded !== undefined && child.visible) child.expanded = true; }
+    else if (name === "DisplaySettingsEditor") {
+     editor.visible = true; frame.height = 764;
+     canvas.Overlay.overlay.parent = canvas;
+     const rotation = editor.children.find(child => child.label === "Rotation");
+     const height = editor.implicitHeight;
+     rotation.expanded = true;
+     if (!rotation.popup.opened || editor.implicitHeight !== height) throw new Error("the Display editor's list must float");
+    }
     else if (name === "RecordingMenu") { recordingSlot.visible = true; frame.height = 464; }
     else if (name === "PowerControls") { power.visible = true; display.power = {available: true, active: "balanced", profiles: ["power-saver", "balanced"]}; frame.height = 174; }
     else if (name.startsWith("monitor-")) {
@@ -92,11 +104,12 @@ ShellRoot {
     phase = 1;
    } else if (phase === 1) {
     saved = false;
-    const item = names[index] === "AppearancePicker" ? appearance.previewItem : frame;
+    const item = names[index] === "AppearancePicker" ? appearance.previewItem : names[index] === "DisplaySettingsEditor" ? canvas : frame;
     if (!item) throw new Error("missing capture target " + names[index]);
     item.grabToImage(result => { if (!result.saveToFile("OUTPUT/THEME-" + names[index] + ".png")) throw new Error("save"); shots.saved = true; });
     phase = 2;
    } else if (saved) {
+    if (names[index] === "DisplaySettingsEditor") for (const child of editor.children) if (child.expanded) child.expanded = false;
     if (++index === names.length) { console.log("SHARED_CHOICES_OK"); Qt.quit(); }
     phase = 0;
    }

@@ -83,11 +83,11 @@ Item {
         battery: host.battery; displayControl: barHost.brightnessMenu
     }
     function showControlCenter(page) {
-        // Style and Settings moved to the Settings window; their old names open it there.
-        var moved = {style: "appearance", settings: "system", system: "system"};
+        // Style, Settings and the profile picture moved to the Settings window; their old names open it there.
+        var moved = {style: "appearance", settings: "system", system: "system", picture: "user"};
         if (moved[page]) { host.showSettings(moved[page]); return; }
         page = ({capture: "tools"})[page] || page;
-        if (["picture", "general", "plugins", "tools"].indexOf(page) === -1) return;
+        if (["general", "plugins", "tools"].indexOf(page) === -1) return;
         controlCenter.page = page;
         barHost.showPanel(controlCenter);
     }
