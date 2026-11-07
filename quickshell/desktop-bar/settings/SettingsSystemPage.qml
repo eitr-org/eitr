@@ -46,7 +46,7 @@ Flickable {
     Process {
         id: chooser
         objectName: "settings-picture-chooser"
-        command: ["python3", Eitr.Paths.code("distro/lib/eitr_avatar.py"), "choose", Eitr.I18n.tr("Choose a picture")]
+        command: ["python3", Eitr.Paths.library("eitr_avatar.py"), "choose", Eitr.I18n.tr("Choose a picture")]
         stdout: StdioCollector { id: chooserOutput }
         onExited: function(code) {
             let reply = null;

@@ -27,6 +27,8 @@ Item {
     property string actionName: ""
     property bool expanded: false
     property int highlightedIndex: currentIndex
+    // True after Up/Down moved the highlight, false after the pointer did.
+    property bool keyboardHighlight: false
     property int visibleRows: 8
     readonly property int currentIndex: choices.findIndex(choice => valueOf(choice) === current)
     readonly property alias popup: menu
@@ -43,6 +45,7 @@ Item {
     onExpandedChanged: {
         if (expanded) {
             highlightedIndex = currentIndex;
+            keyboardHighlight = false;
             menu.place();
             menu.open();
             list.positionViewAtIndex(Math.max(0, highlightedIndex), ListView.Contain);
@@ -54,6 +57,7 @@ Item {
     function glyphOf(choice) { return choice && choice.glyph ? String(choice.glyph) : ""; }
     function move(delta) {
         expanded = true;
+        keyboardHighlight = true;
         for (let step = 0; step < choices.length; step++) {
             highlightedIndex = (highlightedIndex + delta + choices.length) % choices.length;
             if (choices[highlightedIndex].available !== false) break;
@@ -97,7 +101,13 @@ Item {
         Keys.onDownPressed: control.move(1)
         Keys.onUpPressed: control.move(-1)
         Keys.onEscapePressed: event => { if (control.expanded) { control.expanded = false; event.accepted = true; } else event.accepted = false; }
-        onClicked: { if (control.expanded) control.commit(control.highlightedIndex); else control.expanded = true; }
+        // Activating the open selector chooses a row only when the keyboard highlighted it;
+        // a row the pointer merely passed over is never applied, the list just closes.
+        onClicked: {
+            if (!control.expanded) control.expanded = true;
+            else if (control.keyboardHighlight) control.commit(control.highlightedIndex);
+            else control.expanded = false;
+        }
         Text { id: chevron; anchors.right: parent.right; anchors.rightMargin: 10; anchors.verticalCenter: parent.verticalCenter; text: control.expanded ? "⌃" : "⌄"; color: control.foreground }
         Text {
             visible: control.label !== ""
@@ -170,7 +180,7 @@ Item {
                 Accessible.role: Accessible.RadioButton
                 Accessible.checked: selected
                 onClicked: control.commit(index)
-                HoverHandler { id: rowHover; onHoveredChanged: if (hovered) control.highlightedIndex = row.index }
+                HoverHandler { id: rowHover; onHoveredChanged: if (hovered) { control.highlightedIndex = row.index; control.keyboardHighlight = false; } }
                 Text {
                     visible: row.selected && control.glyphOf(row.modelData) !== ""
                     anchors.right: rowAction.visible ? rowAction.left : parent.right

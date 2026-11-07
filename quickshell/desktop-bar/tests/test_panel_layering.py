@@ -24,6 +24,12 @@ class PanelLayeringTests(unittest.TestCase):
         dock = (ROOT / "components/DockPanel.qml").read_text()
         self.assertIn("visible: opened || revealProgress > 0", dock)
 
+    def test_leaving_islands_with_a_panel_open_releases_its_pill(self):
+        # The held pill hid its icons; after a layout change it no longer has a card.
+        dock = (ROOT / "components/DockPanel.qml").read_text()
+        self.assertIn("onIslandsActiveChanged: heldPill = islandsActive && holdsPill ? livePill : null", dock)
+        self.assertIn("readonly property Item morphPill: !islandsActive ? null :", dock)
+
     def test_closed_panels_leave_the_bar_window(self):
         # A closed panel left in the bar window crashed Qt when the bar's screen was unplugged.
         dock = (ROOT / "components/DockPanel.qml").read_text()

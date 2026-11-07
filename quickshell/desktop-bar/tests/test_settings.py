@@ -512,6 +512,16 @@ ShellRoot {
    compare(level.current, "32");
    Bar.DesktopStyle.reduceMotion = true;
    compare(Bar.DesktopStyle.motionDuration(180), 0);
+   // A click on the open selector closes it without applying the row last hovered.
+   const before = dropdown.current;
+   mouseClick(dropdown, 20, dropdown.height / 2); wait(200);
+   if (!dropdown.expanded) { console.log("CONTROLS_FAIL click did not open"); Qt.exit(1); return; }
+   const hovered = dropdown.popup.contentItem.itemAtIndex((dropdown.currentIndex + 1) % dropdown.choices.length);
+   mouseMove(hovered, 20, hovered.height / 2); wait(100);
+   mouseMove(canvas, 590, 410); wait(100);
+   mouseClick(dropdown, 20, dropdown.height / 2); wait(200);
+   if (dropdown.expanded) { console.log("CONTROLS_FAIL second click left it open"); Qt.exit(1); return; }
+   if (dropdown.current !== before) { console.log("CONTROLS_FAIL hovered row applied"); Qt.exit(1); return; }
    console.log("CONTROLS_OK"); Qt.quit();
   }
  }

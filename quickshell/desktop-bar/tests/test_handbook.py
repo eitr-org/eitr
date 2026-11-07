@@ -54,7 +54,7 @@ class HandbookTests(unittest.TestCase):
         sidebar = (ROOT / "quickshell/desktop-bar/settings/FamilySidebar.qml").read_text()
         self.assertIn("EitrLogo {", sidebar)
         # The header logo matches the height of the EITR title and subtitle lines.
-        self.assertIn("iconSize: 42", sidebar)
+        self.assertIn("iconSize: 66", sidebar)
         self.assertIn("Model.articleBlocks(book.chapter)", source)
         self.assertIn("Model.sidebarEntries(book.chapters, book.filtered", source)
         self.assertIn("enabled: book.opened", source)

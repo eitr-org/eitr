@@ -10,6 +10,8 @@ QtObject {
         return configured && configured.startsWith("/") ? configured : Quickshell.env("HOME") + "/.config";
     }
     function code(relative) { return codeRoot + "/" + relative; }
+    // A Python library module: the package installs distro/lib as lib/, a checkout keeps it in distro/lib.
+    function library(name) { return codeRoot + (codeRoot === "/usr/share/eitr" ? "/lib/" : "/distro/lib/") + name; }
     function config(relative) { return configRoot + "/" + relative; }
     function settings(text) {
         const value = JSON.parse(text);

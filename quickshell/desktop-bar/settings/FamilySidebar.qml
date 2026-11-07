@@ -36,8 +36,10 @@ ColumnLayout {
         Layout.fillWidth: true; implicitHeight: 76
         color: Qt.alpha(sidebar.foreground, 0.025); radius: DesktopStyle.radius(6)
         border.width: 1; border.color: Qt.alpha(sidebar.gold, 0.3)
-        EitrLogo { x: 10; anchors.verticalCenter: parent.verticalCenter; width: 44; height: 44; iconSize: 42; foreground: sidebar.gold; background: sidebar.background; enabled: false }
-        Column { x: 62; width: parent.width - x - 36; anchors.verticalCenter: parent.verticalCenter; spacing: 3
+        // The logo file leaves a margin around the glyph; at 66 px the glyph itself is as
+        // tall as the title and subtitle beside it.
+        EitrLogo { x: 2; anchors.verticalCenter: titleBlock.verticalCenter; anchors.verticalCenterOffset: 3; width: 66; height: 66; iconSize: 66; foreground: sidebar.gold; background: sidebar.background; enabled: false }
+        Column { id: titleBlock; x: 72; width: parent.width - x - 36; anchors.verticalCenter: parent.verticalCenter; spacing: 3
             Text { text: "EITR"; color: sidebar.foreground; font.family: SiteStyle.carved; font.pixelSize: 23; font.letterSpacing: 3 }
             Text { width: parent.width; text: sidebar.subtitle.toLocaleUpperCase(); color: sidebar.gold; font.family: SiteStyle.carved; font.pixelSize: 11; font.letterSpacing: 2; fontSizeMode: Text.HorizontalFit; minimumPixelSize: 8; elide: Text.ElideRight }
         }

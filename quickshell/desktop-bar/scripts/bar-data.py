@@ -598,8 +598,9 @@ class Broker:
         result, error = {}, ""
         try:
             import eitr_bootstrap
-            import eitr_paths
-            command = [sys.executable, str(eitr_paths.code("distro/lib/eitr_avatar.py")),
+            import eitr_avatar
+            # The module's own file: lib/ in the package, distro/lib/ in a checkout.
+            command = [sys.executable, eitr_avatar.__file__,
                        frame["name"]]
             args = frame["args"]
             if frame["name"] in ("save", "preview"):

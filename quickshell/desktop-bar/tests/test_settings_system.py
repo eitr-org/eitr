@@ -55,7 +55,7 @@ class SettingsSystemTests(unittest.TestCase):
         self.assertIn('Component.onDestruction: DesktopData.releaseOwner(view)', source)
         self.assertIn('ProfilePicture {', source)
         # Change picture asks the portal's file chooser, then crops in a sheet over the window.
-        self.assertIn('"distro/lib/eitr_avatar.py"), "choose"', source)
+        self.assertIn('Eitr.Paths.library("eitr_avatar.py"), "choose"', source)
         self.assertIn('parent: Overlay.overlay', source)
         self.assertNotIn('editingPicture', source)
         self.assertIn('ChoiceLists.updateChannels', source)

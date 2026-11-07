@@ -129,8 +129,8 @@ Item {
     readonly property point morphOrigin: morphIsland && strip ? hostWindow.dynamicSurfaces.panelOrigin(panel, strip.x, strip.y) : Qt.point(0, 0)
     // Islands: a card grows out of the pill holding this panel's icon, from the pill's
     // edge toward the panel's usual side, covering the bar row while open.
-    readonly property Item livePill: hostWindow && hostWindow.islandsLayout && !FocusMode.enabled && hostWindow.islandSurfaces
-        ? hostWindow.islandSurfaces.pillFor(morphAnchor || attachmentTarget) : null
+    readonly property bool islandsActive: !!hostWindow && !!hostWindow.islandsLayout && !FocusMode.enabled && !!hostWindow.islandSurfaces
+    readonly property Item livePill: islandsActive ? hostWindow.islandSurfaces.pillFor(morphAnchor || attachmentTarget) : null
     // From the moment it is asked to open until it has folded away, a panel keeps the
     // pill it grows from: pills slide aside meanwhile and the lookup can flicker, which
     // swapped the hidden pill back and forth and left its icons invisible.
@@ -138,7 +138,10 @@ Item {
     property Item heldPill: null
     onHoldsPillChanged: heldPill = holdsPill ? livePill : null
     onLivePillChanged: if (holdsPill && !heldPill) heldPill = livePill
-    readonly property Item morphPill: holdsPill ? heldPill || livePill : livePill
+    // Leaving Islands while a panel is open drops the held pill, or its icons would stay
+    // hidden under a card that no longer exists.
+    onIslandsActiveChanged: heldPill = islandsActive && holdsPill ? livePill : null
+    readonly property Item morphPill: !islandsActive ? null : holdsPill ? heldPill || livePill : livePill
     readonly property rect pillRect: {
         if (!morphPill || !parent || !strip) return Qt.rect(0, 0, 0, 0);
         var moved = morphPill.x + morphPill.y + morphPill.width + morphPill.height + strip.x + strip.y;
