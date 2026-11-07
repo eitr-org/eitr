@@ -14,7 +14,7 @@ class SettingsRegressionTests(unittest.TestCase):
         for value in ('class = "^(xdg-desktop-portal-gtk)$"', 'title = "^.* · Eitr$"',
                       'float = true', 'center = true', 'size = { 900, 640 }', 'stay_focused = true'):
             self.assertIn(value, rule)
-        self.assertIn('Eitr.I18n.tr("Choose a picture") + " · Eitr"', (BAR / 'settings/SettingsSystemPage.qml').read_text())
+        self.assertIn('Eitr.I18n.tr("Choose a picture") + " · Eitr"', (BAR / 'settings/SettingsSystemHost.qml').read_text())
 
     def test_controls_offscreen(self):
         with tempfile.TemporaryDirectory(prefix='settings-regression-') as directory:

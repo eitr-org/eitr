@@ -42,4 +42,4 @@ As configurações versionadas ficam em `~/.config/eitr/git-accounts.json`. A ca
 
 Referências: [inclusões condicionais do Git](https://git-scm.com/docs/git-config), [perfis da GitHub CLI](https://cli.github.com/manual/gh_help_environment), [perfis da GitLab CLI](https://docs.gitlab.com/cli/configuration/).
 
-Configurações > Git e nuvem mostra identidades, regras de pastas e contextos somente para leitura. Contas Git ou Nuvem abre os fluxos existentes; visualizar a página não troca padrões das CLIs.
+Configurações > Git e nuvem mostra um cartão por provedor com cada identidade, regra de pasta ou contexto de nuvem como linha com suas ações. A barra de ferramentas abre Contas Git, Importar configuração existente e Adicionar conta… para um provedor de nuvem nos fluxos guiados existentes; visualizar a página não troca padrões das CLIs.

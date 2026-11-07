@@ -69,14 +69,6 @@
       "lines": 633,
       "reason": "To improve (TODO): capture options and saved-capture actions in one file."
     },
-    "quickshell/desktop-bar/settings/SettingsDesktopPage.qml": {
-      "lines": 803,
-      "reason": "Being split into one file per Settings page."
-    },
-    "quickshell/desktop-bar/settings/SettingsSystemPage.qml": {
-      "lines": 580,
-      "reason": "Being split into one file per Settings page."
-    },
     "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml": {
       "lines": 780,
       "reason": "A lockscreen design ships as one self-contained file."

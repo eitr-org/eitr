@@ -476,6 +476,7 @@
   "Gentle": "Sanft",
   "Git Accounts": "Git-Konten",
   "Git author and date: {author}": "Git-Autor und Datum: {author}",
+  "Git identities": "Git-Identitäten",
   "Git will use": "Git verwendet",
   "Give the encrypted partition as a /dev path, for example /dev/nvme0n1p2": "Geben Sie die verschlüsselte Partition als /dev-Pfad an, z. B. /dev/nvme0n1p2",
   "Global app search only supports launching": "Die globale App-Suche unterstützt nur das Starten von Apps",

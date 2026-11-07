@@ -105,7 +105,7 @@ class BarSettingsTests(unittest.TestCase):
         shell = (bar / 'shell.qml').read_text()
         self.assertIn('updateBarSetting("appearance", preferences.nextAppearance(barAppearance))', shell)
         self.assertIn('updateBarSetting("layout", preferences.nextLayout(barLayout))', shell)
-        controls = (bar / 'settings/SettingsDesktopPage.qml').read_text()
+        controls = (bar / 'settings/SettingsBarPage.qml').read_text()
         self.assertIn('choices: ChoiceLists.barLayouts', controls)
         self.assertIn('choices: ChoiceLists.barAppearances', controls)
         for menu, group in (('bar-layout', 'bar_layouts'), ('bar-appearance', 'bar_appearances'), ('update-channel', 'update_channels')):
@@ -235,15 +235,15 @@ class AutoHideLayoutTests(unittest.TestCase):
     def render_setting(self, reduce_motion, dock=False):
         # The Settings window's Desktop Bar page owns these switches.
         bar = Path(__file__).resolve().parents[1]
-        source = (bar / "settings/SettingsDesktopPage.qml").read_text()
+        source = (bar / "settings/SettingsBarPage.qml").read_text()
         label = "Dock" if dock else "Reduce motion" if reduce_motion else "Auto-hide"
         control = source.index(f'text: Eitr.I18n.tr("{label}")')
-        start = source.rfind("            ToggleRow {", 0, control)
-        end = source.index("\n            }", control) + len("\n            }")
-        row = source[start:end].replace("ToggleRow {", "Bar.ToggleRow {\n                id: settingRow; width: 380", 1)
+        start = source.rfind("        ToggleRow {", 0, control)
+        end = source.index("\n        }", control) + len("\n        }")
+        row = source[start:end].replace("ToggleRow {", "Bar.ToggleRow {\n            id: settingRow; width: 380", 1)
         for old, new in (("view.foreground", "center.foreground"), ("view.accent", "center.accent"), ("view.live", "true"),
-                         ("state.settingRequested", "center.settingRequested"), ("state.barDock", "center.barAutoHide"),
-                         ("state.barAutoHide", "center.barAutoHide"), ("DesktopStyle.reduceMotion", "center.barAutoHide")):
+                         ("styleModel.settingRequested", "center.settingRequested"), ("styleModel.barDock", "center.barAutoHide"),
+                         ("styleModel.barAutoHide", "center.barAutoHide"), ("DesktopStyle.reduceMotion", "center.barAutoHide")):
             row = row.replace(old, new)
         for light in (False, True):
             with tempfile.TemporaryDirectory(prefix="eitr-autohide-control-") as directory:

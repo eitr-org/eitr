@@ -1492,5 +1492,6 @@
   "Update Channel": "Update Channel",
   "Video player": "Video player",
   "Web browser": "Web browser",
-  "Remove local sign-in; the remote account is kept.": "Remove local sign-in; the remote account is kept."
+  "Remove local sign-in; the remote account is kept.": "Remove local sign-in; the remote account is kept.",
+  "Git identities": "Git identities"
 }

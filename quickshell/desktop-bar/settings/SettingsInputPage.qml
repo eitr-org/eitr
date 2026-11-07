@@ -1,6 +1,5 @@
 import ".."
 import QtQuick
-import QtQuick.Controls.Basic
 import Quickshell.Io
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
@@ -59,28 +58,27 @@ Column {
     Text { text: Eitr.I18n.tr("Select, reorder or remove your keyboard layouts."); color: view.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
     Repeater {
         model: view.layouts
-        Row {
+        KeyboardLayoutRow {
             required property var modelData
             required property int index
-            width: view.width; spacing: 6
-            KeyboardLayoutRow {
-                width: parent.width - 60
-                label: parent.modelData.label
-                foreground: view.foreground; tooltipBackground: view.background
-                selected: parent.modelData.index === view.selected
-                removable: view.layouts.length > 1
-                available: !operation.running
-                onActivated: view.change(["select", String(parent.modelData.index)])
-                onRemoveRequested: view.change(["remove", String(parent.modelData.index)])
-            }
-            PanelButton { width: 24; height: 24; anchors.verticalCenter: parent.verticalCenter; icon: true; text: "↑"; foreground: view.foreground; available: parent.index > 0 && !operation.running; onClicked: view.change(["move", String(parent.index), String(parent.index - 1)]) }
-            PanelButton { width: 24; height: 24; anchors.verticalCenter: parent.verticalCenter; icon: true; text: "↓"; foreground: view.foreground; available: parent.index < view.layouts.length - 1 && !operation.running; onClicked: view.change(["move", String(parent.index), String(parent.index + 1)]) }
+            width: view.width
+            label: modelData.label
+            foreground: view.foreground; tooltipBackground: view.background
+            selected: modelData.index === view.selected
+            removable: view.layouts.length > 1
+            available: !operation.running
+            reorderable: true
+            canMoveUp: index > 0
+            canMoveDown: index < view.layouts.length - 1
+            onActivated: view.change(["select", String(modelData.index)])
+            onRemoveRequested: view.change(["remove", String(modelData.index)])
+            onMoveRequested: direction => view.change(["move", String(index), String(index + direction)])
         }
     }
     // Choosing a layout from the floating list adds it; the catalog loads with the page.
     ChoiceDropdown {
         objectName: "settings-add-layout"
-        width: Math.min(parent.width, 360)
+        width: Math.min(parent.width, 320)
         gold: SettingsInk.gold; background: SettingsInk.background
         foreground: view.foreground
         label: Eitr.I18n.tr("Add Layout")

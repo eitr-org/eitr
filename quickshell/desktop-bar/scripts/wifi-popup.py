@@ -4,6 +4,7 @@ import eitr_bootstrap
 from eitr_i18n import tr
 import os
 import importlib.util
+import ipaddress
 import base64
 import json
 from pathlib import Path
@@ -84,9 +85,7 @@ def snapshot(include_details=True):
         details = telemetry(device["Name"]) if include_details else {}
         if include_details and station.get("State") == "connected":
             try:
-                diagnostic = call(path, PREFIX + "StationDiagnostic", "GetDiagnostics")[0]
-                frequency = diagnostic.get("Frequency", 0)
-                details["band"] = "6 GHz" if frequency >= 5925 else "5 GHz" if frequency >= 4900 else "2.4 GHz"
+                details.update(diagnostics(call(path, PREFIX + "StationDiagnostic", "GetDiagnostics")[0]))
             except GLib.Error:
                 pass
         devices.append({"path": path, "name": device["Name"], "powered": device.get("Powered", False),
@@ -95,13 +94,55 @@ def snapshot(include_details=True):
     return {"devices": devices}
 
 
-def telemetry(interface):
-    result = {}
+def diagnostics(diagnostic):
+    """iwd's StationDiagnostic: TxBitrate counts 100 kbit/s, Security and TxMode are names."""
+    result = NM_ADAPTER.radio(diagnostic.get("Frequency", 0))
+    if diagnostic.get("Channel"):
+        result["channel"] = diagnostic["Channel"]
+    if diagnostic.get("TxBitrate"):
+        result["speed"] = round(diagnostic["TxBitrate"] / 10)
+    for source, target in (("Security", "security"), ("TxMode", "standard")):
+        if diagnostic.get(source):
+            result[target] = diagnostic[source]
+    return result
+
+
+def addresses(links):
+    """Fields of `ip -j addr show dev IFACE`: global IPv4/IPv6 addresses, MAC and link index."""
+    infos = [address for link in links for address in link.get("addr_info", []) if address.get("scope") == "global"]
+    return {"ip": next((address["local"] for address in infos if address.get("family") == "inet"), ""),
+            "ipv6": ", ".join(address["local"] for address in infos if address.get("family") == "inet6"),
+            "mac": next((link["address"] for link in links if link.get("address")), ""),
+            "index": next((link["ifindex"] for link in links if link.get("ifindex")), 0)}
+
+
+def link_dns(servers, index):
+    """systemd-resolved's Manager.DNS entries (link index, family, address bytes) for one link."""
+    return ", ".join(str(ipaddress.ip_address(bytes(address))) for link, family, address in servers
+                     if link == index and family in (2, 10))
+
+
+def resolved_servers():
     try:
-        addresses = json.loads(subprocess.check_output(["ip", "-j", "-4", "addr", "show", "dev", interface], timeout=2))
-        result["ip"] = next((a["local"] for link in addresses for a in link.get("addr_info", []) if a.get("scope") == "global"), "")
+        return bus.call_sync("org.freedesktop.resolve1", "/org/freedesktop/resolve1", "org.freedesktop.DBus.Properties", "Get",
+                             GLib.Variant("(ss)", ("org.freedesktop.resolve1.Manager", "DNS")), None,
+                             Gio.DBusCallFlags.NONE, 2000, None).unpack()[0]
+    except GLib.Error:
+        return []
+
+
+def telemetry(interface):
+    result = {"interface": interface}
+    try:
+        links = json.loads(subprocess.check_output(["ip", "-j", "addr", "show", "dev", interface], timeout=2))
+        fields = addresses(links)
+        index = fields.pop("index")
+        result.update(fields)
+        dns = link_dns(resolved_servers(), index)
+        if dns:
+            result["dns"] = dns
         routes = json.loads(subprocess.check_output(["ip", "-j", "-4", "route", "show", "default", "dev", interface], timeout=2))
-        result["gateway"] = next((r["gateway"] for r in routes if r.get("gateway")), "")
+        result["gateway"] = next((route["gateway"] for route in routes if route.get("gateway")), "")
     except (OSError, GLib.Error, subprocess.SubprocessError, ValueError):
         pass
     return result

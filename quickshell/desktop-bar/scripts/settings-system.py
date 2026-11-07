@@ -35,29 +35,36 @@ def shortcuts():
 
 
 def git_cloud():
+    """One row per identity, profile or context, each tagged with the provider card it belongs to."""
     git = module('settings_git', 'walker/scripts/actions/development/git-accounts.py')
     contexts = module('settings_contexts', 'walker/scripts/menus/cloud/contexts.py')
     accounts = module('settings_cloud_accounts', 'walker/scripts/menus/cloud/accounts.py')
     providers = module('settings_providers', 'walker/scripts/menus/cloud/providers.py')
     items = []
+    git_group = {'menu': 'git-accounts', 'provider': 'git', 'providerTitle': tr('Git identities')}
     try:
         model = git.load()
         for identifier, account in model['accounts'].items():
             folders = [rule['path'] for rule in model['folders'] if rule['account'] == identifier]
             detail = ' · '.join(filter(None, [account.get('name'), account.get('email'),
                                              'Default' if identifier == model.get('default') else '', *folders]))
-            items.append({'title': account['label'], 'detail': detail, 'menu': 'git-accounts', 'account': identifier})
+            items.append({**git_group, 'title': account['label'], 'detail': detail, 'account': identifier})
     except (OSError, ValueError) as error:
-        items.append({'title': 'Git Accounts', 'detail': str(error), 'menu': 'git-accounts'})
-    for profile in accounts.aws_choices():
-        items.append({'title': 'AWS', 'detail': profile.replace('\t', ' · '), 'menu': 'cloud', 'provider': 'aws', 'context': profile.split('\t')[-1]})
+        items.append({**git_group, 'title': 'Git Accounts', 'detail': str(error)})
+    for choice in accounts.aws_choices():
+        label, _, profile = choice.partition('\t')
+        items.append({'title': label, 'detail': profile if profile and profile != label else '', 'menu': 'cloud',
+                      'provider': 'aws', 'providerTitle': 'AWS', 'context': profile or label})
     for provider, title in [('gcp', 'Google Cloud'), ('azure', 'Azure')]:
         for context in contexts.contexts(provider):
-            items.append({'title': title, 'detail': contexts.title(context), 'menu': 'cloud', 'provider': provider, 'context': context.get('configuration') or context.get('subscription')})
+            label, _, detail = contexts.title(context).partition(' — ')
+            items.append({'title': label, 'detail': detail, 'menu': 'cloud', 'provider': provider, 'providerTitle': title,
+                          'context': context.get('configuration') or context.get('subscription')})
     for provider, definition in providers.PROVIDERS.items():
         for name in providers.accounts(provider):
             selected = providers.selection(provider, name)
-            items.append({'title': definition['name'], 'detail': ' · '.join([name, *selected.values()]), 'menu': 'cloud', 'provider': provider, 'context': name})
+            items.append({'title': name, 'detail': ' · '.join(selected.values()), 'menu': 'cloud', 'provider': provider,
+                          'providerTitle': definition['name'], 'context': name})
     return {'items': items}
 
 
@@ -99,13 +106,19 @@ def about():
 
 
 def assistants():
-    from eitr_assistants import assistants as definitions, available
+    """The AI Assistant page: install and account actions per assistant, the offline assistant,
+    and the default, access and collaboration choices that Walker's AI menus offer."""
+    from eitr_assistants import assistant_access, assistants as definitions, available, default_assistant
     from eitr_ai_accounts import menu as account_rows
+    from eitr_collaboration import enabled as collaboration_enabled
+    import eitr_local_assistant
     items = []
+    choices = []
     for identifier, definition in definitions().items():
         installed = available(identifier)
-        controls = [{'title': 'Install', 'command': terminal('walker/scripts/actions/install/software.py', 'recipe', 'ai', identifier)}] if not installed else []
+        controls = [] if installed else [{'title': 'Install', 'command': terminal('walker/scripts/actions/install/software.py', 'recipe', 'ai', identifier)}]
         if installed:
+            choices.append({'value': identifier, 'label': definition['label']})
             accounts = account_rows(identifier)
             for account in accounts.get('accounts', []):
                 controls.append({'title': account['label'], 'detail': 'Current' if account.get('current') else '',
@@ -116,9 +129,18 @@ def assistants():
             if accounts.get('supported'):
                 controls.append({'title': 'Add Account…', 'command': terminal('walker/scripts/actions/ai-accounts.py', 'add', identifier)})
         items.append({'title': definition['label'], 'detail': 'Installed' if installed else 'Not installed', 'controls': controls})
-    items.append({'title': 'Let assistants work together', 'detail': 'Read-only help from your connected assistants',
-                  'controls': [{'title': 'Let assistants work together', 'command': ['python3', str(code('walker/scripts/actions/assistant-collaboration.py')), 'toggle']}]})
-    return {'items': items}
+    local_ready = eitr_local_assistant.installed()
+    if local_ready:
+        choices.append({'value': eitr_local_assistant.IDENTIFIER, 'label': 'Ratatoskr (local, experimental)'})
+    local_controls = [] if local_ready else [{'title': 'Set Up', 'detail': 'Set up an assistant that runs only on this PC',
+                                              'command': terminal('walker/scripts/actions/ai-assistant.py', 'setup-local')}]
+    if local_ready or eitr_local_assistant.present():
+        local_controls.append({'title': 'Remove', 'detail': 'Ratatoskr (local, experimental)',
+                               'command': terminal('walker/scripts/actions/ai-assistant.py', 'remove-local')})
+    items.append({'title': 'Ratatoskr (local, experimental)', 'detail': 'Runs only on this PC; less reliable than cloud assistants',
+                  'controls': local_controls})
+    return {'items': items, 'choices': choices, 'current': default_assistant(), 'access': assistant_access(),
+            'collaboration': collaboration_enabled()}
 
 
 def summary(page):
@@ -151,7 +173,9 @@ def controls_summary(page):
         from eitr_assistants import assistant_access
         result['access'] = assistant_access()
         for item in result['items']:
-            if item['menu'] and item['menu'] != 'assistant-access':
+            if item['menu'] == 'assistant-access':
+                item['controls'] = [{'title': 'Assistant Access', 'page': 'assistant'}]
+            elif item['menu']:
                 item['controls'] = static_controls(item['menu'])
     if page == 'git-cloud':
         git = module('settings_git_controls', 'walker/scripts/actions/development/git-accounts.py')
@@ -171,10 +195,10 @@ def controls_summary(page):
                     item['controls'].append({'title': title, 'detail': git.ACTION_HINTS[title],
                                              'gitAccount': identifier, 'options': options,
                                              'confirmation': model['accounts'][identifier]['label'] + ' · ' + tr(git.ACTION_HINTS[title])})
-            elif item.get('provider'):
+            elif item.get('menu') == 'cloud':
                 provider, context = item['provider'], item['context']
                 if provider in ('aws', 'gcp', 'azure'):
-                    item['controls'] = [{'title': 'Rename', 'detail': item['detail'], 'command': terminal(
+                    item['controls'] = [{'title': 'Rename', 'detail': item['title'], 'command': terminal(
                         'walker/scripts/menus/cloud/accounts.py', 'rename', provider, context)}]
                 else:
                     item['controls'] = []
@@ -185,7 +209,7 @@ def controls_summary(page):
                         if arguments[0] == 'kitty':
                             arguments[0] = str(code('walker/bin/menu-path/kitty'))
                         item['controls'].append({'title': entry['Text'], 'detail': entry['Subtext'], 'command': arguments})
-                    item['controls'].append({'title': 'Delete Account', 'detail': tr('Remove local sign-in; the remote account is kept.'), 'cloudDelete': context, 'provider': provider, 'confirmation': item['detail'] + ' · ' + tr('Remove local sign-in; the remote account is kept.')})
+                    item['controls'].append({'title': 'Delete Account', 'detail': tr('Remove local sign-in; the remote account is kept.'), 'cloudDelete': context, 'provider': provider, 'confirmation': item['title'] + ' · ' + tr('Remove local sign-in; the remote account is kept.')})
     messages = table('menus')
     for item in result['items']:
         if page == 'assistants':
@@ -214,11 +238,19 @@ def git_action(identifier, title, selection, confirmed):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['summary', 'git-action', 'access', 'cloud-delete'])
+    parser.add_argument('action', choices=['summary', 'git-action', 'access', 'cloud-delete', 'default-assistant', 'collaboration'])
     parser.add_argument('page', choices=['keybinds', 'git-cloud', 'security', 'about', 'assistants'])
     parser.add_argument('arguments', nargs='*')
     options = parser.parse_args()
-    if options.action == 'access':
+    if options.action == 'default-assistant':
+        from eitr_assistants import set_default
+        set_default(options.arguments[0])
+    elif options.action == 'collaboration':
+        # Turning on explains the hand-offs and asks for consent in a terminal; off is immediate.
+        result = subprocess.run(['python3', str(code('walker/scripts/actions/assistant-collaboration.py')), 'toggle'], check=False)
+        if result.returncode:
+            raise SystemExit(result.returncode)
+    elif options.action == 'access':
         from eitr_assistants import set_access
         set_access(options.arguments[0])
     elif options.action == 'cloud-delete':

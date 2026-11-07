@@ -42,4 +42,4 @@ Versionierte Einstellungen liegen in `~/.config/eitr/git-accounts.json`. Bei jed
 
 Quellen: [bedingte Git-Includes](https://git-scm.com/docs/git-config), [GitHub-CLI-Profile](https://cli.github.com/manual/gh_help_environment), [GitLab-CLI-Profile](https://docs.gitlab.com/cli/configuration/).
 
-Einstellungen > Git & Cloud zeigt Identitäten, Ordnerregeln und konfigurierte Cloud-Kontexte schreibgeschützt. Git-Konten oder Cloud öffnet die vorhandenen Abläufe; das Anzeigen wechselt keine CLI-Standards.
+Einstellungen > Git & Cloud zeigt eine Karte pro Anbieter mit jeder Identität, Ordnerregel oder jedem Cloud-Kontext als Zeile samt Aktionen. Die Werkzeugleiste öffnet Git-Konten, Vorhandene Einrichtung importieren und Konto hinzufügen… für einen Cloud-Anbieter in den vorhandenen geführten Abläufen; das Anzeigen der Seite wechselt keine CLI-Standards.

@@ -12,6 +12,10 @@ Rectangle {
     property bool available: true
     property bool removable: true
     property bool showRemove: true
+    property bool reorderable: false
+    property bool canMoveUp: false
+    property bool canMoveDown: false
+    signal moveRequested(int direction)
     signal activated()
     signal removeRequested()
     height: PanelStyle.selectionRowHeight
@@ -28,7 +32,7 @@ Rectangle {
         color: row.foreground; font.family: PanelStyle.fontFamily; font.pixelSize: PanelStyle.selectionIconSize
     }
     Text {
-        x: PanelStyle.selectionTextInset; width: parent.width - x - (row.showRemove ? PanelStyle.selectionActionWidth + 2 * PanelStyle.selectionActionInset : 10)
+        x: PanelStyle.selectionTextInset; width: parent.width - x - (row.showRemove ? PanelStyle.selectionActionWidth + 2 * PanelStyle.selectionActionInset : 10) - (row.reorderable ? 60 : 0)
         anchors.verticalCenter: parent.verticalCenter
         text: row.label; textFormat: Text.PlainText; elide: Text.ElideRight
         color: row.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
@@ -38,6 +42,27 @@ Rectangle {
         anchors.fill: parent; hoverEnabled: true; enabled: row.available
         cursorShape: Qt.PointingHandCursor
         onClicked: row.activated()
+    }
+    Row {
+        visible: row.reorderable
+        anchors.right: removeButton.left
+        anchors.rightMargin: PanelStyle.selectionRowGap
+        anchors.verticalCenter: parent.verticalCenter
+        spacing: PanelStyle.selectionRowGap
+        PanelButton {
+            width: PanelStyle.selectionActionWidth; height: PanelStyle.selectionActionHeight
+            icon: true; text: "↑"; foreground: row.foreground
+            available: row.available && row.canMoveUp
+            Accessible.name: Eitr.I18n.tr("Move up")
+            onClicked: row.moveRequested(-1)
+        }
+        PanelButton {
+            width: PanelStyle.selectionActionWidth; height: PanelStyle.selectionActionHeight
+            icon: true; text: "↓"; foreground: row.foreground
+            available: row.available && row.canMoveDown
+            Accessible.name: Eitr.I18n.tr("Move down")
+            onClicked: row.moveRequested(1)
+        }
     }
     PanelButton {
         id: removeButton

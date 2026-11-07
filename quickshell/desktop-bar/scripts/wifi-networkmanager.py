@@ -23,6 +23,19 @@ def properties(bus, path, interface):
     return call(bus, path, PROPERTIES, "GetAll", GLib.Variant("(s)", (interface,)))[0]
 
 
+def radio(frequency):
+    """Band and channel of a frequency in MHz; the iwd reader shares this."""
+    if not frequency:
+        return {}
+    if frequency >= 5925:
+        band, channel = "6 GHz", (frequency - 5950) // 5
+    elif frequency >= 4900:
+        band, channel = "5 GHz", (frequency - 5000) // 5
+    else:
+        band, channel = "2.4 GHz", 14 if frequency == 2484 else (frequency - 2407) // 5
+    return {"band": band, "frequency": frequency, "channel": channel}
+
+
 def security(ap):
     flags = ap.get("WpaFlags", 0) | ap.get("RsnFlags", 0)
     if flags & 0x200:
@@ -61,7 +74,7 @@ def snapshot(bus, telemetry):
         wireless = properties(bus, path, SERVICE + ".Device.Wireless")
         active = wireless.get("ActiveAccessPoint", "/")
         networks = {}
-        band = ""
+        frequency = 0
         for ap_path in wireless.get("AccessPoints", []):
             ap = properties(bus, ap_path, SERVICE + ".AccessPoint")
             name = bytes(ap.get("Ssid", [])).decode("utf-8", "replace")
@@ -77,14 +90,22 @@ def snapshot(bus, telemetry):
                 networks[key] = row
             if row["connected"]:
                 frequency = ap.get("Frequency", 0)
-                band = "6 GHz" if frequency >= 5925 else "5 GHz" if frequency >= 4900 else "2.4 GHz"
         for key, known_path in saved.items():
             if key not in networks:
                 networks[key] = {"name": key[0], "type": key[1], "path": "", "devicePath": path,
                                  "known": True, "knownPath": known_path, "available": False,
                                  "connected": False, "strength": None}
         details = telemetry(device["Interface"])
-        details.update(band=band)
+        details.update(radio(frequency))
+        bitrate = wireless.get("Bitrate")
+        if bitrate and frequency:
+            details["speed"] = round(bitrate / 1000)
+        ip_config = device.get("Ip4Config")
+        if ip_config and ip_config != "/":
+            config = properties(bus, ip_config, SERVICE + ".IP4Config")
+            nameservers = [server["address"] for server in config.get("NameserverData") or [] if server.get("address")]
+            if nameservers:
+                details["dns"] = ", ".join(nameservers)
         state = device.get("State", 0)
         devices.append({"path": path, "name": device["Interface"],
                         "powered": manager.get("WirelessEnabled", False), "scanning": False,

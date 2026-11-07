@@ -2,7 +2,7 @@
 
 The Displays page and Display panel show a monitor map above the monitor selector. Rectangles follow the real positions and logical sizes, including scale and rotation. The main display has a highlighted outline and a Main tag; disabled screens are dimmed when present in the topology. Click a monitor to open its settings. The map cannot be dragged. A trial updates the map immediately and uses a dashed outline until kept or reverted.
 
-Use **Settings > Displays**, **Settings > Sound** and **Settings > Input** for the shared controls inside Settings. Input can add, remove and reorder keyboard layouts; the arrow buttons change their order.
+Use **Settings > Displays**, **Settings > Sound** and **Settings > Input** for the shared controls inside Settings. Sound has Output and Input cards (device, volume with mute, and the microphone level), one row per application playing audio, and event sounds; Rename stays on the device list. Input can add, remove and reorder keyboard layouts; the arrow buttons change their order.
 
 Find these controls under **Settings > Devices & Input** or the corresponding bar
 icons. The Control Center provides their everyday toggles and sliders too.

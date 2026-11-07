@@ -81,7 +81,12 @@
         "details": {
           "ip": "192.0.2.10",
           "gateway": "192.0.2.1",
-          "band": "5 GHz"
+          "band": "5 GHz",
+          "frequency": 5180,
+          "channel": 36,
+          "speed": 867,
+          "security": "WPA2-Personal",
+          "standard": "802.11ac"
         }
       }
     ],
@@ -133,7 +138,9 @@
         "details": {
           "ip": "192.0.2.10",
           "gateway": "192.0.2.1",
-          "band": "5 GHz"
+          "band": "5 GHz",
+          "frequency": 5180,
+          "channel": 36
         }
       }
     ],

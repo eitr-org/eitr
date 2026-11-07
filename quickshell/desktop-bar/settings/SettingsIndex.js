@@ -87,10 +87,10 @@ var pages = [
     },
     {
         "group": "Apps & Keys",
-        "id": "assistants",
-        "title": "AI Assistants",
+        "id": "assistant",
+        "title": "AI Assistant",
         "description": "Installed assistants and collaboration preferences.",
-        "keywords": "ai usage assistants collaboration"
+        "keywords": "ai usage assistants collaboration default access permissions accounts claude codex gemini grok copilot"
     },
     {
         "group": "Apps & Keys",
@@ -176,7 +176,7 @@ var tabs = {
 };
 function resolve(identifier) {
     const parts = String(identifier || "system").split("/");
-    const aliases = {network: "connections", you: "system", "desktop-bar": "bar"};
+    const aliases = {assistants: "assistant", network: "connections", you: "system", "desktop-bar": "bar"};
     const page = aliases[parts[0]] || parts[0];
     const choices = tabs[page] || [];
     return {page: pages.some(entry => entry.id === page) ? page : "system",

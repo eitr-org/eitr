@@ -2,7 +2,7 @@
 
 La page Écrans et le panneau d’affichage montrent une carte des moniteurs au-dessus du sélecteur. Les rectangles suivent les positions réelles et les tailles logiques, avec mise à l’échelle et rotation. L’écran principal porte un contour surligné et une étiquette Principal ; les écrans désactivés sont estompés lorsqu’ils figurent dans la topologie. Cliquez sur un moniteur pour ouvrir ses réglages. La carte ne se déplace pas par glissement. Un essai actualise immédiatement la carte et affiche un contour pointillé jusqu’à sa confirmation ou son annulation.
 
-Utilisez **Paramètres > Écrans**, **Paramètres > Son** et **Paramètres > Saisie** pour les commandes partagées dans les paramètres. Entrée permet d’ajouter, supprimer et réordonner les dispositions du clavier avec les boutons fléchés.
+Utilisez **Paramètres > Écrans**, **Paramètres > Son** et **Paramètres > Saisie** pour les commandes partagées dans les paramètres. Son contient les cartes Sortie et Entrée (périphérique, volume avec sourdine et niveau du micro), une ligne par application qui lit du son, et les sons d’événements ; Renommer reste dans la liste des périphériques. Entrée permet d’ajouter, supprimer et réordonner les dispositions du clavier avec les boutons fléchés.
 
 Ces commandes se trouvent dans **Paramètres > Périphériques et saisie** ou via les icônes correspondantes de la barre. Le Centre de contrôle propose aussi leurs interrupteurs et curseurs courants.
 

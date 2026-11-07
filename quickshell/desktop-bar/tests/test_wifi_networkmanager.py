@@ -33,6 +33,28 @@ class NetworkManagerTests(unittest.TestCase):
         with patch.object(nm, "profiles", return_value=saved), patch.object(nm, "properties", side_effect=properties):
             self.assertEqual(nm.snapshot(None, lambda interface: dict(device["details"])), fixture)
 
+    def test_radio_band_and_channel_from_frequency(self):
+        self.assertEqual(nm.radio(2412), {"band": "2.4 GHz", "frequency": 2412, "channel": 1})
+        self.assertEqual(nm.radio(2484)["channel"], 14)
+        self.assertEqual(nm.radio(5745), {"band": "5 GHz", "frequency": 5745, "channel": 149})
+        self.assertEqual(nm.radio(5975), {"band": "6 GHz", "frequency": 5975, "channel": 5})
+        self.assertEqual(nm.radio(0), {})
+
+    def test_speed_and_dns_come_from_the_device(self):
+        def properties(bus, path, interface):
+            return {
+                (nm.ROOT, nm.SERVICE): {"Devices": ["/device"], "WirelessEnabled": True},
+                ("/device", nm.SERVICE + ".Device"): {"DeviceType": 2, "Interface": "test0", "State": 100, "Ip4Config": "/ip4"},
+                ("/device", nm.SERVICE + ".Device.Wireless"): {"AccessPoints": ["/active"], "ActiveAccessPoint": "/active", "Bitrate": 866700},
+                ("/active", nm.SERVICE + ".AccessPoint"): {"Ssid": b"Cafe", "RsnFlags": 0x100, "Strength": 80, "Frequency": 5180},
+                ("/ip4", nm.SERVICE + ".IP4Config"): {"NameserverData": [{"address": "192.0.2.1"}, {"address": "192.0.2.2"}]},
+            }[(path, interface)]
+        with patch.object(nm, "profiles", return_value={}), patch.object(nm, "properties", side_effect=properties):
+            details = nm.snapshot(None, lambda interface: {"dns": "198.51.100.1"})["devices"][0]["details"]
+        self.assertEqual(details["speed"], 867)
+        self.assertEqual(details["channel"], 36)
+        self.assertEqual(details["dns"], "192.0.2.1, 192.0.2.2")
+
     def test_security_types_do_not_treat_encrypted_networks_as_open(self):
         for flags, kind in ((0, "open"), (0x100, "psk"), (0x200, "8021x"), (0x400, "sae"), (0x800, "unsupported")):
             self.assertEqual(nm.security({"RsnFlags": flags}), kind)

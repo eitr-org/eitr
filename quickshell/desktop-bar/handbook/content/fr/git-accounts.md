@@ -42,4 +42,4 @@ Les réglages versionnés se trouvent dans `~/.config/eitr/git-accounts.json`. C
 
 Références : [inclusions conditionnelles Git](https://git-scm.com/docs/git-config), [profils GitHub CLI](https://cli.github.com/manual/gh_help_environment), [profils GitLab CLI](https://docs.gitlab.com/cli/configuration/).
 
-Paramètres > Git et cloud affiche identités, règles de dossiers et contextes en lecture seule. Comptes Git ou Cloud ouvre les parcours existants ; consulter la page ne change aucun réglage par défaut des CLI.
+Paramètres > Git et cloud affiche une carte par fournisseur avec chaque identité, règle de dossier ou contexte cloud en ligne avec ses actions. La barre d’outils ouvre Comptes Git, Importer la configuration existante et Ajouter un compte… pour un fournisseur cloud dans les parcours guidés existants ; consulter la page ne change aucun réglage par défaut des CLI.

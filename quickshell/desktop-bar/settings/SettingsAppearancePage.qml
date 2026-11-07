@@ -1,0 +1,292 @@
+import ".."
+import QtQuick
+import Eitr as Eitr
+
+Column {
+    required property var context
+    readonly property var view: context
+    readonly property var styleModel: context.styleState
+    readonly property var themeModel: context.themeModel
+    readonly property var wallpaperModel: context.wallpaperModel
+    readonly property var fontHelper: context.fontHelper
+    width: parent ? parent.width : 0
+    spacing: 18
+    TabStrip { foreground: SettingsPalette.foreground; gold: SettingsPalette.gold; carved: true;
+        width: parent.width
+        visible: view.page === "appearance"
+        height: visible ? 42 : 0
+        choices: [{id: "theme", label: Eitr.I18n.tr("Theme & Wallpaper")}, {id: "fonts", label: Eitr.I18n.tr("Fonts & Cursor")}, {id: "terminal", label: Eitr.I18n.tr("Terminal")}]
+        current: view.tab
+        onChosen: value => { view.tabRequested(value); view.contentY = 0; }
+    }
+    ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
+        title: Eitr.I18n.tr("Settings colours")
+        foreground: view.foreground
+        visible: view.page === "appearance" && view.tab === "theme"
+        PictureChoices { foreground: SettingsPalette.foreground; background: SettingsPalette.background; accent: SettingsPalette.accent; gold: SettingsPalette.gold; raised: SettingsPalette.raised; surface: SettingsPalette.surface; line: SettingsPalette.line; muted: SettingsPalette.muted; carved: true;
+            themeBackground: SettingsPalette.themeBackground
+            themeForeground: SettingsPalette.themeForeground
+            themeAccent: SettingsPalette.themeAccent
+            kind: "palette"
+            choices: [{id: "theme", label: Eitr.I18n.tr("Theme colours")}, {id: "website", label: Eitr.I18n.tr("Eitr website")}]
+            current: SettingsPalette.palette
+            onChosen: value => SettingsPalette.select(value, view.live)
+        }
+    }
+    ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
+        title: Eitr.I18n.tr("Theme & Wallpaper")
+        foreground: view.foreground
+        visible: view.page === "appearance" && view.tab === "theme"
+        ControlRow {
+            text: Eitr.I18n.tr("Theme")
+            description: Eitr.I18n.tr("Choose the colours used across your desktop.")
+            foreground: view.foreground
+            ChoiceDropdown { gold: SettingsInk.gold; background: SettingsInk.background;
+                foreground: view.foreground
+                choices: themeModel.items
+                current: (themeModel.items.find(item => item.current) || {}).value || ""
+                onChosen: value => {
+                    if (view.live) {
+                        themeModel.selectedIndex = themeModel.items.findIndex(item => item.value === value);
+                        themeModel.apply();
+                    }
+                }
+            }
+        }
+        PanelButton {
+            width: 180
+            text: Eitr.I18n.tr("More themes")
+            foreground: view.foreground
+            onClicked: view.themesRequested()
+        }
+        SettingsText {
+            text: Eitr.I18n.tr("Wallpaper")
+            color: SettingsInk.gold
+            font.family: SiteStyle.carved
+        }
+        SettingsText {
+            text: Eitr.I18n.tr("Choose an image for your desktop.")
+            font.pixelSize: 11
+        }
+        Flow {
+            width: parent.width
+            spacing: 6
+            Repeater {
+                model: wallpaperModel.items
+                Rectangle {
+                    required property var modelData
+                    required property int index
+                    width: (parent.width - 12) / 3
+                    height: width * 9 / 16
+                    color: view.background
+                    border.width: modelData.current ? 2 : 0
+                    border.color: SettingsInk.gold
+                    Image {
+                        anchors.fill: parent
+                        anchors.margins: 3
+                        source: modelData.image
+                        sourceSize.width: 320
+                        fillMode: Image.PreserveAspectCrop
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: if (view.live) {
+                            wallpaperModel.selectedIndex = parent.index;
+                            wallpaperModel.apply();
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
+        title: Eitr.I18n.tr("Typography & Shape")
+        foreground: view.foreground
+        visible: view.page === "appearance" && view.tab === "fonts"
+        ControlRow {
+            text: Eitr.I18n.tr("Fonts")
+            description: Eitr.I18n.tr("Set the font used by desktop text.")
+            foreground: view.foreground
+            ChoiceDropdown { gold: SettingsInk.gold; background: SettingsInk.background;
+                foreground: view.foreground
+                choices: fontHelper.summary.choices || []
+                current: fontHelper.summary.current || ""
+                onChosen: value => {
+                    if (view.live) {
+                        fontHelper.change(["select", value]);
+                    }
+                }
+            }
+        }
+        Column {
+            width: parent.width
+            spacing: 8
+            SettingsText { text: Eitr.I18n.tr("Corners"); color: SettingsInk.gold }
+            PictureChoices { foreground: SettingsPalette.foreground; background: SettingsPalette.background; accent: SettingsPalette.accent; gold: SettingsPalette.gold; raised: SettingsPalette.raised; surface: SettingsPalette.surface; line: SettingsPalette.line; muted: SettingsPalette.muted; carved: true;
+                kind: "corners"
+                edge: styleModel.barPosition
+                appearance: styleModel.appearance
+                compact: true
+                choices: DesktopStyle.options
+                current: DesktopStyle.corners
+                onChosen: value => {
+                    if (view.live) {
+                        DesktopStyle.select(value);
+                    }
+                }
+            }
+        }
+    }
+    ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
+        title: Eitr.I18n.tr("Cursor")
+        foreground: view.foreground
+        visible: view.page === "appearance" && view.tab === "fonts"
+        ControlRow {
+            text: Eitr.I18n.tr("Cursor family")
+            description: Eitr.I18n.tr("Choose the pointer shape.")
+            foreground: view.foreground
+            Row {
+                width: parent.width
+                spacing: 10
+                Image {
+                    id: cursorSample
+                    anchors.verticalCenter: parent.verticalCenter
+                    visible: source.toString() !== ""
+                    width: Number((styleModel.cursorChoices.size.find(choice => choice.selected) || {}).id || 24)
+                    height: width
+                    source: styleModel.cursorPreview ? "file://" + styleModel.cursorPreview : ""
+                    fillMode: Image.PreserveAspectFit
+                    Accessible.name: Eitr.I18n.tr("Cursor preview")
+                }
+                ChoiceDropdown { gold: SettingsInk.gold; background: SettingsInk.background;
+                    width: parent.width - (cursorSample.visible ? cursorSample.width + 10 : 0)
+                    anchors.verticalCenter: parent.verticalCenter
+                    foreground: view.foreground
+                    choices: styleModel.cursorChoices.family
+                    current: (styleModel.cursorChoices.family.find(choice => choice.selected) || {}).id || ""
+                    onChosen: value => {
+                        if (view.live) {
+                            styleModel.run(styleModel.cursorWriteRef, ["python3", styleModel.cursorScript, "set", "family", value]);
+                        }
+                    }
+                }
+            }
+        }
+        ControlRow {
+            text: Eitr.I18n.tr("Cursor colour")
+            description: Eitr.I18n.tr("Follow the theme or choose a fixed colour.")
+            foreground: view.foreground
+            ChoiceDropdown { gold: SettingsInk.gold; background: SettingsInk.background;
+                foreground: view.foreground
+                choices: styleModel.cursorChoices.color
+                current: (styleModel.cursorChoices.color.find(choice => choice.selected) || {}).id || ""
+                onChosen: value => {
+                    if (view.live) {
+                        styleModel.run(styleModel.cursorWriteRef, ["python3", styleModel.cursorScript, "set", "color", value]);
+                    }
+                }
+            }
+        }
+        ControlRow {
+            text: Eitr.I18n.tr("Cursor size")
+            description: Eitr.I18n.tr("Adjust the pointer size in pixels.")
+            foreground: view.foreground
+            ChoiceLevel {
+                foreground: view.foreground
+                accent: view.accent
+                choices: styleModel.cursorChoices.size
+                current: (styleModel.cursorChoices.size.find(choice => choice.selected) || {}).id || ""
+                accessibleName: Eitr.I18n.tr("Cursor size")
+                available: !styleModel.cursorWriteRef.running
+                onChosen: value => styleModel.run(styleModel.cursorWriteRef, ["python3", styleModel.cursorScript, "set", "size", value])
+            }
+        }
+    }
+    ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
+        title: Eitr.I18n.tr("Terminal")
+        foreground: view.foreground
+        visible: view.page === "appearance" && view.tab === "terminal"
+        ControlRow {
+            text: Eitr.I18n.tr("Terminal")
+            description: Eitr.I18n.tr("Choose the app opened by the terminal shortcut.")
+            foreground: view.foreground
+            ChoiceDropdown { gold: SettingsInk.gold; background: SettingsInk.background;
+                foreground: view.foreground
+                choices: styleModel.terminalChoices
+                current: styleModel.terminalChoice
+                onChosen: value => {
+                    if (view.live) {
+                        styleModel.run(styleModel.terminalWriteRef, ["python3", styleModel.terminalScript, "set", "terminal", value]);
+                    }
+                }
+            }
+        }
+        ControlRow {
+            text: Eitr.I18n.tr("Opacity")
+            description: Eitr.I18n.tr("Adjust how much of the desktop shows through.")
+            foreground: view.foreground
+            ChoiceLevel {
+                foreground: view.foreground
+                accent: view.accent
+                choices: styleModel.terminalAppearanceChoices["opacity"] || []
+                current: styleModel.terminalAppearance["opacity"] || ""
+                accessibleName: Eitr.I18n.tr("Opacity")
+                available: !styleModel.terminalWriteRef.running
+                onChosen: value => styleModel.run(styleModel.terminalWriteRef, ["python3", styleModel.terminalScript, "set", "opacity", value])
+            }
+        }
+        ControlRow {
+            text: Eitr.I18n.tr("Padding")
+            description: Eitr.I18n.tr("Set the space around terminal text.")
+            foreground: view.foreground
+            ChoiceLevel {
+                foreground: view.foreground
+                accent: view.accent
+                choices: styleModel.terminalAppearanceChoices["padding"] || []
+                current: styleModel.terminalAppearance["padding"] || ""
+                accessibleName: Eitr.I18n.tr("Padding")
+                available: !styleModel.terminalWriteRef.running
+                onChosen: value => styleModel.run(styleModel.terminalWriteRef, ["python3", styleModel.terminalScript, "set", "padding", value])
+            }
+        }
+        ControlRow {
+            text: Eitr.I18n.tr("Blur strength (shared)")
+            description: Eitr.I18n.tr("Adjust blur across the desktop.")
+            foreground: view.foreground
+            ChoiceLevel {
+                foreground: view.foreground
+                accent: view.accent
+                choices: styleModel.terminalAppearanceChoices["blur-strength"] || []
+                current: styleModel.terminalAppearance["blur-strength"] || ""
+                accessibleName: Eitr.I18n.tr("Blur strength (shared)")
+                available: !styleModel.terminalWriteRef.running
+                onChosen: value => styleModel.run(styleModel.terminalWriteRef, ["python3", styleModel.terminalScript, "set", "blur-strength", value])
+            }
+        }
+        ToggleRow {
+            text: Eitr.I18n.tr("Blur")
+            description: Eitr.I18n.tr("Soften the desktop behind terminal windows.")
+            foreground: view.foreground
+            accent: view.accent
+            checked: styleModel.terminalAppearance.blur === "on"
+            onToggled: checked => {
+                if (view.live) {
+                    styleModel.run(styleModel.terminalWriteRef, ["python3", styleModel.terminalScript, "set", "blur", checked ? "on" : "off"]);
+                }
+            }
+        }
+        ToggleRow {
+            text: Eitr.I18n.tr("Cursor Fire")
+            description: Eitr.I18n.tr("Show a blazing trail behind the Kitty cursor.")
+            foreground: view.foreground
+            accent: view.accent
+            checked: styleModel.cursorFire
+            onToggled: checked => {
+                if (view.live) {
+                    styleModel.run(styleModel.fireWriteRef, ["python3", styleModel.effectsScript, "set", "cursor-fire", checked ? "on" : "off"]);
+                }
+            }
+        }
+    }
+}

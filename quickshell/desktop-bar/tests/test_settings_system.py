@@ -21,7 +21,8 @@ class SettingsSystemTests(unittest.TestCase):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)
         environment = patch.dict(os.environ, EITR_CODE_ROOT=str(SCRIPTS.parents[2]),
-                                 XDG_CONFIG_HOME=temporary.name, LC_ALL='C.UTF-8')
+                                 XDG_CONFIG_HOME=temporary.name, XDG_STATE_HOME=temporary.name,
+                                 XDG_DATA_HOME=temporary.name, LC_ALL='C.UTF-8')
         environment.start()
         self.addCleanup(environment.stop)
 
@@ -76,14 +77,34 @@ class SettingsSystemTests(unittest.TestCase):
             missing = settings.assistants()['items'][0]
         self.assertIn('recipe', missing['controls'][0]['command'])
 
+    def test_assistant_page_offers_installed_defaults_and_the_offline_assistant(self):
+        import eitr_local_assistant
+        definitions = {'codex': {'label': 'Example assistant'}, 'claude': {'label': 'Missing assistant'}}
+        with patch('eitr_assistants.assistants', return_value=definitions), \
+                patch('eitr_assistants.available', side_effect=lambda identifier: identifier == 'codex'), \
+                patch('eitr_assistants.default_assistant', return_value='codex'), \
+                patch('eitr_assistants.assistant_access', return_value='ask'), \
+                patch('eitr_ai_accounts.menu', return_value={'supported': False, 'accounts': []}), \
+                patch('eitr_collaboration.enabled', return_value=True), \
+                patch.object(eitr_local_assistant, 'installed', return_value=False), \
+                patch.object(eitr_local_assistant, 'present', return_value=False):
+            result = settings.assistants()
+        self.assertEqual(result['choices'], [{'value': 'codex', 'label': 'Example assistant'}])
+        self.assertEqual((result['current'], result['access'], result['collaboration']), ('codex', 'ask', True))
+        self.assertEqual([item['title'] for item in result['items']], ['Example assistant', 'Missing assistant', 'Ratatoskr (local, experimental)'])
+        local = result['items'][-1]['controls']
+        self.assertEqual([control['title'] for control in local], ['Set Up'])
+        self.assertIn('setup-local', local[0]['command'])
+        self.assertTrue(any('task-terminal.py' in argument for argument in local[0]['command']))
+
     def test_cloud_controls_use_scoped_helpers_and_inline_delete(self):
         git = SimpleNamespace(load=lambda: {'accounts': {}, 'folders': []})
         providers = SimpleNamespace(PROVIDERS={'cloudflare': {'name': 'Cloudflare'}},
             account_entries=lambda provider, context: [
                 {'Text': 'Sign In', 'Subtext': context, 'Actions': {'open': 'kitty --class eitr-cloud -e python3 helper.py cloudflare login fixture'}},
                 {'Text': 'Delete Account', 'Subtext': context, 'Actions': {'open': 'python3 helper.py cloudflare delete fixture'}}])
-        items = [{'title': 'Cloudflare', 'detail': 'fixture · context', 'provider': 'cloudflare', 'context': 'fixture'},
-                 {'title': 'AWS', 'detail': 'Example · fixture', 'provider': 'aws', 'context': 'fixture'}]
+        items = [{'title': 'fixture', 'detail': 'context', 'menu': 'cloud', 'provider': 'cloudflare', 'providerTitle': 'Cloudflare', 'context': 'fixture'},
+                 {'title': 'Example', 'detail': 'fixture', 'menu': 'cloud', 'provider': 'aws', 'providerTitle': 'AWS', 'context': 'fixture'}]
         with patch.object(settings, 'summary', return_value={'items': items}), patch.object(settings, 'module', side_effect=lambda name, relative: git if name == 'settings_git_controls' else providers), patch.object(settings.subprocess, 'Popen', side_effect=AssertionError('Action during read')):
             result = settings.controls_summary('git-cloud')
         sign_in, delete = result['items'][0]['controls']
@@ -116,12 +137,13 @@ class SettingsSystemTests(unittest.TestCase):
             self.assertTrue(entry['menu'] or entry['actionMenu'])
 
     def test_diagnostics_are_explicit_and_reads_are_visibility_scoped(self):
-        source = re.sub(r"\s+", " ", (SCRIPTS.parent / 'settings/SettingsSystemPage.qml').read_text())
+        pages = ('SettingsSystemHost', 'SettingsCheckPage', 'SettingsUserPage', 'SettingsUpdatesPage')
+        source = re.sub(r"\s+", " ", '\n'.join((SCRIPTS.parent / 'settings' / f'{name}.qml').read_text() for name in pages))
         self.assertIn('command: ["eitr", "check", "--json"]', source)
         self.assertEqual(source.count('check.running = true'), 1)
         self.assertIn('onClicked: if (view.live && !check.running) check.running = true', source)
         self.assertIn('if (!active || !live) return;', source)
-        self.assertIn('Component.onDestruction: DesktopData.releaseOwner(view)', source)
+        self.assertIn('Component.onDestruction: DesktopData.releaseOwner(hostView)', source)
         self.assertIn('ProfilePicture {', source)
         # Change picture asks the portal's file chooser, then crops in a sheet over the window.
         self.assertIn('Eitr.Paths.library("eitr_avatar.py"), "choose"', source)
@@ -150,5 +172,8 @@ class SettingsSystemTests(unittest.TestCase):
             result = settings.git_cloud()['items']
         self.assertIn('explorer@example.invalid', result[0]['detail'])
         self.assertIn('/projects/example', result[0]['detail'])
-        self.assertEqual(result[-1]['detail'], 'fixture · fixture-context')
+        self.assertEqual((result[-1]['title'], result[-1]['detail']), ('fixture', 'fixture-context'))
+        self.assertEqual([(item['provider'], item['providerTitle']) for item in result],
+                         [('git', 'Git identities'), ('aws', 'AWS'), ('gcp', 'Google Cloud'), ('azure', 'Azure'), ('example', 'Example provider')])
+        self.assertEqual((result[1]['title'], result[1]['detail']), ('Example', 'fixture'))
         self.assertEqual(len(result), 5)

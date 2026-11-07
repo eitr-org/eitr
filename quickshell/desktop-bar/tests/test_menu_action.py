@@ -36,7 +36,7 @@ class MenuActionTests(unittest.TestCase):
         center = control_center_source(ROOT / 'quickshell/desktop-bar')
         calls = re.findall(r'menuAction\("([^"]+)", "([^"]+)"\)', center)
         calls += re.findall(r'"menu-action\.py", "([^"]+)", "([^"]+)"', center)
-        settings = (ROOT / 'quickshell/desktop-bar/settings/SettingsSystemPage.qml').read_text()
+        settings = (ROOT / 'quickshell/desktop-bar/settings/SettingsSystemHost.qml').read_text()
         calls += re.findall(r'view\.action\("([^"]+)", "([^"]+)"\)', settings)
         self.assertGreater(len(calls), 15)
         for menu, row in calls:

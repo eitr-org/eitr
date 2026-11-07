@@ -42,4 +42,4 @@ Los ajustes versionados están en `~/.config/eitr/git-accounts.json`. Cada vez q
 
 Referencias: [inclusiones condicionales de Git](https://git-scm.com/docs/git-config), [perfiles de GitHub CLI](https://cli.github.com/manual/gh_help_environment), [perfiles de GitLab CLI](https://docs.gitlab.com/cli/configuration/).
 
-Configuración > Git y nube muestra identidades, reglas de carpetas y contextos en modo de solo lectura. Cuentas Git o Nube abre los flujos existentes; ver la página no cambia valores predeterminados de las CLI.
+Configuración > Git y nube muestra una tarjeta por proveedor con cada identidad, regla de carpeta o contexto de nube como fila con sus acciones. La barra de herramientas abre Cuentas Git, Importar configuración existente y Añadir cuenta… para un proveedor de nube en los flujos guiados existentes; ver la página no cambia valores predeterminados de las CLI.

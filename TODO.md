@@ -192,7 +192,7 @@ promises below. The roadmap table in `distro/RELEASES.md` has the wording.
 - **1.0 documents**: supported hardware matrix, tested upgrade paths, rollback
   limitations, security-update process, compatibility policy.
 
-Assistant sessions use full access by default; Settings > Security > Assistant Access restores permission prompts. Not planned: the rest of the "Not planned now"
+Assistant sessions use full access by default; Settings > AI Assistant > Assistant Access restores permission prompts. Not planned: the rest of the "Not planned now"
 list in `distro/RELEASES.md`.
 
 - [ ] Handbook revision with live illustrations: review every chapter, and show the thing being explained, rendered in QML with the current theme (the bar in each layout with its parts labelled, panels, the Control Center, Settings pages, menus), like Settings' picture previews, instead of text alone or static screenshots.

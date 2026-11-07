@@ -25,6 +25,8 @@ Item {
     property string kind: "themes"
     property var installed: []
     property var availableItems: []
+    property bool indexLoaded: false
+    readonly property bool communityEmpty: tab === "community" && indexLoaded && !repositoryError && availableItems.length === 0
     property var selected: []
     property var updates: ({})
     property var updateCache: ({})
@@ -276,7 +278,7 @@ Item {
         const local = store[kind + ":installed"] || {items: []};
         const index = tab === "installed" ? {items: [], loaded: true} : store[kind + ":" + tab] || {items: []};
         installed = local.items; installedError = local.error || ""; loading = !!local.pending;
-        availableItems = index.items; repositoryError = index.error || "";
+        indexLoaded = !!index.loaded; availableItems = index.items; repositoryError = index.error || "";
     }
     function refreshInstalled() { fetch(kind, "installed"); }
     function refreshIndex() { if (tab !== "installed") fetch(kind, tab); }
@@ -597,10 +599,10 @@ Item {
         Item {
             width: parent.width
             height: visible ? PanelStyle.selectionRowHeight : 0
-            visible: catalog.kind === "themes" || catalog.tab === "installed"
+            visible: (catalog.kind === "themes" && !catalog.communityEmpty) || catalog.tab === "installed"
             // All themes by default, or only the light or the dark ones.
             ChoiceSegmented {
-                visible: catalog.kind === "themes"
+                visible: catalog.kind === "themes" && !catalog.communityEmpty
                 width: Math.min(300, parent.width - (addButton.visible ? addButton.width + 12 : 0))
                 foreground: catalog.foreground; background: catalog.background; gold: catalog.gold
                 available: !catalog.busy
@@ -637,14 +639,7 @@ Item {
                                 CatalogCard { required property var modelData; item: modelData; local: catalog.isInstalled(modelData); Layout.preferredWidth: (section.width - 14 * (catalog.columns - 1)) / catalog.columns; Layout.fillHeight: true }
                             }
                         }
-                        Item {
-                            visible: !section.items.length
-                            width: parent.width; height: scroll.height
-                            Column { anchors.centerIn: parent; width: parent.width - 40; spacing: 14
-                                Label { width: parent.width; horizontalAlignment: Text.AlignHCenter; text: section.pageError || (section.modelData.local ? Eitr.I18n.tr("No installed items match this filter.") : Eitr.I18n.tr("No themes available. Try again shortly.")); color: catalog.muted }
-                                ActionButton { anchors.horizontalCenter: parent.horizontalCenter; visible: !section.modelData.local || catalog.installedError !== ""; width: 90; text: Eitr.I18n.tr("Retry"); foreground: catalog.foreground; onClicked: { catalog.previewRequests = ({}); if (section.modelData.local) catalog.refreshInstalled(); else catalog.refreshIndex(); } }
-                            }
-                        }
+                        CatalogEmptyState { catalogContext: catalog; sectionContext: section; viewportHeight: scroll.height }
                     }
                 }
             }

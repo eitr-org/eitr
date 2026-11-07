@@ -19,7 +19,7 @@
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml",
       "quickshell/lockscreen/themes/nothing/Main.qml"
     ],
-    "AI Assistants": [
+    "AI Assistant": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "AI Assistants…": [
@@ -28,14 +28,15 @@
     "AI Usage": [
       "quickshell/desktop-bar/bar/BarLeftGroup.qml",
       "quickshell/desktop-bar/bar/BarVerticalPlacement.qml",
-      "quickshell/desktop-bar/panels/AiUsageMenu.qml"
+      "quickshell/desktop-bar/panels/AiUsageMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
     "AUTHENTICATE": [
       "quickshell/lockscreen/themes/nothing/Main.qml"
     ],
     "About": [
-      "quickshell/desktop-bar/settings/SettingsIndex.js",
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAboutPage.qml",
+      "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Above": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
@@ -53,8 +54,8 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
-    "Add Account": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+    "Add Account…": [
+      "quickshell/desktop-bar/settings/SettingsGitCloudPage.qml"
     ],
     "Add Layout": [
       "quickshell/desktop-bar/settings/SettingsInputPage.qml"
@@ -78,13 +79,14 @@
       "quickshell/desktop-bar/panels/AppearancePicker.qml"
     ],
     "Adjust blur across the desktop.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Adjust how much of the desktop shows through.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Adjust the pointer size in pixels.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Airplane": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
@@ -103,17 +105,19 @@
       "quickshell/desktop-bar/panels/ControlCenterNavigation.qml"
     ],
     "Anonymous identity (optional)": [
+      "quickshell/desktop-bar/components/SettingsWifiCredentials.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Appearance": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml",
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Applications": [
-      "quickshell/desktop-bar/panels/AudioMenu.qml"
+      "quickshell/desktop-bar/panels/AudioMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsSoundPage.qml"
     ],
     "Applies after reboot; saved profiles are kept.": [
-      "quickshell/desktop-bar/settings/SettingsDevicesPage.qml"
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Apply": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -128,10 +132,13 @@
       "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
     "Ask before changes": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
     "Ask the AI to check": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Assistant Access": [
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
     "At %1": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
@@ -150,7 +157,7 @@
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Auto-hide": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Automatic · {start} - {end}": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
@@ -172,7 +179,7 @@
       "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
     "Bar": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Battery & Power": [
       "quickshell/desktop-bar/panels/BatteryMenu.qml"
@@ -184,7 +191,7 @@
       "quickshell/desktop-bar/capture/BeautifyWindow.qml"
     ],
     "Behavior": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Below": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
@@ -206,11 +213,12 @@
       "quickshell/desktop-bar/panels/BluetoothMenu.qml"
     ],
     "Blur": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml",
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
       "tools/choice-lists.json"
     ],
     "Blur strength (shared)": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot": [
       "quickshell/desktop-bar/services/NetworkService.qml"
@@ -220,6 +228,9 @@
     ],
     "Brightness unavailable": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+    ],
+    "Browse Official": [
+      "quickshell/desktop-bar/components/CatalogEmptyState.qml"
     ],
     "Browse the keyboard and mouse shortcuts.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -232,6 +243,9 @@
     ],
     "CA certificate is too large": [
       "quickshell/desktop-bar/services/NetworkService.qml"
+    ],
+    "CA certificate path": [
+      "quickshell/desktop-bar/components/SettingsWifiCredentials.qml"
     ],
     "CA certificate path (.pem)": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
@@ -247,11 +261,13 @@
       "quickshell/desktop-bar/bar/ClockButton.qml"
     ],
     "Cancel": [
+      "quickshell/desktop-bar/components/SettingsWifiCredentials.qml",
       "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/panels/ProfilePicture.qml",
       "quickshell/desktop-bar/panels/TimePicker.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml",
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsSystemHost.qml",
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Center": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
@@ -261,7 +277,10 @@
     ],
     "Change picture": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml",
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsUserPage.qml"
+    ],
+    "Channel": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Charger sounds": [
       "quickshell/desktop-bar/settings/EventSoundSettings.qml"
@@ -270,53 +289,56 @@
       "quickshell/desktop-bar/panels/ControlCenterNavigation.qml"
     ],
     "Check This PC": [
-      "quickshell/desktop-bar/settings/SettingsIndex.js",
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsCheckPage.qml",
+      "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Check timed out": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsSystemHost.qml"
     ],
     "Checking for updates…": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml"
     ],
     "Checking status…": [
       "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
     ],
     "Choose a picture": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsSystemHost.qml"
     ],
     "Choose a theme": [
       "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Choose an image for your desktop.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+    ],
+    "Choose an installed assistant.": [
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
     "Choose how workspaces appear in the bar.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Choose plugins": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Choose stable builds or try new builds first.": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml"
     ],
     "Choose the app opened by the terminal shortcut.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Choose the app used for this file or link type.": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsDefaultAppsPage.qml"
     ],
     "Choose the apps used to open files and links.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Choose the colours used across your desktop.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Choose the pointer shape.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Choose the time format.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Choose themes": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -325,7 +347,7 @@
       "quickshell/lockscreen/imports/LockscreenComponents/UserPicker.qml"
     ],
     "Choose which displays show a bar.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Claude Code": [
       "quickshell/desktop-bar/panels/AiUsageMenu.qml"
@@ -337,7 +359,7 @@
       "quickshell/desktop-bar/notifications/NotificationList.qml"
     ],
     "Clock": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Clockwork Neo Orbital": [
       "quickshell/lockscreen/design-gallery.qml"
@@ -367,8 +389,8 @@
     "Close pin": [
       "quickshell/desktop-bar/capture/ScreenshotPins.qml"
     ],
-    "Cloud": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+    "Cloud provider": [
+      "quickshell/desktop-bar/settings/SettingsGitCloudPage.qml"
     ],
     "Color Picker": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
@@ -376,19 +398,27 @@
     "Community": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
+    "Community plugins are on their way": [
+      "quickshell/desktop-bar/components/CatalogEmptyState.qml"
+    ],
+    "Community themes are on their way": [
+      "quickshell/desktop-bar/components/CatalogEmptyState.qml"
+    ],
     "Configure this source in OBS": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "Confirm": [
       "quickshell/desktop-bar/panels/CatalogContent.qml",
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsSystemHost.qml"
     ],
     "Confirm removal": [
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Connect": [
-      "quickshell/desktop-bar/panels/WifiMenu.qml"
+      "quickshell/desktop-bar/components/SettingsWifiCredentials.qml",
+      "quickshell/desktop-bar/panels/WifiMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Connect to WiFi": [
       "quickshell/desktop-bar/panels/Handbook.qml"
@@ -398,6 +428,9 @@
     ],
     "Connected": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
+    ],
+    "Connected network": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Connection failed; verify credentials and certificate settings": [
       "quickshell/desktop-bar/services/NetworkService.qml"
@@ -437,7 +470,7 @@
     ],
     "Corners": [
       "quickshell/desktop-bar/capture/BeautifyWindow.qml",
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Could not change Cursor Fire": [
       "quickshell/desktop-bar/settings/SettingsStyleState.qml"
@@ -484,7 +517,7 @@
     ],
     "Crash Notifications": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
     ],
     "Current": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -493,25 +526,28 @@
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
     "Cursor": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Cursor Fire": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Cursor colour": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Cursor family": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Cursor preview": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Cursor size": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "DEVICES": [
       "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
+    ],
+    "DNS": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Dark": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
@@ -523,6 +559,9 @@
     ],
     "Default": [
       "tools/choice-lists.json"
+    ],
+    "Default Assistant": [
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
     "Default apps": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -540,7 +579,7 @@
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "Design": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsLockscreenPage.qml"
     ],
     "Desktop": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -567,7 +606,7 @@
       "quickshell/desktop-bar/bar/CaptureIndicator.qml"
     ],
     "Dim and lock automatically while idle.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsLockscreenPage.qml"
     ],
     "Disable effects and popups; use the performance profile.": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
@@ -578,7 +617,8 @@
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Disconnect": [
-      "quickshell/desktop-bar/panels/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Display": [
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
@@ -595,10 +635,10 @@
       "quickshell/desktop-bar/bar/NotificationWidget.qml",
       "quickshell/desktop-bar/notifications/NotificationList.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
     ],
     "Dock": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Done": [
       "quickshell/desktop-bar/plugins/PluginWidget.qml"
@@ -654,7 +694,7 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Eitr website": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Enable plugin": [
       "quickshell/desktop-bar/plugins/PluginManager.qml"
@@ -674,11 +714,14 @@
     "Enter the authentication server domain without wildcards": [
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
+    "Enterprise (802.1X)": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
     "Enterprise WiFi requires username, password, CA certificate and server domain": [
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Event sounds": [
-      "quickshell/desktop-bar/settings/SettingsDevicesPage.qml"
+      "quickshell/desktop-bar/settings/SettingsSoundPage.qml"
     ],
     "Files": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -687,18 +730,24 @@
       "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Focus": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml",
+      "quickshell/desktop-bar/settings/SettingsFocusPage.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Follow the theme or choose a fixed colour.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Fonts": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Fonts & Cursor": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+    ],
+    "Forget": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
+    "Forget network?": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Full": [
       "tools/choice-lists.json"
@@ -707,13 +756,19 @@
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
     "Full access (default)": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
+    ],
+    "Full access skips the assistant's permission prompts; Ask keeps them.": [
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
     "Full width": [
       "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
     "Game Mode": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
+    ],
+    "Gateway": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "General": [
       "quickshell/desktop-bar/panels/ControlCenter.qml"
@@ -728,7 +783,7 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Git Accounts": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsGitCloudPage.qml"
     ],
     "HDR": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
@@ -757,14 +812,20 @@
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml"
     ],
     "Hide the bar until you reach its screen edge.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Hide the bar; press SUPER + Shift + Space to restore it.": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
+    "IPv4": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
+    "IPv6": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
     "Idle Lock": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsLockscreenPage.qml"
     ],
     "Idle Lock: Off": [
       "quickshell/desktop-bar/shell.qml"
@@ -776,16 +837,19 @@
       "quickshell/desktop-bar/settings/SettingsAppearanceModel.qml"
     ],
     "Import Existing Setup": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsGitCloudPage.qml"
     ],
     "Input": [
+      "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Input device": [
+      "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
       "quickshell/desktop-bar/panels/AudioMenu.qml"
     ],
     "Input level": [
-      "quickshell/desktop-bar/components/MicrophoneMeter.qml"
+      "quickshell/desktop-bar/components/MicrophoneMeter.qml",
+      "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml"
     ],
     "Input level · muted": [
       "quickshell/desktop-bar/components/MicrophoneMeter.qml"
@@ -800,6 +864,9 @@
     "Install 1 theme · %1": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
+    "Install an AI Assistant": [
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
+    ],
     "Install the Eitr network helper first; see distro/NETWORKING.md": [
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
@@ -809,6 +876,9 @@
     ],
     "Installed assistants and collaboration preferences.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
+    "Interface": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Invalid assistant response.": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
@@ -826,7 +896,7 @@
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Keep expanded": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Keep in Dock": [
       "quickshell/desktop-bar/dock/EdgeDock.qml"
@@ -835,7 +905,7 @@
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "Keep the centered bar expanded.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Keep these settings? Reverting in {seconds} second": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
@@ -861,6 +931,9 @@
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml"
     ],
+    "Known networks": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
     "LIVE": [
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
@@ -874,7 +947,7 @@
       "tools/choice-lists.json"
     ],
     "Layout": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Layout, position and desktop bar controls.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -883,10 +956,10 @@
       "quickshell/desktop-bar/panels/KeyboardLayoutMenu.qml"
     ],
     "Learn more": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml",
+      "quickshell/desktop-bar/settings/SettingsDesktopHost.qml",
       "quickshell/desktop-bar/settings/SettingsDevicesPage.qml",
       "quickshell/desktop-bar/settings/SettingsStreamingPage.qml",
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsSystemHost.qml"
     ],
     "Learn shortcuts and gestures": [
       "quickshell/desktop-bar/panels/Handbook.qml"
@@ -897,10 +970,16 @@
     "Left of": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
+    "Let assistants work together": [
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
+    ],
     "Light": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
       "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/lockscreen/design-gallery.qml"
+    ],
+    "Link speed": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Loading...": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
@@ -921,14 +1000,17 @@
       "quickshell/lockscreen/shell.qml"
     ],
     "Lockscreen": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml",
-      "quickshell/desktop-bar/settings/SettingsIndex.js"
+      "quickshell/desktop-bar/settings/SettingsIndex.js",
+      "quickshell/desktop-bar/settings/SettingsLockscreenPage.qml"
     ],
     "Lockscreen design and idle settings.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Logout": [
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
+    ],
+    "MAC address": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Main": [
       "quickshell/desktop-bar/components/MonitorMap.qml",
@@ -958,7 +1040,7 @@
       "quickshell/desktop-bar/panels/ControlCenterSliders.qml"
     ],
     "Media style": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Messages go to %1; nothing is saved": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
@@ -972,7 +1054,8 @@
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Minimise decorative movement.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml",
+      "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
     "Mirror": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
@@ -981,7 +1064,13 @@
       "quickshell/desktop-bar/components/PanelMoreButton.qml"
     ],
     "More themes": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+    ],
+    "Move down": [
+      "quickshell/desktop-bar/components/KeyboardLayoutRow.qml"
+    ],
+    "Move up": [
+      "quickshell/desktop-bar/components/KeyboardLayoutRow.qml"
     ],
     "Mute": [
       "quickshell/desktop-bar/components/AudioLevelControl.qml",
@@ -1023,11 +1112,17 @@
     "No Bluetooth adapter": [
       "quickshell/desktop-bar/panels/BluetoothMenu.qml"
     ],
+    "No WiFi adapter": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
     "No WiFi backend is running": [
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "No active displays": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+    ],
+    "No applications are playing audio.": [
+      "quickshell/desktop-bar/settings/SettingsSoundPage.qml"
     ],
     "No device available": [
       "quickshell/desktop-bar/components/AudioLevelControl.qml",
@@ -1040,7 +1135,7 @@
       "quickshell/desktop-bar/settings/SettingsAppearanceModel.qml"
     ],
     "No installed items match this filter.": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/components/CatalogEmptyState.qml"
     ],
     "No matches": [
       "quickshell/emoji-picker/shell.qml"
@@ -1052,7 +1147,7 @@
       "quickshell/desktop-bar/settings/SettingsContent.qml"
     ],
     "No matching shortcuts": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsKeybindsPage.qml"
     ],
     "No matching themes": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml"
@@ -1061,7 +1156,8 @@
       "quickshell/desktop-bar/media/MediaCard.qml"
     ],
     "No networks": [
-      "quickshell/desktop-bar/panels/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "No notifications": [
       "quickshell/desktop-bar/bar/NotificationWidget.qml"
@@ -1076,13 +1172,14 @@
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": [
-      "quickshell/desktop-bar/panels/AiUsageMenu.qml"
+      "quickshell/desktop-bar/panels/AiUsageMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
     "No reminders": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "No themes available. Try again shortly.": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/components/CatalogEmptyState.qml"
     ],
     "No wallpapers": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -1093,6 +1190,9 @@
     ],
     "Normal": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+    ],
+    "Not connected": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Not installed": [
       "quickshell/desktop-bar/settings/SettingsStreamingPage.qml"
@@ -1112,8 +1212,8 @@
     "Notifications": [
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
       "quickshell/desktop-bar/notifications/NotificationList.qml",
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml",
-      "quickshell/desktop-bar/settings/SettingsIndex.js"
+      "quickshell/desktop-bar/settings/SettingsIndex.js",
+      "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
     ],
     "Numbers": [
       "quickshell/desktop-bar/panels/WorkspaceStyleMenu.qml"
@@ -1152,18 +1252,23 @@
     ],
     "Offline": [
       "quickshell/desktop-bar/panels/WifiMenu.qml",
-      "quickshell/desktop-bar/services/UpdatesStatus.qml"
+      "quickshell/desktop-bar/services/UpdatesStatus.qml",
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Only the next occurrence can be skipped": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "Opacity": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Open": [
+      "quickshell/desktop-bar/components/SettingsSummaryEntry.qml",
       "quickshell/desktop-bar/panels/RemoteAccessContent.qml",
       "quickshell/desktop-bar/settings/SettingsStreamingPage.qml",
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
+    "Open AI Usage": [
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
     "Open OBS": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
@@ -1174,11 +1279,21 @@
     "Open recordings": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
+    "Open with the assistant shortcut": [
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
+    ],
+    "Other networks": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
     "Outcome unknown; refresh before retrying.": [
       "quickshell/desktop-bar/panels/ObsMenu.qml",
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
+    "Output": [
+      "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml"
+    ],
     "Output device": [
+      "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
       "quickshell/desktop-bar/panels/AudioMenu.qml"
     ],
     "Output, input and event sounds.": [
@@ -1212,12 +1327,13 @@
     ],
     "Padding": [
       "quickshell/desktop-bar/capture/BeautifyWindow.qml",
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Pair Bluetooth devices": [
       "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Password": [
+      "quickshell/desktop-bar/components/SettingsWifiCredentials.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
@@ -1227,17 +1343,17 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Pause notification popups.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
     ],
     "Pause recording": [
       "quickshell/desktop-bar/panels/ObsMenu.qml",
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "Pending updates unavailable": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml"
     ],
     "Pending updates: %1": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml"
     ],
     "PgUp/PgDn to scroll · Escape or × to close": [
       "quickshell/desktop-bar/panels/Handbook.qml"
@@ -1248,6 +1364,9 @@
     "Pin bar open": [
       "quickshell/desktop-bar/bar/BarHorizontalCenter.qml",
       "quickshell/desktop-bar/bar/BarVerticalCenter.qml"
+    ],
+    "Ping": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Pixel offsets, flipped screens and more in local.lua": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
@@ -1285,7 +1404,7 @@
     ],
     "Position": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Power": [
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
@@ -1298,6 +1417,9 @@
     ],
     "Power…": [
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
+    ],
+    "Preferences": [
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
     "Preview": [
       "quickshell/desktop-bar/plugins/PluginManager.qml"
@@ -1316,7 +1438,7 @@
       "quickshell/desktop-bar/media/MediaCard.qml"
     ],
     "Profile picture": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsUserPage.qml"
     ],
     "QR Code": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
@@ -1349,6 +1471,9 @@
     "Re-enable with eitr plugin enable-ui {plugin}": [
       "quickshell/desktop-bar/plugins/PluginComponent.qml"
     ],
+    "Read-only help from your connected assistants. Turning it on explains what is shared and asks first.": [
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
+    ],
     "Ready": [
       "distro/plugins/example/HelloTile.qml"
     ],
@@ -1377,10 +1502,14 @@
       "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "Reduce motion": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml",
+      "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
     "Refresh": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
+      "quickshell/desktop-bar/settings/SettingsGitCloudPage.qml",
+      "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml",
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Refresh rate": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
@@ -1397,7 +1526,7 @@
       "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/desktop-bar/plugins/PluginManagement.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml",
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsUserPage.qml"
     ],
     "Remove %1": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -1415,6 +1544,7 @@
       "quickshell/desktop-bar/components/KeyboardLayoutRow.qml"
     ],
     "Rename": [
+      "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
       "quickshell/desktop-bar/panels/AudioMenu.qml"
     ],
     "Reopen to retry; disabled after 3 failures": [
@@ -1424,7 +1554,7 @@
       "quickshell/desktop-bar/notifications/NotificationCard.qml"
     ],
     "Repository": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAboutPage.qml"
     ],
     "Repository: {url}": [
       "quickshell/desktop-bar/plugins/PluginManager.qml"
@@ -1442,7 +1572,7 @@
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
     ],
     "Restore Original Network Configuration": [
-      "quickshell/desktop-bar/settings/SettingsDevicesPage.qml"
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Results": [
       "quickshell/desktop-bar/panels/Handbook.qml"
@@ -1452,7 +1582,7 @@
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "Retry": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/components/CatalogEmptyState.qml"
     ],
     "Revert": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
@@ -1528,7 +1658,8 @@
     ],
     "Scan": [
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
-      "quickshell/desktop-bar/panels/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Scanning": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
@@ -1556,7 +1687,7 @@
       "quickshell/desktop-bar/settings/SettingsContent.qml"
     ],
     "Search shortcuts": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsKeybindsPage.qml"
     ],
     "Search the handbook…": [
       "quickshell/desktop-bar/panels/Handbook.qml"
@@ -1565,7 +1696,8 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Security": [
-      "quickshell/desktop-bar/settings/SettingsIndex.js"
+      "quickshell/desktop-bar/settings/SettingsIndex.js",
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Select, reorder or remove your keyboard layouts.": [
       "quickshell/desktop-bar/settings/SettingsInputPage.qml"
@@ -1583,28 +1715,32 @@
       "quickshell/desktop-bar/notifications/NotificationCard.qml",
       "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
+    "Server domain": [
+      "quickshell/desktop-bar/components/SettingsWifiCredentials.qml"
+    ],
     "Session": [
       "quickshell/desktop-bar/panels/AiUsageMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
     ],
     "Set": [
       "quickshell/desktop-bar/panels/TimePicker.qml"
     ],
     "Set the font used by desktop text.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Set the main display": [
       "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Set the space around terminal text.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Settings": [
       "quickshell/desktop-bar/settings/SettingsContent.qml",
       "quickshell/desktop-bar/settings/SettingsWindow.qml"
     ],
     "Settings colours": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Shadow": [
       "quickshell/desktop-bar/capture/BeautifyWindow.qml"
@@ -1628,7 +1764,7 @@
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Show a blazing trail behind the Kitty cursor.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Show above windows": [
       "quickshell/desktop-bar/plugins/PluginManagement.qml",
@@ -1636,17 +1772,17 @@
     ],
     "Show help notifications when a program crashes.": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
     ],
     "Show icons": [
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml"
     ],
     "Show on": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Show the application dock.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Show this welcome at the next login": [
       "quickshell/desktop-bar/panels/Handbook.qml"
@@ -1659,6 +1795,9 @@
     ],
     "Shutdown": [
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
+    ],
+    "Signal": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Silence popups while keeping notification history.": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
@@ -1679,11 +1818,10 @@
       "tools/choice-lists.json"
     ],
     "Soften the desktop behind terminal windows.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Sound": [
       "quickshell/desktop-bar/panels/ControlCenterSliders.qml",
-      "quickshell/desktop-bar/settings/SettingsDevicesPage.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Stable": [
@@ -1744,7 +1882,7 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "System Update": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml"
     ],
     "System information": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
@@ -1759,7 +1897,7 @@
       "tools/choice-lists.json"
     ],
     "Terminal": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Testing": [
       "tools/choice-lists.json"
@@ -1771,7 +1909,7 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "The file chooser is not available": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsSystemHost.qml"
     ],
     "The handbook catalog is invalid.": [
       "quickshell/desktop-bar/panels/Handbook.qml"
@@ -1791,10 +1929,10 @@
     "Theme": [
       "quickshell/desktop-bar/capture/BeautifyWindow.qml",
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Theme & Wallpaper": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Theme Color": [
       "tools/choice-lists.json"
@@ -1803,7 +1941,7 @@
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Theme colours": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Theme palette": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
@@ -1834,6 +1972,9 @@
     ],
     "This WiFi security type requires advanced network configuration": [
       "quickshell/desktop-bar/services/NetworkService.qml"
+    ],
+    "This network needs advanced security configuration.": [
+      "quickshell/desktop-bar/components/SettingsWifiCredentials.qml"
     ],
     "This one": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
@@ -1866,7 +2007,7 @@
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Typography & Shape": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "UNLOCK": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml",
@@ -1888,8 +2029,9 @@
     ],
     "Unavailable": [
       "quickshell/desktop-bar/components/ChoiceDropdown.qml",
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
       "quickshell/desktop-bar/settings/SettingsOverview.qml",
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsUserPage.qml"
     ],
     "Unlock": [
       "quickshell/lockscreen/shell.qml"
@@ -1910,7 +2052,7 @@
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Update Channel": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml"
     ],
     "Update Plugins": [
       "quickshell/desktop-bar/plugins/PluginManager.qml"
@@ -1923,7 +2065,7 @@
     ],
     "Updates": [
       "quickshell/desktop-bar/settings/SettingsIndex.js",
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+      "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml"
     ],
     "Updating": [
       "quickshell/desktop-bar/components/PanelLoadingIndicator.qml"
@@ -1935,7 +2077,7 @@
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
     "Use tabs and panes for a quiet desktop.": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsFocusPage.qml"
     ],
     "Use the certificate and server domain supplied by your network administrator. Certificate validation is required.": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
@@ -1945,10 +2087,11 @@
     ],
     "User": [
       "quickshell/desktop-bar/settings/SettingsIndex.js",
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml",
+      "quickshell/desktop-bar/settings/SettingsUserPage.qml",
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
     ],
     "Username": [
+      "quickshell/desktop-bar/components/SettingsWifiCredentials.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "View error details": [
@@ -1961,17 +2104,27 @@
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Volume": [
+      "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
       "quickshell/desktop-bar/panels/AudioMenu.qml"
     ],
     "WELCOME BACK": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
+    "WPA Personal": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
+    "WPA3 Personal": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
     "Wallpaper": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Wallpapers": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "We're building a place for people to share their own themes and plugins. Until then, explore the Official collection.": [
+      "quickshell/desktop-bar/components/CatalogEmptyState.qml"
     ],
     "Weather": [
       "quickshell/desktop-bar/bar/WeatherWidget.qml",
@@ -1982,22 +2135,28 @@
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "Website": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml",
+      "quickshell/desktop-bar/settings/SettingsAboutPage.qml",
       "tools/choice-lists.json"
     ],
     "Wi-Fi": [
-      "quickshell/desktop-bar/settings/SettingsDevicesPage.qml"
+      "quickshell/desktop-bar/settings/SettingsDevicesPage.qml",
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
+    "Wi-Fi Band": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
+    "Wi-Fi standard": [
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "WiFi": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
-      "quickshell/desktop-bar/panels/WifiMenu.qml",
-      "quickshell/desktop-bar/settings/SettingsDevicesPage.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "WiFi adapter is unavailable; refresh the panel": [
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "WiFi backend": [
-      "quickshell/desktop-bar/settings/SettingsDevicesPage.qml"
+      "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "WiFi password": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
@@ -2013,13 +2172,13 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Window gaps": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
     "Windows": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Workspace style": [
-      "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "YEAR": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
@@ -2045,7 +2204,7 @@
     "Yours": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
-    "ai usage assistants collaboration": [
+    "ai usage assistants collaboration default access permissions accounts claude codex gemini grok copilot": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "alerts dnd": [
@@ -6638,6 +6797,9 @@
     ],
     "Git author and date: {author}": [
       "walker/scripts/actions/install/plugins.py"
+    ],
+    "Git identities": [
+      "quickshell/desktop-bar/scripts/settings-system.py"
     ],
     "Git will use": [
       "walker/scripts/actions/development/git-accounts.py"

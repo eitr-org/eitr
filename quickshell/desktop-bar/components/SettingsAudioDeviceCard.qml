@@ -1,0 +1,78 @@
+import ".."
+import QtQuick
+import QtQuick.Controls.Basic
+import Quickshell.Services.Pipewire
+import Eitr as Eitr
+
+ControlCard {
+    id: card
+    required property color background
+    required property color accent
+    required property var nodes
+    required property bool microphone
+    property bool active: false
+    property bool live: true
+    readonly property var devices: nodes.filter(node => node.audio && !node.isStream && node.isSink !== microphone)
+    readonly property PwNode currentNode: microphone ? Pipewire.defaultAudioSource : Pipewire.defaultAudioSink
+    property PwNode renaming: null
+    title: microphone ? Eitr.I18n.tr("Input") : Eitr.I18n.tr("Output")
+    surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
+    ChoiceDropdown {
+        width: parent.width
+        visible: !card.renaming
+        foreground: card.foreground; background: card.background; gold: SettingsInk.gold
+        label: card.microphone ? Eitr.I18n.tr("Input device") : Eitr.I18n.tr("Output device")
+        choices: card.devices.map(node => ({value: String(node.id), label: AudioDevices.label(node), glyph: AudioDevices.glyph(node, card.microphone)}))
+        current: card.currentNode ? String(card.currentNode.id) : ""
+        actionGlyph: "\u{F03EB}"; actionName: Eitr.I18n.tr("Rename")
+        onChosen: value => {
+            if (!card.live) return;
+            const node = card.devices.find(device => String(device.id) === value);
+            if (card.microphone) Pipewire.preferredDefaultAudioSource = node;
+            else Pipewire.preferredDefaultAudioSink = node;
+        }
+        onActionTriggered: value => {
+            card.renaming = card.devices.find(device => String(device.id) === value);
+            nameInput.text = AudioDevices.label(card.renaming);
+            nameInput.forceActiveFocus(); nameInput.selectAll();
+        }
+    }
+    TextField {
+        id: nameInput
+        visible: !!card.renaming
+        width: Math.min(320, parent.width)
+        color: card.foreground
+        Accessible.name: Eitr.I18n.tr("Rename")
+        onAccepted: { if (card.live && card.renaming) AudioDevices.rename(card.renaming, text); card.renaming = null; }
+        Keys.onEscapePressed: card.renaming = null
+    }
+    ControlRow {
+        text: Eitr.I18n.tr("Volume")
+        description: ""
+        foreground: card.foreground
+        controlWidth: Math.min(460, width * 0.65)
+        AudioLevelControl {
+            width: parent.width
+            node: card.currentNode; microphone: card.microphone; showName: false
+            enabled: card.live
+            foreground: card.foreground; background: card.background; accent: card.accent
+        }
+    }
+    PwNodePeakMonitor {
+        id: inputPeak
+        node: card.microphone ? card.currentNode : null
+        enabled: card.live && card.active && card.microphone && card.currentNode !== null
+    }
+    ControlRow {
+        visible: card.microphone
+        text: Eitr.I18n.tr("Input level")
+        description: ""
+        foreground: card.foreground
+        controlWidth: Math.min(360, width * 0.5)
+        MicrophoneMeter {
+            width: parent.width; peak: inputPeak.peak
+            muted: !card.currentNode || !card.currentNode.audio || card.currentNode.audio.muted
+            foreground: card.foreground; accent: card.accent
+        }
+    }
+}

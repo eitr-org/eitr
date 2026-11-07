@@ -128,7 +128,7 @@ assert.equal(filter('traduit', text => text === 'Displays' ? 'traduit' : text)[0
 
     def test_shared_controls_and_embedded_lifecycle(self):
         center = (BAR / 'panels/ControlCenter.qml').read_text()
-        desktop = (BAR / 'settings/SettingsDesktopPage.qml').read_text()
+        desktop = '\n'.join(path.read_text() for path in (BAR / 'settings').glob('Settings*.qml'))
         devices = (BAR / 'settings/SettingsDevicesPage.qml').read_text()
         self.assertNotIn('SettingsStyleState {', center)
         self.assertIn('SettingsStyleState {', desktop)
@@ -137,9 +137,9 @@ assert.equal(filter('traduit', text => text === 'Displays' ? 'traduit' : text)[0
         self.assertIn('ChoiceDropdown {', desktop)
         self.assertIn('ChoiceSegmented {', desktop)
         self.assertIn('SettingsAppearanceModel {', (BAR / 'panels/AppearancePicker.qml').read_text())
-        for panel in ('AudioMenu', 'WifiMenu', 'BluetoothMenu', 'BrightnessMenu'):
+        for panel in ('BluetoothMenu', 'BrightnessMenu'):
             self.assertIn(panel + ' {', devices)
-        for slot in ('displaySlot', 'audioSlot', 'wifiSlot', 'bluetoothSlot'):
+        for slot in ('displaySlot', 'bluetoothSlot'):
             self.assertIn('inlineParent: ' + slot, devices)
         popup = (BAR / 'components/ThemedPopup.qml').read_text()
         self.assertIn('active: !popup.embedded && popup.grabReady', popup)
@@ -257,7 +257,8 @@ ShellRoot {
                 (folder / 'services/DesktopData.qml').write_text('''pragma Singleton
 import QtQuick
 QtObject {
- property var topics: ({"display.settings": {status: "ready", data: {monitors: [{name: "fixture", mode: "2560x1440@144", modes: ["2560x1440@144Hz", "1920x1080@60Hz"], scale: 1, transform: 0, position: "0x0"}]}}})
+ property var topics: ({"display.settings": {status: "ready", data: {monitors: [{name: "fixture", mode: "2560x1440@144", modes: ["2560x1440@144Hz", "1920x1080@60Hz"], scale: 1, transform: 0, position: "0x0"}]}},
+  "ai.usage": {status: "ready", data: {providers: [{name: "Example assistant", accounts: [{id: "default", label: "Default", plan: "Pro", windows: [{label: "5h window", used: 12}, {label: "Weekly", used: 40}]}]}]}}})
  property var client: QtObject { function detachAction(identifier) {} }
  function observe(topic, owner, interval) { return topic; }
  function release(token) {}
@@ -302,7 +303,7 @@ QtObject {
                 for diagnostic in ('TypeError:', 'ReferenceError:', 'Unable to assign', 'Binding loop', 'Error:'):
                     self.assertNotIn(diagnostic, output)
                 for page in ('appearance', 'bar', 'windows', 'lockscreen', 'notifications', 'focus',
-                             'displays', 'sound', 'connections', 'input', 'keybinds', 'default-apps', 'user', 'git-cloud', 'security', 'updates', 'check-pc', 'about'):
+                             'displays', 'sound', 'connections', 'input', 'keybinds', 'default-apps', 'user', 'git-cloud', 'security', 'assistants', 'updates', 'check-pc', 'about'):
                     self.assertTrue((output_folder / f'{theme}-{page}.png').is_file(), page)
 
     def test_user_picture_sheet_and_overview_avatar(self):

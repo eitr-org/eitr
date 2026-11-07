@@ -476,6 +476,7 @@
   "Gentle": "Leve",
   "Git Accounts": "Contas Git",
   "Git author and date: {author}": "Autor e data do Git: {author}",
+  "Git identities": "Identidades do Git",
   "Git will use": "O Git usará",
   "Give the encrypted partition as a /dev path, for example /dev/nvme0n1p2": "Informe a partição criptografada como um caminho /dev, por exemplo /dev/nvme0n1p2",
   "Global app search only supports launching": "A busca global de aplicativos permite apenas abrir aplicativos",

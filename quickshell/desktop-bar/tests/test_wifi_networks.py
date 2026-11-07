@@ -96,6 +96,29 @@ class PanelDetailsTests(unittest.TestCase):
             self.assertNotIn(removed, qml)
 
 
+class TelemetryTests(unittest.TestCase):
+    def test_addresses_read_ip_json_output(self):
+        links = [{"ifindex": 4, "ifname": "wlan0", "address": "02:00:00:00:00:02", "addr_info": [
+            {"family": "inet", "local": "192.0.2.10", "prefixlen": 24, "scope": "global"},
+            {"family": "inet6", "local": "2001:db8::10", "prefixlen": 64, "scope": "global"},
+            {"family": "inet6", "local": "2001:db8::11", "prefixlen": 64, "scope": "global"},
+            {"family": "inet6", "local": "fe80::1", "prefixlen": 64, "scope": "link"}]}]
+        self.assertEqual(wifi.addresses(links), {"ip": "192.0.2.10", "ipv6": "2001:db8::10, 2001:db8::11",
+                                                 "mac": "02:00:00:00:00:02", "index": 4})
+        self.assertEqual(wifi.addresses([]), {"ip": "", "ipv6": "", "mac": "", "index": 0})
+
+    def test_dns_comes_from_resolved_for_this_link_only(self):
+        servers = [(4, 2, [192, 0, 2, 1]), (4, 10, [32, 1, 13, 184] + [0] * 11 + [1]), (0, 2, [198, 51, 100, 1]), (7, 2, [203, 0, 113, 1])]
+        self.assertEqual(wifi.link_dns(servers, 4), "192.0.2.1, 2001:db8::1")
+        self.assertEqual(wifi.link_dns(servers, 5), "")
+
+    def test_diagnostics_fields_and_units(self):
+        result = wifi.diagnostics({"Frequency": 2437, "Channel": 6, "Security": "WPA3-Personal", "TxMode": "802.11ax", "TxBitrate": 24019})
+        self.assertEqual(result, {"band": "2.4 GHz", "frequency": 2437, "channel": 6, "speed": 2402,
+                                  "security": "WPA3-Personal", "standard": "802.11ax"})
+        self.assertEqual(wifi.diagnostics({}), {})
+
+
 class SnapshotContractTests(unittest.TestCase):
     def test_no_adapter_is_a_successful_empty_snapshot(self):
         with patch.object(wifi, "call", return_value=({},)):
@@ -119,7 +142,8 @@ class SnapshotContractTests(unittest.TestCase):
                 return (objects,)
             if method == "GetOrderedNetworks":
                 return ([("/net/connected", -6000), ("/net/guest", -6000)],)
-            return ({"Frequency": 5180},)
+            return ({"ConnectedBss": "02:00:00:00:00:01", "Frequency": 5180, "Channel": 36, "Security": "WPA2-Personal",
+                     "RSSI": -52, "TxMode": "802.11ac", "TxMCS": 9, "TxBitrate": 8667, "RxBitrate": 8667},)
         with patch.object(wifi, "call", side_effect=call), patch.object(wifi, "telemetry", return_value=dict(device["details"])), \
                 patch.object(wifi, "active_backend", return_value="iwd"), patch.object(wifi.sys, "argv", ["wifi-popup.py", "status"]):
             result = wifi.main()

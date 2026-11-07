@@ -73,7 +73,7 @@ Rectangle {
             foreground: settings.foreground; background: settings.background; accent: settings.accent
             onPageRequested: page => settings.navigate(page)
         }
-        SettingsDesktopPage {
+        SettingsDesktopHost {
             anchors.fill: parent
             visible: ["appearance", "bar", "windows", "lockscreen", "notifications", "focus"].includes(settings.page)
             page: settings.page; title: settings.current.title; tab: settings.tab
@@ -102,11 +102,11 @@ Rectangle {
             live: settings.live
             foreground: settings.foreground; background: settings.background; accent: settings.accent
         }
-        SettingsSystemPage {
+        SettingsSystemHost {
             id: systemPage
             onPageRequested: page => settings.navigate(page)
             anchors.fill: parent
-            visible: ["keybinds", "default-apps", "user", "git-cloud", "security", "assistants", "updates", "check-pc", "about"].includes(settings.page)
+            visible: ["keybinds", "default-apps", "user", "git-cloud", "security", "assistant", "updates", "check-pc", "about"].includes(settings.page)
             page: settings.page; title: settings.current.title
             active: settings.opened && visible
             live: settings.live

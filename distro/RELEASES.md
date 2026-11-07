@@ -327,7 +327,7 @@ consistent forms of address; early users' reports refine the wording.
 The **AI agents** feature is implemented: first-use installation for Claude Code,
 Codex, Gemini CLI, Grok Build and GitHub Copilot CLI; a machine-local default
 assistant and shortcut; supported light/dark theme settings; and opt-in AI help
-from crash notifications. Interactive assistants use full access by default; Settings > Security > Assistant Access restores normal permission prompts. Headless helpers stay read-only.
+from crash notifications. Interactive assistants use full access by default; Settings > AI Assistant > Assistant Access restores normal permission prompts. Headless helpers stay read-only.
 
 Translation infrastructure, QML, menus and Handbook catalogs are implemented for
 Brazilian Portuguese, Spanish, German and French, with English as source and
@@ -339,7 +339,7 @@ catalog checks verifies coverage and placeholders, not linguistic approval.
 Not planned now: dynamic wallpaper colors, community themes, a separate settings
 app, desktop raven tips, browser recoloring, a second compositor.
 
-Assistant sessions use full access by default; Settings > Security > Assistant Access offers Ask before changes. Headless helpers remain read-only.
+Assistant sessions use full access by default; Settings > AI Assistant > Assistant Access offers Ask before changes. Headless helpers remain read-only.
 
 ## Open work
 

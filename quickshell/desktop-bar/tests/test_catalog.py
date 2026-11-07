@@ -187,6 +187,53 @@ ShellRoot {
             self.assertEqual(json.loads((folder / 'eitr/catalog-window.json').read_text()),
                              {'width': 610, 'height': 510})
 
+    def test_empty_community_index_shows_the_welcome_card(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            copy_runtime(folder)
+            (folder / 'services/DesktopData.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { function releaseOwner(owner) {} }\n')
+            (folder / 'fixture.qml').write_text('''import QtQuick
+import Quickshell
+import "." as Bar
+ShellRoot {
+ FloatingWindow {
+  visible: true; implicitWidth: 900; implicitHeight: 600
+  Bar.CatalogContent {
+   id: panel; anchors.fill: parent; live: false; opened: true
+   transport: function(name, args, callback) { callback("", {items: []}); }
+  }
+  Timer {
+   interval: 300; running: true; repeat: true
+   property int phase: 0
+   onTriggered: {
+    function find(root, name) { if (root.objectName === name) return root; for (const child of root.children || []) { const found = find(child, name); if (found) return found; } return null; }
+    const cases = [["themes", "", true], ["plugins", "", true], ["themes", "Index unavailable", false]];
+    if (phase === cases.length * 2) { console.log("COMMUNITY_EMPTY_OK"); Qt.quit(); return; }
+    const entry = cases[Math.floor(phase / 2)];
+    if (phase % 2 === 0) {
+     panel.kind = entry[0]; panel.tab = "community";
+     panel.store = Object.assign({}, panel.store, {[entry[0] + ":community"]: {items: [], error: entry[1], pending: false, loaded: !entry[1]}});
+     panel.sync();
+    } else {
+     const welcome = find(panel, "catalog-community-welcome");
+     if (!welcome || welcome.visible !== entry[2] || panel.communityEmpty !== entry[2]) throw new Error("welcome card for " + entry);
+     if (entry[2]) {
+      panel.tab = "official";
+      if (panel.communityEmpty) throw new Error("Official is never the community welcome");
+      panel.tab = "community";
+     }
+    }
+    phase++;
+   }
+  }
+ }
+}
+''')
+            code, output = render(folder / 'fixture.qml', render_environment(folder), 15)
+            self.assertEqual(code, 0, output)
+            self.assertIn('COMMUNITY_EMPTY_OK', output)
+            self.assertNotIn('Error:', output)
+
     def test_window_states_in_both_palettes(self):
         for variant in ('dark-1100', 'light-1100', 'dark-700', 'light-700'):
             theme, width = variant.split('-')

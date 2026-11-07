@@ -1432,6 +1432,9 @@ msgstr "Contas Git"
 msgid "Git author and date: {author}"
 msgstr "Autor e data do Git: {author}"
 
+msgid "Git identities"
+msgstr "Identidades do Git"
+
 msgid "Git will use"
 msgstr "O Git usará"
 

@@ -2,7 +2,7 @@
 
 A página Telas e o painel de exibição mostram um mapa dos monitores acima do seletor. Os retângulos seguem as posições reais e os tamanhos lógicos, incluindo escala e rotação. A tela principal tem um contorno destacado e a etiqueta Principal; telas desativadas ficam esmaecidas quando aparecem na topologia. Clique em um monitor para abrir suas configurações. O mapa não pode ser arrastado. Um teste atualiza o mapa imediatamente e usa um contorno tracejado até ser mantido ou revertido.
 
-Use **Configurações > Telas**, **Configurações > Som** e **Configurações > Entrada** para acessar os controles compartilhados dentro de Configurações. Entrada permite adicionar, remover e reordenar layouts de teclado com os botões de seta.
+Use **Configurações > Telas**, **Configurações > Som** e **Configurações > Entrada** para acessar os controles compartilhados dentro de Configurações. Som tem cartões de Saída e Entrada (dispositivo, volume com mudo e nível do microfone), uma linha para cada aplicativo que toca áudio e os sons de eventos; Renomear continua na lista de dispositivos. Entrada permite adicionar, remover e reordenar layouts de teclado com os botões de seta.
 
 Encontre estes controles em **Configurações > Dispositivos e entrada** ou nos ícones correspondentes da barra. A Central de controle também oferece os botões e controles deslizantes de uso diário.
 

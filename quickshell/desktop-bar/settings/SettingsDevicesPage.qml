@@ -2,7 +2,6 @@ import ".."
 import QtQuick
 import Quickshell
 import Eitr as Eitr
-import "../PanelStyle.js" as PanelStyle
 
 Flickable {
     id: view
@@ -22,8 +21,7 @@ Flickable {
     boundsBehavior: Flickable.StopAtBounds
     onPageChanged: contentY = 0
     function dismiss() {
-        if (page === "connections" && wifiSlot.item && wifiSlot.item.escapeHandler)
-            return wifiSlot.item.escapeHandler();
+        if (page === "connections") return wifiPage.dismiss();
         return false;
     }
     Column {
@@ -67,65 +65,19 @@ Flickable {
                 }
             }
         }
-        ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
-            title: Eitr.I18n.tr("Sound")
-            foreground: view.foreground
-            visible: audioSlot.active
-            Loader {
-                id: audioSlot
-                width: parent.width
-                height: active && item ? item.implicitHeight : 0
-                active: view.active && view.page === "sound"
-                sourceComponent: Component {
-                    AudioMenu {
-                        objectName: "settings-audioSlot"
-                        inlineParent: audioSlot
-                        target: null
-                        anchors.fill: parent
-                        foreground: view.foreground
-                        background: view.background
-                        accent: view.accent
-                        opened: view.active
-                    }
-                }
-            }
-        }
-        ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
-            title: Eitr.I18n.tr("Event sounds")
-            foreground: view.foreground
+        SettingsSoundPage {
+            width: parent.width
             visible: view.page === "sound"
-            EventSoundSettings {
-                visible: view.page === "sound"
-                width: parent.width
-                foreground: view.foreground
-                accent: view.accent
-                live: view.live
-                hasBattery: view.active && view.page === "sound" && PowerService.battery.available
-            }
+            active: view.active && visible; live: view.live
+            foreground: view.foreground; background: view.background; accent: view.accent
         }
-        ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
-            title: Eitr.I18n.tr("WiFi")
-            foreground: view.foreground
-            visible: wifiSlot.active
-            Loader {
-                id: wifiSlot
-                width: parent.width
-                height: active && item ? item.implicitHeight : 0
-                active: view.active && view.page === "connections" && view.tab !== "bluetooth" && !!view.networkService
-                sourceComponent: Component {
-                    WifiMenu {
-                        objectName: "settings-wifiSlot"
-                        inlineParent: wifiSlot
-                        target: null
-                        anchors.fill: parent
-                        networkService: view.networkService
-                        foreground: view.foreground
-                        background: view.background
-                        accent: view.accent
-                        opened: view.active
-                    }
-                }
-            }
+        SettingsWifiPage {
+            id: wifiPage
+            width: parent.width
+            visible: view.page === "connections" && view.tab !== "bluetooth"
+            active: view.active && visible; live: view.live
+            networkService: view.networkService
+            foreground: view.foreground; background: view.background; accent: view.accent
         }
         ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
             title: Eitr.I18n.tr("Bluetooth")
@@ -163,56 +115,6 @@ Flickable {
                 foreground: view.foreground
                 background: view.background
                 accent: view.accent
-            }
-        }
-        ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
-            title: Eitr.I18n.tr("WiFi backend")
-            foreground: view.foreground
-            visible: view.page === "connections" && view.tab !== "bluetooth"
-            Column {
-                visible: view.page === "connections" && view.tab !== "bluetooth"
-                width: parent.width
-                spacing: 6
-                Text {
-                    text: Eitr.I18n.tr("WiFi backend")
-                    color: view.foreground
-                    font.family: DesktopFonts.family
-                    font.pixelSize: PanelStyle.bodySize
-                }
-                Text {
-                    width: parent.width
-                    text: Eitr.I18n.tr("Applies after reboot; saved profiles are kept.")
-                    wrapMode: Text.WordWrap
-                    color: view.foreground
-                    font.family: DesktopFonts.family
-                    font.pixelSize: PanelStyle.captionSize
-                }
-                ChoiceSegmented { gold: SettingsInk.gold; background: SettingsInk.background;
-                    width: parent.width
-                    foreground: view.foreground
-                    choices: [
-                        {
-                            id: "iwd",
-                            label: "iwd"
-                        },
-                        {
-                            id: "NetworkManager",
-                            label: "NetworkManager"
-                        }
-                    ]
-                    current: view.networkService ? view.networkService.details.data.backend : ""
-                    onChosen: value => {
-                        if (view.live)
-                            Quickshell.execDetached(["python3", Eitr.Paths.code("quickshell/desktop-bar/scripts/menu-action.py"), "network-backend", value]);
-                    }
-                }
-                PanelButton {
-                    width: parent.width
-                    text: Eitr.I18n.tr("Restore Original Network Configuration")
-                    foreground: view.foreground
-                    onClicked: if (view.live)
-                        Quickshell.execDetached(["python3", Eitr.Paths.code("quickshell/desktop-bar/scripts/menu-action.py"), "network-backend", "Restore Original Network Configuration"])
-                }
             }
         }
         PanelButton {

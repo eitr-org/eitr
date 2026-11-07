@@ -145,7 +145,7 @@ class ControlCenterContracts(unittest.TestCase):
         # The bar's workspace menu updates at once; Settings writes through the same helper.
         self.assertNotIn('onWorkspaceStyleRequested:', shell)
         self.assertIn('shell.setWorkspaceStyle(style);', shell)
-        self.assertIn('workspaceHelper.change([value])', (Path(__file__).parents[1] / 'settings/SettingsDesktopPage.qml').read_text())
+        self.assertIn('workspaceHelper.change([value])', (Path(__file__).parents[1] / 'settings/SettingsDesktopHost.qml').read_text())
         preferences = (Path(__file__).parents[1] / 'services/BarPreferences.qml').read_text()
         setter = preferences.split('function setWorkspaceStyle(style) {', 1)[1].split('\n    }', 1)[0]
         self.assertLess(setter.index('host.workspaceStyle = style;'),
